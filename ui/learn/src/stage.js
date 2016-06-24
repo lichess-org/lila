@@ -34,16 +34,18 @@ module.exports = function(blueprint, opts) {
   };
 
   var complete = function() {
-    vm.lastStep = false;
-    vm.completed = true;
-    var rank = getRank();
-    var bonus = 100;
-    if (rank === 1) bonus = 500;
-    else if (rank === 2) bonus = 300;
-    addScore(bonus);
-    chessground.stop();
-    m.redraw();
-    setTimeout(opts.onComplete, 1500);
+    setTimeout(function() {
+      vm.lastStep = false;
+      vm.completed = true;
+      var rank = getRank();
+      var bonus = 100;
+      if (rank === 1) bonus = 500;
+      else if (rank === 2) bonus = 300;
+      addScore(bonus);
+      chessground.stop();
+      m.redraw();
+      setTimeout(opts.onComplete, 1200);
+    }, chessground.data.stats.dragged ? 0 : 250);
   };
 
   var onMove = function(orig, dest) {

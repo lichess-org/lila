@@ -12,7 +12,6 @@ module.exports = function(ctrl) {
   var lesson = ctrl.lesson();
   var stage = lesson.stage();
 
-  console.log(lesson.vm.completed, lesson, ctrl.getNext());
   return m('div', {
     class: classSet({
       'lichess_game': true,
@@ -66,9 +65,10 @@ module.exports = function(ctrl) {
             if (!ctx.spread) {
               el.textContent = lichess.numberFormat(score);
               ctx.spread = $.spreadNumber(el, 50, function() {
-                return 1000;
+                var diff = lesson.vm.score - ctx.prev;
+                return Math.min(1000, 5 * diff);
               }, score);
-            } else if (score !== ctx.prev) ctx.spread(score);
+            } else if (score !== ctx.prev) ctx.spread(score, (score - ctx.prev) / 5);
             ctx.prev = score;
           }
         })

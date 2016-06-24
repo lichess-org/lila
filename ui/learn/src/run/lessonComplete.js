@@ -1,7 +1,11 @@
 var m = require('mithril');
 
 module.exports = function(lesson, next) {
-  return m('div.screen-overlay',
+  return m('div.screen-overlay', {
+      onclick: function() {
+        m.route('/');
+      }
+    },
     m('div.screen', [
       m('img.trophy', {
         src: "http://s22.postimg.org/tg9t79o0d/trophy.png",

@@ -206,8 +206,9 @@ $.spreadNumber = function(el, nbSteps, getDuration, previous) {
     }
   };
   var timeouts = [];
-  return function(nb) {
+  return function(nb, overrideNbSteps) {
     if (!el || !nb) return;
+    if (overrideNbSteps) nbSteps = overrideNbSteps;
     timeouts.forEach(clearTimeout);
     timeouts = [];
     var prev = previous === 0 ? 0 : (previous || nb);
