@@ -15,7 +15,13 @@ module.exports = function(lesson, next) {
         'Your score:',
         m('span.num', lesson.vm.score)
       ]),
-      m('p', m.trust(lesson.blueprint.complete)),
+      m('p', [
+        m.trust(lesson.blueprint.complete),
+        next ? [
+          m('br'),
+          'Shall we proceed to the next level?'
+        ] : null
+      ]),
       next ? m('div.buttons',
         m('a.light', {
           href: '/' + next.id,

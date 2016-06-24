@@ -1,9 +1,9 @@
 var util = require('../util');
 
 var lessons = [
-  require('./rook/lesson'),
-  require('./bishop/lesson')
-].map(util.incrementalId);
+  require('./rook'),
+  require('./bishop')
+].map(util.toLesson);
 
 module.exports = {
   list: lessons,

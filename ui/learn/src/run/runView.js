@@ -1,7 +1,7 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var classSet = chessground.util.classSet;
-var util = require('../util');
+var congrats = require('../congrats');
 var lessonComplete = require('./lessonComplete');
 
 function renderRank(rank) {
@@ -35,7 +35,7 @@ module.exports = function(ctrl) {
         ])
       ]),
       m('div.goal',
-        stage.vm.completed ? util.congratulation() : m.trust(stage.blueprint.goal)),
+        stage.vm.completed ? congrats() : m.trust(stage.blueprint.goal)),
       m('div.score', [
         m('span.plus', {
           config: function(el, isUpdate, ctx) {

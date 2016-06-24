@@ -1,20 +1,12 @@
 module.exports = {
-  incrementalId: function(obj, it) {
-    obj.id = it + 1;
-    return obj;
+  toLesson: function(l, it) {
+    l.id = it + 1;
+    return l;
   },
-  assetUrl: $('body').data('asset-url') + '/assets/',
-  congratulation: function() {
-    var list = [
-      'Awesome!',
-      'Excellent!',
-      'Great job!',
-      'Perfect!',
-      'Outstanding!',
-      'Way to go!',
-      'Yes, yes, yes!',
-      'You\'re good at this!'
-    ];
-    return list[Math.floor(Math.random() * list.length)];
-  }
+  toStage: function(s, it) {
+    s.id = it + 1;
+    s.color = / w /.test(s.fen) ? 'white' : 'black';
+    return s;
+  },
+  assetUrl: $('body').data('asset-url') + '/assets/'
 };
