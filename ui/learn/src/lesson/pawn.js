@@ -58,7 +58,8 @@ module.exports = {
       brush: 'paleGreen',
       orig: 'e5',
       dest: 'e6'
-    }]
+    }],
+    cssClass: 'highlight-2nd-rank'
   }, {
     goal: 'Promote as fast as possible!',
     fen: '8/8/8/8/8/8/6P1/8 w - - 0 1',

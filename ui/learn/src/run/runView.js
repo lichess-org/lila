@@ -20,7 +20,7 @@ module.exports = function(ctrl) {
       'initialized': stage.vm.initialized,
       'completed': stage.vm.completed,
       'last-step': stage.vm.lastStep
-    })
+    }) + ' ' + stage.blueprint.cssClass
   }, [
     lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
