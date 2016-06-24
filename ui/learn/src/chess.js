@@ -31,7 +31,6 @@ module.exports = function(fen) {
           return m.to;
         });
       });
-      console.log(chess.turn(), chess.fen(), chess.moves(), chess.ascii());
       return dests;
     },
     color: function(c) {

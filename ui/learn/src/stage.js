@@ -3,6 +3,7 @@ var makeItems = require('./item').ctrl;
 var itemView = require('./item').view;
 var makeChess = require('./chess');
 var ground = require('./ground');
+var sound = require('./sound');
 
 module.exports = function(blueprint, opts) {
 
@@ -37,6 +38,7 @@ module.exports = function(blueprint, opts) {
     setTimeout(function() {
       vm.lastStep = false;
       vm.completed = true;
+      sound.stageEnd();
       var rank = getRank();
       var bonus = 100;
       if (rank === 1) bonus = 500;
@@ -55,14 +57,21 @@ module.exports = function(blueprint, opts) {
       to: dest
     });
     if (!move) throw 'Invalid move!';
+    var starTaken = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
         addScore(50);
         items.remove(move.to);
+        starTaken = true;
       }
     });
+    sound.move();
+    if (starTaken) sound.take();
     update();
-    if (vm.completed) return;
+    if (vm.completed) {
+      sound.end();
+      return;
+    }
     chess.color(blueprint.color);
     ground.color(blueprint.color, chess.dests());
   };

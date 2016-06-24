@@ -1,12 +1,16 @@
 var m = require('mithril');
 var stageBuilder = require('./stage');
+var sound = require('./sound');
 
 module.exports = function(blueprint, opts) {
 
   var onStageComplete = function() {
     var s = makeStage(stage.blueprint.id + 1);
     if (s) stage = s;
-    else vm.completed = true;
+    else {
+      vm.completed = true;
+      sound.lessonEnd();
+    }
     m.redraw();
   };
 
