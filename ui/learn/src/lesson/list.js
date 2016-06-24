@@ -4,7 +4,8 @@ var lessons = [
   require('./rook'),
   require('./bishop'),
   require('./queen'),
-  require('./knight')
+  require('./knight'),
+  require('./pawn')
 ].map(util.toLesson);
 
 module.exports = {

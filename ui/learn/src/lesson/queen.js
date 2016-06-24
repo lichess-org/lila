@@ -53,7 +53,7 @@ module.exports = {
     },
     nbMoves: 7
   }, {
-    goal: 'Grab the stars,<br>then go to the castle!',
+    goal: 'The queen is the strong!',
     fen: '8/8/8/8/8/8/8/7Q w - - 0 1',
     items: {
       a3: 'apple',

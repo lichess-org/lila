@@ -1,12 +1,23 @@
 var Chess = require('chess.js').Chess;
 
-function chessToColor(chess) {
-  return chess.turn() == "w" ? "white" : "black";
-}
-
 module.exports = function(fen) {
 
   var chess = new Chess(fen)
+
+  function getColor() {
+    return chess.turn() == "w" ? "white" : "black";
+  }
+
+  function setColor(c) {
+    var turn = c === 'white' ? ' w ' : ' b ';
+    var newFen = chess.fen().replace(/ (w|b) /, turn);
+    chess.load(newFen);
+    if (getColor() !== c) {
+      // the en passant square prevents setting color
+      newFen = newFen.replace(/ (w|b) - \w{2} /, turn + ' - - ');
+      chess.load(newFen);
+    }
+  }
 
   return {
     dests: function() {
@@ -20,11 +31,12 @@ module.exports = function(fen) {
           return m.to;
         });
       });
+      console.log(chess.turn(), chess.fen(), chess.moves(), chess.ascii());
       return dests;
     },
     color: function(c) {
-      if (c) chess.load(chess.fen().replace(/\s(w|b)\s/, c === 'white' ? ' w ' : ' b '));
-      else return chessToColor(chess);
+      if (c) setColor(c);
+      else return getColor(c);
     },
     fen: chess.fen,
     move: chess.move

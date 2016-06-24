@@ -29,7 +29,7 @@ module.exports = function(blueprint, opts) {
     if (!vm.completed) return;
     var late = vm.nbMoves - blueprint.nbMoves;
     if (late <= 0) return 1;
-    else if (late <= blueprint.nbMoves / 8) return 2;
+    else if (late <= Math.max(1, blueprint.nbMoves / 8)) return 2;
     return 3;
   };
 

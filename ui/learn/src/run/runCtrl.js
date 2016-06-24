@@ -9,7 +9,7 @@ module.exports = function(lesson, opts) {
       stage: m.route.param('stage') || 1
     });
   } catch (e) {
-    console.log('No such lesson!');
+    console.log('No such lesson!', e);
     return m.route('/');
   }
 
