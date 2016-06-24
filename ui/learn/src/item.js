@@ -1,15 +1,10 @@
 var m = require('mithril');
 
 module.exports = {
-  builder: {
-    apple: {
-      type: 'apple'
-    },
-    flower: {
-      type: 'flower'
-    }
-  },
-  ctrl: function(items) {
+  ctrl: function(blueprint) {
+
+    var items = {};
+    for (var k in blueprint) items[k] = blueprint[k];
 
     var get = function(key) {
       return items[key];
@@ -19,9 +14,9 @@ module.exports = {
       return Object.keys(items).map(get);
     };
 
-    var hasType = function(type) {
-      return function(item) {
-        return item.type === type;
+    var hasItem = function(item) {
+      return function(i) {
+        return i === item;
       };
     };
 
@@ -33,16 +28,16 @@ module.exports = {
       remove: function(key) {
         delete items[key];
       },
-      hasOfType: function(type) {
-        return !!list().filter(hasType(type))[0];
+      hasItem: function(item) {
+        return list().indexOf(item) !== -1;
       },
       flowerKey: function() {
         for (var k in items)
-          if (items[k].type === 'flower') return k;
+          if (items[k] === 'flower') return k;
       }
     };
   },
   view: function(item) {
-    return m('item.' + item.type);
+    return m('item.' + item);
   }
 };

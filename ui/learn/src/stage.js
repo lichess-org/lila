@@ -56,7 +56,7 @@ module.exports = function(blueprint, opts) {
     });
     if (!move) throw 'Invalid move!';
     items.withItem(move.to, function(item) {
-      if (item.type === 'apple') {
+      if (item === 'apple') {
         addScore(50);
         items.remove(move.to);
       }
@@ -81,7 +81,7 @@ module.exports = function(blueprint, opts) {
   });
 
   var update = function() {
-    var hasApples = items.hasOfType('apple');
+    var hasApples = items.hasItem('apple');
     if (!hasApples) {
       if (ground.instance.data.pieces[items.flowerKey()]) complete();
       else vm.lastStep = true;

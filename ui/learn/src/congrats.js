@@ -23,5 +23,5 @@ shuffle(list);
 var it = 0;
 
 module.exports = function() {
-  return list[it++];
+  return list[it++ % list.length];
 };

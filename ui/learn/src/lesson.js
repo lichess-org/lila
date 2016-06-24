@@ -5,10 +5,8 @@ module.exports = function(blueprint, opts) {
 
   var onStageComplete = function() {
     var s = makeStage(stage.blueprint.id + 1);
-    if (s) {
-      stage = s;
-      m.redraw.strategy('all');
-    } else vm.completed = true;
+    if (s) stage = s;
+    else vm.completed = true;
     m.redraw();
   };
 

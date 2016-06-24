@@ -8,7 +8,6 @@ module.exports = function(lesson, opts) {
     var lesson = makeLesson(lessons.get(m.route.param("id")), {
       stage: m.route.param('stage') || 1
     });
-    m.redraw.strategy('all');
   } catch (e) {
     console.log('No such lesson!');
     return m.route('/');

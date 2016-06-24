@@ -7,6 +7,7 @@ module.exports = {
   set: function(opts) {
     instance.set({
       fen: opts.chess.fen(),
+      lastMove: null,
       orientation: opts.orientation,
       coordinates: true,
       turnColor: opts.chess.color(),
