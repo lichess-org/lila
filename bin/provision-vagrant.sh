@@ -163,7 +163,6 @@ build_lila() {
     git submodule update --init --recursive
 
     ./ui/build
-    ./bin/install-stockfish
     ./bin/gen/geoip
     ./bin/build-deps.sh
 
