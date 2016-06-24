@@ -191,7 +191,7 @@ main() {
     info 'host machine (not the virtual machine, or else I would have done it'
     info 'for you):'
     info
-    info "    $ip_address l.org socket.l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org en.l.org le.l.org fr.l.org ru.l.org el.l.org hu.l.org hu.l.org"
+    info "    $ip_address l.org socket.l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org ru.l.org el.l.org hu.l.org"
     info
     info 'Then run "vagrant ssh" and carry out these steps inside your SSH'
     info 'connection:'
