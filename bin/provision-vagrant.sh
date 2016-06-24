@@ -170,10 +170,6 @@ build_lila() {
     sbt compile
 }
 
-get_ip_address() {
-    ifconfig eth1 | grep 'inet addr' | cut -d':' -f2 | cut -d' ' -f1
-}
-
 main() {
     setup_application_config
     setup_environment_variables
@@ -184,14 +180,11 @@ main() {
     setup_mongodb
     build_lila
 
-    local ip_address
-    ip_address=$(get_ip_address)
-
     info 'Lila is all set up! Add this entry to your hosts file on your'
     info 'host machine (not the virtual machine, or else I would have done it'
     info 'for you):'
     info
-    info "    $ip_address l.org socket.l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org ru.l.org el.l.org hu.l.org"
+    info "    192.168.34.34 l.org socket.l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org ru.l.org el.l.org hu.l.org"
     info
     info 'Then run "vagrant ssh" and carry out these steps inside your SSH'
     info 'connection:'
