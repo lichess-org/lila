@@ -5,28 +5,28 @@ module.exports = {
   subtitle: 'It moves forward only.',
   image: util.assetUrl + 'images/learn/pieces/P.svg',
   stages: [{
-    goal: 'Pawns move one square only!',
-    fen: '8/8/8/8/8/3P4/8/8 w - - 0 1',
+    goal: 'Pawns move one square only.<br><br>But when they reach the other side of the board, they become a stronger piece!',
+    fen: '8/8/8/P7/8/8/8/8 w - - 0 1',
     items: {
-      d7: 'flower'
+      f3: 'flower'
     },
     nbMoves: 4,
     shapes: [{
       brush: 'paleGreen',
-      orig: 'd3',
-      dest: 'd4'
+      orig: 'a5',
+      dest: 'a6'
     }, {
       brush: 'paleGreen',
-      orig: 'd4',
-      dest: 'd5'
+      orig: 'a6',
+      dest: 'a7'
     }, {
       brush: 'paleGreen',
-      orig: 'd5',
-      dest: 'd6'
+      orig: 'a7',
+      dest: 'a8'
     }, {
       brush: 'paleGreen',
-      orig: 'd6',
-      dest: 'd7'
+      orig: 'a8',
+      dest: 'f3'
     }]
   }, {
     goal: 'The pawn can move 2 squares,<br>only on its first move!',

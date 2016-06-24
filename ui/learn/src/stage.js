@@ -4,6 +4,7 @@ var itemView = require('./item').view;
 var makeChess = require('./chess');
 var ground = require('./ground');
 var sound = require('./sound');
+var promotion = require('./promotion');
 
 module.exports = function(blueprint, opts) {
 
@@ -47,15 +48,12 @@ module.exports = function(blueprint, opts) {
       ground.stop();
       m.redraw();
       setTimeout(opts.onComplete, 1200);
-    }, ground.instance.data.stats.dragged ? 0 : 250);
+    }, ground.data().stats.dragged ? 0 : 250);
   };
 
-  var onMove = function(orig, dest) {
+  var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
-    var move = chess.move({
-      from: orig,
-      to: dest
-    });
+    var move = chess.move(orig, dest, prom);
     if (!move) throw 'Invalid move!';
     var starTaken = false;
     items.withItem(move.to, function(item) {
@@ -76,6 +74,10 @@ module.exports = function(blueprint, opts) {
     ground.color(blueprint.color, chess.dests());
   };
 
+  var onMove = function(orig, dest) {
+    if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+  };
+
   var chess = makeChess(blueprint.fen);
   ground.set({
     chess: chess,
@@ -92,7 +94,7 @@ module.exports = function(blueprint, opts) {
   var update = function() {
     var hasApples = items.hasItem('apple');
     if (!hasApples) {
-      if (ground.instance.data.pieces[items.flowerKey()]) complete();
+      if (ground.pieces()[items.flowerKey()]) complete();
       else vm.lastStep = true;
       m.redraw();
     }

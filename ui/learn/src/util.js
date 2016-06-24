@@ -8,5 +8,12 @@ module.exports = {
     s.color = / w /.test(s.fen) ? 'white' : 'black';
     return s;
   },
-  assetUrl: $('body').data('asset-url') + '/assets/'
+  assetUrl: $('body').data('asset-url') + '/assets/',
+  roleToSan: {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  }
 };

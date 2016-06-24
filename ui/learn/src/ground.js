@@ -1,11 +1,11 @@
 var chessground = require('chessground');
 
-var instance = new chessground.controller();
+var cg = new chessground.controller();
 
 module.exports = {
-  instance: instance,
+  instance: cg,
   set: function(opts) {
-    instance.set({
+    cg.set({
       fen: opts.chess.fen(),
       lastMove: null,
       orientation: opts.orientation,
@@ -37,17 +37,34 @@ module.exports = {
       },
       disableContextMenu: true
     });
-    if (opts.shapes) instance.setShapes(opts.shapes);
-    return instance;
+    if (opts.shapes) cg.setShapes(opts.shapes);
+    return cg;
   },
-  stop: instance.stop,
+  stop: cg.stop,
   color: function(color, dests) {
-    instance.set({
+    cg.set({
       turnColor: color,
       movable: {
         color: color,
         dests: dests
       }
     });
+  },
+  promote: function(key, role) {
+    var pieces = {};
+    var piece = cg.data.pieces[key];
+    if (piece && piece.role === 'pawn') {
+      pieces[key] = {
+        color: piece.color,
+        role: role
+      };
+      cg.setPieces(pieces);
+    }
+  },
+  data: function() {
+    return cg.data;
+  },
+  pieces: function() {
+    return cg.data.pieces;
   }
 };

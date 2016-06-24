@@ -11,7 +11,6 @@ var make = function(file, volume) {
     volume: volume || 1
   });
   return function() {
-    console.log(file);
     sound.play();
   };
 };

@@ -4,6 +4,7 @@ var ground = require('../ground');
 var classSet = chessground.util.classSet;
 var congrats = require('../congrats');
 var lessonComplete = require('./lessonComplete');
+var renderPromotion = require('../promotion').view;
 
 function renderRank(rank) {
   if (rank) return m('div.rank', rank);
@@ -23,7 +24,8 @@ module.exports = function(ctrl) {
   }, [
     lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
-      m('div.lichess_board', chessground.view(ground.instance))
+      m('div.lichess_board', chessground.view(ground.instance)),
+      renderPromotion(),
     ]),
     m('div.lichess_ground', [
       m('div.title', [

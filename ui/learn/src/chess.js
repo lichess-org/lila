@@ -1,4 +1,5 @@
 var Chess = require('chess.js').Chess;
+var util = require('./util');
 
 module.exports = function(fen) {
 
@@ -38,6 +39,12 @@ module.exports = function(fen) {
       else return getColor(c);
     },
     fen: chess.fen,
-    move: chess.move
+    move: function(orig, dest, prom) {
+      return chess.move({
+        from: orig,
+        to: dest,
+        promotion: prom ? util.roleToSan[prom].toLowerCase() : null
+      });
+    }
   };
 };
