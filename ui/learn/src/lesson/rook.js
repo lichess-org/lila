@@ -18,18 +18,21 @@ module.exports = {
     fen: '8/2R5/8/8/8/8/8/8 w - - 0 1',
     items: {
       c5: 'apple',
-      a3: 'flower'
+      g5: 'flower'
     },
     nbMoves: 3,
-    shapes: [arrow('c7c5'), arrow('c5a5'), arrow('a5a3')]
+    shapes: [arrow('c7c5'), arrow('c5g5')]
   }, {
-    goal: 'Grab the stars,<br>then go to the castle!',
+    goal: 'The fewer moves you make,<br>the more points you win!',
     fen: '8/5R2/8/8/8/8/8/8 w - - 0 1',
     items: {
       a1: 'apple',
-      a2: 'apple',
-      c5: 'apple',
-      b7: 'flower'
+      a7: 'apple',
+      e1: 'apple',
+      e8: 'apple',
+      g7: 'apple',
+      g8: 'apple',
+      g1: 'flower'
     },
     nbMoves: 7
   }, {
