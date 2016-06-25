@@ -1,7 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.8.3"
+
 Vagrant.configure(2) do |config|
-  config.vm.box = "boxcutter/ubuntu1504"
+  config.vm.box = "boxcutter/ubuntu1510"
 
   # Use this script to set up and compile the Lila installation. We set
   # `privileged` to `false` because otherwise the provisioning script will run
