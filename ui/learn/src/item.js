@@ -4,7 +4,7 @@ module.exports = {
   ctrl: function(blueprint) {
 
     var items = {};
-    (blueprint.apples || []).forEach(function(key) {
+    blueprint.apples.split(' ').forEach(function(key) {
       items[key] = 'apple';
     });
 

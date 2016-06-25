@@ -8,49 +8,40 @@ module.exports = {
   stages: [{
     goal: 'Click on the rook<br>to bring it to the star!',
     fen: '8/8/8/8/8/8/4R3/8 w - - 0 1',
-    apples: ['e7'],
+    apples: 'e7',
     nbMoves: 1,
     shapes: [arrow('e2e7')]
   }, {
     goal: 'Grab all the stars!',
     fen: '8/2R5/8/8/8/8/8/8 w - - 0 1',
-    apples: ['c5', 'g5'],
+    apples: 'c5 g5',
     nbMoves: 3,
     shapes: [arrow('c7c5'), arrow('c5g5')]
   }, {
     goal: 'The fewer moves you make,<br>the more points you win!',
     fen: '8/5R2/8/8/8/8/8/8 w - - 0 1',
-    items: {
-      a1: 'apple',
-      a7: 'apple',
-      e1: 'apple',
-      e8: 'apple',
-      g7: 'apple',
-      g8: 'apple',
-      g1: 'flower'
-    },
+    apples: 'a1 a7 e1 e8 g7 g8 g1',
     nbMoves: 7
   }, {
-    goal: 'Rooks don\'t like diagonals!',
-    fen: '8/8/8/8/8/8/8/R7 w - - 0 1',
-    items: {
-      b4: 'apple',
-      c5: 'apple',
-      d6: 'apple',
-      f8: 'flower'
-    },
+    goal: 'Grab all the stars!',
+    fen: '8/8/8/8/3R4/8/8/8 w - - 0 1',
+    apples: 'a4 b3 b8 d8 g3 g7 g4 g8',
     nbMoves: 8
+  }, {
+    goal: 'Grab all the stars!',
+    fen: '7R/8/8/8/8/8/8/8 w - - 0 1',
+    apples: 'a2 f2 f8 g1 g7 g8 h7',
+    nbMoves: 7
+  }, {
+    goal: 'Use two rooks<br>to speed things up!',
+    fen: '8/1R6/8/8/3R4/8/8/8 w - - 0 1',
+    apples: 'a4 g3 g7 h4',
+    nbMoves: 11
   }, {
     goal: 'Use two rooks<br>to speed things up!',
     fen: '8/8/8/8/8/5R2/8/R7 w - - 0 1',
-    items: {
-      a6: 'apple',
-      b8: 'apple',
-      h3: 'apple',
-      h4: 'apple',
-      d4: 'flower'
-    },
-    nbMoves: 6
+    apples: 'a8 b7 d5 f2 f7 g4 g7 h1 h5 h8',
+    nbMoves: 11
   }].map(util.toStage),
   complete: 'Congratulations! You have successfully mastered the rook.'
 };
