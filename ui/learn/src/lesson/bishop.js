@@ -6,62 +6,36 @@ module.exports = {
   subtitle: 'It moves diagonally.',
   image: util.assetUrl + 'images/learn/pieces/B.svg',
   stages: [{
-    goal: 'Go to the castle!',
+    goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
-    items: {
-      b7: 'flower'
-    },
-    nbMoves: 1,
-    shapes: [arrow('f3b7')]
+    apples: 'd5 g8',
+    nbMoves: 2,
+    shapes: [arrow('f3d5'), arrow('d5g8')]
   }, {
-    goal: 'Grab the star,<br>then go to the castle!',
-    fen: '8/8/8/8/8/8/8/2B5 w - - 0 1',
-    items: {
-      h6: 'apple',
-      a1: 'flower'
-    },
-    nbMoves: 3
-  }, {
-    goal: 'Grab the stars,<br>then go to the castle!',
-    fen: '4B3/8/8/8/8/8/8/8 w - - 0 1',
-    items: {
-      a4: 'apple',
-      b7: 'apple',
-      c6: 'apple',
-      d1: 'apple',
-      h5: 'apple',
-      a8: 'flower'
-    },
+    goal: 'Grab all the stars!',
+    fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',
+    apples: 'a2 b1 b5 d1 d3 e2',
     nbMoves: 6
   }, {
-    goal: 'You need two bishops<br>to control all the squares!',
+    goal: 'Grab all the stars!',
+    fen: '8/8/8/8/3B4/8/8/8 w - - 0 1',
+    apples: 'a1 b6 c1 e3 g7 h6',
+    nbMoves: 6
+  }, {
+    goal: 'Grab all the stars!',
+    fen: '8/8/8/8/8/2b5/8/8 w - - 0 1',
+    apples: 'a3 a5 a7 b2 c1 d2 e1 f2 g1 h2',
+    nbMoves: 10
+  }, {
+    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
     fen: '8/8/8/8/8/8/8/2b2b2 b - - 0 1',
-    items: {
-      c4: 'apple',
-      c5: 'apple',
-      d3: 'apple',
-      d4: 'apple',
-      d5: 'apple',
-      d6: 'apple',
-      e3: 'apple',
-      e4: 'apple',
-      e5: 'apple',
-      e6: 'apple',
-      f4: 'apple',
-      f5: 'apple',
-      a1: 'flower'
-    },
-    nbMoves: 13
+    apples: 'c4 d3 d4 d5 e3 e4 e5 f4',
+    nbMoves: 8
   }, {
-    goal: 'The longest diagonals',
-    fen: '8/8/8/8/8/8/8/2B2B2 w - - 0 1',
-    items: {
-      a8: 'apple',
-      h1: 'apple',
-      h8: 'apple',
-      a1: 'flower'
-    },
-    nbMoves: 6
+    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
+    fen: '8/3B4/8/8/8/2B5/8/8 w - - 0 1',
+    apples: 'a5 b4 c2 c4 c7 e7 f5 f6 g8 h4 h7',
+    nbMoves: 11
   }].map(util.toStage),
   complete: 'Congratulations! You can command a bishop.'
 };

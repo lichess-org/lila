@@ -25,8 +25,8 @@ module.exports = {
   }, {
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/3R4/8/8/8 w - - 0 1',
-    apples: 'a4 b3 b8 d8 g3 g7 g4 g8',
-    nbMoves: 8
+    apples: 'a4 b3 b8 d8 g3 g4 g8',
+    nbMoves: 7
   }, {
     goal: 'Grab all the stars!',
     fen: '7R/8/8/8/8/8/8/8 w - - 0 1',
@@ -40,7 +40,7 @@ module.exports = {
   }, {
     goal: 'Use two rooks<br>to speed things up!',
     fen: '8/8/8/8/8/5R2/8/R7 w - - 0 1',
-    apples: 'a8 b7 d5 f2 f7 g4 g7 h1 h5 h8',
+    apples: 'a8 b7 d5 f2 f7 g4 g7 h5 h8',
     nbMoves: 11
   }].map(util.toStage),
   complete: 'Congratulations! You have successfully mastered the rook.'
