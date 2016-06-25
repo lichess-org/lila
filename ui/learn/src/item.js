@@ -4,7 +4,9 @@ module.exports = {
   ctrl: function(blueprint) {
 
     var items = {};
-    for (var k in blueprint) items[k] = blueprint[k];
+    (blueprint.apples || []).forEach(function(key) {
+      items[key] = 'apple';
+    });
 
     var get = function(key) {
       return items[key];

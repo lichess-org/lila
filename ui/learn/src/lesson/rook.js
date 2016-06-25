@@ -6,20 +6,15 @@ module.exports = {
   subtitle: 'It moves in straight lines.',
   image: util.assetUrl + 'images/learn/pieces/R.svg',
   stages: [{
-    goal: 'Click on the rook<br>to bring it to the castle!',
+    goal: 'Click on the rook<br>to bring it to the star!',
     fen: '8/8/8/8/8/8/4R3/8 w - - 0 1',
-    items: {
-      e7: 'flower'
-    },
+    apples: ['e7'],
     nbMoves: 1,
     shapes: [arrow('e2e7')]
   }, {
-    goal: 'Grab the star,<br>then go to the castle!',
+    goal: 'Grab all the stars!',
     fen: '8/2R5/8/8/8/8/8/8 w - - 0 1',
-    items: {
-      c5: 'apple',
-      g5: 'flower'
-    },
+    apples: ['c5', 'g5'],
     nbMoves: 3,
     shapes: [arrow('c7c5'), arrow('c5g5')]
   }, {

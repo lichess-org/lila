@@ -8,7 +8,9 @@ var promotion = require('./promotion');
 
 module.exports = function(blueprint, opts) {
 
-  var items = makeItems(blueprint.items);
+  var items = makeItems({
+    apples: blueprint.apples
+  });
 
   var vm = {
     initialized: false,
@@ -65,13 +67,11 @@ module.exports = function(blueprint, opts) {
     });
     sound.move();
     if (starTaken) sound.take();
-    update();
-    if (vm.completed) {
-      sound.end();
-      return;
+    if (!items.hasItem('apple')) complete();
+    else {
+      chess.color(blueprint.color);
+      ground.color(blueprint.color, chess.dests());
     }
-    chess.color(blueprint.color);
-    ground.color(blueprint.color, chess.dests());
   };
 
   var onMove = function(orig, dest) {
@@ -90,16 +90,6 @@ module.exports = function(blueprint, opts) {
     },
     shapes: blueprint.shapes
   });
-
-  var update = function() {
-    var hasApples = items.hasItem('apple');
-    if (!hasApples) {
-      if (ground.pieces()[items.flowerKey()]) complete();
-      else vm.lastStep = true;
-      m.redraw();
-    }
-  };
-  update();
 
   return {
     blueprint: blueprint,
