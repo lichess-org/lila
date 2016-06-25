@@ -1,4 +1,5 @@
 var util = require('../util');
+var arrow = util.arrow;
 
 module.exports = {
   title: 'The knight',
@@ -12,15 +13,7 @@ module.exports = {
       d7: 'flower'
     },
     nbMoves: 2,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'e4',
-      dest: 'c5'
-    }, {
-      brush: 'paleGreen',
-      orig: 'c5',
-      dest: 'd7'
-    }]
+    shapes: [arrow('e4c5'), arrow('c5d7')]
   }, {
     goal: 'Get the hang of it!',
     fen: '8/8/8/8/8/8/8/1N6 w - - 0 1',

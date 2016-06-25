@@ -1,4 +1,5 @@
 var util = require('../util');
+var arrow = util.arrow;
 
 module.exports = {
   title: 'The queen',
@@ -12,15 +13,7 @@ module.exports = {
       h8: 'flower'
     },
     nbMoves: 1,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'd1',
-      dest: 'd8'
-    }, {
-      brush: 'paleGreen',
-      orig: 'd8',
-      dest: 'h8'
-    }]
+    shapes: [arrow('d1d8'), arrow('d8h8')]
   }, {
     goal: 'Use the queen like a bishop!',
     fen: '8/8/8/8/8/8/8/3Q4 w - - 0 1',
@@ -29,15 +22,7 @@ module.exports = {
       e8: 'flower'
     },
     nbMoves: 1,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'd1',
-      dest: 'h5'
-    }, {
-      brush: 'paleGreen',
-      orig: 'h5',
-      dest: 'e8'
-    }]
+    shapes: [arrow('d1h5'), arrow('h5e8')]
   }, {
     goal: 'Grab the stars,<br>then go to the castle!',
     fen: '8/8/8/8/8/2Q5/8/8 w - - 0 1',

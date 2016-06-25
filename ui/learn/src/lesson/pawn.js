@@ -1,4 +1,5 @@
 var util = require('../util');
+var arrow = util.arrow;
 
 module.exports = {
   title: 'The pawn',
@@ -11,23 +12,7 @@ module.exports = {
       f3: 'flower'
     },
     nbMoves: 4,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'a5',
-      dest: 'a6'
-    }, {
-      brush: 'paleGreen',
-      orig: 'a6',
-      dest: 'a7'
-    }, {
-      brush: 'paleGreen',
-      orig: 'a7',
-      dest: 'a8'
-    }, {
-      brush: 'paleGreen',
-      orig: 'a8',
-      dest: 'f3'
-    }]
+    shapes: [arrow('a5a6'),arrow('a6a7'),arrow('a7a8'),arrow('a8f3')]
   }, {
     goal: 'Most of the time, promoting to a queen is the best.<br><br>But sometimes a knight can come in handy!',
     fen: '8/8/8/5P2/8/8/8/8 w - - 0 1',
@@ -46,19 +31,7 @@ module.exports = {
       e6: 'flower'
     },
     nbMoves: 10,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'e2',
-      dest: 'e4'
-    }, {
-      brush: 'paleGreen',
-      orig: 'e4',
-      dest: 'e5'
-    }, {
-      brush: 'paleGreen',
-      orig: 'e5',
-      dest: 'e6'
-    }],
+    shapes: [arrow('e2e4'),arrow('e4e5'),arrow('e5e6')],
     cssClass: 'highlight-2nd-rank'
   }, {
     goal: 'Promote as fast as possible!',
@@ -74,11 +47,7 @@ module.exports = {
       a8: 'flower'
     },
     nbMoves: 13,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'g2',
-      dest: 'g4'
-    }]
+    shapes: [arrow('g2g4')]
   }].map(util.toStage),
   complete: 'Congratulations! Pawns have no secrets for you.'
 };

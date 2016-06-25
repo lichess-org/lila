@@ -1,4 +1,5 @@
 var util = require('../util');
+var arrow = util.arrow;
 
 module.exports = {
   title: 'The rook',
@@ -11,11 +12,7 @@ module.exports = {
       e7: 'flower'
     },
     nbMoves: 1,
-    shapes: [{
-      brush: 'paleGreen',
-      orig: 'e2',
-      dest: 'e7'
-    }]
+    shapes: [arrow('e2e7')]
   }, {
     goal: 'Grab the star,<br>then go to the castle!',
     fen: '8/2R5/8/8/8/8/8/8 w - - 0 1',
@@ -23,7 +20,8 @@ module.exports = {
       c5: 'apple',
       a3: 'flower'
     },
-    nbMoves: 3
+    nbMoves: 3,
+    shapes: [arrow('c7c5'), arrow('c5a5'), arrow('a5a3')]
   }, {
     goal: 'Grab the stars,<br>then go to the castle!',
     fen: '8/5R2/8/8/8/8/8/8 w - - 0 1',

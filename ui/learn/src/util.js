@@ -15,5 +15,12 @@ module.exports = {
     bishop: 'B',
     rook: 'R',
     queen: 'Q'
+  },
+  arrow: function(vector, brush) {
+    return {
+      brush: brush || 'paleGreen',
+      orig: vector.slice(0, 2),
+      dest: vector.slice(2, 4)
+    };
   }
 };
