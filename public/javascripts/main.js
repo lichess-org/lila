@@ -1449,6 +1449,9 @@ lichess.notifyApp = (function() {
               else key = 'classical';
             } else key = 'correspondence';
             break;
+          case '10':
+            key = 'crazyhouse';
+            break;
           case '2':
             key = 'chess960';
             break;
