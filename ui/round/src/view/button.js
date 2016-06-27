@@ -162,7 +162,7 @@ module.exports = {
   },
   followUp: function(ctrl) {
     var d = ctrl.data;
-    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.game.clock && d.player.user && d.opponent.user));
+    var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
     var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
