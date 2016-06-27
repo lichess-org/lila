@@ -80,13 +80,13 @@
   case Some(m) if !m.tour.isCreated => { @tournament.gameStanding(m) }
   case Some(m) => {
   <div class="game_tournament side_box no_padding">
-    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
+    <p class="top">@tournamentLink(m.tour)</p>
   </div>
   }
   case _ => {
   @game.tournamentId.map { tourId =>
   <div class="game_tournament side_box no_padding">
-    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(tourId)">@tournamentIdToName(tourId)</a></p>
+    <p class="top">@tournamentLink(tourId)</p>
   </div>
   }
   }

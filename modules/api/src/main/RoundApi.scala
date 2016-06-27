@@ -31,7 +31,7 @@ private[api] final class RoundApi(
         forecastApi.loadForDisplay(pov) map {
           case (((json, tourOption), simulOption), forecast) => (
             blindMode _ compose
-            withTournament(pov, tourOption)_ compose
+            withTournament(pov, tourOption, false)_ compose
             withSimul(pov, simulOption)_ compose
             withSteps(pov, initialFen)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
@@ -52,7 +52,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) map {
           case ((json, tourOption), simulOption) => (
             blindMode _ compose
-            withTournament(pov, tourOption)_ compose
+            withTournament(pov, tourOption, true)_ compose
             withSimul(pov, simulOption)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withSteps(pov, initialFen)_
@@ -76,7 +76,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) map {
           case ((json, tourOption), simulOption) => (
             blindMode _ compose
-            withTournament(pov, tourOption)_ compose
+            withTournament(pov, tourOption, true)_ compose
             withSimul(pov, simulOption)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withTree(pov, analysis, initialFen, withOpening = withOpening)_ compose
@@ -136,10 +136,10 @@ private[api] final class RoundApi(
     json + ("analysis" -> analysisJson.bothPlayers(g, a))
   }
 
-  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
+  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks], hideTourneyIdIfPrivate: Boolean)(json: JsObject) =
     tourOption.fold(json) { data =>
       json + ("tournament" -> Json.obj(
-        "id" -> data.tour.id,
+        "id" -> (if (hideTourneyIdIfPrivate && data.tour.`private` && !data.tour.isFinished) -1 else data.tour.id),
         "name" -> data.tour.name,
         "running" -> data.tour.isStarted,
         "secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish),

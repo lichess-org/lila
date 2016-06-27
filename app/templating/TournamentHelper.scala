@@ -4,7 +4,7 @@ package templating
 import controllers.routes
 import lila.api.Context
 import lila.tournament.Env.{ current => tournamentEnv }
-import lila.tournament.{ Tournament, System, Schedule }
+import lila.tournament.{ Tournament, TournamentRepo, System, Schedule }
 import lila.user.{ User, UserContext }
 
 import play.api.libs.json.Json
@@ -27,16 +27,26 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentLink(tour: Tournament): Html = Html {
     val cssClass = if (tour.scheduled) "text is-gold" else "text"
-    val url = routes.Tournament.show(tour.id)
-    s"""<a data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
+    if (tour.`private` && !tour.isFinished) {
+      s"""<span class="text" data-icon="g">${tour.fullName}</span>"""
+    } else {
+      val url = routes.Tournament.show(tour.id)
+      s"""<a class="text" data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
+    }
   }
 
   def tournamentLink(tourId: String): Html = Html {
-    val url = routes.Tournament.show(tourId)
-    s"""<a class="text" data-icon="g" href="$url">${tournamentIdToName(tourId)}</a>"""
+    val tour = tournamentIdToTournament(tourId)
+    val tourName = tour.fullName
+    if (tour.`private` && !tour.isFinished) {
+      s"""<span class="text" data-icon="g">$tourName</span>"""
+    } else {
+      val url = routes.Tournament.show(tourId)
+      s"""<a class="text" data-icon="g" href="$url">$tourName</a>"""
+    }
   }
 
-  def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"
+  def tournamentIdToTournament(id: String) = TournamentRepo byId id awaitSeconds 2 get
 
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
