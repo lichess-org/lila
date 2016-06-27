@@ -186,6 +186,12 @@
 #learn_app .screen .trophy {
   margin-bottom: 24px;
 }
+#learn_app .screen .no-square {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 0 auto 22px auto;
+}
 #learn_app .screen h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;

@@ -1,3 +1,4 @@
+var m = require('mithril');
 var util = require('../util');
 var arrow = util.arrow;
 
@@ -5,6 +6,10 @@ module.exports = {
   title: 'The bishop',
   subtitle: 'It moves diagonally.',
   image: util.assetUrl + 'images/learn/pieces/B.svg',
+  intro: 'Next we will learn how to manoeuver a bishop!',
+  illustration: m('div.is2d.no-square',
+    m('piece.bishop.white')
+  ),
   stages: [{
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
@@ -23,7 +28,7 @@ module.exports = {
     nbMoves: 6
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/2b5/8/8 w - - 0 1',
+    fen: '8/8/8/8/8/2b5/8/8 b - - 0 1',
     apples: 'a3 a5 a7 b2 c1 d2 e1 f2 g1 h2',
     nbMoves: 10
   }, {

@@ -3,6 +3,7 @@ var chessground = require('chessground');
 var ground = require('../ground');
 var classSet = chessground.util.classSet;
 var congrats = require('../congrats');
+var lessonStarting = require('./lessonStarting');
 var lessonComplete = require('./lessonComplete');
 var renderPromotion = require('../promotion').view;
 
@@ -18,10 +19,12 @@ module.exports = function(ctrl) {
     class: classSet({
       'lichess_game': true,
       'initialized': stage.vm.initialized,
+      'starting': stage.vm.starting,
       'completed': stage.vm.completed,
       'last-step': stage.vm.lastStep
     }) + ' ' + stage.blueprint.cssClass
   }, [
+    lesson.vm.starting ? lessonStarting(lesson) : null,
     lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),

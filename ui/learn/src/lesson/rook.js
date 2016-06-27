@@ -1,3 +1,4 @@
+var m = require('mithril');
 var util = require('../util');
 var arrow = util.arrow;
 
@@ -5,6 +6,10 @@ module.exports = {
   title: 'The rook',
   subtitle: 'It moves in straight lines.',
   image: util.assetUrl + 'images/learn/pieces/R.svg',
+  intro: 'The rook is a powerful piece. Are you ready to learn how to use it?',
+  illustration: m('div.is2d.no-square',
+    m('piece.rook.white')
+  ),
   stages: [{
     goal: 'Click on the rook<br>to bring it to the star!',
     fen: '8/8/8/8/8/8/4R3/8 w - - 0 1',
@@ -19,13 +24,8 @@ module.exports = {
     shapes: [arrow('c7c5'), arrow('c5g5')]
   }, {
     goal: 'The fewer moves you make,<br>the more points you win!',
-    fen: '8/5R2/8/8/8/8/8/8 w - - 0 1',
-    apples: 'a1 a7 e1 e8 g7 g8 g1',
-    nbMoves: 7
-  }, {
-    goal: 'Grab all the stars!',
     fen: '8/8/8/8/3R4/8/8/8 w - - 0 1',
-    apples: 'a4 b3 b8 d8 g3 g4 g8',
+    apples: 'a4 b3 b8 d8 g3 g4',
     nbMoves: 7
   }, {
     goal: 'Grab all the stars!',

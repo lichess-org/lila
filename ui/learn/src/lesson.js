@@ -29,6 +29,7 @@ module.exports = function(blueprint, opts) {
 
   var vm = {
     score: 0,
+    starting: stage.blueprint.id === 1,
     completed: false
   };
 
@@ -37,6 +38,9 @@ module.exports = function(blueprint, opts) {
     vm: vm,
     stage: function() {
       return stage;
+    },
+    start: function() {
+      vm.starting = false;
     }
   }
 };

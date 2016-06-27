@@ -1,3 +1,4 @@
+var m = require('mithril');
 var util = require('../util');
 var arrow = util.arrow;
 
@@ -5,6 +6,10 @@ module.exports = {
   title: 'The queen',
   subtitle: 'Queen = rook + bishop.',
   image: util.assetUrl + 'images/learn/pieces/Q.svg',
+  intro: 'Enters the most powerful chess piece. Her majesty the queen!',
+  illustration: m('div.is2d.no-square',
+    m('piece.queen.white')
+  ),
   stages: [{
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/8/4Q3/8 w - - 0 1',
