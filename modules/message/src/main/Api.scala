@@ -13,7 +13,8 @@ final class Api(
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
-    notifyApi: lila.notify.NotifyApi) {
+    notifyApi: lila.notify.NotifyApi,
+    follows: (String, String) => Fu[Boolean]) {
 
   import Thread.ThreadBSONHandler
 
@@ -43,7 +44,8 @@ final class Api(
           text = data.text,
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
-            val thread = if (me.troll || lila.security.Spam.detect(data.subject, data.text))
+            var threadShouldBeMuted = me.troll && !(follows(invited.id, me.id) awaitSeconds 2)
+            val thread = if (threadShouldBeMuted || lila.security.Spam.detect(data.subject, data.text))
               t deleteFor invited
             else t
             sendUnlessBlocked(thread, fromMod) flatMap {
