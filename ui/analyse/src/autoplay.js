@@ -20,10 +20,21 @@ module.exports = function(ctrl) {
   }.bind(this);
 
   var nextDelay = function() {
-    if (this.delay === true) {
+    if (typeof(this.delay) === 'string') {
       // in a variation
       if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 2000;
-      return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
+      if (this.delay === 'realtime') {
+        return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
+      } else {
+        var slowDown = this.delay === 'cpl_fast' ? 10 : 50;
+        if (ctrl.vm.node.ply >= ctrl.data.treeParts.length - 1) return 0;
+        var currEval = ctrl.data.treeParts[ctrl.vm.node.ply].eval;
+        var currPlyCp = currEval.mate ? 990 : currEval.cp;
+        var nextEval = ctrl.data.treeParts[ctrl.vm.node.ply + 1].eval;
+        // if nextEval is undefined, the next move is a checkmate
+        var nextPlyCp = nextEval ? (nextEval.mate ? 990 : nextEval.cp) : 990;
+        return Math.abs(currPlyCp - nextPlyCp) * slowDown;
+      }
     }
     return this.delay;
   }.bind(this);
