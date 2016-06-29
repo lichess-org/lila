@@ -17,8 +17,11 @@ var make = function(file, volume) {
 
 module.exports = {
   move: make('standard/Move'),
-  take: make('sfx/Tournament3rd'),
+  take: make('sfx/Tournament3rd', 0.7),
+  stageStart: make('other/ping'),
   stageEnd: make('other/energy3'),
-  lessonEnd: make('sfx/Tournament1st'),
+  lessonStart: make('other/guitar'),
+  // lessonEnd: make('sfx/Tournament1st'),
+  lessonEnd: make('other/gewonnen'),
   failure: make('other/failure')
 };

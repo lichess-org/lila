@@ -49,6 +49,7 @@ module.exports = function(blueprint, opts) {
     starting: stage.blueprint.id === 1,
     completed: false
   };
+  sound.lessonStart();
 
   return {
     blueprint: blueprint,

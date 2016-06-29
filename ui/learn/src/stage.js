@@ -106,6 +106,8 @@ module.exports = function(blueprint, opts) {
     shapes: blueprint.shapes
   });
 
+  if (blueprint.id !== 1) sound.stageStart();
+
   return {
     blueprint: blueprint,
     items: items,
