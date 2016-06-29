@@ -245,11 +245,7 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock) {
-      var c = o.clock
-      if (this.clock) this.clock.update(c.white, c.black);
-      else if (this.correspondenceClock) this.correspondenceClock.update(c.white, c.black);
-    }
+    if (o.clock) (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,
