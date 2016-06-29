@@ -3,7 +3,7 @@ var lessons = require('../lesson/list');
 var makeLesson = require('../lesson');
 var xhr = require('../xhr');
 
-module.exports = function(lesson, opts) {
+module.exports = function(opts) {
 
   var setScore = function(level, score) {
     xhr.setScore(level.key, score).then(function(data) {

@@ -402,6 +402,7 @@
   background: #4caf50;
 }
 #learn_app .lessons .lesson.future {
+  opacity: 0.7;
   background: #f57c00;
   cursor: default;
 }
