@@ -71,6 +71,7 @@ div.mchat .lichess_say {
   box-sizing: border-box;
 }
 div.mchat .messages {
+  display: block;
   height: 100%;
   overflow: hidden;
   overflow-y: auto;
