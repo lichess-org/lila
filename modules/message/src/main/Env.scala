@@ -26,7 +26,8 @@ final class Env(
     shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
-    notifyApi = notifyApi)
+    notifyApi = notifyApi,
+    follows = follows)
 
   lazy val security = new MessageSecurity(
     follows = follows,
