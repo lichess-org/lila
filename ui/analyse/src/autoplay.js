@@ -28,9 +28,9 @@ module.exports = function(ctrl) {
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 50;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
-        var currEval = ctrl.vm.mainline[ctrl.vm.node.ply].eval;
+        var currEval = ctrl.vm.node.eval;
         var currPlyCp = currEval.mate ? 990 : currEval.cp;
-        var nextEval = ctrl.vm.mainline[ctrl.vm.node.ply + 1].eval;
+        var nextEval = ctrl.vm.node.children[0] ? ctrl.vm.node.children[0].eval : null;
         // if nextEval is undefined, the next move is a checkmate
         var nextPlyCp = nextEval ? (nextEval.mate ? 990 : nextEval.cp) : 990;
         return Math.abs(currPlyCp - nextPlyCp) * slowDown;
