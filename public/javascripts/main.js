@@ -940,7 +940,9 @@ lichess.notifyApp = (function() {
       });
     });
 
-
+    play.set = function() {
+      return soundSet;
+    };
     return play;
   })();
 

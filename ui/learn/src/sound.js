@@ -11,7 +11,7 @@ var make = function(file, volume) {
     volume: volume || 1
   });
   return function() {
-    sound.play();
+    if ($.sound.set() !== 'silent') sound.play();
   };
 };
 
