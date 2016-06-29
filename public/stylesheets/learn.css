@@ -369,6 +369,7 @@
   margin: 10px;
 }
 #learn_app .lessons .lesson {
+  position: relative;
   display: flex;
   align-items: center;
   flex: 0 0 32%;
@@ -387,7 +388,7 @@
   opacity: 0.9;
 }
 #learn_app .lessons h2 {
-  font-size: 2.3em;
+  font-size: 2.2em;
   margin-left: -3px;
 }
 @keyframes soft-bright {
@@ -419,4 +420,56 @@
 #learn_app .lessons a.lesson:hover {
   -webkit-filter: brightness(1.08);
   transform: scale(1.05);
+}
+#learn_app .lessons .lesson .ribbon-wrapper {
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+}
+#learn_app .lessons .lesson .ribbon {
+  font: bold 15px Sans-Serif;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  transform: rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 120px;
+  color: #6a6340;
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+}
+
+#learn_app .lessons .lesson .ribbon:before,
+#learn_app .lessons .lesson .ribbon:after {
+  content: "";
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+#learn_app .lessons .lesson .ribbon:before {
+  left: 0;
+}
+#learn_app .lessons .lesson .ribbon:after {
+  right: 0;
+}
+
+#learn_app .lessons .lesson .ribbon.done {
+  background-color: #BFDC7A;
+}
+#learn_app .lessons .lesson .ribbon.done:before,
+#learn_app .lessons .lesson .ribbon.done:after {
+  border-top:   3px solid #6e8900;
+}
+#learn_app .lessons .lesson .ribbon.next {
+  background-color: #B3E5FC;
+}
+#learn_app .lessons .lesson .ribbon.next:before,
+#learn_app .lessons .lesson .ribbon.next:after {
+  border-top:   3px solid #536DFE;
 }

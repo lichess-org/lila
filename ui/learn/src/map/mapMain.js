@@ -2,6 +2,16 @@ var m = require('mithril');
 var util = require('../util');
 var lessons = require('../lesson/list');
 
+function ribbon(l, status, result) {
+  if (status === 'future') return;
+  var text = result ? result.score : 'play!';
+  return m('div.ribbon-wrapper',
+    m('div.ribbon', {
+      class: status
+    }, text)
+  );
+}
+
 module.exports = function(opts) {
   return {
     controller: function() {
@@ -21,6 +31,7 @@ module.exports = function(opts) {
             href: '/' + l.id,
             config: status === 'future' ? null : m.route
           }, [
+            ribbon(l, status, result),
             m('img', {
               src: status === 'future' ? util.assetUrl + 'images/learn/help.svg' : l.image
             }),
