@@ -90,14 +90,14 @@ object PovToEntry {
         val opportunism = from.advices.get(ply - 1) flatMap {
           case o if o.judgment.isBlunder => from.advices get ply match {
             case Some(p) if p.judgment.isBlunder => false.some
-            case _ => true.some
+            case _                               => true.some
           }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
           case o if o.judgment.isBlunder => from.advices.get(ply + 1) match {
             case Some(p) if p.judgment.isBlunder => true.some
-            case _ => false.some
+            case _                               => false.some
           }
           case _ => none
         }
@@ -127,33 +127,36 @@ object PovToEntry {
 
   private def convert(from: RichPov): Option[Entry] = {
     import from._
+    import pov.game
     for {
       myId <- pov.player.userId
       myRating <- pov.player.rating
       opRating <- pov.opponent.rating
-      perfType <- pov.game.perfType
+      perfType <- game.perfType
     } yield Entry(
       id = Entry povToId pov,
       number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,
-      eco = Ecopening fromGame pov.game,
-      myCastling = Castling.fromMoves(pov.game pgnMoves pov.color),
+      eco =
+        if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
+        else chess.opening.Ecopening fromGame game.pgnMoves,
+      myCastling = Castling.fromMoves(game pgnMoves pov.color),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
-      opponentCastling = Castling.fromMoves(pov.game pgnMoves !pov.color),
+      opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
-      result = pov.game.winnerUserId match {
+      result = game.winnerUserId match {
         case None                 => Result.Draw
         case Some(u) if u == myId => Result.Win
         case _                    => Result.Loss
       },
-      termination = Termination fromStatus pov.game.status,
+      termination = Termination fromStatus game.status,
       ratingDiff = ~pov.player.ratingDiff,
       analysed = analysis.isDefined,
       provisional = provisional,
-      date = pov.game.createdAt)
+      date = game.createdAt)
   }
 }
