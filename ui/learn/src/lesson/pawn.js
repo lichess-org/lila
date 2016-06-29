@@ -30,13 +30,17 @@ module.exports = {
     shapes: [arrow('e3e4'),arrow('e4d5'),arrow('d5c6'),arrow('c6d7')],
     failure: [assert.pieceNotOn('e3 e4 c6 d5 d7')]
   }, {
-    goal: 'A pawn on the second rank can move 2 squares at once!',
-    fen: '8/8/8/8/8/8/4P3/8 w - - 0 1',
-    items: {
-      e6: 'flower'
-    },
-    nbMoves: 10,
-    shapes: [arrow('e2e4'),arrow('e4e5'),arrow('e5e6')],
+    goal: 'Capture, then promote!',
+    fen: '8/8/8/8/8/1P6/8/8 w - - 0 1',
+    apples: 'b4 b6 c4 c6 c7 d6',
+    nbMoves: 8,
+  }, {
+    goal: 'Capture, then promote!',
+    fen: '8/8/8/8/8/3P4/8/8 w - - 0 1',
+    apples: 'c4 b5 b6 d5 d7 e6 c8',
+    failure: [assert.whitePawnOn('b5 d4 d6 c7')],
+    nbMoves: 7
+  }, {
     cssClass: 'highlight-2nd-rank'
   }, {
     goal: 'Promote as fast as possible!',

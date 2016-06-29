@@ -64,6 +64,7 @@ module.exports = function(fen, appleKeys) {
       });
       return map;
     },
+    get: chess.get,
     instance: chess
   };
 };
