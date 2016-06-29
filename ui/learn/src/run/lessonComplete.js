@@ -16,18 +16,22 @@ module.exports = function(lesson, next) {
         m('span.num', lesson.vm.score)
       ]),
       m('p', [
-        m.trust(lesson.blueprint.complete),
-        next ? [
-          m('br'),
-          'Shall we proceed to the next level?'
-        ] : null
+        m.trust(lesson.blueprint.complete)
       ]),
-      next ? m('div.buttons',
-        m('a.light', {
+      m('div.buttons', [
+        next ? m('a.light', {
           href: '/' + next.id,
           config: m.route
-        }, 'Next level: ' + next.title)
-      ) : null
+        }, [
+          'Next level: ',
+          next.title + ' ',
+          m('i[data-icon=H]')
+        ]) : null,
+        m('a.dark.text[data-icon=I]', {
+          href: '/',
+          config: m.route
+        }, 'Back to learning map')
+      ])
     ])
   );
 };

@@ -162,8 +162,6 @@
   margin: 63px auto;
 }
 #learn_app .screen-overlay * {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -176,17 +174,20 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
   padding-top: 36px;
 }
-#learn_app .screen :nth-child(1) {
+#learn_app .screen > :nth-child(1) {
   animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
 }
-#learn_app .screen :nth-child(2) {
+#learn_app .screen > :nth-child(2) {
+  animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+}
+#learn_app .screen > :nth-child(3) {
   animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
 }
-#learn_app .screen :nth-child(3) {
-  animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
+#learn_app .screen > :nth-child(4) {
+  animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
 }
-#learn_app .screen :nth-child(4) {
-  animation: slideIn 4s cubic-bezier(0.37, 0.82, 0.2, 1);
+#learn_app .screen > :nth-child(5) {
+  animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
 }
 #learn_app .screen .trophy {
   margin-bottom: 24px;
@@ -230,24 +231,28 @@
 #learn_app .screen .buttons a {
   display: block;
   text-decoration: none;
-  color: #fff;
   text-transform: uppercase;
   font-size: 12px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  margin: 0 10%;
-  height: 48px;
   line-height: 48px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-}
-#learn_app .screen .buttons a {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 8px 10% 0 10%;
+  height: 48px;
   background-color: #4fc3f7;
+  color: #fff;
   transition: all 0.3s;
 }
+#learn_app .screen .buttons a {
+  margin-top: 8px;
+}
+#learn_app .screen .buttons a.dark {
+  background: #f57c00;
+}
 #learn_app .screen .buttons a:hover {
-  background-color: #0288d1;
+  -webkit-filter: brightness(0.9);
 }
 @keyframes slideIn {
   0% {
@@ -413,4 +418,5 @@
 }
 #learn_app .lessons a.lesson:hover {
   -webkit-filter: brightness(1.08);
+  transform: scale(1.05);
 }

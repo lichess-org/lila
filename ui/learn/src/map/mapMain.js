@@ -11,14 +11,11 @@ module.exports = function(opts) {
       };
     },
     view: function(ctrl) {
-      var next = 1;
-      lessons.list.forEach(function(l) {
-        if (ctrl.data.levels[l.key]) next = l.id + 1;
-      });
       return m('div.learn.map', [
         m('div.lessons', lessons.list.map(function(l) {
           var result = ctrl.data.levels[l.key];
-          var status = result ? 'done' : (next === l.id ? 'next' : 'future')
+          var previousDone = l.id === 1 ? true : !!ctrl.data.levels[lessons.get(l.id - 1).key];
+          var status = result ? 'done' : (previousDone ? 'next' : 'future')
           return m(status === 'future' ? 'span' : 'a', {
             class: 'lesson ' + status,
             href: '/' + l.id,
