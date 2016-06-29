@@ -137,7 +137,7 @@ GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: S
 
 # Learn
 GET   /learn                           controllers.Learn.index
-POST  /learn/level/:key                controllers.Learn.level(key: String)
+POST  /learn/level                     controllers.Learn.level
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

@@ -2,6 +2,7 @@ var m = require('mithril');
 var stageBuilder = require('./stage');
 var makeProgress = require('./progress').ctrl;
 var sound = require('./sound');
+var xhr = require('./xhr');
 
 module.exports = function(blueprint, opts) {
 
@@ -14,6 +15,7 @@ module.exports = function(blueprint, opts) {
     else {
       vm.completed = true;
       sound.lessonEnd();
+      xhr.setScore(blueprint.key, vm.score);
     }
     m.redraw();
   };

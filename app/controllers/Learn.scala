@@ -21,11 +21,11 @@ object Learn extends LilaController {
   }
 
   private val levelForm = Form(mapping(
-    "key" -> nonEmptyText,
+    "level" -> nonEmptyText,
     "score" -> number
   )(Tuple2.apply)(Tuple2.unapply))
 
-  def level(key: String) = AuthBody { implicit ctx =>
+  def level = AuthBody { implicit ctx =>
     me =>
       implicit val body = ctx.body
       levelForm.bindFromRequest.fold(

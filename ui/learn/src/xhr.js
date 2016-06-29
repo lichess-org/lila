@@ -1,16 +1,16 @@
 var m = require('mithril');
 
-function completeLesson(gameId) {
+function setScore(levelKey, score) {
   return m.request({
     method: 'POST',
-    url: '/challenge/rematch-of/' + gameId,
-    config: xhrConfig
+    url: '/learn/level',
+    data: {
+      level: levelKey,
+      score: score
+    }
   });
 }
 
 module.exports = {
-  reload: reload,
-  whatsNext: whatsNext,
-  challengeRematch: challengeRematch
+  setScore: setScore
 };
-

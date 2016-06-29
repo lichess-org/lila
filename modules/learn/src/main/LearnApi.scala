@@ -14,6 +14,6 @@ final class LearnApi(coll: Coll) {
     coll.update($id(p.id), p, upsert = true).void
 
   def setScore(user: User, level: String, score: Int) = get(user) flatMap { prog =>
-    save(prog.withScore(level, LevelProgress.Score(score)).pp)
+    save(prog.withScore(level, LevelProgress.Score(score)))
   }
 }
