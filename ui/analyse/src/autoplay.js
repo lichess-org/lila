@@ -35,7 +35,9 @@ module.exports = function(ctrl) {
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
         var currPlyCp = evalToCp(ctrl.vm.node);
         var nextPlyCp = evalToCp(ctrl.vm.node.children[0]);
-        return Math.abs(currPlyCp - nextPlyCp) * slowDown;
+        return Math.max(500,
+          Math.min(10000,
+            Math.abs(currPlyCp - nextPlyCp) * slowDown));
       }
     }
     return this.delay;
