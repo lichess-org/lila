@@ -16,7 +16,9 @@ var list = [
   'Outstanding!',
   'Way to go!',
   'Yes, yes, yes!',
-  'You\'re good at this!'
+  'You\'re good at this!',
+  'Nailed it.',
+  'Right on!'
 ];
 shuffle(list);
 
