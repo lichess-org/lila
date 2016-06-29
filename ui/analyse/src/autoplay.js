@@ -19,6 +19,11 @@ module.exports = function(ctrl) {
     return false;
   }.bind(this);
 
+  var evalToCp = function(node) {
+    if (!node.eval) return node.ply % 2 ? 990 : -990; // game over
+    return node.eval.mate ? 990 * Math.sign(node.eval.mate) : node.eval.cp;
+  };
+
   var nextDelay = function() {
     if (typeof(this.delay) === 'string') {
       // in a variation
@@ -28,11 +33,8 @@ module.exports = function(ctrl) {
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
-        var currEval = ctrl.vm.node.eval;
-        var currPlyCp = currEval.mate ? 990 : currEval.cp;
-        var nextEval = ctrl.vm.node.children[0] ? ctrl.vm.node.children[0].eval : null;
-        // if nextEval is undefined, the next move is a checkmate
-        var nextPlyCp = nextEval ? (nextEval.mate ? 990 : nextEval.cp) : 990;
+        var currPlyCp = evalToCp(ctrl.vm.node);
+        var nextPlyCp = evalToCp(ctrl.vm.node.children[0]);
         return Math.abs(currPlyCp - nextPlyCp) * slowDown;
       }
     }
