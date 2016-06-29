@@ -44,7 +44,7 @@ final class Api(
           text = data.text,
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
-            muteThreadIfNecessary(t, me.troll, me, invited, data.subject, data.text) flatMap {
+            muteThreadIfNecessary(t, me, invited, data.subject, data.text) flatMap {
               thread => {
                 sendUnlessBlocked(thread, fromMod) flatMap {
                   _ ?? {
@@ -60,13 +60,13 @@ final class Api(
     }
   }
 
-  private def muteThreadIfNecessary(thread: Thread, isTroll: Boolean, creator: User, invited: User, subject: String, text: String) : Fu[Thread] = {
+  private def muteThreadIfNecessary(thread: Thread, creator: User, invited: User, subject: String, text: String) : Fu[Thread] = {
     if (lila.security.Spam.detect(subject, text)) {
       fuccess(thread deleteFor invited)
     } else {
       follows(invited.id, creator.id) flatMap {
         case true => fuccess(thread)
-        case false => if (isTroll) fuccess(thread deleteFor invited) else fuccess(thread)
+        case false => if (creator.troll) fuccess(thread deleteFor invited) else fuccess(thread)
       }
     }
   }
