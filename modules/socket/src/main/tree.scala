@@ -116,7 +116,7 @@ object Node {
       case object Unknown extends Author
     }
     def sanitize(text: String) = Text {
-      text.trim.take(2000)
+      text.trim.take(4000)
         .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
         .replaceAll("""(?m)(^ *| +(?= |$))""", "")
         .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
