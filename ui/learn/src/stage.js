@@ -78,7 +78,8 @@ module.exports = function(blueprint, opts) {
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var chess = makeChess(blueprint.fen);
+  var chess = makeChess(blueprint.fen, items.appleKeys());
+
   ground.set({
     chess: chess,
     orientation: blueprint.color,

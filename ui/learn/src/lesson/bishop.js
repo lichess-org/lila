@@ -28,8 +28,8 @@ module.exports = {
     nbMoves: 6
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/2b5/8/8 b - - 0 1',
-    apples: 'a3 a5 a7 b2 c1 d2 e1 f2 g1 h2',
+    fen: '8/8/8/8/2b5/8/8/8 b - - 0 1',
+    apples: 'a4 a6 a8 b3 c2 d3 e2 f3 g2 h3',
     nbMoves: 10
   }, {
     goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',

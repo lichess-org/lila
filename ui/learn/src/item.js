@@ -33,9 +33,11 @@ module.exports = {
       hasItem: function(item) {
         return list().indexOf(item) !== -1;
       },
-      flowerKey: function() {
-        for (var k in items)
-          if (items[k] === 'flower') return k;
+      appleKeys: function() {
+        var keys = [];
+        for (k in items)
+          if (items[k] === 'apple') keys.push(k);
+        return keys;
       }
     };
   },

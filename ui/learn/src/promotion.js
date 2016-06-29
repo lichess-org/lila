@@ -10,7 +10,6 @@ var promoting = false;
 
 function start(orig, dest, callback) {
   var piece = ground.pieces()[dest];
-  console.log(piece);
   if (piece && piece.role == 'pawn' && (
     (dest[1] == 1 && piece.color == 'black') ||
     (dest[1] == 8 && piece.color == 'white'))) {

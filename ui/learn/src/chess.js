@@ -1,9 +1,19 @@
 var Chess = require('chess.js').Chess;
 var util = require('./util');
 
-module.exports = function(fen) {
+module.exports = function(fen, appleKeys) {
 
-  var chess = new Chess(fen)
+  var chess = new Chess(fen);
+
+  if (appleKeys) {
+    var color = chess.turn() === 'w' ? 'b' : 'w';
+    appleKeys.forEach(function(key) {
+      chess.put({
+        type: 'p',
+        color: color
+      }, key);
+    });
+  }
 
   function getColor() {
     return chess.turn() == "w" ? "white" : "black";
