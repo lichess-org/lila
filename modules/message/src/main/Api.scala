@@ -13,7 +13,8 @@ final class Api(
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
-    notifyApi: lila.notify.NotifyApi) {
+    notifyApi: lila.notify.NotifyApi,
+    follows: (String, String) => Fu[Boolean]) {
 
   import Thread.ThreadBSONHandler
 
@@ -43,17 +44,29 @@ final class Api(
           text = data.text,
           creatorId = me.id,
           invitedId = data.user.id) |> { t =>
-            val thread = if (me.troll || lila.security.Spam.detect(data.subject, data.text))
-              t deleteFor invited
-            else t
-            sendUnlessBlocked(thread, fromMod) flatMap {
-              _ ?? {
-                val text = s"${data.subject} ${data.text}"
-                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
-                notify(thread)
+            muteThreadIfNecessary(t, me.troll, me, invited, data.subject, data.text) flatMap {
+              thread => {
+                sendUnlessBlocked(thread, fromMod) flatMap {
+                  _ ?? {
+                    val text = s"${data.subject} ${data.text}"
+                    shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+                    notify(thread)
+                  }
+                } inject thread
               }
-            } inject thread
+            }
           }
+      }
+    }
+  }
+
+  private def muteThreadIfNecessary(thread: Thread, isTroll: Boolean, creator: User, invited: User, subject: String, text: String) : Fu[Thread] = {
+    if (lila.security.Spam.detect(subject, text)) {
+      fuccess(thread deleteFor invited)
+    } else {
+      follows(invited.id, creator.id) flatMap {
+        case true => fuccess(thread)
+        case false => if (isTroll) fuccess(thread deleteFor invited) else fuccess(thread)
       }
     }
   }
