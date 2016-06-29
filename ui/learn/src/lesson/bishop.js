@@ -33,12 +33,12 @@ module.exports = {
     apples: 'a4 a6 a8 b3 c2 d3 e2 f3',
     nbMoves: 8
   }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
+    goal: 'One light-squared bishop,<br>one dark-squared bishop.<br>You need both!',
     fen: '8/8/8/8/8/8/8/2b2b2 b - - 0 1',
     apples: 'c4 d3 d4 d5 e3 e4 e5 f4',
     nbMoves: 8
   }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
+    goal: 'One light-squared bishop,<br>one dark-squared bishop.<br>You need both!',
     fen: '8/3B4/8/8/8/2B5/8/8 w - - 0 1',
     apples: 'a5 b4 c2 c4 c7 e7 f5 f6 g8 h4 h7',
     nbMoves: 11
