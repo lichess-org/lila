@@ -22,6 +22,12 @@ module.exports = {
     apples: 'b6 c4 d7 e5 a8',
     nbMoves: 8
   }, {
+    goal: 'Pawns move forward,<br>but capture diagonally!',
+    fen: '8/8/8/8/8/4P3/8/8 w - - 0 1',
+    apples: 'c6 d5 d7',
+    nbMoves: 4,
+    shapes: [arrow('e3e4'),arrow('e4d5'),arrow('d5c6'),arrow('c6d7')]
+  }, {
     goal: 'A pawn on the second rank can move 2 squares at once!',
     fen: '8/8/8/8/8/8/4P3/8 w - - 0 1',
     items: {
