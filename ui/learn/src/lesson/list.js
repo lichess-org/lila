@@ -4,6 +4,7 @@ var lessons = [
   require('./rook'),
   require('./bishop'),
   require('./queen'),
+  require('./king'),
   require('./knight'),
   require('./pawn')
 ].map(util.toLesson);

@@ -90,7 +90,9 @@ module.exports = function(blueprint, opts) {
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var chess = makeChess(blueprint.fen, items.appleKeys());
+  var chess = makeChess(
+    blueprint.fen,
+    blueprint.emptyApples ? [] : items.appleKeys());
 
   ground.set({
     chess: chess,

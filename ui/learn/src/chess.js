@@ -5,6 +5,7 @@ module.exports = function(fen, appleKeys) {
 
   var chess = new Chess(fen);
 
+  // adds enemy pawns on apples, for collisions
   if (appleKeys) {
     var color = chess.turn() === 'w' ? 'b' : 'w';
     appleKeys.forEach(function(key) {
