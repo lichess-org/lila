@@ -530,5 +530,6 @@ correspondenceChess=Игра по переписке
 onlineAndOfflinePlay=Онлайн и оффлайн
 correspondenceAndUnlimited=По переписке и без ограничения времени
 viewTheSolution=Посмотреть решение
+followAndChallengeFriends=Играйте с друзьями
 availableInNbLanguages=Доступно на %s языках!
 gameAnalysis=Анализ игры
