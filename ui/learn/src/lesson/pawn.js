@@ -1,3 +1,4 @@
+var m = require('mithril');
 var util = require('../util');
 var arrow = util.arrow;
 
@@ -5,24 +6,20 @@ module.exports = {
   title: 'The pawn',
   subtitle: 'It moves forward only.',
   image: util.assetUrl + 'images/learn/pieces/P.svg',
+  intro: "Pawns are weak, but they pack a lot of potential.",
+  illustration: m('div.is2d.no-square',
+    m('piece.pawn.white')
+  ),
   stages: [{
     goal: 'Pawns move one square only.<br><br>But when they reach the other side of the board, they become a stronger piece!',
     fen: '8/8/8/P7/8/8/8/8 w - - 0 1',
-    items: {
-      f3: 'flower'
-    },
+    apples: 'f3',
     nbMoves: 4,
     shapes: [arrow('a5a6'),arrow('a6a7'),arrow('a7a8'),arrow('a8f3')]
   }, {
     goal: 'Most of the time, promoting to a queen is the best.<br><br>But sometimes a knight can come in handy!',
     fen: '8/8/8/5P2/8/8/8/8 w - - 0 1',
-    items: {
-      b6: 'apple',
-      c4: 'apple',
-      d7: 'apple',
-      e5: 'apple',
-      a8: 'flower'
-    },
+    apples: 'b6 c4 d7 e5 a8',
     nbMoves: 8
   }, {
     goal: 'A pawn on the second rank can move 2 squares at once!',

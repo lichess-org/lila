@@ -65,10 +65,10 @@ module.exports = function(blueprint, opts) {
         starTaken = true;
       }
     });
-    sound.move();
-    if (starTaken) sound.take();
     if (!items.hasItem('apple')) complete();
-    else {
+    else if (starTaken) sound.take();
+    else sound.move();
+    if (!vm.completed) {
       chess.color(blueprint.color);
       ground.color(blueprint.color, chess.dests());
     }
