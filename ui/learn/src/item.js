@@ -1,10 +1,11 @@
 var m = require('mithril');
+var util = require('./util');
 
 module.exports = {
   ctrl: function(blueprint) {
 
     var items = {};
-    blueprint.apples.split(' ').forEach(function(key) {
+    util.readKeys(blueprint.apples).forEach(function(key) {
       items[key] = 'apple';
     });
 

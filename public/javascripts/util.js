@@ -197,7 +197,8 @@ lichess.pubsub = (function() {
   };
 })();
 $.spreadNumber = function(el, nbSteps, getDuration, previous) {
-  var previous = previous, displayed;
+  var previous = previous,
+    displayed;
   var display = function(prev, cur, it) {
     var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
@@ -207,16 +208,15 @@ $.spreadNumber = function(el, nbSteps, getDuration, previous) {
   };
   var timeouts = [];
   return function(nb, overrideNbSteps) {
-    if (!el || !nb) return;
-    if (overrideNbSteps) nbSteps = overrideNbSteps;
+    if (!el || (!nb && nb !== 0)) return;
+    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);
     timeouts = [];
     var prev = previous === 0 ? 0 : (previous || nb);
     previous = nb;
-    var interv = getDuration() / nbSteps;
-    for (var i = 0; i < nbSteps; i++) {
+    var interv = Math.abs(getDuration() / nbSteps);
+    for (var i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
-    }
   };
 };
 $.fn.scrollTo = function(target, offsetTop) {

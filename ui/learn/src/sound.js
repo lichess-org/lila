@@ -19,5 +19,6 @@ module.exports = {
   move: make('standard/Move'),
   take: make('sfx/Tournament3rd'),
   stageEnd: make('other/energy3'),
-  lessonEnd: make('sfx/Tournament1st')
+  lessonEnd: make('sfx/Tournament1st'),
+  failure: make('other/failure')
 };

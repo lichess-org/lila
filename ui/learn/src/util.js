@@ -22,5 +22,8 @@ module.exports = {
       orig: vector.slice(0, 2),
       dest: vector.slice(2, 4)
     };
+  },
+  readKeys: function(keys) {
+    return typeof(keys) === 'string' ? keys.split(' ') : keys;
   }
 };

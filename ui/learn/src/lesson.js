@@ -21,9 +21,16 @@ module.exports = function(blueprint, opts) {
         vm.score += score;
         m.redraw();
       },
-      onComplete: onStageComplete
+      onComplete: onStageComplete,
+      restart: restartStage
     })
   }
+
+  var restartStage = function() {
+    vm.score = vm.score - stage.vm.score;
+    stage = makeStage(stage.blueprint.id);
+    m.redraw();
+  };
 
   var stage = makeStage(opts.stage || 1);
 
@@ -41,6 +48,7 @@ module.exports = function(blueprint, opts) {
     },
     start: function() {
       vm.starting = false;
-    }
+    },
+    restartStage: restartStage
   }
 };

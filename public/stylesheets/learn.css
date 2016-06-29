@@ -29,6 +29,27 @@
 #learn_app .completed .goal {
   font-size: 2em;
 }
+#learn_app .failed {
+  background: #dc322f;
+  color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  font-size: 1.3em;
+  padding: 15px;
+  text-align: center;
+}
+#learn_app .failed button {
+  margin: 15px auto 5px auto;
+  font-size: 2em;
+  background: #fff;
+  color: #dc322f;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+#learn_app .failed button:hover {
+  box-shadow: 0 0 15px #fff;
+}
 #learn_app .lichess_ground .score {
   background: #4caf50;
   color: #fff;

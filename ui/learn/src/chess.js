@@ -55,6 +55,15 @@ module.exports = function(fen, appleKeys) {
         to: dest,
         promotion: prom ? util.roleToSan[prom].toLowerCase() : null
       });
-    }
+    },
+    occupation: function() {
+      var map = {};
+      chess.SQUARES.forEach(function(s) {
+        var p = chess.get(s);
+        if (p) map[s] = p;
+      });
+      return map;
+    },
+    instance: chess
   };
 };

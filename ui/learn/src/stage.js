@@ -16,6 +16,7 @@ module.exports = function(blueprint, opts) {
     initialized: false,
     lastStep: false,
     completed: false,
+    failed: false,
     score: 0,
     nbMoves: 0
   };
@@ -39,6 +40,7 @@ module.exports = function(blueprint, opts) {
 
   var complete = function() {
     setTimeout(function() {
+      if (vm.failed) return opts.restart();
       vm.lastStep = false;
       vm.completed = true;
       sound.stageEnd();
@@ -51,6 +53,15 @@ module.exports = function(blueprint, opts) {
       m.redraw();
       setTimeout(opts.onComplete, 1200);
     }, ground.data().stats.dragged ? 0 : 250);
+  };
+
+  var detectFailure = function() {
+    var failed = false;
+    (blueprint.failure || []).forEach(function(f) {
+      failed = failed || f(chess);
+    });
+    if (failed) sound.failure();
+    return failed;
   };
 
   var sendMove = function(orig, dest, prom) {
@@ -68,10 +79,11 @@ module.exports = function(blueprint, opts) {
     if (!items.hasItem('apple')) complete();
     else if (starTaken) sound.take();
     else sound.move();
-    if (!vm.completed) {
-      chess.color(blueprint.color);
-      ground.color(blueprint.color, chess.dests());
-    }
+    if (vm.completed) return;
+    vm.failed = vm.failed || detectFailure();
+    chess.color(blueprint.color);
+    ground.color(blueprint.color, chess.dests());
+    m.redraw();
   };
 
   var onMove = function(orig, dest) {
@@ -96,6 +108,7 @@ module.exports = function(blueprint, opts) {
     blueprint: blueprint,
     items: items,
     vm: vm,
-    getRank: getRank
+    getRank: getRank,
+    restart: opts.restart
   };
 };

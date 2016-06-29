@@ -6,9 +6,19 @@ var congrats = require('../congrats');
 var lessonStarting = require('./lessonStarting');
 var lessonComplete = require('./lessonComplete');
 var renderPromotion = require('../promotion').view;
+var renderScore = require('./scoreView');
 
 function renderRank(rank) {
   if (rank) return m('div.rank', rank);
+}
+
+function renderFailed(stage) {
+  return m('div.failed', [
+    m('h2', 'Puzzle failed!'),
+    m('button', {
+      onclick: stage.restart
+    }, 'Retry')
+  ]);
 }
 
 module.exports = function(ctrl) {
@@ -40,45 +50,10 @@ module.exports = function(ctrl) {
           m('p.subtitle', lesson.blueprint.subtitle)
         ])
       ]),
-      m('div.goal',
-        stage.vm.completed ? congrats() : m.trust(stage.blueprint.goal)),
-      m('div.score', [
-        m('span.plus', {
-          config: function(el, isUpdate, ctx) {
-            var score = lesson.vm.score;
-            if (isUpdate) {
-              var diff = score - (ctx.prev || 0);
-              if (diff) {
-                clearTimeout(ctx.timeout);
-                var $el = $('#learn_app .score .plus');
-                var $parent = $el.parent();
-                var $clone = $el.clone().removeClass('show').text('+' + diff);
-                $el.remove();
-                $parent.append($clone);
-                $clone.addClass('show');
-                ctx.timeout = setTimeout(function() {
-                  $clone.removeClass('show');
-                }, 1000);
-              }
-            }
-            ctx.prev = score;
-          }
-        }),
-        m('span.legend', 'SCORE'),
-        m('span.value', {
-          config: function(el, isUpdate, ctx) {
-            var score = lesson.vm.score;
-            if (!ctx.spread) {
-              el.textContent = lichess.numberFormat(score);
-              ctx.spread = $.spreadNumber(el, 50, function() {
-                var diff = lesson.vm.score - ctx.prev;
-                return Math.min(1000, 5 * diff);
-              }, score);
-            } else if (score !== ctx.prev) ctx.spread(score, (score - ctx.prev) / 5);
-            ctx.prev = score;
-          }
-        })
-      ]),
+      stage.vm.failed ? renderFailed(stage) : m('div.goal',
+        stage.vm.completed ? congrats() : m.trust(stage.blueprint.goal)
+      ),
+      renderScore(lesson),
       renderRank(stage.getRank())
     ])
   ]);

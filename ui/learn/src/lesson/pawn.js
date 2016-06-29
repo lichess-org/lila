@@ -1,5 +1,6 @@
 var m = require('mithril');
 var util = require('../util');
+var assert = require('../assert');
 var arrow = util.arrow;
 
 module.exports = {
@@ -26,7 +27,8 @@ module.exports = {
     fen: '8/8/8/8/8/4P3/8/8 w - - 0 1',
     apples: 'c6 d5 d7',
     nbMoves: 4,
-    shapes: [arrow('e3e4'),arrow('e4d5'),arrow('d5c6'),arrow('c6d7')]
+    shapes: [arrow('e3e4'),arrow('e4d5'),arrow('d5c6'),arrow('c6d7')],
+    failure: [assert.pieceNotOn('e3 e4 c6 d5 d7')]
   }, {
     goal: 'A pawn on the second rank can move 2 squares at once!',
     fen: '8/8/8/8/8/8/4P3/8 w - - 0 1',
