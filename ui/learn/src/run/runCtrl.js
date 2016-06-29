@@ -1,11 +1,19 @@
 var m = require('mithril');
 var lessons = require('../lesson/list');
 var makeLesson = require('../lesson');
+var xhr = require('../xhr');
 
 module.exports = function(lesson, opts) {
 
+  var setScore = function(level, score) {
+    xhr.setScore(level.key, score).then(function(data) {
+      opts.data = data;
+    });
+  };
+
   var lesson = makeLesson(lessons.get(m.route.param("id")), {
-    stage: m.route.param('stage') || 1
+    stage: m.route.param('stage') || 1,
+    setScore: setScore
   });
 
   var getNext = function() {

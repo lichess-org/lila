@@ -30,7 +30,10 @@ object Learn extends LilaController {
       implicit val body = ctx.body
       levelForm.bindFromRequest.fold(
         err => BadRequest.fuccess,
-        data => env.api.setScore(me, data._1, data._2) inject Ok
+        data => env.api.setScore(me, data._1, data._2) >>
+          env.api.get(me).map { progress =>
+            Ok(Json toJson progress) as JSON
+          }
       )
   }
 }
