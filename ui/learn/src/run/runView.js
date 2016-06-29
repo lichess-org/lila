@@ -38,7 +38,7 @@ module.exports = function(ctrl) {
     lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),
-      renderPromotion(),
+      renderPromotion(stage),
     ]),
     m('div.lichess_ground', [
       m('div.title', [

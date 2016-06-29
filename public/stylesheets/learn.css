@@ -295,3 +295,21 @@
   background-color: rgba(255, 255, 255, 0.2);
   animation: 1s rankGlow ease-in-out infinite;
 }
+#promotion_choice .explanation {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 3px 25px rgba(0,0,0,0.5);
+}
+#promotion_choice .explanation h2 {
+  font-size: 2em;
+}
+#promotion_choice .explanation p {
+  font-size: 1.3em;
+  margin-top: 15px;
+}

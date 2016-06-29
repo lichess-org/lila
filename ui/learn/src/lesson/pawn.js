@@ -16,7 +16,8 @@ module.exports = {
     fen: '8/8/8/P7/8/8/8/8 w - - 0 1',
     apples: 'f3',
     nbMoves: 4,
-    shapes: [arrow('a5a6'),arrow('a6a7'),arrow('a7a8'),arrow('a8f3')]
+    shapes: [arrow('a5a6'),arrow('a6a7'),arrow('a7a8'),arrow('a8f3')],
+    explainPromotion: true
   }, {
     goal: 'Most of the time, promoting to a queen is the best.<br><br>But sometimes a knight can come in handy!',
     fen: '8/8/8/5P2/8/8/8/8 w - - 0 1',
@@ -39,24 +40,25 @@ module.exports = {
     fen: '8/8/8/8/8/3P4/8/8 w - - 0 1',
     apples: 'c4 b5 b6 d5 d7 e6 c8',
     failure: [assert.whitePawnOn('b5 d4 d6 c7')],
+    nbMoves: 8
+  }, {
+    goal: 'Use all the pawns!<br>No need to promote.',
+    fen: '8/8/p3pp1p/8/8/8/8/8 b - - 0 1',
+    apples: 'b5 d4 e5 f4 g4',
     nbMoves: 7
   }, {
+    goal: 'A pawn on the second rank can move 2 squares at once!',
+    fen: '8/8/8/8/8/8/4P3/8 w - - 0 1',
+    apples: 'd6',
+    nbMoves: 3,
+    shapes: [arrow('e2e4')],
+    failure: [assert.whitePawnOn('e3')],
     cssClass: 'highlight-2nd-rank'
   }, {
-    goal: 'Promote as fast as possible!',
-    fen: '8/8/8/8/8/8/6P1/8 w - - 0 1',
-    items: {
-      a6: 'apple',
-      a7: 'apple',
-      b6: 'apple',
-      b7: 'apple',
-      b8: 'apple',
-      c7: 'apple',
-      c8: 'apple',
-      a8: 'flower'
-    },
-    nbMoves: 13,
-    shapes: [arrow('g2g4')]
+    goal: 'Grab all the stars!',
+    fen: '8/8/8/8/8/8/2PPPP2/8 w - - 0 1',
+    apples: 'c5 d5 e5 f5 d3 e4',
+    nbMoves: 9
   }].map(util.toStage),
   complete: 'Congratulations! Pawns have no secrets for you.'
 };
