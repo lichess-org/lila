@@ -362,13 +362,58 @@
   box-shadow: inset 0 0 2px rgba(0,0,0,.2);
 }
 
-#learn_app .lessons {
+#learn_side {
+  border: none;
+}
+#learn_side .lessons {
+  margin: 10px;
+}
+#learn_side .lesson {
+  display: flex;
+  align-items: center;
+  transition: 0.13s;
+  font-size: 1.3em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  opacity: 0.9;
+}
+#learn_side .lesson img,
+#learn_side .lesson i {
+  width: 30px;
+  height: 30px;
+  opacity: 0.9;
+  margin-right: 5px;
+  padding: 10px;
+}
+#learn_side .lesson i::before {
+  font-size: 30px;
+}
+#learn_side .lesson.next img {
+  background: #3893E8;
+  -webkit-filter: brightness(0.9);
+}
+#learn_side .lesson.next img:hover {
+  -webkit-filter: brightness(1.2);
+}
+#learn_side .lesson.done img {
+  background: #4caf50;
+}
+#learn_side .lesson.future img {
+  opacity: 0.7;
+  background: #f57c00;
+  cursor: default;
+}
+#learn_side .lesson:hover {
+  -webkit-filter: brightness(1.2);
+}
+
+#learn_app .map .lessons {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   margin: 10px;
 }
-#learn_app .lessons .lesson {
+#learn_app .map .lesson {
   position: relative;
   display: flex;
   align-items: center;
@@ -381,13 +426,13 @@
   border-radius: 3px;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
-#learn_app .lessons img {
+#learn_app .map img {
   width: 80px;
   height: 80px;
   margin: 5px 8px 5px 5px;
   opacity: 0.9;
 }
-#learn_app .lessons h2 {
+#learn_app .map h2 {
   font-size: 2.2em;
   margin-left: -3px;
 }
@@ -396,32 +441,36 @@
     -webkit-filter: brightness(1.1);
   }
 }
-#learn_app .lessons .lesson.next {
+#learn_app .map .lesson.next {
   background: #3893E8;
-  animation: 1.7s soft-bright ease-in-out infinite;
   -webkit-filter: brightness(0.9);
 }
-#learn_app .lessons .lesson.next:hover {
+#learn_app .map .lesson.next {
+  animation: 1.7s soft-bright ease-in-out infinite;
+}
+#learn_app .map .lesson.next:hover {
   -webkit-filter: brightness(1.2);
 }
-#learn_app .lessons .lesson.done {
+#learn_app .map .lesson.done {
   background: #4caf50;
 }
-#learn_app .lessons .lesson.future {
+#learn_app .map .lesson.future {
   opacity: 0.7;
   background: #f57c00;
   cursor: default;
 }
-#learn_app .lessons .lesson.future img {
+#learn_app .map .lesson.future img {
   opacity: 0.7;
   -webkit-filter: blur(2px);
   filter: blur(2px);
 }
-#learn_app .lessons a.lesson:hover {
+#learn_app .map a.lesson.current,
+#learn_app .map a.lesson:hover {
   -webkit-filter: brightness(1.08);
   transform: scale(1.05);
+  opacity: 1;
 }
-#learn_app .lessons .lesson .ribbon-wrapper {
+#learn_app .map .lesson .ribbon-wrapper {
   width: 85px;
   height: 88px;
   overflow: hidden;
@@ -429,7 +478,7 @@
   top: -3px;
   right: -3px;
 }
-#learn_app .lessons .lesson .ribbon {
+#learn_app .map .lesson .ribbon {
   font: bold 15px Sans-Serif;
   color: #333;
   text-align: center;
@@ -444,32 +493,32 @@
   box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
 
-#learn_app .lessons .lesson .ribbon:before,
-#learn_app .lessons .lesson .ribbon:after {
+#learn_app .map .lesson .ribbon:before,
+#learn_app .map .lesson .ribbon:after {
   content: "";
   border-left:  3px solid transparent;
   border-right: 3px solid transparent;
   position:absolute;
   bottom: -3px;
 }
-#learn_app .lessons .lesson .ribbon:before {
+#learn_app .map .lesson .ribbon:before {
   left: 0;
 }
-#learn_app .lessons .lesson .ribbon:after {
+#learn_app .map .lesson .ribbon:after {
   right: 0;
 }
 
-#learn_app .lessons .lesson .ribbon.done {
+#learn_app .map .lesson .ribbon.done {
   background-color: #BFDC7A;
 }
-#learn_app .lessons .lesson .ribbon.done:before,
-#learn_app .lessons .lesson .ribbon.done:after {
+#learn_app .map .lesson .ribbon.done:before,
+#learn_app .map .lesson .ribbon.done:after {
   border-top:   3px solid #6e8900;
 }
-#learn_app .lessons .lesson .ribbon.next {
+#learn_app .map .lesson .ribbon.next {
   background-color: #B3E5FC;
 }
-#learn_app .lessons .lesson .ribbon.next:before,
-#learn_app .lessons .lesson .ribbon.next:after {
+#learn_app .map .lesson .ribbon.next:before,
+#learn_app .map .lesson .ribbon.next:after {
   border-top:   3px solid #536DFE;
 }

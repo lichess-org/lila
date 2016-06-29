@@ -5,14 +5,15 @@
 @embedJs {
 $(function() {
 LichessLearn(document.getElementById('learn_app'), {
-data: @Html(J.stringify(data))
+data: @Html(J.stringify(data)),
+sideElement: document.getElementById('learn_side')
 });
 });
 }
 }
 
 @side = {
-<div class="side_box learn_box">
+<div id="learn_side" class="side_box learn_box">
   <!-- @base.spinner() -->
 </div>
 }

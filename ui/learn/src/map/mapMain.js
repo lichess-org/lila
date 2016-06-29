@@ -15,9 +15,8 @@ function ribbon(l, status, result) {
 module.exports = function(opts) {
   return {
     controller: function() {
-      var data = opts.data;
       return {
-        data: data
+        data: opts.data
       };
     },
     view: function(ctrl) {
