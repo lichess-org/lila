@@ -222,6 +222,7 @@ final class JsonView(
         ),
         "orientation" -> orientation.name,
         "pref" -> Json.obj(
+          "blindfold" -> pref.isBlindfold,
           "animationDuration" -> animationDuration(pov, pref),
           "highlight" -> pref.highlight,
           "destination" -> pref.destination,

@@ -120,7 +120,8 @@ function inputs(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
-    m('div.lichess_board.' + ctrl.data.game.variant.key, {
+    m('div', {
+        class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
         config: function(el, isUpdate) {
           if (!isUpdate) el.addEventListener('wheel', function(e) {
             return wheel(ctrl, e);
