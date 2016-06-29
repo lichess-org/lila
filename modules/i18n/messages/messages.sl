@@ -529,5 +529,7 @@ bulletBlitzClassical=Hitropotezno, pospešeno, klasično
 correspondenceChess=Korespondenčni šah
 onlineAndOfflinePlay=Igranje s povezavo ali brez povezave
 correspondenceAndUnlimited=korespondenčno in neomejeno
+viewTheSolution=Poglej rešitev
+followAndChallengeFriends=Sledi in izzovi prijatelje
 availableInNbLanguages=Razpoložljivo v %s jezikih!
 gameAnalysis=Analiza igre
