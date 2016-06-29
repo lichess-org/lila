@@ -23,8 +23,12 @@
   border: 1px solid #ccc;
   border-top: none;
   font-size: 1.3em;
-  padding: 15px;
+  padding: 0 15px;
   text-align: center;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #learn_app .completed .goal {
   font-size: 2em;
@@ -280,9 +284,9 @@
 
 @keyframes rankGlow {
   50% {
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 40px rgba(255,255,255,0.7);
-}
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 40px rgba(255,255,255,0.7);
+  }
 }
 .highlight-2nd-rank .cg-board::before {
   width: 100%;
@@ -312,4 +316,63 @@
 #promotion_choice .explanation p {
   font-size: 1.3em;
   margin-top: 15px;
+}
+
+#learn_app .progress,
+#learn_app .progress * {
+  box-sizing: border-box;
+  transition: all 1s;
+}
+#learn_app .progress {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+#learn_app .progress .circle {
+  display: block;
+  flex: 0 0 30px;
+  height: 30px;
+  border-radius: 30px 0 30px 30px;
+  background: #fff;
+  border: 1px solid #d5d5da;
+}
+#learn_app .progress .bar {
+  display: block;
+  flex: 1 1 80px;
+  height: 6px;
+  position: relative;
+  margin-left: -1px;
+  margin-right: -1px;
+  background: #fff;
+  border: 1px solid #d5d5da;
+  border-left: none;
+  border-right: none;
+}
+#learn_app .progress .circle .label {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 24px 0 24px 24px;
+  margin-top: 3px;
+  color: #b5b5ba;
+  font-size: 13px;
+}
+#learn_app .progress .bar.done,
+#learn_app .progress .circle.done {
+  background: #fdd835;
+}
+#learn_app .progress .bar.active {
+  background: linear-gradient(to right, #fdd835 50%, #FFF 50%);
+}
+#learn_app .progress .circle.done .label {
+  color: #FFF;
+  background: #4caf50;
+  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+}
+#learn_app .progress .circle.active .label {
+  color: #FFF;
+  background: #3893E8;
+  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
 }

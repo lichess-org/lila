@@ -32,11 +32,18 @@ module.exports = {
         dragOver: true
       },
       animation: {
-        enabled: true,
-        duration: 300
+        enabled: false, // prevent piece animation during transition
+        duration: 200
       },
       disableContextMenu: true
     });
+    setTimeout(function() {
+      cg.set({
+        animation: {
+          enabled: true
+        }
+      });
+    }, 200);
     if (opts.shapes) cg.setShapes(opts.shapes);
     return cg;
   },

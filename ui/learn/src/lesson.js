@@ -1,12 +1,16 @@
 var m = require('mithril');
 var stageBuilder = require('./stage');
+var makeProgress = require('./progress').ctrl;
 var sound = require('./sound');
 
 module.exports = function(blueprint, opts) {
 
   var onStageComplete = function() {
+    progress.inc();
     var s = makeStage(stage.blueprint.id + 1);
-    if (s) stage = s;
+    if (s) {
+      stage = s;
+    }
     else {
       vm.completed = true;
       sound.lessonEnd();
@@ -34,6 +38,11 @@ module.exports = function(blueprint, opts) {
 
   var stage = makeStage(opts.stage || 1);
 
+  var progress = makeProgress({
+    steps: blueprint.stages.length,
+    step: stage.blueprint.id
+  });
+
   var vm = {
     score: 0,
     starting: stage.blueprint.id === 1,
@@ -42,6 +51,7 @@ module.exports = function(blueprint, opts) {
 
   return {
     blueprint: blueprint,
+    progress: progress,
     vm: vm,
     stage: function() {
       return stage;
