@@ -7,6 +7,8 @@ import lila.tournament.Env.{ current => tournamentEnv }
 import lila.tournament.{ Tournament, TournamentRepo, System, Schedule }
 import lila.user.{ User, UserContext }
 
+import org.joda.time.DateTime
+
 import play.api.libs.json.Json
 import play.twirl.api.Html
 
@@ -27,7 +29,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentLink(tour: Tournament): Html = Html {
     val cssClass = if (tour.scheduled) "text is-gold" else "text"
-    if (tour.`private` && !tour.isFinished) {
+    if (tour.`private` && DateTime.now.compareTo(tour.finishesAt) == -1) {
       s"""<span class="text" data-icon="g">${tour.fullName}</span>"""
     } else {
       val url = routes.Tournament.show(tour.id)
@@ -37,8 +39,12 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentLink(tourId: String): Html = Html {
     val tour = tournamentIdToTournament(tourId)
+    if (tour == null) {
+      var url = routes.Tournament.show(tour.id)
+      s"""<a class="text" data-icon="g" href="$url">Tournament</a>"""
+    }
     val tourName = tour.fullName
-    if (tour.`private` && !tour.isFinished) {
+    if (tour.`private` && DateTime.now.compareTo(tour.finishesAt) == -1) {
       s"""<span class="text" data-icon="g">$tourName</span>"""
     } else {
       val url = routes.Tournament.show(tourId)
@@ -46,7 +52,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     }
   }
 
-  def tournamentIdToTournament(id: String) = TournamentRepo byId id awaitSeconds 2 get
+  def tournamentIdToTournament(id: String) = tournamentEnv.cached byId id getOrElse null
 
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
