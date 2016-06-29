@@ -91,11 +91,11 @@ final class AssessApi(
     def consistentMoveTimes(game: Game)(player: Player) = Statistics.consistentMoveTimes(Pov(game, player))
     val shouldAssess =
       if (!game.source.exists(assessableSources.contains)) false
+      else if (game.mode.casual) false
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
       else if (game.isCorrespondence) false
       else if (game.players exists consistentMoveTimes(game)) true
       else if (game.playedTurns < 40) false
-      else if (game.mode.casual) false
       else true
     shouldAssess.?? {
       val assessible = Assessible(Analysed(game, analysis))
