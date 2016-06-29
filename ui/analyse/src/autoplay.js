@@ -26,7 +26,7 @@ module.exports = function(ctrl) {
       if (this.delay === 'realtime') {
         return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
       } else {
-        var slowDown = this.delay === 'cpl_fast' ? 10 : 50;
+        var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
         var currEval = ctrl.vm.node.eval;
         var currPlyCp = currEval.mate ? 990 : currEval.cp;
