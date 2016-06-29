@@ -7,13 +7,16 @@ module.exports = function(opts) {
     controller: function() {
       return {
         data: opts.data,
-        current: opts.lessonId
+        current: opts.lessonId,
+        enabled: function() {
+          return opts.route === 'run';
+        }
       };
     },
     view: function(ctrl) {
-      return m('div.learn.map', [
+      if (ctrl.enabled()) return m('div.learn.map', [
         m('div.lessons', [
-          m('a.lesson.done', {
+          m('a.lesson.home', {
             href: '/',
             config: m.route
           }, [

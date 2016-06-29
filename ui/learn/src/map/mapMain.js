@@ -15,6 +15,8 @@ function ribbon(l, status, result) {
 module.exports = function(opts) {
   return {
     controller: function() {
+      opts.lessonId = null;
+      opts.route = 'map';
       return {
         data: opts.data
       };

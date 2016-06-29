@@ -388,6 +388,9 @@
 #learn_side .lesson i::before {
   font-size: 30px;
 }
+#learn_side .lesson.home {
+  font-weight: bold;
+}
 #learn_side .lesson.next img {
   background: #3893E8;
   -webkit-filter: brightness(0.9);

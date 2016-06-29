@@ -16,6 +16,7 @@ module.exports = function(opts) {
     setScore: setScore
   });
 
+  opts.route = 'run';
   opts.lessonId = lesson.blueprint.id;
 
   var getNext = function() {
