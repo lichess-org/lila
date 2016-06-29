@@ -126,36 +126,16 @@
 }
 #learn_app .apple {
   background-image: url(../images/learn/star.png);
+  opacity: 0;
+  transform: rotate(180deg) scale(0.1);
+  transition: all 0.6s;
 }
 #learn_app .initialized .apple {
   opacity: 1;
   transform: rotate(360deg) translateY(0) scale(1);
   -webkit-filter: hue-rotate(0deg);
   animation: 1.7s soft-grow ease-in-out infinite, 0.7s soft-hue ease-in-out infinite;
-}
-#learn_app .flower {
-  background-image: url(../images/learn/castle.png);
-  width: 90%;
-  height: 90%;
-  bottom: 5%;
-  left: 5%;
-  opacity: 0.8;
-}
-@keyframes glow-grow {
-  50%{
-    -webkit-filter: brightness(1.1);
-    transform: scale(1.3) rotate(2deg);
-  }
-}
-#learn_app .last-step .flower {
-  opacity: 1;
-  -webkit-filter: brightness(0.92);
-  transform: scale(1) rotate(-2deg);
-  animation: 2s glow-grow ease-in-out infinite;
-}
-#learn_app .initialized square.move-dest.drag-over item,
-#learn_app .initialized item:hover {
-  -webkit-filter: hue-rotate(360deg);
+  animation-delay: 0.6s;
 }
 #learn_app .is2d item {
   width: 100%;
