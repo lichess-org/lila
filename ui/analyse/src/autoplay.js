@@ -27,10 +27,10 @@ module.exports = function(ctrl) {
         return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 50;
-        if (ctrl.vm.node.ply >= ctrl.data.treeParts.length - 1) return 0;
-        var currEval = ctrl.data.treeParts[ctrl.vm.node.ply].eval;
+        if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
+        var currEval = ctrl.vm.mainline[ctrl.vm.node.ply].eval;
         var currPlyCp = currEval.mate ? 990 : currEval.cp;
-        var nextEval = ctrl.data.treeParts[ctrl.vm.node.ply + 1].eval;
+        var nextEval = ctrl.vm.mainline[ctrl.vm.node.ply + 1].eval;
         // if nextEval is undefined, the next move is a checkmate
         var nextPlyCp = nextEval ? (nextEval.mate ? 990 : nextEval.cp) : 990;
         return Math.abs(currPlyCp - nextPlyCp) * slowDown;
