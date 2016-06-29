@@ -212,7 +212,6 @@ $.spreadNumber = function(el, nbSteps, getDuration, previous) {
     timeouts.forEach(clearTimeout);
     timeouts = [];
     var prev = previous === 0 ? 0 : (previous || nb);
-    console.log(previous, prev, nb);
     previous = nb;
     var interv = getDuration() / nbSteps;
     for (var i = 0; i < nbSteps; i++) {
