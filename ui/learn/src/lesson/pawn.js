@@ -4,6 +4,7 @@ var assert = require('../assert');
 var arrow = util.arrow;
 
 module.exports = {
+  key: 'pawn',
   title: 'The pawn',
   subtitle: 'It moves forward only.',
   image: util.assetUrl + 'images/learn/pieces/P.svg',

@@ -3,6 +3,7 @@ var util = require('../util');
 var arrow = util.arrow;
 
 module.exports = {
+  key: 'queen',
   title: 'The queen',
   subtitle: 'Queen = rook + bishop.',
   image: util.assetUrl + 'images/learn/pieces/Q.svg',

@@ -2,6 +2,8 @@ package controllers
 
 import lila.app._
 
+import play.api.data._
+import play.api.data.Forms._
 import play.api.libs.json._
 import views.html
 
@@ -16,5 +18,19 @@ object Learn extends LilaController {
       env.api.get(me) map { progress =>
         Ok(html.learn.index(me, Json toJson progress))
       }
+  }
+
+  private val levelForm = Form(mapping(
+    "key" -> nonEmptyText,
+    "score" -> number
+  )(Tuple2.apply)(Tuple2.unapply))
+
+  def level(key: String) = AuthBody { implicit ctx =>
+    me =>
+      implicit val body = ctx.body
+      levelForm.bindFromRequest.fold(
+        err => BadRequest.fuccess,
+        data => env.api.setScore(me, data._1, data._2) inject Ok
+      )
   }
 }

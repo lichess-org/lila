@@ -10,6 +10,10 @@ final class LearnApi(coll: Coll) {
   def get(user: User): Fu[LearnProgress] =
     coll.uno[LearnProgress]($id(user.id)) map { _ | LearnProgress.empty(user.id) }
 
-  def save(p: LearnProgress): Funit =
+  private def save(p: LearnProgress): Funit =
     coll.update($id(p.id), p, upsert = true).void
+
+  def setScore(user: User, level: String, score: Int) = get(user) flatMap { prog =>
+    save(prog.withScore(level, LevelProgress.Score(score)).pp)
+  }
 }
