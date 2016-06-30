@@ -46,6 +46,9 @@ module.exports = function(blueprint, opts) {
     }, ground.data().stats.dragged ? 0 : 250);
   };
 
+  // cheat
+  Mousetrap.bind(['shift+enter'], complete);
+
   var detectFailure = function() {
     var failed = false;
     (blueprint.failure || []).forEach(function(f) {
