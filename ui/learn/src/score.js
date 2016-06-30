@@ -1,6 +1,7 @@
 var util =  require('./util');
 
 var apple = 50;
+var capture = 50;
 
 function getLevelRank(s, nbMoves) {
   var late = nbMoves - s.nbMoves;

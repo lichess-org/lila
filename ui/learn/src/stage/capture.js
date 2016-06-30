@@ -1,5 +1,6 @@
 var m = require('mithril');
 var util = require('../util');
+var assert = require('../assert');
 var arrow = util.arrow;
 
 var imgUrl = util.assetUrl + 'images/learn/bowman.svg';
@@ -15,7 +16,8 @@ module.exports = {
     goal: 'Take black pieces!<br>And don\'t lose yours.',
     fen: '8/2p2p2/8/8/8/2R5/8/8 w - - 0 1',
     nbMoves: 2,
-    shapes: [arrow('c3c7'), arrow('c7e7')]
+    shapes: [arrow('c3c7'), arrow('c7e7')],
+    success: [assert.extinct('black')]
   }, {
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',

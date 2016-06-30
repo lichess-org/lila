@@ -58,23 +58,34 @@ module.exports = function(blueprint, opts) {
     return failed;
   };
 
+  var detectSuccess = function() {
+    if (blueprint.success) return blueprint.success.every(function(f) {
+      return f(chess);
+    });
+    else return !items.hasItem('apple')
+  };
+
   var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
     if (!move) throw 'Invalid move!';
-    var appleTaken = false;
+    var took = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
         addScore(scoring.apple);
         items.remove(move.to);
-        appleTaken = true;
+        took = true;
       }
     });
-    if (!items.hasItem('apple')) complete();
-    else if (appleTaken) sound.take();
-    else sound.move();
-    if (vm.completed) return;
+    if (move.captured) {
+      addScore(scoring.capture);
+      took = true;
+    }
     vm.failed = vm.failed || detectFailure();
+    if (!vm.failed && detectSuccess()) complete();
+    if (vm.completed) return;
+    if (took) sound.take();
+    else sound.move();
     chess.color(blueprint.color);
     ground.color(blueprint.color, chess.dests());
     m.redraw();

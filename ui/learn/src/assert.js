@@ -27,5 +27,11 @@ module.exports = {
         if (pieceMatch(chess.get(keys[i]), matcher)) return true;
       return false;
     };
+  },
+  extinct: function(color) {
+    return function(chess) {
+      var fen = chess.fen().split(' ')[0].replace(/\//g, '');
+      return fen === (color === 'white' ? fen.toLowerCase() : fen.toUpperCase());
+    }
   }
 };
