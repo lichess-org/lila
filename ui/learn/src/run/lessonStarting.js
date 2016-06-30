@@ -9,7 +9,7 @@ module.exports = function(lesson, next) {
       lesson.blueprint.illustration,
       m('p', m.trust(lesson.blueprint.intro)),
       m('div.buttons',
-        m('a.light', {
+        m('a.next', {
           onclick: lesson.start
         }, "Let's go!")
       )
