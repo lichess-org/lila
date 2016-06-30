@@ -10,13 +10,12 @@ module.exports = {
   subtitle: 'Take your enemy pieces.',
   image: imgUrl,
   intro: 'You are ready for combat! In this level, we will be capturing enemy pieces.',
-  illustration: m('img', {src: imgUrl}),
+  illustration: m('img.bg', {src: imgUrl}),
   levels: [{
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
-    apples: 'd5 g8',
+    goal: 'Take black pieces!<br>And don\'t lose yours.',
+    fen: '8/2p2p2/8/8/8/2R5/8/8 w - - 0 1',
     nbMoves: 2,
-    shapes: [arrow('f3d5'), arrow('d5g8')]
+    shapes: [arrow('c3c7'), arrow('c7e7')]
   }, {
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',

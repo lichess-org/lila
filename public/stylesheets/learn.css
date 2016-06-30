@@ -245,6 +245,15 @@
   font-size: 24px;
   margin-bottom: 22px;
 }
+#learn_app .screen img.bg {
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  background: #f57c00;
+  box-shadow: inset 0 0 30px 2px rgba(255,255,255,0.9);
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
 #learn_app .screen .score {
   text-transform: uppercase;
   color: #0288d1;
@@ -571,5 +580,5 @@
 }
 #learn_app .map .stage .ribbon.next:before,
 #learn_app .map .stage .ribbon.next:after {
-  border-top:   3px solid #536DFE;
+  border-top: 3px solid #536DFE;
 }
