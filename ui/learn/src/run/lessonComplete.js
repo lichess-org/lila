@@ -1,4 +1,12 @@
 var m = require('mithril');
+var scoring = require('../score');
+
+function makeStars(rank) {
+  var stars = [];
+  for (var i = 3; i > 0; i--)
+    stars.push(m('div.star-wrap', rank <= i ? m('i.star') : null));
+  return stars;
+}
 
 module.exports = function(lesson, next) {
   return m('div.screen-overlay', {
@@ -7,27 +15,34 @@ module.exports = function(lesson, next) {
       }
     },
     m('div.screen', [
-      m('img.trophy', {
-        src: "http://s22.postimg.org/tg9t79o0d/trophy.png",
-      }),
+      m('div.stars', makeStars(scoring.getLevelRank(lesson.blueprint, lesson.vm.score))),
       m('h1', 'Level ' + lesson.blueprint.id + ' complete'),
       m('span.score', [
-        'Your score:',
-        m('span.num', lesson.vm.score)
+        'Your score: ',
+        m('span', {
+          config: function(el, isUpdate) {
+            if (!isUpdate) setTimeout(function() {
+              var score = lesson.vm.score;
+              $.spreadNumber(el, 50, function() {
+                return 3000;
+              }, 0)(score);
+            }, 300);
+          }
+        }, 0)
       ]),
       m('p', [
         m.trust(lesson.blueprint.complete)
       ]),
       m('div.buttons', [
-        next ? m('a.light', {
+        next ? m('a.next', {
           href: '/' + next.id,
           config: m.route
         }, [
-          'Next level: ',
+          'Next: ',
           next.title + ' ',
           m('i[data-icon=H]')
         ]) : null,
-        m('a.dark.text[data-icon=I]', {
+        m('a.back.text[data-icon=I]', {
           href: '/',
           config: m.route
         }, 'Back to learning map')

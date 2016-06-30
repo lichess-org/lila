@@ -6,7 +6,9 @@ var lessons = require('../lesson/list');
 function makeStars(nb) {
   var stars = [];
   for (var i = 0; i < nb; i++)
-    stars.push(m('i', {'data-icon': 't'}));
+    stars.push(m('i', {
+      'data-icon': 't'
+    }));
   return stars;
 }
 
