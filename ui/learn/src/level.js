@@ -65,6 +65,15 @@ module.exports = function(blueprint, opts) {
     else return !items.hasItem('apple')
   };
 
+  var detectCapture = function() {
+    if (!blueprint.detectCapture) return true;
+    var move = chess.findCapture();
+    if (!move) return;
+    ground.showCapture(move);
+    ground.stop();
+    return true;
+  };
+
   var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
@@ -86,12 +95,17 @@ module.exports = function(blueprint, opts) {
     if (vm.completed) return;
     if (took) sound.take();
     else sound.move();
-    chess.color(blueprint.color);
-    ground.color(blueprint.color, chess.dests());
+    if (detectCapture()) vm.failed = true;
+    else {
+      chess.color(blueprint.color);
+      ground.color(blueprint.color, chess.dests());
+    }
     m.redraw();
   };
 
   var onMove = function(orig, dest) {
+    var piece = ground.get(dest);
+    if (!piece || piece.color !== blueprint.color) return;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 

@@ -1,4 +1,5 @@
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 
 var cg = new chessground.controller();
 
@@ -10,6 +11,7 @@ module.exports = {
       lastMove: null,
       orientation: opts.orientation,
       coordinates: true,
+      squareKey: true,
       turnColor: opts.chess.color(),
       movable: {
         free: false,
@@ -57,6 +59,16 @@ module.exports = {
       }
     });
   },
+  fen: function(fen, color, dests) {
+    cg.set({
+      turnColor: color,
+      fen: fen,
+      movable: {
+        color: color,
+        dests: dests
+      }
+    });
+  },
   promote: function(key, role) {
     var pieces = {};
     var piece = cg.data.pieces[key];
@@ -73,5 +85,28 @@ module.exports = {
   },
   pieces: function() {
     return cg.data.pieces;
+  },
+  get: function(key) {
+    return cg.data.pieces[key];
+  },
+  showCapture: function(move) {
+    var $square = $('#learn_app square[data-key=' + move.orig + ']');
+    $square.addClass('wriggle');
+    setTimeout(function() {
+      $square.removeClass('wriggle');
+      cg.apiMove(move.orig, move.dest);
+    }, 600);
+    // var shapes = [{
+    //   brush: 'red',
+    //   orig: move.orig,
+    //   dest: move.dest
+    // }];
+    // for (var i = 0; i < 4; i++) {
+    //   setTimeout(partial(cg.setShapes, shapes), i * 300);
+    //   setTimeout(partial(cg.setShapes, []), i * 300 + 150);
+    // }
+  },
+  resetShapes: function() {
+    cg.setShapes([]);
   }
 };

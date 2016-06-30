@@ -354,6 +354,36 @@
   margin-top: 15px;
 }
 
+@keyframes wriggle {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+  10% {
+    transform: translateX(-4px) rotate(-3deg);
+  }
+  50% {
+  }
+  90% {
+    transform: translateX(4px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}
+#learn_app .cg-board square.wriggle piece {
+  animation: wriggle 0.2s 3;
+}
+#learn_app .cg-board square.wriggle piece::after {
+  content: '!';
+}
+#learn_app .cg-board square.wriggle piece::after {
+  content: '!';
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: rgba(0,0,0,0.8) 0 0 3px;
+}
+
 #learn_app .progress,
 #learn_app .progress * {
   box-sizing: border-box;

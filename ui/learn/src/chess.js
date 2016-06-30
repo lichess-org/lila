@@ -65,7 +65,19 @@ module.exports = function(fen, appleKeys) {
       });
       return map;
     },
+    findCapture: function() {
+      var move = chess.moves({
+        verbose: true
+      }).filter(function(move) {
+        return move.captured;
+      })[0];
+      if (move) return {
+        orig: move.from,
+        dest: move.to
+      };
+    },
     get: chess.get,
+    undo: chess.undo,
     instance: chess
   };
 };

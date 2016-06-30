@@ -6,7 +6,10 @@ module.exports = {
   toLevel: function(s, it) {
     s.id = it + 1;
     s.color = / w /.test(s.fen) ? 'white' : 'black';
-    s.apples = s.apples || [];
+    if (!s.apples) {
+      s.apples = [];
+      if (s.detectCapture !== false) s.detectCapture = true;
+    }
     return s;
   },
   assetUrl: $('body').data('asset-url') + '/assets/',
