@@ -9,10 +9,6 @@ var renderPromotion = require('../promotion').view;
 var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
-function renderRank(rank) {
-  if (rank) return m('div.rank', rank);
-}
-
 function renderFailed(stage) {
   return m('div.failed', [
     m('h2', 'Puzzle failed!'),
@@ -55,8 +51,7 @@ module.exports = function(ctrl) {
         stage.vm.completed ? congrats() : m.trust(stage.blueprint.goal)
       ),
       renderProgress(lesson.progress),
-      renderScore(lesson),
-      renderRank(stage.getRank())
+      renderScore(lesson)
     ])
   ]);
 };

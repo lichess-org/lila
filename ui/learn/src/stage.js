@@ -3,6 +3,7 @@ var makeItems = require('./item').ctrl;
 var itemView = require('./item').view;
 var makeChess = require('./chess');
 var ground = require('./ground');
+var scoring = require('./score');
 var sound = require('./sound');
 var promotion = require('./promotion');
 
@@ -30,24 +31,14 @@ module.exports = function(blueprint, opts) {
     opts.onScore(v);
   };
 
-  var getRank = function() {
-    if (!vm.completed) return;
-    var late = vm.nbMoves - blueprint.nbMoves;
-    if (late <= 0) return 1;
-    else if (late <= Math.max(1, blueprint.nbMoves / 8)) return 2;
-    return 3;
-  };
-
   var complete = function() {
     setTimeout(function() {
       if (vm.failed) return opts.restart();
       vm.lastStep = false;
       vm.completed = true;
       sound.stageEnd();
-      var rank = getRank();
-      var bonus = 100;
-      if (rank === 1) bonus = 500;
-      else if (rank === 2) bonus = 300;
+      var rank = scoring.getStageRank(blueprint, vm.nbMoves);
+      var bonus = scoring.getStageBonus(rank);
       addScore(bonus);
       ground.stop();
       m.redraw();
@@ -68,16 +59,16 @@ module.exports = function(blueprint, opts) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
     if (!move) throw 'Invalid move!';
-    var starTaken = false;
+    var appleTaken = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
-        addScore(50);
+        addScore(scoring.apple);
         items.remove(move.to);
-        starTaken = true;
+        appleTaken = true;
       }
     });
     if (!items.hasItem('apple')) complete();
-    else if (starTaken) sound.take();
+    else if (appleTaken) sound.take();
     else sound.move();
     if (vm.completed) return;
     vm.failed = vm.failed || detectFailure();
@@ -112,7 +103,6 @@ module.exports = function(blueprint, opts) {
     blueprint: blueprint,
     items: items,
     vm: vm,
-    getRank: getRank,
     restart: opts.restart
   };
 };
