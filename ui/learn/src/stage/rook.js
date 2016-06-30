@@ -11,7 +11,7 @@ module.exports = {
   illustration: m('div.is2d.no-square',
     m('piece.rook.white')
   ),
-  stages: [{
+  levels: [{
     goal: 'Click on the rook<br>to bring it to the star!',
     fen: '8/8/8/8/8/8/4R3/8 w - - 0 1',
     apples: 'e7',
@@ -43,6 +43,6 @@ module.exports = {
     fen: '8/8/8/8/8/5R2/8/R7 w - - 0 1',
     apples: 'a8 b7 d5 f2 f7 g4 g7 h5 h8',
     nbMoves: 11
-  }].map(util.toStage),
+  }].map(util.toLevel),
   complete: 'Congratulations! You have successfully mastered the rook.'
 };

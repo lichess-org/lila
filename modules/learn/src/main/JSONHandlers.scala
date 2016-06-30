@@ -5,9 +5,9 @@ import lila.common.PimpedJson._
 
 object JSONHandlers {
 
-  private implicit val LevelProgressScoreWriter = intAnyValWriter[LevelProgress.Score](_.value)
-  private implicit val LevelProgressTriesWriter = intAnyValWriter[LevelProgress.Tries](_.value)
-  implicit val LevelProgressWriter = Json.writes[LevelProgress]
+  private implicit val StageProgressScoreWriter = intAnyValWriter[StageProgress.Score](_.value)
+  private implicit val StageProgressTriesWriter = intAnyValWriter[StageProgress.Tries](_.value)
+  implicit val StageProgressWriter = Json.writes[StageProgress]
 
   implicit val LearnProgressWriter = Json.writes[LearnProgress]
 }

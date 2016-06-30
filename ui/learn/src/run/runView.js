@@ -3,55 +3,55 @@ var chessground = require('chessground');
 var ground = require('../ground');
 var classSet = chessground.util.classSet;
 var congrats = require('../congrats');
-var lessonStarting = require('./lessonStarting');
-var lessonComplete = require('./lessonComplete');
+var stageStarting = require('./stageStarting');
+var stageComplete = require('./stageComplete');
 var renderPromotion = require('../promotion').view;
 var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
-function renderFailed(stage) {
+function renderFailed(level) {
   return m('div.failed', [
     m('h2', 'Puzzle failed!'),
     m('button', {
-      onclick: stage.restart
+      onclick: level.restart
     }, 'Retry')
   ]);
 }
 
 module.exports = function(ctrl) {
-  var lesson = ctrl.lesson();
-  var stage = lesson.stage();
+  var stage = ctrl.stage();
+  var level = stage.level();
 
   return m('div', {
     class: classSet({
       'lichess_game': true,
-      'initialized': stage.vm.initialized,
-      'starting': stage.vm.starting,
-      'completed': stage.vm.completed,
-      'last-step': stage.vm.lastStep
-    }) + ' ' + stage.blueprint.cssClass
+      'initialized': level.vm.initialized,
+      'starting': level.vm.starting,
+      'completed': level.vm.completed,
+      'last-step': level.vm.lastStep
+    }) + ' ' + level.blueprint.cssClass
   }, [
-    lesson.vm.starting ? lessonStarting(lesson) : null,
-    lesson.vm.completed ? lessonComplete(lesson, ctrl.getNext()) : null,
+    stage.vm.starting ? stageStarting(stage) : null,
+    stage.vm.completed ? stageComplete(stage, ctrl.getNext()) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),
-      renderPromotion(stage),
+      renderPromotion(level),
     ]),
     m('div.lichess_ground', [
       m('div.title', [
         m('img', {
-          src: lesson.blueprint.image
+          src: stage.blueprint.image
         }),
         m('div.text', [
-          m('h2', lesson.blueprint.title),
-          m('p.subtitle', lesson.blueprint.subtitle)
+          m('h2', stage.blueprint.title),
+          m('p.subtitle', stage.blueprint.subtitle)
         ])
       ]),
-      stage.vm.failed ? renderFailed(stage) : m('div.goal',
-        stage.vm.completed ? congrats() : m.trust(stage.blueprint.goal)
+      level.vm.failed ? renderFailed(level) : m('div.goal',
+        level.vm.completed ? congrats() : m.trust(level.blueprint.goal)
       ),
-      renderProgress(lesson.progress),
-      renderScore(lesson)
+      renderProgress(stage.progress),
+      renderScore(stage)
     ])
   ]);
 };

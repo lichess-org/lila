@@ -11,7 +11,7 @@ module.exports = {
   illustration: m('div.is2d.no-square',
     m('piece.king.white')
   ),
-  stages: [{
+  levels: [{
     goal: 'The king is slow.',
     fen: '8/8/8/8/3K4/8/8/8 w - - 0 1',
     apples: 'e6',
@@ -28,7 +28,7 @@ module.exports = {
     apples: 'b5 c5 d6 e3 f3 g4',
     nbMoves: 8
   }].map(function(s, i) {
-    s = util.toStage(s, i);
+    s = util.toLevel(s, i);
     s.emptyApples = true;
     return s;
   }),

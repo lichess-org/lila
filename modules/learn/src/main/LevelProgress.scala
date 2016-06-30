@@ -2,13 +2,13 @@ package lila.learn
 
 import org.joda.time.DateTime
 
-case class LevelProgress(
-    level: String,
-    score: LevelProgress.Score,
-    tries: LevelProgress.Tries,
+case class StageProgress(
+    stage: String,
+    score: StageProgress.Score,
+    tries: StageProgress.Tries,
     updatedAt: DateTime) {
 
-  import LevelProgress._
+  import StageProgress._
 
   def withScore(s: Score) = copy(
     score = Score(score.value max s.value),
@@ -16,10 +16,10 @@ case class LevelProgress(
     updatedAt = DateTime.now)
 }
 
-object LevelProgress {
+object StageProgress {
 
-  def empty(level: String) = LevelProgress(
-    level = level,
+  def empty(stage: String) = StageProgress(
+    stage = stage,
     score = Score(0),
     tries = Tries(0),
     updatedAt = DateTime.now)

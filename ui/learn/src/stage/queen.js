@@ -11,7 +11,7 @@ module.exports = {
   illustration: m('div.is2d.no-square',
     m('piece.queen.white')
   ),
-  stages: [{
+  levels: [{
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/8/4Q3/8 w - - 0 1',
     apples: 'e5 b8',
@@ -37,6 +37,6 @@ module.exports = {
     fen: '8/8/8/8/8/8/8/4q3 b - - 0 1',
     apples: 'a6 d1 f2 f6 g6 g8 h1 h4',
     nbMoves: 9
-  }].map(util.toStage),
+  }].map(util.toLevel),
   complete: 'Congratulations! Queens have no secrets for you.'
 };

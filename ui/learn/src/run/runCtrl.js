@@ -1,31 +1,31 @@
 var m = require('mithril');
-var lessons = require('../lesson/list');
-var makeLesson = require('../lesson');
+var stages = require('../stage/list');
+var makeStage = require('../stage');
 var xhr = require('../xhr');
 
 module.exports = function(opts) {
 
-  var setScore = function(level, score) {
-    xhr.setScore(level.key, score).then(function(data) {
+  var setScore = function(stage, score) {
+    xhr.setScore(stage.key, score).then(function(data) {
       opts.data = data;
     });
   };
 
-  var lesson = makeLesson(lessons.get(m.route.param("id")), {
-    stage: m.route.param('stage') || 1,
+  var stage = makeStage(stages.get(m.route.param("id")), {
+    level: m.route.param('level') || 1,
     setScore: setScore
   });
 
   opts.route = 'run';
-  opts.lessonId = lesson.blueprint.id;
+  opts.stageId = stage.blueprint.id;
 
   var getNext = function() {
-    return lessons.get(lesson.blueprint.id + 1);
+    return stages.get(stage.blueprint.id + 1);
   };
 
   return {
-    lesson: function() {
-      return lesson;
+    stage: function() {
+      return stage;
     },
     getNext: getNext
   };

@@ -18,10 +18,10 @@ var make = function(file, volume) {
 module.exports = {
   move: make('standard/Move'),
   take: make('sfx/Tournament3rd', 0.7),
-  stageStart: make('other/ping'),
-  stageEnd: make('other/energy3'),
-  lessonStart: make('other/guitar'),
-  // lessonEnd: make('sfx/Tournament1st'),
-  lessonEnd: make('other/gewonnen'),
+  levelStart: make('other/ping'),
+  levelEnd: make('other/energy3'),
+  stageStart: make('other/guitar'),
+  // stageEnd: make('sfx/Tournament1st'),
+  stageEnd: make('other/gewonnen'),
   failure: make('other/failure')
 };

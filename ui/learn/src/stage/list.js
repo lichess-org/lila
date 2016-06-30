@@ -1,6 +1,6 @@
 var util = require('../util');
 
-var lessons = [
+var stages = [
 
   require('./rook'),
   require('./bishop'),
@@ -13,12 +13,12 @@ var lessons = [
   require('./castling'),
   require('./enpassant')
 
-].map(util.toLesson);
+].map(util.toStage);
 
 module.exports = {
-  list: lessons,
+  list: stages,
   get: function(id) {
-    return lessons.filter(function(l) {
+    return stages.filter(function(l) {
       return l.id == id;
     })[0];
   }

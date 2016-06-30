@@ -12,7 +12,7 @@ module.exports = {
   illustration: m('div.is2d.no-square',
     m('piece.pawn.white')
   ),
-  stages: [{
+  levels: [{
     goal: 'Pawns move one square only.<br>But when they reach the other side of the board, they become a stronger piece!',
     fen: '8/8/8/P7/8/8/8/8 w - - 0 1',
     apples: 'f3',
@@ -60,6 +60,6 @@ module.exports = {
     fen: '8/8/8/8/8/8/2PPPP2/8 w - - 0 1',
     apples: 'c5 d5 e5 f5 d3 e4',
     nbMoves: 9
-  }].map(util.toStage),
+  }].map(util.toLevel),
   complete: 'Congratulations! Pawns have no secrets for you.'
 };

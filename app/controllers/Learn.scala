@@ -20,15 +20,15 @@ object Learn extends LilaController {
       }
   }
 
-  private val levelForm = Form(mapping(
-    "level" -> nonEmptyText,
+  private val stageForm = Form(mapping(
+    "stage" -> nonEmptyText,
     "score" -> number
   )(Tuple2.apply)(Tuple2.unapply))
 
-  def level = AuthBody { implicit ctx =>
+  def stage = AuthBody { implicit ctx =>
     me =>
       implicit val body = ctx.body
-      levelForm.bindFromRequest.fold(
+      stageForm.bindFromRequest.fold(
         err => BadRequest.fuccess,
         data => env.api.setScore(me, data._1, data._2) >>
           env.api.get(me).map { progress =>

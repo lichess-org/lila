@@ -11,7 +11,7 @@ module.exports = {
   image: imgUrl,
   intro: 'Bring your king to safety, and deploy your rook for attack!',
   illustration: m('img', {src: imgUrl}),
-  stages: [{
+  levels: [{
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
     apples: 'd5 g8',
@@ -42,7 +42,7 @@ module.exports = {
     fen: '8/3B4/8/8/8/2B5/8/8 w - - 0 1',
     apples: 'a5 b4 c2 c4 c7 e7 f5 f6 g8 h4 h7',
     nbMoves: 11
-  }].map(util.toStage),
+  }].map(util.toLevel),
   complete: 'Congratulations! You can command a bishop.'
 };
 

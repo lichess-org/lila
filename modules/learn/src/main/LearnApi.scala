@@ -13,7 +13,7 @@ final class LearnApi(coll: Coll) {
   private def save(p: LearnProgress): Funit =
     coll.update($id(p.id), p, upsert = true).void
 
-  def setScore(user: User, level: String, score: Int) = get(user) flatMap { prog =>
-    save(prog.withScore(level, LevelProgress.Score(score)))
+  def setScore(user: User, stage: String, score: Int) = get(user) flatMap { prog =>
+    save(prog.withScore(stage, StageProgress.Score(score)))
   }
 }

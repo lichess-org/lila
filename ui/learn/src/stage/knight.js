@@ -11,7 +11,7 @@ module.exports = {
   illustration: m('div.is2d.no-square',
     m('piece.knight.white')
   ),
-  stages: [{
+  levels: [{
     goal: 'Knights have a fancy way<br>of jumping around!',
     fen: '8/8/8/8/4N3/8/8/8 w - - 0 1',
     apples: 'c5 d7',
@@ -42,6 +42,6 @@ module.exports = {
     fen: '8/2n5/8/8/8/8/8/8 b - - 0 1',
     apples: 'b4 b5 c6 c8 d4 d5 e3 e7 f5',
     nbMoves: 9
-  }].map(util.toStage),
+  }].map(util.toLevel),
   complete: 'Congratulations! You have mastered the knight.'
 };

@@ -1,11 +1,11 @@
 var m = require('mithril');
 
-function setScore(levelKey, score) {
+function setScore(stageKey, score) {
   return m.request({
     method: 'POST',
-    url: '/learn/level',
+    url: '/learn/stage',
     data: {
-      level: levelKey,
+      stage: stageKey,
       score: score
     }
   });

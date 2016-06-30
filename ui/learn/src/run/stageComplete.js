@@ -8,21 +8,21 @@ function makeStars(rank) {
   return stars;
 }
 
-module.exports = function(lesson, next) {
+module.exports = function(stage, next) {
   return m('div.screen-overlay', {
       onclick: function(e) {
         if (e.target.classList.contains('screen-overlay')) m.route('/');
       }
     },
     m('div.screen', [
-      m('div.stars', makeStars(scoring.getLevelRank(lesson.blueprint, lesson.vm.score))),
-      m('h1', 'Level ' + lesson.blueprint.id + ' complete'),
+      m('div.stars', makeStars(scoring.getStageRank(stage.blueprint, stage.vm.score))),
+      m('h1', 'Stage ' + stage.blueprint.id + ' complete'),
       m('span.score', [
         'Your score: ',
         m('span', {
           config: function(el, isUpdate) {
             if (!isUpdate) setTimeout(function() {
-              var score = lesson.vm.score;
+              var score = stage.vm.score;
               $.spreadNumber(el, 50, function() {
                 return 3000;
               }, 0)(score);
@@ -31,7 +31,7 @@ module.exports = function(lesson, next) {
         }, 0)
       ]),
       m('p', [
-        m.trust(lesson.blueprint.complete)
+        m.trust(stage.blueprint.complete)
       ]),
       m('div.buttons', [
         next ? m('a.next', {

@@ -1,7 +1,7 @@
 var m = require('mithril');
 var util = require('../util');
 var scoring = require('../score');
-var lessons = require('../lesson/list');
+var stages = require('../stage/list');
 
 function makeStars(nb) {
   var stars = [];
@@ -12,9 +12,9 @@ function makeStars(nb) {
   return stars;
 }
 
-function ribbon(l, status, result) {
+function ribbon(s, status, result) {
   if (status === 'future') return;
-  var rank = result ? scoring.getLevelRank(l, result.score) : null;
+  var rank = result ? scoring.getStageRank(s, result.score) : null;
   var content = rank ? makeStars(rank) : 'play!';
   return m('div.ribbon-wrapper',
     m('div.ribbon', {
@@ -25,22 +25,22 @@ function ribbon(l, status, result) {
 
 module.exports = function(ctrl) {
   return m('div.learn.map', [
-    m('div.lessons', lessons.list.map(function(l) {
-      var result = ctrl.data.levels[l.key];
-      var previousDone = l.id === 1 ? true : !!ctrl.data.levels[lessons.get(l.id - 1).key];
+    m('div.stages', stages.list.map(function(s) {
+      var result = ctrl.data.stages[s.key];
+      var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.get(s.id - 1).key];
       var status = result ? 'done' : (previousDone ? 'next' : 'future')
       return m(status === 'future' ? 'span' : 'a', {
-        class: 'lesson ' + status,
-        href: '/' + l.id,
+        class: 'stage ' + status,
+        href: '/' + s.id,
         config: status === 'future' ? null : m.route
       }, [
-        ribbon(l, status, result),
+        ribbon(s, status, result),
         m('img', {
-          src: status === 'future' ? util.assetUrl + 'images/learn/help.svg' : l.image
+          src: status === 'future' ? util.assetUrl + 'images/learn/help.svg' : s.image
         }),
         m('div.text', [
-          m('h2', l.title),
-          m('p.subtitle', l.subtitle)
+          m('h2', s.title),
+          m('p.subtitle', s.subtitle)
         ])
       ]);
     }))

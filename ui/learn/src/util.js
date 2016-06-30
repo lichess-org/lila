@@ -1,9 +1,9 @@
 module.exports = {
-  toLesson: function(l, it) {
+  toStage: function(l, it) {
     l.id = it + 1;
     return l;
   },
-  toStage: function(s, it) {
+  toLevel: function(s, it) {
     s.id = it + 1;
     s.color = / w /.test(s.fen) ? 'white' : 'black';
     return s;
