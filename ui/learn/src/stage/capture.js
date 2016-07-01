@@ -14,15 +14,15 @@ module.exports = {
   illustration: m('img.bg', {src: imgUrl}),
   levels: [{
     goal: 'Take black pieces!<br>And don\'t lose yours.',
-    fen: '8/1pp2p2/8/8/8/2R5/8/8 w - - 0 1',
+    fen: '8/2p2p2/8/8/8/2R5/8/8 w - - 0 1',
     nbMoves: 2,
-    shapes: [arrow('c3c7'), arrow('c7e7')],
+    shapes: [arrow('c3c7'), arrow('c7f7')],
     success: [assert.extinct('black')]
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',
-    apples: 'a2 b1 b5 d1 d3 e2',
-    nbMoves: 6
+    goal: 'Take black pieces!<br>And don\'t lose yours.',
+    fen: '8/5r2/8/1r3p2/8/3B4/8/8 w - - 0 1',
+    nbMoves: 5,
+    success: [assert.extinct('black')]
   }, {
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/3B4/8/8/8 w - - 0 1',

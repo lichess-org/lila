@@ -66,9 +66,10 @@ module.exports = function(blueprint, opts) {
   };
 
   var detectCapture = function() {
-    if (!blueprint.detectCapture) return true;
+    if (!blueprint.detectCapture) return false;
     var move = chess.findCapture();
     if (!move) return;
+    vm.failed = true;
     ground.showCapture(move);
     ground.stop();
     return true;
@@ -86,17 +87,16 @@ module.exports = function(blueprint, opts) {
         took = true;
       }
     });
-    if (move.captured) {
+    if (!took && move.captured) {
       addScore(scoring.capture);
       took = true;
     }
-    vm.failed = vm.failed || detectFailure();
+    vm.failed = vm.failed || detectFailure() || detectCapture();
     if (!vm.failed && detectSuccess()) complete();
     if (vm.completed) return;
     if (took) sound.take();
     else sound.move();
-    if (detectCapture()) vm.failed = true;
-    else {
+    if (!vm.failed) {
       chess.color(blueprint.color);
       ground.color(blueprint.color, chess.dests());
     }
