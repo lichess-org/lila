@@ -6,6 +6,7 @@ var sound = require('./sound');
 module.exports = function(blueprint, opts) {
 
   var onLevelComplete = function() {
+    opts.saveScore(blueprint, level.blueprint, vm.score);
     progress.inc();
     var s = makeLevel(level.blueprint.id + 1);
     if (s) {
@@ -14,7 +15,6 @@ module.exports = function(blueprint, opts) {
     else {
       vm.completed = true;
       sound.stageEnd();
-      opts.setScore(blueprint, vm.score);
     }
     m.redraw();
   };

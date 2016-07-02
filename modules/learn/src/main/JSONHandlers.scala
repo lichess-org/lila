@@ -1,13 +1,15 @@
 package lila.learn
 
-import play.api.libs.json._
 import lila.common.PimpedJson._
+import play.api.libs.json._
 
 object JSONHandlers {
 
   private implicit val StageProgressScoreWriter = intAnyValWriter[StageProgress.Score](_.value)
-  private implicit val StageProgressTriesWriter = intAnyValWriter[StageProgress.Tries](_.value)
   implicit val StageProgressWriter = Json.writes[StageProgress]
 
+  private implicit val LearnProgressIdWriter: Writes[LearnProgress.Id] = Writes { x =>
+    JsString(x.str)
+  }
   implicit val LearnProgressWriter = Json.writes[LearnProgress]
 }

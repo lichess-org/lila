@@ -5,15 +5,15 @@ var xhr = require('../xhr');
 
 module.exports = function(opts) {
 
-  var setScore = function(stage, score) {
-    xhr.setScore(stage.key, score).then(function(data) {
+  var saveScore = function(stage, level, score) {
+    xhr.saveScore(stage.key, level.id, score).then(function(data) {
       opts.data = data;
     });
   };
 
   var stage = makeStage(stages.get(m.route.param("id")), {
     level: m.route.param('level') || 1,
-    setScore: setScore
+    saveScore: saveScore
   });
 
   opts.route = 'run';

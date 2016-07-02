@@ -1,16 +1,17 @@
 var m = require('mithril');
 
-function setScore(stageKey, score) {
+function saveScore(stageKey, levelId, score) {
   return m.request({
     method: 'POST',
-    url: '/learn/stage',
+    url: '/learn/score',
     data: {
       stage: stageKey,
+      level: levelId,
       score: score
     }
   });
 }
 
 module.exports = {
-  setScore: setScore
+  saveScore: saveScore
 };
