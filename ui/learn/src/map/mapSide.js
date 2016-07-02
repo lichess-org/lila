@@ -28,13 +28,13 @@ module.exports = function(opts) {
             var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.get(s.id - 1).key];
             var status = result ? 'done' : (previousDone ? 'next' : 'future')
             var current = s.id === ctrl.current;
-            return m(status === 'future' ? 'span' : 'a', {
+            return m('a', {
               class: 'stage ' + status + (current ? ' current' : ''),
               href: '/' + s.id,
-              config: status === 'future' ? null : m.route
+              config: m.route
             }, [
               m('img', {
-                src: status === 'future' ? util.assetUrl + 'images/learn/help.svg' : s.image
+                src: s.image
               }),
               m('h2', s.title)
             ]);

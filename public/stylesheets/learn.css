@@ -485,7 +485,6 @@
 #learn_side .stage.future img {
   opacity: 0.7;
   background: #f57c00;
-  cursor: default;
 }
 #learn_side .stage:hover {
   -webkit-filter: brightness(1.2);
@@ -542,12 +541,9 @@
 #learn_app .map .stage.future {
   opacity: 0.7;
   background: #f57c00;
-  cursor: default;
 }
 #learn_app .map .stage.future img {
   opacity: 0.7;
-  -webkit-filter: blur(2px);
-  filter: blur(2px);
 }
 #learn_app .map a.stage.current,
 #learn_app .map a.stage:hover {

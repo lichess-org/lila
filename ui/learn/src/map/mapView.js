@@ -29,14 +29,14 @@ module.exports = function(ctrl) {
       var result = ctrl.data.stages[s.key];
       var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.get(s.id - 1).key];
       var status = result ? 'done' : (previousDone ? 'next' : 'future')
-      return m(status === 'future' ? 'span' : 'a', {
+      return m('a', {
         class: 'stage ' + status,
         href: '/' + s.id,
-        config: status === 'future' ? null : m.route
+        config: m.route
       }, [
         ribbon(s, status, result),
         m('img', {
-          src: status === 'future' ? util.assetUrl + 'images/learn/help.svg' : s.image
+          src: s.image
         }),
         m('div.text', [
           m('h2', s.title),
