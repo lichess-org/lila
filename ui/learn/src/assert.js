@@ -36,5 +36,13 @@ module.exports = {
   },
   check: function(chess) {
     return chess.instance.in_check();
+  },
+  mate: function(chess) {
+    return chess.instance.in_checkmate();
+  },
+  not: function(assert) {
+    return function(chess) {
+      return !assert(chess);
+    }
   }
 };

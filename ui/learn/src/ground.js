@@ -111,6 +111,7 @@ module.exports = {
       $square.addClass('wriggle');
       setTimeout(function() {
         $square.removeClass('wriggle');
+        cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
       }, 600);
     });

@@ -9,22 +9,22 @@ var levelBonus = {
   3: 100
 };
 
-function getLevelBonus(s, nbMoves) {
-  var late = nbMoves - s.nbMoves;
+function getLevelBonus(l, nbMoves) {
+  var late = nbMoves - l.nbMoves;
   if (late <= 0) return levelBonus[1];
-  if (late <= Math.max(1, s.nbMoves / 8)) return levelBonus[2];
+  if (late <= Math.max(1, l.nbMoves / 8)) return levelBonus[2];
   return levelBonus[3];
 }
 
 function getLevelMaxScore(l) {
   var score = util.readKeys(l.apples).length * apple;
-  score += (l.captures || 0) * capture;
+  if (l.pointsForCapture) score += (l.captures || 0) * capture;
   return score + levelBonus[1];
 }
 
 function getLevelRank(l, score) {
   var max = getLevelMaxScore(l);
-  if (score === max) return 1;
+  if (score >= max) return 1;
   if (score >= max - 200) return 2;
   return 3;
 }

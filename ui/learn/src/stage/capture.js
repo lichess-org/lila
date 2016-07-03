@@ -51,6 +51,9 @@ module.exports = {
     nbMoves: 6,
     captures: 5,
     success: [assert.extinct('black')]
-  }].map(util.toLevel),
+  }].map(function(l, i) {
+    l.pointsForCapture = true;
+    return util.toLevel(l, i);
+  }),
   complete: 'Congratulations! You know how to fight with chess pieces!'
 };

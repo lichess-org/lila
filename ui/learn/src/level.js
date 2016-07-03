@@ -80,7 +80,7 @@ module.exports = function(blueprint, opts) {
         took = true;
       }
     });
-    if (!took && move.captured) {
+    if (!took && move.captured && blueprint.pointsForCapture) {
       vm.score += scoring.capture;
       took = true;
     }
@@ -90,7 +90,12 @@ module.exports = function(blueprint, opts) {
     if (vm.completed) return;
     if (took) sound.take();
     else sound.move();
-    if (!vm.failed) {
+    if (vm.failed) {
+      if (blueprint.showFailureFollowUp) setTimeout(function() {
+        chess.playRandomMove();
+        ground.fen(chess.fen(), blueprint.color, {});
+      }, 600);
+    } else {
       chess.color(blueprint.color);
       ground.color(blueprint.color, chess.dests());
     }

@@ -10,8 +10,9 @@
   color: #fff;
 }
 #learn_app .title h2 {
-  font-size: 2.4em;
+  font-size: 2.3em;
   margin: 15px 0 5px -3px;
+  white-space: no-wrap;
 }
 #learn_app .title img {
   width: 90px;

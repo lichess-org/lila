@@ -93,6 +93,13 @@ module.exports = function(fen, appleKeys) {
       setColor(color);
       return checks;
     },
+    playRandomMove: function() {
+      var moves = chess.moves();
+      if (moves.length) {
+        var move = moves[Math.floor(Math.random() * moves.length)];
+        chess.move(move);
+      }
+    },
     get: chess.get,
     undo: chess.undo,
     instance: chess
