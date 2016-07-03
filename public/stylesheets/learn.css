@@ -50,6 +50,7 @@
   border: none;
   border-radius: 3px;
   padding: 5px 10px;
+  animation: 0.7s soft-grow ease-in-out infinite;
 }
 #learn_app .failed button:hover {
   box-shadow: 0 0 15px #fff;
