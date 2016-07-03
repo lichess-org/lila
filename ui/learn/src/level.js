@@ -28,7 +28,6 @@ module.exports = function(blueprint, opts) {
 
   var complete = function() {
     setTimeout(function() {
-      if (vm.failed) return opts.restart();
       vm.lastStep = false;
       vm.completed = true;
       sound.levelEnd();
@@ -86,6 +85,7 @@ module.exports = function(blueprint, opts) {
       took = true;
     }
     vm.failed = vm.failed || detectFailure() || detectCapture();
+    ground.check(chess);
     if (!vm.failed && detectSuccess()) complete();
     if (vm.completed) return;
     if (took) sound.take();
@@ -124,7 +124,6 @@ module.exports = function(blueprint, opts) {
   return {
     blueprint: blueprint,
     items: items,
-    vm: vm,
-    restart: opts.restart
+    vm: vm
   };
 };

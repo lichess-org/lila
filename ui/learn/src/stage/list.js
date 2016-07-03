@@ -10,8 +10,10 @@ var stages = [
   require('./pawn'),
 
   require('./capture'),
+  require('./check'),
+  require('./checkmate'),
   require('./castling'),
-  require('./enpassant')
+  require('./enpassant'),
 
 ].map(util.toStage);
 

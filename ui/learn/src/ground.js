@@ -7,6 +7,7 @@ var cg = new chessground.controller();
 module.exports = {
   instance: cg,
   set: function(opts) {
+    var check = opts.chess.instance.in_check();
     cg.set({
       fen: opts.chess.fen(),
       lastMove: null,
@@ -14,6 +15,7 @@ module.exports = {
       coordinates: true,
       squareKey: true,
       turnColor: opts.chess.color(),
+      check: check,
       movable: {
         free: false,
         color: opts.chess.color(),
@@ -68,6 +70,11 @@ module.exports = {
         color: color,
         dests: dests
       }
+    });
+  },
+  check: function(chess) {
+    cg.set({
+      check: chess.instance.in_check()
     });
   },
   promote: function(key, role) {

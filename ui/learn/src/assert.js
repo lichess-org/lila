@@ -33,5 +33,8 @@ module.exports = {
       var fen = chess.fen().split(' ')[0].replace(/\//g, '');
       return fen === (color === 'white' ? fen.toLowerCase() : fen.toUpperCase());
     }
+  },
+  check: function(chess) {
+    return chess.instance.in_check();
   }
 };
