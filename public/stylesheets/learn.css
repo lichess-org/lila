@@ -458,11 +458,11 @@
 #learn_side .stage.home {
   font-weight: bold;
 }
-#learn_side .stage.next img {
+#learn_side .stage.active img {
   background: #3893E8;
   -webkit-filter: brightness(0.9);
 }
-#learn_side .stage.next img:hover {
+#learn_side .stage.active img:hover {
   -webkit-filter: brightness(1.2);
 }
 #learn_side .stage.done img {
@@ -531,7 +531,7 @@
 #learn_app .map .stage.future img {
   opacity: 0.7;
 }
-#learn_app .map a.stage.current,
+#learn_app .map a.stage.active,
 #learn_app .map a.stage:hover {
   -webkit-filter: brightness(1.08);
   transform: scale(1.05);

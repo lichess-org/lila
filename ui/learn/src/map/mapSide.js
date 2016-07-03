@@ -7,7 +7,7 @@ module.exports = function(opts) {
     controller: function() {
       return {
         data: opts.storage.data,
-        current: opts.stageId,
+        active: opts.stageId,
         enabled: function() {
           return opts.route === 'run';
         }
@@ -25,11 +25,9 @@ module.exports = function(opts) {
           ]),
           stages.list.map(function(s) {
             var result = ctrl.data.stages[s.key];
-            var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.get(s.id - 1).key];
-            var status = result ? 'done' : (previousDone ? 'next' : 'future')
-            var current = s.id === ctrl.current;
+            var status = s.id === ctrl.active ? 'active' : (result ? 'done' : 'future')
             return m('a', {
-              class: 'stage ' + status + (current ? ' current' : ''),
+              class: 'stage ' + status,
               href: '/' + s.id,
               config: m.route
             }, [
