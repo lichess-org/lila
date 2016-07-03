@@ -52,5 +52,5 @@ module.exports = {
     captures: 5,
     success: [assert.extinct('black')]
   }].map(util.toLevel),
-  complete: 'Congratulations! You can command a bishop.'
+  complete: 'Congratulations! You know how to fight with chess pieces!'
 };
