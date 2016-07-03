@@ -2393,6 +2393,14 @@ input.cmn-toggle-round:checked + label:after {
 .hopscotch-content a {
   text-decoration: underline;
 }
+.friend-list-name {
+    width: 80%;
+    float: left;
+}
+.friend-list-tv {
+    width: 10%;
+    float: right;
+}
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   background: #eee;

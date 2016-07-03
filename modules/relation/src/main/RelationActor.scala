@@ -2,6 +2,7 @@ package lila.relation
 
 import akka.actor.{ Actor, ActorSelection }
 import akka.pattern.{ ask, pipe }
+import lila.game.Game
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
@@ -20,14 +21,27 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, LightUser]()
 
+  private var onlinePlayings = Map[ID, LightUser]()
+
+  override def preStart(): Unit = {
+    context.system.lilaBus.subscribe(self, 'startGame)
+    context.system.lilaBus.subscribe(self, 'finishGame)
+  }
+
+  override def postStop() : Unit = {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
+
   def receive = {
 
     case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
-      case OnlineFriends(users) =>
+      case OnlineFriends(users, friendsPlaying) =>
         bus.publish(SendTo(userId, "following_onlines", users.map(_.titleName)), 'users)
+        bus.publish(SendTo(userId, "following_playings", friendsPlaying.map(_.titleName)), 'users)
     }
 
     case NotifyMovement =>
@@ -40,14 +54,35 @@ private[relation] final class RelationActor(
       onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
       notifyFollowers(enters, "following_enters")
       notifyFollowers(leaves, "following_leaves")
+
+    case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
+      onlinePlayings = onlinePlayings -- game.userIds
+      val usersPlaying = getGameUsers(game)
+      notifyFollowers(usersPlaying, "following_stopped_playing")
+
+    case msg: lila.game.actorApi.StartGame =>
+      val usersPlaying = getGameUsers(msg.game)
+      onlinePlayings = onlinePlayings ++ usersPlaying.map(u => u.id -> u)
+      notifyFollowers(usersPlaying, "following_playing")
+  }
+
+  private def getGameUsers(game: Game) : List[LightUser] = {
+    val userIds = game.userIds
+    userIds.flatMap(lightUser(_))
   }
 
   private def onlineIds: Set[ID] = onlines.keySet
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api fetchFollowing userId map { ids =>
-      OnlineFriends(ids.flatMap(onlines.get).toList)
+      val friends = ids.flatMap(onlines.get).toList
+      val friendsPlaying = getFriendsPlaying(friends)
+      OnlineFriends(friends, friendsPlaying)
     }
+
+  private def getFriendsPlaying(friends: List[LightUser]): List[LightUser] = {
+    friends.filter(p => onlinePlayings.contains(p.id))
+  }
 
   private def notifyFollowers(users: List[LightUser], message: String) {
     users foreach { user =>

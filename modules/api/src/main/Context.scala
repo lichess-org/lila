@@ -8,6 +8,7 @@ import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
   friends: List[lila.common.LightUser],
+  friendsPlaying: List[lila.common.LightUser],
   teamNbRequests: Int,
   nbChallenges: Int,
   nbNotifications: Int,
@@ -17,7 +18,7 @@ case class PageData(
 
 object PageData {
 
-  val default = PageData(Nil, 0, 0, 0, Pref.default, false, false)
+  val default = PageData(Nil, Nil, 0, 0, 0, Pref.default, false, false)
 
   def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }
@@ -28,6 +29,9 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val pageData: PageData
 
   def friends = pageData.friends
+
+  def friendsPlaying = pageData.friendsPlaying
+
   def teamNbRequests = pageData.teamNbRequests
   def nbChallenges = pageData.nbChallenges
   def nbNotifications = pageData.nbNotifications

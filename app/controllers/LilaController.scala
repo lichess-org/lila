@@ -304,15 +304,15 @@ private[controllers] trait LilaController
           import akka.pattern.ask
           import makeTimeout.short
           (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
-            case OnlineFriends(users) => users
-          } recover { case _ => Nil }) zip
+            case OnlineFriends(users, usersPlaying) => (users, usersPlaying)
+          } recover { case _ => (Nil,Nil) }) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
         }
       } map {
-        case (pref, (((friends, teamNbRequests), nbChallenges), nbNotifications)) =>
-          PageData(friends, teamNbRequests, nbChallenges, nbNotifications, pref,
+        case (pref, ((( (friends, friendsPlaying), teamNbRequests), nbChallenges), nbNotifications)) =>
+          PageData(friends, friendsPlaying, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }

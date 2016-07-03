@@ -158,6 +158,15 @@ lichess.notifyApp = (function() {
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
       },
+      following_playings: function(names) {
+        $('#friend_box').friends('playings', names);
+      },
+      following_playing: function(name) {
+        $('#friend_box').friends('playing', name);
+      },
+      following_stopped_playing: function(name) {
+        $('#friend_box').friends('stopped_playing', name);
+      },
       new_notification: function(e) {
         var notification = e.notification;
 
@@ -1111,10 +1120,16 @@ lichess.notifyApp = (function() {
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload').split(','));
+      self.playings(self.element.data('playing').split(','));
+    },
+    _makeUser: function(name) {
+      return {
+        'name' : name
+      }
     },
     repaint: function() {
       this.users = lichess.unique(this.users.filter(function(u) {
-        return u !== '';
+        return u.name !== '';
       }));
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
@@ -1122,22 +1137,58 @@ lichess.notifyApp = (function() {
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
-      this.users = us || [];
+      this.users = us.map(this._makeUser) || [];
       this.repaint();
     },
-    enters: function(user) {
+    enters: function(userName) {
+      var user = this._makeUser(userName);
+
       this.users.push(user);
       this.repaint();
     },
-    leaves: function(user) {
+    leaves: function(userName) {
       this.users = this.users.filter(function(u) {
-        return u != user
+        return u.name != userName
       });
       this.repaint();
     },
+    _setPlaying: function(userName, playing) {
+
+        var user = this.users.find(function(u) {
+            return u.name === userName;
+        });
+
+        if (user) {
+            user["playing"] = playing;
+        }
+
+    },
+    playings: function(userNames) {
+
+        for (user in userNames) {
+            this._setPlaying(userNames[user], true);
+        }
+
+        this.repaint();
+    },
+    playing: function(userName) {
+        this._setPlaying(userName, true);
+        this.repaint();
+    },
+    stopped_playing: function(userName) {
+        this._setPlaying(userName, false);
+        this.repaint();
+    },
     _renderUser: function(user) {
-      var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
-      return '<a class="ulpt" href="/@/' + id + '">' + user + '</a>';
+      var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+
+      var renderTvButton = function(userId) {
+        return '<a class="hint--bottom-left friend-list-tv" href="/@/' + userId + '/tv" ' + '<span data-icon="1"></span></a>';
+      };
+
+      var tvButton = user["playing"] ? renderTvButton(id) : '';
+
+      return '<span class="friend-list-name"><a class="ulpt" href="/@/' + id + '">' + user.name + '</a></span>' + tvButton;
     }
   });
 

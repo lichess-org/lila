@@ -185,7 +185,7 @@ case class Remove(gameId: String)
 package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
-case class OnlineFriends(users: List[LightUser])
+case class OnlineFriends(users: List[LightUser], usersPlaying: List[LightUser])
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }
