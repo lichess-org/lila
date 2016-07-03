@@ -73,9 +73,17 @@ module.exports = {
     });
   },
   check: function(chess) {
+    var checks = chess.checks();
     cg.set({
-      check: chess.instance.in_check()
+      check: !!checks
     });
+    if (checks) cg.setShapes(checks.map(function(move) {
+      return {
+        brush: 'yellow',
+        orig: move.orig,
+        dest: move.dest
+      };
+    }));
   },
   promote: function(key, role) {
     var pieces = {};

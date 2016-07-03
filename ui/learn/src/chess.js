@@ -47,7 +47,7 @@ module.exports = function(fen, appleKeys) {
     },
     color: function(c) {
       if (c) setColor(c);
-      else return getColor(c);
+      else return getColor();
     },
     fen: chess.fen,
     move: function(orig, dest, prom) {
@@ -75,6 +75,23 @@ module.exports = function(fen, appleKeys) {
         orig: move.from,
         dest: move.to
       };
+    },
+    checks: function() {
+      if (!chess.in_check()) return null;
+      var color = getColor()
+      setColor(color === 'white' ? 'black' : 'white');
+      var checks = chess.moves({
+        verbose: true
+      }).filter(function(move) {
+        return move.captured === 'k';
+      }).map(function(move) {
+        return {
+          orig: move.from,
+          dest: move.to
+        };
+      });
+      setColor(color);
+      return checks;
     },
     get: chess.get,
     undo: chess.undo,

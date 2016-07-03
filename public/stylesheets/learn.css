@@ -102,7 +102,7 @@
   to {transform: rotate(360deg) scale(0) translateY(30px);}
 }
 #learn_app .completed piece {
-  animation: 2s go-home;
+  animation: 0.7s ease-in-out 0.7s go-home;
 }
 #learn_app item {
   width: 70%;
@@ -459,8 +459,11 @@
 #learn_side .stage.home {
   font-weight: bold;
 }
+#learn_side .stage.active {
+  background: rgba(56, 147, 232, 0.2);
+}
 #learn_side .stage.active img {
-  background: #3893E8;
+  background: rgba(56, 147, 232, 1);
   -webkit-filter: brightness(0.9);
 }
 #learn_side .stage.active img:hover {
@@ -469,9 +472,12 @@
 #learn_side .stage.done img {
   background: #4caf50;
 }
+#learn_side .stage.future:hover {
+  background: rgba(245, 124, 0, 0.2);
+}
 #learn_side .stage.future img {
   opacity: 0.7;
-  background: #f57c00;
+  background: rgba(245, 124, 0, 1);
 }
 #learn_side .stage:hover {
   -webkit-filter: brightness(1.2);
