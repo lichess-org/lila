@@ -5,7 +5,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'rook',
   title: 'The rook',
-  subtitle: 'It moves in straight lines.',
+  subtitle: 'It moves in straight lines',
   image: util.assetUrl + 'images/learn/pieces/R.svg',
   intro: 'The rook is a powerful piece. Are you ready to learn how to use it?',
   illustration: m('div.is2d.no-square',

@@ -7,7 +7,7 @@ var imgUrl = util.assetUrl + 'images/learn/castle.svg';
 module.exports = {
   key: 'castling',
   title: 'Castling',
-  subtitle: 'The special king move.',
+  subtitle: 'The special king move',
   image: imgUrl,
   intro: 'Bring your king to safety, and deploy your rook for attack!',
   illustration: m('img', {src: imgUrl}),

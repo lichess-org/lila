@@ -5,7 +5,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'queen',
   title: 'The queen',
-  subtitle: 'Queen = rook + bishop.',
+  subtitle: 'Queen = rook + bishop',
   image: util.assetUrl + 'images/learn/pieces/Q.svg',
   intro: 'Enters the most powerful chess piece. Her majesty the queen!',
   illustration: m('div.is2d.no-square',

@@ -10,8 +10,10 @@ var stages = [
   require('./pawn'),
 
   require('./capture'),
-  require('./check'),
-  require('./checkmate'),
+  require('./check1'),
+  require('./checkmate1'),
+  require('./outOfCheck.js'),
+
   require('./castling'),
   require('./enpassant'),
 

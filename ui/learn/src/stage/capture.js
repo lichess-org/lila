@@ -8,7 +8,7 @@ var imgUrl = util.assetUrl + 'images/learn/bowman.svg';
 module.exports = {
   key: 'capture',
   title: 'Capture',
-  subtitle: 'Take your enemy pieces.',
+  subtitle: 'Take your enemy pieces',
   image: imgUrl,
   intro: 'You are ready for combat! In this level, we will be capturing enemy pieces.',
   illustration: m('img.bg', {

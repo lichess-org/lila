@@ -21,8 +21,8 @@ module.exports = function(fen, appleKeys) {
   }
 
   function setColor(c) {
-    var turn = c === 'white' ? ' w ' : ' b ';
-    var newFen = chess.fen().replace(/ (w|b) /, turn);
+    var turn = c === 'white' ? 'w' : 'b';
+    var newFen = util.setFenTurn(chess.fen(), turn);
     chess.load(newFen);
     if (getColor() !== c) {
       // the en passant square prevents setting color
@@ -32,12 +32,13 @@ module.exports = function(fen, appleKeys) {
   }
 
   return {
-    dests: function() {
+    dests: function(illegal) {
       var dests = {};
       chess.SQUARES.forEach(function(s) {
         var ms = chess.moves({
           square: s,
-          verbose: true
+          verbose: true,
+          legal: !illegal
         });
         if (ms.length) dests[s] = ms.map(function(m) {
           return m.to;
@@ -64,6 +65,13 @@ module.exports = function(fen, appleKeys) {
         if (p) map[s] = p;
       });
       return map;
+    },
+    kingKey: function(color) {
+      for (var i in chess.SQUARES) {
+        var p = chess.get(chess.SQUARES[i]);
+        if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b'))
+          return chess.SQUARES[i];
+      }
     },
     findCapture: function() {
       var move = chess.moves({

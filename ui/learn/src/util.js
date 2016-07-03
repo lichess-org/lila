@@ -3,14 +3,14 @@ module.exports = {
     l.id = it + 1;
     return l;
   },
-  toLevel: function(s, it) {
-    s.id = it + 1;
-    s.color = / w /.test(s.fen) ? 'white' : 'black';
-    if (!s.apples) {
-      s.apples = [];
-      if (s.detectCapture !== false) s.detectCapture = true;
+  toLevel: function(l, it) {
+    l.id = it + 1;
+    l.color = / w /.test(l.fen) ? 'white' : 'black';
+    if (!l.apples) {
+      l.apples = [];
+      if (l.detectCapture !== false) l.detectCapture = true;
     }
-    return s;
+    return l;
   },
   assetUrl: $('body').data('asset-url') + '/assets/',
   roleToSan: {
@@ -29,5 +29,8 @@ module.exports = {
   },
   readKeys: function(keys) {
     return typeof(keys) === 'string' ? keys.split(' ') : keys;
+  },
+  setFenTurn: function(fen, turn) {
+    return fen.replace(/ (w|b) /, ' ' + turn + ' ');
   }
 };

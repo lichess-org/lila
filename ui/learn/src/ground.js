@@ -1,6 +1,7 @@
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var raf = chessground.util.requestAnimationFrame;
+var util = require('./util');
 
 var cg = new chessground.controller();
 
@@ -19,7 +20,9 @@ module.exports = {
       movable: {
         free: false,
         color: opts.chess.color(),
-        dests: opts.chess.dests()
+        dests: opts.chess.dests({
+          legal: false
+        })
       },
       events: {
         move: opts.onMove
@@ -78,11 +81,7 @@ module.exports = {
       check: !!checks
     });
     if (checks) cg.setShapes(checks.map(function(move) {
-      return {
-        brush: 'yellow',
-        orig: move.orig,
-        dest: move.dest
-      };
+      return util.arrow(move.orig + move.dest, 'yellow');
     }));
   },
   promote: function(key, role) {
@@ -115,15 +114,19 @@ module.exports = {
         cg.apiMove(move.orig, move.dest);
       }, 600);
     });
-    // var shapes = [{
-    //   brush: 'red',
-    //   orig: move.orig,
-    //   dest: move.dest
-    // }];
-    // for (var i = 0; i < 4; i++) {
-    //   setTimeout(partial(cg.setShapes, shapes), i * 300);
-    //   setTimeout(partial(cg.setShapes, []), i * 300 + 150);
-    // }
+  },
+  showCheckmate: function(chess) {
+    var turn = chess.instance.turn() === 'w' ? 'b' : 'w';
+    var fen = [cg.getFen(), turn, '- - 0 1'].join(' ');
+    chess.instance.load(fen);
+    var kingKey = chess.kingKey(turn === 'w' ? 'black' : 'white');
+    var shapes = chess.instance.moves({verbose:true}).filter(function(m) {
+      return m.to === kingKey;
+    }).map(function(m) {
+      return util.arrow(m.from + m.to, 'red');
+    });
+    cg.set({check: shapes.length ? kingKey : null});
+    cg.setShapes(shapes);
   },
   resetShapes: function() {
     cg.setShapes([]);

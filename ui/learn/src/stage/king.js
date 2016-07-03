@@ -5,7 +5,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'king',
   title: 'The king',
-  subtitle: 'The most important piece.',
+  subtitle: 'The most important piece',
   image: util.assetUrl + 'images/learn/pieces/K.svg',
   intro: 'You are the king. If you fall in battle, the game is lost.',
   illustration: m('div.is2d.no-square',

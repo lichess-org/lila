@@ -7,7 +7,7 @@ var imgUrl = util.assetUrl + 'images/learn/spinning-blades.svg';
 module.exports = {
   key: 'enpassant',
   title: 'En passant',
-  subtitle: 'The special pawn move.',
+  subtitle: 'The special pawn move',
   image: imgUrl,
   intro: 'When the opponent pawn moved by two squares, you can take it like if it moved by one square.',
   illustration: m('img', {src: imgUrl}),

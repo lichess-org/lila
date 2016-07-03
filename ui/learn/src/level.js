@@ -71,7 +71,11 @@ module.exports = function(blueprint, opts) {
   var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
-    if (!move) throw 'Invalid move!';
+    if (!move) { // moving into check
+      vm.failed = true;
+      ground.showCheckmate(chess);
+      return m.redraw();
+    }
     var took = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {

@@ -6,7 +6,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'pawn',
   title: 'The pawn',
-  subtitle: 'It moves forward only.',
+  subtitle: 'It moves forward only',
   image: util.assetUrl + 'images/learn/pieces/P.svg',
   intro: "Pawns are weak, but they pack a lot of potential.",
   illustration: m('div.is2d.no-square',

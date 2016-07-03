@@ -5,7 +5,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'knight',
   title: 'The knight',
-  subtitle: 'It moves in a L shape.',
+  subtitle: 'It moves in a L shape',
   image: util.assetUrl + 'images/learn/pieces/N.svg',
   intro: "Here's a challenge for you. The knight is... a tricky piece.",
   illustration: m('div.is2d.no-square',

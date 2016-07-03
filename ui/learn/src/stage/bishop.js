@@ -5,7 +5,7 @@ var arrow = util.arrow;
 module.exports = {
   key: 'bishop',
   title: 'The bishop',
-  subtitle: 'It moves diagonally.',
+  subtitle: 'It moves diagonally',
   image: util.assetUrl + 'images/learn/pieces/B.svg',
   intro: 'Next we will learn how to manoeuver a bishop!',
   illustration: m('div.is2d.no-square',
