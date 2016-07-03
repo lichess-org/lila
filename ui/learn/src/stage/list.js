@@ -14,8 +14,11 @@ var stages = [
   require('./checkmate1'),
   require('./outOfCheck.js'),
 
+  require('./setup'),
   require('./castling'),
   require('./enpassant'),
+
+  require('./check2'),
 
 ].map(util.toStage);
 
