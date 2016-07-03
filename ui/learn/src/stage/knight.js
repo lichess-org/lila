@@ -28,7 +28,7 @@ module.exports = {
     apples: 'b6 d5 d7 e6 f4',
     nbMoves: 5
   }, {
-    goal: 'Knights can jump over obstacles!<br>Escape and vainquish the stars!',
+    goal: 'Knights can jump over obstacles!<br>Escape and vanquish the stars!',
     fen: '8/8/8/8/5n2/8/8/8 b - - 0 1',
     apples: 'e3 e4 e5 f3 f5 g3 g4 g5',
     nbMoves: 9
