@@ -8,7 +8,7 @@ case class StageProgress(
   import StageProgress._
 
   def withScore(level: Int, s: Score) = copy(
-    scores = (0 until level).map { i =>
+    scores = (0 until scores.size.max(level)).map { i =>
       scores.lift(i) | Score(0)
     }.updated(level - 1, s).toVector)
 }

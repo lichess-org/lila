@@ -9,18 +9,18 @@ var renderPromotion = require('../promotion').view;
 var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
-function renderFailed(level) {
+function renderFailed(ctrl) {
   return m('div.failed', [
     m('h2', 'Puzzle failed!'),
     m('button', {
-      onclick: level.restart
+      onclick: ctrl.restart
     }, 'Retry')
   ]);
 }
 
 module.exports = function(ctrl) {
-  var stage = ctrl.stage();
-  var level = stage.level();
+  var stage = ctrl.stage;
+  var level = ctrl.level;
 
   return m('div', {
     class: classSet({
@@ -31,8 +31,8 @@ module.exports = function(ctrl) {
       'last-step': level.vm.lastStep
     }) + ' ' + level.blueprint.cssClass
   }, [
-    stage.vm.starting ? stageStarting(stage) : null,
-    stage.vm.completed ? stageComplete(stage, ctrl.getNext()) : null,
+    ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
+    ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),
       renderPromotion(level),
@@ -40,18 +40,18 @@ module.exports = function(ctrl) {
     m('div.lichess_ground', [
       m('div.title', [
         m('img', {
-          src: stage.blueprint.image
+          src: stage.image
         }),
         m('div.text', [
-          m('h2', stage.blueprint.title),
-          m('p.subtitle', stage.blueprint.subtitle)
+          m('h2', stage.title),
+          m('p.subtitle', stage.subtitle)
         ])
       ]),
-      level.vm.failed ? renderFailed(level) : m('div.goal',
+      level.vm.failed ? renderFailed(ctrl) : m('div.goal',
         level.vm.completed ? congrats() : m.trust(level.blueprint.goal)
       ),
-      renderProgress(stage.progress),
-      renderScore(stage)
+      renderProgress(ctrl.progress),
+      renderScore(level)
     ])
   ]);
 };

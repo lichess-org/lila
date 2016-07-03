@@ -13,11 +13,12 @@ object Learn extends LilaController {
 
   import lila.learn.JSONHandlers._
 
-  def index = Auth { implicit ctx =>
-    me =>
-      env.api.get(me) map { progress =>
-        Ok(html.learn.index(me, Json toJson progress))
-      }
+  def index = Open { implicit ctx =>
+    ctx.me.?? { me =>
+      env.api.get(me) map { Json.toJson(_) } map some
+    }.map { progress =>
+      Ok(html.learn.index(progress))
+    }
   }
 
   private val scoreForm = Form(mapping(
@@ -33,10 +34,7 @@ object Learn extends LilaController {
         err => BadRequest.fuccess, {
           case (stage, level, s) =>
             val score = lila.learn.StageProgress.Score(s)
-            env.api.setScore(me, stage, level, score) >>
-              env.api.get(me).map { progress =>
-                Ok(Json toJson progress) as JSON
-              }
+            env.api.setScore(me, stage, level, score) inject Ok(Json.obj("ok" -> true))
         })
   }
 }

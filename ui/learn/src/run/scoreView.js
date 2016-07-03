@@ -1,10 +1,10 @@
 var m = require('mithril');
 
-module.exports = function(stage) {
+module.exports = function(level) {
   return m('div.score', [
     m('span.plus', {
       config: function(el, isUpdate, ctx) {
-        var score = stage.vm.score;
+        var score = level.vm.score;
         if (isUpdate) {
           var diff = score - (ctx.prev || 0);
           if (diff > 0) {
@@ -26,11 +26,11 @@ module.exports = function(stage) {
     m('span.legend', 'SCORE'),
     m('span.value', {
       config: function(el, isUpdate, ctx) {
-        var score = stage.vm.score;
+        var score = level.vm.score;
         if (!ctx.spread) {
           el.textContent = lichess.numberFormat(score);
           ctx.spread = $.spreadNumber(el, 50, function() {
-            var diff = stage.vm.score - ctx.prev;
+            var diff = level.vm.score - ctx.prev;
             return Math.min(1000, 5 * diff);
           }, score);
         } else if (score !== ctx.prev) ctx.spread(score, (score - ctx.prev) / 5);

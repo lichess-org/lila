@@ -6,7 +6,7 @@ module.exports = function(opts) {
   return {
     controller: function() {
       return {
-        data: opts.data,
+        data: opts.storage.data,
         current: opts.stageId,
         enabled: function() {
           return opts.route === 'run';

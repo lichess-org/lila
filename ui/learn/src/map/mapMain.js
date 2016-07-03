@@ -7,7 +7,7 @@ module.exports = function(opts) {
       opts.stageId = null;
       opts.route = 'map';
       return {
-        data: opts.data
+        data: opts.storage.data
       };
     },
     view: mapView

@@ -1,11 +1,11 @@
-@(me: User, data: play.api.libs.json.JsValue)(implicit ctx: Context)
+@(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.learn${isProd??(".min")}.js")
 @embedJs {
 $(function() {
 LichessLearn(document.getElementById('learn_app'), {
-data: @Html(J.stringify(data)),
+data: @jsOrNull(data),
 sideElement: document.getElementById('learn_side')
 });
 });

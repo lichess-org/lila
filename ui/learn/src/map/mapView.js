@@ -12,9 +12,9 @@ function makeStars(nb) {
   return stars;
 }
 
-function ribbon(s, status, result) {
+function ribbon(s, status, res) {
   if (status === 'future') return;
-  var rank = result ? scoring.getStageRank(s, result.score) : null;
+  var rank = res ? scoring.getStageRank(s, res.scores) : null;
   var content = rank ? makeStars(rank) : 'play!';
   return m('div.ribbon-wrapper',
     m('div.ribbon', {
@@ -26,15 +26,15 @@ function ribbon(s, status, result) {
 module.exports = function(ctrl) {
   return m('div.learn.map', [
     m('div.stages', stages.list.map(function(s) {
-      var result = ctrl.data.stages[s.key];
+      var res = ctrl.data.stages[s.key];
       var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.get(s.id - 1).key];
-      var status = result ? 'done' : (previousDone ? 'next' : 'future')
+      var status = res ? 'done' : (previousDone ? 'next' : 'future')
       return m('a', {
         class: 'stage ' + status,
         href: '/' + s.id,
         config: m.route
       }, [
-        ribbon(s, status, result),
+        ribbon(s, status, res),
         m('img', {
           src: s.image
         }),

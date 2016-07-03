@@ -26,20 +26,13 @@ module.exports = function(blueprint, opts) {
     m.redraw();
   }, 100);
 
-  var addScore = function(v) {
-    vm.score += v;
-    opts.onScore(v);
-  };
-
   var complete = function() {
     setTimeout(function() {
       if (vm.failed) return opts.restart();
       vm.lastStep = false;
       vm.completed = true;
       sound.levelEnd();
-      var rank = scoring.getLevelRank(blueprint, vm.nbMoves);
-      var bonus = scoring.getLevelBonus(rank);
-      addScore(bonus);
+      vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
       ground.stop();
       m.redraw();
       setTimeout(opts.onComplete, 1200);
@@ -70,8 +63,9 @@ module.exports = function(blueprint, opts) {
     var move = chess.findCapture();
     if (!move) return;
     vm.failed = true;
-    ground.showCapture(move);
     ground.stop();
+    ground.showCapture(move);
+    sound.failure();
     return true;
   };
 
@@ -82,13 +76,13 @@ module.exports = function(blueprint, opts) {
     var took = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
-        addScore(scoring.apple);
+        vm.score += scoring.apple;
         items.remove(move.to);
         took = true;
       }
     });
     if (!took && move.captured) {
-      addScore(scoring.capture);
+      vm.score += scoring.capture;
       took = true;
     }
     vm.failed = vm.failed || detectFailure() || detectCapture();
@@ -125,7 +119,7 @@ module.exports = function(blueprint, opts) {
     shapes: blueprint.shapes
   });
 
-  if (blueprint.id !== 1) sound.levelStart();
+  sound.levelStart();
 
   return {
     blueprint: blueprint,

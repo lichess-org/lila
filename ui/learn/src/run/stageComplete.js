@@ -8,21 +8,23 @@ function makeStars(rank) {
   return stars;
 }
 
-module.exports = function(stage, next) {
+module.exports = function(ctrl) {
+  var stage = ctrl.stage;
+  var next = ctrl.getNext();
+  var score = ctrl.stageScore();
   return m('div.screen-overlay', {
       onclick: function(e) {
         if (e.target.classList.contains('screen-overlay')) m.route('/');
       }
     },
     m('div.screen', [
-      m('div.stars', makeStars(scoring.getStageRank(stage.blueprint, stage.vm.score))),
-      m('h1', 'Stage ' + stage.blueprint.id + ' complete'),
+      m('div.stars', makeStars(scoring.getStageRank(stage, score))),
+      m('h1', 'Stage ' + stage.id + ' complete'),
       m('span.score', [
         'Your score: ',
         m('span', {
           config: function(el, isUpdate) {
             if (!isUpdate) setTimeout(function() {
-              var score = stage.vm.score;
               $.spreadNumber(el, 50, function() {
                 return 3000;
               }, 0)(score);
@@ -31,7 +33,7 @@ module.exports = function(stage, next) {
         }, 0)
       ]),
       m('p', [
-        m.trust(stage.blueprint.complete)
+        m.trust(stage.complete)
       ]),
       m('div.buttons', [
         next ? m('a.next', {

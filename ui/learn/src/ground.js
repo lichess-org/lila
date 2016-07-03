@@ -1,5 +1,6 @@
 var chessground = require('chessground');
 var partial = chessground.util.partial;
+var raf = chessground.util.requestAnimationFrame;
 
 var cg = new chessground.controller();
 
@@ -90,12 +91,14 @@ module.exports = {
     return cg.data.pieces[key];
   },
   showCapture: function(move) {
-    var $square = $('#learn_app square[data-key=' + move.orig + ']');
-    $square.addClass('wriggle');
-    setTimeout(function() {
-      $square.removeClass('wriggle');
-      cg.apiMove(move.orig, move.dest);
-    }, 600);
+    raf(function() {
+      var $square = $('#learn_app square[data-key=' + move.orig + ']');
+      $square.addClass('wriggle');
+      setTimeout(function() {
+        $square.removeClass('wriggle');
+        cg.apiMove(move.orig, move.dest);
+      }, 600);
+    });
     // var shapes = [{
     //   brush: 'red',
     //   orig: move.orig,

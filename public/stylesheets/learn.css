@@ -384,63 +384,49 @@
   text-shadow: rgba(0,0,0,0.8) 0 0 3px;
 }
 
-#learn_app .progress,
-#learn_app .progress * {
-  box-sizing: border-box;
-  transition: all 1s;
-}
 #learn_app .progress {
-  margin-top: 10px;
   display: flex;
   align-items: center;
   text-align: center;
+  border: 1px solid #ccc;
+  border-top: 0px;
 }
-#learn_app .progress .circle {
-  display: block;
-  flex: 0 0 30px;
-  height: 30px;
-  border-radius: 30px 0 30px 30px;
+#learn_app .progress a {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
   background: #fff;
-  border: 1px solid #d5d5da;
+  height: 40px;
+  font-size: 11px;
+  line-height: 11px;
+  border-left: 1px solid #ccc;
+  opacity: 0.8;
+  transition: 0.13s;
 }
-#learn_app .progress .bar {
+#learn_app .progress a:first-child {
+  border-left: 0;
+}
+#learn_app .progress a:hover {
+  opacity: 1;
+}
+#learn_app .progress a span {
+  margin: auto;
+}
+#learn_app .progress .st3 i:first-child {
   display: block;
-  flex: 1 1 80px;
-  height: 6px;
-  position: relative;
-  margin-left: -1px;
-  margin-right: -1px;
-  background: #fff;
-  border: 1px solid #d5d5da;
-  border-left: none;
-  border-right: none;
 }
-#learn_app .progress .circle .label {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  border-radius: 24px 0 24px 24px;
-  margin-top: 3px;
-  color: #b5b5ba;
-  font-size: 13px;
-}
-#learn_app .progress .bar.done,
-#learn_app .progress .circle.done {
+#learn_app .progress a.done {
   background: #fdd835;
 }
-#learn_app .progress .bar.active {
-  background: linear-gradient(to right, #fdd835 50%, #FFF 50%);
-}
-#learn_app .progress .circle.done .label {
+#learn_app .progress a.done {
   color: #FFF;
   background: #4caf50;
-  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
 }
-#learn_app .progress .circle.active .label {
+#learn_app .progress a.active {
+  opacity: 1;
   color: #FFF;
   background: #3893E8;
-  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
 }
 
 #learn_side {
