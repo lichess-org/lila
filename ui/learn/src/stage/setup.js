@@ -6,7 +6,7 @@ var arrow = util.arrow;
 var imgUrl = util.assetUrl + 'images/learn/rally-the-troops.svg';
 
 module.exports = {
-  key: 'check2',
+  key: 'setup',
   title: 'Board setup',
   subtitle: 'How the game starts',
   image: imgUrl,
@@ -16,8 +16,7 @@ module.exports = {
   }),
   levels: [{ // rook
     goal: 'TODO',
-    fen: '4k3/8/2b5/8/8/8/8/R7 w - - 0 1',
-    shapes: [arrow('a1e1')]
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1'
   }].map(function(l, i) {
     return util.toLevel(l, i);
   }),
