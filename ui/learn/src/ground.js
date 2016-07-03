@@ -65,15 +65,17 @@ module.exports = {
       }
     });
   },
-  fen: function(fen, color, dests) {
-    cg.set({
+  fen: function(fen, color, dests, lastMove) {
+    var config = {
       turnColor: color,
       fen: fen,
       movable: {
         color: color,
         dests: dests
       }
-    });
+    };
+    if (lastMove) config.lastMove = lastMove;
+    cg.set(config);
   },
   check: function(chess) {
     var checks = chess.checks();

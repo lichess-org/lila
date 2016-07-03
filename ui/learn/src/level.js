@@ -96,8 +96,8 @@ module.exports = function(blueprint, opts) {
     else sound.move();
     if (vm.failed) {
       if (blueprint.showFailureFollowUp) setTimeout(function() {
-        chess.playRandomMove();
-        ground.fen(chess.fen(), blueprint.color, {});
+        var move = chess.playRandomMove();
+        ground.fen(chess.fen(), blueprint.color, {}, [move.orig, move.dest]);
       }, 600);
     } else {
       chess.color(blueprint.color);

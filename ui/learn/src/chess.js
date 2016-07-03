@@ -102,10 +102,14 @@ module.exports = function(fen, appleKeys) {
       return checks;
     },
     playRandomMove: function() {
-      var moves = chess.moves();
+      var moves = chess.moves({verbose: true});
       if (moves.length) {
         var move = moves[Math.floor(Math.random() * moves.length)];
         chess.move(move);
+        return {
+          orig: move.from,
+          dest: move.to
+        };
       }
     },
     get: chess.get,
