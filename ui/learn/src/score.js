@@ -17,7 +17,9 @@ function getLevelBonus(s, nbMoves) {
 }
 
 function getLevelMaxScore(l) {
-  return util.readKeys(l.apples).length * apple + levelBonus[1];
+  var score = util.readKeys(l.apples).length * apple;
+  score += (l.captures || 0) * capture;
+  return score + levelBonus[1];
 }
 
 function getLevelRank(l, score) {
