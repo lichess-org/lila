@@ -15,7 +15,8 @@ var make = function(file, volume) {
   };
 };
 
-module.exports = {
+
+var sounds = {
   move: make('standard/Move'),
   take: make('sfx/Tournament3rd', 0.7),
   levelStart: make('other/ping'),
@@ -25,3 +26,14 @@ module.exports = {
   stageEnd: make('other/gewonnen'),
   failure: make('other/failure')
 };
+
+var onces = [];
+sounds.once = function(sound, id) {
+  var key = id + '/' + sound;
+  if (onces.indexOf(key) === -1) {
+    sounds[sound]();
+    onces.push(key);
+  }
+};
+
+module.exports = sounds;

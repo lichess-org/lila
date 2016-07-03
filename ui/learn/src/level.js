@@ -46,7 +46,7 @@ module.exports = function(blueprint, opts) {
     (blueprint.failure || []).forEach(function(f) {
       failed = failed || f(chess);
     });
-    if (failed) sound.failure();
+    if (failed) sound.once('failure', blueprint.id);
     return failed;
   };
 
@@ -64,7 +64,7 @@ module.exports = function(blueprint, opts) {
     vm.failed = true;
     ground.stop();
     ground.showCapture(move);
-    sound.failure();
+    sound.once('failure', blueprint.id);
     return true;
   };
 
