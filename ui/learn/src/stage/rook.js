@@ -29,7 +29,7 @@ module.exports = {
     apples: 'a4 g3 g4',
     nbMoves: 3
   }, {
-    goal: 'Grab all the stars!',
+    goal: 'The fewer moves you make,<br>the more points you win!',
     fen: '7R/8/8/8/8/8/8/8 w - - 0 1',
     apples: 'f8 g1 g7 g8 h7',
     nbMoves: 5

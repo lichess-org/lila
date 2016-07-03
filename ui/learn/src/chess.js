@@ -26,7 +26,7 @@ module.exports = function(fen, appleKeys) {
     chess.load(newFen);
     if (getColor() !== c) {
       // the en passant square prevents setting color
-      newFen = newFen.replace(/ (w|b) - \w{2} /, turn + ' - - ');
+      newFen = newFen.replace(/ (w|b) - \w{2} /, ' ' + turn + ' - - ');
       chess.load(newFen);
     }
   }
