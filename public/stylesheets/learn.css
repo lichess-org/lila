@@ -31,39 +31,50 @@
   align-items: center;
   justify-content: center;
 }
-#learn_app .completed .goal {
-  font-size: 2em;
-}
-#learn_app .failed {
-  background: #dc322f;
-  color: #fff;
+#learn_app .result {
   border: 1px solid #ccc;
   border-top: none;
-  font-size: 1.3em;
   padding: 15px;
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
 }
+#learn_app .result:hover {
+  -webkit-filter: brightness(1.1);
+}
 @keyframes shadow-glow {
   50% {
-    box-shadow: 0 0 10px 10px #f2b2b1;
+    box-shadow: 0 0 10px 10px rgba(255,255,255,0.5);
     transform: scale(1.05);
   }
 }
-#learn_app .failed button {
+#learn_app .result button {
   margin: 15px auto 5px auto;
-  font-size: 2em;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
   background: #fff;
-  color: #dc322f;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
-  box-shadow: 0 0 5px 5px #f2b2b1;
+  box-shadow: 0 0 5px 5px rgba(255,255,255,0.5);
   animation: shadow-glow 1s infinite;
 }
-#learn_app .failed:hover {
-  -webkit-filter: brightness(1.1);
+#learn_app .result.completed {
+  background: #4caf50;
+  color: #fff;
+  font-size: 2em;
+}
+#learn_app .result.completed button {
+  color: #4caf50;
+}
+#learn_app .result.failed {
+  background: #dc322f;
+  color: #fff;
+  font-size: 1.3em;
+}
+#learn_app .result.failed button {
+  color: #dc322f;
 }
 #learn_app .lichess_ground .score {
   background: #4caf50;
@@ -71,7 +82,7 @@
   padding: 10px 20px;
   text-align: center;
   border-radius: 3px;
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
   position: relative;
 }
 #learn_app .lichess_ground .score .plus {

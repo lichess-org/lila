@@ -32,7 +32,7 @@ module.exports = function(blueprint, opts) {
       vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
       ground.stop();
       m.redraw();
-      setTimeout(opts.onComplete, 1200);
+      if (!blueprint.nextButton) setTimeout(opts.onComplete, 1200);
     }, ground.data().stats.dragged ? 0 : 250);
   };
 
@@ -155,7 +155,9 @@ module.exports = function(blueprint, opts) {
     scenario: scenario,
     start: function() {
       sound.levelStart();
-      setTimeout(scenario.opponent, 1000);
-    }
+      if (chess.color() !== blueprint.color)
+        setTimeout(scenario.opponent, 1000);
+    },
+    onComplete: opts.onComplete
   };
 };

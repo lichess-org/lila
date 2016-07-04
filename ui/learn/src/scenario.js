@@ -46,6 +46,7 @@ module.exports = function(blueprint, opts) {
       if (!step) return;
       if (step.move !== move) return fail();
       it++;
+      if (step.shapes) ground.setShapes(step.shapes);
       setTimeout(opponent, 1000);
       return true;
     }

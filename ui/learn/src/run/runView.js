@@ -11,11 +11,21 @@ var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
 function renderFailed(ctrl) {
-  return m('div.failed', {
+  return m('div.result.failed', {
     onclick: ctrl.restart
   }, [
     m('h2', 'Puzzle failed!'),
     m('button', 'Retry')
+  ]);
+}
+
+function renderCompleted(level) {
+  return m('div.result.completed', {
+    class: level.blueprint.nextButton ? 'next' : '',
+    onclick: level.onComplete
+  }, [
+    m('h2', congrats()),
+    level.blueprint.nextButton ? m('button', 'Next') : null
   ]);
 }
 
@@ -28,7 +38,7 @@ module.exports = function(ctrl) {
       'lichess_game': true,
       'initialized': level.vm.initialized,
       'starting': level.vm.starting,
-      'completed': level.vm.completed,
+      'completed': level.vm.completed && !level.blueprint.nextButton,
       'last-step': level.vm.lastStep
     }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass,
     config: function(el, isUpdate) {
@@ -54,9 +64,11 @@ module.exports = function(ctrl) {
           m('p.subtitle', stage.subtitle)
         ])
       ]),
-      level.vm.failed ? renderFailed(ctrl) : m('div.goal',
-        level.vm.completed ? congrats() : m.trust(level.blueprint.goal)
+      level.vm.failed ? renderFailed(ctrl) : (
+        level.vm.completed ? renderCompleted(level) : m('div.goal', m.trust(level.blueprint.goal))
       ),
+      // renderCompleted(level),
+      // renderFailed(ctrl),
       renderProgress(ctrl.progress),
       renderScore(level)
     ])
