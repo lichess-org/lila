@@ -21,7 +21,7 @@ module.exports = {
         free: false,
         color: opts.chess.color(),
         dests: opts.chess.dests({
-          legal: false
+          illegal: opts.offerIllegalMove
         })
       },
       events: {

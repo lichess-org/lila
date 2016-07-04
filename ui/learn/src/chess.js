@@ -32,13 +32,15 @@ module.exports = function(fen, appleKeys) {
   }
 
   return {
-    dests: function(illegal) {
+    dests: function(opts) {
+      opts = opts || {};
+      console.log(opts);
       var dests = {};
       chess.SQUARES.forEach(function(s) {
         var ms = chess.moves({
           square: s,
           verbose: true,
-          legal: !illegal
+          legal: !opts.illegal
         });
         if (ms.length) dests[s] = ms.map(function(m) {
           return m.to;

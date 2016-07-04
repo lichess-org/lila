@@ -101,7 +101,9 @@ module.exports = function(blueprint, opts) {
       }, 600);
     } else {
       chess.color(blueprint.color);
-      ground.color(blueprint.color, chess.dests());
+      ground.color(blueprint.color, chess.dests({
+        illegal: opts.offerIllegalMove
+      }));
     }
     m.redraw();
   };
@@ -118,6 +120,7 @@ module.exports = function(blueprint, opts) {
 
   ground.set({
     chess: chess,
+    offerIllegalMove: blueprint.offerIllegalMove,
     orientation: blueprint.color,
     onMove: onMove,
     items: {

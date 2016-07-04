@@ -102,7 +102,7 @@
   from {transform: rotate(0deg) scale(1) translateY(0px);}
   to {transform: rotate(360deg) scale(0) translateY(30px);}
 }
-#learn_app .completed piece {
+#learn_app .completed:not(.no-go-home) piece {
   animation: 0.7s ease-in-out 0.7s go-home;
 }
 #learn_app item {
@@ -333,7 +333,8 @@
     box-shadow: 0 0 40px rgba(255,255,255,0.7);
   }
 }
-.highlight-2nd-rank .cg-board::before {
+.highlight-2nd-rank .cg-board::before,
+.highlight-7th-rank .cg-board::after {
   width: 100%;
   height: 12.5%;
   content: '';
@@ -343,6 +344,9 @@
   box-shadow: 0 0 15px rgba(255,255,255,0.2);
   background-color: rgba(255, 255, 255, 0.2);
   animation: 1s rankGlow ease-in-out infinite;
+}
+.highlight-7th-rank .cg-board::after {
+  top: 12.5%;
 }
 #promotion_choice .explanation {
   position: absolute;

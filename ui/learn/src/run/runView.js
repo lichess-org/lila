@@ -29,7 +29,7 @@ module.exports = function(ctrl) {
       'starting': level.vm.starting,
       'completed': level.vm.completed,
       'last-step': level.vm.lastStep
-    }) + ' ' + level.blueprint.cssClass
+    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass
   }, [
     ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,

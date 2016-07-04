@@ -37,6 +37,7 @@ module.exports = {
     fen: '8/6b1/8/8/q4P2/2KN4/3P4/8 w - - 0 1',
   }].map(function(l, i) {
     l.detectCapture = false;
+    l.offerIllegalMove = true;
     l.nbMoves = 1;
     return util.toLevel(l, i);
   }),
