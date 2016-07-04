@@ -86,16 +86,18 @@ module.exports = function(blueprint, opts) {
       }
     });
     if (!took && move.captured && blueprint.pointsForCapture) {
-      vm.score += scoring.capture;
+      if (blueprint.showPieceValues)
+        vm.score += scoring.pieceValue(move.captured);
+      else
+        vm.score += scoring.capture;
       took = true;
     }
-    vm.failed = vm.failed || detectFailure() || detectCapture();
     ground.check(chess);
     if (scenario.player(move.from + move.to + (move.promotion || ''))) {
       vm.score += scoring.scenario;
       inScenario = true;
-    }
-    vm.failed = vm.failed || detectFailure();
+    } else
+      vm.failed = vm.failed || detectCapture() || detectFailure();
     if (!vm.failed && detectSuccess()) complete();
     if (vm.completed) return;
     if (took) sound.take();

@@ -44,11 +44,22 @@ function getStageRank(s, score) {
   return 3;
 }
 
+var pieceValues = {
+  'q': 90,
+  'r': 50,
+  'b': 30,
+  'n': 30,
+  'p': 10
+};
+
 module.exports = {
   apple: apple,
   capture: capture,
   scenario: scenario,
   getLevelRank: getLevelRank,
   getLevelBonus: getLevelBonus,
-  getStageRank: getStageRank
+  getStageRank: getStageRank,
+  pieceValue: function(p) {
+    return pieceValues[p] || 0;
+  }
 };

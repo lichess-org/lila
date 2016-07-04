@@ -16,8 +16,7 @@ module.exports = {
   levels: [{ // rook
     goal: 'This is the initial position<br>of every game of chess!<br>Make any move to continue.',
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - -',
-    nbMoves: 1,
-    showPieceValues: true
+    nbMoves: 1
   }, {
     goal: 'First place the rooks!<br>They go in the corners.',
     fen: 'r6r/8/8/8/8/8/8/2RR4 w - -',

@@ -18,6 +18,7 @@ var stages = [
   require('./castling'),
   require('./enpassant'),
   require('./stalemate'),
+  require('./value'),
 
   require('./check2'),
 
