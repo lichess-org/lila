@@ -51,6 +51,7 @@ module.exports = function(opts) {
     stageScore: stageScore,
     getNext: getNext,
     hideStartingPane: function() {
+      if (!vm.stageStarting()) return;
       vm.stageStarting(false);
       level.start();
     },
