@@ -81,7 +81,7 @@ module.exports = {
   check: function(chess) {
     var checks = chess.checks();
     cg.set({
-      check: !!checks
+      check: checks ? checks[0].dest : null
     });
     if (checks) cg.setShapes(checks.map(function(move) {
       return util.arrow(move.orig + move.dest, 'yellow');
@@ -129,6 +129,9 @@ module.exports = {
       return util.arrow(m.from + m.to, 'red');
     });
     cg.set({check: shapes.length ? kingKey : null});
+    cg.setShapes(shapes);
+  },
+  setShapes: function(shapes) {
     cg.setShapes(shapes);
   },
   resetShapes: function() {

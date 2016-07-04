@@ -1,6 +1,8 @@
 var m = require('mithril');
+var util = require('./util');
 var makeItems = require('./item').ctrl;
 var itemView = require('./item').view;
+var makeScenario = require('./scenario');
 var makeChess = require('./chess');
 var ground = require('./ground');
 var scoring = require('./score');
@@ -42,13 +44,19 @@ module.exports = function(blueprint, opts) {
   Mousetrap.bind(['shift+enter'], complete);
 
   var detectFailure = function() {
-    var failed = blueprint.failure && blueprint.failure(chess);
+    var failed = blueprint.failure && blueprint.failure({
+      scenario: scenario,
+      chess: chess
+    });
     if (failed) sound.once('failure', blueprint.id);
     return failed;
   };
 
   var detectSuccess = function() {
-    if (blueprint.success) return blueprint.success(chess);
+    if (blueprint.success) return blueprint.success({
+      scenario: scenario,
+      chess: chess
+    });
     else return !items.hasItem('apple')
   };
 
@@ -66,12 +74,14 @@ module.exports = function(blueprint, opts) {
   var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
+    ground.fen(chess.fen(), blueprint.color, {});
     if (!move) { // moving into check
       vm.failed = true;
       ground.showCheckmate(chess);
       return m.redraw();
     }
-    var took = false;
+    var took = false,
+      inScenario;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
         vm.score += scoring.apple;
@@ -85,22 +95,32 @@ module.exports = function(blueprint, opts) {
     }
     vm.failed = vm.failed || detectFailure() || detectCapture();
     ground.check(chess);
+    if (scenario.player(move.from + move.to + (move.promotion || ''))) {
+      vm.score += scoring.scenario;
+      inScenario = true;
+    }
+    vm.failed = vm.failed || detectFailure();
     if (!vm.failed && detectSuccess()) complete();
     if (vm.completed) return;
     if (took) sound.take();
+    else if (inScenario) sound.take();
     else sound.move();
     if (vm.failed) {
       if (blueprint.showFailureFollowUp) setTimeout(function() {
-        var move = chess.playRandomMove();
-        ground.fen(chess.fen(), blueprint.color, {}, [move.orig, move.dest]);
+        var rm = chess.playRandomMove();
+        ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
       }, 600);
-    } else {
+    } else if (!inScenario) {
       chess.color(blueprint.color);
-      ground.color(blueprint.color, chess.dests({
-        illegal: opts.offerIllegalMove
-      }));
+      ground.color(blueprint.color, makeChessDests());
     }
     m.redraw();
+  };
+
+  var makeChessDests = function() {
+    return chess.dests({
+      illegal: blueprint.offerIllegalMove
+    });
   };
 
   var onMove = function(orig, dest) {
@@ -112,6 +132,11 @@ module.exports = function(blueprint, opts) {
   var chess = makeChess(
     blueprint.fen,
     blueprint.emptyApples ? [] : items.appleKeys());
+
+  var scenario = makeScenario(blueprint.scenario, {
+    chess: chess,
+    makeChessDests: makeChessDests
+  });
 
   ground.set({
     chess: chess,
@@ -127,11 +152,14 @@ module.exports = function(blueprint, opts) {
     shapes: blueprint.shapes
   });
 
-  sound.levelStart();
-
   return {
     blueprint: blueprint,
     items: items,
-    vm: vm
+    vm: vm,
+    scenario: scenario,
+    start: function() {
+      sound.levelStart();
+      setTimeout(scenario.opponent, 1000);
+    }
   };
 };

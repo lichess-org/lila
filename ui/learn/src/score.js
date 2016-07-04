@@ -2,6 +2,7 @@ var util =  require('./util');
 
 var apple = 50;
 var capture = 50;
+var scenario = 50;
 
 var levelBonus = {
   1: 500,
@@ -46,6 +47,7 @@ function getStageRank(s, score) {
 module.exports = {
   apple: apple,
   capture: capture,
+  scenario: scenario,
   getLevelRank: getLevelRank,
   getLevelBonus: getLevelBonus,
   getStageRank: getStageRank

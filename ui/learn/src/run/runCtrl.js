@@ -41,6 +41,7 @@ module.exports = function(opts) {
     return stages.get(stage.id + 1);
   };
   if (vm.stageStarting()) sound.stageStart();
+  else level.start();
 
   return {
     stage: stage,
@@ -49,6 +50,10 @@ module.exports = function(opts) {
     progress: makeProgress(stage, level, opts.storage.data),
     stageScore: stageScore,
     getNext: getNext,
+    hideStartingPane: function() {
+      vm.stageStarting(false);
+      level.start();
+    },
     restart: function() {
       m.route('/' + stage.id + '/' + level.blueprint.id);
     }

@@ -338,6 +338,7 @@
   }
 }
 .highlight-2nd-rank .cg-board::before,
+.highlight-5th-rank .cg-board::after,
 .highlight-7th-rank .cg-board::after {
   width: 100%;
   height: 12.5%;
@@ -351,6 +352,9 @@
 }
 .highlight-7th-rank .cg-board::after {
   top: 12.5%;
+}
+.highlight-5th-rank .cg-board::after {
+  top: 37.5%;
 }
 #promotion_choice .explanation {
   position: absolute;

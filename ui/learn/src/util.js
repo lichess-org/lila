@@ -7,7 +7,7 @@ module.exports = {
   },
   toLevel: function(l, it) {
     l.id = it + 1;
-    l.color = / w /.test(l.fen) ? 'white' : 'black';
+    if (!l.color) l.color = / w /.test(l.fen) ? 'white' : 'black';
     if (!l.apples) {
       l.apples = [];
       if (l.detectCapture !== false) l.detectCapture = true;
@@ -53,5 +53,8 @@ module.exports = {
         src: url
       })
     );
+  },
+  decomposeUci: function(uci) {
+    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
   }
 };
