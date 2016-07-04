@@ -530,6 +530,6 @@ correspondenceChess=Korespondenční šachy
 onlineAndOfflinePlay=Hra online i offline
 correspondenceAndUnlimited=Korespondeční a bez limitu
 viewTheSolution=Zobrazit řešení
-followAndChallengeFriends=Sleduj a vyzvi své přátele
+followAndChallengeFriends=Hraj s přáteli
 availableInNbLanguages=Dostupné v %s jazycích!
 gameAnalysis=Analýza hry
