@@ -11,7 +11,7 @@ var goal = 'To stalemate black:<br>- Black cannot move anywhere<br>- There is no
 module.exports = {
   key: 'stalemate',
   title: 'Stalemate',
-  subtitle: 'The game is a draw.',
+  subtitle: 'The game is a draw',
   image: imgUrl,
   intro: 'When a player is not in check and does not have a legal move, it\'s a stalemate. The game is drawn: no one wins, no one loses.',
   illustration: util.roundSvg(imgUrl),

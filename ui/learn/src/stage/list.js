@@ -38,24 +38,22 @@ stages.forEach(function(s) {
 var categs = [{
   name: 'Chess pieces',
   stages: [
-    'rook', 'bishop', 'queen',
-    'king', 'knight', 'pawn'
+    'rook', 'bishop', 'queen', 'king', 'knight', 'pawn'
   ]
 }, {
   name: 'Fundamentals',
   stages: [
-    'capture', 'check1', 'outOfCheck',
-    'checkmate1', 'stalemate', 'value'
+    'capture', 'check1', 'outOfCheck', 'checkmate1'
   ]
 }, {
   name: 'Intermediate',
   stages: [
-    'setup', 'castling', 'enpassant'
+    'setup', 'castling', 'enpassant', 'stalemate'
   ]
 }, {
   name: 'Advanced',
   stages: [
-    'check2', //'checkmate2'
+    'check2', /*'checkmate2, '*/ 'value'
   ]
 }].map(function(c) {
   c.stages = c.stages.map(function(key) {

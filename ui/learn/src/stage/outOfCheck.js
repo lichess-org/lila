@@ -39,5 +39,5 @@ module.exports = {
     l.nbMoves = 1;
     return util.toLevel(l, i);
   }),
-  complete: 'Congratulations! You checked your opponent, forcing them to defend their king!'
+  complete: 'Congratulations! Your king can never be taken, make sure you can defend a check!'
 };
