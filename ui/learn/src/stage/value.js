@@ -3,12 +3,12 @@ var util = require('../util');
 var assert = require('../assert');
 var arrow = util.arrow;
 
-var imgUrl = util.assetUrl + 'images/learn/bowman.svg';
+var imgUrl = util.assetUrl + 'images/learn/sprint.svg';
 
 module.exports = {
   key: 'value',
   title: 'Piece value',
-  subtitle: 'Which pieces are worth the most',
+  subtitle: 'Evaluate piece strength',
   image: imgUrl,
   intro: 'Pieces with high mobility have a higher value!<br>' +
     'Queen = 9<br>Rook = 5<br>Bishop = 3<br>Knight = 3<br>Pawn = 1<br>' +

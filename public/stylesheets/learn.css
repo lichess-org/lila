@@ -567,6 +567,7 @@
   display: flex;
   align-items: center;
   flex: 0 0 32%;
+  width: 32%;
   height: 100px;
   color: #fff;
   box-sizing: border-box;
@@ -618,6 +619,7 @@
   opacity: 1;
 }
 #learn_app .map .stage .ribbon-wrapper {
+  display: block;
   width: 85px;
   height: 88px;
   overflow: hidden;
@@ -626,6 +628,7 @@
   right: -3px;
 }
 #learn_app .map .stage .ribbon {
+  display: block;
   font-size: 15px;
   font-weight: bold;
   color: #333;

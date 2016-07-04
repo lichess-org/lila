@@ -16,8 +16,8 @@ function ribbon(s, status, res) {
   if (status === 'future') return;
   var rank = res ? scoring.getStageRank(s, res.scores) : null;
   var content = rank ? makeStars(rank) : 'play!';
-  return m('div.ribbon-wrapper',
-    m('div.ribbon', {
+  return m('span.ribbon-wrapper',
+    m('span.ribbon', {
       class: status
     }, content)
   );
