@@ -38,8 +38,8 @@ module.exports = {
     fen: '3q4/5r2/8/2Bn4/4N3/8/3K4/R7 b - -',
   }].map(function(l, i) {
     l.nbMoves = 2;
-    l.failure = [assert.not(assert.check)];
-    l.success = [assert.check];
+    l.failure = assert.not(assert.check);
+    l.success = assert.check;
     return util.toLevel(l, i);
   }),
   complete: 'Congratulations! You checked your opponent, forcing them to defend their king!'

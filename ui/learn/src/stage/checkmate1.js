@@ -38,8 +38,8 @@ module.exports = {
     fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - -',
   }].map(function(l, i) {
     l.nbMoves = 1;
-    l.failure = [assert.not(assert.mate)];
-    l.success = [assert.mate];
+    l.failure = assert.not(assert.mate);
+    l.success = assert.mate;
     l.showFailureFollowUp = true;
     return util.toLevel(l, i);
   }),

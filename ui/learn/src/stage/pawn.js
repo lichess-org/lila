@@ -28,7 +28,7 @@ module.exports = {
     apples: 'c6 d5 d7',
     nbMoves: 4,
     shapes: [arrow('e3e4'),arrow('e4d5'),arrow('d5c6'),arrow('c6d7')],
-    failure: [assert.noPieceOn('e3 e4 c6 d5 d7')]
+    failure: assert.noPieceOn('e3 e4 c6 d5 d7')
   }, {
     goal: 'Capture, then promote!',
     fen: '8/8/8/8/8/1P6/8/8 w - -',
@@ -38,7 +38,7 @@ module.exports = {
     goal: 'Capture, then promote!',
     fen: '8/8/8/8/8/3P4/8/8 w - -',
     apples: 'c4 b5 b6 d5 d7 e6 c8',
-    failure: [assert.whitePawnOnAnyOf('b5 d4 d6 c7')],
+    failure: assert.whitePawnOnAnyOf('b5 d4 d6 c7'),
     nbMoves: 8
   }, {
     goal: 'Use all the pawns!<br>No need to promote.',
@@ -51,7 +51,7 @@ module.exports = {
     apples: 'd6',
     nbMoves: 3,
     shapes: [arrow('e2e4')],
-    failure: [assert.whitePawnOnAnyOf('e3')],
+    failure: assert.whitePawnOnAnyOf('e3'),
     cssClass: 'highlight-2nd-rank'
   }, {
     goal: 'Grab all the stars!<br>No need to promote.',

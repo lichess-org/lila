@@ -42,18 +42,13 @@ module.exports = function(blueprint, opts) {
   Mousetrap.bind(['shift+enter'], complete);
 
   var detectFailure = function() {
-    var failed = false;
-    (blueprint.failure || []).forEach(function(f) {
-      failed = failed || f(chess);
-    });
+    var failed = blueprint.failure && blueprint.failure(chess);
     if (failed) sound.once('failure', blueprint.id);
     return failed;
   };
 
   var detectSuccess = function() {
-    if (blueprint.success) return blueprint.success.every(function(f) {
-      return f(chess);
-    });
+    if (blueprint.success) return blueprint.success(chess);
     else return !items.hasItem('apple')
   };
 
