@@ -1183,12 +1183,12 @@ lichess.notifyApp = (function() {
       var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
 
       var renderTvButton = function(userId) {
-        return '<a class="hint--bottom-left friend-list-tv" href="/@/' + userId + '/tv" ' + '<span data-icon="1"></span></a>';
+        return '<span><a class="hint--bottom-left friend-entry-tv" href="/@/' + userId + '/tv" ' + '<span data-icon="1"></span></a></span>';
       };
 
       var tvButton = user["playing"] ? renderTvButton(id) : '';
 
-      return '<span class="friend-list-name"><a class="ulpt" href="/@/' + id + '">' + user.name + '</a></span>' + tvButton;
+      return '<div class="friend-entry-container"><a class="ulpt friend-entry-name" href="/@/' + id + '"><span>' + user.name + '</span>' + tvButton + '</div></a>';
     }
   });
 

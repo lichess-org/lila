@@ -2393,13 +2393,16 @@ input.cmn-toggle-round:checked + label:after {
 .hopscotch-content a {
   text-decoration: underline;
 }
-.friend-list-name {
-    width: 80%;
-    float: left;
+.friend-entry-container {
+  display: flex;
 }
-.friend-list-tv {
-    width: 10%;
-    float: right;
+.friend-entry-name {
+  display: flex;
+  flex-grow: 6;
+}
+.friend-entry-tv {
+  display: flex;
+  flex-grow: 1;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
