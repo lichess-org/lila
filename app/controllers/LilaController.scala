@@ -305,7 +305,7 @@ private[controllers] trait LilaController
           import makeTimeout.short
           (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
             case OnlineFriends(users, usersPlaying) => (users, usersPlaying)
-          } recover { case _ => (Nil,Nil) }) zip
+          } recover { case _ => (Nil,Set.empty[String]) }) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)

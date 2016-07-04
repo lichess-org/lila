@@ -8,7 +8,7 @@ import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
   friends: List[lila.common.LightUser],
-  friendsPlaying: List[lila.common.LightUser],
+  friendsPlaying: Set[String],
   teamNbRequests: Int,
   nbChallenges: Int,
   nbNotifications: Int,
@@ -18,7 +18,7 @@ case class PageData(
 
 object PageData {
 
-  val default = PageData(Nil, Nil, 0, 0, 0, Pref.default, false, false)
+  val default = PageData(Nil, Set.empty, 0, 0, 0, Pref.default, false, false)
 
   def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }

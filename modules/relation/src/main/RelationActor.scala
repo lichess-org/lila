@@ -21,7 +21,7 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, LightUser]()
 
-  private var onlinePlayings = Map[ID, LightUser]()
+  private var onlinePlayings = Set[ID]()
 
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'startGame)
@@ -41,7 +41,7 @@ private[relation] final class RelationActor(
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
       case OnlineFriends(users, friendsPlaying) =>
         bus.publish(SendTo(userId, "following_onlines", users.map(_.titleName)), 'users)
-        bus.publish(SendTo(userId, "following_playings", friendsPlaying.map(_.titleName)), 'users)
+        bus.publish(SendTo(userId, "following_playings", friendsPlaying), 'users)
     }
 
     case NotifyMovement =>
@@ -62,7 +62,7 @@ private[relation] final class RelationActor(
 
     case msg: lila.game.actorApi.StartGame =>
       val usersPlaying = getGameUsers(msg.game)
-      onlinePlayings = onlinePlayings ++ usersPlaying.map(u => u.id -> u)
+      onlinePlayings = onlinePlayings ++ usersPlaying.map(_.id)
       notifyFollowers(usersPlaying, "following_playing")
   }
 
@@ -80,8 +80,8 @@ private[relation] final class RelationActor(
       OnlineFriends(friends, friendsPlaying)
     }
 
-  private def getFriendsPlaying(friends: List[LightUser]): List[LightUser] = {
-    friends.filter(p => onlinePlayings.contains(p.id))
+  private def getFriendsPlaying(friends: List[LightUser]): Set[String] = {
+    friends.filter(p => onlinePlayings.contains(p.id)).map(_.id).toSet
   }
 
   private def notifyFollowers(users: List[LightUser], message: String) {

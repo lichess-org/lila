@@ -1154,12 +1154,17 @@ lichess.notifyApp = (function() {
     },
     _setPlaying: function(userName, playing) {
 
-        var user = this.users.find(function(u) {
-            return u.name === userName;
+        var isSameUser = function(userName, user) {
+           var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+           return id === userName;
+        }
+
+        var user = this.users.filter(function(u) {
+            return isSameUser(userName, u);
         });
 
-        if (user) {
-            user["playing"] = playing;
+        if (user.length > 0) {
+            user[0]["playing"] = playing;
         }
 
     },
