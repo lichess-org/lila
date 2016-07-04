@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var raf = chessground.util.requestAnimationFrame;
 var ground = require('../ground');
 var classSet = chessground.util.classSet;
 var congrats = require('../congrats');
@@ -10,11 +11,11 @@ var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
 function renderFailed(ctrl) {
-  return m('div.failed', [
+  return m('div.failed', {
+    onclick: ctrl.restart
+  }, [
     m('h2', 'Puzzle failed!'),
-    m('button', {
-      onclick: ctrl.restart
-    }, 'Retry')
+    m('button', 'Retry')
   ]);
 }
 
@@ -29,7 +30,13 @@ module.exports = function(ctrl) {
       'starting': level.vm.starting,
       'completed': level.vm.completed,
       'last-step': level.vm.lastStep
-    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass
+    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass,
+    config: function(el, isUpdate) {
+      if (!isUpdate) setTimeout(function() {
+        level.vm.initialized = true;
+        m.redraw();
+      }, 50);
+    }
   }, [
     ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,

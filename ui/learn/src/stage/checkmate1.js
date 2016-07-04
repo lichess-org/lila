@@ -43,5 +43,5 @@ module.exports = {
     l.showFailureFollowUp = true;
     return util.toLevel(l, i);
   }),
-  complete: 'Congratulations! TODO'
+  complete: 'Congratulations! That is how you win chess games!'
 };

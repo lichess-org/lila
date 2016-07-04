@@ -42,6 +42,14 @@
   font-size: 1.3em;
   padding: 15px;
   text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+@keyframes shadow-glow {
+  50% {
+    box-shadow: 0 0 10px 10px #f2b2b1;
+    transform: scale(1.05);
+  }
 }
 #learn_app .failed button {
   margin: 15px auto 5px auto;
@@ -49,12 +57,13 @@
   background: #fff;
   color: #dc322f;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 5px 10px;
-  animation: 0.7s soft-grow ease-in-out infinite;
+  box-shadow: 0 0 5px 5px #f2b2b1;
+  animation: shadow-glow 1s infinite;
 }
-#learn_app .failed button:hover {
-  box-shadow: 0 0 15px #fff;
+#learn_app .failed:hover {
+  -webkit-filter: brightness(1.1);
 }
 #learn_app .lichess_ground .score {
   background: #4caf50;
@@ -128,14 +137,13 @@
 }
 #learn_app .apple {
   background-image: url(../images/learn/star.png);
-  opacity: 0;
+  opacity: 0.2;
   transform: rotate(180deg) scale(0.1);
   transition: all 0.6s;
 }
 #learn_app .initialized .apple {
   opacity: 1;
   transform: rotate(360deg) translateY(0) scale(1);
-  -webkit-filter: hue-rotate(0deg);
   animation: 1.7s soft-grow ease-in-out infinite, 0.7s soft-hue ease-in-out infinite;
   animation-delay: 0.6s;
 }
@@ -162,6 +170,7 @@
   background: rgba(79, 195, 247, 0.9);
   z-index: 33;
   margin: 63px auto;
+  cursor: pointer;
 }
 #learn_app .screen-overlay * {
   box-sizing: border-box;
@@ -233,14 +242,14 @@
   height: 55px;
   opacity: 0;
   animation: appear 2.7s ease-in-out;
-  animation-delay: 0.5s;
+  animation-delay: 0.1s;
   animation-fill-mode: forwards;
 }
 #learn_app .screen .stars .star-wrap:nth-child(2) .star {
-  animation-delay: 1.5s;
+  animation-delay: 1s;
 }
 #learn_app .screen .stars .star-wrap:nth-child(3) .star {
-  animation-delay: 2.5s;
+  animation-delay: 2s;
 }
 #learn_app .screen .no-square {
   width: 100px;

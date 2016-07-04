@@ -23,10 +23,6 @@ module.exports = function(blueprint, opts) {
     score: 0,
     nbMoves: 0
   };
-  setTimeout(function() {
-    vm.initialized = true;
-    m.redraw();
-  }, 100);
 
   var complete = function() {
     setTimeout(function() {
@@ -74,8 +70,8 @@ module.exports = function(blueprint, opts) {
   var sendMove = function(orig, dest, prom) {
     vm.nbMoves++;
     var move = chess.move(orig, dest, prom);
-    ground.fen(chess.fen(), blueprint.color, {});
-    if (!move) { // moving into check
+    if (move) ground.fen(chess.fen(), blueprint.color, {});
+    else { // moving into check
       vm.failed = true;
       ground.showCheckmate(chess);
       return m.redraw();
