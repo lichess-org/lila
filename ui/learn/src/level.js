@@ -121,6 +121,7 @@ module.exports = function(blueprint, opts) {
   ground.set({
     chess: chess,
     offerIllegalMove: blueprint.offerIllegalMove,
+    autoCastle: blueprint.autoCastle,
     orientation: blueprint.color,
     onMove: onMove,
     items: {

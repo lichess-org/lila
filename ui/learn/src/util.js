@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 module.exports = {
   toStage: function(l, it) {
     l.id = it + 1;
@@ -10,6 +12,7 @@ module.exports = {
       l.apples = [];
       if (l.detectCapture !== false) l.detectCapture = true;
     }
+    if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
     return l;
   },
   assetUrl: $('body').data('asset-url') + '/assets/',
@@ -32,5 +35,17 @@ module.exports = {
   },
   setFenTurn: function(fen, turn) {
     return fen.replace(/ (w|b) /, ' ' + turn + ' ');
+  },
+  pieceImg: function(role) {
+    return m('div.is2d.no-square',
+      m('piece.white.' + role)
+    );
+  },
+  roundSvg: function(url) {
+    return m('div.round-svg',
+      m('img', {
+        src: url
+      })
+    );
   }
 };

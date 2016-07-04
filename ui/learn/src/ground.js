@@ -17,6 +17,7 @@ module.exports = {
       squareKey: true,
       turnColor: opts.chess.color(),
       check: check,
+      autoCastle: opts.autoCastle,
       movable: {
         free: false,
         color: opts.chess.color(),

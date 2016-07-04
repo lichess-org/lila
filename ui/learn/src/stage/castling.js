@@ -1,8 +1,13 @@
 var m = require('mithril');
 var util = require('../util');
+var assert = require('../assert');
+var and = assert.and, not = assert.not;
 var arrow = util.arrow;
 
 var imgUrl = util.assetUrl + 'images/learn/castle.svg';
+
+var castledKingSide = assert.lastMoveSan('O-O');
+var castledQueenSide = assert.lastMoveSan('O-O-O');
 
 module.exports = {
   key: 'castling',
@@ -10,39 +15,44 @@ module.exports = {
   subtitle: 'The special king move',
   image: imgUrl,
   intro: 'Bring your king to safety, and deploy your rook for attack!',
-  illustration: m('img', {src: imgUrl}),
+  illustration: util.roundSvg(imgUrl),
   levels: [{
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
-    apples: 'd5 g8',
+    goal: 'Move your king two squares<br>to castle king side!',
+    fen: 'rnbqkbnr/pppppppp/8/8/2B5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
+    nbMoves: 1,
+    shapes: [arrow('e1g1')],
+    failure: [assert.pieceNotOn('K', 'g1')]
+  }, {
+    goal: 'Move your king two squares<br>to castle queen side!',
+    fen: 'rnbqkbnr/pppppppp/8/8/4P3/1PN5/PBPPQPPP/R3KBNR w KQkq -',
+    nbMoves: 1,
+    shapes: [arrow('e1c1')],
+    failure: [assert.pieceNotOn('K', 'c1')]
+  }, {
+    goal: 'The knight is in the way!<br>Move it, then castle king-side.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/4P3/PPPPBPPP/RNBQK1NR w KQkq -',
     nbMoves: 2,
-    shapes: [arrow('f3d5'), arrow('d5g8')]
+    shapes: [arrow('e1g1'), arrow('g1f3')],
+    success: [castledKingSide],
+    failure: [and(not(castledKingSide), assert.pieceNotOn('K', 'e1'))]
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',
-    apples: 'a2 b1 b5 d1 d3 e2',
-    nbMoves: 6
+    goal: 'Castle king-side!<br>You need move out pieces first.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+    nbMoves: 4,
+    shapes: [arrow('e1g1')],
+    success: [castledKingSide],
+    failure: [and(not(castledKingSide), assert.pieceNotOn('K', 'e1'))]
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/3B4/8/8/8 w - - 0 1',
-    apples: 'a1 b6 c1 e3 g7 h6',
-    nbMoves: 6
-  }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/2b5/8/8/8 b - - 0 1',
-    apples: 'a4 a6 a8 b3 c2 d3 e2 f3',
-    nbMoves: 8
-  }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
-    fen: '8/8/8/8/8/8/8/2b2b2 b - - 0 1',
-    apples: 'c4 d3 d4 d5 e3 e4 e5 f4',
-    nbMoves: 8
-  }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
-    fen: '8/3B4/8/8/8/2B5/8/8 w - - 0 1',
-    apples: 'a5 b4 c2 c4 c7 e7 f5 f6 g8 h4 h7',
-    nbMoves: 11
-  }].map(util.toLevel),
+    goal: 'Castle queen-side!<br>You need move out pieces first.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+    nbMoves: 5,
+    shapes: [arrow('e1c1')],
+    success: [castledQueenSide],
+    failure: [and(not(castledQueenSide), assert.pieceNotOn('K', 'e1'))]
+  }].map(function(l, i) {
+    l.autoCastle = true;
+    return util.toLevel(l, i);
+  }),
   complete: 'Congratulations! You can command a bishop.'
 };
 

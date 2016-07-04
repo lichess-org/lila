@@ -26,7 +26,7 @@ module.exports = function(fen, appleKeys) {
     chess.load(newFen);
     if (getColor() !== c) {
       // the en passant square prevents setting color
-      newFen = newFen.replace(/ (w|b) - \w{2} /, ' ' + turn + ' - - ');
+      newFen = newFen.replace(/ (w|b) ([kKqQ-]{1,4}) \w\d /, ' ' + turn + ' $2 - ');
       chess.load(newFen);
     }
   }
@@ -34,7 +34,6 @@ module.exports = function(fen, appleKeys) {
   return {
     dests: function(opts) {
       opts = opts || {};
-      console.log(opts);
       var dests = {};
       chess.SQUARES.forEach(function(s) {
         var ms = chess.moves({

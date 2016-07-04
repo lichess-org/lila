@@ -28,6 +28,11 @@ module.exports = {
       return pieceMatch(chess.get(key), fenToMatcher(fenPiece));
     };
   },
+  pieceNotOn: function(fenPiece, key) {
+    return function(chess) {
+      return !pieceMatch(chess.get(key), fenToMatcher(fenPiece));
+    };
+  },
   noPieceOn: function(keys) {
     keys = readKeys(keys);
     return function(chess) {
@@ -50,6 +55,12 @@ module.exports = {
   },
   mate: function(chess) {
     return chess.instance.in_checkmate();
+  },
+  lastMoveSan: function(san) {
+    return function(chess) {
+      var moves = chess.instance.history();
+      return moves[moves.length - 1] === san;
+    };
   },
   not: function(assert) {
     return function(chess) {

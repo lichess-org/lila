@@ -13,31 +13,29 @@ module.exports = {
   subtitle: 'Defeat the opponent king',
   image: imgUrl,
   intro: 'You win when your opponent cannot defend a check.',
-  illustration: m('img.bg', {
-    src: imgUrl
-  }),
+  illustration: util.roundSvg(imgUrl),
   levels: [{ // rook
     goal: attack,
-    fen: '3qk3/3ppp2/8/8/2B5/5Q2/8/8 w - - 0 1',
+    fen: '3qk3/3ppp2/8/8/2B5/5Q2/8/8 w - -',
     shapes: [arrow('f3f7')]
   }, { // smoothered
     goal: attack,
-    fen: '6rk/6pp/7P/6N1/8/8/8/8 w - - 0 1',
+    fen: '6rk/6pp/7P/6N1/8/8/8/8 w - -',
   }, { // rook
     goal: attack,
-    fen: 'R7/8/7k/2r5/5n2/8/6Q1/8 w - - 0 1',
+    fen: 'R7/8/7k/2r5/5n2/8/6Q1/8 w - -',
   }, { // Q+N
     goal: attack,
-    fen: '2rb4/2k5/5N2/1Q6/8/8/8/8 w - - 0 1',
+    fen: '2rb4/2k5/5N2/1Q6/8/8/8/8 w - -',
   }, { // discovered
     goal: attack,
-    fen: '1r2kb2/ppB1p3/2P2p2/2p1N3/B7/8/8/3R4 w - - 0 1',
+    fen: '1r2kb2/ppB1p3/2P2p2/2p1N3/B7/8/8/3R4 w - -',
   }, { // tricky
     goal: attack,
-    fen: '8/pk1N4/n7/b7/6B1/1r3b2/8/1RR5 w - - 0 1',
+    fen: '8/pk1N4/n7/b7/6B1/1r3b2/8/1RR5 w - -',
   }, { // tricky
     goal: attack,
-    fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - - 0 1',
+    fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - -',
   }].map(function(l, i) {
     l.nbMoves = 1;
     l.failure = [assert.not(assert.mate)];
