@@ -52,18 +52,18 @@ private[relation] final class RelationActor(
       val leaves = leaveIds.flatMap(i => lightUser(i))
       val enters = enterIds.flatMap(i => lightUser(i))
       onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
-      notifyFollowers(enters, "following_enters")
-      notifyFollowers(leaves, "following_leaves")
+      notifyFollowersByTitle(enters, "following_enters")
+      notifyFollowersByTitle(leaves, "following_leaves")
 
     case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
       onlinePlayings = onlinePlayings -- game.userIds
       val usersPlaying = getGameUsers(game)
-      notifyFollowers(usersPlaying, "following_stopped_playing")
+      notifyFollowersById(usersPlaying, "following_stopped_playing")
 
     case msg: lila.game.actorApi.StartGame =>
       val usersPlaying = getGameUsers(msg.game)
       onlinePlayings = onlinePlayings ++ usersPlaying.map(_.id)
-      notifyFollowers(usersPlaying, "following_playing")
+      notifyFollowersById(usersPlaying, "following_playing")
   }
 
   private def getGameUsers(game: Game) : List[LightUser] = {
@@ -88,6 +88,22 @@ private[relation] final class RelationActor(
     users foreach { user =>
       api fetchFollowers user.id map (_ filter onlines.contains) foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, user.titleName), 'users)
+      }
+    }
+  }
+
+  private def notifyFollowersByTitle(users: List[LightUser], message: String) = {
+    notifyFollowers(users, message, _.titleName)
+  }
+
+  private def notifyFollowersById(users: List[LightUser], message: String) = {
+    notifyFollowers(users, message, _.id)
+  }
+
+  private def notifyFollowers(users: List[LightUser], message: String, notifyUsing: LightUser => String) {
+    users foreach { user =>
+      api fetchFollowers user.id map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, notifyUsing(user)), 'users)
       }
     }
   }
