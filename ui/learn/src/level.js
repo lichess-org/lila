@@ -39,12 +39,16 @@ module.exports = function(blueprint, opts) {
   // cheat
   Mousetrap.bind(['shift+enter'], complete);
 
+  var failSoundOnce = function() {
+    sound.once('failure', opts.stage.key + '/' + blueprint.id);
+  };
+
   var detectFailure = function() {
     var failed = blueprint.failure && blueprint.failure({
       scenario: scenario,
       chess: chess
     });
-    if (failed) sound.once('failure', blueprint.id);
+    if (failed) failSoundOnce();
     return failed;
   };
 
@@ -63,7 +67,7 @@ module.exports = function(blueprint, opts) {
     vm.failed = true;
     ground.stop();
     ground.showCapture(move);
-    sound.once('failure', blueprint.id);
+    failSoundOnce();
     return true;
   };
 
@@ -74,6 +78,7 @@ module.exports = function(blueprint, opts) {
     else { // moving into check
       vm.failed = true;
       ground.showCheckmate(chess);
+      failSoundOnce();
       return m.redraw();
     }
     var took = false,

@@ -10,6 +10,7 @@ module.exports = function(opts) {
   if (!stage) m.route('/');
 
   var level = makeLevel(stage.levels[(m.route.param('level') || 1) - 1], {
+    stage: stage,
     onComplete: function() {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
       if (level.blueprint.id < stage.levels.length)
