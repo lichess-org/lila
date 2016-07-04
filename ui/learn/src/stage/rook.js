@@ -35,7 +35,7 @@ module.exports = {
     goal: 'Use two rooks<br>to speed things up!',
     fen: '8/1R6/8/8/3R4/8/8/8 w - -',
     apples: 'a4 g3 g7 h4',
-    nbMoves: 11
+    nbMoves: 4
   }, {
     goal: 'Use two rooks<br>to speed things up!',
     fen: '8/8/8/8/8/5R2/8/R7 w - -',
