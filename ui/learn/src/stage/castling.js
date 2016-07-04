@@ -97,5 +97,5 @@ module.exports = {
     l.autoCastle = true;
     return util.toLevel(l, i);
   }),
-  complete: 'Congratulations! You can command a bishop.'
+  complete: 'Congratulations! You should almost always castle in a game.'
 };
