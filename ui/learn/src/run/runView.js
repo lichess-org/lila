@@ -39,7 +39,8 @@ module.exports = function(ctrl) {
       'initialized': level.vm.initialized,
       'starting': level.vm.starting,
       'completed': level.vm.completed && !level.blueprint.nextButton,
-      'last-step': level.vm.lastStep
+      'last-step': level.vm.lastStep,
+      'piece-values': level.blueprint.showPieceValues
     }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass,
     config: function(el, isUpdate) {
       if (!isUpdate) setTimeout(function() {

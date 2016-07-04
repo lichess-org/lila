@@ -32,12 +32,24 @@
   justify-content: center;
 }
 #learn_app .result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
   border: 1px solid #ccc;
   border-top: none;
-  padding: 15px;
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  min-height: 100px;
+  font-size: 2em;
+}
+#learn_app .result h2 {
+  flex: 0 0 100%;
+}
+#learn_app .result.failed h2,
+#learn_app .result.next h2 {
+  margin-top: 15px;
 }
 #learn_app .result:hover {
   -webkit-filter: brightness(1.1);
@@ -49,7 +61,7 @@
   }
 }
 #learn_app .result button {
-  margin: 15px auto 5px auto;
+  margin: 15px auto 15px auto;
   font-size: 30px;
   font-weight: bold;
   text-transform: uppercase;
@@ -63,7 +75,6 @@
 #learn_app .result.completed {
   background: #4caf50;
   color: #fff;
-  font-size: 2em;
 }
 #learn_app .result.completed button {
   color: #4caf50;
@@ -71,7 +82,6 @@
 #learn_app .result.failed {
   background: #dc322f;
   color: #fff;
-  font-size: 1.3em;
 }
 #learn_app .result.failed button {
   color: #dc322f;
@@ -423,6 +433,29 @@
   font-weight: bold;
   color: #fff;
   text-shadow: rgba(0,0,0,0.8) 0 0 3px;
+}
+
+#learn_app .piece-values .cg-board piece::before {
+  position:absolute;
+  top: 14px;
+  right: 4px;
+  color: #fff;
+  text-shadow: 0 0 9px rgba(0,0,0,1), 0 0 4px rgba(0,0,0,1);
+  font-size: 30px;
+  font-weight: bold;
+}
+#learn_app .piece-values .cg-board piece.queen::before {
+  content: '9';
+}
+#learn_app .piece-values .cg-board piece.rook::before {
+  content: '5';
+}
+#learn_app .piece-values .cg-board piece.bishop::before,
+#learn_app .piece-values .cg-board piece.knight::before {
+  content: '3';
+}
+#learn_app .piece-values .cg-board piece.pawn::before {
+  content: '1';
 }
 
 #learn_app .progress {
