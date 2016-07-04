@@ -6,8 +6,9 @@ var sound = require('../sound');
 
 module.exports = function(opts) {
 
-  var stage = stages.get(m.route.param('stage'));
+  var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
+  opts.setStage(stage);
 
   var level = makeLevel(stage.levels[(m.route.param('level') || 1) - 1], {
     stage: stage,
@@ -39,7 +40,7 @@ module.exports = function(opts) {
   };
 
   var getNext = function() {
-    return stages.get(stage.id + 1);
+    return stages.byId[stage.id + 1];
   };
   if (vm.stageStarting()) sound.stageStart();
   else level.start();

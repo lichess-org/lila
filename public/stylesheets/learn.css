@@ -509,6 +509,31 @@
 #learn_side .stages {
   margin: 10px;
 }
+#learn_side .home,
+#learn_side .categ > h2 {
+  display: block;
+  font-size: 1.5em;
+  height: 50px;
+  line-height: 50px;
+  text-indent: 15px;
+  cursor: pointer;
+  opacity: 0.81;
+}
+#learn_side .categ > h2 {
+  border-top: 1px solid #ccc;
+}
+#learn_side .home:hover,
+#learn_side .categ > h2:hover {
+  background: rgba(56, 147, 232, 0.2);
+}
+#learn_side .categ.active > h2 {
+  cursor: default;
+  background: rgba(56, 147, 232, 1);
+  color: #fff;
+}
+#learn_side .categ:not(.active) .categ_stages {
+  display: none;
+}
 #learn_side .stage {
   display: flex;
   align-items: center;
@@ -523,24 +548,20 @@
   width: 30px;
   height: 30px;
   opacity: 0.9;
-  margin-right: 5px;
+  margin-right: 10px;
   padding: 10px;
 }
 #learn_side .stage i::before {
   font-size: 30px;
-}
-#learn_side .stage.home {
-  font-weight: bold;
 }
 #learn_side .stage.active {
   background: rgba(56, 147, 232, 0.2);
 }
 #learn_side .stage.active img {
   background: rgba(56, 147, 232, 1);
-  -webkit-filter: brightness(0.9);
 }
-#learn_side .stage.active img:hover {
-  -webkit-filter: brightness(1.2);
+#learn_side .stage.done:hover {
+  background: rgba(76, 175, 80, 0.2);
 }
 #learn_side .stage.done img {
   background: #4caf50;
@@ -553,22 +574,34 @@
   background: rgba(245, 124, 0, 1);
 }
 #learn_side .stage:hover {
-  -webkit-filter: brightness(1.2);
+  -webkit-filter: brightness(0.9);
 }
 
+#learn_app .map .categ > h2 {
+  font-size: 2em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #999;
+  text-shadow: 0 1px 1px #fff;
+}
 #learn_app .map .stages {
+  width: 742px;
+}
+#learn_app .map .categ_stages {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin: 10px;
+  margin: 10px 0 30px 0;
 }
 #learn_app .map .stage {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 0 0 32%;
-  width: 32%;
-  height: 100px;
+  flex: 0 0 49%;
+  width: 49%;
+  height: 90px;
   color: #fff;
   box-sizing: border-box;
   margin-top: 13px;
@@ -576,16 +609,18 @@
   border-radius: 3px;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
   white-space: nowrap;
+  font-size: 1.2em;
 }
 #learn_app .map .stage img {
-  width: 75px;
-  height: 75px;
-  margin: 5px;
+  width: 80px;
+  height: 80px;
+  margin: 0 13px;
   opacity: 0.9;
 }
 #learn_app .map .stage h2 {
   font-size: 2em;
-  margin: 0 0 5px -2px;
+  letter-spacing: 4px;
+  margin: 0 0 5px -1px;
 }
 @keyframes soft-bright {
   50%{
