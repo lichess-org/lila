@@ -13,10 +13,10 @@ module.exports = {
   ),
   levels: [{
     goal: 'The king is slow.',
-    fen: '8/8/8/8/3K4/8/8/8 w - - 0 1',
+    fen: '8/8/8/8/8/3K4/8/8 w - - 0 1',
     apples: 'e6',
-    nbMoves: 2,
-    shapes: [arrow('d4d5'), arrow('d5e6')]
+    nbMoves: 3,
+    shapes: [arrow('d3d4'), arrow('d4d5'), arrow('d5e6')]
   }, {
     goal: 'Grab all the stars!',
     fen: '8/8/8/8/8/8/8/4k3 b - - 0 1',
