@@ -30,6 +30,12 @@ module.exports = {
       dest: vector.slice(2, 4)
     };
   },
+  circle: function(key, brush) {
+    return {
+      brush: brush || 'green',
+      orig: key
+    };
+  },
   readKeys: function(keys) {
     return typeof(keys) === 'string' ? keys.split(' ') : keys;
   },

@@ -74,5 +74,14 @@ module.exports = {
         return a(chess);
       });
     };
+  },
+  or: function() {
+    var asserts = [].slice.call(arguments);
+    return function(chess) {
+      return asserts.some(function(a) {
+        return a(chess);
+      });
+    };
   }
+
 };
