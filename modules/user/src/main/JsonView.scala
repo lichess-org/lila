@@ -1,6 +1,7 @@
 package lila.user
 
 import lila.common.PimpedJson._
+import lila.hub.actorApi.relation.OnlineFriends
 import lila.rating.{ Perf, Glicko, PerfType }
 import play.api.libs.json._
 import User.{ PlayTime, LightPerf }

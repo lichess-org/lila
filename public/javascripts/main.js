@@ -149,17 +149,18 @@ lichess.notifyApp = (function() {
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
-      following_onlines: function(us) {
-        $('#friend_box').friends("set", us);
+      following_onlines: function(d, all) {
+        var friendsOnline = all["d"]
+        var friendsPlaying = all["playing"]
+
+        $('#friend_box').friends("set", friendsOnline);
+        $('#friend_box').friends("playings", friendsPlaying);
       },
       following_enters: function(name) {
         $('#friend_box').friends('enters', name);
       },
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
-      },
-      following_playings: function(names) {
-        $('#friend_box').friends('playings', names);
       },
       following_playing: function(name) {
         $('#friend_box').friends('playing', name);
