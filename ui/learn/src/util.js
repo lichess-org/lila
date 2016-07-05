@@ -1,10 +1,6 @@
 var m = require('mithril');
 
 module.exports = {
-  toStage: function(l, it) {
-    l.id = it + 1;
-    return l;
-  },
   toLevel: function(l, it) {
     l.id = it + 1;
     if (!l.color) l.color = / w /.test(l.fen) ? 'white' : 'black';
