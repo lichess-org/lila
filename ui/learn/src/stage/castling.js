@@ -1,48 +1,98 @@
 var m = require('mithril');
 var util = require('../util');
-var arrow = util.arrow;
+var assert = require('../assert');
+var arrow = util.arrow,
+  circle = util.circle;
 
 var imgUrl = util.assetUrl + 'images/learn/castle.svg';
+
+var castledKingSide = assert.lastMoveSan('O-O');
+var castledQueenSide = assert.lastMoveSan('O-O-O');
+var cantCastleKingSide = assert.and(
+  assert.not(castledKingSide),
+  assert.or(assert.pieceNotOn('K', 'e1'), assert.pieceNotOn('R', 'h1'))
+);
+var cantCastleQueenSide = assert.and(
+  assert.not(castledQueenSide),
+  assert.or(assert.pieceNotOn('K', 'e1'), assert.pieceNotOn('R', 'a1'))
+);
 
 module.exports = {
   key: 'castling',
   title: 'Castling',
-  subtitle: 'The special king move.',
+  subtitle: 'The special king move',
   image: imgUrl,
   intro: 'Bring your king to safety, and deploy your rook for attack!',
-  illustration: m('img', {src: imgUrl}),
+  illustration: util.roundSvg(imgUrl),
   levels: [{
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/5B2/8/8 w - - 0 1',
-    apples: 'd5 g8',
+    goal: 'Move your king two squares<br>to castle king side!',
+    fen: 'rnbqkbnr/pppppppp/8/8/2B5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
+    nbMoves: 1,
+    shapes: [arrow('e1g1')],
+    success: castledKingSide,
+    failure: cantCastleKingSide
+  }, {
+    goal: 'Move your king two squares<br>to castle queen side!',
+    fen: 'rnbqkbnr/pppppppp/8/8/4P3/1PN5/PBPPQPPP/R3KBNR w KQkq -',
+    nbMoves: 1,
+    shapes: [arrow('e1c1')],
+    success: castledQueenSide,
+    failure: cantCastleQueenSide
+  }, {
+    goal: 'The knight is in the way!<br>Move it, then castle king-side.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/4P3/PPPPBPPP/RNBQK1NR w KQkq -',
     nbMoves: 2,
-    shapes: [arrow('f3d5'), arrow('d5g8')]
+    shapes: [arrow('e1g1'), arrow('g1f3')],
+    success: castledKingSide,
+    failure: cantCastleKingSide
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/1B6/8/8 w - - 0 1',
-    apples: 'a2 b1 b5 d1 d3 e2',
-    nbMoves: 6
+    goal: 'Castle king-side!<br>You need move out pieces first.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+    nbMoves: 4,
+    shapes: [arrow('e1g1')],
+    success: castledKingSide,
+    failure: cantCastleKingSide
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/3B4/8/8/8 w - - 0 1',
-    apples: 'a1 b6 c1 e3 g7 h6',
-    nbMoves: 6
+    goal: 'Castle queen-side!<br>You need move out pieces first.',
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+    nbMoves: 6,
+    shapes: [arrow('e1c1')],
+    success: castledQueenSide,
+    failure: cantCastleQueenSide
   }, {
-    goal: 'Grab all the stars!',
-    fen: '8/8/8/8/2b5/8/8/8 b - - 0 1',
-    apples: 'a4 a6 a8 b3 c2 d3 e2 f3',
-    nbMoves: 8
+    goal: 'You cannot castle if<br>the king has already moved<br>or the rook has already moved.',
+    fen: 'rnbqkbnr/pppppppp/8/8/3P4/1PN1PN2/PBPQBPPP/R3K1R1 w KQkq -',
+    nbMoves: 1,
+    shapes: [arrow('e1g1', 'red'), arrow('e1c1')],
+    success: castledQueenSide,
+    failure: cantCastleQueenSide
   }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
-    fen: '8/8/8/8/8/8/8/2b2b2 b - - 0 1',
-    apples: 'c4 d3 d4 d5 e3 e4 e5 f4',
-    nbMoves: 8
+    goal: 'You cannot castle if<br>the king is attacked on the way.<br>Block the check then castle!',
+    fen: 'rn1qkbnr/ppp1pppp/3p4/8/2b5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
+    nbMoves: 2,
+    shapes: [arrow('c4f1', 'red'), circle('e1'), circle('f1'), circle('g1')],
+    success: castledKingSide,
+    failure: cantCastleKingSide,
+    detectCapture: false
   }, {
-    goal: 'One light squares bishop,<br>one dark squares bishop.<br>You need both!',
-    fen: '8/3B4/8/8/8/2B5/8/8 w - - 0 1',
-    apples: 'a5 b4 c2 c4 c7 e7 f5 f6 g8 h4 h7',
-    nbMoves: 11
-  }].map(util.toLevel),
-  complete: 'Congratulations! You can command a bishop.'
+    goal: 'Find a way to<br>castle king-side!',
+    fen: 'rnb2rk1/pppppppp/8/8/8/4Nb1n/PPPP1P1P/RNB1KB1R w KQkq -',
+    nbMoves: 2,
+    shapes: [arrow('e1g1')],
+    success: castledKingSide,
+    failure: cantCastleKingSide,
+    detectCapture: false
+  }, {
+    goal: 'Find a way to<br>castle queen-side!',
+    fen: '2kr2nr/pppppppp/7b/8/8/8/PPb1PPPP/RN2KR2 w KQkq -',
+    nbMoves: 4,
+    shapes: [arrow('e1c1')],
+    success: castledQueenSide,
+    failure: cantCastleQueenSide,
+    detectCapture: false
+  }].map(function(l, i) {
+    l.autoCastle = true;
+    return util.toLevel(l, i);
+  }),
+  complete: 'Congratulations! You should almost always castle in a game.'
 };
-

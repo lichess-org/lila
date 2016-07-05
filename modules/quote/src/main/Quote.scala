@@ -189,7 +189,6 @@ object Quote {
     , new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis")
     , new Quote("There are two classes of men; those who are content to yield to circumstances and who play whist; those who aim to control circumstances, and who play chess.", "Mortimer Collins")
     , new Quote("The tactician must know what to do whenever something needs doing; the strategist must know what to do when nothing needs doing.", "Savielly Tartakover")
-    , new Quote("When you are lonely, when you feel yourself an alien in the world, play chess. This will raise your spirits and be your counselor in war.", "Aristotle")
     , new Quote("All chess players should have a hobby.", "Savielly Tartakower")
     , new Quote("I played chess with him and would have beaten him sometimes only he always took back his last move, and ran the game out differently.", "Mark Twain")
     , new Quote("The tactician knows what to do when there is something to do; whereas the strategian knows what to do when there is nothing to do.", "Gerald Abrahams")

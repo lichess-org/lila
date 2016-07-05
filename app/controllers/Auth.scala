@@ -29,7 +29,7 @@ object Auth extends LilaController {
   private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
-      Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
+      fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {

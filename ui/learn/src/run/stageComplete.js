@@ -47,7 +47,7 @@ module.exports = function(ctrl) {
         m('a.back.text[data-icon=I]', {
           href: '/',
           config: m.route
-        }, 'Back to learning map')
+        }, 'Back to menu')
       ])
     ])
   );

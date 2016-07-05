@@ -11,13 +11,23 @@ module.exports = function(element, opts) {
 
   m.route.mode = "hash";
 
+  var side = mapSide(opts);
+  var sideCtrl = side.controller();
+
+  opts.setStage = sideCtrl.setStage;
+
+  m.module(opts.sideElement, {
+    controller: function() {
+      return sideCtrl;
+    },
+    view: side.view
+  });
+
   m.route(element, '/', {
     '/': map(opts),
     '/:stage/:level': run(opts),
     '/:stage': run(opts)
   });
-
-  m.module(opts.sideElement, mapSide(opts));
 
   return {};
 };
