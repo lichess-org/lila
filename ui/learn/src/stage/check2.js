@@ -16,7 +16,7 @@ module.exports = {
   illustration: util.roundSvg(imgUrl),
   levels: [{
     goal: twoMoves,
-    fen: '2k5/1ppb4/8/2R5/8/8/8/8 w - -',
+    fen: '2k5/2pb4/8/2R5/8/8/8/8 w - -',
     shapes: [arrow('c5a5'), arrow('a5a8')]
   }, {
     goal: twoMoves,
