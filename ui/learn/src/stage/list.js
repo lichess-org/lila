@@ -1,29 +1,48 @@
-var util = require('../util');
+var categs = [{
+  name: 'Chess pieces',
+  stages: [
+    require('./rook'),
+    require('./bishop'),
+    require('./queen'),
+    require('./king'),
+    require('./knight'),
+    require('./pawn'),
+  ]
+}, {
+  name: 'Fundamentals',
+  stages: [
+    require('./capture'),
+    require('./check1'),
+    require('./outOfCheck.js'),
+    require('./checkmate1'),
+  ]
+}, {
+  name: 'Intermediate',
+  stages: [
+    require('./setup'),
+    require('./castling'),
+    require('./enpassant'),
+    require('./stalemate'),
+  ]
+}, {
+  name: 'Advanced',
+  stages: [
+    require('./value'),
+    require('./check2'),
+  ]
+}];
 
-var stages = [
+var stageId = 1;
+var stages = [];
 
-  require('./rook'),
-  require('./bishop'),
-  require('./queen'),
-  require('./king'),
-  require('./knight'),
-  require('./pawn'),
-
-  require('./capture'),
-  require('./check1'),
-  require('./outOfCheck.js'),
-
-  require('./checkmate1'),
-  require('./stalemate'),
-  require('./value'),
-
-  require('./setup'),
-  require('./castling'),
-  require('./enpassant'),
-
-  require('./check2'),
-
-].map(util.toStage);
+categs = categs.map(function(c) {
+  c.stages = c.stages.map(function(stage) {
+    stage.id = stageId++;
+    stages.push(stage);
+    return stage;
+  });
+  return c;
+});
 
 var stagesByKey = {}
 stages.forEach(function(s) {
@@ -35,36 +54,10 @@ stages.forEach(function(s) {
   stagesById[s.id] = s;
 });
 
-var categs = [{
-  name: 'Chess pieces',
-  stages: [
-    'rook', 'bishop', 'queen', 'king', 'knight', 'pawn'
-  ]
-}, {
-  name: 'Fundamentals',
-  stages: [
-    'capture', 'check1', 'outOfCheck', 'checkmate1'
-  ]
-}, {
-  name: 'Intermediate',
-  stages: [
-    'setup', 'castling', 'enpassant', 'stalemate'
-  ]
-}, {
-  name: 'Advanced',
-  stages: [
-    'check2', /*'checkmate2, '*/ 'value'
-  ]
-}].map(function(c) {
-  c.stages = c.stages.map(function(key) {
-    return stagesByKey[key];
-  });
-  return c;
-});
-
 module.exports = {
   list: stages,
   byId: stagesById,
+  byKey: stagesByKey,
   categs: categs,
   stageIdToCategId: function(stageId) {
     var stage = stagesById[stageId];

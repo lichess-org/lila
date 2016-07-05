@@ -19,6 +19,9 @@ module.exports = {
     fen: '8/8/8/4q3/8/8/8/4K3 w - -',
     shapes: [arrow('e5e1', 'red'), arrow('e1f1')]
   }, {
+    goal: 'Escape with the king!',
+    fen: '8/2n5/5b2/8/2K5/8/2q5/8 w - -',
+  }, {
     goal: 'The king cannot escape,<br>but you can block the attack!',
     fen: '8/7r/6r1/8/R7/7K/8/8 w - -',
   }, {

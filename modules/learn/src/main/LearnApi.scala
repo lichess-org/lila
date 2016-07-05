@@ -17,4 +17,7 @@ final class LearnApi(coll: Coll) {
     get(user) flatMap { prog =>
       save(prog.withScore(stage, level, score))
     }
+
+  def reset(user: User) =
+    coll.remove($id(user.id)).void
 }

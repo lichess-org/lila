@@ -40,7 +40,7 @@ function getStageRank(s, score) {
   var max = getStageMaxScore(s);
   if (typeof score !== 'number') score = score.reduce(function(a, b) { return a + b; }, 0);
   if (score >= max - Math.max(200, s.levels.length * 50)) return 1;
-  if (score >= max - Math.max(200, s.levels.length * 300)) return 2;
+  if (score >= max - Math.max(200, s.levels.length * 150)) return 2;
   return 3;
 }
 
@@ -61,5 +61,8 @@ module.exports = {
   getStageRank: getStageRank,
   pieceValue: function(p) {
     return pieceValues[p] || 0;
+  },
+  gtz: function(s) {
+    return s > 0;
   }
 };

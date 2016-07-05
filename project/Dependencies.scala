@@ -38,7 +38,7 @@ object Dependencies {
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
-  val semver = "com.gilt" %% "gfc-semver" % "0.0.2-10-g0f65e23"
+  val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
 
   object play {
     val version = "2.4.6"

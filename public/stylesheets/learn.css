@@ -12,12 +12,12 @@
 #learn_app .title h2 {
   font-size: 2.3em;
   margin: 15px 0 5px -3px;
-  white-space: no-wrap;
+  white-space: nowrap;
 }
 #learn_app .title img {
-  width: 90px;
-  height: 90px;
-  margin: 5px;
+  width: 80px;
+  height: 80px;
+  margin: 5px 8px 5px 5px;
 }
 #learn_app .goal {
   background: #fff;
@@ -229,7 +229,7 @@
     -webkit-filter: saturate(1); opacity: 0.5; transform: scale(0) rotate(-360deg);
   }
   85% {
-    -webkit-filter: saturate(1); opacity: 1; transform: scale(1.2) rotate(10deg);
+    -webkit-filter: saturate(1); opacity: 1; transform: scale(1.3) rotate(10deg);
   }
   100% {
     -webkit-filter: saturate(1); opacity: 1; transform: scale(1) rotate(0);
@@ -262,15 +262,15 @@
   width: 55px;
   height: 55px;
   opacity: 0;
-  animation: appear 2.7s ease-in-out;
+  animation: appear 2.5s ease-in-out;
   animation-delay: 0.1s;
   animation-fill-mode: forwards;
 }
 #learn_app .screen .stars .star-wrap:nth-child(2) .star {
-  animation-delay: 1s;
+  animation-delay: 0.8s;
 }
 #learn_app .screen .stars .star-wrap:nth-child(3) .star {
-  animation-delay: 2s;
+  animation-delay: 1.6s;
 }
 #learn_app .screen .no-square {
   width: 100px;
@@ -465,6 +465,9 @@
   border: 1px solid #ccc;
   border-top: 0px;
 }
+body.dark #learn_app .progress  {
+  border: none;
+}
 #learn_app .progress a {
   flex: 1 1 100%;
   display: flex;
@@ -505,12 +508,69 @@
 
 #learn_side {
   border: none;
+  background: transparent!important;
 }
-#learn_side .stages {
-  margin: 10px;
+body.dark #learn_side a {
+  color: #bbb;
 }
-#learn_side .home,
-#learn_side .categ > h2 {
+#learn_side .home {
+  width: 220px;
+  background: #3893E8;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+#learn_side .home h1 {
+  font-size: 30px;
+}
+#learn_side .home h2 {
+  font-size: 20px;
+  padding-bottom: 15px;
+}
+#learn_side .home i.fat {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background: url(../images/learn/brutal-helm.svg);
+  margin: auto;
+  opacity: 0.8;
+}
+#learn_side .home .progress {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  /* border-top: 3px solid #1566b2; */
+  background: #1a7edb;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+}
+#learn_side .home .progress .bar {
+  height: 100%;
+  background: #1566b2;
+  border-radius: 0 5px 5px 0;
+}
+#learn_side .home .progress .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 30px;
+}
+#learn_side .home .actions {
+  padding: 20px 10px;
+  text-align: left;
+}
+#learn_side .home a {
+  opacity: 0.6;
+  color: #fff;
+}
+#learn_side .home a:hover {
+  opacity: 1;
+}
+
+#learn_side .map .back,
+#learn_side .map .categ > h2 {
   display: block;
   font-size: 1.5em;
   height: 50px;
@@ -519,22 +579,47 @@
   cursor: pointer;
   opacity: 0.81;
 }
-#learn_side .categ > h2 {
+#learn_side .map .back {
+  display: flex;
+}
+#learn_side .map .back img {
+  width: 30px;
+  height: 30px;
+  opacity: 0.9;
+  margin-right: 10px;
+  padding: 10px;
+  /* background: rgba(56, 147, 232, 1); */
+  background: rgba(120, 120, 120, 1);
+  display: block;
+}
+#learn_side .map .back:hover {
+  background: rgba(120, 120, 120, 0.2);
+}
+#learn_side .map .categ > h2 {
   border-top: 1px solid #ccc;
 }
-#learn_side .home:hover,
-#learn_side .categ > h2:hover {
+body.dark #learn_side .map .categ > h2 {
+  border-color: #444;
+}
+#learn_side .map .categ > h2:hover {
   background: rgba(56, 147, 232, 0.2);
 }
-#learn_side .categ.active > h2 {
+#learn_side .map .categ.active {
+  border: 1px solid #ccc;
+  border-width: 0 1px;
+}
+#learn_side .map .categ.active:last-child {
+  border-bottom-width: 1px;
+}
+#learn_side .map .categ.active > h2 {
   cursor: default;
   background: rgba(56, 147, 232, 1);
   color: #fff;
 }
-#learn_side .categ:not(.active) .categ_stages {
+#learn_side .map .categ:not(.active) .categ_stages {
   display: none;
 }
-#learn_side .stage {
+#learn_side .map .stage {
   display: flex;
   align-items: center;
   transition: 0.13s;
@@ -543,40 +628,48 @@
   font-weight: 300;
   opacity: 0.9;
 }
-#learn_side .stage img,
-#learn_side .stage i {
+#learn_side .map .stage img,
+#learn_side .map .stage i {
   width: 30px;
   height: 30px;
   opacity: 0.9;
   margin-right: 10px;
   padding: 10px;
 }
-#learn_side .stage i::before {
+#learn_side .map .stage i::before {
   font-size: 30px;
 }
-#learn_side .stage.active {
+#learn_side .map .stage.active {
   background: rgba(56, 147, 232, 0.2);
 }
-#learn_side .stage.active img {
+#learn_side .map .stage.active img {
   background: rgba(56, 147, 232, 1);
 }
-#learn_side .stage.done:hover {
+#learn_side .map .stage.done:hover {
   background: rgba(76, 175, 80, 0.2);
 }
-#learn_side .stage.done img {
+#learn_side .map .stage.done img {
   background: #4caf50;
 }
-#learn_side .stage.future:hover {
+#learn_side .map .stage.future:hover {
   background: rgba(245, 124, 0, 0.2);
 }
-#learn_side .stage.future img {
+#learn_side .map .stage.future img {
   opacity: 0.7;
   background: rgba(245, 124, 0, 1);
 }
-#learn_side .stage:hover {
+#learn_side .map .stage:hover {
   -webkit-filter: brightness(0.9);
 }
+body.dark #learn_side .map .stage.active h2,
+body.dark #learn_side .map .stage:hover h2 {
+  color: #fff;
+}
 
+#learn_app .map .stages {
+  width: 742px;
+  padding-top: 10px;
+}
 #learn_app .map .categ > h2 {
   font-size: 2em;
   font-family: 'Roboto';
@@ -585,15 +678,16 @@
   text-transform: uppercase;
   color: #999;
   text-shadow: 0 1px 1px #fff;
+  text-align: center;
 }
-#learn_app .map .stages {
-  width: 742px;
+body.dark #learn_app .map .categ > h2 {
+  text-shadow: 0 1px 1px #000;
 }
 #learn_app .map .categ_stages {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin: 10px 0 30px 0;
+  margin: 10px 0 36px 0;
 }
 #learn_app .map .stage {
   position: relative;
@@ -627,14 +721,14 @@
     -webkit-filter: brightness(1.1);
   }
 }
-#learn_app .map .stage.next {
+#learn_app .map .stage.ongoing {
   background: #3893E8;
   -webkit-filter: brightness(0.9);
 }
-#learn_app .map .stage.next {
+#learn_app .map .stage.ongoing {
   animation: 1.7s soft-bright ease-in-out infinite;
 }
-#learn_app .map .stage.next:hover {
+#learn_app .map .stage.ongoing:hover {
   -webkit-filter: brightness(1.2);
 }
 #learn_app .map .stage.done {
@@ -650,7 +744,7 @@
 #learn_app .map a.stage.active,
 #learn_app .map a.stage:hover {
   -webkit-filter: brightness(1.08);
-  transform: scale(1.05);
+  transform: scale(1.02);
   opacity: 1;
 }
 #learn_app .map .stage .ribbon-wrapper {
@@ -712,10 +806,10 @@
 #learn_app .map .stage .ribbon.done:after {
   border-top:   3px solid #6e8900;
 }
-#learn_app .map .stage .ribbon.next {
+#learn_app .map .stage .ribbon.ongoing {
   background-color: #B3E5FC;
 }
-#learn_app .map .stage .ribbon.next:before,
-#learn_app .map .stage .ribbon.next:after {
+#learn_app .map .stage .ribbon.ongoing:before,
+#learn_app .map .stage .ribbon.ongoing:after {
   border-top: 3px solid #536DFE;
 }

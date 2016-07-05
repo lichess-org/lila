@@ -5,7 +5,7 @@ var arrow = util.arrow;
 
 var imgUrl = util.assetUrl + 'images/learn/winged-sword.svg';
 
-var oneMove = 'Attack the opponent king<br>in one move!';
+var oneMove = 'Aim at the opponent king<br>in one move!';
 
 module.exports = {
   key: 'check1',
