@@ -12,15 +12,15 @@ var stages = [
   require('./capture'),
   require('./check1'),
   require('./outOfCheck.js'),
-
   require('./checkmate1'),
-  require('./stalemate'),
-  require('./value'),
+
 
   require('./setup'),
   require('./castling'),
   require('./enpassant'),
+  require('./stalemate'),
 
+  require('./value'),
   require('./check2'),
 
 ].map(util.toStage);
