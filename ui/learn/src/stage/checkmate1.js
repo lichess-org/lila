@@ -5,12 +5,12 @@ var arrow = util.arrow;
 
 var imgUrl = util.assetUrl + 'images/learn/guillotine.svg';
 
-var attack = 'Attack your opponent king<br>in a way that cannot be defended!';
+var attack = 'Attack your opponent\'s king<br>in a way that cannot be defended!';
 
 module.exports = {
   key: 'checkmate1',
   title: 'Mate in one',
-  subtitle: 'Defeat the opponent king',
+  subtitle: 'Defeat the opponent\'s king',
   image: imgUrl,
   intro: 'You win when your opponent cannot defend a check.',
   illustration: util.roundSvg(imgUrl),
@@ -18,7 +18,7 @@ module.exports = {
     goal: attack,
     fen: '3qk3/3ppp2/8/8/2B5/5Q2/8/8 w - -',
     shapes: [arrow('f3f7')]
-  }, { // smoothered
+  }, { // smothered
     goal: attack,
     fen: '6rk/6pp/7P/6N1/8/8/8/8 w - -',
   }, { // rook

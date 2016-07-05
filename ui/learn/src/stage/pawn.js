@@ -42,8 +42,8 @@ module.exports = {
     nbMoves: 8
   }, {
     goal: 'Use all the pawns!<br>No need to promote.',
-    fen: '8/8/p3pp1p/8/8/8/8/8 b - -',
-    apples: 'b5 d4 e5 f4 g4',
+    fen: '8/8/8/8/8/P1PP3P/8/8 w - -',
+    apples: 'b5 c5 d4 e5 g4',
     nbMoves: 7
   }, {
     goal: 'A pawn on the second rank can move 2 squares at once!',

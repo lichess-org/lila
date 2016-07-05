@@ -17,7 +17,7 @@ module.exports = {
     shapes: [arrow('d3d4'), arrow('d4d5'), arrow('d5e6')]
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/8/8/4k3 b - -',
+    fen: '8/8/8/8/8/8/8/4K3 w - -',
     apples: 'c2 d3 e2 e3',
     nbMoves: 4
   }, {

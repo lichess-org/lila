@@ -27,12 +27,12 @@ module.exports = {
     nbMoves: 6
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/6q1/8/8/8/8/8/8 b - -',
+    fen: '8/6Q1/8/8/8/8/8/8 w - -',
     apples: 'a2 b5 d3 g1 g8 h2 h5',
     nbMoves: 7
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/8/8/8/8/8/8/4q3 b - -',
+    fen: '8/8/8/8/8/8/8/4Q3 w - -',
     apples: 'a6 d1 f2 f6 g6 g8 h1 h4',
     nbMoves: 9
   }].map(util.toLevel),

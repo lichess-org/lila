@@ -22,12 +22,12 @@ module.exports = {
     nbMoves: 8
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/2n5/8/8/8/8/8/8 b - -',
+    fen: '8/2N5/8/8/8/8/8/8 w - -',
     apples: 'b6 d5 d7 e6 f4',
     nbMoves: 5
   }, {
     goal: 'Knights can jump over obstacles!<br>Escape and vanquish the stars!',
-    fen: '8/8/8/8/5n2/8/8/8 b - -',
+    fen: '8/8/8/8/5N2/8/8/8 w - -',
     apples: 'e3 e4 e5 f3 f5 g3 g4 g5',
     nbMoves: 9
   }, {
@@ -37,7 +37,7 @@ module.exports = {
     nbMoves: 6
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/2n5/8/8/8/8/8/8 b - -',
+    fen: '8/2N5/8/8/8/8/8/8 2 - -',
     apples: 'b4 b5 c6 c8 d4 d5 e3 e7 f5',
     nbMoves: 9
   }].map(util.toLevel),

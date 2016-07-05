@@ -27,12 +27,12 @@ module.exports = {
     nbMoves: 6
   }, {
     goal: 'Grab all the stars!',
-    fen: '8/8/8/8/2b5/8/8/8 b - -',
+    fen: '8/8/8/8/2B5/8/8/8 w - -',
     apples: 'a4 b1 b3 c2 d3 e2',
     nbMoves: 6
   }, {
     goal: 'One light-squared bishop,<br>one dark-squared bishop.<br>You need both!',
-    fen: '8/8/8/8/8/8/8/2b2b2 b - -',
+    fen: '8/8/8/8/8/8/8/2B2B2 w - -',
     apples: 'd3 d4 d5 e3 e4 e5',
     nbMoves: 6
   }, {
