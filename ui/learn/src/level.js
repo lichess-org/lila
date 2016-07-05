@@ -43,20 +43,22 @@ module.exports = function(blueprint, opts) {
     sound.once('failure', opts.stage.key + '/' + blueprint.id);
   };
 
-  var detectFailure = function() {
-    var failed = blueprint.failure && blueprint.failure({
+  var assertData = function() {
+    return {
       scenario: scenario,
-      chess: chess
-    });
+      chess: chess,
+      vm: vm
+    };
+  }
+
+  var detectFailure = function() {
+    var failed = blueprint.failure && blueprint.failure(assertData());
     if (failed) failSoundOnce();
     return failed;
   };
 
   var detectSuccess = function() {
-    if (blueprint.success) return blueprint.success({
-      scenario: scenario,
-      chess: chess
-    });
+    if (blueprint.success) return blueprint.success(assertData());
     else return !items.hasItem('apple')
   };
 

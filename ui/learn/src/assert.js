@@ -62,6 +62,16 @@ module.exports = {
       return moves[moves.length - 1] === san;
     };
   },
+  checkIn: function(nbMoves) {
+    return function(level) {
+      return level.vm.nbMoves <= nbMoves && level.chess.instance.in_check();
+    };
+  },
+  noCheckIn: function(nbMoves) {
+    return function(level) {
+      return level.vm.nbMoves >= nbMoves && !level.chess.instance.in_check();
+    };
+  },
   not: function(assert) {
     return function(level) {
       return !assert(level);
