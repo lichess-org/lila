@@ -18,6 +18,13 @@ function xhrSaveScore(stageKey, levelId, score) {
   });
 }
 
+function xhrReset() {
+  return m.request({
+    method: 'POST',
+    url: '/learn/reset'
+  });
+}
+
 module.exports = function(data) {
 
   data = data || JSON.parse(lichess.storage.get(key)) || defaultValue;
@@ -32,6 +39,11 @@ module.exports = function(data) {
       data.stages[stage.key].scores[level.id - 1] = score;
       if (data._id) xhrSaveScore(stage.key, level.id, score);
       else lichess.storage.set(key, JSON.stringify(data));
+    },
+    reset: function() {
+      if (data._id) xhrReset();
+      else lichess.storage.remove(key);
+      data.stages = {};
     }
   };
 };

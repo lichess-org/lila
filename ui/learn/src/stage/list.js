@@ -53,7 +53,7 @@ var categs = [{
 }, {
   name: 'Advanced',
   stages: [
-    'check2', /*'checkmate2, '*/ 'value'
+    'value', 'check2'
   ]
 }].map(function(c) {
   c.stages = c.stages.map(function(key) {

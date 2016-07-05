@@ -10,6 +10,9 @@ function renderInStage(ctrl) {
         href: '/',
         config: m.route
       }, [
+        m('img', {
+          src: util.assetUrl + 'images/learn/brutal-helm.svg'
+        }),
         'Menu'
       ]),
       stages.categs.map(function(categ, categId) {
@@ -55,6 +58,13 @@ function renderHome(ctrl) {
           width: progress + '%'
         }
       })
+    ]),
+    m('div.actions', [
+      progress > 0 ? m('a.confirm', {
+        onclick: function() {
+          if (confirm('You will lose all your progress!')) ctrl.reset();
+        }
+      }, 'Reset my progress') : null
     ])
   ]);
 }
@@ -77,15 +87,16 @@ module.exports = function(opts) {
         },
         progress: function() {
           var max = stages.list.length * 10;
-					var data = opts.storage.data.stages;
+          var data = opts.storage.data.stages;
           var total = Object.keys(data).reduce(function(t, key) {
-						var rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
-						if (rank === 1) return t + 10;
-						if (rank === 2) return t + 8;
-						return t + 5;
+            var rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
+            if (rank === 1) return t + 10;
+            if (rank === 2) return t + 8;
+            return t + 5;
           }, 0);
           return Math.round(total / max * 100);
-        }
+        },
+        reset: opts.storage.reset
       };
     },
     view: function(ctrl) {

@@ -37,4 +37,9 @@ object Learn extends LilaController {
             env.api.setScore(me, stage, level, score) inject Ok(Json.obj("ok" -> true))
         })
   }
+
+  def reset = AuthBody { implicit ctx =>
+    me =>
+      env.api.reset(me) inject Ok(Json.obj("ok" -> true))
+  }
 }
