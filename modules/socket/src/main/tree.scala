@@ -140,9 +140,12 @@ object Node {
   }
 
   case class Eval(
-    cp: Option[Int] = None,
-    mate: Option[Int] = None,
-    best: Option[Uci.Move])
+      cp: Option[Int] = None,
+      mate: Option[Int] = None,
+      best: Option[Uci.Move]) {
+
+    def isEmpty = cp.isEmpty && mate.isEmpty
+  }
 
   private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
     JsString(uci.uci)
@@ -210,7 +213,7 @@ object Node {
       add("uci", moveOption.map(_.uci.uci)) _ compose
       add("san", moveOption.map(_.san)) _ compose
       add("check", true, check) _ compose
-      add("eval", eval) _ compose
+      add("eval", eval.filterNot(_.isEmpty)) _ compose
       add("comments", comments.list, comments.list.nonEmpty) _ compose
       add("glyphs", glyphs.nonEmpty) _ compose
       add("shapes", shapes.list, shapes.list.nonEmpty) _ compose

@@ -1819,7 +1819,7 @@ lichess.notifyApp = (function() {
           analysisProgress: function(d) {
             if (!lichess.advantageChart) startAdvantageChart();
             else if (lichess.advantageChart.update) lichess.advantageChart.update(data);
-            if (Object.keys(d.tree.eval).length) $("#adv_chart_loader").remove();
+            if (d.tree.eval) $("#adv_chart_loader").remove();
           },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);

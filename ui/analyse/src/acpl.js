@@ -29,7 +29,7 @@ module.exports = function(ctrl) {
   var d = ctrl.data;
   if (!d.analysis) return;
 
-  var first = ctrl.vm.mainline[0].eval;
+  var first = ctrl.vm.mainline[0].eval || {};
   if (first.cp || first.mate) {
     if (cached) return {
       subtree: 'retain'
