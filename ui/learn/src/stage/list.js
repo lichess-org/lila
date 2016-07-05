@@ -1,5 +1,3 @@
-var util = require('../util');
-
 var categs = [{
   name: 'Chess pieces',
   stages: [
