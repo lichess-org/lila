@@ -1154,13 +1154,13 @@ lichess.notifyApp = (function() {
     },
     _setPlaying: function(userName, playing) {
 
-      var isSameUser = function(userName, user) {
+      var isSameUser = function(userId, user) {
         var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-        return id.toLowerCase() === userName.toLowerCase();
+        return id.toLowerCase() === userId;
       }
 
       var user = this.users.filter(function(u) {
-        return isSameUser(userName, u);
+        return isSameUser(userName.toLowerCase(), u);
       })[0];
 
       if (user) {
@@ -1184,15 +1184,10 @@ lichess.notifyApp = (function() {
       this.repaint();
     },
     _renderUser: function(user) {
-      var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var userId = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var tvButton = user.playing ? '<a data-icon="1" class="tv is-green" href="/@/' + userId + '/tv"></a>' : '';
 
-      var renderTvButton = function(userId) {
-        return '<span><a class="hint--bottom-left friend-entry-tv" href="/@/' + userId + '/tv" ' + '<span data-icon="1"></span></a></span>';
-      };
-
-      var tvButton = user["playing"] ? renderTvButton(id) : '';
-
-      return '<div class="friend-entry-container"><a class="ulpt friend-entry-name" href="/@/' + id + '"><span>' + user.name + '</span>' + tvButton + '</div></a>';
+      return '<div><a class="ulpt" href="/@/' + userId + '">' + user.name + '</a>' + tvButton + '</div>';
     }
   });
 
