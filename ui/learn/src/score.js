@@ -61,5 +61,8 @@ module.exports = {
   getStageRank: getStageRank,
   pieceValue: function(p) {
     return pieceValues[p] || 0;
+  },
+  gtz: function(s) {
+    return s > 0;
   }
 };

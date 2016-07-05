@@ -12,11 +12,15 @@ function makeStars(nb) {
   return stars;
 }
 
-function ribbon(s, status, res) {
+function ribbon(ctrl, s, status, res) {
   if (status === 'future') return;
-  var rank = res ? scoring.getStageRank(s, res.scores) : null;
-  var content = rank ? makeStars(rank) : 'play!';
-  return m('span.ribbon-wrapper',
+  var content;
+  if (status === 'ongoing') {
+    var p = ctrl.stageProgress(s);
+    content = p[0] ? p.join(' / ') : 'play!';
+  } else
+    content = makeStars(scoring.getStageRank(s, res.scores));
+  if (status !== 'future') return m('span.ribbon-wrapper',
     m('span.ribbon', {
       class: status
     }, content)
@@ -31,14 +35,17 @@ module.exports = function(ctrl) {
         m('div.categ_stages',
           categ.stages.map(function(s) {
             var res = ctrl.data.stages[s.key];
-            var previousDone = s.id === 1 ? true : !!ctrl.data.stages[stages.byId[s.id - 1].key];
-            var status = res ? 'done' : (previousDone ? 'next' : 'future')
+            var complete = ctrl.isStageIdComplete(s.id);
+            var prevComplete = ctrl.isStageIdComplete(s.id - 1);
+            var status = 'future';
+            if (complete) status = 'done';
+            else if (prevComplete || res) status = 'ongoing';
             return m('a', {
               class: 'stage ' + status,
               href: '/' + s.id,
               config: m.route
             }, [
-              ribbon(s, status, res),
+              ribbon(ctrl, s, status, res),
               m('img', {
                 src: s.image
               }),

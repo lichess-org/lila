@@ -714,14 +714,14 @@ body.dark #learn_app .map .categ > h2 {
     -webkit-filter: brightness(1.1);
   }
 }
-#learn_app .map .stage.next {
+#learn_app .map .stage.ongoing {
   background: #3893E8;
   -webkit-filter: brightness(0.9);
 }
-#learn_app .map .stage.next {
+#learn_app .map .stage.ongoing {
   animation: 1.7s soft-bright ease-in-out infinite;
 }
-#learn_app .map .stage.next:hover {
+#learn_app .map .stage.ongoing:hover {
   -webkit-filter: brightness(1.2);
 }
 #learn_app .map .stage.done {
@@ -799,10 +799,10 @@ body.dark #learn_app .map .categ > h2 {
 #learn_app .map .stage .ribbon.done:after {
   border-top:   3px solid #6e8900;
 }
-#learn_app .map .stage .ribbon.next {
+#learn_app .map .stage .ribbon.ongoing {
   background-color: #B3E5FC;
 }
-#learn_app .map .stage .ribbon.next:before,
-#learn_app .map .stage .ribbon.next:after {
+#learn_app .map .stage .ribbon.ongoing:before,
+#learn_app .map .stage .ribbon.ongoing:after {
   border-top: 3px solid #536DFE;
 }
