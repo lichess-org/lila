@@ -1124,7 +1124,7 @@ lichess.notifyApp = (function() {
     },
     _makeUser: function(name) {
       return {
-        'name' : name
+        'name': name
       }
     },
     repaint: function() {
@@ -1154,34 +1154,34 @@ lichess.notifyApp = (function() {
     },
     _setPlaying: function(userName, playing) {
 
-        var isSameUser = function(userName, user) {
-           var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-           return id.toLowerCase() === userName.toLowerCase();
-        }
+      var isSameUser = function(userName, user) {
+        var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        return id.toLowerCase() === userName.toLowerCase();
+      }
 
-        var user = this.users.filter(function(u) {
-            return isSameUser(userName, u);
-        })[0];
+      var user = this.users.filter(function(u) {
+        return isSameUser(userName, u);
+      })[0];
 
-        if (user) {
-            user["playing"] = playing;
-        }
+      if (user) {
+        user["playing"] = playing;
+      }
     },
     playings: function(userNames) {
 
-        for (user in userNames) {
-            this._setPlaying(userNames[user], true);
-        }
+      for (user in userNames) {
+        this._setPlaying(userNames[user], true);
+      }
 
-        this.repaint();
+      this.repaint();
     },
     playing: function(userName) {
-        this._setPlaying(userName, true);
-        this.repaint();
+      this._setPlaying(userName, true);
+      this.repaint();
     },
     stopped_playing: function(userName) {
-        this._setPlaying(userName, false);
-        this.repaint();
+      this._setPlaying(userName, false);
+      this.repaint();
     },
     _renderUser: function(user) {
       var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
