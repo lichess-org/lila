@@ -65,6 +65,7 @@ var categs = [{
 module.exports = {
   list: stages,
   byId: stagesById,
+  byKey: stagesByKey,
   categs: categs,
   stageIdToCategId: function(stageId) {
     var stage = stagesById[stageId];
