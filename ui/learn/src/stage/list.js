@@ -28,6 +28,7 @@ var categs = [{
   name: 'Advanced',
   stages: [
     require('./value'),
+    // require('./draw'),
     require('./check2'),
   ]
 }];
