@@ -465,6 +465,9 @@
   border: 1px solid #ccc;
   border-top: 0px;
 }
+body.dark #learn_app .progress  {
+  border: none;
+}
 #learn_app .progress a {
   flex: 1 1 100%;
   display: flex;
@@ -505,6 +508,10 @@
 
 #learn_side {
   border: none;
+  background: transparent!important;
+}
+body.dark #learn_side a {
+  color: #bbb;
 }
 #learn_side .home {
   width: 220px;
@@ -591,6 +598,9 @@
 #learn_side .map .categ > h2 {
   border-top: 1px solid #ccc;
 }
+body.dark #learn_side .map .categ > h2 {
+  border-color: #444;
+}
 #learn_side .map .categ > h2:hover {
   background: rgba(56, 147, 232, 0.2);
 }
@@ -658,6 +668,9 @@
   color: #999;
   text-shadow: 0 1px 1px #fff;
   text-align: center;
+}
+body.dark #learn_app .map .categ > h2 {
+  text-shadow: 0 1px 1px #000;
 }
 #learn_app .map .categ_stages {
   display: flex;
