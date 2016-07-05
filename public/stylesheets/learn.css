@@ -563,7 +563,7 @@ body.dark #learn_side a {
 }
 #learn_side .home a {
   opacity: 0.6;
-  color: #fff;
+  color: #fff!important;
 }
 #learn_side .home a:hover {
   opacity: 1;
@@ -607,6 +607,9 @@ body.dark #learn_side .map .categ > h2 {
 #learn_side .map .categ.active {
   border: 1px solid #ccc;
   border-width: 0 1px;
+}
+body.dark #learn_side .map .categ.active {
+  border-color: #444;
 }
 #learn_side .map .categ.active:last-child {
   border-bottom-width: 1px;
@@ -660,6 +663,9 @@ body.dark #learn_side .map .categ > h2 {
 }
 #learn_side .map .stage:hover {
   -webkit-filter: brightness(0.9);
+}
+body.dark #learn_side .map .stage:hover {
+  -webkit-filter: brightness(1.1);
 }
 body.dark #learn_side .map .stage.active h2,
 body.dark #learn_side .map .stage:hover h2 {
