@@ -13,7 +13,7 @@ object JsonView {
         "nbGames" -> r.nbGames,
         "followable" -> r.followable,
         "relation" -> r.relation
-      ).noNull
+      )
     }
 
   def writeOnlineFriends(friendsOnline: OnlineFriends) = {

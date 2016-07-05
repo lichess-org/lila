@@ -40,7 +40,7 @@ private[relation] final class RelationActor(
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
       case onlineFriends =>
-        bus.publish(SendOnlineFriends(userId, JsonView.writeOnlineFriends(onlineFriends)), 'users)
+        bus.publish(SendTo(userId, JsonView.writeOnlineFriends(onlineFriends)), 'users)
     }
 
     case NotifyMovement =>

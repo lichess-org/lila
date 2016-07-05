@@ -186,7 +186,6 @@ package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
 case class OnlineFriends(users: List[LightUser], usersPlaying: Set[String])
-case class SendOnlineFriends(userId: String, friendsMsg: JsObject)
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }
