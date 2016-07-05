@@ -3,6 +3,7 @@ package lila.relation
 import akka.actor.{ Actor, ActorSelection }
 import akka.pattern.{ ask, pipe }
 import lila.game.Game
+import lila.memo.ExpireSetMemo
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
@@ -21,7 +22,7 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, LightUser]()
 
-  private var onlinePlayings = Set[ID]()
+  private val onlinePlayings = new ExpireSetMemo(1 hour)
 
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'startGame)
@@ -54,14 +55,14 @@ private[relation] final class RelationActor(
       notifyFollowersByTitle(enters, "following_enters")
       notifyFollowersByTitle(leaves, "following_leaves")
 
-    case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
-      onlinePlayings = onlinePlayings -- game.userIds
+    case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if game.hasClock =>
       val usersPlaying = game.userIds
+      usersPlaying.foreach(onlinePlayings.remove)
       notifyFollowersById(usersPlaying, "following_stopped_playing")
 
-    case msg: lila.game.actorApi.StartGame =>
-      val usersPlaying = msg.game.userIds
-      onlinePlayings = onlinePlayings ++ usersPlaying
+    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+      val usersPlaying = game.userIds
+      onlinePlayings.putAll(usersPlaying)
       notifyFollowersById(usersPlaying, "following_playing")
   }
 
@@ -75,7 +76,7 @@ private[relation] final class RelationActor(
     }
 
   private def getFriendsPlaying(friends: List[LightUser]): Set[String] = {
-    friends.filter(p => onlinePlayings.contains(p.id)).map(_.id).toSet
+    friends.filter(p => onlinePlayings.get(p.id)).map(_.id).toSet
   }
 
   private def notifyFollowersByTitle(users: List[LightUser], message: String) =
