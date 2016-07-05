@@ -7,6 +7,7 @@ var defined = util.defined;
 var empty = util.empty;
 var treePath = require('./path');
 var treeOps = require('./ops');
+var game = require('game').game;
 
 function renderEvalTag(e) {
   return {
@@ -26,7 +27,7 @@ function renderMove(ctrl, node, path, isMainline, conceal) {
   };
   var classes = path === ctrl.vm.path ? ['active'] : [];
   if (path === ctrl.vm.contextMenuPath) classes.push('context_menu');
-  if (path === ctrl.vm.initialPath) classes.push('current');
+  if (path === ctrl.vm.initialPath && game.playable(ctrl.data)) classes.push('current');
   if (conceal) classes.push(conceal);
   if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
