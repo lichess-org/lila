@@ -529,6 +529,12 @@ body.dark #learn_side a {
   font-size: 20px;
   padding-bottom: 15px;
 }
+
+@keyframes fat-glide {
+  50%{
+    transform: translateY(-4px);
+  }
+}
 #learn_side .home i.fat {
   display: block;
   width: 200px;
@@ -536,6 +542,9 @@ body.dark #learn_side a {
   background: url(../images/learn/brutal-helm.svg);
   margin: auto;
   opacity: 0.8;
+}
+#learn_side .home:hover i.fat {
+  animation: 1.2s fat-glide ease-in-out infinite;
 }
 #learn_side .home .progress {
   position: relative;
