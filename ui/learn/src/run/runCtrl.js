@@ -12,10 +12,10 @@ module.exports = function(opts) {
 
   var levelId = m.route.param('level') || (function() {
     var result = opts.storage.data.stages[stage.key];
-    var id = 1;
-    if (result) while(result.scores[id++]) true;
-    if (id >= stage.levels.length) id = 1;
-    return id;
+    var it = 0;
+    if (result) while(result.scores[it]) it++;
+    if (it >= stage.levels.length) it = 0;
+    return it + 1;
   })();
 
   var level = makeLevel(stage.levels[levelId - 1], {
