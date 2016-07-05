@@ -604,6 +604,13 @@ body.dark #learn_side .map .categ > h2 {
 #learn_side .map .categ > h2:hover {
   background: rgba(56, 147, 232, 0.2);
 }
+#learn_side .map .categ.active {
+  border: 1px solid #ccc;
+  border-width: 0 1px;
+}
+#learn_side .map .categ.active:last-child {
+  border-bottom-width: 1px;
+}
 #learn_side .map .categ.active > h2 {
   cursor: default;
   background: rgba(56, 147, 232, 1);
