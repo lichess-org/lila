@@ -6,10 +6,12 @@ var sound = require('../sound');
 
 module.exports = function(opts) {
 
-  var stage = stages.get(m.route.param('stage'));
+  var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
+  opts.setStage(stage);
 
   var level = makeLevel(stage.levels[(m.route.param('level') || 1) - 1], {
+    stage: stage,
     onComplete: function() {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
       if (level.blueprint.id < stage.levels.length)
@@ -38,9 +40,10 @@ module.exports = function(opts) {
   };
 
   var getNext = function() {
-    return stages.get(stage.id + 1);
+    return stages.byId[stage.id + 1];
   };
   if (vm.stageStarting()) sound.stageStart();
+  else level.start();
 
   return {
     stage: stage,
@@ -49,6 +52,11 @@ module.exports = function(opts) {
     progress: makeProgress(stage, level, opts.storage.data),
     stageScore: stageScore,
     getNext: getNext,
+    hideStartingPane: function() {
+      if (!vm.stageStarting()) return;
+      vm.stageStarting(false);
+      level.start();
+    },
     restart: function() {
       m.route('/' + stage.id + '/' + level.blueprint.id);
     }

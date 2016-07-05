@@ -1447,12 +1447,17 @@ body.fpmenu #friend_box {
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
 }
+#friend_box .content div {
+  display: flex;
+}
 #friend_box .content a {
+  flex: 1 1 100%;
   padding: 3px 5px;
   display: block;
-  max-height: 100px;
-  overflow-y: auto;
   transition: background 0.13s;
+}
+#friend_box .content a.tv {
+  flex: 0 0 auto;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;
@@ -2392,17 +2397,6 @@ input.cmn-toggle-round:checked + label:after {
 }
 .hopscotch-content a {
   text-decoration: underline;
-}
-.friend-entry-container {
-  display: flex;
-}
-.friend-entry-name {
-  display: flex;
-  flex-grow: 6;
-}
-.friend-entry-tv {
-  display: flex;
-  flex-grow: 1;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {

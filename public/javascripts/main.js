@@ -1124,7 +1124,7 @@ lichess.notifyApp = (function() {
     },
     _makeUser: function(name) {
       return {
-        'name' : name
+        'name': name
       }
     },
     repaint: function() {
@@ -1154,45 +1154,40 @@ lichess.notifyApp = (function() {
     },
     _setPlaying: function(userName, playing) {
 
-        var isSameUser = function(userName, user) {
-           var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-           return id.toLowerCase() === userName.toLowerCase();
-        }
+      var isSameUser = function(userId, user) {
+        var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        return id.toLowerCase() === userId;
+      }
 
-        var user = this.users.filter(function(u) {
-            return isSameUser(userName, u);
-        })[0];
+      var user = this.users.filter(function(u) {
+        return isSameUser(userName.toLowerCase(), u);
+      })[0];
 
-        if (user) {
-            user["playing"] = playing;
-        }
+      if (user) {
+        user["playing"] = playing;
+      }
     },
     playings: function(userNames) {
 
-        for (user in userNames) {
-            this._setPlaying(userNames[user], true);
-        }
+      for (user in userNames) {
+        this._setPlaying(userNames[user], true);
+      }
 
-        this.repaint();
+      this.repaint();
     },
     playing: function(userName) {
-        this._setPlaying(userName, true);
-        this.repaint();
+      this._setPlaying(userName, true);
+      this.repaint();
     },
     stopped_playing: function(userName) {
-        this._setPlaying(userName, false);
-        this.repaint();
+      this._setPlaying(userName, false);
+      this.repaint();
     },
     _renderUser: function(user) {
-      var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var userId = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var tvButton = user.playing ? '<a data-icon="1" class="tv is-green" href="/@/' + userId + '/tv"></a>' : '';
 
-      var renderTvButton = function(userId) {
-        return '<span><a class="hint--bottom-left friend-entry-tv" href="/@/' + userId + '/tv" ' + '<span data-icon="1"></span></a></span>';
-      };
-
-      var tvButton = user["playing"] ? renderTvButton(id) : '';
-
-      return '<div class="friend-entry-container"><a class="ulpt friend-entry-name" href="/@/' + id + '"><span>' + user.name + '</span>' + tvButton + '</div></a>';
+      return '<div><a class="ulpt" href="/@/' + userId + '">' + user.name + '</a>' + tvButton + '</div>';
     }
   });
 
