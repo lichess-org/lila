@@ -10,10 +10,10 @@ module.exports = {
   title: 'Capture',
   subtitle: 'Take the enemy pieces',
   image: imgUrl,
-  intro: 'You are ready for combat! In this level, we will be capturing enemy pieces.',
+  intro: 'Identify the opponent undefended pieces, and capture them!',
   illustration: util.roundSvg(imgUrl),
   levels: [{ // rook
-    goal: 'Take the black pieces!<br>And don\'t lose yours.',
+    goal: 'Take the black pieces!',
     fen: '8/2p2p2/8/8/8/2R5/8/8 w - -',
     nbMoves: 2,
     captures: 2,
@@ -43,18 +43,6 @@ module.exports = {
     fen: '8/3b4/2p2q2/8/3p1N2/8/8/8 w - -',
     nbMoves: 6,
     captures: 4,
-    success: assert.extinct('black')
-  }, {
-    goal: 'Take the black pieces!<br>And don\'t lose yours.',
-    fen: '2n1b3/4pp2/5Q2/2R5/8/8/8/8 w - -',
-    nbMoves: 5,
-    captures: 4,
-    success: assert.extinct('black')
-  }, {
-    goal: 'Take the black pieces!<br>And don\'t lose yours.',
-    fen: '2n5/8/2B3b1/3p4/4p3/8/2q1R3/8 w - -',
-    nbMoves: 6,
-    captures: 5,
     success: assert.extinct('black')
   }].map(function(l, i) {
     l.pointsForCapture = true;
