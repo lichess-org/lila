@@ -18,7 +18,7 @@ var make = function(file, volume) {
 
 var sounds = {
   move: make('standard/Move'),
-  take: make('sfx/Tournament3rd', 0.7),
+  take: make('sfx/Tournament3rd', 0.4),
   levelStart: make('other/ping'),
   levelEnd: make('other/energy3'),
   stageStart: make('other/guitar'),

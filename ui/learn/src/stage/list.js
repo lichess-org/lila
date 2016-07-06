@@ -29,6 +29,7 @@ var categs = [{
   stages: [
     require('./value'),
     // require('./draw'),
+    // require('./fork'),
     require('./check2'),
   ]
 }];
