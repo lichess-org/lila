@@ -35,7 +35,7 @@ module.exports = {
     fen: '8/8/1Bq5/8/2P5/8/8/8 w - -',
   }, {
     goal: noEscape,
-    fen: '8/8/5b2/5b2/8/8/P2PN3/R1B5 w - -',
+    fen: '1r6/8/5b2/8/8/5N2/P2P4/R1B5 w - -',
     shapes: [arrow('f6a1', 'red'), arrow('d2d4')]
   }, {
     goal: dont,
