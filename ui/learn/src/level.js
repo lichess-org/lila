@@ -65,9 +65,7 @@ module.exports = function(blueprint, opts) {
   var detectCapture = function() {
     if (!blueprint.detectCapture) return false;
     var fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
-    console.log(fun);
     var move = chess[fun]();
-    console.log(move);
     if (!move) return;
     vm.failed = true;
     ground.stop();
