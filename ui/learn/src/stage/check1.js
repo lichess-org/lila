@@ -14,26 +14,26 @@ module.exports = {
   image: imgUrl,
   intro: 'To check your opponent, attack their king. They must defend it!',
   illustration: util.roundSvg(imgUrl),
-  levels: [{ // rook
+  levels: [{
     goal: oneMove,
     fen: '4k3/8/2b5/8/8/8/8/R7 w - -',
     shapes: [arrow('a1e1')]
-  }, { // queen
+  }, {
     goal: oneMove,
     fen: '8/8/4k3/3n4/8/1Q6/8/8 w - -',
-  }, { // bishop
+  }, {
     goal: oneMove,
     fen: '3qk3/1pp5/3p4/4p3/8/3B4/6r1/8 w - -',
-  }, { // pawn
+  }, {
     goal: oneMove,
-    fen: '8/3pp1b1/2n5/2q5/4K3/8/2N5/5Q2 w - -',
-  }, { // knight
+    fen: '2r2q2/2n5/8/4k3/2Q5/2N5/3PP1B1/8 w - -',
+  }, {
     goal: oneMove,
     fen: '8/2b1q2n/1ppk4/2N5/8/8/8/8 w - -',
-  }, { // R+Q
+  }, {
     goal: oneMove,
-    fen: '7R/2k3r1/2n5/5Q2/8/8/8/8 w - -',
-  }, { // many pieces
+    fen: '6R1/1k3r2/8/4Q3/8/2n5/8/8 w - -',
+  }, {
     goal: oneMove,
     fen: '7r/4k3/8/3n4/4Nb2/8/2R5/4Q3 w - -',
   }].map(function(l, i) {
