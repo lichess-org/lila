@@ -13,6 +13,7 @@ var categs = [{
   stages: [
     require('./capture'),
     require('./protection'),
+    require('./combat'),
     require('./check1'),
     require('./outOfCheck.js'),
     require('./checkmate1'),
