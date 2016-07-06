@@ -6,8 +6,8 @@ module.exports = {
     if (!l.color) l.color = / w /.test(l.fen) ? 'white' : 'black';
     if (!l.apples) {
       l.apples = [];
-      if (l.detectCapture !== false) l.detectCapture = true;
     }
+    if (typeof l.detectCapture === 'undefined') l.detectCapture = 'unprotected';
     if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
     return l;
   },

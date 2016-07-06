@@ -12,6 +12,7 @@ var categs = [{
   name: 'Fundamentals',
   stages: [
     require('./capture'),
+    require('./protection'),
     require('./check1'),
     require('./outOfCheck.js'),
     require('./checkmate1'),

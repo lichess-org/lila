@@ -31,6 +31,19 @@ module.exports = function(fen, appleKeys) {
     }
   }
 
+  var findCaptures = function() {
+    return chess.moves({
+      verbose: true
+    }).filter(function(move) {
+      return move.captured;
+    }).map(function(move) {
+      return {
+        orig: move.from,
+        dest: move.to
+      };
+    });
+  }
+
   return {
     dests: function(opts) {
       opts = opts || {};
@@ -75,15 +88,18 @@ module.exports = function(fen, appleKeys) {
       }
     },
     findCapture: function() {
-      var move = chess.moves({
-        verbose: true
-      }).filter(function(move) {
-        return move.captured;
+      return findCaptures()[0];
+    },
+    findUnprotectedCapture: function() {
+      return findCaptures().filter(function(capture) {
+        var clone = new Chess(chess.fen());
+        clone.move({from: capture.orig, to: capture.dest});
+        return !clone.moves({
+          verbose: true
+        }).some(function(m) {
+          return m.captured && m.to === capture.dest;
+        });
       })[0];
-      if (move) return {
-        orig: move.from,
-        dest: move.to
-      };
     },
     checks: function() {
       if (!chess.in_check()) return null;
@@ -103,7 +119,9 @@ module.exports = function(fen, appleKeys) {
       return checks;
     },
     playRandomMove: function() {
-      var moves = chess.moves({verbose: true});
+      var moves = chess.moves({
+        verbose: true
+      });
       if (moves.length) {
         var move = moves[Math.floor(Math.random() * moves.length)];
         chess.move(move);

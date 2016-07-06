@@ -3,7 +3,7 @@ var util = require('../util');
 var assert = require('../assert');
 var arrow = util.arrow;
 
-var imgUrl = util.assetUrl + 'images/learn/bolt-shield.svg';
+var imgUrl = util.assetUrl + 'images/learn/guards.svg';
 
 var oneMove = 'Escape with the king<br>or block the attack!';
 
