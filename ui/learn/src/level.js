@@ -85,7 +85,8 @@ module.exports = function(blueprint, opts) {
       return m.redraw();
     }
     var took = false,
-      inScenario;
+      inScenario,
+      captured = false;
     items.withItem(move.to, function(item) {
       if (item === 'apple') {
         vm.score += scoring.apple;
@@ -104,15 +105,17 @@ module.exports = function(blueprint, opts) {
     if (scenario.player(move.from + move.to + (move.promotion || ''))) {
       vm.score += scoring.scenario;
       inScenario = true;
-    } else
-      vm.failed = vm.failed || detectCapture() || detectFailure();
+    } else {
+      captured = detectCapture();
+      vm.failed = vm.failed || captured || detectFailure();
+    }
     if (!vm.failed && detectSuccess()) complete();
     if (vm.completed) return;
     if (took) sound.take();
     else if (inScenario) sound.take();
     else sound.move();
     if (vm.failed) {
-      if (blueprint.showFailureFollowUp) setTimeout(function() {
+      if (blueprint.showFailureFollowUp && !captured) setTimeout(function() {
         var rm = chess.playRandomMove();
         ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
       }, 600);
