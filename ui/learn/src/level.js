@@ -147,6 +147,8 @@ module.exports = function(blueprint, opts) {
     makeChessDests: makeChessDests
   });
 
+  promotion.reset();
+
   ground.set({
     chess: chess,
     offerIllegalMove: blueprint.offerIllegalMove,

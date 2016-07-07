@@ -72,5 +72,9 @@ module.exports = {
       opposite(ground.data().turnColor),
       ground.data().orientation,
       stage.blueprint.explainPromotion);
+  },
+
+  reset: function() {
+    promoting = false;
   }
 };
