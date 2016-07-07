@@ -13,7 +13,8 @@ module.exports = function(opts) {
   var levelId = m.route.param('level') || (function() {
     var result = opts.storage.data.stages[stage.key];
     var it = 0;
-    if (result) while(result.scores[it]) it++;
+    if (result)
+      while (result.scores[it]) it++;
     if (it >= stage.levels.length) it = 0;
     return it + 1;
   })();
@@ -52,6 +53,14 @@ module.exports = function(opts) {
   };
   if (vm.stageStarting()) sound.stageStart();
   else level.start();
+
+  // setTimeout(function() {
+  //   if (level.blueprint.id < stage.levels.length)
+  //     m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
+  //   else if (getNext()) m.route('/' + (getNext().id));
+  // }, 1500);
+
+  m.redraw.strategy("diff");
 
   return {
     stage: stage,

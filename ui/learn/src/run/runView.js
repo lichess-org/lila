@@ -7,7 +7,6 @@ var congrats = require('../congrats');
 var stageStarting = require('./stageStarting');
 var stageComplete = require('./stageComplete');
 var renderPromotion = require('../promotion').view;
-var renderScore = require('./scoreView');
 var renderProgress = require('../progress').view;
 
 function renderFailed(ctrl) {
@@ -36,18 +35,11 @@ module.exports = function(ctrl) {
   return m('div', {
     class: classSet({
       'lichess_game': true,
-      'initialized': level.vm.initialized,
       'starting': level.vm.starting,
       'completed': level.vm.completed && !level.blueprint.nextButton,
       'last-step': level.vm.lastStep,
       'piece-values': level.blueprint.showPieceValues
-    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass,
-    config: function(el, isUpdate) {
-      if (!isUpdate) setTimeout(function() {
-        level.vm.initialized = true;
-        m.redraw();
-      }, 50);
-    }
+    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass
   }, [
     ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
@@ -68,10 +60,7 @@ module.exports = function(ctrl) {
       level.vm.failed ? renderFailed(ctrl) : (
         level.vm.completed ? renderCompleted(level) : m('div.goal', m.trust(level.blueprint.goal))
       ),
-      // renderCompleted(level),
-      // renderFailed(ctrl),
-      renderProgress(ctrl.progress),
-      renderScore(level)
+      renderProgress(ctrl.progress)
     ])
   ]);
 };

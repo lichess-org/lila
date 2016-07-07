@@ -16,7 +16,6 @@ module.exports = function(blueprint, opts) {
   });
 
   var vm = {
-    initialized: false,
     lastStep: false,
     completed: false,
     failed: false,

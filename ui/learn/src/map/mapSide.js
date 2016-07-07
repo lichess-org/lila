@@ -73,6 +73,7 @@ module.exports = function(opts) {
   return {
     controller: function() {
       var categId = m.prop(0);
+      m.redraw.strategy("diff");
       return {
         data: opts.storage.data,
         categId: categId,

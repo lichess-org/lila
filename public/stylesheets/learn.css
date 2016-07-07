@@ -156,17 +156,19 @@
     transform: scale(1.08);
   }
 }
+@keyframes apple-appear {
+  0% {
+    opacity: 0.5; transform: scale(0) rotate(-360deg);
+  }
+  100% {
+    opacity: 1; transform: scale(1) rotate(0);
+  }
+}
 #learn_app .apple {
   background-image: url(../images/learn/star.png);
-  opacity: 0.2;
-  transform: rotate(180deg) scale(0.1);
-  transition: all 0.6s;
-}
-#learn_app .initialized .apple {
-  opacity: 1;
-  transform: rotate(360deg) translateY(0) scale(1);
-  animation: 1.7s soft-grow ease-in-out infinite, 0.7s soft-hue ease-in-out infinite;
-  animation-delay: 0.6s;
+  animation: 0.6s ease-in-out 0s 1 forwards apple-appear,
+  1.7s ease-in-out 0.7s infinite none soft-grow,
+  0.7s ease-in-out 0.7s infinite none soft-hue;
 }
 #learn_app .is2d item {
   width: 100%;
@@ -479,7 +481,7 @@ body.dark #learn_app .progress  {
   line-height: 11px;
   border-left: 1px solid #ccc;
   opacity: 0.8;
-  transition: 0.13s;
+  transition: all 0.13s;
 }
 #learn_app .progress a:first-child {
   border-left: 0;
