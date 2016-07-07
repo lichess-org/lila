@@ -61,7 +61,7 @@ module.exports = {
     failure: cantCastleQueenSide
   }, {
     goal: 'You cannot castle if<br>the king has already moved<br>or the rook has already moved.',
-    fen: 'rnbqkbnr/pppppppp/8/8/3P4/1PN1PN2/PBPQBPPP/R3K1R1 w KQkq -',
+    fen: 'rnbqkbnr/pppppppp/8/8/3P4/1PN1PN2/PBPQBPPP/R3K1R1 w Qkq -',
     nbMoves: 1,
     shapes: [arrow('e1g1', 'red'), arrow('e1c1')],
     success: castledQueenSide,
