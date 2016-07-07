@@ -43,7 +43,7 @@ private[forum] final class CategApi(env: Env) {
         slug = slug + "-forum",
         name = name + " forum",
         troll = false,
-        featured = true)
+        hidden = false)
       val post = Post.make(
         topicId = topic.id,
         author = none,

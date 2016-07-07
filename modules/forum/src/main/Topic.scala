@@ -55,7 +55,7 @@ object Topic {
     slug: String,
     name: String,
     troll: Boolean,
-    featured: Boolean): Topic = Topic(
+    hidden: Boolean): Topic = Topic(
     _id = Random nextString idSize,
     categId = categId,
     slug = slug,
@@ -70,5 +70,5 @@ object Topic {
     lastPostIdTroll = "",
     troll = troll,
     closed = false,
-    hidden = !featured)
+    hidden = hidden)
 }
