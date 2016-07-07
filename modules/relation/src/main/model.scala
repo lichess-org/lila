@@ -1,5 +1,6 @@
 package lila.relation
 
+import lila.common.LightUser
 import reactivemongo.bson._
 
 case class Follower(u1: String) {
@@ -13,6 +14,8 @@ case class Followed(u2: String) {
 case class Blocked(u2: String) {
   def userId = u2
 }
+
+private[relation] case class FriendEntering(user: LightUser, isPlaying: Boolean)
 
 object BSONHandlers {
 

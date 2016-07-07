@@ -156,8 +156,10 @@ lichess.notifyApp = (function() {
         $('#friend_box').friends("set", friendsOnline);
         $('#friend_box').friends("playings", friendsPlaying);
       },
-      following_enters: function(name) {
-        $('#friend_box').friends('enters', name);
+      following_enters: function(d, all) {
+        var name = all["d"];
+        var playing = all["playing"];
+        $('#friend_box').friends('enters', name, playing);
       },
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
@@ -1123,9 +1125,10 @@ lichess.notifyApp = (function() {
       self.set(self.element.data('preload').split(','));
       self.playings(self.element.data('playing').split(','));
     },
-    _makeUser: function(name) {
+    _makeUser: function(name, playing) {
       return {
-        'name': name
+        'name': name,
+        'playing' : playing || false
       }
     },
     repaint: function() {
@@ -1140,11 +1143,11 @@ lichess.notifyApp = (function() {
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
-      this.users = us.map(this._makeUser) || [];
+      this.users = us.map(this._makeUser);
       this.repaint();
     },
-    enters: function(userName) {
-      var user = this._makeUser(userName);
+    enters: function(userName, playing) {
+      var user = this._makeUser(userName, playing);
 
       this.users.push(user);
       this.repaint();
