@@ -1134,7 +1134,9 @@ lichess.notifyApp = (function() {
       }));
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
-      this.$list.html(this.users.map(this._renderUser).join(""));
+      this.$list.html(this.users.sort(function(a, b) {
+        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+      }).map(this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
