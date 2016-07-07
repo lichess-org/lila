@@ -305,6 +305,10 @@ GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(tok
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
 POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: String, ms: Int)
 
+# Social Login
+GET   /login/:provider                 controllers.Soclog.start(provider: String)
+GET   /login/:provider/finish          controllers.Soclog.finish(provider: String)
+
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
 POST  /mod/:username/booster           controllers.Mod.booster(username: String)

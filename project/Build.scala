@@ -34,7 +34,7 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, RM, akka.actor, akka.slf4j,
-        spray.caching, maxmind, prismic,
+        spray.caching, maxmind, prismic, configs,
         kamon.core, kamon.statsd, java8compat, semver),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
@@ -60,7 +60,7 @@ object ApplicationBuild extends Build {
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     history, worldMap, opening, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
-    study, fishnet, explorer, learn)
+    study, fishnet, explorer, learn, soclog)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -87,6 +87,10 @@ object ApplicationBuild extends Build {
   lazy val video = project("video", Seq(
     common, memo, hub, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM)
+  )
+
+  lazy val soclog = project("soclog", Seq(common, memo, user)).settings(
+    libraryDependencies ++= provided(play.api, RM, configs)
   )
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
