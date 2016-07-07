@@ -4,9 +4,9 @@ module.exports = {
   toLevel: function(l, it) {
     l.id = it + 1;
     if (!l.color) l.color = / w /.test(l.fen) ? 'white' : 'black';
-    if (!l.apples) {
-      l.apples = [];
-    }
+    if (l.apples)
+      l.detectCapture = false;
+    else l.apples = [];
     if (typeof l.detectCapture === 'undefined') l.detectCapture = 'unprotected';
     if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
     return l;
