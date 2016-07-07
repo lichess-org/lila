@@ -62,6 +62,7 @@ div.mchat .note textarea {
   color: #707070;
   line-height: 1.7em;
   outline: none;
+  resize: none;
 }
 div.mchat .lichess_say {
   border: 0;
