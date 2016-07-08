@@ -28,7 +28,7 @@ final class SoclogApi(client: OAuthClient, coll: Coll) {
     }
 
   def finish(provider: Provider)(implicit request: RequestHeader): Fu[AuthResult] =
-    getOAuth(provider).fold[Fu[AuthResult]](fuccess(AuthResult.UtterFail)) {
+    getOAuth(provider).fold[Fu[AuthResult]](fuccess(AuthResult.Nope)) {
       _ flatMap { oauth =>
         UserRepo bySoclog oauth.id map {
           case Some(user) => AuthResult.Authenticated(user)

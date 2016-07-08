@@ -6,9 +6,7 @@ sealed trait AuthResult
 
 object AuthResult {
 
-  case object UtterFail extends AuthResult
-
-  case object AccessDenied extends AuthResult
+  case object Nope extends AuthResult
 
   case class Authenticated(user: User) extends AuthResult
 
