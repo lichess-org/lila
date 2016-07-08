@@ -55,6 +55,10 @@ final class DataForm(
       "password" -> text(minLength = 4),
       "email" -> optional(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
+
+    val soclog = Form(single(
+      "username" -> username
+    ))
   }
 
   val passwordReset = Form(mapping(

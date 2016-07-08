@@ -229,7 +229,7 @@ object UserRepo {
       }
     }
 
-  def createSoclog(username: String, soclogId: String): Fu[Option[User]] =
+  def createSoclog(soclogId: String, username: String): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
         val doc = baseNewUser(username) ++ $doc("soclog" -> soclogId)

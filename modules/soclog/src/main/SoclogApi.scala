@@ -30,20 +30,14 @@ final class SoclogApi(client: OAuthClient, coll: Coll) {
   def finish(provider: Provider)(implicit request: RequestHeader): Fu[AuthResult] =
     getOAuth(provider).fold[Fu[AuthResult]](fuccess(AuthResult.BadRequest)) {
       _ flatMap { oauth =>
-        UserRepo bySoclog oauth.id flatMap {
-          case Some(user) => fuccess(AuthResult.Authenticated(user))
-          case None       => signUp(oauth)
+        UserRepo bySoclog oauth.id map {
+          case Some(user) => AuthResult.Authenticated(user)
+          case None       => AuthResult.PickUsername(oauth)
         }
       }
     }
 
-  private def signUp(oauth: OAuth): Fu[SignUpResult] =
-    UserRepo named oauth.extId flatMap {
-      case Some(existing) => fuccess(SignUpResult.ExistingUsername(oauth, existing))
-      case None => UserRepo.createSoclog(oauth.extId, oauth.id).map {
-        _.fold[SignUpResult](SignUpResult.Failed)(SignUpResult.SignedUp)
-      }
-    }
+  def findOAuth(oAuthId: String) = coll.uno[OAuth]($id(oAuthId))
 
   private def getOAuth(provider: Provider)(implicit request: RequestHeader): Option[Fu[OAuth]] = for {
     cacheKey <- request.session.get(SoclogApi.cacheKey)

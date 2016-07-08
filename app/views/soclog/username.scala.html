@@ -1,0 +1,16 @@
+@(oAuth: lila.soclog.OAuth, form: Form[_])(implicit ctx: Context)
+
+@auth.layout(
+title = trans.signUp.str(),
+zen = true) {
+<div class="content_box small_box signup">
+  <h1>@trans.signUp()</h1>
+  <form class="soclog" action="@routes.Soclog.setUsername(oAuth.id)" method="POST">
+    @errMsg(form)
+    <label for="@form("username").name">
+      <input name="@form("username").name" value="@form("username").value" />
+    </label>
+    <button type="submit" class="button text" data-icon="E">@trans.signUp()</button>
+  </form>
+</div>
+}

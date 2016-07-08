@@ -308,6 +308,8 @@ POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: Str
 # Social Login
 GET   /login/:provider                 controllers.Soclog.start(provider: String)
 GET   /login/:provider/finish          controllers.Soclog.finish(provider: String)
+GET   /login/:oAuthId/username         controllers.Soclog.username(oAuthId: String)
+POST  /login/:oAuthId/username         controllers.Soclog.setUsername(oAuthId: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)

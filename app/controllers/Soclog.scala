@@ -14,7 +14,6 @@ object Soclog extends LilaController {
   val security = Env.security.api
 
   import lila.soclog.AuthResult._
-  import lila.soclog.SignUpResult._
 
   def start(providerName: String) = Open { implicit ctx =>
     implicit val req = ctx.req
@@ -25,11 +24,28 @@ object Soclog extends LilaController {
     implicit val req = ctx.req
     WithProvider(providerName) { provider =>
       api.finish(provider) flatMap {
-        case Authenticated(user)               => authenticateUser(user)
-        case SignedUp(user)                    => authenticateUser(user)
-        case ExistingUsername(oauth, existing) => ???
-        case x                                 => ???
+        case Authenticated(user) => authenticateUser(user)
+        case PickUsername(oauth) => Redirect(routes.Soclog.username(oauth.id)).fuccess
+        case x                   => ???
       }
+    }
+  }
+
+  def username(oAuthId: String) = Open { implicit ctx =>
+    NewUser(oAuthId) { oAuth =>
+      Ok(html.soclog.username(oAuth, Env.security.forms.signup.soclog.fill(oAuth.profile.username))).fuccess
+    }
+  }
+
+  def setUsername(oAuthId: String) = OpenBody { implicit ctx =>
+    NewUser(oAuthId) { oAuth =>
+      implicit val req = ctx.body
+      Env.security.forms.signup.soclog.bindFromRequest.fold(
+        err => BadRequest(html.soclog.username(oAuth, err)).fuccess,
+        username => UserRepo.createSoclog(oAuth.id, username).map {
+          case None       => Redirect(routes.Soclog.username(oAuth.id))
+          case Some(user) => Redirect(routes.User.show(user.username))
+        })
     }
   }
 
@@ -47,4 +63,12 @@ object Soclog extends LilaController {
 
   private def WithProvider(name: String)(f: lila.soclog.Provider => Fu[Result])(implicit ctx: Context) =
     Env.soclog.providers(name).fold(notFound)(f)
+
+  private def NewUser(oAuthId: String)(f: lila.soclog.OAuth => Fu[Result])(implicit ctx: Context) =
+    OptionFuResult(api findOAuth oAuthId) { oAuth =>
+      UserRepo bySoclog oAuth.id flatMap {
+        case None       => f(oAuth)
+        case Some(user) => Redirect(routes.User.show(user.username)).fuccess
+      }
+    }
 }

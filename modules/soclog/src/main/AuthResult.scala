@@ -11,15 +11,8 @@ object AuthResult {
   case object AccessDenied extends AuthResult
 
   case class Authenticated(user: User) extends AuthResult
-}
 
-sealed trait SignUpResult extends AuthResult
+  case object Failed extends AuthResult
 
-object SignUpResult {
-
-  case object Failed extends SignUpResult
-
-  case class SignedUp(user: User) extends SignUpResult
-
-  case class ExistingUsername(oauth: OAuth, existingUser: User) extends SignUpResult
+  case class PickUsername(oAuth: OAuth) extends AuthResult
 }

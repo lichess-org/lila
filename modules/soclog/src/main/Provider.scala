@@ -28,8 +28,8 @@ private object Profiler {
   val twitter: Provider => FillProfile = provider => client => accessToken =>
     client.retrieveProfile(provider, "https://api.twitter.com/1.1/account/verify_credentials.json?skip_status=true", accessToken).map { me =>
       Profile(
-        providerId = provider.name,
         userId = (me \ "id_str").as[String],
+        username = (me \ "screen_name").as[String],
         fullName = (me \ "name").asOpt[String])
     }
 }
