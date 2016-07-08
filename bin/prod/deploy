@@ -28,8 +28,10 @@ if [ "$2" == "asset" ]; then
   bin/prod/compile-client
 fi
 
-lilalog "Notify users of pre deploy"
-$CLI deploy pre
+if [ $mode = "main" ]; then
+  lilalog "Notify users of pre deploy"
+  $CLI deploy pre
+fi
 
 bin/dev ";stage;exit"
 if [ $? != 0 ]; then
@@ -78,8 +80,10 @@ fi
 
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
-lilalog "Notify users of post deploy"
-$CLI deploy post
+if [ $mode = "main" ]; then
+  lilalog "Notify users of post deploy"
+  $CLI deploy post
+fi
 
 if [ $mode == "main" ]; then
   lilalog "Restart lichess"
