@@ -40,7 +40,7 @@ object Soclog extends LilaController {
       Redirect {
         get("referrer").filter(_.nonEmpty) orElse req.session.get(security.AccessUri) getOrElse routes.Lobby.home.url
       } withCookies LilaCookie.withSession { session =>
-        session + ("sessionId" -> sessionId) - security.AccessUri
+        session + ("sessionId" -> sessionId) - security.AccessUri - lila.soclog.SoclogApi.cacheKey
       }
     }
   }

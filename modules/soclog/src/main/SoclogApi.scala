@@ -22,7 +22,9 @@ final class SoclogApi(client: OAuthClient, coll: Coll) {
       requestTokenStorage.put(cacheKey, requestToken)
       Redirect {
         client.redirectUrl(provider, requestToken.token)
-      }.withSession(request.session + (SoclogApi.cacheKey -> cacheKey))
+      } withCookies lila.common.LilaCookie.withSession { session =>
+        session + (SoclogApi.cacheKey -> cacheKey)
+      }
     }
 
   def finish(provider: Provider)(implicit request: RequestHeader): Fu[AuthResult] =
@@ -62,7 +64,7 @@ final class SoclogApi(client: OAuthClient, coll: Coll) {
   private def randomId = ornicar.scalalib.Random nextStringUppercase 10
 }
 
-private object SoclogApi {
+object SoclogApi {
 
   val cacheKey = "oauth_cache_key"
 }

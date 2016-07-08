@@ -11,13 +11,14 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem) {
 
-  private val BaseUrl = config getString "base_url"
+  private val CallbackUrl = config getString "callback_url"
   private val CollectionOAuth = config getString "collection.oauth"
 
   val providers: Providers =
     config.get[Providers]("providers") valueOrElse sys.error("soclog config")
 
-  private val client = new OAuthClient(BaseUrl)
+  private val client =
+    new OAuthClient(provider => CallbackUrl.replace("<provider>", provider.name))
 
   val api = new SoclogApi(client, db(CollectionOAuth))
 }
