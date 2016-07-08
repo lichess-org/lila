@@ -39,13 +39,13 @@ object TextType {
   case object PublicForumMessage extends TextType("puf", 20, "Public forum message")
   case object TeamForumMessage extends TextType("tef", 20, "Team forum message")
   case object PrivateMessage extends TextType("prm", 20, "Private message")
-  case object PrivateChat extends TextType("prc", 60, "Private chat")
+  case object PrivateChat extends TextType("prc", 40, "Private chat")
   case object PublicChat extends TextType("puc", 60, "Public chat")
 }
 
 case class TextReport(textType: TextType, ratios: List[Double]) {
 
-  def minRatios = textType.rotation / 10
+  def minRatios = textType.rotation / 15
   def nbBad = ratios.count(_ > TextReport.unacceptableRatio)
   def tolerableNb = (ratios.size / 10) max 3
 
