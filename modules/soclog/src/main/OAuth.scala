@@ -15,9 +15,6 @@ case class OAuth(
 
 object OAuth {
 
-  def makeId(provider: Provider, profile: Profile) =
-    s"${provider.name}:${profile.userId}"
-
   def make(provider: Provider, profile: Profile, tokens: AccessToken) = OAuth(
     _id = ornicar.scalalib.Random nextStringUppercase 10,
     provider = provider.name,

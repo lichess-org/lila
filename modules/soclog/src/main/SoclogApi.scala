@@ -48,7 +48,10 @@ final class SoclogApi(client: OAuthClient, coll: Coll) {
   }
 
   private def findOrCreateOAuth(tokens: AccessToken, provider: Provider)(profile: Profile): Fu[OAuth] =
-    coll.uno[OAuth]($id(OAuth.makeId(provider, profile))) flatMap {
+    coll.uno[OAuth]($doc(
+      "provider" -> provider.name,
+      "profile.userId" -> profile.userId
+    )) flatMap {
       case Some(oauth) => coll.updateField($id(oauth.id), "updatedAt", DateTime.now) inject oauth
       case None =>
         val oauth = OAuth.make(provider, profile, tokens)
