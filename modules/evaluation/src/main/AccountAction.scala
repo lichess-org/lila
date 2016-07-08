@@ -19,7 +19,7 @@ object AccountAction {
     val description: String = s"Report for $reason"
     val id = 2
   }
-  val reportVariousReasons = Report("various reasons")
+  val reportVariousReasons = Report("")
   val reportConsistentMovetimes = Report("consistent movetimes")
   case object Nothing extends AccountAction {
     val description: String = "Not suspicious"
