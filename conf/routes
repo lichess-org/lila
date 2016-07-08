@@ -306,10 +306,12 @@ POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmAppl
 POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: String, ms: Int)
 
 # Social Login
-GET   /login/:provider                 controllers.Soclog.start(provider: String)
-GET   /login/:provider/finish          controllers.Soclog.finish(provider: String)
-GET   /login/:oAuthId/username         controllers.Soclog.username(oAuthId: String)
-POST  /login/:oAuthId/username         controllers.Soclog.setUsername(oAuthId: String)
+GET   /login/oauth1/:provider          controllers.SoclogOAuth1.start(provider: String)
+GET   /login/oauth1/:provider/finish   controllers.SoclogOAuth1.finish(provider: String)
+GET   /login/oauth1/:oAuthId/username  controllers.SoclogOAuth1.username(oAuthId: String)
+POST  /login/oauth1/:oAuthId/username  controllers.SoclogOAuth1.setUsername(oAuthId: String)
+
+GET   /login/oauth2/:provider          controllers.SoclogOAuth2.start(provider: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)

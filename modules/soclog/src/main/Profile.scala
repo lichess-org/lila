@@ -1,7 +1,5 @@
 package lila.soclog
 
-case class AccessToken(token: String, secret: String)
-
 case class Profile(
   userId: String,
   username: String,

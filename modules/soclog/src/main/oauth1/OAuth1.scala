@@ -1,11 +1,12 @@
 package lila.soclog
+package oauth1
 
 import org.joda.time.DateTime
 
-case class OAuth(
+case class OAuth1(
     _id: String, // random
     provider: String,
-    tokens: AccessToken,
+    tokens: OAuth1AccessToken,
     profile: Profile,
     createdAt: DateTime,
     updatedAt: DateTime) {
@@ -13,9 +14,9 @@ case class OAuth(
   def id = _id
 }
 
-object OAuth {
+object OAuth1 {
 
-  def make(provider: Provider, profile: Profile, tokens: AccessToken) = OAuth(
+  def make(provider: OAuth1Provider, profile: Profile, tokens: OAuth1AccessToken) = OAuth1(
     _id = ornicar.scalalib.Random nextStringUppercase 10,
     provider = provider.name,
     profile = profile,
@@ -27,8 +28,8 @@ object OAuth {
     import lila.db.BSON
     import lila.db.dsl._
     import reactivemongo.bson._
-    implicit val AccessTokenHandler = Macros.handler[AccessToken]
+    implicit val OAuth1AccessTokenHandler = Macros.handler[OAuth1AccessToken]
     implicit val ProfileHandler = Macros.handler[Profile]
-    implicit val OAuthHandler = Macros.handler[OAuth]
+    implicit val OAuth1Handler = Macros.handler[OAuth1]
   }
 }

@@ -8,10 +8,31 @@ import views._
 
 import play.api.mvc._
 
-object Soclog extends LilaController {
+object SoclogOAuth1 extends LilaController {
 
   val api = Env.soclog.oauth1.api
   val security = Env.security.api
+
+  import lila.soclog.oauth1.OAuth1Result._
+
+  def start(providerName: String) = Open { implicit ctx =>
+    implicit val req = ctx.req
+    WithProvider(providerName)(api.start)
+  }
+
+  def finish(providerName: String) = Open { implicit ctx =>
+    implicit val req = ctx.req
+    WithProvider(providerName) { provider =>
+      api.finish(provider) flatMap {
+        case Authenticated(user)             => authenticateUser(user)
+        case PickUsername(oauth)             => Redirect(routes.SoclogOAuth1.username(oauth.id)).fuccess
+        case Nope if get("denied").isDefined => Redirect(routes.Auth.signup).fuccess
+        case Nope => BadRequest(html.soclog.fail {
+          "Sorry, we cannot log you in!"
+        }).fuccess
+      }
+    }
+  }
 
   def username(oAuthId: String) = Open { implicit ctx =>
     NewUser(oAuthId) { oAuth =>
@@ -45,6 +66,9 @@ object Soclog extends LilaController {
       }
     }
   }
+
+  private def WithProvider(name: String)(f: lila.soclog.oauth1.OAuth1Provider => Fu[Result])(implicit ctx: Context) =
+    Env.soclog.oauth1.providers(name).fold(notFound)(f)
 
   private def NewUser(oAuthId: String)(f: lila.soclog.oauth1.OAuth1 => Fu[Result])(implicit ctx: Context) =
     OptionFuResult(api findOAuth oAuthId) { oAuth =>

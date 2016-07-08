@@ -3,6 +3,8 @@ package lila.soclog
 import akka.actor._
 import com.typesafe.config.Config
 import configs.syntax._
+import oauth1._
+import oauth2._
 
 import lila.common.PimpedConfig._
 
@@ -11,16 +13,27 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem) {
 
-  private val CallbackUrl = config getString "callback_url"
-  private val CollectionOAuth = config getString "collection.oauth"
+  private val OAuth1CallbackUrl = config getString "oauth1.callback_url"
+  private val OAuth1Collection = config getString "oauth1.collection"
 
-  val providers: Providers =
-    config.get[Providers]("providers") valueOrElse sys.error("soclog config")
+  private val OAuth2Collection = config getString "oauth2.collection"
 
-  private val client =
-    new OAuthClient(provider => CallbackUrl.replace("<provider>", provider.name))
+  object oauth1 {
 
-  val api = new SoclogApi(client, db(CollectionOAuth))
+    val providers: OAuth1Providers =
+      config.get[OAuth1Providers]("oauth1.providers") valueOrElse sys.error("soclog config")
+
+    private val client =
+      new OAuth1Client(provider => OAuth1CallbackUrl.replace("<provider>", provider.name))
+
+    val api = new OAuth1Api(client, db(OAuth1Collection))
+  }
+
+  object oauth2 {
+
+    val providers: OAuth2Providers =
+      config.get[OAuth2Providers]("oauth2.providers") valueOrElse sys.error("soclog config")
+  }
 }
 
 object Env {
