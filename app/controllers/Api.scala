@@ -1,5 +1,6 @@
 package controllers
 
+import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.mvc._, Results._
 
@@ -38,23 +39,27 @@ object Api extends LilaController {
     }
   }
 
+  private val GamesRateLimit = new lila.memo.RateLimit(100, 10 minutes, "user games API")
+
   def userGames(name: String) = ApiResult { implicit ctx =>
-    val page = getInt("page")
-    if (~page > 100) fuccess(Json.obj("error" -> "Going too far back in time.").some)
-    else lila.user.UserRepo named name flatMap {
-      _ ?? { user =>
-        gameApi.byUser(
-          user = user,
-          rated = getBoolOpt("rated"),
-          analysed = getBoolOpt("analysed"),
-          withAnalysis = getBool("with_analysis"),
-          withMoves = getBool("with_moves"),
-          withOpening = getBool("with_opening"),
-          withMoveTimes = getBool("with_movetimes"),
-          token = get("token"),
-          nb = getInt("nb"),
-          page = page
-        ) map (_.some)
+    GamesRateLimit(ctx.req.remoteAddress) {
+      val page = getInt("page")
+      if (~page > 100) fuccess(Json.obj("error" -> "Going too far back in time.").some)
+      else lila.user.UserRepo named name flatMap {
+        _ ?? { user =>
+          gameApi.byUser(
+            user = user,
+            rated = getBoolOpt("rated"),
+            analysed = getBoolOpt("analysed"),
+            withAnalysis = getBool("with_analysis"),
+            withMoves = getBool("with_moves"),
+            withOpening = getBool("with_opening"),
+            withMoveTimes = getBool("with_movetimes"),
+            token = get("token"),
+            nb = getInt("nb"),
+            page = page
+          ) map (_.some)
+        }
       }
     }
   }
