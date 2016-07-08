@@ -52,18 +52,24 @@ private[relation] final class RelationActor(
       val leaves = leaveIds.flatMap(i => lightUser(i))
       val enters = enterIds.flatMap(i => lightUser(i))
       onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
-      notifyFollowersByTitle(enters, "following_enters")
-      notifyFollowersByTitle(leaves, "following_leaves")
+
+      val friendsEntering = enters.map(makeFriendEntering)
+      notifyFollowersFriendEnters(friendsEntering)
+      notifyFollowersFriendLeaves(leaves)
 
     case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if game.hasClock =>
       val usersPlaying = game.userIds
       usersPlaying.foreach(onlinePlayings.remove)
-      notifyFollowersById(usersPlaying, "following_stopped_playing")
+      notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       val usersPlaying = game.userIds
       onlinePlayings.putAll(usersPlaying)
-      notifyFollowersById(usersPlaying, "following_playing")
+      notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+  }
+
+  private def makeFriendEntering(enters: LightUser) = {
+    FriendEntering(enters, onlinePlayings.get(enters.id))
   }
 
   private def onlineIds: Set[ID] = onlines.keySet
@@ -71,22 +77,29 @@ private[relation] final class RelationActor(
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api fetchFollowing userId map { ids =>
       val friends = ids.flatMap(onlines.get).toList
-      val friendsPlaying = getFriendsPlaying(friends)
+      val friendsPlaying = filterFriendsPlaying(friends)
       OnlineFriends(friends, friendsPlaying)
     }
 
-  private def getFriendsPlaying(friends: List[LightUser]): Set[String] = {
+  private def filterFriendsPlaying(friends: List[LightUser]): Set[String] = {
     friends.filter(p => onlinePlayings.get(p.id)).map(_.id).toSet
   }
 
-  private def notifyFollowersByTitle(users: List[LightUser], message: String) =
-    users foreach { user =>
-      api fetchFollowers user.id map (_ filter onlines.contains) foreach { ids =>
-        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, user.titleName), 'users)
+  private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
+    friendsEntering foreach { entering =>
+      api fetchFollowers entering.user.id map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
       }
     }
 
-  private def notifyFollowersById(userIds: List[String], message: String) =
+  private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
+    friendsLeaving foreach { leaving =>
+      api fetchFollowers leaving.id map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
+      }
+    }
+
+  private def notifyFollowersGameStateChanged(userIds: Traversable[String], message: String) =
     userIds foreach { userId =>
       api fetchFollowers userId map (_ filter onlines.contains) foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)

@@ -22,6 +22,14 @@ object JsonView {
       "t" -> "following_onlines",
       "d" -> friendsOnline.users.map(_.titleName),
       "playing" -> friendsOnline.usersPlaying
-    ).noNull
+    )
+  }
+
+  def writeFriendEntering(friendEntering: FriendEntering) = {
+    // We use 'd' for backward compatibility with the mobile client
+    Json.obj("t" -> "following_enters",
+             "d" -> friendEntering.user.titleName,
+             "playing" -> friendEntering.isPlaying
+    )
   }
 }
