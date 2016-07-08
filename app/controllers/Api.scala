@@ -39,7 +39,9 @@ object Api extends LilaController {
   }
 
   def userGames(name: String) = ApiResult { implicit ctx =>
-    lila.user.UserRepo named name flatMap {
+    val page = getInt("page")
+    if (~page > 100) fuccess(Json.obj("error" -> "Going too far back in time.").some)
+    else lila.user.UserRepo named name flatMap {
       _ ?? { user =>
         gameApi.byUser(
           user = user,
@@ -51,7 +53,7 @@ object Api extends LilaController {
           withMoveTimes = getBool("with_movetimes"),
           token = get("token"),
           nb = getInt("nb"),
-          page = getInt("page")
+          page = page
         ) map (_.some)
       }
     }
