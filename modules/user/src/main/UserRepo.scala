@@ -36,6 +36,8 @@ object UserRepo {
 
   def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
 
+  def bySoclog(soclogId: String): Fu[Option[User]] = coll.uno[User]($doc(F.soclog -> soclogId))
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     coll.byIds[User](List(x, y).flatten) map { users =>
       x.??(xx => users.find(_.id == xx)) ->
@@ -219,11 +221,18 @@ object UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "password")
 
-  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
+  def createPassword(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion) ++
-          ("len" -> BSONInteger(username.size))
+        val doc = newPasswordUser(username, password, email, blind, mobileApiVersion)
+        coll.insert(doc) >> named(normalize(username))
+      }
+    }
+
+  def createSoclog(username: String, soclogId: String): Fu[Option[User]] =
+    !nameExists(username) flatMap {
+      _ ?? {
+        val doc = baseNewUser(username) ++ $doc("soclog" -> soclogId)
         coll.insert(doc) >> named(normalize(username))
       }
     }
@@ -347,28 +356,33 @@ object UserRepo {
 
   def setEmailConfirmed(id: String): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
-  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]) = {
+  private def newPasswordUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
-    implicit def countHandler = Count.countBSONHandler
-    implicit def perfsHandler = Perfs.perfsBSONHandler
-    import lila.db.BSON.BSONJodaDateTimeHandler
 
-    $doc(
-      F.id -> normalize(username),
-      F.username -> username,
+    baseNewUser(username) ++ $doc(
       F.email -> email,
       F.mustConfirmEmail -> (email.isDefined && mobileApiVersion.isEmpty).option(DateTime.now),
       "password" -> hash(password, salt),
       "salt" -> salt,
+      F.createdWithApiVersion -> mobileApiVersion) ++ {
+        blind ?? $doc("blind" -> true)
+      }
+  }
+
+  private def baseNewUser(username: String): Bdoc = {
+    import lila.db.BSON.BSONJodaDateTimeHandler
+    implicit def countHandler = Count.countBSONHandler
+    implicit def perfsHandler = Perfs.perfsBSONHandler
+    $doc(
+      F.id -> normalize(username),
+      F.username -> username,
+      "len" -> BSONInteger(username.size),
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
-      F.createdWithApiVersion -> mobileApiVersion,
-      F.seenAt -> DateTime.now) ++ {
-        if (blind) $doc("blind" -> true) else $empty
-      }
+      F.seenAt -> DateTime.now)
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1

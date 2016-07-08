@@ -28,21 +28,19 @@ object Auth extends LilaController {
 
   private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
-    u.ipBan.fold(
-      fuccess(Redirect(routes.Lobby.home)),
-      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
-        negotiate(
-          html = Redirect {
-            get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-          }.fuccess,
-          api = _ => mobileUserOk(u)
-        ) map {
-            _ withCookies LilaCookie.withSession { session =>
-              session + ("sessionId" -> sessionId) - api.AccessUri
-            }
+    if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
+    else api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+      negotiate(
+        html = Redirect {
+          get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
+        }.fuccess,
+        api = _ => mobileUserOk(u)
+      ) map {
+          _ withCookies LilaCookie.withSession { session =>
+            session + ("sessionId" -> sessionId) - api.AccessUri
           }
-      } recoverWith authRecovery
-    )
+        }
+    } recoverWith authRecovery
   }
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
@@ -106,7 +104,7 @@ object Auth extends LilaController {
               case true =>
                 lila.mon.user.register.website()
                 val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-                UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
+                UserRepo.createPassword(data.username, data.password, email.some, ctx.blindMode, none)
                   .flatten(s"No user could be created for ${data.username}")
                   .map(_ -> email).flatMap {
                     case (user, email) => env.emailConfirm.send(user, email) >> {
@@ -120,7 +118,7 @@ object Auth extends LilaController {
             data => {
               lila.mon.user.register.mobile()
               val email = data.email flatMap env.emailAddress.validate
-              UserRepo.create(data.username, data.password, email, false, apiVersion.some)
+              UserRepo.createPassword(data.username, data.password, email, false, apiVersion.some)
                 .flatten(s"No user could be created for ${data.username}") flatMap authenticateUser
             }
           )

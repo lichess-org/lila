@@ -89,7 +89,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
-  lazy val soclog = project("soclog", Seq(common, memo, user)).settings(
+  lazy val soclog = project("soclog", Seq(common, db, memo, user)).settings(
     libraryDependencies ++= provided(play.api, RM, configs)
   )
 

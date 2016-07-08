@@ -16,12 +16,47 @@ div.signup_box .lichess_title {
 div.content_box.login div.alternative {
   display: block;
   position: absolute;
-  top: 2em;
+  top: 0;
   left: 312px;
   width: 300px;
 }
 div.content_box.signup div.alternative {
   float: right;
+}
+
+.soclog {
+}
+.soclog a {
+  font-size: 14px;
+  display: block;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  transition: all 0.13s;
+}
+.soclog a::before {
+  font-size: 20px;
+  padding-right: 5px;
+}
+.soclog .facebook {
+  background: #3A6BBD;
+}
+.soclog .twitter {
+  background: #00A8D2;
+}
+.soclog .google {
+  background: #CD3929;
+}
+.soclog .vk {
+  background: #507299;
+}
+.soclog .github {
+  background: #333;
+}
+.soclog a:hover {
+  -webkit-filter: brightness(1.1);
+  text-shadow: 0 0 10px #fff;
 }
 
 .content_box form {

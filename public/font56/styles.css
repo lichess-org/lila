@@ -380,3 +380,24 @@
 .icon-bell-o:before {
   content: "\e00f";
 }
+.icon-curly-wing:before {
+  content: "\e010";
+}
+.icon-diamond:before {
+  content: "\e011";
+}
+.icon-facebook:before {
+  content: "\e012";
+}
+.icon-twitter:before {
+  content: "\e013";
+}
+.icon-google-plus:before {
+  content: "\e014";
+}
+.icon-vk:before {
+  content: "\e015";
+}
+.icon-github:before {
+  content: "\e016";
+}

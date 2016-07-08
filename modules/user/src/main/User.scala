@@ -165,6 +165,7 @@ object User {
     val email = "email"
     val mustConfirmEmail = "mustConfirmEmail"
     val colorIt = "colorIt"
+    val soclog = "soclog"
   }
 
   import lila.db.BSON
