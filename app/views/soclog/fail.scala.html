@@ -1,0 +1,10 @@
+@(msg: String)(implicit ctx: Context)
+
+@auth.layout(
+title = trans.signUp.str(),
+zen = true) {
+<div class="content_box small_box signup">
+  <h1 data-icon="L" class="text">@trans.signUp()</h1>
+  <p>@msg</p>
+</div>
+}

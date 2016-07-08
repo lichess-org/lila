@@ -26,7 +26,12 @@ object Soclog extends LilaController {
       api.finish(provider) flatMap {
         case Authenticated(user) => authenticateUser(user)
         case PickUsername(oauth) => Redirect(routes.Soclog.username(oauth.id)).fuccess
-        case x                   => ???
+        case UtterFail => BadRequest(html.soclog.fail {
+          "Sorry, we cannot log you in!"
+        }).fuccess
+        case AccessDenied => Ok(html.soclog.fail {
+          "The access was denied, you are not logged in."
+        }).fuccess
       }
     }
   }
