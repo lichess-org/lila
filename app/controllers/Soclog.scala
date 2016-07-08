@@ -42,19 +42,22 @@ object Soclog extends LilaController {
       implicit val req = ctx.body
       Env.security.forms.signup.soclog.bindFromRequest.fold(
         err => BadRequest(html.soclog.username(oAuth, err)).fuccess,
-        username => UserRepo.createSoclog(oAuth.id, username).map {
-          case None       => Redirect(routes.Soclog.username(oAuth.id))
-          case Some(user) => Redirect(routes.User.show(user.username))
+        username => UserRepo.createSoclog(oAuth.id, username).flatMap {
+          case None       => Redirect(routes.Soclog.username(oAuth.id)).fuccess
+          case Some(user) => authenticateUser(user, routes.User.show(user.username).some)
         })
     }
   }
 
-  private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
+  private def authenticateUser(u: UserModel, redirectTo: Option[Call] = none)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
     else security.saveAuthentication(u.id, ctx.mobileApiVersion) map { sessionId =>
       Redirect {
-        get("referrer").filter(_.nonEmpty) orElse req.session.get(security.AccessUri) getOrElse routes.Lobby.home.url
+        redirectTo.map(_.url) orElse
+          get("referrer").filter(_.nonEmpty) orElse
+          req.session.get(security.AccessUri) getOrElse
+          routes.Lobby.home.url
       } withCookies LilaCookie.withSession { session =>
         session + ("sessionId" -> sessionId) - security.AccessUri - lila.soclog.SoclogApi.cacheKey
       }
