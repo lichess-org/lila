@@ -150,8 +150,8 @@ lichess.notifyApp = (function() {
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
-        var friendsOnline = all["d"]
-        var friendsPlaying = all["playing"]
+        var friendsOnline = all["d"];
+        var friendsPlaying = all["playing"];
 
         $('#friend_box').friends("set", friendsOnline);
         $('#friend_box').friends("playings", friendsPlaying);
@@ -1143,7 +1143,12 @@ lichess.notifyApp = (function() {
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
-      this.users = us.map(this._makeUser);
+      var makeUser = this._makeUser;
+
+      this.users = us.map(function(user) {
+        return makeUser(user, false);
+      });
+
       this.repaint();
     },
     enters: function(userName, playing) {
