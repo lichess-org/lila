@@ -99,8 +99,7 @@ private[api] final class GameApi(
         val validToken = check(token)
         games zip analysisOptions zip initialFens map {
           case ((g, analysisOption), initialFen) =>
-            val pgnOption = withAnalysis option pgnDump(g, initialFen)
-            gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFen,
+            gameToJson(g, makeUrl(g), analysisOption, initialFen,
               withAnalysis = withAnalysis,
               withMoves = withMoves,
               withOpening = withOpening,
@@ -118,7 +117,6 @@ private[api] final class GameApi(
     g: Game,
     url: String,
     analysisOption: Option[Analysis],
-    pgnOption: Option[Pgn],
     initialFen: Option[String],
     withAnalysis: Boolean,
     withMoves: Boolean,
@@ -165,7 +163,7 @@ private[api] final class GameApi(
         "analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisJson.game),
+    "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> withFens ?? {

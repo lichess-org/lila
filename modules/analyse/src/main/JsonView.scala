@@ -2,14 +2,13 @@ package lila.analyse
 
 import play.api.libs.json._
 
-import chess.format.pgn.Pgn
 import lila.common.PimpedJson._
 import lila.game.Game
 
 object JsonView {
 
-  def game(analysis: Analysis, pgn: Pgn) = JsArray(analysis.infoAdvices zip pgn.moves map {
-    case ((info, adviceOption), move) => Json.obj(
+  def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
+    case ((info, adviceOption)) => Json.obj(
       "eval" -> info.score.map(_.centipawns),
       "mate" -> info.mate,
       "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " "),
@@ -29,4 +28,9 @@ object JsonView {
   def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
     "white" -> player(game.whitePov)(analysis),
     "black" -> player(game.blackPov)(analysis))
+
+  def mobile(game: Game, analysis: Analysis) = Json.obj(
+    "summary" -> bothPlayers(game, analysis),
+    "moves" -> moves(analysis)
+  )
 }

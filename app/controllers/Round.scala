@@ -141,21 +141,20 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) =>
-        get("pov") match {
-          case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
-            case (Some(_), Some(opponent)) if opponent == requestedPov =>
-              Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-            case (Some(player), Some(_)) if player == requestedPov =>
-              Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-            case _ =>
-              Redirect(routes.Round.watcher(gameId, "white")).fuccess
-          }
-          case None => {
-            env.checkOutoftime(pov.game)
-            watch(pov)
-          }
+      case Some(pov) => get("pov") match {
+        case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
+          case (Some(_), Some(opponent)) if opponent == requestedPov =>
+            Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+          case (Some(player), Some(_)) if player == requestedPov =>
+            Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+          case _ =>
+            Redirect(routes.Round.watcher(gameId, "white")).fuccess
         }
+        case None => {
+          env.checkOutoftime(pov.game)
+          watch(pov)
+        }
+      }
       case None => Challenge showId gameId
     }
   }
@@ -184,7 +183,14 @@ object Round extends LilaController with TheftPrevention {
                   Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
               }
         }.mon(_.http.response.watcher.website),
-        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
+        api = apiVersion =>
+          Env.api.roundApi.watcher(pov, apiVersion, tv = none) flatMap { json =>
+            pov.game.metadata.analysed.??(analyser get pov.game.id) map { analysis =>
+              Ok(analysis.fold(json) { a =>
+                json + ("analysis" -> lila.analyse.JsonView.mobile(pov.game, a))
+              })
+            }
+          }
       ) map NoCache
     }
 
