@@ -129,7 +129,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   private def titleTag(title: Option[String]) = title match {
     case None    => ""
-    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span> """
   }
 
   private def userIdNameLink(
@@ -268,8 +268,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   }
 
   private val donorBadge = """<i data-icon="&#xe001;" class="donor is-gold" title="Lichess donor"></i>"""
-  private def lineIcon: String = """<i class="line">J</i>"""
-  private def patronIcon: String = """<i class="line patron" title="Patron"></i>"""
+  private def lineIcon: String = """<i class="line"></i>"""
+  private def patronIcon: String = """<i class="line patron" title="Patron"></i>"""
   private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
   private def lineIcon(user: LightUser): String = lineIcon(user.isPatron)
