@@ -47,3 +47,14 @@ tbody th {
 .price {
   font-size: 1.4em;
 }
+.explanation {
+  margin: 40px 120px 20px 120px;
+  padding: 20px 30px;
+  background: #759900;
+  color: #fff;
+  font-size: 1.3em;
+}
+.explanation strong {
+  display: block;
+  text-align: center;
+}
