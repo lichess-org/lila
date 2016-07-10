@@ -61,12 +61,12 @@ final class CrosstableApi(
   }
 
   private def exists(u1: String, u2: String) =
-    coll.count(select(u1, u2).some) map (0 !=)
+    coll.exists(select(u1, u2))
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-
+        lila.log("crosstable").info(s"Create for $u1 vs $u2")
         val selector = $doc(
           Game.BSONFields.playerUids $all List(u1, u2),
           Game.BSONFields.status $gte chess.Status.Mate.id)
