@@ -126,7 +126,9 @@ object Mod extends LilaController {
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
     me =>
-      ipIntelCache(ip).map { Ok(_) }
+      ipIntelCache(ip).map { Ok(_) }.recover {
+        case e: Exception => InternalServerError(e.getMessage)
+      }
   }
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
