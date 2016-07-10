@@ -111,21 +111,14 @@ time {
   display: inline-block;
   width: 1.6em;
   text-align: center;
+  vertical-align: -3px;
 }
-.user_link.online .line {
-  opacity: 0.7;
-}
+.user_link.online .line,
 .user_link .line.patron {
   opacity: 0.7;
 }
 .user_link.online .line.patron {
   opacity: 0.9;
-}
-h1.user_link .line {
-  width: 1.5em;
-}
-h1.user_link .line.patron {
-  font-size: 1.2em;
 }
 body.blind_mode .is::before,
 body.blind_mode .is::after,
