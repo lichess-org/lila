@@ -18,7 +18,8 @@ final class FishnetApi(
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
-    offlineMode: Boolean)(implicit system: akka.actor.ActorSystem) {
+    offlineMode: Boolean,
+    analysisNodes: Int)(implicit system: akka.actor.ActorSystem) {
 
   import FishnetApi._
   import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }
@@ -56,7 +57,7 @@ final class FishnetApi(
     }
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
-    moveDb.acquire(client) map { _ map JsonApi.fromWork }
+    moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(
@@ -70,7 +71,7 @@ final class FishnetApi(
           repo.updateAnalysis(work assignTo client) inject work.some
         }
       }
-  }.map { _ map JsonApi.fromWork }
+  }.map { _ map JsonApi.analysisFromWork(analysisNodes) }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
     val measurement = lila.mon.startMeasurement(_.fishnet.move.post)
