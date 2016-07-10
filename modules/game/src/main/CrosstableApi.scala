@@ -65,8 +65,8 @@ final class CrosstableApi(
       case (Some((u1, u2)), List(su1, su2)) =>
 
         val selector = $doc(
-          Game.BSONFields.playerUids -> $doc("$all" -> List(u1, u2)),
-          Game.BSONFields.status -> $doc("$gte" -> chess.Status.Mate.id))
+          Game.BSONFields.playerUids $all List(u1, u2),
+          Game.BSONFields.status $gte chess.Status.Mate.id)
 
         import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
         import reactivemongo.api.ReadPreference
@@ -102,5 +102,5 @@ final class CrosstableApi(
     }
 
   private def select(u1: String, u2: String) =
-    $doc("_id" -> Crosstable.makeKey(u1, u2))
+    $id(Crosstable.makeKey(u1, u2))
 }
