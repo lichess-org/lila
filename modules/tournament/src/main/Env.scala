@@ -24,7 +24,9 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     onStart: String => Unit,
+    historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
+    notifyApi: lila.notify.NotifyApi,
     scheduler: lila.common.Scheduler) {
 
   private val startsAtMillis = nowMillis
@@ -53,6 +55,8 @@ final class Env(
     createdTtl = CreatedCacheTtl,
     rankingTtl = RankingCacheTtl)
 
+  lazy val verify = new Condition.Verify(historyApi)
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,
@@ -66,6 +70,7 @@ final class Env(
     site = hub.socket.site,
     lobby = hub.socket.lobby,
     trophyApi = trophyApi,
+    verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
@@ -86,7 +91,7 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val jsonView = new JsonView(lightUser, cached, performance)
+  lazy val jsonView = new JsonView(lightUser, cached, performance, verify)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
@@ -136,6 +141,8 @@ final class Env(
 
   TournamentScheduler.start(system, api)
 
+  TournamentInviter.start(system, api, notifyApi)
+
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
@@ -175,6 +182,8 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
+    historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
+    notifyApi = lila.notify.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

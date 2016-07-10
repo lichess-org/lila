@@ -68,6 +68,7 @@ lichess.widget = function(name, prototype) {
     var args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string') this.each(function() {
       var instance = $.data(this, name);
+      if (!instance) return;
       if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
         return $.error("no such method '" + method + "' for " + name + " widget instance");
       returnValue = instance[method].apply(instance, args);
@@ -112,7 +113,15 @@ lichess.shepherd = function(f) {
       f(theme);
     });
   });
-}
+};
+lichess.makeChat = function(id, data, callback) {
+  var isDev = $('body').data('dev');
+  lichess.loadCss('/assets/stylesheets/chat.css');
+  if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
+  lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
+    (callback || $.noop)(LichessChat(document.getElementById(id), data));
+  });
+};
 
 lichess.isPageVisible = document.visibilityState !== 'hidden';
 lichess.notifications = [];
@@ -128,8 +137,9 @@ window.addEventListener('blur', function() {
   lichess.isPageVisible = false;
 });
 lichess.desktopNotification = function(msg) {
+  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   var title = 'lichess.org';
-  var icon = 'http://lichess1.org/assets/images/logo.256.png';
+  var icon = '//lichess1.org/assets/images/logo.256.png';
   var notify = function() {
     var notification = new Notification(title, {
       icon: icon,
@@ -140,7 +150,6 @@ lichess.desktopNotification = function(msg) {
     }
     lichess.notifications.push(notification);
   };
-  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
   if (Notification.permission === 'granted') notify();
   else Notification.requestPermission(function(p) {
     if (p === 'granted') notify();
@@ -162,6 +171,54 @@ lichess.numberFormat = (function() {
     return n;
   };
 })();
+lichess.pubsub = (function() {
+  var subs = [];
+  return {
+    on: function(name, cb) {
+      subs[name] = subs[name] || [];
+      subs[name].push(cb);
+    },
+    off: function(name, cb) {
+      if (!subs[name]) return;
+      for (var i in subs[name]) {
+        if (subs[name][i] === cb) {
+          subs[name].splice(i);
+          break;
+        }
+      }
+    },
+    emit: function(name) {
+      return function() {
+        if (!subs[name]) return;
+        var args = Array.prototype.slice.call(arguments, 0);
+        for (var i in subs[name]) subs[name][i].apply(null, args);
+      }
+    }
+  };
+})();
+$.spreadNumber = function(el, nbSteps, getDuration, previous) {
+  var previous = previous,
+    displayed;
+  var display = function(prev, cur, it) {
+    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    if (val !== displayed) {
+      el.textContent = val;
+      displayed = val;
+    }
+  };
+  var timeouts = [];
+  return function(nb, overrideNbSteps) {
+    if (!el || (!nb && nb !== 0)) return;
+    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+    var prev = previous === 0 ? 0 : (previous || nb);
+    previous = nb;
+    var interv = Math.abs(getDuration() / nbSteps);
+    for (var i = 0; i < nbSteps; i++)
+      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
+  };
+};
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {
     try {

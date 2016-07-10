@@ -49,14 +49,14 @@ final class PostApi(
                 shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
               } >>
               env.categColl.update($id(categ.id), categ withTopic post) >>-
-              (indexer ! InsertPost(post)) >>
-              (env.recent.invalidate inject post) >>-
+              (!categ.quiet ?? (indexer ! InsertPost(post))) >>
+              (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
                 shutup ! post.isTeam.fold(
                   lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
                   lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
               } >>- {
-                (ctx.userId ifFalse post.troll) ?? { userId =>
+                (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
                     post.isStaff.fold(
                       prop toStaffFriendsOf userId,

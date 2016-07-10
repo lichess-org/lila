@@ -469,7 +469,7 @@ div.new_posts li span.extract {
 #translation_call span.name {
   font-weight: bold;
 }
-#translation_call div.progressbar {
+#translation_call .progressbar {
   margin-top: 0.5em;
   background: #fff;
   margin-bottom: 0.4em;
@@ -848,6 +848,7 @@ div.game_config .color_submits button.random i {
   opacity: 1;
 }
 .donation .progress {
+  display: block;
   margin: 15px 15px 6px 15px;
   color: #fff;
 }
@@ -859,6 +860,7 @@ div.game_config .color_submits button.random i {
   text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
   text-align: right;
   line-height: 32px;
+  display: block;
 }
 .donation .progress .current {
   position:absolute;
@@ -882,6 +884,7 @@ div.game_config .color_submits button.random i {
   text-align: center;
   opacity: 0.6;
   margin-bottom: 10px;
+  display: block;
 }
 .donation .legend strong {
   font-size: 1.4em;

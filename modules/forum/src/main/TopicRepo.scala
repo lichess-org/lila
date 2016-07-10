@@ -41,8 +41,8 @@ sealed abstract class TopicRepo(troll: Boolean) {
     }
   }
 
-  def incViews(topic: Topic): Funit =
-    coll.update($id(topic.id), $inc("views" -> 1)).void
+  def incViews(topic: Topic) =
+    coll.incFieldUnchecked($id(topic.id), "views")
 
   def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
 }

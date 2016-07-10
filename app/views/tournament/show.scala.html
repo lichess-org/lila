@@ -1,4 +1,4 @@
-@(tour: Tournament, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -13,15 +13,18 @@ lichess = lichess || {};
 lichess.tournament = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 i18n: @jsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
+userId: @jsUserId,
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout)
+})
 };
 }
 }
 
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
-side = tournament.side(tour).some,
-chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
+side = tournament.side(tour, verdicts).some,
+chat = chat.dom().some,
 underchat = underchat.some,
 moreJs = moreJs,
 chessground = false,

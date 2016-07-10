@@ -11,8 +11,8 @@ private object Dictionary {
 (c|k)oc?k(y|suc?ker|)
 (c|k)um(shot|)
 (c|k)unt(ing|)
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|en|tard?|face|off?|)
-fck(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
+fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
 anal(plug|sex|)
@@ -109,13 +109,13 @@ pimp
 piss
 poof
 poon
-poop
+poop(face|)
 porn
 pric?k
 pron
 prostitute
 punani
-puss(i|y|ie)
+puss(i|y|ie|)
 queef
 queer
 quim

@@ -36,7 +36,7 @@ object BSON extends Handlers {
   def cantRead(doc: Bdoc, e: Exception) =
     logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
 
-  def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[Bdoc, T]) =
+  def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[Bdoc, T]): BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] =
     new BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
       def read(doc: Bdoc): T = try {
         handler read doc

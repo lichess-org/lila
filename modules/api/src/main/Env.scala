@@ -14,7 +14,6 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     roundJsonView: lila.round.JsonView,
-    noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
@@ -96,7 +95,6 @@ final class Env(
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
       jsonView = roundJsonView,
-      noteApi = noteApi,
       forecastApi = forecastApi,
       bookmarkApi = bookmarkApi,
       getTourAndRanks = getTourAndRanks,
@@ -135,7 +133,6 @@ object Env {
     getSimulName = lila.simul.Env.current.cached.name,
     getTournamentName = lila.tournament.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
-    noteApi = lila.round.Env.current.noteApi,
     forecastApi = lila.round.Env.current.forecastApi,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,

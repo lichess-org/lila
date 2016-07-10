@@ -14,9 +14,10 @@ object Permission {
 
   case object ModerateQa extends Permission("ROLE_MODERATE_QA")
 
+  case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
   case object UserSpy extends Permission("ROLE_USER_SPY")
   case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
-  case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy))
+  case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy, ChatTimeout))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object MarkBooster extends Permission("ROLE_ADJUST_BOOSTER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
@@ -33,6 +34,7 @@ object Permission {
   case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
   case object TerminateTournament extends Permission("ROLE_TERMINATE_TOURNAMENT")
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
+  case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -41,17 +43,19 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
-    MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
+    ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament))
 
-  case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
+  case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin, ChangePermission))
 
-  private lazy val all: List[Permission] = List(
-    SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkTroll, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
-  Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament)
+  lazy val allButSuperAdmin: List[Permission] = List(
+    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
+    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
+    Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament)
 
-  private lazy val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
+  lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
+
+  lazy private val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
 
   def apply(name: String): Option[Permission] = allByName get name
 

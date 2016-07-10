@@ -35,8 +35,8 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = """^[\w-]+$""".r,
-        error = "Invalid username. Please use only letters, numbers and dash"),
+        regex = User.usernameRegex,
+        error = "Invalid username. Please use only letters, numbers, underscore and dash"),
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
         error = "The username must not start with a number")
@@ -47,19 +47,14 @@ final class DataForm(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> acceptableUniqueEmail(none),
-      "g-recaptcha-response" -> optional(nonEmptyText),
-      "gameId" -> nonEmptyText,
-      "move" -> nonEmptyText
-    )(SignupData.apply)(_ => None)
-      .verifying(captchaFailMessage, validateCaptcha _))
+      "g-recaptcha-response" -> optional(nonEmptyText)
+    )(SignupData.apply)(_ => None))
 
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> optional(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
-
-    def websiteWithCaptcha = withCaptcha(website)
   }
 
   val passwordReset = Form(mapping(
@@ -104,9 +99,7 @@ object DataForm {
       username: String,
       password: String,
       email: String,
-      `g-recaptcha-response`: Option[String],
-      gameId: String,
-      move: String) {
+      `g-recaptcha-response`: Option[String]) {
     def recaptchaResponse = `g-recaptcha-response`
   }
 

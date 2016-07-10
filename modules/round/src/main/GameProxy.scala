@@ -2,14 +2,11 @@ package lila.round
 
 import chess.Color
 import lila.game.{ Game, Progress, Pov, GameRepo }
-import lila.memo.AsyncCache
 import ornicar.scalalib.Zero
 
 private final class GameProxy(id: String) {
 
-  val enabled = true
-
-  def game: Fu[Option[Game]] = if (enabled) cache else fetch
+  def game: Fu[Option[Game]] = cache
 
   def save(progress: Progress): Funit = {
     set(progress.game)
@@ -20,13 +17,11 @@ private final class GameProxy(id: String) {
 
   def bypass(f: GameRepo.type => Funit): Funit = f(GameRepo)
 
-  def set(game: Game): Unit = {
-    if (enabled) cache = fuccess(game.some)
-  }
+  def set(game: Game): Unit =
+    cache = fuccess(game.some)
 
-  def invalidate: Unit = {
-    if (enabled) cache = fetch
-  }
+  def invalidate: Unit =
+    cache = fetch
 
   // convenience helpers
 

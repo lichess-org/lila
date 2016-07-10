@@ -529,3 +529,7 @@ bulletBlitzClassical=Bullet, blixt och klassiskt
 correspondenceChess=Korrschack
 onlineAndOfflinePlay=Spela online och offline
 correspondenceAndUnlimited=Korrespondens och obegränsad
+viewTheSolution=Visa lösningen
+followAndChallengeFriends=Följ och utmana vänner
+availableInNbLanguages=Tillgänglig i %s olika språk
+gameAnalysis=Parti analys

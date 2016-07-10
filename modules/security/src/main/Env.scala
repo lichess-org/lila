@@ -107,7 +107,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(storeColl, firewall, tor, geoIP, emailAddress)
+  lazy val api = new Api(storeColl, firewall, geoIP, emailAddress)
 
   def cli = new Cli
 

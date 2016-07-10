@@ -46,50 +46,32 @@ private object BSONHandlers {
   implicit val BlogTitleHandler = stringAnyValHandler[NewBlogPost.Title](_.value, NewBlogPost.Title.apply)
   implicit val NewBlogPostHandler = Macros.handler[NewBlogPost]
 
+  implicit val GameEndGameIdHandler = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
+  implicit val GameEndOpponentHandler = stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
+  implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
+  implicit val GameEndHandler = Macros.handler[GameEnd]
+
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
     def read(b: BSONBoolean) = chess.Color(b.value)
     def write(c: chess.Color) = BSONBoolean(c.white)
   }
 
-  implicit val AnalysisIdHandler = stringAnyValHandler[AnalysisFinished.Id](_.value, AnalysisFinished.Id.apply)
-  implicit val AnalysisAgainstHandler = stringAnyValHandler[AnalysisFinished.OpponentName](_.value, AnalysisFinished.OpponentName.apply)
-  implicit val AnalysisFinishedHandler = Macros.handler[AnalysisFinished]
-
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
-
-    private def writeNotificationType(notificationContent: NotificationContent) = {
-      notificationContent match {
-        case _: MentionedInThread => "mention"
-        case _: InvitedToStudy    => "invitedStudy"
-        case _: PrivateMessage    => "privateMessage"
-        case _: QaAnswer          => "qaAnswer"
-        case _: TeamJoined        => "teamJoined"
-        case _: NewBlogPost       => "newBlogPost"
-        case _: AnalysisFinished  => "analysisFinished"
-      }
-    }
 
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, topicId, category, postId) =>
-          $doc("type" -> writeNotificationType(notificationContent), "mentionedBy" -> mentionedBy,
-            "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
+          $doc("mentionedBy" -> mentionedBy, "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
-          $doc("type" -> writeNotificationType(notificationContent),
-            "invitedBy" -> invitedBy,
-            "studyName" -> studyName,
-            "studyId" -> studyId)
-        case p: PrivateMessage => PrivateMessageHandler.write(p) ++
-          $doc("type" -> writeNotificationType(notificationContent))
-        case q: QaAnswer => QaAnswerHandler.write(q) ++
-          $doc("type" -> writeNotificationType(notificationContent))
-        case t: TeamJoined => TeamJoinedHandler.write(t) ++ $doc("type" -> writeNotificationType(notificationContent))
-        case b: NewBlogPost =>
-          NewBlogPostHandler.write(b) ++ $doc("type" -> writeNotificationType(notificationContent))
-        case a: AnalysisFinished =>
-          AnalysisFinishedHandler.write(a) ++ $doc("type" -> writeNotificationType(notificationContent))
+          $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
+        case p: PrivateMessage           => PrivateMessageHandler.write(p)
+        case q: QaAnswer                 => QaAnswerHandler.write(q)
+        case t: TeamJoined               => TeamJoinedHandler.write(t)
+        case b: NewBlogPost              => NewBlogPostHandler.write(b)
+        case LimitedTournamentInvitation => $empty
+        case x: GameEnd                  => GameEndHandler.write(x)
       }
-    }
+    } ++ $doc("type" -> notificationContent.key)
 
     private def readMentionedNotification(reader: Reader): MentionedInThread = {
       val mentionedBy = reader.get[MentionedBy]("mentionedBy")
@@ -110,13 +92,14 @@ private object BSONHandlers {
     }
 
     def reads(reader: Reader): NotificationContent = reader.str("type") match {
-      case "mention"          => readMentionedNotification(reader)
-      case "invitedStudy"     => readInvitedStudyNotification(reader)
-      case "privateMessage"   => PrivateMessageHandler read reader.doc
-      case "qaAnswer"         => QaAnswerHandler read reader.doc
-      case "teamJoined"       => TeamJoinedHandler read reader.doc
-      case "newBlogPost"      => NewBlogPostHandler read reader.doc
-      case "analysisFinished" => AnalysisFinishedHandler read reader.doc
+      case "mention"        => readMentionedNotification(reader)
+      case "invitedStudy"   => readInvitedStudyNotification(reader)
+      case "privateMessage" => PrivateMessageHandler read reader.doc
+      case "qaAnswer"       => QaAnswerHandler read reader.doc
+      case "teamJoined"     => TeamJoinedHandler read reader.doc
+      case "newBlogPost"    => NewBlogPostHandler read reader.doc
+      case "u"              => LimitedTournamentInvitation
+      case "gameEnd"        => GameEndHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {

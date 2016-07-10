@@ -529,3 +529,7 @@ bulletBlitzClassical=Lyn, hurtig og klassisk
 correspondenceChess=Fjernsjakk
 onlineAndOfflinePlay=Online og offline spill
 correspondenceAndUnlimited=Korrespondanse og ubegrenset
+viewTheSolution=Se løsning
+followAndChallengeFriends=Følg og utfordre venner
+availableInNbLanguages=Tilgjengelig på %s språk!
+gameAnalysis=Analyse av parti

@@ -13,10 +13,7 @@ module.exports = {
   end: function(data) {
     if (!data.me) return;
     if (!data.isRecentlyFinished) return;
-
-    var storageKey = 'tournament.end.sound.' + data.id;
-    if (lichess.storage.get(storageKey)) return;
-    lichess.storage.set(storageKey, 1);
+    if (!lichess.once('tournament.end.sound.' + data.id)) return;
 
     var soundKey = 'Other';
     if (data.me.rank < 4) soundKey = '1st';

@@ -49,12 +49,6 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
-GET   /@/:username/study               controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
-GET   /@/:username/study/:order        controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/member/:order controllers.Study.byMember(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/public/:order controllers.Study.byOwnerPublic(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/private/:order controllers.Study.byOwnerPrivate(username: String, order: String, page: Int ?= 1)
-GET   /@/:username/study/likes/:order  controllers.Study.byLikes(username: String, order: String, page: Int ?= 1)
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
@@ -125,12 +119,26 @@ GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
+GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
+GET   /study/all/:order                controllers.Study.all(order: String, page: Int ?= 1)
+GET   /study/mine/:order               controllers.Study.mine(order: String, page: Int ?= 1)
+GET   /study/member/:order             controllers.Study.mineMember(order: String, page: Int ?= 1)
+GET   /study/public/:order             controllers.Study.minePublic(order: String, page: Int ?= 1)
+GET   /study/private/:order            controllers.Study.minePrivate(order: String, page: Int ?= 1)
+GET   /study/likes/:order              controllers.Study.mineLikes(order: String, page: Int ?= 1)
+GET   /study/by/:username              controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
+GET   /study/by/:username/:order       controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
+
+# Learn
+GET   /learn                           controllers.Learn.index
+POST  /learn/score                     controllers.Learn.score
+POST  /learn/reset                     controllers.Learn.reset
 
 GET   /plan                            controllers.Plan.index
 POST  /plan/charge                     controllers.Plan.charge
@@ -149,6 +157,7 @@ GET   /$gameId<\w{8}>/$color<white|black>/sides/watcher controllers.Round.sidesW
 GET   /$gameId<\w{8}>/$color<white|black>/sides/player controllers.Round.sidesPlayer(gameId: String, color: String)
 GET   /$gameId<\w{8}>/others                     controllers.Round.others(gameId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
+GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)
@@ -186,6 +195,7 @@ GET   /tournament/$id<\w{8}>/show/:user/:nb   controllers.Tournament.userGameNbS
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
+GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index
@@ -247,7 +257,6 @@ GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key:
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply
-POST  /account/preferences/mini        controllers.Pref.miniFormApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
 
 # Setup
@@ -321,6 +330,9 @@ GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
 GET   /mod/search                      controllers.Mod.search
+GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
+GET   /mod/:username/powaaa            controllers.Mod.powaaa(username: String)
+POST  /mod/:username/powaaa            controllers.Mod.savePowaaa(username: String)
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)

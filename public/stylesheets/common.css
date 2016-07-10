@@ -61,7 +61,7 @@ time {
   font-family: 'PT Serif';
   font-style: italic;
   font-weight: 400;
-  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(http://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+  src: local('PT Serif Italic'), local('PTSerif-Italic'), url(//fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 .is::before,
@@ -696,69 +696,6 @@ div.side_box .padded {
     width: 196px!important;
   }
 }
-div.chat_menu {
-  margin-left: -30px;
-  margin-top: 12px;
-  margin-bottom: -12px;
-  text-align: center;
-  white-space: nowrap;
-}
-body.kid div.chat_menu,
-body.kid #chat {
-  display: none;
-}
-div.chat_menu > a {
-  background: #f0f0f0;
-  border: 1px solid #c0c0c0;
-  height: 20px;
-  padding: 3px 8px 0 8px;
-  margin: -1px 0 -1px -5px;
-  display: inline-block;
-}
-div.chat_menu > a.active {
-  background-color: #eee;
-  border-bottom: 1px solid #eee;
-}
-div.chat_panels {
-  height: 325px;
-}
-.is3d div.chat_panels {
-  height: 290px;
-}
-div.chat_panels > * {
-  display: none;
-}
-div.chat_panels textarea {
-  resize: none;
-  height: calc(100% + 10px);
-  width: calc(100% - 12px);
-  padding: 0.5em;
-  border: none;
-  background-color: transparent;
-}
-div.chat_panels div.active {
-  display: block;
-  height: calc(100% - 22px);
-}
-div.chat_panels .preferences {
-  padding: 8px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  overflow-y: auto;
-}
-div.chat_panels .preferences form > div {
-  margin-bottom: 15px;
-}
-div.chat_panels .preferences label {
-  cursor: pointer;
-}
-div.chat_panels .preferences input {
-  vertical-align: middle;
-}
-div.chat_panels .preferences a.prefs {
-  display: block;
-  text-align: center;
-}
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
@@ -818,6 +755,9 @@ div.side_box div.user_tv h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+#chat.side_box {
+  height: 350px;
 }
 div.side div.confrontation {
   text-align: center;
@@ -1169,13 +1109,6 @@ body.fpmenu #fpmenu {
   background: #f0f0f0;
   color: #444;
 }
-/* #topmenu div div { */
-
-/*   top: 0; */
-
-/*   left: 100%; */
-
-/* } */
 
 #user_tag {
   font-weight: bold;
@@ -1540,12 +1473,17 @@ body.fpmenu #friend_box {
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
 }
+#friend_box .content div {
+  display: flex;
+}
 #friend_box .content a {
+  flex: 1 1 100%;
   padding: 3px 5px;
   display: block;
-  max-height: 100px;
-  overflow-y: auto;
   transition: background 0.13s;
+}
+#friend_box .content a.tv {
+  flex: 0 0 auto;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;
@@ -1619,7 +1557,6 @@ table.slist thead {
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
 }
-#chat div.top,
 .undertable_top,
 .button,
 a.button,
@@ -1684,7 +1621,7 @@ div.pagination span.current,
 .data-count::after,
 .pocket piece::after,
 .unread,
-div.progressbar.flashy div,
+.progressbar.flashy .current,
 #simul .game_list .host.vstext,
 #import_game .progression {
   color: #fff !important;
@@ -2108,19 +2045,19 @@ body.base .crosstable .loss {
 .bookmark.bookmarked .on {
   display: block;
 }
-div.progressbar {
+.progressbar {
   background: #e0e0e0;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 1px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-div.progressbar div {
+.progressbar .current {
   background: #d8a050;
   height: 12px;
   border-radius: 4px;
 }
-div.progressbar.flashy.green div {
+.progressbar.flashy.green .current {
   background-color: #759900 !important;
 }
 .glowed {

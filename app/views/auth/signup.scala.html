@@ -1,4 +1,4 @@
-@(form: Form[_], captcha: lila.common.Captcha, recaptchaPublicKey: String)(implicit ctx: Context)
+@(form: Form[_], recaptchaPublicKey: String)(implicit ctx: Context)
 
 @moreJs = {
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -22,9 +22,6 @@ zen = true) {
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)
-        <li>
-          @base.captcha(form("move"), form("gameId"), captcha)
-        </li>
         @errMsg(form)
         <li data-icon="">&nbsp;
           @trans.computersAreNotAllowedToPlay()<br />

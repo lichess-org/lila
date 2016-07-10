@@ -13,50 +13,65 @@ import views._
 
 object Study extends LilaController {
 
-  type ListUrl = (lila.user.User.ID, String) => Call
+  type ListUrl = String => Call
 
   private def env = Env.study
+
+  def allDefault(page: Int) = all(Order.Hot.key, page)
+
+  def all(o: String, page: Int) = Open { implicit ctx =>
+    Order(o) match {
+      case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
+      case order =>
+        env.pager.all(ctx.me, order, page) map { pag =>
+          Ok(html.study.all(pag, order))
+        }
+    }
+  }
 
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
 
   def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerForUser(owner.id, ctx.me, Order(order), page) map { pag =>
+      env.pager.byOwner(owner, ctx.me, Order(order), page) map { pag =>
         html.study.byOwner(pag, Order(order), owner)
       }
     }
   }
 
-  def byOwnerPublic(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPublicForUser(owner.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byOwnerPublic(pag, Order(order), owner)
+  def mine(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mine(me, Order(order), page) map { pag =>
+        Ok(html.study.mine(pag, Order(order), me))
       }
-    }
   }
 
-  def byOwnerPrivate(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { owner =>
-      env.pager.byOwnerPrivateForUser(owner.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byOwnerPrivate(pag, Order(order), owner)
+  def minePublic(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.minePublic(me, Order(order), page) map { pag =>
+        Ok(html.study.minePublic(pag, Order(order), me))
       }
-    }
   }
 
-  def byMember(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { member =>
-      env.pager.byMemberForUser(member.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byMember(pag, Order(order), member)
+  def minePrivate(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.minePrivate(me, Order(order), page) map { pag =>
+        Ok(html.study.minePrivate(pag, Order(order), me))
       }
-    }
   }
 
-  def byLikes(username: String, order: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(lila.user.UserRepo named username) { user =>
-      env.pager.byLikesForUser(user.id, ctx.me, Order(order), page) map { pag =>
-        html.study.byLikes(pag, Order(order), user)
+  def mineMember(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mineMember(me, Order(order), page) map { pag =>
+        Ok(html.study.mineMember(pag, Order(order), me))
       }
-    }
+  }
+
+  def mineLikes(order: String, page: Int) = Auth { implicit ctx =>
+    me =>
+      env.pager.mineLikes(me, Order(order), page) map { pag =>
+        Ok(html.study.mineLikes(pag, Order(order), me))
+      }
   }
 
   def show(id: String) = Open { implicit ctx =>
@@ -71,7 +86,7 @@ object Study extends LilaController {
           val initialFen = chapter.root.fen
           val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-            Env.chat.api.userChat.find(study.id) zip
+            chatOf(study) zip
             env.jsonView(study, chapters, chapter, ctx.me) zip
             env.version(id) flatMap {
               case (((baseData, chat), studyJson), sVersion) =>
@@ -80,10 +95,9 @@ object Study extends LilaController {
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
-                  analysis = analysis,
-                  chat = lila.chat.JsonView(chat))
+                  analysis = analysis)
                 negotiate(
-                  html = Ok(html.study.show(study, data, sVersion)).fuccess,
+                  html = Ok(html.study.show(study, data, chat, sVersion)).fuccess,
                   api = _ => Ok(Json.obj(
                     "study" -> data.study,
                     "analysis" -> data.analysis)).fuccess
@@ -93,6 +107,9 @@ object Study extends LilaController {
       }
     } map NoCache
   }
+
+  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
+    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
     negotiate(
@@ -132,7 +149,7 @@ object Study extends LilaController {
     me =>
       env.api.byId(id) flatMap { study =>
         study.filter(_ isOwner me.id) ?? env.api.delete
-      } inject Redirect(routes.Study.byOwnerDefault(me.username))
+      } inject Redirect(routes.Study.allDefault(1))
   }
 
   def pgn(id: String) = Open { implicit ctx =>

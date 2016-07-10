@@ -11,7 +11,9 @@
     "chess",
     "lichess",
     "play",
-    "replay"
+    "replay",
+    "analysis",
+    "study"
   ],
   "author": "Thibault Duplessis",
   "license": "MIT",

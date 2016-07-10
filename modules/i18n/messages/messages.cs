@@ -529,3 +529,7 @@ bulletBlitzClassical=ultrarychlá hra, blesková hra, klasická hra
 correspondenceChess=Korespondenční šachy
 onlineAndOfflinePlay=Hra online i offline
 correspondenceAndUnlimited=Korespondeční a bez limitu
+viewTheSolution=Zobrazit řešení
+followAndChallengeFriends=Hraj s přáteli
+availableInNbLanguages=Dostupné v %s jazycích!
+gameAnalysis=Analýza hry

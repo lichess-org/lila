@@ -101,9 +101,8 @@ setup_nginx() {
 
     sed "s#LILA_DIR#$LILA_DIR#g" >"$nginx_conf" <<'CONF'
 server {
-  listen 80;
-
   server_name l.org ~^\w\w\.l\.org$;
+  listen 80;
 
   error_log /var/log/nginx/lila.error.log;
   access_log /var/log/nginx/lila.access.log;
@@ -111,6 +110,7 @@ server {
   charset utf-8;
 
   location /assets {
+    add_header "Access-Control-Allow-Origin" "*";
     alias   LILA_DIR/public;
   }
 
@@ -119,12 +119,6 @@ server {
     proxy_set_header X-Forwarded-For $remote_addr;
     proxy_read_timeout 90s;
     proxy_pass http://127.0.0.1:9663/;
-  }
-
-  location /ai/ {
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_pass http://127.0.0.1:9663/ai/;
   }
 
   error_page 500 501 502 503 /oops/servererror.html;
@@ -140,8 +134,8 @@ server {
 }
 
 server {
+  server_name socket.l.org;
   listen 80;
-  server_name ~^socket\.\w\w\.l\.org$;
   charset utf-8;
   location / {
     proxy_http_version 1.1;
@@ -169,15 +163,10 @@ build_lila() {
     git submodule update --init --recursive
 
     ./ui/build
-    ./bin/install-stockfish
     ./bin/gen/geoip
     ./bin/build-deps.sh
 
     sbt compile
-}
-
-get_ip_address() {
-    ifconfig eth1 | grep 'inet addr' | cut -d':' -f2 | cut -d' ' -f1
 }
 
 main() {
@@ -190,14 +179,11 @@ main() {
     setup_mongodb
     build_lila
 
-    local ip_address
-    ip_address=$(get_ip_address)
-
     info 'Lila is all set up! Add this entry to your hosts file on your'
     info 'host machine (not the virtual machine, or else I would have done it'
     info 'for you):'
     info
-    info "    $ip_address l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org socket.en.l.org socket.le.l.org socket.fr.l.org ru.l.org el.l.org hu.l.org socket.hu.l.org"
+    info "    192.168.34.34 l.org socket.l.org en.l.org de.l.org le.l.org fr.l.org es.l.org l1.org ru.l.org el.l.org hu.l.org"
     info
     info 'Then run "vagrant ssh" and carry out these steps inside your SSH'
     info 'connection:'

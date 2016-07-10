@@ -10,7 +10,8 @@ final class JSONHandlers(
   implicit val qaQuestionWrites = Json.writes[QaAnswer.Question]
 
   implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
-    def writeBody(notificationContent: NotificationContent) = {
+
+    private def writeBody(notificationContent: NotificationContent) = {
       notificationContent match {
         case MentionedInThread(mentionedBy, topic, _, category, postId) => Json.obj(
           "mentionedBy" -> getLightUser(mentionedBy.value),
@@ -35,31 +36,19 @@ final class JSONHandlers(
           "id" -> id.value,
           "slug" -> slug.value,
           "title" -> title.value)
-        case AnalysisFinished(id, color, against) => Json.obj(
-          "id" -> id.value,
-          "color" -> color.name,
-          "opponentName" -> against.value)
+        case LimitedTournamentInvitation => Json.obj()
+        case GameEnd(gameId, opponentId, win) => Json.obj(
+          "id" -> gameId.value,
+          "opponent" -> opponentId.map(_.value).flatMap(getLightUser),
+          "win" -> win.map(_.value))
       }
     }
 
-    def writes(notification: Notification) = {
-      val body = notification.content
-
-      val notificationType = body match {
-        case _: MentionedInThread => "mentioned"
-        case _: InvitedToStudy    => "invitedStudy"
-        case _: PrivateMessage    => "privateMessage"
-        case _: QaAnswer          => "qaAnswer"
-        case _: TeamJoined        => "teamJoined"
-        case _: NewBlogPost       => "newBlogPost"
-        case _: AnalysisFinished  => "analysisFinished"
-      }
-
-      Json.obj("content" -> writeBody(body),
-        "type" -> notificationType,
-        "read" -> notification.read.value,
-        "date" -> notification.createdAt)
-    }
+    def writes(notification: Notification) = Json.obj(
+      "content" -> writeBody(notification.content),
+      "type" -> notification.content.key,
+      "read" -> notification.read.value,
+      "date" -> notification.createdAt)
   }
 
   import lila.common.paginator.PaginatorJson._

@@ -24,7 +24,7 @@ private[round] final class CheatDetector(reporter: ActorSelection) {
     }
   }
 
-  private def gameUrl(gameId: String) = s"http://lichess.org/${gameId}"
+  private def gameUrl(gameId: String) = s"https://lichess.org/${gameId}"
 
   private val TURNS_MODULUS = 10
 

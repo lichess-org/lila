@@ -1,4 +1,4 @@
-@(tour: Tournament)(implicit ctx: Context)
+@(tour: Tournament, verdicts: lila.tournament.Condition.All.WithVerdicts)(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -23,16 +23,28 @@
     @markdownLinks(s.description)
   </div>
   }
+  @if(verdicts.relevant) {
+  <div class="game_infos conditions @if(ctx.isAuth) {
+    @if(verdicts.accepted){accepted}else{refused}
+    }" data-icon="7">
+    @if(verdicts.list.size < 2) {
+    <p>Condition of entry:</p>
+    }
+    @verdicts.list.map { v =>
+    <p class="condition text @if(v.verdict.accepted){accepted}else{refused}">@v.condition</p>
+    }
+  </div>
+  }
   @if(tour.createdBy == "lichess") {
   @tour.id match {
   case "summer15" => {
-  <a href="http://lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
+  <a href="//lichess.org/blog/VbTcnx4AAIcBvGp7/lichess-summer-marathon-tournament">About</a>
   }
   case "autumn15" => {
-  <a href="http://lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">About</a>
+  <a href="//lichess.org/blog/VgGZWB0AAOsAO6ow/autumn-marathon-tournament">About</a>
   }
   case "winter15" => {
-  <a href="http://lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament">About</a>
+  <a href="//lichess.org/blog/VmsiuSQAALImmWG5/winter-marathon-tournament">About</a>
   }
   case _ => {
   @trans.tournamentOfficial()

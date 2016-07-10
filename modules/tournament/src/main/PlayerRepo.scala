@@ -14,15 +14,15 @@ object PlayerRepo {
 
   private lazy val coll = Env.current.playerColl
 
-  private def selectId(id: String) = BSONDocument("_id" -> id)
-  private def selectTour(tourId: String) = BSONDocument("tid" -> tourId)
-  private def selectUser(userId: String) = BSONDocument("uid" -> userId)
-  private def selectTourUser(tourId: String, userId: String) = BSONDocument(
+  private def selectId(id: String) = $doc("_id" -> id)
+  private def selectTour(tourId: String) = $doc("tid" -> tourId)
+  private def selectUser(userId: String) = $doc("uid" -> userId)
+  private def selectTourUser(tourId: String, userId: String) = $doc(
     "tid" -> tourId,
     "uid" -> userId)
-  private val selectActive = BSONDocument("w" -> BSONDocument("$ne" -> true))
-  private val selectWithdraw = BSONDocument("w" -> true)
-  private val bestSort = BSONDocument("m" -> -1)
+  private val selectActive = $doc("w" $ne true)
+  private val selectWithdraw = $doc("w" -> true)
+  private val bestSort = $doc("m" -> -1)
 
   def byId(id: String): Fu[Option[Player]] = coll.uno[Player](selectId(id))
 
@@ -59,7 +59,7 @@ object PlayerRepo {
 
   def unWithdraw(tourId: String) = coll.update(
     selectTour(tourId) ++ selectWithdraw,
-    BSONDocument("$unset" -> BSONDocument("w" -> true)),
+    $doc("$unset" -> $doc("w" -> true)),
     multi = true).void
 
   def find(tourId: String, userId: String): Fu[Option[Player]] =
@@ -72,8 +72,8 @@ object PlayerRepo {
 
   def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
     _ ?? { player =>
-      coll.count(Some(selectTour(tourId) ++ BSONDocument(
-        "m" -> BSONDocument("$gt" -> player.magicScore))
+      coll.count(Some(selectTour(tourId) ++ $doc(
+        "m" -> $doc("$gt" -> player.magicScore))
       )) map { n =>
         PlayerInfo((n + 1), player.withdraw).some
       }
@@ -82,21 +82,21 @@ object PlayerRepo {
 
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), BSONDocument("$unset" -> BSONDocument("w" -> true)))
+      case Some(p) if p.withdraw => coll.update(selectId(p._id), $doc("$unset" -> $doc("w" -> true)))
       case Some(p)               => funit
       case None                  => coll.insert(Player.make(tourId, user, perfLens))
     } void
 
   def withdraw(tourId: String, userId: String) = coll.update(
     selectTourUser(tourId, userId),
-    BSONDocument("$set" -> BSONDocument("w" -> true))).void
+    $doc("$set" -> $doc("w" -> true))).void
 
   def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
-      selectTour(tourId) ++ BSONDocument("m" -> BSONDocument("$gt" -> 0))
+      selectTour(tourId) ++ $doc("m" -> $doc("$gt" -> 0))
     ).cursor[Player]().gather[List]()
 
-  private def aggregationUserIdList(res: Stream[BSONDocument]): List[String] =
+  private def aggregationUserIdList(res: Stream[Bdoc]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
@@ -145,7 +145,7 @@ object PlayerRepo {
     }
 
   def setPerformance(player: Player, performance: Int) =
-    coll.update(selectId(player.id), BSONDocument("$set" -> BSONDocument("e" -> performance))).void
+    coll.update(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>

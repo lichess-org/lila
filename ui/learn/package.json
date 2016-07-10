@@ -1,0 +1,35 @@
+{
+  "name": "learn",
+  "version": "1.0.0",
+  "description": "lichess.org chess performance statistics",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess",
+    "learn"
+  ],
+  "author": "ornicar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "devDependencies": {
+    "browserify": "~13.0",
+    "gulp": "~3.9",
+    "gulp-streamify": "~1.0",
+    "gulp-uglify": "~1.5",
+    "gulp-util": "~3.0",
+    "vinyl-source-stream": "~1.1",
+    "watchify": "~3.7"
+  },
+  "dependencies": {
+    "chess": "github:ornicar/chess.js#learn",
+    "chessground": "github:ornicar/chessground#v3.8.0",
+    "mithril": "github:ornicar/mithril.js#v1.0.0"
+  }
+}

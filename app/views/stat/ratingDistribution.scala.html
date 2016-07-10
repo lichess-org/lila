@@ -5,7 +5,7 @@
 @embedJs {
 lichess.ratingDistributionChart({
 freq: @data.mkString("[", ",", "]"),
-myRating: @ctx.me.map(_.perfs(perfType).intRating)
+myRating: @ctx.me.fold("null")(_.perfs(perfType).intRating.toString)
 });
 }
 }

@@ -14,7 +14,8 @@ final class StudyRepo(private[study] val coll: Coll) {
   private[study] val projection = $doc(
     "uids" -> false,
     "likers" -> false,
-    "views" -> false)
+    "views" -> false,
+    "rank" -> false)
 
   def byId(id: Study.ID) = coll.find($id(id), projection).uno[Study]
 
@@ -34,8 +35,8 @@ final class StudyRepo(private[study] val coll: Coll) {
     StudyBSONHandler.write(s) ++ $doc(
       "updatedAt" -> DateTime.now,
       "uids" -> s.members.ids,
-      "likers" -> List(s.ownerId)
-    )
+      "likers" -> List(s.ownerId),
+      "rank" -> Study.Rank.compute(s.likes, s.createdAt))
   }.void
 
   def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
@@ -86,8 +87,12 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
 
   def like(studyId: Study.ID, userId: User.ID, v: Boolean): Fu[Study.Likes] =
-    doLike(studyId, userId, v) >> countLikes(studyId).flatMap { likes =>
-      coll.update($id(studyId), $set("likes" -> likes)) inject likes
+    doLike(studyId, userId, v) >> countLikes(studyId).flatMap {
+      case None => fuccess(Study.Likes(0))
+      case Some((likes, createdAt)) => coll.update($id(studyId), $set(
+        "likes" -> likes,
+        "rank" -> Study.Rank.compute(likes, createdAt)
+      )) inject likes
     }
 
   def liked(study: Study, user: User): Fu[Boolean] =
@@ -96,6 +101,22 @@ final class StudyRepo(private[study] val coll: Coll) {
   def filterLiked(user: User, studyIds: Seq[Study.ID]): Fu[Set[Study.ID]] =
     coll.primitive[Study.ID]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
+  def resetAllRanks: Fu[Int] = {
+    import play.api.libs.iteratee._
+    coll.find(
+      $empty, $doc("likes" -> true, "createdAt" -> true)
+    ).cursor[Bdoc]().enumerate() |>>>
+      Iteratee.foldM[Bdoc, Int](0) {
+        case (count, doc) => ~(for {
+          id <- doc.getAs[Study.ID]("_id")
+          likes <- doc.getAs[Study.Likes]("likes")
+          createdAt <- doc.getAs[DateTime]("createdAt")
+        } yield coll.update(
+          $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
+        ).void) inject (count + 1)
+      }
+  }
+
   private def doLike(studyId: Study.ID, userId: User.ID, v: Boolean): Funit =
     coll.update(
       $id(studyId),
@@ -103,14 +124,19 @@ final class StudyRepo(private[study] val coll: Coll) {
       else $pull("likers" -> userId)
     ).void
 
-  private def countLikes(studyId: Study.ID): Fu[Study.Likes] =
+  private def countLikes(studyId: Study.ID): Fu[Option[(Study.Likes, DateTime)]] =
     coll.aggregate(
       Match($id(studyId)),
       List(Project($doc(
         "_id" -> false,
-        "nb" -> $doc("$size" -> "$likers")
+        "likes" -> $doc("$size" -> "$likers"),
+        "createdAt" -> true
       )))
-    ).map {
-        _.documents.headOption.flatMap(_.getAs[Study.Likes]("nb")) | Study.Likes(0)
+    ).map { res =>
+        for {
+          doc <- res.documents.headOption
+          likes <- doc.getAs[Study.Likes]("likes")
+          createdAt <- doc.getAs[DateTime]("createdAt")
+        } yield likes -> createdAt
       }
 }

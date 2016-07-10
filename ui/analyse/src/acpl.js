@@ -1,20 +1,26 @@
 var m = require('mithril');
 var getPlayer = require('game').game.getPlayer;
 
+function renderRatingDiff(rd) {
+  if (rd === 0) return m('span.rp.null', '±0');
+  if (rd > 0) return m('span.rp.up', '+' + rd);
+  return m('span.rp.down', rd);
+}
+
 function renderPlayer(data, color) {
   var p = getPlayer(data, color);
   if (p.name) return p.name;
   if (p.ai) return 'Stockfish level ' + p.ai;
   if (p.user) return m('a.user_link.ulpt', {
     href: '/@/' + p.user.username
-  }, p.user.username);
+  }, [p.user.username, renderRatingDiff(p.ratingDiff)]);
   return 'Anonymous';
 }
 
 var advices = [
-  ['inaccuracy', 'Inaccuracies', '?!'],
-  ['mistake', 'Mistakes', '?'],
-  ['blunder', 'Blunders', '??']
+  ['inaccuracy', 'inaccuracies', '?!'],
+  ['mistake', 'mistakes', '?'],
+  ['blunder', 'blunders', '??']
 ];
 
 var cached = false;
@@ -23,7 +29,7 @@ module.exports = function(ctrl) {
   var d = ctrl.data;
   if (!d.analysis) return;
 
-  var first = ctrl.vm.mainline[0].eval;
+  var first = ctrl.vm.mainline[0].eval || {};
   if (first.cp || first.mate) {
     if (cached) return {
       subtree: 'retain'
@@ -54,12 +60,12 @@ module.exports = function(ctrl) {
           } : {};
           return m('tr', attrs, [
             m('td', nb),
-            m('th', a[1])
+            m('th', ctrl.trans(a[1]))
           ]);
         }),
         m('tr', [
           m('td', d.analysis[color].acpl),
-          m('th', 'Average centipawn loss')
+          m('th', ctrl.trans('averageCentipawnLoss'))
         ])
       ])
     ]);

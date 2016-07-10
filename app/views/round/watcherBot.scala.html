@@ -15,7 +15,7 @@ orientation: "@pov.color.name"
 @round.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = none, userTv = none),
-chat = base.chatDom(trans.spectatorRoom.str()).some,
+chat = none,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some) {

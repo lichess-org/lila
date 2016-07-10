@@ -23,6 +23,14 @@ trait Handlers {
     def read(x: BSONBoolean) = to(x.value)
     def write(x: A) = BSONBoolean(from(x))
   }
+  def dateAnyValHandler[A](from: A => DateTime, to: DateTime => A) = new BSONHandler[BSONDateTime, A] {
+    def read(x: BSONDateTime) = to(BSONJodaDateTimeHandler read x)
+    def write(x: A) = BSONJodaDateTimeHandler write from(x)
+  }
+  def isoHandler[A, B, C <: BSONValue](from: A => B, to: B => A)(implicit handler: BSONHandler[C, B]) = new BSONHandler[C, A] {
+    def read(x: C): A = to(handler read x)
+    def write(x: A): C = handler write from(x)
+  }
 
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList

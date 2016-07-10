@@ -26,6 +26,8 @@ case class Study(
 
   def isMember(id: User.ID) = members contains id
 
+  def canChat = isMember _
+
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
   def withChapter(c: Chapter) =
@@ -53,6 +55,14 @@ object Study {
   case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
   val emptyLiking = Liking(Likes(0), false)
+
+  case class Rank(value: DateTime) extends AnyVal
+  object Rank {
+    def compute(likes: Likes, createdAt: DateTime) = Rank {
+      createdAt plusHours likesToHours(likes)
+    }
+    private def likesToHours(likes: Likes) = likes.value * 24
+  }
 
   sealed trait From
   object From {

@@ -1,0 +1,28 @@
+@(u: User)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("mod-communication.css")
+}
+
+@base.layout(
+title = u.username + " powaaa",
+moreCss = moreCss) {
+
+<div id="powaaa" class="content_box small_box">
+  <h1>@userLink(u) powaaa</h1>
+  <form action="@routes.Mod.powaaa(u.username)" method="post">
+    <select name="permissions[]" multiple>
+      @lila.security.Permission.allButSuperAdmin.map { p =>
+      <option
+      value="@p.name"@if(u.roles.contains(p.name)){ selected}
+      title="@p.children.mkString(", ")"
+      >@p.toString</option>
+      }
+    </select>
+    <div>
+      <button class="button clear" onclick="$('#powaaa option:selected').removeAttr('selected');">Clear</button>
+      <button type="submit" class="button">Save</button>
+    </div>
+  </form>
+</div>
+}

@@ -55,27 +55,23 @@ object Mod extends LilaController {
     me => modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
-  def setTitle(username: String) = AuthBody { implicit ctx =>
+  def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx =>
     me =>
       implicit def req = ctx.body
-      if (isGranted(_.SetTitle))
-        lila.user.DataForm.title.bindFromRequest.fold(
-          err => fuccess(redirect(username, mod = true)),
-          title => modApi.setTitle(me.id, username, title) inject redirect(username, mod = false)
-        )
-      else fuccess(authorizationFailed(ctx.req))
+      lila.user.DataForm.title.bindFromRequest.fold(
+        err => fuccess(redirect(username, mod = true)),
+        title => modApi.setTitle(me.id, username, title) inject redirect(username, mod = false)
+      )
   }
 
-  def setEmail(username: String) = AuthBody { implicit ctx =>
+  def setEmail(username: String) = SecureBody(_.SetEmail) { implicit ctx =>
     me =>
       implicit def req = ctx.body
       OptionFuResult(UserRepo named username) { user =>
-        if (isGranted(_.SetEmail) && !isGranted(_.SetEmail, user))
-          Env.security.forms.modEmail(user).bindFromRequest.fold(
-            err => BadRequest(err.toString).fuccess,
-            email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
-          )
-        else fuccess(authorizationFailed(ctx.req))
+        Env.security.forms.modEmail(user).bindFromRequest.fold(
+          err => BadRequest(err.toString).fuccess,
+          email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
+        )
       }
   }
 
@@ -117,7 +113,7 @@ object Mod extends LilaController {
       val email = "lichess.contact@gmail.com"
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
-        parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio $str")) { ratio =>
+        parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
           fuccess((ratio * 100).toInt)
         }
       }.addEffects(
@@ -130,7 +126,9 @@ object Mod extends LilaController {
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx =>
     me =>
-      ipIntelCache(ip).map { Ok(_) }
+      ipIntelCache(ip).map { Ok(_) }.recover {
+        case e: Exception => InternalServerError(e.getMessage)
+      }
   }
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
@@ -160,6 +158,40 @@ object Mod extends LilaController {
       val query = (~get("q")).trim
       Env.mod.search(query) map { users =>
         html.mod.search(query, users)
+      }
+  }
+
+  def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx =>
+    me =>
+      implicit val lightUser = Env.user.lightUser _
+      JsonOptionOk {
+        Env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+      }
+  }
+
+  def powaaa(username: String) = Secure(_.ChangePermission) { implicit ctx =>
+    me =>
+      OptionOk(UserRepo named username) { user =>
+        html.mod.powaaa(user)
+      }
+  }
+
+  def savePowaaa(username: String) = SecureBody(_.ChangePermission) { implicit ctx =>
+    me =>
+      implicit def req = ctx.body
+      OptionFuResult(UserRepo named username) { user =>
+        import play.api.data._
+        import play.api.data.Forms._
+        Form(single(
+          "permissions" -> list(nonEmptyText.verifying { str =>
+            lila.security.Permission.allButSuperAdmin.exists(_.name == str)
+          })
+        )).bindFromRequest.fold(
+          err => BadRequest(html.mod.powaaa(user)).fuccess,
+          permissions =>
+            UserRepo.setRoles(user.id, permissions map (_.toUpperCase)) inject
+              Redirect(routes.User.show(user.username) + "?mod")
+        )
       }
   }
 }

@@ -7,7 +7,7 @@
 @embedJs {
 $(function() {
 lichess.startRound(document.getElementById('lichess'), {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @Html(J.stringify(data)),
 i18n: @round.jsI18n()
 });
 });

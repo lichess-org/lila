@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User] = None, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
@@ -8,7 +8,10 @@
 $(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
-i18n: @jsI18n()
+i18n: @jsI18n(),
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth)
+})
 });
 });
 }
@@ -21,7 +24,7 @@ i18n: @jsI18n()
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul = simul, userTv = userTv),
-chat = ctx.isAuth.option(base.chatDom(trans.spectatorRoom.str(), ctx.isAuth)),
+chat = chat.dom().some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,

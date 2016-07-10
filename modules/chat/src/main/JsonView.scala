@@ -1,5 +1,7 @@
 package lila.chat
 
+import lila.common.PimpedJson._
+import lila.common.LightUser
 import play.api.libs.json._
 
 object JsonView {
@@ -10,6 +12,23 @@ object JsonView {
   }
 
   def apply(line: Line): JsValue = lineWriter writes line
+
+  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.Getter) =
+    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
+      "history" -> u.history)
+
+  lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
+
+  implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
+    Json.obj("key" -> r.key, "name" -> r.name)
+  }
+
+  implicit def timeoutEntryWriter(implicit lightUser: LightUser.Getter) = OWrites[ChatTimeout.UserEntry] { e =>
+    Json.obj(
+      "reason" -> e.reason.key,
+      "mod" -> lightUser(e.mod).fold("?")(_.name),
+      "date" -> e.createdAt)
+  }
 
   implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
     JsArray(c.lines map lineWriter.writes)
@@ -25,8 +44,11 @@ object JsonView {
   }
 
   private implicit val userLineWriter = Writes[UserLine] { l =>
-    val o = Json.obj("u" -> l.username, "t" -> l.text)
-    if (l.troll) o + ("r" -> JsBoolean(true)) else o
+    Json.obj(
+      "u" -> l.username,
+      "t" -> l.text,
+      "r" -> l.troll.option(true),
+      "d" -> l.deleted.option(true)).noNull
   }
 
   private implicit val playerLineWriter = Writes[PlayerLine] { l =>

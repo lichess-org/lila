@@ -77,3 +77,14 @@ body.dark #communication .player_chats,
 body.dark #communication .player_chats .game .title {
   border-color: #3d3d3d;
 }
+
+#powaaa form {
+  text-align: center;
+}
+#powaaa select {
+  height: 400px;
+  margin: 30px;
+}
+#powaaa select option {
+  padding: 5px 10px;
+}

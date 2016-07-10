@@ -13,7 +13,8 @@ final class Api(
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
-    notifyApi: lila.notify.NotifyApi) {
+    notifyApi: lila.notify.NotifyApi,
+    follows: (String, String) => Fu[Boolean]) {
 
   import Thread.ThreadBSONHandler
 
@@ -38,25 +39,30 @@ final class Api(
     val fromMod = Granter(_.MessageAnyone)(me)
     UserRepo named data.user.id flatMap {
       _.fold(fufail[Thread]("No such recipient")) { invited =>
-        Thread.make(
+        val t = Thread.make(
           name = data.subject,
           text = data.text,
           creatorId = me.id,
-          invitedId = data.user.id) |> { t =>
-            val thread = if (me.troll || lila.security.Spam.detect(data.subject, data.text))
-              t deleteFor invited
-            else t
-            sendUnlessBlocked(thread, fromMod) flatMap {
-              _ ?? {
-                val text = s"${data.subject} ${data.text}"
-                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
-                notify(thread)
-              }
-            } inject thread
-          }
+          invitedId = data.user.id)
+        muteThreadIfNecessary(t, me, invited, data) flatMap { thread =>
+          sendUnlessBlocked(thread, fromMod) flatMap {
+            _ ?? {
+              val text = s"${data.subject} ${data.text}"
+              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+              notify(thread)
+            }
+          } inject thread
+        }
       }
     }
   }
+
+  private def muteThreadIfNecessary(thread: Thread, creator: User, invited: User, data: DataForm.ThreadData): Fu[Thread] =
+    if (lila.security.Spam.detect(data.subject, data.text)) fuccess(thread deleteFor invited)
+    else if (creator.troll) follows(invited.id, creator.id) map { following =>
+      if (following) thread else thread deleteFor invited
+    }
+    else fuccess(thread)
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
     if (fromMod) coll.insert(thread) inject true

@@ -1,18 +1,17 @@
 package lila.round
 
-import scala.concurrent.duration._
-
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import actorApi._, round._
 import chess.Color
-import lila.game.{ Game, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.game.{ Game, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.FishnetPlay
 import lila.hub.SequentialActor
-import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import makeTimeout.large
 
 private[round] final class Round(
@@ -50,6 +49,8 @@ private[round] final class Round(
       else black = v
     }
   }
+
+  var takebackSituation = Round.TakebackSituation()
 
   def process = {
 
@@ -151,17 +152,29 @@ private[round] final class Round(
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
-        lila.log("cheat").info(s"hold alert $ip http://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+        lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         lila.mon.cheat.holdAlert()
         proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
       }
     }
 
-    case RematchYes(playerRef)  => handle(playerRef)(rematcher.yes)
-    case RematchNo(playerRef)   => handle(playerRef)(rematcher.no)
+    case RematchYes(playerRef) => handle(playerRef)(rematcher.yes)
+    case RematchNo(playerRef)  => handle(playerRef)(rematcher.no)
 
-    case TakebackYes(playerRef) => handle(playerRef)(takebacker.yes)
-    case TakebackNo(playerRef)  => handle(playerRef)(takebacker.no)
+    case TakebackYes(playerRef) => handle(playerRef) { pov =>
+      takebacker.yes(takebackSituation)(pov) map {
+        case (events, situation) =>
+          takebackSituation = situation
+          events
+      }
+    }
+    case TakebackNo(playerRef) => handle(playerRef) { pov =>
+      takebacker.no(takebackSituation)(pov) map {
+        case (events, situation) =>
+          takebackSituation = situation
+          events
+      }
+    }
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
       pov.game.clock.ifTrue(pov.game moretimeable !pov.color) ?? { clock =>
@@ -248,4 +261,21 @@ private[round] final class Round(
     case e: FishnetError => lila.mon.round.error.fishnet()
     case e: Exception    => logger.warn(s"$name: ${e.getMessage}")
   }
+}
+
+object Round {
+
+  case class TakebackSituation(
+      nbDeclined: Int = 0,
+      lastDeclined: Option[DateTime] = none) {
+
+    def decline = TakebackSituation(nbDeclined + 1, DateTime.now.some)
+
+    def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
+
+    def offerable = lastDeclined.fold(true) { _ isBefore DateTime.now.minusSeconds(delaySeconds) }
+
+    def reset = TakebackSituation()
+  }
+
 }

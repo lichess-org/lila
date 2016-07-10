@@ -193,26 +193,27 @@ object UserRepo {
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
   def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    checkPasswordById(id, password) flatMap { _ ?? coll.byId[User](id) }
+    checkPasswordById(id) map { _ flatMap { _(password) } }
 
   def authenticateByEmail(email: String, password: String): Fu[Option[User]] =
-    checkPasswordByEmail(email, password) flatMap { _ ?? byEmail(email) }
+    checkPasswordByEmail(email) map { _ flatMap { _(password) } }
 
-  private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Option[Boolean]) {
+  private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
     def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
   }
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 
-  def checkPasswordById(id: ID, password: String): Fu[Boolean] =
-    checkPassword($id(id), password)
+  def checkPasswordById(id: ID): Fu[Option[User.LoginCandidate]] =
+    checkPassword($id(id))
 
-  def checkPasswordByEmail(email: String, password: String): Fu[Boolean] =
-    checkPassword($doc(F.email -> email), password)
+  def checkPasswordByEmail(email: String): Fu[Option[User.LoginCandidate]] =
+    checkPassword($doc(F.email -> email))
 
-  private def checkPassword(select: Bdoc, password: String): Fu[Boolean] =
-    coll.uno[AuthData](select) map {
-      _ ?? (data => data.enabled && data.compare(password))
+  private def checkPassword(select: Bdoc): Fu[Option[User.LoginCandidate]] =
+    coll.uno[AuthData](select) zip coll.uno[User](select) map {
+      case (Some(login), Some(user)) if user.enabled => User.LoginCandidate(user, login.compare).some
+      case _                                         => none
     }
 
   def getPasswordHash(id: ID): Fu[Option[String]] =
@@ -242,12 +243,14 @@ object UserRepo {
   def engineIds: Fu[Set[String]] =
     coll.distinct("_id", $doc("engine" -> true).some) map lila.db.BSON.asStringSet
 
-  def usernamesLike(username: String, max: Int = 10): Fu[List[String]] =
-    if (username.size < 3) fuccess(Nil)
+  private val userIdPattern = """^[\w-]{3,20}$""".r.pattern
+
+  def usernamesLike(text: String, max: Int = 10): Fu[List[String]] = {
+    val id = normalize(text)
+    if (!userIdPattern.matcher(id).matches) fuccess(Nil)
     else {
       import java.util.regex.Matcher.quoteReplacement
-      val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
-      val regex = "^" + escaped + ".*$"
+      val regex = "^" + id + ".*$"
       coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
         .sort($doc("enabled" -> -1, "len" -> 1))
         .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
@@ -255,6 +258,7 @@ object UserRepo {
           _ flatMap { _.getAs[String](F.username) }
         }
     }
+  }
 
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>

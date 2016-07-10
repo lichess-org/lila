@@ -1,6 +1,6 @@
 @(u: User)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - Kid mode" }
+@title = @{ s"${u.username} - ${trans.kidMode()}" }
 
 @account.layout(title = title, active = "kid") {
 <div class="content_box small_box high">
@@ -20,7 +20,7 @@
     <br />
     <p>
       In kid mode, the lichess logo gets a
-      <span title="Kid mode" class="kiddo">😊</span> icon,<br />
+      <span title="@trans.kidMode()" class="kiddo">😊</span> icon,<br />
       so you know that it's enabled and your kids are safe.
     </p>
   </div>

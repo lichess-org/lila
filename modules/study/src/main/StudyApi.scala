@@ -61,8 +61,8 @@ final class StudyApi(
 
   def talk(userId: User.ID, studyId: Study.ID, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
-      (study.members contains userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text, socket)
+      (study canChat userId) ?? {
+        chat ! lila.chat.actorApi.UserTalk(studyId, userId, text)
       }
     }
   }
@@ -341,6 +341,8 @@ final class StudyApi(
         }
       }
     }
+
+  def resetAllRanks = studyRepo.resetAllRanks
 
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))

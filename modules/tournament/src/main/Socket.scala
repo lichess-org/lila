@@ -33,10 +33,16 @@ private[tournament] final class Socket(
 
   override def preStart() {
     super.preStart()
+    lilaBus.subscribe(self, Symbol(s"chat-$tournamentId"))
     TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
   }
 
-  def receiveSpecific = {
+  override def postStop() {
+    super.postStop()
+    lilaBus.unsubscribe(self)
+  }
+
+  def receiveSpecific = ({
 
     case SetTournament(Some(tour)) =>
       clock = tour.clock.chessClock.some
@@ -70,12 +76,6 @@ private[tournament] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case lila.chat.actorApi.ChatLine(_, line) => line match {
-      case line: lila.chat.UserLine =>
-        notifyVersion("message", lila.chat.JsonView(line), Messadata(line.troll))
-      case _ =>
-    }
-
     case GetVersion => sender ! history.version
 
     case Join(uid, user) =>
@@ -96,7 +96,9 @@ private[tournament] final class Socket(
     case NotifyReload =>
       delayedReloadNotification = false
       notifyAll("reload")
-  }
+  }: Actor.Receive) orElse lila.chat.Socket.out(
+    send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
+  )
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {

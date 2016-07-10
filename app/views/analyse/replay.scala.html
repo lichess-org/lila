@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], analysisInProgress: Option[lila.fishnet.Work.InProgress], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], userTv: Option[User], chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @import pov._
 
@@ -14,8 +14,11 @@
 lichess = lichess || {};
 lichess.analyse = {
 data: @Html(J.stringify(data)),
-i18n: @round.jsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id"""")),
+i18n: @jsI18n(),
+userId: @jsUserId,
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth)
+}),
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
@@ -50,7 +53,7 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv).some,
-chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
+chat = chat.dom().some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,
@@ -71,9 +74,6 @@ atom = atom.some) {
       }
     </div>
     }
-    <div class="panel quote">
-      @base.quote(lila.quote.Quote.one(pov.gameId))
-    </div>
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
@@ -116,7 +116,6 @@ atom = atom.some) {
     }
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
-    <a data-panel="quote" class="quote" data-icon="c" title="Irrelevant chess quote"></a>
   </div>
 </div>
 }

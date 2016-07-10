@@ -31,8 +31,8 @@ private[forum] final class TopicApi(
       res ← data ?? {
         case (categ, topic) =>
           lila.mon.forum.topic.view()
-          (TopicRepo incViews topic) >>
-            (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
+          TopicRepo incViews topic
+          env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -46,7 +46,7 @@ private[forum] final class TopicApi(
           slug = slug,
           name = data.name,
           troll = ctx.troll,
-          featured = true)
+          hidden = categ.quiet)
         val post = Post.make(
           topicId = topic.id,
           author = data.post.author,
@@ -61,15 +61,15 @@ private[forum] final class TopicApi(
         env.postColl.insert(post) >>
           env.topicColl.insert(topic withPost post) >>
           env.categColl.update($id(categ.id), categ withTopic post) >>-
-          (indexer ! InsertPost(post)) >>
-          env.recent.invalidate >>-
+          (!categ.quiet ?? (indexer ! InsertPost(post))) >>
+          (!categ.quiet ?? env.recent.invalidate) >>-
           ctx.userId.?? { userId =>
             val text = topic.name + " " + post.text
             shutup ! post.isTeam.fold(
               lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
               lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text))
           } >>- {
-            (ctx.userId ifFalse post.troll) ?? { userId =>
+            (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
               timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
                 post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
               )

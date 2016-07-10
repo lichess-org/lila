@@ -25,7 +25,8 @@ final class CrudApi {
       dateMinute = startsUtc.getMinuteOfHour,
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
-      description = tour.spotlight.??(_.description))
+      description = tour.spotlight.??(_.description),
+      conditions = Condition.DataForm.AllSetup(tour.conditions))
   }
 
   def update(old: Tournament, data: CrudForm.Data) =
@@ -70,6 +71,7 @@ final class CrudApi {
         description = description,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconFont = none,
-        iconImg = image.some.filter(_.nonEmpty)).some)
+        iconImg = image.some.filter(_.nonEmpty)).some,
+      conditions = data.conditions.convert)
   }
 }

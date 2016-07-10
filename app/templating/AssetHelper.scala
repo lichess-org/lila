@@ -12,7 +12,7 @@ trait AssetHelper { self: I18nHelper =>
 
   val assetDomain = lila.api.Env.current.Net.AssetDomain
 
-  val assetBaseUrl = s"http://$assetDomain"
+  val assetBaseUrl = s"//$assetDomain"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
@@ -36,21 +36,21 @@ trait AssetHelper { self: I18nHelper =>
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
   val highchartsTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.1.4/highcharts.js",
+    cdn = "//code.highcharts.com/4.1.4/highcharts.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val highchartsLatestTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.1/highcharts.js",
+    cdn = "//code.highcharts.com/4.1/highcharts.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts-4.1.9.js"))
 
   val highchartsMoreTag = Html {
-    """<script src="http://code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
+    """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
   val momentjsTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
 
@@ -69,17 +69,17 @@ trait AssetHelper { self: I18nHelper =>
   }
 
   val tagmanagerTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",
     local = staticUrl("vendor/tagmanager/tagmanager.js"))
 
   val typeaheadTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
     test = "$.typeahead",
     local = staticUrl("javascripts/vendor/typeahead.bundle.min.js"))
 
   val fingerprintTag = Html {
-    """<script src="http://cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+    """<script src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {

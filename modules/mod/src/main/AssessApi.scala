@@ -91,11 +91,11 @@ final class AssessApi(
     def consistentMoveTimes(game: Game)(player: Player) = Statistics.consistentMoveTimes(Pov(game, player))
     val shouldAssess =
       if (!game.source.exists(assessableSources.contains)) false
+      else if (game.mode.casual) false
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
       else if (game.isCorrespondence) false
       else if (game.players exists consistentMoveTimes(game)) true
       else if (game.playedTurns < 40) false
-      else if (game.mode.casual) false
       else true
     shouldAssess.?? {
       val assessible = Assessible(Analysed(game, analysis))
@@ -111,8 +111,8 @@ final class AssessApi(
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           modApi.autoAdjust(userId)
-        case AccountAction.Report =>
-          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+        case AccountAction.Report(reason) =>
+          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
           funit
         case AccountAction.Nothing =>
           // reporter ! lila.hub.actorApi.report.Clean(userId)
@@ -133,7 +133,7 @@ final class AssessApi(
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
     } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 140
+      player.color.fold(white, black).perfs(perfType).progress >= 100
     }
 
     def noFastCoefVariation(player: Player): Option[Double] =
@@ -169,8 +169,8 @@ final class AssessApi(
       else if (whiteSuspCoefVariation.isDefined) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
       // black has consistent move times
       else if (blackSuspCoefVariation.isDefined) blackSuspCoefVariation.map(_ => BlackMoveTime)
-      // don't analyse other bullet games
-      else if (game.speed == chess.Speed.Bullet) none
+      // don't analyse half of other bullet games
+      else if (game.speed == chess.Speed.Bullet && Random.nextInt(2) == 0) none
       // someone blurs a lot
       else if (game.players exists manyBlurs) Blurs.some
       // the winner shows a great rating progress
@@ -178,7 +178,7 @@ final class AssessApi(
       // analyse some tourney games
       // else if (game.isTournament) Random.nextInt(5) == 0 option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(30 >) && Random.nextInt(2) == 0) NewPlayerWin.some
+      else if (winnerNbGames.??(30 >) && Random.nextInt(3) > 0) NewPlayerWin.some
       else none
 
     shouldAnalyse foreach { reason =>

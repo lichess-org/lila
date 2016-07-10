@@ -57,13 +57,13 @@ object DataForm {
 
   val minutes = (20 to 60 by 5) ++ (70 to 120 by 10)
   val minutesPrivate = minutes ++ (150 to 360 by 30)
-  val minuteDefault = 40
+  val minuteDefault = 45
   val minuteChoices = options(minutes, "%d minute{s}")
   val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
   val waitMinutes = Seq(1, 2, 5, 10, 15, 20, 30, 45, 60, 90, 120)
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
-  val waitMinuteDefault = 2
+  val waitMinuteDefault = 5
 
   val positions = StartingPosition.allWithInitial.map(_.eco)
   val positionChoices = StartingPosition.allWithInitial.map { p =>

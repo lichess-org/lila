@@ -38,14 +38,17 @@ private[round] final class SocketHandler(
     def ping(o: JsObject) =
       o int "v" foreach { v => socket ! PingVersion(uid, v) }
 
-    member.playerIdOption.fold[Handler.Controller]({
-      case ("p", o) => ping(o)
-      case ("talk", o) => o str "d" foreach { text =>
-        messenger.watcher(gameId, member, text, socket)
-      }
+    member.playerIdOption.fold[Handler.Controller](({
+      case ("p", o)         => ping(o)
+      case ("talk", o)      => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(Outoftime)
-    }) { playerId =>
-      {
+    }: Handler.Controller) orElse lila.chat.Socket.in(
+      chatId = s"$gameId/w",
+      member = member,
+      socket = socket,
+      chat = messenger.chat
+    )) { playerId =>
+      ({
         case ("p", o) => ping(o)
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
@@ -79,9 +82,7 @@ private[round] final class SocketHandler(
         case ("moretime", _)     => send(Moretime(playerId))
         case ("outoftime", _)    => send(Outoftime)
         case ("bye", _)          => socket ! Bye(ref.color)
-        case ("talk", o) => o str "d" foreach { text =>
-          messenger.owner(gameId, member, text, socket)
-        }
+        case ("talk", o)         => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
@@ -90,7 +91,11 @@ private[round] final class SocketHandler(
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
         }
-      }
+      }: Handler.Controller) orElse lila.chat.Socket.in(
+        chatId = gameId,
+        member = member,
+        socket = socket,
+        chat = messenger.chat)
     }
   }
 

@@ -4,7 +4,7 @@
     @u.profileOrDefault.countryInfo.map {
     case (code, name) => {
     <span class="countrylang">
-      <img class="flag" src="@staticUrl(s"images/flags/$code.png")" />
+      <img class="flag" src="@staticUrl(s"images/flags/$code.png")" alt="@name" title="@name" />
       @if(u.username.size < 15) { @name }
     </span>
     }

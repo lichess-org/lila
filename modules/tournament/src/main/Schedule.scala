@@ -4,18 +4,24 @@ import chess.StartingPosition
 import chess.variant.Variant
 import org.joda.time.DateTime
 
+import lila.rating.PerfType
+
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
     position: StartingPosition,
-    at: DateTime) {
+    at: DateTime,
+    conditions: Condition.All = Condition.All.empty) {
 
   def name = freq match {
-    case m@Schedule.Freq.ExperimentalMarathon      => m.name
-    case _ if variant.standard && position.initial => s"${freq.toString} ${speed.toString}"
-    case _ if variant.standard                     => s"${position.shortName} ${speed.toString}"
-    case _                                         => s"${freq.toString} ${variant.name}"
+    case m@Schedule.Freq.ExperimentalMarathon => m.name
+    case _ if variant.standard && position.initial =>
+      conditions.maxRating.fold(s"${freq.toString} ${speed.toString}") {
+        case Condition.MaxRating(_, rating) => s"U$rating ${speed.toString}"
+      }
+    case _ if variant.standard => s"${position.shortName} ${speed.toString}"
+    case _                     => s"${freq.toString} ${variant.name}"
   }
 
   def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
@@ -24,9 +30,16 @@ case class Schedule(
 
   def sameFreq(other: Schedule) = freq == other.freq
 
-  def similarTo(other: Schedule) = similarSpeed(other) && sameVariant(other) && sameFreq(other)
+  def sameConditions(other: Schedule) = conditions == other.conditions
 
-  override def toString = s"$freq $variant $speed $at"
+  def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
+
+  def hasMaxRating = conditions.maxRating.isDefined
+
+  def similarTo(other: Schedule) =
+    similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
+
+  override def toString = s"$freq $variant $speed $conditions $at"
 }
 
 object Schedule {
@@ -79,6 +92,11 @@ object Schedule {
       else if (time < 480) Blitz
       else Classical
     }
+    def toPerfType(speed: Speed) = speed match {
+      case HyperBullet | Bullet => PerfType.Bullet
+      case SuperBlitz | Blitz   => PerfType.Blitz
+      case Classical            => PerfType.Classical
+    }
   }
 
   sealed trait Season
@@ -89,15 +107,16 @@ object Schedule {
     case object Winter extends Season
   }
 
-  private[tournament] def durationFor(sched: Schedule): Option[Int] = {
+  private[tournament] def durationFor(s: Schedule): Option[Int] = {
     import Freq._, Speed._
     import chess.variant._
-    Some((sched.freq, sched.speed, sched.variant) match {
+    Some((s.freq, s.speed, s.variant) match {
 
-      case (Hourly, HyperBullet | Bullet, _)          => 26
-      case (Hourly, SuperBlitz, _)                    => 56
-      case (Hourly, Blitz, _)                         => 56
-      case (Hourly, Classical, _)                     => 116
+      case (Hourly, HyperBullet | Bullet, _)          => 27
+      case (Hourly, SuperBlitz, _)                    => 57
+      case (Hourly, Blitz, _)                         => 57
+      case (Hourly, Classical, _) if s.hasMaxRating   => 57
+      case (Hourly, Classical, _)                     => 117
 
       case (Daily | Eastern, HyperBullet | Bullet, _) => 60
       case (Daily | Eastern, SuperBlitz, _)           => 90

@@ -1,4 +1,4 @@
-@(title: String, side: Html, chat: Html, underchat: Html, moreJs: Html)(body: Html)(implicit ctx: Context)
+@(title: String, side: Html, underchat: Html, moreJs: Html)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -8,7 +8,7 @@
 @base.layout(
 title = title,
 side = side.some,
-chat = chat.some,
+chat = chat.dom().some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,

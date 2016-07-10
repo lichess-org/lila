@@ -1,3 +1,7 @@
+function toSeconds(decis, white) {
+  return decis < 5 ? 0 : decis / 10 * (white ? 1 : -1)
+}
+
 lichess.movetimeChart = function(data) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
@@ -23,7 +27,7 @@ lichess.movetimeChart = function(data) {
               series[color ? 'white' : 'black'].push({
                 name: turn + dots + ' ' + node.san,
                 x: i,
-                y: data.game.moveTimes[i] / 10 * (color ? 1 : -1)
+                y: toSeconds(data.game.moveTimes[i], color)
               });
             });
 

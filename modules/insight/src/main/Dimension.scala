@@ -4,6 +4,7 @@ import play.twirl.api.Html
 import reactivemongo.bson._
 
 import chess.{ Color, Role }
+import chess.opening.EcopeningDB
 import lila.db.dsl._
 import lila.rating.PerfType
 
@@ -47,7 +48,7 @@ object Dimension {
     "color", "Color", F.color, Game, _.toString,
     Html("The side you are playing: White or Black."))
 
-  case object Opening extends Dimension[Ecopening](
+  case object Opening extends Dimension[chess.opening.Ecopening](
     "opening", "Opening", F.eco, Game, _.ecoName,
     Html("ECO identification of the initial moves, like \"A58 Benko Gambit\"."))
 

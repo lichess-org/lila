@@ -15,7 +15,6 @@ import lila.user.User
 
 private[api] final class RoundApi(
     jsonView: JsonView,
-    noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
@@ -29,14 +28,12 @@ private[api] final class RoundApi(
         initialFen = initialFen) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
-        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) map {
-          case ((((json, tourOption), simulOption), note), forecast) => (
+          case (((json, tourOption), simulOption), forecast) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withSteps(pov, initialFen)_ compose
-            withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withForecastCount(forecast.map(_.steps.size))_
           )(json)
@@ -52,13 +49,11 @@ private[api] final class RoundApi(
         withMoveTimes = false,
         withDivision = false) zip
         getTourAndRanks(pov.game) zip
-        (pov.game.simulId ?? getSimul) zip
-        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case (((json, tourOption), simulOption), note) => (
+        (pov.game.simulId ?? getSimul) map {
+          case ((json, tourOption), simulOption) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withSteps(pov, initialFen)_
           )(json)
@@ -78,13 +73,11 @@ private[api] final class RoundApi(
         withMoveTimes = withMoveTimes,
         withDivision = withDivision) zip
         getTourAndRanks(pov.game) zip
-        (pov.game.simulId ?? getSimul) zip
-        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-          case (((json, tourOption), simulOption), note) => (
+        (pov.game.simulId ?? getSimul) map {
+          case ((json, tourOption), simulOption) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withNote(note)_ compose
             withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
             withTree(pov, analysis, initialFen, withOpening = withOpening)_ compose
             withAnalysis(pov.game, analysis)_
@@ -119,9 +112,6 @@ private[api] final class RoundApi(
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
       initialFen = initialFen | pov.game.variant.initialFen))
-
-  private def withNote(note: String)(json: JsObject) =
-    if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
     if (v) json + ("bookmarked" -> JsBoolean(true)) else json

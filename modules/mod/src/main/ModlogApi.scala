@@ -86,6 +86,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, none, Modlog.terminateTournament, details = name.some)
   }
 
+  def chatTimeout(mod: String, user: String, reason: String) = add {
+    Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
+  }
+
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(userId: String) = coll.exists($doc(

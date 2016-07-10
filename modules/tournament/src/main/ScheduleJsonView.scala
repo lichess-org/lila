@@ -12,6 +12,7 @@ final class ScheduleJsonView(
     getLightUser: String => Option[LightUser]) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   def apply(tournaments: VisibleTournaments) = Json.obj(
     "created" -> tournaments.created.map(tournamentJson),
@@ -39,6 +40,7 @@ final class ScheduleJsonView(
     "status" -> tour.status.id,
     "schedule" -> tour.schedule.map(scheduleJson),
     "winner" -> tour.winnerId.flatMap(getLightUser).map(userJson),
+    "conditions" -> tour.conditions.ifNonEmpty,
     "perf" -> tour.perfType.map(perfJson))
 
   private def userJson(u: LightUser) = Json.obj(

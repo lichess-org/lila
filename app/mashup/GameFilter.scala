@@ -76,6 +76,7 @@ object GameFilterMenu {
     case Bookmark => info.map(_.nbBookmark)
     case Imported => info.map(_.nbImported)
     case All      => user.count.game.some
+    case Me       => info.map(_.nbWithMe)
     case Rated    => user.count.rated.some
     case Win      => user.count.win.some
     case Loss     => user.count.loss.some

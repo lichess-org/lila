@@ -14,7 +14,7 @@ object Search extends LilaController {
   def searchForm = env.forms.search
 
   def index(page: Int) = OpenBody { implicit ctx =>
-    NoBot {
+    NotForBots {
       Reasonable(page, 100) {
         implicit def req = ctx.body
         searchForm.bindFromRequest.fold(
@@ -30,7 +30,7 @@ object Search extends LilaController {
   }
 
   def export = OpenBody { implicit ctx =>
-    NoBot {
+    NotForBots {
       implicit def req = ctx.body
       searchForm.bindFromRequest.fold(
         failure => Ok(html.search.index(failure)).fuccess,
@@ -47,8 +47,4 @@ object Search extends LilaController {
       )
     }
   }
-
-  private def NoBot(res: => Fu[play.api.mvc.Result])(implicit ctx: Context) =
-    if (HTTPRequest.isBot(ctx.req)) notFound
-    else res
 }

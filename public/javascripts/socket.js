@@ -24,12 +24,12 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
-  if (options.prodPipe) options.baseUrls = ['socket.en.lichess.org:9021'];
+  if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
 
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = "ws://" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl, true);
     try {
       if (window.MozWebSocket) ws = new MozWebSocket(fullUrl);
@@ -100,6 +100,7 @@ lichess.StrongSocket = function(url, version, settings) {
       }, 1000);
     }
   };
+  lichess.pubsub.on('socket.send', send);
 
   var sendAckable = function(t, d) {
     send(t, d, {
@@ -175,6 +176,7 @@ lichess.StrongSocket = function(url, version, settings) {
         ackableMessages = [];
         break;
       default:
+        lichess.pubsub.emit('socket.in.' + m.t)(m.d);
         if (settings.receive) settings.receive(m.t, m.d);
         var h = settings.events[m.t];
         if (h) h(m.d || null, m);
@@ -291,11 +293,20 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
-    baseUrls: ['socket.' + document.domain].concat(
-      /lichess\.org/.test(document.domain) ? [9021, 9022, 9023, 9024].map(function(port) {
-        return 'socket.' + document.domain + ':' + port;
-      }) : []),
+    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    baseUrls: (function(domain) {
+      var main = 'socket.' + domain.split('.').slice(1).join('.');
+      var isProduction = /lichess\.org/.test(main);
+      var extraPorts = [];
+      if (isProduction) {
+        if (location.protocol === 'https:') extraPorts = [9025, 9026, 9027, 9028, 9029];
+        else extraPorts = [9021, 9022, 9023, 9024];
+      }
+      return [main].concat(extraPorts.map(function(port) {
+        return main + ':' + port;
+      }));
+    })(document.domain),
     onFirstConnect: $.noop,
-    baseUrlKey: 'surl3'
+    baseUrlKey: 'surl5'
   }
 };

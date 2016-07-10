@@ -529,3 +529,7 @@ bulletBlitzClassical=Bullet, blitz, classical
 correspondenceChess=Szachy korespondencyjne
 onlineAndOfflinePlay=Graj offline i w sieci
 correspondenceAndUnlimited=Korespondencja i nielimitowane
+viewTheSolution=Zobacz rozwiązania
+followAndChallengeFriends=Śledź i zaproś znajomych
+availableInNbLanguages=Dostępny w %s językach!
+gameAnalysis=Analizuj grę

@@ -15,9 +15,9 @@ private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
+    notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
-    timeline: akka.actor.ActorSelection,
     casualOnly: Boolean) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted) >>- {
@@ -56,8 +56,7 @@ private[round] final class Finisher(
     message: Option[SelectI18nKey] = None)(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog = game.finish(status, winner)
-    if (game.nonAi && game.isCorrespondence)
-      Color.all foreach notifyTimeline(prog.game)
+    if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game.finish(status.name)()
     casualOnly.fold(
       GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
@@ -85,19 +84,6 @@ private[round] final class Finisher(
               }
       }
   } >>- proxy.invalidate
-
-  private def notifyTimeline(game: Game)(color: Color) = {
-    import lila.hub.actorApi.timeline.{ Propagate, GameEnd }
-    if (!game.aborted) game.player(color).userId foreach { userId =>
-      game.perfType foreach { perfType =>
-        timeline ! (Propagate(GameEnd(
-          playerId = game fullIdOf color,
-          opponent = game.player(!color).userId,
-          win = game.winnerColor map (color ==),
-          perf = perfType.key)) toUser userId)
-      }
-    }
-  }
 
   private def updateCountAndPerfs(finish: FinishGame): Funit =
     (!finish.isVsSelf && !finish.game.aborted) ?? {

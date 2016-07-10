@@ -1,0 +1,134 @@
+div.mchat {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+body.kid div.mchat {
+  display: none;
+}
+div.mchat .chat_tabs {
+  display: flex;
+}
+div.mchat .chat_tabs .tab {
+  flex: 1 1 auto;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 4px 8px 5px 8px;
+}
+div.mchat .chat_tabs .tab:not(.active) {
+  background: #e0e0e0;
+  opacity: 0.7;
+  cursor: pointer;
+}
+div.mchat .chat_tabs .tab:not(.active):hover {
+  opacity: 1;
+}
+div.mchat .chat_tabs .tab.active {
+  font-weight: bold;
+}
+div.mchat .chat_tabs .tab input {
+  cursor: pointer;
+}
+div.mchat .chat_tabs .tab.discussion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.mchat .chat_tabs .tab span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.mchat .chat_tabs .tab:last-child {
+  border-right: none;
+}
+div.mchat .chat_tabs:not(.nb_1) .tab.active {
+  border-bottom-color: transparent!important;
+}
+div.mchat .content {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+div.mchat .note textarea {
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  color: #707070;
+  line-height: 1.7em;
+  outline: none;
+  resize: none;
+}
+div.mchat .lichess_say {
+  border: 0;
+  border-top: 1px solid #ccc;
+  padding: 3px 20px 3px 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+div.mchat .messages {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+div.mchat .messages li {
+  padding: 0.4em 0 0.4em 5px;
+  line-height: 14px;
+  margin: 0;
+}
+body.no-select div.mchat .messages li {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
+div.mchat .messages .deleted {
+  opacity: 0.5;
+}
+div.mchat .messages .system {
+  display: block;
+  opacity: 0.8;
+  font-style: italic;
+  font-size: 0.8em;
+  margin-left: 0;
+  text-align: center;
+}
+div.mchat .messages span,
+div.mchat .messages .user_link {
+  font-family: 'Roboto';
+  font-weight: 300;
+  padding: 0;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+div.mchat .presets {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+div.mchat .presets span {
+  flex: 1 1 auto;
+  text-align: center;
+  display: block;
+  opacity: 0.7;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+div.mchat .presets span:not(.disabled) {
+  cursor: pointer;
+}
+div.mchat .presets span.disabled {
+  color: transparent;
+}
+div.mchat .presets span:not(.disabled):hover {
+  background: #3893E8;
+  color: #fff;
+  opacity: 1;
+}

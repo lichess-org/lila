@@ -49,6 +49,17 @@ object JsonView {
     ).noNull
   }
 
+  implicit val modWrites = OWrites[User] { u =>
+    Json.obj(
+      "id" -> u.id,
+      "username" -> u.username,
+      "title" -> u.title,
+      "engine" -> u.engine,
+      "booster" -> u.booster,
+      "troll" -> u.troll,
+      "games" -> u.count.game).noNull
+  }
+
   implicit val perfWrites: OWrites[Perf] = OWrites { o =>
     Json.obj(
       "games" -> o.nb,

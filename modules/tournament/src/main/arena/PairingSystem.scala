@@ -160,5 +160,5 @@ object PairingSystem extends AbstractPairingSystem {
     preps
   }
 
-  private def url(tourId: String) = s"http://lichess.org/tournament/$tourId"
+  private def url(tourId: String) = s"//lichess.org/tournament/$tourId"
 }

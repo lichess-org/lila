@@ -6,9 +6,9 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
+import akka.actor.ActorSelection
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
-import akka.actor.ActorSelection
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -41,12 +41,11 @@ private[simul] final class SocketHandler(
     socket: ActorRef,
     simId: String,
     uid: String,
-    member: Member): Handler.Controller = {
+    member: Member): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-    case ("talk", o) => o str "d" foreach { text =>
-      member.userId foreach { userId =>
-        chat ! lila.chat.actorApi.UserTalk(simId, userId, text, socket)
-      }
-    }
-  }
+  }: Handler.Controller) orElse lila.chat.Socket.in(
+    chatId = simId,
+    member = member,
+    socket = socket,
+    chat = chat)
 }

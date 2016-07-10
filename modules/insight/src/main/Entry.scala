@@ -1,5 +1,6 @@
 package lila.insight
 
+import chess.opening.Ecopening
 import chess.{ Color, Role }
 import lila.game.{ PgnMoves, Game, Pov }
 import lila.rating.PerfType

@@ -61,6 +61,7 @@ case class RecordPublicChat(chatId: String, userId: String, text: String)
 package mod {
 case class MarkCheater(userId: String)
 case class MarkBooster(userId: String)
+case class ChatTimeout(mod: String, user: String, reason: String)
 }
 
 package captcha {
@@ -184,7 +185,7 @@ case class Remove(gameId: String)
 package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
-case class OnlineFriends(users: List[LightUser])
+case class OnlineFriends(users: List[LightUser], usersPlaying: Set[String])
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }

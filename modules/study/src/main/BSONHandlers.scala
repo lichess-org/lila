@@ -255,6 +255,8 @@ private object BSONHandlers {
 
   import Study.Likes
   private[study] implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
+  import Study.Rank
+  private[study] implicit val RankBSONHandler = dateAnyValHandler[Rank](_.value, Rank.apply)
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

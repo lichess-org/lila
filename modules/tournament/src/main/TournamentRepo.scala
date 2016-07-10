@@ -161,7 +161,7 @@ object TournamentRepo {
     } getOrElse 30
   }
 
-  def promotable: Fu[List[Tournament]] =
+  private[tournament] def promotable: Fu[List[Tournament]] =
     stillWorthEntering zip publicCreatedSorted(24 * 60) map {
       case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
         case (acc, tour) if !isPromotable(tour)          => acc

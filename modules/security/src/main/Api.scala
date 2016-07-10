@@ -7,41 +7,52 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
-import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class Api(
     coll: Coll,
     firewall: Firewall,
-    tor: Tor,
     geoIP: GeoIP,
     emailAddress: EmailAddress) {
 
   val AccessUri = "access_uri"
 
-  def loginForm = Form(mapping(
+  def usernameForm = Form(single(
+    "username" -> text
+  ))
+
+  def loginForm = Form(tuple(
     "username" -> nonEmptyText,
     "password" -> nonEmptyText
-  )(authenticateUser)(_.map(u => (u.username, "")))
+  ))
+
+  private def loadedLoginForm(candidate: Option[User.LoginCandidate]) = Form(mapping(
+    "username" -> nonEmptyText,
+    "password" -> nonEmptyText
+  )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
     .verifying("Invalid username or password", _.isDefined)
   )
 
+  def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
+    emailAddress.validate(str) match {
+      case Some(email)                       => UserRepo.checkPasswordByEmail(email)
+      case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
+      case _                                 => fuccess(none)
+    }
+  } map loadedLoginForm _
+
+  private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
+    candidate ?? { _(password) }
+
   def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
-    if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
-    else UserRepo mustConfirmEmail userId flatMap {
+    UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>
         val sessionId = Random nextStringUppercase 12
         Store.save(sessionId, userId, req, apiVersion) inject sessionId
     }
-
-  // blocking function, required by Play2 form
-  private def authenticateUser(usernameOrEmail: String, password: String): Option[User] =
-    (emailAddress.validate(usernameOrEmail) match {
-      case Some(email) => UserRepo.authenticateByEmail(email, password)
-      case None        => UserRepo.authenticateById(User normalize usernameOrEmail, password)
-    }) awaitSeconds 2
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
     firewall accepts req flatMap {
@@ -110,6 +121,5 @@ final class Api(
 
 object Api {
 
-  case object AuthFromTorExitNode extends Exception
   case class MustConfirmEmail(userId: String) extends Exception
 }

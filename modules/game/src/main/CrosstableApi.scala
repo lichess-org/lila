@@ -25,9 +25,13 @@ final class CrosstableApi(
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
       select(u1, u2),
-      $doc("n" -> true)
-    ).uno[Bdoc] map {
-        ~_.flatMap(_.getAs[Int]("n"))
+      $doc("s1" -> true, "s2" -> true)
+    ).uno[Bdoc] map { res =>
+        ~(for {
+          o <- res
+          s1 <- o.getAs[Int]("s1")
+          s2 <- o.getAs[Int]("s2")
+        } yield (s1 + s2) / 10)
       }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
@@ -36,7 +40,6 @@ final class CrosstableApi(
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       val bson = $doc(
         "$inc" -> $doc(
-          Crosstable.BSONFields.nbGames -> $int(1),
           "s1" -> $int(game.winnerUserId match {
             case Some(u) if u == u1 => 10
             case None               => 5
@@ -58,15 +61,15 @@ final class CrosstableApi(
   }
 
   private def exists(u1: String, u2: String) =
-    coll.count(select(u1, u2).some) map (0 !=)
+    coll.exists(select(u1, u2))
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-
+        lila.log("crosstable").info(s"Create for $u1 vs $u2")
         val selector = $doc(
-          Game.BSONFields.playerUids -> $doc("$all" -> List(u1, u2)),
-          Game.BSONFields.status -> $doc("$gte" -> chess.Status.Mate.id))
+          Game.BSONFields.playerUids $all List(u1, u2),
+          Game.BSONFields.status $gte chess.Status.Mate.id)
 
         import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
         import reactivemongo.api.ReadPreference
@@ -83,8 +86,7 @@ final class CrosstableApi(
                 }
               }.reverse
             }
-          nbGames <- gameColl.count(selector.some)
-          ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults, nbGames)
+          ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults)
 
           crosstable <- gameColl.aggregate(Match(selector), List(
             GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
@@ -102,5 +104,5 @@ final class CrosstableApi(
     }
 
   private def select(u1: String, u2: String) =
-    $doc("_id" -> Crosstable.makeKey(u1, u2))
+    $id(Crosstable.makeKey(u1, u2))
 }

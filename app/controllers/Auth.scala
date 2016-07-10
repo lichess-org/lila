@@ -26,10 +26,10 @@ object Auth extends LilaController {
       }
     }
 
-  private def authenticateUser(u: UserModel)(implicit ctx: Context) = {
+  private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
-      Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
+      fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {
@@ -46,7 +46,6 @@ object Auth extends LilaController {
   }
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.Api.AuthFromTorExitNode => noTorResponse
     case lila.security.Api.MustConfirmEmail(userId) => UserRepo byId userId map {
       case Some(user) => BadRequest(html.auth.checkYourEmail(user))
       case None       => BadRequest
@@ -54,24 +53,29 @@ object Auth extends LilaController {
   }
 
   def login = Open { implicit ctx =>
-    if (Env.security.tor isExitNode ctx.req.remoteAddress)
-      Unauthorized(html.auth.tor()).fuccess
-    else {
-      val referrer = get("referrer")
-      Ok(html.auth.login(api.loginForm, referrer)).fuccess
-    }
+    val referrer = get("referrer")
+    Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
   def authenticate = OpenBody { implicit ctx =>
     Firewall {
       implicit val req = ctx.body
-      api.loginForm.bindFromRequest.fold(
+      val referrer = get("referrer")
+      api.usernameForm.bindFromRequest.fold(
         err => negotiate(
-          html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
+          html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
-        _.fold(InternalServerError("Authentication error").fuccess)(authenticateUser)
-      )
+        username => api.loadLoginForm(username) flatMap { loginForm =>
+          loginForm.bindFromRequest.fold(
+            err => negotiate(
+              html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+              api = _ => Unauthorized(errorsAsJson(err)).fuccess
+            ), {
+              case None    => InternalServerError("Authentication error").fuccess
+              case Some(u) => authenticateUser(u)
+            })
+        })
     }
   }
 
@@ -85,49 +89,43 @@ object Auth extends LilaController {
   }
 
   def signup = Open { implicit ctx =>
-    if (Env.security.tor isExitNode ctx.req.remoteAddress)
-      Unauthorized(html.auth.tor()).fuccess
-    else {
-      forms.signup.websiteWithCaptcha map {
-        case (form, captcha) => Ok(html.auth.signup(form, captcha, env.RecaptchaPublicKey))
-      }
+    NoTor {
+      Ok(html.auth.signup(forms.signup.website, env.RecaptchaPublicKey)).fuccess
     }
   }
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    Firewall {
-      negotiate(
-        html = forms.signup.website.bindFromRequest.fold(
-          err => forms.anyCaptcha map { captcha =>
-            BadRequest(html.auth.signup(err, captcha, env.RecaptchaPublicKey))
-          },
-          data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-            case false => forms.signup.websiteWithCaptcha map {
-              case (form, captcha) => BadRequest(html.auth.signup(form fill data, captcha, env.RecaptchaPublicKey))
-            }
-            case true =>
-              lila.mon.user.register.website()
-              val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-              UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
-                .flatten(s"No user could be created for ${data.username}")
-                .map(_ -> email).flatMap {
-                  case (user, email) => env.emailConfirm.send(user, email) >> {
-                    if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
-                    else saveAuthAndRedirect(user)
+    NoTor {
+      Firewall {
+        negotiate(
+          html = forms.signup.website.bindFromRequest.fold(
+            err => BadRequest(html.auth.signup(err, env.RecaptchaPublicKey)).fuccess,
+            data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
+              case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
+              case true =>
+                lila.mon.user.register.website()
+                val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+                UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
+                  .flatten(s"No user could be created for ${data.username}")
+                  .map(_ -> email).flatMap {
+                    case (user, email) => env.emailConfirm.send(user, email) >> {
+                      if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                      else saveAuthAndRedirect(user)
+                    }
                   }
-                }
-          }),
-        api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
-          err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
-          data => {
-            lila.mon.user.register.mobile()
-            val email = data.email flatMap env.emailAddress.validate
-            UserRepo.create(data.username, data.password, email, false, apiVersion.some)
-              .flatten(s"No user could be created for ${data.username}") flatMap mobileUserOk
-          }
+            }),
+          api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
+            err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
+            data => {
+              lila.mon.user.register.mobile()
+              val email = data.email flatMap env.emailAddress.validate
+              UserRepo.create(data.username, data.password, email, false, apiVersion.some)
+                .flatten(s"No user could be created for ${data.username}") flatMap authenticateUser
+            }
+          )
         )
-      )
+      }
     }
   }
 

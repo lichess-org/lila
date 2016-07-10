@@ -1,0 +1,29 @@
+var m = require('mithril');
+var mapView = require('./mapView');
+var stages = require('../stage/list');
+var scoring = require('../score');
+
+module.exports = function(opts) {
+  return {
+    controller: function() {
+      opts.stageId = null;
+      opts.route = 'map';
+      return {
+        data: opts.storage.data,
+        isStageIdComplete: function(stageId) {
+          var stage = stages.byId[stageId];
+          if (!stage) return true;
+          var result = opts.storage.data.stages[stage.key];
+          if (!result) return false;
+          return result.scores.filter(scoring.gtz).length >= stage.levels.length;
+        },
+        stageProgress: function(stage) {
+          var result = opts.storage.data.stages[stage.key];
+          var complete = result ? result.scores.filter(scoring.gtz).length : 0
+          return [complete, stage.levels.length];
+        }
+      };
+    },
+    view: mapView
+  };
+}

@@ -34,7 +34,7 @@ final class StreamerList(
           },
           streamerName = c getString "streamer_name",
           streamerNameForDisplay = Try(c getString "streamer_name_for_display").toOption,
-          lichessName = c getString "lichess_name",
+          lichessName = lila.user.User.normalize(c getString "lichess_name"),
           featured = c.getBoolean("featured"),
           chat = c.getBoolean("chat"))
       }

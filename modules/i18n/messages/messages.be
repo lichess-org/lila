@@ -1,4 +1,4 @@
-playWithAFriend=Гуляць зь сябрам
+playWithAFriend=Гуляць з сябрамi
 playWithTheMachine=Гуляць з камп'ютарам
 toInviteSomeoneToPlayGiveThisUrl=Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні
 gameOver=Гульня скончана

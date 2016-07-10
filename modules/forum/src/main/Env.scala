@@ -10,7 +10,6 @@ import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
 
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -18,7 +17,7 @@ final class Env(
     shutup: ActorSelection,
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
-    notifyApi : NotifyApi,
+    notifyApi: NotifyApi,
     relationApi: RelationApi,
     system: ActorSystem) {
 

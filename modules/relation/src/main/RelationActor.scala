@@ -2,6 +2,8 @@ package lila.relation
 
 import akka.actor.{ Actor, ActorSelection }
 import akka.pattern.{ ask, pipe }
+import lila.game.Game
+import lila.memo.ExpireSetMemo
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
@@ -20,14 +22,26 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, LightUser]()
 
+  private val onlinePlayings = new ExpireSetMemo(1 hour)
+
+  override def preStart(): Unit = {
+    context.system.lilaBus.subscribe(self, 'startGame)
+    context.system.lilaBus.subscribe(self, 'finishGame)
+  }
+
+  override def postStop() : Unit = {
+    super.postStop()
+    context.system.lilaBus.unsubscribe(self)
+  }
+
   def receive = {
 
     case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
-      case OnlineFriends(users) =>
-        bus.publish(SendTo(userId, "following_onlines", users.map(_.titleName)), 'users)
+      case onlineFriends =>
+        bus.publish(SendTo(userId, JsonView.writeOnlineFriends(onlineFriends)), 'users)
     }
 
     case NotifyMovement =>
@@ -38,22 +52,57 @@ private[relation] final class RelationActor(
       val leaves = leaveIds.flatMap(i => lightUser(i))
       val enters = enterIds.flatMap(i => lightUser(i))
       onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
-      notifyFollowers(enters, "following_enters")
-      notifyFollowers(leaves, "following_leaves")
+
+      val friendsEntering = enters.map(makeFriendEntering)
+      notifyFollowersFriendEnters(friendsEntering)
+      notifyFollowersFriendLeaves(leaves)
+
+    case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if game.hasClock =>
+      val usersPlaying = game.userIds
+      usersPlaying.foreach(onlinePlayings.remove)
+      notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
+
+    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+      val usersPlaying = game.userIds
+      onlinePlayings.putAll(usersPlaying)
+      notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+  }
+
+  private def makeFriendEntering(enters: LightUser) = {
+    FriendEntering(enters, onlinePlayings.get(enters.id))
   }
 
   private def onlineIds: Set[ID] = onlines.keySet
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api fetchFollowing userId map { ids =>
-      OnlineFriends(ids.flatMap(onlines.get).toList)
+      val friends = ids.flatMap(onlines.get).toList
+      val friendsPlaying = filterFriendsPlaying(friends)
+      OnlineFriends(friends, friendsPlaying)
     }
 
-  private def notifyFollowers(users: List[LightUser], message: String) {
-    users foreach { user =>
-      api fetchFollowers user.id map (_ filter onlines.contains) foreach { ids =>
-        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, user.titleName), 'users)
+  private def filterFriendsPlaying(friends: List[LightUser]): Set[String] = {
+    friends.filter(p => onlinePlayings.get(p.id)).map(_.id).toSet
+  }
+
+  private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
+    friendsEntering foreach { entering =>
+      api fetchFollowers entering.user.id map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
       }
     }
-  }
+
+  private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
+    friendsLeaving foreach { leaving =>
+      api fetchFollowers leaving.id map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
+      }
+    }
+
+  private def notifyFollowersGameStateChanged(userIds: Traversable[String], message: String) =
+    userIds foreach { userId =>
+      api fetchFollowers userId map (_ filter onlines.contains) foreach { ids =>
+        if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
+      }
+    }
 }

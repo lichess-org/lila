@@ -53,11 +53,14 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
         _.fold(tournamentNotFound.fuccess) { tour =>
-          env.version(tour.id).zip(chatOf(tour)).flatMap {
-            case (version, chat) => env.jsonView(tour, page, ctx.userId, none, version.some) map {
-              html.tournament.show(tour, _, chat)
-            }
-          }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
+          (env.api.verdicts(tour, ctx.me) zip
+            env.version(tour.id) zip {
+              ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
+            }).flatMap {
+              case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.me, none, version.some) map {
+                html.tournament.show(tour, verdicts, _, chat)
+              }
+            }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
         }
       },
       api = _ => repo byId id flatMap {
@@ -66,7 +69,7 @@ object Tournament extends LilaController {
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                env.jsonView(tour, page, ctx.userId, playerInfoExt, socketVersion)
+                env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
       } map (_ as JSON)
@@ -172,14 +175,19 @@ object Tournament extends LilaController {
       }
   }
 
+  def limitedInvitation = Auth { implicit ctx =>
+    me =>
+      env.api.fetchVisibleTournaments.flatMap { tours =>
+        lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
+      } map {
+        case None    => Redirect(routes.Tournament.home(1))
+        case Some(t) => Redirect(routes.Tournament.show(t.id))
+      }
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)
     }
   }
-
-  private def chatOf(tour: lila.tournament.Tournament)(implicit ctx: Context) =
-    ctx.isAuth ?? {
-      Env.chat.api.userChat find tour.id map (_.forUser(ctx.me).some)
-    }
 }

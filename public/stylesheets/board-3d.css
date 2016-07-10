@@ -42,8 +42,7 @@ body.coords_2 .is3d square[data-coord-x]::after {
 .is3d #lichess {
   min-height: 479.08572px;
 }
-.is3d div.lichess_game,
-.is3d div.lichess_game div.lichess_ground {
+.is3d div.lichess_game {
   height: 479.08572px;
 }
 /* 3D boards */

@@ -32,16 +32,6 @@ object Pref extends LilaController {
       }
   }
 
-  def miniFormApply = AuthBody { implicit ctx =>
-    me =>
-      implicit val req = ctx.body
-      FormFuResult(forms.miniPref) { err =>
-        fuccess("nope")
-      } { data =>
-        api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
-      }
-  }
-
   def set(name: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     (setters get name) ?? {

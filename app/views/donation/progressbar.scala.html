@@ -1,8 +1,8 @@
 @(prog: lila.donation.Progress)(implicit ctx: Context)
 
-<div class="progressbar green flashy">
+<span class="progressbar green flashy">
   <span class="goal">$@(prog.goal / 100)</span>
-  <div class="current" style="width: @prog.percent%">
+  <span class="current" style="width: @prog.percent%">
     <span>$@(prog.current / 100)</span>
-  </div>
-</div>
+  </span>
+</span>

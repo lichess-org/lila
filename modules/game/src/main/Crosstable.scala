@@ -3,12 +3,13 @@ package lila.game
 case class Crosstable(
     user1: Crosstable.User,
     user2: Crosstable.User,
-    results: List[Crosstable.Result],
-    nbGames: Int) {
+    results: List[Crosstable.Result]) {
 
   import Crosstable.Result
 
   def nonEmpty = results.nonEmpty option this
+
+  def nbGames = (user1.score + user2.score) / 10
 
   def users = List(user2, user1)
 
@@ -88,8 +89,7 @@ object Crosstable {
             case "-" => Result(r take 8, Some(u2Id))
             case _   => sys error s"Invalid result string $r"
           }
-        },
-        nbGames = r int nbGames)
+        })
       case x => sys error s"Invalid crosstable id $x"
     }
 
@@ -100,7 +100,6 @@ object Crosstable {
       id -> makeKey(o.user1.id, o.user2.id),
       score1 -> o.user1.score,
       score2 -> o.user2.score,
-      results -> o.results.map { writeResult(_, o.user1.id) },
-      nbGames -> w.int(o.nbGames))
+      results -> o.results.map { writeResult(_, o.user1.id) })
   }
 }

@@ -54,7 +54,7 @@ object Tv {
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Bullet), fresh(15)))
+      filters = Seq(rated, standard, speed(S.Bullet), fresh(30)))
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
@@ -116,6 +116,6 @@ object Tv {
   } || {
     g.finished && !g.olderThan(7)
   } // rematch time
-  private val freshBlitz = fresh(40)
+  private val freshBlitz = fresh(60)
   private def computerFromInitialPosition = (g: Game) => g.hasAi && !g.fromPosition
 }

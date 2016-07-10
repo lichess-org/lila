@@ -32,6 +32,14 @@ object Future {
   def applySequentially[A](list: List[A])(f: A => Funit): Funit =
     list match {
       case h :: t => f(h) >> applySequentially(t)(f)
-      case Nil => funit
+      case Nil    => funit
     }
+
+  def find[A](list: List[A])(f: A => Fu[Boolean]): Fu[Option[A]] = list match {
+    case Nil => fuccess(none)
+    case h :: t => f(h).flatMap {
+      case true  => fuccess(h.some)
+      case false => find(t)(f)
+    }
+  }
 }

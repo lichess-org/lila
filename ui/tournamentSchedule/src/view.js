@@ -27,8 +27,12 @@ function leftPos(time) {
 }
 
 function laneGrouper(t) {
-  if (t.variant.key !== 'standard') {
+  if (t.schedule && t.schedule.freq === 'unique') {
+    return -1;
+  } else if (t.variant.key !== 'standard') {
     return 99;
+  } else if (t.schedule && t.conditions) {
+    return 50;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
@@ -99,6 +103,21 @@ function bubbleUp(lanes, tours) {
   return returnLanes;
 }
 
+function tournamentClass(tour) {
+  var classes = [
+    'tournament',
+    tour.rated ? 'rated' : 'casual',
+    tour.status === 30 ? 'finished' : 'joinable',
+    tour.createdBy === 'lichess' ? 'system' : 'user-created'
+  ];
+  if (tour.schedule) classes.push(tour.schedule.freq);
+  if (tour.position) classes.push('thematic');
+  if (tour.minutes <= 30) classes.push('short');
+  if (tour.conditions && tour.conditions.maxRating) classes.push('max-rating');
+
+  return classes.join(' ');
+}
+
 function renderTournament(ctrl, tour) {
   var width = tour.minutes * scale;
   var left = leftPos(tour.startsAt);
@@ -109,7 +128,9 @@ function renderTournament(ctrl, tour) {
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
-  return m('a.tournament', {
+  var hasMaxRating = tour.conditions && tour.conditions.maxRating;
+
+  return m('a', {
     key: tour.id,
     href: '/tournament/' + tour.id,
     style: {
@@ -117,25 +138,30 @@ function renderTournament(ctrl, tour) {
       left: left + 'px',
       paddingLeft: paddingLeft + 'px'
     },
-    class: (tour.schedule ? tour.schedule.freq : '') +
-      (tour.createdBy === 'lichess' ? ' system' : ' user-created') +
-      (tour.rated ? ' rated' : ' casual') +
-      (tour.minutes <= 30 ? ' short' : '') +
-      (tour.position ? ' thematic' : '') +
-      (tour.status === 30 ? ' finished' : ' joinable')
+    // onclick: function() {
+    //   console.log(tour);
+    //   return false;
+    // },
+    class: tournamentClass(tour)
   }, [
     m('span.icon', tour.perf ? {
       'data-icon': tour.perf.icon,
       title: tour.perf.name
     } : null),
-    m('span.name', tour.fullName),
-    m('span.clock', displayClock(tour.clock)),
-    tour.variant.key === 'standard' ? null : m('span.variant', tour.variant.name),
-    tour.position ? m('span', 'Thematic') : null,
-    m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
-    tour.nbPlayers ? m('span.nb-players.text', {
-      'data-icon': 'r'
-    }, tour.nbPlayers) : null,
+    m('span.body', [
+      m('span.name', tour.fullName),
+      m('span.infos', [
+        m('span.text', [
+          displayClock(tour.clock) + ' ',
+          tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
+          tour.position ? 'Thematic ' : null,
+          tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')
+        ]),
+        tour.nbPlayers ? m('span.nb-players', {
+          'data-icon': 'r'
+        }, tour.nbPlayers) : null
+      ])
+    ])
   ]);
 }
 
@@ -146,7 +172,7 @@ function renderTimeline() {
   time.setMinutes(Math.floor(time.getMinutes() / minutesBetween) * minutesBetween);
 
   var timeHeaders = [];
-  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000) ;
+  var count = (stopTime - startTime) / (minutesBetween * 60 * 1000);
   for (var i = 0; i < count; i++) {
     var str = timeString(time);
     timeHeaders.push(m('div', {
@@ -181,7 +207,7 @@ function not(f) {
 }
 
 function isSystemTournament(t) {
-  return t.createdBy === 'lichess';
+  return !!t.schedule;
 }
 
 module.exports = function(ctrl) {
@@ -190,7 +216,9 @@ module.exports = function(ctrl) {
   stopTime = startTime + 10 * 60 * 60 * 1000;
 
   if (!ctrl.data.systemTours) {
-    var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created);
+    var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created).filter(function(t) {
+      return t.finishesAt > startTime;
+    });
     ctrl.data.systemTours = tours.filter(isSystemTournament);
     ctrl.data.userTours = tours.filter(not(isSystemTournament));
   }

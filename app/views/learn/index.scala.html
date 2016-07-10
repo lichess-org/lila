@@ -1,0 +1,33 @@
+@(data: Option[play.api.libs.json.JsValue])(implicit ctx: Context)
+
+@moreJs = {
+@jsAt(s"compiled/lichess.learn${isProd??(".min")}.js")
+@embedJs {
+$(function() {
+LichessLearn(document.getElementById('learn_app'), {
+data: @jsOrNull(data),
+sideElement: document.getElementById('learn_side')
+});
+});
+}
+}
+
+@side = {
+<div id="learn_side" class="side_box learn_box">
+  <!-- @base.spinner() -->
+</div>
+}
+
+@round.layout(
+title = "Learn chess by playing",
+side = side,
+moreJs = moreJs,
+moreCss = cssTag("learn.css"),
+chessground = false,
+openGraph = lila.app.ui.OpenGraph(
+title = "Learn chess by playing",
+description = "You don't know anything about chess? Excellent! Let's have fun and learn to play chess!",
+url = s"$netBaseUrl${routes.Learn.index}"
+).some) {
+<div id="learn_app" class="learn cg-512">@miniBoardContent</div>
+}

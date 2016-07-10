@@ -1,4 +1,4 @@
-@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(sim: lila.simul.Simul, socketVersion: Int, data: play.api.libs.json.JsObject, chatOption: Option[lila.chat.UserChat.Mine])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers none" data-icon="v">
@@ -9,12 +9,14 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.simul${isProd??(".min")}.js")
 @embedJs {
-lichess = lichess || {};
 lichess.simul = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 socketVersion: @socketVersion,
-userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
+userId: @jsUserId,
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout)
+})
 };
 }
 }
@@ -22,8 +24,8 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @simul.layout(
 title = sim.fullName,
 side = simul.side(sim).some,
-chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
+chat = chat.dom().some,
 moreJs = moreJs,
 chessground = false) {
 <div id="simul"></div>

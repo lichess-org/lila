@@ -99,7 +99,7 @@ final class JsonView(
 
 object JsonView {
 
-  case class JsData(study: JsObject, analysis: JsObject, chat: JsValue)
+  case class JsData(study: JsObject, analysis: JsObject)
 
   private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)

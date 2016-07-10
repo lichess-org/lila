@@ -13,9 +13,9 @@ import scalaz.Monoid
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
+import lila.notify.Notification.Notifies
 import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
-import lila.notify.Notification.Notifies
 
 private[controllers] trait LilaController
     extends Controller
@@ -139,6 +139,11 @@ private[controllers] trait LilaController
         fuccess { Redirect(routes.Lobby.home()) }
       })
     }
+
+  protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
+    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+      Unauthorized(views.html.auth.tor()).fuccess
+    else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
@@ -299,15 +304,15 @@ private[controllers] trait LilaController
           import akka.pattern.ask
           import makeTimeout.short
           (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
-            case OnlineFriends(users) => users
-          } recover { case _ => Nil }) zip
+            case OnlineFriends(users, usersPlaying) => (users, usersPlaying)
+          } recover { case _ => (Nil, Set.empty[String]) }) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
         }
       } map {
-        case (pref, (((friends, teamNbRequests), nbChallenges), nbNotifications)) =>
-          PageData(friends, teamNbRequests, nbChallenges, nbNotifications, pref,
+        case (pref, ((((friends, friendsPlaying), teamNbRequests), nbChallenges), nbNotifications)) =>
+          PageData(friends, friendsPlaying, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }
@@ -334,6 +339,9 @@ private[controllers] trait LilaController
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
+
+  protected def NotForBots(res: => Fu[Result])(implicit ctx: Context) =
+    if (HTTPRequest.isBot(ctx.req)) notFound else res
 
   protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
     lila.common.Form errorsAsJson form

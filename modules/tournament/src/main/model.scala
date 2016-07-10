@@ -11,9 +11,12 @@ case class PlayerInfo(rank: Int, withdraw: Boolean) {
 }
 
 case class VisibleTournaments(
-  created: List[Tournament],
-  started: List[Tournament],
-  finished: List[Tournament])
+    created: List[Tournament],
+    started: List[Tournament],
+    finished: List[Tournament]) {
+
+  def unfinished = created ::: started
+}
 
 case class PlayerInfoExt(
   tour: Tournament,

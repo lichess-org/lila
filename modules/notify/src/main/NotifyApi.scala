@@ -56,6 +56,8 @@ final class NotifyApi(
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
     repo.remove(notifies, selector) >> unreadCountCache.remove(notifies)
 
+  def exists = repo.exists _
+
   private def shouldSkip(notification: Notification) =
     UserRepo.isKid(notification.notifies.value) flatMap {
       case true => fuccess(true)
@@ -64,9 +66,7 @@ final class NotifyApi(
         case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _)           => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
         case QaAnswer(_, question, _)               => repo.hasRecentQaAnswer(notification.notifies, question)
-        case _: TeamJoined                          => fuccess(false)
-        case _: NewBlogPost                         => fuccess(false)
-        case _: AnalysisFinished                    => fuccess(false)
+        case _                                      => fuccess(false)
       }
     }
 
