@@ -39,3 +39,63 @@ table.payments th,
 table.payments td {
   padding: 10px 5px;
 }
+table.all .thanks {
+  color: #759900;
+  display: block;
+}
+
+.motivation a {
+  color: #3893E8;
+}
+
+.motivation {
+  line-height: 2em;
+}
+
+.motivation .moto {
+  margin: 30px 0;
+  padding: 30px 0;
+  background: #759900;
+  color: #fff;
+  text-align: center;
+  font-size: 1.3em;
+}
+.motivation .moto h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  display: block;
+}
+.motivation .wrapper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+}
+.motivation .text,
+.motivation .content {
+  flex: 0 0 47%;
+  display: flex;
+  align-items: center;
+}
+.motivation .text {
+  flex-flow: column nowrap;
+}
+.motivation .text p {
+  margin-bottom: 1em;
+}
+.motivation .checkout {
+  width: 100%;
+}
+.motivation .checkout h3 {
+  font-family: Roboto;
+  display: block;
+  text-transform: uppercase;
+  margin: 0;
+}
+.motivation .checkout .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.motivation .checkout .buttons button {
+  font-size: 1.3em;
+  flex: 0 0 15%;
+}

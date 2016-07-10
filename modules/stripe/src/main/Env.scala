@@ -5,7 +5,10 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 
-final class Env(config: Config, db: lila.db.Env) {
+final class Env(
+    config: Config,
+    db: lila.db.Env,
+    bus: lila.common.Bus) {
 
   val publicKey = config getString "keys.public"
   private val CollectionCustomer = config getString "collection.customer"
@@ -15,7 +18,7 @@ final class Env(config: Config, db: lila.db.Env) {
     publicKey = publicKey,
     secretKey = config getString "keys.secret"))
 
-  lazy val api = new StripeApi(client, db(CollectionCustomer))
+  lazy val api = new StripeApi(client, db(CollectionCustomer), bus)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
@@ -25,8 +28,7 @@ final class Env(config: Config, db: lila.db.Env) {
 object Env {
 
   lazy val current: Env = "stripe" boot new Env(
-    // system = lila.common.PlayApp.system,
-    // getLightUser = lila.user.Env.current.lightUser,
     config = lila.common.PlayApp loadConfig "stripe",
-  db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    bus = lila.common.PlayApp.system.lilaBus)
 }

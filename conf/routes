@@ -140,11 +140,11 @@ GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
 
-GET   /plan                            controllers.Plan.index
-POST  /plan/charge                     controllers.Plan.charge
-GET   /plan/thanks                     controllers.Plan.thanks
-POST  /plan/switch                     controllers.Plan.switch
-POST  /plan/webhook                    controllers.Plan.webhook
+GET   /patron                          controllers.Plan.index
+POST  /patron/charge                   controllers.Plan.charge
+GET   /patron/thanks                   controllers.Plan.thanks
+POST  /patron/switch                   controllers.Plan.switch
+POST  /patron/webhook                  controllers.Plan.webhook
 GET   /features                        controllers.Plan.features
 
 # Round

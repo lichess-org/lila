@@ -20,20 +20,21 @@ object Plan extends LilaController {
     }
   }
 
-  private def indexAnon(implicit ctx: Context) =
-    Ok(html.plan.indexAnon()).fuccess
+  private def indexAnon(implicit ctx: Context) = fuccess {
+    Ok(html.plan.index(none, Env.stripe.publicKey))
+  }
+
+  private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
+    lila.user.UserRepo email me.id map { myEmail =>
+      Ok(html.plan.index(
+        stripePublicKey = Env.stripe.publicKey,
+        myEmail = myEmail))
+    }
 
   private def indexCustomer(me: UserModel)(implicit ctx: Context) =
     Env.stripe.api.customerInfo(me) flatMap {
       case Some(info) => Ok(html.plan.indexCustomer(me, info)).fuccess
       case _          => indexFreeUser(me)
-    }
-
-  private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
-    lila.user.UserRepo email me.id map { myEmail =>
-      Ok(html.plan.indexFreeUser(me,
-        myEmail = myEmail,
-        stripePublicKey = Env.stripe.publicKey))
     }
 
   def features = Open { implicit ctx =>
@@ -66,7 +67,7 @@ object Plan extends LilaController {
       lila.stripe.Checkout.form.bindFromRequest.fold(
         err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
         data => Env.stripe.api.checkout(me, data) map { res =>
-          Redirect(routes.Plan.index() + "?thanks=1")
+          Redirect(routes.Plan.index())
         } recover {
           case e: StripeException =>
             lila.log("stripe").error("Plan.charge", e)

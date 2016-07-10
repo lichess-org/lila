@@ -7,7 +7,8 @@ import org.joda.time.DateTime
 
 final class StripeApi(
     client: StripeClient,
-    customerColl: Coll) {
+    customerColl: Coll,
+    bus: lila.common.Bus) {
 
   import Customer.BSONHandlers._
 
@@ -44,8 +45,12 @@ final class StripeApi(
       case Some(cus) if cus.canLevelUp =>
         UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
           customerColl.updateField($id(cus.id), "lastLevelUp", DateTime.now) >>
-            UserRepo.setPlan(user, user.plan.incMonths) >>-
-            logger.info(s"Charged ${charge} ${cus}")
+            UserRepo.setPlan(user, user.plan.incMonths) >>- {
+              logger.info(s"Charged ${charge} ${cus}")
+              bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
+                username = user.username,
+                amount = charge.amount), 'stripe)
+            }
         }
       case Some(cus) => fufail(s"Too early to level up $charge $cus")
     }

@@ -19,10 +19,10 @@ trait RequestGetter {
     req.queryString get name flatMap (_.headOption) flatMap parseIntOption
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
-    getInt(name) exists (1==)
+    getInt(name) contains 1
 
   protected def getBool(name: String, req: RequestHeader) =
-    getInt(name, req) exists (1==)
+    getInt(name, req) contains 1
 
   protected def getBoolOpt(name: String)(implicit ctx: UserContext) =
     getInt(name) map (1==)

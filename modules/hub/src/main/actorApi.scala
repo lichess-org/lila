@@ -140,7 +140,7 @@ case class Select(msg: JsObject)
 }
 
 package notify {
-  case class Notified(userId: String)
+case class Notified(userId: String)
 }
 
 package forum {
@@ -191,3 +191,7 @@ case class UnBlock(u1: String, u2: String)
 }
 
 case class DonationEvent(userId: Option[String], gross: Int, net: Int, message: Option[String], progress: Int)
+
+package stripe {
+case class ChargeEvent(username: String, amount: Int)
+}

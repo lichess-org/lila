@@ -1,0 +1,70 @@
+@(myEmail: Option[String], stripePublicKey: String)(implicit ctx: Context)
+
+@title = @{"Become a patron of lichess.org"}
+
+@moreJs = {
+<script src="https://checkout.stripe.com/checkout.js"></script>
+@jsTag("checkout.js")
+@embedJs {
+lichess.checkout("@stripePublicKey");
+}
+}
+
+@site.layout(
+title = title,
+moreCss = cssTag("plan.css"),
+moreJs = moreJs,
+openGraph = lila.app.ui.OpenGraph(
+title = title,
+url = s"$netBaseUrl${routes.Plan.index.url}",
+description = "Free chess for everyone, forever!").some) {
+<div class="content_box plan">
+  <h1 class="text" data-icon="@patronIconChar">@title</h1>
+  <div class="motivation">
+    <div class="moto">
+      <h2>Free chess for everyone, forever!</h2>
+      <p>No ads, no subscriptions; but open source and passion.</p>
+    </div>
+    <div class="wrapper">
+      <div class="text">
+        <p>
+          We are a non‑profit association because we believe in a free,
+          world-class chess experience for anyone, anywhere.
+        </p>
+        <p>
+          We rely on support from people like you to make it possible.
+          If you've gotten something out of lichess, please take a second to pitch in!
+        </p>
+      </div>
+      <div class="content">
+        @if(ctx.isAuth) {
+        <form class="checkout_form none" action="@routes.Plan.charge" method="POST">
+          <input type="hidden" class="token" name="token" />
+          <input type="hidden" class="amount" name="amount" />
+        </form>
+        <div class="checkout">
+          <h3>Your monthly support</h3>
+          <div class="buttons">
+            @lila.stripe.LichessPlan.all.map { p =>
+            <button class="button checkout @p.id"
+              data-description="@p.usd/month"
+              data-amount="@p.cents.value"
+              data-panel-label="Subscribe {{amount}}"
+              data-email="@myEmail"
+              >@p.usd</button>
+            }
+          </div>
+        </div>
+        } else {
+        <div class="checkout">
+          <h3>Your one-time support</h3>
+          <div class="buttons">
+            @paypalOnce()
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+}

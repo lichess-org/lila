@@ -9,7 +9,7 @@ final class SlackApi(
     isProd: Boolean,
     implicit val lightUser: String => Option[LightUser]) {
 
-      import SlackApi._
+  import SlackApi._
 
   def donation(event: lila.hub.actorApi.DonationEvent): Funit = {
     val user = event.userId flatMap lightUser
@@ -27,6 +27,17 @@ final class SlackApi(
         text = msg,
         channel = "general"))
     }
+  }
+
+  def stripeCharge(event: lila.hub.actorApi.stripe.ChargeEvent): Funit = {
+    val amount = s"$$${lila.common.Maths.truncateAt(event.amount / 100d, 2)}"
+    val link = s"<a href='https://lichess.org/@/${event.username}'>${event.username}</a>"
+    client(SlackMessage(
+      username = "donation",
+      icon = "moneybag",
+      text = s"$link donated ${amount(event.amount)}",
+      channel = "general"
+    ))
   }
 
   def publishEvent(event: Event): Funit = event match {
