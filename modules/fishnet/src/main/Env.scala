@@ -18,6 +18,7 @@ final class Env(
 
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
+  private val AnalysisNodes = config getInt "analysis_nodes"
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
@@ -51,7 +52,8 @@ final class Env(
       import makeTimeout.short
       hub.socket.round ? Exists(id) mapTo manifest[Boolean]
     },
-    offlineMode = OfflineMode)(system)
+    offlineMode = OfflineMode,
+    analysisNodes = AnalysisNodes)(system)
 
   val player = new Player(
     moveDb = moveDb,

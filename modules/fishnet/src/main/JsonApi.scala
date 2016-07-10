@@ -144,12 +144,12 @@ object JsonApi {
 
   case class Analysis(
     id: String,
-    game: Game) extends Work
+    game: Game,
+    nodes: Int) extends Work
 
-  def fromWork(w: W): Work = w match {
-    case m: W.Move     => Move(w.id.value, m.level, fromGame(m.game))
-    case a: W.Analysis => Analysis(w.id.value, fromGame(a.game))
-  }
+  def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game))
+
+  def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(m.id.value, fromGame(m.game), nodes)
 
   object readers {
     implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
