@@ -7,7 +7,7 @@ import lila.game.Game
 
 object JsonView {
 
-  def game(analysis: Analysis) = JsArray(analysis.infoAdvices map {
+  def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
     case ((info, adviceOption)) => Json.obj(
       "eval" -> info.score.map(_.centipawns),
       "mate" -> info.mate,
@@ -28,4 +28,9 @@ object JsonView {
   def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
     "white" -> player(game.whitePov)(analysis),
     "black" -> player(game.blackPov)(analysis))
+
+  def mobile(game: Game, analysis: Analysis) = Json.obj(
+    "summary" -> bothPlayers(game, analysis),
+    "moves" -> moves(analysis)
+  )
 }

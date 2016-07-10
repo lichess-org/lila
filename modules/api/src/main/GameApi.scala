@@ -163,7 +163,7 @@ private[api] final class GameApi(
         "analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.game),
+    "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> withFens ?? {
