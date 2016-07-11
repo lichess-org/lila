@@ -56,7 +56,7 @@ module.exports = {
       pearl = '-';
       percent = 0;
     } else {
-      pearl = m.trust(lichess.spinnerHtml);
+      pearl = m('span.cpu', 'CPU');
       percent = 0;
     }
     return m('div.ceval_box',

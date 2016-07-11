@@ -1,6 +1,6 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
-var initialFen = require('../util').initialFen;
+var dict = require('./cevalDict');
 
 module.exports = function(possible, variant, emit) {
 
@@ -51,16 +51,17 @@ module.exports = function(possible, variant, emit) {
       }
     }
 
-    if (work.position === initialFen && !work.moves.length) {
+    var dictRes = dict(work);
+    if (dictRes) {
       setTimeout(function() {
         // this has to be delayed, or it slows down analysis first render.
         work.emit({
           work: work,
           eval: {
             depth: maxDepth,
-            cp: 15, // I made stockfish work hard on this one
-            mate: 0, // so far, chess isn't solved
-            best: 'e2e4' // best by test
+            cp: dictRes.cp,
+            best: dictRes.best,
+            mate: 0
           },
           name: name
         });

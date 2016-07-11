@@ -183,7 +183,7 @@ function icon(c) {
 function buttons(ctrl) {
   return m('div.game_control',
     m('div.buttons', {
-      onmousedown: function(e) {
+      onmouseup: function(e) {
         var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
         if (action === 'explorer') ctrl.explorer.toggle();
         else if (action === 'menu') ctrl.actionMenu.toggle();

@@ -203,10 +203,10 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   font-weight: bold;
   background: #e0e0e0;
 }
-.ceval_box pearl .spinner {
-  margin-top: 5px;
-  width: 25px;
-  height: 25px;
+.ceval_box pearl .cpu {
+  font-family: Roboto;
+  font-weight: 300;
+  opacity: 0.5;
 }
 .ceval_box help {
   display: block;
