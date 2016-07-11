@@ -1,8 +1,10 @@
 package lila.game
 
 import reactivemongo.core.commands._
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.AsyncCache
 import lila.user.UserRepo
 
 final class CrosstableApi(
@@ -19,8 +21,9 @@ final class CrosstableApi(
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.find(select(u1, u2)).uno[Crosstable] orElse create(u1, u2) recoverWith
-      lila.db.recoverDuplicateKey(_ => coll.find(select(u1, u2)).uno[Crosstable])
+    coll.uno[Crosstable](select(u1, u2)) orElse
+      creationCache(u1 -> u2) recoverWith
+      lila.db.recoverDuplicateKey(_ => coll.uno[Crosstable](select(u1, u2)))
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
@@ -38,19 +41,15 @@ final class CrosstableApi(
     case List(u1, u2) =>
       val result = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
+      def incScore(userId: String) = $int(game.winnerUserId match {
+        case Some(u) if u == u1 => 10
+        case None               => 5
+        case _                  => 0
+      })
       val bson = $doc(
         "$inc" -> $doc(
-          "s1" -> $int(game.winnerUserId match {
-            case Some(u) if u == u1 => 10
-            case None               => 5
-            case _                  => 0
-          }),
-          "s2" -> $int(game.winnerUserId match {
-            case Some(u) if u == u2 => 10
-            case None               => 5
-            case _                  => 0
-          })
-        )
+          "s1" -> incScore(u1),
+          "s2" -> incScore(u2))
       ) ++ $doc("$push" -> $doc(
           Crosstable.BSONFields.results -> $doc(
             "$each" -> List(bsonResult),
@@ -62,6 +61,11 @@ final class CrosstableApi(
 
   private def exists(u1: String, u2: String) =
     coll.exists(select(u1, u2))
+
+  // to avoid creating it twice during a new matchup
+  private val creationCache = AsyncCache[(String, String), Option[Crosstable]](
+    f = (create _).tupled,
+    timeToLive = 5 seconds)
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
