@@ -42,7 +42,9 @@ object Donation extends LilaController {
           gross = ipn.grossCents,
           fee = ipn.feeCents,
           message = "")
-        println(donation)
+        ipn.userId ?? {
+          Env.stripe.api.paypalCharge(_, lila.stripe.Cents(ipn.grossCents))
+        }
         Env.donation.api create donation inject Ok
       })
   }

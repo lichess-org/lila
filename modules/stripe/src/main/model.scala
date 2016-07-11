@@ -2,6 +2,8 @@ package lila.stripe
 
 import org.joda.time.DateTime
 
+case class CustomerId(value: String) extends AnyVal
+
 case class Source(value: String) extends AnyVal
 case class Usd(value: Int) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
@@ -21,16 +23,16 @@ case class StripePlan(id: String, amount: Int) {
   def usd = cents.usd
 }
 
-case class StripeSubscription(id: String, plan: StripePlan, customer: String)
+case class StripeSubscription(id: String, plan: StripePlan, customer: CustomerId)
 
-case class StripeCustomer(id: String, subscriptions: StripeSubscriptions) {
+case class StripeCustomer(id: CustomerId, subscriptions: StripeSubscriptions) {
 
   def firstSubscription = subscriptions.data.headOption
 
   def plan = firstSubscription.map(_.plan)
 }
 
-case class StripeCharge(amount: Int, customer: String)
+case class StripeCharge(amount: Int, customer: CustomerId)
 
 case class StripeInvoice(
     id: Option[String],

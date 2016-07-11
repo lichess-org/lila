@@ -7,10 +7,10 @@ import org.joda.time.DateTime
 
 final class StripeApi(
     client: StripeClient,
-    customerColl: Coll,
+    patronColl: Coll,
     bus: lila.common.Bus) {
 
-  import Customer.BSONHandlers._
+  import Patron.BSONHandlers._
 
   def checkout(user: User, data: Checkout): Fu[StripeSubscription] =
     LichessPlan findUnder data.cents match {
@@ -40,27 +40,46 @@ final class StripeApi(
     }
 
   def onCharge(charge: StripeCharge): Funit =
-    customerColl.uno[Customer]($id(charge.customer)).flatMap {
+    customerIdPatron(charge.customer) flatMap {
       case None => fufail(s"Charged unknown customer $charge")
-      case Some(cus) if cus.canLevelUp =>
-        UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
-          customerColl.updateField($id(cus.id), "lastLevelUp", DateTime.now) >>
+      case Some(patron) if patron.canLevelUp =>
+        UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
+          patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
             UserRepo.setPlan(user, user.plan.incMonths) >>- {
-              logger.info(s"Charged ${charge} ${cus}")
+              logger.info(s"Charged $charge $patron")
               lila.mon.stripe.amount(charge.amount)
               bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
                 username = user.username,
                 amount = charge.amount), 'stripe)
             }
         }
-      case Some(cus) => fufail(s"Too early to level up $charge $cus")
+      case Some(patron) => fufail(s"Too early to level up $charge $patron")
     }
 
+  def onPaypalCharge(userId: String, email: Option[Patron.PayPal.Email], subId: Option[Patron.PayPal.SubId], amount: Cents): Funit = (amount.value >= 500) ?? {
+    UserRepo named userId flatMap {
+      _ ?? { user =>
+        userPatron(user).flatMap {
+          case None => patronColl.insert(Patron(
+            _id = Patron.UserId(user.id),
+            payPal = Patron.PayPal(email, subId).some,
+            lastLevelUp = DateTime.now)) >>
+            UserRepo.setPlan(user, lila.user.Plan.start)
+          case Some(patron) if patron.canLevelUp =>
+            patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
+              UserRepo.setPlan(user, user.plan.incMonths)
+          case Some(patron) => fufail(s"Too early to level up with paypal $patron")
+        } >>-
+          logger.info(s"Charged ${user.id} with paypal: $amount")
+      }
+    }
+  }
+
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
-    customerColl.uno[Customer]($id(sub.customer)).flatMap {
+    customerIdPatron(sub.customer) flatMap {
       case None => fufail(s"Deleted subscription of unknown customer $sub")
-      case Some(cus) =>
-        UserRepo byId cus.userId.value flatten s"Missing user for $cus" flatMap { user =>
+      case Some(patron) =>
+        UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
           UserRepo.setPlan(user, user.plan.disable) >>-
             logger.info(s"Unsubed ${user.id} ${sub}")
         }
@@ -69,42 +88,44 @@ final class StripeApi(
   def getEvent = client.getEvent _
 
   def customerInfo(user: User): Fu[Option[CustomerInfo]] =
-    customerColl.uno[Customer]($doc("userId" -> user.id)) flatMap {
-      _ ?? { c =>
-        client.getCustomer(c.id) zip client.getNextInvoice(c.id) zip client.getPastInvoices(c.id) map {
-          case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
-            customer.plan flatMap LichessPlan.byStripePlan match {
-              case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
-              case None =>
-                logger.warn(s"Can't identify ${user.id} plan $customer")
-                none
-            }
-          case fail =>
-            logger.warn(s"Can't fetch ${user.id} customer info $fail")
-            none
-        }
+    userCustomerId(user) flatMap {
+      _ ?? { customerId =>
+        client.getCustomer(customerId) zip
+          client.getNextInvoice(customerId) zip
+          client.getPastInvoices(customerId) map {
+            case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
+              customer.plan flatMap LichessPlan.byStripePlan match {
+                case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
+                case None =>
+                  logger.warn(s"Can't identify ${user.id} plan $customer")
+                  none
+              }
+            case fail =>
+              logger.warn(s"Can't fetch ${user.id} customer info $fail")
+              none
+          }
       }
     }
 
-  def sync(user: User): Fu[Boolean] =
-    customerColl.uno[Customer]($doc("userId" -> user.id)) flatMap {
-      case None if !user.plan.isEmpty =>
-        logger.warn(s"sync: disable plan of non-customer")
-        UserRepo.setPlan(user, user.plan.disable) inject true
-      case Some(c) => client.getCustomer(c.id) flatMap {
-        case None =>
-          logger.warn(s"sync: remove DB customer that's not in stripe")
-          customerColl.remove($id(c.id)) >> UserRepo.setPlan(user, user.plan.disable) inject true
-        case Some(customer) if customer.firstSubscription.isEmpty && user.plan.active =>
-          logger.warn(s"sync: disable plan of customer without a subscription")
+  def sync(user: User): Fu[Boolean] = userCustomerId(user) flatMap {
+    case None if !user.plan.isEmpty =>
+      logger.warn(s"sync: disable plan of non-customer")
+      UserRepo.setPlan(user, user.plan.disable) inject true
+    case Some(customerId) => client.getCustomer(customerId) flatMap {
+      case None =>
+        logger.warn(s"sync: remove DB customer that's not in stripe")
+        patronColl.remove(selectStripeCustomerId(customerId)) >>
           UserRepo.setPlan(user, user.plan.disable) inject true
-        case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
-          logger.warn(s"sync: enable plan of customer with a subscription")
-          UserRepo.setPlan(user, user.plan.enable) inject true
-        case _ => fuccess(false)
-      }
+      case Some(customer) if customer.firstSubscription.isEmpty && user.plan.active =>
+        logger.warn(s"sync: disable plan of customer without a subscription")
+        UserRepo.setPlan(user, user.plan.disable) inject true
+      case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
+        logger.warn(s"sync: enable plan of customer with a subscription")
+        UserRepo.setPlan(user, user.plan.enable) inject true
       case _ => fuccess(false)
     }
+    case _ => fuccess(false)
+  }
 
   private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -116,9 +137,9 @@ final class StripeApi(
 
   private def createCustomer(user: User, plan: StripePlan, source: Source): Fu[StripeCustomer] =
     client.createCustomer(user, plan, source) flatMap { customer =>
-      customerColl.insert(Customer(
-        _id = Customer.Id(customer.id),
-        userId = Customer.UserId(user.id),
+      patronColl.insert(Patron(
+        _id = Patron.UserId(user.id),
+        stripe = Patron.Stripe(customer.id).some,
         lastLevelUp = DateTime.now)) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
         logger.info(s"Subed ${user.id} ${plan}") inject customer
@@ -133,8 +154,20 @@ final class StripeApi(
       }
     }
 
+  private def userCustomerId(user: User): Fu[Option[CustomerId]] =
+    patronColl.primitiveOne[CustomerId]($id(user.id), "stripe.customerId")
+
   private def userCustomer(user: User): Fu[Option[StripeCustomer]] =
-    customerColl.primitiveOne[Customer.Id]($doc("userId" -> user.id), "_id") flatMap {
+    userCustomerId(user) flatMap {
       _ ?? client.getCustomer
     }
+
+  private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
+    patronColl.uno[Patron](selectStripeCustomerId(id))
+
+  private def selectStripeCustomerId(id: CustomerId): Bdoc =
+    $doc("stripe.customerId" -> id)
+
+  private def userPatron(user: User): Fu[Option[Patron]] =
+    patronColl.uno[Patron]($id(user.id))
 }

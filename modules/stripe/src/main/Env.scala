@@ -11,14 +11,14 @@ final class Env(
     bus: lila.common.Bus) {
 
   val publicKey = config getString "keys.public"
-  private val CollectionCustomer = config getString "collection.customer"
+  private val CollectionPatron = config getString "collection.patron"
 
   private lazy val client = new StripeClient(StripeClient.Config(
     endpoint = config getString "endpoint",
     publicKey = publicKey,
     secretKey = config getString "keys.secret"))
 
-  lazy val api = new StripeApi(client, db(CollectionCustomer), bus)
+  lazy val api = new StripeApi(client, db(CollectionPatron), bus)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 

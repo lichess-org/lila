@@ -32,8 +32,8 @@ object Plan extends LilaController {
 
   private def indexPatron(me: UserModel)(implicit ctx: Context) =
     Env.stripe.api.customerInfo(me) flatMap {
-      case Some(info) => Ok(html.plan.indexPatron(me, info)).fuccess
-      case _          => indexFreeUser(me)
+      case Some(info) => Ok(html.plan.indexStripe(me, info)).fuccess
+      case _          => Ok(html.plan.indexPaypal(me)).fuccess
     }
 
   def features = Open { implicit ctx =>

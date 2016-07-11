@@ -21,7 +21,7 @@ private final class StripeClient(config: StripeClient.Config) {
         'description -> user.id)
     }
 
-  def getCustomer(id: Customer.Id): Fu[Option[StripeCustomer]] =
+  def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}")
 
   def createSubscription(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
@@ -42,10 +42,10 @@ private final class StripeClient(config: StripeClient.Config) {
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
 
-  def getNextInvoice(customerId: Customer.Id): Fu[Option[StripeInvoice]] =
+  def getNextInvoice(customerId: CustomerId): Fu[Option[StripeInvoice]] =
     getOne[StripeInvoice](s"invoices/upcoming", 'customer -> customerId.value)
 
-  def getPastInvoices(customerId: Customer.Id): Fu[List[StripeInvoice]] =
+  def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
     getList[StripeInvoice]("invoices", 'customer -> customerId.value)
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =

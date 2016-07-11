@@ -1,17 +1,11 @@
 @(me: User, info: lila.stripe.CustomerInfo)(implicit ctx: Context)
 
-@title = @{"Become a lichess hero"}
-
 @site.layout(
-title = title,
-moreCss = cssTag("plan.css"),
-openGraph = lila.app.ui.OpenGraph(
-title = title,
-url = s"$netBaseUrl${routes.Plan.index.url}",
-description = "All of lichess features are free for all and forever. We do it for chess!").some) {
+title = "Thank you for your support!",
+moreCss = cssTag("plan.css")) {
 
 <div class="content_box plan">
-  <h1>@userLink(me) • lichess patron level @me.plan.months</h1>
+  <h1>@userLink(me) • lichess patron for @pluralize("month", me.plan.months)</h1>
   <table class="all">
     <tbody>
       <tr>

@@ -1,0 +1,14 @@
+@(me: User)(implicit ctx: Context)
+
+@site.layout(
+title = "Thank you for your support!",
+moreCss = cssTag("plan.css")) {
+
+<div class="content_box plan">
+  <h1>@userLink(me) • lichess patron for @pluralize("month", me.plan.months)</h1>
+  <div class="paypal_patron">
+    <p>You are supporting lichess with paypal.</p>
+    <p>If you wish to cancel your support, please contact us at lichess.contact@@gmail.com.</p>
+  </div>
+</div>
+}
