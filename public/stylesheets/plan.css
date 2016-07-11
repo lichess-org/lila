@@ -53,7 +53,7 @@ table.all .thanks {
 }
 
 .motivation .moto {
-  margin: 30px 0;
+  margin: 30px 0 40px 0;
   padding: 30px 0;
   background: #759900;
   color: #fff;
@@ -98,4 +98,25 @@ table.all .thanks {
 .motivation .checkout .buttons button {
   font-size: 1.3em;
   flex: 0 0 15%;
+}
+.faq {
+  margin: 40px 0;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+.faq a {
+  color: #3893E8;
+}
+.faq dl {
+  flex: 0 0 31%;
+}
+.faq dt {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+  height: 3em;
+}
+.faq dd {
+  margin: 0;
 }

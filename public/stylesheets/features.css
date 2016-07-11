@@ -58,3 +58,16 @@ tbody th {
   display: block;
   text-align: center;
 }
+
+.features_side {
+  margin: 30px 0;
+  padding: 30px 20px;
+  background: #759900;
+  color: #fff;
+  text-align: center;
+  font-size: 1.3em;
+}
+.features_side a {
+  display: block;
+  margin-top: 2em;
+}

@@ -14,26 +14,25 @@ object Plan extends LilaController {
     ctx.me.fold(indexAnon) { me =>
       Env.stripe.api.sync(me) flatMap {
         case true                => Redirect(routes.Plan.index).fuccess
-        case _ if me.plan.active => indexCustomer(me)
+        case _ if me.plan.active => indexPatron(me)
         case _                   => indexFreeUser(me)
       }
     }
   }
 
-  private def indexAnon(implicit ctx: Context) = fuccess {
-    Ok(html.plan.index(none, Env.stripe.publicKey))
-  }
+  private def indexAnon(implicit ctx: Context) = renderIndex(email = none)
 
   private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
-    lila.user.UserRepo email me.id map { myEmail =>
-      Ok(html.plan.index(
-        stripePublicKey = Env.stripe.publicKey,
-        myEmail = myEmail))
-    }
+    lila.user.UserRepo email me.id flatMap renderIndex
 
-  private def indexCustomer(me: UserModel)(implicit ctx: Context) =
+  private def renderIndex(email: Option[String])(implicit ctx: Context): Fu[Result] =
+    Ok(html.plan.index(
+      stripePublicKey = Env.stripe.publicKey,
+      email = email)).fuccess
+
+  private def indexPatron(me: UserModel)(implicit ctx: Context) =
     Env.stripe.api.customerInfo(me) flatMap {
-      case Some(info) => Ok(html.plan.indexCustomer(me, info)).fuccess
+      case Some(info) => Ok(html.plan.indexPatron(me, info)).fuccess
       case _          => indexFreeUser(me)
     }
 

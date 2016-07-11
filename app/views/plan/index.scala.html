@@ -1,4 +1,4 @@
-@(myEmail: Option[String], stripePublicKey: String)(implicit ctx: Context)
+@(email: Option[String], stripePublicKey: String)(implicit ctx: Context)
 
 @title = @{"Become a patron of lichess.org"}
 
@@ -49,8 +49,8 @@ description = "Free chess for everyone, forever!").some) {
             <button class="button checkout @p.id"
               data-description="@p.usd/month"
               data-amount="@p.cents.value"
-              data-panel-label="Subscribe {{amount}}"
-              data-email="@myEmail"
+              data-panel-label="Support {{amount}}"
+              data-email="@email"
               >@p.usd</button>
             }
           </div>
@@ -65,6 +65,31 @@ description = "Free chess for everyone, forever!").some) {
         }
       </div>
     </div>
+  </div>
+  <div class="faq">
+    <dl>
+      <dt>Where does the money go?</dt>
+      <dd>
+        The servers alone cost $1100 per month.<br />
+        Then $350 go to the CDN, email sender, Apple store and stripe.<br />
+        Finally, $2000 (with taxes) to pay a full-time developer/administrator: @userIdLink("thibault".some), the founder of lichess.
+      </dd>
+    </dl>
+    <dl>
+      <dt>Can I change/cancel my monthly support?</dt>
+      <dd>
+        Yes, at any time, from this page.<br />
+        Or you can <a href="@routes.Page.contact">contact lichess support</a>.
+      </dd>
+    </dl>
+    <dl>
+      <dt>Are some features reserved to patrons?</dt>
+      <dd>
+        Lichess is entirely free, forever, and for everyone. That's a promise.<br />
+        But patrons get bragging rights with a cool new profile icon.<br />
+        See the <a href="@routes.Plan.features">detailed features comparison</a>.
+      </dd>
+    </dl>
   </div>
 </div>
 }
