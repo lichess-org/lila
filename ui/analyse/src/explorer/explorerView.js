@@ -235,9 +235,6 @@ function showConfig(ctrl) {
   ]);
 }
 
-
-var overlay = m('div.overlay', m.trust(lichess.spinnerHtml));
-
 function failing() {
   return m('div.failing.message', [
     m('i[data-icon=,]'),
@@ -267,7 +264,7 @@ module.exports = {
         el.scrollTop = 0;
       }
     }, [
-      overlay,
+      m('div.overlay'),
       content,
       (!content || ctrl.explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
