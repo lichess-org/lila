@@ -200,6 +200,9 @@ object mon {
     val current = rec("donation.current")
     val percent = rec("donation.percent")
   }
+  object stripe {
+    val amount = incX("stripe.amount")
+  }
   object forum {
     object post {
       val create = inc("forum.post.create")

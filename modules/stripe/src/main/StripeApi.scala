@@ -47,6 +47,7 @@ final class StripeApi(
           customerColl.updateField($id(cus.id), "lastLevelUp", DateTime.now) >>
             UserRepo.setPlan(user, user.plan.incMonths) >>- {
               logger.info(s"Charged ${charge} ${cus}")
+              lila.mon.stripe.amount(charge.amount)
               bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
                 username = user.username,
                 amount = charge.amount), 'stripe)
