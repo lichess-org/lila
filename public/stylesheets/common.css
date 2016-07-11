@@ -109,9 +109,9 @@ time {
 .user_link .line {
   opacity: 0.4;
   display: inline-block;
-  width: 1.6em;
+  width: 1.5em;
   text-align: center;
-  vertical-align: -3px;
+  vertical-align: -0.15em;
 }
 .user_link.online .line,
 .user_link .line.patron {
@@ -120,6 +120,7 @@ time {
 .user_link.online .line.patron {
   opacity: 0.9;
 }
+
 body.blind_mode .is::before,
 body.blind_mode .is::after,
 body.blind_mode [data-icon]::before {
