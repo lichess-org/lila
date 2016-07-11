@@ -107,24 +107,46 @@ final class StripeApi(
       }
     }
 
-  def sync(user: User): Fu[Boolean] = userCustomerId(user) flatMap {
+  def sync(user: User): Fu[Boolean] = userPatron(user) flatMap {
+
     case None if !user.plan.isEmpty =>
-      logger.warn(s"sync: disable plan of non-customer")
+      logger.warn(s"sync: disable plan of non-patron")
       UserRepo.setPlan(user, user.plan.disable) inject true
-    case Some(customerId) => client.getCustomer(customerId) flatMap {
-      case None =>
-        logger.warn(s"sync: remove DB customer that's not in stripe")
-        patronColl.remove(selectStripeCustomerId(customerId)) >>
+
+    case None => fuccess(false)
+
+    case Some(patron) => (patron.stripe, patron.payPal) match {
+
+      case (Some(stripe), _) => client.getCustomer(stripe.customerId) flatMap {
+        case None =>
+          logger.warn(s"sync: unset DB patron that's not in stripe")
+          patronColl.unsetField($id(user.id), "stripe") >> sync(user)
+        case Some(customer) if customer.firstSubscription.isEmpty =>
+          logger.warn(s"sync: unset DB patron of customer without a subscription")
+          patronColl.unsetField($id(user.id), "stripe") >> sync(user)
+        case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
+          logger.warn(s"sync: enable plan of customer with a subscription")
+          UserRepo.setPlan(user, user.plan.enable) inject true
+        case _ => fuccess(false)
+      }
+
+      case (_, Some(paypal)) =>
+        if (paypal.isExpired && user.plan.active) {
+          logger.warn(s"sync: disable plan of patron with expired paypal")
           UserRepo.setPlan(user, user.plan.disable) inject true
-      case Some(customer) if customer.firstSubscription.isEmpty && user.plan.active =>
-        logger.warn(s"sync: disable plan of customer without a subscription")
+        }
+        else if (!paypal.isExpired && !user.plan.active) {
+          logger.warn(s"sync: enable plan of customer with paypal")
+          UserRepo.setPlan(user, user.plan.enable) inject true
+        }
+        else fuccess(false)
+
+      case (None, None) if user.plan.active =>
+        logger.warn(s"sync: disable plan of patron with no paypal or stripe")
         UserRepo.setPlan(user, user.plan.disable) inject true
-      case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
-        logger.warn(s"sync: enable plan of customer with a subscription")
-        UserRepo.setPlan(user, user.plan.enable) inject true
+
       case _ => fuccess(false)
     }
-    case _ => fuccess(false)
   }
 
   private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =

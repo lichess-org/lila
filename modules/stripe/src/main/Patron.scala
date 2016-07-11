@@ -23,7 +23,12 @@ object Patron {
   object Stripe {
     case class CustomerId(value: String) extends AnyVal
   }
-  case class PayPal(email: Option[PayPal.Email], subId: Option[PayPal.SubId])
+  case class PayPal(
+      email: Option[PayPal.Email],
+      subId: Option[PayPal.SubId],
+      lastCharge: DateTime) {
+    def isExpired = lastCharge isBefore DateTime.now.minusMonths(1)
+  }
   object PayPal {
     case class Email(value: String) extends AnyVal
     case class SubId(value: String) extends AnyVal
