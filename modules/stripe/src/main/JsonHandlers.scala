@@ -5,6 +5,8 @@ import play.api.libs.json._
 object JsonHandlers {
 
   implicit val StripeCustomerId = Reads.of[String].map(CustomerId.apply)
+  implicit val StripeChargeId = Reads.of[String].map(ChargeId.apply)
+  implicit val StripeCents = Reads.of[Int].map(Cents.apply)
   implicit val StripePlanReads = Json.reads[StripePlan]
   implicit val StripeSubscriptionReads = Json.reads[StripeSubscription]
   implicit val StripeSubscriptionsReads = Json.reads[StripeSubscriptions]

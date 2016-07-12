@@ -11,8 +11,9 @@ final class StripeApi(
     chargeColl: Coll,
     bus: lila.common.Bus) {
 
-  import Patron.BSONHandlers._
-  import Charge.BSONHandlers._
+  import BsonHandlers._
+  import PatronHandlers._
+  import ChargeHandlers._
 
   def checkout(user: User, data: Checkout): Fu[StripeSubscription] =
     LichessPlan findUnder data.cents match {
@@ -45,8 +46,8 @@ final class StripeApi(
     customerIdPatron(charge.customer) flatMap { patronOption =>
       chargeColl.insert(Charge.make(
         userId = patronOption.map(_.userId.value),
-        stripe = Charge.Stripe(charge.customer.value).some,
-        cents = charge.cents)) >> {
+        stripe = Charge.Stripe(charge.id, charge.customer).some,
+        cents = charge.amount)) >> {
         patronOption match {
           case None => fufail(s"Charged unknown customer $charge")
           case Some(patron) if patron.canLevelUp =>
@@ -54,10 +55,10 @@ final class StripeApi(
               patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
                 UserRepo.setPlan(user, user.plan.incMonths) >>- {
                   logger.info(s"Charged $charge $patron")
-                  lila.mon.stripe.amount(charge.amount)
+                  lila.mon.stripe.amount(charge.amount.value)
                   bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
                     username = user.username,
-                    amount = charge.amount), 'stripe)
+                    amount = charge.amount.value), 'stripe)
                 }
             }
           case Some(patron) => fufail(s"Too early to level up $charge $patron")
@@ -121,9 +122,10 @@ final class StripeApi(
       }
     }
 
+  // returns true if the user should be reloaded from DB
   def sync(user: User): Fu[Boolean] = userPatron(user) flatMap {
 
-    case None if !user.plan.isEmpty =>
+    case None if user.plan.active =>
       logger.warn(s"sync: disable plan of non-patron")
       UserRepo.setPlan(user, user.plan.disable) inject true
 
@@ -145,10 +147,8 @@ final class StripeApi(
       }
 
       case (_, Some(paypal)) =>
-        if (paypal.isExpired && user.plan.active) {
-          logger.warn(s"sync: disable plan of patron with expired paypal")
-          UserRepo.setPlan(user, user.plan.disable) inject true
-        }
+        if (paypal.isExpired)
+          patronColl.unsetField($id(user.id), "payPal") >> sync(user)
         else if (!paypal.isExpired && !user.plan.active) {
           logger.warn(s"sync: enable plan of customer with paypal")
           UserRepo.setPlan(user, user.plan.enable) inject true

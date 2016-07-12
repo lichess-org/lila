@@ -25,15 +25,6 @@ object Charge {
     cents = cents,
     date = DateTime.now)
 
-  case class Stripe(customerId: String) extends AnyVal
+  case class Stripe(chargeId: ChargeId, customerId: CustomerId)
   case class PayPal(email: Option[String], subId: Option[String])
-
-  private[stripe] object BSONHandlers {
-    import reactivemongo.bson._
-    import lila.db.dsl._
-    implicit val CentsBSONHandler = intAnyValHandler[Cents](_.value, Cents.apply)
-    implicit val StripeBSONHandler = Macros.handler[Stripe]
-    implicit val PayPalBSONHandler = Macros.handler[PayPal]
-    implicit val ChargeBSONHandler = Macros.handler[Charge]
-  }
 }
