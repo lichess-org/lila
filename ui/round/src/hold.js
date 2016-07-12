@@ -1,27 +1,32 @@
 var holds = [];
 var nb = 8;
 var was = false;
+var premoved = false;
 
-function register(socket, hold, ply) {
-  if (!hold || ply > 40) return;
-  holds.push(hold);
+function register(socket, meta, ply) {
+  if (meta.premove) {
+    premoved = true;
+    return;
+  }
+  if (premoved || !meta.holdTime || ply > 30) return;
+  holds.push(meta.holdTime);
   var set = false;
   if (holds.length > nb) {
     holds.shift();
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    if (mean > 3 && mean < 80) {
+    if (mean > 2 && mean < 150) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      set = sd < 12;
+      set = sd < 16;
     }
   }
-  if (set || was) $('.manipulable .cg-board').toggleClass('sha', set);
+  if (set || was) $('.manipulable .cg-board').toggleClass('hold', set);
   if (set) socket.send('hold', {
     mean: Math.round(mean),
     sd: Math.round(sd)

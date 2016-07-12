@@ -55,7 +55,7 @@ module.exports = function(opts) {
 
   var onUserMove = function(orig, dest, meta) {
     if (hold.applies(this.data)) {
-      hold.register(this.socket, meta.holdTime, this.vm.ply);
+      hold.register(this.socket, meta, this.vm.ply);
       if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
     }
     if (!promotion.start(this, orig, dest, meta.premove))
@@ -81,7 +81,14 @@ module.exports = function(opts) {
     sound.move();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, this.vm.ply, onUserMove, onUserNewPiece, onMove, onNewPiece);
+  this.chessground = ground.make({
+    data: this.data,
+    ply: this.vm.ply,
+    onUserMove: onUserMove,
+    onUserNewPiece: onUserNewPiece,
+    onMove: onMove,
+    onNewPiece: onNewPiece
+  });
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -245,7 +252,7 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock) (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
+    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,

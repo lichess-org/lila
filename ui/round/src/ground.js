@@ -68,17 +68,17 @@ function makeConfig(data, ply, flip) {
   };
 }
 
-function make(data, ply, userMove, userNewPiece, onMove, onNewPiece) {
-  var config = makeConfig(data, ply);
+function make(opts) {
+  var config = makeConfig(opts.data, opts.ply);
   config.movable.events = {
-    after: userMove,
-    afterNewPiece: userNewPiece
+    after: opts.onUserMove,
+    afterNewPiece: opts.onUserNewPiece
   };
   config.events = {
-    move: onMove,
-    dropNewPiece: onNewPiece
+    move: opts.onMove,
+    dropNewPiece: opts.onNewPiece
   };
-  config.viewOnly = data.player.spectator;
+  config.viewOnly = opts.data.player.spectator;
   return new chessground.controller(config);
 }
 
