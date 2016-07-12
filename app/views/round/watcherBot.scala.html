@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], pgn: chess.format.pgn.Pgn, cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], pgn: chess.format.pgn.Pgn)(implicit ctx: Context)
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
@@ -36,10 +36,5 @@ openGraph = povOpenGraph(pov).some) {
       </div>
     </div>
   </div>
-</div>
-<div class="crosstable" style="display:none">
-  @cross.map { c =>
-  @views.html.game.crosstable(c, pov.gameId.some)
-  }
 </div>
 }
