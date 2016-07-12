@@ -71,7 +71,7 @@ final class CrosstableApi(
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
-          Game.BSONFields.playerUids $all List(u1, u2),
+          Game.BSONFields.playerUids.$all(u1, u2),
           Game.BSONFields.status $gte chess.Status.Mate.id)
 
         import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
