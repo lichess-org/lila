@@ -1,4 +1,4 @@
-package lila.stripe
+package lila.plan
 
 sealed abstract class LichessPlan(val id: String, val usd: Usd) {
   def cents = usd.cents

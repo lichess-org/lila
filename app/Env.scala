@@ -151,5 +151,5 @@ object Env {
   def fishnet = lila.fishnet.Env.current
   def study = lila.study.Env.current
   def learn = lila.learn.Env.current
-  def stripe = lila.stripe.Env.current
+  def plan = lila.plan.Env.current
 }

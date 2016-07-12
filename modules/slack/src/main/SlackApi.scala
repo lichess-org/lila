@@ -29,7 +29,7 @@ final class SlackApi(
     }
   }
 
-  def stripeCharge(event: lila.hub.actorApi.stripe.ChargeEvent): Funit = {
+  def stripeCharge(event: lila.hub.actorApi.plan.ChargeEvent): Funit = {
     val amount = s"$$${lila.common.Maths.truncateAt(event.amount / 100d, 2)}"
     val link = s"<a href='https://lichess.org/@/${event.username}'>${event.username}</a>"
     client(SlackMessage(

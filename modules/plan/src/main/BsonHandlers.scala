@@ -1,9 +1,9 @@
-package lila.stripe
+package lila.plan
 
 import lila.db.dsl._
 import reactivemongo.bson._
 
-private[stripe] object BsonHandlers {
+private[plan] object BsonHandlers {
 
   implicit val CentsBSONHandler = intAnyValHandler[Cents](_.value, Cents.apply)
   implicit val ChargeIdBSONHandler = stringAnyValHandler[ChargeId](_.value, ChargeId.apply)

@@ -1,8 +1,8 @@
-package lila.stripe
+package lila.plan
 
 import play.api.libs.json._
 
-private final class WebhookHandler(api: StripeApi) {
+private final class WebhookHandler(api: PlanApi) {
 
   import JsonHandlers._
 
@@ -18,7 +18,7 @@ private final class WebhookHandler(api: StripeApi) {
       } yield (name match {
         case "charge.succeeded" =>
           val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
-          api onCharge charge
+          api onStripeCharge charge
         case "customer.subscription.deleted" =>
           val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
           api onSubscriptionDeleted sub

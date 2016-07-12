@@ -1,12 +1,12 @@
-package lila.stripe
+package lila.plan
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 
-final class StripeApi(
-    client: StripeClient,
+final class PlanApi(
+    stripeClient: StripeClient,
     patronColl: Coll,
     chargeColl: Coll,
     bus: lila.common.Bus) {
@@ -27,7 +27,7 @@ final class StripeApi(
       case Some(customer) =>
         customer.firstSubscription match {
           case None      => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) => client.updateSubscription(sub, plan.stripePlan, none)
+          case Some(sub) => stripeClient.updateSubscription(sub, plan.stripePlan, none)
         }
     }
 
@@ -37,12 +37,12 @@ final class StripeApi(
       case Some(customer) =>
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
-          case Some(sub) => client.cancelSubscription(sub) >>
+          case Some(sub) => stripeClient.cancelSubscription(sub) >>
             UserRepo.setPlan(user, user.plan.disable)
         }
     }
 
-  def onCharge(charge: StripeCharge): Funit =
+  def onStripeCharge(charge: StripeCharge): Funit =
     customerIdPatron(charge.customer) flatMap { patronOption =>
       chargeColl.insert(Charge.make(
         userId = patronOption.map(_.userId.value),
@@ -55,8 +55,8 @@ final class StripeApi(
               patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
                 UserRepo.setPlan(user, user.plan.incMonths) >>- {
                   logger.info(s"Charged $charge $patron")
-                  lila.mon.stripe.amount(charge.amount.value)
-                  bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
+                  lila.mon.plan.amount(charge.amount.value)
+                  bus.publish(lila.hub.actorApi.plan.ChargeEvent(
                     username = user.username,
                     amount = charge.amount.value), 'stripe)
                 }
@@ -83,8 +83,10 @@ final class StripeApi(
               patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
                 UserRepo.setPlan(user, user.plan.incMonths)
             case Some(patron) => fufail(s"Too early to level up with paypal $patron")
-          } >>-
+          } >>- {
             logger.info(s"Charged ${user.id} with paypal: $cents")
+            lila.mon.plan.amount(cents.value)
+          }
         }
       }
     }
@@ -100,14 +102,14 @@ final class StripeApi(
         }
     }
 
-  def getEvent = client.getEvent _
+  def getEvent = stripeClient.getEvent _
 
   def customerInfo(user: User): Fu[Option[CustomerInfo]] =
     userCustomerId(user) flatMap {
       _ ?? { customerId =>
-        client.getCustomer(customerId) zip
-          client.getNextInvoice(customerId) zip
-          client.getPastInvoices(customerId) map {
+        stripeClient.getCustomer(customerId) zip
+          stripeClient.getNextInvoice(customerId) zip
+          stripeClient.getPastInvoices(customerId) map {
             case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
               customer.plan flatMap LichessPlan.byStripePlan match {
                 case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
@@ -133,7 +135,7 @@ final class StripeApi(
 
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
-      case (Some(stripe), _) => client.getCustomer(stripe.customerId) flatMap {
+      case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
         case None =>
           logger.warn(s"sync: unset DB patron that's not in stripe")
           patronColl.unsetField($id(user.id), "stripe") >> sync(user)
@@ -172,7 +174,7 @@ final class StripeApi(
     }
 
   private def createCustomer(user: User, plan: StripePlan, source: Source): Fu[StripeCustomer] =
-    client.createCustomer(user, plan, source) flatMap { customer =>
+    stripeClient.createCustomer(user, plan, source) flatMap { customer =>
       patronColl.insert(Patron(
         _id = Patron.UserId(user.id),
         stripe = Patron.Stripe(customer.id).some,
@@ -185,8 +187,8 @@ final class StripeApi(
     customer.subscriptions.data.find(_.plan == plan) match {
       case Some(sub) => fuccess(sub)
       case None => customer.firstSubscription match {
-        case None      => client.createSubscription(customer, plan, source)
-        case Some(sub) => client.updateSubscription(sub, plan, source.some)
+        case None      => stripeClient.createSubscription(customer, plan, source)
+        case Some(sub) => stripeClient.updateSubscription(sub, plan, source.some)
       }
     }
 
@@ -195,7 +197,7 @@ final class StripeApi(
 
   private def userCustomer(user: User): Fu[Option[StripeCustomer]] =
     userCustomerId(user) flatMap {
-      _ ?? client.getCustomer
+      _ ?? stripeClient.getCustomer
     }
 
   private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =

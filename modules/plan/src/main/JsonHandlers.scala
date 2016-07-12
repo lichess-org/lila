@@ -1,8 +1,8 @@
-package lila.stripe
+package lila.plan
 
 import play.api.libs.json._
 
-object JsonHandlers {
+private[plan] object JsonHandlers {
 
   implicit val StripeCustomerId = Reads.of[String].map(CustomerId.apply)
   implicit val StripeChargeId = Reads.of[String].map(ChargeId.apply)

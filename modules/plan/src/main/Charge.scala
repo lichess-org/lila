@@ -1,4 +1,4 @@
-package lila.stripe
+package lila.plan
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random

@@ -1,4 +1,4 @@
-@(me: User, info: lila.stripe.CustomerInfo)(implicit ctx: Context)
+@(me: User, info: lila.plan.CustomerInfo)(implicit ctx: Context)
 
 @site.layout(
 title = "Thank you for your support!",
@@ -24,7 +24,7 @@ moreCss = cssTag("plan.css")) {
         <td>
           <form action="@routes.Plan.switch" method="POST">
             <button type="submit" class="button" name="cancel" value="1">$0 (Cancel)</button>
-            @lila.stripe.LichessPlan.all.map { p =>
+            @lila.plan.LichessPlan.all.map { p =>
             @if(p == info.currentPlan) {
             <button class="button" disabled>@p.usd (Current)</button>
             } else {

@@ -45,7 +45,7 @@ description = "Free chess for everyone, forever!").some) {
         <div class="checkout">
           <h3>Your monthly support</h3>
           <div class="buttons">
-            @lila.stripe.LichessPlan.all.map { p =>
+            @lila.plan.LichessPlan.all.map { p =>
             <button class="button checkout @p.id"
               data-description="@p.usd/month"
               data-amount="@p.cents.value"

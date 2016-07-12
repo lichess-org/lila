@@ -12,7 +12,7 @@ object Plan extends LilaController {
 
   def index = Open { implicit ctx =>
     ctx.me.fold(indexAnon) { me =>
-      Env.stripe.api.sync(me) flatMap {
+      Env.plan.api.sync(me) flatMap {
         case true                => Redirect(routes.Plan.index).fuccess
         case _ if me.plan.active => indexPatron(me)
         case _                   => indexFreeUser(me)
@@ -27,11 +27,11 @@ object Plan extends LilaController {
 
   private def renderIndex(email: Option[String])(implicit ctx: Context): Fu[Result] =
     Ok(html.plan.index(
-      stripePublicKey = Env.stripe.publicKey,
+      stripePublicKey = Env.plan.stripePublicKey,
       email = email)).fuccess
 
   private def indexPatron(me: UserModel)(implicit ctx: Context) =
-    Env.stripe.api.customerInfo(me) flatMap {
+    Env.plan.api.customerInfo(me) flatMap {
       case Some(info) => Ok(html.plan.indexStripe(me, info)).fuccess
       case _          => Ok(html.plan.indexPaypal(me)).fuccess
     }
@@ -45,15 +45,15 @@ object Plan extends LilaController {
   def switch = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
-      lila.stripe.Switch.form.bindFromRequest.fold(
+      lila.plan.Switch.form.bindFromRequest.fold(
         err => Redirect(routes.Plan.index).fuccess,
-        data => (data.plan.flatMap(lila.stripe.LichessPlan.byId) match {
-          case Some(plan)                 => Env.stripe.api.switch(me, plan)
-          case _ if data.cancel.isDefined => Env.stripe.api.cancel(me)
+        data => (data.plan.flatMap(lila.plan.LichessPlan.byId) match {
+          case Some(plan)                 => Env.plan.api.switch(me, plan)
+          case _ if data.cancel.isDefined => Env.plan.api.cancel(me)
           case _                          => fufail("Invalid switch")
         }) recover {
           case e: Exception =>
-            lila.log("stripe").error("Plan.switch", e)
+            lila.log("plan").error("Plan.switch", e)
             Redirect(routes.Plan.index)
         } inject Redirect(routes.Plan.index())
       )
@@ -62,14 +62,14 @@ object Plan extends LilaController {
   def charge = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
-      import lila.stripe.StripeClient._
-      lila.stripe.Checkout.form.bindFromRequest.fold(
+      import lila.plan.StripeClient._
+      lila.plan.Checkout.form.bindFromRequest.fold(
         err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
-        data => Env.stripe.api.checkout(me, data) map { res =>
+        data => Env.plan.api.checkout(me, data) map { res =>
           Redirect(routes.Plan.index())
         } recover {
           case e: StripeException =>
-            lila.log("stripe").error("Plan.charge", e)
+            lila.log("plan").error("Plan.charge", e)
             BadRequest(html.plan.badCheckout(e.toString))
         }
       )
@@ -82,6 +82,6 @@ object Plan extends LilaController {
   }
 
   def webhook = Action.async(parse.json) { req =>
-    Env.stripe.webhook(req.body) map { _ => Ok("kthxbye") }
+    Env.plan.webhook(req.body) map { _ => Ok("kthxbye") }
   }
 }

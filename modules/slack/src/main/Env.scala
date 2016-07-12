@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.slack.Event
-import lila.hub.actorApi.stripe.ChargeEvent
+import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.{ DonationEvent, DeployPre, DeployPost }
 
 final class Env(

@@ -1,4 +1,4 @@
-package lila.stripe
+package lila.plan
 
 import play.api.libs.json._
 import play.api.libs.ws.{ WS, WSResponse }
