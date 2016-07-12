@@ -62,7 +62,7 @@ final class StripeApi(
         userPatron(user).flatMap {
           case None => patronColl.insert(Patron(
             _id = Patron.UserId(user.id),
-            payPal = Patron.PayPal(email, subId).some,
+            payPal = Patron.PayPal(email, subId, DateTime.now).some,
             lastLevelUp = DateTime.now)) >>
             UserRepo.setPlan(user, lila.user.Plan.start)
           case Some(patron) if patron.canLevelUp =>
