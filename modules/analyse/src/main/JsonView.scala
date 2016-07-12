@@ -10,8 +10,18 @@ object JsonView {
   def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
     case ((info, adviceOption)) => Json.obj(
       "eval" -> info.score.map(_.centipawns),
+      "best" -> info.best.map(_.uci),
       "mate" -> info.mate,
       "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " "),
+      "judgment" -> adviceOption.map { a =>
+        Json.obj(
+          "glyph" -> Json.obj(
+            "name" -> a.judgment.glyph.name,
+            "symbol" -> a.judgment.glyph.symbol
+          ),
+          "name" -> a.judgment.name
+        )
+      },
       "comment" -> adviceOption.map(_.makeComment(false, true))
     ).noNull
   })
