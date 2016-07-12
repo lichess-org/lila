@@ -32,7 +32,9 @@ case class StripeCustomer(id: CustomerId, subscriptions: StripeSubscriptions) {
   def plan = firstSubscription.map(_.plan)
 }
 
-case class StripeCharge(amount: Int, customer: CustomerId)
+case class StripeCharge(amount: Int, customer: CustomerId) {
+  def cents = Cents(amount)
+}
 
 case class StripeInvoice(
     id: Option[String],

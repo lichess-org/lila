@@ -48,7 +48,7 @@ object Donation extends LilaController {
             userId = userId,
             email = ipn.email map PayPal.Email.apply,
             subId = ipn.subId map PayPal.SubId.apply,
-            lila.stripe.Cents(ipn.grossCents))
+            cents = lila.stripe.Cents(ipn.grossCents))
         } >>
           Env.donation.api.create(donation) inject Ok
       })

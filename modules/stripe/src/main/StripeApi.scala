@@ -8,9 +8,11 @@ import org.joda.time.DateTime
 final class StripeApi(
     client: StripeClient,
     patronColl: Coll,
+    chargeColl: Coll,
     bus: lila.common.Bus) {
 
   import Patron.BSONHandlers._
+  import Charge.BSONHandlers._
 
   def checkout(user: User, data: Checkout): Fu[StripeSubscription] =
     LichessPlan findUnder data.cents match {
@@ -40,37 +42,49 @@ final class StripeApi(
     }
 
   def onCharge(charge: StripeCharge): Funit =
-    customerIdPatron(charge.customer) flatMap {
-      case None => fufail(s"Charged unknown customer $charge")
-      case Some(patron) if patron.canLevelUp =>
-        UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
-          patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
-            UserRepo.setPlan(user, user.plan.incMonths) >>- {
-              logger.info(s"Charged $charge $patron")
-              lila.mon.stripe.amount(charge.amount)
-              bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
-                username = user.username,
-                amount = charge.amount), 'stripe)
+    customerIdPatron(charge.customer) flatMap { patronOption =>
+      chargeColl.insert(Charge.make(
+        userId = patronOption.map(_.userId.value),
+        stripe = Charge.Stripe(charge.customer.value).some,
+        cents = charge.cents)) >> {
+        patronOption match {
+          case None => fufail(s"Charged unknown customer $charge")
+          case Some(patron) if patron.canLevelUp =>
+            UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
+              patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
+                UserRepo.setPlan(user, user.plan.incMonths) >>- {
+                  logger.info(s"Charged $charge $patron")
+                  lila.mon.stripe.amount(charge.amount)
+                  bus.publish(lila.hub.actorApi.stripe.ChargeEvent(
+                    username = user.username,
+                    amount = charge.amount), 'stripe)
+                }
             }
+          case Some(patron) => fufail(s"Too early to level up $charge $patron")
         }
-      case Some(patron) => fufail(s"Too early to level up $charge $patron")
+      }
     }
 
-  def onPaypalCharge(userId: String, email: Option[Patron.PayPal.Email], subId: Option[Patron.PayPal.SubId], amount: Cents): Funit = (amount.value >= 500) ?? {
-    UserRepo named userId flatMap {
-      _ ?? { user =>
-        userPatron(user).flatMap {
-          case None => patronColl.insert(Patron(
-            _id = Patron.UserId(user.id),
-            payPal = Patron.PayPal(email, subId, DateTime.now).some,
-            lastLevelUp = DateTime.now)) >>
-            UserRepo.setPlan(user, lila.user.Plan.start)
-          case Some(patron) if patron.canLevelUp =>
-            patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
-              UserRepo.setPlan(user, user.plan.incMonths)
-          case Some(patron) => fufail(s"Too early to level up with paypal $patron")
-        } >>-
-          logger.info(s"Charged ${user.id} with paypal: $amount")
+  def onPaypalCharge(userId: String, email: Option[Patron.PayPal.Email], subId: Option[Patron.PayPal.SubId], cents: Cents): Funit = (cents.value >= 500) ?? {
+    chargeColl.insert(Charge.make(
+      userId = userId.some,
+      payPal = Charge.PayPal(email = email.map(_.value), subId = subId.map(_.value)).some,
+      cents = cents)) >> {
+      UserRepo named userId flatMap {
+        _ ?? { user =>
+          userPatron(user).flatMap {
+            case None => patronColl.insert(Patron(
+              _id = Patron.UserId(user.id),
+              payPal = Patron.PayPal(email, subId, DateTime.now).some,
+              lastLevelUp = DateTime.now)) >>
+              UserRepo.setPlan(user, lila.user.Plan.start)
+            case Some(patron) if patron.canLevelUp =>
+              patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
+                UserRepo.setPlan(user, user.plan.incMonths)
+            case Some(patron) => fufail(s"Too early to level up with paypal $patron")
+          } >>-
+            logger.info(s"Charged ${user.id} with paypal: $cents")
+        }
       }
     }
   }

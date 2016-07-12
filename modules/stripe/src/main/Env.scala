@@ -12,13 +12,18 @@ final class Env(
 
   val publicKey = config getString "keys.public"
   private val CollectionPatron = config getString "collection.patron"
+  private val CollectionCharge = config getString "collection.charge"
 
   private lazy val client = new StripeClient(StripeClient.Config(
     endpoint = config getString "endpoint",
     publicKey = publicKey,
     secretKey = config getString "keys.secret"))
 
-  lazy val api = new StripeApi(client, db(CollectionPatron), bus)
+  lazy val api = new StripeApi(
+    client,
+    patronColl = db(CollectionPatron),
+    chargeColl = db(CollectionCharge),
+    bus)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
