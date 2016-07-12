@@ -11,8 +11,18 @@ object JsonView {
     case ((info, adviceOption)) => Json.obj(
       "eval" -> info.score.map(_.centipawns),
       "mate" -> info.mate,
-      "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " "),
-      "comment" -> adviceOption.map(_.makeComment(false, true))
+      "best" -> info.best.map(_.uci),
+      "variation" -> info.variation.nonEmpty.option(info.variation mkString " "),
+      "judgment" -> adviceOption.map { a =>
+        Json.obj(
+          "glyph" -> Json.obj(
+            "name" -> a.judgment.glyph.name,
+            "symbol" -> a.judgment.glyph.symbol
+          ),
+          "name" -> a.judgment.name,
+          "comment" -> a.makeComment(false, true)
+        )
+      }
     ).noNull
   })
 

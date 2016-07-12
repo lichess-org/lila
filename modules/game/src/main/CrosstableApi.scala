@@ -42,9 +42,9 @@ final class CrosstableApi(
       val result = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       def incScore(userId: String) = $int(game.winnerUserId match {
-        case Some(u) if u == u1 => 10
-        case None               => 5
-        case _                  => 0
+        case Some(u) if u == userId => 10
+        case None                   => 5
+        case _                      => 0
       })
       val bson = $doc(
         "$inc" -> $doc(
@@ -70,7 +70,6 @@ final class CrosstableApi(
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
-        lila.log("crosstable").info(s"Create for $u1 vs $u2")
         val selector = $doc(
           Game.BSONFields.playerUids $all List(u1, u2),
           Game.BSONFields.status $gte chess.Status.Mate.id)
