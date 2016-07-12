@@ -7,7 +7,9 @@
     @usernameOrId(playerUser.id)
   </a>
   <br />
-  @if(player.berserk) { @berserkIconSpanHtml } @playerUser.rating @playerUser.ratingDiff.map(showRatingDiff)
+  @if(player.berserk) { @berserkIconSpanHtml }
+  @playerUser.rating@if(player.provisional) {?}
+  @playerUser.ratingDiff.map(showRatingDiff)
   }.getOrElse {
   @player.aiLevel.map { level =>
   <span>@trans.aiNameLevelAiLevel.str(aiName, level)</span><br />@aiRating(level)
