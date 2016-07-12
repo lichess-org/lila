@@ -70,7 +70,7 @@ object Query {
   )
 
   def opponents(u1: User, u2: User) =
-    $doc(F.playerUids.$all(List(u1, u2).sortBy(_.count.game).map(_.id):_*))
+    $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
 
   val noProvisional: Bdoc = $doc(
     "p0.p" $exists false,

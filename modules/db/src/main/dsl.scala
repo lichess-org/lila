@@ -336,7 +336,7 @@ trait dsl {
   }
 
   trait ArrayOperators { self: ElementBuilder =>
-    def $all[T](values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $all[T](values: Seq[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$all" -> values))
     }
 
