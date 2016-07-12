@@ -279,7 +279,7 @@ private[controllers] trait LilaController
 
   protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] =
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {
-      case Some(1) => api(1) map (_ as JSON)
+      case Some(v) => api(v) map (_ as JSON)
       case _       => html
     }) map (_.withHeaders("Vary" -> "Accept"))
 

@@ -15,15 +15,11 @@ object Mobile {
       // date when the server stops accepting requests
       unsupportedAt: DateTime)
 
-    def currentVersion = 2
+    val currentVersion = 2
 
-    def oldVersions: List[Old] = List(
-      // old version 0 is just an example, so the list is never empty :)
-      // nobody ever used version 0.
-      Old(
-        version = 0,
-        deprecatedAt = new DateTime("2014-08-01"),
-        unsupportedAt = new DateTime("2014-12-01")),
+    val acceptedVersionNumbers = Set(1, 2)
+
+    val oldVersions: List[Old] = List(
       Old( // chat messages are html escaped
         version = 1,
         deprecatedAt = new DateTime("2016-07-13"),
@@ -40,7 +36,7 @@ object Mobile {
         case PathPattern(version) => parseIntOption(version)
         case _                    => None
       }
-    }
+    } filter acceptedVersionNumbers.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
   }
