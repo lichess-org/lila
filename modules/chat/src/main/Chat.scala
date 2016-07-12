@@ -34,6 +34,8 @@ case class UserChat(
     })
 
   def add(line: UserLine) = copy(lines = lines :+ line)
+
+  def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)
 }
 
 object UserChat {
@@ -51,6 +53,8 @@ case class MixedChat(
       case l: UserLine   => !l.troll
       case l: PlayerLine => true
     }))
+
+  def mapLines(f: Line => Line) = copy(lines = lines map f)
 }
 
 object Chat {
