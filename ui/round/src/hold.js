@@ -1,7 +1,9 @@
 var holds = [];
 var nb = 8;
 var was = false;
+var sent = false;
 var premoved = false;
+var variants = ['standard', 'crazyhouse'];
 
 function register(socket, meta, ply) {
   if (meta.premove) {
@@ -16,7 +18,7 @@ function register(socket, meta, ply) {
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    if (mean > 2 && mean < 150) {
+    if (mean > 2 && mean < 100) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
@@ -27,10 +29,13 @@ function register(socket, meta, ply) {
     }
   }
   if (set || was) $('.manipulable .cg-board').toggleClass('hold', set);
-  if (set) socket.send('hold', {
-    mean: Math.round(mean),
-    sd: Math.round(sd)
-  });
+  if (set && !sent) {
+    socket.send('hold', {
+      mean: Math.round(mean),
+      sd: Math.round(sd)
+    });
+    sent = true;
+  }
   was = set;
 }
 
@@ -52,7 +57,7 @@ function find(el, d) {
 
 module.exports = {
   applies: function(data) {
-    return data.game.variant.key === 'standard';
+    return variants.indexOf(data.game.variant.key) !== -1;
   },
   register: register,
   find: find
