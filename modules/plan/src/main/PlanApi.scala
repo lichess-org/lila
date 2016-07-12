@@ -175,13 +175,20 @@ final class PlanApi(
 
   private def createCustomer(user: User, plan: StripePlan, source: Source): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, plan, source) flatMap { customer =>
-      patronColl.insert(Patron(
-        _id = Patron.UserId(user.id),
-        stripe = Patron.Stripe(customer.id).some,
-        lastLevelUp = DateTime.now)) >>
+      saveStripePatron(user, customer.id) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
         logger.info(s"Subed ${user.id} ${plan}") inject customer
     }
+
+  private def saveStripePatron(user: User, customerId: CustomerId): Funit = userPatron(user) flatMap {
+    case None => patronColl.insert(Patron(
+      _id = Patron.UserId(user.id),
+      stripe = Patron.Stripe(customerId).some,
+      lastLevelUp = DateTime.now))
+    case Some(patron) => patronColl.update(
+      $id(patron.id),
+      patron.copy(stripe = Patron.Stripe(customerId).some))
+  } void
 
   private def setCustomerPlan(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
     customer.subscriptions.data.find(_.plan == plan) match {
@@ -193,7 +200,9 @@ final class PlanApi(
     }
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
-    patronColl.primitiveOne[CustomerId]($id(user.id), "stripe.customerId")
+    userPatron(user) map {
+      _.flatMap { _.stripe.map(_.customerId) }
+    }
 
   private def userCustomer(user: User): Fu[Option[StripeCustomer]] =
     userCustomerId(user) flatMap {
