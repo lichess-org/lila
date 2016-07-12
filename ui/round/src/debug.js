@@ -47,7 +47,7 @@ module.exports = function(ctrl) {
         'turns=' + ctrl.data.game.turns,
         'white=' + ctrl.data.clock.white,
         'black=' + ctrl.data.clock.black
-      ]);
+      ].join(' '));
     })
   };
 };
