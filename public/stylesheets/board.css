@@ -4,6 +4,8 @@
   width: 512px;
   height: 512px;
   position: relative;
+  /* Fixes render artifacts after dropping a piece in firefox 47,48 */
+  -moz-transform: translate3d(0, 0, 0);
 }
 .cg-board {
   position: relative;
