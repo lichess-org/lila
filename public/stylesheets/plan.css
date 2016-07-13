@@ -161,26 +161,3 @@ table.all .thanks {
 .faq dd {
   margin: 0;
 }
-
-.plan_side {
-  margin-top: 60px;
-  margin-left: -30px;
-  width: 226px;
-  box-sizing: border-box;
-  font-size: 1.3em;
-}
-.plan_side .promises {
-  border-left: 5px solid #759900;
-  padding-left: 10px;
-}
-.plan_side a {
-  border-bottom: 1px dotted #3893E8;
-}
-.plan_side h2 {
-  margin-top: 10px;
-}
-.plan_side li::before {
-  content: "✓ ";
-  font-size: 1.2em;
-  font-weight: bold;
-}

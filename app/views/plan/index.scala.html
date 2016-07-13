@@ -10,22 +10,8 @@ lichess.checkout("@stripePublicKey");
 }
 }
 
-@side = {
-<div class="plan_side">
-  <div class="promises">
-    <ul>
-      <li>Entirely free for all</li>
-      <li>Always <a href="https://github.com/ornicar/lila">Open-source</a></li>
-      <li>Always free of ads</li>
-    </ul>
-    <h2>That's a promise.</h2>
-  </div>
-</div>
-}
-
 @site.layout(
 title = title,
-side = side.some,
 moreCss = cssTag("plan.css"),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
