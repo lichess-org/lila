@@ -71,7 +71,6 @@ object Crosstable {
     val score1 = "s1"
     val score2 = "s2"
     val results = "r"
-    val nbGames = "n"
   }
 
   implicit val crosstableBSONHandler = new BSON[Crosstable] {
