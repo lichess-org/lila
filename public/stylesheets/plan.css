@@ -82,22 +82,32 @@ table.all .thanks {
 .motivation .text p {
   margin-bottom: 1em;
 }
-.motivation .checkout {
+.motivation .plan_checkout {
   width: 100%;
 }
-.motivation .checkout h3 {
+.motivation .plan_checkout h3 {
   font-family: Roboto;
   display: block;
   text-transform: uppercase;
   margin: 0;
 }
-.motivation .checkout .buttons {
+.motivation .plan_checkout group.radio {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+}
+.motivation .plan_checkout group.radio input:checked + label {
+  background: #759900!important;
+  border-color: #ccc!important;
+}
+.motivation .plan_checkout .service {
   display: flex;
   justify-content: space-between;
-}
-.motivation .checkout .buttons button {
   font-size: 1.3em;
-  flex: 0 0 15%;
+}
+.motivation .plan_checkout .service button {
+  font-weight: normal;
+  padding: 20px 10px;
+  border-color: #ccc!important;
 }
 .faq {
   margin: 40px 0;

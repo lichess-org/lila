@@ -19,9 +19,10 @@ object Donation extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    OptionOk(Prismic.getBookmark("donate-thanks")) {
-      case (doc, resolver) => views.html.site.page(doc, resolver)
-    }
+    Redirect(routes.Patron.index).fuccess
+    // OptionOk(Prismic.getBookmark("donate-thanks")) {
+    //   case (doc, resolver) => views.html.site.page(doc, resolver)
+    // }
   }
 
   def thanksRedirect = Action(Redirect(routes.Donation.thanks))
