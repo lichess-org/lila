@@ -20,6 +20,7 @@ var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
+var makeDebug = require('./debug');
 
 module.exports = function(opts) {
 
@@ -252,7 +253,10 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
+    if (o.clock) {
+      this.debug.log('move{' + o.clock.white + ',' + o.clock.black + '}');
+      (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
+    }
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,
@@ -338,9 +342,12 @@ module.exports = function(opts) {
     }.bind(this));
   }.bind(this);
 
-  this.clock = this.data.clock ? new clockCtrl(
+  this.debug = makeDebug(this);
+
+  this.clock = this.data.clock ? clockCtrl(
     this.data.clock,
-    this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
+    this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color,
+    this.debug
   ) : false;
 
   this.isClockRunning = function() {
@@ -349,6 +356,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var clockTick = function() {
+    this.debug.tickOut();
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 

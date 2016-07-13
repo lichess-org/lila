@@ -176,12 +176,11 @@ object Round extends LilaController with TheftPrevention {
                   Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat))
               }
           else // web crawlers don't need the full thing
-            GameRepo.initialFen(pov.game.id) zip
-              Env.game.crosstableApi(pov.game) map {
-                case (initialFen, crosstable) =>
-                  val pgn = Env.api.pgnDump(pov.game, initialFen)
-                  Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
-              }
+            GameRepo.initialFen(pov.game.id) map {
+              case initialFen =>
+                val pgn = Env.api.pgnDump(pov.game, initialFen)
+                Ok(html.round.watcherBot(pov, initialFen, pgn))
+            }
         }.mon(_.http.response.watcher.website),
         api = apiVersion =>
           Env.api.roundApi.watcher(pov, apiVersion, tv = none) flatMap { json =>

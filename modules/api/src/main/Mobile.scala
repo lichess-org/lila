@@ -22,8 +22,8 @@ object Mobile {
     val oldVersions: List[Old] = List(
       Old( // chat messages are html escaped
         version = 1,
-        deprecatedAt = new DateTime("2016-07-13"),
-        unsupportedAt = new DateTime("2016-10-13"))
+        deprecatedAt = new DateTime("2016-08-13"),
+        unsupportedAt = new DateTime("2016-11-13"))
     )
 
     private val PathPattern = """^.+/socket/v(\d+)$""".r

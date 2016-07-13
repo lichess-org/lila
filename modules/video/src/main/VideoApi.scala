@@ -95,7 +95,7 @@ private[video] final class VideoApi(
       else Paginator(
         adapter = new Adapter[Video](
           collection = videoColl,
-          selector = $doc("tags".$all(tags: _*)),
+          selector = $doc("tags" $all tags),
           projection = $empty,
           sort = $doc("metadata.likes" -> -1)
         ) mapFutureList videoViews(user),
@@ -176,7 +176,7 @@ private[video] final class VideoApi(
             tags.filterNot(_.isNumeric)
           }
           else videoColl.aggregate(
-            Match($doc("tags".$all(filterTags: _*))),
+            Match($doc("tags" $all filterTags)),
             List(Project($doc("tags" -> true)),
               Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
               _.documents.flatMap(_.asOpt[TagNb]))

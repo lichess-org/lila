@@ -1,6 +1,6 @@
 var m = require('mithril');
 
-module.exports = function(data, onFlag, soundColor) {
+module.exports = function(data, onFlag, soundColor, debug) {
 
   var lastUpdate;
 
@@ -14,8 +14,6 @@ module.exports = function(data, onFlag, soundColor) {
     }
   };
 
-  this.data = data;
-
   data.barTime = Math.max(data.initial, 2) + 5 * data.increment;
 
   function setLastUpdate() {
@@ -27,18 +25,22 @@ module.exports = function(data, onFlag, soundColor) {
   }
   setLastUpdate();
 
-  this.update = function(white, black) {
+  var update = function(white, black) {
+    debug.log('update in');
     m.startComputation();
     data.white = white;
     data.black = black;
     setLastUpdate();
     m.endComputation();
-  }.bind(this);
+    debug.log('update out');
+  };
 
-  this.tick = function(color) {
+  var tick = function(color) {
+    debug.tickIn();
     data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (data[color] === 0) onFlag();
     m.redraw();
+    debug.tickRedraw();
     if (soundColor == color && data[soundColor] < data.emerg && emergSound.playable[soundColor]) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
@@ -48,9 +50,16 @@ module.exports = function(data, onFlag, soundColor) {
     } else if (soundColor == color && data[soundColor] > 1.5 * data.emerg && !emergSound.playable[soundColor]) {
       emergSound.playable[soundColor] = true;
     }
-  }.bind(this);
+  };
 
-  this.secondsOf = function(color) {
+  var secondsOf = function(color) {
     return data[color];
+  };
+
+  return {
+    data: data,
+    update: update,
+    tick: tick,
+    secondsOf: secondsOf
   };
 }

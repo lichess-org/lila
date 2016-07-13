@@ -71,7 +71,6 @@ object Crosstable {
     val score1 = "s1"
     val score2 = "s2"
     val results = "r"
-    val nbGames = "n"
   }
 
   implicit val crosstableBSONHandler = new BSON[Crosstable] {
@@ -84,17 +83,23 @@ object Crosstable {
         user2 = User(u2Id, r intD "s2"),
         results = r.get[List[String]](results).map { r =>
           r drop 8 match {
-            case ""  => Result(r take 8, none)
-            case "+" => Result(r take 8, Some(u1Id))
+            case ""  => Result(r, Some(u1Id))
             case "-" => Result(r take 8, Some(u2Id))
+            case "=" => Result(r take 8, none)
             case _   => sys error s"Invalid result string $r"
           }
         })
       case x => sys error s"Invalid crosstable id $x"
     }
 
-    def writeResult(result: Result, u1: String): String =
-      result.gameId + (result.winnerId ?? { w => if (w == u1) "+" else "-" })
+    def writeResult(result: Result, u1: String): String = {
+      val flag = result.winnerId match {
+        case Some(wid) if wid == u1 => ""
+        case Some(wid)              => "-"
+        case None                   => "="
+      }
+      s"${result.gameId}$flag"
+    }
 
     def writes(w: BSON.Writer, o: Crosstable) = BSONDocument(
       id -> makeKey(o.user1.id, o.user2.id),

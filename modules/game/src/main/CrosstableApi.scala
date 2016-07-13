@@ -67,44 +67,56 @@ final class CrosstableApi(
     f = (create _).tupled,
     timeToLive = 5 seconds)
 
-  private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
-    UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
-      case (Some((u1, u2)), List(su1, su2)) =>
-        val selector = $doc(
-          Game.BSONFields.playerUids.$all(u1, u2),
-          Game.BSONFields.status $gte chess.Status.Mate.id)
+  private var computing = 0
+  private val maxComputing = 2
 
-        import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
-        import reactivemongo.api.ReadPreference
+  def nbComputing = computing
 
-        for {
-          localResults <- gameColl.find(selector,
-            $doc(Game.BSONFields.winnerId -> true)
-          ).sort($doc(Game.BSONFields.createdAt -> -1))
-            .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-            .gather[List](maxGames).map {
-              _.flatMap { doc =>
-                doc.getAs[String](Game.BSONFields.id).map { id =>
-                  Result(id, doc.getAs[String](Game.BSONFields.winnerId))
-                }
-              }.reverse
-            }
-          ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults)
+  private def create(x1: String, x2: String): Fu[Option[Crosstable]] = {
+    if (computing >= maxComputing) fuccess(none)
+    else {
+      computing = (computing + 1) min maxComputing
+      UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
+        case (Some((u1, u2)), List(su1, su2)) =>
+          val selector = $doc(
+            Game.BSONFields.playerUids $all List(u1, u2),
+            Game.BSONFields.status $gte chess.Status.Mate.id)
 
-          crosstable <- gameColl.aggregate(Match(selector), List(
-            GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
-            _.documents.foldLeft(ctDraft) {
-              case (ct, obj) => obj.getAs[Int]("nb").fold(ct) { nb =>
-                ct.addWins(obj.getAs[String]("_id"), nb)
+          import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
+          import reactivemongo.api.ReadPreference
+
+          for {
+            localResults <- gameColl.find(selector,
+              $doc(Game.BSONFields.winnerId -> true)
+            ).sort($doc(Game.BSONFields.createdAt -> -1))
+              .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+              .gather[List](maxGames).map {
+                _.flatMap { doc =>
+                  doc.getAs[String](Game.BSONFields.id).map { id =>
+                    Result(id, doc.getAs[String](Game.BSONFields.winnerId))
+                  }
+                }.reverse
               }
-            }
-          )
+            ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults)
 
-          _ <- coll insert crosstable
-        } yield crosstable.some
+            crosstable <- gameColl.aggregate(Match(selector), List(
+              GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
+              _.documents.foldLeft(ctDraft) {
+                case (ct, obj) => obj.getAs[Int]("nb").fold(ct) { nb =>
+                  ct.addWins(obj.getAs[String]("_id"), nb)
+                }
+              }
+            )
 
-      case _ => fuccess(none)
+            _ <- coll insert crosstable
+          } yield crosstable.some
+
+        case _ => fuccess(none)
+      }
+    } andThenAnyway {
+      computing = (computing - 1) max 0
     }
+  }
 
   private def select(u1: String, u2: String) =
     $id(Crosstable.makeKey(u1, u2))
