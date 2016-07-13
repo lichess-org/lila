@@ -46,17 +46,14 @@ object Plan extends LilaController {
     me =>
       implicit val req = ctx.body
       lila.plan.Switch.form.bindFromRequest.fold(
-        err => Redirect(routes.Plan.index).fuccess,
-        data => (data.plan.flatMap(lila.plan.LichessPlan.byId) match {
-          case Some(plan)                 => Env.plan.api.switch(me, plan)
-          case _ if data.cancel.isDefined => Env.plan.api.cancel(me)
-          case _                          => fufail("Invalid switch")
-        }) recover {
-          case e: Exception =>
-            lila.log("plan").error("Plan.switch", e)
-            Redirect(routes.Plan.index)
-        } inject Redirect(routes.Plan.index())
-      )
+        err => funit,
+        data => Env.plan.api.switch(me, data.cents)
+      ) inject Redirect(routes.Plan.index)
+  }
+
+  def cancel = AuthBody { implicit ctx =>
+    me =>
+      Env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
   def charge = AuthBody { implicit ctx =>

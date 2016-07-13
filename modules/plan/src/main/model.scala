@@ -19,9 +19,17 @@ case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
-case class StripePlan(id: String, amount: Int) {
-  def cents = Cents(amount)
+case class StripePlan(id: String, name: String, amount: Cents) {
+  def cents = amount
   def usd = cents.usd
+}
+object StripePlan {
+  def make(cents: Cents): StripePlan = StripePlan(
+    id = s"monthly_${cents.value}",
+    name = s"Monthly ${cents.usd}",
+    amount = cents)
+
+  val defaults = List(5, 10, 20, 50).map(Usd.apply).map(_.cents).map(StripePlan.make)
 }
 
 case class StripeSubscription(id: String, plan: StripePlan, customer: CustomerId)

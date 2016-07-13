@@ -1,6 +1,10 @@
 table.all {
   margin-top: 20px;
   font-size: 1.2em;
+  width: 100%;
+}
+table.all a {
+  color: #3893E8;
 }
 table.all td,
 table.all th {
@@ -24,8 +28,21 @@ table.all .id {
   font-family: monospace;
   font-size: 10px;
 }
-table.all form .button:first-child {
-  font-weight: normal;
+table.all .change form {
+  display: none;
+  margin-top: 1em;
+  padding: 1em;
+  background: #f4f4f4;
+}
+table.all .change form input {
+  width: 5em;
+  padding: 3px 5px;
+}
+table.all .change form p {
+  margin-bottom: 1em;
+}
+table.all .change form.cancel button {
+  color: red;
 }
 
 table.payments {

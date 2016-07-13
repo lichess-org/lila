@@ -3,6 +3,6 @@ package lila.plan
 import org.joda.time.DateTime
 
 case class CustomerInfo(
-  currentPlan: LichessPlan,
+  currentPlan: StripePlan,
   nextInvoice: StripeInvoice,
   pastInvoices: List[StripeInvoice])

@@ -2,7 +2,8 @@
 
 @site.layout(
 title = "Thank you for your support!",
-moreCss = cssTag("plan.css")) {
+moreCss = cssTag("plan.css"),
+moreJs = jsTag("plan.js")) {
 
 <div class="content_box plan">
   <h1>@userLink(me) • lichess patron for @pluralize("month", me.plan.months)</h1>
@@ -20,21 +21,19 @@ moreCss = cssTag("plan.css")) {
         <td>You will be charged <strong>@info.nextInvoice.usd</strong> on @showDate(info.nextInvoice.dateTime).</td>
       </th>
       <tr>
-        <th>Change plan</th>
-        <td>
-          <form action="@routes.Plan.switch" method="POST">
-            <button type="submit" class="button" name="cancel" value="1">$0 (Cancel)</button>
-            @lila.plan.LichessPlan.all.map { p =>
-            @if(p == info.currentPlan) {
-            <button class="button" disabled>@p.usd (Current)</button>
-            } else {
-            <button type="submit" class="button" name="plan" value="@p.id">
-              <span
-                data-icon="@if(p.usd > info.currentPlan.usd){N}else{M}"
-                class="switch text @if(p.usd > info.currentPlan.usd){up}else{down}">@p.usd</span>
-            </button>
-            }
-            }
+        <th>Update</th>
+        <td class="change">
+          <a data-form="switch">Change the amount</a> or <a data-form="cancel">cancel your support</a>
+          <form class="switch" action="@routes.Plan.switch" method="POST">
+            <p>Decide what lichess is worth to you:</p>
+            USD $ <input type="number" min=1 max=100000 name="usd" value="@info.currentPlan.usd.value" />
+            <button type="submit" class="button">@trans.apply()</button>
+            <a data-form="switch">Nevermind</a>
+          </form>
+          <form class="cancel" action="@routes.Plan.cancel" method="POST">
+            <p>Withdraw your credit card and stop payments:</p>
+            <button type="submit" class="button">No longer support lichess</button>
+            <a data-form="cancel">Nevermind :)</a>
           </form>
         </td>
       </th>

@@ -54,21 +54,25 @@ description = "Free chess for everyone, forever!").some) {
           </form>
           <h3>Your monthly support</h3>
           <group class="radio buttons">
-          @lila.plan.LichessPlan.all.map { p =>
+          @lila.plan.StripePlan.defaults.map { p =>
           @defining(s"plan_${p.id}") { id =>
           <div>
             <input type="radio" name="plan"
             id="plan_@p.id"
-            @if(p.id == "monthly_10") { checked class="active" }
+            @if(p.usd.value == 10) { checked class="active" }
             value="@p.id"
             data-usd="@p.usd"
-            data-description="@p.usd/month"
-            data-amount="@p.cents.value"
-            data-panel-label="{{amount}}" />
+            data-amount="@p.cents.value" />
             <label for="plan_@p.id">@p.usd</label>
           </div>
           }
           }
+          <div class="other">
+            <input type="radio" name="plan"
+            id="plan_other"
+            value="other" />
+            <label for="plan_other">Other</label>
+          </div>
           </group>
           <div class="service">
             <button class="stripe button">Use your credit card</button>

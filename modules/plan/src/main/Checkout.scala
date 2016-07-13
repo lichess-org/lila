@@ -14,16 +14,18 @@ object Checkout {
 
   val form = Form(mapping(
     "token" -> nonEmptyText,
-    "amount" -> number(min = 500)
+    "amount" -> number(min = 100)
   )(Checkout.apply)(Checkout.unapply))
 }
 
-case class Switch(plan: Option[String], cancel: Option[Int])
+case class Switch(usd: Int) {
+
+  def cents = Usd(usd).cents
+}
 
 object Switch {
 
   val form = Form(mapping(
-    "plan" -> optional(text.verifying("Invalid plan", LichessPlan.exists _)),
-    "cancel" -> optional(number)
+    "usd" -> number(min = 1)
   )(Switch.apply)(Switch.unapply))
 }

@@ -48,6 +48,17 @@ private final class StripeClient(config: StripeClient.Config) {
   def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
     getList[StripeInvoice]("invoices", 'customer -> customerId.value)
 
+  def getPlan(cents: Cents): Fu[Option[StripePlan]] =
+    getOne[StripePlan](s"plans/${StripePlan.make(cents).id}")
+
+  def makePlan(cents: Cents): Fu[StripePlan] =
+    postOne[StripePlan]("plans",
+      'id -> StripePlan.make(cents).id,
+      'amount -> cents.value,
+      'currency -> "usd",
+      'interval -> "month",
+      'name -> StripePlan.make(cents).name)
+
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {
       case _: NotFoundException => None

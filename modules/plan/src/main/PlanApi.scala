@@ -16,18 +16,21 @@ final class PlanApi(
   import ChargeHandlers._
 
   def checkout(user: User, data: Checkout): Fu[StripeSubscription] =
-    LichessPlan findUnder data.cents match {
-      case None       => fufail(s"Invalid amount ${data.amount}")
-      case Some(plan) => setUserPlan(user, plan.stripePlan, data.source)
+    getOrMakePlan(data.cents) flatMap { plan =>
+      setUserPlan(user, plan, data.source)
     }
 
-  def switch(user: User, plan: LichessPlan): Fu[StripeSubscription] =
+  def switch(user: User, cents: Cents): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
-          case None      => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) => stripeClient.updateSubscription(sub, plan.stripePlan, none)
+          case None                                 => fufail(s"Can't switch non-existent subscription of ${user.id}")
+          case Some(sub) if sub.plan.cents == cents => fuccess(sub)
+          case Some(sub) =>
+            getOrMakePlan(cents) flatMap { plan =>
+              stripeClient.updateSubscription(sub, plan, none)
+            }
         }
     }
 
@@ -111,7 +114,7 @@ final class PlanApi(
           stripeClient.getNextInvoice(customerId) zip
           stripeClient.getPastInvoices(customerId) map {
             case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
-              customer.plan flatMap LichessPlan.byStripePlan match {
+              customer.plan match {
                 case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
                 case None =>
                   logger.warn(s"Can't identify ${user.id} plan $customer")
@@ -164,6 +167,9 @@ final class PlanApi(
       case _ => fuccess(false)
     }
   }
+
+  def getOrMakePlan(cents: Cents): Fu[StripePlan] =
+    stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
 
   private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
