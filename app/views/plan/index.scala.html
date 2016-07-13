@@ -10,8 +10,22 @@ lichess.checkout("@stripePublicKey");
 }
 }
 
+@side = {
+<div class="plan_side">
+  <div class="promises">
+    <ul>
+      <li>Entirely free for all</li>
+      <li>Always <a href="https://github.com/ornicar/lila">Open-source</a></li>
+      <li>Always free of ads</li>
+    </ul>
+    <h2>That's a promise.</h2>
+  </div>
+</div>
+}
+
 @site.layout(
 title = title,
+side = side.some,
 moreCss = cssTag("plan.css"),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
@@ -52,14 +66,23 @@ description = "Free chess for everyone, forever!").some) {
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="hosted_button_id" value="36KH4D465UB9G">
           </form>
-          <h3>Your monthly support</h3>
-          <group class="radio buttons">
+          <group class="radio buttons freq">
+          <div>
+            <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
+            <label for="freq_monthly">Monthly</label>
+          </div>
+          <div>
+            <input type="radio" name="freq" id="freq_onetime" value="onetime" />
+            <label for="freq_onetime">One-time</label>
+          </div>
+          </group>
+          <group class="radio buttons amount">
           @lila.plan.StripePlan.defaults.map { p =>
           @defining(s"plan_${p.id}") { id =>
           <div>
             <input type="radio" name="plan"
             id="plan_@p.id"
-            @if(p.usd.value == 10) { checked class="active" }
+            @if(p.usd.value == 10) { checked }
             value="@p.id"
             data-usd="@p.usd"
             data-amount="@p.cents.value" />
@@ -81,6 +104,9 @@ description = "Free chess for everyone, forever!").some) {
         </div>
       </div>
     </div>
+    <p class="small_team">
+      We are a small team, so your support will make a huge difference!
+    </p>
   </div>
   <div class="faq">
     <dl>
@@ -101,7 +127,8 @@ description = "Free chess for everyone, forever!").some) {
     <dl>
       <dt>Are some features reserved to patrons?</dt>
       <dd>
-        Lichess is entirely free, forever, and for everyone. That's a promise.<br />
+        <a href="@routes.Plan.features">No</a>, because
+        lichess is entirely free, forever, and for everyone. That's a promise.<br />
         But patrons get bragging rights with a cool new profile icon.<br />
         See the <a href="@routes.Plan.features">detailed features comparison</a>.
       </dd>

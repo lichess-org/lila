@@ -5,7 +5,11 @@ lichess.checkout = function(publicKey) {
   var min = 100,
     max = 100 * 100000
 
-  $checkout.find('group.radio .other label').on('click', function() {
+  var isMonthly = function() {
+    return $checkout.find('group.freq input:checked').attr('id') === 'freq_montly';
+  };
+
+  $checkout.find('group.amount .other label').on('click', function() {
     var amount;
     var raw = prompt("Please enter an amount in USD");
     try {
@@ -27,7 +31,7 @@ lichess.checkout = function(publicKey) {
   });
 
   $checkout.find('button.paypal').on('click', function() {
-    var $input = $checkout.find('group.radio input:checked');
+    var $input = $checkout.find('group.amount input:checked');
     if ($input.attr('id') == 'plan_other')
       return alert("Sorry, PayPal doesn't work with custom amounts!");
     var usd = $input.data('usd');
@@ -38,7 +42,7 @@ lichess.checkout = function(publicKey) {
   });
 
   $checkout.find('button.stripe').on('click', function() {
-    var $input = $checkout.find('group.radio input:checked');
+    var $input = $checkout.find('group.amount input:checked');
     var usd = $input.data('usd');
     var amount = parseInt($input.data('amount'));
     if (amount < min || amount > max) return;
