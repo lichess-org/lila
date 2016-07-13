@@ -16,21 +16,11 @@ final class PlanApi(
   import ChargeHandlers._
 
   def checkout(userOption: Option[User], data: Checkout): Funit =
-    if (data.isMonthly) checkoutMonthly(userOption, data)
-    else checkoutOneTime(userOption, data)
-
-  private def checkoutMonthly(userOption: Option[User], data: Checkout): Funit =
     getOrMakePlan(data.cents) flatMap { plan =>
-      userOption.fold(setAnonPlan(plan, data)) { user =>
-        setUserPlan(user, plan, data)
+      userOption.fold(setAnonPlan(plan, data, renew = data.isMonthly)) { user =>
+        setUserPlan(user, plan, data, renew = data.isMonthly)
       }
     } void
-
-  private def checkoutOneTime(userOption: Option[User], data: Checkout): Funit = userOption match {
-    case None       => stripeClient.chargeAnonCard(data)
-    case Some(user) => createCustomer(user, data, plan = none) flatMap { customer =>
-    }
-  }
 
   def switch(user: User, cents: Cents): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -189,25 +179,32 @@ final class PlanApi(
   def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
 
-  private def setAnonPlan(plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+  private def setAnonPlan(plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
     stripeClient.createAnonCustomer(plan, data) map { customer =>
-      logger.info(s"Subed anon $customer to ${plan}")
+      logger.info(s"Subed anon $customer to ${plan} renew=$renew")
       customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
+    } flatMap { subscription =>
+      if (renew) fuccess(subscription)
+      else stripeClient dontRenewSubscription subscription
     }
 
-  private def setUserPlan(user: User, plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+  private def setUserPlan(user: User, plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
-      case None => createCustomer(user, data, plan.some) map { customer =>
+      case None => createCustomer(user, data, plan) map { customer =>
         customer.firstSubscription err s"Can't create ${user.id} subscription for customer $customer"
       }
       case Some(customer) => setCustomerPlan(customer, plan, data.source)
+    } flatMap { subscription =>
+      logger.info(s"Subed user ${user.username} $subscription renew=$renew")
+      if (renew) fuccess(subscription)
+      else stripeClient dontRenewSubscription subscription
     }
 
-  private def createCustomer(user: User, data: Checkout, plan: Option[StripePlan]): Fu[StripeCustomer] =
+  private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
       saveStripePatron(user, customer.id) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
-        logger.info(s"Create ${user.id} customer $customer") inject customer
+        logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
   private def saveStripePatron(user: User, customerId: CustomerId): Funit = userPatron(user) flatMap {

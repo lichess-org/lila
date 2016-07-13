@@ -12,9 +12,9 @@ private final class StripeClient(config: StripeClient.Config) {
   import StripeClient._
   import JsonHandlers._
 
-  def createCustomer(user: User, data: Checkout, plan: Option[StripePlan]): Fu[StripeCustomer] =
+  def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     postOne[StripeCustomer]("customers",
-      'plan -> plan.map(_.id),
+      'plan -> plan.id,
       'source -> data.source.value,
       'email -> data.email,
       'description -> user.username)
@@ -41,8 +41,13 @@ private final class StripeClient(config: StripeClient.Config) {
       'source -> source.map(_.value),
       'prorate -> false)
 
-  def cancelSubscription(sub: StripeSubscription): Funit =
-    deleteOne(s"subscriptions/${sub.id}")
+  def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
+    deleteOne[StripeSubscription](s"subscriptions/${sub.id}",
+      'at_period_end -> false)
+
+  def dontRenewSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
+    deleteOne[StripeSubscription](s"subscriptions/${sub.id}",
+      'at_period_end -> true)
 
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
@@ -98,7 +103,7 @@ private final class StripeClient(config: StripeClient.Config) {
 
   private def postOne[A: Reads](url: String, data: (Symbol, Any)*): Fu[A] = post[A](url, data)
 
-  private def deleteOne(url: String, queryString: (Symbol, Any)*): Fu[Unit] = delete(url, queryString)
+  private def deleteOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[A] = delete[A](url, queryString)
 
   private def get[A: Reads](url: String, queryString: Seq[(Symbol, Any)]): Fu[A] = {
     logger.info(s"GET $url ${debugInput(queryString)}")
@@ -110,9 +115,9 @@ private final class StripeClient(config: StripeClient.Config) {
     request(url).post(fixInput(data).toMap mapValues { Seq(_) }) flatMap response[A]
   }
 
-  private def delete(url: String, queryString: Seq[(Symbol, Any)]): Fu[Unit] = {
-    logger.info(s"DELETE $url ${debugInput(queryString)}")
-    request(url).withQueryString(fixInput(queryString): _*).delete() map (_ => ())
+  private def delete[A: Reads](url: String, data: Seq[(Symbol, Any)]): Fu[A] = {
+    logger.info(s"DELETE $url ${debugInput(data)}")
+    request(url).withQueryString(fixInput(data): _*).delete() flatMap response[A]
   }
 
   private def request(url: String) =
