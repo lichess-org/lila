@@ -68,7 +68,7 @@ final class CrosstableApi(
     timeToLive = 5 seconds)
 
   private var computing = 0
-  private val maxComputing = 3
+  private val maxComputing = 2
 
   def nbComputing = computing
 
