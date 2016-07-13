@@ -76,9 +76,7 @@ object Plan extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    OptionOk(Prismic.getBookmark("donate-thanks")) {
-      case (doc, resolver) => views.html.site.page(doc, resolver)
-    }
+    Ok(html.plan.thanks()).fuccess
   }
 
   def webhook = Action.async(parse.json) { req =>

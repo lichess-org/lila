@@ -1,0 +1,39 @@
+@()(implicit ctx: Context)
+
+@site.layout(
+moreCss = cssTag("page.css"),
+title = "Thank you for your support!") {
+
+<div class="content_box small_box doc_box">
+
+  <h1 class="text" data-icon="@patronIconChar">Thank you for your support!</h1>
+
+  <div class="body">
+    <br />
+    <p>
+      Thank you for helping us building lichess. <strong>You rock!</strong>
+    </p>
+    <p>
+      Your transaction has been completed,
+      and a receipt for your donation has been emailed to you.
+    </p>
+    @ctx.me.map { me =>
+    <p>
+      You are now a lichess patron for one month!<br />
+      Check out your <a href="@routes.User.show(me.username)">profile page</a>.
+    </p>
+    <p>
+      In one month, you will <strong>not</strong> be charged again,
+      and your lichess account will be downgraded to free.
+    </p>
+    <p>
+      To get a permanent patron account, please consider making a
+      <a href="@routes.Plan.index">monthly donation</a>.
+    </p>
+    }
+    <p>
+      Success! <a href="@routes.Lobby.home">Return to lichess homepage</a>.
+    </p>
+  </div>
+</div>
+}

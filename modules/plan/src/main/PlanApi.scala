@@ -105,10 +105,11 @@ final class PlanApi(
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {
-      case None => fufail(s"Deleted subscription of unknown customer $sub")
+      case None => fufail(s"Deleted subscription of unknown patron $sub")
       case Some(patron) =>
         UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
-          UserRepo.setPlan(user, user.plan.disable) >>-
+          UserRepo.setPlan(user, user.plan.disable) >>
+            patronColl.unsetField($id(user.id), "stripe").void >>-
             logger.info(s"Unsubed ${user.id} ${sub}")
         }
     }

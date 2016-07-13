@@ -34,12 +34,8 @@ div.doc_box .body ol li {
 div.doc_box .body li {
   margin-left: 2em;
 }
-div.doc_box .body a:not(.user_link) {
-  text-decoration: underline;
-}
 div.doc_box .body a {
-div.doc_box .body a:hover {
-  text-decoration: none;
+  color: #3893E8;
 }
 div.doc_box .body iframe {
   width: 100%;
