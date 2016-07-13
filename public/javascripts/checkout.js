@@ -9,6 +9,11 @@ lichess.checkout = function(publicKey) {
     return $checkout.find('group.freq input:checked').val();
   };
 
+  // Other is selected but no amount specified
+  // happens with backward button
+  if (!$checkout.find('group.amount input:checked').data('amount'))
+    $checkout.find('#plan_monthly_1000').click();
+
   $checkout.find('group.amount .other label').on('click', function() {
     var amount;
     var raw = prompt("Please enter an amount in USD");
@@ -20,7 +25,7 @@ lichess.checkout = function(publicKey) {
     var cents = Math.round(amount * 100);
     if (!cents) {
       $(this).text('Other');
-      $checkout.find('#plan_monthly_10').click();
+      $checkout.find('#plan_monthly_1000').click();
       return false;
     }
     if (cents < min) cents = min;
@@ -31,12 +36,11 @@ lichess.checkout = function(publicKey) {
   });
 
   $checkout.find('button.paypal').on('click', function() {
-    var $input = $checkout.find('group.amount input:checked');
-    if ($input.attr('id') == 'plan_other')
-      return alert("Sorry, PayPal doesn't work with custom amounts!");
-    var usd = $input.data('usd');
-    var $form = $checkout.find('form.paypal_checkout');
-    $form.find('input.usd').val(usd);
+    var cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
+    if (!cents || cents < min || cents > max) return;
+    var amount = cents / 100;
+    var $form = $checkout.find('form.paypal_checkout.' + getFreq());
+    $form.find('input.amount').val(amount);
     $form.submit();
     $checkout.find('.service').html(lichess.spinnerHtml);
   });

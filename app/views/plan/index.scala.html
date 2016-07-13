@@ -37,6 +37,7 @@ description = "Free chess for everyone, forever!").some) {
         </p>
       </div>
       <div class="content">
+
         <div class="plan_checkout" data-email="@email">
           <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
@@ -44,14 +45,33 @@ description = "Free chess for everyone, forever!").some) {
             <input type="hidden" class="amount" name="amount" />
             <input type="hidden" class="freq" name="freq" />
           </form>
-          <form class="paypal_checkout none" action="https://www.paypal.com/cgi-bin/webscr" method="POST" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="custom" value="@ctx.userId">
-            <input type="hidden" name="on0" value="lichess.org Patron account">
-            <input type="hidden" name="os0" value="" class="usd">
+          <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="amount" class="amount" value="">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="item_name" value="lichess.org one-time">
+            <input type="hidden" name="button_subtype" value="services">
+            <input type="hidden" name="no_note" value="1">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="rm" value="1">
+            <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
+            <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
             <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="custom" value="@ctx.userId">
-            <input type="hidden" name="hosted_button_id" value="36KH4D465UB9G">
+          </form>
+          <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="a3" class="amount" value="">
+            <input type="hidden" name="cmd" value="_xclick-subscriptions">
+            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="item_name" value="lichess.org monthly">
+            <input type="hidden" name="no_note" value="1">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="rm" value="1">
+            <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
+            <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+            <input type="hidden" name="src" value="1">
+            <input type="hidden" name="p3" value="1">
+            <input type="hidden" name="t3" value="M">
+            <input type="hidden" name="currency_code" value="USD">
           </form>
           <group class="radio buttons freq">
           <div>
