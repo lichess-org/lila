@@ -1,5 +1,6 @@
 package lila.game
 
+import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
@@ -66,6 +67,10 @@ final class Env(
   lazy val crosstableApi = new CrosstableApi(
     coll = db(CollectionCrosstable),
     gameColl = gameColl)
+
+  system.scheduler.schedule(2 second, 2 second) {
+    lila.log("crosstable").debug(s"${crosstableApi.nbComputing}")
+  }
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)

@@ -68,12 +68,14 @@ final class CrosstableApi(
     timeToLive = 5 seconds)
 
   private var computing = 0
-  private val maxComputing = 4
+  private val maxComputing = 3
+
+  def nbComputing = computing
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] = {
-    if (computing > maxComputing) fuccess(none)
+    if (computing >= maxComputing) fuccess(none)
     else {
-      computing = computing + 1
+      computing = (computing + 1) min maxComputing
       UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
         case (Some((u1, u2)), List(su1, su2)) =>
           val selector = $doc(
@@ -112,7 +114,7 @@ final class CrosstableApi(
         case _ => fuccess(none)
       }
     } andThenAnyway {
-      computing = computing - 1
+      computing = (computing - 1) max 0
     }
   }
 
