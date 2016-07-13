@@ -15,12 +15,22 @@ final class PlanApi(
   import PatronHandlers._
   import ChargeHandlers._
 
-  def checkout(userOption: Option[User], data: Checkout): Fu[StripeSubscription] =
+  def checkout(userOption: Option[User], data: Checkout): Funit =
+    if (data.isMonthly) checkoutMonthly(userOption, data)
+    else checkoutOneTime(userOption, data)
+
+  private def checkoutMonthly(userOption: Option[User], data: Checkout): Funit =
     getOrMakePlan(data.cents) flatMap { plan =>
       userOption.fold(setAnonPlan(plan, data)) { user =>
         setUserPlan(user, plan, data)
       }
+    } void
+
+  private def checkoutOneTime(userOption: Option[User], data: Checkout): Funit = userOption match {
+    case None       => stripeClient.chargeAnonCard(data)
+    case Some(user) => createCustomer(user, data, plan = none) flatMap { customer =>
     }
+  }
 
   def switch(user: User, cents: Cents): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -187,17 +197,17 @@ final class PlanApi(
 
   private def setUserPlan(user: User, plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
-      case None => createCustomer(user, plan, data) map { customer =>
-        customer.firstSubscription err s"Can't create ${user.id} subscription"
+      case None => createCustomer(user, data, plan.some) map { customer =>
+        customer.firstSubscription err s"Can't create ${user.id} subscription for customer $customer"
       }
       case Some(customer) => setCustomerPlan(customer, plan, data.source)
     }
 
-  private def createCustomer(user: User, plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
-    stripeClient.createCustomer(user, plan, data) flatMap { customer =>
+  private def createCustomer(user: User, data: Checkout, plan: Option[StripePlan]): Fu[StripeCustomer] =
+    stripeClient.createCustomer(user, data, plan) flatMap { customer =>
       saveStripePatron(user, customer.id) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
-        logger.info(s"Subed ${user.id} to ${plan}") inject customer
+        logger.info(s"Create ${user.id} customer $customer") inject customer
     }
 
   private def saveStripePatron(user: User, customerId: CustomerId): Funit = userPatron(user) flatMap {

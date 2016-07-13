@@ -61,11 +61,12 @@ object Plan extends LilaController {
     import lila.plan.StripeClient._
     lila.plan.Checkout.form.bindFromRequest.fold(
       err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
-      data => Env.plan.api.checkout(ctx.me, data) map { res =>
-        Redirect {
-          if (ctx.isAuth) routes.Plan.index()
+      data => Env.plan.api.checkout(ctx.me, data) inject Redirect {
+        if (ctx.isAuth) {
+          if (data.isMonthly) routes.Plan.index()
           else routes.Plan.thanks()
         }
+        else routes.Plan.thanks()
       } recover {
         case e: StripeException =>
           lila.log("plan").error("Plan.charge", e)

@@ -5,28 +5,26 @@ import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 
 import lila.common.PimpedJson._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 private final class StripeClient(config: StripeClient.Config) {
 
   import StripeClient._
   import JsonHandlers._
 
-  def createCustomer(user: User, plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
-    UserRepo email user.id flatMap { email =>
-      postOne[StripeCustomer]("customers",
-        'plan -> plan.id,
-        'email -> data.email,
-        'source -> data.source.value,
-        'email -> email,
-        'description -> user.id)
-    }
+  def createCustomer(user: User, data: Checkout, plan: Option[StripePlan]): Fu[StripeCustomer] =
+    postOne[StripeCustomer]("customers",
+      'plan -> plan.map(_.id),
+      'source -> data.source.value,
+      'email -> data.email,
+      'description -> user.username)
 
   def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
     postOne[StripeCustomer]("customers",
       'plan -> plan.id,
+      'source -> data.source.value,
       'email -> data.email,
-      'source -> data.source.value)
+      'description -> "Anonymous")
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}")
@@ -65,6 +63,26 @@ private final class StripeClient(config: StripeClient.Config) {
       'currency -> "usd",
       'interval -> "month",
       'name -> StripePlan.make(cents).name)
+
+  def chargeAnonCard(data: Checkout): Funit =
+    postOne[StripePlan]("charges",
+      'amount -> data.cents.value,
+      'currency -> "usd",
+      'source -> data.source.value,
+      'description -> "Anon one-time",
+      'metadata -> Map("email" -> data.email),
+      'receipt_email -> data.email).void
+
+  def chargeUserCard(data: Checkout, user: User): Funit =
+    postOne[StripePlan]("charges",
+      'amount -> data.cents.value,
+      'currency -> "usd",
+      'source -> data.source.value,
+      'description -> "User one-time",
+      'metadata -> Map(
+        "email" -> data.email,
+        "user" -> user.username),
+      'receipt_email -> data.email).void
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {

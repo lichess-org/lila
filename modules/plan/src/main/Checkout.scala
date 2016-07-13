@@ -3,11 +3,17 @@ package lila.plan
 import play.api.data._
 import play.api.data.Forms._
 
-case class Checkout(token: String, email: Option[String], amount: Int) {
+case class Checkout(
+    token: String,
+    email: Option[String],
+    amount: Int,
+    freq: String) {
 
   def source = Source(token)
 
   def cents = Cents(amount)
+
+  def isMonthly = freq == "monthly"
 }
 
 object Checkout {
@@ -15,7 +21,8 @@ object Checkout {
   val form = Form(mapping(
     "token" -> nonEmptyText,
     "email" -> optional(email),
-    "amount" -> number(min = 100)
+    "amount" -> number(min = 100),
+    "freq" -> nonEmptyText
   )(Checkout.apply)(Checkout.unapply))
 }
 

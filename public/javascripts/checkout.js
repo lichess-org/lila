@@ -5,8 +5,8 @@ lichess.checkout = function(publicKey) {
   var min = 100,
     max = 100 * 100000
 
-  var isMonthly = function() {
-    return $checkout.find('group.freq input:checked').attr('id') === 'freq_montly';
+  var getFreq = function() {
+    return $checkout.find('group.freq input:checked').val();
   };
 
   $checkout.find('group.amount .other label').on('click', function() {
@@ -45,11 +45,14 @@ lichess.checkout = function(publicKey) {
     var $input = $checkout.find('group.amount input:checked');
     var usd = $input.data('usd');
     var amount = parseInt($input.data('amount'));
+    var freq = getFreq();
     if (amount < min || amount > max) return;
     $stripeForm.find('.amount').val(amount);
+    $stripeForm.find('.freq').val(freq);
+    var desc = freq === 'monthly' ? usd + '/month' : usd + ' one-time';
 
     stripeHandler.open({
-      description: usd + '/month',
+      description: desc,
       amount: amount,
       panelLabel: '{{amount}}',
       email: $checkout.data('email')
