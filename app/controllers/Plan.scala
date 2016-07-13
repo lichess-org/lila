@@ -56,25 +56,27 @@ object Plan extends LilaController {
       Env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
-  def charge = AuthBody { implicit ctx =>
-    me =>
-      implicit val req = ctx.body
-      import lila.plan.StripeClient._
-      lila.plan.Checkout.form.bindFromRequest.fold(
-        err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
-        data => Env.plan.api.checkout(me, data) map { res =>
-          Redirect(routes.Plan.index())
-        } recover {
-          case e: StripeException =>
-            lila.log("plan").error("Plan.charge", e)
-            BadRequest(html.plan.badCheckout(e.toString))
+  def charge = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    import lila.plan.StripeClient._
+    lila.plan.Checkout.form.bindFromRequest.fold(
+      err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
+      data => Env.plan.api.checkout(ctx.me, data) map { res =>
+        Redirect {
+          if (ctx.isAuth) routes.Plan.index()
+          else routes.Plan.thanks()
         }
-      )
+      } recover {
+        case e: StripeException =>
+          lila.log("plan").error("Plan.charge", e)
+          BadRequest(html.plan.badCheckout(e.toString))
+      }
+    )
   }
 
   def thanks = Open { implicit ctx =>
-    fuccess {
-      html.plan.thanks()
+    OptionOk(Prismic.getBookmark("donate-thanks")) {
+      case (doc, resolver) => views.html.site.page(doc, resolver)
     }
   }
 

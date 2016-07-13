@@ -37,10 +37,10 @@ description = "Free chess for everyone, forever!").some) {
         </p>
       </div>
       <div class="content">
-        @if(ctx.isAuth) {
         <div class="plan_checkout" data-email="@email">
           <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
+            <input type="hidden" class="email" name="email" />
             <input type="hidden" class="amount" name="amount" />
           </form>
           <form class="paypal_checkout none" action="https://www.paypal.com/cgi-bin/webscr" method="POST" target="_top">
@@ -79,14 +79,6 @@ description = "Free chess for everyone, forever!").some) {
             <button class="paypal button">Use PayPal</button>
           </div>
         </div>
-        } else {
-        <div class="checkout">
-          <h3>Your one-time support</h3>
-          <div class="buttons">
-            @paypalOnce()
-          </div>
-        </div>
-        }
       </div>
     </div>
   </div>

@@ -12,14 +12,21 @@ private final class StripeClient(config: StripeClient.Config) {
   import StripeClient._
   import JsonHandlers._
 
-  def createCustomer(user: User, plan: StripePlan, source: Source): Fu[StripeCustomer] =
+  def createCustomer(user: User, plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
     UserRepo email user.id flatMap { email =>
       postOne[StripeCustomer]("customers",
         'plan -> plan.id,
-        'source -> source.value,
+        'email -> data.email,
+        'source -> data.source.value,
         'email -> email,
         'description -> user.id)
     }
+
+  def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
+    postOne[StripeCustomer]("customers",
+      'plan -> plan.id,
+      'email -> data.email,
+      'source -> data.source.value)
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}")

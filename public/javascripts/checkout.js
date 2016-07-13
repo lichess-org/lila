@@ -64,6 +64,7 @@ lichess.checkout = function(publicKey) {
     token: function(token) {
       $checkout.find('.service').html(lichess.spinnerHtml);
       $stripeForm.find('.token').val(token.id);
+      $stripeForm.find('.email').val(token.email);
       $stripeForm.submit();
     }
   });

@@ -15,9 +15,11 @@ final class PlanApi(
   import PatronHandlers._
   import ChargeHandlers._
 
-  def checkout(user: User, data: Checkout): Fu[StripeSubscription] =
+  def checkout(userOption: Option[User], data: Checkout): Fu[StripeSubscription] =
     getOrMakePlan(data.cents) flatMap { plan =>
-      setUserPlan(user, plan, data.source)
+      userOption.fold(setAnonPlan(plan, data)) { user =>
+        setUserPlan(user, plan, data)
+      }
     }
 
   def switch(user: User, cents: Cents): Fu[StripeSubscription] =
@@ -52,7 +54,13 @@ final class PlanApi(
         stripe = Charge.Stripe(charge.id, charge.customer).some,
         cents = charge.amount)) >> {
         patronOption match {
-          case None => fufail(s"Charged unknown customer $charge")
+          case None =>
+            logger.info(s"Charged anon customer $charge")
+            lila.mon.plan.amount(charge.amount.value)
+            bus.publish(lila.hub.actorApi.plan.ChargeEvent(
+              username = "Anonymous",
+              amount = charge.amount.value), 'stripe)
+            funit
           case Some(patron) if patron.canLevelUp =>
             UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
               patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
@@ -171,19 +179,25 @@ final class PlanApi(
   def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
 
-  private def setUserPlan(user: User, plan: StripePlan, source: Source): Fu[StripeSubscription] =
-    userCustomer(user) flatMap {
-      case None => createCustomer(user, plan, source) map { customer =>
-        customer.firstSubscription err s"Can't create ${user.id} subscription"
-      }
-      case Some(customer) => setCustomerPlan(customer, plan, source)
+  private def setAnonPlan(plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+    stripeClient.createAnonCustomer(plan, data) map { customer =>
+      logger.info(s"Subed anon $customer to ${plan}")
+      customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
     }
 
-  private def createCustomer(user: User, plan: StripePlan, source: Source): Fu[StripeCustomer] =
-    stripeClient.createCustomer(user, plan, source) flatMap { customer =>
+  private def setUserPlan(user: User, plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+    userCustomer(user) flatMap {
+      case None => createCustomer(user, plan, data) map { customer =>
+        customer.firstSubscription err s"Can't create ${user.id} subscription"
+      }
+      case Some(customer) => setCustomerPlan(customer, plan, data.source)
+    }
+
+  private def createCustomer(user: User, plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
+    stripeClient.createCustomer(user, plan, data) flatMap { customer =>
       saveStripePatron(user, customer.id) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
-        logger.info(s"Subed ${user.id} ${plan}") inject customer
+        logger.info(s"Subed ${user.id} to ${plan}") inject customer
     }
 
   private def saveStripePatron(user: User, customerId: CustomerId): Funit = userPatron(user) flatMap {
