@@ -30,10 +30,13 @@ object Plan extends LilaController {
     }
 
   private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] =
-    Ok(html.plan.index(
-      stripePublicKey = Env.plan.stripePublicKey,
-      email = email,
-      patron = patron)).fuccess
+    Env.plan.api.recentChargeUserIds(90) map { userIds =>
+      Ok(html.plan.index(
+        stripePublicKey = Env.plan.stripePublicKey,
+        email = email,
+        patron = patron,
+        userIds = userIds))
+    }
 
   private def indexPatron(me: UserModel, patron: lila.plan.Patron)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me) flatMap {

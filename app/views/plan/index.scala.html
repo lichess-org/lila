@@ -1,4 +1,4 @@
-@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron])(implicit ctx: Context)
+@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], userIds: List[String])(implicit ctx: Context)
 
 @title = @{"Become a patron of lichess.org"}
 
@@ -149,6 +149,14 @@ description = "Free chess for everyone, forever!").some) {
         See the <a href="@routes.Plan.features">detailed features comparison</a>.
       </dd>
     </dl>
+  </div>
+  <div class="user_list">
+    <h2>The celebrated patrons who make lichess possible</h2>
+    <div class="list">
+      @userIds.map { userId =>
+      @userIdLink(userId.some)
+      }
+    </div>
   </div>
 </div>
 }

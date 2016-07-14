@@ -7,13 +7,13 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
   final implicit class ExtendColl(coll: Coll) {
 
-    def uno[D: BSONDocumentReader](selector: BSONDocument): Fu[Option[D]] =
+    def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector).uno[D]
 
-    def list[D: BSONDocumentReader](selector: BSONDocument): Fu[List[D]] =
+    def list[D: BSONDocumentReader](selector: Bdoc): Fu[List[D]] =
       coll.find(selector).list[D]()
 
-    def list[D: BSONDocumentReader](selector: BSONDocument, max: Int): Fu[List[D]] =
+    def list[D: BSONDocumentReader](selector: Bdoc, max: Int): Fu[List[D]] =
       coll.find(selector).list[D](max)
 
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
@@ -29,9 +29,9 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byIds[D: BSONDocumentReader](ids: Iterable[String]): Fu[List[D]] =
       byIds[D, String](ids)
 
-    def countSel(selector: BSONDocument): Fu[Int] = coll count selector.some
+    def countSel(selector: Bdoc): Fu[Int] = coll count selector.some
 
-    def exists(selector: BSONDocument): Fu[Boolean] = countSel(selector).map(0!=)
+    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).map(0!=)
 
     def byOrderedIds[D: BSONDocumentReader](ids: Iterable[String])(docId: D => String): Fu[List[D]] =
       byIds[D](ids) map { docs =>
@@ -47,44 +47,52 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         ids.map(docsMap.get).toList
       }
 
-    def primitive[V: BSONValueReader](selector: BSONDocument, field: String): Fu[List[V]] =
+    def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))
-        .list[BSONDocument]()
+        .list[Bdoc]()
         .map {
           _ flatMap { _.getAs[V](field) }
         }
 
-    def primitiveOne[V: BSONValueReader](selector: BSONDocument, field: String): Fu[Option[V]] =
-      coll.find(selector, $doc(field -> true))
-        .uno[BSONDocument]
-        .map {
-          _ flatMap { _.getAs[V](field) }
-        }
-
-    def primitiveOne[V: BSONValueReader](selector: BSONDocument, sort: BSONDocument, field: String): Fu[Option[V]] =
+    def primitive[V: BSONValueReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))
         .sort(sort)
-        .uno[BSONDocument]
+        .list[Bdoc]()
         .map {
           _ flatMap { _.getAs[V](field) }
         }
 
-    def updateField[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
+    def primitiveOne[V: BSONValueReader](selector: Bdoc, field: String): Fu[Option[V]] =
+      coll.find(selector, $doc(field -> true))
+        .uno[Bdoc]
+        .map {
+          _ flatMap { _.getAs[V](field) }
+        }
+
+    def primitiveOne[V: BSONValueReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
+      coll.find(selector, $doc(field -> true))
+        .sort(sort)
+        .uno[Bdoc]
+        .map {
+          _ flatMap { _.getAs[V](field) }
+        }
+
+    def updateField[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
       coll.update(selector, $set(field -> value))
 
-    def updateFieldUnchecked[V: BSONValueWriter](selector: BSONDocument, field: String, value: V) =
+    def updateFieldUnchecked[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
       coll.uncheckedUpdate(selector, $set(field -> value))
 
-    def incField(selector: BSONDocument, field: String, value: Int = 1) =
+    def incField(selector: Bdoc, field: String, value: Int = 1) =
       coll.update(selector, $inc(field -> value))
 
-    def incFieldUnchecked(selector: BSONDocument, field: String, value: Int = 1) =
+    def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1) =
       coll.uncheckedUpdate(selector, $inc(field -> value))
 
-    def unsetField(selector: BSONDocument, field: String, multi: Boolean = false) =
+    def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update(selector, $unset(field), multi = multi)
 
-    def fetchUpdate[D: BSONDocumentHandler](selector: BSONDocument)(update: D => BSONDocument): Funit =
+    def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
       uno[D](selector) flatMap {
         _ ?? { doc =>
           coll.update(selector, update(doc)).void

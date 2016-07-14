@@ -188,7 +188,10 @@ final class PlanApi(
     }
   }
 
-  def getOrMakePlan(cents: Cents): Fu[StripePlan] =
+  def recentChargeUserIds(nb: Int): Fu[List[String]] =
+    chargeColl.primitive[String]($empty, sort = $doc("date" -> -1), "userId")
+
+  private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
 
   private def setAnonPlan(plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
