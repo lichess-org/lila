@@ -35,6 +35,7 @@ case class Entry(
     case "simul-join"   => simulJoinHandler.read(data)
     case "study-create" => studyCreateHandler.read(data)
     case "study-like"   => studyLikeHandler.read(data)
+    case "plan-start"   => planStartHandler.read(data)
     case _              => sys error s"Unhandled atom type: $typ"
   }) match {
     case Success(atom) => Some(atom)
@@ -70,6 +71,7 @@ object Entry {
       case d: SimulJoin   => "simul-join" -> toBson(d)
       case d: StudyCreate => "study-create" -> toBson(d)(studyCreateHandler)
       case d: StudyLike   => "study-like" -> toBson(d)(studyLikeHandler)
+      case d: PlanStart   => "plan-start" -> toBson(d)(planStartHandler)
     }
   } match {
     case (typ, bson) =>
@@ -91,6 +93,7 @@ object Entry {
     implicit val simulJoinHandler = Macros.handler[SimulJoin]
     implicit val studyCreateHandler = Macros.handler[StudyCreate]
     implicit val studyLikeHandler = Macros.handler[StudyLike]
+    implicit val planStartHandler = Macros.handler[PlanStart]
   }
 
   object atomJsonWrite {
@@ -108,6 +111,7 @@ object Entry {
     implicit val simulJoinWrite = Json.writes[SimulJoin]
     implicit val studyCreateWrite = Json.writes[StudyCreate]
     implicit val studyLikeWrite = Json.writes[StudyLike]
+    implicit val planStartWrite = Json.writes[PlanStart]
     implicit val atomWrite = Writes[Atom] {
       case d: Follow      => followWrite writes d
       case d: TeamJoin    => teamJoinWrite writes d
@@ -123,6 +127,7 @@ object Entry {
       case d: SimulJoin   => simulJoinWrite writes d
       case d: StudyCreate => studyCreateWrite writes d
       case d: StudyLike   => studyLikeWrite writes d
+      case d: PlanStart   => planStartWrite writes d
     }
   }
 

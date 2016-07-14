@@ -55,6 +55,9 @@ case StudyCreate(userId, studyId, studyName) => {
 case StudyLike(userId, studyId, studyName) => {
 @userIdLink(userId.some, withOnline = false) likes <a href="@routes.Study.show(studyId)">@studyName</a>
 }
+case PlanStart(userId) => {
+@userIdLink(userId.some, withOnline = false) became a <a href="@routes.Plan.index">lichess patron</a>
+}
 }
 @momentFromNow(e.date)
 }

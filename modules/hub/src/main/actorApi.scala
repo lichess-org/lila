@@ -107,8 +107,7 @@ case class SimulCreate(userId: String, simulId: String, simulName: String) exten
 case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true)
 case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom("studyCreate", true)
 case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true)
-// case class PlanStart(userId: String) extends Atom("planStart", true)
-// case class PlanExpire(userId: String) extends Atom("planExpire", true)
+case class PlanStart(userId: String) extends Atom("planStart", true)
 
 object propagation {
   sealed trait Propagation
