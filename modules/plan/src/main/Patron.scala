@@ -46,7 +46,6 @@ object Patron {
       email: Option[PayPal.Email],
       subId: Option[PayPal.SubId],
       lastCharge: DateTime) {
-    def isExpired = lastCharge isBefore DateTime.now.minusMonths(1)
   }
   object PayPal {
     case class Email(value: String) extends AnyVal

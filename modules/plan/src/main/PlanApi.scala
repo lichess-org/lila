@@ -164,9 +164,7 @@ final class PlanApi(
       }
 
       case (_, Some(paypal)) =>
-        if (paypal.isExpired)
-          patronColl.update($id(user.id), patron.removePayPal) >> sync(user)
-        else if (!paypal.isExpired && !user.plan.active) {
+        if (!user.plan.active) {
           logger.warn(s"sync: enable plan of customer with paypal")
           UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
         }
