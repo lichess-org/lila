@@ -41,7 +41,6 @@ final class Env(
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
-    isDonor = Env.donation.isDonor,
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
     insightShare = Env.insight.share,

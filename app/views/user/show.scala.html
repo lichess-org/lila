@@ -25,6 +25,11 @@ url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
 <div class="content_box no_padding user_show@if(ctx.is(u)){ myself}">
   <div class="content_box_top">
+    @if(u.plan.active) {
+    <a href="@routes.Plan.index" class="trophy award patron icon3d hint--left" data-hint="lichess patron for @pluralize("month", u.plan.months)">
+      <span data-icon="@patronIconChar"></span>
+    </a>
+    }
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
       href="@url"

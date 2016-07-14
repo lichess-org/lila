@@ -95,14 +95,23 @@ div.user_show .fire_trophy.bongcloudWarrior span {
   filter: hue-rotate(70deg);
   -webkit-filter: hue-rotate(70deg);
 }
-div.user_show .trophy.donor span {
+div.user_show .trophy.patron {
+  font-size: 50px;
+  margin-top: -40px!important;
+  margin-right: 10px!important;
+  transform: scale(-1, 1);
+}
+div.user_show .trophy.patron::after {
+  transform: scale(-1, 1);
+}
+div.user_show .trophy.patron span {
   color: #d59120;
   transition: 0.5s;
 }
-div.user_show .trophy.donor:hover {
-  margin-top: -14px!important;
+div.user_show .trophy.patron:hover {
+  margin-top: -44px!important;
 }
-div.user_show .trophy.donor span:hover {
+div.user_show .trophy.patron span:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
 }
 div.user_show .honorific {

@@ -27,7 +27,6 @@ case class UserInfo(
     nbPosts: Int,
     nbStudies: Int,
     playTime: User.PlayTime,
-    donor: Boolean,
     trophies: Trophies,
     isStreamer: Boolean,
     insightVisible: Boolean) {
@@ -39,11 +38,6 @@ case class UserInfo(
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 
   def allTrophies = List(
-    donor option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Donor,
-      date = org.joda.time.DateTime.now),
     isStreamer option Trophy(
       _id = "",
       user = user.id,
@@ -65,7 +59,6 @@ object UserInfo {
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
-    isDonor: String => Fu[Boolean],
     isHostingSimul: String => Fu[Boolean],
     isStreamer: String => Boolean,
     insightShare: lila.insight.Share,
@@ -80,11 +73,10 @@ object UserInfo {
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
-      isDonor(user.id) zip
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) flatMap {
-        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime) =>
+        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -101,7 +93,6 @@ object UserInfo {
               nbPosts = nbPosts,
               nbStudies = nbStudies,
               playTime = playTime,
-              donor = isDonor,
               trophies = trophies,
               isStreamer = isStreamer(user.id),
               insightVisible = insightVisible)
