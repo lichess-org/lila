@@ -280,13 +280,20 @@ private[tournament] final class TournamentApi(
 
   def ejectLame(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
-      PlayerRepo.remove(tour.id, userId) >>
-        tour.isStarted.?? {
+      PlayerRepo.remove(tour.id, userId) >> {
+        if (tour.isStarted)
           PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour))
           }
-        } >>
+        else if (tour.isFinished && tour.winnerId.contains(userId))
+          PlayerRepo winner tour.id flatMap {
+            _ ?? { p =>
+              TournamentRepo.setWinnerId(tour.id, p.userId)
+            }
+          }
+        else funit
+      } >>
         updateNbPlayers(tour.id) >>-
         socketReload(tour.id) >>- publish()
     }
