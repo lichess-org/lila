@@ -6,14 +6,18 @@ case class CustomerId(value: String) extends AnyVal
 case class ChargeId(value: String) extends AnyVal
 
 case class Source(value: String) extends AnyVal
-case class Usd(value: Int) extends AnyVal with Ordered[Usd] {
+case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
-  def cents = Cents(value * 100)
+  def cents = Cents((value * 100).toInt)
   override def toString = s"$$$value"
+}
+object Usd {
+  def apply(value: Double): Usd = Usd(BigDecimal(value))
+  def apply(value: Int): Usd = Usd(BigDecimal(value))
 }
 case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
   def compare(other: Cents) = value compare other.value
-  def usd = Usd(value / 100)
+  def usd = Usd(value / 100d)
   override def toString = usd.toString
 }
 

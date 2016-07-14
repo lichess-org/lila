@@ -21,12 +21,12 @@ object Checkout {
   val form = Form(mapping(
     "token" -> nonEmptyText,
     "email" -> optional(email),
-    "amount" -> number(min = 100),
+    "amount" -> number(min = 100, max = 100 * 100000),
     "freq" -> nonEmptyText
   )(Checkout.apply)(Checkout.unapply))
 }
 
-case class Switch(usd: Int) {
+case class Switch(usd: BigDecimal) {
 
   def cents = Usd(usd).cents
 }
@@ -34,6 +34,8 @@ case class Switch(usd: Int) {
 object Switch {
 
   val form = Form(mapping(
-    "usd" -> number(min = 1)
+    "usd" -> bigDecimal(precision = 10, scale = 2)
+      .verifying(_ >= 1)
+      .verifying(_ <= 100000)
   )(Switch.apply)(Switch.unapply))
 }
