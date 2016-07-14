@@ -10,6 +10,10 @@ table.all td,
 table.all th {
   border-top: 1px solid #ddd;
 }
+body.dark table.all td,
+body.dark table.all th {
+  border-color: #444;
+}
 table.all td {
   padding: 30px;
 }
@@ -34,12 +38,19 @@ table.all .change form {
   padding: 1em;
   background: #f4f4f4;
 }
+body.dark table.all .change form {
+  background: #222;
+}
 table.all .change form input {
   width: 5em;
   padding: 3px 5px;
 }
 table.all .change form p {
   margin-bottom: 1em;
+}
+table.all .change form button,
+table.all .change form a {
+  margin-left: 10px;
 }
 table.all .change form.cancel button {
   color: red;
@@ -71,7 +82,7 @@ table.all .thanks {
 
 .motivation .moto,
 .motivation .one_time_active {
-  margin: 30px 0 50px 0;
+  margin: 30px 0 60px 0;
   padding: 30px 0;
   background: #759900;
   color: #fff;
@@ -119,6 +130,9 @@ table.all .thanks {
   background: #759900!important;
   border-color: #ccc!important;
 }
+body.dark .motivation .plan_checkout group input:checked + label {
+  border-color: #555!important;
+}
 .motivation .plan_checkout group.freq > div {
   flex: 0 0 50%;
 }
@@ -132,9 +146,18 @@ table.all .thanks {
   font-size: 1.1em;
 }
 .motivation .plan_checkout .service button {
+  flex: 1 1 auto;
   font-weight: normal;
-  padding: 20px 10px;
-  border-color: #ccc!important;
+  padding: 20px 0;
+  border-color: #bbb!important;
+  box-shadow: 0 0 7px rgba(0,0,0,0.5);
+}
+.motivation .plan_checkout .service button:first-child {
+  margin-right: 25px;
+}
+body.dark .motivation .plan_checkout .service button {
+  border-color: #555!important;
+  box-shadow: 0 0 7px rgba(255,255,255,0.5);
 }
 .motivation .small_team {
   text-align: center;
@@ -143,12 +166,15 @@ table.all .thanks {
   margin-top: 30px;
 }
 .faq {
-  margin: 40px 0;
+  margin: 50px 0 40px 0;
   padding: 30px 0;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
+}
+body.dark .faq {
+  border-color: #555;
 }
 .faq a {
   color: #3893E8;
@@ -157,7 +183,7 @@ table.all .thanks {
   flex: 0 0 31%;
 }
 .faq dt {
-  font-size: 1.1em;
+  font-size: 1.3em;
   margin-bottom: 1em;
   height: 3em;
 }
@@ -168,7 +194,7 @@ table.all .thanks {
   display: block;
   text-align: center;
   font-size: 1.5em;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .user_list .list {
   display: flex;
@@ -176,7 +202,7 @@ table.all .thanks {
   font-size: 1.5em;
 }
 .user_list .list a {
-  flex: 0 0 33%;
+  flex: 0 0 33.3%;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px 0;
