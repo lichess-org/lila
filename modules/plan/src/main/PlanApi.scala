@@ -72,7 +72,7 @@ final class PlanApi(
                 amount = charge.amount.value), 'stripe)
               val p2 = patron.copy(
                 stripe = Patron.Stripe(charge.customer).some
-              ).levelUpIfPossible.expireInOneMonth
+              ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
                 UserRepo.setPlan(user,
                   if (patron.canLevelUp) user.plan.incMonths

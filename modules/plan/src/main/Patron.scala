@@ -22,7 +22,7 @@ case class Patron(
     lastLevelUp = if (canLevelUp) DateTime.now else lastLevelUp)
 
   def expireInOneMonth: Patron = copy(
-    expiresAt = DateTime.now.plusMonths(1).plusDays(1).some)
+    expiresAt = DateTime.now.plusMonths(1).plusDays(7).some)
 
   def expireInOneMonth(cond: Boolean): Patron =
     if (cond) expireInOneMonth
