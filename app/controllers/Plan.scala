@@ -5,7 +5,7 @@ import play.api.mvc._, Results._
 
 import lila.api.Context
 import lila.app._
-import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo }
+import lila.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -15,9 +15,12 @@ object Plan extends LilaController {
     ctx.me.fold(indexAnon) { me =>
       import lila.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
-        case ReloadUser                               => Redirect(routes.Plan.index).fuccess
-        case Synced(Some(patron)) if patron.isDefined => indexPatron(me, patron)
-        case Synced(_)                                => indexFreeUser(me)
+        case ReloadUser => Redirect(routes.Plan.index).fuccess
+        case Synced(Some(patron), None) => UserRepo email me.id flatMap { email =>
+          renderIndex(email, patron.some)
+        }
+        case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
+        case Synced(_, _)                         => indexFreeUser(me)
       }
     }
   }
@@ -38,8 +41,8 @@ object Plan extends LilaController {
         userIds = userIds))
     }
 
-  private def indexPatron(me: UserModel, patron: lila.plan.Patron)(implicit ctx: Context) =
-    Env.plan.api.customerInfo(me) flatMap {
+  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
+    Env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
       case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email, patron.some)
       case None => UserRepo email me.id flatMap { email =>

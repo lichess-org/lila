@@ -119,32 +119,24 @@ final class PlanApi(
 
   def getEvent = stripeClient.getEvent _
 
-  def customerInfo(user: User): Fu[Option[CustomerInfo]] =
-    userCustomerId(user) flatMap {
-      _ ?? { customerId =>
-        stripeClient.getCustomer(customerId) zip
-          stripeClient.getNextInvoice(customerId) zip
-          stripeClient.getPastInvoices(customerId) map {
-            case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
-              customer.firstSubscription match {
-                case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices).some
-                case None =>
-                  logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
-                  none
-              }
-            case ((Some(customer), None), _) =>
-              customer.firstSubscription match {
-                case Some(sub) => OneTimeCustomerInfo(customer, sub).some
-                case None =>
-                  logger.warn(s"Can't identify ${user.username} one-time subscription $customer")
-                  none
-              }
-            case fail =>
-              logger.warn(s"Can't fetch ${user.username} customer info $fail")
+  def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
+    stripeClient.getNextInvoice(customer.id) zip
+      stripeClient.getPastInvoices(customer.id) map {
+        case (Some(nextInvoice), pastInvoices) =>
+          customer.firstSubscription match {
+            case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices).some
+            case None =>
+              logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
+              none
+          }
+        case (None, _) =>
+          customer.firstSubscription match {
+            case Some(sub) => OneTimeCustomerInfo(customer, sub).some
+            case None =>
+              logger.warn(s"Can't identify ${user.username} one-time subscription $customer")
               none
           }
       }
-    }
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 
@@ -154,7 +146,7 @@ final class PlanApi(
       logger.warn(s"sync: disable plan of non-patron")
       UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
 
-    case None => fuccess(Synced(none))
+    case None => fuccess(Synced(none, none))
 
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
@@ -168,7 +160,7 @@ final class PlanApi(
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
           logger.warn(s"sync: enable plan of customer with a subscription")
           UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
-        case customer => fuccess(Synced(patron.some))
+        case customer => fuccess(Synced(patron.some, customer))
       }
 
       case (_, Some(paypal)) =>
@@ -178,13 +170,13 @@ final class PlanApi(
           logger.warn(s"sync: enable plan of customer with paypal")
           UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
         }
-        else fuccess(Synced(patron.some))
+        else fuccess(Synced(patron.some, none))
 
       case (None, None) if user.plan.active =>
         logger.warn(s"sync: disable plan of patron with no paypal or stripe")
         UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
 
-      case _ => fuccess(Synced(patron.some))
+      case _ => fuccess(Synced(patron.some, none))
     }
   }
 
@@ -273,6 +265,6 @@ object PlanApi {
   sealed trait SyncResult
   object SyncResult {
     case object ReloadUser extends SyncResult
-    case class Synced(patron: Option[Patron]) extends SyncResult
+    case class Synced(patron: Option[Patron], customer: Option[StripeCustomer]) extends SyncResult
   }
 }
