@@ -4,12 +4,18 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 case class Charge(
-  _id: String, // random
-  userId: Option[String],
-  stripe: Option[Charge.Stripe] = none,
-  payPal: Option[Charge.PayPal] = none,
-  cents: Cents,
-  date: DateTime)
+    _id: String, // random
+    userId: Option[String],
+    stripe: Option[Charge.Stripe] = none,
+    payPal: Option[Charge.PayPal] = none,
+    cents: Cents,
+    date: DateTime) {
+
+  def serviceName =
+    if (stripe.nonEmpty) "stripe"
+    else if (payPal.nonEmpty) "paypal"
+    else "???"
+}
 
 object Charge {
 

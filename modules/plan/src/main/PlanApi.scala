@@ -191,6 +191,9 @@ final class PlanApi(
   def recentChargeUserIds(nb: Int): Fu[List[String]] =
     chargeColl.primitive[String]($empty, sort = $doc("date" -> -1), "userId")
 
+  def recentChargesOf(user: User): Fu[List[Charge]] =
+    chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
+
   private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
 

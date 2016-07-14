@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -235,11 +235,22 @@
   </div>
   }
   <div class="mod_log">
-    <strong data-icon="!"> Moderation history@if(history.isEmpty){: nothing to show.}</strong>
+    <strong class="text" data-icon="!">Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
     <ul>
       @history.map { e =>
       <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @momentFromNow(e.date)</li>
+      }
+    </ul>
+    <br />
+    }
+  </div>
+  <div class="plan_charges">
+    <strong class="text" data-icon="@patronIconChar">Patron payments@if(charges.isEmpty){: none.}</strong>
+    @if(charges.nonEmpty) {
+    <ul>
+      @charges.map { c =>
+      <li>@c.cents.usd with @c.serviceName on @showDateTime(c.date)</li>
       }
     </ul>
     <br />
