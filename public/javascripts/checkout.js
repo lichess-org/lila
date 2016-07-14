@@ -18,7 +18,7 @@ lichess.checkout = function(publicKey) {
     var amount;
     var raw = prompt("Please enter an amount in USD");
     try {
-      amount = parseFloat(raw.replace(/[^0-9\.,]/gim, ''));
+      amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
       return false;
     }
