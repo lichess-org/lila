@@ -28,6 +28,7 @@ final class Env(
 
   private lazy val notifier = new PlanNotifier(
     notifyApi = notifyApi,
+    scheduler = scheduler,
     timeline = hub.actor.timeline)
 
   lazy val api = new PlanApi(
@@ -41,7 +42,7 @@ final class Env(
 
   private lazy val expiration = new Expiration(patronColl, notifier)
 
-  scheduler.future(10 seconds, "Expire patron plans") {
+  scheduler.future(15 minutes, "Expire patron plans") {
     expiration.run
   }
 
