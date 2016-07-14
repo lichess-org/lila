@@ -25,7 +25,7 @@ description = "Free chess for everyone, forever!").some) {
     <div class="one_time_active">
       <h2>Thank you for your one-time donation!</h2>
       @p.expiresAt.map { expires =>
-      Your patron account will expire on the @showDate(expires).
+      If not renewed, your patron account will expire on @showDate(expires).
       }
     </div>
     }.getOrElse {

@@ -205,7 +205,9 @@ final class PlanApi(
       case None => createCustomer(user, data, plan) map { customer =>
         customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
       }
-      case Some(customer) => setCustomerPlan(customer, plan, data.source)
+      case Some(customer) => setCustomerPlan(customer, plan, data.source) flatMap { sub =>
+        saveStripePatron(user, customer.id, data.isMonthly) inject sub
+      }
     } flatMap { subscription =>
       logger.info(s"Subed user ${user.username} $subscription renew=$renew")
       if (renew) fuccess(subscription)
