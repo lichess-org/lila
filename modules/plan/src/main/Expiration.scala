@@ -5,7 +5,7 @@ import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 
-private final class Expiration(patronColl: Coll) {
+private final class Expiration(patronColl: Coll, notifier: PlanNotifier) {
 
   import BsonHandlers._
   import PatronHandlers._
@@ -21,7 +21,8 @@ private final class Expiration(patronColl: Coll) {
   private def disableUserPlanOf(patron: Patron): Funit =
     UserRepo byId patron.userId flatMap {
       _ ?? { user =>
-        UserRepo.setPlan(user, user.plan.disable)
+        UserRepo.setPlan(user, user.plan.disable) >>
+          notifier.onExpire(user)
       }
     }
 

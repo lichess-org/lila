@@ -41,6 +41,8 @@ final class JSONHandlers(
           "id" -> gameId.value,
           "opponent" -> opponentId.map(_.value).flatMap(getLightUser),
           "win" -> win.map(_.value))
+        case _: PlanStart  => Json.obj()
+        case _: PlanExpire => Json.obj()
       }
     }
 
@@ -57,9 +59,9 @@ final class JSONHandlers(
 
   implicit val newNotificationWrites: Writes[NewNotification] = new Writes[NewNotification] {
 
-    def writes(newNotification: NewNotification) = {
-      Json.obj("notification" -> newNotification.notification, "unread" -> newNotification.unreadNotifications)
-    }
+    def writes(newNotification: NewNotification) = Json.obj(
+      "notification" -> newNotification.notification,
+      "unread" -> newNotification.unreadNotifications)
   }
 }
 

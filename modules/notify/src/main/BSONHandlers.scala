@@ -51,6 +51,9 @@ private object BSONHandlers {
   implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
   implicit val GameEndHandler = Macros.handler[GameEnd]
 
+  implicit val PlanStartHandler = Macros.handler[PlanStart]
+  implicit val PlanExpireHandler = Macros.handler[PlanExpire]
+
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
     def read(b: BSONBoolean) = chess.Color(b.value)
     def write(c: chess.Color) = BSONBoolean(c.white)
@@ -70,6 +73,8 @@ private object BSONHandlers {
         case b: NewBlogPost              => NewBlogPostHandler.write(b)
         case LimitedTournamentInvitation => $empty
         case x: GameEnd                  => GameEndHandler.write(x)
+        case x: PlanStart                => PlanStartHandler.write(x)
+        case x: PlanExpire               => PlanExpireHandler.write(x)
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -100,11 +105,11 @@ private object BSONHandlers {
       case "newBlogPost"    => NewBlogPostHandler read reader.doc
       case "u"              => LimitedTournamentInvitation
       case "gameEnd"        => GameEndHandler read reader.doc
+      case "planStart"      => PlanStartHandler read reader.doc
+      case "planExpire"     => PlanExpireHandler read reader.doc
     }
 
-    def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = {
-      writeNotificationContent(n)
-    }
+    def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)
   }
 
   implicit val NotificationBSONHandler = Macros.handler[Notification]

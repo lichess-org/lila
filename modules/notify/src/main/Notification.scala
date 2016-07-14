@@ -113,3 +113,6 @@ object GameEnd {
   case class OpponentId(value: String) extends AnyVal
   case class Win(value: Boolean) extends AnyVal
 }
+
+case class PlanStart(userId: String) extends NotificationContent("planStart")
+case class PlanExpire(userId: String) extends NotificationContent("planExpire")

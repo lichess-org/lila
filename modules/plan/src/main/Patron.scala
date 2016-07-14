@@ -32,6 +32,8 @@ case class Patron(
   def removePayPal = copy(
     payPal = none,
     expiresAt = none)
+
+  def isDefined = stripe.isDefined || payPal.isDefined
 }
 
 object Patron {

@@ -258,7 +258,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
-  lazy val plan = project("plan", Seq(common, user)).settings(
+  lazy val plan = project("plan", Seq(common, user, notifyModule)).settings(
     libraryDependencies ++= provided(play.api, RM)
   )
 

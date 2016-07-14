@@ -3,14 +3,13 @@ package lila.qa
 import com.typesafe.config.Config
 import lila.common.DetectLanguage
 import lila.common.PimpedConfig._
-import lila.notify.NotifyApi
 
 final class Env(
     config: Config,
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
     mongoCache: lila.memo.MongoCache.Builder,
-    notifyApi : NotifyApi,
+    notifyApi: lila.notify.NotifyApi,
     db: lila.db.Env) {
 
   private val CollectionQuestion = config getString "collection.question"

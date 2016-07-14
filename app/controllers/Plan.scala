@@ -14,9 +14,9 @@ object Plan extends LilaController {
     ctx.me.fold(indexAnon) { me =>
       import lila.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
-        case ReloadUser           => Redirect(routes.Plan.index).fuccess
-        case Synced(Some(patron)) => indexPatron(me, patron)
-        case Synced(None)         => indexFreeUser(me)
+        case ReloadUser                               => Redirect(routes.Plan.index).fuccess
+        case Synced(Some(patron)) if patron.isDefined => indexPatron(me, patron)
+        case Synced(_)                                => indexFreeUser(me)
       }
     }
   }

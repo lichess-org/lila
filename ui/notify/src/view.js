@@ -184,7 +184,35 @@ var handlers = {
       }
       return result + ' vs ' + userFullName(n.content.opponent);
     }
-  }
+  },
+  planStart: {
+    html: function(notification) {
+      return genericNotification(notification, '/patron', '', [
+        m('span', [
+          m('strong', 'Thank you!'),
+          drawTime(notification)
+        ]),
+        m('span', 'You just became a lichess patron.')
+      ]);
+    },
+    text: function(n) {
+      return 'You just became a lichess patron.';
+    }
+  },
+  planExpire: {
+    html: function(notification) {
+      return genericNotification(notification, '/patron', '', [
+        m('span', [
+          m('strong', 'Patron account expired'),
+          drawTime(notification)
+        ]),
+        m('span', 'Please consider renewing it!')
+      ]);
+    },
+    text: function(n) {
+      return 'Patron account expired';
+    }
+  },
 };
 
 function drawNotification(notification) {

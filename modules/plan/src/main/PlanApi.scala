@@ -9,6 +9,7 @@ final class PlanApi(
     stripeClient: StripeClient,
     patronColl: Coll,
     chargeColl: Coll,
+    notifier: PlanNotifier,
     bus: lila.common.Bus) {
 
   import BsonHandlers._
@@ -90,7 +91,8 @@ final class PlanApi(
               payPal = Patron.PayPal(email, subId, DateTime.now).some,
               lastLevelUp = DateTime.now
             ).expireInOneMonth) >>
-              UserRepo.setPlan(user, lila.user.Plan.start)
+              UserRepo.setPlan(user, lila.user.Plan.start) >>
+              notifier.onStart(user)
             case Some(patron) if patron.canLevelUp =>
               patronColl.update($id(patron.id), patron.levelUpNow.expireInOneMonth) >>
                 UserRepo.setPlan(user, user.plan.incMonths)
@@ -206,7 +208,8 @@ final class PlanApi(
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
       saveStripePatron(user, customer.id, data.isMonthly) >>
-        UserRepo.setPlan(user, lila.user.Plan.start) >>-
+        UserRepo.setPlan(user, lila.user.Plan.start) >>
+        notifier.onStart(user) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
