@@ -57,7 +57,7 @@ object ApplicationBuild extends Build {
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     analyse, mod, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
-    evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
+    evaluation, chat, puzzle, tv, coordinate, blog, qa,
     history, worldMap, opening, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, fishnet, explorer, learn, plan)
@@ -103,11 +103,6 @@ object ApplicationBuild extends Build {
 
   lazy val blog = project("blog", Seq(common, memo, user, message)).settings(
     libraryDependencies ++= provided(play.api, RM, prismic)
-  )
-
-  lazy val donation = project("donation", Seq(
-    common, db, user)).settings(
-    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val evaluation = project("evaluation", Seq(

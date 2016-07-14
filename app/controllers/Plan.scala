@@ -96,4 +96,22 @@ object Plan extends LilaController {
   def webhook = Action.async(parse.json) { req =>
     Env.plan.webhook(req.body) map { _ => Ok("kthxbye") }
   }
+
+  def payPalIpn = Action.async { implicit req =>
+    import lila.plan.Patron.PayPal
+    lila.plan.DataForm.ipn.bindFromRequest.fold(
+      err => {
+        println(err)
+        fuccess(Ok)
+      },
+      ipn => Env.plan.api.onPaypalCharge(
+        userId = ipn.userId,
+        email = ipn.email map PayPal.Email.apply,
+        subId = ipn.subId map PayPal.SubId.apply,
+        cents = lila.plan.Cents(ipn.grossCents),
+        name = ipn.name,
+        txnId = ipn.txnId
+      ) inject Ok
+    )
+  }
 }

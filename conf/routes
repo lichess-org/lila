@@ -140,6 +140,7 @@ GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
 
+# Patron
 GET   /patron                          controllers.Plan.index
 POST  /patron/charge                   controllers.Plan.charge
 GET   /patron/thanks                   controllers.Plan.thanks
@@ -147,6 +148,11 @@ POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
 GET   /features                        controllers.Plan.features
+# Donate
+GET   /donate                          controllers.Plan.index
+GET   /donate/thanks                   controllers.Plan.thanks
+POST  /donate/thanks                   controllers.Plan.thanks
+POST  /donate/ipn                      controllers.Plan.payPalIpn
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -425,12 +431,6 @@ GET   /network/stream                  controllers.WorldMap.stream
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Main.mobileUnregister
-
-# Donate
-GET   /donate                          controllers.Donation.index
-GET   /donate/thanks                   controllers.Donation.thanks
-POST  /donate/thanks                   controllers.Donation.thanksRedirect
-POST  /donate/ipn                      controllers.Donation.ipn
 
 # Pages
 GET   /thanks                          controllers.Page.thanks

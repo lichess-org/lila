@@ -4,6 +4,7 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -79,21 +80,21 @@ final class PlanApi(
     }
 
   def onPaypalCharge(
-    userId: String,
+    userId: Option[String],
     email: Option[Patron.PayPal.Email],
     subId: Option[Patron.PayPal.SubId],
     cents: Cents,
     name: Option[String],
-    txnId: Option[String]): Funit = (cents.value >= 500) ?? {
+    txnId: Option[String]): Funit = (cents.value >= 100) ?? {
     chargeColl.insert(Charge.make(
-      userId = userId.some,
+      userId = userId,
       payPal = Charge.PayPal(
         name = name,
         email = email.map(_.value),
         txnId = txnId,
         subId = subId.map(_.value)).some,
-      cents = cents)) >> {
-      UserRepo named userId flatMap {
+      cents = cents)) >>
+      (userId ?? UserRepo.named) flatMap {
         _ ?? { user =>
           userPatron(user).flatMap {
             case None => patronColl.insert(Patron(
@@ -113,7 +114,7 @@ final class PlanApi(
           }
         }
       }
-    }
+
   }
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
@@ -193,6 +194,14 @@ final class PlanApi(
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
     chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
+
+  def topPatrons(nb: Int): Fu[List[User.ID]] = chargeColl.aggregate(
+    Match($doc("userId" $exists true)), List(
+      GroupField("userId")("total" -> SumField("cents")),
+      Sort(Descending("total")),
+      Limit(nb))).map {
+      _.documents.flatMap { _.getAs[String]("_id") }
+    }
 
   private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)

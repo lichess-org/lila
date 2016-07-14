@@ -133,7 +133,6 @@ object Env {
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
-  def donation = lila.donation.Env.current
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def worldMap = lila.worldMap.Env.current
