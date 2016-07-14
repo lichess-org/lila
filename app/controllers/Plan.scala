@@ -12,10 +12,11 @@ object Plan extends LilaController {
 
   def index = Open { implicit ctx =>
     ctx.me.fold(indexAnon) { me =>
+      import lila.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
-        case true                => Redirect(routes.Plan.index).fuccess
-        case _ if me.plan.active => indexPatron(me)
-        case _                   => indexFreeUser(me)
+        case ReloadUser           => Redirect(routes.Plan.index).fuccess
+        case Synced(Some(patron)) => indexPatron(me, patron)
+        case Synced(None)         => indexFreeUser(me)
       }
     }
   }
@@ -30,10 +31,10 @@ object Plan extends LilaController {
       stripePublicKey = Env.plan.stripePublicKey,
       email = email)).fuccess
 
-  private def indexPatron(me: UserModel)(implicit ctx: Context) =
+  private def indexPatron(me: UserModel, patron: lila.plan.Patron)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me) flatMap {
-      case Some(info) => Ok(html.plan.indexStripe(me, info)).fuccess
-      case _          => Ok(html.plan.indexPaypal(me)).fuccess
+      case Some(info) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
+      case _          => Ok(html.plan.indexPaypal(me, patron)).fuccess
     }
 
   def features = Open { implicit ctx =>
