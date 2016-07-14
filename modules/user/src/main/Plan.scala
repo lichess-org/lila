@@ -9,7 +9,10 @@ case class Plan(months: Int, active: Boolean) {
     active = true)
 
   def disable = copy(active = false)
-  def enable = copy(active = true)
+
+  def enable = copy(
+    active = true,
+    months = months max 1)
 
   def isEmpty = months == 0
 

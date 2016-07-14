@@ -63,18 +63,21 @@ final class PlanApi(
               username = "Anonymous",
               amount = charge.amount.value), 'stripe)
             funit
-          case Some(patron) if patron.canLevelUp =>
+          case Some(patron) =>
+            logger.info(s"Charged $charge $patron")
+            lila.mon.plan.amount(charge.amount.value)
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
-              patronColl.update($id(patron.id), patron.levelUpNow) >>
-                UserRepo.setPlan(user, user.plan.incMonths) >>- {
-                  logger.info(s"Charged $charge $patron")
-                  lila.mon.plan.amount(charge.amount.value)
-                  bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-                    username = user.username,
-                    amount = charge.amount.value), 'stripe)
-                }
+              bus.publish(lila.hub.actorApi.plan.ChargeEvent(
+                username = user.username,
+                amount = charge.amount.value), 'stripe)
+              val p2 = patron.copy(
+                stripe = Patron.Stripe(charge.customer).some
+              ).levelUpIfPossible.expireInOneMonth
+              patronColl.update($id(patron.id), p2) >>
+                UserRepo.setPlan(user,
+                  if (patron.canLevelUp) user.plan.incMonths
+                  else user.plan.enable)
             }
-          case Some(patron) => fufail(s"Too early to level up $charge $patron")
         }
       }
     }
@@ -96,18 +99,23 @@ final class PlanApi(
       cents = cents)) >>
       (userId ?? UserRepo.named) flatMap {
         _ ?? { user =>
+          val payPal = Patron.PayPal(email, subId, DateTime.now)
           userPatron(user).flatMap {
             case None => patronColl.insert(Patron(
               _id = Patron.UserId(user.id),
-              payPal = Patron.PayPal(email, subId, DateTime.now).some,
+              payPal = payPal.some,
               lastLevelUp = DateTime.now
             ).expireInOneMonth) >>
               UserRepo.setPlan(user, lila.user.Plan.start) >>
               notifier.onStart(user)
-            case Some(patron) if patron.canLevelUp =>
-              patronColl.update($id(patron.id), patron.levelUpNow.expireInOneMonth) >>
-                UserRepo.setPlan(user, user.plan.incMonths)
-            case Some(patron) => fufail(s"Too early to level up with paypal $patron")
+            case Some(patron) =>
+              val p2 = patron.copy(
+                payPal = payPal.some
+              ).levelUpIfPossible.expireInOneMonth
+              patronColl.update($id(patron.id), p2) >>
+                UserRepo.setPlan(user,
+                  if (patron.canLevelUp) user.plan.incMonths
+                  else user.plan.enable)
           } >>- {
             logger.info(s"Charged ${user.username} with paypal: $cents")
             lila.mon.plan.amount(cents.value)
