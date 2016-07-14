@@ -779,30 +779,27 @@ div.game_config .color_submits button.random i {
   font-weight: normal;
   display: block;
 }
-.donation .undertable_inner {
-  height: auto;
-}
-.donation .links {
+.donation {
   display: flex;
   font-size: 1.3em;
   line-height: 1.2em;
+  border: 1px solid #ccc;
+  background: #fff;
 }
-.donation .links a {
+.donation a {
   flex: 0 0 auto;
   position: relative;
   box-sizing: border-box;
   width: 50%;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
   height: 60px;
 }
-.donation .links a strong {
+.donation strong {
   color: #3893E8;
   font-weight: normal;
   display: block;
   margin: 11px 0 1px 0;
 }
-.donation .links span {
+.donation span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -810,84 +807,40 @@ div.game_config .color_submits button.random i {
   opacity: 0.8;
   font-size: 0.85em;
 }
-.donation .links i {
+.donation i {
   position: absolute;
   top: 0;
 }
-.donation .links a:first-child i {
+.donation a:first-child i {
   right: 15px;
 }
-.donation .links a:last-child i {
+.donation a:last-child i {
   left: 15px;
 }
-.donation .links i::before {
+.donation i::before {
   color: #3893E8;
   font-size: 40px;
   line-height: 60px;
   opacity: 0.8;
 }
-.donation .links a:first-child {
+.donation a:first-child {
   border-right: 1px solid #ccc;
   text-align: right;
   padding-right: 67px;
 }
-.donation .links a:last-child {
+.donation a:last-child {
   text-align: left;
   padding-left: 67px;
 }
-.donation .links a:hover {
+.donation a:hover {
   background: #3893E8;
 }
-.donation .links a:hover,
-.donation .links a:hover *,
-.donation .links a:hover i::before {
+.donation a:hover,
+.donation a:hover *,
+.donation a:hover i::before {
   transition: 0.13s;
   color: #fff;
 }
-.donation .links a:hover i::before {
+.donation a:hover i::before {
   opacity: 1;
-}
-.donation .progress {
-  display: block;
-  margin: 15px 15px 6px 15px;
-  color: #fff;
-}
-.donation .progress .progressbar {
-  position: relative;
-  height: 30px;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-shadow: 0px 0px 3px rgba(0,0,0,0.8);
-  text-align: right;
-  line-height: 32px;
-  display: block;
-}
-.donation .progress .current {
-  position:absolute;
-  top: 1px;
-  left: 1px;
-  z-index: 2;
-  height: 30px;
-  max-width: 100%;
-  font-size: 15px;
-}
-.donation .progress .current span {
-  margin: 0 10px;
-}
-.donation .progress .goal {
-  position: absolute;
-  right: 10px;
-  z-index: 1;
-}
-.donation .legend {
-  opacity: 0.8;
-  text-align: center;
-  opacity: 0.6;
-  margin-bottom: 10px;
-  display: block;
-}
-.donation .legend strong {
-  font-size: 1.4em;
-  font-weight: normal;
-  display: block;
 }

@@ -45,43 +45,5 @@ final class DonationApi(
   def create(donation: Donation) = {
     coll insert donation recover
       lila.db.recoverDuplicateKey(e => println(e.getMessage)) void
-  } >> progressCache.clear >>-
-    progress.foreach { prog =>
-      bus.publish(lila.hub.actorApi.DonationEvent(
-        userId = donation.userId,
-        gross = donation.gross,
-        net = donation.net,
-        message = donation.message.trim.some.filter(_.nonEmpty),
-        progress = prog.percent), 'donation)
-    }
-
-  private val progressCache = lila.memo.AsyncCache.single[Progress](
-    computeProgress,
-    timeToLive = 10 seconds)
-
-  def progress: Fu[Progress] = progressCache(true)
-
-  private def computeProgress: Fu[Progress] = {
-    val from = Try {
-      val now = DateTime.now
-      val a = now withDayOfWeek DateTimeConstants.SUNDAY withHourOfDay 0 withMinuteOfHour 0 withSecondOfMinute 0
-      if (a isBefore now) a else a minusWeeks 1
-    }.toOption.getOrElse(DateTime.now withDayOfWeek 1)
-    val to = from plusWeeks 1
-    coll.find(
-      BSONDocument("date" -> BSONDocument(
-        "$gte" -> from,
-        "$lt" -> to
-      )),
-      BSONDocument("net" -> true, "_id" -> false)
-    ).cursor[BSONDocument]().gather[List]() map2 { (obj: BSONDocument) =>
-        ~obj.getAs[Int]("net")
-      } map (_.sum) map { amount =>
-        Progress(from, weeklyGoal, amount)
-      } addEffect { prog =>
-        lila.mon.donation.goal(prog.goal)
-        lila.mon.donation.current(prog.current)
-        lila.mon.donation.percent(prog.percent)
-      }
   }
 }
