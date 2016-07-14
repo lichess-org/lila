@@ -20,7 +20,7 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
   def postWithCaptcha = withCaptcha(post)
 
   val topic = Form(mapping(
-    "name" -> text(minLength = 3),
+    "name" -> text(minLength = 3, maxLength = 100),
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))
 }

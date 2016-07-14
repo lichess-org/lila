@@ -38,6 +38,8 @@ title = trans.composeMessage.str()) {
         <input
         type="text"
         required="required"
+        minlength=3
+        maxlength=100
         name="@form("subject").name"
         id="@form("subject").id"
         value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)"
