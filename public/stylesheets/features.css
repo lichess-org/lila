@@ -11,8 +11,8 @@ table h1::before {
   margin-right: 10px;
 }
 
-table a,
-table a:visited {
+table a:not(.button),
+table a:not(.button):visited {
   border-bottom: 1px dashed #3893E8;
 }
 
@@ -46,6 +46,10 @@ tbody th {
 
 .price {
   font-size: 1.4em;
+}
+.price > * {
+  border: none;
+  padding-top: 30px;
 }
 .explanation {
   margin: 40px 120px 20px 120px;
