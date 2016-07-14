@@ -36,6 +36,7 @@ object Charge {
     customerId: CustomerId)
 
   case class PayPal(
+    ip: Option[String],
     name: Option[String],
     email: Option[String],
     txnId: Option[String],

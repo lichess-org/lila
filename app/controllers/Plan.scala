@@ -110,7 +110,8 @@ object Plan extends LilaController {
         subId = ipn.subId map PayPal.SubId.apply,
         cents = lila.plan.Cents(ipn.grossCents),
         name = ipn.name,
-        txnId = ipn.txnId
+        txnId = ipn.txnId,
+        ip = lila.common.HTTPRequest.lastRemoteAddress(req)
       ) inject Ok
     )
   }

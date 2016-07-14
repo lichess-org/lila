@@ -88,14 +88,16 @@ final class PlanApi(
     subId: Option[Patron.PayPal.SubId],
     cents: Cents,
     name: Option[String],
-    txnId: Option[String]): Funit = (cents.value >= 100) ?? {
+    txnId: Option[String],
+    ip: String): Funit = (cents.value >= 100) ?? {
     chargeColl.insert(Charge.make(
       userId = userId,
       payPal = Charge.PayPal(
         name = name,
         email = email.map(_.value),
         txnId = txnId,
-        subId = subId.map(_.value)).some,
+        subId = subId.map(_.value),
+        ip = ip.some).some,
       cents = cents)) >>
       (userId ?? UserRepo.named) flatMap {
         _ ?? { user =>
