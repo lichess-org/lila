@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], crosstable: Option[lila.game.Crosstable], isDonor: Boolean)(implicit ctx: Context)
+@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
     @u.profileOrDefault.countryInfo.map {
