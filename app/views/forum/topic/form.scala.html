@@ -20,7 +20,7 @@
 <form class="wide" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
   <label>
     <span class="required">@trans.subject()</span>
-    <input class="subject" autofocus="true" value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
+    <input class="subject" autofocus="true" minlength=3 maxlength=100 value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
     @errMsg(form("name"))
   </label>
   @forum.post.formFields(form("post")("text"), form("post")("author"))
