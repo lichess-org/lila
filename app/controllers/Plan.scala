@@ -5,7 +5,8 @@ import play.api.mvc._, Results._
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ User => UserModel }
+import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo }
+import lila.user.{ User => UserModel, UserRepo }
 import views._
 
 object Plan extends LilaController {
@@ -21,20 +22,26 @@ object Plan extends LilaController {
     }
   }
 
-  private def indexAnon(implicit ctx: Context) = renderIndex(email = none)
+  private def indexAnon(implicit ctx: Context) = renderIndex(email = none, patron = none)
 
   private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
-    lila.user.UserRepo email me.id flatMap renderIndex
+    UserRepo email me.id flatMap { email =>
+      renderIndex(email, patron = none)
+    }
 
-  private def renderIndex(email: Option[String])(implicit ctx: Context): Fu[Result] =
+  private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] =
     Ok(html.plan.index(
       stripePublicKey = Env.plan.stripePublicKey,
-      email = email)).fuccess
+      email = email,
+      patron = patron)).fuccess
 
   private def indexPatron(me: UserModel, patron: lila.plan.Patron)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me) flatMap {
-      case Some(info) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
-      case _          => Ok(html.plan.indexPaypal(me, patron)).fuccess
+      case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
+      case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email, patron.some)
+      case None => UserRepo email me.id flatMap { email =>
+        renderIndex(email, patron.some)
+      }
     }
 
   def features = Open { implicit ctx =>

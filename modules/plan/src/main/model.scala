@@ -36,9 +36,19 @@ object StripePlan {
   val defaults = List(5, 10, 20, 50).map(Usd.apply).map(_.cents).map(StripePlan.make)
 }
 
-case class StripeSubscription(id: String, plan: StripePlan, customer: CustomerId)
+case class StripeSubscription(
+    id: String,
+    plan: StripePlan,
+    customer: CustomerId,
+    cancel_at_period_end: Boolean) {
 
-case class StripeCustomer(id: CustomerId, subscriptions: StripeSubscriptions) {
+  def renew = !cancel_at_period_end
+}
+
+case class StripeCustomer(
+    id: CustomerId,
+    email: Option[String],
+    subscriptions: StripeSubscriptions) {
 
   def firstSubscription = subscriptions.data.headOption
 

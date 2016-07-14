@@ -69,7 +69,8 @@ table.all .thanks {
   line-height: 2em;
 }
 
-.motivation .moto {
+.motivation .moto,
+.motivation .one_time_active {
   margin: 30px 0 50px 0;
   padding: 30px 0;
   background: #759900;
@@ -77,7 +78,8 @@ table.all .thanks {
   text-align: center;
   font-size: 1.3em;
 }
-.motivation .moto h2 {
+.motivation .moto h2,
+.motivation .one_time_active h2 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
   display: block;

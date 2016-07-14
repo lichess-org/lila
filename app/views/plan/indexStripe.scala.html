@@ -1,4 +1,4 @@
-@(me: User, patron: lila.plan.Patron, info: lila.plan.CustomerInfo)(implicit ctx: Context)
+@(me: User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(implicit ctx: Context)
 
 @site.layout(
 title = "Thank you for your support!",
@@ -12,7 +12,7 @@ moreJs = jsTag("plan.js")) {
       <tr>
         <th>Current status</th>
         <td>
-          You support lichess.org with <strong>@info.currentPlan.usd per month</strong>.
+          You support lichess.org with <strong>@info.subscription.plan.usd per month</strong>.
           <span class="thanks">Thank you very much for your help. You rock!</span>
         </td>
       </tr>
@@ -26,7 +26,7 @@ moreJs = jsTag("plan.js")) {
           <a data-form="switch">Change the amount</a> or <a data-form="cancel">cancel your support</a>
           <form class="switch" action="@routes.Plan.switch" method="POST">
             <p>Decide what lichess is worth to you:</p>
-            USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.currentPlan.usd.value" />
+            USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />
             <button type="submit" class="button">@trans.apply()</button>
             <a data-form="switch">Nevermind</a>
           </form>

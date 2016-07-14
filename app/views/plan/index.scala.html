@@ -1,4 +1,4 @@
-@(email: Option[String], stripePublicKey: String)(implicit ctx: Context)
+@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron])(implicit ctx: Context)
 
 @title = @{"Become a patron of lichess.org"}
 
@@ -21,10 +21,19 @@ description = "Free chess for everyone, forever!").some) {
 <div class="content_box plan">
   <h1 class="text" data-icon="@patronIconChar">@title</h1>
   <div class="motivation">
+    @patron.map { p =>
+    <div class="one_time_active">
+      <h2>Thank you for your one-time donation!</h2>
+      @p.expiresAt.map { expires =>
+      Your patron account will expire on the @showDate(expires).
+      }
+    </div>
+    }.getOrElse {
     <div class="moto">
       <h2>Free chess for everyone, forever!</h2>
       <p>No ads, no subscriptions; but open source and passion.</p>
     </div>
+    }
     <div class="wrapper">
       <div class="text">
         <p>

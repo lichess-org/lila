@@ -126,10 +126,17 @@ final class PlanApi(
           stripeClient.getNextInvoice(customerId) zip
           stripeClient.getPastInvoices(customerId) map {
             case ((Some(customer), Some(nextInvoice)), pastInvoices) =>
-              customer.plan match {
-                case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
+              customer.firstSubscription match {
+                case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices).some
                 case None =>
-                  logger.warn(s"Can't identify ${user.username} plan $customer")
+                  logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
+                  none
+              }
+            case ((Some(customer), None), _) =>
+              customer.firstSubscription match {
+                case Some(sub) => OneTimeCustomerInfo(customer, sub).some
+                case None =>
+                  logger.warn(s"Can't identify ${user.username} one-time subscription $customer")
                   none
               }
             case fail =>
@@ -221,7 +228,7 @@ final class PlanApi(
     ).expireInOneMonth(!renew))
     case Some(patron) => patronColl.update(
       $id(patron.id),
-      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(renew))
+      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(!renew))
   } void
 
   private def setCustomerPlan(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
