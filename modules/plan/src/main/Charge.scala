@@ -31,6 +31,13 @@ object Charge {
     cents = cents,
     date = DateTime.now)
 
-  case class Stripe(chargeId: ChargeId, customerId: CustomerId)
-  case class PayPal(email: Option[String], subId: Option[String])
+  case class Stripe(
+    chargeId: ChargeId,
+    customerId: CustomerId)
+
+  case class PayPal(
+    name: Option[String],
+    email: Option[String],
+    txnId: Option[String],
+    subId: Option[String])
 }

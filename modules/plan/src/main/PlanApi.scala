@@ -78,10 +78,20 @@ final class PlanApi(
       }
     }
 
-  def onPaypalCharge(userId: String, email: Option[Patron.PayPal.Email], subId: Option[Patron.PayPal.SubId], cents: Cents): Funit = (cents.value >= 500) ?? {
+  def onPaypalCharge(
+    userId: String,
+    email: Option[Patron.PayPal.Email],
+    subId: Option[Patron.PayPal.SubId],
+    cents: Cents,
+    name: Option[String],
+    txnId: Option[String]): Funit = (cents.value >= 500) ?? {
     chargeColl.insert(Charge.make(
       userId = userId.some,
-      payPal = Charge.PayPal(email = email.map(_.value), subId = subId.map(_.value)).some,
+      payPal = Charge.PayPal(
+        name = name,
+        email = email.map(_.value),
+        txnId = txnId,
+        subId = subId.map(_.value)).some,
       cents = cents)) >> {
       UserRepo named userId flatMap {
         _ ?? { user =>
