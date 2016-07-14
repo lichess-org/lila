@@ -609,7 +609,7 @@ body.dark .explorer_box .black {
 }
 .lichess_ground .replay .black {
   border-right: 3px solid;
-  margin-right: 2px;
+  overflow-x: hidden;
 }
 body .lichess_ground .replay .inaccuracy {
   border-color: #56B4E9;
