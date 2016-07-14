@@ -11,7 +11,7 @@ case class Patron(
 
   def id = _id
 
-  def userId = _id
+  def userId = _id.value
 
   def canLevelUp = lastLevelUp isBefore DateTime.now.minusDays(25)
 

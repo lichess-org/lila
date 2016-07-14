@@ -50,7 +50,7 @@ final class PlanApi(
   def onStripeCharge(charge: StripeCharge): Funit =
     customerIdPatron(charge.customer) flatMap { patronOption =>
       chargeColl.insert(Charge.make(
-        userId = patronOption.map(_.userId.value),
+        userId = patronOption.map(_.userId),
         stripe = Charge.Stripe(charge.id, charge.customer).some,
         cents = charge.amount)) >> {
         patronOption match {
@@ -62,7 +62,7 @@ final class PlanApi(
               amount = charge.amount.value), 'stripe)
             funit
           case Some(patron) if patron.canLevelUp =>
-            UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
+            UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               patronColl.update($id(patron.id), patron.levelUpNow) >>
                 UserRepo.setPlan(user, user.plan.incMonths) >>- {
                   logger.info(s"Charged $charge $patron")
@@ -96,7 +96,7 @@ final class PlanApi(
                 UserRepo.setPlan(user, user.plan.incMonths)
             case Some(patron) => fufail(s"Too early to level up with paypal $patron")
           } >>- {
-            logger.info(s"Charged ${user.id} with paypal: $cents")
+            logger.info(s"Charged ${user.username} with paypal: $cents")
             lila.mon.plan.amount(cents.value)
           }
         }
@@ -108,10 +108,10 @@ final class PlanApi(
     customerIdPatron(sub.customer) flatMap {
       case None => fufail(s"Deleted subscription of unknown patron $sub")
       case Some(patron) =>
-        UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
+        UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
           UserRepo.setPlan(user, user.plan.disable) >>
             patronColl.update($id(user.id), patron.removeStripe).void >>-
-            logger.info(s"Unsubed ${user.id} ${sub}")
+            logger.info(s"Unsubed ${user.username} ${sub}")
         }
     }
 
@@ -127,11 +127,11 @@ final class PlanApi(
               customer.plan match {
                 case Some(plan) => CustomerInfo(plan, nextInvoice, pastInvoices).some
                 case None =>
-                  logger.warn(s"Can't identify ${user.id} plan $customer")
+                  logger.warn(s"Can't identify ${user.username} plan $customer")
                   none
               }
             case fail =>
-              logger.warn(s"Can't fetch ${user.id} customer info $fail")
+              logger.warn(s"Can't fetch ${user.username} customer info $fail")
               none
           }
       }
@@ -194,7 +194,7 @@ final class PlanApi(
   private def setUserPlan(user: User, plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
       case None => createCustomer(user, data, plan) map { customer =>
-        customer.firstSubscription err s"Can't create ${user.id} subscription for customer $customer"
+        customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
       }
       case Some(customer) => setCustomerPlan(customer, plan, data.source)
     } flatMap { subscription =>
