@@ -1,6 +1,6 @@
 @(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], userIds: List[String])(implicit ctx: Context)
 
-@title = @{"Become a patron of lichess.org"}
+@title = @{"Become a Patron of lichess.org"}
 
 @moreJs = {
 <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -25,7 +25,7 @@ description = "Free chess for everyone, forever!").some) {
     <div class="one_time_active">
       <h2>Thank you for your one-time donation!</h2>
       @p.expiresAt.map { expires =>
-      If not renewed, your patron account will expire on @showDate(expires).
+      If not renewed, your Patron account will expire on @showDate(expires).
       }
     </div>
     }.getOrElse {
@@ -143,17 +143,17 @@ description = "Free chess for everyone, forever!").some) {
       </dd>
     </dl>
     <dl>
-      <dt>Are some features reserved to patrons?</dt>
+      <dt>Are some features reserved to Patrons?</dt>
       <dd>
         <a href="@routes.Plan.features">No</a>, because
         lichess is entirely free, forever, and for everyone. That's a promise.<br />
-        But patrons get bragging rights with a cool new profile icon.<br />
+        But Patrons get bragging rights with a cool new profile icon.<br />
         See the <a href="@routes.Plan.features">detailed features comparison</a>.
       </dd>
     </dl>
   </div>
   <div class="user_list">
-    <h2>The celebrated patrons who make lichess possible</h2>
+    <h2>The celebrated Patrons who make lichess possible</h2>
     <div class="list">
       @userIds.map { userId =>
       @userIdLink(userId.some)
