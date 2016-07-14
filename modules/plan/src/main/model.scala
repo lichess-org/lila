@@ -2,6 +2,8 @@ package lila.plan
 
 import org.joda.time.DateTime
 
+case class PayPalIpnKey(value: String) extends AnyVal
+
 case class CustomerId(value: String) extends AnyVal
 case class ChargeId(value: String) extends AnyVal
 

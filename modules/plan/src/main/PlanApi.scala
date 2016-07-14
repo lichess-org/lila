@@ -11,7 +11,8 @@ final class PlanApi(
     patronColl: Coll,
     chargeColl: Coll,
     notifier: PlanNotifier,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus,
+    payPalIpnKey: PayPalIpnKey) {
 
   import BsonHandlers._
   import PatronHandlers._
@@ -89,43 +90,49 @@ final class PlanApi(
     cents: Cents,
     name: Option[String],
     txnId: Option[String],
-    ip: String): Funit = (cents.value >= 100) ?? {
-    chargeColl.insert(Charge.make(
-      userId = userId,
-      payPal = Charge.PayPal(
-        name = name,
-        email = email.map(_.value),
-        txnId = txnId,
-        subId = subId.map(_.value),
-        ip = ip.some).some,
-      cents = cents)) >>
-      (userId ?? UserRepo.named) flatMap {
-        _ ?? { user =>
-          val payPal = Patron.PayPal(email, subId, DateTime.now)
-          userPatron(user).flatMap {
-            case None => patronColl.insert(Patron(
-              _id = Patron.UserId(user.id),
-              payPal = payPal.some,
-              lastLevelUp = DateTime.now
-            ).expireInOneMonth) >>
-              UserRepo.setPlan(user, lila.user.Plan.start) >>
-              notifier.onStart(user)
-            case Some(patron) =>
-              val p2 = patron.copy(
-                payPal = payPal.some
-              ).levelUpIfPossible.expireInOneMonth
-              patronColl.update($id(patron.id), p2) >>
-                UserRepo.setPlan(user,
-                  if (patron.canLevelUp) user.plan.incMonths
-                  else user.plan.enable)
-          } >>- {
-            logger.info(s"Charged ${user.username} with paypal: $cents")
-            lila.mon.plan.amount(cents.value)
+    ip: String,
+    key: PayPalIpnKey): Funit =
+    if (key != payPalIpnKey) {
+      logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
+      funit
+    }
+    else (cents.value >= 100) ?? {
+      chargeColl.insert(Charge.make(
+        userId = userId,
+        payPal = Charge.PayPal(
+          name = name,
+          email = email.map(_.value),
+          txnId = txnId,
+          subId = subId.map(_.value),
+          ip = ip.some).some,
+        cents = cents)) >>
+        (userId ?? UserRepo.named) flatMap {
+          _ ?? { user =>
+            val payPal = Patron.PayPal(email, subId, DateTime.now)
+            userPatron(user).flatMap {
+              case None => patronColl.insert(Patron(
+                _id = Patron.UserId(user.id),
+                payPal = payPal.some,
+                lastLevelUp = DateTime.now
+              ).expireInOneMonth) >>
+                UserRepo.setPlan(user, lila.user.Plan.start) >>
+                notifier.onStart(user)
+              case Some(patron) =>
+                val p2 = patron.copy(
+                  payPal = payPal.some
+                ).levelUpIfPossible.expireInOneMonth
+                patronColl.update($id(patron.id), p2) >>
+                  UserRepo.setPlan(user,
+                    if (patron.canLevelUp) user.plan.incMonths
+                    else user.plan.enable)
+            } >>- {
+              logger.info(s"Charged ${user.username} with paypal: $cents")
+              lila.mon.plan.amount(cents.value)
+            }
           }
         }
-      }
 
-  }
+    }
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {

@@ -1,8 +1,8 @@
 package lila.plan
 
-import scala.concurrent.duration._
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 
@@ -36,7 +36,8 @@ final class Env(
     patronColl = patronColl,
     chargeColl = db(CollectionCharge),
     notifier = notifier,
-    bus)
+    bus,
+    payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"))
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
