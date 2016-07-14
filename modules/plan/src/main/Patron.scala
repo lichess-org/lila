@@ -6,6 +6,7 @@ case class Patron(
     _id: Patron.UserId,
     stripe: Option[Patron.Stripe] = none,
     payPal: Option[Patron.PayPal] = none,
+    expiresAt: Option[DateTime] = none,
     lastLevelUp: DateTime) {
 
   def id = _id
@@ -13,6 +14,24 @@ case class Patron(
   def userId = _id
 
   def canLevelUp = lastLevelUp isBefore DateTime.now.minusDays(25)
+
+  def levelUpNow = copy(
+    lastLevelUp = DateTime.now)
+
+  def expireInOneMonth: Patron = copy(
+    expiresAt = DateTime.now.plusMonths(1).plusDays(1).some)
+
+  def expireInOneMonth(cond: Boolean): Patron =
+    if (cond) expireInOneMonth
+    else copy(expiresAt = none)
+
+  def removeStripe = copy(
+    stripe = none,
+    expiresAt = none)
+
+  def removePayPal = copy(
+    payPal = none,
+    expiresAt = none)
 }
 
 object Patron {

@@ -63,7 +63,7 @@ final class PlanApi(
             funit
           case Some(patron) if patron.canLevelUp =>
             UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
-              patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
+              patronColl.update($id(patron.id), patron.levelUpNow) >>
                 UserRepo.setPlan(user, user.plan.incMonths) >>- {
                   logger.info(s"Charged $charge $patron")
                   lila.mon.plan.amount(charge.amount.value)
@@ -88,10 +88,11 @@ final class PlanApi(
             case None => patronColl.insert(Patron(
               _id = Patron.UserId(user.id),
               payPal = Patron.PayPal(email, subId, DateTime.now).some,
-              lastLevelUp = DateTime.now)) >>
+              lastLevelUp = DateTime.now
+            ).expireInOneMonth) >>
               UserRepo.setPlan(user, lila.user.Plan.start)
             case Some(patron) if patron.canLevelUp =>
-              patronColl.updateField($id(patron.id), "lastLevelUp", DateTime.now) >>
+              patronColl.update($id(patron.id), patron.levelUpNow.expireInOneMonth) >>
                 UserRepo.setPlan(user, user.plan.incMonths)
             case Some(patron) => fufail(s"Too early to level up with paypal $patron")
           } >>- {
@@ -109,7 +110,7 @@ final class PlanApi(
       case Some(patron) =>
         UserRepo byId patron.userId.value flatten s"Missing user for $patron" flatMap { user =>
           UserRepo.setPlan(user, user.plan.disable) >>
-            patronColl.unsetField($id(user.id), "stripe").void >>-
+            patronColl.update($id(user.id), patron.removeStripe).void >>-
             logger.info(s"Unsubed ${user.id} ${sub}")
         }
     }
@@ -136,44 +137,45 @@ final class PlanApi(
       }
     }
 
-  // returns true if the user should be reloaded from DB
-  def sync(user: User): Fu[Boolean] = userPatron(user) flatMap {
+  import PlanApi.SyncResult.{ ReloadUser, Synced }
+
+  def sync(user: User): Fu[PlanApi.SyncResult] = userPatron(user) flatMap {
 
     case None if user.plan.active =>
       logger.warn(s"sync: disable plan of non-patron")
-      UserRepo.setPlan(user, user.plan.disable) inject true
+      UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
 
-    case None => fuccess(false)
+    case None => fuccess(Synced(none))
 
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
         case None =>
           logger.warn(s"sync: unset DB patron that's not in stripe")
-          patronColl.unsetField($id(user.id), "stripe") >> sync(user)
+          patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isEmpty =>
           logger.warn(s"sync: unset DB patron of customer without a subscription")
-          patronColl.unsetField($id(user.id), "stripe") >> sync(user)
+          patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
           logger.warn(s"sync: enable plan of customer with a subscription")
-          UserRepo.setPlan(user, user.plan.enable) inject true
-        case _ => fuccess(false)
+          UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
+        case customer => fuccess(Synced(patron.some))
       }
 
       case (_, Some(paypal)) =>
         if (paypal.isExpired)
-          patronColl.unsetField($id(user.id), "payPal") >> sync(user)
+          patronColl.update($id(user.id), patron.removePayPal) >> sync(user)
         else if (!paypal.isExpired && !user.plan.active) {
           logger.warn(s"sync: enable plan of customer with paypal")
-          UserRepo.setPlan(user, user.plan.enable) inject true
+          UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
         }
-        else fuccess(false)
+        else fuccess(Synced(patron.some))
 
       case (None, None) if user.plan.active =>
         logger.warn(s"sync: disable plan of patron with no paypal or stripe")
-        UserRepo.setPlan(user, user.plan.disable) inject true
+        UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
 
-      case _ => fuccess(false)
+      case _ => fuccess(Synced(patron.some))
     }
   }
 
@@ -203,19 +205,20 @@ final class PlanApi(
 
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
-      saveStripePatron(user, customer.id) >>
+      saveStripePatron(user, customer.id, data.isMonthly) >>
         UserRepo.setPlan(user, lila.user.Plan.start) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
-  private def saveStripePatron(user: User, customerId: CustomerId): Funit = userPatron(user) flatMap {
+  private def saveStripePatron(user: User, customerId: CustomerId, renew: Boolean): Funit = userPatron(user) flatMap {
     case None => patronColl.insert(Patron(
       _id = Patron.UserId(user.id),
       stripe = Patron.Stripe(customerId).some,
-      lastLevelUp = DateTime.now))
+      lastLevelUp = DateTime.now
+    ).expireInOneMonth(!renew))
     case Some(patron) => patronColl.update(
       $id(patron.id),
-      patron.copy(stripe = Patron.Stripe(customerId).some))
+      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(renew))
   } void
 
   private def setCustomerPlan(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
@@ -245,4 +248,13 @@ final class PlanApi(
 
   private def userPatron(user: User): Fu[Option[Patron]] =
     patronColl.uno[Patron]($id(user.id))
+}
+
+object PlanApi {
+
+  sealed trait SyncResult
+  object SyncResult {
+    case object ReloadUser extends SyncResult
+    case class Synced(patron: Option[Patron]) extends SyncResult
+  }
 }
