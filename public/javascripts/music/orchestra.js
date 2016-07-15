@@ -1,6 +1,6 @@
 function lichessOrchestra() {
 
-  var soundDir = '/assets/sound/instrument/';
+  var soundDir = lichess.assetUrl('/assets/sound/instrument/', true);
 
   var instruments = {
       celesta: [],
