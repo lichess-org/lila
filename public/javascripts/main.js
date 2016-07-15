@@ -855,7 +855,7 @@ lichess.notifyApp = (function() {
 
   $.sound = (function() {
     var version = 1;
-    var baseUrl = '/assets/sound';
+    var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
 
