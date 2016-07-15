@@ -78,7 +78,7 @@ final class FishnetApi(
     moveDb.postResult(workId, client, data, measurement)
   }
 
-  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] = sequencer {
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] = {
     repo.getAnalysis(workId) flatMap {
       case None =>
         Monitor.notFound(workId, client)
