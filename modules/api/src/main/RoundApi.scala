@@ -3,8 +3,8 @@ package lila.api
 import play.api.libs.json._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis, Info }
-import lila.common.LightUser
 import lila.common.PimpedJson._
+import lila.common.{ LightUser, ApiVersion }
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
@@ -21,7 +21,7 @@ private[api] final class RoundApi(
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
-  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) flatMap { initialFen =>
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
@@ -40,7 +40,7 @@ private[api] final class RoundApi(
         }
     }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+  def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
@@ -60,7 +60,7 @@ private[api] final class RoundApi(
         }
     }
 
-  def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+  def review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,

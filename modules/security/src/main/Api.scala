@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
+import lila.common.ApiVersion
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -46,7 +47,7 @@ final class Api(
   private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
     candidate ?? { _(password) }
 
-  def saveAuthentication(userId: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] =
+  def saveAuthentication(userId: String, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>

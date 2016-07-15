@@ -10,6 +10,7 @@ import chess.format.Uci
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
+import lila.common.ApiVersion
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
@@ -105,9 +106,10 @@ private[round] final class SocketHandler(
     uid: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[Option[JsSocketHandler]] =
+    userTv: Option[String],
+    apiVersion: ApiVersion): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, "", user, ip, userTv = userTv) map some }
+      _ ?? { join(_, none, uid, "", user, ip, userTv = userTv, apiVersion) map some }
     }
 
   def player(
@@ -115,8 +117,9 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     user: Option[User],
-    ip: String): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, token, user, ip, userTv = none)
+    ip: String,
+    apiVersion: ApiVersion): Fu[JsSocketHandler] =
+    join(pov, Some(pov.playerId), uid, token, user, ip, userTv = none, apiVersion)
 
   private def join(
     pov: Pov,
@@ -125,14 +128,16 @@ private[round] final class SocketHandler(
     token: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[JsSocketHandler] = {
+    userTv: Option[String],
+    apiVersion: ApiVersion): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
       user = user,
       color = pov.color,
       playerId = playerId,
       ip = ip,
-      userTv = userTv)
+      userTv = userTv,
+      apiVersion = apiVersion)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>

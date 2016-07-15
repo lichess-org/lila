@@ -15,10 +15,10 @@ object Api extends LilaController {
     val api = lila.api.Mobile.Api
     Ok(Json.obj(
       "api" -> Json.obj(
-        "current" -> api.currentVersion,
+        "current" -> api.currentVersion.value,
         "olds" -> api.oldVersions.map { old =>
           Json.obj(
-            "version" -> old.version,
+            "version" -> old.version.value,
             "deprecatedAt" -> old.deprecatedAt,
             "unsupportedAt" -> old.unsupportedAt)
         })
