@@ -31,9 +31,7 @@ openGraph = povOpenGraph(pov).some,
 chessground = false,
 atom = atom.some) {
 <div class="round cg-512">@miniBoardContent</div>
-@cross.map { c =>
 <div class="crosstable" style="display:none">
-  @views.html.game.crosstable(c, pov.gameId.some)
+  @views.html.game.crosstable(cross, pov.game.some)
 </div>
-}
 }

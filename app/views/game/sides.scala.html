@@ -2,9 +2,7 @@
 
 <div class="sides">
   @side(pov, initialFen, tour, simul, userTv)
-  @cross.map { c =>
   <div class="crosstable">
-    @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
+    @views.html.game.crosstable(cross.map(c => ctx.userId.fold(c)(c.fromPov)), pov.game.some)
   </div>
-  }
 </div>

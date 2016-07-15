@@ -3,9 +3,7 @@
 <div class="sides">
   @side(channel, champions, "/tv", pov.some, streams)
 
-  @cross.map { c =>
   <div class="crosstable">
-    @game.crosstable(c, pov.gameId.some)
+    @game.crosstable(cross, pov.game.some)
   </div>
-  }
 </div>

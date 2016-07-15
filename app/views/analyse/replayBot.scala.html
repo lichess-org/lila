@@ -110,11 +110,9 @@ chessground = true) {
       </p>
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
-    @cross.map { c =>
     <div class="panel crosstable">
-      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+      @views.html.game.crosstable(cross.map(c => pov.player.userId.fold(c)(c.fromPov)), pov.game.some)
     </div>
-    }
   </div>
   <div class="analysis_menu">
     @if(cross.isDefined) {
