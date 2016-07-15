@@ -1,6 +1,5 @@
-@(c: Option[lila.game.Crosstable], game: Option[Game])(implicit ctx: Context)
+@(crosstable: lila.game.Crosstable, currentId: Option[String])(implicit ctx: Context)
 
-  @c.map { crosstable =>
 <table>
   <tbody>
     @crosstable.users.map { u =>
@@ -12,7 +11,7 @@
       }
       @crosstable.results.zipWithIndex.map {
       case (r, index) => {
-      <td @if(game.exists(_.id == r.gameId)){class="current"}>
+      <td @if(currentId.??(r.gameId==)){class="current"}>
         <a
           href="@routes.Round.watcher(r.gameId, "white")?pov=@crosstable.user1.id"
           class="glpt @r.winnerId match {
@@ -41,11 +40,3 @@
     }
   </tbody>
 </table>
-}.getOrElse {
-@if(game.exists(_.userIds.size == 2)) {
-<p class="unavailable">
-The crosstable will be back soon.<br />
-Sorry for the inconvenience.
-</p>
-}
-}

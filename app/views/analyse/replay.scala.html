@@ -96,9 +96,11 @@ atom = atom.some) {
       <div id="movetimes_chart"></div>
       }
     </div>
+    @cross.map { c =>
     <div class="panel crosstable">
-      @views.html.game.crosstable(cross.map(c => pov.player.userId.fold(c)(c.fromPov)), pov.game.some)
+      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
     </div>
+    }
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {

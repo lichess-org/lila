@@ -58,8 +58,8 @@ description = describeUser(u)).some) {
     <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a href="@routes.Study.byOwnerDefault(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
     <a class="intertab" @NotForKids {
-      href="@routes.ForumPost.search("user:" + u.username, 1)"
-      }>@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
+    href="@routes.ForumPost.search("user:" + u.username, 1)"
+    }>@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
@@ -202,7 +202,9 @@ description = describeUser(u)).some) {
     }
   </div>
   @if(filters.current.name == "me") {
-  <div class="crosstable">@game.crosstable(info.crosstable, none)</div>
+  @info.crosstable.map { c =>
+  <div class="crosstable">@game.crosstable(c, none)</div>
+  }
   }
   <div class="search_result">
     @views.html.user.games(u, games, filters.current.name)
