@@ -153,8 +153,7 @@ lichess.notifyApp = (function() {
         var friendsOnline = all["d"];
         var friendsPlaying = all["playing"];
 
-        $('#friend_box').friends("set", friendsOnline);
-        $('#friend_box').friends("playings", friendsPlaying);
+        $('#friend_box').friends("set", friendsOnline, friendsPlaying);
       },
       following_enters: function(d, all) {
         var name = all["d"];
@@ -1122,8 +1121,10 @@ lichess.notifyApp = (function() {
       if (lichess.storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
-      self.set(self.element.data('preload').split(','));
-      self.playings(self.element.data('playing').split(','));
+
+      var users = self.element.data('preload').split(',');
+      var playings = self.element.data('playing').split(',');
+      self.set(users, playings);
     },
     _makeUser: function(name, playing) {
       return {
@@ -1131,8 +1132,21 @@ lichess.notifyApp = (function() {
         'playing' : playing || false
       }
     },
+    _uniqueUsers: function(users) {
+      var usersEncountered = [];
+
+      return users.filter(function(u) {
+        if (usersEncountered.indexOf(u.name) !== -1) {
+          return false;
+        } else {
+          usersEncountered.push(u.name);
+          return true;
+        }
+      })
+    },
     repaint: function() {
-      this.users = lichess.unique(this.users.filter(function(u) {
+
+      this.users = this._uniqueUsers(this.users.filter(function(u) {
         return u.name !== '';
       }));
       this.$nbOnline.text(this.users.length);
@@ -1142,12 +1156,16 @@ lichess.notifyApp = (function() {
       }).map(this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
-    set: function(us) {
+    set: function(us, playings) {
       var makeUser = this._makeUser;
 
       this.users = us.map(function(user) {
         return makeUser(user, false);
       });
+
+      for (user in playings) {
+        this._setPlaying(playings[user], true);
+      }
 
       this.repaint();
     },
@@ -1177,14 +1195,6 @@ lichess.notifyApp = (function() {
       if (user) {
         user["playing"] = playing;
       }
-    },
-    playings: function(userNames) {
-
-      for (user in userNames) {
-        this._setPlaying(userNames[user], true);
-      }
-
-      this.repaint();
     },
     playing: function(userName) {
       this._setPlaying(userName, true);
