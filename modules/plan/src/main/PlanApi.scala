@@ -46,7 +46,9 @@ final class PlanApi(
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) => stripeClient.cancelSubscription(sub) >>
-            UserRepo.setPlan(user, user.plan.disable)
+            UserRepo.setPlan(user, user.plan.disable) >>
+            patronColl.update($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
+            logger.info(s"Canceled subscription $sub of ${user.username}")
         }
     }
 
@@ -136,7 +138,9 @@ final class PlanApi(
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {
-      case None => fufail(s"Deleted subscription of unknown patron $sub")
+      case None =>
+        logger.warn(s"Deleted subscription of unknown patron $sub")
+        funit
       case Some(patron) =>
         UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
           UserRepo.setPlan(user, user.plan.disable) >>

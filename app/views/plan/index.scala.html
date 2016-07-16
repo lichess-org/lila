@@ -19,7 +19,7 @@ title = title,
 url = s"$netBaseUrl${routes.Plan.index.url}",
 description = "Free chess for everyone, forever!").some) {
 <div class="content_box no_padding plan motivation">
-  @patron.map { p =>
+  @patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
   <div class="banner one_time_active">
     <i data-icon="@patronIconChar"></i>
     <div>
