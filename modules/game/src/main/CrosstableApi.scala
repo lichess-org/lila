@@ -8,7 +8,8 @@ import lila.user.UserRepo
 
 final class CrosstableApi(
     coll: Coll,
-    gameColl: Coll) {
+    gameColl: Coll,
+    system: akka.actor.ActorSystem) {
 
   import Crosstable.Result
 
@@ -67,7 +68,7 @@ final class CrosstableApi(
     timeToLive = 5 seconds)
 
   private var computing = 0
-  private val maxComputing = 1
+  private val maxComputing = 3
 
   private val winnerProjection = $doc(Game.BSONFields.winnerId -> true)
 
@@ -113,9 +114,9 @@ final class CrosstableApi(
 
         case _ => fuccess(none)
       }
-    } andThenAnyway {
+    }.andThenAnyway {
       computing = (computing - 1) max 0
-    }
+    }.withTimeoutDefault(1 second, none)(system)
   }
 
   private def select(u1: String, u2: String) =

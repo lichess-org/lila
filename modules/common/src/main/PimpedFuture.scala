@@ -102,6 +102,11 @@ object PimpedFuture {
         akka.pattern.after(duration, system.scheduler)(Future failed error))
     }
 
+    def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit system: akka.actor.ActorSystem): Fu[A] = {
+      Future firstCompletedOf Seq(fua,
+        akka.pattern.after(duration, system.scheduler)(Future(default)))
+    }
+
     def chronometer = lila.common.Chronometer(fua)
 
     def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
