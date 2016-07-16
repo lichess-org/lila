@@ -374,7 +374,10 @@ module.exports = function(opts) {
       this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
-  if (this.clock) setInterval(clockTick, 100);
+  if (this.clock) this.debug.saveInterval(setInterval(function() {
+    this.debug.tickOuter();
+    clockTick();
+  }.bind(this), 100));
   else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
