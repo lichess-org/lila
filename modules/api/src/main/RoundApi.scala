@@ -139,7 +139,7 @@ private[api] final class RoundApi(
   private def withTournament(pov: Pov, tourOption: Option[TourAndRanks], hideTourneyIdIfPrivate: Boolean)(json: JsObject) =
     tourOption.fold(json) { data =>
       json + ("tournament" -> Json.obj(
-        "id" -> (if (hideTourneyIdIfPrivate && data.tour.`private` && !data.tour.isFinished) -1 else data.tour.id),
+        "id" -> (if (hideTourneyIdIfPrivate && data.tour.`private` && !data.tour.isFinished) JsNull else data.tour.id),
         "name" -> data.tour.name,
         "running" -> data.tour.isStarted,
         "secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish),
