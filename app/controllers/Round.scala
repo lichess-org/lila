@@ -8,7 +8,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ApiVersion }
 import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
@@ -31,7 +31,9 @@ object Round extends LilaController with TheftPrevention {
         uid = uid,
         user = ctx.me,
         ip = ctx.ip,
-        userTv = get("userTv"))
+        userTv = get("userTv"),
+        apiVersion = lila.api.Mobile.Api.currentVersion // yeah it should be in the URL
+      )
     }
   }
 
@@ -41,7 +43,7 @@ object Round extends LilaController with TheftPrevention {
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else get("sri") match {
           case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
-            pov, uid, ~get("ran"), ctx.me, ctx.ip
+            pov, uid, ~get("ran"), ctx.me, ctx.ip, ApiVersion(apiVersion)
           ) map Right.apply
           case None => fuccess(Left(NotFound))
         }
@@ -79,7 +81,7 @@ object Round extends LilaController with TheftPrevention {
         else Env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game) map {
             case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c, mobileEscape = apiVersion == 1))
+              data + ("chat" -> lila.chat.JsonView(c, mobileEscape = apiVersion.v1))
             })
           }
       }.mon(_.http.response.player.mobile)

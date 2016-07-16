@@ -3,7 +3,7 @@
 @jsTag("challenge.js")
 @embedJs {
 lichess.startChallenge(document.getElementById('challenge'), {
-socketUrl: '@routes.Challenge.websocket(c.id, apiVersion)',
+socketUrl: '@routes.Challenge.websocket(c.id, apiVersion.value)',
 xhrUrl: '@routes.Challenge.show(c.id)',
 owner: @owner,
 data: @Html(toJson(json))

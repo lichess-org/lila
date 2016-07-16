@@ -6,10 +6,10 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
 
-import lila.db.dsl._
+import lila.common.{ HTTPRequest, ApiVersion }
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 import lila.user.{ User, UserRepo }
-import lila.common.HTTPRequest
 
 object Store {
 
@@ -20,7 +20,7 @@ object Store {
     sessionId: String,
     userId: String,
     req: RequestHeader,
-    apiVersion: Option[Int]): Funit =
+    apiVersion: Option[ApiVersion]): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
@@ -28,13 +28,16 @@ object Store {
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
-      "api" -> apiVersion
+      "api" -> apiVersion.map(_.value)
     )).void
+
+  private val userIdProjection = $doc("user" -> true, "_id" -> false)
+  private val userIdFingerprintProjection = $doc("user" -> true, "fp" -> true, "_id" -> false)
 
   def userId(sessionId: String): Fu[Option[String]] =
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
-      $doc("user" -> true, "_id" -> false)
+      userIdProjection
     ).uno[Bdoc] map { _ flatMap (_.getAs[String]("user")) }
 
   case class UserIdAndFingerprint(user: String, fp: Option[String])
@@ -43,7 +46,7 @@ object Store {
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
-      $doc("user" -> true, "fp" -> true, "_id" -> false)
+      userIdFingerprintProjection
     ).uno[UserIdAndFingerprint]
 
   def delete(sessionId: String): Funit =

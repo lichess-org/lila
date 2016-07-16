@@ -12,7 +12,7 @@ import scalaz.Monoid
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest }
+import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
 import lila.notify.Notification.Notifies
 import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
@@ -277,7 +277,7 @@ private[controllers] trait LilaController
       res,
       res withCookies LilaCookie.makeSessionId(req))
 
-  protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {
       case Some(v) => api(v) map (_ as JSON)
       case _       => html

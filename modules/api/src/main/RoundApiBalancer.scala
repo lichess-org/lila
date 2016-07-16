@@ -5,6 +5,7 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
+import lila.common.ApiVersion
 import lila.analyse.Analysis
 import lila.game.Pov
 import lila.pref.Pref
@@ -20,11 +21,11 @@ private[api] final class RoundApiBalancer(
 
     implicit val timeout = makeTimeout seconds 20
 
-    case class Player(pov: Pov, apiVersion: Int, ctx: Context)
-    case class Watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+    case class Player(pov: Pov, apiVersion: ApiVersion, ctx: Context)
+    case class Watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
       initialFenO: Option[Option[String]] = None,
       ctx: Context)
-    case class Review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+    case class Review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
       analysis: Option[Analysis] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
@@ -58,7 +59,7 @@ private[api] final class RoundApiBalancer(
 
   import implementation._
 
-  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] = {
+  def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] = {
     router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject] addFailureEffect { e =>
       logger.error(pov.toString, e)
     }
@@ -67,12 +68,12 @@ private[api] final class RoundApiBalancer(
     .logIfSlow(500, logger) { _ => s"outer player $pov" }
     .result
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+  def watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     initialFenO: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] = {
     router ? Watcher(pov, apiVersion, tv, initialFenO, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
-  def review(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
+  def review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,

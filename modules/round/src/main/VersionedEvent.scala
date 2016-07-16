@@ -1,10 +1,13 @@
 package lila.round
 
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 import actorApi.Member
 import chess.Color
+import lila.common.ApiVersion
 import lila.game.Event
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 case class VersionedEvent(
     version: Int,
@@ -22,9 +25,23 @@ case class VersionedEvent(
 
   def jsFor(m: Member): JsObject = if (visibleBy(m)) {
     if (decoded == JsNull) Json.obj("v" -> version, "t" -> typ)
-    else Json.obj("v" -> version, "t" -> typ, "d" -> decoded)
+    else Json.obj(
+      "v" -> version,
+      "t" -> typ,
+      "d" -> dataForApiVersion(typ, decoded, m.apiVersion))
   }
   else Json.obj("v" -> version)
+
+  private val mobileV1Escaper: Reads[JsObject] = (__ \ 't).json.update(
+    __.read[JsString].map { s => JsString(escapeHtml4(s.value)) }
+  )
+
+  private def dataForApiVersion(typ: String, data: JsValue, apiVersion: ApiVersion): JsValue =
+    if (typ == "message" && apiVersion.v1) data match {
+      case o: JsObject => o transform mobileV1Escaper getOrElse o
+      case v           => v
+    }
+    else data
 
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false

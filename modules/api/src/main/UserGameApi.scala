@@ -50,6 +50,7 @@ final class UserGameApi(bookmarkApi: lila.bookmark.BookmarkApi) {
     "opening" -> g.opening,
     "winner" -> g.winnerColor.map(_.name),
     "bookmarks" -> g.bookmarks,
-    "bookmarked" -> bookmarked.option(true)
+    "bookmarked" -> bookmarked.option(true),
+    "analysed" -> g.metadata.analysed.option(true)
   ).noNull
 }

@@ -1,6 +1,5 @@
 package lila.game
 
-import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -9,7 +8,8 @@ import lila.user.UserRepo
 
 final class CrosstableApi(
     coll: Coll,
-    gameColl: Coll) {
+    gameColl: Coll,
+    system: akka.actor.ActorSystem) {
 
   import Crosstable.Result
 
@@ -68,7 +68,9 @@ final class CrosstableApi(
     timeToLive = 5 seconds)
 
   private var computing = 0
-  private val maxComputing = 2
+  private val maxComputing = 3
+
+  private val winnerProjection = $doc(Game.BSONFields.winnerId -> true)
 
   def nbComputing = computing
 
@@ -76,46 +78,45 @@ final class CrosstableApi(
     if (computing >= maxComputing) fuccess(none)
     else {
       computing = (computing + 1) min maxComputing
+
       UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
         case (Some((u1, u2)), List(su1, su2)) =>
           val selector = $doc(
             Game.BSONFields.playerUids $all List(u1, u2),
             Game.BSONFields.status $gte chess.Status.Mate.id)
 
-          import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, SumValue, GroupField }
           import reactivemongo.api.ReadPreference
 
-          for {
-            localResults <- gameColl.find(selector,
-              $doc(Game.BSONFields.winnerId -> true)
-            ).sort($doc(Game.BSONFields.createdAt -> -1))
-              .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-              .gather[List](maxGames).map {
-                _.flatMap { doc =>
+          gameColl.find(selector, winnerProjection)
+            .sort($doc(Game.BSONFields.createdAt -> -1))
+            .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+            .gather[List]().map { docs =>
+
+              val (s1, s2) = docs.foldLeft(0 -> 0) {
+                case ((s1, s2), doc) => doc.getAs[String](Game.BSONFields.winnerId) match {
+                  case Some(u) if u == su1 => (s1 + 10, s2)
+                  case Some(u) if u == su2 => (s1, s2 + 10)
+                  case _                   => (s1 + 5, s2 + 5)
+                }
+              }
+              Crosstable(
+                Crosstable.User(su1, s1),
+                Crosstable.User(su2, s2),
+                results = docs.take(maxGames).flatMap { doc =>
                   doc.getAs[String](Game.BSONFields.id).map { id =>
                     Result(id, doc.getAs[String](Game.BSONFields.winnerId))
                   }
                 }.reverse
-              }
-            ctDraft = Crosstable(Crosstable.User(su1, 0), Crosstable.User(su2, 0), localResults)
-
-            crosstable <- gameColl.aggregate(Match(selector), List(
-              GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)))).map(
-              _.documents.foldLeft(ctDraft) {
-                case (ct, obj) => obj.getAs[Int]("nb").fold(ct) { nb =>
-                  ct.addWins(obj.getAs[String]("_id"), nb)
-                }
-              }
-            )
-
-            _ <- coll insert crosstable
-          } yield crosstable.some
+              )
+            } flatMap { crosstable =>
+              coll insert crosstable inject crosstable.some
+            }
 
         case _ => fuccess(none)
       }
-    } andThenAnyway {
+    }.andThenAnyway {
       computing = (computing - 1) max 0
-    }
+    }.withTimeoutDefault(1 second, none)(system)
   }
 
   private def select(u1: String, u2: String) =

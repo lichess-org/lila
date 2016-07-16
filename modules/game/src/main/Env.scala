@@ -1,9 +1,9 @@
 package lila.game
 
-import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 
@@ -66,7 +66,8 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(CollectionCrosstable),
-    gameColl = gameColl)
+    gameColl = gameColl,
+    system = system)
 
   system.scheduler.schedule(2 second, 2 second) {
     lila.log("crosstable").debug(s"${crosstableApi.nbComputing}")

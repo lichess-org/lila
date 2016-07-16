@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
+import lila.common.ApiVersion
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
@@ -34,7 +35,7 @@ final class JsonView(
   def playerJson(
     pov: Pov,
     pref: Pref,
-    apiVersion: Int,
+    apiVersion: ApiVersion,
     playerUser: Option[User],
     initialFen: Option[String],
     withBlurs: Boolean): Fu[JsObject] =
@@ -119,7 +120,7 @@ final class JsonView(
   def watcherJson(
     pov: Pov,
     pref: Pref,
-    apiVersion: Int,
+    apiVersion: ApiVersion,
     user: Option[User],
     tv: Option[OnTv],
     withBlurs: Boolean,

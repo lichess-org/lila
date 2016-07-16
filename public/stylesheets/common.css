@@ -2024,6 +2024,10 @@ body.base .crosstable .loss {
 .crosstable .user {
   padding-left: 7px;
 }
+.crosstable .unavailable {
+  margin-top: 40px;
+  opacity: 0.7;
+}
 .bookmark {
   float: right;
   outline: none;

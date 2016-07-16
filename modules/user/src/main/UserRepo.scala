@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.bson._
 
+import lila.common.ApiVersion
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Glicko, Perf, PerfType }
@@ -219,7 +220,7 @@ object UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "password")
 
-  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
+  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
         val doc = newUser(username, password, email, blind, mobileApiVersion) ++
@@ -352,7 +353,7 @@ object UserRepo {
 
   def setEmailConfirmed(id: String): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
-  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[Int]) = {
+  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     implicit def countHandler = Count.countBSONHandler
@@ -370,7 +371,7 @@ object UserRepo {
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
-      F.createdWithApiVersion -> mobileApiVersion,
+      F.createdWithApiVersion -> mobileApiVersion.map(_.value),
       F.seenAt -> DateTime.now) ++ {
         if (blind) $doc("blind" -> true) else $empty
       }

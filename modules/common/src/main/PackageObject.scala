@@ -13,6 +13,10 @@ trait PackageObject extends Steroids with WithFuture {
     def value: String
     override def toString = value
   }
+  trait IntValue extends Any {
+    def value: Int
+    override def toString = value.toString
+  }
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
