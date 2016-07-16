@@ -18,22 +18,29 @@ openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Plan.index.url}",
 description = "Free chess for everyone, forever!").some) {
-<div class="content_box plan">
-  <h1 class="text" data-icon="@patronIconChar">@title</h1>
-  <div class="motivation">
-    @patron.map { p =>
-    <div class="one_time_active">
-      <h2>Thank you for your one-time donation!</h2>
+<div class="content_box no_padding plan motivation">
+  @patron.map { p =>
+  <div class="banner one_time_active">
+    <i data-icon="@patronIconChar"></i>
+    <div>
+      <h1>Thank you for your donation!</h1>
       @p.expiresAt.map { expires =>
       If not renewed, your Patron account will expire on @showDate(expires).
       }
     </div>
-    }.getOrElse {
-    <div class="moto">
-      <h2>Free chess for everyone, forever!</h2>
+    <i data-icon="@patronIconChar"></i>
+  </div>
+  }.getOrElse {
+  <div class="banner moto">
+    <i data-icon="@patronIconChar"></i>
+    <div>
+      <h1>Free chess for everyone, forever!</h1>
       <p>No ads, no subscriptions; but open source and passion.</p>
     </div>
-    }
+    <i data-icon="@patronIconChar"></i>
+  </div>
+  }
+  <div class="content_box_content">
     <div class="wrapper">
       <div class="text">
         <p>
@@ -127,39 +134,39 @@ description = "Free chess for everyone, forever!").some) {
     <p class="small_team">
       We are a small team, so your support will make a huge difference!
     </p>
-  </div>
-  <div class="faq">
-    <dl>
-      <dt>Where does the money go?</dt>
-      <dd>
-        The servers alone cost $1100 per month.<br />
-        Then $350 go to the CDN, email sender, Apple store and stripe.<br />
-        Finally, $2000 (with taxes) to pay a full-time developer/administrator: @userIdLink("thibault".some), the founder of lichess.
-      </dd>
-    </dl>
-    <dl>
-      <dt>Can I change/cancel my monthly support?</dt>
-      <dd>
-        Yes, at any time, from this page.<br />
-        Or you can <a href="@routes.Page.contact">contact lichess support</a>.
-      </dd>
-    </dl>
-    <dl>
-      <dt>Are some features reserved to Patrons?</dt>
-      <dd>
-        <a href="@routes.Plan.features">No</a>, because
-        lichess is entirely free, forever, and for everyone. That's a promise.<br />
-        But Patrons get bragging rights with a cool new profile icon.<br />
-        See the <a href="@routes.Plan.features">detailed features comparison</a>.
-      </dd>
-    </dl>
-  </div>
-  <div class="user_list">
-    <h2>The celebrated Patrons who make lichess possible</h2>
-    <div class="list">
-      @userIds.map { userId =>
-      @userIdLink(userId.some)
-      }
+    <div class="faq">
+      <dl>
+        <dt>Where does the money go?</dt>
+        <dd>
+          The servers alone cost $1100 per month.<br />
+          Then $350 go to the CDN, email sender, Apple store and stripe.<br />
+          Finally, $2000 (with taxes) to pay a full-time developer/administrator: @userIdLink("thibault".some), the founder of lichess.
+        </dd>
+      </dl>
+      <dl>
+        <dt>Can I change/cancel my monthly support?</dt>
+        <dd>
+          Yes, at any time, from this page.<br />
+          Or you can <a href="@routes.Page.contact">contact lichess support</a>.
+        </dd>
+      </dl>
+      <dl>
+        <dt>Are some features reserved to Patrons?</dt>
+        <dd>
+          <a href="@routes.Plan.features">No</a>, because
+          lichess is entirely free, forever, and for everyone. That's a promise.<br />
+          But Patrons get bragging rights with a cool new profile icon.<br />
+          See the <a href="@routes.Plan.features">detailed features comparison</a>.
+        </dd>
+      </dl>
+    </div>
+    <div class="user_list">
+      <h2>The celebrated Patrons who make lichess possible</h2>
+      <div class="list">
+        @userIds.map { userId =>
+        @userIdLink(userId.some)
+        }
+      </div>
     </div>
   </div>
 </div>

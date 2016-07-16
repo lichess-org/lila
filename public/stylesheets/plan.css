@@ -89,15 +89,18 @@ table.all .thanks {
   height: 160px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .motivation .banner > i {
   font-size: 80px;
   margin: 0 20px;
 }
-.motivation .banner h2 {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
-  display: block;
+.motivation .banner > i:last-child {
+  transform: scale(-1, 1);
+}
+.motivation .banner h1 {
+  margin: 0 0 20px 0;
+  padding: 0!important;
 }
 .motivation .wrapper {
   display: flex;
