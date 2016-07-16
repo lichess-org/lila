@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.slack.Event
 import lila.hub.actorApi.plan.ChargeEvent
-import lila.hub.actorApi.{ DonationEvent, DeployPre, DeployPost }
+import lila.hub.actorApi.{ DeployPre, DeployPost }
 
 final class Env(
     config: Config,
@@ -27,13 +27,12 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case d: DonationEvent => api donation d
-      case d: ChargeEvent   => api stripeCharge d
+      case d: ChargeEvent   => api charge d
       case DeployPre        => api.deployPre
       case DeployPost       => api.deployPost
       case e: Event         => api publishEvent e
     }
-  })), 'donation, 'deploy, 'slack, 'stripe)
+  })), 'deploy, 'slack, 'plan)
 }
 
 object Env {

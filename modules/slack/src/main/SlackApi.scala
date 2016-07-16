@@ -11,30 +11,12 @@ final class SlackApi(
 
   import SlackApi._
 
-  def donation(event: lila.hub.actorApi.DonationEvent): Funit = {
-    val user = event.userId flatMap lightUser
-    val username = user.fold("Anonymous")(_.titleName)
-    def amount(cents: Int) = s"$$${lila.common.Maths.truncateAt(cents / 100d, 2)}"
-    client(SlackMessage(
-      username = "donation",
-      icon = "heart_eyes",
-      text = s"$username donated ${amount(event.gross)} (${amount(event.net)})! Weekly progress: ${event.progress}%",
-      channel = "general"
-    )) >> event.message.?? { msg =>
-      client(SlackMessage(
-        username = username,
-        icon = "kissing_heart",
-        text = msg,
-        channel = "general"))
-    }
-  }
-
-  def stripeCharge(event: lila.hub.actorApi.plan.ChargeEvent): Funit = {
+  def charge(event: lila.hub.actorApi.plan.ChargeEvent): Funit = {
     val amount = s"$$${lila.common.Maths.truncateAt(event.amount / 100d, 2)}"
-    val link = s"<a href='https://lichess.org/@/${event.username}'>${event.username}</a>"
+    val link = s"lichess.org/@/${event.username}"
     client(SlackMessage(
-      username = "donation",
-      icon = "moneybag",
+      username = "Patron",
+      icon = "four_leaf_clover",
       text = s"$link donated $amount",
       channel = "general"
     ))

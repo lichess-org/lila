@@ -64,7 +64,7 @@ final class PlanApi(
             lila.mon.plan.amount(charge.amount.value)
             bus.publish(lila.hub.actorApi.plan.ChargeEvent(
               username = "Anonymous",
-              amount = charge.amount.value), 'stripe)
+              amount = charge.amount.value), 'plan)
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
@@ -72,7 +72,7 @@ final class PlanApi(
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               bus.publish(lila.hub.actorApi.plan.ChargeEvent(
                 username = user.username,
-                amount = charge.amount.value), 'stripe)
+                amount = charge.amount.value), 'plan)
               val p2 = patron.copy(
                 stripe = Patron.Stripe(charge.customer).some
               ).levelUpIfPossible
@@ -108,8 +108,11 @@ final class PlanApi(
           subId = subId.map(_.value),
           ip = ip.some).some,
         cents = cents)) >>
-        (userId ?? UserRepo.named) flatMap {
-          _ ?? { user =>
+        (userId ?? UserRepo.named) flatMap { userOption =>
+          bus.publish(lila.hub.actorApi.plan.ChargeEvent(
+            username = userOption.fold("Anonymous")(_.username),
+            amount = cents.value), 'plan)
+          userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
             userPatron(user).flatMap {
               case None => patronColl.insert(Patron(
@@ -133,7 +136,6 @@ final class PlanApi(
             }
           }
         }
-
     }
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =

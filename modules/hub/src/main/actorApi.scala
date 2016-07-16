@@ -191,8 +191,6 @@ case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }
 
-case class DonationEvent(userId: Option[String], gross: Int, net: Int, message: Option[String], progress: Int)
-
 package plan {
 case class ChargeEvent(username: String, amount: Int)
 }
