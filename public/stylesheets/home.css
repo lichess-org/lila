@@ -274,21 +274,19 @@ body.dark #hooks_wrap {
   text-shadow: 0 0 3px #fff;
   opacity: 0.7;
   transition: 0.5s;
-  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 #hooks_wrap .hooks_chart .plot.rated {
   opacity: 0.9;
   color: #d59120!important;
 }
 #hooks_wrap .hooks_chart .plot.new {
-  -webkit-transform: translateY(-7px);
   transform: translateY(-7px);
   opacity: 0;
 }
 #hooks_wrap .hooks_chart .plot:hover {
   z-index: 2;
   opacity: 1;
-  -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
 #hook {

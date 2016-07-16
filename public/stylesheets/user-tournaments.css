@@ -34,7 +34,6 @@
 }
 #tournament_list table.slist .header:hover {
   transform: translateX(3px);
-  -webkit-transform: translateX(3px);
 }
 #tournament_list table.slist .header a {
   padding: 1em;

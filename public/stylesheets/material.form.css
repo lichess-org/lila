@@ -90,7 +90,6 @@
   opacity: 0.6;
   font-size: 1rem;
   font-weight: normal;
-  -webkit-transition: all 0.28s ease;
   transition: all 0.28s ease;
 }
 .material.form .form-group.no-label {
@@ -109,7 +108,6 @@
   bottom: -0.0625rem;
   position: absolute;
   background: #3893E8;
-  -webkit-transition: left 0.28s ease, width 0.28s ease;
   transition: left 0.28s ease, width 0.28s ease;
   z-index: 2;
 }
@@ -123,7 +121,6 @@
   border-color: transparent;
   line-height: 1.9;
   width: 100%;
-  -webkit-transition: all 0.28s ease;
   transition: all 0.28s ease;
   box-shadow: none;
 }
@@ -208,15 +205,11 @@ body.dark .material.form .form-group select option {
   margin: 0.25rem;
   width: 1rem;
   height: 1rem;
-  -webkit-transition: -webkit-transform 0.28s ease;
-  transition: -webkit-transform 0.28s ease;
   transition: transform 0.28s ease;
-  transition: transform 0.28s ease, -webkit-transform 0.28s ease;
   border-radius: 50%;
   border: 0.125rem solid currentColor;
 }
 .material.form .radio .helper::after {
-  -webkit-transform: scale(0);
   transform: scale(0);
   background-color: #3893E8;
   border-color: #3893E8;
@@ -225,7 +218,6 @@ body.dark .material.form .form-group select option {
   color: #3893E8;
 }
 .material.form .radio input:checked ~ .helper::after {
-  -webkit-transform: scale(0.5);
   transform: scale(0.5);
 }
 .material.form .radio input:checked ~ .helper::before {
@@ -246,7 +238,6 @@ body.dark .material.form .form-group select option {
   z-index: 0;
   border: 0.125rem solid currentColor;
   border-radius: 0.0625rem;
-  -webkit-transition: border-color 0.28s ease;
   transition: border-color 0.28s ease;
 }
 .material.form .checkbox .helper::before, .checkbox .helper::after {
@@ -255,25 +246,21 @@ body.dark .material.form .form-group select option {
   width: 0.2rem;
   background-color: #3893E8;
   display: block;
-  -webkit-transform-origin: left top;
   transform-origin: left top;
   border-radius: 0.25rem;
   content: '';
-  -webkit-transition: opacity 0.28s ease, height 0s linear 0.28s;
   transition: opacity 0.28s ease, height 0s linear 0.28s;
   opacity: 0;
 }
 .material.form .checkbox .helper::before {
   top: 0.65rem;
   left: 0.38rem;
-  -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
   box-shadow: 0 0 0 0.0625rem #fff;
 }
 .material.form .checkbox .helper::after {
   top: 0.3rem;
   left: 0;
-  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 .material.form .checkbox label:hover .helper {
@@ -284,7 +271,6 @@ body.dark .material.form .form-group select option {
 }
 .material.form .checkbox input:checked ~ .helper::after, .checkbox input:checked ~ .helper::before {
   opacity: 1;
-  -webkit-transition: height 0.28s ease;
   transition: height 0.28s ease;
 }
 .material.form .checkbox input:checked ~ .helper::after {
@@ -292,7 +278,6 @@ body.dark .material.form .form-group select option {
 }
 .material.form .checkbox input:checked ~ .helper::before {
   height: 1.2rem;
-  -webkit-transition-delay: 0.28s;
   transition-delay: 0.28s;
 }
 

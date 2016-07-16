@@ -117,13 +117,11 @@ piece {
   bottom: 0;
   left: 0;
   transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
   z-index: 2;
   /* no less than 2 */
 }
 .mini_board piece {
   transform: none;
-  -webkit-transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold piece,
@@ -384,7 +382,6 @@ div.lichess_overboard {
   top: 50%;
   left: 56px;
   transform: translate(0, -50%);
-  -webkit-transform: translate(0, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;
@@ -445,7 +442,6 @@ div.dont_touch {
 .lichess_board_wrap .variant_reminder.gone {
   opacity: 0;
   transform: translateY(-100px);
-  -webkit-transform: translateY(-100px);
 }
 #promotion_choice {
   position: absolute;
@@ -469,7 +465,6 @@ div.dont_touch {
 .is2d #promotion_choice piece {
   transition: 0.2s;
   transform: scale(0.8);
-  -webkit-transform: scale(0.8);
 }
 #promotion_choice square:hover {
   box-shadow: inset 0 0 48px 8px #d85000;
@@ -477,7 +472,6 @@ div.dont_touch {
 }
 .is2d #promotion_choice square:hover piece {
   transform: none;
-  -webkit-transform: none;
 }
 div.table_wrap {
   flex: 0 1 auto;
@@ -819,17 +813,14 @@ div.control.icons .button {
 div.control.icons .takeback-yes span:before {
   display: inline-block;
   transform: translateY(1px);
-  -webkit-transform: translateY(1px);
 }
 div.control.icons .draw-yes span:before {
   display: inline-block;
   transform: translateY(-1px) rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
 }
 div.control.icons .resign span:before {
   display: inline-block;
   transform: translateY(1px);
-  -webkit-transform: translateY(1px);
 }
 div.control.icons .resign_confirm {
   display: inline-block;

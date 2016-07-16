@@ -31,7 +31,6 @@ div.user_show .fire_trophy.marathonTopHundred {
 }
 div.user_show .fire_trophy span {
   transform: scale(0.35) translate(-103px, -3px);
-  -webkit-transform: scale(0.35) translate(-103px, -3px);
   margin-top: -63px!important;
   margin-right: -50px;
   opacity: 0.9;
@@ -40,15 +39,12 @@ div.user_show .fire_trophy span {
 div.user_show .fire_trophy span:hover {
   opacity: 1;
   transform: scale(0.35) translate(-103px, -10px);
-  -webkit-transform: scale(0.35) translate(-103px, -10px);
 }
 div.user_show .fire_trophy.marathonTopTen span {
   transform: scale(0.3) translate(-112px, 14px);
-  -webkit-transform: scale(0.3) translate(-112px, 14px);
 }
 div.user_show .fire_trophy.marathonTopTen span:hover {
   transform: scale(0.3) translate(-112px, 6px);
-  -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
 div.user_show .fire_trophy.marathonTopFifty span,
 div.user_show .fire_trophy.marathonTopHundred span {
@@ -66,30 +62,24 @@ div.user_show .trophy.icon3d:hover {
 }
 div.user_show .fire_trophy.marathonTopFifty span {
   transform: scale(0.25) translate(-112px, 36px);
-  -webkit-transform: scale(0.25) translate(-112px, 36px);
   text-shadow: 0 0 20px #ffae34, 0 0 25px #ec760c, 0 0 30px #cd4606;
 }
 div.user_show .fire_trophy.marathonTopFifty span:hover {
   transform: scale(0.25) translate(-112px, 28px);
-  -webkit-transform: scale(0.25) translate(-112px, 28px);
 }
 div.user_show .fire_trophy.marathonTopHundred span {
   transform: scale(0.2) translate(-112px, 90px);
-  -webkit-transform: scale(0.2) translate(-112px, 90px);
   text-shadow: none;
   color: #cd4606;
 }
 div.user_show .fire_trophy.marathonTopHundred span:hover {
   transform: scale(0.2) translate(-112px, 60px);
-  -webkit-transform: scale(0.2) translate(-112px, 60px);
 }
 div.user_show .fire_trophy.marathonSurvivor span {
   transform: scale(0.3) translate(-112px, 14px);
-  -webkit-transform: scale(0.3) translate(-112px, 14px);
 }
 div.user_show .fire_trophy.marathonSurvivor span:hover {
   transform: scale(0.3) translate(-112px, 6px);
-  -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
 div.user_show .fire_trophy.bongcloudWarrior span {
   filter: hue-rotate(70deg);
@@ -516,7 +506,6 @@ div.user_show .results .aggregate {
   text-align: center;
   margin-left: -20px;
   width: 50px;
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 div.user_show .reportCard .mark {

@@ -194,7 +194,6 @@ div.side_box .game_infos {
 }
 #simul_list table.slist .header:hover {
   transform: translateX(3px);
-  -webkit-transform: translateX(3px);
 }
 #simul_list table.slist .header a {
   padding: 1em;

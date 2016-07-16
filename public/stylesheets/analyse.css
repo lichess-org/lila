@@ -134,7 +134,6 @@ div.eval_gauge {
 }
 div.eval_gauge.reverse {
   transform: rotateX(180deg);
-  -webkit-transform: rotateX(180deg);
 }
 div.eval_gauge::after {
   content: '';

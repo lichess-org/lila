@@ -124,7 +124,6 @@ form.color .color_3 i {
   box-shadow: 0 0 10px #fff;
   border-radius: 3px;
   transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
   cursor: pointer;
 }
 #trainer.init .score {
@@ -136,7 +135,6 @@ form.color .color_3 i {
   box-shadow: 0 0 1px #fff;
   border-radius: 100px;
   transform: rotate(0deg);
-  -webkit-transform: rotate(0deg);
 }
 #trainer.wrong .progress_bar,
 #trainer.wrong strong.score {

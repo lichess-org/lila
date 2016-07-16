@@ -572,7 +572,6 @@ body.coords_2 .is3d square[data-coord-x]::after {
 
 .is3d #promotion_choice piece {
   transform: scale(0.7);
-  -webkit-transform: scale(0.7);
   left: -18%;
   bottom: -40%;
 }

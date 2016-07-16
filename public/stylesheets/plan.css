@@ -80,17 +80,21 @@ table.all .thanks {
   line-height: 2em;
 }
 
-.motivation .moto,
-.motivation .one_time_active {
-  margin: 30px 0 60px 0;
-  padding: 30px 0;
+.motivation .banner {
+  margin-bottom: 60px;
   background: #759900;
   color: #fff;
   text-align: center;
   font-size: 1.3em;
+  height: 160px;
+  display: flex;
+  align-items: center;
 }
-.motivation .moto h2,
-.motivation .one_time_active h2 {
+.motivation .banner > i {
+  font-size: 80px;
+  margin: 0 20px;
+}
+.motivation .banner h2 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
   display: block;

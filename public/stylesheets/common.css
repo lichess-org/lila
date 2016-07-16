@@ -722,14 +722,12 @@ div.side_box .game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
   opacity: 0;
   transform: translate(0, -20px);
-  -webkit-transform: translate(0, -20px);
   transition: transform 0.3s;
   z-index: 10;
   /* to go over the board */
 }
 div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
-  -webkit-transform: translate(0, 0);
   opacity: 1;
 }
 div.side_box .game_infos .setup {
@@ -878,7 +876,6 @@ body.fpmenu #fpmenu {
   margin: 0 auto;
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 #fpmenu .body {
@@ -1007,7 +1004,7 @@ body.fpmenu #fpmenu {
   font-size: 12px;
   opacity: 0.8;
   transition: opacity 0.3s;
-  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 #fpmenu .footer:hover {
   opacity: 1;
@@ -1027,7 +1024,6 @@ body.fpmenu #fpmenu {
   #fpmenu .inner {
     top: 0;
     transform: none;
-    -webkit-transform: none;
     width: auto;
   }
   #fpmenu .body {
@@ -2181,7 +2177,6 @@ textarea.copyable {
 }
 .hint--bottom:hover:after,
 .hint--bottom:hover:before {
-  -webkit-transform: translateY(8px);
   transform: translateY(8px);
 }
 .hint--top:before {
@@ -2197,7 +2192,6 @@ textarea.copyable {
 }
 .hint--top:hover:after,
 .hint--top:hover:before {
-  -webkit-transform: translateY(-8px);
   transform: translateY(-8px);
 }
 .hint--top-left:before {
@@ -2213,7 +2207,6 @@ textarea.copyable {
 }
 .hint--top-left:hover:after,
 .hint--top-left:hover:before {
-  -webkit-transform: translateY(-8px);
   transform: translateY(-8px);
 }
 .hint--bottom-left:before {
@@ -2229,7 +2222,6 @@ textarea.copyable {
 }
 .hint--bottom-left:hover:after,
 .hint--bottom-left:hover:before {
-  -webkit-transform: translateY(8px);
   transform: translateY(8px);
 }
 .hint--left:before {
@@ -2246,7 +2238,6 @@ textarea.copyable {
 }
 .hint--left:hover:after,
 .hint--left:hover:before {
-  -webkit-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 .continue_with {
@@ -2274,7 +2265,6 @@ textarea.copyable {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
   padding: 20px;
   border-radius: 3px;
   box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.8);
@@ -2309,7 +2299,6 @@ div.lichess_overboard .close:hover {
 }
 .fire_trophy span {
   transform: scale(0.35);
-  -webkit-transform: scale(0.35);
   color: rgba(0, 0, 0, 0.6);
   font-size: 150px;
   display: block;
@@ -2401,7 +2390,6 @@ input.cmn-toggle-round:checked + label:after {
   background: #eee;
   border-left: 1.5px solid #aaa;
   border-bottom: 1px solid #aaa;
-  -webkit-transform: skew(45deg) rotate(-45deg);
   transform: skew(45deg) rotate(-45deg);
 }
 .content_box .pull-quote p:after,
