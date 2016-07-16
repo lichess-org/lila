@@ -7,7 +7,7 @@ import BSONHandlers._
 import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.db.paginator.Adapter
+import lila.db.paginator.{ Adapter, CachedAdapter }
 
 object TournamentRepo {
 
@@ -98,12 +98,14 @@ object TournamentRepo {
       .list[Tournament](limit)
 
   def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
-    adapter = new Adapter[Tournament](
-      collection = coll,
-      selector = finishedSelect,
-      projection = $empty,
-      sort = $doc("startsAt" -> -1)
-    ),
+    adapter = new CachedAdapter(
+      new Adapter[Tournament](
+        collection = coll,
+        selector = finishedSelect,
+        projection = $empty,
+        sort = $doc("startsAt" -> -1)
+      ),
+      nbResults = fuccess(200 * 1000)),
     currentPage = page,
     maxPerPage = maxPerPage)
 
