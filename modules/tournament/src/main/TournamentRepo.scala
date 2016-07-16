@@ -219,9 +219,6 @@ object TournamentRepo {
 
   def exists(id: String) = coll.count($doc("_id" -> id).some) map (0 !=)
 
-  def isFinished(id: String): Fu[Boolean] =
-    coll.count($doc("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
-
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
     coll.find(enterableSelect ++ $doc(
       "_id" -> $doc("$ne" -> tourId),
