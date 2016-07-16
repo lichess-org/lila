@@ -35,7 +35,7 @@ final class SlackApi(
     client(SlackMessage(
       username = "donation",
       icon = "moneybag",
-      text = s"$link donated ${amount(event.amount)}",
+      text = s"$link donated $amount",
       channel = "general"
     ))
   }
