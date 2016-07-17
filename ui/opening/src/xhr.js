@@ -13,6 +13,10 @@ function uncache(url) {
   return url + '?_=' + new Date().getTime();
 }
 
+function reloadPage() {
+  location.href = '/training/opening';
+}
+
 module.exports = {
   attempt: function(ctrl) {
     showLoading(ctrl);
@@ -35,6 +39,6 @@ module.exports = {
     }).then(function(cfg) {
       ctrl.reload(cfg);
       ctrl.pushState(cfg);
-    });
+    }, reloadPage);
   }
 };

@@ -37,7 +37,7 @@ private[opening] final class OpeningApi(
         Attempt.BSONFields.id -> Attempt.makeId(opening.id, user.id)
       ))
 
-    def playedIds(user: User, max: Int): Fu[BSONArray] =
+    def playedIds(user: User): Fu[BSONArray] =
       attemptColl.distinct(Attempt.BSONFields.openingId,
         $doc(Attempt.BSONFields.userId -> user.id).some
       ) map BSONArray.apply

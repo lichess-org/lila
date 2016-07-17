@@ -12,32 +12,32 @@ private[opening] final class Selector(
     api: OpeningApi,
     toleranceStep: Int,
     toleranceMax: Int,
-    modulo: Int) {
+    maxAttempts: Int) {
 
   val anonSkipMax = 1500
 
-  def apply(me: Option[User]): Fu[Opening] = (me match {
+  def apply(me: Option[User]): Fu[Option[Opening]] = (me match {
     case None =>
       openingColl.find($empty)
         .skip(Random nextInt anonSkipMax)
-        .uno[Opening] flatten "Can't find a opening for anon player!"
-    case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
+        .uno[Opening]
+    case Some(user) if user.perfs.opening.nb >= maxAttempts => fuccess(none)
+    case Some(user) => api.attempt.playedIds(user) flatMap { ids =>
       tryRange(user, toleranceStep, ids)
     } recoverWith {
       case e: Exception => apply(none)
     }
   }).mon(_.opening.selector.time) >>- lila.mon.opening.selector.count()
 
-  private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Opening] =
+  private def tryRange(user: User, tolerance: Int, ids: BSONArray): Fu[Option[Opening]] =
     openingColl.uno[Opening]($doc(
       Opening.BSONFields.id -> $doc("$nin" -> ids),
       Opening.BSONFields.rating $gt
         (user.perfs.opening.intRating - tolerance) $lt
         (user.perfs.opening.intRating + tolerance)
     )) flatMap {
-      case Some(opening) => fuccess(opening)
-      case None => if ((tolerance + toleranceStep) <= toleranceMax)
+      case None if (tolerance + toleranceStep) <= toleranceMax =>
         tryRange(user, tolerance + toleranceStep, ids)
-      else fufail(s"Can't find a opening for user $user!")
+      case res => fuccess(res)
     }
 }
