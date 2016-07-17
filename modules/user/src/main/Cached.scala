@@ -28,8 +28,6 @@ final class Cached(
     f = userColl.count(UserRepo.enabledSelect.some),
     timeToLive = nbTtl)
 
-  def countEnabled: Fu[Int] = countCache(true)
-
   private implicit val LightUserBSONHandler = Macros.handler[LightUser]
   private implicit val LightPerfBSONHandler = Macros.handler[LightPerf]
   private implicit val LightCountBSONHandler = Macros.handler[LightCount]

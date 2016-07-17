@@ -15,7 +15,6 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 case class UserInfo(
     user: User,
     ranks: lila.rating.UserRankMap,
-    nbUsers: Int,
     nbPlaying: Int,
     hasSimul: Boolean,
     crosstable: Option[Crosstable],
@@ -55,7 +54,6 @@ case class UserInfo(
 object UserInfo {
 
   def apply(
-    countUsers: () => Fu[Int],
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
     trophyApi: TrophyApi,
@@ -70,8 +68,7 @@ object UserInfo {
     isStreamer: String => Boolean,
     insightShare: lila.insight.Share,
     getPlayTime: User => Fu[User.PlayTime])(user: User, ctx: Context): Fu[UserInfo] =
-    countUsers() zip
-      getRanks(user.id) zip
+    getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
@@ -84,12 +81,11 @@ object UserInfo {
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) flatMap {
-        case (((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime) =>
+        case ((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
               ranks = ranks,
-              nbUsers = nbUsers,
               nbPlaying = nbPlaying,
               hasSimul = hasSimul,
               crosstable = crosstable,

@@ -31,7 +31,6 @@ final class Env(
     lightUser = Env.user.lightUser)
 
   lazy val userInfo = mashup.UserInfo(
-    countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,

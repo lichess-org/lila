@@ -45,8 +45,6 @@ final class Env(
 
   def isOnline(userId: String) = onlineUserIdMemo get userId
 
-  def countEnabled = cached.countEnabled
-
   def cli = new lila.common.Cli {
     def process = {
       case "user" :: "email" :: userId :: email :: Nil =>
