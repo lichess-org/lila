@@ -13,6 +13,7 @@ final class Env(
     onStart: String => Unit,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
+    gameCache: lila.game.Cached,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -29,6 +30,7 @@ final class Env(
     val CollectionSeekArchive = config getString "collection.seek_archive"
     val SeekMaxPerPage = config getInt "seek.max_per_page"
     val SeekMaxPerUser = config getInt "seek.max_per_user"
+    val MaxPlaying = config getInt "max_playing"
   }
   import settings._
 
@@ -49,6 +51,8 @@ final class Env(
       new Lobby(
         socket = socket,
         seekApi = seekApi,
+        gameCache = gameCache,
+        maxPlaying = MaxPlaying,
         blocking = blocking,
         playban = playban,
         onStart = onStart)
@@ -80,6 +84,7 @@ object Env {
     onStart = lila.game.Env.current.onStart,
     blocking = lila.relation.Env.current.api.fetchBlocking,
     playban = lila.playban.Env.current.api.currentBan _,
+    gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

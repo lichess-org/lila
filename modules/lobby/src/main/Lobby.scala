@@ -15,6 +15,8 @@ import org.joda.time.DateTime
 private[lobby] final class Lobby(
     socket: ActorRef,
     seekApi: SeekApi,
+    gameCache: lila.game.Cached,
+    maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     onStart: String => Unit) extends Actor {
@@ -72,10 +74,14 @@ private[lobby] final class Lobby(
     }
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
-      lila.mon.lobby.seek.join()
-      seekApi find seekId foreach {
-        _ foreach { seek =>
-          Biter(seek, user) pipeTo self
+      gameCache.nbPlaying(user.id) foreach { nbPlaying =>
+        if (nbPlaying < maxPlaying) {
+          lila.mon.lobby.seek.join()
+          seekApi find seekId foreach {
+            _ foreach { seek =>
+              Biter(seek, user) pipeTo self
+            }
+          }
         }
       }
     }

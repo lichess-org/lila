@@ -15,6 +15,8 @@ import makeTimeout.short
 
 private[setup] final class Processor(
     lobby: ActorSelection,
+    gameCache: lila.game.Cached,
+    maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
     onStart: String => Unit) {
 
@@ -48,9 +50,12 @@ private[setup] final class Processor(
           lobby ! AddHook(hook)
           hook.id
         }
-        case Right(Some(seek)) => fuccess {
-          lobby ! AddSeek(seek)
-          seek.id
+        case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) flatMap { nbPlaying =>
+          if (nbPlaying >= maxPlaying) fufail(s"${ctx.userId} already playing $maxPlaying games")
+          else fuccess {
+            lobby ! AddSeek(seek)
+            seek.id
+          }
         }
         case Right(None) if ctx.me.isEmpty => fufail(new IllegalArgumentException("Anon can't create seek"))
         case _                             => fufail("Can't create seek for some unknown reason")
