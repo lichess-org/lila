@@ -90,9 +90,14 @@ object Setup extends LilaController with TheftPrevention {
                     destUser = destUser,
                     rematchOf = none)
                   env.processor.saveFriendConfig(config) >>
-                    (Env.challenge.api create challenge) >> negotiate(
-                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                      api = _ => Challenge showChallenge challenge)
+                    (Env.challenge.api create challenge) flatMap {
+                      case true => negotiate(
+                        html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                        api = _ => Challenge showChallenge challenge)
+                      case false => negotiate(
+                        html = fuccess(Redirect(routes.Lobby.home)),
+                        api = _ => fuccess(BadRequest(jsonError("Challenge not created"))))
+                    }
               }
             }
           }

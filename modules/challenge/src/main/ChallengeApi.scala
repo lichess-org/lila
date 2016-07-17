@@ -14,6 +14,8 @@ final class ChallengeApi(
     repo: ChallengeRepo,
     joiner: Joiner,
     jsonView: JsonView,
+    gameCache: lila.game.Cached,
+    maxPlaying: Int,
     socketHub: ActorRef,
     userRegister: ActorSelection,
     lilaBus: lila.common.Bus) {
@@ -23,10 +25,14 @@ final class ChallengeApi(
   def allFor(userId: User.ID): Fu[AllChallenges] =
     createdByDestId(userId) zip createdByChallengerId(userId) map (AllChallenges.apply _).tupled
 
-  def create(c: Challenge): Funit = {
-    repo like c flatMap { _ ?? repo.cancel }
-  } >> (repo insert c) >> uncacheAndNotify(c) >>- {
-    lilaBus.publish(Event.Create(c), 'challenge)
+  // returns boolean success
+  def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
+    case true => fuccess(false)
+    case false => {
+      repo like c flatMap { _ ?? repo.cancel }
+    } >> (repo insert c) >> uncacheAndNotify(c) >>- {
+      lilaBus.publish(Event.Create(c), 'challenge)
+    } inject true
   }
 
   def byId = repo byId _
@@ -82,7 +88,13 @@ final class ChallengeApi(
       } yield success
     }
 
-  def removeByUserId = repo removeByUserId  _
+  def removeByUserId = repo removeByUserId _
+
+  private def isLimitedByMaxPlaying(c: Challenge) =
+    if (c.hasClock) fuccess(false)
+    else c.userIds.map { userId =>
+      gameCache.nbPlaying(userId) map (maxPlaying <=)
+    }.sequenceFu.map(_ exists identity)
 
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>

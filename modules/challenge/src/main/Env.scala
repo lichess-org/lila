@@ -14,6 +14,7 @@ final class Env(
     config: Config,
     system: ActorSystem,
     onStart: String => Unit,
+    gameCache: lila.game.Cached,
     lightUser: String => Option[lila.common.LightUser],
     hub: lila.hub.Env,
     db: lila.db.Env,
@@ -26,6 +27,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
+    val MaxPlaying = config getInt "max_playing"
   }
   import settings._
 
@@ -51,6 +53,8 @@ final class Env(
     repo = repo,
     joiner = new Joiner(onStart = onStart),
     jsonView = jsonView,
+    gameCache = gameCache,
+    maxPlaying = MaxPlaying,
     socketHub = socketHub,
     userRegister = hub.actor.userRegister,
     lilaBus = system.lilaBus)
@@ -73,6 +77,7 @@ object Env {
     system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart,
     hub = lila.hub.Env.current,
+    gameCache = lila.game.Env.current.cached,
     lightUser = lila.user.Env.current.lightUser,
     db = lila.db.Env.current,
     scheduler = lila.common.PlayApp.scheduler)
