@@ -154,7 +154,7 @@ object Schedule {
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
     case Speed.HyperBullet                => TournamentClock(30, 0)
     case Speed.Bullet                     => TournamentClock(60, 0)
-    case Speed.SuperBlitz if zhInc(sched) => TournamentClock(2 * 60, 1)
+    case Speed.SuperBlitz if zhInc(sched) => TournamentClock(3 * 60, 1)
     case Speed.SuperBlitz                 => TournamentClock(3 * 60, 0)
     case Speed.Blitz if zhInc(sched)      => TournamentClock(5 * 60, 1)
     case Speed.Blitz if makeInc(sched)    => TournamentClock(3 * 60, 2)
