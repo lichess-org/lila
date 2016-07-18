@@ -61,7 +61,9 @@ object Study {
     def compute(likes: Likes, createdAt: DateTime) = Rank {
       createdAt plusHours likesToHours(likes)
     }
-    private def likesToHours(likes: Likes) = likes.value * 24
+    private def likesToHours(likes: Likes): Int =
+      if (likes.value < 1) 0
+      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
   }
 
   sealed trait From
