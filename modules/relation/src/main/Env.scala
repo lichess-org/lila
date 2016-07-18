@@ -3,6 +3,7 @@ package lila.relation
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 
@@ -43,13 +44,9 @@ final class Env(
     api = api
   )), name = ActorName)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.once(15 seconds) {
-      scheduler.message(ActorNotifyFreq) {
-        actor -> actorApi.NotifyMovement
-      }
+  scheduler.once(15 seconds) {
+    scheduler.message(ActorNotifyFreq) {
+      actor -> actorApi.NotifyMovement
     }
   }
 }

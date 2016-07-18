@@ -26,12 +26,8 @@ final class RelationApi(
 
   import RelationRepo.makeId
 
-  def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] = coll.find(
-    $doc("u1" -> u1, "u2" -> u2),
-    $doc("r" -> true, "_id" -> false)
-  ).uno[BSONDocument].map {
-      _.flatMap(_.getAs[Boolean]("r"))
-    }
+  def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] =
+    coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
 
   def fetchFollowing = RelationRepo following _
 
@@ -40,36 +36,34 @@ final class RelationApi(
   def fetchBlocking = RelationRepo blocking _
 
   def fetchFriends(userId: ID) = coll.aggregate(Match($doc(
-    "$or" -> BSONArray($doc("u1" -> userId), $doc("u2" -> userId)),
+    "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
     "r" -> Follow
   )), List(
     Group(BSONNull)(
       "u1" -> AddToSet("u1"),
       "u2" -> AddToSet("u2")),
-    Project($doc(
-      "_id" -> $doc("$setIntersection" -> BSONArray("$u1", "$u2"))
-    ))
+    Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   )).map {
     ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
   def fetchFollows(u1: ID, u2: ID) =
-    coll.count($doc("_id" -> makeId(u1, u2), "r" -> Follow).some).map(0!=)
+    coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
 
   def fetchBlocks(u1: ID, u2: ID) =
-    coll.count($doc("_id" -> makeId(u1, u2), "r" -> Block).some).map(0!=)
+    coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
 
   def fetchAreFriends(u1: ID, u2: ID) =
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
   private val countFollowingCache = AsyncCache[ID, Int](
-    f = userId => coll.count($doc("u1" -> userId, "r" -> Follow).some),
+    f = userId => coll.countSel($doc("u1" -> userId, "r" -> Follow)),
     timeToLive = 10 minutes)
 
   def countFollowing(userId: ID) = countFollowingCache(userId)
 
   private val countFollowersCache = AsyncCache[ID, Int](
-    f = userId => coll.count($doc("u2" -> userId, "r" -> Follow).some),
+    f = userId => coll.countSel($doc("u2" -> userId, "r" -> Follow)),
     timeToLive = 10 minutes)
 
   def countFollowers(userId: ID) = countFollowersCache(userId)

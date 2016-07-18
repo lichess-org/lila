@@ -16,13 +16,13 @@ private[relation] object RelationRepo {
   def blocking(userId: ID) = relating(userId, Block)
 
   private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
-    coll.distinct("u1", BSONDocument(
+    coll.distinct("u1", $doc(
       "u2" -> userId,
       "r" -> relation
     ).some) map lila.db.BSON.asStringSet
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
-    coll.distinct("u2", BSONDocument(
+    coll.distinct("u2", $doc(
       "u1" -> userId,
       "r" -> relation
     ).some) map lila.db.BSON.asStringSet
