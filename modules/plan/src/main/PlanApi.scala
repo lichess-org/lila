@@ -1,10 +1,12 @@
 package lila.plan
 
 import lila.db.dsl._
+import lila.memo._
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+import scala.concurrent.duration._
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -213,19 +215,26 @@ final class PlanApi(
     }
   }
 
-  def recentChargeUserIds(nb: Int): Fu[List[String]] =
-    chargeColl.primitive[String]($empty, sort = $doc("date" -> -1), "userId")
+  private val recentChargeUserIdsCache = AsyncCache[Int, List[User.ID]](
+    f = nb => chargeColl.primitive[User.ID]($empty, sort = $doc("date" -> -1), nb = nb, "userId"),
+    timeToLive = 1 hour)
+
+  def recentChargeUserIds(nb: Int): Fu[List[User.ID]] = recentChargeUserIdsCache(nb)
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
     chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
-  def topPatrons(nb: Int): Fu[List[User.ID]] = chargeColl.aggregate(
-    Match($doc("userId" $exists true)), List(
-      GroupField("userId")("total" -> SumField("cents")),
-      Sort(Descending("total")),
-      Limit(nb))).map {
-      _.documents.flatMap { _.getAs[String]("_id") }
-    }
+  private val topPatronUserIdsCache = AsyncCache[Int, List[User.ID]](
+    f = nb => chargeColl.aggregate(
+      Match($doc("userId" $exists true)), List(
+        GroupField("userId")("total" -> SumField("cents")),
+        Sort(Descending("total")),
+        Limit(nb))).map {
+        _.documents.flatMap { _.getAs[User.ID]("_id") }
+      },
+    timeToLive = 1 hour)
+
+  def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
 
   private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)

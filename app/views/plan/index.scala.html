@@ -1,4 +1,4 @@
-@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], userIds: List[String])(implicit ctx: Context)
+@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], recentIds: List[String], bestIds: List[String])(implicit ctx: Context)
 
 @title = @{"Become a Patron of lichess.org"}
 
@@ -10,8 +10,20 @@ lichess.checkout("@stripePublicKey");
 }
 }
 
+@side = {
+<div class="recent_patrons">
+  <h2>New Patrons</h2>
+  <div class="list">
+    @recentIds.map { userId =>
+    <div>@userIdLink(userId.some)</div>
+    }
+  </div>
+</div>
+}
+
 @site.layout(
 title = title,
+side = side.some,
 moreCss = cssTag("plan.css"),
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
@@ -159,11 +171,13 @@ description = "Free chess for everyone, forever!").some) {
         </dd>
       </dl>
     </div>
-    <div class="user_list">
+    <div class="best_patrons">
       <h2>The celebrated Patrons who make lichess possible</h2>
       <div class="list">
-        @userIds.map { userId =>
-        @userIdLink(userId.some)
+        @bestIds.map { userId =>
+        <div>
+          @userIdLink(userId.some)
+        </div>
         }
       </div>
     </div>

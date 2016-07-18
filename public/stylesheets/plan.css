@@ -196,20 +196,31 @@ body.dark .faq {
 .faq dd {
   margin: 0;
 }
-.user_list h2 {
+.best_patrons h2 {
   display: block;
   text-align: center;
   font-size: 1.5em;
   margin-bottom: 30px;
 }
-.user_list .list {
+.best_patrons .list {
   display: flex;
   flex-flow: row wrap;
   font-size: 1.5em;
 }
-.user_list .list a {
+.best_patrons .list div {
   flex: 0 0 33.3%;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 5px 0;
+  padding: 7px 0;
+}
+.recent_patrons h2 {
+  font-size: 1.5em;
+  margin: 140px 0 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+.recent_patrons .list div {
+  font-size: 1.3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 7px 0;
 }

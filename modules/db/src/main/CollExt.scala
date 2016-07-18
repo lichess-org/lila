@@ -62,6 +62,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           _ flatMap { _.getAs[V](field) }
         }
 
+    def primitive[V: BSONValueReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
+      coll.find(selector, $doc(field -> true))
+        .sort(sort)
+        .list[Bdoc](nb)
+        .map {
+          _ flatMap { _.getAs[V](field) }
+        }
+
     def primitiveOne[V: BSONValueReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll.find(selector, $doc(field -> true))
         .uno[Bdoc]
