@@ -19,7 +19,7 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     hub: lila.hub.Env,
-    lightUser: String => Option[lila.common.LightUser],
+    lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean) {
 

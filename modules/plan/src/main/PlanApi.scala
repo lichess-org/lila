@@ -11,6 +11,7 @@ final class PlanApi(
     patronColl: Coll,
     chargeColl: Coll,
     notifier: PlanNotifier,
+    uncacheLightUser: String => Funit,
     bus: lila.common.Bus,
     payPalIpnKey: PayPalIpnKey) {
 
@@ -46,7 +47,7 @@ final class PlanApi(
         customer.firstSubscription match {
           case None => fufail(s"Can't cancel non-existent subscription of ${user.id}")
           case Some(sub) => stripeClient.cancelSubscription(sub) >>
-            UserRepo.setPlan(user, user.plan.disable) >>
+            setDbUserPlan(user, user.plan.disable) >>
             patronColl.update($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
             logger.info(s"Canceled subscription $sub of ${user.username}")
         }
@@ -77,7 +78,7 @@ final class PlanApi(
                 stripe = Patron.Stripe(charge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
-                UserRepo.setPlan(user,
+                setDbUserPlan(user,
                   if (patron.canLevelUp) user.plan.incMonths
                   else user.plan.enable)
             }
@@ -120,14 +121,14 @@ final class PlanApi(
                 payPal = payPal.some,
                 lastLevelUp = DateTime.now
               ).expireInOneMonth) >>
-                UserRepo.setPlan(user, lila.user.Plan.start) >>
+                setDbUserPlan(user, lila.user.Plan.start) >>
                 notifier.onStart(user)
               case Some(patron) =>
                 val p2 = patron.copy(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
-                  UserRepo.setPlan(user,
+                  setDbUserPlan(user,
                     if (patron.canLevelUp) user.plan.incMonths
                     else user.plan.enable)
             } >>- {
@@ -145,7 +146,7 @@ final class PlanApi(
         funit
       case Some(patron) =>
         UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
-          UserRepo.setPlan(user, user.plan.disable) >>
+          setDbUserPlan(user, user.plan.disable) >>
             patronColl.update($id(user.id), patron.removeStripe).void >>-
             logger.info(s"Unsubed ${user.username} ${sub}")
         }
@@ -178,7 +179,7 @@ final class PlanApi(
 
     case None if user.plan.active =>
       logger.warn(s"sync: disable plan of non-patron")
-      UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
+      setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
     case None => fuccess(Synced(none, none))
 
@@ -193,20 +194,20 @@ final class PlanApi(
           patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
           logger.warn(s"sync: enable plan of customer with a subscription")
-          UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
+          setDbUserPlan(user, user.plan.enable) inject ReloadUser
         case customer => fuccess(Synced(patron.some, customer))
       }
 
       case (_, Some(paypal)) =>
         if (!user.plan.active) {
           logger.warn(s"sync: enable plan of customer with paypal")
-          UserRepo.setPlan(user, user.plan.enable) inject ReloadUser
+          setDbUserPlan(user, user.plan.enable) inject ReloadUser
         }
         else fuccess(Synced(patron.some, none))
 
       case (None, None) if user.plan.active =>
         logger.warn(s"sync: disable plan of patron with no paypal or stripe")
-        UserRepo.setPlan(user, user.plan.disable) inject ReloadUser
+        setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
       case _ => fuccess(Synced(patron.some, none))
     }
@@ -252,10 +253,13 @@ final class PlanApi(
       else stripeClient dontRenewSubscription subscription
     }
 
+  private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
+    UserRepo.setPlan(user, plan) >> uncacheLightUser(user.id)
+
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
       saveStripePatron(user, customer.id, data.isMonthly) >>
-        UserRepo.setPlan(user, lila.user.Plan.start) >>
+        setDbUserPlan(user, lila.user.Plan.start) >>
         notifier.onStart(user) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }

@@ -43,6 +43,8 @@ final class Env(
 
   def lightUser(id: String): Option[lila.common.LightUser] = lightUserApi get id
 
+  def uncacheLightUser(id: String): Funit = lightUserApi invalidate id
+
   def isOnline(userId: String) = onlineUserIdMemo get userId
 
   def cli = new lila.common.Cli {

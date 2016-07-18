@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
     bus: lila.common.Bus,
+    uncacheLightUser: String => Funit,
     scheduler: lila.common.Scheduler) {
 
   val stripePublicKey = config getString "stripe.keys.public"
@@ -36,6 +37,7 @@ final class Env(
     patronColl = patronColl,
     chargeColl = db(CollectionCharge),
     notifier = notifier,
+    uncacheLightUser = uncacheLightUser,
     bus,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"))
 
@@ -57,6 +59,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
+    uncacheLightUser = lila.user.Env.current.uncacheLightUser _,
     bus = lila.common.PlayApp.system.lilaBus,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -2,7 +2,7 @@ package controllers
 
 import lila.app._
 import lila.security.Permission
-import lila.user.UserRepo
+import lila.user.{ UserRepo, User => UserModel }
 import views._
 
 import org.joda.time.DateTime
@@ -60,7 +60,9 @@ object Mod extends LilaController {
       implicit def req = ctx.body
       lila.user.DataForm.title.bindFromRequest.fold(
         err => fuccess(redirect(username, mod = true)),
-        title => modApi.setTitle(me.id, username, title) inject redirect(username, mod = false)
+        title => modApi.setTitle(me.id, username, title) >>
+          Env.user.uncacheLightUser(UserModel normalize username) inject
+          redirect(username, mod = false)
       )
   }
 
