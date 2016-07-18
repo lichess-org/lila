@@ -29,13 +29,16 @@ case class UserInfo(
     donor: Boolean,
     trophies: Trophies,
     isStreamer: Boolean,
-    insightVisible: Boolean) {
+    insightVisible: Boolean,
+    completionRate: Option[Double]) {
 
   def nbRated = user.count.rated
 
   def nbWithMe = crosstable ?? (_.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
+
+  def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
   def allTrophies = List(
     donor option Trophy(
@@ -67,7 +70,8 @@ object UserInfo {
     isHostingSimul: String => Fu[Boolean],
     isStreamer: String => Boolean,
     insightShare: lila.insight.Share,
-    getPlayTime: User => Fu[User.PlayTime])(user: User, ctx: Context): Fu[UserInfo] =
+    getPlayTime: User => Fu[User.PlayTime],
+    completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
@@ -80,8 +84,9 @@ object UserInfo {
       isDonor(user.id) zip
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      getPlayTime(user) flatMap {
-        case ((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime) =>
+      getPlayTime(user) zip
+      completionRate(user.id) flatMap {
+        case (((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), isDonor), trophies), insightVisible), playTime), completionRate) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -100,7 +105,8 @@ object UserInfo {
               donor = isDonor,
               trophies = trophies,
               isStreamer = isStreamer(user.id),
-              insightVisible = insightVisible)
+              insightVisible = insightVisible,
+              completionRate = completionRate)
           }
       }
 }

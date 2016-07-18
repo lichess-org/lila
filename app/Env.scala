@@ -44,7 +44,8 @@ final class Env(
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
     insightShare = Env.insight.share,
-    getPlayTime = Env.game.playTime.apply) _
+    getPlayTime = Env.game.playTime.apply,
+    completionRate = Env.playban.api.completionRate) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 

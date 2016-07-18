@@ -65,12 +65,19 @@ final class PlaybanApi(
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
-  def bans(userId: String): Fu[List[TempBan]] = coll.find(
-    $doc("_id" -> userId, "b.0" $exists true),
-    $doc("_id" -> false, "b" -> true)
-  ).uno[Bdoc].map {
-      ~_.flatMap(_.getAs[List[TempBan]]("b"))
+  def completionRate(userId: String): Fu[Option[Double]] =
+    coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
+      outcomes.collect {
+        case Outcome.RageQuit | Outcome.Sitting => false
+        case Outcome.Good                       => true
+      } match {
+        case c if c.size >= 5 => Some(c.count(identity).toDouble / c.size)
+        case _                => none
+      }
     }
+
+  def bans(userId: String): Fu[List[TempBan]] =
+    coll.primitiveOne[List[TempBan]]($doc("_id" -> userId, "b.0" $exists true), "b").map(~_)
 
   def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
     $inIds(userIds),
@@ -85,7 +92,7 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome): String => Funit = userId => {
     coll.findAndUpdate(
-      selector = $doc("_id" -> userId),
+      selector = $id(userId),
       update = $doc("$push" -> $doc(
         "o" -> $doc(
           "$each" -> List(outcome),

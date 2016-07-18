@@ -58,8 +58,8 @@ description = describeUser(u)).some) {
     <a href="@routes.UserTournament.path(u.username, "recent")" class="intertab tournament_stats" data-toints="@u.toints">@splitNumber(u.toints + " " + trans.tournamentPoints())</a>
     <a href="@routes.Study.byOwnerDefault(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
     <a class="intertab" @NotForKids {
-    href="@routes.ForumPost.search("user:" + u.username, 1)"
-    }>@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
+      href="@routes.ForumPost.search("user:" + u.username, 1)"
+      }>@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
@@ -169,6 +169,9 @@ description = describeUser(u)).some) {
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
         <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
+        }
+        @info.completionRatePercent.map { c =>
+        <p class="thin">Game completion rate: @c%</p>
         }
         <!-- <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a> -->
         <br />
