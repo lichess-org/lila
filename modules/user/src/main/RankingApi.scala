@@ -17,7 +17,7 @@ final class RankingApi(
     lightUser: String => Option[lila.common.LightUser]) {
 
   import RankingApi._
-  private implicit val rankingBSONHandler = reactivemongo.bson.Macros.handler[Ranking]
+  private implicit val rankingBSONHandler = Macros.handler[Ranking]
 
   def save(userId: User.ID, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>
@@ -25,9 +25,7 @@ final class RankingApi(
     }
 
   def save(userId: User.ID, perfType: PerfType, perf: Perf): Funit =
-    (perf.nb >= 2) ?? coll.update($doc(
-      "_id" -> s"$userId:${perfType.id}"
-    ), $doc(
+    (perf.nb >= 2) ?? coll.update($id(makeId(userId, perfType)), $doc(
       "user" -> userId,
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
@@ -41,12 +39,13 @@ final class RankingApi(
       coll.remove($doc(
         "_id" -> $doc("$in" -> PerfType.leaderboardable.filter { pt =>
           user.perfs(pt).nonEmpty
-        }.map { pt =>
-          s"${user.id}:${pt.id}"
-        })
+        }.map { makeId(user.id, _) })
       )).void
     }
   }
+
+  private def makeId(userId: User.ID, perfType: PerfType) =
+    s"${userId}:${perfType.id}"
 
   def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
@@ -82,10 +81,10 @@ final class RankingApi(
       val enumerator = coll.find(
         $doc("perf" -> perfId, "stable" -> true),
         $doc("user" -> true, "_id" -> false)
-      ).sort($doc("rating" -> -1)).cursor[BSONDocument]().enumerate()
+      ).sort($doc("rating" -> -1)).cursor[Bdoc]().enumerate()
       var rank = 1
       val b = Map.newBuilder[User.ID, Rank]
-      val mapBuilder: Iteratee[BSONDocument, Unit] = Iteratee.foreach { doc =>
+      val mapBuilder: Iteratee[Bdoc, Unit] = Iteratee.foreach { doc =>
         doc.getAs[User.ID]("user") foreach { user =>
           b += (user -> rank)
           rank = rank + 1
@@ -115,9 +114,9 @@ final class RankingApi(
           List(Project($doc(
             "_id" -> false,
             "r" -> $doc(
-              "$subtract" -> BSONArray(
+              "$subtract" -> $arr(
                 "$rating",
-                $doc("$mod" -> BSONArray("$rating", Stat.group))
+                $doc("$mod" -> $arr("$rating", Stat.group))
               )
             )
           )),
