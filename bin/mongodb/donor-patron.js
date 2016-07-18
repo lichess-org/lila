@@ -52,7 +52,8 @@ function donationToPatron(donation) {
     $set: {
       plan: {
         active: true,
-        months: NumberInt(1)
+        months: NumberInt(1),
+        since: donation.date
       }
     }
   });
