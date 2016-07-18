@@ -170,7 +170,7 @@ description = describeUser(u)).some) {
         @u.seenAt.map { seen =>
         <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
         }
-        <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
+        <!-- <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a> -->
         <br />
         <br />
         <p>@trans.tpTimeSpentPlaying(showPeriod(info.playTime.totalPeriod))</p>
