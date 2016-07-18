@@ -71,6 +71,7 @@ final class Env(
     Env.tv,
     Env.blog,
     Env.video,
+    Env.playban, // required to load the actor
     Env.shutup, // required to load the actor
     Env.insight, // required to load the actor
     Env.worldMap, // required to load the actor

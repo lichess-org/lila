@@ -26,11 +26,12 @@ private[round] final class Finisher(
   }
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
-    apply(game, _.Timeout, winner) >>- winner.?? { color => playban.rageQuit(game, !color) }
+    apply(game, _.Timeout, winner) >>-
+      winner.?? { color => playban.rageQuit(game, !color) }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     import lila.common.PlayApp
-    if (!PlayApp.startedSinceSeconds(120) && game.updatedAt.exists(_ isBefore PlayApp.startedAt)) {
+    if (!PlayApp.startedSinceSeconds(60) && game.updatedAt.exists(_ isBefore PlayApp.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     }
@@ -38,7 +39,8 @@ private[round] final class Finisher(
       val winner = Some(!game.player.color) filterNot { color =>
         game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
       }
-      other(game, _.Outoftime, winner)
+      apply(game, _.Outoftime, winner) >>-
+        winner.?? { color => playban.sittingOrGood(game, !color) }
     }
   }
 

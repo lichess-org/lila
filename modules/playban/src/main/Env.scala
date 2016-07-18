@@ -1,6 +1,6 @@
 package lila.playban
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -16,9 +16,7 @@ final class Env(
   }
   import settings._
 
-  lazy val api = new PlaybanApi(coll = coll, isRematch = isRematch)
-
-  private lazy val coll = db(CollectionPlayban)
+  lazy val api = new PlaybanApi(coll = db(CollectionPlayban), isRematch = isRematch)
 }
 
 object Env {

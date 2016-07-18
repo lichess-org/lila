@@ -3,7 +3,6 @@ package lila.playban
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import reactivemongo.bson.Macros
-import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import chess.Color
@@ -43,19 +42,31 @@ final class PlaybanApi(
     game.player(quitterColor).userId ?? save(Outcome.RageQuit)
   }
 
+  def sittingOrGood(game: Game, sitterColor: Color): Funit = blameable(game) ?? {
+    (for {
+      userId <- game.player(sitterColor).userId
+      lmt <- game.lastMoveTimeInSeconds
+      seconds = nowSeconds - lmt
+      clock <- game.clock
+      // a tenth of the total time, at least 15s, at most 3 minutes
+      limit = (clock.estimateTotalTime / 10) max 15 min (3 * 60)
+      if seconds >= limit
+    } yield save(Outcome.Sitting)(userId)) | goodFinish(game)
+  }
+
   def goodFinish(game: Game): Funit = blameable(game) ?? {
     game.userIds.map(save(Outcome.Good)).sequenceFu.void
   }
 
   def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
-    $doc("_id" -> userId, "b.0" -> $doc("$exists" -> true)),
+    $doc("_id" -> userId, "b.0" $exists true),
     $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
   ).uno[Bdoc].map {
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
   def bans(userId: String): Fu[List[TempBan]] = coll.find(
-    $doc("_id" -> userId, "b.0" -> $doc("$exists" -> true)),
+    $doc("_id" -> userId, "b.0" $exists true),
     $doc("_id" -> false, "b" -> true)
   ).uno[Bdoc].map {
       ~_.flatMap(_.getAs[List[TempBan]]("b"))
@@ -67,7 +78,7 @@ final class PlaybanApi(
   ).cursor[Bdoc]().gather[List]().map {
       _.flatMap { obj =>
         obj.getAs[String]("_id") flatMap { id =>
-          obj.getAs[BSONArray]("b") map { id -> _.stream.size }
+          obj.getAs[Barr]("b") map { id -> _.stream.size }
         }
       }.toMap
     }
@@ -89,15 +100,13 @@ final class PlaybanApi(
 
   private def legiferate(record: UserRecord): Funit = record.newBan ?? { ban =>
     coll.update(
-      $doc("_id" -> record.userId),
-      $doc(
-        "$unset" -> $doc("o" -> true),
-        "$push" -> $doc(
+      $id(record.userId),
+      $unset("o") ++
+        $push(
           "b" -> $doc(
             "$each" -> List(ban),
             "$slice" -> -30)
         )
-      )
     ).void
   }
 }
