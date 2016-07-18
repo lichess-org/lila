@@ -177,7 +177,7 @@ module.exports = {
         'data-hint': ctrl.trans('joinTheGame'),
         href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
       }, ctrl.trans('rematchOfferAccepted')) : null,
-      d.tournament ? m('a.button', {
+      d.tournament && d.tournament.id ? m('a.button', {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       newable ? m('a.button', {
@@ -195,7 +195,7 @@ module.exports = {
       d.game.rematch ? m('a.button.text[data-icon=v]', {
         href: router.game(d.game.rematch, d.opponent.color)
       }, ctrl.trans('viewRematch')) : null,
-      d.tournament ? m('a.button', {
+      d.tournament && d.tournament.id ? m('a.button', {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       game.replayable(d) ? m('a.button', {
