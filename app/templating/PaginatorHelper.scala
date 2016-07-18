@@ -7,7 +7,7 @@ trait PaginatorHelper {
 
   implicit def toRichPager[A](pager: Paginator[A]) = new {
 
-    def sliding(length: Int): List[Option[Int]] = {
+    def sliding(length: Int, showPost: Boolean = true): List[Option[Int]] = {
       val fromPage = 1 max (pager.currentPage - length)
       val toPage = pager.nbPages min (pager.currentPage + length)
       val pre = fromPage match {
@@ -18,7 +18,8 @@ trait PaginatorHelper {
       val post = toPage match {
         case x if x == pager.nbPages     => Nil
         case x if x == pager.nbPages - 1 => List(pager.nbPages.some)
-        case x                           => List(none, pager.nbPages.some)
+        case x if showPost               => List(none, pager.nbPages.some)
+        case _                           => List(none)
       }
       pre ::: (fromPage to toPage).toList.map(some) ::: post
     }

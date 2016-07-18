@@ -331,11 +331,10 @@ private[controllers] trait LilaController
     }
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
-    if (HTTPRequest isXhr ctx.req) res
-    else notFound
+    if (HTTPRequest isXhr ctx.req) res else notFound
 
-  protected def Reasonable(page: Int, max: Int = 40)(result: => Fu[Result]): Fu[Result] =
-    (page < max).fold(result, BadRequest("resource too old").fuccess)
+  protected def Reasonable(page: Int, max: Int = 40, errorPage: => Fu[Result] = BadRequest("resource too old").fuccess)(result: => Fu[Result]): Fu[Result] =
+    if (page < max) result else errorPage
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
