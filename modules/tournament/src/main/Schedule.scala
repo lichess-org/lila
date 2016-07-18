@@ -156,8 +156,7 @@ object Schedule {
 
     (s.speed, s.variant, s.freq) match {
       // Special cases.
-      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s)    => TC(3 * 60, 1)
-      case (Blitz, Crazyhouse, Hourly | Daily) if zhInc(s) => TC(5 * 60, 1)
+      case (Blitz, Crazyhouse, Hourly) if zhInc(s)         => TC(4 * 60, 1)
       case (Blitz, Standard, Hourly) if standardInc(s)     => TC(3 * 60, 2)
 
       case (HyperBullet, _, _)                             => TC(30, 0)
