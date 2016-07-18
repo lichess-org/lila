@@ -23,8 +23,8 @@ final class NoteApi(
     coll.find(
       $doc(
         "to" -> user.id,
-        "from" -> $doc("$in" -> (myFriendIds + me.id))
-      ) ++ me.troll.fold($doc(), $doc("troll" -> false))
+        "from" $in (myFriendIds + me.id)
+      ) ++ me.troll.fold($empty, $doc("troll" -> false))
     ).sort($doc("date" -> -1)).cursor[Note]().gather[List](100)
 
   def write(to: User, text: String, from: User) = {

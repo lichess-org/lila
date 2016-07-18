@@ -100,8 +100,8 @@ final class Api(
         case values => coll.distinct(
           "user",
           $doc(
-            field -> $doc("$in" -> values),
-            "user" -> $doc("$ne" -> userId)
+            field $in values,
+            "user" $ne userId
           ).some
         ) map lila.db.BSON.asStrings
       }

@@ -36,10 +36,10 @@ final class RankingApi(
 
   def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
     _ ?? { user =>
-      coll.remove($doc(
-        "_id" -> $doc("$in" -> PerfType.leaderboardable.filter { pt =>
+      coll.remove($inIds(
+        PerfType.leaderboardable.filter { pt =>
           user.perfs(pt).nonEmpty
-        }.map { makeId(user.id, _) })
+        }.map { makeId(user.id, _) }
       )).void
     }
   }

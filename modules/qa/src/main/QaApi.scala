@@ -60,7 +60,7 @@ final class QaApi(
       questionColl.find($doc("_id" -> id)).uno[Question]
 
     def findByIds(ids: List[QuestionId]): Fu[List[Question]] =
-      questionColl.find($doc("_id" -> $doc("$in" -> ids.distinct))).cursor[Question]().gather[List]()
+      questionColl.find($inIds(ids.distinct)).cursor[Question]().gather[List]()
 
     def accept(q: Question) = questionColl.update(
       $doc("_id" -> q.id),
@@ -99,7 +99,7 @@ final class QaApi(
         .cursor[Question]().gather[List](max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
-      questionColl.find($doc("tags" -> $doc("$in" -> tags.map(_.toLowerCase)))).cursor[Question]().gather[List](max)
+      questionColl.find($doc("tags" $in tags.map(_.toLowerCase))).cursor[Question]().gather[List](max)
 
     def addComment(c: Comment)(q: Question) = questionColl.update(
       $doc("_id" -> q.id),
@@ -117,7 +117,7 @@ final class QaApi(
       }
 
     def incViews(q: Question) = questionColl.update(
-      $doc("_id" -> q.id),
+      $id(q.id),
       $doc("$inc" -> $doc("views" -> BSONInteger(1))))
 
     def recountAnswers(id: QuestionId) = answer.countByQuestionId(id) flatMap {

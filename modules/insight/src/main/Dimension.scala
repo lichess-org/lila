@@ -145,7 +145,7 @@ object Dimension {
   def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = d match {
     case Dimension.MovetimeRange => selected match {
       case Nil => $empty
-      case xs  => $doc(d.dbKey -> $doc("$in" -> xs.flatMap(_.tenths.list)))
+      case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.list))
     }
     case _ => selected map d.bson.write match {
       case Nil     => $empty

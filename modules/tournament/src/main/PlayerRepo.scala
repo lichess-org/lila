@@ -131,7 +131,7 @@ object PlayerRepo {
     }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
-    coll.find(selectTour(tourId) ++ $doc("uid" -> $doc("$in" -> userIds)))
+    coll.find(selectTour(tourId) ++ $doc("uid" $in userIds))
       .list[Player]()
       .chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"

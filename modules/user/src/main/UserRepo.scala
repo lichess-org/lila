@@ -85,7 +85,7 @@ object UserRepo {
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
-      $doc("_id".$in(u1, u2)),
+      $inIds(List(u1, u2)),
       $doc(s"${F.count}.game" -> true)
     ).cursor[Bdoc]().gather[List]() map { docs =>
         docs.sortBy {
@@ -100,7 +100,7 @@ object UserRepo {
   def firstGetsWhite(u1O: Option[String], u2O: Option[String]): Fu[Boolean] =
     (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean)) {
       case (u1, u2) => coll.find(
-        $doc("_id".$in(u1, u2)),
+        $inIds(List(u1, u2)),
         $id(true)
       ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
           _.fold(scala.util.Random.nextBoolean) { doc =>

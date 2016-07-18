@@ -56,7 +56,7 @@ final class ChapterRepo(coll: Coll) {
 
   def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
     coll.find(
-      $doc("studyId" -> $doc("$in" -> studyIds)),
+      $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "name" -> true)
     ).sort($sort asc "order").list[Bdoc]().map { docs =>
         docs.foldLeft(Map.empty[Study.ID, Vector[String]]) {

@@ -30,7 +30,7 @@ object PairingRepo {
 
   def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
     coll.find(
-      selectTour(tourId) ++ $doc("u" -> $doc("$in" -> userIds)),
+      selectTour(tourId) ++ $doc("u" $in userIds),
       $doc("_id" -> false, "u" -> true)
     ).sort(recentSort).cursor[Bdoc]().enumerate(nb) |>>>
       Iteratee.fold(scala.collection.immutable.Map.empty[String, String]) { (acc, doc) =>
