@@ -78,8 +78,8 @@ private[forum] final class TopicApi(
           } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject topic
     }
 
-  def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(
-    adapter = new Adapter[Topic](
+  def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
+    val adapter = new Adapter[Topic](
       collection = env.topicColl,
       selector = TopicRepo(troll) byCategQuery categ,
       projection = $empty,
@@ -88,9 +88,15 @@ private[forum] final class TopicApi(
       env.postColl.byId[Post](topic lastPostId troll) map { post =>
         TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
       }
-    },
-    currentPage = page,
-    maxPerPage = maxPerPage)
+    }
+    val cachedAdapter =
+      if (categ.isTeam) adapter
+      else new CachedAdapter(adapter, nbResults = fuccess(1000))
+    Paginator(
+      adapter = cachedAdapter,
+      currentPage = page,
+      maxPerPage = maxPerPage)
+  }
 
   def delete(categ: Categ, topic: Topic): Funit =
     PostRepo.idsByTopicId(topic.id) flatMap { postIds =>

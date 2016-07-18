@@ -30,7 +30,7 @@ final class Env(
     api = api,
     toleranceStep = config getInt "selector.tolerance.step",
     toleranceMax = config getInt "selector.tolerance.max",
-    modulo = config getInt "selector.modulo")
+    maxAttempts = config getInt "selector.max_attempts")
 
   lazy val finisher = new Finisher(
     api = api,

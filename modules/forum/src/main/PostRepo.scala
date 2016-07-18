@@ -48,16 +48,16 @@ sealed abstract class PostRepo(troll: Boolean) {
     multi = true).void
 
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
-  def selectTopics(topicIds: List[String]) = $doc("topicId" $in (topicIds: _*)) ++ trollFilter
+  def selectTopics(topicIds: List[String]) = $doc("topicId" $in topicIds) ++ trollFilter
 
   def selectCateg(categId: String) = $doc("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[String]) = $doc("categId" $in (categIds: _*)) ++ trollFilter
+  def selectCategs(categIds: List[String]) = $doc("categId" $in categIds) ++ trollFilter
 
   val selectNotHidden = $doc("hidden" -> false)
 
   def selectLangs(langs: List[String]) =
     if (langs.isEmpty) $empty
-    else $doc("lang" $in (langs: _*))
+    else $doc("lang" $in langs)
 
   def findDuplicate(post: Post): Fu[Option[Post]] = coll.uno[Post]($doc(
     "createdAt" $gt DateTime.now.minusHours(1),

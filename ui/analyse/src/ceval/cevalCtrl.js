@@ -13,7 +13,7 @@ module.exports = function(possible, variant, emit) {
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
   var pool = makePool({
-    path: '/assets/vendor/stockfish7.js', // Can't CDN because same-origin policy
+    path: '/assets/vendor/stockfish.js/stockfish.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
     maxDepth: maxDepth,
     variant: variant

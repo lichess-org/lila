@@ -41,7 +41,7 @@ private[video] final class VideoApi(
     private val maxPerPage = 18
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.find($doc("_id" -> id)).uno[Video]
+      videoColl.find($id(id)).uno[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word => s""""$word"""" } mkString " "
@@ -61,18 +61,16 @@ private[video] final class VideoApi(
 
     def save(video: Video): Funit =
       videoColl.update(
-        $doc("_id" -> video.id),
+        $id(video.id),
         $doc("$set" -> video),
         upsert = true).void
 
     def removeNotIn(ids: List[Video.ID]) =
-      videoColl.remove(
-        $doc("_id" $nin (ids: _*))
-      ).void
+      videoColl.remove($doc("_id" $nin ids)).void
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
       videoColl.update(
-        $doc("_id" -> id),
+        $id(id),
         $doc("$set" -> $doc("metadata" -> metadata)),
         upsert = false
       ).void
@@ -115,7 +113,7 @@ private[video] final class VideoApi(
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl.find($doc(
-        "tags" $in (video.tags: _*),
+        "tags" $in video.tags,
         "_id" $ne video.id
       )).sort($doc("metadata.likes" -> -1))
         .cursor[Video]()

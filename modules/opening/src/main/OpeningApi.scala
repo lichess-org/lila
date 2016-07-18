@@ -33,21 +33,14 @@ private[opening] final class OpeningApi(
     def add(a: Attempt) = attemptColl insert a void
 
     def hasPlayed(user: User, opening: Opening): Fu[Boolean] =
-      attemptColl.count($doc(
+      attemptColl.exists($doc(
         Attempt.BSONFields.id -> Attempt.makeId(opening.id, user.id)
-      ).some) map (0!=)
+      ))
 
-    def playedIds(user: User, max: Int): Fu[BSONArray] = {
-      val col = attemptColl
-      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Group, Limit, Match, Push }
-
-      val playedIdsGroup =
-        Group($boolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
-
-      col.aggregate(Match($doc(Attempt.BSONFields.userId -> user.id)),
-        List(Limit(max), playedIdsGroup)).map(_.documents.headOption.flatMap(
-          _.getAs[BSONArray]("ids")).getOrElse(BSONArray()))
-    }
+    def playedIds(user: User): Fu[BSONArray] =
+      attemptColl.distinct(Attempt.BSONFields.openingId,
+        $doc(Attempt.BSONFields.userId -> user.id).some
+      ) map BSONArray.apply
   }
 
   object identify {

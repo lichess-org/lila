@@ -3,10 +3,10 @@ package controllers
 import scala.util.{ Try, Success, Failure }
 
 import play.api.data._, Forms._
-import play.api.mvc._
-import play.twirl.api.Html
-import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
+import play.api.mvc._
+import play.api.Play.current
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
@@ -25,9 +25,9 @@ object Opening extends LilaController {
 
   private def renderShow(opening: OpeningModel)(implicit ctx: Context) =
     env userInfos ctx.me zip identify(opening) map {
-        case (infos, identified) =>
-          views.html.opening.show(opening, identified, infos, env.AnimationDuration)
-      }
+      case (infos, identified) =>
+        views.html.opening.show(opening, identified, infos, env.AnimationDuration)
+    }
 
   private def makeData(
     opening: OpeningModel,
@@ -46,12 +46,16 @@ object Opening extends LilaController {
         animationDuration = env.AnimationDuration)) as JSON
     }
 
+  private val noMoreOpeningJson = jsonError("No more openings for you!")
+
   def home = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) env.selector(ctx.me) zip (env userInfos ctx.me) flatMap {
-      case (opening, infos) => makeData(opening, infos, true, none, none)
+      case (Some(opening), infos) => makeData(opening, infos, true, none, none)
+      case (None, _)              => NotFound(noMoreOpeningJson).fuccess
     }
-    else env.selector(ctx.me) flatMap { opening =>
-      renderShow(opening) map { Ok(_) }
+    else env.selector(ctx.me) flatMap {
+      case Some(opening) => renderShow(opening) map { Ok(_) }
+      case None          => fuccess(Ok(html.opening.noMore()))
     }
   }
 

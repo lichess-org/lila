@@ -54,7 +54,7 @@ function retry(ctrl) {
 }
 
 function reloadPage() {
-    location.href = '/training';
+  location.href = '/training';
 }
 
 function setDifficulty(ctrl, d) {

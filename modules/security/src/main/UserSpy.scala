@@ -74,8 +74,8 @@ object UserSpy {
     values.nonEmpty ?? {
       coll.distinct("user",
         $doc(
-          field -> $doc("$in" -> values),
-          "user" -> $doc("$ne" -> user.id)
+          field $in values,
+          "user" $ne user.id
         ).some
       ) map lila.db.BSON.asStrings flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)

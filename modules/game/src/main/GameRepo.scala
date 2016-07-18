@@ -187,12 +187,11 @@ object GameRepo {
     coll.exists($id(id) ++ Query.analysed(true))
 
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    coll.distinct("_id", $doc(
-      "_id" -> $doc("$in" -> ids),
+    coll.distinct("_id", ($inIds(ids) ++ $doc(
       F.analysed -> true
-    ).some) map lila.db.BSON.asStringSet
+    )).some) map lila.db.BSON.asStringSet
 
-  def exists(id: String) = coll.exists($doc("_id" -> id))
+  def exists(id: String) = coll.exists($id(id))
 
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void
@@ -357,10 +356,10 @@ object GameRepo {
 
   def findMirror(game: Game): Fu[Option[Game]] = coll.uno[Game]($doc(
     F.id -> $doc("$ne" -> game.id),
-    F.playerUids -> $doc("$in" -> game.userIds),
+    F.playerUids $in game.userIds,
     F.status -> Status.Started.id,
-    F.createdAt -> $doc("$gt" -> (DateTime.now minusMinutes 15)),
-    F.updatedAt -> $doc("$gt" -> (DateTime.now minusMinutes 5)),
+    F.createdAt $gt (DateTime.now minusMinutes 15),
+    F.updatedAt $gt (DateTime.now minusMinutes 5),
     "$or" -> $arr(
       $doc(s"${F.whitePlayer}.ai" -> $doc("$exists" -> true)),
       $doc(s"${F.blackPlayer}.ai" -> $doc("$exists" -> true))

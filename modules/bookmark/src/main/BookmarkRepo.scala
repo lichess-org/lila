@@ -27,7 +27,7 @@ private[bookmark] object BookmarkRepo {
     coll.remove($doc("g" -> gameId)).void
 
   def removeByGameIds(gameIds: List[String]): Funit =
-    coll.remove($doc("g" -> $in(gameIds: _*))).void
+    coll.remove($doc("g" $in gameIds)).void
 
   private def add(gameId: String, userId: String, date: DateTime): Funit =
     coll.insert($doc(

@@ -15,7 +15,6 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 case class UserInfo(
     user: User,
     ranks: lila.rating.UserRankMap,
-    nbUsers: Int,
     nbPlaying: Int,
     hasSimul: Boolean,
     crosstable: Option[Crosstable],
@@ -29,13 +28,16 @@ case class UserInfo(
     playTime: User.PlayTime,
     trophies: Trophies,
     isStreamer: Boolean,
-    insightVisible: Boolean) {
+    insightVisible: Boolean,
+    completionRate: Option[Double]) {
 
   def nbRated = user.count.rated
 
   def nbWithMe = crosstable ?? (_.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
+
+  def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
   def allTrophies = List(
     isStreamer option Trophy(
@@ -49,7 +51,6 @@ case class UserInfo(
 object UserInfo {
 
   def apply(
-    countUsers: () => Fu[Int],
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
     trophyApi: TrophyApi,
@@ -62,9 +63,9 @@ object UserInfo {
     isHostingSimul: String => Fu[Boolean],
     isStreamer: String => Boolean,
     insightShare: lila.insight.Share,
-    getPlayTime: User => Fu[User.PlayTime])(user: User, ctx: Context): Fu[UserInfo] =
-    countUsers() zip
-      getRanks(user.id) zip
+    getPlayTime: User => Fu[User.PlayTime],
+    completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
+    getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
@@ -75,13 +76,13 @@ object UserInfo {
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      getPlayTime(user) flatMap {
-        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime) =>
+      getPlayTime(user) zip
+      completionRate(user.id) flatMap {
+        case ((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime), completionRate) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
               ranks = ranks,
-              nbUsers = nbUsers,
               nbPlaying = nbPlaying,
               hasSimul = hasSimul,
               crosstable = crosstable,
@@ -95,7 +96,8 @@ object UserInfo {
               playTime = playTime,
               trophies = trophies,
               isStreamer = isStreamer(user.id),
-              insightVisible = insightVisible)
+              insightVisible = insightVisible,
+              completionRate = completionRate)
           }
       }
 }

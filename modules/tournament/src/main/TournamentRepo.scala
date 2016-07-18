@@ -13,10 +13,8 @@ object TournamentRepo {
 
   private lazy val coll = Env.current.tournamentColl
 
-  private def $id(id: String) = $doc("_id" -> id)
-
   private val enterableSelect = $doc(
-    "status" $in (Status.Created.id, Status.Started.id))
+    "status" $in List(Status.Created.id, Status.Started.id))
 
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
@@ -203,7 +201,7 @@ object TournamentRepo {
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] = coll.find(
     finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
       "schedule.freq" -> freq.name,
-      "schedule.speed".$in(Schedule.Speed.mostPopular.map(_.name): _*)
+      "schedule.speed" $in Schedule.Speed.mostPopular.map(_.name)
     )
   ).sort($doc("startsAt" -> -1))
     .list[Tournament](Schedule.Speed.mostPopular.size.some)
@@ -213,18 +211,18 @@ object TournamentRepo {
       $doc("schedule.freq" -> Schedule.Freq.Daily.name)
   ).sort($doc("startsAt" -> -1)).uno[Tournament]
 
-  def update(tour: Tournament) = coll.update($doc("_id" -> tour.id), tour)
+  def update(tour: Tournament) = coll.update($id(tour.id), tour)
 
   def insert(tour: Tournament) = coll.insert(tour)
 
-  def remove(tour: Tournament) = coll.remove($doc("_id" -> tour.id))
+  def remove(tour: Tournament) = coll.remove($id(tour.id))
 
-  def exists(id: String) = coll.count($doc("_id" -> id).some) map (0 !=)
+  def exists(id: String) = coll exists $id(id)
 
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
     coll.find(enterableSelect ++ $doc(
-      "_id" -> $doc("$ne" -> tourId),
-      "schedule.freq" $nin (
+      "_id" $ne tourId,
+      "schedule.freq" $nin List(
         Schedule.Freq.Marathon.name,
         Schedule.Freq.Unique.name
       )

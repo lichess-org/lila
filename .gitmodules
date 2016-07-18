@@ -28,3 +28,6 @@
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
+[submodule "public/vendor/stockfish.js"]
+	path = public/vendor/stockfish.js
+	url = https://github.com/niklasf/stockfish.js

@@ -35,11 +35,11 @@ private[puzzle] final class Selector(
         puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
-      case Some(user) if user.perfs.puzzle.nb > maxAttempts => fuccess(none)
+      case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
       case Some(user) =>
         val rating = user.perfs.puzzle.intRating min 2300 max 900
         val step = toleranceStepFor(rating)
-        api.attempt.playedIds(user, maxAttempts) flatMap { ids =>
+        api.attempt.playedIds(user) flatMap { ids =>
           tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
         }
     }

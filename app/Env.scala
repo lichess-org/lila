@@ -30,7 +30,6 @@ final class Env(
     lightUser = Env.user.lightUser)
 
   lazy val userInfo = mashup.UserInfo(
-    countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,
@@ -43,7 +42,8 @@ final class Env(
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
     insightShare = Env.insight.share,
-    getPlayTime = Env.game.playTime.apply) _
+    getPlayTime = Env.game.playTime.apply,
+    completionRate = Env.playban.api.completionRate) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -70,6 +70,7 @@ final class Env(
     Env.tv,
     Env.blog,
     Env.video,
+    Env.playban, // required to load the actor
     Env.shutup, // required to load the actor
     Env.insight, // required to load the actor
     Env.worldMap, // required to load the actor

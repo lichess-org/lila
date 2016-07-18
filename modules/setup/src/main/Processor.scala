@@ -15,6 +15,8 @@ import makeTimeout.short
 
 private[setup] final class Processor(
     lobby: ActorSelection,
+    gameCache: lila.game.Cached,
+    maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
     onStart: String => Unit) {
 
@@ -40,20 +42,24 @@ private[setup] final class Processor(
     configBase: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Fu[String] = {
+    blocking: Set[String])(implicit ctx: UserContext): Fu[Processor.HookResult] = {
+    import Processor.HookResult._
     val config = configBase.fixColor
     saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
           lobby ! AddHook(hook)
-          hook.id
+          Created(hook.id)
         }
-        case Right(Some(seek)) => fuccess {
-          lobby ! AddSeek(seek)
-          seek.id
+        case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
+          if (nbPlaying >= maxPlaying) Refused
+          else {
+            lobby ! AddSeek(seek)
+            Created(seek.id)
+          }
         }
-        case Right(None) if ctx.me.isEmpty => fufail(new IllegalArgumentException("Anon can't create seek"))
-        case _                             => fufail("Can't create seek for some unknown reason")
+        case Right(None) if ctx.me.isEmpty => fuccess(Refused)
+        case _                             => fuccess(Refused)
       }
     }
   }
@@ -63,4 +69,13 @@ private[setup] final class Processor(
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
     ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)
+}
+
+object Processor {
+
+  sealed trait HookResult
+  object HookResult {
+    case class Created(id: String) extends HookResult
+    case object Refused extends HookResult
+  }
 }

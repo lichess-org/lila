@@ -13,9 +13,11 @@ object ForumCateg extends LilaController with ForumController {
 
   def show(slug: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      CategGrantRead(slug) {
-        OptionOk(categApi.show(slug, page, ctx.troll)) {
-          case (categ, topics) => html.forum.categ.show(categ, topics)
+      Reasonable(page, 50, errorPage = notFound) {
+        CategGrantRead(slug) {
+          OptionOk(categApi.show(slug, page, ctx.troll)) {
+            case (categ, topics) => html.forum.categ.show(categ, topics)
+          }
         }
       }
     }

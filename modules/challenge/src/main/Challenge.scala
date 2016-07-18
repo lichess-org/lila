@@ -33,6 +33,8 @@ case class Challenge(
   def challengerIsAnon = challenger.isLeft
   def destUserId = destUser.map(_.id)
 
+  def userIds = List(challengerUserId, destUserId).flatten
+
   def daysPerTurn = timeControl match {
     case TimeControl.Correspondence(d) => d.some
     case _                             => none

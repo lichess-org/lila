@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.regex.Matcher.quoteReplacement
 
-import lila.user.{User, UserContext}
+import lila.user.{ User, UserContext }
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.twirl.api.Html
 
@@ -50,10 +50,10 @@ trait StringHelper { self: NumberHelper =>
   private val urlRegex = """(?i)\b((https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}/)((?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?:\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’])))""".r
 
   /**
-    * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
-    * @param text The text to regex match
-    * @return The text as a HTML hyperlink
-    */
+   * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
+   * @param text The text to regex match
+   * @return The text as a HTML hyperlink
+   */
   def addUserProfileLinks(text: String) = User.atUsernameRegex.replaceAllIn(text, m => {
     val user = m group 1
     val url = s"//$netDomain/@/$user"
@@ -61,27 +61,37 @@ trait StringHelper { self: NumberHelper =>
     s"""<a href="$url">@$user</a>"""
   })
 
-  def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
-    if (m.group(2) == "http://" || m.group(2) == "https://") {
-      if (s"${delocalize(m.group(3))}/" startsWith s"$netDomain/") {
-        // internal
-        val link = delocalize(m.group(3))
-        s"""<a rel="nofollow" href="//$link">$link</a>"""
-      } else {
-        // external
-        s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+  def addLinks(text: String) = try {
+    urlRegex.replaceAllIn(text, m => {
+      if (m.group(2) == "http://" || m.group(2) == "https://") {
+        if (s"${delocalize(m.group(3))}/" startsWith s"$netDomain/") {
+          // internal
+          val link = delocalize(m.group(3))
+          s"""<a rel="nofollow" href="//$link">$link</a>"""
+        }
+        else {
+          // external
+          s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+        }
       }
-    } else {
-      if (s"${delocalize(m.group(2))}/" startsWith s"$netDomain/") {
-        // internal
-        val link = delocalize(m.group(1))
-        s"""<a rel="nofollow" href="//$link">$link</a>"""
-      } else {
-        // external
-        s"""<a rel="nofollow" href="http://${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+      else {
+        if (s"${delocalize(m.group(2))}/" startsWith s"$netDomain/") {
+          // internal
+          val link = delocalize(m.group(1))
+          s"""<a rel="nofollow" href="//$link">$link</a>"""
+        }
+        else {
+          // external
+          s"""<a rel="nofollow" href="http://${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+        }
       }
-    }
-  })
+    })
+  }
+  catch {
+    case e: IllegalArgumentException =>
+      lila.log("templating").error(s"addLinks($text)", e)
+      text
+  }
 
   private val delocalize = new lila.common.String.Delocalizer(netDomain)
 

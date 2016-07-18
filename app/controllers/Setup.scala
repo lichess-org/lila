@@ -11,6 +11,7 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ GameRepo, Pov, AnonCookie }
+import lila.setup.Processor.HookResult
 import lila.setup.{ HookConfig, ValidFen }
 import lila.user.UserRepo
 import views._
@@ -89,9 +90,14 @@ object Setup extends LilaController with TheftPrevention {
                     destUser = destUser,
                     rematchOf = none)
                   env.processor.saveFriendConfig(config) >>
-                    (Env.challenge.api create challenge) >> negotiate(
-                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                      api = _ => Challenge showChallenge challenge)
+                    (Env.challenge.api create challenge) flatMap {
+                      case true => negotiate(
+                        html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                        api = _ => Challenge showChallenge challenge)
+                      case false => negotiate(
+                        html = fuccess(Redirect(routes.Lobby.home)),
+                        api = _ => fuccess(BadRequest(jsonError("Challenge not created"))))
+                    }
               }
             }
           }
@@ -108,10 +114,14 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  private def hookResponse(hookId: String) =
-    Ok(Json.obj(
+  private def hookResponse(res: HookResult) = res match {
+    case HookResult.Created(id) => Ok(Json.obj(
       "ok" -> true,
-      "hook" -> Json.obj("id" -> hookId))) as JSON
+      "hook" -> Json.obj("id" -> id))) as JSON
+    case HookResult.Refused => BadRequest(jsonError("Game was not created"))
+  }
+
+  private val hookRefused = BadRequest(jsonError("Game was not created"))
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -123,9 +133,7 @@ object Setup extends LilaController with TheftPrevention {
             api = _ => BadRequest(errorsAsJson(err)).fuccess),
           config => (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
             blocking =>
-              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
-                case e: IllegalArgumentException => BadRequest(jsonError(e.getMessage)) as JSON
-              }
+              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
           }
         )
       }
@@ -140,9 +148,7 @@ object Setup extends LilaController with TheftPrevention {
             _.fold(config)(config.updateFrom)
           } flatMap { config =>
             (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap { blocking =>
-              env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
-                case e: IllegalArgumentException => BadRequest(jsonError(e.getMessage)) as JSON
-              }
+              env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse
             }
           }
         }

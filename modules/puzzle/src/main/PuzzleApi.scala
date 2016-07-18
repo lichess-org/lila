@@ -95,11 +95,11 @@ private[puzzle] final class PuzzleApi(
     def add(a: Attempt) = attemptColl insert a void
 
     def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
-      attemptColl.count($doc(
+      attemptColl.exists($doc(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
-      ).some) map (0!=)
+      ))
 
-    def playedIds(user: User, max: Int): Fu[BSONArray] =
+    def playedIds(user: User): Fu[BSONArray] =
       attemptColl.distinct(Attempt.BSONFields.puzzleId,
         $doc(Attempt.BSONFields.userId -> user.id).some
       ) map BSONArray.apply

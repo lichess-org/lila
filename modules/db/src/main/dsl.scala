@@ -286,7 +286,7 @@ trait dsl {
     }
 
     /** Matches any of the values that exist in an array specified in the query.*/
-    def $in[T](values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $in[T](values: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$in" -> values))
     }
 
@@ -306,7 +306,7 @@ trait dsl {
     }
 
     /** Matches values that do not exist in an array specified to the query. */
-    def $nin[T](values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $nin[T](values: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$nin" -> values))
     }
 
