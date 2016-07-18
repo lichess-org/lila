@@ -72,7 +72,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def usernameOrId(userId: String) = lightUser(userId).fold(userId)(_.titleName)
   def usernameOrAnon(userId: Option[String]) = lightUser(userId).fold(User.anonymous)(_.titleName)
 
-  def isOnline(userId: String) = userId.size % 2 == 0 // Env.user isOnline userId
+  def isOnline(userId: String) = Env.user isOnline userId
 
   def userIdLink(
     userIdOption: Option[String],

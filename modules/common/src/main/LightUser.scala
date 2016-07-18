@@ -12,7 +12,7 @@ case class LightUser(
   def titleName = title.fold(name)(_ + " " + name)
   def titleNameHtml = title.fold(name)(_ + "&nbsp;" + name)
 
-  def isPatron = patron.isDefined || id.size % 3 == 0
+  def isPatron = patron.isDefined
 }
 
 object LightUser {
