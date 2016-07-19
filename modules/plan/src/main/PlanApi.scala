@@ -57,7 +57,7 @@ final class PlanApi(
 
   def onStripeCharge(charge: StripeCharge): Funit =
     customerIdPatron(charge.customer) flatMap { patronOption =>
-      chargeColl.insert(Charge.make(
+      addCharge(Charge.make(
         userId = patronOption.map(_.userId),
         stripe = Charge.Stripe(charge.id, charge.customer).some,
         cents = charge.amount)) >> {
@@ -102,7 +102,7 @@ final class PlanApi(
       funit
     }
     else (cents.value >= 100) ?? {
-      chargeColl.insert(Charge.make(
+      addCharge(Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
           name = name,
@@ -235,6 +235,11 @@ final class PlanApi(
     timeToLive = 1 hour)
 
   def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
+
+  private def addCharge(charge: Charge) =
+    chargeColl.insert(charge) >>
+      recentChargeUserIdsCache.clear >>
+      topPatronUserIdsCache.clear
 
   private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
