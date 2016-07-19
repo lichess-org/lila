@@ -5,7 +5,7 @@ import lila.common.Maths
 import lila.tournament.{ Score => AbstractScore }
 import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 
-object ScoringSystem extends AbstractScoringSystem {
+private[tournament] object ScoringSystem extends AbstractScoringSystem {
   sealed abstract class Flag(val id: Int)
   case object Double extends Flag(3)
   case object StreakStarter extends Flag(2)
@@ -27,35 +27,34 @@ object ScoringSystem extends AbstractScoringSystem {
     def isBerserk = berserk > 0
 
     def isWin = win contains true
+
+    def isDoubleWin = isWin && flag == Double
   }
 
   case class Sheet(scores: List[Score]) extends ScoreSheet {
     val total = scores.foldLeft(0)(_ + _.value)
-    def onFire = firstTwoAreWins(scores)
+    def onFire = isOnFire(scores)
   }
 
   val emptySheet = Sheet(Nil)
 
   def sheet(tour: Tournament, userId: String, pairings: Pairings): Sheet = Sheet {
-    val nexts = (pairings drop 1 map Some.apply) :+ None
-    pairings.zip(nexts).foldLeft(List[Score]()) {
+    val nexts = (pairings drop 1 map some) :+ None
+    pairings.zip(nexts).foldLeft(List.empty[Score]) {
       case (scores, (p, n)) =>
         val berserkValue = p validBerserkOf userId
         (p.winner match {
-          case None if p.quickDraw => Score(
-            Some(false),
-            Normal,
-            berserkValue)
+          case None if p.quickDraw => Score(Some(false), Normal, berserkValue)
           case None => Score(
             None,
-            if (firstTwoAreWins(scores)) Double else Normal,
+            if (isOnFire(scores)) Double else Normal,
             berserkValue)
-          case Some(w) if (userId == w) => Score(
+          case Some(w) if userId == w => Score(
             Some(true),
-            if (firstTwoAreWins(scores)) Double
+            if (p.initial || isOnFire(scores)) Double
             else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
             else n.flatMap(_.winner) match {
-              case Some(w) if (userId == w) => StreakStarter
+              case Some(w) if userId == w => StreakStarter
               case _                        => Normal
             },
             berserkValue)
@@ -64,6 +63,12 @@ object ScoringSystem extends AbstractScoringSystem {
     }
   }
 
+  private def isOnFire(scores: List[Score]) =
+    firstIsDoubleWin(scores) || firstTwoAreWins(scores)
+
   private def firstTwoAreWins(scores: List[Score]) =
     (scores.size >= 2) && (scores take 2 forall (~_.win))
+
+  private def firstIsDoubleWin(scores: List[Score]) =
+    scores.headOption.??(_.isDoubleWin)
 }

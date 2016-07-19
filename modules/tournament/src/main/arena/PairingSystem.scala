@@ -6,36 +6,37 @@ import lila.user.UserRepo
 
 import scala.util.Random
 
-object PairingSystem extends AbstractPairingSystem {
+private[tournament] object PairingSystem extends AbstractPairingSystem {
   type P = (String, String)
 
   case class Data(
-    tour: Tournament,
-    lastOpponents: Pairing.LastOpponents,
-    ranking: Map[String, Int],
-    onlyTwoActivePlayers: Boolean)
+      tour: Tournament,
+      lastOpponents: Pairing.LastOpponents,
+      ranking: Map[String, Int],
+      onlyTwoActivePlayers: Boolean) {
+
+    val isFirstRound = lastOpponents.hash.isEmpty
+  }
 
   // if waiting users can make pairings
   // then pair all users
-  def createPairings(
-    tour: Tournament,
-    users: WaitingUsers,
-    ranking: Ranking): Fu[Pairings] = {
+  def createPairings(tour: Tournament, users: WaitingUsers, ranking: Ranking): Fu[Pairings] = {
     for {
       lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
         fuccess(false),
         PlayerRepo.countActive(tour.id).map(2==))
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-      preps <- if (lastOpponents.hash.isEmpty) evenOrAll(data, users)
+      preps <- if (data.isFirstRound) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
         case Nil => fuccess(Nil)
         case _   => evenOrAll(data, users)
       }
-      pairings <- preps.map { prep =>
-        UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
-      }.sequenceFu
-    } yield pairings
+      pairings <- prepsToPairings(preps)
+    } yield {
+      if (data.isFirstRound) pairings.map(_.setInitial)
+      else pairings
+    }
   }.chronometer.logIfSlow(500, pairingLogger) { pairings =>
     s"createPairings ${url(tour.id)} ${pairings.size} pairings"
   }.result
@@ -52,7 +53,7 @@ object PairingSystem extends AbstractPairingSystem {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (lastOpponents.hash.isEmpty) naivePairings(tour, idles)
+      if (isFirstRound) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
         case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
         case a :: b :: Nil    => smartPairings(data, a) ::: smartPairings(data, b)
@@ -63,6 +64,14 @@ object PairingSystem extends AbstractPairingSystem {
   }.chronometer.logIfSlow(200, pairingLogger) { preps =>
     s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
   }.result
+
+  private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
+    if (preps.size < 50) preps.map { prep =>
+      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
+    }.sequenceFu
+    else fuccess {
+      preps.map(_ toPairing Random.nextBoolean)
+    }
 
   private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {

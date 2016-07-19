@@ -8,7 +8,7 @@ import lila.game.{ PovRef, PerfPicker }
 import lila.user.User
 
 case class Tournament(
-    id: String,
+    id: Tournament.ID,
     name: String,
     status: Status,
     system: System,
@@ -98,6 +98,8 @@ case class Tournament(
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
 object Tournament {
+
+  type ID = String
 
   val minPlayers = 2
 

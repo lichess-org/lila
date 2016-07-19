@@ -67,7 +67,7 @@ private[tournament] final class TournamentApi(
       cached ranking tour flatMap { ranking =>
         tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
-          case pairings if nowMillis - startAt > 1000 =>
+          case pairings if nowMillis - startAt > 1200 =>
             pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             funit
           case pairings => pairings.map { pairing =>

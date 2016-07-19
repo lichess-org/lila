@@ -14,7 +14,8 @@ case class Pairing(
     winner: Option[String],
     turns: Option[Int],
     berserk1: Int,
-    berserk2: Int) {
+    berserk2: Int,
+    initial: Boolean) {
 
   def gameId = id
 
@@ -57,11 +58,13 @@ case class Pairing(
     colorOf(userId) map { PovRef(gameId, _) }
 
   def similar(other: Pairing) = other.contains(user1, user2)
+
+  def setInitial = copy(initial = true)
 }
 
 private[tournament] object Pairing {
 
-  case class LastOpponents(hash: Map[String, String])
+  case class LastOpponents(hash: Map[String, String]) extends AnyVal
 
   def apply(tourId: String, u1: String, u2: String): Pairing = new Pairing(
     id = IdGenerator.game,
@@ -72,7 +75,8 @@ private[tournament] object Pairing {
     winner = none,
     turns = none,
     berserk1 = 0,
-    berserk2 = 0)
+    berserk2 = 0,
+    initial = false)
 
   case class Prep(tourId: String, user1: String, user2: String) {
     def toPairing(firstGetsWhite: Boolean) =

@@ -107,7 +107,7 @@ object PairingRepo {
   }.void
 
   def finish(g: lila.game.Game) =
-    if (g.aborted) coll.remove(selectId(g.id))
+    if (g.aborted) coll.remove(selectId(g.id)).void
     else coll.update(
       selectId(g.id),
       $doc("$set" -> $doc(
