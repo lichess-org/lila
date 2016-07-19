@@ -11,6 +11,7 @@ case class Source(value: String) extends AnyVal
 case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
   def cents = Cents((value * 100).toInt)
+  def toFloat = value.toFloat
   override def toString = s"$$$value"
 }
 object Usd {

@@ -202,6 +202,9 @@ object mon {
   }
   object plan {
     val amount = incX("plan.amount")
+    val goal = rec("plan.goal")
+    val current = rec("plan.current")
+    val percent = rec("plan.percent")
   }
   object forum {
     object post {

@@ -192,5 +192,5 @@ case class UnBlock(u1: String, u2: String)
 }
 
 package plan {
-case class ChargeEvent(username: String, amount: Int)
+case class ChargeEvent(username: String, amount: Int, percent: Int)
 }

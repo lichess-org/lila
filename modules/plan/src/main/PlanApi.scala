@@ -13,9 +13,10 @@ final class PlanApi(
     patronColl: Coll,
     chargeColl: Coll,
     notifier: PlanNotifier,
-    uncacheLightUser: String => Funit,
+    lightUserApi: lila.user.LightUserApi,
     bus: lila.common.Bus,
-    payPalIpnKey: PayPalIpnKey) {
+    payPalIpnKey: PayPalIpnKey,
+    monthlyGoalApi: MonthlyGoalApi) {
 
   import BsonHandlers._
   import PatronHandlers._
@@ -64,18 +65,10 @@ final class PlanApi(
         patronOption match {
           case None =>
             logger.info(s"Charged anon customer $charge")
-            lila.mon.plan.amount(charge.amount.value)
-            bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-              username = "Anonymous",
-              amount = charge.amount.value), 'plan)
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
-            lila.mon.plan.amount(charge.amount.value)
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
-              bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-                username = user.username,
-                amount = charge.amount.value), 'plan)
               val p2 = patron.copy(
                 stripe = Patron.Stripe(charge.customer).some
               ).levelUpIfPossible
@@ -112,9 +105,6 @@ final class PlanApi(
           ip = ip.some).some,
         cents = cents)) >>
         (userId ?? UserRepo.named) flatMap { userOption =>
-          bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-            username = userOption.fold("Anonymous")(_.username),
-            amount = cents.value), 'plan)
           userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
             userPatron(user).flatMap {
@@ -133,10 +123,7 @@ final class PlanApi(
                   setDbUserPlan(user,
                     if (patron.canLevelUp) user.plan.incMonths
                     else user.plan.enable)
-            } >>- {
-              logger.info(s"Charged ${user.username} with paypal: $cents")
-              lila.mon.plan.amount(cents.value)
-            }
+            } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
           }
         }
     }
@@ -236,10 +223,21 @@ final class PlanApi(
 
   def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
 
-  private def addCharge(charge: Charge) =
+  private def addCharge(charge: Charge): Funit =
     chargeColl.insert(charge) >>
       recentChargeUserIdsCache.clear >>
-      topPatronUserIdsCache.clear
+      topPatronUserIdsCache.clear >>- {
+        monthlyGoalApi.get foreach { m =>
+          bus.publish(lila.hub.actorApi.plan.ChargeEvent(
+            username = charge.userId.flatMap(lightUserApi.get).fold("Anonymous")(_.name),
+            amount = charge.cents.value,
+            percent = m.percent), 'plan)
+          lila.mon.plan.amount(charge.cents.value)
+          lila.mon.plan.goal(m.goal.value)
+          lila.mon.plan.current(m.current.value)
+          lila.mon.plan.percent(m.percent)
+        }
+      }
 
   private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
     stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
@@ -268,7 +266,7 @@ final class PlanApi(
     }
 
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
-    UserRepo.setPlan(user, plan) >> uncacheLightUser(user.id)
+    UserRepo.setPlan(user, plan) >> lightUserApi.invalidate(user.id)
 
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>

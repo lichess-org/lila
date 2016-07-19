@@ -12,15 +12,17 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
     bus: lila.common.Bus,
-    uncacheLightUser: String => Funit,
+    lightUserApi: lila.user.LightUserApi,
     scheduler: lila.common.Scheduler) {
 
   val stripePublicKey = config getString "stripe.keys.public"
 
   private val CollectionPatron = config getString "collection.patron"
   private val CollectionCharge = config getString "collection.charge"
+  private val MonthlyGoalCents = Usd(config getInt "monthly_goal").cents
 
   private lazy val patronColl = db(CollectionPatron)
+  private lazy val chargeColl = db(CollectionCharge)
 
   private lazy val stripeClient = new StripeClient(StripeClient.Config(
     endpoint = config getString "stripe.endpoint",
@@ -32,14 +34,19 @@ final class Env(
     scheduler = scheduler,
     timeline = hub.actor.timeline)
 
+  private lazy val monthlyGoalApi = new MonthlyGoalApi(
+    goal = MonthlyGoalCents,
+    chargeColl = chargeColl)
+
   lazy val api = new PlanApi(
     stripeClient,
     patronColl = patronColl,
-    chargeColl = db(CollectionCharge),
+    chargeColl = chargeColl,
     notifier = notifier,
-    uncacheLightUser = uncacheLightUser,
+    lightUserApi = lightUserApi,
     bus,
-    payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"))
+    payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
+    monthlyGoalApi = monthlyGoalApi)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
@@ -59,7 +66,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
-    uncacheLightUser = lila.user.Env.current.uncacheLightUser _,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     bus = lila.common.PlayApp.system.lilaBus,
     scheduler = lila.common.PlayApp.scheduler)
 }
