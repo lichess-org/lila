@@ -56,7 +56,8 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
-    "coords_" + ctx.pref.coords).mkString(" ")"
+    "coords_" + ctx.pref.coords,
+    playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"

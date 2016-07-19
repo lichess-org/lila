@@ -128,6 +128,13 @@ body.blind_mode [data-icon]::before {
   display: none;
   visibility: hidden;
 }
+body.blind_mode #blind_mode {
+  text-align: center;
+  padding: 5px 0;
+  background: #888;
+  margin-left: 0;
+  height: auto;
+}
 .is.color-icon.white::before {
   content: "K";
 }
@@ -149,13 +156,6 @@ body.blind_mode [data-icon]::before {
 #blind_mode {
   margin-left: -99999px;
   height: 0;
-}
-body.blind_mode #blind_mode {
-  text-align: center;
-  padding: 5px 0;
-  background: #888;
-  margin-left: 0;
-  height: auto;
 }
 group.radio {
   display: flex;
@@ -430,6 +430,10 @@ body.no-bg {
 body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
+}
+body.fixed-scroll {
+  /* prevents scroll bar flicker when dragging a piece out */
+  overflow-y: scroll;
 }
 a,
 a:visited,
