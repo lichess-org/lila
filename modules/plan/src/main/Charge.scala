@@ -11,9 +11,12 @@ case class Charge(
     cents: Cents,
     date: DateTime) {
 
+  def isPayPal = payPal.nonEmpty
+  def isStripe = stripe.nonEmpty
+
   def serviceName =
-    if (stripe.nonEmpty) "stripe"
-    else if (payPal.nonEmpty) "paypal"
+    if (isStripe) "stripe"
+    else if (isPayPal) "paypal"
     else "???"
 }
 

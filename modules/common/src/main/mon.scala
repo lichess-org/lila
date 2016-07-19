@@ -201,7 +201,14 @@ object mon {
     val percent = rec("donation.percent")
   }
   object plan {
-    val amount = incX("plan.amount")
+    object amount {
+      val paypal = incX("plan.amount.paypal")
+      val stripe = incX("plan.amount.stripe")
+    }
+    object count {
+      val paypal = inc("plan.count.paypal")
+      val stripe = inc("plan.count.stripe")
+    }
     val goal = rec("plan.goal")
     val current = rec("plan.current")
     val percent = rec("plan.percent")

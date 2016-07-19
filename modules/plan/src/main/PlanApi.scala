@@ -232,10 +232,17 @@ final class PlanApi(
             username = charge.userId.flatMap(lightUserApi.get).fold("Anonymous")(_.name),
             amount = charge.cents.value,
             percent = m.percent), 'plan)
-          lila.mon.plan.amount(charge.cents.value)
           lila.mon.plan.goal(m.goal.value)
           lila.mon.plan.current(m.current.value)
           lila.mon.plan.percent(m.percent)
+          if (charge.isPayPal) {
+            lila.mon.plan.amount.paypal(charge.cents.value)
+            lila.mon.plan.count.paypal()
+          }
+          else if (charge.isStripe) {
+            lila.mon.plan.amount.stripe(charge.cents.value)
+            lila.mon.plan.count.stripe()
+          }
         }
       }
 
