@@ -1,4 +1,4 @@
-@(route: Call, pager: Paginator[_])
+@(route: Call, pager: Paginator[_], showPost: Boolean)
 
 @url(page: Int) = {
 @route?page=@page
@@ -12,7 +12,7 @@
     } else {
     <span class="disabled" data-icon="I"></span>
     }
-    @pager.sliding(3, showPost = false).map {
+    @pager.sliding(3, showPost = showPost).map {
     case None => { ... }
     case Some(p) => {
     @if(p == pager.currentPage) {

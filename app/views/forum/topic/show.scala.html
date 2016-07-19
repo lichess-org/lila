@@ -28,7 +28,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
   </ol>
   }
   <div class="bar top clearfix">
-    @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
+    @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
   </div>
 
   <div class="forum_posts_list">
@@ -94,7 +94,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
   </div>
 
   <div class="bar bottom clearfix">
-    @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
+    @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
   </div>
 </div>
 }

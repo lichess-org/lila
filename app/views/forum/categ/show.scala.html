@@ -33,7 +33,7 @@ description = categ.desc).some) {
 
   <p class="description">@categ.desc</p>
   <div class="bar top clearfix">
-    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false)
     @newTopicButton
   </div>
 
@@ -63,7 +63,7 @@ description = categ.desc).some) {
   </table>
 
   <div class="bar bottom clearfix">
-    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false)
     @newTopicButton
   </div>
 </div>
