@@ -25,6 +25,17 @@ object Plan extends LilaController {
     }
   }
 
+  def list = Open { implicit ctx =>
+    ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
+      import lila.plan.PlanApi.SyncResult._
+      Env.plan.api.sync(me) flatMap {
+        case ReloadUser         => Redirect(routes.Plan.list).fuccess
+        case Synced(Some(_), _) => indexFreeUser(me)
+        case _                  => Redirect(routes.Plan.index).fuccess
+      }
+    }
+  }
+
   private def indexAnon(implicit ctx: Context) = renderIndex(email = none, patron = none)
 
   private def indexFreeUser(me: UserModel)(implicit ctx: Context) =

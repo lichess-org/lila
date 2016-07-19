@@ -144,6 +144,7 @@ POST  /learn/reset                     controllers.Learn.reset
 GET   /patron                          controllers.Plan.index
 POST  /patron/charge                   controllers.Plan.charge
 GET   /patron/thanks                   controllers.Plan.thanks
+GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
