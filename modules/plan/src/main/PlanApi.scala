@@ -203,7 +203,9 @@ final class PlanApi(
   }
 
   private val recentChargeUserIdsCache = AsyncCache[Int, List[User.ID]](
-    f = nb => chargeColl.primitive[User.ID]($empty, sort = $doc("date" -> -1), nb = nb, "userId"),
+    f = nb => chargeColl.primitive[User.ID](
+      $empty, sort = $doc("date" -> -1), nb = nb, "userId"
+    ) flatMap filterUserIds,
     timeToLive = 1 hour)
 
   def recentChargeUserIds(nb: Int): Fu[List[User.ID]] = recentChargeUserIdsCache(nb)
@@ -218,10 +220,18 @@ final class PlanApi(
         Sort(Descending("total")),
         Limit(nb))).map {
         _.documents.flatMap { _.getAs[User.ID]("_id") }
-      },
+      } flatMap filterUserIds,
     timeToLive = 1 hour)
 
   def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
+
+  private def filterUserIds(ids: List[User.ID]): Fu[List[User.ID]] = {
+    val dedup = ids.distinct
+    UserRepo.filterByEnabled(dedup) map { enableds =>
+      val set = enableds.toSet
+      dedup filter set.contains
+    }
+  }
 
   private def addCharge(charge: Charge): Funit =
     chargeColl.insert(charge) >>

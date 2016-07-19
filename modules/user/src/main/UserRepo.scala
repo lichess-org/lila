@@ -343,7 +343,10 @@ object UserRepo {
       ).map(~_)
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
-    coll.primitive[String]($inIds(userIds) ++ engineSelect(true), F.username)
+    coll.primitive[String]($inIds(userIds) ++ engineSelect(true), F.id)
+
+  def filterByEnabled(userIds: List[String]): Fu[List[String]] =
+    coll.primitive[String]($inIds(userIds) ++ enabledSelect, F.id)
 
   def countEngines(userIds: List[String]): Fu[Int] =
     coll.countSel($inIds(userIds) ++ engineSelect(true))

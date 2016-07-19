@@ -33,7 +33,7 @@ object Plan extends LilaController {
     }
 
   private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] =
-    Env.plan.api.recentChargeUserIds(40) zip
+    Env.plan.api.recentChargeUserIds(50) zip
       Env.plan.api.topPatronUserIds(120) map {
         case (recentIds, bestIds) =>
           Ok(html.plan.index(
