@@ -218,6 +218,9 @@ body.dark .faq {
   margin: 140px 0 5px 0;
   border-bottom: 1px solid #ccc;
 }
+body.dark .recent_patrons h2 {
+  border-color: #444;
+}
 .recent_patrons .list div {
   font-size: 1.3em;
   overflow: hidden;
