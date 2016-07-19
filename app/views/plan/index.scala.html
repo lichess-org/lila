@@ -37,7 +37,8 @@ description = "Free chess for everyone, forever!").some) {
     <div>
       <h1>Thank you for your donation!</h1>
       @p.expiresAt.map { expires =>
-      If not renewed, your Patron account will expire on @showDate(expires).
+      You have a Patron account until @showDate(expires).<br />
+      If not renewed, you will then be downgraded to free.
       }
     </div>
     <i data-icon="@patronIconChar"></i>
