@@ -30,7 +30,7 @@ module.exports = function(ctrl, player, klass) {
   }) : null)
   return player.user ? [
     m('a', {
-      class: 'text ulpt user_link line ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
+      class: 'text ulpt user_link line ' + (player.user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(d) ? '_blank' : '_self',
       title: player.provisional ? 'Provisional rating' : null
