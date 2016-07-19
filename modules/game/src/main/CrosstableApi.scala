@@ -72,8 +72,6 @@ final class CrosstableApi(
 
   private val winnerProjection = $doc(Game.BSONFields.winnerId -> true)
 
-  def nbComputing = computing
-
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] = {
     if (computing >= maxComputing) fuccess(none)
     else {

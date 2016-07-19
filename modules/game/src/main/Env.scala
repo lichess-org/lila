@@ -69,10 +69,6 @@ final class Env(
     gameColl = gameColl,
     system = system)
 
-  system.scheduler.schedule(2 second, 2 second) {
-    lila.log("crosstable").debug(s"${crosstableApi.nbComputing}")
-  }
-
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
