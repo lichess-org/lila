@@ -9,6 +9,7 @@ import chess.Color
 import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
+import lila.user.UserRepo
 
 final class PlaybanApi(
     coll: Coll,
@@ -25,24 +26,30 @@ final class PlaybanApi(
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  private def blameable(game: Game) =
-    game.source.contains(Source.Lobby) &&
-      game.hasClock &&
-      !isRematch(game.id)
+  private def blameable(game: Game): Fu[Boolean] =
+    (game.source.contains(Source.Lobby) && game.hasClock && !isRematch(game.id)) ?? {
+      if (game.rated) fuccess(true)
+      else UserRepo.containsEngine(game.userIds) map (!_)
+    }
 
-  def abort(pov: Pov): Funit = blameable(pov.game) ?? {
-    if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
-    else if (pov.game olderThan 15) none
-    else pov.player.some map { Blame(_, Outcome.Abort) }
-  } ?? {
-    case Blame(player, outcome) => player.userId.??(save(outcome))
+  private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
+    blameable(game) flatMap { _ ?? f }
+
+  def abort(pov: Pov): Funit = IfBlameable(pov.game) {
+    {
+      if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
+      else if (pov.game olderThan 15) none
+      else pov.player.some map { Blame(_, Outcome.Abort) }
+    } ?? {
+      case Blame(player, outcome) => player.userId.??(save(outcome))
+    }
   }
 
-  def rageQuit(game: Game, quitterColor: Color): Funit = blameable(game) ?? {
+  def rageQuit(game: Game, quitterColor: Color): Funit = IfBlameable(game) {
     game.player(quitterColor).userId ?? save(Outcome.RageQuit)
   }
 
-  def sittingOrGood(game: Game, sitterColor: Color): Funit = blameable(game) ?? {
+  def sittingOrGood(game: Game, sitterColor: Color): Funit = IfBlameable(game) {
     (for {
       userId <- game.player(sitterColor).userId
       lmt <- game.lastMoveTimeInSeconds
@@ -54,7 +61,7 @@ final class PlaybanApi(
     } yield save(Outcome.Sitting)(userId)) | goodFinish(game)
   }
 
-  def goodFinish(game: Game): Funit = blameable(game) ?? {
+  def goodFinish(game: Game): Funit = IfBlameable(game) {
     game.userIds.map(save(Outcome.Good)).sequenceFu.void
   }
 

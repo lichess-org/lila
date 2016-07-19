@@ -348,6 +348,9 @@ object UserRepo {
   def countEngines(userIds: List[String]): Fu[Int] =
     coll.countSel($inIds(userIds) ++ engineSelect(true))
 
+  def containsEngine(userIds: List[String]): Fu[Boolean] =
+    coll.exists($inIds(userIds) ++ engineSelect(true))
+
   def mustConfirmEmail(id: String): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
