@@ -4,7 +4,7 @@ table.all {
   width: 100%;
 }
 table.all a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 table.all td,
 table.all th {
@@ -73,7 +73,7 @@ table.all .thanks {
 }
 
 .motivation a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 
 .motivation {
@@ -184,7 +184,7 @@ body.dark .faq {
   border-color: #555;
 }
 .faq a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 .faq dl {
   flex: 0 0 31%;
