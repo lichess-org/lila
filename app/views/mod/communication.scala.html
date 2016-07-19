@@ -51,7 +51,7 @@ side = side.some) {
         @chat.lines.map { line =>
         <div class="line @if(line.author.toLowerCase == u.id) { author }">
           @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
-          @Html(line.text)
+          @line.text
         </div>
         }
       </div>
