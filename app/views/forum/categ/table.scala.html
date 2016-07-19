@@ -22,7 +22,7 @@
 			<td class="last_post">
 				@categ.lastPost.map {
 				case (topic, post, page) => {
-				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, page)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(Html(authorName(post)))
+				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, page)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(authorName(post))
 				}
 				}
 			</td>

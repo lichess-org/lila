@@ -3,8 +3,8 @@ package templating
 
 import play.twirl.api.Html
 
-import lila.forum.Post
 import lila.api.Context
+import lila.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper =>
 
@@ -26,15 +26,15 @@ trait ForumHelper { self: UserHelper with StringHelper =>
   def isGrantedMod(categSlug: String)(implicit ctx: Context) =
     Granter.isGrantedMod(categSlug).await
 
-  def authorName(post: Post) =
-    post.userId.flatMap(lightUser).fold(escape(post.showAuthor))(_.titleName)
+  def authorName(post: Post) = post.userId match {
+    case Some(userId) => userIdSpanMini(userId, withOnline = true)
+    case None         => Html(lila.user.User.anonymous)
+  }
 
   def authorLink(
     post: Post,
     cssClass: Option[String] = None,
-    withOnline: Boolean = true) = post.userId.fold(
-    Html("""<span class="%s">%s</span>""".format(~cssClass, authorName(post)))
-  ) { userId =>
-      userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline)
-    }
+    withOnline: Boolean = true) = post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
+    userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline)
+  }
 }
