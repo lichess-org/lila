@@ -40,7 +40,6 @@ body.dark #video .tag_list a {
   color: #aaa;
 }
 body.dark #adv_chart_loader,
-body.dark .donation .progress,
 body.dark #video .tag_list a:hover {
   background: #3a3a3a;
   color: #a0a0a0;
@@ -162,7 +161,8 @@ body.dark div.negotiation,
 body.dark div.side_box .game_infos,
 body.dark #video .content_box_top,
 body.dark #simul .half,
-body.dark .donation .links a,
+body.dark .donation,
+body.dark .donation a,
 body.dark .studies .study,
 body.dark .study_metadata h2 .views,
 body.dark .study_invite .users,
@@ -221,7 +221,6 @@ body.dark #timeline a,
 body.dark .undertable a.user_link,
 body.dark #team .forum a.user_link,
 body.dark div.user_show div.content_box_top > span,
-body.dark span.progress > .zero,
 body.dark .undertable_top span.title {
   color: #777;
 }
@@ -240,6 +239,7 @@ body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark div.undertable_inner,
+body.dark .donation a,
 body.dark div.mchat .chat_tabs .tab.active {
   background: #262626;
 }
