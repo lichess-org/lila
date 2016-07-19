@@ -91,33 +91,38 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
-  flex: 0 0 30px;
-  margin-top: 10px;
+  flex: 0 0 auto;
   width: 244px;
+  font-size: 1.3em;
 }
 div.game_control .buttons {
   display: flex;
   justify-content: space-between;
 }
+div.game_control button {
+  background: none;
+  border: none;
+  padding: 0 12px;
+  outline: none;
+  line-height: 40px;
+}
+div.game_control button:active,
+div.game_control button.active {
+  background: #5ba6ec;
+  color: #fff;
+}
+div.game_control button:hover {
+  background: #3893E8;
+  color: #fff;
+}
 div.game_control .jumps {
-  display: inline-block;
-  position: relative;
+  display: flex;
 }
-div.game_control .jumps:last-child {
-  margin-left: -1px;
-}
+div.game_control .jumps button:first-child,
 div.game_control .jumps button:last-child {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  border-top: 0;
-}
-div.game_control .jumps:hover button:last-child {
-  display: block;
-}
-div.game_control .menu {
-  margin-left: 10px;
+  font-size: 0.7em;
+  padding: 0 5px;
+  line-height: 40px;
 }
 div.lichess_game div.lichess_ground {
   transition: padding-left 0.3s;

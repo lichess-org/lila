@@ -154,17 +154,14 @@ function blindBoard(ctrl) {
 var cachedButtons = (function() {
   var make = function(icon, effect) {
     return m('button', {
-      class: 'button',
       'data-act': effect,
       'data-icon': icon
     });
   };
   return m('div', [
     m('div.jumps', [
+      make('W', 'first'),
       make('Y', 'prev'),
-      make('W', 'first')
-    ]),
-    m('div.jumps', [
       make('X', 'next'),
       make('V', 'last')
     ])
@@ -196,10 +193,10 @@ function buttons(ctrl) {
           id: 'open_explorer',
           'data-hint': ctrl.trans('openingExplorer'),
           'data-act': 'explorer',
-          class: 'button hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
+          class: 'hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
         }, icon(']')),
         m('button', {
-          class: 'button menu hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
+          class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
           'data-hint': 'Menu',
           'data-act': 'menu'
         }, icon('['))
