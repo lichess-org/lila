@@ -91,11 +91,9 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
-  flex: 0 0 auto;
+  flex: 0 0 42px;
   width: 244px;
   font-size: 1.3em;
-}
-div.game_control .buttons {
   display: flex;
   justify-content: space-between;
 }
@@ -104,15 +102,15 @@ div.game_control button {
   border: none;
   padding: 0 12px;
   outline: none;
-  line-height: 40px;
+  line-height: 42px;
+}
+div.game_control button:hover {
+  background: #3893E8;
+  color: #fff;
 }
 div.game_control button:active,
 div.game_control button.active {
   background: #5ba6ec;
-  color: #fff;
-}
-div.game_control button:hover {
-  background: #3893E8;
   color: #fff;
 }
 div.game_control .jumps {
@@ -122,7 +120,13 @@ div.game_control .jumps button:first-child,
 div.game_control .jumps button:last-child {
   font-size: 0.7em;
   padding: 0 5px;
-  line-height: 40px;
+  line-height: 42px;
+}
+div.game_control .jumps button:nth-child(2) {
+  padding: 0 10px 0 14px;
+}
+div.game_control .jumps button:nth-child(3) {
+  padding: 0 14px 0 10px;
 }
 div.lichess_game div.lichess_ground {
   transition: padding-left 0.3s;

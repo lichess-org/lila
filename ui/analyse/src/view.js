@@ -178,31 +178,27 @@ function icon(c) {
 }
 
 function buttons(ctrl) {
-  return m('div.game_control',
-    m('div.buttons', {
-      onmouseup: function(e) {
-        var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
-        if (action === 'explorer') ctrl.explorer.toggle();
-        else if (action === 'menu') ctrl.actionMenu.toggle();
-        else if (control[action]) control[action](ctrl);
-      }
-    }, [
-      cachedButtons,
-      m('div', [
-        (ctrl.actionMenu.open || !ctrl.explorer.allowed()) ? null : m('button', {
-          id: 'open_explorer',
-          'data-hint': ctrl.trans('openingExplorer'),
-          'data-act': 'explorer',
-          class: 'hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
-        }, icon(']')),
-        m('button', {
-          class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
-          'data-hint': 'Menu',
-          'data-act': 'menu'
-        }, icon('['))
-      ])
-    ])
-  );
+  return m('div.game_control', {
+    onmouseup: function(e) {
+      var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+      if (action === 'explorer') ctrl.explorer.toggle();
+      else if (action === 'menu') ctrl.actionMenu.toggle();
+      else if (control[action]) control[action](ctrl);
+    }
+  }, [
+    (ctrl.actionMenu.open || !ctrl.explorer.allowed()) ? null : m('button', {
+      id: 'open_explorer',
+      'data-hint': ctrl.trans('openingExplorer'),
+      'data-act': 'explorer',
+      class: 'hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
+    }, icon(']')),
+    cachedButtons,
+    m('button', {
+      class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
+      'data-hint': 'Menu',
+      'data-act': 'menu'
+    }, icon('['))
+  ]);
 }
 
 function renderOpeningBox(ctrl) {
