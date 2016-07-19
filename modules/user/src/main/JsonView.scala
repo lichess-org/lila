@@ -23,7 +23,8 @@ final class JsonView(isOnline: String => Boolean) {
     "perfs" -> perfs(u, onlyPerf),
     "createdAt" -> u.createdAt,
     "seenAt" -> u.seenAt,
-    "playTime" -> u.playTime
+    "playTime" -> u.playTime,
+    "patron" -> u.isPatron
   ).noNull
 
   def lightPerfIsOnline(lp: LightPerf) = {

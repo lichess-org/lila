@@ -30,12 +30,15 @@ module.exports = function(ctrl, player, klass) {
   }) : null)
   return player.user ? [
     m('a', {
-      class: 'text ulpt user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
+      class: 'text ulpt user_link line ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(d) ? '_blank' : '_self',
-      'data-icon': 'r',
       title: player.provisional ? 'Provisional rating' : null
     }, [
+      m('i', {
+        class: 'line',
+        'data-icon': player.user.patron ? '' : ''
+      }),
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
       rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
       ratingDiff(player),
