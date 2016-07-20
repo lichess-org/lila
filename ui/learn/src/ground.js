@@ -12,6 +12,7 @@ module.exports = {
     cg.set({
       fen: opts.chess.fen(),
       lastMove: null,
+      selected: null,
       orientation: opts.orientation,
       coordinates: true,
       squareKey: true,
@@ -53,7 +54,7 @@ module.exports = {
         }
       });
     }, 200);
-    if (opts.shapes) cg.setShapes(opts.shapes);
+    if (opts.shapes) cg.setShapes(opts.shapes.slice(0));
     return cg;
   },
   stop: cg.stop,
