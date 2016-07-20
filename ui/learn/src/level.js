@@ -159,7 +159,7 @@ module.exports = function(blueprint, opts) {
         return items.withItem(key, itemView);
       }
     },
-    shapes: blueprint.shapes
+    shapes: (blueprint.shapes || []).slice(0)
   });
 
   return {
