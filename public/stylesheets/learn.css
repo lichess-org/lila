@@ -44,8 +44,21 @@
   min-height: 100px;
   font-size: 2em;
 }
+@keyframes shadow-glow {
+  50% {
+    box-shadow: 0 0 10px 10px rgba(255,255,255,0.5);
+    transform: scale(1.05);
+  }
+}
+@keyframes text-shadow-glow {
+  50% {
+    text-shadow: 0 0 10px #fff;
+    transform: scale(1.05);
+  }
+}
 #learn_app .result h2 {
   flex: 0 0 100%;
+  animation: text-shadow-glow 1s 1;
 }
 #learn_app .result.failed h2,
 #learn_app .result.next h2 {
@@ -54,17 +67,12 @@
 #learn_app .result:hover {
   -webkit-filter: brightness(1.1);
 }
-@keyframes shadow-glow {
-  50% {
-    box-shadow: 0 0 10px 10px rgba(255,255,255,0.5);
-    transform: scale(1.05);
-  }
-}
 #learn_app .result .stars {
   margin-top: 4px;
 }
 #learn_app .result .stars i {
   margin: 3px;
+  animation: text-shadow-glow 1s 1;
 }
 #learn_app .result button {
   margin: 15px auto 15px auto;
