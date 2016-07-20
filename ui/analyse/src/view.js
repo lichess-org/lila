@@ -4,8 +4,8 @@ var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
-var treeView1 = require('./tree/treeView1');
-// var treeView2 = require('./tree/treeView2');
+// var treeView = require('./tree/treeView1');
+var treeView = require('./tree/treeView2');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
@@ -16,7 +16,6 @@ var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
 var acplView = require('./acpl');
-var contextMenu = require('./contextMenu');
 
 function renderResult(ctrl) {
   var result;
@@ -48,7 +47,7 @@ function renderAnalyse(ctrl) {
     ply: ctrl.study.data.chapter.conceal
   } : null;
   return m('div.replay', [
-    treeView1(ctrl, ctrl.vm.mainline, conceal),
+    treeView(ctrl, conceal),
     renderResult(ctrl)
   ]);
 }

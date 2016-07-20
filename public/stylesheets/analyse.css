@@ -552,23 +552,23 @@ body.dark .explorer_box .black {
 .lichess_ground .action_menu .switch {
   float: right;
 }
-.lichess_ground .replay turn index {
+.lichess_ground .tview1 turn index {
   width: 26px;
   text-align: center;
 }
-.lichess_ground .replay move {
+.lichess_ground .tview1 move {
   font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
 }
-.lichess_ground .replay turn move {
+.lichess_ground .tview1 turn move {
   position: relative;
   padding: 2px 7px;
 }
-.lichess_ground .replay move.current {
+.lichess_ground .tview1 move.current {
   background: rgba(191, 231, 255, 0.7);
 }
-.lichess_ground .replay move.annotated::after {
+.lichess_ground .tview1 move.annotated::after {
   font-family: "lichess" !important;
   color: #42a5f5;
   content: "";
@@ -576,16 +576,16 @@ body.dark .explorer_box .black {
   margin-left: 3px;
   opacity: 0.8;
 }
-.lichess_ground .replay turn move.empty {
+.lichess_ground .tview1 turn move.empty {
   opacity: 0.5;
 }
-.lichess_ground .replay .conceal {
+.lichess_ground .tview1 .conceal {
   opacity: 0.5;
 }
-.lichess_ground .replay .hide {
+.lichess_ground .tview1 .hide {
   display: none;
 }
-.lichess_ground .replay eval {
+.lichess_ground .tview1 eval {
   position: absolute;
   top: 2px;
   right: 5px;
@@ -595,107 +595,86 @@ body.dark .explorer_box .black {
   opacity: 0.7;
   transition: 0.13s;
 }
-.lichess_ground .replay move:hover eval {
+.lichess_ground .tview1 move:hover eval {
   opacity: 1;
 }
-.lichess_ground .replay glyph {
+.lichess_ground .tview1 glyph {
   font-family: 'Noto Sans';
   color: #444;
   margin-left: 3px;
 }
-.lichess_ground .replay .meta {
+.lichess_ground .tview1 .meta {
   background-color: #e0e0e0;
   border: 1px solid #ccc;
   border-left: none;
 }
-.lichess_ground .comment {
+.lichess_ground .tview1 .comment {
   padding: 3px 0 0 5px;
   word-wrap: break-word;
 }
-.lichess_ground .replay .white {
+.lichess_ground .tview1 .white {
   border-left: 3px solid;
 }
-.lichess_ground .replay .black {
+.lichess_ground .tview1 .black {
   border-right: 3px solid;
   overflow-x: hidden;
 }
-body .lichess_ground .replay .inaccuracy {
+body .lichess_ground .tview1 .inaccuracy {
   border-color: #56B4E9;
 }
-body .lichess_ground .replay .mistake {
+body .lichess_ground .tview1 .mistake {
   border-color: #E69F00;
 }
-body .lichess_ground .replay .blunder {
+body .lichess_ground .tview1 .blunder {
   border-color: #DF5353;
 }
-body .lichess_ground .replay .undefined {
+body .lichess_ground .tview1 .undefined {
   border-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
 }
-.lichess_ground .replay .meta > .variation {
+.lichess_ground .tview1 .meta > .variation {
   padding: 3px 0 0 5px;
   font-family: 'Roboto';
   font-weight: 300;
   white-space: nowrap;
 }
-.lichess_ground .replay .meta > .variation.visiting {
+.lichess_ground .tview1 .meta > .variation.visiting {
   white-space: normal;
 }
-.lichess_ground .replay .meta > .variation span.menu {
-  float: right;
-  margin-right: 3px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.13s;
-}
-.lichess_ground .replay .meta > .variation:hover .menu {
-  opacity: 0.7;
-}
-.lichess_ground .replay .meta > .variation .menu:hover {
-  opacity: 1!important;
-}
-.lichess_ground .replay .meta > .menu {
-  background: #fff;
-  font-family: 'Noto Sans';
-  font-weight: normal;
-}
-.lichess_ground .replay .meta > .menu a {
-  display: block;
-  line-height: 1.8em;
-}
-.lichess_ground .replay .meta > .menu a.delete {
-  color: #ac524f;
-}
-.lichess_ground .replay .meta > .menu a.promote {
-  color: #759900;
-}
-.lichess_ground .replay .meta > .menu a::before {
-  opacity: 0.5;
-}
-.lichess_ground .replay .meta > .menu a:hover::before {
-  opacity: 1;
-}
-.lichess_ground .replay .meta > *:last-child {
+.lichess_ground .tview1 .meta > *:last-child {
   padding-bottom: 3px;
 }
-.lichess_ground .variation index {
+.lichess_ground .tview1 .variation index {
   margin-left: 5px;
   font-size: 0.9em;
 }
-.lichess_ground .variation index:first-child {
+.lichess_ground .tview1 .variation index:first-child {
   margin-left: 0;
 }
-.lichess_ground .variation move {
+.lichess_ground .tview1 .variation move {
   padding: 1px 1.5px;
   font-weight: normal;
 }
-.lichess_ground .variation move:hover {
+.lichess_ground .tview1 .variation move:hover {
   background: #eee;
 }
-.lichess_ground .replay .variation .variation {
+.lichess_ground .tview1 .variation .variation {
   margin: 0 5px;
+}
+
+.lichess_ground .tview2 {
+  font-size: 14px;
+}
+.lichess_ground .tview2 index {
+  margin-left: 5px;
+}
+.lichess_ground .tview2 move {
+  font-family: 'ChessSansPiratf', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 1px 2px;
 }
 .lichess_ground .result {
   font-weight: bold;

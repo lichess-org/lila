@@ -9,6 +9,7 @@ var empty = util.empty;
 var treePath = require('./path');
 var treeOps = require('./ops');
 var game = require('game').game;
+var contextMenu = require('../contextMenu');
 
 var autoScroll = util.throttle(300, false, function(el) {
   raf(function() {
@@ -285,7 +286,8 @@ function eventPath(e, ctrl) {
   if (ply) return ctrl.mainlinePathToPly(ply);
 }
 
-module.exports = function(ctrl, mainline, conceal) {
+module.exports = function(ctrl, conceal) {
+  var mainline = ctrl.vm.mainline;
   var turns = [];
   var initPly = mainline[0].ply;
   var makeTurnColor = function(i) {
@@ -329,7 +331,7 @@ module.exports = function(ctrl, mainline, conceal) {
     tags.push(res.dom);
   }
 
-  return m('div.tree-view', {
+  return m('div.tview1', {
     onmousedown: function(e) {
       if (e.button !== undefined && e.button !== 0) return; // only touch or left click
       var path = eventPath(e, ctrl);
