@@ -158,13 +158,11 @@ var cachedButtons = (function() {
       'data-icon': icon
     });
   };
-  return m('div', [
-    m('div.jumps', [
-      make('W', 'first'),
-      make('Y', 'prev'),
-      make('X', 'next'),
-      make('V', 'last')
-    ])
+  return m('div.jumps', [
+    make('W', 'first'),
+    make('Y', 'prev'),
+    make('X', 'next'),
+    make('V', 'last')
   ])
 })();
 
