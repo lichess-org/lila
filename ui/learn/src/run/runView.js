@@ -8,6 +8,7 @@ var stageStarting = require('./stageStarting');
 var stageComplete = require('./stageComplete');
 var renderPromotion = require('../promotion').view;
 var renderProgress = require('../progress').view;
+var makeStars = require('../progress').makeStars;
 
 function renderFailed(ctrl) {
   return m('div.result.failed', {
@@ -24,7 +25,7 @@ function renderCompleted(level) {
     onclick: level.onComplete
   }, [
     m('h2', congrats()),
-    level.blueprint.nextButton ? m('button', 'Next') : null
+    level.blueprint.nextButton ? m('button', 'Next') : makeStars(level.blueprint, level.vm.score)
   ]);
 }
 

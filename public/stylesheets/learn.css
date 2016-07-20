@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   border: 1px solid #ccc;
   border-top: none;
   text-align: center;
@@ -59,6 +59,12 @@
     box-shadow: 0 0 10px 10px rgba(255,255,255,0.5);
     transform: scale(1.05);
   }
+}
+#learn_app .result .stars {
+  margin-top: 4px;
+}
+#learn_app .result .stars i {
+  margin: 3px;
 }
 #learn_app .result button {
   margin: 15px auto 15px auto;
@@ -226,7 +232,7 @@
 #learn_app .screen .stars {
   margin-bottom: 20px;
 }
-@keyframes appear {
+@keyframes star-appear {
   0% {
     -webkit-filter: saturate(1); opacity: 0.5; transform: scale(0) rotate(-360deg);
   }
@@ -264,7 +270,7 @@
   width: 55px;
   height: 55px;
   opacity: 0;
-  animation: appear 2.5s ease-in-out;
+  animation: star-appear 2.5s ease-in-out;
   animation-delay: 0.1s;
   animation-fill-mode: forwards;
 }

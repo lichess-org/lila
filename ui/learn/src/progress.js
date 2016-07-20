@@ -7,7 +7,7 @@ function makeStars(level, score) {
   var rank = scoring.getLevelRank(level, score);
   var stars = [];
   for (var i = 3; i >= rank; i--) stars.push(star);
-  return stars;
+  return m('span.stars.st' + stars.length, stars);
 }
 
 module.exports = {
@@ -25,11 +25,7 @@ module.exports = {
       ctrl.stage.levels.map(function(level, i) {
         var score = ctrl.score(level);
         var status = level.id === ctrl.level.blueprint.id ? 'active' : (score ? 'done' : 'future');
-        var label;
-        if (score) {
-          var stars = makeStars(level, score);
-          label = m('span.st' + stars.length, stars);
-        } else label = m('span.id', level.id);
+        var label = score ? makeStars(level, score) : m('span.id', level.id);
         return m('a', {
           href: '/' + ctrl.stage.id + '/' + level.id,
           config: m.route,
@@ -37,5 +33,6 @@ module.exports = {
         }, label);
       })
     );
-  }
+  },
+  makeStars: makeStars
 };
