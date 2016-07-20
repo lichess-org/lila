@@ -149,7 +149,6 @@ POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
 POST  /patron/ipn                      controllers.Plan.payPalIpn
-POST  /donate/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
 
 # Round
