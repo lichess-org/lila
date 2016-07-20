@@ -91,6 +91,7 @@ private[round] final class SocketHandler(
         } send(HoldAlert(playerId, mean, sd, member.ip))
         case ("berserk", _) => member.userId foreach { userId =>
           hub.actor.tournamentApi ! Berserk(gameId, userId)
+          member push ackEvent
         }
       }: Handler.Controller) orElse lila.chat.Socket.in(
         chatId = gameId,

@@ -90,7 +90,9 @@ module.exports = function(send, ctrl) {
 
   this.outoftime = util.throttle(500, false, partial(this.send, 'outoftime', null));
 
-  this.berserk = util.throttle(200, false, partial(this.send, 'berserk', null));
+  this.berserk = util.throttle(200, false, partial(this.send, 'berserk', null, {
+    ackable: true
+  }));
 
   this.receive = function(type, data) {
     if (handlers[type]) {
