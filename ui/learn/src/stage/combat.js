@@ -17,7 +17,7 @@ module.exports = {
     fen: '8/8/8/8/P2r4/6B1/8/8 w - -',
     nbMoves: 3,
     captures: 1,
-    shapes: [arrow('a4a5'), arrow('g3f2'), arrow('f2d4')],
+    shapes: [arrow('a4a5'), arrow('g3f2'), arrow('f2d4'), arrow('d4a4', 'yellow')],
     success: assert.extinct('black')
   }, {
     goal: 'Take the black pieces!<br>And don\'t lose yours.',
