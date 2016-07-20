@@ -32,6 +32,20 @@ module.exports = {
     showFailureFollowUp: true
   }, {
     goal: goal,
+    fen: '8/7p/4N2k/8/8/3N4/8/1K6 w - -',
+    success: assert.scenarioComplete,
+    failure: assert.scenarioFailed,
+    scenario: [{
+      move: 'd3f4',
+      shapes: [
+        arrow('e6g7', 'blue'), arrow('e6g5', 'blue'), arrow('f4g6', 'blue'), arrow('f4h5', 'blue'),
+        circle('g7', 'blue'), circle('g5', 'blue'), circle('g6', 'blue'), circle('h5', 'blue')
+      ]
+    }],
+    nextButton: true,
+    showFailureFollowUp: true
+  }, {
+    goal: goal,
     fen: '4k3/6p1/5p2/p4P2/PpB2N2/1K6/8/3R4 w - -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
