@@ -356,7 +356,6 @@ module.exports = function(opts) {
   }.bind(this);
 
   var clockTick = function() {
-    this.debug.tickOut();
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 
@@ -374,11 +373,17 @@ module.exports = function(opts) {
       this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
-  if (this.clock) this.debug.saveInterval(setInterval(function() {
-    this.debug.tickOuter();
-    clockTick();
-  }.bind(this), 100));
-  else setInterval(correspondenceClockTick, 1000);
+  if (this.clock) {
+    if (this.debug.enabled) {
+      var scheduleClockTick = function() {
+        setTimeout(function() {
+          clockTick();
+          scheduleClockTick();
+        }.bind(this), 100);
+      }.bind(this);
+      scheduleClockTick();
+    } else setInterval(clockTick, 100);
+  } else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
     lichess.quietMode = game.isPlayerPlaying(this.data);

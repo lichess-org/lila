@@ -26,21 +26,18 @@ module.exports = function(data, onFlag, soundColor, debug) {
   setLastUpdate();
 
   var update = function(white, black) {
-    debug.log('update in');
     m.startComputation();
     data.white = white;
     data.black = black;
     setLastUpdate();
     m.endComputation();
-    debug.log('update out');
   };
 
   var tick = function(color) {
-    debug.tickIn();
+    debug.tick();
     data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (data[color] === 0) onFlag();
     m.redraw();
-    debug.tickRedraw();
     if (soundColor == color && data[soundColor] < data.emerg && emergSound.playable[soundColor]) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
