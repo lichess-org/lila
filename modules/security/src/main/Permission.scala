@@ -36,6 +36,7 @@ object Permission {
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
+  case object Developer extends Permission("ROLE_DEVELOPER")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -48,13 +49,13 @@ object Permission {
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, PublicMod))
+    Admin, ChangePermission, PublicMod, Developer))
 
   lazy val allButSuperAdmin: List[Permission] = List(
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament,
-    PublicMod)
+    PublicMod, Developer)
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
 
