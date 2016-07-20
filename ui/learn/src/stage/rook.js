@@ -7,7 +7,7 @@ module.exports = {
   title: 'The rook',
   subtitle: 'It moves in straight lines',
   image: util.assetUrl + 'images/learn/pieces/R.svg',
-  intro: 'The rook is a powerful piece. Are you ready to learn how to use it?',
+  intro: 'The rook is a powerful piece. Are you ready to command it?',
   illustration: util.pieceImg('rook'),
   levels: [{
     goal: 'Click on the rook<br>to bring it to the star!',
