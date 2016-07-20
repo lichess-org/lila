@@ -39,7 +39,14 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
+  def isPublicMod = lila.security.Granter(_.PublicMod)(user)
+
   def allTrophies = List(
+    isPublicMod option Trophy(
+      _id = "",
+      user = user.id,
+      kind = Trophy.Kind.Moderator,
+      date = org.joda.time.DateTime.now),
     isStreamer option Trophy(
       _id = "",
       user = user.id,

@@ -191,7 +191,7 @@ object Mod extends LilaController {
         )).bindFromRequest.fold(
           err => BadRequest(html.mod.powaaa(user)).fuccess,
           permissions =>
-            UserRepo.setRoles(user.id, permissions map (_.toUpperCase)) inject
+            UserRepo.setRoles(user.id, permissions.map(_.toUpperCase)) inject
               Redirect(routes.User.show(user.username) + "?mod")
         )
       }
