@@ -137,5 +137,6 @@ module.exports = {
   },
   resetShapes: function() {
     cg.setShapes([]);
-  }
+  },
+  select: cg.selectSquare
 };

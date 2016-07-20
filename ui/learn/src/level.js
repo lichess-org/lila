@@ -18,12 +18,14 @@ module.exports = function(blueprint, opts) {
   var vm = {
     lastStep: false,
     completed: false,
+    willComplete: false,
     failed: false,
     score: 0,
     nbMoves: 0
   };
 
   var complete = function() {
+    vm.willComplete = true;
     setTimeout(function() {
       vm.lastStep = false;
       vm.completed = true;
@@ -32,7 +34,7 @@ module.exports = function(blueprint, opts) {
       ground.stop();
       m.redraw();
       if (!blueprint.nextButton) setTimeout(opts.onComplete, 1200);
-    }, ground.data().stats.dragged ? 0 : 250);
+    }, ground.data().stats.dragged ? 1 : 250);
   };
 
   // cheat
@@ -109,7 +111,7 @@ module.exports = function(blueprint, opts) {
       vm.failed = vm.failed || captured || detectFailure();
     }
     if (!vm.failed && detectSuccess()) complete();
-    if (vm.completed) return;
+    if (vm.willComplete) return;
     if (took) sound.take();
     else if (inScenario) sound.take();
     else sound.move();
@@ -118,9 +120,12 @@ module.exports = function(blueprint, opts) {
         var rm = chess.playRandomMove();
         ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
       }, 600);
-    } else if (!inScenario) {
-      chess.color(blueprint.color);
-      ground.color(blueprint.color, makeChessDests());
+    } else {
+      ground.select(dest);
+      if (!inScenario) {
+        chess.color(blueprint.color);
+        ground.color(blueprint.color, makeChessDests());
+      }
     }
     m.redraw();
   };
