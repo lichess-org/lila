@@ -104,7 +104,9 @@ object Plan extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    Ok(html.plan.thanks()).fuccess
+    ctx.me ?? Env.plan.api.userPatron map { patron =>
+      Ok(html.plan.thanks(patron))
+    }
   }
 
   def webhook = Action.async(parse.json) { req =>

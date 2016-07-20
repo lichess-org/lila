@@ -1,4 +1,4 @@
-@()(implicit ctx: Context)
+@(patron: Option[lila.plan.Patron])(implicit ctx: Context)
 
 @site.layout(
 moreCss = cssTag("page.css"),
@@ -17,10 +17,20 @@ title = "Thank you for your support!") {
       Your transaction has been completed,
       and a receipt for your donation has been emailed to you.
     </p>
-    @ctx.me.map { me =>
+    @patron.map { p =>
+    @if(p.payPal.??(_.renew)) {
+    <p>
+      You now have a permanent Patron account.<br />
+      @ctx.me.map { me =>
+      Check out your <a href="@routes.User.show(me.username)">profile page</a>!
+      }
+    </p>
+    } else {
     <p>
       You are now a lichess Patron for one month!<br />
+      @ctx.me.map { me =>
       Check out your <a href="@routes.User.show(me.username)">profile page</a>.
+      }
     </p>
     <p>
       In one month, you will <strong>not</strong> be charged again,
@@ -30,6 +40,7 @@ title = "Thank you for your support!") {
       To get a permanent Patron account, please consider making a
       <a href="@routes.Plan.index">monthly donation</a>.
     </p>
+    }
     }
     <p>
       Success! <a href="@routes.Lobby.home">Return to lichess homepage</a>.

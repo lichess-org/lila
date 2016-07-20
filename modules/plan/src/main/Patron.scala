@@ -49,6 +49,8 @@ object Patron {
       email: Option[PayPal.Email],
       subId: Option[PayPal.SubId],
       lastCharge: DateTime) {
+
+    def renew = subId.isDefined
   }
   object PayPal {
     case class Email(value: String) extends AnyVal

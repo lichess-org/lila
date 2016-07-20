@@ -329,8 +329,7 @@ final class PlanApi(
   private def selectStripeCustomerId(id: CustomerId): Bdoc =
     $doc("stripe.customerId" -> id)
 
-  private def userPatron(user: User): Fu[Option[Patron]] =
-    patronColl.uno[Patron]($id(user.id))
+  def userPatron(user: User): Fu[Option[Patron]] = patronColl.uno[Patron]($id(user.id))
 }
 
 object PlanApi {
