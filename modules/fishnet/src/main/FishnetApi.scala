@@ -78,8 +78,8 @@ final class FishnetApi(
     moveDb.postResult(workId, client, data, measurement)
   }
 
-  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] = {
-    repo.getAnalysis(workId) flatMap {
+  def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =
+    repo.getAnalysis(workId).flatMap {
       case None =>
         Monitor.notFound(workId, client)
         fufail(WorkNotFound)
@@ -114,18 +114,17 @@ final class FishnetApi(
       case Some(work) =>
         Monitor.notAcquired(work, client)
         fufail(NotAcquired)
-    }
-  }.chronometer.mon(_.fishnet.analysis.post)
-    .logIfSlow(200, logger) {
-      case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
-      case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
-      case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
-    }.result
-    .flatMap {
-      case r@PostAnalysisResult.Complete(res) => sink save res inject r
-      case r@PostAnalysisResult.Partial(res)  => sink progress res inject r
-      case r@PostAnalysisResult.UnusedPartial => fuccess(r)
-    }
+    }.chronometer.mon(_.fishnet.analysis.post)
+      .logIfSlow(200, logger) {
+        case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
+        case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
+        case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
+      }.result
+      .flatMap {
+        case r@PostAnalysisResult.Complete(res) => sink save res inject r
+        case r@PostAnalysisResult.Partial(res)  => sink progress res inject r
+        case r@PostAnalysisResult.UnusedPartial => fuccess(r)
+      }
 
   def abort(workId: Work.Id, client: Client): Funit = sequencer {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {

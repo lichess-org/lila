@@ -30,13 +30,13 @@ private final class FishnetRepo(
   def addClient(client: Client) = clientColl.insert(client)
   def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >> clientCache.remove(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update(selectClient(key), BSONDocument("$set" -> BSONDocument("enabled" -> v))).void >> clientCache.remove(key)
-  def allRecentClients = clientColl.find(BSONDocument(
-    "instance.seenAt" -> BSONDocument("$gt" -> Client.Instance.recentSince)
+    clientColl.update(selectClient(key), $set("enabled" -> v)).void >> clientCache.remove(key)
+  def allRecentClients = clientColl.find($doc(
+    "instance.seenAt" $gt Client.Instance.recentSince
   )).cursor[Client]().gather[List]()
-  def lichessClients = clientColl.find(BSONDocument(
+  def lichessClients = clientColl.find($doc(
     "enabled" -> true,
-    "userId" -> BSONDocument("$regex" -> "^lichess-")
+    "userId" -> $doc("$regex" -> "^lichess-")
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
@@ -45,16 +45,16 @@ private final class FishnetRepo(
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
-  def countAnalysis(acquired: Boolean) = analysisColl.count(BSONDocument(
-    "acquired" -> BSONDocument("$exists" -> acquired)
+  def countAnalysis(acquired: Boolean) = analysisColl.count($doc(
+    "acquired" $exists acquired
   ).some)
-  def getAnalysisByGameId(gameId: String) = analysisColl.find(BSONDocument(
+  def getAnalysisByGameId(gameId: String) = analysisColl.find($doc(
     "game.id" -> gameId
   )).uno[Work.Analysis]
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.find(BSONDocument("game.id" -> work.game.id)).uno[Work.Analysis]
+    analysisColl.find($doc("game.id" -> work.game.id)).uno[Work.Analysis]
 
-  def selectWork(id: Work.Id) = BSONDocument("_id" -> id.value)
-  def selectClient(key: Client.Key) = BSONDocument("_id" -> key.value)
+  def selectWork(id: Work.Id) = $id(id.value)
+  def selectClient(key: Client.Key) = $id(key.value)
 }
