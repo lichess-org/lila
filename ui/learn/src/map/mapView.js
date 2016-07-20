@@ -63,36 +63,38 @@ function whatNext(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.learn.map', [
-    m('div.stages', stages.categs.map(function(categ) {
-      return m('div.categ', [
-        m('h2', categ.name),
-        m('div.categ_stages',
-          categ.stages.map(function(s) {
-            var res = ctrl.data.stages[s.key];
-            var complete = ctrl.isStageIdComplete(s.id);
-            var prevComplete = ctrl.isStageIdComplete(s.id - 1);
-            var status = 'future';
-            if (complete) status = 'done';
-            else if (prevComplete || res) status = 'ongoing';
-            return m('a', {
-              class: 'stage ' + status,
-              href: '/' + s.id,
-              config: m.route
-            }, [
-              ribbon(ctrl, s, status, res),
-              m('img', {
-                src: s.image
-              }),
-              m('div.text', [
-                m('h2', s.title),
-                m('p.subtitle', s.subtitle)
-              ])
-            ]);
-          })
-        )
-      ]);
-    })),
-    whatNext(ctrl)
-  ]);
+  return m('div.learn.map',
+    m('div.stages', [
+      stages.categs.map(function(categ) {
+        return m('div.categ', [
+          m('h2', categ.name),
+          m('div.categ_stages',
+            categ.stages.map(function(s) {
+              var res = ctrl.data.stages[s.key];
+              var complete = ctrl.isStageIdComplete(s.id);
+              var prevComplete = ctrl.isStageIdComplete(s.id - 1);
+              var status = 'future';
+              if (complete) status = 'done';
+              else if (prevComplete || res) status = 'ongoing';
+              return m('a', {
+                class: 'stage ' + status,
+                href: '/' + s.id,
+                config: m.route
+              }, [
+                ribbon(ctrl, s, status, res),
+                m('img', {
+                  src: s.image
+                }),
+                m('div.text', [
+                  m('h2', s.title),
+                  m('p.subtitle', s.subtitle)
+                ])
+              ]);
+            })
+          )
+        ]);
+      }),
+      whatNext(ctrl)
+    ])
+  );
 };
