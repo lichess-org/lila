@@ -89,13 +89,6 @@ object Trophy {
       url = "//lichess.org/report".some,
       "icon3d".some)
 
-    object Donor extends Kind(
-      key = "donor",
-      name = "Lichess donor",
-      icon = "&#xe001;".some,
-      url = "//lichess.org/donate".some,
-      "icon3d".some)
-
     object Streamer extends Kind(
       key = "streamer",
       name = "Lichess streamer",
