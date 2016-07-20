@@ -844,3 +844,9 @@ body.dark #learn_app .map .categ > h2 {
 #learn_app .map .stage .ribbon.ongoing:after {
   border-top: 3px solid #536DFE;
 }
+#learn_app .map .what_next > p {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2em;
+}

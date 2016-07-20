@@ -27,6 +27,41 @@ function ribbon(ctrl, s, status, res) {
   );
 }
 
+function whatNext(ctrl) {
+  var makeStage = function(href, img, title, subtitle, done) {
+    return m('a.stage.done', {
+      href: href
+    }, [
+      done ? m('span.ribbon-wrapper',
+        m('span.ribbon.done', makeStars(1))
+      ) : null,
+      m('img', {
+        src: util.assetUrl + 'images/learn/' + img + '.svg'
+      }),
+      m('div.text', [
+        m('h2', title),
+        m('p.subtitle', subtitle)
+      ])
+    ]);
+  };
+  var userId = ctrl.data._id;
+  console.log(userId);
+  return m('div.categ.what_next', [
+    m('h2', 'What next?'),
+    m('p', "You know how to play chess, congratulations! Do you want to become a stronger player?"),
+    m('div.categ_stages', [
+      userId ?
+      makeStage('/@/' + userId, 'beams-aura', 'Register', 'Get a free lichess account', true) :
+      makeStage('/signup', 'beams-aura', 'Register', 'Get a free lichess account'),
+      makeStage('/training', 'bullseye', 'Training', 'Solve various chess positions'),
+      makeStage('/training/opening', 'unlocking', 'Openings', 'Find the best opening move'),
+      makeStage('/video', 'tied-scroll', 'Videos', 'Watch free and instructive chess videos'),
+      makeStage('/#hook', 'sword-clash', 'Play people', 'Find opponents from all over the world'),
+      makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skill against the computer'),
+    ])
+  ]);
+}
+
 module.exports = function(ctrl) {
   return m('div.learn.map', [
     m('div.stages', stages.categs.map(function(categ) {
@@ -57,6 +92,7 @@ module.exports = function(ctrl) {
           })
         )
       ]);
-    }))
+    })),
+    whatNext(ctrl)
   ]);
 };
