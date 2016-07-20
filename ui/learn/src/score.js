@@ -39,7 +39,7 @@ function getStageMaxScore(s) {
 function getStageRank(s, score) {
   var max = getStageMaxScore(s);
   if (typeof score !== 'number') score = score.reduce(function(a, b) { return a + b; }, 0);
-  if (score >= max - Math.max(200, s.levels.length * 50)) return 1;
+  if (score === max) return 1;
   if (score >= max - Math.max(200, s.levels.length * 150)) return 2;
   return 3;
 }
