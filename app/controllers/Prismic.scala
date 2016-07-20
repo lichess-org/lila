@@ -45,7 +45,7 @@ object Prismic {
   } recover {
     case e: Exception =>
       logger.error(s"bookmark:$name", e)
-      lila.mon.prismic.timeout()
+      lila.mon.http.prismic.timeout()
       none
   }
 
