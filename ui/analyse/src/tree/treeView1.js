@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var raf = chessground.util.requestAnimationFrame;
 var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
 var util = require('../util');
@@ -8,6 +9,13 @@ var empty = util.empty;
 var treePath = require('./path');
 var treeOps = require('./ops');
 var game = require('game').game;
+
+var autoScroll = util.throttle(300, false, function(el) {
+  raf(function() {
+    var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+    if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
+});
 
 function renderEvalTag(e) {
   return {
@@ -268,59 +276,81 @@ function renderMainlineTurn(ctrl, turn, path, concealOf) {
   };
 }
 
-module.exports = {
-  renderMainline: function(ctrl, mainline, conceal) {
-    var turns = [];
-    var initPly = mainline[0].ply;
-    var makeTurnColor = function(i) {
-      if (mainline[i]) return {
-        node: mainline[i],
-        prev: mainline[i - 1]
-      };
-    }
-    if (initPly % 2 === 0)
-      for (var i = 1, nb = mainline.length; i < nb; i += 2) turns.push({
-        turn: Math.floor((initPly + i) / 2) + 1,
-        white: makeTurnColor(i),
-        black: makeTurnColor(i + 1)
-      });
-    else {
-      turns.push({
-        turn: Math.floor(initPly / 2) + 1,
-        white: null,
-        black: makeTurnColor(1)
-      });
-      for (var i = 2, nb = mainline.length; i < nb; i += 2) turns.push({
-        turn: Math.floor((initPly + i) / 2) + 1,
-        white: makeTurnColor(i),
-        black: makeTurnColor(i + 1)
-      });
-    }
+function eventPath(e, ctrl) {
+  var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
+  if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
+  var path = el.getAttribute('data-path');
+  if (path) return path;
+  var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
+  if (ply) return ctrl.mainlinePathToPly(ply);
+}
 
-    var tags = [],
-      path = treePath.root;
-
-    var initialComments = mainline[0].comments || [];
-    if (initialComments.length) tags.push(m('div.meta',
-      initialComments.map(function(comment) {
-        return renderComment(comment, '', 'undefined');
-      })));
-
-    var concealOf = concealAction(ctrl, conceal);
-    for (var i = 0, len = turns.length; i < len; i++) {
-      res = renderMainlineTurn(ctrl, turns[i], path, concealOf);
-      path = res.path;
-      tags.push(res.dom);
-    }
-
-    return tags;
-  },
-  eventPath: function(e, ctrl) {
-    var el = e.target.tagName === 'MOVE' ? e.target : e.target.parentNode;
-    if (el.tagName !== 'MOVE' || el.classList.contains('empty')) return;
-    var path = el.getAttribute('data-path');
-    if (path) return path;
-    var ply = 2 * parseInt($(el).siblings('index').text()) - 2 + $(el).index();
-    if (ply) return ctrl.mainlinePathToPly(ply);
+module.exports = function(ctrl, mainline, conceal) {
+  var turns = [];
+  var initPly = mainline[0].ply;
+  var makeTurnColor = function(i) {
+    if (mainline[i]) return {
+      node: mainline[i],
+      prev: mainline[i - 1]
+    };
   }
+  if (initPly % 2 === 0)
+    for (var i = 1, nb = mainline.length; i < nb; i += 2) turns.push({
+      turn: Math.floor((initPly + i) / 2) + 1,
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
+    });
+  else {
+    turns.push({
+      turn: Math.floor(initPly / 2) + 1,
+      white: null,
+      black: makeTurnColor(1)
+    });
+    for (var i = 2, nb = mainline.length; i < nb; i += 2) turns.push({
+      turn: Math.floor((initPly + i) / 2) + 1,
+      white: makeTurnColor(i),
+      black: makeTurnColor(i + 1)
+    });
+  }
+
+  var tags = [],
+    path = treePath.root;
+
+  var initialComments = mainline[0].comments || [];
+  if (initialComments.length) tags.push(m('div.meta',
+    initialComments.map(function(comment) {
+      return renderComment(comment, '', 'undefined');
+    })));
+
+  var concealOf = concealAction(ctrl, conceal);
+  for (var i = 0, len = turns.length; i < len; i++) {
+    res = renderMainlineTurn(ctrl, turns[i], path, concealOf);
+    path = res.path;
+    tags.push(res.dom);
+  }
+
+  return m('div.tree-view', {
+    onmousedown: function(e) {
+      if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+      var path = eventPath(e, ctrl);
+      if (path) ctrl.userJump(path);
+    },
+    oncontextmenu: function(e) {
+      var path = eventPath(e, ctrl);
+      contextMenu.open(e, {
+        path: path,
+        root: ctrl
+      });
+      return false;
+    },
+    onclick: function(e) {
+      return false;
+    },
+    config: function(el, isUpdate) {
+      if (ctrl.vm.autoScrollRequested || !isUpdate) {
+        autoScroll(el);
+        ctrl.vm.autoScrollRequested = false;
+      }
+    }
+  }, tags);
 };

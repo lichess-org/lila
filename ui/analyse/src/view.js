@@ -1,11 +1,11 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var raf = chessground.util.requestAnimationFrame;
 var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
-var treeView = require('./tree/treeView');
+var treeView1 = require('./tree/treeView1');
+// var treeView2 = require('./tree/treeView2');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
@@ -18,14 +18,7 @@ var studyView = require('./study/studyView');
 var acplView = require('./acpl');
 var contextMenu = require('./contextMenu');
 
-var autoScroll = util.throttle(300, false, function(el) {
-  raf(function() {
-    var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
-    if (plyEl) el.scrollTop = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-  });
-});
-
-function renderAnalyse(ctrl) {
+function renderResult(ctrl) {
   var result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
@@ -37,45 +30,27 @@ function renderAnalyse(ctrl) {
     default:
       result = '½-½';
   }
-  var conceal;
-  if (ctrl.study && ctrl.study.data.chapter.conceal !== null) conceal = {
-    owner: ctrl.study.isChapterOwner(),
-    ply: ctrl.study.data.chapter.conceal
-  };
-  var tags = treeView.renderMainline(ctrl, ctrl.vm.mainline, conceal);
   if (result) {
+    var tags = [];
     tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     tags.push(m('div.status', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
+    return tags;
   }
-  return m('div.replay', {
-      onmousedown: function(e) {
-        if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-        var path = treeView.eventPath(e, ctrl);
-        if (path) ctrl.userJump(path);
-      },
-      oncontextmenu: function(e) {
-        var path = treeView.eventPath(e, ctrl);
-        contextMenu.open(e, {
-          path: path,
-          root: ctrl
-        });
-        return false;
-      },
-      onclick: function(e) {
-        return false;
-      },
-      config: function(el, isUpdate) {
-        if (ctrl.vm.autoScrollRequested || !isUpdate) {
-          autoScroll(el);
-          ctrl.vm.autoScrollRequested = false;
-        }
-      }
-    },
-    tags);
+}
+
+function renderAnalyse(ctrl) {
+  var conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
+    owner: ctrl.study.isChapterOwner(),
+    ply: ctrl.study.data.chapter.conceal
+  } : null;
+  return m('div.replay', [
+    treeView1(ctrl, ctrl.vm.mainline, conceal),
+    renderResult(ctrl)
+  ]);
 }
 
 function wheel(ctrl, e) {
