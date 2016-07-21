@@ -15,7 +15,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       ranking: Map[String, Int],
       onlyTwoActivePlayers: Boolean) {
 
-    val isFirstRound = lastOpponents.hash.isEmpty
+    val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
   }
 
   // if waiting users can make pairings
