@@ -151,20 +151,15 @@ function blindBoard(ctrl) {
   ]);
 }
 
-var cachedButtons = (function() {
-  var make = function(icon, effect) {
-    return m('button', {
+function jumpButton(icon, effect) {
+  return {
+    tag: 'button',
+    attrs: {
       'data-act': effect,
       'data-icon': icon
-    });
+    }
   };
-  return m('div.jumps', [
-    make('W', 'first'),
-    make('Y', 'prev'),
-    make('X', 'next'),
-    make('V', 'last')
-  ])
-})();
+};
 
 function icon(c) {
   return {
@@ -190,7 +185,12 @@ function buttons(ctrl) {
       'data-act': 'explorer',
       class: 'hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
     }, icon(']')),
-    cachedButtons,
+    m('div.jumps', [
+      jumpButton('W', 'first'),
+      jumpButton('Y', 'prev'),
+      jumpButton('X', 'next'),
+      jumpButton('V', 'last')
+    ]),
     m('button', {
       class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
       'data-hint': 'Menu',
