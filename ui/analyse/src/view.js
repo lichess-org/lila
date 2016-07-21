@@ -179,13 +179,24 @@ function icon(c) {
   };
 }
 
+function dataAct(e) {
+  return e.target.getAttribute('data-act') ||
+    e.target.parentNode.getAttribute('data-act');
+}
+
 function buttons(ctrl) {
   return m('div.game_control', {
     onmouseup: function(e) {
-      var action = e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+      var action = dataAct(e);
       if (action === 'explorer') ctrl.explorer.toggle();
       else if (action === 'menu') ctrl.actionMenu.toggle();
-      else if (control[action]) control[action](ctrl);
+      else if (action === 'first') control.first(ctrl);
+      else if (action === 'last') control.last(ctrl);
+    },
+    onmousedown: function(e) {
+      var action = dataAct(e);
+      if (action === 'prev') control.prev(ctrl);
+      else if (action === 'next') control.next(ctrl);
     }
   }, [
     m('button', {
