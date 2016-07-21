@@ -113,6 +113,9 @@ div.game_control button.active {
   background: #5ba6ec;
   color: #fff;
 }
+div.game_control button.hidden {
+  visibility: hidden;
+}
 div.game_control .jumps {
   display: flex;
 }

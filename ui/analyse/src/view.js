@@ -161,6 +161,15 @@ function jumpButton(icon, effect) {
   };
 };
 
+var cachedButtons = (function() {
+  return m('div.jumps', [
+    jumpButton('W', 'first'),
+    jumpButton('Y', 'prev'),
+    jumpButton('X', 'next'),
+    jumpButton('V', 'last')
+  ])
+})();
+
 function icon(c) {
   return {
     tag: 'i',
@@ -179,18 +188,13 @@ function buttons(ctrl) {
       else if (control[action]) control[action](ctrl);
     }
   }, [
-    (ctrl.actionMenu.open || !ctrl.explorer.allowed()) ? null : m('button', {
+    m('button', {
       id: 'open_explorer',
       'data-hint': ctrl.trans('openingExplorer'),
       'data-act': 'explorer',
-      class: 'hint--bottom' + (ctrl.explorer.enabled() ? ' active' : '')
+      class: 'hint--bottom' + (ctrl.actionMenu.open || !ctrl.explorer.allowed() ? ' hidden' : (ctrl.explorer.enabled() ? ' active' : ''))
     }, icon(']')),
-    m('div.jumps', [
-      jumpButton('W', 'first'),
-      jumpButton('Y', 'prev'),
-      jumpButton('X', 'next'),
-      jumpButton('V', 'last')
-    ]),
+    cachedButtons,
     m('button', {
       class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
       'data-hint': 'Menu',
