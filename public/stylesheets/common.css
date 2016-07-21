@@ -378,6 +378,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   padding: 3px 0;
 }
 #powerTip > .score {
+  display: block;
   font-size: 1.2em;
   text-align: center;
   border-bottom: 1px solid #c0c0c0;
