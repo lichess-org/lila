@@ -219,7 +219,7 @@ final class PlanApi(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(nb))).map {
-        _.documents.flatMap { _.getAs[User.ID]("_id") }
+        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds,
     timeToLive = 1 hour)
 
