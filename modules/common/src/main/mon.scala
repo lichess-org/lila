@@ -41,6 +41,9 @@ object mon {
     object prismic {
       val timeout = inc("http.prismic.timeout")
     }
+    object mailgun {
+      val timeout = inc("http.mailgun.timeout")
+    }
   }
   object lobby {
     object hook {
