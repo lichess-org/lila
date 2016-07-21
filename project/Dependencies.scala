@@ -34,7 +34,7 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.4"
-  val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9.1-LILA"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.12-RC0"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"

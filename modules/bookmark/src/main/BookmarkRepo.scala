@@ -21,7 +21,7 @@ private[bookmark] object BookmarkRepo {
     }
 
   def gameIdsByUserId(userId: String): Fu[Set[String]] =
-    coll.distinct("g", $doc("u" -> userId).some) map lila.db.BSON.asStringSet
+    coll.distinct[String, Set]("g", $doc("u" -> userId).some)
 
   def removeByGameId(gameId: String): Funit =
     coll.remove($doc("g" -> gameId)).void

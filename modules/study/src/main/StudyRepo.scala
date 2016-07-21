@@ -1,6 +1,7 @@
 package lila.study
 
 import org.joda.time.DateTime
+import reactivemongo.api.Cursor
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
 import scala.concurrent.duration._
 
@@ -105,20 +106,16 @@ final class StudyRepo(private[study] val coll: Coll) {
   def filterLiked(user: User, studyIds: Seq[Study.ID]): Fu[Set[Study.ID]] =
     coll.primitive[Study.ID]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
-  def resetAllRanks: Fu[Int] = {
-    import play.api.libs.iteratee._
-    coll.find(
-      $empty, $doc("likes" -> true, "createdAt" -> true)
-    ).cursor[Bdoc]().enumerate() |>>>
-      Iteratee.foldM[Bdoc, Int](0) {
-        case (count, doc) => ~(for {
-          id <- doc.getAs[Study.ID]("_id")
-          likes <- doc.getAs[Study.Likes]("likes")
-          createdAt <- doc.getAs[DateTime]("createdAt")
-        } yield coll.update(
-          $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
-        ).void) inject (count + 1)
-      }
+  def resetAllRanks: Fu[Int] = coll.find(
+    $empty, $doc("likes" -> true, "createdAt" -> true)
+  ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
+    ~(for {
+      id <- doc.getAs[Study.ID]("_id")
+      likes <- doc.getAs[Study.Likes]("likes")
+      createdAt <- doc.getAs[DateTime]("createdAt")
+    } yield coll.update(
+      $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
+    ).void) inject Cursor.Cont(count + 1)
   }
 
   private def doLike(studyId: Study.ID, userId: User.ID, v: Boolean): Funit =
@@ -138,7 +135,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       )))
     ).map { res =>
         for {
-          doc <- res.documents.headOption
+          doc <- res.firstBatch.headOption
           likes <- doc.getAs[Study.Likes]("likes")
           createdAt <- doc.getAs[DateTime]("createdAt")
         } yield likes -> createdAt
