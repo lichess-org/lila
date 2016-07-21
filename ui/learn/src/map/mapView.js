@@ -55,7 +55,7 @@ function whatNext(ctrl) {
       makeStage('/signup', 'beams-aura', 'Register', 'Get a free lichess account'),
       makeStage('/training', 'bullseye', 'Training', 'Solve various chess positions'),
       makeStage('/training/opening', 'unlocking', 'Openings', 'Find the best opening move'),
-      makeStage('/video', 'tied-scroll', 'Videos', 'Watch free and instructive chess videos'),
+      makeStage('/video', 'tied-scroll', 'Videos', 'Watch instructive chess videos'),
       makeStage('/#hook', 'sword-clash', 'Play people', 'Find opponents from all over the world'),
       makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skill against the computer'),
     ])
