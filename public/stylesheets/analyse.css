@@ -669,6 +669,7 @@ body .lichess_ground .tview1 .undefined {
 
 .lichess_ground .tview2 {
   font-size: 14px;
+  white-space: wrap;
 }
 .lichess_ground .tview2 index {
   margin-left: 5px;
@@ -678,6 +679,14 @@ body .lichess_ground .tview1 .undefined {
   white-space: nowrap;
   overflow: hidden;
   padding: 1px 2px;
+}
+.lichess_ground .tview2 lines {
+  display: block;
+  margin-left: 5px;
+  border-left: 1px dotted #ccc;
+}
+.lichess_ground .tview2 lines line {
+  display: block;
 }
 .lichess_ground .result {
   font-weight: bold;

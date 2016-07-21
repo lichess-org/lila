@@ -15,30 +15,36 @@ function renderIndex(ply) {
   };
 }
 
-function renderVariations(ctx, nodes, parentPath) {
+function renderChildrenOf(ctx, node, parentPath) {
+  // if (i++ > 10000) {
+  //   console.log('stoooooooooooooooooooooooop!');
+  //   return;
+  // }
+  // console.log(node, 'renderChildrenOf');
+  if (!node.children[0]) return;
+  if (node.children[1]) return renderLines(ctx, node.children, parentPath);
+  return renderMoveOf(ctx, node.children[0], parentPath);
+}
+
+function renderLines(ctx, nodes, parentPath) {
   return {
-    tag: 'wrap',
+    tag: 'lines',
     children: nodes.map(function(n) {
-      return [
-        renderMoveOf(ctx, n, parentPath),
-        renderChildrenOf(ctx, n, parentPath)
-      ];
+      return lineTag(renderMoveOf(ctx, n, parentPath, true));
     })
   };
 }
 
-function renderChildrenOf(ctx, node, parentPath) {
-  var main = node.children[0];
-  if (!main) return;
-  var path = parentPath + main.id;
-  var variations = node.children.slice(1);
-  return [
-    renderMoveOf(ctx, main, path),
-    variations[0] ? renderVariations(ctx, variations, path) : null
-  ];
+function lineTag(content) {
+  return {
+    tag: 'line',
+    children: content
+  };
 }
 
-function renderMoveOf(ctx, node, path) {
+function renderMoveOf(ctx, node, parentPath, withIndex) {
+  withIndex = withIndex || node.ply % 2 === 1;
+  var path = parentPath + node.id;
   var attrs = {
     p: path
   };
@@ -49,11 +55,12 @@ function renderMoveOf(ctx, node, path) {
   // if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
   return [
-    renderIndex(node.ply),
     moveTag(attrs, [
+      withIndex ? renderIndex(node.ply) : null,
       util.fixCrazySan(node.san),
       node.glyphs ? renderGlyphs(node.glyphs) : null
-    ])
+    ]),
+    renderChildrenOf(ctx, node, path)
   ];
 }
 
@@ -86,7 +93,7 @@ module.exports = function(ctrl, conceal) {
   return m('div.tview2', {
     onmousedown: function(e) {
       if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-      var path = e.target.getAttribute('p');
+      var path = e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
       if (path) ctrl.userJump(path);
     },
   }, renderChildrenOf(ctx, root, ''));
