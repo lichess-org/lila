@@ -72,12 +72,12 @@ object UserSpy {
 
   private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =
     values.nonEmpty ?? {
-      coll.distinct("user",
+      coll.distinct[String, Set]("user",
         $doc(
           field $in values,
           "user" $ne user.id
         ).some
-      ) map lila.db.BSON.asStrings flatMap { userIds =>
+      ) flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }
     }
