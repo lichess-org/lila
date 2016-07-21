@@ -56,8 +56,8 @@ function whatNext(ctrl) {
       makeStage('/training', 'bullseye', 'Training', 'Solve various chess positions'),
       makeStage('/training/opening', 'unlocking', 'Openings', 'Find the best opening move'),
       makeStage('/video', 'tied-scroll', 'Videos', 'Watch instructive chess videos'),
-      makeStage('/#hook', 'sword-clash', 'Play people', 'Find opponents from all over the world'),
-      makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skill against the computer'),
+      makeStage('/#hook', 'sword-clash', 'Play people', 'Find opponents worldwide'),
+      makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skills with the computer'),
     ])
   ]);
 }
