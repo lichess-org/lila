@@ -643,40 +643,6 @@ body .lichess_ground .replay .undefined {
 .lichess_ground .replay .meta > .variation.visiting {
   white-space: normal;
 }
-.lichess_ground .replay .meta > .variation span.menu {
-  float: right;
-  margin-right: 3px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.13s;
-}
-.lichess_ground .replay .meta > .variation:hover .menu {
-  opacity: 0.7;
-}
-.lichess_ground .replay .meta > .variation .menu:hover {
-  opacity: 1!important;
-}
-.lichess_ground .replay .meta > .menu {
-  background: #fff;
-  font-family: 'Noto Sans';
-  font-weight: normal;
-}
-.lichess_ground .replay .meta > .menu a {
-  display: block;
-  line-height: 1.8em;
-}
-.lichess_ground .replay .meta > .menu a.delete {
-  color: #ac524f;
-}
-.lichess_ground .replay .meta > .menu a.promote {
-  color: #759900;
-}
-.lichess_ground .replay .meta > .menu a::before {
-  opacity: 0.5;
-}
-.lichess_ground .replay .meta > .menu a:hover::before {
-  opacity: 1;
-}
 .lichess_ground .replay .meta > *:last-child {
   padding-bottom: 3px;
 }
@@ -823,30 +789,6 @@ div.shortcuts li {
 .back_to_game {
   margin-top: 30px;
   text-align: center;
-}
-table.modAssessment {
-  border-spacing: 2px;
-}
-table.modAssessment a {
-  margin-left: 10px;
-  font-weight: bold;
-}
-table.modAssessment td.match a {
-  color: #759900;
-}
-table.modAssessment td.partial a {
-  color: #d59120;
-}
-table.modAssessment td.noMatch {
-  color: #ac524f;
-  padding-left: 10px;
-  font-weight: bold;
-}
-.modAssessment select {
-  margin-left: 15px;
-}
-.assessmentButtons {
-  margin: 20px auto auto 40px;
 }
 .copyables > p {
   margin-top: 7px;
