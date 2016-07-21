@@ -1,6 +1,15 @@
 var m = require('mithril');
 var contextMenu = require('../contextMenu');
+var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
+
+var autoScroll = util.throttle(300, false, function(el) {
+  raf(function() {
+    var plyEl = el.querySelector('.active') || el.querySelector('move:first-child');
+    var cont = el.parentNode;
+    // if (plyEl) cont.scrollTop = plyEl.offsetTop - cont.offsetHeight / 2 + plyEl.offsetHeight / 2;
+  });
+});
 
 function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
@@ -15,22 +24,35 @@ function renderIndex(ply) {
   };
 }
 
-function renderChildrenOf(ctx, node, parentPath) {
-  // if (i++ > 10000) {
-  //   console.log('stoooooooooooooooooooooooop!');
-  //   return;
-  // }
-  // console.log(node, 'renderChildrenOf');
-  if (!node.children[0]) return;
-  if (node.children[1]) return renderLines(ctx, node.children, parentPath);
-  return renderMoveOf(ctx, node.children[0], parentPath);
+function renderChildrenOf(ctx, node, opts) {
+  var cs = node.children;
+  if (!cs[0]) return;
+  if (!cs[1]) return renderMoveOf(ctx, cs[0], opts);
+  if (opts.isMainline) {
+    return [
+      renderLines(ctx, cs.slice(1), {
+        parentPath: opts.parentPath,
+        isMainline: false
+      }),
+      renderMoveOf(ctx, cs[0], {
+        parentPath: opts.parentPath,
+        isMainline: true,
+        withIndex: true
+      })
+    ];
+  }
+  return renderLines(ctx, cs, opts);
 }
 
-function renderLines(ctx, nodes, parentPath) {
+function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
-    children: nodes.map(function(n) {
-      return lineTag(renderMoveOf(ctx, n, parentPath, true));
+    children: nodes.map(function(n, i) {
+      return lineTag(renderMoveOf(ctx, n, {
+        parentPath: opts.parentPath,
+        isMainline: opts.isMainline && i === 0,
+        withIndex: true
+      }));
     })
   };
 }
@@ -42,15 +64,16 @@ function lineTag(content) {
   };
 }
 
-function renderMoveOf(ctx, node, parentPath, withIndex) {
-  withIndex = withIndex || node.ply % 2 === 1;
-  var path = parentPath + node.id;
+function renderMoveOf(ctx, node, opts) {
+  var withIndex = opts.withIndex || node.ply % 2 === 1;
+  var path = opts.parentPath + node.id;
   var attrs = {
     p: path
   };
   var classes = path === ctx.ctrl.vm.path ? ['active'] : [];
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
+  if (opts.isMainline) classes.push('main');
   if (ctx.conceal) classes.push(ctx.conceal);
   // if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
@@ -60,7 +83,10 @@ function renderMoveOf(ctx, node, parentPath, withIndex) {
       util.fixCrazySan(node.san),
       node.glyphs ? renderGlyphs(node.glyphs) : null
     ]),
-    renderChildrenOf(ctx, node, path)
+    renderChildrenOf(ctx, node, {
+      parentPath: path,
+      isMainline: opts.isMainline
+    })
   ];
 }
 
@@ -96,5 +122,14 @@ module.exports = function(ctrl, conceal) {
       var path = e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
       if (path) ctrl.userJump(path);
     },
-  }, renderChildrenOf(ctx, root, ''));
+    config: function(el, isUpdate) {
+      if (ctrl.vm.autoScrollRequested || !isUpdate) {
+        autoScroll(el);
+        ctrl.vm.autoScrollRequested = false;
+      }
+    }
+  }, renderChildrenOf(ctx, root, {
+    parentPath: '',
+    isMainline: true
+  }));
 };

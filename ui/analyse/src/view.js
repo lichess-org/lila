@@ -46,7 +46,7 @@ function renderAnalyse(ctrl) {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
-  return m('div.replay', [
+  return m('div.areplay', [
     treeView(ctrl, conceal),
     renderResult(ctrl)
   ]);

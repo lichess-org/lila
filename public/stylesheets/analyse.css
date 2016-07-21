@@ -499,7 +499,7 @@ body.dark .explorer_box .black {
   font-weight: bold;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
-.lichess_ground .replay,
+.lichess_ground .areplay,
 .lichess_ground .action_menu {
   overflow: auto;
   overflow-x: hidden;
@@ -509,7 +509,7 @@ body.dark .explorer_box .black {
   -ms-user-select: none;
   margin-left: 0;
 }
-.lichess_ground .replay {
+.lichess_ground .areplay {
   flex: 2 1 0px;
   position: relative; /* for autoscroll */
 }
@@ -667,26 +667,71 @@ body .lichess_ground .tview1 .undefined {
   margin: 0 5px;
 }
 
-.lichess_ground .tview2 {
+.tview2 {
+  background: #fff;
   font-size: 14px;
-  white-space: wrap;
+  white-space: normal;
+  padding-top: 7px;
+  padding-left: 3px;
+  line-height: 1.25;
 }
-.lichess_ground .tview2 index {
-  margin-left: 5px;
+.tview2 index {
+  padding-left: 5px;
+  color: #999;
 }
-.lichess_ground .tview2 move {
-  font-family: 'ChessSansPiratf', sans-serif;
+.tview2 index:first-child {
+  padding-left: 0;
+}
+.tview2 move {
+  /* font-family: 'ChessSansPiratf', sans-serif; */
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
-  padding: 1px 2px;
+  display: inline-block;
+  padding: 0 2px;
+  cursor: pointer;
 }
-.lichess_ground .tview2 lines {
+.tview2 move.active {
+  color: #d85000;
+}
+.tview2 move.main {
+  font-weight: bold;
+}
+.tview2 lines {
   display: block;
   margin-left: 5px;
-  border-left: 1px dotted #ccc;
+  margin-bottom: 0.8em;
+  border-left: 1px solid #c0c0c0;
+  position: relative;
 }
-.lichess_ground .tview2 lines line {
+.tview2 line {
   display: block;
+  margin: 2px 0;
+}
+.tview2 > lines {
+  font-size: 95%;
+}
+.tview2 > lines > line > lines {
+  font-size: 95%;
+}
+.tview2 > lines > line > lines > line > lines {
+  font-size: 95%;
+}
+.tview2 lines lines::before {
+  content: ' ';
+  border-top: 1px solid #c0c0c0;
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  width: 5px;
+  height: 6px;
+}
+.tview2 lines line::before {
+  content: ' ';
+  border-top: 1px solid #c0c0c0;
+  display: inline-block;
+  width: 5px;
+  height: 6px;
 }
 .lichess_ground .result {
   font-weight: bold;
