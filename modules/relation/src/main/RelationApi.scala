@@ -44,7 +44,7 @@ final class RelationApi(
       "u2" -> AddToSet("u2")),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   )).map {
-    ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
+    ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
   def fetchFollows(u1: ID, u2: ID) =

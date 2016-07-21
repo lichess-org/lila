@@ -196,23 +196,6 @@ object BSON extends Handlers {
   def debugDoc(doc: Bdoc): String = (doc.elements.toList map {
     case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
+
   def hashDoc(doc: Bdoc): String = debugDoc(doc).replace(" ", "")
-
-  def asStrings(vs: List[BSONValue]): List[String] = {
-    val b = new scala.collection.mutable.ListBuffer[String]
-    vs foreach {
-      case BSONString(s) => b += s
-      case _             =>
-    }
-    b.toList
-  }
-
-  def asStringSet(vs: List[BSONValue]): Set[String] = {
-    val b = Set.newBuilder[String]
-    vs foreach {
-      case BSONString(s) => b += s
-      case _             =>
-    }
-    b.result
-  }
 }

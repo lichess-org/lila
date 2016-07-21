@@ -3,7 +3,7 @@ package lila.opening
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
-import reactivemongo.bson.BSONArray
+import reactivemongo.bson.{ BSONArray, BSONValue }
 import reactivemongo.core.commands._
 
 import lila.db.dsl._
@@ -38,7 +38,7 @@ private[opening] final class OpeningApi(
       ))
 
     def playedIds(user: User): Fu[BSONArray] =
-      attemptColl.distinct(Attempt.BSONFields.openingId,
+      attemptColl.distinct[BSONValue, List](Attempt.BSONFields.openingId,
         $doc(Attempt.BSONFields.userId -> user.id).some
       ) map BSONArray.apply
   }
