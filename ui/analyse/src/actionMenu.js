@@ -89,7 +89,7 @@ module.exports = {
     this.open = false;
 
     this.toggle = function() {
-      this.open = !this.open
+      this.open = !this.open;
     }.bind(this);
   },
   view: function(ctrl) {

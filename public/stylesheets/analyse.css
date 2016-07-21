@@ -113,6 +113,9 @@ div.game_control button.active {
   background: #5ba6ec;
   color: #fff;
 }
+div.game_control button.hidden {
+  visibility: hidden;
+}
 div.game_control .jumps {
   display: flex;
 }
@@ -802,30 +805,6 @@ div.shortcuts li {
 .back_to_game {
   margin-top: 30px;
   text-align: center;
-}
-table.modAssessment {
-  border-spacing: 2px;
-}
-table.modAssessment a {
-  margin-left: 10px;
-  font-weight: bold;
-}
-table.modAssessment td.match a {
-  color: #759900;
-}
-table.modAssessment td.partial a {
-  color: #d59120;
-}
-table.modAssessment td.noMatch {
-  color: #ac524f;
-  padding-left: 10px;
-  font-weight: bold;
-}
-.modAssessment select {
-  margin-left: 15px;
-}
-.assessmentButtons {
-  margin: 20px auto auto 40px;
 }
 .copyables > p {
   margin-top: 7px;

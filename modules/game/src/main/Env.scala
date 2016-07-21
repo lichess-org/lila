@@ -76,8 +76,6 @@ final class Env(
     captcher -> actorApi.NewCaptcha
   }
 
-  def cli = new Cli(gameColl)
-
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>
       system.lilaBus.publish(actorApi.StartGame(game), 'startGame)

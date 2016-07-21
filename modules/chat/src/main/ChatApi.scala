@@ -140,7 +140,7 @@ final class ChatApi(
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(in))
+    def preprocessUserInput(in: String) = noShouting(delocalize(noPrivateUrl(in)))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     val delocalize = new lila.common.String.Delocalizer(netDomain)
@@ -148,5 +148,16 @@ final class ChatApi(
     val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
     def noPrivateUrl(str: String): String =
       gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
+  }
+
+  private object noShouting {
+    import java.lang.Character.isUpperCase
+    private val onlyLettersRegex = """[^\w]""".r
+    def apply(text: String) = if (text.size < 5) text else {
+      val onlyLetters = onlyLettersRegex.replaceAllIn(text take 80, "")
+      if (onlyLetters.count(isUpperCase) > onlyLetters.size / 2)
+        text.toLowerCase
+      else text
+    }
   }
 }

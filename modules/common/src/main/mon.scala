@@ -38,6 +38,12 @@ object mon {
         val mobile = rec("http.response.watcher.mobile")
       }
     }
+    object prismic {
+      val timeout = inc("http.prismic.timeout")
+    }
+    object mailgun {
+      val timeout = inc("http.mailgun.timeout")
+    }
   }
   object lobby {
     object hook {

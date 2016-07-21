@@ -37,7 +37,6 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
     lila.user.Env.current.cli.process orElse
       lila.security.Env.current.cli.process orElse
       lila.i18n.Env.current.cli.process orElse
-      lila.game.Env.current.cli.process orElse
       lila.gameSearch.Env.current.cli.process orElse
       lila.teamSearch.Env.current.cli.process orElse
       lila.forumSearch.Env.current.cli.process orElse

@@ -10,7 +10,8 @@ final class Flood(duration: Duration) {
 
   case class Message(text: String, date: DateTime) {
 
-    def same(other: Message) = this.text == other.text
+    def same(other: Message) =
+      this.text.toLowerCase == other.text.toLowerCase
   }
   type Messages = List[Message]
 

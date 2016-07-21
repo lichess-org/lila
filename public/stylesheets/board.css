@@ -657,6 +657,9 @@ div.table div.username span.status span {
 div.table div.username.on-game span.status span {
   color: #759900;
 }
+div.table div.username .line {
+  vertical-align: bottom;
+}
 div.table .message {
   margin: 20px 0;
 }

@@ -208,7 +208,7 @@ description = describeUser(u)).some) {
   </div>
   }
   @if(u.hasGames || info.nbImported > 0) {
-  <div class="content_box_inter tabs">
+  <div class="content_box_inter tabs" id="games">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
       @userGameFilterTitle(info, f)
