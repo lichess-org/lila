@@ -62,6 +62,8 @@ case class Tournament(
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
+  def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 60
+
   def duration = new Duration(minutes * 60 * 1000)
 
   def interval = new Interval(startsAt, finishesAt)
