@@ -2130,7 +2130,6 @@ textarea.copyable {
   z-index: 900005;
   pointer-events: none;
   transition: 0.2s ease;
-  transition-delay: 0ms;
 }
 [data-hint]:hover:before,
 [data-hint]:hover:after {

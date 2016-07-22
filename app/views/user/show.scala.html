@@ -150,7 +150,7 @@ description = describeUser(u)).some) {
       }
       } else {
       @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
-      <p data-icon="E" class="honorific title"> @title</p>
+      <p data-icon="E" class="honorific title text">@title</p>
       }
       }
       @u.profile.map { p =>
