@@ -5,9 +5,12 @@ var util = require('../util');
 
 var autoScroll = util.throttle(300, false, function(el) {
   raf(function() {
-    var plyEl = el.querySelector('.active') || el.querySelector('move:first-child');
+    var target = el.querySelector('.active') || el.querySelector('move:first-child');
+    if (!target) return;
     var cont = el.parentNode;
-    // if (plyEl) cont.scrollTop = plyEl.offsetTop - cont.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    var scroll = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight / 2;
+    // console.log(scroll);
+    // cont.scrollTop = scroll;
   });
 });
 
