@@ -39,8 +39,10 @@ module.exports = {
           }
         }) : null,
         authorDom(comment.by),
-        ' about ',
-        m('span.node', nodeFullName(node)),
+        node.san ? [
+          ' on ',
+          m('span.node', nodeFullName(node))
+        ] : null,
         ': ',
         m('span.text', comment.text)
       ]);
