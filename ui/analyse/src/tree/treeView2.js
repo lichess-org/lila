@@ -2,6 +2,8 @@ var m = require('mithril');
 var contextMenu = require('../contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
+var defined = util.defined;
+var game = require('game').game;
 
 var autoScroll = util.throttle(300, false, function(el) {
   raf(function() {
@@ -18,42 +20,56 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-function renderIndex(ply) {
+function renderIndex(ply, withDots) {
   return {
     tag: 'index',
     children: [
-      plyToTurn(ply) + (ply % 2 === 1 ? '.' : '...')
+      plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '')
     ]
   };
 }
 
 function renderChildrenOf(ctx, node, opts) {
   var cs = node.children;
-  if (!cs[0]) return;
-  if (!cs[1]) return renderMoveOf(ctx, cs[0], opts);
+  var main = cs[0];
+  if (!main) return;
   if (opts.isMainline) {
+    var isWhite = main.ply % 2 === 1;
+    if (!cs[1]) return [
+      isWhite ? renderIndex(main.ply, false) : null,
+      renderMoveAndChildrenOf(ctx, main, opts)
+    ];
     return [
-      renderLines(ctx, cs.slice(1), {
+      isWhite ? renderIndex(main.ply, false) : null,
+      renderMoveOf(ctx, main, {
         parentPath: opts.parentPath,
-        isMainline: false
+        isMainline: true
       }),
-      renderMoveOf(ctx, cs[0], {
-        parentPath: opts.parentPath,
-        isMainline: true,
-        withIndex: true
+      isWhite ? emptyMove() : null,
+      m('interrupt', renderLines(ctx, cs.slice(1), {
+        parentPath: opts.parentPath
+      })),
+      isWhite ? [
+        renderIndex(main.ply, false),
+        emptyMove()
+      ] : null,
+      renderChildrenOf(ctx, main, {
+        parentPath: opts.parentPath + main.id,
+        isMainline: true
       })
     ];
   }
+  if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
   return renderLines(ctx, cs, opts);
 }
 
 function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
-    children: nodes.map(function(n, i) {
-      return lineTag(renderMoveOf(ctx, n, {
+    children: nodes.map(function(n) {
+      return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
-        isMainline: opts.isMainline && i === 0,
+        isMainline: false,
         withIndex: true
       }));
     })
@@ -68,26 +84,54 @@ function lineTag(content) {
 }
 
 function renderMoveOf(ctx, node, opts) {
+  return opts.isMainline ? renderMainlineMoveOf(ctx, node, opts) : renderVariationMoveOf(ctx, node, opts);
+}
+
+function renderMainlineMoveOf(ctx, node, opts) {
+  var path = opts.parentPath + node.id;
+  var attrs = {
+    p: path
+  };
+  var eval = opts.isMainline ? (node.eval || node.ceval || {}) : {};
+  var classes = [];
+  if (path === ctx.ctrl.vm.path) classes.push('active');
+  if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
+  if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
+  if (ctx.conceal) classes.push(ctx.conceal);
+  if (classes.length) attrs.class = classes.join(' ');
+  return moveTag(attrs, [
+    util.fixCrazySan(node.san),
+    node.glyphs ? renderGlyphs(node.glyphs) : null,
+    defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
+      defined(eval.mate) ? renderEval('#' + eval.mate) : null
+    )
+  ]);
+}
+
+function renderVariationMoveOf(ctx, node, opts) {
   var withIndex = opts.withIndex || node.ply % 2 === 1;
   var path = opts.parentPath + node.id;
   var attrs = {
     p: path
   };
-  var classes = path === ctx.ctrl.vm.path ? ['active'] : [];
+  var classes = [];
+  if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
-  if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
-  if (opts.isMainline) classes.push('main');
   if (ctx.conceal) classes.push(ctx.conceal);
   // if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
+  return moveTag(attrs, [
+    withIndex ? renderIndex(node.ply, true) : null,
+    util.fixCrazySan(node.san),
+    node.glyphs ? renderGlyphs(node.glyphs) : null
+  ]);
+}
+
+function renderMoveAndChildrenOf(ctx, node, opts) {
   return [
-    moveTag(attrs, [
-      withIndex ? renderIndex(node.ply) : null,
-      util.fixCrazySan(node.san),
-      node.glyphs ? renderGlyphs(node.glyphs) : null
-    ]),
+    renderMoveOf(ctx, node, opts),
     renderChildrenOf(ctx, node, {
-      parentPath: path,
+      parentPath: opts.parentPath + node.id,
       isMainline: opts.isMainline
     })
   ];
@@ -101,6 +145,12 @@ function moveTag(attrs, content) {
   };
 }
 
+function emptyMove() {
+  return moveTag({
+    class: 'empty'
+  }, '...');
+}
+
 function renderGlyphs(glyphs) {
   return glyphs.map(function(glyph) {
     return {
@@ -111,6 +161,13 @@ function renderGlyphs(glyphs) {
       children: [glyph.symbol]
     };
   });
+}
+
+function renderEval(e) {
+  return {
+    tag: 'eval',
+    children: [e]
+  };
 }
 
 module.exports = function(ctrl, conceal) {
