@@ -782,9 +782,10 @@ body .lichess_ground .tview1 .undefined {
   margin-left: 5px;
   margin-bottom: 0.8em;
   position: relative;
-}
-.tview2 lines.many {
   border-left: 1px solid #c0c0c0;
+}
+.tview2 lines.single {
+  border-left: none;
 }
 .tview2 lines:last-child {
   margin-bottom: 0;

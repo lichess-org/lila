@@ -72,7 +72,7 @@ function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
     attrs: {
-      class: nodes[1] ? 'many' : null
+      class: nodes[1] ? null : 'single'
     },
     children: nodes.map(function(n) {
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
