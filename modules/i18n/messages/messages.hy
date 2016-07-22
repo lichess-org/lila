@@ -368,3 +368,7 @@ yourPreferencesHaveBeenSaved=Ձեր նախընտրությունները պահ�
 difficultyEasy=Հեշտ
 difficultyNormal=Նորմալ
 difficultyHard=Բարդ
+learn=Սովորել
+board=Տախտակ
+pieces=Քարեր
+error.required=Այս դաշտը պարտադիր է
