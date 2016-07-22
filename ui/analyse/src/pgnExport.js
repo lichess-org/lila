@@ -1,4 +1,5 @@
 var initialFen = require('./util').initialFen;
+var fixCrazySan = require('./util').fixCrazySan;
 
 function renderNodesTxt(nodes) {
   if (!nodes[0]) return '';
@@ -9,7 +10,7 @@ function renderNodesTxt(nodes) {
     if (node.ply === 0) return;
     if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '. '
     else s += '';
-    s += node.san + ((i + 9) % 8 === 0 ? '\n' : ' ');
+    s += fixCrazySan(node.san) + ((i + 9) % 8 === 0 ? '\n' : ' ');
   });
   return s.trim();
 }
@@ -38,7 +39,7 @@ module.exports = {
       if (node.ply === 0) return;
       if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '.&nbsp;'
       else s += '';
-      s += '<san>' + node.san + '</san> ';
+      s += '<san>' + fixCrazySan(node.san) + '</san> ';
     });
     return s.trim();
   }
