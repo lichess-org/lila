@@ -207,6 +207,10 @@ function truncateComment(text) {
   return text.slice(0, 290) + ' [...]';
 }
 
+function eventPath(e, ctrl) {
+  return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
+}
+
 module.exports = function(ctrl, conceal) {
   var root = ctrl.tree.root;
   var ctx = {
@@ -216,7 +220,7 @@ module.exports = function(ctrl, conceal) {
   return m('div.tview2', {
     onmousedown: function(e) {
       if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-      var path = e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
+      var path = eventPath(e, ctrl);
       if (path) ctrl.userJump(path);
     },
     config: function(el, isUpdate) {
@@ -224,7 +228,15 @@ module.exports = function(ctrl, conceal) {
         autoScroll(el);
         ctrl.vm.autoScrollRequested = false;
       }
-    }
+    },
+    oncontextmenu: function(e) {
+      var path = eventPath(e, ctrl);
+      contextMenu.open(e, {
+        path: path,
+        root: ctrl
+      });
+      return false;
+    },
   }, renderChildrenOf(ctx, root, {
     parentPath: '',
     isMainline: true

@@ -530,10 +530,6 @@ div.table {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .replay move.context_menu {
-  background: #3893E8;
-  color: #fff;
-}
 .lichess_ground .replay .result {
   font-weight: bold;
   font-size: 1.3em;
