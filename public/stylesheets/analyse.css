@@ -676,7 +676,6 @@ body .lichess_ground .tview1 .undefined {
   /* font-family: 'ChessSansPiratf', sans-serif; */
   font-size: 12px;
   line-height: 1.25;
-  margin-right: -1px; /* because of > move right border */
 }
 .tview2 move {
   white-space: nowrap;
@@ -709,10 +708,13 @@ body .lichess_ground .tview1 .undefined {
   display: flex;
   /* justify-content: space-between; */
   box-sizing: border-box;
-  border-right: 1px solid #ccc;
   font-size: 14px;
   line-height: 30px;
   padding-left: 7px;
+  padding-right: 3px;
+}
+.tview2 > index + move {
+  border-right: 1px solid #ddd;
 }
 .tview2 eval {
   flex: 3 0 auto;
@@ -743,15 +745,45 @@ body .lichess_ground .tview1 .undefined {
 .tview2 interrupt {
   flex: 0 0 100%;
   background: #f8f8f8;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+.tview2 comment {
+  display: block;
+  padding: 3px 5px;
+  word-wrap: break-word;
+}
+.tview2 comment.white {
+  border-left: 3px solid;
+}
+.tview2 comment.black {
+  border-right: 3px solid;
+  overflow-x: hidden;
+}
+.tview2 comment.inaccuracy {
+  border-color: #56B4E9;
+}
+.tview2 comment.mistake {
+  border-color: #E69F00;
+}
+.tview2 comment.blunder {
+  border-color: #DF5353;
+}
+.tview2 comment.undefined {
+  border-color: #66558C;
 }
 .tview2 lines {
   display: block;
   margin-left: 5px;
   margin-bottom: 0.8em;
-  border-left: 1px solid #c0c0c0;
   position: relative;
+}
+.tview2 lines.many {
+  border-left: 1px solid #c0c0c0;
+}
+.tview2 lines:last-child {
+  margin-bottom: 0;
 }
 .tview2 line {
   display: block;

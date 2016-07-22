@@ -3,6 +3,7 @@ var contextMenu = require('../contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
 var defined = util.defined;
+var empty = util.empty;
 var game = require('game').game;
 
 var autoScroll = util.throttle(300, false, function(el) {
@@ -35,7 +36,8 @@ function renderChildrenOf(ctx, node, opts) {
   if (!main) return;
   if (opts.isMainline) {
     var isWhite = main.ply % 2 === 1;
-    if (!cs[1]) return [
+    var commentTags = renderMainlineCommentsOf(ctx, main);
+    if (!cs[1] && empty(commentTags)) return [
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, opts)
     ];
@@ -46,9 +48,12 @@ function renderChildrenOf(ctx, node, opts) {
         isMainline: true
       }),
       isWhite ? emptyMove() : null,
-      m('interrupt', renderLines(ctx, cs.slice(1), {
-        parentPath: opts.parentPath
-      })),
+      m('interrupt', [
+        commentTags,
+        renderLines(ctx, cs.slice(1), {
+          parentPath: opts.parentPath
+        })
+      ]),
       isWhite ? [
         renderIndex(main.ply, false),
         emptyMove()
@@ -66,6 +71,9 @@ function renderChildrenOf(ctx, node, opts) {
 function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
+    attrs: {
+      class: nodes[1] ? 'many' : null
+    },
     children: nodes.map(function(n) {
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
@@ -104,7 +112,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
     node.glyphs ? renderGlyphs(node.glyphs) : null,
     defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
       defined(eval.mate) ? renderEval('#' + eval.mate) : null
-    )
+    ),
   ]);
 }
 
@@ -168,6 +176,35 @@ function renderEval(e) {
     tag: 'eval',
     children: [e]
   };
+}
+
+function renderMainlineCommentsOf(ctx, node) {
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
+  var commentClass;
+  var tags = [];
+  return node.comments.map(function(comment) {
+    if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
+    else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
+    else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
+    // if (commentConceal) commentClass += ' ' + commentConceal;
+    return renderComment(comment, colorClass, commentClass);
+  });
+}
+
+function renderComment(comment, colorClass, commentClass) {
+  return {
+    tag: 'comment',
+    attrs: {
+      class: colorClass + commentClass
+    },
+    children: [truncateComment(comment.text)]
+  };
+}
+
+function truncateComment(text) {
+  if (text.length <= 300) return text;
+  return text.slice(0, 290) + ' [...]';
 }
 
 module.exports = function(ctrl, conceal) {
