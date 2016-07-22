@@ -2,6 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
 var treePath = require('../tree/path');
+var fixCrazySan = require('../util').fixCrazySan;
 
 var onMyTurn = function(ctrl, fctrl, cNodes) {
   var firstNode = cNodes[0];
@@ -16,7 +17,7 @@ var onMyTurn = function(ctrl, fctrl, cNodes) {
     'data-icon': 'E',
     onclick: partial(fctrl.playAndSave, firstNode)
   }, [
-    m('span', m('strong', 'Play ' + cNodes[0].san)),
+    m('span', m('strong', 'Play ' + fixCrazySan(cNodes[0].san))),
     lines.length ?
     m('span', 'and save ' + lines.length + ' premove line' + (lines.length > 1 ? 's' : '')) :
     m('span', 'No conditional premoves')
