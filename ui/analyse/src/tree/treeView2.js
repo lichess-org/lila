@@ -41,6 +41,10 @@ function renderChildrenOf(ctx, node, opts) {
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, opts)
     ];
+    var mainChildren = renderChildrenOf(ctx, main, {
+      parentPath: opts.parentPath + main.id,
+      isMainline: true
+    });
     return [
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveOf(ctx, main, {
@@ -54,14 +58,11 @@ function renderChildrenOf(ctx, node, opts) {
           parentPath: opts.parentPath
         })
       ]),
-      isWhite ? [
+      isWhite && mainChildren ? [
         renderIndex(main.ply, false),
         emptyMove()
       ] : null,
-      renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true
-      })
+      mainChildren
     ];
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
