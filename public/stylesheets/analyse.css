@@ -576,6 +576,9 @@ body.dark .explorer_box .black {
   padding: 0 2px;
   cursor: pointer;
 }
+.tview2 move.parent {
+  color: #3893e8;
+}
 .tview2 move.active {
   color: #d85000;
 }

@@ -5,6 +5,7 @@ var util = require('../util');
 var defined = util.defined;
 var empty = util.empty;
 var game = require('game').game;
+var treePath = require('./path');
 
 var autoScroll = util.throttle(300, false, function(el) {
   raf(function() {
@@ -16,6 +17,10 @@ var autoScroll = util.throttle(300, false, function(el) {
     // cont.scrollTop = scroll;
   });
 });
+
+function pathContains(ctx, path) {
+  return treePath.contains(ctx.ctrl.vm.path, path);
+}
 
 function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
@@ -125,6 +130,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   };
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
+  else if (pathContains(ctx, path)) classes.push('parent');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (ctx.conceal) classes.push(ctx.conceal);
   // if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
