@@ -673,6 +673,8 @@ body .lichess_ground .tview1 .undefined {
   white-space: normal;
   padding-top: 7px;
   padding-left: 3px;
+  /* font-family: 'ChessSansPiratf', sans-serif; */
+  font-size: 12px;
   line-height: 1.25;
 }
 .tview2 index {
@@ -683,8 +685,6 @@ body .lichess_ground .tview1 .undefined {
   padding-left: 0;
 }
 .tview2 move {
-  /* font-family: 'ChessSansPiratf', sans-serif; */
-  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
@@ -706,7 +706,9 @@ body .lichess_ground .tview1 .undefined {
 }
 .tview2 line {
   display: block;
+  position: relative;
   margin: 2px 0;
+  padding-left: 4px;
 }
 .tview2 > lines {
   font-size: 95%;
@@ -717,16 +719,22 @@ body .lichess_ground .tview1 .undefined {
 .tview2 > lines > line > lines > line > lines {
   font-size: 95%;
 }
+.tview2 lines lines {
+  margin-left: 1px;
+}
 .tview2 lines lines::before {
   content: ' ';
   border-top: 1px solid #c0c0c0;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: -5px;
   width: 5px;
   height: 6px;
 }
 .tview2 lines line::before {
+  position: absolute;
+  top: 7px;
+  left: 0;
   content: ' ';
   border-top: 1px solid #c0c0c0;
   display: inline-block;
