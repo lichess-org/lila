@@ -29,24 +29,25 @@ object Permission {
   case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
   case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object Beta extends Permission("ROLE_BETA")
+  case object GuineaPig extends Permission("ROLE_GUINEA_PIG")
   case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
   case object UserSearch extends Permission("ROLE_USER_SEARCH")
   case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
   case object TerminateTournament extends Permission("ROLE_TERMINATE_TOURNAMENT")
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
-  case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
-  case object Developer extends Permission("ROLE_DEVELOPER")
+  case object PublicMod extends Permission("ROLE_PUBLIC_MOD", List(GuineaPig))
+  case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
-    UserSearch))
+    UserSearch, GuineaPig))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
-    MessageAnyone, CloseTeam, TerminateTournament, ManageTournament))
+    MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, GuineaPig))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
     Admin, ChangePermission, PublicMod, Developer))
@@ -55,7 +56,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament,
-    PublicMod, Developer)
+    PublicMod, Developer, GuineaPig)
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
 
