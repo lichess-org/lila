@@ -7,14 +7,19 @@ var empty = util.empty;
 var game = require('game').game;
 var treePath = require('./path');
 
-var autoScroll = util.throttle(300, false, function(el) {
-  raf(function() {
-    var target = el.querySelector('.active') || el.querySelector('index:first-child');
-    if (!target) return;
-    var cont = el.parentNode;
-    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+var makeAutoScroll = function(ctrl) {
+  return util.throttle(300, false, function(el) {
+    raf(function() {
+      var target = el.querySelector('.active');
+      var cont = el.parentNode;
+      if (!target) {
+        cont.scrollTop = ctrl.vm.path === ctrl.vm.initialPath ? 0 : 99999;
+        return;
+      }
+      cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+    });
   });
-});
+}
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
@@ -262,6 +267,7 @@ module.exports = function(ctrl, conceal) {
     withColor: false,
     conceal: false
   });
+  var autoScroll = makeAutoScroll(ctrl);
   return m('div.tview2', {
     onmousedown: function(e) {
       if (e.button !== undefined && e.button !== 0) return; // only touch or left click
