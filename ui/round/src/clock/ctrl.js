@@ -1,6 +1,6 @@
 var m = require('mithril');
 
-module.exports = function(data, onFlag, soundColor, debug) {
+module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;
 
@@ -34,7 +34,6 @@ module.exports = function(data, onFlag, soundColor, debug) {
   };
 
   var tick = function(color) {
-    debug.tick();
     data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (data[color] === 0) onFlag();
     m.redraw();

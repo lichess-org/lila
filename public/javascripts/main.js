@@ -1057,6 +1057,7 @@ lichess.notifyApp = (function() {
     cfg.onChange = function(d) {
       if (chat) chat.preset.setGroup(getPresetGroup(d));
     };
+    cfg.isGuineaPig = $('body').data('guineapig');
     round = LichessRound(cfg);
     if (cfg.chat) {
       cfg.chat.preset = getPresetGroup(cfg.data);

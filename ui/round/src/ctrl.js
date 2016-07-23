@@ -20,13 +20,14 @@ var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
-var makeDebug = require('./debug');
 
 module.exports = function(opts) {
 
   this.data = round.merge({}, opts.data).data;
 
   this.userId = opts.userId;
+
+  if (opts.isGuineaPig) console.log('Running in guinea pig mode. Sorry.');
 
   this.vm = {
     ply: init.startPly(this.data),
@@ -253,10 +254,7 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock) {
-      this.debug.log('move{' + o.clock.white + ',' + o.clock.black + '}');
-      (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
-    }
+    if (o.clock) (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,
@@ -342,12 +340,9 @@ module.exports = function(opts) {
     }.bind(this));
   }.bind(this);
 
-  this.debug = makeDebug(this);
-
   this.clock = this.data.clock ? clockCtrl(
     this.data.clock,
-    this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color,
-    this.debug
+    this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
   this.isClockRunning = function() {
@@ -374,7 +369,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) {
-    if (this.debug.enabled) {
+    if (opts.isGuineaPig) {
       var scheduleClockTick = function() {
         setTimeout(function() {
           clockTick();
