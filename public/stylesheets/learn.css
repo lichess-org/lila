@@ -3,6 +3,8 @@
 #learn_app div.lichess_ground {
   width: 267px;
   justify-content: flex-start;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 #learn_app .title {
   display: flex;
@@ -594,6 +596,10 @@ body.dark #learn_side a {
   opacity: 1;
 }
 
+#learn_side .map {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
 #learn_side .map .back,
 #learn_side .map .categ > h2 {
   display: block;
