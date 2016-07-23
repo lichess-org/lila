@@ -563,7 +563,7 @@ body.dark .explorer_box .black {
   display: flex;
   flex-flow: row wrap;
   background: #fff;
-  font-size: 13px;
+  font-size: 13.5px;
   white-space: normal;
   line-height: 1.25;
 }
@@ -608,7 +608,7 @@ body.dark .explorer_box .black {
   flex: 0 0 44%;
   display: flex;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 15.5px;
   line-height: 28px;
   padding-left: 7px;
   padding-right: 3px;
