@@ -41,7 +41,10 @@ function renderChildrenOf(ctx, node, opts) {
   if (conceal === 'hide') return;
   if (opts.isMainline) {
     var isWhite = main.ply % 2 === 1;
-    var commentTags = renderMainlineCommentsOf(ctx, main, conceal);
+    var commentTags = renderMainlineCommentsOf(ctx, main, {
+      conceal: conceal,
+      withColor: true
+    });
     if (!cs[1] && empty(commentTags)) return [
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, {
@@ -197,15 +200,15 @@ function renderEval(e) {
   };
 }
 
-function renderMainlineCommentsOf(ctx, node, conceal) {
+function renderMainlineCommentsOf(ctx, node, opts) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
-  var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
+  var colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
   var klass;
   return node.comments.map(function(comment) {
     if (comment.text.indexOf('Inaccuracy.') === 0) klass = 'inaccuracy';
     else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
-    if (conceal) klass += ' ' + conceal;
+    if (opts.conceal) klass += ' ' + opts.conceal;
     return renderMainlineComment(comment, colorClass, klass);
   });
 }
@@ -255,6 +258,10 @@ module.exports = function(ctrl, conceal) {
       };
     }
   };
+  var commentTags = renderMainlineCommentsOf(ctx, root, {
+    withColor: false,
+    conceal: false
+  });
   return m('div.tview2', {
     onmousedown: function(e) {
       if (e.button !== undefined && e.button !== 0) return; // only touch or left click
@@ -276,6 +283,7 @@ module.exports = function(ctrl, conceal) {
       return false;
     },
   }, [
+    commentTags ? m('interrupt', commentTags) : null,
     root.ply % 2 === 1 ? [
       renderIndex(root.ply, false),
       emptyMove({})
