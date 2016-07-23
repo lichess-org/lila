@@ -5,7 +5,6 @@ body.dark {
 }
 body.dark a,
 body.dark a:visited,
-body.dark .tview2 line comment,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
 body.dark .button {
@@ -286,6 +285,7 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
+body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .opening_box,
 body.dark #challenge_app div.challenge,
@@ -593,6 +593,12 @@ body.dark .tview2 move {
 }
 body.dark .tview2 move.active {
   color: #ff7729;
+}
+body.dark .tview2 comment {
+  color: #999;
+}
+body.dark .tview2 line comment {
+  color: #888;
 }
 body.dark .tview2 lines lines::before,
 body.dark .tview2 lines line::before {

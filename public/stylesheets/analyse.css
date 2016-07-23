@@ -563,13 +563,12 @@ body.dark .explorer_box .black {
   display: flex;
   flex-flow: row wrap;
   background: #fff;
-  font-size: 14px;
+  font-size: 13px;
   white-space: normal;
-  /* font-family: 'ChessSansPiratf', sans-serif; */
-  font-size: 12px;
   line-height: 1.25;
 }
 .tview2 move {
+  font-family: 'ChessSansPiratf', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
@@ -609,7 +608,7 @@ body.dark .explorer_box .black {
   flex: 0 0 44%;
   display: flex;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 28px;
   padding-left: 7px;
   padding-right: 3px;
@@ -681,10 +680,11 @@ body.dark .explorer_box .black {
   word-wrap: break-word;
   font-size: 90%;
   padding: 0 5px 0 3px;
-  vertical-align: 3px;
+  vertical-align: top;
 }
 .tview2 lines {
   display: block;
+  padding-top: 2px;
   margin-left: 5px;
   margin-bottom: 0.8em;
   border-left: 1px solid #ccc;
@@ -700,14 +700,11 @@ body.dark .explorer_box .black {
   margin: 2px 0;
   padding-left: 4px;
 }
-.tview2 > lines {
+.tview2 > interrupt {
   flex: 0 0 100%;
   font-size: 95%;
 }
-.tview2 > lines > line > lines {
-  font-size: 95%;
-}
-.tview2 > lines > line > lines > line > lines {
+.tview2 > interrupt > lines > line > lines {
   font-size: 95%;
 }
 .tview2 lines lines {
