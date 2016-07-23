@@ -12,9 +12,7 @@ var autoScroll = util.throttle(300, false, function(el) {
     var target = el.querySelector('.active') || el.querySelector('move:first-child');
     if (!target) return;
     var cont = el.parentNode;
-    var scroll = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight / 2;
-    // console.log(scroll);
-    // cont.scrollTop = scroll;
+    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
 });
 

@@ -608,7 +608,7 @@ body.dark .explorer_box .black {
   /* justify-content: space-between; */
   box-sizing: border-box;
   font-size: 14px;
-  line-height: 30px;
+  line-height: 28px;
   padding-left: 7px;
   padding-right: 3px;
 }
@@ -638,7 +638,7 @@ body.dark .explorer_box .black {
   box-sizing: border-box;
   border-right: 1px solid #ddd;
   background: #f8f8f8;
-  line-height: 30px;
+  line-height: 28px;
   color: #aaa;
 }
 .tview2 interrupt {
@@ -676,7 +676,6 @@ body.dark .explorer_box .black {
   display: block;
   margin-left: 5px;
   margin-bottom: 0.8em;
-  position: relative;
   border-left: 1px solid #c0c0c0;
 }
 .tview2 lines.single {
@@ -687,7 +686,6 @@ body.dark .explorer_box .black {
 }
 .tview2 line {
   display: block;
-  position: relative;
   margin: 2px 0;
   padding-left: 4px;
 }
@@ -709,18 +707,16 @@ body.dark .explorer_box .black {
   content: ' ';
   border-top: 1px solid #c0c0c0;
   position: absolute;
-  top: 0;
-  left: -5px;
+  margin-left: -6px;
   width: 5px;
   height: 6px;
 }
 .tview2 lines line::before {
-  position: absolute;
-  top: 7px;
-  left: 0;
+  margin-top: 7px;
+  margin-left: -4px;
   content: ' ';
   border-top: 1px solid #c0c0c0;
-  display: inline-block;
+  position: absolute;
   width: 5px;
   height: 6px;
 }
