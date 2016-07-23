@@ -25,7 +25,7 @@ function drawTime(notification) {
 };
 
 var handlers = {
-  mentioned: {
+  mention: {
     html: function(notification) {
       var content = notification.content;
       var url = "/forum/redirect/post/" + content.postId
