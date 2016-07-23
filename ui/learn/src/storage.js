@@ -41,9 +41,14 @@ module.exports = function(data) {
       else lichess.storage.set(key, JSON.stringify(data));
     },
     reset: function() {
-      if (data._id) xhrReset();
-      else lichess.storage.remove(key);
       data.stages = {};
+      if (data._id) xhrReset().then(function() {
+        location.reload();
+      });
+      else {
+        lichess.storage.remove(key);
+        location.reload();
+      }
     }
   };
 };
