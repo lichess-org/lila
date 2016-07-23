@@ -37,33 +37,45 @@ function renderChildrenOf(ctx, node, opts) {
   var cs = node.children;
   var main = cs[0];
   if (!main) return;
+  var conceal = opts.noConceal ? null : (opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main));
+  if (conceal === 'hide') return;
   if (opts.isMainline) {
     var isWhite = main.ply % 2 === 1;
-    var commentTags = renderMainlineCommentsOf(ctx, main);
+    var commentTags = renderMainlineCommentsOf(ctx, main, conceal);
     if (!cs[1] && empty(commentTags)) return [
       isWhite ? renderIndex(main.ply, false) : null,
-      renderMoveAndChildrenOf(ctx, main, opts)
+      renderMoveAndChildrenOf(ctx, main, {
+        parentPath: opts.parentPath,
+        isMainline: true,
+        conceal: conceal
+      })
     ];
     var mainChildren = renderChildrenOf(ctx, main, {
       parentPath: opts.parentPath + main.id,
-      isMainline: true
+      isMainline: true,
+      conceal: conceal
     });
+    var passOpts = {
+      parentPath: opts.parentPath,
+      isMainline: true,
+      conceal: conceal
+    };
     return [
       isWhite ? renderIndex(main.ply, false) : null,
-      renderMoveOf(ctx, main, {
-        parentPath: opts.parentPath,
-        isMainline: true
-      }),
-      isWhite ? emptyMove() : null,
+      renderMoveOf(ctx, main, passOpts),
+      isWhite ? emptyMove(passOpts) : null,
       m('interrupt', [
         commentTags,
         renderLines(ctx, cs.slice(1), {
-          parentPath: opts.parentPath
+          parentPath: opts.parentPath,
+          isMainline: true,
+          conceal: conceal,
+          noConceal: !conceal
         })
       ]),
       isWhite && mainChildren ? [
         renderIndex(main.ply, false),
-        emptyMove()
+        emptyMove(passOpts)
       ] : null,
       mainChildren
     ];
@@ -76,13 +88,14 @@ function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
     attrs: {
-      class: nodes[1] ? null : 'single'
+      class: (nodes[1] ? '' : 'single')// + (opts.conceal ? ' ' + opts.conceal : '')
     },
     children: nodes.map(function(n) {
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
         isMainline: false,
-        withIndex: true
+        withIndex: true,
+        noConceal: opts.noConceal
       }));
     })
   };
@@ -104,12 +117,12 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var attrs = {
     p: path
   };
-  var eval = opts.isMainline ? (node.eval || node.ceval || {}) : {};
+  var eval = node.eval || node.ceval || {};
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
-  if (ctx.conceal) classes.push(ctx.conceal);
+  if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     util.fixCrazySan(node.san),
@@ -130,8 +143,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   if (path === ctx.ctrl.vm.path) classes.push('active');
   else if (pathContains(ctx, path)) classes.push('parent');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
-  if (ctx.conceal) classes.push(ctx.conceal);
-  // if (node.comments || node.shapes) classes.push('annotated');
+  if (opts.conceal) classes.push(ctx.conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,
@@ -146,7 +158,8 @@ function renderMoveAndChildrenOf(ctx, node, opts) {
     renderVariationCommentsOf(ctx, node),
     renderChildrenOf(ctx, node, {
       parentPath: opts.parentPath + node.id,
-      isMainline: opts.isMainline
+      isMainline: opts.isMainline,
+      noConceal: opts.noConceal
     })
   ];
 }
@@ -159,9 +172,9 @@ function moveTag(attrs, content) {
   };
 }
 
-function emptyMove() {
+function emptyMove(opts) {
   return moveTag({
-    class: 'empty'
+    class: 'empty' + (opts.conceal ? ' ' + opts.conceal : '')
   }, '...');
 }
 
@@ -184,16 +197,16 @@ function renderEval(e) {
   };
 }
 
-function renderMainlineCommentsOf(ctx, node) {
+function renderMainlineCommentsOf(ctx, node, conceal) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
-  var commentClass;
+  var klass;
   return node.comments.map(function(comment) {
-    if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
-    // if (commentConceal) commentClass += ' ' + commentConceal;
-    return renderMainlineComment(comment, colorClass, commentClass);
+    if (comment.text.indexOf('Inaccuracy.') === 0) klass = 'inaccuracy';
+    else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
+    else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
+    if (conceal) klass += ' ' + conceal;
+    return renderMainlineComment(comment, colorClass, klass);
   });
 }
 
@@ -234,7 +247,13 @@ module.exports = function(ctrl, conceal) {
   var root = ctrl.tree.root;
   var ctx = {
     ctrl: ctrl,
-    conceal: conceal
+    concealOf: function(isMainline) {
+      return function(path, node) {
+        if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+        if (treePath.contains(ctrl.vm.path, path)) return null;
+        return conceal.owner ? 'conceal' : 'hide'
+      };
+    }
   };
   return m('div.tview2', {
     onmousedown: function(e) {

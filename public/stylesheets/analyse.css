@@ -649,6 +649,7 @@ body.dark .explorer_box .black {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
+  max-width: 100%;
 }
 .tview2 > interrupt > comment {
   display: block;
@@ -731,6 +732,12 @@ body.dark .explorer_box .black {
 }
 .tview2 lines lines:last-child {
   margin-bottom: 0;
+}
+.tview2 .conceal {
+  opacity: 0.4;
+}
+.tview2 .hide {
+  display: none;
 }
 .lichess_ground .result {
   font-weight: bold;
