@@ -45,7 +45,6 @@ function whatNext(ctrl) {
     ]);
   };
   var userId = ctrl.data._id;
-  console.log(userId);
   return m('div.categ.what_next', [
     m('h2', 'What next?'),
     m('p', "You know how to play chess, congratulations! Do you want to become a stronger player?"),
