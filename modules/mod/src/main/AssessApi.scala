@@ -66,7 +66,7 @@ final class AssessApi(
   }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    GameRepo games pag.playerAssessments.map(_.gameId) map {
+    GameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
