@@ -572,7 +572,7 @@ body.dark .explorer_box .black {
 .tview2 move {
   white-space: nowrap;
   overflow: hidden;
-  display: inline;
+  display: inline-block;
   padding: 0 2px;
   cursor: pointer;
 }
@@ -681,6 +681,7 @@ body.dark .explorer_box .black {
   word-wrap: break-word;
   font-size: 90%;
   padding: 0 5px 0 3px;
+  vertical-align: 3px;
 }
 .tview2 lines {
   display: block;
