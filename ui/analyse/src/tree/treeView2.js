@@ -88,7 +88,7 @@ function renderLines(ctx, nodes, opts) {
   return {
     tag: 'lines',
     attrs: {
-      class: (nodes[1] ? '' : 'single')// + (opts.conceal ? ' ' + opts.conceal : '')
+      class: (nodes[1] ? '' : 'single') // + (opts.conceal ? ' ' + opts.conceal : '')
     },
     children: nodes.map(function(n) {
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
@@ -275,8 +275,14 @@ module.exports = function(ctrl, conceal) {
       });
       return false;
     },
-  }, renderChildrenOf(ctx, root, {
-    parentPath: '',
-    isMainline: true
-  }));
+  }, [
+    root.ply % 2 === 1 ? [
+      renderIndex(root.ply, false),
+      emptyMove({})
+    ] : null,
+    renderChildrenOf(ctx, root, {
+      parentPath: '',
+      isMainline: true
+    })
+  ]);
 };
