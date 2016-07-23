@@ -216,7 +216,7 @@ function renderMainlineComment(comment, colorClass, commentClass) {
     attrs: {
       class: colorClass + commentClass
     },
-    children: [truncateComment(comment.text, 300)]
+    children: [truncateComment(comment.text, 400)]
   };
 }
 
@@ -230,7 +230,7 @@ function renderVariationCommentsOf(ctx, node) {
 function renderVariationComment(comment) {
   return {
     tag: 'comment',
-    children: [truncateComment(comment.text, 200)]
+    children: [truncateComment(comment.text, 300)]
   };
 }
 
