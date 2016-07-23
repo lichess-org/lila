@@ -33,6 +33,6 @@ object LilaCookie {
     maxAge orElse Session.maxAge orElse 86400.some,
     "/",
     domain(req).some,
-    Session.secure || req.headers.get("X-Forwarded-Proto").exists(_ == "https"),
+    Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
     httpOnly | Session.httpOnly)
 }
