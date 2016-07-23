@@ -286,6 +286,7 @@ body.dark div.table_not_started {
   background: none;
 }
 body.dark .lichess_ground .replay index,
+body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .opening_box,
 body.dark #challenge_app div.challenge,
