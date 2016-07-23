@@ -572,7 +572,7 @@ body.dark .explorer_box .black {
 .tview2 move {
   white-space: nowrap;
   overflow: hidden;
-  display: inline-block;
+  display: inline;
   padding: 0 2px;
   cursor: pointer;
 }
@@ -602,10 +602,12 @@ body.dark .explorer_box .black {
 .tview2 move index:first-child {
   padding-left: 0;
 }
+.tview2 line move {
+  color: #555;
+}
 .tview2 > move {
   flex: 0 0 44%;
   display: flex;
-  /* justify-content: space-between; */
   box-sizing: border-box;
   font-size: 14px;
   line-height: 28px;
@@ -648,7 +650,7 @@ body.dark .explorer_box .black {
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
 }
-.tview2 comment {
+.tview2 > interrupt > comment {
   display: block;
   padding: 3px 5px;
   word-wrap: break-word;
@@ -672,11 +674,18 @@ body.dark .explorer_box .black {
 .tview2 comment.undefined {
   border-color: #66558C;
 }
+.tview2 line comment {
+  display: inline;
+  color: #808080;
+  word-wrap: break-word;
+  font-size: 90%;
+  padding: 0 5px 0 3px;
+}
 .tview2 lines {
   display: block;
   margin-left: 5px;
   margin-bottom: 0.8em;
-  border-left: 1px solid #c0c0c0;
+  border-left: 1px solid #ccc;
 }
 .tview2 lines.single {
   border-left: none;
@@ -707,7 +716,7 @@ body.dark .explorer_box .black {
   content: ' ';
   border-top: 1px solid #c0c0c0;
   position: absolute;
-  margin-left: -6px;
+  margin-left: -5.5px;
   width: 5px;
   height: 6px;
 }

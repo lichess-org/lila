@@ -131,7 +131,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   else if (pathContains(ctx, path)) classes.push('parent');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (ctx.conceal) classes.push(ctx.conceal);
-  // if (!isMainline && (node.comments || node.shapes)) classes.push('annotated');
+  // if (node.comments || node.shapes) classes.push('annotated');
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,
@@ -143,6 +143,7 @@ function renderVariationMoveOf(ctx, node, opts) {
 function renderMoveAndChildrenOf(ctx, node, opts) {
   return [
     renderMoveOf(ctx, node, opts),
+    renderVariationCommentsOf(ctx, node),
     renderChildrenOf(ctx, node, {
       parentPath: opts.parentPath + node.id,
       isMainline: opts.isMainline
@@ -187,29 +188,42 @@ function renderMainlineCommentsOf(ctx, node) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
   var colorClass = node.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  var tags = [];
   return node.comments.map(function(comment) {
     if (comment.text.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.text.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) commentClass = 'blunder';
     // if (commentConceal) commentClass += ' ' + commentConceal;
-    return renderComment(comment, colorClass, commentClass);
+    return renderMainlineComment(comment, colorClass, commentClass);
   });
 }
 
-function renderComment(comment, colorClass, commentClass) {
+function renderMainlineComment(comment, colorClass, commentClass) {
   return {
     tag: 'comment',
     attrs: {
       class: colorClass + commentClass
     },
-    children: [truncateComment(comment.text)]
+    children: [truncateComment(comment.text, 300)]
   };
 }
 
-function truncateComment(text) {
-  if (text.length <= 300) return text;
-  return text.slice(0, 290) + ' [...]';
+function renderVariationCommentsOf(ctx, node) {
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  return node.comments.map(function(comment) {
+    return renderVariationComment(comment);
+  });
+}
+
+function renderVariationComment(comment) {
+  return {
+    tag: 'comment',
+    children: [truncateComment(comment.text, 200)]
+  };
+}
+
+function truncateComment(text, len) {
+  if (text.length <= len) return text;
+  return text.slice(0, len - 10) + ' [...]';
 }
 
 function eventPath(e, ctrl) {
