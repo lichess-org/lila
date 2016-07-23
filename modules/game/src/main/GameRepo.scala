@@ -27,6 +27,9 @@ object GameRepo {
 
   def games(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game](gameIds)(_.id)
 
+  def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
+    coll.byOrderedIds[Game](gameIds)(_.id)
+
   def gameOptions(gameIds: Seq[ID]): Fu[Seq[Option[Game]]] =
     coll.optionsByOrderedIds[Game](gameIds)(_.id)
 
@@ -78,7 +81,7 @@ object GameRepo {
       ++ Query.turnsMoreThan(20)
       ++ Query.clock(true))
     .sort($sort asc F.createdAt)
-    .cursor[Game]()
+    .cursor[Game](ReadPreference.secondaryPreferred)
     .gather[List](nb)
 
   def cursor(

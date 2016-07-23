@@ -33,8 +33,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).map(0!=)
 
-    def byOrderedIds[D: BSONDocumentReader](ids: Iterable[String])(docId: D => String): Fu[List[D]] =
-      byIds[D](ids) map { docs =>
+    def byOrderedIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary)(docId: D => String): Fu[List[D]] =
+      coll.find($inIds(ids)).cursor[D](readPreference = readPreference).collect[List]() map { docs =>
         val docsMap = docs.map(u => docId(u) -> u).toMap
         ids.flatMap(docsMap.get).toList
       }
