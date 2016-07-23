@@ -715,6 +715,7 @@ body.dark .explorer_box .black {
   border-top: 1px solid #c0c0c0;
   position: absolute;
   margin-left: -5.5px;
+  margin-top: -2px;
   width: 5px;
   height: 6px;
 }
