@@ -577,7 +577,7 @@ body.dark .explorer_box .black {
   cursor: pointer;
 }
 .tview2 move.parent {
-  color: #3893e8;
+  color: #3893e8!important;
 }
 .tview2 move.active {
   color: #d85000;
@@ -585,15 +585,15 @@ body.dark .explorer_box .black {
 .tview2 move:not(.empty):hover,
 .tview2 move:not(.empty):hover move index {
   background: #3893e8;
-  color: #fff;
+  color: #fff!important;
 }
 .tview2 move.empty {
   color: #aaa;
   cursor: default;
 }
 .tview2 move.context_menu {
-  background: #d85000;
-  color: #fff;
+  background: #d85000!important;
+  color: #fff!important;
 }
 .tview2 move index {
   padding-left: 5px;
@@ -623,7 +623,7 @@ body.dark .explorer_box .black {
   font-size: 0.8em;
   font-family: 'Roboto';
   font-weight: 300;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .tview2 > move glyph {
   flex: 0 1 auto;
@@ -643,7 +643,7 @@ body.dark .explorer_box .black {
   line-height: 28px;
   color: #aaa;
 }
-.tview2 interrupt {
+.tview2 > interrupt {
   flex: 0 0 100%;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
@@ -703,7 +703,6 @@ body.dark .explorer_box .black {
 .tview2 > lines {
   flex: 0 0 100%;
   font-size: 95%;
-  /* background: #f0f0f0; */
 }
 .tview2 > lines > line > lines {
   font-size: 95%;

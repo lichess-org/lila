@@ -5,10 +5,10 @@ body.dark {
 }
 body.dark a,
 body.dark a:visited,
+body.dark .tview2 line comment,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
-body.dark .button,
-body.dark .lichess_ground .replay glyph {
+body.dark .button {
   color: #8a8a8a;
 }
 body.dark #video .content_box_top form input,
@@ -140,11 +140,14 @@ body.dark div.user_show .mod_zone .slist,
 body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
 body.dark .lichess_ground .replay,
+body.dark .lichess_ground .areplay,
+body.dark .tview2 > index,
+body.dark .tview2 > index + move,
 body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .explorer_box,
 body.dark .explorer_box .config .choices span,
-body.dark .lichess_ground .replay .meta,
+body.dark .lichess_ground .areplay interrupt,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
@@ -176,6 +179,8 @@ body.dark div.mchat .chat_tabs .tab {
 body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
+body.dark .tview2 > index,
+body.dark .tview2 > interrupt,
 body.dark .explorer_box .config .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
 body.dark div.lichess_overboard .close,
@@ -194,6 +199,7 @@ body.dark #modal-wrap .close:hover {
   background-color: #505050;
 }
 
+body.dark .tview2 lines,
 body.dark #adv_chart_loader,
 body.dark .pull-quote p,
 body.dark .pull-quote p:after,
@@ -213,7 +219,9 @@ body.dark #top .language_links button:hover {
   color: #b0b0b0;
 }
 body.dark #top a.toggle:hover,
-body.dark #top #sound_state:hover {
+body.dark #top #sound_state:hover,
+body.dark #top a.signin,
+body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
 body.dark div.user_show .trophy.icon3d,
@@ -224,11 +232,11 @@ body.dark div.user_show div.content_box_top > span,
 body.dark .undertable_top span.title {
   color: #777;
 }
-body.dark .lichess_ground .replay .meta > .menu,
 body.dark .crosstable td a,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
+body.dark .tview2,
 body.dark .explorer_box .title,
 body.dark .explorer_box thead,
 body.dark .explorer_box tr:nth-child(even),
@@ -256,14 +264,9 @@ body.dark #site_header div.side_menu a:hover,
 body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
-body.dark .lichess_ground .replay move.current,
 body.dark .explorer_box tr:hover,
 body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
-}
-body.dark #top a.signin,
-body.dark #hooks_wrap .hook_filter .checkable {
-  color: #c0c0c0;
 }
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a:hover,
@@ -283,11 +286,8 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .ceval_box pearl,
 body.dark .lichess_ground .opening_box,
-body.dark .lichess_ground .replay .meta,
-body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark #challenge_app div.challenge,
 body.dark #challenge_app div.empty,
 body.dark #challenge_app div.initiating,
@@ -344,6 +344,7 @@ body.dark #powerTip,
 body.dark #miniGame {
   background: #343434;
 }
+body.dark .tview2 line move,
 body.dark #top .language_links button.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
@@ -583,6 +584,19 @@ body.dark div.eval_gauge .black {
 }
 body.dark div.eval_gauge tick {
   border-color: #a0a0a0;
+}
+body.dark .tview2 > index {
+  color: #777;
+}
+body.dark .tview2 move {
+  color: #aaa;
+}
+body.dark .tview2 move.active {
+  color: #ff7729;
+}
+body.dark .tview2 lines lines::before,
+body.dark .tview2 lines line::before {
+  border-color: #606060;
 }
 body.dark div.side_box .game_infos .variant-link {
   border-color: #8c8c8c;
