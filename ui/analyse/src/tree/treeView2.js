@@ -9,7 +9,7 @@ var treePath = require('./path');
 
 var autoScroll = util.throttle(300, false, function(el) {
   raf(function() {
-    var target = el.querySelector('.active') || el.querySelector('move:first-child');
+    var target = el.querySelector('.active') || el.querySelector('index:first-child');
     if (!target) return;
     var cont = el.parentNode;
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
