@@ -11,16 +11,12 @@ import lila.user.{ User, UserRepo }
 private[lobby] object Biter {
 
   def apply(hook: Hook, uid: String, user: Option[LobbyUser]): Fu[JoinHook] =
-    canJoin(hook, user).fold(
-      join(hook, uid, user),
-      fufail(s"$user cannot bite hook $hook")
-    )
+    if (canJoin(hook, user)) join(hook, uid, user)
+    else fufail(s"$user cannot bite hook $hook")
 
   def apply(seek: Seek, user: LobbyUser): Fu[JoinSeek] =
-    canJoin(seek, user).fold(
-      join(seek, user),
-      fufail(s"$user cannot join seek $seek")
-    )
+    if (canJoin(seek, user)) join(seek, user)
+    else fufail(s"$user cannot join seek $seek")
 
   private def join(hook: Hook, uid: String, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] = for {
     userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
@@ -86,8 +82,9 @@ private[lobby] object Biter {
       user.isDefined || hook.allowAnon,
       user ?? { _.lame == hook.lame }
     ) &&
+      !(user ?? (u => hook.userId contains u.id)) &&
       !(hook.userId ?? (user ?? (_.blocking)).contains) &&
-      !((user map (_.id)) ?? (hook.user ?? (_.blocking)).contains) &&
+      !(user.map(_.id) ?? (hook.user ?? (_.blocking)).contains) &&
       hook.realRatingRange.fold(true) { range =>
         user ?? { u =>
           (hook.perfType map (_.key) flatMap u.ratingMap.get) ?? range.contains
@@ -95,7 +92,8 @@ private[lobby] object Biter {
       }
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
-    (seek.realMode.casual || user.lame == seek.user.lame) &&
+    seek.user.id != user.id &&
+      (seek.realMode.casual || user.lame == seek.user.lame) &&
       !(user.blocking contains seek.user.id) &&
       !(seek.user.blocking contains user.id) &&
       seek.realRatingRange.fold(true) { range =>
