@@ -181,7 +181,7 @@ function anyClock(ctrl, position) {
     return renderCorrespondenceClock(
       ctrl.correspondenceClock, ctrl.trans, playerAt(ctrl, position).color, position, ctrl.data.game.player
     );
-  else return whosTurn(ctrl, color);
+  else return whosTurn(ctrl, playerAt(ctrl, position).color);
 }
 
 module.exports = function(ctrl) {
