@@ -77,6 +77,9 @@ form.better_analysis {
 div.fen_pgn p {
   margin: 0.6em 0;
 }
+div.fen_pgn a {
+  color: #3893E8;
+}
 div.fen_pgn strong,
 div.fen_pgn input.fen,
 div.fen_pgn .pgn {

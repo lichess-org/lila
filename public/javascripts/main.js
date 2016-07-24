@@ -1892,7 +1892,9 @@ lichess.notifyApp = (function() {
 
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
 
-    $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+    setTimeout(function() {
+      $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+    }, 200);
 
     var chartLoader = function() {
       return '<div id="adv_chart_loader">' +
@@ -1923,7 +1925,7 @@ lichess.notifyApp = (function() {
       } catch (e) {}
       if (panel === 'computer_analysis' && $("#adv_chart").length) startAdvantageChart();
     };
-    $menu.on('click', 'a', function() {
+    $menu.on('mousedown', 'a', function() {
       var panel = $(this).data('panel');
       lichess.storage.set(storageKey, panel);
       setPanel(panel);
