@@ -36,7 +36,6 @@ lichess.advantageChart = function(data) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var isFull = serieData[0].y !== null;
         var chart = $elem.highcharts({
           credits: disabled,
           legend: disabled,
@@ -46,10 +45,13 @@ lichess.advantageChart = function(data) {
           }],
           chart: {
             type: 'area',
-            animation: isFull,
-            spacing: [2, 0, 2, 0]
+            spacing: [2, 0, 2, 0],
+            animation: false
           },
           plotOptions: {
+            series: {
+              animation: false
+            },
             area: {
               fillColor: Highcharts.theme.lichess.area.white,
               negativeFillColor: Highcharts.theme.lichess.area.black,
@@ -57,9 +59,6 @@ lichess.advantageChart = function(data) {
               lineWidth: 2,
               color: Highcharts.theme.lichess.line.fat,
               allowPointSelect: true,
-              column: {
-                animation: disabled
-              },
               cursor: 'pointer',
               events: {
                 click: function(event) {

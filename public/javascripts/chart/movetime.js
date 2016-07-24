@@ -37,9 +37,6 @@ lichess.movetimeChart = function(data) {
             var noText = {
               text: null
             };
-            var noAnimation = {
-              animation: disabled
-            };
             $this.highcharts({
               credits: disabled,
               legend: disabled,
@@ -52,7 +49,8 @@ lichess.movetimeChart = function(data) {
               }],
               chart: {
                 type: 'area',
-                spacing: [2, 0, 2, 0]
+                spacing: [2, 0, 2, 0],
+                animation: false
               },
               tooltip: {
                 formatter: function() {
@@ -62,6 +60,9 @@ lichess.movetimeChart = function(data) {
                 }
               },
               plotOptions: {
+                series: {
+                  animation: false
+                },
                 area: {
                   fillColor: Highcharts.theme.lichess.area.white,
                   negativeFillColor: Highcharts.theme.lichess.area.black,
@@ -70,7 +71,6 @@ lichess.movetimeChart = function(data) {
                   lineWidth: 2,
                   color: Highcharts.theme.lichess.line.fat,
                   allowPointSelect: true,
-                  column: noAnimation,
                   cursor: 'pointer',
                   events: {
                     click: function(event) {
