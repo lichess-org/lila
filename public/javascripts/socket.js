@@ -51,9 +51,6 @@ lichess.StrongSocket = function(url, version, settings) {
         $('body').removeClass('offline');
         pingNow();
         $('body').trigger('socket.open');
-        if ($('#user_tag').length) setTimeout(function() {
-          send("following_onlines");
-        }, 500);
         var resend = ackableMessages;
         ackableMessages = [];
         resend.forEach(function(x) {
