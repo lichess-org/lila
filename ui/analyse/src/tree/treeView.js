@@ -101,7 +101,8 @@ function renderLines(ctx, nodes, opts) {
         parentPath: opts.parentPath,
         isMainline: false,
         withIndex: true,
-        noConceal: opts.noConceal
+        noConceal: opts.noConceal,
+        truncate: n.comp && !pathContains(ctx, opts.parentPath + n.id) ? 3 : null
       }));
     })
   };
@@ -159,13 +160,18 @@ function renderVariationMoveOf(ctx, node, opts) {
 }
 
 function renderMoveAndChildrenOf(ctx, node, opts) {
+  var path = opts.parentPath + node.id;
+  if (opts.truncate === 0) return moveTag({
+    p: path
+  }, [m('index', '[...]')]);
   return [
     renderMoveOf(ctx, node, opts),
     renderVariationCommentsOf(ctx, node),
     renderChildrenOf(ctx, node, {
-      parentPath: opts.parentPath + node.id,
+      parentPath: path,
       isMainline: opts.isMainline,
-      noConceal: opts.noConceal
+      noConceal: opts.noConceal,
+      truncate: opts.truncate ? opts.truncate - 1 : null
     })
   ];
 }

@@ -115,7 +115,7 @@ object TreeBuilder {
           case Nil => root
           case ((g, m), i) :: rest => root addChild rest.foldLeft(makeBranch(i + 1, g, m)) {
             case (node, ((g, m), i)) => makeBranch(i + 1, g, m) addChild node
-          }
+          }.setComp
         }
     }
   }
