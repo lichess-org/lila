@@ -97,13 +97,13 @@ time {
   margin-right: 10px;
 }
 .user_link.online .line,
-[data-icon].is-green::before {
+.is-green::before {
   color: #759900;
 }
-[data-icon].is-red::before {
+.is-red::before {
   color: #dc322f;
 }
-[data-icon].is-gold::before {
+.is-gold::before {
   color: #d59120;
 }
 .user_link .line {
@@ -322,7 +322,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   min-height: 262px;
 }
 #powerTip > .title {
-  padding: 5px;
+  padding: 5px 1px;
   border-bottom: 1px solid #c0c0c0;
 }
 #powerTip > .title a.user_link {
@@ -341,6 +341,7 @@ ul.ui-autocomplete li a.ui-state-focus {
 #powerTip .countrylang {
   float: right;
   font-size: 0.9em;
+  padding-right: 3px;
 }
 #powerTip .ratings {
   text-align: center;
@@ -1476,12 +1477,16 @@ body.fpmenu #friend_box {
 }
 #friend_box .content a {
   flex: 1 1 100%;
-  padding: 3px 5px;
+  padding: 3px 0px;
   display: block;
   transition: background 0.13s;
 }
+#friend_box .content i.line {
+  opacity: 0.6;
+}
 #friend_box .content a.tv {
   flex: 0 0 auto;
+  padding: 0 5px;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;

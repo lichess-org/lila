@@ -5,10 +5,10 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
+import lila.hub.actorApi.relation.OnlineFriends
 
 case class PageData(
-  friends: List[lila.common.LightUser],
-  friendsPlaying: Set[String],
+  onlineFriends: OnlineFriends,
   teamNbRequests: Int,
   nbChallenges: Int,
   nbNotifications: Int,
@@ -18,7 +18,7 @@ case class PageData(
 
 object PageData {
 
-  val default = PageData(Nil, Set.empty, 0, 0, 0, Pref.default, false, false)
+  val default = PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false)
 
   def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }
@@ -28,9 +28,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val userContext: UserContext
   val pageData: PageData
 
-  def friends = pageData.friends
-
-  def friendsPlaying = pageData.friendsPlaying
+  def onlineFriends = pageData.onlineFriends
 
   def teamNbRequests = pageData.teamNbRequests
   def nbChallenges = pageData.nbChallenges

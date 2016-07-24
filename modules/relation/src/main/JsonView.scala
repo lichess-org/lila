@@ -16,20 +16,22 @@ object JsonView {
       )
     }
 
-  def writeOnlineFriends(friendsOnline: OnlineFriends) = {
+  def writeOnlineFriends(onlineFriends: OnlineFriends) = {
     // We use 'd' for backward compatibility with the mobile client
     Json.obj(
       "t" -> "following_onlines",
-      "d" -> friendsOnline.users.map(_.titleName),
-      "playing" -> friendsOnline.usersPlaying
-    )
+      "d" -> onlineFriends.users.map(_.titleName),
+      "playing" -> onlineFriends.playing,
+      "patrons" -> onlineFriends.patrons)
   }
 
   def writeFriendEntering(friendEntering: FriendEntering) = {
     // We use 'd' for backward compatibility with the mobile client
-    Json.obj("t" -> "following_enters",
-             "d" -> friendEntering.user.titleName,
-             "playing" -> friendEntering.isPlaying
+    Json.obj(
+      "t" -> "following_enters",
+      "d" -> friendEntering.user.titleName,
+      "playing" -> friendEntering.isPlaying,
+      "patron" -> friendEntering.user.isPatron
     )
   }
 }

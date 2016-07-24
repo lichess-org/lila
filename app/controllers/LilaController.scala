@@ -295,28 +295,33 @@ private[controllers] trait LilaController
       pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
+  import lila.hub.actorApi.relation._
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
     ctx.me.fold(fuccess(PageData anon blindMode(ctx))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
-        isPage ?? {
-          import lila.hub.actorApi.relation._
-          import akka.pattern.ask
-          import makeTimeout.short
-          (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
-            case OnlineFriends(users, usersPlaying) => (users, usersPlaying)
-          } recover { case _ => (Nil, Set.empty[String]) }) zip
-            Env.team.api.nbRequests(me.id) zip
-            Env.challenge.api.countInFor(me.id) zip
-            Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
+        if (isPage) getOnlineFriends(me) zip
+          Env.team.api.nbRequests(me.id) zip
+          Env.challenge.api.countInFor(me.id) zip
+          Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
+        else fuccess {
+          (((OnlineFriends.empty, 0), 0), 0)
         }
       } map {
-        case (pref, ((((friends, friendsPlaying), teamNbRequests), nbChallenges), nbNotifications)) =>
-          PageData(friends, friendsPlaying, teamNbRequests, nbChallenges, nbNotifications, pref,
+        case (pref, (((onlineFriends, teamNbRequests), nbChallenges), nbNotifications)) =>
+          PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint)
       }
     }
+
+  private def getOnlineFriends(me: UserModel): Fu[OnlineFriends] = {
+    import akka.pattern.ask
+    import makeTimeout.short
+    (Env.hub.actor.relation ? GetOnlineFriends(me.id))
+      .mapTo(manifest[OnlineFriends])
+      .recover { case _ => OnlineFriends.empty }
+  }
 
   private def blindMode(implicit ctx: UserContext) =
     ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>

@@ -150,15 +150,10 @@ lichess.notifyApp = (function() {
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
-        var friendsOnline = all["d"];
-        var friendsPlaying = all["playing"];
-
-        $('#friend_box').friends("set", friendsOnline, friendsPlaying);
+        $('#friend_box').friends("set", all.d, all.playing, all.patrons);
       },
       following_enters: function(d, all) {
-        var name = all["d"];
-        var playing = all["playing"];
-        $('#friend_box').friends('enters', name, playing);
+        $('#friend_box').friends('enters', all.d, all.playing, all.patron);
       },
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
@@ -1115,108 +1110,106 @@ lichess.notifyApp = (function() {
     }
   });
 
-  lichess.widget("friends", {
-    _create: function() {
-      var self = this;
-      self.$list = self.element.find("div.list");
-      self.$title = self.element.find('.title').click(function() {
-        self.element.find('.content_wrap').toggle(100, function() {
-          lichess.storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+  lichess.widget("friends", (function() {
+    var isSameUser = function(userId, user) {
+      var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      return id.toLowerCase() === userId;
+    };
+    return {
+      _create: function() {
+        var self = this;
+        self.$list = self.element.find("div.list");
+        self.$title = self.element.find('.title').click(function() {
+          self.element.find('.content_wrap').toggle(100, function() {
+            lichess.storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+          });
         });
-      });
-      if (lichess.storage.get('friends-hide') == 1) self.$title.click();
-      self.$nbOnline = self.$title.find('.online');
-      self.$nobody = self.element.find("div.nobody");
+        if (lichess.storage.get('friends-hide') == 1) self.$title.click();
+        self.$nbOnline = self.$title.find('.online');
+        self.$nobody = self.element.find("div.nobody");
 
-      var users = self.element.data('preload').split(',');
-      var playings = self.element.data('playing').split(',');
-      self.set(users, playings);
-    },
-    _makeUser: function(name, playing) {
-      return {
-        'name': name,
-        'playing': playing || false
-      }
-    },
-    _uniqueUsers: function(users) {
-      var usersEncountered = [];
-
-      return users.filter(function(u) {
-        if (usersEncountered.indexOf(u.name) !== -1) {
-          return false;
-        } else {
-          usersEncountered.push(u.name);
-          return true;
+        var users = self.element.data('preload').split(',');
+        var playings = self.element.data('playing').split(',');
+        var patrons = self.element.data('patrons').split(',');
+        self.set(users, playings, patrons);
+      },
+      _findByUsername(n) {
+        return this.users.filter(function(u) {
+          return isSameUser(n.toLowerCase(), u);
+        })[0];
+      },
+      _makeUser: function(name, playing, patron) {
+        return {
+          'name': name,
+          'playing': !!playing,
+          'patron': !!patron
         }
-      })
-    },
-    repaint: function() {
+      },
+      _uniqueUsers: function(users) {
+        var usersEncountered = [];
+        return users.filter(function(u) {
+          if (usersEncountered.indexOf(u.name) !== -1) {
+            return false;
+          } else {
+            usersEncountered.push(u.name);
+            return true;
+          }
+        })
+      },
+      repaint: function() {
+        this.users = this._uniqueUsers(this.users.filter(function(u) {
+          return u.name !== '';
+        }));
+        this.$nbOnline.text(this.users.length);
+        this.$nobody.toggle(this.users.length === 0);
+        this.$list.html(this.users.sort(function(a, b) {
+          return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+        }).map(this._renderUser).join(""));
+      },
+      set: function(us, playings, patrons) {
+        this.users = us.map(function(user) {
+          return this._makeUser(user, false, false);
+        }.bind(this));
+        for (user in playings) this._setPlaying(playings[user], true);
+        for (user in patrons) this._setPatron(patrons[user], true);
+        this.repaint();
+      },
+      enters: function(userName, playing, patron) {
+        var user = this._makeUser(userName, playing, patron);
+        this.users.push(user);
+        this.repaint();
+      },
+      leaves: function(userName) {
+        this.users = this.users.filter(function(u) {
+          return u.name != userName
+        });
+        this.repaint();
+      },
+      _setPlaying: function(userName, playing) {
+        var user = this._findByUsername(userName);
+        if (user) user.playing = playing;
+      },
+      _setPatron: function(userName, patron) {
+        var user = this._findByUsername(userName);
+        if (user) user.patron = patron;
+      },
+      playing: function(userName) {
+        this._setPlaying(userName, true);
+        this.repaint();
+      },
+      stopped_playing: function(userName) {
+        this._setPlaying(userName, false);
+        this.repaint();
+      },
+      _renderUser: function(user) {
+        var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
+        var userId = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green" href="/@/' + userId + '/tv"></a>' : '';
 
-      this.users = this._uniqueUsers(this.users.filter(function(u) {
-        return u.name !== '';
-      }));
-      this.$nbOnline.text(this.users.length);
-      this.$nobody.toggle(this.users.length === 0);
-      this.$list.html(this.users.sort(function(a, b) {
-        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-      }).map(this._renderUser).join(""));
-      $('body').trigger('lichess.content_loaded');
-    },
-    set: function(us, playings) {
-      var makeUser = this._makeUser;
-
-      this.users = us.map(function(user) {
-        return makeUser(user, false);
-      });
-
-      for (user in playings) {
-        this._setPlaying(playings[user], true);
+        return '<div><a class="user_link ulpt" href="/@/' + userId + '">' + icon + user.name + '</a>' + tvButton + '</div>';
       }
-
-      this.repaint();
-    },
-    enters: function(userName, playing) {
-      var user = this._makeUser(userName, playing);
-
-      this.users.push(user);
-      this.repaint();
-    },
-    leaves: function(userName) {
-      this.users = this.users.filter(function(u) {
-        return u.name != userName
-      });
-      this.repaint();
-    },
-    _setPlaying: function(userName, playing) {
-
-      var isSameUser = function(userId, user) {
-        var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-        return id.toLowerCase() === userId;
-      }
-
-      var user = this.users.filter(function(u) {
-        return isSameUser(userName.toLowerCase(), u);
-      })[0];
-
-      if (user) {
-        user["playing"] = playing;
-      }
-    },
-    playing: function(userName) {
-      this._setPlaying(userName, true);
-      this.repaint();
-    },
-    stopped_playing: function(userName) {
-      this._setPlaying(userName, false);
-      this.repaint();
-    },
-    _renderUser: function(user) {
-      var userId = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-      var tvButton = user.playing ? '<a data-icon="1" class="tv is-green" href="/@/' + userId + '/tv"></a>' : '';
-
-      return '<div><a class="ulpt" href="/@/' + userId + '">' + user.name + '</a>' + tvButton + '</div>';
-    }
-  });
+    };
+  })());
 
   lichess.widget("clock", {
     _create: function() {
