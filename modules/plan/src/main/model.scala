@@ -33,7 +33,7 @@ case class StripePlan(id: String, name: String, amount: Cents) {
 object StripePlan {
   def make(cents: Cents): StripePlan = StripePlan(
     id = s"monthly_${cents.value}",
-    name = s"Monthly ${cents.usd}",
+    name = s"Patron ${cents.usd}",
     amount = cents)
 
   val defaults = List(5, 10, 20, 50).map(Usd.apply).map(_.cents).map(StripePlan.make)
