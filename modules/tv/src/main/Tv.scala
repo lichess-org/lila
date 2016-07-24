@@ -7,7 +7,7 @@ import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 
 final class Tv(actor: ActorRef) {
 
@@ -22,12 +22,28 @@ final class Tv(actor: ActorRef) {
         none
     } flatMap { _ ?? GameRepo.game }
 
+  def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
+    (actor ? TvActor.GetGameIdAndHistory(channel) mapTo
+      manifest[ChannelActor.GameIdAndHistory]) recover {
+        case e: Exception =>
+          logger.warn("Tv.getGame", e)
+          none
+      } flatMap {
+        case ChannelActor.GameIdAndHistory(gameId, historyIds) => for {
+          game <- gameId ?? GameRepo.game
+          games <- GameRepo games historyIds
+          history = games map Pov.first
+        } yield game map (_ -> history)
+      }
+
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[String]]) recover {
       case e: Exception => Nil
     } flatMap GameRepo.games
 
-  def getBest = getGame(Tv.Channel.Best)
+  def getBestGame = getGame(Tv.Channel.Best)
+
+  def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
     actor ? TvActor.GetChampions mapTo manifest[Champions]

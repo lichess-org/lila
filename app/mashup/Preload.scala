@@ -36,7 +36,7 @@ final class Preload(
       posts zip
       tours zip
       simuls zip
-      tv.getBest zip
+      tv.getBestGame zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(true) zip
       tourneyWinners(10) zip

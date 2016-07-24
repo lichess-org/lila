@@ -1,4 +1,4 @@
-@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, pov: Pov, data: play.api.libs.json.JsObject, cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, champions: lila.tv.Tv.Champions, pov: Pov, data: play.api.libs.json.JsObject, cross: Option[lila.game.Crosstable], flip: Boolean, history: List[Pov])(implicit ctx: Context)
 
 @title = @{ s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
@@ -32,6 +32,12 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 <div class="crosstable" style="display:none">
   @cross.map { c =>
   @game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+  }
+</div>
+<div class="game_list playing tv_history">
+  <h2>Previously on @channel.name TV</h2>
+  @history.map { p =>
+  <div>@game.mini(p)</div>
   }
 </div>
 }

@@ -75,3 +75,15 @@
 .tv_stream iframe {
   border: none;
 }
+
+div.game_list.playing.tv_history {
+  width: 512px;
+  margin-top: 5px;
+  text-align: center;
+}
+.tv_history h2 {
+  font-size: 1.3em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-family: 'Roboto';
+}

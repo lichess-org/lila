@@ -30,22 +30,23 @@ object Tv extends LilaController {
   }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
-    OptionFuResult(Env.tv.tv getGame channel) { game =>
-      val flip = getBool("flip")
-      val pov = flip.fold(Pov second game, Pov first game)
-      val onTv = lila.round.OnTv(channel.key, flip)
-      negotiate(
-        html = {
-          Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-            Env.game.crosstableApi(game) zip
-            Env.tv.tv.getChampions map {
-              case ((data, cross), champions) => NoCache {
-                Ok(html.tv.index(channel, champions, pov, data, cross, flip))
+    OptionFuResult(Env.tv.tv getGameAndHistory channel) {
+      case (game, history) =>
+        val flip = getBool("flip")
+        val pov = flip.fold(Pov second game, Pov first game)
+        val onTv = lila.round.OnTv(channel.key, flip)
+        negotiate(
+          html = {
+            Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+              Env.game.crosstableApi(game) zip
+              Env.tv.tv.getChampions map {
+                case ((data, cross), champions) => NoCache {
+                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+                }
               }
-            }
-        },
-        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
-      )
+          },
+          api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
+        )
     }
 
   def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
@@ -116,7 +117,7 @@ object Tv extends LilaController {
   }
 
   def frame = Action.async { req =>
-    Env.tv.tv.getBest map {
+    Env.tv.tv.getBestGame map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,

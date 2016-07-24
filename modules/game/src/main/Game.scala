@@ -480,6 +480,8 @@ case class Game(
 
 object Game {
 
+  type ID = String
+
   val syntheticId = "synthetic"
 
   val analysableVariants: Set[Variant] = Set(

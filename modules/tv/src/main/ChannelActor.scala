@@ -10,23 +10,28 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 
   import ChannelActor._
 
-  implicit private def timeout = makeTimeout(50 millis)
+  implicit def timeout = makeTimeout(50 millis)
 
-  // the game featured on this channel
-  private var oneId = none[String]
+  // games featured on this channel
+  // first entry is the current game
+  var history = List.empty[Game.ID]
+
+  def oneId = history.headOption
 
   // the list of candidates by descending rating order
-  private var manyIds = List.empty[String]
+  var manyIds = List.empty[Game.ID]
 
   def receive = {
 
-    case GetGameId       => sender ! oneId
+    case GetGameId           => sender ! oneId
 
-    case GetGameIds(max) => sender ! manyIds.take(max)
+    case GetGameIdAndHistory => sender ! GameIdAndHistory(oneId, history drop 1)
+
+    case GetGameIds(max)     => sender ! manyIds.take(max)
 
     case SetGame(game) =>
       context.parent ! TvActor.Selected(channel, game, oneId)
-      oneId = game.id.some
+      history = game.id :: history.take(2)
 
     case Select(candidates) => if (candidates.nonEmpty) {
       oneId ?? GameRepo.game foreach {
@@ -88,8 +93,11 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 object ChannelActor {
 
   case object GetGameId
-  case class GetGameIds(max: Int)
-  private case class SetGame(game: Game)
+  case class GetGameIds(max: Int) extends AnyVal
+  private case class SetGame(game: Game) extends AnyVal
 
-  case class Select(candidates: List[Game])
+  case class Select(candidates: List[Game]) extends AnyVal
+
+  case object GetGameIdAndHistory
+  case class GameIdAndHistory(gameId: Option[Game.ID], history: List[Game.ID])
 }
