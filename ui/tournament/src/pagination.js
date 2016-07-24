@@ -9,7 +9,7 @@ function button(text, icon, click, enable) {
       class: 'button is',
       'data-icon': icon,
       disabled: !enable,
-      onclick: click,
+      onmousedown: click,
       title: text
     },
     children: []
@@ -21,7 +21,7 @@ function scrollToMeButton(ctrl, pag) {
   return m('button', {
     class: 'button text' + (ctrl.vm.focusOnMe ? ' active-soft' : ''),
     'data-icon': '7',
-    onclick: ctrl.toggleFocusOnMe
+    onmousedown: ctrl.toggleFocusOnMe
   }, 'Me');
 }
 
