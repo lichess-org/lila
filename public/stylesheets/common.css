@@ -120,6 +120,12 @@ time {
 .user_link.online .line.patron {
   opacity: 0.9;
 }
+.user_link .line::before {
+  content: '';
+}
+.user_link .line.patron::before {
+  content: '';
+}
 
 body.blind_mode .is::before,
 body.blind_mode .is::after,
