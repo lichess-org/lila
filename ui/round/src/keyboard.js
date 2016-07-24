@@ -42,5 +42,6 @@ module.exports = {
       m.redraw();
     }));
     k.bind('f', preventing(ctrl.flip));
+    k.bind('/', preventing(ctrl.focusChat));
   }
 };
