@@ -2,8 +2,32 @@ var m = require('mithril');
 var moderationView = require('./moderation').view;
 var presetView = require('./preset').view;
 
+var delocalizePattern = /(^|[\s\n]|<[A-Za-z]*\/?>)\w{2}\.lichess\.org/gi;
+
+function delocalize(html) {
+  return html.replace(delocalizePattern, '$1lichess.org');
+}
+
+function escapeHtml(html) {
+  return html
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+
+function autoLink(html) {
+  return html.replace(linkPattern, '$1<a target="_blank" rel="nofollow" href="$2">$2</a>');
+};
+
+var deletedEm = '<em class="deleted">&lt;deleted&gt;</em>';
+
 function renderLine(ctrl) {
   return function(line) {
+    if (!line.html) line.html = m.trust(autoLink(escapeHtml(delocalize(line.t))));
     if (line.u === 'lichess') return m('li.system', line.t);
     if (line.c) return m('li', [
       m('span', '[' + line.c + ']'),
@@ -13,8 +37,9 @@ function renderLine(ctrl) {
       'data-username': line.u
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,
-      m.trust($.userLinkLimit(line.u, 14)),
-      line.d ? m('em.deleted', '<deleted>') : line.t
+      m.trust(
+        $.userLinkLimit(line.u, 14) + (line.d ? deletedEm : line.html)
+      )
     ]);
   };
 }

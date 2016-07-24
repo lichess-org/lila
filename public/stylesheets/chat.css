@@ -101,10 +101,13 @@ div.mchat .messages .system {
 div.mchat .messages span,
 div.mchat .messages .user_link {
   font-family: 'Roboto';
-  font-weight: 300;
   padding: 0;
   margin-right: 6px;
   opacity: 0.8;
+}
+div.mchat .messages a:not(.user_link) {
+  font-family: 'Roboto';
+  color: #3893E8;
 }
 div.mchat .presets {
   display: flex;
