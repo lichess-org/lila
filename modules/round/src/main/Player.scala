@@ -56,7 +56,7 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        applyUci(game, uci, blur = false, lag = 0.millis)
+        applyUci(game, uci, blur = false, lag = serverLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               proxy.save(progress) >>-
@@ -71,9 +71,9 @@ private[round] final class Player(
     }
     else fufail(FishnetError("Not AI turn"))
 
-    private val clientLag = 30.milliseconds
-    private val serverLag = 5.milliseconds
-    private val humanLag = clientLag + serverLag
+  private val clientLag = 30.milliseconds
+  private val serverLag = 5.milliseconds
+  private val humanLag = clientLag + serverLag
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
