@@ -12,6 +12,18 @@ var renderReplay = require('./replay');
 var renderUser = require('./user');
 var button = require('./button');
 
+function playerAt(ctrl, position) {
+  return ctrl.vm.flip ^ (position === 'top') ? ctrl.data.opponent : ctrl.data.player;
+}
+
+function topPlayer(ctrl) {
+  return playerAt(ctrl, 'top');
+}
+
+function bottomPlayer(ctrl) {
+  return playerAt(ctrl, 'bottom');
+}
+
 function compact(x) {
   if (Object.prototype.toString.call(x) === '[object Array]') {
     var elems = x.filter(function(n) {
@@ -46,7 +58,6 @@ function spinning(ctrl) {
 }
 
 function renderTableEnd(ctrl) {
-  var d = ctrl.data;
   var buttons = compact(spinning(ctrl) || [
     button.backToTournament(ctrl) || [
       button.answerOpponentRematch(ctrl) ||
@@ -57,17 +68,16 @@ function renderTableEnd(ctrl) {
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderPlayer(ctrl, d.player)
+    renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
 
 function renderTableWatch(ctrl) {
-  var d = ctrl.data;
   var buttons = compact(spinning(ctrl) || button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderPlayer(ctrl, d.player)
+    renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
 
@@ -94,7 +104,7 @@ function renderTablePlay(ctrl) {
       ])
     ),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderPlayer(ctrl, d.player)
+    renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
 
@@ -130,24 +140,25 @@ function tourRank(ctrl, color, position) {
   }, '#' + d.tournament.ranks[color]);
 }
 
-function renderClock(ctrl, color, position) {
-  var time = ctrl.clock.data[color];
-  var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
+function renderClock(ctrl, position) {
+  var player = playerAt(ctrl, position);
+  var time = ctrl.clock.data[player.color];
+  var running = ctrl.isClockRunning() && ctrl.data.game.player === player.color;
+  var isPlayer = ctrl.data.player.color === player.color;
   return [
     m('div', {
-      class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
+      class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
         'outoftime': !time,
         'running': running,
         'emerg': time < ctrl.clock.data.emerg
       })
     }, [
-      clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[color]),
+      clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
-      renderBerserk(ctrl, color, position),
-      ctrl.data.player.color === color ? goBerserk(ctrl) : null
+      renderBerserk(ctrl, player.color, position),
+      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl)
     ]),
-    position === 'bottom' ? button.moretime(ctrl) : null,
-    tourRank(ctrl, color, position)
+    tourRank(ctrl, player.color, position)
   ];
 }
 
@@ -164,11 +175,11 @@ function renderBerserk(ctrl, color, position) {
   });
 }
 
-function anyClock(ctrl, color, position) {
-  if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, color, position);
+function anyClock(ctrl, position) {
+  if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
     return renderCorrespondenceClock(
-      ctrl.correspondenceClock, ctrl.trans, color, position, ctrl.data.game.player
+      ctrl.correspondenceClock, ctrl.trans, playerAt(ctrl, position).color, position, ctrl.data.game.player
     );
   else return whosTurn(ctrl, color);
 }
@@ -176,17 +187,17 @@ function anyClock(ctrl, color, position) {
 module.exports = function(ctrl) {
   var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
   return m('div.table_wrap', [
-    anyClock(ctrl, ctrl.data.opponent.color, 'top'),
+    anyClock(ctrl, 'top'),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
-      renderPlayer(ctrl, ctrl.data.opponent),
+      renderPlayer(ctrl, topPlayer(ctrl)),
       m('div.table_inner',
         ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
     ]),
-    anyClock(ctrl, ctrl.data.player.color, 'bottom')
+    anyClock(ctrl, 'bottom')
   ]);
 }

@@ -157,6 +157,7 @@ module.exports = function(opts) {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.vm.flip)
     });
+    m.redraw();
   }.bind(this);
 
   this.setTitle = partial(title.set, this);
