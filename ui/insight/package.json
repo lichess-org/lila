@@ -29,7 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "mithril": "github:ornicar/mithril.js#v1.0.0",
+    "mithril": "github:ornicar/mithril.js#v1.0.1",
     "numeral": "^1.5.3"
   }
 }
