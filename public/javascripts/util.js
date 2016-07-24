@@ -18,6 +18,7 @@ function withStorage(f) {
     return !!window.localStorage ? f(window.localStorage) : null;
   } catch (e) {}
 }
+lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.storage = {
   get: function(k) {
     return withStorage(function(s) {

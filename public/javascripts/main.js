@@ -1156,14 +1156,16 @@ lichess.notifyApp = (function() {
         })
       },
       repaint: function() {
-        this.users = this._uniqueUsers(this.users.filter(function(u) {
-          return u.name !== '';
-        }));
-        this.$nbOnline.text(this.users.length);
-        this.$nobody.toggle(this.users.length === 0);
-        this.$list.html(this.users.sort(function(a, b) {
-          return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-        }).map(this._renderUser).join(""));
+        lichess.raf(function() {
+          this.users = this._uniqueUsers(this.users.filter(function(u) {
+            return u.name !== '';
+          }));
+          this.$nbOnline.text(this.users.length);
+          this.$nobody.toggle(this.users.length === 0);
+          this.$list.html(this.users.sort(function(a, b) {
+            return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+          }).map(this._renderUser).join(""));
+        }.bind(this));
       },
       set: function(us, playings, patrons) {
         this.users = us.map(function(user) {
