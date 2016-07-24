@@ -46,4 +46,5 @@ module.exports = function(ctrl) {
   }));
   k.bind(['esc'], ctrl.chessground.cancelMove);
   k.bind('f', preventing(ctrl.flip));
+  k.bind('/', preventing(ctrl.focusChat));
 };

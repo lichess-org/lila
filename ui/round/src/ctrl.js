@@ -161,7 +161,7 @@ module.exports = function(opts) {
 
   this.focusChat = function() {
     $('#chat_input_box').focus();
-  }.bind(this)
+  }.bind(this);
 
   this.setTitle = partial(title.set, this);
 
