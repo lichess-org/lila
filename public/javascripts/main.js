@@ -1346,11 +1346,6 @@ lichess.notifyApp = (function() {
       lobby.setTab('real_time');
       window.history.replaceState(null, null, '/');
     };
-    var resizeTimeline = function() {
-      var e = $('#timeline');
-      if (e.length) e.height(561 - e.offset().top);
-    };
-    resizeTimeline();
     lichess.socket = lichess.StrongSocket(
       '/lobby/socket/v1',
       cfg.data.version, {
@@ -1369,7 +1364,6 @@ lichess.notifyApp = (function() {
               url: $("#timeline").data('href'),
               success: function(html) {
                 $('#timeline').html(html);
-                resizeTimeline();
                 $('body').trigger('lichess.content_loaded');
               }
             });
