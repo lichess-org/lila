@@ -44,7 +44,8 @@ module.exports = function(opts) {
     resignConfirm: false,
     autoScroll: null,
     element: opts.element,
-    challengeRematched: false
+    challengeRematched: false,
+    justDropped: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -119,6 +120,7 @@ module.exports = function(opts) {
   this.jump = function(ply) {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;
+    this.vm.justDropped = null;
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
@@ -176,6 +178,7 @@ module.exports = function(opts) {
       ackable: true,
       withLag: !!this.clock
     });
+    this.vm.justDropped = null;
   }.bind(this);
 
   this.sendNewPiece = function(role, key, isPredrop) {
@@ -191,6 +194,11 @@ module.exports = function(opts) {
       ackable: true,
       withLag: !!this.clock
     });
+    this.vm.justDropped = {
+      ply: this.vm.ply,
+      role: role
+    };
+    m.redraw();
   }.bind(this);
 
   var showYourMoveNotification = function() {
@@ -255,7 +263,7 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock) (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
+    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,
