@@ -898,13 +898,13 @@ body.fpmenu #fpmenu {
   float: left;
   width: 400px;
   border-right: 1px solid #cfcfcf;
-  padding: 0 40px 40px 0;
+  padding: 0 40px 20px 0;
 }
 #fpmenu .perf {
   display: inline-block;
   text-align: left;
   width: 49%;
-  margin: 18px 0;
+  margin: 15px 0;
   line-height: 1.2em;
 }
 #fpmenu .perf::before {
@@ -1001,7 +1001,7 @@ body.fpmenu #fpmenu {
 #fpmenu section a {
   color: #d59120;
   display: block;
-  padding: 9px 0;
+  padding: 7px 0;
 }
 #fpmenu section .disabled {
   opacity: 0.5;
@@ -1010,7 +1010,7 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer {
   width: 100%;
-  padding: 23px 0;
+  padding: 15px 0;
   margin-left: -20px;
   text-align: center;
   font-size: 12px;
@@ -1023,7 +1023,7 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer a {
   display: inline-block;
-  padding: 12px 12px;
+  padding: 5px 12px;
   transition: 0.3s;
 }
 #fpmenu .footer a:hover {
@@ -1079,7 +1079,7 @@ body.fpmenu #fpmenu {
 #topmenu section > a {
   color: #888;
   display: block;
-  padding: 9px 12px;
+  padding: 7px 12px;
   text-transform: uppercase;
   text-shadow: 0 1px 1px #fff;
 }
