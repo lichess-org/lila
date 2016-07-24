@@ -1,11 +1,17 @@
 var countDownTimeout;
 
-function doCountDown(seconds) {
-  return function() {
-    $.sound['countDown' + seconds]();
-    if (seconds > 0) countDownTimeout = setTimeout(
-      doCountDown(seconds - 1),
-      1000);
+function doCountDown(targetTime) {
+  return function curCounter() {
+    var timeToStart = targetTime - (new Date().getTime() / 1000);
+
+    // always play the 0 sound before completing.
+    var bestTick = Math.max(0, Math.round(timeToStart));
+    if (bestTick <= 10) $.sound['countDown' + bestTick]();
+
+    if (bestTick > 0) {
+      var timeToNextTick = timeToStart - Math.min(10, bestTick - 1);
+      countDownTimeout = setTimeout(curCounter, timeToNextTick * 1000);
+    }
   };
 }
 
@@ -31,6 +37,7 @@ module.exports = {
     if (countDownTimeout) return;
     if (data.secondsToStart > 60 * 60 * 24) return;
     countDownTimeout = setTimeout(
-      doCountDown(Math.min(data.secondsToStart, 10)), (data.secondsToStart - 10) * 1000);
+      doCountDown(new Date().getTime() / 1000 + data.secondsToStart),
+      1000);  // wait 1s before starting countdown.
   }
 };
