@@ -91,7 +91,7 @@ object Plan extends LilaController {
       err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
       data => Env.plan.api.checkout(ctx.me, data) inject Redirect {
         if (ctx.isAuth) {
-          if (data.isMonthly) routes.Plan.index()
+          if (data.freq.renew) routes.Plan.index()
           else routes.Plan.thanks()
         }
         else routes.Plan.thanks()

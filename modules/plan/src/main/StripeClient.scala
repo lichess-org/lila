@@ -58,16 +58,16 @@ private final class StripeClient(config: StripeClient.Config) {
   def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
     getList[StripeInvoice]("invoices", 'customer -> customerId.value)
 
-  def getPlan(cents: Cents): Fu[Option[StripePlan]] =
-    getOne[StripePlan](s"plans/${StripePlan.make(cents).id}")
+  def getPlan(cents: Cents, freq: Freq): Fu[Option[StripePlan]] =
+    getOne[StripePlan](s"plans/${StripePlan.make(cents, freq).id}")
 
-  def makePlan(cents: Cents): Fu[StripePlan] =
+  def makePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     postOne[StripePlan]("plans",
-      'id -> StripePlan.make(cents).id,
+      'id -> StripePlan.make(cents, freq).id,
       'amount -> cents.value,
       'currency -> "usd",
       'interval -> "month",
-      'name -> StripePlan.make(cents).name)
+      'name -> StripePlan.make(cents, freq).name)
 
   def chargeAnonCard(data: Checkout): Funit =
     postOne[StripePlan]("charges",

@@ -8,6 +8,13 @@ case class CustomerId(value: String) extends AnyVal
 case class ChargeId(value: String) extends AnyVal
 
 case class Source(value: String) extends AnyVal
+
+sealed abstract class Freq(val renew: Boolean)
+object Freq {
+  case object Monthly extends Freq(renew = true)
+  case object Onetime extends Freq(renew = true)
+}
+
 case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
   def cents = Cents((value * 100).toInt)
@@ -31,12 +38,18 @@ case class StripePlan(id: String, name: String, amount: Cents) {
   def usd = cents.usd
 }
 object StripePlan {
-  def make(cents: Cents): StripePlan = StripePlan(
-    id = s"monthly_${cents.value}",
-    name = s"Patron ${cents.usd}",
-    amount = cents)
+  def make(cents: Cents, freq: Freq): StripePlan = freq match {
+    case Freq.Monthly => StripePlan(
+      id = s"monthly_${cents.value}",
+      name = s"Monthly ${cents.usd}",
+      amount = cents)
+    case Freq.Onetime => StripePlan(
+      id = s"onetime${cents.value}",
+      name = s"One-time ${cents.usd}",
+      amount = cents)
+  }
 
-  val defaults = List(5, 10, 20, 50).map(Usd.apply).map(_.cents).map(StripePlan.make)
+  val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }
 
 case class StripeSubscription(

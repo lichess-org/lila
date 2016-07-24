@@ -117,16 +117,16 @@ description = "Free chess for everyone, forever!").some) {
           </div>
           </group>
           <group class="radio buttons amount">
-          @lila.plan.StripePlan.defaults.map { p =>
-          @defining(s"plan_${p.id}") { id =>
+          @lila.plan.StripePlan.defaultAmounts.map { cents =>
+          @defining(s"plan_${cents.value}") { id =>
           <div>
             <input type="radio" name="plan"
-            id="plan_@p.id"
-            @if(p.usd.value == 10) { checked }
-            value="@p.id"
-            data-usd="@p.usd"
-            data-amount="@p.cents.value" />
-            <label for="plan_@p.id">@p.usd</label>
+            id="plan_@cents.value"
+            @if(cents.usd.value == 10) { checked }
+            value="@cents.value"
+            data-usd="@cents.usd"
+            data-amount="@cents.value" />
+            <label for="plan_@cents.value">@cents.usd</label>
           </div>
           }
           }

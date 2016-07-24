@@ -4,26 +4,35 @@ import play.api.data._
 import play.api.data.Forms._
 
 case class Checkout(
-    token: String,
+    token: Source,
     email: Option[String],
-    amount: Int,
-    freq: String) {
+    amount: Cents,
+    freq: Freq) {
 
-  def source = Source(token)
+  def source = token
 
-  def cents = Cents(amount)
+  def cents = amount
 
-  def isMonthly = freq == "monthly"
+  def toFormData = Some(
+    token.value, email, amount.value, freq.toString.toLowerCase)
 }
 
 object Checkout {
 
-  val form = Form(mapping(
+  def make(
+    token: String,
+    email: Option[String],
+    amount: Int,
+    freq: String) = Checkout(
+    Source(token), email, Cents(amount),
+    if (freq == "monthly") Freq.Monthly else Freq.Onetime)
+
+  val form = Form[Checkout](mapping(
     "token" -> nonEmptyText,
     "email" -> optional(email),
     "amount" -> number(min = 100, max = 100 * 100000),
     "freq" -> nonEmptyText
-  )(Checkout.apply)(Checkout.unapply))
+  )(Checkout.make)(_.toFormData))
 }
 
 case class Switch(usd: BigDecimal) {

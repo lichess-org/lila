@@ -23,9 +23,9 @@ final class PlanApi(
   import ChargeHandlers._
 
   def checkout(userOption: Option[User], data: Checkout): Funit =
-    getOrMakePlan(data.cents) flatMap { plan =>
-      userOption.fold(setAnonPlan(plan, data, renew = data.isMonthly)) { user =>
-        setUserPlan(user, plan, data, renew = data.isMonthly)
+    getOrMakePlan(data.cents, data.freq) flatMap { plan =>
+      userOption.fold(setAnonPlan(plan, data)) { user =>
+        setUserPlan(user, plan, data)
       }
     } void
 
@@ -37,7 +37,7 @@ final class PlanApi(
           case None                                 => fufail(s"Can't switch non-existent subscription of ${user.id}")
           case Some(sub) if sub.plan.cents == cents => fuccess(sub)
           case Some(sub) =>
-            getOrMakePlan(cents) flatMap { plan =>
+            getOrMakePlan(cents, Freq.Monthly) flatMap { plan =>
               stripeClient.updateSubscription(sub, plan, none)
             }
         }
@@ -256,29 +256,29 @@ final class PlanApi(
         }
       }
 
-  private def getOrMakePlan(cents: Cents): Fu[StripePlan] =
-    stripeClient.getPlan(cents) getOrElse stripeClient.makePlan(cents)
+  private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
+    stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
 
-  private def setAnonPlan(plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
+  private def setAnonPlan(plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
     stripeClient.createAnonCustomer(plan, data) map { customer =>
-      logger.info(s"Subed anon $customer to ${plan} renew=$renew")
+      logger.info(s"Subed anon $customer to ${plan} freq=${data.freq}")
       customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
     } flatMap { subscription =>
-      if (renew) fuccess(subscription)
+      if (data.freq.renew) fuccess(subscription)
       else stripeClient dontRenewSubscription subscription
     }
 
-  private def setUserPlan(user: User, plan: StripePlan, data: Checkout, renew: Boolean): Fu[StripeSubscription] =
+  private def setUserPlan(user: User, plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
       case None => createCustomer(user, data, plan) map { customer =>
         customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
       }
       case Some(customer) => setCustomerPlan(customer, plan, data.source) flatMap { sub =>
-        saveStripePatron(user, customer.id, data.isMonthly) inject sub
+        saveStripePatron(user, customer.id, data.freq) inject sub
       }
     } flatMap { subscription =>
-      logger.info(s"Subed user ${user.username} $subscription renew=$renew")
-      if (renew) fuccess(subscription)
+      logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
+      if (data.freq.renew) fuccess(subscription)
       else stripeClient dontRenewSubscription subscription
     }
 
@@ -287,21 +287,21 @@ final class PlanApi(
 
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
-      saveStripePatron(user, customer.id, data.isMonthly) >>
+      saveStripePatron(user, customer.id, data.freq) >>
         setDbUserPlan(user, lila.user.Plan.start) >>
         notifier.onStart(user) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
-  private def saveStripePatron(user: User, customerId: CustomerId, renew: Boolean): Funit = userPatron(user) flatMap {
+  private def saveStripePatron(user: User, customerId: CustomerId, freq: Freq): Funit = userPatron(user) flatMap {
     case None => patronColl.insert(Patron(
       _id = Patron.UserId(user.id),
       stripe = Patron.Stripe(customerId).some,
       lastLevelUp = DateTime.now
-    ).expireInOneMonth(!renew))
+    ).expireInOneMonth(!freq.renew))
     case Some(patron) => patronColl.update(
       $id(patron.id),
-      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(!renew))
+      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(!freq.renew))
   } void
 
   private def setCustomerPlan(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
