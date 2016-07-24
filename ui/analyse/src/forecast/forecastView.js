@@ -41,11 +41,10 @@ module.exports = function(ctrl) {
             // #TODO #FIXME
             // needs the node ID to insert in the tree
             // but it's not stored by forecast
-            return;
-            var gamePath = treePath.fromNodeList(ctrl.vm.nodeList.slice(0, ctrl.data.game.turns + 1));
-            ctrl.userJump(ctrl.tree.addNodes(
-              nodes,
-              gamePath));
+            // var gamePath = treePath.fromNodeList(ctrl.vm.nodeList.slice(0, ctrl.data.game.turns + 1));
+            // ctrl.userJump(ctrl.tree.addNodes(
+            //   nodes,
+            //   gamePath));
           }
         }, [
           m('a', {
