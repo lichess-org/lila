@@ -29,8 +29,6 @@ $(function() {
             return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
           }
         }
-      }).bind('typeahead:render', function() {
-        $('body').trigger('lichess.content_loaded');
       }).bind('typeahead:select', function(ev, sel) {
         go(sel);
       }).keypress(function(e) {

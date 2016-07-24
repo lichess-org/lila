@@ -33,17 +33,8 @@ module.exports = function(env) {
 
   var doFlushHooks = function() {
     this.vm.stepHooks = this.data.hooks.slice(0);
-    if (this.vm.tab === 'real_time') {
-      m.redraw();
-      updateUserPowertipsSoon();
-    }
+    if (this.vm.tab === 'real_time') m.redraw();
   }.bind(this);
-
-  var updateUserPowertipsSoon = function() {
-    setTimeout(function() {
-      lichess.userPowertip($('.ulpt', env.element), 'w');
-    }, 200);
-  };
 
   this.flushHooks = function(now) {
     clearTimeout(flushHooksTimeout);
@@ -66,7 +57,6 @@ module.exports = function(env) {
     if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
     this.vm.tab = store.tab.set(tab);
     this.vm.filterOpen = false;
-    updateUserPowertipsSoon();
   }.bind(this);
 
   this.setMode = function(mode) {

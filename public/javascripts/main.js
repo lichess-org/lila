@@ -419,12 +419,15 @@ lichess.notifyApp = (function() {
         }, 10);
       });
 
-      lichess.userPowertip = function($els, placement) {
-        $els.removeClass('ulpt').powerTip({
+      var userPowertip = function($el) {
+        var pos = 'w';
+        if (document.getElementById('site_header').contains($el[0])) pos = 'e';
+        if (document.getElementById('friend_box').contains($el[0])) pos = 'nw';
+        $el.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
-          placement: placement,
+          placement: pos,
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
@@ -439,13 +442,18 @@ lichess.notifyApp = (function() {
           }
         }).data('powertip', lichess.spinnerHtml);
       };
+      $('body').on('mouseover', '.ulpt', function(e) {
+        console.log(this);
+        userPowertip($(this));
+        $.powerTip.show(this, e);
+      });
 
       function gamePowertip($els, placement) {
         $els.removeClass('glpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
-          placement: placement,
+          placement: placement || 'w',
           smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
@@ -464,9 +472,6 @@ lichess.notifyApp = (function() {
       }
 
       function updatePowertips() {
-        lichess.userPowertip($('#site_header .ulpt'), 'e');
-        lichess.userPowertip($('#friend_box .ulpt'), 'nw');
-        lichess.userPowertip($('.ulpt'), 'w');
         gamePowertip($('.glpt'), 'w');
       }
       setTimeout(updatePowertips, 600);
@@ -1130,7 +1135,7 @@ lichess.notifyApp = (function() {
     _makeUser: function(name, playing) {
       return {
         'name': name,
-        'playing' : playing || false
+        'playing': playing || false
       }
     },
     _uniqueUsers: function(users) {
