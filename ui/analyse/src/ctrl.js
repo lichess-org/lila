@@ -18,6 +18,7 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
+var crazyView = require('./crazy/crazyView');
 var studyCtrl = require('./study/studyCtrl');
 var m = require('mithril');
 
@@ -61,7 +62,9 @@ module.exports = function(opts) {
     autoScrollRequested: false,
     element: opts.element,
     redirecting: false,
-    contextMenuPath: null
+    contextMenuPath: null,
+    justPlayed: null,
+    justDropped: null
   };
 
   this.setPath = function(path) {
@@ -174,6 +177,7 @@ module.exports = function(opts) {
       startCeval();
     }
     this.vm.justPlayed = null;
+    this.vm.justDropped = null;
     this.explorer.setNode();
     updateHref();
     this.autoScroll();
@@ -264,6 +268,10 @@ module.exports = function(opts) {
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
+      this.vm.justDropped = {
+        ply: this.vm.node.ply,
+        role: piece.role
+      };
       sound.move();
       var drop = {
         role: piece.role,
@@ -274,11 +282,13 @@ module.exports = function(opts) {
       };
       this.socket.sendAnaDrop(drop);
       preparePremoving();
+      m.redraw();
     } else this.jump(this.vm.path);
   }.bind(this);
 
   var userMove = function(orig, dest, capture) {
     this.vm.justPlayed = orig;
+    this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
   }.bind(this);
