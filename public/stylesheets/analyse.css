@@ -94,7 +94,7 @@ div.fen_pgn input.fen {
   width: 450px;
 }
 div.game_control {
-  flex: 0 0 42px;
+  flex: 0 0 36px;
   width: 244px;
   font-size: 1.3em;
   display: flex;
@@ -105,7 +105,7 @@ div.game_control button {
   border: none;
   padding: 0 12px;
   outline: none;
-  line-height: 42px;
+  line-height: 36px;
 }
 div.game_control button:hover {
   background: #3893E8;
@@ -126,7 +126,6 @@ div.game_control .jumps button:first-child,
 div.game_control .jumps button:last-child {
   font-size: 0.7em;
   padding: 0 5px;
-  line-height: 42px;
 }
 div.game_control .jumps button:nth-child(2) {
   padding: 0 10px 0 14px;
@@ -244,7 +243,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   position: relative;
   flex: 3 1 0px;
   border: 1px solid #ccc;
-  margin-top: 10px;
+  margin-top: 5px;
   overflow: scroll;
   overflow-x: hidden;
   white-space: nowrap;
