@@ -438,7 +438,6 @@ lichess.notifyApp = (function() {
         }).data('powertip', lichess.spinnerHtml);
       };
       $('body').on('mouseover', '.ulpt', function(e) {
-        console.log(this);
         userPowertip($(this));
         $.powerTip.show(this, e);
       });
