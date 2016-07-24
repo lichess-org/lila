@@ -22,7 +22,7 @@ private[round] final class Player(
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p@HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
-        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
+        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag + humanLag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               p.trace.segment("save", "db")(proxy save progress) >>-
@@ -70,6 +70,10 @@ private[round] final class Player(
       else requestFishnet(game) >> fufail(FishnetError("Invalid AI move current FEN"))
     }
     else fufail(FishnetError("Not AI turn"))
+
+    private val clientLag = 30.milliseconds
+    private val serverLag = 5.milliseconds
+    private val humanLag = clientLag + serverLag
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
