@@ -177,7 +177,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
       <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>
       <div class="content_wrap">
         <div class="content list"></div>
-        <div class="nobody">
+        <div class="nobody@if(ctx.onlineFriends.users.nonEmpty){ none}">
           <span>@trans.noFriendsOnline()</span>
           <a class="find button" href="@routes.User.opponents(me.username)">
             <span class="is3 text" data-icon="h">@trans.findFriends()</span>

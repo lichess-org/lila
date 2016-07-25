@@ -526,24 +526,6 @@ body.fpmenu #top {
   margin-right: 5px;
   font-size: 0.9em;
 }
-#friend_box .nobody {
-  text-align: center;
-  display: none;
-  padding: 3px 5px;
-  height: 100%;
-}
-#friend_box .nobody span {
-  display: block;
-  margin: 5px;
-}
-#friend_box a.find {
-  display: none;
-  margin: 30px 7px 0 7px;
-  font-style: normal;
-}
-#friend_box div.nobody:hover a.find {
-  display: block;
-}
 .country > img {
   vertical-align: middle;
 }
@@ -1493,7 +1475,7 @@ body.fpmenu #friend_box {
 }
 #friend_box .nobody {
   text-align: center;
-  display: none;
+  height: 100%;
   padding: 3px 5px;
 }
 #friend_box .nobody span {
