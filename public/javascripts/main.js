@@ -1702,9 +1702,7 @@ lichess.notifyApp = (function() {
       });
     }
 
-    $startButtons.find('a').not('.disabled').click(function() {
-      $(this).addClass('active').siblings().removeClass('active');
-      $('.lichess_overboard').remove();
+    $startButtons.find('a').not('.disabled').on('mousedown', function() {
       $.ajax({
         url: $(this).attr('href'),
         success: function(html) {
@@ -1717,6 +1715,8 @@ lichess.notifyApp = (function() {
           lichess.reload();
         }
       });
+      $(this).addClass('active').siblings().removeClass('active');
+      $('.lichess_overboard').remove();
       return false;
     });
 
