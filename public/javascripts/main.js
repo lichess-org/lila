@@ -428,7 +428,7 @@ lichess.notifyApp = (function() {
         }).on({
           powerTipPreRender: function() {
             $.ajax({
-              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+              url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#powerTip').html(html);
                 $('body').trigger('lichess.content_loaded');
@@ -455,7 +455,7 @@ lichess.notifyApp = (function() {
         }).on({
           powerTipPreRender: function() {
             $.ajax({
-              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+              url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#miniGame').html(html);
                 $('body').trigger('lichess.content_loaded');
@@ -1206,10 +1206,11 @@ lichess.notifyApp = (function() {
       },
       _renderUser: function(user) {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
-        var userId = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
-        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green" href="/@/' + userId + '/tv"></a>' : '';
+        var name = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        var url = '/@/' + name;
+        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
 
-        return '<div><a class="user_link ulpt" href="/@/' + userId + '">' + icon + user.name + '</a>' + tvButton + '</div>';
+        return '<div><a class="user_link ulpt" href="' + url + '">' + icon + user.name + '</a>' + tvButton + '</div>';
       }
     };
   })());
