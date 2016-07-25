@@ -93,7 +93,7 @@ module.exports = {
             if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
               ctrl.moderation.open($(e.target).parent().data('username'));
             });
-            if (ctrl.data.lines > 5) {
+            if (ctrl.data.lines.length > 5) {
               var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
               el.scrollTop = 999999;
               if (autoScroll) setTimeout(function() {

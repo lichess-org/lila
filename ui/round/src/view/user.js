@@ -36,8 +36,7 @@ module.exports = function(ctrl, player, klass) {
       title: player.provisional ? 'Provisional rating' : null
     }, [
       m('i', {
-        class: 'line',
-        'data-icon': player.user.patron ? '' : ''
+        class: 'line' + (player.user.patron ? ' patron' : '')
       }),
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
       rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
