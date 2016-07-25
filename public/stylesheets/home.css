@@ -348,8 +348,11 @@ body.dark #hooks_wrap {
 }
 /*********** MISC *********/
 
-#site_header {
+#site_header .board_left {
   position: relative;
+  height: 515px;
+  display: flex;
+  flex-flow: column nowrap;
 }
 #featured_game {
   position: absolute;
@@ -645,9 +648,6 @@ div.game_config .color_submits button.random i {
 #nb_games_in_play span {
   font-weight: bold;
 }
-#site_header #streams_on_air {
-  margin-top: 15px;
-}
 #streams_on_air a.stream {
   display: block;
   margin: 5px 0 5px -30px;
@@ -734,7 +734,6 @@ div.game_config .color_submits button.random i {
   margin-left: -30px;
   width: 230px;
   font-size: 0.9em;
-  height: 411px;
   overflow: hidden;
 }
 #timeline:hover {
@@ -773,7 +772,7 @@ div.game_config .color_submits button.random i {
   text-align: right;
 }
 #timeline a.more {
-  margin-top: 5px;
+  margin: 5px;
   font-weight: normal;
   display: block;
 }

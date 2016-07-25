@@ -153,15 +153,17 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         <div id="notifications"></div>
-        <h1>
-          <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
-        </h1>
-        @baseline
-        @menu.map { side =>
-        <div class="side_menu">@side</div>
-        }
-        @side
-        @chat
+        <div class="board_left">
+          <h1>
+            <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="@trans.kidMode()" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
+          </h1>
+          @baseline
+          @menu.map { side =>
+          <div class="side_menu">@side</div>
+          }
+          @side
+          @chat
+        </div>
         @underchat.map { g =>
         <div class="under_chat">@g</div>
         }
