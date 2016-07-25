@@ -149,6 +149,7 @@ object Env {
   def explorer = lila.explorer.Env.current
   def fishnet = lila.fishnet.Env.current
   def study = lila.study.Env.current
+  def studySearch = lila.studySearch.Env.current
   def learn = lila.learn.Env.current
   def plan = lila.plan.Env.current
 }

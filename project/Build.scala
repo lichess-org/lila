@@ -60,7 +60,7 @@ object ApplicationBuild extends Build {
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
     history, worldMap, opening, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
-    study, fishnet, explorer, learn, plan)
+    study, studySearch, fishnet, explorer, learn, plan)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -237,6 +237,10 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM)
   )
 
+  lazy val studySearch = project("studySearch", Seq(common, hub, study, search)).settings(
+    libraryDependencies ++= provided(play.api, RM)
+  )
+
   lazy val learn = project("learn", Seq(common, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM)
   )
@@ -266,28 +270,23 @@ object ApplicationBuild extends Build {
   )
 
   lazy val message = project("message", Seq(common, db, user, hub, relation, security, notifyModule)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, spray.caching)
+    libraryDependencies ++= provided(play.api, RM, spray.caching)
   )
 
   lazy val forum = project("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, spray.caching)
+    libraryDependencies ++= provided(play.api, RM, spray.caching)
   )
 
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM)
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM)
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM)
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(

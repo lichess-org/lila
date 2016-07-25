@@ -7,7 +7,8 @@ import lila.user.User
 
 final class StudyPager(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo) {
+    chapterRepo: ChapterRepo,
+    maxPerPage: lila.common.MaxPerPage) {
 
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
@@ -61,7 +62,7 @@ final class StudyPager(
         new CachedAdapter(adapter, nb)
       },
       currentPage = page,
-      maxPerPage = 14)
+      maxPerPage = maxPerPage.value)
   }
 
   private def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =

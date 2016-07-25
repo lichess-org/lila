@@ -30,6 +30,7 @@ final class Env(
     val SequencerTimeout = config duration "sequencer.timeout"
     val NetDomain = config getString "net.domain"
     val NetBaseUrl = config getString "net.base_url"
+    val MaxPerPage = config getInt "paginator.max_per_page"
   }
   import settings._
 
@@ -89,7 +90,8 @@ final class Env(
 
   lazy val pager = new StudyPager(
     studyRepo = studyRepo,
-    chapterRepo = chapterRepo)
+    chapterRepo = chapterRepo,
+    maxPerPage = lila.common.MaxPerPage(MaxPerPage))
 
   lazy val pgnDump = new PgnDump(
     chapterRepo = chapterRepo,

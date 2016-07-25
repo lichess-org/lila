@@ -19,6 +19,10 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def byId(id: Study.ID) = coll.find($id(id), projection).uno[Study]
 
+  def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Study](ids)(_.id)
+
+  def cursor(selector: Bdoc) = coll.find(selector).cursor[Study]()
+
   def nameById(id: Study.ID) = coll.primitiveOne[String]($id(id), "name")
 
   def exists(id: Study.ID) = coll.exists($id(id))
