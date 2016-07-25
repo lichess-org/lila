@@ -50,6 +50,7 @@ div.mchat .chat_tabs:not(.nb_1) .tab.active {
   border-bottom-color: transparent!important;
 }
 div.mchat .content {
+  flex: 1 1 auto;
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
