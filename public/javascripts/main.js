@@ -1932,8 +1932,10 @@ lichess.notifyApp = (function() {
     else {
       var stored = lichess.storage.get(storageKey);
       if (stored && $menu.children('.' + stored).length) setPanel(stored);
-      else if ($menu.children('.crosstable').length) $menu.children('.crosstable').click();
-      else $menu.children(':first').click();
+      else {
+        var $ct = $menu.children('.crosstable');
+        ($ct.length ? $ct : $menu.children(':first')).trigger('mousedown');
+      }
 
       $panels.find('form.future_game_analysis').submit(function() {
         if ($(this).hasClass('must_login')) {
