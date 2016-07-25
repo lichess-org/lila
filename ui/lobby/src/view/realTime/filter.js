@@ -63,7 +63,7 @@ module.exports = {
   toggle: function(ctrl, nbFiltered) {
     return m('span', {
       class: 'filter_toggle' + (ctrl.vm.filterOpen ? ' active' : ''),
-      onclick: util.partial(ctrl.toggleFilter)
+      onmousedown: util.partial(ctrl.toggleFilter)
     }, [
       ctrl.vm.filterOpen ? m('span[data-icon=L]') : m('span', {
         class: 'hint--bottom-left',

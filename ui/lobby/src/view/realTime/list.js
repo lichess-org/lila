@@ -44,7 +44,7 @@ module.exports = {
     return m('span', {
       'data-hint': ctrl.trans('graph'),
       class: 'mode_toggle hint--bottom',
-      onclick: util.partial(ctrl.setMode, 'chart')
+      onmousedown: util.partial(ctrl.setMode, 'chart')
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {

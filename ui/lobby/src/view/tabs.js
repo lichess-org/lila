@@ -3,7 +3,7 @@ var util = require('chessground').util;
 
 function tab(ctrl, key, active, content) {
   var attrs = {
-    onclick: util.partial(ctrl.setTab, key)
+    onmousedown: util.partial(ctrl.setTab, key)
   }
   if (key === active) attrs.class = 'active';
   return m('a', attrs, content);

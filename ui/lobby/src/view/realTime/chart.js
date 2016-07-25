@@ -129,7 +129,7 @@ module.exports = {
     return m('span', {
       'data-hint': ctrl.trans('list'),
       class: 'mode_toggle hint--bottom',
-      onclick: util.partial(ctrl.setMode, 'list')
+      onmousedown: util.partial(ctrl.setMode, 'list')
     }, m('span.chart[data-icon=?]'));
   },
   render: function(ctrl, hooks) {
