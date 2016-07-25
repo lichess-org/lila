@@ -1463,6 +1463,11 @@ body.fpmenu #friend_box {
   display: block;
   transition: background 0.13s;
 }
+#friend_box .content a.user_link {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #friend_box .content i.line {
   opacity: 0.6;
 }
