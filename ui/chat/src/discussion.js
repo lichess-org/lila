@@ -19,8 +19,14 @@ function escapeHtml(html) {
 
 var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
+var linkReplace = function(match, before, url) {
+  var fullUrl = url.indexOf('http') === 0 ? url : 'https://' + url;
+  var minUrl = url.replace(/^(?:https:\/\/)?(.+)$/, '$1');
+  return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
+};
+
 function autoLink(html) {
-  return html.replace(linkPattern, '$1<a target="_blank" rel="nofollow" href="$2">$2</a>');
+  return html.replace(linkPattern, linkReplace);
 };
 
 var deletedEm = '<em class="deleted">&lt;deleted&gt;</em>';
@@ -28,7 +34,7 @@ var deletedEm = '<em class="deleted">&lt;deleted&gt;</em>';
 function renderLine(ctrl) {
   return function(line) {
     if (!line.html) line.html = m.trust(autoLink(escapeHtml(delocalize(line.t))));
-    if (line.u === 'lichess') return m('li.system', line.t);
+    if (line.u === 'lichess') return m('li.system', line.html);
     if (line.c) return m('li', [
       m('span', '[' + line.c + ']'),
       line.t
