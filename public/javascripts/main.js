@@ -1725,7 +1725,7 @@ lichess.notifyApp = (function() {
         .find('a.config_' + location.hash.replace('#', ''))
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
-        }).click();
+        }).trigger('mousedown');
 
       if (location.hash === '#hook') {
         if (/time=realTime/.test(location.search))
