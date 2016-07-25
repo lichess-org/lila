@@ -30,7 +30,10 @@ moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
 chessground = false,
 atom = atom.some) {
-<div class="round cg-512">@miniBoardContent</div>
+<div class="round cg-512">
+  @miniBoardContent
+  <div class="underboard"><div class="center"></div></div>
+</div>
 @cross.map { c =>
 <div class="crosstable" style="display:none">
   @views.html.game.crosstable(c, pov.gameId.some)

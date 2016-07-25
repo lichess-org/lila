@@ -993,11 +993,14 @@ div.under_chat .watchtv {
   margin-top: -24px;
 }
 div.under_chat .watchers {
-  margin-top: 25px;
+  margin-top: 10px;
   opacity: 0.65;
   transition: 0.13s;
-  height: 10em;
+  height: 9em;
   overflow: hidden;
+}
+div.under_chat .watchers.hidden {
+  visibility: hidden;
 }
 div.under_chat .watchers:hover {
   opacity: 1;
@@ -1055,9 +1058,6 @@ div.underboard .center {
   text-align: center;
   padding-top: 15px;
   width: 512px;
-}
-div.underboard .center .crosstable_placeholder {
-  /* prevent crosstable FOUC */
   min-height: 81px;
 }
 div.underboard .blurs,

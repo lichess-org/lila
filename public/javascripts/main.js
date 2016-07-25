@@ -1096,7 +1096,7 @@ lichess.notifyApp = (function() {
     set: function(data) {
       var self = this;
       if (!data) {
-        self.element.hide();
+        self.element.addClass('hidden');
         return;
       }
       if (self.number.length) self.number.text(data.nb);
@@ -1107,7 +1107,7 @@ lichess.notifyApp = (function() {
         self.list.html(tags.join(', '));
       } else if (!self.number.length) self.list.html(data.nb + ' players in the chat');
 
-      self.element.show();
+      self.element.removeClass('hidden');
     }
   });
 

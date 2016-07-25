@@ -35,18 +35,14 @@ chessground = false,
 playing = true,
 atom = atom.some) {
 <div class="round cg-512">
-  <div class="top">@miniBoardContent</div>
-  <div class="underboard">
-    <div class="center">
-      <div class="crosstable_placeholder"></div>
-    </div>
-  </div>
+  @miniBoardContent
+  <div class="underboard"><div class="center"></div></div>
 </div>
+@cross.map { c =>
 <div class="crosstable" style="display:none">
-  @cross.map { c =>
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
-  }
 </div>
+}
 @if(playing.nonEmpty) {
 <div id="now_playing" class="clearfix other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
   @others(playing)
