@@ -13,13 +13,6 @@ var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
 var notifView = require('./notif').view;
 
-function contextAction(icon, text, handler) {
-  return m('a.action', {
-    'data-icon': icon,
-    onclick: handler
-  }, text);
-}
-
 function buttons(root) {
   var ctrl = root.study;
   var canContribute = ctrl.members.canContribute();
@@ -147,7 +140,7 @@ module.exports = {
     var makeTab = function(key, name) {
       return m('a', {
         class: key + (activeTab === key ? ' active' : ''),
-        onclick: partial(ctrl.vm.tab, key),
+        onmousedown: partial(ctrl.vm.tab, key),
       }, name);
     };
 
