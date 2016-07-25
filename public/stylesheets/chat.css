@@ -7,6 +7,7 @@ body.kid div.mchat {
   display: none;
 }
 div.mchat .chat_tabs {
+  flex: 0 0 auto;
   display: flex;
 }
 div.mchat .chat_tabs .tab {
@@ -51,7 +52,7 @@ div.mchat .chat_tabs:not(.nb_1) .tab.active {
 div.mchat .content {
   display: flex;
   flex-flow: column nowrap;
-  height: 100%;
+  overflow: hidden;
 }
 div.mchat .note textarea {
   height: 100%;
@@ -68,8 +69,7 @@ div.mchat .lichess_say {
   border: 0;
   border-top: 1px solid #ccc;
   padding: 3px 20px 3px 4px;
-  width: 100%;
-  box-sizing: border-box;
+  flex: 0 0 auto;
 }
 div.mchat .messages {
   display: block;
