@@ -21,7 +21,14 @@ chapterRepo: ChapterRepo) extends SearchReadApi[Study, Query] {
   def store(study: Study) = client.store(Id(study.id), toDoc(study))
 
   private def toDoc(study: Study) = Json.obj(
-    Fields.name -> study.name)
+    Fields.name -> study.name,
+    Fields.owner -> study.ownerId,
+    Fields.members -> study.members.ids,
+    // Fields.chapters -> study
+    Fields.createdAt -> study.createdAt)
+    // Fields.updatedAt -> study.updatedAt,
+    // Fields.rank -> study.rank,
+    // Fields.like -> study.like)
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
