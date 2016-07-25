@@ -44,7 +44,7 @@ object StripePlan {
       name = s"Monthly ${cents.usd}",
       amount = cents)
     case Freq.Onetime => StripePlan(
-      id = s"onetime${cents.value}",
+      id = s"onetime_${cents.value}",
       name = s"One-time ${cents.usd}",
       amount = cents)
   }
