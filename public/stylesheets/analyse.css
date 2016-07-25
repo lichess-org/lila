@@ -581,6 +581,9 @@ body.dark .explorer_box .black {
 .tview2 move.parent {
   color: #3893e8!important;
 }
+.tview2 move.current {
+  border: 1px solid #d85000;
+}
 .tview2 move.active {
   color: #d85000;
 }
