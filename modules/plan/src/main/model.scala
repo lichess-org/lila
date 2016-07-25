@@ -12,7 +12,7 @@ case class Source(value: String) extends AnyVal
 sealed abstract class Freq(val renew: Boolean)
 object Freq {
   case object Monthly extends Freq(renew = true)
-  case object Onetime extends Freq(renew = true)
+  case object Onetime extends Freq(renew = false)
 }
 
 case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
