@@ -93,11 +93,13 @@ module.exports = {
             if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
               ctrl.moderation.open($(e.target).parent().data('username'));
             });
-            var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
-            el.scrollTop = 999999;
-            if (autoScroll) setTimeout(function() {
+            if (ctrl.data.lines > 5) {
+              var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
               el.scrollTop = 999999;
-            }, 500);
+              if (autoScroll) setTimeout(function() {
+                el.scrollTop = 999999;
+              }, 500);
+            }
           }
         },
         selectLines(ctrl).map(renderLine(ctrl))
