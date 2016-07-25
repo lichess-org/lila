@@ -14,7 +14,8 @@ module.exports = {
     return m.request({
       method: 'GET',
       url: uncache('/lobby/seeks'),
-      config: xhrConfig
+      config: xhrConfig,
+      background: true
     });
   },
   nowPlaying: function() {

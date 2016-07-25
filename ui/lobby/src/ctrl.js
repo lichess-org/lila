@@ -93,6 +93,7 @@ module.exports = function(env) {
   this.setSeeks = function(seeks) {
     this.data.seeks = seeks;
     seekRepo.initAll(this);
+    m.redraw();
   }.bind(this);
 
   this.gameActivity = function(gameId) {
