@@ -46,14 +46,14 @@ module.exports = {
     success: castledKingSide,
     failure: cantCastleKingSide
   }, {
-    goal: 'Castle king-side!<br>You need move out pieces first.',
+    goal: 'Castle king-side!<br>You need to move out pieces first.',
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
     nbMoves: 4,
     shapes: [arrow('e1g1')],
     success: castledKingSide,
     failure: cantCastleKingSide
   }, {
-    goal: 'Castle queen-side!<br>You need move out pieces first.',
+    goal: 'Castle queen-side!<br>You need to move out pieces first.',
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
     nbMoves: 6,
     shapes: [arrow('e1c1')],

@@ -10,7 +10,7 @@ module.exports = {
   title: 'Capture',
   subtitle: 'Take the enemy pieces',
   image: imgUrl,
-  intro: 'Identify the opponent undefended pieces, and capture them!',
+  intro: 'Identify the opponent\'s undefended pieces, and capture them!',
   illustration: util.roundSvg(imgUrl),
   levels: [{ // rook
     goal: 'Take the black pieces!',
