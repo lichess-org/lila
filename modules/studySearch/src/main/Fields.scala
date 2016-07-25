@@ -5,8 +5,13 @@ private[studySearch] object Fields {
   val owner = "owner"
   val members = "members"
   val chapters = "chapters"
-  val createdAt = "createdAt"
-  val updatedAt = "updatedAt"
-  val rank = "rank"
+  // val createdAt = "createdAt"
+  // val updatedAt = "updatedAt"
+  // val rank = "rank"
   val likes = "likes"
+  val public = "public"
+
+  object chapter {
+    val name = "name"
+  }
 }

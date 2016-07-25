@@ -1,0 +1,7 @@
+@(me: User, active: String, order: lila.study.Order)(implicit ctx: Context)
+
+<a class="@active.active("mine")" href="@routes.Study.mine(order.key)">My studies</a>
+<a class="@active.active("mineMember")" href="@routes.Study.mineMember(order.key)">Studies I contribute to</a>
+<a class="@active.active("minePublic")" href="@routes.Study.minePublic(order.key)">My public studies</a>
+<a class="@active.active("minePrivate")" href="@routes.Study.minePrivate(order.key)">My private studies</a>
+<a class="@active.active("mineLikes")" href="@routes.Study.mineLikes(order.key)">Favourite studies</a>

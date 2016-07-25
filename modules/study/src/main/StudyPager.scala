@@ -65,14 +65,14 @@ final class StudyPager(
       maxPerPage = maxPerPage.value)
   }
 
-  private def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
+  def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
     chapterRepo namesByStudyIds studies.map(_.id) map { chapters =>
       studies.map { study =>
         Study.WithChapters(study, ~(chapters get study.id))
       }
     }
 
-  private def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
+  def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
     me.?? { u => studyRepo.filterLiked(u, studies.map(_.study.id)) } map { liked =>
       studies.map {
         case Study.WithChapters(study, chapters) =>

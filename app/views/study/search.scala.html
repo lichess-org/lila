@@ -1,0 +1,36 @@
+@(pag: Paginator[lila.study.Study.WithChaptersAndLiked], text: String)(implicit ctx: Context)
+
+@import lila.study.Order
+
+@moreCss = {
+@cssTag("studyList.css")
+}
+
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
+
+@menu = {
+<a href="@routes.Study.all(Order.default.key)">All studies</a>
+@ctx.me.map { me =>
+@authLinks(me, "search", Order.default)
+}
+<a class="text" data-icon="" href="//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">What are studies?</a>
+}
+
+@base.layout(
+title = text,
+menu = menu.some,
+moreCss = moreCss,
+moreJs = moreJs,
+withLangAnnotations = false) {
+<div class="content_box no_padding studies">
+  <div class="top">
+    <form action="@routes.Study.search()" method="get">
+      <input name="q" placeholder="@trans.search()" />
+    </form>
+    @newForm()
+  </div>
+  @list(pag, routes.Study.search(text))
+</div>
+}

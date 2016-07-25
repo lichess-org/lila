@@ -89,6 +89,8 @@ object Study {
 
   case class WithChapters(study: Study, chapters: Seq[String])
 
+  case class WithActualChapters(study: Study, chapters: Seq[Chapter])
+
   case class WithChaptersAndLiked(study: Study, chapters: Seq[String], liked: Boolean)
 
   type ID = String
