@@ -25,8 +25,9 @@ withLangAnnotations = false) {
 <div class="content_box no_padding studies">
   <div class="top">
     <h1>@titleHtml</h1>
-    <form action=
-    <input name="q" placeholder="@trans.search()" />
+    <form class="search" action="@routes.Study.search()" method="get">
+      <input name="q" placeholder="@trans.search()" />
+    </form>
     @orderChoice(o => url(o.key), order, if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all)
     @newForm()
   </div>

@@ -23,6 +23,7 @@ final class StudyApi(
     lightUser: lila.common.LightUser.Getter,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
+    indexer: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef) {
 
@@ -48,6 +49,7 @@ final class StudyApi(
     studyMaker(data, user) flatMap { res =>
       studyRepo.insert(res.study) >>
         chapterRepo.insert(res.chapter) >>-
+        indexStudy(res.study) >>-
         scheduleTimeline(res.study.id) inject res
     }
 
@@ -149,14 +151,14 @@ final class StudyApi(
           studyRepo.addMember(study, StudyMember make user) >>-
             notifier(study, user, socket)
         }
-      } >>- reloadMembers(study)
+      } >>- reloadMembers(study) >>- indexStudy(study)
     }
   }
 
   def kick(studyId: Study.ID, userId: User.ID) = sequenceStudy(studyId) { study =>
     study.isMember(userId) ?? {
       studyRepo.removeMember(study, userId)
-    } >>- reloadMembers(study)
+    } >>- reloadMembers(study) >>- indexStudy(study)
   }
 
   def setShapes(userId: User.ID, studyId: Study.ID, position: Position.Ref, shapes: Shapes, uid: Uid) = sequenceStudy(studyId) { study =>
@@ -188,7 +190,8 @@ final class StudyApi(
               studyRepo.updateNow(study)
               newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
                 chapterRepo.update(newChapter) >>-
-                  sendTo(study, Socket.SetComment(position, c, uid))
+                  sendTo(study, Socket.SetComment(position, c, uid)) >>-
+                  indexStudy(study)
               }
             case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
           }
@@ -203,7 +206,8 @@ final class StudyApi(
         chapter.deleteComment(id, position.path) match {
           case Some(newChapter) =>
             chapterRepo.update(newChapter) >>-
-              sendTo(study, Socket.DeleteComment(position, id, uid))
+              sendTo(study, Socket.DeleteComment(position, id, uid)) >>-
+              indexStudy(study)
           case None => fufail(s"Invalid deleteComment $studyId $position $id") >>- reloadUid(study, uid)
         }
       }
@@ -237,7 +241,8 @@ final class StudyApi(
               }
             } >> chapterRepo.insert(chapter) >>
               doSetChapter(byUserId, study, chapter.id, socket, uid) >>-
-              studyRepo.updateNow(study)
+              studyRepo.updateNow(study) >>-
+              indexStudy(study)
           }
         }
       }
@@ -288,7 +293,7 @@ final class StudyApi(
                 reloadChapters(study)
             }
           }
-        }
+        } >>- indexStudy(study)
       }
     }
   }
@@ -305,7 +310,7 @@ final class StudyApi(
             } >> chapterRepo.delete(chapter.id)
             case _ => funit
           } >>- reloadChapters(study)
-        }
+        } >>- indexStudy(study)
       }
     }
   }
@@ -323,13 +328,17 @@ final class StudyApi(
         settings = settings,
         visibility = data.vis)
       (newStudy != study) ?? {
-        studyRepo.updateSomeFields(newStudy) >>- sendTo(study, Socket.ReloadAll)
+        studyRepo.updateSomeFields(newStudy) >>-
+          sendTo(study, Socket.ReloadAll) >>-
+          indexStudy(study)
       }
     }
   }
 
   def delete(study: Study) = sequenceStudy(study.id) { study =>
-    studyRepo.delete(study) >> chapterRepo.deleteByStudy(study)
+    studyRepo.delete(study) >>
+      chapterRepo.deleteByStudy(study) >>-
+      (indexer ! actorApi.RemoveStudy(study.id))
   }
 
   def like(studyId: Study.ID, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
@@ -343,6 +352,8 @@ final class StudyApi(
     }
 
   def resetAllRanks = studyRepo.resetAllRanks
+
+  private def indexStudy(study: Study) = indexer ! actorApi.SaveStudy(study)
 
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))

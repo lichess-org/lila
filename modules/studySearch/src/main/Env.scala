@@ -2,11 +2,14 @@ package lila.studySearch
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.paginator._
 import lila.db.dsl._
+import lila.hub.MultiThrottler
 import lila.search._
 import lila.search.PaginatorBuilder
+import lila.study.actorApi._
 import lila.study.Study
 import lila.user.User
 
@@ -22,7 +25,16 @@ final class Env(
 
   private val client = makeClient(Index(IndexName))
 
-  val api = new StudySearchApi(client, studyEnv.studyRepo, studyEnv.chapterRepo)
+  private val indexThrottler = system.actorOf(Props(new MultiThrottler(
+    executionTimeout = 2.seconds.some,
+    logger = logger)
+  ))
+
+  val api = new StudySearchApi(
+    client = client,
+    indexThrottler = indexThrottler,
+    studyEnv.studyRepo,
+    studyEnv.chapterRepo)
 
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
@@ -39,13 +51,13 @@ final class Env(
     }
   }
 
-  // system.actorOf(Props(new Actor {
-  //   import lila.study.actorApi._
-  //   def receive = {
-  //     case InsertTeam(team) => api store team
-  //     case RemoveTeam(id)   => client deleteById Id(id)
-  //   }
-  // }), name = ActorName)
+  system.actorOf(Props(new Actor {
+    import lila.study.actorApi._
+    def receive = {
+      case SaveStudy(study) => api store study
+      case RemoveStudy(id)  => client deleteById Id(id)
+    }
+  }), name = ActorName)
 }
 
 object Env {

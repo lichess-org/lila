@@ -85,6 +85,7 @@ final class Env(
     lightUser = getLightUser,
     scheduler = system.scheduler,
     chat = hub.actor.chat,
+    indexer = hub.actor.studySearch,
     timeline = hub.actor.timeline,
     socketHub = socketHub)
 

@@ -51,7 +51,7 @@ object Node {
 
   val MAX_PLIES = 400
 
-  case class Children(nodes: Vector[Node]) {
+  case class Children(nodes: Vector[Node]) extends AnyVal {
 
     def first = nodes.headOption
     def variations = nodes drop 1

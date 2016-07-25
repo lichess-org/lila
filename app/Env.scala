@@ -81,7 +81,8 @@ final class Env(
     Env.explorer, // required to load the actor
     Env.fishnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
-    Env.plan // required to load the actor
+    Env.plan, // required to load the actor
+    Env.studySearch // required to load the actor
   )) { lap =>
     lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }

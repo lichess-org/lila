@@ -1,5 +1,7 @@
 package lila.common
 
+import scala.concurrent.duration._
+
 object Future {
 
   def lazyFold[T, R](futures: Stream[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
@@ -42,4 +44,7 @@ object Future {
       case false => find(t)(f)
     }
   }
+
+  def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
+    akka.pattern.after(duration, system.scheduler)(run)
 }
