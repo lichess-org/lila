@@ -7,7 +7,7 @@
 # ./bin/dev
 
 # Yes it needs tons of memory. Go for 2048M if you have them.
-export JAVA_OPTS="-Xms1536M -Xmx1536M -XX:ReservedCodeCacheSize=64m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -Dkamon.auto-start=true"
+export JAVA_OPTS="-Xms1536M -Xmx1536M -XX:ReservedCodeCacheSize=64m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+ExitOnOutOfMemoryError -Dkamon.auto-start=true"
 
 # Hide pesky reboot exceptions
 sbt -Dhttp.port=9663 "$@" 2> /dev/null
