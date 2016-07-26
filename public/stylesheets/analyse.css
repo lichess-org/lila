@@ -582,7 +582,7 @@ body.dark .explorer_box .black {
   color: #3893e8!important;
 }
 .tview2 move.current {
-  border: 1px solid #d85000;
+  border: 1px solid #d85000!important;
 }
 .tview2 move.active {
   color: #d85000;
