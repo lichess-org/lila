@@ -336,18 +336,6 @@ lichess.notifyApp = (function() {
   }
 
   $(function() {
-    if (!lichess.StrongSocket.available) {
-      $('#lichess').on('mouseover', function() {
-        $('#lichess').off('mouseover');
-        var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
-        $.ajax(inUrFaceUrl, {
-          success: function(html) {
-            $('body').prepend(html);
-          }
-        });
-      });
-    }
-
     if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
