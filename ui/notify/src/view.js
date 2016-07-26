@@ -192,11 +192,11 @@ var handlers = {
           m('strong', 'Thank you!'),
           drawTime(notification)
         ]),
-        m('span', 'You just became a lichess patron.')
+        m('span', 'You just became a lichess Patron.')
       ]);
     },
     text: function(n) {
-      return 'You just became a lichess patron.';
+      return 'You just became a lichess Patron.';
     }
   },
   planExpire: {
