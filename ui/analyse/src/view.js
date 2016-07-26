@@ -46,7 +46,7 @@ function renderAnalyse(ctrl) {
     ply: ctrl.study.data.chapter.conceal
   } : null;
   return m('div.areplay', [
-    treeView(ctrl, conceal),
+    treeView.render(ctrl, conceal),
     renderResult(ctrl)
   ]);
 }
@@ -198,6 +198,15 @@ function renderOpeningBox(ctrl) {
   ]);
 }
 
+function renderFork(ctrl) {
+  if (!true) return;
+  return m('div.fork',
+    ctrl.vm.node.children.map(function(node) {
+      return m('move', treeView.renderMove(node));
+    })
+  );
+}
+
 var firstRender = true;
 
 module.exports = function(ctrl) {
@@ -222,6 +231,7 @@ module.exports = function(ctrl) {
             cevalView.renderCeval(ctrl),
             renderOpeningBox(ctrl),
             renderAnalyse(ctrl),
+            renderFork(ctrl),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),

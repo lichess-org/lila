@@ -134,6 +134,7 @@ div.game_control .jumps button:nth-child(3) {
   padding: 0 14px 0 10px;
 }
 div.lichess_game div.lichess_ground {
+  position: relative;
   transition: padding-left 0.3s;
 }
 div.eval_gauge {
@@ -239,6 +240,28 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   background: #759900;
   transition: 1s;
 }
+
+.fork {
+  position: absolute;
+  bottom: 36px;
+  left: 15px;
+  right: 0;
+  background: #fff;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  padding: 15px 0;
+  z-index: 1;
+}
+.fork move {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 16px;
+  line-height: 30px;
+  display: block;
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  /* justify-content: */
+}
+
 .explorer_box {
   position: relative;
   flex: 2.5 1 0px;
