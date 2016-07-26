@@ -113,6 +113,8 @@ case class Simul(
   def isNotBrandNew = createdAt isBefore DateTime.now.minusSeconds(10)
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
+
+  def spotlightable = isCreated && hostRating >= 2200
 }
 
 object Simul {

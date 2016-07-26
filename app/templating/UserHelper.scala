@@ -204,14 +204,15 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"""<span $klass $href>$icon$titleS$content$rating</span>"""
   }
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false) = Html {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false, rating: Option[Int] = None) = Html {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val content = user.fold(userId)(_.titleNameHtml)
     val klass = userClass(userId, none, withOnline)
     val href = s"data-${userHref(name)}"
     val icon = withOnline ?? lineIcon(user)
-    s"""<span $klass $href>$icon$content</span>"""
+    val ra = rating.??(r => s" ($r)")
+    s"""<span $klass $href>$icon$content$ra</span>"""
   }
 
   private def renderRating(perf: Perf) =

@@ -5,8 +5,9 @@
   @spot.iconImg.map { i =>
   <img class="img" src="@staticUrl(s"images/$i")" />
   }.getOrElse {
-  @spot.iconFont.map { i =>
-  <i class="img" data-icon="@i"></i>
+  @spot.iconFont.map {
+  case "\\" => { <img class="img icon" src="@staticUrl(s"images/globe.svg")" /> }
+  case i => { <i class="img" data-icon="@i"></i> }
   }.getOrElse {
   <i class="img" data-icon="g"></i>
   }

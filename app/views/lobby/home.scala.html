@@ -16,6 +16,9 @@
 @tours.flatMap(_.spotlightedNow).map {
 case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
 }
+@simuls.find(_.spotlightable).map { s =>
+@simul.homepageSpotlight(s)
+}
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Timeline.home">
   @timeline.entries(userTimeline)

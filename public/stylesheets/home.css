@@ -670,8 +670,9 @@ div.game_config .color_submits button.random i {
 }
 .tour_spotlight {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
-  margin: 15px 0 5px -30px;
+  margin: 10px 0 5px -30px;
   color: #fff!important;
   background: #4166a0;
   padding: 5px;
@@ -698,7 +699,8 @@ div.game_config .color_submits button.random i {
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
-.tour_spotlight i.img {
+.tour_spotlight i.img,
+.tour_spotlight .img.icon {
   margin: 0 5px 0 0;
 }
 .tour_spotlight i.img::before {
@@ -707,13 +709,14 @@ div.game_config .color_submits button.random i {
 .tour_spotlight .content {
   display: block;
 }
-.tour_spotlight span {
+.tour_spotlight > span {
   display: block;
 }
 .tour_spotlight span.name {
   font-size: 15px;
 }
 .tour_spotlight span.headline {
+  display: block;
   font-size: 10px;
 }
 .tour_spotlight span.more {
