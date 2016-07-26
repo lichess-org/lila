@@ -425,9 +425,11 @@ lichess.notifyApp = (function() {
           }
         }).data('powertip', lichess.spinnerHtml);
       };
-      $('body').on('mouseover', '.ulpt', function(e) {
-        userPowertip($(this));
-        $.powerTip.show(this, e);
+      document.body.addEventListener('mouseover', function(e) {
+        if (e.target.classList.contains('ulpt')) {
+          userPowertip($(e.target));
+          $.powerTip.show(e.target, e);
+        }
       });
 
       function gamePowertip($els, placement) {
