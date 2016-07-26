@@ -114,7 +114,7 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
-  def spotlightable = isCreated && hostRating >= 2200
+  def spotlightable = isCreated && hostRating >= 2400
 }
 
 object Simul {
