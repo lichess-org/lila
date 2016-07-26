@@ -250,9 +250,13 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  transition: 0.2s;
+}
+.explorer_box.config {
+  flex: 3.5 1 0px;
 }
 .explorer_box.reduced {
-  flex: 0.6 3 0px;
+  flex: 0.3 3 0px;
 }
 .explorer_box.reduced:hover {
   flex: 1 2 0px;
@@ -282,9 +286,6 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   display: flex;
   flex-flow: column;
   height: 100%;
-}
-.explorer_box .spinner {
-  margin-top: 88px;
 }
 .explorer_box thead th {
   text-transform: capitalize;
@@ -452,21 +453,27 @@ body.dark .explorer_box .black {
 }
 .explorer_box .message h3 {
   font-weight: bold;
-  margin: 0 0 8px 0;
+  margin: 5px 0 8px 0;
 }
 .explorer_box .message p {
   white-space: normal;
   padding: 0 8px;
   margin: 0 0 8px 0;
 }
-.explorer_box.reduced .message p {
+.explorer_box.reduced .message p,
+.explorer_box.reduced .message button {
   display: none;
 }
-.explorer_box.reduced:hover .message p {
+.explorer_box.reduced:hover .message p,
+.explorer_box.reduced:hover .message button {
   display: block;
 }
 .explorer_box .message button {
   margin: 0 30px;
+}
+.explorer_box .message.masters i {
+  font-size: 40px;
+  margin: 10px 0;
 }
 .explorer_box .config {
   overflow: hidden;

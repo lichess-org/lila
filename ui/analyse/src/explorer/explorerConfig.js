@@ -68,9 +68,7 @@ module.exports = {
       ]),
       d.db.selected() === 'masters' ? m('div.masters.message', [
         m('i[data-icon=C]'),
-        m('p', "Two million OTB games"),
-        m('p', "of 2200+ FIDE rated players"),
-        m('p', "from 1952 to 2016"),
+        m('p', "Two million OTB games of 2200+ FIDE rated players from 1952 to 2016"),
       ]) : m('div', [
         m('section.rating', [
           m('label', 'Players Average rating'),
