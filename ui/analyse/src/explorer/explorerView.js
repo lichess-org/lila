@@ -244,7 +244,7 @@ function showConfig(ctrl) {
 
 function showFailing(ctrl) {
   return m('div.data.empty', [
-    m('div.title', 'Opening explorer'),
+    m('div.title', showTitle(ctrl)),
     m('div.failing.message', [
       m('h3', 'Oops, sorry!'),
       m('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
@@ -269,7 +269,7 @@ module.exports = {
         explorer_box: true,
         loading: loading,
         config: configOpened,
-        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 3)
+        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
       }),
       config: function(el, isUpdate, ctx) {
         if (!isUpdate || !data || ctx.lastFen === data.fen) return;
