@@ -9,7 +9,7 @@ private[studySearch] object Fields {
   // val createdAt = "createdAt"
   // val updatedAt = "updatedAt"
   // val rank = "rank"
-  // val likes = "likes"
+  val likes = "likes"
   val public = "public"
 
   object chapter {

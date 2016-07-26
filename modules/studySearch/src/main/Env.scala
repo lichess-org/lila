@@ -26,7 +26,7 @@ final class Env(
   private val client = makeClient(Index(IndexName))
 
   private val indexThrottler = system.actorOf(Props(new MultiThrottler(
-    executionTimeout = 2.seconds.some,
+    executionTimeout = 3.seconds.some,
     logger = logger)
   ))
 

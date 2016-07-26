@@ -27,7 +27,7 @@ final class StudySearchApi(
     indexThrottler ! MultiThrottler.work(
       id = study.id,
       run = studyRepo byId study.id flatMap { _ ?? doStore },
-      delay = 5.seconds.some)
+      delay = 30.seconds.some)
   }
 
   private def doStore(study: Study) =
@@ -45,7 +45,7 @@ final class StudySearchApi(
     Fields.chapterTexts -> noMultiSpace(s.chapters.map(chapterText).mkString(" ")),
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
-    // Fields.rank -> study.rank,
+    Fields.likes -> s.study.likes.value,
     Fields.public -> s.study.isPublic)
 
   private def chapterText(c: Chapter): String = nodeText(c.root)
