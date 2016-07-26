@@ -1,6 +1,7 @@
 package lila.study
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
 import scala.concurrent.duration._
 
@@ -17,7 +18,7 @@ final class ChapterRepo(coll: Coll) {
   def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
 
   // def metadataById(id: Chapter.ID): Fu[Option[Chapter.Metadata]] =
-    // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
+  // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
 
   def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
 
@@ -34,7 +35,10 @@ final class ChapterRepo(coll: Coll) {
     ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
 
   def orderedByStudy(studyId: Study.ID): Fu[List[Chapter]] =
-    coll.find($studyId(studyId)).sort($sort asc "order").list[Chapter](maxChapters)
+    coll.find($studyId(studyId))
+      .sort($sort asc "order")
+      .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
+      .gather[List](maxChapters)
 
   def sort(study: Study, ids: List[Chapter.ID]): Funit = ids.zipWithIndex.map {
     case (id, index) =>
