@@ -16,8 +16,9 @@ object Export extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
-      OptionFuResult(GameRepo game id) { game =>
-        (game.pgnImport.ifTrue(~get("as") == "imported") match {
+      OptionFuResult(GameRepo game id) {
+        case game if game.playable => NotFound("Can't export PGN of game in progress").fuccess
+        case game => (game.pgnImport.ifTrue(get("as") contains "imported") match {
           case Some(i) => fuccess(i.pgn)
           case None => for {
             initialFen <- GameRepo initialFen game
