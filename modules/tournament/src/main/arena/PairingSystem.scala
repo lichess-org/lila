@@ -33,10 +33,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
         case _   => evenOrAll(data, users)
       }
       pairings <- prepsToPairings(preps)
-    } yield {
-      if (data.isFirstRound) pairings.map(_.setInitial)
-      else pairings
-    }
+    } yield pairings
   }.chronometer.logIfSlow(500, pairingLogger) { pairings =>
     s"createPairings ${url(tour.id)} ${pairings.size} pairings"
   }.result
@@ -53,7 +50,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (isFirstRound) naivePairings(tour, idles)
+      if (data.tour.isRecentlyStarted) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
         case a :: b :: c :: _ => smartPairings(data, a) ::: smartPairings(data, b) ::: naivePairings(tour, c take pairingGroupSize)
         case a :: b :: Nil    => smartPairings(data, a) ::: smartPairings(data, b)

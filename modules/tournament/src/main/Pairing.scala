@@ -14,8 +14,7 @@ case class Pairing(
     winner: Option[String],
     turns: Option[Int],
     berserk1: Int,
-    berserk2: Int,
-    initial: Boolean) {
+    berserk2: Int) {
 
   def gameId = id
 
@@ -58,8 +57,6 @@ case class Pairing(
     colorOf(userId) map { PovRef(gameId, _) }
 
   def similar(other: Pairing) = other.contains(user1, user2)
-
-  def setInitial = copy(initial = true)
 }
 
 private[tournament] object Pairing {
@@ -75,8 +72,7 @@ private[tournament] object Pairing {
     winner = none,
     turns = none,
     berserk1 = 0,
-    berserk2 = 0,
-    initial = false)
+    berserk2 = 0)
 
   case class Prep(tourId: String, user1: String, user2: String) {
     def toPairing(firstGetsWhite: Boolean) =
