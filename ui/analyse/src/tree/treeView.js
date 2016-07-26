@@ -124,20 +124,24 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var attrs = {
     p: path
   };
-  var eval = node.eval || node.ceval || {};
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
-  return moveTag(attrs, [
+  return moveTag(attrs, renderMove(node));
+}
+
+function renderMove(node, eval) {
+  var eval = node.eval || node.ceval || {};
+  return [
     util.fixCrazySan(node.san),
     node.glyphs ? renderGlyphs(node.glyphs) : null,
     defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
       defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
-  ]);
+  ];
 }
 
 function renderVariationMoveOf(ctx, node, opts) {
@@ -255,32 +259,17 @@ function eventPath(e, ctrl) {
   return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
 }
 
-module.exports = function(ctrl, conceal) {
-  var root = ctrl.tree.root;
-  var ctx = {
-    ctrl: ctrl,
-    concealOf: function(isMainline) {
-      return function(path, node) {
-        if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-        if (treePath.contains(ctrl.vm.path, path)) return null;
-        return conceal.owner ? 'conceal' : 'hide'
-      };
-    }
-  };
-  var commentTags = renderMainlineCommentsOf(ctx, root, {
-    withColor: false,
-    conceal: false
-  });
-  return m('div.tview2', {
-    onmousedown: function(e) {
-      if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-      var path = eventPath(e, ctrl);
-      if (path) ctrl.userJump(path);
-    },
-    config: function(el, isUpdate) {
-      if (ctrl.vm.autoScrollRequested || !isUpdate) {
-        autoScroll(ctrl, el);
-        ctrl.vm.autoScrollRequested = false;
+module.exports = {
+  render: function(ctrl, conceal) {
+    var root = ctrl.tree.root;
+    var ctx = {
+      ctrl: ctrl,
+      concealOf: function(isMainline) {
+        return function(path, node) {
+          if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+          if (treePath.contains(ctrl.vm.path, path)) return null;
+          return conceal.owner ? 'conceal' : 'hide'
+        };
       }
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {

@@ -47,7 +47,7 @@ function renderAnalyse(ctrl) {
     ply: ctrl.study.data.chapter.conceal
   } : null;
   return m('div.areplay', [
-    treeView(ctrl, conceal),
+    treeView.render(ctrl, conceal),
     renderResult(ctrl)
   ]);
 }
@@ -197,6 +197,15 @@ function renderOpeningBox(ctrl) {
     m('strong', opening.eco),
     ' ' + opening.name
   ]);
+}
+
+function renderFork(ctrl) {
+  if (!true) return;
+  return m('div.fork',
+    ctrl.vm.node.children.map(function(node) {
+      return m('move', treeView.renderMove(node));
+    })
+  );
 }
 
 var firstRender = true;
