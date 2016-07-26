@@ -5,6 +5,8 @@ lichess.checkout = function(publicKey) {
   var min = 100,
     max = 100 * 100000
 
+  if (location.hash === '#onetime') $('#freq_onetime').click();
+
   var getFreq = function() {
     return $checkout.find('group.freq input:checked').val();
   };

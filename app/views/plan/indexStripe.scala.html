@@ -18,12 +18,16 @@ moreJs = jsTag("plan.js")) {
       </tr>
       <tr>
         <th>Next payment</th>
-        <td>You will be charged <strong>@info.nextInvoice.usd</strong> on @showDate(info.nextInvoice.dateTime).</td>
+        <td>
+          You will be charged <strong>@info.nextInvoice.usd</strong> on @showDate(info.nextInvoice.dateTime).
+          <br />
+          <a href="@routes.Plan.list()#onetime">Make an additional donation now</a>
+        </td>
       </th>
       <tr>
         <th>Update</th>
         <td class="change">
-          <a data-form="switch">Change the amount</a> or <a data-form="cancel">cancel your support</a>
+          <a data-form="switch">Change the monthly amount (@info.subscription.plan.usd)</a> or <a data-form="cancel">cancel your support</a>
           <form class="switch" action="@routes.Plan.switch" method="POST">
             <p>Decide what lichess is worth to you:</p>
             USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />

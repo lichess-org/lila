@@ -16,6 +16,7 @@ body.dark table.all th {
 }
 table.all td {
   padding: 30px;
+  line-height: 1.7em;
 }
 table.all th {
   opacity: 0.8;
