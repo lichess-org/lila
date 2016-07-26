@@ -250,7 +250,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 .explorer_box.config {
   flex: 3.5 1 0px;
