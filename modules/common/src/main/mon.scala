@@ -118,6 +118,18 @@ object mon {
     def success(op: String) = inc(s"search.client.$op.success")
     def failure(op: String) = inc(s"search.client.$op.failure")
   }
+  object study {
+    object search {
+      object index {
+        def count = inc("study.search.index.count")
+        def time = rec("study.search.index.time")
+      }
+      object query {
+        def count = inc("study.search.query.count")
+        def time = rec("study.search.query.time")
+      }
+    }
+  }
   object jvm {
     val thread = rec("jvm.thread")
     val daemon = rec("jvm.daemon")

@@ -16,10 +16,11 @@ final class StudySearchApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo) extends SearchReadApi[Study, Query] {
 
-  def search(query: Query, from: From, size: Size) =
+  def search(query: Query, from: From, size: Size) = {
     client.search(query, from, size) flatMap { res =>
       studyRepo byOrderedIds res.ids
     }
+  }.mon(_.study.search.query.time) >>- lila.mon.study.search.query.count()
 
   def count(query: Query) = client.count(query) map (_.count)
 
@@ -30,10 +31,11 @@ final class StudySearchApi(
       delay = 30.seconds.some)
   }
 
-  private def doStore(study: Study) =
+  private def doStore(study: Study) = {
     getChapters(study) flatMap { s =>
       client.store(Id(s.study.id), toDoc(s))
     }
+  }.mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
     Fields.name -> s.study.name,
