@@ -22,6 +22,7 @@ module.exports = function(root, opts, allow) {
   var loading = m.prop(true);
   var failing = m.prop(false);
   var hoveringUci = m.prop(null);
+  var movesAway = m.prop(0);
 
   var cache = {};
   var onConfigClose = function() {
@@ -34,6 +35,11 @@ module.exports = function(root, opts, allow) {
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
+  var setCache = function(fen, res) {
+    cache[fen] = res;
+    movesAway(res.nbMoves ? 0 : movesAway() + 1);
+  };
+
   var handleFetchError = function(err) {
     loading(false);
     failing(true);
@@ -43,8 +49,9 @@ module.exports = function(root, opts, allow) {
   var fetchOpening = throttle(2000, false, function(fen) {
     openingXhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
       res.opening = true;
+      res.nbMoves = res.moves.length;
       res.fen = fen;
-      cache[fen] = res;
+      setCache(fen, res);
       loading(false);
       failing(false);
       m.redraw();
@@ -53,9 +60,10 @@ module.exports = function(root, opts, allow) {
 
   var fetchTablebase = throttle(500, false, function(fen) {
     tablebaseXhr(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
+      res.nbMoves = res.moves.length;
       res.tablebase = true;
       res.fen = fen;
-      cache[fen] = res;
+      setCache(fen, res);
       loading(false);
       failing(false);
       m.redraw();
@@ -76,14 +84,20 @@ module.exports = function(root, opts, allow) {
   function setNode() {
     if (!enabled()) return;
     var node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(node.fen)) cache[node.fen] = empty;
-    if (!cache[node.fen]) {
-      loading(true);
-      fetch(node.fen);
-    } else {
+    console.log(node);
+    if (node.ply > 50 && !tablebaseRelevant(node.fen)) {
+      cache[node.fen] = empty;
+    }
+    var cached = cache[node.fen];
+    if (cached) {
+      movesAway(cached.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
+    } else {
+      loading(true);
+      fetch(node.fen);
     }
+    console.log(cached);
   }
 
   return {
@@ -93,12 +107,14 @@ module.exports = function(root, opts, allow) {
     loading: loading,
     failing: failing,
     hoveringUci: hoveringUci,
+    movesAway: movesAway,
     config: config,
     withGames: withGames,
     current: function() {
       return cache[root.vm.node.fen];
     },
     toggle: function() {
+      movesAway(0);
       enabled(!enabled());
       setNode();
       root.autoScroll();

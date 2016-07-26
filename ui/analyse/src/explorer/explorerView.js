@@ -158,8 +158,7 @@ function showDtz(stm, move) {
     var capture = move.san.indexOf('x') !== -1;
     if (capture) return m('result.' + winner(stm, move), 'Capture');
     else return m('result.' + winner(stm, move), 'Pawn move');
-  }
-  else return m('result.' + winner(stm, move), {
+  } else return m('result.' + winner(stm, move), {
     title: 'Next capture or pawn move in ' + Math.abs(move.dtz) + ' half-moves (Distance To Zeroing of the 50 move counter)'
   }, 'DTZ ' + Math.abs(move.dtz));
 }
@@ -168,13 +167,11 @@ function showEmpty(ctrl) {
   return m('div.data.empty', [
     m('div.title', showTitle(ctrl)),
     m('div.message', [
-      m('i[data-icon=]'),
       m('h3', "No game found"),
-      m('p',
+      m('p.explanation',
         ctrl.explorer.config.fullHouse() ?
         "Already searching through all available games." :
         "Maybe include more games from the preferences menu?"),
-      m('br'),
       m('button.button.text[data-icon=L]', {
         onclick: ctrl.explorer.toggle
       }, 'Close')
@@ -207,11 +204,21 @@ function show(ctrl) {
   } else if (data && data.tablebase) {
     var moves = data.moves;
     if (moves.length) lastShow = m('div.data', [
-      showTablebase(ctrl, 'Winning', moves.filter(function(move) { return move.real_wdl === -2; }), data.fen),
-      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) { return move.real_wdl === -1; }), data.fen),
-      showTablebase(ctrl, 'Drawn', moves.filter(function(move) { return move.real_wdl === 0; }), data.fen),
-      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) { return move.real_wdl === 1; }), data.fen),
-      showTablebase(ctrl, 'Losing', moves.filter(function(move) { return move.real_wdl === 2; }), data.fen)
+      showTablebase(ctrl, 'Winning', moves.filter(function(move) {
+        return move.real_wdl === -2;
+      }), data.fen),
+      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) {
+        return move.real_wdl === -1;
+      }), data.fen),
+      showTablebase(ctrl, 'Drawn', moves.filter(function(move) {
+        return move.real_wdl === 0;
+      }), data.fen),
+      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) {
+        return move.real_wdl === 1;
+      }), data.fen),
+      showTablebase(ctrl, 'Losing', moves.filter(function(move) {
+        return move.real_wdl === 2;
+      }), data.fen)
     ])
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
     else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
@@ -235,28 +242,34 @@ function showConfig(ctrl) {
   ]);
 }
 
-function failing() {
-  return m('div.failing.message', [
-    m('i[data-icon=,]'),
-    m('h3', 'Oops, sorry!'),
-    m('p', 'The explorer is temporarily'),
-    m('p', 'out of service. Try again soon!')
+function showFailing(ctrl) {
+  return m('div.data.empty', [
+    m('div.title', 'Opening explorer'),
+    m('div.failing.message', [
+      m('h3', 'Oops, sorry!'),
+      m('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
+      m('button.button.text[data-icon=L]', {
+        onclick: ctrl.explorer.toggle
+      }, 'Close')
+    ])
   ]);
 }
 
 module.exports = {
   renderExplorer: function(ctrl) {
-    if (!ctrl.explorer.enabled()) return;
-    var data = ctrl.explorer.current();
-    var config = ctrl.explorer.config;
+    var explorer = ctrl.explorer
+    if (!explorer.enabled()) return;
+    var data = explorer.current();
+    var config = explorer.config;
     var configOpened = config.data.open();
-    var loading = !configOpened && (ctrl.explorer.loading() || (!data && !ctrl.explorer.failing()));
-    var content = configOpened ? showConfig(ctrl) : (ctrl.explorer.failing() ? failing() : show(ctrl));
+    var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
+    var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
     return m('div', {
       class: classSet({
         explorer_box: true,
         loading: loading,
-        config: configOpened
+        config: configOpened,
+        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 3)
       }),
       config: function(el, isUpdate, ctx) {
         if (!isUpdate || !data || ctx.lastFen === data.fen) return;
@@ -265,8 +278,7 @@ module.exports = {
       }
     }, [
       m('div.overlay'),
-      content,
-      (!content || ctrl.explorer.failing()) ? null : m('span.toconf', {
+      content, (!content || explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
         onclick: config.toggleOpen
       })

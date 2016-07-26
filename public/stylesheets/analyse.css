@@ -241,7 +241,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .explorer_box {
   position: relative;
-  flex: 3 1 0px;
+  flex: 2.5 1 0px;
   border: 1px solid #ccc;
   margin-top: 5px;
   overflow: scroll;
@@ -250,6 +250,12 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+.explorer_box.reduced {
+  flex: 0.6 3 0px;
+}
+.explorer_box.reduced:hover {
+  flex: 1 2 0px;
 }
 .explorer_box.config {
   min-height: 210px;
@@ -273,6 +279,9 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .explorer_box .empty {
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }
 .explorer_box .spinner {
   margin-top: 88px;
@@ -436,22 +445,28 @@ body.dark .explorer_box .black {
 .explorer_box .message {
   text-align: center;
   font-style: italic;
-}
-.explorer_box .message i {
-  font-size: 32px;
-  display: inline-block;
-  margin: 12px 0;
-  opacity: 0.7;
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
 .explorer_box .message h3 {
   font-weight: bold;
+  margin: 0 0 8px 0;
 }
 .explorer_box .message p {
   white-space: normal;
-  padding: 0 10px;
+  padding: 0 8px;
+  margin: 0 0 8px 0;
 }
-.explorer_box .failing.message i {
-  font-size: 70px;
+.explorer_box.reduced .message p {
+  display: none;
+}
+.explorer_box.reduced:hover .message p {
+  display: block;
+}
+.explorer_box .message button {
+  margin: 0 30px;
 }
 .explorer_box .config {
   overflow: hidden;
