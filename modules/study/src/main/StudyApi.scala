@@ -31,8 +31,15 @@ final class StudyApi(
 
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      chapterRepo.byId(study.position.chapterId) map {
-        _ map { Study.WithChapter(study, _) }
+      chapterRepo.byId(study.position.chapterId) flatMap {
+        case None => chapterRepo.firstByStudy(study.id) flatMap {
+          case None => fuccess(none)
+          case Some(chapter) =>
+            val fixed = study withChapter chapter
+            studyRepo.updateSomeFields(fixed) inject
+              Study.WithChapter(fixed, chapter).some
+        }
+        case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
       }
     }
   }
@@ -240,7 +247,7 @@ final class StudyApi(
                 _.filter(_.isEmptyInitial) ?? chapterRepo.delete
               }
             } >> chapterRepo.insert(chapter) >>
-              doSetChapter(byUserId, study, chapter.id, socket, uid) >>-
+              doSetChapter(study, chapter.id, socket, uid) >>-
               studyRepo.updateNow(study) >>-
               indexStudy(study)
           }
@@ -250,11 +257,11 @@ final class StudyApi(
   }
 
   def setChapter(byUserId: User.ID, studyId: Study.ID, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
-    doSetChapter(byUserId, study, chapterId, socket, uid)
+    study.canContribute(byUserId) ?? doSetChapter(study, chapterId, socket, uid)
   }
 
-  private def doSetChapter(byUserId: User.ID, study: Study, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) =
-    (study.canContribute(byUserId) && study.position.chapterId != chapterId) ?? {
+  private def doSetChapter(study: Study, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) =
+    (study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
           studyRepo.updateSomeFields(study withChapter chapter) >>-
@@ -305,7 +312,7 @@ final class StudyApi(
           chapterRepo.orderedMetadataByStudy(studyId).flatMap {
             case chaps if chaps.size > 1 => (study.position.chapterId == chapterId).?? {
               chaps.find(_.id != chapterId) ?? { newChap =>
-                doSetChapter(byUserId, study, newChap.id, socket, uid)
+                doSetChapter(study, newChap.id, socket, uid)
               }
             } >> chapterRepo.delete(chapter.id)
             case _ => funit

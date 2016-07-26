@@ -23,7 +23,7 @@ abstract class BSON[T]
   }
   catch {
     case e: Exception =>
-      BSON.cantRead(doc, e)
+      logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
       throw e
   }
   else reads(new Reader(doc))
@@ -33,9 +33,6 @@ abstract class BSON[T]
 
 object BSON extends Handlers {
 
-  def cantRead(doc: Bdoc, e: Exception) =
-    logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
-
   def LoggingHandler[T](logger: lila.log.Logger)(handler: BSONHandler[Bdoc, T]): BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] =
     new BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
       def read(doc: Bdoc): T = try {
@@ -43,7 +40,7 @@ object BSON extends Handlers {
       }
       catch {
         case e: Exception =>
-          cantRead(doc, e)
+          logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
           throw e
       }
       def write(obj: T): Bdoc = handler write obj
