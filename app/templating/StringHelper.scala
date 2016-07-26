@@ -123,4 +123,7 @@ trait StringHelper { self: NumberHelper =>
   }
 
   def encodeFen(fen: String) = base64encode(fen).reverse
+
+  def addQueryParameter(url: String, key: String, value: Any) =
+    if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
 }

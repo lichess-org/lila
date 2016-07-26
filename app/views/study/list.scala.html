@@ -34,7 +34,7 @@
   }
   @pager.nextPage.map { np =>
   <div class="pager none">
-    <a href="@url?page=@np">Next</a>
+    <a href="@addQueryParameter(url.toString, "page", np)">Next</a>
   </div>
   }
 </div>
