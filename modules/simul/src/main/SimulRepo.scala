@@ -53,7 +53,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     simulColl.byId[Simul](id)
 
   def exists(id: Simul.ID): Fu[Boolean] =
-    simulColl.countSel($id(id)) map (0 !=)
+    simulColl.exists($id(id))
 
   def createdByHostId(hostId: String): Fu[List[Simul]] =
     simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
@@ -69,8 +69,8 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
     createdSelect ++ $doc(
-      "createdAt" -> $doc("$gte" -> DateTime.now.minusMinutes(15)),
-      "hostRating" -> $doc("$gte" -> 1700)
+      "createdAt" $gte DateTime.now.minusMinutes(15),
+      "hostRating" $gte 1700
     )
   ).sort(createdSort).list[Simul]()
 
