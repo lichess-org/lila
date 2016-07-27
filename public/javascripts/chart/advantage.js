@@ -47,7 +47,7 @@ lichess.advantageChart = function(data) {
           }],
           chart: {
             type: 'area',
-            spacing: [2, 0, 2, 0],
+            spacing: [3, 0, 3, 0],
             animation: false
           },
           plotOptions: {
