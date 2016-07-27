@@ -80,7 +80,7 @@ final class CrosstableApi(
 
         gameColl.find(selector, winnerProjection)
           .sort($doc(Game.BSONFields.createdAt -> -1))
-          .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+          .cursor[Bdoc](readPreference = ReadPreference.secondary)
           .gather[List]().map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {
@@ -105,7 +105,11 @@ final class CrosstableApi(
 
       case _ => fuccess(none)
     }
-  }.withTimeoutDefault(1 second, none)(system)
+  }.withTimeoutDefault(1 second, none)(system) recover {
+    case e: Exception =>
+      logger.error("CrosstableApi.create", e)
+      none
+  }
 
   private def select(u1: String, u2: String) =
     $id(Crosstable.makeKey(u1, u2))
