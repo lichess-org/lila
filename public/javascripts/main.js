@@ -1054,9 +1054,7 @@ lichess.notifyApp = (function() {
         chat = c;
       });
     }
-    setTimeout(function() {
-      $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    }, 200);
+    $('.crosstable', element).prependTo($('.underboard .center', element)).removeClass('none');
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
