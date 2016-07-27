@@ -121,13 +121,17 @@ object Simul {
 
   type ID = String
 
+  private def makeName(host: User) =
+    if (host.title.isDefined) host.titleUsername
+    else RandomName()
+
   def make(
     host: User,
     clock: SimulClock,
     variants: List[Variant],
     color: String): Simul = Simul(
     _id = Random nextStringUppercase 8,
-    name = RandomName(),
+    name = makeName(host),
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
