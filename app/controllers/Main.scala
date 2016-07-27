@@ -41,6 +41,12 @@ object Main extends LilaController {
     }
   }
 
+  def websocketPing = WebSocket.using[String] { request =>
+    val (out, channel) = Concurrent.broadcast[String]
+    val in = Iteratee.foreach[String](channel.push)
+    (in, out)
+  }
+
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(valid fold (1, 0))
