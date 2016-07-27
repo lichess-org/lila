@@ -1912,7 +1912,8 @@ lichess.notifyApp = (function() {
           lichess.movetimeChart(data);
         });
       } catch (e) {}
-      if (panel === 'computer_analysis' && $("#adv_chart").length) startAdvantageChart();
+      if (panel === 'computer_analysis' && $("#adv_chart").length)
+        setTimeout(startAdvantageChart, 200);
     };
     $menu.on('mousedown', 'a', function() {
       var panel = $(this).data('panel');
