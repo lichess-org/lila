@@ -1,5 +1,3 @@
-  margin: 20px auto;
-}
 .study_tabs {
   display: flex;
   -moz-user-select: none;
@@ -40,6 +38,7 @@ body:not(.dark) .material.form .study_tabs a {
 }
 .study_box {
   position: relative;
+  min-height: 50px;
 }
 .study_box .add {
   position: absolute;
