@@ -355,8 +355,7 @@ body.dark #hooks_wrap {
   flex-flow: column nowrap;
 }
 #featured_game {
-  position: absolute;
-  top: 529px;
+  margin-top: 16px;
 }
 div.undertable {
   width: 512px;
@@ -478,7 +477,7 @@ div.new_posts li span.extract {
 #daily_puzzle {
   width: 224px;
   position: absolute;
-  top: 527px;
+  top: 531px;
   left: 527px;
 }
 #daily_puzzle > div.vstext {
