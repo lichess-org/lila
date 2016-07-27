@@ -17,7 +17,7 @@ lichess.advantageChart = function(data) {
             else if (node.eval && node.eval.mate) {
               y = max * 100 - Math.abs(node.eval.mate);
               if (node.eval.mate < 0) y = -y;
-            } else if (node.san.indexOf('#')) {
+            } else if (node.san.indexOf('#') > 0) {
               y = 100 * (node.ply % 2 === 1 ? max : -max);
             }
             var turn = Math.floor((node.ply - 1) / 2) + 1;
