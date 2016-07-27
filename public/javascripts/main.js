@@ -1880,7 +1880,7 @@ lichess.notifyApp = (function() {
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
 
     setTimeout(function() {
-      $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+      $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
     }, 200);
 
     var chartLoader = function() {
