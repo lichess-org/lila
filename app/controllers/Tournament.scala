@@ -29,7 +29,7 @@ object Tournament extends LilaController {
         else env.api.fetchVisibleTournaments zip
           repo.scheduledDedup zip
           finishedPaginator zip
-          UserRepo.allSortToints(10) map {
+          Env.user.cached.topToints(true) map {
             case (((visible, scheduled), finished), leaderboard) =>
               Ok(html.tournament.home(scheduled, finished, leaderboard, env scheduleJsonView visible))
           } map NoCache
