@@ -78,7 +78,7 @@ private[api] final class GameApi(
           withAnalysis = withAnalysis,
           withMoves = withMoves,
           withOpening = withOpening,
-          withFens = withFens && g.finished,
+          withFens = withFens,
           withMoveTimes = withMoveTimes,
           token = token
         )(List(g)) map (_.headOption)
@@ -164,9 +164,9 @@ private[api] final class GameApi(
       ).noNull
     }),
     "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
-    "moves" -> withMoves.option(g.pgnMoves mkString " "),
+    "moves" -> (withMoves && g.finished).option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
-    "fens" -> withFens ?? {
+    "fens" -> (withFens && g.finished) ?? {
       chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }
