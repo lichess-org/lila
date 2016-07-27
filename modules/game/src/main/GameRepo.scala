@@ -151,7 +151,8 @@ object GameRepo {
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
     coll.find(Query recentlyPlaying user.id)
       .sort(Query.sortUpdatedNoIndex)
-      .uno[Game]
+      .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
+      .uno
       .map { _ flatMap { Pov(_, user) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
