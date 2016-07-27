@@ -2,6 +2,7 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
+import reactivemongo.api.ReadPreference
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 import reactivemongo.bson._
 import scala.concurrent.duration._
@@ -47,11 +48,12 @@ final class RankingApi(
   private def makeId(userId: User.ID, perfType: PerfType) =
     s"${userId}:${perfType.id}"
 
-  def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .cursor[Ranking]().gather[List](nb) map {
+        .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
+        .gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(
@@ -81,7 +83,9 @@ final class RankingApi(
       val enumerator = coll.find(
         $doc("perf" -> perfId, "stable" -> true),
         $doc("user" -> true, "_id" -> false)
-      ).sort($doc("rating" -> -1)).cursor[Bdoc]().enumerate()
+      ).sort($doc("rating" -> -1))
+        .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+        .enumerate()
       var rank = 1
       val b = Map.newBuilder[User.ID, Rank]
       val mapBuilder: Iteratee[Bdoc, Unit] = Iteratee.foreach { doc =>
