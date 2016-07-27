@@ -732,7 +732,6 @@ div.game_config .color_submits button.random i {
 #timeline {
   margin-top: 10px;
   border-top: 1px solid #e4e4e4;
-  padding-top: 8px;
   margin-left: -30px;
   width: 230px;
   font-size: 0.9em;
@@ -751,9 +750,8 @@ div.game_config .color_submits button.random i {
   }
 }
 #timeline .entry {
-  padding-bottom: 8px;
+  padding: 8px 0;
   border-bottom: 1px solid #e4e4e4;
-  margin-bottom: 8px;
   font-family: 'Roboto';
   font-weight: 300;
 }
@@ -762,9 +760,10 @@ div.game_config .color_submits button.random i {
 }
 #timeline a {
   font-family: 'Noto Sans';
-  font-weight: bold;
-  color: #a0a0a0;
   text-decoration: none;
+}
+#timeline .entry:hover a {
+  color: #3893E8;
 }
 #timeline a.user_link {
   padding-left: 0;
