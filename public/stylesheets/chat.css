@@ -112,6 +112,7 @@ div.mchat .messages a:not(.user_link) {
 }
 div.mchat .presets {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   flex-flow: row nowrap;
 }
