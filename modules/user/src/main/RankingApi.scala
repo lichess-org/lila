@@ -2,9 +2,9 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.api.ReadPreference
-import reactivemongo.api.Cursor
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
+import reactivemongo.api.Cursor
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -86,13 +86,12 @@ final class RankingApi(
         $doc("user" -> true, "_id" -> false)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state @ (rank, b), doc) =>
+          case (state@(rank, b), doc) =>
             doc.getAs[User.ID]("user").fold(state) { user =>
               b += (user -> rank)
               (rank + 1) -> b
             }
         }.map(_._2.result())
-    }
   }
 
   object weeklyRatingDistribution {
