@@ -5,8 +5,21 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-for app in learn challenge insight editor puzzle round analyse lobby tournament tournamentSchedule opening simul perfStat notify chat; do
+apps="learn challenge insight editor puzzle round analyse lobby tournament tournamentSchedule opening simul perfStat notify chat"
+
+prll_sh=/etc/profile.d/prll.sh
+
+build() {
+  app=$1
+  echo "Building $app"
   cd ui/$app
   npm install --no-optional && gulp $target
   cd -
-done
+}
+
+if [ -f $prll_sh ]; then # parallel execution!
+  . $prll_sh
+  prll build $apps
+else # sequential execution
+  for app in $apps; do build $app; done
+fi
