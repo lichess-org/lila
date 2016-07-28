@@ -60,7 +60,9 @@ case class Simul(
   def removePairing(userId: String) =
     copy(pairings = pairings filterNot (_ is userId)).finishIfDone
 
-  def startable = isCreated && applicants.count(_.accepted) > 1
+  def nbAccepted = applicants.count(_.accepted)
+
+  def startable = isCreated && nbAccepted > 1
 
   def start = startable option copy(
     status = SimulStatus.Started,
