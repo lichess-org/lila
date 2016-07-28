@@ -58,7 +58,7 @@ final class ChapterRepo(coll: Coll) {
   def removeConceal(chapterId: Chapter.ID) =
     coll.unsetField($id(chapterId), "conceal").void
 
-  def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
+  private[study] def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
     coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "name" -> true)
