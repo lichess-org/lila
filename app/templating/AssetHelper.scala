@@ -31,7 +31,7 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js",
     test = "window.jQuery",
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
