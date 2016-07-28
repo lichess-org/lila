@@ -74,7 +74,7 @@ object UserRepo {
         _.flatMap { _.getAs[String]("_id") }
       }
 
-  def allSortToints(nb: Int) =
+  private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
   def usernameById(id: ID) =

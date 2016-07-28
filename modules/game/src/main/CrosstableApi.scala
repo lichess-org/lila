@@ -106,6 +106,8 @@ final class CrosstableApi(
 
       case _ => fuccess(none)
     }
+  } recoverWith lila.db.recoverDuplicateKey { _ =>
+    coll.uno[Crosstable](select(x1, x2))
   } recover {
     case e: Exception =>
       logger.error("CrosstableApi.create", e)

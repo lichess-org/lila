@@ -2,6 +2,7 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
+import reactivemongo.api.ReadPreference
 import reactivemongo.api.Cursor
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 import reactivemongo.bson._
@@ -48,11 +49,12 @@ final class RankingApi(
   private def makeId(userId: User.ID, perfType: PerfType) =
     s"${userId}:${perfType.id}"
 
-  def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .cursor[Ranking]().gather[List](nb) map {
+        .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
+        .gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(
@@ -82,7 +84,7 @@ final class RankingApi(
       coll.find(
         $doc("perf" -> perfId, "stable" -> true),
         $doc("user" -> true, "_id" -> false)
-      ).sort($doc("rating" -> -1)).cursor[Bdoc]().
+      ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
           case (state @ (rank, b), doc) =>
             doc.getAs[User.ID]("user").fold(state) { user =>
@@ -90,6 +92,7 @@ final class RankingApi(
               (rank + 1) -> b
             }
         }.map(_._2.result())
+    }
   }
 
   object weeklyRatingDistribution {

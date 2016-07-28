@@ -5,7 +5,7 @@
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 <table>
   <tbody>
-  <tr>
+  <tr class="variant">
     <td>@trans.variant()</td>
     <td>@setup.filterCheckboxes(form, "variant", filter.variant.map(_.id.toString), translatedVariantChoicesWithVariants)</td>
   </tr>

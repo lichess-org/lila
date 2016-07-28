@@ -117,19 +117,38 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .hook_filter {
   padding: 10px 20px;
+  background: rgba(255,255,255,0.5);
+  height: 510px;
+  box-sizing: border-box;
+}
+body.dark #hooks_wrap .hook_filter {
+  background: rgba(0,0,0,0.5);
 }
 #hooks_wrap .hook_filter table {
   width: 100%;
 }
 #hooks_wrap .hook_filter td {
-  padding: 20px 0;
+  padding: 25px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
   font-size: 1.3em;
+  padding-right: 30px;
 }
 #hooks_wrap .hook_filter .checkable {
-  padding: 3px 0;
+  padding: 4.3px 0;
   color: #444;
+}
+#hooks_wrap .hook_filter .checkable {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#hooks_wrap .hook_filter tr.variant td:last-child {
+  display: flex;
+  flex-flow: row wrap;
+}
+#hooks_wrap .hook_filter tr.variant .checkable {
+  width: 33.3%;
 }
 #hooks_wrap .hook_filter label.hover,
 #hooks_wrap .hook_filter input {

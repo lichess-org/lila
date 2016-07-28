@@ -216,6 +216,9 @@ module.exports = {
       contribute: contribute,
       startTour: startTour,
       userJump: ctrl.userJump,
+      currentNode: function() {
+        return ctrl.vm.node;
+      },
       socketHandlers: {
         path: function(d) {
           var position = d.p,
