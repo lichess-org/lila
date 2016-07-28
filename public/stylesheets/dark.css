@@ -1,14 +1,14 @@
 body.dark {
   background-color: #1a1a1a;
   background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
-  color: #8c8c8c;
+  color: #929292;
 }
 body.dark a,
 body.dark a:visited,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
 body.dark .button {
-  color: #8a8a8a;
+  color: #8f8f8f;
 }
 body.dark #video .content_box_top form input,
 body.dark .study_box .list div.editing,
@@ -18,7 +18,7 @@ body.dark textarea,
 body.dark div.analysis_menu > a.active,
 body.dark div.mchat .chat_tabs .tab {
   background: #1a1a1a;
-  color: #8a8a8a;
+  color: #8f8f8f;
 }
 body.dark div.analysis_menu > a.active {
   border-top-color: #1a1a1a;
@@ -229,7 +229,7 @@ body.dark .undertable a.user_link,
 body.dark #team .forum a.user_link,
 body.dark div.user_show div.content_box_top > span,
 body.dark .undertable_top span.title {
-  color: #777;
+  color: #838383;
 }
 body.dark .crosstable td a,
 body.dark #promotion_choice {
