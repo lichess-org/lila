@@ -241,10 +241,18 @@ object GameRepo {
   }
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = coll.find(
-    Query.mate ++ $doc("v" $exists false)
+    Query.mate ++ Query.variantStandard
   ).sort(Query.sortCreated)
     .skip(Random nextInt distribution)
     .uno[Game]
+
+  def randomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
+    Query.finished ++ Query.rated ++
+      Query.variantStandard ++ Query.bothRatingsGreaterThan(1600)
+  ).sort(Query.sortCreated)
+    .skip(Random nextInt distribution)
+    .cursor[Game](ReadPreference.secondary)
+    .uno
 
   def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
     val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
