@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
-  lazy val db = {
+  lazy val (connection, dbName) = {
     val driver = new MongoDriver(Some(config))
 
     registerDriverShutdownHook(driver)
@@ -20,22 +20,19 @@ final class Env(
       parsedUri <- MongoConnection.parseURI(config getString "uri")
       con <- driver.connection(parsedUri, true)
       db <- parsedUri.db match {
-        case Some(name) => {
-          def resolvedDB = con.database(name).andThen {
-            case _ =>
-              logger.info(s"""ReactiveMongoApi successfully started with DB '$name'! Servers: ${parsedUri.hosts.map { s => s"[${s._1}:${s._2}]" }.mkString("\n\t\t")}""")
-          }
-
-          Try(Await.result(resolvedDB, 10.seconds))
-        }
-
-        case _ => {
-          Failure[DefaultDB](new IllegalArgumentException(
-            s"cannot resolve database from URI: $parsedUri"))
-        }
+        case Some(name) => Success(name)
+        case _ => Failure[String](new IllegalArgumentException(
+          s"cannot resolve database from URI: $parsedUri"))
       }
-    } yield db).get
+    } yield con -> db).get
   }
+
+  @inline private def resolveDB = connection.database(dbName).andThen {
+    case _ =>
+      logger.info(s"ReactiveMongoApi successfully started with DB '$dbName'!")
+  }
+
+  def db: DefaultDB = Await.result(resolveDB, 10.seconds)
 
   def apply(name: String): Coll = db(name)
 
