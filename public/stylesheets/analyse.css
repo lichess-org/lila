@@ -137,8 +137,8 @@ div.lichess_game div.lichess_ground {
 }
 @media (min-width: 1020px) {
 div.lichess_game div.lichess_ground {
-  width: 300px;
-}
+  width: 280px;
+  min-width: 280px;
 }
 div.eval_gauge {
   position: absolute;
