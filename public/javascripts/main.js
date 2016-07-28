@@ -146,7 +146,6 @@ lichess.notifyApp = (function() {
   };
 
   lichess.socket = null;
-  lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
@@ -494,8 +493,8 @@ lichess.notifyApp = (function() {
         if (lichess.socket === null) {
           lichess.socket = lichess.StrongSocket("/socket", 0);
         }
-        $.idleTimer(lichess.idleTime, lichess.socket.destroy, lichess.socket.connect);
-      }, 200);
+        $.idleTimer(10 * 60 * 1000, lichess.socket.destroy, lichess.socket.connect);
+      }, 300);
 
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
@@ -2032,7 +2031,10 @@ lichess.notifyApp = (function() {
     var active = true;
     var lastSeenActive = new Date();
     var onActivity = function() {
-      if (!active) onWakeUp();
+      if (!active) {
+        console.log('Wake up');
+        onWakeUp();
+      }
       active = true;
       lastSeenActive = new Date();
       stopListening();
@@ -2051,11 +2053,12 @@ lichess.notifyApp = (function() {
     };
     setInterval(function() {
       if (active && new Date() - lastSeenActive > delay) {
+        console.log('Idle mode');
         onIdle();
         active = false;
       }
       startListening();
-    }, 5000);
+    }, 10000);
   };
 
   $.modal = function(html) {
