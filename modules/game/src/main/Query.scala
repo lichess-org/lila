@@ -87,6 +87,8 @@ object Query {
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
 
+  lazy val  variantStandard = variant(chess.variant.Standard)
+
   lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
     F.variant $ne chess.variant.Horde.id,
     sinceHordePawnsAreWhite

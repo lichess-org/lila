@@ -34,6 +34,10 @@ object Export extends LilaController {
     }
   }
 
+  def random = Action.async {
+    ???
+  }
+
   def pdf(id: String) = Open { implicit ctx =>
     OnlyHumans {
       OptionResult(GameRepo game id) { game =>
