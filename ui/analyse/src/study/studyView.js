@@ -74,7 +74,7 @@ function buttons(root) {
 
 function renderTable(rows) {
   return m('table.tags.slist', m('tbody', rows.map(function(r) {
-    return m('tr', [
+    if (r) return m('tr', [
       m('th', r[0]),
       m('td', r[1])
     ]);

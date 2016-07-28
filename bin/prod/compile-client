@@ -8,7 +8,7 @@ TARGET=public/compiled
 
 mkdir -p public/compiled
 
-for file in tv.js puzzle.js chart2.js user.js coordinate.js; do
+for file in tv.js puzzle.js user.js coordinate.js; do
   orig=$SRC/$file
   comp=$TARGET/$file
   if [[ ! -f $comp || $orig -nt $comp ]]; then

@@ -84,7 +84,6 @@ module.exports = function(root, opts, allow) {
   function setNode() {
     if (!enabled()) return;
     var node = root.vm.node;
-    console.log(node);
     if (node.ply > 50 && !tablebaseRelevant(node.fen)) {
       cache[node.fen] = empty;
     }
@@ -97,7 +96,6 @@ module.exports = function(root, opts, allow) {
       loading(true);
       fetch(node.fen);
     }
-    console.log(cached);
   }
 
   return {
