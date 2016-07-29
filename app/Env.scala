@@ -48,7 +48,11 @@ final class Env(
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {
       Env.puzzle.daily()
-    }.flatMap(identity).withTimeoutDefault(100 millis, none)(system)
+    }.flatMap(identity).withTimeoutDefault(100 millis, none)(system) recover {
+      case e: Exception =>
+        lila.log("preloader").warn("daily puzzle", e)
+        none
+    }
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
