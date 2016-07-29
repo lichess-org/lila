@@ -164,17 +164,20 @@ object Puzzle extends LilaController {
       }
   }
 
-  def recentGame = Action.async {
-    import akka.pattern.ask
-    import makeTimeout.short
-    Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
-      _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
-        case Some((game, initialFen)) =>
-          Ok(Env.api.pgnDump(game, initialFen.map(_.value)).toString).fuccess
-        case _ => lila.game.GameRepo.findRandomFinished(1000) flatMap {
-          _ ?? { game =>
-            lila.game.GameRepo.initialFen(game) map { fen =>
-              Ok(Env.api.pgnDump(game, fen).toString)
+  def recentGame = Action.async { req =>
+    if (!get("token", req).contains(Env.api.apiToken)) BadRequest.fuccess
+    else {
+      import akka.pattern.ask
+      import makeTimeout.short
+      Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
+        _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
+          case Some((game, initialFen)) =>
+            Ok(Env.api.pgnDump(game, initialFen.map(_.value)).toString).fuccess
+          case _ => lila.game.GameRepo.findRandomFinished(1000) flatMap {
+            _ ?? { game =>
+              lila.game.GameRepo.initialFen(game) map { fen =>
+                Ok(Env.api.pgnDump(game, fen).toString)
+              }
             }
           }
         }
