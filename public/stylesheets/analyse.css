@@ -233,7 +233,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .ceval_box .bar {
   position: absolute;
-  width: 240px;
+  width: 100%;
   height: 4px;
   top: 0px;
 }
