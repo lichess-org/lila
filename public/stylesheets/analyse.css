@@ -135,10 +135,11 @@ div.game_control .jumps button:nth-child(3) {
 div.lichess_game div.lichess_ground {
   transition: padding-left 0.3s;
 }
-@media (min-width: 1020px) {
+@media (min-width: 1023px) {
 div.lichess_game div.lichess_ground {
   width: 280px;
   min-width: 280px;
+}
 }
 div.eval_gauge {
   position: absolute;
@@ -233,7 +234,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .ceval_box .bar {
   position: absolute;
-  width: 240px;
+  width: 100%;
   height: 4px;
   top: 0px;
 }

@@ -164,6 +164,36 @@ object Puzzle extends LilaController {
       }
   }
 
+  def recentGame = Action.async {
+    import akka.pattern.ask
+    import makeTimeout.short
+    Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
+      _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
+        case Some((game, initialFen)) =>
+          Ok(Env.api.pgnDump(game, initialFen.map(_.value)).toString).fuccess
+        case _ => lila.game.GameRepo.findRandomFinished(1000) flatMap {
+          _ ?? { game =>
+            lila.game.GameRepo.initialFen(game) map { fen =>
+              Ok(Env.api.pgnDump(game, fen).toString)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  def importOne = Action.async(parse.json) { implicit req =>
+    env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
+      val url = s"https://en.stage.lichess.org/training/$id"
+      lila.log("puzzle import").info(s"${req.remoteAddress} $url")
+      Ok(s"kthxbye $url")
+    } recover {
+      case e =>
+        lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
+        BadRequest(e.getMessage)
+    }
+  }
+
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"

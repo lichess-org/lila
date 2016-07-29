@@ -246,6 +246,12 @@ object GameRepo {
     .skip(Random nextInt distribution)
     .uno[Game]
 
+  def findRandomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
+    Query.finished ++ Query.variantStandard ++ Query.turnsMoreThan(10) ++ Query.rated
+  ).sort(Query.sortCreated)
+    .skip(Random nextInt distribution)
+    .uno[Game]
+
   def randomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
     Query.finished ++ Query.rated ++
       Query.variantStandard ++ Query.bothRatingsGreaterThan(1600)

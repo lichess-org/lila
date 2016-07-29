@@ -108,6 +108,8 @@ GET   /training/history                controllers.Puzzle.history
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/api/game.pgn           controllers.Puzzle.recentGame
+POST  /training/api/puzzle             controllers.Puzzle.importOne
 GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)

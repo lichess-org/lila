@@ -49,6 +49,7 @@ object Puzzle {
     gameId: Option[String],
     history: List[String],
     fen: String,
+    color: Color,
     lines: Lines)(id: PuzzleId) = new Puzzle(
     id = id,
     gameId = gameId,
@@ -56,7 +57,7 @@ object Puzzle {
     fen = fen,
     lines = lines,
     depth = Line minDepth lines,
-    color = Color(history.size % 2 == 0),
+    color = color,
     date = DateTime.now,
     perf = Perf.default,
     vote = Vote(0, 0, 0),
