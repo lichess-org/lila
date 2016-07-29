@@ -133,7 +133,7 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black._2))
 
   def urgentGames(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, 150) map { games =>
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map { games =>
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority
