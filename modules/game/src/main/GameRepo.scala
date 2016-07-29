@@ -246,6 +246,12 @@ object GameRepo {
     .skip(Random nextInt distribution)
     .uno[Game]
 
+  def findRandomFinished(distribution: Int): Fu[Option[Game]] = coll.find(
+    Query.finished ++ Query.variantStandard ++ Query.turnsMoreThan(10) ++ Query.rated
+  ).sort(Query.sortCreated)
+    .skip(Random nextInt distribution)
+    .uno[Game]
+
   def insertDenormalized(g: Game, ratedCheck: Boolean = true, initialFen: Option[chess.format.FEN] = None): Funit = {
     val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
       g.copy(mode = chess.Mode.Casual)
