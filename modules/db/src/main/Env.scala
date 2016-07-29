@@ -8,12 +8,13 @@ import scala.concurrent.{ Await, Future }
 import scala.util.{ Failure, Success, Try }
 
 final class Env(
+    name: String,
     config: Config,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
   private val configUri = config getString "uri"
 
-  logger.info(s"Instanciate db env for $configUri")
+  logger.info(s"Instanciate db env for $name, uri: $configUri")
 
   lazy val (connection, dbName) = {
     val driver = new MongoDriver(Some(config))
@@ -47,6 +48,7 @@ final class Env(
 object Env {
 
   lazy val current = "db" boot new Env(
+    name = "main",
     config = lila.common.PlayApp loadConfig "mongodb",
     lifecycle = lila.common.PlayApp.lifecycle)
 }
