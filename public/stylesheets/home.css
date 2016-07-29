@@ -126,6 +126,7 @@ body.dark #hooks_wrap .hook_filter {
 }
 #hooks_wrap .hook_filter table {
   width: 100%;
+  white-space: nowrap;
 }
 #hooks_wrap .hook_filter td {
   padding: 25px 0;
