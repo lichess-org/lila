@@ -32,7 +32,7 @@ final class Env(
 
   val CliUsername = config getString "cli.username"
 
-  private[api] val apiToken = config getString "api.token"
+  val apiToken = config getString "api.token"
 
   object Net {
     val Domain = config getString "net.domain"
