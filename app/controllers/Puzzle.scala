@@ -182,6 +182,18 @@ object Puzzle extends LilaController {
     }
   }
 
+  def importOne = Action.async(parse.json) { implicit req =>
+    env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
+      val url = s"https://en.stage.lichess.org/training/$id"
+      lila.log("puzzle import").info(s"${req.remoteAddress} $url")
+      Ok(s"kthxbye $url")
+    } recover {
+      case e =>
+        lila.log("puzzle import").warn(s"${req.remoteAddress} ${e.getMessage}", e)
+        BadRequest(e.getMessage)
+    }
+  }
+
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
