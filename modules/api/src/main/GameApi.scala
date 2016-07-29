@@ -32,8 +32,8 @@ private[api] final class GameApi(
     withOpening: Boolean,
     withMoveTimes: Boolean,
     token: Option[String],
-    nb: Option[Int],
-    page: Option[Int]): Fu[JsObject] = Paginator(
+    nb: Int,
+    page: Int): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
       adapter = new Adapter[Game](
         collection = GameRepo.coll,
@@ -51,8 +51,8 @@ private[api] final class GameApi(
         rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
       }
     ),
-    currentPage = math.max(0, page | 1),
-    maxPerPage = math.max(1, math.min(100, nb | 10))) flatMap { pag =>
+    currentPage = page,
+    maxPerPage = nb) flatMap { pag =>
       gamesJson(
         withAnalysis = withAnalysis,
         withMoves = withMoves,
