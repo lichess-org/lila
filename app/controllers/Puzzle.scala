@@ -164,6 +164,20 @@ object Puzzle extends LilaController {
       }
   }
 
+  def recentGame = Action.async {
+    import akka.pattern.ask
+    import makeTimeout.short
+    Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
+      _ ?? lila.game.GameRepo.gameWithInitialFen map {
+        _ ?? {
+          case (game, initialFen) => Ok {
+            Env.api.pgnDump(game, initialFen.map(_.value)).toString
+          }
+        }
+      }
+    }
+  }
+
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"

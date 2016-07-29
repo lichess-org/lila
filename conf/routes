@@ -107,6 +107,7 @@ GET   /training/history                controllers.Puzzle.history
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/api/game.pgn           controllers.Puzzle.recentGame
 GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
@@ -250,7 +251,6 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
-GET   /game/export/png/random.png             controllers.Export.random
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
