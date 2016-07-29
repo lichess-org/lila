@@ -136,9 +136,7 @@ lichess.StrongSocket = function(url, version, settings) {
     currentLag = now() - lastPingTime;
     if (!averageLag) averageLag = currentLag;
     else averageLag = 0.2 * (currentLag - averageLag) + averageLag;
-    if (options.lagTag) {
-      options.lagTag.html(Math.round(averageLag));
-    }
+    if (options.lagTag) options.lagTag.html(Math.round(averageLag));
   };
 
   var pingData = function() {

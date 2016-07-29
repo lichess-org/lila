@@ -231,7 +231,7 @@ lichess.notifyApp = (function() {
     params: {},
     options: {
       name: "site",
-      lagTag: $('#top .ping strong'),
+      lagTag: null,
       debug: location.search.indexOf('debug-ws') != -1,
       prodPipe: location.search.indexOf('prod-ws') != -1,
       resetUrl: location.search.indexOf('reset-ws') != -1
@@ -752,7 +752,10 @@ lichess.notifyApp = (function() {
           };
           $('html').on('click', handler);
         }, 10);
-        if ($p.hasClass('auth')) lichess.socket.send('moveLat', true);
+        if ($p.hasClass('auth')) {
+          lichess.socket.send('moveLat', true);
+          lichess.socket.options.lagTag = $('#top .ping strong');
+        }
         return false;
       });
 
