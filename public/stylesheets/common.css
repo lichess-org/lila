@@ -2242,7 +2242,7 @@ textarea.copyable {
 .hint--left:hover:before {
   transform: translateX(-8px);
 }
-.continue_with {
+#lichess .continue_with {
   display: none;
 }
 .continue_with .button {
