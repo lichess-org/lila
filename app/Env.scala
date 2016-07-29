@@ -22,7 +22,7 @@ final class Env(
     leaderboard = Env.user.cached.topWeek,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.entryRepo.userEntries _,
-    dailyPuzzle = Env.puzzle.daily,
+    dailyPuzzle = tryDailyPuzzle,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
@@ -44,6 +44,11 @@ final class Env(
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _
+
+  private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
+    scala.concurrent.Future {
+      Env.puzzle.daily()
+    }.flatMap(identity).withTimeoutDefault(100 millis, none)(system)
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
