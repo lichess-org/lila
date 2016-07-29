@@ -1,15 +1,19 @@
 package lila.db
 
 import com.typesafe.config.Config
+import dsl._
 import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, Future }
 import scala.util.{ Failure, Success, Try }
-import dsl._
 
 final class Env(
     config: Config,
     lifecycle: play.api.inject.ApplicationLifecycle) {
+
+  private val configUri = config getString "uri"
+
+  logger.info(s"Instanciate db env for $configUri")
 
   lazy val (connection, dbName) = {
     val driver = new MongoDriver(Some(config))
@@ -17,7 +21,7 @@ final class Env(
     registerDriverShutdownHook(driver)
 
     (for {
-      parsedUri <- MongoConnection.parseURI(config getString "uri")
+      parsedUri <- MongoConnection.parseURI(configUri)
       con <- driver.connection(parsedUri, true)
       db <- parsedUri.db match {
         case Some(name) => Success(name)
