@@ -39,14 +39,18 @@ object Api extends LilaController {
     }
   }
 
-  private val GamesRateLimit = new lila.memo.RateLimit(100, 10 minutes, "user games API")
+  private val GamesRateLimit = new lila.memo.RateLimit(
+    credits = 10 * 1000,
+    duration = 10 minutes,
+    name = "user games API")
 
   def userGames(name: String) = ApiResult { implicit ctx =>
+    val page = (getInt("page") | 1) max 1 min 200
+    val nb = (getInt("nb") | 10) max 1 min 100
+    val cost = page * nb + 10
     if (lila.common.HTTPRequest.isBot(ctx.req)) fuccess(none)
-    else GamesRateLimit(ctx.req.remoteAddress) {
-      val page = getInt("page")
-      if (~page > 200) fuccess(Json.obj("error" -> "Going too far back in time.").some)
-      else lila.user.UserRepo named name flatMap {
+    else GamesRateLimit(ctx.req.remoteAddress, cost = cost) {
+      lila.user.UserRepo named name flatMap {
         _ ?? { user =>
           gameApi.byUser(
             user = user,
@@ -57,7 +61,7 @@ object Api extends LilaController {
             withOpening = getBool("with_opening"),
             withMoveTimes = getBool("with_movetimes"),
             token = get("token"),
-            nb = getInt("nb"),
+            nb = nb,
             page = page
           ) map some
         }

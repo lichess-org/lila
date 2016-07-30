@@ -34,6 +34,7 @@ final class ChapterRepo(coll: Coll) {
       noRootProjection
     ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
 
+  // loads all study chapters in memory! only used for search indexing
   def orderedByStudy(studyId: Study.ID): Fu[List[Chapter]] =
     coll.find($studyId(studyId))
       .sort($sort asc "order")
@@ -58,7 +59,7 @@ final class ChapterRepo(coll: Coll) {
   def removeConceal(chapterId: Chapter.ID) =
     coll.unsetField($id(chapterId), "conceal").void
 
-  def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
+  private[study] def namesByStudyIds(studyIds: Seq[Study.ID]): Fu[Map[Study.ID, Vector[String]]] =
     coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "name" -> true)

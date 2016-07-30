@@ -117,19 +117,39 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .hook_filter {
   padding: 10px 20px;
+  background: rgba(255,255,255,0.5);
+  height: 510px;
+  box-sizing: border-box;
+}
+body.dark #hooks_wrap .hook_filter {
+  background: rgba(0,0,0,0.5);
 }
 #hooks_wrap .hook_filter table {
   width: 100%;
+  white-space: nowrap;
 }
 #hooks_wrap .hook_filter td {
-  padding: 20px 0;
+  padding: 25px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
   font-size: 1.3em;
+  padding-right: 30px;
 }
 #hooks_wrap .hook_filter .checkable {
-  padding: 3px 0;
+  padding: 4.3px 0;
   color: #444;
+}
+#hooks_wrap .hook_filter .checkable {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#hooks_wrap .hook_filter tr.variant td:last-child {
+  display: flex;
+  flex-flow: row wrap;
+}
+#hooks_wrap .hook_filter tr.variant .checkable {
+  width: 33.3%;
 }
 #hooks_wrap .hook_filter label.hover,
 #hooks_wrap .hook_filter input {
@@ -355,8 +375,7 @@ body.dark #hooks_wrap {
   flex-flow: column nowrap;
 }
 #featured_game {
-  position: absolute;
-  top: 529px;
+  margin-top: 16px;
 }
 div.undertable {
   width: 512px;
@@ -478,7 +497,7 @@ div.new_posts li span.extract {
 #daily_puzzle {
   width: 224px;
   position: absolute;
-  top: 527px;
+  top: 531px;
   left: 527px;
 }
 #daily_puzzle > div.vstext {
@@ -733,7 +752,6 @@ div.game_config .color_submits button.random i {
 #timeline {
   margin-top: 10px;
   border-top: 1px solid #e4e4e4;
-  padding-top: 8px;
   margin-left: -30px;
   width: 230px;
   font-size: 0.9em;
@@ -752,9 +770,8 @@ div.game_config .color_submits button.random i {
   }
 }
 #timeline .entry {
-  padding-bottom: 8px;
+  padding: 8px 0;
   border-bottom: 1px solid #e4e4e4;
-  margin-bottom: 8px;
   font-family: 'Roboto';
   font-weight: 300;
 }
@@ -763,9 +780,10 @@ div.game_config .color_submits button.random i {
 }
 #timeline a {
   font-family: 'Noto Sans';
-  font-weight: bold;
-  color: #a0a0a0;
   text-decoration: none;
+}
+#timeline .entry:hover a {
+  color: #3893E8;
 }
 #timeline a.user_link {
   padding-left: 0;

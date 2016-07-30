@@ -72,6 +72,9 @@ final class Env(
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
+  val recentGoodGameActor = system.actorOf(Props[RecentGoodGame], name = "recent-good-game")
+  system.lilaBus.subscribe(recentGoodGameActor, 'finishGame)
+
   scheduler.message(CaptcherDuration) {
     captcher -> actorApi.NewCaptcha
   }

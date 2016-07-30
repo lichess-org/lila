@@ -27,8 +27,6 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
     def isBerserk = berserk > 0
 
     def isWin = win contains true
-
-    def isDoubleWin = isWin && flag == Double
   }
 
   case class Sheet(scores: List[Score]) extends ScoreSheet {
@@ -51,7 +49,7 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
             berserkValue)
           case Some(w) if userId == w => Score(
             Some(true),
-            if (p.initial || isOnFire(scores)) Double
+            if (isOnFire(scores)) Double
             else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
             else n.flatMap(_.winner) match {
               case Some(w) if userId == w => StreakStarter
@@ -63,12 +61,8 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
     }
   }
 
-  private def isOnFire(scores: List[Score]) =
-    firstIsDoubleWin(scores) || firstTwoAreWins(scores)
+  private def isOnFire = firstTwoAreWins _
 
   private def firstTwoAreWins(scores: List[Score]) =
     (scores.size >= 2) && (scores take 2 forall (~_.win))
-
-  private def firstIsDoubleWin(scores: List[Score]) =
-    scores.headOption.??(_.isDoubleWin)
 }

@@ -146,7 +146,6 @@ lichess.notifyApp = (function() {
   };
 
   lichess.socket = null;
-  lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
@@ -232,7 +231,7 @@ lichess.notifyApp = (function() {
     params: {},
     options: {
       name: "site",
-      lagTag: $('#top .ping strong'),
+      lagTag: null,
       debug: location.search.indexOf('debug-ws') != -1,
       prodPipe: location.search.indexOf('prod-ws') != -1,
       resetUrl: location.search.indexOf('reset-ws') != -1
@@ -494,8 +493,8 @@ lichess.notifyApp = (function() {
         if (lichess.socket === null) {
           lichess.socket = lichess.StrongSocket("/socket", 0);
         }
-        $.idleTimer(lichess.idleTime, lichess.socket.destroy, lichess.socket.connect);
-      }, 200);
+        $.idleTimer(10 * 60 * 1000, lichess.socket.destroy, lichess.socket.connect);
+      }, 300);
 
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
@@ -753,7 +752,10 @@ lichess.notifyApp = (function() {
           };
           $('html').on('click', handler);
         }, 10);
-        if ($p.hasClass('auth')) lichess.socket.send('moveLat', true);
+        if ($p.hasClass('auth')) {
+          lichess.socket.send('moveLat', true);
+          lichess.socket.options.lagTag = $('#top .ping strong');
+        }
         return false;
       });
 
@@ -1054,9 +1056,7 @@ lichess.notifyApp = (function() {
         chat = c;
       });
     }
-    setTimeout(function() {
-      $('.crosstable', element).prependTo($('.underboard .center', element)).show();
-    }, 200);
+    $('.crosstable', element).prependTo($('.underboard .center', element)).removeClass('none');
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
@@ -1882,7 +1882,7 @@ lichess.notifyApp = (function() {
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
 
     setTimeout(function() {
-      $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+      $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
     }, 200);
 
     var chartLoader = function() {
@@ -1912,7 +1912,8 @@ lichess.notifyApp = (function() {
           lichess.movetimeChart(data);
         });
       } catch (e) {}
-      if (panel === 'computer_analysis' && $("#adv_chart").length) startAdvantageChart();
+      if (panel === 'computer_analysis' && $("#adv_chart").length)
+        setTimeout(startAdvantageChart, 200);
     };
     $menu.on('mousedown', 'a', function() {
       var panel = $(this).data('panel');
@@ -2033,7 +2034,10 @@ lichess.notifyApp = (function() {
     var active = true;
     var lastSeenActive = new Date();
     var onActivity = function() {
-      if (!active) onWakeUp();
+      if (!active) {
+        console.log('Wake up');
+        onWakeUp();
+      }
       active = true;
       lastSeenActive = new Date();
       stopListening();
@@ -2052,11 +2056,12 @@ lichess.notifyApp = (function() {
     };
     setInterval(function() {
       if (active && new Date() - lastSeenActive > delay) {
+        console.log('Idle mode');
         onIdle();
         active = false;
       }
       startListening();
-    }, 5000);
+    }, 10000);
   };
 
   $.modal = function(html) {

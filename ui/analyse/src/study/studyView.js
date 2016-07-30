@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
-var nodeFullName = require('../util').nodeFullName;
+var util = require('../util');
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterNewFormView = require('./chapterNewForm').view;
@@ -74,7 +74,7 @@ function buttons(root) {
 
 function renderTable(rows) {
   return m('table.tags.slist', m('tbody', rows.map(function(r) {
-    return m('tr', [
+    if (r) return m('tr', [
       m('th', r[0]),
       m('td', r[1])
     ]);
@@ -83,33 +83,38 @@ function renderTable(rows) {
 
 function renderPgn(setup) {
   var obj = setup.fromPgn || setup.game;
-  if (obj) return renderTable(obj.tags.map(function(tag) {
-    return [
-      tag.name,
-      tag.name.toLowerCase() === 'fen' ?
-      m('pre.fen', tag.value) :
-      m.trust($.urlToLink(tag.value))
+  if (obj) return renderTable([
+    ['Fen', m('pre#study_fen', '')],
+  ].concat(obj.tags.map(function(tag) {
+    if (tag.name.toLowerCase() !== 'fen') return [
+      tag.name, m.trust($.urlToLink(tag.value))
     ];
-  }));
+  })));
 }
 
-function renderFen(setup, root) {
+function renderFen(setup) {
   return renderTable([
-    ['Variant', setup.variant.name],
-    ['Fen', setup.fromFen ? m('pre.fen', root.fen) : 'start']
+    ['Fen', m('pre#study_fen', '')],
+    ['Variant', setup.variant.name]
   ]);
 }
 
 var lastMetaKey;
 
-function metadata(ctrl, treeRoot) {
+function metadata(ctrl) {
+  lichess.raf(function() {
+    var n = document.getElementById('study_fen');
+    if (n) n.textContent = ctrl.currentNode().fen;
+  });
   var chapter = ctrl.currentChapter();
   if (!chapter) return;
   var d = ctrl.data;
   var cacheKey = [chapter.id, d.name, chapter.name, d.likes].join('|');
-  if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') return {
-    subtree: 'retain'
-  };
+  if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') {
+    return {
+      subtree: 'retain'
+    };
+  }
   lastMetaKey = cacheKey;
   var setup = d.chapter.setup;
   return m('div.study_metadata.undertable', [
@@ -123,10 +128,9 @@ function metadata(ctrl, treeRoot) {
         title: 'Like',
         onclick: ctrl.toggleLike
       }, d.likes)
-      // m('span.views', d.views + ' views')
     ]),
     m('div.undertable_inner',
-      renderPgn(setup) || renderFen(setup, treeRoot)
+      renderPgn(setup) || renderFen(setup)
     )
   ]);
 }
@@ -145,8 +149,8 @@ module.exports = {
     };
 
     var tabs = m('div.study_tabs', [
-      makeTab('members', 'Members'),
-      makeTab('chapters', 'Chapters'),
+      makeTab('members', util.plural('Member', ctrl.members.size())),
+      makeTab('chapters', util.plural('Chapter', ctrl.chapters.size())),
       ctrl.members.isOwner() ? m('a.more', {
         onclick: function() {
           ctrl.form.open(!ctrl.form.open());

@@ -31,7 +31,7 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js",
     test = "window.jQuery",
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
@@ -53,11 +53,6 @@ trait AssetHelper { self: I18nHelper =>
     cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
-
-  val peerjsTag = cdnOrLocal(
-    cdn = "https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js",
-    test = "window.Peer",
-    local = staticUrl("javascripts/vendor/peer.min.js"))
 
   def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx).language match {
     case "en" => none

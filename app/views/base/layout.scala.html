@@ -59,7 +59,6 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     "coords_" + ctx.pref.coords,
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
-    @if(isGranted(_.GuineaPig)){data-guineapig="true"}
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-set="@ctx.currentSoundSet"
@@ -197,6 +196,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     } else {
     @jsTag("deps.min.js")
     @jsTag("util.js")
+    @jsTag("proxy.js")
     @jsTag("socket.js")
     @jsTag("main.js")
     }

@@ -1,11 +1,12 @@
 package lila.teamSearch
 
+import reactivemongo.api.Cursor
+
 import lila.search._
 import lila.team.actorApi._
 import lila.team.{ Team, TeamRepo }
 
 import play.api.libs.json._
-import play.api.libs.iteratee._
 
 final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
@@ -28,13 +29,13 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
     case c: ESClientHttp => c.putMapping >> {
       lila.log("teamSearch").info(s"Index to ${c.index.name}")
       import lila.db.dsl._
-      TeamRepo.cursor($doc("enabled" -> true))
-        .enumerateBulks(Int.MaxValue) |>>>
-        Iteratee.foldM[Iterator[Team], Unit](()) {
-          case (_, teams) =>
-            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t)))
-        }
+
+      TeamRepo.cursor($doc("enabled" -> true)).foldBulksM({}) { (_, teams) =>
+        c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t))).
+          map(Cursor.Cont(_))
+      }
     }
+
     case _ => funit
   }
 }

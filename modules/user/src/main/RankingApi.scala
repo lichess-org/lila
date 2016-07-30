@@ -2,7 +2,10 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
+import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
+import reactivemongo.api.Cursor
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -47,11 +50,12 @@ final class RankingApi(
   private def makeId(userId: User.ID, perfType: PerfType) =
     s"${userId}:${perfType.id}"
 
-  def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
       coll.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .cursor[Ranking]().gather[List](nb) map {
+        .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
+        .gather[List](nb) map {
           _.flatMap { r =>
             lightUser(r.user).map { light =>
               User.LightPerf(
@@ -77,21 +81,18 @@ final class RankingApi(
       f = compute,
       timeToLive = 15 minutes)
 
-    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] = {
-      val enumerator = coll.find(
+    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
+      coll.find(
         $doc("perf" -> perfId, "stable" -> true),
         $doc("user" -> true, "_id" -> false)
-      ).sort($doc("rating" -> -1)).cursor[Bdoc]().enumerate()
-      var rank = 1
-      val b = Map.newBuilder[User.ID, Rank]
-      val mapBuilder: Iteratee[Bdoc, Unit] = Iteratee.foreach { doc =>
-        doc.getAs[User.ID]("user") foreach { user =>
-          b += (user -> rank)
-          rank = rank + 1
-        }
-      }
-      enumerator.run(mapBuilder) inject b.result
-    }
+      ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
+        fold(1 -> Map.newBuilder[User.ID, Rank]) {
+          case (state @ (rank, b), doc) =>
+            doc.getAs[User.ID]("user").fold(state) { user =>
+              b += (user -> rank)
+              (rank + 1) -> b
+            }
+        }.map(_._2.result())
   }
 
   object weeklyRatingDistribution {
@@ -122,7 +123,7 @@ final class RankingApi(
           )),
             GroupField("r")("nb" -> SumValue(1))
           )).map { res =>
-            val hash = res.documents.flatMap { obj =>
+            val hash = res.firstBatch.flatMap { obj =>
               for {
                 rating <- obj.getAs[Int]("_id")
                 nb <- obj.getAs[NbUsers]("nb")

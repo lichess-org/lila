@@ -128,8 +128,7 @@ object BSONHandlers {
         winner = r boolO "w" map (_.fold(user1, user2)),
         turns = r intO "t",
         berserk1 = r intD "b1",
-        berserk2 = r intD "b2",
-        initial = r boolD "i")
+        berserk2 = r intD "b2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
       "_id" -> o.id,
@@ -139,8 +138,7 @@ object BSONHandlers {
       "w" -> o.winner.map(o.user1 ==),
       "t" -> o.turns,
       "b1" -> w.intO(o.berserk1),
-      "b2" -> w.intO(o.berserk2),
-      "i" -> w.boolO(o.initial))
+      "b2" -> w.intO(o.berserk2))
   }
 
   implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {

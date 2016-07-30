@@ -5,6 +5,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
+import chess.format.pgn.Tag
 import lila.hub.MultiThrottler
 import lila.search._
 import lila.socket.tree.Node.{ Comments, Comment }
@@ -50,7 +51,18 @@ final class StudySearchApi(
     Fields.likes -> s.study.likes.value,
     Fields.public -> s.study.isPublic)
 
-  private def chapterText(c: Chapter): String = nodeText(c.root)
+  private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
+    Tag.Variant, Tag.Event, Tag.Round,
+    Tag.White, Tag.Black,
+    Tag.ECO, Tag.Opening, Tag.Annotator)
+
+  private def chapterText(c: Chapter): String = {
+    nodeText(c.root) :: c.setup.fromPgn.?? { pgn =>
+      pgn.tags collect {
+        case Tag(name, value) if relevantPgnTags.contains(name) => value
+      }
+    }
+  }.flatten mkString " "
 
   private def nodeText(n: RootOrNode): String =
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")

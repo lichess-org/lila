@@ -62,7 +62,7 @@ chessground = true) {
     </div>
   </div>
 </div>
-<div class="advice_summary" style="display:none">
+<div class="advice_summary">
   @analysis.map { a =>
   <table>
     @for((color, pairs) <- a.summary) {
@@ -91,7 +91,7 @@ chessground = true) {
   </table>
   }
 </div>
-<div class="underboard_content" style="display:none">
+<div class="underboard_content">
   <div class="analysis_panels">
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>

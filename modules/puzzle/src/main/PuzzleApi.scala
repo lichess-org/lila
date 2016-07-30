@@ -5,7 +5,7 @@ import scala.util.{ Try, Success, Failure }
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson. BSONArray
+import reactivemongo.bson.{ BSONArray, BSONValue }
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -28,31 +28,26 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]()
         .gather[List](nb)
 
-    def importBatch(json: JsValue, token: String): Fu[List[Try[PuzzleId]]] =
+    def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
-        insertPuzzles(json.as[List[Generated]] map (_.toPuzzle))
+        insertPuzzle(json.as[Generated])
       }
 
-    def insertPuzzles(puzzles: List[Try[PuzzleId => Puzzle]]): Fu[List[Try[PuzzleId]]] = puzzles match {
-      case Nil => fuccess(Nil)
-      case Failure(err) :: rest => insertPuzzles(rest) map { ps =>
-        (Failure(err): Try[PuzzleId]) :: ps
-      }
-      case Success(puzzle) :: rest => lila.db.Util findNextId puzzleColl flatMap { id =>
-        val p = puzzle(id)
+    def insertPuzzle(generated: Generated): Fu[PuzzleId] =
+      lila.db.Util findNextId puzzleColl flatMap { id =>
+        val p = generated toPuzzle id
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
-        puzzleColl.count($doc(
+        puzzleColl.exists($doc(
           "fen".$regex(fenStart.replace("/", "\\/"), "")
-        ).some) flatMap {
-          case 0 => (puzzleColl insert p) >> {
-            insertPuzzles(rest) map (Success(id) :: _)
-          }
-          case _ => insertPuzzles(rest) map (Failure(new Exception("Duplicate puzzle")) :: _)
+        )) flatMap {
+          case false =>
+            val doc = (puzzleBSONHandler write p) ++ $doc("mate" -> generated.isMate)
+            puzzleColl insert doc inject id
+          case _ => fufail("Duplicate puzzle")
         }
       }
-    }
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc("mate" -> mate))
@@ -62,7 +57,7 @@ private[puzzle] final class PuzzleApi(
 
     def disable(id: PuzzleId): Funit =
       puzzleColl.update(
-        $doc("_id" -> id),
+        $id(id),
         $doc("$set" -> $doc(Puzzle.BSONFields.vote -> Vote.disable))
       ).void
   }
@@ -83,7 +78,7 @@ private[puzzle] final class PuzzleApi(
         }
         val a2 = a1.copy(vote = v.some)
         attemptColl.update(
-          $doc("_id" -> a2.id),
+          $id(a2.id),
           $doc("$set" -> $doc(Attempt.BSONFields.vote -> v))) zip
           puzzleColl.update(
             $doc("_id" -> p2.id),
@@ -100,7 +95,7 @@ private[puzzle] final class PuzzleApi(
       ))
 
     def playedIds(user: User): Fu[BSONArray] =
-      attemptColl.distinct(Attempt.BSONFields.puzzleId,
+      attemptColl.distinct[BSONValue, List](Attempt.BSONFields.puzzleId,
         $doc(Attempt.BSONFields.userId -> user.id).some
       ) map BSONArray.apply
 

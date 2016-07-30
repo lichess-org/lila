@@ -4,46 +4,36 @@ import scala.util.{ Try, Success, Failure }
 import scalaz.Validation.FlatMap._
 
 import chess.format.{ Forsyth, Uci }
-import chess.Game
+import chess.Color
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-case class Generated(
-    position: String,
-    solution: JsObject,
-    id: String) {
+private case class Generated(
+    category: String,
+    last_pos: String,
+    last_move: String,
+    move_list: JsArray,
+    game_id: String) {
 
-  def toPuzzle: Try[PuzzleId => Puzzle] = for {
-    lines ← Generated readLines solution
-    history = position split ' '
-    _ ← if (history.isEmpty) Failure(new Exception("Empty history")) else Success(true)
-    fen ← Generated fenOf history
-  } yield Puzzle.make(
-    gameId = id.some,
-    history = position.trim.split(' ').toList,
-    fen = fen,
-    lines = lines)
+  def isMate = category == "Mate"
+
+  def colorFromFen = (Forsyth << last_pos).fold(Color.white)(!_.color)
+
+  def toPuzzle: PuzzleId => Puzzle = Puzzle.make(
+    gameId = game_id.some,
+    history = List(last_move),
+    fen = last_pos,
+    color = colorFromFen,
+    lines = Generated readLines move_list.as[List[String]])
 }
 
-object Generated {
+private object Generated {
 
-  def readLines(obj: JsObject): Try[Lines] = (obj.fields.toList map {
-    case (move, JsString("win"))   => Success(Win(move))
-    case (move, JsString("retry")) => Success(Retry(move))
-    case (move, more: JsObject)    => readLines(more) map { Node(move, _) }
-    case (move, value)             => Failure(new Exception(s"Invalid line $move $value"))
-  }).sequence
-
-  private[puzzle] def fenOf(moves: Seq[String]): Try[String] =
-    (moves.init.foldLeft(Try(Game(chess.variant.Standard))) {
-      case (game, moveStr) => game flatMap { g =>
-        (Uci.Move(moveStr) toValid s"Invalid UCI move $moveStr" flatMap {
-          case Uci.Move(orig, dest, prom) => g(orig, dest, prom) map (_._1)
-        }).fold(errs => Failure(new Exception(errs.shows)), Success.apply)
-      }
-    }) map { game =>
-      Forsyth >> Forsyth.SituationPlus(game.situation, moves.size / 2)
-    }
+  def readLines(moves: List[String]): Lines = moves match {
+    case Nil          => Nil
+    case move :: Nil  => List(Win(move))
+    case move :: more => List(Node(move, readLines(more)))
+  }
 
   implicit val generatedJSONRead = Json.reads[Generated]
 }

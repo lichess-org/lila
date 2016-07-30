@@ -95,7 +95,6 @@ div.fen_pgn input.fen {
 }
 div.game_control {
   flex: 0 0 36px;
-  width: 244px;
   font-size: 1.3em;
   display: flex;
   justify-content: space-between;
@@ -136,6 +135,12 @@ div.game_control .jumps button:nth-child(3) {
 div.lichess_game div.lichess_ground {
   position: relative;
   transition: padding-left 0.3s;
+}
+@media (min-width: 1023px) {
+div.lichess_game div.lichess_ground {
+  width: 280px;
+  min-width: 280px;
+}
 }
 div.eval_gauge {
   position: absolute;
@@ -192,7 +197,8 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background: #e0e0e0;
+  background: #e4e4e4;
+  font-family: 'Roboto';
 }
 .ceval_box {
   position: relative;
@@ -229,7 +235,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 }
 .ceval_box .bar {
   position: absolute;
-  width: 240px;
+  width: 100%;
   height: 4px;
   top: 0px;
 }
@@ -855,7 +861,7 @@ div.advice_summary table:first-child {
 }
 #adv_chart,
 #movetimes_chart {
-  height: 200px;
+  height: 210px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
 }
 div.panel.computer_analysis {

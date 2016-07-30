@@ -21,9 +21,7 @@ final class CrosstableApi(
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.uno[Crosstable](select(u1, u2)) orElse
-      creationCache(u1 -> u2) recoverWith
-      lila.db.recoverDuplicateKey(_ => coll.uno[Crosstable](select(u1, u2)))
+    coll.uno[Crosstable](select(u1, u2)) orElse createFast(u1, u2)
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
@@ -62,6 +60,9 @@ final class CrosstableApi(
   private def exists(u1: String, u2: String) =
     coll.exists(select(u1, u2))
 
+  private def createFast(u1: String, u2: String) =
+    creationCache(u1 -> u2).withTimeoutDefault(1 second, none)(system)
+
   // to avoid creating it twice during a new matchup
   private val creationCache = AsyncCache[(String, String), Option[Crosstable]](
     f = (create _).tupled,
@@ -80,7 +81,7 @@ final class CrosstableApi(
 
         gameColl.find(selector, winnerProjection)
           .sort($doc(Game.BSONFields.createdAt -> -1))
-          .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+          .cursor[Bdoc](readPreference = ReadPreference.secondary)
           .gather[List]().map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {
@@ -105,7 +106,13 @@ final class CrosstableApi(
 
       case _ => fuccess(none)
     }
-  }.withTimeoutDefault(1 second, none)(system)
+  } recoverWith lila.db.recoverDuplicateKey { _ =>
+    coll.uno[Crosstable](select(x1, x2))
+  } recover {
+    case e: Exception =>
+      logger.error("CrosstableApi.create", e)
+      none
+  }
 
   private def select(u1: String, u2: String) =
     $id(Crosstable.makeKey(u1, u2))

@@ -32,8 +32,7 @@ module.exports = function(ctrl, player, klass) {
     m('a', {
       class: 'text ulpt user_link ' + (player.user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
-      target: game.isPlayerPlaying(d) ? '_blank' : '_self',
-      title: player.provisional ? 'Provisional rating' : null
+      target: game.isPlayerPlaying(d) ? '_blank' : '_self'
     }, [
       m('i', {
         class: 'line' + (player.user.patron ? ' patron' : '')

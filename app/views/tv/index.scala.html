@@ -29,7 +29,7 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 <div class="round cg-512">
   @miniBoardContent
 </div>
-<div class="crosstable" style="display:none">
+<div class="crosstable none">
   @cross.map { c =>
   @game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
   }

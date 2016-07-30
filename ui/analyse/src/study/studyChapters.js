@@ -25,6 +25,9 @@ module.exports = {
           return c.id === id;
         });
       },
+      size: function() {
+        return list().length;
+      },
       rename: function(id, name) {
         send("renameChapter", {
           id: id,

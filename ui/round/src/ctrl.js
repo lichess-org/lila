@@ -27,8 +27,6 @@ module.exports = function(opts) {
 
   this.userId = opts.userId;
 
-  if (opts.isGuineaPig) console.log('Running in guinea pig mode. Sorry.');
-
   this.vm = {
     ply: init.startPly(this.data),
     initializing: true,
@@ -378,15 +376,13 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) {
-    if (opts.isGuineaPig) {
-      var scheduleClockTick = function() {
-        setTimeout(function() {
-          clockTick();
-          scheduleClockTick();
-        }.bind(this), 100);
-      }.bind(this);
-      scheduleClockTick();
-    } else setInterval(clockTick, 100);
+    var scheduleClockTick = function() {
+      setTimeout(function() {
+        clockTick();
+        if (game.playable(this.data)) scheduleClockTick();
+      }.bind(this), 100);
+    }.bind(this);
+    scheduleClockTick();
   } else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {

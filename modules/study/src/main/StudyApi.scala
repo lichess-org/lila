@@ -60,6 +60,14 @@ final class StudyApi(
         scheduleTimeline(res.study.id) inject res
     }
 
+  def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
+    chapters.headOption match {
+      case Some(c) if study.isOld && study.position != c.initialPosition =>
+        val newStudy = study withChapter c
+        studyRepo.updateSomeFields(newStudy) inject newStudy
+      case _ => fuccess(study)
+    }
+
   private def scheduleTimeline(studyId: Study.ID) = scheduler.scheduleOnce(1 minute) {
     byId(studyId) foreach {
       _.filter(_.isPublic) foreach { study =>
