@@ -54,11 +54,6 @@ trait AssetHelper { self: I18nHelper =>
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
 
-  val peerjsTag = cdnOrLocal(
-    cdn = "https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js",
-    test = "window.Peer",
-    local = staticUrl("javascripts/vendor/peer.min.js"))
-
   def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx).language match {
     case "en" => none
     case "pt" => "pt-br".some
