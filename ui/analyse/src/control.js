@@ -4,10 +4,6 @@ function canEnterVariation(ctrl) {
   return ctrl.vm.node.children.length > 1;
 }
 
-function jumpToPath(ctrl, path) {
-  if (ctrl.canJumpTo(path)) ctrl.userJump(path);
-}
-
 function sharedStart(p1, p2) {
   var L = p1.length,
     i = 0;
@@ -24,15 +20,15 @@ module.exports = {
   next: function(ctrl) {
     var child = ctrl.vm.node.children[0];
     if (!child) return;
-    jumpToPath(ctrl, ctrl.vm.path + child.id);
+    ctrl.userJumpIfCan(ctrl.vm.path + child.id);
   },
 
   prev: function(ctrl) {
-    jumpToPath(ctrl, treePath.init(ctrl.vm.path));
+    ctrl.userJumpIfCan(treePath.init(ctrl.vm.path));
   },
 
   last: function(ctrl) {
-    jumpToPath(ctrl, treePath.fromNodeList(ctrl.vm.mainline));
+    ctrl.userJumpIfCan(treePath.fromNodeList(ctrl.vm.mainline));
   },
 
   first: function(ctrl) {

@@ -308,5 +308,6 @@ module.exports = {
       })
     ]);
   },
+  renderIndex: renderIndex,
   renderMove: renderMove
 };

@@ -30,6 +30,7 @@ body.dark #video_side .tag_list a.full:hover {
   background: #222;
   border-color: #444;
 }
+body.dark .fork,
 body.dark .study_tabs a,
 body.dark .lichess_ground .suggestion,
 body.dark .lichess_ground .pending,
@@ -198,6 +199,7 @@ body.dark #modal-wrap .close:hover {
   background-color: #505050;
 }
 
+body.dark .fork move,
 body.dark .tview2 lines,
 body.dark #adv_chart_loader,
 body.dark .pull-quote p,
