@@ -14,7 +14,8 @@ case class Study(
     settings: Settings,
     from: Study.From,
     likes: Study.Likes,
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    updatedAt: DateTime) {
 
   import Study._
 
@@ -30,11 +31,15 @@ case class Study(
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
-  def withChapter(c: Chapter) =
+  def withChapter(c: Chapter.Like): Study =
     if (c.id == position.chapterId) this
     else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
   def isPublic = visibility == Study.Visibility.Public
+
+  def isNew = (nowSeconds - createdAt.getSeconds) < 4
+
+  def isOld = (nowSeconds - updatedAt.getSeconds) > 10
 }
 
 object Study {
@@ -112,6 +117,7 @@ object Study {
       settings = Settings.init,
       from = from,
       likes = Likes(1),
-      createdAt = DateTime.now)
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now)
   }
 }

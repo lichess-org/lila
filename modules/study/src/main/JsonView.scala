@@ -92,7 +92,8 @@ final class JsonView(
       "createdAt" -> s.createdAt,
       "from" -> s.from,
       "likes" -> s.likes,
-      "isNew" -> s.createdAt.isAfter(DateTime.now minusSeconds 4).option(true)
+      "isNew" -> s.isNew,
+      "isOld" -> s.isOld
     ).noNull
   }
 }

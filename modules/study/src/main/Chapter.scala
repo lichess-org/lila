@@ -59,6 +59,8 @@ object Chapter {
     val name: String
     val setup: Chapter.Setup
     def id = _id
+
+    def initialPosition = Position.Ref(id, Path.root)
   }
 
   case class Setup(
