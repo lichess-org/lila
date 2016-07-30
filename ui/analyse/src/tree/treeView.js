@@ -295,7 +295,7 @@ module.exports = function(ctrl, conceal) {
       },
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollRequested || !isUpdate) {
-          autoScroll(ctrl, el);
+          if (isUpdate || ctrl.vm.path !== ctrl.vm.initialPath) autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
       },
