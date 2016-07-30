@@ -14,6 +14,7 @@ var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
+var forkView = require('./fork').view;
 var acplView = require('./acpl');
 
 function renderResult(ctrl) {
@@ -222,6 +223,7 @@ module.exports = function(ctrl) {
             cevalView.renderCeval(ctrl),
             renderOpeningBox(ctrl),
             renderAnalyse(ctrl),
+            forkView(ctrl.fork),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),

@@ -282,24 +282,43 @@ module.exports = function(ctrl, conceal) {
         autoScroll(ctrl, el);
         ctrl.vm.autoScrollRequested = false;
       }
-    },
-    oncontextmenu: function(e) {
-      var path = eventPath(e, ctrl);
-      contextMenu.open(e, {
-        path: path,
-        root: ctrl
-      });
-      return false;
-    },
-  }, [
-    commentTags ? m('interrupt', commentTags) : null,
-    root.ply % 2 === 1 ? [
-      renderIndex(root.ply, false),
-      emptyMove({})
-    ] : null,
-    renderChildrenOf(ctx, root, {
-      parentPath: '',
-      isMainline: true
-    })
-  ]);
+    };
+    var commentTags = renderMainlineCommentsOf(ctx, root, {
+      withColor: false,
+      conceal: false
+    });
+    return m('div.tview2', {
+      onmousedown: function(e) {
+        if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+        var path = eventPath(e, ctrl);
+        if (path) ctrl.userJump(path);
+      },
+      config: function(el, isUpdate) {
+        if (ctrl.vm.autoScrollRequested || !isUpdate) {
+          autoScroll(ctrl, el);
+          ctrl.vm.autoScrollRequested = false;
+        }
+      },
+      oncontextmenu: function(e) {
+        var path = eventPath(e, ctrl);
+        contextMenu.open(e, {
+          path: path,
+          root: ctrl
+        });
+        return false;
+      },
+    }, [
+      commentTags ? m('interrupt', commentTags) : null,
+      root.ply % 2 === 1 ? [
+        renderIndex(root.ply, false),
+        emptyMove({})
+      ] : null,
+      renderChildrenOf(ctx, root, {
+        parentPath: '',
+        isMainline: true
+      })
+    ]);
+  },
+  renderIndex: renderIndex,
+  renderMove: renderMove
 };

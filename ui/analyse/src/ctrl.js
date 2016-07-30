@@ -20,6 +20,7 @@ var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
 var crazyView = require('./crazy/crazyView');
 var studyCtrl = require('./study/studyCtrl');
+var makeFork = require('./fork').ctrl;
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -101,6 +102,8 @@ module.exports = function(opts) {
     if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
+
+  this.fork = makeFork(this);
 
   var showGround = function() {
     var node = this.vm.node;
@@ -185,14 +188,18 @@ module.exports = function(opts) {
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
-  this.canJumpTo = function(path) {
-    return this.study ? this.study.canJumpTo(path) : true;
-  }.bind(this);
-
   this.userJump = function(path) {
     this.autoplay.stop();
     this.chessground.selectSquare(null);
     this.jump(path);
+  }.bind(this);
+
+  var canJumpTo = function(path) {
+    return this.study ? this.study.canJumpTo(path) : true;
+  }.bind(this);
+
+  this.userJumpIfCan = function(path) {
+    if (canJumpTo(path)) this.userJump(path);
   }.bind(this);
 
   this.mainlinePathToPly = function(ply) {

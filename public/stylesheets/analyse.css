@@ -135,12 +135,6 @@ div.game_control .jumps button:nth-child(3) {
 div.lichess_game div.lichess_ground {
   transition: padding-left 0.3s;
 }
-@media (min-width: 1023px) {
-div.lichess_game div.lichess_ground {
-  width: 280px;
-  min-width: 280px;
-}
-}
 div.eval_gauge {
   position: absolute;
   right: -22px;
@@ -245,6 +239,56 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
   background: #759900;
   transition: 1s;
 }
+
+.fork {
+  position: absolute;
+  top: 100%;
+  left: 74px;
+  width: 150px;
+  background: #fff;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3), 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+.fork move {
+  font-family: 'ChessSansPiratf', sans-serif;
+  font-size: 16px;
+  line-height: 40px;
+  display: block;
+  cursor: pointer;
+  padding: 0 15px;
+  display: flex;
+  border-bottom: 1px solid #e4e4e4;
+}
+.fork move:last-child {
+  border-bottom: none;
+}
+.fork move:hover,
+.fork:not(:hover) move.selected {
+  background: #3893e8;
+  color: #fff!important;
+}
+.fork glyph {
+  font-family: 'Noto Sans';
+  margin-left: 2px;
+}
+.fork eval {
+  flex: 3 0 auto;
+  text-align: right;
+  font-size: 0.8em;
+  font-family: 'Roboto';
+  opacity: 0.8;
+}
+
+@media (min-width: 1050px) {
+  div.lichess_game div.lichess_ground {
+    width: 280px;
+    min-width: 280px;
+  }
+  .fork {
+    left: 93px;
+  }
+}
+
 .explorer_box {
   position: relative;
   flex: 2.5 1 0px;
@@ -656,7 +700,6 @@ body.dark .explorer_box .black {
   text-align: right;
   font-size: 0.8em;
   font-family: 'Roboto';
-  font-weight: 300;
   opacity: 0.8;
 }
 .tview2 glyph {

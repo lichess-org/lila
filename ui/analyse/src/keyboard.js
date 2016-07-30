@@ -24,7 +24,7 @@ module.exports = function(ctrl) {
     m.redraw();
   }));
   k.bind(['right', 'j'], preventing(function() {
-    control.next(ctrl);
+    if (!ctrl.fork.proceed()) control.next(ctrl);
     m.redraw();
   }));
   k.bind(['shift+right', 'shift+j'], preventing(function() {
@@ -32,11 +32,11 @@ module.exports = function(ctrl) {
     m.redraw();
   }));
   k.bind(['up', 'h', '0'], preventing(function() {
-    control.first(ctrl);
+    if (!ctrl.fork.prev()) control.first(ctrl);
     m.redraw();
   }));
   k.bind(['down', 'l', '$'], preventing(function() {
-    control.last(ctrl);
+    if (!ctrl.fork.next()) control.last(ctrl);
     m.redraw();
   }));
   k.bind('c', preventing(function() {
