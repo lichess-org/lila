@@ -1110,13 +1110,13 @@ lichess.notifyApp = (function() {
       _create: function() {
         var self = this;
         self.$list = self.element.find("div.list");
-        self.$title = self.element.find('.title').click(function() {
+        var $title = self.element.find('.title').click(function() {
           self.element.find('.content_wrap').toggle(100, function() {
             lichess.storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
           });
         });
-        if (lichess.storage.get('friends-hide') == 1) self.$title.click();
-        self.$nbOnline = self.$title.find('.online');
+        if (lichess.storage.get('friends-hide') == 1) self.element.find('.content_wrap').addClass('none');
+        self.$nbOnline = $title.find('.online');
         self.$nobody = self.element.find("div.nobody");
 
         var users = self.element.data('preload').split(',');
