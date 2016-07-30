@@ -107,13 +107,17 @@ module.exports = {
         send("leave");
       },
       ordered: function() {
-        return Object.keys(dict()).map(function(id) {
-          return dict()[id];
+        var d = dict();
+        return Object.keys(d).map(function(id) {
+          return d[id];
         }).sort(function(a, b) {
           if (a.role === 'r' && b.role === 'w') return 1;
           if (a.role === 'w' && b.role === 'r') return -1;
           return a.addedAt > b.addedAt;
         });
+      },
+      size: function() {
+        return Object.keys(dict()).length;
       },
       setSpectators: function(usernames) {
         this.inviteForm.setSpectators(usernames);
