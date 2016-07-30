@@ -659,6 +659,9 @@ body.dark .explorer_box .black {
   font-weight: 300;
   opacity: 0.8;
 }
+.tview2 glyph {
+  font-family: 'Noto Sans';
+}
 .tview2 > move glyph {
   flex: 0 1 auto;
   text-align: center;
