@@ -39,7 +39,7 @@ case class Study(
 
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
-  def isOld = (nowSeconds - updatedAt.getSeconds) > 10
+  def isOld = (nowSeconds - updatedAt.getSeconds) > 10 * 60
 }
 
 object Study {
