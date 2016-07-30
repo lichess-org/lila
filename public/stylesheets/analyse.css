@@ -503,8 +503,11 @@ body.dark .explorer_box .black {
   justify-content: center;
 }
 .explorer_box .message h3 {
-  font-weight: bold;
   margin: 5px 0 8px 0;
+}
+.explorer_box:not(.reduced) .message h3,
+.explorer_box.reduced:hover .message h3 {
+  font-weight: bold;
 }
 .explorer_box .message p {
   white-space: normal;
