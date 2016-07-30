@@ -37,6 +37,9 @@ module.exports = {
       },
       sort: function(ids) {
         send("sortChapters", ids);
+      },
+      firstChapterId: function() {
+        return list()[0].id;
       }
     };
   },
@@ -51,6 +54,7 @@ module.exports = {
           }
         }, configIcon);
       };
+      var current = ctrl.currentChapter();
 
       return [
         m('div', {
@@ -58,8 +62,11 @@ module.exports = {
           class: 'list chapters',
           config: function(el, isUpdate, ctx) {
             var newCount = ctrl.chapters.list().length;
-            if (!isUpdate || !ctx.count || ctx.count !== newCount)
-              $(el).scrollTo($(el).find('.active'), 200);
+            if (!isUpdate || !ctx.count || ctx.count !== newCount) {
+              if (isUpdate || current.id !== ctrl.chapters.firstChapterId()) {
+                $(el).scrollTo($(el).find('.active'), 200);
+              }
+            }
             ctx.count = newCount;
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
               var makeSortable = function() {
@@ -82,7 +89,6 @@ module.exports = {
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
-            var current = ctrl.currentChapter();
             var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
             var attrs = {
