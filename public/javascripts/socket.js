@@ -228,6 +228,9 @@ lichess.StrongSocket = function(url, version, settings) {
       options.onNextConnect();
       delete options.onNextConnect;
     }
+    if (lichess.proxy) lichess.proxy.getLatency(options.protocol + "//" + baseUrl(), function(ms) {
+      console.log(ms, 'latency');
+    });
   };
 
   var baseUrl = function() {
