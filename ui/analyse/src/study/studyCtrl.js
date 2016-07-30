@@ -23,7 +23,7 @@ module.exports = {
 
     var vm = {
       loading: false,
-      tab: storedProp('study.tab', 'members'),
+      tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
       behind: false, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
       chapterId: null // only useful when not synchronized
