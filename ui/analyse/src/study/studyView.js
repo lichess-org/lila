@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
-var nodeFullName = require('../util').nodeFullName;
+var util = require('../util');
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterNewFormView = require('./chapterNewForm').view;
@@ -149,8 +149,8 @@ module.exports = {
     };
 
     var tabs = m('div.study_tabs', [
-      makeTab('members', 'Members'),
-      makeTab('chapters', 'Chapters'),
+      makeTab('members', util.plural('Member', ctrl.members.size())),
+      makeTab('chapters', util.plural('Chapter', ctrl.chapters.size())),
       ctrl.members.isOwner() ? m('a.more', {
         onclick: function() {
           ctrl.form.open(!ctrl.form.open());
