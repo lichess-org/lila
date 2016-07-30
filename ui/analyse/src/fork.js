@@ -23,13 +23,13 @@ module.exports = {
       },
       next: function() {
         if (displayed()) {
-          selected = (selected + 1) % root.vm.node.children.length;
+          selected = Math.min(root.vm.node.children.length - 1, selected + 1);
           return true;
         }
       },
       prev: function() {
         if (displayed()) {
-          selected = (selected - 1) % root.vm.node.children.length;
+          selected = Math.max(0, selected - 1);
           return true;
         }
       },
