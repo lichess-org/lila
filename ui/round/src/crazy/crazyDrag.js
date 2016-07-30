@@ -11,6 +11,7 @@ module.exports = function(ctrl, e) {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
+  var position = util.eventPosition(e);
   var key;
   for (var i in util.allKeys) {
     if (!ctrl.chessground.data.pieces[util.allKeys[i]]) {
@@ -36,8 +37,8 @@ module.exports = function(ctrl, e) {
     orig: key,
     piece: piece.color + piece.role,
     rel: rel,
-    epos: [e.clientX, e.clientY],
-    pos: [e.clientX - rel[0], e.clientY - rel[1]],
+    epos: position,
+    pos: [position[0] - rel[0], position[1] - rel[1]],
     dec: [-squareBounds.width / 2, -squareBounds.height / 2],
     bounds: bounds,
     started: true,
