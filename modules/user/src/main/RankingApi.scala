@@ -87,7 +87,7 @@ final class RankingApi(
         $doc("user" -> true, "_id" -> false)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state@(rank, b), doc) =>
+          case (state @ (rank, b), doc) =>
             doc.getAs[User.ID]("user").fold(state) { user =>
               b += (user -> rank)
               (rank + 1) -> b
