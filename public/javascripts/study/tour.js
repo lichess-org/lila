@@ -26,7 +26,7 @@ lichess.studyTour = function(study) {
         title: "Shared and saved",
         text: "Other members can see your moves in real time!<br>" +
           "Plus, everything is saved forever.",
-        attachTo: "#lichess .analyse .replay left"
+        attachTo: "#lichess .analyse .areplay left"
       }, {
         title: "Study members",
         text: "<i data-icon='v'></i> Spectators can view the study and talk in the chat.<br>" +
@@ -69,7 +69,7 @@ lichess.studyTour = function(study) {
         attachTo: "#study-sync top"
       } : null, {
         title: "Thanks for your time",
-        text: "You can find your <a href='/@/" + study.userId + "/study'>previous studies</a> from your profile page.<br>" +
+        text: "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
           "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
           "Have fun!",
         buttons: [{
