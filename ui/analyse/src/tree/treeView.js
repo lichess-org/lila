@@ -284,7 +284,7 @@ module.exports = {
       },
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollRequested || !isUpdate) {
-          if (isUpdate || ctrl.vm.path !== ctrl.vm.initialPath) autoScroll(ctrl, el);
+          if (isUpdate || ctrl.vm.path !== '') autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
       },
