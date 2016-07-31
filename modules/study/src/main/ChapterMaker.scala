@@ -19,7 +19,7 @@ private final class ChapterMaker(
     data.game.??(parsePov) flatMap {
       case None => data.pgn.filter(_.trim.nonEmpty) match {
         case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-        case None      => fuccess(fromFenOrBlank(study, data, order, userId))
+        case None      => fuccess(fromFenOrBlank(study, data, order, userId).some)
       }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     }
@@ -45,7 +45,7 @@ private final class ChapterMaker(
         conceal = data.conceal option Chapter.Ply(res.root.ply)).some
     }
 
-  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Option[Chapter] = {
+  def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
     (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
@@ -74,7 +74,7 @@ private final class ChapterMaker(
         root = root,
         order = order,
         ownerId = userId,
-        conceal = None).some
+        conceal = None)
     }
   }
 
