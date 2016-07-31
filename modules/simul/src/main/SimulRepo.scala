@@ -69,7 +69,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
     createdSelect ++ $doc(
-      "createdAt" $gte DateTime.now.minusMinutes(15),
+      "createdAt" $gte DateTime.now.minusMinutes(30),
       "hostRating" $gte 1700
     )
   ).sort(createdSort).list[Simul]()
