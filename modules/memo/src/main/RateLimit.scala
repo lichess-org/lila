@@ -8,10 +8,10 @@ import scala.concurrent.duration.Duration
  */
 final class RateLimit(credits: Int, duration: Duration, name: String) {
 
-  private type NbOps = Int
+  private type Cost = Int
   private type ClearAt = Long
 
-  private val storage = Builder.expiry[String, (NbOps, ClearAt)](ttl = duration)
+  private val storage = Builder.expiry[String, (Cost, ClearAt)](ttl = duration)
 
   private def makeClearAt = nowMillis + duration.toMillis
 
@@ -19,7 +19,7 @@ final class RateLimit(credits: Int, duration: Duration, name: String) {
 
   logger.info(s"[start] $name ($credits/$duration)")
 
-  def apply[A](key: String, cost: Int = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
+  def apply[A](key: String, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
     Option(storage getIfPresent key) match {
       case None =>
         storage.put(key, cost -> makeClearAt)
