@@ -31,7 +31,7 @@ final class Tv(actor: ActorRef) {
       } flatMap {
         case ChannelActor.GameIdAndHistory(gameId, historyIds) => for {
           game <- gameId ?? GameRepo.game
-          games <- GameRepo games historyIds
+          games <- GameRepo gamesFromPrimary historyIds
           history = games map Pov.first
         } yield game map (_ -> history)
       }
@@ -39,7 +39,7 @@ final class Tv(actor: ActorRef) {
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     (actor ? TvActor.GetGameIds(channel, max) mapTo manifest[List[String]]) recover {
       case e: Exception => Nil
-    } flatMap GameRepo.games
+    } flatMap GameRepo.gamesFromPrimary
 
   def getBestGame = getGame(Tv.Channel.Best)
 

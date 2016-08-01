@@ -25,10 +25,10 @@ object GameRepo {
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def games(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game](gameIds)(_.id)
+  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
-    coll.byOrderedIds[Game](gameIds)(_.id)
+    coll.byOrderedIds[Game](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def gameOptions(gameIds: Seq[ID]): Fu[Seq[Option[Game]]] =
     coll.optionsByOrderedIds[Game](gameIds)(_.id)

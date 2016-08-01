@@ -30,7 +30,7 @@ private[bookmark] final class PaginatorBuilder(
         .skip(offset)
         .cursor[Bdoc]()
         .gather[List](length) map { _ flatMap { _.getAs[String]("g") } }
-      games ← GameRepo games gameIds
+      games ← GameRepo gamesFromSecondary gameIds
     } yield games map { g => Bookmark(g, user) }
 
     private def selector = $doc("u" -> user.id)

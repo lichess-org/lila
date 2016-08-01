@@ -32,7 +32,7 @@ final class PgnDump(
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =
     Enumerator.enumerate(ids grouped 50) &>
-      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.games) &>
+      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
       Enumeratee.mapConcat(identity) &>
       toPgn
 }
