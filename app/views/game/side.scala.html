@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -7,7 +7,7 @@
     <div class="game_infos" data-icon="@gameIcon(game)">
       <div class="header">
         <span class="setup">
-          @bookmark.toggle(game)
+          @bookmark.toggle(game, bookmarked)
           @if(game.imported) {
           <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
           •

@@ -1,34 +1,62 @@
 package lila.bookmark
 
+import org.joda.time.DateTime
+import reactivemongo.bson._
+
 import lila.db.dsl._
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
+case class Bookmark(game: lila.game.Game, user: lila.user.User)
+
 final class BookmarkApi(
     coll: Coll,
-    cached: Cached,
     paginator: PaginatorBuilder) {
 
   import lila.game.BSONHandlers.gameBSONHandler
 
+  private def exists(gameId: String, userId: String): Fu[Boolean] =
+    coll exists selectId(gameId, userId)
+
+  def exists(game: Game, user: User): Fu[Boolean] =
+    if (game.bookmarks > 0) exists(game.id, user.id)
+    else fuccess(false)
+
+  def exists(game: Game, user: Option[User]): Fu[Boolean] =
+    user.?? { exists(game, _) }
+
+  def gameIdsByUserId(userId: String): Fu[Set[String]] =
+    coll.distinct("g", userIdQuery(userId).some) map lila.db.BSON.asStringSet
+
+  def removeByGameId(gameId: String): Funit =
+    coll.remove($doc("g" -> gameId)).void
+
+  def removeByGameIds(gameIds: List[String]): Funit =
+    coll.remove($doc("g" $in gameIds)).void
+
+  def remove(gameId: String, userId: String): Funit = coll.remove(selectId(gameId, userId)).void
+  // def remove(selector: Bdoc): Funit = coll.remove(selector).void
+
   def toggle(gameId: String, userId: String): Funit =
-    GameRepo game gameId flatMap {
-      _ ?? { game =>
-        BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked =>
-          GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>-
-            (cached invalidate userId)
-        }
-      }
+    exists(gameId, userId) flatMap { e =>
+      (if (e) remove(gameId, userId) else add(gameId, userId, DateTime.now)) inject !e
+    } flatMap { bookmarked =>
+      GameRepo.incBookmarks(gameId, if (bookmarked) 1 else -1)
     }
 
-  def bookmarked(game: Game, user: User): Boolean = cached.bookmarked(game.id, user.id)
-
-  def gameIds(userId: String): Fu[Set[String]] = cached gameIds userId
-
-  def countByUser(user: User): Fu[Int] = cached count user.id
-
-  def removeByGameId(id: String): Funit = BookmarkRepo removeByGameId id
+  def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
 
   def gamePaginatorByUser(user: User, page: Int) =
     paginator.byUser(user, page) map2 { (b: Bookmark) => b.game }
+
+  private def add(gameId: String, userId: String, date: DateTime): Funit =
+    coll.insert($doc(
+      "_id" -> makeId(gameId, userId),
+      "g" -> gameId,
+      "u" -> userId,
+      "d" -> date)).void
+
+  private def userIdQuery(userId: String) = $doc("u" -> userId)
+  private def makeId(gameId: String, userId: String) = s"$gameId$userId"
+  private def selectId(gameId: String, userId: String) = $id(makeId(gameId, userId))
 }

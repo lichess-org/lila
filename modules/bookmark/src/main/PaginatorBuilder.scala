@@ -33,7 +33,7 @@ private[bookmark] final class PaginatorBuilder(
       games ← GameRepo games gameIds
     } yield games map { g => Bookmark(g, user) }
 
-    private def selector = BookmarkRepo userIdQuery user.id
+    private def selector = $doc("u" -> user.id)
     private def sorting = $sort desc "d"
   }
 }

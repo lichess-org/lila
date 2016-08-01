@@ -31,7 +31,6 @@ object Environment
     with UserHelper
     with ForumHelper
     with I18nHelper
-    with BookmarkHelper
     with SecurityHelper
     with TeamHelper
     with AnalysisHelper
@@ -65,8 +64,7 @@ object Environment
   val closingBrace = "}"
 
   object icon {
-    val dev = Html("&#xe000;")
-    val donator = Html("&#xe001;")
+    // val dev = Html("&#xe000;")
     val mod = Html("&#xe002;")
   }
 

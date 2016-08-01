@@ -61,8 +61,9 @@ object Round extends LilaController with TheftPrevention {
             (pov.game.simulId ?? Env.simul.repo.find) zip
             getPlayerChat(pov.game) zip
             Env.game.crosstableApi(pov.game) zip
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) flatMap {
-              case ((((tour, simul), chatOption), crosstable), playing) =>
+            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+            Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
+              case (((((tour, simul), chatOption), crosstable), playing), bookmarked) =>
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
                   Ok(html.round.player(pov, data,
@@ -70,7 +71,8 @@ object Round extends LilaController with TheftPrevention {
                     simul = simul,
                     cross = crosstable,
                     playing = playing,
-                    chatOption = chatOption))
+                    chatOption = chatOption,
+                    bookmarked = bookmarked))
                 }
             }
         }.mon(_.http.response.player.website),
@@ -173,9 +175,10 @@ object Round extends LilaController with TheftPrevention {
               (pov.game.simulId ?? Env.simul.repo.find) zip
               getWatcherChat(pov.game) zip
               Env.game.crosstableApi(pov.game) zip
-              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
-                case ((((tour, simul), chat), crosstable), data) =>
-                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat))
+              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
+              Env.bookmark.api.exists(pov.game, ctx.me) map {
+                case (((((tour, simul), chat), crosstable), data), bookmarked) =>
+                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
               }
           else // web crawlers don't need the full thing
             GameRepo.initialFen(pov.game.id) map {
@@ -252,9 +255,10 @@ object Round extends LilaController with TheftPrevention {
     myTour(pov.game.tournamentId, isPlayer) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
       GameRepo.initialFen(pov.game) zip
-      Env.game.crosstableApi(pov.game) map {
-        case (((tour, simul), initialFen), crosstable) =>
-          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul))
+      Env.game.crosstableApi(pov.game) zip
+      Env.bookmark.api.exists(pov.game, ctx.me) map {
+        case ((((tour, simul), initialFen), crosstable), bookmarked) =>
+          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>

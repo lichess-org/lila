@@ -17,15 +17,12 @@ final class Env(
 
   private[bookmark] lazy val bookmarkColl = db(CollectionBookmark)
 
-  private lazy val cached = new Cached
-
   lazy val paginator = new PaginatorBuilder(
     coll = bookmarkColl,
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val api = new BookmarkApi(
     coll = bookmarkColl,
-    cached = cached,
     paginator = paginator)
 
   system.actorOf(Props(new Actor {

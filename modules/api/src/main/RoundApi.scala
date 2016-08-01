@@ -28,13 +28,14 @@ private[api] final class RoundApi(
         initialFen = initialFen) zip
         getTourAndRanks(pov.game) zip
         (pov.game.simulId ?? getSimul) zip
-        forecastApi.loadForDisplay(pov) map {
-          case (((json, tourOption), simulOption), forecast) => (
+        forecastApi.loadForDisplay(pov) zip
+        bookmarkApi.exists(pov.game, ctx.me) map {
+          case ((((json, tourOption), simulOption), forecast), bookmarked) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withSteps(pov, initialFen)_ compose
-            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
+            withBookmark(bookmarked)_ compose
             withForecastCount(forecast.map(_.steps.size))_
           )(json)
         }
@@ -49,12 +50,13 @@ private[api] final class RoundApi(
         withMoveTimes = false,
         withDivision = false) zip
         getTourAndRanks(pov.game) zip
-        (pov.game.simulId ?? getSimul) map {
-          case ((json, tourOption), simulOption) => (
+        (pov.game.simulId ?? getSimul) zip
+        bookmarkApi.exists(pov.game, ctx.me) map {
+          case (((json, tourOption), simulOption), bookmarked) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
+            withBookmark(bookmarked)_ compose
             withSteps(pov, initialFen)_
           )(json)
         }
@@ -73,12 +75,13 @@ private[api] final class RoundApi(
         withMoveTimes = withMoveTimes,
         withDivision = withDivision) zip
         getTourAndRanks(pov.game) zip
-        (pov.game.simulId ?? getSimul) map {
-          case ((json, tourOption), simulOption) => (
+        (pov.game.simulId ?? getSimul) zip
+        bookmarkApi.exists(pov.game, ctx.me) map {
+          case (((json, tourOption), simulOption), bookmarked) => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withBookmark(ctx.me ?? { bookmarkApi.bookmarked(pov.game, _) })_ compose
+            withBookmark(bookmarked)_ compose
             withTree(pov, analysis, initialFen, withOpening = withOpening)_ compose
             withAnalysis(pov.game, analysis)_
           )(json)
