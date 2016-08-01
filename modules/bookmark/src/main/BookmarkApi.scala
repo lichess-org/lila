@@ -25,7 +25,7 @@ final class BookmarkApi(
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
     user.?? { exists(game, _) }
 
-  def filterGameIdsBookmarkedBy(games: List[Game], user: Option[User]): Fu[Set[String]] =
+  def filterGameIdsBookmarkedBy(games: Seq[Game], user: Option[User]): Fu[Set[String]] =
     user ?? { u =>
       val candidateIds = games.filter(_.bookmarks > 0).map(_.id)
       if (candidateIds.isEmpty) fuccess(Set.empty)
