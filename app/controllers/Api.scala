@@ -47,8 +47,8 @@ object Api extends LilaController {
 
   private val GamesRateLimitPerUA = new lila.memo.RateLimit(
     credits = 10 * 1000,
-    duration = 10 minutes,
-    name = "user games API per IP")
+    duration = 5 minutes,
+    name = "user games API per UA")
 
   private val GamesRateLimitGlobal = new lila.memo.RateLimit(
     credits = 10 * 1000,
