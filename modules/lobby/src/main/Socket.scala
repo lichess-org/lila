@@ -45,7 +45,7 @@ private[lobby] final class Socket(
 
     case PingVersion(uid, v) => Future {
       ping(uid)
-      withMember(uid) { m =>
+      withActiveMember(uid) { m =>
         history.since(v).fold {
           lila.mon.lobby.socket.resync()
           resync(m)
@@ -111,6 +111,10 @@ private[lobby] final class Socket(
     members.foreach {
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
+  }
+
+  def withActiveMember(uid: String)(f: Member => Unit) {
+    if (!idleUids(uid)) members get uid foreach f
   }
 
   override def sendMessage(message: Message)(member: Member) =
