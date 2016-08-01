@@ -1,6 +1,8 @@
 var m = require('mithril');
 var xhr = require('./xhr');
 var hookRepo = require('./hookRepo');
+var startIdleTimer = require('./idle');
+var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
 
@@ -33,6 +35,10 @@ module.exports = function(send, ctrl) {
     }
     return false;
   }.bind(this);
+
+  startIdleTimer(5 * 60 * 1000, partial(send, 'idle', true), function() {
+    location.reload();
+  });
 
   this.music = null;
   $('body').on('lichess.sound_set', function(e, set) {

@@ -16,7 +16,7 @@ import lila.game.AnonCookie
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
 
@@ -28,7 +28,7 @@ private[lobby] final class Socket(
 
   override def preStart() {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'socketDoor)
   }
 
   override def postStop() {
@@ -38,6 +38,8 @@ private[lobby] final class Socket(
 
   // override postRestart so we don't call preStart and schedule a new message
   override def postRestart(reason: Throwable) = {}
+
+  var idleUids = scala.collection.mutable.Set[String]()
 
   def receiveSpecific = {
 
@@ -92,6 +94,10 @@ private[lobby] final class Socket(
       pong = pong + ("r" -> JsNumber(nb))
 
     case ChangeFeatured(_, msg) => notifyAllAsync(msg)
+
+    case SetIdle(uid, true)     => idleUids += uid
+    case SetIdle(uid, false)    => idleUids -= uid
+    case SocketLeave(uid, _)    => idleUids -= uid
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
@@ -100,6 +106,12 @@ private[lobby] final class Socket(
       "url" -> playerUrl(game fullIdOf color),
       "cookie" -> AnonCookie.json(game, color)
     ).noNull) _
+
+  override def sendMessage(message: Message)(member: Member) =
+    if (!idleUids.contains(member.uid)) member push {
+      if (shouldSkipMessageFor(message, member)) message.skipMsg
+      else message.fullMsg
+    }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.hook ?? { hook =>
