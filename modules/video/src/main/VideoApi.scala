@@ -1,6 +1,7 @@
 package lila.video
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
@@ -53,7 +54,8 @@ private[video] final class VideoApi(
             "$text" -> $doc("$search" -> q)
           ),
           projection = textScore,
-          sort = textScore
+          sort = textScore,
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -83,7 +85,8 @@ private[video] final class VideoApi(
         collection = videoColl,
         selector = $empty,
         projection = $empty,
-        sort = $doc("metadata.likes" -> -1)
+        sort = $doc("metadata.likes" -> -1),
+        readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
       currentPage = page,
       maxPerPage = maxPerPage)
@@ -95,7 +98,8 @@ private[video] final class VideoApi(
           collection = videoColl,
           selector = $doc("tags" $all tags),
           projection = $empty,
-          sort = $doc("metadata.likes" -> -1)
+          sort = $doc("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -106,7 +110,8 @@ private[video] final class VideoApi(
           collection = videoColl,
           selector = $doc("author" -> author),
           projection = $empty,
-          sort = $doc("metadata.likes" -> -1)
+          sort = $doc("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
@@ -116,7 +121,7 @@ private[video] final class VideoApi(
         "tags" $in video.tags,
         "_id" $ne video.id
       )).sort($doc("metadata.likes" -> -1))
-        .cursor[Video]()
+        .cursor[Video](ReadPreference.secondaryPreferred)
         .gather[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         } flatMap videoViews(user)
