@@ -45,8 +45,9 @@ object Analyse extends LilaController {
           Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
-          Env.game.crosstableApi(pov.game) flatMap {
-            case ((((analysis, analysisInProgress), simul), chat), crosstable) =>
+          Env.game.crosstableApi(pov.game) zip
+          Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
+            case (((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked) =>
               val pgn = Env.api.pgnDump(pov.game, initialFen)
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
@@ -65,7 +66,8 @@ object Analyse extends LilaController {
                     simul,
                     crosstable,
                     userTv,
-                    chat))
+                    chat,
+                    bookmarked = bookmarked))
                 }
           }
       }

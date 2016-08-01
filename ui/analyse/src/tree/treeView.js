@@ -12,7 +12,7 @@ var autoScroll = util.throttle(300, false, function(ctrl, el) {
     var target = el.querySelector('.active');
     var cont = el.parentNode;
     if (!target) {
-      cont.scrollTop = ctrl.vm.path === ctrl.vm.initialPath ? 0 : 99999;
+      cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
       return;
     }
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
@@ -284,7 +284,7 @@ module.exports = {
       },
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollRequested || !isUpdate) {
-          if (isUpdate || ctrl.vm.path !== ctrl.vm.initialPath) autoScroll(ctrl, el);
+          if (isUpdate || ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
       },

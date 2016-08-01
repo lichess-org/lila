@@ -96,6 +96,7 @@ private[tournament] final class Socket(
     case NotifyReload =>
       delayedReloadNotification = false
       notifyAll("reload")
+
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, trollish) => notifyVersion(t, d, Messadata(trollish))
   )
@@ -112,7 +113,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(300 millis, self, NotifyReload)
+      context.system.scheduler.scheduleOnce(700 millis, self, NotifyReload)
     }
   }
 

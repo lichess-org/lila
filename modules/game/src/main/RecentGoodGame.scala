@@ -11,7 +11,7 @@ private final class RecentGoodGame extends Actor {
     g.variant.standard &&
       g.rated &&
       g.turns >= 10 &&
-      g.averageUsersRating.??(1800 <=) &&
+      g.averageUsersRating.??(1900 <=) &&
       g.clock.??(_.estimateTotalTime >= 5 * 60)
 
   def receive = {

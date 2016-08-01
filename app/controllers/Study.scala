@@ -18,24 +18,28 @@ object Study extends LilaController {
   private def env = Env.study
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    if (text.trim.isEmpty)
-      env.pager.all(ctx.me, Order.default, page) map { pag =>
-        Ok(html.study.all(pag, Order.default))
+    Reasonable(page) {
+      if (text.trim.isEmpty)
+        env.pager.all(ctx.me, Order.default, page) map { pag =>
+          Ok(html.study.all(pag, Order.default))
+        }
+      else Env.studySearch(ctx.me)(text, page) map { pag =>
+        Ok(html.study.search(pag, text))
       }
-    else Env.studySearch(ctx.me)(text, page) map { pag =>
-      Ok(html.study.search(pag, text))
     }
   }
 
   def allDefault(page: Int) = all(Order.Hot.key, page)
 
   def all(o: String, page: Int) = Open { implicit ctx =>
-    Order(o) match {
-      case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
-      case order =>
-        env.pager.all(ctx.me, order, page) map { pag =>
-          Ok(html.study.all(pag, order))
-        }
+    Reasonable(page) {
+      Order(o) match {
+        case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
+        case order =>
+          env.pager.all(ctx.me, order, page) map { pag =>
+            Ok(html.study.all(pag, order))
+          }
+      }
     }
   }
 

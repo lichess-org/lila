@@ -16,7 +16,7 @@ import lila.game.AnonCookie
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ Connected => _, _ }
+import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
 
@@ -28,7 +28,7 @@ private[lobby] final class Socket(
 
   override def preStart() {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'socketDoor)
   }
 
   override def postStop() {
@@ -39,11 +39,13 @@ private[lobby] final class Socket(
   // override postRestart so we don't call preStart and schedule a new message
   override def postRestart(reason: Throwable) = {}
 
+  var idleUids = scala.collection.mutable.Set[String]()
+
   def receiveSpecific = {
 
     case PingVersion(uid, v) => Future {
       ping(uid)
-      withMember(uid) { m =>
+      withActiveMember(uid) { m =>
         history.since(v).fold {
           lila.mon.lobby.socket.resync()
           resync(m)
@@ -57,11 +59,11 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyAllAsync(makeMessage("tournaments", html))
+    case ReloadTournaments(html) => notifyAllActiveAsync(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html)      => notifyAllAsync(makeMessage("simuls", html))
+    case ReloadSimuls(html)      => notifyAllActiveAsync(makeMessage("simuls", html))
 
-    case NewForumPost            => notifyAllAsync("reload_forum")
+    case NewForumPost            => notifyAllActiveAsync(makeMessage("reload_forum"))
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
@@ -91,7 +93,11 @@ private[lobby] final class Socket(
     case lila.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
 
-    case ChangeFeatured(_, msg) => notifyAllAsync(msg)
+    case ChangeFeatured(_, msg) => notifyAllActiveAsync(msg)
+
+    case SetIdle(uid, true)     => idleUids += uid
+    case SetIdle(uid, false)    => idleUids -= uid
+    case SocketLeave(uid, _)    => idleUids -= uid
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
@@ -100,6 +106,22 @@ private[lobby] final class Socket(
       "url" -> playerUrl(game fullIdOf color),
       "cookie" -> AnonCookie.json(game, color)
     ).noNull) _
+
+  def notifyAllActiveAsync(msg: JsObject) = scala.concurrent.Future {
+    members.foreach {
+      case (uid, member) => if (!idleUids(uid)) member push msg
+    }
+  }
+
+  def withActiveMember(uid: String)(f: Member => Unit) {
+    if (!idleUids(uid)) members get uid foreach f
+  }
+
+  override def sendMessage(message: Message)(member: Member) =
+    if (!idleUids(member.uid)) member push {
+      if (shouldSkipMessageFor(message, member)) message.skipMsg
+      else message.fullMsg
+    }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.hook ?? { hook =>

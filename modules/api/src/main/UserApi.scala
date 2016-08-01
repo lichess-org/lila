@@ -40,8 +40,9 @@ private[api] final class UserApi(
       relationApi.countFollowers(u.id) zip
       ctx.isAuth.?? { prefApi followable u.id } zip
       ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
-      ctx.userId.?? { relationApi.fetchFollows(u.id, _) } map {
-        case ((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed) =>
+      ctx.userId.?? { relationApi.fetchFollows(u.id, _) } zip
+      bookmarkApi.countByUser(u) map {
+        case (((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed), nbBookmarks) =>
           jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
@@ -58,7 +59,7 @@ private[api] final class UserApi(
                 "lossH" -> u.count.lossH,
                 "win" -> u.count.win,
                 "winH" -> u.count.winH,
-                "bookmark" -> bookmarkApi.countByUser(u),
+                "bookmark" -> nbBookmarks,
                 "me" -> nbGamesWithMe)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,

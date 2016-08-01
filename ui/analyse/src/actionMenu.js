@@ -74,7 +74,13 @@ function studyButton(ctrl) {
       value: ctrl.data.game.id
     }),
     m('input[type=hidden][name=orientation]', {
-      value: ctrl.data.player.color
+      value: ctrl.chessground.data.orientation
+    }),
+    m('input[type=hidden][name=variant]', {
+      value: ctrl.data.game.variant.key
+    }),
+    m('input[type=hidden][name=fen]', {
+      value: ctrl.tree.root.fen
     }),
     m('button.button.text', {
       'data-icon': '',

@@ -16,6 +16,7 @@ case class Simul(
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
+    hostTitle: Option[String],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
@@ -116,7 +117,10 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
-  def spotlightable = isCreated && hostRating >= 2400 && applicants.size < 80
+  def spotlightable =
+    isCreated &&
+      (hostRating >= 2400 || hostTitle.isDefined) &&
+      applicants.size < 80
 }
 
 object Simul {
@@ -145,6 +149,7 @@ object Simul {
           daysPerTurn = none)
       }
     },
+    hostTitle = host.title,
     hostGameId = none,
     createdAt = DateTime.now,
     variants = variants,

@@ -184,6 +184,9 @@ div.eval_gauge .black {
 div.gauge_displayed div.lichess_game div.lichess_ground {
   padding-left: 28px;
 }
+div.gauge_displayed .fork {
+  margin-left: 13px;
+}
 .opening_box {
   padding: 5px;
   border: 1px solid #ccc;
@@ -244,7 +247,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 .fork {
   position: absolute;
   top: 100%;
-  left: 74px;
+  left: 61px;
   width: 150px;
   background: #fff;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3), 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
@@ -286,7 +289,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
     min-width: 280px;
   }
   .fork {
-    left: 93px;
+    left: 80px;
   }
 }
 

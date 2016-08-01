@@ -199,6 +199,15 @@ function renderOpeningBox(ctrl) {
   ]);
 }
 
+function renderFork(ctrl) {
+  if (!true) return;
+  return m('div.fork',
+    ctrl.vm.node.children.map(function(node) {
+      return m('move', treeView.renderMove(node));
+    })
+  );
+}
+
 var firstRender = true;
 
 module.exports = function(ctrl) {

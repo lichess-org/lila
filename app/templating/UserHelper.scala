@@ -118,15 +118,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     userId: String,
     cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
-  def userIdLinkMini(userId: String) = Html {
-    val user = lightUser(userId)
-    val name = user.fold(userId)(_.name)
-    val content = user.fold(userId)(_.titleNameHtml)
-    val klass = userClass(userId, none, false)
-    val href = userHref(name)
-    s"""<a data-icon="J" $klass $href>$content</a>"""
-  }
-
   private def titleTag(title: Option[String]) = title match {
     case None    => ""
     case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span> """

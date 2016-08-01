@@ -10,9 +10,10 @@ lichess.challengeApp = (function() {
   });
   var load = function(data) {
     var isDev = $('body').data('dev');
+    var element = document.getElementById('challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
     lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(document.getElementById('challenge_app'), {
+      instance = LichessChallenge(element, {
         data: data,
         show: function() {
           if (!$(element).is(':visible')) $toggle.click();
@@ -490,10 +491,7 @@ lichess.notifyApp = (function() {
       }
 
       setTimeout(function() {
-        if (lichess.socket === null) {
-          lichess.socket = lichess.StrongSocket("/socket", 0);
-        }
-        $.idleTimer(10 * 60 * 1000, lichess.socket.destroy, lichess.socket.connect);
+        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", 0);
       }, 300);
 
       // themepicker
@@ -2027,42 +2025,6 @@ lichess.notifyApp = (function() {
     $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
     return false;
   });
-
-  $.idleTimer = function(delay, onIdle, onWakeUp) {
-    var eventType = 'mousemove';
-    var listening = false;
-    var active = true;
-    var lastSeenActive = new Date();
-    var onActivity = function() {
-      if (!active) {
-        console.log('Wake up');
-        onWakeUp();
-      }
-      active = true;
-      lastSeenActive = new Date();
-      stopListening();
-    };
-    var startListening = function() {
-      if (!listening) {
-        document.addEventListener(eventType, onActivity);
-        listening = true;
-      }
-    };
-    var stopListening = function() {
-      if (listening) {
-        document.removeEventListener(eventType, onActivity);
-        listening = false;
-      }
-    };
-    setInterval(function() {
-      if (active && new Date() - lastSeenActive > delay) {
-        console.log('Idle mode');
-        onIdle();
-        active = false;
-      }
-      startListening();
-    }, 10000);
-  };
 
   $.modal = function(html) {
     if (!html.clone) html = $('<div>' + html + '</div>');

@@ -68,6 +68,8 @@ private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[St
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 
+private[lobby] case class SetIdle(uid: String, value: Boolean)
+
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
 case class HooksFor(user: Option[User])

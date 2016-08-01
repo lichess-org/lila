@@ -172,9 +172,6 @@ lichess.StrongSocket = function(url, version, settings) {
         if (settings.receive) settings.receive(m.t, m.d);
         var h = settings.events[m.t];
         if (h) h(m.d || null, m);
-        else if (!options.ignoreUnknownMessages) {
-          debug('Message not supported ' + JSON.stringify(m));
-        }
     }
   };
 
@@ -287,7 +284,6 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
-    ignoreUnknownMessages: true,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(domain) {
       var main = 'socket.' + domain.split('.').slice(1).join('.');

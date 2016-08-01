@@ -10,8 +10,12 @@ import lila.user.{ User, UserRepo }
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
+  private def fetchGames(simul: Simul) =
+    if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
+    else GameRepo gamesFromPrimary simul.gameIds
+
   def apply(simul: Simul): Fu[JsObject] =
-    GameRepo.games(simul.gameIds) map { games =>
+    fetchGames(simul) map { games =>
       val lightHost = getLightUser(simul.hostId)
       Json.obj(
         "id" -> simul.id,

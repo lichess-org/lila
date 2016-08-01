@@ -46,7 +46,7 @@ module.exports = function(root, opts, allow) {
     m.redraw();
   };
 
-  var fetchOpening = throttle(2000, false, function(fen) {
+  var fetchOpening = throttle(250, function(fen) {
     openingXhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
       res.opening = true;
       res.nbMoves = res.moves.length;
@@ -56,9 +56,9 @@ module.exports = function(root, opts, allow) {
       failing(false);
       m.redraw();
     }, handleFetchError);
-  });
+  }, false);
 
-  var fetchTablebase = throttle(500, false, function(fen) {
+  var fetchTablebase = throttle(250, function(fen) {
     tablebaseXhr(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
       res.nbMoves = res.moves.length;
       res.tablebase = true;
@@ -68,7 +68,7 @@ module.exports = function(root, opts, allow) {
       failing(false);
       m.redraw();
     }, handleFetchError);
-  });
+  }, false);
 
   var fetch = function(fen) {
     var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960';

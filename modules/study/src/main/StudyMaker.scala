@@ -16,17 +16,17 @@ private final class StudyMaker(
 
   private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = fuccess {
     val study = Study.make(user, Study.From.Scratch)
-    val chapter: Chapter = Chapter.make(
-      studyId = study.id,
+    val chapter = chapterMaker.fromFenOrBlank(study, ChapterMaker.Data(
+      game = none,
       name = "Chapter 1",
-      setup = Chapter.Setup(
-        gameId = none,
-        variant = chess.variant.Standard,
-        orientation = data.orientation),
-      root = Node.Root.default(chess.variant.Standard),
+      variant = data.variantStr,
+      fen = data.fenStr,
+      pgn = none,
+      orientation = data.orientation.name,
+      conceal = false,
+      initial = true),
       order = 1,
-      ownerId = user.id,
-      conceal = None)
+      userId = user.id)
     Study.WithChapter(study withChapter chapter, chapter)
   }
 

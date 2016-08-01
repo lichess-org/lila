@@ -38,6 +38,7 @@ private[lobby] final class SocketHandler(
       id <- o str "d"
       user <- member.user
     } lobby ! CancelSeek(id, user)
+    case ("idle", o) => socket ! SetIdle(uid, ~(o boolean "d"))
   }
 
   def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =

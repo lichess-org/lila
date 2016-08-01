@@ -1,7 +1,7 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], cross: Option[lila.game.Crosstable], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], cross: Option[lila.game.Crosstable], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 <div class="sides">
-  @side(pov, initialFen, tour, simul, userTv)
+  @side(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked)
   @cross.map { c =>
   <div class="crosstable">
     @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)

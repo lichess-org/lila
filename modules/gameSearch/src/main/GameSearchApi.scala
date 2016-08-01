@@ -18,7 +18,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      GameRepo games res.ids
+      GameRepo gamesFromSecondary res.ids
     }
 
   def count(query: Query) =

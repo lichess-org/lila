@@ -335,7 +335,7 @@ private[tournament] final class TournamentApi(
           _ ?? { tour =>
             PlayerRepo.find(tour.id, user.id) flatMap {
               _ ?? { player =>
-                playerPovs(tour.id, user.id, 50) map { povs =>
+                playerPovs(tour, user.id, 50) map { povs =>
                   PlayerInfoExt(tour, user, player, povs).some
                 }
               }
@@ -345,9 +345,13 @@ private[tournament] final class TournamentApi(
       }
     }
 
-  private def playerPovs(tourId: String, userId: String, nb: Int): Fu[List[Pov]] =
-    PairingRepo.recentIdsByTourAndUserId(tourId, userId, nb) flatMap { ids =>
-      GameRepo games ids map {
+  private def fetchGames(tour: Tournament, ids: Seq[String]) =
+    if (tour.isFinished) GameRepo gamesFromSecondary ids
+    else GameRepo gamesFromPrimary ids
+
+  private def playerPovs(tour: Tournament, userId: String, nb: Int): Fu[List[Pov]] =
+    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap { ids =>
+      fetchGames(tour, ids) map {
         _.flatMap { Pov.ofUserId(_, userId) }
       }
     }

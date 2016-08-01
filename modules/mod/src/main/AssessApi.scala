@@ -11,6 +11,7 @@ import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent._
 import scala.util.Random
 
@@ -34,10 +35,10 @@ final class AssessApi(
   def getPlayerAssessmentById(id: String) =
     collAssessments.byId[PlayerAssessment](id)
 
-  def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
+  private def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
-      .cursor[PlayerAssessment]()
+      .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
       .gather[List](nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
@@ -49,7 +50,7 @@ final class AssessApi(
         a => PlayerAssessments(a._1, a._2)
       }
 
-  def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
+  private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
     val relatedUsers = userIdsSharingIp(userId)
     UserRepo.byId(userId) zip
       getPlayerAssessmentsByUserId(userId, nb) zip

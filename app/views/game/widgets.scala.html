@@ -34,7 +34,6 @@
   @gameFen(Pov(g, firstPlayer), ownerLink, withTitle = false)
   <a class="game_link_overlay" href="@gameLink(g, firstPlayer.color, ownerLink)"></a>
   <div class="infos" data-icon="@gameIcon(g)">
-    @bookmark.toggle(g)
     <div class="header">
       <strong>
         @if(g.imported) {
@@ -104,7 +103,7 @@
     <div class="metadata">
       @if(g.metadata.analysed) {<span data-icon="&#xe004;"> Computer analysis available</span><br />}
       @g.pgnImport.flatMap(_.user).map { user =>
-      PGN import by @userIdLinkMini(user)<br />
+      PGN import by @userIdLink(user.some)<br />
       }
     </div>
   </div>

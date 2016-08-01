@@ -5,6 +5,7 @@ import play.api.mvc._, Results._
 import scala.concurrent.duration._
 
 import lila.app._
+import lila.common.HTTPRequest
 
 object Api extends LilaController {
 
@@ -44,6 +45,11 @@ object Api extends LilaController {
     duration = 10 minutes,
     name = "user games API per IP")
 
+  private val GamesRateLimitPerUA = new lila.memo.RateLimit(
+    credits = 10 * 1000,
+    duration = 5 minutes,
+    name = "user games API per UA")
+
   private val GamesRateLimitGlobal = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 1 minute,
@@ -53,23 +59,24 @@ object Api extends LilaController {
     val page = (getInt("page") | 1) max 1 min 200
     val nb = (getInt("nb") | 10) max 1 min 100
     val cost = page * nb + 10
-    if (lila.common.HTTPRequest.isBot(ctx.req)) fuccess(none)
-    else GamesRateLimitGlobal("", cost = cost) {
-      GamesRateLimitPerIP(ctx.req.remoteAddress, cost = cost) {
-        lila.user.UserRepo named name flatMap {
-          _ ?? { user =>
-            gameApi.byUser(
-              user = user,
-              rated = getBoolOpt("rated"),
-              analysed = getBoolOpt("analysed"),
-              withAnalysis = getBool("with_analysis"),
-              withMoves = getBool("with_moves"),
-              withOpening = getBool("with_opening"),
-              withMoveTimes = getBool("with_movetimes"),
-              token = get("token"),
-              nb = nb,
-              page = page
-            ) map some
+    GamesRateLimitPerIP(ctx.req.remoteAddress, cost = cost) {
+      GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost) {
+        GamesRateLimitGlobal("", cost = cost) {
+          lila.user.UserRepo named name flatMap {
+            _ ?? { user =>
+              gameApi.byUser(
+                user = user,
+                rated = getBoolOpt("rated"),
+                analysed = getBoolOpt("analysed"),
+                withAnalysis = getBool("with_analysis"),
+                withMoves = getBool("with_moves"),
+                withOpening = getBool("with_opening"),
+                withMoveTimes = getBool("with_movetimes"),
+                token = get("token"),
+                nb = nb,
+                page = page
+              ) map some
+            }
           }
         }
       }
