@@ -88,8 +88,10 @@ object User extends LilaController {
               case (filterName, pag) => html.user.games(u, pag, filterName)
             }
           }.map { status(_) }.mon(_.http.response.user.show.website),
-          api = _ => userGames(u, filterOption, page).map {
-            case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
+          api = _ => userGames(u, filterOption, page).flatMap {
+            case (filterName, pag) => Env.api.userGameApi.filter(filterName, pag) map {
+              Ok(_)
+            }
           }.mon(_.http.response.user.show.mobile))
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),

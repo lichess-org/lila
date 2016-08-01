@@ -16,16 +16,16 @@ final class BookmarkApi(
       _ ?? { game =>
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked =>
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>-
-            (cached.gameIdsCache invalidate userId)
+            (cached invalidate userId)
         }
       }
     }
 
   def bookmarked(game: Game, user: User): Boolean = cached.bookmarked(game.id, user.id)
 
-  def gameIds(userId: String): Set[String] = cached gameIds userId
+  def gameIds(userId: String): Fu[Set[String]] = cached gameIds userId
 
-  def countByUser(user: User): Int = cached count user.id
+  def countByUser(user: User): Fu[Int] = cached count user.id
 
   def removeByGameId(id: String): Funit = BookmarkRepo removeByGameId id
 

@@ -90,8 +90,9 @@ object UserInfo {
       trophyApi.findByUser(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
-      completionRate(user.id) flatMap {
-        case ((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime), completionRate) =>
+      completionRate(user.id) zip
+      bookmarkApi.countByUser(user) flatMap {
+        case (((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime), completionRate), nbBookmarks) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -99,7 +100,7 @@ object UserInfo {
               nbPlaying = nbPlaying,
               hasSimul = hasSimul,
               crosstable = crosstable,
-              nbBookmark = bookmarkApi countByUser user,
+              nbBookmark = nbBookmarks,
               nbImported = nbImported,
               ratingChart = ratingChart,
               nbFollowers = nbFollowers,
