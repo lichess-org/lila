@@ -32,7 +32,7 @@ final class Env(
 
   @inline private def resolveDB(ec: ExecutionContext) =
     connection.database(dbName)(ec).andThen {
-      case _ => logger.debug(s"[$lnm] MongoDB resolved: $dbName")
+      case _ => /*logger.debug*/println(s"[$lnm] MongoDB resolved: $dbName")
     }
 
   def db(implicit ec: ExecutionContext): DefaultDB =
