@@ -10,9 +10,10 @@ lichess.challengeApp = (function() {
   });
   var load = function(data) {
     var isDev = $('body').data('dev');
+    var element = document.getElementById('challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
     lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(document.getElementById('challenge_app'), {
+      instance = LichessChallenge(element, {
         data: data,
         show: function() {
           if (!$(element).is(':visible')) $toggle.click();
