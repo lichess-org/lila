@@ -12,7 +12,7 @@ final class UserGameApi(bookmarkApi: lila.bookmark.BookmarkApi) {
   import lila.round.JsonView._
 
   def filter(filterName: String, pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
-    (ctx.userId ?? bookmarkApi.gameIdsByUserId) map { bookmarkedIds =>
+    bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
       implicit val gameWriter = Writes[Game] { g =>
         write(g, bookmarkedIds(g.id))
       }

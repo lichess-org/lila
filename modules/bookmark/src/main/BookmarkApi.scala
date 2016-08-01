@@ -25,8 +25,14 @@ final class BookmarkApi(
   def exists(game: Game, user: Option[User]): Fu[Boolean] =
     user.?? { exists(game, _) }
 
-  def gameIdsByUserId(userId: String): Fu[Set[String]] =
-    coll.distinct("g", userIdQuery(userId).some) map lila.db.BSON.asStringSet
+  def filterGameIdsBookmarkedBy(games: List[Game], user: Option[User]): Fu[Set[String]] =
+    user ?? { u =>
+      val candidateIds = games.filter(_.bookmarks > 0).map(_.id)
+      if (candidateIds.isEmpty) fuccess(Set.empty)
+      else coll.distinct("g", Some(
+        userIdQuery(u.id) ++ $doc("g" $in candidateIds)
+      )) map lila.db.BSON.asStringSet
+    }
 
   def removeByGameId(gameId: String): Funit =
     coll.remove($doc("g" -> gameId)).void
