@@ -81,7 +81,7 @@ module.exports = {
     return name.toLowerCase();
   },
   /**
-   * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js
+   * https://github.com/niksy/throttle-debounce/blob/master/throttle.js
    *
    * Throttle execution of a function. Especially useful for rate limiting
    * execution of handlers on events like resize and scroll.
