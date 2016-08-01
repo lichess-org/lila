@@ -59,9 +59,9 @@ object Api extends LilaController {
     val page = (getInt("page") | 1) max 1 min 200
     val nb = (getInt("nb") | 10) max 1 min 100
     val cost = page * nb + 10
-    GamesRateLimitGlobal("", cost = cost) {
-      GamesRateLimitPerIP(ctx.req.remoteAddress, cost = cost) {
-        GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost) {
+    GamesRateLimitPerIP(ctx.req.remoteAddress, cost = cost) {
+      GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost) {
+        GamesRateLimitGlobal("", cost = cost) {
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
               gameApi.byUser(
