@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo
-import lila.memo.{ MixedCache, AsyncCache }
+import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
