@@ -36,10 +36,7 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  startIdleTimer(5 * 60 * 1000, function() {
-    // send('idle', true);
-    lichess.socket.destroy();
-  }, function() {
+  startIdleTimer(5 * 60 * 1000, partial(send, 'idle', true), function() {
     location.reload();
   });
 
