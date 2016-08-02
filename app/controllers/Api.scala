@@ -26,18 +26,18 @@ object Api extends LilaController {
     )) as JSON
   }
 
-  def user(name: String) = ApiResult { implicit ctx =>
-    userApi one name
+  def user(name: String) = ApiRequest { implicit ctx =>
+    userApi one name map toApiResult
   }
 
-  def users = ApiResult { implicit ctx =>
+  def users = ApiRequest { implicit ctx =>
     get("team") ?? { teamId =>
       userApi.list(
         teamId = teamId,
         engine = getBoolOpt("engine"),
         nb = getInt("nb")
       ).map(_.some)
-    }
+    } map toApiResult
   }
 
   private val GamesRateLimitPerIP = new lila.memo.RateLimit(
@@ -55,11 +55,12 @@ object Api extends LilaController {
     duration = 1 minute,
     name = "user games API global")
 
-  def userGames(name: String) = ApiResult { implicit ctx =>
+  def userGames(name: String) = ApiRequest { implicit ctx =>
     val page = (getInt("page") | 1) max 1 min 200
     val nb = (getInt("nb") | 10) max 1 min 100
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
+    implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
     GamesRateLimitPerIP(ip, cost = cost, msg = ip) {
       GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
         GamesRateLimitGlobal("-", cost = cost, msg = ip) {
@@ -78,13 +79,13 @@ object Api extends LilaController {
                 page = page
               ) map some
             }
-          }
+          } map toApiResult
         }
       }
     }
   }
 
-  def game(id: String) = ApiResult { implicit ctx =>
+  def game(id: String) = ApiRequest { implicit ctx =>
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
       withAnalysis = getBool("with_analysis"),
@@ -92,13 +93,20 @@ object Api extends LilaController {
       withOpening = getBool("with_opening"),
       withFens = getBool("with_fens"),
       withMoveTimes = getBool("with_movetimes"),
-      token = get("token"))
+      token = get("token")) map toApiResult
   }
 
-  private def ApiResult(js: lila.api.Context => Fu[Option[JsValue]]) = Open { implicit ctx =>
+  sealed trait ApiResult
+  case class Data(json: JsValue) extends ApiResult
+  case object NoData extends ApiResult
+  case object Limited extends ApiResult
+  def toApiResult(json: Option[JsValue]) = json.fold[ApiResult](NoData)(Data.apply)
+
+  private def ApiRequest(js: lila.api.Context => Fu[ApiResult]) = Open { implicit ctx =>
     js(ctx) map {
-      case None => NotFound
-      case Some(json) => get("callback") match {
+      case Limited => TooManyRequest(jsonError("Try again later"))
+      case NoData  => NotFound
+      case Data(json) => get("callback") match {
         case None           => Ok(json) as JSON
         case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
       }
