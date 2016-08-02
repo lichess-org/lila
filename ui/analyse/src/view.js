@@ -4,6 +4,7 @@ var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
+var treePath = require('./tree/path');
 var treeView = require('./tree/treeView');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
@@ -41,13 +42,23 @@ function renderResult(ctrl) {
   }
 }
 
-function renderAnalyse(ctrl) {
+function makeConcealOf(ctrl) {
   var conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
+  if (conceal) return function(isMainline) {
+    return function(path, node) {
+      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+      if (treePath.contains(ctrl.vm.path, path)) return null;
+      return conceal.owner ? 'conceal' : 'hide';
+    };
+  };
+}
+
+function renderAnalyse(ctrl, concealOf) {
   return m('div.areplay', [
-    treeView.render(ctrl, conceal),
+    treeView.render(ctrl, concealOf),
     renderResult(ctrl)
   ]);
 }
@@ -211,6 +222,7 @@ function renderFork(ctrl) {
 var firstRender = true;
 
 module.exports = function(ctrl) {
+  var concealOf = makeConcealOf(ctrl);
   return [
     m('div', {
       config: function(el, isUpdate) {
@@ -231,8 +243,8 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             renderOpeningBox(ctrl),
-            renderAnalyse(ctrl),
-            forkView(ctrl.fork),
+            renderAnalyse(ctrl, concealOf),
+            forkView(ctrl, concealOf),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),

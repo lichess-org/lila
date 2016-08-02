@@ -259,18 +259,17 @@ function eventPath(e, ctrl) {
   return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
 }
 
+var noop = function() {};
+function emptyConcealOf() {
+  return noop;
+}
+
 module.exports = {
-  render: function(ctrl, conceal) {
+  render: function(ctrl, concealOf) {
     var root = ctrl.tree.root;
     var ctx = {
       ctrl: ctrl,
-      concealOf: function(isMainline) {
-        return function(path, node) {
-          if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-          if (treePath.contains(ctrl.vm.path, path)) return null;
-          return conceal.owner ? 'conceal' : 'hide'
-        };
-      }
+      concealOf: concealOf || emptyConcealOf
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,

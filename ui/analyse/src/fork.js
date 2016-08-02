@@ -41,14 +41,17 @@ module.exports = {
       }
     };
   },
-  view: function(ctrl) {
-    var state = ctrl.state();
-    if (state.displayed) return m('div.fork',
+  view: function(root, concealOf) {
+    var state = root.fork.state();
+    if (!state.displayed) return;
+    var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);
+    return m('div.fork',
       state.node.children.map(function(node, i) {
-        return m('move', {
+        var conceal = isMainline && concealOf(true)(root.vm.path + node.id, node);
+        if (!conceal) return m('move', {
           class: i === state.selected ? 'selected' : '',
           onclick: function() {
-            ctrl.proceed(node.id);
+            root.fork.proceed(node.id);
           }
         }, [
           treeView.renderIndex(node.ply, true),
