@@ -12,7 +12,7 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
 
-  def status = Action { req =>
+  private lazy val apiStatusResponse = {
     val api = lila.api.Mobile.Api
     Ok(Json.obj(
       "api" -> Json.obj(
@@ -24,6 +24,10 @@ object Api extends LilaController {
             "unsupportedAt" -> old.unsupportedAt)
         })
     )) as JSON
+  }
+
+  val status = Action { req =>
+    apiStatusResponse
   }
 
   def user(name: String) = ApiRequest { implicit ctx =>
