@@ -160,6 +160,10 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.focusChat = function() {
+    $('#chat_input_box').focus();
+  }.bind(this);
+
   this.setTitle = partial(title.set, this);
 
   this.sendMove = function(orig, dest, prom, isPremove) {

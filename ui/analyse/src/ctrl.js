@@ -85,6 +85,10 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.focusChat = function() {
+    $('#chat_input_box').focus();
+  }.bind(this);
+
   this.topColor = function() {
     return this.data[this.vm.flip ? 'player' : 'opponent'].color;
   }.bind(this);

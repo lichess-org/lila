@@ -74,6 +74,7 @@ function input(ctrl) {
   else if (!ctrl.vm.writeable()) placeholder = 'Invited members only.';
   else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
   return m('input', {
+    id: 'chat_input_box',
     class: 'lichess_say',
     placeholder: placeholder,
     autocomplete: 'off',
