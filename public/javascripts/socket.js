@@ -135,7 +135,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var computePingDelay = function() {
-    return options.pingDelay + (options.idle ? 3000 : 0);
+    return options.pingDelay + (options.idle ? 1000 : 0);
   };
 
   var pong = function() {
