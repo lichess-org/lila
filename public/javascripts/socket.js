@@ -133,9 +133,13 @@ lichess.StrongSocket = function(url, version, settings) {
     scheduleConnect(options.pingMaxLag);
   };
 
+  var computePingDelay = function() {
+    return options.pingDelay + (options.idle ? 3000 : 0);
+  };
+
   var pong = function() {
     clearTimeout(connectSchedule);
-    schedulePing(options.pingDelay);
+    schedulePing(computePingDelay());
     currentLag = now() - lastPingTime;
     if (!averageLag) averageLag = currentLag;
     else averageLag = 0.2 * (currentLag - averageLag) + averageLag;
@@ -220,7 +224,14 @@ lichess.StrongSocket = function(url, version, settings) {
   var onSuccess = function() {
     $('#network_error').remove();
     nbConnects = (nbConnects || 0) + 1;
-    if (nbConnects === 1) options.onFirstConnect();
+    if (nbConnects === 1) {
+      options.onFirstConnect();
+      lichess.idleTimer(10 * 60 * 1000, function() {
+        options.idle = true;
+      }, function() {
+        options.idle = false;
+      });
+    }
     if (options.onNextConnect) {
       options.onNextConnect();
       delete options.onNextConnect;
@@ -255,7 +266,7 @@ lichess.StrongSocket = function(url, version, settings) {
     destroy: destroy,
     options: options,
     pingInterval: function() {
-      return options.pingDelay + averageLag;
+      return computePingDelay() + averageLag;
     },
     averageLag: function() {
       return averageLag;
@@ -283,6 +294,7 @@ lichess.StrongSocket.defaults = {
   },
   options: {
     name: "unnamed",
+    idle: false,
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
