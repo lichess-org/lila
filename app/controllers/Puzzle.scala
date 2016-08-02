@@ -187,7 +187,7 @@ object Puzzle extends LilaController {
 
   def importOne = Action.async(parse.json) { implicit req =>
     env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://en.stage.lichess.org/training/$id"
+      val url = s"https://lichess.org/training/$id"
       lila.log("puzzle import").info(s"${req.remoteAddress} $url")
       Ok(s"kthxbye $url")
     } recover {
