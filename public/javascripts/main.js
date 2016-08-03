@@ -402,10 +402,15 @@ lichess.notifyApp = (function() {
         }, 10);
       });
 
+      var elementIdContains = function(id, contained) {
+        var el = document.getElementById(id);
+        return el && el.contains(contained);
+      }
+
       var userPowertip = function($el) {
         var pos = 'w';
-        if (document.getElementById('site_header').contains($el[0])) pos = 'e';
-        if (document.getElementById('friend_box').contains($el[0])) pos = 'nw';
+        if (elementIdContains('site_header', $el[0]) pos = 'e';
+        if (elementIdContains('friend_box', $el[0]) pos = 'nw';
         $el.removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
