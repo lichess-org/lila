@@ -36,16 +36,21 @@ module.exports = {
   },
 
   enterVariation: function(ctrl) {
-    var parentPath = treePath.init(ctrl.vm.path);
-    var parent = ctrl.tree.nodeAtPath(parentPath);
-    var child = parent.children[1];
+    var child = ctrl.vm.node.children[1];
     if (!child) return;
-    ctrl.userJump(parentPath + child.id);
+    ctrl.userJump(ctrl.vm.path + child.id);
   },
 
   exitVariation: function(ctrl) {
-    var commonPath = sharedStart(ctrl.vm.path, treePath.fromNodeList(ctrl.vm.mainline));
-    var node = ctrl.tree.nodeAtPath(commonPath).children[0];
-    node && ctrl.userJump(commonPath + node.id);
+    var nodes = ctrl.vm.nodeList;
+    var prev, found, path = treePath.root;
+    nodes.forEach(function(n, i) {
+      prev = nodes[i-1];
+      if (prev) {
+        path += prev.id;
+        if (prev.children[0].id !== n.id) found = path;
+      }
+    });
+    if (found) ctrl.userJump(found);
   }
 };
