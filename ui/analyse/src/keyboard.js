@@ -14,6 +14,8 @@ function preventing(f) {
   };
 }
 
+var i18nLoaded = false;
+
 module.exports = {
   bind: function(ctrl) {
     k.bind(['left', 'k'], preventing(function() {
@@ -75,6 +77,18 @@ module.exports = {
     }
   },
   view: function(ctrl) {
+
+    if (!i18nLoaded) $.ajax({
+      dataType: "json",
+      url: '/analysis/keyboard-i18n',
+      cache: true,
+      success: function(i18n) {
+        i18nLoaded = true;
+        ctrl.trans.merge(i18n);
+        m.redraw();
+      }
+    });
+
     var header = function(text) {
       return m('tr', m('th[colspan=2]', m('p', text)));
     };
@@ -99,28 +113,35 @@ module.exports = {
           ctrl.vm.keyboardHelp = false;
         }
       }),
-      m('h2', 'Keyboard shortcuts'),
-      m('table', m('tbody', [
-        header('Navigate the move tree'),
-        row([k('←'), or, k('→')], ctrl.trans('keyMoveBackwardOrForward')),
-        row([k('j'), or, k('k')], ctrl.trans('keyMoveBackwardOrForward')),
-        row([k('↑'), or, k('↓')], ctrl.trans('keyGoToStartOrEnd')),
-        row([k('0'), or, k('$')], ctrl.trans('keyGoToStartOrEnd')),
-        row([k('shift'), k('←'), or, k('shift'), k('→')], ctrl.trans('keyEnterOrExitVariation')),
-        row([k('shift'), k('j'), or, k('shift'), k('k')], ctrl.trans('keyEnterOrExitVariation')),
-        header('Analysis options'),
-        row([k('l')], 'Local computer analysis'),
-        row([k('a')], 'Computer arrows'),
-        row([k('e')], 'Opening/endgame explorer'),
-        row([k('/')], 'Focus chat'),
-        row([k('shift'), k('c')], ctrl.trans('keyShowOrHideComments')),
-        row([k('?')], 'Show this help dialog'),
-        ctrl.study ? [
-          header('Study actions'),
-          row([k('c')], 'Comment this position'),
-          row([k('s')], 'Annotate with symbols')
-        ] : null
-      ]))
+      m('div.scrollable', [
+        m('h2', ctrl.trans('keyboardShortcuts')),
+        m('table', m('tbody', [
+          header('Navigate the move tree'),
+          row([k('←'), or, k('→')], ctrl.trans('keyMoveBackwardOrForward')),
+          row([k('j'), or, k('k')], ctrl.trans('keyMoveBackwardOrForward')),
+          row([k('↑'), or, k('↓')], ctrl.trans('keyGoToStartOrEnd')),
+          row([k('0'), or, k('$')], ctrl.trans('keyGoToStartOrEnd')),
+          row([k('shift'), k('←'), or, k('shift'), k('→')], ctrl.trans('keyEnterOrExitVariation')),
+          row([k('shift'), k('j'), or, k('shift'), k('k')], ctrl.trans('keyEnterOrExitVariation')),
+          header('Analysis options'),
+          row([k('l')], 'Local computer analysis'),
+          row([k('a')], 'Computer arrows'),
+          row([k('e')], 'Opening/endgame explorer'),
+          row([k('/')], 'Focus chat'),
+          row([k('shift'), k('c')], ctrl.trans('keyShowOrHideComments')),
+          row([k('?')], 'Show this help dialog'),
+          ctrl.study ? [
+            header('Study actions'),
+            row([k('c')], 'Comment this position'),
+            row([k('s')], 'Annotate with symbols')
+          ] : null,
+          header('Mouse tricks'),
+          m('tr', m('td.mouse[colspan=2]', m('ul', [
+            m('li', ctrl.trans('youCanAlsoScrollOverTheBoardToMoveInTheGame')),
+            m('li', ctrl.trans('pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard'))
+          ])))
+        ])),
+      ])
     ]);
   }
 };

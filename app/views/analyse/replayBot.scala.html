@@ -14,34 +14,13 @@ orientation: "@pov.color.name"
 }
 }
 
-@moreCss = {
-@cssTag("analyse.css")
-}
-
-@underchat = {
-@views.html.game.watchers()
-<div class="shortcuts">
-  <p class="title text" data-icon="u">@trans.keyboardShortcuts()</p>
-  <div class="inner">
-    <ul>
-      <li><strong>h</strong>/<strong>l</strong>, <strong>←</strong>/<strong>→</strong> @trans.keyMoveBackwardOrForward()</li>
-      <li><strong>j</strong>/<strong>k</strong>, <strong>↑</strong>/<strong>↓</strong> @trans.keyGoToStartOrEnd()</li>
-      <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
-      <li><strong>shift</strong> + <strong>h</strong>/<strong>l</strong>, <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
-    </ul>
-    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
-    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
-  </div>
-</div>
-}
-
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false).some,
 chat = none,
-underchat = underchat.some,
+underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-moreCss = moreCss,
+moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
 chessground = true) {
 <div class="analyse cg-512">

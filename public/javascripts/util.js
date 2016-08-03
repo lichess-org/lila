@@ -47,13 +47,19 @@ lichess.once = function(key, mod) {
   return false;
 };
 lichess.trans = function(i18n) {
-  return function(key) {
+  var trans = function(key) {
     var str = i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
   };
+  trans.merge = function(more) {
+    Object.keys(more).forEach(function(k) {
+      i18n[k] = more[k];
+    });
+  };
+  return trans;
 };
 lichess.widget = function(name, prototype) {
   var constructor = $[name] = function(options, element) {

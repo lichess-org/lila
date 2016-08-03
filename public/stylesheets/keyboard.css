@@ -1,9 +1,16 @@
 div.lichess_overboard.keyboard_help {
   width: 90%;
-  padding-bottom: 10px;
+  height: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
 }
 div.lichess_overboard.keyboard_help h2 {
-  margin-bottom: 0;
+  margin: 5px 0 0 0;
+}
+div.lichess_overboard.keyboard_help .scrollable {
+  overflow-y: auto;
+  padding: 10px 0;
 }
 .keyboard_help table {
   width: 100%;
@@ -11,9 +18,9 @@ div.lichess_overboard.keyboard_help h2 {
 .keyboard_help th {
 }
 .keyboard_help th p {
-  margin-top: 12px;
+  margin: 15px 0 10px 0;
   background: #f4f4f4;
-  padding: 3px 15px;
+  padding: 5px 15px;
 }
 body.dark .keyboard_help th p {
   background: #333;
@@ -49,4 +56,9 @@ body.dark .keyboard_help th p {
   border-bottom-color: #bbb;
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 #bbb;
+}
+.keyboard_help td.mouse li {
+  list-style: disc inside;
+  margin-left: 15px;
+  line-height: 2em;
 }
