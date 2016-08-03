@@ -49,9 +49,6 @@ module.exports = {
     }));
     k.bind('esc', ctrl.chessground.cancelMove);
     k.bind('f', preventing(ctrl.flip));
-    k.bind('/', preventing(function() {
-      $('#chat input.lichess_say').focus();
-    }));
     k.bind('?', preventing(function() {
       ctrl.vm.keyboardHelp = !ctrl.vm.keyboardHelp;
       m.redraw();

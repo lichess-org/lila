@@ -14,6 +14,12 @@ module.exports = function(element, opts) {
 
   lichess.pubsub.emit('chat.ready', controller);
 
+
+  Mousetrap.bind('/', function() {
+    element.querySelector('input.lichess_say').focus();
+    return false;
+  });
+
   return {
     newLine: controller.newLine,
     preset: controller.preset
