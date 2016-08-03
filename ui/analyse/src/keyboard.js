@@ -51,7 +51,7 @@ module.exports = {
       $('#chat input.lichess_say').focus();
     }));
     k.bind('?', preventing(function() {
-      ctrl.vm.keyboardHelp(!ctrl.vm.keyboardHelp());
+      ctrl.vm.keyboardHelp = !ctrl.vm.keyboardHelp;
       m.redraw();
     }));
     k.bind('l', preventing(function() {
@@ -96,7 +96,7 @@ module.exports = {
     }, [
       m('a.close.icon[data-icon=L]', {
         onclick: function() {
-          ctrl.vm.keyboardHelp(false);
+          ctrl.vm.keyboardHelp = false;
         }
       }),
       m('h2', 'Keyboard shortcuts'),

@@ -106,7 +106,7 @@ function inputs(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
-    ctrl.vm.keyboardHelp() ? keyboardView(ctrl) : null,
+    ctrl.vm.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     m('div', {
       class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),

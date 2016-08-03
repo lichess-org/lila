@@ -1,5 +1,6 @@
 div.lichess_overboard.keyboard_help {
   width: 90%;
+  padding-bottom: 10px;
 }
 div.lichess_overboard.keyboard_help h2 {
   margin-bottom: 0;
@@ -10,9 +11,12 @@ div.lichess_overboard.keyboard_help h2 {
 .keyboard_help th {
 }
 .keyboard_help th p {
-  margin-top: 10px;
+  margin-top: 12px;
   background: #f4f4f4;
   padding: 3px 15px;
+}
+body.dark .keyboard_help th p {
+  background: #333;
 }
 .keyboard_help td {
   padding-top: 3px;
@@ -34,11 +38,11 @@ div.lichess_overboard.keyboard_help h2 {
 }
 .keyboard_help kbd {
   display: inline-block;
-  padding: 3px 5px;
+  padding: 4px 5px;
   margin-left: 3px;
-  font: 13px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font: 14px Consolas, "Liberation Mono", Menlo, Courier, monospace;
   line-height: 10px;
-  color: #555;
+  color: #444;
   vertical-align: middle;
   background-color: #fcfcfc;
   border: solid 1px #ccc;

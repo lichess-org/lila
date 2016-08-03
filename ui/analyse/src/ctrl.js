@@ -66,7 +66,7 @@ module.exports = function(opts) {
     contextMenuPath: null,
     justPlayed: null,
     justDropped: null,
-    keyboardHelp: m.prop(true)
+    keyboardHelp: false
   };
 
   this.setPath = function(path) {
