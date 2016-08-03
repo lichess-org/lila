@@ -1,0 +1,48 @@
+div.lichess_overboard.keyboard_help {
+  width: 90%;
+}
+div.lichess_overboard.keyboard_help h2 {
+  margin-bottom: 0;
+}
+.keyboard_help table {
+  width: 100%;
+}
+.keyboard_help th {
+}
+.keyboard_help th p {
+  margin-top: 10px;
+  background: #f4f4f4;
+  padding: 3px 15px;
+}
+.keyboard_help td {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  line-height: 20px;
+  text-align: left;
+}
+.keyboard_help .keys {
+  padding-right: 15px;
+  text-align: right;
+  white-space: nowrap;
+}
+.keyboard_help .desc:first-letter {
+  text-transform: uppercase;
+}
+.keyboard_help or {
+  margin-left: 3px;
+  opacity: 0.5;
+}
+.keyboard_help kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  margin-left: 3px;
+  font: 13px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}

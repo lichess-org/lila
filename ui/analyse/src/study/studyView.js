@@ -48,7 +48,7 @@ function buttons(root) {
             }),
             'data-hint': 'Comment this position',
             onclick: enabled ? function() {
-              ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node)
+              ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
             } : null
           }, m('i[data-icon=c]'));
         })(ctrl.vm.behind === false), (function(enabled) {

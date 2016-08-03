@@ -65,7 +65,8 @@ module.exports = function(opts) {
     redirecting: false,
     contextMenuPath: null,
     justPlayed: null,
-    justDropped: null
+    justDropped: null,
+    keyboardHelp: m.prop(true)
   };
 
   this.setPath = function(path) {
@@ -486,10 +487,11 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
-  keyboard(this);
   startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
+
+  keyboard.bind(this);
 
   this.music = null;
   $('body').on('lichess.sound_set', function(e, set) {

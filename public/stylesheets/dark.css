@@ -307,8 +307,7 @@ body.dark #tournament_side .box,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
-body.dark #video_side .tag_list a.checked,
-body.dark div.lichess_overboard .pull-quote p:after {
+body.dark #video_side .tag_list a.checked {
   background-color: #2b2b2b;
 }
 body.dark #perfStat .counter tr,

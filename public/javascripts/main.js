@@ -654,7 +654,6 @@ lichess.notifyApp = (function() {
 
         $('.underboard').css("width", px(512 * zoom + 242 + 15));
         $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(512 * zoom));
-        $lichessGame.find('.lichess_overboard').css("left", px(56 + (zoom - 1) * 254));
 
         if ($('body > .content').hasClass('is3d')) {
           $boardWrap.css("height", px(479.08572 * zoom));

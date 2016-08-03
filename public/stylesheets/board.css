@@ -378,8 +378,8 @@ div.lichess_overboard {
   z-index: 5010;
   width: 400px;
   top: 50%;
-  left: 56px;
-  transform: translate(0, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;

@@ -13,6 +13,7 @@ var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
+var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
 var forkView = require('./fork').view;
@@ -105,17 +106,19 @@ function inputs(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
+    ctrl.vm.keyboardHelp() ? keyboardView(ctrl) : null,
+    ctrl.study ? studyView.overboard(ctrl.study) : null,
     m('div', {
-        class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
-        config: function(el, isUpdate) {
-          if (!isUpdate) el.addEventListener('wheel', function(e) {
-            return wheel(ctrl, e);
-          });
-        }
-      },
+      class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          return wheel(ctrl, e);
+        });
+      }
+    }, [
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl),
-      ctrl.study ? studyView.overboard(ctrl.study) : null),
+      renderPromotion(ctrl)
+    ]),
     cevalView.renderGauge(ctrl)
   ]);
 }
