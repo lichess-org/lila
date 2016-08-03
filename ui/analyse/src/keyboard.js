@@ -78,6 +78,8 @@ module.exports = {
   },
   view: function(ctrl) {
 
+    var trans = ctrl.trans;
+
     if (!i18nLoaded) {
       i18nLoaded = true;
       $.ajax({
@@ -85,7 +87,7 @@ module.exports = {
         url: '/analysis/keyboard-i18n',
         cache: true,
         success: function(i18n) {
-          ctrl.trans.merge(i18n);
+          trans.merge(i18n);
           m.redraw();
         }
       });
@@ -116,21 +118,22 @@ module.exports = {
         }
       }),
       m('div.scrollable', [
-        m('h2', ctrl.trans('keyboardShortcuts')),
+        m('h2', trans('keyboardShortcuts')),
         m('table', m('tbody', [
           header('Navigate the move tree'),
-          row([k('←'), or, k('→')], ctrl.trans('keyMoveBackwardOrForward')),
-          row([k('j'), or, k('k')], ctrl.trans('keyMoveBackwardOrForward')),
-          row([k('↑'), or, k('↓')], ctrl.trans('keyGoToStartOrEnd')),
-          row([k('0'), or, k('$')], ctrl.trans('keyGoToStartOrEnd')),
-          row([k('shift'), k('←'), or, k('shift'), k('→')], ctrl.trans('keyEnterOrExitVariation')),
-          row([k('shift'), k('j'), or, k('shift'), k('k')], ctrl.trans('keyEnterOrExitVariation')),
+          row([k('←'), or, k('→')], trans('keyMoveBackwardOrForward')),
+          row([k('j'), or, k('k')], trans('keyMoveBackwardOrForward')),
+          row([k('↑'), or, k('↓')], trans('keyGoToStartOrEnd')),
+          row([k('0'), or, k('$')], trans('keyGoToStartOrEnd')),
+          row([k('shift'), k('←'), or, k('shift'), k('→')], trans('keyEnterOrExitVariation')),
+          row([k('shift'), k('j'), or, k('shift'), k('k')], trans('keyEnterOrExitVariation')),
           header('Analysis options'),
           row([k('l')], 'Local computer analysis'),
           row([k('a')], 'Computer arrows'),
           row([k('e')], 'Opening/endgame explorer'),
+          row([k('f')], trans('flipBoard')),
           row([k('/')], 'Focus chat'),
-          row([k('shift'), k('c')], ctrl.trans('keyShowOrHideComments')),
+          row([k('shift'), k('c')], trans('keyShowOrHideComments')),
           row([k('?')], 'Show this help dialog'),
           ctrl.study ? [
             header('Study actions'),
@@ -139,8 +142,8 @@ module.exports = {
           ] : null,
           header('Mouse tricks'),
           m('tr', m('td.mouse[colspan=2]', m('ul', [
-            m('li', ctrl.trans('youCanAlsoScrollOverTheBoardToMoveInTheGame')),
-            m('li', ctrl.trans('pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard'))
+            m('li', trans('youCanAlsoScrollOverTheBoardToMoveInTheGame')),
+            m('li', trans('pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard'))
           ])))
         ])),
       ])
