@@ -66,7 +66,7 @@ module.exports = function(opts) {
     contextMenuPath: null,
     justPlayed: null,
     justDropped: null,
-    keyboardHelp: false
+    keyboardHelp: location.hash === '#keyboard'
   };
 
   this.setPath = function(path) {
