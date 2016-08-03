@@ -346,10 +346,6 @@ lichess.notifyApp = (function() {
     // delay so round starts first (just for perceived perf)
     setTimeout(function() {
 
-      $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
-        lichess.socket.send($(this).data('msg'), $(this).data('data'));
-      });
-
       $('#friend_box').friends();
 
       $('#lichess').on('click', '.autoselect', function() {
