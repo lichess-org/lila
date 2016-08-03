@@ -78,16 +78,18 @@ module.exports = {
   },
   view: function(ctrl) {
 
-    if (!i18nLoaded) $.ajax({
-      dataType: "json",
-      url: '/analysis/keyboard-i18n',
-      cache: true,
-      success: function(i18n) {
-        i18nLoaded = true;
-        ctrl.trans.merge(i18n);
-        m.redraw();
-      }
-    });
+    if (!i18nLoaded) {
+      i18nLoaded = true;
+      $.ajax({
+        dataType: "json",
+        url: '/analysis/keyboard-i18n',
+        cache: true,
+        success: function(i18n) {
+          ctrl.trans.merge(i18n);
+          m.redraw();
+        }
+      });
+    }
 
     var header = function(text) {
       return m('tr', m('th[colspan=2]', m('p', text)));
