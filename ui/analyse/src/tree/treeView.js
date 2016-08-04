@@ -8,9 +8,9 @@ var game = require('game').game;
 var treePath = require('./path');
 
 var autoScroll = util.throttle(300, false, function(ctrl, el) {
+  var cont = el.parentNode;
   raf(function() {
     var target = el.querySelector('.active');
-    var cont = el.parentNode;
     if (!target) {
       cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
       return;
