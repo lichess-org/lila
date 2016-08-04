@@ -47,7 +47,7 @@ private final class ExplorerIndexer(
       import reactivemongo.api._
       gameColl.find($empty)
         .sort(Query.sortChronological)
-        .cursor[Game](ReadPreference.secondaryPreferred)
+        .cursor[Game](ReadPreference.secondary)
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
           makeFastPgn(game) map {
