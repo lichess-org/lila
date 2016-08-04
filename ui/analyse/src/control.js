@@ -42,14 +42,11 @@ module.exports = {
   },
 
   exitVariation: function(ctrl) {
-    var nodes = ctrl.vm.nodeList;
-    var prev, found, path = treePath.root;
-    nodes.forEach(function(n, i) {
-      prev = nodes[i-1];
-      if (prev) {
-        path += prev.id;
-        if (prev.children[0].id !== n.id) found = path;
-      }
+    if (ctrl.tree.pathIsMainline(ctrl.vm.path)) return;
+    var found, path = treePath.root;
+    ctrl.vm.nodeList.slice(1, -1).forEach(function(n) {
+      path += n.id;
+      if (n.children[1]) found = path;
     });
     if (found) ctrl.userJump(found);
   }
