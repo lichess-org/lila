@@ -705,25 +705,27 @@ div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 32px;
+  font-size: 34px;
   font-family: monospace, 'Noto Sans', 'Lucida Grande';
 }
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
 div.table_wrap .clock .time tenths {
-  font-size: 80%;
+  font-size: 70%;
+  font-weight: normal;
 }
 div.table_wrap .clock .time huns {
-  font-size: 60%;
+  font-size: 80%;
 }
-div.table_wrap .clock .time b {
+div.table_wrap .clock .time {
   font-weight: bold;
 }
-div.table_wrap .clock .time seph {
+div.table_wrap .clock .time sep {
+  font-weight: normal;
   opacity: 0.7;
 }
-div.table_wrap .clock .time sepl {
+div.table_wrap .clock .time sep.low {
   opacity: 0.15;
 }
 div.table_wrap .clock.running .time {
