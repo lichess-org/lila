@@ -593,6 +593,7 @@ body.dark .explorer_box .black {
 .lichess_ground .areplay {
   flex: 2 1 0px;
   position: relative; /* for autoscroll */
+  will-change: scroll-position;
 }
 .lichess_ground .action_menu {
   flex: 1 0;

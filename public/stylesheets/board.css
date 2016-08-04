@@ -487,6 +487,7 @@ div.table {
   height: 115px;
   overflow: auto;
   position: relative;
+  will-change: scroll-position;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
