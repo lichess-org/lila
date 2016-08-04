@@ -713,16 +713,15 @@ div.side_box .game_infos::before {
 div.side_box .game_infos .bookmark {
   position: absolute;
   right: 0;
-  background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
-  opacity: 0;
-  transform: translate(0, -20px);
-  transition: transform 0.3s;
   z-index: 10;
-  /* to go over the board */
+  display: none;
 }
 div.side_box .game_infos:hover .bookmark {
-  transform: translate(0, 0);
-  opacity: 1;
+  display: block;
+}
+.bookmark:not(.bookmarked) .on,
+.bookmark.bookmarked .off {
+  display: none;
 }
 div.side_box .game_infos .setup {
   display: block;
@@ -2026,18 +2025,6 @@ body.base .crosstable .loss {
 .crosstable .unavailable {
   margin-top: 40px;
   opacity: 0.7;
-}
-.bookmark {
-  float: right;
-  outline: none;
-}
-.bookmark .on,
-.bookmark.bookmarked .off {
-  display: none;
-}
-.bookmark .off,
-.bookmark.bookmarked .on {
-  display: block;
 }
 .progressbar {
   background: #e0e0e0;
