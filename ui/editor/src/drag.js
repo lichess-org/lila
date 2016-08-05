@@ -21,8 +21,11 @@ module.exports = function(ctrl, e) {
   var obj = {};
   obj[key] = piece;
   ctrl.chessground.setPieces(obj);
+  ctrl.chessground.data.render(); // ensure the new piece is in the DOM
   var bounds = ctrl.chessground.data.bounds();
   var squareBounds = e.target.parentNode.getBoundingClientRect();
+  var pieceEl = ctrl.chessground.data.element.querySelector('square[data-key=' + key + '] piece');
+  pieceEl.classList.add('dragging');
   var rel = [
     (coords[0] - 1) * squareBounds.width + bounds.left,
     (8 - coords[1]) * squareBounds.height + bounds.top
@@ -35,7 +38,8 @@ module.exports = function(ctrl, e) {
     pos: [e.clientX - rel[0], e.clientY - rel[1]],
     dec: [-squareBounds.width / 2, -squareBounds.height / 2],
     bounds: bounds,
-    started: true
+    started: true,
+    pieceEl: pieceEl
   };
   drag.processDrag(ctrl.chessground.data);
 }
