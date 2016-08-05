@@ -36,7 +36,6 @@ module.exports = function(cfg) {
     fen: cfg.fen,
     orientation: this.options.orientation || 'white',
     coordinates: !this.embed,
-    squareKey: true,
     movable: {
       free: true,
       color: 'both',

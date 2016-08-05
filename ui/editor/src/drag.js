@@ -12,7 +12,8 @@ module.exports = function(ctrl, e) {
     return !ctrl.chessground.data.pieces[k];
   })[0];
   if (!key) return;
-  var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
+  var isWhitePov = ctrl.chessground.data.orientation === 'white';
+  var coords = util.key2pos(isWhitePov ? key : util.invertKey(key));
   var piece = {
     role: role,
     color: color
@@ -23,7 +24,9 @@ module.exports = function(ctrl, e) {
   ctrl.chessground.data.render(); // ensure the new piece is in the DOM
   var bounds = ctrl.chessground.data.bounds();
   var squareBounds = e.target.parentNode.getBoundingClientRect();
-  var pieceEl = ctrl.chessground.data.element.querySelector('square[data-key=' + key + '] piece');
+  var pos = util.key2pos(key);
+  var index = isWhitePov ? (8 - pos[1]) * 8 + pos[0] : (pos[1] - 1) * 8 + (9 - pos[0]);
+  var pieceEl = ctrl.chessground.data.element.querySelector('square:nth-child(' + index + ') piece');
   pieceEl.classList.add('dragging');
   var rel = [
     (coords[0] - 1) * squareBounds.width + bounds.left,
