@@ -113,9 +113,9 @@ module.exports = {
             config: function(el, isUpdate, ctx) {
               if (isUpdate && ctx.path === current.path) return;
               ctx.path = current.path;
-              var mine = (current.node.comments || []).find(function(c) {
+              var mine = (current.node.comments || []).filter(function(c) {
                 return c.by && c.by.id && c.by.id === ctrl.root.userId;
-              });
+              })[0];
               el.value = mine ? mine.text : '';
               if (ctrl.opening() || ctrl.focus()) el.focus();
               ctrl.opening(false);

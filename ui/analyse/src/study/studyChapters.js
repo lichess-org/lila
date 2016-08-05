@@ -21,9 +21,9 @@ module.exports = {
       editForm: editForm,
       list: list,
       get: function(id) {
-        return list().find(function(c) {
+        return list().filter(function(c) {
           return c.id === id;
-        });
+        })[0];
       },
       size: function() {
         return list().length;
