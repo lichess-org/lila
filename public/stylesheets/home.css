@@ -40,6 +40,9 @@ div.lobby_and_ground {
   line-height: 3;
   margin-top: 1em;
 }
+.current_game #hooks_wrap {
+  visibility: hidden;
+}
 /********** HOOKS **********/
 
 #hooks_wrap {
