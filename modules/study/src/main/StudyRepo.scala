@@ -1,7 +1,7 @@
 package lila.study
 
 import org.joda.time.DateTime
-import reactivemongo.api.Cursor
+import reactivemongo.api.{ Cursor, CursorProducer }
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
 import scala.concurrent.duration._
 
@@ -22,7 +22,7 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Study](ids)(_.id)
 
-  def cursor(selector: Bdoc) = coll.find(selector).cursor[Study]()
+  def cursor(selector: Bdoc)(implicit cp: CursorProducer[Study]): cp.ProducedCursor = coll.find(selector).cursor[Study]()
 
   def nameById(id: Study.ID) = coll.primitiveOne[String]($id(id), "name")
 

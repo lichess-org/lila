@@ -34,7 +34,11 @@ private final class ExplorerIndexer(
 
   type GamePGN = (Game, String)
 
-  def apply(sinceStr: String): Funit =
+  def apply(sinceStr: String): Funit = {
+    import reactivemongo.api.ReadPreference
+    import reactivemongo.api.Cursor.FailOnError
+    import reactivemongo.play.iteratees.cursorProducer
+
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       logger.info(s"Start indexing since $since")
       val query =
@@ -44,17 +48,16 @@ private final class ExplorerIndexer(
           Query.turnsMoreThan(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
-      import reactivemongo.api._
+
       gameColl.find($empty)
         .sort(Query.sortChronological)
         .cursor[Game](ReadPreference.secondary)
-        .enumerate(maxGames, stopOnError = true) &>
+        .enumerator(maxGames, FailOnError()) &>
         Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
           makeFastPgn(game) map {
             _ map { game -> _ }
           }
-        } &>
-        Enumeratee.collect { case Some(el) => el } &>
+        } &> Enumeratee.collect { case Some(el) => el } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
           case (millis, pairs) =>
@@ -76,6 +79,7 @@ private final class ExplorerIndexer(
             } inject nowMillis
         } void
     }
+  }
 
   def apply(game: Game): Funit = makeFastPgn(game) map {
     _ foreach flowBuffer.apply

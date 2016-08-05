@@ -79,8 +79,11 @@ final class StudySearchApi(
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
       lila.log("studySearch").info(s"Index to ${c.index.name}")
+
       import lila.db.dsl._
-      studyRepo.cursor($empty).enumerate() |>>>
+      import reactivemongo.play.iteratees.cursorProducer
+
+      studyRepo.cursor($empty).enumerator() |>>>
         Iteratee.foldM[Study, Unit](()) {
           case (_, study) => doStore(study)
         }

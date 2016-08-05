@@ -2,7 +2,7 @@ package lila.user
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson._
 
 import lila.common.ApiVersion
@@ -326,7 +326,7 @@ object UserRepo {
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
   }
 
-  def recentlySeenNotKidIdsCursor(since: DateTime) =
+  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]): cp.ProducedCursor =
     coll.find($doc(
       F.enabled -> true,
       "seenAt" -> $doc("$gt" -> since),

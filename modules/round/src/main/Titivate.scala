@@ -3,7 +3,7 @@ package lila.round
 import akka.actor._
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.api._
+import reactivemongo.api.Cursor.FailOnError
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -36,8 +36,10 @@ private[round] final class Titivate(
       throw new RuntimeException(msg)
 
     case Run => GameRepo.count(_.checkable).flatMap { total =>
+      import reactivemongo.play.iteratees.cursorProducer
+
       GameRepo.cursor(Query.checkable)
-        .enumerate(5000, stopOnError = false)
+        .enumerator(5000, FailOnError())
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
