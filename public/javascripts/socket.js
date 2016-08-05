@@ -224,13 +224,17 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var onSuccess = function() {
     $('#network_error').remove();
-    nbConnects = (nbConnects || 0) + 1;
+    nbConnects++;
     if (nbConnects === 1) {
       options.onFirstConnect();
+      var disconnectTimeout;
       lichess.idleTimer(10 * 60 * 1000, function() {
         options.idle = true;
+        disconnectTimeout = setTimeout(lichess.socket.destroy, 2 * 60 * 60 * 1000);
       }, function() {
         options.idle = false;
+        if (ws) clearTimeout(disconnectTimeout);
+        else location.reload();
       });
     }
     if (options.onNextConnect) {
