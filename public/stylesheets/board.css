@@ -135,6 +135,10 @@ body.highlight .lichess_board.blindfold square.check {
   left: 0;
   bottom: 0;
 }
+piece.dragging {
+  z-index: 3;
+  cursor: move;
+}
 piece.ghost {
   opacity: 0.3;
 }
