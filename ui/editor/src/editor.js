@@ -1,5 +1,10 @@
-var mapValues = require('lodash/object/mapValues')
 var m = require('mithril');
+
+function mapValues(o1, f) {
+  var o2 = {};
+  for (var k in o1) o2[k] = f(o1[k]);
+  return o2;
+}
 
 function init(cfg) {
   return {

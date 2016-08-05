@@ -1,4 +1,3 @@
-var find = require('lodash/collection/find');
 var util = require('chessground').util;
 var drag = require('chessground').drag;
 
@@ -9,9 +8,9 @@ module.exports = function(ctrl, e) {
   if (!role || !color) return;
   e.stopPropagation();
   e.preventDefault();
-  var key = find(util.allKeys, function(k) {
+  var key = util.allKeys.filter(function(k) {
     return !ctrl.chessground.data.pieces[k];
-  });
+  })[0];
   if (!key) return;
   var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
   var piece = {
