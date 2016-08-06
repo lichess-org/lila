@@ -305,6 +305,9 @@ ol.scheduled_tournaments a {
   display: inline-block;
   padding: 0 2px;
 }
+#tournament table.standing .sheet score {
+  opacity: 0.8;
+}
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
 }
