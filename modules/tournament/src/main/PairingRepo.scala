@@ -110,10 +110,10 @@ object PairingRepo {
     if (g.aborted) coll.remove(selectId(g.id)).void
     else coll.update(
       selectId(g.id),
-      $doc("$set" -> $doc(
+      $set(
         "s" -> g.status.id,
         "w" -> g.winnerColor.map(_.white),
-        "t" -> g.turns))).void
+        "t" -> g.turns)).void
 
   def setBerserk(pairing: Pairing, userId: String, value: Int) = (userId match {
     case uid if pairing.user1 == uid => "b1".some
@@ -122,15 +122,14 @@ object PairingRepo {
   }) ?? { field =>
     coll.update(
       selectId(pairing.id),
-      $doc("$set" -> $doc(field -> value))).void
+      $set(field -> value)).void
   }
 
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
-      Project($doc(
-        "u" -> BSONBoolean(true), "_id" -> BSONBoolean(false))),
+      Project($doc("u" -> true, "_id" -> false)),
       Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
       _.documents.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
