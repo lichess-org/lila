@@ -41,7 +41,7 @@ private[round] final class Titivate(
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
-            if (game.finished || game.isPgnImport)
+            if (game.finished || game.isPgnImport || game.playedThenAborted)
               GameRepo unsetCheckAt game
 
             else if (game.outoftime(_ => chess.Clock.maxGraceMillis)) fuccess {
