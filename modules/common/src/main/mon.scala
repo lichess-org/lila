@@ -208,6 +208,8 @@ object mon {
     object pairing {
       val create = incX("tournament.pairing.create")
       val createTime = rec("tournament.pairing.create_time")
+      val cutoff = inc("tournament.pairing.cutoff")
+      val giveup = inc("tournament.pairing.giveup")
     }
     val created = rec("tournament.created")
     val started = rec("tournament.started")
