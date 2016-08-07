@@ -82,8 +82,14 @@ function input(ctrl) {
     config: function(el, isUpdate) {
       if (!isUpdate) el.addEventListener('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
-          ctrl.post(e.target.value);
-          e.target.value = '';
+          if (e.target.value === '') {
+            var kbm = document.querySelector('.keyboard-move input');
+            if (kbm) kbm.focus();
+          }
+          else {
+            ctrl.post(e.target.value);
+            e.target.value = '';
+          }
         }
       });
     }
