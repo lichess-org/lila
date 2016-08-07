@@ -56,10 +56,10 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     )).cursor[Challenge]().gather[List](max)
 
   private[challenge] def expiredIds(max: Int): Fu[List[Challenge.ID]] =
-    coll.distinct(
+    coll.distinct[String, List](
       "_id",
       $doc("expiresAt" -> $doc("$lt" -> DateTime.now)).some
-    ) map lila.db.BSON.asStrings
+    )
 
   def setSeenAgain(id: Challenge.ID) = coll.update(
     $id(id),

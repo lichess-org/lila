@@ -1,5 +1,7 @@
 package lila.forumSearch
 
+import reactivemongo.api.Cursor
+
 import lila.forum.actorApi._
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
@@ -37,14 +39,15 @@ final class ForumSearchApi(
     case c: ESClientHttp => c.putMapping >> {
       lila.log("forumSearch").info(s"Index to ${c.index.name}")
       import lila.db.dsl._
-      import play.api.libs.iteratee._
-      PostRepo.cursor($empty).enumerateBulks(Int.MaxValue) |>>>
-        Iteratee.foldM[Iterator[Post], Unit](()) {
-          case (_, posts) => (postApi liteViews posts.toList) flatMap { views =>
-            c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
-          }
-        }
+
+      PostRepo.cursor($empty).foldBulksM({}) { (_, posts) =>
+        for {
+          views <- postApi liteViews posts.toList
+          _ <- c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+        } yield Cursor.Cont({})
+      }
     }
+
     case _ => funit
   }
 }

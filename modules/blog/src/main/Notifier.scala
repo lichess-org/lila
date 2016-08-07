@@ -3,7 +3,7 @@ package lila.blog
 import io.prismic.Document
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.api._
+import reactivemongo.api.Cursor.FailOnError
 import reactivemongo.bson._
 
 import lila.notify.{ Notification, NotifyApi, NewBlogPost }
@@ -20,16 +20,18 @@ private[blog] final class Notifier(
     }
 
   private def doSend(post: Document): Funit = {
+    import reactivemongo.play.iteratees.cursorProducer
+
     val content = NewBlogPost(
       id = NewBlogPost.Id(post.id),
       slug = NewBlogPost.Slug(post.slug),
       title = NewBlogPost.Title(~post.getText("blog.title")))
+
     UserRepo.recentlySeenNotKidIdsCursor(DateTime.now minusWeeks 1)
-      .enumerate(500 * 1000, stopOnError = true) &>
+      .enumerator(500 * 1000, FailOnError()) &>
       Enumeratee.map {
         _.getAs[String]("_id") err "User without an id"
-      } |>>>
-      Iteratee.foldM[String, Int](0) {
+      } |>>> Iteratee.foldM[String, Int](0) {
         case (count, userId) => notifyApi.addNotificationWithoutSkipOrEvent(
           Notification(Notification.Notifies(userId), content)
         ) inject (count + 1)

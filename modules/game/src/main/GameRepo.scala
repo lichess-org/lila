@@ -5,7 +5,7 @@ import scala.util.Random
 import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONBinary
 
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -86,13 +86,13 @@ object GameRepo {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(implicit cp: CursorProducer[Game]): cp.ProducedCursor =
     coll.find(selector).cursor[Game](readPreference)
 
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(implicit cp: CursorProducer[Game]): cp.ProducedCursor =
     coll.find(selector).sort(sort).cursor[Game](readPreference)
 
   def unrate(gameId: String) =
@@ -191,9 +191,9 @@ object GameRepo {
     coll.exists($id(id) ++ Query.analysed(true))
 
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    coll.distinct("_id", ($inIds(ids) ++ $doc(
+    coll.distinct[String, Set]("_id", ($inIds(ids) ++ $doc(
       F.analysed -> true
-    )).some) map lila.db.BSON.asStringSet
+    )).some)
 
   def exists(id: String) = coll.exists($id(id))
 
@@ -352,7 +352,7 @@ object GameRepo {
       Match($doc(F.playerUids -> $doc("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
-      Limit(limit))).map(_.documents.flatMap { obj =>
+      Limit(limit))).map(_.firstBatch.flatMap { obj =>
       obj.getAs[String]("_id") flatMap { id =>
         obj.getAs[Int]("gs") map { id -> _ }
       }
@@ -430,7 +430,7 @@ object GameRepo {
       )),
       GroupField(F.playerUids)("nb" -> SumValue(1)),
       Sort(Descending("nb")),
-      Limit(max))).map(_.documents.flatMap { obj =>
+      Limit(max))).map(_.firstBatch.flatMap { obj =>
       obj.getAs[Int]("nb") map { nb =>
         UidNb(~obj.getAs[String]("_id"), nb)
       }
