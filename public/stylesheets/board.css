@@ -1062,9 +1062,13 @@ div.underboard .center {
   padding-top: 15px;
   width: 512px;
   min-height: 81px;
+  display: flex;
+  flex-flow: column nowrap;
 }
 div.underboard .keyboard-move {
   text-align: left;
+  order: -1;
+  margin-top: 5px;
 }
 div.underboard .keyboard-move input {
   width: 20px;
