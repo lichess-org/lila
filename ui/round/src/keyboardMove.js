@@ -42,8 +42,13 @@ module.exports = {
         onblur: partial(ctrl.focus, false),
         onkeyup: function(e) {
           var v = e.target.value;
-          if (v.length < 2) return;
-          if (v.match(/[a-h][1-8]/)) ctrl.select(v);
+          if (v.indexOf('/') > -1) {
+            var chatInput = document.querySelector('.mchat input.lichess_say');
+            if (chatInput) chatInput.focus();
+          } else {
+            if (v.length < 2) return;
+            if (v.match(/[a-h][1-8]/)) ctrl.select(v);
+          }
           e.target.value = '';
         }
       }),
