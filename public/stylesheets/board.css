@@ -1063,6 +1063,20 @@ div.underboard .center {
   width: 512px;
   min-height: 81px;
 }
+div.underboard .keyboard-move {
+  text-align: left;
+}
+div.underboard .keyboard-move input {
+  width: 20px;
+  padding: 4px 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+div.underboard .keyboard-move em {
+  opacity: 0.7;
+}
 div.underboard .blurs,
 div.underboard .right {
   padding-left: 15px;

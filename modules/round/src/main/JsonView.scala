@@ -6,8 +6,8 @@ import scala.math
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
 import lila.common.ApiVersion
+import lila.common.PimpedJson._
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
@@ -110,7 +110,8 @@ final class JsonView(
                   case _ => false
                 }
               },
-              "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true)),
+              "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true),
+              "keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES).option(true)),
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),
             "takebackable" -> takebackable,

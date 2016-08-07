@@ -8,6 +8,7 @@ var button = require('./button');
 var blind = require('../blind');
 var keyboard = require('../keyboard');
 var crazyView = require('../crazy/crazyView');
+var keyboardMove = require('../keyboardMove');
 var m = require('mithril');
 
 function materialTag(role) {
@@ -112,12 +113,13 @@ function blursAndHolds(ctrl) {
 
 module.exports = function(ctrl) {
   var d = ctrl.data,
+    cgData = ctrl.chessground.data,
     material, score;
   var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
   var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
   if (d.pref.showCaptured) {
-    material = chessground.board.getMaterialDiff(ctrl.chessground.data);
-    score = chessground.board.getScore(ctrl.chessground.data) * (bottomColor === 'white' ? 1 : -1);
+    material = chessground.board.getMaterialDiff(cgData);
+    score = chessground.board.getScore(cgData) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [
@@ -137,7 +139,10 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', ctrl.chessground.data.premovable.current || ctrl.chessground.data.predroppable.current.key ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null),
+      m('div.center', [
+        cgData.premovable.current || cgData.predroppable.current.key ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
+        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null,
+      ]),
       blursAndHolds(ctrl)
     ])
   ];

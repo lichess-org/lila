@@ -57,6 +57,7 @@ final class PrefApi(
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       insightShare = r.getD("insightShare", Pref.default.insightShare),
+      keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
       tags = r.getD("tags", Pref.default.tags))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
@@ -92,6 +93,7 @@ final class PrefApi(
       "submitMove" -> o.submitMove,
       "confirmResign" -> o.confirmResign,
       "insightShare" -> o.insightShare,
+      "keyboardMove" -> o.keyboardMove,
       "tags" -> o.tags)
   }
 

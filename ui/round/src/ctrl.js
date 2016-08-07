@@ -20,6 +20,7 @@ var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
+var keyboardMove = require('./keyboardMove');
 
 module.exports = function(opts) {
 
@@ -485,6 +486,8 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
+
+  this.keyboardMove = this.data.pref.keyboardMove ? keyboardMove.ctrl(this) : null;
 
   init.yolo(this);
 

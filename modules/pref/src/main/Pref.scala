@@ -35,6 +35,7 @@ case class Pref(
     submitMove: Int,
     confirmResign: Int,
     insightShare: Int,
+    keyboardMove: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -94,6 +95,12 @@ object Pref {
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
 
+  trait BooleanPref {
+    val NO = 0
+    val YES = 1
+    val choices = Seq(NO -> "No", YES -> "Yes")
+  }
+
   object Tag {
     val verifyTitle = "verifyTitle"
   }
@@ -144,14 +151,7 @@ object Pref {
       ALWAYS -> "Always")
   }
 
-  object ConfirmResign {
-    val NO = 0
-    val YES = 1
-
-    val choices = Seq(
-      NO -> "No",
-      YES -> "Yes")
-  }
+  object ConfirmResign extends BooleanPref
 
   object InsightShare {
     val NOBODY = 0
@@ -164,11 +164,10 @@ object Pref {
       EVERYBODY -> "With everybody")
   }
 
-  object Blindfold {
-    val NO = 0
-    val YES = 1
+  object KeyboardMove extends BooleanPref
 
-    val choices = Seq(
+  object Blindfold extends BooleanPref {
+    override val choices = Seq(
       NO -> "What? No!",
       YES -> "Yes, hide the pieces")
   }
@@ -312,6 +311,7 @@ object Pref {
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
+    keyboardMove = KeyboardMove.NO,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

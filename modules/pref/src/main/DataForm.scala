@@ -26,6 +26,7 @@ private[pref] final class DataForm {
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
     "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _),
+    "keyboardMove" -> number.verifying(Set(0, 1) contains _),
     "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
@@ -49,6 +50,7 @@ private[pref] final class DataForm {
       animation: Int,
       submitMove: Int,
       insightShare: Int,
+      keyboardMove: Int,
       confirmResign: Int,
       captured: Int) {
 
@@ -71,6 +73,7 @@ private[pref] final class DataForm {
       animation = animation,
       submitMove = submitMove,
       insightShare = insightShare,
+      keyboardMove = keyboardMove,
       confirmResign = confirmResign,
       captured = captured == 1)
   }
@@ -95,6 +98,7 @@ private[pref] final class DataForm {
       animation = pref.animation,
       submitMove = pref.submitMove,
       insightShare = pref.insightShare,
+      keyboardMove = pref.keyboardMove,
       confirmResign = pref.confirmResign,
       captured = pref.captured.fold(1, 0))
   }

@@ -84,6 +84,10 @@
           <h2>@trans.confirmResignation()</h2>
           @base.radios(form("confirmResign"), confirmResignChoices)
         </li>
+        <li>
+          <h2>Input moves with the keyboard</h2>
+          @base.radios(form("keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
+        </li>
       </ul>
       }
       @categFieldset(PrefCateg.Privacy, categ) {
@@ -101,7 +105,7 @@
           @base.radios(form("message"), translatedMessageChoices)
         </li>
         <li>
-            <h2>@trans.shareYourInsightsData()</h2>
+          <h2>@trans.shareYourInsightsData()</h2>
           @base.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
         </li>
       </ul>
