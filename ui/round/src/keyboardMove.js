@@ -24,7 +24,8 @@ module.exports = {
         var onlyOrig = selected ? null : findOnlyOrig(cg.data.movable.dests, key);
         if (onlyOrig) cg.selectSquare(onlyOrig);
         cg.selectSquare(key);
-      }
+      },
+      cancel: cg.cancelMove
     };
   },
   view: function(ctrl) {
@@ -41,6 +42,10 @@ module.exports = {
         onfocus: partial(ctrl.focus, true),
         onblur: partial(ctrl.focus, false),
         onkeyup: function(e) {
+          if (e.which == 27) {
+            e.target.value = '';
+            return ctrl.cancel();
+          }
           var v = e.target.value;
           if (v.indexOf('/') > -1) {
             var chatInput = document.querySelector('.mchat input.lichess_say');
@@ -53,7 +58,7 @@ module.exports = {
         }
       }),
       ctrl.focus() ?
-      m('em', 'Enter coordinates to select squares (like e4 or g8)') :
+      m('em', 'Enter coordinates to select squares. Press escape to cancel, press / to focus chat') :
       m('strong', 'Press <enter> to focus')
     ]);
   }
