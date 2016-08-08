@@ -40,8 +40,7 @@ module.exports = function(cfg, router, i18n) {
         break;
       default:
         this.userFinalizeMove([orig, dest, promotion], newProgress);
-          console.log(newLines);
-        if (newLines == 'win') {
+        if (newLines == 'win' || (Object.keys(newLines).length === 1 && newLines[Object.keys(newLines)[0]] == 'win')) {
           this.chessground.stop();
           xhr.attempt(this, true);
         } else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
