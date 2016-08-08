@@ -55,17 +55,20 @@ trait AssetHelper { self: I18nHelper =>
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
 
-  def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx) match {
-    case Lang("en", "us")                 => none
-    case l@Lang("en", "au" | "ca" | "gb") => l.code.some
-    case l@Lang("pt", "br")               => l.code.some
-    case l@Lang("zh", "tw")               => l.code.some
-    case Lang("zh", _)                    => "zh-cn".some
-    case l@Lang("ar", "ma" | "sa" | "tn") => l.code.some
-    case l@Lang("fr", "ca")               => l.code.some
-    case l                                => l.language.some
-  }).fold(Html("")) { l =>
-    jsAt(s"vendor/moment/locale/${l.toLowerCase}.js", static = true)
+  def momentLangTag(implicit ctx: lila.api.Context) = {
+    val l = lang(ctx)
+    ((l.language, l.country.toLowerCase) match {
+      case ("en", "us")               => none
+      case ("en", "au" | "ca" | "gb") => l.code.some
+      case ("pt", "br")               => l.code.some
+      case ("zh", "tw")               => l.code.some
+      case ("zh", _)                  => "zh-cn".some
+      case ("ar", "ma" | "sa" | "tn") => l.code.some
+      case ("fr", "ca")               => l.code.some
+      case _                          => l.language.some
+    }).fold(Html("")) { locale =>
+      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true)
+    }
   }
 
   val tagmanagerTag = cdnOrLocal(
