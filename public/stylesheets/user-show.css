@@ -408,6 +408,9 @@ div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
 }
+div.user_show .mod_zone strong.inline {
+  display: inline;
+}
 div.user_show .mod_zone .plan_charges ul {
   max-height: 100px;
   overflow: auto;

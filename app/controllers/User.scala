@@ -194,10 +194,11 @@ object User extends LilaController {
         (Env.security userSpy user.id) zip
         (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
         Env.mod.logApi.userHistory(user.id) zip
-        Env.plan.api.recentChargesOf(user) flatMap {
-          case ((((email, spy), playerAggregateAssessment), history), charges) =>
+        Env.plan.api.recentChargesOf(user) zip
+        Env.pref.api.getPref(user) flatMap {
+          case (((((email, spy), playerAggregateAssessment), history), charges), pref) =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history, charges)
+              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history, charges, pref)
             }
         }
     }

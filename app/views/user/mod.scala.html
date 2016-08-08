@@ -1,6 +1,7 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], pref: lila.pref.Pref)(implicit ctx: Context)
 
 @import lila.evaluation.Display
+@import lila.pref.Pref
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -67,11 +68,16 @@
   @if(isGranted(_.ChangePermission) || (isGranted(_.Admin) && u.roles.nonEmpty)) {
   <div class="mod_roles">
     <@if(isGranted(_.ChangePermission)){a href="@routes.Mod.powaaa(u.username)"}else{span}>
-    <strong class="text" data-icon="">Mod permissions:</strong>
+    <strong class="text inline" data-icon="">Mod permissions:</strong>
     @if(u.roles.isEmpty) { Add some } else { @u.roles.mkString(", ") }
     </@if(isGranted(_.ChangePermission)){a}else{span}>
   </div>
   }
+  <div class="preferences">
+    <strong class="text inline" data-icon="%">Notable preferences:</strong>
+    @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] }
+    @if(pref.blindfold != Pref.Blindfold.NO) { [blindfold] }
+  </div>
   @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
