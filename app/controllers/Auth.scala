@@ -111,7 +111,7 @@ object Auth extends LilaController {
                   .map(_ -> email).flatMap {
                     case (user, email) => env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
-                      else saveAuthAndRedirect(user)
+                      else redirectNewUser(user)
                     }
                   }
             }),
@@ -137,11 +137,11 @@ object Auth extends LilaController {
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
     Env.security.emailConfirm.confirm(token) flatMap {
-      _.fold(notFound)(saveAuthAndRedirect)
+      _.fold(notFound)(redirectNewUser)
     }
   }
 
-  private def saveAuthAndRedirect(user: UserModel)(implicit ctx: Context) = {
+  private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
     implicit val req = ctx.req
     api.saveAuthentication(user.id, ctx.mobileApiVersion) map { sessionId =>
       Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)

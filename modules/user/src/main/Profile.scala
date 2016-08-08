@@ -18,6 +18,8 @@ case class Profile(
 
   def nonEmptyBio = ne(bio)
 
+  def isEmpty = List(country, location, bio, firstName, lastName).forall(_.isEmpty)
+
   private def ne(str: Option[String]) = str filter (_.nonEmpty)
 }
 

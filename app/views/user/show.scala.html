@@ -133,6 +133,10 @@ description = describeUser(u)).some) {
     <div class="rating_history">
       @base.spinner()
     </div>
+    }.getOrElse {
+    @if(ctx.is(u)) {
+    @newPlayer(u)
+    }
     }
     <div class="user-infos scroll-shadow-hard">
       @if(ctx.me.fold(true)(u !=)) {
