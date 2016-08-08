@@ -66,15 +66,16 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .tabs {
   position: absolute;
-  top: -22px;
+  top: -23px;
   left: 0;
-  height: 20px;
-  line-height: 20px;
+  height: 23px;
+  line-height: 22px;
   width: 512px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 #hooks_wrap .tabs a {
-  display: inline-block;
   padding: 0 8px;
   margin-right: 3px;
   border: 1px solid #ccc;
@@ -83,13 +84,13 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .tabs a:hover {
   background: #f0f0f0;
-  border-top: 2px solid #808080;
 }
 #hooks_wrap .tabs a.active {
   background: #f0f0f0;
   font-weight: bold;
   border-bottom-color: #f0f0f0;
   border-top: 2px solid #d85000;
+  margin-top: -1px;
 }
 #hooks_wrap .tabs .unread {
   margin-left: 5px;

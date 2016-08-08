@@ -1823,7 +1823,7 @@ a.mini_board {
   position: relative;
 }
 #now_playing {
-  margin: 4px 0 0 4px;
+  padding: 4px 0 0 4px;
   overflow: hidden;
 }
 #now_playing.other_games {
