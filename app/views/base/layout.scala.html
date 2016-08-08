@@ -191,6 +191,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @momentjsTag
+    @momentLangTag
     @if(isProd) {
     @jsTagCompiled("lichess.js")
     } else {
@@ -204,7 +205,6 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @embedJs {
     lichess_translations = @jsI18n()
     }
-    @momentLangTag
     }
     @base.ga()
   </body>

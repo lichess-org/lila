@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import controllers.routes
+import play.api.i18n.Lang
 import play.twirl.api.Html
 
 trait AssetHelper { self: I18nHelper =>
@@ -54,13 +55,17 @@ trait AssetHelper { self: I18nHelper =>
     test = "window.moment",
     local = staticUrl("vendor/moment/min/moment.min.js"))
 
-  def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx).language match {
-    case "en" => none
-    case "pt" => "pt-br".some
-    case "zh" => "zh-cn".some
-    case l    => l.some
+  def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx) match {
+    case Lang("en", "us")                 => none
+    case l@Lang("en", "au" | "ca" | "gb") => l.code.some
+    case l@Lang("pt", "br")               => l.code.some
+    case l@Lang("zh", "tw")               => l.code.some
+    case Lang("zh", _)                    => "zh-cn".some
+    case l@Lang("ar", "ma" | "sa" | "tn") => l.code.some
+    case l@Lang("fr", "ca")               => l.code.some
+    case l                                => l.language.some
   }).fold(Html("")) { l =>
-    jsAt(s"vendor/moment/locale/$l.js", static = true)
+    jsAt(s"vendor/moment/locale/${l.toLowerCase}.js", static = true)
   }
 
   val tagmanagerTag = cdnOrLocal(
