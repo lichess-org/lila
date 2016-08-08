@@ -88,12 +88,6 @@ case class Tournament(
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 
-  def spotlightedNow = spotlight.filter { s =>
-    !isFinished && s.homepageHours.?? { hours =>
-      startsAt.minusHours(hours) isBefore DateTime.now
-    }
-  } map { this -> _ }
-
   def schedulePair = schedule map { this -> _ }
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"

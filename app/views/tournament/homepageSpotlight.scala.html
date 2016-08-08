@@ -1,5 +1,6 @@
-@(tour: lila.tournament.Tournament, spot: lila.tournament.Spotlight)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament)(implicit ctx: Context)
 
+@tour.spotlight.map { spot =>
 <a href="@routes.Tournament.show(tour.id)"
   class="tour_spotlight invert id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
   @spot.iconImg.map { i =>
@@ -23,3 +24,24 @@
     </span>
   </span>
 </a>
+}.getOrElse {
+@tour.schedule.map { sched =>
+<a href="@routes.Tournament.show(tour.id)"
+  class="tour_spotlight little id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
+  @tour.perfType.map { pt =>
+  <i class="img" data-icon="@pt.iconChar"></i>
+  }.getOrElse {
+  <i class="img" data-icon="g"></i>
+  }
+  <span class="content">
+    <span class="name">@tour.fullName</span>
+    <span class="more">
+      @trans.nbConnectedPlayers(tour.nbPlayers.localize) •
+      @if(tour.isStarted) {
+      finishes@momentFromNow(tour.finishesAt)
+      } else { @momentFromNow(tour.startsAt) }
+    </span>
+  </span>
+</a>
+}
+}

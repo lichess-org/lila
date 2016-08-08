@@ -695,7 +695,7 @@ div.game_config .color_submits button.random i {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  margin: 10px 0 5px -30px;
+  margin: 5px 0 5px -30px;
   padding: 5px;
   border-radius: 2px;
   opacity: 0.8;
@@ -776,7 +776,7 @@ div.game_config .color_submits button.random i {
   line-height: 13px;
   display: block;
 }
-body.dark .tour_spotlight {
+body.dark .tour_spotlight.little {
   background: #444;
   color: #ccc;
   text-shadow: 0 0 2px rgba(0,0,0,0.6);

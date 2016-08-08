@@ -13,13 +13,10 @@
 @NotForKids {
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 }
-@tours.flatMap(_.spotlightedNow).map {
-case (tour, spot) => { @tournament.bigSpotlight(tour, spot) }
+@lila.tournament.Spotlight.select(tours, ctx.me).map { tour =>
+@tournament.homepageSpotlight(tour)
 }
-@tours.filter(_.spotlight.isEmpty).flatMap(_.schedulePair).map {
-case (tour, sched) => { @tournament.littleSpotlight(tour, sched) }
-}
-@simuls.find(_.spotlightable).map { s =>
+@simuls.find(_.spotlightable).take(2).map { s =>
 @simul.homepageSpotlight(s)
 }
 @ctx.me.map { u =>
