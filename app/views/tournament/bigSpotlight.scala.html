@@ -1,7 +1,7 @@
 @(tour: lila.tournament.Tournament, spot: lila.tournament.Spotlight)(implicit ctx: Context)
 
 <a href="@routes.Tournament.show(tour.id)"
-  class="tour_spotlight id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
+  class="tour_spotlight invert id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
   @spot.iconImg.map { i =>
   <img class="img" src="@staticUrl(s"images/$i")" />
   }.getOrElse {

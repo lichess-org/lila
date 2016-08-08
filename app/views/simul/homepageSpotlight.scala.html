@@ -1,12 +1,9 @@
 @(s: lila.simul.Simul)(implicit ctx: Context)
 
-<a href="@routes.Simul.show(s.id)" class="tour_spotlight simul_spotlight id_@s.id">
+<a href="@routes.Simul.show(s.id)" class="tour_spotlight little simul_spotlight id_@s.id">
   <img class="img icon" src="@staticUrl("images/fire-silhouette.svg")" />
   <span class="content">
     <span class="name">@s.name simul</span>
-    <span class="headline">@trans.by(userIdSpanMini(s.hostId, withOnline = false, rating = s.hostRating.some))</span>
-    <span class="more">
-      @trans.nbConnectedPlayers(s.applicants.size.localize) • @trans.join()
-    </span>
+    <span class="more">@trans.nbConnectedPlayers(s.applicants.size.localize) • @trans.join()</span>
   </span>
 </a>

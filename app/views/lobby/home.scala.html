@@ -14,7 +14,10 @@
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 }
 @tours.flatMap(_.spotlightedNow).map {
-case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
+case (tour, spot) => { @tournament.bigSpotlight(tour, spot) }
+}
+@tours.filter(_.spotlight.isEmpty).flatMap(_.schedulePair).map {
+case (tour, sched) => { @tournament.littleSpotlight(tour, sched) }
 }
 @simuls.find(_.spotlightable).map { s =>
 @simul.homepageSpotlight(s)

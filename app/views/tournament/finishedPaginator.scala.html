@@ -6,7 +6,7 @@
   </th></tr>
   }
   @finished.currentPageResults.map { t =>
-  <tr class="paginated_element@if(t.scheduled) { scheduled }">
+  <tr class="paginated_element@if(t.isScheduled) { scheduled }">
     <td class="icon">
       <span data-icon="@tournamentIconChar(t)"></span>
     </td>

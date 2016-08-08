@@ -34,7 +34,7 @@ case class Tournament(
 
   def fullName =
     if (isMarathonOrUnique) name
-    else if (scheduled && clock.hasIncrement) s"$name Inc $system"
+    else if (isScheduled && clock.hasIncrement) s"$name Inc $system"
     else s"$name $system"
 
   def isMarathon = schedule.map(_.freq) exists {
@@ -46,7 +46,7 @@ case class Tournament(
 
   def isMarathonOrUnique = isMarathon || isUnique
 
-  def scheduled = schedule.isDefined
+  def isScheduled = schedule.isDefined
 
   def finishesAt = startsAt plusMinutes minutes
 
@@ -93,6 +93,8 @@ case class Tournament(
       startsAt.minusHours(hours) isBefore DateTime.now
     }
   } map { this -> _ }
+
+  def schedulePair = schedule map { this -> _ }
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }

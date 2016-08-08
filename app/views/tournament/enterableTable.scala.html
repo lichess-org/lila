@@ -1,6 +1,6 @@
 @(tours: List[Tournament], scheduled: Boolean)
 
-@tours.filter(_.scheduled == scheduled).map { tour =>
+@tours.filter(_.isScheduled == scheduled).map { tour =>
 <tr @if(scheduled) { class="scheduled" }>
   <td class="name">
     <a class="text" href="@routes.Tournament.show(tour.id)">

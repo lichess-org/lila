@@ -696,14 +696,18 @@ div.game_config .color_submits button.random i {
   flex: 0 0 auto;
   align-items: center;
   margin: 10px 0 5px -30px;
-  color: #fff!important;
-  background: #4166a0;
   padding: 5px;
   border-radius: 2px;
   opacity: 0.8;
   transition: 0.13s;
   white-space: nowrap;
   overflow: hidden;
+  background: #ddd;
+}
+.tour_spotlight.invert,
+.tour_spotlight:hover {
+  color: #fff!important;
+  background: #3893E8;
 }
 .tour_spotlight:hover {
   opacity: 1;
@@ -714,11 +718,12 @@ div.game_config .color_submits button.random i {
   margin: 2px 6px 0 0;
 }
 .tour_spotlight .img {
-  flex: 0 0 50px;
+  flex: 0 0 40px;
   display: block;
-  width: 50px;
-  height: 50px;
+  height: 40px;
   margin: 0 10px 0 5px;
+}
+.tour_spotlight img.img {
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
@@ -727,7 +732,9 @@ div.game_config .color_submits button.random i {
   margin: 0 5px 0 0;
 }
 .tour_spotlight i.img::before {
-  font-size: 50px;
+  color: #fff;
+  font-size: 40px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 .tour_spotlight .content {
   display: block;
@@ -741,12 +748,45 @@ div.game_config .color_submits button.random i {
 .tour_spotlight span.headline {
   display: block;
   font-size: 10px;
+  margin-bottom: -3px;
 }
 .tour_spotlight span.more {
   font-size: 10px;
 }
 .tour_spotlight span.more time {
   margin-left: 3px;
+}
+.tour_spotlight.little .img {
+  flex: 0 0 28px;
+  height: 28px;
+  margin: 0 7px 0 3px;
+}
+.tour_spotlight.little i.img::before {
+  font-size: 28px;
+}
+.tour_spotlight.little {
+  margin: 5px 0 2.5px -30px;
+  padding: 5px;
+}
+.tour_spotlight span.name {
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 13px;
+  display: block;
+}
+body.dark .tour_spotlight {
+  background: #555;
+  color: #ccc;
+}
+body.dark .tour_spotlight.invert,
+body.dark .tour_spotlight:hover {
+  background: #4166a0;
+}
+body.dark .tour_spotlight .img {
+  opacity: 0.5;
+}
+body.dark .tour_spotlight:hover .img {
+  opacity: 1;
 }
 #site_header a.store {
   display: block;
