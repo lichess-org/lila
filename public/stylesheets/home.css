@@ -703,11 +703,13 @@ div.game_config .color_submits button.random i {
   white-space: nowrap;
   overflow: hidden;
   background: #ddd;
+  text-shadow: 0 1px 1px #fff;
 }
 .tour_spotlight.invert,
 .tour_spotlight:hover {
   color: #fff!important;
   background: #3893E8;
+  text-shadow: none;
 }
 .tour_spotlight:hover {
   opacity: 1;
@@ -734,7 +736,7 @@ div.game_config .color_submits button.random i {
 .tour_spotlight i.img::before {
   color: #fff;
   font-size: 40px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 .tour_spotlight .content {
   display: block;
@@ -775,8 +777,9 @@ div.game_config .color_submits button.random i {
   display: block;
 }
 body.dark .tour_spotlight {
-  background: #555;
+  background: #444;
   color: #ccc;
+  text-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
 body.dark .tour_spotlight.invert,
 body.dark .tour_spotlight:hover {
