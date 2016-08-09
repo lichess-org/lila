@@ -30,8 +30,11 @@ module.exports = {
   withdraw: withdraw,
   join: join,
   joinWithdraw: function(ctrl) {
-    return (!ctrl.userId || ctrl.data.isFinished) ? null : (
-      ctrl.data.me && !ctrl.data.me.withdraw ? withdraw(ctrl) : join(ctrl));
-
+    if (!ctrl.userId) return m('a.button.right.text', {
+      href: '/login?autoref=1',
+      'data-icon': 'G'
+    }, ctrl.trans('signIn'));
+    if (ctrl.data.isFinished) return null;
+    return ctrl.data.me && !ctrl.data.me.withdraw ? withdraw(ctrl) : join(ctrl);
   }
 };

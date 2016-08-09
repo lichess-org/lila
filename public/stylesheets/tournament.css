@@ -329,11 +329,11 @@ ol.scheduled_tournaments a {
   opacity: 0.5;
   transition: width 0.5s;
 }
-#tournament button.right {
+#tournament .button.right {
   float: right;
   margin-left: 5px;
 }
-#tournament button.disabled {
+#tournament .button.disabled {
   opacity: 0.5;
 }
 #tournament span.joined {
