@@ -94,17 +94,17 @@
 }
 #challenge_app .challenge > i {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 6px;
+  right: 10px;
   display: block;
-  font-size: 24px;
+  font-size: 28px;
 }
 #challenge_app .challenge .content {
   position: absolute;
   top: 10px;
-  left: 52px;
+  left: 12px;
   display: block;
-  width: 200px;
+  width: 196px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -113,6 +113,9 @@
   display: block;
   font-weight: bold;
   margin-bottom: 3px;
+}
+#challenge_app .challenge .title .user_link {
+  margin-left: -5px;
 }
 
 #challenge_app .empty,

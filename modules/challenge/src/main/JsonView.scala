@@ -4,7 +4,9 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 
-final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
+final class JsonView(
+    getLightUser: lila.common.LightUser.Getter,
+    isOnline: lila.user.User.ID => Boolean) {
 
   import Challenge._
 
@@ -57,7 +59,8 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
       "title" -> light.map(_.title),
       "rating" -> r.rating.int,
       "provisional" -> r.rating.provisional,
-      "patron" -> light.??(_.isPatron).option(true)
+      "patron" -> light.??(_.isPatron).option(true),
+      "online" -> isOnline(r.id).option(true)
     ).noNull
   }
 }
