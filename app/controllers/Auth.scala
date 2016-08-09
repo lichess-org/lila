@@ -53,7 +53,9 @@ object Auth extends LilaController {
   }
 
   def login = Open { implicit ctx =>
-    val referrer = get("referrer")
+    val referrer = get("referrer") orElse {
+      getBool("autoref") ?? HTTPRequest.referer(ctx.req)
+    }
     Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
