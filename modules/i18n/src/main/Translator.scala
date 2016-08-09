@@ -18,7 +18,7 @@ private[i18n] final class Translator(messages: Messages, pool: I18nPool) {
     translate(key, args)(lang) getOrElse key
 
   def rawTranslation(lang: Lang)(key: String): Option[String] =
-    messages get lang.code flatMap (_ get key)
+    messages get lang.language flatMap (_ get key)
 
   private def defaultTranslation(key: String, args: Seq[Any]): Option[String] =
     defaultMessages get key flatMap { pattern =>
@@ -27,7 +27,7 @@ private[i18n] final class Translator(messages: Messages, pool: I18nPool) {
 
   private def translate(key: String, args: Seq[Any])(lang: Lang): Option[String] =
     if (lang.language == pool.default.language) defaultTranslation(key, args)
-    else messages get lang.code flatMap (_ get key) flatMap { pattern =>
+    else messages get lang.language flatMap (_ get key) flatMap { pattern =>
       formatTranslation(key, pattern, args)
     } orElse defaultTranslation(key, args)
 
