@@ -39,12 +39,12 @@ function register(socket, meta, ply) {
   was = set;
 }
 
-function post(d) {
-  $.post('/jslog/' + d.game.id + d.player.id);
+function post(d, n) {
+  $.post('/jslog/' + d.game.id + d.player.id + '?n=' + n);
 }
 
 function find(el, d) {
-  if (document.getElementById('pinkSquare')) post(d);
+  if (document.getElementById('pinkSquare')) post(d, 'rcb');
   else try {
     var prev, w, done = false;
     [].forEach.call(el.querySelectorAll('square'), function(n) {
@@ -52,7 +52,7 @@ function find(el, d) {
       if (!done && prev && w !== prev) {
         if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0' && !n.classList.contains('last-move')) {
           done = true;
-          post(d);
+          post(d, 'lcb');
         }
       }
       prev = w;
