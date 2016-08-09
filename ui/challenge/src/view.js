@@ -11,6 +11,7 @@ function user(u) {
       href: '/@/' + u.name
     },
     children: [
+      u.patron ? m('i.line.patron') : null,
       fullName,
       ' (' + rating + ')'
     ]

@@ -8,6 +8,7 @@ function player(p) {
       href: '/@/' + p.username
     },
     children: [
+      p.patron ? m('i.line.patron') : null,
       (p.title ? p.title + ' ' : '') + p.username,
       p.rating ? m('em', p.rating + (p.provisional ? '?' : '')) : null
     ]

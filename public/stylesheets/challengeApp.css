@@ -92,7 +92,7 @@
 #challenge_app .challenge:last-child {
   border-bottom: none;
 }
-#challenge_app .challenge i {
+#challenge_app .challenge > i {
   position: absolute;
   top: 10px;
   left: 10px;

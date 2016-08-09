@@ -56,7 +56,8 @@ final class JsonView(getLightUser: String => Option[lila.common.LightUser]) {
       "name" -> light.fold(r.id)(_.name),
       "title" -> light.map(_.title),
       "rating" -> r.rating.int,
-      "provisional" -> r.rating.provisional
+      "provisional" -> r.rating.provisional,
+      "patron" -> light.??(_.isPatron).option(true)
     ).noNull
   }
 }
