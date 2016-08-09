@@ -21,9 +21,9 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   private val nonUsEnglish = Lang("en", "gb")
 
-  def withReqCountry(lang: Lang, req: RequestHeader) = req.acceptLanguages find { l =>
+  def withReqCountry(lang: Lang, req: RequestHeader) = req.acceptLanguages.find { l =>
     l.language == lang.language
-  } getOrElse lang match {
+  }.getOrElse(lang) match {
     case Lang("en", "") => nonUsEnglish
     case l              => l
   }
