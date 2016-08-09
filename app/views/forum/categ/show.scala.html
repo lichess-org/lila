@@ -54,7 +54,7 @@ description = categ.desc).some) {
         <td class="right">@topic.nbReplies.localize</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
-          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(authorName(post))
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(authorLink(post))
           }
         </td>
       </tr>
