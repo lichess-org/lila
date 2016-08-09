@@ -39,15 +39,20 @@ function register(socket, meta, ply) {
   was = set;
 }
 
+function post(d) {
+  $.post('/jslog/' + d.game.id + d.player.id);
+}
+
 function find(el, d) {
-  try {
+  if (document.getElementById('pinkSquare')) post(d);
+  else try {
     var prev, w, done = false;
     [].forEach.call(el.querySelectorAll('square'), function(n) {
       w = n.offsetWidth;
       if (!done && prev && w !== prev) {
         if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0' && !n.classList.contains('last-move')) {
           done = true;
-          $.post('/jslog/' + d.game.id + d.player.id);
+          post(d);
         }
       }
       prev = w;

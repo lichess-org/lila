@@ -71,7 +71,7 @@ private[report] final class ReportApi(coll: Coll) {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
         reason = "cheat",
-        text = s"""Python bot detected on ${referer | "?"}""",
+        text = s"""bot detected on ${referer | "?"}""",
         gameId = "",
         move = ""), lichess)
       case _ => funit
