@@ -20,7 +20,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  val AnaRateLimit = new lila.memo.RateLimit(90, 60 seconds, "socket analysis move")
+  val AnaRateLimit = new lila.memo.RateLimit(100, 60 seconds, "socket analysis move")
 
   def apply(
     hub: lila.hub.Env,
