@@ -446,6 +446,8 @@ form .editor .spare .no-square {
 }
 form .editor .spare piece {
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 form .editor .cg-board-wrap {
   width: 224px;

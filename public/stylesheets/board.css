@@ -447,6 +447,8 @@ div.dont_touch {
   transition: 0.2s;
 }
 .is2d #promotion_choice piece {
+  width: 100%;
+  height: 100%;
   transition: 0.2s;
   transform: scale(0.8);
 }

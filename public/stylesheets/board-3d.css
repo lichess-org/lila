@@ -566,11 +566,11 @@ body.coords_2 .is3d square[data-coord-x]::after {
 }
 
 .is3d #promotion_choice piece {
-  transform: scale(0.7);
+  width: 140.625%;
+  height: 197.925%;
+  top: 0;
   left: -18%;
-  bottom: -40%;
-}
-.is3d #promotion_choice piece {
+  transform: scale(0.7) translateY(-45%);
   background-position: 0 -6px;
 }
 
