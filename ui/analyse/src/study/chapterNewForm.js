@@ -128,7 +128,7 @@ module.exports = {
             makeTab('fen', 'FEN', 'Load a FEN position'),
             makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
-          activeTab === 'edit' ? m('div.editor_wrap', {
+          activeTab === 'edit' ? m('div.editor_wrap.is2d', {
             config: function(el, isUpdate, ctx) {
               if (isUpdate) return;
               $.when(
