@@ -1347,9 +1347,11 @@ body #themepicker div.is3d,
   position: relative;
   margin: 0 -3px -3px -3px;
 }
-#themepicker .is3d piece {
+#themepicker piece {
   width: 100%;
   height: 100%;
+}
+#themepicker .is3d piece {
   left: 0;
   top: 0;
   background-size: cover;

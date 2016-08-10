@@ -1171,10 +1171,12 @@ div.shortcuts li {
   background: #fff;
 }
 
-body.coords_2 .gauge_displayed square[data-coord-y]::before {
+body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks {
   color: #fff;
   text-shadow: 0 1px 2px #000;
-  font-weight: normal;
-  top: 1px;
-  right: 1px;
+  right: -4px;
+  text-align: left;
+}
+body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks coord {
+  transform: none;
 }

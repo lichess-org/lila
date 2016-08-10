@@ -152,6 +152,62 @@ piece.ghost {
 .cg-board-wrap svg * {
   transition: 0.3s;
 }
+
+.cg-board-wrap coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+}
+.cg-board-wrap coords.ranks {
+  right: -15px;
+  top: 0;
+  flex-flow: column-reverse;
+  height: 100%;
+  width: 12px;
+}
+.is3d .cg-board-wrap coords.ranks {
+  height: calc(100% - 10px);
+}
+.cg-board-wrap coords.ranks.black {
+  flex-flow: column;
+}
+.cg-board-wrap coords.files {
+  bottom: -16px;
+  left: 0;
+  flex-flow: row;
+  width: 100%;
+  height: 16px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.cg-board-wrap coords.files.black {
+  flex-flow: row-reverse;
+}
+.cg-board-wrap coords coord {
+  flex: 1 1 auto;
+}
+.cg-board-wrap coords.ranks coord {
+  transform: translateY(39%);
+}
+body.coords_1 .cg-board-wrap coords {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}
+body.coords_1 .cg-board-wrap coords.files {
+  bottom: 0px;
+  text-align: left;
+}
+body.coords_1 .cg-board-wrap coords.files coord {
+  padding-left: 2px;
+}
+body.coords_1 .cg-board-wrap coords.ranks {
+  right: -4px;
+  text-align: left;
+}
+body.coords_1 .cg-board-wrap coords.ranks coord {
+  transform: none;
+}
+
 /* lichess */
 
 #lichess {

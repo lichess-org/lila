@@ -29,7 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "github:ornicar/chessground#v4.1.0",
+    "chessground": "github:ornicar/chessground#v4.1.1",
     "chessli.js": "file:../chessli",
     "lodash": "~3.7.0",
     "merge": "~1.2.0",
