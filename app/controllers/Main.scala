@@ -93,7 +93,7 @@ object Main extends LilaController {
     lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
     lila.mon.cheat.cssBot()
     ctx.userId.?? {
-      Env.report.api.autoBotReport(_, referer)
+      Env.report.api.autoBotReport(_, referer, name)
     }
     lila.game.GameRepo pov id map {
       _ ?? lila.game.GameRepo.setBorderAlert
