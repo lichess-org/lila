@@ -145,8 +145,8 @@
   font-family: monospace;
 }
 @keyframes go-home {
-  from {transform: rotate(0deg) scale(1) translateY(0px);}
-  to {transform: rotate(360deg) scale(0) translateY(30px);}
+  from {opacity: 1;}
+  to {opacity: 0.1;}
 }
 #learn_app .completed:not(.no-go-home) piece {
   animation: 0.7s ease-in-out 0.7s go-home;
