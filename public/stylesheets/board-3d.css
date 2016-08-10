@@ -22,17 +22,17 @@ body.coords_2 .is3d square[data-coord-x]::after {
   width: 140.625%;
   height: 179.6875%; */
   /* size on 3D board, with height/width = 90.78571% */
-  width: 140.625%;
-  height: 197.925%;
-  left: -18%;
-  bottom: -20%;
+  width: 16.741%;
+  height: 23.563%;
+  left: -1.85%;
+  top: -9.1%;
 }
 .is3d .is2d piece {
   /* copy of board.css to override miniboards */
   left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  width: 12.5%;
+  height: 12.5%;
 }
 .is3d #lichess {
   min-height: 479.08572px;
