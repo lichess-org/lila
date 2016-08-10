@@ -324,7 +324,6 @@ lichess.notifyApp = (function() {
       var config = {
         coordinates: false,
         viewOnly: !playable,
-        minimalDom: !playable,
         resizable: false,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove

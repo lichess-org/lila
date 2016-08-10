@@ -27,42 +27,45 @@
 }
 square {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 12.5%;
   height: 12.5%;
+  will-change: transform;
 }
-square[data-coord-x]::after,
-square[data-coord-y]::before {
-  position: absolute;
-  font-size: 11px;
-  line-height: 11px;
-  opacity: 0.7;
-  text-transform: uppercase;
-}
-square[data-coord-x]::after {
-  content: attr(data-coord-x);
-  left: 1px;
-  bottom: 1px;
-}
-square[data-coord-y]::before {
-  content: attr(data-coord-y);
-  right: 1px;
-  top: 1px;
-}
-body.coords_1 square[data-coord-x]::after,
-body.coords_1 square[data-coord-y]::before {
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
-}
-body.coords_2 square[data-coord-x]::after {
-  bottom: -12px;
-  left: calc(50% - 3.5px);
-  font-weight: bold;
-}
-body.coords_2 square[data-coord-y]::before {
-  right: -9px;
-  top: calc(50% - 7px);
-  font-weight: bold;
-}
+/* square[data-coord-x]::after, */
+/* square[data-coord-y]::before { */
+/*   position: absolute; */
+/*   font-size: 11px; */
+/*   line-height: 11px; */
+/*   opacity: 0.7; */
+/*   text-transform: uppercase; */
+/* } */
+/* square[data-coord-x]::after { */
+/*   content: attr(data-coord-x); */
+/*   left: 1px; */
+/*   bottom: 1px; */
+/* } */
+/* square[data-coord-y]::before { */
+/*   content: attr(data-coord-y); */
+/*   right: 1px; */
+/*   top: 1px; */
+/* } */
+/* body.coords_1 square[data-coord-x]::after, */
+/* body.coords_1 square[data-coord-y]::before { */
+/*   color: #fff; */
+/*   text-shadow: 0 1px 2px #000; */
+/* } */
+/* body.coords_2 square[data-coord-x]::after { */
+/*   bottom: -12px; */
+/*   left: calc(50% - 3.5px); */
+/*   font-weight: bold; */
+/* } */
+/* body.coords_2 square[data-coord-y]::before { */
+/*   right: -9px; */
+/*   top: calc(50% - 7px); */
+/*   font-weight: bold; */
+/* } */
 body.highlight .manipulable square.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -108,18 +111,17 @@ body.base .cg-board square.exploding2 {
   transition: background-color 0.1s;
 }
 piece {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
   position: absolute;
-  bottom: 0;
+  width: 12.5%;
+  height: 12.5%;
+  top: 0;
   left: 0;
-  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  background-size: cover;
   z-index: 2;
   /* no less than 2 */
 }
 .mini_board piece {
-  transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold piece,
@@ -129,25 +131,12 @@ piece {
 body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
-.is2d piece {
-  width: 100%;
-  height: 100%;
-  left: 0;
-  bottom: 0;
-}
 piece.dragging {
   z-index: 3;
   cursor: move;
 }
 piece.ghost {
   opacity: 0.3;
-}
-/* minimal dom overrides */
-
-.minimal-dom piece {
-  position: absolute;
-  width: 12.5%;
-  height: 12.5%;
 }
 .cg-board-wrap svg {
   overflow: hidden;
@@ -294,9 +283,6 @@ div.lichess_board {
   left: 0;
 }
 
-.is2d .cg-board-wrap.minimal-dom {
-  background: none;
-}
 mono-piece {
   width: 32px;
   height: 32px;
@@ -461,6 +447,8 @@ div.dont_touch {
   transition: 0.2s;
 }
 .is2d #promotion_choice piece {
+  width: 100%;
+  height: 100%;
   transition: 0.2s;
   transform: scale(0.8);
 }

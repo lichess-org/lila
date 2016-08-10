@@ -66,12 +66,12 @@ private[report] final class ReportApi(coll: Coll) {
     }
   }
 
-  def autoBotReport(userId: String, referer: Option[String]): Funit = {
+  def autoBotReport(userId: String, referer: Option[String], name: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
         reason = "cheat",
-        text = s"""bot detected on ${referer | "?"}""",
+        text = s"""$name bot detected on ${referer | "?"}""",
         gameId = "",
         move = ""), lichess)
       case _ => funit

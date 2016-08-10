@@ -446,10 +446,12 @@ form .editor .spare .no-square {
 }
 form .editor .spare piece {
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 form .editor .cg-board-wrap {
-  width: 224px;
-  height: 224px;
+  width: 224px!important;
+  height: 224px!important;
 }
 form .editor square.last-move {
   background-color: transparent!important;
