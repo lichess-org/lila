@@ -157,6 +157,7 @@ piece.ghost {
   position: absolute;
   display: flex;
   pointer-events: none;
+  opacity: 0.8;
 }
 .cg-board-wrap coords.ranks {
   right: -15px;
