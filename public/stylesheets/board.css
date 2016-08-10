@@ -31,6 +31,7 @@ square {
   left: 0;
   width: 12.5%;
   height: 12.5%;
+  will-change: transform;
 }
 /* square[data-coord-x]::after, */
 /* square[data-coord-y]::before { */
@@ -121,7 +122,6 @@ piece {
   /* no less than 2 */
 }
 .mini_board piece {
-  transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold piece,
@@ -130,12 +130,6 @@ piece {
 }
 body.highlight .lichess_board.blindfold square.check {
   background: none;
-}
-.is2d piece {
-  width: 12.5%;
-  height: 12.5%;
-  top: 0;
-  left: 0;
 }
 piece.dragging {
   z-index: 3;
