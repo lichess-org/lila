@@ -34,11 +34,6 @@ body.coords_2 .is3d square[data-coord-x]::after {
   width: 100%;
   height: 100%;
 }
-.is3d .minimal-dom piece {
-  /* copy of board.css to override miniboards */
-  width: 12.5%;
-  height: 12.5%;
-}
 .is3d #lichess {
   min-height: 479.08572px;
 }

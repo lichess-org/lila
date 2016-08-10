@@ -11,7 +11,6 @@ function parseFen($elem) {
     var config = {
       coordinates: false,
       viewOnly: !playable,
-      minimalDom: !playable,
       fen: $this.data('fen'),
       lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null
     };
