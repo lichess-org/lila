@@ -82,7 +82,6 @@ piece {
   height: 12.5%;
   top: 0;
   left: 0;
-  will-change: transform;
   background-size: cover;
   z-index: 2;
   /* no less than 2 */
