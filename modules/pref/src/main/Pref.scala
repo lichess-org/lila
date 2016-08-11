@@ -36,6 +36,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    moveEvent: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -165,6 +166,17 @@ object Pref {
   }
 
   object KeyboardMove extends BooleanPref
+
+  object MoveEvent {
+    val CLICK = 0
+    val DRAG = 1
+    val BOTH = 2
+
+    val choices = Seq(
+      CLICK -> "Click two squares",
+      DRAG -> "Drag a piece",
+      BOTH -> "Both clicks and drag")
+  }
 
   object Blindfold extends BooleanPref {
     override val choices = Seq(
@@ -312,6 +324,7 @@ object Pref {
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    moveEvent = MoveEvent.BOTH,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

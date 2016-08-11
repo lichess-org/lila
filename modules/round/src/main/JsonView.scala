@@ -111,6 +111,7 @@ final class JsonView(
                 }
               },
               "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true),
+              "moveEvent" -> pref.moveEvent,
               "keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES).option(true)),
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),

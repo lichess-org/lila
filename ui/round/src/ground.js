@@ -59,7 +59,11 @@ function makeConfig(data, ply, flip) {
       }
     },
     draggable: {
+      enabled: data.pref.moveEvent > 0,
       showGhost: data.pref.highlight
+    },
+    selectable: {
+      enabled: data.pref.moveEvent !== 1
     },
     drawable: {
       enabled: true

@@ -61,6 +61,10 @@
       @categFieldset(PrefCateg.GameBehavior, categ) {
       <ul>
         <li>
+          <h2>How do you move pieces?</h2>
+          @base.radios(form("moveEvent"), lila.pref.Pref.MoveEvent.choices)
+        </li>
+        <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
           @base.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>

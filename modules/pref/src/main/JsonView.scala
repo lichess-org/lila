@@ -37,6 +37,7 @@ object JsonView {
       "submitMove" -> p.submitMove,
       "confirmResign" -> p.confirmResign,
       "insightShare" -> p.insightShare,
-      "keyboardMove" -> p.keyboardMove)
+      "keyboardMove" -> p.keyboardMove,
+      "moveEvent" -> p.moveEvent)
   }
 }
