@@ -199,6 +199,7 @@ body.dark #modal-wrap .close:hover {
   background-color: #505050;
 }
 
+body.dark hr,
 body.dark .fork move,
 body.dark .tview2 lines,
 body.dark #adv_chart_loader,
