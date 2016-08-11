@@ -35,12 +35,12 @@ object Api extends LilaController {
   }
 
   def users = ApiRequest { implicit ctx =>
-    get("team") ?? { teamId =>
-      userApi.list(
-        teamId = teamId,
-        engine = getBoolOpt("engine"),
-        nb = getInt("nb")
-      ).map(_.some)
+    (get("team") ?? Env.team.api.team).flatMap {
+      _ ?? { team =>
+        val page = (getInt("page") | 1) max 1 min 50
+        val nb = (getInt("nb") | 10) max 1 min 50
+        Env.team.pager(team, page, nb) map userApi.pager map some
+      }
     } map toApiResult
   }
 

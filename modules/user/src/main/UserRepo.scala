@@ -74,6 +74,9 @@ object UserRepo {
         _.flatMap { _.getAs[String]("_id") }
       }
 
+  def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
+    coll.byOrderedIds[User](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
