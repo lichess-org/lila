@@ -31,7 +31,6 @@ square {
   left: 0;
   width: 12.5%;
   height: 12.5%;
-  will-change: transform;
 }
 body.highlight .manipulable square.drag-over {
   background: rgba(255, 255, 255, 0.1);
