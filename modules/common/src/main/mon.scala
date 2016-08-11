@@ -344,16 +344,16 @@ object mon {
       }
       def post = rec(s"fishnet.analysis.post")
     }
-    object api {
-      object teamUsers {
-        def cost = incX(s"api.team-users.cost")
-      }
-      object userGames {
-        def cost = incX(s"api.user-games.cost")
-      }
-      object game {
-        def cost = incX(s"api.game.cost")
-      }
+  }
+  object api {
+    object teamUsers {
+      def cost = incX(s"api.team-users.cost")
+    }
+    object userGames {
+      def cost = incX(s"api.user-games.cost")
+    }
+    object game {
+      def cost = incX(s"api.game.cost")
     }
   }
 
