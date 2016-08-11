@@ -57,7 +57,7 @@ module.exports = function(cfg, router, i18n) {
     if (id != this.data.puzzle.id) return;
     this.chessground.set({
       fen: this.data.chess.fen(),
-      lastMove: chess.lastMove(this.data.chess),
+      lastMove: chess.lastMove(this.data.chess).slice(0, 2),
       turnColor: this.data.puzzle.color,
       check: null,
       movable: {
@@ -74,7 +74,7 @@ module.exports = function(cfg, router, i18n) {
     this.data.progress = newProgress;
     this.chessground.set({
       fen: this.data.chess.fen(),
-      lastMove: move,
+      lastMove: move.slice(0, 2),
       turnColor: this.data.puzzle.opponentColor,
       check: null
     });
@@ -140,7 +140,7 @@ module.exports = function(cfg, router, i18n) {
     chess.move(this.data.chess, move);
     this.chessground.set({
       fen: this.data.chess.fen(),
-      lastMove: move,
+      lastMove: move.slice(0, 2),
       movable: {
         dests: this.data.chess.dests()
       },
