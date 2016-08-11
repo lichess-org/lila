@@ -721,8 +721,6 @@ div.game_config .color_submits button.random i {
 }
 .tour_spotlight .img {
   flex: 0 0 40px;
-  display: block;
-  height: 40px;
   margin: 0 10px 0 5px;
 }
 .tour_spotlight img.img {

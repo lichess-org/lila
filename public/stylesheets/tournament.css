@@ -575,6 +575,43 @@ div.side_box .refused {
 #tournament_side em {
   font-style: italic;
 }
+#tournament_side .next {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 6px;
+  border-radius: 2px;
+  opacity: 0.8;
+  transition: 0.13s;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fff;
+  background: #3893E8;
+  text-align: left;
+}
+#tournament_side .others {
+  display: block;
+  margin-bottom: 15px;
+  color: #3893E8;
+}
+#tournament_side .next:hover {
+  opacity: 1;
+}
+#tournament_side .next i {
+  flex: 0 0 50px;
+  color: #fff;
+}
+#tournament_side .next i::before {
+  font-size: 50px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+#tournament_side .next span {
+  display: block;
+}
+#tournament_side .next .name {
+  font-size: 1.2em;
+}
+
 #tournament article.faq h2 {
   font-weight: bold;
   font-style: italic;

@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.format.ISODateTimeFormat
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -8,6 +9,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
+import lila.rating.PerfType
 import lila.user.User
 
 final class JsonView(
@@ -22,7 +24,8 @@ final class JsonView(
   private case class CachableData(
     pairings: JsArray,
     featured: Option[JsObject],
-    podium: Option[JsArray])
+    podium: Option[JsArray],
+    next: Option[JsObject])
 
   def apply(
     tour: Tournament,
@@ -53,11 +56,7 @@ final class JsonView(
     "greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
       Json.obj("name" -> tour.name, "url" -> url)
     },
-    "perf" -> tour.perfType.map { pt =>
-      Json.obj(
-        "icon" -> pt.iconChar.toString,
-        "name" -> pt.name)
-    },
+    "perf" -> tour.perfType,
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
     "clock" -> clockJson(tour.clock),
@@ -71,7 +70,7 @@ final class JsonView(
     "schedule" -> tour.schedule.map(scheduleJson),
     "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
     "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
-    "startsAt" -> ISODateTimeFormat.dateTime.print(tour.startsAt),
+    "startsAt" -> formatDate(tour.startsAt),
     "pairings" -> data.pairings,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
@@ -80,7 +79,8 @@ final class JsonView(
     "playerInfo" -> playerInfoJson,
     "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)),
     "spotlight" -> tour.spotlight,
-    "socketVersion" -> socketVersion
+    "socketVersion" -> socketVersion,
+    "next" -> data.next
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
@@ -182,11 +182,21 @@ final class JsonView(
       tour <- TournamentRepo byId id
       featured <- tour ?? fetchFeaturedGame
       podium <- podiumJson(id)
+      next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
     } yield CachableData(
-      JsArray(pairings map pairingJson),
-      featured map featuredJson,
-      podium),
+      pairings = JsArray(pairings map pairingJson),
+      featured = featured map featuredJson,
+      podium = podium,
+      next = next),
     timeToLive = 1 second)
+
+  private def nextJson(tour: Tournament) = Json.obj(
+    "id" -> tour.id,
+    "name" -> tour.fullName,
+    "perf" -> tour.perfType,
+    "nbPlayers" -> tour.nbPlayers,
+    "finishesAt" -> tour.isStarted.option(tour.finishesAt).map(formatDate),
+    "startsAt" -> tour.isCreated.option(tour.startsAt).map(formatDate))
 
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
@@ -297,6 +307,8 @@ final class JsonView(
 
 object JsonView {
 
+  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
+
   private[tournament] def scheduleJson(s: Schedule) = Json.obj(
     "freq" -> s.freq.name,
     "speed" -> s.speed.name)
@@ -310,10 +322,16 @@ object JsonView {
     "name" -> s.name,
     "fen" -> s.fen)
 
-  private[tournament] implicit def spotlightWrites: OWrites[Spotlight] = OWrites { s =>
+  private[tournament] implicit val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json.obj(
       "iconImg" -> s.iconImg,
       "iconFont" -> s.iconFont
     ).noNull
+  }
+
+  private[tournament] implicit val perfTypeWrites: OWrites[PerfType] = OWrites { pt =>
+    Json.obj(
+      "icon" -> pt.iconChar.toString,
+      "name" -> pt.name)
   }
 }
