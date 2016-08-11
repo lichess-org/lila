@@ -33,39 +33,6 @@ square {
   height: 12.5%;
   will-change: transform;
 }
-/* square[data-coord-x]::after, */
-/* square[data-coord-y]::before { */
-/*   position: absolute; */
-/*   font-size: 11px; */
-/*   line-height: 11px; */
-/*   opacity: 0.7; */
-/*   text-transform: uppercase; */
-/* } */
-/* square[data-coord-x]::after { */
-/*   content: attr(data-coord-x); */
-/*   left: 1px; */
-/*   bottom: 1px; */
-/* } */
-/* square[data-coord-y]::before { */
-/*   content: attr(data-coord-y); */
-/*   right: 1px; */
-/*   top: 1px; */
-/* } */
-/* body.coords_1 square[data-coord-x]::after, */
-/* body.coords_1 square[data-coord-y]::before { */
-/*   color: #fff; */
-/*   text-shadow: 0 1px 2px #000; */
-/* } */
-/* body.coords_2 square[data-coord-x]::after { */
-/*   bottom: -12px; */
-/*   left: calc(50% - 3.5px); */
-/*   font-weight: bold; */
-/* } */
-/* body.coords_2 square[data-coord-y]::before { */
-/*   right: -9px; */
-/*   top: calc(50% - 7px); */
-/*   font-weight: bold; */
-/* } */
 body.highlight .manipulable square.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -189,6 +156,9 @@ piece.ghost {
 }
 .cg-board-wrap coords.ranks coord {
   transform: translateY(39%);
+}
+body.coords_0 .cg-board-wrap coords {
+  display: none;
 }
 body.coords_1 .cg-board-wrap coords {
   color: #fff;
