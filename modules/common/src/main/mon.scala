@@ -246,6 +246,10 @@ object mon {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
     }
+    object attempt {
+      val user = inc("puzzle.attempt.user")
+      val anon = inc("puzzle.attempt.anon")
+    }
     val crazyGlicko = inc("puzzle.crazy_glicko")
   }
   object opening {
