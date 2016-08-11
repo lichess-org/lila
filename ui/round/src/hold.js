@@ -1,5 +1,5 @@
 var holds = [];
-var nb = 8;
+var nb = 9;
 var was = false;
 var sent = false;
 var premoved = false;
@@ -18,7 +18,7 @@ function register(socket, meta, ply) {
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    if (mean > 2 && mean < 100) {
+    if (mean > 1 && mean < 80) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
@@ -45,19 +45,6 @@ function post(d, n) {
 
 function find(el, d) {
   if (document.getElementById('pinkSquare')) post(d, 'rcb');
-  else try {
-    var prev, w, done = false;
-    [].forEach.call(el.querySelectorAll('square'), function(n) {
-      w = n.offsetWidth;
-      if (!done && prev && w !== prev) {
-        if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0' && !n.classList.contains('last-move')) {
-          done = true;
-          post(d, 'lcb');
-        }
-      }
-      prev = w;
-    });
-  } catch (e) {}
 }
 
 module.exports = {
