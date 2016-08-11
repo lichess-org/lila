@@ -52,6 +52,7 @@ object Api extends LilaController {
     implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
     UsersRateLimitPerIP(ip, cost = cost, msg = ip) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+        lila.mon.api.teamUsers.cost(cost)
         (get("team") ?? Env.team.api.team).flatMap {
           _ ?? { team =>
             Env.team.pager(team, page, nb) map userApi.pager map some
@@ -85,6 +86,7 @@ object Api extends LilaController {
     GamesRateLimitPerIP(ip, cost = cost, msg = ip) {
       GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
         GamesRateLimitGlobal("-", cost = cost, msg = ip) {
+          lila.mon.api.userGames.cost(cost)
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
               gameApi.byUser(
@@ -108,6 +110,7 @@ object Api extends LilaController {
   }
 
   def game(id: String) = ApiRequest { implicit ctx =>
+    lila.mon.api.game.cost(1)
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
       withAnalysis = getBool("with_analysis"),
