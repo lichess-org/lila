@@ -34,14 +34,31 @@ object Api extends LilaController {
     userApi one name map toApiResult
   }
 
+  private val UsersRateLimitGlobal = new lila.memo.RateLimit(
+    credits = 1000,
+    duration = 1 minute,
+    name = "team users API global")
+
+  private val UsersRateLimitPerIP = new lila.memo.RateLimit(
+    credits = 1000,
+    duration = 10 minutes,
+    name = "team users API per IP")
+
   def users = ApiRequest { implicit ctx =>
-    (get("team") ?? Env.team.api.team).flatMap {
-      _ ?? { team =>
-        val page = (getInt("page") | 1) max 1 min 50
-        val nb = (getInt("nb") | 10) max 1 min 50
-        Env.team.pager(team, page, nb) map userApi.pager map some
+    val page = (getInt("page") | 1) max 1 min 50
+    val nb = (getInt("nb") | 10) max 1 min 50
+    val cost = page * nb + 10
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
+    UsersRateLimitPerIP(ip, cost = cost, msg = ip) {
+      UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+        (get("team") ?? Env.team.api.team).flatMap {
+          _ ?? { team =>
+            Env.team.pager(team, page, nb) map userApi.pager map some
+          }
+        } map toApiResult
       }
-    } map toApiResult
+    }
   }
 
   private val GamesRateLimitPerIP = new lila.memo.RateLimit(
