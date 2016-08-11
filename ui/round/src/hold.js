@@ -44,7 +44,7 @@ function post(d, n) {
 }
 
 function find(el, d) {
-  if (document.getElementById('pinkSquare')) post(d, 'rcb');
+  if (document.getElementById('robot_link')) post(d, 'rcb');
 }
 
 module.exports = {
