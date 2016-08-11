@@ -6,7 +6,7 @@ REMOTE_DIR="/home/lichess"
 echo "Notify users of pre deploy"
 bin/cli-prod deploy pre
 
-sleep 30
+sleep 5
 
 echo "Notify users of post deploy"
 bin/cli-prod deploy post
