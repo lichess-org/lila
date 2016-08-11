@@ -801,8 +801,8 @@ lichess.notifyApp = (function() {
         document.body.classList.toggle('fpmenu');
       });
       Mousetrap.bind('esc', function() {
-        var $overboard = $('.lichess_overboard .close');
-        if ($overboard.length) $overboard.click();
+        var $oc = $('.lichess_overboard .close');
+        if ($oc.length) $oc.click();
         else $('#ham-plate').click();
         return false;
       });
