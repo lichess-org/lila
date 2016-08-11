@@ -494,7 +494,7 @@ module.exports = function(opts) {
   onChange();
 
   this.music = null;
-  $('body').on('lichess.sound_set', function(e, set) {
+  lichess.pubsub.on('sound_set', function(e, set) {
     if (!this.music && set === 'music')
       lichess.loadScript('/assets/javascripts/music/play.js').then(function() {
         this.music = lichessPlayMusic();

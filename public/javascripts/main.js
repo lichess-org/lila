@@ -908,7 +908,7 @@ lichess.notifyApp = (function() {
       play.move(true);
     }, 50);
     var publish = function() {
-      $('body').trigger('lichess.sound_set', soundSet);
+      lichess.pubsub.emit('sound_set', soundSet);
     };
     setTimeout(publish, 500);
     $toggle.one('mouseover', function() {
