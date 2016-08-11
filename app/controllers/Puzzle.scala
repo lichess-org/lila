@@ -118,6 +118,8 @@ object Puzzle extends LilaController {
   def attempt(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     OptionFuResult(env.api.puzzle find id) { puzzle =>
+      if (puzzle.mate) lila.mon.puzzle.attempt.mate()
+      else lila.mon.puzzle.attempt.material()
       env.forms.attempt.bindFromRequest.fold(
         err => fuccess(BadRequest(errorsAsJson(err))),
         data => ctx.me match {
@@ -161,7 +163,10 @@ object Puzzle extends LilaController {
         env.forms.vote.bindFromRequest.fold(
           err => fuccess(BadRequest(errorsAsJson(err))),
           vote => env.api.attempt.vote(attempt, vote == 1) map {
-            case (p, a) => Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
+            case (p, a) =>
+              if (vote == 1) lila.mon.puzzle.vote.up()
+              else lila.mon.puzzle.vote.down()
+              Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
           }
         ) map (_ as JSON)
       }
