@@ -1,8 +1,8 @@
 package lila.api
 
 import play.api.libs.json._
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 
 import chess.format.pgn.Pgn
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
@@ -26,6 +26,7 @@ private[api] final class GameApi(
   def byUser(
     user: User,
     rated: Option[Boolean],
+    playing: Option[Boolean],
     analysed: Option[Boolean],
     withAnalysis: Boolean,
     withMoves: Boolean,
@@ -37,11 +38,15 @@ private[api] final class GameApi(
     adapter = new CachedAdapter(
       adapter = new Adapter[Game](
         collection = GameRepo.coll,
-        selector = $doc(
-          G.playerUids -> user.id,
-          G.status $gte chess.Status.Mate.id,
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
-          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+        selector = {
+          if (~playing) lila.game.Query.nowPlaying(user.id)
+          else $doc(
+            G.playerUids -> user.id,
+            G.status $gte chess.Status.Mate.id,
+            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          )
+        } ++ $doc(
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
         ),
         projection = $empty,
         sort = $doc(G.createdAt -> -1),

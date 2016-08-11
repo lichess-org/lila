@@ -73,6 +73,7 @@ object Api extends LilaController {
               gameApi.byUser(
                 user = user,
                 rated = getBoolOpt("rated"),
+                playing = getBoolOpt("playing"),
                 analysed = getBoolOpt("analysed"),
                 withAnalysis = getBool("with_analysis"),
                 withMoves = getBool("with_moves"),

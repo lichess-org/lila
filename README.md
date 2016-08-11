@@ -185,7 +185,8 @@ name | type | default | description
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **with_opening** | 1 or 0 | 0 | include opening informations
 **with_movetimes** | 1 or 0 | 0 | include move time informations
-**rated** | 1 or 0 | - | filter rated or casual games
+**rated** | 1 or 0 | - | rated games only
+**playing** | 1 or 0 | - | games in progress only
 
 ```javascript
 {
