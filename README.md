@@ -48,7 +48,7 @@ drop me an email at thibault.duplessis@gmail.com and we'll discuss it.
 
 ### API Limits
 
-To respect the API servers and avoid an IP ban, please wait 2 seconds between requests. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.
+To respect the API servers and avoid an IP ban, please wait 1 second between requests. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.
 
 ### `GET /api/user/<username>` fetch one user
 
@@ -66,7 +66,7 @@ To respect the API servers and avoid an IP ban, please wait 2 seconds between re
   "engine": false,                           // true if the user is known to use a chess engine
   "language": "en",                          // prefered language
   "profile": {
-    "bio": "Developer of lichess",
+    "bio": "Writes bugs for free",
     "country": "FR",
     "firstName": "Thibault",
     "lastName": "Duplessis",
@@ -129,7 +129,7 @@ $.ajax({
 ### `GET /api/user` fetch many users
 
 ```
-> curl https://en.lichess.org/api/user?team=coders&nb=100
+> curl https://en.lichess.org/api/user?team=coders&nb=10&page=1
 ```
 
 All parameters are optional.
@@ -137,11 +137,18 @@ All parameters are optional.
 name | type | default | description
 --- | --- | --- | ---
 **team** | string | - | filter users by team
-**nb** | int | 10 | maximum number of users to return
+**nb** | int | 10 | maximum number of users to return per page
+**page** | int | 1 | for pagination
 
 ```javascript
 {
-  "list": [
+  "currentPage": 3,
+  "previousPage": 2,
+  "nextPage": 4,
+  "maxPerPage": 100,
+  "nbPages": 43,
+  "nbResults": 4348,
+  "currentPageResults": [
     {
       ... // see user document above
     },
@@ -171,7 +178,7 @@ $.ajax({
 ### `GET /api/user/<username>/games` fetch user games
 
 ```
-> curl https://en.lichess.org/api/user/thibault/games?nb=50&page=2
+> curl https://en.lichess.org/api/user/thibault/games?nb=10&page=2
 ```
 
 Games are returned by descendant chronological order.
@@ -179,7 +186,7 @@ All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
-**nb** | int | 100 | maximum number of games to return per page
+**nb** | int | 10 | maximum number of games to return per page
 **page** | int | 1 | for pagination
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
