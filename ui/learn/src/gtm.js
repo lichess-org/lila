@@ -8,7 +8,7 @@ module.exports = {
     });
     if (complete) window.dataLayer.push({
       'event': 'VirtualPageview',
-      'virtualPageURL': '/' + categ.key,
+      'virtualPageURL': '/learn-' + categ.key + '-completed',
       'virtualPageTitle': categ.name
     });
   }

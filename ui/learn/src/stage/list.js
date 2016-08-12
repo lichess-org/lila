@@ -1,5 +1,5 @@
 var categs = [{
-  key: 'pieces',
+  key: 'chess-pieces',
   name: 'Chess pieces',
   stages: [
     require('./rook'),
