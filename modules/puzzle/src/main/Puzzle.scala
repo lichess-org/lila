@@ -147,6 +147,7 @@ object Puzzle {
       vote -> o.vote,
       attempts -> o.attempts,
       wins -> o.wins,
-      time -> o.time)
+      time -> o.time,
+      mate -> mate)
   }
 }
