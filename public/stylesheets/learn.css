@@ -366,6 +366,10 @@
 #learn_app .screen .buttons a:hover {
   -webkit-filter: brightness(0.9);
 }
+#learn_app .screen piece {
+  width: 100%;
+  height: 100%;
+}
 @keyframes slideIn {
   0% {
     opacity: 0;
