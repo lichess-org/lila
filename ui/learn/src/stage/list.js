@@ -1,4 +1,5 @@
 var categs = [{
+  key: 'pieces',
   name: 'Chess pieces',
   stages: [
     require('./rook'),
@@ -9,6 +10,7 @@ var categs = [{
     require('./pawn'),
   ]
 }, {
+  key: 'fundamentals',
   name: 'Fundamentals',
   stages: [
     require('./capture'),
@@ -19,6 +21,7 @@ var categs = [{
     require('./checkmate1'),
   ]
 }, {
+  key: 'intermediate',
   name: 'Intermediate',
   stages: [
     require('./setup'),
@@ -27,6 +30,7 @@ var categs = [{
     require('./stalemate'),
   ]
 }, {
+  key: 'advanced',
   name: 'Advanced',
   stages: [
     require('./value'),

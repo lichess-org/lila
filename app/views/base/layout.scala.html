@@ -14,7 +14,8 @@ playing: Boolean = false,
 openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
-withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
+withLangAnnotations: Boolean = true,
+withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -66,6 +67,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     data-asset-url="@assetBaseUrl"
     data-asset-version="@assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")">
+    @if(withGtm) { @gtm() }
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />

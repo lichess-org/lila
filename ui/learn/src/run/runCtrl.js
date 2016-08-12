@@ -3,6 +3,7 @@ var stages = require('../stage/list');
 var makeLevel = require('../level');
 var makeProgress = require('../progress').ctrl;
 var sound = require('../sound');
+var gtm = require('../gtm');
 
 module.exports = function(opts) {
 
@@ -28,6 +29,7 @@ module.exports = function(opts) {
       else {
         vm.stageCompleted(true);
         sound.stageEnd();
+        gtm.onComplete(opts.storage.data, stage);
       }
       m.redraw();
     }
