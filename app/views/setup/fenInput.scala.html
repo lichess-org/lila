@@ -10,7 +10,7 @@
   </div>
   <a class="board_editor" href="@href">
     <span class="preview">@validFen.map { vf =>
-      @game.miniBoard(vf.fen, vf.color.name)
+      <div class="mini_board parse_fen is2d" data-color="@vf.color.name" data-fen="@vf.fen" data-resizable="1">@miniBoardContent</div>
       }</span>
   </a>
   }

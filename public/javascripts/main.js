@@ -320,11 +320,12 @@ lichess.notifyApp = (function() {
       }
       var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
       var ground = $this.data('chessground');
-      var playable = $this.data('playable');
+      var playable = !!$this.data('playable');
+      var resizable = !!$this.data('resizable');
       var config = {
         coordinates: false,
         viewOnly: !playable,
-        resizable: false,
+        resizable: resizable,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove
       };
@@ -1667,7 +1668,10 @@ lichess.notifyApp = (function() {
         var fen = $(this).val() == '3';
         $fenPosition.toggle(fen);
         $modeChoicesWrap.toggle(!fen);
-        if (fen) $casual.click();
+        if (fen) {
+          $casual.click();
+          document.body.dispatchEvent(new Event('chessground.resize'));
+        }
         showRating();
         toggleButtons();
       }).trigger('change');
