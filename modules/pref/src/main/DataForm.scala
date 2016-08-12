@@ -26,10 +26,11 @@ private[pref] final class DataForm {
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
     "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _),
-    "keyboardMove" -> number.verifying(Set(0, 1) contains _),
-    "moveEvent" -> number.verifying(Set(0, 1, 2) contains _),
     "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-    "captured" -> number.verifying(Set(0, 1) contains _)
+    "captured" -> number.verifying(Set(0, 1) contains _),
+    // new preferences must be optional for mobile app BC
+    "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _)),
+    "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _))
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
@@ -51,10 +52,10 @@ private[pref] final class DataForm {
       animation: Int,
       submitMove: Int,
       insightShare: Int,
-      keyboardMove: Int,
-      moveEvent: Int,
       confirmResign: Int,
-      captured: Int) {
+      captured: Int,
+      keyboardMove: Option[Int],
+      moveEvent: Option[Int]) {
 
     def apply(pref: Pref) = pref.copy(
       autoQueen = autoQueen,
@@ -75,10 +76,10 @@ private[pref] final class DataForm {
       animation = animation,
       submitMove = submitMove,
       insightShare = insightShare,
-      keyboardMove = keyboardMove,
-      moveEvent = moveEvent,
       confirmResign = confirmResign,
-      captured = captured == 1)
+      captured = captured == 1,
+      keyboardMove = keyboardMove | pref.keyboardMove,
+      moveEvent = moveEvent | pref.moveEvent)
   }
 
   object PrefData {
@@ -101,10 +102,10 @@ private[pref] final class DataForm {
       animation = pref.animation,
       submitMove = pref.submitMove,
       insightShare = pref.insightShare,
-      keyboardMove = pref.keyboardMove,
-      moveEvent = pref.moveEvent,
       confirmResign = pref.confirmResign,
-      captured = pref.captured.fold(1, 0))
+      captured = pref.captured.fold(1, 0),
+      keyboardMove = pref.keyboardMove.some,
+      moveEvent = pref.moveEvent.some)
   }
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
