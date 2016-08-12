@@ -21,6 +21,7 @@ final class Env(
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     gamePgnDump: lila.game.PgnDump,
+    gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
@@ -87,7 +88,8 @@ final class Env(
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
-    pgnDump = pgnDump)
+    pgnDump = pgnDump,
+    gameCache = gameCache)
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi)
@@ -140,6 +142,7 @@ object Env {
     crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
+    gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)

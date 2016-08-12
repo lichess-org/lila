@@ -19,7 +19,8 @@ import makeTimeout.short
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump) {
+    pgnDump: PgnDump,
+    gameCache: lila.game.Cached) {
 
   import lila.round.JsonView.openingWriter
 
@@ -52,9 +53,11 @@ private[api] final class GameApi(
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
-      nbResults = fuccess {
-        rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
-      }
+      nbResults =
+        if (~playing) gameCache.nbPlaying(user.id)
+        else fuccess {
+          rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
+        }
     ),
     currentPage = page,
     maxPerPage = nb) flatMap { pag =>
