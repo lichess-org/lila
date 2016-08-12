@@ -2328,8 +2328,8 @@ input.cmn-toggle-round + label {
   background-color: #aaa;
   border-radius: 20px;
 }
-input.cmn-toggle-round + label:before,
-input.cmn-toggle-round + label:after {
+input.cmn-toggle-round + label::before,
+input.cmn-toggle-round + label::after {
   display: block;
   position: absolute;
   top: 1px;
@@ -2337,23 +2337,27 @@ input.cmn-toggle-round + label:after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle-round + label:before {
+input.cmn-toggle-round + label::before {
   right: 1px;
   background-color: #ddd;
   border-radius: 20px;
+}
+input.cmn-toggle-round:hover + label::before {
   transition: background 0.2s;
 }
-input.cmn-toggle-round + label:after {
+input.cmn-toggle-round + label::after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+}
+input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
-input.cmn-toggle-round:checked + label:before {
+input.cmn-toggle-round:checked + label::before {
   background-color: #8ce196;
 }
-input.cmn-toggle-round:checked + label:after {
+input.cmn-toggle-round:checked + label::after {
   margin-left: 20px;
 }
 .pull-quote {
