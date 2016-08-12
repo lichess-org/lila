@@ -224,7 +224,7 @@ function recentNotifications(ctrl) {
   return m('div.notifications', {
     class: ctrl.vm.scrolling ? 'scrolling' : '',
     config: function() {
-      $('body').trigger('lichess.content_loaded');
+      lichess.pubsub.emit('content_loaded')();
     }
   }, ctrl.data.pager.currentPageResults.map(drawNotification));
 }

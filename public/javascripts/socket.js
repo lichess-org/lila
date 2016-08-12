@@ -50,7 +50,7 @@ lichess.StrongSocket = function(url, version, settings) {
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
-        $('body').trigger('socket.open');
+        lichess.pubsub.emit('socket.open')();
         var resend = ackableMessages;
         ackableMessages = [];
         resend.forEach(function(x) {

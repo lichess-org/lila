@@ -40,7 +40,7 @@ module.exports = function(send, ctrl) {
   });
 
   this.music = null;
-  lichess.pubsub.on('sound_set', function(e, set) {
+  lichess.pubsub.on('sound_set', function(set) {
     if (!this.music && set === 'music')
       lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
         this.music = lichessLobbyMusic();

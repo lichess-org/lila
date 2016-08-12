@@ -108,7 +108,7 @@ module.exports = {
             m('h2', 'Timeout history'),
             m('table', m('tbody.slist', {
               config: function(el, isUpdate) {
-                if (!isUpdate) $('body').trigger('lichess.content_loaded');
+                if (!isUpdate) lichess.pubsub.emit('content_loaded')();
               }
             }, data.history.map(function(e) {
               return m('tr', [

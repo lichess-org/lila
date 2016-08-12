@@ -34,7 +34,7 @@ module.exports = function(ctrl) {
   }, 0) / pairingsLen) : null;
   return m('div.box.player', {
     config: function(el, isUpdate) {
-      if (!isUpdate) $('body').trigger('lichess.content_loaded');
+      if (!isUpdate) lichess.pubsub.emit('content_loaded')();
     }
   }, [
     m('close[data-icon=L]', {

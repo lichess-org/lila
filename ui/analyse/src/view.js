@@ -230,14 +230,14 @@ module.exports = function(ctrl) {
     m('div', {
       config: function(el, isUpdate) {
         if (firstRender) firstRender = false;
-        else if (!isUpdate) $('body').trigger('lichess.reset_zoom');
+        else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
       },
       class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         }
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),

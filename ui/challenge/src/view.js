@@ -100,7 +100,7 @@ function allChallenges(ctrl, d, nb) {
     config: function(el, iu, ctx) {
       var hash = ctrl.idsHash();
       if (ctx.hash !== hash) {
-        $('body').trigger('lichess.content_loaded');
+        lichess.pubsub.emit('content_loaded')();
         ctx.hash = hash;
       }
     }

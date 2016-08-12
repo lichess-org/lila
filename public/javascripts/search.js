@@ -18,7 +18,7 @@ $(function() {
   };
 
   var onResultLoad = function() {
-    $('body').trigger('lichess.content_loaded');
+    lichess.pubsub.emit('content_loaded')();
     var serialized = serialize();
     $result.find("a.permalink").each(function() {
       var s = $(this).hasClass('download') ? serialize(true) : serialized;
@@ -37,7 +37,7 @@ $(function() {
         }
       }, function() {
         $("#infscr-loading").remove();
-        $('body').trigger('lichess.content_loaded');
+        lichess.pubsub.emit('content_loaded')();
       });
     });
   };

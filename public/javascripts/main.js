@@ -295,7 +295,7 @@ lichess.notifyApp = (function() {
           }
         }
       }).bind('typeahead:render', function() {
-        $('body').trigger('lichess.content_loaded');
+        lichess.pubsub.emit('content_loaded')();
       });
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.bind('typeahead:select', function(ev, sel) {
@@ -419,7 +419,7 @@ lichess.notifyApp = (function() {
               url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#powerTip').html(html);
-                $('body').trigger('lichess.content_loaded');
+                lichess.pubsub.emit('content_loaded')();
               }
             });
           }
@@ -448,7 +448,7 @@ lichess.notifyApp = (function() {
               url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#miniGame').html(html);
-                $('body').trigger('lichess.content_loaded');
+                lichess.pubsub.emit('content_loaded')();
               }
             });
           }
@@ -459,7 +459,7 @@ lichess.notifyApp = (function() {
         gamePowertip($('.glpt'), 'w');
       }
       setTimeout(updatePowertips, 600);
-      $('body').on('lichess.content_loaded', updatePowertips);
+      lichess.pubsub.on('content_loaded', updatePowertips);
 
       function setMoment() {
         $("time.moment").removeClass('moment').each(function() {
@@ -469,7 +469,7 @@ lichess.notifyApp = (function() {
         });
       }
       setMoment();
-      $('body').on('lichess.content_loaded', setMoment);
+      lichess.pubsub.on('content_loaded', setMoment);
 
       function setMomentFromNow() {
         $("time.moment-from-now").each(function() {
@@ -477,7 +477,7 @@ lichess.notifyApp = (function() {
         });
       }
       setMomentFromNow();
-      $('body').on('lichess.content_loaded', setMomentFromNow);
+      lichess.pubsub.on('content_loaded', setMomentFromNow);
       setInterval(setMomentFromNow, 2000);
 
       if ($('body').hasClass('blind_mode')) {
@@ -487,7 +487,7 @@ lichess.notifyApp = (function() {
           });
         };
         setBlindMode();
-        $('body').on('lichess.content_loaded', setBlindMode);
+        lichess.pubsub.on('content_loaded', setBlindMode);
       }
 
       setTimeout(function() {
@@ -691,7 +691,7 @@ lichess.notifyApp = (function() {
 
       var manuallySetZoom = $.fp.debounce(setZoom, 10);
       if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
-      $('body').on('lichess.reset_zoom', function() {
+      lichess.pubsub.on('reset_zoom', function() {
         setZoom(getZoom());
       });
 
@@ -703,7 +703,7 @@ lichess.notifyApp = (function() {
         });
       }
       translateTexts();
-      $('body').on('lichess.content_loaded', translateTexts);
+      lichess.pubsub.on('content_loaded', translateTexts);
 
       $('input.user-autocomplete').each(function() {
         if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), {
@@ -729,7 +729,7 @@ lichess.notifyApp = (function() {
           }
         }, function() {
           $("#infscr-loading").remove();
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         }).find('div.pager').hide();
       });
 
@@ -908,7 +908,7 @@ lichess.notifyApp = (function() {
       play.move(true);
     }, 50);
     var publish = function() {
-      lichess.pubsub.emit('sound_set', soundSet);
+      lichess.pubsub.emit('sound_set')(soundSet);
     };
     setTimeout(publish, 500);
     $toggle.one('mouseover', function() {
@@ -1018,7 +1018,7 @@ lichess.notifyApp = (function() {
                 var $html = $(html);
                 $('#site_header div.side').replaceWith($html.find('>.side'));
                 $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
-                $('body').trigger('lichess.content_loaded');
+                lichess.pubsub.emit('content_loaded')();
                 startTournamentClock();
               }
             });
@@ -1244,7 +1244,7 @@ lichess.notifyApp = (function() {
   /////////////////
 
   $(function() {
-    $('body').on('lichess.content_loaded', lichess.parseFen);
+    lichess.pubsub.on('content_loaded', lichess.parseFen);
 
     var socketOpened = false;
 
@@ -1258,8 +1258,8 @@ lichess.notifyApp = (function() {
         lichess.socket.send("startWatching", ids.join(" "));
       }
     }
-    $('body').on('lichess.content_loaded', startWatching);
-    $('body').on('socket.open', function() {
+    lichess.pubsub.on('content_loaded', startWatching);
+    lichess.pubsub.on('socket.open', function() {
       socketOpened = true;
       startWatching();
     });
@@ -1356,7 +1356,7 @@ lichess.notifyApp = (function() {
               url: $("#timeline").data('href'),
               success: function(html) {
                 $('#timeline').html(html);
-                $('body').trigger('lichess.content_loaded');
+                lichess.pubsub.emit('content_loaded')();
               }
             });
           },
@@ -1365,7 +1365,7 @@ lichess.notifyApp = (function() {
           },
           featured: function(o) {
             $('#featured_game').html(o.html);
-            $('body').trigger('lichess.content_loaded');
+            lichess.pubsub.emit('content_loaded')();
           },
           redirect: function(e) {
             lobby.setRedirecting();
@@ -1373,11 +1373,11 @@ lichess.notifyApp = (function() {
           },
           tournaments: function(data) {
             $("#enterable_tournaments").html(data);
-            $('body').trigger('lichess.content_loaded');
+            lichess.pubsub.emit('content_loaded')();
           },
           simuls: function(data) {
             $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-            $('body').trigger('lichess.content_loaded');
+            lichess.pubsub.emit('content_loaded')();
           },
           reload_forum: function() {
             var $newposts = $("div.new_posts");
@@ -1386,7 +1386,7 @@ lichess.notifyApp = (function() {
                 url: $newposts.data('url'),
                 success: function(data) {
                   $newposts.find('ol').html(data).end().scrollTop(0);
-                  $('body').trigger('lichess.content_loaded');
+                  lichess.pubsub.emit('content_loaded')();
                 }
               });
             }, Math.round(Math.random() * 5000));
@@ -1651,7 +1651,7 @@ lichess.notifyApp = (function() {
                 $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
               });
               $form.find('.color_submits button').removeClass('nope');
-              $('body').trigger('lichess.content_loaded');
+              lichess.pubsub.emit('content_loaded')();
             },
             error: function() {
               $fenInput.addClass("failure");
@@ -1697,7 +1697,7 @@ lichess.notifyApp = (function() {
           $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);
           prepareForm();
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         },
         error: function() {
           lichess.reload();
@@ -1765,7 +1765,7 @@ lichess.notifyApp = (function() {
       lichess.StrongSocket.defaults.params.flag = "simul";
       lichess.StrongSocket.defaults.events.reload = function() {
         $simulList.load($simulList.data("href"), function() {
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         });
       };
       $('#site_header .help a.more').click(function() {

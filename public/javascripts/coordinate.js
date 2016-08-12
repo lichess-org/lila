@@ -182,5 +182,5 @@ $(function() {
       }, 1000);
     });
   });
-  $('body').trigger('lichess.reset_zoom');
+  lichess.pubsub.emit('reset_zoom')();
 });

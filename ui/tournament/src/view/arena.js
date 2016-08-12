@@ -125,7 +125,7 @@ module.exports = {
         m('tbody', {
           config: function() {
             // reload user badges
-            $('body').trigger('lichess.content_loaded');
+            lichess.pubsub.emit('content_loaded')();
           }
         }, tableBody)
       ])

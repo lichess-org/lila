@@ -213,7 +213,7 @@ module.exports = {
         key: 'members',
         class: 'list members',
         config: function() {
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         }
       }, ctrl.members.ordered().map(function(member) {
         var confing = ctrl.members.confing() === member.user.id;

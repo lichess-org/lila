@@ -127,7 +127,7 @@ module.exports = function(ctrl) {
         class: 'lichess_game variant_' + d.game.variant.key,
         config: function(el, isUpdate) {
           if (isUpdate) return;
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         }
       }, [
         d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
