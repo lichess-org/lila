@@ -1826,34 +1826,33 @@ a.mini_board {
 }
 #now_playing {
   padding: 4px 0 0 4px;
-  overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
 }
 #now_playing.other_games {
   width: 512px;
 }
 #now_playing h3 {
   font-size: 1.4em;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
 }
 #now_playing > a {
-  float: left;
   padding: 4px;
-  text-align: center;
   transition: background 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
 #now_playing .move_on {
   font-size: 0.7em;
-  float: right;
-  display: block;
+  display: flex;
   height: 1.5em;
-  text-align: right;
   line-height: 22px;
 }
 #now_playing .move_on label {
   cursor: pointer;
 }
 #now_playing .move_on .switch {
-  float: right;
   margin-left: 10px;
 }
 #now_playing.other_games > a {
