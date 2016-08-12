@@ -25,15 +25,13 @@ object Spotlight {
     -(t.schedule.??(_.freq.importance))
   }
 
-  private def select(tour: Tournament, user: User): Boolean = !tour.isFinished && {
-    manually(tour) || automatically(tour, user)
-  }
+  private def select(tour: Tournament, user: User): Boolean = !tour.isFinished &&
+    tour.spotlight.fold(automatically(tour, user)) { manually(tour, _) }
 
-  private def manually(tour: Tournament): Boolean = tour.spotlight.exists { s =>
-    s.homepageHours.exists { hours =>
+  private def manually(tour: Tournament, spotlight: Spotlight): Boolean =
+    spotlight.homepageHours.exists { hours =>
       tour.startsAt.minusHours(hours) isBefore DateTime.now
     }
-  }
 
   private def automatically(tour: Tournament, user: User): Boolean = tour.perfType ?? { pt =>
     tour.schedule ?? { sched =>
