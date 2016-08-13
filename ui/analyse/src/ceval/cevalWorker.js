@@ -8,7 +8,8 @@ var variantMap = {
   crazyhouse: 'House',
   kingOfTheHill: 'KingOfTheHill',
   racingKings: 'Race',
-  threeCheck: '3Check'
+  threeCheck: '3Check',
+  antichess: 'Anti'
 };
 
 module.exports = function(opts, name) {
