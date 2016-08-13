@@ -61,6 +61,8 @@ trait SetupHelper { self: I18nHelper =>
       variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
+      variantTuple(chess.variant.Horde) :+
+      variantTuple(chess.variant.RacingKings) :+
       variantTuple(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
