@@ -356,6 +356,14 @@ object mon {
       def cost = incX(s"api.game.cost")
     }
   }
+  object export {
+    def pgn = inc("export.pgn")
+    object png {
+      def game = inc("export.png.game")
+      def puzzle = inc("export.png.puzzle")
+    }
+    def pdf = inc("export.pdf")
+  }
 
   def measure[A](path: RecPath)(op: => A) = {
     val start = System.nanoTime()

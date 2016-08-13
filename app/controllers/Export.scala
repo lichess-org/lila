@@ -16,6 +16,7 @@ object Export extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
+      lila.mon.export.pgn()
       OptionFuResult(GameRepo game id) {
         case game if game.playable => NotFound("Can't export PGN of game in progress").fuccess
         case game => (game.pgnImport.ifTrue(get("as") contains "imported") match {
@@ -36,6 +37,7 @@ object Export extends LilaController {
 
   def pdf(id: String) = Open { implicit ctx =>
     OnlyHumans {
+      lila.mon.export.pdf()
       OptionResult(GameRepo game id) { game =>
         Ok.chunked(Enumerator.outputStream(env.pdfExport(game.id))).withHeaders(
           CONTENT_TYPE -> "application/pdf",
@@ -46,6 +48,7 @@ object Export extends LilaController {
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
+      lila.mon.export.png.game()
       OptionResult(GameRepo game id) { game =>
         Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
           CONTENT_TYPE -> "image/png",
@@ -56,6 +59,7 @@ object Export extends LilaController {
 
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
+      lila.mon.export.png.puzzle()
       OptionResult(Env.puzzle.api.puzzle find id) { puzzle =>
         Ok.chunked(Enumerator.outputStream(Env.puzzle.pngExport(puzzle))).withHeaders(
           CONTENT_TYPE -> "image/png",
