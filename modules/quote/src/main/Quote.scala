@@ -136,7 +136,7 @@ object Quote {
     , new Quote("It is no time to be playing chess when the house is on fire.", "Italian proverb")
     , new Quote("You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether its really a good idea and whether there are other better ideas.", "Stanley Kubrick")
     , new Quote("Daring ideas are like chess men moved forward. They may be beaten, but they may start a winning game.", "Johann Wolfgang von Goethe")
-    , new Quote("Of all my Russian books, the defense contains and diffuses the greatest ’warmth’ which may seem odd seeing how supremely abstract chess is supposed to be.", "Vladimir Nabokov")
+    , new Quote("Of all my Russian books, The Defense contains and diffuses the greatest ’warmth’ which may seem odd seeing how supremely abstract chess is supposed to be.", "Vladimir Nabokov")
     , new Quote("For surely of all the drugs in the world, chess must be the most permanently pleasurable.", "Assiac")
     , new Quote("A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.", "Siegbert Tarrasch")
     , new Quote("Chess problems demand from the composer the same virtues that characterize all worthwhile art: originality, invention, conciseness, harmony, complexity, and splendid insincerity.", "Vladimir Nabokov")
