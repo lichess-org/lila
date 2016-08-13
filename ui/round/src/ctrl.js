@@ -377,13 +377,11 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) {
-    var scheduleClockTick = function() {
-      setTimeout(function() {
-        clockTick();
-        if (game.playable(this.data)) scheduleClockTick();
-      }.bind(this), 100);
+    var tickNow = function() {
+      clockTick();
+      if (game.playable(this.data)) setTimeout(tickNow, 100);
     }.bind(this);
-    scheduleClockTick();
+    setTimeout(tickNow, 100);
   } else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
