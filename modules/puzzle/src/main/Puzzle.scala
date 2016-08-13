@@ -148,6 +148,6 @@ object Puzzle {
       attempts -> o.attempts,
       wins -> o.wins,
       time -> o.time,
-      mate -> mate)
+      mate -> o.mate)
   }
 }
