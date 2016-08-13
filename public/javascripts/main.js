@@ -306,34 +306,46 @@ lichess.notifyApp = (function() {
     });
   };
 
-  lichess.parseFen = function($elem) {
-    if (!$elem || !$elem.jquery) {
-      $elem = $('.parse_fen');
-    }
-    $elem.each(function() {
-      var $this = $(this).removeClass('parse_fen');
-      var lm = $this.data('lastmove');
-      var lastMove = [];
-      if (lm) {
-        if (lm[1] === '@') lastMove = [lm.slice(2), lm.slice(2)];
-        else lastMove = [lm[0] + lm[1], lm[2] + lm[3]];
+  lichess.parseFen = (function() {
+    var doParseFen = function($elem) {
+      if (!$elem || !$elem.jquery) {
+        $elem = $('.parse_fen');
       }
-      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
-      var ground = $this.data('chessground');
-      var playable = !!$this.data('playable');
-      var resizable = !!$this.data('resizable');
-      var config = {
-        coordinates: false,
-        viewOnly: !playable,
-        resizable: resizable,
-        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-        lastMove: lastMove
-      };
-      if (color) config.orientation = color;
-      if (ground) ground.set(config);
-      else $this.data('chessground', Chessground($this[0], config));
-    });
-  }
+      $elem.each(function() {
+        var $this = $(this).removeClass('parse_fen');
+        var lm = $this.data('lastmove');
+        var lastMove = [];
+        if (lm) {
+          if (lm[1] === '@') lastMove = [lm.slice(2), lm.slice(2)];
+          else lastMove = [lm[0] + lm[1], lm[2] + lm[3]];
+        }
+        var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
+        var ground = $this.data('chessground');
+        var playable = !!$this.data('playable');
+        var resizable = !!$this.data('resizable');
+        var config = {
+          coordinates: false,
+          viewOnly: !playable,
+          resizable: resizable,
+          fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
+          lastMove: lastMove
+        };
+        if (color) config.orientation = color;
+        if (ground) ground.set(config);
+        else $this.data('chessground', Chessground($this[0], config));
+      });
+    };
+    // debounce the first parseFen at first, then process them immediately
+    // because chessground initial display does a DOM read (board dimensions)
+    // and the play page can have 6 miniboards to display (ongoing games)
+    var fun = $.fp.debounce(doParseFen, 400, false);
+    setTimeout(function() {
+      fun = doParseFen;
+    }, 1000);
+    return function($elem) {
+      fun($elem);
+    };
+  })();
 
   $(function() {
     if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
