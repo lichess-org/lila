@@ -304,6 +304,10 @@ body.dark #hooks_wrap .hook_filter {
   opacity: 0.9;
   color: #d59120!important;
 }
+#hooks_wrap .hooks_chart .plot.cancel {
+  opacity: 0.9;
+  color: #0b9c1e!important;
+}
 #hooks_wrap .hooks_chart .plot.new {
   transform: translateY(-7px);
   opacity: 0;
