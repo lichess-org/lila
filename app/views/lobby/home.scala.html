@@ -122,8 +122,8 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
     @simul.allCreated(simuls)
   </div>
 </div>
-<div class="clearfix">
-  <div class="leaderboard undertable half">
+<div class="leaderboards undertable">
+  <div class="leaderboard">
     <div class="user_top">
       <div class="undertable_top">
         <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
@@ -146,7 +146,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       </div>
     </div>
   </div>
-  <div class="leaderboard undertable half">
+  <div class="leaderboard">
     <div class="user_top">
       <div class="undertable_top">
         <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
@@ -168,7 +168,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
   </div>
 </div>
 @NotForKids {
-<div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
+<div class="new_posts undertable" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
     <span class="title" data-icon="d"> @trans.latestForumPosts()</span>

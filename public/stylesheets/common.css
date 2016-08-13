@@ -1908,9 +1908,6 @@ div.auth input.login {
   font-size: 11.5px;
   margin-top: 15px;
 }
-.undertable.nomargin {
-  margin-top: 0;
-}
 .undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
@@ -1950,11 +1947,14 @@ div.undertable_inner {
 .undertable tr:first-child td {
   border-top: none;
 }
-.undertable.half {
-  width: 250px;
-  float: left;
+.leaderboards {
+  display: flex;
+  margin-bottom: 15px;
 }
-.undertable.half:first-child {
+.undertable.leaderboards .leaderboard {
+  width: 50%;
+}
+.undertable.leaderboards .leaderboard:first-child {
   margin-right: 14px;
 }
 .undertable.leaderboard td:first-child {
