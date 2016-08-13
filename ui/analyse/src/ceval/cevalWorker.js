@@ -9,6 +9,7 @@ var variantMap = {
   kingOfTheHill: 'KingOfTheHill',
   racingKings: 'Race',
   threeCheck: '3Check',
+  atomic: 'Atomic',
   antichess: 'Anti'
 };
 

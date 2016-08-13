@@ -495,6 +495,7 @@ object Game {
     chess.variant.ThreeCheck,
     chess.variant.FromPosition,
     chess.variant.Horde,
+    chess.variant.Atomic,
     chess.variant.RacingKings)
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
