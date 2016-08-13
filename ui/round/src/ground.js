@@ -4,8 +4,10 @@ var util = require('./util');
 var round = require('./round');
 var m = require('mithril');
 
-function str2move(mo) {
-  return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
+function uci2move(uci) {
+  if (!uci) return null;
+  if (uci[1] === '@') return [uci.slice(2, 4)];
+  return [uci.slice(0, 2), uci.slice(2, 4)];
 }
 
 function boardOrientation(data, flip) {
@@ -23,7 +25,7 @@ function makeConfig(data, ply, flip) {
     fen: step.fen,
     orientation: boardOrientation(data, flip),
     turnColor: data.game.player,
-    lastMove: str2move(step.uci),
+    lastMove: uci2move(step.uci),
     check: step.check,
     coordinates: data.pref.coords !== 0,
     autoCastle: data.game.variant.key === 'standard',
