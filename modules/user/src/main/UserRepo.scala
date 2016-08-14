@@ -335,7 +335,7 @@ object UserRepo {
       "seenAt" -> $doc("$gt" -> since),
       "count.game" -> $doc("$gt" -> 9),
       "kid" -> $doc("$ne" -> true)
-    ), $id(true)).cursor[Bdoc]()
+    ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
