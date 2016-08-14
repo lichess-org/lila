@@ -84,7 +84,8 @@ final class Env(
       apiKey = EmailConfirmMailgunApiKey,
       sender = EmailConfirmMailgunSender,
       baseUrl = EmailConfirmMailgunBaseUrl,
-      secret = EmailConfirmSecret)
+      secret = EmailConfirmSecret,
+      system = system)
     else EmailConfirmSkip
 
   lazy val passwordReset = new PasswordReset(
