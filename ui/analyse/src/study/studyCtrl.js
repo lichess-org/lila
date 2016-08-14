@@ -109,6 +109,7 @@ module.exports = {
       vm.catchingUp = false;
       m.redraw.strategy("all");
       m.redraw();
+      ctrl.startCeval();
     };
 
     var xhrReload = function() {

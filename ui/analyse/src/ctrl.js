@@ -178,7 +178,7 @@ module.exports = function(opts) {
       }
       if (/\+|\#/.test(this.vm.node.san)) sound.check();
       this.ceval.stop();
-      startCeval();
+      this.startCeval();
     }
     this.vm.justPlayed = null;
     this.vm.justDropped = null;
@@ -408,7 +408,7 @@ module.exports = function(opts) {
     return this.vm.node.dests !== '' && (!this.vm.node.eval || !this.nextNodeBest());
   }.bind(this);
 
-  var startCeval = throttle(800, false, function() {
+  this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
       this.ceval.start(this.vm.path, this.vm.nodeList);
   }.bind(this));
@@ -416,7 +416,7 @@ module.exports = function(opts) {
   this.toggleCeval = function() {
     this.ceval.toggle();
     this.setAutoShapes();
-    startCeval();
+    this.startCeval();
   }.bind(this);
 
   this.showEvalGauge = function() {
@@ -487,7 +487,7 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
-  startCeval();
+  this.startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 
