@@ -2,6 +2,8 @@ var initialFen = require('../util').initialFen;
 
 var eval = 15;
 
+// lines selected using lichess opening explorer most popular moves
+// best moves generated with Stockfish7 in one minute each
 var dict = {
   '': 'e2e4',
   'e2e4': 'e7e5',
