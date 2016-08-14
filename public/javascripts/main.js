@@ -415,6 +415,18 @@ lichess.notifyApp = (function() {
         return el && el.contains(contained);
       };
 
+      var onPowertipPreRender = function(id) {
+        return function() {
+          $.ajax({
+            url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
+            success: function(html) {
+              $('#' + id).html(html);
+              lichess.pubsub.emit('content_loaded')();
+            }
+          });
+        };
+      };
+
       var userPowertip = function($el) {
         var pos = 'w';
         if (elementIdContains('site_header', $el[0])) pos = 'e';
@@ -427,52 +439,35 @@ lichess.notifyApp = (function() {
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
-          powerTipPreRender: function() {
-            $.ajax({
-              url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
-              success: function(html) {
-                $('#powerTip').html(html);
-                lichess.pubsub.emit('content_loaded')();
-              }
-            });
-          }
+          powerTipPreRender: onPowertipPreRender('powerTip')
         }).data('powertip', lichess.spinnerHtml);
       };
-      document.body.addEventListener('mouseover', function(e) {
-        if (e.target.classList.contains('ulpt')) {
-          userPowertip($(e.target));
-          $.powerTip.show(e.target, e);
-        }
-      });
 
-      function gamePowertip($els, placement) {
-        $els.removeClass('glpt').powerTip({
+      function gamePowertip($el) {
+        $el.removeClass('glpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
-          placement: placement || 'w',
+          placement: 'w',
           smartPlacement: true,
           mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'miniGame'
         }).on({
-          powerTipPreRender: function() {
-            $.ajax({
-              url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
-              success: function(html) {
-                $('#miniGame').html(html);
-                lichess.pubsub.emit('content_loaded')();
-              }
-            });
-          }
+          powerTipPreRender: onPowertipPreRender('miniGame')
         }).data('powertip', lichess.spinnerHtml);
       }
 
-      function updatePowertips() {
-        gamePowertip($('.glpt'), 'w');
-      }
-      setTimeout(updatePowertips, 600);
-      lichess.pubsub.on('content_loaded', updatePowertips);
+      document.body.addEventListener('mouseover', function(e) {
+        var cl = e.target.classList;
+        if (cl.contains('ulpt')) {
+          userPowertip($(e.target));
+          $.powerTip.show(e.target, e);
+        } else if (cl.contains('glpt')) {
+          gamePowertip($(e.target));
+          $.powerTip.show(e.target, e);
+        }
+      });
 
       function setMoment() {
         $("time.moment").removeClass('moment').each(function() {
