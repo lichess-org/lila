@@ -121,6 +121,20 @@ object Api extends LilaController {
       token = get("token")) map toApiResult
   }
 
+  def currentTournaments = ApiRequest { implicit ctx =>
+    Env.tournament.api.fetchVisibleTournaments map
+      Env.tournament.scheduleJsonView.apply map Data.apply
+  }
+
+  def tournament(id: String) = ApiRequest { implicit ctx =>
+    val page = (getInt("page") | 1) max 1 min 200
+    lila.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        Env.tournament.jsonView(tour, page.some, none, none, none) map some
+      }
+    } map toApiResult
+  }
+
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult
