@@ -132,7 +132,7 @@ $.ajax({
 > curl https://en.lichess.org/api/user?team=coders&nb=10&page=1
 ```
 
-All parameters are optional.
+The team parameter is mandatory.
 
 name | type | default | description
 --- | --- | --- | ---
