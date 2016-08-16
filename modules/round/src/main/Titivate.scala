@@ -26,7 +26,7 @@ private[round] final class Titivate(
 
   def scheduler = context.system.scheduler
 
-  def scheduleNext = scheduler.scheduleOnce(10 seconds, self, Run)
+  def scheduleNext = scheduler.scheduleOnce(5 seconds, self, Run)
 
   def receive = {
 
@@ -37,7 +37,7 @@ private[round] final class Titivate(
 
     case Run => GameRepo.count(_.checkable).flatMap { total =>
       GameRepo.cursor(Query.checkable)
-        .enumerate(5000, stopOnError = false)
+        .enumerate(1000, stopOnError = false)
         .|>>>(Iteratee.foldM[Game, Int](0) {
           case (count, game) => {
 
