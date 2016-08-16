@@ -78,7 +78,7 @@ module.exports = {
               if (window.Sortable) makeSortable();
               else lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(makeSortable);
             }
-            if (isUpdate)
+            if (!isUpdate)
               el.addEventListener('click', function(e) {
                 var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
                 if (!id) return;
