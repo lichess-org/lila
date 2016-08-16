@@ -1,6 +1,8 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
+var stockfishWorker = require('./stockfishWorker');
+var sunsetterWorker = require('./sunsetterWorker');
 
 module.exports = function(possible, variant, emit) {
 
@@ -12,12 +14,12 @@ module.exports = function(possible, variant, emit) {
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
+  var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
   var pool = makePool({
-    path: '/assets/vendor/stockfish.js/stockfish.js', // Can't CDN because same-origin policy
     minDepth: minDepth,
     maxDepth: maxDepth,
     variant: variant
-  }, nbWorkers);
+  }, engine, nbWorkers);
 
   var onEmit = function(res) {
     curDepth = res.eval.depth;

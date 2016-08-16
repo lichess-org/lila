@@ -387,7 +387,7 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic'];
+  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic', 'crazyhouse'];
   var cevalPossible = function() {
     return (util.synthetic(this.data) || !game.playable(this.data)) &&
       cevalVariants.indexOf(this.data.game.variant.key) !== -1;

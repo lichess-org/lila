@@ -31,3 +31,6 @@
 [submodule "public/vendor/stockfish.js"]
 	path = public/vendor/stockfish.js
 	url = https://github.com/niklasf/stockfish.js
+[submodule "public/vendor/Sunsetter"]
+	path = public/vendor/Sunsetter
+	url = https://github.com/niklasf/Sunsetter.git
