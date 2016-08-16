@@ -56,7 +56,7 @@ module.exports = function(opts, name) {
 
   var reboot = function() {
     if (instance) instance.terminate();
-    instance = new Worker(opts.path);
+    instance = new Worker('/assets/vendor/stockfish.js/stockfish.js');
     busy = false;
     stopping = false;
     var uciVariant = variantMap[opts.variant.key];

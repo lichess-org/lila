@@ -335,7 +335,7 @@ module.exports = function(opts) {
     if (path === this.vm.path) {
       showGround();
       m.redraw();
-      if (dests === '') this.ceval.stop();
+      if (this.gameOver()) this.ceval.stop();
     }
     this.chessground.playPremove();
   }.bind(this);
@@ -387,7 +387,7 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic'];
+  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic', 'crazyhouse'];
   var cevalPossible = function() {
     return (util.synthetic(this.data) || !game.playable(this.data)) &&
       cevalVariants.indexOf(this.data.game.variant.key) !== -1;
@@ -404,8 +404,24 @@ module.exports = function(opts) {
     }.bind(this));
   }.bind(this));
 
+  this.gameOver = function() {
+    if (this.vm.node.dests !== '') return false;
+    if (this.vm.node.check) {
+      var san = this.vm.node.san;
+      var checkmate = san[san.length - 1] === '#';
+      return checkmate;
+    }
+    if (this.vm.node.crazy) {
+      // no stalemate with full crazyhouse pockets
+      var wtm = this.vm.node.fen.indexOf(' w ') !== -1;
+      var p = this.vm.node.crazy.pockets[wtm ? 0: 1];
+      if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
+    }
+    return true;
+  }.bind(this);
+
   var canUseCeval = function() {
-    return this.vm.node.dests !== '' && (!this.vm.node.eval || !this.nextNodeBest());
+    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest());
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
@@ -420,7 +436,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.node.dests !== '';
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {

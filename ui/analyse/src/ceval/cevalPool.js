@@ -1,7 +1,6 @@
 var m = require('mithril');
-var makeWorker = require('./cevalWorker');
 
-module.exports = function(opts, nb) {
+module.exports = function(opts, makeWorker, nb) {
 
   var workers = [];
   var token = -1;
