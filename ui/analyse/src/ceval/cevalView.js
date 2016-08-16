@@ -52,7 +52,7 @@ module.exports = {
     } else if (defined(evs.fav) && defined(evs.fav.mate)) {
       pearl = '#' + evs.fav.mate;
       percent = 100;
-    } else if (ctrl.vm.node.dests === '') {
+    } else if (ctrl.gameOver()) {
       pearl = '-';
       percent = 0;
     } else {
