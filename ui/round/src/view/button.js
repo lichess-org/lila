@@ -18,14 +18,17 @@ function analysisBoardOrientation(data) {
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
-    var enabled = !condition || condition(ctrl.data);
+    var enabled = function() {
+      return !condition || condition(ctrl.data);
+    };
     return m('button', {
+      key: socketMsg || 'click',
       class: 'button hint--bottom ' + socketMsg + classSet({
-        ' disabled': !enabled
+        ' disabled': !enabled()
       }),
       'data-hint': ctrl.trans(hint),
       config: util.bindOnce('click', function() {
-        if (enabled) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
+        if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
       })
     }, m('span', {
       'data-icon': icon
