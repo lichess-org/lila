@@ -1,5 +1,5 @@
 var m = require('mithril');
-var util = require('chessground').util;
+var util = require('../util');
 
 function initialize(ctrl, el) {
   var $div = $(el);
@@ -63,7 +63,7 @@ module.exports = {
   toggle: function(ctrl, nbFiltered) {
     return m('span', {
       class: 'filter_toggle' + (ctrl.vm.filterOpen ? ' active' : ''),
-      onmousedown: util.partial(ctrl.toggleFilter)
+      config: util.bindOnce('mousedown', ctrl.toggleFilter)
     }, [
       ctrl.vm.filterOpen ? m('span[data-icon=L]') : m('span', {
         class: 'hint--bottom-left',
