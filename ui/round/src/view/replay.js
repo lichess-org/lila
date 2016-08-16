@@ -132,7 +132,7 @@ function renderButtons(ctrl) {
     'data-act': 'flip'
   };
   return m('div.buttons', {
-    onmousedown: function(e) {
+    config: util.bindOnce('mousedown', function(e) {
       var ply = parseInt(e.target.getAttribute('data-ply'));
       if (!isNaN(ply)) ctrl.userJump(ply);
       else {
@@ -143,7 +143,7 @@ function renderButtons(ctrl) {
           else ctrl.flip();
         }
       }
-    }
+    })
   }, [
     m('a', flipAttrs, flipIcon), [
       ['W', firstPly],
@@ -198,19 +198,19 @@ module.exports = function(ctrl) {
   return m('div.replay', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {
-      config: function(el, isUpdate) {
+      config: function(el, isUpdate, ctx) {
         if (isUpdate) return;
+        util.bindOnce('mousedown', function(e) {
+          var turn = parseInt($(e.target).siblings('index').text());
+          var ply = 2 * turn - 2 + $(e.target).index();
+          if (ply) ctrl.userJump(ply);
+        })(el, isUpdate, ctx);
         var scrollNow = partial(autoScroll, el, ctrl);
         ctrl.vm.autoScroll = {
           now: scrollNow,
           throttle: util.throttle(300, false, scrollNow)
         };
         scrollNow();
-      },
-      onmousedown: function(e) {
-        var turn = parseInt($(e.target).siblings('index').text());
-        var ply = 2 * turn - 2 + $(e.target).index();
-        if (ply) ctrl.userJump(ply);
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
