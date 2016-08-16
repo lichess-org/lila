@@ -260,6 +260,7 @@ function eventPath(e, ctrl) {
 }
 
 var noop = function() {};
+
 function emptyConcealOf() {
   return noop;
 }
@@ -276,24 +277,27 @@ module.exports = {
       conceal: false
     });
     return m('div.tview2', {
-      onmousedown: function(e) {
-        if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-        var path = eventPath(e, ctrl);
-        if (path) ctrl.userJump(path);
-      },
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollRequested || !isUpdate) {
           if (isUpdate || ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
-      },
-      oncontextmenu: function(e) {
-        var path = eventPath(e, ctrl);
-        contextMenu.open(e, {
-          path: path,
-          root: ctrl
+        if (isUpdate) return;
+        el.oncontextmenu = function(e) {
+          var path = eventPath(e, ctrl);
+          contextMenu.open(e, {
+            path: path,
+            root: ctrl
+          });
+          m.redraw();
+          return false;
+        };
+        el.addEventListener('mousedown', function(e) {
+          if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+          var path = eventPath(e, ctrl);
+          if (path) ctrl.userJump(path);
+          m.redraw();
         });
-        return false;
       },
     }, [
       commentTags ? m('interrupt', commentTags) : null,

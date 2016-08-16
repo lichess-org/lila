@@ -1,6 +1,6 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
-var titleNameToId = require('../util').titleNameToId;
+var util = require('../util');
 var inviteFormCtrl = require('./inviteForm').ctrl;
 var partial = require('chessground').util.partial;
 
@@ -121,13 +121,13 @@ module.exports = {
       },
       setSpectators: function(usernames) {
         this.inviteForm.setSpectators(usernames);
-        spectatorIds = usernames.map(titleNameToId);
+        spectatorIds = usernames.map(util.titleNameToId);
         updateOnline();
       },
       isOnline: function(userId) {
         return online[userId];
       },
-      titleNameToId: titleNameToId
+      titleNameToId: util.titleNameToId
     };
   },
   view: function(ctrl) {
@@ -156,19 +156,21 @@ module.exports = {
       }));
     };
 
-    var configButton = function(member, confing) {
+    var configButton = function(ctrl, member) {
       if (isOwner && member.user.id !== ctrl.members.myId)
         return m('span.action.config', {
-          onclick: function() {
-            ctrl.members.confing(confing ? null : member.user.id);
-          }
+          key: 'config-' + member.user.id,
+          config: util.bindOnce('click', function() {
+            ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
+          })
         }, m('i', {
           'data-icon': '%'
         }));
       if (!isOwner && member.user.id === ctrl.members.myId)
         return m('span.action.leave', {
+          key: 'leave',
           title: 'Leave the study',
-          onclick: ctrl.members.leave
+          config: util.bindOnce('click', ctrl.members.leave)
         }, m('i', {
           'data-icon': 'F'
         }));
@@ -231,15 +233,16 @@ module.exports = {
               statusIcon(member),
               username(member)
             ]),
-            configButton(member, confing)
+            configButton(ctrl, member)
           ]),
           confing ? memberConfig(member) : null
         ];
       })),
       isOwner ? m('i.add[data-icon=0]', {
+        key: 'new-member',
         title: 'Invite someone',
         'data-icon': 'O',
-        onclick: ctrl.members.inviteForm.toggle
+        config: util.bindOnce('click', ctrl.members.inviteForm.toggle)
       }) : null
     ];
   }

@@ -1,6 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var nodeFullName = require('../util').nodeFullName;
+var util = require('../util');
 var throttle = require('../util').throttle;
 
 module.exports = {
@@ -91,13 +91,13 @@ module.exports = {
         m('button.button.frameless.close', {
           'data-icon': 'L',
           title: 'Close',
-          onclick: ctrl.close
+          config: util.bindOnce('click', ctrl.close)
         }),
         'Commenting position after ',
         m('button.button', {
           class: ctrl.root.vm.path === current.path ? '' : 'active',
-          onclick: partial(ctrl.root.userJump, current.path)
-        }, nodeFullName(current.node)),
+          config: util.bindOnce('click', partial(ctrl.root.userJump, current.path))
+        }, util.nodeFullName(current.node)),
         m('span.saved', {
           config: function(el, isUpdate, ctx) {
             if (ctrl.dirty())
@@ -127,13 +127,22 @@ module.exports = {
                 };
                 ctx.onunload = ctx.trap.reset;
               }
-            },
-            onkeyup: function(e) {
-              ctrl.submit(e.target.value);
-              m.redraw.strategy("none");
-            },
-            onfocus: partial(ctrl.focus, true),
-            onblur: partial(ctrl.focus, false)
+              if (!isUpdate) {
+                el.onkeyup = function(e) {
+                  ctrl.submit(e.target.value);
+                  m.redraw.strategy("none");
+                  m.redraw();
+                };
+                el.onfocus = function() {
+                  ctrl.focus(true);
+                  m.redraw();
+                };
+                el.onblur = function() {
+                  ctrl.focus(false);
+                  m.redraw();
+                };
+              }
+            }
           }),
           m('i.bar')
         ])

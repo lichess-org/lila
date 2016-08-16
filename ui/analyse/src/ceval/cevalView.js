@@ -66,7 +66,7 @@ module.exports = {
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          onchange: ctrl.toggleCeval
+          config: util.bindOnce('change', ctrl.toggleCeval)
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'

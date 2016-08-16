@@ -45,7 +45,7 @@ function autoplayButtons(ctrl) {
   return m('div.autoplay', speeds.map(function(speed, i) {
     var attrs = {
       class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      onclick: partial(ctrl.togglePlay, speed.delay)
+      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
     };
     if (i === 0) attrs['data-icon'] = 'G';
     return m('a', attrs, speed.name);
@@ -57,7 +57,7 @@ function autoplayCplButtons(ctrl) {
   return m('div.autoplay', cplSpeeds.map(function(speed, i) {
     var attrs = {
       class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      onclick: partial(ctrl.togglePlay, speed.delay)
+      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
     };
     if (i === 0) attrs['data-icon'] = 'G';
     return m('a', attrs, speed.name);
@@ -101,7 +101,7 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     var d = ctrl.data;
-    if (d.userAnalysis) flipAttrs.onclick = ctrl.flip;
+    if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
     else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
@@ -112,9 +112,9 @@ module.exports = {
         rel: 'nofollow'
       }, ctrl.trans('boardEditor')),
       canContinue ? m('a.button.text[data-icon=U]', {
-        onclick: function() {
+        config: util.bindOnce('click', function() {
           $.modal($('.continue_with.' + d.game.id));
-        }
+        })
       }, ctrl.trans('continueFromHere')) : null,
       ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
       d.analysis ? autoplayCplButtons(ctrl) : null, [
@@ -126,9 +126,9 @@ module.exports = {
                 class: 'cmn-toggle cmn-toggle-round',
                 type: 'checkbox',
                 checked: ctrl.vm.showAutoShapes(),
-                onchange: function(e) {
+                config: util.bindOnce('change', function(e) {
                   ctrl.toggleAutoShapes(e.target.checked);
-                }
+                })
               }),
               m('label', {
                 'for': id
@@ -146,9 +146,9 @@ module.exports = {
                 class: 'cmn-toggle cmn-toggle-round',
                 type: 'checkbox',
                 checked: ctrl.vm.showGauge(),
-                onchange: function(e) {
+                config: util.bindOnce('change', function(e) {
                   ctrl.toggleGauge(e.target.checked);
-                }
+                })
               }),
               m('label', {
                 'for': id

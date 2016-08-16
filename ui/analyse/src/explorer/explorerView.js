@@ -3,6 +3,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var classSet = chessground.util.classSet;
 var renderConfig = require('./explorerConfig').view;
+var util = require('../util');
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
@@ -34,6 +35,10 @@ function moveTableAttributes(ctrl, fen) {
         el.addEventListener('mouseout', function(e) {
           ctrl.explorer.setHoveringUci(null);
         });
+        el.addEventListener('click', function(e) {
+          var $tr = $(e.target).parents('tr');
+          if ($tr.length) ctrl.explorerMove($trUci($tr));
+        });
         return;
       }
       if (ctx.lastFen === fen) return;
@@ -41,10 +46,6 @@ function moveTableAttributes(ctrl, fen) {
       setTimeout(function() {
         ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
       }, 100);
-    },
-    onclick: function(e) {
-      var $tr = $(e.target).parents('tr');
-      if ($tr.length) ctrl.explorerMove($trUci($tr));
     }
   };
 }
@@ -88,7 +89,7 @@ function showGameTable(ctrl, type, games) {
       ])
     ]),
     m('tbody', {
-      onclick: function(e) {
+      config: util.bindOnce('click', function(e) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         var orientation = ctrl.chessground.data.orientation;
@@ -97,7 +98,7 @@ function showGameTable(ctrl, type, games) {
           window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
         else
           window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
-      }
+      })
     }, games.map(function(game) {
       return m('tr', {
         key: game.id,
@@ -163,6 +164,14 @@ function showDtz(stm, move) {
   }, 'DTZ ' + Math.abs(move.dtz));
 }
 
+function closeButton(ctrl) {
+  return m('button', {
+    class: 'button text',
+    'data-icon': 'L',
+    config: util.bindOnce('click', ctrl.explorer.toggle)
+  }, 'Close');
+}
+
 function showEmpty(ctrl) {
   return m('div.data.empty', [
     m('div.title', showTitle(ctrl)),
@@ -172,9 +181,7 @@ function showEmpty(ctrl) {
         ctrl.explorer.config.fullHouse() ?
         "Already searching through all available games." :
         "Maybe include more games from the preferences menu?"),
-      m('button.button.text[data-icon=L]', {
-        onclick: ctrl.explorer.toggle
-      }, 'Close')
+      closeButton(ctrl)
     ])
   ]);
 }
@@ -185,9 +192,7 @@ function showGameEnd(ctrl, title) {
     m('div.message', [
       m('i[data-icon=]'),
       m('h3', title),
-      m('button.button.text[data-icon=L]', {
-        onclick: ctrl.explorer.toggle
-      }, 'Close')
+      closeButton(ctrl)
     ])
   ]);
 }
@@ -248,9 +253,7 @@ function showFailing(ctrl) {
     m('div.failing.message', [
       m('h3', 'Oops, sorry!'),
       m('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
-      m('button.button.text[data-icon=L]', {
-        onclick: ctrl.explorer.toggle
-      }, 'Close')
+      closeButton(ctrl)
     ])
   ]);
 }
@@ -280,7 +283,7 @@ module.exports = {
       m('div.overlay'),
       content, (!content || explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
-        onclick: config.toggleOpen
+        config: util.bindOnce('click', config.toggleOpen)
       })
     ]);
   }

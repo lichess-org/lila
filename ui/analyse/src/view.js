@@ -81,9 +81,9 @@ function inputs(ctrl) {
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.node.fen,
-      onchange: function(e) {
+      config: util.bindOnce('change', function(e) {
         if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
-      }
+      })
     }),
     m('div.pgn', [
       m('label.name', 'PGN'),
@@ -94,10 +94,10 @@ function inputs(ctrl) {
         m('button', {
           class: 'button text',
           'data-icon': 'G',
-          onclick: function(e) {
+          config: util.bindOnce('click', function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
-          }
+          })
         }, 'Import PGN')
       ])
     ])
@@ -174,18 +174,15 @@ function dataAct(e) {
 
 function buttons(ctrl) {
   return m('div.game_control', {
-    onmouseup: function(e) {
-      var action = dataAct(e);
-      if (action === 'explorer') ctrl.explorer.toggle();
-      else if (action === 'menu') ctrl.actionMenu.toggle();
-      else if (action === 'first') control.first(ctrl);
-      else if (action === 'last') control.last(ctrl);
-    },
-    onmousedown: function(e) {
+    config: util.bindOnce('mousedown', function(e) {
       var action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
-    }
+      else if (action === 'first') control.first(ctrl);
+      else if (action === 'last') control.last(ctrl);
+      else if (action === 'explorer') ctrl.explorer.toggle();
+      else if (action === 'menu') ctrl.actionMenu.toggle();
+    })
   }, [
     m('button', {
       id: 'open_explorer',

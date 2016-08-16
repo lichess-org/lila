@@ -1,4 +1,5 @@
 var piotr2key = require('./piotr').piotr2key;
+var m = require('mithril');
 
 var UNDEF = 'undefined';
 
@@ -79,6 +80,20 @@ module.exports = {
     var split = titleName.split(' ');
     var name = split.length == 1 ? split[0] : split[1];
     return name.toLowerCase();
+  },
+  bindOnce: function(eventName, f) {
+    var withRedraw = function(e) {
+      m.startComputation();
+      f(e);
+      m.endComputation();
+    };
+    return function(el, isUpdate, ctx) {
+      if (isUpdate) return;
+      el.addEventListener(eventName, withRedraw)
+      ctx.onunload = function() {
+        el.removeEventListener(eventName, withRedraw);
+      };
+    }
   },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/throttle.js
