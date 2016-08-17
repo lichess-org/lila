@@ -588,7 +588,6 @@ div.table {
   flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
-  max-width: 244px;
   overflow: hidden;
 }
 .pocket.top {
@@ -599,7 +598,7 @@ div.table {
 }
 .pocket piece {
   display: inline-block;
-  width: 48.5px!important;
+  width: 20%!important;
   height: 56px!important;
   background-position: center;
   position: relative;
