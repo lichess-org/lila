@@ -7,10 +7,14 @@ function renderRatingDiff(rd) {
   return m('span.rp.down', rd);
 }
 
+function aiName(variant) {
+  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
+}
+
 function renderPlayer(data, color) {
   var p = getPlayer(data, color);
   if (p.name) return p.name;
-  if (p.ai) return 'Stockfish level ' + p.ai;
+  if (p.ai) return aiName(data.game.variant) + ' level ' + p.ai;
   if (p.user) return m('a.user_link.ulpt', {
     href: '/@/' + p.user.username
   }, [p.user.username, renderRatingDiff(p.ratingDiff)]);
