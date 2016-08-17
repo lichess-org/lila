@@ -152,7 +152,7 @@ object ApplicationBuild extends Build {
       play.api, play.test, RM)
   )
 
-  lazy val mod = project("mod", Seq(common, db, user, hub, security, game, analyse, evaluation, report)).settings(
+  lazy val mod = project("mod", Seq(common, db, user, hub, security, game, analyse, evaluation, report, notifyModule)).settings(
     libraryDependencies ++= provided(
       play.api, play.test, RM)
   )

@@ -16,6 +16,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     securityApi: lila.security.Api,
+    notifyApi: lila.notify.NotifyApi,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {
@@ -39,6 +40,7 @@ final class Env(
     firewall = firewall,
     reporter = hub.actor.report,
     lightUserApi = lightUserApi,
+    notifyReporters = new NotifyReporters(notifyApi, reportColl),
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
@@ -92,5 +94,6 @@ object Env {
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,
+    notifyApi = lila.notify.Env.current.api,
     emailAddress = lila.security.Env.current.emailAddress)
 }

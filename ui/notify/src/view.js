@@ -146,6 +146,19 @@ var handlers = {
       return 'Game with ' + n.content.opponentName + '.';
     }
   },
+  reportedBanned: {
+    html: function(notification) {
+      return genericNotification(notification, '', '', [
+        m('span', [
+          m('strong', 'Someone you reported was banned')
+        ]),
+        m('span', 'Thank you for helping lichess community.')
+      ]);
+    },
+    text: function(n) {
+      return 'Someone you reported was banned';
+    }
+  },
   gameEnd: {
     html: function(notification) {
       var content = notification.content
