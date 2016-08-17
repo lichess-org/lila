@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   border: 1px solid #ccc;
   border-top: none;
   text-align: center;
@@ -59,7 +59,6 @@
   }
 }
 #learn_app .result h2 {
-  flex: 0 0 100%;
   animation: text-shadow-glow 1s 1;
 }
 #learn_app .result.failed h2,
