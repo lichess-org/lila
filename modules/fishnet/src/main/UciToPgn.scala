@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.pgn.Dumper
 import chess.format.Uci
-import chess.{ Replay, Move, Situation }
+import chess.{ Replay, Move, Drop, Situation }
 import scalaz.Validation.FlatMap._
 
 import lila.analyse.{ Analysis, Info, PgnMove }
@@ -28,15 +28,19 @@ private object UciToPgn {
     def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] = for {
       situation ← if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
       else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
-      ucis ← variation.map(Uci.Move.apply).sequence toValid "Invalid UCI moves " + variation
-      moves ← ucis.foldLeft[Valid[(Situation, List[Move])]](success(situation -> Nil)) {
-        case (scalaz.Success((sit, moves)), uci) =>
+      ucis ← variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
+      moves ← ucis.foldLeft[Valid[(Situation, List[Either[Move, Drop]])]](success(situation -> Nil)) {
+        case (scalaz.Success((sit, moves)), uci: Uci.Move) =>
           sit.move(uci.orig, uci.dest, uci.promotion) prefixFailuresWith s"ply $ply " map { move =>
-            move.situationAfter -> (move :: moves)
+            move.situationAfter -> (Left(move) :: moves)
+          }
+        case (scalaz.Success((sit, moves)), uci: Uci.Drop) =>
+          sit.drop(uci.role, uci.pos) prefixFailuresWith s"ply $ply " map { drop =>
+            drop.situationAfter -> (Right(drop) :: moves)
           }
         case (failure, _) => failure
       }
-    } yield moves._2.reverse map Dumper.apply
+    } yield moves._2.reverse map (_.fold(Dumper.apply, Dumper.apply))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
