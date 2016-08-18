@@ -6,8 +6,8 @@ function userFullName(u) {
 }
 
 function genericNotification(notification, url, icon, content) {
-  return m('a.site_notification', {
-    class: notification.type + (notification.read ? '' : ' new'),
+  return m(url ? 'a' : 'span', {
+    class: 'site_notification ' + notification.type + (notification.read ? '' : ' new'),
     href: url
   }, [
     m('i', {
@@ -148,7 +148,7 @@ var handlers = {
   },
   reportedBanned: {
     html: function(notification) {
-      return genericNotification(notification, '', '', [
+      return genericNotification(notification, null, '', [
         m('span', [
           m('strong', 'Someone you reported was banned')
         ]),
