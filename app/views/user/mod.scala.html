@@ -196,7 +196,7 @@
               @pag.pov(result).fold{
               @result.gameId
               } { p =>
-              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false, variant = p.game.variant)
               }
             </a>
           </td>

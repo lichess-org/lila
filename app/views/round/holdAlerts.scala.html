@@ -5,7 +5,7 @@
 @p.holdAlert.map { h =>
 <br />
 <span class="mod hold">
-@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false) hold alert<br />
+@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false, variant = game.variant) hold alert<br />
 (ply: @h.ply, mean: @h.mean ms, SD: @h.sd)
 </span><br />
 }

@@ -5,7 +5,7 @@
 @if(game.playerBlurPercent(p.color) > 30) {
 <br />
 <span class="mod blurs">
-@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true) @p.blurs/@game.playerMoves(p.color) blurs
+@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true, variant = game.variant) @p.blurs/@game.playerMoves(p.color) blurs
 <strong>@game.playerBlurPercent(p.color)%</strong>
 </span>
 }

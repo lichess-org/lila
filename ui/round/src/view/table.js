@@ -34,9 +34,13 @@ function compact(x) {
   return x;
 }
 
+function aiName(variant) {
+  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
+}
+
 function renderPlayer(ctrl, player) {
   return player.ai ? m('div.username.on-game', [
-    ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai),
+    ctrl.trans('aiNameLevelAiLevel', aiName(ctrl.data.game.variant), player.ai),
     m('span.status.hint--top', {
       'data-hint': 'Artificial intelligence is ready'
     }, m('span', {
