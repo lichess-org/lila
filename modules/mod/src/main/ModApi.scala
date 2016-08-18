@@ -68,8 +68,8 @@ final class ModApi(
         logApi.troll(mod, user.id, user.troll)
     } >>- {
       if (value) notifyReporters(user)
-      (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll
-    }
+      (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod))
+    } inject user.troll
   }
 
   def ban(mod: String, username: String): Funit = withUser(username) { user =>
