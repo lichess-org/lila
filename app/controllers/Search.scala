@@ -1,5 +1,7 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -13,19 +15,36 @@ object Search extends LilaController {
   private def env = Env.gameSearch
   def searchForm = env.forms.search
 
-  def index(page: Int) = OpenBody { implicit ctx =>
+  private val RateLimitGlobal = new lila.memo.RateLimit(
+    credits = 50,
+    duration = 1 minute,
+    name = "search games global")
+
+  private val RateLimitPerIP = new lila.memo.RateLimit(
+    credits = 50,
+    duration = 5 minutes,
+    name = "search games per IP")
+
+  def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {
+      val page = p min 100 max 1
       Reasonable(page, 100) {
-        Env.game.cached.nbTotal flatMap { nbGames =>
-          implicit def req = ctx.body
-          searchForm.bindFromRequest.fold(
-            failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
-            data => data.nonEmptyQuery ?? { query =>
-              env.paginator(query, page) map (_.some)
-            } map { pager =>
-              Ok(html.search.index(searchForm fill data, pager, nbGames))
+        val ip = HTTPRequest lastRemoteAddress ctx.req
+        val cost = scala.math.sqrt(page).toInt
+        RateLimitPerIP(ip, cost = cost, msg = ip) {
+          RateLimitGlobal("-", cost = cost, msg = ip) {
+            Env.game.cached.nbTotal flatMap { nbGames =>
+              implicit def req = ctx.body
+              searchForm.bindFromRequest.fold(
+                failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+                data => data.nonEmptyQuery ?? { query =>
+                  env.paginator(query, page) map (_.some)
+                } map { pager =>
+                  Ok(html.search.index(searchForm fill data, pager, nbGames))
+                }
+              )
             }
-          )
+          }
         }
       }
     }
