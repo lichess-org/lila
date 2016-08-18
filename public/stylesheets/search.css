@@ -63,3 +63,21 @@ form.search .error {
   margin-left: 160px;
   color: red;
 }
+
+form.search .submit {
+  width: 100%;
+}
+form.search .wait {
+  display: none;
+}
+form.search.searching .spinner {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+form.search.searching .wait {
+  display: block;
+}
+form.search.searching .submit {
+  display: none;
+}

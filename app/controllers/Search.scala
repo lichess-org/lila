@@ -1,7 +1,7 @@
 package controllers
 
-import lila.app._
 import lila.api.Context
+import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
@@ -16,15 +16,17 @@ object Search extends LilaController {
   def index(page: Int) = OpenBody { implicit ctx =>
     NotForBots {
       Reasonable(page, 100) {
-        implicit def req = ctx.body
-        searchForm.bindFromRequest.fold(
-          failure => Ok(html.search.index(failure)).fuccess,
-          data => data.nonEmptyQuery ?? { query =>
-            env.paginator(query, page) map (_.some)
-          } map { pager =>
-            Ok(html.search.index(searchForm fill data, pager))
-          }
-        )
+        Env.game.cached.nbTotal flatMap { nbGames =>
+          implicit def req = ctx.body
+          searchForm.bindFromRequest.fold(
+            failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+            data => data.nonEmptyQuery ?? { query =>
+              env.paginator(query, page) map (_.some)
+            } map { pager =>
+              Ok(html.search.index(searchForm fill data, pager, nbGames))
+            }
+          )
+        }
       }
     }
   }
@@ -33,7 +35,9 @@ object Search extends LilaController {
     NotForBots {
       implicit def req = ctx.body
       searchForm.bindFromRequest.fold(
-        failure => Ok(html.search.index(failure)).fuccess,
+        failure => Env.game.cached.nbTotal map { nbGames =>
+          Ok(html.search.index(failure, none, nbGames))
+        },
         data => data.nonEmptyQuery ?? { query =>
           env.api.ids(query, 5000) map { ids =>
             import org.joda.time.DateTime

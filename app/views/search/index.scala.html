@@ -1,4 +1,4 @@
-@(form: Form[_], paginator: Option[Paginator[Game]] = None)(implicit ctx: Context)
+@(form: Form[_], paginator: Option[Paginator[Game]] = None, nbGames: Int)(implicit ctx: Context)
 
 @import lila.gameSearch.{ Query, Sorting }
 
@@ -15,9 +15,9 @@ title = trans.advancedSearch.str(),
 moreJs = moreJs,
 moreCss = moreCss,
 openGraph = lila.app.ui.OpenGraph(
-title = "Chess games advanced search",
+title = s"Search in ${nbGames.localize} chess games",
 url = s"$netBaseUrl${routes.Search.index().url}",
-description = "Search the entire lichess database using multiple criterions").some) {
+description = s"Search in ${nbGames.localize} chess games using advanced criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
   <form rel="nofollow" class="search" action="@routes.Search.index()" method="get">
@@ -181,6 +181,16 @@ description = "Search the entire lichess database using multiple criterions").so
           @{ base.checkbox(form("analysed"), "", 1) }
         </td>
       </tr>
+      <tr>
+        <th></th>
+        <td class="simple action">
+          <button type="submit" class="submit button">@trans.search()</button>
+          <div class="wait">
+            @base.spinner()
+            Searching in @nbGames.localize games
+          </div>
+        </td>
+      </tr>
     </table>
   </form>
   <div class="search_result">
@@ -205,8 +215,6 @@ description = "Search the entire lichess database using multiple criterions").so
       <a class="permalink" href="@routes.Search.index()">Permalink</a>
     </div>
     }
-    }.getOrElse {
-    <div class="search_status">Search ready</div>
     }
   </div>
 </div>

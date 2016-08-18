@@ -21,6 +21,8 @@ final class Cached(
 
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
+  def nbTotal: Fu[Int] = count($empty)
+
   private implicit val userHandler = User.userBSONHandler
 
   val rematch960 = new ExpireSetMemo(3.hours)
