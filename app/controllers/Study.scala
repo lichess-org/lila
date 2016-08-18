@@ -168,13 +168,23 @@ object Study extends LilaController {
       } inject Redirect(routes.Study.allDefault(1))
   }
 
+  private val PgnRateLimitGlobal = new lila.memo.RateLimit(
+    credits = 30,
+    duration = 1 minute,
+    name = "export study PGN global")
+
   def pgn(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { study =>
-      CanViewResult(study) {
-        env.pgnDump(study) map { pgns =>
-          Ok(pgns.mkString("\n\n\n")).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+    OnlyHumans {
+      PgnRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+        OptionFuResult(env.api byId id) { study =>
+          CanViewResult(study) {
+            lila.mon.export.pgn.study()
+            env.pgnDump(study) map { pgns =>
+              Ok(pgns.mkString("\n\n\n")).withHeaders(
+                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+            }
+          }
         }
       }
     }

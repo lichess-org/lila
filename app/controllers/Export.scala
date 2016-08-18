@@ -17,7 +17,7 @@ object Export extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
-      lila.mon.export.pgn()
+      lila.mon.export.pgn.game()
       OptionFuResult(GameRepo game id) {
         case game if game.playable => NotFound("Can't export PGN of game in progress").fuccess
         case game => (game.pgnImport.ifTrue(get("as") contains "imported") match {
@@ -84,13 +84,4 @@ object Export extends LilaController {
       }
     }
   }
-
-  private def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isBot ctx.req) fuccess(NotFound)
-    else result
-
-  private def OnlyHumansAndFacebook(result: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isFacebookBot ctx.req) result
-    else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
-    else result
 }

@@ -347,6 +347,15 @@ private[controllers] trait LilaController
   protected def NotForBots(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest.isBot(ctx.req)) notFound else res
 
+  protected def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+    if (HTTPRequest isBot ctx.req) fuccess(NotFound)
+    else result
+
+  protected def OnlyHumansAndFacebook(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+    if (HTTPRequest isFacebookBot ctx.req) result
+    else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
+    else result
+
   protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
     lila.common.Form errorsAsJson form
 }

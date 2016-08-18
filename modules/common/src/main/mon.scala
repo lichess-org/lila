@@ -357,12 +357,15 @@ object mon {
     }
   }
   object export {
-    def pgn = inc("export.pgn")
+    object pgn {
+      def game = inc("export.pgn.game")
+      def study = inc("export.pgn.study")
+    }
     object png {
       def game = inc("export.png.game")
       def puzzle = inc("export.png.puzzle")
     }
-    def pdf = inc("export.pdf")
+    def pdf = inc("export.pdf.game")
   }
 
   def measure[A](path: RecPath)(op: => A) = {
