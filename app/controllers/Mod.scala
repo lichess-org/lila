@@ -72,7 +72,10 @@ object Mod extends LilaController {
       OptionFuResult(UserRepo named username) { user =>
         Env.security.forms.modEmail(user).bindFromRequest.fold(
           err => BadRequest(err.toString).fuccess,
-          email => modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
+          rawEmail => {
+            val email = Env.security.emailAddress.validate(rawEmail) err s"Invalid email ${rawEmail}"
+            modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
+          }
         )
       }
   }
