@@ -309,7 +309,8 @@ object mon {
       }
       def skill(v: String) = rec(s"fishnet.client.skill.$v")
       def version(v: String) = rec(s"fishnet.client.version.${makeVersion(v)}")
-      def engine(v: String) = rec(s"fishnet.client.engine.${makeVersion(v)}")
+      def stockfish(v: String) = rec(s"fishnet.client.engine.stockfish.${makeVersion(v)}")
+      def sunsetter(v: String) = rec(s"fishnet.client.engine.sunsetter.${makeVersion(v)}")
       def python(v: String) = rec(s"fishnet.client.python.${makeVersion(v)}")
     }
     object queue {

@@ -22,10 +22,10 @@ private final class Monitor(
     Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
-    val threads = result.engine.options.threadsInt
+    val threads = result.stockfish.options.threadsInt
 
-    result.engine.options.hashInt foreach { monitor.hash(_) }
-    result.engine.options.threadsInt foreach { monitor.threads(_) }
+    result.stockfish.options.hashInt foreach { monitor.hash(_) }
+    result.stockfish.options.threadsInt foreach { monitor.threads(_) }
 
     monitor.totalSecond(sumOf(result.analysis)(_.time) * threads.|(1) / 1000)
     monitor.totalMeganode(sumOf(result.analysis) { eval =>
@@ -68,8 +68,11 @@ private final class Monitor(
     instances.map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
       case (v, nb) => version(v)(nb)
     }
-    instances.map(_.engine.name).groupBy(identity).mapValues(_.size) foreach {
-      case (s, nb) => engine(s)(nb)
+    instances.map(_.engines.stockfish.name).groupBy(identity).mapValues(_.size) foreach {
+      case (s, nb) => stockfish(s)(nb)
+    }
+    instances.map(_.engines.sunsetter.name).groupBy(identity).mapValues(_.size) foreach {
+      case (s, nb) => sunsetter(s)(nb)
     }
     instances.map(_.python.value).groupBy(identity).mapValues(_.size) foreach {
       case (s, nb) => python(s)(nb)

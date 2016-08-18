@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import lila.db.BSON
-import lila.db.BSON.{BSONJodaDateTimeHandler, stringAnyValHandler}
+import lila.db.BSON.{ BSONJodaDateTimeHandler, stringAnyValHandler }
 import reactivemongo.bson._
 
 import chess.format.{ Uci, FEN }
@@ -20,8 +20,9 @@ private object BSONHandlers {
     def write(x: Client.Skill) = BSONString(x.key)
   }
 
-  import Client.Engine
+  import Client.{ Engine, Engines }
   implicit val EngineBSONHandler = Macros.handler[Engine]
+  implicit val EnginesBSONHandler = Macros.handler[Engines]
 
   import Client.Instance
   implicit val InstanceBSONHandler = Macros.handler[Instance]

@@ -12,12 +12,15 @@ object JsonApi {
 
   sealed trait Request {
     val fishnet: Request.Fishnet
-    val engine: Request.Engine
+    val stockfish: Request.Engine
+    val sunsetter: Request.Engine
 
     def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
       fishnet.python | Client.Python(""),
-      Client.Engine(engine.name),
+      Client.Engines(
+        stockfish = Client.Engine(stockfish.name),
+        sunsetter = Client.Engine(sunsetter.name)),
       ip,
       DateTime.now)
   }
@@ -50,11 +53,13 @@ object JsonApi {
 
     case class Acquire(
       fishnet: Fishnet,
-      engine: BaseEngine) extends Request
+      stockfish: BaseEngine,
+      sunsetter: BaseEngine) extends Request
 
     case class PostMove(
       fishnet: Fishnet,
-      engine: BaseEngine,
+      stockfish: BaseEngine,
+      sunsetter: BaseEngine,
       move: MoveResult) extends Request with Result
 
     case class MoveResult(bestmove: String) {
@@ -63,17 +68,19 @@ object JsonApi {
 
     case class PostAnalysis(
         fishnet: Fishnet,
-        engine: FullEngine,
+        stockfish: FullEngine,
+        sunsetter: BaseEngine,
         analysis: List[Option[Evaluation]]) extends Request with Result {
 
       def completeOrPartial =
-        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, engine, analysis.flatten)
-        else PartialAnalysis(fishnet, engine, analysis)
+        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, sunsetter, analysis.flatten)
+        else PartialAnalysis(fishnet, stockfish, sunsetter, analysis)
     }
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
-        engine: FullEngine,
+        stockfish: FullEngine,
+        sunsetter: BaseEngine,
         analysis: List[Evaluation]) {
 
       def medianNodes = analysis
@@ -87,7 +94,8 @@ object JsonApi {
 
     case class PartialAnalysis(
       fishnet: Fishnet,
-      engine: FullEngine,
+      stockfish: FullEngine,
+      sunsetter: BaseEngine,
       analysis: List[Option[Evaluation]])
 
     case class Evaluation(
