@@ -18,7 +18,7 @@ private final class NotifyReporters(
       _.map { reporterId =>
         notifyApi.addNotification(Notification(
           notifies = Notification.Notifies(reporterId),
-          content = lila.notify.ReportedBanned).pp)
+          content = lila.notify.ReportedBanned))
       }.sequenceFu.void
     }
 }
