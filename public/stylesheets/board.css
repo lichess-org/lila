@@ -103,7 +103,7 @@ piece.dragging {
 piece.ghost {
   opacity: 0.3;
 }
-.cg-board-wrap svg {
+.cg-board svg {
   overflow: hidden;
   position: relative;
   top: 0;
@@ -114,8 +114,12 @@ piece.ghost {
   z-index: 2;
   opacity: 0.6;
 }
-.cg-board-wrap svg * {
+.cg-board svg * {
   transition: 0.3s;
+}
+.cg-board svg image {
+  opacity: 0.5;
+  transition: none;
 }
 
 .cg-board-wrap coords {

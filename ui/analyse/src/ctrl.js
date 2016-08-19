@@ -258,24 +258,9 @@ module.exports = function(opts) {
     return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  var roleToSan = {
-    pawn: 'P',
-    knight: 'N',
-    bishop: 'B',
-    rook: 'R',
-    queen: 'Q'
-  };
-  var sanToRole = {
-    P: 'pawn',
-    N: 'knight',
-    B: 'bishop',
-    R: 'rook',
-    Q: 'queen'
-  };
-
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
-      this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
+      this.vm.justPlayed = util.roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = {
         ply: this.vm.node.ply,
         role: piece.role
@@ -414,7 +399,7 @@ module.exports = function(opts) {
     if (this.vm.node.crazy) {
       // no stalemate with full crazyhouse pockets
       var wtm = this.vm.node.fen.indexOf(' w ') !== -1;
-      var p = this.vm.node.crazy.pockets[wtm ? 0: 1];
+      var p = this.vm.node.crazy.pockets[wtm ? 0 : 1];
       if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
     }
     return true;
@@ -456,13 +441,13 @@ module.exports = function(opts) {
     var n = this.vm.node,
       shapes = [],
       explorerUci = this.explorer.hoveringUci();
-    if (explorerUci) shapes.push(makeAutoShapeFromUci(explorerUci, 'paleBlue'));
+    if (explorerUci) shapes = shapes.concat(makeAutoShapesFromUci(explorerUci, 'paleBlue'));
     if (this.vm.showAutoShapes()) {
-      if (n.eval && n.eval.best) shapes.push(makeAutoShapeFromUci(n.eval.best, 'paleGreen'));
+      if (n.eval && n.eval.best) shapes = shapes.concat(makeAutoShapesFromUci(n.eval.best, 'paleGreen'));
       if (!explorerUci) {
         var nextNodeBest = this.nextNodeBest();
-        if (nextNodeBest) shapes.push(makeAutoShapeFromUci(nextNodeBest, 'paleBlue'));
-        else if (this.ceval.enabled() && n.ceval && n.ceval.best) shapes.push(makeAutoShapeFromUci(n.ceval.best, 'paleBlue'));
+        if (nextNodeBest) shapes = shapes.concat(makeAutoShapesFromUci(nextNodeBest, 'paleBlue'));
+        else if (this.ceval.enabled() && n.ceval && n.ceval.best) shapes = shapes.concat(makeAutoShapesFromUci(n.ceval.best, 'paleBlue'));
       }
     }
     this.chessground.setAutoShapes(shapes);
@@ -472,27 +457,35 @@ module.exports = function(opts) {
     return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
   };
 
-  var makeAutoShapeFromUci = function(uci, brush) {
+  var makeAutoShapesFromUci = function(uci, brush) {
     var move = decomposeUci(uci);
-    return uci[1] === '@' ? {
+    if (uci[1] === '@') return [{
       orig: move[1],
       brush: brush
-    } : {
+    }, {
+      orig: move[1],
+      piece: {
+        color: this.chessground.data.movable.color,
+        role: util.sanToRole[uci[0].toUpperCase()],
+        scale: 0.8
+      }
+    }];
+    return [{
       orig: move[0],
       dest: move[1],
       brush: brush
-    };
-  };
+    }];
+  }.bind(this);
 
   this.explorerMove = function(uci) {
     var move = decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
-        role: sanToRole[uci[0]]
+        role: util.sanToRole[uci[0]]
       },
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
+    else sendMove(move[0], move[1], util.sanToRole[move[2].toUpperCase()]);
     this.explorer.loading(true);
   }.bind(this);
 

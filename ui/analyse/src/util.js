@@ -98,6 +98,20 @@ module.exports = {
       };
     }
   },
+  roleToSan: {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  },
+  sanToRole: {
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen'
+  },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/throttle.js
    *
