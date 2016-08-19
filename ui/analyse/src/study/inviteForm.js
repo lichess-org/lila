@@ -49,6 +49,7 @@ module.exports = {
       },
       toggle: function() {
         open(!open());
+        if (open()) send('following_onlines');
       },
       invite: invite
     };
