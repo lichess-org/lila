@@ -78,7 +78,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
     val a: Array[RankedPlayer] = players.toArray
-    val n = a.length
+    val n: Int = a.length
     def pairScore(i: Int, j: Int): Int = {
       def playedTogether(u1:String, u2:String) = if (lastOpponents.hash.get(u1).contains(u2)) 1 else 0
       def f(x: Int): Int = (11500000 - 3500000 * x) * x
