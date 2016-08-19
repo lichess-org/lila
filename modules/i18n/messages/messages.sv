@@ -531,5 +531,5 @@ onlineAndOfflinePlay=Spela online och offline
 correspondenceAndUnlimited=Korrespondens och obegränsad
 viewTheSolution=Visa lösningen
 followAndChallengeFriends=Följ och utmana vänner
-availableInNbLanguages=Tillgänglig i %s olika språk!
+availableInNbLanguages=Tillgänglig på %s olika språk!
 gameAnalysis=Parti analys
