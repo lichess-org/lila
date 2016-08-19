@@ -1,14 +1,11 @@
 var m = require('mithril');
 var getPlayer = require('game').game.getPlayer;
+var aiName = require('./util').aiName;
 
 function renderRatingDiff(rd) {
   if (rd === 0) return m('span.rp.null', '±0');
   if (rd > 0) return m('span.rp.up', '+' + rd);
   return m('span.rp.down', rd);
-}
-
-function aiName(variant) {
-  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
 }
 
 function renderPlayer(data, color) {

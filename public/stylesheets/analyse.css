@@ -225,6 +225,13 @@ div.gauge_displayed .fork {
   font-weight: 300;
   opacity: 0.5;
 }
+.ceval_box .credit {
+  position: absolute;
+  top: 0;
+  left: 90px;
+  line-height: 40px;
+  height: 40px;
+}
 .ceval_box help {
   display: block;
   margin: 5px;

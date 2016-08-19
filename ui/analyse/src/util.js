@@ -27,6 +27,9 @@ module.exports = {
     });
     return dests;
   },
+  aiName: function(variant) {
+    return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
+  },
   readDrops: function(line) {
     if (typeof line === 'undefined' || line === null) return null;
     return line.match(/.{2}/g) || [];

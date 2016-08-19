@@ -72,7 +72,10 @@ module.exports = {
           'for': 'analyse-toggle-ceval'
         })
       ]),
-      enabled ? m('pearl', pearl) : m('help',
+      enabled ? [
+        m('pearl', pearl),
+        m('div.credit', 'Local ' + util.aiName(ctrl.data.game.variant))
+      ] : m('help',
         'Local computer evaluation',
         m('br'),
         'for variation analysis'
