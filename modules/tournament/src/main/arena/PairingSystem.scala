@@ -87,7 +87,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       f (playedTogether(a(i).player.userId, a(j).player.userId) + playedTogether(a(j).player.userId, a(i).player.userId))
     }
     val mate = WMMatching.minWeightMatching(WMMatching.fullGraph(n, pairScore))
-    WMMatching.mateToEdges(mate).map (x => Pairing.prep(tour, a(x._1), a(x._2)))
+    WMMatching.mateToEdges(mate).map (x => Pairing.prep(tour, a(x._1).player, a(x._2).player))
   }
 
   private def url(tourId: String) = s"//lichess.org/tournament/$tourId"
