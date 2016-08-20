@@ -312,18 +312,18 @@ ul.ui-autocomplete li a.ui-state-focus {
   width: 224px;
   min-height: 3em;
   cursor: default;
-  background-color: #f0f0f0;
+  background-color: #fff;
   border: 1px solid #c0c0c0;
   display: none;
   position: absolute;
   z-index: 900000;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.25), 0 0.5px 8px rgba(0, 0, 0, 0.15);
 }
 #miniGame {
   min-height: 262px;
 }
 #powerTip > .title {
-  padding: 5px 1px;
+  padding: 5px 3px;
   border-bottom: 1px solid #c0c0c0;
 }
 #powerTip > .title a.user_link {
