@@ -52,15 +52,14 @@ div.sidebar a {
   text-overflow: ellipsis;
 }
 #lichess_message td.subject a {
+  color: #3893E8;
   display: block;
   padding: 1em;
-  font-size: 120%;
 }
 #lichess_message td.subject a:hover {
   text-decoration: underline;
 }
 #lichess_message tr.new td.subject a {
-  color: #3893E8;
   font-weight: bold;
 }
 #lichess_message td.author, #lichess_message time {
