@@ -55,7 +55,7 @@ module.exports = function(opts, name) {
 
     if (!onlyMoves && depth < opts.minDepth) return;
 
-    if ((work.ply + onlyMoves) % 2 == 1) {
+    if (work.ply % 2 == 1) {
       if (cp) cp = -cp;
       if (mate) mate = -mate;
     }
