@@ -14,31 +14,35 @@
       <ul>
         <li>
           <h2>@trans.pieceAnimation()</h2>
-          @base.radios(form("animation"), translatedAnimationChoices)
+          @base.radios(form("display.animation"), translatedAnimationChoices)
         </li>
         <li>
           <h2>@trans.materialDifference()</h2>
-          @base.radios(form("captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.radios(form("display.captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.boardHighlights()</h2>
-          @base.radios(form("highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.radios(form("display.highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.pieceDestinations()</h2>
-          @base.radios(form("destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.radios(form("display.destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.boardCoordinates()</h2>
-          @base.radios(form("coords"), translatedBoardCoordinateChoices)
+          @base.radios(form("display.coords"), translatedBoardCoordinateChoices)
         </li>
         <li>
           <h2>@trans.moveListWhilePlaying()</h2>
-          @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
+          @base.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+        </li>
+        <li>
+          <h2>PGN piece notation</h2>
+          @base.radios(form("display.pieceNotation"), lila.pref.Pref.PieceNotation.choices)
         </li>
         <li>
           <h2>@trans.blindfoldChess()</h2>
-          @base.radios(form("blindfold"), translatedBlindfoldChoices)
+          @base.radios(form("display.blindfold"), translatedBlindfoldChoices)
         </li>
       </ul>
       }

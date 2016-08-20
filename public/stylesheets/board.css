@@ -516,13 +516,13 @@ div.table {
   display: flex;
   height: 26px;
 }
-.lichess_ground .replay turn > index,
-.lichess_ground .replay turn > move {
+.lichess_ground .replay index,
+.lichess_ground .replay move {
   display: inline-block;
   height: 22px;
   line-height: 22px;
 }
-.lichess_ground .replay turn > index {
+.lichess_ground .replay index {
   flex: 0 0 34px;
   padding: 2px 0;
   background: #e0e0e0;
@@ -530,11 +530,15 @@ div.table {
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .replay turn > move {
+.lichess_ground .replay move {
   flex: 1 1 50%;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
   padding: 2px 5px;
+}
+body.piece_letter .lichess_ground .replay move {
+  font-family: 'Noto Sans';
+  font-size: 15px;
 }
 .lichess_ground .replay move:not(.empty) {
   cursor: pointer;

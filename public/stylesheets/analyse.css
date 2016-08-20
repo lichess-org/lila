@@ -270,6 +270,10 @@ div.gauge_displayed .fork {
   display: flex;
   border-bottom: 1px solid #e4e4e4;
 }
+body.piece_letter .fork move {
+  font-family: 'Noto Sans';
+  font-size: 15px;
+}
 .fork move:last-child {
   border-bottom: none;
 }
@@ -385,6 +389,10 @@ body.dark .explorer_box .title {
   line-height: 30px;
   padding-left: 7px;
 }
+body.piece_letter .explorer_box .moves td:first-child {
+  font-family: 'Noto Sans';
+  font-size: 13px;
+}
 .explorer_box .moves td:nth-child(2) {
   font-size: 10px;
   opacity: 0.8;
@@ -476,6 +484,10 @@ body.dark .explorer_box .black {
   font-size: 14px;
   line-height: 30px;
   padding-left: 7px;
+}
+body.piece_letter .tablebase td:first-child {
+  font-family: 'Noto Sans';
+  font-size: 13px;
 }
 .explorer_box .tablebase td:last-child {
   padding-right: 7px;
@@ -665,6 +677,9 @@ body.dark .explorer_box .black {
   padding: 0 2px;
   cursor: pointer;
 }
+body.piece_letter .tview2 move {
+  font-family: 'Noto Sans';
+}
 .tview2 move.parent {
   color: #3893e8!important;
 }
@@ -696,7 +711,7 @@ body.dark .explorer_box .black {
   padding-left: 0;
 }
 .tview2 line move {
-  color: #555;
+  color: #606060;
 }
 .tview2 > move {
   flex: 0 0 44%;
@@ -1077,6 +1092,9 @@ div.shortcuts li {
   font-family: 'ChessSansPiratf', sans-serif;
   font-weight: bold;
 }
+body.piece_letter .forecast sans san {
+  font-family: 'Noto Sans';
+}
 .forecast button.on-my-turn {
   margin-top: 20px;
 }
@@ -1166,6 +1184,9 @@ div.shortcuts li {
   text-align: center;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 14px;
+}
+body.piece_letter #analyse-cm .title {
+  font-family: 'Noto Sans';
 }
 #analyse-cm .action {
   display: block;

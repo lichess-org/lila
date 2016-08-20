@@ -55,6 +55,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     "coords_" + ctx.pref.coords,
