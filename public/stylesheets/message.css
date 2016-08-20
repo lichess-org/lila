@@ -11,9 +11,25 @@ div.sidebar a {
   padding: 1em 0 1em 1em;
 }
 
+#lichess_message .head.with_actions {
+  display: flex;
+  justify-content: space-between;
+}
+#lichess_message .head .actions {
+  display: flex;
+  align-items: center;
+}
+#lichess_message .head .actions select {
+  margin-right: 20px;
+  padding: 8px 10px;
+}
+
 #lichess_message table {
-  margin-top: 1.5em;
   width: 100%;
+}
+#lichess_message th {
+  padding: 10px 20px;
+  text-align: right;
 }
 #lichess_message tr {
   border-top: 1px solid #eaeaea;
@@ -22,6 +38,19 @@ div.sidebar a {
   background: #eee;
 }
 
+#lichess_message td.check {
+  padding-right: 10px;
+}
+#lichess_message td.check input {
+  vertical-align: middle;
+}
+#lichess_message td.author {
+  padding: 1em 1em 1em 20px;
+  width: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #lichess_message td.subject a {
   display: block;
   padding: 1em;
@@ -31,7 +60,7 @@ div.sidebar a {
   text-decoration: underline;
 }
 #lichess_message tr.new td.subject a {
-  color: #0090b0;
+  color: #3893E8;
   font-weight: bold;
 }
 #lichess_message td.author, #lichess_message time {

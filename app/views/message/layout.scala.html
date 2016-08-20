@@ -6,6 +6,7 @@
 
 @moreJs = {
 @jsTag("vendor/jquery.infinitescroll.min.js")
+@jsTag("message.js")
 }
 
 @side = {
@@ -19,8 +20,4 @@
 title = title,
 moreCss = moreCss,
 moreJs = moreJs,
-side = side.some) {
-<div id="lichess_message" class="content_box">
-  @body
-</div>
-}
+side = side.some)(body)

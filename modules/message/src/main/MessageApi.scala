@@ -8,7 +8,7 @@ import lila.db.paginator._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-final class Api(
+final class MessageApi(
     coll: Coll,
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
@@ -30,10 +30,8 @@ final class Api(
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setRead)
+    _ ← threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setReadFor(me))
   } yield threadOption
-
-  def markThreadAsRead(id: String, me: User): Funit = thread(id, me).void
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)

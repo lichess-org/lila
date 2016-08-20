@@ -2,63 +2,65 @@
 
 @message.layout(
 title = trans.composeMessage.str()) {
-<div class="message_new">
-  <h1>@trans.composeMessage()</h1>
-  @reqUser.ifFalse(canMessage).map { u =>
-  <br />
-  <br />
-  <hr />
-  <br />
-  <p>Sorry, @u.username doesn't accept new messages.</p>
-  }.getOrElse {
-  <div class="center form">
-    <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
-      <div class="field_to">
-        <label for="@form("username").id">@trans.recipient():</label>
-        @reqUser.map { user =>
-        @userLink(user)
-        <input
-        type="hidden"
-        name="@form("username").name"
-        value="@user.id">
-        }.getOrElse {
-        <input
-        type="text"
-        class="user-autocomplete"
-        required="required"
-        name="@form("username").name"
-        id="@form("username").id"
-        value="@form("username").value"
-        autofocus="1">
-        @errMsg(form("username"))
-        }
-      </div>
-      <div class="field_subject">
-        <label for="@form("subject").id">@trans.subject():</label>
-        <input
-        type="text"
-        required="required"
-        minlength=3
-        maxlength=100
-        name="@form("subject").name"
-        id="@form("subject").id"
-        value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)"
-        @if(reqUser.isDefined) { autofocus="1" }>
-        @errMsg(form("subject"))
-      </div>
-      <div class="field_body">
-        <textarea
-          name="@form("text").name"
+<div id="lichess_message" class="content_box">
+  <div class="message_new">
+    <h1>@trans.composeMessage()</h1>
+    @reqUser.ifFalse(canMessage).map { u =>
+    <br />
+    <br />
+    <hr />
+    <br />
+    <p>Sorry, @u.username doesn't accept new messages.</p>
+    }.getOrElse {
+    <div class="center form">
+      <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
+        <div class="field_to">
+          <label for="@form("username").id">@trans.recipient():</label>
+          @reqUser.map { user =>
+          @userLink(user)
+          <input
+          type="hidden"
+          name="@form("username").name"
+          value="@user.id">
+          }.getOrElse {
+          <input
+          type="text"
+          class="user-autocomplete"
           required="required"
-          id="@form("text").id">@form("text").value</textarea>
-        @errMsg(form("text"))
-      </div>
-      <div class="actions">
-        <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
-        <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
-      </div>
-    </form>
+          name="@form("username").name"
+          id="@form("username").id"
+          value="@form("username").value"
+          autofocus="1">
+          @errMsg(form("username"))
+          }
+        </div>
+        <div class="field_subject">
+          <label for="@form("subject").id">@trans.subject():</label>
+          <input
+          type="text"
+          required="required"
+          minlength=3
+          maxlength=100
+          name="@form("subject").name"
+          id="@form("subject").id"
+          value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)"
+          @if(reqUser.isDefined) { autofocus="1" }>
+          @errMsg(form("subject"))
+        </div>
+        <div class="field_body">
+          <textarea
+            name="@form("text").name"
+            required="required"
+            id="@form("text").id">@form("text").value</textarea>
+          @errMsg(form("text"))
+        </div>
+        <div class="actions">
+          <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
+          <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
+        </div>
+      </form>
+    </div>
+    }
   </div>
-  }
 </div>
 }

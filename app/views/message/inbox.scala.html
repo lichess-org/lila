@@ -2,40 +2,59 @@
 
 @message.layout(
 title = trans.inbox.str()) {
-<div class="head">
-  <h1>@trans.inbox()</h1>
-</div>
-<table>
-  @if(threads.nbResults > 0) {
-  <tbody class="infinitescroll">
-    @if(threads.hasToPaginate) {
-    <tr><th class="pager none">
-        <a href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
-    </th></tr>
-    }
-    @threads.currentPageResults.map { thread =>
-    <tr class="paginated_element @thread.isUnReadBy(me).fold(" new", "")">
-      <td class="subject">
-        <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
-      </td>
-      <td class="author">
-        @userIdLink(thread.otherUserId(me), none)
-      </td>
-      <td class="date">@momentFormat(thread.updatedAt)</td>
-    </tr>
+<div id="lichess_message" class="content_box no_padding">
+  <div class="head with_actions">
+    <h1>@trans.inbox()</h1>
+    <div class="actions">
+      <select class="select">
+        <option value="">Select</option>
+        <option value="all">All</option>
+        <option value="none">None</option>
+        <option value="unread">Unread</option>
+        <option value="read">Read</option>
+      </select>
+      <select class="action">
+        <option value="">Do</option>
+        <option value="unread">Mark as unread</option>
+        <option value="read">Mark as read</option>
+        <option value="delete">Delete</option>
+      </select>
+    </div>
+  </div>
+  <table>
+    @if(threads.nbResults > 0) {
+    <tbody class="infinitescroll">
+      @if(threads.hasToPaginate) {
+      <tr><th class="pager none">
+          <a href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
+      </th></tr>
+      }
+      @threads.currentPageResults.map { thread =>
+      <tr class="paginated_element @thread.isUnReadBy(me).fold(" new", "")">
+        <td class="author">
+          @userIdLink(thread.otherUserId(me), none)
+        </td>
+        <td class="subject">
+          <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
+        </td>
+        <td class="date">@momentFormat(thread.updatedAt)</td>
+        <td class="check">
+          <input type="checkbox" name="threads" value="@thread.id" />
+        </td>
+      </tr>
+      }
+    </tbody>
+    } else {
+    <tbody>
+      <tr>
+        <td colspan="4">
+          <br />
+          @trans.noNewMessages()
+        </td>
+      </tr>
+    </tbody>
     }
   </tbody>
-  } else {
-  <tbody>
-    <tr>
-      <td colspan="4">
-        <br />
-        @trans.noNewMessages()
-      </td>
-    </tr>
-  </tbody>
-  }
-</tbody>
 </table>
+</div>
 }
-
