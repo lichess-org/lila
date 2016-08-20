@@ -5,7 +5,8 @@ case class Profile(
     location: Option[String] = None,
     bio: Option[String] = None,
     firstName: Option[String] = None,
-    lastName: Option[String] = None) {
+    lastName: Option[String] = None,
+    fideRating: Option[Int] = None) {
 
   def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
     case Nil   => none

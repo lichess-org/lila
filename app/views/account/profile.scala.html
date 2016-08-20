@@ -38,6 +38,10 @@
           @base.input(form("lastName"))
         </li>
         }
+        <li class="field">
+          <label for="@form("fideRating").id">FIDE rating</label>
+          @base.input(form("fideRating"))
+        </li>
         <li>
           @errMsg(form)
         </li>

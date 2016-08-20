@@ -14,7 +14,8 @@ object DataForm {
     "location" -> optional(nonEmptyText(maxLength = 80)),
     "bio" -> optional(nonEmptyText(maxLength = 400)),
     "firstName" -> nameField,
-    "lastName" -> nameField
+    "lastName" -> nameField,
+    "fideRating" -> optional(number(min = 600, max = 2900))
   )(Profile.apply)(Profile.unapply))
 
   def profileOf(user: User) = profile fill user.profileOrDefault
