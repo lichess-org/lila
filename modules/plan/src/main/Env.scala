@@ -38,13 +38,16 @@ final class Env(
     goal = MonthlyGoalCents,
     chargeColl = chargeColl)
 
+  lazy val tracking = new PlanTracking
+
   lazy val api = new PlanApi(
     stripeClient,
     patronColl = patronColl,
     chargeColl = chargeColl,
     notifier = notifier,
+    tracking = tracking,
     lightUserApi = lightUserApi,
-    bus,
+    bus = bus,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
     monthlyGoalApi = monthlyGoalApi)
 

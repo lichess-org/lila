@@ -69,6 +69,8 @@ case class StripeCustomer(
   def firstSubscription = subscriptions.data.headOption
 
   def plan = firstSubscription.map(_.plan)
+
+  def renew = firstSubscription ?? (_.renew)
 }
 
 case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId)

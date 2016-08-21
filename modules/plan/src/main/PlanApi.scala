@@ -12,6 +12,7 @@ final class PlanApi(
     stripeClient: StripeClient,
     patronColl: Coll,
     chargeColl: Coll,
+    tracking: PlanTracking,
     notifier: PlanNotifier,
     lightUserApi: lila.user.LightUserApi,
     bus: lila.common.Bus,
@@ -56,21 +57,25 @@ final class PlanApi(
         }
     }
 
-  def onStripeCharge(charge: StripeCharge): Funit =
-    customerIdPatron(charge.customer) flatMap { patronOption =>
-      addCharge(Charge.make(
+  def onStripeCharge(stripeCharge: StripeCharge): Funit =
+    customerIdPatron(stripeCharge.customer) flatMap { patronOption =>
+      val charge = Charge.make(
         userId = patronOption.map(_.userId),
-        stripe = Charge.Stripe(charge.id, charge.customer).some,
-        cents = charge.amount)) >> {
+        stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
+        cents = stripeCharge.amount)
+      addCharge(charge) >> {
         patronOption match {
           case None =>
             logger.info(s"Charged anon customer $charge")
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
+            stripeClient getCustomer stripeCharge.customer foreach {
+              _ foreach { customer => tracking.charge(charge, renew = customer.renew) }
+            }
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               val p2 = patron.copy(
-                stripe = Patron.Stripe(charge.customer).some
+                stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
                 setDbUserPlan(user,
@@ -95,7 +100,7 @@ final class PlanApi(
       funit
     }
     else (cents.value >= 100) ?? {
-      addCharge(Charge.make(
+      val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
           name = name,
@@ -103,7 +108,9 @@ final class PlanApi(
           txnId = txnId,
           subId = subId.map(_.value),
           ip = ip.some).some,
-        cents = cents)) >>
+        cents = cents)
+      tracking.charge(charge, renew = subId.isDefined)
+      addCharge(charge) >>
         (userId ?? UserRepo.named) flatMap { userOption =>
           userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
@@ -114,8 +121,11 @@ final class PlanApi(
                 lastLevelUp = DateTime.now
               ).expireInOneMonth) >>
                 setDbUserPlan(user, lila.user.Plan.start) >>
-                notifier.onStart(user)
+                notifier.onStart(user) >>-
+                tracking.newDonation(user, cents, renew = subId.isDefined)
               case Some(patron) =>
+                if (subId.isDefined) tracking.upgrade(user, cents)
+                else tracking.reDonation(user, cents)
                 val p2 = patron.copy(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
@@ -273,9 +283,12 @@ final class PlanApi(
       case None => createCustomer(user, data, plan) map { customer =>
         customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
       }
-      case Some(customer) => setCustomerPlan(customer, plan, data.source) flatMap { sub =>
-        saveStripePatron(user, customer.id, data.freq) inject sub
-      }
+      case Some(customer) =>
+        if (data.freq.renew && !customer.renew) tracking.upgrade(user, plan.amount)
+        if (!data.freq.renew) tracking.reDonation(user, plan.amount)
+        setCustomerPlan(customer, plan, data.source) flatMap { sub =>
+          saveStripePatron(user, customer.id, data.freq) inject sub
+        }
     } flatMap { subscription =>
       logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
       if (data.freq.renew) fuccess(subscription)
@@ -290,6 +303,7 @@ final class PlanApi(
       saveStripePatron(user, customer.id, data.freq) >>
         setDbUserPlan(user, lila.user.Plan.start) >>
         notifier.onStart(user) >>-
+        tracking.newDonation(user, plan.amount, renew = data.freq.renew) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
@@ -324,10 +338,7 @@ final class PlanApi(
     }
 
   private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
-    patronColl.uno[Patron](selectStripeCustomerId(id))
-
-  private def selectStripeCustomerId(id: CustomerId): Bdoc =
-    $doc("stripe.customerId" -> id)
+    patronColl.uno[Patron]($doc("stripe.customerId" -> id))
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.uno[Patron]($id(user.id))
 }
