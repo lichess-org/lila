@@ -91,4 +91,6 @@ trait DateHelper { self: I18nHelper =>
   def atomDate(date: DateTime): String = atomDateFormatter print date
   def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
     doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
+
+  def nowSeconds = (System.currentTimeMillis() / 1000).toInt
 }

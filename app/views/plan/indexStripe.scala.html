@@ -1,6 +1,6 @@
 @(me: User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(implicit ctx: Context)
 
-@site.layout(
+@base.layout(
 title = "Thank you for your support!",
 moreCss = cssTag("plan.css"),
 moreJs = jsTag("plan.js")) {

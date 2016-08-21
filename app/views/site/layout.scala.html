@@ -1,8 +1,0 @@
-@(title: String, moreCss: Html = Html(""), moreJs: Html = Html(""), side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
-
-@base.layout(
-title = title,
-side = side,
-moreCss = moreCss,
-moreJs = moreJs,
-openGraph = openGraph)(body)

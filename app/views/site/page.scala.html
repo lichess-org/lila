@@ -1,6 +1,6 @@
 @(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context)
 
-@site.layout(
+@base.layout(
 moreCss = cssTag("page.css"),
 title = s"${~doc.getText("doc.title")}") {
 
