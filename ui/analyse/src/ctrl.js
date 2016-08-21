@@ -393,7 +393,7 @@ module.exports = function(opts) {
     if (this.vm.node.dests !== '') return false;
     if (this.vm.node.check) {
       var san = this.vm.node.san;
-      var checkmate = san[san.length - 1] === '#';
+      var checkmate = san && san[san.length - 1] === '#';
       return checkmate;
     }
     if (this.vm.node.crazy) {
