@@ -84,4 +84,12 @@ $(function() {
   $form.submit(function() {
     $(this).addClass('searching');
   });
+
+  if ($form.hasClass('realtime')) {
+    var submit = function() {
+      $form.submit();
+    };
+    $form.find("select, input[type=checkbox]").change(submit);
+    $usernames.bind("keyup", $.fp.debounce(submit, 2000));
+  }
 });
