@@ -1,4 +1,4 @@
-@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], recentIds: List[String], bestIds: List[String])(implicit ctx: Context)
+@(email: Option[String], stripePublicKey: String, patron: Option[lila.plan.Patron], recentIds: List[String], bestIds: List[String], trackingData: Option[lila.plan.PlanTrackingUserData])(implicit ctx: Context)
 
 @title = @{"Become a Patron of lichess.org"}
 
@@ -7,6 +7,9 @@
 @jsTag("checkout.js")
 @embedJs {
 lichess.checkout("@stripePublicKey");
+@trackingData.map { td =>
+@gtm(td)
+}
 }
 }
 
@@ -30,7 +33,7 @@ openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Plan.index.url}",
 description = "Free chess for everyone, forever!").some,
-withGtm = true) {
+withGtm = trackingData.isDefined) {
 <div class="content_box no_padding plan motivation">
   @patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
   <div class="banner one_time_active">
