@@ -32,7 +32,9 @@ object ByteArray {
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }
 
-  def parseByte(s: String): Byte = {
+  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
+
+  private def parseByte(s: String): Byte = {
     var i = s.length - 1
     var sum = 0
     var mult = 1
@@ -47,8 +49,6 @@ object ByteArray {
     }
     sum.toByte
   }
-
-  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   def subtype = Subtype.GenericBinarySubtype
 

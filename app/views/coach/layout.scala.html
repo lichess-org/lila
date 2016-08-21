@@ -1,0 +1,14 @@
+@(title: String, active: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("coach.css")
+}
+
+@menu = {
+<a class="@active.active("all")" href="@routes.Coach.index">All coaches</a>
+}
+
+@base.layout(
+title = title,
+side = menu.some,
+moreCss = moreCss)(body)
