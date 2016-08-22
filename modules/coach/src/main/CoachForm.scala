@@ -9,24 +9,30 @@ object CoachForm {
 
   def edit(coach: Coach) = Form(mapping(
     "hourlyRate" -> optional(number(min = 5, max = 500)),
-    "available" -> optional(number),
+    "enabledByUser" -> boolean,
+    "available" -> boolean,
     "profile" -> profileMapping
   )(Data.apply)(Data.unapply)) fill Data(
     hourlyRate = coach.hourlyRate.map(_.value),
-    available = coach.available.value option 1,
+    enabledByUser = coach.enabledByUser.value,
+    available = coach.available.value,
     profile = coach.profile)
 
   case class Data(
       hourlyRate: Option[Int],
-      available: Option[Int],
+      enabledByUser: Boolean,
+      available: Boolean,
       profile: CoachProfile) {
 
     def apply(coach: Coach) = coach.copy(
       hourlyRate = hourlyRate.map(_ * 100) map Coach.Cents.apply,
-      available = Coach.Available(available.isDefined),
+      enabledByUser = Coach.Enabled(enabledByUser),
+      available = Coach.Available(available),
       profile = profile,
       updatedAt = DateTime.now)
   }
+
+  val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
 
   private def profileMapping = mapping(
     "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 140)),

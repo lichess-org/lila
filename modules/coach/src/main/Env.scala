@@ -16,6 +16,12 @@ final class Env(
 
   lazy val api = new CoachApi(
     coll = coachColl)
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "coach" :: "init" :: username :: Nil => api init username
+    }
+  }
 }
 
 object Env {

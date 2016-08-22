@@ -25,6 +25,14 @@ final class CoachApi(coll: Coll) {
   def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
     coll.update($id(c.coach.id), data(c.coach)).void
 
+  def init(username: String): Fu[String] = find(username) flatMap {
+    case Some(_) => fuccess(s"Coach $username already exists.")
+    case None => UserRepo named username flatMap {
+      case None       => fuccess(s"No such username $username")
+      case Some(user) => coll.insert(Coach make user) inject "Done!"
+    }
+  }
+
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
 }

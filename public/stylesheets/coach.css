@@ -1,0 +1,17 @@
+.coach_edit .material.form {
+  margin: 30px 20px 20px 20px;
+}
+.coach_edit .material.form .form-group textarea {
+  height: 8em;
+}
+.coach_edit .material.form .form-group.large-label {
+  margin-top: 4.25rem;
+}
+.coach_edit .material.form .form-group.large-label .control-label {
+  opacity: 0.8!important;
+  top: -2rem!important;
+}
+.coach_edit .material.form .form-group.large-label .control-label em {
+  opacity: 0.8;
+  display: block;
+}
