@@ -47,9 +47,5 @@ object CoachForm {
   import CoachProfile.Markdown
 
   private def markdown = of[Markdown]
-  private implicit def markdownFormat: Formatter[Markdown] = new Formatter[Markdown] {
-    def bind(key: String, data: Map[String, String]) =
-      data.get(key).map(Markdown.apply).toRight(Seq(FormError(key, "error.required", Nil)))
-    def unbind(key: String, value: Markdown) = Map(key -> value.value)
-  }
+  private implicit val markdownFormat = lila.common.Form.formatter.stringFormatter[Markdown](_.value, Markdown.apply)
 }
