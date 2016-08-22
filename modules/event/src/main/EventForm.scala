@@ -37,8 +37,8 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
-      startsAt = startsAt,
-      finishesAt = finishesAt)
+      startsAt = toUTC(startsAt),
+      finishesAt = toUTC(finishesAt))
 
     def make(userId: String) = Event(
       _id = Event.makeId,
@@ -46,11 +46,13 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
-      startsAt = startsAt,
-      finishesAt = finishesAt,
+      startsAt = toUTC(startsAt),
+      finishesAt = toUTC(finishesAt),
       createdBy = Event.UserId(userId),
       createdAt = DateTime.now)
   }
+
+  private def toUTC(date: DateTime) = date.toDateTime(DateTimeZone.UTC)
 
   object Data {
 
