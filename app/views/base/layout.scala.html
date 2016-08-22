@@ -68,7 +68,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     data-asset-url="@assetBaseUrl"
     data-asset-version="@assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")">
-    @if(withGtm) {@gtm()}
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />
@@ -209,6 +208,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     lichess_translations = @jsI18n()
     }
     }
-    @if(!withGtm) {@base.ga()}
+    @if(withGtm) {@gtm()}
+    @else {@base.ga()}
   </body>
 </html>
