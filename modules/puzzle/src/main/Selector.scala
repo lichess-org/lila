@@ -37,10 +37,16 @@ private[puzzle] final class Selector(
           .uno[Puzzle]
       case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
       case Some(user) =>
-        val rating = user.perfs.puzzle.intRating min 2300 max 900
-        val step = toleranceStepFor(rating)
-        api.attempt.playedIds(user) flatMap { ids =>
-          tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+        val nextLearn = api.learning.nextPuzzle(user)
+        val isLearn = scala.util.Random.nextBoolean
+        nextLearn flatMap {
+          case Some(p) if isLearn => fuccess(Some(p))
+          case _ =>
+            val rating = user.perfs.puzzle.intRating min 2300 max 900
+            val step = toleranceStepFor(rating)
+            api.attempt.playedIds(user) flatMap { ids =>
+              tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+            }
         }
     }
   }.mon(_.puzzle.selector.time)

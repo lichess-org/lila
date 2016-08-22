@@ -13,6 +13,7 @@ import lila.user.{ User, UserRepo }
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
     attemptColl: Coll,
+    learningColl: Coll,
     apiToken: String) {
 
   import Puzzle.puzzleBSONHandler
@@ -111,5 +112,43 @@ private[puzzle] final class PuzzleApi(
           case (false, doc) => doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
         }
       }
+  }
+
+  object learning {
+
+    def find(user: User): Fu[Option[Learning]] =
+      learningColl.find($doc(
+        Learning.BSONFields.id -> user.id
+      )).uno[Learning]
+
+    def add(l: Learning) = learningColl insert l void
+
+    def update(user: User, puzzle: Puzzle, data: DataForm.AttemptData) = 
+      if (data.isWin) solved(user, puzzle.id) else failed(user, puzzle.id)
+
+    def solved(user: User, puzzleId: PuzzleId) = learning find user flatMap {
+      case None => fuccess(none)
+      case Some(l) =>
+        learningColl.update(
+          $id(user.id),
+          $doc("$set" -> $doc(Learning.BSONFields.stack -> l.stack.filter(_ != puzzleId))))
+    }
+
+    def failed(user: User, puzzleId: PuzzleId) = learning find user flatMap {
+      case None => learning add Learning(user.id, List(puzzleId))
+      case Some(l) =>
+        learningColl.update(
+          $id(user.id),
+          $doc("$set" -> $doc(Learning.BSONFields.stack -> l.addPuzzle(puzzleId)))) 
+    }
+
+    def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
+      case None => fuccess(none)
+      case Some(l) => l nextPuzzleId match {
+        case None => fuccess(none)
+        case Some(id) => puzzle find id
+      }
+    }
+    
   }
 }

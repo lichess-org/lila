@@ -15,8 +15,8 @@ private[puzzle] final class Finisher(
 
   def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[(Attempt, Option[Boolean])] =
     api.attempt.find(puzzle.id, user.id) flatMap {
-      case Some(a) => fuccess(a -> data.isWin.some)
-      case None =>
+      case Some(a) if (a.win) => fuccess(a -> data.isWin.some)
+      case _ =>
         val userRating = user.perfs.puzzle.toRating
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
@@ -35,7 +35,7 @@ private[puzzle] final class Finisher(
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
-        ((api.attempt add a) >> {
+        (api.learning.update(user, puzzle, data) >> (api.attempt add a) >> {
           puzzleColl.update(
             $id(puzzle.id),
             $inc(
