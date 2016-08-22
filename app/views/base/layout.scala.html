@@ -202,13 +202,13 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @jsTag("socket.js")
     @jsTag("main.js")
     }
+    @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") {
     @embedJs {
     lichess_translations = @jsI18n()
     }
     }
-    @if(withGtm) {@gtm()}
-    @else {@base.ga()}
+    @if(withGtm) {@gtm()} else {@ga()}
   </body>
 </html>

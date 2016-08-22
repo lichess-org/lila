@@ -6,7 +6,7 @@ module.exports = {
     var complete = categ.stages.every(function(s) {
       return !!data.stages[s.key];
     });
-    if (complete) window.dataLayer.push({
+    if (complete) dataLayer.push({
       'event': 'VirtualPageview',
       'virtualPageURL': '/learn-' + categ.key + '-completed',
       'virtualPageTitle': categ.name
