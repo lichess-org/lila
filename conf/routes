@@ -371,6 +371,8 @@ POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
 # Coach
 GET   /coach                           controllers.Coach.index
 GET   /coach/:username                 controllers.Coach.show(username: String)
+GET   /coach/edit                      controllers.Coach.edit
+POST  /coach/edit                      controllers.Coach.editApply
 
 # Paste
 GET   /paste                           controllers.Importer.importGame

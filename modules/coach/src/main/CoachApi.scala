@@ -22,6 +22,9 @@ final class CoachApi(coll: Coll) {
       }
     }
 
+  def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
+    coll.update($id(c.coach.id), data(c.coach)).void
+
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
 }

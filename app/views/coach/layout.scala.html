@@ -1,11 +1,13 @@
-@(title: String, active: String)(body: Html)(implicit ctx: Context)
+@(title: String, active: String, evenMoreCss: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
+@evenMoreCss
 }
 
 @menu = {
 <a class="@active.active("all")" href="@routes.Coach.index">All coaches</a>
+<a class="text" data-icon="" href="//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way">What are studies?</a>
 }
 
 @base.layout(

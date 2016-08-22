@@ -1,0 +1,31 @@
+@(c: lila.coach.Coach.WithUser, form: Form[_])(implicit ctx: Context)
+
+@group(field: play.api.data.Field, name: Html, half: Boolean = false)(html: Html) = {
+<div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}">
+  @html
+  <label for="@field.id" class="control-label">@name</label>
+  <i class="bar"></i>
+</div>
+}
+
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("coach.css")
+}
+
+@layout(title = c.user.titleUsername, active = "coach",
+evenMoreCss = Some(cssTag("material.form.css"))) {
+<div class="coach_edit content_box small_box no_padding">
+  <h1 class="lichess_title">
+    Coach @userLink(c.user)
+  </h1>
+  <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
+    @group(form("headline"), Html("Headline")) {
+    @base.input(form("headline"))
+    }
+    <div class="button-container">
+      <button type="submit" class="submit button text" data-icon="E">Save now</button>
+    </div>
+  </form>
+</div>
+}
