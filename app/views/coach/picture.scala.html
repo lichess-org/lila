@@ -6,14 +6,22 @@
     @userLink(c.user) coach picture
   </h1>
   @pic(c)
-  @error.map { e =>
-  <p class="error">@e</p>
-  }
-  @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data") {
-  <input type="file" name="picture">
-  <p>
-    <input type="submit">
-  </p>
-  }
+  <div class="forms">
+    @error.map { e =>
+    <p class="error">@e</p>
+    }
+    @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
+    <input type="file" name="picture">
+    <button type="submit" class="button">Upload profile picture</button>
+    }
+    @if(c.coach.hasPicture) {
+    @helper.form(action = routes.Coach.pictureDelete, 'enctype -> "multipart/form-data", 'class -> "delete") {
+    <button type="submit" class="button">Delete profile picture</button>
+    }
+    }
+    <div class="cancel">
+      <a href="@routes.Coach.edit" class="text" data-icon="I">Cancel and return to coach page form</a>
+    </div>
+  </div>
 </div>
 }

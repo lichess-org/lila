@@ -23,7 +23,15 @@ evenMoreCss = Some(cssTag("material.form.css"))) {
   <h1 class="lichess_title">
     @userLink(c.user) coach page
   </h1>
-  @pic(c)
+  @if(c.coach.hasPicture) {
+  <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
+    @pic(c)
+  </a>
+  } else {
+  <div class="upload_picture">
+    <a class="button" href="@routes.Coach.picture">Upload a profile picture</a>
+  </div>
+  }
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
     <div>
       @group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {

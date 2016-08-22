@@ -25,8 +25,8 @@ object Coach extends LilaController {
 
   def edit = Auth { implicit ctx =>
     me =>
-      OptionOk(api find me) { c =>
-        html.coach.edit(c, CoachForm edit c.coach)
+      OptionResult(api find me) { c =>
+        NoCache(Ok(html.coach.edit(c, CoachForm edit c.coach)))
       }
   }
 
@@ -43,8 +43,8 @@ object Coach extends LilaController {
 
   def picture = Auth { implicit ctx =>
     me =>
-      OptionOk(api find me) { c =>
-        html.coach.picture(c)
+      OptionResult(api find me) { c =>
+        NoCache(Ok(html.coach.picture(c)))
       }
   }
 
@@ -58,6 +58,13 @@ object Coach extends LilaController {
           } inject Redirect(routes.Coach.edit)
           case None => fuccess(Redirect(routes.Coach.edit))
         }
+      }
+  }
+
+  def pictureDelete = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(api find me) { c =>
+        api.deletePicture(c) inject Redirect(routes.Coach.edit)
       }
   }
 }

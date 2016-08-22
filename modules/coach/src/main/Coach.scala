@@ -18,6 +18,8 @@ case class Coach(
   def id = _id
 
   def is(user: User) = id.value == user.id
+
+  def hasPicture = picturePath.isDefined
 }
 
 object Coach {
