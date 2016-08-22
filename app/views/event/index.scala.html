@@ -1,0 +1,35 @@
+@(events: List[lila.event.Event])(implicit ctx: Context)
+
+@title = {Event manager}
+
+@layout(title = title.body, active = "index") {
+<div class="event_crud content_box no_padding">
+  <h1 class="lichess_title">@title</h1>
+  <table class="slist">
+    <thead>
+      <tr>
+        <th></th>
+        <th>UTC start</th>
+        <th>UTC end</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @events.map { event =>
+      <tr>
+        <td><a href="@routes.EventCrud.edit(event.id)">@event.title</a></td>
+        <td>
+          @showDateTimeUTC(event.startsAt)
+          @momentFromNow(event.startsAt)
+        </td>
+        <td>
+          @showDateTimeUTC(event.finishesAt)
+          @momentFromNow(event.finishesAt)
+        </td>
+        <td><a class="text"href="@event.url" data-icon="v">URL</a></td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}

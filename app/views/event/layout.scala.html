@@ -1,0 +1,25 @@
+@(title: String, active: String = "")(body: Html)(implicit ctx: Context)
+
+@menu = {
+<a class="@active.active("index")" href="@routes.EventCrud.index">Recent events</a>
+<a class="@active.active("form")" href="@routes.EventCrud.form">Create an event</a>
+}
+
+@moreCss = {
+@cssAt("vendor/flatpickr/dist/flatpickr.min.css")
+@cssTag("material.form.css")
+@cssTag("event.crud.css")
+}
+
+@moreJs = {
+@jsAt("vendor/flatpickr/dist/flatpickr.min.js")
+@embedJs {
+$(".flatpickr").flatpickr();
+}
+}
+
+@base.layout(
+title = title,
+menu = menu.some,
+moreCss = moreCss,
+moreJs = moreJs)(body)

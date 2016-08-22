@@ -36,10 +36,10 @@
   @group(form("image"), Html("Custom icon"), half = true) {
   @base.select(form("image"), imageChoices)
   }
-  @group(form("headline"), Html("Homepage headline")) {
-  @base.input(form("headline"))
-  }
 </div>
+@group(form("headline"), Html("Homepage headline")) {
+@base.input(form("headline"))
+}
 @group(form("description"), Html("Full description")) {
 <textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
 }

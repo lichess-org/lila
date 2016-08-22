@@ -7,7 +7,7 @@ import lila.user.User
 
 final class CrudApi {
 
-  def list = TournamentRepo uniques 30
+  def list = TournamentRepo uniques 50
 
   def one(id: String) = TournamentRepo uniqueById id
 

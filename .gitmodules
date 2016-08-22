@@ -34,3 +34,6 @@
 [submodule "public/vendor/Sunsetter"]
 	path = public/vendor/Sunsetter
 	url = https://github.com/niklasf/Sunsetter.git
+[submodule "public/vendor/flatpickr"]
+	path = public/vendor/flatpickr
+	url = https://github.com/chmln/flatpickr
