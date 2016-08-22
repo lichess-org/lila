@@ -17,17 +17,13 @@
 }
 }
 
-@moreCss = {
-@cssTag("material.form.css")
-@cssTag("coach.css")
-}
-
-@layout(title = c.user.titleUsername, active = "coach",
+@layout(title = s"${c.user.titleUsername} coach page", active = "coach",
 evenMoreCss = Some(cssTag("material.form.css"))) {
 <div class="coach_edit content_box small_box no_padding">
   <h1 class="lichess_title">
     @userLink(c.user) coach page
   </h1>
+  @pic(c)
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
     <div>
       @group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {

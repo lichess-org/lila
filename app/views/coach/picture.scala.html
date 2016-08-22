@@ -1,0 +1,19 @@
+@(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context)
+
+@layout(title = s"${c.user.titleUsername} coach picture", active = "coach") {
+<div class="coach_picture content_box small_box no_padding">
+  <h1 class="lichess_title">
+    @userLink(c.user) coach picture
+  </h1>
+  @pic(c)
+  @error.map { e =>
+  <p class="error">@e</p>
+  }
+  @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data") {
+  <input type="file" name="picture">
+  <p>
+    <input type="submit">
+  </p>
+  }
+</div>
+}

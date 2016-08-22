@@ -372,7 +372,12 @@ POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
 GET   /coach                           controllers.Coach.index
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
+GET   /coach/edit/picture              controllers.Coach.picture
+POST  /coach/edit/picture              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username: String)
+
+# DB image
+GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame

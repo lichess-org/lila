@@ -15,3 +15,21 @@
   opacity: 0.8;
   display: block;
 }
+
+.thumbnail {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 12px;
+  border: 7px solid #ddd;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  transform: translate(-50%,-50%);
+}

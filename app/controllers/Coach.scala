@@ -36,8 +36,28 @@ object Coach extends LilaController {
         implicit val req = ctx.body
         CoachForm.edit(c.coach).bindFromRequest.fold(
           form => fuccess(BadRequest(html.coach.edit(c, form))),
-          data => api.update(c, data) inject Redirect(routes.Coach.show(me.username))
+          data => api.update(c, data) inject Redirect(routes.Coach.edit)
         )
+      }
+  }
+
+  def picture = Auth { implicit ctx =>
+    me =>
+      OptionOk(api find me) { c =>
+        html.coach.picture(c)
+      }
+  }
+
+  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx =>
+    me =>
+      OptionFuResult(api find me) { c =>
+        implicit val req = ctx.body
+        ctx.body.body.file("picture") match {
+          case Some(pic) => api.uploadPicture(c, pic) recover {
+            case e: lila.common.LilaException => BadRequest(html.coach.picture(c, e.message.some))
+          } inject Redirect(routes.Coach.edit)
+          case None => fuccess(Redirect(routes.Coach.edit))
+        }
       }
   }
 }

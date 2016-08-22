@@ -1,9 +1,13 @@
 package lila.coach
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-final class CoachApi(coll: Coll) {
+final class CoachApi(
+    coll: Coll,
+    imageColl: Coll) {
 
   import BsonHandlers._
 
@@ -32,6 +36,27 @@ final class CoachApi(coll: Coll) {
       case Some(user) => coll.insert(Coach make user) inject "Done!"
     }
   }
+
+  private val pictureMaxMb = 3
+  private val pictureMaxBytes = pictureMaxMb * 1024 * 1024
+  private def pictureId(id: Coach.Id) = s"coach:${id.value}:picture"
+
+  def uploadPicture(
+    c: Coach.WithUser,
+    picture: play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]): Funit =
+    if (picture.ref.file.length > pictureMaxBytes) fufail(s"File size must not exceed ${pictureMaxMb}MB.")
+    else {
+      val image = lila.db.DbImage.make(
+        id = pictureId(c.coach.id),
+        name = picture.filename,
+        contentType = picture.contentType,
+        file = picture.ref.file)
+      imageColl.update($id(image.id), image, upsert = true) >>
+        coll.update($id(c.coach.id), $set("picturePath" -> image.path))
+    } void
+
+  def deletePicture(c: Coach.WithUser): Funit =
+    coll.update($id(c.coach.id), $unset("picturePath")).void
 
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
