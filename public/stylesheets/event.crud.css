@@ -1,0 +1,49 @@
+h1.lichess_title {
+  text-align: center;
+  margin-bottom: 0!important;
+}
+.event_crud.edit h1.lichess_title {
+  background: #303F9F;
+  color: #ddd;
+  letter-spacing: 0.1em;
+  padding: 30px!important;
+  font-size: 27px!important;
+}
+h1.lichess_title span {
+  display: block;
+  font-size: 0.35em;
+  opacity: 0.8;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+table.slist {
+  font-size: 1.2em;
+  width: 100%;
+}
+table.slist td {
+  padding: 20px 10px;
+}
+table.slist time {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.material.form {
+  margin: 30px 20px 20px 20px;
+}
+.material.form button {
+  font-size: 1.7em;
+  font-weight: normal;
+  padding: 10px 20px;
+}
+.material.form textarea {
+  height: 10em;
+}
+.event_crud a {
+  color: #3893E8!important;
+}
+.event_crud h2 {
+  font-size: 1.5em;
+  margin: 0px 0 30px 0;
+  text-align: center;
+}

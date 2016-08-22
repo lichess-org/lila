@@ -2,8 +2,7 @@ package lila.security
 
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
-  final def is(p: Permission): Boolean =
-    this == p || (children exists (_ is p))
+  final def is(p: Permission): Boolean = this == p || (children exists (_ is p))
 }
 
 object Permission {
@@ -35,6 +34,7 @@ object Permission {
   case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
   case object TerminateTournament extends Permission("ROLE_TERMINATE_TOURNAMENT")
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
+  case object ManageEvent extends Permission("ROLE_MANAGE_EVENT")
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD", List(GuineaPig))
   case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
@@ -47,7 +47,8 @@ object Permission {
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
-    MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, GuineaPig))
+    MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
+    GuineaPig))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
     Admin, ChangePermission, PublicMod, Developer))
@@ -55,7 +56,7 @@ object Permission {
   lazy val allButSuperAdmin: List[Permission] = List(
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
-    Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament,
+    Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
     PublicMod, Developer, GuineaPig)
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin

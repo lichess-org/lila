@@ -418,6 +418,13 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 
+# Events
+GET   /event/manager                     controllers.EventCrud.index
+GET   /event/manager/$id<\w{8}>          controllers.EventCrud.edit(id: String)
+POST  /event/manager/$id<\w{8}>          controllers.EventCrud.update(id: String)
+GET   /event/manager/new                 controllers.EventCrud.form
+POST  /event/manager                     controllers.EventCrud.create
+
 # Misc
 POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
