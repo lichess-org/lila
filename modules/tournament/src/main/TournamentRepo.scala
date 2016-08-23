@@ -174,7 +174,7 @@ object TournamentRepo {
     coll.find(selectUnique)
       .sort($doc("startsAt" -> -1))
       .hint($doc("startsAt" -> -1))
-      .list[Tournament]()
+      .list[Tournament](max)
 
   def scheduledUnfinished: Fu[List[Tournament]] =
     coll.find(scheduledSelect ++ unfinishedSelect)

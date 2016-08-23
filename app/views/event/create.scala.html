@@ -1,0 +1,10 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@layout(title = "New event", active = "form") {
+<div class="event_crud content_box small_box no_padding">
+  <h1 class="lichess_title">New event</h1>
+  <form class="content_box_content material form" action="@routes.Event.create" method="POST">
+    @inForm(form)
+  </form>
+</div>
+}

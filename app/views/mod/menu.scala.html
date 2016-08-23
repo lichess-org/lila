@@ -13,7 +13,10 @@
 <a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
 }
 @if(isGranted(_.ManageTournament)) {
-<a class="@active.active("index")" href="@routes.TournamentCrud.index">Recent tournaments</a>
+<a class="@active.active("tour")" href="@routes.TournamentCrud.index">Manage tournaments</a>
+}
+@if(isGranted(_.ManageEvent)) {
+<a class="@active.active("event")" href="@routes.Event.index">Manage events</a>
 }
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>

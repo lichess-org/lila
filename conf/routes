@@ -368,6 +368,18 @@ GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
 
+# Coach
+GET   /coach                           controllers.Coach.index
+GET   /coach/edit                      controllers.Coach.edit
+POST  /coach/edit                      controllers.Coach.editApply
+GET   /coach/edit/picture              controllers.Coach.picture
+POST  /coach/edit/picture              controllers.Coach.pictureApply
+POST  /coach/edit/picture/delete       controllers.Coach.pictureDelete
+GET   /coach/:username                 controllers.Coach.show(username: String)
+
+# DB image
+GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
+
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
@@ -417,6 +429,14 @@ GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
+
+# Events
+GET   /event                           controllers.Event.index
+GET   /event/manager                   controllers.Event.manager
+GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
+POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/new               controllers.Event.form
+POST  /event/manager                   controllers.Event.create
 
 # Misc
 POST  /cli                             controllers.Cli.command
