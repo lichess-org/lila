@@ -1,0 +1,15 @@
+.datatable td {
+  padding: 2em!important;
+}
+.datatable a {
+  color: #3893E8;
+}
+.datatable h2 {
+  font-size: 1.5em;
+}
+.datatable strong {
+  font-weight: normal;
+}
+.datatable .date {
+  display: block;
+}

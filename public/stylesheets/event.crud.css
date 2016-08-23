@@ -5,6 +5,13 @@ h1.lichess_title {
 h1.lichess_title a.new {
   float: right;
 }
+h1.lichess_title span {
+  display: block;
+  font-size: 0.35em;
+  opacity: 0.8;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
 .event_crud.edit h1.lichess_title {
   background: #303F9F;
   color: #ddd;
