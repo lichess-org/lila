@@ -37,17 +37,12 @@ private[puzzle] final class Selector(
           .uno[Puzzle]
       case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
       case Some(user) =>
-        val nextLearn = api.learning.nextPuzzle(user)
         val isLearn = scala.util.Random.nextInt(5) == 0
-        nextLearn flatMap {
-          case Some(p) if isLearn => fuccess(Some(p))
-          case _ =>
-            val rating = user.perfs.puzzle.intRating min 2300 max 900
-            val step = toleranceStepFor(rating)
-            api.attempt.playedIds(user) flatMap { ids =>
-              tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
-            }
-        }
+        if (isLearn) api.learning.nextPuzzle(user) flatMap {
+            case None => newPuzzleForUser(user, isMate, difficulty)
+            case p => fuccess(p)
+          }
+        else newPuzzleForUser(user, isMate, difficulty)
     }
   }.mon(_.puzzle.selector.time)
 
@@ -57,6 +52,14 @@ private[puzzle] final class Selector(
       case d if d >= 300 => 250
       case d             => 200
     }
+
+  private def newPuzzleForUser(user: User, isMate: Boolean, difficulty: Int): Fu[Option[Puzzle]] = {
+    val rating = user.perfs.puzzle.intRating min 2300 max 900
+    val step = toleranceStepFor(rating)
+    api.attempt.playedIds(user) flatMap { ids =>
+      tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+    }
+  }
 
   private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: Barr, isMate: Boolean): Fu[Option[Puzzle]] =
     puzzleColl.find(mateSelector(isMate) ++ $doc(

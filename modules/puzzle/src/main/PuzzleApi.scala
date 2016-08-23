@@ -86,7 +86,18 @@ private[puzzle] final class PuzzleApi(
             }
     }
 
-    def add(a: Attempt) = attemptColl insert a void
+    def add(a: Attempt) = attemptColl.insert(a) recoverWith lila.db.recoverDuplicateKey { _ =>
+      attemptColl.update($id(a.id),
+        $doc("$set" -> $doc(
+          Attempt.BSONFields.win -> a.win,
+          Attempt.BSONFields.date -> a.date,
+          Attempt.BSONFields.time -> a.time,
+          Attempt.BSONFields.puzzleRating -> a.puzzleRating,
+          Attempt.BSONFields.puzzleRatingDiff -> a.puzzleRatingDiff,
+          Attempt.BSONFields.userRating -> a.userRating,
+          Attempt.BSONFields.userRatingDiff -> a.userRatingDiff
+          )))
+    } void
 
     def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
       attemptColl.exists($doc(
@@ -128,7 +139,7 @@ private[puzzle] final class PuzzleApi(
       case Some(l) =>
         learningColl.update(
           $id(l.id),
-          l solved puzzleId)
+          $doc("$pull" -> $doc("stack" -> puzzleId)))
     }
 
     def failed(user: User, puzzleId: PuzzleId) = learning find user flatMap {
