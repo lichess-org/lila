@@ -1,7 +1,6 @@
 @(c: lila.coach.Coach.WithUser, form: Form[_])(implicit ctx: Context)
 
 @import play.api.data.Field
-@import lila.coach.CoachForm.booleanChoices
 
 @group(field: Field, name: Html, half: Boolean = false, largeLabel: Boolean = false)(html: Html) = {
 <div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}@if(largeLabel){ large-label}">

@@ -10,6 +10,7 @@ case class Event(
     headline: String,
     homepageHours: Int,
     url: String,
+    enabled: Boolean,
     createdBy: Event.UserId,
     createdAt: DateTime,
     startsAt: DateTime,

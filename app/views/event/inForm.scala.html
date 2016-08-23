@@ -20,12 +20,15 @@
 @group(form("headline"), Html("Headline")) {
 @base.input(form("headline"))
 }
+@group(form("url"), Html("External URL")) {
+@base.input(form("url"))
+}
 <div>
+  @group(form("enabled"), Html("Enabled"), half = true) {
+  @base.select(form("enabled"), booleanChoices)
+  }
   @group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
   @base.input(form("homepageHours"))
-  }
-  @group(form("url"), Html("External URL"), half = true) {
-  @base.input(form("url"))
   }
 </div>
 

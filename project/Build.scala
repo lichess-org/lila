@@ -156,7 +156,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, play.test, RM)
   )
 
-  lazy val event = project("event", Seq(common, db)).settings(
+  lazy val event = project("event", Seq(common, db, memo)).settings(
     libraryDependencies ++= provided(play.api, play.test, RM)
   )
 

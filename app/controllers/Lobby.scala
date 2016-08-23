@@ -30,6 +30,7 @@ object Lobby extends LilaController {
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament.cached promotable true,
+      events = Env.event.api promotable true,
       simuls = Env.simul allCreatedFeaturable true
     ) map (html.lobby.home.apply _).tupled map { status(_) } map ensureSessionId(ctx.req)
   }.mon(_.http.response.home)

@@ -32,8 +32,6 @@ object CoachForm {
       updatedAt = DateTime.now)
   }
 
-  val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
-
   private def profileMapping = mapping(
     "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 140)),
     "description" -> optional(markdown),

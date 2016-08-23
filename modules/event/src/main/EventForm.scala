@@ -17,6 +17,7 @@ object EventForm {
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "homepageHours" -> number(min = 0, max = 24),
     "url" -> nonEmptyText,
+    "enabled" -> boolean,
     "startsAt" -> utcDate,
     "finishesAt" -> utcDate
   )(Data.apply)(Data.unapply))
@@ -26,6 +27,7 @@ object EventForm {
       headline: String,
       homepageHours: Int,
       url: String,
+      enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime) {
 
@@ -34,6 +36,7 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
+      enabled = enabled,
       startsAt = startsAt,
       finishesAt = finishesAt)
 
@@ -43,6 +46,7 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
+      enabled = enabled,
       startsAt = startsAt,
       finishesAt = finishesAt,
       createdBy = Event.UserId(userId),
@@ -56,6 +60,7 @@ object EventForm {
       headline = event.headline,
       homepageHours = event.homepageHours,
       url = event.url,
+      enabled = event.enabled,
       startsAt = event.startsAt,
       finishesAt = event.finishesAt)
   }
