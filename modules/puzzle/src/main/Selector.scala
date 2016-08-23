@@ -38,7 +38,7 @@ private[puzzle] final class Selector(
       case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
       case Some(user) =>
         val nextLearn = api.learning.nextPuzzle(user)
-        val isLearn = scala.util.Random.nextBoolean
+        val isLearn = scala.util.Random.nextInt(5) == 0
         nextLearn flatMap {
           case Some(p) if isLearn => fuccess(Some(p))
           case _ =>
@@ -65,7 +65,7 @@ private[puzzle] final class Selector(
         (rating - tolerance + decay) $lt
         (rating + tolerance + decay)
     )).sort($sort desc Puzzle.BSONFields.voteSum)
-      .uno[Puzzle] flatMap {
+    .uno[Puzzle] flatMap {
         case None if (tolerance + step) <= toleranceMax =>
           tryRange(rating, tolerance + step, step, decay, ids, isMate)
         case res => fuccess(res)
