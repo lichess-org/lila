@@ -6,7 +6,7 @@
     @event.title
     <span>Created by @usernameOrId(event.createdBy.value) on @showDate(event.createdAt)</span>
   </h1>
-  <form class="content_box_content material form" action="@routes.EventCrud.update(event.id)" method="POST">
+  <form class="content_box_content material form" action="@routes.Event.update(event.id)" method="POST">
     @inForm(form)
   </form>
 </div>

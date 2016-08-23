@@ -431,11 +431,12 @@ GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 
 # Events
-GET   /event/manager                     controllers.EventCrud.index
-GET   /event/manager/$id<\w{8}>          controllers.EventCrud.edit(id: String)
-POST  /event/manager/$id<\w{8}>          controllers.EventCrud.update(id: String)
-GET   /event/manager/new                 controllers.EventCrud.form
-POST  /event/manager                     controllers.EventCrud.create
+GET   /event                           controllers.Event.index
+GET   /event/manager                   controllers.Event.manager
+GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
+POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/new               controllers.Event.form
+POST  /event/manager                   controllers.Event.create
 
 # Misc
 POST  /cli                             controllers.Cli.command

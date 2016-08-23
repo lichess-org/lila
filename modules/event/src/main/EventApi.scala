@@ -10,12 +10,14 @@ final class EventApi(coll: Coll) {
 
   import BsonHandlers._
 
-  val promotable = AsyncCache.single(fetchPromotable, timeToLive = 1 minute)
+  val promotable = AsyncCache.single(fetchPromotable, timeToLive = 5 minutes)
 
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,
-    "startsAt" $gt DateTime.now $lt DateTime.now.plusDays(1)
-  )).sort($doc("startsAt" -> 1)).list[Event](2)
+    "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+  )).sort($doc("startsAt" -> 1)).list[Event](5).map {
+    _.filter(_.isNow)
+  }
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
 

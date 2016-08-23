@@ -5,15 +5,20 @@ import play.api.mvc._
 import lila.app._
 import views._
 
-object EventCrud extends LilaController {
+object Event extends LilaController {
 
-  private def env = Env.event
-  private def api = env.api
+  private def api = Env.event.api
 
-  def index = Secure(_.ManageEvent) { implicit ctx =>
+  def index = Open { implicit ctx =>
+    api.list.map { events =>
+      Ok(html.event.index(events))
+    }
+  }
+
+  def manager = Secure(_.ManageEvent) { implicit ctx =>
     me =>
       api.list map { events =>
-        html.event.index(events)
+        html.event.manager(events)
       }
   }
 
@@ -30,7 +35,7 @@ object EventCrud extends LilaController {
         implicit val req = ctx.body
         api.editForm(event).bindFromRequest.fold(
           err => BadRequest(html.event.edit(event, err)).fuccess,
-          data => api.update(event, data) inject Redirect(routes.EventCrud.edit(id))
+          data => api.update(event, data) inject Redirect(routes.Event.edit(id))
         )
       }
   }
@@ -46,7 +51,7 @@ object EventCrud extends LilaController {
       api.createForm.bindFromRequest.fold(
         err => BadRequest(html.event.create(err)).fuccess,
         data => api.create(data, me.id) map { event =>
-          Redirect(routes.EventCrud.edit(event.id))
+          Redirect(routes.Event.edit(event.id))
         }
       )
   }
