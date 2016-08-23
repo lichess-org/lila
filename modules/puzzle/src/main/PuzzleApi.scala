@@ -130,7 +130,7 @@ private[puzzle] final class PuzzleApi(
       case None => fuccess(none)
       case Some(l) =>
         learningColl.update(
-          $id(user.id),
+          $id(l.id),
           $doc("$set" -> $doc(Learning.BSONFields.stack -> l.stack.filter(_ != puzzleId))))
     }
 
@@ -138,7 +138,7 @@ private[puzzle] final class PuzzleApi(
       case None => learning add Learning(user.id, List(puzzleId))
       case Some(l) =>
         learningColl.update(
-          $id(user.id),
+          $id(l.id),
           $doc("$set" -> $doc(Learning.BSONFields.stack -> l.addPuzzle(puzzleId)))) 
     }
 

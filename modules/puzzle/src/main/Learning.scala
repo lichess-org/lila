@@ -2,13 +2,13 @@ package lila.puzzle
 
 case class Learning(
   _id: String, // userId
-  stack: List[Int]) { // puzzleIds being learnt
+  stack: List[PuzzleId]) { // puzzleIds being learnt
 
   def id = _id
 
   def nextPuzzleId = stack.lastOption
 
-  def addPuzzle(puzzleId: Int): List[Int] = puzzleId :: stack.filter(_ != puzzleId).take(50)
+  def addPuzzle(puzzleId: PuzzleId): List[PuzzleId] = puzzleId :: stack.filter(_ != puzzleId).take(50)
 }
 
 object Learning {
