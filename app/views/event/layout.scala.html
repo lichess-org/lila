@@ -1,9 +1,4 @@
-@(title: String, active: String = "")(body: Html)(implicit ctx: Context)
-
-@menu = {
-<a class="@active.active("index")" href="@routes.Event.index">Recent events</a>
-<a class="@active.active("form")" href="@routes.Event.form">Create an event</a>
-}
+@(title: String)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssAt("vendor/flatpickr/dist/flatpickr.min.css")
@@ -18,8 +13,8 @@ $(".flatpickr").flatpickr();
 }
 }
 
-@base.layout(
+@mod.layout(
 title = title,
-menu = menu.some,
+active = "event",
 moreCss = moreCss,
 moreJs = moreJs)(body)

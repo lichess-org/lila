@@ -2,19 +2,15 @@ h1.lichess_title {
   text-align: center;
   margin-bottom: 0!important;
 }
+h1.lichess_title a.new {
+  float: right;
+}
 .tour_crud.edit h1.lichess_title {
   background: #303F9F;
   color: #ddd;
   letter-spacing: 0.1em;
   padding: 30px!important;
   font-size: 31px!important;
-}
-h1.lichess_title span {
-  display: block;
-  font-size: 0.35em;
-  opacity: 0.8;
-  margin-top: 10px;
-  text-transform: uppercase;
 }
 table.slist {
   font-size: 1.2em;

@@ -2,9 +2,12 @@
 
 @title = {Tournament manager}
 
-@layout(title = title.body, active = "index") {
+@layout(title = title.body) {
 <div class="tour_crud content_box no_padding">
-  <h1 class="lichess_title">@title</h1>
+  <h1 class="lichess_title">
+    <a href="@routes.TournamentCrud.form" data-icon="O" class="new"></a>
+    @title
+  </h1>
   <table class="slist">
     <thead>
       <tr>

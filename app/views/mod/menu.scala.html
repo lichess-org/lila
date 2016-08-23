@@ -16,7 +16,7 @@
 <a class="@active.active("tour")" href="@routes.TournamentCrud.index">Manage tournaments</a>
 }
 @if(isGranted(_.ManageEvent)) {
-<a class="@active.active("event")" href="@routes.Event.index">Manage events</a>
+<a class="@active.active("event")" href="@routes.Event.manager">Manage events</a>
 }
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>
