@@ -458,15 +458,18 @@ lichess.notifyApp = (function() {
         }).data('powertip', lichess.spinnerHtml);
       }
 
+      function powerTipWith(el, ev, f) {
+        f($(el));
+        $.powerTip.show(el, ev);
+      }
+
       document.body.addEventListener('mouseover', function(e) {
-        var cl = e.target.classList;
-        if (cl.contains('ulpt')) {
-          userPowertip($(e.target));
-          $.powerTip.show(e.target, e);
-        } else if (cl.contains('glpt')) {
-          gamePowertip($(e.target));
-          $.powerTip.show(e.target, e);
-        }
+        var t = e.target,
+          cl = t.classList;
+        if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
+        else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+        else if (t.tagName === 'TIME' && t.parentNode.classList.contains('glpt'))
+          powerTipWith(t.parentNode, e, gamePowertip);
       });
 
       function setMoment() {
