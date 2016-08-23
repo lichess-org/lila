@@ -116,10 +116,7 @@ private[puzzle] final class PuzzleApi(
 
   object learning {
 
-    def find(user: User): Fu[Option[Learning]] =
-      learningColl.find($doc(
-        Learning.BSONFields.id -> user.id
-      )).uno[Learning]
+    def find(user: User): Fu[Option[Learning]] = learningColl.byId[Learning](user.id)
 
     def add(l: Learning) = learningColl insert l void
 
@@ -131,7 +128,7 @@ private[puzzle] final class PuzzleApi(
       case Some(l) =>
         learningColl.update(
           $id(l.id),
-          $doc("$set" -> $doc(Learning.BSONFields.stack -> l.stack.filter(_ != puzzleId))))
+          l solved puzzleId)
     }
 
     def failed(user: User, puzzleId: PuzzleId) = learning find user flatMap {
@@ -139,15 +136,12 @@ private[puzzle] final class PuzzleApi(
       case Some(l) =>
         learningColl.update(
           $id(l.id),
-          $doc("$set" -> $doc(Learning.BSONFields.stack -> l.addPuzzle(puzzleId)))) 
+          l failed puzzleId) 
     }
 
     def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
       case None => fuccess(none)
-      case Some(l) => l nextPuzzleId match {
-        case None => fuccess(none)
-        case Some(id) => puzzle find id
-      }
+      case Some(l) => l.nextPuzzleId ?? puzzle.find
     }
     
   }

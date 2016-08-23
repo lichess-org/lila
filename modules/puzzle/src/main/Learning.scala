@@ -8,7 +8,9 @@ case class Learning(
 
   def nextPuzzleId = stack.lastOption
 
-  def addPuzzle(puzzleId: PuzzleId): List[PuzzleId] = puzzleId :: stack.filter(_ != puzzleId).take(50)
+  def failed(puzzleId: PuzzleId): Learning = Learning(id, puzzleId :: stack.filter(_ != puzzleId).take(50))
+
+  def solved(puzzleId: PuzzleId): Learning = Learning(id, stack.filter(_ != puzzleId))
 }
 
 object Learning {
