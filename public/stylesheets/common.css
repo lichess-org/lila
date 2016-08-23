@@ -1820,8 +1820,8 @@ a.mini_board {
 }
 .mini_board .cg-board-wrap {
   margin: auto;
-  width: 224px;
-  height: 224px;
+  width: 224px!important;
+  height: 224px!important;
   position: relative;
 }
 #now_playing {
