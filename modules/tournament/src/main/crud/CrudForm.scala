@@ -22,7 +22,7 @@ object CrudForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "variant" -> number.verifying(validVariantIds contains _),
-    "date" -> jodaDate(dateTimePattern),
+    "date" -> utcDate,
     "image" -> stringIn(imageChoices),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "description" -> nonEmptyText(minLength = 10, maxLength = 400),

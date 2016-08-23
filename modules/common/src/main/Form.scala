@@ -63,7 +63,7 @@ object Form {
 
   object UTCDate {
     val dateTimePattern = "yyyy-MM-dd HH:mm"
+    val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
-    def toUTC(date: DateTime) = date.toDateTime(DateTimeZone.UTC)
   }
 }

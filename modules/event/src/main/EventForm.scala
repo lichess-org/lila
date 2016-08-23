@@ -17,8 +17,8 @@ object EventForm {
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "homepageHours" -> number(min = 0, max = 24),
     "url" -> nonEmptyText,
-    "startsAt" -> jodaDate(dateTimePattern),
-    "finishesAt" -> jodaDate(dateTimePattern)
+    "startsAt" -> utcDate,
+    "finishesAt" -> utcDate
   )(Data.apply)(Data.unapply))
 
   case class Data(
@@ -34,8 +34,8 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
-      startsAt = toUTC(startsAt),
-      finishesAt = toUTC(finishesAt))
+      startsAt = startsAt,
+      finishesAt = finishesAt)
 
     def make(userId: String) = Event(
       _id = Event.makeId,
@@ -43,8 +43,8 @@ object EventForm {
       headline = headline,
       homepageHours = homepageHours,
       url = url,
-      startsAt = toUTC(startsAt),
-      finishesAt = toUTC(finishesAt),
+      startsAt = startsAt,
+      finishesAt = finishesAt,
       createdBy = Event.UserId(userId),
       createdAt = DateTime.now)
   }
