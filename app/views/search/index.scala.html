@@ -81,7 +81,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label for="@form("source").id">Source</label>
+          <label for="@form("source").id">@trans.source()</label>
         </th>
         <td class="single">
           @base.select(form("source"), Query.sources, "".some)
@@ -105,7 +105,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label>Number of turns</label>
+          <label>@trans.nbOfTurns()</label>
         </th>
         <td>
           <div class="half">From @base.select(form("turnsMin"), Query.turns, "".some)</div>
@@ -141,7 +141,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label for="@form("status").id">Result</label>
+          <label for="@form("status").id">@trans.result()</label>
         </th>
         <td class="single">
           @base.select(form("status"), Query.statuses, "".some)
@@ -149,7 +149,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label for="@form("winnerColor").id">Winner color</label>
+          <label for="@form("winnerColor").id">@trans.winnerColor()</label>
         </th>
         <td class="single">
           @base.select(form("winnerColor"), Query.winnerColors, "".some)
@@ -166,7 +166,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
       </tr>
       <tr>
         <th>
-          <label>Sort</label>
+          <label>@trans.sort()</label>
         </th>
         <td>
           <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
@@ -198,7 +198,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     @if(pager.nbResults > 0) {
     <div class="search_status">
       <strong>@pager.nbResults.localize games found</strong> •
-      <a class="permalink" href="@routes.Search.index()">Permalink</a> •
+      <a class="permalink" href="@routes.Search.index()">@trans.permalink()</a> •
       <a class="permalink" rel="nofollow" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
