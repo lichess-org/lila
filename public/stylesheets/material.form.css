@@ -92,6 +92,9 @@
   font-weight: normal;
   transition: all 0.28s ease;
 }
+.material.form .form-group .control-label em {
+  transition: all 0.28s ease;
+}
 .material.form .form-group.no-label {
   margin-top: -1.5em;
 }
@@ -157,7 +160,8 @@ body.dark .material.form .form-group select option {
   outline: none;
 }
 .material.form .form-group *:focus ~ .control-label,
-.material.form .form-group *:focus ~ .control-label strong {
+.material.form .form-group *:focus ~ .control-label strong,
+.material.form .form-group *:focus ~ .control-label em {
   color: #3893E8;
 }
 .material.form .form-group *:focus ~ .bar::before {
