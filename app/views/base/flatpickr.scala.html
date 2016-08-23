@@ -1,0 +1,7 @@
+@(field: play.api.data.Field, utc: Boolean = true, withTime: Boolean = true)
+<input class="flatpickr"
+data-enable-time="@withTime"
+data-utc="utc"
+value="@field.value"
+name="@field.name"
+id="@field.id" />

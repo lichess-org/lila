@@ -1,5 +1,6 @@
 package lila.common
 
+import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
 import play.api.data.FormError
@@ -58,5 +59,11 @@ object Form {
       def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data).right map to
       def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
     }
+  }
+
+  object UTCDate {
+    val dateTimePattern = "yyyy-MM-dd HH:mm"
+    implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+    def toUTC(date: DateTime) = date.toDateTime(DateTimeZone.UTC)
   }
 }

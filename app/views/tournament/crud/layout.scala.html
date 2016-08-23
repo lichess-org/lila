@@ -6,11 +6,20 @@
 }
 
 @moreCss = {
+@cssAt("vendor/flatpickr/dist/flatpickr.min.css")
 @cssTag("material.form.css")
 @cssTag("tournament.crud.css")
+}
+
+@moreJs = {
+@jsAt("vendor/flatpickr/dist/flatpickr.min.js")
+@embedJs {
+$(".flatpickr").flatpickr();
+}
 }
 
 @base.layout(
 title = title,
 menu = menu.some,
-moreCss = moreCss)(body)
+moreCss = moreCss,
+moreJs = moreJs)(body)

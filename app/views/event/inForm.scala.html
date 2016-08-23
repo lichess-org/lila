@@ -8,15 +8,11 @@
 </div>
 }
 
-@dateInput(field: play.api.data.Field) = {
-<input class="flatpickr" data-enable-time="true" value="@field.value" name="@field.name" id="@field.id" />
-}
-
 @group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true) {
-@dateInput(form("startsAt"))
+@base.flatpickr(form("startsAt"))
 }
 @group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) {
-@dateInput(form("finishesAt"))
+@base.flatpickr(form("finishesAt"))
 }
 @group(form("title"), Html("Title")) {
 @base.input(form("title"))

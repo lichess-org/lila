@@ -1,7 +1,6 @@
 package lila.event
 
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
@@ -11,9 +10,7 @@ import lila.common.Form._
 
 object EventForm {
 
-  private val dateTimePattern = "yyyy-MM-dd HH:mm"
-
-  private implicit val dateTimeFormat = format.Formats.jodaDateTimeFormat(dateTimePattern)
+  import lila.common.Form.UTCDate._
 
   val form = Form(mapping(
     "title" -> nonEmptyText(minLength = 3, maxLength = 40),
@@ -51,8 +48,6 @@ object EventForm {
       createdBy = Event.UserId(userId),
       createdAt = DateTime.now)
   }
-
-  private def toUTC(date: DateTime) = date.toDateTime(DateTimeZone.UTC)
 
   object Data {
 

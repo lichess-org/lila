@@ -13,6 +13,7 @@ import lila.common.Form._
 object CrudForm {
 
   import DataForm._
+  import lila.common.Form.UTCDate._
 
   lazy val apply = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 40),
@@ -21,9 +22,7 @@ object CrudForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
     "variant" -> number.verifying(validVariantIds contains _),
-    "date" -> nonEmptyText.verifying(s => parseDateUTC(s).isDefined),
-    "dateHour" -> number(min = 0, max = 23),
-    "dateMinute" -> number(min = 0, max = 59),
+    "date" -> jodaDate(dateTimePattern),
     "image" -> stringIn(imageChoices),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "description" -> nonEmptyText(minLength = 10, maxLength = 400),
@@ -38,9 +37,7 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
-    date = dateFormatter.print(DateTime.now plusDays 7),
-    dateHour = 0,
-    dateMinute = 0,
+    date = DateTime.now plusDays 7,
     image = "",
     headline = "",
     description = "",
@@ -53,17 +50,11 @@ object CrudForm {
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
-      date: String,
-      dateHour: Int,
-      dateMinute: Int,
+      date: DateTime,
       image: String,
       headline: String,
       description: String,
       conditions: Condition.DataForm.AllSetup) {
-
-    def actualDate = parseDateUTC(date).err(s"Invalid date $date")
-      .withHourOfDay(dateHour)
-      .withMinuteOfHour(dateMinute)
 
     def validClock = (clockTime + clockIncrement) > 0
 
@@ -77,9 +68,4 @@ object CrudForm {
     "chesswhiz.logo.png" -> "ChessWhiz",
     "chessat3.logo.png" -> "Chessat3")
   val imageDefault = ""
-
-  val dateFormatter = DateTimeFormat forPattern "yyyy-MM-dd" withZone DateTimeZone.UTC
-
-  private def parseDateUTC(str: String): Option[DateTime] =
-    Try(dateFormatter parseDateTime str).toOption
 }

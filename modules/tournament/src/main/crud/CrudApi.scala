@@ -11,23 +11,18 @@ final class CrudApi {
 
   def one(id: String) = TournamentRepo uniqueById id
 
-  def editForm(tour: Tournament) = CrudForm.apply fill {
-    val startsUtc = tour.startsAt.toDateTime(DateTimeZone.UTC)
-    CrudForm.Data(
-      name = tour.name,
-      homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
-      clockTime = tour.clock.limitInMinutes,
-      clockIncrement = tour.clock.increment,
-      minutes = tour.minutes,
-      variant = tour.variant.id,
-      date = CrudForm.dateFormatter.print(tour.startsAt),
-      dateHour = startsUtc.getHourOfDay,
-      dateMinute = startsUtc.getMinuteOfHour,
-      image = ~tour.spotlight.flatMap(_.iconImg),
-      headline = tour.spotlight.??(_.headline),
-      description = tour.spotlight.??(_.description),
-      conditions = Condition.DataForm.AllSetup(tour.conditions))
-  }
+  def editForm(tour: Tournament) = CrudForm.apply fill CrudForm.Data(
+    name = tour.name,
+    homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
+    clockTime = tour.clock.limitInMinutes,
+    clockIncrement = tour.clock.increment,
+    minutes = tour.minutes,
+    variant = tour.variant.id,
+    date = tour.startsAt,
+    image = ~tour.spotlight.flatMap(_.iconImg),
+    headline = tour.spotlight.??(_.headline),
+    description = tour.spotlight.??(_.description),
+    conditions = Condition.DataForm.AllSetup(tour.conditions))
 
   def update(old: Tournament, data: CrudForm.Data) =
     TournamentRepo update updateTour(old, data) void
@@ -59,13 +54,13 @@ final class CrudApi {
       clock = clock,
       minutes = minutes,
       variant = v,
-      startsAt = actualDate,
+      startsAt = date,
       schedule = Schedule(
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
         variant = v,
         position = chess.StartingPosition.initial,
-        at = actualDate).some,
+        at = date).some,
       spotlight = Spotlight(
         headline = headline,
         description = description,
