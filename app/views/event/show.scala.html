@@ -3,7 +3,7 @@
 @moreJs = {
 @e.secondsToStart.map { seconds =>
 @embedJs {
-setTimeout(location.reload, @(seconds + 10) * 1000);
+setTimeout(function() { lichess.reload(); }, @(seconds + 10) * 1000);
 }
 }
 }
