@@ -21,6 +21,11 @@ final class EventApi(coll: Coll) {
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
 
+  def recentEnabled = coll
+    .find($doc("enabled" -> true))
+    .sort($doc("startsAt" -> -1))
+    .list[Event](50)
+
   def one(id: String) = coll.byId[Event](id)
 
   def editForm(event: Event) = EventForm.form fill {
