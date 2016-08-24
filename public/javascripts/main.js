@@ -443,7 +443,7 @@ lichess.notifyApp = (function() {
         }).data('powertip', lichess.spinnerHtml);
       };
 
-      function gamePowertip($el) {
+      var gamePowertip = function($el) {
         $el.removeClass('glpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
@@ -458,7 +458,7 @@ lichess.notifyApp = (function() {
         }).data('powertip', lichess.spinnerHtml);
       }
 
-      function powerTipWith(el, ev, f) {
+      var powerTipWith = function(el, ev, f) {
         f($(el));
         $.powerTip.show(el, ev);
       }
@@ -468,8 +468,6 @@ lichess.notifyApp = (function() {
           cl = t.classList;
         if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
         else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
-        else if (t.tagName === 'TIME' && t.parentNode.classList.contains('glpt'))
-          powerTipWith(t.parentNode, e, gamePowertip);
       });
 
       function setMoment() {
