@@ -95,7 +95,7 @@ case class Game(
     _.toLong + (createdAt.getMillis / 100)
   } orElse updatedAt.map(_.getMillis / 100)
 
-  private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
+  def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
   } orElse updatedAt
 
@@ -232,7 +232,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60
-    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+    val secondsLeft = lastMoveDateTime.fold(increment) { lmd =>
       (lmd.getSeconds + increment - nowSeconds).toInt max 0
     }
     CorrespondenceClock(

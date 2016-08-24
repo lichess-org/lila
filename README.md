@@ -216,7 +216,8 @@ name | type | default | description
         "increment": 8,
         "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
       },
-      "timestamp": 1389100907239,
+      "createdAt": 1389100907239,
+      "lastMoveAt": 1389100907239,
       "turns": 44,
       "color": "white", // color who plays next
       "url": "https://lichess.org/x2kpaixn",
@@ -298,8 +299,10 @@ name | type | default | description
     "increment": 8,
     "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
   },
-  "timestamp": 1389100907239,
+  "createdAt": 1389100907239,
+  "lastMoveAt": 1389100907239,
   "turns": 44,
+  "color": "white", // color who plays next
   "url": "https://lichess.org/x2kpaixn",
   "winner": "black",
   "players": {
