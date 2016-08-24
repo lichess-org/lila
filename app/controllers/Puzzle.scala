@@ -11,7 +11,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.puzzle.PuzzleId
-import lila.puzzle.{ Generated, Puzzle => PuzzleModel, Vote }
+import lila.puzzle.{ Generated, Puzzle => PuzzleModel }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 import views.html.puzzle.JsData
