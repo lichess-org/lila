@@ -427,11 +427,11 @@ lichess.notifyApp = (function() {
         };
       };
 
-      var userPowertip = function($el) {
+      var userPowertip = function(el) {
         var pos = 'w';
-        if (elementIdContains('site_header', $el[0])) pos = 'e';
-        if (elementIdContains('friend_box', $el[0])) pos = 'nw';
-        $el.removeClass('ulpt').powerTip({
+        if (elementIdContains('site_header', el)) pos = 'e';
+        if (elementIdContains('friend_box', el)) pos = 'nw';
+        $(el).removeClass('ulpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
@@ -443,8 +443,8 @@ lichess.notifyApp = (function() {
         }).data('powertip', lichess.spinnerHtml);
       };
 
-      var gamePowertip = function($el) {
-        $el.removeClass('glpt').powerTip({
+      var gamePowertip = function(el) {
+        $(el).removeClass('glpt').powerTip({
           intentPollInterval: 200,
           fadeInTime: 100,
           fadeOutTime: 100,
@@ -459,7 +459,7 @@ lichess.notifyApp = (function() {
       }
 
       var powerTipWith = function(el, ev, f) {
-        f($(el));
+        f(el);
         $.powerTip.show(el, ev);
       }
 
@@ -469,6 +469,10 @@ lichess.notifyApp = (function() {
         if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
         else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
       });
+
+      lichess.manualGlpt = function(el) {
+        Array.prototype.forEach.call(el.querySelectorAll('.glpt'), gamePowertip);
+      };
 
       function setMoment() {
         $("time.moment").removeClass('moment').each(function() {
