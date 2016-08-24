@@ -3,8 +3,11 @@ package lila.puzzle
 import org.joda.time.DateTime
 
 case class Vote(
-    id: String, // userId/puzzleId
-    vote: Boolean)
+    _id: String, // userId/puzzleId
+    vote: Boolean) {
+
+  def id = _id
+}
 
 object Vote {
 
@@ -17,17 +20,6 @@ object Vote {
 
   import reactivemongo.bson._
   import lila.db.BSON
-  import BSON.BSONJodaDateTimeHandler
-  implicit val voteBSONHandler = new BSON[Vote] {
-
-    import BSONFields._
-
-    def reads(r: BSON.Reader): Vote = Vote(
-      id = r str id,
-      vote = r bool vote)
-
-    def writes(w: BSON.Writer, o: Vote) = BSONDocument(
-      id -> o.id,
-      vote -> o.vote)
-  }
+  
+  implicit val voteBSONHandler = Macros.handler[Vote]
 }
