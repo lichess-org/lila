@@ -5,36 +5,6 @@ $(function() {
   var $userRows = $form.find(".user_row");
   var $result = $(".search_result");
 
-  var serialize = function(all) {
-    var sel = $form.find(":input");
-    return (all ? sel : sel.not('[type=hidden]')).filter(function() {
-      return !!this.value;
-    }).serialize()
-  };
-
-  var serialized = serialize();
-  $result.find("a.permalink").each(function() {
-    var s = $(this).hasClass('download') ? serialize(true) : serialized;
-    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
-  });
-  $result.find('.search_infinitescroll:has(.pager a)').each(function() {
-    var $next = $(this).find(".pager a:last");
-    var newHref = $next.attr("href") + "&" + serialized;
-    $next.attr("href", newHref);
-    $(this).infinitescroll({
-      navSelector: ".pager",
-      nextSelector: $next,
-      itemSelector: ".search_infinitescroll .paginated_element",
-      loading: {
-        msgText: "",
-        finishedMsg: "---"
-      }
-    }, function() {
-      $("#infscr-loading").remove();
-      lichess.pubsub.emit('content_loaded')();
-    });
-  });
-
   function getUsernames() {
     var us = [];
     $usernames.each(function() {
@@ -46,6 +16,10 @@ $(function() {
 
   function userChoices(row) {
     var options = ["<option value=''></option>"];
+    var isSelected = function(row, rowClassName, user, dataKey) {
+      var player = $form.data(dataKey);
+      return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
+    }
     getUsernames().forEach(function(user) {
       var option = [];
       option.push("<option value='" + user + "'");
@@ -57,11 +31,6 @@ $(function() {
     });
     $(row).find('select').html(options.join(""));
     $(row).toggle(options.length > 1);
-  }
-
-  function isSelected(row, rowClassName, user, dataKey) {
-    var player = $form.data(dataKey);
-    return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
   }
 
   function reloadUserChoices() {
@@ -80,6 +49,35 @@ $(function() {
   };
   toggleAiLevel();
   $form.find(".opponent select").change(toggleAiLevel);
+
+  var serialize = function(all) {
+    var sel = $form.find(":input");
+    return (all ? sel : sel.not('[type=hidden]')).filter(function() {
+      return !!this.value;
+    }).serialize()
+  };
+
+  var serialized = serialize();
+  $result.find("a.permalink").each(function() {
+    var s = $(this).hasClass('download') ? serialize(true) : serialized;
+    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
+  });
+  $result.find('.search_infinitescroll:has(.pager a)').each(function() {
+    var $next = $(this).find(".pager a:last");
+    $next.attr("href", $next.attr("href") + "&" + serialized);
+    $(this).infinitescroll({
+      navSelector: ".pager",
+      nextSelector: $next,
+      itemSelector: ".search_infinitescroll .paginated_element",
+      loading: {
+        msgText: "",
+        finishedMsg: "---"
+      }
+    }, function() {
+      $("#infscr-loading").remove();
+      lichess.pubsub.emit('content_loaded')();
+    });
+  });
 
   $form.submit(function() {
     $(this).addClass('searching');
