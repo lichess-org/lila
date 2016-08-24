@@ -46,6 +46,73 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
+lichess.powertip = (function() {
+
+  var elementIdContains = function(id, contained) {
+    var el = document.getElementById(id);
+    return el && el.contains(contained);
+  };
+
+  var onPowertipPreRender = function(id) {
+    return function() {
+      $.ajax({
+        url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
+        success: function(html) {
+          $('#' + id).html(html);
+          lichess.pubsub.emit('content_loaded')();
+        }
+      });
+    };
+  };
+
+  var userPowertip = function(el) {
+    var pos = 'w';
+    if (elementIdContains('site_header', el)) pos = 'e';
+    if (elementIdContains('friend_box', el)) pos = 'nw';
+    $(el).removeClass('ulpt').powerTip({
+      intentPollInterval: 200,
+      fadeInTime: 100,
+      fadeOutTime: 100,
+      placement: pos,
+      mouseOnToPopup: true,
+      closeDelay: 200
+    }).on({
+      powerTipPreRender: onPowertipPreRender('powerTip')
+    }).data('powertip', lichess.spinnerHtml);
+  };
+
+  var gamePowertip = function(el) {
+    $(el).removeClass('glpt').powerTip({
+      intentPollInterval: 200,
+      fadeInTime: 100,
+      fadeOutTime: 100,
+      placement: 'w',
+      smartPlacement: true,
+      mouseOnToPopup: true,
+      closeDelay: 200,
+      popupId: 'miniGame'
+    }).on({
+      powerTipPreRender: onPowertipPreRender('miniGame')
+    }).data('powertip', lichess.spinnerHtml);
+  };
+
+  var powerTipWith = function(el, ev, f) {
+    f(el);
+    $.powerTip.show(el, ev);
+  };
+
+  return {
+    mouseover: function(e) {
+      var t = e.target,
+        cl = t.classList;
+      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
+      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+    },
+    manualGame: function(el) {
+      Array.prototype.forEach.call(el.querySelectorAll('.glpt'), gamePowertip);
+    }
+  };
+})();
 lichess.trans = function(i18n) {
   var trans = function(key) {
     var str = i18n[key] || key;
