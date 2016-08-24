@@ -204,7 +204,6 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     <div class="search_status">
       <strong>@pager.nbResults.localize games found</strong> •
       <a class="permalink" href="@routes.Search.index()">Permalink</a> •
-      <a class="permalink" rel="nofollow" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>
