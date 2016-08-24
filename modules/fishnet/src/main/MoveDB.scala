@@ -107,6 +107,7 @@ private final class MoveDB(
     def clearIfFull =
       if (coll.size > maxSize) {
         logger.warn(s"MoveDB collection is full! maxSize=$maxSize. Dropping all now!")
+        lila.mon.fishnet.move.dbDrop()
         coll.clear()
       }
   }))
