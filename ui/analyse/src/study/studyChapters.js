@@ -91,18 +91,15 @@ module.exports = {
           ctrl.chapters.list().map(function(chapter) {
             var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
-            var attrs = {
-              key: chapter.id,
-              'data-id': chapter.id,
-              class: classSet({
-                elem: true,
-                chapter: true,
-                active: active,
-                editing: editing
-              })
-            };
             return [
-              m('div', attrs, [
+              m('div', {
+                key: chapter.id,
+                'data-id': chapter.id,
+                class: 'elem chapter ' + classSet({
+                  active: active,
+                  editing: editing
+                })
+              }, [
                 m('div.left', [
                   m('div.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
                     'data-icon': active ? 'J' : 'K'
@@ -112,14 +109,18 @@ module.exports = {
                 configButton(chapter, editing)
               ])
             ];
-          })
-        ]),
-        ctrl.members.canContribute() ? m('i.add[data-icon=0]', {
-          key: 'new-chapter',
-          title: 'New chapter',
-          'data-icon': 'O',
-          config: util.bindOnce('click', ctrl.chapters.newForm.toggle)
-        }) : null
+          }),
+          ctrl.members.canContribute() ? m('div', {
+              key: 'new-chapter',
+              class: 'elem chapter add',
+              config: util.bindOnce('click', ctrl.chapters.newForm.toggle)
+            },
+            m('div.left', [
+              m('span.status', m('i[data-icon=O]')),
+              m('span.add_text', 'Add a new chapter')
+            ])
+          ) : null
+        ])
       ];
     }
   }

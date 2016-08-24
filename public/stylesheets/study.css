@@ -40,25 +40,6 @@ body:not(.dark) .material.form .study_tabs a {
   position: relative;
   min-height: 50px;
 }
-.study_box .add {
-  position: absolute;
-  bottom: -11px;
-  left: 102px;
-  font-size: 17px;
-  cursor: pointer;
-  opacity: 0.4;
-  transition: 0.13s;
-}
-.study_box:hover .add {
-  color: #759900;
-  opacity: 0.8;
-}
-.study_box .add:hover {
-  opacity: 1;
-  font-size: 23px;
-  bottom: -15px;
-  left: 99px;
-}
 form.chapter_form.material.form .form-group textarea {
   height: 100px;
   line-height: 1.2em;
@@ -156,11 +137,12 @@ div.underboard .notif.error {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-.study_box .elem .user_link {
+.study_box .elem .user_link,
+.study_box .elem.member .add_text {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 26px;
-  margin-left: 5px;
+  margin-left: 4px;
 }
 .study_box .list .sortable-ghost {
   background: #3893E8;
@@ -243,6 +225,20 @@ div.underboard .notif.error {
   transition: none;
   opacity: 1;
   color: #fff;
+}
+.study_box .add {
+  border-top: 1px solid #ccc;
+  cursor: pointer;
+  background: #fff;
+  color: #3893E8!important;
+  opacity: 0.8;
+}
+.study_box .add i {
+  color: #3893E8!important;
+  opacity: 1!important;
+}
+.study_box .add:hover {
+  opacity: 1;
 }
 .study_invite .users {
   max-height: 200px;
