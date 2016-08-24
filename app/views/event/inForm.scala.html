@@ -14,11 +14,16 @@
 @group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) {
 @base.flatpickr(form("finishesAt"))
 }
-@group(form("title"), Html("Title")) {
+@group(form("title"), Html("Short title")) {
 @base.input(form("title"))
 }
-@group(form("headline"), Html("Headline")) {
+@group(form("headline"), Html("Short headline")) {
 @base.input(form("headline"))
+}
+@defining(form("description")) { field =>
+@group(field, Html("Possibly long description")) {
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
 }
 @group(form("url"), Html("External URL")) {
 @base.input(form("url"))

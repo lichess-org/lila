@@ -27,7 +27,10 @@ trait StringHelper { self: NumberHelper =>
 
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
 
-  def autoLink(text: String) = Html { (nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escape _)(text) }
+  private val autoLinkFun: String => String =
+    nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escape _
+
+  def autoLink(text: String) = Html { autoLinkFun(text) }
 
   // the replace quot; -> " is required
   // to avoid issues caused by addLinks

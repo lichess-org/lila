@@ -8,6 +8,7 @@ case class Event(
     _id: String,
     title: String,
     headline: String,
+    description: Option[String],
     homepageHours: Int,
     url: String,
     enabled: Boolean,
@@ -18,11 +19,13 @@ case class Event(
 
   def featureSince = startsAt minusHours homepageHours
 
+  def featureNow = featureSince.isBefore(DateTime.now) && !isFinished
+
   def isFinished = finishesAt.isBefore(DateTime.now)
 
-  def isNow = featureSince.isBefore(DateTime.now) && !isFinished
+  def isNow = startsAt.isBefore(DateTime.now) && !isFinished
 
-  def isNowOrSoon = featureSince.isBefore(DateTime.now minusMinutes 10) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 
   def id = _id
 }

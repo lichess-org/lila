@@ -1,0 +1,20 @@
+@(e: lila.event.Event)(implicit ctx: Context)
+
+@base.layout(
+title = e.title,
+moreCss = cssTag("event.css")) {
+<div id="event" class="content_box small_box">
+  <h1 data-icon="" class="text">@e.title</h1>
+  <h2 class="headline">
+    @e.headline
+  </h2>
+  <p class="when">
+    @if(e.isNow) {
+    <a href="@e.url" class="button">@trans.playingRightNow()</a>
+    } else { @momentFromNow(e.startsAt) }
+  </p>
+  @e.description.map { d =>
+  <p class="desc">@autoLink(d)</p>
+  }
+</div>
+}

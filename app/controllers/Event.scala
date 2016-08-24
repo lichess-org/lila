@@ -15,6 +15,12 @@ object Event extends LilaController {
     }
   }
 
+  def show(id: String) = Open { implicit ctx =>
+    OptionOk(api oneEnabled id) { event =>
+      html.event.show(event)
+    }
+  }
+
   def manager = Secure(_.ManageEvent) { implicit ctx =>
     me =>
       api.list map { events =>

@@ -16,7 +16,7 @@ final class EventApi(coll: Coll) {
     "enabled" -> true,
     "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
   )).sort($doc("startsAt" -> 1)).list[Event](5).map {
-    _.filter(_.isNow)
+    _.filter(_.featureNow)
   }
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
@@ -25,6 +25,8 @@ final class EventApi(coll: Coll) {
     .find($doc("enabled" -> true))
     .sort($doc("startsAt" -> -1))
     .list[Event](50)
+
+  def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
 
   def one(id: String) = coll.byId[Event](id)
 

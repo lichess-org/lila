@@ -10,7 +10,7 @@
 </div>
 }
 
-@markdown(field: Field, name: Html) = {
+@textarea(field: Field, name: Html) = {
 @group(field, name, largeLabel = true) {
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
@@ -43,12 +43,12 @@ evenMoreCss = Some(cssTag("material.form.css"))) {
     @group(form("profile.headline"), Html("Short and inspiring headline")) {
     @base.input(form("profile.headline"))
     }
-    @markdown(form("profile.description"), Html("Who are you? <em>age, profession, country... let your students know you</em>"))
-    @markdown(form("profile.playingExperience"), Html("Playing experience <em>tournaments played, best wins, other achievements</em>"))
-    @markdown(form("profile.teachingExperience"), Html("Teaching experience <em>diplomas, years of practice, best student results</em>"))
-    @markdown(form("profile.otherExperience"), Html("Other experiences <em>e.g. as chess commentator, or teaching other domains</em>"))
-    @markdown(form("profile.skills"), Html("Best skills in chess and teaching"))
-    @markdown(form("profile.methodology"), Html("Teaching methodology <em>How you prepare and run lessons. How you follow up with students.</em>"))
+    @textarea(form("profile.description"), Html("Who are you? <em>age, profession, country... let your students know you</em>"))
+    @textarea(form("profile.playingExperience"), Html("Playing experience <em>tournaments played, best wins, other achievements</em>"))
+    @textarea(form("profile.teachingExperience"), Html("Teaching experience <em>diplomas, years of practice, best student results</em>"))
+    @textarea(form("profile.otherExperience"), Html("Other experiences <em>e.g. as chess commentator, or teaching other domains</em>"))
+    @textarea(form("profile.skills"), Html("Best skills in chess and teaching"))
+    @textarea(form("profile.methodology"), Html("Teaching methodology <em>How you prepare and run lessons. How you follow up with students.</em>"))
     <div class="button-container">
       <button type="submit" class="submit button text" data-icon="E">Save now</button>
     </div>
