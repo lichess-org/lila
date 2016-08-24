@@ -67,6 +67,7 @@ module.exports = {
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
               var makeSortable = function() {
                 ctx.sortable = Sortable.create(el, {
+                  draggable: '.draggable',
                   onSort: function() {
                     ctrl.chapters.sort(ctx.sortable.toArray());
                   }
@@ -95,7 +96,7 @@ module.exports = {
               m('div', {
                 key: chapter.id,
                 'data-id': chapter.id,
-                class: 'elem chapter ' + classSet({
+                class: 'elem chapter draggable ' + classSet({
                   active: active,
                   editing: editing
                 })
