@@ -11,7 +11,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.puzzle.PuzzleId
-import lila.puzzle.{ Generated, Puzzle => PuzzleModel }
+import lila.puzzle.{ Generated, Puzzle => PuzzleModel, Vote }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 import views.html.puzzle.JsData
@@ -128,12 +128,10 @@ object Puzzle extends LilaController {
             env.finisher(puzzle, me, data) flatMap {
               case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
                 env.api.puzzle find id zip
-                  (env userInfos me2.some) zip
-                  (env.api.attempt hasVoted me2) map {
-                    case ((p2, infos), voted) => Ok {
+                  (env userInfos me2.some) map {
+                    case (p2, infos) => Ok {
                       JsData(p2 | puzzle, infos, "view",
                         attempt = newAttempt.some,
-                        voted = voted.some,
                         animationDuration = env.AnimationDuration)
                     }
                   }
@@ -162,7 +160,9 @@ object Puzzle extends LilaController {
       OptionFuResult(env.api.attempt.find(id, me.id)) { attempt =>
         env.forms.vote.bindFromRequest.fold(
           err => fuccess(BadRequest(errorsAsJson(err))),
-          vote => env.api.attempt.vote(attempt, vote == 1) map {
+          vote => env.api.vote.find(id, me) flatMap { 
+              v => env.api.attempt.vote(attempt, v, vote == 1)
+            } map {
             case (p, a) =>
               if (vote == 1) lila.mon.puzzle.vote.up()
               else lila.mon.puzzle.vote.down()

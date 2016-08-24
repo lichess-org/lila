@@ -23,11 +23,6 @@
             <td>
               @showMillis(attempt.time) s
             </td>
-            <td>
-              @attempt.vote.map { v =>
-              <span class="vote" data-icon="@v.fold("S", "R")"></span>
-              }
-            </td>
           </tr>
           }
         </tbody>

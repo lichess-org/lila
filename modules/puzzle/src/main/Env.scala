@@ -15,6 +15,7 @@ final class Env(
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionAttempt = config getString "collection.attempt"
     val CollectionLearning = config getString "collection.learning"
+    val CollectionVote = config getString "collection.vote"
     val ApiToken = config getString "api.token"
     val PngExecPath = config getString "png.exec_path"
   }
@@ -28,6 +29,7 @@ final class Env(
     puzzleColl = puzzleColl,
     attemptColl = attemptColl,
     learningColl = learningColl,
+    voteColl = voteColl,
     apiToken = ApiToken)
 
   lazy val finisher = new Finisher(
@@ -66,6 +68,7 @@ final class Env(
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)
   private[puzzle] lazy val learningColl = db(CollectionLearning)
+  private[puzzle] lazy val voteColl = db(CollectionVote)
 }
 
 object Env {

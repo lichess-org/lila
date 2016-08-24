@@ -30,7 +30,6 @@ private[puzzle] final class Finisher(
           date = DateTime.now,
           win = data.isWin,
           time = math.min(data.time, maxTime),
-          vote = none,
           puzzleRating = puzzle.perf.intRating,
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,

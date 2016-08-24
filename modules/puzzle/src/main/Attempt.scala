@@ -12,8 +12,7 @@ case class Attempt(
     puzzleRating: Int,
     puzzleRatingDiff: Int,
     userRating: Int,
-    userRatingDiff: Int,
-    vote: Option[Boolean]) {
+    userRatingDiff: Int) {
 
   def seconds = time / 1000
 
@@ -39,7 +38,6 @@ object Attempt {
     val puzzleRatingDiff = "pd"
     val userRating = "ur"
     val userRatingDiff = "ud"
-    val vote = "v"
   }
 
   import reactivemongo.bson._
@@ -59,8 +57,7 @@ object Attempt {
       puzzleRating = r int puzzleRating,
       puzzleRatingDiff = r int puzzleRatingDiff,
       userRating = r int userRating,
-      userRatingDiff = r int userRatingDiff,
-      vote = r boolO vote)
+      userRatingDiff = r int userRatingDiff)
 
     def writes(w: BSON.Writer, o: Attempt) = BSONDocument(
       id -> o.id,
@@ -72,7 +69,6 @@ object Attempt {
       puzzleRating -> w.int(o.puzzleRating),
       puzzleRatingDiff -> w.int(o.puzzleRatingDiff),
       userRating -> w.int(o.userRating),
-      userRatingDiff -> w.int(o.userRatingDiff),
-      vote -> o.vote)
+      userRatingDiff -> w.int(o.userRatingDiff))
   }
 }
