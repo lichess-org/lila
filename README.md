@@ -218,6 +218,7 @@ name | type | default | description
       },
       "timestamp": 1389100907239,
       "turns": 44,
+      "color": "white", // color who plays next
       "url": "https://lichess.org/x2kpaixn",
       "winner": "black",
       "players": {
