@@ -1,8 +1,17 @@
 @(e: lila.event.Event)(implicit ctx: Context)
 
+@moreJs = {
+@e.secondsToStart.map { seconds =>
+@embedJs {
+setTimeout(location.reload, @(seconds + 10) * 1000);
+}
+}
+}
+
 @base.layout(
 title = e.title,
-moreCss = cssTag("event.css")) {
+moreCss = cssTag("event.css"),
+moreJs = moreJs) {
 <div id="event" class="content_box small_box">
   <h1 data-icon="" class="text">@e.title</h1>
   <h2 class="headline">
