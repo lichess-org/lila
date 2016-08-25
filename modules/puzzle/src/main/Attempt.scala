@@ -2,15 +2,13 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
-case class Attempt(
+case class Round(
     id: String, // userId/puzzleId
     puzzleId: PuzzleId,
     userId: String,
     date: DateTime,
     win: Boolean,
     time: Int, // millis
-    puzzleRating: Int,
-    puzzleRatingDiff: Int,
     userRating: Int,
     userRatingDiff: Int) {
 
@@ -19,11 +17,9 @@ case class Attempt(
   def loss = !win
 
   def userPostRating = userRating + userRatingDiff
-
-  def puzzlePostRating = puzzleRating + puzzleRatingDiff
 }
 
-object Attempt {
+object Round {
 
   def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
 
@@ -34,8 +30,6 @@ object Attempt {
     val date = "d"
     val win = "w"
     val time = "t"
-    val puzzleRating = "pr"
-    val puzzleRatingDiff = "pd"
     val userRating = "ur"
     val userRatingDiff = "ud"
   }
@@ -43,31 +37,27 @@ object Attempt {
   import reactivemongo.bson._
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
-  implicit val attemptBSONHandler = new BSON[Attempt] {
+  implicit val roundBSONHandler = new BSON[Round] {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader): Attempt = Attempt(
+    def reads(r: BSON.Reader): Round = Round(
       id = r str id,
       puzzleId = r int puzzleId,
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r bool win,
       time = r int time,
-      puzzleRating = r int puzzleRating,
-      puzzleRatingDiff = r int puzzleRatingDiff,
       userRating = r int userRating,
       userRatingDiff = r int userRatingDiff)
 
-    def writes(w: BSON.Writer, o: Attempt) = BSONDocument(
+    def writes(w: BSON.Writer, o: Round) = BSONDocument(
       id -> o.id,
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,
       win -> o.win,
       time -> w.int(o.time),
-      puzzleRating -> w.int(o.puzzleRating),
-      puzzleRatingDiff -> w.int(o.puzzleRatingDiff),
       userRating -> w.int(o.userRating),
       userRatingDiff -> w.int(o.userRatingDiff))
   }

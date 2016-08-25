@@ -17,8 +17,6 @@ object JsData extends lila.Steroids {
         "date" -> a.date,
         "win" -> a.win,
         "time" -> a.time,
-        "puzzleRating" -> a.puzzleRating,
-        "puzzleRatingDiff" -> a.puzzleRatingDiff,
         "userRating" -> a.userRating,
         "userRatingDiff" -> a.userRatingDiff)
     })
@@ -28,7 +26,7 @@ object JsData extends lila.Steroids {
     userInfos: Option[lila.puzzle.UserInfos],
     mode: String,
     animationDuration: scala.concurrent.duration.Duration,
-    attempt: Option[Attempt] = None,
+    round: Option[Round] = None,
     win: Option[Boolean] = None,
     voted: Option[Boolean] = None)(implicit ctx: Context) = Json.obj(
     "puzzle" -> Json.obj(
@@ -67,7 +65,7 @@ object JsData extends lila.Steroids {
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "mode" -> mode,
-    "attempt" -> attempt.map { a =>
+    "round" -> round.map { a =>
       Json.obj(
         "userRatingDiff" -> a.userRatingDiff,
         "seconds" -> a.seconds,
