@@ -13,6 +13,7 @@ final class PlanTracking {
 
   // user makes a one-time or recurring donation
   def newDonation(user: User, amount: Cents, renew: Boolean): Unit = send(makeArgs(Map(
+    "t" -> "event",
     "ec" -> "Conversion",
     "ea" -> "Donate",
     "el" -> (if (renew) "Recurring donation" else "One-time donation"),
@@ -21,6 +22,7 @@ final class PlanTracking {
 
   // user makes a second one-time donation
   def reDonation(user: User, amount: Cents): Unit = send(makeArgs(Map(
+    "t" -> "event",
     "ec" -> "Conversion",
     "ea" -> "Donate",
     "el" -> "Redonation",
@@ -29,24 +31,31 @@ final class PlanTracking {
 
   // user makes a recurring donation after a one-time donoation
   def upgrade(user: User, amount: Cents): Unit = send(makeArgs(Map(
+    "t" -> "event",
     "ec" -> "Conversion",
     "ea" -> "Donate",
     "el" -> "Upgrade",
     "ev" -> amount.usd.toInt,
     "uid" -> user.id)))
 
-  def charge(charge: Charge, renew: Boolean): Unit = send(makeArgs(Map(
+  def charge(charge: Charge, renew: Boolean): Unit = {
+    send(makeArgs(Map(
     "ti" -> charge.id,
     "t" -> "transaction",
-    "in" -> (if (renew) "Recurring payment" else "One-time payment"),
-    "ip" -> charge.cents.usd.value,
     "tr" -> charge.cents.usd.value,
     "cu" -> "USD",
+    "ta" -> (if (charge.isPayPal) "PayPal" else "Stripe"),
+    "uid" -> charge.userId)))
+    send(makeArgs(Map(
+    "ti" -> charge.id,
+    "t" -> "item",
+    "in" -> (if (renew) "Recurring payment" else "One-time payment"),
+    "ip" -> charge.cents.usd.value,
     "iq" -> 1,
     "ic" -> (if (renew) "RecurringDonationPaymentSKU" else "OneTimeDonationPaymentSKU"),
     "iv" -> "Donation",
-    "ta" -> (if (charge.isPayPal) "PayPal" else "Stripe"),
     "uid" -> charge.userId)))
+  }
 
   private def send(args: PostArgs): Unit =
     WS.url(url).post(args).effectFold(
@@ -62,6 +71,5 @@ final class PlanTracking {
     "v" -> Seq("1"),
     "tid" -> Seq(tid),
     "cid" -> Seq(java.util.UUID.randomUUID.toString),
-    "t" -> Seq("event"),
     "ds" -> Seq("backend"))
 }
