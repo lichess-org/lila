@@ -55,3 +55,7 @@
   width: auto;
   transform: translate(-50%,-50%);
 }
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}

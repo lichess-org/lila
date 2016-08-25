@@ -22,7 +22,9 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "coach" :: "init" :: username :: Nil => api init username
+      case "coach" :: "init" :: username :: Nil    => api init username
+      case "coach" :: "enable" :: username :: Nil  => api.toggleByMod(username, true)
+      case "coach" :: "disable" :: username :: Nil => api.toggleByMod(username, false)
     }
   }
 }
