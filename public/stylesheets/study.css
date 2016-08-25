@@ -405,6 +405,7 @@ body.dark .glyph_form i::before {
 body.dark .glyph_form a:hover {
   background: #383838;
 }
+body.dark .study_box .add,
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
@@ -524,6 +525,7 @@ form .editor a.button {
   opacity: 0.7;
   border-top: 1px solid #eaeaea;
 }
+body.dark .study_box .add,
 body.dark .study_metadata th {
   border-color: #3d3d3d;
 }
