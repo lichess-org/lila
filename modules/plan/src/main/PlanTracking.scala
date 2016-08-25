@@ -17,7 +17,7 @@ final class PlanTracking {
       "ec" -> "Conversion",
       "ea" -> "Donate",
       "el" -> "Donation",
-      "ev" -> amount.value,
+      "ev" -> amount.usd.toInt,
       "uid" -> user.id))
 
     send(args)
@@ -31,7 +31,7 @@ final class PlanTracking {
     "ec" -> "Conversion",
     "ea" -> "Donate",
     "el" -> "Redonation",
-    "ev" -> amount.value,
+    "ev" -> amount.usd.toInt,
     "uid" -> user.id)))
 
   // user makes a recurring donation after a one-time donoation
@@ -39,7 +39,7 @@ final class PlanTracking {
     "ec" -> "Conversion",
     "ea" -> "Donate",
     "el" -> "Upgrade",
-    "ev" -> amount.value,
+    "ev" -> amount.usd.toInt,
     "uid" -> user.id)))
 
   def charge(charge: Charge, renew: Boolean): Unit = send(makeArgs(Map(
