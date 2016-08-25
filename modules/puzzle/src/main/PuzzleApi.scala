@@ -80,11 +80,6 @@ private[puzzle] final class PuzzleApi(
           Round.BSONFields.userRatingDiff -> a.userRatingDiff
           )))
     } void
-
-    def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
-      roundColl.exists($doc(
-        Round.BSONFields.id -> Round.makeId(puzzle.id, user.id)
-      ))
   }
 
   object learning {
@@ -151,7 +146,10 @@ private[puzzle] final class PuzzleApi(
 
     def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
 
-    def add(h: PuzzleHead) = headColl insert h void
+    def add(h: PuzzleHead) = headColl update(
+      $id(h.id),
+      h,
+      upsert = true) void
 
     def solved(user: User, id: PuzzleId) = head find user flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == id => headColl.update(

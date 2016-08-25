@@ -83,21 +83,21 @@ function renderRatingDiff(diff) {
   return m('strong.rating', diff > 0 ? '+' + diff : diff);
 }
 
-function renderWin(ctrl, attempt) {
+function renderWin(ctrl, round) {
   return m('div.comment.win', [
     m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
-      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+      round ? renderRatingDiff(round.userRatingDiff) : null
     ]),
-    attempt ? m('span', ctrl.trans('puzzleSolvedInXSeconds', attempt.seconds)) : null
+    round ? m('span', ctrl.trans('puzzleSolvedInXSeconds', round.seconds)) : null
   ]);
 }
 
-function renderLoss(ctrl, attempt) {
+function renderLoss(ctrl, round) {
   return m('div.comment.loss',
     m('h3.text[data-icon=k]', [
       m('strong', ctrl.trans('puzzleFailed')),
-      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+      round ? renderRatingDiff(round.userRatingDiff) : null
     ])
   );
 }
@@ -109,11 +109,11 @@ function renderResult(ctrl) {
     case false:
       return renderLoss(ctrl, null);
     default:
-      switch (ctrl.data.attempt && ctrl.data.attempt.win) {
+      switch (ctrl.data.round && ctrl.data.round.win) {
         case true:
-          return renderWin(ctrl, ctrl.data.attempt);
+          return renderWin(ctrl, ctrl.data.round);
         case false:
-          return renderLoss(ctrl, ctrl.data.attempt);
+          return renderLoss(ctrl, ctrl.data.round);
       }
   }
 }
@@ -145,7 +145,7 @@ function renderPlayTable(ctrl) {
                 el.classList.add('revealed');
               }, 1000);
             },
-            onclick: partial(xhr.attempt, ctrl, 0)
+            onclick: partial(xhr.round, ctrl, 0)
           }, ctrl.trans('giveUp'))
         )
       ])
@@ -154,16 +154,16 @@ function renderPlayTable(ctrl) {
 }
 
 function renderVote(ctrl) {
-  return m('div.upvote' + (ctrl.data.attempt ? '.enabled' : ''), [
+  return m('div.upvote' + (ctrl.data.round ? '.enabled' : ''), [
     m('a[data-icon=S]', {
       title: ctrl.trans('thisPuzzleIsCorrect'),
-      class: ctrl.data.attempt.vote ? ' active' : '',
+      class: ctrl.data.round.vote ? ' active' : '',
       onclick: partial(xhr.vote, ctrl, 1)
     }),
     m('span.count.hint--bottom[data-hint=Popularity]', ctrl.data.puzzle.vote),
     m('a[data-icon=R]', {
       title: ctrl.trans('thisPuzzleIsWrong'),
-      class: ctrl.data.attempt.vote === false ? ' active' : '',
+      class: ctrl.data.round.vote === false ? ' active' : '',
       onclick: partial(xhr.vote, ctrl, 0)
     })
   ]);
@@ -201,7 +201,7 @@ function renderViewTable(ctrl) {
         onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('continueTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
+      }, ctrl.trans('continueTraining')), !(ctrl.data.win === null ? ctrl.data.round.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])

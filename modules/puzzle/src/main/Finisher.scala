@@ -16,6 +16,7 @@ private[puzzle] final class Finisher(
   def apply(puzzle: Puzzle, user: User, data: DataForm.RoundData): Fu[(Round, Option[Boolean])] =
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
+        api.head.solved(user, puzzle.id)
         val userRating = user.perfs.puzzle.toRating
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))

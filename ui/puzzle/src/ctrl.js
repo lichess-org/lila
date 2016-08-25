@@ -33,7 +33,7 @@ module.exports = function(cfg, router, i18n) {
         setTimeout(function() {
           if (this.data.mode == 'play') {
             this.chessground.stop();
-            xhr.attempt(this, false);
+            xhr.round(this, false);
           } else this.revert(this.data.puzzle.id);
         }.bind(this), 500);
         this.data.comment = 'fail';
@@ -42,7 +42,7 @@ module.exports = function(cfg, router, i18n) {
         this.userFinalizeMove([orig, dest, promotion], newProgress);
         if (newLines == 'win' || (Object.keys(newLines).length === 1 && newLines[Object.keys(newLines)[0]] == 'win')) {
           this.chessground.stop();
-          xhr.attempt(this, true);
+          xhr.round(this, true);
         } else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
         break;
     }
@@ -159,7 +159,7 @@ module.exports = function(cfg, router, i18n) {
     this.data.progress.push(move);
     if (puzzle.getCurrentLines(this.data) == 'win') {
       this.chessground.stop();
-      xhr.attempt(this, true);
+      xhr.round(this, true);
     }
   }.bind(this);
 
