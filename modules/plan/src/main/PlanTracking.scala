@@ -12,19 +12,12 @@ final class PlanTracking {
   private type PostArgs = Map[String, Seq[String]]
 
   // user makes a one-time or recurring donation
-  def newDonation(user: User, amount: Cents, renew: Boolean): Unit = {
-    val args = makeArgs(Map(
-      "ec" -> "Conversion",
-      "ea" -> "Donate",
-      "el" -> "Donation",
-      "ev" -> amount.usd.toInt,
-      "uid" -> user.id))
-
-    send(args)
-    send(args + ("el" -> Seq(
-      if (renew) "Recurring donation" else "One-time donation"
-    )))
-  }
+  def newDonation(user: User, amount: Cents, renew: Boolean): Unit = send(makeArgs(Map(
+    "ec" -> "Conversion",
+    "ea" -> "Donate",
+    "el" -> (if (renew) "Recurring donation" else "One-time donation"),
+    "ev" -> amount.usd.toInt,
+    "uid" -> user.id)))
 
   // user makes a second one-time donation
   def reDonation(user: User, amount: Cents): Unit = send(makeArgs(Map(
