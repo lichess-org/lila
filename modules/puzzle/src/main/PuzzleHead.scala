@@ -12,12 +12,6 @@ case class PuzzleHead(
 
 object PuzzleHead {
 
-  object BSONFields {
-    val id = "_id"
-    val current = "c"
-    val last = "l"
-  }
-
   import reactivemongo.bson._
   import lila.db.BSON
   
