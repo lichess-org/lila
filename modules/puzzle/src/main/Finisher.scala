@@ -24,7 +24,6 @@ private[puzzle] final class Finisher(
         val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
         val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
         val a = new Round(
-          id = Round.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,
           userId = user.id,
           date = DateTime.now,
@@ -44,7 +43,6 @@ private[puzzle] final class Finisher(
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
       case _ => 
         val a = new Round(
-          id = Round.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,
           userId = user.id,
           date = DateTime.now,

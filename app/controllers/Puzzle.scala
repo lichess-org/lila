@@ -152,19 +152,17 @@ object Puzzle extends LilaController {
   def vote(id: PuzzleId) = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body
-      OptionFuResult(env.api.round.find(id, me.id)) { round =>
-        env.forms.vote.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
-          vote => env.api.vote.find(id, me) flatMap { 
-              v => env.api.vote.update(round, v, vote == 1)
-            } map {
-            case (p, a) =>
-              if (vote == 1) lila.mon.puzzle.vote.up()
-              else lila.mon.puzzle.vote.down()
-              Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
-          }
-        ) map (_ as JSON)
-      }
+      env.forms.vote.bindFromRequest.fold(
+        err => fuccess(BadRequest(errorsAsJson(err))),
+        vote => env.api.vote.find(id, me) flatMap { 
+            v => env.api.vote.update(id, me, v, vote == 1)
+          } map {
+          case (p, a) =>
+            if (vote == 1) lila.mon.puzzle.vote.up()
+            else lila.mon.puzzle.vote.down()
+            Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
+        }
+      ) map (_ as JSON)
   }
 
   def recentGame = Action.async { req =>

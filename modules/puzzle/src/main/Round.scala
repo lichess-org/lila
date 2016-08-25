@@ -3,7 +3,6 @@ package lila.puzzle
 import org.joda.time.DateTime
 
 case class Round(
-    id: String, // userId/puzzleId
     puzzleId: PuzzleId,
     userId: String,
     date: DateTime,
@@ -21,10 +20,7 @@ case class Round(
 
 object Round {
 
-  def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
-
   object BSONFields {
-    val id = "_id"
     val puzzleId = "p"
     val userId = "u"
     val date = "d"
@@ -42,7 +38,6 @@ object Round {
     import BSONFields._
 
     def reads(r: BSON.Reader): Round = Round(
-      id = r str id,
       puzzleId = r int puzzleId,
       userId = r str userId,
       date = r.get[DateTime](date),
@@ -52,7 +47,6 @@ object Round {
       userRatingDiff = r int userRatingDiff)
 
     def writes(w: BSON.Writer, o: Round) = BSONDocument(
-      id -> o.id,
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,

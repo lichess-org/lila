@@ -65,21 +65,7 @@ private[puzzle] final class PuzzleApi(
 
   object round {
 
-    def find(puzzleId: PuzzleId, userId: String): Fu[Option[Round]] =
-      roundColl.find($doc(
-        Round.BSONFields.id -> Round.makeId(puzzleId, userId)
-      )).uno[Round]
-
-    def add(a: Round) = roundColl.insert(a) recoverWith lila.db.recoverDuplicateKey { _ =>
-      roundColl.update($id(a.id),
-        $doc("$set" -> $doc(
-          Round.BSONFields.win -> a.win,
-          Round.BSONFields.date -> a.date,
-          Round.BSONFields.time -> a.time,
-          Round.BSONFields.userRating -> a.userRating,
-          Round.BSONFields.userRatingDiff -> a.userRatingDiff
-          )))
-    } void
+    def add(a: Round) = roundColl insert a void
   }
 
   object learning {
@@ -117,8 +103,8 @@ private[puzzle] final class PuzzleApi(
 
     def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl.byId[Vote](Vote.makeId(id, user.id))
 
-    def update(a1: Round, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle find a1.puzzleId flatMap {
-      case None => fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
+    def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle find id flatMap {
+      case None => fufail(s"Can't vote for non existing puzzle ${id}")
       case Some(p1) =>
         val (p2, v2) = v1 match {
           case Some(from) => (
@@ -127,7 +113,7 @@ private[puzzle] final class PuzzleApi(
             )
           case None => (
               (p1 withVote (_ add v)), 
-              Vote(Vote.makeId(a1.puzzleId, a1.userId), v)
+              Vote(Vote.makeId(id, user.id), v)
             )
         }
         voteColl.update(
