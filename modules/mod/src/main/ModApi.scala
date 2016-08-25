@@ -12,6 +12,7 @@ final class ModApi(
     reporter: akka.actor.ActorSelection,
     notifyReporters: NotifyReporters,
     lightUserApi: LightUserApi,
+    refunder: RatingRefund,
     lilaBus: lila.common.Bus) {
 
   def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
@@ -25,6 +26,7 @@ final class ModApi(
           if (v) {
             lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
             notifyReporters(user)
+            refunder schedule user
           }
           reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
         } void

@@ -11,6 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     firewall: Firewall,
     reportColl: Coll,
     lightUserApi: lila.user.LightUserApi,
@@ -32,6 +33,8 @@ final class Env(
 
   private[mod] lazy val logColl = db(CollectionModlog)
 
+  private lazy val ratingRefund = new RatingRefund(scheduler)
+
   lazy val logApi = new ModlogApi(logColl)
 
   lazy val api = new ModApi(
@@ -41,6 +44,7 @@ final class Env(
     reporter = hub.actor.report,
     lightUserApi = lightUserApi,
     notifyReporters = new NotifyReporters(notifyApi, reportColl),
+    refunder = ratingRefund,
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
@@ -89,6 +93,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
     reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
