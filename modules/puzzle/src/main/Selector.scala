@@ -64,9 +64,9 @@ private[puzzle] final class Selector(
   private def newPuzzleForUser(user: User, isMate: Boolean, difficulty: Int): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
-    api.head.find(user) flatMap {
-      oph => tryRange(rating, step, step, difficultyDecay(difficulty), oph match {
-          case Some(PuzzleHead(_, _, Some(l))) => l
+    (api.head.find(user) zip api.puzzle.lastId) flatMap {
+      case (opHead, maxId) => tryRange(rating, step, step, difficultyDecay(difficulty), opHead match {
+          case Some(PuzzleHead(_, _, Some(l))) if l < maxId - 500 => l
           case _ => 0
         }, 100, 100, isMate)
     }

@@ -31,6 +31,8 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]()
         .gather[List](nb)
 
+    def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
+
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")
       else {
