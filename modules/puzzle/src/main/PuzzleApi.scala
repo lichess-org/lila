@@ -82,11 +82,11 @@ private[puzzle] final class PuzzleApi(
       case Some(l) =>
         learningColl.update(
           $id(l.id),
-          $doc("$pull" -> $doc("stack" -> puzzleId)))
+          l solved puzzleId)
     }
 
     def failed(user: User, puzzleId: PuzzleId) = learning find user flatMap {
-      case None => learning add Learning(user.id, List(puzzleId))
+      case None => learning add Learning(user.id, List(puzzleId), List())
       case Some(l) =>
         learningColl.update(
           $id(l.id),
