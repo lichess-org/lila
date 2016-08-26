@@ -380,3 +380,6 @@
 .icon-ribbon:before {
   content: "\e018";
 }
+.icon-cogs:before {
+  content: "\6e";
+}
