@@ -4,7 +4,7 @@
 
 @title = @{ trans.reportAUser.str() }
 
-@site.layout(title = title, moreCss = cssTag("report.css")) {
+@base.layout(title = title, moreCss = cssTag("report.css")) {
 <div class="content_box" id="report">
   <h1>@title</h1>
   <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">

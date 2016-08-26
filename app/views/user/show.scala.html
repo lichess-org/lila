@@ -139,7 +139,7 @@ description = describeUser(u)).some) {
     }
     }
     <div class="user-infos scroll-shadow-hard">
-      @if(ctx.me.fold(true)(u !=)) {
+      @if(!ctx.is(u)) {
       @if(u.engine) {
       <div class="warning engine_warning">
         <span data-icon="j" class="is4"></span>
@@ -168,6 +168,9 @@ description = describeUser(u)).some) {
       }
       }
       <div class="stats">
+        @u.profileOrDefault.fideRating.map { rating =>
+        <div class="fide_rating">FIDE rating: <strong>@rating</strong></div>
+        }
         @NotForKids {
         @u.profileOrDefault.nonEmptyLocation.map { l =>
         <span class="location">@l</span>,

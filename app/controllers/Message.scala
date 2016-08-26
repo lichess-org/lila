@@ -8,8 +8,8 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ User => UserModel, UserRepo }
 import lila.security.Granter
+import lila.user.{ User => UserModel, UserRepo }
 import views._
 
 object Message extends LilaController {
@@ -77,13 +77,14 @@ object Message extends LilaController {
       }
     }
 
+  def batch = AuthBody { implicit ctx =>
+    implicit me =>
+      val ids = get("ids").??(_.split(",").toList).distinct take 200
+      Env.message.batch(me, ~get("action"), ids) inject Redirect(routes.Message.inbox(1))
+  }
+
   def delete(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1))
-  }
-
-  def markAsRead(id: String) = AuthBody { implicit ctx =>
-    implicit me =>
-      api.markThreadAsRead(id, me)
   }
 }

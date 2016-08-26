@@ -17,6 +17,7 @@ object Environment
     with scalalib.OrnicarOption
     with lila.BooleanSteroids
     with lila.OptionSteroids
+    with lila.JodaTimeSteroids
     with StringHelper
     with JsonHelper
     with AssetHelper

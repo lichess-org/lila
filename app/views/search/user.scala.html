@@ -2,7 +2,10 @@
 
 @import lila.gameSearch.{ Query, Sorting }
 
-<form rel="nofollow" class="search" action="@routes.User.showFilter(u.username, "search")" method="get">
+<form rel="nofollow" class="search realtime" action="@routes.User.showFilter(u.username, "search")" method="get"
+  data-req-winner="@form("players")("winner").value"
+  data-req-white="@form("players")("white").value"
+  data-req-black="@form("players")("black").value">
   <table>
     <tr class="header">
       <th colspan=2>@trans.advancedSearch()</th>

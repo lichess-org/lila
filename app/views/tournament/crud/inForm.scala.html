@@ -14,21 +14,13 @@
 }
 
 <div>
-  @group(form("date"), Html("Date <strong>yyyy-mm-dd</strong>"), half = true) {
-  @base.input(form("date"))
+  @group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) {
+  @base.flatpickr(form("date"))
   }
-  <div class="form-group half">
-    @group(form("dateHour"), Html("Hour <strong>UTC</strong>"), half = true) {
-    @base.input(form("dateHour"))
-    }
-    @group(form("dateMinute"), Html("Minute <strong>UTC</strong>"), half = true) {
-    @base.input(form("dateMinute"))
-    }
-  </div>
+  @group(form("name"), Html("Name"), half = true) {
+  @base.input(form("name"))
+  }
 </div>
-@group(form("name"), Html("Name")) {
-@base.input(form("name"))
-}
 <div>
   @group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
   @base.input(form("homepageHours"))
@@ -36,10 +28,10 @@
   @group(form("image"), Html("Custom icon"), half = true) {
   @base.select(form("image"), imageChoices)
   }
-  @group(form("headline"), Html("Homepage headline")) {
-  @base.input(form("headline"))
-  }
 </div>
+@group(form("headline"), Html("Homepage headline")) {
+@base.input(form("headline"))
+}
 @group(form("description"), Html("Full description")) {
 <textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
 }

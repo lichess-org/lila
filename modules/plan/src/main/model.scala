@@ -19,6 +19,7 @@ case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
   def cents = Cents((value * 100).toInt)
   def toFloat = value.toFloat
+  def toInt = value.toInt
   override def toString = s"$$$value"
 }
 object Usd {
@@ -69,6 +70,8 @@ case class StripeCustomer(
   def firstSubscription = subscriptions.data.headOption
 
   def plan = firstSubscription.map(_.plan)
+
+  def renew = firstSubscription ?? (_.renew)
 }
 
 case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId)

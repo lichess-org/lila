@@ -37,9 +37,7 @@
     <span class="name">@tour.fullName</span>
     <span class="more">
       @trans.nbConnectedPlayers(tour.nbPlayers.localize) •
-      @if(tour.isStarted) {
-      finishes@momentFromNow(tour.finishesAt)
-      } else { @momentFromNow(tour.startsAt) }
+      @if(tour.isStarted) { @trans.playingRightNow() } else { @momentFromNow(tour.startsAt) }
     </span>
   </span>
 </a>

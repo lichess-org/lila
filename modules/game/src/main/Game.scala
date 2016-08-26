@@ -57,7 +57,7 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player] = players find (_.userId == Some(userId))
+  def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -95,7 +95,7 @@ case class Game(
     _.toLong + (createdAt.getMillis / 100)
   } orElse updatedAt.map(_.getMillis / 100)
 
-  private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
+  def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
   } orElse updatedAt
 
@@ -232,7 +232,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60
-    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+    val secondsLeft = lastMoveDateTime.fold(increment) { lmd =>
       (lmd.getSeconds + increment - nowSeconds).toInt max 0
     }
     CorrespondenceClock(
@@ -331,8 +331,8 @@ case class Game(
     this,
     copy(
       status = status,
-      whitePlayer = whitePlayer finish (winner == Some(White)),
-      blackPlayer = blackPlayer finish (winner == Some(Black)),
+      whitePlayer = whitePlayer.finish(winner contains White),
+      blackPlayer = blackPlayer.finish(winner contains Black),
       clock = clock map (_.stop)
     ),
     List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))

@@ -1,0 +1,14 @@
+@(title: String, active: String, evenMoreCss: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("coach.css")
+@evenMoreCss
+}
+
+@menu = {
+}
+
+@base.layout(
+title = title,
+side = menu.some,
+moreCss = moreCss)(body)

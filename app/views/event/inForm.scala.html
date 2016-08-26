@@ -1,0 +1,42 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@group(field: play.api.data.Field, name: Html, half: Boolean = false)(html: Html) = {
+<div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}">
+  @html
+  <label for="@field.id" class="control-label">@name</label>
+  <i class="bar"></i>
+</div>
+}
+
+@group(form("startsAt"), Html("Start date <strong>UTC</strong>"), half = true) {
+@base.flatpickr(form("startsAt"))
+}
+@group(form("finishesAt"), Html("End date <strong>UTC</strong>"), half = true) {
+@base.flatpickr(form("finishesAt"))
+}
+@group(form("title"), Html("Short title")) {
+@base.input(form("title"))
+}
+@group(form("headline"), Html("Short headline")) {
+@base.input(form("headline"))
+}
+@defining(form("description")) { field =>
+@group(field, Html("Possibly long description")) {
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
+}
+@group(form("url"), Html("External URL")) {
+@base.input(form("url"))
+}
+<div>
+  @group(form("enabled"), Html("Enabled"), half = true) {
+  @base.select(form("enabled"), booleanChoices)
+  }
+  @group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
+  @base.input(form("homepageHours"))
+  }
+</div>
+
+<div class="button-container">
+  <button type="submit" class="submit button text" data-icon="E">Apply now</button>
+</div>

@@ -217,33 +217,34 @@ module.exports = {
         config: function() {
           lichess.pubsub.emit('content_loaded')();
         }
-      }, ctrl.members.ordered().map(function(member) {
-        var confing = ctrl.members.confing() === member.user.id;
-        var attrs = {
-          key: member.user.id,
-          class: classSet({
-            elem: true,
-            member: true,
-            editing: confing
-          })
-        };
-        return [
-          m('div', attrs, [
-            m('div.left', [
-              statusIcon(member),
-              username(member)
+      }, [
+        ctrl.members.ordered().map(function(member) {
+          var confing = ctrl.members.confing() === member.user.id;
+          return [
+            m('div', {
+              key: member.user.id,
+              class: 'elem member' + (confing ? ' editing' : '')
+            }, [
+              m('div.left', [
+                statusIcon(member),
+                username(member)
+              ]),
+              configButton(ctrl, member)
             ]),
-            configButton(ctrl, member)
-          ]),
-          confing ? memberConfig(member) : null
-        ];
-      })),
-      isOwner ? m('i.add[data-icon=0]', {
-        key: 'new-member',
-        title: 'Invite someone',
-        'data-icon': 'O',
-        config: util.bindOnce('click', ctrl.members.inviteForm.toggle)
-      }) : null
+            confing ? memberConfig(member) : null
+          ];
+        }),
+        isOwner ? m('div', {
+            key: 'invite-someone',
+            class: 'elem member add',
+            config: util.bindOnce('click', ctrl.members.inviteForm.toggle)
+          },
+          m('div.left', [
+            m('span.status', m('i[data-icon=O]')),
+            m('span.add_text', 'Add contributors')
+          ])
+        ) : null
+      ])
     ];
   }
 };

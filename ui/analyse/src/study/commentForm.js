@@ -128,11 +128,15 @@ module.exports = {
                 ctx.onunload = ctx.trap.reset;
               }
               if (!isUpdate) {
-                el.onkeyup = function(e) {
-                  ctrl.submit(e.target.value);
-                  m.redraw.strategy("none");
-                  m.redraw();
-                };
+                var onChange = function(e) {
+                  setTimeout(function() {
+                    ctrl.submit(e.target.value);
+                    m.redraw.strategy("none");
+                    m.redraw();
+                  }, 50);
+                }
+                el.onkeyup = onChange;
+                el.onpaste = onChange;
                 el.onfocus = function() {
                   ctrl.focus(true);
                   m.redraw();

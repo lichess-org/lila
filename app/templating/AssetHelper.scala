@@ -18,6 +18,8 @@ trait AssetHelper { self: I18nHelper =>
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
 
+  def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
+
   def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
 
   def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)

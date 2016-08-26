@@ -59,6 +59,7 @@ GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
+GET   /player/myself                   controllers.User.myself
 GET   /player                          controllers.User.list
 GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
@@ -363,10 +364,22 @@ GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
 POST  /inbox/new                       controllers.Message.create
+POST  /inbox/batch                     controllers.Message.batch
 GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
-POST  /inbox/$id<\w{8}>/read         controllers.Message.markAsRead(id: String)
+
+# Coach
+GET   /coach                           controllers.Coach.index
+GET   /coach/edit                      controllers.Coach.edit
+POST  /coach/edit                      controllers.Coach.editApply
+GET   /coach/edit/picture              controllers.Coach.picture
+POST  /coach/edit/picture              controllers.Coach.pictureApply
+POST  /coach/edit/picture/delete       controllers.Coach.pictureDelete
+GET   /coach/:username                 controllers.Coach.show(username: String)
+
+# DB image
+GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame
@@ -417,6 +430,15 @@ GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
+
+# Events
+GET   /event                           controllers.Event.index
+GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
+GET   /event/manager                   controllers.Event.manager
+GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
+POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/new               controllers.Event.form
+POST  /event/manager                   controllers.Event.create
 
 # Misc
 POST  /cli                             controllers.Cli.command

@@ -58,7 +58,7 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     if (hold.applies(this.data)) {
       hold.register(this.socket, meta, this.vm.ply);
-      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
+      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this);
     }
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);

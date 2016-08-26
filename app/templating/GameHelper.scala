@@ -13,7 +13,6 @@ import lila.user.{ User, UserContext }
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
   def netBaseUrl: String
-  def staticUrl(path: String): String
   def cdnUrl(path: String): String
 
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(

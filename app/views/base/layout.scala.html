@@ -55,6 +55,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     "coords_" + ctx.pref.coords,
@@ -67,7 +68,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     data-asset-url="@assetBaseUrl"
     data-asset-version="@assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")">
-    @if(withGtm) { @gtm() }
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />
@@ -202,12 +202,13 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @jsTag("socket.js")
     @jsTag("main.js")
     }
+    @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") {
     @embedJs {
     lichess_translations = @jsI18n()
     }
     }
-    @base.ga()
+    @if(withGtm) {@gtm()} else {@ga()}
   </body>
 </html>

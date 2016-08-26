@@ -37,6 +37,7 @@ case class Pref(
     insightShare: Int,
     keyboardMove: Int,
     moveEvent: Int,
+    pieceNotation: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -90,6 +91,8 @@ case class Pref(
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
+
+  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 }
 
 object Pref {
@@ -176,6 +179,15 @@ object Pref {
       CLICK -> "Click two squares",
       DRAG -> "Drag a piece",
       BOTH -> "Both clicks and drag")
+  }
+
+  object PieceNotation {
+    val SYMBOL = 0
+    val LETTER = 1
+
+    val choices = Seq(
+      SYMBOL -> "Chess piece symbol",
+      LETTER -> "PGN letter (K, Q, R, B, N)")
   }
 
   object Blindfold extends BooleanPref {
@@ -325,6 +337,7 @@ object Pref {
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     moveEvent = MoveEvent.BOTH,
+    pieceNotation = PieceNotation.SYMBOL,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

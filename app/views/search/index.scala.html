@@ -20,7 +20,10 @@ url = s"$netBaseUrl${routes.Search.index().url}",
 description = s"Search in ${nbGames.localize} chess games using advanced criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
-  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get">
+  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get"
+    data-req-winner="@form("players")("winner").value"
+    data-req-white="@form("players")("white").value"
+    data-req-black="@form("players")("black").value">
     <table>
       <tr>
         <th>
@@ -32,16 +35,18 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
         </td>
       </tr>
       @chess.Color.all.map { color =>
+      @defining(form("players")(color.name)) { field =>
       <tr class="@{color.name}User user_row none">
         <th>
-          <label for="@form("players")(color.name).id">@color.fold(trans.white, trans.black)()</label>
+          <label for="@field.id">@color.fold(trans.white, trans.black)()</label>
         </th>
         <td class="single">
-          <select id="@form("players")(color.name).id" name="@form("players")(color.name).name">
+          <select id="@field.id" name="@field.name">
             <option class="blank" value=""></option>
           </select>
         </td>
       </tr>
+      }
       }
       <tr class="winner user_row none">
         <th>
@@ -199,7 +204,6 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     <div class="search_status">
       <strong>@pager.nbResults.localize games found</strong> •
       <a class="permalink" href="@routes.Search.index()">Permalink</a> •
-      <a class="permalink" rel="nofollow" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>

@@ -43,8 +43,11 @@ function post(d, n) {
   $.post('/jslog/' + d.game.id + d.player.id + '?n=' + n);
 }
 
-function find(el, d) {
-  if (document.getElementById('robot_link')) post(d, 'rcb');
+function find(ctrl) {
+  if (document.getElementById('robot_link')) post(ctrl.data, 'rcb');
+  // else if (
+  //   ctrl.vm.element.querySelector('.cg-board-wrap.manipulable svg') &&
+  //   !ctrl.chessground.data.drawable.shapes.length) post(ctrl.data, 'xmb');
 }
 
 module.exports = {

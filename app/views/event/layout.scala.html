@@ -1,0 +1,20 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssAt("vendor/flatpickr/dist/flatpickr.min.css")
+@cssTag("material.form.css")
+@cssTag("event.crud.css")
+}
+
+@moreJs = {
+@jsAt("vendor/flatpickr/dist/flatpickr.min.js")
+@embedJs {
+$(".flatpickr").flatpickr();
+}
+}
+
+@mod.layout(
+title = title,
+active = "event",
+moreCss = moreCss,
+moreJs = moreJs)(body)

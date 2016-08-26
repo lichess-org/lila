@@ -1,0 +1,61 @@
+.coach_edit .material.form {
+  margin: 30px 20px 20px 20px;
+}
+.coach_edit .material.form .form-group textarea {
+  height: 8em;
+}
+.coach_edit .material.form .form-group.large-label {
+  margin-top: 4.25rem;
+}
+.coach_edit .material.form .form-group.large-label .control-label {
+  opacity: 0.8!important;
+  top: -2rem!important;
+}
+.coach_edit .material.form .form-group.large-label .control-label em {
+  opacity: 0.8;
+  display: block;
+}
+
+.coach_edit .upload_picture {
+  text-align: center;
+  margin: 30px 0 50px 0;
+}
+
+.coach_picture form {
+  padding: 30px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.coach_picture form.delete button {
+  color: red;
+}
+.coach_picture .cancel {
+  padding: 40px;
+  border-top: 1px solid #ccc;
+}
+.coach_picture .forms > *:first-child {
+  margin-top: 40px;
+}
+
+.thumbnail {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 12px;
+  border: 7px solid #ddd;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,9 @@
+@(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
+
+@layout(title = c.user.titleUsername, active = "coach") {
+<div class="content_box no_padding coach">
+  <div class="top">
+    <h1>@userLink(c.user)</h1>
+  </div>
+</div>
+}

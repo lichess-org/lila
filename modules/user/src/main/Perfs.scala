@@ -1,6 +1,6 @@
 package lila.user
 
-import reactivemongo.bson.BSONDocument
+import org.joda.time.DateTime
 
 import chess.Speed
 import lila.db.BSON
@@ -143,6 +143,13 @@ case class Perfs(
       }
     }
   )
+
+  def latest: Option[DateTime] =
+    perfsMap.values.toList.flatMap(_.latest).foldLeft(none[DateTime]) {
+      case (None, date)                          => date.some
+      case (Some(acc), date) if date isAfter acc => date.some
+      case (acc, _)                              => acc
+    }
 }
 
 case object Perfs {
@@ -199,7 +206,7 @@ case object Perfs {
 
     private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
 
-    def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
+    def writes(w: BSON.Writer, o: Perfs) = reactivemongo.bson.BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
