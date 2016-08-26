@@ -18,6 +18,8 @@ final class Env(
     userSpy: String => Fu[UserSpy],
     securityApi: lila.security.Api,
     notifyApi: lila.notify.NotifyApi,
+    historyApi: lila.history.HistoryApi,
+    rankingApi: lila.user.RankingApi,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {
@@ -35,8 +37,13 @@ final class Env(
 
   lazy val logApi = new ModlogApi(logColl)
 
+  private lazy val notifier = new ModNotifier(notifyApi, reportColl)
+
   private lazy val ratingRefund = new RatingRefund(
     scheduler = scheduler,
+    notifier = notifier,
+    historyApi = historyApi,
+    rankingApi = rankingApi,
     wasUnengined = logApi.wasUnengined)
 
   lazy val api = new ModApi(
@@ -45,7 +52,7 @@ final class Env(
     firewall = firewall,
     reporter = hub.actor.report,
     lightUserApi = lightUserApi,
-    notifyReporters = new NotifyReporters(notifyApi, reportColl),
+    notifier = notifier,
     refunder = ratingRefund,
     lilaBus = system.lilaBus)
 
@@ -102,5 +109,7 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,
     notifyApi = lila.notify.Env.current.api,
+    historyApi = lila.history.Env.current.api,
+    rankingApi = lila.user.Env.current.rankingApi,
     emailAddress = lila.security.Env.current.emailAddress)
 }

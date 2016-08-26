@@ -4,12 +4,13 @@ import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.notify.{ Notification, NotifyApi }
+import lila.user.User
 
-private final class NotifyReporters(
+private final class ModNotifier(
     notifyApi: NotifyApi,
     reportColl: Coll) {
 
-  def apply(user: lila.user.User): Funit =
+  def reporters(user: User): Funit =
     reportColl.distinct("createdBy", $doc(
       "user" -> user.id,
       "createdAt" -> $gt(DateTime.now minusDays 3),
@@ -21,4 +22,9 @@ private final class NotifyReporters(
           content = lila.notify.ReportedBanned))
       }.sequenceFu.void
     }
+
+  def refund(user: User, pt: lila.rating.PerfType, points: Int): Funit =
+    notifyApi.addNotification(Notification(
+      notifies = Notification.Notifies(user.id),
+      content = lila.notify.RatingRefund(pt.name, points)))
 }

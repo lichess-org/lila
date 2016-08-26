@@ -10,7 +10,7 @@ final class ModApi(
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
-    notifyReporters: NotifyReporters,
+    notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund,
     lilaBus: lila.common.Bus) {
@@ -25,7 +25,7 @@ final class ModApi(
         UserRepo.setEngine(user.id, v) >>- {
           if (v) {
             lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
-            notifyReporters(user)
+            notifier.reporters(user)
             refunder schedule user
           }
           reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
@@ -50,7 +50,7 @@ final class ModApi(
         UserRepo.setBooster(user.id, v) >>- {
           if (v) {
             lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
-            notifyReporters(user)
+            notifier.reporters(user)
           }
         } void
     }
@@ -69,7 +69,7 @@ final class ModApi(
       UserRepo.updateTroll(user).void >>-
         logApi.troll(mod, user.id, user.troll)
     } >>- {
-      if (value) notifyReporters(user)
+      if (value) notifier.reporters(user)
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod))
     } inject user.troll
   }

@@ -12,6 +12,9 @@ import lila.user.{ User, UserRepo }
 
 private final class RatingRefund(
     scheduler: lila.common.Scheduler,
+    notifier: ModNotifier,
+    historyApi: lila.history.HistoryApi,
+    rankingApi: lila.user.RankingApi,
     wasUnengined: User.ID => Fu[Boolean]) {
 
   import RatingRefund._
@@ -27,7 +30,7 @@ private final class RatingRefund(
       def lastGames = GameRepo.coll.find(
         Query.win(cheater.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3)
       ).sort(Query.sortCreated)
-        .cursor[Game](readPreference = ReadPreference.secondaryPrefered)
+        .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
         .list(30)
 
       def opponent(game: Game) = game.playerByUserId(cheater.id) map game.opponent
@@ -39,16 +42,22 @@ private final class RatingRefund(
           if !op.provisional
           victim <- op.userId
           diff <- op.ratingDiff
+          if diff < 0
           rating <- op.rating
-        } yield refs.add(victim, perf, diff, rating)) | refs
+        } yield refs.add(victim, perf, -diff, rating)) | refs
       }
 
       def pointsToRefund(ref: Refund, user: User): Int = {
         ref.diff - user.perfs(ref.perf).intRating + ref.topRating
       } min ref.diff min 200 max 0
 
-      def refundPoints(user: User, pt: PerfType, points: Int): Funit =
-        UserRepo.setPerf(user.id, pt, user.perfs(pt) refund points)
+      def refundPoints(user: User, pt: PerfType, points: Int): Funit = {
+        val newPerf = user.perfs(pt) refund points
+        UserRepo.setPerf(user.id, pt, newPerf) >>
+          historyApi.setPerfRating(user, pt, newPerf.intRating) >>
+          rankingApi.save(user.id, pt, newPerf) >>
+          notifier.refund(user, pt, points)
+      }
 
       def applyRefund(ref: Refund) =
         UserRepo byId ref.victim flatMap {

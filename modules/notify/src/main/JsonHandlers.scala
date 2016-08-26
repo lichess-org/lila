@@ -43,6 +43,9 @@ final class JSONHandlers(
           "win" -> win.map(_.value))
         case _: PlanStart  => Json.obj()
         case _: PlanExpire => Json.obj()
+        case RatingRefund(perf, points) => Json.obj(
+          "perf" -> perf,
+          "points" -> points)
       }
     }
 

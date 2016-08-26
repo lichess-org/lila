@@ -59,6 +59,7 @@ GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
+GET   /player/myself                   controllers.User.myself
 GET   /player                          controllers.User.list
 GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
