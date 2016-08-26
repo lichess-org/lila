@@ -33,9 +33,11 @@ final class Env(
 
   private[mod] lazy val logColl = db(CollectionModlog)
 
-  private lazy val ratingRefund = new RatingRefund(scheduler)
-
   lazy val logApi = new ModlogApi(logColl)
+
+  private lazy val ratingRefund = new RatingRefund(
+    scheduler = scheduler,
+    wasUnengined = logApi.wasUnengined)
 
   lazy val api = new ModApi(
     logApi = logApi,

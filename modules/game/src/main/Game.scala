@@ -57,7 +57,7 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player] = players find (_.userId == Some(userId))
+  def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -331,8 +331,8 @@ case class Game(
     this,
     copy(
       status = status,
-      whitePlayer = whitePlayer finish (winner == Some(White)),
-      blackPlayer = blackPlayer finish (winner == Some(Black)),
+      whitePlayer = whitePlayer.finish(winner contains White),
+      blackPlayer = blackPlayer.finish(winner contains Black),
       clock = clock map (_.stop)
     ),
     List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
