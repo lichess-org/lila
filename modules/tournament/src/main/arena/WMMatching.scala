@@ -181,7 +181,6 @@ object WMMatching {
 
     @tailrec def assignLabel(w:Int, t:Int, p:Int) : Unit = {
       val b = inblossom(w)
-      assert((label(w) | label(b)) == 0)
       label(w) = t
       label(b) = t
       labelend(w) = p
@@ -196,7 +195,6 @@ object WMMatching {
         // (If b is a non-trivial blossom, its base is the only vertex
         // with an external mate.)
         val base = blossombase(b)
-        assert(mate(base) >= 0)
         assignLabel(endpoint(mate(base)), 1, mate(base) ^ 1)
       }
     }
@@ -211,19 +209,15 @@ object WMMatching {
           val b = inblossom(v)
           if (label(b) == 3) (blossombase(b), path)
           else {
-            assert(label(b) == 1)
             val path2 = b :: path
             label(b) = 3
             // Trace one step back.
-            assert(labelend(b) == mate(blossombase(b)))
             val nv =
               if (labelend(b) == -1) -1
               else {
                 val t = endpoint(labelend(b))
                 val c = inblossom(t)
-                assert(label(c) == 2)
                 // c is a T-blossom; trace one more step back.
-                assert(labelend(c) >= 0)
                 endpoint(labelend(c))
               }
             // Swap v and w so that we alternate between both paths.
@@ -263,9 +257,6 @@ object WMMatching {
         else {
           // Add bv to the new blossom.
           blossomparent(bv) = b
-          assert (label(bv) == 2 ||
-                  (label(bv) == 1 && labelend(bv) == mate(blossombase(bv))))
-          assert(labelend(bv) >= 0)
           // Trace one step back.
           traceBack(endpoint(labelend(bv)), d, bv :: path, (labelend(bv) ^ d) :: endps)
         }
@@ -278,7 +269,6 @@ object WMMatching {
       blossomendps(b) = endps1.toArray
 
       // Set label to S.
-      assert(label(bb) == 1)
       label(b) = 1
       labelend(b) = labelend(bb)
       // Set dual variable to zero.
@@ -339,7 +329,6 @@ object WMMatching {
         // we reach the base.
         // Figure out through which sub-blossom the expanding blossom
         // obtained its label initially.
-        assert(labelend(b) >= 0)
         val entrychild = inblossom(endpoint(labelend(b) ^ 1))
         // Decide in which direction we will go round the blossom.
         var j = blossomchilds(b).indexOf(entrychild)
@@ -384,8 +373,6 @@ object WMMatching {
             // neighbours; leave it.
           } else {
             (blossomLeaves(bv).find(x => label(x) != 0)).foreach ( v => {
-                assert(label(v) == 2)
-                assert(inblossom(v) == bv)
                 label(v) = 0
                 label(endpoint(mate(blossombase(bv)))) = 0
                 assignLabel(v, 2, labelend(v))
@@ -459,7 +446,6 @@ object WMMatching {
       blossomchilds(b) = rotate(blossomchilds(b), i)
       blossomendps(b) = rotate(blossomendps(b), i)
       blossombase(b) = blossombase(blossomchilds(b)(0))
-      assert(blossombase(b) == v)
     }
 
     // Swap matched/unmatched edges over an alternating path between two
@@ -472,8 +458,6 @@ object WMMatching {
       // edges as we go.
       @tailrec def f(s:Int, p:Int) : Unit = {
         val bs = inblossom(s)
-        assert(label(bs) == 1)
-        assert(labelend(bs) == mate(blossombase(bs)))
         // Augment through the S-blossom from s to base.
         if (bs >= nvertex)
           augmentBlossom(bs, s)
@@ -484,13 +468,10 @@ object WMMatching {
         } else {
           val t = endpoint(labelend(bs))
           val bt = inblossom(t)
-          assert(label(bt) == 2)
           // Trace one step back.
-          assert(labelend(bt) >= 0)
           val ns = endpoint(labelend(bt))
           val j = endpoint(labelend(bt) ^ 1)
           //Augment through the T-blossom from j to base.
-          assert(blossombase(bt) == t)
           if (bt >= nvertex)
             augmentBlossom(bt, j)
           //Update mate(j)
@@ -510,7 +491,6 @@ object WMMatching {
         // Take an S vertex from the queue.
         val v = queue.head
         queue = queue.tail
-        assert(label(inblossom(v)) == 1)
         def go (p: Int) : Boolean = {
           val k = p >> 1
           val w = endpoint(p)
@@ -553,7 +533,6 @@ object WMMatching {
                 // yet been reached from outside the blossom;
                 // mark it as reached (we need this to relabel
                 // during T-blossom expansion).
-                assert(label(inblossom(w)) == 2)
                 label(w) = 2
                 labelend(w) = p ^ 1
                 false
@@ -628,7 +607,6 @@ object WMMatching {
       for (b <- 0 until allocatedvertex) {
         if (blossomparent(b) == -1 && label(b) == 1 && bestedge(b) != -1) {
           val kslack = slack(bestedge(b))
-          assert((kslack % 2) == 0)
           dt.update(3, kslack / 2, bestedge(b))
         }
       }
@@ -644,7 +622,6 @@ object WMMatching {
         // No further improvement possible; max-cardinality optimum
         // reached. Do a final delta update to make the optimum
         // verifyable.
-        assert(maxcardinality)
         dt.update(1, 0.max(dualvar.slice(0, nvertex).min), -1)
       }
 
@@ -676,13 +653,11 @@ object WMMatching {
         allowedge(dt.extra) = true
         val (ei, ej, wt) = edges(dt.extra)
         val (i, j) = if (label(inblossom(ei)) == 0) (ej, ei) else (ei, ej)
-        assert(label(inblossom(i)) == 1)
         queue ::= i
       } else if (dt.tp == 3) {
          // Use the least-slack edge to continue the search.
          allowedge(dt.extra) = true
          val (i, j, wt) = edges(dt.extra)
-         assert(label(inblossom(i)) == 1)
          queue ::= i
       } else if (dt.tp == 4) {
         expandBlossom(dt.extra, false)
@@ -729,9 +704,6 @@ object WMMatching {
     // Transform mate such that mate(v) is the vertex to which v is paired.
     for (v <- 0 until nvertex if mate(v) >= 0) {
       mate(v) = endpoint(mate(v))
-    }
-    for (v <- 0 until nvertex) {
-      assert(mate(v) == -1 || mate(mate(v)) == v)
     }
     mate
   }
