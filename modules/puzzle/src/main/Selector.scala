@@ -65,8 +65,10 @@ private[puzzle] final class Selector(
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
     api.head.find(user) flatMap {
-      case Some(PuzzleHead(_, _, Some(l))) => tryRange(rating, step, step, difficultyDecay(difficulty), l, 100, 100, isMate)
-      case _ =>                               tryRange(rating, step, step, difficultyDecay(difficulty), 0, 100, 100, isMate)
+      oph => tryRange(rating, step, step, difficultyDecay(difficulty), oph match {
+          case Some(PuzzleHead(_, _, Some(l))) => l
+          case _ => 0
+        }, 100, 100, isMate)
     }
   }
 
