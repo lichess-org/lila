@@ -139,10 +139,20 @@ private[puzzle] final class PuzzleApi(
       h,
       upsert = true) void
 
+    def addLearning(user: User, puzzleId: PuzzleId) = headColl update(
+      $id(user.id),
+      $set(PuzzleHead.BSONFields.current -> puzzleId.some),
+      upsert = true) void
+
+    def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
+
     def solved(user: User, id: PuzzleId) = head find user flatMap {
-      case Some(PuzzleHead(_, Some(c), _)) if c == id => headColl.update(
+      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update(
         $id(user.id),
-        PuzzleHead(user.id, none, Some(id)))
+        PuzzleHead(user.id, none, id))
+      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update(
+        $id(user.id),
+        $unset(PuzzleHead.BSONFields.current))
       case _ => fuccess(none)
     }
   }
