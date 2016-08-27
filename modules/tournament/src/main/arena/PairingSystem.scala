@@ -77,8 +77,8 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
 
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
     players.nonEmpty ?? {
-      AntmaPairing(data, players)
-      // OrnicarPairing(data, players)
+      if (data.tour.isScheduled) OrnicarPairing(data, players)
+      else AntmaPairing(data, players)
     }
 
   def url(tourId: String) = s"//lichess.org/tournament/$tourId"
