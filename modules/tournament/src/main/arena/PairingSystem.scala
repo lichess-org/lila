@@ -75,20 +75,11 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
-    import data._
-    val a: Array[RankedPlayer] = players.toArray
-    val n: Int = a.length
-    def pairScore(i: Int, j: Int): Int = {
-      def playedTogether(u1:String, u2:String) = if (lastOpponents.hash.get(u1).contains(u2)) 1 else 0
-      def f(x: Int): Int = (11500000 - 3500000 * x) * x
-      Math.abs(a(i).rank - a(j).rank) * 1000 +
-      Math.abs(a(i).player.rating - a(j).player.rating) +
-      f (playedTogether(a(i).player.userId, a(j).player.userId) + playedTogether(a(j).player.userId, a(i).player.userId))
+  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
+    players.nonEmpty ?? {
+      AntmaPairing(data, players)
+      // OrnicarPairing(data, players)
     }
-    val mate = WMMatching.minWeightMatching(WMMatching.fullGraph(n, pairScore))
-    WMMatching.mateToEdges(mate).map (x => Pairing.prep(tour, a(x._1).player, a(x._2).player))
-  }
 
-  private def url(tourId: String) = s"//lichess.org/tournament/$tourId"
+  def url(tourId: String) = s"//lichess.org/tournament/$tourId"
 }
