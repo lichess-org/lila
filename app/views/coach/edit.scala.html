@@ -24,6 +24,13 @@ evenMoreCss = Some(cssTag("material.form.css"))) {
   </div>
   }
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
+    <div class="form-group">
+      @if(!c.user.profileOrDefault.isComplete) {
+      <a href="@routes.Account.profile" target="_blank">
+        Click here to complete your public lichess profile.
+      </a>
+      }
+    </div>
     <div>
       @base.form.group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {
       @base.select(form("enabledByUser"), booleanChoices)

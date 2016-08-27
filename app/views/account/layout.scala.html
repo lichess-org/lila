@@ -19,6 +19,9 @@
 <a class="@active.active("editProfile")" href="@routes.Account.profile()">
   @trans.editProfile()
 </a>
+@if(isGranted(_.Coach)) {
+<a href="@routes.Coach.edit">Coach profile</a>
+}
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
 </a>

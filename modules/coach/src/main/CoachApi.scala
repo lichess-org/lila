@@ -17,6 +17,10 @@ final class CoachApi(
   def find(user: User): Fu[Option[Coach.WithUser]] =
     coll.byId[Coach](user.id) map2 withUser(user)
 
+  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = find(user) orElse {
+    fuccess(Coach.WithUser(Coach make user, user).some)
+  }
+
   def enabledWithUserList: Fu[List[Coach.WithUser]] =
     coll.list[Coach]($doc(
       "enabledByUser" -> true,
@@ -31,14 +35,6 @@ final class CoachApi(
 
   def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
     coll.update($id(c.coach.id), data(c.coach)).void
-
-  private[coach] def init(username: String): Fu[String] = find(username) flatMap {
-    case Some(_) => fuccess(s"Coach $username already exists.")
-    case None => UserRepo named username flatMap {
-      case None       => fuccess(s"No such username $username")
-      case Some(user) => coll.insert(Coach make user) inject "Done!"
-    }
-  }
 
   private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {

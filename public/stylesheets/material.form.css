@@ -145,6 +145,9 @@
 body.dark .material.form .form-group * {
   color: #bbb;
 }
+.material.form .form-group a {
+  color: #3893E8;
+}
 body.dark .material.form .form-group select option {
   color: #333;
 }
