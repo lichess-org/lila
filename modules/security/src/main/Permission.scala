@@ -2,7 +2,7 @@ package lila.security
 
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
-  final def is(p: Permission): Boolean = this == p || (children exists (_ is p))
+  final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
 }
 
 object Permission {
@@ -52,7 +52,7 @@ object Permission {
     GuineaPig))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, PublicMod, Developer, Coach))
+    Admin, ChangePermission, PublicMod, Developer))
 
   lazy val allButSuperAdmin: List[Permission] = List(
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,

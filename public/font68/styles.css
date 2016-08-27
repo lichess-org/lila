@@ -374,12 +374,12 @@
 .icon-crown1-1:before {
   content: "\e019";
 }
-.icon-study:before {
-  content: "\e011";
-}
 .icon-ribbon:before {
   content: "\e018";
 }
 .icon-cogs:before {
   content: "\6e";
+}
+.icon-graduate-cap:before {
+  content: "\3a";
 }

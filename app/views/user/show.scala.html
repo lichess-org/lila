@@ -30,6 +30,11 @@ description = describeUser(u)).some) {
       <span data-icon="@patronIconChar"></span>
     </a>
     }
+    @if(info.isCoach) {
+    <a href="@routes.Coach.show(u.username)" class="trophy award icon3d coach hint--left" data-hint="Lichess coach">
+      <span data-icon=":"></span>
+    </a>
+    }
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
       href="@url"
