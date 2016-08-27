@@ -7,57 +7,57 @@
 
 <div>
   @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) {
-  @base.flatpickr(form("date"))
+  @base.form.flatpickr(form("date"))
   }
   @base.form.group(form("name"), Html("Name"), half = true) {
-  @base.input(form("name"))
+  @base.form.input(form("name"))
   }
 </div>
 <div>
   @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
-  @base.input(form("homepageHours"))
+  @base.form.input(form("homepageHours"))
   }
   @base.form.group(form("image"), Html("Custom icon"), half = true) {
-  @base.select(form("image"), imageChoices)
+  @base.form.select(form("image"), imageChoices)
   }
 </div>
 @base.form.group(form("headline"), Html("Homepage headline")) {
-@base.input(form("headline"))
+@base.form.input(form("headline"))
 }
 @base.form.group(form("description"), Html("Full description")) {
 <textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
 }
 <div>
   @base.form.group(form("variant"), Html("Variant"), half = true) {
-  @base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+  @base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
   }
   @base.form.group(form("minutes"), Html("Duration in minutes"), half = true) {
-  @base.input(form("minutes"))
+  @base.form.input(form("minutes"))
   }
 </div>
 <div>
   @base.form.group(form("clockTime"), Html("Clock time"), half = true) {
-  @base.select(form("clockTime"), clockTimeChoices)
+  @base.form.select(form("clockTime"), clockTimeChoices)
   }
   @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) {
-  @base.select(form("clockIncrement"), clockIncrementChoices)
+  @base.form.select(form("clockIncrement"), clockIncrementChoices)
   }
 </div>
 <h2>Conditions of entry</h2>
 <div>
   @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) {
-  @base.select(form("conditions.nbRatedGame.nb"), Condition.DataForm.nbRatedGameChoices)
+  @base.form.select(form("conditions.nbRatedGame.nb"), Condition.DataForm.nbRatedGameChoices)
   }
   @base.form.group(form("conditions.nbRatedGame.perf"), Html("In variant"), half = true) {
-  @base.select(form("conditions.nbRatedGame.perf"), ("", "Any") :: Condition.DataForm.perfChoices)
+  @base.form.select(form("conditions.nbRatedGame.perf"), ("", "Any") :: Condition.DataForm.perfChoices)
   }
 </div>
 <div>
   @base.form.group(form("conditions.maxRating.rating"), Html("Maximum top rating"), half = true) {
-  @base.select(form("conditions.maxRating.rating"), Condition.DataForm.maxRatingChoices)
+  @base.form.select(form("conditions.maxRating.rating"), Condition.DataForm.maxRatingChoices)
   }
   @base.form.group(form("conditions.maxRating.perf"), Html("In variant"), half = true) {
-  @base.select(form("conditions.maxRating.perf"), Condition.DataForm.perfChoices)
+  @base.form.select(form("conditions.maxRating.perf"), Condition.DataForm.perfChoices)
   }
 </div>
 

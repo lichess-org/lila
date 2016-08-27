@@ -15,8 +15,8 @@
         <label>Date</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("dateMin"), Query.dates, "".some)</div>
-        <div class="half">To @base.select(form("dateMax"), Query.dates, "".some)</div>
+        <div class="half">From @base.form.select(form("dateMin"), Query.dates, "".some)</div>
+        <div class="half">To @base.form.select(form("dateMax"), Query.dates, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -24,8 +24,8 @@
         <label>@trans.rating() <span class="help" title="The average rating of both players">(?)</span></label>
       </th>
       <td>
-        <div class="half">From @base.select(form("ratingMin"), Query.averageRatings, "".some)</div>
-        <div class="half">To @base.select(form("ratingMax"), Query.averageRatings, "".some)</div>
+        <div class="half">From @base.form.select(form("ratingMin"), Query.averageRatings, "".some)</div>
+        <div class="half">To @base.form.select(form("ratingMax"), Query.averageRatings, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -33,8 +33,8 @@
         <label>Number of turns</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("turnsMin"), Query.turns, "".some)</div>
-        <div class="half">To @base.select(form("turnsMax"), Query.turns, "".some)</div>
+        <div class="half">From @base.form.select(form("turnsMin"), Query.turns, "".some)</div>
+        <div class="half">To @base.form.select(form("turnsMax"), Query.turns, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -42,8 +42,8 @@
         <label>@trans.duration()</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("durationMin"), Query.durations, "".some)</div>
-        <div class="half">To @base.select(form("durationMax"), Query.durations, "".some)</div>
+        <div class="half">From @base.form.select(form("durationMin"), Query.durations, "".some)</div>
+        <div class="half">To @base.form.select(form("durationMax"), Query.durations, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -51,8 +51,8 @@
         <label>Clock initial time</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
-        <div class="half">To @base.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
+        <div class="half">From @base.form.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
+        <div class="half">To @base.form.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -60,8 +60,8 @@
         <label>Clock increment</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
-        <div class="half">To @base.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
+        <div class="half">From @base.form.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
+        <div class="half">To @base.form.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
       </td>
     </tr>
     <tr>
@@ -69,7 +69,7 @@
         <label for="@form("source").id">Source</label>
       </th>
       <td class="single">
-        @base.select(form("source"), Query.sources, "".some)
+        @base.form.select(form("source"), Query.sources, "".some)
       </td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@
         <label for="@form("perf").id">@trans.variant()</label>
       </th>
       <td class="single">
-        @base.select(form("perf"), Query.perfs, "".some)
+        @base.form.select(form("perf"), Query.perfs, "".some)
       </td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@
         <label for="@form("mode").id">@trans.mode()</label>
       </th>
       <td class="single">
-        @base.select(form("mode"), Query.modes, "".some)
+        @base.form.select(form("mode"), Query.modes, "".some)
       </td>
     </tr>
   </table>
@@ -95,7 +95,7 @@
         <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
       </th>
       <td class="single opponent">
-        @base.select(form("hasAi"), Query.hasAis, "".some)
+        @base.form.select(form("hasAi"), Query.hasAis, "".some)
       </td>
     </tr>
     <tr class="aiLevel none">
@@ -103,8 +103,8 @@
         <label for="@form("aiLevel").id">A.I. level</label>
       </th>
       <td>
-        <div class="half">From @base.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
-        <div class="half">To @base.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
+        <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
+        <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
       </td>
     </tr>
     <tr class="opponentName">
@@ -113,7 +113,7 @@
       </th>
       <td class="usernames">
         <input value="@u.id" name="players.a" type="hidden">
-        @base.input(form("players")("b"))
+        @base.form.input(form("players")("b"))
       </td>
     </tr>
     <tr class="winner user_row">
@@ -143,7 +143,7 @@
         <label for="@form("status").id">Result</label>
       </th>
       <td class="single">
-        @base.select(form("status"), Query.statuses, "".some)
+        @base.form.select(form("status"), Query.statuses, "".some)
       </td>
     </tr>
     <tr>
@@ -151,7 +151,7 @@
         <label for="@form("winnerColor").id">Winner color</label>
       </th>
       <td class="single">
-        @base.select(form("winnerColor"), Query.winnerColors, "".some)
+        @base.form.select(form("winnerColor"), Query.winnerColors, "".some)
       </td>
     </tr>
     <tr>
@@ -159,8 +159,8 @@
         <label>Sort</label>
       </th>
       <td>
-        <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
-        <div class="half">Order @base.select(form("sort")("order"), Sorting.orders)</div>
+        <div class="half">By @base.form.select(form("sort")("field"), Sorting.fields)</div>
+        <div class="half">Order @base.form.select(form("sort")("order"), Sorting.orders)</div>
       </td>
     </tr>
     <tr>
@@ -168,7 +168,7 @@
         <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
       </th>
       <td class="single">
-        @{ base.checkbox(form("analysed"), "", 1) }
+        @base.form.checkbox(form("analysed"), "", 1)
       </td>
     </tr>
   </table>

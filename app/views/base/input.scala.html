@@ -1,5 +1,0 @@
-@(field: play.api.data.Field, placeholder: Option[String] = None, typ: String = "text")
-
-<input @placeholder.map { p =>
-placeholder="@p"
-} type="@typ" value="@field.value" name="@field.name" id="@field.id" />

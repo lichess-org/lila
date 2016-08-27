@@ -13,10 +13,10 @@ evenMoreCss =cssTag("material.form.css")) {
       <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
       <div>
         @base.form.group(form("country"), trans.country(), klass = "half") {
-        @base.select(form("country"), lila.user.Countries.all, default = "".some)
+        @base.form.select(form("country"), lila.user.Countries.all, default = "".some)
         }
         @base.form.group(form("location"), trans.location(), klass = "half") {
-        @base.input(form("location"))
+        @base.form.input(form("location"))
         }
       </div>
       @NotForKids {
@@ -26,16 +26,16 @@ evenMoreCss =cssTag("material.form.css")) {
       }
       <div>
         @base.form.group(form("firstName"), trans.firstName(), klass = "half") {
-        @base.input(form("firstName"))
+        @base.form.input(form("firstName"))
         }
         @base.form.group(form("lastName"), trans.lastName(), klass = "half") {
-        @base.input(form("lastName"))
+        @base.form.input(form("lastName"))
         }
       </div>
       }
       <div>
         @base.form.group(form("fideRating"), Html("FIDE rating"), klass = "half") {
-        @base.input(form("fideRating"), typ="number")
+        @base.form.input(form("fideRating"), typ="number")
         }
       </div>
       @errMsg(form)
