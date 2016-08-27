@@ -9,8 +9,8 @@ evenMoreCss =cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title text" data-icon="*">@trans.editProfile()</h1>
-    <p class="form-group">@trans.allInformationIsPublicAndOptional()</p>
     <form class="material form" action="@routes.Account.profileApply" method="POST">
+      <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
       <div>
         @base.form.group(form("country"), trans.country(), klass = "half") {
         @base.select(form("country"), lila.user.Countries.all, default = "".some)

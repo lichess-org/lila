@@ -5,7 +5,7 @@
 @name = @{ categName(categ) }
 @title = @{ s"$name - ${u.username} - ${trans.preferences.str()}" }
 
-@account.layout(title = title, active = categ.slug) {
+@account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
     <h1 class="lichess_title" text data-icon="%">@categName(categ)</h1>
