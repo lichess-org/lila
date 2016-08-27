@@ -14,8 +14,6 @@ case class AggregateVote(up: Int, down: Int, sum: Int) {
 
   def count = up + down
 
-  def percent = 50 + (sum.toDouble / count * 50).toInt
-
   def computeSum = copy(sum = up - down)
 }
 

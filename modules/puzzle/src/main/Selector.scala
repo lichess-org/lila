@@ -35,21 +35,19 @@ private[puzzle] final class Selector(
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
       case Some(user) =>
-        val head = api.head.find(user)
-        head flatMap {
+        api.head.find(user) flatMap {
           case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
           case _ =>
             val isLearn = scala.util.Random.nextInt(5) == 0
             val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
-              case None => newPuzzleForUser(user, isMate, difficulty)
-              case p => fuccess(p)
-            }
-            else newPuzzleForUser(user, isMate, difficulty)
-            next flatMap {
+                case None => newPuzzleForUser(user, isMate, difficulty)
+                case p => fuccess(p)
+              }
+              else newPuzzleForUser(user, isMate, difficulty)
+            (next flatMap {
               case Some(p) => api.head.add(PuzzleHead(user.id, Some(p.id), none))
               case _ => fuccess(none) 
-            }
-            next
+            }) >> next
         }
     }
   }.mon(_.puzzle.selector.time)

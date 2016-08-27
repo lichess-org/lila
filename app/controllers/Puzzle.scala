@@ -30,7 +30,7 @@ object Puzzle extends LilaController {
       _.map(_.id) ?? env.api.puzzle.find
     }) { puzzle =>
       negotiate(
-        html = fuccess(Ok("play")),
+        html = renderShow(puzzle, "play") map { Ok(_) },
         api = _ => puzzleJson(puzzle) map { Ok(_) }
       ) map { NoCache(_) }
     }
@@ -123,9 +123,14 @@ object Puzzle extends LilaController {
             env.finisher(puzzle, me, data) flatMap {
               case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
                 env.api.puzzle find id zip
-                  (env userInfos me2.some) map {
-                    case (p2, infos) => Ok {
+                  (env userInfos me2.some) zip
+                  (env.api.vote.find(id, me2)) map {
+                    case ((p2, infos), vote) => Ok {
                       JsData(p2 | puzzle, infos, "view",
+                        voted = (vote match {
+                          case Some(_) => true
+                          case _       => false
+                        }) some,
                         round = newAttempt.some,
                         animationDuration = env.AnimationDuration)
                     }
