@@ -28,7 +28,6 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          time = math.min(data.time, maxTime),
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
         (api.learning.update(user, puzzle, data) >> (api.round add a) >> {
@@ -47,7 +46,6 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          time = math.min(data.time, maxTime),
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = 0)
           fuccess(a -> data.isWin.some)

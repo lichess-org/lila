@@ -7,11 +7,8 @@ case class Round(
     userId: String,
     date: DateTime,
     win: Boolean,
-    time: Int, // millis
     userRating: Int,
     userRatingDiff: Int) {
-
-  def seconds = time / 1000
 
   def loss = !win
 
@@ -25,7 +22,6 @@ object Round {
     val userId = "u"
     val date = "d"
     val win = "w"
-    val time = "t"
     val userRating = "ur"
     val userRatingDiff = "ud"
   }
@@ -42,7 +38,6 @@ object Round {
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r bool win,
-      time = r int time,
       userRating = r int userRating,
       userRatingDiff = r int userRatingDiff)
 
@@ -51,7 +46,6 @@ object Round {
       userId -> o.userId,
       date -> o.date,
       win -> o.win,
-      time -> w.int(o.time),
       userRating -> w.int(o.userRating),
       userRatingDiff -> w.int(o.userRatingDiff))
   }

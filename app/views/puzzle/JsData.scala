@@ -16,7 +16,6 @@ object JsData extends lila.Steroids {
         "puzzleId" -> a.puzzleId,
         "date" -> a.date,
         "win" -> a.win,
-        "time" -> a.time,
         "userRating" -> a.userRating,
         "userRatingDiff" -> a.userRatingDiff)
     })
@@ -68,7 +67,6 @@ object JsData extends lila.Steroids {
     "round" -> round.map { a =>
       Json.obj(
         "userRatingDiff" -> a.userRatingDiff,
-        "seconds" -> a.seconds,
         "win" -> a.win
       )
     },
