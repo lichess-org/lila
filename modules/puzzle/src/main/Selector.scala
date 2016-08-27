@@ -26,7 +26,7 @@ private[puzzle] final class Selector(
 
   val anonSkipMax = 5000
 
-  def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
+  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
     val isMate = scala.util.Random.nextBoolean
     me match {
@@ -50,7 +50,7 @@ private[puzzle] final class Selector(
             }) >> next
         }
     }
-  }.mon(_.puzzle.selector.time)
+  }.mon(_.puzzle.selector.time) flatten "No puzzles available"
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
