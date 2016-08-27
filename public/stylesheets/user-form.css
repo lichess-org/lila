@@ -14,11 +14,6 @@
   text-align: right;
   width: 150px;
 }
-.content_box form button.submit {
-  margin-left: 160px;
-  padding: 3px 1em;
-  font-size: 1.1em;
-}
 form .error {
   color: red;
   margin-left: 160px;
@@ -26,6 +21,10 @@ form .error {
 form .help {
   font-size: 80%;
   margin-left: 160px;
+}
+
+.pre_form_help {
+  margin-bottom: 40px;
 }
 
 div.content_box.prefs fieldset {

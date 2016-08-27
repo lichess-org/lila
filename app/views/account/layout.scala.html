@@ -1,8 +1,8 @@
-@(title: String, active: String)(body: Html)(implicit ctx: Context)
+@(title: String, active: String, evenMoreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @moreCss = {
-@cssTag("user-form.css")
 @cssTag("account.css")
+@evenMoreCss
 }
 @moreJs = {
 @jsTag("user.js")

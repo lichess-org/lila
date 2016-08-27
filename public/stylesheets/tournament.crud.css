@@ -31,9 +31,6 @@ table.slist time {
   font-size: 0.8em;
   opacity: 0.8;
 }
-.material.form {
-  margin: 30px 20px 20px 20px;
-}
 .material.form button {
   font-size: 1.7em;
   font-weight: normal;

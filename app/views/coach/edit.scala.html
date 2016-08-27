@@ -2,16 +2,8 @@
 
 @import play.api.data.Field
 
-@group(field: Field, name: Html, half: Boolean = false, largeLabel: Boolean = false)(html: Html) = {
-<div class="form-group@if(half){ half}@if(field.hasErrors){ has-error}@if(largeLabel){ large-label}">
-  @html
-  <label for="@field.id" class="control-label">@name</label>
-  <i class="bar"></i>
-</div>
-}
-
-@textarea(field: Field, name: Html) = {
-@group(field, name, largeLabel = true) {
+@textarea(field: Field, name: Html, help: Option[Html] = None) = {
+@base.form.group(field, name, half = false, help = help) {
 <textarea name="@field.name" id="@field.id">@field.value</textarea>
 }
 }
@@ -33,25 +25,23 @@ evenMoreCss = Some(cssTag("material.form.css"))) {
   }
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
     <div>
-      @group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {
+      @base.form.group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {
       @base.select(form("enabledByUser"), booleanChoices)
       }
-      @group(form("available"), Html("Currently available for lessons"), half = true) {
+      @base.form.group(form("available"), Html("Currently available for lessons"), half = true) {
       @base.select(form("available"), booleanChoices)
       }
     </div>
-    @group(form("profile.headline"), Html("Short and inspiring headline")) {
+    @base.form.group(form("profile.headline"), Html("Short and inspiring headline")) {
     @base.input(form("profile.headline"))
     }
-    @textarea(form("profile.description"), Html("Who are you? <em>age, profession, country... let your students know you</em>"))
-    @textarea(form("profile.playingExperience"), Html("Playing experience <em>tournaments played, best wins, other achievements</em>"))
-    @textarea(form("profile.teachingExperience"), Html("Teaching experience <em>diplomas, years of practice, best student results</em>"))
-    @textarea(form("profile.otherExperience"), Html("Other experiences <em>e.g. as chess commentator, or teaching other domains</em>"))
+    @textarea(form("profile.description"), Html("Who are you?"), help = Html("age, profession, country... let your students know you").some)
+    @textarea(form("profile.playingExperience"), Html("Playing experience"), help = Html("tournaments played, best wins, other achievements").some)
+    @textarea(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("diplomas, years of practice, best student results").some)
+    @textarea(form("profile.otherExperience"), Html("Other experiences"), help = Html("e.g. as chess commentator, or teaching other domains").some)
     @textarea(form("profile.skills"), Html("Best skills in chess and teaching"))
-    @textarea(form("profile.methodology"), Html("Teaching methodology <em>How you prepare and run lessons. How you follow up with students.</em>"))
-    <div class="button-container">
-      <button type="submit" class="submit button text" data-icon="E">Save now</button>
-    </div>
+    @textarea(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)
+    @base.form.submit()
   </form>
 </div>
 }
