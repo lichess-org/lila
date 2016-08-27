@@ -67,7 +67,7 @@ private[puzzle] final class Selector(
       case (opHead, maxId) => tryRange(rating, step, step, difficultyDecay(difficulty), opHead match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
           case _ => 0
-        }, 100, 100, isMate)
+        }, 200, 100, isMate)
     }
   }
 
@@ -78,7 +78,8 @@ private[puzzle] final class Selector(
         (last + idRange),
       Puzzle.BSONFields.rating $gt
         (rating - tolerance + decay) $lt
-        (rating + tolerance + decay)
+        (rating + tolerance + decay),
+      Puzzle.BSONFields.voteSum $gt -1
     )).sort($sort desc Puzzle.BSONFields.voteSum)
       .uno[Puzzle] flatMap {
         case None if (tolerance + step) <= toleranceMax =>
