@@ -410,64 +410,7 @@ lichess.notifyApp = (function() {
         }, 10);
       });
 
-      var elementIdContains = function(id, contained) {
-        var el = document.getElementById(id);
-        return el && el.contains(contained);
-      };
-
-      var onPowertipPreRender = function(id) {
-        return function() {
-          $.ajax({
-            url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
-            success: function(html) {
-              $('#' + id).html(html);
-              lichess.pubsub.emit('content_loaded')();
-            }
-          });
-        };
-      };
-
-      var userPowertip = function($el) {
-        var pos = 'w';
-        if (elementIdContains('site_header', $el[0])) pos = 'e';
-        if (elementIdContains('friend_box', $el[0])) pos = 'nw';
-        $el.removeClass('ulpt').powerTip({
-          intentPollInterval: 200,
-          fadeInTime: 100,
-          fadeOutTime: 100,
-          placement: pos,
-          mouseOnToPopup: true,
-          closeDelay: 200
-        }).on({
-          powerTipPreRender: onPowertipPreRender('powerTip')
-        }).data('powertip', lichess.spinnerHtml);
-      };
-
-      function gamePowertip($el) {
-        $el.removeClass('glpt').powerTip({
-          intentPollInterval: 200,
-          fadeInTime: 100,
-          fadeOutTime: 100,
-          placement: 'w',
-          smartPlacement: true,
-          mouseOnToPopup: true,
-          closeDelay: 200,
-          popupId: 'miniGame'
-        }).on({
-          powerTipPreRender: onPowertipPreRender('miniGame')
-        }).data('powertip', lichess.spinnerHtml);
-      }
-
-      document.body.addEventListener('mouseover', function(e) {
-        var cl = e.target.classList;
-        if (cl.contains('ulpt')) {
-          userPowertip($(e.target));
-          $.powerTip.show(e.target, e);
-        } else if (cl.contains('glpt')) {
-          gamePowertip($(e.target));
-          $.powerTip.show(e.target, e);
-        }
-      });
+      document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function setMoment() {
         $("time.moment").removeClass('moment').each(function() {

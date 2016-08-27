@@ -16,13 +16,16 @@ final class Env(
   private lazy val coachColl = db(CollectionCoach)
   private lazy val imageColl = db(CollectionImage)
 
+  private lazy val photographer = new Photographer(imageColl)
+
   lazy val api = new CoachApi(
     coll = coachColl,
-    imageColl = imageColl)
+    photographer = photographer)
 
   def cli = new lila.common.Cli {
     def process = {
-      case "coach" :: "init" :: username :: Nil => api init username
+      case "coach" :: "enable" :: username :: Nil  => api.toggleByMod(username, true)
+      case "coach" :: "disable" :: username :: Nil => api.toggleByMod(username, false)
     }
   }
 }

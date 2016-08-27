@@ -33,9 +33,9 @@ title = trans.hostANewSimul.str()) {
         <tr class="time">
           <th><label>@trans.timeControl()</label></th>
           <td class="inline">
-            @base.select(form("clockTime"), config.clockTimeChoices)
+            @base.form.select(form("clockTime"), config.clockTimeChoices)
             +
-            @base.select(form("clockIncrement"), config.clockIncrementChoices)
+            @base.form.select(form("clockIncrement"), config.clockIncrementChoices)
           </td>
         </tr>
         <tr class="help">
@@ -45,11 +45,11 @@ title = trans.hostANewSimul.str()) {
         </tr>
         <tr>
           <th><label for="@form("clockExtra").id">@trans.simulHostExtraTime()</label></th>
-          <td>@base.select(form("clockExtra"), config.clockExtraChoices)</td>
+          <td>@base.form.select(form("clockExtra"), config.clockExtraChoices)</td>
         </tr>
         <tr>
           <th><label for="@form("color").id">Host color for each game</label></th>
-          <td>@base.select(form("color"), config.colorChoices)</td>
+          <td>@base.form.select(form("color"), config.colorChoices)</td>
         </tr>
         <tr>
           <th></th>

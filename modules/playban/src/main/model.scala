@@ -21,7 +21,7 @@ case class UserRecord(
     if (nbOutcomes == 0) 0
     else nbBadOutcomes.toDouble / nbOutcomes
 
-  def nbBadOutcomesBeforeBan = if (bans.isEmpty) 4 else 2
+  def nbBadOutcomesBeforeBan = if (bans.isEmpty) 3 else 2
 
   def newBan: Option[TempBan] = {
     !banInEffect &&
@@ -44,11 +44,11 @@ case class TempBan(
 
   def inEffect = endsAt isAfter DateTime.now
 
-  def isOld = date isBefore DateTime.now.minusDays(2)
+  def isOld = date isBefore DateTime.now.minusDays(3)
 }
 
 object TempBan {
-  val initialMinutes = 10
+  val initialMinutes = 15
   def initial = apply(initialMinutes)
   def apply(minutes: Int): TempBan = TempBan(DateTime.now, minutes min 120)
 }

@@ -12,7 +12,7 @@ object DataForm {
   val profile = Form(mapping(
     "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),
     "location" -> optional(nonEmptyText(maxLength = 80)),
-    "bio" -> optional(nonEmptyText(maxLength = 400)),
+    "bio" -> optional(nonEmptyText(maxLength = 600)),
     "firstName" -> nameField,
     "lastName" -> nameField,
     "fideRating" -> optional(number(min = 600, max = 2900))

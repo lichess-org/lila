@@ -1,29 +1,28 @@
 @(events: List[lila.event.Event])(implicit ctx: Context)
 
-@base.layout(title = "All lichess public events") {
-<style type="text/css">
-  #events td {
-  padding: 1em 25px;
-  }
-  #events time {
-  font-size: 0.8em;
-  }
-  #events a {
-  font-weight: bold;
-  text-decoration: none;
-  }
-  #events a.user_link {
-  background: none;
-  padding-left: 0;
-  display: inline-block;
-  }
-</style>
+@base.layout(
+title = "All lichess public events",
+moreCss = cssTag("event.css")) {
 <div id="events" class="content_box small_box no_padding">
-  <h1>All public events</h1>
+  <h1 data-icon="" class="text">All public events</h1>
   <table class="datatable"><tbody>
       @events.map { e =>
-      <tr>
-        <td>@e.title</td>
+      <tr class="@if(e.isNow){now}">
+        <td>
+          @if(e.isNow) {
+          <a href="@e.url">
+            <h2>@e.title</h2>
+            <strong>@e.headline</strong>
+          </a>
+          } else {
+          <h2>@e.title</h2>
+          <strong>@e.headline</strong>
+          }
+        </td>
+        <td>
+          <span class="date">@showDateTime(e.startsAt)</span>
+          @momentFromNow(e.startsAt)
+        </td>
       </tr>
       }
   </tbody></table>

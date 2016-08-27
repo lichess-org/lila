@@ -35,7 +35,7 @@ object ApplicationBuild extends Build {
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, RM, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
-        kamon.core, kamon.statsd, java8compat, semver),
+        kamon.core, kamon.statsd, java8compat, semver, scrimage),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -91,7 +91,7 @@ object ApplicationBuild extends Build {
 
   lazy val coach = project("coach", Seq(
     common, hub, db, user)).settings(
-    libraryDependencies ++= provided(play.api, RM)
+    libraryDependencies ++= provided(play.api, RM, scrimage)
   )
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
@@ -160,7 +160,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, play.test, RM)
   )
 
-  lazy val mod = project("mod", Seq(common, db, user, hub, security, game, analyse, evaluation, report, notifyModule)).settings(
+  lazy val mod = project("mod", Seq(common, db, user, hub, security, game, analyse, evaluation, report, notifyModule, history)).settings(
     libraryDependencies ++= provided(play.api, play.test, RM)
   )
 

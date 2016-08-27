@@ -8,6 +8,7 @@ case class Event(
     _id: String,
     title: String,
     headline: String,
+    description: Option[String],
     homepageHours: Int,
     url: String,
     enabled: Boolean,
@@ -16,9 +17,21 @@ case class Event(
     startsAt: DateTime,
     finishesAt: DateTime) {
 
+  def willStartLater = startsAt isAfter DateTime.now
+
+  def secondsToStart = willStartLater option {
+    (startsAt.getSeconds - nowSeconds).toInt
+  }
+
   def featureSince = startsAt minusHours homepageHours
 
-  def isNow = featureSince.isBefore(DateTime.now) && finishesAt.isAfter(DateTime.now)
+  def featureNow = featureSince.isBefore(DateTime.now) && !isFinished
+
+  def isFinished = finishesAt.isBefore(DateTime.now)
+
+  def isNow = startsAt.isBefore(DateTime.now) && !isFinished
+
+  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 
   def id = _id
 }

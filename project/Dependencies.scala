@@ -39,6 +39,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
+  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
 
   object play {
     val version = "2.4.6"

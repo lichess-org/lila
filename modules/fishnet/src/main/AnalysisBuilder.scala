@@ -35,7 +35,7 @@ private object AnalysisBuilder {
             fufail(_),
             replay => UciToPgn(replay, uciAnalysis) match {
               case (analysis, errors) =>
-                errors foreach { e => logger.warn(s"[UciToPgn] $debug $e") }
+                errors foreach { e => logger.debug(s"[UciToPgn] $debug $e") }
                 if (analysis.valid) {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)
                     fufail(s"${game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")

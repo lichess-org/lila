@@ -6,7 +6,7 @@
     <a class="button thin hint--bottom" data-hint="@trans.boardEditor()" href="@href">
       <span data-icon="m"></span>
     </a>
-    @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
+    @base.form.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
   </div>
   <a class="board_editor" href="@href">
     <span class="preview">@validFen.map { vf =>
