@@ -48,7 +48,7 @@ private final class RatingRefund(
       }
 
       def pointsToRefund(ref: Refund, user: User): Int = {
-        ref.diff - user.perfs(ref.perf).intRating + ref.topRating
+        ref.diff - user.perfs(ref.perf).intRating + 100 + ref.topRating
       } min ref.diff min 200 max 0
 
       def refundPoints(user: User, pt: PerfType, points: Int): Funit = {
