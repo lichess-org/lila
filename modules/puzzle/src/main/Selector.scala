@@ -45,8 +45,9 @@ private[puzzle] final class Selector(
               }
               else newPuzzleForUser(user, isMate, difficulty)
             (next flatMap {
-              case Some(p) => api.head.add(PuzzleHead(user.id, Some(p.id), none))
-              case _ => fuccess(none) 
+              case Some(p) if isLearn => api.head.addLearning(user, p.id)
+              case Some(p)            => api.head.addNew(user, p.id)
+              case _ => fuccess(none)
             }) >> next
         }
     }
@@ -64,7 +65,7 @@ private[puzzle] final class Selector(
     val step = toleranceStepFor(rating)
     (api.head.find(user) zip api.puzzle.lastId) flatMap {
       case (opHead, maxId) => tryRange(rating, step, step, difficultyDecay(difficulty), opHead match {
-          case Some(PuzzleHead(_, _, Some(l))) if l < maxId - 500 => l
+          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
           case _ => 0
         }, 100, 100, isMate)
     }
