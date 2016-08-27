@@ -74,8 +74,7 @@ private final class RatingRefund(
 
 private object RatingRefund {
 
-  val delay = 5 seconds
-  // val delay = 1 minute
+  val delay = 1 minute
 
   case class Refund(victim: User.ID, perf: PerfType, diff: Int, topRating: Int) {
     def is(v: User.ID, p: PerfType): Boolean = v == victim && p == perf
