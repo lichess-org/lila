@@ -58,7 +58,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
         case Nil              => Nil
       }
     }
-  }.chronometer.logIfSlow(200, pairingLogger) { preps =>
+  }.chronometer.mon(_.tournament.pairing.prepTime).logIfSlow(200, pairingLogger) { preps =>
     s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
   }.result
 
