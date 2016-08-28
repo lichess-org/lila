@@ -76,6 +76,9 @@ module.exports = {
       return (ret !== null) ? ret : defaultValue;
     };
   },
+  decomposeUci: function(uci) {
+    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
+  },
   median: function(values) {
     values.sort(function(a, b) {
       return a - b;

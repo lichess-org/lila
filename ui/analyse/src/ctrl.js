@@ -448,7 +448,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.explorerMove = function(uci) {
-    var move = decomposeUci(uci);
+    var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
         role: util.sanToRole[uci[0]]
