@@ -1,6 +1,7 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
+var util = require('../util');
 var stockfishWorker = require('./stockfishWorker');
 var sunsetterWorker = require('./sunsetterWorker');
 
@@ -8,20 +9,34 @@ module.exports = function(possible, variant, emit) {
 
   var nbWorkers = 3;
   var minDepth = 7;
-  var maxDepth = 18;
+  var maxDepth = util.storedProp('ceval.max-depth', 18);
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
   var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
+
   var pool = makePool({
     minDepth: minDepth,
     maxDepth: maxDepth,
     variant: variant
   }, engine, nbWorkers);
 
+  // adjusts maxDepth based on nodes per second
+  var npsRecorder = (function() {
+    var values = [];
+    return function(nps) {
+      if (values.length >= 10) {
+        maxDepth(util.arrayMean(values) > 15000 ? 19 : 18);
+        values.shift();
+      }
+    };
+  })();
+
   var onEmit = function(res) {
+    res.eval.maxDepth = res.work.maxDepth;
+    if (res.eval.depth >= 15 && !res.eval.mate && res.eval.nps) npsRecorder(res.eval.nps);
     curDepth = res.eval.depth;
     emit(res);
   }
@@ -29,7 +44,7 @@ module.exports = function(possible, variant, emit) {
   var start = function(path, steps) {
     if (!enabled() || !possible()) return;
     var step = steps[steps.length - 1];
-    if (step.ceval && step.ceval.depth >= maxDepth) return;
+    if (step.ceval && step.ceval.depth >= maxDepth()) return;
 
     var work = {
       position: steps[0].fen,
@@ -37,6 +52,7 @@ module.exports = function(possible, variant, emit) {
       path: path,
       steps: steps,
       ply: step.ply,
+      maxDepth: maxDepth(),
       emit: function(res) {
         if (enabled()) onEmit(res);
       }
@@ -60,10 +76,11 @@ module.exports = function(possible, variant, emit) {
         work.emit({
           work: work,
           eval: {
-            depth: maxDepth,
+            depth: maxDepth(),
             cp: dictRes.cp,
             best: dictRes.best,
-            mate: 0
+            mate: 0,
+            dict: true
           },
           name: name
         });

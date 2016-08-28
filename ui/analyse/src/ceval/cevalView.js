@@ -11,6 +11,14 @@ for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
   }
 }));
 
+function evalTitle(ctrl, evs) {
+  if (!evs.client) return 'Server analysis: 3500 kilonodes per move';
+  if (evs.client.dict) return 'Book move';
+  var title = 'Depth ' + (evs.client.depth || 0) + '/' + Math.max(evs.client.depth, evs.client.maxDepth);
+  if (evs.client.nps) title += ' at ' + Math.round(evs.client.nps / 1000) + ' kilonodes per second';
+  return title;
+}
+
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
@@ -48,7 +56,7 @@ module.exports = {
       pearl = util.renderEval(evs.fav.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
-        (evs.client ? Math.round(100 * evs.client.depth / ctrl.ceval.maxDepth) : 0)
+        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / ctrl.ceval.maxDepth())) : 0)
     } else if (defined(evs.fav) && defined(evs.fav.mate)) {
       pearl = '#' + evs.fav.mate;
       percent = 100;
@@ -81,8 +89,7 @@ module.exports = {
         'for variation analysis'
       ),
       enabled ? m('div.bar', {
-        title: evs.client ?
-          ((evs.client.depth || 0) + '/' + ctrl.ceval.maxDepth + ' plies deep') : 'Server analysis'
+        title: evalTitle(ctrl, evs)
       }, m('span', {
         style: {
           width: percent + '%'

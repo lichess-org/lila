@@ -58,7 +58,7 @@ module.exports = {
     var value;
     var isBoolean = defaultValue === true || defaultValue === false;
     return function(v) {
-      if (defined(v) && v !== value) {
+      if (defined(v) && v != value) {
         value = v + '';
         lichess.storage.set(sk, v);
       } else if (!defined(value)) {
@@ -75,6 +75,10 @@ module.exports = {
       var ret = JSON.parse(lichess.storage.get(key));
       return (ret !== null) ? ret : defaultValue;
     };
+  },
+  arrayMean: function(arr) {
+    var l = arr.length;
+    return l ? (arr.reduce(function(a, b) { return a + b; }, 0) / l) : 0;
   },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');
