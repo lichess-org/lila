@@ -5,6 +5,7 @@ div.create_tournament {
 }
 ol.scheduled_tournaments a {
   font-weight: bold;
+  display: block;
 }
 #tournament .header {
   display: flex;
