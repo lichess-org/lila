@@ -45,7 +45,15 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val firstDayOfMonth = today.dayOfMonth.withMinimumValue
       val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
       val firstSundayOfCurrentMonth = firstDayOfMonth.plusDays(7 - firstDayOfMonth.getDayOfWeek)
-      val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
+
+      def nextDayOfWeek(number: Int) = today.plusDays((7 + number - today.getDayOfWeek) % 7)
+      val nextMonday = nextDayOfWeek(1)
+      val nextTuesday = nextDayOfWeek(2)
+      val nextWednesday = nextDayOfWeek(3)
+      val nextThursday = nextDayOfWeek(4)
+      val nextFriday = nextDayOfWeek(5)
+      val nextSaturday = nextDayOfWeek(6)
+      val nextSunday = nextDayOfWeek(7)
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
@@ -67,13 +75,30 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           at(lastSundayOfCurrentMonth, 20) map { date => Schedule(Monthly, Blitz, Crazyhouse, std, date) }
         ).flatten,
 
-        List( // weekly tournaments!
-          at(nextSaturday, 16) map { date => Schedule(Weekly, Bullet, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 17) map { date => Schedule(Weekly, SuperBlitz, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 18) map { date => Schedule(Weekly, Blitz, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 19) map { date => Schedule(Weekly, Classical, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 20) map { date => Schedule(Weekly, Blitz, Crazyhouse, std, date |> orNextWeek) }
-        ).flatten,
+        List( // weekly standard tournaments!
+          nextMonday -> Bullet,
+          nextTuesday -> SuperBlitz,
+          nextWednesday -> Blitz,
+          nextThursday -> Classical
+        ).flatMap {
+            case (day, speed) => at(day, 17) map { date =>
+              Schedule(Weekly, speed, Standard, std, date |> orNextWeek)
+            }
+          },
+
+        List( // weekly variant tournaments!
+          nextMonday -> Chess960,
+          nextTuesday -> Crazyhouse,
+          nextWednesday -> KingOfTheHill,
+          nextThursday -> ThreeCheck,
+          nextFriday -> Antichess,
+          nextSaturday -> Atomic,
+          nextSunday -> Horde
+        ).flatMap {
+            case (day, variant) => at(day, 19) map { date =>
+              Schedule(Weekly, Blitz, variant, std, date |> orNextWeek)
+            }
+          },
 
         List( // daily tournaments!
           at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow) },
