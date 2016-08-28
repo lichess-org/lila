@@ -38,15 +38,13 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
     case ScheduleNowWith(dbScheds) => try {
 
-      val rightNow = DateTime.now
+      val rightNow = DateTime.now.plusDays(10)
       val today = rightNow.withTimeAtStartOfDay
       val tomorrow = rightNow plusDays 1
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val firstDayOfMonth = today.dayOfMonth.withMinimumValue
-      val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
-      val firstSundayOfCurrentMonth = firstDayOfMonth.plusDays(7 - firstDayOfMonth.getDayOfWeek)
+      val lastMonday = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek -1) % 7)
 
-      def nextDayOfWeek(number: Int) = today.plusDays((7 + number - today.getDayOfWeek) % 7)
+      def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
       val nextMonday = nextDayOfWeek(1)
       val nextTuesday = nextDayOfWeek(2)
       val nextWednesday = nextDayOfWeek(3)
@@ -67,13 +65,30 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       // all dates UTC
       val nextSchedules: List[Schedule] = List(
 
-        List( // monthly tournaments!
-          at(lastSundayOfCurrentMonth, 16) map { date => Schedule(Monthly, Bullet, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 17) map { date => Schedule(Monthly, SuperBlitz, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 18) map { date => Schedule(Monthly, Blitz, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 19) map { date => Schedule(Monthly, Classical, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 20) map { date => Schedule(Monthly, Blitz, Crazyhouse, std, date) }
-        ).flatten,
+        List( // monthly standard tournaments!
+          lastMonday -> Bullet,
+          lastMonday.plusDays(1) -> SuperBlitz,
+          lastMonday.plusDays(2) -> Blitz,
+          lastMonday.plusDays(3) -> Classical
+        ).flatMap {
+            case (day, speed) => at(day, 17) map { date =>
+              Schedule(Monthly, speed, Standard, std, date)
+            }
+          },
+
+        List( // monthly variant tournaments!
+          lastMonday -> Chess960,
+          lastMonday.plusDays(1) -> Crazyhouse,
+          lastMonday.plusDays(2) -> KingOfTheHill,
+          lastMonday.plusDays(3) -> ThreeCheck,
+          lastMonday.plusDays(4) -> Antichess,
+          lastMonday.plusDays(5) -> Atomic,
+          lastMonday.plusDays(6) -> Horde
+        ).flatMap {
+            case (day, variant) => at(day, 19) map { date =>
+              Schedule(Monthly, Blitz, variant, std, date)
+            }
+          },
 
         List( // weekly standard tournaments!
           nextMonday -> Bullet,
