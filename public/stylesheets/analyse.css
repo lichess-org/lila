@@ -198,7 +198,7 @@ div.gauge_displayed .fork {
   font-family: 'Roboto';
 }
 .ceval_box {
-  flex: 0 0 40px;
+  flex: 0 0 38px;
   border: 1px solid #ccc;
   border-bottom: 0;
   position: relative;
@@ -213,7 +213,7 @@ div.gauge_displayed .fork {
 }
 .ceval_box pearl {
   flex: 0 0 75px;
-  line-height: 40px;
+  line-height: 38px;
   font-size: 2em;
   text-align: center;
   font-weight: bold;
@@ -227,7 +227,7 @@ div.gauge_displayed .fork {
 .ceval_box .engine {
   opacity: 0.7;
   flex: 1 0;
-  margin: 5.5px 0 0 5px;
+  margin: 5px 0 0 5px;
 }
 .ceval_box .engine .info {
   display: block;
