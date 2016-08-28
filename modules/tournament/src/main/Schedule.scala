@@ -49,6 +49,8 @@ object Schedule {
     val name = toString.toLowerCase
 
     def compare(other: Freq) = importance compare other.importance
+
+    def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
   }
   object Freq {
     case object Hourly extends Freq(10, 10)

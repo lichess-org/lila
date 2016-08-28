@@ -2,7 +2,9 @@
 
 @tour.spotlight.map { spot =>
 <a href="@routes.Tournament.show(tour.id)"
-  class="tour_spotlight invert id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
+  class="tour_spotlight invert id_@tour.id @tour.schedule.map { sched =>
+  @sched.freq @sched.speed @sched.variant.key@if(sched.freq.isWeeklyOrBetter && tour.isNowOrSoon){ invert}
+  }">
   @spot.iconImg.map { i =>
   <img class="img" src="@staticUrl(s"images/$i")" />
   }.getOrElse {
@@ -27,7 +29,9 @@
 }.getOrElse {
 @tour.schedule.map { sched =>
 <a href="@routes.Tournament.show(tour.id)"
-  class="tour_spotlight little id_@tour.id @tour.schedule.map { sched => @sched.freq @sched.speed @sched.variant.key }">
+  class="tour_spotlight little id_@tour.id @tour.schedule.map { sched =>
+  @sched.freq @sched.speed @sched.variant.key@if(sched.freq.isWeeklyOrBetter && tour.isNowOrSoon){ invert}
+  }">
   @tour.perfType.map { pt =>
   <i class="img" data-icon="@pt.iconChar"></i>
   }.getOrElse {
