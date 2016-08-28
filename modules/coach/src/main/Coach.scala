@@ -20,6 +20,8 @@ case class Coach(
   def is(user: User) = id.value == user.id
 
   def hasPicture = picturePath.isDefined
+
+  def fullyEnabled = enabledByUser.value && enabledByMod.value
 }
 
 object Coach {

@@ -1,8 +1,10 @@
 package lila.coach
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 final class CoachApi(
@@ -11,21 +13,26 @@ final class CoachApi(
 
   import BsonHandlers._
 
+  private val cache = AsyncCache.single[List[Coach]](
+    f = coll.find($empty).list[Coach](),
+    timeToLive = 1 hour)
+
+  private def all = cache(true)
+
+  def byId(id: Coach.Id): Fu[Option[Coach]] = all.map(_.find(_.id == id))
+
   def find(username: String): Fu[Option[Coach.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
-    coll.byId[Coach](user.id) map2 withUser(user)
+    byId(Coach.Id(user.id)) map2 withUser(user)
 
   def findOrInit(user: User): Fu[Option[Coach.WithUser]] = find(user) orElse {
     fuccess(Coach.WithUser(Coach make user, user).some)
   }
 
   def enabledWithUserList: Fu[List[Coach.WithUser]] =
-    coll.list[Coach]($doc(
-      "enabledByUser" -> true,
-      "enabledByMod" -> true
-    )) flatMap { coaches =>
+    all.map(_.filter(_.fullyEnabled)) flatMap { coaches =>
       UserRepo.byIds(coaches.map(_.id.value)) map { users =>
         coaches.flatMap { coach =>
           users find coach.is map { Coach.WithUser(coach, _) }
@@ -34,12 +41,15 @@ final class CoachApi(
     }
 
   def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
-    coll.update($id(c.coach.id), data(c.coach)).void
+    coll.update($id(c.coach.id), data(c.coach)).void >> cache.clear
 
   private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
-      case None    => fuccess("No such coach")
-      case Some(c) => coll.update($id(c.coach.id), $set("enabledByMod" -> value)) inject "Done!"
+      case None => fuccess("No such coach")
+      case Some(c) => coll.update(
+        $id(c.coach.id),
+        $set("enabledByMod" -> value)
+      ) >> cache.clear inject "Done!"
     }
 
   private val pictureMaxMb = 3
@@ -49,10 +59,10 @@ final class CoachApi(
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
     photographer(c.coach.id, picture) flatMap { pic =>
       coll.update($id(c.coach.id), $set("picturePath" -> pic.path))
-    } void
+    } >> cache.clear
 
   def deletePicture(c: Coach.WithUser): Funit =
-    coll.update($id(c.coach.id), $unset("picturePath")).void
+    coll.update($id(c.coach.id), $unset("picturePath")) >> cache.clear
 
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
