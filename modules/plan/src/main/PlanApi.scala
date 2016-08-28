@@ -146,7 +146,8 @@ final class PlanApi(
       case Some(patron) =>
         UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
           setDbUserPlan(user, user.plan.disable) >>
-            patronColl.update($id(user.id), patron.removeStripe).void >>-
+            patronColl.update($id(user.id), patron.removeStripe).void >>
+            notifier.onExpire(user) >>-
             logger.info(s"Unsubed ${user.username} ${sub}")
         }
     }
