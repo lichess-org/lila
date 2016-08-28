@@ -76,11 +76,13 @@ module.exports = {
       return (ret !== null) ? ret : defaultValue;
     };
   },
-  arrayMean: function(arr) {
-    var l = arr.length;
-    return l ? (arr.reduce(function(a, b) {
-      return a + b;
-    }, 0) / l) : 0;
+  median: function(values) {
+    values.sort(function(a, b) {
+      return a - b;
+    });
+    var half = Math.floor(values.length / 2);
+    return values.length % 2 ? values[half] :
+      (values[half - 1] + values[half]) / 2.0;
   },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');

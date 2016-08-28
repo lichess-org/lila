@@ -27,7 +27,7 @@ module.exports = function(possible, variant, emit) {
   var npsRecorder = (function() {
     var values = [];
     var applies = function(res) {
-      return res.eval.nps && res.eval.depth >= 15 &&
+      return res.eval.nps && res.eval.depth >= 16 &&
         !res.eval.mate && Math.abs(res.eval.cp) < 500 &&
         (res.work.currentFen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     }
@@ -35,9 +35,13 @@ module.exports = function(possible, variant, emit) {
       if (!applies(res)) return;
       values.push(res.eval.nps);
       if (values.length >= 10) {
-        var mean = util.arrayMean(values);
-        maxDepth(mean > 200000 ? 21 : (mean > 150000 ? 20 : 19));
-        values.shift();
+        var depth = 18, knps = util.median(values) / 1000;
+        if (knps > 100) depth = 19;
+        if (knps > 150) depth = 20;
+        if (knps > 200) depth = 21;
+        if (knps > 250) depth = 22;
+        maxDepth(depth);
+        if (values.length > 20) values.shift();
       }
     };
   })();

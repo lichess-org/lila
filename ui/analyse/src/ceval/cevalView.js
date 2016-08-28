@@ -11,12 +11,12 @@ for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
   }
 }));
 
-function evalTitle(ctrl, evs) {
-  if (!evs.client) return 'Server analysis: 3500 kilonodes per move';
+function localEvalInfo(ctrl, evs) {
+  if (!evs.client) return 'Loading engine...';
   if (evs.client.dict) return 'Book move';
-  var title = 'Depth ' + (evs.client.depth || 0) + '/' + Math.max(evs.client.depth, evs.client.maxDepth);
-  if (evs.client.nps) title += ' at ' + Math.round(evs.client.nps / 1000) + ' kilonodes per second';
-  return title;
+  var t = 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth;
+  if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
+  return t;
 }
 
 module.exports = {
@@ -68,29 +68,7 @@ module.exports = {
       percent = 0;
     }
     return m('div.ceval_box',
-      m('div.switch', [
-        m('input', {
-          id: 'analyse-toggle-ceval',
-          class: 'cmn-toggle cmn-toggle-round',
-          type: 'checkbox',
-          checked: enabled,
-          config: util.bindOnce('change', ctrl.toggleCeval)
-        }),
-        m('label', {
-          'for': 'analyse-toggle-ceval'
-        })
-      ]),
-      enabled ? [
-        m('pearl', pearl),
-        m('div.credit', 'Local ' + util.aiName(ctrl.data.game.variant))
-      ] : m('help',
-        'Local computer evaluation',
-        m('br'),
-        'for variation analysis'
-      ),
-      enabled ? m('div.bar', {
-        title: evalTitle(ctrl, evs)
-      }, m('span', {
+      enabled ? m('div.bar', m('span', {
         style: {
           width: percent + '%'
         },
@@ -103,7 +81,30 @@ module.exports = {
           }
           ctx.percent = percent;
         }
-      })) : null
+      })) : null,
+      enabled ? [
+        m('pearl', pearl),
+        m('div.engine', [
+          'Local ' + util.aiName(ctrl.data.game.variant),
+          m('span.info', localEvalInfo(ctrl, evs))
+        ])
+      ] : m('help',
+        'Local computer evaluation',
+        m('br'),
+        'for variation analysis'
+      ),
+      m('div.switch', [
+        m('input', {
+          id: 'analyse-toggle-ceval',
+          class: 'cmn-toggle cmn-toggle-round',
+          type: 'checkbox',
+          checked: enabled,
+          config: util.bindOnce('change', ctrl.toggleCeval)
+        }),
+        m('label', {
+          'for': 'analyse-toggle-ceval'
+        })
+      ])
     );
   }
 };
