@@ -38,7 +38,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
     case ScheduleNowWith(dbScheds) => try {
 
-      val rightNow = DateTime.now.plusDays(10)
+      val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val tomorrow = rightNow plusDays 1
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
