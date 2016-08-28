@@ -28,6 +28,7 @@ case class UserInfo(
     playTime: User.PlayTime,
     trophies: Trophies,
     isStreamer: Boolean,
+    isCoach: Boolean,
     insightVisible: Boolean,
     completionRate: Option[Double]) {
 
@@ -41,7 +42,6 @@ case class UserInfo(
 
   def isPublicMod = lila.security.Granter(_.PublicMod)(user)
   def isDeveloper = lila.security.Granter(_.Developer)(user)
-  def isCoach = lila.security.Granter(_.Coach)(user)
 
   def allTrophies = List(
     isPublicMod option Trophy(
@@ -76,6 +76,7 @@ object UserInfo {
     getRanks: String => Fu[Map[String, Int]],
     isHostingSimul: String => Fu[Boolean],
     isStreamer: String => Boolean,
+    fetchIsCoach: User => Fu[Boolean],
     insightShare: lila.insight.Share,
     getPlayTime: User => Fu[User.PlayTime],
     completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
@@ -89,11 +90,12 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
+      fetchIsCoach(user) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) zip
       bookmarkApi.countByUser(user) flatMap {
-        case (((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), insightVisible), playTime), completionRate), nbBookmarks) =>
+        case ((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), isCoach), insightVisible), playTime), completionRate), nbBookmarks) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -111,6 +113,7 @@ object UserInfo {
               playTime = playTime,
               trophies = trophies,
               isStreamer = isStreamer(user.id),
+              isCoach = isCoach,
               insightVisible = insightVisible,
               completionRate = completionRate)
           }

@@ -21,7 +21,7 @@ case class Coach(
 
   def hasPicture = picturePath.isDefined
 
-  def fullyEnabled = enabledByUser.value && enabledByMod.value
+  def isFullyEnabled = enabledByUser.value && enabledByMod.value
 }
 
 object Coach {
