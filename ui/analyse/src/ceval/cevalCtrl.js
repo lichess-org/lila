@@ -27,8 +27,9 @@ module.exports = function(possible, variant, emit) {
   var npsRecorder = (function() {
     var values = [];
     return function(nps) {
+      values.push(nps);
       if (values.length >= 10) {
-        maxDepth(util.arrayMean(values) > 15000 ? 19 : 18);
+        maxDepth(util.arrayMean(values) > 150000 ? 19 : 18);
         values.shift();
       }
     };

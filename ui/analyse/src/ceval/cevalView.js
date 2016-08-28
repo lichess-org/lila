@@ -56,7 +56,7 @@ module.exports = {
       pearl = util.renderEval(evs.fav.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
-        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / ctrl.ceval.maxDepth())) : 0)
+        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
     } else if (defined(evs.fav) && defined(evs.fav.mate)) {
       pearl = '#' + evs.fav.mate;
       percent = 100;
