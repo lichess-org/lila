@@ -71,7 +71,7 @@ module.exports = function(opts, name) {
     start: function(work) {
       if (busy) reboot();
       busy = true;
-      send(['position', 'fen', work.position, 'moves'].concat(work.moves).join(' '));
+      send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
       send('go depth ' + work.maxDepth);
       instance.onmessage = function(msg) {
         processOutput(msg.data, work);

@@ -78,7 +78,9 @@ module.exports = {
   },
   arrayMean: function(arr) {
     var l = arr.length;
-    return l ? (arr.reduce(function(a, b) { return a + b; }, 0) / l) : 0;
+    return l ? (arr.reduce(function(a, b) {
+      return a + b;
+    }, 0) / l) : 0;
   },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');

@@ -102,7 +102,7 @@ module.exports = function(opts, name) {
       if (busy) reboot();
       busy = true;
       send('variant ' + opts.variant.key);
-      send('setboard ' + work.position);
+      send('setboard ' + work.initialFen);
       send('force');
       for (var i = 0; i < work.moves.length; i++) {
         send(work.moves[i]);

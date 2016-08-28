@@ -26,10 +26,17 @@ module.exports = function(possible, variant, emit) {
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
     var values = [];
-    return function(nps) {
-      values.push(nps);
+    var applies = function(res) {
+      return res.eval.nps && res.eval.depth >= 15 &&
+        !res.eval.mate && Math.abs(res.eval.cp) < 500 &&
+        (res.work.currentFen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
+    }
+    return function(res) {
+      if (!applies(res)) return;
+      values.push(res.eval.nps);
       if (values.length >= 10) {
-        maxDepth(util.arrayMean(values) > 150000 ? 19 : 18);
+        var mean = util.arrayMean(values);
+        maxDepth(mean > 200000 ? 21 : (mean > 150000 ? 20 : 19));
         values.shift();
       }
     };
@@ -37,7 +44,7 @@ module.exports = function(possible, variant, emit) {
 
   var onEmit = function(res) {
     res.eval.maxDepth = res.work.maxDepth;
-    if (res.eval.depth >= 15 && !res.eval.mate && res.eval.nps) npsRecorder(res.eval.nps);
+    npsRecorder(res);
     curDepth = res.eval.depth;
     emit(res);
   }
@@ -48,8 +55,9 @@ module.exports = function(possible, variant, emit) {
     if (step.ceval && step.ceval.depth >= maxDepth()) return;
 
     var work = {
-      position: steps[0].fen,
+      initialFen: steps[0].fen,
       moves: [],
+      currentFen: step.fen,
       path: path,
       steps: steps,
       ply: step.ply,
@@ -64,7 +72,7 @@ module.exports = function(possible, variant, emit) {
       var step = steps[i];
       if (step.san.indexOf('O-O') === 0) {
         work.moves = [];
-        work.position = step.fen;
+        work.initialFen = step.fen;
       } else {
         work.moves.push(step.uci);
       }
