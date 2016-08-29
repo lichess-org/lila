@@ -92,13 +92,14 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     def get = cache get true
   }
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
-    players.nonEmpty ?? {
-      pairingMethod.get match {
-        case "antma" => AntmaPairing(data, players)
-        case _       => OrnicarPairing(data, players)
-      }
+  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
+    case x if x < 2 => Nil
+    case x if x < 9 => OrnicarPairing(data, players)
+    case _ => pairingMethod.get match {
+      case "antma" => AntmaPairing(data, players)
+      case _       => OrnicarPairing(data, players)
     }
+  }
 
   def url(tourId: String) = s"//lichess.org/tournament/$tourId"
 }
