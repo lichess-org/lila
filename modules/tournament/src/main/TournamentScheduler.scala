@@ -240,6 +240,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
     case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
     case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
+    // prevent daily && weekly on the same day
+    case s2 if s.freq.isDaily && s2.freq.isWeeklyOrBetter && s.samePerf(s2) => s sameDay s2
     case _ => false
   }
 

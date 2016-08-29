@@ -24,15 +24,25 @@ case class Schedule(
     case _                     => s"${freq.toString} ${variant.name}"
   }
 
+  def perf =
+    if (variant.standard || variant == chess.variant.FromPosition) Schedule.Speed.toPerfType(speed)
+    else PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+
+  def day = at.withTimeAtStartOfDay
+
   def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
 
   def sameFreq(other: Schedule) = freq == other.freq
 
+  def samePerf(other: Schedule) = perf == other.perf
+
   def sameConditions(other: Schedule) = conditions == other.conditions
 
   def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
+
+  def sameDay(other: Schedule) = day == other.day
 
   def hasMaxRating = conditions.maxRating.isDefined
 
@@ -50,6 +60,7 @@ object Schedule {
 
     def compare(other: Freq) = importance compare other.importance
 
+    def isDaily = this == Schedule.Freq.Daily
     def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
   }
   object Freq {
