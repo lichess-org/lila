@@ -94,7 +94,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           nextMonday -> Bullet,
           nextTuesday -> SuperBlitz,
           nextWednesday -> Blitz,
-          nextThursday -> Classical
+          nextThursday -> Classical,
+          nextFriday -> HyperBullet
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
               Schedule(Weekly, speed, Standard, std, date |> orNextWeek)
