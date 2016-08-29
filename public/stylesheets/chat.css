@@ -78,6 +78,7 @@ div.mchat .messages {
   overflow: hidden;
   overflow-y: auto;
   word-wrap: break-word;
+  padding-bottom: 2px;
 }
 div.mchat .messages li {
   padding: 0.4em 0 0.4em 5px;
