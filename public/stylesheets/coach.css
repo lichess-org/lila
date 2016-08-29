@@ -1,36 +1,6 @@
-.coach_edit .material.form .form-group textarea {
-  height: 8em;
+.coach .top {
+  display: flex;
 }
 
-.coach_edit .upload_picture {
-  text-align: center;
-  margin: 30px 0 50px 0;
-}
-
-.coach_picture form {
-  padding: 30px;
-  border-top: 1px solid #ccc;
-  text-align: center;
-}
-.coach_picture form.delete button {
-  color: red;
-}
-.coach_picture .cancel {
-  padding: 40px;
-  border-top: 1px solid #ccc;
-}
-.coach_picture .forms > *:first-child {
-  margin-top: 40px;
-}
-
-.thumbnail {
-  display: block;
-  text-align: center;
-}
-.thumbnail img {
-  width: 300px;
-  height: 300px;
-  margin: auto;
-  border-radius: 12px;
-  border: 7px solid #ddd;
+img.picture {
 }

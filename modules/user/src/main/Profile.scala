@@ -24,11 +24,11 @@ case class Profile(
   def isComplete = completionPercent == 100
 
   def completionPercent: Int = {
-    val c = List(country, location, bio, firstName, lastName, fideRating).map(_.isDefined)
+    val c = List(country, location, bio, firstName, lastName).map(_.isDefined)
     100 * c.count(identity) / c.size
   }
 
-  private def ne(str: Option[String]) = str filter (_.nonEmpty)
+  private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
 
 object Profile {

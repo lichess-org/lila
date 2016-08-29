@@ -1,0 +1,71 @@
+.coach_edit .material.form {
+  margin-top: 0;
+}
+.coach_edit .material.form .form-group textarea {
+  height: 12em;
+}
+
+.coach_edit .upload_picture {
+  text-align: center;
+  margin: 30px 0 50px 0;
+}
+
+.coach_picture form {
+  padding: 30px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.coach_picture form.delete button {
+  color: red;
+}
+.coach_picture .cancel {
+  padding: 40px;
+  border-top: 1px solid #ccc;
+}
+.coach_picture .forms > *:first-child {
+  margin-top: 40px;
+}
+
+.coach_edit .tabs {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+}
+.coach_edit .tabs > div {
+  flex: 1 1 100%;
+  padding: 10px 0;
+  text-align: center;
+}
+.coach_edit .tabs > div:hover {
+  color: #3893E8;
+}
+.coach_edit .tabs > .active {
+  color: #3893E8;
+  border-bottom: 3px solid #3893E8;
+}
+.coach_edit .panel {
+  display: none;
+}
+.coach_edit .panel.active {
+  display: block;
+}
+
+.coach_edit .status {
+  opacity: 0;
+  transition: 0.5s;
+  text-align: center;
+  color: #759900;
+}
+.coach_edit .status.saved {
+  opacity: 1;
+}
+
+div.picture_wrap {
+  text-align: center;
+}
+img.picture {
+  margin: auto;
+  border-radius: 12px;
+  border: 7px solid #ddd;
+}

@@ -11,7 +11,7 @@ private[coach] object BsonHandlers {
   implicit val CoachCentsBSONHandler = intAnyValHandler[Coach.Cents](_.value, Coach.Cents.apply)
   implicit val CoachPicturePathBSONHandler = stringAnyValHandler[Coach.PicturePath](_.value, Coach.PicturePath.apply)
 
-  implicit val CoachProfileMarkdownBSONHandler = stringAnyValHandler[CoachProfile.Markdown](_.value, CoachProfile.Markdown.apply)
+  implicit val CoachProfileRichTextBSONHandler = stringAnyValHandler[CoachProfile.RichText](_.value, CoachProfile.RichText.apply)
   implicit val CoachProfileBSONHandler = Macros.handler[CoachProfile]
 
   implicit val CoachBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[Coach])

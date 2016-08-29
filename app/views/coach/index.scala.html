@@ -9,7 +9,7 @@
     @coaches.map { c =>
     <a class="coach" href="@routes.Coach.show(c.user.username)">
       @if(c.coach.hasPicture) {
-      @pic(c)
+      @pic(c, 200)
       } else {
       <span class="no_pic"></span>
       }

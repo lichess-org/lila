@@ -133,6 +133,9 @@
   transition: all 0.28s ease;
   box-shadow: none;
 }
+.material.form .form-group textarea {
+  line-height: 1.7;
+}
 .material.form .form-group input[type="file"] {
   line-height: 1;
 }

@@ -1,6 +1,6 @@
-@(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, size: Int)(implicit ctx: Context)
 @c.coach.picturePath.map { path =>
-<span class="thumbnail">
-  <img src="@dbImageUrl(path.value)" alt="@c.user.titleName lichess coach" />
-</span>
+<img width=@size height=@size class="picture" src="@dbImageUrl(path.value)" alt="@c.user.titleName lichess coach" />
+}.getOrElse {
+<img width=@size height=@size class="picture" src="@staticUrl("images/coach-nopic.svg")" />
 }

@@ -1,9 +1,50 @@
 @(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
 
 @layout(title = c.user.titleUsername, active = "coach") {
+@defining(c.user.profileOrDefault) { profile =>
 <div class="content_box no_padding coach">
   <div class="top">
-    <h1>@userLink(c.user)</h1>
+    @pic(c, 200)
+    <div class="overview">
+      <h1>
+        @c.user.title.map { t => @t }@profile.nonEmptyRealName.getOrElse(c.user.username)
+      </h1>
+      @profile.nonEmptyLocation.map { l =>
+      <span class="location">@l</span>,
+      }
+      @profile.countryInfo.map {
+      case (code, name) => {
+      <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
+      }
+      }
+      @if(!c.coach.isFullyEnabled) {
+      This page is not public yet.
+      }
+      @if(ctx.me.??(c.coach.is)) {
+      <a href="@routes.Coach.edit">Edit my coach profile</a>
+      }
+      <p class="headline">@c.coach.profile.headline</p>
+    </div>
+  </div>
+  <div class="body">
+    @c.coach.profile.description.map { t =>
+    <section>
+      @autoLink(t.value)
+    </section>
+    }
+    @c.coach.profile.playingExperience.map { t =>
+    <section>
+      <h1>Playing experience</h1>
+      @autoLink(t.value)
+    </section>
+    }
+    @c.coach.profile.teachingExperience.map { t =>
+    <section>
+      <h1>Teaching experience</h1>
+      @autoLink(t.value)
+    </section>
+    }
   </div>
 </div>
+}
 }

@@ -18,8 +18,10 @@ object Coach extends LilaController {
   }
 
   def show(username: String) = Open { implicit ctx =>
-    OptionOk(api find username) { coach =>
-      html.coach.show(coach)
+    OptionFuResult(api find username) { c =>
+      if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.Admin))
+        Ok(html.coach.show(c)).fuccess
+      else notFound
     }
   }
 
@@ -36,7 +38,7 @@ object Coach extends LilaController {
         implicit val req = ctx.body
         CoachForm.edit(c.coach).bindFromRequest.fold(
           form => fuccess(BadRequest(html.coach.edit(c, form))),
-          data => api.update(c, data) inject Redirect(routes.Coach.edit)
+          data => api.update(c, data) inject Ok
         )
       }
   }
