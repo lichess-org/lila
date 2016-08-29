@@ -42,7 +42,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val today = rightNow.withTimeAtStartOfDay
       val tomorrow = rightNow plusDays 1
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val lastMonday = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek -1) % 7)
+      val lastMonday = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek - 1) % 7)
 
       def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
       val nextMonday = nextDayOfWeek(1)
@@ -214,7 +214,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           ).flatten
         }
 
-        ).flatten filter { s =>
+      ).flatten filter { s =>
           // prevent duplicate september 2016 monthly - REMOVE ME
           s.freq != Monthly || s.at.isAfter(new DateTime(2016, 10, 15, 0, 0))
         }

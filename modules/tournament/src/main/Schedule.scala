@@ -158,15 +158,15 @@ object Schedule {
 
     (s.speed, s.variant, s.freq) match {
       // Special cases.
-      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s)    => TC(3 * 60, 1)
-      case (Blitz, Crazyhouse, Hourly) if zhInc(s)         => TC(4 * 60, 2)
-      case (Blitz, Standard, Hourly) if standardInc(s)     => TC(3 * 60, 2)
+      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s) => TC(3 * 60, 1)
+      case (Blitz, Crazyhouse, Hourly) if zhInc(s)      => TC(4 * 60, 2)
+      case (Blitz, Standard, Hourly) if standardInc(s)  => TC(3 * 60, 2)
 
-      case (HyperBullet, _, _)                             => TC(30, 0)
-      case (Bullet, _, _)                                  => TC(60, 0)
-      case (SuperBlitz, _, _)                              => TC(3 * 60, 0)
-      case (Blitz, _, _)                                   => TC(5 * 60, 0)
-      case (Classical, _, _)                               => TC(10 * 60, 0)
+      case (HyperBullet, _, _)                          => TC(30, 0)
+      case (Bullet, _, _)                               => TC(60, 0)
+      case (SuperBlitz, _, _)                           => TC(3 * 60, 0)
+      case (Blitz, _, _)                                => TC(5 * 60, 0)
+      case (Classical, _, _)                            => TC(10 * 60, 0)
     }
   }
 }
