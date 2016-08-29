@@ -25,7 +25,7 @@ final class PlanApi(
 
   def checkout(userOption: Option[User], data: Checkout): Funit =
     getOrMakePlan(data.cents, data.freq) flatMap { plan =>
-      userOption.fold(setAnonPlan(plan, data)) { user =>
+      userOption.fold(anonCheckout(plan, data)) { user =>
         userCheckout(user, plan, data)
       }
     } void
@@ -270,7 +270,7 @@ final class PlanApi(
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
 
-  private def setAnonPlan(plan: StripePlan, data: Checkout): Funit =
+  private def anonCheckout(plan: StripePlan, data: Checkout): Funit =
     stripeClient.createAnonCustomer(plan, data) map { customer =>
       logger.info(s"Subed anon $customer to ${plan} freq=${data.freq}")
       customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
