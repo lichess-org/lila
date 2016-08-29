@@ -86,6 +86,16 @@ trait BooleanSteroids {
   }
 }
 
+trait IntSteroids {
+
+  implicit final class LilaPimpedInt(self: Int) {
+
+    def atLeast(bottomValue: Int): Int = self max bottomValue
+
+    def atMost(topValue: Int): Int = self min topValue
+  }
+}
+
 trait OptionSteroids {
 
   /*
