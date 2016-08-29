@@ -36,6 +36,7 @@ trait Steroids
   with scalaz.syntax.ToShowOps
 
   with BooleanSteroids
+  with IntSteroids
   with OptionSteroids
   with ListSteroids
 
