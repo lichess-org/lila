@@ -31,7 +31,7 @@ object PieceSet extends PieceSetObject {
   val all = NonEmptyList(
     "cburnett", "merida", "alpha", "pirouetti",
     "chessnut", "chess7", "reillycraig", "companion",
-    "fantasy", "spatial", "shapes"
+    "fantasy", "spatial", "shapes", "letter"
   ) map { name => new PieceSet(name) }
 }
 
