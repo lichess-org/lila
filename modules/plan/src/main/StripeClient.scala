@@ -69,24 +69,23 @@ private final class StripeClient(config: StripeClient.Config) {
       'interval -> "month",
       'name -> StripePlan.make(cents, freq).name)
 
-  def chargeAnonCard(data: Checkout): Funit =
-    postOne[StripePlan]("charges",
-      'amount -> data.cents.value,
-      'currency -> "usd",
-      'source -> data.source.value,
-      'description -> "Anon one-time",
-      'metadata -> Map("email" -> data.email),
-      'receipt_email -> data.email).void
+//   def chargeAnonCard(data: Checkout): Funit =
+//     postOne[StripePlan]("charges",
+//       'amount -> data.cents.value,
+//       'currency -> "usd",
+//       'source -> data.source.value,
+//       'description -> "Anon one-time",
+//       'metadata -> Map("email" -> data.email),
+//       'receipt_email -> data.email).void
 
-  def chargeUserCard(data: Checkout, user: User): Funit =
+  // charge without changing the customer plan
+  def addOneTime(user: User, customer: StripeCustomer, data: Checkout): Funit =
     postOne[StripePlan]("charges",
-      'amount -> data.cents.value,
+      'customer -> customer.id,
+      'amount -> data.amount.value,
       'currency -> "usd",
-      'source -> data.source.value,
-      'description -> "User one-time",
-      'metadata -> Map(
-        "email" -> data.email,
-        "user" -> user.username),
+      'source -> data.token.value,
+      'description -> "Monthly customer adds a one-time",
       'receipt_email -> data.email).void
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =

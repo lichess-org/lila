@@ -26,7 +26,7 @@ final class PlanApi(
   def checkout(userOption: Option[User], data: Checkout): Funit =
     getOrMakePlan(data.cents, data.freq) flatMap { plan =>
       userOption.fold(setAnonPlan(plan, data)) { user =>
-        setUserPlan(user, plan, data)
+        userCheckout(user, plan, data)
       }
     } void
 
@@ -270,31 +270,41 @@ final class PlanApi(
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
 
-  private def setAnonPlan(plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+  private def setAnonPlan(plan: StripePlan, data: Checkout): Funit =
     stripeClient.createAnonCustomer(plan, data) map { customer =>
       logger.info(s"Subed anon $customer to ${plan} freq=${data.freq}")
       customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
     } flatMap { subscription =>
-      if (data.freq.renew) fuccess(subscription)
-      else stripeClient dontRenewSubscription subscription
+      if (data.freq.renew) funit
+      else stripeClient dontRenewSubscription subscription void
     }
 
-  private def setUserPlan(user: User, plan: StripePlan, data: Checkout): Fu[StripeSubscription] =
+  private def userCheckout(user: User, plan: StripePlan, data: Checkout): Funit =
     userCustomer(user) flatMap {
       case None => createCustomer(user, data, plan) map { customer =>
         customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
-      }
+      } flatMap withNewSubscription(user, data)
       case Some(customer) =>
-        if (data.freq.renew && !customer.renew) tracking.upgrade(user, plan.amount)
+        // tracking: user did one-time before, goes for monthly now
+        if (!customer.renew && data.freq.renew) tracking.upgrade(user, plan.amount)
+        // tracking: one-time
         if (!data.freq.renew) tracking.reDonation(user, plan.amount)
-        setCustomerPlan(customer, plan, data.source) flatMap { sub =>
+
+        // user has a monthly going on and is making an extra one-time
+        // let's not change the user plan to one-time, or else
+        // it would only cancel the monthly
+        if (customer.renew && !data.freq.renew) stripeClient.addOneTime(user, customer, data)
+        // or else, set this new plan to the customer
+        else setCustomerPlan(customer, plan, data.source) flatMap { sub =>
           saveStripePatron(user, customer.id, data.freq) inject sub
-        }
-    } flatMap { subscription =>
-      logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
-      if (data.freq.renew) fuccess(subscription)
-      else stripeClient dontRenewSubscription subscription
+        } flatMap withNewSubscription(user, data)
     }
+
+  private def withNewSubscription(user: User, data: Checkout)(subscription: StripeSubscription): Funit = {
+    logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
+    if (data.freq.renew) funit
+    else stripeClient dontRenewSubscription subscription void
+  }
 
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
     UserRepo.setPlan(user, plan) >> lightUserApi.invalidate(user.id)
