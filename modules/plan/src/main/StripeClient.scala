@@ -81,7 +81,7 @@ private final class StripeClient(config: StripeClient.Config) {
   // charge without changing the customer plan
   def addOneTime(user: User, customer: StripeCustomer, data: Checkout): Funit =
     postOne[StripePlan]("charges",
-      'customer -> customer.id,
+      'customer -> customer.id.value,
       'amount -> data.amount.value,
       'currency -> "usd",
       'source -> data.token.value,
