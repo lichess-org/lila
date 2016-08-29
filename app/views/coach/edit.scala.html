@@ -22,19 +22,22 @@
 evenMoreCss = evenMoreCss,
 moreJs = moreJs) {
 <div class="coach_edit content_box no_padding">
-  <h1 class="lichess_title">
-    @userLink(c.user) coach page
-  </h1>
-  <div class="picture_wrap">
-    @if(c.coach.hasPicture) {
-    <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
-      @pic(c, 200)
-    </a>
-    } else {
-    <div class="upload_picture">
-      <a class="button" href="@routes.Coach.picture">Upload a profile picture</a>
+  <div class="top">
+    <div class="picture_wrap">
+      @if(c.coach.hasPicture) {
+      <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
+        @pic(c, 200)
+      </a>
+      } else {
+      <div class="upload_picture">
+        <a class="button" href="@routes.Coach.picture">Upload a profile picture</a>
+      </div>
+      }
     </div>
-    }
+    <div class="overview">
+      <h1>@userLink(c.user) coach editor</h1>
+      <a href="@routes.Coach.show(c.user.username)">Preview coach page</a>
+    </div>
   </div>
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
     @if(!c.user.profileOrDefault.isComplete) {
