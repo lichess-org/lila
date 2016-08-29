@@ -120,8 +120,10 @@ object Plan extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    ctx.me ?? Env.plan.api.userPatron map { patron =>
-      Ok(html.plan.thanks(patron))
+    ctx.me ?? Env.plan.api.userPatron flatMap { patron =>
+      patron ?? Env.plan.api.patronCustomer map { customer =>
+        Ok(html.plan.thanks(patron, customer))
+      }
     }
   }
 

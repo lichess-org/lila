@@ -79,14 +79,13 @@ private final class StripeClient(config: StripeClient.Config) {
 //       'receipt_email -> data.email).void
 
   // charge without changing the customer plan
-  def addOneTime(user: User, customer: StripeCustomer, data: Checkout): Funit =
-    postOne[StripePlan]("charges",
+  def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
+    postOne[StripeCharge]("charges",
       'customer -> customer.id.value,
-      'amount -> data.amount.value,
+      'amount -> amount.value,
       'currency -> "usd",
-      'source -> data.token.value,
       'description -> "Monthly customer adds a one-time",
-      'receipt_email -> data.email).void
+      'receipt_email -> customer.email).void
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {

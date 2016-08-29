@@ -293,7 +293,7 @@ final class PlanApi(
         // user has a monthly going on and is making an extra one-time
         // let's not change the user plan to one-time, or else
         // it would only cancel the monthly
-        if (customer.renew && !data.freq.renew) stripeClient.addOneTime(user, customer, data)
+        if (customer.renew && !data.freq.renew) stripeClient.addOneTime(customer, data.amount)
         // or else, set this new plan to the customer
         else setCustomerPlan(customer, plan, data.source) flatMap { sub =>
           saveStripePatron(user, customer.id, data.freq) inject sub
@@ -347,6 +347,9 @@ final class PlanApi(
     userCustomerId(user) flatMap {
       _ ?? stripeClient.getCustomer
     }
+
+  def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
+    patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
   private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
     patronColl.uno[Patron]($doc("stripe.customerId" -> id))
