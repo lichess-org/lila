@@ -16,7 +16,7 @@ import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
-import lila.round.actorApi.round.{ GoBerserk, TournamentStanding }
+import lila.round.actorApi.round.{ GoBerserk, TournamentStanding, AbortForce }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -283,7 +283,11 @@ private[tournament] final class TournamentApi(
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >> {
         if (tour.isStarted)
-          PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
+          PairingRepo.findPlaying(tour.id, userId).map {
+            _ foreach { currentPairing =>
+              roundMap ! Tell(currentPairing.gameId, AbortForce)
+            }
+          } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour))
           }

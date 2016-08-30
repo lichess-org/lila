@@ -217,6 +217,10 @@ private[round] final class Round(
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
       game.playable ?? finisher.other(game, _.Aborted)
     }
+
+    case AbortForce => handle { game =>
+      game.playable ?? finisher.other(game, _.Aborted)
+    }
   }
 
   private def reportNetworkLag(pov: Pov) =
