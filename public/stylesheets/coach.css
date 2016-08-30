@@ -1,6 +1,54 @@
 .coach .top {
-  display: flex;
+  background: #303F9F;
+  color: #ddd;
+}
+.coach .top h1 {
+  font-family: 'Roboto';
+  font-size: 36px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.coach .top .headline {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 18px;
+  padding: 0 0 30px 25px;
+}
+
+.coach a {
+  color: #3893E8;
 }
 
 img.picture {
+}
+
+.coach .sections {
+  margin-top: 30px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.coach section {
+  font-size: 1.2em;
+  box-sizing: border-box;
+  width: 50%;
+  padding: 20px 30px 20px 30px;
+  text-align: justify;
+}
+.coach section h1 {
+  padding: 0 0 12px 0!important;
+  font-family: 'Roboto';
+}
+
+.coach .youtube {
+  background: #222;
+  color: #aaa;
+}
+.coach .youtube .list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.coach .youtube .list iframe {
+  margin-bottom: 10px;
 }

@@ -157,7 +157,6 @@ body.blind_mode #blind_mode {
 }
 .thin {
   font-family: 'Roboto';
-  font-weight: 300;
 }
 #blind_mode {
   margin-left: -99999px;

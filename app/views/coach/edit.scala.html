@@ -18,7 +18,7 @@
 @jsTag("coach.form.js")
 }
 
-@layout(title = s"${c.user.titleUsername} coach page", active = "coach",
+@layout(title = s"${c.user.titleUsername} coach page",
 evenMoreCss = evenMoreCss,
 moreJs = moreJs) {
 <div class="coach_edit content_box no_padding">
@@ -35,7 +35,9 @@ moreJs = moreJs) {
       }
     </div>
     <div class="overview">
-      <h1>@userLink(c.user) coach editor</h1>
+      <h1 class="text" data-icon=":">
+        @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
+      </h1>
       <a href="@routes.Coach.show(c.user.username)">Preview coach page</a>
     </div>
   </div>
@@ -78,8 +80,11 @@ moreJs = moreJs) {
         @textarea(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)
       </div>
       <div class="panel contents">
-        @textarea(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Youtube video URLs, one per line").some)
-        @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("lichess study URLs, one per line").some)
+        @textarea(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)
+        @base.form.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel")) {
+        @base.form.input(form("profile.youtubeChannel"))
+        }
+        @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
       </div>
     </div>
     <div class="status text" data-icon="E">Your changes have been saved.</div>

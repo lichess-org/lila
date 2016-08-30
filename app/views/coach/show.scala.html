@@ -1,56 +1,95 @@
 @(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
 
-@layout(title = c.user.titleUsername, active = "coach") {
+@side = {
+@pic(c, 200)
 @defining(c.user.profileOrDefault) { profile =>
+<div class="overview">
+  @profile.nonEmptyLocation.map { l =>
+  <span class="location">@l</span>,
+  }
+  @profile.countryInfo.map {
+  case (code, name) => {
+  <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
+  }
+  }
+  @if(!c.coach.isFullyEnabled) {
+  This page is not public yet.
+  }
+  @if(ctx.me.??(c.coach.is)) {
+  <a href="@routes.Coach.edit">Edit my coach profile</a>
+  }
+</div>
+}
+}
+
+@layout(title = c.user.titleUsername, side = side.some) {
 <div class="content_box no_padding coach">
   <div class="top">
-    @pic(c, 200)
-    <div class="overview">
-      <h1>
-        @c.user.title.map { t => @t }@profile.nonEmptyRealName.getOrElse(c.user.username)
-      </h1>
-      @profile.nonEmptyLocation.map { l =>
-      <span class="location">@l</span>,
-      }
-      @profile.countryInfo.map {
-      case (code, name) => {
-      <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
-      }
-      }
-      @if(!c.coach.isFullyEnabled) {
-      This page is not public yet.
-      }
-      @if(ctx.me.??(c.coach.is)) {
-      <a href="@routes.Coach.edit">Edit my coach profile</a>
-      }
-      <p class="headline">@c.coach.profile.headline</p>
-    </div>
+    <h1>
+      @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
+    </h1>
+    <p class="headline">@c.coach.profile.headline</p>
   </div>
-  <div class="body">
+  <div class="sections">
     @c.coach.profile.description.map { t =>
     <section>
-      @autoLink(t.value)
+      <h1>About me</h1>
+      <div class="content">@autoLink(t.value)</div>
     </section>
     }
     @c.coach.profile.playingExperience.map { t =>
     <section>
       <h1>Playing experience</h1>
-      @autoLink(t.value)
+      <div class="content">@autoLink(t.value)</div>
     </section>
     }
     @c.coach.profile.teachingExperience.map { t =>
     <section>
       <h1>Teaching experience</h1>
-      @autoLink(t.value)
+      <div class="content">@autoLink(t.value)</div>
     </section>
     }
     @c.coach.profile.otherExperience.map { t =>
     <section>
       <h1>Other experiences</h1>
-      @autoLink(t.value)
+      <div class="content">@autoLink(t.value)</div>
+    </section>
+    }
+    @c.coach.profile.skills.map { t =>
+    <section>
+      <h1>My best skills</h1>
+      <div class="content">@autoLink(t.value)</div>
+    </section>
+    }
+    @c.coach.profile.methodology.map { t =>
+    <section>
+      <h1>Teaching methodology</h1>
+      <div class="content">@autoLink(t.value)</div>
     </section>
     }
   </div>
+  @if(c.coach.profile.youtubeUrls.nonEmpty) {
+  <section class="youtube">
+    <h1>
+      Youtube videos
+      @c.coach.profile.youtubeChannel.map { url =>
+      from my <a href="@url" target="_blank" rel="nofollow">channel</a>
+      }
+    </h1>
+    <div class="list">
+      @c.coach.profile.youtubeUrls.map { url =>
+      <iframe width="256" height="192" src="@url.value" frameborder="0" allowfullscreen></iframe>
+      }
+    </div>
+  </section>
+  }
+  @if(c.coach.profile.studyIds) {
+  <section>
+    <h1>Public studies</h1>
+    @c.coach.profile.studyIds.map { id =>
+    @id
+    }
+  </section>
+  }
 </div>
-}
 }

@@ -42,6 +42,7 @@ object CoachForm {
     "skills" -> optional(richText),
     "methodology" -> optional(richText),
     "youtubeVideos" -> optional(nonEmptyText),
+    "youtubeChannel" -> optional(nonEmptyText),
     "publicStudies" -> optional(nonEmptyText)
   )(CoachProfile.apply)(CoachProfile.unapply)
 
