@@ -44,7 +44,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val pairingGroupSize = 18
+  val pairingGroupSize = 20
 
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
