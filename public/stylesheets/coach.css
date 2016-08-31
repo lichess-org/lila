@@ -2,8 +2,9 @@
   color: #3893E8;
 }
 .coach .top {
-  background: #303F9F;
-  color: #ddd;
+  /* background: #303F9F; */
+  background: #639B24;
+  color: #fff;
   display: flex;
 }
 .coach .top a {
@@ -71,7 +72,7 @@
 }
 .coach section h1 {
   padding: 0 0 12px 0!important;
-  font-family: 'Roboto';
+  opacity: 0.9;
 }
 
 .coach .youtube {
