@@ -37,6 +37,3 @@
 [submodule "public/vendor/flatpickr"]
 	path = public/vendor/flatpickr
 	url = https://github.com/chmln/flatpickr
-[submodule "public/vendor/bar-rating"]
-	path = public/vendor/bar-rating
-	url = https://github.com/antennaio/jquery-bar-rating
