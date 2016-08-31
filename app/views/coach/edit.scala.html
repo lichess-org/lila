@@ -67,9 +67,14 @@ moreJs = moreJs) {
         @base.form.group(form("profile.headline"), Html("Short and inspiring headline")) {
         @base.form.input(form("profile.headline"))
         }
-        @base.form.group(form("profile.languages"), Html("Languages spoken")) {
+        <div>
+        @base.form.group(form("profile.languages"), Html("Languages spoken"), half = true) {
         @base.form.input(form("profile.languages"))
         }
+        @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual value").some, half = true) {
+        @base.form.input(form("profile.hourlyRate"))
+        }
+      </div>
       </div>
       <div class="panel texts">
         @textarea(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)
