@@ -62,6 +62,14 @@
   flex: 1 1 100%;
   padding: 10px 0;
   text-align: center;
+  position: relative;
+}
+.coach_edit .tabs > div.data-count::after {
+  padding: 2px 6px;
+  font-size: 1.2em;
+  height: auto;
+  line-height: 1.2em;
+  top: 6px;
 }
 .coach_edit .tabs > div:hover {
   color: #3893E8;

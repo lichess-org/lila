@@ -378,6 +378,7 @@ POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/edit/picture              controllers.Coach.picture
 POST  /coach/edit/picture              controllers.Coach.pictureApply
 POST  /coach/edit/picture/delete       controllers.Coach.pictureDelete
+POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: String)
 GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)
 

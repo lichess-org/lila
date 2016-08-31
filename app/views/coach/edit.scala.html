@@ -1,4 +1,4 @@
-@(c: lila.coach.Coach.WithUser, form: Form[_])(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context)
 
 @import play.api.data.Field
 
@@ -49,6 +49,9 @@ moreJs = moreJs) {
       <div data-tab="basics" class="active">Basics</div>
       <div data-tab="texts">Texts</div>
       <div data-tab="contents">Contents</div>
+      <div data-tab="reviews" data-count="@reviews.list.size" class="data-count">
+        Pending reviews
+      </div>
     </div>
     <div class="panels">
       <div class="panel basics active">
@@ -86,6 +89,12 @@ moreJs = moreJs) {
         @base.form.input(form("profile.youtubeChannel"))
         }
         @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
+      </div>
+      <div class="panel reviews">
+        @reviews.list.map { r =>
+        <form class="review" action="@routes.Coach.approveReview(r.review.id)" method="POST">
+        </form>
+        }
       </div>
     </div>
     <div class="status text" data-icon="E">Your changes have been saved.</div>

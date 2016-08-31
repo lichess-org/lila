@@ -16,6 +16,15 @@
 @reviews(c, coachReviews)
 }
 
+@section(title: String, text: Option[lila.coach.CoachProfile.RichText]) = {
+@text.map { t =>
+<section>
+  <h1>@title</h1>
+  <div class="content">@autoLink(t.value)</div>
+</section>
+}
+}
+
 @layout(title = c.user.titleUsername,
 side = side.some,
 moreJs = moreJs,
@@ -110,42 +119,12 @@ evenMoreCss = moreCss) {
   }
   @defining(c.coach.profile) { profile =>
   <div class="sections">
-    @profile.description.map { t =>
-    <section>
-      <h1>About me</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
-    @profile.playingExperience.map { t =>
-    <section>
-      <h1>Playing experience</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
-    @profile.teachingExperience.map { t =>
-    <section>
-      <h1>Teaching experience</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
-    @profile.otherExperience.map { t =>
-    <section>
-      <h1>Other experiences</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
-    @profile.skills.map { t =>
-    <section>
-      <h1>My best skills</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
-    @profile.methodology.map { t =>
-    <section>
-      <h1>Teaching methodology</h1>
-      <div class="content">@autoLink(t.value)</div>
-    </section>
-    }
+    @section("About me", profile.description)
+    @section("Playing experience", profile.playingExperience)
+    @section("Teaching experience", profile.teachingExperience)
+    @section("Other experiences", profile.otherExperience)
+    @section("Best skills", profile.skills)
+    @section("Teaching methodology", profile.methodology)
   </div>
   @if(profile.youtubeUrls.nonEmpty) {
   <section class="youtube">
