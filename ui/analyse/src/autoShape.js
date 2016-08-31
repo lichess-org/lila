@@ -1,4 +1,4 @@
-var decomposeUci = require('./util').decomposeUci;
+var util = require('./util');
 
 function pieceDrop(key, role, color) {
   return {
@@ -12,7 +12,7 @@ function pieceDrop(key, role, color) {
 }
 
 function makeAutoShapesFromUci(color, uci, brush) {
-  var move = decomposeUci(uci);
+  var move = util.decomposeUci(uci);
   if (uci[1] === '@') return [{
       orig: move[1],
       brush: brush
