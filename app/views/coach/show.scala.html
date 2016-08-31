@@ -72,12 +72,6 @@ evenMoreCss = moreCss) {
               }
             </td>
           </tr>
-          <tr class="contact">
-            <th>Contact</th>
-            <td>
-              <a class="text" data-icon="c" href="@routes.Message.form?user=@c.user.username">Send a private message</a>
-            </td>
-          </tr>
           @if(ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) {
           <tr class="edit">
             <th>Admin</th>
@@ -90,6 +84,13 @@ evenMoreCss = moreCss) {
               @if(ctx.me.??(c.coach.is)) {
               <a href="@routes.Coach.edit" class="text" data-icon="m">Edit my coach profile</a>
               }
+            </td>
+          </tr>
+          } else {
+          <tr class="contact">
+            <th>Contact</th>
+            <td>
+              <a class="text" data-icon="c" href="@routes.Message.form?user=@c.user.username">Send a private message</a>
             </td>
           </tr>
           }
