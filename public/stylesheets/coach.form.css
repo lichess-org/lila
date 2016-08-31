@@ -94,3 +94,83 @@
 .coach_edit .status.saved {
   opacity: 1;
 }
+.coach_edit .reviews .review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 40px;
+}
+body.dark .coach_edit .reviews .review {
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .user > * {
+  display: block;
+}
+.coach_edit .reviews .text {
+  margin: 0 20px;
+  box-sizing: border-box;
+}
+.coach_edit .reviews .actions {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.coach_edit .reviews .actions a {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  line-height: 44px;
+  font-size: 25px;
+  background: #f0f0f0;
+  border: 1px solid #d0d0d0;
+}
+body.dark .coach_edit .reviews .actions a {
+  background: #363636;
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .actions .yes {
+  color: #759900;
+  border-radius: 3px 0 0 3px;
+}
+.coach_edit .reviews .actions .no {
+  color: #dc322f;
+  border-radius: 0 3px 3px 0;
+  border-left: 0;
+}
+.coach_edit .reviews .actions  a:hover {
+  color: #fff;
+  background: #759900!important;
+}
+.coach_edit .reviews .actions  a.no:hover {
+  background: #dc322f!important;
+}
+
+/* review score */
+.br-theme-fontawesome-stars .br-widget {
+  white-space: nowrap;
+  margin: 8px 0 5px 0;
+}
+.br-theme-fontawesome-stars .br-widget a {
+  font: 18px "lichess";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  cursor: default;
+}
+.br-theme-fontawesome-stars .br-widget a:after {
+  content: 't';
+  color: #d2d2d2;
+}
+body.dark .br-theme-fontawesome-stars .br-widget a:after {
+  color: #555;
+}
+.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+  color: #d59120!important;
+}
+.br-theme-fontawesome-stars .br-widget .br-current-rating {
+  display: none;
+}

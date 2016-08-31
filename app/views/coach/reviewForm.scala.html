@@ -11,12 +11,7 @@
   }
 
   <form action="@routes.Coach.review(c.user.username)" method="POST">
-    <select class="bar-rating" name="score" required>
-      <option value=""></option>
-      @List(1, 2, 3, 4, 5).map { score =>
-      <option value="@score">@score</option>
-      }
-    </select>
+    @barRating(selected = none, enabled = true)
     <textarea name="text"
       required minlength=3 maxlength=1000
       placeholder="What do you enjoy about taking lessons with @c.user.realNameOrUsername?"></textarea>

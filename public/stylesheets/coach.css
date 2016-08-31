@@ -14,6 +14,9 @@
   color: #fff!important;
   border-bottom: 1px dotted #fff;
 }
+.coach .top .overview img {
+  flex: 0 0 250px;
+}
 .coach .top .overview {
   padding: 15px 30px;
   box-sizing: border-box;
@@ -119,6 +122,7 @@ body.dark .coach .studies h1 {
   height: 10em;
   padding: 5px;
   box-sizing: border-box;
+  resize: vertical;
 }
 .review-form .button {
   display: block;
@@ -141,11 +145,12 @@ body.dark .coach .studies h1 {
   content: 't';
   color: #d2d2d2;
 }
-.br-theme-fontawesome-stars .br-widget a.br-active:after {
-  color: #edb867;
+body.dark .br-theme-fontawesome-stars .br-widget a:after {
+  color: #555;
 }
+.br-theme-fontawesome-stars .br-widget a.br-active:after,
 .br-theme-fontawesome-stars .br-widget a.br-selected:after {
-  color: #edb867;
+  color: #d59120!important;
 }
 .br-theme-fontawesome-stars .br-widget .br-current-rating {
   display: none;

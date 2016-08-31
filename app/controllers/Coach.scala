@@ -47,7 +47,13 @@ object Coach extends LilaController {
   }
 
   def approveReview(id: String) = SecureBody(_.Coach) { implicit ctx =>
-    ???
+    me =>
+      OptionFuResult(api.reviews.byId(id)) { review =>
+        api.byId(review.coachId).map(_ ?? (_ is me)) flatMap {
+          case false => notFound
+          case true  => api.reviews.approve(review, getBool("v")) inject Ok
+        }
+      }
   }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =

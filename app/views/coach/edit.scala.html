@@ -15,6 +15,7 @@
 
 @moreJs = {
 <script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
+@jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
 @jsTag("coach.form.js")
 }
 
@@ -92,8 +93,18 @@ moreJs = moreJs) {
       </div>
       <div class="panel reviews">
         @reviews.list.map { r =>
-        <form class="review" action="@routes.Coach.approveReview(r.review.id)" method="POST">
-        </form>
+        <div class="review" data-action="@routes.Coach.approveReview(r.id)">
+          <div class="user">
+            @userIdLink(r.userId.some)
+            @barRating(selected = r.score.some, enabled = false)
+            @momentFromNow(r.updatedAt)
+          </div>
+          <div class="text">@r.text</div>
+          <div class="actions">
+            <a data-value="1" class="yes" data-icon="E"></a>
+            <a data-value="0" class="no" data-icon="L"></a>
+          </div>
+        </div>
         }
       </div>
     </div>

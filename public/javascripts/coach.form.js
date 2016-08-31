@@ -21,4 +21,20 @@ $(function() {
 
   var tab = location.hash ? location.hash.slice(1) : 'reviews';
   $editor.find('.tabs div[data-tab=' + tab + ']').click();
+
+  $reviews = $editor.find('.reviews');
+  $reviews.find('.bar-rating').barrating({
+    theme: 'fontawesome-stars',
+    readonly: true
+  });
+  $reviews.find('.actions a').click(function() {
+    var $review = $(this).parents('.review');
+    $.ajax({
+      method: 'post',
+      url: $review.data('action') + '?v=' + $(this).data('value')
+    });
+    $review.slideUp(300);
+    $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
+    return false;
+  });
 });
