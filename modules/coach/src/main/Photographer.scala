@@ -31,9 +31,7 @@ private final class Photographer(coll: Coll) {
 
     import com.sksamuel.scrimage._
 
-    Image.fromFile(file)
-      .cover(600, 600)
-      .output(file)
+    Image.fromFile(file).cover(500, 500).output(file)
   }
 }
 
