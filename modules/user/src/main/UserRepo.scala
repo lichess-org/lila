@@ -124,7 +124,7 @@ object UserRepo {
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
-        s"perfs.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
+        s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
       }
     }
     diff.nonEmpty ?? coll.update(
@@ -133,9 +133,9 @@ object UserRepo {
     ).void
   }
 
-  def setPerf(userId: String, perfName: String, perf: Perf) =
+  def setPerf(userId: String, pt: PerfType, perf: Perf) =
     coll.update($id(userId), $set(
-      s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)
+      s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
     )).void
 
   def setProfile(id: ID, profile: Profile): Funit =

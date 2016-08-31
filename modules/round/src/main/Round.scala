@@ -115,9 +115,11 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? finisher.outOfTime(game)
-    }
+    case Outoftime =>
+      proxy.invalidate
+      handle { game =>
+        game.outoftime(lags.get) ?? finisher.outOfTime(game)
+      }
 
     // exceptionally we don't block nor publish events
     // if the game is abandoned, then nobody is around to see it
@@ -213,6 +215,10 @@ private[round] final class Round(
     case AbortForMaintenance => handle { game =>
       messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
+      game.playable ?? finisher.other(game, _.Aborted)
+    }
+
+    case AbortForce => handle { game =>
       game.playable ?? finisher.other(game, _.Aborted)
     }
   }

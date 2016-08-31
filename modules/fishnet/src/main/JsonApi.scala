@@ -13,14 +13,12 @@ object JsonApi {
   sealed trait Request {
     val fishnet: Request.Fishnet
     val stockfish: Request.Engine
-    val sunsetter: Request.Engine
 
     def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
       fishnet.python | Client.Python(""),
       Client.Engines(
-        stockfish = Client.Engine(stockfish.name),
-        sunsetter = Client.Engine(sunsetter.name)),
+        stockfish = Client.Engine(stockfish.name)),
       ip,
       DateTime.now)
   }
@@ -53,13 +51,11 @@ object JsonApi {
 
     case class Acquire(
       fishnet: Fishnet,
-      stockfish: BaseEngine,
-      sunsetter: BaseEngine) extends Request
+      stockfish: BaseEngine) extends Request
 
     case class PostMove(
       fishnet: Fishnet,
       stockfish: BaseEngine,
-      sunsetter: BaseEngine,
       move: MoveResult) extends Request with Result
 
     case class MoveResult(bestmove: String) {
@@ -69,18 +65,16 @@ object JsonApi {
     case class PostAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
-        sunsetter: BaseEngine,
         analysis: List[Option[Evaluation]]) extends Request with Result {
 
       def completeOrPartial =
-        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, sunsetter, analysis.flatten)
-        else PartialAnalysis(fishnet, stockfish, sunsetter, analysis)
+        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)
+        else PartialAnalysis(fishnet, stockfish, analysis)
     }
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
-        sunsetter: BaseEngine,
         analysis: List[Evaluation]) {
 
       def medianNodes = analysis
@@ -95,7 +89,6 @@ object JsonApi {
     case class PartialAnalysis(
       fishnet: Fishnet,
       stockfish: FullEngine,
-      sunsetter: BaseEngine,
       analysis: List[Option[Evaluation]])
 
     case class Evaluation(

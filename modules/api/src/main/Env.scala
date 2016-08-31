@@ -56,7 +56,7 @@ final class Env(
       f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
         _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
-      timeToLive = 5.seconds,
+      timeToLive = 10.seconds,
       default = Net.AssetVersion,
       logger = lila.log("assetVersion"))
     def get = cache get true

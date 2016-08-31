@@ -30,6 +30,11 @@ description = describeUser(u)).some) {
       <span data-icon="@patronIconChar"></span>
     </a>
     }
+    @if(info.isCoach) {
+    <a href="@routes.Coach.show(u.username)" class="trophy award icon3d coach hint--left" data-hint="Lichess coach">
+      <span data-icon=":"></span>
+    </a>
+    }
     @info.allTrophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
       href="@url"
@@ -133,8 +138,9 @@ description = describeUser(u)).some) {
     @newPlayer(u)
     }
     }
+    @defining(u.profileOrDefault) { profile =>
     <div class="user-infos scroll-shadow-hard">
-      @if(ctx.me.fold(true)(u !=)) {
+      @if(!ctx.is(u)) {
       @if(u.engine) {
       <div class="warning engine_warning">
         <span data-icon="j" class="is4"></span>
@@ -152,26 +158,24 @@ description = describeUser(u)).some) {
       <p data-icon="E" class="honorific title text">@title</p>
       }
       }
-      @u.profile.map { p =>
       @NotForKids {
-      @p.nonEmptyRealName.map { name =>
+      @profile.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
-      @p.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
+      @profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
       <p class="bio">@Html(addUserProfileLinks(addLinks(shorten(bio, 400).body)))</p>
       }
       }
-      }
       <div class="stats">
-        @u.profileOrDefault.fideRating.map { rating =>
+        @profile.fideRating.map { rating =>
         <div class="fide_rating">FIDE rating: <strong>@rating</strong></div>
         }
         @NotForKids {
-        @u.profileOrDefault.nonEmptyLocation.map { l =>
+        @profile.nonEmptyLocation.map { l =>
         <span class="location">@l</span>,
         }
         }
-        @u.profileOrDefault.countryInfo.map {
+        @profile.countryInfo.map {
         case (code, name) => {
         <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
         }
@@ -185,6 +189,11 @@ description = describeUser(u)).some) {
         }
         @info.completionRatePercent.map { c =>
         <p class="thin">Game completion rate: @c%</p>
+        }
+        @if(ctx is u) {
+        <a href="@routes.Account.profile" title="@trans.editProfile()">
+          Profile completion: @profile.completionPercent%
+        </a>
         }
         <!-- <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a> -->
         <br />
@@ -200,6 +209,7 @@ description = describeUser(u)).some) {
         </div>
       </div>
     </div>
+    }
     @if(info.insightVisible) {
     <a class="insight" href="@routes.Insight.index(u.username)">
       <span class="icon" data-icon="7"></span>

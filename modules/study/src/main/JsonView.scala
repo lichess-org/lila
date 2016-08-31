@@ -127,8 +127,9 @@ object JsonView {
     JsString(v.key)
   }
   private[study] implicit val fromWriter: Writes[Study.From] = Writes[Study.From] {
-    case Study.From.Scratch  => JsString("scratch")
-    case Study.From.Game(id) => Json.obj("game" -> id)
+    case Study.From.Scratch   => JsString("scratch")
+    case Study.From.Game(id)  => Json.obj("game" -> id)
+    case Study.From.Study(id) => Json.obj("study" -> id)
   }
   private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)

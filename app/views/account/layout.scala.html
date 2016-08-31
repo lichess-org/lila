@@ -1,8 +1,8 @@
-@(title: String, active: String)(body: Html)(implicit ctx: Context)
+@(title: String, active: String, evenMoreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @moreCss = {
-@cssTag("user-form.css")
 @cssTag("account.css")
+@evenMoreCss
 }
 @moreJs = {
 @jsTag("user.js")
@@ -19,6 +19,9 @@
 <a class="@active.active("editProfile")" href="@routes.Account.profile()">
   @trans.editProfile()
 </a>
+@if(isGranted(_.Coach)) {
+<a href="@routes.Coach.edit">Coach profile</a>
+}
 <a class="@active.active("password")" href="@routes.Account.passwd()">
   @trans.changePassword()
 </a>

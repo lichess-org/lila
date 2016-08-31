@@ -42,7 +42,7 @@ case class Tournament(
     case _ => false
   }
 
-  def isUnique = schedule.map(_.freq) exists (Schedule.Freq.Unique ==)
+  def isUnique = schedule.map(_.freq) contains Schedule.Freq.Unique
 
   def isMarathonOrUnique = isMarathon || isUnique
 
@@ -58,11 +58,15 @@ case class Tournament(
 
   def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
-  def isStillWorthEntering = isMarathonOrUnique || secondsToFinish > minutes * 60 / 2
+  def isStillWorthEntering = isMarathonOrUnique || {
+    secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
+  }
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
+
+  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
 
   def duration = new Duration(minutes * 60 * 1000)
 

@@ -10,8 +10,14 @@ object Event extends LilaController {
   private def api = Env.event.api
 
   def index = Open { implicit ctx =>
-    api.list.map { events =>
+    api.recentEnabled.map { events =>
       Ok(html.event.index(events))
+    }
+  }
+
+  def show(id: String) = Open { implicit ctx =>
+    OptionOk(api oneEnabled id) { event =>
+      html.event.show(event)
     }
   }
 

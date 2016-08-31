@@ -39,6 +39,12 @@ function buttons(root) {
         'data-hint': 'Download as PGN',
         href: '/study/' + ctrl.data.id + '.pgn'
       }, m('i[data-icon=x]')),
+      m('a.button.hint--top', {
+        'data-hint': 'Clone this study',
+        href: '/study/' + ctrl.data.id + '/clone'
+      }, m('i', {
+        'data-icon': '{'
+      })),
       canContribute ? [
         (function(enabled) {
           return m('a.button.comment.hint--top', {

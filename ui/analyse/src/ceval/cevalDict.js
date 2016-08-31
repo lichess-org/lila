@@ -25,7 +25,7 @@ var dict = {
 
 module.exports = function(work, variant) {
   if (variant.key !== 'standard') return;
-  if (work.position === initialFen && work.moves.length <= 4) {
+  if (work.initialFen === initialFen && work.moves.length <= 4) {
     var best = dict[work.moves.join(' ')];
     if (best) return {
       cp: eval,

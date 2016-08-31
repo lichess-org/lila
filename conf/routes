@@ -59,6 +59,7 @@ GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
+GET   /player/myself                   controllers.User.myself
 GET   /player                          controllers.User.list
 GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
@@ -137,6 +138,8 @@ POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
+GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
+POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
 
 # Learn
@@ -376,6 +379,7 @@ GET   /coach/edit/picture              controllers.Coach.picture
 POST  /coach/edit/picture              controllers.Coach.pictureApply
 POST  /coach/edit/picture/delete       controllers.Coach.pictureDelete
 GET   /coach/:username                 controllers.Coach.show(username: String)
+POST  /coach/:username/review          controllers.Coach.review(username: String)
 
 # DB image
 GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
@@ -432,6 +436,7 @@ GET   /api/status                      controllers.Api.status
 
 # Events
 GET   /event                           controllers.Event.index
+GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)

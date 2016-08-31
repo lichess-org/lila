@@ -2,12 +2,15 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._, Results._
+import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.GameFilterMenu
+import lila.common.HTTPRequest
+import lila.common.paginator.Paginator
 import lila.evaluation.{ PlayerAggregateAssessment }
-import lila.game.{ GameRepo, Pov }
+import lila.game.{ GameRepo, Pov, Game => GameModel }
 import lila.rating.PerfType
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -118,19 +121,34 @@ object User extends LilaController {
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
-  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext[_]) = {
+  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
+    credits = 500,
+    duration = 10 minutes,
+    name = "user games web/mobile per IP")
+
+  implicit val userGamesDefault =
+    ornicar.scalalib.Zero.instance[Fu[Paginator[GameModel]]](fuccess(Paginator.empty[GameModel]))
+
+  private def userGames(
+    u: UserModel,
+    filterOption: Option[String],
+    page: Int)(implicit ctx: BodyContext[_]): Fu[(String, Paginator[GameModel])] = {
     import lila.app.mashup.GameFilter.{ All, Playing }
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
     })(fuccess) flatMap { filterName =>
-      GameFilterMenu.paginatorOf(
-        userGameSearch = userGameSearch,
-        user = u,
-        info = none,
-        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-        me = ctx.me,
-        page = page
-      )(ctx.body) map { filterName -> _ }
+      val ip = HTTPRequest lastRemoteAddress ctx.req
+      UserGamesRateLimitPerIP(ip, cost = page, msg = ip) {
+        lila.mon.http.userGames.cost(page)
+        GameFilterMenu.paginatorOf(
+          userGameSearch = userGameSearch,
+          user = u,
+          info = none,
+          filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+          me = ctx.me,
+          page = page
+        )(ctx.body)
+      } map { filterName -> _ }
     }
   }
 
@@ -256,5 +274,10 @@ object User extends LilaController {
     get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term =>
       JsonOk(UserRepo usernamesLike term)
     }
+  }
+
+  def myself = Auth { ctx =>
+    me =>
+      fuccess(Redirect(routes.User.show(me.username)))
   }
 }

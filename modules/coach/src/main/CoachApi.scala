@@ -1,24 +1,45 @@
 package lila.coach
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.AsyncCache
+import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final class CoachApi(
-    coll: Coll,
-    imageColl: Coll) {
+    coachColl: Coll,
+    reviewColl: Coll,
+    photographer: Photographer) {
 
   import BsonHandlers._
+
+  private val cache = AsyncCache.single[List[Coach]](
+    f = coachColl.find($empty).list[Coach](),
+    timeToLive = 1 hour)
+
+  private def all = cache(true)
+
+  def byId(id: Coach.Id): Fu[Option[Coach]] = all.map(_.find(_.id == id))
 
   def find(username: String): Fu[Option[Coach.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
-    coll.byId[Coach](user.id) map2 withUser(user)
+    byId(Coach.Id(user.id)) map2 withUser(user)
+
+  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = find(user) orElse {
+    fuccess(Coach.WithUser(Coach make user, user).some)
+  }
+
+  def isEnabledCoach(user: User): Fu[Boolean] =
+    Granter(_.Coach)(user) ?? all.map(_.exists { c =>
+      c.is(user) && c.isFullyEnabled
+    })
 
   def enabledWithUserList: Fu[List[Coach.WithUser]] =
-    coll.list[Coach]($doc("enabled" -> true)) flatMap { coaches =>
+    all.map(_.filter(_.isFullyEnabled)) flatMap { coaches =>
       UserRepo.byIds(coaches.map(_.id.value)) map { users =>
         coaches.flatMap { coach =>
           users find coach.is map { Coach.WithUser(coach, _) }
@@ -26,38 +47,72 @@ final class CoachApi(
       }
     }
 
-  def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
-    coll.update($id(c.coach.id), data(c.coach)).void
+  def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
+    coachColl.update(
+      $id(c.coach.id),
+      data(c.coach),
+      upsert = true
+    ).void >> cache.clear
 
-  def init(username: String): Fu[String] = find(username) flatMap {
-    case Some(_) => fuccess(s"Coach $username already exists.")
-    case None => UserRepo named username flatMap {
-      case None       => fuccess(s"No such username $username")
-      case Some(user) => coll.insert(Coach make user) inject "Done!"
+  private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
+    find(username) flatMap {
+      case None => fuccess("No such coach")
+      case Some(c) => coachColl.update(
+        $id(c.coach.id),
+        $set("enabledByMod" -> value)
+      ) >> cache.clear inject "Done!"
     }
-  }
 
-  private val pictureMaxMb = 3
-  private val pictureMaxBytes = pictureMaxMb * 1024 * 1024
-  private def pictureId(id: Coach.Id) = s"coach:${id.value}:picture"
-
-  def uploadPicture(
-    c: Coach.WithUser,
-    picture: play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]): Funit =
-    if (picture.ref.file.length > pictureMaxBytes) fufail(s"File size must not exceed ${pictureMaxMb}MB.")
-    else {
-      val image = lila.db.DbImage.make(
-        id = pictureId(c.coach.id),
-        name = picture.filename,
-        contentType = picture.contentType,
-        file = picture.ref.file)
-      imageColl.update($id(image.id), image, upsert = true) >>
-        coll.update($id(c.coach.id), $set("picturePath" -> image.path))
-    } void
+  def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
+    photographer(c.coach.id, picture).flatMap { pic =>
+      coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path))
+    } >> cache.clear
 
   def deletePicture(c: Coach.WithUser): Funit =
-    coll.update($id(c.coach.id), $unset("picturePath")).void
+    coachColl.update($id(c.coach.id), $unset("picturePath")) >> cache.clear
 
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
+
+  object reviews {
+
+    def add(me: User, coach: Coach, data: CoachReviewForm.Data): Fu[CoachReview] =
+      find(me, coach) flatMap { existing =>
+        val id = CoachReview.makeId(me, coach)
+        val review = existing match {
+          case None => CoachReview(
+            _id = id,
+            userId = me.id,
+            coachId = coach.id,
+            score = data.score,
+            text = data.text,
+            approved = false,
+            createdAt = DateTime.now,
+            updatedAt = DateTime.now)
+          case Some(r) => r.copy(
+            score = data.score,
+            text = data.text,
+            approved = false,
+            updatedAt = DateTime.now)
+        }
+        reviewColl.update($id(id), review, upsert = true) inject review
+      }
+
+    def find(user: User, coach: Coach): Fu[Option[CoachReview]] =
+      reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
+
+    def approvedByCoach(c: Coach): Fu[CoachReview.Reviews] =
+      findRecent($doc("coachId" -> c.id.value, "approved" -> true))
+
+    def notApprovedByCoach(c: Coach): Fu[CoachReview.Reviews] =
+      findRecent($doc("coachId" -> c.id.value, "approved" -> false))
+
+    def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
+      findRecent($doc("coachId" -> c.id.value))
+
+    private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
+      reviewColl.find(selector)
+        .sort($sort desc "createdAt")
+        .list[CoachReview](100) map CoachReview.Reviews.apply
+  }
 }

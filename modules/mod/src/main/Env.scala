@@ -11,12 +11,15 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     firewall: Firewall,
     reportColl: Coll,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     securityApi: lila.security.Api,
     notifyApi: lila.notify.NotifyApi,
+    historyApi: lila.history.HistoryApi,
+    rankingApi: lila.user.RankingApi,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {
@@ -34,13 +37,23 @@ final class Env(
 
   lazy val logApi = new ModlogApi(logColl)
 
+  private lazy val notifier = new ModNotifier(notifyApi, reportColl)
+
+  private lazy val ratingRefund = new RatingRefund(
+    scheduler = scheduler,
+    notifier = notifier,
+    historyApi = historyApi,
+    rankingApi = rankingApi,
+    wasUnengined = logApi.wasUnengined)
+
   lazy val api = new ModApi(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
     reporter = hub.actor.report,
     lightUserApi = lightUserApi,
-    notifyReporters = new NotifyReporters(notifyApi, reportColl),
+    notifier = notifier,
+    refunder = ratingRefund,
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
@@ -89,11 +102,14 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
     reportColl = lila.report.Env.current.reportColl,
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,
     notifyApi = lila.notify.Env.current.api,
+    historyApi = lila.history.Env.current.api,
+    rankingApi = lila.user.Env.current.rankingApi,
     emailAddress = lila.security.Env.current.emailAddress)
 }

@@ -1,6 +1,7 @@
 var m = require('mithril');
 var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
+var util = require('../util');
 var stockfishWorker = require('./stockfishWorker');
 var sunsetterWorker = require('./sunsetterWorker');
 
@@ -8,20 +9,46 @@ module.exports = function(possible, variant, emit) {
 
   var nbWorkers = 3;
   var minDepth = 7;
-  var maxDepth = 18;
+  var maxDepth = util.storedProp('ceval.max-depth', 18);
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
   var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
+
   var pool = makePool({
     minDepth: minDepth,
     maxDepth: maxDepth,
     variant: variant
   }, engine, nbWorkers);
 
+  // adjusts maxDepth based on nodes per second
+  var npsRecorder = (function() {
+    var values = [];
+    var applies = function(res) {
+      return res.eval.nps && res.eval.depth >= 16 &&
+        !res.eval.mate && Math.abs(res.eval.cp) < 500 &&
+        (res.work.currentFen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
+    }
+    return function(res) {
+      if (!applies(res)) return;
+      values.push(res.eval.nps);
+      if (values.length >= 10) {
+        var depth = 18, knps = util.median(values) / 1000;
+        if (knps > 100) depth = 19;
+        if (knps > 150) depth = 20;
+        if (knps > 200) depth = 21;
+        if (knps > 250) depth = 22;
+        maxDepth(depth);
+        if (values.length > 20) values.shift();
+      }
+    };
+  })();
+
   var onEmit = function(res) {
+    res.eval.maxDepth = res.work.maxDepth;
+    npsRecorder(res);
     curDepth = res.eval.depth;
     emit(res);
   }
@@ -29,14 +56,16 @@ module.exports = function(possible, variant, emit) {
   var start = function(path, steps) {
     if (!enabled() || !possible()) return;
     var step = steps[steps.length - 1];
-    if (step.ceval && step.ceval.depth >= maxDepth) return;
+    if (step.ceval && step.ceval.depth >= maxDepth()) return;
 
     var work = {
-      position: steps[0].fen,
+      initialFen: steps[0].fen,
       moves: [],
+      currentFen: step.fen,
       path: path,
       steps: steps,
       ply: step.ply,
+      maxDepth: maxDepth(),
       emit: function(res) {
         if (enabled()) onEmit(res);
       }
@@ -47,7 +76,7 @@ module.exports = function(possible, variant, emit) {
       var step = steps[i];
       if (step.san.indexOf('O-O') === 0) {
         work.moves = [];
-        work.position = step.fen;
+        work.initialFen = step.fen;
       } else {
         work.moves.push(step.uci);
       }
@@ -60,10 +89,11 @@ module.exports = function(possible, variant, emit) {
         work.emit({
           work: work,
           eval: {
-            depth: maxDepth,
+            depth: maxDepth(),
             cp: dictRes.cp,
             best: dictRes.best,
-            mate: 0
+            mate: 0,
+            dict: true
           },
           name: name
         });

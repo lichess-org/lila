@@ -15,6 +15,7 @@ object EventForm {
   val form = Form(mapping(
     "title" -> nonEmptyText(minLength = 3, maxLength = 40),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
+    "description" -> optional(nonEmptyText(minLength = 5, maxLength = 4000)),
     "homepageHours" -> number(min = 0, max = 24),
     "url" -> nonEmptyText,
     "enabled" -> boolean,
@@ -25,6 +26,7 @@ object EventForm {
   case class Data(
       title: String,
       headline: String,
+      description: Option[String],
       homepageHours: Int,
       url: String,
       enabled: Boolean,
@@ -34,6 +36,7 @@ object EventForm {
     def update(event: Event) = event.copy(
       title = title,
       headline = headline,
+      description = description,
       homepageHours = homepageHours,
       url = url,
       enabled = enabled,
@@ -44,6 +47,7 @@ object EventForm {
       _id = Event.makeId,
       title = title,
       headline = headline,
+      description = description,
       homepageHours = homepageHours,
       url = url,
       enabled = enabled,
@@ -58,6 +62,7 @@ object EventForm {
     def make(event: Event) = Data(
       title = event.title,
       headline = event.headline,
+      description = event.description,
       homepageHours = event.homepageHours,
       url = event.url,
       enabled = event.enabled,

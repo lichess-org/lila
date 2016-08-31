@@ -41,6 +41,8 @@ case class User(
 
   def titleName = title.fold(username)(_ + " " + username)
 
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
+
   def langs = ("en" :: lang.toList).distinct.sorted
 
   def compare(other: User) = id compare other.id
@@ -87,6 +89,8 @@ case class User(
   def best8Perfs: List[PerfType] =
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
+
+  def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
   def isPatron = plan.active
 

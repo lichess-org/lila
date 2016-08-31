@@ -19,9 +19,16 @@ case class Profile(
 
   def nonEmptyBio = ne(bio)
 
-  def isEmpty = List(country, location, bio, firstName, lastName).forall(_.isEmpty)
+  def isEmpty = completionPercent == 0
 
-  private def ne(str: Option[String]) = str filter (_.nonEmpty)
+  def isComplete = completionPercent == 100
+
+  def completionPercent: Int = {
+    val c = List(country, location, bio, firstName, lastName).map(_.isDefined)
+    100 * c.count(identity) / c.size
+  }
+
+  private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
 
 object Profile {

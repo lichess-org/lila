@@ -24,15 +24,23 @@ case class Schedule(
     case _                     => s"${freq.toString} ${variant.name}"
   }
 
+  def day = at.withTimeAtStartOfDay
+
+  def sameSpeed(other: Schedule) = speed == other.speed
+
   def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
+
+  def sameVariantAndSpeed(other: Schedule) = sameVariant(other) && sameSpeed(other)
 
   def sameFreq(other: Schedule) = freq == other.freq
 
   def sameConditions(other: Schedule) = conditions == other.conditions
 
   def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
+
+  def sameDay(other: Schedule) = day == other.day
 
   def hasMaxRating = conditions.maxRating.isDefined
 
@@ -49,6 +57,10 @@ object Schedule {
     val name = toString.toLowerCase
 
     def compare(other: Freq) = importance compare other.importance
+
+    def isDaily = this == Schedule.Freq.Daily
+    def isDailyOrBetter = this >= Schedule.Freq.Daily
+    def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
   }
   object Freq {
     case object Hourly extends Freq(10, 10)
@@ -127,7 +139,7 @@ object Schedule {
       case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
 
       case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
-      case (Weekly, SuperBlitz, _)                    => 60 * 2 + 30
+      case (Weekly, SuperBlitz, _)                    => 60 * 3
       case (Weekly, Blitz, _)                         => 60 * 3
       case (Weekly, Classical, _)                     => 60 * 4
 
@@ -156,15 +168,15 @@ object Schedule {
 
     (s.speed, s.variant, s.freq) match {
       // Special cases.
-      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s)    => TC(3 * 60, 1)
-      case (Blitz, Crazyhouse, Hourly) if zhInc(s)         => TC(4 * 60, 2)
-      case (Blitz, Standard, Hourly) if standardInc(s)     => TC(3 * 60, 2)
+      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s) => TC(3 * 60, 1)
+      case (Blitz, Crazyhouse, Hourly) if zhInc(s)      => TC(4 * 60, 2)
+      case (Blitz, Standard, Hourly) if standardInc(s)  => TC(3 * 60, 2)
 
-      case (HyperBullet, _, _)                             => TC(30, 0)
-      case (Bullet, _, _)                                  => TC(60, 0)
-      case (SuperBlitz, _, _)                              => TC(3 * 60, 0)
-      case (Blitz, _, _)                                   => TC(5 * 60, 0)
-      case (Classical, _, _)                               => TC(10 * 60, 0)
+      case (HyperBullet, _, _)                          => TC(30, 0)
+      case (Bullet, _, _)                               => TC(60, 0)
+      case (SuperBlitz, _, _)                           => TC(3 * 60, 0)
+      case (Blitz, _, _)                                => TC(5 * 60, 0)
+      case (Classical, _, _)                            => TC(10 * 60, 0)
     }
   }
 }

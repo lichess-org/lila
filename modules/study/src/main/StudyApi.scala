@@ -29,6 +29,8 @@ final class StudyApi(
 
   def byId = studyRepo byId _
 
+  def byIds = studyRepo byOrderedIds _
+
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       chapterRepo.byId(study.position.chapterId) flatMap {
@@ -59,6 +61,21 @@ final class StudyApi(
         indexStudy(res.study) >>-
         scheduleTimeline(res.study.id) inject res
     }
+
+  def clone(me: User, prev: Study): Fu[Study] = {
+    chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
+      val study1 = prev.cloneFor(me)
+      val newChapters = chapters.map(_ cloneFor study1)
+      val study = study1.withChapter(newChapters.headOption.err {
+        s"Cloning study ${study1.id} from ${prev.id} has no first chapter!"
+      })
+      studyRepo.insert(study) >>
+        newChapters.map(chapterRepo.insert).sequenceFu >>- {
+          chat ! lila.chat.actorApi.SystemTalk(study.id,
+            s"Cloned from lichess.org/study/${prev.id}")
+        } inject study
+    }
+  }
 
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
     chapters.headOption match {

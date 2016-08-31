@@ -2,8 +2,9 @@ package controllers
 
 import play.api.mvc._, Results._
 
+import lila.api.Context
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachForm }
+import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachReviewForm }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -18,32 +19,58 @@ object Coach extends LilaController {
   }
 
   def show(username: String) = Open { implicit ctx =>
-    OptionOk(api find username) { coach =>
-      html.coach.show(coach)
+    OptionFuResult(api find username) { c =>
+      WithVisibleCoach(c) {
+        Env.study.api.byIds {
+          c.coach.profile.studyIds.map(_.value)
+        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
+          api.reviews.approvedByCoach(c.coach) map { reviews =>
+            Ok(html.coach.show(c, reviews, studies, reviewApproval = getBool("review")))
+          }
+        }
+      }
     }
   }
 
-  def edit = Auth { implicit ctx =>
+  def review(username: String) = AuthBody { implicit ctx =>
     me =>
-      OptionResult(api find me) { c =>
-        NoCache(Ok(html.coach.edit(c, CoachForm edit c.coach)))
+      OptionFuResult(api find username) { c =>
+        WithVisibleCoach(c) {
+          implicit val req = ctx.body
+          lila.coach.CoachReviewForm.form.bindFromRequest.fold(
+            err => Redirect(routes.Coach.show(c.user.username)).fuccess,
+            data => api.reviews.add(me, c.coach, data) map { review =>
+              Redirect(routes.Coach.show(c.user.username).url + "?review=1")
+            })
+        }
       }
   }
 
-  def editApply = AuthBody { implicit ctx =>
+  private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
+    if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) f
+    else notFound
+
+  def edit = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionFuResult(api find me) { c =>
+      OptionResult(api findOrInit me) { c =>
+        NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach)))
+      }
+  }
+
+  def editApply = SecureBody(_.Coach) { implicit ctx =>
+    me =>
+      OptionFuResult(api findOrInit me) { c =>
         implicit val req = ctx.body
-        CoachForm.edit(c.coach).bindFromRequest.fold(
+        CoachProfileForm.edit(c.coach).bindFromRequest.fold(
           form => fuccess(BadRequest(html.coach.edit(c, form))),
-          data => api.update(c, data) inject Redirect(routes.Coach.edit)
+          data => api.update(c, data) inject Ok
         )
       }
   }
 
-  def picture = Auth { implicit ctx =>
+  def picture = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionResult(api find me) { c =>
+      OptionResult(api findOrInit me) { c =>
         NoCache(Ok(html.coach.picture(c)))
       }
   }
@@ -61,9 +88,9 @@ object Coach extends LilaController {
       }
   }
 
-  def pictureDelete = Auth { implicit ctx =>
+  def pictureDelete = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionFuResult(api find me) { c =>
+      OptionFuResult(api findOrInit me) { c =>
         api.deletePicture(c) inject Redirect(routes.Coach.edit)
       }
   }

@@ -1,11 +1,18 @@
 @(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context)
 
-@layout(title = s"${c.user.titleUsername} coach picture", active = "coach") {
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("coach.form.css")
+}
+
+@layout(title = s"${c.user.titleUsername} coach picture", evenMoreCss = moreCss) {
 <div class="coach_picture content_box small_box no_padding">
   <h1 class="lichess_title">
     @userLink(c.user) coach picture
   </h1>
-  @pic(c)
+  <div class="picture_wrap">
+    @pic(c, 200)
+  </div>
   <div class="forms">
     @error.map { e =>
     <p class="error">@e</p>

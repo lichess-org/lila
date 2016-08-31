@@ -275,9 +275,6 @@
 .icon-feather:before {
   content: "\2a";
 }
-.icon-gears-setting:before {
-  content: "\3a";
-}
 .icon-email-plane:before {
   content: "\3b";
 }
@@ -308,9 +305,6 @@
 .icon-keypad:before {
   content: "\5f";
 }
-.icon-youtube-play:before {
-  content: "\7b";
-}
 .icon-arrows-in:before {
   content: "\7c";
 }
@@ -329,9 +323,6 @@
 .icon-tools:before {
   content: "\e000";
 }
-.icon-medal-outline-star:before {
-  content: "\e001";
-}
 .icon-agent:before {
   content: "\e002";
 }
@@ -340,9 +331,6 @@
 }
 .icon-bar-chart:before {
   content: "\e004";
-}
-.icon-world:before {
-  content: "\6e";
 }
 .icon-graph:before {
   content: "\5e";
@@ -355,9 +343,6 @@
 }
 .icon-phone-mobile:before {
   content: "\e007";
-}
-.icon-ellipsis:before {
-  content: "\e008";
 }
 .icon-flag-checkered:before {
   content: "\e00a";
@@ -380,21 +365,6 @@
 .icon-bell-o:before {
   content: "\e00f";
 }
-.icon-facebook:before {
-  content: "\e012";
-}
-.icon-twitter:before {
-  content: "\e013";
-}
-.icon-google-plus:before {
-  content: "\e014";
-}
-.icon-vk:before {
-  content: "\e015";
-}
-.icon-github:before {
-  content: "\e016";
-}
 .icon-crown-1:before {
   content: "\e017";
 }
@@ -403,4 +373,16 @@
 }
 .icon-crown1-1:before {
   content: "\e019";
+}
+.icon-ribbon:before {
+  content: "\e018";
+}
+.icon-cogs:before {
+  content: "\6e";
+}
+.icon-graduate-cap:before {
+  content: "\3a";
+}
+.icon-code-fork:before {
+  content: "\7b";
 }

@@ -363,6 +363,9 @@ mono-piece.king {
 #top piece.shapes {
   background-image: url(../piece/shapes/wN.svg);
 }
+#top piece.letter {
+  background-image: url(../piece/letter/wN.svg);
+}
 #top piece.chessnut {
   background-image: url(../piece/chessnut/wN.svg);
 }

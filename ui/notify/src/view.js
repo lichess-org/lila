@@ -148,7 +148,7 @@ var handlers = {
   },
   reportedBanned: {
     html: function(notification) {
-      return genericNotification(notification, null, '', [
+      return genericNotification(notification, null, '', [
         m('span', [
           m('strong', 'Someone you reported was banned')
         ]),
@@ -224,6 +224,21 @@ var handlers = {
     },
     text: function(n) {
       return 'Patron account expired';
+    }
+  },
+  ratingRefund: {
+    html: function(notification) {
+      var content = notification.content
+      return genericNotification(notification, '/player/myself', '', [
+        m('span', [
+          m('strong', 'You lost to a cheater'),
+          drawTime(notification)
+        ]),
+        m('span', 'Refund: ' + content.points + ' ' + content.perf + ' rating points.')
+      ]);
+    },
+    text: function(n) {
+      return 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'
     }
   },
 };

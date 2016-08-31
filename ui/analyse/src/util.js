@@ -58,7 +58,7 @@ module.exports = {
     var value;
     var isBoolean = defaultValue === true || defaultValue === false;
     return function(v) {
-      if (defined(v) && v !== value) {
+      if (defined(v) && v != value) {
         value = v + '';
         lichess.storage.set(sk, v);
       } else if (!defined(value)) {
@@ -75,6 +75,17 @@ module.exports = {
       var ret = JSON.parse(lichess.storage.get(key));
       return (ret !== null) ? ret : defaultValue;
     };
+  },
+  decomposeUci: function(uci) {
+    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
+  },
+  median: function(values) {
+    values.sort(function(a, b) {
+      return a - b;
+    });
+    var half = Math.floor(values.length / 2);
+    return values.length % 2 ? values[half] :
+      (values[half - 1] + values[half]) / 2.0;
   },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');

@@ -1,20 +1,28 @@
 @(coaches: List[lila.coach.Coach.WithUser])(implicit ctx: Context)
 
-@layout(title = "Lichess coaches", active = "all") {
+@layout(title = "Lichess coaches") {
 <div class="content_box no_padding coach">
   <div class="top">
-    <h1>Chess coaches</h1>
+    <h1 class="text" data-icon=":">Chess coaches</h1>
   </div>
   <div class="list">
-    @coaches.map {
-    case lila.coach.Coach.WithUser(c, u) => {
-    <a class="coach" href="@routes.Coach.show(u.username)">
-      <h2>@userSpan(u)</h2>
-      @u.seenAt.map { seen =>
-      <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
+    @coaches.map { c =>
+    <a class="coach" href="@routes.Coach.show(c.user.username)">
+      @if(c.coach.hasPicture) {
+      @pic(c, 200)
+      } else {
+      <span class="no_pic"></span>
       }
+      <span class="content">
+        <h2>
+          @c.user.title.map { t => <span class="title">@t</span> }
+          @c.user.profile.flatMap(_.nonEmptyRealName).getOrElse(c.user.username)
+        </h2>
+        @c.user.seenAt.map { seen =>
+        <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
+        }
+      </span>
     </a>
-    }
     }
   </div>
 </div>

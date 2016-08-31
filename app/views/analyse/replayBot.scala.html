@@ -87,7 +87,7 @@ chessground = true) {
         /
         <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
       </p>
-      <div class="pgn">@Html(nl2br(escape(pgn)))</div>
+      <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
     </div>
     @cross.map { c =>
     <div class="panel crosstable">

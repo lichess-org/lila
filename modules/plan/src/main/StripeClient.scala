@@ -69,25 +69,23 @@ private final class StripeClient(config: StripeClient.Config) {
       'interval -> "month",
       'name -> StripePlan.make(cents, freq).name)
 
-  def chargeAnonCard(data: Checkout): Funit =
-    postOne[StripePlan]("charges",
-      'amount -> data.cents.value,
-      'currency -> "usd",
-      'source -> data.source.value,
-      'description -> "Anon one-time",
-      'metadata -> Map("email" -> data.email),
-      'receipt_email -> data.email).void
+//   def chargeAnonCard(data: Checkout): Funit =
+//     postOne[StripePlan]("charges",
+//       'amount -> data.cents.value,
+//       'currency -> "usd",
+//       'source -> data.source.value,
+//       'description -> "Anon one-time",
+//       'metadata -> Map("email" -> data.email),
+//       'receipt_email -> data.email).void
 
-  def chargeUserCard(data: Checkout, user: User): Funit =
-    postOne[StripePlan]("charges",
-      'amount -> data.cents.value,
+  // charge without changing the customer plan
+  def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
+    postOne[StripeCharge]("charges",
+      'customer -> customer.id.value,
+      'amount -> amount.value,
       'currency -> "usd",
-      'source -> data.source.value,
-      'description -> "User one-time",
-      'metadata -> Map(
-        "email" -> data.email,
-        "user" -> user.username),
-      'receipt_email -> data.email).void
+      'description -> "Monthly customer adds a one-time",
+      'receipt_email -> customer.email).void
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {

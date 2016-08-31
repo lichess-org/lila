@@ -42,7 +42,7 @@ module.exports = function(opts, name) {
     } else {
       matches = text.match(/Found move:\s+([a-h1-8=@PNBRQK]+)\s+([-+]?\d+)\s.*/);
       if (matches) {
-        depth = opts.maxDepth;
+        depth = work.maxDepth;
         cp = parseInt(matches[2], 10);
         if (!onlyMoves) best = matches[1];
         stopping = true;
@@ -102,7 +102,7 @@ module.exports = function(opts, name) {
       if (busy) reboot();
       busy = true;
       send('variant ' + opts.variant.key);
-      send('setboard ' + work.position);
+      send('setboard ' + work.initialFen);
       send('force');
       for (var i = 0; i < work.moves.length; i++) {
         send(work.moves[i]);

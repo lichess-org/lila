@@ -45,8 +45,8 @@ object Api extends LilaController {
     name = "team users API per IP")
 
   def users = ApiRequest { implicit ctx =>
-    val page = (getInt("page") | 1) max 1 min 50
-    val nb = (getInt("nb") | 10) max 1 min 50
+    val page = (getInt("page") | 1) atLeast 1 atMost 50
+    val nb = (getInt("nb") | 10) atLeast 1 atMost 50
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
     implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
@@ -78,8 +78,8 @@ object Api extends LilaController {
     name = "user games API global")
 
   def userGames(name: String) = ApiRequest { implicit ctx =>
-    val page = (getInt("page") | 1) max 1 min 200
-    val nb = (getInt("nb") | 10) max 1 min 100
+    val page = (getInt("page") | 1) atLeast 1 atMost 200
+    val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
     implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
@@ -127,7 +127,7 @@ object Api extends LilaController {
   }
 
   def tournament(id: String) = ApiRequest { implicit ctx =>
-    val page = (getInt("page") | 1) max 1 min 200
+    val page = (getInt("page") | 1) atLeast 1 atMost 200
     lila.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
         Env.tournament.jsonView(tour, page.some, none, none, none) map some

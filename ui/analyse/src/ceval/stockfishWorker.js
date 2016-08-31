@@ -30,7 +30,7 @@ module.exports = function(opts, name) {
     }
     if (stopping) return;
     if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
-    var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*pv (.+)/);
+    var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
     if (!matches) return;
     var depth = parseInt(matches[1]);
     if (depth < opts.minDepth) return;
@@ -41,14 +41,15 @@ module.exports = function(opts, name) {
       if (matches[2] === 'cp') cp = -cp;
       else mate = -mate;
     }
-    var best = matches[4].split(' ')[0];
+    var best = matches[5].split(' ')[0];
     work.emit({
       work: work,
       eval: {
         depth: depth,
         cp: cp,
         mate: mate,
-        best: best
+        best: best,
+        nps: parseInt(matches[4])
       },
       name: name
     });
@@ -70,8 +71,8 @@ module.exports = function(opts, name) {
     start: function(work) {
       if (busy) reboot();
       busy = true;
-      send(['position', 'fen', work.position, 'moves'].concat(work.moves).join(' '));
-      send('go depth ' + opts.maxDepth);
+      send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
+      send('go depth ' + work.maxDepth);
       instance.onmessage = function(msg) {
         processOutput(msg.data, work);
       };

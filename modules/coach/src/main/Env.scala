@@ -11,18 +11,24 @@ final class Env(
     db: lila.db.Env) {
 
   private val CollectionCoach = config getString "collection.coach"
+  private val CollectionReview = config getString "collection.review"
   private val CollectionImage = config getString "collection.image"
 
   private lazy val coachColl = db(CollectionCoach)
+  private lazy val reviewColl = db(CollectionReview)
   private lazy val imageColl = db(CollectionImage)
 
+  private lazy val photographer = new Photographer(imageColl)
+
   lazy val api = new CoachApi(
-    coll = coachColl,
-    imageColl = imageColl)
+    coachColl = coachColl,
+    reviewColl = reviewColl,
+    photographer = photographer)
 
   def cli = new lila.common.Cli {
     def process = {
-      case "coach" :: "init" :: username :: Nil => api init username
+      case "coach" :: "enable" :: username :: Nil  => api.toggleByMod(username, true)
+      case "coach" :: "disable" :: username :: Nil => api.toggleByMod(username, false)
     }
   }
 }

@@ -71,9 +71,6 @@ private final class Monitor(
     instances.map(_.engines.stockfish.name).groupBy(identity).mapValues(_.size) foreach {
       case (s, nb) => stockfish(s)(nb)
     }
-    instances.map(_.engines.sunsetter.name).groupBy(identity).mapValues(_.size) foreach {
-      case (s, nb) => sunsetter(s)(nb)
-    }
     instances.map(_.python.value).groupBy(identity).mapValues(_.size) foreach {
       case (s, nb) => python(s)(nb)
     }

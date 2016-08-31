@@ -21,6 +21,7 @@ var crazyValid = require('./crazy/crazyValid');
 var crazyView = require('./crazy/crazyView');
 var studyCtrl = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
+var computeAutoShapes = require('./autoShape');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -227,6 +228,7 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
+    this.ceval = makeCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -378,16 +380,20 @@ module.exports = function(opts) {
       cevalVariants.indexOf(this.data.game.variant.key) !== -1;
   }.bind(this);
 
-  this.ceval = cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
-    this.tree.updateAt(res.work.path, function(node) {
-      if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-      node.ceval = res.eval;
-      if (res.work.path === this.vm.path) {
-        this.setAutoShapes();
-        m.redraw();
-      }
-    }.bind(this));
-  }.bind(this));
+  var makeCeval = function() {
+    return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
+      this.tree.updateAt(res.work.path, function(node) {
+        if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+        node.ceval = res.eval;
+        if (res.work.path === this.vm.path) {
+          this.setAutoShapes();
+          m.redraw();
+        }
+      }.bind(this));
+    }.bind(this))
+  }.bind(this);
+
+  this.ceval = makeCeval();
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
@@ -438,47 +444,11 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.setAutoShapes = function() {
-    var n = this.vm.node,
-      shapes = [],
-      explorerUci = this.explorer.hoveringUci();
-    if (explorerUci) shapes = shapes.concat(makeAutoShapesFromUci(explorerUci, 'paleBlue'));
-    if (this.vm.showAutoShapes()) {
-      if (n.eval && n.eval.best) shapes = shapes.concat(makeAutoShapesFromUci(n.eval.best, 'paleGreen'));
-      if (!explorerUci) {
-        var nextNodeBest = this.nextNodeBest();
-        if (nextNodeBest) shapes = shapes.concat(makeAutoShapesFromUci(nextNodeBest, 'paleBlue'));
-        else if (this.ceval.enabled() && n.ceval && n.ceval.best) shapes = shapes.concat(makeAutoShapesFromUci(n.ceval.best, 'paleBlue'));
-      }
-    }
-    this.chessground.setAutoShapes(shapes);
-  }.bind(this);
-
-  var decomposeUci = function(uci) {
-    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
-  };
-
-  var makeAutoShapesFromUci = function(uci, brush) {
-    var move = decomposeUci(uci);
-    if (uci[1] === '@') return [{
-      orig: move[1],
-      brush: brush
-    }, {
-      orig: move[1],
-      piece: {
-        color: this.chessground.data.movable.color,
-        role: util.sanToRole[uci[0].toUpperCase()],
-        scale: 0.8
-      }
-    }];
-    return [{
-      orig: move[0],
-      dest: move[1],
-      brush: brush
-    }];
+    this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
   this.explorerMove = function(uci) {
-    var move = decomposeUci(uci);
+    var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
         role: util.sanToRole[uci[0]]

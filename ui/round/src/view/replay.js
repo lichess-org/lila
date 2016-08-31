@@ -13,13 +13,16 @@ var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
 
 function renderMove(step, curPly, orEmpty) {
-  return step ? {
+  if (!step) return orEmpty ? emptyMove : nullMove;
+  var san = step.san.replace('x', 'х');
+  if (san[0] === 'P') san = san.slice(1);
+  return {
     tag: 'move',
     attrs: step.ply !== curPly ? {} : {
       class: 'active'
     },
-    children: [step.san[0] === 'P' ? step.san.slice(1) : step.san]
-  } : (orEmpty ? emptyMove : nullMove)
+    children: [san]
+  };
 }
 
 function renderResult(ctrl) {

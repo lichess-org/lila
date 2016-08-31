@@ -168,6 +168,42 @@ object Study extends LilaController {
       } inject Redirect(routes.Study.allDefault(1))
   }
 
+  def cloneStudy(id: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(env.api.byId(id)) { study =>
+        CanViewResult(study) {
+          Ok(html.study.clone(study)).fuccess
+        }
+      }
+  }
+
+  private val CloneLimitPerUser = new lila.memo.RateLimit(
+    credits = 10,
+    duration = 24 hour,
+    name = "clone study per user")
+
+  private val CloneLimitPerIP = new lila.memo.RateLimit(
+    credits = 20,
+    duration = 24 hour,
+    name = "clone study per IP")
+
+  def cloneApply(id: String) = Auth { implicit ctx =>
+    me =>
+      val ip = HTTPRequest lastRemoteAddress ctx.req
+      implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
+      CloneLimitPerUser(me.id, cost = 1, msg = me.id) {
+        CloneLimitPerIP(ip, cost = 1, msg = ip) {
+          OptionFuResult(env.api.byId(id)) { prev =>
+            CanViewResult(prev) {
+              env.api.clone(me, prev) map { study =>
+                Redirect(routes.Study.show(study.id))
+              }
+            }
+          }
+        }
+      }
+  }
+
   private val PgnRateLimitGlobal = new lila.memo.RateLimit(
     credits = 30,
     duration = 1 minute,
