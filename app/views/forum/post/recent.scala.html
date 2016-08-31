@@ -1,7 +1,7 @@
 @(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context)
 @posts.map { p =>
 <li>
-  <a @if(p.isTeam) { data-icon="f" } class="post_link" href="@routes.ForumPost.redirect(p.postId)" title="@Html(escapeEvenDoubleQuotes(p.topicName))"> @shorten(p.topicName, 30)</a>
+  <a @if(p.isTeam) { data-icon="f" } class="post_link" href="@routes.ForumPost.redirect(p.postId)" title="@Html(escapeHtml(p.topicName))"> @shorten(p.topicName, 30)</a>
   @userIdLink(p.userId, withOnline = false)
   <span class="extract">@shorten(p.text, 70)</span>
 </li>

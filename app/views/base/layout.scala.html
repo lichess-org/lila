@@ -32,7 +32,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.is3d) { @cssTag("board-3d.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeEvenDoubleQuotes(o.description)))" name="description">
+    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
