@@ -35,7 +35,7 @@ moreJs = moreJs) {
       }
     </div>
     <div class="overview">
-      <h1 class="text" data-icon=":">
+      <h1>
         @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
       </h1>
       <p><a href="@routes.Coach.show(c.user.username)" class="text" data-icon="v">Preview coach page</a></p>

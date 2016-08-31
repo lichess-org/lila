@@ -1,9 +1,14 @@
 .coach_edit .top {
   display: flex;
+  line-height: 2;
 }
 .coach_edit .top h1 {
   margin: 0;
   padding: 20px 0!important;
+  font-family: 'Roboto';
+  font-size: 36px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
 }
 
 .coach_edit .top .picture_wrap {
