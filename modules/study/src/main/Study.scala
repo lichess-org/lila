@@ -51,6 +51,7 @@ case class Study(
       members = StudyMembers(Map(user.id -> owner)),
       ownerId = owner.id,
       visibility = Study.Visibility.Private,
+      from = Study.From.Study(id),
       likes = Likes(0),
       createdAt = DateTime.now,
       updatedAt = DateTime.now)
