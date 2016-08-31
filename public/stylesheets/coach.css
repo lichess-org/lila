@@ -30,12 +30,15 @@ img.picture {
   justify-content: space-between;
 }
 
-.coach section {
+.coach .sections section {
   font-size: 1.2em;
   box-sizing: border-box;
   width: 50%;
-  padding: 20px 30px 20px 30px;
+  padding: 20px 40px 20px 20px;
   text-align: justify;
+}
+.coach .sections section:nth-child(odd) {
+  padding: 20px 20px 20px 40px;
 }
 .coach section h1 {
   padding: 0 0 12px 0!important;
@@ -44,7 +47,11 @@ img.picture {
 
 .coach .youtube {
   background: #222;
-  color: #aaa;
+  color: #ccc;
+  padding-bottom: 20px;
+}
+.coach .youtube h1 {
+  padding: 20px 30px!important;
 }
 .coach .youtube .list {
   display: flex;
@@ -53,4 +60,7 @@ img.picture {
 }
 .coach .youtube .list iframe {
   margin-bottom: 10px;
+  width: 256px;
+  height: 192px;
+  background: #000;
 }
