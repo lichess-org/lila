@@ -52,12 +52,19 @@ evenMoreCss = moreCss) {
             <td>@l</td>
           </tr>
           }
-          @profile.fideRating.map { r =>
           <tr class="rating">
-            <th>FIDE rating</th>
-            <td>@r</td>
+            <th>Rating</th>
+            <td>
+              @profile.fideRating.map { r =>
+              FIDE: @r,
+              }
+              <a href="@routes.User.show(c.user.username)">
+                @c.user.best8Perfs.take(6).map { pt =>
+                @showPerfRating(c.user, pt)
+                }
+              </a>
+            </td>
           </tr>
-          }
           @c.coach.profile.hourlyRate.map { r =>
           <tr class="rate">
             <th>Hourly rate</th>

@@ -47,6 +47,10 @@
   padding-right: 20px;
   text-align: right;
 }
+.coach .top .rating td a > span {
+  margin-left: 4px;
+  display: inline-block;
+}
 
 .coach .sections {
   margin-top: 30px;
