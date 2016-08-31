@@ -44,6 +44,9 @@ object mon {
     object mailgun {
       val timeout = inc("http.mailgun.timeout")
     }
+    object userGames {
+      def cost = incX(s"http.user-games.cost")
+    }
   }
   object lobby {
     object hook {

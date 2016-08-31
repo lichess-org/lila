@@ -139,6 +139,7 @@ object User extends LilaController {
     })(fuccess) flatMap { filterName =>
       val ip = HTTPRequest lastRemoteAddress ctx.req
       UserGamesRateLimitPerIP(ip, cost = page, msg = ip) {
+        lila.mon.http.userGames.cost(page)
         GameFilterMenu.paginatorOf(
           userGameSearch = userGameSearch,
           user = u,
