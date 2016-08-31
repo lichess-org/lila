@@ -1,6 +1,17 @@
+.coach a {
+  color: #3893E8;
+}
 .coach .top {
   background: #303F9F;
   color: #ddd;
+  display: flex;
+}
+.coach .top a {
+  color: #3893E8;
+  color: #ddd;
+  text-decoration: underline;
+}
+.coach .top .overview {
   padding: 15px 30px;
 }
 .coach .top h1 {
@@ -14,13 +25,6 @@
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 18px;
   padding: 0 0 15px 0!important;
-}
-
-.coach a {
-  color: #3893E8;
-}
-
-img.picture {
 }
 
 .coach .sections {
@@ -48,6 +52,7 @@ img.picture {
 .coach .youtube {
   background: #222;
   color: #ccc;
+  margin-top: 20px;
   padding-bottom: 20px;
 }
 .coach .youtube h1 {
@@ -63,4 +68,10 @@ img.picture {
   width: 256px;
   height: 192px;
   background: #000;
+}
+.coach .studies {
+  margin-top: 20px;
+}
+.coach .studies h1 {
+  padding: 20px 30px!important;
 }

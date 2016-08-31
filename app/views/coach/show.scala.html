@@ -1,95 +1,102 @@
-@(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, studies: Seq[lila.study.Study.WithChaptersAndLiked])(implicit ctx: Context)
 
-@side = {
-@pic(c, 200)
-@defining(c.user.profileOrDefault) { profile =>
-<div class="overview">
-  @profile.nonEmptyLocation.map { l =>
-  <span class="location">@l</span>,
-  }
-  @profile.countryInfo.map {
-  case (code, name) => {
-  <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
-  }
-  }
-  @if(!c.coach.isFullyEnabled) {
-  This page is not public yet.
-  }
-  @if(ctx.me.??(c.coach.is)) {
-  <a href="@routes.Coach.edit">Edit my coach profile</a>
-  }
-</div>
-}
+@moreCss = {
+@if(studies.nonEmpty) { @cssTag("studyList.css") }
 }
 
-@layout(title = c.user.titleUsername, side = side.some) {
+@layout(title = c.user.titleUsername, evenMoreCss = moreCss) {
 <div class="content_box no_padding coach">
   <div class="top">
-    <h1>
-      @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
-    </h1>
-    <p class="headline">@c.coach.profile.headline</p>
+    @pic(c, 200)
+    @defining(c.user.profileOrDefault) { profile =>
+    <div class="overview">
+      <h1>
+        @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
+      </h1>
+      <p class="headline">@c.coach.profile.headline</p>
+      @profile.nonEmptyLocation.map { l =>
+      <span class="location">@l</span>,
+      }
+      @profile.countryInfo.map {
+      case (code, name) => {
+      <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
+      }
+      }
+      @if(!c.coach.isFullyEnabled) {
+      <p>This page is not public yet.</p>
+      }
+      @if(ctx.me.??(c.coach.is)) {
+      <p><a href="@routes.Coach.edit">Edit my coach profile</a></p>
+      }
+    </div>
   </div>
+  }
+  @defining(c.coach.profile) { profile =>
   <div class="sections">
-    @c.coach.profile.description.map { t =>
+    @profile.description.map { t =>
     <section>
       <h1>About me</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
-    @c.coach.profile.playingExperience.map { t =>
+    @profile.playingExperience.map { t =>
     <section>
       <h1>Playing experience</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
-    @c.coach.profile.teachingExperience.map { t =>
+    @profile.teachingExperience.map { t =>
     <section>
       <h1>Teaching experience</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
-    @c.coach.profile.otherExperience.map { t =>
+    @profile.otherExperience.map { t =>
     <section>
       <h1>Other experiences</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
-    @c.coach.profile.skills.map { t =>
+    @profile.skills.map { t =>
     <section>
       <h1>My best skills</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
-    @c.coach.profile.methodology.map { t =>
+    @profile.methodology.map { t =>
     <section>
       <h1>Teaching methodology</h1>
       <div class="content">@autoLink(t.value)</div>
     </section>
     }
   </div>
-  @if(c.coach.profile.youtubeUrls.nonEmpty) {
+  @if(profile.youtubeUrls.nonEmpty) {
   <section class="youtube">
     <h1>
       Youtube videos
-      @c.coach.profile.youtubeChannel.map { url =>
+      @profile.youtubeChannel.map { url =>
       from my <a href="@url" target="_blank" rel="nofollow">channel</a>
       }
     </h1>
     <div class="list">
-      @c.coach.profile.youtubeUrls.map { url =>
+      @profile.youtubeUrls.map { url =>
       <iframe width="256" height="192" src="@url.value" frameborder="0" allowfullscreen></iframe>
       }
     </div>
   </section>
   }
-  @if(c.coach.profile.studyIds) {
-  <section>
+  @if(studies.nonEmpty) {
+  <section class="studies">
     <h1>Public studies</h1>
-    @c.coach.profile.studyIds.map { id =>
-    @id
-    }
+    <div class="list">
+      @studies.map { s =>
+      <div class="study">
+        @study.widget(s)
+      </div>
+      }
+    </div>
   </section>
+  }
   }
 </div>
 }

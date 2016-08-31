@@ -29,6 +29,8 @@ final class StudyApi(
 
   def byId = studyRepo byId _
 
+  def byIds = studyRepo byOrderedIds _
+
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       chapterRepo.byId(study.position.chapterId) flatMap {
