@@ -1,5 +1,5 @@
 .coach a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 .coach .top {
   /* background: #303F9F; */
@@ -8,11 +8,11 @@
   display: flex;
 }
 .coach .top a {
-  color: #ddd;
+  color: #fff!important;
 }
 .coach .top a:hover {
-  color: #ddd;
-  border-bottom: 1px dotted #aaa;
+  color: #fff!important;
+  border-bottom: 1px dotted #fff;
 }
 .coach .top .overview {
   padding: 15px 30px;
@@ -26,6 +26,7 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   padding: 6px 0 9px 0!important;
+  text-shadow: none!important;
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
@@ -72,17 +73,17 @@
 }
 .coach section h1 {
   padding: 0 0 12px 0!important;
-  opacity: 0.9;
+  color: #639B24;
 }
 
 .coach .youtube {
   background: #222;
-  color: #ccc;
   margin-top: 20px;
   padding-bottom: 20px;
 }
 .coach .youtube h1 {
-  padding: 20px 30px!important;
+  padding: 20px 40px!important;
+  color: #ccc;
 }
 .coach .youtube .list {
   display: flex;
@@ -99,7 +100,11 @@
   margin-top: 20px;
 }
 .coach .studies h1 {
+  color: #777;
   padding: 20px 30px!important;
+}
+body.dark .coach .studies h1 {
+  color: #aaa;
 }
 
 .review-form {
