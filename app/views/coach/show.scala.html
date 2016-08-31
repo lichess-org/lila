@@ -56,6 +56,12 @@ evenMoreCss = moreCss) {
             <td>@r</td>
           </tr>
           }
+          @c.coach.profile.hourlyRate.map { r =>
+          <tr class="rate">
+            <th>Hourly rate</th>
+            <td>@r</td>
+          </tr>
+          }
           <tr class="available">
             <th>Availability</th>
             <td>
@@ -82,7 +88,7 @@ evenMoreCss = moreCss) {
               This page is not public yet.
               }
               @if(ctx.me.??(c.coach.is)) {
-              <a href="@routes.Coach.edit">Edit my coach profile</a>
+              <a href="@routes.Coach.edit" class="text" data-icon="m">Edit my coach profile</a>
               }
             </td>
           </tr>

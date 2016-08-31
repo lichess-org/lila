@@ -3,6 +3,7 @@ package lila.coach
 case class CoachProfile(
     headline: Option[String] = None,
     languages: Option[String] = None,
+    hourlyRate: Option[String] = None,
     description: Option[CoachProfile.RichText] = None,
     playingExperience: Option[CoachProfile.RichText] = None,
     teachingExperience: Option[CoachProfile.RichText] = None,

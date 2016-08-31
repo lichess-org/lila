@@ -9,7 +9,6 @@ case class Coach(
     enabledByUser: Coach.Enabled,
     enabledByMod: Coach.Enabled,
     available: Coach.Available,
-    hourlyRate: Option[Coach.Cents],
     profile: CoachProfile,
     picturePath: Option[Coach.PicturePath],
     createdAt: DateTime,
@@ -31,7 +30,6 @@ object Coach {
     enabledByUser = Enabled(false),
     enabledByMod = Enabled(false),
     available = Available(false),
-    hourlyRate = None,
     profile = CoachProfile(),
     picturePath = None,
     createdAt = DateTime.now,
@@ -42,6 +40,5 @@ object Coach {
   case class Id(value: String) extends AnyVal with StringValue
   case class Enabled(value: Boolean) extends AnyVal
   case class Available(value: Boolean) extends AnyVal
-  case class Cents(value: Int) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
 }
