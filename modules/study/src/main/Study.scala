@@ -40,6 +40,21 @@ case class Study(
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
   def isOld = (nowSeconds - updatedAt.getSeconds) > 10 * 60
+
+  def cloneFor(user: User): Study = {
+    val owner = StudyMember(
+      id = user.id,
+      role = StudyMember.Role.Write,
+      addedAt = DateTime.now)
+    copy(
+      _id = Study.makeId,
+      members = StudyMembers(Map(user.id -> owner)),
+      ownerId = owner.id,
+      visibility = Study.Visibility.Private,
+      likes = Likes(0),
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now)
+  }
 }
 
 object Study {
@@ -75,6 +90,7 @@ object Study {
   object From {
     case object Scratch extends From
     case class Game(id: String) extends From
+    case class Study(id: String) extends From
   }
 
   case class Data(
@@ -102,13 +118,15 @@ object Study {
 
   val idSize = 8
 
+  def makeId = scala.util.Random.alphanumeric take idSize mkString
+
   def make(user: User, from: From) = {
     val owner = StudyMember(
       id = user.id,
       role = StudyMember.Role.Write,
       addedAt = DateTime.now)
     Study(
-      _id = scala.util.Random.alphanumeric take idSize mkString,
+      _id = makeId,
       name = s"${user.username}'s Study",
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref("", Path.root),

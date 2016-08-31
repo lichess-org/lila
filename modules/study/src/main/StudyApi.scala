@@ -62,6 +62,16 @@ final class StudyApi(
         scheduleTimeline(res.study.id) inject res
     }
 
+  def clone(me: User, prev: Study): Fu[Study] = {
+    val study = prev.cloneFor(me)
+    studyRepo.insert(study) >>
+      chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
+        chapters.map { chapter =>
+          chapterRepo insert chapter.cloneFor(study)
+        }.sequenceFu
+      } inject study
+  }
+
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
     chapters.headOption match {
       case Some(c) if study.isOld && study.position != c.initialPosition =>
