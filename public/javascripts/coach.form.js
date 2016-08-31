@@ -18,4 +18,7 @@ $(function() {
       $editor.find('div.status').removeClass('saved');
       submit();
     });
+
+  var tab = location.hash ? location.hash.slice(1) : 'reviews';
+  $editor.find('.tabs div[data-tab=' + tab + ']').click();
 });

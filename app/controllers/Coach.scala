@@ -46,14 +46,20 @@ object Coach extends LilaController {
       }
   }
 
+  def approveReview(id: String) = SecureBody(_.Coach) { implicit ctx =>
+    ???
+  }
+
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
     if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) f
     else notFound
 
   def edit = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionResult(api findOrInit me) { c =>
-        NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach)))
+      OptionFuResult(api findOrInit me) { c =>
+        api.reviews.pendingByCoach(c.coach) map { reviews =>
+          NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)))
+        }
       }
   }
 
@@ -62,7 +68,7 @@ object Coach extends LilaController {
       OptionFuResult(api findOrInit me) { c =>
         implicit val req = ctx.body
         CoachProfileForm.edit(c.coach).bindFromRequest.fold(
-          form => fuccess(BadRequest(html.coach.edit(c, form))),
+          form => fuccess(BadRequest),
           data => api.update(c, data) inject Ok
         )
       }

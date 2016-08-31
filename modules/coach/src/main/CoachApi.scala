@@ -104,7 +104,7 @@ final class CoachApi(
     def approvedByCoach(c: Coach): Fu[CoachReview.Reviews] =
       findRecent($doc("coachId" -> c.id.value, "approved" -> true))
 
-    def notApprovedByCoach(c: Coach): Fu[CoachReview.Reviews] =
+    def pendingByCoach(c: Coach): Fu[CoachReview.Reviews] =
       findRecent($doc("coachId" -> c.id.value, "approved" -> false))
 
     def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
@@ -113,6 +113,12 @@ final class CoachApi(
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
       reviewColl.find(selector)
         .sort($sort desc "createdAt")
-        .list[CoachReview](100) map CoachReview.Reviews.apply
+        .list[CoachReview](100) flatMap { reviews =>
+          UserRepo byIds reviews.map(_.userId) map { users =>
+            reviews.flatMap { review =>
+              users.find(_.id == review.userId) map { CoachReview.WithUser(review, _) }
+            }
+          }
+        } map CoachReview.Reviews
   }
 }
