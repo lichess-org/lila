@@ -12,6 +12,8 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
 
+  private implicit val limitedDefault = ornicar.scalalib.Zero.instance[ApiResult](Limited)
+
   private lazy val apiStatusResponse = {
     val api = lila.api.Mobile.Api
     Ok(Json.obj(
@@ -49,7 +51,6 @@ object Api extends LilaController {
     val nb = (getInt("nb") | 10) atLeast 1 atMost 50
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
     UsersRateLimitPerIP(ip, cost = cost, msg = ip) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip) {
         lila.mon.api.teamUsers.cost(cost)
@@ -82,7 +83,6 @@ object Api extends LilaController {
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    implicit val default = ornicar.scalalib.Zero.instance[ApiResult](Limited)
     GamesRateLimitPerIP(ip, cost = cost, msg = ip) {
       GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
         GamesRateLimitGlobal("-", cost = cost, msg = ip) {
@@ -109,16 +109,25 @@ object Api extends LilaController {
     }
   }
 
+  private val GameRateLimitPerIdAndIP = new lila.memo.RateLimit(
+    credits = 5,
+    duration = 3 minutes,
+    name = "game API per Id/IP")
+
   def game(id: String) = ApiRequest { implicit ctx =>
-    lila.mon.api.game.cost(1)
-    gameApi.one(
-      id = id take lila.game.Game.gameIdSize,
-      withAnalysis = getBool("with_analysis"),
-      withMoves = getBool("with_moves"),
-      withOpening = getBool("with_opening"),
-      withFens = getBool("with_fens"),
-      withMoveTimes = getBool("with_movetimes"),
-      token = get("token")) map toApiResult
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    val key = s"$id:$ip"
+    GamesRateLimitPerIP(key, cost = 1, msg = key) {
+      lila.mon.api.game.cost(1)
+      gameApi.one(
+        id = id take lila.game.Game.gameIdSize,
+        withAnalysis = getBool("with_analysis"),
+        withMoves = getBool("with_moves"),
+        withOpening = getBool("with_opening"),
+        withFens = getBool("with_fens"),
+        withMoveTimes = getBool("with_movetimes"),
+        token = get("token")) map toApiResult
+    }
   }
 
   def currentTournaments = ApiRequest { implicit ctx =>
