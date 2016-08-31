@@ -68,7 +68,10 @@ final class StudyApi(
       chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
         chapters.map { chapter =>
           chapterRepo insert chapter.cloneFor(study)
-        }.sequenceFu
+        }.sequenceFu >>- {
+          chat ! lila.chat.actorApi.SystemTalk(study.id,
+            s"Cloned from lichess.org/study/${prev.id}")
+        }
       } inject study
   }
 
