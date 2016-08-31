@@ -5,14 +5,17 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class CoachReview(
-  _id: String, // user:coach
-  userId: User.ID, // reviewer
-  coachId: Coach.Id,
-  score: Int,
-  text: String,
-  approved: Boolean,
-  createdAt: DateTime,
-  updatedAt: DateTime)
+    _id: String, // user:coach
+    userId: User.ID, // reviewer
+    coachId: Coach.Id,
+    score: Int,
+    text: String,
+    approved: Boolean,
+    createdAt: DateTime,
+    updatedAt: DateTime) {
+
+  def id = _id
+}
 
 object CoachReview {
 
