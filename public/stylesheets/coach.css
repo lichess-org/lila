@@ -54,7 +54,7 @@
 }
 
 .coach .sections {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
