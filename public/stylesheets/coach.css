@@ -1,17 +1,19 @@
 .coach .top {
   background: #303F9F;
   color: #ddd;
+  padding: 15px 30px;
 }
 .coach .top h1 {
   font-family: 'Roboto';
   font-size: 36px;
   text-transform: uppercase;
   letter-spacing: 4px;
+  padding: 10px 0 10px 0!important;
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 18px;
-  padding: 0 0 30px 25px;
+  padding: 0 0 15px 0!important;
 }
 
 .coach a {
