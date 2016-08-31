@@ -174,7 +174,7 @@ private[api] final class GameApi(
       ).noNull
     }),
     "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
-    "moves" -> (withMoves && g.finished).option(g.pgnMoves mkString " "),
+    "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> withFens ?? {
       chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
