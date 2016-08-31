@@ -75,31 +75,11 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  // temporary hack
-  object pairingMethod {
-    import reactivemongo.bson._
-    import lila.db.dsl._
-    import scala.concurrent.duration._
-    private val coll = lila.db.Env.current("flag")
-    private val cache = lila.memo.MixedCache.single[String](
-      f = coll.primitiveOne[String]($id("pairing"), "method").map {
-        case Some("antma") => "antma"
-        case _             => "ornicar"
-      },
-      timeToLive = 10.seconds,
-      default = "ornicar",
-      logger = logger)
-    def get = cache get true
-  }
-
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
-    case x if x < 2 => Nil
-    case x if x < 9 => OrnicarPairing(data, players)
-    case _ => pairingMethod.get match {
-      case "antma" => AntmaPairing(data, players)
-      case _       => OrnicarPairing(data, players)
-    }
+    case x if x < 2   => Nil
+    case x if x <= 10 => OrnicarPairing(data, players)
+    case _            => AntmaPairing(data, players)
   }
 
-  def url(tourId: String) = s"//lichess.org/tournament/$tourId"
+  private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
 }
