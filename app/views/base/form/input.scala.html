@@ -1,5 +1,8 @@
-@(field: play.api.data.Field, placeholder: Option[String] = None, typ: String = "text", required: Boolean = false)
+@(field: play.api.data.Field, placeholder: Option[String] = None, typ: String = "text", required: Boolean = false, minLength: Int = 0, maxLength: Int = 0)
 
 <input @placeholder.map { p =>
 placeholder="@p"
-} type="@typ" value="@field.value" name="@field.name"@if(required){ required}/>
+} type="@typ" value="@field.value" name="@field.name"
+@if(required){ required}
+@if(minLength > 0){minlength=@minLength}
+@if(maxLength > 0){maxlength=@maxLength}/>

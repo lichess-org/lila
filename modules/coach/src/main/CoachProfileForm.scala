@@ -29,7 +29,7 @@ object CoachProfileForm {
   }
 
   private def profileMapping = mapping(
-    "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 140)),
+    "headline" -> optional(nonEmptyText(minLength = 5, maxLength = 170)),
     "languages" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
     "hourlyRate" -> optional(nonEmptyText(minLength = 3, maxLength = 140)),
     "description" -> optional(richText),

@@ -21,15 +21,23 @@
 }
 .coach .top h1 {
   font-family: 'Roboto';
-  font-size: 36px;
+  font-size: 34px;
   text-transform: uppercase;
-  letter-spacing: 4px;
-  padding: 10px 0 10px 0!important;
+  letter-spacing: 3px;
+  padding: 6px 0 9px 0!important;
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 18px;
   padding: 0 0 20px 0!important;
+}
+.coach .top .headline.medium {
+  font-size: 16px;
+  padding-bottom: 15px!important;
+}
+.coach .top .headline.large {
+  font-size: 13px;
+  padding-bottom: 10px!important;
 }
 .coach .top table {
   line-height: 1.7;

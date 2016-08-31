@@ -28,7 +28,9 @@ evenMoreCss = moreCss) {
       <h1>
         @c.user.title.map { t => @t }@c.user.realNameOrUsername
       </h1>
-      <p class="headline">@c.coach.profile.headline</p>
+      @c.coach.profile.headline.map { h =>
+      <p class="headline @if(h.size < 60){small} else {@if(h.size < 120){medium}else{large}}">@h</p>
+      }
       <table>
         <tbody>
           <tr>

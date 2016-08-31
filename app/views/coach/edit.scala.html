@@ -61,14 +61,14 @@ moreJs = moreJs) {
           }
         </div>
         @base.form.group(form("profile.headline"), Html("Short and inspiring headline")) {
-        @base.form.input(form("profile.headline"))
+        @base.form.input(form("profile.headline"), maxLength = 170)
         }
         <div>
           @base.form.group(form("profile.languages"), Html("Languages spoken"), half = true) {
-          @base.form.input(form("profile.languages"))
+          @base.form.input(form("profile.languages"), maxLength = 140)
           }
           @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {
-          @base.form.input(form("profile.hourlyRate"))
+          @base.form.input(form("profile.hourlyRate"), maxLength = 140)
           }
         </div>
       </div>
