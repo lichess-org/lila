@@ -38,17 +38,13 @@ moreJs = moreJs) {
       <h1 class="text" data-icon=":">
         @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
       </h1>
-      <a href="@routes.Coach.show(c.user.username)">Preview coach page</a>
+      <p><a href="@routes.Coach.show(c.user.username)" class="text" data-icon="v">Preview coach page</a></p>
+      @if(!c.user.profileOrDefault.isComplete) {
+      <p><a href="@routes.Account.profile" target="_blank" class="text" data-icon="m">Complete your public lichess profile.</a></p>
+      }
     </div>
   </div>
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
-    @if(!c.user.profileOrDefault.isComplete) {
-    <div class="form-group">
-      <a href="@routes.Account.profile" target="_blank">
-        Click here to complete your public lichess profile.
-      </a>
-    </div>
-    }
     <div class="tabs">
       <div data-tab="basics" class="active">Basics</div>
       <div data-tab="texts">Texts</div>
@@ -68,13 +64,13 @@ moreJs = moreJs) {
         @base.form.input(form("profile.headline"))
         }
         <div>
-        @base.form.group(form("profile.languages"), Html("Languages spoken"), half = true) {
-        @base.form.input(form("profile.languages"))
-        }
-        @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {
-        @base.form.input(form("profile.hourlyRate"))
-        }
-      </div>
+          @base.form.group(form("profile.languages"), Html("Languages spoken"), half = true) {
+          @base.form.input(form("profile.languages"))
+          }
+          @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {
+          @base.form.input(form("profile.hourlyRate"))
+          }
+        </div>
       </div>
       <div class="panel texts">
         @textarea(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)

@@ -76,14 +76,43 @@ final class CoachApi(
 
   object reviews {
 
+    def add(me: User, coach: Coach, data: CoachReviewForm.Data): Fu[CoachReview] =
+      find(me, coach) flatMap { existing =>
+        val id = CoachReview.makeId(me, coach)
+        val review = existing match {
+          case None => CoachReview(
+            _id = id,
+            userId = me.id,
+            coachId = coach.id,
+            score = data.score,
+            text = data.text,
+            approved = false,
+            createdAt = DateTime.now,
+            updatedAt = DateTime.now)
+          case Some(r) => r.copy(
+            score = data.score,
+            text = data.text,
+            approved = false,
+            updatedAt = DateTime.now)
+        }
+        reviewColl.update($id(id), review, upsert = true) inject review
+      }
+
+    def find(user: User, coach: Coach): Fu[Option[CoachReview]] =
+      reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
+
     def approvedByCoach(c: Coach): Fu[CoachReview.Reviews] =
-      reviewColl.find(
-        $doc("coachId" -> c.id.value, "approved" -> true)
-      ).sort($sort desc "createdAt").list[CoachReview](100) map CoachReview.Reviews.apply
+      findRecent($doc("coachId" -> c.id.value, "approved" -> true))
+
+    def notApprovedByCoach(c: Coach): Fu[CoachReview.Reviews] =
+      findRecent($doc("coachId" -> c.id.value, "approved" -> false))
 
     def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
-      reviewColl.find(
-        $doc("coachId" -> c.id.value)
-      ).sort($sort desc "createdAt").list[CoachReview](100) map CoachReview.Reviews.apply
+      findRecent($doc("coachId" -> c.id.value))
+
+    private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
+      reviewColl.find(selector)
+        .sort($sort desc "createdAt")
+        .list[CoachReview](100) map CoachReview.Reviews.apply
   }
 }

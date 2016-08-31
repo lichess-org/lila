@@ -41,6 +41,8 @@ case class User(
 
   def titleName = title.fold(username)(_ + " " + username)
 
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
+
   def langs = ("en" :: lang.toList).distinct.sorted
 
   def compare(other: User) = id compare other.id

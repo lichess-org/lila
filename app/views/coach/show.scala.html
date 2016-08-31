@@ -1,4 +1,4 @@
-@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked])(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
 
 @moreCss = {
 @if(studies.nonEmpty) { @cssTag("studyList.css") }
@@ -12,7 +12,7 @@
 
 @side = {
 @ctx.me.map { me =>
-@reviewForm(c, me)
+@reviewForm(c, me, reviewApproval)
 }
 @reviews(c, coachReviews)
 }
@@ -26,7 +26,7 @@ evenMoreCss = moreCss) {
     @defining(c.user.profileOrDefault) { profile =>
     <div class="overview">
       <h1>
-        @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
+        @c.user.title.map { t => @t }@c.user.realNameOrUsername
       </h1>
       <p class="headline">@c.coach.profile.headline</p>
       <table>

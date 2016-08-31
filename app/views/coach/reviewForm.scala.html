@@ -1,3 +1,10 @@
-@(c: lila.coach.Coach.WithUser, me: User)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, me: User, approval: Boolean)(implicit ctx: Context)
+
+@if(approval) {
+<div class="approval">
+  Thank you for the review!
+  @c.user.realNameOrUsername will approve it very soon.
+</div>
+}
 
 Review form.
