@@ -1,10 +1,25 @@
 @(c: lila.coach.Coach.WithUser, me: User, approval: Boolean)(implicit ctx: Context)
 
-@if(approval) {
-<div class="approval">
-  Thank you for the review!
-  @c.user.realNameOrUsername will approve it very soon.
-</div>
-}
+<div class="review-form">
+  @if(approval) {
+  <div class="approval">
+    <p>Thank you for the review!</p>
+    <p>@c.user.realNameOrUsername will approve it very soon.</p>
+  </div>
+  } else {
+  <button class="button toggle">Review this coach</button>
+  }
 
-Review form.
+  <form action="@routes.Coach.review(c.user.username)" method="POST">
+    <select class="bar-rating" name="score" required>
+      <option value=""></option>
+      @List(1, 2, 3, 4, 5).map { score =>
+      <option value="@score">@score</option>
+      }
+    </select>
+    <textarea name="text"
+      required minlength=3 maxlength=1000
+      placeholder="What do you enjoy about taking lessons with @c.user.realNameOrUsername?"></textarea>
+    <button type="submit" class="button">@trans.apply()</button>
+  </form>
+</div>

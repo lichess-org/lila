@@ -2,7 +2,6 @@
 
 @moreCss = {
 @if(studies.nonEmpty) { @cssTag("studyList.css") }
-@cssAt("vendor/bar-rating/dist/themes/fontawesome-stars.css")
 }
 
 @moreJs = {
@@ -19,6 +18,7 @@
 
 @layout(title = c.user.titleUsername,
 side = side.some,
+moreJs = moreJs,
 evenMoreCss = moreCss) {
 <div class="content_box no_padding coach">
   <div class="top">

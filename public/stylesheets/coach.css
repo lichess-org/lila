@@ -16,6 +16,8 @@
 .coach .top .overview {
   padding: 15px 30px;
   box-sizing: border-box;
+  height: 250px;
+  max-height: 250px;
 }
 .coach .top h1 {
   font-family: 'Roboto';
@@ -85,4 +87,51 @@
 }
 .coach .studies h1 {
   padding: 20px 30px!important;
+}
+
+.review-form {
+  margin-top: 30px;
+  text-align: center;
+}
+.review-form form {
+  display: none;
+}
+.review-form textarea {
+  width: 100%;
+  height: 10em;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.review-form .button {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* review score */
+.br-theme-fontawesome-stars .br-widget {
+  white-space: nowrap;
+}
+.br-theme-fontawesome-stars .br-widget a {
+  font: 25px "lichess";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.br-theme-fontawesome-stars .br-widget a:after {
+  content: 't';
+  color: #d2d2d2;
+}
+.br-theme-fontawesome-stars .br-widget a.br-active:after {
+  color: #edb867;
+}
+.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+  color: #edb867;
+}
+.br-theme-fontawesome-stars .br-widget .br-current-rating {
+  display: none;
+}
+.br-theme-fontawesome-stars .br-readonly a {
+  cursor: default;
 }
