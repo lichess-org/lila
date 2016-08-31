@@ -219,7 +219,7 @@ lichess.desktopNotification = (function() {
       lichess.storage.remove(storageKey);
     }, 1000);
   };
-  var notify = function(msg) {
+  var doNotify = function(msg) {
     if (lichess.storage.get(storageKey)) return;
     lichess.storage.set(storageKey, 1);
     clearStorageSoon();
@@ -232,6 +232,12 @@ lichess.desktopNotification = (function() {
     }
     notifications.push(notification);
   };
+  var notify = function(msg) {
+    // increase chances that the first tab can put a local storage lock
+    setTimeout(function() {
+      doNotify(msg);
+    }, Math.round(10 + Math.random() * 300));
+  }
   clearStorageSoon(); // in case it wasn't cleared properly before
   return function(msg) {
     if (isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
