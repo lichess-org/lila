@@ -42,7 +42,7 @@ object Client {
   case class UserId(value: String) extends AnyVal with StringValue
   case class IpAddress(value: String) extends AnyVal with StringValue
   case class Engine(name: String)
-  case class Engines(stockfish: Engine, sunsetter: Engine)
+  case class Engines(stockfish: Engine)
 
   case class Instance(
       version: Version,
