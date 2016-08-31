@@ -76,14 +76,14 @@ final class CoachApi(
 
   object reviews {
 
-    def approvedByCoach(c: Coach): Fu[List[CoachReview]] =
+    def approvedByCoach(c: Coach): Fu[CoachReview.Reviews] =
       reviewColl.find(
         $doc("coachId" -> c.id.value, "approved" -> true)
-      ).sort($sort desc "createdAt").list[CoachReview](100)
+      ).sort($sort desc "createdAt").list[CoachReview](100) map CoachReview.Reviews.apply
 
-    def allByCoach(c: Coach): Fu[List[CoachReview]] =
+    def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
       reviewColl.find(
         $doc("coachId" -> c.id.value)
-      ).sort($sort desc "createdAt").list[CoachReview](100)
+      ).sort($sort desc "createdAt").list[CoachReview](100) map CoachReview.Reviews.apply
   }
 }

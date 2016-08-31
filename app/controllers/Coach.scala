@@ -24,7 +24,7 @@ object Coach extends LilaController {
           c.coach.profile.studyIds.map(_.value)
         } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) map { reviews =>
-            Ok(html.coach.show(c, studies, reviews))
+            Ok(html.coach.show(c, reviews, studies))
           }
         }
       else notFound
