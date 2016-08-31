@@ -22,8 +22,10 @@ object Coach extends LilaController {
       if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach))
         Env.study.api.byIds {
           c.coach.profile.studyIds.map(_.value)
-        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) map { studies =>
-          Ok(html.coach.show(c, studies))
+        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
+          api.reviews.approvedByCoach(c.coach) map { reviews =>
+            Ok(html.coach.show(c, studies, reviews))
+          }
         }
       else notFound
     }

@@ -11,5 +11,22 @@ case class CoachReview(
   rating: Int,
   title: String,
   text: String,
+  approved: Boolean,
   createdAt: DateTime,
   updatedAt: DateTime)
+
+object CoachReview {
+
+  case class Score(value: Double) extends AnyVal {
+
+  }
+
+  case class Reviews(list: List[CoachReview]) {
+
+    def approved = list.filter(_.approved)
+
+    lazy val averageScore: Option[Score] = approved.nonEmpty option {
+      Score(approved.map(_.rating).sum.toDouble / list.size)
+    }
+  }
+}

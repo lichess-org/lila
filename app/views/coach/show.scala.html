@@ -1,10 +1,25 @@
-@(c: lila.coach.Coach.WithUser, studies: Seq[lila.study.Study.WithChaptersAndLiked])(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked])(implicit ctx: Context)
 
 @moreCss = {
 @if(studies.nonEmpty) { @cssTag("studyList.css") }
+@cssAt("vendor/bar-rating/dist/themes/fontawesome-stars.css")
 }
 
-@layout(title = c.user.titleUsername, evenMoreCss = moreCss) {
+@moreJs = {
+@jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
+@jsTag("coach.js")
+}
+
+@side = {
+@ctx.me.map { me =>
+@reviewForm(c, me)
+}
+@reviews(c, coachReviews)
+}
+
+@layout(title = c.user.titleUsername,
+side = side.some,
+evenMoreCss = moreCss) {
 <div class="content_box no_padding coach">
   <div class="top">
     @pic(c, 250)

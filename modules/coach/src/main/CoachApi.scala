@@ -73,4 +73,17 @@ final class CoachApi(
 
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
+
+  object reviews {
+
+    def approvedByCoach(c: Coach): Fu[List[CoachReview]] =
+      reviewColl.find(
+        $doc("coachId" -> c.id.value, "approved" -> true)
+      ).sort($sort desc "createdAt").list[CoachReview](100)
+
+    def allByCoach(c: Coach): Fu[List[CoachReview]] =
+      reviewColl.find(
+        $doc("coachId" -> c.id.value)
+      ).sort($sort desc "createdAt").list[CoachReview](100)
+  }
 }
