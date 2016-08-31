@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._, Results._
 
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachForm }
+import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachReviewForm }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -32,7 +32,7 @@ object Coach extends LilaController {
   def edit = Secure(_.Coach) { implicit ctx =>
     me =>
       OptionResult(api findOrInit me) { c =>
-        NoCache(Ok(html.coach.edit(c, CoachForm edit c.coach)))
+        NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach)))
       }
   }
 
@@ -40,7 +40,7 @@ object Coach extends LilaController {
     me =>
       OptionFuResult(api findOrInit me) { c =>
         implicit val req = ctx.body
-        CoachForm.edit(c.coach).bindFromRequest.fold(
+        CoachProfileForm.edit(c.coach).bindFromRequest.fold(
           form => fuccess(BadRequest(html.coach.edit(c, form))),
           data => api.update(c, data) inject Ok
         )

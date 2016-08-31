@@ -5,7 +5,7 @@ import play.api.data._
 import play.api.data.format.Formatter
 import play.api.data.Forms._
 
-object CoachForm {
+object CoachProfileForm {
 
   def edit(coach: Coach) = Form(mapping(
     "hourlyRate" -> optional(number(min = 5, max = 500)),

@@ -9,13 +9,14 @@ import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final class CoachApi(
-    coll: Coll,
+    coachColl: Coll,
+    reviewColl: Coll,
     photographer: Photographer) {
 
   import BsonHandlers._
 
   private val cache = AsyncCache.single[List[Coach]](
-    f = coll.find($empty).list[Coach](),
+    f = coachColl.find($empty).list[Coach](),
     timeToLive = 1 hour)
 
   private def all = cache(true)
@@ -46,13 +47,17 @@ final class CoachApi(
       }
     }
 
-  def update(c: Coach.WithUser, data: CoachForm.Data): Funit =
-    coll.update($id(c.coach.id), data(c.coach)).void >> cache.clear
+  def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
+    coachColl.update(
+      $id(c.coach.id),
+      data(c.coach),
+      upsert = true
+    ).void >> cache.clear
 
   private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
       case None => fuccess("No such coach")
-      case Some(c) => coll.update(
+      case Some(c) => coachColl.update(
         $id(c.coach.id),
         $set("enabledByMod" -> value)
       ) >> cache.clear inject "Done!"
@@ -60,11 +65,11 @@ final class CoachApi(
 
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
     photographer(c.coach.id, picture).flatMap { pic =>
-      coll.update($id(c.coach.id), $set("picturePath" -> pic.path))
+      coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path))
     } >> cache.clear
 
   def deletePicture(c: Coach.WithUser): Funit =
-    coll.update($id(c.coach.id), $unset("picturePath")) >> cache.clear
+    coachColl.update($id(c.coach.id), $unset("picturePath")) >> cache.clear
 
   private def withUser(user: User)(coach: Coach): Coach.WithUser =
     Coach.WithUser(coach, user)
