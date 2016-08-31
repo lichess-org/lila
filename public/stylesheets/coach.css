@@ -7,12 +7,17 @@
   display: flex;
 }
 .coach .top a {
-  color: #3893E8;
   color: #ddd;
-  text-decoration: underline;
+}
+.coach .top a:hover {
+  color: #ddd;
+  border-bottom: 1px dotted #aaa;
 }
 .coach .top .overview {
   padding: 15px 30px;
+  height: 250px;
+  max-height: 250px;
+  box-sizing: border-box;
 }
 .coach .top h1 {
   font-family: 'Roboto';
@@ -24,7 +29,15 @@
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 18px;
-  padding: 0 0 15px 0!important;
+  padding: 0 0 20px 0!important;
+}
+.coach .top table {
+  line-height: 1.7;
+}
+.coach .top table th {
+  opacity: 0.7;
+  padding-right: 20px;
+  text-align: right;
 }
 
 .coach .sections {

@@ -19,11 +19,11 @@ object Coach extends LilaController {
 
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { c =>
-      if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.Admin))
+      if (c.coach.isFullyEnabled || ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach))
         Env.study.api.byIds {
           c.coach.profile.studyIds.map(_.value)
         } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) map { studies =>
-          Ok(html.coach.show(c, studies.pp))
+          Ok(html.coach.show(c, studies))
         }
       else notFound
     }
