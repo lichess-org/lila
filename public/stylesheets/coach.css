@@ -1,19 +1,5 @@
-.coach_edit .material.form {
-  margin: 30px 20px 20px 20px;
-}
 .coach_edit .material.form .form-group textarea {
   height: 8em;
-}
-.coach_edit .material.form .form-group.large-label {
-  margin-top: 4.25rem;
-}
-.coach_edit .material.form .form-group.large-label .control-label {
-  opacity: 0.8!important;
-  top: -2rem!important;
-}
-.coach_edit .material.form .form-group.large-label .control-label em {
-  opacity: 0.8;
-  display: block;
 }
 
 .coach_edit .upload_picture {
@@ -38,20 +24,13 @@
 }
 
 .thumbnail {
-  position: relative;
   display: block;
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
+  text-align: center;
+}
+.thumbnail img {
+  width: 300px;
+  height: 300px;
   margin: auto;
   border-radius: 12px;
   border: 7px solid #ddd;
-}
-.thumbnail img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  transform: translate(-50%,-50%);
 }

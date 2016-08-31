@@ -41,6 +41,7 @@ case class UserInfo(
 
   def isPublicMod = lila.security.Granter(_.PublicMod)(user)
   def isDeveloper = lila.security.Granter(_.Developer)(user)
+  def isCoach = lila.security.Granter(_.Coach)(user)
 
   def allTrophies = List(
     isPublicMod option Trophy(

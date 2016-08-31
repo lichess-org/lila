@@ -5,7 +5,7 @@
 @name = @{ categName(categ) }
 @title = @{ s"$name - ${u.username} - ${trans.preferences.str()}" }
 
-@account.layout(title = title, active = categ.slug) {
+@account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
   <div class="signup_box">
     <h1 class="lichess_title" text data-icon="%">@categName(categ)</h1>
@@ -14,35 +14,35 @@
       <ul>
         <li>
           <h2>@trans.pieceAnimation()</h2>
-          @base.radios(form("display.animation"), translatedAnimationChoices)
+          @base.form.radios(form("display.animation"), translatedAnimationChoices)
         </li>
         <li>
           <h2>@trans.materialDifference()</h2>
-          @base.radios(form("display.captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.boardHighlights()</h2>
-          @base.radios(form("display.highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.pieceDestinations()</h2>
-          @base.radios(form("display.destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.boardCoordinates()</h2>
-          @base.radios(form("display.coords"), translatedBoardCoordinateChoices)
+          @base.form.radios(form("display.coords"), translatedBoardCoordinateChoices)
         </li>
         <li>
           <h2>@trans.moveListWhilePlaying()</h2>
-          @base.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+          @base.form.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
         </li>
         <li>
           <h2>PGN piece notation</h2>
-          @base.radios(form("display.pieceNotation"), lila.pref.Pref.PieceNotation.choices)
+          @base.form.radios(form("display.pieceNotation"), lila.pref.Pref.PieceNotation.choices)
         </li>
         <li>
           <h2>@trans.blindfoldChess()</h2>
-          @base.radios(form("display.blindfold"), translatedBlindfoldChoices)
+          @base.form.radios(form("display.blindfold"), translatedBlindfoldChoices)
         </li>
       </ul>
       }
@@ -50,15 +50,15 @@
       <ul>
         <li>
           <h2>@trans.tenthsOfSeconds()</h2>
-          @base.radios(form("clockTenths"), translatedClockTenthsChoices)
+          @base.form.radios(form("clockTenths"), translatedClockTenthsChoices)
         </li>
         <li>
           <h2>@trans.horizontalGreenProgressBars()</h2>
-          @base.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.soundWhenTimeGetsCritical()</h2>
-          @base.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
       </ul>
       }
@@ -66,35 +66,35 @@
       <ul>
         <li>
           <h2>How do you move pieces?</h2>
-          @base.radios(form("moveEvent"), lila.pref.Pref.MoveEvent.choices)
+          @base.form.radios(form("moveEvent"), lila.pref.Pref.MoveEvent.choices)
         </li>
         <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
-          @base.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.takebacksWithOpponentApproval()</h2>
-          @base.radios(form("takeback"), translatedTakebackChoices)
+          @base.form.radios(form("takeback"), translatedTakebackChoices)
         </li>
         <li>
           <h2>@trans.promoteToQueenAutomatically()</h2>
-          @base.radios(form("autoQueen"), translatedAutoQueenChoices)
+          @base.form.radios(form("autoQueen"), translatedAutoQueenChoices)
         </li>
         <li>
           <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically("<a rel=\"nofollow\" href=\"http://en.wikipedia.org/wiki/Threefold_repetition\">", "</a>")</h2>
-          @base.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
+          @base.form.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
         </li>
         <li>
           <h2>@trans.moveConfirmation()</h2>
-          @base.radios(form("submitMove"), submitMoveChoices)
+          @base.form.radios(form("submitMove"), submitMoveChoices)
         </li>
         <li>
           <h2>@trans.confirmResignation()</h2>
-          @base.radios(form("confirmResign"), confirmResignChoices)
+          @base.form.radios(form("confirmResign"), confirmResignChoices)
         </li>
         <li>
           <h2>Input moves with the keyboard</h2>
-          @base.radios(form("keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
+          @base.form.radios(form("keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
         </li>
       </ul>
       }
@@ -102,19 +102,19 @@
       <ul>
         <li>
           <h2>@trans.letOtherPlayersFollowYou()</h2>
-          @base.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.letOtherPlayersChallengeYou()</h2>
-          @base.radios(form("challenge"), translatedChallengeChoices)
+          @base.form.radios(form("challenge"), translatedChallengeChoices)
         </li>
         <li>
           <h2>@trans.letOtherPlayersMessageYou()</h2>
-          @base.radios(form("message"), translatedMessageChoices)
+          @base.form.radios(form("message"), translatedMessageChoices)
         </li>
         <li>
           <h2>@trans.shareYourInsightsData()</h2>
-          @base.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
+          @base.form.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
         </li>
       </ul>
       }

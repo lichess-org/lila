@@ -139,8 +139,10 @@ private[api] final class GameApi(
     "variant" -> g.variant.key,
     "speed" -> g.speed.key,
     "perf" -> PerfPicker.key(g),
-    "timestamp" -> g.createdAt.getDate,
+    "createdAt" -> g.createdAt.getDate,
+    "lastMoveAt" -> (g.lastMoveDateTime | g.createdAt).getDate,
     "turns" -> g.turns,
+    "color" -> g.turnColor.name,
     "status" -> g.status.name,
     "clock" -> g.clock.map { clock =>
       Json.obj(

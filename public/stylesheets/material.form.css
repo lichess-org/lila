@@ -1,3 +1,6 @@
+.material.form {
+  margin: 30px 20px 20px 20px;
+}
 .material.form * {
   box-sizing: border-box;
 }
@@ -23,7 +26,10 @@
 .material.form .form-radio,
 .material.form .form-group {
   position: relative;
-  margin-bottom: 3.25rem;
+  margin-bottom: 3.5rem;
+}
+.material.form .form-group.margin-bottom {
+  margin-bottom: 4.5rem;
 }
 
 .material.form .form-group.half {
@@ -139,6 +145,9 @@
 body.dark .material.form .form-group * {
   color: #bbb;
 }
+.material.form .form-group a {
+  color: #3893E8;
+}
 body.dark .material.form .form-group select option {
   color: #333;
 }
@@ -160,8 +169,7 @@ body.dark .material.form .form-group select option {
   outline: none;
 }
 .material.form .form-group *:focus ~ .control-label,
-.material.form .form-group *:focus ~ .control-label strong,
-.material.form .form-group *:focus ~ .control-label em {
+.material.form .form-group *:focus ~ .form-help {
   color: #3893E8;
 }
 .material.form .form-group *:focus ~ .bar::before {

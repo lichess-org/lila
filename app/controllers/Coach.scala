@@ -23,16 +23,16 @@ object Coach extends LilaController {
     }
   }
 
-  def edit = Auth { implicit ctx =>
+  def edit = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionResult(api find me) { c =>
+      OptionResult(api findOrInit me) { c =>
         NoCache(Ok(html.coach.edit(c, CoachForm edit c.coach)))
       }
   }
 
-  def editApply = AuthBody { implicit ctx =>
+  def editApply = SecureBody(_.Coach) { implicit ctx =>
     me =>
-      OptionFuResult(api find me) { c =>
+      OptionFuResult(api findOrInit me) { c =>
         implicit val req = ctx.body
         CoachForm.edit(c.coach).bindFromRequest.fold(
           form => fuccess(BadRequest(html.coach.edit(c, form))),
@@ -41,9 +41,9 @@ object Coach extends LilaController {
       }
   }
 
-  def picture = Auth { implicit ctx =>
+  def picture = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionResult(api find me) { c =>
+      OptionResult(api findOrInit me) { c =>
         NoCache(Ok(html.coach.picture(c)))
       }
   }
@@ -61,9 +61,9 @@ object Coach extends LilaController {
       }
   }
 
-  def pictureDelete = Auth { implicit ctx =>
+  def pictureDelete = Secure(_.Coach) { implicit ctx =>
     me =>
-      OptionFuResult(api find me) { c =>
+      OptionFuResult(api findOrInit me) { c =>
         api.deletePicture(c) inject Redirect(routes.Coach.edit)
       }
   }

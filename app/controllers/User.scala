@@ -257,4 +257,9 @@ object User extends LilaController {
       JsonOk(UserRepo usernamesLike term)
     }
   }
+
+  def myself = Auth { ctx =>
+    me =>
+      fuccess(Redirect(routes.User.show(me.username)))
+  }
 }

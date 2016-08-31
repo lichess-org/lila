@@ -2,7 +2,7 @@ package lila.security
 
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
-  final def is(p: Permission): Boolean = this == p || (children exists (_ is p))
+  final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
 }
 
 object Permission {
@@ -38,6 +38,7 @@ object Permission {
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD", List(GuineaPig))
   case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
+  case object Coach extends Permission("ROLE_COACH")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -57,7 +58,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, GuineaPig)
+    PublicMod, Developer, Coach, GuineaPig)
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
 

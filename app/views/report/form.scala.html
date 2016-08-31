@@ -29,7 +29,7 @@
     </div>
     <div class="field_reason">
       <label for="@form("reason").id">@trans.reason()</label>
-      @base.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.str().some)
+      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.str().some)
       @errMsg(form("reason"))
     </div>
     <div class="field_body">

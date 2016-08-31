@@ -22,6 +22,8 @@ case class Glicko(
 
   def establishedIntRating = established option intRating
 
+  def refund(points: Int) = copy(rating = rating + points)
+
   def sanityCheck =
     rating > 0 &&
       rating < 4000 &&

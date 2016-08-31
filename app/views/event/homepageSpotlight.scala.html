@@ -1,9 +1,13 @@
 @(e: lila.event.Event)(implicit ctx: Context)
 
-<a href="@e.url" class="tour_spotlight event_spotlight little id_@e.id">
-  <img class="img icon" src="@staticUrl("images/fire-silhouette.svg")" />
+<a href="@{if(e.isNow) e.url else routes.Event.show(e.id)}"
+  class="tour_spotlight event_spotlight id_@e.id@if(e.isNowOrSoon){ invert}">
+  <i class="img" data-icon=""></i>
   <span class="content">
     <span class="name">@e.title</span>
-    <span class="more">@e.headline</span>
+    <span class="headline">@e.headline</span>
+    <span class="more">
+      @if(e.isNow) { @trans.playingRightNow() } else { @momentFromNow(e.startsAt) }
+    </span>
   </span>
 </a>

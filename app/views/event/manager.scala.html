@@ -2,9 +2,12 @@
 
 @title = {Event manager}
 
-@layout(title = title.body, active = "index") {
+@layout(title = title.body) {
 <div class="event_crud content_box no_padding">
-  <h1 class="lichess_title">@title</h1>
+  <h1 class="lichess_title">
+    <a href="@routes.Event.form" data-icon="O" class="new"></a>
+    @title
+  </h1>
   <table class="slist">
     <thead>
       <tr>
@@ -15,18 +18,18 @@
       </tr>
     </thead>
     <tbody>
-      @events.map { event =>
+      @events.map { e =>
       <tr>
-        <td><a href="@routes.Event.edit(event.id)">@event.title</a></td>
+        <td><a href="@routes.Event.edit(e.id)">@e.title</a></td>
         <td>
-          @showDateTimeUTC(event.startsAt)
-          @momentFromNow(event.startsAt)
+          @showDateTimeUTC(e.startsAt)
+          @momentFromNow(e.startsAt)
         </td>
         <td>
-          @showDateTimeUTC(event.finishesAt)
-          @momentFromNow(event.finishesAt)
+          @showDateTimeUTC(e.finishesAt)
+          @momentFromNow(e.finishesAt)
         </td>
-        <td><a class="text"href="@event.url" data-icon="v">URL</a></td>
+        <td><a class="text"href="@routes.Event.show(e.id)" data-icon="v"></a></td>
       </tr>
       }
     </tbody>
