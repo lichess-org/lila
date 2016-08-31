@@ -90,6 +90,8 @@ case class User(
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
 
+  def hasEstablishedRating(pt: PerfType) = perfs(pt).established
+
   def isPatron = plan.active
 
   def activePlan: Option[Plan] = if (plan.active) Some(plan) else None

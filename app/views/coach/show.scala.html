@@ -59,7 +59,7 @@ evenMoreCss = moreCss) {
               FIDE: @r,
               }
               <a href="@routes.User.show(c.user.username)">
-                @c.user.best8Perfs.take(6).map { pt =>
+                @c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map { pt =>
                 @showPerfRating(c.user, pt)
                 }
               </a>
