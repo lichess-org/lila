@@ -3,9 +3,27 @@
 @side = {
 <div class="coach-intro">
   <img src="@staticUrl("images/icons/certification.svg")" class="certification" />
-  <h2>Certified coaches</h2>
+  <h2>Selected coaches</h2>
   <p>
-    We have selected for you the very best online chess coaches.
+    We have curated for you this list of the best online chess coaches.
+  </p>
+  <p>
+    All of these renowned players have great chess skills,
+    and a solid experience with teaching.
+  </p>
+  <p>
+    You cannot go wrong with them, so
+    make your choice, and enjoy learning chess!
+  </p>
+</div>
+<div class="coach-add">
+  <p>
+    Are you a great chess coach?<br />
+    Do you want to be part of this list?<br />
+    @defining("lichess.contact@gmail.com") { email =>
+    Send us an email at <a href="mailto:@email">@email</a><br />
+    }
+    and we will review your application.
   </p>
 </div>
 }
@@ -16,7 +34,7 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some) {
 <div class="content_box no_padding coaches">
   <div class="top">
-    <h1 class="text" data-icon=":">Chess coaches</h1>
+    <h1>Top chess coaches</h1>
     <div class="orders mselect">
       <div class="button">
         @order.name

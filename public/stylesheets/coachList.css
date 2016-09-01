@@ -9,13 +9,35 @@
   white-space: nowrap;
   margin-right: 20px;
 }
+.coach-intro {
+  margin: 50px 0 0 -35px;
+  width: 226px;
+  text-align: center;
+}
 .coach-intro img {
-  width: 200px;
-  height: 200px;
-  opacity: 0.5;
+  width: 140px;
+  height: 140px;
 }
-.coaches .list {
+.coach-intro h2 {
+  font: 1.95em Roboto;
+  text-transform: uppercase;
+  color: #639B24;
+  white-space: nowrap;
+  margin-bottom: 1em;
 }
+.coach-intro p {
+  margin-top: 1em;
+  font-size: 1.1em;
+}
+.coach-add {
+  margin: 50px 0 0 -35px;
+  width: 226px;
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
 .coaches .coach {
   border-top: 1px solid #ccc;
   position: relative;
