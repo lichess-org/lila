@@ -119,7 +119,7 @@ body.dark .coach .studies h1 {
 }
 .review-form textarea {
   width: 100%;
-  height: 10em;
+  height: 14em;
   padding: 5px;
   box-sizing: border-box;
   resize: vertical;
@@ -129,32 +129,77 @@ body.dark .coach .studies h1 {
   width: 100%;
   margin-top: 5px;
 }
+.reviews {
+  margin-top: 20px;
+}
+.reviews h2 {
+  font-size: 1.5em;
+  margin-bottom: -10px;
+  font-family: Roboto;
+}
+.reviews .review {
+  margin-top: 15px;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+.reviews .top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.reviews .top .user_link {
+  margin-left: -4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reviews .text {
+  font-style: italic;
+  opacity: 0.8;
+  max-height: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reviews .review:hover .text {
+  max-height: 50em;
+}
+.reviews .br-wrapper {
+  flex: 0 0;
+}
 
 /* review score */
-.br-theme-fontawesome-stars .br-widget {
+.br-widget {
   white-space: nowrap;
 }
-.br-theme-fontawesome-stars .br-widget a {
+.br-widget a {
   font: 25px "lichess";
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
   margin-right: 2px;
+  display: inline-block;
 }
-.br-theme-fontawesome-stars .br-widget a:after {
+.br-widget a:after {
   content: 't';
-  color: #d2d2d2;
+  color: #ccc;
 }
-body.dark .br-theme-fontawesome-stars .br-widget a:after {
+body.dark .br-widget a:after {
   color: #555;
 }
-.br-theme-fontawesome-stars .br-widget a.br-active:after,
-.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+.br-widget a.br-active:after,
+.br-widget a.br-selected:after {
   color: #d59120!important;
 }
-.br-theme-fontawesome-stars .br-widget .br-current-rating {
+.br-widget .br-current-rating {
   display: none;
 }
-.br-theme-fontawesome-stars .br-readonly a {
+.br-readonly a {
+  font-size: 10px;
+  margin-right: 0;
   cursor: default;
+}
+.br-readonly a.br-selected:after {
+  margin-right: 0;
+  color: #888!important;
 }

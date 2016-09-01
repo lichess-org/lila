@@ -25,7 +25,7 @@
   margin-top: 80px;
 }
 
-.coach_edit a {
+.coach_edit .top a {
   color: #3893E8;
 }
 
@@ -149,11 +149,11 @@ body.dark .coach_edit .reviews .actions a {
 }
 
 /* review score */
-.br-theme-fontawesome-stars .br-widget {
+.br-widget {
   white-space: nowrap;
   margin: 8px 0 5px 0;
 }
-.br-theme-fontawesome-stars .br-widget a {
+.br-widget a {
   font: 18px "lichess";
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -161,16 +161,16 @@ body.dark .coach_edit .reviews .actions a {
   margin-right: 2px;
   cursor: default;
 }
-.br-theme-fontawesome-stars .br-widget a:after {
+.br-widget a:after {
   content: 't';
   color: #d2d2d2;
 }
-body.dark .br-theme-fontawesome-stars .br-widget a:after {
+body.dark .br-widget a:after {
   color: #555;
 }
-.br-theme-fontawesome-stars .br-widget a.br-selected:after {
+.br-widget a.br-selected:after {
   color: #d59120!important;
 }
-.br-theme-fontawesome-stars .br-widget .br-current-rating {
+.br-widget .br-current-rating {
   display: none;
 }

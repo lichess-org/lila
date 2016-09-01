@@ -23,10 +23,6 @@ $(function() {
   $editor.find('.tabs div[data-tab=' + tab + ']').click();
 
   $reviews = $editor.find('.reviews');
-  $reviews.find('.bar-rating').barrating({
-    theme: 'fontawesome-stars',
-    readonly: true
-  });
   $reviews.find('.actions a').click(function() {
     var $review = $(this).parents('.review');
     $.ajax({

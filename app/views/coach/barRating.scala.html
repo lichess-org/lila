@@ -1,7 +1,14 @@
 @(selected: Option[Int], enabled: Boolean)
+
+@if(enabled) {
 <select class="bar-rating" name="score" required>
   <option value=""></option>
   @List(1, 2, 3, 4, 5).map { score =>
   <option value="@score"@if(selected.contains(score)){ selected}>@score</option>
   }
 </select>
+} else {
+<div class="br-wrapper">
+  <div class="br-widget br-readonly">@Html(List(1, 2, 3, 4, 5).map(s => s"<a${if(selected.exists(s.<=)) " class='br-selected'" else ""}></a>").mkString)</div>
+</div>
+}

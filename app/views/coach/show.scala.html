@@ -1,6 +1,7 @@
 @(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("coach.css")
 @if(studies.nonEmpty) { @cssTag("studyList.css") }
 }
 

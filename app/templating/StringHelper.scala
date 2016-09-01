@@ -1,10 +1,6 @@
 package lila.app
 package templating
 
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.regex.Matcher.quoteReplacement
-
 import lila.user.{ User, UserContext }
 import play.twirl.api.Html
 
@@ -26,7 +22,7 @@ trait StringHelper { self: NumberHelper =>
     nl2br(escapeHtml(text).take(length)).replace("<br /><br />", "<br />")
   }
 
-  def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
+  def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
   private val autoLinkFun: String => String =
     nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escapeHtml

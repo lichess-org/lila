@@ -138,7 +138,7 @@ object User extends LilaController {
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
     })(fuccess) flatMap { filterName =>
       val ip = HTTPRequest lastRemoteAddress ctx.req
-      UserGamesRateLimitPerIP(ip, cost = page, msg = ip) {
+      UserGamesRateLimitPerIP(ip, cost = page, msg = s"on ${u.username}") {
         lila.mon.http.userGames.cost(page)
         GameFilterMenu.paginatorOf(
           userGameSearch = userGameSearch,
