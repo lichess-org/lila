@@ -154,7 +154,7 @@ body.dark .coach .studies h1 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.reviews .text {
+.reviews .content {
   font-style: italic;
   opacity: 0.8;
   max-height: 10em;
@@ -162,7 +162,7 @@ body.dark .coach .studies h1 {
   text-overflow: ellipsis;
   transition: 0.3s;
 }
-.reviews .review:hover .text {
+.reviews .review:hover .content {
   max-height: 50em;
   opacity: 1;
 }

@@ -94,13 +94,17 @@
 .coach_edit .status.saved {
   opacity: 1;
 }
+.coach_edit .reviews .help {
+  margin: -30px 0 20px 0;
+  text-align: center;
+}
 .coach_edit .reviews .review {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 40px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+  margin-top: 40px;
 }
 body.dark .coach_edit .reviews .review {
   border-color: #3d3d3d;
@@ -108,7 +112,7 @@ body.dark .coach_edit .reviews .review {
 .coach_edit .reviews .user > * {
   display: block;
 }
-.coach_edit .reviews .text {
+.coach_edit .reviews .content {
   margin: 0 20px;
   box-sizing: border-box;
 }

@@ -92,6 +92,7 @@ moreJs = moreJs) {
         @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
       </div>
       <div class="panel reviews">
+        <p class="help text" data-icon="">Reviews are visible only after you approve them.</p>
         @reviews.list.map { r =>
         <div class="review" data-action="@routes.Coach.approveReview(r.id)">
           <div class="user">
@@ -99,7 +100,7 @@ moreJs = moreJs) {
             @barRating(selected = r.score.some, enabled = false)
             @momentFromNow(r.updatedAt)
           </div>
-          <div class="text">@autoLink(r.text)</div>
+          <div class="content">@autoLink(r.text)</div>
           <div class="actions">
             <a data-value="1" class="yes" data-icon="E"></a>
             <a data-value="0" class="no" data-icon="L"></a>
