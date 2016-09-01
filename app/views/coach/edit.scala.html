@@ -99,7 +99,7 @@ moreJs = moreJs) {
             @barRating(selected = r.score.some, enabled = false)
             @momentFromNow(r.updatedAt)
           </div>
-          <div class="text">@r.text</div>
+          <div class="text">@autoLink(r.text)</div>
           <div class="actions">
             <a data-value="1" class="yes" data-icon="E"></a>
             <a data-value="0" class="no" data-icon="L"></a>
