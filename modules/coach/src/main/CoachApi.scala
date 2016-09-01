@@ -106,6 +106,11 @@ final class CoachApi(
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
 
+    def isPending(user: User, coach: Coach): Fu[Boolean] =
+      reviewColl.exists(
+        $id(CoachReview.makeId(user, coach)) ++ $doc("approved" -> false)
+      )
+
     def approve(r: CoachReview, v: Boolean) =
       if (v) reviewColl.update($id(r.id), $set("approved" -> v)).void
       else reviewColl.remove($id(r.id)).void

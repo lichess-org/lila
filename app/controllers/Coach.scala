@@ -27,8 +27,10 @@ object Coach extends LilaController {
         Env.study.api.byIds {
           c.coach.profile.studyIds.map(_.value)
         } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
-          api.reviews.approvedByCoach(c.coach) map { reviews =>
-            Ok(html.coach.show(c, reviews, studies, reviewApproval = getBool("review")))
+          api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
+            ctx.me.?? { api.reviews.isPending(_, c.coach) } map { isPending =>
+              Ok(html.coach.show(c, reviews, studies, reviewApproval = isPending))
+            }
           }
         }
       }
@@ -43,7 +45,7 @@ object Coach extends LilaController {
           lila.coach.CoachReviewForm.form.bindFromRequest.fold(
             err => Redirect(routes.Coach.show(c.user.username)).fuccess,
             data => api.reviews.add(me, c.coach, data) map { review =>
-              Redirect(routes.Coach.show(c.user.username).url + "?review=1")
+              Redirect(routes.Coach.show(c.user.username))
             })
         }
       }
