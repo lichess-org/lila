@@ -1,4 +1,4 @@
-@(c: lila.coach.Coach.WithUser, me: User, approval: Boolean)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, approval: Boolean)(implicit ctx: Context)
 
 <div class="review-form">
   @if(approval) {
@@ -7,7 +7,11 @@
     <p>@c.user.realNameOrUsername will approve it very soon.</p>
   </div>
   } else {
+  @if(ctx.isAuth) {
   <button class="button toggle">Review this coach</button>
+  } else {
+  <a href="@routes.Auth.login?autoref=1" class="button">Review this coach</a>
+  }
   }
 
   <form action="@routes.Coach.review(c.user.username)" method="POST">
