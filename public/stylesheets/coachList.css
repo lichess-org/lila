@@ -9,6 +9,11 @@
   white-space: nowrap;
   margin-right: 20px;
 }
+.coach-intro img {
+  width: 200px;
+  height: 200px;
+  opacity: 0.5;
+}
 .coaches .list {
 }
 .coaches .coach {

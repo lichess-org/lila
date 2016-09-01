@@ -1,8 +1,19 @@
 @(pager: Paginator[lila.coach.Coach.WithUser], order: lila.coach.CoachPager.Order)(implicit ctx: Context)
 
+@side = {
+<div class="coach-intro">
+  <img src="@staticUrl("images/icons/certification.svg")" class="certification" />
+  <h2>Certified coaches</h2>
+  <p>
+    We have selected for you the very best online chess coaches.
+  </p>
+</div>
+}
+
 @layout(title = "Lichess coaches",
 moreCss = cssTag("coachList.css"),
-moreJs = jsTag("vendor/jquery.infinitescroll.min.js")) {
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
+side = side.some) {
 <div class="content_box no_padding coaches">
   <div class="top">
     <h1 class="text" data-icon=":">Chess coaches</h1>
