@@ -41,8 +41,15 @@ moreJs = moreJs) {
       </h1>
       <p><a href="@routes.Coach.show(c.user.username)" class="text" data-icon="v">Preview coach page</a></p>
       @if(!c.user.profileOrDefault.isComplete) {
-      <p><a href="@routes.Account.profile" target="_blank" class="text" data-icon="m">Complete your public lichess profile.</a></p>
+      <p>
+        <a href="@routes.Account.profile" target="_blank" class="text" data-icon="m">
+          <strong>IMPORTANT!</strong> Complete your public lichess profile.
+        </a>
+      </p>
       }
+      <p>
+        Soon here: Coach page analytics
+      </p>
     </div>
   </div>
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
@@ -57,18 +64,18 @@ moreJs = moreJs) {
     <div class="panels">
       <div class="panel basics active">
         <div>
-          @base.form.group(form("enabledByUser"), Html("Published in lichess coaches list"), half = true) {
-          @base.form.select(form("enabledByUser"), booleanChoices)
+          @base.form.group(form("listed"), Html("Published in lichess coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) {
+          @base.form.select(form("listed"), booleanChoices)
           }
-          @base.form.group(form("available"), Html("Currently available for lessons"), half = true) {
+          @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) {
           @base.form.select(form("available"), booleanChoices)
           }
         </div>
-        @base.form.group(form("profile.headline"), Html("Short and inspiring headline")) {
+        @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) {
         @base.form.input(form("profile.headline"), maxLength = 170)
         }
         <div>
-          @base.form.group(form("profile.languages"), Html("Languages spoken"), half = true) {
+          @base.form.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true) {
           @base.form.input(form("profile.languages"), maxLength = 140)
           }
           @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {

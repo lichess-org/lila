@@ -20,8 +20,8 @@ $(function() {
       submit();
     });
 
-  var tab = location.hash ? location.hash.slice(1) : 'reviews';
-  $editor.find('.tabs div[data-tab=' + tab + ']').click();
+  if ($editor.find('.reviews .review').length)
+    $editor.find('.tabs div[data-tab=reviews]').click();
 
   $reviews = $editor.find('.reviews');
   $reviews.find('.actions a').click(function() {

@@ -28,11 +28,15 @@ final class CoachApi(
   def find(username: String): Fu[Option[Coach.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
 
-  def find(user: User): Fu[Option[Coach.WithUser]] =
+  def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     byId(Coach.Id(user.id)) map2 withUser(user)
+  }
 
-  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = find(user) orElse {
-    fuccess(Coach.WithUser(Coach make user, user).some)
+  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
+    find(user) orElse {
+      val c = Coach.WithUser(Coach make user, user)
+      coachColl.insert(c.coach) >> cache.clear inject c.some
+    }
   }
 
   def isListedCoach(user: User): Fu[Boolean] =

@@ -67,7 +67,7 @@ object Coach extends LilaController {
   }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if ((c.coach.isListed || ctx.me.??(c.coach.is)) && ctx.me.??(canViewCoaches)) f
+    if ((c.coach.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) && ctx.me.??(canViewCoaches)) f
     else notFound
 
   def edit = Secure(_.Coach) { implicit ctx =>
@@ -99,7 +99,7 @@ object Coach extends LilaController {
 
   def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx =>
     me =>
-      OptionFuResult(api find me) { c =>
+      OptionFuResult(api findOrInit me) { c =>
         implicit val req = ctx.body
         ctx.body.body.file("picture") match {
           case Some(pic) => api.uploadPicture(c, pic) recover {
