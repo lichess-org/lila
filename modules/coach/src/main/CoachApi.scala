@@ -19,7 +19,7 @@ final class CoachApi(
 
   private val cache = AsyncCache.single[List[Coach]](
     f = coachColl.find($empty).list[Coach](),
-    timeToLive = 1 hour)
+    timeToLive = 10 minutes)
 
   private def all = cache(true)
 
