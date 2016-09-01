@@ -8,7 +8,7 @@
   </div>
   } else {
   @if(ctx.isAuth) {
-  <button class="button toggle">Review this coach</button>
+  <a class="button toggle">Write a review</a>
   } else {
   <a href="@routes.Auth.login?autoref=1" class="button">Review this coach</a>
   }
