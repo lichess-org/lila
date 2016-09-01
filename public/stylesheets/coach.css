@@ -160,9 +160,11 @@ body.dark .coach .studies h1 {
   max-height: 10em;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: 0.3s;
 }
 .reviews .review:hover .text {
   max-height: 50em;
+  opacity: 1;
 }
 .reviews .br-wrapper {
   flex: 0 0;
@@ -202,4 +204,7 @@ body.dark .br-widget a:after {
 .br-readonly a.br-selected:after {
   margin-right: 0;
   color: #888!important;
+}
+body.dark .reviews .review {
+  border-color: #3d3d3d;
 }
