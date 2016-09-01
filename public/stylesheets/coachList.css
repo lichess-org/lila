@@ -68,6 +68,9 @@ body.dark .coaches .coach {
   padding-right: 20px;
   text-align: right;
 }
+.coaches .coach table .seen {
+  opacity: 0.7;
+}
 .coaches .coach .rating td a > span {
   margin-left: 4px;
   display: inline-block;

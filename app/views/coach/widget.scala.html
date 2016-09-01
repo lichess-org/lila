@@ -53,12 +53,18 @@
         <th>Availability</th>
         <td>
           @if(c.coach.available.value) {
-          <span class="text" data-icon="E">Now accepting students</span>
+          <span class="text" data-icon="E">Accepting students</span>
           } else {
           <span class="text" data-icon="L">Not accepting students at the moment</span>
           }
         </td>
       </tr>
+      @c.user.seenAt.map { seen =>
+      <tr class="seen">
+        <th></th>
+        <td>@trans.lastSeenActive(momentFromNow(seen))</td>
+      </tr>
+      }
     </tbody>
   </table>
 </div>
