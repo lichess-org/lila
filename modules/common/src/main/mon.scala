@@ -210,6 +210,11 @@ object mon {
     val block = inc("relation.block")
     val unblock = inc("relation.unblock")
   }
+  object coach {
+    object pageView {
+      def profile(coachId: String) = inc(s"coach.page_view.profile.$coachId")
+    }
+  }
   object tournament {
     object pairing {
       val create = incX("tournament.pairing.create")

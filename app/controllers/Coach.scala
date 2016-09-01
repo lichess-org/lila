@@ -34,6 +34,7 @@ object Coach extends LilaController {
           } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
             api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
               ctx.me.?? { api.reviews.isPending(_, c.coach) } map { isPending =>
+                lila.mon.coach.pageView.profile(c.coach.id.value)()
                 Ok(html.coach.show(c, reviews, studies, reviewApproval = isPending))
               }
             }
