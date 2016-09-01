@@ -115,11 +115,9 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime =>
-      proxy.invalidate
-      handle { game =>
-        game.outoftime(lags.get) ?? finisher.outOfTime(game)
-      }
+    case Outoftime => handle { game =>
+      game.outoftime(lags.get) ?? finisher.outOfTime(game)
+    }
 
     // exceptionally we don't block nor publish events
     // if the game is abandoned, then nobody is around to see it
