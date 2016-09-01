@@ -39,7 +39,8 @@ object Export extends LilaController {
   private val PdfRateLimitGlobal = new lila.memo.RateLimit(
     credits = 20,
     duration = 1 minute,
-    name = "export PDF global")
+    name = "export PDF global",
+    key = "export.pdf.global")
 
   def pdf(id: String) = Open { implicit ctx =>
     OnlyHumans {
@@ -57,7 +58,8 @@ object Export extends LilaController {
   private val PngRateLimitGlobal = new lila.memo.RateLimit(
     credits = 60,
     duration = 1 minute,
-    name = "export PGN global")
+    name = "export PGN global",
+    key = "export.pgn.global")
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebook {

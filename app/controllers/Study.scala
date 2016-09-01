@@ -180,12 +180,14 @@ object Study extends LilaController {
   private val CloneLimitPerUser = new lila.memo.RateLimit(
     credits = 10,
     duration = 24 hour,
-    name = "clone study per user")
+    name = "clone study per user",
+    key = "clone_study.user")
 
   private val CloneLimitPerIP = new lila.memo.RateLimit(
     credits = 20,
     duration = 24 hour,
-    name = "clone study per IP")
+    name = "clone study per IP",
+    key = "clone_study.ip")
 
   def cloneApply(id: String) = Auth { implicit ctx =>
     me =>
@@ -207,7 +209,8 @@ object Study extends LilaController {
   private val PgnRateLimitGlobal = new lila.memo.RateLimit(
     credits = 30,
     duration = 1 minute,
-    name = "export study PGN global")
+    name = "export study PGN global",
+    key = "export.study_pgn.global")
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {

@@ -18,12 +18,14 @@ object Search extends LilaController {
   private val RateLimitGlobal = new lila.memo.RateLimit(
     credits = 50,
     duration = 1 minute,
-    name = "search games global")
+    name = "search games global",
+    key = "search.games.global")
 
   private val RateLimitPerIP = new lila.memo.RateLimit(
     credits = 50,
     duration = 5 minutes,
-    name = "search games per IP")
+    name = "search games per IP",
+    key = "search.games.ip")
 
   def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {

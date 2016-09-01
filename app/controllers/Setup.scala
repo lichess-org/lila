@@ -20,7 +20,9 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute, "setup post")
+  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute,
+    name = "setup post",
+    key = "setup_post")
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {

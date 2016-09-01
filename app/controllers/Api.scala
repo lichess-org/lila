@@ -39,12 +39,14 @@ object Api extends LilaController {
   private val UsersRateLimitGlobal = new lila.memo.RateLimit(
     credits = 1000,
     duration = 1 minute,
-    name = "team users API global")
+    name = "team users API global",
+    key = "team_users.api.global")
 
   private val UsersRateLimitPerIP = new lila.memo.RateLimit(
     credits = 1000,
     duration = 10 minutes,
-    name = "team users API per IP")
+    name = "team users API per IP",
+    key = "team_users.api.ip")
 
   def users = ApiRequest { implicit ctx =>
     val page = (getInt("page") | 1) atLeast 1 atMost 50
@@ -66,17 +68,20 @@ object Api extends LilaController {
   private val GamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 10 minutes,
-    name = "user games API per IP")
+    name = "user games API per IP",
+    key = "user_games.api.ip")
 
   private val GamesRateLimitPerUA = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 5 minutes,
-    name = "user games API per UA")
+    name = "user games API per UA",
+    key = "user_games.api.ua")
 
   private val GamesRateLimitGlobal = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 1 minute,
-    name = "user games API global")
+    name = "user games API global",
+    key = "user_games.api.global")
 
   def userGames(name: String) = ApiRequest { implicit ctx =>
     val page = (getInt("page") | 1) atLeast 1 atMost 200
@@ -112,7 +117,8 @@ object Api extends LilaController {
   private val GameRateLimitPerIdAndIP = new lila.memo.RateLimit(
     credits = 5,
     duration = 3 minutes,
-    name = "game API per Id/IP")
+    name = "game API per Id/IP",
+    key = "game.api.id_ip")
 
   def game(id: String) = ApiRequest { implicit ctx =>
     val ip = HTTPRequest lastRemoteAddress ctx.req

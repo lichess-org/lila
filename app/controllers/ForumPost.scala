@@ -7,7 +7,9 @@ import views._
 
 object ForumPost extends LilaController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit(4, 5 minutes, "forum create post")
+  private val CreateRateLimit = new lila.memo.RateLimit(4, 5 minutes,
+    name = "forum create post",
+    key = "forum.post")
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {

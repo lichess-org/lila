@@ -124,7 +124,8 @@ object User extends LilaController {
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 500,
     duration = 10 minutes,
-    name = "user games web/mobile per IP")
+    name = "user games web/mobile per IP",
+    key = "user_games.web.ip")
 
   implicit val userGamesDefault =
     ornicar.scalalib.Zero.instance[Fu[Paginator[GameModel]]](fuccess(Paginator.empty[GameModel]))

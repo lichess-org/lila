@@ -194,6 +194,9 @@ object mon {
       }
       val percent = rec("security.proxy.percent")
     }
+    object rateLimit {
+      def generic(key: String) = inc(s"security.rate_limit.generic.$key")
+    }
   }
   object tv {
     object stream {
