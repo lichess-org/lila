@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 import lila.user.User
 
-private[pref] final class DataForm {
+object DataForm {
 
   val pref = Form(mapping(
     "display" -> mapping(
