@@ -59,7 +59,9 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def bgImg = ctxPref("bgImg") | Pref.defaultBgImg
 
-  def mobileApiVersion = Mobile.Api requestVersion req
+  lazy val mobileApiVersion = Mobile.Api requestVersion req
+
+  def isMobile = mobileApiVersion.isDefined
 
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
