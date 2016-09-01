@@ -18,22 +18,23 @@ object DataForm {
       "pieceNotation" -> optional(number.verifying(Set(0, 1) contains _)),
       "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
     )(DisplayData.apply)(DisplayData.unapply),
-    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-    "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
-    "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
+    "behavior" -> mapping(
+      "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
+      "premove" -> number.verifying(Set(0, 1) contains _),
+      "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
+      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
+      "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
+      "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
+      "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
+      "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _))
+    )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
     "clockSound" -> number.verifying(Set(0, 1) contains _),
     "follow" -> number.verifying(Set(0, 1) contains _),
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "message" -> number.verifying(Pref.Message.choices.toMap contains _),
-    "premove" -> number.verifying(Set(0, 1) contains _),
-    "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
-    "insightShare" -> number.verifying(Set(0, 1, 2) contains _),
-    "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-    // new preferences must be optional for mobile app BC
-    "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _)),
-    "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _))
+    "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
   case class DisplayData(
@@ -46,28 +47,31 @@ object DataForm {
     pieceNotation: Option[Int],
     blindfold: Int)
 
+  case class BehaviorData(
+    moveEvent: Option[Int],
+    premove: Int,
+    takeback: Int,
+    autoQueen: Int,
+    autoThreefold: Int,
+    submitMove: Int,
+    confirmResign: Int,
+    keyboardMove: Option[Int])
+
   case class PrefData(
       display: DisplayData,
-      autoQueen: Int,
-      autoThreefold: Int,
-      takeback: Int,
+      behavior: BehaviorData,
       clockTenths: Int,
       clockBar: Int,
       clockSound: Int,
       follow: Int,
       challenge: Int,
       message: Int,
-      premove: Int,
-      submitMove: Int,
-      insightShare: Int,
-      confirmResign: Int,
-      keyboardMove: Option[Int],
-      moveEvent: Option[Int]) {
+      insightShare: Int) {
 
     def apply(pref: Pref) = pref.copy(
-      autoQueen = autoQueen,
-      autoThreefold = autoThreefold,
-      takeback = takeback,
+      autoQueen = behavior.autoQueen,
+      autoThreefold = behavior.autoThreefold,
+      takeback = behavior.takeback,
       clockTenths = clockTenths,
       clockBar = clockBar == 1,
       clockSound = clockSound == 1,
@@ -79,15 +83,15 @@ object DataForm {
       blindfold = display.blindfold,
       challenge = challenge,
       message = message,
-      premove = premove == 1,
+      premove = behavior.premove == 1,
       animation = display.animation,
-      submitMove = submitMove,
+      submitMove = behavior.submitMove,
       insightShare = insightShare,
-      confirmResign = confirmResign,
+      confirmResign = behavior.confirmResign,
       captured = display.captured == 1,
-      keyboardMove = keyboardMove | pref.keyboardMove,
+      keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
-      moveEvent = moveEvent | pref.moveEvent)
+      moveEvent = behavior.moveEvent | pref.moveEvent)
   }
 
   object PrefData {
@@ -101,21 +105,22 @@ object DataForm {
         captured = pref.captured.fold(1, 0),
         blindfold = pref.blindfold,
         pieceNotation = pref.pieceNotation.some),
-      autoQueen = pref.autoQueen,
-      autoThreefold = pref.autoThreefold,
-      takeback = pref.takeback,
+      behavior = BehaviorData(
+        moveEvent = pref.moveEvent.some,
+        premove = pref.premove.fold(1, 0),
+        takeback = pref.takeback,
+        autoQueen = pref.autoQueen,
+        autoThreefold = pref.autoThreefold,
+        submitMove = pref.submitMove,
+        confirmResign = pref.confirmResign,
+        keyboardMove = pref.keyboardMove.some),
       clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
       clockSound = pref.clockSound.fold(1, 0),
       follow = pref.follow.fold(1, 0),
       challenge = pref.challenge,
       message = pref.message,
-      premove = pref.premove.fold(1, 0),
-      submitMove = pref.submitMove,
-      insightShare = pref.insightShare,
-      confirmResign = pref.confirmResign,
-      keyboardMove = pref.keyboardMove.some,
-      moveEvent = pref.moveEvent.some)
+      insightShare = pref.insightShare)
   }
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
