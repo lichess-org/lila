@@ -8,21 +8,21 @@ import play.api.data.Forms._
 object CoachProfileForm {
 
   def edit(coach: Coach) = Form(mapping(
-    "enabledByUser" -> boolean,
+    "listed" -> boolean,
     "available" -> boolean,
     "profile" -> profileMapping
   )(Data.apply)(Data.unapply)) fill Data(
-    enabledByUser = coach.enabledByUser.value,
+    listed = coach.listed.value,
     available = coach.available.value,
     profile = coach.profile)
 
   case class Data(
-      enabledByUser: Boolean,
+      listed: Boolean,
       available: Boolean,
       profile: CoachProfile) {
 
     def apply(coach: Coach) = coach.copy(
-      enabledByUser = Coach.Enabled(enabledByUser),
+      listed = Coach.Listed(listed),
       available = Coach.Available(available),
       profile = profile,
       updatedAt = DateTime.now)

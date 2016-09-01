@@ -41,7 +41,7 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
-    fetchIsCoach = Env.coach.api.isEnabledCoach,
+    fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _

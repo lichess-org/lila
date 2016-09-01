@@ -6,8 +6,7 @@ import lila.user.User
 
 case class Coach(
     _id: Coach.Id, // user ID
-    enabledByUser: Coach.Enabled,
-    enabledByMod: Coach.Enabled,
+    listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
     picturePath: Option[Coach.PicturePath],
@@ -21,16 +20,15 @@ case class Coach(
 
   def hasPicture = picturePath.isDefined
 
-  def isFullyEnabled = enabledByUser.value && enabledByMod.value
+  def isListed = listed.value
 }
 
 object Coach {
 
   def make(user: User) = Coach(
     _id = Id(user.id),
-    enabledByUser = Enabled(false),
-    enabledByMod = Enabled(false),
-    available = Available(false),
+    listed = Listed(false),
+    available = Available(true),
     profile = CoachProfile(),
     picturePath = None,
     nbReviews = 0,
@@ -40,7 +38,7 @@ object Coach {
   case class WithUser(coach: Coach, user: User)
 
   case class Id(value: String) extends AnyVal with StringValue
-  case class Enabled(value: Boolean) extends AnyVal
+  case class Listed(value: Boolean) extends AnyVal
   case class Available(value: Boolean) extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
 }

@@ -35,16 +35,16 @@ final class CoachApi(
     fuccess(Coach.WithUser(Coach make user, user).some)
   }
 
-  def isEnabledCoach(user: User): Fu[Boolean] =
+  def isListedCoach(user: User): Fu[Boolean] =
     Granter(_.Coach)(user) ?? all.map(_.exists { c =>
-      c.is(user) && c.isFullyEnabled
+      c.is(user) && c.isListed
     })
 
-  def enabledWithUserList: Fu[List[Coach.WithUser]] =
-    all.map(_.filter(_.isFullyEnabled)) flatMap { coaches =>
+  def listedWithUserList: Fu[List[Coach.WithUser]] =
+    all.map(_.filter(_.isListed)) flatMap { coaches =>
       UserRepo.byIds(coaches.map(_.id.value)) map { users =>
         coaches.flatMap { coach =>
-          users find coach.is map { Coach.WithUser(coach, _) }
+          users find coach.is filter Granter(_.Coach) map { Coach.WithUser(coach, _) }
         }
       }
     }

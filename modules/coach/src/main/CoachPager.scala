@@ -9,7 +9,7 @@ final class CoachPager(api: CoachApi) {
   import CoachPager._
 
   def apply(order: Order, page: Int): Fu[Paginator[Coach.WithUser]] =
-    api.enabledWithUserList.map { all =>
+    api.listedWithUserList.map { all =>
       Paginator.fromList(
         list = all sortWith order.predicate,
         currentPage = page,
