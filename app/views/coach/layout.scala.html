@@ -1,8 +1,4 @@
-@(title: String, side: Option[Html] = None, evenMoreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
-
-@moreCss = {
-@evenMoreCss
-}
+@(title: String, side: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,

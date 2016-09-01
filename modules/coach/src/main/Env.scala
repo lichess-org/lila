@@ -27,6 +27,8 @@ final class Env(
     photographer = photographer,
     notifyApi = notifyApi)
 
+  lazy val pager = new CoachPager(api)
+
   def cli = new lila.common.Cli {
     def process = {
       case "coach" :: "enable" :: username :: Nil  => api.toggleByMod(username, true)

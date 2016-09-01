@@ -1,0 +1,119 @@
+.coaches > .top {
+  display: flex;
+  align-items: center;
+}
+.coaches > .top h1 {
+  flex: 1 1 100%;
+}
+.coaches > .top .orders {
+  white-space: nowrap;
+  margin-right: 20px;
+}
+.coaches .list {
+}
+.coaches .coach {
+  border-top: 1px solid #ccc;
+  position: relative;
+  display: flex;
+}
+body.dark .coaches .coach {
+  border-color: #3d3d3d;
+}
+.coaches .coach {
+  border-right: 1px solid #ccc;
+}
+.coaches .coach:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+.coaches .coach a.overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.coaches .overview {
+  margin: 20px 10px 0 20px;
+}
+.coaches .coach h1 {
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 0 0 11px 0!important;
+  text-shadow: none!important;
+}
+.coaches .coach .headline {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 17px;
+  padding: 0 0 20px 0!important;
+}
+.coaches .coach .headline.medium {
+  font-size: 16px;
+  padding-bottom: 18px!important;
+}
+.coaches .coach .headline.large {
+  font-size: 15px;
+  padding-bottom: 14px!important;
+}
+.coaches .coach table {
+  line-height: 1.7;
+}
+.coaches .coach table th {
+  opacity: 0.7;
+  padding-right: 20px;
+  text-align: right;
+}
+.coaches .coach .rating td a > span {
+  margin-left: 4px;
+  display: inline-block;
+}
+.mselect {
+  display:inline-block;
+  position: relative;
+  padding:0;
+  border:0;
+}
+.mselect .button {
+  padding-right: 22px;
+  position: relative;
+  display: inline-block;
+}
+.mselect .button i {
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+}
+.mselect .list {
+  margin:0;
+  padding:0;
+  position:absolute;
+  z-index: 3;
+  top:0;
+  text-align: left;
+  list-style-type:none;
+  font-weight: normal;
+  background: #fff;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+  display: none;
+}
+.mselect.shown .list {
+  display: block;
+}
+.mselect .list a {
+  display: block;
+  padding: 10px;
+  background:#fff;
+  transition: 0.13s;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mselect .list a:hover{
+  background: #3893E8;
+  color: #fff;
+}
+

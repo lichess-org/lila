@@ -4,7 +4,7 @@ import play.api.mvc._, Results._
 
 import lila.api.Context
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachReviewForm }
+import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachReviewForm, CoachPager }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -12,9 +12,12 @@ object Coach extends LilaController {
 
   private val api = Env.coach.api
 
-  def index = Open { implicit ctx =>
-    api.enabledWithUserList map { coaches =>
-      Ok(html.coach.index(coaches))
+  def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
+
+  def all(o: String, page: Int) = Open { implicit ctx =>
+    val order = CoachPager.Order(o)
+    Env.coach.pager(order, page) map { pager =>
+      Ok(html.coach.index(pager, order))
     }
   }
 

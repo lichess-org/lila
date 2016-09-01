@@ -372,7 +372,8 @@ POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
 
 # Coach
-GET   /coach                           controllers.Coach.index
+GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)
+GET   /coach/sort/:order               controllers.Coach.all(order: String, page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/edit/picture              controllers.Coach.picture

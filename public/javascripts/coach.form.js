@@ -5,6 +5,7 @@ $(function() {
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
+    $editor.find('div.status').removeClass('saved');
   });
   var submit = $.fp.debounce(function() {
     $editor.find('form.form').ajaxSubmit({
