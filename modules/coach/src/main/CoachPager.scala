@@ -28,9 +28,9 @@ object CoachPager {
     case object Login extends Order("login", "Last login",
       (a, b) => a.user.timeNoSee < b.user.timeNoSee)
     case object LichessRating extends Order("rating", "Lichess rating",
-      (a, b) => a.user.perfs.bestStandardRating < b.user.perfs.bestStandardRating)
+      (a, b) => a.user.perfs.bestStandardRating > b.user.perfs.bestStandardRating)
     case object NbReview extends Order("review", "User reviews",
-      (a, b) => a.coach.nbReviews < b.coach.nbReviews)
+      (a, b) => a.coach.nbReviews > b.coach.nbReviews)
     case object Alphabetical extends Order("alphabetical", "Alphabetical",
       (a, b) => a.user.username < b.user.username)
 
