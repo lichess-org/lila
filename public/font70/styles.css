@@ -365,17 +365,11 @@
 .icon-bell-o:before {
   content: "\e00f";
 }
-.icon-crown-1:before {
-  content: "\e017";
-}
 .icon-disc:before {
   content: "\e010";
 }
 .icon-crown1-1:before {
   content: "\e019";
-}
-.icon-ribbon:before {
-  content: "\e018";
 }
 .icon-cogs:before {
   content: "\6e";
