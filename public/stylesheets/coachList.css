@@ -33,6 +33,9 @@ body.dark .coaches .coach {
   width: 100%;
   height: 100%;
 }
+.coaches .coach img {
+  flex: 0 0 250px;
+}
 .coaches .overview {
   margin: 20px 10px 0 20px;
 }
