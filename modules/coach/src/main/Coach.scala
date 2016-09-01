@@ -11,6 +11,7 @@ case class Coach(
     available: Coach.Available,
     profile: CoachProfile,
     picturePath: Option[Coach.PicturePath],
+    nbReviews: Int,
     createdAt: DateTime,
     updatedAt: DateTime) {
 
@@ -32,6 +33,7 @@ object Coach {
     available = Available(false),
     profile = CoachProfile(),
     picturePath = None,
+    nbReviews = 0,
     createdAt = DateTime.now,
     updatedAt = DateTime.now)
 

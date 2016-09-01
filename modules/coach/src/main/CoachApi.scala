@@ -56,6 +56,9 @@ final class CoachApi(
       upsert = true
     ).void >> cache.clear
 
+  def setNbReviews(id: Coach.Id, nb: Int): Funit =
+    coachColl.update($id(id), $set("nbReviews" -> nb)).void >> cache.clear
+
   private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
       case None => fuccess("No such coach")
@@ -79,7 +82,7 @@ final class CoachApi(
   object reviews {
 
     def add(me: User, coach: Coach, data: CoachReviewForm.Data): Fu[CoachReview] =
-      find(me, coach) flatMap { existing =>
+      find(me, coach).flatMap { existing =>
         val id = CoachReview.makeId(me, coach)
         val review = existing match {
           case None => CoachReview(
@@ -101,7 +104,7 @@ final class CoachApi(
           notifyApi.addNotification(Notification(
             notifies = Notification.Notifies(coach.id.value),
             content = lila.notify.CoachReview
-          )) inject review
+          )) >> refreshCoachNbReviews(coach.id) inject review
       }
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
@@ -111,9 +114,15 @@ final class CoachApi(
         $id(CoachReview.makeId(user, coach)) ++ $doc("approved" -> false)
       )
 
-    def approve(r: CoachReview, v: Boolean) =
+    def approve(r: CoachReview, v: Boolean) = {
       if (v) reviewColl.update($id(r.id), $set("approved" -> v)).void
       else reviewColl.remove($id(r.id)).void
+    } >> refreshCoachNbReviews(r.coachId)
+
+    private def refreshCoachNbReviews(id: Coach.Id): Funit =
+      reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {
+        setNbReviews(id, _)
+      }
 
     def find(user: User, coach: Coach): Fu[Option[CoachReview]] =
       reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
