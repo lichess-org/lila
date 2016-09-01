@@ -5,13 +5,15 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.AsyncCache
+import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
-    photographer: Photographer) {
+    photographer: Photographer,
+    notifyApi: NotifyApi) {
 
   import BsonHandlers._
 
@@ -95,7 +97,11 @@ final class CoachApi(
             approved = false,
             updatedAt = DateTime.now)
         }
-        reviewColl.update($id(id), review, upsert = true) inject review
+        reviewColl.update($id(id), review, upsert = true) >>
+          notifyApi.addNotification(Notification(
+            notifies = Notification.Notifies(coach.id.value),
+            content = lila.notify.CoachReview
+          )) inject review
       }
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)

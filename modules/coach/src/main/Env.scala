@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    notifyApi: lila.notify.NotifyApi,
     db: lila.db.Env) {
 
   private val CollectionCoach = config getString "collection.coach"
@@ -23,7 +24,8 @@ final class Env(
   lazy val api = new CoachApi(
     coachColl = coachColl,
     reviewColl = reviewColl,
-    photographer = photographer)
+    photographer = photographer,
+    notifyApi = notifyApi)
 
   def cli = new lila.common.Cli {
     def process = {
@@ -37,5 +39,6 @@ object Env {
 
   lazy val current: Env = "coach" boot new Env(
     config = lila.common.PlayApp loadConfig "coach",
+    notifyApi = lila.notify.Env.current.api,
     db = lila.db.Env.current)
 }

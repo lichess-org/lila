@@ -79,6 +79,7 @@ private object BSONHandlers {
         case x: PlanExpire               => PlanExpireHandler.write(x)
         case x: RatingRefund             => RatingRefundHandler.write(x)
         case ReportedBanned              => $empty
+        case CoachReview                 => $empty
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -113,6 +114,7 @@ private object BSONHandlers {
       case "planExpire"     => PlanExpireHandler read reader.doc
       case "ratingRefund"   => RatingRefundHandler read reader.doc
       case "reportedBanned" => ReportedBanned
+      case "coachReview"    => CoachReview
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

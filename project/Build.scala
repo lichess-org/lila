@@ -90,7 +90,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val coach = project("coach", Seq(
-    common, hub, db, user, security)).settings(
+    common, hub, db, user, security, notifyModule)).settings(
     libraryDependencies ++= provided(play.api, RM, scrimage)
   )
 
