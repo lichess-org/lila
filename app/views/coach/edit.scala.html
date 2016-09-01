@@ -64,7 +64,7 @@ moreJs = moreJs) {
     <div class="panels">
       <div class="panel basics active">
         <div>
-          @base.form.group(form("listed"), Html("Published in lichess coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) {
+          @base.form.group(form("listed"), Html("Publish on the coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) {
           @base.form.select(form("listed"), booleanChoices)
           }
           @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) {

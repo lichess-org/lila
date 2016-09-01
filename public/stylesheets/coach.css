@@ -16,6 +16,7 @@
 }
 .coach .top img {
   flex: 0 0 250px;
+  background: #888;
 }
 .coach .top .overview {
   padding: 15px 30px;
