@@ -52,7 +52,7 @@ case class Study(
       ownerId = owner.id,
       visibility = Study.Visibility.Private,
       from = Study.From.Study(id),
-      likes = Likes(0),
+      likes = Likes(1),
       createdAt = DateTime.now,
       updatedAt = DateTime.now)
   }
