@@ -14,7 +14,7 @@
   color: #fff!important;
   border-bottom: 1px dotted #fff;
 }
-.coach .top img {
+.coach .top img.picture {
   flex: 0 0 250px;
   background: #888;
 }

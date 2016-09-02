@@ -60,7 +60,7 @@ body.dark .coaches .coach {
   width: 100%;
   height: 100%;
 }
-.coaches .coach img {
+.coaches .coach img.picture {
   flex: 0 0 250px;
   background: #888;
 }
