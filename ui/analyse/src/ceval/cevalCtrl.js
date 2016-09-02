@@ -7,6 +7,7 @@ var sunsetterWorker = require('./sunsetterWorker');
 
 module.exports = function(possible, variant, emit) {
 
+  var instanceId = Math.random().toString(36).substring(2).slice(0, 4);
   var nbWorkers = 3;
   var minDepth = 7;
   var maxDepth = util.storedProp('ceval.max-depth', 18);
@@ -47,6 +48,7 @@ module.exports = function(possible, variant, emit) {
   })();
 
   var onEmit = function(res) {
+    res.instanceId = instanceId;
     res.eval.maxDepth = res.work.maxDepth;
     npsRecorder(res);
     curDepth = res.eval.depth;
@@ -111,6 +113,7 @@ module.exports = function(possible, variant, emit) {
   };
 
   return {
+    instanceId: instanceId,
     start: start,
     stop: stop,
     allowed: allowed,
