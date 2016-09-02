@@ -53,7 +53,7 @@ object Api extends LilaController {
     val nb = (getInt("nb") | 10) atLeast 1 atMost 50
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    UsersRateLimitPerIP(ip, cost = cost, msg = ip) {
+    UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip) {
         lila.mon.api.teamUsers.cost(cost)
         (get("team") ?? Env.team.api.team).flatMap {
@@ -88,7 +88,7 @@ object Api extends LilaController {
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    GamesRateLimitPerIP(ip, cost = cost, msg = ip) {
+    GamesRateLimitPerIP(ip, cost = cost) {
       GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
         GamesRateLimitGlobal("-", cost = cost, msg = ip) {
           lila.mon.api.userGames.cost(cost)
@@ -123,7 +123,7 @@ object Api extends LilaController {
   def game(id: String) = ApiRequest { implicit ctx =>
     val ip = HTTPRequest lastRemoteAddress ctx.req
     val key = s"$id:$ip"
-    GamesRateLimitPerIP(key, cost = 1, msg = key) {
+    GamesRateLimitPerIP(key, cost = 1) {
       lila.mon.api.game.cost(1)
       gameApi.one(
         id = id take lila.game.Game.gameIdSize,

@@ -33,8 +33,8 @@ object Search extends LilaController {
       Reasonable(page, 100) {
         val ip = HTTPRequest lastRemoteAddress ctx.req
         val cost = scala.math.sqrt(page).toInt
-        RateLimitPerIP(ip, cost = cost, msg = ip) {
-          RateLimitGlobal("-", cost = cost, msg = ip) {
+        RateLimitPerIP(ip, cost = cost) {
+          RateLimitGlobal("-", cost = cost) {
             Env.game.cached.nbTotal flatMap { nbGames =>
               implicit def req = ctx.body
               searchForm.bindFromRequest.fold(

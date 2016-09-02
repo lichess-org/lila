@@ -31,7 +31,7 @@ object ForumPost extends LilaController with ForumController {
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx =>
-    CreateRateLimit(ctx.req.remoteAddress) {
+    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {

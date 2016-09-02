@@ -23,7 +23,7 @@ object ForumTopic extends LilaController with ForumController {
   }
 
   def create(categSlug: String) = OpenBody { implicit ctx =>
-    CreateRateLimit(ctx.req.remoteAddress) {
+    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(CategRepo bySlug categSlug) { categ =>

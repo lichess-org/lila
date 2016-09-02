@@ -191,10 +191,9 @@ object Study extends LilaController {
 
   def cloneApply(id: String) = Auth { implicit ctx =>
     me =>
-      val ip = HTTPRequest lastRemoteAddress ctx.req
       implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-      CloneLimitPerUser(me.id, cost = 1, msg = me.id) {
-        CloneLimitPerIP(ip, cost = 1, msg = ip) {
+      CloneLimitPerUser(me.id, cost = 1) {
+        CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
           OptionFuResult(env.api.byId(id)) { prev =>
             CanViewResult(prev) {
               env.api.clone(me, prev) map { study =>

@@ -62,7 +62,7 @@ object Setup extends LilaController with TheftPrevention {
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      PostRateLimit(req.remoteAddress) {
+      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         env.forms.friend(ctx).bindFromRequest.fold(
           f => negotiate(
             html = Lobby.renderHome(Results.BadRequest),
@@ -127,7 +127,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    PostRateLimit(req.remoteAddress) {
+    PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       NoPlaybanOrCurrent {
         env.forms.hook(ctx).bindFromRequest.fold(
           err => negotiate(
@@ -143,7 +143,7 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def like(uid: String, gameId: String) = Open { implicit ctx =>
-    PostRateLimit(ctx.req.remoteAddress) {
+    PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       NoPlaybanOrCurrent {
         env.forms.hookConfig flatMap { config =>
           GameRepo game gameId map {
@@ -184,7 +184,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
-      PostRateLimit(ctx.req.remoteAddress) {
+      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
         form(ctx).bindFromRequest.fold(
           f => negotiate(
