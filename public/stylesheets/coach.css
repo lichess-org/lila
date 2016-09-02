@@ -34,15 +34,15 @@
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 0 20px 0!important;
 }
 .coach .top .headline.medium {
-  font-size: 16px;
+  font-size: 14px;
   padding-bottom: 15px!important;
 }
 .coach .top .headline.large {
-  font-size: 13px;
+  font-size: 13.5px;
   padding-bottom: 10px!important;
 }
 .coach .top table {
