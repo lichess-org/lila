@@ -77,7 +77,7 @@ object WMMatching {
     label(v) is 2 iff v is reachable from an S-vertex outside the blossom.
     Labels are assigned during a stage and reset after each augmentation.
     */
-    var label: Array[Int] = Array.fill(2 * nvertex)(0)
+    val label: Array[Int] = Array.fill(2 * nvertex)(0)
     /*
     If b is a labeled top-level blossom,
     labelend(b) is the remote endpoint of the edge through which b obtained
@@ -130,7 +130,7 @@ object WMMatching {
     or -1 if there is no such edge.
     This is used for efficient computation of delta2 and delta3.
     */
-    var bestedge: Array[Int] = Array.fill(2 * nvertex)(-1)
+    val bestedge: Array[Int] = Array.fill(2 * nvertex)(-1)
 
     // If b is a non-trivial top-level S-blossom,
     // blossombestedges(b) is a list of least-slack edges to neighbouring
