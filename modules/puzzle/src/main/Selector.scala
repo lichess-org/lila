@@ -9,7 +9,8 @@ import lila.user.User
 private[puzzle] final class Selector(
     puzzleColl: Coll,
     api: PuzzleApi,
-    anonMinRating: Int) {
+    anonMinRating: Int,
+    puzzleIdMin: Int) {
 
   private def popularSelector(mate: Boolean) = $doc(
     Puzzle.BSONFields.voteSum $gt mate.fold(anonMinRating, 0))
@@ -66,7 +67,7 @@ private[puzzle] final class Selector(
     (api.head.find(user) zip api.puzzle.lastId) flatMap {
       case (opHead, maxId) => tryRange(rating, step, step, difficultyDecay(difficulty), opHead match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
-          case _ => 0
+          case _ => puzzleIdMin
         }, 200, 100, isMate)
     }
   }
@@ -80,7 +81,7 @@ private[puzzle] final class Selector(
         (rating - tolerance + decay) $lt
         (rating + tolerance + decay),
       Puzzle.BSONFields.voteSum $gt -10
-    ), $doc("$sample" -> 1)).uno[Puzzle] flatMap {
+    )).uno[Puzzle] flatMap {
         case None if (tolerance + step) <= toleranceMax =>
           tryRange(rating, tolerance + step, step, decay, last, idRange + idStep, idStep, isMate)
         case res => fuccess(res)

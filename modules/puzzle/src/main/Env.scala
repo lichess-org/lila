@@ -41,7 +41,8 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    anonMinRating = config getInt "selector.anon_min_rating")
+    anonMinRating = config getInt "selector.anon_min_rating",
+    puzzleIdMin = config getInt "selector.puzzle_id_min")
 
   lazy val userInfos = UserInfos(roundColl = roundColl)
 
