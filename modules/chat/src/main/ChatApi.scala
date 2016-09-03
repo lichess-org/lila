@@ -25,6 +25,9 @@ final class ChatApi(
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
 
+    def findAll(chatIds : List[ChatId]) : Fu[List[UserChat]] =
+        coll.byOrderedIds[UserChat](chatIds)(_.id)
+
     def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
       (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) map {
         UserChat.Mine(chat forUser me.some, _)

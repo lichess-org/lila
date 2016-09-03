@@ -1,0 +1,37 @@
+@(tourChats : List[(Lila.tournament.Tournament, Lila.chat.Chat)])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("mod-communication.css")
+}
+
+
+@base.layout(
+title = "Public communications",
+moreCss = moreCss,
+side = side.some) {
+
+<div id="communication" class="content_box">
+<h2>Public Chats</h2>
+<div class="player_chats">
+    @tourChats.map {
+    case (tournament, chat) => {
+    <div class="game">
+        <a class="title" href="@routes.Tournament(tournament.id)">
+            @tournament.name
+        </a>
+        <div class="chat">
+            @chat.lines.map { line =>
+            <div class="line">
+                @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+                @line.text
+            </div>
+            }
+        </div>
+    </div>
+    }
+    }
+</div>
+</div>
+
+
+}

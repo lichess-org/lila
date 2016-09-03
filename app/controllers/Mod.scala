@@ -11,6 +11,8 @@ import play.api.mvc.Results._
 
 import lila.evaluation.{ PlayerAssessment }
 
+import lila.tournament.TournamentRepo
+
 import chess.Color
 
 object Mod extends LilaController {
@@ -18,9 +20,26 @@ object Mod extends LilaController {
   private def modApi = Env.mod.api
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
+  private def chatApi = Env.chat.chatApi
 
   def engine(username: String) = Secure(_.MarkEngine) { _ =>
     me => modApi.toggleEngine(me.id, username) inject redirect(username)
+  }
+
+  def publicChat = Secure(_.ChatTimeout) { _ =>
+    tournamentRepo.publicStarted.flatMap {
+        tournamentList =>
+            val ids = tournamentList.map(_.id)
+            val tournamentNames = tournamentList.map(_.name)
+
+            chatApi.findAll(ids).map {
+                chats =>
+                    // TODO: Is this safe to do? is the ordering garaunteed?
+                    val tournamentsAndChats = tournamentList.zip(chats)
+
+                    Ok (html.mod.publicChats(tournamentsAndChats))
+            }
+    }
   }
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
