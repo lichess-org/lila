@@ -7,7 +7,15 @@
 
 @moreJs = {
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
-@jsTag("coach.js")
+@if(ctx.isAuth) {
+$(function() {
+$(".bar-rating").barrating();
+$('.review-form .toggle').click(function() {
+$(this).remove();
+$('.review-form form').slideDown(500);
+});
+});
+}
 }
 
 @side = {
