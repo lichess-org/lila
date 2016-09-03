@@ -77,7 +77,7 @@ module.exports = function(send, ctrl) {
         ctrl.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
+        ctrl.chessground.data.turnColor !== ctrl.chessground.data.movable.color) {
         ctrl.setRedirecting(true);
         sound.move();
         lichess.hasToReload = true;
