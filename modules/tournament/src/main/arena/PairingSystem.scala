@@ -52,7 +52,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (data.tour.isRecentlyStarted) naivePairings(tour, idles)
       else idles.grouped(pairingGroupSize).toList match {
-        case a :: b :: _ => smartPairings(data, a) ::: smartPairings(data, c take pairingGroupSize)
+        case a :: b :: _ => smartPairings(data, a) ::: smartPairings(data, b take pairingGroupSize)
         case a :: Nil    => smartPairings(data, a)
         case Nil         => Nil
       }
