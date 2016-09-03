@@ -63,12 +63,12 @@ final class CoachApi(
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update($id(id), $set("nbReviews" -> nb)).void >> cache.clear
 
-  private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
+  private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
       case None => fuccess("No such coach")
       case Some(c) => coachColl.update(
         $id(c.coach.id),
-        $set("enabledByMod" -> value)
+        $set("approved" -> value)
       ) >> cache.clear inject "Done!"
     }
 
