@@ -258,7 +258,7 @@ object mon {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
     }
-    object attempt {
+    object round {
       val user = inc("puzzle.attempt.user")
       val anon = inc("puzzle.attempt.anon")
       val mate = inc("puzzle.attempt.mate")

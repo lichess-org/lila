@@ -13,7 +13,10 @@ final class Env(
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
-    val CollectionAttempt = config getString "collection.attempt"
+    val CollectionRound = config getString "collection.round"
+    val CollectionLearning = config getString "collection.learning"
+    val CollectionVote = config getString "collection.vote"
+    val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
     val PngExecPath = config getString "png.exec_path"
   }
@@ -25,7 +28,10 @@ final class Env(
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
-    attemptColl = attemptColl,
+    roundColl = roundColl,
+    learningColl = learningColl,
+    voteColl = voteColl,
+    headColl = headColl,
     apiToken = ApiToken)
 
   lazy val finisher = new Finisher(
@@ -36,9 +42,9 @@ final class Env(
     puzzleColl = puzzleColl,
     api = api,
     anonMinRating = config getInt "selector.anon_min_rating",
-    maxAttempts = config getInt "selector.max_attempts")
+    puzzleIdMin = config getInt "selector.puzzle_id_min")
 
-  lazy val userInfos = UserInfos(attemptColl = attemptColl)
+  lazy val userInfos = UserInfos(roundColl = roundColl)
 
   lazy val forms = DataForm
 
@@ -62,7 +68,10 @@ final class Env(
   }
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val attemptColl = db(CollectionAttempt)
+  private[puzzle] lazy val roundColl = db(CollectionRound)
+  private[puzzle] lazy val learningColl = db(CollectionLearning)
+  private[puzzle] lazy val voteColl = db(CollectionVote)
+  private[puzzle] lazy val headColl = db(CollectionHead)
 }
 
 object Env {

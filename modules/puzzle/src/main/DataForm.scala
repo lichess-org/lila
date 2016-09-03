@@ -9,12 +9,12 @@ object DataForm {
     "difficulty" -> number(min = 1, max = 3)
   ))
 
-  val attempt = Form(mapping(
+  val round = Form(mapping(
     "win" -> number,
     "time" -> number
-  )(AttemptData.apply)(AttemptData.unapply))
+  )(RoundData.apply)(RoundData.unapply))
 
-  case class AttemptData(
+  case class RoundData(
       win: Int,
       time: Int) {
 

@@ -17,16 +17,8 @@
             </td>
             <td>
               <a class="user_link" href="@routes.Puzzle.show(attempt.puzzleId)">
-                @trans.puzzleId(attempt.puzzleId) (@attempt.puzzleRating) @showRatingDiff(attempt.puzzleRatingDiff)
+                @trans.puzzleId(attempt.puzzleId)
               </a>
-            </td>
-            <td>
-              @showMillis(attempt.time) s
-            </td>
-            <td>
-              @attempt.vote.map { v =>
-              <span class="vote" data-icon="@v.fold("S", "R")"></span>
-              }
             </td>
           </tr>
           }

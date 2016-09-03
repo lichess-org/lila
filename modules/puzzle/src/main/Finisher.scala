@@ -13,29 +13,24 @@ private[puzzle] final class Finisher(
 
   private val maxTime = 5 * 60 * 1000
 
-  def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[(Attempt, Option[Boolean])] =
-    api.attempt.find(puzzle.id, user.id) flatMap {
-      case Some(a) => fuccess(a -> data.isWin.some)
-      case None =>
+  def apply(puzzle: Puzzle, user: User, data: DataForm.RoundData): Fu[(Round, Option[Boolean])] =
+    api.head.find(user) flatMap {
+      case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
+        api.head.solved(user, puzzle.id)
         val userRating = user.perfs.puzzle.toRating
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
         val date = DateTime.now
         val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
         val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
-        val a = new Attempt(
-          id = Attempt.makeId(puzzle.id, user.id),
+        val a = new Round(
           puzzleId = puzzle.id,
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          time = math.min(data.time, maxTime),
-          vote = none,
-          puzzleRating = puzzle.perf.intRating,
-          puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
-        ((api.attempt add a) >> {
+        (api.learning.update(user, puzzle, data) >> (api.round add a) >> {
           puzzleColl.update(
             $id(puzzle.id),
             $inc(
@@ -45,6 +40,15 @@ private[puzzle] final class Finisher(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
             )) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
+      case _ => 
+        val a = new Round(
+          puzzleId = puzzle.id,
+          userId = user.id,
+          date = DateTime.now,
+          win = data.isWin,
+          userRating = user.perfs.puzzle.intRating,
+          userRatingDiff = 0)
+          fuccess(a -> data.isWin.some)
     }
 
   private val VOLATILITY = Glicko.default.volatility

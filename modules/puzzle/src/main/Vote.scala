@@ -1,29 +1,25 @@
 package lila.puzzle
 
-case class Vote(up: Int, down: Int, sum: Int) {
+import org.joda.time.DateTime
 
-  def add(v: Boolean) = copy(
-    up = up + v.fold(1, 0),
-    down = down + v.fold(0, 1)
-  ).computeSum
+case class Vote(
+    _id: String, // userId/puzzleId
+    vote: Boolean) {
 
-  def change(from: Boolean, to: Boolean) = if (from == to) this else copy(
-    up = up + to.fold(1, -1),
-    down = down + to.fold(-1, 1)
-  ).computeSum
-
-  def count = up + down
-
-  def percent = 50 + (sum.toDouble / count * 50).toInt
-
-  def computeSum = copy(sum = up - down)
+  def id = _id
 }
 
 object Vote {
 
-  val default = Vote(0, 0, 0)
-  val disable = Vote(0, 9000, 0).computeSum
+  def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
 
-  import reactivemongo.bson.Macros
+  object BSONFields {
+    val id = "_id"
+    val vote = "v"
+  }
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+  
   implicit val voteBSONHandler = Macros.handler[Vote]
 }

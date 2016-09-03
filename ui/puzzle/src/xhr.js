@@ -14,11 +14,11 @@ function uncache(url) {
   return url + '?_=' + new Date().getTime();
 }
 
-function attempt(ctrl, win) {
+function round(ctrl, win) {
   showLoading(ctrl);
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.attempt(ctrl.data.puzzle.id).url,
+    url: ctrl.router.Puzzle.round(ctrl.data.puzzle.id).url,
     data: {
       win: win ? 1 : 0,
       time: new Date().getTime() - (ctrl.data.startedAt || new Date()).getTime()
@@ -39,7 +39,7 @@ function vote(ctrl, v) {
     },
     config: xhrConfig
   }).then(function(res) {
-    ctrl.data.attempt.vote = res[0];
+    ctrl.data.round.vote = res[0];
     ctrl.data.puzzle.vote = res[1];
   });
 }
@@ -82,7 +82,7 @@ function newPuzzle(ctrl) {
 }
 
 module.exports = {
-  attempt: attempt,
+  round: round,
   vote: vote,
   retry: retry,
   setDifficulty: setDifficulty,
