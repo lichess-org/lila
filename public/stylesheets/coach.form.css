@@ -4,9 +4,9 @@
 }
 .coach_edit .top h1 {
   margin: 0;
-  padding: 20px 0!important;
+  padding: 0!important;
   font-family: 'Roboto';
-  font-size: 36px;
+  font-size: 34px;
   text-transform: uppercase;
   letter-spacing: 4px;
 }
@@ -23,6 +23,20 @@
 .coach_edit .top .upload_picture {
   text-align: center;
   margin-top: 80px;
+}
+
+.coach_edit .overview .todo,
+.coach_edit .overview.with_todo .analytics {
+  display: none;
+}
+.coach_edit .overview.with_todo .todo {
+  display: block;
+}
+.coach_edit .overview .todo h3 {
+  margin: 0;
+}
+.coach_edit .overview .todo li {
+  list-style: disc inside;
 }
 
 .coach_edit .top a {

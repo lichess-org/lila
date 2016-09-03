@@ -19,6 +19,10 @@
 @jsTag("coach.form.js")
 }
 
+@side = {
+<a href="@routes.Coach.show(c.user.username)" class="button text" data-icon="v">Preview coach page</a>
+}
+
 @layout(title = s"${c.user.titleUsername} coach page",
 moreCss = moreCss,
 moreJs = moreJs) {
@@ -39,17 +43,13 @@ moreJs = moreJs) {
       <h1>
         @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
       </h1>
-      <p><a href="@routes.Coach.show(c.user.username)" class="text" data-icon="v">Preview coach page</a></p>
-      @if(!c.user.profileOrDefault.isComplete) {
-      <p>
-        <a href="@routes.Account.profile" target="_blank" class="text" data-icon="m">
-          <strong>IMPORTANT!</strong> Complete your public lichess profile.
-        </a>
-      </p>
-      }
-      <p>
+      <div class="todo" data-profile="c.user.profileOrDefault.isComplete">
+        <h3>TODO list before publishing your coach profile</h3>
+        <ul></ul>
+      </div>
+      <div class="analytics">
         Soon here: Coach page analytics
-      </p>
+      </div>
     </div>
   </div>
   <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
