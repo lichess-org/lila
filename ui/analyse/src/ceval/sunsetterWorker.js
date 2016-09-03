@@ -30,7 +30,7 @@ module.exports = function(opts, name) {
     if (text.indexOf('move ') == 0) {
       aiMoves++;
       best = text.split(' ')[1];
-      send('analyze');
+      if (!stopping) send('analyze');
       return;
     }
 
@@ -49,7 +49,7 @@ module.exports = function(opts, name) {
       if (matches) {
         cp = parseInt(matches[2], 10);
         if (!aiMoves) best = matches[1];
-        send('analyze');
+        if (!stopping) send('analyze');
       } else {
         return;
       }
