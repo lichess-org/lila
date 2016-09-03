@@ -2,6 +2,7 @@ package controllers
 
 import scala.concurrent.duration._
 
+import lila.common.HTTPRequest
 import lila.app._
 import lila.forum.CategRepo
 import views._
