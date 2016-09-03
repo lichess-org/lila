@@ -8,7 +8,9 @@ module.exports = function(opts, name) {
 
   // Sunsetter always plays only moves right away. Count the number of played
   // moves to show the correct mate in #n.
-  var onlyMoves = 0;
+  // When aiMoves is >0, sunsetter is in analysis mode, which uses an absolute
+  // eval score instead of relative to current color :-\.
+  var aiMoves = 0;
   var best;
 
   var send = function(text) {
@@ -19,14 +21,14 @@ module.exports = function(opts, name) {
     if (text === 'tellics stopped') {
       busy = false;
       stopping = false;
-      onlyMoves = 0;
+      aiMoves = 0;
       best = undefined;
       return;
     }
     if (stopping) return;
 
     if (text.indexOf('move ') == 0) {
-      onlyMoves++;
+      aiMoves++;
       best = text.split(' ')[1];
       send('analyze');
       return;
@@ -38,46 +40,45 @@ module.exports = function(opts, name) {
     if (matches) {
       depth = parseInt(matches[1], 10);
       cp = parseInt(matches[2], 10);
-      if (!onlyMoves) best = matches[5];
+      if (!aiMoves) {
+        best = matches[5];
+        if (depth < opts.minDepth) return;
+      }
     } else {
       matches = text.match(/Found move:\s+([a-h1-8=@PNBRQK]+)\s+([-+]?\d+)\s.*/);
       if (matches) {
-        depth = work.maxDepth;
         cp = parseInt(matches[2], 10);
-        if (!onlyMoves) best = matches[1];
-        stopping = true;
-        send('force');
-        send('tellics stopped');
+        if (!aiMoves) best = matches[1];
+        send('analyze');
       } else {
         return;
       }
     }
 
-    if (!onlyMoves && depth < opts.minDepth) return;
-
-    if (work.ply % 2 == 1) {
-      if (cp) cp = -cp;
-      if (mate) mate = -mate;
+    if (cp && !aiMoves && work.ply % 2) {
+      cp = -cp;
     }
 
     // transform mate scores
-    if (cp > 20000) {
-      mate = Math.floor((30000 - cp) / 10);
-      cp = undefined;
-    } else if (cp < -20000) {
-      mate = Math.floor((-30000 - cp) / 10);
+    if (Math.abs(cp) > 20000) {
+      mate = Math.floor((30000 - Math.abs(cp)) / 10);
+      // approx depth for searches that end early with mate.
+      depth = Math.max(depth || 0, mate * 2 - 1);
+      // correct sign and add sunsetter played moves
+      mate = Math.sign(cp) * (mate + aiMoves)
       cp = undefined;
     }
 
     if (mate) {
-      if (mate > 0) mate += onlyMoves;
-      else mate -= onlyMoves;
+      stopping = true
+      send('force');
+      send('tellics stopped');
     }
 
     work.emit({
       work: work,
       eval: {
-        depth: depth,
+        depth: depth + aiMoves,
         cp: cp,
         mate: mate,
         best: best
@@ -91,7 +92,7 @@ module.exports = function(opts, name) {
     instance = new Worker('/assets/vendor/Sunsetter/sunsetter.js');
     busy = false;
     stopping = false;
-    onlyMoves = 0;
+    aiMoves = 0;
     send('xboard');
   };
 
@@ -107,7 +108,6 @@ module.exports = function(opts, name) {
       for (var i = 0; i < work.moves.length; i++) {
         send(work.moves[i]);
       }
-      send('analyze');
       send('go');
       instance.onmessage = function(msg) {
         processOutput(msg.data, work);
@@ -116,7 +116,7 @@ module.exports = function(opts, name) {
     stop: function() {
       if (!busy) return;
       stopping = true;
-      onlyMoves = 0;
+      aiMoves = 0;
       best = undefined;
       send('exit');
       send('tellics stopped');
