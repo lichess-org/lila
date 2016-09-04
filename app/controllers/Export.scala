@@ -84,17 +84,19 @@ object Export extends LilaController {
   }
 
   def visualizer(id: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game id) { game =>
-      gameToPgn(game, asImported = true, asRaw = true) map { pgn =>
-        lila.mon.export.visualizer()
-        Redirect {
-          import lila.api.Env.current.Net._
-          val base = s"$Protocol$AssetDomain/assets"
-          val encoded = java.net.URLEncoder.encode(pgn.toString, "UTF-8")
-          s"$base/visualizer/index_lichess.html?pgn=$encoded"
+    OnlyHumans {
+      OptionFuResult(GameRepo game id) { game =>
+        gameToPgn(game, asImported = true, asRaw = true) map { pgn =>
+          lila.mon.export.visualizer()
+          Redirect {
+            import lila.api.Env.current.Net._
+            val base = s"$Protocol$AssetDomain/assets"
+            val encoded = java.net.URLEncoder.encode(pgn.toString, "UTF-8")
+            s"$base/visualizer/index_lichess.html?pgn=$encoded"
+          }
+        } recoverWith {
+          case _: Exception => notFound
         }
-      } recoverWith {
-        case _: Exception => notFound
       }
     }
   }
