@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 
 import chess.format.{ FEN, Forsyth }
 
-import lila.game.{ Game, GameRepo, UciMemo }
 import lila.analyse.AnalysisRepo
+import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Analyser(
     repo: FishnetRepo,
@@ -17,8 +17,9 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     AnalysisRepo exists game.id flatMap {
-      case true => fuccess(false)
-      case false =>
+      case true                       => fuccess(false)
+      case _ if Game.isOldHorde(game) => fuccess(false)
+      case _ =>
         limiter(sender) flatMap { accepted =>
           accepted ?? {
             makeWork(game, sender) flatMap { work =>
