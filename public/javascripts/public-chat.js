@@ -30,6 +30,7 @@ $(function() {
             a.id="auto_refresh";
             var linkText = document.createTextNode(disableAutoRefreshText);
             a.appendChild(linkText);
+            a.classList.add('button');
 
             a.onclick = function() {
 
