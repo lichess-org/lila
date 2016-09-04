@@ -1,19 +1,56 @@
 $(function() {
 
-      console.log("I'm running");
+    var onPageReload = function () {
 
-      var reloadTimer = null;
+        var reloadTimer = null;
 
-      var startAutoRefresh = function() {
-          reloadTimer = setTimeout(function() {
-                $("#communication").load("@routes.Mod.publicChats"#
-                    public_communication "
-    }, 3000);
+        var autoRefreshEnabled = true;
+
+        var startAutoRefresh = function() {
+            reloadTimer = setTimeout(function() {
+                    // Reload only the chat grid portions of the page
+                    $("#lichess").load("/mod/public-chat #communication", function() {
+                        onPageReload();
+                    });
+
+            }, 3000);
+        };
+
+        var stopAutoRefresh = function () {
+            if (reloadTimer) {
+                clearTimeout(reloadTimer);
+            }
+        };
+
+        var addAutoRefreshLink = function () {
+            var enableAutoRefreshText = "Enable auto refresh";
+            var disableAutoRefreshText = "Disable auto refresh";
+
+            var a = document.createElement('a');
+            a.id="auto_refresh";
+            var linkText = document.createTextNode(disableAutoRefreshText);
+            a.appendChild(linkText);
+
+            a.onclick = function() {
+
+                if (autoRefreshEnabled) {
+                    stopAutoRefresh();
+                    $("#auto_refresh").text(enableAutoRefreshText);
+                }
+                else {
+                    startAutoRefresh();
+                    $("#auto_refresh").text(disableAutoRefreshText);
+                }
+
+                autoRefreshEnabled = !autoRefreshEnabled;
+            };
+
+            startAutoRefresh();
+            $("#communication").append(a);
+        };
+
+        addAutoRefreshLink();
     };
 
-    var stopAutoRefresh = function () {
-    if (reloadTimer) {
-    clearTimeout(reloadTimer);
-    }
-    };
+    onPageReload();
 });
