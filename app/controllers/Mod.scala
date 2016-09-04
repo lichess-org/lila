@@ -32,7 +32,7 @@ object Mod extends LilaController {
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx =>
     _ =>
-        tourApi.fetchVisibleTournaments.flatMap {
+        val tourChats = tourApi.fetchVisibleTournaments.flatMap {
             visibleTournaments =>
                 val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
 
@@ -40,9 +40,24 @@ object Mod extends LilaController {
 
                 chatApi.userChat.findAll(ids).map {
                     chats =>
-                        val tournamentsAndChats = tournamentList.zip(chats)
-                        Ok (html.mod.publicChat(tournamentsAndChats))
+                        tournamentList.zip(chats)
+                        // Ok (html.mod.publicChat(tournamentsAndChats))
                 }
+        }
+
+        val simulChats = fetchVisibleSimuls.flatMap {
+            simuls =>
+                var ids = simuls.map(_.id)
+
+                chatApi.userChat.findAll(ids).map {
+                    chats =>
+                        simuls.zip(chats)
+                }
+        }
+
+        tourChats zip simulChats map {
+            case (tournamentsAndChats, simulsAndChats) =>
+                Ok (html.mod.publicChat(tournamentsAndChats, simulsAndChats))
         }
   }
 

@@ -1,4 +1,5 @@
-@(tourChats : List[(lila.tournament.Tournament, lila.chat.UserChat)])(implicit ctx: Context)
+@(tourChats : List[(lila.tournament.Tournament, lila.chat.UserChat)],
+  simulChats: List[(lila.simul.Simul, lila.chat.UserChat)])(implicit ctx: Context)
 
 @moreJs= {
 
@@ -11,7 +12,7 @@ moreCss = cssTag("mod-communication.css"),
 moreJs = moreJs)  {
 
 <div id="communication" class="content_box">
-<h2>Public Chats</h2>
+<h2>Tournament Chats</h2>
 <div class="player_chats">
     @tourChats.map {
     case (tournament, chat) => {
@@ -31,6 +32,28 @@ moreJs = moreJs)  {
     }
     }
 </div>
+<div>
+    <h2>Simul Chats</h2>
+    @simulChats.map {
+    case (simul, chat) => {
+    <div class="game">
+        <a class="title" href="@routes.Simul.show(simul.id)">
+            @simul.name
+        </a>
+        <div class="chat">
+            @chat.lines.filter(_.isVisible).map { line =>
+            <div class="line">
+                @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+                @line.text
+            </div>
+            }
+        </div>
+    </div>
+    }
+    }
+</div>
+</div>
+
 </div>
 
 
