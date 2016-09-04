@@ -88,3 +88,13 @@ body.dark #communication .player_chats .game .title {
 #powaaa select option {
   padding: 5px 10px;
 }
+
+/* for public-chat */
+#communication {
+  position: relative;
+}
+#auto_refresh {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
