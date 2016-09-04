@@ -20,11 +20,18 @@ final class Env(
   private val ApplePushCertPath = config getString "apple.cert"
   private val ApplePushPassword = config getString "apple.password"
   private val ApplePushEnabled = config getBoolean "apple.enabled"
+  private val OneSignalUrl = config getString "onesignal.url"
+  private val OneSignalKey = config getString "onesignal.key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
   def registerDevice = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
+
+  private lazy val oneSignalPush = new OneSignalPush(
+    deviceApi.findLastByUserId("onesignal") _,
+    url = OneSignalUrl,
+    key = OneSignalKey)
 
   private lazy val googlePush = new GooglePush(
     deviceApi.findLastByUserId("android") _,
@@ -41,6 +48,7 @@ final class Env(
   private lazy val pushApi = new PushApi(
     googlePush,
     applePush,
+    oneSignalPush,
     getLightUser,
     roundSocketHub)
 

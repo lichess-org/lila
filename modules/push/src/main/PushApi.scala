@@ -15,6 +15,7 @@ import play.api.libs.json._
 private final class PushApi(
     googlePush: GooglePush,
     applePush: ApplePush,
+    oneSignalPush: OneSignalPush,
     implicit val lightUser: String => Option[LightUser],
     roundSocketHub: ActorSelection) {
 
@@ -103,6 +104,10 @@ private final class PushApi(
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
   private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data) = {
+    oneSignalPush(userId) {
+      monitor(lila.mon.push.send)("onesignal")
+      data
+    }
     googlePush(userId) {
       monitor(lila.mon.push.send)("android")
       data
