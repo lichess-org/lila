@@ -17,6 +17,7 @@ final class Env(
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
   private val OneSignalUrl = config getString "onesignal.url"
+  private val OneSignalAppId = config getString "onesignal.app_id"
   private val OneSignalKey = config getString "onesignal.key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
@@ -27,6 +28,7 @@ final class Env(
   private lazy val oneSignalPush = new OneSignalPush(
     deviceApi.findLastByUserId("onesignal") _,
     url = OneSignalUrl,
+    appId = OneSignalAppId,
     key = OneSignalKey)
 
   private lazy val googlePush = new GooglePush(
