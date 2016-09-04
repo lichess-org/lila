@@ -11,36 +11,34 @@ final class Env(
     db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
     roundSocketHub: ActorSelection,
-    appleCertificate: String => InputStream,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
-  private val ApplePushCertPath = config getString "apple.cert"
-  private val ApplePushPassword = config getString "apple.password"
-  private val ApplePushEnabled = config getBoolean "apple.enabled"
+  private val OneSignalUrl = config getString "onesignal.url"
+  private val OneSignalAppId = config getString "onesignal.app_id"
+  private val OneSignalKey = config getString "onesignal.key"
 
   private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
 
   def registerDevice = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
 
+  private lazy val oneSignalPush = new OneSignalPush(
+    deviceApi.findLastByUserId("onesignal") _,
+    url = OneSignalUrl,
+    appId = OneSignalAppId,
+    key = OneSignalKey)
+
   private lazy val googlePush = new GooglePush(
     deviceApi.findLastByUserId("android") _,
     url = GooglePushUrl,
     key = GooglePushKey)
 
-  private lazy val applePush = new ApplePush(
-    deviceApi.findLastByUserId("ios") _,
-    system = system,
-    certificate = appleCertificate(ApplePushCertPath),
-    password = ApplePushPassword,
-    enabled = ApplePushEnabled)
-
   private lazy val pushApi = new PushApi(
     googlePush,
-    applePush,
+    oneSignalPush,
     getLightUser,
     roundSocketHub)
 
@@ -62,8 +60,5 @@ object Env {
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
     roundSocketHub = lila.hub.Env.current.socket.round,
-    appleCertificate = path => lila.common.PlayApp.withApp {
-      _.classloader.getResourceAsStream(path)
-    },
     config = lila.common.PlayApp loadConfig "push")
 }

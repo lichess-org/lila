@@ -14,7 +14,7 @@ import play.api.libs.json._
 
 private final class PushApi(
     googlePush: GooglePush,
-    applePush: ApplePush,
+    oneSignalPush: OneSignalPush,
     implicit val lightUser: String => Option[LightUser],
     roundSocketHub: ActorSelection) {
 
@@ -103,12 +103,12 @@ private final class PushApi(
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
   private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data) = {
-    googlePush(userId) {
-      monitor(lila.mon.push.send)("android")
+    oneSignalPush(userId) {
+      monitor(lila.mon.push.send)("onesignal")
       data
     }
-    applePush(userId) {
-      monitor(lila.mon.push.send)("ios")
+    googlePush(userId) {
+      monitor(lila.mon.push.send)("android")
       data
     }
   }
@@ -127,11 +127,12 @@ private final class PushApi(
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    import makeTimeout.short
-    roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
-      case true  => funit
-      case false => f
-    }
+    f
+    // import makeTimeout.short
+    // roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
+    //   case true  => funit
+    //   case false => f
+    // }
   }
 
   private def opponentName(pov: Pov) = Namer playerString pov.opponent

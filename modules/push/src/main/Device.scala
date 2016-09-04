@@ -3,7 +3,7 @@ package lila.push
 import org.joda.time.DateTime
 
 private final case class Device(
-    _id: String, // google device ID or Apple token
+    _id: String, // google device ID or Apple token or OneSignal playerId
     platform: String, // cordova platform (android, ios)
     userId: String,
     seenAt: DateTime) {
