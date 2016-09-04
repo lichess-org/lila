@@ -40,3 +40,6 @@
 [submodule "public/vendor/bar-rating"]
 	path = public/vendor/bar-rating
 	url = https://github.com/antennaio/jquery-bar-rating
+[submodule "public/visualizer"]
+	path = public/visualizer
+	url = https://github.com/ornicar/chess_game_visualizer

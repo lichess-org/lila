@@ -64,17 +64,19 @@ atom = atom.some) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
         }
         /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
+        <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
+        /
+        <a data-icon="x" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
       </p>
       <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
     </div>
