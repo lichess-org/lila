@@ -1,27 +1,11 @@
 @(tourChats : List[(lila.tournament.Tournament, lila.chat.UserChat)],
   simulChats: List[(lila.simul.Simul, lila.chat.UserChat)])(implicit ctx: Context)
 
-@moreJs= {
-    var reloadTimer = null;
-
-    var startAutoRefresh = function () {
-    reloadTimer = setTimeout(function() {
-    $("#communication").load("@routes.Mod.publicChats" #public_communication"
-    }, 3000);
-    };
-
-    var stopAutoRefresh = function () {
-    if (reloadTimer) {
-    clearTimeout(reloadTimer);
-    }
-    };
-}
-
 @mod.layout(
 title = "Public Chats",
 active = "public-chat",
 moreCss = cssTag("mod-communication.css"),
-moreJs = moreJs)  {
+moreJs = jsTag("public-chat.js"))  {
 
 <div id="communication" class="content_box">
 <h2>Tournament Chats</h2>
