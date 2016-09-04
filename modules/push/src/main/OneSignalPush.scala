@@ -5,14 +5,15 @@ import play.api.libs.ws.WS
 import play.api.Play.current
 
 private final class OneSignalPush(
-    getDevice: String => Fu[Option[Device]],
+    getDevices: String => Fu[List[Device]],
     url: String,
     appId: String,
     key: String) {
 
   def apply(userId: String)(data: => PushApi.Data): Funit =
-    getDevice(userId.pp).thenPp("device found") flatMap {
-      _ ?? { device =>
+    getDevices(userId.pp).thenPp("device found") flatMap {
+      case Nil => funit
+      case devices =>
         WS.url(url)
           .withHeaders(
             "Authorization" -> s"key=$key",
@@ -20,7 +21,7 @@ private final class OneSignalPush(
             "Content-type" -> "application/json")
           .post(Json.obj(
             "app_id" -> appId,
-            "include_player_ids" -> List(device.deviceId),
+            "include_player_ids" -> devices.map(_.deviceId),
             "headings" -> Map("en" -> data.title),
             "contents" -> Map("en" -> data.body),
             "data" -> data.payload
@@ -29,11 +30,10 @@ private final class OneSignalPush(
               (res.json \ "errors").asOpt[List[String]] match {
                 case Some(errors) =>
                   println(errors mkString ",")
-                  fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
+                  fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
                 case None => funit
               }
-            case res => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
+            case res => fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
           }.thenPp
-      }
     }
 }

@@ -26,13 +26,13 @@ final class Env(
   def unregisterDevices = deviceApi.unregister _
 
   private lazy val oneSignalPush = new OneSignalPush(
-    deviceApi.findLastByUserId("onesignal") _,
+    deviceApi.findLastManyByUserId("onesignal", 3) _,
     url = OneSignalUrl,
     appId = OneSignalAppId,
     key = OneSignalKey)
 
   private lazy val googlePush = new GooglePush(
-    deviceApi.findLastByUserId("android") _,
+    deviceApi.findLastOneByUserId("android") _,
     url = GooglePushUrl,
     key = GooglePushKey)
 
