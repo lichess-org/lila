@@ -11,11 +11,6 @@ import play.api.mvc.Results._
 
 import lila.evaluation.{ PlayerAssessment }
 
-import lila.simul.{Simul => SimulModel}
-
-import lila.tournament.TournamentRepo
-import lila.tournament.{ Tournament => TournamentModel}
-
 import chess.Color
 
 object Mod extends LilaController {
