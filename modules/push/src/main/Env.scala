@@ -11,15 +11,11 @@ final class Env(
     db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
     roundSocketHub: ActorSelection,
-    appleCertificate: String => InputStream,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
   private val GooglePushKey = config getString "google.key"
-  private val ApplePushCertPath = config getString "apple.cert"
-  private val ApplePushPassword = config getString "apple.password"
-  private val ApplePushEnabled = config getBoolean "apple.enabled"
   private val OneSignalUrl = config getString "onesignal.url"
   private val OneSignalKey = config getString "onesignal.key"
 
@@ -38,16 +34,8 @@ final class Env(
     url = GooglePushUrl,
     key = GooglePushKey)
 
-  private lazy val applePush = new ApplePush(
-    deviceApi.findLastByUserId("ios") _,
-    system = system,
-    certificate = appleCertificate(ApplePushCertPath),
-    password = ApplePushPassword,
-    enabled = ApplePushEnabled)
-
   private lazy val pushApi = new PushApi(
     googlePush,
-    applePush,
     oneSignalPush,
     getLightUser,
     roundSocketHub)
@@ -70,8 +58,5 @@ object Env {
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
     roundSocketHub = lila.hub.Env.current.socket.round,
-    appleCertificate = path => lila.common.PlayApp.withApp {
-      _.classloader.getResourceAsStream(path)
-    },
     config = lila.common.PlayApp loadConfig "push")
 }

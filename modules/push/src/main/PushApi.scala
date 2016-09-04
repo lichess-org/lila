@@ -14,7 +14,6 @@ import play.api.libs.json._
 
 private final class PushApi(
     googlePush: GooglePush,
-    applePush: ApplePush,
     oneSignalPush: OneSignalPush,
     implicit val lightUser: String => Option[LightUser],
     roundSocketHub: ActorSelection) {
@@ -110,10 +109,6 @@ private final class PushApi(
     }
     googlePush(userId) {
       monitor(lila.mon.push.send)("android")
-      data
-    }
-    applePush(userId) {
-      monitor(lila.mon.push.send)("ios")
       data
     }
   }
