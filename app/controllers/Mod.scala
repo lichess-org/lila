@@ -41,7 +41,6 @@ object Mod extends LilaController {
                 chatApi.userChat.findAll(ids).map {
                     chats =>
                         tournamentList.zip(chats)
-                        // Ok (html.mod.publicChat(tournamentsAndChats))
                 }
         }
 
