@@ -11,7 +11,7 @@ private final class OneSignalPush(
     key: String) {
 
   def apply(userId: String)(data: => PushApi.Data): Funit =
-    getDevice(userId.pp("find device")).thenPp("device found") flatMap {
+    getDevice(userId.pp).thenPp("device found") flatMap {
       _ ?? { device =>
         WS.url(url)
           .withHeaders(
@@ -25,8 +25,14 @@ private final class OneSignalPush(
             "contents" -> Map("en" -> data.body),
             "data" -> data.payload
           ).pp).flatMap {
-            case res if res.status == 200 => funit
-            case res                      => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
+            case res if res.status == 200 =>
+              (res.json \ "errors").asOpt[List[String]] match {
+                case Some(errors) =>
+                  println(errors mkString ",")
+                  fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
+                case None => funit
+              }
+            case res => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
           }.thenPp
       }
     }
