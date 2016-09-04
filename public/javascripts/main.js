@@ -258,14 +258,12 @@ lichess.notifyApp = (function() {
       if (v > 0) {
         lichess.storage.set(storageKey, v - 1);
         location.href = 'lichess://' + gameId;
-        return true;
-      }
-      lichess.storage.set(storageKey, v + 1);
-      return false;
+      } else
+        lichess.storage.set(storageKey, v + 1);
     };
     var stored = parseInt(lichess.storage.get(storageKey));
-    if (stored) return open(stored);
-    return open(confirm('Open in lichess mobile app?') ? 10 : -10);
+    if (stored) open(stored);
+    else open(confirm('Open in lichess mobile app?') ? 10 : -10);
   };
 
   lichess.userAutocomplete = function($input, opts) {
@@ -930,7 +928,7 @@ lichess.notifyApp = (function() {
 
   lichess.startRound = function(element, cfg) {
     var data = cfg.data;
-    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
+    if (data.player.spectator) lichess.openInMobileApp(data.game.id);
     var round, chat;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = lichess.StrongSocket(
