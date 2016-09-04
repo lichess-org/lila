@@ -35,7 +35,6 @@ object Mod extends LilaController {
         val tourChats = tourApi.fetchVisibleTournaments.flatMap {
             visibleTournaments =>
                 val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
-
                 val ids = tournamentList.map(_.id)
 
                 chatApi.userChat.findAll(ids).map {

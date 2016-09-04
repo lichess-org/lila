@@ -2,7 +2,19 @@
   simulChats: List[(lila.simul.Simul, lila.chat.UserChat)])(implicit ctx: Context)
 
 @moreJs= {
+    var reloadTimer = null;
 
+    var startAutoRefresh = function () {
+    reloadTimer = setTimeout(function() {
+    $("#communication").load("@routes.Mod.publicChats" #public_communication"
+    }, 3000);
+    };
+
+    var stopAutoRefresh = function () {
+    if (reloadTimer) {
+    clearTimeout(reloadTimer);
+    }
+    };
 }
 
 @mod.layout(
