@@ -75,8 +75,10 @@ atom = atom.some) {
         }
         /
         <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
+        @if(game.variant.standard) {
         /
         <a data-icon="x" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
+        }
       </p>
       <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
     </div>
