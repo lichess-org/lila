@@ -34,24 +34,26 @@ moreJs = moreJs)  {
 </div>
 <div>
     <h2>Simul Chats</h2>
-    @simulChats.map {
-    case (simul, chat) => {
-    <div class="game">
-        <a class="title" href="@routes.Simul.show(simul.id)">
-            @simul.name
-        </a>
-        <div class="chat">
-            @chat.lines.filter(_.isVisible).map { line =>
-            <div class="line">
-                @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
-                @line.text
+    <div class="player_chats">
+
+        @simulChats.map {
+        case (simul, chat) => {
+        <div class="game">
+            <a class="title" href="@routes.Simul.show(simul.id)">
+                @simul.name
+            </a>
+            <div class="chat">
+                @chat.lines.filter(_.isVisible).map { line =>
+                <div class="line">
+                    @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+                    @line.text
+                </div>
+                }
             </div>
-            }
         </div>
     </div>
     }
     }
-</div>
 </div>
 
 </div>
