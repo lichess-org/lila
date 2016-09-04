@@ -11,6 +11,7 @@ case class Learning(
     case (Some(a), _, r) if r != 0 => a.some
     case (_, Some(b), r) if r == 0 => b.some
     case (Some(a), _, _)           => a.some
+    case (_, Some(b), _)           => b.some
     case _                         => none
   }
 
