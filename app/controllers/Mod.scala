@@ -35,11 +35,14 @@ object Mod extends LilaController {
         val tourChats = tourApi.fetchVisibleTournaments.flatMap {
             visibleTournaments =>
                 val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
+
                 val ids = tournamentList.map(_.id)
 
                 chatApi.userChat.findAll(ids).map {
                     chats =>
-                        tournamentList.zip(chats)
+                        chats.map { chat =>
+                            tournamentList.find(_.id === chat.id).map( tour => (tour,chat))
+                        }.flatten
                 }
         }
 
@@ -49,7 +52,9 @@ object Mod extends LilaController {
 
                 chatApi.userChat.findAll(ids).map {
                     chats =>
-                        simuls.zip(chats)
+                       chats.map { chat =>
+                            simuls.find(_.id === chat.id).map( simul => (simul,chat))
+                        }.flatten
                 }
         }
 
