@@ -11,27 +11,23 @@ final class PublicChat(chatApi: lila.chat.ChatApi,
     var tournamentApi = tournament.api
     val simulApi = simul.api
 
-    def tournamentChats : Fu[List[(TournamentModel, UserChat)]] = {
-            tournamentApi.fetchVisibleTournaments.flatMap {
-                visibleTournaments =>
-                    val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
+    def tournamentChats : Fu[List[(TournamentModel, UserChat)]] =
+        tournamentApi.fetchVisibleTournaments.flatMap {
+            visibleTournaments =>
+                val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
+                val ids = tournamentList.map(_.id)
+                chatApi.userChat.findAll(ids).map {
+                    chats =>
+                        chats.map { chat =>
+                            tournamentList.find(_.id === chat.id).map( tour => (tour,chat))
+                        }.flatten
+                }
+        }
 
-                    val ids = tournamentList.map(_.id)
-
-                    chatApi.userChat.findAll(ids).map {
-                        chats =>
-                            chats.map { chat =>
-                                tournamentList.find(_.id === chat.id).map( tour => (tour,chat))
-                            }.flatten
-                    }
-            }
-    }
-
-    def simulChats : Fu[List[(SimulModel, UserChat)]] = {
+    def simulChats : Fu[List[(SimulModel, UserChat)]] =
         fetchVisibleSimuls.flatMap {
             simuls =>
                 var ids = simuls.map(_.id)
-
                 chatApi.userChat.findAll(ids).map {
                     chats =>
                        chats.map { chat =>
@@ -39,7 +35,6 @@ final class PublicChat(chatApi: lila.chat.ChatApi,
                         }.flatten
                 }
         }
-    }
 
      private def fetchVisibleSimuls : Fu[List[SimulModel]] = {
          simul.allCreated(true) zip
