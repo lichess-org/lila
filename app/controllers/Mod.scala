@@ -12,7 +12,7 @@ import play.api.mvc.Results._
 import lila.evaluation.{ PlayerAssessment }
 
 import lila.tournament.TournamentRepo
-import lila.tournament.Tournament
+import lila.tournament.{ Tournament => TournamentModel}
 
 import chess.Color
 
@@ -47,9 +47,8 @@ object Mod extends LilaController {
   /**
    * Sort the tournaments by the tournaments most likely to require moderation attention
   */
-  def sortTournamentsByRelevance(tournaments : List[Tournament]) : List[Tournament] = {
-    tournaments
-  }
+  def sortTournamentsByRelevance(tournaments : List[TournamentModel]) : List[TournamentModel] =
+    tournaments.sortBy(-_.nbPlayers)
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
     me => modApi.toggleBooster(me.id, username) inject redirect(username)
