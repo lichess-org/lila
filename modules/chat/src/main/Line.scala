@@ -24,6 +24,8 @@ case class UserLine(
   def userId = User normalize username
 
   def delete = copy(deleted = true)
+
+  def isVisible = !troll && !deleted
 }
 case class PlayerLine(
     color: Color,

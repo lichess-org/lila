@@ -53,6 +53,13 @@ private[simul] final class SimulApi(
     } inject simul
   }
 
+  def fetchVisibleSimuls : Fu[List[Simul]] = {
+     repo.allCreated zip repo.allStarted zip repo.allFinished(5) map {
+        case ((created,started),finished) =>
+            created ::: started ::: finished
+     }
+  }
+
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted >= Game.maxPlayingRealtime) simul

@@ -1,13 +1,14 @@
 @(tourChats : List[(lila.tournament.Tournament, lila.chat.UserChat)])(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("mod-communication.css")
+@moreJs= {
+
 }
 
-
-@base.layout(
-title = "Public communications",
-moreCss = moreCss) {
+@mod.layout(
+title = "Public Chats",
+active = "public-chat",
+moreCss = cssTag("mod-communication.css"),
+moreJs = moreJs)  {
 
 <div id="communication" class="content_box">
 <h2>Public Chats</h2>
@@ -19,7 +20,7 @@ moreCss = moreCss) {
             @tournament.name
         </a>
         <div class="chat">
-            @chat.lines.map { line =>
+            @chat.lines.filter(_.isVisible).map { line =>
             <div class="line">
                 @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
                 @line.text

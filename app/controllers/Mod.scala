@@ -11,6 +11,8 @@ import play.api.mvc.Results._
 
 import lila.evaluation.{ PlayerAssessment }
 
+import lila.simul.{Simul => SimulModel}
+
 import lila.tournament.TournamentRepo
 import lila.tournament.{ Tournament => TournamentModel}
 
@@ -44,10 +46,19 @@ object Mod extends LilaController {
         }
   }
 
+  private def fetchVisibleSimuls : Fu[List[SimulModel]] = {
+      Env.simul.allCreated(true) zip
+       Env.simul.repo.allStarted zip
+         Env.simul.repo.allFinished(5) map {
+            case ((created,started),finished) =>
+                created ::: started ::: finished
+     }
+  }
+
   /**
    * Sort the tournaments by the tournaments most likely to require moderation attention
   */
-  def sortTournamentsByRelevance(tournaments : List[TournamentModel]) : List[TournamentModel] =
+  private def sortTournamentsByRelevance(tournaments : List[TournamentModel]) : List[TournamentModel] =
     tournaments.sortBy(-_.nbPlayers)
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
