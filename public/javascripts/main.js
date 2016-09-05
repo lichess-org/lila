@@ -1929,6 +1929,7 @@ lichess.notifyApp = (function() {
   ////////////////
 
   function startUserAnalysis(element, cfg) {
+    lichess.openInMobileApp('analysis');
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
