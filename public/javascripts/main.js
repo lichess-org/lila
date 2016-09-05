@@ -254,7 +254,6 @@ lichess.notifyApp = (function() {
   lichess.openInMobileApp = function(path) {
     if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
     var storageKey = 'open-in-mobile';
-    var rememberTimes = 10;
     var open = function(v) {
       if (v > 0) {
         lichess.storage.set(storageKey, v - 1);
