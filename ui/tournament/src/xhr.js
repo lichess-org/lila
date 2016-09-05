@@ -17,15 +17,14 @@ function reloadPage() {
 }
 
 function join(ctrl, password) {
-  var req = {
+  return m.request({
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/join',
+    data: {
+      p: password || null
+    },
     config: xhrConfig
-  };
-  if (password) req.data = {
-    p: password
-  };
-  return m.request(req).then(null, reloadPage);
+  }).then(null, reloadPage);
 }
 
 function withdraw(ctrl) {
