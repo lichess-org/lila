@@ -44,6 +44,10 @@ $(function() {
     };
 
     addAutoRefreshLink();
+
+    $('#communication .chat').each(function() {
+      this.scrollTop = 99999;
+    });
   };
 
   onPageReload();
