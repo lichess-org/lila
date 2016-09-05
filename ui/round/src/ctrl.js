@@ -304,6 +304,7 @@ module.exports = function(opts) {
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
+    this.vm.justDropped = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
