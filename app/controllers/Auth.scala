@@ -139,7 +139,12 @@ object Auth extends LilaController {
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
     Env.security.emailConfirm.confirm(token) flatMap {
-      _.fold(notFound)(redirectNewUser)
+      case None =>
+        lila.mon.user.register.confirmEmailResult(false)
+        notFound
+      case Some(user) =>
+        lila.mon.user.register.confirmEmailResult(true)
+        redirectNewUser(user)
     }
   }
 
