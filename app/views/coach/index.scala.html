@@ -53,6 +53,11 @@ side = side.some) {
       @widget(c)
     </div>
     }
+    @if(pager.nbResults <= pager.maxPerPage) {
+    <div class="few_results">
+      This list is very new, come back soon for more coaches!
+    </div>
+    }
     @pager.nextPage.map { np =>
     <div class="pager none">
       <a href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>

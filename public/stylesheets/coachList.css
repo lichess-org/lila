@@ -43,9 +43,6 @@
   position: relative;
   display: flex;
 }
-body.dark .coaches .coach {
-  border-color: #3d3d3d;
-}
 .coaches .coach {
   border-right: 1px solid #ccc;
 }
@@ -103,6 +100,16 @@ body.dark .coaches .coach {
   margin-left: 4px;
   display: inline-block;
 }
+.coaches .few_results {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+body.dark .coaches .coach,
+body.dark .coaches .few_results {
+  border-color: #3d3d3d;
+}
+
 .mselect {
   display:inline-block;
   position: relative;
