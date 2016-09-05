@@ -379,6 +379,7 @@ object mon {
       def puzzle = inc("export.png.puzzle")
     }
     def pdf = inc("export.pdf.game")
+    def visualizer = inc("export.visualizer.game")
   }
 
   def measure[A](path: RecPath)(op: => A) = {
