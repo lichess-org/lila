@@ -21,7 +21,7 @@ import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
-private[tournament] final class TournamentApi(
+final class TournamentApi(
     cached: Cached,
     scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
@@ -47,12 +47,13 @@ private[tournament] final class TournamentApi(
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
       mode = setup.mode.fold(Mode.default)(Mode.orDefault),
-      `private` = setup.`private`.isDefined,
+      `private` = setup.isPrivate,
+      password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
   }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
@@ -172,20 +173,22 @@ private[tournament] final class TournamentApi(
     case Some(user) => verify(tour.conditions, user)
   }
 
-  def join(tourId: String, me: User) {
+  def join(tourId: String, me: User, p: Option[String]) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      verdicts(tour, me.some) flatMap {
-        _.accepted ?? {
-          PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-            withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
-            socketReload(tour.id)
-            publish()
-            if (!tour.`private`) timeline ! {
-              Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
+      if (tour.password == p) {
+        verdicts(tour, me.some) flatMap {
+          _.accepted ?? {
+            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+              withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
+              socketReload(tour.id)
+              publish()
+              if (!tour.`private`) timeline ! {
+                Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
+              }
             }
           }
         }
-      }
+      } else fuccess(socketReload(tour.id))
     }
   }
 

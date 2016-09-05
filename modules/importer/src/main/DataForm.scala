@@ -50,6 +50,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           }
         } match {
           case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
+          case chess.variant.FromPosition if tag(_.FEN).isEmpty => chess.variant.Standard
           case v => v
         }
         val initialFen = tag(_.FEN) flatMap {
@@ -65,11 +66,11 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         }
 
         val result = tag(_.Result) ifFalse game.situation.end collect {
-          case "1-0" => Result(status, Color.White.some)
-          case "0-1" => Result(status, Color.Black.some)
-          case "*" => Result(Status.Started, none)
+          case "1-0"                                   => Result(status, Color.White.some)
+          case "0-1"                                   => Result(status, Color.Black.some)
+          case "*"                                     => Result(Status.Started, none)
           case "1/2-1/2" if status == Status.Outoftime => Result(status, none)
-          case "1/2-1/2" => Result(Status.Draw, none)
+          case "1/2-1/2"                               => Result(Status.Draw, none)
         }
 
         val date = tag(_.Date)

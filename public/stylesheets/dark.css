@@ -484,7 +484,8 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-attachment: local, local, scroll, scroll;
 }
 body.dark div.game_row:hover,
-body.dark .studies .study:hover {
+body.dark .studies .study:hover,
+body.dark .coaches .coach:hover {
   background: rgba(27, 51, 68, 0.5)!important;
 }
 body.dark .is.color-icon.white::before {

@@ -39,8 +39,9 @@ object Account extends LilaController {
           relationEnv.api.countFollowers(me.id) zip
             relationEnv.api.countFollowing(me.id) zip
             Env.pref.api.getPref(me) zip
-            lila.game.GameRepo.urgentGames(me) map {
-              case (((nbFollowers, nbFollowing), prefs), povs) =>
+            lila.game.GameRepo.urgentGames(me) zip
+            Env.challenge.api.countInFor(me.id) map {
+              case ((((nbFollowers, nbFollowing), prefs), povs), nbChallenges) =>
                 Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
                 Ok {
                   import play.api.libs.json._
@@ -50,7 +51,8 @@ object Account extends LilaController {
                     "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
                     "nbFollowing" -> nbFollowing,
                     "nbFollowers" -> nbFollowers,
-                    "kid" -> me.kid)
+                    "kid" -> me.kid,
+                    "nbChallenges" -> nbChallenges)
                 }
             }
       }

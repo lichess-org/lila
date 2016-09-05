@@ -22,7 +22,11 @@ private[tournament] final class Cached(
 
   def findNext(tour: Tournament): Fu[Option[Tournament]] = tour.perfType ?? { pt =>
     promotable(true) map { tours =>
-      tours.filter(_.perfType contains pt).sortBy(_.startsAt).headOption
+      tours
+        .filter(_.perfType contains pt)
+        .filter(_.isScheduled)
+        .sortBy(_.startsAt)
+        .headOption
     }
   }
 

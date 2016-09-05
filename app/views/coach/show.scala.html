@@ -1,18 +1,25 @@
 @(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("coach.css")
 @if(studies.nonEmpty) { @cssTag("studyList.css") }
 }
 
 @moreJs = {
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
-@jsTag("coach.js")
+@if(ctx.isAuth) {
+$(function() {
+$(".bar-rating").barrating();
+$('.review-form .toggle').click(function() {
+$(this).remove();
+$('.review-form form').slideDown(500);
+});
+});
+}
 }
 
 @side = {
-@ctx.me.map { me =>
-@reviewForm(c, me, reviewApproval)
-}
+@reviewForm(c, reviewApproval)
 @reviews(c, coachReviews)
 }
 
@@ -28,7 +35,7 @@
 @layout(title = c.user.titleUsername,
 side = side.some,
 moreJs = moreJs,
-evenMoreCss = moreCss) {
+moreCss = moreCss) {
 <div class="content_box no_padding coach">
   <div class="top">
     @pic(c, 250)
@@ -94,7 +101,7 @@ evenMoreCss = moreCss) {
           <tr class="edit">
             <th>Admin</th>
             <td>
-              @if(c.coach.isFullyEnabled) {
+              @if(c.coach.isListed) {
               This page is now public.
               } else {
               This page is not public yet.

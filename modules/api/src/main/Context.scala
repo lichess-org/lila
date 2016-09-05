@@ -3,6 +3,7 @@ package lila.api
 import play.api.libs.json.{ JsObject, JsArray }
 import play.api.mvc.{ Request, RequestHeader }
 
+import lila.common.HTTPRequest
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 import lila.hub.actorApi.relation.OnlineFriends
@@ -59,7 +60,11 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def bgImg = ctxPref("bgImg") | Pref.defaultBgImg
 
-  def mobileApiVersion = Mobile.Api requestVersion req
+  lazy val mobileApiVersion = Mobile.Api requestVersion req
+
+  def isMobileApi = mobileApiVersion.isDefined
+
+  lazy val isMobileBrowser = HTTPRequest isMobile req
 
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 

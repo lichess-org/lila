@@ -180,19 +180,20 @@ object Study extends LilaController {
   private val CloneLimitPerUser = new lila.memo.RateLimit(
     credits = 10,
     duration = 24 hour,
-    name = "clone study per user")
+    name = "clone study per user",
+    key = "clone_study.user")
 
   private val CloneLimitPerIP = new lila.memo.RateLimit(
     credits = 20,
     duration = 24 hour,
-    name = "clone study per IP")
+    name = "clone study per IP",
+    key = "clone_study.ip")
 
   def cloneApply(id: String) = Auth { implicit ctx =>
     me =>
-      val ip = HTTPRequest lastRemoteAddress ctx.req
       implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-      CloneLimitPerUser(me.id, cost = 1, msg = me.id) {
-        CloneLimitPerIP(ip, cost = 1, msg = ip) {
+      CloneLimitPerUser(me.id, cost = 1) {
+        CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
           OptionFuResult(env.api.byId(id)) { prev =>
             CanViewResult(prev) {
               env.api.clone(me, prev) map { study =>
@@ -207,7 +208,8 @@ object Study extends LilaController {
   private val PgnRateLimitGlobal = new lila.memo.RateLimit(
     credits = 30,
     duration = 1 minute,
-    name = "export study PGN global")
+    name = "export study PGN global",
+    key = "export.study_pgn.global")
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {

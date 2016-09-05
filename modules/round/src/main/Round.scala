@@ -73,7 +73,7 @@ private[round] final class Round(
       }
 
     case FishnetPlay(uci, currentFen) => handle { game =>
-      player.fishnet(game, uci, currentFen)
+      player.fishnet(game, uci, currentFen, self)
     } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -81,6 +81,10 @@ private[round] final class Round(
     }
 
     case Resign(playerId) => handle(playerId) { pov =>
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
+    }
+
+    case ResignAi => handleAi(proxy.game) { pov =>
       pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
@@ -115,11 +119,9 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime =>
-      proxy.invalidate
-      handle { game =>
-        game.outoftime(lags.get) ?? finisher.outOfTime(game)
-      }
+    case Outoftime => handle { game =>
+      game.outoftime(lags.get) ?? finisher.outOfTime(game)
+    }
 
     // exceptionally we don't block nor publish events
     // if the game is abandoned, then nobody is around to see it
@@ -249,6 +251,10 @@ private[round] final class Round(
       if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
   } recover errorHandler("handlePov")
+
+  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
+    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op
+  } recover errorHandler("handleAi")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op

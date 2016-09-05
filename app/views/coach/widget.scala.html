@@ -1,0 +1,71 @@
+@(c: lila.coach.Coach.WithUser)(implicit ctx: Context)
+<a class="overlay" href="@routes.Coach.show(c.user.username)"></a>
+@pic(c, 250)
+@defining(c.user.profileOrDefault) { profile =>
+<div class="overview">
+  <h1>
+    @c.user.title.map { t => @t }@c.user.realNameOrUsername
+  </h1>
+  @c.coach.profile.headline.map { h =>
+  <p class="headline @if(h.size < 60){small} else {@if(h.size < 120){medium}else{large}}">@h</p>
+  }
+  <table>
+    <tbody>
+      <tr>
+        <th>Location</th>
+        <td>
+          @profile.nonEmptyLocation.map { l =>
+          <span class="location">@l</span>,
+          }
+          @profile.countryInfo.map {
+          case (code, name) => {
+          <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
+          }
+          }
+        </td>
+      </tr>
+      @c.coach.profile.languages.map { l =>
+      <tr class="languages">
+        <th>Languages</th>
+        <td>@l</td>
+      </tr>
+      }
+      <tr class="rating">
+        <th>Rating</th>
+        <td>
+          @profile.fideRating.map { r =>
+          FIDE: @r,
+          }
+          <a href="@routes.User.show(c.user.username)">
+            @c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map { pt =>
+            @showPerfRating(c.user, pt)
+            }
+          </a>
+        </td>
+      </tr>
+      @c.coach.profile.hourlyRate.map { r =>
+      <tr class="rate">
+        <th>Hourly rate</th>
+        <td>@r</td>
+      </tr>
+      }
+      <tr class="available">
+        <th>Availability</th>
+        <td>
+          @if(c.coach.available.value) {
+          <span class="text" data-icon="E">Accepting students</span>
+          } else {
+          <span class="text" data-icon="L">Not accepting students at the moment</span>
+          }
+        </td>
+      </tr>
+      @c.user.seenAt.map { seen =>
+      <tr class="seen">
+        <th></th>
+        <td>@trans.lastSeenActive(momentFromNow(seen))</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}

@@ -7,13 +7,13 @@ import lila.db.dsl._
 
 private final class Photographer(coll: Coll) {
 
-  private val uploadedMaxMb = 3
-  private val uploadedMaxBytes = uploadedMaxMb * 1024 * 1024
+  import Photographer.uploadMaxMb
+  private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
   private def pictureId(id: Coach.Id) = s"coach:${id.value}:picture"
 
   def apply(coachId: Coach.Id, uploaded: Photographer.Uploaded): Fu[DbImage] =
-    if (uploaded.ref.file.length > uploadedMaxBytes)
-      fufail(s"File size must not exceed ${uploadedMaxMb}MB.")
+    if (uploaded.ref.file.length > uploadMaxBytes)
+      fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
 
       process(uploaded.ref.file)
@@ -31,13 +31,13 @@ private final class Photographer(coll: Coll) {
 
     import com.sksamuel.scrimage._
 
-    Image.fromFile(file)
-      .cover(600, 600)
-      .output(file)
+    Image.fromFile(file).cover(500, 500).output(file)
   }
 }
 
-private object Photographer {
+object Photographer {
+
+  val uploadMaxMb = 3
 
   type Uploaded = play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
 }

@@ -21,7 +21,12 @@ function join(ctrl) {
     return m('button.button.right.text', {
       class: joinable ? 'glowed' : 'disabled',
       'data-icon': 'G',
-      onclick: ctrl.join
+      onclick: function() {
+        if (ctrl.data.private) {
+          var p = prompt('Password');
+          if (p) ctrl.join(p);
+        } else ctrl.join();
+      }
     }, ctrl.trans('join'));
   });
 }

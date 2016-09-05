@@ -176,7 +176,7 @@ private[api] final class GameApi(
     "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
-    "fens" -> withFens ?? {
+    "fens" -> (withFens && g.finished) ?? {
       chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }

@@ -256,6 +256,7 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
+GET   /game/visualizer/$gameId<\w{8}>         controllers.Export.visualizer(gameId: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
@@ -344,6 +345,7 @@ GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
 GET   /mod/:username/powaaa            controllers.Mod.powaaa(username: String)
 POST  /mod/:username/powaaa            controllers.Mod.savePowaaa(username: String)
+GET   /mod/public-chat                 controllers.Mod.publicChat
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
@@ -372,12 +374,13 @@ POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
 
 # Coach
-GET   /coach                           controllers.Coach.index
+GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)
+GET   /coach/sort/:order               controllers.Coach.all(order: String, page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
-GET   /coach/edit/picture              controllers.Coach.picture
-POST  /coach/edit/picture              controllers.Coach.pictureApply
-POST  /coach/edit/picture/delete       controllers.Coach.pictureDelete
+GET   /coach/picture/edit              controllers.Coach.picture
+POST  /coach/picture/upload            controllers.Coach.pictureApply
+POST  /coach/picture/delete            controllers.Coach.pictureDelete
 POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: String)
 GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)

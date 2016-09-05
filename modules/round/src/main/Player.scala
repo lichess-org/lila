@@ -33,7 +33,7 @@ private[round] final class Player(
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
-                        if (progress.game.playableByAi) requestFishnet(progress.game)
+                        if (progress.game.playableByAi) requestFishnet(progress.game, round)
                         if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                         if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                         moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
@@ -51,9 +51,7 @@ private[round] final class Player(
     }
   }
 
-  def requestFishnet(game: Game) = game.playableByAi ?? fishnetPlayer(game)
-
-  def fishnet(game: Game, uci: Uci, currentFen: FEN)(implicit proxy: GameProxy): Fu[Events] =
+  def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
         applyUci(game, uci, blur = false, lag = serverLag)
@@ -67,9 +65,14 @@ private[round] final class Player(
                   fuccess(progress.events)
                 )
           }
-      else requestFishnet(game) >> fufail(FishnetError("Invalid AI move current FEN"))
+      else requestFishnet(game, round) >> fufail(FishnetError("Invalid AI move current FEN"))
     }
     else fufail(FishnetError("Not AI turn"))
+
+  private def requestFishnet(game: Game, round: ActorRef): Funit = game.playableByAi ?? {
+    if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+    else fuccess(round ! actorApi.round.ResignAi)
+  }
 
   private val clientLag = 30.milliseconds
   private val serverLag = 5.milliseconds

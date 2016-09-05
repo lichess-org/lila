@@ -63,7 +63,7 @@ function title(ctrl) {
     ] : d.fullName,
     d.private ? [
       ' ',
-      m('span.text[data-icon=a]', ctrl.trans('isPrivate'))
+      m('span[data-icon=a]')
     ] : null
   ]);
 }

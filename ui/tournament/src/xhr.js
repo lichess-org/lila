@@ -16,10 +16,21 @@ function reloadPage() {
   lichess.reload();
 }
 
-function tourAction(action, ctrl) {
+function join(ctrl, password) {
   return m.request({
     method: 'POST',
-    url: '/tournament/' + ctrl.data.id + '/' + action,
+    url: '/tournament/' + ctrl.data.id + '/join',
+    data: {
+      p: password || null
+    },
+    config: xhrConfig
+  }).then(null, reloadPage);
+}
+
+function withdraw(ctrl) {
+  return m.request({
+    method: 'POST',
+    url: '/tournament/' + ctrl.data.id + '/withdraw',
     config: xhrConfig
   }).then(null, reloadPage);
 }
@@ -53,8 +64,8 @@ function playerInfo(ctrl, userId) {
 }
 
 module.exports = {
-  join: throttle(1000, false, partial(tourAction, 'join')),
-  withdraw: throttle(1000, false, partial(tourAction, 'withdraw')),
+  join: throttle(1000, false, join),
+  withdraw: throttle(1000, false, withdraw),
   loadPage: throttle(1000, false, loadPage),
   reloadTournament: throttle(2000, false, reloadTournament),
   playerInfo: playerInfo

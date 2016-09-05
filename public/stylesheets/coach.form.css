@@ -4,9 +4,9 @@
 }
 .coach_edit .top h1 {
   margin: 0;
-  padding: 20px 0!important;
+  padding: 0!important;
   font-family: 'Roboto';
-  font-size: 36px;
+  font-size: 34px;
   text-transform: uppercase;
   letter-spacing: 4px;
 }
@@ -25,7 +25,21 @@
   margin-top: 80px;
 }
 
-.coach_edit a {
+.coach_edit .overview .todo,
+.coach_edit .overview.with_todo .analytics {
+  display: none;
+}
+.coach_edit .overview.with_todo .todo {
+  display: block;
+}
+.coach_edit .overview .todo h3 {
+  margin: 0;
+}
+.coach_edit .overview .todo li {
+  list-style: disc inside;
+}
+
+.coach_edit .top a {
   color: #3893E8;
 }
 
@@ -93,4 +107,88 @@
 }
 .coach_edit .status.saved {
   opacity: 1;
+}
+.coach_edit .reviews .help {
+  margin: -30px 0 20px 0;
+  text-align: center;
+}
+.coach_edit .reviews .review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+  margin-top: 40px;
+}
+body.dark .coach_edit .reviews .review {
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .user > * {
+  display: block;
+}
+.coach_edit .reviews .content {
+  margin: 0 20px;
+  box-sizing: border-box;
+}
+.coach_edit .reviews .actions {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.coach_edit .reviews .actions a {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  line-height: 44px;
+  font-size: 25px;
+  background: #f0f0f0;
+  border: 1px solid #d0d0d0;
+}
+body.dark .coach_edit .reviews .actions a {
+  background: #363636;
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .actions .yes {
+  color: #759900;
+  border-radius: 3px 0 0 3px;
+}
+.coach_edit .reviews .actions .no {
+  color: #dc322f;
+  border-radius: 0 3px 3px 0;
+  border-left: 0;
+}
+.coach_edit .reviews .actions  a:hover {
+  color: #fff;
+  background: #759900!important;
+}
+.coach_edit .reviews .actions  a.no:hover {
+  background: #dc322f!important;
+}
+
+/* review score */
+.br-widget {
+  white-space: nowrap;
+  margin: 8px 0 5px 0;
+}
+.br-widget a {
+  font: 18px "lichess";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  cursor: default;
+}
+.br-widget a:after {
+  content: 't';
+  color: #d2d2d2;
+}
+body.dark .br-widget a:after {
+  color: #555;
+}
+.br-widget a.br-selected:after {
+  color: #d59120!important;
+}
+.br-widget .br-current-rating {
+  display: none;
 }

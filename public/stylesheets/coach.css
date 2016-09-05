@@ -14,6 +14,10 @@
   color: #fff!important;
   border-bottom: 1px dotted #fff;
 }
+.coach .top img.picture {
+  flex: 0 0 250px;
+  background: #888;
+}
 .coach .top .overview {
   padding: 15px 30px;
   box-sizing: border-box;
@@ -30,15 +34,15 @@
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-  font-size: 18px;
+  font-size: 16px;
   padding: 0 0 20px 0!important;
 }
 .coach .top .headline.medium {
-  font-size: 16px;
+  font-size: 14px;
   padding-bottom: 15px!important;
 }
 .coach .top .headline.large {
-  font-size: 13px;
+  font-size: 13.5px;
   padding-bottom: 10px!important;
 }
 .coach .top table {
@@ -111,45 +115,100 @@ body.dark .coach .studies h1 {
   margin-top: 30px;
   text-align: center;
 }
+.review-form .toggle {
+  box-sizing: border-box;
+}
 .review-form form {
   display: none;
 }
 .review-form textarea {
   width: 100%;
-  height: 10em;
+  height: 14em;
   padding: 5px;
   box-sizing: border-box;
+  resize: vertical;
 }
 .review-form .button {
   display: block;
   width: 100%;
   margin-top: 5px;
 }
+.reviews {
+  margin: 20px 0;
+}
+.reviews h2 {
+  font-size: 1.5em;
+  margin-bottom: -10px;
+  font-family: Roboto;
+}
+.reviews .review {
+  margin-top: 15px;
+  border-top: 1px solid #dadada;
+  padding-top: 15px;
+}
+.reviews .top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.reviews .top .user_link {
+  margin-left: -4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reviews .content {
+  font-style: italic;
+  opacity: 0.8;
+  max-height: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.3s;
+}
+.reviews .review:hover .content {
+  max-height: 50em;
+  opacity: 1;
+}
+.reviews .br-wrapper {
+  flex: 0 0;
+}
 
 /* review score */
-.br-theme-fontawesome-stars .br-widget {
+.br-widget {
   white-space: nowrap;
 }
-.br-theme-fontawesome-stars .br-widget a {
+.br-widget a {
   font: 25px "lichess";
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
   margin-right: 2px;
+  display: inline-block;
 }
-.br-theme-fontawesome-stars .br-widget a:after {
+.br-widget a:after {
   content: 't';
-  color: #d2d2d2;
+  color: #ccc;
 }
-.br-theme-fontawesome-stars .br-widget a.br-active:after {
-  color: #edb867;
+body.dark .br-widget a:after {
+  color: #555;
 }
-.br-theme-fontawesome-stars .br-widget a.br-selected:after {
-  color: #edb867;
+.br-widget a.br-active:after,
+.br-widget a.br-selected:after {
+  color: #d59120!important;
 }
-.br-theme-fontawesome-stars .br-widget .br-current-rating {
+.br-widget .br-current-rating {
   display: none;
 }
-.br-theme-fontawesome-stars .br-readonly a {
+.br-readonly a {
+  font-size: 10px;
+  margin-right: 0;
   cursor: default;
+}
+.br-readonly a.br-selected:after {
+  margin-right: 0;
+  color: #888!important;
+}
+body.dark .reviews .review {
+  border-color: #3d3d3d;
 }

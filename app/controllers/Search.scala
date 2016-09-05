@@ -18,12 +18,14 @@ object Search extends LilaController {
   private val RateLimitGlobal = new lila.memo.RateLimit(
     credits = 50,
     duration = 1 minute,
-    name = "search games global")
+    name = "search games global",
+    key = "search.games.global")
 
   private val RateLimitPerIP = new lila.memo.RateLimit(
     credits = 50,
     duration = 5 minutes,
-    name = "search games per IP")
+    name = "search games per IP",
+    key = "search.games.ip")
 
   def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {
@@ -31,8 +33,8 @@ object Search extends LilaController {
       Reasonable(page, 100) {
         val ip = HTTPRequest lastRemoteAddress ctx.req
         val cost = scala.math.sqrt(page).toInt
-        RateLimitPerIP(ip, cost = cost, msg = ip) {
-          RateLimitGlobal("-", cost = cost, msg = ip) {
+        RateLimitPerIP(ip, cost = cost) {
+          RateLimitGlobal("-", cost = cost) {
             Env.game.cached.nbTotal flatMap { nbGames =>
               implicit def req = ctx.body
               searchForm.bindFromRequest.fold(

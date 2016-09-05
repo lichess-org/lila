@@ -66,35 +66,35 @@
       <ul>
         <li>
           <h2>How do you move pieces?</h2>
-          @base.form.radios(form("moveEvent"), lila.pref.Pref.MoveEvent.choices)
+          @base.form.radios(form("behavior.moveEvent"), lila.pref.Pref.MoveEvent.choices)
         </li>
         <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
-          @base.form.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("behavior.premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
         </li>
         <li>
           <h2>@trans.takebacksWithOpponentApproval()</h2>
-          @base.form.radios(form("takeback"), translatedTakebackChoices)
+          @base.form.radios(form("behavior.takeback"), translatedTakebackChoices)
         </li>
         <li>
           <h2>@trans.promoteToQueenAutomatically()</h2>
-          @base.form.radios(form("autoQueen"), translatedAutoQueenChoices)
+          @base.form.radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
         </li>
         <li>
           <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically("<a rel=\"nofollow\" href=\"http://en.wikipedia.org/wiki/Threefold_repetition\">", "</a>")</h2>
-          @base.form.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
+          @base.form.radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
         </li>
         <li>
           <h2>@trans.moveConfirmation()</h2>
-          @base.form.radios(form("submitMove"), submitMoveChoices)
+          @base.form.radios(form("behavior.submitMove"), submitMoveChoices)
         </li>
         <li>
           <h2>@trans.confirmResignation()</h2>
-          @base.form.radios(form("confirmResign"), confirmResignChoices)
+          @base.form.radios(form("behavior.confirmResign"), confirmResignChoices)
         </li>
         <li>
           <h2>Input moves with the keyboard</h2>
-          @base.form.radios(form("keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
+          @base.form.radios(form("behavior.keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
         </li>
       </ul>
       }

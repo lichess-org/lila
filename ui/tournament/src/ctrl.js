@@ -73,12 +73,12 @@ module.exports = function(env) {
     this.vm.focusOnMe = false;
   }.bind(this);
 
-  this.join = function() {
+  this.join = function(password) {
     if (!this.data.verdicts.accepted)
       return this.data.verdicts.list.forEach(function(v) {
         if (v.verdict !== 'ok') alert(v.verdict);
       });
-    xhr.join(this);
+    xhr.join(this, password);
     this.vm.joinSpinner = true;
     this.vm.focusOnMe = true;
   }.bind(this);

@@ -143,6 +143,8 @@ object mon {
     object register {
       val website = inc("user.register.website")
       val mobile = inc("user.register.mobile")
+      def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
+      def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
     }
   }
   object socket {
@@ -194,6 +196,9 @@ object mon {
       }
       val percent = rec("security.proxy.percent")
     }
+    object rateLimit {
+      def generic(key: String) = inc(s"security.rate_limit.generic.$key")
+    }
   }
   object tv {
     object stream {
@@ -206,6 +211,11 @@ object mon {
     val unfollow = inc("relation.unfollow")
     val block = inc("relation.block")
     val unblock = inc("relation.unblock")
+  }
+  object coach {
+    object pageView {
+      def profile(coachId: String) = inc(s"coach.page_view.profile.$coachId")
+    }
   }
   object tournament {
     object pairing {
@@ -371,6 +381,7 @@ object mon {
       def puzzle = inc("export.png.puzzle")
     }
     def pdf = inc("export.pdf.game")
+    def visualizer = inc("export.visualizer.game")
   }
 
   def measure[A](path: RecPath)(op: => A) = {

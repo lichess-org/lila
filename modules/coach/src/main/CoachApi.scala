@@ -5,19 +5,21 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.AsyncCache
+import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
-    photographer: Photographer) {
+    photographer: Photographer,
+    notifyApi: NotifyApi) {
 
   import BsonHandlers._
 
   private val cache = AsyncCache.single[List[Coach]](
     f = coachColl.find($empty).list[Coach](),
-    timeToLive = 1 hour)
+    timeToLive = 10 minutes)
 
   private def all = cache(true)
 
@@ -26,23 +28,27 @@ final class CoachApi(
   def find(username: String): Fu[Option[Coach.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
 
-  def find(user: User): Fu[Option[Coach.WithUser]] =
+  def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     byId(Coach.Id(user.id)) map2 withUser(user)
-
-  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = find(user) orElse {
-    fuccess(Coach.WithUser(Coach make user, user).some)
   }
 
-  def isEnabledCoach(user: User): Fu[Boolean] =
+  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
+    find(user) orElse {
+      val c = Coach.WithUser(Coach make user, user)
+      coachColl.insert(c.coach) >> cache.clear inject c.some
+    }
+  }
+
+  def isListedCoach(user: User): Fu[Boolean] =
     Granter(_.Coach)(user) ?? all.map(_.exists { c =>
-      c.is(user) && c.isFullyEnabled
+      c.is(user) && c.isListed
     })
 
-  def enabledWithUserList: Fu[List[Coach.WithUser]] =
-    all.map(_.filter(_.isFullyEnabled)) flatMap { coaches =>
+  def listedWithUserList: Fu[List[Coach.WithUser]] =
+    all.map(_.filter(_.isListed)) flatMap { coaches =>
       UserRepo.byIds(coaches.map(_.id.value)) map { users =>
         coaches.flatMap { coach =>
-          users find coach.is map { Coach.WithUser(coach, _) }
+          users find coach.is filter Granter(_.Coach) map { Coach.WithUser(coach, _) }
         }
       }
     }
@@ -54,12 +60,15 @@ final class CoachApi(
       upsert = true
     ).void >> cache.clear
 
-  private[coach] def toggleByMod(username: String, value: Boolean): Fu[String] =
+  def setNbReviews(id: Coach.Id, nb: Int): Funit =
+    coachColl.update($id(id), $set("nbReviews" -> nb)).void >> cache.clear
+
+  private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
     find(username) flatMap {
       case None => fuccess("No such coach")
       case Some(c) => coachColl.update(
         $id(c.coach.id),
-        $set("enabledByMod" -> value)
+        $set("approved" -> value)
       ) >> cache.clear inject "Done!"
     }
 
@@ -77,7 +86,7 @@ final class CoachApi(
   object reviews {
 
     def add(me: User, coach: Coach, data: CoachReviewForm.Data): Fu[CoachReview] =
-      find(me, coach) flatMap { existing =>
+      find(me, coach).flatMap { existing =>
         val id = CoachReview.makeId(me, coach)
         val review = existing match {
           case None => CoachReview(
@@ -95,7 +104,28 @@ final class CoachApi(
             approved = false,
             updatedAt = DateTime.now)
         }
-        reviewColl.update($id(id), review, upsert = true) inject review
+        reviewColl.update($id(id), review, upsert = true) >>
+          notifyApi.addNotification(Notification(
+            notifies = Notification.Notifies(coach.id.value),
+            content = lila.notify.CoachReview
+          )) >> refreshCoachNbReviews(coach.id) inject review
+      }
+
+    def byId(id: String) = reviewColl.byId[CoachReview](id)
+
+    def isPending(user: User, coach: Coach): Fu[Boolean] =
+      reviewColl.exists(
+        $id(CoachReview.makeId(user, coach)) ++ $doc("approved" -> false)
+      )
+
+    def approve(r: CoachReview, v: Boolean) = {
+      if (v) reviewColl.update($id(r.id), $set("approved" -> v)).void
+      else reviewColl.remove($id(r.id)).void
+    } >> refreshCoachNbReviews(r.coachId)
+
+    private def refreshCoachNbReviews(id: Coach.Id): Funit =
+      reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {
+        setNbReviews(id, _)
       }
 
     def find(user: User, coach: Coach): Fu[Option[CoachReview]] =
@@ -113,12 +143,6 @@ final class CoachApi(
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
       reviewColl.find(selector)
         .sort($sort desc "createdAt")
-        .list[CoachReview](100) flatMap { reviews =>
-          UserRepo byIds reviews.map(_.userId) map { users =>
-            reviews.flatMap { review =>
-              users.find(_.id == review.userId) map { CoachReview.WithUser(review, _) }
-            }
-          }
-        } map CoachReview.Reviews
+        .list[CoachReview](100) map CoachReview.Reviews.apply
   }
 }

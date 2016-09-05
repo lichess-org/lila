@@ -217,7 +217,7 @@ lichess.desktopNotification = (function() {
   var clearStorageSoon = function() {
     setTimeout(function() {
       lichess.storage.remove(storageKey);
-    }, 1000);
+    }, 3000);
   };
   var doNotify = function(msg) {
     if (lichess.storage.get(storageKey)) return;
@@ -236,22 +236,17 @@ lichess.desktopNotification = (function() {
     // increase chances that the first tab can put a local storage lock
     setTimeout(function() {
       doNotify(msg);
-    }, Math.round(10 + Math.random() * 300));
+    }, Math.round(10 + Math.random() * 500));
   }
   clearStorageSoon(); // in case it wasn't cleared properly before
   return function(msg) {
     if (isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
     if (Notification.permission === 'granted') notify(msg);
     else Notification.requestPermission(function(p) {
-      if (p === 'granted') notify();
+      if (p === 'granted') notify(msg);
     });
   };
 })();
-lichess.unique = function(xs) {
-  return xs.filter(function(x, i) {
-    return xs.indexOf(x) === i;
-  });
-};
 lichess.numberFormat = (function() {
   if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
@@ -358,4 +353,18 @@ $.fn.scrollTo = function(target, offsetTop) {
       this.scrollTop = v;
     } catch (e) {}
   });
+};
+$.modal = function(html) {
+  if (!html.clone) html = $('<div>' + html + '</div>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
+  var $overlay = $('<div id="modal-overlay">').html($wrap);
+  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
+  $wrap.click(function(e) {
+    e.stopPropagation();
+  });
+  $('body').prepend($overlay);
+  return $wrap;
+};
+$.modal.close = function() {
+  $('#modal-overlay').remove();
 };

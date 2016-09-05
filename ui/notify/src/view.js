@@ -226,6 +226,20 @@ var handlers = {
       return 'Patron account expired';
     }
   },
+  coachReview: {
+    html: function(notification) {
+      return genericNotification(notification, '/coach/edit', ':', [
+        m('span', [
+          m('strong', 'New pending review'),
+          drawTime(notification)
+        ]),
+        m('span', 'Someone reviewed your coach profile.')
+      ]);
+    },
+    text: function(n) {
+      return 'New pending review';
+    }
+  },
   ratingRefund: {
     html: function(notification) {
       var content = notification.content

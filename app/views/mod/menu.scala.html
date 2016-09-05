@@ -3,6 +3,9 @@
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("report")" href="@routes.Report.list">Reports</a>
 }
+@if(isGranted(_.ChatTimeout)) {
+<a class="@active.active("public-chat")" href="@routes.Mod.publicChat">Public Chats</a>
+}
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("gamify")" href="@routes.Mod.gamify">Hall of fame</a>
 }

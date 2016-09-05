@@ -6,8 +6,9 @@ import reactivemongo.bson._
 private[coach] object BsonHandlers {
 
   implicit val CoachIdBSONHandler = stringAnyValHandler[Coach.Id](_.value, Coach.Id.apply)
-  implicit val CoachEnabledBSONHandler = booleanAnyValHandler[Coach.Enabled](_.value, Coach.Enabled.apply)
+  implicit val CoachListedBSONHandler = booleanAnyValHandler[Coach.Listed](_.value, Coach.Listed.apply)
   implicit val CoachAvailableBSONHandler = booleanAnyValHandler[Coach.Available](_.value, Coach.Available.apply)
+  implicit val CoachApprovedBSONHandler = booleanAnyValHandler[Coach.Approved](_.value, Coach.Approved.apply)
   implicit val CoachPicturePathBSONHandler = stringAnyValHandler[Coach.PicturePath](_.value, Coach.PicturePath.apply)
 
   implicit val CoachProfileRichTextBSONHandler = stringAnyValHandler[CoachProfile.RichText](_.value, CoachProfile.RichText.apply)

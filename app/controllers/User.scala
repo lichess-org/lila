@@ -124,7 +124,8 @@ object User extends LilaController {
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 500,
     duration = 10 minutes,
-    name = "user games web/mobile per IP")
+    name = "user games web/mobile per IP",
+    key = "user_games.web.ip")
 
   implicit val userGamesDefault =
     ornicar.scalalib.Zero.instance[Fu[Paginator[GameModel]]](fuccess(Paginator.empty[GameModel]))
@@ -137,8 +138,7 @@ object User extends LilaController {
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
     })(fuccess) flatMap { filterName =>
-      val ip = HTTPRequest lastRemoteAddress ctx.req
-      UserGamesRateLimitPerIP(ip, cost = page, msg = ip) {
+      UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
         lila.mon.http.userGames.cost(page)
         GameFilterMenu.paginatorOf(
           userGameSearch = userGameSearch,

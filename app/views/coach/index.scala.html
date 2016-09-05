@@ -1,28 +1,67 @@
-@(coaches: List[lila.coach.Coach.WithUser])(implicit ctx: Context)
+@(pager: Paginator[lila.coach.Coach.WithUser], order: lila.coach.CoachPager.Order)(implicit ctx: Context)
 
-@layout(title = "Lichess coaches") {
-<div class="content_box no_padding coach">
+@side = {
+<div class="coach-intro">
+  <img src="@staticUrl("images/icons/certification.svg")" class="certification" />
+  <h2>Certified coaches</h2>
+  <p>
+    We have curated this list of the best online chess coaches.
+  </p>
+  <p>
+    All of these renowned players have great chess skills,
+    and a solid experience with teaching.
+  </p>
+  <p>
+    You cannot go wrong with them, so
+    make your choice and enjoy learning chess!
+  </p>
+</div>
+<div class="coach-add">
+  <p>
+    Are you a great chess coach?<br />
+    Do you want to be part of this list?<br />
+    @defining("lichess.contact@gmail.com") { email =>
+    Send us an email at <a href="mailto:@email">@email</a><br />
+    }
+    and we will review your application.
+  </p>
+</div>
+}
+
+@layout(title = "Lichess coaches",
+moreCss = cssTag("coachList.css"),
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
+side = side.some) {
+<div class="content_box no_padding coaches">
   <div class="top">
-    <h1 class="text" data-icon=":">Chess coaches</h1>
-  </div>
-  <div class="list">
-    @coaches.map { c =>
-    <a class="coach" href="@routes.Coach.show(c.user.username)">
-      @if(c.coach.hasPicture) {
-      @pic(c, 200)
-      } else {
-      <span class="no_pic"></span>
-      }
-      <span class="content">
-        <h2>
-          @c.user.title.map { t => <span class="title">@t</span> }
-          @c.user.profile.flatMap(_.nonEmptyRealName).getOrElse(c.user.username)
-        </h2>
-        @c.user.seenAt.map { seen =>
-        <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
+    <h1>Top chess coaches</h1>
+    <div class="orders mselect">
+      <div class="button">
+        @order.name
+        <i data-icon="u"></i>
+      </div>
+      <div class="list">
+        @lila.coach.CoachPager.Order.all.map { o =>
+        <a href="@routes.Coach.all(o.key)">@o.name</a>
         }
-      </span>
-    </a>
+      </div>
+    </div>
+  </div>
+  <div class="list infinitescroll">
+    @pager.currentPageResults.map { c =>
+    <div class="coach paginated_element">
+      @widget(c)
+    </div>
+    }
+    @if(pager.nbResults <= pager.maxPerPage) {
+    <div class="few_results">
+      This list is very new, come back soon for more coaches!
+    </div>
+    }
+    @pager.nextPage.map { np =>
+    <div class="pager none">
+      <a href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>
+    </div>
     }
   </div>
 </div>

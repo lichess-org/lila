@@ -55,6 +55,8 @@ case class Perfs(
 
   def bestRating: Int = bestRatingIn(PerfType.leaderboardable)
 
+  def bestStandardRating: Int = bestRatingIn(PerfType.standard)
+
   def bestRatingIn(types: List[PerfType]): Int = {
     val ps = types map apply match {
       case Nil => List(standard)

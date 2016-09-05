@@ -125,6 +125,7 @@ object PerfType {
   val nonGame: List[PerfType] = List(Puzzle, Opening)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val variants: List[PerfType] = List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+  val standard: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
 
