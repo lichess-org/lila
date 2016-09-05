@@ -1,15 +1,15 @@
 package lila.mod
 
 import lila.chat.UserChat
-import lila.simul.{ Simul => SimulModel }
-import lila.tournament.{ Tournament => TournamentModel }
+import lila.simul.Simul
+import lila.tournament.Tournament
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
     tournamentApi: lila.tournament.TournamentApi,
     simulEnv: lila.simul.Env) {
 
-  def tournamentChats: Fu[List[(TournamentModel, UserChat)]] =
+  def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {
       visibleTournaments =>
         val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
@@ -22,7 +22,7 @@ final class PublicChat(
         }
     }
 
-  def simulChats: Fu[List[(SimulModel, UserChat)]] =
+  def simulChats: Fu[List[(Simul, UserChat)]] =
     fetchVisibleSimuls.flatMap {
       simuls =>
         var ids = simuls.map(_.id)
@@ -34,7 +34,7 @@ final class PublicChat(
         }
     }
 
-  private def fetchVisibleSimuls: Fu[List[SimulModel]] = {
+  private def fetchVisibleSimuls: Fu[List[Simul]] = {
     simulEnv.allCreated(true) zip
       simulEnv.repo.allStarted zip
       simulEnv.repo.allFinished(5) map {
@@ -46,6 +46,6 @@ final class PublicChat(
   /**
    * Sort the tournaments by the tournaments most likely to require moderation attention
    */
-  private def sortTournamentsByRelevance(tournaments: List[TournamentModel]): List[TournamentModel] =
+  private def sortTournamentsByRelevance(tournaments: List[Tournament]): List[Tournament] =
     tournaments.sortBy(-_.nbPlayers)
 }
