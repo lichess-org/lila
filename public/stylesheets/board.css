@@ -392,8 +392,7 @@ body.doggy .cg-board.orientation-black piece.pawn.black {
 }
 div.lichess_overboard {
   position: absolute;
-  /* above top menu */
-  z-index: 5010;
+  z-index: 4;
   width: 400px;
   top: 50%;
   left: 50%;
