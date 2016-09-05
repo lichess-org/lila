@@ -18,6 +18,7 @@ case class Tournament(
     position: StartingPosition,
     mode: Mode,
     `private`: Boolean,
+    password: Option[String] = None,
     conditions: Condition.All,
     schedule: Option[Schedule],
     nbPlayers: Int,
@@ -116,6 +117,7 @@ object Tournament {
     position: StartingPosition,
     mode: Mode,
     `private`: Boolean,
+    password: Option[String],
     waitMinutes: Int) = Tournament(
     id = Random nextStringUppercase 8,
     name = if (position.initial) GreatPlayer.randomName else position.shortName,
@@ -130,6 +132,7 @@ object Tournament {
     position = position,
     mode = mode,
     `private` = `private`,
+    password = password,
     conditions = Condition.All.empty,
     schedule = None,
     startsAt = DateTime.now plusMinutes waitMinutes)

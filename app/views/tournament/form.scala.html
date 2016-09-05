@@ -15,6 +15,7 @@ moreJs = moreJs) {
     <h1>@trans.createANewTournament()</h1>
 
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
+      <input type="hidden" name="@form("system").id" value="1" />
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }
@@ -23,7 +24,10 @@ moreJs = moreJs) {
           <th><label for="isprivate">@trans.isPrivate()</label></th>
           <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
         </tr>
-        <input type="hidden" name="@form("system").id" value="1" />
+        <tr class="password">
+          <th><label for="@form("password").id">@trans.password()</label></th>
+          <td>@base.form.input(form("password"))</td>
+        </tr>
         <tr class="variant">
           <th><label for="@form("variant").id">@trans.variant()</label></th>
           <td>@base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>

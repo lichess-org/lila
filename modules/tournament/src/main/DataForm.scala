@@ -20,7 +20,8 @@ final class DataForm {
     "variant" -> number.verifying(validVariantIds contains _),
     "position" -> nonEmptyText.verifying(positions contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
-    "private" -> optional(text.verifying("on" == _))
+    "private" -> optional(text.verifying("on" == _)),
+    "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -32,6 +33,7 @@ final class DataForm {
     variant = chess.variant.Standard.id,
     position = StartingPosition.initial.eco,
     `private` = None,
+    password = None,
     mode = Mode.Rated.id.some)
 }
 
@@ -84,11 +86,14 @@ private[tournament] case class TournamentSetup(
     variant: Int,
     position: String,
     mode: Option[Int],
-    `private`: Option[String]) {
+    `private`: Option[String],
+    password: Option[String]) {
 
   def validClock = (clockTime + clockIncrement) > 0
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+
+  def isPrivate = `private`.isDefined
 
   private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
 }

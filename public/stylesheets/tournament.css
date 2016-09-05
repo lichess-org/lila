@@ -352,6 +352,9 @@ ol.scheduled_tournaments a {
   width: 96%;
   padding: 0.5% 1%;
 }
+#tournament form.plain input[name=private] {
+  width: auto;
+}
 #tournament form.plain select {
   padding: 0.5% 1%;
   text-transform: capitalize;
@@ -365,6 +368,19 @@ ol.scheduled_tournaments a {
 }
 #tournament form.plain .error {
   color: red;
+}
+#tournament form.plain tr.password {
+  height: 0;
+  visibility: hidden;
+}
+#tournament form.plain tr.password td * {
+  display: none;
+}
+#tournament form.plain.private tr.password {
+  visibility: visible;
+}
+#tournament form.plain.private tr.password td * {
+  display: block;
 }
 #tournament h1 .private {
   font-size: 12px;
