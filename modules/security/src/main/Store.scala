@@ -119,4 +119,7 @@ object Store {
           .filter(_._id != keepSessionId)
         coll.remove($inIds(olds.map(_._id))).void
       }
+
+  private[security] def recentByIpExists(ip: String): Fu[Boolean] =
+    coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
 }
