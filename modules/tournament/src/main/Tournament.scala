@@ -32,6 +32,8 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
+  def isPrivate = `private`
+
   def fullName =
     if (isMarathonOrUnique) name
     else if (isScheduled && clock.hasIncrement) s"$name Inc $system"

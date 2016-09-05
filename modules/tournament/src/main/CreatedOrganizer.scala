@@ -32,6 +32,7 @@ private[tournament] final class CreatedOrganizer(
       TournamentRepo.allCreated(30).map { tours =>
         tours foreach { tour =>
           tour.schedule match {
+            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
             case None => PlayerRepo count tour.id foreach {
               case 0 => api wipe tour
               case nb if tour.hasWaitedEnough =>
