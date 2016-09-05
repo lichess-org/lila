@@ -131,4 +131,8 @@ $(function() {
       }]
     });
   });
+
+  $('div.user_show.all').each(function() {
+    lichess.openInMobileApp('/@/' + $(this).data('username'));
+  });
 });
