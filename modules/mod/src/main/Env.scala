@@ -17,6 +17,9 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     securityApi: lila.security.Api,
+    tournament: lila.tournament.Env,
+    simul: lila.simul.Env,
+    chatApi: lila.chat.ChatApi,
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
@@ -75,6 +78,8 @@ final class Env(
     reportColl = reportColl,
     historyColl = db(CollectionGamingHistory))
 
+  lazy val publicChat = new PublicChat(chatApi,tournament, simul)
+
   lazy val search = new UserSearch(
     securityApi = securityApi,
     emailAddress = emailAddress)
@@ -108,6 +113,9 @@ object Env {
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,
+    tournament = lila.tournament.Env.current,
+    simul = lila.simul.Env.current,
+    chatApi = lila.chat.Env.current.api,
     notifyApi = lila.notify.Env.current.api,
     historyApi = lila.history.Env.current.api,
     rankingApi = lila.user.Env.current.rankingApi,

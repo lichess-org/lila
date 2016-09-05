@@ -11,11 +11,6 @@ import play.api.mvc.Results._
 
 import lila.evaluation.{ PlayerAssessment }
 
-import lila.simul.{Simul => SimulModel}
-
-import lila.tournament.TournamentRepo
-import lila.tournament.{ Tournament => TournamentModel}
-
 import chess.Color
 
 object Mod extends LilaController {
@@ -32,47 +27,14 @@ object Mod extends LilaController {
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx =>
     _ =>
-        val tourChats = tourApi.fetchVisibleTournaments.flatMap {
-            visibleTournaments =>
-                val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
-                val ids = tournamentList.map(_.id)
-
-                chatApi.userChat.findAll(ids).map {
-                    chats =>
-                        tournamentList.zip(chats)
-                }
-        }
-
-        val simulChats = fetchVisibleSimuls.flatMap {
-            simuls =>
-                var ids = simuls.map(_.id)
-
-                chatApi.userChat.findAll(ids).map {
-                    chats =>
-                        simuls.zip(chats)
-                }
-        }
+        val tourChats = Env.mod.publicChat.tournamentChats
+        val simulChats = Env.mod.publicChat.simulChats
 
         tourChats zip simulChats map {
             case (tournamentsAndChats, simulsAndChats) =>
                 Ok (html.mod.publicChat(tournamentsAndChats, simulsAndChats))
         }
   }
-
-  private def fetchVisibleSimuls : Fu[List[SimulModel]] = {
-      Env.simul.allCreated(true) zip
-       Env.simul.repo.allStarted zip
-         Env.simul.repo.allFinished(5) map {
-            case ((created,started),finished) =>
-                created ::: started ::: finished
-     }
-  }
-
-  /**
-   * Sort the tournaments by the tournaments most likely to require moderation attention
-  */
-  private def sortTournamentsByRelevance(tournaments : List[TournamentModel]) : List[TournamentModel] =
-    tournaments.sortBy(-_.nbPlayers)
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
     me => modApi.toggleBooster(me.id, username) inject redirect(username)
