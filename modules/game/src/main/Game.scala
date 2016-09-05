@@ -273,8 +273,10 @@ case class Game(
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
-  def hasAi: Boolean = players exists (_.isAi)
+  def hasAi: Boolean = players.exists(_.isAi)
   def nonAi = !hasAi
+
+  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
 
   def mapPlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
