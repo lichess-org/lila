@@ -41,7 +41,7 @@
 <a id="nb_games_in_play" href="@routes.Tv.games">
   @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
 </a>
-@if(lila.common.HTTPRequest.isMobile(ctx.req)) {
+@if(ctx.isMobileBrowser) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
 } else {

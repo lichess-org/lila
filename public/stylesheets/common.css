@@ -716,7 +716,8 @@ div.side_box .game_infos .bookmark {
   z-index: 10;
   display: none;
 }
-div.side_box .game_infos:hover .bookmark {
+div.side_box .game_infos:hover .bookmark,
+body.mobile div.side_box .game_infos .bookmark {
   display: block;
 }
 .bookmark:not(.bookmarked) .on,
