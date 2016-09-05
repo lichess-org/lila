@@ -27,13 +27,13 @@ object Mod extends LilaController {
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx =>
     _ =>
-        val tourChats = Env.mod.publicChat.tournamentChats
-        val simulChats = Env.mod.publicChat.simulChats
+      val tourChats = Env.mod.publicChat.tournamentChats
+      val simulChats = Env.mod.publicChat.simulChats
 
-        tourChats zip simulChats map {
-            case (tournamentsAndChats, simulsAndChats) =>
-                Ok (html.mod.publicChat(tournamentsAndChats, simulsAndChats))
-        }
+      tourChats zip simulChats map {
+        case (tournamentsAndChats, simulsAndChats) =>
+          Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
+      }
   }
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>

@@ -78,7 +78,7 @@ final class Env(
     reportColl = reportColl,
     historyColl = db(CollectionGamingHistory))
 
-  lazy val publicChat = new PublicChat(chatApi,tournament, simul)
+  lazy val publicChat = new PublicChat(chatApi, tournament, simul)
 
   lazy val search = new UserSearch(
     securityApi = securityApi,
