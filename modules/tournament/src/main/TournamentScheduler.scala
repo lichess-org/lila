@@ -237,11 +237,14 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
-    case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
-    case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
-    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     // prevent daily && weekly on the same day
     case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameVariantAndSpeed(s2) => s sameDay s2
+    // overlapping same variant
+    case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    // overlapping same rating limit
+    case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
+    // overlapping similar
+    case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }
 
