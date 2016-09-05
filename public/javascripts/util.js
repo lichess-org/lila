@@ -247,11 +247,6 @@ lichess.desktopNotification = (function() {
     });
   };
 })();
-lichess.unique = function(xs) {
-  return xs.filter(function(x, i) {
-    return xs.indexOf(x) === i;
-  });
-};
 lichess.numberFormat = (function() {
   if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
