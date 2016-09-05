@@ -273,7 +273,7 @@ lichess.notifyApp = (function() {
     $('#modal-wrap a.button').click(function() {
       $.modal.close();
       var inMobile = !!$(this).data('mobile');
-      open((rememberTimes + 1) * (inMobile ? 1 : -1));
+      open(6 * (inMobile ? 1 : -1));
     });
   };
 
