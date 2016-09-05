@@ -90,11 +90,15 @@ body.dark #communication .player_chats .game .title {
 }
 
 /* for public-chat */
-#communication {
+#communication.public_chat {
   position: relative;
 }
-#auto_refresh {
+.public_chat #auto_refresh {
   position: absolute;
   top: 30px;
   right: 20px;
+}
+#communication.public_chat .player_chats .line,
+#communication.public_chat .threads .post {
+  opacity: 1;
 }
