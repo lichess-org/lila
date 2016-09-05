@@ -51,7 +51,7 @@ module.exports = function(opts) {
   setTimeout(function() {
     this.vm.firstSeconds = false;
     m.redraw();
-  }.bind(this), 2000);
+  }.bind(this), 3000);
 
   this.socket = new socket(opts.socketSend, this);
 
