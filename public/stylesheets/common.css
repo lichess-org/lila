@@ -2268,6 +2268,10 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
+#modal-wrap .block_buttons .button {
+  display: block;
+  margin: 0.8em 0;
+}
 #modal-wrap .close,
 div.lichess_overboard .close {
   position:absolute;

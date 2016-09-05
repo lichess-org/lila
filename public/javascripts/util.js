@@ -354,3 +354,17 @@ $.fn.scrollTo = function(target, offsetTop) {
     } catch (e) {}
   });
 };
+$.modal = function(html) {
+  if (!html.clone) html = $('<div>' + html + '</div>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
+  var $overlay = $('<div id="modal-overlay">').html($wrap);
+  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
+  $wrap.click(function(e) {
+    e.stopPropagation();
+  });
+  $('body').prepend($overlay);
+  return $wrap;
+};
+$.modal.close = function() {
+  $('#modal-overlay').remove();
+};

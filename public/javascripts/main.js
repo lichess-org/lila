@@ -251,19 +251,30 @@ lichess.notifyApp = (function() {
     return atob(t.split("").reverse().join(""));
   };
 
-  lichess.openInMobileApp = function(gameId) {
-    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return false;
-    var storageKey = 'open-game-in-mobile';
+  lichess.openInMobileApp = function(path) {
+    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
+    var storageKey = 'open-in-mobile';
+    var rememberTimes = 10;
     var open = function(v) {
       if (v > 0) {
         lichess.storage.set(storageKey, v - 1);
-        location.href = 'lichess://' + gameId;
+        location.href = 'lichess://' + path;
       } else
         lichess.storage.set(storageKey, v + 1);
     };
     var stored = parseInt(lichess.storage.get(storageKey));
-    if (stored) open(stored);
-    else open(confirm('Open in lichess mobile app?') ? 10 : -10);
+    if (stored) return open(stored);
+    $.modal($('<div class="block_buttons">').css('font-size', '2em').html([
+      ['Open in mobile app', 1],
+      ['Open in web browser', 0]
+    ].map(function(o) {
+      return '<a class="button" data-mobile="' + o[1] + '">' + o[0] + '</a>';
+    }).join('')));
+    $('#modal-wrap a.button').click(function() {
+      $.modal.close();
+      var inMobile = !!$(this).data('mobile');
+      open((rememberTimes + 1) * (inMobile ? 1 : -1));
+    });
   };
 
   lichess.userAutocomplete = function($input, opts) {
@@ -928,7 +939,7 @@ lichess.notifyApp = (function() {
 
   lichess.startRound = function(element, cfg) {
     var data = cfg.data;
-    if (data.player.spectator) lichess.openInMobileApp(data.game.id);
+    lichess.openInMobileApp(data.game.id + (data.player.id || ''));
     var round, chat;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = lichess.StrongSocket(
@@ -1978,19 +1989,4 @@ lichess.notifyApp = (function() {
     $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
     return false;
   });
-
-  $.modal = function(html) {
-    if (!html.clone) html = $('<div>' + html + '</div>');
-    var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
-    var $overlay = $('<div id="modal-overlay">').html($wrap);
-    $overlay.add($wrap.find('.close')).one('click', $.modal.close);
-    $wrap.click(function(e) {
-      e.stopPropagation();
-    });
-    $('body').prepend($overlay);
-    return $wrap;
-  };
-  $.modal.close = function() {
-    $('#modal-overlay').remove();
-  };
 })();
