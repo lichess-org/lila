@@ -9,7 +9,6 @@
 var data = @Html(J.stringify(JsData(sit, fen, animationDuration)));
 data.positions = @positionsJson;
 LichessEditor(document.getElementById('board_editor'), data);
-lichess.openInMobileApp('editor');
 }
 }
 

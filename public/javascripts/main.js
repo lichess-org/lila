@@ -938,7 +938,7 @@ lichess.notifyApp = (function() {
 
   lichess.startRound = function(element, cfg) {
     var data = cfg.data;
-    lichess.openInMobileApp(data.game.id + (data.player.id || ''));
+    lichess.openInMobileApp(data.game.id);
     var round, chat;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = lichess.StrongSocket(
@@ -1768,7 +1768,7 @@ lichess.notifyApp = (function() {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
-    lichess.openInMobileApp(data.game.id);
+    lichess.openInMobileApp('/analyse/' + data.game.id);
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
     lichess.socket = lichess.StrongSocket(
@@ -1928,7 +1928,6 @@ lichess.notifyApp = (function() {
   ////////////////
 
   function startUserAnalysis(element, cfg) {
-    lichess.openInMobileApp('analysis');
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
