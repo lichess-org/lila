@@ -23,26 +23,20 @@ $(function() {
     };
 
     var addAutoRefreshLink = function() {
-      var enableAutoRefreshText = "Enable auto refresh";
-      var disableAutoRefreshText = "Disable auto refresh";
-
       var a = document.createElement('a');
       a.id = "auto_refresh";
-      var linkText = document.createTextNode(disableAutoRefreshText);
+      var linkText = document.createTextNode('Auto refresh');
       a.appendChild(linkText);
       a.classList.add('button');
+      if (autoRefreshEnabled) a.classList.add('active');
 
       a.onclick = function() {
 
-        if (autoRefreshEnabled) {
-          stopAutoRefresh();
-          $("#auto_refresh").text(enableAutoRefreshText);
-        } else {
-          startAutoRefresh();
-          $("#auto_refresh").text(disableAutoRefreshText);
-        }
+        if (autoRefreshEnabled) stopAutoRefresh();
+        else startAutoRefresh();
 
         autoRefreshEnabled = !autoRefreshEnabled;
+          $("#auto_refresh").toggleClass('active', autoRefreshEnabled);
       };
 
       startAutoRefresh();
