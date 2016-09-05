@@ -4,12 +4,10 @@ import lila.chat.UserChat
 import lila.simul.{ Simul => SimulModel }
 import lila.tournament.{ Tournament => TournamentModel }
 
-final class PublicChat(chatApi: lila.chat.ChatApi,
-    tournament: lila.tournament.Env,
-    simul: lila.simul.Env) {
-
-  var tournamentApi = tournament.api
-  val simulApi = simul.api
+final class PublicChat(
+    chatApi: lila.chat.ChatApi,
+    tournamentApi: lila.tournament.TournamentApi,
+    simulEnv: lila.simul.Env) {
 
   def tournamentChats: Fu[List[(TournamentModel, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {
@@ -37,9 +35,9 @@ final class PublicChat(chatApi: lila.chat.ChatApi,
     }
 
   private def fetchVisibleSimuls: Fu[List[SimulModel]] = {
-    simul.allCreated(true) zip
-      simul.repo.allStarted zip
-      simul.repo.allFinished(5) map {
+    simulEnv.allCreated(true) zip
+      simulEnv.repo.allStarted zip
+      simulEnv.repo.allFinished(5) map {
         case ((created, started), finished) =>
           created ::: started ::: finished
       }

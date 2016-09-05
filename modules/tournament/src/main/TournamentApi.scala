@@ -21,7 +21,7 @@ import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
-private[tournament] final class TournamentApi(
+final class TournamentApi(
     cached: Cached,
     scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
