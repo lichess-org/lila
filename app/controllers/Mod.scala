@@ -18,8 +18,6 @@ object Mod extends LilaController {
   private def modApi = Env.mod.api
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
-  private def chatApi = Env.chat.api
-  private def tourApi = Env.tournament.api
 
   def engine(username: String) = Secure(_.MarkEngine) { _ =>
     me => modApi.toggleEngine(me.id, username) inject redirect(username)
