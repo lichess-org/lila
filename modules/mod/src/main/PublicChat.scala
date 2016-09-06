@@ -12,14 +12,13 @@ final class PublicChat(
   def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {
       visibleTournaments =>
-        val tournamentList = sortTournamentsByRelevance(visibleTournaments.all)
-        val ids = tournamentList.map(_.id)
+        val ids = visibleTournaments.all.map(_.id)
         chatApi.userChat.findAll(ids).map {
           chats =>
             chats.map { chat =>
-              tournamentList.find(_.id === chat.id).map(tour => (tour, chat))
+              visibleTournaments.all.find(_.id === chat.id).map(tour => (tour, chat))
             }.flatten
-        }
+        } map sortTournamentsByRelevance
     }
 
   def simulChats: Fu[List[(Simul, UserChat)]] =
@@ -37,7 +36,7 @@ final class PublicChat(
   private def fetchVisibleSimuls: Fu[List[Simul]] = {
     simulEnv.allCreated(true) zip
       simulEnv.repo.allStarted zip
-      simulEnv.repo.allFinished(5) map {
+      simulEnv.repo.allFinished(3) map {
         case ((created, started), finished) =>
           created ::: started ::: finished
       }
@@ -46,6 +45,6 @@ final class PublicChat(
   /**
    * Sort the tournaments by the tournaments most likely to require moderation attention
    */
-  private def sortTournamentsByRelevance(tournaments: List[Tournament]): List[Tournament] =
-    tournaments.sortBy(-_.nbPlayers)
+  private def sortTournamentsByRelevance(tournaments: List[(Tournament, UserChat)]) =
+    tournaments.sortBy(-_._1.nbPlayers)
 }
