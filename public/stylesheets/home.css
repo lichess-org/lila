@@ -432,16 +432,8 @@ div.blog.undertable div.post time {
 #lichess .enterable_list td:first-child {
   padding-left: 1em;
 }
-#enterable_tournaments tr.create td {
-  text-align: center;
-}
-#lichess .enterable_list .button {
-  padding: 4px 8px;
-  opacity: 0;
-  transition: 0.13s;
-}
-#lichess .enterable_list tr:hover .button {
-  opacity: 1;
+#enterable_tournaments td:last-child {
+  padding-right: 10px;
 }
 #lichess .enterable_list td.name span {
   font-size: 17px;

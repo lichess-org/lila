@@ -1278,11 +1278,6 @@ lichess.notifyApp = (function() {
     }, 200);
   });
 
-  function unfuckLobbyTournaments() {
-    $("#enterable_tournaments td:last-child").remove();
-  }
-  unfuckLobbyTournaments();
-
   function startLobby(element, cfg) {
     var lobby;
     var nbRoundSpread = $.spreadNumber(
@@ -1339,7 +1334,6 @@ lichess.notifyApp = (function() {
           },
           tournaments: function(data) {
             $("#enterable_tournaments").html(data);
-            unfuckLobbyTournaments();
             lichess.pubsub.emit('content_loaded')();
           },
           simuls: function(data) {
