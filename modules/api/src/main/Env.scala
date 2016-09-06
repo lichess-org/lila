@@ -43,6 +43,7 @@ final class Env(
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
     val AssetVersion = config getInt "net.asset.version"
+    val Email = config getString "net.email"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
