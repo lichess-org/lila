@@ -9,6 +9,7 @@ object DataForm {
     "gameId" -> optional(nonEmptyText),
     "orientation" -> optional(nonEmptyText),
     "fen" -> optional(nonEmptyText),
+    "pgn" -> optional(nonEmptyText),
     "variant" -> optional(nonEmptyText)
   )(Data.apply)(Data.unapply))
 
@@ -16,6 +17,7 @@ object DataForm {
       gameId: Option[String] = None,
       orientationStr: Option[String] = None,
       fenStr: Option[String] = None,
+      pgnStr: Option[String] = None,
       variantStr: Option[String] = None) {
 
     def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
