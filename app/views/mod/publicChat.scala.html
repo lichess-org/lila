@@ -20,7 +20,7 @@ moreJs = jsTag("public-chat.js"))  {
         @chat.lines.filter(_.isVisible).map { line =>
         <div class="line">
           @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
-          @line.text
+          @autoLink(line.text)
         </div>
         }
       </div>
@@ -42,7 +42,7 @@ moreJs = jsTag("public-chat.js"))  {
           @chat.lines.filter(_.isVisible).map { line =>
           <div class="line">
             @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
-            @line.text
+            @autoLink(line.text)
           </div>
           }
         </div>
