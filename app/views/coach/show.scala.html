@@ -8,6 +8,7 @@
 @moreJs = {
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
 @if(ctx.isAuth) {
+@embedJs {
 $(function() {
 $(".bar-rating").barrating();
 $('.review-form .toggle').click(function() {
@@ -15,6 +16,7 @@ $(this).remove();
 $('.review-form form').slideDown(500);
 });
 });
+}
 }
 }
 
