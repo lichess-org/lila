@@ -86,7 +86,8 @@ private[i18n] object Contributors {
     "tl" -> List("Curlaub"),
     "fy" -> List("FishingCat"),
     "jb" -> List("username05"),
-    "tg" -> List("mondayguy"))
+    "tg" -> List("mondayguy"),
+    "cv" -> List("pentille"))
 
   def apply(code: String): List[String] = ~(all get code)
 }
