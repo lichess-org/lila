@@ -127,7 +127,7 @@ object User {
   // if it isn't after a word character (that'd be an email) and fits constraints in
   // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
   // Example: everyone says @ornicar is a pretty cool guy
-  // False example: Write to lichess.contact@gmail.com, @1
+  // False example: Write to contact@lichess.org, @1
   val atUsernameRegex = """\B@(?>([a-zA-Z_-][\w-]{1,19}))(?U)(?![\w-])""".r
 
   val usernameRegex = """^[\w-]+$""".r

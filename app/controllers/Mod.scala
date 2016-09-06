@@ -126,7 +126,7 @@ object Mod extends LilaController {
     lila.memo.AsyncCache[String, Int](ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
-      val email = "lichess.contact@gmail.com"
+      val email = "contact@lichess.org"
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>

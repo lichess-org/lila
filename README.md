@@ -44,7 +44,7 @@ Installation
 Feel free to use lichess API in your applications and websites.
 
 If the resource you need is not available yet,
-drop me an email at lichess.contact@gmail.com and we'll discuss it.
+drop us an email at contact@lichess.org and we'll discuss it.
 
 ### API Limits
 
