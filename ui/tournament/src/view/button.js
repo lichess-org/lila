@@ -24,7 +24,7 @@ function join(ctrl) {
       onclick: function() {
         if (ctrl.data.private) {
           var p = prompt('Password');
-          if (p) ctrl.join(p);
+          if (p !== null) ctrl.join(p);
         } else ctrl.join();
       }
     }, ctrl.trans('join'));
