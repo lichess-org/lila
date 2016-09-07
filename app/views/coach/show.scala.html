@@ -73,8 +73,8 @@ moreCss = moreCss) {
           <tr class="rating">
             <th>Rating</th>
             <td>
-              @profile.fideRating.map { r =>
-              FIDE: @r,
+              @profile.officialRating.map { r =>
+              @r.name.toUpperCase: @r.rating,
               }
               <a href="@routes.User.show(c.user.username)">
                 @c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map { pt =>

@@ -34,8 +34,10 @@ evenMoreCss =cssTag("material.form.css")) {
       </div>
       }
       <div>
-        @base.form.group(form("fideRating"), Html("FIDE rating"), klass = "half") {
-        @base.form.input(form("fideRating"), typ="number")
+        @List("fide", "uscf", "ecf").map { rn =>
+        @base.form.group(form(s"${rn}Rating"), Html(s"${rn.toUpperCase} rating"), klass = "third") {
+        @base.form.input(form(s"${rn}Rating"), typ="number")
+        }
         }
       </div>
       @errMsg(form)

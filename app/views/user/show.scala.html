@@ -172,8 +172,8 @@ description = describeUser(u)).some) {
       }
       }
       <div class="stats">
-        @profile.fideRating.map { rating =>
-        <div class="fide_rating">FIDE rating: <strong>@rating</strong></div>
+        @profile.officialRating.map { r =>
+        <div>@r.name.toUpperCase rating: <strong>@r.rating</strong></div>
         }
         @NotForKids {
         @profile.nonEmptyLocation.map { l =>
