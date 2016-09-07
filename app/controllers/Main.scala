@@ -21,17 +21,19 @@ object Main extends LilaController {
   ))
 
   def toggleBlindMode = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    fuccess {
-      blindForm.bindFromRequest.fold(
-        err => BadRequest, {
-          case (enable, redirect) =>
-            Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
-              Env.api.Accessibility.blindCookieName,
-              if (enable == "0") "" else Env.api.Accessibility.hash,
-              maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
-              httpOnly = true.some)
-        })
+    SameOrigin(Redirect(routes.Lobby.home).fuccess) {
+      implicit val req = ctx.body
+      fuccess {
+        blindForm.bindFromRequest.fold(
+          err => BadRequest, {
+            case (enable, redirect) =>
+              Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
+                Env.api.Accessibility.blindCookieName,
+                if (enable == "0") "" else Env.api.Accessibility.hash,
+                maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
+                httpOnly = true.some)
+          })
+      }
     }
   }
 

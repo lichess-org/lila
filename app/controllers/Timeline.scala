@@ -33,6 +33,8 @@ object Timeline extends LilaController {
 
   def unsub(channel: String) = Auth { implicit ctx =>
     me =>
-      Env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
+      SameOrigin() {
+        Env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
+      }
   }
 }
