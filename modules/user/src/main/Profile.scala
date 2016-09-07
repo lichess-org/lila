@@ -26,8 +26,8 @@ case class Profile(
   def isComplete = completionPercent == 100
 
   def completionPercent: Int = {
-    val c = List(country, location, bio, firstName, lastName).map(_.isDefined)
-    100 * c.count(identity) / c.size
+    val c = List(country, location, bio, firstName, lastName)
+    100 * c.count(_.isDefined) / c.size
   }
 
   import Profile.OfficialRating

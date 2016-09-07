@@ -9,17 +9,17 @@ $(function() {
     var $option = $editor.find('select[name=listed] option[value=true]');
 
     var must = [{
-      name: 'Complete your lichess profile',
+      html: '<a href="/account/profile">Complete your lichess profile</a>',
       check: function() {
         return $el.data('profile');
       }
     }, {
-      name: 'Upload a profile picture',
+      html: 'Upload a profile picture',
       check: function() {
         return $editor.find('img.picture').length;
       }
     }, {
-      name: 'Fill in basic informations',
+      html: 'Fill in basic informations',
       check: function() {
         ['profile.headline', 'profile.languages'].forEach(function(name) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
@@ -27,7 +27,7 @@ $(function() {
         return true;
       }
     }, {
-      name: 'Fill at least 3 description texts',
+      html: 'Fill at least 3 description texts',
       check: function() {
         return $editor.find('.panel.texts textarea').filter(function() {
           return !!$(this).val();
@@ -38,7 +38,7 @@ $(function() {
     return function() {
       var points = [];
       must.forEach(function(o) {
-        if (!o.check()) points.push($('<li>').text(o.name));
+        if (!o.check()) points.push($('<li>').html(o.html));
       });
       $el.find('ul').html(points);
       var fail = !!points.length;

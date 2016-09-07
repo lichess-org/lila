@@ -45,7 +45,7 @@ side = side.some) {
       <h1>
         @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
       </h1>
-      <div class="todo" data-profile="c.user.profileOrDefault.isComplete">
+      <div class="todo" data-profile="@c.user.profileOrDefault.isComplete">
         <h3>TODO list before publishing your coach profile</h3>
         <ul></ul>
       </div>

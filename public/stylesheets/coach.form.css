@@ -59,7 +59,8 @@
   list-style: disc inside;
 }
 
-.coach_edit .top a {
+.coach_edit .top a,
+body.dark .coach_edit .top a {
   color: #3893E8;
 }
 
