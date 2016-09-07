@@ -370,7 +370,7 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return this.tree.ops.withMainlineChild(this.vm.node, function(n) {
+    return treeOps.withMainlineChild(this.vm.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);
