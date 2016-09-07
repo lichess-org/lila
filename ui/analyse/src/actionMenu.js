@@ -91,7 +91,7 @@ function studyButton(ctrl) {
     m('button.button.text', {
       'data-icon': '',
       type: 'submit'
-    }, realGame ? 'Study this game' : 'Host a study')
+    }, realGame ? 'Study this game' : 'Save as a study')
   ]);
 }
 
