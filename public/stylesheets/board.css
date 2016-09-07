@@ -728,7 +728,7 @@ div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 34px;
+  font-size: 36px;
   font-family: monospace, 'Noto Sans', 'Lucida Grande';
 }
 div.table_wrap .correspondence.clock > .time {
