@@ -12,7 +12,7 @@ for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
 }));
 
 function localEvalInfo(ctrl, evs) {
-  if (!evs.client) return 'Loading engine...';
+  if (!evs.client) return evs.server ? 'Using server analysis' : 'Loading engine...';
   if (evs.client.dict) return 'Book move';
   var t = 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth;
   if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
