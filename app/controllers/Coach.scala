@@ -14,19 +14,14 @@ object Coach extends LilaController {
 
   def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
 
-  private val canViewCoaches = (u: UserModel) =>
-    isGranted(_.Admin, u) || isGranted(_.Coach, u) || isGranted(_.PreviewCoach, u)
-
-  def all(o: String, page: Int) = SecureF(canViewCoaches) { implicit ctx =>
-    me =>
-      val order = CoachPager.Order(o)
-      Env.coach.pager(order, page) map { pager =>
-        Ok(html.coach.index(pager, order))
-      }
+  def all(o: String, page: Int) = Open { implicit ctx =>
+    val order = CoachPager.Order(o)
+    Env.coach.pager(order, page) map { pager =>
+      Ok(html.coach.index(pager, order))
+    }
   }
 
-  def show(username: String) = SecureF(canViewCoaches) { implicit ctx =>
-    me =>
+  def show(username: String) = Open { implicit ctx =>
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
           Env.study.api.byIds {
@@ -68,7 +63,7 @@ object Coach extends LilaController {
   }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if ((c.coach.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) && ctx.me.??(canViewCoaches)) f
+    if (c.coach.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) f
     else notFound
 
   def edit = Secure(_.Coach) { implicit ctx =>
