@@ -21,12 +21,13 @@
 }
 
 @side = {
-<a href="@routes.Coach.show(c.user.username)" class="button text" data-icon="v">Preview coach page</a>
+<a href="@routes.Coach.show(c.user.username)" class="preview button text" data-icon="v">Preview coach page</a>
 }
 
 @layout(title = s"${c.user.titleUsername} coach page",
 moreCss = moreCss,
-moreJs = moreJs) {
+moreJs = moreJs,
+side = side.some) {
 <div class="coach_edit content_box no_padding">
   <div class="top">
     <div class="picture_wrap">

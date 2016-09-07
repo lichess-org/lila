@@ -186,6 +186,12 @@ body.dark .coach_edit .reviews .actions a {
   background: #dc322f!important;
 }
 
+#site_header a.preview {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+}
+
 /* review score */
 .br-widget {
   white-space: nowrap;
