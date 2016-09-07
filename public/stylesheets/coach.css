@@ -71,6 +71,8 @@
   width: 50%;
   padding: 20px 40px 20px 20px;
   text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .coach .sections section:nth-child(odd) {
   padding: 20px 20px 20px 40px;
