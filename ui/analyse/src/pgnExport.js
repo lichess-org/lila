@@ -15,10 +15,25 @@ function renderNodesTxt(nodes) {
   return s.trim();
 }
 
+function renderTree(node, variations, withTurn) {
+  if (!node) return '';
+  var isWhite = node.ply % 2 === 1;
+  var txts = [''];
+  if (isWhite || withTurn)
+    txts[0] += Math.floor((node.ply + 1) / 2) + (isWhite ? '.' : '...') + ' ';
+  txts[0] += fixCrazySan(node.san);
+  if (node.children.length) txts[0] += ' ';
+  variations.forEach(function(variation) {
+    txts.push('(' + renderTree(variation, [], true) + ')');
+  });
+  txts.push(renderTree(node.children[0], node.children.slice(1)));
+  return txts.join('');
+}
+
 module.exports = {
   renderFullTxt: function(ctrl) {
     var g = ctrl.data.game;
-    var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.vm.path));
+    var txt = renderTree(ctrl.tree.root.children[0], [], true).trim();
     var tags = [];
     if (g.variant.key !== 'standard')
       tags.push(['Variant', g.variant.name]);

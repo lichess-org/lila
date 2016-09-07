@@ -223,6 +223,7 @@ var firstRender = true;
 
 module.exports = function(ctrl) {
   var concealOf = makeConcealOf(ctrl);
+  console.log(pgnExport.renderFullTxt(ctrl));
   return [
     m('div', {
       config: function(el, isUpdate) {
