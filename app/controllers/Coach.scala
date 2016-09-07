@@ -24,7 +24,7 @@ object Coach extends LilaController {
   def show(username: String) = Open { implicit ctx =>
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
-          Env.study.api.byIds {
+          Env.study.api.publicByIds {
             c.coach.profile.studyIds.map(_.value)
           } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
             api.reviews.approvedByCoach(c.coach) flatMap { reviews =>

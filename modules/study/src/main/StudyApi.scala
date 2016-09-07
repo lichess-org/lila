@@ -31,6 +31,8 @@ final class StudyApi(
 
   def byIds = studyRepo byOrderedIds _
 
+  def publicByIds(ids: Seq[String]) = byIds(ids) map { _.filter(_.isPublic) }
+
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       chapterRepo.byId(study.position.chapterId) flatMap {
