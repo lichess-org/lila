@@ -141,7 +141,9 @@ body.dark .coach_edit .top a {
   border-top: 1px solid #ccc;
   margin-top: 40px;
 }
-body.dark .coach_edit .reviews .review {
+body.dark .coach_edit .reviews .review,
+body.dark .coach_picture form,
+body.dark .coach_picture .cancel {
   border-color: #3d3d3d;
 }
 .coach_edit .reviews .user > * {
