@@ -16,6 +16,7 @@
 @moreJs = {
 <script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
 @jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
+@jsTag("chart/coachPageView.js")
 @jsTag("coach.form.js")
 }
 
@@ -31,7 +32,7 @@ moreJs = moreJs) {
     <div class="picture_wrap">
       @if(c.coach.hasPicture) {
       <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
-        @pic(c, 200)
+        @pic(c, 250)
       </a>
       } else {
       <div class="upload_picture">
@@ -48,7 +49,7 @@ moreJs = moreJs) {
         <ul></ul>
       </div>
       <div class="analytics">
-        Soon here: Coach page analytics
+        <div class="pageview_chart">@base.spinner()</div>
       </div>
     </div>
   </div>

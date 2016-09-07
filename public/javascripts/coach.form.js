@@ -86,4 +86,11 @@ $(function() {
     $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
     return false;
   });
+
+  $editor.find('.analytics .pageview_chart').each(function() {
+    var $el = $(this);
+    $.getJSON('/monitor/coach/pageview', function(data) {
+      lichess.coachPageViewChart(data, $el);
+    });
+  });
 });

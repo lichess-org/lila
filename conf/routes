@@ -481,6 +481,9 @@ GET   /help/contribute                 controllers.Page.contribute
 GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
+# Graphite
+GET   /monitor/coach/pageview          controllers.Monitor.coachPageView
+
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
 # Assets
