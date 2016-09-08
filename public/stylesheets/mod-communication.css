@@ -102,3 +102,6 @@ body.dark #communication .player_chats .game .title {
 #communication.public_chat .threads .post {
   opacity: 1;
 }
+#communication.public_chat .chat {
+  overflow-y: auto!important;
+}
