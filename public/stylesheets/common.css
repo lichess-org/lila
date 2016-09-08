@@ -1951,23 +1951,6 @@ div.undertable_inner {
 .undertable tr:first-child td {
   border-top: none;
 }
-.leaderboards {
-  display: flex;
-  margin-bottom: 15px;
-}
-.undertable.leaderboards .leaderboard {
-  width: 50%;
-}
-.undertable.leaderboards .leaderboard:first-child {
-  margin-right: 14px;
-}
-.undertable.leaderboard td:first-child {
-  max-width: 135px;
-  overflow: hidden;
-}
-.undertable.leaderboard {
-  white-space: nowrap;
-}
 div.lichess_overboard.joining .submit {
   font-size: 1.2em;
   margin-top: 1em;

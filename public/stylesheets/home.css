@@ -395,32 +395,47 @@ div.blog.undertable div.undertable_inner {
 div.blog.undertable div.undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable div.post {
+div.blog.undertable .post {
   overflow: hidden;
 }
-div.blog.undertable div.post .text {
+div.blog.undertable .text {
   margin-top: 5px;
 }
-div.blog.undertable div.post a.image {
+div.blog.undertable .image {
   display: block;
   float: left;
   margin-right: 10px;
 }
-div.blog.undertable div.post a.image img {
+div.blog.undertable .image img {
   height: 48px;
   width: 48px;
   margin: 3px;
 }
-div.blog.undertable div.post .title {
+div.blog.undertable .title {
   font-weight: bold;
   line-height: 2;
 }
-div.blog.undertable div.post time {
+div.blog.undertable time {
   margin-top: 10px;
   float: right;
   font-weight: 100;
   line-height: 2;
   opacity: 0.6;
+}
+.leaderboards {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.leaderboards .leaderboard {
+  flex: 0 0 48.5%;
+  max-width: 48.5%;
+}
+.leaderboards .leaderboard td:first-child {
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #lichess .enterable_list {
   height: auto;
