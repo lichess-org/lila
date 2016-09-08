@@ -18,7 +18,9 @@ fi
 
 lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
 
-bin/prod/compile-client
+if [ $2 != "skip" ]; then
+  bin/prod/compile-client
+fi
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
