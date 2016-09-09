@@ -42,7 +42,7 @@ private[tournament] final class StartedOrganizer(
             val result: Funit =
               if (tour.secondsToFinish == 0) fuccess(api finish tour)
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
+              else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit
             result >>- {
               reminder ! RemindTournament(tour, activeUserIds)

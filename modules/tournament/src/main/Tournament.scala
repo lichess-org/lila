@@ -59,7 +59,7 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt max 0
 
-  def isAlmostFinished = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
+  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
 
   def isStillWorthEntering = isMarathonOrUnique || {
     secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
