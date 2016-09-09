@@ -60,7 +60,8 @@ object ApplicationBuild extends Build {
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
     history, worldMap, opening, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
-    study, studySearch, fishnet, explorer, learn, plan, event, coach)
+    study, studySearch, fishnet, explorer, learn, plan,
+    event, coach, badge)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -92,6 +93,11 @@ object ApplicationBuild extends Build {
   lazy val coach = project("coach", Seq(
     common, hub, db, user, security, notifyModule)).settings(
     libraryDependencies ++= provided(play.api, RM, scrimage)
+  )
+
+  lazy val badge = project("badge", Seq(
+    common, hub, db, user, notifyModule)).settings(
+    libraryDependencies ++= provided(play.api, RM)
   )
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
