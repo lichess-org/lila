@@ -413,7 +413,6 @@ div.blog.undertable .image img {
 }
 div.blog.undertable .title {
   font-weight: bold;
-  line-height: 2;
 }
 div.blog.undertable time {
   margin-top: 10px;
@@ -475,9 +474,6 @@ div.new_posts li {
   padding-left: 9px;
   line-height: 14px;
   white-space: nowrap;
-}
-div.new_posts a {
-  margin-right: 6px;
 }
 div.new_posts li span.extract {
   font-family: 'Roboto';
@@ -858,6 +854,7 @@ body.dark .tour_spotlight:hover .img {
   font-size: 1.3em;
   line-height: 1.2em;
   border: 1px solid #ccc;
+  box-sizing: border-box;
   background: #fff;
 }
 .donation a {
