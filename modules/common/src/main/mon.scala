@@ -228,6 +228,12 @@ object mon {
     val created = rec("tournament.created")
     val started = rec("tournament.started")
     val player = rec("tournament.player")
+    object startedOrganizer {
+      val tickTime = rec("tournament.started_organizer.tick_time")
+    }
+    object createdOrganizer {
+      val tickTime = rec("tournament.created_organizer.tick_time")
+    }
   }
   object donation {
     val goal = rec("donation.goal")

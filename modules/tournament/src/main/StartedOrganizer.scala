@@ -52,7 +52,10 @@ private[tournament] final class StartedOrganizer(
           lila.mon.tournament.player(playerCounts.sum)
           lila.mon.tournament.started(started.size)
         }
-      } andThenAnyway scheduleNext
+      }.chronometer
+        .mon(_.tournament.startedOrganizer.tickTime)
+        .logIfSlow(500, logger)(_ => "StartedOrganizer.Tick")
+        .result andThenAnyway scheduleNext
   }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =

@@ -45,7 +45,10 @@ private[tournament] final class CreatedOrganizer(
           }
         }
         lila.mon.tournament.created(tours.size)
-      } andThenAnyway scheduleNext
+      }.chronometer
+        .mon(_.tournament.createdOrganizer.tickTime)
+        .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
+        .result andThenAnyway scheduleNext
   }
 
   private def ejectLeavers(tour: Tournament) =
