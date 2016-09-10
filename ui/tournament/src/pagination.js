@@ -19,10 +19,11 @@ function button(text, icon, click, enable) {
 function scrollToMeButton(ctrl, pag) {
   if (!ctrl.data.me) return;
   return m('button', {
-    class: 'button text' + (ctrl.vm.focusOnMe ? ' active-soft' : ''),
+    class: 'button flat' + (ctrl.vm.focusOnMe ? ' active-soft' : ''),
     'data-icon': '7',
-    onmousedown: ctrl.toggleFocusOnMe
-  }, 'Me');
+    onmousedown: ctrl.toggleFocusOnMe,
+    title: 'Scroll to your player'
+  });
 }
 
 module.exports = {

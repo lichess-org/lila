@@ -1546,7 +1546,6 @@ div.vstext,
 div.user_show div.content_box_inter.tabs,
 #qa .answers-header,
 table.slist thead {
-  background: rgb(245, 245, 245);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
