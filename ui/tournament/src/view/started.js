@@ -4,7 +4,7 @@ var pairings = require('./pairings');
 var playerInfo = require('./playerInfo');
 var pagination = require('../pagination');
 var header = require('./header');
-var myCurrentGameId = require('../tournament').myCurrentGameId;
+var tour = require('../tournament');
 
 function joinTheGame(ctrl, gameId) {
   return m('a.is.is-after.pov.button.glowed', {
@@ -15,14 +15,20 @@ function joinTheGame(ctrl, gameId) {
   ]);
 }
 
+function notice(ctrl) {
+  return tour.willBePaired(ctrl) ? m('div.notice.wait',
+    'Get ready! You are going be paired with your next opponent!'
+  ) : m('div.notice.closed',
+    'The tournament pairings are now closed.');
+}
+
 module.exports = {
   main: function(ctrl) {
-    var gameId = myCurrentGameId(ctrl);
-    var pag = pagination.players(ctrl);
+    var gameId = tour.myCurrentGameId(ctrl);
     return [
       header(ctrl),
-      gameId ? joinTheGame(ctrl, gameId) : null,
-      arena.standing(ctrl, pag)
+      gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
+      arena.standing(ctrl, pagination.players(ctrl))
     ];
   },
   side: function(ctrl) {

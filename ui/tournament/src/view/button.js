@@ -1,6 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var xhr = require('../xhr');
+var isIn = require('../tournament').isIn;
 
 function orJoinSpinner(ctrl, f) {
   return ctrl.vm.joinSpinner ? m.trust(lichess.spinnerHtml) : f();
@@ -40,6 +41,6 @@ module.exports = {
       'data-icon': 'G'
     }, ctrl.trans('signIn'));
     if (ctrl.data.isFinished) return null;
-    return ctrl.data.me && !ctrl.data.me.withdraw ? withdraw(ctrl) : join(ctrl);
+    return isIn(ctrl) ? withdraw(ctrl) : join(ctrl);
   }
 };

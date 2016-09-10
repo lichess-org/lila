@@ -302,6 +302,14 @@ ol.scheduled_tournaments a {
 #tournament .pager .page {
   margin: 0 3px;
 }
+#tournament .notice {
+  color: #FFF;
+  background: #639B24;
+  text-shadow: 0 -1px #639B24;
+  text-align: center;
+  padding: 7px 0;
+  opacity: 0.7;
+}
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
