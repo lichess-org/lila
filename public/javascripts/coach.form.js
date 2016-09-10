@@ -60,6 +60,7 @@ $(function() {
     $editor.find('form.form').ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
+        todo();
       }
     });
   }, 1000);
@@ -77,10 +78,7 @@ $(function() {
     var $review = $(this).parents('.review');
     $.ajax({
       method: 'post',
-      url: $review.data('action') + '?v=' + $(this).data('value'),
-      complete: function() {
-        todo();
-      }
+      url: $review.data('action') + '?v=' + $(this).data('value')
     });
     $review.slideUp(300);
     $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
