@@ -8,7 +8,7 @@ function orJoinSpinner(ctrl, f) {
 
 function withdraw(ctrl) {
   return orJoinSpinner(ctrl, function() {
-    return m('button.button.right.text', {
+    return m('button.fbt.text', {
       'data-icon': 'b',
       onclick: ctrl.withdraw
     }, ctrl.trans('withdraw'));
@@ -18,7 +18,7 @@ function withdraw(ctrl) {
 function join(ctrl) {
   return orJoinSpinner(ctrl, function() {
     var joinable = ctrl.data.verdicts.accepted;
-    return m('button.button.right.text', {
+    return m('button.fbt.text', {
       class: joinable ? 'highlight' : 'disabled',
       'data-icon': 'G',
       onclick: function() {
@@ -35,7 +35,7 @@ module.exports = {
   withdraw: withdraw,
   join: join,
   joinWithdraw: function(ctrl) {
-    if (!ctrl.userId) return m('a.button.right.text', {
+    if (!ctrl.userId) return m('a.fbt.text.highlight', {
       href: '/login?autoref=1',
       'data-icon': 'G'
     }, ctrl.trans('signIn'));

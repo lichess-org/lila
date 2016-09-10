@@ -115,10 +115,8 @@ module.exports = {
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('div.controls',
-        m('div.pager', [
-          button.joinWithdraw(ctrl),
-          pagination.renderPager(ctrl, pag)
-        ])
+        m('div.pager', pagination.renderPager(ctrl, pag)),
+        button.joinWithdraw(ctrl)
       ),
       m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
         m('tbody', {

@@ -240,36 +240,55 @@ ol.scheduled_tournaments a {
   color: #848484;
   border: 1px solid #d8d8d8;
   border-width: 1px 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }
-#tournament .controls .button {
-  border-width: 0;
+.fbt {
+  background: none;
+  border: none;
+  outline: none;
   padding: 10px 13px;
   text-transform: uppercase;
+  cursor: default;
 }
-#tournament .controls .highlight {
+.fbt:disabled {
+  opacity: 0.5;
+}
+.fbt:not(:disabled):hover {
+  cursor: pointer;
+  background: #3893E8;
+  color: #fff;
+}
+.fbt:active,
+.fbt.active {
+  background: #5ba6ec;
+  color: #fff;
+}
+#tournament .highlight {
   position: absolute;
-  top: -4px;
-  right: 6px;
+  right: 5px;
+  top: -3px;
+  transform: translate(0px,0px);
   padding: 8px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   color: #FFF;
   text-decoration: none;
+  background: #82BF56;
+  border-bottom: 5px solid #759900;
+  text-shadow: 0 -1px #759900;
+  transition: all 0.08s;
+  filter: brightness(1);
 }
-#tournament .controls .highlight {
-	background: #82BF56;
-	border-bottom: 5px solid #669644;
-	text-shadow: 0px -2px #669644;
+#tournament .highlight:hover {
+  filter: brightness(1.06);
 }
-#tournament .controls .highlight:active {
+#tournament .highlight:active {
   transform: translate(0px,5px);
-  -webkit-transform: translate(0px,5px);
-  border-bottom: 1px solid;
+  border-bottom-width: 1px;
+  text-shadow: 0 0 #759900;
+  filter: brightness(1);
 }
-/* #tournament .controls .button.highlight { */
-/*   background: #639B24; */
-/*   color: #fff; */
-/*   text-shadow: none; */
-/* } */
 #tournament .controls .spinner {
   margin: 9px 10px 0 0;
   width: 20px;
@@ -277,19 +296,11 @@ ol.scheduled_tournaments a {
   float: right;
 }
 #tournament .pager {
-  position: relative;
-  font-weight: bold;
   user-select: none;
   -webkit-user-select: none;
 }
-#tournament .pager > * {
-  display: inline-block;
-}
-#tournament .pager button {
-  margin: 0 -1px;
-}
 #tournament .pager .page {
-  margin: 0 5px;
+  margin: 0 3px;
 }
 #tournament table.standing {
   width: 525px;
@@ -372,13 +383,6 @@ ol.scheduled_tournaments a {
   background: #759900;
   opacity: 0.5;
   transition: width 0.5s;
-}
-#tournament .button.right {
-  float: right;
-  margin-left: 5px;
-}
-#tournament .button.disabled {
-  opacity: 0.5;
 }
 #tournament span.joined {
   font-weight: bold;
