@@ -219,7 +219,7 @@ description = describeUser(u)).some) {
     <a class="insight" href="@routes.Insight.index(u.username)">
       <span class="icon" data-icon="7"></span>
       <strong>@trans.chessInsights()</strong>
-      <em>@if(ctx.is(u)){@trans.chessInsightsUser()}else{@trans.chessInsightsOther(@u.username)}</em>
+      <em>@if(ctx.is(u)){@trans.chessInsightsUser()}else{@trans.chessInsightsOther(u.username)}</em>
     </a>
     }
   </div>
