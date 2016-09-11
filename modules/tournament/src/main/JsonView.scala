@@ -74,7 +74,7 @@ final class JsonView(
     "startsAt" -> formatDate(tour.startsAt),
     "pairings" -> data.pairings,
     "standing" -> stand,
-    "me" -> myInfo.map(myInfoJson),
+    "me" -> myInfo.map(myInfoJson(me)),
     "featured" -> data.featured,
     "podium" -> data.podium,
     "playerInfo" -> playerInfoJson,
@@ -224,9 +224,10 @@ final class JsonView(
       "black" -> ofPlayer(featured.black, game player chess.Black))
   }
 
-  private def myInfoJson(i: PlayerInfo) = Json.obj(
+  private def myInfoJson(u: Option[User])(i: PlayerInfo) = Json.obj(
     "rank" -> i.rank,
-    "withdraw" -> i.withdraw)
+    "withdraw" -> i.withdraw,
+    "username" -> u.map(_.titleUsername))
 
   private def gameUserJson(player: lila.game.Player): JsObject =
     gameUserJson(player.userId, player.rating)

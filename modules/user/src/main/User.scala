@@ -55,7 +55,7 @@ case class User(
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
-  def titleUsername = title.fold(username)(_ + " " + username)
+  def titleUsername = title.fold(username)(t => s"$t $username")
 
   def titleUsernameWithBestRating = title.fold(usernameWithBestRating)(_ + " " + usernameWithBestRating)
 
