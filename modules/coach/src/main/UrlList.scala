@@ -11,14 +11,14 @@ object UrlList {
     def apply(text: String): List[Url] =
       text.lines.toList.map(_.trim).filter(_.nonEmpty) flatMap toUrl take max
 
-    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)(.+)$""".r
+    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)([^"&?\/ ]{11}).*""".r
 
     /*
    * https://www.youtube.com/watch?v=wEwoyYp_iw8
    * https://www.youtube.com/embed/wEwoyYp_iw8
    */
-    private def toUrl(line: String): Option[Url] = line match {
-      case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
+    private def toUrl(line: String): Option[Url] = line.pp match {
+      case UrlRegex(id) => Url(s"https://www.youtube.com/embed/${id.pp}").some
       case _            => none
     }
   }
