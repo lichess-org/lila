@@ -340,8 +340,7 @@ ol.scheduled_tournaments a {
   cursor: pointer;
 }
 #tournament table.standing tr.me td:first-child {
-  border-left: 10px solid #d59120;
-  padding-left: 5px;
+  background: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
 }
 #tournament table.slist td:first-child rank {
   display: inline-block;
