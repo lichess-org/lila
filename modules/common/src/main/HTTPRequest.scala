@@ -13,7 +13,7 @@ object HTTPRequest {
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
-  def isSafe(req: RequestHeader) = req.method == "GET"
+  def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
