@@ -17,8 +17,8 @@ object UrlList {
    * https://www.youtube.com/watch?v=wEwoyYp_iw8
    * https://www.youtube.com/embed/wEwoyYp_iw8
    */
-    private def toUrl(line: String): Option[Url] = line.pp match {
-      case UrlRegex(id) => Url(s"https://www.youtube.com/embed/${id.pp}").some
+    private def toUrl(line: String): Option[Url] = line match {
+      case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
       case _            => none
     }
   }
