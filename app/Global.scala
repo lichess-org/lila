@@ -18,9 +18,7 @@ object Global extends GlobalSettings {
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
     lila.mon.http.request.all()
-    Env.security.csrfRequestHandler(req) orElse
-      Env.i18n.requestHandler(req) orElse
-      super.onRouteRequest(req)
+    Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
   }
 
   private def niceError(req: RequestHeader): Boolean =

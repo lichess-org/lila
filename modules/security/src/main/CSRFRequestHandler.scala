@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.mvc.Results.Forbidden
-import play.api.mvc.{ Action, RequestHeader, Handler }
+import play.api.mvc.{ Action, RequestHeader, Result }
 
 import lila.common.HTTPRequest._
 
@@ -9,32 +9,36 @@ final class CSRFRequestHandler(domain: String) {
 
   private def logger = lila.log("csrf")
 
-  def apply(req: RequestHeader): Option[Handler] =
-    if ((isSafe(req) && !isSocket(req)) || isXhr(req)) None
-    else origin(req).orElse(referer(req) flatMap refererToOrigin) match {
+  def check(req: RequestHeader): Boolean = {
+    lazy val orig = origin(req).orElse(referer(req) flatMap refererToOrigin)
+
+    if (isXhr(req)) true
+    else if (isSocket(req)) {
+      if (orig.exists(o => o == "file://" || isSubdomain(o))) true
+      else {
+        lila.mon.http.csrf.websocket()
+        logger.info(s"WS ${print(req)}")
+        true // TODO: false
+      }
+    }
+    else if (isSafe(req)) true
+    else orig match {
       case None =>
         lila.mon.http.csrf.missingOrigin()
         logger.debug(print(req))
-        None
-      case Some("file://") =>
-        // request from the app
-        None
+        true // TODO: false
       case Some(o) if isSubdomain(o) =>
-        None
+        true
       case Some(o) =>
         lila.mon.http.csrf.forbidden()
         logger.info(print(req))
-        // forbid(req).some
-        None // only log for now
+        true // TODO: false
     }
+  }
 
-  def strictCheck(req: RequestHeader): Boolean = {
-    val ok = origin(req) exists isSubdomain
-    if (!ok) {
-      lila.mon.http.csrf.websocket()
-      logger.info(s"WS ${print(req)}")
-    }
-    true // always ok for now
+  def apply(req: RequestHeader): Option[Result] = {
+    if (check(req)) None
+    else Forbidden("Cross origin request forbidden").some
   }
 
   private val topDomain = s"://$domain"
@@ -52,7 +56,4 @@ final class CSRFRequestHandler(domain: String) {
     case RefererToOriginRegex(origin) => origin.some
     case _                            => none
   }
-
-  private def forbid(req: RequestHeader): Handler =
-    Action(Forbidden("Cross origin request forbidden"))
 }

@@ -80,8 +80,10 @@ private[controllers] trait LilaController
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      reqToCtx(req) flatMap { ctx =>
-        Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
+      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+        reqToCtx(req) flatMap { ctx =>
+          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
+        }
       }
     }
 
@@ -89,19 +91,22 @@ private[controllers] trait LilaController
     OpenBody(BodyParsers.parse.anyContent)(f)
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
-    Action.async(p)(req => reqToCtx(req) flatMap f)
-
-  protected def OpenNoCtx(f: RequestHeader => Fu[Result]): Action[AnyContent] =
-    Action.async(f)
+    Action.async(p) { req =>
+      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+        reqToCtx(req) flatMap f
+      }
+    }
 
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
     Auth(BodyParsers.parse.empty)(f)
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      reqToCtx(req) flatMap { implicit ctx =>
-        ctx.me.fold(authenticationFailed) { me =>
-          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+        reqToCtx(req) flatMap { implicit ctx =>
+          ctx.me.fold(authenticationFailed) { me =>
+            Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+          }
         }
       }
     }
@@ -111,8 +116,10 @@ private[controllers] trait LilaController
 
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      reqToCtx(req) flatMap { implicit ctx =>
-        ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+        reqToCtx(req) flatMap { implicit ctx =>
+          ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+        }
       }
     }
 
@@ -294,7 +301,7 @@ private[controllers] trait LilaController
     }) map (_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader, sameOriginAuth: Boolean = false): Fu[HeaderContext] = {
-    if (sameOriginAuth && !Env.security.csrfRequestHandler.strictCheck(req)) fuccess(none)
+    if (sameOriginAuth && !Env.security.csrfRequestHandler.check(req)) fuccess(none)
     else restoreUser(req)
   } flatMap { d =>
     val ctx = UserContext(req, d.map(_.user))
