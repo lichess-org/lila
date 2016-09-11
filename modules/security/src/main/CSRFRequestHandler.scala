@@ -11,7 +11,7 @@ final class CSRFRequestHandler(domain: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
     if (isSafe(req)) None
-    else origin(req).orElse(referer(req)) match {
+    else origin(req).orElse(referer(req) flatMap refererToOrigin) match {
       case None =>
         lila.mon.http.csrf.missingOrigin()
         logger.debug(print(req))
@@ -32,6 +32,14 @@ final class CSRFRequestHandler(domain: String) {
   // domain = "lichess.org"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
+
+  // input  = "https://en.lichess.org/some/path?a=b&c=d"
+  // output = "https://en.lichess.org"
+  private val RefererToOriginRegex = """^([^:]+://[^/]+).*""".r // a.k.a. pokemon face regex
+  private def refererToOrigin(r: String): Option[String] = r match {
+    case RefererToOriginRegex(origin) => origin.some
+    case _                            => none
+  }
 
   private def forbid(req: RequestHeader): Handler =
     Action(Forbidden("Cross origin request forbidden"))
