@@ -56,6 +56,12 @@
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>
+  <logger name="csrf" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/csrf.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
 
   <!-- <logger name="java.io.IOException" level="OFF" /> -->
   <!-- <logger name="java.nio.channels.ClosedChannelException" level="OFF" /> -->
