@@ -9,7 +9,7 @@ object HTTPRequest {
     (req.headers get "X-Requested-With") contains "XMLHttpRequest"
 
   def isSocket(req: RequestHeader): Boolean =
-    (req.headers get HeaderNames.UPGRADE) ?? (_.toLowerCase == "websocket")
+    (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
