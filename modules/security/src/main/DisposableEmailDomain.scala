@@ -1,6 +1,5 @@
 package lila.security
 
-import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
@@ -14,7 +13,7 @@ final class DisposableEmailDomain(
 
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
-      setDomains(res.json)
+      setDomains(res.body.lines.map(_.trim).filter(_.nonEmpty).toList)
       lila.mon.email.disposableDomain(matchers.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
@@ -22,9 +21,8 @@ final class DisposableEmailDomain(
     }
   }
 
-  private[security] def setDomains(json: JsValue): Unit = try {
-    val ds = json.as[List[String]]
-    matchers = ds.map { d =>
+  private[security] def setDomains(domains: List[String]): Unit = try {
+    matchers = domains.map { d =>
       val regex = s"""(.+\\.|)${d.replace(".", "\\.")}"""
       makeMatcher(regex)
     }
