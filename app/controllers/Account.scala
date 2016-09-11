@@ -148,10 +148,12 @@ object Account extends LilaController {
       Ok(html.account.kid(me)).fuccess
   }
 
-  def kidConfirm = Auth { ctx =>
+  def kidConfirm = Auth { implicit ctx =>
     me =>
-      implicit val req = ctx.req
-      (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
+      SameOrigin(Ok(html.account.kid(me)).fuccess) {
+        implicit val req = ctx.req
+        (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
+      }
   }
 
   private def currentSessionId(implicit ctx: Context) =

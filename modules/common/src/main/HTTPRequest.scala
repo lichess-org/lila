@@ -28,6 +28,7 @@ object HTTPRequest {
   def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
   def isSafari(req: RequestHeader) = uaContains(req, "Safari/") && !isChrome(req)
 
+  def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def lastRemoteAddress(req: RequestHeader): String =

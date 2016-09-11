@@ -9,6 +9,7 @@ import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.twirl.api.Html
 import scalaz.Monoid
+import util.Try
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
 import lila.app._
@@ -340,6 +341,18 @@ private[controllers] trait LilaController
         Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     }
+
+  protected def SameOrigin(error: => Fu[Result] = Forbidden("Cross origin request forbidden").fuccess)(res: => Fu[Result])(implicit ctx: Context) = {
+    val origin =
+      HTTPRequest.origin(ctx.req)
+        .orElse(HTTPRequest.referer(ctx.req))
+        .flatMap(origin => Try { new java.net.URL(origin).getHost() }.toOption)
+
+    def isSubDomain(sub: String, base: String) = ("." + sub).endsWith("." + base)
+
+    if (origin.map(isSubDomain(_, Env.api.Net.Domain)).getOrElse(true)) res
+    else error
+  }
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
