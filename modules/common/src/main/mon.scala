@@ -45,7 +45,11 @@ object mon {
       val timeout = inc("http.mailgun.timeout")
     }
     object userGames {
-      def cost = incX(s"http.user-games.cost")
+      def cost = incX("http.user-games.cost")
+    }
+    object csrf {
+      val missingOrigin = inc("http.csrf.missing_origin")
+      val forbidden = inc("http.csrf.forbidden")
     }
   }
   object lobby {

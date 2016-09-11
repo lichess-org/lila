@@ -14,6 +14,7 @@ object HTTPRequest {
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
   def isSafe(req: RequestHeader) = req.method == "GET"
+  def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
@@ -27,6 +28,8 @@ object HTTPRequest {
   def isTrident(req: RequestHeader) = uaContains(req, "Trident/")
   def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
   def isSafari(req: RequestHeader) = uaContains(req, "Safari/") && !isChrome(req)
+
+  def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
@@ -56,4 +59,7 @@ object HTTPRequest {
 
   def hasFileExtension(req: RequestHeader) =
     fileExtensionPattern.matcher(req.path).matches
+
+  def print(req: RequestHeader) =
+    s"${req.method} ${req.domain}${req.uri} ${lastRemoteAddress(req)} origin:${~origin(req)} ua:${~userAgent(req)}"
 }
