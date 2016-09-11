@@ -28,6 +28,15 @@ final class CSRFRequestHandler(domain: String) {
         None // only log for now
     }
 
+  def strictCheck(req: RequestHeader): Boolean = {
+    val ok = origin(req) exists isSubdomain
+    if (!ok) {
+      lila.mon.http.csrf.websocket()
+      logger.info(s"WS ${print(req)}")
+    }
+    true // always ok for now
+  }
+
   private val topDomain = s"://$domain"
   private val subDomain = s".$domain"
 

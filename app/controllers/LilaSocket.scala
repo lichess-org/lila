@@ -18,7 +18,7 @@ trait LilaSocket { self: LilaController =>
 
   def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
-      reqToCtx(req) flatMap { ctx =>
+      reqToCtx(req, sameOriginAuth = true) flatMap { ctx =>
         val ip = HTTPRequest lastRemoteAddress req
         def userInfo = {
           val sri = get("sri", req) | "none"

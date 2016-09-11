@@ -50,6 +50,7 @@ object mon {
     object csrf {
       val missingOrigin = inc("http.csrf.missing_origin")
       val forbidden = inc("http.csrf.forbidden")
+      val websocket = inc("http.csrf.websocket")
     }
   }
   object lobby {

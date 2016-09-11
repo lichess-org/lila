@@ -50,14 +50,18 @@ private[controllers] trait LilaController
   )
 
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
-    WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f map scala.util.Right.apply }
+    WebSocket.tryAccept[A] { req =>
+      reqToCtx(req, sameOriginAuth = true) flatMap f map scala.util.Right.apply
+    }
 
   protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
-    WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f }
+    WebSocket.tryAccept[A] { req =>
+      reqToCtx(req, sameOriginAuth = true) flatMap f
+    }
 
   protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req =>
-      reqToCtx(req) flatMap f map {
+      reqToCtx(req, sameOriginAuth = true) flatMap f map {
         case None       => Left(NotFound(jsonError("socket resource not found")))
         case Some(pair) => Right(pair)
       }
@@ -289,16 +293,18 @@ private[controllers] trait LilaController
       case _       => html
     }) map (_.withHeaders("Vary" -> "Accept"))
 
-  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) flatMap { d =>
-      val ctx = UserContext(req, d.map(_.user))
-      pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
-    }
+  protected def reqToCtx(req: RequestHeader, sameOriginAuth: Boolean = false): Fu[HeaderContext] = {
+    if (sameOriginAuth && !Env.security.csrfRequestHandler.strictCheck(req)) fuccess(none)
+    else restoreUser(req)
+  } flatMap { d =>
+    val ctx = UserContext(req, d.map(_.user))
+    pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
+  }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
       val ctx = UserContext(req, d.map(_.user))
-      pageDataBuilder(ctx, d.??(_.hasFingerprint)) map { Context(ctx, _) }
+      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
   import lila.hub.actorApi.relation._
