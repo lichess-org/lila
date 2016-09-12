@@ -10,24 +10,20 @@ final class CSRFRequestHandler(domain: String) {
   private def logger = lila.log("csrf")
 
   def check(req: RequestHeader): Boolean = {
-
-    def orig = origin(req).orElse(referer(req) flatMap refererToOrigin)
-
-    if (isXhr(req)) true
-    else if (isSocket(req)) {
-      if (orig.exists(o => o == "file://" || isSubdomain(o))) true
-      else {
-        lila.mon.http.csrf.websocket()
-        logger.info(s"WS ${print(req)}")
-        true // TODO: false
-      }
-    }
-    else if (isSafe(req)) true
-    else orig match {
+    if (isXhr(req) || (isSafe(req) && !isSocket(req))) true
+    else origin(req).orElse(referer(req) flatMap refererToOrigin) match {
       case None =>
-        lila.mon.http.csrf.missingOrigin()
-        logger.debug(print(req))
-        true // TODO: false
+        if (isSocket(req)) {
+          lila.mon.http.csrf.websocket()
+          logger.info(s"WS ${print(req)}")
+        }
+        else {
+          lila.mon.http.csrf.missingOrigin()
+          logger.debug(print(req))
+        }
+        true
+      case Some("file://") =>
+        true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(o) =>
