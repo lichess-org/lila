@@ -22,7 +22,10 @@ object Message extends LilaController {
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
       NotForKids {
-        api.inbox(me, page) map { html.message.inbox(me, _) }
+        negotiate (
+          html = api.inbox(me, page) map { html.message.inbox(me, _) },
+          api = _ => api.inbox(me, page) map { html.message.inbox(me, _) }
+        )
       }
   }
 
