@@ -2,7 +2,7 @@
 <tbody class="infinitescroll">
   @finished.nextPage.map { np =>
   <tr><th class="pager none">
-      <a href="@routes.Tournament.home(np)">Next</a>
+      <a rel="next" href="@routes.Tournament.home(np)">Next</a>
   </th></tr>
   }
   @finished.currentPageResults.map { t =>

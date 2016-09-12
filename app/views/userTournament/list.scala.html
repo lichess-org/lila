@@ -18,7 +18,7 @@
     <tbody class="infinitescroll">
       @pager.nextPage.map { np =>
       <tr><th class="pager none">
-          <a href="@routes.UserTournament.path(u.username, path, np)">Next</a>
+          <a rel="next" href="@routes.UserTournament.path(u.username, path, np)">Next</a>
       </th></tr>
       }
       @pager.currentPageResults.map { e =>

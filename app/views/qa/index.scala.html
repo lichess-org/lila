@@ -28,7 +28,7 @@ description = "Community knowledge and frequently asked questions about lichess.
     }
     @questions.nextPage.map { next =>
     <tr><th class="pager none">
-        <a href="@routes.QaQuestion.index(next.some)">Next</a>
+        <a rel="next" href="@routes.QaQuestion.index(next.some)">Next</a>
     </th></tr>
     }
   </tbody>

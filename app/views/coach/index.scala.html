@@ -58,7 +58,7 @@ side = side.some) {
     }
     @pager.nextPage.map { np =>
     <div class="pager none">
-      <a href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>
+      <a rel="next" href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>
     </div>
     }
   </div>

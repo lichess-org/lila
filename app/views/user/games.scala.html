@@ -9,7 +9,7 @@
   </div>
   <div class="search_infinitescroll">
     @pager.nextPage.map { n =>
-    <div class="pager none"><a href="@routes.User.showFilter(u.username, filterName, n)">Next</a></div>
+    <div class="pager none"><a rel="next" href="@routes.User.showFilter(u.username, filterName, n)">Next</a></div>
     }.getOrElse {
     <div class="none"></div>
     }
@@ -25,7 +25,7 @@
 } else {
 <div class="games infinitescroll @if(filterName == "playing" && pager.nbResults > 2) {game_list playing center}">
   @pager.nextPage.map { np =>
-  <div class="pager none"><a href="@routes.User.showFilter(u.username, filterName, np)">Next</a></div>
+  <div class="pager none"><a rel="next" href="@routes.User.showFilter(u.username, filterName, np)">Next</a></div>
   }
   @if(filterName == "playing" && pager.nbResults > 2) {
   @pager.currentPageResults.flatMap{ Pov(_, u) }.map { p =>

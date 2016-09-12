@@ -26,7 +26,7 @@ title = trans.inbox.str()) {
     <tbody class="infinitescroll">
       @if(threads.hasToPaginate) {
       <tr><th class="pager none">
-          <a href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
+          <a rel="next" href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
       </th></tr>
       }
       @threads.currentPageResults.map { thread =>
