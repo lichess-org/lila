@@ -10,7 +10,8 @@ final class CSRFRequestHandler(domain: String) {
   private def logger = lila.log("csrf")
 
   def check(req: RequestHeader): Boolean = {
-    lazy val orig = origin(req).orElse(referer(req) flatMap refererToOrigin)
+
+    def orig = origin(req).orElse(referer(req) flatMap refererToOrigin)
 
     if (isXhr(req)) true
     else if (isSocket(req)) {
@@ -34,11 +35,6 @@ final class CSRFRequestHandler(domain: String) {
         logger.info(print(req))
         true // TODO: false
     }
-  }
-
-  def apply(req: RequestHeader): Option[Result] = {
-    if (check(req)) None
-    else Forbidden("Cross origin request forbidden").some
   }
 
   private val topDomain = s"://$domain"

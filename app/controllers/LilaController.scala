@@ -80,7 +80,7 @@ private[controllers] trait LilaController
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+      CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
           Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
         }
@@ -92,7 +92,7 @@ private[controllers] trait LilaController
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+      CSRF(req) {
         reqToCtx(req) flatMap f
       }
     }
@@ -102,7 +102,7 @@ private[controllers] trait LilaController
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+      CSRF(req) {
         reqToCtx(req) flatMap { implicit ctx =>
           ctx.me.fold(authenticationFailed) { me =>
             Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
@@ -116,7 +116,7 @@ private[controllers] trait LilaController
 
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      Env.security.csrfRequestHandler(req).map(_.fuccess) getOrElse {
+      CSRF(req) {
         reqToCtx(req) flatMap { implicit ctx =>
           ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
         }
@@ -353,6 +353,11 @@ private[controllers] trait LilaController
         Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     }
+
+  private def CSRF(req: RequestHeader)(f: Fu[Result]): Fu[Result] =
+    if (Env.security.csrfRequestHandler.check(req))
+      Forbidden("Cross origin request forbidden").fuccess
+    else f
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
