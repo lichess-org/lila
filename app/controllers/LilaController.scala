@@ -355,9 +355,8 @@ private[controllers] trait LilaController
     }
 
   private def CSRF(req: RequestHeader)(f: Fu[Result]): Fu[Result] =
-    if (Env.security.csrfRequestHandler.check(req))
-      Forbidden("Cross origin request forbidden").fuccess
-    else f
+    if (Env.security.csrfRequestHandler.check(req)) f
+    else Forbidden("Cross origin request forbidden").fuccess
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
