@@ -11,7 +11,6 @@ lichess.coachPageViewChart = function(graphite, $el) {
         return [p[1] * 1000, p[0]];
       });
       $el.each(function() {
-        var colors = Highcharts.getOptions().colors;
         $(this).highcharts({
           yAxis: {
             title: noText
@@ -20,21 +19,9 @@ lichess.coachPageViewChart = function(graphite, $el) {
           legend: disabled,
           series: [{
             name: 'Pageviews',
-            type: 'area',
+            type: 'line',
             data: data,
-            color: colors[1],
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1.1
-              },
-              stops: [
-                [0, colors[1]],
-                [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')]
-              ]
-            },
+            color: '#3893E8',
             marker: {
               radius: 5
             },
