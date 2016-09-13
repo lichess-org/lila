@@ -20,7 +20,7 @@ moreCss = cssTag("event.css")) {
           }
         </td>
         <td>
-          <span class="date">@showDateTime(e.startsAt)</span>
+          <span class="date">@momentFormat(e.startsAt)</span>
           @momentFromNow(e.startsAt)
         </td>
       </tr>
