@@ -13,7 +13,7 @@ final class DisposableEmailDomain(
 
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
-      setDomains(res.body.lines.map(_.trim).filter(_.nonEmpty).toList)
+      setDomains(textToDomains(res.body))
       lila.mon.email.disposableDomain(matchers.size)
     } recover {
       case _: java.net.ConnectException => // ignore network errors
@@ -31,6 +31,9 @@ final class DisposableEmailDomain(
   catch {
     case e: Exception => onError(e)
   }
+
+  private[security] def textToDomains(text: String): List[String] =
+    text.lines.map(_.trim).filter(_.nonEmpty).toList
 
   private var failed = false
 
