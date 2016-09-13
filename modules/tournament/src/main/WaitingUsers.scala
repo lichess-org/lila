@@ -10,15 +10,15 @@ private[tournament] case class WaitingUsers(
     date: DateTime) {
 
   // hyperbullet -> 10
-  // 1+0  -> 10  -> 12
-  // 3+0  -> 18  -> 18
-  // 5+0  -> 26  -> 26
-  // 10+0 -> 46  -> 35
+  // 1+0  -> 11  -> 14
+  // 3+0  -> 21  -> 21
+  // 5+0  -> 31  -> 31
+  // 10+0 -> 56  -> 40
   private val waitSeconds: Int = clock.fold(30) { c =>
     if (c.estimateTotalTime < 60) 10
     else {
-      c.estimateTotalTime / 15 + 6
-    } min 35 max 12
+      c.estimateTotalTime / 12 + 6
+    } atMost 40 atLeast 14
   }
 
   lazy val all = hash.keys.toList
