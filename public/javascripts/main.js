@@ -252,7 +252,7 @@ lichess.notifyApp = (function() {
   };
 
   lichess.openInMobileApp = function(path) {
-    // if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
+    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
     $('#deeplink').remove();
     var pane = $('<div id="deeplink">' +
       '<h1>Open with...</h1>' +
