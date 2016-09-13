@@ -17,7 +17,7 @@ function joinTheGame(ctrl, gameId) {
 
 function notice(ctrl) {
   return tour.willBePaired(ctrl) ? m('div.notice.wait',
-    'Stand-by ' + ctrl.data.me.username + ', pairing players, get ready!'
+    'Stand by ' + ctrl.data.me.username + ', pairing players, get ready!'
   ) : m('div.notice.closed',
     'The tournament pairings are now closed.');
 }
