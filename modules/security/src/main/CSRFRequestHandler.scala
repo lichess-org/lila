@@ -13,23 +13,23 @@ final class CSRFRequestHandler(domain: String) {
     if (isXhr(req) || (isSafe(req) && !isSocket(req))) true
     else origin(req).orElse(referer(req) flatMap refererToOrigin) match {
       case None =>
-        if (isSocket(req)) {
-          lila.mon.http.csrf.websocket()
-          logger.info(s"WS ${print(req)}")
-        }
-        else {
-          lila.mon.http.csrf.missingOrigin()
-          logger.debug(print(req))
-        }
+        lila.mon.http.csrf.missingOrigin()
+        logger.debug(print(req))
         true
       case Some("file://") =>
         true
       case Some(o) if isSubdomain(o) =>
         true
-      case Some(o) =>
-        lila.mon.http.csrf.forbidden()
-        logger.info(print(req))
-        true // TODO: false
+      case Some(_) =>
+        if (isSocket(req)) {
+          lila.mon.http.csrf.websocket()
+          logger.info(s"WS ${print(req)}")
+        }
+        else {
+          lila.mon.http.csrf.forbidden()
+          logger.info(print(req))
+        }
+        false
     }
   }
 
