@@ -58,18 +58,21 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val nextSunday = nextDayOfWeek(7)
 
       def secondWeekOf(month: Int) = {
-        val start = startOfYear.withMonthOfYear(month)
+        val start = orNextYear(startOfYear.withMonthOfYear(month))
         start.plusDays(15 - start.getDayOfWeek)
       }
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
+      def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
       val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
       val std = StartingPosition.initial
       val opening1 = isHalloween ? StartingPosition.presets.halloween | StartingPosition.randomFeaturable
       val opening2 = isHalloween ? StartingPosition.presets.frankenstein | StartingPosition.randomFeaturable
+
+      val farFuture = today plusMonths 5
 
       // all dates UTC
       val nextSchedules: List[Schedule] = List(
@@ -89,9 +92,10 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
           secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
         ).flatMap {
-            case ((day, speed), variant) => at(day, 17) map { date =>
-              Schedule(Yearly, speed, variant, std, date)
-            }
+            case ((day, speed), variant) =>
+              at(day, 17) filter farFuture.isAfter map { date =>
+                Schedule(Yearly, speed, variant, std, date)
+              }
           },
 
         List( // monthly standard tournaments!
