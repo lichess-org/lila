@@ -151,13 +151,13 @@ object TournamentRepo {
     }
 
   private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
+    import Schedule.Freq._
     tour.schedule.map(_.freq) map {
-      case Schedule.Freq.Marathon => 24 * 60
-      case Schedule.Freq.Unique   => 24 * 60
-      case Schedule.Freq.Monthly  => 6 * 60
-      case Schedule.Freq.Weekly   => 3 * 60
-      case Schedule.Freq.Daily    => 1 * 60
-      case _                      => 30
+      case Unique | Yearly | Marathon => 24 * 60
+      case Monthly                    => 6 * 60
+      case Weekly                     => 3 * 60
+      case Daily                      => 1 * 60
+      case _                          => 30
     } getOrElse 30
   }
 

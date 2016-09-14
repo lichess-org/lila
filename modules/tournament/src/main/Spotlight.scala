@@ -35,17 +35,16 @@ object Spotlight {
 
   private def automatically(tour: Tournament, user: User): Boolean = tour.perfType ?? { pt =>
     tour.schedule ?? { sched =>
-      val perf = user.perfs(pt)
-      def playedSinceWeeks(weeks: Int) = perf.latest ?? { l =>
+      def playedSinceWeeks(weeks: Int) = user.perfs(pt).latest ?? { l =>
         l.plusWeeks(weeks) isAfter DateTime.now
       }
       sched.freq match {
-        case Hourly               => false
-        case Daily | Eastern      => playedSinceWeeks(2)
-        case Weekly               => playedSinceWeeks(4)
-        case Unique               => playedSinceWeeks(4)
-        case Monthly | Marathon   => true
-        case ExperimentalMarathon => false
+        case Hourly                      => false
+        case Daily | Eastern             => playedSinceWeeks(2)
+        case Weekly                      => playedSinceWeeks(4)
+        case Unique                      => playedSinceWeeks(4)
+        case Monthly | Marathon | Yearly => true
+        case ExperimentalMarathon        => false
       }
     }
   }

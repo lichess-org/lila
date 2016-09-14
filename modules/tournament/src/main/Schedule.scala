@@ -72,10 +72,11 @@ object Schedule {
     case object ExperimentalMarathon extends Freq(61, 55) { // for DB BC
       override val name = "Experimental Marathon"
     }
+    case object Yearly extends Freq(70, 70)
     case object Unique extends Freq(90, 59)
-    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Unique)
-    def apply(name: String) = all find (_.name == name)
-    def byId(id: Int) = all find (_.id == id)
+    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Yearly, Unique)
+    def apply(name: String) = all.find(_.name == name)
+    def byId(id: Int) = all.find(_.id == id)
   }
 
   sealed abstract class Speed(val id: Int) {
@@ -147,6 +148,11 @@ object Schedule {
       case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
       case (Monthly, Blitz, _)                        => 60 * 4
       case (Monthly, Classical, _)                    => 60 * 5
+
+      case (Yearly, HyperBullet | Bullet, _)          => 60 * 4
+      case (Yearly, SuperBlitz, _)                    => 60 * 5
+      case (Yearly, Blitz, _)                         => 60 * 6
+      case (Yearly, Classical, _)                     => 60 * 8
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4

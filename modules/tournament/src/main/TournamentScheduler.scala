@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.pattern.pipe
 import org.joda.time.DateTime
+import org.joda.time.DateTimeConstants._
 import scala.concurrent.duration._
 
 import actorApi._
@@ -41,8 +42,11 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val tomorrow = rightNow plusDays 1
+      val startOfYear = today.dayOfYear.withMinimumValue
+
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val lastMonday = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek - 1) % 7)
+
+      val lastWeekOfMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek - 1) % 7)
 
       def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
       val nextMonday = nextDayOfWeek(1)
@@ -52,6 +56,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val nextFriday = nextDayOfWeek(5)
       val nextSaturday = nextDayOfWeek(6)
       val nextSunday = nextDayOfWeek(7)
+
+      def secondWeekOf(monthId: Int) =
+        startOfYear.plusMonths(monthId).plusWeeks(1).withDayOfWeek(MONDAY)
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
@@ -65,11 +72,30 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       // all dates UTC
       val nextSchedules: List[Schedule] = List(
 
+        List( // yearly tournaments!
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
+        ).flatMap {
+            case ((day, speed), variant) => at(day, 17) map { date =>
+              Schedule(Yearly, speed, variant, std, date)
+            }
+          },
+
         List( // monthly standard tournaments!
-          lastMonday -> Bullet,
-          lastMonday.plusDays(1) -> SuperBlitz,
-          lastMonday.plusDays(2) -> Blitz,
-          lastMonday.plusDays(3) -> Classical
+          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Bullet,
+          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> SuperBlitz,
+          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> Blitz,
+          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> Classical
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
               Schedule(Monthly, speed, Standard, std, date)
@@ -77,13 +103,13 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           },
 
         List( // monthly variant tournaments!
-          lastMonday -> Chess960,
-          lastMonday.plusDays(1) -> Crazyhouse,
-          lastMonday.plusDays(2) -> KingOfTheHill,
-          lastMonday.plusDays(3) -> ThreeCheck,
-          lastMonday.plusDays(4) -> Antichess,
-          lastMonday.plusDays(5) -> Atomic,
-          lastMonday.plusDays(6) -> Horde
+          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Chess960,
+          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> Crazyhouse,
+          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
+          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> ThreeCheck,
+          lastWeekOfMonth.withDayOfWeek(FRIDAY) -> Antichess,
+          lastWeekOfMonth.withDayOfWeek(SATURDAY) -> Atomic,
+          lastWeekOfMonth.withDayOfWeek(SUNDAY) -> Horde
         ).flatMap {
             case (day, variant) => at(day, 19) map { date =>
               Schedule(Monthly, Blitz, variant, std, date)
