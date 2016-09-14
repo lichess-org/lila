@@ -57,13 +57,15 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val nextSaturday = nextDayOfWeek(6)
       val nextSunday = nextDayOfWeek(7)
 
-      def secondWeekOf(monthId: Int) =
-        startOfYear.plusMonths(monthId).plusWeeks(1).withDayOfWeek(MONDAY)
+      def secondWeekOf(month: Int) = {
+        val start = startOfYear.withMonthOfYear(month)
+        start.plusDays(15 - start.getDayOfWeek)
+      }
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
 
-      val isHalloween = today.getMonthOfYear == 10 && today.getDayOfMonth == 31
+      val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
       val std = StartingPosition.initial
       val opening1 = isHalloween ? StartingPosition.presets.halloween | StartingPosition.randomFeaturable
@@ -72,24 +74,25 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       // all dates UTC
       val nextSchedules: List[Schedule] = List(
 
-        // List( // yearly tournaments!
-        //   secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        //   secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        //   secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        //   secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Classical -> Standard,
-        //   secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
-        //   secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
-        //   secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-        //   secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-        //   secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-        //   secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Classical -> Standard,
-        //   secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
-        //   secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
-        // ).flatMap {
-        //     case ((day, speed), variant) => at(day, 17) map { date =>
-        //       Schedule(Yearly, speed, variant, std, date)
-        //     }
-        //   },
+        List( // yearly tournaments!
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
+
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
+        ).flatMap {
+            case ((day, speed), variant) => at(day, 17) map { date =>
+              Schedule(Yearly, speed, variant, std, date)
+            }
+          },
 
         List( // monthly standard tournaments!
           lastWeekOfMonth.withDayOfWeek(MONDAY) -> Bullet,
