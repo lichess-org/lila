@@ -243,10 +243,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           ).flatten
         }
 
-      ).flatten filter { s =>
-          // prevent duplicate september 2016 monthly - REMOVE ME
-          s.freq != Monthly || s.at.isAfter(new DateTime(2016, 10, 15, 0, 0))
-        }
+      ).flatten
 
       nextSchedules.foldLeft(List[Schedule]()) {
         case (scheds, sched) if sched.at.isBeforeNow      => scheds
