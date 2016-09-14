@@ -149,6 +149,20 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
             }
           },
 
+        List( // week-end elite tournaments!
+          nextSaturday -> Bullet -> 2100,
+          nextSunday -> SuperBlitz -> 2000
+        ).flatMap {
+            case ((day, speed), minRating) => at(day, 17) map { date =>
+              val perf = Schedule.Speed toPerfType speed
+              Schedule(Weekend, speed, Standard, std, date |> orNextWeek,
+                conditions = Condition.All(
+                  nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+                  maxRating = none,
+                  minRating = Condition.MinRating(perf, minRating).some))
+            }
+          },
+
         List( // daily tournaments!
           at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow) },
           at(today, 17) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow) },

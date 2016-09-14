@@ -41,7 +41,7 @@ object Spotlight {
       sched.freq match {
         case Hourly                      => false
         case Daily | Eastern             => playedSinceWeeks(2)
-        case Weekly                      => playedSinceWeeks(4)
+        case Weekly | Weekend            => playedSinceWeeks(4)
         case Unique                      => playedSinceWeeks(4)
         case Monthly | Marathon | Yearly => true
         case ExperimentalMarathon        => false
