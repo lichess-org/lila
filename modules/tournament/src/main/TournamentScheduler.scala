@@ -225,8 +225,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           }
           val perf = Schedule.Speed toPerfType speed
           val conditions = Condition.All(
-            Condition.NbRatedGame(perf.some, 20).some,
-            Condition.MaxRating(perf, rating).some)
+            nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+            maxRating = Condition.MaxRating(perf, rating).some,
+            minRating = none)
           at(date, hour) map { date =>
             Schedule(Hourly, speed, Standard, std, date, conditions)
           }
