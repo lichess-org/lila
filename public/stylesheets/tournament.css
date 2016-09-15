@@ -28,13 +28,26 @@ ol.scheduled_tournaments a {
   line-height: 60px;
   margin: auto;
 }
+#tournament.weekly .header i::before {
+  font-size: 35px;
+}
+#tournament.monthly .header i::before,
+#tournament.weekend .header i::before {
+  font-size: 40px;
+}
+#tournament.yearly .header i::before {
+  font-size: 45px;
+}
 #tournament .header h1 {
   flex: 9 1 auto;
   padding: 0;
 }
-#tournament.Unique .header h1 {
-  font-size: 26px;
-  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+#tournament.scheduled .header h1 {
+  letter-spacing: 2px;
+}
+#tournament.weekend .header h1,
+#tournament.yearly .header h1 {
+  letter-spacing: 3px;
 }
 #tournament .header .clock {
   flex: 1 1 auto;
@@ -758,6 +771,7 @@ ol.scheduled_tournaments li.marathon {
   transition: -webkit-filter 0.13s, filter 0.13s;
   color: #fff;
   white-space: nowrap;
+  font-size: 13px;
 }
 #tournament_schedule .tournament.joinable:hover {
   -webkit-filter: brightness(1.08);
@@ -808,7 +822,15 @@ ol.scheduled_tournaments li.marathon {
   background-color: #D55E00;
 }
 #tournament_schedule .tournament.monthly {
+  letter-spacing: 1px;
   background-color: #C93D3D;
+}
+#tournament_schedule .tournament.weekly,
+#tournament_schedule .tournament.monthly,
+#tournament_schedule .tournament.weekend,
+#tournament_schedule .tournament.yearly {
+  letter-spacing: 1px;
+  background-color: #d59120;
 }
 #tournament_schedule .tournament.marathon {
   background-color: #66558C;
@@ -830,7 +852,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .icon {
   font-size: 2.4em;
-  margin: -6px 2px 0 2px;
+  margin: -6px 2px 0 4px;
 }
 #tournament_schedule .tournament .body {
   flex: 1 0;
