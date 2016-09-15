@@ -183,6 +183,10 @@ div.post .message {
   line-height: 1.5em;
 }
 
+div.post .edit-button {
+    float: right;
+}
+
 div.topicReply,
 div.category .description {
   margin: 1em 24px 0 24px;
