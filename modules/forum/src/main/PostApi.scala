@@ -82,7 +82,6 @@ final class PostApi(
         case Some((_, post)) if !post.canBeEditedBy(ctx.username) =>
           fufail("You are not authorized to modify this post.")
         case Some((_,post)) =>
-          val userCanEditPost = post.canBeEditedBy(ctx.userId)
           val newPost = post.editPost(DateTime.now, newText)
           env.postColl.update($id(post.id), newPost) >> fuccess(newPost)
       }
