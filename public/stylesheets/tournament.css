@@ -818,18 +818,28 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.eastern {
   background-color: #0072B2;
 }
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 0 1000%; }
+}
+#tournament_schedule .tournament.weekly,
+#tournament_schedule .tournament.weekend,
+#tournament_schedule .tournament.monthly,
+#tournament_schedule .tournament.marathon,
+#tournament_schedule .tournament.yearly {
+  text-shadow: 0 0 2px rgba(0,0,0,0.7);
+  letter-spacing: 1px;
+  background-image: url(../images/grain.png);
+  animation: animatedBackground 50s linear infinite;
+}
 #tournament_schedule .tournament.weekly {
   background-color: #D55E00;
 }
 #tournament_schedule .tournament.monthly {
-  letter-spacing: 1px;
   background-color: #C93D3D;
 }
-#tournament_schedule .tournament.weekly,
-#tournament_schedule .tournament.monthly,
-#tournament_schedule .tournament.weekend,
-#tournament_schedule .tournament.yearly {
-  letter-spacing: 1px;
+#tournament_schedule .tournament.yearly,
+#tournament_schedule .tournament.weekend {
   background-color: #d59120;
 }
 #tournament_schedule .tournament.marathon {
