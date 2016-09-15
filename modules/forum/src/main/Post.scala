@@ -24,6 +24,8 @@ case class Post(
 
   private val permitEditsFor = 3 hours
 
+  private val coolOffBetweenEdits = 1 minutes
+
   def id = _id
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
@@ -36,6 +38,13 @@ case class Post(
 
   def canStillBeEdited(currentTime: DateTime) = {
     createdAt.plus(permitEditsFor.toMillis).isAfter(currentTime)
+  }
+
+  def editedTooSoonAfterLastEdit(currentTime: DateTime) = {
+    editHistory match {
+      case Nil => true
+      case lastEdit :: _ => lastEdit.createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(currentTime)
+    }
   }
 
   def canBeEditedBy(editingId: Option[String]) : Boolean = editingId.isDefined && editingId == userId

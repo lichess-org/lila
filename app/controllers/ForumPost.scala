@@ -1,9 +1,9 @@
 package controllers
 
 import scala.concurrent.duration._
-
 import lila.common.HTTPRequest
 import lila.app._
+import play.api.mvc.BodyParsers
 import views._
 
 object ForumPost extends LilaController with ForumController {
@@ -51,6 +51,15 @@ object ForumPost extends LilaController with ForumController {
         }
       }
     }
+  }
+
+  def edit(postId: String) = AuthBody(BodyParsers.parse.tolerantText) { implicit ctx =>
+      me =>
+        val newText = ctx.body.body
+
+        postApi.editPost(postId, newText).map { _ =>
+          Ok()
+        }
   }
 
   def delete(categSlug: String, id: String) = Auth { implicit ctx =>

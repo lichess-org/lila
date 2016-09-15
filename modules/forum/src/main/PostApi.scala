@@ -3,14 +3,13 @@ package lila.forum
 import actorApi._
 import akka.actor.ActorSelection
 import org.joda.time.DateTime
-
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
+import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.mod.ModlogApi
-import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lila.security.{Granter => MasterGranter}
+import lila.user.{User, UserContext}
 
 final class PostApi(
     env: Env,
@@ -70,18 +69,22 @@ final class PostApi(
     }
 
   def editPost(postId: String, newText: String)(implicit ctx: UserContext) : Fu[Post] = {
-    get(postId) flatMap {
-      _ match {
-        case None => fufail("Post no longer exists.")
-        case Some((_,post)) if post.canStillBeEdited(DateTime.now) =>
-          val userCanEditPost = post.canBeEditedBy(ctx.userId)
 
-          if (userCanEditPost) {
-            val newPost = post.editPost(DateTime.now, newText)
-            env.postColl.update($id(post.id), newPost) >> fuccess(newPost)
-          }
-          else fufail("You are not authorized to modify this post.")
-        case _ => fufail("Post can no longer be edited")
+    get(postId) flatMap { post =>
+      val now = DateTime.now
+
+      post match {
+        case None => fufail("Post no longer exists.")
+        case Some((_, post)) if post.editedTooSoonAfterLastEdit(now) =>
+          fufail("You are editing this post too often. Please wait a minute between edits.")
+        case Some((_, post)) if !post.canStillBeEdited(now) =>
+          fufail("Post can no longer be edited")
+        case Some((_, post)) if !post.canBeEditedBy(ctx.username) =>
+          fufail("You are not authorized to modify this post.")
+        case Some((_,post)) =>
+          val userCanEditPost = post.canBeEditedBy(ctx.userId)
+          val newPost = post.editPost(DateTime.now, newText)
+          env.postColl.update($id(post.id), newPost) >> fuccess(newPost)
       }
     }
   }
