@@ -18,7 +18,7 @@ final class CSRFRequestHandler(domain: String) {
         true
       case Some("file://") =>
         true
-      case Some(o) if isSubdomain(o) =>
+      case Some(o) if isSubdomain(o.stripSuffix(".")) =>
         true
       case Some(_) =>
         if (isSocket(req)) {
