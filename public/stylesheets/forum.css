@@ -192,6 +192,15 @@ div.post .edit-post-box {
     height: 250px;
 }
 
+div.post a.post-edited {
+    font-size: 0.8em;
+    font-style: bold;
+    color: #aaa;
+    margin-top: 0.3em;
+    margin-left: 1em;
+    float: left;
+}
+
 div.post .button-hidden {
     display: none;
 }

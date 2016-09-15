@@ -36,12 +36,12 @@ case class Post(
 
   def isStaff = categId == "staff"
 
-  def canStillBeEdited(currentTime: DateTime) = {
-    createdAt.plus(permitEditsFor.toMillis).isAfter(currentTime)
+  def canStillBeEdited() = {
+    createdAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
   }
 
-  def editedTooSoonAfterLastEdit(currentTime: DateTime) = {
-    editHistory.length > 3 && createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(currentTime)
+  def editedTooSoonAfterLastEdit() = {
+    editHistory.length > 3 && createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(DateTime.now)
   }
 
   def canBeEditedBy(editingId: Option[String]) : Boolean = editingId.isDefined && editingId == userId
@@ -53,7 +53,7 @@ case class Post(
     this.copy(editHistory = history, text = newText, createdAt = updated)
   }
 
-  def postHasEdits = !editHistory.isEmpty
+  def hasEdits = !editHistory.isEmpty
 }
 
 object Post {

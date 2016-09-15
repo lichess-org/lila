@@ -75,9 +75,9 @@ final class PostApi(
 
       post match {
         case None => fufail("Post no longer exists.")
-        case Some((_, post)) if post.editedTooSoonAfterLastEdit(now) =>
+        case Some((_, post)) if post.editedTooSoonAfterLastEdit() =>
           fufail("You are editing this post too often. Please wait a minute between edits.")
-        case Some((_, post)) if !post.canStillBeEdited(now) =>
+        case Some((_, post)) if !post.canStillBeEdited() =>
           fufail("Post can no longer be edited")
         case Some((_, post)) if !post.canBeEditedBy(ctx.username) =>
           fufail("You are not authorized to modify this post.")
