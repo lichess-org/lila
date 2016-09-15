@@ -41,10 +41,7 @@ case class Post(
   }
 
   def editedTooSoonAfterLastEdit(currentTime: DateTime) = {
-    editHistory match {
-      case Nil => true
-      case lastEdit :: _ => lastEdit.createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(currentTime)
-    }
+    editHistory.length > 3 && createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(currentTime)
   }
 
   def canBeEditedBy(editingId: Option[String]) : Boolean = editingId.isDefined && editingId == userId

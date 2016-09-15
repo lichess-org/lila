@@ -9,7 +9,7 @@ var editForumPost = function(postNumber) {
 
     var postContents = oldContents.text();
 
-    var editableArea = $("<textarea id='post-edit-area-" + postNumber + "' style='width: 100%; height:300px'>");
+    var editableArea = $("<textarea id='post-edit-area-" + postNumber + "' class='edit-post-box'>");
 
     editableArea.text(postContents);
 
