@@ -37,7 +37,8 @@ case class Post(
   def isStaff = categId == "staff"
 
   def canStillBeEdited() = {
-    createdAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
+    val firstPost = editHistory.lastOption map (_.createdAt) getOrElse createdAt
+    firstPost.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
   }
 
   def editedTooSoonAfterLastEdit() = {
