@@ -38,7 +38,7 @@ case class Post(
     createdAt.plus(permitEditsFor.toMillis).isAfter(currentTime)
   }
 
-  def canBeEditedBy(editingId: String) : Boolean = userId.filter(_ === editingId).isDefined
+  def canBeEditedBy(editingId: Option[String]) : Boolean = editingId.isDefined && editingId == userId
 
   def editPost(updated: DateTime, newText: String) : Post = {
     val oldVersion = new OldVersion(text, createdAt)

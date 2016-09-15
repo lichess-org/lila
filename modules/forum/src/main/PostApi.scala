@@ -74,7 +74,7 @@ final class PostApi(
       _ match {
         case None => fufail("Post no longer exists.")
         case Some((_,post)) if post.canStillBeEdited(DateTime.now) =>
-          val userCanEditPost = ctx.userId.filter(userId => post.canBeEditedBy(userId)).isDefined
+          val userCanEditPost = post.canBeEditedBy(ctx.userId)
 
           if (userCanEditPost) {
             val newPost = post.editPost(DateTime.now, newText)
