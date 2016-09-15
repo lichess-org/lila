@@ -18,7 +18,10 @@ var editForumPost = function(postNumber) {
     $("#edit-button").hide();
     $("#edit-submit-button").show();
     $("#edit-cancel-button").show();
+}
 
+var submitEdit = function(postNumber) {
+    var newContents = $("#post-edit-area").val();
 }
 
 var cancelEdit = function(postNumber) {
