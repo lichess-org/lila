@@ -2,8 +2,10 @@ package lila.forum
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-
 import lila.user.User
+import scala.concurrent.duration._
+
+case class OldVersion(text: String, createdAt: DateTime)
 
 case class Post(
     _id: String,
@@ -17,7 +19,10 @@ case class Post(
     troll: Boolean,
     hidden: Boolean,
     lang: Option[String],
+    editHistory: List[OldVersion],
     createdAt: DateTime) {
+
+  private val permitEditsFor = 3 hours
 
   def id = _id
 
@@ -28,6 +33,21 @@ case class Post(
   def isTeam = categId startsWith teamSlug("")
 
   def isStaff = categId == "staff"
+
+  def canStillBeEdited(currentTime: DateTime) = {
+    createdAt.plus(permitEditsFor.toMillis).isAfter(currentTime)
+  }
+
+  def canBeEditedBy(editingId: String) : Boolean = userId.filter(_ === editingId).isDefined
+
+  def editPost(updated: DateTime, newText: String) : Post = {
+    val oldVersion = new OldVersion(text, createdAt)
+    val history = oldVersion :: editHistory
+
+    this.copy(editHistory = history, text = newText, createdAt = updated)
+  }
+
+  def postHasEdits = !editHistory.isEmpty
 }
 
 object Post {
@@ -53,6 +73,7 @@ object Post {
     text = text,
     number = number,
     lang = lang,
+    editHistory = List.empty,
     troll = troll,
     hidden = hidden,
     createdAt = DateTime.now,

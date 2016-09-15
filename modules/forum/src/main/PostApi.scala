@@ -69,6 +69,23 @@ final class PostApi(
         }
     }
 
+  def editPost(postId: String, newText: String)(implicit ctx: UserContext) : Fu[Post] = {
+    get(postId) flatMap {
+      _ match {
+        case None => fufail("Post no longer exists.")
+        case Some((_,post)) if post.canStillBeEdited(DateTime.now) =>
+          val userCanEditPost = ctx.userId.filter(userId => post.canBeEditedBy(userId)).isDefined
+
+          if (userCanEditPost) {
+            val newPost = post.editPost(DateTime.now, newText)
+            env.postColl.update($id(post.id), newPost) >> fuccess(newPost)
+          }
+          else fufail("You are not authorized to modify this post.")
+        case _ => fufail("Post can no longer be edited")
+      }
+    }
+  }
+
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 
   private def shouldHideOnPost(topic: Topic) =
