@@ -17,7 +17,7 @@ object DataForm {
     "lastName" -> nameField,
     "fideRating" -> optional(number(min = 600, max = 3000)),
     "uscfRating" -> optional(number(min = 600, max = 3000)),
-    "ecfRating" -> optional(number(min = 600, max = 3000))
+    "ecfRating" -> optional(number(min = 0, max = 300))
   )(Profile.apply)(Profile.unapply))
 
   def profileOf(user: User) = profile fill user.profileOrDefault
