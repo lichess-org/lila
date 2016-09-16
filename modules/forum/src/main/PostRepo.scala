@@ -65,7 +65,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     "text" -> post.text
   ))
 
-  def sortQuery = $sort asc "number"
+  def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinct("userId", $doc("topicId" -> topicId).some) map lila.db.BSON.asStrings

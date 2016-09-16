@@ -20,7 +20,8 @@ case class Post(
     hidden: Boolean,
     lang: Option[String],
     editHistory: List[OldVersion],
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    updatedAt: DateTime) {
 
   private val permitEditsFor = 3 hours
 
@@ -37,24 +38,19 @@ case class Post(
   def isStaff = categId == "staff"
 
   def canStillBeEdited() = {
-    val firstPost = editHistory.lastOption map (_.createdAt) getOrElse createdAt
-    firstPost.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
+    updatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
   }
 
-  def editedTooSoonAfterLastEdit() = {
-    editHistory.length > 3 && createdAt.plus(coolOffBetweenEdits.toMillis).isAfter(DateTime.now)
-  }
-
-  def canBeEditedBy(editingId: Option[String]) : Boolean = editingId.isDefined && editingId == userId
+  def canBeEditedBy(editingId: String) : Boolean = userId.fold(false)(editingId == _)
 
   def editPost(updated: DateTime, newText: String) : Post = {
-    val oldVersion = new OldVersion(text, createdAt)
+    val oldVersion = new OldVersion(text, updatedAt)
     val history = oldVersion :: editHistory
 
-    this.copy(editHistory = history, text = newText, createdAt = updated)
+    this.copy(editHistory = history, text = newText, updatedAt = updated)
   }
 
-  def hasEdits = !editHistory.isEmpty
+  def hasEdits = editHistory.nonEmpty
 }
 
 object Post {
@@ -71,18 +67,24 @@ object Post {
     number: Int,
     lang: Option[String],
     troll: Boolean,
-    hidden: Boolean): Post = Post(
-    _id = Random nextStringUppercase idSize,
-    topicId = topicId,
-    author = author,
-    userId = userId,
-    ip = ip,
-    text = text,
-    number = number,
-    lang = lang,
-    editHistory = List.empty,
-    troll = troll,
-    hidden = hidden,
-    createdAt = DateTime.now,
-    categId = categId)
+    hidden: Boolean): Post = {
+
+    val now = DateTime.now
+
+    Post(
+      _id = Random nextStringUppercase idSize,
+      topicId = topicId,
+      author = author,
+      userId = userId,
+      ip = ip,
+      text = text,
+      number = number,
+      lang = lang,
+      editHistory = List.empty,
+      troll = troll,
+      hidden = hidden,
+      createdAt = now,
+      updatedAt = now,
+      categId = categId)
+  }
 }

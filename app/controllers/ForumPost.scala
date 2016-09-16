@@ -57,7 +57,7 @@ object ForumPost extends LilaController with ForumController {
       me =>
         val newText = ctx.body.body
 
-        postApi.editPost(postId, newText).map { _ =>
+        postApi.editPost(postId, newText, me).map { _ =>
           Ok()
         }
   }

@@ -68,22 +68,21 @@ final class PostApi(
         }
     }
 
-  def editPost(postId: String, newText: String)(implicit ctx: UserContext) : Fu[Post] = {
+  def editPost(postId: String, newText: String,  user: User) : Fu[Post] = {
 
     get(postId) flatMap { post =>
       val now = DateTime.now
 
       post match {
-        case None => fufail("Post no longer exists.")
-        case Some((_, post)) if post.editedTooSoonAfterLastEdit() =>
-          fufail("You are editing this post too often. Please wait a minute between edits.")
+        case Some((_, post)) if !post.canBeEditedBy(user.id) =>
+          fufail("You are not authorized to modify this post.")
         case Some((_, post)) if !post.canStillBeEdited() =>
           fufail("Post can no longer be edited")
-        case Some((_, post)) if !post.canBeEditedBy(ctx.username) =>
-          fufail("You are not authorized to modify this post.")
         case Some((_,post)) =>
-          val newPost = post.editPost(now, newText)
-          env.postColl.update($id(post.id), newPost) >> fuccess(newPost)
+          val spamEscapedTest = lila.security.Spam.replace(newText)
+          val newPost = post.editPost(now, spamEscapedTest)
+          env.postColl.update($id(post.id), newPost) inject newPost
+        case None => fufail("Post no longer exists.")
       }
     }
   }

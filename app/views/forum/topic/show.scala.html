@@ -37,10 +37,12 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @authorLink(post, "author".some)
-        @momentFromNow(post.createdAt)
 
         @if(post.hasEdits) {
+          @momentFromNow(post.updatedAt)
           <a class="post-edited" href="nothing_yet"> - Edited</a>
+        } else {
+          @momentFromNow(post.createdAt)
         }
 
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
@@ -53,7 +55,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
-      @if(post.canBeEditedBy(ctx.userId) && post.canStillBeEdited) {
+      @if(ctx.userId.fold(false)(post.canBeEditedBy(_)) && post.canStillBeEdited) {
       <div class="edit-buttons">
         <a class="mod" id="edit-button-@post.number" data-icon="r" onclick="editForumPost(@post.number)">Edit</a>
         <a class="mod button-hidden" id="edit-submit-button-@post.number" data-icon="t" onclick="submitEdit(@post.number, '@post.id')">Submit</a>
