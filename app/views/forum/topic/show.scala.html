@@ -40,7 +40,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
 
         @if(post.hasEdits) {
           @momentFromNow(post.updatedAt)
-          <a class="post-edited" href="nothing_yet"> - Edited</a>
+          <span class="post-edited"> - Edited</span>
         } else {
           @momentFromNow(post.createdAt)
         }

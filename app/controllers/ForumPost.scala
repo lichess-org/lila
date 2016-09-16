@@ -3,7 +3,6 @@ package controllers
 import scala.concurrent.duration._
 import lila.common.HTTPRequest
 import lila.app._
-import play.api.mvc.BodyParsers
 import views._
 
 object ForumPost extends LilaController with ForumController {
