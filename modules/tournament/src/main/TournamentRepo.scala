@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.common.paginator.Paginator
@@ -13,9 +14,7 @@ object TournamentRepo {
 
   private lazy val coll = Env.current.tournamentColl
 
-  private val enterableSelect = $doc(
-    "status" $in List(Status.Created.id, Status.Started.id))
-
+  private val enterableSelect = $doc("status" $lt Status.Finished.id)
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
   private[tournament] val finishedSelect = $doc("status" -> Status.Finished.id)
@@ -221,9 +220,12 @@ object TournamentRepo {
 
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] = {
     import Schedule.Freq._
-    coll.find(enterableSelect ++ $doc(
-      "_id" $ne tourId,
-      "schedule" $exists false
-    ) ++ nonEmptySelect).cursor[Tournament]().gather[List]()
+    coll.find(
+      enterableSelect ++
+        nonEmptySelect ++
+        $doc(
+          "_id" $ne tourId,
+          "startsAt" $lt DateTime.now)
+    ).cursor[Tournament](readPreference = ReadPreference.secondaryPreferred).gather[List]()
   }
 }
