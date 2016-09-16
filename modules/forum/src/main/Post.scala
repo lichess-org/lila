@@ -25,8 +25,6 @@ case class Post(
 
   private val permitEditsFor = 3 hours
 
-  private val coolOffBetweenEdits = 1 minutes
-
   def id = _id
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
