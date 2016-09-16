@@ -57,9 +57,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
       <p class="message">@autoLink(post.text)</p>
       @if(ctx.userId.fold(false)(post.canBeEditedBy(_)) && post.canStillBeEdited) {
       <div class="edit-buttons">
-        <a class="mod" id="edit-button-@post.number" data-icon="r" onclick="editForumPost(@post.number)">Edit</a>
-        <a class="mod button-hidden" id="edit-submit-button-@post.number" data-icon="t" onclick="submitEdit(@post.number, '@post.id')">Submit</a>
-        <a class="mod button-hidden" id="edit-cancel-button-@post.number" data-icon="s" onclick="cancelEdit(@post.number)">Cancel</a>
+        <a class="mod" id="edit-button-@post.number" data-icon="r" onclick="editForumPost('@post.id', @post.number)">Edit</a>
       </div>
       }
     </div>

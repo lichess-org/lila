@@ -362,7 +362,7 @@ POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: S
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
-POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
+POST   /forum/post/:id                  controllers.ForumPost.edit(id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Message
