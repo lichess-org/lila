@@ -364,6 +364,9 @@ div.user_show .mod_zone .slist {
   font-size: 0.9em;
   margin-bottom: 1em;
 }
+body.dark div.user_show .mod_zone .slist {
+  border-color: #3d3d3d;
+}
 div.user_show .mod_zone .same {
   font-style: italic;
   font-weight: bold;
