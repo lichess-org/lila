@@ -17,7 +17,7 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
 
   val post = Form(postMapping)
 
-  val postEdit = Form(mapping("changes" -> nonEmptyText)(PostEdit.apply)(PostEdit.unapply))
+  val postEdit = Form(mapping("changes" -> text(minLength=3))(PostEdit.apply)(PostEdit.unapply))
 
   def postWithCaptcha = withCaptcha(post)
 

@@ -19,7 +19,12 @@ var editForumPost = function(postId, postNumber) {
                                 action:"/forum/post/" + postId
                                 });
 
-    var formTextArea = $('<textarea>', {id:'post-edit-area-' + postNumber, name:"changes", class:'edit-post-box'});
+    var formTextArea = $('<textarea>', {
+                                        id:'post-edit-area-' + postNumber,
+                                        name:"changes",
+                                        class:'edit-post-box',
+                                        'minlength': 3
+                                        });
     formTextArea.text(postContents);
 
     var formSubmitButton = $('<input>', {type:'submit', value: 'Submit'});
