@@ -24,7 +24,7 @@ object Message extends LilaController {
       NotForKids {
         negotiate (
           html = api.inbox(me, page) map { html.message.inbox(me, _) },
-          api = _ => api.inbox(me, page) map { html.message.inbox(me, _) }
+          api = _ => api.inbox(me, page) map { Env.message.jsonView.inbox(me, _) }
         )
       }
   }
