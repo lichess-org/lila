@@ -30,4 +30,10 @@ final class JsonView() {
       "updateAt" -> thread.updatedAt
     )
 
+  def thread(thread: Thread): Fu[Result] =
+    Fu {
+      Ok(
+        Json.obj()
+      )
+    }
 }

@@ -32,11 +32,14 @@ object Message extends LilaController {
   def thread(id: String) = Auth { implicit ctx =>
     implicit me =>
       NotForKids {
-        OptionFuOk(api.thread(id, me)) { thread =>
-          relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            html.message.thread(thread, forms.post, blocked)
-          }
-        } map NoCache
+        negotiate (
+          html = OptionFuOk(api.thread(id, me)) { thread =>
+            relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              html.message.thread(thread, forms.post, blocked)
+            }
+          } map NoCache,
+          api = _ => OptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
+        )
       }
   }
 
