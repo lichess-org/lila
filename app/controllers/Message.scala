@@ -79,11 +79,18 @@ object Message extends LilaController {
     implicit me =>
       NotForKids {
         implicit val req = ctx.body
-        forms.thread(me).bindFromRequest.fold(
-          err => renderForm(me, none, _ => err) map { BadRequest(_) },
-          data => api.makeThread(data, me) map { thread =>
-            Redirect(routes.Message.thread(thread.id))
-          })
+        negotiate (
+          html = forms.thread(me).bindFromRequest.fold(
+            err => renderForm(me, none, _ => err) map { BadRequest(_) },
+            data => api.makeThread(data, me) map { thread =>
+              Redirect(routes.Message.thread(thread.id))
+            }),
+          api = _ => forms.thread(me).bindFromRequest.fold(
+            err => renderForm(me, none, _ => err) map { BadRequest(_) },
+            data => api.makeThread(data, me) map { thread =>
+              Ok(Json.obj("ok" -> true, "id" -> thread.id))
+            })
+        )
       }
   }
 
