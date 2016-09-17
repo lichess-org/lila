@@ -62,7 +62,7 @@ object Message extends LilaController {
             err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
               BadRequest(html.message.thread(thread, err, blocked))
             },
-            text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true))
+            text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
           )
         }
       )
@@ -103,6 +103,9 @@ object Message extends LilaController {
 
   def delete(id: String) = AuthBody { implicit ctx =>
     implicit me =>
-      api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1))
+      negotiate (
+        html = api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1)),
+        api = _ => api.deleteThread(id, me) inject Ok(Json.obj("ok" -> true, "id" -> id))
+      )
   }
 }
