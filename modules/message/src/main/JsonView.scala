@@ -30,10 +30,19 @@ final class JsonView() {
       "updateAt" -> thread.updatedAt
     )
 
-  def thread(thread: Thread): Fu[Result] =
-    Fu {
-      Ok(
-        Json.obj()
+  def thread(thread: Thread): Fu[JsValue] =
+    fuccess (
+      Json.obj(
+        "id" -> thread.id,
+        "name" -> thread.name,
+        "posts" -> thread.posts.map { post => threadPost(thread, post)}
       )
-    }
+    )
+
+  def threadPost(thread: Thread, post: Post): JsValue =
+    Json.obj(
+      "sender" -> thread.senderOf(post),
+      "receiver" -> thread.receiverOf(post),
+      "text" -> post.text
+    )
 }

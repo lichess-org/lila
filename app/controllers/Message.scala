@@ -38,7 +38,7 @@ object Message extends LilaController {
               html.message.thread(thread, forms.post, blocked)
             }
           } map NoCache,
-          api = _ => OptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
+          api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
         )
       }
   }
