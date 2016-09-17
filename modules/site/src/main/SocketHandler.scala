@@ -17,9 +17,10 @@ private[site] final class SocketHandler(
   def apply(
     uid: String,
     userId: Option[String],
+    sameOrigin: Boolean,
     flag: Option[String]): Fu[JsSocketHandler] = {
 
-    Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
+    Handler(hub, socket, uid, Join(uid, userId, sameOrigin, flag), userId) {
       case Connected(enum, member) => (Handler.emptyController, enum, member)
     }
   }

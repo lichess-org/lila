@@ -16,9 +16,9 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
 
   def receiveSpecific = {
 
-    case Join(uid, username, tags) => {
+    case Join(uid, sameOrigin, username, tags) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, username, tags)
+      val member = Member(channel, sameOrigin, username, tags)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
     }

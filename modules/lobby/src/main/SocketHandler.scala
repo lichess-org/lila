@@ -25,25 +25,25 @@ private[lobby] final class SocketHandler(
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-    case ("join", o) =>
+    case ("join", o) if member.sameOrigin =>
       o str "d" foreach { id =>
         lobby ! BiteHook(id, uid, member.user)
       }
-    case ("cancel", o) =>
+    case ("cancel", o) if member.sameOrigin =>
       lobby ! CancelHook(uid) case ("joinSeek", o) => for {
       id <- o str "d"
       user <- member.user
     } lobby ! BiteSeek(id, user)
-    case ("cancelSeek", o) => for {
+    case ("cancelSeek", o) if member.sameOrigin => for {
       id <- o str "d"
       user <- member.user
     } lobby ! CancelSeek(id, user)
     case ("idle", o) => socket ! SetIdle(uid, ~(o boolean "d"))
   }
 
-  def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
+  def apply(uid: String, user: Option[User], sameOrigin: Boolean, mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid = uid, user = user, blocking = blockedUserIds, mobile = mobile)
+      val join = Join(uid = uid, user = user, sameOrigin = sameOrigin, blocking = blockedUserIds, mobile = mobile)
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
           (controller(socket, uid, member), enum, member)

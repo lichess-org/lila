@@ -141,9 +141,9 @@ private[round] final class Socket(
           blackIsGone = blackIsGone)
       } pipeTo sender
 
-    case Join(uid, user, color, playerId, ip, userTv, apiVersion) =>
+    case Join(uid, user, sameOrigin, color, playerId, ip, userTv, apiVersion) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, userTv = userTv, apiVersion = apiVersion)
+      val member = Member(channel, user, sameOrigin, color, playerId, ip, userTv = userTv, apiVersion = apiVersion)
       addMember(uid, member)
       notifyCrowd
       playerDo(color, _.ping)

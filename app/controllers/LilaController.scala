@@ -80,8 +80,8 @@ private[controllers] trait LilaController
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
+      reqToCtx(req) flatMap { implicit ctx =>
+        CSRF {
           Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
         }
       }
@@ -92,8 +92,10 @@ private[controllers] trait LilaController
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap f
+      reqToCtx(req) flatMap { implicit ctx =>
+        CSRF {
+          f(ctx)
+        }
       }
     }
 
@@ -102,8 +104,8 @@ private[controllers] trait LilaController
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { implicit ctx =>
+      reqToCtx(req) flatMap { implicit ctx =>
+        CSRF {
           ctx.me.fold(authenticationFailed) { me =>
             Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
           }
@@ -116,8 +118,8 @@ private[controllers] trait LilaController
 
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      CSRF(req) {
-        reqToCtx(req) flatMap { implicit ctx =>
+      reqToCtx(req) flatMap { implicit ctx =>
+        CSRF {
           ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
         }
       }
@@ -301,16 +303,20 @@ private[controllers] trait LilaController
     }) map (_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader, sameOriginAuth: Boolean = false): Fu[HeaderContext] = {
-    if (sameOriginAuth && !Env.security.csrfRequestHandler.check(req)) fuccess(none)
-    else restoreUser(req)
-  } flatMap { d =>
-    val ctx = UserContext(req, d.map(_.user))
-    pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
+    val sameOrigin = Env.security.csrfRequestHandler.check(req)
+    (
+      if (sameOriginAuth && !sameOrigin) fuccess(none)
+      else restoreUser(req)
+    ) flatMap { d =>
+      val ctx = UserContext(req, d.map(_.user), sameOrigin)
+      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
+    }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
-      val ctx = UserContext(req, d.map(_.user))
+      val sameOrigin = Env.security.csrfRequestHandler.check(req)
+      val ctx = UserContext(req, d.map(_.user), sameOrigin)
       pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
     }
 
@@ -354,8 +360,8 @@ private[controllers] trait LilaController
       }
     }
 
-  private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if (Env.security.csrfRequestHandler.check(req)) f
+  private def CSRF(res: => Fu[Result])(implicit ctx: UserContext): Fu[Result] =
+    if (ctx.sameOrigin) res
     else Forbidden("Cross origin request forbidden").fuccess
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =

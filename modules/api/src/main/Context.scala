@@ -90,7 +90,7 @@ final class HeaderContext(
 object Context {
 
   def apply(req: RequestHeader): HeaderContext =
-    new HeaderContext(UserContext(req, none), PageData.default)
+    new HeaderContext(UserContext(req, none, false), PageData.default)
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

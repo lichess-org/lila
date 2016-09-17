@@ -8,12 +8,14 @@ import lila.user.User
 private[tournament] case class Member(
   channel: JsChannel,
   userId: Option[String],
+  sameOrigin: Boolean,
   troll: Boolean) extends SocketMember
 
 private[tournament] object Member {
-  def apply(channel: JsChannel, user: Option[User]): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], sameOrigin: Boolean): Member = Member(
     channel = channel,
     userId = user map (_.id),
+    sameOrigin = sameOrigin,
     troll = user.??(_.troll))
 }
 
@@ -21,7 +23,8 @@ private[tournament] case class Messadata(trollish: Boolean = false)
 
 private[tournament] case class Join(
   uid: String,
-  user: Option[User])
+  user: Option[User],
+  sameOrigin: Boolean)
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[tournament] case object Reload
 private[tournament] case class StartGame(game: Game)

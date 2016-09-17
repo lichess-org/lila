@@ -42,9 +42,9 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, owner) =>
+    case Socket.Join(uid, userId, sameOrigin, owner) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, owner)
+      val member = Socket.Member(channel, userId, sameOrigin, owner)
       addMember(uid, member)
       sender ! Socket.Connected(enumerator, member)
 
@@ -59,11 +59,12 @@ private object Socket {
   case class Member(
       channel: JsChannel,
       userId: Option[String],
+      sameOrigin: Boolean,
       owner: Boolean) extends lila.socket.SocketMember {
     val troll = false
   }
 
-  case class Join(uid: String, userId: Option[String], owner: Boolean)
+  case class Join(uid: String, userId: Option[String], sameOrigin: Boolean, owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload
