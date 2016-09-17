@@ -43,6 +43,7 @@ final class JsonView() {
     Json.obj(
       "sender" -> thread.senderOf(post),
       "receiver" -> thread.receiverOf(post),
-      "text" -> post.text
+      "text" -> post.text,
+      "createdAt" -> post.createdAt
     )
 }
