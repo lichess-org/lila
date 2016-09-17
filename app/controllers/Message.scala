@@ -5,6 +5,7 @@ import play.api.data.Form
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.twirl.api.Html
+import play.api.libs.json._
 
 import lila.api.Context
 import lila.app._
@@ -45,15 +46,26 @@ object Message extends LilaController {
 
   def answer(id: String) = AuthBody { implicit ctx =>
     implicit me =>
-      OptionFuResult(api.thread(id, me)) { thread =>
-        implicit val req = ctx.body
-        forms.post.bindFromRequest.fold(
-          err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            BadRequest(html.message.thread(thread, err, blocked))
-          },
-          text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
-        )
-      }
+      negotiate (
+        html = OptionFuResult(api.thread(id, me)) { thread =>
+          implicit val req = ctx.body
+          forms.post.bindFromRequest.fold(
+            err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              BadRequest(html.message.thread(thread, err, blocked))
+            },
+            text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
+          )
+        },
+        api = _ => OptionFuResult(api.thread(id, me)) { thread =>
+          implicit val req = ctx.body
+          forms.post.bindFromRequest.fold(
+            err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              BadRequest(html.message.thread(thread, err, blocked))
+            },
+            text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true))
+          )
+        }
+      )
   }
 
   def form = Auth { implicit ctx =>
