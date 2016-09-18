@@ -59,7 +59,7 @@ object Message extends LilaController {
         api = _ => OptionFuResult(api.thread(id, me)) { thread =>
           implicit val req = ctx.body
           forms.post.bindFromRequest.fold(
-            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request")))),
+            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
             text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
           )
         }
