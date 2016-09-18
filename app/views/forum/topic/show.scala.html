@@ -50,16 +50,14 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @if(isGranted(_.IpBan)) {
         <span class="mod postip">@post.ip</span>
         }
+        @if(ctx.userId.fold(false)(post.canBeEditedByNow(_))) {
+        <a class="mod thin edit button" onclick="editForumPost('@post.id', @post.number)" data-icon="m"> Edit</a>
+        }
         @if(isGrantedMod(categ.slug)) {
         <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
-      @if(ctx.userId.fold(false)(post.canBeEditedBy(_)) && post.canStillBeEdited) {
-      <div class="edit-buttons">
-        <a class="mod" id="edit-button-@post.number" data-icon="r" onclick="editForumPost('@post.id', @post.number)">Edit</a>
-      </div>
-      }
     </div>
     }
   </div>
