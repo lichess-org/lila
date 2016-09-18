@@ -59,9 +59,7 @@ object Message extends LilaController {
         api = _ => OptionFuResult(api.thread(id, me)) { thread =>
           implicit val req = ctx.body
           forms.post.bindFromRequest.fold(
-            err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-              BadRequest(html.message.thread(thread, err, blocked))
-            },
+            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request")))),
             text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
           )
         }
@@ -86,7 +84,7 @@ object Message extends LilaController {
               Redirect(routes.Message.thread(thread.id))
             }),
           api = _ => forms.thread(me).bindFromRequest.fold(
-            err => renderForm(me, none, _ => err) map { BadRequest(_) },
+            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
             data => api.makeThread(data, me) map { thread =>
               Ok(Json.obj("ok" -> true, "id" -> thread.id))
             })
