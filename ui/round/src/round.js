@@ -22,7 +22,7 @@ module.exports = {
     if (data.correspondence)
       data.correspondence.showBar = data.pref.clockBar;
 
-    if (data.game.variant.key === 'horde')
+    if (['horde', 'crazyhouse'].indexOf(data.game.variant.key) !== -1)
       data.pref.showCaptured = false;
 
     var changes = {};

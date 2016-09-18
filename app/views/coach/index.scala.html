@@ -1,7 +1,7 @@
 @(pager: Paginator[lila.coach.Coach.WithUser], order: lila.coach.CoachPager.Order)(implicit ctx: Context)
 
 @side = {
-<div class="coach-intro">
+<div class="coach-intro coach-side">
   <img src="@staticUrl("images/icons/certification.svg")" class="certification" />
   <h2>Certified coaches</h2>
   <p>
@@ -16,13 +16,11 @@
     make your choice and enjoy learning chess!
   </p>
 </div>
-<div class="coach-add">
+<div class="coach-add coach-side">
   <p>
     Are you a great chess coach?<br />
     Do you want to be part of this list?<br />
-    @defining("lichess.contact@gmail.com") { email =>
-    Send us an email at <a href="mailto:@email">@email</a><br />
-    }
+    Send us an email at @contactEmailLink<br />
     and we will review your application.
   </p>
 </div>
@@ -60,7 +58,7 @@ side = side.some) {
     }
     @pager.nextPage.map { np =>
     <div class="pager none">
-      <a href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>
+      <a rel="next" href="@addQueryParameter(routes.Coach.all(order.key).toString, "page", np)">Next</a>
     </div>
     }
   </div>

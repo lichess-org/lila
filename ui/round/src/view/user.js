@@ -27,7 +27,7 @@ module.exports = function(ctrl, player, klass) {
     'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
   }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
     'data-icon': (player.onGame ? '3' : '0')
-  }) : null)
+  }) : m('span', '?'))
   return player.user ? [
     m('a', {
       class: 'text ulpt user_link ' + (player.user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),

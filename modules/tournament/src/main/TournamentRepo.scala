@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.common.paginator.Paginator
@@ -13,9 +14,7 @@ object TournamentRepo {
 
   private lazy val coll = Env.current.tournamentColl
 
-  private val enterableSelect = $doc(
-    "status" $in List(Status.Created.id, Status.Started.id))
-
+  private val enterableSelect = $doc("status" $lt Status.Finished.id)
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
   private[tournament] val finishedSelect = $doc("status" -> Status.Finished.id)
@@ -151,13 +150,13 @@ object TournamentRepo {
     }
 
   private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
+    import Schedule.Freq._
     tour.schedule.map(_.freq) map {
-      case Schedule.Freq.Marathon => 24 * 60
-      case Schedule.Freq.Unique   => 24 * 60
-      case Schedule.Freq.Monthly  => 6 * 60
-      case Schedule.Freq.Weekly   => 3 * 60
-      case Schedule.Freq.Daily    => 1 * 60
-      case _                      => 30
+      case Unique | Yearly | Marathon => 24 * 60
+      case Monthly                    => 6 * 60
+      case Weekly | Weekend           => 3 * 60
+      case Daily                      => 1 * 60
+      case _                          => 30
     } getOrElse 30
   }
 
@@ -219,12 +218,14 @@ object TournamentRepo {
 
   def exists(id: String) = coll exists $id(id)
 
-  def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] =
-    coll.find(enterableSelect ++ $doc(
-      "_id" $ne tourId,
-      "schedule.freq" $nin List(
-        Schedule.Freq.Marathon.name,
-        Schedule.Freq.Unique.name
-      )
-    ) ++ nonEmptySelect).cursor[Tournament]().gather[List]()
+  def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] = {
+    import Schedule.Freq._
+    coll.find(
+      enterableSelect ++
+        nonEmptySelect ++
+        $doc(
+          "_id" $ne tourId,
+          "startsAt" $lt DateTime.now)
+    ).cursor[Tournament](readPreference = ReadPreference.secondaryPreferred).gather[List]()
+  }
 }

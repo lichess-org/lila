@@ -179,7 +179,7 @@ final class TournamentApi(
         verdicts(tour, me.some) flatMap {
           _.accepted ?? {
             PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-              withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
+              withdrawOtherTournaments(tour.id, me.id)
               socketReload(tour.id)
               publish()
               if (!tour.`private`) timeline ! {
@@ -195,7 +195,7 @@ final class TournamentApi(
   private def updateNbPlayers(tourId: String) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawAllNonMarathonOrUniqueBut(tourId: String, userId: String) {
+  private def withdrawOtherTournaments(tourId: String, userId: String) {
     TournamentRepo toursToWithdrawWhenEntering tourId foreach {
       _ foreach { other =>
         PlayerRepo.exists(other.id, userId) foreach {

@@ -1,7 +1,5 @@
 @(u: User)(implicit ctx: Context)
 
-@defining("lichess.contact@gmail.com") { email =>
-
 <div class="claim_title_zone">
 
   <h2 data-icon="C"> Congratulations for breaking the 2400 rating threshold!</h2>
@@ -18,8 +16,7 @@
   </p>
 
   <p>
-    If you need help or have any question, feel free to contact us by email at
-    <a href="mailto:@email" title="About title verification">@email</a>.
+    If you need help or have any question, feel free to contact us by email at @contactEmailLink.
   </p>
 
   <p class="actions">
@@ -27,4 +24,3 @@
     <a class="button" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "0")">I don't have an official title</a>
   </p>
 </div>
-}

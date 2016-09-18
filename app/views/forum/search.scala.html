@@ -17,7 +17,7 @@ searchText = text
   <tbody class="infinitescroll">
     @views.nextPage.map { n =>
     <tr><th class="pager none">
-        <a href="@routes.ForumPost.search(text, n)">Next</a>
+        <a rel="next" href="@routes.ForumPost.search(text, n)">Next</a>
     </th></tr>
     <tr></tr>
     }

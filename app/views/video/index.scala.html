@@ -48,7 +48,7 @@ control = control) {
   }
   @videos.nextPage.map { next =>
   <div class="pager none">
-    <a href="@routes.Video.index?@control.queryString&page=@next">Next</a>
+    <a rel="next" href="@routes.Video.index?@control.queryString&page=@next">Next</a>
   </div>
   }
 </div>

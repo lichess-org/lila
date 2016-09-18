@@ -17,16 +17,19 @@ private final class ChapterMaker(
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
     data.game.??(parsePov) flatMap {
-      case None => data.pgn.filter(_.trim.nonEmpty) match {
-        case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-        case None      => fuccess(fromFenOrBlank(study, data, order, userId).some)
-      }
+      case None      => fuccess(fromFenOrPgnOrBlank(study, data, order, userId).some)
       case Some(pov) => fromPov(study, pov, data, order, userId)
     }
   }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
-    PgnImport(pgn).future map { res =>
+  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter =
+    data.pgn.filter(_.trim.nonEmpty) match {
+      case Some(pgn) => fromPgn(study, pgn, data, order, userId)
+      case None      => fromFenOrBlank(study, data, order, userId)
+    }
+
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Chapter =
+    PgnImport(pgn).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
       Chapter.make(
         studyId = study.id,
         name = (for {
@@ -42,10 +45,10 @@ private final class ChapterMaker(
         root = res.root,
         order = order,
         ownerId = userId,
-        conceal = data.conceal option Chapter.Ply(res.root.ply)).some
+        conceal = data.conceal option Chapter.Ply(res.root.ply))
     }
 
-  def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
+  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
     (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)

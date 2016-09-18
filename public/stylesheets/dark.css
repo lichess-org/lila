@@ -104,8 +104,8 @@ body.dark #qa .question .comments,
 body.dark #qa .comments .comment,
 body.dark #qa .answer-wrap,
 body.dark #qa .tm-tag,
-body.dark table.slist,
-body.dark table.slist thead th,
+body.dark .slist,
+body.dark .slist thead th,
 body.dark #notifications > div,
 body.dark form.wide input[type="text"],
 body.dark form.wide textarea,
@@ -136,7 +136,6 @@ body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
 body.dark div.user_show .mod_zone .listings,
-body.dark div.user_show .mod_zone .slist,
 body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
 body.dark .lichess_ground .replay,
@@ -173,6 +172,7 @@ body.dark .study_metadata h2 .liking,
 body.dark #notify_app .pager.prev,
 body.dark div.mchat .presets span,
 body.dark div.mchat input.lichess_say,
+body.dark #tournament .controls,
 body.dark div.mchat .chat_tabs .tab {
   border-color: #3d3d3d;
 }
@@ -328,7 +328,7 @@ body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
 body.dark #lichess_message tr:nth-child(even),
 body.dark div.content_box_inter,
-body.dark table.slist tbody tr:nth-child(even),
+body.dark .slist tbody tr:nth-child(even),
 body.dark #team .forum li:nth-child(odd),
 body.dark table.translations tbody tr:nth-child(odd),
 body.dark form.translation_form div.message:nth-child(even),
@@ -395,8 +395,8 @@ body.dark div.user_show div.content_box_inter.tabs,
 body.dark #qa .answers-header,
 body.dark #video .card .info,
 body.dark #video .card .reveal,
-body.dark table.slist thead {
-  background: rgb(40, 40, 40);
+body.dark #tournament .controls,
+body.dark .slist thead {
   background: linear-gradient(to bottom, rgba(40, 40, 40, 1), rgba(34, 34, 34, 1) 100%);
   text-shadow: 0 1px 0 #000;
 }
@@ -423,7 +423,9 @@ body.dark a.button:hover {
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
 }
 body.dark .button.active-soft,
-body.dark .button.active-soft:hover {
+body.dark .button.active-soft:hover,
+body.dark .fbt.active-soft,
+body.dark .fbt.active-soft:hover {
   color: #ccc !important;
   text-shadow: 0 1px 0 #000 !important;
   background: #444 !important;

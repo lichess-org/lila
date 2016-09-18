@@ -207,7 +207,7 @@ description = s"Search in ${nbGames.localize} chess games using advanced criteri
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>
-      <div class="pager none"><a href="@routes.Search.index(n)">Next</a></div>
+      <div class="pager none"><a rel="next" href="@routes.Search.index(n)">Next</a></div>
       }.getOrElse {
       <div class="none"></div>
       }

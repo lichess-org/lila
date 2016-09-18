@@ -253,27 +253,17 @@ lichess.notifyApp = (function() {
 
   lichess.openInMobileApp = function(path) {
     if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
-    var storageKey = 'open-in-mobile';
-    var open = function(v) {
-      if (v > 0) {
-        lichess.storage.set(storageKey, v - 1);
-        location.href = 'lichess://' + path;
-      } else
-        lichess.storage.set(storageKey, v + 1);
-    };
-    var stored = parseInt(lichess.storage.get(storageKey));
-    if (stored) return open(stored);
-    $.modal($('<div class="block_buttons">').css('font-size', '2em').html([
-      ['Open in mobile app', 1],
-      ['Open in web browser', 0]
-    ].map(function(o) {
-      return '<a class="button" data-mobile="' + o[1] + '">' + o[0] + '</a>';
-    }).join('')));
-    $('#modal-wrap a.button').click(function() {
-      $.modal.close();
-      var inMobile = !!$(this).data('mobile');
-      open(6 * (inMobile ? 1 : -1));
-    });
+    $('#deeplink').remove();
+    var pane = $('<div id="deeplink">' +
+      '<h1>Open with...</h1>' +
+      '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
+      '<a><strong>Web</strong> browser</a>' +
+      '</div>'
+    ).find('a').click(function() {
+      $('#deeplink').remove();
+      return true;
+    }).end();
+    $('body').prepend(pane);
   };
 
   lichess.userAutocomplete = function($input, opts) {
