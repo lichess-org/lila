@@ -39,8 +39,8 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @authorLink(post, "author".some)
 
         @if(post.hasEdits) {
+          <span class="post-edited">edited</span>
           @momentFromNow(post.updatedAt)
-          <span class="post-edited"> - Edited</span>
         } else {
           @momentFromNow(post.createdAt)
         }
@@ -61,8 +61,10 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
       @if(ctx.userId.fold(false)(post.canBeEditedByNow(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
         <textarea name="changes" class="edit-post-box" minlength="3">@post.text</textarea>
-        <button type="submit" class="submit button">@trans.apply()</button>
-        <a class="edit-post-cancel" href="@routes.ForumPost.redirect(post.id)" style="margin-left:20px">@trans.cancel()</a>
+        <div class="edit-buttons">
+          <a class="edit-post-cancel" href="@routes.ForumPost.redirect(post.id)" style="margin-left:20px">@trans.cancel()</a>
+          <button type="submit" class="submit button">@trans.apply()</button>
+        </div>
       </form>
       }
     </div>
