@@ -201,6 +201,10 @@ div.post a.post-edited {
     float: left;
 }
 
+.edit-post-form {
+  display: none;
+}
+
 div.post .button-hidden {
     display: none;
 }
