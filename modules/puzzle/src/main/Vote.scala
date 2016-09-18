@@ -15,7 +15,7 @@ object Vote {
 
   object BSONFields {
     val id = "_id"
-    val vote = "v"
+    val vote = "vote"
   }
 
   import reactivemongo.bson._
