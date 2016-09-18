@@ -23,7 +23,8 @@ case class Post(
     createdAt: DateTime,
     updatedAt: DateTime) {
 
-  private val permitEditsFor = 3 hours
+  private val permitEditsFor = 4 hours
+  private val showEditFormFor = 3 hours
 
   def id = _id
 
@@ -41,8 +42,8 @@ case class Post(
 
   def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
 
-  def canBeEditedByNow(editingId: String) =
-    canBeEditedBy(editingId) && canStillBeEdited
+  def shouldShowEditForm(editingId: String) =
+    canBeEditedBy(editingId) && updatedAt.plus(showEditFormFor.toMillis).isAfter(DateTime.now)
 
   def editPost(updated: DateTime, newText: String) : Post = {
     val oldVersion = new OldVersion(text, updatedAt)

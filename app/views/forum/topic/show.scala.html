@@ -50,7 +50,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @if(isGranted(_.IpBan)) {
         <span class="mod postip">@post.ip</span>
         }
-        @if(ctx.userId.fold(false)(post.canBeEditedByNow(_))) {
+        @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
         <a class="mod thin edit button" data-icon="m"> Edit</a>
         }
         @if(isGrantedMod(categ.slug)) {
@@ -58,7 +58,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
-      @if(ctx.userId.fold(false)(post.canBeEditedByNow(_))) {
+      @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
         <textarea name="changes" class="edit-post-box" minlength="3">@post.text</textarea>
         <div class="edit-buttons">
