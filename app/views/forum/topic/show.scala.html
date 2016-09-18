@@ -39,8 +39,8 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @authorLink(post, "author".some)
 
         @if(post.hasEdits) {
+          <span class="post-edited">edited</span>
           @momentFromNow(post.updatedAt)
-          <span class="post-edited"> - Edited</span>
         } else {
           @momentFromNow(post.createdAt)
         }
@@ -50,15 +50,22 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @if(isGranted(_.IpBan)) {
         <span class="mod postip">@post.ip</span>
         }
+        @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
+        <a class="mod thin edit button" data-icon="m"> Edit</a>
+        }
         @if(isGrantedMod(categ.slug)) {
         <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
-      @if(ctx.userId.fold(false)(post.canBeEditedBy(_)) && post.canStillBeEdited) {
-      <div class="edit-buttons">
-        <a class="mod" id="edit-button-@post.number" data-icon="r" onclick="editForumPost('@post.id', @post.number)">Edit</a>
-      </div>
+      @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
+      <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
+        <textarea name="changes" class="edit-post-box" minlength="3" required>@post.text</textarea>
+        <div class="edit-buttons">
+          <a class="edit-post-cancel" href="@routes.ForumPost.redirect(post.id)" style="margin-left:20px">@trans.cancel()</a>
+          <button type="submit" class="submit button">@trans.apply()</button>
+        </div>
+      </form>
       }
     </div>
     }

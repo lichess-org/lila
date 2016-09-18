@@ -183,26 +183,28 @@ div.post .message {
   line-height: 1.5em;
 }
 
+form.edit-post-form {
+  display: none;
+  margin-top: 1.5em;
+}
+form.edit-post-form textarea {
+  width: 728px;
+  border: 1px solid #D4D4D4;
+  padding: 0.5em;
+}
 div.post .edit-buttons {
-    float: right;
+  text-align: right;
+  margin-top: 0.5em;
 }
-
-div.post .edit-post-box {
-    width: 100%;
-    height: 250px;
+div.post .edit-buttons a {
+  margin-right: 1em;
 }
-
-div.post a.post-edited {
-    font-size: 0.8em;
-    font-style: bold;
-    color: #aaa;
-    margin-top: 0.3em;
-    margin-left: 1em;
-    float: left;
-}
-
-div.post .button-hidden {
-    display: none;
+div.post .post-edited {
+  font-size: 0.8em;
+  color: #aaa;
+  margin-top: 0.3em;
+  margin-left: 1em;
+  float: left;
 }
 
 div.topicReply,
