@@ -22,7 +22,7 @@ final class JsonView() {
       "id" -> thread.id,
       "author" -> thread.otherUserId(me),
       "name" -> thread.name,
-      "updateAt" -> thread.updatedAt
+      "updatedAt" -> thread.updatedAt
     )
 
   def thread(thread: Thread): Fu[JsValue] =
