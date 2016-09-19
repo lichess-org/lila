@@ -150,8 +150,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           },
 
         List( // week-end elite tournaments!
-          nextSaturday -> Bullet -> 2100,
-          nextSunday -> SuperBlitz -> 2000
+          nextSaturday -> Bullet -> 2200,
+          nextSunday -> SuperBlitz -> 2200
         ).flatMap {
             case ((day, speed), minRating) => at(day, 17) map { date =>
               val perf = Schedule.Speed toPerfType speed
