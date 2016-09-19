@@ -38,10 +38,10 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
       <div class="metas clearfix">
         @authorLink(post, "author".some)
 
-        @if(post.hasEdits) {
+        @post.updatedAt.map { updatedAt =>
           <span class="post-edited">edited</span>
-          @momentFromNow(post.updatedAt)
-        } else {
+          @momentFromNow(updatedAt)
+        }.getOrElse {
           @momentFromNow(post.createdAt)
         }
 
