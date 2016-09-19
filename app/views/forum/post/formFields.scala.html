@@ -1,7 +1,7 @@
 @(text: Field, author: Field)(implicit ctx: Context)
 <label>
   <span class="required">@trans.message()</span>
-  <textarea name="@text.name" id="@text.id">@text.value</textarea>
+  <textarea name="@text.name">@text.value</textarea>
   @errMsg(text)
 </label>
 @if(!ctx.isAuth) {
