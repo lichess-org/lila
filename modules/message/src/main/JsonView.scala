@@ -14,7 +14,7 @@ final class JsonView() {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(Json.obj(
-      "messages" -> threads.currentPageResults.map { thread => inboxItem(me, thread) }
+      "threads" -> threads.currentPageResults.map { thread => inboxItem(me, thread) }
     ).noNull)
 
   def inboxItem(me: User, thread: Thread): JsValue =
