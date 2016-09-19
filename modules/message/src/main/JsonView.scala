@@ -3,27 +3,25 @@ package lila.message
 import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.mvc.Results._
-import scala.concurrent.duration._
 
 import lila.common.PimpedJson._
 import lila.user.User
-import scala.concurrent.{ Future }
 import lila.common.paginator._
 
 final class JsonView() {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(Json.obj(
-      "threads" -> threads.currentPageResults.map { thread => inboxItem(me, thread) }
-    ).noNull)
-
-  def inboxItem(me: User, thread: Thread): JsValue =
-    Json.obj(
-      "id" -> thread.id,
-      "author" -> thread.otherUserId(me),
-      "name" -> thread.name,
-      "updatedAt" -> thread.updatedAt
-    )
+      "threads" -> PaginatorJson(threads.mapResults { t =>
+        Json.obj(
+          "id" -> t.id,
+          "author" -> t.otherUserId(me),
+          "name" -> t.name,
+          "updatedAt" -> t.updatedAt,
+          "isUnread" -> t.isUnReadBy(me)
+        )
+      })
+    ))
 
   def thread(thread: Thread): Fu[JsValue] =
     fuccess (

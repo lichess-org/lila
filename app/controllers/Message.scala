@@ -110,7 +110,7 @@ object Message extends LilaController {
     implicit me =>
       negotiate (
         html = api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1)),
-        api = _ => api.deleteThread(id, me) inject Ok(Json.obj("ok" -> true, "id" -> id))
+        api = _ => api.deleteThread(id, me) inject Ok(Json.obj("ok" -> true))
       )
   }
 }
