@@ -76,7 +76,7 @@ private[puzzle] final class PuzzleApi(
 
     def add(l: Learning) = learningColl insert l void
 
-    def update(user: User, puzzle: Puzzle, data: DataForm.RoundData) = 
+    def update(user: User, puzzle: Puzzle, data: DataForm.RoundData) =
       if (data.isWin) solved(user, puzzle.id) else failed(user, puzzle.id)
 
     def solved(user: User, puzzleId: PuzzleId) = learning find user flatMap {
@@ -92,13 +92,13 @@ private[puzzle] final class PuzzleApi(
       case Some(l) =>
         learningColl.update(
           $id(l.id),
-          l failed puzzleId) 
+          l failed puzzleId)
     }
 
     def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
-      case None => fuccess(none)
+      case None    => fuccess(none)
       case Some(l) => l.nextPuzzleId ?? puzzle.find
-    } 
+    }
   }
 
   object vote {
@@ -110,13 +110,13 @@ private[puzzle] final class PuzzleApi(
       case Some(p1) =>
         val (p2, v2) = v1 match {
           case Some(from) => (
-              (p1 withVote (_.change(from.vote, v))),
-              from.copy(vote = v)
-            )
+            (p1 withVote (_.change(from.vote, v))),
+            from.copy(vote = v)
+          )
           case None => (
-              (p1 withVote (_ add v)), 
-              Vote(Vote.makeId(id, user.id), v)
-            )
+            (p1 withVote (_ add v)),
+            Vote(Vote.makeId(id, user.id), v)
+          )
         }
         voteColl.update(
           $id(v2.id),
@@ -134,12 +134,12 @@ private[puzzle] final class PuzzleApi(
 
     def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
 
-    def add(h: PuzzleHead) = headColl update(
+    def add(h: PuzzleHead) = headColl update (
       $id(h.id),
       h,
       upsert = true) void
 
-    def addLearning(user: User, puzzleId: PuzzleId) = headColl update(
+    def addLearning(user: User, puzzleId: PuzzleId) = headColl update (
       $id(user.id),
       $set(PuzzleHead.BSONFields.current -> puzzleId.some),
       upsert = true) void
@@ -147,10 +147,10 @@ private[puzzle] final class PuzzleApi(
     def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
 
     def solved(user: User, id: PuzzleId) = head find user flatMap {
-      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update(
+      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update (
         $id(user.id),
         PuzzleHead(user.id, none, id))
-      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update(
+      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update (
         $id(user.id),
         $unset(PuzzleHead.BSONFields.current))
       case _ => fuccess(none)
