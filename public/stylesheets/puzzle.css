@@ -121,6 +121,7 @@
   font-size: 24px;
   line-height: 1;
 }
-#puzzle #disqus_thread {
-  margin-top: 20px;
+#puzzle .undertable td {
+  text-align: left;
+  padding-left: 10px;
 }
