@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.Color
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
 
 import lila.rating.Perf
 
@@ -19,7 +18,6 @@ case class Puzzle(
     vote: AggregateVote,
     attempts: Int,
     wins: Int,
-    time: Int,
     mate: Boolean) {
 
   def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
@@ -65,7 +63,6 @@ object Puzzle {
     vote = AggregateVote(0, 0, 0),
     attempts = 0,
     wins = 0,
-    time = 0,
     mate = mate)
 
   import reactivemongo.bson._
@@ -108,7 +105,6 @@ object Puzzle {
     val voteSum = s"$vote.sum"
     val attempts = "attempts"
     val wins = "wins"
-    val time = "time"
     val mate = "mate"
   }
 
@@ -131,7 +127,6 @@ object Puzzle {
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
       wins = r int wins,
-      time = r int time,
       mate = r bool mate)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
@@ -147,7 +142,6 @@ object Puzzle {
       vote -> o.vote,
       attempts -> o.attempts,
       wins -> o.wins,
-      time -> o.time,
       mate -> o.mate)
   }
 }
