@@ -61,18 +61,12 @@ module.exports = function(opts, name) {
 
     // transform mate scores
     if (Math.abs(cp) > 20000) {
-      mate = Math.floor((30000 - Math.abs(cp)) / 10);
+      mate = Math.floor((30000 - Math.abs(cp)) / 10) + 1;
       // approx depth for searches that end early with mate
       depth = Math.max(depth || 0, mate * 2 - 1);
       // correct sign and add sunsetter played moves
-      mate = Math.sign(cp) * (mate + aiMoves)
+      mate = Math.sign(cp) * (mate + aiMoves);
       cp = undefined;
-    }
-
-    if (mate) {
-      stopping = true
-      send('force');
-      send('tellics stopped');
     }
 
     work.emit({
@@ -89,7 +83,7 @@ module.exports = function(opts, name) {
 
   var reboot = function() {
     if (instance) instance.terminate();
-    instance = new Worker('/assets/vendor/Sunsetter/sunsetter.js');
+    instance = new Worker('/assets/vendor/Sunsetter8/sunsetter.js');
     busy = false;
     stopping = false;
     aiMoves = 0;
@@ -102,8 +96,9 @@ module.exports = function(opts, name) {
     start: function(work) {
       if (busy) reboot();
       busy = true;
-      send('variant ' + opts.variant.key);
+      send('reset ' + opts.variant.key);
       send('setboard ' + work.initialFen);
+      send('easy');
       send('force');
       for (var i = 0; i < work.moves.length; i++) {
         send(work.moves[i]);
