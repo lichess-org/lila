@@ -12,11 +12,7 @@ private[puzzle] final class Selector(
     anonMinRating: Int,
     puzzleIdMin: Int) {
 
-  private def popularSelector(mate: Boolean) = $doc(
-    Puzzle.BSONFields.voteSum $gt mate.fold(anonMinRating, 0)
-  )
-
-  private def mateSelector(mate: Boolean) = $doc("mate" -> mate)
+  private def popularSelector = $doc(Puzzle.BSONFields.voteSum $gt 0)
 
   private def difficultyDecay(difficulty: Int) = difficulty match {
     case 1 => -200
@@ -30,10 +26,9 @@ private[puzzle] final class Selector(
 
   def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
-    val isMate = scala.util.Random.nextBoolean
     me match {
       case None =>
-        puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
+        puzzleColl.find(popularSelector)
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
       case Some(user) =>
@@ -42,10 +37,10 @@ private[puzzle] final class Selector(
           case _ =>
             val isLearn = scala.util.Random.nextInt(5) == 0
             val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
-              case None => newPuzzleForUser(user, isMate, difficulty)
+              case None => newPuzzleForUser(user, difficulty)
               case p    => fuccess(p)
             }
-            else newPuzzleForUser(user, isMate, difficulty)
+            else newPuzzleForUser(user, difficulty)
             (next flatMap {
               case Some(p) if isLearn => api.head.addLearning(user, p.id)
               case Some(p)            => api.head.addNew(user, p.id)
@@ -62,7 +57,7 @@ private[puzzle] final class Selector(
       case d             => 200
     }
 
-  private def newPuzzleForUser(user: User, isMate: Boolean, difficulty: Int): Fu[Option[Puzzle]] = {
+  private def newPuzzleForUser(user: User, difficulty: Int): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
     (api.head.find(user) zip api.puzzle.lastId) flatMap {
@@ -76,8 +71,7 @@ private[puzzle] final class Selector(
           case _ => puzzleIdMin
         },
         idRange = 200,
-        idStep = 100,
-        isMate = isMate)
+        idStep = 100)
     }
   }
 
@@ -88,10 +82,8 @@ private[puzzle] final class Selector(
     decay: Int,
     last: PuzzleId,
     idRange: Int,
-    idStep: Int,
-    isMate: Boolean
-  ): Fu[Option[Puzzle]] =
-    puzzleColl.find(mateSelector(isMate) ++ $doc(
+    idStep: Int): Fu[Option[Puzzle]] =
+    puzzleColl.find($doc(
       Puzzle.BSONFields.id $gt
         last $lt
         (last + idRange),
@@ -101,7 +93,7 @@ private[puzzle] final class Selector(
       Puzzle.BSONFields.voteSum $gt -10
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
-        tryRange(rating, tolerance + step, step, decay, last, idRange + idStep, idStep, isMate)
+        tryRange(rating, tolerance + step, step, decay, last, idRange + idStep, idStep)
       case res => fuccess(res)
     }
 }
