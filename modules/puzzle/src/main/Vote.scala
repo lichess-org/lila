@@ -3,7 +3,7 @@ package lila.puzzle
 import org.joda.time.DateTime
 
 case class Vote(
-    _id: String, // userId/puzzleId
+    _id: String, // puzzleId/userId
     vote: Boolean) {
 
   def id = _id
