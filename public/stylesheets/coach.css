@@ -19,18 +19,19 @@
   background: #888;
 }
 .coach .top .overview {
-  padding: 15px 30px;
+  padding: 15px 25px;
   box-sizing: border-box;
   height: 250px;
   max-height: 250px;
 }
 .coach .top h1 {
   font-family: 'Roboto';
-  font-size: 34px;
+  font-size: 33px;
   text-transform: uppercase;
   letter-spacing: 3px;
   padding: 6px 0 9px 0!important;
   text-shadow: none!important;
+  white-space: nowrap;
 }
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
@@ -78,6 +79,10 @@
 .coach section h1 {
   padding: 0 0 12px 0!important;
   color: #639B24;
+}
+.coach section .content {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .coach .youtube {
@@ -172,6 +177,17 @@ body.dark .coach .studies h1 {
 }
 .reviews .br-wrapper {
   flex: 0 0;
+}
+
+.coach-side {
+  margin: 50px 0 0 -35px;
+  width: 226px;
+}
+@media (max-width: 1084px) {
+  .coach-side {
+    margin-left: 0!important;
+    width: 196px!important;
+  }
 }
 
 /* review score */

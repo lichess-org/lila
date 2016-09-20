@@ -395,32 +395,46 @@ div.blog.undertable div.undertable_inner {
 div.blog.undertable div.undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable div.post {
+div.blog.undertable .post {
   overflow: hidden;
 }
-div.blog.undertable div.post .text {
+div.blog.undertable .text {
   margin-top: 5px;
 }
-div.blog.undertable div.post a.image {
+div.blog.undertable .image {
   display: block;
   float: left;
   margin-right: 10px;
 }
-div.blog.undertable div.post a.image img {
+div.blog.undertable .image img {
   height: 48px;
   width: 48px;
   margin: 3px;
 }
-div.blog.undertable div.post .title {
+div.blog.undertable .title {
   font-weight: bold;
-  line-height: 2;
 }
-div.blog.undertable div.post time {
+div.blog.undertable time {
   margin-top: 10px;
   float: right;
   font-weight: 100;
   line-height: 2;
   opacity: 0.6;
+}
+.leaderboards {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.leaderboards .leaderboard {
+  flex: 0 0 48.5%;
+  max-width: 48.5%;
+}
+.leaderboards .leaderboard td:first-child {
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #lichess .enterable_list {
   height: auto;
@@ -432,16 +446,8 @@ div.blog.undertable div.post time {
 #lichess .enterable_list td:first-child {
   padding-left: 1em;
 }
-#enterable_tournaments tr.create td {
-  text-align: center;
-}
-#lichess .enterable_list .button {
-  padding: 4px 8px;
-  opacity: 0;
-  transition: 0.13s;
-}
-#lichess .enterable_list tr:hover .button {
-  opacity: 1;
+#enterable_tournaments td:last-child {
+  padding-right: 10px;
 }
 #lichess .enterable_list td.name span {
   font-size: 17px;
@@ -468,9 +474,6 @@ div.new_posts li {
   padding-left: 9px;
   line-height: 14px;
   white-space: nowrap;
-}
-div.new_posts a {
-  margin-right: 6px;
 }
 div.new_posts li span.extract {
   font-family: 'Roboto';
@@ -851,6 +854,7 @@ body.dark .tour_spotlight:hover .img {
   font-size: 1.3em;
   line-height: 1.2em;
   border: 1px solid #ccc;
+  box-sizing: border-box;
   background: #fff;
 }
 .donation a {

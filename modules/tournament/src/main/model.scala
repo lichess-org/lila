@@ -16,6 +16,8 @@ case class VisibleTournaments(
     finished: List[Tournament]) {
 
   def unfinished = created ::: started
+
+  def all = started ::: created ::: finished
 }
 
 case class PlayerInfoExt(

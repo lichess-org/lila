@@ -114,14 +114,11 @@ module.exports = {
       (lastBody ? lastBody : m.trust(lichess.spinnerHtml));
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
+      m('div.controls',
+        m('div.pager', pagination.renderPager(ctrl, pag)),
+        button.joinWithdraw(ctrl)
+      ),
       m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
-        m('thead',
-          m('tr',
-            m('th.pager[colspan=3]', [
-              button.joinWithdraw(ctrl),
-              pagination.renderPager(ctrl, pag)
-            ])
-          )),
         m('tbody', {
           config: function() {
             // reload user badges

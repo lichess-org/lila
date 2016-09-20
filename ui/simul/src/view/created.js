@@ -138,7 +138,7 @@ module.exports = function(ctrl) {
       m('p', ctrl.data.quote.text),
       m('footer', ctrl.data.quote.author)
     ]),
-    m('div.join_choice', ctrl.data.variants.map(function(variant) {
+    m('div.join_choice.block_buttons', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key
       }, variant.name);

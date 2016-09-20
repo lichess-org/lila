@@ -392,8 +392,7 @@ body.doggy .cg-board.orientation-black piece.pawn.black {
 }
 div.lichess_overboard {
   position: absolute;
-  /* above top menu */
-  z-index: 5010;
+  z-index: 4;
   width: 400px;
   top: 50%;
   left: 50%;
@@ -729,7 +728,7 @@ div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 34px;
+  font-size: 36px;
   font-family: monospace, 'Noto Sans', 'Lucida Grande';
 }
 div.table_wrap .correspondence.clock > .time {

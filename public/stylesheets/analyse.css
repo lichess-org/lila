@@ -138,9 +138,9 @@ div.lichess_game div.lichess_ground {
 }
 div.eval_gauge {
   position: absolute;
-  right: -22px;
+  right: -20px;
   top: 0;
-  width: 16px;
+  width: 14px;
   height: 100%;
   background: #fff;
   background-size: 100% 100%;
@@ -182,10 +182,10 @@ div.eval_gauge .black {
   transition: height 1s;
 }
 div.gauge_displayed div.lichess_game div.lichess_ground {
-  padding-left: 28px;
+  padding-left: 26px;
 }
 div.gauge_displayed .fork {
-  margin-left: 13px;
+  margin-left: 11px;
 }
 .opening_box {
   padding: 5px;
@@ -318,6 +318,7 @@ body.piece_letter .fork move {
   -moz-user-select: none;
   -ms-user-select: none;
   transition: 0.3s;
+  transition-delay: 0.3s;
 }
 .explorer_box.config {
   flex: 3.5 1 0px;
@@ -526,8 +527,11 @@ body.piece_letter .tablebase td:first-child {
   flex-flow: column;
   justify-content: center;
 }
+.explorer_box.reduced .message {
+  justify-content: flex-start;
+}
 .explorer_box .message h3 {
-  margin: 5px 0 8px 0;
+  margin: 8px 0;
 }
 .explorer_box:not(.reduced) .message h3,
 .explorer_box.reduced:hover .message h3 {
@@ -624,6 +628,9 @@ body.piece_letter .tablebase td:first-child {
   display: block;
   margin: 15px 0;
   padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
 }
 .lichess_ground .action_menu .button::before {
   font-size: 2em;

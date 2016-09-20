@@ -175,10 +175,6 @@ div.side_box .game_infos {
 #simul .join_choice {
   display: none;
 }
-.join_choice .button {
-  display: block;
-  margin: 10px 0;
-}
 #simul_list table.slist {
   line-height: 2.3em;
 }

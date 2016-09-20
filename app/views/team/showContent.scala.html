@@ -14,7 +14,7 @@
   <h2>@trans.teamRecentMembers()</h2>
   <div class="userlist infinitescroll">
     @members.nextPage.map { np =>
-    <div class="pager none"><a href="@routes.Team.show(t.id, np)">Next</a></div>
+    <div class="pager none"><a rel="next" href="@routes.Team.show(t.id, np)">Next</a></div>
     }
     @members.currentPageResults.map { member =>
     <div class="paginated_element">@userLink(member.user)</div>

@@ -120,18 +120,19 @@ object Tournament extends LilaController {
     }
   }
 
-  def join(id: String) = Auth { implicit ctx =>
+  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>
     implicit me =>
       NoLame {
+        val password = ctx.body.body.\("p").asOpt[String]
         negotiate(
           html = repo enterableById id map {
             case None => tournamentNotFound
             case Some(tour) =>
-              env.api.join(tour.id, me)
+              env.api.join(tour.id, me, password)
               Redirect(routes.Tournament.show(tour.id))
           },
           api = _ => OptionFuOk(repo enterableById id) { tour =>
-            env.api.join(tour.id, me)
+            env.api.join(tour.id, me, password)
             fuccess(Json.obj("ok" -> true))
           }
         )

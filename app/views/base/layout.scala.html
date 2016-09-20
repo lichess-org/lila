@@ -58,6 +58,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
+    ctx.isMobileBrowser ?? "mobile",
     "coords_" + ctx.pref.coords,
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}

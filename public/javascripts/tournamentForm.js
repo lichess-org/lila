@@ -12,7 +12,10 @@ $(function() {
   }
 
   function showPrivate() {
-    if ($check.prop('checked')) {
+    var v = $check.prop('checked');
+    $('#tournament form').toggleClass('private', v);
+    if (v) {
+      $('#tournament form input[name=password]').focus();
       replace($time, $('#tournament .private_time'));
       replace($minutes, $('#tournament .private_minutes'));
     } else {

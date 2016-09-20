@@ -60,5 +60,13 @@
   @base.form.select(form("conditions.maxRating.perf"), Condition.DataForm.perfChoices)
   }
 </div>
+<div>
+  @base.form.group(form("conditions.minRating.rating"), Html("Minimum top rating"), half = true) {
+  @base.form.select(form("conditions.minRating.rating"), Condition.DataForm.minRatingChoices)
+  }
+  @base.form.group(form("conditions.minRating.perf"), Html("In variant"), half = true) {
+  @base.form.select(form("conditions.minRating.perf"), Condition.DataForm.perfChoices)
+  }
+</div>
 
 @base.form.submit()

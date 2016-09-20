@@ -5,7 +5,7 @@
   <tbody class="infinitescroll">
     @pager.nextPage.map { np =>
     <tr><th class="pager none">
-        <a href="@call.url?page=@np">Next</a>
+        <a rel="next" href="@call.url?page=@np">Next</a>
     </th></tr>
     }
     @pager.currentPageResults.map { r =>

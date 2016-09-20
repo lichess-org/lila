@@ -22,7 +22,7 @@ function clock(d) {
         datetime: d.startsAt
       }, d.startsAt)
     ]);
-    return m('div.clock', {
+    return m('div.clock.created', {
       config: startClock(d.secondsToStart)
     }, [
       m('span.shy', 'Starting in '),
@@ -63,7 +63,7 @@ function title(ctrl) {
     ] : d.fullName,
     d.private ? [
       ' ',
-      m('span.text[data-icon=a]', ctrl.trans('isPrivate'))
+      m('span[data-icon=a]')
     ] : null
   ]);
 }

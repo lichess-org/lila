@@ -1,9 +1,11 @@
 package lila.forum
 
+import lila.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import scala.concurrent.duration._
 
-import lila.user.User
+case class OldVersion(text: String, createdAt: DateTime)
 
 case class Post(
     _id: String,
@@ -17,7 +19,12 @@ case class Post(
     troll: Boolean,
     hidden: Boolean,
     lang: Option[String],
-    createdAt: DateTime) {
+    editHistory: Option[List[OldVersion]] = None,
+    createdAt: DateTime,
+    updatedAt: Option[DateTime] = None) {
+
+  private val permitEditsFor = 4 hours
+  private val showEditFormFor = 3 hours
 
   def id = _id
 
@@ -28,6 +35,27 @@ case class Post(
   def isTeam = categId startsWith teamSlug("")
 
   def isStaff = categId == "staff"
+
+  def updatedOrCreatedAt = updatedAt | createdAt
+
+  def canStillBeEdited() = {
+    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
+  }
+
+  def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
+
+  def shouldShowEditForm(editingId: String) =
+    canBeEditedBy(editingId) &&
+      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfter(DateTime.now)
+
+  def editPost(updated: DateTime, newText: String): Post = {
+    val oldVersion = new OldVersion(text, updatedOrCreatedAt)
+    val history = oldVersion :: ~editHistory
+
+    copy(editHistory = history.some, text = newText, updatedAt = updated.some)
+  }
+
+  def hasEdits = editHistory.isDefined
 }
 
 object Post {
@@ -44,17 +72,20 @@ object Post {
     number: Int,
     lang: Option[String],
     troll: Boolean,
-    hidden: Boolean): Post = Post(
-    _id = Random nextStringUppercase idSize,
-    topicId = topicId,
-    author = author,
-    userId = userId,
-    ip = ip,
-    text = text,
-    number = number,
-    lang = lang,
-    troll = troll,
-    hidden = hidden,
-    createdAt = DateTime.now,
-    categId = categId)
+    hidden: Boolean): Post = {
+
+    Post(
+      _id = Random nextStringUppercase idSize,
+      topicId = topicId,
+      author = author,
+      userId = userId,
+      ip = ip,
+      text = text,
+      number = number,
+      lang = lang,
+      troll = troll,
+      hidden = hidden,
+      createdAt = DateTime.now,
+      categId = categId)
+  }
 }

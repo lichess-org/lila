@@ -16,11 +16,14 @@ private final class DeviceApi(coll: Coll) {
   private[push] def findByUserId(userId: String): Fu[List[Device]] =
     coll.find($doc("userId" -> userId)).cursor[Device]().gather[List]()
 
-  private[push] def findLastByUserId(platform: String)(userId: String): Fu[Option[Device]] =
+  private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
     coll.find($doc(
       "platform" -> platform,
       "userId" -> userId
-    )).sort($doc("seenAt" -> -1)).uno[Device]
+    )).sort($doc("seenAt" -> -1)).list[Device](max)
+
+  private[push] def findLastOneByUserId(platform: String)(userId: String): Fu[Option[Device]] =
+    findLastManyByUserId(platform, 1)(userId) map (_.headOption)
 
   def register(user: User, platform: String, deviceId: String) = {
     lila.mon.push.register.in(platform)()

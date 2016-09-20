@@ -47,6 +47,7 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         `private` = r boolD "private",
+        password = r.strO("password"),
         conditions = conditions,
         schedule = for {
           doc <- r.getO[BSONDocument]("schedule")
@@ -72,6 +73,7 @@ object BSONHandlers {
       "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
       "private" -> w.boolO(o.`private`),
+      "password" -> o.password,
       "conditions" -> o.conditions.ifNonEmpty,
       "schedule" -> o.schedule.map { s =>
         BSONDocument(

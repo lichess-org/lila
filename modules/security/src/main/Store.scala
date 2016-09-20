@@ -51,25 +51,25 @@ object Store {
 
   def delete(sessionId: String): Funit =
     coll.update(
-      $doc("_id" -> sessionId),
-      $doc("$set" -> $doc("up" -> false))).void
+      $id(sessionId),
+      $set("up" -> false)).void
 
   def closeUserAndSessionId(userId: String, sessionId: String): Funit =
     coll.update(
       $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
-      $doc("$set" -> $doc("up" -> false))).void
+      $set("up" -> false)).void
 
   def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
     coll.update(
-      $doc("user" -> userId, "_id" -> $doc("$ne" -> sessionId), "up" -> true),
-      $doc("$set" -> $doc("up" -> false)),
+      $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
+      $set("up" -> false),
       multi = true).void
 
   // useful when closing an account,
   // we want to logout too
   def disconnect(userId: String): Funit = coll.update(
     $doc("user" -> userId),
-    $doc("$set" -> $doc("up" -> false)),
+    $set("up" -> false),
     multi = true).void
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
@@ -88,7 +88,7 @@ object Store {
     } flatMap { hash =>
       coll.update(
         $doc("_id" -> id),
-        $doc("$set" -> $doc("fp" -> hash))
+        $set("fp" -> hash)
       ) inject hash
     }
   }
@@ -119,4 +119,7 @@ object Store {
           .filter(_._id != keepSessionId)
         coll.remove($inIds(olds.map(_._id))).void
       }
+
+  private[security] def recentByIpExists(ip: String): Fu[Boolean] =
+    coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
 }

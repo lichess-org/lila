@@ -35,7 +35,7 @@ module.exports = function(possible, variant, emit) {
     return function(res) {
       if (!applies(res)) return;
       values.push(res.eval.nps);
-      if (values.length >= 10) {
+      if (values.length >= 5) {
         var depth = 18, knps = util.median(values) / 1000;
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;

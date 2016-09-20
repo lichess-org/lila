@@ -64,6 +64,7 @@ module.exports = {
       ctrl.explorer.toggle();
       m.redraw();
     }));
+    k.bind('space', preventing(ctrl.playBestMove));
     if (ctrl.study) {
       k.bind('c', preventing(function() {
         $('.study_buttons a.comment').click();
@@ -127,6 +128,7 @@ module.exports = {
           header('Analysis options'),
           row([k('l')], 'Local computer analysis'),
           row([k('a')], 'Computer arrows'),
+          row([k('space')], 'Play computer best move'),
           row([k('e')], 'Opening/endgame explorer'),
           row([k('f')], trans('flipBoard')),
           row([k('/')], 'Focus chat'),

@@ -1,3 +1,7 @@
+function isIn(ctrl) {
+  return ctrl.data.me && !ctrl.data.me.withdraw;
+}
+
 module.exports = {
   myCurrentGameId: function(ctrl) {
     if (!ctrl.userId) return null;
@@ -7,5 +11,9 @@ module.exports = {
       );
     })[0]
     return pairing ? pairing.id : null;
-  }
+  },
+  willBePaired: function(ctrl) {
+    return isIn(ctrl) && !ctrl.data.pairingsClosed;
+  },
+  isIn: isIn
 };

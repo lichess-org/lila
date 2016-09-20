@@ -43,6 +43,7 @@ final class CrudApi {
     position = chess.StartingPosition.initial,
     mode = chess.Mode.Rated,
     `private` = false,
+    password = None,
     waitMinutes = 0)
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {

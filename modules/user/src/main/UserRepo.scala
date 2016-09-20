@@ -223,10 +223,16 @@ object UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "password")
 
-  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]): Fu[Option[User]] =
+  def create(
+    username: String,
+    password: String,
+    email: Option[String],
+    blind: Boolean,
+    mobileApiVersion: Option[ApiVersion],
+    mustConfirmEmail: Boolean): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion) ++
+        val doc = newUser(username, password, email, blind, mobileApiVersion, mustConfirmEmail) ++
           ("len" -> BSONInteger(username.size))
         coll.insert(doc) >> named(normalize(username))
       }
@@ -362,7 +368,13 @@ object UserRepo {
 
   def setEmailConfirmed(id: String): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
-  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]) = {
+  private def newUser(
+    username: String,
+    password: String,
+    email: Option[String],
+    blind: Boolean,
+    mobileApiVersion: Option[ApiVersion],
+    mustConfirmEmail: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     implicit def countHandler = Count.countBSONHandler
@@ -373,7 +385,7 @@ object UserRepo {
       F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
-      F.mustConfirmEmail -> (email.isDefined && mobileApiVersion.isEmpty).option(DateTime.now),
+      F.mustConfirmEmail -> (email.isDefined && mustConfirmEmail).option(DateTime.now),
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> $empty,

@@ -28,6 +28,13 @@
 #opening .identified li {
   padding-right: 2em;
 }
+#opening .right piece {
+  width: 100%;
+  height: 100%;
+}
+.is3d #opening .right div.no-square {
+  height: 82px;
+}
 #opening .meter {
   width: 494px;
   height: 47px;

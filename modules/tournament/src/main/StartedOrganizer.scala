@@ -42,7 +42,7 @@ private[tournament] final class StartedOrganizer(
             val result: Funit =
               if (tour.secondsToFinish == 0) fuccess(api finish tour)
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds, startAt)
+              else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
               else funit
             result >>- {
               reminder ! RemindTournament(tour, activeUserIds)
@@ -52,7 +52,10 @@ private[tournament] final class StartedOrganizer(
           lila.mon.tournament.player(playerCounts.sum)
           lila.mon.tournament.started(started.size)
         }
-      } andThenAnyway scheduleNext
+      }.chronometer
+        .mon(_.tournament.startedOrganizer.tickTime)
+        .logIfSlow(500, logger)(_ => "StartedOrganizer.Tick")
+        .result andThenAnyway scheduleNext
   }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =

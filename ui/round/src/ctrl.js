@@ -51,7 +51,7 @@ module.exports = function(opts) {
   setTimeout(function() {
     this.vm.firstSeconds = false;
     m.redraw();
-  }.bind(this), 2000);
+  }.bind(this), 3000);
 
   this.socket = new socket(opts.socketSend, this);
 
@@ -304,6 +304,7 @@ module.exports = function(opts) {
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
+    this.vm.justDropped = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);

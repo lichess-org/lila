@@ -1,6 +1,7 @@
 var partial = require('chessground').util.partial;
 var router = require('game').router;
 var util = require('./util');
+var pgnExport = require('./pgnExport');
 var m = require('mithril');
 
 var baseSpeeds = [{
@@ -66,13 +67,18 @@ function autoplayCplButtons(ctrl) {
 
 function studyButton(ctrl) {
   if (ctrl.study || ctrl.ongoing) return;
+  var realGame = !util.synthetic(ctrl.data);
   return m('form', {
     method: 'post',
-    action: '/study'
+    action: '/study',
+    onsubmit: function(e) {
+      var pgnInput = e.target.querySelector('input[name=pgn]');
+      if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+    }
   }, [
-    util.synthetic(ctrl.data) ? null : m('input[type=hidden][name=gameId]', {
+    realGame ? m('input[type=hidden][name=gameId]', {
       value: ctrl.data.game.id
-    }),
+    }) : m('input[type=hidden][name=pgn]'),
     m('input[type=hidden][name=orientation]', {
       value: ctrl.chessground.data.orientation
     }),
@@ -85,7 +91,7 @@ function studyButton(ctrl) {
     m('button.button.text', {
       'data-icon': '',
       type: 'submit'
-    }, util.synthetic(ctrl.data) ? 'Host a study' : 'Study this game')
+    }, realGame ? 'Study this game' : 'Save as a study')
   ]);
 }
 

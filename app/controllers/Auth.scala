@@ -106,23 +106,32 @@ object Auth extends LilaController {
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
-                lila.mon.user.register.website()
-                val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
-                UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none)
-                  .flatten(s"No user could be created for ${data.username}")
-                  .map(_ -> email).flatMap {
-                    case (user, email) => env.emailConfirm.send(user, email) >> {
-                      if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
-                      else redirectNewUser(user)
+                api.recentByIpExists(HTTPRequest lastRemoteAddress ctx.req) flatMap { mustConfirmEmail =>
+                  lila.mon.user.register.website()
+                  lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
+                  val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
+                  UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none,
+                    mustConfirmEmail = mustConfirmEmail)
+                    .flatten(s"No user could be created for ${data.username}")
+                    .map(_ -> email).flatMap {
+                      case (user, email) if mustConfirmEmail =>
+                        env.emailConfirm.send(user, email) >> {
+                          if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
+                          else redirectNewUser(user)
+                        }
+                      case (user, email) => redirectNewUser(user)
                     }
-                  }
+                }
             }),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
             data => {
+              val mustConfirmEmail = false
               lila.mon.user.register.mobile()
+              lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
               val email = data.email flatMap env.emailAddress.validate
-              UserRepo.create(data.username, data.password, email, false, apiVersion.some)
+              UserRepo.create(data.username, data.password, email, false, apiVersion.some,
+                mustConfirmEmail = mustConfirmEmail)
                 .flatten(s"No user could be created for ${data.username}") flatMap authenticateUser
             }
           )
@@ -139,7 +148,12 @@ object Auth extends LilaController {
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
     Env.security.emailConfirm.confirm(token) flatMap {
-      _.fold(notFound)(redirectNewUser)
+      case None =>
+        lila.mon.user.register.confirmEmailResult(false)()
+        notFound
+      case Some(user) =>
+        lila.mon.user.register.confirmEmailResult(true)()
+        redirectNewUser(user)
     }
   }
 

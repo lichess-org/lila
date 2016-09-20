@@ -9,7 +9,7 @@
   white-space: nowrap;
   margin-right: 20px;
 }
-.coach-intro {
+.coach-side {
   margin: 50px 0 0 -35px;
   width: 226px;
   text-align: center;
@@ -30,9 +30,6 @@
   font-size: 1.1em;
 }
 .coach-add {
-  margin: 50px 0 0 -35px;
-  width: 226px;
-  text-align: center;
   margin-top: 20px;
   border-top: 1px solid #ccc;
   padding-top: 20px;
@@ -42,9 +39,6 @@
   border-top: 1px solid #ccc;
   position: relative;
   display: flex;
-}
-body.dark .coaches .coach {
-  border-color: #3d3d3d;
 }
 .coaches .coach {
   border-right: 1px solid #ccc;
@@ -103,6 +97,26 @@ body.dark .coaches .coach {
   margin-left: 4px;
   display: inline-block;
 }
+.coaches .few_results {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+@media (max-width: 1084px) {
+  .coach-side {
+    margin-left: 0!important;
+    width: 196px!important;
+  }
+  .coach-intro h2 {
+    font-size: 1.75em;
+  }
+}
+body.dark .coaches .coach,
+body.dark .coach-add,
+body.dark .coaches .few_results {
+  border-color: #3d3d3d;
+}
+
 .mselect {
   display:inline-block;
   position: relative;

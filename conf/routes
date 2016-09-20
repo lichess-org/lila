@@ -256,6 +256,7 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
+GET   /game/visualizer/$gameId<\w{8}>         controllers.Export.visualizer(gameId: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
@@ -344,6 +345,7 @@ GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
 GET   /mod/:username/powaaa            controllers.Mod.powaaa(username: String)
 POST  /mod/:username/powaaa            controllers.Mod.savePowaaa(username: String)
+GET   /mod/public-chat                 controllers.Mod.publicChat
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
@@ -360,6 +362,7 @@ POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: S
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
+POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Message
@@ -478,6 +481,9 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.contribute
 GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
+
+# Graphite
+GET   /monitor/coach/pageview          controllers.Monitor.coachPageView
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

@@ -251,21 +251,19 @@ lichess.notifyApp = (function() {
     return atob(t.split("").reverse().join(""));
   };
 
-  lichess.openInMobileApp = function(gameId) {
-    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return false;
-    var storageKey = 'open-game-in-mobile';
-    var open = function(v) {
-      if (v > 0) {
-        lichess.storage.set(storageKey, v - 1);
-        location.href = 'lichess://' + gameId;
-        return true;
-      }
-      lichess.storage.set(storageKey, v + 1);
-      return false;
-    };
-    var stored = parseInt(lichess.storage.get(storageKey));
-    if (stored) return open(stored);
-    return open(confirm('Open in lichess mobile app?') ? 10 : -10);
+  lichess.openInMobileApp = function(path) {
+    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
+    $('#deeplink').remove();
+    var pane = $('<div id="deeplink">' +
+      '<h1>Open with...</h1>' +
+      '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
+      '<a><strong>Web</strong> browser</a>' +
+      '</div>'
+    ).find('a').click(function() {
+      $('#deeplink').remove();
+      return true;
+    }).end();
+    $('body').prepend(pane);
   };
 
   lichess.userAutocomplete = function($input, opts) {
@@ -930,7 +928,7 @@ lichess.notifyApp = (function() {
 
   lichess.startRound = function(element, cfg) {
     var data = cfg.data;
-    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
+    lichess.openInMobileApp(data.game.id);
     var round, chat;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = lichess.StrongSocket(
@@ -1760,6 +1758,7 @@ lichess.notifyApp = (function() {
 
   function startAnalyse(element, cfg) {
     var data = cfg.data;
+    lichess.openInMobileApp('/analyse/' + data.game.id);
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
     lichess.socket = lichess.StrongSocket(
@@ -1980,19 +1979,4 @@ lichess.notifyApp = (function() {
     $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
     return false;
   });
-
-  $.modal = function(html) {
-    if (!html.clone) html = $('<div>' + html + '</div>');
-    var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
-    var $overlay = $('<div id="modal-overlay">').html($wrap);
-    $overlay.add($wrap.find('.close')).one('click', $.modal.close);
-    $wrap.click(function(e) {
-      e.stopPropagation();
-    });
-    $('body').prepend($overlay);
-    return $wrap;
-  };
-  $.modal.close = function() {
-    $('#modal-overlay').remove();
-  };
 })();

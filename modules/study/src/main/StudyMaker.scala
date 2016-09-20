@@ -16,12 +16,12 @@ private final class StudyMaker(
 
   private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = fuccess {
     val study = Study.make(user, Study.From.Scratch)
-    val chapter = chapterMaker.fromFenOrBlank(study, ChapterMaker.Data(
+    val chapter = chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = "Chapter 1",
       variant = data.variantStr,
       fen = data.fenStr,
-      pgn = none,
+      pgn = data.pgnStr,
       orientation = data.orientation.name,
       conceal = false,
       initial = true),

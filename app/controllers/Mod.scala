@@ -23,6 +23,17 @@ object Mod extends LilaController {
     me => modApi.toggleEngine(me.id, username) inject redirect(username)
   }
 
+  def publicChat = Secure(_.ChatTimeout) { implicit ctx =>
+    _ =>
+      val tourChats = Env.mod.publicChat.tournamentChats
+      val simulChats = Env.mod.publicChat.simulChats
+
+      tourChats zip simulChats map {
+        case (tournamentsAndChats, simulsAndChats) =>
+          Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
+      }
+  }
+
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
     me => modApi.toggleBooster(me.id, username) inject redirect(username)
   }
@@ -115,7 +126,7 @@ object Mod extends LilaController {
     lila.memo.AsyncCache[String, Int](ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
-      val email = "lichess.contact@gmail.com"
+      val email = Env.api.Net.Email
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>

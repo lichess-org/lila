@@ -18,22 +18,31 @@ object Export extends LilaController {
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
       lila.mon.export.pgn.game()
-      OptionFuResult(GameRepo game id) {
-        case game if game.playable => NotFound("Can't export PGN of game in progress").fuccess
-        case game => (game.pgnImport.ifTrue(get("as") contains "imported") match {
-          case Some(i) => fuccess(i.pgn)
-          case None => for {
-            initialFen <- GameRepo initialFen game
-            pgn = Env.api.pgnDump(game, initialFen)
-            analysis ← !get("as").contains("raw") ?? (Env.analyse.analyser get game.id)
-          } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
-        }) map { content =>
-          Ok(content).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
-        }
+      OptionFuResult(GameRepo game id) { game =>
+        gameToPgn(
+          game,
+          asImported = get("as") contains "imported",
+          asRaw = get("as").contains("raw")) map { content =>
+            Ok(content).withHeaders(
+              CONTENT_TYPE -> ContentTypes.TEXT,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
+          } recover {
+            case err => NotFound(err.getMessage)
+          }
       }
     }
+  }
+
+  private def gameToPgn(from: GameModel, asImported: Boolean, asRaw: Boolean): Fu[String] = from match {
+    case game if game.playable => fufail("Can't export PGN of game in progress")
+    case game => (game.pgnImport.ifTrue(asImported) match {
+      case Some(i) => fuccess(i.pgn)
+      case None => for {
+        initialFen <- GameRepo initialFen game
+        pgn = Env.api.pgnDump(game, initialFen)
+        analysis ← !asRaw ?? (Env.analyse.analyser get game.id)
+      } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
+    })
   }
 
   private val PdfRateLimitGlobal = new lila.memo.RateLimit(
@@ -69,6 +78,24 @@ object Export extends LilaController {
           Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
             CONTENT_TYPE -> "image/png",
             CACHE_CONTROL -> "max-age=7200")
+        }
+      }
+    }
+  }
+
+  def visualizer(id: String) = Open { implicit ctx =>
+    OnlyHumans {
+      OptionFuResult(GameRepo game id) { game =>
+        gameToPgn(game, asImported = true, asRaw = true) map { pgn =>
+          lila.mon.export.visualizer()
+          Redirect {
+            import lila.api.Env.current.Net._
+            val base = s"$Protocol$AssetDomain/assets"
+            val encoded = java.net.URLEncoder.encode(pgn.toString, "UTF-8")
+            s"$base/visualizer/index_lichess.html?pgn=$encoded"
+          }
+        } recoverWith {
+          case _: Exception => notFound
         }
       }
     }

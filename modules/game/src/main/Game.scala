@@ -2,9 +2,9 @@ package lila.game
 
 import chess.Color.{ White, Black }
 import chess.format.Uci
+import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
-import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
@@ -273,8 +273,10 @@ case class Game(
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
-  def hasAi: Boolean = players exists (_.isAi)
+  def hasAi: Boolean = players.exists(_.isAi)
   def nonAi = !hasAi
+
+  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
 
   def mapPlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
@@ -349,7 +351,10 @@ case class Game(
 
   def replayable = isPgnImport || finished
 
-  def analysable = replayable && playedTurns > 4 && Game.analysableVariants(variant)
+  def analysable =
+    replayable && playedTurns > 4 &&
+      Game.analysableVariants(variant) &&
+      !Game.isOldHorde(this)
 
   def ratingVariant =
     if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
@@ -506,6 +511,16 @@ object Game {
     chess.variant.Horde,
     chess.variant.RacingKings,
     chess.variant.Antichess)
+
+  val visualisableVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960)
+
+  val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
+
+  def isOldHorde(game: Game) =
+    game.variant == chess.variant.Horde &&
+      game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
   val gameIdSize = 8
   val playerIdSize = 4

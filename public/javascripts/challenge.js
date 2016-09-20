@@ -2,7 +2,7 @@ lichess = lichess || {};
 lichess.startChallenge = function(element, opts) {
   var challenge = opts.data.challenge;
   var accepting;
-  if (!opts.owner && lichess.openInMobileApp(challenge.id)) return;
+  if (!opts.owner) lichess.openInMobileApp('/challenge/' + challenge.id);
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {

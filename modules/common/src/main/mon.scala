@@ -45,7 +45,12 @@ object mon {
       val timeout = inc("http.mailgun.timeout")
     }
     object userGames {
-      def cost = incX(s"http.user-games.cost")
+      def cost = incX("http.user-games.cost")
+    }
+    object csrf {
+      val missingOrigin = inc("http.csrf.missing_origin")
+      val forbidden = inc("http.csrf.forbidden")
+      val websocket = inc("http.csrf.websocket")
     }
   }
   object lobby {
@@ -143,6 +148,8 @@ object mon {
     object register {
       val website = inc("user.register.website")
       val mobile = inc("user.register.mobile")
+      def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
+      def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
     }
   }
   object socket {
@@ -226,6 +233,12 @@ object mon {
     val created = rec("tournament.created")
     val started = rec("tournament.started")
     val player = rec("tournament.player")
+    object startedOrganizer {
+      val tickTime = rec("tournament.started_organizer.tick_time")
+    }
+    object createdOrganizer {
+      val tickTime = rec("tournament.created_organizer.tick_time")
+    }
   }
   object donation {
     val goal = rec("donation.goal")
@@ -335,12 +348,12 @@ object mon {
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
-      def moveDbSize = rec(s"fishnet.work.move.db_size")
+      val moveDbSize = rec("fishnet.work.move.db_size")
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
-      def post = rec(s"fishnet.move.post")
-      def dbDrop = inc(s"fishnet.move.db_drop")
+      val post = rec("fishnet.move.post")
+      val dbDrop = inc("fishnet.move.db_drop")
     }
     object analysis {
       def by(client: String) = new {
@@ -355,18 +368,18 @@ object mon {
         def totalSecond = incX(s"fishnet.analysis.total.second.$client")
         def totalPosition = incX(s"fishnet.analysis.total.position.$client")
       }
-      def post = rec(s"fishnet.analysis.post")
+      val post = rec("fishnet.analysis.post")
     }
   }
   object api {
     object teamUsers {
-      def cost = incX(s"api.team-users.cost")
+      val cost = incX("api.team-users.cost")
     }
     object userGames {
-      def cost = incX(s"api.user-games.cost")
+      val cost = incX("api.user-games.cost")
     }
     object game {
-      def cost = incX(s"api.game.cost")
+      val cost = incX("api.game.cost")
     }
   }
   object export {
@@ -379,6 +392,7 @@ object mon {
       def puzzle = inc("export.png.puzzle")
     }
     def pdf = inc("export.pdf.game")
+    def visualizer = inc("export.visualizer.game")
   }
 
   def measure[A](path: RecPath)(op: => A) = {

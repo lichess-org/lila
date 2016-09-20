@@ -32,7 +32,7 @@ module.exports = {
     var notif = notifCtrl();
     var form = studyFormCtrl(function(data, isNew) {
       send("editStudy", data);
-      if (isNew && ctrl.data.game.variant.key === 'standard')
+      if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)
         chapters.newForm.openInitial();
     }, function() {
       return data;

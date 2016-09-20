@@ -55,6 +55,10 @@ object Environment
 
   def tablebaseEndpoint = apiEnv.TablebaseEndpoint
 
+  def contactEmail = apiEnv.Net.Email
+
+  def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
+
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
   }
