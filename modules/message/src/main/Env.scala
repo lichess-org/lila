@@ -21,6 +21,8 @@ final class Env(
 
   lazy val forms = new DataForm(security = security)
 
+  lazy val jsonView = new JsonView()
+
   lazy val batch = new MessageBatch(
     coll = threadColl,
     notifyApi = notifyApi)
