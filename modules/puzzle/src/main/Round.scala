@@ -2,9 +2,11 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class Round(
     puzzleId: PuzzleId,
-    userId: String,
+    userId: User.ID,
     date: DateTime,
     win: Boolean,
     userRating: Int,

@@ -120,10 +120,10 @@ private[puzzle] final class PuzzleApi(
         }
         voteColl.update(
           $id(v2.id),
-          $doc("$set" -> $doc(Vote.BSONFields.vote -> v)),
+          $set("vote" -> v),
           upsert = true) zip
           puzzleColl.update(
-            $doc("_id" -> p2.id),
+            $id(p2.id),
             $set(Puzzle.BSONFields.vote -> p2.vote)) map {
               case _ => p2 -> v2
             }
