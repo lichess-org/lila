@@ -17,7 +17,6 @@ case class Puzzle(
     perf: Perf,
     vote: AggregateVote,
     attempts: Int,
-    wins: Int,
     mate: Boolean) {
 
   def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
@@ -25,8 +24,6 @@ case class Puzzle(
   }
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
-
-  def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
   def initialMove = history.last
 
@@ -62,7 +59,6 @@ object Puzzle {
     perf = Perf.default,
     vote = AggregateVote(0, 0, 0),
     attempts = 0,
-    wins = 0,
     mate = mate)
 
   import reactivemongo.bson._
@@ -104,7 +100,6 @@ object Puzzle {
     val vote = "vote"
     val voteSum = s"$vote.sum"
     val attempts = "attempts"
-    val wins = "wins"
     val mate = "mate"
   }
 
@@ -126,7 +121,6 @@ object Puzzle {
       perf = r.get[Perf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
-      wins = r int wins,
       mate = r bool mate)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
@@ -141,7 +135,6 @@ object Puzzle {
       perf -> o.perf,
       vote -> o.vote,
       attempts -> o.attempts,
-      wins -> o.wins,
       mate -> o.mate)
   }
 }

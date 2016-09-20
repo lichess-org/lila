@@ -33,14 +33,11 @@ private[puzzle] final class Finisher(
         (api.learning.update(user, puzzle, data) >> (api.round add a) >> {
           puzzleColl.update(
             $id(puzzle.id),
-            $inc(
-              Puzzle.BSONFields.attempts -> $int(1),
-              Puzzle.BSONFields.wins -> $int(data.isWin ? 1 | 0)
-            ) ++ $set(
-              Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
-            )) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+            $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
+              $set(Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf))
+          ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
-      case _ => 
+      case _ =>
         val a = new Round(
           puzzleId = puzzle.id,
           userId = user.id,
@@ -48,7 +45,7 @@ private[puzzle] final class Finisher(
           win = data.isWin,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = 0)
-          fuccess(a -> data.isWin.some)
+        fuccess(a -> data.isWin.some)
     }
 
   private val VOLATILITY = Glicko.default.volatility
