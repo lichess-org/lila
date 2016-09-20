@@ -448,7 +448,7 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  this.explorerMove = function(uci) {
+  var playUci = function(uci) {
     var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
@@ -457,7 +457,16 @@ module.exports = function(opts) {
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], util.sanToRole[move[2].toUpperCase()]);
+  }.bind(this);
+
+  this.explorerMove = function(uci) {
+    playUci(uci);
     this.explorer.loading(true);
+  }.bind(this);
+
+  this.playBestMove = function() {
+    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
+    if (uci) playUci(uci);
   }.bind(this);
 
   this.socketReceive = function(type, data) {
