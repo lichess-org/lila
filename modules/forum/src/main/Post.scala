@@ -50,7 +50,9 @@ case class Post(
 
   def editPost(updated: DateTime, newText: String): Post = {
     val oldVersion = new OldVersion(text, updatedOrCreatedAt)
-    val history = oldVersion :: ~editHistory
+
+    // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
+    val history = (oldVersion :: ~editHistory).take(5)
 
     copy(editHistory = history.some, text = newText, updatedAt = updated.some)
   }
