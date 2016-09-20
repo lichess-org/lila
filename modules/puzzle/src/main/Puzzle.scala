@@ -16,7 +16,7 @@ case class Puzzle(
     color: Color,
     date: DateTime,
     perf: Perf,
-    vote: Vote,
+    vote: AggregateVote,
     attempts: Int,
     wins: Int,
     time: Int,
@@ -26,7 +26,7 @@ case class Puzzle(
     move * 2 + color.fold(0, 1)
   }
 
-  def withVote(f: Vote => Vote) = copy(vote = f(vote))
+  def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
   def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
@@ -62,7 +62,7 @@ object Puzzle {
     color = color,
     date = DateTime.now,
     perf = Perf.default,
-    vote = Vote(0, 0, 0),
+    vote = AggregateVote(0, 0, 0),
     attempts = 0,
     wins = 0,
     time = 0,
@@ -116,7 +116,7 @@ object Puzzle {
 
     import BSONFields._
     import Perf.perfBSONHandler
-    import Vote.voteBSONHandler
+    import AggregateVote.aggregatevoteBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
@@ -128,7 +128,7 @@ object Puzzle {
       color = Color(r bool white),
       date = r date date,
       perf = r.get[Perf](perf),
-      vote = r.get[Vote](vote),
+      vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
       wins = r int wins,
       time = r int time,
