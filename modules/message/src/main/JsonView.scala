@@ -11,8 +11,7 @@ import lila.common.paginator._
 final class JsonView() {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
-    Ok(Json.obj(
-      "threads" -> PaginatorJson(threads.mapResults { t =>
+    Ok(PaginatorJson(threads.mapResults { t =>
         Json.obj(
           "id" -> t.id,
           "author" -> t.otherUserId(me),
@@ -21,7 +20,7 @@ final class JsonView() {
           "isUnread" -> t.isUnReadBy(me)
         )
       })
-    ))
+    )
 
   def thread(thread: Thread): Fu[JsValue] =
     fuccess (
