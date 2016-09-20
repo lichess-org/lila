@@ -13,6 +13,10 @@ elif [ $mode = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
   CLI="bin/cli-stage"
+elif [ $mode = "koala" ]; then
+  REMOTE="koala"
+  REMOTE_DIR="/home/lichess-stage"
+  CLI="bin/cli-stage"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
@@ -24,7 +28,7 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
-if [ "$2" == "asset" ]; then
+if [ "$2" = "asset" ]; then
   bin/prod/compile-client
 fi
 
@@ -39,7 +43,7 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-if [ $mode == "main" ]; then
+if [ $mode = "main" ]; then
   lilalog "Backup production lichess dir"
   BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
   ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
@@ -60,7 +64,7 @@ RSYNC_OPTIONS=" \
   --exclude '.git/' \
   --exclude bin/.translate_version"
 
-if [ $mode != "main" ] && [ $mode != "stage" ]; then
+if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "koala" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
     --exclude public";
 fi
@@ -85,12 +89,16 @@ if [ $mode = "main" ]; then
   $CLI deploy post
 fi
 
-if [ $mode == "main" ]; then
+if [ $mode = "main" ]; then
   lilalog "Restart lichess"
   RUN_DIR="/home/lichess"
   ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && service lichess restart"
 fi
-if [ $mode == "stage" ]; then
+if [ $mode = "stage" ]; then
+  lilalog "Restart lichess-stage"
+  ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
+fi
+if [ $mode = "koala" ]; then
   lilalog "Restart lichess-stage"
   ssh $REMOTE "chown -R lichess:lichess $REMOTE_DIR && service lichess-stage restart"
 fi

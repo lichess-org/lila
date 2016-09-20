@@ -10,12 +10,9 @@ private[puzzle] final class Selector(
     puzzleColl: Coll,
     api: PuzzleApi,
     anonMinRating: Int,
-    maxAttempts: Int) {
+    puzzleIdMin: Int) {
 
-  private def popularSelector(mate: Boolean) = $doc(
-    Puzzle.BSONFields.voteSum $gt mate.fold(anonMinRating, 0))
-
-  private def mateSelector(mate: Boolean) = $doc("mate" -> mate)
+  private def popularSelector = $doc(Puzzle.BSONFields.voteSum $gt 0)
 
   private def difficultyDecay(difficulty: Int) = difficulty match {
     case 1 => -200
@@ -27,26 +24,32 @@ private[puzzle] final class Selector(
 
   val anonSkipMax = 5000
 
-  def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
+  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
-    val isMate = scala.util.Random.nextBoolean
     me match {
       case None =>
-        puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
+        puzzleColl.find(popularSelector)
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
-      case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
       case Some(user) =>
-        val rating = user.perfs.puzzle.intRating min 2300 max 900
-        val step = toleranceStepFor(rating)
-        api.attempt.playedIds(user) flatMap { ids =>
-          tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+        api.head.find(user) flatMap {
+          case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
+          case _ =>
+            val isLearn = scala.util.Random.nextInt(5) == 0
+            val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
+              case None => newPuzzleForUser(user, difficulty)
+              case p    => fuccess(p)
+            }
+            else newPuzzleForUser(user, difficulty)
+            (next flatMap {
+              case Some(p) if isLearn => api.head.addLearning(user, p.id)
+              case Some(p)            => api.head.addNew(user, p.id)
+              case _                  => fuccess(none)
+            }) >> next
         }
     }
-  }.mon(_.puzzle.selector.time) addEffect {
-    _ foreach { puzzle =>
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
-    }
+  }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
+    lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 
   private def toleranceStepFor(rating: Int) =
@@ -56,16 +59,43 @@ private[puzzle] final class Selector(
       case d             => 200
     }
 
-  private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: Barr, isMate: Boolean): Fu[Option[Puzzle]] =
-    puzzleColl.find(mateSelector(isMate) ++ $doc(
-      Puzzle.BSONFields.id -> $doc("$nin" -> ids),
+  private def newPuzzleForUser(user: User, difficulty: Int): Fu[Option[Puzzle]] = {
+    val rating = user.perfs.puzzle.intRating min 2300 max 900
+    val step = toleranceStepFor(rating)
+    (api.head.find(user) zip api.puzzle.lastId) flatMap {
+      case (opHead, maxId) => tryRange(
+        rating = rating,
+        tolerance = step,
+        step = step,
+        decay = difficultyDecay(difficulty),
+        last = opHead match {
+          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+          case _ => puzzleIdMin
+        },
+        idRange = 200,
+        idStep = 100)
+    }
+  }
+
+  private def tryRange(
+    rating: Int,
+    tolerance: Int,
+    step: Int,
+    decay: Int,
+    last: PuzzleId,
+    idRange: Int,
+    idStep: Int): Fu[Option[Puzzle]] =
+    puzzleColl.find($doc(
+      Puzzle.BSONFields.id $gt
+        last $lt
+        (last + idRange),
       Puzzle.BSONFields.rating $gt
         (rating - tolerance + decay) $lt
-        (rating + tolerance + decay)
-    )).sort($sort desc Puzzle.BSONFields.voteSum)
-      .uno[Puzzle] flatMap {
-        case None if (tolerance + step) <= toleranceMax =>
-          tryRange(rating, tolerance + step, step, decay, ids, isMate)
-        case res => fuccess(res)
-      }
+        (rating + tolerance + decay),
+      Puzzle.BSONFields.voteSum $gt -10
+    )).uno[Puzzle] flatMap {
+      case None if (tolerance + step) <= toleranceMax =>
+        tryRange(rating, tolerance + step, step, decay, last, idRange + idStep, idStep)
+      case res => fuccess(res)
+    }
 }

@@ -272,7 +272,7 @@ object mon {
       val time = rec("puzzle.selector")
       val vote = rec("puzzle.selector.vote") // vote sum of selected puzzle
     }
-    object attempt {
+    object round {
       val user = inc("puzzle.attempt.user")
       val anon = inc("puzzle.attempt.anon")
       val mate = inc("puzzle.attempt.mate")
