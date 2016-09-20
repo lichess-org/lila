@@ -43,7 +43,11 @@ private[puzzle] final class Selector(
           tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
         }
     }
-  }.mon(_.puzzle.selector.time)
+  }.mon(_.puzzle.selector.time) addEffect {
+    _ foreach { puzzle =>
+      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+    }
+  }
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
