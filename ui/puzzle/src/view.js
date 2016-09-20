@@ -88,8 +88,7 @@ function renderWin(ctrl, round) {
     m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
       round ? renderRatingDiff(round.userRatingDiff) : null
-    ]),
-    round ? m('span', ctrl.trans('puzzleSolvedInXSeconds', round.seconds)) : null
+    ])
   ]);
 }
 
