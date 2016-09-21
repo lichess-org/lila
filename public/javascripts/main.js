@@ -253,17 +253,24 @@ lichess.notifyApp = (function() {
 
   lichess.openInMobileApp = function(path) {
     if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
-    $('#deeplink').remove();
-    var pane = $('<div id="deeplink">' +
-      '<h1>Open with...</h1>' +
-      '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
-      '<a><strong>Web</strong> browser</a>' +
-      '</div>'
-    ).find('a').click(function() {
+    var storage = lichess.storage.make('deep-link');
+    var stored = storage.get();
+    if (stored > 0) storage.set(stored - 1);
+    else {
       $('#deeplink').remove();
-      return true;
-    }).end();
-    $('body').prepend(pane);
+      var pane = $('<div id="deeplink">' +
+        '<h1>Open with...</h1>' +
+        '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
+        '<a><strong>Web</strong> browser</a>' +
+        '</div>'
+      ).find('a').click(function() {
+        $('#deeplink').remove();
+        if ($(this).attr('href')) storage.remove();
+        else storage.set(10);
+        return true;
+      }).end();
+      $('body').prepend(pane);
+    }
   };
 
   lichess.userAutocomplete = function($input, opts) {
