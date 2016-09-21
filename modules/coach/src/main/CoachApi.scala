@@ -104,11 +104,14 @@ final class CoachApi(
             approved = false,
             updatedAt = DateTime.now)
         }
-        reviewColl.update($id(id), review, upsert = true) >>
-          notifyApi.addNotification(Notification(
-            notifies = Notification.Notifies(coach.id.value),
-            content = lila.notify.CoachReview
-          )) >> refreshCoachNbReviews(coach.id) inject review
+        if (me.troll) fuccess(revier)
+        else {
+          reviewColl.update($id(id), review, upsert = true) >>
+            notifyApi.addNotification(Notification(
+              notifies = Notification.Notifies(coach.id.value),
+              content = lila.notify.CoachReview
+            )) >> refreshCoachNbReviews(coach.id) inject review
+        }
       }
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
