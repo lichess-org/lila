@@ -45,9 +45,6 @@ function post(d, n) {
 
 function find(ctrl) {
   if (document.getElementById('robot_link')) post(ctrl.data, 'rcb');
-  // else if (
-  //   ctrl.vm.element.querySelector('.cg-board-wrap.manipulable svg') &&
-  //   !ctrl.chessground.data.drawable.shapes.length) post(ctrl.data, 'xmb');
 }
 
 module.exports = {
