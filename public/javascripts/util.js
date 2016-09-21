@@ -226,15 +226,15 @@ lichess.desktopNotification = (function() {
     });
     notifications = [];
   });
-  var storageKey = 'just-notified';
+  var storage = lichess.storage.make('just-notified');
   var clearStorageSoon = function() {
     setTimeout(function() {
-      lichess.storage.remove(storageKey);
+      storage.remove();
     }, 3000);
   };
   var doNotify = function(msg) {
-    if (lichess.storage.get(storageKey)) return;
-    lichess.storage.set(storageKey, 1);
+    if (storage.get()) return;
+    storage.set(1);
     clearStorageSoon();
     var notification = new Notification('lichess.org', {
       icon: '//lichess1.org/assets/images/logo.256.png',

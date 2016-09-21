@@ -23,7 +23,8 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
+  var storage = lichess.storage.make(options.baseUrlKey);
+  if (options.resetUrl || options.prodPipe) storage.remove();
   if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
 
   var connect = function() {
@@ -249,14 +250,14 @@ lichess.StrongSocket = function(url, version, settings) {
   var baseUrl = function() {
     var key = options.baseUrlKey;
     var urls = options.baseUrls;
-    var url = lichess.storage.get(key);
+    var url = storage.get();
     if (!url) {
       url = urls[0];
-      lichess.storage.set(key, url);
+      storage.set(url);
     } else if (tryOtherUrl) {
       tryOtherUrl = false;
       url = urls[(urls.indexOf(url) + 1) % urls.length];
-      lichess.storage.set(key, url);
+      storage.set(url);
     }
     return url;
   };
