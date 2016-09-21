@@ -104,7 +104,7 @@ final class CoachApi(
             approved = false,
             updatedAt = DateTime.now)
         }
-        if (me.troll) fuccess(revier)
+        if (me.troll) fuccess(review)
         else {
           reviewColl.update($id(id), review, upsert = true) >>
             notifyApi.addNotification(Notification(
