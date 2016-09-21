@@ -26,17 +26,30 @@ lichess.storage = (function() {
         return s.getItem(k);
       });
     },
-    remove: function(k) {
-      withStorage(function(s) {
-        s.removeItem(k);
-      });
-    },
     set: function(k, v) {
       // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
       withStorage(function(s) {
         s.removeItem(k);
         s.setItem(k, v);
       });
+    },
+    remove: function(k) {
+      withStorage(function(s) {
+        s.removeItem(k);
+      });
+    },
+    make: function(k) {
+      return {
+        get: function() {
+          return lichess.storage.get(k);
+        },
+        set: function(v) {
+          return lichess.storage.set(k, v);
+        },
+        remove: function() {
+          return lichess.storage.remove(k);
+        }
+      };
     }
   };
 })();
