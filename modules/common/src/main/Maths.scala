@@ -36,4 +36,7 @@ object Maths {
     val s = math.pow(10, p)
     (math floor n * s) / s
   }
+
+  def toInt(l: Long): Int = l.min(Int.MaxValue).max(Int.MinValue).toInt
+  def toInt(l: Option[Long]): Option[Int] = l map toInt
 }
