@@ -11,6 +11,7 @@ object mon {
   object http {
     object request {
       val all = inc("http.request.all")
+      val ipv6 = inc("http.request.ipv6")
     }
     object response {
       val code400 = inc("http.response.4.00")
