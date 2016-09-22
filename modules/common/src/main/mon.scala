@@ -69,6 +69,11 @@ object mon {
       val member = rec("lobby.socket.member")
       val resync = inc("lobby.socket.resync")
     }
+    object cache {
+      val user = inc("lobby.cache.count.user")
+      val anon = inc("lobby.cache.count.anon")
+      val miss = inc("lobby.cache.count.miss")
+    }
   }
   object round {
     object api {
