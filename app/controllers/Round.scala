@@ -30,6 +30,7 @@ object Round extends LilaController with TheftPrevention {
         colorName = color,
         uid = uid,
         user = ctx.me,
+        sameOrigin = ctx.sameOrigin,
         ip = ctx.ip,
         userTv = get("userTv"),
         apiVersion = lila.api.Mobile.Api.currentVersion // yeah it should be in the URL
@@ -43,7 +44,7 @@ object Round extends LilaController with TheftPrevention {
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else get("sri") match {
           case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
-            pov, uid, ~get("ran"), ctx.me, ctx.ip, ApiVersion(apiVersion)
+            pov, uid, ~get("ran"), ctx.me, ctx.sameOrigin, ctx.ip, ApiVersion(apiVersion)
           ) map Right.apply
           case None => fuccess(Left(NotFound))
         }

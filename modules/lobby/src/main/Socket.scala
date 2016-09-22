@@ -53,9 +53,9 @@ private[lobby] final class Socket(
       }
     }
 
-    case Join(uid, user, blocks, mobile) =>
+    case Join(uid, user, sameOrigin, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, mobile)
+      val member = Member(channel, user, blocks, uid, sameOrigin, mobile)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 

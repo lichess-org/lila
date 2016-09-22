@@ -24,12 +24,13 @@ private[tournament] final class SocketHandler(
   def join(
     tourId: String,
     uid: String,
-    user: Option[User]): Fu[Option[JsSocketHandler]] =
+    user: Option[User],
+    sameOrigin: Boolean): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {
         for {
           socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
-          join = Join(uid = uid, user = user)
+          join = Join(uid = uid, user = user, sameOrigin = sameOrigin)
           handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) =>
               (controller(socket, tourId, uid, member), enum, member)

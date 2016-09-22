@@ -8,12 +8,14 @@ import lila.game.Game
 private[simul] case class Member(
   channel: JsChannel,
   userId: Option[String],
+  sameOrigin: Boolean,
   troll: Boolean) extends SocketMember
 
 private[simul] object Member {
-  def apply(channel: JsChannel, user: Option[User]): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], sameOrigin: Boolean): Member = Member(
     channel = channel,
     userId = user map (_.id),
+    sameOrigin = sameOrigin,
     troll = user.??(_.troll))
 }
 
@@ -21,7 +23,8 @@ private[simul] case class Messadata(trollish: Boolean = false)
 
 private[simul] case class Join(
   uid: String,
-  user: Option[User])
+  user: Option[User],
+  sameOrigin: Boolean)
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game, hostId: String)
 private[simul] case class StartSimul(firstGame: Game, hostId: String)

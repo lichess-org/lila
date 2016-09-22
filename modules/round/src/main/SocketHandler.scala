@@ -40,9 +40,10 @@ private[round] final class SocketHandler(
       o int "v" foreach { v => socket ! PingVersion(uid, v) }
 
     member.playerIdOption.fold[Handler.Controller](({
-      case ("p", o)         => ping(o)
-      case ("talk", o)      => o str "d" foreach { messenger.watcher(gameId, member, _) }
-      case ("outoftime", _) => send(Outoftime)
+      case ("p", o) => ping(o)
+      case ("talk", o) if member.sameOrigin =>
+        o str "d" foreach { messenger.watcher(gameId, member, _) }
+      case ("outoftime", _) if member.sameOrigin => send(Outoftime)
     }: Handler.Controller) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
       member = member,
@@ -51,6 +52,7 @@ private[round] final class SocketHandler(
     )) { playerId =>
       ({
         case ("p", o) => ping(o)
+        case (_, _) if !member.sameOrigin => ()
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
             val promise = Promise[Unit]
@@ -106,11 +108,12 @@ private[round] final class SocketHandler(
     colorName: String,
     uid: String,
     user: Option[User],
+    sameOrigin: Boolean,
     ip: String,
     userTv: Option[String],
     apiVersion: ApiVersion): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, "", user, ip, userTv = userTv, apiVersion) map some }
+      _ ?? { join(_, none, uid, "", user, sameOrigin, ip, userTv = userTv, apiVersion) map some }
     }
 
   def player(
@@ -118,9 +121,10 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     user: Option[User],
+    sameOrigin: Boolean,
     ip: String,
     apiVersion: ApiVersion): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, token, user, ip, userTv = none, apiVersion)
+    join(pov, Some(pov.playerId), uid, token, user, sameOrigin, ip, userTv = none, apiVersion)
 
   private def join(
     pov: Pov,
@@ -128,12 +132,14 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     user: Option[User],
+    sameOrigin: Boolean,
     ip: String,
     userTv: Option[String],
     apiVersion: ApiVersion): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
       user = user,
+      sameOrigin = sameOrigin,
       color = pov.color,
       playerId = playerId,
       ip = ip,

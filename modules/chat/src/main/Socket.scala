@@ -14,12 +14,12 @@ object Socket {
     socket: ActorRef,
     chat: ActorSelection): Handler.Controller = {
 
-    case ("talk", o) => for {
+    case ("talk", o) if member.sameOrigin => for {
       text <- o str "d"
       userId <- member.userId
     } chat ! actorApi.UserTalk(chatId, userId, text)
 
-    case ("timeout", o) => for {
+    case ("timeout", o) if member.sameOrigin => for {
       data ← o obj "d"
       modId <- member.userId
       userId <- data.str("userId")

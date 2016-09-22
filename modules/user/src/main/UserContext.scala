@@ -8,6 +8,8 @@ sealed trait UserContext {
 
   val me: Option[User]
 
+  val sameOrigin: Boolean
+
   def isAuth = me.isDefined
 
   def isAnon = !isAuth
@@ -28,7 +30,7 @@ sealed trait UserContext {
   def noKid = !kid
 }
 
-sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[User]) extends UserContext {
+sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[User], val sameOrigin: Boolean) extends UserContext {
 
   override def toString = "%s %s %s".format(
     me.fold("Anonymous")(_.username),
@@ -37,23 +39,24 @@ sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[Use
   )
 }
 
-final class BodyUserContext[A](val body: Request[A], m: Option[User])
-  extends BaseUserContext(body, m)
+final class BodyUserContext[A](val body: Request[A], m: Option[User], so: Boolean)
+  extends BaseUserContext(body, m, so)
 
-final class HeaderUserContext(r: RequestHeader, m: Option[User])
-  extends BaseUserContext(r, m)
+final class HeaderUserContext(r: RequestHeader, m: Option[User], so: Boolean)
+  extends BaseUserContext(r, m, so)
 
 trait UserContextWrapper extends UserContext {
   val userContext: UserContext
   val req = userContext.req
   val me = userContext.me
+  val sameOrigin = userContext.sameOrigin
 }
 
 object UserContext {
 
-  def apply(req: RequestHeader, me: Option[User]): HeaderUserContext =
-    new HeaderUserContext(req, me)
+  def apply(req: RequestHeader, me: Option[User], sameOrigin: Boolean): HeaderUserContext =
+    new HeaderUserContext(req, me, sameOrigin)
 
-  def apply[A](req: Request[A], me: Option[User]): BodyUserContext[A] =
-    new BodyUserContext(req, me)
+  def apply[A](req: Request[A], me: Option[User], sameOrigin: Boolean): BodyUserContext[A] =
+    new BodyUserContext(req, me, sameOrigin)
 }

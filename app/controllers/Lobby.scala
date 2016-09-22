@@ -54,6 +54,7 @@ object Lobby extends LilaController {
       Env.lobby.socketHandler(
         uid = uid,
         user = ctx.me,
+        sameOrigin = ctx.sameOrigin,
         mobile = getBool("mobile")) map some
     }
   }

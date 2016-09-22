@@ -82,9 +82,9 @@ private[simul] final class Socket(
 
     case Socket.GetUserIds => sender ! userIds
 
-    case Join(uid, user) =>
+    case Join(uid, user, sameOrigin) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user)
+      val member = Member(channel, user, sameOrigin)
       addMember(uid, member)
       notifyCrowd
       sender ! Connected(enumerator, member)

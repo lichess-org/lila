@@ -33,6 +33,7 @@ object Member {
   def apply(
     channel: JsChannel,
     user: Option[User],
+    sameOrigin: Boolean,
     color: Color,
     playerIdOption: Option[String],
     ip: String,
@@ -40,8 +41,8 @@ object Member {
     apiVersion: ApiVersion): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv, apiVersion)) { playerId =>
-      Owner(channel, userId, playerId, color, troll, ip, apiVersion)
+    playerIdOption.fold[Member](Watcher(channel, userId, sameOrigin, color, troll, ip, userTv, apiVersion)) { playerId =>
+      Owner(channel, userId, sameOrigin, playerId, color, troll, ip, apiVersion)
     }
   }
 }
@@ -49,6 +50,7 @@ object Member {
 case class Owner(
     channel: JsChannel,
     userId: Option[String],
+    sameOrigin: Boolean,
     playerId: String,
     color: Color,
     troll: Boolean,
@@ -62,6 +64,7 @@ case class Owner(
 case class Watcher(
     channel: JsChannel,
     userId: Option[String],
+    sameOrigin: Boolean,
     color: Color,
     troll: Boolean,
     ip: String,
@@ -74,6 +77,7 @@ case class Watcher(
 case class Join(
   uid: String,
   user: Option[User],
+  sameOrigin: Boolean,
   color: Color,
   playerId: Option[String],
   ip: String,
