@@ -9,9 +9,11 @@ object Importer extends LilaController {
 
   private def env = Env.importer
 
-  def importGame = Open { implicit ctx =>
+  def importGame = OpenBody { implicit ctx =>
     fuccess {
-      Ok(html.game.importGame(env.forms.importForm))
+      val pgn = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+      val data = lila.importer.ImportData(pgn, None)
+      Ok(html.game.importGame(env.forms.importForm.fill(data)))
     }
   }
 
