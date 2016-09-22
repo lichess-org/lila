@@ -1,53 +1,51 @@
 var recorder = require('./recorder');
 var holds = [];
-// var nb = 9;
-var nb = 2;
+var nb = 8;
 var was = false;
-var sent = false;
+var sent = {};
 var premoved = false;
 var variants = ['standard', 'crazyhouse'];
 
-function register(socket, meta, ply) {
-  console.log(ply, meta.holdTime);
-  if (meta.premove && ply > 1) {
-    console.log('premove!');
-    premoved = true;
+function register(ctrl, meta) {
+  if (meta.premove && ctrl.vm.ply > 1) premoved = true;
+  if (premoved || !meta.holdTime || ctrl.vm.ply > 30) {
+    recorder.stop();
     return;
   }
-  if (premoved || !meta.holdTime || ply > 30) return;
-  holds.push(holds.length);
+  holds.push(meta.holdTime);
   var set = false;
   if (holds.length > nb) {
     holds.shift();
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    console.log(mean, 'mean');
-    if (mean > 1 && mean < 110) {
+    if (mean > 1 && mean < 140) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      console.log(sd, 'sd');
-      set = sd < 16;
+      set = sd < 14;
     }
   }
   if (set || was) {
     var mc = recorder.stop();
-    mc = mc && mc < 6; 
-    console.log('bh1: ' + set + ', bh2: ' + mc);
+    mc = mc && mc > 2 && mc < 6;
     $('.manipulable .cg-board').toggleClass('bh1', set);
     $('.manipulable .cg-board').toggleClass('bh2', mc);
     if (set) recorder.start();
-  }
-  if (set && !sent) {
-    socket.send('hold', {
-      mean: Math.round(mean),
-      sd: Math.round(sd)
-    });
-    sent = true;
+    if (set && !sent.hold) {
+      ctrl.socket.send('hold', {
+        mean: Math.round(mean),
+        sd: Math.round(sd)
+      });
+      sent.hold = true;
+    }
+    if (set && !sent.ick) {
+      post(ctrl.data, 'ick');
+      sent.ick = true;
+    }
   }
   was = set;
 }

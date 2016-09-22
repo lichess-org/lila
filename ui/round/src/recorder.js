@@ -3,7 +3,6 @@ var eventName = 'mousemove';
 var count = false;
 
 var listener = function(e) {
-  console.log('move');
   count++;
 }
 
