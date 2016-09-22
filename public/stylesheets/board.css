@@ -15,8 +15,27 @@
   line-height: 0;
   background-size: cover;
 }
-.manipulable .cg-board.hold piece {
+.manipulable .cg-board.bh1 {
+  /* border-radius: 25px; */
+  /* margin-left: -3px; */
+  /* -webkit-filter: brightness(0.4); */
+}
+.manipulable .cg-board.bh1 piece {
   opacity: 0.99;
+  /* opacity: 0.5; */
+}
+.manipulable .cg-board.bh2 {
+  /* -webkit-transform: rotate(3deg); */
+  /* -webkit-filter: blur(2px); */
+}
+.manipulable .cg-board.bh2 piece.king {
+  -webkit-filter: invert(100%);
+  /* margin: -30px -30px; */
+  /* filter: blur(5px); */
+  /* -webkit-filter: blur(2px); */
+  /* -webkit-filter: sepia(50%); */
+  /* -webkit-transform: rotate(20deg); */
+  /* -webkit-filter: drop-shadow(0 0 10px #fff); */
 }
 .manipulable .cg-board {
   cursor: pointer;
