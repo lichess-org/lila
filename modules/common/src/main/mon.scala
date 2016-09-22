@@ -271,7 +271,7 @@ object mon {
     object selector {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
-      val vote = rec("puzzle.selector.vote") // vote sum of selected puzzle
+      def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
     object attempt {
       val user = inc("puzzle.attempt.user")
