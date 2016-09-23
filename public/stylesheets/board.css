@@ -15,8 +15,12 @@
   line-height: 0;
   background-size: cover;
 }
-.manipulable .cg-board.hold piece {
-  opacity: 0.99;
+.manipulable .cg-board.bh1 piece {
+  opacity: 0.98;
+}
+.manipulable .cg-board.bh2 {
+  transform: perspective(1800px) rotateX(8deg);
+  -webkit-transform: perspective(1800px) rotateX(8deg);
 }
 .manipulable .cg-board {
   cursor: pointer;
@@ -27,41 +31,10 @@
 }
 square {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 12.5%;
   height: 12.5%;
-}
-square[data-coord-x]::after,
-square[data-coord-y]::before {
-  position: absolute;
-  font-size: 11px;
-  line-height: 11px;
-  opacity: 0.7;
-  text-transform: uppercase;
-}
-square[data-coord-x]::after {
-  content: attr(data-coord-x);
-  left: 1px;
-  bottom: 1px;
-}
-square[data-coord-y]::before {
-  content: attr(data-coord-y);
-  right: 1px;
-  top: 1px;
-}
-body.coords_1 square[data-coord-x]::after,
-body.coords_1 square[data-coord-y]::before {
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
-}
-body.coords_2 square[data-coord-x]::after {
-  bottom: -12px;
-  left: calc(50% - 3.5px);
-  font-weight: bold;
-}
-body.coords_2 square[data-coord-y]::before {
-  right: -9px;
-  top: calc(50% - 7px);
-  font-weight: bold;
 }
 body.highlight .manipulable square.drag-over {
   background: rgba(255, 255, 255, 0.1);
@@ -108,18 +81,16 @@ body.base .cg-board square.exploding2 {
   transition: background-color 0.1s;
 }
 piece {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
   position: absolute;
-  bottom: 0;
+  width: 12.5%;
+  height: 12.5%;
+  top: 0;
   left: 0;
-  transform: translate3d(0, 0, 0);
+  background-size: cover;
   z-index: 2;
   /* no less than 2 */
 }
 .mini_board piece {
-  transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold piece,
@@ -129,12 +100,6 @@ piece {
 body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
-.is2d piece {
-  width: 100%;
-  height: 100%;
-  left: 0;
-  bottom: 0;
-}
 piece.dragging {
   z-index: 3;
   cursor: move;
@@ -142,14 +107,7 @@ piece.dragging {
 piece.ghost {
   opacity: 0.3;
 }
-/* minimal dom overrides */
-
-.minimal-dom piece {
-  position: absolute;
-  width: 12.5%;
-  height: 12.5%;
-}
-.cg-board-wrap svg {
+.cg-board svg {
   overflow: hidden;
   position: relative;
   top: 0;
@@ -160,9 +118,73 @@ piece.ghost {
   z-index: 2;
   opacity: 0.6;
 }
-.cg-board-wrap svg * {
+.cg-board svg * {
   transition: 0.3s;
 }
+.cg-board svg image {
+  opacity: 0.5;
+  transition: none;
+}
+
+.cg-board-wrap coords {
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  opacity: 0.8;
+}
+.cg-board-wrap coords.ranks {
+  right: -15px;
+  top: 0;
+  flex-flow: column-reverse;
+  height: 100%;
+  width: 12px;
+}
+.is3d .cg-board-wrap coords.ranks {
+  height: calc(100% - 10px);
+}
+.cg-board-wrap coords.ranks.black {
+  flex-flow: column;
+}
+.cg-board-wrap coords.files {
+  bottom: -16px;
+  left: 0;
+  flex-flow: row;
+  width: 100%;
+  height: 16px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.cg-board-wrap coords.files.black {
+  flex-flow: row-reverse;
+}
+.cg-board-wrap coords coord {
+  flex: 1 1 auto;
+}
+.cg-board-wrap coords.ranks coord {
+  transform: translateY(39%);
+}
+body.coords_0 .cg-board-wrap coords {
+  display: none;
+}
+body.coords_1 .cg-board-wrap coords {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}
+body.coords_1 .cg-board-wrap coords.files {
+  bottom: 0px;
+  text-align: left;
+}
+body.coords_1 .cg-board-wrap coords.files coord {
+  padding-left: 2px;
+}
+body.coords_1 .cg-board-wrap coords.ranks {
+  right: -4px;
+  text-align: left;
+}
+body.coords_1 .cg-board-wrap coords.ranks coord {
+  transform: none;
+}
+
 /* lichess */
 
 #lichess {
@@ -294,9 +316,6 @@ div.lichess_board {
   left: 0;
 }
 
-.is2d .cg-board-wrap.minimal-dom {
-  background: none;
-}
 mono-piece {
   width: 32px;
   height: 32px;
@@ -348,6 +367,9 @@ mono-piece.king {
 #top piece.shapes {
   background-image: url(../piece/shapes/wN.svg);
 }
+#top piece.letter {
+  background-image: url(../piece/letter/wN.svg);
+}
 #top piece.chessnut {
   background-image: url(../piece/chessnut/wN.svg);
 }
@@ -374,12 +396,11 @@ body.doggy .cg-board.orientation-black piece.pawn.black {
 }
 div.lichess_overboard {
   position: absolute;
-  /* above top menu */
-  z-index: 5010;
+  z-index: 4;
   width: 400px;
   top: 50%;
-  left: 56px;
-  transform: translate(0, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;
@@ -461,6 +482,8 @@ div.dont_touch {
   transition: 0.2s;
 }
 .is2d #promotion_choice piece {
+  width: 100%;
+  height: 100%;
   transition: 0.2s;
   transform: scale(0.8);
 }
@@ -487,6 +510,7 @@ div.table {
   height: 115px;
   overflow: auto;
   position: relative;
+  will-change: scroll-position;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -498,13 +522,13 @@ div.table {
   display: flex;
   height: 26px;
 }
-.lichess_ground .replay turn > index,
-.lichess_ground .replay turn > move {
+.lichess_ground .replay index,
+.lichess_ground .replay move {
   display: inline-block;
   height: 22px;
   line-height: 22px;
 }
-.lichess_ground .replay turn > index {
+.lichess_ground .replay index {
   flex: 0 0 34px;
   padding: 2px 0;
   background: #e0e0e0;
@@ -512,11 +536,15 @@ div.table {
   font-family: 'Roboto';
   font-weight: 300;
 }
-.lichess_ground .replay turn > move {
+.lichess_ground .replay move {
   flex: 1 1 50%;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
   padding: 2px 5px;
+}
+body.piece_letter .lichess_ground .replay move {
+  font-family: 'Noto Sans';
+  font-size: 15px;
 }
 .lichess_ground .replay move:not(.empty) {
   cursor: pointer;
@@ -574,7 +602,6 @@ div.table {
   flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
-  max-width: 244px;
   overflow: hidden;
 }
 .pocket.top {
@@ -585,7 +612,7 @@ div.table {
 }
 .pocket piece {
   display: inline-block;
-  width: 48.5px!important;
+  width: 20%!important;
   height: 56px!important;
   background-position: center;
   position: relative;
@@ -648,13 +675,14 @@ div.table div.username span.status {
   margin-left: 5px;
 }
 div.table div.username span.status span {
+  vertical-align: 1px;
   color: #ac524f;
 }
 div.table div.username.on-game span.status span {
   color: #759900;
 }
 div.table div.username .line {
-  vertical-align: bottom;
+  vertical-align: -2.5px;
 }
 div.table .message {
   margin: 20px 0;
@@ -704,25 +732,27 @@ div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 32px;
+  font-size: 36px;
   font-family: monospace, 'Noto Sans', 'Lucida Grande';
 }
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
 div.table_wrap .clock .time tenths {
-  font-size: 80%;
+  font-size: 70%;
+  font-weight: normal;
 }
 div.table_wrap .clock .time huns {
-  font-size: 60%;
+  font-size: 80%;
 }
-div.table_wrap .clock .time b {
+div.table_wrap .clock .time {
   font-weight: bold;
 }
-div.table_wrap .clock .time seph {
+div.table_wrap .clock .time sep {
+  font-weight: normal;
   opacity: 0.7;
 }
-div.table_wrap .clock .time sepl {
+div.table_wrap .clock .time sep.low {
   opacity: 0.15;
 }
 div.table_wrap .clock.running .time {
@@ -1059,6 +1089,24 @@ div.underboard .center {
   padding-top: 15px;
   width: 512px;
   min-height: 81px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+div.underboard .keyboard-move {
+  text-align: left;
+  order: -1;
+  margin-top: 5px;
+}
+div.underboard .keyboard-move input {
+  width: 20px;
+  padding: 4px 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+div.underboard .keyboard-move em {
+  opacity: 0.7;
 }
 div.underboard .blurs,
 div.underboard .right {

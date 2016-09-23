@@ -61,10 +61,14 @@ final class Firewall(
     (cookies get name).isDefined
 
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipRegex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
+  private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
+
+  // ipv6 address in standard form (no compression, no leading zeros)
+  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
 
   private def validIp(ip: String) =
-    (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
+    ((ipv4Regex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0") ||
+    ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
 
   private type IP = Vector[Byte]
 

@@ -7,10 +7,11 @@ function user(u) {
   return {
     tag: 'a',
     attrs: {
-      class: 'ulpt user_link',
+      class: 'ulpt user_link' + (u.online ? ' online' : ''),
       href: '/@/' + u.name
     },
     children: [
+      m('i.line' + (u.patron ? '.patron' : '')),
       fullName,
       ' (' + rating + ')'
     ]
@@ -74,9 +75,6 @@ function challenge(ctrl, dir) {
     return m('div', {
       class: 'challenge' + ' ' + dir + (c.declined ? ' declined' : ''),
     }, [
-      m('i', {
-        'data-icon': c.perf.icon
-      }),
       m('div.content', [
         m('span.title', user(dir === 'in' ? c.challenger : c.destUser)),
         m('span.desc', [
@@ -85,6 +83,9 @@ function challenge(ctrl, dir) {
           c.variant.name
         ].join(' • '))
       ]),
+      m('i', {
+        'data-icon': c.perf.icon
+      }),
       m('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c))
     ]);
   };
@@ -99,7 +100,7 @@ function allChallenges(ctrl, d, nb) {
     config: function(el, iu, ctx) {
       var hash = ctrl.idsHash();
       if (ctx.hash !== hash) {
-        $('body').trigger('lichess.content_loaded');
+        lichess.pubsub.emit('content_loaded')();
         ctx.hash = hash;
       }
     }

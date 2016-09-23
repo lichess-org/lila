@@ -84,7 +84,7 @@ module.exports = {
     detectCapture: false
   }, {
     goal: 'Find a way to<br>castle queen-side!',
-    fen: '2kr2nr/pppppppp/7b/8/8/8/PPb1PPPP/RN2KR2 w KQkq -',
+    fen: '1r1k2nr/p2ppppp/7b/7b/4P3/2nP4/P1P2P2/RN2K3 w KQk -',
     nbMoves: 4,
     shapes: [arrow('e1c1')],
     success: castledQueenSide,

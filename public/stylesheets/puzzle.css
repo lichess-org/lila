@@ -33,6 +33,13 @@
 #puzzle .right .please_vote.thanks .then {
   display: block;
 }
+#puzzle .right piece {
+  width: 100%;
+  height: 100%;
+}
+.is3d #puzzle .right div.no-square {
+  height: 82px;
+}
 #puzzle .right .findit {
   display: block;
   margin: 1em 0 2em 0;

@@ -5,11 +5,10 @@ var game = require('game').game;
 var blur = false;
 
 var init = function(ctrl) {
-  if (game.isPlayerPlaying(ctrl.data)) {
+  if (game.isPlayerPlaying(ctrl.data) && !ctrl.data.simul)
     window.addEventListener('blur', function() {
       blur = true;
     });
-  }
 }
 
 var get = function() {

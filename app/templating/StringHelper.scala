@@ -1,39 +1,33 @@
 package lila.app
 package templating
 
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.regex.Matcher.quoteReplacement
-
 import lila.user.{ User, UserContext }
-import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.twirl.api.Html
 
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
 
+  val escapeHtml: String => String = org.apache.commons.lang3.StringEscapeUtils.escapeHtml4 _
+
   val slugify = lila.common.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = "…") = Html {
     val t = text.replace("\n", " ")
-    if (t.size > (length + sep.size)) escape(t take length) ++ sep
-    else escape(t)
+    if (t.size > (length + sep.size)) escapeHtml(t take length) ++ sep
+    else escapeHtml(t)
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
-    nl2br(escape(text).take(length)).replace("<br /><br />", "<br />")
+    nl2br(escapeHtml(text).take(length)).replace("<br /><br />", "<br />")
   }
 
-  def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
+  def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
-  def autoLink(text: String) = Html { (nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escape _)(text) }
+  private val autoLinkFun: String => String =
+    nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escapeHtml
 
-  // the replace quot; -> " is required
-  // to avoid issues caused by addLinks
-  // when an url is surrounded by quotes
-  def escape(text: String) = escapeEvenDoubleQuotes(text).replace("&quot;", "\"")
-  def escapeEvenDoubleQuotes(text: String) = escapeHtml4(text)
+  def autoLink(text: String) = Html { autoLinkFun(text) }
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 
@@ -41,7 +35,7 @@ trait StringHelper { self: NumberHelper =>
 
   def markdownLinks(text: String) = Html {
     nl2br {
-      markdownLinkRegex.replaceAllIn(escape(text), m => {
+      markdownLinkRegex.replaceAllIn(escapeHtml(text), m => {
         s"""<a href="${m group 2}">${m group 1}</a>"""
       })
     }
@@ -63,7 +57,8 @@ trait StringHelper { self: NumberHelper =>
 
   def addLinks(text: String) = try {
     urlRegex.replaceAllIn(text, m => {
-      if (m.group(2) == "http://" || m.group(2) == "https://") {
+      if (m.group(0) contains "&quot") m.group(0)
+      else if (m.group(2) == "http://" || m.group(2) == "https://") {
         if (s"${delocalize(m.group(3))}/" startsWith s"$netDomain/") {
           // internal
           val link = delocalize(m.group(3))
@@ -71,7 +66,8 @@ trait StringHelper { self: NumberHelper =>
         }
         else {
           // external
-          s"""<a rel="nofollow" href="${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+          val link = m.group(1)
+          s"""<a rel="nofollow" href="$link" target="_blank">$link</a>"""
         }
       }
       else {
@@ -82,7 +78,8 @@ trait StringHelper { self: NumberHelper =>
         }
         else {
           // external
-          s"""<a rel="nofollow" href="http://${m.group(1)}" target="_blank">${m.group(1)}</a>"""
+          val link = m.group(1)
+          s"""<a rel="nofollow" href="http://$link" target="_blank">$link</a>"""
         }
       }
     })

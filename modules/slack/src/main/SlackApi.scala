@@ -13,7 +13,7 @@ final class SlackApi(
 
   def charge(event: lila.hub.actorApi.plan.ChargeEvent): Funit = {
     val amount = s"$$${lila.common.Maths.truncateAt(event.amount / 100d, 2)}"
-    val link = s"lichess.org/@/${event.username}"
+    val link = if (event.username == "Anonymous") "Anonymous" else s"lichess.org/@/${event.username}"
     client(SlackMessage(
       username = "Patron",
       icon = "four_leaf_clover",

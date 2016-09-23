@@ -26,7 +26,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
   }
 
   def tournamentLink(tour: Tournament): Html = Html {
-    val cssClass = if (tour.scheduled) "text is-gold" else "text"
+    val cssClass = if (tour.isScheduled) "text is-gold" else "text"
     val url = routes.Tournament.show(tour.id)
     s"""<a data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
   }

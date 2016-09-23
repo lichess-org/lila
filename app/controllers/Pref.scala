@@ -11,7 +11,7 @@ import views._
 object Pref extends LilaController {
 
   private def api = Env.pref.api
-  private def forms = Env.pref.forms
+  private def forms = lila.pref.DataForm
 
   def form(categSlug: String) = Auth { implicit ctx =>
     me =>
@@ -24,12 +24,15 @@ object Pref extends LilaController {
 
   def formApply = AuthBody { implicit ctx =>
     me =>
-      implicit val req = ctx.body
-      FormFuResult(forms.pref) { err =>
-        fuccess(err.toString)
-      } { data =>
+      def onSuccess(data: lila.pref.DataForm.PrefData) =
         api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
-      }
+      implicit val req = ctx.body
+      forms.pref.bindFromRequest.fold(
+        err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
+          err => BadRequest(err.toString).fuccess,
+          onSuccess),
+        onSuccess
+      )
   }
 
   def set(name: String) = OpenBody { implicit ctx =>

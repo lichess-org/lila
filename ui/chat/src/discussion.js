@@ -29,8 +29,6 @@ function autoLink(html) {
   return html.replace(linkPattern, linkReplace);
 };
 
-var deletedEm = '<em class="deleted">&lt;deleted&gt;</em>';
-
 function renderLine(ctrl) {
   return function(line) {
     if (!line.html) line.html = m.trust(autoLink(escapeHtml(delocalize(line.t))));
@@ -44,7 +42,7 @@ function renderLine(ctrl) {
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,
       m.trust(
-        $.userLinkLimit(line.u, 14) + (line.d ? deletedEm : line.html)
+        $.userLinkLimit(line.u, 14) + line.html
       )
     ]);
   };
@@ -56,10 +54,12 @@ function sameLines(l1, l2) {
 
 function selectLines(ctrl) {
   var prev, ls = [];
-  ctrl.data.lines.forEach(function(l) {
-    if (!prev || !sameLines(prev, l))
-      if (!l.r || ctrl.vm.isTroll) ls.push(l);
-    prev = l;
+  ctrl.data.lines.forEach(function(line) {
+    if (!line.d &&
+      (!prev || !sameLines(prev, line)) &&
+      (!line.r || ctrl.vm.isTroll)
+    ) ls.push(line);
+    prev = line;
   });
   return ls;
 }
@@ -82,8 +82,13 @@ function input(ctrl) {
     config: function(el, isUpdate) {
       if (!isUpdate) el.addEventListener('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
-          ctrl.post(e.target.value);
-          e.target.value = '';
+          if (e.target.value === '') {
+            var kbm = document.querySelector('.keyboard-move input');
+            if (kbm) kbm.focus();
+          } else {
+            ctrl.post(e.target.value);
+            e.target.value = '';
+          }
         }
       });
     }

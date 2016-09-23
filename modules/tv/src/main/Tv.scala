@@ -113,7 +113,7 @@ object Tv {
       filters = Seq(variant(V.Crazyhouse), freshBlitz))
     case object Computer extends Channel(
       name = "Computer",
-      icon = ":",
+      icon = "n",
       filters = Seq(computerFromInitialPosition, freshBlitz))
     val all = List(
       Best,

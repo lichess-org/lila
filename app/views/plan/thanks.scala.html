@@ -1,6 +1,6 @@
-@(patron: Option[lila.plan.Patron])(implicit ctx: Context)
+@(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit ctx: Context)
 
-@site.layout(
+@base.layout(
 moreCss = cssTag("page.css"),
 title = "Thank you for your support!") {
 
@@ -11,7 +11,7 @@ title = "Thank you for your support!") {
   <div class="body">
     <br />
     <p>
-      Thank you for helping us building lichess. <strong>You rock!</strong>
+      Thank you for helping us build lichess. <strong>You rock!</strong>
     </p>
     <p>
       Your transaction has been completed,
@@ -24,6 +24,15 @@ title = "Thank you for your support!") {
       @ctx.me.map { me =>
       Check out your <a href="@routes.User.show(me.username)">profile page</a>!
       }
+    </p>
+    } else {
+    @if(customer.??(_.renew)) {
+    <p>
+      Note that your <a href="@routes.Plan.index">Patron page</a> only shows
+      invoices for your monthly subscription.
+    </p>
+    <p>
+      But worry not, we received your donation! Thanks again!
     </p>
     } else {
     <p>
@@ -40,6 +49,7 @@ title = "Thank you for your support!") {
       To get a permanent Patron account, please consider making a
       <a href="@routes.Plan.index">monthly donation</a>.
     </p>
+    }
     }
     }
     <p>

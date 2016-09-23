@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.Forsyth
-import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn }
+import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn, Initial }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
@@ -26,7 +26,10 @@ final class PgnDump(
       case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
       case None                     => tags(study, chapter)
     }.map { tags =>
-      Pgn(tags, toTurns(chapter.root))
+      Pgn(
+        tags = tags,
+        turns =toTurns(chapter.root),
+        initial = Initial(chapter.root.comments.list.map(_.text.value)))
     }
 
   private val fileR = """[\s,]""".r

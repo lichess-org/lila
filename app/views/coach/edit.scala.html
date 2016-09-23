@@ -1,0 +1,124 @@
+@(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context)
+
+@import play.api.data.Field
+
+@textarea(field: Field, name: Html, help: Option[Html] = None) = {
+@base.form.group(field, name, half = false, help = help) {
+<textarea name="@field.name" id="@field.id">@field.value</textarea>
+}
+}
+
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("coach.form.css")
+}
+
+@moreJs = {
+<script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
+@jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
+@jsTag("chart/coachPageView.js")
+@jsTag("coach.form.js")
+}
+
+@side = {
+<a href="@routes.Coach.show(c.user.username)" class="preview button text" data-icon="v">Preview coach page</a>
+}
+
+@layout(title = s"${c.user.titleUsername} coach page",
+moreCss = moreCss,
+moreJs = moreJs,
+side = side.some) {
+<div class="coach_edit content_box no_padding">
+  <div class="top">
+    <div class="picture_wrap">
+      @if(c.coach.hasPicture) {
+      <a class="upload_picture" href="@routes.Coach.picture" title="Change/delete your profile picture">
+        @pic(c, 250)
+      </a>
+      } else {
+      <div class="upload_picture">
+        <a class="button" href="@routes.Coach.picture">Upload a profile picture</a>
+      </div>
+      }
+    </div>
+    <div class="overview">
+      <h1>
+        @c.user.title.map { t => @t }@c.user.profileOrDefault.nonEmptyRealName.getOrElse(c.user.username)
+      </h1>
+      <div class="todo" data-profile="@c.user.profileOrDefault.isComplete">
+        <h3>TODO list before publishing your coach profile</h3>
+        <ul></ul>
+      </div>
+      <div class="analytics">
+        <div class="pageview_chart">@base.spinner()</div>
+      </div>
+    </div>
+  </div>
+  <form class="content_box_content material form" action="@routes.Coach.edit" method="POST">
+    <div class="tabs">
+      <div data-tab="basics" class="active">Basics</div>
+      <div data-tab="texts">Texts</div>
+      <div data-tab="contents">Contents</div>
+      <div data-tab="reviews" data-count="@reviews.list.size" class="data-count">
+        Pending reviews
+      </div>
+    </div>
+    <div class="panels">
+      <div class="panel basics active">
+        <div>
+          @base.form.group(form("listed"), Html("Publish on the coaches list"), help = Html("Set to Yes when your profile is ready").some, half = true) {
+          @base.form.select(form("listed"), booleanChoices)
+          }
+          @base.form.group(form("available"), Html("Currently available for lessons"), help = Html("Set to Yes to get more students").some, half = true) {
+          @base.form.select(form("available"), booleanChoices)
+          }
+        </div>
+        @base.form.group(form("profile.headline"), Html("Short and inspiring headline"), help = Html("Just one sentence to make students want to choose you").some) {
+        @base.form.input(form("profile.headline"), maxLength = 170)
+        }
+        <div>
+          @base.form.group(form("profile.languages"), Html("Languages spoken"), help = Html("Which languages can you give lessons in?").some, half = true) {
+          @base.form.input(form("profile.languages"), maxLength = 140)
+          }
+          @base.form.group(form("profile.hourlyRate"), Html("Hourly rate"), help = Html("Indicative, non-contractual").some, half = true) {
+          @base.form.input(form("profile.hourlyRate"), maxLength = 140)
+          }
+        </div>
+      </div>
+      <div class="panel texts">
+        @textarea(form("profile.description"), Html("Who are you?"), help = Html("Age, profession, country... let your students know you").some)
+        @textarea(form("profile.playingExperience"), Html("Playing experience"), help = Html("Tournaments played, best wins, other achievements").some)
+        @textarea(form("profile.teachingExperience"), Html("Teaching experience"), help = Html("Diplomas, years of practice, best student results").some)
+        @textarea(form("profile.otherExperience"), Html("Other experiences"), help = Html("E.g. as chess commentator, or teaching other domains").some)
+        @textarea(form("profile.skills"), Html("Best skills in chess and teaching"))
+        @textarea(form("profile.methodology"), Html("Teaching methodology"), help = Html("How you prepare and run lessons. How you follow up with students.").some)
+      </div>
+      <div class="panel contents">
+        @textarea(form("profile.publicStudies"), Html("Featured public lichess studies"), help = Html("Up to 6 lichess study URLs, one per line").some)
+        @base.form.group(form("profile.youtubeChannel"), Html("URL of your Youtube channel")) {
+        @base.form.input(form("profile.youtubeChannel"))
+        }
+        @textarea(form("profile.youtubeVideos"), Html("Featured youtube videos"), help = Html("Up to 6 Youtube video URLs, one per line").some)
+      </div>
+      <div class="panel reviews">
+        <p class="help text" data-icon="">Reviews are visible only after you approve them.</p>
+        @reviews.list.map { r =>
+        <div class="review" data-action="@routes.Coach.approveReview(r.id)">
+          <div class="user">
+            @userIdLink(r.userId.some)
+            @barRating(selected = r.score.some, enabled = false)
+            @momentFromNow(r.updatedAt)
+          </div>
+          <div class="content">@autoLink(r.text)</div>
+          <div class="actions">
+            <a data-value="1" class="yes" data-icon="E"></a>
+            <a data-value="0" class="no" data-icon="L"></a>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="status text" data-icon="E">Your changes have been saved.</div>
+  </form>
+</div>
+}

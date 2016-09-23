@@ -138,9 +138,9 @@ div.lichess_game div.lichess_ground {
 }
 div.eval_gauge {
   position: absolute;
-  right: -22px;
+  right: -20px;
   top: 0;
-  width: 16px;
+  width: 14px;
   height: 100%;
   background: #fff;
   background-size: 100% 100%;
@@ -182,10 +182,10 @@ div.eval_gauge .black {
   transition: height 1s;
 }
 div.gauge_displayed div.lichess_game div.lichess_ground {
-  padding-left: 28px;
+  padding-left: 26px;
 }
 div.gauge_displayed .fork {
-  margin-left: 13px;
+  margin-left: 11px;
 }
 .opening_box {
   padding: 5px;
@@ -198,24 +198,23 @@ div.gauge_displayed .fork {
   font-family: 'Roboto';
 }
 .ceval_box {
-  position: relative;
-  flex: 0 0 40px;
+  flex: 0 0 38px;
   border: 1px solid #ccc;
   border-bottom: 0;
+  position: relative;
+  display: flex;
+  align-items: stretch;
 }
 .ceval_box .switch {
-  position: absolute;
-  top: 9px;
-  right: 10px;
+  flex: 0 1;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
 }
 .ceval_box pearl {
-  position: absolute;
-  top: 0;
-  left: 0;
+  flex: 0 0 75px;
+  line-height: 38px;
   font-size: 2em;
-  line-height: 40px;
-  height: 40px;
-  width: 80px;
   text-align: center;
   font-weight: bold;
   background: #e0e0e0;
@@ -225,20 +224,30 @@ div.gauge_displayed .fork {
   font-weight: 300;
   opacity: 0.5;
 }
-.ceval_box help {
+.ceval_box .engine {
+  opacity: 0.7;
+  flex: 1 0;
+  margin: 5px 0 0 5px;
+}
+.ceval_box .engine .info {
   display: block;
+  font-size: 10px;
+}
+.ceval_box help {
+  opacity: 0.7;
+  flex: 1 0;
   margin: 5px;
   font-size: 0.9em;
 }
 .ceval_box .bar {
   position: absolute;
   width: 100%;
-  height: 4px;
+  height: 3px;
   top: 0px;
 }
 .ceval_box .bar span {
   display: block;
-  height: 4px;
+  height: 3px;
   width: 0;
   background: #759900;
   transition: 1s;
@@ -262,6 +271,10 @@ div.gauge_displayed .fork {
   padding: 0 15px;
   display: flex;
   border-bottom: 1px solid #e4e4e4;
+}
+body.piece_letter .fork move {
+  font-family: 'Noto Sans';
+  font-size: 15px;
 }
 .fork move:last-child {
   border-bottom: none;
@@ -305,6 +318,7 @@ div.gauge_displayed .fork {
   -moz-user-select: none;
   -ms-user-select: none;
   transition: 0.3s;
+  transition-delay: 0.3s;
 }
 .explorer_box.config {
   flex: 3.5 1 0px;
@@ -377,6 +391,10 @@ body.dark .explorer_box .title {
   font-size: 14px;
   line-height: 30px;
   padding-left: 7px;
+}
+body.piece_letter .explorer_box .moves td:first-child {
+  font-family: 'Noto Sans';
+  font-size: 13px;
 }
 .explorer_box .moves td:nth-child(2) {
   font-size: 10px;
@@ -470,6 +488,10 @@ body.dark .explorer_box .black {
   line-height: 30px;
   padding-left: 7px;
 }
+body.piece_letter .tablebase td:first-child {
+  font-family: 'Noto Sans';
+  font-size: 13px;
+}
 .explorer_box .tablebase td:last-child {
   padding-right: 7px;
   text-align: right;
@@ -505,8 +527,11 @@ body.dark .explorer_box .black {
   flex-flow: column;
   justify-content: center;
 }
+.explorer_box.reduced .message {
+  justify-content: flex-start;
+}
 .explorer_box .message h3 {
-  margin: 5px 0 8px 0;
+  margin: 8px 0;
 }
 .explorer_box:not(.reduced) .message h3,
 .explorer_box.reduced:hover .message h3 {
@@ -593,6 +618,7 @@ body.dark .explorer_box .black {
 .lichess_ground .areplay {
   flex: 2 1 0px;
   position: relative; /* for autoscroll */
+  will-change: scroll-position;
 }
 .lichess_ground .action_menu {
   flex: 1 0;
@@ -602,6 +628,9 @@ body.dark .explorer_box .black {
   display: block;
   margin: 15px 0;
   padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
 }
 .lichess_ground .action_menu .button::before {
   font-size: 2em;
@@ -657,6 +686,9 @@ body.dark .explorer_box .black {
   padding: 0 2px;
   cursor: pointer;
 }
+body.piece_letter .tview2 move {
+  font-family: 'Noto Sans';
+}
 .tview2 move.parent {
   color: #3893e8!important;
 }
@@ -688,7 +720,7 @@ body.dark .explorer_box .black {
   padding-left: 0;
 }
 .tview2 line move {
-  color: #555;
+  color: #606060;
 }
 .tview2 > move {
   flex: 0 0 44%;
@@ -1069,6 +1101,9 @@ div.shortcuts li {
   font-family: 'ChessSansPiratf', sans-serif;
   font-weight: bold;
 }
+body.piece_letter .forecast sans san {
+  font-family: 'Noto Sans';
+}
 .forecast button.on-my-turn {
   margin-top: 20px;
 }
@@ -1159,6 +1194,9 @@ div.shortcuts li {
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 14px;
 }
+body.piece_letter #analyse-cm .title {
+  font-family: 'Noto Sans';
+}
 #analyse-cm .action {
   display: block;
   padding: 10px;
@@ -1170,10 +1208,12 @@ div.shortcuts li {
   background: #fff;
 }
 
-body.coords_2 .gauge_displayed square[data-coord-y]::before {
+body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks {
   color: #fff;
   text-shadow: 0 1px 2px #000;
-  font-weight: normal;
-  top: 1px;
-  right: 1px;
+  right: -4px;
+  text-align: left;
+}
+body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks coord {
+  transform: none;
 }

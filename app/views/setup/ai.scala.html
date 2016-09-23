@@ -12,7 +12,7 @@
   <div class="ai_info">
     @ratings.map {
     case (level, rating) => {
-    <div class="level_@level">@aiNameHtml(level)</div>
+    <div class="level_@level">@trans.aiNameLevelAiLevel("A.I.", level)</div>
     }
     }
   </div>

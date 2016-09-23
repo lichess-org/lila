@@ -16,6 +16,7 @@ final class Env(
     onStart: String => Unit,
     gameCache: lila.game.Cached,
     lightUser: String => Option[lila.common.LightUser],
+    isOnline: lila.user.User.ID => Boolean,
     hub: lila.hub.Env,
     db: lila.db.Env,
     scheduler: lila.common.Scheduler) {
@@ -63,7 +64,7 @@ final class Env(
     coll = db(CollectionChallenge),
     maxPerUser = MaxPerUser)
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, isOnline)
 
   scheduler.future(3 seconds, "sweep challenges") {
     api.sweep
@@ -79,6 +80,7 @@ object Env {
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,
     lightUser = lila.user.Env.current.lightUser,
+    isOnline = lila.user.Env.current.isOnline,
     db = lila.db.Env.current,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -1,16 +1,17 @@
+var recorder = require('./recorder');
 var holds = [];
 var nb = 8;
 var was = false;
-var sent = false;
+var sent = {};
 var premoved = false;
 var variants = ['standard', 'crazyhouse'];
 
-function register(socket, meta, ply) {
-  if (meta.premove) {
-    premoved = true;
+function register(ctrl, meta) {
+  if (meta.premove && ctrl.vm.ply > 1) premoved = true;
+  if (premoved || !meta.holdTime || ctrl.vm.ply > 30) {
+    recorder.stop();
     return;
   }
-  if (premoved || !meta.holdTime || ply > 30) return;
   holds.push(meta.holdTime);
   var set = false;
   if (holds.length > nb) {
@@ -18,41 +19,43 @@ function register(socket, meta, ply) {
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    if (mean > 2 && mean < 100) {
+    if (mean > 1 && mean < 140) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
       var sd = Math.sqrt(diffs.reduce(function(a, b) {
         return a + b;
       }) / nb);
-      set = sd < 16;
+      set = sd < 14;
     }
   }
-  if (set || was) $('.manipulable .cg-board').toggleClass('hold', set);
-  if (set && !sent) {
-    socket.send('hold', {
-      mean: Math.round(mean),
-      sd: Math.round(sd)
-    });
-    sent = true;
+  if (set || was) {
+    var mc = recorder.stop();
+    mc = mc && mc > 2 && mc < 6;
+    $('.manipulable .cg-board').toggleClass('bh1', set);
+    $('.manipulable .cg-board').toggleClass('bh2', mc);
+    if (set) recorder.start();
+    if (set && !sent.hold) {
+      ctrl.socket.send('hold', {
+        mean: Math.round(mean),
+        sd: Math.round(sd)
+      });
+      sent.hold = true;
+    }
+    if (set && !sent.ick) {
+      post(ctrl.data, 'ick');
+      sent.ick = true;
+    }
   }
   was = set;
 }
 
-function find(el, d) {
-  try {
-    var prev, w, done = false;
-    [].forEach.call(el.querySelectorAll('square'), function(n) {
-      w = n.offsetWidth;
-      if (!done && prev && w !== prev) {
-        if (window.getComputedStyle(n, null).getPropertyValue("border")[0] !== '0' && !n.classList.contains('last-move')) {
-          done = true;
-          $.post('/jslog/' + d.game.id + d.player.id);
-        }
-      }
-      prev = w;
-    });
-  } catch (e) {}
+function post(d, n) {
+  $.post('/jslog/' + d.game.id + d.player.id + '?n=' + n);
+}
+
+function find(ctrl) {
+  if (document.getElementById('robot_link')) post(ctrl.data, 'rcb');
 }
 
 module.exports = {

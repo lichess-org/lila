@@ -1,0 +1,23 @@
+@(data: lila.plan.PlanTrackingUserData)(implicit ctx: Context)
+
+dataLayer.push({"uid": "@data.user.id"});
+dataLayer.push({"Registration date": @data.user.createdAt.getSeconds});
+dataLayer.push({"Total games played": @data.user.count.game});
+@data.user.perfs.latest.map { date =>
+dataLayer.push({"Time since last game played": @(nowSeconds - date.getSeconds)});
+}
+dataLayer.push({"Average rating": @data.user.perfs.standard.intRating});
+dataLayer.push({"Title": "@data.user.title"});
+@data.medianTournamentRank.map { rank =>
+dataLayer.push({"Average tournament rank": @rank});
+}
+dataLayer.push({"Tournaments played": @data.nbTournaments});
+dataLayer.push({"Tournament points": @data.user.toints});
+dataLayer.push({"Streamer": @data.isStreamer});
+dataLayer.push({"Login status": "logged in"});
+dataLayer.push({"Donation referrer page": "@lila.common.HTTPRequest.referer(ctx.req)"});
+dataLayer.push({"Followers": @data.nbFollowers});
+dataLayer.push({"Following": @data.nbFollowing});
+dataLayer.push({"Forum messages": @data.nbForumPosts});
+dataLayer.push({"Seconds spent playing": @data.user.playTime.map(_.totalPeriod.getSeconds).getOrElse(0)});
+dataLayer.push({"Seconds featured on TV": @data.user.playTime.flatMap(_.tvPeriod.map(_.getSeconds)).getOrElse(0)});

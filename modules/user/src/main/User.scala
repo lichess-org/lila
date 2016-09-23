@@ -37,9 +37,11 @@ case class User(
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title, patron = planMonths)
+  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
   def titleName = title.fold(username)(_ + " " + username)
+
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
@@ -53,7 +55,7 @@ case class User(
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
-  def titleUsername = title.fold(username)(_ + " " + username)
+  def titleUsername = title.fold(username)(t => s"$t $username")
 
   def titleUsernameWithBestRating = title.fold(usernameWithBestRating)(_ + " " + usernameWithBestRating)
 
@@ -87,6 +89,8 @@ case class User(
   def best8Perfs: List[PerfType] =
     best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
+
+  def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
   def isPatron = plan.active
 
@@ -123,7 +127,7 @@ object User {
   // if it isn't after a word character (that'd be an email) and fits constraints in
   // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
   // Example: everyone says @ornicar is a pretty cool guy
-  // False example: Write to lichess.contact@gmail.com, @1
+  // False example: Write to contact@lichess.org, @1
   val atUsernameRegex = """\B@(?>([a-zA-Z_-][\w-]{1,19}))(?U)(?![\w-])""".r
 
   val usernameRegex = """^[\w-]+$""".r

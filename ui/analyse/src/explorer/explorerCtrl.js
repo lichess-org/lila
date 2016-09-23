@@ -2,8 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
-var openingXhr = require('./openingXhr');
-var tablebaseXhr = require('./tablebaseXhr');
+var xhr = require('./openingXhr');
 var storedProp = require('../util').storedProp;
 var synthetic = require('../util').synthetic;
 var replayable = require('game').game.replayable;
@@ -47,7 +46,7 @@ module.exports = function(root, opts, allow) {
   };
 
   var fetchOpening = throttle(250, function(fen) {
-    openingXhr(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
+    xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
       res.opening = true;
       res.nbMoves = res.moves.length;
       res.fen = fen;
@@ -59,7 +58,7 @@ module.exports = function(root, opts, allow) {
   }, false);
 
   var fetchTablebase = throttle(250, function(fen) {
-    tablebaseXhr(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
+    xhr.tablebase(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
       res.nbMoves = res.moves.length;
       res.tablebase = true;
       res.fen = fen;

@@ -41,10 +41,8 @@ object Main extends LilaController {
     }
   }
 
-  def websocketPing = WebSocket.using[String] { request =>
-    val (out, channel) = Concurrent.broadcast[String]
-    val in = Iteratee.foreach[String](channel.push)
-    (in, out)
+  def apiWebsocket = WebSocket.tryAccept { req =>
+    Env.site.apiSocketHandler.apply map Right.apply
   }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
@@ -83,22 +81,21 @@ object Main extends LilaController {
     }
   }
 
-  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx =>
-    me =>
-      Env.push.registerDevice(me, platform, deviceId)
+  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx => me =>
+    Env.push.registerDevice(me, platform, deviceId)
   }
 
-  def mobileUnregister = Auth { implicit ctx =>
-    me =>
-      Env.push.unregisterDevices(me)
+  def mobileUnregister = Auth { implicit ctx => me =>
+    Env.push.unregisterDevices(me)
   }
 
   def jslog(id: String) = Open { ctx =>
     val referer = HTTPRequest.referer(ctx.req)
-    lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer")
+    val name = get("n", ctx.req) | "?"
+    lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
     lila.mon.cheat.cssBot()
     ctx.userId.?? {
-      Env.report.api.autoBotReport(_, referer)
+      Env.report.api.autoBotReport(_, referer, name)
     }
     lila.game.GameRepo pov id map {
       _ ?? lila.game.GameRepo.setBorderAlert
@@ -113,6 +110,18 @@ object Main extends LilaController {
       "position" -> Glyph.PositionAssessment.all,
       "observation" -> Glyph.Observation.all
     )) as JSON
+  }
+
+  def image(id: String, hash: String, name: String) = Action.async { req =>
+    Env.db.image.fetch(id) map {
+      case None => NotFound
+      case Some(image) =>
+        lila.log("image").info(s"Serving ${image.path} from database")
+        Ok(image.data).withHeaders(
+          CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
+          CONTENT_DISPOSITION -> image.name,
+          CONTENT_LENGTH -> image.size.toString)
+    }
   }
 
   def notFound(req: RequestHeader): Fu[Result] =

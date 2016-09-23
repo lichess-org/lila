@@ -8,6 +8,9 @@
   <a href="@routes.Message.inbox(page=1)"><span class="text" data-icon="e">@trans.inbox()</span></a>
   }
   <a href="@routes.Pref.form("game-display")"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
+  @if(isGranted(_.Coach)) {
+  <a href="@routes.Coach.edit"><span class="text" data-icon=":">Coach manager</span></a>
+  }
   <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
   <span class="sep"></span>
   <a class="status" href="/lag">

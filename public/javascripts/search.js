@@ -4,87 +4,42 @@ $(function() {
   var $usernames = $form.find(".usernames input");
   var $userRows = $form.find(".user_row");
   var $result = $(".search_result");
-  var playersRegexp = /^\??(?:.*&?players.winner=([\w-\+]+))?(?:&?players.white=([\w-\+]+))?(?:&?players.black=([\w-\+]+))?.*$/g;
-  var match = playersRegexp.exec(window.location.search);
-  var $playersWinner = isPlayerChosen(match[1]);
-  var $playersWhite  = isPlayerChosen(match[2]);
-  var $playersBlack  = isPlayerChosen(match[3]);
 
-  var serialize = function(all) {
-    var sel = $form.find(":input");
-    return (all ? sel : sel.not('[type=hidden]')).filter(function() {
-      return !!this.value;
-    }).serialize()
-  };
-
-  var onResultLoad = function() {
-    $('body').trigger('lichess.content_loaded');
-    var serialized = serialize();
-    $result.find("a.permalink").each(function() {
-      var s = $(this).hasClass('download') ? serialize(true) : serialized;
-      $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
+  function getUsernames() {
+    var us = [];
+    $usernames.each(function() {
+      var u = $.trim($(this).val());
+      if (u) us.push(u);
     });
-    $result.find('.search_infinitescroll:has(.pager a)').each(function() {
-      var $next = $(this).find(".pager a:last");
-      $next.attr("href", $next.attr("href") + "&" + serialized);
-      $(this).infinitescroll({
-        navSelector: ".pager",
-        nextSelector: $next,
-        itemSelector: ".search_infinitescroll .paginated_element",
-        loading: {
-          msgText: "",
-          finishedMsg: "---"
-        }
-      }, function() {
-        $("#infscr-loading").remove();
-        $('body').trigger('lichess.content_loaded');
-      });
-    });
-  };
-  onResultLoad();
-
-  function realtimeResults() {
-    $("div.search_status").text("Searching...");
-    $result.load(
-      $form.attr("action") + "?" + serialize() + " .search_result", function(text, status) {
-        if (status == "error") $(".search_status").text("Something is wrong with the search engine!");
-        else onResultLoad();
-      });
+    return us;
   }
 
   function userChoices(row) {
     var options = ["<option value=''></option>"];
-    $usernames.each(function() {
-      var user = $.trim($(this).val());
-      if (user.length) {
-        var option = [];
-        option.push("<option value='" + user + "'");
-        option.push(isSelected(row, "winner", user, $playersWinner));
-        option.push(isSelected(row, "whiteUser", user, $playersWhite));
-        option.push(isSelected(row, "blackUser", user, $playersBlack));
-        option.push(">" + user + "</option>");
-        options.push(option.join(""));
-      }
+    var isSelected = function(row, rowClassName, user, dataKey) {
+      var player = $form.data(dataKey);
+      return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
+    }
+    getUsernames().forEach(function(user) {
+      var option = [];
+      option.push("<option value='" + user + "'");
+      option.push(isSelected(row, "winner", user, 'req-winner'));
+      option.push(isSelected(row, "whiteUser", user, 'req-white'));
+      option.push(isSelected(row, "blackUser", user, 'req-black'));
+      option.push(">" + user + "</option>");
+      options.push(option.join(""));
     });
     $(row).find('select').html(options.join(""));
     $(row).toggle(options.length > 1);
   }
 
-  function isPlayerChosen(match) {
-    return typeof match !== "undefined" ? match.replace(/\+/g, " ") : "";
-  }
-
-  function isSelected(row, rowClassName, user, player) {
-    return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
-  }
-
-  $form.find("select, input[type=checkbox]").change(realtimeResults);
-  $usernames.bind("keyup", function() {
+  function reloadUserChoices() {
     $userRows.each(function() {
       userChoices(this);
     });
-  }).trigger("keyup");
-  $usernames.bindWithDelay("keyup", realtimeResults, 700);
+  }
+  reloadUserChoices();
+  $usernames.bind("input paste", reloadUserChoices);
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function() {
@@ -94,45 +49,45 @@ $(function() {
   };
   toggleAiLevel();
   $form.find(".opponent select").change(toggleAiLevel);
-});
 
-// https://github.com/bgrins/bindWithDelay/blob/master/bindWithDelay.js
-$.fn.bindWithDelay = function(type, data, fn, timeout, throttle) {
+  var serialize = function(all) {
+    var sel = $form.find(":input");
+    return (all ? sel : sel.not('[type=hidden]')).filter(function() {
+      return !!this.value;
+    }).serialize()
+  };
 
-  if ($.isFunction(data)) {
-    throttle = timeout;
-    timeout = fn;
-    fn = data;
-    data = undefined;
-  }
-
-  // Allow delayed function to be removed with fn in unbind function
-  fn.guid = fn.guid || ($.guid && $.guid++);
-
-  // Bind each separately so that each element has its own delay
-  return this.each(function() {
-
-    var wait = null;
-
-    function cb() {
-      var e = $.extend(true, {}, arguments[0]);
-      var ctx = this;
-      var throttler = function() {
-        wait = null;
-        fn.apply(ctx, [e]);
-      };
-
-      if (!throttle) {
-        clearTimeout(wait);
-        wait = null;
-      }
-      if (!wait) {
-        wait = setTimeout(throttler, timeout);
-      }
-    }
-
-    cb.guid = fn.guid;
-
-    $(this).bind(type, data, cb);
+  var serialized = serialize();
+  $result.find("a.permalink").each(function() {
+    var s = $(this).hasClass('download') ? serialize(true) : serialized;
+    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
   });
-};
+  $result.find('.search_infinitescroll:has(.pager a)').each(function() {
+    var $next = $(this).find(".pager a:last");
+    $next.attr("href", $next.attr("href") + "&" + serialized);
+    $(this).infinitescroll({
+      navSelector: ".pager",
+      nextSelector: $next,
+      itemSelector: ".search_infinitescroll .paginated_element",
+      loading: {
+        msgText: "",
+        finishedMsg: "---"
+      }
+    }, function() {
+      $("#infscr-loading").remove();
+      lichess.pubsub.emit('content_loaded')();
+    });
+  });
+
+  $form.submit(function() {
+    $(this).addClass('searching');
+  });
+
+  if ($form.hasClass('realtime')) {
+    var submit = function() {
+      $form.submit();
+    };
+    $form.find("select, input[type=checkbox]").change(submit);
+    $usernames.bind("keyup", $.fp.debounce(submit, 1500));
+  }
+});

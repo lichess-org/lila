@@ -15,7 +15,7 @@ module.exports = {
       selected: null,
       orientation: opts.orientation,
       coordinates: true,
-      squareKey: true,
+      pieceKey: true,
       turnColor: opts.chess.color(),
       check: check,
       autoCastle: opts.autoCastle,
@@ -110,7 +110,7 @@ module.exports = {
   },
   showCapture: function(move) {
     raf(function() {
-      var $square = $('#learn_app square[data-key=' + move.orig + ']');
+      var $square = $('#learn_app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
       setTimeout(function() {
         $square.removeClass('wriggle');
@@ -124,12 +124,16 @@ module.exports = {
     var fen = [cg.getFen(), turn, '- - 0 1'].join(' ');
     chess.instance.load(fen);
     var kingKey = chess.kingKey(turn === 'w' ? 'black' : 'white');
-    var shapes = chess.instance.moves({verbose:true}).filter(function(m) {
+    var shapes = chess.instance.moves({
+      verbose: true
+    }).filter(function(m) {
       return m.to === kingKey;
     }).map(function(m) {
       return util.arrow(m.from + m.to, 'red');
     });
-    cg.set({check: shapes.length ? kingKey : null});
+    cg.set({
+      check: shapes.length ? kingKey : null
+    });
     cg.setShapes(shapes);
   },
   setShapes: function(shapes) {

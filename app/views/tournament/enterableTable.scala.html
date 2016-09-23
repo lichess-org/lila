@@ -1,6 +1,6 @@
 @(tours: List[Tournament], scheduled: Boolean)
 
-@tours.filter(_.scheduled == scheduled).map { tour =>
+@tours.filter(_.isScheduled == scheduled).map { tour =>
 <tr @if(scheduled) { class="scheduled" }>
   <td class="name">
     <a class="text" href="@routes.Tournament.show(tour.id)">
@@ -21,10 +21,5 @@
   }
   <td>@tour.durationString</td>
   <td data-icon="r" class="text">@tour.nbPlayers</td>
-  <td>
-    <form action="@routes.Tournament.join(tour.id)" method="POST">
-      <button type="submit" class="submit button" data-icon="G"></button>
-    </form>
-  </td>
 </tr>
 }

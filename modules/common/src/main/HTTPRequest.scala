@@ -9,11 +9,12 @@ object HTTPRequest {
     (req.headers get "X-Requested-With") contains "XMLHttpRequest"
 
   def isSocket(req: RequestHeader): Boolean =
-    (req.headers get HeaderNames.UPGRADE) ?? (_.toLowerCase == "websocket")
+    (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
-  def isSafe(req: RequestHeader) = req.method == "GET"
+  def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
+  def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
@@ -27,6 +28,8 @@ object HTTPRequest {
   def isTrident(req: RequestHeader) = uaContains(req, "Trident/")
   def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
   def isSafari(req: RequestHeader) = uaContains(req, "Safari/") && !isChrome(req)
+
+  def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
@@ -56,4 +59,7 @@ object HTTPRequest {
 
   def hasFileExtension(req: RequestHeader) =
     fileExtensionPattern.matcher(req.path).matches
+
+  def print(req: RequestHeader) =
+    s"${req.method} ${req.domain}${req.uri} ${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 }

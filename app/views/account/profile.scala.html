@@ -2,51 +2,46 @@
 
 @title = @{ s"${u.username} - ${trans.editProfile.str()}" }
 
-@evenMoreCss = {
-@cssTag("user-form.css")
-}
-
-@account.layout(title = title, active = "editProfile") {
+@account.layout(
+title = title,
+active = "editProfile",
+evenMoreCss =cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.editProfile()</h1>
-    <p>@trans.allInformationIsPublicAndOptional()</p>
-    <form action="@routes.Account.profileApply" method="POST">
-      <ul>
-        <li class="field">
-          <label for="@form("country").id">@trans.country()</label>
-          @base.select(form("country"), lila.user.Countries.all, default = "".some)
-        </li>
-        @NotForKids {
-        <li class="field">
-          <label for="@form("location").id">@trans.location()</label>
-          @base.input(form("location"))
-          <p class="help">@trans.yourCityRegionOrDepartment()</p>
-        </li>
-        <li class="field">
-          <label for="@form("bio").id">@trans.biography()</label>
-          <textarea name="@form("bio").name" id="@form("bio").id" cols="25" rows="7">@form("bio").value</textarea>
-          <p class="help">@trans.biographyDescription()</p>
-          <p class="help">@trans.maximumNbCharacters(400)</p>
-        </li>
-        <li class="field">
-          <label for="@form("firstName").id">@trans.firstName()</label>
-          @base.input(form("firstName"))
-        </li>
-        <li class="field">
-          <label for="@form("lastName").id">@trans.lastName()</label>
-          @base.input(form("lastName"))
-        </li>
+    <h1 class="lichess_title text" data-icon="*">@trans.editProfile()</h1>
+    <form class="material form" action="@routes.Account.profileApply" method="POST">
+      <div class="form-group">@trans.allInformationIsPublicAndOptional()</div>
+      <div>
+        @base.form.group(form("country"), trans.country(), klass = "half") {
+        @base.form.select(form("country"), lila.user.Countries.all, default = "".some)
         }
-        <li>
-          @errMsg(form)
-        </li>
-        <li>
-          <button type="submit" class="submit button" data-icon="E">
-            @trans.apply()
-          </button>
-        </li>
-      </ul>
+        @base.form.group(form("location"), trans.location(), klass = "half") {
+        @base.form.input(form("location"))
+        }
+      </div>
+      @NotForKids {
+      @base.form.group(form("bio"), Html(s"${trans.biography.str()}")) {
+      <textarea name="@form("bio").name" id="@form("bio").id" rows=5 maxlength=600>@form("bio").value</textarea>
+      <p class="form-help">@trans.biographyDescription()</p>
+      }
+      <div>
+        @base.form.group(form("firstName"), trans.firstName(), klass = "half") {
+        @base.form.input(form("firstName"))
+        }
+        @base.form.group(form("lastName"), trans.lastName(), klass = "half") {
+        @base.form.input(form("lastName"))
+        }
+      </div>
+      }
+      <div>
+        @List("fide", "uscf", "ecf").map { rn =>
+        @base.form.group(form(s"${rn}Rating"), Html(s"${rn.toUpperCase} rating"), help=Html("If none, leave empty").some, klass = "third") {
+        @base.form.input(form(s"${rn}Rating"), typ="number")
+        }
+        }
+      </div>
+      @errMsg(form)
+      @base.form.submit()
     </form>
   </div>
 </div>

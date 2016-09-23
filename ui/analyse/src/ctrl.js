@@ -21,6 +21,7 @@ var crazyValid = require('./crazy/crazyValid');
 var crazyView = require('./crazy/crazyView');
 var studyCtrl = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
+var computeAutoShapes = require('./autoShape');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -65,7 +66,8 @@ module.exports = function(opts) {
     redirecting: false,
     contextMenuPath: null,
     justPlayed: null,
-    justDropped: null
+    justDropped: null,
+    keyboardHelp: location.hash === '#keyboard'
   };
 
   this.setPath = function(path) {
@@ -177,7 +179,7 @@ module.exports = function(opts) {
       }
       if (/\+|\#/.test(this.vm.node.san)) sound.check();
       this.ceval.stop();
-      startCeval();
+      this.startCeval();
     }
     this.vm.justPlayed = null;
     this.vm.justDropped = null;
@@ -226,6 +228,8 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
+    this.ceval.stop();
+    this.ceval = makeCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -257,24 +261,9 @@ module.exports = function(opts) {
     return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  var roleToSan = {
-    pawn: 'P',
-    knight: 'N',
-    bishop: 'B',
-    rook: 'R',
-    queen: 'Q'
-  };
-  var sanToRole = {
-    P: 'pawn',
-    N: 'knight',
-    B: 'bishop',
-    R: 'rook',
-    Q: 'queen'
-  };
-
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
-      this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
+      this.vm.justPlayed = util.roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = {
         ply: this.vm.node.ply,
         role: piece.role
@@ -334,7 +323,7 @@ module.exports = function(opts) {
     if (path === this.vm.path) {
       showGround();
       m.redraw();
-      if (dests === '') this.ceval.stop();
+      if (this.gameOver()) this.ceval.stop();
     }
     this.chessground.playPremove();
   }.bind(this);
@@ -381,33 +370,53 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return this.tree.ops.withMainlineChild(this.vm.node, function(n) {
+    return treeOps.withMainlineChild(this.vm.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);
 
-  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck'];
+  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic', 'crazyhouse'];
   var cevalPossible = function() {
     return (util.synthetic(this.data) || !game.playable(this.data)) &&
       cevalVariants.indexOf(this.data.game.variant.key) !== -1;
   }.bind(this);
 
-  this.ceval = cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
-    this.tree.updateAt(res.work.path, function(node) {
-      if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-      node.ceval = res.eval;
-      if (res.work.path === this.vm.path) {
-        this.setAutoShapes();
-        m.redraw();
-      }
-    }.bind(this));
-  }.bind(this));
-
-  var canUseCeval = function() {
-    return this.vm.node.dests !== '' && (!this.vm.node.eval || !this.nextNodeBest());
+  var makeCeval = function() {
+    return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
+      this.tree.updateAt(res.work.path, function(node) {
+        if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+        node.ceval = res.eval;
+        if (res.work.path === this.vm.path) {
+          this.setAutoShapes();
+          m.redraw();
+        }
+      }.bind(this));
+    }.bind(this))
   }.bind(this);
 
-  var startCeval = throttle(800, false, function() {
+  this.ceval = makeCeval();
+
+  this.gameOver = function() {
+    if (this.vm.node.dests !== '') return false;
+    if (this.vm.node.check) {
+      var san = this.vm.node.san;
+      var checkmate = san && san[san.length - 1] === '#';
+      return checkmate;
+    }
+    if (this.vm.node.crazy) {
+      // no stalemate with full crazyhouse pockets
+      var wtm = this.vm.node.fen.indexOf(' w ') !== -1;
+      var p = this.vm.node.crazy.pockets[wtm ? 0 : 1];
+      if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
+    }
+    return true;
+  }.bind(this);
+
+  var canUseCeval = function() {
+    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest());
+  }.bind(this);
+
+  this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
       this.ceval.start(this.vm.path, this.vm.nodeList);
   }.bind(this));
@@ -415,11 +424,11 @@ module.exports = function(opts) {
   this.toggleCeval = function() {
     this.ceval.toggle();
     this.setAutoShapes();
-    startCeval();
+    this.startCeval();
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && this.vm.node.dests !== '';
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
@@ -436,47 +445,28 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.setAutoShapes = function() {
-    var n = this.vm.node,
-      shapes = [],
-      explorerUci = this.explorer.hoveringUci();
-    if (explorerUci) shapes.push(makeAutoShapeFromUci(explorerUci, 'paleBlue'));
-    if (this.vm.showAutoShapes()) {
-      if (n.eval && n.eval.best) shapes.push(makeAutoShapeFromUci(n.eval.best, 'paleGreen'));
-      if (!explorerUci) {
-        var nextNodeBest = this.nextNodeBest();
-        if (nextNodeBest) shapes.push(makeAutoShapeFromUci(nextNodeBest, 'paleBlue'));
-        else if (this.ceval.enabled() && n.ceval && n.ceval.best) shapes.push(makeAutoShapeFromUci(n.ceval.best, 'paleBlue'));
-      }
-    }
-    this.chessground.setAutoShapes(shapes);
+    this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  var decomposeUci = function(uci) {
-    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
-  };
-
-  var makeAutoShapeFromUci = function(uci, brush) {
-    var move = decomposeUci(uci);
-    return uci[1] === '@' ? {
-      orig: move[1],
-      brush: brush
-    } : {
-      orig: move[0],
-      dest: move[1],
-      brush: brush
-    };
-  };
-
-  this.explorerMove = function(uci) {
-    var move = decomposeUci(uci);
+  var playUci = function(uci) {
+    var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
-        role: sanToRole[uci[0]]
+        role: util.sanToRole[uci[0]]
       },
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
+    else sendMove(move[0], move[1], util.sanToRole[move[2].toUpperCase()]);
+  }.bind(this);
+
+  this.explorerMove = function(uci) {
+    playUci(uci);
     this.explorer.loading(true);
+  }.bind(this);
+
+  this.playBestMove = function() {
+    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
+    if (uci) playUci(uci);
   }.bind(this);
 
   this.socketReceive = function(type, data) {
@@ -486,13 +476,14 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
-  keyboard(this);
-  startCeval();
+  this.startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 
+  keyboard.bind(this);
+
   this.music = null;
-  $('body').on('lichess.sound_set', function(e, set) {
+  lichess.pubsub.on('sound_set', function(set) {
     if (!this.music && set === 'music')
       lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
         this.music = lichessReplayMusic();

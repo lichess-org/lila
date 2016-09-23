@@ -34,7 +34,7 @@
           }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
-        game.isBeingPlayed.fold(trans.playingRightNow(), Html(s"<span title='${showDateTime(game.createdAt)}'>${momentFormat(game.createdAt)}</span>"))
+        game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
         )
       </div>
       @game.pgnImport.flatMap(_.date).map { date =>
@@ -49,7 +49,7 @@
     <div class="players">
       @List(game.whitePlayer, game.blackPlayer).map { p =>
       <div class="player color-icon is @{p.color.name}">
-        @playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+        @playerLink(p, withOnline = false, withDiff = true, withBerserk = true, variant = pov.game.variant)
       </div>
       }
     </div>

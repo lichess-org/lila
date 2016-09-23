@@ -1,5 +1,6 @@
 var chessground = require('chessground');
 var classSet = chessground.util.classSet;
+var util = require('../util');
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
@@ -17,13 +18,18 @@ function analysisBoardOrientation(data) {
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
-    var enabled = !condition || condition(ctrl.data);
+    var enabled = function() {
+      return !condition || condition(ctrl.data);
+    };
     return m('button', {
+      key: socketMsg || 'click',
       class: 'button hint--bottom ' + socketMsg + classSet({
-        ' disabled': !enabled
+        ' disabled': !enabled()
       }),
       'data-hint': ctrl.trans(hint),
-      onclick: enabled ? onclick || partial(ctrl.socket.sendLoading, socketMsg, null) : null
+      config: util.bindOnce('click', function() {
+        if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
+      })
     }, m('span', {
       'data-icon': icon
     }));
@@ -72,7 +78,7 @@ module.exports = {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentOffersADraw')),
       m('a.accept[data-icon=E]', {
-        onclick: partial(ctrl.socket.sendLoading, 'draw-yes', null),
+        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'draw-yes', null)),
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
@@ -120,11 +126,11 @@ module.exports = {
       m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
       m('a.accept[data-icon=E]', {
         title: ctrl.trans('joinTheGame'),
-        onclick: partial(ctrl.socket.sendLoading, 'rematch-yes', null)
+        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-yes', null))
       }),
       m('a.decline[data-icon=L]', {
         title: ctrl.trans('decline'),
-        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
+        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
       })
     ]);
   },
@@ -132,7 +138,7 @@ module.exports = {
     if (ctrl.data.player.offeringRematch) return m('div.pending', [
       m('p', ctrl.trans('rematchOfferSent')),
       m('a.button', {
-        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null),
+        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
       }, ctrl.trans('cancel'))
     ]);
   },
@@ -143,7 +149,7 @@ module.exports = {
         'data-icon': 'G',
         class: 'text button strong glowed',
         href: '/tournament/' + d.tournament.id,
-        onclick: ctrl.setRedirecting
+        config: util.bindOnce('click', ctrl.setRedirecting)
       }, ctrl.trans('backToTournament')),
       m('form', {
         method: 'post',
@@ -157,7 +163,7 @@ module.exports = {
   moretime: function(ctrl) {
     if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
-      onclick: ctrl.socket.moreTime
+      config: util.bindOnce('click', ctrl.socket.moreTime)
     }, m('span[data-icon=O]'));
   },
   followUp: function(ctrl) {
@@ -168,10 +174,10 @@ module.exports = {
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
       ) : (rematchable ? m('a.button', {
-        onclick: function() {
+        config: util.bindOnce('click', function() {
           if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
           else ctrl.challengeRematch();
-        }
+        })
       }, ctrl.trans('rematch')) : null),
       ctrl.data.game.rematch ? m('a.button.hint--top', {
         'data-hint': ctrl.trans('joinTheGame'),
@@ -184,7 +190,6 @@ module.exports = {
         href: '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
       game.replayable(d) ? m('a.button', {
-        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null),
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
       }, ctrl.trans('analysis')) : null
     ]);

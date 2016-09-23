@@ -18,7 +18,8 @@ final class Env(
 
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
-  private val AnalysisNodes = config getInt "analysis_nodes"
+  private val AnalysisNodes = config getInt "analysis.nodes"
+  private val MovePlies = config getInt "move.plies"
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
@@ -57,7 +58,8 @@ final class Env(
 
   val player = new Player(
     moveDb = moveDb,
-    uciMemo = uciMemo)
+    uciMemo = uciMemo,
+    maxPlies = MovePlies)
 
   val analyser = new Analyser(
     repo = repo,

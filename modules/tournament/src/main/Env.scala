@@ -97,7 +97,7 @@ final class Env(
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
-    maxPerPage = 20)
+    maxPerPage = 15)
 
   private lazy val leaderboardIndexer = new LeaderboardIndexer(
     tournamentColl = tournamentColl,

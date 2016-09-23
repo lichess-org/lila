@@ -30,18 +30,18 @@ private object AnalysisBuilder {
       case None => fufail(AnalysisBuilder.GameIsGone(uciAnalysis.id))
       case Some(game) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
-          def debug = s"Analysis for ${game.id} by ${client.fullId}"
+          def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
           chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
             fufail(_),
             replay => UciToPgn(replay, uciAnalysis) match {
               case (analysis, errors) =>
-                errors foreach { e => logger.warn(s"[UciToPgn] $debug $e") }
+                errors foreach { e => logger.debug(s"[UciToPgn] $debug $e") }
                 if (analysis.valid) {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)
-                    fufail(s"Analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
+                    fufail(s"${game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   else fuccess(analysis)
                 }
-                else fufail(s"[analysis] Analysis $debug is empty")
+                else fufail(s"${game.variant.key} analysis $debug is empty")
             })
         }
     }

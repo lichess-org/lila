@@ -25,4 +25,6 @@ trait FormHelper { self: I18nHelper =>
       s"""<p class="error">$msg</p>"""
     } mkString
   }
+
+  val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
 }

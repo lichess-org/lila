@@ -1,9 +1,10 @@
 var m = require('mithril');
-var util = require('chessground').util;
+var partial = require('chessground').util.partial;
+var util = require('./util');
 
 function tab(ctrl, key, active, content) {
   var attrs = {
-    onmousedown: util.partial(ctrl.setTab, key)
+    config: util.bindOnce('mousedown', partial(ctrl.setTab, key))
   }
   if (key === active) attrs.class = 'active';
   return m('a', attrs, content);

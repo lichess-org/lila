@@ -42,6 +42,15 @@ final class HistoryApi(coll: Coll) {
     ).void
   }
 
+  // used for rating refunds
+  def setPerfRating(user: User, perf: PerfType, rating: Int): Funit = {
+    val days = daysBetween(user.createdAt, DateTime.now)
+    coll.update(
+      $id(user.id),
+      $set(s"${perf.key}.$days" -> $int(rating))
+    ).void
+  }
+
   def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 

@@ -3,14 +3,15 @@ var xhr = require('./studyXhr');
 var throttle = require('../util').throttle;
 var nodeFullName = require('../util').nodeFullName;
 var partial = require('chessground').util.partial;
+var util = require('../util');
 
 function renderGlyph(ctrl, node) {
   return function(glyph) {
     return m('a', {
-      onclick: function() {
+      config: util.bindOnce('click', function() {
         ctrl.toggleGlyph(glyph.id);
         return false;
-      },
+      }),
       class: (node.glyphs && node.glyphs.filter(function(g) {
         return g.id === glyph.id;
       })[0]) ? 'active' : ''
@@ -80,7 +81,7 @@ module.exports = {
         m('button.button.frameless.close', {
           'data-icon': 'L',
           title: 'Close',
-          onclick: partial(ctrl.isOpen, false)
+          config: util.bindOnce('click', partial(ctrl.isOpen, false))
         }),
         'Annotating position after ',
         m('strong', nodeFullName(node)),

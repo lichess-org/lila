@@ -2,11 +2,7 @@
 
 @title = @{ s"${u.username} - ${trans.changePassword.str()}" }
 
-@evenMoreCss = {
-@cssTag("user-form.css")
-}
-
-@account.layout(title = title, active = "password") {
+@account.layout(title = title, active = "password", evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
@@ -16,20 +12,12 @@
       case false => {<span class="is-red" data-icon="L"></span>}
       }
     </h1>
-    <form action="@routes.Account.passwdApply" method="POST">
-      <ul>
-        @account.passwdFormField(form("oldPasswd"), trans.currentPassword.str())
-        @account.passwdFormField(form("newPasswd1"), trans.newPassword.str())
-        @account.passwdFormField(form("newPasswd2"), trans.newPasswordAgain.str())
-        <li>
-          @errMsg(form)
-        </li>
-        <li>
-          <button type="submit" class="submit button" data-icon="E">
-            @trans.apply()
-          </button>
-        </li>
-      </ul>
+    <form class="material form" action="@routes.Account.passwdApply" method="POST">
+      @passwdFormField(form("oldPasswd"), trans.currentPassword())
+      @passwdFormField(form("newPasswd1"), trans.newPassword())
+      @passwdFormField(form("newPasswd2"), trans.newPasswordAgain())
+      @errMsg(form)
+      @base.form.submit()
     </form>
   </div>
 </div>

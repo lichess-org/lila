@@ -95,7 +95,7 @@ function jump(chessgroundData, data, to) {
   var state = data.replay.history[data.replay.step];
   chessground.configure(chessgroundData, {
     fen: state.fen,
-    lastMove: state.move,
+    lastMove: state.move.slice(0, 2),
     check: state.check,
     turnColor: state.turnColor
   });

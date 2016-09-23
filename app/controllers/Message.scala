@@ -5,11 +5,12 @@ import play.api.data.Form
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.twirl.api.Html
+import play.api.libs.json._
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ User => UserModel, UserRepo }
 import lila.security.Granter
+import lila.user.{ User => UserModel, UserRepo }
 import views._
 
 object Message extends LilaController {
@@ -22,32 +23,47 @@ object Message extends LilaController {
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
       NotForKids {
-        api.inbox(me, page) map { html.message.inbox(me, _) }
+        negotiate (
+          html = api.inbox(me, page) map { html.message.inbox(me, _) },
+          api = _ => api.inbox(me, page) map { Env.message.jsonView.inbox(me, _) }
+        )
       }
   }
 
   def thread(id: String) = Auth { implicit ctx =>
     implicit me =>
       NotForKids {
-        OptionFuOk(api.thread(id, me)) { thread =>
-          relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            html.message.thread(thread, forms.post, blocked)
-          }
-        } map NoCache
+        negotiate (
+          html = OptionFuOk(api.thread(id, me)) { thread =>
+            relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              html.message.thread(thread, forms.post, blocked)
+            }
+          } map NoCache,
+          api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
+        )
       }
   }
 
   def answer(id: String) = AuthBody { implicit ctx =>
     implicit me =>
-      OptionFuResult(api.thread(id, me)) { thread =>
-        implicit val req = ctx.body
-        forms.post.bindFromRequest.fold(
-          err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            BadRequest(html.message.thread(thread, err, blocked))
-          },
-          text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
-        )
-      }
+      negotiate (
+        html = OptionFuResult(api.thread(id, me)) { thread =>
+          implicit val req = ctx.body
+          forms.post.bindFromRequest.fold(
+            err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              BadRequest(html.message.thread(thread, err, blocked))
+            },
+            text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
+          )
+        },
+        api = _ => OptionFuResult(api.thread(id, me)) { thread =>
+          implicit val req = ctx.body
+          forms.post.bindFromRequest.fold(
+            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+            text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
+          )
+        }
+      )
   }
 
   def form = Auth { implicit ctx =>
@@ -61,11 +77,18 @@ object Message extends LilaController {
     implicit me =>
       NotForKids {
         implicit val req = ctx.body
-        forms.thread(me).bindFromRequest.fold(
-          err => renderForm(me, none, _ => err) map { BadRequest(_) },
-          data => api.makeThread(data, me) map { thread =>
-            Redirect(routes.Message.thread(thread.id))
-          })
+        negotiate (
+          html = forms.thread(me).bindFromRequest.fold(
+            err => renderForm(me, none, _ => err) map { BadRequest(_) },
+            data => api.makeThread(data, me) map { thread =>
+              Redirect(routes.Message.thread(thread.id))
+            }),
+          api = _ => forms.thread(me).bindFromRequest.fold(
+            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+            data => api.makeThread(data, me) map { thread =>
+              Ok(Json.obj("ok" -> true, "id" -> thread.id))
+            })
+        )
       }
   }
 
@@ -77,13 +100,17 @@ object Message extends LilaController {
       }
     }
 
-  def delete(id: String) = AuthBody { implicit ctx =>
+  def batch = AuthBody { implicit ctx =>
     implicit me =>
-      api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1))
+      val ids = get("ids").??(_.split(",").toList).distinct take 200
+      Env.message.batch(me, ~get("action"), ids) inject Redirect(routes.Message.inbox(1))
   }
 
-  def markAsRead(id: String) = AuthBody { implicit ctx =>
+  def delete(id: String) = AuthBody { implicit ctx =>
     implicit me =>
-      api.markThreadAsRead(id, me)
+      negotiate (
+        html = api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1)),
+        api = _ => api.deleteThread(id, me) inject Ok(Json.obj("ok" -> true))
+      )
   }
 }

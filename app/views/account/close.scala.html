@@ -11,7 +11,7 @@
     </p>
     <form action="@routes.Account.closeConfirm" method="POST">
       <ul>
-        @account.passwdFormField(form("passwd"), trans.password.str())
+        @account.passwdFormField(form("passwd"), trans.password())
         <li>@errMsg(form)</li>
         <li>
           <button type="submit" class="submit button">@trans.closeYourAccount()</button>

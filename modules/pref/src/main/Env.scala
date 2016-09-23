@@ -11,8 +11,6 @@ final class Env(
   private val CollectionPref = config getString "collection.pref"
   private val CacheTtl = config duration "cache.ttl"
 
-  def forms = new DataForm
-
   lazy val api = new PrefApi(db(CollectionPref), CacheTtl, bus)
 }
 

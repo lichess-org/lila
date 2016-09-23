@@ -30,19 +30,19 @@ trait DateHelper { self: I18nHelper =>
 
   private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
-      lang(ctx).language,
-      DateTimeFormat forStyle dateTimeStyle withLocale new Locale(lang(ctx).language))
+      lang(ctx).code,
+      DateTimeFormat forStyle dateTimeStyle withLocale lang(ctx).toLocale)
 
   private def dateFormatter(ctx: Context): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
-      lang(ctx).language,
-      DateTimeFormat forStyle dateStyle withLocale new Locale(lang(ctx).language))
+      lang(ctx).code,
+      DateTimeFormat forStyle dateStyle withLocale lang(ctx).toLocale)
 
   private def periodFormatter(ctx: Context): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
-      lang(ctx).language, {
+      lang(ctx).code, {
         Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased new Locale(lang(ctx).language)
+        PeriodFormat wordBased lang(ctx).toLocale
       })
 
   def showDateTime(date: DateTime)(implicit ctx: Context): String =
@@ -91,4 +91,6 @@ trait DateHelper { self: I18nHelper =>
   def atomDate(date: DateTime): String = atomDateFormatter print date
   def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
     doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
+
+  def nowSeconds = (System.currentTimeMillis() / 1000).toInt
 }

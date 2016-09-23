@@ -1,0 +1,223 @@
+.coach_edit .top {
+  display: flex;
+  line-height: 2;
+}
+.coach_edit .top h1 {
+  margin: 0;
+  padding: 0!important;
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.coach_edit .top .picture_wrap {
+  margin-right: 30px;
+  width: 250px;
+  height: 250px;
+}
+.coach_picture .picture_wrap {
+  text-align: center;
+}
+
+.coach_edit .top .upload_picture {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.coach_edit .overview {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-flow: column;
+}
+.coach_edit .analytics {
+  flex: 1 1 100%;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.coach_edit .analytics .pageview_chart {
+  height:100%;
+  width:100%;
+  display: flex;
+  align-items: center;
+}
+
+.coach_edit .overview .todo,
+.coach_edit .overview.with_todo .analytics {
+  display: none;
+}
+.coach_edit .overview.with_todo .todo {
+  display: block;
+}
+.coach_edit .overview .todo h3 {
+  margin: 0;
+}
+.coach_edit .overview .todo li {
+  list-style: disc inside;
+}
+
+.coach_edit .top a,
+body.dark .coach_edit .top a {
+  color: #3893E8;
+}
+
+.coach_edit .material.form {
+  margin-top: 0;
+}
+.coach_edit .material.form .form-group textarea {
+  height: 12em;
+}
+
+.coach_picture form {
+  padding: 30px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.coach_picture form.delete button {
+  color: red;
+}
+.coach_picture .cancel {
+  padding: 40px;
+  border-top: 1px solid #ccc;
+}
+.coach_picture .forms > *:first-child {
+  margin-top: 40px;
+}
+
+.coach_edit .tabs {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+}
+.coach_edit .tabs > div {
+  flex: 1 1 100%;
+  padding: 10px 0;
+  text-align: center;
+  position: relative;
+}
+.coach_edit .tabs > div.data-count::after {
+  padding: 2px 6px;
+  font-size: 1.2em;
+  height: auto;
+  line-height: 1.2em;
+  top: 6px;
+}
+.coach_edit .tabs > div:hover {
+  color: #3893E8;
+}
+.coach_edit .tabs > .active {
+  color: #3893E8;
+  border-bottom: 3px solid #3893E8;
+}
+.coach_edit .panel {
+  display: none;
+}
+.coach_edit .panel.active {
+  display: block;
+}
+
+.coach_edit .status {
+  opacity: 0;
+  transition: 0.5s;
+  text-align: center;
+  color: #759900;
+}
+.coach_edit .status.saved {
+  opacity: 1;
+}
+.coach_edit .reviews .help {
+  margin: -30px 0 20px 0;
+  text-align: center;
+}
+.coach_edit .reviews .review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+  margin-top: 40px;
+}
+body.dark .coach_edit .reviews .review,
+body.dark .coach_picture form,
+body.dark .coach_picture .cancel {
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .user > * {
+  display: block;
+}
+.coach_edit .reviews .content {
+  margin: 0 20px;
+  box-sizing: border-box;
+}
+.coach_edit .reviews .actions {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.coach_edit .reviews .actions a {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  line-height: 44px;
+  font-size: 25px;
+  background: #f0f0f0;
+  border: 1px solid #d0d0d0;
+}
+body.dark .coach_edit .reviews .actions a {
+  background: #363636;
+  border-color: #3d3d3d;
+}
+.coach_edit .reviews .actions .yes {
+  color: #759900;
+  border-radius: 3px 0 0 3px;
+}
+.coach_edit .reviews .actions .no {
+  color: #dc322f;
+  border-radius: 0 3px 3px 0;
+  border-left: 0;
+}
+.coach_edit .reviews .actions  a:hover {
+  color: #fff;
+  background: #759900!important;
+}
+.coach_edit .reviews .actions  a.no:hover {
+  background: #dc322f!important;
+}
+
+#site_header a.preview {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* review score */
+.br-widget {
+  white-space: nowrap;
+  margin: 8px 0 5px 0;
+}
+.br-widget a {
+  font: 18px "lichess";
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  cursor: default;
+}
+.br-widget a:after {
+  content: 't';
+  color: #d2d2d2;
+}
+body.dark .br-widget a:after {
+  color: #555;
+}
+.br-widget a.br-selected:after {
+  color: #d59120!important;
+}
+.br-widget .br-current-rating {
+  display: none;
+}

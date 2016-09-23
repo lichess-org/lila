@@ -1,0 +1,167 @@
+@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("coach.css")
+@if(studies.nonEmpty) { @cssTag("studyList.css") }
+}
+
+@moreJs = {
+@jsAt("vendor/bar-rating/dist/jquery.barrating.min.js")
+@if(ctx.isAuth) {
+@embedJs {
+$(function() {
+$(".bar-rating").barrating();
+$('.review-form .toggle').click(function() {
+$(this).remove();
+$('.review-form form').slideDown(500);
+});
+});
+}
+}
+}
+
+@side = {
+@reviewForm(c, reviewApproval)
+@reviews(c, coachReviews)
+}
+
+@section(title: String, text: Option[lila.coach.CoachProfile.RichText]) = {
+@text.map { t =>
+<section>
+  <h1>@title</h1>
+  <div class="content">@autoLink(t.value)</div>
+</section>
+}
+}
+
+@layout(title = c.user.titleUsername,
+side = side.some,
+moreJs = moreJs,
+moreCss = moreCss) {
+<div class="content_box no_padding coach">
+  <div class="top">
+    @pic(c, 250)
+    @defining(c.user.profileOrDefault) { profile =>
+    <div class="overview">
+      <h1>
+        @c.user.title.map { t => @t }@c.user.realNameOrUsername
+      </h1>
+      @c.coach.profile.headline.map { h =>
+      <p class="headline @if(h.size < 60){small} else {@if(h.size < 120){medium}else{large}}">@h</p>
+      }
+      <table>
+        <tbody>
+          <tr>
+            <th>Location</th>
+            <td>
+              @profile.nonEmptyLocation.map { l =>
+              <span class="location">@l</span>,
+              }
+              @profile.countryInfo.map {
+              case (code, name) => {
+              <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
+              }
+              }
+            </td>
+          </tr>
+          @c.coach.profile.languages.map { l =>
+          <tr class="languages">
+            <th>Languages</th>
+            <td>@l</td>
+          </tr>
+          }
+          <tr class="rating">
+            <th>Rating</th>
+            <td>
+              @profile.officialRating.map { r =>
+              @r.name.toUpperCase: @r.rating,
+              }
+              <a href="@routes.User.show(c.user.username)">
+                @c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map { pt =>
+                @showPerfRating(c.user, pt)
+                }
+              </a>
+            </td>
+          </tr>
+          @c.coach.profile.hourlyRate.map { r =>
+          <tr class="rate">
+            <th>Hourly rate</th>
+            <td>@r</td>
+          </tr>
+          }
+          <tr class="available">
+            <th>Availability</th>
+            <td>
+              @if(c.coach.available.value) {
+              <span class="text" data-icon="E">Now accepting students</span>
+              } else {
+              <span class="text" data-icon="L">Not accepting students at the moment</span>
+              }
+            </td>
+          </tr>
+          @if(ctx.me.??(c.coach.is) || isGranted(_.PreviewCoach)) {
+          <tr class="edit">
+            <th>Admin</th>
+            <td>
+              @if(c.coach.isListed) {
+              This page is now public.
+              } else {
+              This page is not public yet.
+              }
+              @if(ctx.me.??(c.coach.is)) {
+              <a href="@routes.Coach.edit" class="text" data-icon="m">Edit my coach profile</a>
+              }
+            </td>
+          </tr>
+          } else {
+          <tr class="contact">
+            <th>Contact</th>
+            <td>
+              <a class="text" data-icon="c" href="@routes.Message.form?user=@c.user.username">Send a private message</a>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+  @defining(c.coach.profile) { profile =>
+  <div class="sections">
+    @section("About me", profile.description)
+    @section("Playing experience", profile.playingExperience)
+    @section("Teaching experience", profile.teachingExperience)
+    @section("Other experiences", profile.otherExperience)
+    @section("Best skills", profile.skills)
+    @section("Teaching methodology", profile.methodology)
+  </div>
+  @if(studies.nonEmpty) {
+  <section class="studies">
+    <h1>Public studies</h1>
+    <div class="list">
+      @studies.map { s =>
+      <div class="study">
+        @study.widget(s)
+      </div>
+      }
+    </div>
+  </section>
+  }
+  @if(profile.youtubeUrls.nonEmpty) {
+  <section class="youtube">
+    <h1>
+      Youtube videos
+      @profile.youtubeChannel.map { url =>
+      from my <a href="@url" target="_blank" rel="nofollow">channel</a>
+      }
+    </h1>
+    <div class="list">
+      @profile.youtubeUrls.map { url =>
+      <iframe width="256" height="192" src="@url.value" frameborder="0" allowfullscreen></iframe>
+      }
+    </div>
+  </section>
+  }
+  }
+</div>
+}

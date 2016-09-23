@@ -15,6 +15,7 @@ moreJs = moreJs) {
     <h1>@trans.createANewTournament()</h1>
 
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
+      <input type="hidden" name="@form("system").id" value="1" />
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }
@@ -23,10 +24,13 @@ moreJs = moreJs) {
           <th><label for="isprivate">@trans.isPrivate()</label></th>
           <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
         </tr>
-        <input type="hidden" name="@form("system").id" value="1" />
+        <tr class="password">
+          <th><label for="@form("password").id">@trans.password()</label></th>
+          <td>@base.form.input(form("password"))</td>
+        </tr>
         <tr class="variant">
           <th><label for="@form("variant").id">@trans.variant()</label></th>
-          <td>@base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
+          <td>@base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
         </tr>
         <tr class="position">
           <th><label for="@form("position").id">@trans.startPosition()</label></th>
@@ -51,7 +55,7 @@ moreJs = moreJs) {
           <th><label for="@form("mode").id">@trans.mode()</label></th>
           <td>
             @globalCasualOnlyMessage.getOrElse {
-            @base.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
+            @base.form.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
             }
           </td>
         </tr>
@@ -65,7 +69,7 @@ moreJs = moreJs) {
         </tr>
         <tr>
           <th><label for="@form("waitMinutes").id">@trans.timeBeforeTournamentStarts()</label></th>
-          <td>@base.select(form("waitMinutes"), waitMinuteChoices)</td>
+          <td>@base.form.select(form("waitMinutes"), waitMinuteChoices)</td>
         </tr>
         <tr>
           <th></th>
@@ -80,20 +84,20 @@ moreJs = moreJs) {
       </table>
     </form>
     <div class="none private_time">
-      @base.select(form("clockTime"), clockTimePrivateChoices)
+      @base.form.select(form("clockTime"), clockTimePrivateChoices)
       +
-      @base.select(form("clockIncrement"), clockIncrementPrivateChoices)
+      @base.form.select(form("clockIncrement"), clockIncrementPrivateChoices)
     </div>
     <div class="none public_time">
-      @base.select(form("clockTime"), clockTimeChoices)
+      @base.form.select(form("clockTime"), clockTimeChoices)
       +
-      @base.select(form("clockIncrement"), clockIncrementChoices)
+      @base.form.select(form("clockIncrement"), clockIncrementChoices)
     </div>
     <div class="none private_minutes">
-      @base.select(form("minutes"), minutePrivateChoices)
+      @base.form.select(form("minutes"), minutePrivateChoices)
     </div>
     <div class="none public_minutes">
-      @base.select(form("minutes"), minuteChoices)
+      @base.form.select(form("minutes"), minuteChoices)
     </div>
   </div>
   <div class="content_box small_box faq_box tournament_box">

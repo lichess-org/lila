@@ -1,11 +1,11 @@
 playWithAFriend=Сыграть с другом
-playWithTheMachine=Партия с компьютером
-toInviteSomeoneToPlayGiveThisUrl=Чтобы сыграть с другом, отправьте ему эту ссылку
+playWithTheMachine=Сыграть с компьютером
+toInviteSomeoneToPlayGiveThisUrl=Чтобы пригласить друга, передайте ему эту ссылку
 gameOver=Игра окончена
 waitingForOpponent=Ожидание противника
 waiting=Ожидание
 yourTurn=Ваш ход
-aiNameLevelAiLevel=%s уровень %s
+aiNameLevelAiLevel=%s уровня %s
 level=Уровень
 toggleTheChat=Показывать окно чата
 toggleSound=Вкл/выкл звук

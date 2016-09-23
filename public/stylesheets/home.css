@@ -40,13 +40,16 @@ div.lobby_and_ground {
   line-height: 3;
   margin-top: 1em;
 }
+.current_game #hooks_wrap {
+  visibility: hidden;
+}
 /********** HOOKS **********/
 
 #hooks_wrap {
+  position: relative;
   width: 510px;
   min-width: 510px;
   min-height: 510px;
-  overflow: hidden;
   border: 1px solid #ccc;
   background: #f0f0f0 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMy41MjkgMzMuNTA0Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNS4yNS02LjI0NikiIG9wYWNpdHk9Ii4xIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiPjxnIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Im0yMiAxMGMxMC41IDEgMTYuNSA4IDE2IDI5aC0yM2MwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBkPSJtMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00IDEtNC00IDAtMiA2LTEyIDYtMTIgMCAwIDEuODktMS45IDItMy41LS43My0uOTk0LS41LTItLjUtMyAxLTEgMyAyLjUgMyAyLjVoMmMwIDAgLjc4LTEuOTkyIDIuNS0zIDEgMCAxIDMgMSAzIi8+PC9nPjxnIGZpbGw9IiMwMDAiPjxwYXRoIGQ9Im05LjUgMjUuNWEuNSAuNSAwIDEgMSAtMSAwIC41IC41IDAgMSAxIDEgMHoiLz48cGF0aCBkPSJtMTUgMTUuNWEuNSAxLjUgMCAxIDEgLTEgMCAuNSAxLjUgMCAxIDEgMSAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjg2Ni41LS41Ljg2NiA5LjY5My01LjE3MykiLz48L2c+PC9nPjwvc3ZnPg==');
   background-size: 100% 100%;
@@ -63,15 +66,16 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .tabs {
   position: absolute;
-  top: -22px;
+  top: -23px;
   left: 0;
-  height: 20px;
-  line-height: 20px;
+  height: 23px;
+  line-height: 22px;
   width: 512px;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 #hooks_wrap .tabs a {
-  display: inline-block;
   padding: 0 8px;
   margin-right: 3px;
   border: 1px solid #ccc;
@@ -80,13 +84,13 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .tabs a:hover {
   background: #f0f0f0;
-  border-top: 2px solid #808080;
 }
 #hooks_wrap .tabs a.active {
   background: #f0f0f0;
   font-weight: bold;
   border-bottom-color: #f0f0f0;
   border-top: 2px solid #d85000;
+  margin-top: -1px;
 }
 #hooks_wrap .tabs .unread {
   margin-left: 5px;
@@ -300,6 +304,10 @@ body.dark #hooks_wrap .hook_filter {
   opacity: 0.9;
   color: #d59120!important;
 }
+#hooks_wrap .hooks_chart .plot.cancel {
+  opacity: 0.9;
+  color: #0b9c1e!important;
+}
 #hooks_wrap .hooks_chart .plot.new {
   transform: translateY(-7px);
   opacity: 0;
@@ -375,7 +383,7 @@ body.dark #hooks_wrap .hook_filter {
   flex-flow: column nowrap;
 }
 #featured_game {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 div.undertable {
   width: 512px;
@@ -387,32 +395,46 @@ div.blog.undertable div.undertable_inner {
 div.blog.undertable div.undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable div.post {
+div.blog.undertable .post {
   overflow: hidden;
 }
-div.blog.undertable div.post .text {
+div.blog.undertable .text {
   margin-top: 5px;
 }
-div.blog.undertable div.post a.image {
+div.blog.undertable .image {
   display: block;
   float: left;
   margin-right: 10px;
 }
-div.blog.undertable div.post a.image img {
+div.blog.undertable .image img {
   height: 48px;
   width: 48px;
   margin: 3px;
 }
-div.blog.undertable div.post .title {
+div.blog.undertable .title {
   font-weight: bold;
-  line-height: 2;
 }
-div.blog.undertable div.post time {
+div.blog.undertable time {
   margin-top: 10px;
   float: right;
   font-weight: 100;
   line-height: 2;
   opacity: 0.6;
+}
+.leaderboards {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.leaderboards .leaderboard {
+  flex: 0 0 48.5%;
+  max-width: 48.5%;
+}
+.leaderboards .leaderboard td:first-child {
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #lichess .enterable_list {
   height: auto;
@@ -424,16 +446,8 @@ div.blog.undertable div.post time {
 #lichess .enterable_list td:first-child {
   padding-left: 1em;
 }
-#enterable_tournaments tr.create td {
-  text-align: center;
-}
-#lichess .enterable_list .button {
-  padding: 4px 8px;
-  opacity: 0;
-  transition: 0.13s;
-}
-#lichess .enterable_list tr:hover .button {
-  opacity: 1;
+#enterable_tournaments td:last-child {
+  padding-right: 10px;
 }
 #lichess .enterable_list td.name span {
   font-size: 17px;
@@ -460,9 +474,6 @@ div.new_posts li {
   padding-left: 9px;
   line-height: 14px;
   white-space: nowrap;
-}
-div.new_posts a {
-  margin-right: 6px;
 }
 div.new_posts li span.extract {
   font-family: 'Roboto';
@@ -497,7 +508,7 @@ div.new_posts li span.extract {
 #daily_puzzle {
   width: 224px;
   position: absolute;
-  top: 531px;
+  top: 527px;
   left: 527px;
 }
 #daily_puzzle > div.vstext {
@@ -691,15 +702,21 @@ div.game_config .color_submits button.random i {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  margin: 10px 0 5px -30px;
-  color: #fff!important;
-  background: #4166a0;
+  margin: 5px 0 5px -30px;
   padding: 5px;
   border-radius: 2px;
   opacity: 0.8;
   transition: 0.13s;
   white-space: nowrap;
   overflow: hidden;
+  background: #ddd;
+  text-shadow: 0 1px 1px #fff;
+}
+.tour_spotlight.invert,
+.tour_spotlight:hover {
+  color: #fff!important;
+  background: #3893E8;
+  text-shadow: none;
 }
 .tour_spotlight:hover {
   opacity: 1;
@@ -710,11 +727,10 @@ div.game_config .color_submits button.random i {
   margin: 2px 6px 0 0;
 }
 .tour_spotlight .img {
-  flex: 0 0 50px;
-  display: block;
-  width: 50px;
-  height: 50px;
+  flex: 0 0 40px;
   margin: 0 10px 0 5px;
+}
+.tour_spotlight img.img {
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
@@ -723,7 +739,9 @@ div.game_config .color_submits button.random i {
   margin: 0 5px 0 0;
 }
 .tour_spotlight i.img::before {
-  font-size: 50px;
+  color: #fff;
+  font-size: 40px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 .tour_spotlight .content {
   display: block;
@@ -732,17 +750,51 @@ div.game_config .color_submits button.random i {
   display: block;
 }
 .tour_spotlight span.name {
-  font-size: 15px;
+  font-size: 14px;
 }
 .tour_spotlight span.headline {
   display: block;
   font-size: 10px;
+  margin-bottom: -3px;
 }
 .tour_spotlight span.more {
   font-size: 10px;
 }
 .tour_spotlight span.more time {
   margin-left: 3px;
+}
+.tour_spotlight.little .img {
+  flex: 0 0 28px;
+  height: 28px;
+  margin: 0 7px 0 3px;
+}
+.tour_spotlight.little i.img::before {
+  font-size: 28px;
+}
+.tour_spotlight.little {
+  margin: 5px 0 2.5px -30px;
+  padding: 5px;
+}
+.tour_spotlight span.name {
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 13px;
+  display: block;
+}
+body.dark .tour_spotlight.little {
+  background: #444;
+  color: #ccc;
+  text-shadow: 0 0 2px rgba(0,0,0,0.6);
+}
+body.dark .tour_spotlight.invert,
+body.dark .tour_spotlight:hover {
+  background: #4166a0;
+}
+body.dark .tour_spotlight .img {
+  opacity: 0.5;
+}
+body.dark .tour_spotlight:hover .img {
+  opacity: 1;
 }
 #site_header a.store {
   display: block;
@@ -802,6 +854,7 @@ div.game_config .color_submits button.random i {
   font-size: 1.3em;
   line-height: 1.2em;
   border: 1px solid #ccc;
+  box-sizing: border-box;
   background: #fff;
 }
 .donation a {

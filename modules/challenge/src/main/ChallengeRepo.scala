@@ -26,18 +26,15 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   def createdByChallengerId(userId: String): Fu[List[Challenge]] =
     coll.find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]().gather[List]()
+      .list[Challenge]()
 
   def createdByDestId(userId: String): Fu[List[Challenge]] =
     coll.find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]().gather[List]()
+      .list[Challenge]()
 
-  def removeByUserId(userId: String): Funit =
-    coll.remove($or(
-      $doc("challenger.id" -> userId),
-      $doc("destUser.id" -> userId)
-    )).void
+  private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
+    createdByChallengerId(userId) |+| createdByDestId(userId)
 
   def like(c: Challenge) = ~(for {
     challengerId <- c.challengerUserId
@@ -55,11 +52,8 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       "seenAt" -> $doc("$lt" -> date)
     )).cursor[Challenge]().gather[List](max)
 
-  private[challenge] def expiredIds(max: Int): Fu[List[Challenge.ID]] =
-    coll.distinct[String, List](
-      "_id",
-      $doc("expiresAt" -> $doc("$lt" -> DateTime.now)).some
-    )
+  private[challenge] def expired(max: Int): Fu[List[Challenge]] =
+    coll.find($doc("expiresAt" -> $lt(DateTime.now))).list[Challenge](max)
 
   def setSeenAgain(id: Challenge.ID) = coll.update(
     $id(id),

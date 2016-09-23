@@ -1,4 +1,4 @@
-@(form: Form[_], paginator: Option[Paginator[Game]] = None)(implicit ctx: Context)
+@(form: Form[_], paginator: Option[Paginator[Game]] = None, nbGames: Int)(implicit ctx: Context)
 
 @import lila.gameSearch.{ Query, Sorting }
 
@@ -15,33 +15,38 @@ title = trans.advancedSearch.str(),
 moreJs = moreJs,
 moreCss = moreCss,
 openGraph = lila.app.ui.OpenGraph(
-title = "Chess games advanced search",
+title = s"Search in ${nbGames.localize} chess games",
 url = s"$netBaseUrl${routes.Search.index().url}",
-description = "Search the entire lichess database using multiple criterions").some) {
+description = s"Search in ${nbGames.localize} chess games using advanced criterions").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
-  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get">
+  <form rel="nofollow" class="search" action="@routes.Search.index()" method="get"
+    data-req-winner="@form("players")("winner").value"
+    data-req-white="@form("players")("white").value"
+    data-req-black="@form("players")("black").value">
     <table>
       <tr>
         <th>
           <label>@trans.players() <span class="help" title="The name(s) of the player(s) you wish to search">(?)</span></label>
         </th>
         <td class="usernames">
-          <div class="half">@base.input(form("players")("a"))</div>
-          <div class="half">@base.input(form("players")("b"))</div>
+          <div class="half">@base.form.input(form("players")("a"))</div>
+          <div class="half">@base.form.input(form("players")("b"))</div>
         </td>
       </tr>
       @chess.Color.all.map { color =>
+      @defining(form("players")(color.name)) { field =>
       <tr class="@{color.name}User user_row none">
         <th>
-          <label for="@form("players")(color.name).id">@color.fold(trans.white, trans.black)()</label>
+          <label for="@field.id">@color.fold(trans.white, trans.black)()</label>
         </th>
         <td class="single">
-          <select id="@form("players")(color.name).id" name="@form("players")(color.name).name">
+          <select id="@field.id" name="@field.name">
             <option class="blank" value=""></option>
           </select>
         </td>
       </tr>
+      }
       }
       <tr class="winner user_row none">
         <th>
@@ -58,8 +63,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>@trans.rating() <span class="help" title="The average rating of both players">(?)</span></label>
         </th>
         <td>
-          <div class="half">From @base.select(form("ratingMin"), Query.averageRatings, "".some)</div>
-          <div class="half">To @base.select(form("ratingMax"), Query.averageRatings, "".some)</div>
+          <div class="half">From @base.form.select(form("ratingMin"), Query.averageRatings, "".some)</div>
+          <div class="half">To @base.form.select(form("ratingMax"), Query.averageRatings, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -67,16 +72,16 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("hasAi").id">@trans.opponent() <span class="help" title="Whether the player's opponent was a human or a computer">(?)</span></label>
         </th>
         <td class="single opponent">
-          @base.select(form("hasAi"), Query.hasAis, "".some)
+          @base.form.select(form("hasAi"), Query.hasAis, "".some)
         </td>
       </tr>
       <tr class="aiLevel none">
         <th>
-          <label for="@form("aiLevel").id">Stockfish level</label>
+          <label for="@form("aiLevel").id">A.I. level</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
-          <div class="half">To @base.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
+          <div class="half">From @base.form.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
+          <div class="half">To @base.form.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -84,7 +89,7 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("source").id">Source</label>
         </th>
         <td class="single">
-          @base.select(form("source"), Query.sources, "".some)
+          @base.form.select(form("source"), Query.sources, "".some)
         </td>
       </tr>
       <tr>
@@ -92,7 +97,7 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("perf").id">@trans.variant()</label>
         </th>
         <td class="single">
-          @base.select(form("perf"), Query.perfs, "".some)
+          @base.form.select(form("perf"), Query.perfs, "".some)
         </td>
       </tr>
       <tr>
@@ -100,7 +105,7 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("mode").id">@trans.mode()</label>
         </th>
         <td class="single">
-          @base.select(form("mode"), Query.modes, "".some)
+          @base.form.select(form("mode"), Query.modes, "".some)
         </td>
       </tr>
       <tr>
@@ -108,8 +113,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>Number of turns</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("turnsMin"), Query.turns, "".some)</div>
-          <div class="half">To @base.select(form("turnsMax"), Query.turns, "".some)</div>
+          <div class="half">From @base.form.select(form("turnsMin"), Query.turns, "".some)</div>
+          <div class="half">To @base.form.select(form("turnsMax"), Query.turns, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -117,8 +122,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>@trans.duration()</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("durationMin"), Query.durations, "".some)</div>
-          <div class="half">To @base.select(form("durationMax"), Query.durations, "".some)</div>
+          <div class="half">From @base.form.select(form("durationMin"), Query.durations, "".some)</div>
+          <div class="half">To @base.form.select(form("durationMax"), Query.durations, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -126,8 +131,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>Clock initial time</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
-          <div class="half">To @base.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
+          <div class="half">From @base.form.select(form("clock")("initMin"), Query.clockInits, "".some)</div>
+          <div class="half">To @base.form.select(form("clock")("initMax"), Query.clockInits, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -135,8 +140,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>Clock increment</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
-          <div class="half">To @base.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
+          <div class="half">From @base.form.select(form("clock")("incMin"), Query.clockIncs, "".some)</div>
+          <div class="half">To @base.form.select(form("clock")("incMax"), Query.clockIncs, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -144,7 +149,7 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("status").id">Result</label>
         </th>
         <td class="single">
-          @base.select(form("status"), Query.statuses, "".some)
+          @base.form.select(form("status"), Query.statuses, "".some)
         </td>
       </tr>
       <tr>
@@ -152,7 +157,7 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="@form("winnerColor").id">Winner color</label>
         </th>
         <td class="single">
-          @base.select(form("winnerColor"), Query.winnerColors, "".some)
+          @base.form.select(form("winnerColor"), Query.winnerColors, "".some)
         </td>
       </tr>
       <tr>
@@ -160,8 +165,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>Date</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("dateMin"), Query.dates, "".some)</div>
-          <div class="half">To @base.select(form("dateMax"), Query.dates, "".some)</div>
+          <div class="half">From @base.form.select(form("dateMin"), Query.dates, "".some)</div>
+          <div class="half">To @base.form.select(form("dateMax"), Query.dates, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -169,8 +174,8 @@ description = "Search the entire lichess database using multiple criterions").so
           <label>Sort</label>
         </th>
         <td>
-          <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
-          <div class="half">@base.select(form("sort")("order"), Sorting.orders)</div>
+          <div class="half">By @base.form.select(form("sort")("field"), Sorting.fields)</div>
+          <div class="half">@base.form.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
       <tr>
@@ -178,7 +183,17 @@ description = "Search the entire lichess database using multiple criterions").so
           <label for="analysed">Analysis <span class="help" title="Whether computer analysis is available or not">(?)</span></label>
         </th>
         <td class="single">
-          @{ base.checkbox(form("analysed"), "", 1) }
+          @base.form.checkbox(form("analysed"), "", 1)
+        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="simple action">
+          <button type="submit" class="submit button">@trans.search()</button>
+          <div class="wait">
+            @base.spinner()
+            Searching in @nbGames.localize games
+          </div>
         </td>
       </tr>
     </table>
@@ -189,11 +204,10 @@ description = "Search the entire lichess database using multiple criterions").so
     <div class="search_status">
       <strong>@pager.nbResults.localize games found</strong> •
       <a class="permalink" href="@routes.Search.index()">Permalink</a> •
-      <a class="permalink" rel="nofollow" href="@routes.Search.export()">Download PGN</a>
     </div>
     <div class="search_infinitescroll">
       @pager.nextPage.map { n =>
-      <div class="pager none"><a href="@routes.Search.index(n)">Next</a></div>
+      <div class="pager none"><a rel="next" href="@routes.Search.index(n)">Next</a></div>
       }.getOrElse {
       <div class="none"></div>
       }
@@ -205,8 +219,6 @@ description = "Search the entire lichess database using multiple criterions").so
       <a class="permalink" href="@routes.Search.index()">Permalink</a>
     </div>
     }
-    }.getOrElse {
-    <div class="search_status">Search ready</div>
     }
   </div>
 </div>

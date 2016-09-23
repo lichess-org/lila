@@ -1,3 +1,6 @@
+.material.form {
+  margin: 30px 20px 20px 20px;
+}
 .material.form * {
   box-sizing: border-box;
 }
@@ -23,7 +26,10 @@
 .material.form .form-radio,
 .material.form .form-group {
   position: relative;
-  margin-bottom: 3.25rem;
+  margin-bottom: 3.5rem;
+}
+.material.form .form-group.margin-bottom {
+  margin-bottom: 4.5rem;
 }
 
 .material.form .form-group.half {
@@ -37,6 +43,16 @@
 .material.form .form-group.half:nth-child(odd) {
   margin-right: 5%;
 }
+
+.material.form .form-group.third {
+  display: inline-block;
+  width: 30%;
+  margin-right: 4%;
+}
+.material.form .form-group.third:nth-child(3) {
+  margin-right: 0;
+}
+
 .material.form .form-inline > .form-group,
 .material.form .form-inline > .btn {
   display: inline-block;
@@ -46,7 +62,7 @@
 .material.form .form-help {
   margin-top: 0.125rem;
   margin-left: 0.125rem;
-  opacity: 0.6;
+  opacity: 0.4;
   font-size: 0.8rem;
 }
 .material.form .checkbox .form-help, .form-radio .form-help, .form-group .form-help {
@@ -92,6 +108,9 @@
   font-weight: normal;
   transition: all 0.28s ease;
 }
+.material.form .form-group .control-label em {
+  transition: all 0.28s ease;
+}
 .material.form .form-group.no-label {
   margin-top: -1.5em;
 }
@@ -124,6 +143,9 @@
   transition: all 0.28s ease;
   box-shadow: none;
 }
+.material.form .form-group textarea {
+  line-height: 1.7;
+}
 .material.form .form-group input[type="file"] {
   line-height: 1;
 }
@@ -135,6 +157,9 @@
 }
 body.dark .material.form .form-group * {
   color: #bbb;
+}
+.material.form .form-group a {
+  color: #3893E8;
 }
 body.dark .material.form .form-group select option {
   color: #333;
@@ -157,8 +182,9 @@ body.dark .material.form .form-group select option {
   outline: none;
 }
 .material.form .form-group *:focus ~ .control-label,
-.material.form .form-group *:focus ~ .control-label strong {
+.material.form .form-group *:focus ~ .form-help {
   color: #3893E8;
+  opacity: 0.6;
 }
 .material.form .form-group *:focus ~ .bar::before {
   width: 100%;

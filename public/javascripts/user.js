@@ -48,7 +48,7 @@ $(function() {
         $zone.find('form.fide_title select').on('change', function() {
           $(this).parent('form').submit();
         });
-        $('body').trigger('lichess.content_loaded');
+        lichess.pubsub.emit('content_loaded')();
         var relatedUsers = +$zone.find('.reportCard thead th:last').text();
         if (relatedUsers > 100) {
           var others = $zone.find('.others').hide()

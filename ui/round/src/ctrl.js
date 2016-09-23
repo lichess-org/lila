@@ -20,6 +20,7 @@ var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
+var keyboardMove = require('./keyboardMove');
 
 module.exports = function(opts) {
 
@@ -50,14 +51,14 @@ module.exports = function(opts) {
   setTimeout(function() {
     this.vm.firstSeconds = false;
     m.redraw();
-  }.bind(this), 2000);
+  }.bind(this), 3000);
 
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
     if (hold.applies(this.data)) {
-      hold.register(this.socket, meta, this.vm.ply);
-      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
+      hold.register(this, meta);
+      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this);
     }
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
@@ -303,6 +304,7 @@ module.exports = function(opts) {
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
+    this.vm.justDropped = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
@@ -376,13 +378,11 @@ module.exports = function(opts) {
   }.bind(this);
 
   if (this.clock) {
-    var scheduleClockTick = function() {
-      setTimeout(function() {
-        clockTick();
-        if (game.playable(this.data)) scheduleClockTick();
-      }.bind(this), 100);
+    var tickNow = function() {
+      clockTick();
+      if (game.playable(this.data)) setTimeout(tickNow, 100);
     }.bind(this);
-    scheduleClockTick();
+    setTimeout(tickNow, 100);
   } else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
@@ -486,12 +486,14 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
+  this.keyboardMove = this.data.pref.keyboardMove ? keyboardMove.ctrl(this) : null;
+
   init.yolo(this);
 
   onChange();
 
   this.music = null;
-  $('body').on('lichess.sound_set', function(e, set) {
+  lichess.pubsub.on('sound_set', function(set) {
     if (!this.music && set === 'music')
       lichess.loadScript('/assets/javascripts/music/play.js').then(function() {
         this.music = lichessPlayMusic();

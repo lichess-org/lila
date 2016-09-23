@@ -140,7 +140,8 @@ final class Env(
     notifier = notifier,
     playban = playban,
     bus = system.lilaBus,
-    casualOnly = CasualOnly)
+    casualOnly = CasualOnly,
+    getSocketStatus = getSocketStatus)
 
   private lazy val rematcher = new Rematcher(
     messenger = messenger,

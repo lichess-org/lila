@@ -45,9 +45,9 @@ private final class ExplorerIndexer(
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
       import reactivemongo.api._
-      gameColl.find($empty)
+      gameColl.find(query)
         .sort(Query.sortChronological)
-        .cursor[Game](ReadPreference.secondaryPreferred)
+        .cursor[Game](ReadPreference.secondary)
         .enumerate(maxGames, stopOnError = true) &>
         Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
           makeFastPgn(game) map {
@@ -109,7 +109,7 @@ private final class ExplorerIndexer(
       game.rated &&
       game.turns >= 10 &&
       game.variant != chess.variant.FromPosition &&
-      (game.variant != chess.variant.Horde || game.createdAt.isAfter(Query.hordeWhitePawnsSince))
+      !Game.isOldHorde(game)
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
 
@@ -124,10 +124,11 @@ private final class ExplorerIndexer(
       case Blitz if rating >= 2000     => 1
       case Blitz if rating >= 1800     => 1 / 4f
       case Blitz                       => 1 / 8f
-      case Bullet if rating >= 2200    => 1
-      case Bullet if rating >= 2000    => 1 / 3f
-      case Bullet if rating >= 1800    => 1 / 5f
-      case Bullet                      => 1 / 7f
+      case Bullet if rating >= 2300    => 1
+      case Bullet if rating >= 2200    => 4 / 5f
+      case Bullet if rating >= 2000    => 1 / 4f
+      case Bullet if rating >= 1800    => 1 / 7f
+      case Bullet                      => 1 / 9f
       case _ if rating >= 1600         => 1 // variant games
       case _                           => 1 / 2f // noob variant games
     }

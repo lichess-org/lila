@@ -39,6 +39,12 @@ function buttons(root) {
         'data-hint': 'Download as PGN',
         href: '/study/' + ctrl.data.id + '.pgn'
       }, m('i[data-icon=x]')),
+      m('a.button.hint--top', {
+        'data-hint': 'Clone this study',
+        href: '/study/' + ctrl.data.id + '/clone'
+      }, m('i', {
+        'data-icon': '{'
+      })),
       canContribute ? [
         (function(enabled) {
           return m('a.button.comment.hint--top', {
@@ -47,19 +53,22 @@ function buttons(root) {
               disabled: !enabled
             }),
             'data-hint': 'Comment this position',
-            onclick: enabled ? function() {
-              ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node)
-            } : null
+            config: util.bindOnce('click', function() {
+              if (ctrl.vm.behind === false) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
+            })
           }, m('i[data-icon=c]'));
         })(ctrl.vm.behind === false), (function(enabled) {
           return m('a.button.glyph.hint--top', {
-            class: classSet({
-              active: ctrl.glyphForm.isOpen(),
-              disabled: !enabled
-            }),
-            'data-hint': 'Annotate with symbols',
-            onclick: enabled ? ctrl.glyphForm.toggle : null
-          }, m('i.glyph-icon'));
+              class: classSet({
+                active: ctrl.glyphForm.isOpen(),
+                disabled: !enabled
+              }),
+              'data-hint': 'Annotate with symbols',
+              config: util.bindOnce('click', function() {
+                if (root.vm.path && ctrl.vm.behind === false) ctrl.glyphForm.toggle();
+              })
+            },
+            m('i.glyph-icon'));
         })(root.vm.path && ctrl.vm.behind === false)
       ] : null
     ]),
@@ -144,7 +153,7 @@ module.exports = {
     var makeTab = function(key, name) {
       return m('a', {
         class: key + (activeTab === key ? ' active' : ''),
-        onmousedown: partial(ctrl.vm.tab, key),
+        config: util.bindOnce('mousedown', partial(ctrl.vm.tab, key)),
       }, name);
     };
 
@@ -152,9 +161,9 @@ module.exports = {
       makeTab('members', util.plural('Member', ctrl.members.size())),
       makeTab('chapters', util.plural('Chapter', ctrl.chapters.size())),
       ctrl.members.isOwner() ? m('a.more', {
-        onclick: function() {
+        config: util.bindOnce('click', function() {
           ctrl.form.open(!ctrl.form.open());
-        }
+        })
       }, m('i', {
         'data-icon': '['
       })) : null

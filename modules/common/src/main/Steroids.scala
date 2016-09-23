@@ -36,6 +36,7 @@ trait Steroids
   with scalaz.syntax.ToShowOps
 
   with BooleanSteroids
+  with IntSteroids
   with OptionSteroids
   with ListSteroids
 
@@ -83,6 +84,16 @@ trait BooleanSteroids {
     def ?[X](t: => X) = new { def |(f: => X) = if (self) t else f }
 
     def option[A](a: => A): Option[A] = if (self) Some(a) else None
+  }
+}
+
+trait IntSteroids {
+
+  implicit final class LilaPimpedInt(self: Int) {
+
+    def atLeast(bottomValue: Int): Int = self max bottomValue
+
+    def atMost(topValue: Int): Int = self min topValue
   }
 }
 

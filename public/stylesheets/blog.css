@@ -61,6 +61,12 @@
 #lichess_blog .body .block-img {
   text-align: center;
 }
+#lichess_blog .body .block-img + p > em:first-child {
+  margin-top: -20px;
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+}
 #lichess_blog ol li {
   list-style: decimal inside;
 }

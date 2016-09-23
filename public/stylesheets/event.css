@@ -1,0 +1,34 @@
+#events .datatable td {
+  padding: 2em!important;
+}
+#events .datatable a {
+  color: #3893E8;
+}
+#events .datatable h2 {
+  font-size: 1.5em;
+}
+#events .datatable strong {
+  font-weight: normal;
+}
+#events .datatable .date {
+  display: block;
+}
+
+#event h2 {
+  font-size: 1.3em;
+  margin-top: 4em;
+  text-align: center;
+}
+#event .when {
+  margin-top: 2em;
+  text-align: center;
+}
+#event .when .button {
+  display:inline-block;
+  color: #3893E8;
+  padding: 20px 30px;
+  font-size: 1.3em;
+}
+#event .desc {
+  margin-top: 4em;
+}

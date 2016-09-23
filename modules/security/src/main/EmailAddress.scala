@@ -36,11 +36,18 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
 
   def isValid(email: String) = validate(email).isDefined
 
-  private def isTakenBy(email: String, forUser: Option[User]): Option[String] = validate(email) ?? { e =>
+  /**
+    * Returns true if an E-mail address is taken by another user.
+    * @param email The E-mail address to be checked
+    * @param forUser Optionally, the user the E-mail address field is to be assigned to.
+    *                If they already have it assigned, returns false.
+    * @return
+    */
+  private def isTakenBySomeoneElse(email: String, forUser: Option[User]): Boolean = validate(email) ?? { e =>
     (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
-      case (None, _)                  => none
-      case (Some(userId), Some(user)) => userId != user.id option userId
-      case (someUserId, _)            => someUserId
+      case (None, _)                  => false
+      case (Some(userId), Some(user)) => userId != user.id
+      case (_, _)            => true
     }
   }
 
@@ -50,10 +57,9 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    isTakenBy(e, forUser) match {
-      case Some(userId) => Invalid(ValidationError(s"Email already in use by $userId"))
-      case None         => Valid
-    }
+    if (isTakenBySomeoneElse(e, forUser))
+      Invalid(ValidationError(s"Email address is already in use by another account"))
+    else Valid
   }
 
   private val gmailDomains = Set("gmail.com", "googlemail.com")

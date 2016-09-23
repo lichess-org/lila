@@ -16,12 +16,12 @@ import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
-import lila.round.actorApi.round.{ GoBerserk, TournamentStanding }
+import lila.round.actorApi.round.{ GoBerserk, TournamentStanding, AbortForce }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
-private[tournament] final class TournamentApi(
+final class TournamentApi(
     cached: Cached,
     scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
@@ -47,12 +47,13 @@ private[tournament] final class TournamentApi(
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
       mode = setup.mode.fold(Mode.default)(Mode.orDefault),
-      `private` = setup.`private`.isDefined,
+      `private` = setup.isPrivate,
+      password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
   }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
@@ -69,6 +70,7 @@ private[tournament] final class TournamentApi(
           case Nil => funit
           case pairings if nowMillis - startAt > 1200 =>
             pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
+            lila.mon.tournament.pairing.giveup()
             funit
           case pairings => pairings.map { pairing =>
             PairingRepo.insert(pairing) >>
@@ -171,27 +173,29 @@ private[tournament] final class TournamentApi(
     case Some(user) => verify(tour.conditions, user)
   }
 
-  def join(tourId: String, me: User) {
+  def join(tourId: String, me: User, p: Option[String]) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      verdicts(tour, me.some) flatMap {
-        _.accepted ?? {
-          PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-            withdrawAllNonMarathonOrUniqueBut(tour.id, me.id)
-            socketReload(tour.id)
-            publish()
-            if (!tour.`private`) timeline ! {
-              Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
+      if (tour.password == p) {
+        verdicts(tour, me.some) flatMap {
+          _.accepted ?? {
+            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+              withdrawOtherTournaments(tour.id, me.id)
+              socketReload(tour.id)
+              publish()
+              if (!tour.`private`) timeline ! {
+                Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id
+              }
             }
           }
         }
-      }
+      } else fuccess(socketReload(tour.id))
     }
   }
 
   private def updateNbPlayers(tourId: String) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawAllNonMarathonOrUniqueBut(tourId: String, userId: String) {
+  private def withdrawOtherTournaments(tourId: String, userId: String) {
     TournamentRepo toursToWithdrawWhenEntering tourId foreach {
       _ foreach { other =>
         PlayerRepo.exists(other.id, userId) foreach {
@@ -282,7 +286,11 @@ private[tournament] final class TournamentApi(
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >> {
         if (tour.isStarted)
-          PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
+          PairingRepo.findPlaying(tour.id, userId).map {
+            _ foreach { currentPairing =>
+              roundMap ! Tell(currentPairing.gameId, AbortForce)
+            }
+          } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour))
           }

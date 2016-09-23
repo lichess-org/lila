@@ -8,9 +8,8 @@ import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Player(
     moveDb: MoveDB,
-    uciMemo: UciMemo) {
-
-  val maxPlies = 300
+    uciMemo: UciMemo,
+    val maxPlies: Int) {
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     makeWork(game, level) addEffect moveDb.add void

@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.pattern.pipe
 import org.joda.time.DateTime
+import org.joda.time.DateTimeConstants._
 import scala.concurrent.duration._
 
 import actorApi._
@@ -41,39 +42,126 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val tomorrow = rightNow plusDays 1
+      val startOfYear = today.dayOfYear.withMinimumValue
+
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val firstDayOfMonth = today.dayOfMonth.withMinimumValue
-      val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
-      val firstSundayOfCurrentMonth = firstDayOfMonth.plusDays(7 - firstDayOfMonth.getDayOfWeek)
-      val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
+
+      val lastWeekOfMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek - 1) % 7)
+
+      def nextDayOfWeek(number: Int) = today.plusDays((number + 7 - today.getDayOfWeek) % 7)
+      val nextMonday = nextDayOfWeek(1)
+      val nextTuesday = nextDayOfWeek(2)
+      val nextWednesday = nextDayOfWeek(3)
+      val nextThursday = nextDayOfWeek(4)
+      val nextFriday = nextDayOfWeek(5)
+      val nextSaturday = nextDayOfWeek(6)
+      val nextSunday = nextDayOfWeek(7)
+
+      def secondWeekOf(month: Int) = {
+        val start = orNextYear(startOfYear.withMonthOfYear(month))
+        start.plusDays(15 - start.getDayOfWeek)
+      }
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
+      def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
-      val isHalloween = today.getMonthOfYear == 10 && today.getDayOfMonth == 31
+      val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
       val std = StartingPosition.initial
       val opening1 = isHalloween ? StartingPosition.presets.halloween | StartingPosition.randomFeaturable
       val opening2 = isHalloween ? StartingPosition.presets.frankenstein | StartingPosition.randomFeaturable
 
+      val farFuture = today plusMonths 5
+
       // all dates UTC
       val nextSchedules: List[Schedule] = List(
 
-        List( // monthly tournaments!
-          at(lastSundayOfCurrentMonth, 16) map { date => Schedule(Monthly, Bullet, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 17) map { date => Schedule(Monthly, SuperBlitz, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 18) map { date => Schedule(Monthly, Blitz, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 19) map { date => Schedule(Monthly, Classical, Standard, std, date) },
-          at(lastSundayOfCurrentMonth, 20) map { date => Schedule(Monthly, Blitz, Crazyhouse, std, date) }
-        ).flatten,
+        List( // yearly tournaments!
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse,
 
-        List( // weekly tournaments!
-          at(nextSaturday, 16) map { date => Schedule(Weekly, Bullet, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 17) map { date => Schedule(Weekly, SuperBlitz, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 18) map { date => Schedule(Weekly, Blitz, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 19) map { date => Schedule(Weekly, Classical, Standard, std, date |> orNextWeek) },
-          at(nextSaturday, 20) map { date => Schedule(Weekly, Blitz, Crazyhouse, std, date |> orNextWeek) }
-        ).flatten,
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
+          secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Classical -> Standard,
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> HyperBullet -> Standard,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> SuperBlitz -> Crazyhouse
+        ).flatMap {
+            case ((day, speed), variant) =>
+              at(day, 17) filter farFuture.isAfter map { date =>
+                Schedule(Yearly, speed, variant, std, date)
+              }
+          },
+
+        List( // monthly standard tournaments!
+          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Bullet,
+          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> SuperBlitz,
+          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> Blitz,
+          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> Classical
+        ).flatMap {
+            case (day, speed) => at(day, 17) map { date =>
+              Schedule(Monthly, speed, Standard, std, date)
+            }
+          },
+
+        List( // monthly variant tournaments!
+          lastWeekOfMonth.withDayOfWeek(MONDAY) -> Chess960,
+          lastWeekOfMonth.withDayOfWeek(TUESDAY) -> Crazyhouse,
+          lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> KingOfTheHill,
+          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> ThreeCheck,
+          lastWeekOfMonth.withDayOfWeek(FRIDAY) -> Antichess,
+          lastWeekOfMonth.withDayOfWeek(SATURDAY) -> Atomic,
+          lastWeekOfMonth.withDayOfWeek(SUNDAY) -> Horde
+        ).flatMap {
+            case (day, variant) => at(day, 19) map { date =>
+              Schedule(Monthly, Blitz, variant, std, date)
+            }
+          },
+
+        List( // weekly standard tournaments!
+          nextMonday -> Bullet,
+          nextTuesday -> SuperBlitz,
+          nextWednesday -> Blitz,
+          nextThursday -> Classical,
+          nextFriday -> HyperBullet
+        ).flatMap {
+            case (day, speed) => at(day, 17) map { date =>
+              Schedule(Weekly, speed, Standard, std, date |> orNextWeek)
+            }
+          },
+
+        List( // weekly variant tournaments!
+          nextMonday -> Chess960,
+          nextTuesday -> Crazyhouse,
+          nextWednesday -> KingOfTheHill,
+          nextThursday -> ThreeCheck,
+          nextFriday -> Antichess,
+          nextSaturday -> Atomic,
+          nextSunday -> Horde
+        ).flatMap {
+            case (day, variant) => at(day, 19) map { date =>
+              Schedule(Weekly, Blitz, variant, std, date |> orNextWeek)
+            }
+          },
+
+        List( // week-end elite tournaments!
+          nextSaturday -> Bullet -> 2200,
+          nextSunday -> SuperBlitz -> 2200
+        ).flatMap {
+            case ((day, speed), minRating) => at(day, 17) map { date =>
+              val perf = Schedule.Speed toPerfType speed
+              Schedule(Weekend, speed, Standard, std, date |> orNextWeek,
+                conditions = Condition.All(
+                  nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+                  maxRating = none,
+                  minRating = Condition.MinRating(perf, minRating).some))
+            }
+          },
 
         List( // daily tournaments!
           at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow) },
@@ -151,8 +239,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           }
           val perf = Schedule.Speed toPerfType speed
           val conditions = Condition.All(
-            Condition.NbRatedGame(perf.some, 20).some,
-            Condition.MaxRating(perf, rating).some)
+            nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+            maxRating = Condition.MaxRating(perf, rating).some,
+            minRating = none)
           at(date, hour) map { date =>
             Schedule(Hourly, speed, Standard, std, date, conditions)
           }
@@ -193,8 +282,13 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
+    // prevent daily && weekly on the same day
+    case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameVariantAndSpeed(s2) => s sameDay s2
+    // overlapping same variant
     case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    // overlapping same rating limit
     case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
+    // overlapping similar
     case s2 if s.similarSpeed(s2) && s.sameVariant(s2) && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }

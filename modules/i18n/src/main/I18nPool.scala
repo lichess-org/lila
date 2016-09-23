@@ -16,13 +16,20 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
   private def langNames(lang: Lang): (String, String) =
     lang.language -> LangList.nameOrCode(lang.language)
 
-  def lang(req: RequestHeader) = domainLang(req) getOrElse default
+  def lang(req: RequestHeader) =
+    withReqCountry(domainLang(req) getOrElse default, req)
+
+  private val nonUsEnglish = Lang("en", "gb")
+
+  private def withReqCountry(lang: Lang, req: RequestHeader) = req.acceptLanguages.find { l =>
+    l.language == lang.language
+  }.getOrElse(lang) match {
+    case Lang("en", "") => nonUsEnglish
+    case l              => l
+  }
 
   def preferred(req: RequestHeader) =
     (req.acceptLanguages find langs.contains) getOrElse default
-
-  def preferredNames(req: RequestHeader, nb: Int): Seq[(String, String)] =
-    req.acceptLanguages filter langs.contains take nb map langNames
 
   def domainLang(req: RequestHeader) =
     cache.getOrElseUpdate(req.domain, {

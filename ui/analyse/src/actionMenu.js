@@ -1,6 +1,7 @@
 var partial = require('chessground').util.partial;
 var router = require('game').router;
 var util = require('./util');
+var pgnExport = require('./pgnExport');
 var m = require('mithril');
 
 var baseSpeeds = [{
@@ -45,7 +46,7 @@ function autoplayButtons(ctrl) {
   return m('div.autoplay', speeds.map(function(speed, i) {
     var attrs = {
       class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      onclick: partial(ctrl.togglePlay, speed.delay)
+      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
     };
     if (i === 0) attrs['data-icon'] = 'G';
     return m('a', attrs, speed.name);
@@ -57,7 +58,7 @@ function autoplayCplButtons(ctrl) {
   return m('div.autoplay', cplSpeeds.map(function(speed, i) {
     var attrs = {
       class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      onclick: partial(ctrl.togglePlay, speed.delay)
+      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
     };
     if (i === 0) attrs['data-icon'] = 'G';
     return m('a', attrs, speed.name);
@@ -66,13 +67,18 @@ function autoplayCplButtons(ctrl) {
 
 function studyButton(ctrl) {
   if (ctrl.study || ctrl.ongoing) return;
+  var realGame = !util.synthetic(ctrl.data);
   return m('form', {
     method: 'post',
-    action: '/study'
+    action: '/study',
+    onsubmit: function(e) {
+      var pgnInput = e.target.querySelector('input[name=pgn]');
+      if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+    }
   }, [
-    util.synthetic(ctrl.data) ? null : m('input[type=hidden][name=gameId]', {
+    realGame ? m('input[type=hidden][name=gameId]', {
       value: ctrl.data.game.id
-    }),
+    }) : m('input[type=hidden][name=pgn]'),
     m('input[type=hidden][name=orientation]', {
       value: ctrl.chessground.data.orientation
     }),
@@ -85,7 +91,7 @@ function studyButton(ctrl) {
     m('button.button.text', {
       'data-icon': '',
       type: 'submit'
-    }, util.synthetic(ctrl.data) ? 'Host a study' : 'Study this game')
+    }, realGame ? 'Study this game' : 'Save as a study')
   ]);
 }
 
@@ -101,7 +107,7 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     var d = ctrl.data;
-    if (d.userAnalysis) flipAttrs.onclick = ctrl.flip;
+    if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
     else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
@@ -112,9 +118,9 @@ module.exports = {
         rel: 'nofollow'
       }, ctrl.trans('boardEditor')),
       canContinue ? m('a.button.text[data-icon=U]', {
-        onclick: function() {
+        config: util.bindOnce('click', function() {
           $.modal($('.continue_with.' + d.game.id));
-        }
+        })
       }, ctrl.trans('continueFromHere')) : null,
       ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
       d.analysis ? autoplayCplButtons(ctrl) : null, [
@@ -126,9 +132,9 @@ module.exports = {
                 class: 'cmn-toggle cmn-toggle-round',
                 type: 'checkbox',
                 checked: ctrl.vm.showAutoShapes(),
-                onchange: function(e) {
+                config: util.bindOnce('change', function(e) {
                   ctrl.toggleAutoShapes(e.target.checked);
-                }
+                })
               }),
               m('label', {
                 'for': id
@@ -146,9 +152,9 @@ module.exports = {
                 class: 'cmn-toggle cmn-toggle-round',
                 type: 'checkbox',
                 checked: ctrl.vm.showGauge(),
-                onchange: function(e) {
+                config: util.bindOnce('change', function(e) {
                   ctrl.toggleGauge(e.target.checked);
-                }
+                })
               }),
               m('label', {
                 'for': id

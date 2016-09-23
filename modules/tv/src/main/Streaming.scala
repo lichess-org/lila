@@ -12,7 +12,8 @@ private final class Streaming(
     streamerList: StreamerList,
     keyword: String,
     googleApiKey: String,
-    hitboxUrl: String) {
+    hitboxUrl: String,
+    twitchClientId: String) {
 
   import Streaming._
   import Twitch.Reads._
@@ -42,7 +43,10 @@ private final class Streaming(
         val max = 5
         val twitch = WS.url("https://api.twitch.tv/kraken/streams")
           .withQueryString("channel" -> streamers.filter(_.twitch).map(_.streamerName).mkString(","))
-          .withHeaders("Accept" -> "application/vnd.twitchtv.v3+json")
+          .withHeaders(
+            "Accept" -> "application/vnd.twitchtv.v3+json",
+            "Client-ID" -> twitchClientId
+          )
           .get() map { res =>
             res.json.validate[Twitch.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max

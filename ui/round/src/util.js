@@ -1,4 +1,20 @@
+var m = require('mithril');
+
 module.exports = {
+  bindOnce: function(eventName, f) {
+    var withRedraw = function(e) {
+      m.startComputation();
+      f(e);
+      m.endComputation();
+    };
+    return function(el, isUpdate, ctx) {
+      if (isUpdate) return;
+      el.addEventListener(eventName, withRedraw)
+      ctx.onunload = function() {
+        el.removeEventListener(eventName, withRedraw);
+      };
+    }
+  },
   visible: (function() {
     var stateKey, eventKey, keys = {
       hidden: "visibilitychange",
@@ -18,11 +34,12 @@ module.exports = {
     }
   })(),
   parsePossibleMoves: function(possibleMoves) {
-    var pms = {};
-    if (possibleMoves) Object.keys(possibleMoves).forEach(function(k) {
-      pms[k] = possibleMoves[k].match(/.{2}/g);
-    });
-    return pms;
+    if (!possibleMoves) return {};
+    for (var k in possibleMoves) {
+      if (typeof possibleMoves[k] === 'object') break;
+      possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
+    }
+    return possibleMoves;
   },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js

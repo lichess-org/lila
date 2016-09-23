@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font65/fonts/lichess.eot");
-  src: url("../font65/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font65/fonts/lichess.woff") format("woff"), url("../font65/fonts/lichess.ttf") format("truetype"), url("../font65/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font70/fonts/lichess.eot");
+  src: url("../font70/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font70/fonts/lichess.woff") format("woff"), url("../font70/fonts/lichess.ttf") format("truetype"), url("../font70/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -157,7 +157,6 @@ body.blind_mode #blind_mode {
 }
 .thin {
   font-family: 'Roboto';
-  font-weight: 300;
 }
 #blind_mode {
   margin-left: -99999px;
@@ -180,6 +179,7 @@ group.radio input {
 group.radio label {
   box-sizing: border-box;
   padding: 10px;
+  height: 100%;
   background: #fff;
   display: flex;
   align-items: center;
@@ -311,18 +311,18 @@ ul.ui-autocomplete li a.ui-state-focus {
   width: 224px;
   min-height: 3em;
   cursor: default;
-  background-color: #f0f0f0;
+  background-color: #fff;
   border: 1px solid #c0c0c0;
   display: none;
   position: absolute;
   z-index: 900000;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.25), 0 0.5px 8px rgba(0, 0, 0, 0.15);
 }
 #miniGame {
   min-height: 262px;
 }
 #powerTip > .title {
-  padding: 5px 1px;
+  padding: 5px 3px;
   border-bottom: 1px solid #c0c0c0;
 }
 #powerTip > .title a.user_link {
@@ -713,16 +713,16 @@ div.side_box .game_infos::before {
 div.side_box .game_infos .bookmark {
   position: absolute;
   right: 0;
-  background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
-  opacity: 0;
-  transform: translate(0, -20px);
-  transition: transform 0.3s;
   z-index: 10;
-  /* to go over the board */
+  display: none;
 }
-div.side_box .game_infos:hover .bookmark {
-  transform: translate(0, 0);
-  opacity: 1;
+div.side_box .game_infos:hover .bookmark,
+body.mobile div.side_box .game_infos .bookmark {
+  display: block;
+}
+.bookmark:not(.bookmarked) .on,
+.bookmark.bookmarked .off {
+  display: none;
 }
 div.side_box .game_infos .setup {
   display: block;
@@ -1347,9 +1347,11 @@ body #themepicker div.is3d,
   position: relative;
   margin: 0 -3px -3px -3px;
 }
-#themepicker .is3d piece {
+#themepicker piece {
   width: 100%;
   height: 100%;
+}
+#themepicker .is3d piece {
   left: 0;
   top: 0;
   background-size: cover;
@@ -1445,6 +1447,8 @@ body #themepicker div.is3d,
   border: 1px solid #ccc;
   border-right: 0;
   min-width: 150px;
+  /* improve scroll perfs */
+  backface-visibility: hidden;
 }
 body.fpmenu #friend_box {
   display: none;
@@ -1542,7 +1546,6 @@ div.vstext,
 div.user_show div.content_box_inter.tabs,
 #qa .answers-header,
 table.slist thead {
-  background: rgb(245, 245, 245);
   background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
   text-shadow: 0 1px 0 #FFF;
   color: #848484;
@@ -1621,7 +1624,9 @@ div.pagination span.current,
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
 .button.active-soft,
-.button.active-soft:hover {
+.button.active-soft:hover,
+.fbt.active-soft,
+.fbt.active-soft:hover {
   color: #fff !important;
   text-shadow: 0 1px 0 #000 !important;
   background: #bbb !important;
@@ -1820,36 +1825,39 @@ a.mini_board {
   height: 224px;
   position: relative;
 }
+#challenge .mini_board .cg-board-wrap {
+  width: 224px!important;
+  height: 224px!important;
+}
 #now_playing {
-  margin: 4px 0 0 4px;
-  overflow: hidden;
+  padding: 4px 0 0 4px;
+  display: flex;
+  flex-flow: row wrap;
 }
 #now_playing.other_games {
   width: 512px;
 }
 #now_playing h3 {
   font-size: 1.4em;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
 }
 #now_playing > a {
-  float: left;
   padding: 4px;
-  text-align: center;
   transition: background 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
 #now_playing .move_on {
   font-size: 0.7em;
-  float: right;
-  display: block;
+  display: flex;
   height: 1.5em;
-  text-align: right;
   line-height: 22px;
 }
 #now_playing .move_on label {
   cursor: pointer;
 }
 #now_playing .move_on .switch {
-  float: right;
   margin-left: 10px;
 }
 #now_playing.other_games > a {
@@ -1905,9 +1913,6 @@ div.auth input.login {
   font-size: 11.5px;
   margin-top: 15px;
 }
-.undertable.nomargin {
-  margin-top: 0;
-}
 .undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
@@ -1946,20 +1951,6 @@ div.undertable_inner {
 }
 .undertable tr:first-child td {
   border-top: none;
-}
-.undertable.half {
-  width: 250px;
-  float: left;
-}
-.undertable.half:first-child {
-  margin-right: 14px;
-}
-.undertable.leaderboard td:first-child {
-  max-width: 135px;
-  overflow: hidden;
-}
-.undertable.leaderboard {
-  white-space: nowrap;
 }
 div.lichess_overboard.joining .submit {
   font-size: 1.2em;
@@ -2026,18 +2017,6 @@ body.base .crosstable .loss {
 .crosstable .unavailable {
   margin-top: 40px;
   opacity: 0.7;
-}
-.bookmark {
-  float: right;
-  outline: none;
-}
-.bookmark .on,
-.bookmark.bookmarked .off {
-  display: none;
-}
-.bookmark .off,
-.bookmark.bookmarked .on {
-  display: block;
 }
 .progressbar {
   background: #e0e0e0;
@@ -2274,6 +2253,10 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
+#modal-wrap .block_buttons .button {
+  display: block;
+  margin: 0.8em 0;
+}
 #modal-wrap .close,
 div.lichess_overboard .close {
   position:absolute;
@@ -2291,6 +2274,46 @@ div.lichess_overboard .close {
 div.lichess_overboard .close:hover {
   background: #f0f0f0;
 }
+
+#deeplink {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  background: #fff;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+#deeplink h1 {
+  flex: 0 0 100%;
+  font-size: 2em;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  background: #444;
+  color: #fff;
+}
+#deeplink a {
+  flex: 0 0 50%;
+  font-size: 5em;
+  padding-top: 65px;
+  height: 300px;
+  text-align: center;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  color: #3893E8;
+  line-height: 90px;
+}
+#deeplink a:nth-child(2) {
+  padding-top: 45px;
+  background: #3893E8;
+  color: #fff;
+}
+#deeplink strong {
+  display: block;
+  font-size: 2em;
+  line-height: 90px;
+}
+
 @keyframes fire {
   0% {
     text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
@@ -2337,8 +2360,8 @@ input.cmn-toggle-round + label {
   background-color: #aaa;
   border-radius: 20px;
 }
-input.cmn-toggle-round + label:before,
-input.cmn-toggle-round + label:after {
+input.cmn-toggle-round + label::before,
+input.cmn-toggle-round + label::after {
   display: block;
   position: absolute;
   top: 1px;
@@ -2346,23 +2369,27 @@ input.cmn-toggle-round + label:after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle-round + label:before {
+input.cmn-toggle-round + label::before {
   right: 1px;
   background-color: #ddd;
   border-radius: 20px;
+}
+input.cmn-toggle-round:hover + label::before {
   transition: background 0.2s;
 }
-input.cmn-toggle-round + label:after {
+input.cmn-toggle-round + label::after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+}
+input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
-input.cmn-toggle-round:checked + label:before {
+input.cmn-toggle-round:checked + label::before {
   background-color: #8ce196;
 }
-input.cmn-toggle-round:checked + label:after {
+input.cmn-toggle-round:checked + label::after {
   margin-left: 20px;
 }
 .pull-quote {

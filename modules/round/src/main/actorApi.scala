@@ -91,6 +91,7 @@ case class SocketStatus(
     blackIsGone: Boolean) {
   def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
+  def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class SetGame(game: Option[lila.game.Game])
 
@@ -110,8 +111,10 @@ case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
 case class Abort(playerId: String)
 case object AbortForMaintenance
+case object AbortForce
 case object Threefold
 case class Resign(playerId: String)
+case object ResignAi
 case class ResignForce(playerId: String)
 case class NoStartColor(color: Color)
 case class DrawForce(playerId: String)

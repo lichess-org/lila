@@ -11,6 +11,8 @@ case class Charge(
     cents: Cents,
     date: DateTime) {
 
+  def id = _id
+
   def isPayPal = payPal.nonEmpty
   def isStripe = stripe.nonEmpty
 

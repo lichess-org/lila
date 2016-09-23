@@ -59,6 +59,7 @@ GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
+GET   /player/myself                   controllers.User.myself
 GET   /player                          controllers.User.list
 GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
@@ -117,6 +118,7 @@ POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 
 # User Analysis
+GET   /analysis/keyboard-i18n          controllers.UserAnalysis.keyboardI18n
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
@@ -137,6 +139,8 @@ POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
+GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
+POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
 
 # Learn
@@ -253,7 +257,7 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
-GET   /game/export/png/random.png             controllers.Export.random
+GET   /game/visualizer/$gameId<\w{8}>         controllers.Export.visualizer(gameId: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
@@ -342,6 +346,7 @@ GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
 GET   /mod/:username/powaaa            controllers.Mod.powaaa(username: String)
 POST  /mod/:username/powaaa            controllers.Mod.savePowaaa(username: String)
+GET   /mod/public-chat                 controllers.Mod.publicChat
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
@@ -358,16 +363,32 @@ POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: S
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
+POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Message
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
 POST  /inbox/new                       controllers.Message.create
+POST  /inbox/batch                     controllers.Message.batch
 GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
-POST  /inbox/$id<\w{8}>/read         controllers.Message.markAsRead(id: String)
+
+# Coach
+GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)
+GET   /coach/sort/:order               controllers.Coach.all(order: String, page: Int ?= 1)
+GET   /coach/edit                      controllers.Coach.edit
+POST  /coach/edit                      controllers.Coach.editApply
+GET   /coach/picture/edit              controllers.Coach.picture
+POST  /coach/picture/upload            controllers.Coach.pictureApply
+POST  /coach/picture/delete            controllers.Coach.pictureDelete
+POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: String)
+GET   /coach/:username                 controllers.Coach.show(username: String)
+POST  /coach/:username/review          controllers.Coach.review(username: String)
+
+# DB image
+GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame
@@ -415,7 +436,19 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
+GET   /api/tournament                  controllers.Api.currentTournaments
+GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
+GET   /api/socket                      controllers.Main.apiWebsocket
+
+# Events
+GET   /event                           controllers.Event.index
+GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
+GET   /event/manager                   controllers.Event.manager
+GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
+POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/new               controllers.Event.form
+POST  /event/manager                   controllers.Event.create
 
 # Misc
 POST  /cli                             controllers.Cli.command
@@ -450,6 +483,9 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.contribute
 GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
+
+# Graphite
+GET   /monitor/coach/pageview          controllers.Monitor.coachPageView
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

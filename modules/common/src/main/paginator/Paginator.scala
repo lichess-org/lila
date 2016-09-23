@@ -66,6 +66,17 @@ object Paginator {
     maxPerPage: Int = 10): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) | apply(adapter, 1, maxPerPage)
 
+  def empty[A]: Paginator[A] = new Paginator(0, 0, Nil, 0)
+
+  def fromList[A](
+    list: List[A],
+    currentPage: Int = 1,
+    maxPerPage: Int = 10): Paginator[A] = new Paginator(
+    currentPage = currentPage,
+    maxPerPage = maxPerPage,
+    currentPageResults = list.drop((currentPage - 1) * maxPerPage).take(maxPerPage),
+    nbResults = list.size)
+
   def validate[A](
     adapter: AdapterLike[A],
     currentPage: Int = 1,

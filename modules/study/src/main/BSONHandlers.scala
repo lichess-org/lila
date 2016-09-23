@@ -237,13 +237,15 @@ private object BSONHandlers {
   import Study.From
   private[study] implicit val FromHandler: BSONHandler[BSONString, From] = new BSONHandler[BSONString, From] {
     def read(bs: BSONString) = bs.value.split(' ') match {
-      case Array("scratch")  => From.Scratch
-      case Array("game", id) => From.Game(id)
-      case _                 => sys error s"Invalid from ${bs.value}"
+      case Array("scratch")   => From.Scratch
+      case Array("game", id)  => From.Game(id)
+      case Array("study", id) => From.Study(id)
+      case _                  => sys error s"Invalid from ${bs.value}"
     }
     def write(x: From) = BSONString(x match {
-      case From.Scratch  => "scratch"
-      case From.Game(id) => s"game $id"
+      case From.Scratch   => "scratch"
+      case From.Game(id)  => s"game $id"
+      case From.Study(id) => s"study $id"
     })
   }
   import Settings.UserSelection

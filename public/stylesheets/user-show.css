@@ -364,6 +364,9 @@ div.user_show .mod_zone .slist {
   font-size: 0.9em;
   margin-bottom: 1em;
 }
+body.dark div.user_show .mod_zone .slist {
+  border-color: #3d3d3d;
+}
 div.user_show .mod_zone .same {
   font-style: italic;
   font-weight: bold;
@@ -407,6 +410,9 @@ div.user_show .mod_zone .ip .intel {
 div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
+}
+div.user_show .mod_zone strong.inline {
+  display: inline;
 }
 div.user_show .mod_zone .plan_charges ul {
   max-height: 100px;
@@ -564,4 +570,20 @@ div.user_show .search_status {
   text-align: right;
   padding: 10px 25px;
   border-bottom: 1px solid #e4e4e4;
+}
+div.user_show .new_player {
+  padding: 20px;
+}
+div.user_show .new_player h2 {
+  font-size: 1.4em;
+}
+div.user_show .new_player p {
+  margin: 1em 0;
+}
+div.user_show .new_player li {
+  list-style: disc inside;
+  line-height: 1.5em;
+}
+div.user_show .new_player a {
+  color: #3893E8;
 }

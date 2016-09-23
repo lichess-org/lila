@@ -1,21 +1,14 @@
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json._
 import play.api.mvc._
 
-import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, PairingRepo, Tournament => Tourney, VisibleTournaments }
-import lila.user.UserRepo
 import views._
 
 object TournamentCrud extends LilaController {
 
   private def env = Env.tournament
-  private def crud = Env.tournament.crudApi
+  private def crud = env.crudApi
 
   def index = Secure(_.ManageTournament) { implicit ctx =>
     me =>
@@ -36,7 +29,7 @@ object TournamentCrud extends LilaController {
       OptionFuResult(crud one id) { tour =>
         implicit val req = ctx.body
         crud.editForm(tour).bindFromRequest.fold(
-          err => BadRequest(html.tournament.crud.edit(tour, err.pp)).fuccess,
+          err => BadRequest(html.tournament.crud.edit(tour, err)).fuccess,
           data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id))
         )
       }

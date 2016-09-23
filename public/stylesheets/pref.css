@@ -1,0 +1,13 @@
+.content_box.prefs form li {
+  font-size: 1.3em;
+  display: block;
+  list-style: none outside none;
+  margin: 20px 0;
+  border-top: 1px solid #eaeaea;
+  padding: 20px 0 0 0;
+}
+div.content_box.prefs h2 {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+}

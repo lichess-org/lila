@@ -3,6 +3,9 @@
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("report")" href="@routes.Report.list">Reports</a>
 }
+@if(isGranted(_.ChatTimeout)) {
+<a class="@active.active("public-chat")" href="@routes.Mod.publicChat">Public Chats</a>
+}
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("gamify")" href="@routes.Mod.gamify">Hall of fame</a>
 }
@@ -13,7 +16,10 @@
 <a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
 }
 @if(isGranted(_.ManageTournament)) {
-<a class="@active.active("index")" href="@routes.TournamentCrud.index">Recent tournaments</a>
+<a class="@active.active("tour")" href="@routes.TournamentCrud.index">Tournaments</a>
+}
+@if(isGranted(_.ManageEvent)) {
+<a class="@active.active("event")" href="@routes.Event.manager">Events</a>
 }
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>

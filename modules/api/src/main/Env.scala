@@ -14,6 +14,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     roundJsonView: lila.round.JsonView,
+    noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
@@ -21,6 +22,7 @@ final class Env(
     crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     gamePgnDump: lila.game.PgnDump,
+    gameCache: lila.game.Cached,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
@@ -41,6 +43,7 @@ final class Env(
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
     val AssetVersion = config getInt "net.asset.version"
+    val Email = config getString "net.email"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
@@ -55,7 +58,7 @@ final class Env(
       f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
         _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
-      timeToLive = 5.seconds,
+      timeToLive = 10.seconds,
       default = Net.AssetVersion,
       logger = lila.log("assetVersion"))
     def get = cache get true
@@ -87,7 +90,8 @@ final class Env(
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
-    pgnDump = pgnDump)
+    pgnDump = pgnDump,
+    gameCache = gameCache)
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi)
@@ -95,6 +99,7 @@ final class Env(
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
       jsonView = roundJsonView,
+      noteApi = noteApi,
       forecastApi = forecastApi,
       bookmarkApi = bookmarkApi,
       getTourAndRanks = getTourAndRanks,
@@ -133,6 +138,7 @@ object Env {
     getSimulName = lila.simul.Env.current.cached.name,
     getTournamentName = lila.tournament.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
+    noteApi = lila.round.Env.current.noteApi,
     forecastApi = lila.round.Env.current.forecastApi,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
@@ -140,6 +146,7 @@ object Env {
     crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
+    gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)

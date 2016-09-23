@@ -17,6 +17,7 @@ object Environment
     with scalalib.OrnicarOption
     with lila.BooleanSteroids
     with lila.OptionSteroids
+    with lila.JodaTimeSteroids
     with StringHelper
     with JsonHelper
     with AssetHelper
@@ -53,6 +54,10 @@ object Environment
   def explorerEndpoint = apiEnv.ExplorerEndpoint
 
   def tablebaseEndpoint = apiEnv.TablebaseEndpoint
+
+  def contactEmail = apiEnv.Net.Email
+
+  def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
 
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."

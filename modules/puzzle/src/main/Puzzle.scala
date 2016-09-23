@@ -19,7 +19,8 @@ case class Puzzle(
     vote: Vote,
     attempts: Int,
     wins: Int,
-    time: Int) {
+    time: Int,
+    mate: Boolean) {
 
   def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
     move * 2 + color.fold(0, 1)
@@ -50,7 +51,8 @@ object Puzzle {
     history: List[String],
     fen: String,
     color: Color,
-    lines: Lines)(id: PuzzleId) = new Puzzle(
+    lines: Lines,
+    mate: Boolean)(id: PuzzleId) = new Puzzle(
     id = id,
     gameId = gameId,
     history = history,
@@ -63,7 +65,8 @@ object Puzzle {
     vote = Vote(0, 0, 0),
     attempts = 0,
     wins = 0,
-    time = 0)
+    time = 0,
+    mate = mate)
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -106,6 +109,7 @@ object Puzzle {
     val attempts = "attempts"
     val wins = "wins"
     val time = "time"
+    val mate = "mate"
   }
 
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
@@ -127,7 +131,8 @@ object Puzzle {
       vote = r.get[Vote](vote),
       attempts = r int attempts,
       wins = r int wins,
-      time = r int time)
+      time = r int time,
+      mate = r bool mate)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
@@ -142,6 +147,7 @@ object Puzzle {
       vote -> o.vote,
       attempts -> o.attempts,
       wins -> o.wins,
-      time -> o.time)
+      time -> o.time,
+      mate -> o.mate)
   }
 }

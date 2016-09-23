@@ -31,3 +31,16 @@
 [submodule "public/vendor/stockfish.js"]
 	path = public/vendor/stockfish.js
 	url = https://github.com/niklasf/stockfish.js
+[submodule "public/vendor/flatpickr"]
+	path = public/vendor/flatpickr
+	url = https://github.com/chmln/flatpickr
+[submodule "public/vendor/bar-rating"]
+	path = public/vendor/bar-rating
+	url = https://github.com/antennaio/jquery-bar-rating
+[submodule "public/visualizer"]
+	path = public/visualizer
+	url = https://github.com/ornicar/chess_game_visualizer
+[submodule "public/vendor/Sunsetter8"]
+	path = public/vendor/Sunsetter8
+	url = https://github.com/niklasf/Sunsetter8
+	branch = js

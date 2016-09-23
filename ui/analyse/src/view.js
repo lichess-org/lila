@@ -4,6 +4,7 @@ var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
+var treePath = require('./tree/path');
 var treeView = require('./tree/treeView');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
@@ -12,6 +13,7 @@ var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
 var crazyView = require('./crazy/crazyView');
+var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');
 var studyView = require('./study/studyView');
 var forkView = require('./fork').view;
@@ -41,19 +43,29 @@ function renderResult(ctrl) {
   }
 }
 
-function renderAnalyse(ctrl) {
+function makeConcealOf(ctrl) {
   var conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
+  if (conceal) return function(isMainline) {
+    return function(path, node) {
+      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+      if (treePath.contains(ctrl.vm.path, path)) return null;
+      return conceal.owner ? 'conceal' : 'hide';
+    };
+  };
+}
+
+function renderAnalyse(ctrl, concealOf) {
   return m('div.areplay', [
-    treeView.render(ctrl, conceal),
+    treeView.render(ctrl, concealOf),
     renderResult(ctrl)
   ]);
 }
 
 function wheel(ctrl, e) {
-  if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE') return;
+  if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE' && !e.target.classList.contains('cg-board')) return;
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
@@ -69,9 +81,9 @@ function inputs(ctrl) {
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.node.fen,
-      onchange: function(e) {
+      config: util.bindOnce('change', function(e) {
         if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
-      }
+      })
     }),
     m('div.pgn', [
       m('label.name', 'PGN'),
@@ -82,10 +94,10 @@ function inputs(ctrl) {
         m('button', {
           class: 'button text',
           'data-icon': 'G',
-          onclick: function(e) {
+          config: util.bindOnce('click', function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
-          }
+          })
         }, 'Import PGN')
       ])
     ])
@@ -94,17 +106,19 @@ function inputs(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
+    ctrl.vm.keyboardHelp ? keyboardView(ctrl) : null,
+    ctrl.study ? studyView.overboard(ctrl.study) : null,
     m('div', {
-        class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
-        config: function(el, isUpdate) {
-          if (!isUpdate) el.addEventListener('wheel', function(e) {
-            return wheel(ctrl, e);
-          });
-        }
-      },
+      class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          return wheel(ctrl, e);
+        });
+      }
+    }, [
       chessground.view(ctrl.chessground),
-      renderPromotion(ctrl),
-      ctrl.study ? studyView.overboard(ctrl.study) : null),
+      renderPromotion(ctrl)
+    ]),
     cevalView.renderGauge(ctrl)
   ]);
 }
@@ -160,18 +174,15 @@ function dataAct(e) {
 
 function buttons(ctrl) {
   return m('div.game_control', {
-    onmouseup: function(e) {
-      var action = dataAct(e);
-      if (action === 'explorer') ctrl.explorer.toggle();
-      else if (action === 'menu') ctrl.actionMenu.toggle();
-      else if (action === 'first') control.first(ctrl);
-      else if (action === 'last') control.last(ctrl);
-    },
-    onmousedown: function(e) {
+    config: util.bindOnce('mousedown', function(e) {
       var action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
-    }
+      else if (action === 'first') control.first(ctrl);
+      else if (action === 'last') control.last(ctrl);
+      else if (action === 'explorer') ctrl.explorer.toggle();
+      else if (action === 'menu') ctrl.actionMenu.toggle();
+    })
   }, [
     m('button', {
       id: 'open_explorer',
@@ -211,18 +222,19 @@ function renderFork(ctrl) {
 var firstRender = true;
 
 module.exports = function(ctrl) {
+  var concealOf = makeConcealOf(ctrl);
   return [
     m('div', {
       config: function(el, isUpdate) {
         if (firstRender) firstRender = false;
-        else if (!isUpdate) $('body').trigger('lichess.reset_zoom');
+        else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
       },
       class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
           if (isUpdate) return;
-          $('body').trigger('lichess.content_loaded');
+          lichess.pubsub.emit('content_loaded')();
         }
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
@@ -231,8 +243,8 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             renderOpeningBox(ctrl),
-            renderAnalyse(ctrl),
-            forkView(ctrl.fork),
+            renderAnalyse(ctrl, concealOf),
+            forkView(ctrl, concealOf),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),

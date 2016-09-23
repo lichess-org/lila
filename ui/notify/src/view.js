@@ -6,8 +6,8 @@ function userFullName(u) {
 }
 
 function genericNotification(notification, url, icon, content) {
-  return m('a.site_notification', {
-    class: notification.type + (notification.read ? '' : ' new'),
+  return m(url ? 'a' : 'span', {
+    class: 'site_notification ' + notification.type + (notification.read ? '' : ' new'),
     href: url
   }, [
     m('i', {
@@ -146,6 +146,19 @@ var handlers = {
       return 'Game with ' + n.content.opponentName + '.';
     }
   },
+  reportedBanned: {
+    html: function(notification) {
+      return genericNotification(notification, null, '', [
+        m('span', [
+          m('strong', 'Someone you reported was banned')
+        ]),
+        m('span', 'Thank you for helping lichess community.')
+      ]);
+    },
+    text: function(n) {
+      return 'Someone you reported was banned';
+    }
+  },
   gameEnd: {
     html: function(notification) {
       var content = notification.content
@@ -213,6 +226,35 @@ var handlers = {
       return 'Patron account expired';
     }
   },
+  coachReview: {
+    html: function(notification) {
+      return genericNotification(notification, '/coach/edit', ':', [
+        m('span', [
+          m('strong', 'New pending review'),
+          drawTime(notification)
+        ]),
+        m('span', 'Someone reviewed your coach profile.')
+      ]);
+    },
+    text: function(n) {
+      return 'New pending review';
+    }
+  },
+  ratingRefund: {
+    html: function(notification) {
+      var content = notification.content
+      return genericNotification(notification, '/player/myself', '', [
+        m('span', [
+          m('strong', 'You lost to a cheater'),
+          drawTime(notification)
+        ]),
+        m('span', 'Refund: ' + content.points + ' ' + content.perf + ' rating points.')
+      ]);
+    },
+    text: function(n) {
+      return 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'
+    }
+  },
 };
 
 function drawNotification(notification) {
@@ -224,7 +266,7 @@ function recentNotifications(ctrl) {
   return m('div.notifications', {
     class: ctrl.vm.scrolling ? 'scrolling' : '',
     config: function() {
-      $('body').trigger('lichess.content_loaded');
+      lichess.pubsub.emit('content_loaded')();
     }
   }, ctrl.data.pager.currentPageResults.map(drawNotification));
 }

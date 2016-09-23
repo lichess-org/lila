@@ -48,6 +48,12 @@ case class Chapter(
     else FullOpeningDB searchInFens root.mainline.map(_.fen)
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
+
+  def cloneFor(study: Study) = copy(
+    _id = Chapter.makeId,
+    studyId = study.id,
+    ownerId = study.ownerId,
+    createdAt = DateTime.now)
 }
 
 object Chapter {
@@ -93,7 +99,7 @@ object Chapter {
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
   def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
-    _id = scala.util.Random.alphanumeric take idSize mkString,
+    _id = makeId,
     studyId = studyId,
     name = toName(name),
     setup = setup,

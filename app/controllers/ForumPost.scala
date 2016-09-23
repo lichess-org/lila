@@ -1,13 +1,15 @@
 package controllers
 
 import scala.concurrent.duration._
-
+import lila.common.HTTPRequest
 import lila.app._
 import views._
 
 object ForumPost extends LilaController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit(4, 5 minutes, "forum create post")
+  private val CreateRateLimit = new lila.memo.RateLimit(4, 5 minutes,
+    name = "forum create post",
+    key = "forum.post")
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
@@ -29,7 +31,7 @@ object ForumPost extends LilaController with ForumController {
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx =>
-    CreateRateLimit(ctx.req.remoteAddress) {
+    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.troll)) {
@@ -48,6 +50,18 @@ object ForumPost extends LilaController with ForumController {
         }
       }
     }
+  }
+
+  def edit(postId: String) = AuthBody { implicit ctx =>
+    me =>
+    implicit val req = ctx.body
+
+    forms.postEdit.bindFromRequest.fold(err => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+       data =>
+         postApi.editPost(postId, data.changes, me).map { post =>
+            Redirect(routes.ForumPost.redirect(post.id))
+         }
+    )
   }
 
   def delete(categSlug: String, id: String) = Auth { implicit ctx =>

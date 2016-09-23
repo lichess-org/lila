@@ -42,10 +42,8 @@ private[puzzle] final class PuzzleApi(
         puzzleColl.exists($doc(
           "fen".$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
-          case false =>
-            val doc = (puzzleBSONHandler write p) ++ $doc("mate" -> generated.isMate)
-            puzzleColl insert doc inject id
-          case _ => fufail("Duplicate puzzle")
+          case false => puzzleColl insert p inject id
+          case _     => fufail("Duplicate puzzle")
         }
       }
 

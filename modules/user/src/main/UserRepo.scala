@@ -74,6 +74,9 @@ object UserRepo {
         _.flatMap { _.getAs[String]("_id") }
       }
 
+  def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
+    coll.byOrderedIds[User](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
@@ -121,7 +124,7 @@ object UserRepo {
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
-        s"perfs.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
+        s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
       }
     }
     diff.nonEmpty ?? coll.update(
@@ -130,9 +133,9 @@ object UserRepo {
     ).void
   }
 
-  def setPerf(userId: String, perfName: String, perf: Perf) =
+  def setPerf(userId: String, pt: PerfType, perf: Perf) =
     coll.update($id(userId), $set(
-      s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)
+      s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
     )).void
 
   def setProfile(id: ID, profile: Profile): Funit =
@@ -220,10 +223,16 @@ object UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "password")
 
-  def create(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]): Fu[Option[User]] =
+  def create(
+    username: String,
+    password: String,
+    email: Option[String],
+    blind: Boolean,
+    mobileApiVersion: Option[ApiVersion],
+    mustConfirmEmail: Boolean): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion) ++
+        val doc = newUser(username, password, email, blind, mobileApiVersion, mustConfirmEmail) ++
           ("len" -> BSONInteger(username.size))
         coll.insert(doc) >> named(normalize(username))
       }
@@ -332,7 +341,7 @@ object UserRepo {
       "seenAt" -> $doc("$gt" -> since),
       "count.game" -> $doc("$gt" -> 9),
       "kid" -> $doc("$ne" -> true)
-    ), $id(true)).cursor[Bdoc]()
+    ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
@@ -359,7 +368,13 @@ object UserRepo {
 
   def setEmailConfirmed(id: String): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
 
-  private def newUser(username: String, password: String, email: Option[String], blind: Boolean, mobileApiVersion: Option[ApiVersion]) = {
+  private def newUser(
+    username: String,
+    password: String,
+    email: Option[String],
+    blind: Boolean,
+    mobileApiVersion: Option[ApiVersion],
+    mustConfirmEmail: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     implicit def countHandler = Count.countBSONHandler
@@ -370,7 +385,7 @@ object UserRepo {
       F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
-      F.mustConfirmEmail -> (email.isDefined && mobileApiVersion.isEmpty).option(DateTime.now),
+      F.mustConfirmEmail -> (email.isDefined && mustConfirmEmail).option(DateTime.now),
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> $empty,

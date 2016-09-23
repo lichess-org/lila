@@ -95,6 +95,9 @@ trait BaseConfig {
   val aiVariants = variants :+
     chess.variant.KingOfTheHill.id :+
     chess.variant.ThreeCheck.id :+
+    chess.variant.Atomic.id :+
+    chess.variant.Horde.id :+
+    chess.variant.RacingKings.id :+
     chess.variant.FromPosition.id
   val variantsWithVariants =
     variants :+ chess.variant.Crazyhouse.id :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id :+ chess.variant.RacingKings.id

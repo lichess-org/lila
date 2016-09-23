@@ -1,6 +1,8 @@
 var m = require('mithril');
-var util = require('chessground').util;
-var tds = require('../util').tds;
+var util = require('../util');
+var chessground = require('chessground');
+var partial = chessground.util.partial;
+var classSet = chessground.util.classSet;
 var hookRepo = require('../../hookRepo');
 
 function renderHook(ctrl, hook) {
@@ -11,7 +13,7 @@ function renderHook(ctrl, hook) {
     ),
     'data-id': hook.id,
     class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : '')
-  }, tds([
+  }, util.tds([
     m('span', {
       class: 'is is2 color-icon ' + (hook.c || 'random')
     }), (hook.rating ? m('span.ulink.ulpt', {
@@ -42,16 +44,17 @@ function isNotMine(hook) {
 module.exports = {
   toggle: function(ctrl) {
     return m('span', {
+      key: 'set-mode-chart',
       'data-hint': ctrl.trans('graph'),
       class: 'mode_toggle hint--bottom',
-      onmousedown: util.partial(ctrl.setMode, 'chart')
+      config: util.bindOnce('mousedown', partial(ctrl.setMode, 'chart'))
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {
     var mine = allHooks.filter(isMine)[0];
     var max = mine ? 13 : 14;
     var hooks = allHooks.slice(0, max);
-    var render = util.partial(renderHook, ctrl);
+    var render = partial(renderHook, ctrl);
     var standards = hooks.filter(isNotMine).filter(isStandard(true));
     hookRepo.sort(ctrl, standards);
     var variants = hooks.filter(isNotMine).filter(isStandard(false))
@@ -69,38 +72,40 @@ module.exports = {
       variants.map(render)
     ];
     if (mine) renderedHooks.unshift(render(mine));
-    return m('table.table_wrap', [
+    return m('table.table_wrap', {
+      key: 'list'
+    }, [
       m('thead',
         m('tr', [
           m('th'),
           m('th', ctrl.trans('player')),
           m('th', {
-            class: util.classSet({
+            class: classSet({
               sortable: true,
               sort: ctrl.vm.sort === 'rating'
             }),
-            onclick: util.partial(ctrl.setSort, 'rating')
+            config: util.bindOnce('click', partial(ctrl.setSort, 'rating'))
           }, [m('i.is'), ctrl.trans('rating')]),
           m('th', {
-            class: util.classSet({
+            class: classSet({
               sortable: true,
               sort: ctrl.vm.sort === 'time'
             }),
-            onclick: util.partial(ctrl.setSort, 'time')
+            config: util.bindOnce('click', partial(ctrl.setSort, 'time'))
           }, [m('i.is'), ctrl.trans('time')]),
           m('th', ctrl.trans('mode'))
         ])
       ),
       m('tbody', {
         class: ctrl.vm.stepping ? 'stepping' : '',
-        onclick: function(e) {
+        config: util.bindOnce('click', function(e) {
           var el = e.target;
           do {
             el = el.parentNode;
             if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id'));
           }
           while (el.nodeName !== 'TABLE');
-        }
+        })
       }, renderedHooks)
     ]);
   }

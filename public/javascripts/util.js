@@ -12,32 +12,47 @@ lichess.getParameterByName = function(name) {
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
 
-function withStorage(f) {
-  // can throw an exception when storage is full
-  try {
-    return !!window.localStorage ? f(window.localStorage) : null;
-  } catch (e) {}
-}
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
-lichess.storage = {
-  get: function(k) {
-    return withStorage(function(s) {
-      return s.getItem(k);
-    });
-  },
-  remove: function(k) {
-    withStorage(function(s) {
-      s.removeItem(k);
-    });
-  },
-  set: function(k, v) {
-    // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
-    withStorage(function(s) {
-      s.removeItem(k);
-      s.setItem(k, v);
-    });
+lichess.storage = (function() {
+  var withStorage = function(f) {
+    // can throw an exception when storage is full
+    try {
+      return !!window.localStorage ? f(window.localStorage) : null;
+    } catch (e) {}
   }
-};
+  return {
+    get: function(k) {
+      return withStorage(function(s) {
+        return s.getItem(k);
+      });
+    },
+    set: function(k, v) {
+      // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
+      withStorage(function(s) {
+        s.removeItem(k);
+        s.setItem(k, v);
+      });
+    },
+    remove: function(k) {
+      withStorage(function(s) {
+        s.removeItem(k);
+      });
+    },
+    make: function(k) {
+      return {
+        get: function() {
+          return lichess.storage.get(k);
+        },
+        set: function(v) {
+          return lichess.storage.set(k, v);
+        },
+        remove: function() {
+          return lichess.storage.remove(k);
+        }
+      };
+    }
+  };
+})();
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
@@ -46,14 +61,87 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
+lichess.powertip = (function() {
+
+  var elementIdContains = function(id, contained) {
+    var el = document.getElementById(id);
+    return el && el.contains(contained);
+  };
+
+  var onPowertipPreRender = function(id) {
+    return function() {
+      $.ajax({
+        url: ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '') + '/mini',
+        success: function(html) {
+          $('#' + id).html(html);
+          lichess.pubsub.emit('content_loaded')();
+        }
+      });
+    };
+  };
+
+  var userPowertip = function(el) {
+    var pos = 'w';
+    if (elementIdContains('site_header', el)) pos = 'e';
+    if (elementIdContains('friend_box', el)) pos = 'nw';
+    $(el).removeClass('ulpt').powerTip({
+      intentPollInterval: 200,
+      fadeInTime: 100,
+      fadeOutTime: 100,
+      placement: pos,
+      mouseOnToPopup: true,
+      closeDelay: 200
+    }).on({
+      powerTipPreRender: onPowertipPreRender('powerTip')
+    }).data('powertip', lichess.spinnerHtml);
+  };
+
+  var gamePowertip = function(el) {
+    $(el).removeClass('glpt').powerTip({
+      intentPollInterval: 200,
+      fadeInTime: 100,
+      fadeOutTime: 100,
+      placement: 'w',
+      smartPlacement: true,
+      mouseOnToPopup: true,
+      closeDelay: 200,
+      popupId: 'miniGame'
+    }).on({
+      powerTipPreRender: onPowertipPreRender('miniGame')
+    }).data('powertip', lichess.spinnerHtml);
+  };
+
+  var powerTipWith = function(el, ev, f) {
+    f(el);
+    $.powerTip.show(el, ev);
+  };
+
+  return {
+    mouseover: function(e) {
+      var t = e.target,
+        cl = t.classList;
+      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
+      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+    },
+    manualGame: function(el) {
+      Array.prototype.forEach.call(el.querySelectorAll('.glpt'), gamePowertip);
+    }
+  };
+})();
 lichess.trans = function(i18n) {
-  return function(key) {
+  var trans = function(key) {
     var str = i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
   };
+  trans.merge = function(more) {
+    Object.keys(more).forEach(function(k) {
+      i18n[k] = more[k];
+    });
+  };
+  return trans;
 };
 lichess.widget = function(name, prototype) {
   var constructor = $[name] = function(options, element) {
@@ -124,43 +212,54 @@ lichess.makeChat = function(id, data, callback) {
   });
 };
 
-lichess.isPageVisible = document.visibilityState !== 'hidden';
-lichess.notifications = [];
-// using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-window.addEventListener('focus', function() {
-  lichess.isPageVisible = true;
-  lichess.notifications.forEach(function(n) {
-    n.close();
+lichess.desktopNotification = (function() {
+  var notifications = [];
+  var isPageVisible = document.visibilityState !== 'hidden';
+  window.addEventListener('blur', function() {
+    isPageVisible = false;
   });
-  lichess.notifications = [];
-});
-window.addEventListener('blur', function() {
-  lichess.isPageVisible = false;
-});
-lichess.desktopNotification = function(msg) {
-  if (lichess.isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
-  var title = 'lichess.org';
-  var icon = '//lichess1.org/assets/images/logo.256.png';
-  var notify = function() {
-    var notification = new Notification(title, {
-      icon: icon,
+  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+  window.addEventListener('focus', function() {
+    isPageVisible = true;
+    notifications.forEach(function(n) {
+      n.close();
+    });
+    notifications = [];
+  });
+  var storage = lichess.storage.make('just-notified');
+  var clearStorageSoon = function() {
+    setTimeout(function() {
+      storage.remove();
+    }, 3000);
+  };
+  var doNotify = function(msg) {
+    if (storage.get()) return;
+    storage.set(1);
+    clearStorageSoon();
+    var notification = new Notification('lichess.org', {
+      icon: '//lichess1.org/assets/images/logo.256.png',
       body: msg
     });
     notification.onclick = function() {
       window.focus();
     }
-    lichess.notifications.push(notification);
+    notifications.push(notification);
   };
-  if (Notification.permission === 'granted') notify();
-  else Notification.requestPermission(function(p) {
-    if (p === 'granted') notify();
-  });
-};
-lichess.unique = function(xs) {
-  return xs.filter(function(x, i) {
-    return xs.indexOf(x) === i;
-  });
-};
+  var notify = function(msg) {
+    // increase chances that the first tab can put a local storage lock
+    setTimeout(function() {
+      doNotify(msg);
+    }, Math.round(10 + Math.random() * 500));
+  }
+  clearStorageSoon(); // in case it wasn't cleared properly before
+  return function(msg) {
+    if (isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
+    if (Notification.permission === 'granted') notify(msg);
+    else Notification.requestPermission(function(p) {
+      if (p === 'granted') notify(msg);
+    });
+  };
+})();
 lichess.numberFormat = (function() {
   if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
@@ -172,6 +271,45 @@ lichess.numberFormat = (function() {
     return n;
   };
 })();
+lichess.idleTimer = function(delay, onIdle, onWakeUp) {
+  var events = ['mousemove', 'touchstart'];
+  var listening = false;
+  var active = true;
+  var lastSeenActive = new Date();
+  var onActivity = function() {
+    if (!active) {
+      console.log('Wake up');
+      onWakeUp();
+    }
+    active = true;
+    lastSeenActive = new Date();
+    stopListening();
+  };
+  var startListening = function() {
+    if (!listening) {
+      events.forEach(function(e) {
+        document.addEventListener(e, onActivity);
+      });
+      listening = true;
+    }
+  };
+  var stopListening = function() {
+    if (listening) {
+      events.forEach(function(e) {
+        document.removeEventListener(e, onActivity);
+      });
+      listening = false;
+    }
+  };
+  setInterval(function() {
+    if (active && new Date() - lastSeenActive > delay) {
+      console.log('Idle mode');
+      onIdle();
+      active = false;
+    }
+    startListening();
+  }, 10000);
+};
 lichess.pubsub = (function() {
   var subs = [];
   return {
@@ -228,4 +366,18 @@ $.fn.scrollTo = function(target, offsetTop) {
       this.scrollTop = v;
     } catch (e) {}
   });
+};
+$.modal = function(html) {
+  if (!html.clone) html = $('<div>' + html + '</div>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
+  var $overlay = $('<div id="modal-overlay">').html($wrap);
+  $overlay.add($wrap.find('.close')).one('click', $.modal.close);
+  $wrap.click(function(e) {
+    e.stopPropagation();
+  });
+  $('body').prepend($overlay);
+  return $wrap;
+};
+$.modal.close = function() {
+  $('#modal-overlay').remove();
 };

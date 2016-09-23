@@ -5,9 +5,9 @@
     <h2 data-icon="1" class="text">Lichess TV</h2>
     <br />
     <div class="confrontation">
-      @playerLink(pov.game.whitePlayer, withRating = false, withOnline = false, withDiff = false)
+      @playerLink(pov.game.whitePlayer, withRating = false, withOnline = false, withDiff = false, variant = pov.game.variant)
       <em>vs</em>
-      @playerLink(pov.game.blackPlayer, withRating = false, withOnline = false, withDiff = false)
+      @playerLink(pov.game.blackPlayer, withRating = false, withOnline = false, withDiff = false, variant = pov.game.variant)
     </div>
     <br />
     <span data-icon="p"> @shortClockName(pov.game.clock)</span>, @game.variantLink(pov.game.variant, variantName(pov.game.variant))

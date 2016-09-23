@@ -4,10 +4,11 @@ function player(p) {
   return {
     tag: 'a',
     attrs: {
-      class: 'text ulpt user_link',
+      class: 'text ulpt user_link online',
       href: '/@/' + p.username
     },
     children: [
+      m('i.line' + (p.patron ? '.patron' : '')),
       (p.title ? p.title + ' ' : '') + p.username,
       p.rating ? m('em', p.rating + (p.provisional ? '?' : '')) : null
     ]

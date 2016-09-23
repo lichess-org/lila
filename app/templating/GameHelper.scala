@@ -13,7 +13,6 @@ import lila.user.{ User, UserContext }
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
   def netBaseUrl: String
-  def staticUrl(path: String): String
   def cdnUrl(path: String): String
 
   def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
@@ -114,7 +113,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withStatus: Boolean = false,
     withBerserk: Boolean = false,
     mod: Boolean = false,
-    link: Boolean = true)(implicit ctx: UserContext) = Html {
+    link: Boolean = true,
+    variant: chess.variant.Variant = chess.variant.Standard)(implicit ctx: UserContext) = Html {
     val statusIcon =
       if (withStatus) statusIconSpan
       else if (withBerserk && player.berserk) berserkIconSpan
@@ -123,8 +123,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case None =>
         val klass = cssClass.??(" " + _)
         val content = (player.aiLevel, player.name) match {
-          case (Some(level), _) => aiNameHtml(level, withRating).body
-          case (_, Some(name))  => escape(name)
+          case (Some(level), _) => aiNameHtml(variant, level, withRating).body
+          case (_, Some(name))  => escapeHtml(name)
           case _                => User.anonymous
         }
         s"""<span class="user_link$klass">$content$statusIcon</span>"""

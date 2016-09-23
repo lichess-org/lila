@@ -118,30 +118,35 @@ object Puzzle extends LilaController {
   def attempt(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     OptionFuResult(env.api.puzzle find id) { puzzle =>
+      if (puzzle.mate) lila.mon.puzzle.attempt.mate()
+      else lila.mon.puzzle.attempt.material()
       env.forms.attempt.bindFromRequest.fold(
         err => fuccess(BadRequest(errorsAsJson(err))),
         data => ctx.me match {
-          case Some(me) => env.finisher(puzzle, me, data) flatMap {
-            case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
-              env.api.puzzle find id zip
-                (env userInfos me2.some) zip
-                (env.api.attempt hasVoted me2) map {
-                  case ((p2, infos), voted) => Ok {
-                    JsData(p2 | puzzle, infos, "view",
-                      attempt = newAttempt.some,
-                      voted = voted.some,
-                      animationDuration = env.AnimationDuration)
+          case Some(me) =>
+            lila.mon.puzzle.attempt.user()
+            env.finisher(puzzle, me, data) flatMap {
+              case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
+                env.api.puzzle find id zip
+                  (env userInfos me2.some) zip
+                  (env.api.attempt hasVoted me2) map {
+                    case ((p2, infos), voted) => Ok {
+                      JsData(p2 | puzzle, infos, "view",
+                        attempt = newAttempt.some,
+                        voted = voted.some,
+                        animationDuration = env.AnimationDuration)
+                    }
                   }
-                }
+              }
+              case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
+                Ok(JsData(puzzle, infos, "view",
+                  attempt = oldAttempt.some,
+                  win = win.some,
+                  animationDuration = env.AnimationDuration))
+              }
             }
-            case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
-              Ok(JsData(puzzle, infos, "view",
-                attempt = oldAttempt.some,
-                win = win.some,
-                animationDuration = env.AnimationDuration))
-            }
-          }
           case None => fuccess {
+            lila.mon.puzzle.attempt.anon()
             Ok(JsData(puzzle, none, "view",
               win = data.isWin.some,
               animationDuration = env.AnimationDuration))
@@ -158,7 +163,10 @@ object Puzzle extends LilaController {
         env.forms.vote.bindFromRequest.fold(
           err => fuccess(BadRequest(errorsAsJson(err))),
           vote => env.api.attempt.vote(attempt, vote == 1) map {
-            case (p, a) => Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
+            case (p, a) =>
+              if (vote == 1) lila.mon.puzzle.vote.up()
+              else lila.mon.puzzle.vote.down()
+              Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
           }
         ) map (_ as JSON)
       }
@@ -187,7 +195,7 @@ object Puzzle extends LilaController {
 
   def importOne = Action.async(parse.json) { implicit req =>
     env.api.puzzle.importOne(req.body, ~get("token", req)) map { id =>
-      val url = s"https://en.stage.lichess.org/training/$id"
+      val url = s"https://lichess.org/training/$id"
       lila.log("puzzle import").info(s"${req.remoteAddress} $url")
       Ok(s"kthxbye $url")
     } recover {

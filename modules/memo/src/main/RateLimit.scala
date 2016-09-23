@@ -6,7 +6,11 @@ import scala.concurrent.duration.Duration
 /**
  * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimit(credits: Int, duration: Duration, name: String) {
+final class RateLimit(
+    credits: Int,
+    duration: Duration,
+    name: String,
+    key: String) {
 
   private type Cost = Int
   private type ClearAt = Long
@@ -16,6 +20,7 @@ final class RateLimit(credits: Int, duration: Duration, name: String) {
   private def makeClearAt = nowMillis + duration.toMillis
 
   private val logger = lila.log("ratelimit")
+  private val monitor = lila.mon.security.rateLimit.generic(key)
 
   logger.info(s"[start] $name ($credits/$duration)")
 
@@ -32,6 +37,7 @@ final class RateLimit(credits: Int, duration: Duration, name: String) {
         op
       case _ =>
         logger.info(s"$name ($credits/$duration) $key cost: $cost $msg")
+        monitor()
         default.zero
     }
 }

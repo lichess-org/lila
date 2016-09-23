@@ -18,9 +18,9 @@ sideElement: document.getElementById('learn_side')
 </div>
 }
 
-@round.layout(
+@base.layout(
 title = "Learn chess by playing",
-side = side,
+side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("learn.css"),
 chessground = false,
@@ -28,6 +28,7 @@ openGraph = lila.app.ui.OpenGraph(
 title = "Learn chess by playing",
 description = "You don't know anything about chess? Excellent! Let's have fun and learn to play chess!",
 url = s"$netBaseUrl${routes.Learn.index}"
-).some) {
+).some,
+withGtm = true) {
 <div id="learn_app" class="learn cg-512">@miniBoardContent</div>
 }

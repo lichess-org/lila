@@ -1,6 +1,9 @@
 package lila.common
 
+import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
+import play.api.data.format.Formatter
+import play.api.data.FormError
 import play.api.data.Forms._
 import play.api.libs.json._
 
@@ -46,4 +49,21 @@ object Form {
 
   def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
     form.errorsAsJson validate jsonGlobalErrorRenamer getOrElse form.errorsAsJson
+
+  object formatter {
+    def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = new Formatter[A] {
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).right map to
+      def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
+    }
+    def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = new Formatter[A] {
+      def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data).right map to
+      def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
+    }
+  }
+
+  object UTCDate {
+    val dateTimePattern = "yyyy-MM-dd HH:mm"
+    val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+  }
 }

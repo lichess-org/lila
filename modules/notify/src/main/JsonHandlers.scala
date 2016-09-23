@@ -36,13 +36,16 @@ final class JSONHandlers(
           "id" -> id.value,
           "slug" -> slug.value,
           "title" -> title.value)
-        case LimitedTournamentInvitation => Json.obj()
+        case LimitedTournamentInvitation | ReportedBanned | CoachReview => Json.obj()
         case GameEnd(gameId, opponentId, win) => Json.obj(
           "id" -> gameId.value,
           "opponent" -> opponentId.map(_.value).flatMap(getLightUser),
           "win" -> win.map(_.value))
         case _: PlanStart  => Json.obj()
         case _: PlanExpire => Json.obj()
+        case RatingRefund(perf, points) => Json.obj(
+          "perf" -> perf,
+          "points" -> points)
       }
     }
 

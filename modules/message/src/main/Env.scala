@@ -21,7 +21,13 @@ final class Env(
 
   lazy val forms = new DataForm(security = security)
 
-  lazy val api = new Api(
+  lazy val jsonView = new JsonView()
+
+  lazy val batch = new MessageBatch(
+    coll = threadColl,
+    notifyApi = notifyApi)
+
+  lazy val api = new MessageApi(
     coll = threadColl,
     shutup = shutup,
     maxPerPage = ThreadMaxPerPage,

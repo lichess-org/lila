@@ -2,13 +2,16 @@ package controllers
 
 import scala.concurrent.duration._
 
+import lila.common.HTTPRequest
 import lila.app._
 import lila.forum.CategRepo
 import views._
 
 object ForumTopic extends LilaController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit(2, 5 minutes, "forum create topic")
+  private val CreateRateLimit = new lila.memo.RateLimit(2, 5 minutes,
+    name = "forum create topic",
+    key = "forum.topic")
 
   def form(categSlug: String) = Open { implicit ctx =>
     NotForKids {
@@ -21,7 +24,7 @@ object ForumTopic extends LilaController with ForumController {
   }
 
   def create(categSlug: String) = OpenBody { implicit ctx =>
-    CreateRateLimit(ctx.req.remoteAddress) {
+    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(CategRepo bySlug categSlug) { categ =>

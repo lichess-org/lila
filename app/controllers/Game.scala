@@ -10,10 +10,7 @@ import views._
 
 object Game extends LilaController {
 
-  private def paginator = Env.game.paginator
   private def cached = Env.game.cached
-  private def searchEnv = Env.gameSearch
-  def searchForm = searchEnv.forms.search
 
   def delete(gameId: String) = Auth { implicit ctx =>
     me =>

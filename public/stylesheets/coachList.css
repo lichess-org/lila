@@ -1,0 +1,167 @@
+.coaches > .top {
+  display: flex;
+  align-items: center;
+}
+.coaches > .top h1 {
+  flex: 1 1 100%;
+}
+.coaches > .top .orders {
+  white-space: nowrap;
+  margin-right: 20px;
+}
+.coach-side {
+  margin: 50px 0 0 -35px;
+  width: 226px;
+  text-align: center;
+}
+.coach-intro img {
+  width: 140px;
+  height: 140px;
+}
+.coach-intro h2 {
+  font: 1.95em Roboto;
+  text-transform: uppercase;
+  color: #639B24;
+  white-space: nowrap;
+  margin-bottom: 1em;
+}
+.coach-intro p {
+  margin-top: 1em;
+  font-size: 1.1em;
+}
+.coach-add {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.coaches .coach {
+  border-top: 1px solid #ccc;
+  position: relative;
+  display: flex;
+}
+.coaches .coach {
+  border-right: 1px solid #ccc;
+}
+.coaches .coach:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+.coaches .coach a.overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.coaches .coach img.picture {
+  flex: 0 0 250px;
+  background: #888;
+}
+.coaches .overview {
+  margin: 20px 10px 0 20px;
+}
+.coaches .coach h1 {
+  font-family: 'Roboto';
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 0 0 11px 0!important;
+  text-shadow: none!important;
+}
+.coaches .coach .headline {
+  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
+  font-size: 17px;
+  padding: 0 0 20px 0!important;
+}
+.coaches .coach .headline.medium {
+  font-size: 15px;
+  padding-bottom: 18px!important;
+}
+.coaches .coach .headline.large {
+  font-size: 14px;
+  padding-bottom: 14px!important;
+}
+.coaches .coach table {
+  line-height: 1.7;
+}
+.coaches .coach table th {
+  opacity: 0.7;
+  padding-right: 20px;
+  text-align: right;
+}
+.coaches .coach table .seen {
+  opacity: 0.7;
+}
+.coaches .coach .rating td a > span {
+  margin-left: 4px;
+  display: inline-block;
+}
+.coaches .few_results {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+@media (max-width: 1084px) {
+  .coach-side {
+    margin-left: 0!important;
+    width: 196px!important;
+  }
+  .coach-intro h2 {
+    font-size: 1.75em;
+  }
+}
+body.dark .coaches .coach,
+body.dark .coach-add,
+body.dark .coaches .few_results {
+  border-color: #3d3d3d;
+}
+
+.mselect {
+  display:inline-block;
+  position: relative;
+  padding:0;
+  border:0;
+}
+.mselect .button {
+  padding-right: 22px;
+  position: relative;
+  display: inline-block;
+}
+.mselect .button i {
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+}
+.mselect .list {
+  margin:0;
+  padding:0;
+  position:absolute;
+  z-index: 3;
+  top:0;
+  text-align: left;
+  list-style-type:none;
+  font-weight: normal;
+  background: #fff;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  border-radius: 3px;
+  display: none;
+}
+.mselect.shown .list {
+  display: block;
+}
+.mselect .list a {
+  display: block;
+  padding: 10px;
+  background:#fff;
+  transition: 0.13s;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.mselect .list a:hover{
+  background: #3893E8;
+  color: #fff;
+}
+

@@ -24,7 +24,7 @@ table.all th {
   white-space: nowrap;
 }
 table.all .switch.up {
-  color: #759900;
+  color: #639B24;
 }
 table.all .switch.down {
   color: #ac524f;
@@ -69,7 +69,7 @@ table.payments td {
   padding: 10px 5px;
 }
 table.all .thanks {
-  color: #759900;
+  color: #639B24;
   display: block;
 }
 
@@ -83,7 +83,7 @@ table.all .thanks {
 
 .motivation .banner {
   margin-bottom: 60px;
-  background: #759900;
+  background: #639B24;
   color: #fff;
   text-align: center;
   font-size: 1.3em;
@@ -135,7 +135,7 @@ table.all .thanks {
   margin-bottom: 20px;
 }
 .motivation .plan_checkout group input:checked + label {
-  background: #759900!important;
+  background: #639B24!important;
   border-color: #ccc!important;
 }
 body.dark .motivation .plan_checkout group input:checked + label {

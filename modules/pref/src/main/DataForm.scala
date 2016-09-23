@@ -5,98 +5,122 @@ import play.api.data.Forms._
 
 import lila.user.User
 
-private[pref] final class DataForm {
+object DataForm {
 
   val pref = Form(mapping(
-    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-    "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
-    "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
+    "display" -> mapping(
+      "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
+      "captured" -> number.verifying(Set(0, 1) contains _),
+      "highlight" -> number.verifying(Set(0, 1) contains _),
+      "destination" -> number.verifying(Set(0, 1) contains _),
+      "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
+      "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
+      "pieceNotation" -> optional(number.verifying(Set(0, 1) contains _)),
+      "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
+    )(DisplayData.apply)(DisplayData.unapply),
+    "behavior" -> mapping(
+      "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
+      "premove" -> number.verifying(Set(0, 1) contains _),
+      "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
+      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
+      "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
+      "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
+      "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
+      "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _))
+    )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
     "clockSound" -> number.verifying(Set(0, 1) contains _),
     "follow" -> number.verifying(Set(0, 1) contains _),
-    "highlight" -> number.verifying(Set(0, 1) contains _),
-    "destination" -> number.verifying(Set(0, 1) contains _),
-    "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
-    "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
-    "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "message" -> number.verifying(Pref.Message.choices.toMap contains _),
-    "premove" -> number.verifying(Set(0, 1) contains _),
-    "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-    "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
-    "insightShare" -> number.verifying(Set(0, 1, 2) contains _),
-    "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-    "captured" -> number.verifying(Set(0, 1) contains _)
+    "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
+  case class DisplayData(
+    animation: Int,
+    captured: Int,
+    highlight: Int,
+    destination: Int,
+    coords: Int,
+    replay: Int,
+    pieceNotation: Option[Int],
+    blindfold: Int)
+
+  case class BehaviorData(
+    moveEvent: Option[Int],
+    premove: Int,
+    takeback: Int,
+    autoQueen: Int,
+    autoThreefold: Int,
+    submitMove: Int,
+    confirmResign: Int,
+    keyboardMove: Option[Int])
+
   case class PrefData(
-      autoQueen: Int,
-      autoThreefold: Int,
-      takeback: Int,
+      display: DisplayData,
+      behavior: BehaviorData,
       clockTenths: Int,
       clockBar: Int,
       clockSound: Int,
       follow: Int,
-      highlight: Int,
-      destination: Int,
-      coords: Int,
-      replay: Int,
-      blindfold: Int,
       challenge: Int,
       message: Int,
-      premove: Int,
-      animation: Int,
-      submitMove: Int,
-      insightShare: Int,
-      confirmResign: Int,
-      captured: Int) {
+      insightShare: Int) {
 
     def apply(pref: Pref) = pref.copy(
-      autoQueen = autoQueen,
-      autoThreefold = autoThreefold,
-      takeback = takeback,
+      autoQueen = behavior.autoQueen,
+      autoThreefold = behavior.autoThreefold,
+      takeback = behavior.takeback,
       clockTenths = clockTenths,
       clockBar = clockBar == 1,
       clockSound = clockSound == 1,
       follow = follow == 1,
-      highlight = highlight == 1,
-      destination = destination == 1,
-      coords = coords,
-      replay = replay,
-      blindfold = blindfold,
+      highlight = display.highlight == 1,
+      destination = display.destination == 1,
+      coords = display.coords,
+      replay = display.replay,
+      blindfold = display.blindfold,
       challenge = challenge,
       message = message,
-      premove = premove == 1,
-      animation = animation,
-      submitMove = submitMove,
+      premove = behavior.premove == 1,
+      animation = display.animation,
+      submitMove = behavior.submitMove,
       insightShare = insightShare,
-      confirmResign = confirmResign,
-      captured = captured == 1)
+      confirmResign = behavior.confirmResign,
+      captured = display.captured == 1,
+      keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+      pieceNotation = display.pieceNotation | pref.pieceNotation,
+      moveEvent = behavior.moveEvent | pref.moveEvent)
   }
 
   object PrefData {
     def apply(pref: Pref): PrefData = PrefData(
-      autoQueen = pref.autoQueen,
-      autoThreefold = pref.autoThreefold,
-      takeback = pref.takeback,
+      display = DisplayData(
+        highlight = pref.highlight.fold(1, 0),
+        destination = pref.destination.fold(1, 0),
+        animation = pref.animation,
+        coords = pref.coords,
+        replay = pref.replay,
+        captured = pref.captured.fold(1, 0),
+        blindfold = pref.blindfold,
+        pieceNotation = pref.pieceNotation.some),
+      behavior = BehaviorData(
+        moveEvent = pref.moveEvent.some,
+        premove = pref.premove.fold(1, 0),
+        takeback = pref.takeback,
+        autoQueen = pref.autoQueen,
+        autoThreefold = pref.autoThreefold,
+        submitMove = pref.submitMove,
+        confirmResign = pref.confirmResign,
+        keyboardMove = pref.keyboardMove.some),
       clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
       clockSound = pref.clockSound.fold(1, 0),
       follow = pref.follow.fold(1, 0),
-      highlight = pref.highlight.fold(1, 0),
-      destination = pref.destination.fold(1, 0),
-      coords = pref.coords,
-      replay = pref.replay,
-      blindfold = pref.blindfold,
       challenge = pref.challenge,
       message = pref.message,
-      premove = pref.premove.fold(1, 0),
-      animation = pref.animation,
-      submitMove = pref.submitMove,
-      insightShare = pref.insightShare,
-      confirmResign = pref.confirmResign,
-      captured = pref.captured.fold(1, 0))
+      insightShare = pref.insightShare)
   }
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)

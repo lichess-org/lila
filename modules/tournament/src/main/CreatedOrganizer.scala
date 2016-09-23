@@ -32,6 +32,7 @@ private[tournament] final class CreatedOrganizer(
       TournamentRepo.allCreated(30).map { tours =>
         tours foreach { tour =>
           tour.schedule match {
+            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
             case None => PlayerRepo count tour.id foreach {
               case 0 => api wipe tour
               case nb if tour.hasWaitedEnough =>
@@ -44,7 +45,10 @@ private[tournament] final class CreatedOrganizer(
           }
         }
         lila.mon.tournament.created(tours.size)
-      } andThenAnyway scheduleNext
+      }.chronometer
+        .mon(_.tournament.createdOrganizer.tickTime)
+        .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
+        .result andThenAnyway scheduleNext
   }
 
   private def ejectLeavers(tour: Tournament) =

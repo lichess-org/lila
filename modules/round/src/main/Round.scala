@@ -73,7 +73,7 @@ private[round] final class Round(
       }
 
     case FishnetPlay(uci, currentFen) => handle { game =>
-      player.fishnet(game, uci, currentFen)
+      player.fishnet(game, uci, currentFen, self)
     } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -81,6 +81,10 @@ private[round] final class Round(
     }
 
     case Resign(playerId) => handle(playerId) { pov =>
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
+    }
+
+    case ResignAi => handleAi(proxy.game) { pov =>
       pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
@@ -215,6 +219,10 @@ private[round] final class Round(
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
       game.playable ?? finisher.other(game, _.Aborted)
     }
+
+    case AbortForce => handle { game =>
+      game.playable ?? finisher.other(game, _.Aborted)
+    }
   }
 
   private def reportNetworkLag(pov: Pov) =
@@ -243,6 +251,10 @@ private[round] final class Round(
       if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
   } recover errorHandler("handlePov")
+
+  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
+    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op
+  } recover errorHandler("handleAi")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
     game flatten "game not found" flatMap op

@@ -4,7 +4,7 @@ import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
 import lila.db.dsl._
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 private[opening] final class Finisher(
@@ -39,7 +39,7 @@ private[opening] final class Finisher(
               Opening.BSONFields.wins -> $int(win ? 1 | 0)
             ) ++ $set(
                 Opening.BSONFields.perf -> Perf.perfBSONHandler.write(openingPerf)
-              )) zip UserRepo.setPerf(user.id, "opening", userPerf)
+              )) zip UserRepo.setPerf(user.id, PerfType.Opening, userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
   }

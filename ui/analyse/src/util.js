@@ -1,4 +1,5 @@
 var piotr2key = require('./piotr').piotr2key;
+var m = require('mithril');
 
 var UNDEF = 'undefined';
 
@@ -25,6 +26,9 @@ module.exports = {
       });
     });
     return dests;
+  },
+  aiName: function(variant) {
+    return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
   },
   readDrops: function(line) {
     if (typeof line === 'undefined' || line === null) return null;
@@ -54,7 +58,7 @@ module.exports = {
     var value;
     var isBoolean = defaultValue === true || defaultValue === false;
     return function(v) {
-      if (defined(v) && v !== value) {
+      if (defined(v) && v != value) {
         value = v + '';
         lichess.storage.set(sk, v);
       } else if (!defined(value)) {
@@ -72,6 +76,17 @@ module.exports = {
       return (ret !== null) ? ret : defaultValue;
     };
   },
+  decomposeUci: function(uci) {
+    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
+  },
+  median: function(values) {
+    values.sort(function(a, b) {
+      return a - b;
+    });
+    var half = Math.floor(values.length / 2);
+    return values.length % 2 ? values[half] :
+      (values[half - 1] + values[half]) / 2.0;
+  },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');
   },
@@ -79,6 +94,34 @@ module.exports = {
     var split = titleName.split(' ');
     var name = split.length == 1 ? split[0] : split[1];
     return name.toLowerCase();
+  },
+  bindOnce: function(eventName, f) {
+    var withRedraw = function(e) {
+      m.startComputation();
+      f(e);
+      m.endComputation();
+    };
+    return function(el, isUpdate, ctx) {
+      if (isUpdate) return;
+      el.addEventListener(eventName, withRedraw)
+      ctx.onunload = function() {
+        el.removeEventListener(eventName, withRedraw);
+      };
+    }
+  },
+  roleToSan: {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  },
+  sanToRole: {
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen'
   },
   /**
    * https://github.com/niksy/throttle-debounce/blob/master/throttle.js

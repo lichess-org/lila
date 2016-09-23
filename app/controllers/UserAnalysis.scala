@@ -39,6 +39,22 @@ object UserAnalysis extends LilaController with TheftPrevention {
     }
   }
 
+  private lazy val keyboardI18nKeys = {
+    val trans = Env.i18n.keys
+    Seq(
+      trans.keyboardShortcuts,
+      trans.keyMoveBackwardOrForward,
+      trans.keyGoToStartOrEnd,
+      trans.keyShowOrHideComments,
+      trans.keyEnterOrExitVariation,
+      trans.youCanAlsoScrollOverTheBoardToMoveInTheGame,
+      trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard)
+  }
+
+  def keyboardI18n = Action.async { implicit req =>
+    JsonOk(fuccess(Env.i18n.jsDump.keysToObject(keyboardI18nKeys, lang)))
+  }
+
   private[controllers] def makePov(fen: Option[String], variant: Variant): Pov = makePov {
     fen.filter(_.nonEmpty).flatMap {
       Forsyth.<<<@(variant, _)

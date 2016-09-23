@@ -10,7 +10,9 @@ final class ModApi(
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
+    notifier: ModNotifier,
     lightUserApi: LightUserApi,
+    refunder: RatingRefund,
     lilaBus: lila.common.Bus) {
 
   def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
@@ -21,7 +23,11 @@ final class ModApi(
     (user.engine != v) ?? {
       logApi.engine(mod, user.id, v) zip
         UserRepo.setEngine(user.id, v) >>- {
-          if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+          if (v) {
+            lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+            notifier.reporters(user)
+            refunder schedule user
+          }
           reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
         } void
     }
@@ -42,7 +48,10 @@ final class ModApi(
     (user.booster != v) ?? {
       logApi.booster(mod, user.id, v) zip
         UserRepo.setBooster(user.id, v) >>- {
-          if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+          if (v) {
+            lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+            notifier.reporters(user)
+          }
         } void
     }
   }
@@ -59,8 +68,10 @@ final class ModApi(
     changed ?? {
       UserRepo.updateTroll(user).void >>-
         logApi.troll(mod, user.id, user.troll)
-    } >>-
-      (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod)) inject user.troll
+    } >>- {
+      if (value) notifier.reporters(user)
+      (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod))
+    } inject user.troll
   }
 
   def ban(mod: String, username: String): Funit = withUser(username) { user =>

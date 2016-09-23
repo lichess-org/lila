@@ -2,6 +2,8 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import play.twirl.api.Html
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -27,11 +29,7 @@ object Lobby extends LilaController {
   }
 
   def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] = {
-    Env.current.preloader(
-      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
-      tours = Env.tournament.cached promotable true,
-      simuls = Env.simul allCreatedFeaturable true
-    ) map (html.lobby.home.apply _).tupled map { status(_) } map ensureSessionId(ctx.req)
+    HomeCache(ctx) map { status(_) } map ensureSessionId(ctx.req)
   }.mon(_.http.response.home)
 
   def seeks = Open { implicit ctx =>
@@ -57,8 +55,60 @@ object Lobby extends LilaController {
     }
   }
 
-  def timeline = Auth { implicit ctx =>
-    me =>
-      Env.timeline.entryRepo.userEntries(me.id) map { html.timeline.entries(_) }
+  def timeline = Auth { implicit ctx => me =>
+    Env.timeline.entryRepo.userEntries(me.id) map { html.timeline.entries(_) }
+  }
+
+  private object HomeCache {
+
+    private case class RequestKey(
+      uri: String,
+      headers: Headers)
+
+    private val cache = lila.memo.AsyncCache[RequestKey, Html](
+      f = renderRequestKey,
+      timeToLive = 500 millis)
+
+    private def renderCtx(implicit ctx: Context): Fu[Html] = Env.current.preloader(
+      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
+      tours = Env.tournament.cached promotable true,
+      events = Env.event.api promotable true,
+      simuls = Env.simul allCreatedFeaturable true
+    ) map (html.lobby.home.apply _).tupled
+
+    private def renderRequestKey(r: RequestKey): Fu[Html] = renderCtx {
+      lila.mon.lobby.cache.miss()
+      val req = new RequestHeader {
+        def id = 1000l
+        def tags = Map.empty
+        def uri = r.uri
+        def path = "/"
+        def method = "GET"
+        def version = "1.1"
+        def queryString = Map.empty
+        def headers = r.headers
+        def remoteAddress = "0.0.0.0"
+        def secure = true
+      }
+      new lila.api.HeaderContext(
+        headerContext = new lila.user.HeaderUserContext(req, none),
+        data = lila.api.PageData.default)
+    }
+
+    def apply(ctx: Context) =
+      if (ctx.isAuth) {
+        lila.mon.lobby.cache.user()
+        renderCtx(ctx)
+      }
+      else {
+        lila.mon.lobby.cache.anon()
+        cache(RequestKey(
+          uri = ctx.req.uri,
+          headers = new Headers(
+          ctx.req.headers.get(COOKIE) ?? { cookie =>
+            List(COOKIE -> cookie)
+          }
+        )))
+      }
   }
 }

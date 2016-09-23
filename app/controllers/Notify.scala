@@ -1,7 +1,6 @@
 package controllers
 
 import lila.app._
-import lila.common.paginator.PaginatorJson
 import lila.notify.Notification.Notifies
 
 import play.api.libs.json._

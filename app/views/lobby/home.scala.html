@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], events: List[lila.event.Event], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -13,10 +13,13 @@
 @NotForKids {
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 }
-@tours.flatMap(_.spotlightedNow).map {
-case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
+@events.map { e =>
+@event.homepageSpotlight(e)
 }
-@simuls.find(_.spotlightable).map { s =>
+@lila.tournament.Spotlight.select(tours, ctx.me).map { tour =>
+@tournament.homepageSpotlight(tour)
+}
+@simuls.find(_.spotlightable).take(2).map { s =>
 @simul.homepageSpotlight(s)
 }
 @ctx.me.map { u =>
@@ -38,7 +41,7 @@ case (tour, spot) => { @tournament.homepageSpotlight(tour, spot) }
 <a id="nb_games_in_play" href="@routes.Tv.games">
   @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
 </a>
-@if(lila.common.HTTPRequest.isMobile(ctx.req)) {
+@if(ctx.isMobileBrowser) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
 } else {
@@ -86,9 +89,9 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
   @translationCall.map(i18n.callBox(_))
 </div>
 <div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
-  @playban.map(playbanInfo(_))
   @currentGame.map(currentGameInfo(_))
   <div id="hooks_wrap"></div>
+  @playban.map(playbanInfo(_))
   <div id="start_buttons" class="lichess_ground">
     <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
     <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
@@ -122,8 +125,8 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
     @simul.allCreated(simuls)
   </div>
 </div>
-<div class="clearfix">
-  <div class="leaderboard undertable half">
+<div class="leaderboards undertable">
+  <div class="leaderboard">
     <div class="user_top">
       <div class="undertable_top">
         <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
@@ -146,7 +149,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       </div>
     </div>
   </div>
-  <div class="leaderboard undertable half">
+  <div class="leaderboard">
     <div class="user_top">
       <div class="undertable_top">
         <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
@@ -168,7 +171,7 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
   </div>
 </div>
 @NotForKids {
-<div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
+<div class="new_posts undertable" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
     <span class="title" data-icon="d"> @trans.latestForumPosts()</span>

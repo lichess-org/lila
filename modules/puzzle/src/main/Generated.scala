@@ -3,8 +3,8 @@ package lila.puzzle
 import scala.util.{ Try, Success, Failure }
 import scalaz.Validation.FlatMap._
 
-import chess.format.{ Forsyth, Uci }
 import chess.Color
+import chess.format.{ Forsyth, Uci }
 import org.joda.time.DateTime
 import play.api.libs.json._
 
@@ -15,8 +15,6 @@ private case class Generated(
     move_list: JsArray,
     game_id: String) {
 
-  def isMate = category == "Mate"
-
   def colorFromFen = (Forsyth << last_pos).fold(Color.white)(!_.color)
 
   def toPuzzle: PuzzleId => Puzzle = Puzzle.make(
@@ -24,7 +22,8 @@ private case class Generated(
     history = List(last_move),
     fen = last_pos,
     color = colorFromFen,
-    lines = Generated readLines move_list.as[List[String]])
+    lines = Generated readLines move_list.as[List[String]],
+    mate = category == "Mate")
 }
 
 private object Generated {

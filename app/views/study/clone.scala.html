@@ -1,0 +1,28 @@
+@(s: lila.study.Study)(implicit ctx: Context)
+
+@site.message(
+title = s"Clone ${s.name}",
+icon = Some(Html("")),
+back = false) {
+<form action="@routes.Study.cloneApply(s.id)" method="POST">
+  <p>
+    This will create a new private study with the same chapters.
+  </p>
+  <p>
+    You will be the owner of that new study.
+  </p>
+  <p>
+    The two studies can be updated separately.
+  </p>
+  <p>
+    Deleting one study will <strong>not</strong> delete the other study.
+  </p>
+  <p>
+    <button type="submit" class="submit button large" data-icon="@openingBrace"
+      style="margin: 30px auto; display: block; font-size: 2em;">Clone the study</button>
+  </p>
+  <p>
+    <a href="@routes.Study.show(s.id)" class="text" data-icon="I">@trans.cancel()</a>
+  </p>
+</form>
+}

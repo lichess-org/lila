@@ -45,15 +45,31 @@ object Plan extends LilaController {
 
   private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] =
     Env.plan.api.recentChargeUserIds(50) zip
-      Env.plan.api.topPatronUserIds(120) map {
-        case (recentIds, bestIds) =>
+      Env.plan.api.topPatronUserIds(120) zip
+      ctx.me.??(me => makeTrackingUserData(me) map some) map {
+        case ((recentIds, bestIds), trackingData) =>
           Ok(html.plan.index(
             stripePublicKey = Env.plan.stripePublicKey,
             email = email,
             patron = patron,
             recentIds = recentIds,
-            bestIds = bestIds))
+            bestIds = bestIds,
+            trackingData = trackingData))
       }
+
+  private def makeTrackingUserData(me: UserModel) = for {
+    tournaments <- Env.tournament.leaderboardApi.chart(me)
+    nbFollowers <- Env.relation.api.countFollowers(me.id)
+    nbFollowing <- Env.relation.api.countFollowing(me.id)
+    nbForumPosts <- Env.forum.postApi.nbByUser(me.id)
+  } yield lila.plan.PlanTrackingUserData(
+    user = me,
+    nbTournaments = tournaments.allPerfResults.nb,
+    medianTournamentRank = tournaments.allPerfResults.rankPercentMedian,
+    isStreamer = Env.tv.isStreamer(me.id),
+    nbFollowers = nbFollowers,
+    nbFollowing = nbFollowing,
+    nbForumPosts = nbForumPosts)
 
   private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me, customer) flatMap {
@@ -104,8 +120,10 @@ object Plan extends LilaController {
   }
 
   def thanks = Open { implicit ctx =>
-    ctx.me ?? Env.plan.api.userPatron map { patron =>
-      Ok(html.plan.thanks(patron))
+    ctx.me ?? Env.plan.api.userPatron flatMap { patron =>
+      patron ?? Env.plan.api.patronCustomer map { customer =>
+        Ok(html.plan.thanks(patron, customer))
+      }
     }
   }
 

@@ -18,11 +18,11 @@
     <tbody class="infinitescroll">
       @pager.nextPage.map { np =>
       <tr><th class="pager none">
-          <a href="@routes.UserTournament.path(u.username, path, np)">Next</a>
+          <a rel="next" href="@routes.UserTournament.path(u.username, path, np)">Next</a>
       </th></tr>
       }
       @pager.currentPageResults.map { e =>
-      <tr class="paginated_element@if(e.tour.scheduled) { scheduled }">
+      <tr class="paginated_element@if(e.tour.isScheduled) { scheduled }">
         <td class="icon">
           <span data-icon="@tournamentIconChar(e.tour)"></span>
         </td>

@@ -25,14 +25,14 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 
-  implicit object ByteArrayBSONHandler extends BSONHandler[BSONBinary, ByteArray] {
-
+  implicit val ByteArrayBSONHandler = new BSONHandler[BSONBinary, ByteArray] {
     def read(bin: BSONBinary) = ByteArray(bin.byteArray)
-
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }
 
-  def parseByte(s: String): Byte = {
+  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
+
+  private def parseByte(s: String): Byte = {
     var i = s.length - 1
     var sum = 0
     var mult = 1
@@ -47,8 +47,6 @@ object ByteArray {
     }
     sum.toByte
   }
-
-  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   def subtype = Subtype.GenericBinarySubtype
 

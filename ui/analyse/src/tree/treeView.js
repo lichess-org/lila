@@ -8,9 +8,9 @@ var game = require('game').game;
 var treePath = require('./path');
 
 var autoScroll = util.throttle(300, false, function(ctrl, el) {
+  var cont = el.parentNode;
   raf(function() {
     var target = el.querySelector('.active');
-    var cont = el.parentNode;
     if (!target) {
       cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
       return;
@@ -259,42 +259,45 @@ function eventPath(e, ctrl) {
   return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
 }
 
+var noop = function() {};
+
+function emptyConcealOf() {
+  return noop;
+}
+
 module.exports = {
-  render: function(ctrl, conceal) {
+  render: function(ctrl, concealOf) {
     var root = ctrl.tree.root;
     var ctx = {
       ctrl: ctrl,
-      concealOf: function(isMainline) {
-        return function(path, node) {
-          if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-          if (treePath.contains(ctrl.vm.path, path)) return null;
-          return conceal.owner ? 'conceal' : 'hide'
-        };
-      }
+      concealOf: concealOf || emptyConcealOf
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,
       conceal: false
     });
     return m('div.tview2', {
-      onmousedown: function(e) {
-        if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-        var path = eventPath(e, ctrl);
-        if (path) ctrl.userJump(path);
-      },
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollRequested || !isUpdate) {
           if (isUpdate || ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
-      },
-      oncontextmenu: function(e) {
-        var path = eventPath(e, ctrl);
-        contextMenu.open(e, {
-          path: path,
-          root: ctrl
+        if (isUpdate) return;
+        el.oncontextmenu = function(e) {
+          var path = eventPath(e, ctrl);
+          contextMenu.open(e, {
+            path: path,
+            root: ctrl
+          });
+          m.redraw();
+          return false;
+        };
+        el.addEventListener('mousedown', function(e) {
+          if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+          var path = eventPath(e, ctrl);
+          if (path) ctrl.userJump(path);
+          m.redraw();
         });
-        return false;
       },
     }, [
       commentTags ? m('interrupt', commentTags) : null,

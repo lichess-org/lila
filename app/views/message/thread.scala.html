@@ -2,39 +2,41 @@
 
 @message.layout(
 title = thread.name) {
-<div class="thread_actions">
-  <form action="@routes.Message.delete(thread.id)" method="post">
-    <button type="submit" class="delete button"> Delete</button>
-  </form>
-</div>
+<div id="lichess_message" class="content_box">
+  <div class="thread_actions">
+    <form action="@routes.Message.delete(thread.id)" method="post">
+      <button type="submit" class="delete button"> Delete</button>
+    </form>
+  </div>
 
-<div class="head">
-  <h1>@thread.nonEmptyName</h1>
-</div>
+  <div class="head">
+    <h1>@thread.nonEmptyName</h1>
+  </div>
 
-@thread.posts.map { post =>
-<div class="thread_message" id="message_@post.id">
-  <span class="infos">
-    @userIdLink(thread.senderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.receiverOf(post), "inline".some) - @momentFormat(post.createdAt)
-  </span>
-  <div class="thread_message_body">@autoLink(post.text)</div>
-</div>
-}
-
-<div class="answer" id="bottom">
-  @if(blocks) {
-  <p>This user blocks you. You cannot answer.</p>
-  } else {
-  <form action="@routes.Message.answer(thread.id)" method="post">
-    <div class="field_body">
-      <textarea required="required" name="@form("text").name" id="@form("text").id">@form("text").value</textarea>
-      @errMsg(form("text"))
-    </div>
-    <div class="actions">
-      <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
-      <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
-    </div>
-  </form>
+  @thread.posts.map { post =>
+  <div class="thread_message" id="message_@post.id">
+    <span class="infos">
+      @userIdLink(thread.senderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.receiverOf(post), "inline".some) - @momentFormat(post.createdAt)
+    </span>
+    <div class="thread_message_body">@autoLink(post.text)</div>
+  </div>
   }
+
+  <div class="answer" id="bottom">
+    @if(blocks) {
+    <p>This user blocks you. You cannot answer.</p>
+    } else {
+    <form action="@routes.Message.answer(thread.id)" method="post">
+      <div class="field_body">
+        <textarea required="required" name="@form("text").name" id="@form("text").id">@form("text").value</textarea>
+        @errMsg(form("text"))
+      </div>
+      <div class="actions">
+        <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
+        <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
+      </div>
+    </form>
+    }
+  </div>
 </div>
 }

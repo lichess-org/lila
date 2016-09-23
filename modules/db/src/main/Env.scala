@@ -41,6 +41,12 @@ final class Env(
   def apply(name: String)(implicit ec: ExecutionContext): Coll =
     db(ec).apply(name)
 
+  object image {
+    private lazy val imageColl = apply(config getString "image.collection")
+    import DbImage.DbImageBSONHandler
+    def fetch(id: String): Fu[Option[DbImage]] = imageColl.byId[DbImage](id)
+  }
+
   private def registerDriverShutdownHook(mongoDriver: MongoDriver): Unit =
     lifecycle.addStopHook { () =>
       logger.info(s"[$lnm] Stopping the MongoDriver...")

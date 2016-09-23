@@ -1,5 +1,6 @@
 var m = require('mithril');
-var util = require('chessground').util;
+var util = require('../util');
+var partial = require('chessground').util.partial;
 
 function px(v) {
   return v + 'px';
@@ -73,7 +74,7 @@ function renderPlot(ctrl, hook) {
 function renderHook(ctrl, hook) {
   var html = '';
   if (hook.rating) {
-    html += '<a class="opponent" href="/@/' + hook.u + '">' + hook.u.substr(0, 14) + '</a>';
+    html += '<a class="opponent ulpt" href="/@/' + hook.u + '">' + hook.u.substr(0, 14) + '</a>';
     html += '<span class="rating">' + hook.rating + '</span>';
   } else {
     html += '<span class="opponent anon">Anonymous</span>';
@@ -127,20 +128,21 @@ function renderYAxis() {
 module.exports = {
   toggle: function(ctrl) {
     return m('span', {
+      key: 'set-mode-list',
       'data-hint': ctrl.trans('list'),
       class: 'mode_toggle hint--bottom',
-      onmousedown: util.partial(ctrl.setMode, 'list')
+      config: util.bindOnce('mousedown', partial(ctrl.setMode, 'list'))
     }, m('span.chart[data-icon=?]'));
   },
   render: function(ctrl, hooks) {
-    return m('div.hooks_chart', [
+    return m('div.hooks_chart', {
+      key: 'chart'
+    }, [
       m('div.canvas', {
-        onclick: function(e) {
-          if (e.target.classList.contains('plot')) {
-            ctrl.clickHook(e.target.id);
-          }
-        }
-      }, hooks.map(util.partial(renderPlot, ctrl))),
+        config: util.bindOnce('click', function(e) {
+          if (e.target.classList.contains('plot')) ctrl.clickHook(e.target.id);
+        })
+      }, hooks.map(partial(renderPlot, ctrl))),
       renderYAxis(),
       renderXAxis()
     ]);

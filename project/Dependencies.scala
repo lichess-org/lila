@@ -8,7 +8,6 @@ object Dependencies {
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     // val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-    val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
@@ -22,7 +21,8 @@ object Dependencies {
       awesomepom,
       typesafe,
       prismic,
-      t2v, jgitMaven, sprayRepo)
+      jgitMaven,
+      sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.9"
@@ -39,6 +39,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
+  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
 
   object play {
     val version = "2.4.6"

@@ -1,6 +1,7 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge])(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], pref: lila.pref.Pref)(implicit ctx: Context)
 
 @import lila.evaluation.Display
+@import lila.pref.Pref
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -52,7 +53,7 @@
   <br />
   <br />
   <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
-    @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
+    @base.form.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
   </form>
   }
   @if(isGranted(_.SetEmail)) {
@@ -67,11 +68,15 @@
   @if(isGranted(_.ChangePermission) || (isGranted(_.Admin) && u.roles.nonEmpty)) {
   <div class="mod_roles">
     <@if(isGranted(_.ChangePermission)){a href="@routes.Mod.powaaa(u.username)"}else{span}>
-    <strong class="text" data-icon="">Mod permissions:</strong>
+    <strong class="text inline" data-icon="">Mod permissions:</strong>
     @if(u.roles.isEmpty) { Add some } else { @u.roles.mkString(", ") }
     </@if(isGranted(_.ChangePermission)){a}else{span}>
   </div>
   }
+  <div class="preferences">
+    <strong class="text inline" data-icon="%">Notable preferences:</strong>
+    @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] }
+  </div>
   @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
@@ -190,7 +195,7 @@
               @pag.pov(result).fold{
               @result.gameId
               } { p =>
-              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false, variant = p.game.variant)
               }
             </a>
           </td>
@@ -256,13 +261,10 @@
     <br />
     }
   </div>
-  @if(spy.otherUsers.size == 1) {
-  <strong data-icon="f"> No similar user found</strong>
-  } else {
   <table class="others slist">
     <thead>
       <tr>
-        <th>@spy.otherUsers.size similar user(s)</th>
+        <th>@spy.otherUsers.size user(s) on these IPs</th>
         <th>Same</th>
         <th>Games</th>
         <th>Marks</th>
@@ -300,7 +302,6 @@
       }
     </tbody>
   </table>
-  }
   <div class="listings clearfix">
     <div class="spy_ips">
       <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ipsByLocations.map {

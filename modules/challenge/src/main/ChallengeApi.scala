@@ -88,7 +88,9 @@ final class ChallengeApi(
       } yield success
     }
 
-  def removeByUserId = repo removeByUserId _
+  def removeByUserId(userId: User.ID) = repo allWithUserId userId flatMap { cs =>
+    lila.common.Future.applySequentially(cs)(remove).void
+  }
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuccess(false)
@@ -100,12 +102,12 @@ final class ChallengeApi(
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
       lila.common.Future.applySequentially(cs)(offline).void
     } >>
-      repo.expiredIds(max = 50).flatMap { ids =>
-        lila.common.Future.applySequentially(ids)(remove).void
+      repo.expired(50).flatMap { cs =>
+        lila.common.Future.applySequentially(cs)(remove).void
       }
 
-  private def remove(id: Challenge.ID) =
-    repo.remove(id) >> countInFor.remove(id)
+  private def remove(c: Challenge) =
+    repo.remove(c.id) >> uncacheAndNotify(c)
 
   private def uncacheAndNotify(c: Challenge) = {
     (c.destUserId ?? countInFor.remove) >>-

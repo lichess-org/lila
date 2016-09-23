@@ -14,7 +14,8 @@ playing: Boolean = false,
 openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
-withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
+withLangAnnotations: Boolean = true,
+withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -31,7 +32,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(ctx.is3d) { @cssTag("board-3d.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeEvenDoubleQuotes(o.description)))" name="description">
+    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
@@ -54,8 +55,10 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
+    ctx.isMobileBrowser ?? "mobile",
     "coords_" + ctx.pref.coords,
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
@@ -191,6 +194,7 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @momentjsTag
+    @momentLangTag
     @if(isProd) {
     @jsTagCompiled("lichess.js")
     } else {
@@ -200,13 +204,13 @@ withLangAnnotations: Boolean = true)(body: Html)(implicit ctx: Context)
     @jsTag("socket.js")
     @jsTag("main.js")
     }
+    @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") {
     @embedJs {
     lichess_translations = @jsI18n()
     }
-    @momentLangTag
     }
-    @base.ga()
+    @if(withGtm) {@gtm()} else {@ga()}
   </body>
 </html>

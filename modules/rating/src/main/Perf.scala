@@ -22,9 +22,7 @@ case class Perf(
   def add(g: Glicko, date: DateTime): Perf = copy(
     glicko = g,
     nb = nb + 1,
-    recent =
-      if (nb < 10) recent
-      else (g.intRating :: recent) take Perf.recentMaxSize,
+    recent = updateRecentWith(g),
     latest = date.some)
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
@@ -37,6 +35,17 @@ case class Perf(
     lila.mon.incPath(monitor)()
     add(Glicko.default, date)
   }
+
+  def refund(points: Int): Perf = {
+    val newGlicko = glicko refund points
+    copy(
+      glicko = newGlicko,
+      recent = updateRecentWith(newGlicko))
+  }
+
+  private def updateRecentWith(glicko: Glicko) =
+    if (nb < 10) recent
+    else (glicko.intRating :: recent) take Perf.recentMaxSize
 
   def toRating = new Rating(
     math.max(Glicko.minRating, glicko.rating),

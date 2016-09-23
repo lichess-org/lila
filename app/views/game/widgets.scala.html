@@ -1,6 +1,6 @@
 @(games: Seq[Game], user: Option[User] = None, ownerLink: Boolean = false, mini: Boolean = false)(implicit ctx: Context)
 
-@gamePlayer(player: Player) = {
+@gamePlayer(variant: chess.variant.Variant, player: Player) = {
 <div class="player @player.color.name">
   @player.playerUser.map { playerUser =>
   <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">
@@ -12,7 +12,7 @@
   @playerUser.ratingDiff.map(showRatingDiff)
   }.getOrElse {
   @player.aiLevel.map { level =>
-  <span>@trans.aiNameLevelAiLevel.str(aiName, level)</span><br />@aiRating(level)
+  <span>@trans.aiNameLevelAiLevel.str(aiName(variant), level)</span><br />@aiRating(level)
   }.getOrElse {
   <span>@player.nameSplit match {
     case Some((name, rating)) => {
@@ -68,9 +68,9 @@
       }
     </div>
     <div class="versus">
-      @gamePlayer(g.whitePlayer)
+      @gamePlayer(g.variant, g.whitePlayer)
       <div class="swords" data-icon="U"></div>
-      @gamePlayer(g.blackPlayer)
+      @gamePlayer(g.variant, g.blackPlayer)
     </div>
     <div class="result">
       @if(g.isBeingPlayed) {@trans.playingRightNow()} else {

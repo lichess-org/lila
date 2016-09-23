@@ -9,6 +9,10 @@ function timer(pov) {
   }, time.fromNow());
 }
 
+function aiName(variant) {
+  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
+}
+
 module.exports = function(ctrl) {
   return m('div#now_playing',
     ctrl.data.nowPlaying.map(function(pov) {
@@ -24,7 +28,6 @@ module.exports = function(ctrl) {
               var config = {
                 coordinates: false,
                 viewOnly: true,
-                minimalDom: true,
                 orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,
                 fen: pov.fen,
                 lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : []
@@ -35,7 +38,7 @@ module.exports = function(ctrl) {
           },
           boardContent),
         m('span.meta', [
-          pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
+          pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', aiName(pov.variant), pov.opponent.ai) : pov.opponent.username,
           m('span.indicator',
             pov.isMyTurn ? (pov.secondsLeft ? timer(pov) : ctrl.trans('yourTurn')) : m.trust('&nbsp;'))
         ])

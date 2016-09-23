@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
 var partial = require('chessground').util.partial;
+var util = require('../util');
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
 
@@ -21,9 +22,9 @@ module.exports = {
       editForm: editForm,
       list: list,
       get: function(id) {
-        return list().find(function(c) {
+        return list().filter(function(c) {
           return c.id === id;
-        });
+        })[0];
       },
       size: function() {
         return list().length;
@@ -47,12 +48,7 @@ module.exports = {
     main: function(ctrl) {
 
       var configButton = function(chapter, editing) {
-        if (ctrl.members.canContribute()) return m('span.action.config', {
-          onclick: function(e) {
-            ctrl.chapters.editForm.toggle(chapter);
-            e.stopPropagation();
-          }
-        }, configIcon);
+        if (ctrl.members.canContribute()) return m('span.action.config', configIcon);
       };
       var current = ctrl.currentChapter();
 
@@ -71,6 +67,7 @@ module.exports = {
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
               var makeSortable = function() {
                 ctx.sortable = Sortable.create(el, {
+                  draggable: '.draggable',
                   onSort: function() {
                     ctrl.chapters.sort(ctx.sortable.toArray());
                   }
@@ -82,27 +79,28 @@ module.exports = {
               if (window.Sortable) makeSortable();
               else lichess.loadScript('/assets/javascripts/vendor/Sortable.min.js').done(makeSortable);
             }
-          },
-          onclick: function(e) {
-            var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
-            id && ctrl.setChapter(id);
+            if (!isUpdate)
+              el.addEventListener('click', function(e) {
+                var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
+                if (!id) return;
+                if (e.target.parentNode.classList.contains('config'))
+                  ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
+                else ctrl.setChapter(id);
+              });
           }
         }, [
           ctrl.chapters.list().map(function(chapter) {
             var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
-            var attrs = {
-              key: chapter.id,
-              'data-id': chapter.id,
-              class: classSet({
-                elem: true,
-                chapter: true,
-                active: active,
-                editing: editing
-              })
-            };
             return [
-              m('div', attrs, [
+              m('div', {
+                key: chapter.id,
+                'data-id': chapter.id,
+                class: 'elem chapter draggable ' + classSet({
+                  active: active,
+                  editing: editing
+                })
+              }, [
                 m('div.left', [
                   m('div.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
                     'data-icon': active ? 'J' : 'K'
@@ -112,13 +110,18 @@ module.exports = {
                 configButton(chapter, editing)
               ])
             ];
-          })
-        ]),
-        ctrl.members.canContribute() ? m('i.add[data-icon=0]', {
-          title: 'New chapter',
-          'data-icon': 'O',
-          onclick: ctrl.chapters.newForm.toggle
-        }) : null
+          }),
+          ctrl.members.canContribute() ? m('div', {
+              key: 'new-chapter',
+              class: 'elem chapter add',
+              config: util.bindOnce('click', ctrl.chapters.newForm.toggle)
+            },
+            m('div.left', [
+              m('span.status', m('i[data-icon=O]')),
+              m('span.add_text', 'Add a new chapter')
+            ])
+          ) : null
+        ])
       ];
     }
   }

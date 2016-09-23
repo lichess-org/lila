@@ -28,7 +28,7 @@ module.exports = function(ctrl, color, e) {
   obj[key] = piece;
   ctrl.chessground.setPieces(obj);
   var bounds = ctrl.chessground.data.bounds();
-  var squareBounds = ctrl.vm.element.querySelector('square').getBoundingClientRect();
+  var squareBounds = ctrl.vm.element.querySelector('.cg-board piece').getBoundingClientRect();
   var rel = [
     (coords[0] - 1) * squareBounds.width + bounds.left, (8 - coords[1]) * squareBounds.height + bounds.top
   ];

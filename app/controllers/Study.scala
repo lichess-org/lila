@@ -168,13 +168,61 @@ object Study extends LilaController {
       } inject Redirect(routes.Study.allDefault(1))
   }
 
+  def cloneStudy(id: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(env.api.byId(id)) { study =>
+        CanViewResult(study) {
+          Ok(html.study.clone(study)).fuccess
+        }
+      }
+  }
+
+  private val CloneLimitPerUser = new lila.memo.RateLimit(
+    credits = 10,
+    duration = 24 hour,
+    name = "clone study per user",
+    key = "clone_study.user")
+
+  private val CloneLimitPerIP = new lila.memo.RateLimit(
+    credits = 20,
+    duration = 24 hour,
+    name = "clone study per IP",
+    key = "clone_study.ip")
+
+  def cloneApply(id: String) = Auth { implicit ctx =>
+    me =>
+      implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
+      CloneLimitPerUser(me.id, cost = 1) {
+        CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+          OptionFuResult(env.api.byId(id)) { prev =>
+            CanViewResult(prev) {
+              env.api.clone(me, prev) map { study =>
+                Redirect(routes.Study.show(study.id))
+              }
+            }
+          }
+        }
+      }
+  }
+
+  private val PgnRateLimitGlobal = new lila.memo.RateLimit(
+    credits = 30,
+    duration = 1 minute,
+    name = "export study PGN global",
+    key = "export.study_pgn.global")
+
   def pgn(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { study =>
-      CanViewResult(study) {
-        env.pgnDump(study) map { pgns =>
-          Ok(pgns.mkString("\n\n\n")).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+    OnlyHumans {
+      PgnRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+        OptionFuResult(env.api byId id) { study =>
+          CanViewResult(study) {
+            lila.mon.export.pgn.study()
+            env.pgnDump(study) map { pgns =>
+              Ok(pgns.mkString("\n\n\n")).withHeaders(
+                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+            }
+          }
         }
       }
     }

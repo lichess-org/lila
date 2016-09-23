@@ -1,8 +1,8 @@
 package lila.api
 
 import play.api.libs.json._
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 
 import chess.format.pgn.Pgn
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
@@ -19,13 +19,15 @@ import makeTimeout.short
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump) {
+    pgnDump: PgnDump,
+    gameCache: lila.game.Cached) {
 
   import lila.round.JsonView.openingWriter
 
   def byUser(
     user: User,
     rated: Option[Boolean],
+    playing: Option[Boolean],
     analysed: Option[Boolean],
     withAnalysis: Boolean,
     withMoves: Boolean,
@@ -37,19 +39,25 @@ private[api] final class GameApi(
     adapter = new CachedAdapter(
       adapter = new Adapter[Game](
         collection = GameRepo.coll,
-        selector = $doc(
-          G.playerUids -> user.id,
-          G.status $gte chess.Status.Mate.id,
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
-          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+        selector = {
+          if (~playing) lila.game.Query.nowPlaying(user.id)
+          else $doc(
+            G.playerUids -> user.id,
+            G.status $gte chess.Status.Mate.id,
+            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          )
+        } ++ $doc(
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
         ),
         projection = $empty,
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
-      nbResults = fuccess {
-        rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
-      }
+      nbResults =
+        if (~playing) gameCache.nbPlaying(user.id)
+        else fuccess {
+          rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
+        }
     ),
     currentPage = page,
     maxPerPage = nb) flatMap { pag =>
@@ -131,8 +139,10 @@ private[api] final class GameApi(
     "variant" -> g.variant.key,
     "speed" -> g.speed.key,
     "perf" -> PerfPicker.key(g),
-    "timestamp" -> g.createdAt.getDate,
+    "createdAt" -> g.createdAt.getDate,
+    "lastMoveAt" -> (g.lastMoveDateTime | g.createdAt).getDate,
     "turns" -> g.turns,
+    "color" -> g.turnColor.name,
     "status" -> g.status.name,
     "clock" -> g.clock.map { clock =>
       Json.obj(
@@ -164,7 +174,7 @@ private[api] final class GameApi(
       ).noNull
     }),
     "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
-    "moves" -> (withMoves && g.finished).option(g.pgnMoves mkString " "),
+    "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> (withFens && g.finished) ?? {
       chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>

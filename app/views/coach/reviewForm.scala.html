@@ -1,0 +1,24 @@
+@(c: lila.coach.Coach.WithUser, approval: Boolean)(implicit ctx: Context)
+
+<div class="review-form coach-side">
+  @if(approval) {
+  <div class="approval">
+    <p>Thank you for the review!</p>
+    <p>@c.user.realNameOrUsername will approve it very soon.</p>
+  </div>
+  } else {
+  @if(ctx.isAuth) {
+  <a class="button toggle">Write a review</a>
+  } else {
+  <a href="@routes.Auth.login?autoref=1" class="button">Review this coach</a>
+  }
+  }
+
+  <form action="@routes.Coach.review(c.user.username)" method="POST">
+    @barRating(selected = none, enabled = true)
+    <textarea name="text"
+      required minlength=3 maxlength=1000
+      placeholder="What do you enjoy about taking lessons with @c.user.realNameOrUsername?"></textarea>
+    <button type="submit" class="button">@trans.apply()</button>
+  </form>
+</div>

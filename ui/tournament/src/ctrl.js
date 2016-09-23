@@ -4,7 +4,7 @@ var xhr = require('./xhr');
 var pagination = require('./pagination');
 var util = require('chessground').util;
 var sound = require('./sound');
-var myCurrentGameId = require('./tournament').myCurrentGameId;
+var tour = require('./tournament');
 
 module.exports = function(env) {
 
@@ -18,7 +18,7 @@ module.exports = function(env) {
     page: this.data.standing.page,
     pages: {},
     lastPageDisplayed: null,
-    focusOnMe: this.data.me && !this.data.me.withdraw,
+    focusOnMe: tour.isIn(this),
     joinSpinner: false,
     playerInfo: {
       id: null,
@@ -46,7 +46,7 @@ module.exports = function(env) {
   }.bind(this);
 
   var redirectToMyGame = function() {
-    var gameId = myCurrentGameId(this);
+    var gameId = tour.myCurrentGameId(this);
     if (gameId && lichess.storage.get('last-game') !== gameId)
       location.href = '/' + gameId;
   }.bind(this);
@@ -73,12 +73,12 @@ module.exports = function(env) {
     this.vm.focusOnMe = false;
   }.bind(this);
 
-  this.join = function() {
+  this.join = function(password) {
     if (!this.data.verdicts.accepted)
       return this.data.verdicts.list.forEach(function(v) {
         if (v.verdict !== 'ok') alert(v.verdict);
       });
-    xhr.join(this);
+    xhr.join(this, password);
     this.vm.joinSpinner = true;
     this.vm.focusOnMe = true;
   }.bind(this);

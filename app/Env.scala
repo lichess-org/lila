@@ -41,6 +41,7 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isHostingSimul = Env.simul.isHosting,
     isStreamer = Env.tv.isStreamer.apply,
+    fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _
@@ -91,7 +92,8 @@ final class Env(
     Env.fishnet, // required to schedule the cleaner
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
-    Env.studySearch // required to load the actor
+    Env.studySearch, // required to load the actor
+    Env.event // required to load the actor
   )) { lap =>
     lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }
@@ -162,4 +164,6 @@ object Env {
   def studySearch = lila.studySearch.Env.current
   def learn = lila.learn.Env.current
   def plan = lila.plan.Env.current
+  def event = lila.event.Env.current
+  def coach = lila.coach.Env.current
 }

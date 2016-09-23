@@ -32,6 +32,36 @@ function featured(f) {
   ]);
 }
 
+function nextTournament(ctrl) {
+  var t = ctrl.data.next;
+  if (t) return [
+    m('a.next', {
+      href: '/tournament/' + t.id
+    }, [
+      m('i', {
+        'data-icon': t.perf.icon
+      }),
+      m('span.content', [
+        m('span', 'Next ' + t.perf.name + ' tournament:'),
+        m('span.name', t.name),
+        m('span.more', [
+          ctrl.trans('nbConnectedPlayers', t.nbPlayers),
+          ' • ',
+          t.finishesAt ? [
+            'finishes ',
+            m('time.moment-from-now', {
+              datetime: t.finishesAt
+            }, t.finishesAt)
+          ] : m('time.moment-from-now', {
+            datetime: t.startsAt
+          }, t.startsAt)
+        ])
+      ])
+    ]),
+    m('a.others[href=/tournament]', 'View more tournaments')
+  ];
+}
+
 module.exports = function(ctrl) {
   var pairing = function(p) {
     return {
@@ -48,7 +78,7 @@ module.exports = function(ctrl) {
     };
   };
   return [
-    ctrl.data.featured ? featured(ctrl.data.featured) : null,
+    ctrl.data.featured ? featured(ctrl.data.featured) : nextTournament(ctrl),
     m('div.box.all_pairings.scroll-shadow-soft', {
       onclick: function() {
         return !ctrl.vm.disableClicks;

@@ -1,0 +1,57 @@
+@(tourChats : List[(lila.tournament.Tournament, lila.chat.UserChat)],
+simulChats: List[(lila.simul.Simul, lila.chat.UserChat)])(implicit ctx: Context)
+
+@mod.layout(
+title = "Public Chats",
+active = "public-chat",
+moreCss = cssTag("mod-communication.css"),
+moreJs = jsTag("public-chat.js"))  {
+
+<div id="communication" class="content_box public_chat">
+  <h2>Tournament Chats</h2>
+  <div class="player_chats">
+    @tourChats.map {
+    case (tournament, chat) => {
+    <div class="game">
+      <a class="title" href="@routes.Tournament.show(tournament.id)">
+        @tournament.name
+      </a>
+      <div class="chat">
+        @chat.lines.filter(_.isVisible).map { line =>
+        <div class="line">
+          @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+          @autoLink(line.text)
+        </div>
+        }
+      </div>
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <h2>Simul Chats</h2>
+    <div class="player_chats">
+
+      @simulChats.map {
+      case (simul, chat) => {
+      <div class="game">
+        <a class="title" href="@routes.Simul.show(simul.id)">
+          @simul.name
+        </a>
+        <div class="chat">
+          @chat.lines.filter(_.isVisible).map { line =>
+          <div class="line">
+            @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+            @autoLink(line.text)
+          </div>
+          }
+        </div>
+      </div>
+    }
+    }
+  </div>
+
+</div>
+
+
+}

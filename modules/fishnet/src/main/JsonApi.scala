@@ -6,18 +6,20 @@ import play.api.libs.json._
 import chess.format.{ Uci, Forsyth, FEN }
 import chess.variant.Variant
 
+import lila.common.Maths
 import lila.fishnet.{ Work => W }
 
 object JsonApi {
 
   sealed trait Request {
     val fishnet: Request.Fishnet
-    val engine: Request.Engine
+    val stockfish: Request.Engine
 
     def instance(ip: Client.IpAddress) = Client.Instance(
       fishnet.version,
       fishnet.python | Client.Python(""),
-      Client.Engine(engine.name),
+      Client.Engines(
+        stockfish = Client.Engine(stockfish.name)),
       ip,
       DateTime.now)
   }
@@ -50,11 +52,11 @@ object JsonApi {
 
     case class Acquire(
       fishnet: Fishnet,
-      engine: BaseEngine) extends Request
+      stockfish: BaseEngine) extends Request
 
     case class PostMove(
       fishnet: Fishnet,
-      engine: BaseEngine,
+      stockfish: BaseEngine,
       move: MoveResult) extends Request with Result
 
     case class MoveResult(bestmove: String) {
@@ -63,23 +65,23 @@ object JsonApi {
 
     case class PostAnalysis(
         fishnet: Fishnet,
-        engine: FullEngine,
+        stockfish: FullEngine,
         analysis: List[Option[Evaluation]]) extends Request with Result {
 
       def completeOrPartial =
-        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, engine, analysis.flatten)
-        else PartialAnalysis(fishnet, engine, analysis)
+        if (analysis.headOption.??(_.isDefined)) CompleteAnalysis(fishnet, stockfish, analysis.flatten)
+        else PartialAnalysis(fishnet, stockfish, analysis)
     }
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
-        engine: FullEngine,
+        stockfish: FullEngine,
         analysis: List[Evaluation]) {
 
       def medianNodes = analysis
         .filterNot(_.mateFound)
         .filterNot(_.deadDraw)
-        .flatMap(_.nodes).toNel map lila.common.Maths.median[Int]
+        .flatMap(_.nodes).toNel map Maths.median[Int]
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
@@ -87,7 +89,7 @@ object JsonApi {
 
     case class PartialAnalysis(
       fishnet: Fishnet,
-      engine: FullEngine,
+      stockfish: FullEngine,
       analysis: List[Option[Evaluation]])
 
     case class Evaluation(
@@ -152,6 +154,7 @@ object JsonApi {
   def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(m.id.value, fromGame(m.game), nodes)
 
   object readers {
+    import play.api.libs.functional.syntax._
     implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
     implicit val ClientPythonReads = Reads.of[String].map(new Client.Python(_))
     implicit val ClientKeyReads = Reads.of[String].map(new Client.Key(_))
@@ -163,7 +166,14 @@ object JsonApi {
     implicit val MoveResultReads = Json.reads[Request.MoveResult]
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
-    implicit val EvaluationReads = Json.reads[Request.Evaluation]
+    implicit val EvaluationReads: Reads[Request.Evaluation] = (
+      (__ \ "pv").readNullable[String] and
+      (__ \ "score").read[Request.Evaluation.Score] and
+      (__ \ "time").readNullable[Int] and
+      (__ \ "nodes").readNullable[Long].map(Maths.toInt) and
+      (__ \ "nps").readNullable[Long].map(Maths.toInt) and
+      (__ \ "depth").readNullable[Int]
+    )(Request.Evaluation.apply _)
     implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation]] {
       case JsNull => JsSuccess(None)
       case obj    => EvaluationReads reads obj map some

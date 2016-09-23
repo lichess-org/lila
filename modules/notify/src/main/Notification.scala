@@ -114,5 +114,11 @@ object GameEnd {
   case class Win(value: Boolean) extends AnyVal
 }
 
+case object ReportedBanned extends NotificationContent("reportedBanned")
+
+case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
+
+case object CoachReview extends NotificationContent("coachReview")
+
 case class PlanStart(userId: String) extends NotificationContent("planStart")
 case class PlanExpire(userId: String) extends NotificationContent("planExpire")

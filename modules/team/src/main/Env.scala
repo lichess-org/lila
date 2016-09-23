@@ -23,6 +23,8 @@ final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lil
 
   lazy val forms = new DataForm(colls.team, hub.actor.captcher)
 
+  lazy val pager = new MemberPager(colls.member)
+
   lazy val api = new TeamApi(
     coll = colls,
     cached = cached,

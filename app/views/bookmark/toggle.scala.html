@@ -2,13 +2,13 @@
 
 @ctx.me.map { m =>
 <a class="bookmark@bookmarked.fold(" bookmarked", "") hint--top" href="@routes.Bookmark.toggle(g.id)" data-hint="@trans.bookmarkThisGame()">
-  <span data-icon="t" class="text on is3">@g.showBookmarks</span>
-  <span data-icon="s" class="text off is3">@g.showBookmarks</span>
+  <span data-icon="t" class="on is3">@g.showBookmarks</span>
+  <span data-icon="s" class="off is3">@g.showBookmarks</span>
 </a>
 }.getOrElse {
 @if(g.hasBookmarks) {
 <span class="bookmark">
-  <span data-icon="s" class="text is3">@g.showBookmarks</span>
+  <span data-icon="s" class="is3">@g.showBookmarks</span>
 </span>
 }
 }

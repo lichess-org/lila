@@ -271,9 +271,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def resign(fullId: String) = Open { implicit ctx =>
-    OptionResult(GameRepo pov fullId) { pov =>
-      env.resign(pov)
-      Redirect(routes.Lobby.home)
+    OptionFuRedirect(GameRepo pov fullId) { pov =>
+      env resign pov
+      import scala.concurrent.duration._
+      val scheduler = lila.common.PlayApp.system.scheduler
+      akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
     }
   }
 

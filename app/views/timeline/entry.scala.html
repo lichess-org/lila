@@ -15,7 +15,7 @@ case TeamCreate(userId, teamId) => {
 }
 case ForumPost(userId, topicId, topicName, postId) => {
 @trans.xPostedInForumY(userIdLink(userId.some, withOnline = false),
-"""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeEvenDoubleQuotes(topicName), shorten(topicName, 30)))
+"""<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
 @trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))

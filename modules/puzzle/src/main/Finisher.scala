@@ -4,7 +4,7 @@ import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
 import lila.db.dsl._
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
@@ -43,7 +43,7 @@ private[puzzle] final class Finisher(
               Puzzle.BSONFields.wins -> $int(data.isWin ? 1 | 0)
             ) ++ $set(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
-            )) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
+            )) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
         }) recover lila.db.recoverDuplicateKey(_ => ()) inject (a -> none)
     }
 

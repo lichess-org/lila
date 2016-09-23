@@ -1,13 +1,7 @@
-@(field: Field, label: String)(implicit ctx: Context)
+@(field: Field, name: Html)(implicit ctx: Context)
 
-<li class="field">
-  <label for="@field.id">@label</label>
-  <input
-  class="passwd"
-  type="password"
-  required="required"
-  name="@field.name"
-  id="@field.id"
-  value="@field.value"/>
-  @errMsg(field)
-</li>
+@base.form.group(field, name) {
+<input class="passwd" type="password" required="required"
+name="@field.name" value="@field.value"/>
+@errMsg(field)
+}

@@ -35,19 +35,6 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 @views.html.game.watchers()
 @round.blurs(game)
 @round.holdAlerts(game)
-<div class="shortcuts">
-  <p class="title text" data-icon="u">@trans.keyboardShortcuts()</p>
-  <div class="inner">
-    <ul>
-      <li><strong>j</strong>/<strong>k</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyMoveBackwardOrForward()</li>
-      <li><strong>h</strong>/<strong>l</strong> or <strong>0</strong>/<strong>$</strong> or <strong>↑</strong>/<strong>↓</strong> @trans.keyGoToStartOrEnd()</li>
-      <li><strong>c</strong> @trans.keyShowOrHideComments()</li>
-      <li><strong>shift</strong> + <strong>k</strong>/<strong>j</strong> or <strong>←</strong>/<strong>→</strong> @trans.keyEnterOrExitVariation()</li>
-    </ul>
-    @trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard() <br />
-    @trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()
-  </div>
-</div>
 }
 
 @analyse.layout(
@@ -77,19 +64,23 @@ atom = atom.some) {
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
       <p><strong>PGN</strong>
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)"> @trans.downloadAnnotated()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
         @if(analysis.isDefined) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw"> @trans.downloadRaw()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
         }
         @if(game.isPgnImport) {
         /
-        <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
+        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
         }
         /
-        <a data-icon="x" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)"> @trans.printFriendlyPDF()</a>
+        <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
+        @if(lila.game.Game.visualisableVariants(game.variant)) {
+        /
+        <a data-icon="x" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
+        }
       </p>
-      <div class="pgn">@Html(nl2br(escape(pgn)))</div>
+      <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
     </div>
     <div class="panel move_times">
       @if(game.turns > 3) {

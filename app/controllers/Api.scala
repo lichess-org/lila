@@ -12,7 +12,9 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
 
-  def status = Action { req =>
+  private implicit val limitedDefault = ornicar.scalalib.Zero.instance[ApiResult](Limited)
+
+  private lazy val apiStatusResponse = {
     val api = lila.api.Mobile.Api
     Ok(Json.obj(
       "api" -> Json.obj(
@@ -26,47 +28,76 @@ object Api extends LilaController {
     )) as JSON
   }
 
-  def user(name: String) = ApiResult { implicit ctx =>
-    userApi one name
+  val status = Action { req =>
+    apiStatusResponse
   }
 
-  def users = ApiResult { implicit ctx =>
-    get("team") ?? { teamId =>
-      userApi.list(
-        teamId = teamId,
-        engine = getBoolOpt("engine"),
-        nb = getInt("nb")
-      ).map(_.some)
+  def user(name: String) = ApiRequest { implicit ctx =>
+    userApi one name map toApiResult
+  }
+
+  private val UsersRateLimitGlobal = new lila.memo.RateLimit(
+    credits = 1000,
+    duration = 1 minute,
+    name = "team users API global",
+    key = "team_users.api.global")
+
+  private val UsersRateLimitPerIP = new lila.memo.RateLimit(
+    credits = 1000,
+    duration = 10 minutes,
+    name = "team users API per IP",
+    key = "team_users.api.ip")
+
+  def users = ApiRequest { implicit ctx =>
+    val page = (getInt("page") | 1) atLeast 1 atMost 50
+    val nb = (getInt("nb") | 10) atLeast 1 atMost 50
+    val cost = page * nb + 10
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    UsersRateLimitPerIP(ip, cost = cost) {
+      UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+        lila.mon.api.teamUsers.cost(cost)
+        (get("team") ?? Env.team.api.team).flatMap {
+          _ ?? { team =>
+            Env.team.pager(team, page, nb) map userApi.pager map some
+          }
+        } map toApiResult
+      }
     }
   }
 
   private val GamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 10 minutes,
-    name = "user games API per IP")
+    name = "user games API per IP",
+    key = "user_games.api.ip")
 
   private val GamesRateLimitPerUA = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 5 minutes,
-    name = "user games API per UA")
+    name = "user games API per UA",
+    key = "user_games.api.ua")
 
   private val GamesRateLimitGlobal = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 1 minute,
-    name = "user games API global")
+    name = "user games API global",
+    key = "user_games.api.global")
 
-  def userGames(name: String) = ApiResult { implicit ctx =>
-    val page = (getInt("page") | 1) max 1 min 200
-    val nb = (getInt("nb") | 10) max 1 min 100
+  def userGames(name: String) = ApiRequest { implicit ctx =>
+    val page = (getInt("page") | 1) atLeast 1 atMost 200
+    val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
-    GamesRateLimitPerIP(ctx.req.remoteAddress, cost = cost) {
-      GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost) {
-        GamesRateLimitGlobal("", cost = cost) {
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    GamesRateLimitPerIP(ip, cost = cost) {
+      GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
+        GamesRateLimitGlobal("-", cost = cost, msg = ip) {
+          lila.mon.api.userGames.cost(cost)
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
               gameApi.byUser(
                 user = user,
                 rated = getBoolOpt("rated"),
+                playing = getBoolOpt("playing"),
                 analysed = getBoolOpt("analysed"),
                 withAnalysis = getBool("with_analysis"),
                 withMoves = getBool("with_moves"),
@@ -77,27 +108,59 @@ object Api extends LilaController {
                 page = page
               ) map some
             }
-          }
+          } map toApiResult
         }
       }
     }
   }
 
-  def game(id: String) = ApiResult { implicit ctx =>
-    gameApi.one(
-      id = id take lila.game.Game.gameIdSize,
-      withAnalysis = getBool("with_analysis"),
-      withMoves = getBool("with_moves"),
-      withOpening = getBool("with_opening"),
-      withFens = getBool("with_fens"),
-      withMoveTimes = getBool("with_movetimes"),
-      token = get("token"))
+  private val GameRateLimitPerIdAndIP = new lila.memo.RateLimit(
+    credits = 5,
+    duration = 3 minutes,
+    name = "game API per Id/IP",
+    key = "game.api.id_ip")
+
+  def game(id: String) = ApiRequest { implicit ctx =>
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    val key = s"$id:$ip"
+    GamesRateLimitPerIP(key, cost = 1) {
+      lila.mon.api.game.cost(1)
+      gameApi.one(
+        id = id take lila.game.Game.gameIdSize,
+        withAnalysis = getBool("with_analysis"),
+        withMoves = getBool("with_moves"),
+        withOpening = getBool("with_opening"),
+        withFens = getBool("with_fens"),
+        withMoveTimes = getBool("with_movetimes"),
+        token = get("token")) map toApiResult
+    }
   }
 
-  private def ApiResult(js: lila.api.Context => Fu[Option[JsValue]]) = Open { implicit ctx =>
+  def currentTournaments = ApiRequest { implicit ctx =>
+    Env.tournament.api.fetchVisibleTournaments map
+      Env.tournament.scheduleJsonView.apply map Data.apply
+  }
+
+  def tournament(id: String) = ApiRequest { implicit ctx =>
+    val page = (getInt("page") | 1) atLeast 1 atMost 200
+    lila.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        Env.tournament.jsonView(tour, page.some, none, none, none) map some
+      }
+    } map toApiResult
+  }
+
+  sealed trait ApiResult
+  case class Data(json: JsValue) extends ApiResult
+  case object NoData extends ApiResult
+  case object Limited extends ApiResult
+  def toApiResult(json: Option[JsValue]) = json.fold[ApiResult](NoData)(Data.apply)
+
+  private def ApiRequest(js: lila.api.Context => Fu[ApiResult]) = Open { implicit ctx =>
     js(ctx) map {
-      case None => NotFound
-      case Some(json) => get("callback") match {
+      case Limited => TooManyRequest(jsonError("Try again later"))
+      case NoData  => NotFound
+      case Data(json) => get("callback") match {
         case None           => Ok(json) as JSON
         case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
       }

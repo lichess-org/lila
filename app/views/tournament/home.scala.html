@@ -32,7 +32,7 @@ lichess.StrongSocket.defaults.events.reload = app.update;
     @tour.schedule.map { s =>
     @if(s.freq != lila.tournament.Schedule.Freq.Hourly) {
     <li data-icon="@tournamentIconChar(tour)" class="is-gold @s.freq.name">
-      <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
+      <a href="@routes.Tournament.show(tour.id)">@tour.name</a>
       @momentFormat(s.at, "calendar")
     </li>
     }

@@ -27,14 +27,21 @@ case class Thread(
 
   def isUnReadBy(user: User) = !isReadBy(user)
 
-  def nbUnreadBy(user: User): Int = isCreator(user).fold(
-    posts count { post => post.isByInvited && post.isUnRead },
-    posts count { post => post.isByCreator && post.isUnRead })
-
-  def nbUnread: Int = posts count (_.isUnRead)
-
-  def firstPostUnreadBy(user: User): Option[Post] = posts find { post =>
+  private def isPostUnreadBy(user: User)(post: Post) =
     post.isUnRead && post.isByCreator != isCreator(user)
+
+  def nbUnreadBy(user: User): Int = posts count isPostUnreadBy(user)
+
+  def nbPosts = posts.size
+
+  def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)
+
+  def unreadIndexesBy(user: User): List[Int] = posts.zipWithIndex collect {
+    case (post, index) if isPostUnreadBy(user)(post) => index
+  }
+
+  def readIndexesBy(user: User): List[Int] = posts.zipWithIndex collect {
+    case (post, index) if post.isRead && post.isByCreator != isCreator(user) => index
   }
 
   def userIds = List(creatorId, invitedId)

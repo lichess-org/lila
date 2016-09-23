@@ -56,7 +56,7 @@ final class StudyPager(
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
-    ) mapFutureList withChapters mapFutureList withLiking(me)
+    ) mapFutureList withChaptersAndLiking(me)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
         new CachedAdapter(adapter, nb)
@@ -79,6 +79,9 @@ final class StudyPager(
           Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
+
+  def withChaptersAndLiking(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    withChapters(studies) flatMap withLiking(me)
 }
 
 sealed abstract class Order(val key: String, val name: String)

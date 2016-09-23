@@ -8,33 +8,12 @@
 <div class="list infinitescroll">
   @pager.currentPageResults.map { s =>
   <div class="study paginated_element">
-    <a class="overlay" href="@routes.Study.show(s.study.id)"></a>
-    <h2>
-      <i class="icon" data-icon=""></i>
-      <strong>@s.study.name</strong>
-      <span>
-        <i data-icon="@if(s.liked){}else{}"></i> @s.study.likes.value •
-        @usernameOrId(s.study.ownerId) •
-        @momentFromNow(s.study.createdAt)
-      </span>
-    </h2>
-    <div class="body">
-      <ol class="chapters">
-        @s.chapters.take(4).map { name =>
-        <li class="text" data-icon="K">@name</li>
-        }
-      </ol>
-      <ol class="members">
-        @s.study.members.members.values.take(4).map { m =>
-        <li class="text" data-icon="@if(m.canContribute){}else{v}">@usernameOrId(m.id)</li>
-        }
-      </ol>
-    </div>
+    @widget(s)
   </div>
   }
   @pager.nextPage.map { np =>
   <div class="pager none">
-    <a href="@addQueryParameter(url.toString, "page", np)">Next</a>
+    <a rel="next" href="@addQueryParameter(url.toString, "page", np)">Next</a>
   </div>
   }
 </div>

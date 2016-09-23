@@ -23,7 +23,8 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
+  var storage = lichess.storage.make(options.baseUrlKey);
+  if (options.resetUrl || options.prodPipe) storage.remove();
   if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
 
   var connect = function() {
@@ -47,7 +48,7 @@ lichess.StrongSocket = function(url, version, settings) {
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
-        $('body').trigger('socket.open');
+        lichess.pubsub.emit('socket.open')();
         var resend = ackableMessages;
         ackableMessages = [];
         resend.forEach(function(x) {
@@ -103,6 +104,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var scheduleConnect = function(delay) {
+    if (options.idle) delay = delay * 3;
     // debug('schedule connect ' + delay);
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
@@ -130,9 +132,13 @@ lichess.StrongSocket = function(url, version, settings) {
     scheduleConnect(options.pingMaxLag);
   };
 
+  var computePingDelay = function() {
+    return options.pingDelay + (options.idle ? 1000 : 0);
+  };
+
   var pong = function() {
     clearTimeout(connectSchedule);
-    schedulePing(options.pingDelay);
+    schedulePing(computePingDelay());
     currentLag = now() - lastPingTime;
     if (!averageLag) averageLag = currentLag;
     else averageLag = 0.2 * (currentLag - averageLag) + averageLag;
@@ -216,8 +222,19 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var onSuccess = function() {
     $('#network_error').remove();
-    nbConnects = (nbConnects || 0) + 1;
-    if (nbConnects === 1) options.onFirstConnect();
+    nbConnects++;
+    if (nbConnects === 1) {
+      options.onFirstConnect();
+      var disconnectTimeout;
+      lichess.idleTimer(10 * 60 * 1000, function() {
+        options.idle = true;
+        disconnectTimeout = setTimeout(lichess.socket.destroy, 2 * 60 * 60 * 1000);
+      }, function() {
+        options.idle = false;
+        if (ws) clearTimeout(disconnectTimeout);
+        else location.reload();
+      });
+    }
     if (options.onNextConnect) {
       options.onNextConnect();
       delete options.onNextConnect;
@@ -230,14 +247,14 @@ lichess.StrongSocket = function(url, version, settings) {
   var baseUrl = function() {
     var key = options.baseUrlKey;
     var urls = options.baseUrls;
-    var url = lichess.storage.get(key);
+    var url = storage.get();
     if (!url) {
       url = urls[0];
-      lichess.storage.set(key, url);
+      storage.set(url);
     } else if (tryOtherUrl) {
       tryOtherUrl = false;
       url = urls[(urls.indexOf(url) + 1) % urls.length];
-      lichess.storage.set(key, url);
+      storage.set(url);
     }
     return url;
   };
@@ -252,7 +269,7 @@ lichess.StrongSocket = function(url, version, settings) {
     destroy: destroy,
     options: options,
     pingInterval: function() {
-      return options.pingDelay + averageLag;
+      return computePingDelay() + averageLag;
     },
     averageLag: function() {
       return averageLag;
@@ -280,6 +297,7 @@ lichess.StrongSocket.defaults = {
   },
   options: {
     name: "unnamed",
+    idle: false,
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,

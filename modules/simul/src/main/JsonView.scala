@@ -51,7 +51,8 @@ final class JsonView(
       "username" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> player.rating,
-      "provisional" -> player.provisional.filter(identity)
+      "provisional" -> player.provisional.filter(identity),
+      "patron" -> light.??(_.isPatron).option(true)
     ).noNull
   }
 

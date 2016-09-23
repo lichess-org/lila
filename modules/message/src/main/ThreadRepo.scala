@@ -1,9 +1,7 @@
 package lila.message
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson._
-
 import lila.db.dsl._
+import lila.user.User
 
 object ThreadRepo {
 
@@ -15,20 +13,23 @@ object ThreadRepo {
   def byUser(user: ID): Fu[List[Thread]] =
     coll.find(userQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
 
-  def visibleByUser(user: ID): Fu[List[Thread]] =
-    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List]()
-
   def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
-    coll.find(visibleByUserQuery(user)).sort(recentSort).cursor[Thread]().gather[List](nb)
+    coll.find(visibleByUserQuery(user)).sort(recentSort).list[Thread](nb)
 
-  def setRead(thread: Thread): Funit = {
-    List.fill(thread.nbUnread) {
-      coll.update(
-        $id(thread.id) ++ $doc("posts.isRead" -> false),
-        $set("posts.$.isRead" -> true)
-      ).void
+  def visibleByUserByIds(user: User, ids: List[String]): Fu[List[Thread]] =
+    coll.find($inIds(ids) ++ visibleByUserQuery(user.id)).list[Thread]()
+
+  def setReadFor(user: User)(thread: Thread): Funit = {
+    val indexes = thread.unreadIndexesBy(user)
+    indexes.nonEmpty ?? coll.update($id(thread.id), $doc("$set" -> indexes.foldLeft($empty) {
+      case (s, index) => s ++ $doc(s"posts.$index.isRead" -> true)
+    })).void
+  }
+
+  def setUnreadFor(user: User)(thread: Thread): Funit =
+    thread.readIndexesBy(user).lastOption ?? { index =>
+      coll.update($id(thread.id), $set(s"posts.$index.isRead" -> false)).void
     }
-  }.sequenceFu.void
 
   def deleteFor(user: ID)(thread: ID) =
     coll.update($id(thread), $pull("visibleByUserIds", user)).void

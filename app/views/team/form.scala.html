@@ -10,16 +10,16 @@ currentTab = "form".some) {
       <section class="team-data">
       <label>
         <span class="required">@trans.name()</span>
-        @base.input(form("name"))
+        @base.form.input(form("name"))
         @errMsg(form("name"))
       </label>
       <label>
         <span>@trans.joiningPolicy()</span>
-        @base.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
+        @base.form.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
       </label>
       <label>
         <span>@trans.location()</span>
-        @base.input(form("location"))
+        @base.form.input(form("location"))
         @errMsg(form("location"))
       </label>
       <label>

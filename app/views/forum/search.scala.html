@@ -17,7 +17,7 @@ searchText = text
   <tbody class="infinitescroll">
     @views.nextPage.map { n =>
     <tr><th class="pager none">
-        <a href="@routes.ForumPost.search(text, n)">Next</a>
+        <a rel="next" href="@routes.ForumPost.search(text, n)">Next</a>
     </th></tr>
     <tr></tr>
     }
@@ -28,7 +28,7 @@ searchText = text
         <p>@shortenWithBr(view.post.text, 200)</p>
       </td>
       <td class="info">
-        @momentFormat(view.post.createdAt) by @authorName(view.post)
+        @momentFormat(view.post.createdAt) by @authorLink(view.post)
       </td>
     </tr>
     }

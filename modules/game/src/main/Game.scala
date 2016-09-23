@@ -2,9 +2,9 @@ package lila.game
 
 import chess.Color.{ White, Black }
 import chess.format.Uci
+import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
-import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
@@ -57,7 +57,7 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player] = players find (_.userId == Some(userId))
+  def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -95,7 +95,7 @@ case class Game(
     _.toLong + (createdAt.getMillis / 100)
   } orElse updatedAt.map(_.getMillis / 100)
 
-  private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
+  def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
   } orElse updatedAt
 
@@ -232,7 +232,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60
-    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+    val secondsLeft = lastMoveDateTime.fold(increment) { lmd =>
       (lmd.getSeconds + increment - nowSeconds).toInt max 0
     }
     CorrespondenceClock(
@@ -255,6 +255,8 @@ case class Game(
 
   def aborted = status == Status.Aborted
 
+  def playedThenAborted = aborted && bothPlayersHaveMoved
+
   def playable = status < Status.Aborted && !imported
 
   def playableEvenImported = status < Status.Aborted
@@ -271,8 +273,10 @@ case class Game(
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
-  def hasAi: Boolean = players exists (_.isAi)
+  def hasAi: Boolean = players.exists(_.isAi)
   def nonAi = !hasAi
+
+  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
 
   def mapPlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
@@ -329,8 +333,8 @@ case class Game(
     this,
     copy(
       status = status,
-      whitePlayer = whitePlayer finish (winner == Some(White)),
-      blackPlayer = blackPlayer finish (winner == Some(Black)),
+      whitePlayer = whitePlayer.finish(winner contains White),
+      blackPlayer = blackPlayer.finish(winner contains Black),
       clock = clock map (_.stop)
     ),
     List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
@@ -347,7 +351,10 @@ case class Game(
 
   def replayable = isPgnImport || finished
 
-  def analysable = replayable && playedTurns > 4 && Game.analysableVariants(variant)
+  def analysable =
+    replayable && playedTurns > 4 &&
+      Game.analysableVariants(variant) &&
+      !Game.isOldHorde(this)
 
   def ratingVariant =
     if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
@@ -491,7 +498,10 @@ object Game {
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
-    chess.variant.FromPosition)
+    chess.variant.FromPosition,
+    chess.variant.Horde,
+    chess.variant.Atomic,
+    chess.variant.RacingKings)
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
@@ -501,6 +511,16 @@ object Game {
     chess.variant.Horde,
     chess.variant.RacingKings,
     chess.variant.Antichess)
+
+  val visualisableVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960)
+
+  val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
+
+  def isOldHorde(game: Game) =
+    game.variant == chess.variant.Horde &&
+      game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
   val gameIdSize = 8
   val playerIdSize = 4

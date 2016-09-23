@@ -4,7 +4,7 @@
 
 @title = @{ trans.reportAUser.str() }
 
-@site.layout(title = title, moreCss = cssTag("report.css")) {
+@base.layout(title = title, moreCss = cssTag("report.css")) {
 <div class="content_box" id="report">
   <h1>@title</h1>
   <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
@@ -29,7 +29,7 @@
     </div>
     <div class="field_reason">
       <label for="@form("reason").id">@trans.reason()</label>
-      @base.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.str().some)
+      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.str().some)
       @errMsg(form("reason"))
     </div>
     <div class="field_body">

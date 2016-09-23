@@ -45,6 +45,7 @@ final class Env(
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
     val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
+    val NetDomain = config getString "net.domain"
   }
   import settings._
 
@@ -84,7 +85,8 @@ final class Env(
       apiKey = EmailConfirmMailgunApiKey,
       sender = EmailConfirmMailgunSender,
       baseUrl = EmailConfirmMailgunBaseUrl,
-      secret = EmailConfirmSecret)
+      secret = EmailConfirmSecret,
+      system = system)
     else EmailConfirmSkip
 
   lazy val passwordReset = new PasswordReset(
@@ -108,6 +110,8 @@ final class Env(
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val api = new Api(storeColl, firewall, geoIP, emailAddress)
+
+  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
 

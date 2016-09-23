@@ -2,10 +2,6 @@
 
 @title = @{ s"${u.username} - ${trans.changeEmail.str()}" }
 
-@evenMoreCss = {
-@cssTag("user-form.css")
-}
-
 @account.layout(title = title, active = "email") {
 <div class="content_box small_box">
   <div class="signup_box">
@@ -26,7 +22,7 @@
           <label for="@form("email").id">@trans.email()</label>
           <input type="email" value="@form("email").value" name="@form("email").name" id="@form("email").id" />
         </li>
-        @account.passwdFormField(form("passwd"), trans.password.str())
+        @account.passwdFormField(form("passwd"), trans.password())
         <li>@errMsg(form)</li>
         <li>
           <button type="submit" class="submit button" data-icon="E">

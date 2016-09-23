@@ -1,7 +1,6 @@
 var m = require('mithril');
 var xhr = require('./xhr');
 var hookRepo = require('./hookRepo');
-var startIdleTimer = require('./idle');
 var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
@@ -36,15 +35,12 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  startIdleTimer(5 * 60 * 1000, function() {
-    // send('idle', true);
-    lichess.socket.destroy();
-  }, function() {
+  lichess.idleTimer(5 * 60 * 1000, partial(send, 'idle', true), function() {
     location.reload();
   });
 
   this.music = null;
-  $('body').on('lichess.sound_set', function(e, set) {
+  lichess.pubsub.on('sound_set', function(set) {
     if (!this.music && set === 'music')
       lichess.loadScript('/assets/javascripts/music/lobby.js').then(function() {
         this.music = lichessLobbyMusic();

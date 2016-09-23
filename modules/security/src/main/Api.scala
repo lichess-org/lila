@@ -91,6 +91,8 @@ final class Api(
 
   def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
+  def recentByIpExists(ip: String): Fu[Boolean] = Store recentByIpExists ip
+
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
     coll.distinct[String, List](
       field,

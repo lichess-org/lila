@@ -1,0 +1,37 @@
+@(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("material.form.css")
+@cssTag("coach.form.css")
+}
+
+@layout(title = s"${c.user.titleUsername} coach picture", 
+moreJs = jsTag("coach.form.js"),
+moreCss = moreCss) {
+<div class="coach_picture content_box small_box no_padding">
+  <h1 class="lichess_title">
+    @userLink(c.user) coach picture
+  </h1>
+  <div class="picture_wrap">
+    @pic(c, 200)
+  </div>
+  <div class="forms">
+    @error.map { e =>
+    <p class="error">@e</p>
+    }
+    @helper.form(action = routes.Coach.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
+    <p>Max size: @{lila.coach.Photographer.uploadMaxMb}MB.</p>
+    <input type="file" name="picture">
+    <button type="submit" class="button">Upload profile picture</button>
+    }
+    @if(c.coach.hasPicture) {
+    @helper.form(action = routes.Coach.pictureDelete, 'enctype -> "multipart/form-data", 'class -> "delete") {
+    <button type="submit" class="button">Delete profile picture</button>
+    }
+    }
+    <div class="cancel">
+      <a href="@routes.Coach.edit" class="text" data-icon="I">Return to coach page form</a>
+    </div>
+  </div>
+</div>
+}

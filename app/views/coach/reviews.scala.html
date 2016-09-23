@@ -1,0 +1,16 @@
+@(c: lila.coach.Coach.WithUser, reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context)
+
+@if(reviews.list.nonEmpty) {
+<div class="reviews coach-side">
+  <h2>@pluralize("Player review", reviews.list.size)</h2>
+  @reviews.list.map { r =>
+  <div class="review">
+    <div class="top">
+      @userIdLink(r.userId.some)
+      @barRating(selected = r.score.some, enabled = false)
+    </div>
+    <div class="content">@autoLink(r.text)</div>
+  </div>
+  }
+</div>
+}
