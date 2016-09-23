@@ -1820,7 +1820,6 @@ a.mini_board {
   display: block;
 }
 .mini_board .cg-board-wrap {
-  margin: auto;
   width: 224px;
   height: 224px;
   position: relative;
