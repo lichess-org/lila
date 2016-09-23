@@ -41,6 +41,10 @@ object Main extends LilaController {
     }
   }
 
+  def apiWebsocket = WebSocket.tryAccept { req =>
+    Env.site.apiSocketHandler.apply map Right.apply
+  }
+
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(valid fold (1, 0))
@@ -77,14 +81,12 @@ object Main extends LilaController {
     }
   }
 
-  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx =>
-    me =>
-      Env.push.registerDevice(me, platform, deviceId)
+  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx => me =>
+    Env.push.registerDevice(me, platform, deviceId)
   }
 
-  def mobileUnregister = Auth { implicit ctx =>
-    me =>
-      Env.push.unregisterDevices(me)
+  def mobileUnregister = Auth { implicit ctx => me =>
+    Env.push.unregisterDevices(me)
   }
 
   def jslog(id: String) = Open { ctx =>
