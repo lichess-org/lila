@@ -83,7 +83,6 @@ GET   /account/info                    controllers.Account.info
 
 # Site
 GET   /socket                          controllers.Main.websocket
-GET   /socket/ping                     controllers.Main.websocketPing
 
 # Blog
 GET   /blog                            controllers.Blog.index(ref: Option[String] ?= None)
