@@ -11,7 +11,7 @@ object UrlList {
     def apply(text: String): List[Url] =
       text.lines.toList.map(_.trim).filter(_.nonEmpty) flatMap toUrl take max
 
-    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)([^"&?\/ ]{11}).*""".r
+    private val UrlRegex = """.*(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?\/ ]{11}).*""".r
 
     /*
    * https://www.youtube.com/watch?v=wEwoyYp_iw8
