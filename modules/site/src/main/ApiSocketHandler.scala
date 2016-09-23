@@ -19,7 +19,6 @@ private[site] final class ApiSocketHandler(
     val uid = Random nextStringUppercase 8
 
     def controller(member: SocketMember): Handler.Controller = {
-      case ("p", _) => socket ! Ping(uid)
       case ("startWatching", o) => o str "d" foreach { ids =>
         hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
@@ -27,7 +26,7 @@ private[site] final class ApiSocketHandler(
     }
 
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
-      case Connected(enum, member) => (Handler.emptyController, enum, member)
+      case Connected(enum, member) => (controller(member), enum, member)
     }
   }
 }
