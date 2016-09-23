@@ -1,11 +1,11 @@
 package lila.db
 
 import com.typesafe.config.Config
+import dsl.Coll
 import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver }
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success, Try }
-import dsl.Coll
 
 final class Env(
     name: String,
@@ -32,7 +32,7 @@ final class Env(
 
   @inline private def resolveDB(ec: ExecutionContext) =
     connection.database(dbName)(ec).andThen {
-      case _ => /*logger.debug*/println(s"[$lnm] MongoDB resolved: $dbName")
+      case _ => /*logger.debug*/ println(s"[$lnm] MongoDB resolved: $dbName")
     }
 
   def db(implicit ec: ExecutionContext): DefaultDB =
@@ -43,6 +43,7 @@ final class Env(
 
   object image {
     private lazy val imageColl = apply(config getString "image.collection")
+    import dsl._
     import DbImage.DbImageBSONHandler
     def fetch(id: String): Fu[Option[DbImage]] = imageColl.byId[DbImage](id)
   }
