@@ -24,11 +24,11 @@ final class PgnDump(
   def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
     (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
       case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
-      case None                     => tags(study, chapter)
+      case None                     => makeTags(study, chapter)
     }.map { tags =>
       Pgn(
         tags = tags,
-        turns =toTurns(chapter.root),
+        turns = toTurns(chapter.root),
         initial = Initial(chapter.root.comments.list.map(_.text.value)))
     }
 
@@ -45,9 +45,10 @@ final class PgnDump(
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
-  private def tags(study: Study, chapter: Chapter): List[Tag] = {
+  private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
-    List(
+    val fromTags = chapter.setup.fromPgn.??(_.tags)
+    val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
@@ -60,6 +61,11 @@ final class PgnDump(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))
+    genTags.foldLeft(fromTags.reverse) {
+      case (tags, tag) =>
+        if (tags.exists(t => tag.name == t.name)) tags
+        else tag :: tags
+    }.reverse
   }
 }
 
