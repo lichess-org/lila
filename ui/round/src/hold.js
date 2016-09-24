@@ -1,6 +1,6 @@
 var recorder = require('./recorder');
 var holds = [];
-var nb = 8;
+var nb = 10;
 var was = false;
 var sent = {};
 var premoved = false;
@@ -19,7 +19,7 @@ function register(ctrl, meta) {
     var mean = holds.reduce(function(a, b) {
       return a + b;
     }) / nb;
-    if (mean > 1 && mean < 140) {
+    if (mean > 2 && mean < 140) {
       var diffs = holds.map(function(a) {
         return Math.pow(a - mean, 2);
       });
