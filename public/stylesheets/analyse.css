@@ -632,18 +632,24 @@ body.piece_letter .tablebase td:first-child {
 .lichess_ground .action_menu .button {
   display: block;
   margin: 15px 0;
-  padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  text-align: left;
-}
-.lichess_ground .action_menu .button::before {
-  font-size: 2em;
   text-align: center;
-  position: relative;
+  font: 11px 'Noto Sans', 'Lucida Grande', 'Lucida Grande Unicode', Geneva, Verdana, Sans-Serif;
+  text-transform: uppercase;
 }
-.lichess_ground .action_menu .autoplay {
+.lichess_ground .action_menu .icon {
+  display: block;
+}
+.lichess_ground .action_menu .icon::before {
+  font-size: 2em;
+}
+.lichess_ground .action_menu .autoplay,
+.lichess_ground .action_menu .tools {
   display: flex;
+}
+.lichess_ground .action_menu .tools .col {
+  width: 50%;
 }
 .lichess_ground .action_menu .autoplay .button {
   flex: 1 1 auto;
@@ -667,6 +673,7 @@ body.piece_letter .tablebase td:first-child {
 }
 .lichess_ground .action_menu .setting label {
   cursor: pointer;
+  text-transform: uppercase;
 }
 .lichess_ground .action_menu .switch {
   float: right;

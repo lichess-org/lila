@@ -89,9 +89,10 @@ function studyButton(ctrl) {
       value: ctrl.tree.root.fen
     }),
     m('button.button.text', {
-      'data-icon': '',
       type: 'submit'
-    }, realGame ? 'Create Study' : 'Save to Study')
+    },
+    m('i.icon', {'data-icon': ''}),
+    realGame ? 'Create Study' : 'Save to Study')
   ]);
 }
 
@@ -157,17 +158,27 @@ module.exports = {
         })('analyse-toggle-gauge')
       ],
       m('div.title', 'TOOLS'),
-      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('boardEditor')),
-      canContinue ? m('a.button.text[data-icon=U]', {
-        config: util.bindOnce('click', function() {
-          $.modal($('.continue_with.' + d.game.id));
-        })
-      }, ctrl.trans('continueFromHere')) : null,
-      studyButton(ctrl),
+      m('div.tools',
+        m('div.col',
+          m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+          ctrl.ongoing ? null : m('a.button.text', {
+            href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+            rel: 'nofollow'
+          },
+          m('i.icon[data-icon=m]'),
+          ctrl.trans('boardEditor'))
+        ),
+        m('div.col',
+          canContinue ? m('a.button.text', {
+            config: util.bindOnce('click', function() {
+              $.modal($('.continue_with.' + d.game.id));
+            })
+          },
+          m('i.icon[data-icon=U]'),
+          ctrl.trans('createAGame')) : null,
+          studyButton(ctrl)
+        )
+      ),
       m('div.title', 'REPLAY MODE'),
       ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
       deleteButton(d, ctrl.userId),
