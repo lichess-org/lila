@@ -92,8 +92,7 @@ final class JsonView(
       "createdAt" -> s.createdAt,
       "from" -> s.from,
       "likes" -> s.likes,
-      "isNew" -> s.isNew,
-      "isOld" -> s.isOld
+      "isNew" -> s.isNew.option(true)
     ).noNull
   }
 }
