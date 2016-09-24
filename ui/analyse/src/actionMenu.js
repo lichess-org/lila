@@ -91,7 +91,7 @@ function studyButton(ctrl) {
     m('button.button.text', {
       'data-icon': '',
       type: 'submit'
-    }, realGame ? 'Study this game' : 'Save as a study')
+    }, realGame ? 'Create Study' : 'Save to Study')
   ]);
 }
 
@@ -112,17 +112,7 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('boardEditor')),
-      canContinue ? m('a.button.text[data-icon=U]', {
-        config: util.bindOnce('click', function() {
-          $.modal($('.continue_with.' + d.game.id));
-        })
-      }, ctrl.trans('continueFromHere')) : null,
-      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
+      m('div.title', 'SETTINGS'),
       d.analysis ? autoplayCplButtons(ctrl) : null, [
         (function(id) {
           return m('div.setting', [
@@ -164,9 +154,22 @@ module.exports = {
               'for': id
             }, 'Computer gauge')
           ]);
-        })('analyse-toggle-gauge'),
-        studyButton(ctrl)
+        })('analyse-toggle-gauge')
       ],
+      m('div.title', 'TOOLS'),
+      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
+      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
+        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+        rel: 'nofollow'
+      }, ctrl.trans('boardEditor')),
+      canContinue ? m('a.button.text[data-icon=U]', {
+        config: util.bindOnce('click', function() {
+          $.modal($('.continue_with.' + d.game.id));
+        })
+      }, ctrl.trans('continueFromHere')) : null,
+      studyButton(ctrl),
+      m('div.title', 'REPLAY MODE'),
+      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
         m('a.button', {

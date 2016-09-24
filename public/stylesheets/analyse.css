@@ -624,6 +624,11 @@ body.piece_letter .tablebase td:first-child {
   flex: 1 0;
   border-color: transparent;
 }
+.lichess_ground .action_menu .title {
+  width: 100%;
+  text-align: center;
+  border-bottom: solid 1px #ccc;
+}
 .lichess_ground .action_menu .button {
   display: block;
   margin: 15px 0;
@@ -634,9 +639,10 @@ body.piece_letter .tablebase td:first-child {
 }
 .lichess_ground .action_menu .button::before {
   font-size: 2em;
+  text-align: center;
+  position: relative;
 }
 .lichess_ground .action_menu .autoplay {
-  margin-top: -15px;
   display: flex;
 }
 .lichess_ground .action_menu .autoplay .button {
