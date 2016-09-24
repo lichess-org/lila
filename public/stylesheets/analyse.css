@@ -624,6 +624,11 @@ body.piece_letter .tablebase td:first-child {
   flex: 1 0;
   border-color: transparent;
 }
+.lichess_ground .action_menu .align_bottom {
+  position: absolute;
+  bottom: 30px;
+  width: 280px;
+}
 .lichess_ground .action_menu .title {
   width: 100%;
   text-align: center;

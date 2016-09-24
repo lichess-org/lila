@@ -113,86 +113,88 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('div.title', 'SETTINGS'),
-      d.analysis ? autoplayCplButtons(ctrl) : null, [
-        (function(id) {
-          return m('div.setting', [
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showAutoShapes(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleAutoShapes(e.target.checked);
+      m('div.align_bottom',
+        m('div.title', 'SETTINGS'),
+        d.analysis ? autoplayCplButtons(ctrl) : null, [
+          (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showAutoShapes(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.toggleAutoShapes(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
                 })
-              }),
+              ]),
               m('label', {
                 'for': id
-              })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer arrows')
-          ]);
-        })('analyse-toggle-ceval'), (function(id) {
-          return m('div.setting', [
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showGauge(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleGauge(e.target.checked);
+              }, 'Computer arrows')
+            ]);
+          })('analyse-toggle-ceval'), (function(id) {
+            return m('div.setting', [
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showGauge(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.toggleGauge(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
                 })
-              }),
+              ]),
               m('label', {
                 'for': id
+              }, 'Computer gauge')
+            ]);
+          })('analyse-toggle-gauge')
+        ],
+        m('div.title', 'TOOLS'),
+        m('div.tools',
+          m('div.col',
+            m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+            ctrl.ongoing ? null : m('a.button.text', {
+              href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+              rel: 'nofollow'
+            },
+            m('i.icon[data-icon=m]'),
+            ctrl.trans('boardEditor'))
+          ),
+          m('div.col',
+            canContinue ? m('a.button.text', {
+              config: util.bindOnce('click', function() {
+                $.modal($('.continue_with.' + d.game.id));
               })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer gauge')
-          ]);
-        })('analyse-toggle-gauge')
-      ],
-      m('div.title', 'TOOLS'),
-      m('div.tools',
-        m('div.col',
-          m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
-          ctrl.ongoing ? null : m('a.button.text', {
-            href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-            rel: 'nofollow'
-          },
-          m('i.icon[data-icon=m]'),
-          ctrl.trans('boardEditor'))
+            },
+            m('i.icon[data-icon=U]'),
+            ctrl.trans('createAGame')) : null,
+            studyButton(ctrl)
+          )
         ),
-        m('div.col',
-          canContinue ? m('a.button.text', {
-            config: util.bindOnce('click', function() {
-              $.modal($('.continue_with.' + d.game.id));
-            })
-          },
-          m('i.icon[data-icon=U]'),
-          ctrl.trans('createAGame')) : null,
-          studyButton(ctrl)
-        )
-      ),
-      m('div.title', 'REPLAY MODE'),
-      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
-      deleteButton(d, ctrl.userId),
-      ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
-        m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
-          rel: 'nofollow'
-        }, ctrl.trans('playWithTheMachine')),
-        m('br'),
-        m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
-          rel: 'nofollow'
-        }, ctrl.trans('playWithAFriend'))
-      ])
+        m('div.title', 'REPLAY MODE'),
+        ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
+        deleteButton(d, ctrl.userId),
+        ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
+          m('a.button', {
+            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
+            rel: 'nofollow'
+          }, ctrl.trans('playWithTheMachine')),
+          m('br'),
+          m('a.button', {
+            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
+            rel: 'nofollow'
+          }, ctrl.trans('playWithAFriend'))
+        ])
+      )
     ]);
   }
 };
