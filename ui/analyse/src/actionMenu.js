@@ -165,8 +165,7 @@ module.exports = {
             studyButton(ctrl)
           )
         ),
-        m('div.title', 'REPLAY MODE'),
-        ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
+        ctrl.vm.mainline.length > 4 ? (m('div.title', 'REPLAY MODE'), autoplayButtons(ctrl)) : null,
         deleteButton(d, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
           m('a.button', {
