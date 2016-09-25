@@ -13,7 +13,6 @@ final class Env(
   val CliUsername = config getString "cli.username"
 
   private val RendererName = config getString "app.renderer.name"
-  private val WebPath = config getString "app.web_path"
 
   lazy val bus = lila.common.Bus(system)
 
