@@ -102,14 +102,17 @@ object Main extends LilaController {
     } inject Ok
   }
 
-  def glyphs = Action { req =>
+  private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
     import lila.socket.tree.Node.glyphWriter
     Ok(Json.obj(
-      "move" -> Glyph.MoveAssessment.all,
-      "position" -> Glyph.PositionAssessment.all,
-      "observation" -> Glyph.Observation.all
+      "move" -> Glyph.MoveAssessment.display,
+      "position" -> Glyph.PositionAssessment.display,
+      "observation" -> Glyph.Observation.display
     )) as JSON
+  }
+  def glyphs = Action { req =>
+    glyphsResult
   }
 
   def image(id: String, hash: String, name: String) = Action.async { req =>
