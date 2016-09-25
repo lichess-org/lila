@@ -127,9 +127,9 @@ object Main extends LilaController {
     }
   }
 
-  def robots = Action { req =>
+  val robots = Action { _ =>
     Ok {
-      if (req.domain endsWith ".lichess.org")
+      if (Env.api.Net.Crawlable)
         "User-agent: *\nAllow: /\nDisallow: /game/export"
       else
         "User-agent: *\nDisallow: /"
