@@ -633,6 +633,13 @@ body.piece_letter .tablebase td:first-child {
   width: 100%;
   text-align: center;
   border-bottom: solid 1px #ccc;
+  margin-bottom: 5px;
+}
+.lichess_ground .action_menu span.title {
+  border: none;
+  position: relative;
+  bottom: -9px;
+  background: #eee;
 }
 .lichess_ground .action_menu .button {
   display: block;

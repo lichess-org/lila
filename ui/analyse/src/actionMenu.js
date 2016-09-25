@@ -80,6 +80,11 @@ function studyButton(ctrl) {
     realGame ? 'Create Study' : 'Save to Study')
   ]);
 }
+function createTitle(text) {
+  return m('div.title',
+    m('span.title', text)
+  )
+}
 
 module.exports = {
   controller: function() {
@@ -99,7 +104,7 @@ module.exports = {
 
     return m('div.action_menu', [
       m('div.align_bottom',
-        m('div.title', 'SETTINGS'),
+        createTitle('SETTINGS'),
         [
           (function(id) {
             return m('div.setting', [
@@ -143,7 +148,7 @@ module.exports = {
             ]);
           })('analyse-toggle-gauge')
         ],
-        m('div.title', 'TOOLS'),
+        createTitle('TOOLS'),
         m('div.tools',
           m('div.col',
             m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
@@ -165,7 +170,7 @@ module.exports = {
             studyButton(ctrl)
           )
         ),
-        ctrl.vm.mainline.length > 4 ? (m('div.title', 'REPLAY MODE'), autoplayButtons(ctrl)) : null,
+        ctrl.vm.mainline.length > 4 ? [createTitle('REPLAY MODE'), autoplayButtons(ctrl)] : null,
         deleteButton(d, ctrl.userId),
         ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
           m('a.button', {
