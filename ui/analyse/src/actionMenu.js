@@ -18,10 +18,7 @@ var allSpeeds = baseSpeeds.concat({
 });
 
 var cplSpeeds = [{
-  name: 'by CPL (fast)',
-  delay: 'cpl_fast'
-}, {
-  name: 'by CPL (slow)',
+  name: 'by CPL',
   delay: 'cpl_slow'
 }];
 
@@ -43,6 +40,7 @@ function deleteButton(data, userId) {
 function autoplayButtons(ctrl) {
   var d = ctrl.data;
   var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
+  speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return m('div.autoplay', speeds.map(function(speed, i) {
     var attrs = {
       class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
@@ -52,19 +50,6 @@ function autoplayButtons(ctrl) {
     return m('a', attrs, speed.name);
   }));
 }
-
-function autoplayCplButtons(ctrl) {
-  var d = ctrl.data;
-  return m('div.autoplay', cplSpeeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
-    };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
-  }));
-}
-
 function studyButton(ctrl) {
   if (ctrl.study || ctrl.ongoing) return;
   var realGame = !util.synthetic(ctrl.data);
@@ -115,7 +100,7 @@ module.exports = {
     return m('div.action_menu', [
       m('div.align_bottom',
         m('div.title', 'SETTINGS'),
-        d.analysis ? autoplayCplButtons(ctrl) : null, [
+        [
           (function(id) {
             return m('div.setting', [
               m('div.switch', [
