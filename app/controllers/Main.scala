@@ -127,6 +127,15 @@ object Main extends LilaController {
     }
   }
 
+  def robots = Action { req =>
+    Ok {
+      if (req.domain endsWith ".lichess.org")
+        "User-agent: *\nAllow: /\nDisallow: /game/export"
+      else
+        "User-agent: *\nDisallow: /"
+    }
+  }
+
   def notFound(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
       lila.mon.http.response.code404()
