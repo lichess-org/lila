@@ -303,3 +303,38 @@ div.bar div.pagination {
 #lichess_forum .unsub.off .on {
   display: none;
 }
+
+
+.dropdown-menu {
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+.dropdown-menu li {
+    border-top: 1px solid #ddd;
+    padding: 2px 5px;
+    width:100px;
+    font-size:16px;
+}
+
+.dropdown-menu li:first-child {
+    border-top: none;
+}
+
+.dropdown-menu li:hover,
+.dropdown-menu .active {
+    background-color: lightblue;
+}
+
+/* SHOULD not modify */
+
+.dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu a:hover {
+    cursor: pointer;
+}
+

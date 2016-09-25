@@ -23,7 +23,7 @@
     <input class="subject" autofocus="true" minlength=3 maxlength=100 value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
     @errMsg(form("name"))
   </label>
-  @forum.post.formFields(form("post")("text"), form("post")("author"))
+  @forum.post.formFields(form("post")("text"), form("post")("author"), None)
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
   <button class="submit button" type="submit" data-icon="E"> @trans.createTheTopic()</button>

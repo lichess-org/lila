@@ -1,7 +1,9 @@
 package lila.forum
 
 import lila.db.dsl._
+import lila.user.User.BSONFields
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 object PostRepo extends PostRepo(false) {
 
@@ -64,6 +66,18 @@ sealed abstract class PostRepo(troll: Boolean) {
     "userId" -> ~post.userId,
     "text" -> post.text
   ))
+
+  /**
+    * Returns the a subset of the list of the users participating in a thread.
+    * */
+  def topicParticipants(topicId: String) : Fu[Set[String]] = {
+    coll.find(selectTopic(topicId)).cursor[Bdoc](ReadPreference.secondaryPreferred).gather[Set](200)
+      .map {
+        _ flatMap {
+          _.getAs[String]("userId")
+        }
+      }
+  }
 
   def sortQuery = $sort.createdAsc
 

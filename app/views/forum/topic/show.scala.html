@@ -60,7 +60,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
       <p class="message">@autoLink(post.text)</p>
       @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
       <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
-        <textarea name="changes" class="edit-post-box" minlength="3" required>@post.text</textarea>
+        <textarea name="changes" class="post-text-area edit-post-box" minlength="3" required>@post.text</textarea>
         <div class="edit-buttons">
           <a class="edit-post-cancel" href="@routes.ForumPost.redirect(post.id)" style="margin-left:20px">@trans.cancel()</a>
           <button type="submit" class="submit button">@trans.apply()</button>
@@ -94,7 +94,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     case (form, captcha) => {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
-      @forum.post.formFields(form("text"), form("author"))
+      @forum.post.formFields(form("text"), form("author"), topic.some)
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
       <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
