@@ -252,6 +252,9 @@ div.gauge_displayed .fork {
   background: #759900;
   transition: 1s;
 }
+.ceval_box .bar span.threat {
+  background: #dc322f;
+}
 
 .fork {
   position: absolute;

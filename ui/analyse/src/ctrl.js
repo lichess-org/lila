@@ -67,7 +67,8 @@ module.exports = function(opts) {
     contextMenuPath: null,
     justPlayed: null,
     justDropped: null,
-    keyboardHelp: location.hash === '#keyboard'
+    keyboardHelp: location.hash === '#keyboard',
+    threatMode: false
   };
 
   this.setPath = function(path) {
@@ -178,6 +179,7 @@ module.exports = function(opts) {
         else sound.move();
       }
       if (/\+|\#/.test(this.vm.node.san)) sound.check();
+      this.vm.threatMode = false;
       this.ceval.stop();
       this.startCeval();
     }
@@ -384,8 +386,13 @@ module.exports = function(opts) {
   var makeCeval = function() {
     return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
       this.tree.updateAt(res.work.path, function(node) {
-        if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-        node.ceval = res.eval;
+        if (res.work.threatMode) {
+          if (node.threat && node.threat.depth >= res.eval.depth) return;
+          node.threat = res.eval;
+        } else {
+          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+          node.ceval = res.eval;
+        }
         if (res.work.path === this.vm.path) {
           this.setAutoShapes();
           m.redraw();
@@ -418,13 +425,23 @@ module.exports = function(opts) {
 
   this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.vm.nodeList);
+      this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
   }.bind(this));
 
   this.toggleCeval = function() {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
+    m.redraw();
+  }.bind(this);
+
+  this.toggleThreatMode = function() {
+    if (!canUseCeval()) return;
+    this.ceval.enabled(true);
+    this.vm.threatMode = !this.vm.threatMode;
+    this.setAutoShapes();
+    this.startCeval();
+    m.redraw();
   }.bind(this);
 
   this.showEvalGauge = function() {
