@@ -681,9 +681,6 @@ body.piece_letter .tablebase td:first-child {
 .lichess_ground .action_menu .tools {
   display: flex;
 }
-.lichess_ground .action_menu .tools .col {
-  width: 50%;
-}
 .lichess_ground .action_menu .autoplay .button {
   flex: 1 1 auto;
   text-align: center;

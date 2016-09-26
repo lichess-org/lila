@@ -145,27 +145,22 @@ module.exports = {
         })('analyse-toggle-gauge')
       ],
       m('h2', 'Tools'),
-      m('div.tools',
-        m('div.col',
-          m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
-          ctrl.ongoing ? null : m('a.button.text', {
-              href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-              rel: 'nofollow'
-            },
-            m('i.icon[data-icon=m]'),
-            ctrl.trans('boardEditor'))
-        ),
-        m('div.col',
-          canContinue ? m('a.button.text', {
-              config: util.bindOnce('click', function() {
-                $.modal($('.continue_with.' + d.game.id));
-              })
-            },
-            m('i.icon[data-icon=U]'),
-            ctrl.trans('createAGame')) : null,
-          studyButton(ctrl)
-        )
-      ),
+      m('div.tools', [
+        m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+        ctrl.ongoing ? null : m('a.button.text', {
+            href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+            rel: 'nofollow'
+          },
+          m('i.icon[data-icon=m]'),
+          ctrl.trans('boardEditor')) canContinue ? m('a.button.text', {
+            config: util.bindOnce('click', function() {
+              $.modal($('.continue_with.' + d.game.id));
+            })
+          },
+          m('i.icon[data-icon=U]'),
+          ctrl.trans('createAGame')) : null,
+        studyButton(ctrl)
+      ]),
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
