@@ -438,7 +438,7 @@ module.exports = function(opts) {
   this.toggleThreatMode = function() {
     if (!canUseCeval()) return;
     this.ceval.enabled(true);
-    this.vm.threatMode = !this.vm.threatMode;
+    this.vm.threatMode = !this.vm.threatMode && !this.vm.node.check;
     this.setAutoShapes();
     this.startCeval();
     m.redraw();
