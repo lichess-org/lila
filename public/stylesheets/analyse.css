@@ -641,7 +641,8 @@ body.piece_letter .tablebase td:first-child {
   bottom: -9px;
   background: #eee;
 }
-.lichess_ground .action_menu .button {
+.lichess_ground .action_menu .button,
+.lichess_ground .action_menu button {
   display: block;
   margin: 15px 0;
   width: 100%;
@@ -649,6 +650,21 @@ body.piece_letter .tablebase td:first-child {
   text-align: center;
   font: 11px 'Noto Sans', 'Lucida Grande', 'Lucida Grande Unicode', Geneva, Verdana, Sans-Serif;
   text-transform: uppercase;
+  background: none;
+  border: none;
+  outline: none;
+}
+.lichess_ground .action_menu .button:hover,
+.lichess_ground .action_menu button:hover {
+  background: #3893E8;
+  color: #fff;
+}
+.lichess_ground .action_menu .button:active,
+.lichess_ground .action_menu .button.active,
+.lichess_ground .action_menu button:active,
+.lichess_ground .action_menu button.active {
+  background: #5ba6ec !important;
+  color: #fff !important;
 }
 .lichess_ground .action_menu .icon {
   display: block;
