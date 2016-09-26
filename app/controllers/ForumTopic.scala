@@ -81,7 +81,7 @@ object ForumTopic extends LilaController with ForumController {
   def participants(topicId: String) = Auth {
     implicit ctx =>
       me =>
-        topicApi.topicParticipants(topicId) map {
+        postApi.userIds(topicId) map {
           participants =>
             Ok(Json.toJson(participants))
         }

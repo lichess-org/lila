@@ -67,18 +67,6 @@ sealed abstract class PostRepo(troll: Boolean) {
     "text" -> post.text
   ))
 
-  /**
-    * Returns a limited subset of the list of the users participating in a thread.
-    * */
-  def topicParticipants(topicId: String) : Fu[Set[String]] = {
-    coll.find(selectTopic(topicId)).cursor[Bdoc](ReadPreference.secondaryPreferred).gather[Set](15)
-      .map {
-        _ flatMap {
-          _.getAs[String]("userId")
-        }
-      }
-  }
-
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =

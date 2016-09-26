@@ -135,5 +135,4 @@ private[forum] final class TopicApi(
     )).void
   } yield ()
 
-  def topicParticipants(topicId: String) = PostRepo topicParticipants topicId
 }
