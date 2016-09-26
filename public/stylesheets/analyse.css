@@ -629,17 +629,28 @@ body.piece_letter .tablebase td:first-child {
   bottom: 30px;
   width: 280px;
 }
-.lichess_ground .action_menu .title {
-  width: 100%;
+.lichess_ground .action_menu h2 {
+  text-transform: uppercase;
   text-align: center;
-  border-bottom: solid 1px #ccc;
+  white-space: nowrap;
   margin-bottom: 5px;
+  display: table;
+  padding: 0 10px;
 }
-.lichess_ground .action_menu span.title {
-  border: none;
+.lichess_ground .action_menu h2:before,
+.lichess_ground .action_menu h2:after {
+  border-top: 1px solid #ccc;
+  content: '';
+  display: table-cell;
   position: relative;
-  bottom: -9px;
-  background: #eee;
+  top: 0.65em;
+  width: 45%;
+}
+.lichess_ground .action_menu h2:before {
+  right: 8px;
+}
+.lichess_ground .action_menu h2:after {
+  left: 8px;
 }
 .lichess_ground .action_menu .button,
 .lichess_ground .action_menu button {
