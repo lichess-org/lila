@@ -12,25 +12,6 @@ $(function () {
 
   lichess.loadScript('/assets/javascripts/vendor/jquery.textcomplete.js').then(function() {
 
-    var getDataRetrievalUrl = function(term) {
-        var dataRetrievalUrl = "";
-
-        if (term.length < 3) {
-            // Initially we only autocomplete on people who are participating in the thread
-
-            var topicId = $('.post-text-area').attr('data-topic');
-
-            if (!topicId) {
-                return null;
-            } else {
-                return "/forum/participants/" + topicId;
-            }
-        } else {
-            // After 3 characters, we can autocomplete against all users on the site
-            return "/player/autocomplete?term=" + term;
-        }
-    };
-
     var getTopicId = function () {
         return $('.post-text-area').attr('data-topic');
     };
@@ -53,6 +34,7 @@ $(function () {
             });
     };
 
+    var participants = getThreadParticipants();
 
     $('.post-text-area').textcomplete([
          {
@@ -63,7 +45,6 @@ $(function () {
                     // Initially we only autocomplete by participants in the read. As the user types more,
                     // we can autocomplete against all users on the site.
 
-                    var participants = getThreadParticipants();
                     participants.done(function(participants) {
                         callback(searchCandidates(term, participants));
                     });
