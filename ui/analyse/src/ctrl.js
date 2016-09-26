@@ -420,7 +420,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest());
+    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest() || this.vm.threatMode);
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {

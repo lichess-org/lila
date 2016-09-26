@@ -60,7 +60,7 @@ module.exports = function(possible, variant, emit) {
     if (!enabled() || !possible()) return;
     var step = steps[steps.length - 1];
 
-    var existing = step[threatMode ? 'ceval' : 'threat'];
+    var existing = step[threatMode ? 'threat' : 'ceval'];
     if (existing && existing.depth >= maxDepth()) return;
 
     var work = {
