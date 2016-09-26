@@ -31,27 +31,51 @@ $(function () {
         }
     };
 
+    var getTopicId = function () {
+        return $('.post-text-area').attr('data-topic');
+    };
+
+    var getThreadParticipants = function() {
+        var topicId = getTopicId();
+
+        if (!topicId) {
+            return jQuery.Deferred().resolve([]);
+        } else {
+            return $.ajax({url: "/forum/participants/" + topicId});
+        }
+
+    };
+
+    var searchCandidates = function(term, candidateUsers) {
+        return $.map(candidateUsers,
+            function (user) {
+                return user.indexOf(term) === 0 ? user : null;
+            });
+    };
+
+
     $('.post-text-area').textcomplete([
          {
              match: /\B@(\w*)$/,
              search: function (term, callback) {
 
-                var dataRetrievalUrl = getDataRetrievalUrl(term);
+                if (term.length < 3) {
+                    // Initially we only autocomplete by participants in the read. As the user types more,
+                    // we can autocomplete against all users on the site.
 
-                if (!dataRetrievalUrl) {
-                    callback(null);
-                    return;
-                }
-
-                $.ajax(
-                    {
-                        url: dataRetrievalUrl,
-                        success: function(candidateUsers) {
-                            callback($.map(candidateUsers, function (user) {
-                                return user.indexOf(term) === 0 ? user : null;
-                             }));
-                        }
+                    var participants = getThreadParticipants();
+                    participants.done(function(participants) {
+                        callback(searchCandidates(term, participants));
                     });
+                } else {
+                    $.ajax(
+                            {
+                                url: "/player/autocomplete?term=" + term,
+                                success: function(candidateUsers) {
+                                    callback(searchCandidates(term, candidateUsers));
+                                }
+                            });
+                }
              },
              index: 1,
              replace: function (mention) {
