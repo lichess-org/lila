@@ -1,5 +1,8 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
+@jQueryTag
+@jsTag("forum-post.js")
+
 @forum.layout(title = "New forum topic") {
 <ol class="crumbs">
   <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>

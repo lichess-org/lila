@@ -42,7 +42,7 @@ $(function () {
              search: function (term, callback) {
 
                 if (term.length < 3) {
-                    // Initially we only autocomplete by participants in the read. As the user types more,
+                    // Initially we only autocomplete by participants in the thread. As the user types more,
                     // we can autocomplete against all users on the site.
 
                     participants.done(function(participants) {

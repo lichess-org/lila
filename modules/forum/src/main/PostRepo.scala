@@ -68,7 +68,7 @@ sealed abstract class PostRepo(troll: Boolean) {
   ))
 
   /**
-    * Returns the a subset of the list of the users participating in a thread.
+    * Returns a limited subset of the list of the users participating in a thread.
     * */
   def topicParticipants(topicId: String) : Fu[Set[String]] = {
     coll.find(selectTopic(topicId)).cursor[Bdoc](ReadPreference.secondaryPreferred).gather[Set](15)
