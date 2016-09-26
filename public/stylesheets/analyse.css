@@ -417,7 +417,9 @@ body.piece_letter .explorer_box .moves td:first-child {
   line-height: 16px;
   font-size: 11px;
 }
-body.dark .explorer_box .bar span {
+body.dark .explorer_box .bar span,
+body.dark .lichess_ground .action_menu h2:before,
+body.dark .lichess_ground .action_menu h2:after {
   border-color: #555;
 }
 .explorer_box .white {
