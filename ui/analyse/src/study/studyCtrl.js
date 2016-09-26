@@ -98,8 +98,8 @@ module.exports = {
       data.liked = s.liked;
       members.dict(s.members);
       chapters.list(s.chapters);
-      configureAnalysis();
       ctrl.reloadData(d.analysis);
+      configureAnalysis();
       ctrl.chessground.set({
         orientation: d.analysis.orientation
       });
