@@ -133,8 +133,8 @@ div.game_control .jumps button:nth-child(3) {
   padding: 0 14px 0 10px;
 }
 div.lichess_game div.lichess_ground {
-  transition: padding-left 0.3s;
   position: relative;
+  transition: padding-left 0.3s;
 }
 div.eval_gauge {
   position: absolute;

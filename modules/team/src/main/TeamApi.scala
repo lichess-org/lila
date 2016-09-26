@@ -7,6 +7,7 @@ import lila.hub.actorApi.forum.MakeTeam
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
+import reactivemongo.api.Cursor
 
 final class TeamApi(
     coll: Colls,
@@ -162,13 +163,11 @@ final class TeamApi(
 
   def nbRequests(teamId: String) = cached nbRequests teamId
 
-  import play.api.libs.iteratee._
   def recomputeNbMembers =
-    coll.team.find($empty).cursor[Team]()
-      .enumerate(Int.MaxValue, stopOnError = true) |>>>
-      Iteratee.foldM[Team, Unit](()) {
-        case (_, team) => MemberRepo.countByTeam(team.id) flatMap { nb =>
-          coll.team.updateField($id(team.id), "nbMembers", nb).void
-        }
-      }
+    coll.team.find($empty).cursor[Team]().foldWhileM({}) { (_, team) =>
+      for {
+        nb <- MemberRepo.countByTeam(team.id)
+        _ <- coll.team.updateField($id(team.id), "nbMembers", nb)
+      } yield Cursor.Cont({})
+    }
 }

@@ -21,7 +21,7 @@ final class Env(
   }
   import settings._
 
-  private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
+  private val db = new lila.db.Env("insight", config getConfig "mongodb", lifecycle)
 
   lazy val share = new Share(getPref, areFriends)
 

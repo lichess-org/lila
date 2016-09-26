@@ -149,7 +149,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       <a class="fright link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
       }
       }
-      <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
+      <a id="reconnecting" class="fright link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
     <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">

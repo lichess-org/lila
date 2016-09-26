@@ -33,10 +33,7 @@ lichess.StrongSocket = function(url, version, settings) {
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl, true);
     try {
-      if (window.MozWebSocket) ws = new MozWebSocket(fullUrl);
-      else if (window.WebSocket) ws = new WebSocket(fullUrl);
-      else throw "[lila] no websockets found on this browser!";
-
+      ws = new WebSocket(fullUrl);
       ws.onerror = function(e) {
         onError(e);
       };
