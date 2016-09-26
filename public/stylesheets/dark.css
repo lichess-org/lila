@@ -422,8 +422,6 @@ body.dark a.button:hover {
   background: rgb(44, 44, 44);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
 }
-body.dark .button.active-soft,
-body.dark .button.active-soft:hover,
 body.dark .fbt.active-soft,
 body.dark .fbt.active-soft:hover {
   color: #ccc !important;
