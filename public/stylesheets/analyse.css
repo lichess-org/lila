@@ -650,8 +650,7 @@ body.piece_letter .tablebase td:first-child {
 .lichess_ground .action_menu h2:after {
   left: 8px;
 }
-.lichess_ground .action_menu .button,
-.lichess_ground .action_menu button {
+.lichess_ground .action_menu .button {
   display: block;
   margin: 15px 0;
   width: 100%;
@@ -663,15 +662,12 @@ body.piece_letter .tablebase td:first-child {
   border: none;
   outline: none;
 }
-.lichess_ground .action_menu .button:hover,
-.lichess_ground .action_menu button:hover {
+.lichess_ground .action_menu .button:hover {
   background: #3893E8;
   color: #fff;
 }
 .lichess_ground .action_menu .button:active,
-.lichess_ground .action_menu .button.active,
-.lichess_ground .action_menu button:active,
-.lichess_ground .action_menu button.active {
+.lichess_ground .action_menu .button.active {
   background: #5ba6ec !important;
   color: #fff !important;
 }
