@@ -42,12 +42,10 @@ function autoplayButtons(ctrl) {
   var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return m('div.autoplay', speeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+    return m('a', {
+      class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
       config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
-    };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
+    }, speed.name);
   }));
 }
 
@@ -74,7 +72,7 @@ function studyButton(ctrl) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    m('button.button.text', {
+    m('button.fbt', {
         type: 'submit'
       },
       m('i.icon', {
@@ -146,19 +144,22 @@ module.exports = {
       ],
       m('h2', 'Tools'),
       m('div.tools', [
-        m('a.button.text', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
-        ctrl.ongoing ? null : m('a.button.text', {
-            href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-            rel: 'nofollow'
-          },
+        m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+        ctrl.ongoing ? null : m('a.fbt', {
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }, [
           m('i.icon[data-icon=m]'),
-          ctrl.trans('boardEditor')) canContinue ? m('a.button.text', {
-            config: util.bindOnce('click', function() {
-              $.modal($('.continue_with.' + d.game.id));
-            })
-          },
+          ctrl.trans('boardEditor')
+        ]),
+        canContinue ? m('a.fbt', {
+          config: util.bindOnce('click', function() {
+            $.modal($('.continue_with.' + d.game.id));
+          })
+        }, [
           m('i.icon[data-icon=U]'),
-          ctrl.trans('createAGame')) : null,
+          ctrl.trans('continueFromHere')
+        ]) : null,
         studyButton(ctrl)
       ]),
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
