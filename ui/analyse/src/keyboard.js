@@ -128,6 +128,7 @@ module.exports = {
           row([k('l')], 'Local computer analysis'),
           row([k('a')], 'Computer arrows'),
           row([k('space')], 'Play computer best move'),
+          row([k('x')], 'Show threat'),
           row([k('e')], 'Opening/endgame explorer'),
           row([k('f')], trans('flipBoard')),
           row([k('/')], 'Focus chat'),
