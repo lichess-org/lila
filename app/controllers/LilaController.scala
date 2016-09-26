@@ -361,8 +361,7 @@ private[controllers] trait LilaController
     if (csrfCheck(req)) f else csrfForbiddenResult
 
   protected def SocketCSRF[A](req: RequestHeader)(f: => Fu[Either[Result, A]]): Fu[Either[Result, A]] =
-    if (csrfCheck(req)) f
-    else f // csrfForbiddenResult map Left.apply
+    if (csrfCheck(req)) f else csrfForbiddenResult map Left.apply
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound

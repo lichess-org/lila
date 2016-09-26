@@ -367,23 +367,22 @@ div.underboard .notif.error {
   flex: 1 0 30%;
 }
 .glyph_form a {
-  display: block!important;
+  display: flex!important;
   cursor: pointer;
   transition: 0.13s;
+  align-items: center;
 }
 .glyph_form i::before {
   content: attr(data-symbol);
-  font-size: 1.3em;
-  vertical-align: middle;
-  width: 14px;
-  display: inline-block;
+  font-size: 1.2em;
   font-style: normal;
+  font-weight: bold;
+  display: block;
   width: 20px;
   text-align: center;
   background: #ddd;
-  padding: 3px 10px;
+  padding: 2px 10px;
   margin-right: 6px;
-  font-weight: bold;
   transition: 0.13s;
 }
 .glyph_form a:hover {
