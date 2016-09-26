@@ -686,6 +686,9 @@ body.piece_letter .tablebase td:first-child {
   box-sizing: border-box;
   text-align: center;
 }
+.lichess_ground .action_menu .tools form .fbt {
+  width: 100%;
+}
 .lichess_ground .action_menu .tools i {
   margin-bottom: 5px;
 }
