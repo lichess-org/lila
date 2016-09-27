@@ -64,7 +64,8 @@ $(function() {
           return '@' + mention + ' ';
         }
       }], {
-        'placement': 'top'
+        'placement': 'top',
+        'appendTo': '#lichess_forum'
       }
 
     );
