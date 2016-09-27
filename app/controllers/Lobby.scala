@@ -67,7 +67,7 @@ object Lobby extends LilaController {
 
     private val cache = lila.memo.AsyncCache[RequestKey, Html](
       f = renderRequestKey,
-      timeToLive = 500 millis)
+      timeToLive = 1 second)
 
     private def renderCtx(implicit ctx: Context): Fu[Html] = Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
