@@ -211,7 +211,7 @@ module.exports = function(opts) {
         var move = this.data.steps[this.data.steps.length - 2].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
         move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-        txt = opponent + '\nplayed ' + move + '\n' + txt;
+        txt = opponent + '\nplayed ' + move + '.\n' + txt;
       }
       return txt;
     }.bind(this));
