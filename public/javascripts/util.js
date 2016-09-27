@@ -236,6 +236,7 @@ lichess.desktopNotification = (function() {
     if (storage.get()) return;
     storage.set(1);
     clearStorageSoon();
+    if ($.isFunction(msg)) msg = msg();
     var notification = new Notification('lichess.org', {
       icon: '//lichess1.org/assets/images/logo.256.png',
       body: msg

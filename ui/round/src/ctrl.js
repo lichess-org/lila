@@ -202,19 +202,19 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
-    if (game.isPlayerTurn(this.data)) {
+    if (game.isPlayerTurn(this.data)) lichess.desktopNotification(function() {
       var txt = this.trans('yourTurn');
       var opponent = renderUser.userTxt(this, this.data.opponent);
       if (this.vm.ply < 2)
-        txt = opponent + ' joined the game.\n' + txt;
+        txt = opponent + '\njoined the game.\n' + txt;
       else {
         var move = this.data.steps[this.data.steps.length - 2].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
         move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-        txt = opponent + ' played ' + move + '\n' + txt;
+        txt = opponent + '\nplayed ' + move + '\n' + txt;
       }
-      lichess.desktopNotification(txt);
-    }
+      return txt;
+    }.bind(this));
   }.bind(this);
   setTimeout(showYourMoveNotification, 500);
 
