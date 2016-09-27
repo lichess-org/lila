@@ -28,7 +28,9 @@ $(function () {
     };
 
     var searchCandidates = function(term, candidateUsers) {
-        return candidateUsers.map(function (user) {
+        // We use jQuery's map because returning 'null' removes it from the list.
+        // This follows jquery-autocomplete's semantics.
+        return $.map(candidateUsers, function (user) {
                 return user.indexOf(term) === 0 ? user : null;
             });
     };
