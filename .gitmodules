@@ -44,3 +44,6 @@
 	path = public/vendor/Sunsetter8
 	url = https://github.com/niklasf/Sunsetter8
 	branch = js
+[submodule "public/vendor/jquery-textcomplete"]
+	path = public/vendor/jquery-textcomplete
+	url = https://github.com/yuku-t/jquery-textcomplete

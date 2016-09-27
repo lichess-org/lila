@@ -10,7 +10,7 @@ $(function () {
     form.find('textarea').height(message.height());
   });
 
-  lichess.loadScript('/assets/javascripts/vendor/jquery.textcomplete.js').then(function() {
+  lichess.loadScript('/assets/vendor/jquery-textcomplete/dist/jquery.textcomplete.js').then(function() {
 
     var getTopicId = function () {
         return $('.post-text-area').attr('data-topic');
@@ -28,8 +28,7 @@ $(function () {
     };
 
     var searchCandidates = function(term, candidateUsers) {
-        return $.map(candidateUsers,
-            function (user) {
+        return candidateUsers.map(function (user) {
                 return user.indexOf(term) === 0 ? user : null;
             });
     };
