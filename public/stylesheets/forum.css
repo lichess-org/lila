@@ -311,14 +311,16 @@ div.bar div.pagination {
 
 .textcomplete-dropdown li {
     border-top: 1px solid #ddd;
-    padding: 2px 5px;
+    padding: 5px 5px 5px 5px;
     width:100px;
-    font-size: 1.1em;
+    font-size: 14px;
     font-weight: bold;
 }
 
 body.dark .textcomplete-dropdown {
     background: #383838;
+    color: #9c9c9c;
+    border-color: #3d3d3d;
 }
 
 body.dark .textcomplete-drowndown li {
