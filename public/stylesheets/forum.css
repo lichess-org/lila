@@ -305,36 +305,44 @@ div.bar div.pagination {
 }
 
 
-.dropdown-menu {
+.textcomplete-dropdown {
     border: 1px solid #ddd;
-    background-color: white;
 }
 
-.dropdown-menu li {
+.textcomplete-dropdown li {
     border-top: 1px solid #ddd;
     padding: 2px 5px;
     width:100px;
-    font-size:16px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
-.dropdown-menu li:first-child {
+body.dark .textcomplete-dropdown {
+    background: #383838;
+}
+
+body.dark .textcomplete-drowndown li {
+}
+
+
+.textcomplete-dropdown li:first-child {
     border-top: none;
 }
 
-.dropdown-menu li:hover,
-.dropdown-menu .active {
+.textcomplete-dropdown li:hover,
+.textcomplete-dropdown .active {
     background-color: lightblue;
 }
 
 /* SHOULD not modify */
 
-.dropdown-menu {
+.textcomplete-dropdown {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.dropdown-menu a:hover {
+.textcomplete-dropdown a:hover {
     cursor: pointer;
 }
 
