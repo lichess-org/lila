@@ -126,10 +126,10 @@ div.game_control .jumps button:last-child {
   font-size: 0.7em;
   padding: 0 5px;
 }
-div.game_control .jumps button:nth-child(2) {
+div.game_control .jumps button:nth-child(3) {
   padding: 0 10px 0 14px;
 }
-div.game_control .jumps button:nth-child(3) {
+div.game_control .jumps button:nth-child(4) {
   padding: 0 14px 0 10px;
 }
 div.lichess_game div.lichess_ground {

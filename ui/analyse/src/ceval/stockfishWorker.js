@@ -15,11 +15,17 @@ var variantMap = {
 module.exports = function(opts, name) {
 
   var instance = null;
+  var state = null;
   var busy = false;
   var stopping = false;
 
   var send = function(text) {
     instance.postMessage(text);
+  };
+
+  var emit = function() {
+    if (state) state.work.emit(state);
+    state = null;
   };
 
   var processOutput = function(text, work) {
@@ -29,30 +35,48 @@ module.exports = function(opts, name) {
       return;
     }
     if (stopping) return;
+
     if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
-    var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
-    if (!matches) return;
-    var depth = parseInt(matches[1]);
-    if (depth < opts.minDepth) return;
+    var matches = text.match(/depth (\d+) .*multipv (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
+    if (!matches) {
+      emit();
+      return;
+    }
+
+    var multipv = parseInt(matches[2]);
     var cp, mate;
-    if (matches[2] === 'cp') cp = parseFloat(matches[3]);
-    else mate = parseFloat(matches[3]);
+    if (matches[3] === 'cp') cp = parseFloat(matches[4]);
+    else mate = parseFloat(matches[4]);
     if (work.ply % 2 === 1) {
-      if (matches[2] === 'cp') cp = -cp;
+      if (matches[3] === 'cp') cp = -cp;
       else mate = -mate;
     }
-    var best = matches[5].split(' ')[0];
-    work.emit({
-      work: work,
-      eval: {
-        depth: depth,
-        cp: cp,
-        mate: mate,
-        best: best,
-        nps: parseInt(matches[4])
-      },
-      name: name
-    });
+
+    if (multipv === 1) {
+      emit();
+      var depth = parseInt(matches[1]);
+      if (depth < opts.minDepth) return;
+      state = {
+        work: work,
+        eval: {
+          depth: depth,
+          nps: parseInt(matches[5]),
+          best: matches[6].split(' ')[0],
+          cp: cp,
+          mate: mate,
+          pvs: {}
+        },
+        name: name
+      };
+    }
+
+    if (state) state.eval.pvs[multipv] = {
+      cp: cp,
+      mate: mate,
+      pv: matches[6]
+    };
+
+    if (multipv === opts.multipv) emit();
   };
 
   var reboot = function() {
@@ -63,6 +87,7 @@ module.exports = function(opts, name) {
     var uciVariant = variantMap[opts.variant.key];
     if (uciVariant) send('setoption name UCI_' + uciVariant + ' value true');
     else send('uci'); // send something to warm up
+    send('setoption name MultiPV value ' + opts.multipv);
   };
 
   reboot();
@@ -71,6 +96,7 @@ module.exports = function(opts, name) {
     start: function(work) {
       if (busy) reboot();
       busy = true;
+      state = null;
       send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
       send('go depth ' + work.maxDepth);
       instance.onmessage = function(msg) {

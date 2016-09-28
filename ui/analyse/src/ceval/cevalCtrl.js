@@ -17,10 +17,12 @@ module.exports = function(possible, variant, emit) {
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
   var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
+  var multipv = variant.key !== 'crazyhouse' ? 3 : 1;
 
   var pool = makePool({
     minDepth: minDepth,
     maxDepth: maxDepth,
+    multipv: multipv,
     variant: variant
   }, engine, nbWorkers);
 
