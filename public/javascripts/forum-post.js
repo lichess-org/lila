@@ -37,41 +37,43 @@ $(function() {
       });
     };
 
-    $('.post-text-area').one('focus', function() {
+    var threadParticipants = new Promise(function() {
       // We only ask the server for the thread participants once the user has clicked the text box as many users
       // will read forum pages without wanting to make a post.
+      return [];
+    });
 
-      var participants = getThreadParticipants();
+    $('.post-text-area').textcomplete([{
+      match: /\B@(\w*)$/,
+      search: function(term, callback) {
 
-      $('.post-text-area').textcomplete([{
-          match: /\B@(\w*)$/,
-          search: function(term, callback) {
+        if (term.length < 3) {
+          // Initially we only autocomplete by participants in the thread. As the user types more,
+          // we can autocomplete against all users on the site.
 
-            if (term.length < 3) {
-              // Initially we only autocomplete by participants in the thread. As the user types more,
-              // we can autocomplete against all users on the site.
-
-              participants.done(function(participants) {
-                callback(searchCandidates(term, participants));
-              });
-            } else {
-              $.ajax({
-                url: "/player/autocomplete?term=" + term,
-                success: function(candidateUsers) {
-                  callback(searchCandidates(term, candidateUsers));
-                }
-              });
+          threadParticipants.then(function(participants) {
+            callback(searchCandidates(term, participants));
+          });
+        } else {
+          $.ajax({
+            url: "/player/autocomplete?term=" + term,
+            success: function(candidateUsers) {
+              callback(searchCandidates(term, candidateUsers));
             }
-          },
-          index: 1,
-          replace: function(mention) {
-            return '@' + mention + ' ';
-          }
-        }], {
-          'placement': 'top',
-          'appendTo': '#lichess_forum'
+          });
         }
-      );
+      },
+      index: 1,
+      replace: function(mention) {
+        return '@' + mention + ' ';
+      }
+    }], {
+      'placement': 'top',
+      'appendTo': '#lichess_forum'
+    });
+
+    $('.post-text-area').one('focus', function() {
+      threadParticipants = Promise.resolve(getThreadParticipants());
     });
   });
 });
