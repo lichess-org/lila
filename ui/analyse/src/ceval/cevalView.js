@@ -113,7 +113,7 @@ module.exports = {
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          'Local ' + util.aiName(ctrl.data.game.variant),
+          threatMode ? 'Show threat' : 'Local ' + util.aiName(ctrl.data.game.variant),
           m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
       ] : m('help',
