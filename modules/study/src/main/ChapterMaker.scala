@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.Color
 import chess.format.pgn.Tag
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
@@ -11,6 +10,7 @@ import lila.user.User
 private final class ChapterMaker(
     domain: String,
     lightUser: lila.common.LightUser.Getter,
+    chat: akka.actor.ActorSelection,
     importer: Importer) {
 
   import ChapterMaker._
@@ -33,10 +33,10 @@ private final class ChapterMaker(
       Chapter.make(
         studyId = study.id,
         name = (for {
-          white <- Tag.find(res.tags, "White")
-          black <- Tag.find(res.tags, "Black")
-          if Chapter isDefaultName data.name
-        } yield s"$white vs $black") | data.name,
+        white <- Tag.find(res.tags, "White")
+        black <- Tag.find(res.tags, "Black")
+        if Chapter isDefaultName data.name
+      } yield s"$white vs $black") | data.name,
         setup = Chapter.Setup(
           none,
           res.variant,
@@ -86,9 +86,9 @@ private final class ChapterMaker(
       Chapter.make(
         studyId = study.id,
         name =
-          if (Chapter isDefaultName data.name)
-            Namer.gameVsText(pov.game, withRatings = false)(lightUser)
-          else data.name,
+        if (Chapter isDefaultName data.name)
+          Namer.gameVsText(pov.game, withRatings = false)(lightUser)
+        else data.name,
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,
           pov.game.variant,
@@ -97,6 +97,16 @@ private final class ChapterMaker(
         order = order,
         ownerId = userId,
         conceal = data.conceal option Chapter.Ply(root.ply)).some
+    } addEffect { _ =>
+      notifyChat(study, pov.game, userId)
+    }
+
+  def notifyChat(study: Study, game: Game, userId: User.ID) =
+    if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
+      chat ! lila.chat.actorApi.UserTalk(
+        chatId = chatId,
+        userId = userId,
+        text = s"I'm studying this game on lichess.org/study/${study.id}")
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
@@ -137,7 +147,7 @@ private[study] object ChapterMaker {
       conceal: Boolean,
       initial: Boolean) {
 
-    def realOrientation = Color(orientation) | chess.White
+    def realOrientation = chess.Color(orientation) | chess.White
   }
 
   case class EditData(
@@ -146,6 +156,6 @@ private[study] object ChapterMaker {
       orientation: String,
       conceal: Boolean) {
 
-    def realOrientation = Color(orientation) | chess.White
+    def realOrientation = chess.Color(orientation) | chess.White
   }
 }

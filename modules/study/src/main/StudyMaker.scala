@@ -45,5 +45,7 @@ private final class StudyMaker(
         ownerId = user.id,
         conceal = None)
       Study.WithChapter(study withChapter chapter, chapter)
+    } addEffect { swc =>
+      chapterMaker.notifyChat(swc.study, pov.game, user.id)
     }
 }
