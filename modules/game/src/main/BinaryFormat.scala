@@ -168,7 +168,6 @@ object BinaryFormat {
         lastMove = for {
           from ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
           to ← posAt((b2 & 63) >> 3, b2 & 7)
-          if from != to
         } yield from -> to,
         lastMoveTime = readInt24(b3, b4, b5).some filter (0 !=),
         check = b6 flatMap { x => posAt(x >> 3, x & 7) })
