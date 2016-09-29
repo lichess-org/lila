@@ -432,6 +432,7 @@ module.exports = function(opts) {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
+    if (!this.ceval.enabled()) this.vm.threatMode = false;
     m.redraw();
   }.bind(this);
 

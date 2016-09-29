@@ -21,12 +21,22 @@ function localEvalInfo(ctrl, evs) {
   if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
   return t;
 }
+
 function threatInfo(threat) {
   if (!threat) return 'Loading engine...';
   if (threat.dict) return 'Book move';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
   if (threat.nps) t += ', ' + Math.round(threat.nps / 1000) + ' knodes/s';
   return t;
+}
+
+function threatButton(ctrl) {
+  return m('a', {
+    class: 'show-threat' + (ctrl.vm.threatMode ? ' active' : ''),
+    'data-icon': '7',
+    title: 'Show threat (x)',
+    config: util.bindOnce('click', ctrl.toggleThreatMode)
+  });
 }
 
 module.exports = {
@@ -111,7 +121,9 @@ module.exports = {
         m('br'),
         'for variation analysis'
       ),
-      m('div.switch', [
+      m('div.switch', {
+        title: 'Toggle local evaluation (l)'
+      }, [
         m('input', {
           id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
@@ -122,7 +134,8 @@ module.exports = {
         m('label', {
           'for': 'analyse-toggle-ceval'
         })
-      ])
+      ]),
+      threatButton(ctrl)
     );
   }
 };
