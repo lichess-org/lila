@@ -1623,8 +1623,6 @@ div.pagination span.current,
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-.button.active-soft,
-.button.active-soft:hover,
 .fbt.active-soft,
 .fbt.active-soft:hover {
   color: #fff !important;
@@ -1820,7 +1818,6 @@ a.mini_board {
   display: block;
 }
 .mini_board .cg-board-wrap {
-  margin: auto;
   width: 224px;
   height: 224px;
   position: relative;

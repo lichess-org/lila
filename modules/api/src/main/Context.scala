@@ -4,9 +4,9 @@ import play.api.libs.json.{ JsObject, JsArray }
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
+import lila.hub.actorApi.relation.OnlineFriends
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
-import lila.hub.actorApi.relation.OnlineFriends
 
 case class PageData(
   onlineFriends: OnlineFriends,
@@ -69,7 +69,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
   private def ctxPref(name: String): Option[String] =
-    userContext.req.session get name orElse { pref get name }
+    req.session get name orElse { pref get name }
 }
 
 sealed abstract class BaseContext(

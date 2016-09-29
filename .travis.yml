@@ -1,3 +1,4 @@
+sudo: false
 language: scala
 
 # https://docs.travis-ci.com/user/notifications/#IRC-notification

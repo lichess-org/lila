@@ -1,2 +1,0 @@
-Publicly exposed directory, used to serve large files using the webserver.
-The content of this directory can always be removed safely.

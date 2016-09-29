@@ -49,8 +49,8 @@ private[puzzle] final class Selector(
         }
     }
   }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
-    lila.mon.puzzle.selector.vote(puzzle.vote.sum)
-  }
+      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+    }
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {

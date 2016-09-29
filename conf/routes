@@ -438,6 +438,7 @@ GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
+GET   /api/socket                      controllers.Main.apiWebsocket
 
 # Events
 GET   /event                           controllers.Event.index
@@ -490,3 +491,5 @@ POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 # Assets
 GET   /glyphs                          controllers.Main.glyphs
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
+
+GET   /robots.txt                      controllers.Main.robots

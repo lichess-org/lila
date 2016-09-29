@@ -11,6 +11,7 @@ object mon {
   object http {
     object request {
       val all = inc("http.request.all")
+      val ipv6 = inc("http.request.ipv6")
     }
     object response {
       val code400 = inc("http.response.4.00")
@@ -67,6 +68,11 @@ object mon {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val resync = inc("lobby.socket.resync")
+    }
+    object cache {
+      val user = inc("lobby.cache.count.user")
+      val anon = inc("lobby.cache.count.anon")
+      val miss = inc("lobby.cache.count.miss")
     }
   }
   object round {
@@ -270,7 +276,7 @@ object mon {
     object selector {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
-      val vote = rec("puzzle.selector.vote") // vote sum of selected puzzle
+      def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
     object round {
       val user = inc("puzzle.attempt.user")

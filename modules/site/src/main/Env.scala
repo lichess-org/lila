@@ -18,6 +18,8 @@ final class Env(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(socket, hub)
+
+  lazy val apiSocketHandler = new ApiSocketHandler(socket, hub)
 }
 
 object Env {

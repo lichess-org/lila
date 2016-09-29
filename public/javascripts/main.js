@@ -253,17 +253,24 @@ lichess.notifyApp = (function() {
 
   lichess.openInMobileApp = function(path) {
     if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
-    $('#deeplink').remove();
-    var pane = $('<div id="deeplink">' +
-      '<h1>Open with...</h1>' +
-      '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
-      '<a><strong>Web</strong> browser</a>' +
-      '</div>'
-    ).find('a').click(function() {
+    var storage = lichess.storage.make('deep-link');
+    var stored = storage.get();
+    if (stored > 0) storage.set(stored - 1);
+    else {
       $('#deeplink').remove();
-      return true;
-    }).end();
-    $('body').prepend(pane);
+      var pane = $('<div id="deeplink">' +
+        '<h1>Open with...</h1>' +
+        '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
+        '<a><strong>Web</strong> browser</a>' +
+        '</div>'
+      ).find('a').click(function() {
+        $('#deeplink').remove();
+        if ($(this).attr('href')) storage.remove();
+        else storage.set(10);
+        return true;
+      }).end();
+      $('body').prepend(pane);
+    }
   };
 
   lichess.userAutocomplete = function($input, opts) {
@@ -793,7 +800,8 @@ lichess.notifyApp = (function() {
     var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
-    Howler.volume(lichess.storage.get('sound-volume') || 0.7);
+    var volumeStorage = lichess.storage.make('sound-volume')
+    Howler.volume(volumeStorage.get() || 0.7);
 
     var names = {
       genericNotify: 'GenericNotify',
@@ -849,7 +857,7 @@ lichess.notifyApp = (function() {
       }
     });
     var setVolume = function(v) {
-      lichess.storage.set('sound-volume', v);
+      volumeStorage.set(v);
       Howler.volume(v);
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
@@ -1055,13 +1063,14 @@ lichess.notifyApp = (function() {
     return {
       _create: function() {
         var self = this;
+        var hideStorage = lichess.storage.make('friends-hide');
         self.$list = self.element.find("div.list");
         var $title = self.element.find('.title').click(function() {
           self.element.find('.content_wrap').toggle(100, function() {
-            lichess.storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+            hideStorage.set($(this).is(':visible') ? 0 : 1);
           });
         });
-        if (lichess.storage.get('friends-hide') == 1) self.element.find('.content_wrap').addClass('none');
+        if (hideStorage.get() == 1) self.element.find('.content_wrap').addClass('none');
         self.$nbOnline = $title.find('.online');
         self.$nobody = self.element.find("div.nobody");
 
@@ -1855,7 +1864,7 @@ lichess.notifyApp = (function() {
 
     $panels = $('div.analysis_panels > div');
     var $menu = $('div.analysis_menu');
-    var storageKey = 'lichess.analysis.panel';
+    var storage = lichess.storage.make('analysis.panel');
     var setPanel = function(panel) {
       $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
@@ -1869,12 +1878,12 @@ lichess.notifyApp = (function() {
     };
     $menu.on('mousedown', 'a', function() {
       var panel = $(this).data('panel');
-      lichess.storage.set(storageKey, panel);
+      storage.set(panel);
       setPanel(panel);
     });
     if (cfg.data.analysis) setPanel('computer_analysis');
     else {
-      var stored = lichess.storage.get(storageKey);
+      var stored = storage.get();
       if (stored && $menu.children('.' + stored).length) setPanel(stored);
       else {
         var $ct = $menu.children('.crosstable');

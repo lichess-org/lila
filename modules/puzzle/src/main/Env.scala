@@ -24,7 +24,7 @@ final class Env(
 
   val AnimationDuration = config duration "animation.duration"
 
-  private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
+  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,

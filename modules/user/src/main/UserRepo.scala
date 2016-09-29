@@ -84,7 +84,7 @@ object UserRepo {
     coll.primitiveOne[String]($id(id), F.username)
 
   def usernamesByIds(ids: List[ID]) =
-    coll.distinct(F.username, $inIds(ids).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List](F.username, $inIds(ids).some)
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
     coll.find(
@@ -251,7 +251,7 @@ object UserRepo {
     coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
 
   def engineIds: Fu[Set[String]] =
-    coll.distinct("_id", $doc("engine" -> true).some) map lila.db.BSON.asStringSet
+    coll.distinct[String, Set]("_id", $doc("engine" -> true).some)
 
   private val userIdPattern = """^[\w-]{3,20}$""".r.pattern
 
@@ -348,7 +348,7 @@ object UserRepo {
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregate(Match($inIds(ids)),
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
-        _.documents.headOption flatMap { _.getAs[Int](F.toints) }
+        _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
