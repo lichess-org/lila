@@ -272,15 +272,12 @@ function renderFooter(ctrl) {
 function renderHistory(ctrl) {
   return m('div.history', {
     config: function(el, isUpdate, context) {
-      var hash = ctrl.data.user.history.join('');
+      var hash = ctrl.data.user.history.reduce(function(h, r) {
+        return h + r.puzzleId;
+      }, '');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.ajax({
-        url: '/training/history',
-        success: function(html) {
-          el.innerHTML = html;
-        }
-      });
+      el.innerHTML = JSON.stringify(ctrl.data.user.history);
     }
   });
 }

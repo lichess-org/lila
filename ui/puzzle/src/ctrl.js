@@ -17,6 +17,8 @@ module.exports = function(cfg, router, i18n) {
 
   this.data = data(cfg);
 
+  console.log(this.data);
+
   var userMove = function(orig, dest) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];

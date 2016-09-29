@@ -104,7 +104,6 @@ POST  /training/coordinate/color       controllers.Coordinate.color
 GET   /training                        controllers.Puzzle.home
 POST  /training/difficulty             controllers.Puzzle.difficulty
 GET   /training/new                    controllers.Puzzle.newPuzzle
-GET   /training/history                controllers.Puzzle.history
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame

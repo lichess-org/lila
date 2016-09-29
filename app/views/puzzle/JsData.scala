@@ -10,19 +10,9 @@ import lila.puzzle._
 
 object JsData extends lila.Steroids {
 
-  def history(infos: UserInfos) = Json.obj(
-    "attempts" -> infos.history.map { a =>
-      Json.obj(
-        "puzzleId" -> a.puzzleId,
-        "date" -> a.date,
-        "win" -> a.win,
-        "rating" -> a.rating,
-        "ratingDiff" -> a.ratingDiff)
-    })
-
   def apply(
     puzzle: Puzzle,
-    userInfos: Option[lila.puzzle.UserInfos],
+    userInfos: Option[UserInfos],
     mode: String,
     animationDuration: scala.concurrent.duration.Duration,
     round: Option[Round] = None,
@@ -75,7 +65,9 @@ object JsData extends lila.Steroids {
     "user" -> userInfos.map { i =>
       Json.obj(
         "rating" -> i.user.perfs.puzzle.intRating,
-        "history" -> i.history.nonEmpty.option(Json.toJson(i.chart))
+        "history" -> i.history.map { r =>
+          Json.arr(r.puzzleId, r.ratingDiff)
+        }
       )
     },
     "difficulty" -> ctx.isAuth.option {

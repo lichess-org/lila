@@ -19,10 +19,12 @@ case class Round(
 
 object Round {
 
+  case class Mini(puzzleId: Int, ratingDiff: Int)
+
   object BSONFields {
     val puzzleId = "p"
     val userId = "u"
-    val date = "d"
+    val date = "a"
     val win = "w"
     val rating = "r"
     val ratingDiff = "d"
@@ -30,8 +32,9 @@ object Round {
 
   import reactivemongo.bson._
   import lila.db.BSON
+  import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
-  implicit val roundBSONHandler = new BSON[Round] {
+  implicit val RoundBSONHandler = new BSON[Round] {
 
     import BSONFields._
 
@@ -50,5 +53,12 @@ object Round {
       win -> o.win,
       rating -> w.int(o.rating),
       ratingDiff -> w.int(o.ratingDiff))
+  }
+
+  private[puzzle] implicit val RoundMiniBSONReader = new BSONDocumentReader[Mini] {
+    import BSONFields._
+    def read(doc: Bdoc): Mini = Mini(
+      puzzleId = doc.getAs[Int](puzzleId) err "RoundMini no puzzleId",
+      ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff")
   }
 }
