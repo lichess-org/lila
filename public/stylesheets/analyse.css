@@ -255,6 +255,30 @@ div.gauge_displayed .fork {
 .ceval_box .bar span.threat {
   background: #dc322f;
 }
+.ceval_box .show-threat {
+  position: absolute;
+  right: -41px;
+  top: -1px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  /* background: #fff; */
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+  text-align: center;
+  font-size: 17px;
+  line-height: 36px;
+}
+.ceval_box .show-threat:hover {
+  background: #3893E8;
+  color: #fff;
+}
+.ceval_box .show-threat.active {
+  background: #dc322f;
+  color: #fff;
+}
 
 .fork {
   position: absolute;
@@ -424,6 +448,9 @@ body.dark .explorer_box .bar span,
 body.dark .lichess_ground .action_menu h2:before,
 body.dark .lichess_ground .action_menu h2:after {
   border-color: #555;
+}
+body.dark .ceval_box .show-threat {
+  border-color: #3d3d3d;
 }
 .explorer_box .white {
   background: #fff;
