@@ -63,7 +63,10 @@ module.exports = {
       ctrl.explorer.toggle();
       m.redraw();
     }));
-    k.bind('space', preventing(ctrl.playBestMove));
+    k.bind('space', preventing(function() {
+      if (ctrl.ceval.enabled()) ctrl.playBestMove();
+      else ctrl.toggleCeval();
+    }));
     if (ctrl.study) {
       k.bind('c', preventing(function() {
         $('.study_buttons a.comment').click();
