@@ -16,8 +16,8 @@ object JsData extends lila.Steroids {
         "puzzleId" -> a.puzzleId,
         "date" -> a.date,
         "win" -> a.win,
-        "userRating" -> a.userRating,
-        "userRatingDiff" -> a.userRatingDiff)
+        "rating" -> a.rating,
+        "ratingDiff" -> a.ratingDiff)
     })
 
   def apply(
@@ -66,7 +66,7 @@ object JsData extends lila.Steroids {
     "mode" -> mode,
     "round" -> round.map { a =>
       Json.obj(
-        "userRatingDiff" -> a.userRatingDiff,
+        "ratingDiff" -> a.ratingDiff,
         "win" -> a.win
       )
     },

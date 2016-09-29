@@ -28,8 +28,8 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          userRating = user.perfs.puzzle.intRating,
-          userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
+          rating = user.perfs.puzzle.intRating,
+          ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
         (api.learning.update(user, puzzle, data) >> (api.round add a) >> {
           puzzleColl.update(
             $id(puzzle.id),
@@ -43,8 +43,8 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          userRating = user.perfs.puzzle.intRating,
-          userRatingDiff = 0)
+          rating = user.perfs.puzzle.intRating,
+          ratingDiff = 0)
         fuccess(a -> data.isWin.some)
     }
 

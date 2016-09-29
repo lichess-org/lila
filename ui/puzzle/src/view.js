@@ -87,7 +87,7 @@ function renderWin(ctrl, round) {
   return m('div.comment.win', [
     m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
-      round ? renderRatingDiff(round.userRatingDiff) : null
+      round ? renderRatingDiff(round.ratingDiff) : null
     ])
   ]);
 }
@@ -96,7 +96,7 @@ function renderLoss(ctrl, round) {
   return m('div.comment.loss',
     m('h3.text[data-icon=k]', [
       m('strong', ctrl.trans('puzzleFailed')),
-      round ? renderRatingDiff(round.userRatingDiff) : null
+      round ? renderRatingDiff(round.ratingDiff) : null
     ])
   );
 }

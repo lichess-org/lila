@@ -9,12 +9,12 @@ case class Round(
     userId: User.ID,
     date: DateTime,
     win: Boolean,
-    userRating: Int,
-    userRatingDiff: Int) {
+    rating: Int,
+    ratingDiff: Int) {
 
   def loss = !win
 
-  def userPostRating = userRating + userRatingDiff
+  def userPostRating = rating + ratingDiff
 }
 
 object Round {
@@ -24,8 +24,8 @@ object Round {
     val userId = "u"
     val date = "d"
     val win = "w"
-    val userRating = "ur"
-    val userRatingDiff = "ud"
+    val rating = "r"
+    val ratingDiff = "d"
   }
 
   import reactivemongo.bson._
@@ -40,15 +40,15 @@ object Round {
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r bool win,
-      userRating = r int userRating,
-      userRatingDiff = r int userRatingDiff)
+      rating = r int rating,
+      ratingDiff = r int ratingDiff)
 
     def writes(w: BSON.Writer, o: Round) = BSONDocument(
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,
       win -> o.win,
-      userRating -> w.int(o.userRating),
-      userRatingDiff -> w.int(o.userRatingDiff))
+      rating -> w.int(o.rating),
+      ratingDiff -> w.int(o.ratingDiff))
   }
 }
