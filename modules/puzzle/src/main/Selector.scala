@@ -59,7 +59,6 @@ private[puzzle] final class Selector(
   private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: Barr, isMate: Boolean): Fu[Option[Puzzle]] =
     puzzleColl.find(mateSelector(isMate) ++ $doc(
       Puzzle.BSONFields.id -> $doc("$nin" -> ids),
-      Puzzle.BSONFields.id $gt 60120,
       Puzzle.BSONFields.rating $gt
         (rating - tolerance + decay) $lt
         (rating + tolerance + decay)
