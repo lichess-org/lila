@@ -130,9 +130,7 @@ function renderResult(ctrl) {
 function renderSide(ctrl) {
   return m('div.side', [
     renderTrainingBox(ctrl),
-    ctrl.data.difficulty ? renderDifficulty(ctrl) : null,
-    renderCommentary(ctrl),
-    renderResult(ctrl)
+    ctrl.data.difficulty ? renderDifficulty(ctrl) : null
   ]);
 }
 
@@ -206,6 +204,8 @@ function renderViewTable(ctrl) {
       )
     ]),
     m('div.continue_wrap', [
+      renderCommentary(ctrl),
+      renderResult(ctrl),
       ctrl.data.win === null ? m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {

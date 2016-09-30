@@ -89,12 +89,6 @@ GET   /blog                            controllers.Blog.index(ref: Option[String
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom(ref: Option[String] ?= None)
 
-# Training - Opening
-GET   /training/opening                controllers.Opening.home
-GET   /training/opening/history        controllers.Opening.history
-GET   /training/opening/:id            controllers.Opening.show(id: Int)
-POST  /training/opening/:id            controllers.Opening.attempt(id: Int)
-
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score

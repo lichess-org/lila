@@ -19,18 +19,18 @@
   font-size: 1.4em;
   margin-bottom: 7px;
 }
-#puzzle .right .please_vote {
+#puzzle .please_vote {
   background: #DFF0D8;
   color: #3c763d;
   margin-bottom: 1em;
   text-align: center;
   padding: 10px 5px;
 }
-#puzzle .right .please_vote .then,
-#puzzle .right .please_vote.thanks .first {
+#puzzle .please_vote .then,
+#puzzle .please_vote.thanks .first {
   display: none;
 }
-#puzzle .right .please_vote.thanks .then {
+#puzzle .please_vote.thanks .then {
   display: block;
 }
 #puzzle .right piece {
@@ -138,8 +138,6 @@
   opacity: 0.8;
   height: 30px;
   line-height: 30px;
-}
-#puzzle .timeline a {
 }
 #puzzle .timeline a:first-child {
   margin-left: 0;

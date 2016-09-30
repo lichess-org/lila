@@ -452,7 +452,7 @@ body.dark div.training > .side div.retry {
 }
 body.dark div.training > .side div.great,
 body.dark div.training > .side div.win,
-body.dark #puzzle > .right .please_vote {
+body.dark #puzzle .please_vote {
   background: #103410;
   color: #74a962;
 }

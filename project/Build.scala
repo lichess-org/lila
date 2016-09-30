@@ -58,7 +58,7 @@ object ApplicationBuild extends Build {
     analyse, mod, site, round, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
-    history, worldMap, opening, video, shutup, push,
+    history, worldMap, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan, event, coach)
 
@@ -78,11 +78,6 @@ object ApplicationBuild extends Build {
   )
 
   lazy val quote = project("quote", Seq())
-
-  lazy val opening = project("opening", Seq(
-    common, memo, hub, db, user)).settings(
-    libraryDependencies ++= provided(play.api, RM)
-  )
 
   lazy val video = project("video", Seq(
     common, memo, hub, db, user)).settings(

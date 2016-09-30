@@ -16,36 +16,36 @@ div.training > .side h1 {
   font-weight: bold;
   margin-bottom: 10px;
 }
-div.training > .side div.comment {
+div.training div.comment {
   padding: 10px 5px;
   text-align: center;
   margin-bottom: 1em;
 }
-div.training > .side div.comment h3 {
+div.training div.comment h3 {
   font-size: inherit;
   margin: 4px;
   display: block;
 }
-div.training > .side div.retry {
+div.training .retry {
   color: #31708f;
   background: #D9EDF7;
 }
-div.training > .side div.great,
-div.training > .side div.win {
+div.training .comment.great,
+div.training .comment.win {
   background: #DFF0D8;
   color: #3c763d;
 }
-div.training > .side div.loss,
-div.training > .side div.fail {
+div.training .comment.loss,
+div.training .comment.fail {
   color: #a94442;
   background: #ebccd1;
 }
-div.training > .side div.comment .rating {
+div.training .comment .rating {
   font-size: 2em;
   vertical-align: -3px;
   padding-left: 5px;
 }
-div.training.retry > .side div.retry {
+div.training.retry div.retry {
   display: block;
 }
 div.training.great > .side div.great {
