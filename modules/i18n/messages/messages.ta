@@ -266,7 +266,6 @@ findTheBestMoveForWhite=வெள்ளைக்கு சிறந்த நக
 findTheBestMoveForBlack=கருப்புக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்
 toTrackYourProgress=உங்கள் முன்னேற்றத்தைக் கண்காணிக்க:
 trainingSignupExplanation=பயிற்சிகளை மேம்படுத்த, லிசெஸ் உங்கள் திறனுக்கேற்ற புதிர்களை வழங்கும்.
-recentlyPlayedPuzzles=சமீபத்தில் ஆடிய புதிர்கள்
 puzzleId=புதிர் %s
 puzzleOfTheDay=இன்றைய தினத்திற்கான புதிர்
 clickToSolve=தீர்வுகாண அழுத்தவும்

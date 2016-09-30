@@ -271,7 +271,6 @@ findTheBestMoveForWhite=بهترین حرکت را برای سفید بیابی�
 findTheBestMoveForBlack=بهترین حرکت را برای سیاه  بیابید
 toTrackYourProgress=برای ثبت پیشرفت خود:
 trainingSignupExplanation=در صورت نام‌نویسی، تلاش می‌کنیم مسائلی انتخاب کنیم که با توانایی‌های شما همخوانی داشته باشد، تا تمرینات بهتری داشته باشید.
-recentlyPlayedPuzzles=مسئله‌های اخیر
 puzzleId=مسئله شماره %s
 puzzleOfTheDay=مسئله روز
 clickToSolve=برای حل کلیک کنید
@@ -299,16 +298,8 @@ youHaveNbSecondsToMakeYourFirstMove=شما برای انجام اولین حرک
 nbGamesInPlay=%s بازی در حال انجام است
 automaticallyProceedToNextGameAfterMoving=حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن
 autoSwitch=تعویض خودکار
-openingId=گشایش %s
-yourOpeningRatingX=ریتینگ گشایش شما: %s
-findNbStrongMoves=%s حرکت قوی پیدا کنید
-thisMoveGivesYourOpponentTheAdvantage=این حرکت به حریف شما برتری میدهد
-openingFailed=گشایش را اشتباه حل کردید
-openingSolved=گشایش حل شد
-recentlyPlayedOpenings=گشایش های اخیر
 puzzles=پازل ها
 coordinates=مختصات
-openings=گشایش ها
 latestUpdates=آخرین به روز رسانی ها
 tournamentWinners=برندگان مسابقات
 name=نام

@@ -244,7 +244,6 @@ activeToday=Mpifaninana nilalao be indrindra androany
 activePlayers=Mpifaninana nilalao be indrindra
 bewareTheGameIsRatedButHasNoClock=Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !
 toTrackYourProgress=Ahafahanao manaraka ny fivoaranao:
-recentlyPlayedPuzzles=Ireo piozila nolalaovina vao haingana
 puzzleId=Piozila %s
 puzzleOfTheDay=Piozila androany
 butYouCanDoBetter=Afaka manao tsara kokoa ianao.
