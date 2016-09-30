@@ -129,12 +129,17 @@
   display: flex;
   margin-top: 10px;
 }
-#puzzle .timeline a {
-  flex: 1 1;
+#puzzle .timeline > * {
+  flex: 1 0;
+  background: #ccc;
   color: #fff;
-  line-height: 30px;
   margin-left: 1px;
+  box-sizing: border-box;
   opacity: 0.8;
+  height: 30px;
+  line-height: 30px;
+}
+#puzzle .timeline a {
 }
 #puzzle .timeline a:first-child {
   margin-left: 0;

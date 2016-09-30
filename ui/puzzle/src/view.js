@@ -29,7 +29,6 @@ function renderUserInfos(ctrl) {
           if (d.user.history[i]) rating += d.user.history[i][1];
           slots[historySize - 1 - i] = rating;
         }
-        console.log(slots);
         jQuery(el).sparkline(slots, {
           type: 'line',
           width: '213px',
@@ -258,15 +257,16 @@ function renderFooter(ctrl) {
 
 function renderHistory(ctrl) {
   var d = ctrl.data
-  var slots = new Array(historySize);
-  for (var i in d.user.history) slots[i] = d.user.history[i];
+  var slots = [];
+  for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
   return m('div.history', [
     m('div.timeline',
       slots.map(function(s) {
-        return m('a', {
+        if (s) return m('a', {
           class: s[1] >= 0 ? 'win' : 'loss',
           href: '/training/' + s[0]
         }, s[1] > 0 ? '+' + s[1] : s[1]);
+        return m('span', ' ');
       }))
   ]);
 }
