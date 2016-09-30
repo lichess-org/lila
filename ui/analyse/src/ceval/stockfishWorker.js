@@ -64,13 +64,13 @@ module.exports = function(opts, name) {
           best: matches[6].split(' ')[0],
           cp: cp,
           mate: mate,
-          pvs: {}
+          pvs: []
         },
         name: name
       };
     }
 
-    if (state) state.eval.pvs[multipv] = {
+    if (state) state.eval.pvs[multipv - 1] = {
       cp: cp,
       mate: mate,
       pv: matches[6]

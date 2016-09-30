@@ -2,20 +2,16 @@ var m = require('mithril');
 var util = require('../util');
 
 function showPvTable(ctrl, evs) {
-  var rows = [], multipv = 1;
-  while (evs.client.pvs[multipv]) {
-    var eval = evs.client.pvs[multipv];
-
-    rows.push(m('tr',
+  var rows = evs.client.pvs.map(function(eval) {
+    return m('tr',
       m('td', eval.mate ? ('#' + eval.mate) : eval.cp),
-      m('td', evs.client.pvs[multipv].pv)
-    ));
-    multipv++;
-  }
+      m('td', eval.pv)
+    );
+  });
 
-  return m('table.multipv', [
+  return m('table.multipv',
     m('tbody', rows)
-  ]);
+  );
 }
 
 module.exports = {
@@ -32,7 +28,6 @@ module.exports = {
   view: function (ctrl) {
     if (!ctrl.cevalPanel.enabled()) return;
     var evs = ctrl.currentEvals();
-    console.log(evs);
     return m('div', [
       m('div.explorer_box', [
         m('div.title', util.aiName(ctrl.data.game.variant)),
