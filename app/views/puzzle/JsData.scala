@@ -1,9 +1,7 @@
 package views.html.puzzle
 
 import play.api.libs.json.{ JsArray, Json }
-import play.twirl.api.Html
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.puzzle._
@@ -29,8 +27,7 @@ object JsData extends lila.Steroids {
       "gameId" -> puzzle.gameId,
       "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
       "enabled" -> puzzle.enabled,
-      "vote" -> puzzle.vote.sum,
-      "url" -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id)}"
+      "vote" -> puzzle.vote.sum
     ),
     "pref" -> Json.obj(
       "coords" -> ctx.pref.coords

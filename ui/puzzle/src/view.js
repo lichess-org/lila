@@ -5,21 +5,32 @@ var m = require('mithril');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');
 
+var historySize = 16;
+
 // useful in translation arguments
 function strong(txt) {
   return '<strong>' + txt + '</strong>';
 }
 
 function renderUserInfos(ctrl) {
+  var d = ctrl.data;
   return m('div.chart_container', [
-    m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(ctrl.data.user.rating)))),
-    ctrl.data.user.history ? m('div.user_chart', {
-      config: function(el, isUpdate, context) {
-        var hash = ctrl.data.user.history.join('');
-        if (hash == context.hash) return;
-        context.hash = hash;
+    m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(d.user.rating)))),
+    d.user.history ? m('div.user_chart', {
+      config: function(el, isUpdate, ctx) {
+        var hash = ctrl.userHistoryHash();
+        if (hash == ctx.hash) return;
+        ctx.hash = hash;
         var dark = document.body.classList.contains('dark');
-        jQuery(el).sparkline(ctrl.data.user.history, {
+        var slots = new Array(historySize + 1);
+        var rating = d.user.rating;
+        slots[historySize] = rating;
+        for (var i = 0; i < historySize; i++) {
+          if (d.user.history[i]) rating += d.user.history[i][1];
+          slots[historySize - 1 - i] = rating;
+        }
+        console.log(slots);
+        jQuery(el).sparkline(slots, {
           type: 'line',
           width: '213px',
           height: '80px',
@@ -271,16 +282,18 @@ function renderFooter(ctrl) {
 }
 
 function renderHistory(ctrl) {
-  return m('div.history', {
-    config: function(el, isUpdate, context) {
-      var hash = ctrl.data.user.history.reduce(function(h, r) {
-        return h + r.puzzleId;
-      }, '');
-      if (hash == context.hash) return;
-      context.hash = hash;
-      el.innerHTML = JSON.stringify(ctrl.data.user.history);
-    }
-  });
+  var d = ctrl.data
+  var slots = new Array(historySize);
+  for (var i in d.user.history) slots[i] = d.user.history[i];
+  return m('div.history', [
+    m('div.timeline',
+      slots.map(function(s) {
+        return m('a', {
+          class: s[1] >= 0 ? 'win' : 'loss',
+          href: '/training/' + s[0]
+        }, s[1] > 0 ? '+' + s[1] : s[1]);
+      }))
+  ]);
 }
 
 function wheel(ctrl, e) {

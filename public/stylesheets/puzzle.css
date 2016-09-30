@@ -125,3 +125,26 @@
   text-align: left;
   padding-left: 10px;
 }
+#puzzle .timeline {
+  display: flex;
+  margin-top: 10px;
+}
+#puzzle .timeline a {
+  flex: 1 1;
+  color: #fff;
+  line-height: 30px;
+  margin-left: 1px;
+  opacity: 0.8;
+}
+#puzzle .timeline a:first-child {
+  margin-left: 0;
+}
+#puzzle .timeline a:hover {
+  opacity: 1;
+}
+#puzzle .timeline a.win {
+  background: #759900;
+}
+#puzzle .timeline a.loss {
+  background: #dc322f;
+}
