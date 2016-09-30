@@ -3,7 +3,7 @@ var count = 0;
 puzzles.find().forEach(function(p) {
   var parts = p.fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  if (pieceCount < 9 && p.vote.sum < 50) {
+  if (pieceCount < 9 && p.vote.sum < 50 && p.vote.sum > -1000) {
     count++;
     puzzles.update({
       _id: p._id
