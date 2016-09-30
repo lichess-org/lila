@@ -151,7 +151,6 @@ giveNbSeconds=Додај %s секунди
 premoveEnabledClickAnywhereToCancel=Oвозможен е предпотег - кликнете каде и да е за да откажете
 thisPlayerUsesChessComputerAssistance=Овој играч користи компјутерска помош
 thisPlayerArtificiallyIncreasesTheirRating=Овој играч вештачки го зголемува/намалува рејтинго
-opening=Отворање
 takeback=Повлечете го потегот
 proposeATakeback=Предложете повлекување на потегот
 takebackPropositionSent=Предлог за повлекување на потегот е пратен

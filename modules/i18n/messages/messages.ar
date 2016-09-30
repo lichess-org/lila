@@ -151,7 +151,6 @@ giveNbSeconds=إعطاء %s ثانية
 premoveEnabledClickAnywhereToCancel=لديك نقلة استباقية - اضغط أي مكان لإلغائها
 thisPlayerUsesChessComputerAssistance=هذا اللاعب يستعين ببرامج الشطرنج
 thisPlayerArtificiallyIncreasesTheirRating=هذا اللاعب يتلاعب بتقييمه
-opening=افتتاحية
 openingExplorer=مستكشف الافتتاحيات
 takeback=تراجع
 proposeATakeback=اقتراح تراجع عن النقلة الآخيرة

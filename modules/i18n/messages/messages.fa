@@ -151,7 +151,6 @@ giveNbSeconds=%s ثانیه اضافه کن
 premoveEnabledClickAnywhereToCancel=حرکت زودتر از موعد فعال است - برای لغو هر جای صفحه کلیک کنید
 thisPlayerUsesChessComputerAssistance=این بازیکن از رایانه کمک می گیرد
 thisPlayerArtificiallyIncreasesTheirRating=این بازیکن رتبه‌اش را به شکل مجازی بالا و پایین می‌کند
-opening=گشایش
 openingExplorer=باز کردن جستجوگر
 takeback=پس گرفتن حرکت
 proposeATakeback=پیشنهاد پس گرفتن حرکت

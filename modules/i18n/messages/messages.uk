@@ -151,7 +151,6 @@ giveNbSeconds=Додати %s секунд
 premoveEnabledClickAnywhereToCancel=Хід наперед - щоб скасувати, клацніть будь-де
 thisPlayerUsesChessComputerAssistance=Цей гравець користується підказками комп’ютера
 thisPlayerArtificiallyIncreasesTheirRating=Цей гравець штучно збільшує свій рейтинг
-opening=Дебют
 openingExplorer=Перегляд дебютів
 takeback=Повернення ходу
 proposeATakeback=Запропонувати повернути хід

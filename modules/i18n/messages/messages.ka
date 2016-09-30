@@ -149,7 +149,6 @@ giveNbSeconds=მიეცით %s წამი
 premoveEnabledClickAnywhereToCancel=წინასწარი სვლა ჩართულია, დააწკაპუნეთ ნებისმიერ ადგილას გამოსართავად
 thisPlayerUsesChessComputerAssistance=ეს მოთამაშე იყენებს კომპიუტერულ ასისტენტს
 thisPlayerArtificiallyIncreasesTheirRating=აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს
-opening=გახსნა
 takeback=სვლის დაბრუნება
 proposeATakeback=სვლის დაბრუნების შეთავაზება
 takebackPropositionSent=სვლის დაბრუნება შეთავაზებული

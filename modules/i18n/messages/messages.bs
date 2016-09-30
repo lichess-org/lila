@@ -151,7 +151,6 @@ giveNbSeconds=Dajte protivniku %s sekundi
 premoveEnabledClickAnywhereToCancel=Potez unaprijed uključen - Kliknite bilo gdje da otkažete
 thisPlayerUsesChessComputerAssistance=Ovaj igrač koristi pomoć šahovskog programa
 thisPlayerArtificiallyIncreasesTheirRating=Ovaj igrač umjetno diže/spušta svoj rejting
-opening=Otvaranje
 openingExplorer=Pretraživač otvaranja
 takeback=Vratite potez
 proposeATakeback=Predložite vraćanje poteza

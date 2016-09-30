@@ -151,7 +151,6 @@ giveNbSeconds=Adj %s másodpercet
 premoveEnabledClickAnywhereToCancel=Előre beállított lépés - Kattints bárhova a visszavonáshoz
 thisPlayerUsesChessComputerAssistance=Ez a játékos számítógépes sakkprogram segítségét használja
 thisPlayerArtificiallyIncreasesTheirRating=Ez a játékos mesterségesen növeli a pontszámát
-opening=Nyitás
 openingExplorer=Megnyitás tallózó
 takeback=Visszalépés
 proposeATakeback=Visszalépés kérése

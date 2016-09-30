@@ -151,7 +151,6 @@ giveNbSeconds=%s سیکنڈ دیں
 premoveEnabledClickAnywhereToCancel=خودکار چال داخل کر دی کئی ہے - واپس کرنے کے لیے کہیں بھی کلک کریں
 thisPlayerUsesChessComputerAssistance=کھلاڑی کمپیوٹر کی مدد سے کھیلتا ہے
 thisPlayerArtificiallyIncreasesTheirRating=یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے
-opening=ابتدائیہ
 openingExplorer=ابتدائیوں کی کلید
 takeback=چال واپس لیں
 proposeATakeback=چال واپس لینے کی درخواست کریں

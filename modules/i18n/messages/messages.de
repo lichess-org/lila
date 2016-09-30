@@ -151,7 +151,6 @@ giveNbSeconds=Dem Gegner %s Sekunden geben
 premoveEnabledClickAnywhereToCancel=Vorauszug aktiviert - Zum Abbrechen irgendwo klicken
 thisPlayerUsesChessComputerAssistance=Dieser Spieler verwendet einen Schachcomputer als Hilfe
 thisPlayerArtificiallyIncreasesTheirRating=Dieser Spieler benutzt Hilfsmittel, um seine Wertungszahl zu heben/ zu senken
-opening=Eröffnung
 openingExplorer=Eröffnungsdatenbank
 takeback=Zugrücknahme
 proposeATakeback=Zugrücknahme vorschlagen

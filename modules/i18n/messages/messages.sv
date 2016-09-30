@@ -151,7 +151,6 @@ giveNbSeconds=Ge  %s sekunder
 premoveEnabledClickAnywhereToCancel=Förberett drag aktiverat - Klicka var som helst för att avbryta
 thisPlayerUsesChessComputerAssistance=Den här spelaren tar hjälp av schackmotor
 thisPlayerArtificiallyIncreasesTheirRating=Den här spelaren ökar/minskar sin rating artificiellt
-opening=Öppning
 openingExplorer=Öppningsbok
 takeback=Gör om drag
 proposeATakeback=Frågar motståndaren om du får göra om draget

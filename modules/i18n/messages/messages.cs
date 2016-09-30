@@ -151,7 +151,6 @@ giveNbSeconds=Přidat %s sekund
 premoveEnabledClickAnywhereToCancel=Předtah byl zadán - kliknutím kamkoliv na šachovnici jej zrušíte
 thisPlayerUsesChessComputerAssistance=Tento uživatel hrává s pomocí počítače
 thisPlayerArtificiallyIncreasesTheirRating=Tento hráč uměle ovlivnil své hodnocení
-opening=Zahájení
 openingExplorer=Průzkumník zahájení
 takeback=Vrátit tah
 proposeATakeback=Navrhnout vrácení tahu

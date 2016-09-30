@@ -103,7 +103,6 @@ ratingRange=Elo-rango
 giveNbSeconds=Donar %s sekundi
 premoveEnabledClickAnywhereToCancel=Avanstroko enswichata - Klikez irgaloke por abrogar
 thisPlayerUsesChessComputerAssistance=Ica ludero uzas helpo di shakokomputero
-opening=Komenco
 takeback=Ripreno
 proposeATakeback=Propozar ripreno
 takebackPropositionSent=Riprenopropozo sendita

@@ -148,7 +148,6 @@ giveNbSeconds=Даць %s сэкунд
 premoveEnabledClickAnywhereToCancel=Наступны ход вызначаны - пстрыкніце ў любым месцы каб скасаваць яго
 thisPlayerUsesChessComputerAssistance=Гэты гулец выкарыстоўвае шахматную праграму
 thisPlayerArtificiallyIncreasesTheirRating=Гэты гулец штучна павялічвае свой рэйтынг
-opening=Дэбют
 takeback=Скасаваць ход
 proposeATakeback=Прапанаваць скасаваць ход
 takebackPropositionSent=Прапанова скасаваць ход даслана

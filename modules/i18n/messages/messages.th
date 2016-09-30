@@ -151,7 +151,6 @@ giveNbSeconds=ให้ %s วินาที
 premoveEnabledClickAnywhereToCancel=การเดินล่วงหน้าถูกใช้งาน - คลิกที่ใดก็ได้เพื่อยกเลิก
 thisPlayerUsesChessComputerAssistance=ผู้เล่นรายนี้ใช้การช่วยเหลือจากคอมพิวเตอร์หมากรุก
 thisPlayerArtificiallyIncreasesTheirRating=ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต
-opening=การเปิดเกม
 openingExplorer=ตัวสำรวจการเปิดเกม
 takeback=เดินใหม่
 proposeATakeback=ขอเดินใหม่

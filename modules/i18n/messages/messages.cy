@@ -149,7 +149,6 @@ giveNbSeconds=Ychwanegu %s o eiliadau
 premoveEnabledClickAnywhereToCancel="Symud o flaen" wedi'i droi ymlaen - clicia unrhyw lle i ganslo
 thisPlayerUsesChessComputerAssistance=Mae'r chwaraewr hwn yn defnyddio help cyfrifiadurol
 thisPlayerArtificiallyIncreasesTheirRating=Mae'r chwaraewr hwn yn cynydd/lleihau ei raddfa yn ffug
-opening=Agoriad
 takeback=Cymryd yn ôl
 proposeATakeback=Awgrymu cymryd yn ôl
 takebackPropositionSent=Anfonwyd awgrymiad cymryd yn ôl

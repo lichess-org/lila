@@ -151,7 +151,6 @@ giveNbSeconds=Dodaj %s sekund
 premoveEnabledClickAnywhereToCancel=Predpremik poteze omogočen - klikni kjerkoli za preklic
 thisPlayerUsesChessComputerAssistance=Ta igralec uporablja pomoč računalnika
 thisPlayerArtificiallyIncreasesTheirRating=Igralec je neregularno zvišal/znižal svoj rating
-opening=Otvoritev
 openingExplorer=Raziskovalec otovritev
 takeback=Popravek poteze
 proposeATakeback=Zaprosi za popravek poteze

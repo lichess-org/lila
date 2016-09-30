@@ -151,7 +151,6 @@ giveNbSeconds=Дай %s sec
 premoveEnabledClickAnywhereToCancel=Предварителен ход е зададен - Натиснете където и да е за отмяна
 thisPlayerUsesChessComputerAssistance=Този играч използва компютърна помощ
 thisPlayerArtificiallyIncreasesTheirRating=Този играч изкуствено увеличава/намалява своята оценка
-opening=Дебют
 openingExplorer=Изследовател на дебютите
 takeback=Върни ход
 proposeATakeback=Предложи връщане на ход

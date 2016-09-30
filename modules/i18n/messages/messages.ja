@@ -151,7 +151,6 @@ giveNbSeconds=%s秒を与える
 premoveEnabledClickAnywhereToCancel=次の手を予約しました－キャンセルするならどこかをクリックしてください
 thisPlayerUsesChessComputerAssistance=このプレイヤーはチェスソフトを使用しています
 thisPlayerArtificiallyIncreasesTheirRating=このプレイヤーは不正にレーティングを操作しています
-opening=序盤
 openingExplorer=序盤探索
 takeback=待った
 proposeATakeback=待ったのお願い

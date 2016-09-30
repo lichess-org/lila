@@ -146,7 +146,6 @@ giveNbSeconds=Տալ %s վայրկան
 premoveEnabledClickAnywhereToCancel=Նախորոք քայլ կատարելու հնարավորությունը ակտիվացված է, կարող եք այն անջատել՝ մկնիկի ստեղնակին սեղմելով
 thisPlayerUsesChessComputerAssistance=Այղ խաղացողը դիմում է համակարգչի օգնությանը
 thisPlayerArtificiallyIncreasesTheirRating=Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը
-opening=Սկզբնախաղ
 takeback=Քայլը հետ վերցնել
 proposeATakeback=Քայլը հետ վերցնելու առաջարկ անել
 takebackPropositionSent=Քայլը հետ վերցնելու առաջարկն ուղարկված է

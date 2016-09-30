@@ -151,7 +151,6 @@ giveNbSeconds=Concedi %s secondi
 premoveEnabledClickAnywhereToCancel=Mossa preselezionata - Un click ovunque la annulla
 thisPlayerUsesChessComputerAssistance=Questo giocatore si fa aiutare da un computer
 thisPlayerArtificiallyIncreasesTheirRating=Questo giocatore modifica il proprio punteggio irregolarmente
-opening=Apertura
 openingExplorer=Esplora aperture
 takeback=Ritira la mossa
 proposeATakeback=Proponi di ritirare la mossa

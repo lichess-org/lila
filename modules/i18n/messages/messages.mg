@@ -131,7 +131,6 @@ ratingRange=Rating range
 giveNbSeconds=Omeo %s segondra
 premoveEnabledClickAnywhereToCancel=Pré-coup activé - Cliquer-o na aiza na aiza raha te hanajanona izany ianao
 thisPlayerUsesChessComputerAssistance=Mampiasa solosaina mpanampy ity mpilalao ity
-opening=Fanokafana
 takeback=Averina ny fihetsehana farany teo
 proposeATakeback=Angataho ny famerenana ny fihetsehana farany teo
 takebackPropositionSent=Lasa ny famerenana ny fihetsehana farany teo

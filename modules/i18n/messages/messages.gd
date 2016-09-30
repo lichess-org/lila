@@ -145,7 +145,6 @@ ratingRange=Rainse an rangachaidh
 giveNbSeconds=Thoir %s diogan
 premoveEnabledClickAnywhereToCancel=Ro-ghluasad an comas - briog àite sam bith airson sgur dheth
 thisPlayerUsesChessComputerAssistance=Tha an cluicheadair seo a’ cleachdadh taic coimpiutair taileisg
-opening=Fosgladh
 takeback=Tarraing air ais
 proposeATakeback=Tairg tarraing air ais
 takebackPropositionSent=Tairgse tarraing air ais air a cur

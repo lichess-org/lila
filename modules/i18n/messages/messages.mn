@@ -151,7 +151,6 @@ giveNbSeconds=%s секунд нэмж өгөх
 premoveEnabledClickAnywhereToCancel=Урьдчилсан нүүдэл хийлээ. Цуцлахыг хүсвэл дурын нүдэн дээр товшно уу.
 thisPlayerUsesChessComputerAssistance=Энэ тоглогч шатар тоглохдоо компьютерийн туслалцаа авдаг
 thisPlayerArtificiallyIncreasesTheirRating=Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна
-opening=Нээлт
 openingExplorer=Шатрын нээлтүүдийг судлах
 takeback=Нүүдэл буцаалт
 proposeATakeback=Нүүдэл буцаах хүсэлт илгээх

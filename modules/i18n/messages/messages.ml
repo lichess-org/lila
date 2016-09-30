@@ -139,7 +139,6 @@ ratingRange=റേറ്റിംഗ് പരിധി
 premoveEnabledClickAnywhereToCancel=പ്രിമൂവ് സജ്ജീകരിച്ചിരിക്കുന്നു - റദ്ദാക്കാന്‍ എവിടെയെങ്കിലും ക്ലിക്ക് ചെയ്യുക
 thisPlayerUsesChessComputerAssistance=ഈ കളിക്കാരന്‍ കമ്പ്യൂട്ടര്‍ സഹായം തേടുന്നു
 thisPlayerArtificiallyIncreasesTheirRating=ഈ കളിക്കാരന്‍ കൃത്രിമമായി റേറ്റിംഗ് കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുന്നു
-opening=പ്രാരംഭം (ഓപ്പണിംഗ്)
 takeback=തിരിച്ചെടുക്കുക
 proposeATakeback=തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുക
 takebackPropositionSent=തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം അയച്ചു

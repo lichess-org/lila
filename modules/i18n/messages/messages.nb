@@ -151,7 +151,6 @@ giveNbSeconds=Gi %s sekunder
 premoveEnabledClickAnywhereToCancel=Forhåndstrekk aktivert – klikk hvor som helst for å avbryte
 thisPlayerUsesChessComputerAssistance=Denne spilleren bruker datamaskin
 thisPlayerArtificiallyIncreasesTheirRating=Denne spilleren øker/reduserer ratingen kunstig
-opening=Åpning
 openingExplorer=Åpningsutforsker & database
 takeback=Angre
 proposeATakeback=Foreslå å angre

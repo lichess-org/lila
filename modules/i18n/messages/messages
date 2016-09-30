@@ -151,7 +151,6 @@ giveNbSeconds=Give %s seconds
 premoveEnabledClickAnywhereToCancel=Premove enabled - Click anywhere to cancel
 thisPlayerUsesChessComputerAssistance=This player uses chess computer assistance
 thisPlayerArtificiallyIncreasesTheirRating=This player artificially increases/decreases their rating
-opening=Opening
 openingExplorer=Opening explorer & tablebase
 takeback=Takeback
 proposeATakeback=Propose a takeback

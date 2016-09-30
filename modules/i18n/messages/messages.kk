@@ -89,7 +89,6 @@ ratingRange=Эло ауқымы
 giveNbSeconds=%s секунд қосу
 premoveEnabledClickAnywhereToCancel=Алдын - ала жүріс қосылды. Болдырмау үшін кеқ келген жерде басыңыз
 thisPlayerUsesChessComputerAssistance=Бұл ойыншы компьютер бағдарламасын қолданады
-opening=Дебют
 takeback=Қайтару
 proposeATakeback=Жүрісті қайтару ұсыну
 takebackPropositionSent=Жүрісті қайтару ұсынысы жіберілді

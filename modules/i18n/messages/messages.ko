@@ -151,7 +151,6 @@ giveNbSeconds=%s초 더 주기
 premoveEnabledClickAnywhereToCancel=미리 두기 활성화됨 - 보드 아무 곳이나 눌러 취소
 thisPlayerUsesChessComputerAssistance=이 플레이어는 체스 엔진을 악용하는 사람입니다
 thisPlayerArtificiallyIncreasesTheirRating=이 플레이어는 비정상적인 방법으로 레이팅을 조작합니다
-opening=초반 전개
 openingExplorer=오프닝 탐색기
 takeback=무르기
 proposeATakeback=무르기를 요청합니다

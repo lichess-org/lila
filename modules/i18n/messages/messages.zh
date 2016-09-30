@@ -151,7 +151,6 @@ giveNbSeconds=加%s秒
 premoveEnabledClickAnywhereToCancel=预先走棋已启用 – 单击别处取消
 thisPlayerUsesChessComputerAssistance=该棋手使用电脑辅助
 thisPlayerArtificiallyIncreasesTheirRating=该棋手伪造等级
-opening=开局
 openingExplorer=开局浏览器
 takeback=悔棋
 proposeATakeback=请求悔棋

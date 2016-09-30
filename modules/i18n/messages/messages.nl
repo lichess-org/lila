@@ -151,7 +151,6 @@ giveNbSeconds=Geef %s seconden
 premoveEnabledClickAnywhereToCancel=Vooruitzetten ingesteld - klik ergens om dit op te heffen
 thisPlayerUsesChessComputerAssistance=Deze speler maakt gebruik van een schaakprogramma
 thisPlayerArtificiallyIncreasesTheirRating=Deze speler verhoogt zijn rating kunstmatig
-opening=Opening
 openingExplorer=Openingverkenner
 takeback=Neem zet terug
 proposeATakeback=Stel zet terugnemen voor
