@@ -9,8 +9,8 @@ case class UserInfos(user: User, history: List[Round.Mini])
 
 object UserInfos {
 
-  private def historySize = 16
-  private def chartSize = 16
+  private def historySize = 15
+  private def chartSize = 15
 
   import Round.RoundMiniBSONReader
 

@@ -1,4 +1,5 @@
 #puzzle {
+  position: relative;
   min-height: 600px;
 }
 #puzzle .is::before,
@@ -6,11 +7,89 @@
 #puzzle [data-icon]::before {
   margin-right: 3px;
 }
+#puzzle .board_and_ground {
+  display: flex;
+}
+#puzzle div.box {
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  padding: 7px;
+}
+#puzzle > .side {
+  position: absolute;
+  top: 64px;
+  left: -222px;
+  width: 212px;
+}
+#puzzle > .side h1 {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#puzzle > .side div.box {
+  margin-bottom: 20px;
+}
+#puzzle div.box > p, div.training div.box > div {
+  line-height: 1.8em;
+}
+#puzzle > .side .register {
+  margin-top: 1em;
+}
+#puzzle > .side .register .signup {
+  margin: 1em auto;
+  text-align: center;
+}
+#puzzle > .side .user_chart {
+  margin: 0 0 -10px -9px;
+}
+#puzzle > .side .chart_container {
+  margin-top: 30px;
+}
+#puzzle > .side .chart_container p {
+  margin-bottom: 3px;
+}
+#puzzle div.comment {
+  padding: 10px 5px;
+  text-align: center;
+  margin-bottom: 1em;
+}
+#puzzle div.comment h3 {
+  font-size: inherit;
+  margin: 4px;
+  display: block;
+}
+#puzzle .comment.great,
+#puzzle .comment.win {
+  background: #DFF0D8;
+  color: #3c763d;
+}
+#puzzle .comment.loss,
+#puzzle .comment.fail {
+  color: #a94442;
+  background: #ebccd1;
+}
+#puzzle .comment .rating {
+  font-size: 2em;
+  vertical-align: -3px;
+  padding-left: 5px;
+}
 #puzzle > .side .difficulty {
   margin-bottom: 2em;
 }
 #puzzle > .center {
   width: 512px;
+}
+#puzzle .right {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding-left: 15px;
+  width: 242px;
+}
+#puzzle .right .spinner {
+  width: 90px;
+  height: 90px;
 }
 #puzzle .right .box input {
   width: 214px;
@@ -150,4 +229,13 @@
 }
 #puzzle .timeline a.loss {
   background: #dc322f;
+}
+#puzzle .timeline a.new {
+  background: #fff;
+  color: #444;
+  font-size: 1.5em;
+}
+body.dark #puzzle .timeline a.new {
+  background: #555;
+  color: #ddd;
 }

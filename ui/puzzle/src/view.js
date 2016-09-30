@@ -5,7 +5,7 @@ var m = require('mithril');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');
 
-var historySize = 16;
+var historySize = 15;
 
 // useful in translation arguments
 function strong(txt) {
@@ -260,14 +260,19 @@ function renderHistory(ctrl) {
   var slots = [];
   for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
   return m('div.history', [
-    m('div.timeline',
+    m('div.timeline', [
       slots.map(function(s) {
         if (s) return m('a', {
           class: s[1] >= 0 ? 'win' : 'loss',
           href: '/training/' + s[0]
         }, s[1] > 0 ? '+' + s[1] : s[1]);
         return m('span', ' ');
-      }))
+      }),
+      m('a', {
+        class: 'new',
+        href: '/training'
+      }, '+')
+    ])
   ]);
 }
 
@@ -281,7 +286,7 @@ function wheel(ctrl, e) {
 }
 
 module.exports = function(ctrl) {
-  return m('div#puzzle.training', [
+  return m('div#puzzle', [
     renderSide(ctrl),
     m('div.board_and_ground', [
       m('div', {
