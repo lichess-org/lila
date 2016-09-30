@@ -231,12 +231,6 @@ function renderViewControls(ctrl, fen) {
       'data-hint': ctrl.trans('analysis'),
       href: puzzle.makeUrl('/analysis/', fen) + '?color=' + ctrl.chessground.data.orientation,
     }, m('span[data-icon=A]')),
-    m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('continueFromHere'),
-      onclick: function() {
-        $.modal($('.continue_with'));
-      }
-    }, m('span[data-icon=U]')),
     m('div#GameButtons.hint--bottom', {
       'data-hint': 'Review puzzle solution'
     }, [
@@ -254,26 +248,11 @@ function renderViewControls(ctrl, fen) {
   ]);
 }
 
-function renderContinueLinks(ctrl, fen) {
-  return m('div.continue_with', [
-    m('a.button', {
-      href: '/?fen=' + fen + '#ai',
-      rel: 'nofollow'
-    }, ctrl.trans('playWithTheMachine')),
-    m('br'),
-    m('a.button', {
-      href: '/?fen=' + fen + '#friend',
-      rel: 'nofollow'
-    }, ctrl.trans('playWithAFriend'))
-  ]);
-}
-
 function renderFooter(ctrl) {
   if (ctrl.data.mode != 'view') return null;
   var fen = ctrl.data.replay.history[ctrl.data.replay.step].fen;
   return m('div', [
-    renderViewControls(ctrl, fen),
-    renderContinueLinks(ctrl, fen)
+    renderViewControls(ctrl, fen)
   ]);
 }
 
