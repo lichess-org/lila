@@ -9,7 +9,7 @@ private[i18n] object Contributors {
     "tr" -> List("Yakup Ipek", "Usolando"),
     "sr" -> List("Nenad Nikolić"),
     "lv" -> List("Anonymous"),
-    "bs" -> List("Jacikka"),
+    "bs" -> List("Jacikka", "munja_bs"),
     "da" -> List("Henrik Bjornskov", "Kurt Keller (DE)"),
     "es" -> List("FennecFoxz"),
     "ro" -> List("Cristian Niţă"),
