@@ -202,7 +202,7 @@ function renderViewTable(ctrl) {
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.puzzle.attempts)))),
       m('p',
         m('input.copyable.autoselect[readonly][spellCheck=false]', {
-          value: ctrl.data.puzzle.url
+          value: 'https://lichess.org/training/' + ctrl.data.puzzle.id
         })
       )
     ]),
