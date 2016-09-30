@@ -9,7 +9,7 @@ var chess = require('./chess');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');
 
-module.exports = function(cfg, router, i18n) {
+module.exports = function(cfg, i18n) {
 
   this.vm = {
     loading: false
@@ -128,7 +128,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.pushState = function(cfg) {
     if (window.history.pushState)
-      window.history.pushState(cfg, null, router.Puzzle.show(cfg.puzzle.id).url);
+      window.history.pushState(cfg, null, '/training/' + cfg.puzzle.id);
   }.bind(this);
 
   window.onpopstate = function(cfg) {
@@ -184,8 +184,6 @@ module.exports = function(cfg, router, i18n) {
       $.sound.move();
     }
   }.bind(this);
-
-  this.router = router;
 
   this.trans = lichess.trans(i18n);
 };

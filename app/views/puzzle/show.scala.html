@@ -1,19 +1,10 @@
 @(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], mode: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @evenMoreJs = {
-@helper.javascriptRouter("puzzleRoutes")(
-routes.javascript.Puzzle.round,
-routes.javascript.Puzzle.show,
-routes.javascript.Puzzle.load,
-routes.javascript.Puzzle.vote,
-routes.javascript.Editor.load,
-routes.javascript.Round.watcher
-)(ctx.req)
 @embedJs {
 LichessPuzzle(
 document.querySelector('#lichess .round'),
 @Html(toJson(JsData(puzzle, userInfos, mode, animationDuration = animationDuration))),
-puzzleRoutes.controllers,
 @Html(toJson(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,

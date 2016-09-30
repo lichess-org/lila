@@ -18,10 +18,9 @@ function round(ctrl, win) {
   showLoading(ctrl);
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.round(ctrl.data.puzzle.id).url,
+    url: '/training/' + ctrl.data.puzzle.id + '/round',
     data: {
-      win: win ? 1 : 0,
-      time: new Date().getTime() - (ctrl.data.startedAt || new Date()).getTime()
+      win: win ? 1 : 0
     },
     config: xhrConfig
   }).then(function(cfg) {
@@ -33,7 +32,7 @@ function round(ctrl, win) {
 function vote(ctrl, v) {
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.vote(ctrl.data.puzzle.id).url,
+    url: '/training/' + ctrl.data.puzzle.id + '/vote',
     data: {
       vote: v
     },
@@ -48,7 +47,7 @@ function retry(ctrl) {
   showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: uncache(ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url),
+    url: uncache('/training/' + ctrl.data.puzzle.id + '/load'),
     config: xhrConfig
   }).then(ctrl.reload);
 }

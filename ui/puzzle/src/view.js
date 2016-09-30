@@ -184,7 +184,7 @@ function renderViewTable(ctrl) {
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
       m('h2.text[data-icon="-"]',
         m('a', {
-          href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
+          href: '/training/' + ctrl.data.puzzle.id
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
       ),
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.puzzle.rating)))),
@@ -208,16 +208,17 @@ function renderViewTable(ctrl) {
 }
 
 function renderViewControls(ctrl, fen) {
-  var history = ctrl.data.replay.history;
-  var step = ctrl.data.replay.step;
+  var d = ctrl.data;
+  var history = d.replay.history;
+  var step = d.replay.step;
   return m('div.game_control', [
-    ctrl.data.puzzle.gameId ? m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
-      href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color).url + '#' + ctrl.data.puzzle.initialPly
+    d.puzzle.gameId ? m('a.button.hint--bottom', {
+      'data-hint': ctrl.trans('fromGameLink', d.puzzle.gameId),
+      href: '/' + d.puzzle.gameId + '/' + d.puzzle.color + '#' + d.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
     m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('boardEditor'),
-      href: ctrl.router.Editor.load(fen).url
+      href: '/editor/' + fen
     }, m('span[data-icon=m]')),
     m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('analysis'),
