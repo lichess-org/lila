@@ -20,7 +20,7 @@ object CrudForm {
     "homepageHours" -> number(min = 0, max = 24),
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
-    "minutes" -> numberIn(minutePrivateChoices),
+    "minutes" -> number(min = 20, max = 1440),
     "variant" -> number.verifying(validVariantIds contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
