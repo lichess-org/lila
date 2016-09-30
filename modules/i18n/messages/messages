@@ -533,3 +533,6 @@ viewTheSolution=View the solution
 followAndChallengeFriends=Follow and challenge friends
 availableInNbLanguages=Available in %s languages!
 gameAnalysis=Game analysis
+chessInsights=Chess Insights
+chessInsightsUser=Analytics from your games
+chessInsightsOther=Analytics from %s's games
