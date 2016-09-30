@@ -42,6 +42,11 @@ module.exports = function(ctrl) {
       if (nextNodeBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextNodeBest, 'paleBlue'));
       else if (ctrl.ceval.enabled() && n.ceval && n.ceval.best)
         shapes = shapes.concat(makeAutoShapesFromUci(color, n.ceval.best, 'paleBlue'));
+      if (ctrl.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1]) {
+        n.ceval.pvs.slice(1).forEach(function(eval) {
+          shapes = shapes.concat(makeAutoShapesFromUci(color, eval.best, 'paleBlue'));
+        });
+      }
     }
   }
   if (ctrl.ceval.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best)

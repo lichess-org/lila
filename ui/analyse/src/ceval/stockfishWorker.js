@@ -73,7 +73,8 @@ module.exports = function(opts, name) {
     if (state) state.eval.pvs[multipv - 1] = {
       cp: cp,
       mate: mate,
-      pv: matches[6]
+      pv: matches[6],
+      best: matches[6].split(' ')[0]
     };
 
     if (multipv === opts.multipv) emit();
