@@ -228,10 +228,6 @@ function renderViewControls(ctrl, fen) {
       href: '/' + d.puzzle.gameId + '/' + d.puzzle.color + '#' + d.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
     m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('boardEditor'),
-      href: '/editor/' + fen
-    }, m('span[data-icon=m]')),
-    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('analysis'),
       href: puzzle.makeUrl('/analysis/', fen) + '?color=' + ctrl.chessground.data.orientation,
     }, m('span[data-icon=A]')),
