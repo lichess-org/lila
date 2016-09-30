@@ -45,7 +45,8 @@ private[puzzle] final class Selector(
     }
   }.mon(_.puzzle.selector.time) addEffect {
     _ foreach { puzzle =>
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+      if (puzzle.vote.sum < -500) logger.info(s"Selected bad puzzle ${puzzle.id}")
+      else lila.mon.puzzle.selector.vote(puzzle.vote.sum)
     }
   }
 
