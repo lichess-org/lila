@@ -205,10 +205,10 @@ module.exports = function(opts) {
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(function() {
       var txt = this.trans('yourTurn');
       var opponent = renderUser.userTxt(this, this.data.opponent);
-      if (this.vm.ply < 2)
+      if (this.vm.ply < 1)
         txt = opponent + '\njoined the game.\n' + txt;
       else {
-        var move = this.data.steps[this.data.steps.length - 2].san;
+        var move = this.data.steps[this.data.steps.length - 1].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
         move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
         txt = opponent + '\nplayed ' + move + '.\n' + txt;
