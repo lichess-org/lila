@@ -71,8 +71,7 @@ module.exports = function(worker, opts) {
         cp: cp,
         mate: mate,
         best: best
-      },
-      name: name
+      }
     });
   };
 

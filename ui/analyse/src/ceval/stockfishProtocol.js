@@ -56,8 +56,7 @@ module.exports = function(worker, opts) {
         mate: mate,
         best: best,
         nps: parseInt(matches[4])
-      },
-      name: name
+      }
     });
   };
 
