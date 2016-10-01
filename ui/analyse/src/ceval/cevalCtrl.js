@@ -113,8 +113,7 @@ module.exports = function(possible, variant, emit) {
             best: dictRes.best,
             mate: 0,
             dict: true
-          },
-          name: name
+          }
         });
       }, 500);
       pool.warmup();
