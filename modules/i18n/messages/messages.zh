@@ -60,7 +60,6 @@ viewNbCheckmates=查看所有%s个将死的对局
 nbBookmarks=%s个收藏
 nbPopularGames=%s个热门对局
 nbAnalysedGames=%s个分析过的棋局
-bookmarkedByNbPlayers=被%s位棋手收藏
 viewInFullSize=完整尺寸
 logOut=登出
 signIn=登录

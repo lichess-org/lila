@@ -60,7 +60,6 @@ viewNbCheckmates=Lihat semua %s Skakmat
 nbBookmarks=%s Halaman Ditandai
 nbPopularGames=%s Permainan Terpopuler
 nbAnalysedGames=%s Analisa permainan
-bookmarkedByNbPlayers=Halaman telah ditandai oleh %s pemain
 viewInFullSize=Lihat dalam ukuran penuh
 logOut=Keluar
 signIn=Masuk

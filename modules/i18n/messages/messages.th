@@ -60,7 +60,6 @@ viewNbCheckmates=%s รุกจน
 nbBookmarks=%s เกมที่หมายไว้
 nbPopularGames=%s เกมยอดนิยม
 nbAnalysedGames=%s เกมที่วิเคราะห์แล้ว
-bookmarkedByNbPlayers=ถูกหมายไว้โดย %s ผู้เล่น
 viewInFullSize=ดูแบบเต็มขนาด
 logOut=ลงชื่อออก
 signIn=ลงชื่อเข้า

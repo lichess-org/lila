@@ -60,7 +60,6 @@ viewNbCheckmates=Matų: %s
 nbBookmarks=Pasižymėtų partijų: %s
 nbPopularGames=Populiarių partijų: %s
 nbAnalysedGames=Išanalizuotų partijų: %s
-bookmarkedByNbPlayers=Pasižymėjusių žaidėjų: %s
 viewInFullSize=Žiūrėti visu dydžiu
 logOut=Atsijungti
 signIn=Prisijungti

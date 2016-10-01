@@ -60,7 +60,6 @@ viewNbCheckmates=%s Xake-mate
 nbBookmarks=%s partida nabarmenduak
 nbPopularGames=%s jendearen gustuko partida
 nbAnalysedGames=%s Analizatutako partida kopurua
-bookmarkedByNbPlayers=%s jokalarik nabarmendu dute
 viewInFullSize=Pantaila osoa
 logOut=Irten
 signIn=Sartu

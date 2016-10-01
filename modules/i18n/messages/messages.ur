@@ -60,7 +60,6 @@ viewNbCheckmates=%s شہ ماتیں
 nbBookmarks=نشانیاں %s
 nbPopularGames=%s مقبول مقابلے
 nbAnalysedGames=%s تجزیے
-bookmarkedByNbPlayers=%s کھلاڑیوں کا نشان کردہ
 viewInFullSize=پوری سکرین پر دیکھیں
 logOut=خارج ہوں
 signIn=داخل ہوں

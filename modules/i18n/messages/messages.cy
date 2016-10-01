@@ -59,7 +59,6 @@ viewNbCheckmates=Edrych ar y %s o gêmau sydd wedi cael eu henill
 nbBookmarks=%s o gêmau wedi'u nodi
 nbPopularGames=%s o gêmau wedi'u nodi mwy nag unwaith
 nbAnalysedGames=%s o gêmau wedi'u dadansoddi
-bookmarkedByNbPlayers=wedi nodi gan %s o chwaraewyr
 viewInFullSize=Edrych yn maint llawn
 logOut=Allgofnodi
 signIn=Mewngofnodi

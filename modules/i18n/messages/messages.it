@@ -60,7 +60,6 @@ viewNbCheckmates=%s Scacchi matti
 nbBookmarks=%s Preferiti
 nbPopularGames=%s Partite più viste
 nbAnalysedGames=%s Partite analizzate
-bookmarkedByNbPlayers=Preferito da %s giocatori
 viewInFullSize=Visualizza a schermo intero
 logOut=Esci
 signIn=Entra

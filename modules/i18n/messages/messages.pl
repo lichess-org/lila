@@ -60,7 +60,6 @@ viewNbCheckmates=%s matów
 nbBookmarks=%s zakładek
 nbPopularGames=%s popularnych gier
 nbAnalysedGames=%s przeanalizowanych gier
-bookmarkedByNbPlayers=Dodane do zakładek przez %s graczy
 viewInFullSize=Zobacz w pełnym rozmiarze
 logOut=Wyloguj się
 signIn=Zaloguj się

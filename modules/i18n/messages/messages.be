@@ -59,7 +59,6 @@ viewNbCheckmates=Глядзець %s маты
 nbBookmarks=%s Закладкі
 nbPopularGames=%s Папулярныя гульні
 nbAnalysedGames=%s Прааналізаваных гульняў
-bookmarkedByNbPlayers=Дададзена ў закладкі %s гульцамі
 viewInFullSize=Глядзець у поўным памеры
 logOut=Выйсьці
 signIn=Увайсьці

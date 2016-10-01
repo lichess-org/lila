@@ -60,7 +60,6 @@ viewNbCheckmates=%s Jaques mate
 nbBookmarks=%s Partidas favoritas
 nbPopularGames=%s Partidas populares
 nbAnalysedGames=%s Partidas analizadas
-bookmarkedByNbPlayers=Marcada como favorita por %s jugadores
 viewInFullSize=Ver en tamaño completo
 logOut=Cerrar sesión
 signIn=Iniciar sesión
