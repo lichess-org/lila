@@ -781,7 +781,8 @@ div.game_config .color_submits button.random i {
   line-height: 13px;
   display: block;
 }
-body.dark .tour_spotlight.little {
+body.dark .tour_spotlight.little,
+body.dark .tour_spotlight.event_spotlight {
   background: #444;
   color: #ccc;
   text-shadow: 0 0 2px rgba(0,0,0,0.6);
