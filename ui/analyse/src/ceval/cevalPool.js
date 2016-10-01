@@ -49,13 +49,13 @@ function makeWebWorker(makeProtocol, poolOpts, protocolOpts) {
 
 function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
   return makeHelper(function () {
-    var module = document.createElement('embed');
-    module.setAttribute('src', poolOpts.pnacl);
-    module.setAttribute('type', 'application/x-pnacl');
-    module.setAttribute('width', '0');
-    module.setAttribute('height', '0');
-    document.body.appendChild(module);
-    return module;
+    var worker = document.createElement('embed');
+    worker.setAttribute('src', poolOpts.pnacl);
+    worker.setAttribute('type', 'application/x-pnacl');
+    worker.setAttribute('width', '0');
+    worker.setAttribute('height', '0');
+    document.body.appendChild(worker);
+    return worker;
   }, function () {}, poolOpts, makeProtocol, protocolOpts);
 }
 
