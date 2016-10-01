@@ -1,10 +1,11 @@
 var m = require('mithril');
 
-module.exports = function(opts, name) {
+module.exports = function(worker, opts) {
 
-  var instance = null;
-  var busy = false;
-  var stopping = false;
+  var work = null;
+  var stopped = m.deferred();
+
+  worker.send('xboard');
 
   // Sunsetter always plays only moves right away. Count the number of played
   // moves to show the correct mate in #n.
@@ -13,24 +14,19 @@ module.exports = function(opts, name) {
   var aiMoves = 0;
   var best;
 
-  var send = function(text) {
-    instance.postMessage(text);
-  };
-
-  var processOutput = function(text, work) {
+  var processOutput = function(text) {
     if (text === 'tellics stopped') {
-      busy = false;
-      stopping = false;
       aiMoves = 0;
       best = undefined;
+      stopped.resolve(true);
       return;
     }
-    if (stopping) return;
+    if (!work) return;
 
     if (text.indexOf('move ') == 0) {
       aiMoves++;
       best = text.split(' ')[1];
-      if (!stopping) send('analyze');
+      if (work) worker.send('analyze');
       return;
     }
 
@@ -42,14 +38,13 @@ module.exports = function(opts, name) {
       cp = parseInt(matches[2], 10);
       if (!aiMoves) {
         best = matches[5];
-        if (depth < opts.minDepth) return;
       }
     } else {
       matches = text.match(/Found move:\s+([a-h1-8=@PNBRQK]+)\s+([-+]?\d+)\s.*/);
       if (matches) {
         cp = parseInt(matches[2], 10);
         if (!aiMoves) best = matches[1];
-        if (!stopping) send('analyze');
+        if (work) worker.send('analyze');
       } else {
         return;
       }
@@ -81,40 +76,30 @@ module.exports = function(opts, name) {
     });
   };
 
-  var reboot = function() {
-    if (instance) instance.terminate();
-    instance = new Worker('/assets/vendor/Sunsetter8/sunsetter.js');
-    busy = false;
-    stopping = false;
-    aiMoves = 0;
-    send('xboard');
-  };
-
-  reboot();
-
   return {
-    start: function(work) {
-      if (busy) reboot();
-      busy = true;
-      send('reset ' + opts.variant.key);
-      send('setboard ' + work.initialFen);
-      send('easy');
-      send('force');
+    start: function(w) {
+      work = w;
+      worker.send('reset crazyhouse');
+      worker.send('setboard ' + work.initialFen);
+      worker.send('easy');
+      worker.send('force');
       for (var i = 0; i < work.moves.length; i++) {
-        send(work.moves[i]);
+        worker.send(work.moves[i]);
       }
-      send('go');
-      instance.onmessage = function(msg) {
-        processOutput(msg.data, work);
-      };
+      worker.send('go');
     },
-    stop: function() {
-      if (!busy) return;
-      stopping = true;
-      aiMoves = 0;
-      best = undefined;
-      send('exit');
-      send('tellics stopped');
-    }
+    stop: function(s) {
+      if (!work) s.resolve(true);
+      else {
+        stopped = s;
+        work = null;
+        aiMoves = 0;
+        best = undefined;
+        worker.send('exit');
+        worker.send('tellics stopped');
+      }
+      return s.promise;
+    },
+    received: processOutput
   };
 };

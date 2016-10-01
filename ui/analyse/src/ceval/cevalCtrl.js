@@ -2,8 +2,8 @@ var m = require('mithril');
 var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
 var util = require('../util');
-var stockfishWorker = require('./stockfishWorker');
-var sunsetterWorker = require('./sunsetterWorker');
+var stockfishProtocol = require('./stockfishProtocol');
+var sunsetterProtocol = require('./sunsetterProtocol');
 
 module.exports = function(possible, variant, emit) {
 
@@ -16,13 +16,22 @@ module.exports = function(possible, variant, emit) {
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
-  var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
 
-  var pool = makePool({
-    minDepth: minDepth,
-    maxDepth: maxDepth,
-    variant: variant
-  }, engine, nbWorkers);
+  var pool;
+  if (variant.key !== 'crazyhouse') {
+    pool = makePool(stockfishProtocol, {
+      asmjs: '/assets/vendor/stockfish.js/stockfish.js',
+      pnacl: '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf'
+    }, {
+      minDepth: minDepth,
+      maxDepth: maxDepth,
+      variant: variant,
+    });
+  } else {
+    pool = makePool(sunsetterProtocol, {
+      asmjs: '/assets/vendor/Sunsetter8/sunsetter.js'
+    });
+  }
 
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
