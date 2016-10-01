@@ -60,7 +60,6 @@ viewNbCheckmates=%s Schachmatts
 nbBookmarks=%s Lesezeichen
 nbPopularGames=%s Beliebte Partien
 nbAnalysedGames=%s Analysierte Partien
-bookmarkedByNbPlayers=Von %s Spielern mit einem Lesezeichen versehen
 viewInFullSize=In voller Größe anzeigen
 logOut=Abmelden
 signIn=Anmelden

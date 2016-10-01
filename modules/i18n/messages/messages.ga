@@ -59,7 +59,6 @@ viewAllNbGames=%s Cluiche
 viewNbCheckmates=%s Marbhsháinn
 nbBookmarks=%s Leabharmharc
 nbAnalysedGames=%s Cluichí ainilísithe
-bookmarkedByNbPlayers=Leabharmharc déanta ag %s imreoir
 viewInFullSize=Amharc lánmhéide
 logOut=Logáil amach
 signIn=Logáil isteach

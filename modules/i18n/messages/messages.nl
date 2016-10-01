@@ -60,7 +60,6 @@ viewNbCheckmates=Alle %s partijen met schaakmat
 nbBookmarks=%s Favorieten
 nbPopularGames=%s Populaire partijen
 nbAnalysedGames=%s Geanalyseerde partijen
-bookmarkedByNbPlayers=Aan favorieten toegevoegd door %s spelers
 viewInFullSize=Bekijk op volledige grootte
 logOut=Afmelden
 signIn=Aanmelden

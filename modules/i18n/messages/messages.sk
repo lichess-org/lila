@@ -60,7 +60,6 @@ viewNbCheckmates=%s Šach-maty
 nbBookmarks=%s Záložky
 nbPopularGames=%s Populárne hry
 nbAnalysedGames=%s Analyzovaných hier
-bookmarkedByNbPlayers=Záložku uložilo %s hráčov
 viewInFullSize=Zobraziť v plnej veľkosti
 logOut=Odhlásiť sa
 signIn=Prihlásiť sa

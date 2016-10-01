@@ -60,7 +60,6 @@ viewNbCheckmates=Види %s шах-матови
 nbBookmarks=%s обележувачи
 nbPopularGames=%s омилени игри
 nbAnalysedGames=%s анализирани игри
-bookmarkedByNbPlayers=Обележано од %s играчи
 viewInFullSize=Гледај во полна големина
 logOut=Одјави се
 signIn=Најави се

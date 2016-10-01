@@ -60,7 +60,6 @@ viewNbCheckmates=Pogledaj %s šah-mata
 nbBookmarks=Označeno %s partija
 nbPopularGames=%s popularnih partija
 nbAnalysedGames=%s analiziranih partija
-bookmarkedByNbPlayers=Označilo %s igrača
 viewInFullSize=Pogledaj u punoj veličini
 logOut=Odjavi se
 signIn=Prijavi se

@@ -60,7 +60,6 @@ viewNbCheckmates=Sien %s skaakmat spelle
 nbBookmarks=%s Bookmerke
 nbPopularGames=%s Gewilde spelle
 nbAnalysedGames=%s Spelle ontleed
-bookmarkedByNbPlayers=Deur %s spelers geboekmerk
 viewInFullSize=Sien vol-grootte
 logOut=Teken uit
 signIn=Teken in

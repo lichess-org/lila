@@ -417,7 +417,9 @@ lichess.notifyApp = (function() {
         $("time.moment").removeClass('moment').each(function() {
           var parsed = moment(this.getAttribute('datetime'));
           var format = this.getAttribute('data-format');
-          this.textContent = format === 'calendar' ? parsed.calendar() : parsed.format(format);
+          this.textContent = format === 'calendar' ? parsed.calendar(null, {
+            sameElse: 'DD/MM/YYYY HH:mm'
+          }) : parsed.format(format);
         });
       }
       setMoment();

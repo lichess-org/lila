@@ -60,7 +60,6 @@ viewNbCheckmates=Виж %s шах мата
 nbBookmarks=%s Отбелязани
 nbPopularGames=%s Известни игри
 nbAnalysedGames=%s Проучени игри
-bookmarkedByNbPlayers=Отбелязана от %s играчи
 viewInFullSize=Гледай на пълен екран
 logOut=Излез
 signIn=Влез

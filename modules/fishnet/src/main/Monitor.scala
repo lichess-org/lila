@@ -14,7 +14,7 @@ private final class Monitor(
 
   private case class AnalysisMeta(time: Int, nodes: Int, nps: Int, depth: Int, pvSize: Int)
 
-  private def sumOf[A](ints: List[A])(f: A => Option[Int]) = ints.foldLeft(0) {
+  private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
     case (acc, a) => acc + f(a).getOrElse(0)
   }
 

@@ -60,7 +60,6 @@ viewNbCheckmates=%s لعبة منتهية بكش مات
 nbBookmarks=%s اللعبات المفضلة
 nbPopularGames=%s مباريات رائجة
 nbAnalysedGames=%s مباريات محللة بالحاسب
-bookmarkedByNbPlayers=فضلها %s لاعب
 viewInFullSize=عرض بالحجم الكامل
 logOut=خروج
 signIn=دخول
