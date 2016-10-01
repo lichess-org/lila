@@ -11,7 +11,7 @@ function pieceDrop(key, role, color) {
   };
 }
 
-function makeAutoShapesFromUci(color, uci, brush) {
+function makeAutoShapesFromUci(color, uci, brush, modifiers) {
   var move = util.decomposeUci(uci);
   if (uci[1] === '@') return [{
       orig: move[1],
@@ -22,10 +22,16 @@ function makeAutoShapesFromUci(color, uci, brush) {
   var shapes = [{
     orig: move[0],
     dest: move[1],
-    brush: brush
+    brush: brush,
+    brushModifiers: modifiers
   }];
   if (move[2]) shapes.push(pieceDrop(move[1], move[2], color));
   return shapes;
+}
+
+function evalDiff(color, best, alt) {
+  var diff = best.cp - alt.cp;
+  return color === 'white' ? diff : -diff;
 }
 
 module.exports = function(ctrl) {
@@ -43,8 +49,15 @@ module.exports = function(ctrl) {
       else if (ctrl.ceval.enabled() && n.ceval && n.ceval.best)
         shapes = shapes.concat(makeAutoShapesFromUci(color, n.ceval.best, 'paleBlue'));
       if (ctrl.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1]) {
-        n.ceval.pvs.slice(1).forEach(function(eval) {
-          shapes = shapes.concat(makeAutoShapesFromUci(color, eval.best, 'paleBlue'));
+        n.ceval.pvs.slice(1).forEach(function(pv) {
+          var diff = evalDiff(color, n.ceval.pvs[0], pv);
+          if (diff < 0) console.log(n.ceval.pvs);
+          if (diff > 100) return;
+          var width = Math.round(10 - (diff / 100 * 8));
+            console.log(diff, width);
+          shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleBlue', {
+            lineWidth: width
+          }));
         });
       }
     }
