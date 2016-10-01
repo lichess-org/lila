@@ -1,27 +1,33 @@
 var m = require('mithril');
 
-var legacyVariantMap = {
-  fromPosition: 'Chess960',
-  chess960: 'Chess960',
-  atomic: 'Atomic',
-  horde: 'Horde',
-  crazyhouse: 'House',
-  kingOfTheHill: 'KingOfTheHill',
-  racingKings: 'Race',
-  threeCheck: '3Check',
-  antichess: 'Anti'
-};
+function fenToUci(fen) {
+  // convert three check fens
+  // lichess: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 +0+0
+  // stockfish: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 3+3 0 1
+  var m = fen.match(/^(.+) (w|b) (.+) (.+) (\d+) (\d+) \+(\d+)\+(\d+)$/);
+  if (!m) return fen;
+  else {
+    var w = parseInt(m[7], 10);
+    var b = parseInt(m[8], 10);
+    var checks = (3 - w) + '+' + (3 - b);
+    var fen = [m[1], m[2], m[3], m[4], checks, m[5], m[6]].join(' ');
+    return fen;
+  }
+}
 
 module.exports = function(worker, opts) {
 
   var work = null;
   var stopped = m.deferred();
 
-  var legacyVariant = legacyVariantMap[opts.variant.key];
-  if (legacyVariant) worker.send('setoption name UCI_' + legacyVariant + ' value true');
-  else worker.send('uci');
-
-  // TODO: Modern variant selector
+  if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
+    worker.send('setoption name UCI_Chess960 value true');
+  else if (opts.variant.key === 'antichess')
+    worker.send('setoption name UCI_Variant value giveaway');
+  else if (opts.variant.key !== 'standard')
+    worker.send('setoption name UCI_Variant value ' + opts.variant.key.toLowerCase());
+  else
+    worker.send('uci');
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
@@ -58,7 +64,7 @@ module.exports = function(worker, opts) {
   return {
     start: function(w) {
       work = w;
-      worker.send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
+      worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },
     stop: function(s) {
