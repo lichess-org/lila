@@ -54,7 +54,8 @@ $(function() {
             },
             success: function(candidateUsers) {
               callback(searchCandidates(term, candidateUsers));
-            }
+            },
+            cache: true
           });
         }
       },
