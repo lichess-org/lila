@@ -305,23 +305,19 @@ div.bar div.pagination {
 }
 
 .textcomplete-dropdown {
-  border: 1px solid #c0c0c0;
+  border: 1px solid #ccc;
   box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.25), 0 0.5px 8px rgba(0, 0, 0, 0.15);
   background: #fff;
 }
 
-.textcomplete-dropdown a {
-  cursor: text;
-}
-
 .textcomplete-dropdown li {
   list-style: none;
-  border-top: 1px solid #c0c0c0;
+  border-top: 1px solid #dfdfdf;
   padding: 0.5em;
   min-width: 100px;
   font-size: 1.2em;
   font-weight: bold;
-  cursor: text;
+  cursor: pointer;
 }
 .textcomplete-dropdown li:first-child {
   border-top: none;
