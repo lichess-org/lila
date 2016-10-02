@@ -21,6 +21,7 @@ var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
 var keyboardMove = require('./keyboardMove');
+var renderUser = require('./view/user');
 
 module.exports = function(opts) {
 
@@ -201,7 +202,19 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
-    if (game.isPlayerTurn(this.data)) lichess.desktopNotification(this.trans('yourTurn'));
+    if (game.isPlayerTurn(this.data)) lichess.desktopNotification(function() {
+      var txt = this.trans('yourTurn');
+      var opponent = renderUser.userTxt(this, this.data.opponent);
+      if (this.vm.ply < 1)
+        txt = opponent + '\njoined the game.\n' + txt;
+      else {
+        var move = this.data.steps[this.data.steps.length - 1].san;
+        var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
+        move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
+        txt = opponent + '\nplayed ' + move + '.\n' + txt;
+      }
+      return txt;
+    }.bind(this));
   }.bind(this);
   setTimeout(showYourMoveNotification, 500);
 

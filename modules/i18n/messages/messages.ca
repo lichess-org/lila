@@ -60,7 +60,6 @@ viewNbCheckmates=%s Escacs i mat
 nbBookmarks=%s Marcadors
 nbPopularGames=%s Partides populars
 nbAnalysedGames=%s Partides analitzades
-bookmarkedByNbPlayers=Marcat per %s jugadors
 viewInFullSize=Veure a mida completa
 logOut=Tanca la sessió
 signIn=Inicia la sessió

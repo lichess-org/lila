@@ -24,7 +24,7 @@ object TeamRepo {
     coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: String): Fu[List[String]] =
-    coll.distinct("_id", BSONDocument("createdBy" -> userId).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List]("_id", BSONDocument("createdBy" -> userId).some)
 
   def name(id: String): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")

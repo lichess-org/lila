@@ -17,15 +17,19 @@ final class Env(
     indexer: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
+  private val CollectionRequester = config getString "collection.requester"
   private val NetDomain = config getString "net.domain"
   private val CachedNbTtl = config duration "cached.nb.ttl"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val ActorName = config getString "actor.name"
 
-  private[analyse] lazy val analysisColl = db(CollectionAnalysis)
+  lazy val analysisColl = db(CollectionAnalysis)
+
+  lazy val requesterApi = new RequesterApi(db(CollectionRequester))
 
   lazy val analyser = new Analyser(
     indexer = indexer,
+    requesterApi = requesterApi,
     roundSocket = roundSocket,
     bus = system.lilaBus)
 

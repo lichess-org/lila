@@ -21,7 +21,7 @@ case class Vote(up: Int, down: Int, sum: Int) {
 
 object Vote {
 
-  val default = Vote(0, 0, 0)
+  val default = Vote(1, 0, 1)
   val disable = Vote(0, 9000, 0).computeSum
 
   import reactivemongo.bson.Macros

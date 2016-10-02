@@ -60,7 +60,6 @@ viewNbCheckmates=チェックメイト（全%s回）を見る
 nbBookmarks=%s個の ブックマーク
 nbPopularGames=%s 局の人気の対局
 nbAnalysedGames=%s 局の解析済み対局
-bookmarkedByNbPlayers=%s 人がブックマークしています
 viewInFullSize=フルサイズで見る
 logOut=ログアウト
 signIn=ログイン

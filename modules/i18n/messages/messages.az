@@ -60,7 +60,6 @@ viewNbCheckmates=%s mat edilmiş oyunlar
 nbBookmarks=%s nişan edilmiş oyun
 nbPopularGames=%s populyar oyunlar
 nbAnalysedGames=%s təhlil olunmuş oyun
-bookmarkedByNbPlayers=%s oyunçu tərəfindən nişanlanıb
 viewInFullSize=Tam görünüşlə bax
 logOut=Xətdən çıx
 signIn=Xəttə bağlan

@@ -44,5 +44,7 @@ module.exports = function(ctrl) {
         shapes = shapes.concat(makeAutoShapesFromUci(color, n.ceval.best, 'paleBlue'));
     }
   }
+  if (ctrl.ceval.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best)
+    shapes = shapes.concat(makeAutoShapesFromUci(color === 'white' ? 'black' : 'white', n.threat.best, 'red'));
   return shapes;
 };

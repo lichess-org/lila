@@ -79,9 +79,7 @@ final class Firewall(
     def clear { cache.clear }
     def contains(ip: String) = apply map (_ contains strToIp(ip))
     def fetch: Fu[Set[IP]] =
-      coll.distinct("_id") map { res =>
-        lila.db.BSON.asStringSet(res) map strToIp
-      } addEffect { ips =>
+      coll.distinct[String, Set]("_id").map(_.map(strToIp)).addEffect { ips =>
         lila.mon.security.firewall.ip(ips.size)
       }
   }

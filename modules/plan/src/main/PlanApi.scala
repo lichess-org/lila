@@ -230,7 +230,7 @@ final class PlanApi(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
         Limit(nb))).map {
-        _.documents.flatMap { _.getAs[User.ID]("_id") }
+        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds,
     timeToLive = 1 hour)
 
@@ -252,7 +252,8 @@ final class PlanApi(
           bus.publish(lila.hub.actorApi.plan.ChargeEvent(
             username = charge.userId.flatMap(lightUserApi.get).fold("Anonymous")(_.name),
             amount = charge.cents.value,
-            percent = m.percent), 'plan)
+            percent = m.percent,
+            DateTime.now), 'plan)
           lila.mon.plan.goal(m.goal.value)
           lila.mon.plan.current(m.current.value)
           lila.mon.plan.percent(m.percent)

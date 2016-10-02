@@ -59,7 +59,6 @@ viewNbCheckmates=%s შამათი
 nbBookmarks=%s ჩანიშნული თამაში
 nbPopularGames=%s  პოპულარული თამაში
 nbAnalysedGames=%s გაანალიზებული თამაში
-bookmarkedByNbPlayers=ჩანიშნულია %s მოთამაშის მიერ
 viewInFullSize=სრული ზომით ნახვა
 logOut=გამოსვლა
 signIn=შესვლა

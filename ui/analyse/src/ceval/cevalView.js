@@ -22,6 +22,23 @@ function localEvalInfo(ctrl, evs) {
   return t;
 }
 
+function threatInfo(threat) {
+  if (!threat) return 'Loading engine...';
+  if (threat.dict) return 'Book move';
+  var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
+  if (threat.nps) t += ', ' + Math.round(threat.nps / 1000) + ' knodes/s';
+  return t;
+}
+
+function threatButton(ctrl) {
+  if (!ctrl.vm.node.check) return m('a', {
+    class: 'show-threat' + (ctrl.vm.threatMode ? ' active' : ''),
+    'data-icon': '7',
+    title: 'Show threat (x)',
+    config: util.bindOnce('click', ctrl.toggleThreatMode)
+  });
+}
+
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
@@ -54,6 +71,8 @@ module.exports = {
     if (!ctrl.ceval.allowed() || !ctrl.ceval.possible()) return;
     var enabled = ctrl.ceval.enabled();
     var evs = ctrl.currentEvals() || {};
+    var threatMode = ctrl.vm.threatMode;
+    var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
     if (defined(evs.fav) && defined(evs.fav.cp)) {
       pearl = util.renderEval(evs.fav.cp);
@@ -70,33 +89,41 @@ module.exports = {
       pearl = m('span.cpu', 'CPU');
       percent = 0;
     }
+    if (threatMode) {
+      if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
+      else percent = 0;
+    }
     return m('div.ceval_box',
       enabled ? m('div.bar', m('span', {
+        class: threatMode ? 'threat' : '',
         style: {
           width: percent + '%'
         },
         config: function(el, isUpdate, ctx) {
           // reinsert the node to avoid downward animation
-          if (isUpdate && ctx.percent > percent) {
+          if (isUpdate && (ctx.percent > percent || ctx.threatMode !== threatMode)) {
             var p = el.parentNode;
             p.removeChild(el);
             p.appendChild(el);
           }
           ctx.percent = percent;
+          ctx.threatMode = threatMode;
         }
       })) : null,
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          'Local ' + util.aiName(ctrl.data.game.variant),
-          m('span.info', localEvalInfo(ctrl, evs))
+          threatMode ? 'Show threat' : 'Local ' + util.aiName(ctrl.data.game.variant),
+          m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
       ] : m('help',
         'Local computer evaluation',
         m('br'),
         'for variation analysis'
       ),
-      m('div.switch', [
+      m('div.switch', {
+        title: 'Toggle local evaluation (l)'
+      }, [
         m('input', {
           id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
@@ -107,7 +134,8 @@ module.exports = {
         m('label', {
           'for': 'analyse-toggle-ceval'
         })
-      ])
+      ]),
+      threatButton(ctrl)
     );
   }
 };

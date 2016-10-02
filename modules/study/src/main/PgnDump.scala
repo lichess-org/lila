@@ -23,8 +23,9 @@ final class PgnDump(
 
   def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
     (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
-      case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
-      case None                     => makeTags(study, chapter)
+      case Some((game, initialFen)) =>
+        gamePgnDump.tags(game, initialFen.map(_.value), none) :+ annotatorTag(study)
+      case None => makeTags(study, chapter)
     }.map { tags =>
       Pgn(
         tags = tags,
@@ -34,16 +35,20 @@ final class PgnDump(
 
   private val fileR = """[\s,]""".r
 
+  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
+
   def filename(study: Study): String = {
     val name = lila.common.String slugify study.name
-    val owner = lightUser(study.ownerId).fold(study.ownerId)(_.name)
     val date = dateFormat.print(study.createdAt)
-    fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
+    fileR.replaceAllIn(s"lichess_study_${name}_by_${ownerName(study)}_${date}.pgn", "")
   }
 
   private def studyUrl(id: String) = s"$netBaseUrl/study/$id"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
+
+  private def annotatorTag(study: Study) =
+    Tag(_.Annotator, s"${ownerName(study)} using https://lichess.org/study")
 
   private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
@@ -57,7 +62,7 @@ final class PgnDump(
       Tag(_.Variant, chapter.setup.variant.name.capitalize),
       Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name))
-    ) ::: (chapter.root.fen.value != Forsyth.initial).??(List(
+    ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(List(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))

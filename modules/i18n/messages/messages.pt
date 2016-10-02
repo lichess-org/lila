@@ -60,7 +60,6 @@ viewNbCheckmates=%s Xeques-mates
 nbBookmarks=%s Favoritos
 nbPopularGames=%s Partidas populares
 nbAnalysedGames=%s Partidas analisadas
-bookmarkedByNbPlayers=Favorita de %s jogadores
 viewInFullSize=Ver em tela cheia
 logOut=Sair
 signIn=Entrar

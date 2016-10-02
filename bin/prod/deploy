@@ -33,7 +33,9 @@ if [ $mode = "main" ]; then
   $CLI deploy pre
 fi
 
-bin/dev ";stage;exit"
+SBT_OPTS=""
+export JAVA_OPTS="-Xms1024M -Xmx1024M -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
+sbt ";stage;exit"
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1

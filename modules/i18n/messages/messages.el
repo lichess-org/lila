@@ -60,7 +60,6 @@ viewNbCheckmates=%s Ματ
 nbBookmarks=%s Σελιδοδείκτες
 nbPopularGames=%s Δημοφιλή παιχνίδια
 nbAnalysedGames=%s Αναλυμένα παιχνίδια
-bookmarkedByNbPlayers=Προστέθηκε ως σελιδοδείκτης από %s παίκτες
 viewInFullSize=Προβολή σε πλήρες μέγεθος
 logOut=Έξοδος
 signIn=Είσοδος

@@ -94,18 +94,18 @@ final class Api(
   def recentByIpExists(ip: String): Fu[Boolean] = Store recentByIpExists ip
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    coll.distinct(
+    coll.distinct[String, List](
       field,
       $doc("user" -> userId, field -> $doc("$exists" -> true)).some
     ).flatMap {
         case Nil => fuccess(Nil)
-        case values => coll.distinct(
+        case values => coll.distinct[String, List](
           "user",
           $doc(
             field $in values,
             "user" $ne userId
           ).some
-        ) map lila.db.BSON.asStrings
+        )
       }
 
   def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
@@ -113,13 +113,13 @@ final class Api(
   def recentUserIdsByIp = recentUserIdsByField("ip") _
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
-    coll.distinct(
+    coll.distinct[String, List](
       "user",
       $doc(
         field -> value,
         "date" $gt DateTime.now.minusYears(1)
       ).some
-    ) map lila.db.BSON.asStrings
+    )
 }
 
 object Api {

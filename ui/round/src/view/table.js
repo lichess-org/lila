@@ -34,13 +34,9 @@ function compact(x) {
   return x;
 }
 
-function aiName(variant) {
-  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
-}
-
 function renderPlayer(ctrl, player) {
   return player.ai ? m('div.username.on-game', [
-    ctrl.trans('aiNameLevelAiLevel', aiName(ctrl.data.game.variant), player.ai),
+    renderUser.aiName(ctrl, player),
     m('span.status.hint--top', {
       'data-hint': 'Artificial intelligence is ready'
     }, m('span', {
@@ -49,7 +45,7 @@ function renderPlayer(ctrl, player) {
   ]) : m('div', {
       class: 'username ' + player.color + (player.onGame ? ' on-game' : '')
     },
-    renderUser(ctrl, player)
+    renderUser.userHtml(ctrl, player)
   );
 }
 

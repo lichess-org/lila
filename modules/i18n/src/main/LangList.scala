@@ -32,7 +32,7 @@ object LangList {
     "bn" -> "বাংলা",
     "bh" -> "भोजपुरी",
     "bi" -> "Bislama",
-    "bs" -> "bosanski jezik",
+    "bs" -> "bosanski",
     "br" -> "brezhoneg",
     "bg" -> "български език",
     "ca" -> "Català, valencià",

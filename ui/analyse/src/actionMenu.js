@@ -18,10 +18,7 @@ var allSpeeds = baseSpeeds.concat({
 });
 
 var cplSpeeds = [{
-  name: 'by CPL (fast)',
-  delay: 'cpl_fast'
-}, {
-  name: 'by CPL (slow)',
+  name: 'by CPL',
   delay: 'cpl_slow'
 }];
 
@@ -43,25 +40,12 @@ function deleteButton(data, userId) {
 function autoplayButtons(ctrl) {
   var d = ctrl.data;
   var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
+  speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return m('div.autoplay', speeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+    return m('a', {
+      class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
       config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
-    };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
-  }));
-}
-
-function autoplayCplButtons(ctrl) {
-  var d = ctrl.data;
-  return m('div.autoplay', cplSpeeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
-    };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
+    }, speed.name);
   }));
 }
 
@@ -88,10 +72,13 @@ function studyButton(ctrl) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    m('button.button.text', {
-      'data-icon': '',
-      type: 'submit'
-    }, realGame ? 'Study this game' : 'Save as a study')
+    m('button.fbt', {
+        type: 'submit'
+      },
+      m('i.icon', {
+        'data-icon': ''
+      }),
+      realGame ? 'Create Study' : 'Save to Study')
   ]);
 }
 
@@ -112,18 +99,7 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('boardEditor')),
-      canContinue ? m('a.button.text[data-icon=U]', {
-        config: util.bindOnce('click', function() {
-          $.modal($('.continue_with.' + d.game.id));
-        })
-      }, ctrl.trans('continueFromHere')) : null,
-      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
-      d.analysis ? autoplayCplButtons(ctrl) : null, [
+      m('h2', 'Settings'), [
         (function(id) {
           return m('div.setting', [
             m('div.switch', [
@@ -164,9 +140,29 @@ module.exports = {
               'for': id
             }, 'Computer gauge')
           ]);
-        })('analyse-toggle-gauge'),
-        studyButton(ctrl)
+        })('analyse-toggle-gauge')
       ],
+      m('h2', 'Tools'),
+      m('div.tools', [
+        m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+        ctrl.ongoing ? null : m('a.fbt', {
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }, [
+          m('i.icon[data-icon=m]'),
+          ctrl.trans('boardEditor')
+        ]),
+        canContinue ? m('a.fbt', {
+          config: util.bindOnce('click', function() {
+            $.modal($('.continue_with.' + d.game.id));
+          })
+        }, [
+          m('i.icon[data-icon=U]'),
+          ctrl.trans('continueFromHere')
+        ]) : null,
+        studyButton(ctrl)
+      ]),
+      ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
         m('a.button', {

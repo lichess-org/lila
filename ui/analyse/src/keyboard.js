@@ -53,18 +53,20 @@ module.exports = {
       ctrl.vm.keyboardHelp = !ctrl.vm.keyboardHelp;
       m.redraw();
     }));
-    k.bind('l', preventing(function() {
-      $('#analyse-toggle-ceval').click();
-    }));
+    k.bind('l', preventing(ctrl.toggleCeval));
     k.bind('a', preventing(function() {
       ctrl.toggleAutoShapes(!ctrl.vm.showAutoShapes());
       m.redraw();
     }));
+    k.bind('x', preventing(ctrl.toggleThreatMode));
     k.bind('e', preventing(function() {
       ctrl.explorer.toggle();
       m.redraw();
     }));
-    k.bind('space', preventing(ctrl.playBestMove));
+    k.bind('space', preventing(function() {
+      if (ctrl.ceval.enabled()) ctrl.playBestMove();
+      else ctrl.toggleCeval();
+    }));
     if (ctrl.study) {
       k.bind('c', preventing(function() {
         $('.study_buttons a.comment').click();
@@ -129,6 +131,7 @@ module.exports = {
           row([k('l')], 'Local computer analysis'),
           row([k('a')], 'Computer arrows'),
           row([k('space')], 'Play computer best move'),
+          row([k('x')], 'Show threat'),
           row([k('e')], 'Opening/endgame explorer'),
           row([k('f')], trans('flipBoard')),
           row([k('/')], 'Focus chat'),

@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
+    requesterApi: lila.analyse.RequesterApi,
     hub: lila.hub.Env,
     db: lila.db.Env,
     system: ActorSystem,
@@ -48,11 +49,11 @@ final class Env(
     monitor = monitor,
     sink = sink,
     socketExists = id => {
-      import lila.hub.actorApi.map.Exists
-      import akka.pattern.ask
-      import makeTimeout.short
-      hub.socket.round ? Exists(id) mapTo manifest[Boolean]
-    },
+    import lila.hub.actorApi.map.Exists
+    import akka.pattern.ask
+    import makeTimeout.short
+    hub.socket.round ? Exists(id) mapTo manifest[Boolean]
+  },
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes)(system)
 
@@ -61,11 +62,15 @@ final class Env(
     uciMemo = uciMemo,
     maxPlies = MovePlies)
 
+  private val limiter = new Limiter(
+    analysisColl = analysisColl,
+    requesterApi = requesterApi)
+
   val analyser = new Analyser(
     repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
-    limiter = new Limiter(analysisColl))
+    limiter = limiter)
 
   val aiPerfApi = new AiPerfApi
 
@@ -110,6 +115,7 @@ object Env {
   lazy val current: Env = "fishnet" boot new Env(
     system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
+    requesterApi = lila.analyse.Env.current.requesterApi,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",

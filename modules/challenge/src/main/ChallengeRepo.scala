@@ -53,7 +53,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     )).cursor[Challenge]().gather[List](max)
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.find($doc("expiresAt" -> $doc("$lt" -> DateTime.now))).list[Challenge](max)
+    coll.find($doc("expiresAt" -> $lt(DateTime.now))).list[Challenge](max)
 
   def setSeenAgain(id: Challenge.ID) = coll.update(
     $id(id),

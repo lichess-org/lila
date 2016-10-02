@@ -60,7 +60,6 @@ viewNbCheckmates=%s Chiếu hết
 nbBookmarks=%s Đánh dấu
 nbPopularGames=%s Ván cờ phổ biến
 nbAnalysedGames=%s Ván cờ đã phân tích
-bookmarkedByNbPlayers=Đánh dấu bởi %s người chơi
 viewInFullSize=Xem ở kích thước đầy đủ
 logOut=Đăng xuất
 signIn=Đăng nhập
