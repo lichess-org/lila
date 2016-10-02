@@ -26,8 +26,6 @@ module.exports = function(worker, opts) {
     worker.send('setoption name UCI_Variant value giveaway');
   else if (opts.variant.key !== 'standard')
     worker.send('setoption name UCI_Variant value ' + opts.variant.key.toLowerCase());
-  else
-    worker.send('uci');
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
