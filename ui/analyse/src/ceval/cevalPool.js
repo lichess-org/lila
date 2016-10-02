@@ -29,6 +29,7 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
       }, function () {
         terminateWorker(worker);
         boot();
+        protocol.start(work);
       });
     },
     stop: stop
