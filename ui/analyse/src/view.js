@@ -12,6 +12,7 @@ var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
 var cevalView = require('./ceval/cevalView');
+var cevalPanel = require('./ceval/cevalPanel');
 var crazyView = require('./crazy/crazyView');
 var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');
@@ -180,10 +181,21 @@ function buttons(ctrl) {
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-      else if (action === 'explorer') ctrl.explorer.toggle();
+      else if (action === 'explorer') {
+        if (ctrl.cevalPanel.enabled()) ctrl.cevalPanel.toggle();
+        ctrl.explorer.toggle();
+      }
+      else if (action === 'cevalPanel') {
+        if (ctrl.explorer.enabled()) ctrl.explorer.toggle();
+        ctrl.cevalPanel.toggle();
+      }
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
+    m('button', {
+      'data-act': 'cevalPanel',
+      class: 'hint--bottom' + (ctrl.actionMenu.open ? ' hidden' : (ctrl.cevalPanel.enabled() ? ' active' : ''))
+    }, icon('n')),
     m('button', {
       id: 'open_explorer',
       'data-hint': ctrl.trans('openingExplorer'),
@@ -245,6 +257,7 @@ module.exports = function(ctrl) {
             renderOpeningBox(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
+            cevalPanel.view(ctrl),
             explorerView.renderExplorer(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),

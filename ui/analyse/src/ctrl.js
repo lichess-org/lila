@@ -14,6 +14,7 @@ var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('./ceval/cevalCtrl');
+var cevalPanel = require('./ceval/cevalPanel');
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
@@ -37,6 +38,7 @@ module.exports = function(opts) {
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : true);
+    this.cevalPanel = cevalPanel.ctrl(this);
   }.bind(this);
 
   initialize(opts.data);
