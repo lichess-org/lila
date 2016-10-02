@@ -23,7 +23,6 @@ final class Env(
   private val MovePlies = config getInt "move.plies"
 
   private val analysisColl = db(config getString "collection.analysis")
-  private val requesterColl = db(config getString "collection.requester")
   private val clientColl = db(config getString "collection.client")
 
   private val repo = new FishnetRepo(
