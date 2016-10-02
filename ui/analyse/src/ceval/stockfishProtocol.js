@@ -20,6 +20,9 @@ module.exports = function(worker, opts) {
   var work = null;
   var stopped = m.deferred();
 
+  if (opts.hashSize)
+    worker.send('setoption name Hash value 128');
+
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
   else if (opts.variant.key === 'antichess')
