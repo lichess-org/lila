@@ -7,12 +7,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.evaluation.PlayerAssessments
-import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
-import lila.hub.actorApi.map.Tell
+import lila.game.{ Pov, GameRepo }
 import views._
-
-import chess.Color
 
 object Analyse extends LilaController {
 
