@@ -3,7 +3,7 @@ var m = require('mithril');
 function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protocolOpts) {
   var worker, protocol, api;
 
-  var boot = function () {
+  var boot = function() {
     worker = makeWorker(poolOpts);
     protocol = makeProtocol(api, protocolOpts);
     worker.addEventListener('message', function(e) {
@@ -13,7 +13,7 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
 
   var stop = function() {
     var stopped = m.deferred(false);
-    setTimeout(function () {
+    setTimeout(function() {
       stopped.reject();
     }, 1000);
     return protocol.stop(stopped);
@@ -23,10 +23,10 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
     send: function(text) {
       worker.postMessage(text);
     },
-    start: function (work) {
-      stop().then(function () {
+    start: function(work) {
+      stop().then(function() {
         protocol.start(work);
-      }, function () {
+      }, function() {
         terminateWorker(worker);
         boot();
         protocol.start(work);
@@ -41,15 +41,15 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
 }
 
 function makeWebWorker(makeProtocol, poolOpts, protocolOpts) {
-  return makeHelper(function () {
+  return makeHelper(function() {
     return new Worker(poolOpts.asmjs);
-  }, function (worker) {
+  }, function(worker) {
     worker.terminate();
   }, poolOpts, makeProtocol, protocolOpts);
 }
 
 function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
-  return makeHelper(function () {
+  return makeHelper(function() {
     var worker = document.createElement('embed');
     worker.setAttribute('src', poolOpts.pnacl);
     worker.setAttribute('type', 'application/x-pnacl');
@@ -57,7 +57,7 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
     worker.setAttribute('height', '0');
     document.body.appendChild(worker);
     return worker;
-  }, function () {}, poolOpts, makeProtocol, protocolOpts);
+  }, function() {}, poolOpts, makeProtocol, protocolOpts);
 }
 
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {
