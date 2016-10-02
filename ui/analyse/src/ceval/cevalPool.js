@@ -76,7 +76,7 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
     if (poolOpts.pnacl && navigator.mimeTypes['application/x-pnacl'])
       workers.push(makePNaClModule(makeProtocol, poolOpts, protocolOpts));
     else
-      for (var i = 1; i <= 4; i++)
+      for (var i = 1; i <= 3; i++)
         workers.push(makeWebWorker(makeProtocol, poolOpts, protocolOpts));
   }
 
