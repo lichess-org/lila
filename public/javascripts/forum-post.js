@@ -12,12 +12,8 @@ $(function() {
 
   lichess.loadScript('/assets/vendor/jquery-textcomplete/dist/jquery.textcomplete.js').then(function() {
 
-    var getTopicId = function() {
-      return $('.post-text-area').attr('data-topic');
-    };
-
     var getThreadParticipants = function() {
-      var topicId = getTopicId();
+      var topicId = $('.post-text-area').attr('data-topic');
 
       if (!topicId) {
         return jQuery.Deferred().resolve([]);
@@ -26,7 +22,6 @@ $(function() {
           url: "/forum/participants/" + topicId
         });
       }
-
     };
 
     var searchCandidates = function(term, candidateUsers) {
@@ -53,7 +48,10 @@ $(function() {
           });
         } else {
           $.ajax({
-            url: "/player/autocomplete?term=" + term,
+            url: "/player/autocomplete",
+            data: {
+              term: term
+            },
             success: function(candidateUsers) {
               callback(searchCandidates(term, candidateUsers));
             }
@@ -64,8 +62,8 @@ $(function() {
         return '$1@' + mention + ' ';
       }
     }], {
-      'placement': 'top',
-      'appendTo': '#lichess_forum'
+      placement: 'top',
+      appendTo: '#lichess_forum'
     });
 
     $('.post-text-area').one('focus', function() {
