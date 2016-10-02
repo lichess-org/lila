@@ -10,15 +10,23 @@ function depthOf(obj) {
 
     if (typeof obj[key] === 'object') {
       var depth = depthOf(obj[key]) + 1;
-      level = Math.max(depth, level); 
+      level = Math.max(depth, level);
     }
   }
   return level;
 }
 
-puzzles.find({"mate": true, "_id": {"$gt": 60120}}).forEach(function(p) {
+puzzles.find({
+  "mate": true,
+  "_id": {
+    "$gt": 60120
+  },
+  'vote.sum': {
+    '$gt': -8000
+  }
+}).forEach(function(p) {
   var depth = depthOf(p);
-  if (depth%2 === 1) {
+  if (depth % 2 === 1) {
     count++;
     puzzles.update({
       _id: p._id
@@ -26,11 +34,12 @@ puzzles.find({"mate": true, "_id": {"$gt": 60120}}).forEach(function(p) {
       $set: {
         vote: {
           up: NumberInt(0),
-          down: NumberInt(0),
+          down: NumberInt(9000),
           sum: NumberInt(-9000)
         }
       }
     });
+    print(p._id);
   }
 });
 print("Disabled " + count + " puzzles");
