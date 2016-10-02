@@ -51,6 +51,8 @@ module.exports = function(possible, variant, emit) {
         if (knps > 150) depth = 20;
         if (knps > 200) depth = 21;
         if (knps > 250) depth = 22;
+        if (knps > 500) depth = 23;
+        if (knps > 800) depth = 24;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }
