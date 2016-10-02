@@ -43,7 +43,7 @@ $(function() {
     var threadParticipants = Promise.resolve([]);
 
     $('.post-text-area').textcomplete([{
-      match: /\B@(\w*)$/,
+      match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
       search: function(term, callback) {
 
         if (term.length < 3) {
@@ -62,9 +62,8 @@ $(function() {
           });
         }
       },
-      index: 1,
       replace: function(mention) {
-        return '@' + mention + ' ';
+        return '$1@' + mention + ' ';
       }
     }], {
       'placement': 'top',
