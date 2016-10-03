@@ -31,7 +31,7 @@ final class SlackApi(
         val links = buffer map link mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
-          s"$links donated $amountSum. Monthly progress: ${buffer.last.percent}%"
+          s"$links donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
         } >>- {
           buffer = Vector.empty
         }
