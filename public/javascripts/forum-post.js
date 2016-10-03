@@ -39,25 +39,28 @@ $(function() {
       match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
       search: function(term, callback) {
 
-        if (term.length < 3) {
-          // Initially we only autocomplete by participants in the thread. As the user types more,
-          // we can autocomplete against all users on the site.
+        // Initially we only autocomplete by participants in the thread. As the user types more,
+        // we can autocomplete against all users on the site.
+        threadParticipants.then(function(participants) {
+          var forumParticipantCandidates = searchCandidates(term, participants);
 
-          threadParticipants.then(function(participants) {
-            callback(searchCandidates(term, participants));
-          });
-        } else {
-          $.ajax({
-            url: "/player/autocomplete",
-            data: {
-              term: term
-            },
-            success: function(candidateUsers) {
-              callback(searchCandidates(term, candidateUsers));
-            },
-            cache: true
-          });
-        }
+          if (forumParticipantCandidates.length != 0) {
+            // We always prefer a match on the forum thread partcipants' usernames
+            callback(forumParticipantCandidates);
+          }
+          else if (term.length >= 3) {
+            // We fall back to every site user after 3 letters of the username have been entered
+            // and there are no matches in the forum thread participants
+            $.ajax({
+              url: "/player/autocomplete?term=" + term,
+              success: function(candidateUsers) {
+                callback(searchCandidates(term, candidateUsers));
+              }
+            });
+          } else {
+            callback([]);
+          }
+        });
       },
       replace: function(mention) {
         return '$1@' + mention + ' ';
