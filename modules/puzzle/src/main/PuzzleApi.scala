@@ -40,7 +40,8 @@ private[puzzle] final class PuzzleApi(
         val p = generated toPuzzle id
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
-          "fen".$regex(fenStart.replace("/", "\\/"), "")
+          "fen".$regex(fenStart.replace("/", "\\/"), ""),
+          "vote.sum" -> $gt(-100)
         )) flatMap {
           case false => puzzleColl insert p inject id
           case _     => fufail("Duplicate puzzle")
@@ -93,7 +94,8 @@ private[puzzle] final class PuzzleApi(
       ))
 
     def playedIds(user: User): Fu[BSONArray] =
-      attemptColl.distinct[BSONValue, List](Attempt.BSONFields.puzzleId,
+      attemptColl.distinct[BSONValue, List](
+        Attempt.BSONFields.puzzleId,
         $doc(Attempt.BSONFields.userId -> user.id).some
       ) map BSONArray.apply
 
