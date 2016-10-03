@@ -18,7 +18,13 @@ function fenToUci(fen) {
 module.exports = function(worker, opts) {
 
   var work = null;
+  var state = null;
   var stopped = m.deferred();
+
+  var emit = function() {
+    if (state) work.emit(state);
+    state = null;
+  };
 
   if (opts.hashSize)
     worker.send('setoption name Hash value 128');
@@ -35,40 +41,61 @@ module.exports = function(worker, opts) {
   else
     worker.send('isready'); // warm up the webworker
 
+  if (opts.multiPv > 1) worker.send('setoption name MultiPV value ' + opts.multiPv);
+
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
       stopped.resolve(true);
       return;
     }
     if (!work) return;
+
     if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
-    var matches = text.match(/depth (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
-    if (!matches) return;
-    var depth = parseInt(matches[1]);
-    if (depth < opts.minDepth) return;
+    var matches = text.match(/depth (\d+) .*multipv (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
+    if (!matches) {
+      emit();
+      return;
+    }
+
+    var multiPv = parseInt(matches[2]);
     var cp, mate;
-    if (matches[2] === 'cp') cp = parseFloat(matches[3]);
-    else mate = parseFloat(matches[3]);
+    if (matches[3] === 'cp') cp = parseFloat(matches[4]);
+    else mate = parseFloat(matches[4]);
     if (work.ply % 2 === 1) {
-      if (matches[2] === 'cp') cp = -cp;
+      if (matches[3] === 'cp') cp = -cp;
       else mate = -mate;
     }
-    var best = matches[5].split(' ')[0];
-    work.emit({
-      work: work,
-      eval: {
-        depth: depth,
-        cp: cp,
-        mate: mate,
-        best: best,
-        nps: parseInt(matches[4])
-      }
-    });
+
+    if (multiPv === 1) {
+      emit();
+      var depth = parseInt(matches[1]);
+      if (depth < opts.minDepth) return;
+      state = {
+        work: work,
+        eval: {
+          depth: depth,
+          nps: parseInt(matches[5]),
+          best: matches[6].split(' ')[0],
+          cp: cp,
+          mate: mate,
+          pvs: []
+        }
+      };
+    }
+
+    if (state) state.eval.pvs[multiPv - 1] = {
+      cp: cp,
+      mate: mate,
+      pv: matches[6]
+    };
+
+    if (multiPv === opts.multiPv) emit();
   };
 
   return {
     start: function(w) {
       work = w;
+      state = null;
       worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },

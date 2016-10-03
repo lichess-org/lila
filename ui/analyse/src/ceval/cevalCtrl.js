@@ -26,6 +26,7 @@ module.exports = function(possible, variant, emit) {
       minDepth: minDepth,
       maxDepth: maxDepth,
       variant: variant,
+      multiPv: 3
     });
   } else {
     pool = makePool(sunsetterProtocol, {
