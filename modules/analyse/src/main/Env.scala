@@ -23,11 +23,13 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val ActorName = config getString "actor.name"
 
-  private[analyse] lazy val analysisColl = db(CollectionAnalysis)
+  lazy val analysisColl = db(CollectionAnalysis)
+
+  lazy val requesterApi = new RequesterApi(db(CollectionRequester))
 
   lazy val analyser = new Analyser(
     indexer = indexer,
-    requesterColl = db(CollectionRequester),
+    requesterApi = requesterApi,
     roundSocket = roundSocket,
     bus = system.lilaBus)
 

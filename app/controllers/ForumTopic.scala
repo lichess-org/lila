@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import lila.common.HTTPRequest
 import lila.app._
 import lila.forum.CategRepo
+import play.api.libs.json._
 import views._
 
 object ForumTopic extends LilaController with ForumController {
@@ -72,5 +73,15 @@ object ForumTopic extends LilaController with ForumController {
         case (categ, topic, pag) => topicApi.toggleHide(categ, topic, me) inject
           routes.ForumTopic.show(categSlug, slug, pag.nbPages)
       }
+  }
+
+  /**
+   * Returns a list of the usernames of people participating in a forum topic conversation
+   */
+  def participants(topicId: String) = Auth { implicit ctx => me =>
+    postApi.userIds(topicId) map { ids =>
+      val usernames = Env.user.lightUserApi.getList(ids.sorted).map(_.titleName)
+      Ok(Json.toJson(usernames))
+    }
   }
 }

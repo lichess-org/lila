@@ -2,8 +2,8 @@ var m = require('mithril');
 var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
 var util = require('../util');
-var stockfishWorker = require('./stockfishWorker');
-var sunsetterWorker = require('./sunsetterWorker');
+var stockfishProtocol = require('./stockfishProtocol');
+var sunsetterProtocol = require('./sunsetterProtocol');
 
 module.exports = function(possible, variant, emit) {
 
@@ -16,15 +16,23 @@ module.exports = function(possible, variant, emit) {
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
   var started = false;
-  var engine = variant.key !== 'crazyhouse' ? stockfishWorker : sunsetterWorker;
-  var multipv = variant.key !== 'crazyhouse' ? 3 : 1;
 
-  var pool = makePool({
-    minDepth: minDepth,
-    maxDepth: maxDepth,
-    multipv: multipv,
-    variant: variant
-  }, engine, nbWorkers);
+  var pool, multipv = 1;
+  if (variant.key !== 'crazyhouse') {
+    pool = makePool(stockfishProtocol, {
+      asmjs: '/assets/vendor/stockfish.js/stockfish.js',
+      pnacl: '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf'
+    }, {
+      minDepth: minDepth,
+      maxDepth: maxDepth,
+      variant: variant,
+    });
+    multipv = 3;
+  } else {
+    pool = makePool(sunsetterProtocol, {
+      asmjs: '/assets/vendor/Sunsetter8/sunsetter.js'
+    });
+  }
 
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
@@ -44,6 +52,9 @@ module.exports = function(possible, variant, emit) {
         if (knps > 150) depth = 20;
         if (knps > 200) depth = 21;
         if (knps > 250) depth = 22;
+        if (knps > 500) depth = 23;
+        if (knps > 800) depth = 24;
+        if (knps > 1500) depth = 25;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }
@@ -106,8 +117,7 @@ module.exports = function(possible, variant, emit) {
             best: dictRes.best,
             mate: 0,
             dict: true
-          },
-          name: name
+          }
         });
       }, 500);
       pool.warmup();

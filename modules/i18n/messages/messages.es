@@ -1,8 +1,8 @@
 playWithAFriend=Jugar con un amigo
-playWithTheMachine=Jugar con el ordenador
+playWithTheMachine=Jugar contra el ordenador
 toInviteSomeoneToPlayGiveThisUrl=Para invitar a alguien a jugar, comparte este enlace
 gameOver=Fin de la partida
-waitingForOpponent=Esperando oponente
+waitingForOpponent=Esperando al oponente
 waiting=Esperando
 yourTurn=Tu turno
 aiNameLevelAiLevel=%s nivel %s

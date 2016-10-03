@@ -7,12 +7,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.evaluation.PlayerAssessments
-import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
-import lila.hub.actorApi.map.Tell
+import lila.game.{ Pov, GameRepo }
 import views._
-
-import chess.Color
 
 object Analyse extends LilaController {
 
@@ -20,37 +16,15 @@ object Analyse extends LilaController {
   private def bookmarkApi = Env.bookmark.api
   private val divider = Env.game.divider
 
-  private val RequestLimitPerUser = new lila.memo.RateLimit(
-    credits = 25,
-    duration = 24 hours,
-    name = "request analysis per user",
-    key = "request_analysis.user")
-
-  private val RequestLimitPerIP = new lila.memo.RateLimit(
-    credits = 50,
-    duration = 24 hours,
-    name = "request analysis per IP",
-    key = "request_analysis.ip")
-
-  private def requestLimiter(me: lila.user.User)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (isGranted(_.Hunter, me)) f
-    else RequestLimitPerUser(me.id, cost = 1) {
-      RequestLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
-        f
-      }
-    }
-
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>
-    requestLimiter(me) {
-      OptionFuResult(GameRepo game id) { game =>
-        Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
-          userId = me.id.some,
-          ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-          mod = isGranted(_.Hunter),
-          system = false)) map {
-          case true  => Ok
-          case false => Unauthorized
-        }
+    OptionFuResult(GameRepo game id) { game =>
+      Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+        userId = me.id.some,
+        ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+        mod = isGranted(_.Hunter),
+        system = false)) map {
+        case true  => Ok
+        case false => Unauthorized
       }
     }
   }

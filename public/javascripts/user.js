@@ -14,6 +14,7 @@ $(function() {
         source: function(query, sync, async) {
           $.ajax({
             url: '/player/autocomplete?term=' + query,
+            cache: true,
             success: function(res) {
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);

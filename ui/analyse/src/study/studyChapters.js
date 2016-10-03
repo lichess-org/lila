@@ -41,6 +41,10 @@ module.exports = {
       },
       firstChapterId: function() {
         return list()[0].id;
+      },
+      toggleNewForm: function() {
+        if (newForm.vm.open || list().length < 64) newForm.toggle();
+        else alert("You have reached the limit of 64 chapters per study. Please create a new study.");
       }
     };
   },
@@ -114,7 +118,7 @@ module.exports = {
           ctrl.members.canContribute() ? m('div', {
               key: 'new-chapter',
               class: 'elem chapter add',
-              config: util.bindOnce('click', ctrl.chapters.newForm.toggle)
+              config: util.bindOnce('click', ctrl.chapters.toggleNewForm)
             },
             m('div.left', [
               m('span.status', m('i[data-icon=O]')),

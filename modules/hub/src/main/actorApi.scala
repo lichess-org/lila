@@ -2,6 +2,7 @@ package lila.hub
 package actorApi
 
 import lila.common.LightUser
+import org.joda.time.DateTime
 
 import play.api.libs.json._
 import play.twirl.api.Html
@@ -199,5 +200,5 @@ case class UnBlock(u1: String, u2: String)
 }
 
 package plan {
-case class ChargeEvent(username: String, amount: Int, percent: Int)
+case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
 }
