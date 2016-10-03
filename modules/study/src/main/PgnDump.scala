@@ -35,7 +35,7 @@ final class PgnDump(
 
   private val fileR = """[\s,]""".r
 
-  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
+  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.titleName)
 
   def filename(study: Study): String = {
     val name = lila.common.String slugify study.name
@@ -57,8 +57,6 @@ final class PgnDump(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
-      // Tag(_.White, "?"),
-      // Tag(_.Black, "?"),
       Tag(_.Variant, chapter.setup.variant.name.capitalize),
       Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name))
