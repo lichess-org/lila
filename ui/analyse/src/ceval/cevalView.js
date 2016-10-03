@@ -1,4 +1,5 @@
 var m = require('mithril');
+var winningChances = require('../winningChances');
 var util = require('../util');
 var defined = util.defined;
 var classSet = require('chessground').util.classSet;
@@ -44,10 +45,7 @@ module.exports = {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
     var eval, evs = ctrl.currentEvals();
     if (evs) {
-      if (defined(evs.fav.cp))
-        eval = 2 / (1 + Math.exp(-0.005 * evs.fav.cp)) - 1;
-      else
-        eval = evs.fav.mate > 0 ? 1 : -1;
+      eval = winningChances.povChances('white', evs.fav);
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 1) * 50;
