@@ -35,7 +35,7 @@ final class PgnDump(
 
   private val fileR = """[\s,]""".r
 
-  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.titleName)
+  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String = {
     val name = lila.common.String slugify study.name
@@ -48,7 +48,7 @@ final class PgnDump(
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"${ownerName(study)} using https://lichess.org/study")
+    Tag(_.Annotator, s"${ownerName(study)} @ https://lichess.org")
 
   private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
