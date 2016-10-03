@@ -48,7 +48,7 @@ final class PgnDump(
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"${ownerName(study)} using https://lichess.org/study")
+    Tag(_.Annotator, s"${ownerName(study)} @ https://lichess.org")
 
   private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
@@ -57,8 +57,6 @@ final class PgnDump(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
-      // Tag(_.White, "?"),
-      // Tag(_.Black, "?"),
       Tag(_.Variant, chapter.setup.variant.name.capitalize),
       Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name))

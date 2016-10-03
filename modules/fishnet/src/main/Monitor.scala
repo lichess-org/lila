@@ -47,6 +47,19 @@ private final class Monitor(
     avgOf(_.cappedNps) foreach { monitor.nps(_) }
     avgOf(_.depth) foreach { monitor.depth(_) }
     avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
+
+    // endgame positions count and total time
+    if (work.game.variant.standard)
+      chess.Replay.boardsFromUci(~work.game.uciList, work.game.initialFen, work.game.variant).fold(
+        err => logger.warn(s"Monitor couldn't get ${work.game.id}'s boards"),
+        boards => {
+          val (count, time) = (boards zip result.analysis).foldLeft(0 -> 0) {
+            case ((count, time), (board, _)) if board.pieces.size > 5 => (count, time)
+            case ((count, time), (_, eval))                           => (count + 1, time + ~eval.time)
+          }
+          if (count > 0) monitor.endgameCount(count)
+          if (time > 0) monitor.endgameTime(time)
+        })
   }
 
   private def sample[A](elems: List[A], n: Int) =
