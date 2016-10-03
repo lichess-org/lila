@@ -374,6 +374,8 @@ object mon {
         def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
         def totalSecond = incX(s"fishnet.analysis.total.second.$client")
         def totalPosition = incX(s"fishnet.analysis.total.position.$client")
+        def endgameCount = incX(s"fishnet.analysis.total.endgame.count.$client")
+        def endgameTime = incX(s"fishnet.analysis.total.endgame.time.$client")
       }
       val post = rec("fishnet.analysis.post")
     }

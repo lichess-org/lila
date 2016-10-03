@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.FEN
+import chess.format.{ Uci, FEN }
 import chess.variant.Variant
 
 sealed trait Work {
@@ -48,6 +48,8 @@ object Work {
       moves: String) {
 
     def moveList = moves.split(' ').toList
+
+    def uciList = Uci readList moves
   }
 
   case class Sender(
