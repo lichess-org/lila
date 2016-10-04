@@ -68,7 +68,6 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   var workers = [];
   var token = -1;
-  var pnaclSupported = poolOpts.pnacl && navigator.mimeTypes['application/x-pnacl'];
 
   var getWorker = function() {
     initWorkers();
@@ -79,7 +78,7 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   var initWorkers = function() {
     if (workers.length) return;
 
-    if (pnaclSupported)
+    if (poolOpts.pnacl)
       workers.push(makePNaClModule(makeProtocol, poolOpts, protocolOpts));
     else
       for (var i = 1; i <= 3; i++)

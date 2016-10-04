@@ -179,44 +179,45 @@ module.exports = {
             })
           ]);
         })('analyse-multipv'),
-        (function(id) {
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Threads'),
-            m('input', {
-              id: id,
-              type: 'range',
-              min: 1,
-              max: navigator.hardwareConcurrency || 1,
-              step: 1,
-              config: rangeConfig(function() {
-                return ctrl.ceval.threads();
-              }, function(v) {
-                ctrl.cevalSetThreads(parseInt(v));
+        ctrl.ceval.pnaclSupported ? [
+          (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Threads'),
+              m('input', {
+                id: id,
+                type: 'range',
+                min: 1,
+                max: navigator.hardwareConcurrency || 1,
+                step: 1,
+                config: rangeConfig(function() {
+                  return ctrl.ceval.threads();
+                }, function(v) {
+                  ctrl.cevalSetThreads(parseInt(v));
+                })
               })
-            })
-          ]);
-        })('analyse-threads'),
-        (function(id) {
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Memory'),
-            m('input', {
-              id: id,
-              type: 'range',
-              min: 32,
-              max: 992,
-              step: 32,
-              config: rangeConfig(function() {
-                return ctrl.ceval.hashSize();
-              }, function(v) {
-                ctrl.cevalSetHashSize(parseInt(v));
+            ]);
+          })('analyse-threads'), (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Memory'),
+              m('input', {
+                id: id,
+                type: 'range',
+                min: 32,
+                max: 992,
+                step: 32,
+                config: rangeConfig(function() {
+                  return ctrl.ceval.hashSize();
+                }, function(v) {
+                  ctrl.cevalSetHashSize(parseInt(v));
+                })
               })
-            })
-          ]);
-        })('analyse-memory')
+            ]);
+          })('analyse-memory')
+        ] : null
       ],
       m('h2', 'Tools'),
       m('div.tools', [

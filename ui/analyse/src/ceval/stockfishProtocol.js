@@ -30,8 +30,8 @@ module.exports = function(worker, opts) {
     state = null;
   };
 
-  worker.send('setoption name Threads value ' + opts.threads());
-  worker.send('setoption name Hash value ' + opts.hashSize());
+  if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
+  if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
@@ -83,8 +83,7 @@ module.exports = function(worker, opts) {
           pvs: []
         }
       };
-    }
-    else if (!state || depth < state.eval.depth) return; // multipv progress
+    } else if (!state || depth < state.eval.depth) return; // multipv progress
 
     state.eval.pvs[multiPv - 1] = {
       cp: cp,
