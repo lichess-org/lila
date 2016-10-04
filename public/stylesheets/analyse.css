@@ -750,15 +750,12 @@ body.piece_letter .tablebase td:first-child {
 .action_menu input[type=range] {
   width: 100px;
   height: 22px;
-  margin-right: 42px;
   -webkit-appearance: none;
   background: none;
 }
-.action_menu input[type=range]::after {
-  content: attr(data-value);
+.action_menu .range_value {
+  flex: 0 0 42px;
   display: block;
-  width: 42px;
-  margin-right: -42px;
   text-align: right;
 }
 .action_menu input[type=range]:focus {

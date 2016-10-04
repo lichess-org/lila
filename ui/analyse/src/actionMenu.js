@@ -49,20 +49,21 @@ function autoplayButtons(ctrl) {
   }));
 }
 
-function rangeConfig(read, write, toString) {
+function rangeConfig(read, write) {
   return function(el, isUpdate, ctx) {
     if (isUpdate) return;
-    var v = read();
-    el.value = v;
-    el.setAttribute('data-value', toString(v));
+    el.value = read();
     var handler = function(e) {
-      var v = e.target.value;
-      el.setAttribute('data-value', toString(v));
-      write(v);
+      write(e.target.value);
+    };
+    var blurer = function(e) {
+      e.target.blur();
     };
     el.addEventListener('input', handler)
+    el.addEventListener('mouseout', blurer)
     ctx.onunload = function() {
       el.removeEventListener('input', handler);
+      el.removeEventListener('mouseout', blurer);
     };
   };
 }
@@ -174,10 +175,9 @@ module.exports = {
                 return ctrl.ceval.multiPv();
               }, function(v) {
                 ctrl.cevalSetMultiPv(parseInt(v));
-              }, function(v) {
-                return v + ' / ' + max;
               })
-            })
+            }),
+            m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
           ]);
         })('analyse-multipv'),
         ctrl.ceval.pnaclSupported ? [
@@ -197,10 +197,9 @@ module.exports = {
                   return ctrl.ceval.threads();
                 }, function(v) {
                   ctrl.cevalSetThreads(parseInt(v));
-                }, function(v) {
-                  return v + ' / ' + max;
                 })
-              })
+              }),
+              m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
             ]);
           })('analyse-threads'), (function(id) {
             return m('div.setting', [
@@ -217,10 +216,9 @@ module.exports = {
                   return ctrl.ceval.hashSize();
                 }, function(v) {
                   ctrl.cevalSetHashSize(parseInt(v));
-                }, function(v) {
-                  return v + 'MB';
                 })
-              })
+              }),
+              m('div.range_value', ctrl.ceval.hashSize() + 'MB')
             ]);
           })('analyse-memory')
         ] : null
