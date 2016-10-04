@@ -21,7 +21,6 @@ module.exports = function(worker, opts) {
   var state = null;
   var minLegalMoves = 0;
   var stopped = m.deferred();
-  var lastHashSize;
 
   var emit = function() {
     if (!work || !state) return;
@@ -97,10 +96,7 @@ module.exports = function(worker, opts) {
       state = null;
       minLegalMoves = 0;
       if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
-      if (opts.hashSize && lastHashSize != opts.hashSize()) {
-        lastHashSize = opts.hashSize();
-        worker.send('setoption name Hash value ' + opts.hashSize());
-      }
+      if (opts.hashSize)) worker.send('setoption name Hash value ' + opts.hashSize());
       worker.send('setoption name MultiPV value ' + opts.multiPv());
       worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
