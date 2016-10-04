@@ -59,7 +59,9 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
     worker.setAttribute('width', '0');
     worker.setAttribute('height', '0');
     document.body.appendChild(worker);
-    worker.addEventListener('crash', poolOpts.onCrash, true);
+    worker.addEventListener('crash', function() {
+      alert("Sorry, the local Stockfish process has crashed!");
+    }, true);
     return worker;
   }, function(worker) {
     worker.remove();

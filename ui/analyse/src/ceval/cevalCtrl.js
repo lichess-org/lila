@@ -20,19 +20,11 @@ module.exports = function(possible, variant, emit) {
   var enabled = m.prop(possible() && allowed() && enableStorage.get() == '1');
   var started = false;
 
-  var onCrash = function() {
-    alert("The Stockfish process has crashed! The page will be reloaded.");
-    enableStorage.set('0');
-    hashSize(hashSize() <= 128 ? Math.max(32, hashSize() / 2) : 128);
-    location.reload();
-  };
-
   var pool;
   if (variant.key !== 'crazyhouse') {
     pool = makePool(stockfishProtocol, {
       asmjs: '/assets/vendor/stockfish.js/stockfish.js',
-      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf',
-      onCrash: onCrash
+      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf'
     }, {
       minDepth: minDepth,
       maxDepth: maxDepth,
