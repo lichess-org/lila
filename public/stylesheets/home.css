@@ -731,6 +731,8 @@ div.game_config .color_submits button.random i {
   margin: 0 10px 0 5px;
 }
 .tour_spotlight img.img {
+  width: 40px;
+  heigth: 40px;
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }
