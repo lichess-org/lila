@@ -23,8 +23,9 @@ var dict = {
   'g1f3': 'd7d5'
 };
 
-module.exports = function(work, variant) {
+module.exports = function(work, variant, multiPv) {
   if (variant.key !== 'standard') return;
+  if (multiPv > 1) return;
   if (work.initialFen === initialFen && work.moves.length <= 4) {
     var best = dict[work.moves.join(' ')];
     if (best) return {

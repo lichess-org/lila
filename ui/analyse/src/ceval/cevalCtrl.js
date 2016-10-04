@@ -105,7 +105,7 @@ module.exports = function(possible, variant, emit) {
       }
     }
 
-    var dictRes = dict(work, variant);
+    var dictRes = dict(work, variant, multiPv());
     if (dictRes) {
       setTimeout(function() {
         // this has to be delayed, or it slows down analysis first render.
