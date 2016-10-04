@@ -447,7 +447,6 @@ module.exports = function(opts) {
 
   var cevalReset = function(f) {
     this.ceval.stop();
-    this.tree.removeCeval();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     m.redraw();
@@ -455,6 +454,7 @@ module.exports = function(opts) {
 
   this.cevalSetMultiPv = function(v) {
     this.ceval.multiPv(v);
+    this.tree.removeCeval();
     cevalReset();
   }.bind(this);
 
