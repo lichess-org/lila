@@ -749,6 +749,7 @@ body.piece_letter .tablebase td:first-child {
 }
 .action_menu input[type=range] {
   width: 100px;
+  height: 22px;
   margin-right: 42px;
   -webkit-appearance: none;
   background: none;
