@@ -191,7 +191,7 @@ module.exports = {
             return m('div.setting', [
               m('label', {
                 'for': id
-              }, 'Threads'),
+              }, 'CPUs'),
               m('input', {
                 id: id,
                 type: 'range',
