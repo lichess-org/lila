@@ -10,7 +10,7 @@ function cpWinningChances(cp) {
 }
 
 function mateWinningChances(mate) {
-  var cp = 21 - Math.min(10, Math.abs(mate));
+  var cp = (21 - Math.min(10, Math.abs(mate))) * 100;
   var signed = cp * (mate > 0 ? 1 : -1);
   return cpWinningChances(signed);
 }
