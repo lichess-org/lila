@@ -448,7 +448,6 @@ module.exports = function(opts) {
   var cevalReset = function(f) {
     this.ceval.stop();
     this.tree.removeCeval();
-    this.ceval = makeCeval();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
     m.redraw();
