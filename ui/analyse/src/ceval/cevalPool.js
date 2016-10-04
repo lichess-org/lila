@@ -59,6 +59,7 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
     worker.setAttribute('width', '0');
     worker.setAttribute('height', '0');
     document.body.appendChild(worker);
+    worker.addEventListener('crash', poolOpts.onCrash, true);
     return worker;
   }, function(worker) {
     worker.remove();

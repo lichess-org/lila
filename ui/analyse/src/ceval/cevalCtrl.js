@@ -15,23 +15,31 @@ module.exports = function(possible, variant, emit) {
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = util.storedProp('ceval.hash-size', 128);
   var curDepth = 0;
-  var storageKey = 'client-eval-enabled';
+  var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
-  var enabled = m.prop(possible() && allowed() && lichess.storage.get(storageKey) === '1');
+  var enabled = m.prop(possible() && allowed() && enableStorage.get() == '1');
   var started = false;
+
+  var onCrash = function() {
+    alert("The Stockfish process has crashed! The page will be reloaded.");
+    enableStorage.set('0');
+    hashSize(hashSize() <= 128 ? Math.max(32, hashSize() / 2) : 128);
+    location.reload();
+  };
 
   var pool;
   if (variant.key !== 'crazyhouse') {
     pool = makePool(stockfishProtocol, {
       asmjs: '/assets/vendor/stockfish.js/stockfish.js',
-      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf'
+      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf',
+      onCrash: onCrash
     }, {
       minDepth: minDepth,
       maxDepth: maxDepth,
       variant: variant,
       multiPv: multiPv,
       threads: pnaclSupported && threads,
-      hashSize: pnaclSupported && hashSize,
+      hashSize: pnaclSupported && hashSize
     });
   } else {
     pool = makePool(sunsetterProtocol, {
@@ -152,7 +160,7 @@ module.exports = function(possible, variant, emit) {
       if (!possible() || !allowed()) return;
       stop();
       enabled(!enabled());
-      lichess.storage.set(storageKey, enabled() ? '1' : '0');
+      enableStorage.set(enabled() ? '1' : '0');
     },
     curDepth: function() {
       return curDepth;
