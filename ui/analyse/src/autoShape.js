@@ -48,11 +48,9 @@ module.exports = function(ctrl) {
         n.ceval.pvs.slice(1).forEach(function(pv) {
           var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
           if (isNaN(shift) || shift < 0) console.log('------------------', shift, n.ceval.pvs);
-          // console.log(shift);
           if (shift > 0.2) return;
           // 12 to 2
           var width = Math.round(12 - shift * 50);
-          // console.log(shift, width);
           shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleGrey', {
             lineWidth: width
           }));
@@ -60,7 +58,20 @@ module.exports = function(ctrl) {
       }
     }
   }
-  if (ctrl.ceval.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best)
+  if (ctrl.ceval.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best) {
     shapes = shapes.concat(makeAutoShapesFromUci(color === 'white' ? 'black' : 'white', n.threat.best, 'red'));
+      // if (n.ceval.pvs[1]) {
+      //   n.ceval.pvs.slice(1).forEach(function(pv) {
+      //     var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
+      //     if (isNaN(shift) || shift < 0) console.log('------------------', shift, n.ceval.pvs);
+      //     if (shift > 0.2) return;
+      //     // 12 to 2
+      //     var width = Math.round(12 - shift * 50);
+      //     shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleGrey', {
+      //       lineWidth: width
+      //     }));
+      //   });
+      // }
+  }
   return shapes;
 };
