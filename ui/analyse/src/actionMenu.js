@@ -68,6 +68,11 @@ function rangeConfig(read, write) {
   };
 }
 
+function formatHashSize(v) {
+  if (v < 1000) return v + 'MB';
+  else return Math.round(v / 1024) + 'GB';
+}
+
 function studyButton(ctrl) {
   if (ctrl.study || ctrl.ongoing) return;
   var realGame = !util.synthetic(ctrl.data);
@@ -209,16 +214,16 @@ module.exports = {
               m('input', {
                 id: id,
                 type: 'range',
-                min: 32,
-                max: 992,
-                step: 32,
+                min: 4,
+                max: 10,
+                step: 1,
                 config: rangeConfig(function() {
-                  return ctrl.ceval.hashSize();
+                  return Math.floor(Math.log2(ctrl.ceval.hashSize()));
                 }, function(v) {
-                  ctrl.cevalSetHashSize(parseInt(v));
+                  ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
                 })
               }),
-              m('div.range_value', ctrl.ceval.hashSize() + 'MB')
+              m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
             ]);
           })('analyse-memory')
         ] : null
