@@ -445,8 +445,8 @@ body.piece_letter .explorer_box .moves td:first-child {
   font-size: 11px;
 }
 body.dark .explorer_box .bar span,
-body.dark .lichess_ground .action_menu h2:before,
-body.dark .lichess_ground .action_menu h2:after {
+body.dark .action_menu h2:before,
+body.dark .action_menu h2:after {
   border-color: #555;
 }
 body.dark .ceval_box .show-threat {
@@ -638,7 +638,7 @@ body.piece_letter .tablebase td:first-child {
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
 .lichess_ground .areplay,
-.lichess_ground .action_menu {
+.action_menu {
   overflow: auto;
   overflow-x: hidden;
   -webkit-user-select: none;
@@ -652,14 +652,14 @@ body.piece_letter .tablebase td:first-child {
   position: relative; /* for autoscroll */
   will-change: scroll-position;
 }
-.lichess_ground .action_menu {
+.action_menu {
   flex: 1 0;
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
   margin-bottom: 10px;
 }
-.lichess_ground .action_menu h2 {
+.action_menu h2 {
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
@@ -667,8 +667,8 @@ body.piece_letter .tablebase td:first-child {
   display: table;
   padding: 0 10px;
 }
-.lichess_ground .action_menu h2:before,
-.lichess_ground .action_menu h2:after {
+.action_menu h2:before,
+.action_menu h2:after {
   border-top: 1px solid #ccc;
   content: '';
   display: table-cell;
@@ -676,13 +676,13 @@ body.piece_letter .tablebase td:first-child {
   top: 0.65em;
   width: 45%;
 }
-.lichess_ground .action_menu h2:before {
+.action_menu h2:before {
   right: 8px;
 }
-.lichess_ground .action_menu h2:after {
+.action_menu h2:after {
   left: 8px;
 }
-.lichess_ground .action_menu .fbt {
+.action_menu .fbt {
   background: none;
   border: none;
   outline: none;
@@ -690,74 +690,146 @@ body.piece_letter .tablebase td:first-child {
   text-transform: uppercase;
   cursor: default;
 }
-.lichess_ground .action_menu .fbt:hover {
+.action_menu .fbt:hover {
   cursor: pointer;
   background: #3893E8;
   color: #fff;
 }
-.lichess_ground .action_menu .fbt:active,
-.lichess_ground .action_menu .fbt.active {
+.action_menu .fbt:active,
+.action_menu .fbt.active {
   background: #5ba6ec;
   color: #fff;
 }
-.lichess_ground .action_menu .icon {
+.action_menu .icon {
   display: block;
   font-size: 2em;
 }
-.lichess_ground .action_menu .autoplay,
-.lichess_ground .action_menu .tools {
+.action_menu .autoplay,
+.action_menu .tools {
   display: flex;
 }
-.lichess_ground .action_menu .tools {
+.action_menu .tools {
   flex-flow: row wrap;
 }
-.lichess_ground .action_menu .tools > * {
+.action_menu .tools > * {
   flex: 0 0 50%;
   box-sizing: border-box;
   text-align: center;
 }
-.lichess_ground .action_menu .tools form .fbt {
+.action_menu .tools form .fbt {
   width: 100%;
 }
-.lichess_ground .action_menu .tools i {
+.action_menu .tools i {
   margin-bottom: 5px;
 }
-.lichess_ground .action_menu .autoplay .fbt {
+.action_menu .autoplay .fbt {
   flex: 1 1 auto;
   text-align: center;
 }
-.lichess_ground .action_menu form.delete {
+.action_menu form.delete {
   margin-top: 2em;
   text-align: right;
 }
-.lichess_ground .action_menu form.delete .button {
+.action_menu form.delete .button {
   display: inline-block;
   padding: 0 8px;
 }
-.lichess_ground .action_menu form.delete .button::before {
+.action_menu form.delete .button::before {
   font-size: 1.2em;
 }
-.lichess_ground .action_menu .setting {
+.action_menu .setting {
   padding: 5px 0 5px 10px;
   line-height: 22px;
   display: flex;
 }
-.lichess_ground .action_menu .setting > label {
+.action_menu .setting > label {
   flex: 1 0;
   cursor: pointer;
   text-transform: uppercase;
 }
-.lichess_ground .action_menu input[type=range] {
+.action_menu input[type=range] {
   width: 100px;
   margin-right: 40px;
+  -webkit-appearance: none;
+  background: none;
 }
-.lichess_ground .action_menu input[type=range]::after {
+.action_menu input[type=range]::after {
   content: attr(data-value);
   display: block;
   width: 40px;
   margin-right: -40px;
   text-align: right;
 }
+.action_menu input[type=range]:focus {
+  outline: none;
+}
+.action_menu input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 11.4px;
+  cursor: pointer;
+  background: rgba(214, 214, 214, 0.78);
+  border-radius: 6px;
+}
+.action_menu input[type=range]::-webkit-slider-thumb {
+  border: 1px solid #aaaaaa;
+  height: 12px;
+  width: 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -0.3px;
+}
+.action_menu input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 11.4px;
+  cursor: pointer;
+  background: rgba(214, 214, 214, 0.78);
+  border-radius: 5.9px;
+}
+.action_menu input[type=range]::-moz-range-thumb {
+  border: 1px solid #aaaaaa;
+  height: 12px;
+  width: 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+}
+.action_menu input[type=range]::-ms-track {
+  width: 100%;
+  height: 11.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.action_menu input[type=range]::-ms-fill-lower {
+  background: rgba(191, 191, 191, 0.78);
+  border-radius: 11.8px;
+}
+.action_menu input[type=range]::-ms-fill-upper {
+  background: rgba(214, 214, 214, 0.78);
+  border-radius: 11.8px;
+}
+.action_menu input[type=range]::-ms-thumb {
+  border: 1px solid #aaaaaa;
+  height: 12px;
+  width: 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 11.4px;
+}
+body.dark .action_menu input[type=range]::-webkit-slider-runnable-track {
+  background: rgba(70, 70, 70, 0.78);
+}
+body.dark .action_menu input[type=range]::-moz-range-track {
+  background: rgba(70, 70, 70, 0.78);
+}
+body.dark .action_menu input[type=range]::-ms-fill-upper {
+  background: rgba(70, 70, 70, 0.78);
+}
+
 .lichess_ground .opening {
   padding-bottom: 3px;
 }

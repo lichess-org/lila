@@ -71,7 +71,7 @@ body.transp form.translation_form div.message,
 body.transp #video_side .tag_list a.checked,
 body.transp #powerTip,
 body.transp div.vstext,
-body.transp .lichess_ground .action_menu {
+body.transp .action_menu {
   background: rgba(0, 0, 0, 0.6);
 }
 body.transp #board_editor,
@@ -203,6 +203,6 @@ body.transp ::-webkit-scrollbar,
 body.transp ::-webkit-scrollbar-corner {
   background: rgba(0, 0, 0, 0.1);
 }
-body.transp .lichess_ground .action_menu .setting {
+body.transp .action_menu .setting {
   margin-right: 10px;
 }

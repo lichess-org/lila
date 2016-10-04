@@ -59,10 +59,11 @@ function rangeConfig(read, write, toString) {
       var v = e.target.value;
       el.setAttribute('data-value', toString(v));
       write(v);
+      el.blur();
     };
-    el.addEventListener('change', handler)
+    el.addEventListener('input', handler)
     ctx.onunload = function() {
-      el.removeEventListener('change', handler);
+      el.removeEventListener('input', handler);
     };
   };
 }
