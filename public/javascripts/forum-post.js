@@ -52,10 +52,14 @@ $(function() {
             // We fall back to every site user after 3 letters of the username have been entered
             // and there are no matches in the forum thread participants
             $.ajax({
-              url: "/player/autocomplete?term=" + term,
+              url: "/player/autocomplete",
+              data: {
+                term: term
+              },
               success: function(candidateUsers) {
                 callback(searchCandidates(term, candidateUsers));
-              }
+              },
+              cache: true
             });
           } else {
             callback([]);
