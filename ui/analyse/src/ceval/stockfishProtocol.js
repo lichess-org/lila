@@ -30,9 +30,6 @@ module.exports = function(worker, opts) {
     state = null;
   };
 
-  if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
-  if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
-
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
   else if (opts.variant.key === 'antichess')
@@ -41,8 +38,6 @@ module.exports = function(worker, opts) {
     worker.send('setoption name UCI_Variant value ' + opts.variant.key.toLowerCase());
   else
     worker.send('isready'); // warm up the webworker
-
-  worker.send('setoption name MultiPV value ' + opts.multiPv());
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
@@ -100,6 +95,9 @@ module.exports = function(worker, opts) {
       work = w;
       state = null;
       minLegalMoves = 0;
+      if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
+      if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
+      worker.send('setoption name MultiPV value ' + opts.multiPv());
       worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },
