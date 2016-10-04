@@ -56,7 +56,7 @@ final class JsonView(
     "error.required" -> "is required",
     "error.minLength" -> "too short",
     "error.maxLength" -> "too long",
-    "Unknown" -> "unknown")
+    "Unknown username" -> "unknown")
 
   def createThreadError(form: Form[_]): JsValue =
     Json.obj (
@@ -72,11 +72,9 @@ final class JsonView(
     val result = acc \ e.key;
 
     result match {
-      case JsDefined(v: JsArray) => v :+ JsString(errNames.getOrElse(e.message, e.message))
+      case JsDefined(v: JsArray) => acc + (e.key -> (v :+ JsString(errNames.getOrElse(e.message, e.message))))
       case undefined: JsUndefined => acc + (e.key -> JsArray(Seq(JsString(errNames.getOrElse(e.message, e.message)))))
     }
-
-    return acc;
   }
 
 }
