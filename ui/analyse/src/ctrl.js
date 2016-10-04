@@ -464,6 +464,11 @@ module.exports = function(opts) {
     cevalReset();
   }.bind(this);
 
+  this.cevalSetHashSize = function(v) {
+    this.ceval.hashSize(v);
+    cevalReset();
+  }.bind(this);
+
   this.showEvalGauge = function() {
     return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
   }.bind(this);

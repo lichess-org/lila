@@ -30,10 +30,8 @@ module.exports = function(worker, opts) {
     state = null;
   };
 
-  if (opts.hashSize)
-    worker.send('setoption name Hash value 128');
-
   worker.send('setoption name Threads value ' + opts.threads());
+  worker.send('setoption name Hash value ' + opts.hashSize());
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');

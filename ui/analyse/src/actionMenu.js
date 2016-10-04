@@ -194,6 +194,25 @@ module.exports = {
               })
             })
           ]);
+        })('analyse-threads'),
+        (function(id) {
+          return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Memory'),
+            m('input', {
+              id: id,
+              type: 'range',
+              min: 32,
+              max: 1024,
+              step: 32,
+              config: rangeConfig(function() {
+                return ctrl.ceval.hashSize();
+              }, function(v) {
+                ctrl.cevalSetHashSize(parseInt(v));
+              })
+            })
+          ]);
         })('analyse-threads')
       ],
       m('h2', 'Tools'),

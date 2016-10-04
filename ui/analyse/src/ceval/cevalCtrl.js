@@ -12,6 +12,7 @@ module.exports = function(possible, variant, emit) {
   var maxDepth = util.storedProp('ceval.max-depth', 18);
   var multiPv = util.storedProp('ceval.multipv', 3);
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
+  var hashSize = util.storedProp('ceval.hash-size', 128);
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(true);
@@ -28,7 +29,8 @@ module.exports = function(possible, variant, emit) {
       maxDepth: maxDepth,
       variant: variant,
       multiPv: multiPv,
-      threads: threads
+      threads: threads,
+      hashSize: hashSize
     });
   } else {
     pool = makePool(sunsetterProtocol, {
@@ -143,6 +145,7 @@ module.exports = function(possible, variant, emit) {
     enabled: enabled,
     multiPv: multiPv,
     threads: threads,
+    hashSize: hashSize,
     toggle: function() {
       if (!possible() || !allowed()) return;
       stop();

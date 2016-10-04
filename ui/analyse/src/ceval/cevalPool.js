@@ -64,7 +64,6 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   var workers = [];
   var token = -1;
   var pnaclSupported = poolOpts.pnacl && navigator.mimeTypes['application/x-pnacl'];
-  if (pnaclSupported) protocolOpts.hashSize = 128;
 
   var getWorker = function() {
     initWorkers();
