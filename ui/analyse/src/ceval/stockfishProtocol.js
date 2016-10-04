@@ -33,8 +33,7 @@ module.exports = function(worker, opts) {
   if (opts.hashSize)
     worker.send('setoption name Hash value 128');
 
-  var threads = Math.ceil((navigator.hardwareConcurrency || 1) / 2);
-  if (threads > 1) worker.send('setoption name Threads value ' + threads);
+  worker.send('setoption name Threads value ' + opts.threads());
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');

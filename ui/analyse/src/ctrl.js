@@ -445,14 +445,23 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.setMultiPv = function(v) {
-    this.ceval.multiPv(v);
-    var enabled = this.ceval.enabled();
+  var cevalReset = function(f) {
     this.ceval.stop();
     this.tree.removeCeval();
     this.ceval = makeCeval();
-    if (enabled) this.startCeval();
+    if (!this.ceval.enabled()) this.ceval.toggle();
+    this.startCeval();
     m.redraw();
+  }.bind(this);
+
+  this.cevalSetMultiPv = function(v) {
+    this.ceval.multiPv(v);
+    cevalReset();
+  }.bind(this);
+
+  this.cevalSetThreads = function(v) {
+    this.ceval.threads(v);
+    cevalReset();
   }.bind(this);
 
   this.showEvalGauge = function() {

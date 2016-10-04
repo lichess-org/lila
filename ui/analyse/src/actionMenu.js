@@ -49,6 +49,20 @@ function autoplayButtons(ctrl) {
   }));
 }
 
+function rangeConfig(read, write) {
+  return function(el, isUpdate, ctx) {
+    if (isUpdate) return;
+    el.value = read();
+    var handler = function(e) {
+      write(e.target.value);
+    };
+    el.addEventListener('change', handler)
+    ctx.onunload = function() {
+      el.removeEventListener('change', handler);
+    };
+  };
+}
+
 function studyButton(ctrl) {
   if (ctrl.study || ctrl.ongoing) return;
   var realGame = !util.synthetic(ctrl.data);
@@ -154,20 +168,33 @@ module.exports = {
               min: 1,
               max: 5,
               step: 1,
-              config: function(el, isUpdate, ctx) {
-                if (isUpdate) return;
-                el.value = ctrl.ceval.multiPv();
-                var handler = function(e) {
-                  ctrl.setMultiPv(e.target.value);
-                };
-                el.addEventListener('change', handler)
-                ctx.onunload = function() {
-                  el.removeEventListener('change', handler);
-                };
-              }
+              config: rangeConfig(function() {
+                return ctrl.ceval.multiPv();
+              }, function(v) {
+                ctrl.cevalSetMultiPv(parseInt(v));
+              })
             })
           ]);
-        })('analyse-multipv')
+        })('analyse-multipv'),
+        (function(id) {
+          return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Threads'),
+            m('input', {
+              id: id,
+              type: 'range',
+              min: 1,
+              max: navigator.hardwareConcurrency || 1,
+              step: 1,
+              config: rangeConfig(function() {
+                return ctrl.ceval.threads();
+              }, function(v) {
+                ctrl.cevalSetThreads(parseInt(v));
+              })
+            })
+          ]);
+        })('analyse-threads')
       ],
       m('h2', 'Tools'),
       m('div.tools', [
