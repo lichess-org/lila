@@ -41,7 +41,7 @@
 	path = public/visualizer
 	url = https://github.com/ornicar/chess_game_visualizer
 [submodule "public/vendor/Sunsetter8"]
-	path = public/vendor/Sunsetter8
+	path = public/vendor/Sunsetter
 	url = https://github.com/niklasf/Sunsetter8
 	branch = js
 [submodule "public/vendor/stockfish.pexe"]
