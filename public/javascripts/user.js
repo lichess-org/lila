@@ -69,7 +69,7 @@ $(function() {
             $(this).remove();
           });
         }
-        $zone.find('li.ip').slice(0, 3).each(function() {
+        $zone.find('li.ip').slice(0, 2).each(function() {
           var $li = $(this);
           $.ajax({
             url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
