@@ -85,7 +85,7 @@ function studyButton(ctrl) {
 module.exports = {
   controller: function() {
 
-    this.open = false;
+    this.open = location.hash === '#menu';
 
     this.toggle = function() {
       this.open = !this.open;
@@ -102,6 +102,9 @@ module.exports = {
       m('h2', 'Settings'), [
         (function(id) {
           return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Computer arrows'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -115,13 +118,13 @@ module.exports = {
               m('label', {
                 'for': id
               })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer arrows')
+            ])
           ]);
         })('analyse-toggle-ceval'), (function(id) {
           return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Computer gauge'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -135,12 +138,36 @@ module.exports = {
               m('label', {
                 'for': id
               })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer gauge')
+            ])
           ]);
         })('analyse-toggle-gauge')
+      ],
+      m('h2', 'Local Stockfish'), [
+        (function(id) {
+          return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Multiple lines'),
+            m('input', {
+              id: id,
+              type: 'range',
+              min: 1,
+              max: 5,
+              step: 1,
+              config: function(el, isUpdate, ctx) {
+                if (isUpdate) return;
+                el.value = ctrl.ceval.multiPv();
+                var handler = function(e) {
+                  ctrl.setMultiPv(e.target.value);
+                };
+                el.addEventListener('change', handler)
+                ctx.onunload = function() {
+                  el.removeEventListener('change', handler);
+                };
+              }
+            })
+          ]);
+        })('analyse-multipv')
       ],
       m('h2', 'Tools'),
       m('div.tools', [

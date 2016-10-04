@@ -445,6 +445,16 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.setMultiPv = function(v) {
+    this.ceval.multiPv(v);
+    var enabled = this.ceval.enabled();
+    this.ceval.stop();
+    this.tree.removeCeval();
+    this.ceval = makeCeval();
+    if (enabled) this.startCeval();
+    m.redraw();
+  }.bind(this);
+
   this.showEvalGauge = function() {
     return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
   }.bind(this);

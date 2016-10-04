@@ -208,6 +208,12 @@ module.exports = function(root) {
     getCurrentNodesAfterPly: getCurrentNodesAfterPly,
     merge: function(tree) {
       ops.merge(root, tree);
+    },
+    removeCeval: function() {
+      ops.updateAll(root, function(n) {
+        delete n.ceval;
+        delete n.threat;
+      });
     }
   };
 }

@@ -740,13 +740,15 @@ body.piece_letter .tablebase td:first-child {
 .lichess_ground .action_menu .setting {
   padding: 5px 0 5px 10px;
   line-height: 22px;
+  display: flex;
 }
-.lichess_ground .action_menu .setting label {
+.lichess_ground .action_menu .setting > label {
+  flex: 1 0;
   cursor: pointer;
   text-transform: uppercase;
 }
-.lichess_ground .action_menu .switch {
-  float: right;
+.lichess_ground .action_menu .setting > input[type=range] {
+  width: 100px;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;

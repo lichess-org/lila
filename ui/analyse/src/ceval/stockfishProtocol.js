@@ -45,7 +45,7 @@ module.exports = function(worker, opts) {
   else
     worker.send('isready'); // warm up the webworker
 
-  if (opts.multiPv > 1) worker.send('setoption name MultiPV value ' + opts.multiPv);
+  if (opts.multiPv() > 1) worker.send('setoption name MultiPV value ' + opts.multiPv());
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {

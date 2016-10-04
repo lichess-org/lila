@@ -8,9 +8,9 @@ var sunsetterProtocol = require('./sunsetterProtocol');
 module.exports = function(possible, variant, emit) {
 
   var instanceId = Math.random().toString(36).substring(2).slice(0, 4);
-  var nbWorkers = 3;
   var minDepth = 7;
   var maxDepth = util.storedProp('ceval.max-depth', 18);
+  var multiPv = util.storedProp('ceval.multipv', 3);
   var curDepth = 0;
   var storageKey = 'client-eval-enabled';
   var allowed = m.prop(true);
@@ -26,7 +26,7 @@ module.exports = function(possible, variant, emit) {
       minDepth: minDepth,
       maxDepth: maxDepth,
       variant: variant,
-      multiPv: 3
+      multiPv: multiPv
     });
   } else {
     pool = makePool(sunsetterProtocol, {
@@ -139,6 +139,7 @@ module.exports = function(possible, variant, emit) {
     allowed: allowed,
     possible: possible,
     enabled: enabled,
+    multiPv: multiPv,
     toggle: function() {
       if (!possible() || !allowed()) return;
       stop();
