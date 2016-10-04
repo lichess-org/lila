@@ -57,6 +57,8 @@ module.exports = function(worker, opts) {
       return;
     }
 
+    var depth = parseInt(matches[1]);
+    if (depth < opts.minDepth) return;
     var multiPv = parseInt(matches[2]);
     var cp, mate;
     if (matches[3] === 'cp') cp = parseFloat(matches[4]);
@@ -68,8 +70,6 @@ module.exports = function(worker, opts) {
 
     if (multiPv === 1) {
       emit();
-      var depth = parseInt(matches[1]);
-      if (depth < opts.minDepth) return;
       state = {
         work: work,
         eval: {
@@ -82,8 +82,9 @@ module.exports = function(worker, opts) {
         }
       };
     }
+    else if (!state || depth < state.eval.depth) return; // multipv progress
 
-    if (state) state.eval.pvs[multiPv - 1] = {
+    state.eval.pvs[multiPv - 1] = {
       cp: cp,
       mate: mate,
       pv: matches[6],
