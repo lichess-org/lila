@@ -118,12 +118,12 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('h2', 'Settings'), [
+      m('h2', 'Computer analysis'), [
         (function(id) {
           return m('div.setting', [
             m('label', {
               'for': id
-            }, 'Computer arrows'),
+            }, 'Best move arrow'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -143,7 +143,7 @@ module.exports = {
           return m('div.setting', [
             m('label', {
               'for': id
-            }, 'Computer gauge'),
+            }, 'Evaluation gauge'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -159,10 +159,7 @@ module.exports = {
               })
             ])
           ]);
-        })('analyse-toggle-gauge')
-      ],
-      m('h2', 'Local Stockfish'), [
-        (function(id) {
+        })('analyse-toggle-gauge'), (function(id) {
           var max = 5;
           return m('div.setting', [
             m('label', {
