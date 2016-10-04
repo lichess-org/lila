@@ -747,8 +747,16 @@ body.piece_letter .tablebase td:first-child {
   cursor: pointer;
   text-transform: uppercase;
 }
-.lichess_ground .action_menu .setting > input[type=range] {
+.lichess_ground .action_menu input[type=range] {
   width: 100px;
+  margin-right: 25px;
+}
+.lichess_ground .action_menu input[type=range]::after {
+  content: attr(data-value);
+  display: block;
+  width: 25px;
+  margin-right: -25px;
+  text-align: right;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;

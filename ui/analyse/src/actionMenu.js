@@ -53,8 +53,11 @@ function rangeConfig(read, write) {
   return function(el, isUpdate, ctx) {
     if (isUpdate) return;
     el.value = read();
+    el.setAttribute('data-value', read());
     var handler = function(e) {
-      write(e.target.value);
+      var v = e.target.value;
+      el.setAttribute('data-value', v);
+      write(v);
     };
     el.addEventListener('change', handler)
     ctx.onunload = function() {
@@ -204,7 +207,7 @@ module.exports = {
               id: id,
               type: 'range',
               min: 32,
-              max: 1024,
+              max: 992,
               step: 32,
               config: rangeConfig(function() {
                 return ctrl.ceval.hashSize();
@@ -213,7 +216,7 @@ module.exports = {
               })
             })
           ]);
-        })('analyse-threads')
+        })('analyse-memory')
       ],
       m('h2', 'Tools'),
       m('div.tools', [
