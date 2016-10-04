@@ -749,13 +749,13 @@ body.piece_letter .tablebase td:first-child {
 }
 .lichess_ground .action_menu input[type=range] {
   width: 100px;
-  margin-right: 25px;
+  margin-right: 40px;
 }
 .lichess_ground .action_menu input[type=range]::after {
   content: attr(data-value);
   display: block;
-  width: 25px;
-  margin-right: -25px;
+  width: 40px;
+  margin-right: -40px;
   text-align: right;
 }
 .lichess_ground .opening {

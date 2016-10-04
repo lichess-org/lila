@@ -49,14 +49,15 @@ function autoplayButtons(ctrl) {
   }));
 }
 
-function rangeConfig(read, write) {
+function rangeConfig(read, write, toString) {
   return function(el, isUpdate, ctx) {
     if (isUpdate) return;
-    el.value = read();
-    el.setAttribute('data-value', read());
+    var v = read();
+    el.value = v;
+    el.setAttribute('data-value', toString(v));
     var handler = function(e) {
       var v = e.target.value;
-      el.setAttribute('data-value', v);
+      el.setAttribute('data-value', toString(v));
       write(v);
     };
     el.addEventListener('change', handler)
@@ -161,6 +162,7 @@ module.exports = {
       ],
       m('h2', 'Local Stockfish'), [
         (function(id) {
+          var max = 5;
           return m('div.setting', [
             m('label', {
               'for': id
@@ -169,18 +171,21 @@ module.exports = {
               id: id,
               type: 'range',
               min: 1,
-              max: 5,
+              max: max,
               step: 1,
               config: rangeConfig(function() {
                 return ctrl.ceval.multiPv();
               }, function(v) {
                 ctrl.cevalSetMultiPv(parseInt(v));
+              }, function(v) {
+                return v + ' / ' + max;
               })
             })
           ]);
         })('analyse-multipv'),
         ctrl.ceval.pnaclSupported ? [
           (function(id) {
+            var max = navigator.hardwareConcurrency || 1;
             return m('div.setting', [
               m('label', {
                 'for': id
@@ -189,12 +194,14 @@ module.exports = {
                 id: id,
                 type: 'range',
                 min: 1,
-                max: navigator.hardwareConcurrency || 1,
+                max: max,
                 step: 1,
                 config: rangeConfig(function() {
                   return ctrl.ceval.threads();
                 }, function(v) {
                   ctrl.cevalSetThreads(parseInt(v));
+                }, function(v) {
+                  return v + ' / ' + max;
                 })
               })
             ]);
@@ -213,6 +220,8 @@ module.exports = {
                   return ctrl.ceval.hashSize();
                 }, function(v) {
                   ctrl.cevalSetHashSize(parseInt(v));
+                }, function(v) {
+                  return v + 'MB';
                 })
               })
             ]);
