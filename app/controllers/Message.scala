@@ -84,7 +84,7 @@ object Message extends LilaController {
               Redirect(routes.Message.thread(thread.id))
             }),
           api = _ => forms.thread(me).bindFromRequest.fold(
-            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+            err => fuccess(BadRequest(Env.message.jsonView.createThreadError(err))),
             data => api.makeThread(data, me) map { thread =>
               Ok(Json.obj("ok" -> true, "id" -> thread.id))
             })
