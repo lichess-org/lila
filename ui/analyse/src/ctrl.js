@@ -230,7 +230,7 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
-    this.ceval.stop();
+    this.ceval.destroy();
     this.ceval = makeCeval();
   }.bind(this);
 

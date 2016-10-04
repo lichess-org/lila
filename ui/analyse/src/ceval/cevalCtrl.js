@@ -155,6 +155,7 @@ module.exports = function(possible, variant, emit) {
     curDepth: function() {
       return curDepth;
     },
-    maxDepth: maxDepth
+    maxDepth: maxDepth,
+    destroy: pool.destroy
   };
 };

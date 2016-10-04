@@ -32,7 +32,10 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
         protocol.start(work);
       });
     },
-    stop: stop
+    stop: stop,
+    destroy: function() {
+      terminateWorker(worker);
+    }
   };
 
   boot();
@@ -57,7 +60,9 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
     worker.setAttribute('height', '0');
     document.body.appendChild(worker);
     return worker;
-  }, function() {}, poolOpts, makeProtocol, protocolOpts);
+  }, function(worker) {
+    worker.remove();
+  }, poolOpts, makeProtocol, protocolOpts);
 }
 
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {
@@ -82,8 +87,8 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   }
 
   var stopAll = function() {
-    workers.forEach(function(i) {
-      i.stop();
+    workers.forEach(function(w) {
+      w.stop();
     });
   };
 
@@ -93,6 +98,12 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
       getWorker().start(work);
     },
     stop: stopAll,
-    warmup: initWorkers
+    warmup: initWorkers,
+    destroy: function() {
+      workers.forEach(function(w) {
+        w.stop();
+        w.destroy();
+      });
+    }
   };
 };
