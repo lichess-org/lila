@@ -749,15 +749,15 @@ body.piece_letter .tablebase td:first-child {
 }
 .action_menu input[type=range] {
   width: 100px;
-  margin-right: 40px;
+  margin-right: 42px;
   -webkit-appearance: none;
   background: none;
 }
 .action_menu input[type=range]::after {
   content: attr(data-value);
   display: block;
-  width: 40px;
-  margin-right: -40px;
+  width: 42px;
+  margin-right: -42px;
   text-align: right;
 }
 .action_menu input[type=range]:focus {
