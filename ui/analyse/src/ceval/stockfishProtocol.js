@@ -19,10 +19,14 @@ module.exports = function(worker, opts) {
 
   var work = null;
   var state = null;
+  var minLegalMoves = 0;
   var stopped = m.deferred();
 
   var emit = function() {
-    if (state) work.emit(state);
+    if (!work || !state) return;
+    minLegalMoves = Math.max(minLegalMoves, state.eval.pvs.length);
+    if (state.eval.pvs.length < minLegalMoves) return;
+    work.emit(state);
     state = null;
   };
 
@@ -45,12 +49,13 @@ module.exports = function(worker, opts) {
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
+      emit();
       stopped.resolve(true);
       return;
     }
     if (!work) return;
 
-    if (/currmovenumber|lowerbound|upperbound/.test(text)) return;
+    if (text.indexOf('currmovenumber') !== -1) return;
     var matches = text.match(/depth (\d+) .*multipv (\d+) .*score (cp|mate) ([-\d]+) .*nps (\d+) .*pv (.+)/);
     if (!matches) {
       emit();
@@ -98,6 +103,7 @@ module.exports = function(worker, opts) {
     start: function(w) {
       work = w;
       state = null;
+      minLegalMoves = 0;
       worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },
