@@ -47,7 +47,10 @@ module.exports = function(ctrl) {
       if (ctrl.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1]) {
         n.ceval.pvs.slice(1).forEach(function(pv) {
           var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
-          if (isNaN(shift) || shift < 0) console.log('------------------', shift, n.ceval.pvs);
+          if (isNaN(shift) || shift < 0) {
+            console.log('------------------', shift, n.ceval.pvs);
+            return;
+          }
           if (shift > 0.2) return;
           // 12 to 2
           var width = Math.round(12 - shift * 50);
