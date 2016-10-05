@@ -17,6 +17,17 @@ function escapeHtml(html) {
     .replace(/'/g, "&#039;");
 }
 
+var isSpammer = lichess.storage.make('spammer');
+
+function isSpam(txt) {
+  return /chess-bot\.com/.test(txt);
+}
+
+function skipSpam(txt) {
+  if (isSpam(txt) && isSpammer.get() != '1') return true;
+  return false;
+}
+
 var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
 var linkReplace = function(match, before, url) {
@@ -57,7 +68,8 @@ function selectLines(ctrl) {
   ctrl.data.lines.forEach(function(line) {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.vm.isTroll)
+      (!line.r || ctrl.vm.isTroll) &&
+      !skipSpam(line.t)
     ) ls.push(line);
     prev = line;
   });
@@ -86,6 +98,7 @@ function input(ctrl) {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
           } else {
+            if (isSpam(e.target.value)) isSpammer.set(1);
             ctrl.post(e.target.value);
             e.target.value = '';
           }
