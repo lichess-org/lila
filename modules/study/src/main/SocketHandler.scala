@@ -43,7 +43,7 @@ private[study] final class SocketHandler(
         api.talk(userId, studyId, text, socket)
       }
     }
-    case ("anaMove", o) => AnaRateLimit(uid.value) {
+    case ("anaMove", o) => AnaRateLimit(uid.value, member) {
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
@@ -68,7 +68,7 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("anaDrop", o) => AnaRateLimit(uid.value) {
+    case ("anaDrop", o) => AnaRateLimit(uid.value, member) {
       AnaDrop parse o foreach { anaDrop =>
         anaDrop.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
@@ -93,7 +93,7 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("anaDests", o) => AnaRateLimit(uid.value) {
+    case ("anaDests", o) => AnaRateLimit(uid.value, member) {
       member push {
         AnaDests.parse(o).map(destCache.get).fold(makeMessage("destsFailure", "Bad dests request")) { res =>
           makeMessage("dests", Json.obj(
@@ -106,14 +106,14 @@ private[study] final class SocketHandler(
         }
       }
     }
-    case ("setPath", o) => AnaRateLimit(uid.value) {
+    case ("setPath", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
           api.setPath(userId, studyId, position.ref, uid)
         }
       }
     }
-    case ("deleteNode", o) => AnaRateLimit(uid.value) {
+    case ("deleteNode", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
         for {
           jumpTo <- (o \ "d" \ "jumpTo").asOpt[String] map Path.apply
@@ -122,14 +122,14 @@ private[study] final class SocketHandler(
           api.deleteNodeAt(userId, studyId, position.ref, uid)
       }
     }
-    case ("promoteNode", o) => AnaRateLimit(uid.value) {
+    case ("promoteNode", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
           api.promoteNodeAt(userId, studyId, position.ref, uid)
         }
       }
     }
-    case ("setRole", o) if owner => AnaRateLimit(uid.value) {
+    case ("setRole", o) if owner => AnaRateLimit(uid.value, member) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(userId, studyId, d.userId, d.role)
