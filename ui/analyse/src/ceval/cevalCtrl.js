@@ -55,11 +55,11 @@ module.exports = function(possible, variant, emit) {
           knps = util.median(values) / 1000;
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
-        if (knps > 200) depth = 21;
-        if (knps > 250) depth = 22;
-        if (knps > 500) depth = 23;
-        if (knps > 800) depth = 24;
-        if (knps > 1500) depth = 25;
+        if (knps > 250) depth = 21;
+        if (knps > 500) depth = 22;
+        if (knps > 1000) depth = 23;
+        if (knps > 2000) depth = 24;
+        if (knps > 3500) depth = 25;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }
