@@ -47,15 +47,9 @@ module.exports = function(ctrl) {
       if (ctrl.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(ctrl.vm.threatMode && n.threat && n.threat.pvs && n.threat.pvs[2])) {
         n.ceval.pvs.slice(1).forEach(function(pv) {
           var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
-          if (isNaN(shift) || shift < 0) {
-            console.log('------------------', shift, n.ceval.pvs);
-            return;
-          }
-          if (shift > 0.2) return;
-          // 12 to 2
-          var width = Math.round(12 - shift * 50);
+          if (shift > 0.2 || isNaN(shift) || shift < 0) return;
           shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleGrey', {
-            lineWidth: width
+            lineWidth: Math.round(12 - shift * 50) // 12 to 2
           }));
         });
       }
@@ -64,22 +58,12 @@ module.exports = function(ctrl) {
   if (ctrl.ceval.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best) {
     var rcolor = color === 'white' ? 'black' : 'white';
     if (n.threat.pvs[1]) {
-      shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.best, 'red', {
-        lineWidth: 15,
-        opacity: 0.4
-      }));
+      shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.best, 'paleRed'));
       n.threat.pvs.slice(1).forEach(function(pv) {
         var shift = winningChances.povDiff(rcolor, pv, n.threat.pvs[0]);
-        if (isNaN(shift) || shift < 0) {
-          console.log('------------------', shift, n.threat.pvs);
-          return;
-        }
-        if (shift > 0.2) return;
-        // 11 to 2
-        var width = Math.round(11 - shift * 45);
-        shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'red', {
-          lineWidth: width,
-          opacity: 0.4
+        if (shift > 0.2 || isNaN(shift) || shift < 0) return;
+        shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleRed', {
+          lineWidth: Math.round(11 - shift * 45) // 11 to 2
         }));
       });
     } else
