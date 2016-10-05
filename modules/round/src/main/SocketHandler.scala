@@ -140,7 +140,7 @@ private[round] final class SocketHandler(
       userTv = userTv,
       apiVersion = apiVersion)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
-      Handler(hub, socket, uid, join, user map (_.id)) {
+      Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }

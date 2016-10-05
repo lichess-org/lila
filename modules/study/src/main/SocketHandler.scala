@@ -243,7 +243,7 @@ private[study] final class SocketHandler(
     owner: Boolean): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(studyId) mapTo manifest[ActorRef]
     join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
-    handler ← Handler(hub, socket, uid.value, join, user.map(_.id)) {
+    handler ← Handler(hub, socket, uid.value, join) {
       case Socket.Connected(enum, member) =>
         (controller(socket, studyId, uid, member, owner = owner), enum, member)
     }

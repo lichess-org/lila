@@ -28,12 +28,11 @@ object Handler {
     hub: lila.hub.Env,
     socket: ActorRef,
     uid: String,
-    join: Any,
-    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
+    join: Any)(connecter: Connecter): Fu[JsSocketHandler] = {
 
     def baseController(member: SocketMember): Controller = {
       case ("p", _) => socket ! Ping(uid)
-      case ("following_onlines", _) => userId foreach { u =>
+      case ("following_onlines", _) => member.userId foreach { u =>
         hub.actor.relation ! ReloadOnlineFriends(u)
       }
       case ("startWatching", o) => o str "d" foreach { ids =>

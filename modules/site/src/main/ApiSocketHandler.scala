@@ -25,7 +25,7 @@ private[site] final class ApiSocketHandler(
       case _ => // not available on API socket
     }
 
-    Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
+    Handler(hub, socket, uid, Join(uid, userId, flag)) {
       case Connected(enum, member) => (controller(member), enum, member)
     }
   }
