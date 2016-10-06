@@ -197,7 +197,7 @@ div.gauge_displayed .fork {
   background: #e4e4e4;
   font-family: 'Roboto';
 }
-.pv_box div {
+.pv_box .pv {
   padding: 5px;
   border: 1px solid #ccc;
   border-bottom: 0;
@@ -205,6 +205,7 @@ div.gauge_displayed .fork {
   overflow: hidden;
   white-space: nowrap;
   font-family: 'ChessSansPiratf', sans-serif;
+  height: 16px;
 }
 .ceval_box {
   flex: 0 0 38px;

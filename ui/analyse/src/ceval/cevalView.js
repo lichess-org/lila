@@ -138,10 +138,11 @@ module.exports = {
     )
   },
   renderPvs: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs()) return;
-    var evs = ctrl.currentEvals();
-    console.log(evs);
-    if (!evs || !evs.client || !evs.client.pvs) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
+    var evs = ctrl.currentEvals() || {};
+    var clientEvs = evs.client || {};
+    var pvs = clientEvs.pvs || [];
+    console.log(pvs);
     return m('div.pv_box', {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
@@ -160,10 +161,10 @@ module.exports = {
           ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
-    }, evs.client.pvs.map(function(pv) {
-      return m('div.pv', {
-        'data-uci': pv.best
-      }, pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pv.pv, pv.mate));
+    }, util.range(ctrl.ceval.multiPv()).map(function(i) {
+      return !pvs[i] ? m('div.pv') : m('div.pv', {
+        'data-uci': pvs[i].best
+      }, pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pvs[i].pv, pvs[i].mate));
     }));
   }
 };
