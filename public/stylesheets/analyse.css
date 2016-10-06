@@ -197,6 +197,15 @@ div.gauge_displayed .fork {
   background: #e4e4e4;
   font-family: 'Roboto';
 }
+.pv_box div {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'ChessSansPiratf', sans-serif;
+}
 .ceval_box {
   flex: 0 0 38px;
   border: 1px solid #ccc;
