@@ -107,16 +107,43 @@ function makeMove(variant, board, uci) {
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];
-  var d = board.pieces[to];
+  var capture = board.pieces[to];
 
-  if (p === 'k' || p === 'K') board[p] = to;
+  if (p === 'p' || p === 'P') {
+    if (uci[0] !== uci[2] && !capture) {
+      // en passant
+      delete board.pieces[to + (board.turn ? 8 : -8)];
+      capture = true;
+    }
+  }
+
+  if (p === 'k' || p === 'K') {
+    // castling
+    var frCastle = capture && isBlack(p) === isBlack(capture);
+    if (frCastle || squareDist(from, to) > 1) {
+      if (frCastle) delete board.pieces[to];
+      if (to < from) {
+        if (!frCastle) delete board.pieces[board.turn ? square('a8') : square('a1')];
+        to = board.turn ? square('c8') : square('c1');
+        board.pieces[to + 1] = board.turn ? 'R' : 'r';
+      }
+      else {
+        if (!frCastle) delete board.pieces[board.turn ? square('h8') : square('h1')];
+        to = board.turn ? square('g8') : square('g1');
+        board.pieces[to - 1] = board.turn ? 'R' : 'r';
+      }
+      board[p] = to;
+      return;
+    }
+    board[p] = to;
+  }
 
   if (move[2]) board.pieces[to] = board.turn ? move[2] : move[2].toUpperCase();
   else board.pieces[to] = p;
   delete board.pieces[from];
 
   // atomic explosion
-  if (variant === 'atomic' && d) {
+  if (variant === 'atomic' && capture) {
     delete board.pieces[to];
     kingMovesTo(to).forEach(function (o) {
       if (board.pieces[o] !== 'p' && board.pieces[o] !== 'P') delete board.pieces[o];
