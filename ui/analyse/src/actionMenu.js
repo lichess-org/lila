@@ -23,7 +23,6 @@ var cplSpeeds = [{
 }];
 
 function deleteButton(data, userId) {
-  console.log('delete button', data, userId);
   if (data.game.source === 'import' &&
     data.game.importedBy && data.game.importedBy === userId)
     return m('form.delete', {

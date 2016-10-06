@@ -142,7 +142,6 @@ module.exports = {
     var evs = ctrl.currentEvals() || {};
     var clientEvs = evs.client || {};
     var pvs = clientEvs.pvs || [];
-    console.log(pvs);
     return m('div.pv_box', {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
