@@ -22,9 +22,10 @@ function readFen(fen) {
     fmvn: parseInt(parts[5], 10)
   };
 
-  parts[0].replace(/~/g, '').split('/').forEach(function(row, y) {
+  parts[0].split('/').forEach(function(row, y) {
     var x = 0;
     row.split('').forEach(function(v) {
+      if (v == '~') continue;
       var nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
@@ -68,19 +69,25 @@ function slidingMovesTo(s, deltas, board) {
   return result;
 }
 
-function checkers(board) {
-  if (squareDist(board.k, board.K) <= 1) return [];
+function isCheck(variant, board) {
+  if (variant === 'antichess' || variant == 'racingKings') return false;
+
   var ksq = board.turn ? board.K : board.k;
+  if (typeof ksq !== 'number') return false;
+
+  if (variant === 'atomic' && squareDist(board.k, board.K) <= 1) return false;
+
   var n = board.turn ? 'n' : 'N';
   var r = board.turn ? 'r' : 'R';
   var b = board.turn ? 'b' : 'B';
   var q = board.turn ? 'q' : 'Q';
-  return knightMovesTo(ksq).filter(function (o) {
-    return board.pieces[o] === n;
-  }).concat(slidingMovesTo(ksq, ROOK_DELTAS, board).filter(function (o) {
-    return board.pieces[o] === r || board.pieces[o] === q;
-  })).concat(slidingMovesTo(ksq, BISHOP_DELTAS, board).filter(function (o) {
-    return board.pieces[o] === b || board.pieces[o] === q;
+
+  return (knightMovesTo(ksq).some(function(o) {
+      return board.pieces[o] === n;
+  }) || slidingMovesTo(ksq, ROOK_DELTAS, board).some(function (o) {
+      return board.pieces[o] === r || board.pieces[o] === q;
+  }) || slidingMovesTo(ksq, BISHOP_DELTAS, board).some(function (o) {
+      return board.pieces[o] === b || board.pieces[o] === q;
   }));
 }
 
@@ -175,7 +182,7 @@ module.exports = function(variant, fen, pv, mate) {
     first = false;
     s += san(board, uci);
     makeMove(board, uci);
-    if (checkers(board).length) s += '+';
+    if (isCheck(variant, board)) s += '+';
     return s;
   }).join(' ');
 
