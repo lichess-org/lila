@@ -93,6 +93,9 @@ function makeMove(board, uci) {
     return;
   }
 
+  // todo: ep
+  // todo: castling
+
   var move = util.decomposeUci(uci);
   var from = square(move[0]);
   var to = square(move[1]);
@@ -159,21 +162,29 @@ function san(board, uci) {
   return san;
 }
 
-function line(board, pv) {
+module.exports = function(variant, fen, pv, mate) {
+  var board = readFen(fen);
+  var turn = board.turn;
+  var moves = pv.split(' ');
+
   var first = true;
-  return pv.split(' ').map(function (uci) {
+  var line = moves.map(function(uci) {
     var s = '';
     if (board.turn) s = board.fmvn + '. ';
     else if (first) s = board.fmvn + '... ';
     first = false;
-
     s += san(board, uci);
     makeMove(board, uci);
     if (checkers(board).length) s += '+';
     return s;
   }).join(' ');
-}
 
-module.exports = function(variant, fen, pv, mate) {
-  return line(readFen(fen), pv);
+  if (mate) {
+    console.log(mate);
+    var matePlies = mate * 2;
+    if (mate > 0 === turn) matePlies--;
+    if (moves.length >= matePlies) line = line.replace(/\+?$/, '#');
+  }
+
+  return line;
 }
