@@ -61,7 +61,6 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
-    showPvs: util.storedProp('show-pvs', false),
     autoScrollRequested: false,
     element: opts.element,
     redirecting: false,

@@ -14,6 +14,7 @@ module.exports = function(possible, variant, emit) {
   var multiPv = util.storedProp('ceval.multipv', 1);
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = util.storedProp('ceval.hash-size', 128);
+  var showPvs = util.storedProp('ceval.show-pvs', false);
   var curDepth = 0;
   var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
@@ -148,6 +149,7 @@ module.exports = function(possible, variant, emit) {
     multiPv: multiPv,
     threads: threads,
     hashSize: hashSize,
+    showPvs: showPvs,
     toggle: function() {
       if (!possible() || !allowed()) return;
       stop();

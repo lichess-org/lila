@@ -194,9 +194,9 @@ module.exports = {
                 id: id,
                 class: 'cmn-toggle cmn-toggle-round',
                 type: 'checkbox',
-                checked: ctrl.vm.showPvs(),
+                checked: ctrl.ceval.showPvs(),
                 config: util.bindOnce('change', function(e) {
-                  ctrl.vm.showPvs(e.target.checked);
+                  ctrl.ceval.showPvs(e.target.checked);
                 })
               }),
               m('label', {

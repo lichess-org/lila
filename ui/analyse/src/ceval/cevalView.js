@@ -19,7 +19,6 @@ function localEvalInfo(ctrl, evs) {
     return 'Loading engine...';
   }
   if (evs.client.dict) return 'Book move';
-  if (evs.client.pvs) return pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, evs.client.pvs[0].pv, evs.client.pvs[0].mate);
   var t = 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth;
   if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
   return t;
@@ -136,6 +135,15 @@ module.exports = {
         })
       ]),
       threatButton(ctrl)
-    );
+    )
+  },
+  renderPvs: function(ctrl) {
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs()) return;
+    var evs = ctrl.currentEvals();
+    console.log(evs);
+    if (!evs || !evs.client || !evs.client.pvs) return;
+    return m('div.pv_box', evs.client.pvs.map(function (pv) {
+      return m('div', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pv.pv, pv.mate));
+    }));
   }
 };

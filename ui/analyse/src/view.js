@@ -242,6 +242,7 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
+            cevalView.renderPvs(ctrl),
             renderOpeningBox(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
