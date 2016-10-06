@@ -204,7 +204,7 @@ function san(board, uci) {
 module.exports = function(variant, fen, pv, mate) {
   var board = readFen(fen);
   var turn = board.turn;
-  var moves = pv.split(' ');
+  var moves = pv.split(' ').slice(0, 10);
 
   var first = true;
   var line = moves.map(function(uci) {
