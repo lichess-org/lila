@@ -25,7 +25,7 @@ function readFen(fen) {
   parts[0].split('/').forEach(function(row, y) {
     var x = 0;
     row.split('').forEach(function(v) {
-      if (v == '~') continue;
+      if (v == '~') return;
       var nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
@@ -60,7 +60,7 @@ function slidingMovesTo(s, deltas, board) {
   var result = [];
   deltas.forEach(function (delta) {
     for (var square = s + delta;
-         square >= 0 && square < 64 && squareDist(s, s - delta) === 1;
+         square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
          square += delta) {
       result.push(square);
       if (board.pieces[square]) break;
@@ -83,7 +83,7 @@ function isCheck(variant, board) {
   var q = board.turn ? 'q' : 'Q';
 
   return (knightMovesTo(ksq).some(function(o) {
-      return board.pieces[o] === n;
+      return false && (board.pieces[o] === n);
   }) || slidingMovesTo(ksq, ROOK_DELTAS, board).some(function (o) {
       return board.pieces[o] === r || board.pieces[o] === q;
   }) || slidingMovesTo(ksq, BISHOP_DELTAS, board).some(function (o) {
@@ -102,6 +102,7 @@ function makeMove(board, uci) {
 
   // todo: ep
   // todo: castling
+  // todo: explosion
 
   var move = util.decomposeUci(uci);
   var from = square(move[0]);
@@ -111,12 +112,11 @@ function makeMove(board, uci) {
   if (p === 'k' || p === 'K') board[p] = to;
 
   if (move[2]) board.pieces[to] = board.turn ? move[2] : move[2].toUpperCase();
-  else board.pieces[to] = board.pieces[from];
+  else board.pieces[to] = p;
   delete board.pieces[from];
 }
 
 function san(board, uci) {
-  // drops
   if (uci.indexOf('@') !== -1) return uci;
 
   var move = util.decomposeUci(uci);
@@ -141,10 +141,9 @@ function san(board, uci) {
     else return 'O-O';
   }
 
-  // normal move
-  san = pt.toUpperCase();
+  var san = pt.toUpperCase();
 
-  // disambiguation
+  // disambiguate normal moves
   var candidates = [];
   if (pt == 'k') candidates = kingMovesTo(to);
   else if (pt == 'n') candidates = knightMovesTo(to);
@@ -161,10 +160,8 @@ function san(board, uci) {
   if (file) san += uci[0];
   if (rank) san += uci[1];
 
-  // captures
-  if (d) san += 'x';
-
   // target
+  if (d) san += 'x';
   san += move[1];
   return san;
 }
@@ -187,7 +184,6 @@ module.exports = function(variant, fen, pv, mate) {
   }).join(' ');
 
   if (mate) {
-    console.log(mate);
     var matePlies = mate * 2;
     if (mate > 0 === turn) matePlies--;
     if (moves.length >= matePlies) line = line.replace(/\+?$/, '#');
