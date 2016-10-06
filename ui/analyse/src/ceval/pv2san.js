@@ -91,7 +91,7 @@ function isCheck(variant, board) {
   }));
 }
 
-function makeMove(board, uci) {
+function makeMove(variant, board, uci) {
   if (!board.turn) board.fmvn++;
   board.turn = !board.turn;
 
@@ -102,18 +102,26 @@ function makeMove(board, uci) {
 
   // todo: ep
   // todo: castling
-  // todo: explosion
 
   var move = util.decomposeUci(uci);
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];
+  var d = board.pieces[to];
 
   if (p === 'k' || p === 'K') board[p] = to;
 
   if (move[2]) board.pieces[to] = board.turn ? move[2] : move[2].toUpperCase();
   else board.pieces[to] = p;
   delete board.pieces[from];
+
+  // atomic explosion
+  if (variant === 'atomic' && d) {
+    delete board.pieces[to];
+    kingMovesTo(to).forEach(function (o) {
+      if (board.pieces[o] !== 'p' && board.pieces[o] !== 'P') delete board.pieces[o];
+    });
+  }
 }
 
 function san(board, uci) {
@@ -178,7 +186,7 @@ module.exports = function(variant, fen, pv, mate) {
     else if (first) s = board.fmvn + '... ';
     first = false;
     s += san(board, uci);
-    makeMove(board, uci);
+    makeMove(variant, board, uci);
     if (isCheck(variant, board)) s += '+';
     return s;
   }).join(' ');
