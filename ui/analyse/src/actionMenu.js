@@ -23,6 +23,7 @@ var cplSpeeds = [{
 }];
 
 function deleteButton(data, userId) {
+  console.log('delete button', data, userId);
   if (data.game.source === 'import' &&
     data.game.importedBy && data.game.importedBy === userId)
     return m('form.delete', {
@@ -183,7 +184,27 @@ module.exports = {
               })
             ])
           ]);
-        })('analyse-toggle-gauge'), (function(id) {
+        })('analyse-toggle-gauge'), (function (id) {
+          return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Principal variations'),
+            m('div.switch', [
+              m('input', {
+                id: id,
+                class: 'cmn-toggle cmn-toggle-round',
+                type: 'checkbox',
+                checked: ctrl.vm.showPvs(),
+                config: util.bindOnce('change', function(e) {
+                  ctrl.vm.showPvs(e.target.checked);
+                })
+              }),
+              m('label', {
+                'for': id
+              })
+            ])
+          ]);
+        })('analyse-toggle-pvs'), (function(id) {
           var max = 5;
           return m('div.setting', [
             m('label', {
