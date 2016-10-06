@@ -5,7 +5,7 @@ var util = require('../util');
 var stockfishProtocol = require('./stockfishProtocol');
 var sunsetterProtocol = require('./sunsetterProtocol');
 
-module.exports = function(possible, variant, emit) {
+module.exports = function(root, possible, variant, emit) {
 
   var instanceId = Math.random().toString(36).substring(2).slice(0, 4);
   var pnaclSupported = navigator.mimeTypes['application/x-pnacl'];
@@ -20,6 +20,7 @@ module.exports = function(possible, variant, emit) {
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && enableStorage.get() == '1');
   var started = false;
+  var hoveringUci = m.prop(null);
 
   var pool;
   if (variant.key !== 'crazyhouse') {
@@ -150,6 +151,11 @@ module.exports = function(possible, variant, emit) {
     threads: threads,
     hashSize: hashSize,
     showPvs: showPvs,
+    hoveringUci: hoveringUci,
+    setHoveringUci: function(uci) {
+      hoveringUci(uci);
+      root.setAutoShapes();
+    },
     toggle: function() {
       if (!possible() || !allowed()) return;
       stop();

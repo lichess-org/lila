@@ -142,8 +142,28 @@ module.exports = {
     var evs = ctrl.currentEvals();
     console.log(evs);
     if (!evs || !evs.client || !evs.client.pvs) return;
-    return m('div.pv_box', evs.client.pvs.map(function (pv) {
-      return m('div', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pv.pv, pv.mate));
+    return m('div.pv_box', {
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate) {
+          el.addEventListener('mouseover', function(e) {
+            ctrl.ceval.setHoveringUci($(e.target).attr('data-uci'));
+          });
+          el.addEventListener('mouseout', function(e) {
+            ctrl.ceval.setHoveringUci(null);
+          });
+          el.addEventListener('click', function(e) {
+            var uci = $(e.target).attr('data-uci');
+            if (uci) ctrl.playUci(uci);
+          });
+        }
+        setTimeout(function () {
+          ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+        }, 100);
+      }
+    }, evs.client.pvs.map(function(pv) {
+      return m('div.pv', {
+        'data-uci': pv.best
+      }, pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pv.pv, pv.mate));
     }));
   }
 };

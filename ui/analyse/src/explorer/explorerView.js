@@ -21,30 +21,26 @@ function resultBar(move) {
 
 var lastShow = null;
 
-function $trUci($tr) {
-  return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
-}
-
 function moveTableAttributes(ctrl, fen) {
   return {
     config: function(el, isUpdate, ctx) {
       if (!isUpdate) {
         el.addEventListener('mouseover', function(e) {
-          ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
+          ctrl.explorer.setHoveringUci($(e.target).parents('tr').attr('data-uci'));
         });
         el.addEventListener('mouseout', function(e) {
           ctrl.explorer.setHoveringUci(null);
         });
         el.addEventListener('click', function(e) {
-          var $tr = $(e.target).parents('tr');
-          if ($tr.length) ctrl.explorerMove($trUci($tr));
+          var uci = $(e.target).parents('tr').attr('data-uci');
+          if (uci) ctrl.explorerMove(uci);
         });
         return;
       }
       if (ctx.lastFen === fen) return;
       ctx.lastFen = fen;
       setTimeout(function() {
-        ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+        ctrl.explorer.setHoveringUci($(el).find('tr:hover').attr('data-uci'));
       }, 100);
     }
   };
