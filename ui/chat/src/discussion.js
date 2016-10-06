@@ -20,7 +20,7 @@ function escapeHtml(html) {
 var isSpammer = lichess.storage.make('spammer');
 
 function isSpam(txt) {
-  return /chess-bot\.com/.test(txt);
+  return /chess-bot/.test(txt);
 }
 
 function skipSpam(txt) {
