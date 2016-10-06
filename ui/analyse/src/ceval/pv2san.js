@@ -19,7 +19,7 @@ function readFen(fen) {
   var board = {
     pieces: {},
     turn: parts[1] === 'w',
-    fmvn: parseInt(parts[5], 10)
+    fmvn: parseInt(parts[5], 10) || 1
   };
 
   parts[0].split('/').forEach(function(row, y) {
@@ -119,17 +119,19 @@ function makeMove(variant, board, uci) {
     // castling
     var frCastle = capture && isBlack(p) === isBlack(capture);
     if (frCastle || squareDist(from, to) > 1) {
+      delete board.pieces[from];
       if (frCastle) delete board.pieces[to];
       if (to < from) {
         if (!frCastle) delete board.pieces[board.turn ? square('a8') : square('a1')];
         to = board.turn ? square('c8') : square('c1');
-        board.pieces[to + 1] = board.turn ? 'R' : 'r';
+        board.pieces[to + 1] = board.turn ? 'r' : 'R';
       }
       else {
         if (!frCastle) delete board.pieces[board.turn ? square('h8') : square('h1')];
         to = board.turn ? square('g8') : square('g1');
-        board.pieces[to - 1] = board.turn ? 'R' : 'r';
+        board.pieces[to - 1] = board.turn ? 'r' : 'R';
       }
+      board.pieces[to] = p;
       board[p] = to;
       return;
     }
