@@ -75,6 +75,7 @@ function isCheck(variant, board) {
   var ksq = board.turn ? board.K : board.k;
   if (typeof ksq !== 'number') return false;
 
+  // no check when kings are touching in atomic
   if (variant === 'atomic' && squareDist(board.k, board.K) <= 1) return false;
 
   var n = board.turn ? 'n' : 'N';
@@ -83,7 +84,7 @@ function isCheck(variant, board) {
   var q = board.turn ? 'q' : 'Q';
 
   return (knightMovesTo(ksq).some(function(o) {
-      return false && (board.pieces[o] === n);
+      return board.pieces[o] === n;
   }) || slidingMovesTo(ksq, ROOK_DELTAS, board).some(function (o) {
       return board.pieces[o] === r || board.pieces[o] === q;
   }) || slidingMovesTo(ksq, BISHOP_DELTAS, board).some(function (o) {
@@ -99,9 +100,6 @@ function makeMove(variant, board, uci) {
     board.pieces[square(uci.slice(2, 4))] = board.turn ? uci[0].toLowerCase() : uci[0];
     return;
   }
-
-  // todo: ep
-  // todo: castling
 
   var move = util.decomposeUci(uci);
   var from = square(move[0]);
