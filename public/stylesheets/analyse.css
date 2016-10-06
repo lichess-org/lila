@@ -208,6 +208,9 @@ div.gauge_displayed .fork {
   font-family: 'ChessSansPiratf', sans-serif;
   cursor: pointer;
 }
+body.piece_letter .pv_box .pv {
+  font-family: 'Noto Sans';
+}
 .ceval_box {
   flex: 0 0 38px;
   border: 1px solid #ccc;
