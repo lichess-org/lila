@@ -205,10 +205,10 @@ div.gauge_displayed .fork {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  cursor: pointer;
 }
-.pv_box .pv:hover {
+.pv_box .pv[data-uci]:hover {
   background: rgba(191, 231, 255, 0.7);
+  cursor: pointer;
 }
 .pv_box .pv strong {
   display: inline-block;

@@ -201,8 +201,9 @@ function san(board, uci) {
   return san;
 }
 
-module.exports = function(variant, fen, pv, mate) {
+module.exports = function(variant, fen, threat, pv, mate) {
   var board = readFen(fen);
+  if (threat) board.turn = !board.turn;
   var turn = board.turn;
   var moves = pv.split(' ').slice(0, 10);
 

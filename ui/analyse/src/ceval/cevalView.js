@@ -139,9 +139,15 @@ module.exports = {
   },
   renderPvs: function(ctrl) {
     if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
-    var evs = ctrl.currentEvals() || {};
-    var clientEvs = evs.client || {};
-    var pvs = clientEvs.pvs || [];
+    var pvs, threat = false;
+    if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
+      pvs = ctrl.vm.node.threat.pvs;
+      threat = true;
+    }
+    else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
+      pvs = ctrl.currentEvals().client.pvs;
+    else
+      pvs = [];
     return m('div.pv_box', {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
@@ -161,11 +167,12 @@ module.exports = {
         }, 100);
       }
     }, util.range(ctrl.ceval.multiPv()).map(function(i) {
-      return !pvs[i] ? m('div.pv') : m('div.pv', {
+      if (!pvs[i]) return m('div.pv');
+      else return m('div.pv', threat ? {} : {
         'data-uci': pvs[i].best
       }, [
         ctrl.ceval.multiPv() > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pvs[i].pv, pvs[i].mate))
+        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));
   }
