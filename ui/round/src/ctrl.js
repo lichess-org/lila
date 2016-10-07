@@ -8,7 +8,6 @@ var ground = require('./ground');
 var socket = require('./socket');
 var title = require('./title');
 var promotion = require('./promotion');
-var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
 var blind = require('./blind');
@@ -57,10 +56,7 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    if (hold.applies(this.data)) {
-      hold.register(this, meta);
-      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this);
-    }
+    lichess.ab && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);

@@ -1,10 +1,15 @@
 #!/bin/sh
 . bin/lilarc
 
-./ui/build prod
+# ./ui/build prod
 
 SRC=public/javascripts
 TARGET=public/compiled
+AB_FILE=${LILA_AB_FILE:-missing}
+
+if [ ! -f $AB_FILE ]; then
+  echo "Building without AB file!"
+fi
 
 mkdir -p public/compiled
 
@@ -17,7 +22,7 @@ for file in tv.js puzzle.js user.js coordinate.js; do
   fi
 done
 
-orig="$SRC/util.js $SRC/socket.js $SRC/main.js"
+orig="$SRC/util.js $SRC/socket.js $SRC/main.js $LILA_AB_FILE"
 comp=$TARGET/lichess.js
 lilalog "Compiling $comp"
 closure --js $orig --js_output_file $comp
