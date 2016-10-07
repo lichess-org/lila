@@ -66,6 +66,9 @@ lichess.notifyApp = (function() {
         },
         setNotified: function() {
           lichess.socket.send('notified');
+        },
+        pulse: function() {
+          $toggle.addClass('pulse');
         }
       });
     });

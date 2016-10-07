@@ -48,6 +48,11 @@ lichess.storage = (function() {
         },
         remove: function() {
           return lichess.storage.remove(k);
+        },
+        listen: function(f) {
+          window.addEventListener('storage', function(e) {
+            if (e.key === k) f(e);
+          });
         }
       };
     }
