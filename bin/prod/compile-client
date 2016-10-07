@@ -1,7 +1,7 @@
 #!/bin/sh
 . bin/lilarc
 
-# ./ui/build prod
+./ui/build prod
 
 SRC=public/javascripts
 TARGET=public/compiled
