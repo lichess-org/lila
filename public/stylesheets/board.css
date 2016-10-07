@@ -18,10 +18,6 @@
 .manipulable .cg-board.bh1 piece {
   opacity: 0.98;
 }
-.manipulable .cg-board.bh2 {
-  transform: perspective(1800px) rotateX(8deg);
-  -webkit-transform: perspective(1800px) rotateX(8deg);
-}
 .manipulable .cg-board {
   cursor: pointer;
 }
