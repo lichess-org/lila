@@ -49,30 +49,4 @@ final class JsonView(
       "username" -> userId,
       "online" -> isOnline(userId)
     )
-
-  private val errNames = Map(
-    "error.required" -> "is required",
-    "error.minLength" -> "too short",
-    "error.maxLength" -> "too long",
-    "Unknown username" -> "unknown")
-
-  def createThreadError(form: Form[_]): JsValue =
-    Json.obj (
-      "err" -> "Malformed request",
-      "errors" -> createThreadError(form.errors)
-    )
-
-  def createThreadError(errors: Seq[FormError]): JsValue = {
-    return errors.foldLeft(JsObject(Seq()))(accErrorMessages);
-  }
-
-  def accErrorMessages (acc: JsObject, e: FormError): JsObject = {
-    val result = acc \ e.key;
-
-    result match {
-      case JsDefined(v: JsArray) => acc + (e.key -> (v :+ JsString(errNames.getOrElse(e.message, e.message))))
-      case undefined: JsUndefined => acc + (e.key -> JsArray(Seq(JsString(errNames.getOrElse(e.message, e.message)))))
-    }
-  }
-
 }
