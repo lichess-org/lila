@@ -5,7 +5,7 @@ var util = require('../util');
 var stockfishProtocol = require('./stockfishProtocol');
 var sunsetterProtocol = require('./sunsetterProtocol');
 
-module.exports = function(possible, variant, emit) {
+module.exports = function(root, possible, variant, emit) {
 
   var pnaclSupported = navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 7;
@@ -13,11 +13,13 @@ module.exports = function(possible, variant, emit) {
   var multiPv = util.storedProp('ceval.multipv', 1);
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = util.storedProp('ceval.hash-size', 128);
+  var showPvs = util.storedProp('ceval.show-pvs', false);
   var curDepth = 0;
   var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
   var enabled = m.prop(possible() && allowed() && enableStorage.get() == '1');
   var started = false;
+  var hoveringUci = m.prop(null);
 
   var pool;
   if (variant.key !== 'crazyhouse') {
@@ -118,7 +120,7 @@ module.exports = function(possible, variant, emit) {
             depth: maxDepth(),
             cp: dictRes.cp,
             best: dictRes.best,
-            mate: 0,
+            pvs: dictRes.pvs,
             dict: true
           }
         });
@@ -145,6 +147,12 @@ module.exports = function(possible, variant, emit) {
     multiPv: multiPv,
     threads: threads,
     hashSize: hashSize,
+    showPvs: showPvs,
+    hoveringUci: hoveringUci,
+    setHoveringUci: function(uci) {
+      hoveringUci(uci);
+      root.setAutoShapes();
+    },
     toggle: function() {
       if (!possible() || !allowed()) return;
       stop();

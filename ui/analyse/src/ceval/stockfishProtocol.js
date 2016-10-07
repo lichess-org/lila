@@ -20,7 +20,9 @@ module.exports = function(worker, opts) {
   var work = null;
   var state = null;
   var minLegalMoves = 0;
+
   var stopped = m.deferred();
+  stopped.resolve(true);
 
   var emit = function() {
     if (!work || !state) return;
@@ -42,7 +44,7 @@ module.exports = function(worker, opts) {
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
       emit();
-      stopped.resolve(true);
+      if (stopped) stopped.resolve(true);
       return;
     }
     if (!work) return;
@@ -94,6 +96,7 @@ module.exports = function(worker, opts) {
     start: function(w) {
       work = w;
       state = null;
+      stopped = null;
       minLegalMoves = 0;
       if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
       if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
@@ -101,14 +104,13 @@ module.exports = function(worker, opts) {
       worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },
-    stop: function(s) {
-      if (!work) s.resolve(true);
-      else {
+    stop: function() {
+      if (!stopped) {
         work = null;
-        stopped = s;
+        stopped = m.deferred();
         worker.send('stop');
       }
-      return s.promise;
+      return stopped;
     },
     received: processOutput
   };

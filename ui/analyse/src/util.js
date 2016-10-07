@@ -38,6 +38,11 @@ module.exports = {
   empty: function(a) {
     return !a || a.length === 0;
   },
+  range: function(len) {
+    var r = [];
+    for (var i = 0; i < len; i++) r.push(i);
+    return r;
+  },
   renderEval: function(e) {
     e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
     return (e > 0 ? '+' : '') + e;

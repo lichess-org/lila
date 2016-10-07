@@ -384,7 +384,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var makeCeval = function() {
-    return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
+    return cevalCtrl(this, cevalPossible, this.data.game.variant, function(res) {
       this.tree.updateAt(res.work.path, function(node) {
         if (res.work.threatMode) {
           if (node.threat && node.threat.depth >= res.eval.depth) return;
@@ -489,7 +489,7 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  var playUci = function(uci) {
+  this.playUci = function(uci) {
     var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
@@ -501,13 +501,13 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.explorerMove = function(uci) {
-    playUci(uci);
+    this.playUci(uci);
     this.explorer.loading(true);
   }.bind(this);
 
   this.playBestMove = function() {
     var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
-    if (uci) playUci(uci);
+    if (uci) this.playUci(uci);
   }.bind(this);
 
   this.socketReceive = function(type, data) {

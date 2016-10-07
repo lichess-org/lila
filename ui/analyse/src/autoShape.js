@@ -33,13 +33,13 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
 module.exports = function(ctrl) {
   var n = ctrl.vm.node,
     shapes = [],
-    explorerUci = ctrl.explorer.hoveringUci();
+    hoveringUci = ctrl.explorer.hoveringUci() || ctrl.ceval.hoveringUci();
   var color = ctrl.chessground.data.movable.color;
-  if (explorerUci) shapes = shapes.concat(makeAutoShapesFromUci(color, explorerUci, 'paleBlue'));
+  if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
   if (ctrl.vm.showAutoShapes()) {
     if (n.eval && n.eval.best)
       shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
-    if (!explorerUci) {
+    if (!hoveringUci) {
       var nextNodeBest = ctrl.nextNodeBest();
       if (nextNodeBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextNodeBest, 'paleBlue'));
       else if (ctrl.ceval.enabled() && n.ceval && n.ceval.best)

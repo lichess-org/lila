@@ -3,6 +3,7 @@ var winningChances = require('../winningChances');
 var util = require('../util');
 var defined = util.defined;
 var classSet = require('chessground').util.classSet;
+var pv2san = require('./pv2san');
 
 var gaugeLast = 0;
 var gaugeTicks = [];
@@ -134,6 +135,45 @@ module.exports = {
         })
       ]),
       threatButton(ctrl)
-    );
+    )
+  },
+  renderPvs: function(ctrl) {
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
+    var pvs, threat = false;
+    if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
+      pvs = ctrl.vm.node.threat.pvs;
+      threat = true;
+    }
+    else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
+      pvs = ctrl.currentEvals().client.pvs;
+    else
+      pvs = [];
+    return m('div.pv_box', {
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate) {
+          el.addEventListener('mouseover', function(e) {
+            ctrl.ceval.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
+          });
+          el.addEventListener('mouseout', function(e) {
+            ctrl.ceval.setHoveringUci(null);
+          });
+          el.addEventListener('mousedown', function(e) {
+            var uci = $(e.target).closest('div.pv').attr('data-uci');
+            if (uci) ctrl.playUci(uci);
+          });
+        }
+        setTimeout(function () {
+          ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+        }, 100);
+      }
+    }, util.range(ctrl.ceval.multiPv()).map(function(i) {
+      if (!pvs[i]) return m('div.pv');
+      else return m('div.pv', threat ? {} : {
+        'data-uci': pvs[i].best
+      }, [
+        ctrl.ceval.multiPv() > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
+        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+      ]);
+    }));
   }
 };

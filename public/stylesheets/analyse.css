@@ -197,6 +197,32 @@ div.gauge_displayed .fork {
   background: #e4e4e4;
   font-family: 'Roboto';
 }
+.pv_box .pv {
+  height: 2em;
+  line-height: 2em;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.pv_box .pv[data-uci]:hover {
+  background: rgba(191, 231, 255, 0.7);
+  cursor: pointer;
+}
+.pv_box .pv strong {
+  display: inline-block;
+  width: 35px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+}
+.pv_box .pv span {
+  margin-left: 5px;
+  font-family: 'ChessSansPiratf', sans-serif;
+}
+body.piece_letter .pv_box .pv span {
+  font-family: 'Noto Sans';
+}
 .ceval_box {
   flex: 0 0 38px;
   border: 1px solid #ccc;
@@ -449,7 +475,9 @@ body.dark .action_menu h2:before,
 body.dark .action_menu h2:after {
   border-color: #555;
 }
-body.dark .ceval_box .show-threat {
+body.dark .ceval_box .show-threat,
+body.dark .pv_box .pv strong,
+body.dark .pv_box .pv {
   border-color: #3d3d3d;
 }
 .explorer_box .white {

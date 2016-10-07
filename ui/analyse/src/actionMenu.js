@@ -123,6 +123,25 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
+      m('div.tools', [
+        m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+        ctrl.ongoing ? null : m('a.fbt', {
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }, [
+          m('i.icon[data-icon=m]'),
+          ctrl.trans('boardEditor')
+        ]),
+        canContinue ? m('a.fbt', {
+          config: util.bindOnce('click', function() {
+            $.modal($('.continue_with.' + d.game.id));
+          })
+        }, [
+          m('i.icon[data-icon=U]'),
+          ctrl.trans('continueFromHere')
+        ]) : null,
+        studyButton(ctrl)
+      ]),
       m('h2', 'Computer analysis'), [
         (function(id) {
           return m('div.setting', [
@@ -164,7 +183,27 @@ module.exports = {
               })
             ])
           ]);
-        })('analyse-toggle-gauge'), (function(id) {
+        })('analyse-toggle-gauge'), (function (id) {
+          return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Textual lines'),
+            m('div.switch', [
+              m('input', {
+                id: id,
+                class: 'cmn-toggle cmn-toggle-round',
+                type: 'checkbox',
+                checked: ctrl.ceval.showPvs(),
+                config: util.bindOnce('change', function(e) {
+                  ctrl.ceval.showPvs(e.target.checked);
+                })
+              }),
+              m('label', {
+                'for': id
+              })
+            ])
+          ]);
+        })('analyse-toggle-pvs'), (function(id) {
           var max = 5;
           return m('div.setting', [
             m('label', {
@@ -228,26 +267,6 @@ module.exports = {
           })('analyse-memory')
         ] : null
       ],
-      m('h2', 'Tools'),
-      m('div.tools', [
-        m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
-        ctrl.ongoing ? null : m('a.fbt', {
-          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-          rel: 'nofollow'
-        }, [
-          m('i.icon[data-icon=m]'),
-          ctrl.trans('boardEditor')
-        ]),
-        canContinue ? m('a.fbt', {
-          config: util.bindOnce('click', function() {
-            $.modal($('.continue_with.' + d.game.id));
-          })
-        }, [
-          m('i.icon[data-icon=U]'),
-          ctrl.trans('continueFromHere')
-        ]) : null,
-        studyButton(ctrl)
-      ]),
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
