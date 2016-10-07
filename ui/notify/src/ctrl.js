@@ -31,10 +31,7 @@ module.exports = function(env) {
       return !n.read;
     })[0];
     if (!notif) return;
-    if (!lichess.quietMode) {
-      env.show();
-      $.sound.newPM();
-    }
+    if (!lichess.quietMode) $.sound.newPM();
     var text = asText(notif);
     if (text) lichess.desktopNotification(text);
   }.bind(this);
