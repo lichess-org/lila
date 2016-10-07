@@ -151,7 +151,7 @@ module.exports = {
           el.addEventListener('mouseout', function(e) {
             ctrl.ceval.setHoveringUci(null);
           });
-          el.addEventListener('click', function(e) {
+          el.addEventListener('mousedown', function(e) {
             var uci = $(e.target).closest('div.pv').attr('data-uci');
             if (uci) ctrl.playUci(uci);
           });

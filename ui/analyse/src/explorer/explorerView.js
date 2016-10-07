@@ -31,7 +31,7 @@ function moveTableAttributes(ctrl, fen) {
         el.addEventListener('mouseout', function(e) {
           ctrl.explorer.setHoveringUci(null);
         });
-        el.addEventListener('click', function(e) {
+        el.addEventListener('mousedown', function(e) {
           var uci = $(e.target).parents('tr').attr('data-uci');
           if (uci) ctrl.explorerMove(uci);
         });
