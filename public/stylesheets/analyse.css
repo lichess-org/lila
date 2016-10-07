@@ -475,7 +475,9 @@ body.dark .action_menu h2:before,
 body.dark .action_menu h2:after {
   border-color: #555;
 }
-body.dark .ceval_box .show-threat {
+body.dark .ceval_box .show-threat,
+body.dark .pv_box .pv strong,
+body.dark .pv_box .pv {
   border-color: #3d3d3d;
 }
 .explorer_box .white {

@@ -267,6 +267,7 @@ body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover,
 body.dark .explorer_box tr:hover,
+body.dark .pv_box .pv[data-uci]:hover,
 body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
