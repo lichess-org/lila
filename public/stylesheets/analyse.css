@@ -207,6 +207,9 @@ div.gauge_displayed .fork {
   white-space: nowrap;
   cursor: pointer;
 }
+.pv_box .pv:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
 .pv_box .pv strong {
   display: inline-block;
   width: 35px;
