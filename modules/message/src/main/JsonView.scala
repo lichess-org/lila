@@ -4,11 +4,16 @@ import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.mvc.Results._
 
+import play.api.data._
+import play.api.data.Forms._
+
 import lila.common.PimpedJson._
 import lila.user.User
 import lila.common.paginator._
 
-final class JsonView() {
+final class JsonView(
+    isOnline: lila.user.User.ID => Boolean
+    ) {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(PaginatorJson(threads.mapResults { t =>
@@ -33,9 +38,15 @@ final class JsonView() {
 
   def threadPost(thread: Thread, post: Post): JsValue =
     Json.obj(
-      "sender" -> thread.senderOf(post),
-      "receiver" -> thread.receiverOf(post),
+      "sender" -> user(thread.senderOf(post)),
+      "receiver" -> user(thread.receiverOf(post)),
       "text" -> post.text,
       "createdAt" -> post.createdAt
+    )
+
+  def user(userId: String): JsValue =
+    Json.obj(
+      "username" -> userId,
+      "online" -> isOnline(userId)
     )
 }
