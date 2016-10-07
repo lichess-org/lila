@@ -32,7 +32,11 @@ object Store {
     )).void
 
   private val userIdProjection = $doc("user" -> true, "_id" -> false)
-  private val userIdFingerprintProjection = $doc("user" -> true, "fp" -> true, "_id" -> false)
+  private val userIdFingerprintProjection = $doc(
+    "user" -> true,
+    "fp" -> true,
+    "date" -> true,
+    "_id" -> false)
 
   def userId(sessionId: String): Fu[Option[String]] =
     coll.find(
@@ -40,7 +44,9 @@ object Store {
       userIdProjection
     ).uno[Bdoc] map { _ flatMap (_.getAs[String]("user")) }
 
-  case class UserIdAndFingerprint(user: String, fp: Option[String])
+  case class UserIdAndFingerprint(user: String, fp: Option[String], date: DateTime) {
+    def isOld = date isBefore DateTime.now.minusDays(1)
+  }
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
 
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
@@ -48,6 +54,9 @@ object Store {
       $doc("_id" -> sessionId, "up" -> true),
       userIdFingerprintProjection
     ).uno[UserIdAndFingerprint]
+
+  def setDateToNow(sessionId: String): Unit =
+    coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)
 
   def delete(sessionId: String): Funit =
     coll.update(

@@ -61,6 +61,7 @@ final class Api(
         reqSessionId(req) ?? { sessionId =>
           Store userIdAndFingerprint sessionId flatMap {
             _ ?? { d =>
+              if (d.isOld) Store.setDateToNow(sessionId)
               UserRepo.byId(d.user) map {
                 _ map {
                   FingerprintedUser(_, d.fp.isDefined)
