@@ -31,6 +31,7 @@ module.exports = function(env) {
       return !n.read;
     })[0];
     if (!notif) return;
+    $('#site_notifications_tag').addClass('pulse');
     if (!lichess.quietMode) $.sound.newPM();
     var text = asText(notif);
     if (text) lichess.desktopNotification(text);
