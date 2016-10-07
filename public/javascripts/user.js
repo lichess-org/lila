@@ -71,11 +71,13 @@ $(function() {
         }
         $zone.find('li.ip').slice(0, 2).each(function() {
           var $li = $(this);
-          $.ajax({
-            url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
-            success: function(res) {
-              $li.append($('<span class="intel">' + res + '% proxy</span>'));
-            }
+          $(this).one('mouseover', function() {
+            $.ajax({
+              url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
+              success: function(res) {
+                $li.append($('<span class="intel">' + res + '% proxy</span>'));
+              }
+            });
           });
         });
       });
