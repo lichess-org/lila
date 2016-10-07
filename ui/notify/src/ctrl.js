@@ -11,11 +11,20 @@ module.exports = function(env) {
     scrolling: false
   };
 
+  var readAllStorage = lichess.storage.make('notify-read-all');
+
+  readAllStorage.listen(function() {
+    this.data.unread = 0;
+    env.setCount(0);
+    m.redraw();
+  }.bind(this));
+
   this.update = function(data, incoming) {
     this.data = data;
     if (this.data.pager.currentPage === 1 && this.data.unread && env.isVisible()) {
       env.setNotified();
       this.data.unread = 0;
+      readAllStorage.set(1); // tell other tabs
     }
     if (data.i18n) this.trans = lichess.trans(data.i18n);
     this.vm.initiating = false;
@@ -31,7 +40,7 @@ module.exports = function(env) {
       return !n.read;
     })[0];
     if (!notif) return;
-    $('#site_notifications_tag').addClass('pulse');
+    env.pulse();
     if (!lichess.quietMode) $.sound.newPM();
     var text = asText(notif);
     if (text) lichess.desktopNotification(text);
