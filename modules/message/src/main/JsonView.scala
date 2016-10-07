@@ -7,8 +7,6 @@ import play.api.mvc.Results._
 import play.api.data._
 import play.api.data.Forms._
 
-import play.twirl.api.Html
-
 import lila.common.PimpedJson._
 import lila.user.User
 import lila.common.paginator._
