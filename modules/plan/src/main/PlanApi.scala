@@ -178,35 +178,37 @@ final class PlanApi(
   def sync(user: User): Fu[PlanApi.SyncResult] = userPatron(user) flatMap {
 
     case None if user.plan.active =>
-      logger.warn(s"sync: disable plan of non-patron")
+      logger.warn(s"${user.username} sync: disable plan of non-patron")
       setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
     case None => fuccess(Synced(none, none))
+
+    case Some(patron) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
         case None =>
-          logger.warn(s"sync: unset DB patron that's not in stripe")
+          logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
           patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isEmpty =>
-          logger.warn(s"sync: unset DB patron of customer without a subscription")
+          logger.warn(s"${user.username} sync: unset DB patron of customer without a subscription")
           patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
-          logger.warn(s"sync: enable plan of customer with a subscription")
+          logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         case customer => fuccess(Synced(patron.some, customer))
       }
 
       case (_, Some(paypal)) =>
         if (!user.plan.active) {
-          logger.warn(s"sync: enable plan of customer with paypal")
+          logger.warn(s"${user.username} sync: enable plan of customer with paypal")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         }
         else fuccess(Synced(patron.some, none))
 
       case (None, None) if user.plan.active =>
-        logger.warn(s"sync: disable plan of patron with no paypal or stripe")
+        logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
       case _ => fuccess(Synced(patron.some, none))
