@@ -4,7 +4,7 @@ import akka.actor._
 
 private final class RecentGoodGame extends Actor {
 
-  val maxIds = 30
+  val maxIds = 300
   var ids = List.empty[Game.ID]
 
   def matches(g: lila.game.Game) =

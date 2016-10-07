@@ -13,6 +13,8 @@ final class LightUserApi(coll: Coll) {
 
   def invalidate = cache invalidate _
 
+  def getList(ids: List[String]): List[LightUser] = ids flatMap get
+
   private implicit val lightUserReader = new BSONDocumentReader[LightUser] {
 
     def read(doc: BSONDocument) =

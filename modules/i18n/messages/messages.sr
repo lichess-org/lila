@@ -60,7 +60,6 @@ viewNbCheckmates=Види %s шахматове
 nbBookmarks=%s Обележивачи
 nbPopularGames=%s Популарне партије
 nbAnalysedGames=%s Анализирана партија
-bookmarkedByNbPlayers=Обележено од %s играча
 viewInFullSize=Погледај у пуној величини
 logOut=Одјави се
 signIn=Пријави се

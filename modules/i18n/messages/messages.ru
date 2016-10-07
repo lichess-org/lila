@@ -60,7 +60,6 @@ viewNbCheckmates=Посмотреть все партии %s, закончивш
 nbBookmarks=%s закладки
 nbPopularGames=%s популярные игры
 nbAnalysedGames=%s проанализированных игр
-bookmarkedByNbPlayers=Добавило в закладки %s игроков
 viewInFullSize=Посмотреть в полном размере
 logOut=Выйти
 signIn=Войти

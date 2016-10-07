@@ -76,7 +76,6 @@
   <div class="preferences">
     <strong class="text inline" data-icon="%">Notable preferences:</strong>
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] }
-    @if(pref.blindfold != Pref.Blindfold.NO) { [blindfold] }
   </div>
   @optionAggregateAssessment.fold{
   <div class="evaluation">
@@ -262,13 +261,10 @@
     <br />
     }
   </div>
-  @if(spy.otherUsers.size == 1) {
-  <strong data-icon="f"> No similar user found</strong>
-  } else {
   <table class="others slist">
     <thead>
       <tr>
-        <th>@spy.otherUsers.size similar user(s)</th>
+        <th>@spy.otherUsers.size user(s) on these IPs</th>
         <th>Same</th>
         <th>Games</th>
         <th>Marks</th>
@@ -306,7 +302,6 @@
       }
     </tbody>
   </table>
-  }
   <div class="listings clearfix">
     <div class="spy_ips">
       <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ipsByLocations.map {

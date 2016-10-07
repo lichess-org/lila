@@ -17,8 +17,10 @@ case class Schedule(
   def name = freq match {
     case m@Schedule.Freq.ExperimentalMarathon => m.name
     case _ if variant.standard && position.initial =>
-      conditions.maxRating.fold(s"${freq.toString} ${speed.toString}") {
-        case Condition.MaxRating(_, rating) => s"U$rating ${speed.toString}"
+      (conditions.minRating, conditions.maxRating) match {
+        case (None, None)   => s"${freq.toString} ${speed.toString}"
+        case (Some(min), _) => s"Elite ${speed.toString}"
+        case (_, Some(max)) => s"U${max.rating} ${speed.toString}"
       }
     case _ if variant.standard => s"${position.shortName} ${speed.toString}"
     case _                     => s"${freq.toString} ${variant.name}"
@@ -67,15 +69,17 @@ object Schedule {
     case object Daily extends Freq(20, 20)
     case object Eastern extends Freq(30, 15)
     case object Weekly extends Freq(40, 40)
+    case object Weekend extends Freq(41, 41)
     case object Monthly extends Freq(50, 50)
     case object Marathon extends Freq(60, 60)
     case object ExperimentalMarathon extends Freq(61, 55) { // for DB BC
       override val name = "Experimental Marathon"
     }
+    case object Yearly extends Freq(70, 70)
     case object Unique extends Freq(90, 59)
-    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Monthly, Marathon, ExperimentalMarathon, Unique)
-    def apply(name: String) = all find (_.name == name)
-    def byId(id: Int) = all find (_.id == id)
+    val all: List[Freq] = List(Hourly, Daily, Eastern, Weekly, Weekend, Monthly, Marathon, ExperimentalMarathon, Yearly, Unique)
+    def apply(name: String) = all.find(_.name == name)
+    def byId(id: Int) = all.find(_.id == id)
   }
 
   sealed abstract class Speed(val id: Int) {
@@ -143,10 +147,20 @@ object Schedule {
       case (Weekly, Blitz, _)                         => 60 * 3
       case (Weekly, Classical, _)                     => 60 * 4
 
+      case (Weekend, HyperBullet | Bullet, _)         => 90
+      case (Weekend, SuperBlitz, _)                   => 60 * 2
+      case (Weekend, Blitz, _)                        => 60 * 3
+      case (Weekend, Classical, _)                    => 60 * 4
+
       case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
       case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
       case (Monthly, Blitz, _)                        => 60 * 4
       case (Monthly, Classical, _)                    => 60 * 5
+
+      case (Yearly, HyperBullet | Bullet, _)          => 60 * 4
+      case (Yearly, SuperBlitz, _)                    => 60 * 5
+      case (Yearly, Blitz, _)                         => 60 * 6
+      case (Yearly, Classical, _)                     => 60 * 8
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4

@@ -152,7 +152,7 @@ var handlers = {
         m('span', [
           m('strong', 'Someone you reported was banned')
         ]),
-        m('span', 'Thank you for helping lichess community.')
+        m('span', 'Thank you for the help!')
       ]);
     },
     text: function(n) {

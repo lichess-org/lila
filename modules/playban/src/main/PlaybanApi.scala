@@ -35,11 +35,12 @@ final class PlaybanApi(
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     blameable(game) flatMap { _ ?? f }
 
-  def abort(pov: Pov): Funit = IfBlameable(pov.game) {
+  def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     {
-      if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
+      if (pov.game olderThan 30) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
       else if (pov.game olderThan 15) none
-      else pov.player.some map { Blame(_, Outcome.Abort) }
+      else if (isOnGame(pov.opponent.color)) pov.player.some map { Blame(_, Outcome.Abort) }
+      else none
     } ?? {
       case Blame(player, outcome) => player.userId.??(save(outcome))
     }

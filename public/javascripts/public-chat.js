@@ -1,54 +1,44 @@
 $(function() {
 
+  var autoRefreshEnabled = true;
+  var autoRefreshOnHold = false;
+
+  var renderButton = function() {
+    $("#auto_refresh")
+      .toggleClass('active', autoRefreshEnabled)
+      .toggleClass('hold', autoRefreshOnHold);
+  };
+
   var onPageReload = function() {
 
-    var reloadTimer = null;
-
-    var autoRefreshEnabled = true;
-
-    var startAutoRefresh = function() {
-      reloadTimer = setTimeout(function() {
-        // Reload only the chat grid portions of the page
-        $("#lichess").load("/mod/public-chat #communication", function() {
-          onPageReload();
-        });
-
-      }, 3000);
-    };
-
-    var stopAutoRefresh = function() {
-      if (reloadTimer) {
-        clearTimeout(reloadTimer);
-      }
-    };
-
-    var addAutoRefreshLink = function() {
-      var a = document.createElement('a');
-      a.id = "auto_refresh";
-      var linkText = document.createTextNode('Auto refresh');
-      a.appendChild(linkText);
-      a.classList.add('button');
-      if (autoRefreshEnabled) a.classList.add('active');
-
-      a.onclick = function() {
-
-        if (autoRefreshEnabled) stopAutoRefresh();
-        else startAutoRefresh();
-
+    $("#communication").append(
+      $('<a id="auto_refresh" class="button">Auto refresh</a>').click(function() {
         autoRefreshEnabled = !autoRefreshEnabled;
-          $("#auto_refresh").toggleClass('active', autoRefreshEnabled);
-      };
-
-      startAutoRefresh();
-      $("#communication").append(a);
-    };
-
-    addAutoRefreshLink();
+        renderButton();
+      })
+    );
+    renderButton();
 
     $('#communication .chat').each(function() {
       this.scrollTop = 99999;
     });
-  };
 
+    $('#communication').on('mouseenter', '.chat', function() {
+      autoRefreshOnHold = true;
+      $("#auto_refresh").addClass('hold');
+    }).on('mouseleave', '.chat', function() {
+      autoRefreshOnHold = false;
+      $("#auto_refresh").removeClass('hold');
+    });
+  };
   onPageReload();
+
+  setInterval(function() {
+
+    if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
+
+    // Reload only the chat grid portions of the page
+    $("#lichess").load("/mod/public-chat #communication", onPageReload);
+
+  }, 4000);
 });

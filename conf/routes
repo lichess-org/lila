@@ -357,11 +357,13 @@ GET   /forum/search                    controllers.ForumPost.search(text: String
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
+GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: String)
 GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
+POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
 # Message
@@ -437,6 +439,7 @@ GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
+GET   /api/socket                      controllers.Main.apiWebsocket
 
 # Events
 GET   /event                           controllers.Event.index
@@ -481,8 +484,13 @@ GET   /help/contribute                 controllers.Page.contribute
 GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
+# Graphite
+GET   /monitor/coach/pageview          controllers.Monitor.coachPageView
+
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
 # Assets
 GET   /glyphs                          controllers.Main.glyphs
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
+
+GET   /robots.txt                      controllers.Main.robots

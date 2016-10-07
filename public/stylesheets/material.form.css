@@ -43,6 +43,16 @@
 .material.form .form-group.half:nth-child(odd) {
   margin-right: 5%;
 }
+
+.material.form .form-group.third {
+  display: inline-block;
+  width: 30%;
+  margin-right: 4%;
+}
+.material.form .form-group.third:nth-child(3) {
+  margin-right: 0;
+}
+
 .material.form .form-inline > .form-group,
 .material.form .form-inline > .btn {
   display: inline-block;

@@ -3,12 +3,14 @@ package lila.analyse
 import akka.actor.ActorSelection
 
 import chess.format.FEN
+import lila.db.dsl._
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 
 final class Analyser(
     indexer: ActorSelection,
+    requesterApi: RequesterApi,
     roundSocket: ActorSelection,
     bus: lila.common.Bus) {
 
@@ -21,6 +23,7 @@ final class Analyser(
         sendAnalysisProgress(analysis) >>- {
           bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
           indexer ! InsertGame(game)
+          requesterApi save analysis
         }
     }
   }

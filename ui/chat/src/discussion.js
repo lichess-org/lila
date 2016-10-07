@@ -17,6 +17,17 @@ function escapeHtml(html) {
     .replace(/'/g, "&#039;");
 }
 
+var isSpammer = lichess.storage.make('spammer');
+
+function isSpam(txt) {
+  return /chess-bot/.test(txt);
+}
+
+function skipSpam(txt) {
+  if (isSpam(txt) && isSpammer.get() != '1') return true;
+  return false;
+}
+
 var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
 var linkReplace = function(match, before, url) {
@@ -28,8 +39,6 @@ var linkReplace = function(match, before, url) {
 function autoLink(html) {
   return html.replace(linkPattern, linkReplace);
 };
-
-var deletedEm = '<em class="deleted">&lt;deleted&gt;</em>';
 
 function renderLine(ctrl) {
   return function(line) {
@@ -44,7 +53,7 @@ function renderLine(ctrl) {
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,
       m.trust(
-        $.userLinkLimit(line.u, 14) + (line.d ? deletedEm : line.html)
+        $.userLinkLimit(line.u, 14) + line.html
       )
     ]);
   };
@@ -56,10 +65,13 @@ function sameLines(l1, l2) {
 
 function selectLines(ctrl) {
   var prev, ls = [];
-  ctrl.data.lines.forEach(function(l) {
-    if (!prev || !sameLines(prev, l))
-      if (!l.r || ctrl.vm.isTroll) ls.push(l);
-    prev = l;
+  ctrl.data.lines.forEach(function(line) {
+    if (!line.d &&
+      (!prev || !sameLines(prev, line)) &&
+      (!line.r || ctrl.vm.isTroll) &&
+      !skipSpam(line.t)
+    ) ls.push(line);
+    prev = line;
   });
   return ls;
 }
@@ -85,8 +97,8 @@ function input(ctrl) {
           if (e.target.value === '') {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
-          }
-          else {
+          } else {
+            if (isSpam(e.target.value)) isSpammer.set(1);
             ctrl.post(e.target.value);
             e.target.value = '';
           }

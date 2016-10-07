@@ -18,35 +18,53 @@ function relayUser(player, klass) {
   ]);
 }
 
-module.exports = function(ctrl, player, klass) {
-  var d = ctrl.data;
-  if (d.relay) return relayUser(d.relay[player.color], klass);
-  var perf = player.user ? player.user.perfs[d.game.perf] : null;
-  var rating = player.rating ? player.rating : (perf ? perf.rating : null);
-  var playerOnGameIcon = m('span.status.hint--top', {
-    'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
-  }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
-    'data-icon': (player.onGame ? '3' : '0')
-  }) : m('span', '?'))
-  return player.user ? [
-    m('a', {
-      class: 'text ulpt user_link ' + (player.user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
-      href: '/@/' + player.user.username,
-      target: game.isPlayerPlaying(d) ? '_blank' : '_self'
-    }, [
-      m('i', {
-        class: 'line' + (player.user.patron ? ' patron' : '')
-      }),
-      (player.user.title ? player.user.title + ' ' : '') + player.user.username,
-      rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
-      ratingDiff(player),
-      player.engine ? m('span[data-icon=j]', {
-        title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
-      }) : null
-    ]),
-    playerOnGameIcon
-  ] : m('span.user_link', [
-    player.name || 'Anonymous',
-    d.game.source == 'relay' ? null : playerOnGameIcon
-  ]);
+function aiName(ctrl, player) {
+  var name = ctrl.data.game.variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
+  return ctrl.trans('aiNameLevelAiLevel', name, player.ai);
 }
+
+module.exports = {
+  userHtml: function(ctrl, player, klass) {
+    var d = ctrl.data;
+    var user = player.user;
+    if (d.relay) return relayUser(d.relay[player.color], klass);
+    var perf = user ? user.perfs[d.game.perf] : null;
+    var rating = player.rating ? player.rating : (perf ? perf.rating : null);
+    var playerOnGameIcon = m('span.status.hint--top', {
+      'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
+    }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
+      'data-icon': (player.onGame ? '3' : '0')
+    }) : m('span', '?'))
+    return user ? [
+      m('a', {
+        class: 'text ulpt user_link ' + (user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
+        href: '/@/' + user.username,
+        target: game.isPlayerPlaying(d) ? '_blank' : '_self'
+      }, [
+        m('i', {
+          class: 'line' + (user.patron ? ' patron' : '')
+        }), (user.title ? user.title + ' ' : '') + user.username,
+        rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
+        ratingDiff(player),
+        player.engine ? m('span[data-icon=j]', {
+          title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
+        }) : null
+      ]),
+      playerOnGameIcon
+    ] : m('span.user_link', [
+      player.name || 'Anonymous',
+      d.game.source == 'relay' ? null : playerOnGameIcon
+    ]);
+  },
+  userTxt: function(ctrl, player) {
+    if (player.user) {
+      var perf = player.user.perfs[ctrl.data.game.perf];
+      var name = (player.user.title ? player.user.title + ' ' : '') + player.user.username;
+      var rating = player.rating ? player.rating : (perf ? perf.rating : null);
+      rating = rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '';
+      return name + rating;
+    } else if (player.ai) return aiName(ctrl, player)
+    else return 'Anonymous';
+  },
+  aiName: aiName
+};

@@ -67,7 +67,8 @@ module.exports = function(opts) {
     contextMenuPath: null,
     justPlayed: null,
     justDropped: null,
-    keyboardHelp: location.hash === '#keyboard'
+    keyboardHelp: location.hash === '#keyboard',
+    threatMode: false
   };
 
   this.setPath = function(path) {
@@ -178,6 +179,7 @@ module.exports = function(opts) {
         else sound.move();
       }
       if (/\+|\#/.test(this.vm.node.san)) sound.check();
+      this.vm.threatMode = false;
       this.ceval.stop();
       this.startCeval();
     }
@@ -228,7 +230,7 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
-    this.ceval.stop();
+    this.ceval.destroy();
     this.ceval = makeCeval();
   }.bind(this);
 
@@ -370,7 +372,7 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return this.tree.ops.withMainlineChild(this.vm.node, function(n) {
+    return treeOps.withMainlineChild(this.vm.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);
@@ -384,8 +386,13 @@ module.exports = function(opts) {
   var makeCeval = function() {
     return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
       this.tree.updateAt(res.work.path, function(node) {
-        if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-        node.ceval = res.eval;
+        if (res.work.threatMode) {
+          if (node.threat && node.threat.depth >= res.eval.depth) return;
+          node.threat = res.eval;
+        } else {
+          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+          node.ceval = res.eval;
+        }
         if (res.work.path === this.vm.path) {
           this.setAutoShapes();
           m.redraw();
@@ -413,18 +420,52 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest());
+    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest() || this.vm.threatMode);
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.vm.nodeList);
+      this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
   }.bind(this));
 
   this.toggleCeval = function() {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
+    if (!this.ceval.enabled()) this.vm.threatMode = false;
+    m.redraw();
+  }.bind(this);
+
+  this.toggleThreatMode = function() {
+    if (!this.ceval.enabled()) this.ceval.toggle();
+    if (!this.ceval.enabled()) return;
+    this.vm.threatMode = !this.vm.threatMode && !this.vm.node.check;
+    this.setAutoShapes();
+    this.startCeval();
+    m.redraw();
+  }.bind(this);
+
+  var cevalReset = function(f) {
+    this.ceval.stop();
+    if (!this.ceval.enabled()) this.ceval.toggle();
+    this.startCeval();
+    m.redraw();
+  }.bind(this);
+
+  this.cevalSetMultiPv = function(v) {
+    this.ceval.multiPv(v);
+    this.tree.removeCeval();
+    cevalReset();
+  }.bind(this);
+
+  this.cevalSetThreads = function(v) {
+    this.ceval.threads(v);
+    cevalReset();
+  }.bind(this);
+
+  this.cevalSetHashSize = function(v) {
+    this.ceval.hashSize(v);
+    cevalReset();
   }.bind(this);
 
   this.showEvalGauge = function() {
@@ -448,7 +489,7 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  this.explorerMove = function(uci) {
+  var playUci = function(uci) {
     var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
@@ -457,7 +498,16 @@ module.exports = function(opts) {
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], util.sanToRole[move[2].toUpperCase()]);
+  }.bind(this);
+
+  this.explorerMove = function(uci) {
+    playUci(uci);
     this.explorer.loading(true);
+  }.bind(this);
+
+  this.playBestMove = function() {
+    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
+    if (uci) playUci(uci);
   }.bind(this);
 
   this.socketReceive = function(type, data) {

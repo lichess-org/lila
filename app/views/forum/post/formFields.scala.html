@@ -1,9 +1,13 @@
-@(text: Field, author: Field)(implicit ctx: Context)
+@(text: Field, author: Field, topic: Option[lila.forum.Topic])(implicit ctx: Context)
 <label>
   <span class="required">@trans.message()</span>
-  <textarea name="@text.name" id="@text.id">@text.value</textarea>
+  @topic match {
+    case Some(topic) => { <textarea class="post-text-area" name="@text.name" data-topic="@topic.id">@text.value</textarea> }
+    case None => { <textarea class="post-text-area" name="@text.name">@text.value</textarea> }
+  }
   @errMsg(text)
 </label>
+
 @if(!ctx.isAuth) {
 <label>
   <span>Author</span>

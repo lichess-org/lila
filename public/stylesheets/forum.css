@@ -183,6 +183,34 @@ div.post .message {
   line-height: 1.5em;
 }
 
+form.edit-post-form {
+  display: none;
+  margin-top: 1.5em;
+}
+form.edit-post-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #D4D4D4;
+  padding: 0.5em;
+}
+body.dark form.edit-post-form textarea {
+  border-color: #3d3d3d;
+}
+div.post .edit-buttons {
+  text-align: right;
+  margin-top: 0.5em;
+}
+div.post .edit-buttons a {
+  margin-right: 1em;
+}
+div.post .post-edited {
+  font-size: 0.8em;
+  color: #aaa;
+  margin-top: 0.3em;
+  margin-left: 1em;
+  float: left;
+}
+
 div.topicReply,
 div.category .description {
   margin: 1em 24px 0 24px;
@@ -274,4 +302,41 @@ div.bar div.pagination {
 #lichess_forum .unsub.on .off,
 #lichess_forum .unsub.off .on {
   display: none;
+}
+
+.textcomplete-dropdown {
+  border: 1px solid #ccc;
+  box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.25), 0 0.5px 8px rgba(0, 0, 0, 0.15);
+  background: #fff;
+}
+
+.textcomplete-dropdown li {
+  list-style: none;
+  border-top: 1px solid #dfdfdf;
+  padding: 0.5em;
+  min-width: 100px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+.textcomplete-dropdown li:first-child {
+  border-top: none;
+}
+.textcomplete-dropdown li:hover,
+.textcomplete-dropdown .active {
+  background-color: #f0f0f0;
+}
+
+body.dark .textcomplete-dropdown {
+  box-shadow: 0 1px 2px #000;
+  background: #343434;
+}
+body.dark .textcomplete-dropdown,
+body.dark .textcomplete-dropdown li {
+  border-color: #3d3d3d;
+}
+
+body.dark .textcomplete-dropdown li:hover,
+body.dark .textcomplete-dropdown .active {
+  background-color: #3e3e3e;
 }

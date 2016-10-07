@@ -120,5 +120,13 @@ module.exports = {
   removeChild: removeChild,
   countChildrenAndComments: countChildrenAndComments,
   reconstruct: reconstruct,
-  merge: merge
+  merge: merge,
+  updateAll: function(root, f) {
+    // applies f recursively to all nodes
+    var update = function(node) {
+      f(node);
+      node.children.forEach(update);
+    };
+    update(root);
+  }
 }

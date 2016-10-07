@@ -1,7 +1,9 @@
 package lila.forum
 
 import lila.db.dsl._
+import lila.user.User.BSONFields
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 object PostRepo extends PostRepo(false) {
 
@@ -68,10 +70,10 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct("userId", $doc("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List]("userId", $doc("topicId" -> topicId).some)
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct("_id", $doc("topicId" -> topicId).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List]("_id", $doc("topicId" -> topicId).some)
 
   import reactivemongo.api.ReadPreference
   def cursor(

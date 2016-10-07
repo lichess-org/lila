@@ -26,6 +26,13 @@
   <!--   </appender> -->
   <!-- </logger> -->
 
+  <logger name="reactivemongo" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/reactivemongo.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+
   <logger name="lobby" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/lobby.log</file>
@@ -53,6 +60,12 @@
   <logger name="plan" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
       <file>${application.home}/logs/plan.log</file>
+      <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
+    </appender>
+  </logger>
+  <logger name="csrf" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>${application.home}/logs/csrf.log</file>
       <encoder><pattern>%date [%level] %message%n%xException</pattern></encoder>
     </appender>
   </logger>

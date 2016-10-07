@@ -512,6 +512,10 @@ object Game {
     chess.variant.RacingKings,
     chess.variant.Antichess)
 
+  val visualisableVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960)
+
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =

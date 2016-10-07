@@ -55,7 +55,7 @@ case class User(
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
-  def titleUsername = title.fold(username)(_ + " " + username)
+  def titleUsername = title.fold(username)(t => s"$t $username")
 
   def titleUsernameWithBestRating = title.fold(usernameWithBestRating)(_ + " " + usernameWithBestRating)
 
@@ -123,12 +123,11 @@ object User {
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
 
-  // Matches a lichess username with a '@' prefix only if the next char isn't a digit,
-  // if it isn't after a word character (that'd be an email) and fits constraints in
-  // https://github.com/ornicar/lila/blob/master/modules/security/src/main/DataForm.scala#L34-L44
-  // Example: everyone says @ornicar is a pretty cool guy
-  // False example: Write to contact@lichess.org, @1
-  val atUsernameRegex = """\B@(?>([a-zA-Z_-][\w-]{1,19}))(?U)(?![\w-])""".r
+  // Matches a lichess username with an '@' prefix if it is used as a single
+  // word (i.e. preceded and followed by space or appropriate punctuation):
+  // Yes: everyone says @ornicar is a pretty cool guy
+  // No: contact@lichess.org, @1, http://example.com/@happy0
+  val atUsernameRegex = """(?<=\s|^)@(?>([a-zA-Z_-][\w-]{1,19}))(?![\w-])""".r
 
   val usernameRegex = """^[\w-]+$""".r
   def couldBeUsername(str: String) = usernameRegex.pattern.matcher(str).matches

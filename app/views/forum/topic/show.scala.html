@@ -8,6 +8,7 @@
 @forum.layout(
 title = s"${categ.name} / ${topic.name} page ${posts.currentPage}",
 menu = modMenu.some.ifTrue(categ.isStaff),
+moreJs = jsTag("forum-post.js"),
 openGraph = lila.app.ui.OpenGraph(
 title = s"Forum: ${categ.name} / ${topic.name} page ${posts.currentPage}",
 url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug).url}",
@@ -36,16 +37,36 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @authorLink(post, "author".some)
-        @momentFromNow(post.createdAt)
+
+        @post.updatedAt.map { updatedAt =>
+          <span class="post-edited">edited</span>
+          @momentFromNow(updatedAt)
+        }.getOrElse {
+          @momentFromNow(post.createdAt)
+        }
+
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
+
         @if(isGranted(_.IpBan)) {
         <span class="mod postip">@post.ip</span>
+        }
+        @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
+        <a class="mod thin edit button" data-icon="m"> Edit</a>
         }
         @if(isGrantedMod(categ.slug)) {
         <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
+      @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
+      <form class="edit-post-form" method="post" action="@routes.ForumPost.edit(post.id)">
+        <textarea data-topic="@topic.id" name="changes" class="post-text-area edit-post-box" minlength="3" required>@post.text</textarea>
+        <div class="edit-buttons">
+          <a class="edit-post-cancel" href="@routes.ForumPost.redirect(post.id)" style="margin-left:20px">@trans.cancel()</a>
+          <button type="submit" class="submit button">@trans.apply()</button>
+        </div>
+      </form>
+      }
     </div>
     }
   </div>
@@ -73,7 +94,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     case (form, captcha) => {
     <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
-      @forum.post.formFields(form("text"), form("author"))
+      @forum.post.formFields(form("text"), form("author"), topic.some)
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
       <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>

@@ -73,8 +73,8 @@ moreCss = moreCss) {
           <tr class="rating">
             <th>Rating</th>
             <td>
-              @profile.fideRating.map { r =>
-              FIDE: @r,
+              @profile.officialRating.map { r =>
+              @r.name.toUpperCase: @r.rating,
               }
               <a href="@routes.User.show(c.user.username)">
                 @c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map { pt =>
@@ -135,6 +135,18 @@ moreCss = moreCss) {
     @section("Best skills", profile.skills)
     @section("Teaching methodology", profile.methodology)
   </div>
+  @if(studies.nonEmpty) {
+  <section class="studies">
+    <h1>Public studies</h1>
+    <div class="list">
+      @studies.map { s =>
+      <div class="study">
+        @study.widget(s)
+      </div>
+      }
+    </div>
+  </section>
+  }
   @if(profile.youtubeUrls.nonEmpty) {
   <section class="youtube">
     <h1>
@@ -146,18 +158,6 @@ moreCss = moreCss) {
     <div class="list">
       @profile.youtubeUrls.map { url =>
       <iframe width="256" height="192" src="@url.value" frameborder="0" allowfullscreen></iframe>
-      }
-    </div>
-  </section>
-  }
-  @if(studies.nonEmpty) {
-  <section class="studies">
-    <h1>Public studies</h1>
-    <div class="list">
-      @studies.map { s =>
-      <div class="study">
-        @study.widget(s)
-      </div>
       }
     </div>
   </section>

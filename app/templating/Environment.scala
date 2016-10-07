@@ -46,6 +46,7 @@ object Environment
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
+  val isGloballyCrawlable = apiEnv.Net.Crawlable
 
   def isProd = apiEnv.isProd
 

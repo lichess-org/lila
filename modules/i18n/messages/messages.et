@@ -60,7 +60,6 @@ viewNbCheckmates=Vaata %s matti
 nbBookmarks=%s järjehoidjad
 nbPopularGames=Vaata %s populaarset
 nbAnalysedGames=Vaata %s analüüsituid
-bookmarkedByNbPlayers=Märgitud mängija %s poolt
 viewInFullSize=Vaata täisekraanil
 logOut=Logi välja
 signIn=Logi sisse

@@ -11,11 +11,11 @@ private final class ModNotifier(
     reportColl: Coll) {
 
   def reporters(user: User): Funit =
-    reportColl.distinct("createdBy", $doc(
+    reportColl.distinct[String, List]("createdBy", $doc(
       "user" -> user.id,
       "createdAt" -> $gt(DateTime.now minusDays 3),
       "createdBy" -> $ne("lichess")
-    ).some) map lila.db.BSON.asStrings flatMap {
+    ).some) flatMap {
       _.map { reporterId =>
         notifyApi.addNotification(Notification(
           notifies = Notification.Notifies(reporterId),

@@ -11,6 +11,7 @@ object mon {
   object http {
     object request {
       val all = inc("http.request.all")
+      val ipv6 = inc("http.request.ipv6")
     }
     object response {
       val code400 = inc("http.response.4.00")
@@ -45,7 +46,12 @@ object mon {
       val timeout = inc("http.mailgun.timeout")
     }
     object userGames {
-      def cost = incX(s"http.user-games.cost")
+      def cost = incX("http.user-games.cost")
+    }
+    object csrf {
+      val missingOrigin = inc("http.csrf.missing_origin")
+      val forbidden = inc("http.csrf.forbidden")
+      val websocket = inc("http.csrf.websocket")
     }
   }
   object lobby {
@@ -62,6 +68,11 @@ object mon {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val resync = inc("lobby.socket.resync")
+    }
+    object cache {
+      val user = inc("lobby.cache.count.user")
+      val anon = inc("lobby.cache.count.anon")
+      val miss = inc("lobby.cache.count.miss")
     }
   }
   object round {
@@ -228,6 +239,12 @@ object mon {
     val created = rec("tournament.created")
     val started = rec("tournament.started")
     val player = rec("tournament.player")
+    object startedOrganizer {
+      val tickTime = rec("tournament.started_organizer.tick_time")
+    }
+    object createdOrganizer {
+      val tickTime = rec("tournament.created_organizer.tick_time")
+    }
   }
   object donation {
     val goal = rec("donation.goal")
@@ -259,6 +276,7 @@ object mon {
     object selector {
       val count = inc("puzzle.selector")
       val time = rec("puzzle.selector")
+      def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
     object attempt {
       val user = inc("puzzle.attempt.user")
@@ -356,6 +374,8 @@ object mon {
         def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
         def totalSecond = incX(s"fishnet.analysis.total.second.$client")
         def totalPosition = incX(s"fishnet.analysis.total.position.$client")
+        def endgameCount = incX(s"fishnet.analysis.total.endgame.count.$client")
+        def endgameTime = incX(s"fishnet.analysis.total.endgame.time.$client")
       }
       val post = rec("fishnet.analysis.post")
     }

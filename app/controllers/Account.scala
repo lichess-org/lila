@@ -5,6 +5,7 @@ import play.api.mvc._, Results._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
+import lila.common.PimpedJson._
 import lila.security.Permission
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -51,8 +52,10 @@ object Account extends LilaController {
                     "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
                     "nbFollowing" -> nbFollowing,
                     "nbFollowers" -> nbFollowers,
-                    "kid" -> me.kid,
-                    "nbChallenges" -> nbChallenges)
+                    "kid" -> me.kid.option(true),
+                    "troll" -> me.troll.option(true),
+                    "nbChallenges" -> nbChallenges
+                  ).noNull
                 }
             }
       }

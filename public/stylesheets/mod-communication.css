@@ -97,8 +97,15 @@ body.dark #communication .player_chats .game .title {
   position: absolute;
   top: 30px;
   right: 20px;
+  transition: 0.3s;
+}
+.public_chat #auto_refresh.active.hold {
+  opacity: 0.4;
 }
 #communication.public_chat .player_chats .line,
 #communication.public_chat .threads .post {
   opacity: 1;
+}
+#communication.public_chat .chat {
+  overflow-y: auto!important;
 }

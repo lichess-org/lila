@@ -60,7 +60,6 @@ viewNbCheckmates=%s건의 체크메이트
 nbBookmarks=%s개의 즐겨찾기
 nbPopularGames=%s개의 인기 게임
 nbAnalysedGames=%s개의 분석된 게임
-bookmarkedByNbPlayers=%s명의 플레이어가 즐겨찾기 함
 viewInFullSize=크게 보기
 logOut=로그아웃
 signIn=로그인

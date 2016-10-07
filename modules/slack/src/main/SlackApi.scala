@@ -1,5 +1,7 @@
 package lila.slack
 
+import org.joda.time.DateTime
+
 import lila.common.LightUser
 import lila.hub.actorApi.slack._
 import lila.user.User
@@ -7,19 +9,47 @@ import lila.user.User
 final class SlackApi(
     client: SlackClient,
     isProd: Boolean,
-    implicit val lightUser: String => Option[LightUser]) {
+    implicit val lightUser: LightUser.Getter) {
 
   import SlackApi._
 
-  def charge(event: lila.hub.actorApi.plan.ChargeEvent): Funit = {
-    val amount = s"$$${lila.common.Maths.truncateAt(event.amount / 100d, 2)}"
-    val link = if (event.username == "Anonymous") "Anonymous" else s"lichess.org/@/${event.username}"
-    client(SlackMessage(
+  object charge {
+
+    import lila.hub.actorApi.plan.ChargeEvent
+
+    private var buffer: Vector[ChargeEvent] = Vector.empty
+
+    def apply(event: ChargeEvent): Funit =
+      if (event.amount <= 2000) addToBuffer(event)
+      else displayMessage {
+        s"${link(event)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
+      }
+
+    private def addToBuffer(event: ChargeEvent): Funit = {
+      buffer = buffer :+ event
+      (buffer.head.date isBefore DateTime.now.minusHours(3)) ?? {
+        val links = buffer map link mkString ", "
+        val amountSum = buffer.map(_.amount).sum
+        displayMessage {
+          s"$links donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
+        } >>- {
+          buffer = Vector.empty
+        }
+      }
+    }
+
+    private def displayMessage(text: String) = client(SlackMessage(
       username = "Patron",
       icon = "four_leaf_clover",
-      text = s"$link donated $amount. Monthly progress: ${event.percent}%",
+      text = text,
       channel = "general"
     ))
+
+    private def link(event: ChargeEvent) =
+      if (event.username == "Anonymous") "Anonymous"
+      else s"lichess.org/@/${event.username}"
+
+    private def amount(cents: Int) = s"$$${lila.common.Maths.truncateAt(cents / 100d, 2)}"
   }
 
   def publishEvent(event: Event): Funit = event match {

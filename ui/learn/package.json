@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "github:ornicar/chessground#v4.2.0",
+    "chessground": "github:ornicar/chessground#v4.3.5",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
 }

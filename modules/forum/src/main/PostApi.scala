@@ -3,14 +3,13 @@ package lila.forum
 import actorApi._
 import akka.actor.ActorSelection
 import org.joda.time.DateTime
-
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
+import lila.hub.actorApi.timeline.{ForumPost, Propagate}
 import lila.mod.ModlogApi
-import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lila.security.{Granter => MasterGranter}
+import lila.user.{User, UserContext}
 
 final class PostApi(
     env: Env,
@@ -68,6 +67,25 @@ final class PostApi(
               } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject post
         }
     }
+
+  def editPost(postId: String, newText: String,  user: User) : Fu[Post] = {
+
+    get(postId) flatMap { post =>
+      val now = DateTime.now
+
+      post match {
+        case Some((_, post)) if !post.canBeEditedBy(user.id) =>
+          fufail("You are not authorized to modify this post.")
+        case Some((_, post)) if !post.canStillBeEdited() =>
+          fufail("Post can no longer be edited")
+        case Some((_,post)) =>
+          val spamEscapedTest = lila.security.Spam.replace(newText)
+          val newPost = post.editPost(now, spamEscapedTest)
+          env.postColl.update($id(post.id), newPost) inject newPost
+        case None => fufail("Post no longer exists.")
+      }
+    }
+  }
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 
@@ -169,4 +187,6 @@ final class PostApi(
   def nbByUser(userId: String) = env.postColl.countSel($doc("userId" -> userId))
 
   def userIds(topic: Topic) = PostRepo userIdsByTopicId topic.id
+
+  def userIds(topicId: String) = PostRepo userIdsByTopicId topicId
 }

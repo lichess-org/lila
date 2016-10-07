@@ -18,10 +18,7 @@ var allSpeeds = baseSpeeds.concat({
 });
 
 var cplSpeeds = [{
-  name: 'by CPL (fast)',
-  delay: 'cpl_fast'
-}, {
-  name: 'by CPL (slow)',
+  name: 'by CPL',
   delay: 'cpl_slow'
 }];
 
@@ -43,26 +40,37 @@ function deleteButton(data, userId) {
 function autoplayButtons(ctrl) {
   var d = ctrl.data;
   var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
+  speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return m('div.autoplay', speeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+    return m('a', {
+      class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
       config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
-    };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
+    }, speed.name);
   }));
 }
 
-function autoplayCplButtons(ctrl) {
-  var d = ctrl.data;
-  return m('div.autoplay', cplSpeeds.map(function(speed, i) {
-    var attrs = {
-      class: 'button text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
+function rangeConfig(read, write) {
+  return function(el, isUpdate, ctx) {
+    if (isUpdate) return;
+    el.value = read();
+    var handler = function(e) {
+      write(e.target.value);
     };
-    if (i === 0) attrs['data-icon'] = 'G';
-    return m('a', attrs, speed.name);
-  }));
+    var blurer = function(e) {
+      e.target.blur();
+    };
+    el.addEventListener('input', handler)
+    el.addEventListener('mouseout', blurer)
+    ctx.onunload = function() {
+      el.removeEventListener('input', handler);
+      el.removeEventListener('mouseout', blurer);
+    };
+  };
+}
+
+function formatHashSize(v) {
+  if (v < 1000) return v + 'MB';
+  else return Math.round(v / 1024) + 'GB';
 }
 
 function studyButton(ctrl) {
@@ -88,17 +96,20 @@ function studyButton(ctrl) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    m('button.button.text', {
-      'data-icon': '',
-      type: 'submit'
-    }, realGame ? 'Study this game' : 'Host a study')
+    m('button.fbt', {
+        type: 'submit'
+      },
+      m('i.icon', {
+        'data-icon': ''
+      }),
+      realGame ? 'Create Study' : 'Save to Study')
   ]);
 }
 
 module.exports = {
   controller: function() {
 
-    this.open = false;
+    this.open = location.hash === '#menu';
 
     this.toggle = function() {
       this.open = !this.open;
@@ -112,20 +123,12 @@ module.exports = {
     var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
-      ctrl.ongoing ? null : m('a.button.text[data-icon=m]', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('boardEditor')),
-      canContinue ? m('a.button.text[data-icon=U]', {
-        config: util.bindOnce('click', function() {
-          $.modal($('.continue_with.' + d.game.id));
-        })
-      }, ctrl.trans('continueFromHere')) : null,
-      ctrl.vm.mainline.length > 4 ? autoplayButtons(ctrl) : null,
-      d.analysis ? autoplayCplButtons(ctrl) : null, [
+      m('h2', 'Computer analysis'), [
         (function(id) {
           return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Best move arrow'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -139,13 +142,13 @@ module.exports = {
               m('label', {
                 'for': id
               })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer arrows')
+            ])
           ]);
         })('analyse-toggle-ceval'), (function(id) {
           return m('div.setting', [
+            m('label', {
+              'for': id
+            }, 'Evaluation gauge'),
             m('div.switch', [
               m('input', {
                 id: id,
@@ -159,14 +162,93 @@ module.exports = {
               m('label', {
                 'for': id
               })
-            ]),
+            ])
+          ]);
+        })('analyse-toggle-gauge'), (function(id) {
+          var max = 5;
+          return m('div.setting', [
             m('label', {
               'for': id
-            }, 'Computer gauge')
+            }, 'Multiple lines'),
+            m('input', {
+              id: id,
+              type: 'range',
+              min: 1,
+              max: max,
+              step: 1,
+              config: rangeConfig(function() {
+                return ctrl.ceval.multiPv();
+              }, function(v) {
+                ctrl.cevalSetMultiPv(parseInt(v));
+              })
+            }),
+            m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
           ]);
-        })('analyse-toggle-gauge'),
-        studyButton(ctrl)
+        })('analyse-multipv'),
+        ctrl.ceval.pnaclSupported ? [
+          (function(id) {
+            var max = navigator.hardwareConcurrency || 1;
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'CPUs'),
+              m('input', {
+                id: id,
+                type: 'range',
+                min: 1,
+                max: max,
+                step: 1,
+                config: rangeConfig(function() {
+                  return ctrl.ceval.threads();
+                }, function(v) {
+                  ctrl.cevalSetThreads(parseInt(v));
+                })
+              }),
+              m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+            ]);
+          })('analyse-threads'), (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Memory'),
+              m('input', {
+                id: id,
+                type: 'range',
+                min: 4,
+                max: 10,
+                step: 1,
+                config: rangeConfig(function() {
+                  return Math.floor(Math.log2(ctrl.ceval.hashSize()));
+                }, function(v) {
+                  ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
+                })
+              }),
+              m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
+            ]);
+          })('analyse-memory')
+        ] : null
       ],
+      m('h2', 'Tools'),
+      m('div.tools', [
+        m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
+        ctrl.ongoing ? null : m('a.fbt', {
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }, [
+          m('i.icon[data-icon=m]'),
+          ctrl.trans('boardEditor')
+        ]),
+        canContinue ? m('a.fbt', {
+          config: util.bindOnce('click', function() {
+            $.modal($('.continue_with.' + d.game.id));
+          })
+        }, [
+          m('i.icon[data-icon=U]'),
+          ctrl.trans('continueFromHere')
+        ]) : null,
+        studyButton(ctrl)
+      ]),
+      ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
         m('a.button', {

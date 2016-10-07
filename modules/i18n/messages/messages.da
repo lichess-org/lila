@@ -60,7 +60,6 @@ viewNbCheckmates=Se %s skakmatter
 nbBookmarks=%s bogmærker
 nbPopularGames=%s populære partier
 nbAnalysedGames=%s analyserede partier
-bookmarkedByNbPlayers=Bogmærke til %s spillere
 viewInFullSize=Se i fuldskærm
 logOut=Log ud
 signIn=Log ind

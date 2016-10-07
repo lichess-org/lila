@@ -79,11 +79,15 @@
 div.game_list.playing.tv_history {
   width: 512px;
   margin-top: 5px;
-  text-align: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 .tv_history h2 {
   font-size: 1.3em;
   text-transform: uppercase;
   margin-bottom: 10px;
   font-family: 'Roboto';
+  flex: 0 0 100%;
+  text-align: center;
 }

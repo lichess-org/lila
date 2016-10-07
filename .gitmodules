@@ -31,9 +31,6 @@
 [submodule "public/vendor/stockfish.js"]
 	path = public/vendor/stockfish.js
 	url = https://github.com/niklasf/stockfish.js
-[submodule "public/vendor/Sunsetter"]
-	path = public/vendor/Sunsetter
-	url = https://github.com/niklasf/Sunsetter.git
 [submodule "public/vendor/flatpickr"]
 	path = public/vendor/flatpickr
 	url = https://github.com/chmln/flatpickr
@@ -43,3 +40,14 @@
 [submodule "public/visualizer"]
 	path = public/visualizer
 	url = https://github.com/ornicar/chess_game_visualizer
+[submodule "public/vendor/Sunsetter"]
+	path = public/vendor/Sunsetter
+	url = https://github.com/niklasf/Sunsetter
+	branch = js
+[submodule "public/vendor/stockfish.pexe"]
+	path = public/vendor/stockfish.pexe
+	url = https://github.com/niklasf/stockfish.pexe
+	branch = ddugovic
+[submodule "public/vendor/jquery-textcomplete"]
+	path = public/vendor/jquery-textcomplete
+	url = https://github.com/yuku-t/jquery-textcomplete

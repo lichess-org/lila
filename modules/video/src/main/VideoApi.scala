@@ -78,7 +78,7 @@ private[video] final class VideoApi(
       ).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinct("_id", none) map lila.db.BSON.asStrings
+      videoColl.distinct[String, List]("_id", none)
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new Adapter[Video](
@@ -154,10 +154,10 @@ private[video] final class VideoApi(
       ).some) map (0!=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
-      viewColl.distinct(View.BSONFields.videoId,
+      viewColl.distinct[String, Set](View.BSONFields.videoId,
         $inIds(videos.map { v =>
           View.makeId(v.id, user.id)
-        }).some) map lila.db.BSON.asStringSet
+        }).some)
   }
 
   object tag {
@@ -182,7 +182,7 @@ private[video] final class VideoApi(
             Match($doc("tags" $all filterTags)),
             List(Project($doc("tags" -> true)),
               Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
-              _.documents.flatMap(_.asOpt[TagNb]))
+              _.firstBatch.flatMap(_.asOpt[TagNb]))
 
         allPopular zip allPaths map {
           case (all, paths) =>
@@ -208,7 +208,7 @@ private[video] final class VideoApi(
         Project($doc("tags" -> true)), List(
           Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb")))).map(
-          _.documents.flatMap(_.asOpt[TagNb])),
+          _.firstBatch.flatMap(_.asOpt[TagNb])),
       timeToLive = 1.day)
   }
 }

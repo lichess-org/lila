@@ -75,7 +75,7 @@ atom = atom.some) {
         }
         /
         <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
-        @if(game.variant.standard) {
+        @if(lila.game.Game.visualisableVariants(game.variant)) {
         /
         <a data-icon="x" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
         }

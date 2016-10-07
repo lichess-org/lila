@@ -172,8 +172,8 @@ description = describeUser(u)).some) {
       }
       }
       <div class="stats">
-        @profile.fideRating.map { rating =>
-        <div class="fide_rating">FIDE rating: <strong>@rating</strong></div>
+        @profile.officialRating.map { r =>
+        <div>@r.name.toUpperCase rating: <strong>@r.rating</strong></div>
         }
         @NotForKids {
         @profile.nonEmptyLocation.map { l =>
@@ -224,7 +224,7 @@ description = describeUser(u)).some) {
     }
   </div>
   }
-  @if(u.hasGames || info.nbImported > 0) {
+  @if(u.hasGames || info.nbImported > 0 || info.nbBookmark > 0) {
   <div class="content_box_inter tabs" id="games">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">

@@ -34,7 +34,7 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js",
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
     test = "window.jQuery",
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
@@ -44,9 +44,9 @@ trait AssetHelper { self: I18nHelper =>
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val highchartsLatestTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.1/highcharts.js",
+    cdn = "//code.highcharts.com/4.2/highcharts.js",
     test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts4/highcharts-4.1.9.js"))
+    local = staticUrl("vendor/highcharts4/highcharts-4.2.5.js"))
 
   val highchartsMoreTag = Html {
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""

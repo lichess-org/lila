@@ -1,21 +1,14 @@
 package controllers
 
-import scala.util.{ Success, Failure }
+import scala.concurrent.duration._
 
-import akka.pattern.ask
-import play.api.http.ContentTypes
 import play.api.mvc._
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.evaluation.PlayerAssessments
-import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
-import lila.hub.actorApi.map.Tell
+import lila.game.{ Pov, GameRepo }
 import views._
-
-import chess.Color
 
 object Analyse extends LilaController {
 
@@ -23,18 +16,17 @@ object Analyse extends LilaController {
   private def bookmarkApi = Env.bookmark.api
   private val divider = Env.game.divider
 
-  def requestAnalysis(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(GameRepo game id) { game =>
-        Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
-          userId = me.id.some,
-          ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-          mod = isGranted(_.Hunter),
-          system = false)) map {
-          case true  => Ok
-          case false => Unauthorized
-        }
+  def requestAnalysis(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(GameRepo game id) { game =>
+      Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+        userId = me.id.some,
+        ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+        mod = isGranted(_.Hunter),
+        system = false)) map {
+        case true  => Ok
+        case false => Unauthorized
       }
+    }
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
@@ -56,19 +48,19 @@ object Analyse extends LilaController {
                 withMoveTimes = true,
                 withDivision = true,
                 withOpening = true) map { data =>
-                  Ok(html.analyse.replay(
-                    pov,
-                    data,
-                    initialFen,
-                    Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-                    analysis,
-                    analysisInProgress,
-                    simul,
-                    crosstable,
-                    userTv,
-                    chat,
-                    bookmarked = bookmarked))
-                }
+                Ok(html.analyse.replay(
+                  pov,
+                  data,
+                  initialFen,
+                  Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                  analysis,
+                  analysisInProgress,
+                  simul,
+                  crosstable,
+                  userTv,
+                  chat,
+                  bookmarked = bookmarked))
+              }
           }
       }
     }

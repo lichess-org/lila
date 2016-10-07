@@ -88,12 +88,29 @@ private object PgnImport {
               comments = comments,
               glyphs = san.metas.glyphs,
               crazyData = game.situation.board.crazyData,
-              children = Node.Children {
-                mainline.fold(variations)(_ :: variations).toVector
+              children = removeDuplicatedChildrenFirstNode {
+                Node.Children {
+                  mainline.fold(variations)(_ :: variations).toVector
+                }
               }
             ).some
           }
         }
       }
     }
+
+  /*
+   * Fix bad PGN like this one found on reddit:
+   * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
+   * where 7. c4 appears three times
+   */
+  private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children = children.first match {
+    case Some(main) if children.variations.exists(_.id == main.id) => Node.Children {
+      main +: children.variations.flatMap { node =>
+        if (node.id == main.id) node.children.nodes
+        else Vector(node)
+      }
+    }
+    case _ => children
+  }
 }

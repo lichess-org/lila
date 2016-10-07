@@ -8,7 +8,6 @@ object Dependencies {
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     // val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-    val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
@@ -22,7 +21,8 @@ object Dependencies {
       awesomepom,
       typesafe,
       prismic,
-      t2v, jgitMaven, sprayRepo)
+      jgitMaven,
+      sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.9"
@@ -34,7 +34,7 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.4"
-  val RM = "org.reactivemongo" % "reactivemongo_2.11" % "0.11.9.1-LILA"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.12-RC3"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"

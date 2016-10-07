@@ -5,7 +5,9 @@
 @cssTag("coach.form.css")
 }
 
-@layout(title = s"${c.user.titleUsername} coach picture", moreCss = moreCss) {
+@layout(title = s"${c.user.titleUsername} coach picture", 
+moreJs = jsTag("coach.form.js"),
+moreCss = moreCss) {
 <div class="coach_picture content_box small_box no_padding">
   <h1 class="lichess_title">
     @userLink(c.user) coach picture
@@ -28,7 +30,7 @@
     }
     }
     <div class="cancel">
-      <a href="@routes.Coach.edit" class="text" data-icon="I">Cancel and return to coach page form</a>
+      <a href="@routes.Coach.edit" class="text" data-icon="I">Return to coach page form</a>
     </div>
   </div>
 </div>
