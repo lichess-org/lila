@@ -12,11 +12,11 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
   };
 
   var stop = function() {
-    var stopped = m.deferred(false);
+    var stopped = protocol.stop();
     setTimeout(function() {
       stopped.reject();
     }, 1000);
-    return protocol.stop(stopped);
+    return stopped.promise;
   };
 
   api = {
