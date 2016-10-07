@@ -187,7 +187,7 @@ module.exports = {
           return m('div.setting', [
             m('label', {
               'for': id
-            }, 'Principal variations'),
+            }, 'Textual lines'),
             m('div.switch', [
               m('input', {
                 id: id,
