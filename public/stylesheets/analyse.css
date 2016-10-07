@@ -198,17 +198,26 @@ div.gauge_displayed .fork {
   font-family: 'Roboto';
 }
 .pv_box .pv {
-  padding: 5px;
-  height: 15px;
+  height: 2em;
+  line-height: 2em;
   border: 1px solid #ccc;
   border-bottom: 0;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-family: 'ChessSansPiratf', sans-serif;
   cursor: pointer;
 }
-body.piece_letter .pv_box .pv {
+.pv_box .pv strong {
+  display: inline-block;
+  width: 35px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+}
+.pv_box .pv span {
+  margin-left: 5px;
+  font-family: 'ChessSansPiratf', sans-serif;
+}
+body.piece_letter .pv_box .pv span {
   font-family: 'Noto Sans';
 }
 .ceval_box {

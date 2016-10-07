@@ -146,13 +146,13 @@ module.exports = {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
           el.addEventListener('mouseover', function(e) {
-            ctrl.ceval.setHoveringUci($(e.target).attr('data-uci'));
+            ctrl.ceval.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
           });
           el.addEventListener('mouseout', function(e) {
             ctrl.ceval.setHoveringUci(null);
           });
           el.addEventListener('click', function(e) {
-            var uci = $(e.target).attr('data-uci');
+            var uci = $(e.target).closest('div.pv').attr('data-uci');
             if (uci) ctrl.playUci(uci);
           });
         }
@@ -163,7 +163,10 @@ module.exports = {
     }, util.range(ctrl.ceval.multiPv()).map(function(i) {
       return !pvs[i] ? m('div.pv') : m('div.pv', {
         'data-uci': pvs[i].best
-      }, pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pvs[i].pv, pvs[i].mate));
+      }, [
+        ctrl.ceval.multiPv() > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
+        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, pvs[i].pv, pvs[i].mate))
+      ]);
     }));
   }
 };
