@@ -122,7 +122,7 @@ module.exports = function(root, possible, variant, emit) {
             depth: maxDepth(),
             cp: dictRes.cp,
             best: dictRes.best,
-            mate: 0,
+            pvs: dictRes.pvs,
             dict: true
           }
         });
