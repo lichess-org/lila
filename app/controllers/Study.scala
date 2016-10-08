@@ -89,6 +89,7 @@ object Study extends LilaController {
   }
 
   def show(id: String) = Open { implicit ctx =>
+    // chapterId is only specified when the user is desynced
     val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
       env.api.byIdWithChapter(id, chapterId)
     }
