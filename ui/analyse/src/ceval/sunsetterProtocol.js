@@ -4,6 +4,7 @@ module.exports = function(worker, opts) {
 
   var work = null;
   var stopped = m.deferred();
+  stopped.resolve(true);
 
   worker.send('xboard');
 
@@ -18,7 +19,7 @@ module.exports = function(worker, opts) {
     if (text === 'tellics stopped') {
       aiMoves = 0;
       best = undefined;
-      stopped.resolve(true);
+      if (stopped) stopped.resolve(true);
       return;
     }
     if (!work) return;
@@ -77,6 +78,7 @@ module.exports = function(worker, opts) {
 
   return {
     start: function(w) {
+      stopped = null;
       work = w;
       worker.send('reset crazyhouse');
       worker.send('setboard ' + work.initialFen);
@@ -87,17 +89,16 @@ module.exports = function(worker, opts) {
       }
       worker.send('go');
     },
-    stop: function(s) {
-      if (!work) s.resolve(true);
-      else {
-        stopped = s;
+    stop: function() {
+      if (!stopped) {
+        stopped = m.deferred();
         work = null;
         aiMoves = 0;
         best = undefined;
         worker.send('exit');
         worker.send('tellics stopped');
       }
-      return s.promise;
+      return stopped;
     },
     received: processOutput
   };
