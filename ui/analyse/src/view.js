@@ -59,6 +59,7 @@ function makeConcealOf(ctrl) {
 
 function renderAnalyse(ctrl, concealOf) {
   return m('div.areplay', [
+    renderOpeningBox(ctrl),
     treeView.render(ctrl, concealOf),
     renderResult(ctrl)
   ]);
@@ -243,7 +244,6 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             cevalView.renderPvs(ctrl),
-            renderOpeningBox(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             explorerView.renderExplorer(ctrl)

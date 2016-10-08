@@ -189,8 +189,7 @@ div.gauge_displayed .fork {
 }
 .opening_box {
   padding: 5px;
-  border: 1px solid #ccc;
-  border-bottom: 0;
+  border-bottom: 1px solid #ccc;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
