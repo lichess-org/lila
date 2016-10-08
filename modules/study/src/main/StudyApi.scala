@@ -51,7 +51,7 @@ final class StudyApi(
   def byIdWithChapter(id: Study.ID, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       chapterRepo.byId(chapterId) map {
-        _ map { Study.WithChapter(study, _) }
+        _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }
   }

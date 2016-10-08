@@ -1,0 +1,43 @@
+@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
+
+<!doctype html>
+<html>
+  <head>
+    <title>@s.name: @chapter.name</title>
+    @ctx.currentBg match {
+    case "dark" => { @cssTag("dark.css") }
+    case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
+    case _ => {}
+    }
+    @cssTag("common.css")
+    @cssTag("board.css")
+    @cssTag("analyse.css")
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
+    <meta charset="utf-8">
+  </head>
+  <body class="base highlight
+    @{if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg}
+    no-bg">
+    <div class="analyse cg-512">@miniBoardContent</div>
+    @jQueryTag
+    @jsTag("vendor/chessground.min.js")
+    @jsTagCompiled("tv.js")
+    @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+    @embedJs {
+    lichess = lichess || {};
+    lichess.study = {
+    study: @Html(J.stringify(data.study)),
+    data: @Html(J.stringify(data.analysis)),
+    i18n: @board.userAnalysisI18n(),
+    userId: "null",
+    explorer: {
+    endpoint: "@explorerEndpoint",
+    tablebaseEndpoint: "@tablebaseEndpoint"
+    },
+    socketUrl: "@routes.Study.websocket(s.id, apiVersion.value)",
+    socketVersion: @socketVersion
+    };
+    }
+    @base.ga()
+  </body>
+</html>
