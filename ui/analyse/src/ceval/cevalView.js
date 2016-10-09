@@ -139,6 +139,7 @@ module.exports = {
   },
   renderPvs: function(ctrl) {
     if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
+    var multiPv = ctrl.data.game.variant.key === 'crazyhouse' ? 1 : ctrl.ceval.multiPv();
     var pvs, threat = false;
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
@@ -166,12 +167,12 @@ module.exports = {
           ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
-    }, util.range(ctrl.ceval.multiPv()).map(function(i) {
+    }, util.range(multiPv).map(function(i) {
       if (!pvs[i]) return m('div.pv');
       else return m('div.pv', threat ? {} : {
         'data-uci': pvs[i].best
       }, [
-        ctrl.ceval.multiPv() > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
+        multiPv > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
         m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));
