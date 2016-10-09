@@ -13,7 +13,7 @@ module.exports = function(worker, opts) {
   // When aiMoves is > 0 Sunsetter is in analysis mode, which uses an absolute
   // eval score instead of relative to current color.
   var aiMoves = 0;
-  var best;
+  var best, pv;
 
   var processOutput = function(text) {
     if (text === 'tellics stopped') {
@@ -33,12 +33,13 @@ module.exports = function(worker, opts) {
 
     var depth, cp, mate;
 
-    var matches = text.match(/(\d+)\s+([-+]?\d+)\s+(\d+)\s+(\d+)\s+([a-h1-8=@PNBRQK]+).*/);
+    var matches = text.match(/(\d+)\s+([-+]?\d+)\s+(\d+)\s+(\d+)\s+(([a-h1-8=@PNBRQK]+ )*[a-h1-8=@PNBRQK]+).*/);
     if (matches) {
       depth = parseInt(matches[1], 10);
       cp = parseInt(matches[2], 10);
       if (!aiMoves) {
-        best = matches[5];
+        pv = matches[5];
+        best = pv.split(' ')[0];
       }
     } else {
       matches = text.match(/Found move:\s+([a-h1-8=@PNBRQK]+)\s+([-+]?\d+)\s.*/);
@@ -71,7 +72,13 @@ module.exports = function(worker, opts) {
         depth: depth + aiMoves,
         cp: cp,
         mate: mate,
-        best: best
+        best: best,
+        pvs: [{
+          cp: cp,
+          mate: mate,
+          best: best,
+          pv: pv || best
+        }]
       }
     });
   };
@@ -95,6 +102,7 @@ module.exports = function(worker, opts) {
         work = null;
         aiMoves = 0;
         best = undefined;
+        pv = undefined;
         worker.send('exit');
         worker.send('tellics stopped');
       }
