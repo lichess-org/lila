@@ -152,7 +152,7 @@ function makeMove(variant, board, uci) {
 }
 
 function san(board, uci) {
-  if (uci.indexOf('@') !== -1) return uci;
+  if (uci.indexOf('@') !== -1) return util.fixCrazySan(uci);
 
   var move = util.decomposeUci(uci);
   var from = square(move[0]);
