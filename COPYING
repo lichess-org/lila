@@ -25,3 +25,13 @@ licence, the licensors of this Program grant you additional permission to
 convey the resulting work. Corresponding Source for a non-source form of such a
 combination shall include the source code for the parts of Highcharts used as
 well as that of the covered work.
+
+Exceptions:
+
+* The ChessSansPiratf font in public/fonts is part of
+  pgn4web <http://pgn4web.casaschi.net/home.html> which is licensed under
+  the GPLv2.
+* The artwork in public/images.
+* The icon font in public/font70.
+* The sound themes in public/sound.
+* The piece sets in public/piece and public/piece-src.
