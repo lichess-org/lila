@@ -62,8 +62,6 @@ object Study {
 
   def toName(str: String) = str.trim take 100
 
-  case class Views(value: Int) extends AnyVal
-
   sealed trait Visibility {
     lazy val key = toString.toLowerCase
   }
@@ -98,13 +96,15 @@ object Study {
       name: String,
       visibility: String,
       computer: String,
-      explorer: String) {
+      explorer: String,
+      cloneable: String) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
     def settings = for {
       comp <- UserSelection.byKey get computer
       expl <- UserSelection.byKey get explorer
-    } yield Settings(comp, expl)
+      clon <- UserSelection.byKey get cloneable
+    } yield Settings(comp, expl, clon)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

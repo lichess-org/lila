@@ -87,15 +87,10 @@ module.exports = {
       if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
         return lichess.reload();
       if (s.position !== data.position) commentForm.close();
-      data.position = s.position;
-      data.name = document.title = s.name;
-      data.visibility = s.visibility;
-      data.settings = s.settings;
-      data.visibility = s.visibility;
-      data.views = s.views;
-      data.chapter = s.chapter;
-      data.likes = s.likes;
-      data.liked = s.liked;
+      ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
+        data[key] = s[key];
+      });
+      document.title = data.name;
       members.dict(s.members);
       chapters.list(s.chapters);
       ctrl.reloadData(d.analysis);

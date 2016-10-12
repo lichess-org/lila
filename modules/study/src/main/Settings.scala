@@ -3,16 +3,16 @@ package lila.study
 import lila.user.User
 
 case class Settings(
-    computer: Settings.UserSelection,
-    explorer: Settings.UserSelection) {
-
-}
+  computer: Settings.UserSelection,
+  explorer: Settings.UserSelection,
+  cloneable: Settings.UserSelection)
 
 object Settings {
 
   val init = Settings(
     computer = UserSelection.Everyone,
-    explorer = UserSelection.Everyone)
+    explorer = UserSelection.Everyone,
+    cloneable = UserSelection.Everyone)
 
   sealed trait UserSelection {
     lazy val key = toString.toLowerCase
