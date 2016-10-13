@@ -102,6 +102,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
+          lichess.reloadOtherTabs();
         }
       });
     });
