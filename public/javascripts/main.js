@@ -494,7 +494,7 @@ lichess.notifyApp = (function() {
               theme = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is2d div.no-square').hover(function() {
               var s = $(this).data("set");
@@ -505,7 +505,7 @@ lichess.notifyApp = (function() {
               set = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is3d div.theme').hover(function() {
               $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
@@ -515,7 +515,7 @@ lichess.notifyApp = (function() {
               theme3d = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme3d
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is3d div.no-square').hover(function() {
               $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
@@ -525,7 +525,7 @@ lichess.notifyApp = (function() {
               set3d = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set3d
-              });
+              }, lichess.reloadOtherTabs);
             });
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
@@ -555,6 +555,7 @@ lichess.notifyApp = (function() {
                 bg: background
               }, function() {
                 if (window.Highcharts) lichess.reload();
+                lichess.reloadOtherTabs();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
@@ -567,7 +568,7 @@ lichess.notifyApp = (function() {
               is3d = $(this).data('is3d');
               $.post($(this).parent().data('href'), {
                 is3d: is3d
-              });
+              }, lichess.reloadOtherTabs);
               $(this).addClass('active').siblings().removeClass('active');
               return false;
             }).hover(function() {
@@ -593,7 +594,7 @@ lichess.notifyApp = (function() {
                 var v = $(this).val();
                 $.post($(this).data("href"), {
                   bgImg: v
-                });
+                }, lichess.reloadOtherTabs);
                 applyBackground(v);
               }, 200));
           }
@@ -894,7 +895,7 @@ lichess.notifyApp = (function() {
         play.genericNotify();
         $.post($selector.attr('action'), {
           set: soundSet
-        });
+        }, lichess.reloadOtherTabs);
         $toggle.toggleClass('sound_state_on', enabled());
         publish();
         return false;
