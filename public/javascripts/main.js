@@ -3,12 +3,13 @@
 // ==/ClosureCompiler==
 
 lichess.challengeApp = (function() {
-  var instance;
+  var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
   $toggle.one('mouseover click', function() {
-    if (!instance) load();
+    if (!booted) load();
   });
   var load = function(data) {
+    booted = true;
     var isDev = $('body').data('dev');
     var element = document.getElementById('challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
