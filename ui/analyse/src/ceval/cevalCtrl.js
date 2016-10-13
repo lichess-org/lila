@@ -8,7 +8,7 @@ var sunsetterProtocol = require('./sunsetterProtocol');
 module.exports = function(root, possible, variant, emit) {
 
   var pnaclSupported = navigator.mimeTypes['application/x-pnacl'];
-  var minDepth = 7;
+  var minDepth = 6;
   var maxDepth = util.storedProp('ceval.max-depth', 18);
   var multiPv = util.storedProp('ceval.multipv', 1);
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
