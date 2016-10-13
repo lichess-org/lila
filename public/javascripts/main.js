@@ -21,6 +21,9 @@ lichess.challengeApp = (function() {
         },
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
+        },
+        pulse: function() {
+          $toggle.addClass('pulse');
         }
       });
     });

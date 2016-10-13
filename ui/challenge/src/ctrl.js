@@ -50,6 +50,7 @@ module.exports = function(env) {
           $.sound.newChallenge();
         }
         lichess.desktopNotification(showUser(c.challenger) + ' challenges you!');
+        env.pulse();
       }
     });
   }.bind(this);
