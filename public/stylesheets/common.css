@@ -1832,6 +1832,7 @@ a.mini_board {
 #challenge .mini_board .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
+  margin: auto;
 }
 #now_playing {
   padding: 4px 0 0 4px;
