@@ -966,6 +966,18 @@ body.piece_letter .tview2 move {
   padding: 3px 5px;
   word-wrap: break-word;
 }
+.tview2 comment .by {
+  display: inline-block;
+  vertical-align: -0.3em;
+  white-space: nowrap;
+  font-family: 'Roboto';
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-right: 0.4em;
+  max-width: 9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .tview2 comment.white {
   border-left: 3px solid;
 }
@@ -991,6 +1003,10 @@ body.piece_letter .tview2 move {
   word-wrap: break-word;
   font-size: 90%;
   padding: 0 5px 0 3px;
+  vertical-align: top;
+}
+.tview2 line comment .by {
+  font-size: 1em;
   vertical-align: top;
 }
 .tview2 lines {
