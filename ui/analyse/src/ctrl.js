@@ -231,7 +231,7 @@ module.exports = function(opts) {
     this.vm.redirecting = false;
     this.setPath(treePath.root);
     this.ceval.destroy();
-    this.instanciateCeval();
+    instanciateCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -381,7 +381,7 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  this.instanciateCeval = function() {
+  var instanciateCeval = function(failsafe) {
     this.ceval = cevalCtrl({
       variant: this.data.game.variant,
       possible: (
@@ -403,13 +403,19 @@ module.exports = function(opts) {
         }.bind(this));
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
+      failsafe: failsafe,
       onCrash: function(e) {
-        console.log('crashed!', e);
-      }
+        console.log('Local eval failed!', e);
+        if (this.ceval.pnaclSupported) {
+          console.log('Retrying in failsafe mode');
+          instanciateCeval(true);
+          this.startCeval();
+        }
+      }.bind(this)
     });
   }.bind(this);
 
-  this.instanciateCeval();
+  instanciateCeval();
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;

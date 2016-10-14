@@ -7,7 +7,7 @@ var sunsetterProtocol = require('./sunsetterProtocol');
 
 module.exports = function(opts) {
 
-  var pnaclSupported = true || navigator.mimeTypes['application/x-pnacl'];
+  var pnaclSupported = !opts.failsafe && navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 6;
   var maxDepth = util.storedProp('ceval.max-depth', 18);
   var multiPv = util.storedProp('ceval.multipv', 1);

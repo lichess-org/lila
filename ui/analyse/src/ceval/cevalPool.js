@@ -62,7 +62,7 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
       document.body.appendChild(worker);
       ['crash', 'error'].forEach(function(eventType) {
         worker.addEventListener(eventType, function() {
-          alert("Sorry, the local Stockfish process has crashed! Error: " + worker.lastError);
+          poolOpts.onCrash('lastError: ' + worker.lastError);
         }, true);
       });
       return worker;
@@ -70,15 +70,24 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
       worker.remove();
     }, poolOpts, makeProtocol, protocolOpts);
   } catch (e) {
-    alert("Sorry, the local Stockfish process has crashed! Error: " + e);
-    poolOpts.onCrash();
+    poolOpts.onCrash(e);
+    return makeWorkerStub();
   }
+}
+
+function makeWorkerStub() {
+  var noop = function() {};
+  return {
+    send: noop,
+    start: noop,
+    stop: noop,
+    destroy: noop
+  };
 }
 
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   var workers = [];
   var token = -1;
-    console.log(poolOpts);
 
   var getWorker = function() {
     initWorkers();
