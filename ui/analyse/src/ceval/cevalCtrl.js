@@ -5,7 +5,7 @@ var util = require('../util');
 var stockfishProtocol = require('./stockfishProtocol');
 var sunsetterProtocol = require('./sunsetterProtocol');
 
-module.exports = function(root, possible, variant, emit) {
+module.exports = function(opts) {
 
   var pnaclSupported = true || navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 6;
@@ -17,22 +17,20 @@ module.exports = function(root, possible, variant, emit) {
   var curDepth = 0;
   var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
-  var enabled = m.prop(possible() && allowed() && enableStorage.get() == '1');
+  var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1');
   var started = false;
   var hoveringUci = m.prop(null);
 
   var pool;
-  if (variant.key !== 'crazyhouse') {
+  if (opts.variant.key !== 'crazyhouse') {
     pool = makePool(stockfishProtocol, {
       asmjs: '/assets/vendor/stockfish.js/stockfish.js',
       pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf',
-      onCrash: function() {
-        root.instanciateCeval();
-      }
+      onCrash: opts.onCrash
     }, {
       minDepth: minDepth,
       maxDepth: maxDepth,
-      variant: variant,
+      variant: opts.variant,
       multiPv: multiPv,
       threads: pnaclSupported && threads,
       hashSize: pnaclSupported && hashSize
@@ -74,11 +72,11 @@ module.exports = function(root, possible, variant, emit) {
     res.eval.maxDepth = res.work.maxDepth;
     npsRecorder(res);
     curDepth = res.eval.depth;
-    emit(res);
+    opts.emit(res);
   }
 
   var start = function(path, steps, threatMode) {
-    if (!enabled() || !possible()) return;
+    if (!enabled() || !opts.possible) return;
     var step = steps[steps.length - 1];
 
     var existing = step[threatMode ? 'threat' : 'ceval'];
@@ -113,7 +111,7 @@ module.exports = function(root, possible, variant, emit) {
       }
     }
 
-    var dictRes = dict(work, variant, multiPv());
+    var dictRes = dict(work, opts.variant, multiPv());
     if (dictRes) {
       setTimeout(function() {
         // this has to be delayed, or it slows down analysis first render.
@@ -145,7 +143,7 @@ module.exports = function(root, possible, variant, emit) {
     start: start,
     stop: stop,
     allowed: allowed,
-    possible: possible,
+    possible: opts.possible,
     enabled: enabled,
     multiPv: multiPv,
     threads: threads,
@@ -154,10 +152,10 @@ module.exports = function(root, possible, variant, emit) {
     hoveringUci: hoveringUci,
     setHoveringUci: function(uci) {
       hoveringUci(uci);
-      root.setAutoShapes();
+      opts.setAutoShapes();
     },
     toggle: function() {
-      if (!possible() || !allowed()) return;
+      if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
       enableStorage.set(enabled() ? '1' : '0');

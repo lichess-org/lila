@@ -67,7 +67,7 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible()) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible) return;
     var enabled = ctrl.ceval.enabled();
     var evs = ctrl.currentEvals() || {};
     var threatMode = ctrl.vm.threatMode;
@@ -138,7 +138,7 @@ module.exports = {
     )
   },
   renderPvs: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible() || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.ceval.showPvs() || !ctrl.ceval.enabled()) return;
     var multiPv = ctrl.data.game.variant.key === 'crazyhouse' ? 1 : ctrl.ceval.multiPv();
     var pvs, threat = false;
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
