@@ -346,13 +346,15 @@ lichess.notifyApp = (function() {
     // debounce the first parseFen at first, then process them immediately
     // because chessground initial display does a DOM read (board dimensions)
     // and the play page can have 6 miniboards to display (ongoing games)
-    var fun = $.fp.debounce(doParseFen, 400, false);
-    setTimeout(function() {
-      fun = doParseFen;
-    }, 1000);
-    return function($elem) {
-      fun($elem);
-    };
+    if (document.getElementById('now_playing')) {
+      var fun = $.fp.debounce(doParseFen, 400, false);
+      setTimeout(function() {
+        fun = doParseFen;
+      }, 1000);
+      return function($elem) {
+        fun($elem);
+      };
+    } else return doParseFen;
   })();
 
   $(function() {
