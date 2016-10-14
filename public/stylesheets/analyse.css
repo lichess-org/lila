@@ -1045,7 +1045,7 @@ body.piece_letter .tview2 move {
   height: 6px;
 }
 .tview2 lines line::before {
-  margin-top: 7px;
+  margin-top: 8px;
   margin-left: -4px;
   content: ' ';
   border-top: 1px solid #c0c0c0;
