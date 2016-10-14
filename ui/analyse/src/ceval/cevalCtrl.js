@@ -7,7 +7,7 @@ var sunsetterProtocol = require('./sunsetterProtocol');
 
 module.exports = function(root, possible, variant, emit) {
 
-  var pnaclSupported = navigator.mimeTypes['application/x-pnacl'];
+  var pnaclSupported = true || navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 6;
   var maxDepth = util.storedProp('ceval.max-depth', 18);
   var multiPv = util.storedProp('ceval.multipv', 1);
@@ -25,7 +25,10 @@ module.exports = function(root, possible, variant, emit) {
   if (variant.key !== 'crazyhouse') {
     pool = makePool(stockfishProtocol, {
       asmjs: '/assets/vendor/stockfish.js/stockfish.js',
-      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf'
+      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf',
+      onCrash: function() {
+        root.instanciateCeval();
+      }
     }, {
       minDepth: minDepth,
       maxDepth: maxDepth,

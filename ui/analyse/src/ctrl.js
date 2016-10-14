@@ -231,7 +231,7 @@ module.exports = function(opts) {
     this.vm.redirecting = false;
     this.setPath(treePath.root);
     this.ceval.destroy();
-    this.ceval = makeCeval();
+    this.instanciateCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -383,8 +383,8 @@ module.exports = function(opts) {
       cevalVariants.indexOf(this.data.game.variant.key) !== -1;
   }.bind(this);
 
-  var makeCeval = function() {
-    return cevalCtrl(this, cevalPossible, this.data.game.variant, function(res) {
+  this.instanciateCeval = function() {
+    this.ceval = cevalCtrl(this, cevalPossible, this.data.game.variant, function(res) {
       this.tree.updateAt(res.work.path, function(node) {
         if (res.work.threatMode) {
           if (node.threat && node.threat.depth >= res.eval.depth) return;
@@ -398,10 +398,10 @@ module.exports = function(opts) {
           m.redraw();
         }
       }.bind(this));
-    }.bind(this))
+    }.bind(this));
   }.bind(this);
 
-  this.ceval = makeCeval();
+  this.instanciateCeval();
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
