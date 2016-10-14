@@ -211,12 +211,11 @@ div.gauge_displayed .fork {
 }
 .pv_box .pv strong {
   display: inline-block;
-  width: 35px;
+  width: 34px;
   text-align: center;
-  border-right: 1px solid #ccc;
 }
 .pv_box .pv span {
-  margin-left: 5px;
+  margin-left: 4px;
   font-family: 'ChessSansPiratf', sans-serif;
 }
 body.piece_letter .pv_box .pv span {
@@ -475,7 +474,6 @@ body.dark .action_menu h2:after {
   border-color: #555;
 }
 body.dark .ceval_box .show-threat,
-body.dark .pv_box .pv strong,
 body.dark .pv_box .pv {
   border-color: #3d3d3d;
 }
@@ -913,7 +911,7 @@ body.piece_letter .tview2 move {
   color: #606060;
 }
 .tview2 > move {
-  flex: 0 0 44%;
+  flex: 0 0 43.5%;
   display: flex;
   box-sizing: border-box;
   font-size: 16px;
@@ -944,7 +942,7 @@ body.piece_letter .tview2 move {
   margin-left: 3px;
 }
 .tview2 > index {
-  flex: 0 0 12%;
+  flex: 0 0 13%;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
