@@ -102,7 +102,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           lastWeekOfMonth.withDayOfWeek(MONDAY) -> Bullet,
           lastWeekOfMonth.withDayOfWeek(TUESDAY) -> SuperBlitz,
           lastWeekOfMonth.withDayOfWeek(WEDNESDAY) -> Blitz,
-          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> Classical
+          lastWeekOfMonth.withDayOfWeek(THURSDAY) -> Classical,
+          lastWeekOfMonth.withDayOfWeek(Friday) -> HyperBullet
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
               Schedule(Monthly, speed, Standard, std, date)
