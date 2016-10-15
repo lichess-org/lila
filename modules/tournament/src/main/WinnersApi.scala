@@ -3,15 +3,34 @@ package lila.tournament
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
 
+import chess.variant.Variant
 import lila.db.BSON._
 import lila.user.{ User, UserRepo }
 
-final class Winners(
+case class FreqWinners(value: Map[Schedule.Freq, Winner])
+case class AllWinners(
+  hyperbullet: FreqWinners,
+  bullet: FreqWinners,
+  superblitz: FreqWinners,
+  blitz: FreqWinners,
+  classical: FreqWinners,
+  variants: Map[Variant, FreqWinners])
+
+final class WinnersApi(
     mongoCache: lila.memo.MongoCache.Builder,
     ttl: FiniteDuration) {
 
-  private implicit val WinnerBSONHandler =
-    reactivemongo.bson.Macros.handler[Winner]
+  private implicit val WinnerBSONHandler = reactivemongo.bson.Macros.handler[Winner]
+
+  // private def fetchAll: Fu[AllWinners] =
+
+  // private val allCache = mongoCache.single[AllWinners](
+  //   prefix = "tournament:winner:all",
+  //   f = fetchAll,
+  //   timeToLive = ttl,
+  //   keyToString = _.toString)
+
+  // def all: Fu[AllWinners] = allCache(true)
 
   private val scheduledCache = mongoCache[Int, List[Winner]](
     prefix = "tournament:winner",
@@ -37,7 +56,7 @@ final class Winners(
         }
         case _ => fuccess(none)
       }
-    }.sequenceFu map (_.flatten take 10)
+    }.sequenceFu.map(_.flatten take 10)
 
   def scheduled(nb: Int): Fu[List[Winner]] = scheduledCache apply nb
 }
