@@ -87,7 +87,7 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val winners = new Winners(
+  lazy val winners = new WinnersApi(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
