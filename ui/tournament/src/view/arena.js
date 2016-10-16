@@ -26,7 +26,6 @@ function rank(p) {
 }
 
 function playerTr(ctrl, player) {
-  var isLong = player.sheet.scores.length > 40;
   var userId = player.name.toLowerCase();
   return {
     tag: 'tr',
@@ -34,7 +33,8 @@ function playerTr(ctrl, player) {
       key: userId,
       class: classSet({
         'me': ctrl.userId === userId,
-        'long': isLong
+        'long': player.sheet.scores.length > 40,
+        'xlong': player.sheet.scores.length > 80
       }),
       onclick: partial(ctrl.showPlayerInfo, player)
     },

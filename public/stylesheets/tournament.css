@@ -375,6 +375,10 @@ ol.scheduled_tournaments a {
   padding-right: 0;
   padding-left: 0;
 }
+#tournament table.standing tr.xlong .sheet {
+  letter-spacing: -3px;
+  font-size: 11px;
+}
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
