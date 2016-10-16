@@ -10,7 +10,6 @@ module.exports = function(worker, opts) {
   worker.send('reset crazyhouse');
 
   var processOutput = function(text) {
-    // console.warn("<-- %s", text);
     if (text === 'tellics stopped') {
       if (stopped) stopped.resolve(true);
       return;
@@ -65,9 +64,6 @@ module.exports = function(worker, opts) {
       if (!stopped) {
         stopped = m.deferred();
         work = null;
-        aiMoves = 0;
-        best = undefined;
-        pv = undefined;
         worker.send('exit');
         worker.send('tellics stopped');
       }
