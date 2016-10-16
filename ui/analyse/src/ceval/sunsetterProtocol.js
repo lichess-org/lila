@@ -16,37 +16,35 @@ module.exports = function(worker, opts) {
     }
     if (!work) return;
 
-    var depth, cp, mate, best, pv;
-
     var matches = text.match(/^(\d+) ([-+]?\d+) \d+ \d+ (.*)$/);
     if (matches) {
-      depth = parseInt(matches[1], 10);
-      cp = parseInt(matches[2], 10);
-      pv = matches[3];
-      best = pv.split(' ')[0];
-    }
+      var depth = parseInt(matches[1], 10);
+      var cp = parseInt(matches[2], 10);
+      var pv = matches[3].trim();
+      var best = pv.split(' ')[0];
 
-    // transform mate scores
-    if (Math.abs(cp) > 20000) {
-      mate = Math.sign(cp) * Math.floor(30000 - Math.abs(cp));
-      cp = undefined;
-    }
+      // transform mate scores
+      if (Math.abs(cp) > 20000) {
+        var mate = Math.sign(cp) * Math.floor(30000 - Math.abs(cp));
+        cp = undefined;
+      }
 
-    work.emit({
-      work: work,
-      eval: {
-        depth: depth,
-        cp: cp,
-        mate: mate,
-        best: best,
-        pvs: [{
+      work.emit({
+        work: work,
+        eval: {
+          depth: depth,
           cp: cp,
           mate: mate,
           best: best,
-          pv: pv
-        }]
-      }
-    });
+          pvs: [{
+            cp: cp,
+            mate: mate,
+            best: best,
+            pv: pv
+          }]
+        }
+      });
+    }
   };
 
   return {
