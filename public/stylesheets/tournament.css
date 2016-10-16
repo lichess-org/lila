@@ -725,6 +725,8 @@ ol.tournament_leaderboard li {
   padding: 5px 0;
   list-style: decimal-leading-zero inside;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 ol.scheduled_tournaments li {
   padding: 5px 0;
