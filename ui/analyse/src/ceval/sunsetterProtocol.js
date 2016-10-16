@@ -7,69 +7,36 @@ module.exports = function(worker, opts) {
   stopped.resolve(true);
 
   worker.send('xboard');
-
-  // Sunsetter always plays only moves right away. Count the number of played
-  // moves to show the correct mate in #n.
-  // When aiMoves is > 0 Sunsetter is in analysis mode, which uses an absolute
-  // eval score instead of relative to current color.
-  var aiMoves = 0;
-  var best, pv;
+  worker.send('reset crazyhouse');
 
   var processOutput = function(text) {
+    // console.warn("<-- %s", text);
     if (text === 'tellics stopped') {
-      aiMoves = 0;
-      best = undefined;
       if (stopped) stopped.resolve(true);
       return;
     }
     if (!work) return;
 
-    if (text.indexOf('move ') == 0) {
-      aiMoves++;
-      best = text.split(' ')[1];
-      if (work) worker.send('analyze');
-      return;
-    }
+    var depth, cp, mate, best, pv;
 
-    var depth, cp, mate;
-
-    var matches = text.match(/(\d+)\s+([-+]?\d+)\s+(\d+)\s+(\d+)\s+(([a-h1-8=@PNBRQK]+ )*[a-h1-8=@PNBRQK]+).*/);
+    var matches = text.match(/^(\d+) ([-+]?\d+) \d+ \d+ (.*)$/);
     if (matches) {
       depth = parseInt(matches[1], 10);
       cp = parseInt(matches[2], 10);
-      if (!aiMoves) {
-        pv = matches[5];
-        best = pv.split(' ')[0];
-      }
-    } else {
-      matches = text.match(/Found move:\s+([a-h1-8=@PNBRQK]+)\s+([-+]?\d+)\s.*/);
-      if (matches) {
-        cp = parseInt(matches[2], 10);
-        if (!aiMoves) best = matches[1];
-        if (work) worker.send('analyze');
-      } else {
-        return;
-      }
-    }
-
-    if (cp && !aiMoves && work.ply % 2) {
-      cp = -cp;
+      pv = matches[3];
+      best = pv.split(' ')[0];
     }
 
     // transform mate scores
     if (Math.abs(cp) > 20000) {
-      mate = Math.floor((30000 - Math.abs(cp)) / 10) + 1;
-      // approx depth for searches that end early with mate
-      depth = Math.max(depth || 0, mate * 2 - 1);
-      // correct sign and add sunsetter played moves
-      mate = Math.sign(cp) * (mate + aiMoves);
+      mate = Math.sign(cp) * Math.floor(30000 - Math.abs(cp));
       cp = undefined;
     }
 
     work.emit({
       work: work,
       eval: {
-        depth: depth + aiMoves,
+        depth: depth,
         cp: cp,
         mate: mate,
         best: best,
@@ -77,7 +44,7 @@ module.exports = function(worker, opts) {
           cp: cp,
           mate: mate,
           best: best,
-          pv: pv || best
+          pv: pv
         }]
       }
     });
@@ -87,14 +54,12 @@ module.exports = function(worker, opts) {
     start: function(w) {
       stopped = null;
       work = w;
-      worker.send('reset crazyhouse');
       worker.send('setboard ' + work.initialFen);
-      worker.send('easy');
-      worker.send('force');
+      worker.send('exit');
       for (var i = 0; i < work.moves.length; i++) {
         worker.send(work.moves[i]);
       }
-      worker.send('go');
+      worker.send('analyze');
     },
     stop: function() {
       if (!stopped) {
