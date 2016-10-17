@@ -106,7 +106,9 @@ final class WinnersApi(
   def all: Fu[AllWinners] = allCache(true)
 
   // because we read on secondaries, delay cache clear
-  def clearCache = () => scheduler.once(5.seconds) { allCache.remove(true) }
+  def clearCache(tour: Tournament) =
+    if (tour.schedule.exists(_.freq.isDailyOrBetter))
+      scheduler.once(5.seconds) { allCache.remove(true) }
 
 }
 
