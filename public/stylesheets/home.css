@@ -436,6 +436,9 @@ div.blog.undertable time {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.leaderboards .leaderboard td:last-child {
+  text-align: right;
+}
 #lichess .enterable_list {
   height: auto;
   max-height: 193px;
