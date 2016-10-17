@@ -62,7 +62,7 @@ module.exports = function(ctrl) {
       n.threat.pvs.slice(1).forEach(function(pv) {
         var shift = winningChances.povDiff(rcolor, pv, n.threat.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-        shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleRed', {
+        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, pv.best, 'paleRed', {
           lineWidth: Math.round(11 - shift * 45) // 11 to 2
         }));
       });
