@@ -47,10 +47,11 @@ final class Env(
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
       case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move
+      case lila.message.Event.NewMessage(t, p)       => pushApi newMessage(t, p)
       case lila.challenge.Event.Create(c)            => pushApi challengeCreate c
       case lila.challenge.Event.Accept(c, joinerId)  => pushApi.challengeAccept(c, joinerId)
     }
-  })), 'finishGame, 'moveEvent, 'challenge)
+  })), 'finishGame, 'moveEvent, 'newMessage, 'challenge)
 }
 
 object Env {

@@ -8,6 +8,7 @@ import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
+import lila.message.{ Thread, Post }
 import lila.user.User
 
 import play.api.libs.json._
@@ -70,6 +71,13 @@ private final class PushApi(
       }
     }
   }
+
+  def newMessage(t: Thread, p: Post): Funit =
+    pushToAll(t.receiverOf(p), _.challenge.create, PushApi.Data(
+      title = s"New message from ${t.senderOf(p)}",
+      body = t.receiverOf(p),
+      payload = Json.obj("threadId" -> t.id)))
+  
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
