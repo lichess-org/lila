@@ -317,6 +317,7 @@ object mon {
     object send {
       def move(platform: String) = inc(s"push.send.$platform.move")()
       def finish(platform: String) = inc(s"push.send.$platform.finish")()
+      def message(platform: String) = inc(s"push.send.$platform.message")()
       object challenge {
         def create(platform: String) = inc(s"push.send.$platform.challenge_create")()
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
