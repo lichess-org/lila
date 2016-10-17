@@ -46,3 +46,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+body.dark .winner_list h2 {
+  border-color: #404040;
+}
+body.dark .winner_list:hover {
+  background: #303030;
+  border-bottom: 5px solid #505050;
+}
