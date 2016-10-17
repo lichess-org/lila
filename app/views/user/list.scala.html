@@ -76,12 +76,14 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
       @userTopPerf(leaderboards.bullet, PerfType.Bullet)
       @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
       <div class="user_top">
-        <h2 class="text" data-icon="g">@trans.tournamentWinners()</h2>
+        <h2 class="text" data-icon="g">
+          <a href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
+        </h2>
         <table class="tournament_winners"><tbody>
-            @tourneyWinners.map { w =>
+            @tourneyWinners.take(10).map { w =>
             <tr>
               <td>@userIdLink(w.userId.some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)">Some</a></td>
+              <td><a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
             </tr>
             }
         </tbody></table>

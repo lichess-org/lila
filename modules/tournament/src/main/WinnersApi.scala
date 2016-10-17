@@ -9,18 +9,40 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 import Schedule.{ Freq, Speed }
 
+case class Winner(
+  tourId: String,
+  userId: String,
+  tourName: String,
+  date: DateTime)
+
 case class FreqWinners(
-  yearly: Option[Winner],
-  monthly: Option[Winner],
-  weekly: Option[Winner],
-  daily: Option[Winner])
+    yearly: Option[Winner],
+    monthly: Option[Winner],
+    weekly: Option[Winner],
+    daily: Option[Winner]) {
+
+  lazy val top: Option[Winner] =
+    daily.filter(_.date isAfter DateTime.now.minusHours(2)) orElse
+      weekly.filter(_.date isAfter DateTime.now.minusDays(1)) orElse
+      monthly.filter(_.date isAfter DateTime.now.minusDays(3)) orElse
+      yearly orElse monthly orElse weekly orElse daily
+}
+
 case class AllWinners(
-  hyperbullet: FreqWinners,
-  bullet: FreqWinners,
-  superblitz: FreqWinners,
-  blitz: FreqWinners,
-  classical: FreqWinners,
-  variants: Map[String, FreqWinners])
+    hyperbullet: FreqWinners,
+    bullet: FreqWinners,
+    superblitz: FreqWinners,
+    blitz: FreqWinners,
+    classical: FreqWinners,
+    variants: Map[String, FreqWinners]) {
+
+  lazy val top: List[Winner] = {
+    List(hyperbullet, bullet, superblitz, blitz, classical) :::
+      WinnersApi.variants.flatMap { v =>
+        variants get v.key
+      }
+  }.flatMap(_.top)
+}
 
 final class WinnersApi(
     coll: Coll,
@@ -44,7 +66,7 @@ final class WinnersApi(
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours.find { t =>
       t.variant.standard && t.schedule.exists(_.speed == speed)
-    }.flatMap(_.pp.winner.pp)
+    }.flatMap(_.winner)
 
   private def firstVariantWinner(tours: List[Tournament], variant: Variant): Option[Winner] =
     tours.find(_.variant == variant).flatMap(_.winner)
@@ -81,33 +103,6 @@ final class WinnersApi(
     timeToLive = ttl)
 
   def all: Fu[AllWinners] = allCache(true)
-
-  private val scheduledCache = mongoCache[Int, List[Winner]](
-    prefix = "tournament:winner",
-    f = fetchScheduled,
-    timeToLive = ttl,
-    keyToString = _.toString)
-
-  private def fetchScheduled(nb: Int): Fu[List[Winner]] = {
-    val since = DateTime.now minusMonths 1
-    List(Freq.Monthly, Freq.Weekly, Freq.Daily).map { freq =>
-      TournamentRepo.lastFinishedScheduledByFreq(freq, since)
-    }.sequenceFu.map(_.flatten) flatMap { stds =>
-      TournamentRepo.lastFinishedDaily(chess.variant.Crazyhouse) map (stds ::: _.toList)
-    } flatMap toursToWinners
-  }
-
-  private def toursToWinners(tours: List[Tournament]): Fu[List[Winner]] =
-    tours.sortBy(_.schedule.map(_.freq)).reverse.map { tour =>
-      PlayerRepo winner tour.id flatMap {
-        case Some(player) => UserRepo isEngine player.userId map { engine =>
-          !engine option Winner(tour.id, player.userId)
-        }
-        case _ => fuccess(none)
-      }
-    }.sequenceFu.map(_.flatten take 10)
-
-  def scheduled(nb: Int): Fu[List[Winner]] = scheduledCache apply nb
 }
 
 object WinnersApi {

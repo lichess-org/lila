@@ -5,7 +5,7 @@
 @freqWinner(w: lila.tournament.Winner, freq: String) = {
 <li>
   @userIdLink(w.userId.some)
-  <a href="@routes.Tournament.show(w.tourId)">@freq</a>
+  <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@freq</a>
 </li>
 }
 
@@ -13,10 +13,10 @@
 <div class="winner_list">
   <h2 class="text" data-icon="@perfType.iconChar">@name</h2>
   <ul>
-    @fws.daily.map { w => @freqWinner(w, "Daily") }
-    @fws.weekly.map { w => @freqWinner(w, "Weekly") }
-    @fws.monthly.map { w => @freqWinner(w, "Monthly") }
     @fws.yearly.map { w => @freqWinner(w, "Yearly") }
+    @fws.monthly.map { w => @freqWinner(w, "Monthly") }
+    @fws.weekly.map { w => @freqWinner(w, "Weekly") }
+    @fws.daily.map { w => @freqWinner(w, "Daily") }
   </ul>
 </div>
 }
