@@ -86,7 +86,7 @@ object Export extends LilaController {
   def visualizer(id: String) = Open { implicit ctx =>
     OnlyHumans {
       OptionFuResult(GameRepo game id) { game =>
-        gameToPgn(game, asImported = true, asRaw = true) map { pgn =>
+        gameToPgn(game, asImported = false, asRaw = false) map { pgn =>
           lila.mon.export.visualizer()
           Redirect {
             import lila.api.Env.current.Net._
