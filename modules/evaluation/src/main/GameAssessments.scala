@@ -3,11 +3,11 @@ package lila.evaluation
 import chess.Color
 
 case class PlayerAssessments(
-  white: Option[PlayerAssessment],
-  black: Option[PlayerAssessment]) {
+    white: Option[PlayerAssessment],
+    black: Option[PlayerAssessment]) {
   def color(c: Color) = c match {
     case Color.White => white
-    case _ => black
+    case _           => black
   }
 }
 
@@ -20,18 +20,6 @@ sealed trait GameAssessment {
 
 object GameAssessment {
 
-  import reactivemongo.bson.{ BSONHandler, BSONInteger }
-
-  implicit val GameAssessmentBSONHandler = new BSONHandler[BSONInteger, GameAssessment] {
-    def read(bsonInt: BSONInteger): GameAssessment = bsonInt.value match {
-      case 5 => Cheating
-      case 4 => LikelyCheating
-      case 3 => Unclear
-      case 2 => UnlikelyCheating
-      case _              => NotCheating
-    }
-    def write(x: GameAssessment) = BSONInteger(x.id)
-  }
   case object Cheating extends GameAssessment {
     val description: String = "Cheating"
     val emoticon: String = ">:("
@@ -56,5 +44,15 @@ object GameAssessment {
     val description: String = "Not cheating"
     val emoticon: String = ":D"
     val id = 1
+  }
+  val all: List[GameAssessment] = List(NotCheating, UnlikelyCheating, Unclear, LikelyCheating, Cheating)
+  val byId: Map[Int, GameAssessment] = all.map { a => a.id -> a }.toMap
+  def orDefault(id: Int) = byId.getOrElse(id, NotCheating)
+
+  import reactivemongo.bson.{ BSONHandler, BSONInteger }
+
+  implicit val GameAssessmentBSONHandler = new BSONHandler[BSONInteger, GameAssessment] {
+    def read(bsonInt: BSONInteger): GameAssessment = orDefault(bsonInt.value)
+    def write(x: GameAssessment) = BSONInteger(x.id)
   }
 }
