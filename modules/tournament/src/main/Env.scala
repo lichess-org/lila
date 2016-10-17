@@ -57,6 +57,12 @@ final class Env(
 
   lazy val verify = new Condition.Verify(historyApi)
 
+  lazy val winners = new WinnersApi(
+    coll = tournamentColl,
+    mongoCache = mongoCache,
+    ttl = LeaderboardCacheTtl,
+    scheduler = scheduler)
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,
@@ -64,6 +70,7 @@ final class Env(
     sequencers = sequencerMap,
     autoPairing = autoPairing,
     clearJsonViewCache = jsonView.clearCache,
+    clearWinnersCache = winners.clearCache,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
@@ -86,11 +93,6 @@ final class Env(
     socketHub = socketHub,
     chat = hub.actor.chat,
     flood = flood)
-
-  lazy val winners = new WinnersApi(
-    coll = tournamentColl,
-    mongoCache = mongoCache,
-    ttl = LeaderboardCacheTtl)
 
   lazy val jsonView = new JsonView(lightUser, cached, performance, verify)
 

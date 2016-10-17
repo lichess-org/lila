@@ -2,7 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 
 import chess.variant.{ Variant, Standard, FromPosition }
 import lila.db.dsl._
@@ -47,7 +47,8 @@ case class AllWinners(
 final class WinnersApi(
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
-    ttl: FiniteDuration) {
+    ttl: FiniteDuration,
+    scheduler: lila.common.Scheduler) {
 
   import BSONHandlers._
   import lila.db.BSON.MapDocument.MapHandler
@@ -103,6 +104,10 @@ final class WinnersApi(
     timeToLive = ttl)
 
   def all: Fu[AllWinners] = allCache(true)
+
+  // because we read on secondaries, delay cache clear
+  def clearCache = () => scheduler.once(5.seconds) { allCache.remove(true) }
+
 }
 
 object WinnersApi {
