@@ -35,6 +35,7 @@ Exceptions (free)
 
 Files | Author(s) | License
 --- | --- | ---
+public/font70 | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
 ChessSansPiratf in public/fonts | the [pgn4web](http://pgn4web.casaschi.net/home.html) authors | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/images/boards | the lila authors and [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
 public/piece-src/cburnett | [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
