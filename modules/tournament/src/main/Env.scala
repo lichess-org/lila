@@ -88,6 +88,7 @@ final class Env(
     flood = flood)
 
   lazy val winners = new WinnersApi(
+    coll = tournamentColl,
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 

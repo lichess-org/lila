@@ -1,0 +1,43 @@
+@(winners: lila.tournament.AllWinners)(implicit ctx: Context)
+
+@import lila.rating.PerfType
+
+@freqWinner(w: lila.tournament.Winner, freq: String) = {
+<li>
+  @userIdLink(w.userId.some)
+  <a href="@routes.Tournament.show(w.tourId)">@freq</a>
+</li>
+}
+
+@freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String) = {
+<div class="winner_list">
+  <h2 class="text" data-icon="@perfType.iconChar">@name</h2>
+  <ul>
+    @fws.daily.map { w => @freqWinner(w, "Daily") }
+    @fws.weekly.map { w => @freqWinner(w, "Weekly") }
+    @fws.monthly.map { w => @freqWinner(w, "Monthly") }
+    @fws.yearly.map { w => @freqWinner(w, "Yearly") }
+  </ul>
+</div>
+}
+
+@base.layout(
+title = "Tournament leaderboard",
+moreCss = cssTag("tournament_leaderboard.css")) {
+<div class="content_box no_padding tournament_leaderboard">
+  <h1>Tournament winners</h1>
+  <div class="winner_lists">
+    @freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet")
+    @freqWinners(winners.bullet, PerfType.Bullet, "Bullet")
+    @freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz")
+    @freqWinners(winners.blitz, PerfType.Blitz, "Blitz")
+    @freqWinners(winners.classical, PerfType.Classical, "Classical")
+    @lila.tournament.WinnersApi.variants.map { v =>
+    @PerfType.byVariant(v).map { pt =>
+    @freqWinners(winners.classical, pt, v.name)
+    }
+    }
+  </div>
+</div>
+}
+

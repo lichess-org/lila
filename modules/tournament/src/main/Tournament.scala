@@ -97,6 +97,10 @@ case class Tournament(
 
   def schedulePair = schedule map { this -> _ }
 
+  def winner = winnerId map { userId =>
+    Winner(tourId = id, userId = userId)
+  }
+
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
 

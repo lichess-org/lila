@@ -38,22 +38,6 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
   def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"
 
-  object scheduledTournamentNameShortHtml {
-    private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
-    private val replacements = List(
-      "Lichess " -> "",
-      "Marathon" -> icon('\\'),
-      "SuperBlitz" -> icon(lila.rating.PerfType.Blitz.iconChar)
-    ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
-        pt.name -> icon(pt.iconChar)
-      }
-    def apply(name: String) = Html {
-      replacements.foldLeft(name) {
-        case (n, (from, to)) => n.replace(from, to)
-      }
-    }
-  }
-
   def systemName(sys: System)(implicit ctx: UserContext) = sys match {
     case System.Arena => System.Arena.toString
   }

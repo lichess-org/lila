@@ -67,4 +67,4 @@ case class FeaturedGame(
   white: RankedPlayer,
   black: RankedPlayer)
 
-case class Winner(tourId: String, tourName: String, userId: String)
+case class Winner(tourId: String, userId: String)
