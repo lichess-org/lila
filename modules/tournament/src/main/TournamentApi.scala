@@ -28,7 +28,7 @@ final class TournamentApi(
     sequencers: ActorRef,
     autoPairing: AutoPairing,
     clearJsonViewCache: String => Funit,
-    clearWinnersCache: () => Unit,
+    clearWinnersCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
     socketHub: ActorRef,
@@ -152,7 +152,7 @@ final class TournamentApi(
           }
           awardTrophies(tour)
           indexLeaderboard(tour)
-          clearWinnersCache()
+          clearWinnersCache(tour)
         }
       }
     }
