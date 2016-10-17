@@ -158,10 +158,10 @@ description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrati
       <div class="undertable_inner scroll-shadow-hard">
         <table>
           <tbody>
-            @tournamentWinners.map { w =>
+            @tournamentWinners.take(10).map { w =>
             <tr>
               <td>@userIdLink(w.userId.some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)">Some</a></td>
+              <td><a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
             </tr>
             }
           </tbody>
