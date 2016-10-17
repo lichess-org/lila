@@ -52,8 +52,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font70/fonts/lichess.eot");
-  src: url("../font70/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font70/fonts/lichess.woff") format("woff"), url("../font70/fonts/lichess.ttf") format("truetype"), url("../font70/fonts/lichess.svg#lichess") format("svg");
+  src: url('../font70/font/lichess.eot');
+  src: url('../font70/font/lichess.eot?#iefix') format('embedded-opentype'), url('../font70/font/lichess.woff2') format('woff2'), url('../font70/font/lichess.woff') format('woff'), url('../font70/font/lichess.ttf') format('truetype'), url('../font70/font/lichess.svg?#lichess') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -73,12 +73,19 @@ time {
   font-family: "lichess" !important;
   font-style: normal !important;
   font-weight: normal !important;
+  font-variant: normal;
   text-transform: none !important;
   speak: none;
   line-height: 1;
+  width: 1em;
+  height: 1em;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+}
+[data-icon]:not(td)::before {
+  display: inline-block;
 }
 .is.text::before,
 .text[data-icon]::before {
@@ -1219,9 +1226,6 @@ form.wide textarea {
 }
 #top #themepicker_toggle span {
   font-size: 17px;
-}
-#top #themepicker_toggle span:before {
-  vertical-align: -5px;
 }
 #top .dropdown {
   display: none;
