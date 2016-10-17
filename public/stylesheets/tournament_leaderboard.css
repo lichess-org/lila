@@ -1,0 +1,48 @@
+.content_box h1 {
+  text-align: center;
+}
+.tournament_leaderboard .winner_lists {
+  display: flex;
+  flex-flow: row wrap;
+}
+.winner_list {
+  width: 50%;
+  flex: 0 0 50%;
+  padding: 20px 25px 30px 20px;
+  box-sizing: border-box;
+  border-bottom: 5px solid transparent;
+}
+.winner_list:hover {
+  background: #fafafa;
+  border-bottom: 5px solid #ddd;
+}
+.winner_list h2 {
+  font-size: 2em;
+  letter-spacing: 5px;
+  font-family: Roboto;
+  line-height: 2em;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+.winner_list h2.text::before {
+  opacity: 0.7;
+  vertical-align: -5px;
+  margin-right: 8px;
+}
+.winner_list li {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  line-height: 3.5em;
+  font-size: 1.2em;
+}
+.winner_list li:hover a {
+  color: #3893E8;
+}
+.winner_list a.user_link {
+  font-size: 1.2em;
+  margin: 0 10px 0 -3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -48,6 +48,12 @@ object Tournament extends LilaController {
     Ok(html.tournament.faqPage(system)).fuccess
   }
 
+  def leaderboard = Open { implicit ctx =>
+    env.winners.all.map { winners =>
+      Ok(html.tournament.leaderboard(winners))
+    }
+  }
+
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
     negotiate(
