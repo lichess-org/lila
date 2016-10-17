@@ -73,10 +73,12 @@ private final class PushApi(
   }
 
   def newMessage(t: Thread, p: Post): Funit =
-    pushToAll(t.receiverOf(p), _.message, PushApi.Data(
-      title = s"${t.senderOf(p)}: ${t.name}",
-      body = p.text,
-      payload = Json.obj("threadId" -> t.id)))
+    lightUser(t.senderOf(p)) ?? { sender =>
+      pushToAll(t.receiverOf(p), _.message, PushApi.Data(
+        title = s"${sender.titleName}: ${t.name}",
+        body = p.text,
+        payload = Json.obj("threadId" -> t.id)))
+    }
 
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
