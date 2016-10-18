@@ -52,20 +52,37 @@ function makeWebWorker(makeProtocol, poolOpts, protocolOpts) {
 }
 
 function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
-  return makeHelper(function() {
-    var worker = document.createElement('embed');
-    worker.setAttribute('src', poolOpts.pnacl);
-    worker.setAttribute('type', 'application/x-pnacl');
-    worker.setAttribute('width', '0');
-    worker.setAttribute('height', '0');
-    document.body.appendChild(worker);
-    worker.addEventListener('crash', function() {
-      alert("Sorry, the local Stockfish process has crashed!");
-    }, true);
-    return worker;
-  }, function(worker) {
-    worker.remove();
-  }, poolOpts, makeProtocol, protocolOpts);
+  try {
+    return makeHelper(function() {
+      var worker = document.createElement('embed');
+      worker.setAttribute('src', poolOpts.pnacl);
+      worker.setAttribute('type', 'application/x-pnacl');
+      worker.setAttribute('width', '0');
+      worker.setAttribute('height', '0');
+      document.body.appendChild(worker);
+      ['crash', 'error'].forEach(function(eventType) {
+        worker.addEventListener(eventType, function() {
+          poolOpts.onCrash('lastError: ' + worker.lastError);
+        }, true);
+      });
+      return worker;
+    }, function(worker) {
+      worker.remove();
+    }, poolOpts, makeProtocol, protocolOpts);
+  } catch (e) {
+    poolOpts.onCrash(e);
+    return makeWorkerStub();
+  }
+}
+
+function makeWorkerStub() {
+  var noop = function() {};
+  return {
+    send: noop,
+    start: noop,
+    stop: noop,
+    destroy: noop
+  };
 }
 
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {

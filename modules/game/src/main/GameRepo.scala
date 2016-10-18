@@ -326,6 +326,12 @@ object GameRepo {
     }
   }
 
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] = games.map { game =>
+    initialFen(game) map { fen =>
+      game -> fen.map(FEN.apply)
+    }
+  }.sequenceFu
+
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](
     Query.playable ++ Query.clock(true) ++ $doc(
       F.createdAt $gt (DateTime.now minusMinutes 5),
@@ -432,7 +438,8 @@ object GameRepo {
       F.createdAt $gt since,
       F.status $gte chess.Status.Mate.id,
       s"${F.playerUids}.0" $exists true
-    )), List(Unwind(F.playerUids),
+    )), List(
+      Unwind(F.playerUids),
       Match($doc(
         F.playerUids -> $doc("$ne" -> "")
       )),

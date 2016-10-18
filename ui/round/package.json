@@ -14,7 +14,7 @@
     "replay"
   ],
   "author": "Thibault Duplessis",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },

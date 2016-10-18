@@ -215,7 +215,7 @@ object Study extends LilaController {
         OptionFuResult(env.api.byId(id)) { prev =>
           CanViewResult(prev) {
             env.api.clone(me, prev) map { study =>
-              Redirect(routes.Study.show(study.id))
+              Redirect(routes.Study.show((study | prev).id))
             }
           }
         }

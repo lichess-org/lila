@@ -36,6 +36,8 @@ final class Env(
   }
   import settings._
 
+  val ApiKey = config getString "api.key"
+
   private[mod] lazy val logColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi(logColl)
@@ -83,6 +85,9 @@ final class Env(
   lazy val search = new UserSearch(
     securityApi = securityApi,
     emailAddress = emailAddress)
+
+  lazy val jsonView = new JsonView(
+    assessApi = assessApi)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

@@ -1,4 +1,4 @@
-@(scheduled: List[Tournament], finished: Paginator[Tournament], leaderboard: List[User], json: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(scheduled: List[Tournament], finished: Paginator[Tournament], winners: lila.tournament.AllWinners, json: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreJs = {
 @jsTag("vendor/jquery.infinitescroll.min.js")
@@ -20,12 +20,17 @@ lichess.StrongSocket.defaults.events.reload = app.update;
   <div class="tournament_links">
     <a href="@routes.Tournament.help("arena".some)">@trans.tournamentFAQ()</a>
   </div>
-  <h2 class="leaderboard_title">@trans.leaderboard()</h2>
-  <ol class="tournament_leaderboard">
-    @leaderboard.map { user =>
-    <li>@userLink(user, withOnline = false, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
+  <h2 class="leaderboard_title">
+    <a href="@routes.Tournament.leaderboard">@trans.leaderboard()</a>
+  </h2>
+  <ul class="tournament_leaderboard">
+    @winners.top.take(10).map { w =>
+    <li>
+      @userIdLink(w.userId.some)
+      <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a>
+    </li>
     }
-  </ol>
+  </ul>
   <h2 class="leaderboard_title">@trans.lichessTournaments()</h2>
   <ol class="scheduled_tournaments">
     @scheduled.map { tour =>

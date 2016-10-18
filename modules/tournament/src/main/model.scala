@@ -66,5 +66,3 @@ case class FeaturedGame(
   game: lila.game.Game,
   white: RankedPlayer,
   black: RankedPlayer)
-
-case class Winner(tourId: String, tourName: String, userId: String)

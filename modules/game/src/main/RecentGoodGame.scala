@@ -4,14 +4,16 @@ import akka.actor._
 
 private final class RecentGoodGame extends Actor {
 
-  val maxIds = 300
+  val maxIds = 500
   var ids = List.empty[Game.ID]
 
   def matches(g: lila.game.Game) =
     g.variant.standard &&
       g.rated &&
-      g.turns >= 10 &&
-      g.averageUsersRating.??(1900 <=) &&
+      g.turns >= 10 && {
+        g.averageUsersRating.??(1900 <=) ||
+          (g.averageUsersRating.??(1700 <=) && ids.size < 100)
+      } &&
       g.clock.??(_.estimateTotalTime >= 5 * 60)
 
   def receive = {

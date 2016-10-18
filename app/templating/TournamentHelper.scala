@@ -43,7 +43,8 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     private val replacements = List(
       "Lichess " -> "",
       "Marathon" -> icon('\\'),
-      "SuperBlitz" -> icon(lila.rating.PerfType.Blitz.iconChar)
+      "HyperBullet" -> s"H${icon(lila.rating.PerfType.Bullet.iconChar)}",
+      "SuperBlitz" -> s"S${icon(lila.rating.PerfType.Blitz.iconChar)}"
     ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
         pt.name -> icon(pt.iconChar)
       }

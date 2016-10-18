@@ -231,7 +231,7 @@ module.exports = function(opts) {
     this.vm.redirecting = false;
     this.setPath(treePath.root);
     this.ceval.destroy();
-    this.ceval = makeCeval();
+    instanciateCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -377,31 +377,45 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic', 'crazyhouse'];
-  var cevalPossible = function() {
-    return (util.synthetic(this.data) || !game.playable(this.data)) &&
-      cevalVariants.indexOf(this.data.game.variant.key) !== -1;
+  this.setAutoShapes = function() {
+    this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  var makeCeval = function() {
-    return cevalCtrl(this, cevalPossible, this.data.game.variant, function(res) {
-      this.tree.updateAt(res.work.path, function(node) {
-        if (res.work.threatMode) {
-          if (node.threat && node.threat.depth >= res.eval.depth) return;
-          node.threat = res.eval;
-        } else {
-          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-          node.ceval = res.eval;
+  var instanciateCeval = function(failsafe) {
+    this.ceval = cevalCtrl({
+      variant: this.data.game.variant,
+      possible: (
+        util.synthetic(this.data) || !game.playable(this.data)
+      ) && this.data.game.variant.key !== 'antichess',
+      emit: function(res) {
+        this.tree.updateAt(res.work.path, function(node) {
+          if (res.work.threatMode) {
+            if (node.threat && node.threat.depth >= res.eval.depth) return;
+            node.threat = res.eval;
+          } else {
+            if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+            node.ceval = res.eval;
+          }
+          if (res.work.path === this.vm.path) {
+            this.setAutoShapes();
+            m.redraw();
+          }
+        }.bind(this));
+      }.bind(this),
+      setAutoShapes: this.setAutoShapes,
+      failsafe: failsafe,
+      onCrash: function(e) {
+        console.log('Local eval failed!', e);
+        if (this.ceval.pnaclSupported) {
+          console.log('Retrying in failsafe mode');
+          instanciateCeval(true);
+          this.startCeval();
         }
-        if (res.work.path === this.vm.path) {
-          this.setAutoShapes();
-          m.redraw();
-        }
-      }.bind(this));
-    }.bind(this))
+      }.bind(this)
+    });
   }.bind(this);
 
-  this.ceval = makeCeval();
+  instanciateCeval();
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
@@ -420,7 +434,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest() || this.vm.threatMode);
+    return !this.gameOver();
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
@@ -483,10 +497,6 @@ module.exports = function(opts) {
 
   this.toggleGauge = function(v) {
     this.vm.showGauge(!this.vm.showGauge());
-  }.bind(this);
-
-  this.setAutoShapes = function() {
-    this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
   this.playUci = function(uci) {

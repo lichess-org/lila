@@ -135,7 +135,7 @@ object Plan extends LilaController {
     import lila.plan.Patron.PayPal
     lila.plan.DataForm.ipn.bindFromRequest.fold(
       err => {
-        println(err)
+        // Cancel or other irrelevant event
         fuccess(Ok)
       },
       ipn => Env.plan.api.onPaypalCharge(

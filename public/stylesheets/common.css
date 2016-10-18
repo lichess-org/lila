@@ -1188,13 +1188,6 @@ body.fpmenu #fpmenu {
   font-size: 1.45em;
   padding-left: 3px;
 }
-@keyframes pulse-once {
-  0% { background: #d85000; }
-  100% { background: none; }
-}
-#site_notifications_tag.pulse {
-  animation: pulse-once 1.5s linear;
-}
 
 form.wide input[type="text"],
 form.wide textarea {
@@ -1212,6 +1205,13 @@ form.wide textarea {
 #top a.toggle:hover,
 #sound_state:hover {
   color: #303030;
+}
+@keyframes pulse-once {
+  0% { background: #d85000; }
+  100% { background: none; }
+}
+#top a.toggle.pulse {
+  animation: pulse-once 1.5s linear;
 }
 #top #themepicker_toggle,
 #top #sound_state {
@@ -1832,6 +1832,7 @@ a.mini_board {
 #challenge .mini_board .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
+  margin: auto;
 }
 #now_playing {
   padding: 4px 0 0 4px;

@@ -1,12 +1,9 @@
 var m = require('mithril');
-var socket = require('./socket');
 var xhr = require('./xhr');
 
 module.exports = function(env) {
 
   this.data;
-
-  this.socket = new socket(env.socketSend, this);
 
   this.vm = {
     initiating: true,
@@ -53,6 +50,7 @@ module.exports = function(env) {
           $.sound.newChallenge();
         }
         lichess.desktopNotification(showUser(c.challenger) + ' challenges you!');
+        env.pulse();
       }
     });
   }.bind(this);

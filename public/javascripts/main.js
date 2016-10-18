@@ -3,12 +3,13 @@
 // ==/ClosureCompiler==
 
 lichess.challengeApp = (function() {
-  var instance;
+  var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
   $toggle.one('mouseover click', function() {
-    if (!instance) load();
+    if (!booted) load();
   });
   var load = function(data) {
+    booted = true;
     var isDev = $('body').data('dev');
     var element = document.getElementById('challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
@@ -20,6 +21,9 @@ lichess.challengeApp = (function() {
         },
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
+        },
+        pulse: function() {
+          $toggle.addClass('pulse');
         }
       });
     });
@@ -342,13 +346,15 @@ lichess.notifyApp = (function() {
     // debounce the first parseFen at first, then process them immediately
     // because chessground initial display does a DOM read (board dimensions)
     // and the play page can have 6 miniboards to display (ongoing games)
-    var fun = $.fp.debounce(doParseFen, 400, false);
-    setTimeout(function() {
-      fun = doParseFen;
-    }, 1000);
-    return function($elem) {
-      fun($elem);
-    };
+    if (document.getElementById('now_playing')) {
+      var fun = $.fp.debounce(doParseFen, 400, false);
+      setTimeout(function() {
+        fun = doParseFen;
+      }, 1000);
+      return function($elem) {
+        fun($elem);
+      };
+    } else return doParseFen;
   })();
 
   $(function() {
@@ -490,7 +496,7 @@ lichess.notifyApp = (function() {
               theme = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is2d div.no-square').hover(function() {
               var s = $(this).data("set");
@@ -501,7 +507,7 @@ lichess.notifyApp = (function() {
               set = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is3d div.theme').hover(function() {
               $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
@@ -511,7 +517,7 @@ lichess.notifyApp = (function() {
               theme3d = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme3d
-              });
+              }, lichess.reloadOtherTabs);
             });
             $themepicker.find('.is3d div.no-square').hover(function() {
               $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
@@ -521,7 +527,7 @@ lichess.notifyApp = (function() {
               set3d = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set3d
-              });
+              }, lichess.reloadOtherTabs);
             });
             var showBg = function(bg) {
               $body.removeClass('light dark transp')
@@ -551,6 +557,7 @@ lichess.notifyApp = (function() {
                 bg: background
               }, function() {
                 if (window.Highcharts) lichess.reload();
+                lichess.reloadOtherTabs();
               });
               $(this).addClass('active').siblings().removeClass('active');
               return false;
@@ -563,7 +570,7 @@ lichess.notifyApp = (function() {
               is3d = $(this).data('is3d');
               $.post($(this).parent().data('href'), {
                 is3d: is3d
-              });
+              }, lichess.reloadOtherTabs);
               $(this).addClass('active').siblings().removeClass('active');
               return false;
             }).hover(function() {
@@ -589,7 +596,7 @@ lichess.notifyApp = (function() {
                 var v = $(this).val();
                 $.post($(this).data("href"), {
                   bgImg: v
-                });
+                }, lichess.reloadOtherTabs);
                 applyBackground(v);
               }, 200));
           }
@@ -890,7 +897,7 @@ lichess.notifyApp = (function() {
         play.genericNotify();
         $.post($selector.attr('action'), {
           set: soundSet
-        });
+        }, lichess.reloadOtherTabs);
         $toggle.toggleClass('sound_state_on', enabled());
         publish();
         return false;

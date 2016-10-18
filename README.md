@@ -576,4 +576,6 @@ Others and older browsers are guaranteed not to work with lichess and we don't c
 Licence
 -------
 
-Lila is realeased under the MIT license.
+Lila is licensed under the GNU Affero General Public License 3 or any later
+version at your choice with an exception for Highcharts. See COPYING for
+details.

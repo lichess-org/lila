@@ -25,11 +25,18 @@ final class JsonView(
     chapters: List[Chapter.Metadata],
     currentChapter: Chapter,
     me: Option[User]) = {
+
+    def allowed(selection: Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection, study, me.map(_.id))
+
     currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen) zip
       me.?? { studyRepo.liked(study, _) } map {
         case (gameOption, liked) =>
           studyWrites.writes(study) ++ Json.obj(
             "liked" -> liked,
+            "features" -> Json.obj(
+              "cloneable" -> allowed(study.settings.cloneable)
+            ),
             "chapters" -> chapters.map(chapterMetadataWrites.writes),
             "chapter" -> Json.obj(
               "ownerId" -> currentChapter.ownerId,
@@ -42,8 +49,8 @@ final class JsonView(
               "game" -> gameOption,
               "conceal" -> currentChapter.conceal,
               "features" -> Json.obj(
-                "computer" -> Settings.UserSelection.allows(study.settings.computer, study, me.map(_.id)),
-                "explorer" -> Settings.UserSelection.allows(study.settings.explorer, study, me.map(_.id))
+                "computer" -> allowed(study.settings.computer),
+                "explorer" -> allowed(study.settings.explorer)
               )
             )
           )

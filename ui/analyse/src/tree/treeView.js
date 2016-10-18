@@ -2,10 +2,10 @@ var m = require('mithril');
 var contextMenu = require('../contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
-var defined = util.defined;
 var empty = util.empty;
 var game = require('game').game;
 var treePath = require('./path');
+var commentAuthorText = require('../study/studyComments').authorText;
 
 var autoScroll = util.throttle(300, false, function(ctrl, el) {
   var cont = el.parentNode;
@@ -138,8 +138,8 @@ function renderMove(node, eval) {
   return [
     util.fixCrazySan(node.san),
     node.glyphs ? renderGlyphs(node.glyphs) : null,
-    defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
-      defined(eval.mate) ? renderEval('#' + eval.mate) : null
+    util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
+      util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
   ];
 }
@@ -222,31 +222,37 @@ function renderMainlineCommentsOf(ctx, node, opts) {
     else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
     if (opts.conceal) klass += ' ' + opts.conceal;
-    return renderMainlineComment(comment, colorClass, klass);
+    return renderMainlineComment(comment, colorClass + klass, node.comments.length > 1);
   });
 }
 
-function renderMainlineComment(comment, colorClass, commentClass) {
+function renderMainlineComment(comment, klass, withAuthor) {
   return {
     tag: 'comment',
     attrs: {
-      class: colorClass + commentClass
+      class: klass
     },
-    children: [truncateComment(comment.text, 400)]
+    children: [
+      withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 400)
+    ]
   };
 }
 
 function renderVariationCommentsOf(ctx, node) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
   return node.comments.map(function(comment) {
-    return renderVariationComment(comment);
+    return renderVariationComment(comment, node.comments.length > 1);
   });
 }
 
-function renderVariationComment(comment) {
+function renderVariationComment(comment, withAuthor) {
   return {
     tag: 'comment',
-    children: [truncateComment(comment.text, 300)]
+    children: [
+      withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 300)
+    ]
   };
 }
 

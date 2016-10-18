@@ -375,6 +375,10 @@ ol.scheduled_tournaments a {
   padding-right: 0;
   padding-left: 0;
 }
+#tournament table.standing tr.xlong .sheet {
+  letter-spacing: -3px;
+  font-size: 11px;
+}
 #tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
@@ -721,10 +725,25 @@ div.faq_box {
   margin-bottom: 6px;
   border-bottom: 1px solid #ccc;
 }
-ol.tournament_leaderboard li {
-  padding: 5px 0;
-  list-style: decimal-leading-zero inside;
+.tournament_leaderboard li {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  line-height: 2.2em;
   white-space: nowrap;
+}
+.tournament_leaderboard a.user_link {
+  margin: 0 5px 0 -3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tournament_leaderboard span {
+  opacity: 0.7;
+}
+.tournament_leaderboard li:hover a,
+.leaderboard_title:hover a {
+  color: #3893E8;
 }
 ol.scheduled_tournaments li {
   padding: 5px 0;

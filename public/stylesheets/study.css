@@ -82,9 +82,10 @@ div.underboard .notif {
 div.underboard .notif.error {
   background-color: #d59120;
 }
-.study_comment_form form {
+.study_comment_form form.material.form {
   display: flex;
   align-items: center;
+  margin: 0;
 }
 .study_comment_form form .form-group {
   width: 100%;
@@ -94,6 +95,7 @@ div.underboard .notif.error {
   height: 80px;
   font-size: 1.2em;
   line-height: 1.3em;
+  resize: vertical;
 }
 .study_comments {
   text-align: left;

@@ -163,7 +163,7 @@ object User extends LilaController {
       //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
       //   }
       // }
-      tourneyWinners ← Env.tournament.winners scheduled nb
+      tourneyWinners ← Env.tournament.winners.all.map(_.top)
       online ← env.cached top50Online true
       res <- negotiate(
         html = fuccess(Ok(html.user.list(

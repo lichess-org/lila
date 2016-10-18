@@ -67,9 +67,6 @@ module.exports = function(send, ctrl) {
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
       m.redraw();
     },
-    prefChange: function() {
-      lichess.reload();
-    },
     simulPlayerMove: function(gameId) {
       if (
         ctrl.userId &&
