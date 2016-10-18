@@ -142,95 +142,74 @@ module.exports = {
         ]) : null,
         studyButton(ctrl)
       ]),
-      m('h2', 'Computer analysis'), [
-        (function(id) {
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Best move arrow'),
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showAutoShapes(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleAutoShapes(e.target.checked);
-                })
-              }),
-              m('label', {
-                'for': id
-              })
-            ])
-          ]);
-        })('analyse-toggle-ceval'), (function(id) {
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Evaluation gauge'),
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showGauge(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleGauge(e.target.checked);
-                })
-              }),
-              m('label', {
-                'for': id
-              })
-            ])
-          ]);
-        })('analyse-toggle-gauge'), (function (id) {
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Textual lines'),
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.ceval.showPvs(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.ceval.showPvs(e.target.checked);
-                })
-              }),
-              m('label', {
-                'for': id
-              })
-            ])
-          ]);
-        })('analyse-toggle-pvs'), (function(id) {
-          var max = 5;
-          return m('div.setting', [
-            m('label', {
-              'for': id
-            }, 'Multiple lines'),
-            m('input', {
-              id: id,
-              type: 'range',
-              min: 1,
-              max: max,
-              step: 1,
-              config: rangeConfig(function() {
-                return ctrl.ceval.multiPv();
-              }, function(v) {
-                ctrl.cevalSetMultiPv(parseInt(v));
-              })
-            }),
-            m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
-          ]);
-        })('analyse-multipv'),
-        ctrl.ceval.pnaclSupported ? [
+      ctrl.ceval.possible ? [
+        m('h2', 'Computer analysis'), [
           (function(id) {
-            var max = navigator.hardwareConcurrency || 1;
             return m('div.setting', [
               m('label', {
                 'for': id
-              }, 'CPUs'),
+              }, 'Best move arrow'),
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showAutoShapes(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.toggleAutoShapes(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
+                })
+              ])
+            ]);
+          })('analyse-toggle-ceval'), (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Evaluation gauge'),
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showGauge(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.toggleGauge(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
+                })
+              ])
+            ]);
+          })('analyse-toggle-gauge'), (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Textual lines'),
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.ceval.showPvs(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.ceval.showPvs(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
+                })
+              ])
+            ]);
+          })('analyse-toggle-pvs'), (function(id) {
+            var max = 5;
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Multiple lines'),
               m('input', {
                 id: id,
                 type: 'range',
@@ -238,35 +217,58 @@ module.exports = {
                 max: max,
                 step: 1,
                 config: rangeConfig(function() {
-                  return ctrl.ceval.threads();
+                  return ctrl.ceval.multiPv();
                 }, function(v) {
-                  ctrl.cevalSetThreads(parseInt(v));
+                  ctrl.cevalSetMultiPv(parseInt(v));
                 })
               }),
-              m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+              m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
             ]);
-          })('analyse-threads'), (function(id) {
-            return m('div.setting', [
-              m('label', {
-                'for': id
-              }, 'Memory'),
-              m('input', {
-                id: id,
-                type: 'range',
-                min: 4,
-                max: 10,
-                step: 1,
-                config: rangeConfig(function() {
-                  return Math.floor(Math.log2(ctrl.ceval.hashSize()));
-                }, function(v) {
-                  ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
-                })
-              }),
-              m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
-            ]);
-          })('analyse-memory')
-        ] : null
-      ],
+          })('analyse-multipv'),
+          ctrl.ceval.pnaclSupported ? [
+            (function(id) {
+              var max = navigator.hardwareConcurrency || 1;
+              return m('div.setting', [
+                m('label', {
+                  'for': id
+                }, 'CPUs'),
+                m('input', {
+                  id: id,
+                  type: 'range',
+                  min: 1,
+                  max: max,
+                  step: 1,
+                  config: rangeConfig(function() {
+                    return ctrl.ceval.threads();
+                  }, function(v) {
+                    ctrl.cevalSetThreads(parseInt(v));
+                  })
+                }),
+                m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+              ]);
+            })('analyse-threads'), (function(id) {
+              return m('div.setting', [
+                m('label', {
+                  'for': id
+                }, 'Memory'),
+                m('input', {
+                  id: id,
+                  type: 'range',
+                  min: 4,
+                  max: 10,
+                  step: 1,
+                  config: rangeConfig(function() {
+                    return Math.floor(Math.log2(ctrl.ceval.hashSize()));
+                  }, function(v) {
+                    ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
+                  })
+                }),
+                m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
+              ]);
+            })('analyse-memory')
+          ] : null
+        ]
+      ] : null,
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
       ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [

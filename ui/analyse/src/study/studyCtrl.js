@@ -19,7 +19,7 @@ module.exports = {
 
     var send = ctrl.socket.send;
 
-    var sri = lichess.StrongSocket.sri;
+    var sri = lichess.StrongSocket && lichess.StrongSocket.sri;
 
     var vm = {
       loading: false,

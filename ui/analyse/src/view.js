@@ -185,7 +185,7 @@ function buttons(ctrl) {
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    m('button', {
+    ctrl.embed ? null : m('button', {
       id: 'open_explorer',
       'data-hint': ctrl.trans('openingExplorer'),
       'data-act': 'explorer',
@@ -253,7 +253,7 @@ module.exports = function(ctrl) {
         ])
       ])
     ]),
-    m('div.underboard', [
+    ctrl.embed ? null : m('div.underboard', [
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),

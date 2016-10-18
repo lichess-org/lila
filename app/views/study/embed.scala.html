@@ -1,4 +1,4 @@
-@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
+@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context)
 
 <!doctype html>
 <html>
@@ -12,31 +12,52 @@
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("analyse.css")
+    @cssTag("study_embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta charset="utf-8">
   </head>
-  <body class="base highlight
-    @{if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg}
-    no-bg">
-    <div class="analyse cg-512">@miniBoardContent</div>
+  <body class="base highlight @List(
+    ctx.currentTheme.cssClass,
+    ctx.currentBg,
+    ctx.pref.highlight ?? "highlight",
+    ctx.pref.destination ?? "destination",
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
+    "coords_1").mkString(" ")">
+    <div class="is2d">
+      <div class="analyse cg-512">@miniBoardContent</div>
+    </div>
     @jQueryTag
-    @jsTag("vendor/chessground.min.js")
-    @jsTagCompiled("tv.js")
+    @jsTag("util.js")
     @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
     @embedJs {
-    lichess = lichess || {};
-    lichess.study = {
+
+    var element = document.querySelector('.analyse');
+
+    var analyse = LichessAnalyse({
     study: @Html(J.stringify(data.study)),
     data: @Html(J.stringify(data.analysis)),
+    embed: true,
     i18n: @board.userAnalysisI18n(),
     userId: "null",
     explorer: {
     endpoint: "@explorerEndpoint",
     tablebaseEndpoint: "@tablebaseEndpoint"
     },
-    socketUrl: "@routes.Study.websocket(s.id, apiVersion.value)",
-    socketVersion: @socketVersion
+    element: element,
+    socketSend: $.noop
+    });
+    var board = element.querySelector('.cg-board-wrap');
+
+    var onResize = function() {
+      var w = document.body.offsetWidth;
+      var h = Math.min(w + 200, document.body.offsetHeight || w / 1.4);
+      var boardSize = h;
+      board.style.width = boardSize + 'px';
+      board.style.height = boardSize + 'px';
+      document.body.dispatchEvent(new Event('chessground.resize'));
     };
+    onResize();
+    window.addEventListener('resize', onResize);
     }
     @base.ga()
   </body>

@@ -162,15 +162,14 @@ object Study extends LilaController {
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byIdWithChapter chapterId) {
+    OptionFuResult(env.api.byIdWithChapter(id, chapterId)) {
       case lila.study.Study.WithChapter(s, chapter) => CanViewResult(s) {
         val study = s withChapter chapter // rewind to beginning of chapter
         val setup = chapter.setup
         val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
         Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-          env.jsonView(study, List(chapter.metadata), chapter, ctx.me) zip
-          env.version(id) flatMap {
-            case ((baseData, studyJson), sVersion) =>
+          env.jsonView(study, List(chapter.metadata), chapter, ctx.me) flatMap {
+            case (baseData, studyJson) =>
               import lila.socket.tree.Node.partitionTreeJsonWriter
               val analysis = baseData ++ Json.obj(
                 "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
@@ -178,7 +177,7 @@ object Study extends LilaController {
                 study = studyJson,
                 analysis = analysis)
               negotiate(
-                html = Ok(html.study.embed(study, chapter, data, sVersion)).fuccess,
+                html = Ok(html.study.embed(study, chapter, data)).fuccess,
                 api = _ => Ok(Json.obj(
                 "study" -> data.study,
                 "analysis" -> data.analysis)).fuccess

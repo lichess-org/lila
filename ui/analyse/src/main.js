@@ -14,7 +14,7 @@ module.exports = function(opts) {
     view: view
   });
 
-  if (controller.study) m.module(opts.sideElement, {
+  if (controller.study && opts.sideElement) m.module(opts.sideElement, {
     controller: function() {
       m.redraw.strategy("diff"); // prevents double full redraw on page load
       return controller.study;
@@ -33,6 +33,9 @@ module.exports = function(opts) {
     },
     pathStr: function() {
       return controller.vm.pathStr;
+    },
+    forceRender: function() {
+      m.redraw(true);
     }
   };
 };

@@ -204,6 +204,7 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
+    if (ctrl.embed) return;
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [

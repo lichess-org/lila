@@ -27,6 +27,7 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.userId = opts.userId;
+  this.embed = opts.embed;
 
   var initialize = function(data) {
     this.data = data;
@@ -36,7 +37,7 @@ module.exports = function(opts) {
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
-    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : true);
+    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
   }.bind(this);
 
   initialize(opts.data);
@@ -148,10 +149,14 @@ module.exports = function(opts) {
     });
   }.bind(this));
 
-  var sound = {
+  var sound = $.sound ? {
     move: throttle(50, false, $.sound.move),
     capture: throttle(50, false, $.sound.capture),
     check: throttle(50, false, $.sound.check)
+  } : {
+    move: $.noop,
+    capture: $.noop,
+    check: $.noop
   };
 
   var onChange = opts.onChange ? throttle(300, false, function() {
@@ -384,7 +389,7 @@ module.exports = function(opts) {
   var instanciateCeval = function(failsafe) {
     this.ceval = cevalCtrl({
       variant: this.data.game.variant,
-      possible: (
+      possible: !this.embed && (
         util.synthetic(this.data) || !game.playable(this.data)
       ) && this.data.game.variant.key !== 'antichess',
       emit: function(res) {
