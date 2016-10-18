@@ -48,7 +48,8 @@ final class JsonView(assessApi: AssessApi) {
     case (g, fen) => Json.obj(
       "initialFen" -> fen.map(_.value),
       // "createdAt" -> g.createdAt.getDate,
-      "pgn" -> g.pgnMoves.mkString(" ")
+      "pgn" -> g.pgnMoves.mkString(" "),
+      "variant" -> g.variant.exotic.option(g.variant.key)
     ).noNull
   }
 }
