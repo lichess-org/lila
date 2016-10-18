@@ -76,7 +76,7 @@ private final class PushApi(
     lightUser(t.senderOf(p)) ?? { sender =>
       pushToAll(t.receiverOf(p), _.message, PushApi.Data(
         title = s"${sender.titleName}: ${t.name}",
-        body = p.text,
+        body = p.text take 140,
         payload = Json.obj("threadId" -> t.id)))
     }
 
