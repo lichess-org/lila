@@ -77,7 +77,12 @@ private final class PushApi(
       pushToAll(t.receiverOf(p), _.message, PushApi.Data(
         title = s"${sender.titleName}: ${t.name}",
         body = p.text take 140,
-        payload = Json.obj("threadId" -> t.id)))
+        payload = Json.obj(
+          "userId" -> t.receiverOf(p),
+          "userData" -> Json.obj(
+            "type" -> "newMessage",
+            "threadId" -> t.id,
+            "sender" -> sender))))
     }
 
 
