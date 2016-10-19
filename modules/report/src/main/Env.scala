@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     db: lila.db.Env,
+    isOnline: lila.user.User.ID => Boolean,
     system: ActorSystem,
     hub: lila.hub.Env) {
 
@@ -16,7 +17,7 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
-  lazy val api = new ReportApi(reportColl)
+  lazy val api = new ReportApi(reportColl, isOnline)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -46,6 +47,7 @@ object Env {
   lazy val current = "report" boot new Env(
     config = lila.common.PlayApp loadConfig "report",
     db = lila.db.Env.current,
+    isOnline = lila.user.Env.current.isOnline,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current)
 }

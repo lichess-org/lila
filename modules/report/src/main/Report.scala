@@ -35,13 +35,20 @@ case class Report(
   def process(by: User) = copy(processedBy = by.id.some)
 
   def unprocessed = processedBy.isEmpty
+  def processed = processedBy.isDefined
 
   lazy val realReason: Reason = Reason byName reason
 }
 
 object Report {
 
-  case class WithUser(report: Report, user: User)
+  case class WithUser(report: Report, user: User, isOnline: Boolean) {
+
+    def urgency: Int =
+      (nowSeconds - report.createdAt.getSeconds).toInt +
+        (isOnline ?? (86400 * 5)) +
+        (report.processed ?? Int.MinValue)
+  }
 
   def make(
     user: User,

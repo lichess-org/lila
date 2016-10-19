@@ -41,11 +41,11 @@ final class Env(
 
   val forms = DataForm
 
-  def lightUser(id: String): Option[lila.common.LightUser] = lightUserApi get id
+  def lightUser(id: User.ID): Option[lila.common.LightUser] = lightUserApi get id
 
-  def uncacheLightUser(id: String): Funit = lightUserApi invalidate id
+  def uncacheLightUser(id: User.ID): Funit = lightUserApi invalidate id
 
-  def isOnline(userId: String) = onlineUserIdMemo get userId
+  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
   def cli = new lila.common.Cli {
     def process = {

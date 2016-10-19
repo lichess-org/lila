@@ -6,7 +6,9 @@ import org.joda.time.DateTime
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-private[report] final class ReportApi(coll: Coll) {
+private[report] final class ReportApi(
+    coll: Coll,
+    isOnline: User.ID => Boolean) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReportBSONHandler = reactivemongo.bson.Macros.handler[Report]
@@ -154,13 +156,17 @@ private[report] final class ReportApi(coll: Coll) {
     coll.find($empty).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
 
   def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUser]] =
-    recentUnprocessed(nb) |+| recentProcessed(nb) flatMap { all =>
+    recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
       val reports = all take nb
       UserRepo byIds reports.map(_.user).distinct map { users =>
         reports.flatMap { r =>
-          users.find(_.id == r.user) map { Report.WithUser(r, _) }
+          users.find(_.id == r.user) map { u =>
+            Report.WithUser(r, u, isOnline(u.id))
+          }
         }
       }
+    } map {
+      _.sortBy(-_.urgency).take(nb * 2)
     }
 
   def recentUnprocessed(nb: Int) =

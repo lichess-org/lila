@@ -39,7 +39,7 @@ moreJs = moreJs) {
     </thead>
     <tbody>
       @reports.map {
-      case lila.report.Report.WithUser(r, u) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case lila.report.Report.WithUser(r, u, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>@userIdLink(r.createdBy.some)<br />@momentFormat(r.createdAt)</td>
         <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
