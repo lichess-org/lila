@@ -174,13 +174,6 @@ private[round] final class Socket(
           withOpening = false)
       ))
 
-    case Quit(uid) =>
-      members get uid foreach { member =>
-        quit(uid)
-        notifyCrowd
-        if (member.userTv.isDefined) refreshSubscriptions
-      }
-
     case ChangeFeatured(_, msg) => watchers.foreach(_ push msg)
 
     case TvSelect(msg)          => watchers.foreach(_ push msg)
@@ -203,6 +196,14 @@ private[round] final class Socket(
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)
   )
+
+  override def quit(uid: String) = {
+    members get uid foreach { member =>
+      super.quit(uid)
+      notifyCrowd
+      if (member.userTv.isDefined) refreshSubscriptions
+    }
+  }
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {
