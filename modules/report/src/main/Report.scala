@@ -3,7 +3,7 @@ package lila.report
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-import lila.user.User
+import lila.user.{ User, Note }
 
 case class Report(
     _id: String, // also the url slug
@@ -48,6 +48,11 @@ object Report {
       (nowSeconds - report.createdAt.getSeconds).toInt +
         (isOnline ?? (86400 * 5)) +
         (report.processed ?? Int.MinValue)
+  }
+
+  case class WithUserAndNotes(withUser: WithUser, notes: List[Note]) {
+    def report = withUser.report
+    def user = withUser.user
   }
 
   def make(

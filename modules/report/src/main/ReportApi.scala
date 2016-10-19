@@ -4,10 +4,11 @@ import akka.actor.ActorSelection
 import org.joda.time.DateTime
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, NoteApi }
 
 private[report] final class ReportApi(
     coll: Coll,
+    noteApi: NoteApi,
     isOnline: User.ID => Boolean) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -155,7 +156,7 @@ private[report] final class ReportApi(
   def recent(nb: Int) =
     coll.find($empty).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
 
-  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUser]] =
+  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUserAndNotes]] =
     recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
       val reports = all take nb
       UserRepo byIds reports.map(_.user).distinct map { users =>
@@ -167,6 +168,12 @@ private[report] final class ReportApi(
       }
     } map {
       _.sortBy(-_.urgency).take(nb * 2)
+    } flatMap { withUsers =>
+      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
+        withUsers.map { wu =>
+          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
+        }
+      }
     }
 
   def recentUnprocessed(nb: Int) =

@@ -1,4 +1,6 @@
-@(reports: List[lila.report.Report.WithUser])(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithUserAndNotes])(implicit ctx: Context)
+
+@import lila.report.Report.{WithUser,WithUserAndNotes}
 
 @title = @{ "User reports" }
 
@@ -39,7 +41,7 @@ moreJs = moreJs) {
     </thead>
     <tbody>
       @reports.map {
-      case lila.report.Report.WithUser(r, u, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case WithUserAndNotes(WithUser(r, u, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>@userIdLink(r.createdBy.some)<br />@momentFormat(r.createdAt)</td>
         <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
@@ -48,6 +50,12 @@ moreJs = moreJs) {
           - @autoLink(r.text)
           @if(r.unprocessed && r.isCommunication) {
           <a data-icon="v" style="display:inline-block" class="button" href="@routes.Mod.communication(r.user)">&nbsp;View the communication report</a>
+          }
+          @if(notes.nonEmpty) {
+          <br />
+          <a href="@routes.User.show(u.username)?notes=1">
+            <strong>@pluralize("note", notes.size) by @notes.map(_.from).map(usernameOrId).mkString(", ")</strong>
+          </a>
           }
         </td>
         <td>@r.processedBy.map { u =>

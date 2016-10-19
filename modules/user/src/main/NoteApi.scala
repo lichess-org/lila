@@ -2,6 +2,7 @@ package lila.user
 
 import lila.db.dsl._
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 case class Note(
   _id: String,
@@ -26,8 +27,16 @@ final class NoteApi(
         "to" -> user.id,
         "from" $in (myFriendIds + me.id)) ++
         me.troll.fold($empty, $doc("troll" -> false)) ++
-        isMod.fold($empty, $doc("mod" $ne true))
+        isMod.fold($empty, $doc("mod" -> false))
     ).sort($doc("date" -> -1)).cursor[Note]().gather[List](20)
+
+  def byUserIdsForMod(ids: List[User.ID]): Fu[List[Note]] =
+    coll.find($doc(
+      "to" $in ids,
+      "mod" -> true
+    )).sort($doc("date" -> -1))
+      .cursor[Note](readPreference = ReadPreference.secondaryPreferred)
+      .gather[List](ids.size * 5)
 
   def write(to: User, text: String, from: User, modOnly: Boolean) = {
 
