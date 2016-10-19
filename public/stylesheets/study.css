@@ -167,7 +167,7 @@ div.underboard .notif.error {
 .study_box .list .status,
 .study_box .list .action {
   display: block;
-  width: 26px;
+  width: 20px;
   height: 26px;
   line-height: 26px;
   text-align: center;
@@ -176,19 +176,22 @@ div.underboard .notif.error {
   flex-shrink: 0;
 }
 .study_box .list .status i,
-.study_box .list .action i {
+.study_box .list .action {
   font-size: 14px;
-  opacity: 0.2;
+  opacity: 0.15;
   transition: opacity 0.13s;
 }
 .study_box .list .action {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: auto;
 }
-.study_box .list .action.leave i {
+.study_box .list .action.leave {
   opacity: 0.6;
   color: #dc322f;
 }
-.study_box .list > div:hover .action i {
+.study_box .list > div:hover .action {
   opacity: 1;
 }
 .study_box .members .status i {
@@ -292,12 +295,45 @@ div.underboard .notif.error {
 .study_box .list div.config .delete {
   margin-top: 15px;
 }
-.study_box .chapters .chapter {
+.study_box .chapter:not(.add) {
   cursor: pointer;
+  align-items: stretch;
+  border: 1px solid transparent;
+  border-width: 1px 0;
 }
-.study_box .chapters .status i {
+.study_box .chapter:not(.add):hover {
+  border-color: rgba(56, 147, 232, 0.1);
+}
+.study_box .chapter h3 {
+  flex: 1 1 100%;
+  line-height: 1.1em;
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+}
+.study_box .chapters .status {
   color: #3893E8;
   opacity: 1;
+  font-weight: bold;
+  width: 20px;
+  height: auto;
+  margin-right: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+}
+.study_box .chapter.active:not(.add),
+.study_box .chapter:not(.add):hover {
+  background: rgba(56, 147, 232, 0.1);
+}
+.study_box .chapters .active .status {
+  color: #fff;
+  background: #3893E8;
+}
+.study_box .chapter.add .status {
+  width: 23px;
+  margin-right: 3px;
 }
 .study_box .chapters .status .spinner {
   width: 18px;

@@ -158,22 +158,20 @@ module.exports = {
 
     var configButton = function(ctrl, member) {
       if (isOwner && member.user.id !== ctrl.members.myId)
-        return m('span.action.config', {
+        return m('i.action.config', {
+          'data-icon': '%',
           key: 'config-' + member.user.id,
           config: util.bindOnce('click', function() {
             ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
           })
-        }, m('i', {
-          'data-icon': '%'
-        }));
+        });
       if (!isOwner && member.user.id === ctrl.members.myId)
         return m('span.action.leave', {
+          'data-icon': 'F',
           key: 'leave',
           title: 'Leave the study',
           config: util.bindOnce('click', ctrl.members.leave)
-        }, m('i', {
-          'data-icon': 'F'
-        }));
+        });
     };
 
     var memberConfig = function(member) {

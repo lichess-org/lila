@@ -5,7 +5,7 @@ var util = require('../util');
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
 
-var configIcon = m('i', {
+var configIcon = m('i.action.config', {
   'data-icon': '%'
 });
 
@@ -51,9 +51,7 @@ module.exports = {
   view: {
     main: function(ctrl) {
 
-      var configButton = function(chapter, editing) {
-        if (ctrl.members.canContribute()) return m('span.action.config', configIcon);
-      };
+      var configButton = ctrl.members.canContribute() ? configIcon : null;
       var current = ctrl.currentChapter();
 
       return [
@@ -85,15 +83,15 @@ module.exports = {
             }
             if (!isUpdate)
               el.addEventListener('click', function(e) {
-                var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
+                var id = e.target.parentNode.getAttribute('data-id');
                 if (!id) return;
-                if (e.target.parentNode.classList.contains('config'))
+                if (e.target.classList.contains('config'))
                   ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
                 else ctrl.setChapter(id);
               });
           }
         }, [
-          ctrl.chapters.list().map(function(chapter) {
+          ctrl.chapters.list().map(function(chapter, i) {
             var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
             return [
@@ -105,13 +103,9 @@ module.exports = {
                   editing: editing
                 })
               }, [
-                m('div.left', [
-                  m('div.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
-                    'data-icon': active ? 'J' : 'K'
-                  })),
-                  chapter.name
-                ]),
-                configButton(chapter, editing)
+                m('span.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : i + 1),
+                m('h3', chapter.name),
+                configButton
               ])
             ];
           }),
@@ -120,10 +114,8 @@ module.exports = {
               class: 'elem chapter add',
               config: util.bindOnce('click', ctrl.chapters.toggleNewForm)
             },
-            m('div.left', [
-              m('span.status', m('i[data-icon=O]')),
-              m('span.add_text', 'Add a new chapter')
-            ])
+            m('span.status', m('i[data-icon=O]')),
+            m('h3.add_text', 'Add a new chapter')
           ) : null
         ])
       ];
