@@ -72,8 +72,8 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached top50Online true map { list =>
-        Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
-      }
+      Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
+    }
     )
   }
 
@@ -114,7 +114,7 @@ object User extends LilaController {
       page = page)(ctx.body)
     relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
-      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _) }
+      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
     blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
@@ -202,12 +202,12 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached.topWeek(true).map { users =>
-        Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
-      })
+      Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
+    })
   }
 
-  def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
-    me => OptionFuOk(UserRepo named username) { user =>
+  def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
+    OptionFuOk(UserRepo named username) { user =>
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
         (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
@@ -222,12 +222,13 @@ object User extends LilaController {
     }
   }
 
-  def writeNote(username: String) = AuthBody { implicit ctx =>
-    me => OptionFuResult(UserRepo named username) { user =>
+  def writeNote(username: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(UserRepo named username) { user =>
       implicit val req = ctx.body
       env.forms.note.bindFromRequest.fold(
         err => filter(username, none, 1, Results.BadRequest),
-        text => env.noteApi.write(user, text, me) inject Redirect(routes.User.show(username).url + "?note")
+        data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote)) inject
+          Redirect(routes.User.show(username).url + "?note")
       )
     }
   }
@@ -276,8 +277,7 @@ object User extends LilaController {
     }
   }
 
-  def myself = Auth { ctx =>
-    me =>
-      fuccess(Redirect(routes.User.show(me.username)))
+  def myself = Auth { ctx => me =>
+    fuccess(Redirect(routes.User.show(me.username)))
   }
 }

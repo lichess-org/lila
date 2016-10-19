@@ -9,7 +9,7 @@ import play.twirl.api.Html
 import lila.hub.actorApi.lobby.NewForumPost
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
-import lila.security.Granter
+import lila.security.{ Granter, Permission }
 import lila.user.UserRepo
 import makeTimeout.short
 
@@ -48,12 +48,23 @@ private[timeline] final class Push(
         _ filter Granter(_.StaffForum) map (_.id)
       }
       case ExceptUser(_) => fuccess(Nil)
-    }.sequence map { users =>
-      propagations.foldLeft(users.flatten.distinct) {
-        case (us, ExceptUser(id)) => us filter (id!=)
-        case (us, _)              => us
+      case ModsOnly(_)   => fuccess(Nil)
+    }.sequence flatMap { users =>
+      propagations.foldLeft(fuccess(users.flatten.distinct)) {
+        case (fus, ExceptUser(id)) => fus.map(_.filter(id!=))
+        case (fus, ModsOnly(true)) => for {
+          us <- fus
+          userIds <- UserRepo.userIdsWithRoles(modPermissions.map(_.name))
+        } yield us filter userIds.contains
+        case (fus, _) => fus
       }
     }
+
+  private def modPermissions = List(
+    Permission.ModNote,
+    Permission.Hunter,
+    Permission.Admin,
+    Permission.SuperAdmin)
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)

@@ -250,9 +250,6 @@ object UserRepo {
   def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
 
-  def engineIds: Fu[Set[String]] =
-    coll.distinct[String, Set]("_id", $doc("engine" -> true).some)
-
   private val userIdPattern = """^[\w-]{3,20}$""".r.pattern
 
   def usernamesLike(text: String, max: Int = 10): Fu[List[String]] = {
@@ -346,21 +343,25 @@ object UserRepo {
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregate(Match($inIds(ids)),
+    ids.nonEmpty ?? coll.aggregate(
+      Match($inIds(ids)),
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
         _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
-  def filterByEngine(userIds: List[String]): Fu[List[String]] =
+  def filterByEngine(userIds: List[User.ID]): Fu[List[User.ID]] =
     coll.primitive[String]($inIds(userIds) ++ engineSelect(true), F.id)
 
-  def filterByEnabled(userIds: List[String]): Fu[List[String]] =
+  def filterByEnabled(userIds: List[User.ID]): Fu[List[User.ID]] =
     coll.primitive[String]($inIds(userIds) ++ enabledSelect, F.id)
 
-  def countEngines(userIds: List[String]): Fu[Int] =
+  def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
+    coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
+
+  def countEngines(userIds: List[User.ID]): Fu[Int] =
     coll.countSel($inIds(userIds) ++ engineSelect(true))
 
-  def containsEngine(userIds: List[String]): Fu[Boolean] =
+  def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
 
   def mustConfirmEmail(id: String): Fu[Boolean] =

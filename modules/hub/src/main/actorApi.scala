@@ -117,6 +117,7 @@ object propagation {
   case class Friends(user: String) extends Propagation
   case class StaffFriends(user: String) extends Propagation
   case class ExceptUser(user: String) extends Propagation
+  case class ModsOnly(value: Boolean) extends Propagation
 }
 
 import propagation._
@@ -128,6 +129,7 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
   def toFriendsOf(id: String) = add(Friends(id))
   def toStaffFriendsOf(id: String) = add(StaffFriends(id))
   def exceptUser(id: String) = add(ExceptUser(id))
+  def modsOnly(value: Boolean) = add(ModsOnly(value))
   private def add(p: Propagation) = copy(propagations = p :: propagations)
 }
 }

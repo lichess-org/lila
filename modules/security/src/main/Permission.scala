@@ -36,21 +36,22 @@ object Permission {
   case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
   case object ManageEvent extends Permission("ROLE_MANAGE_EVENT")
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
-  case object PublicMod extends Permission("ROLE_PUBLIC_MOD", List(GuineaPig))
+  case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
   case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
   case object Coach extends Permission("ROLE_COACH")
   case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
+  case object ModNote extends Permission("ROLE_MOD_NOTE")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
-    UserSearch, GuineaPig))
+    UserSearch, ModNote))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    GuineaPig, PreviewCoach))
+    PreviewCoach))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
     Admin, ChangePermission, PublicMod, Developer))
@@ -59,7 +60,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, GuineaPig)
+    PublicMod, Developer, Coach, PreviewCoach, GuineaPig, ModNote)
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
 
@@ -67,7 +68,7 @@ object Permission {
 
   def apply(name: String): Option[Permission] = allByName get name
 
-  def apply(names: List[String]): List[Permission] = (names map apply).flatten
+  def apply(names: List[String]): List[Permission] = names flatMap { apply(_) }
 
   def exists(name: String) = allByName contains name
 }

@@ -9,6 +9,7 @@ case class Note(
   to: String,
   text: String,
   troll: Boolean,
+  mod: Boolean,
   date: DateTime)
 
 final class NoteApi(
@@ -19,15 +20,16 @@ final class NoteApi(
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val noteBSONHandler = Macros.handler[Note]
 
-  def get(user: User, me: User, myFriendIds: Set[String]): Fu[List[Note]] =
+  def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
     coll.find(
       $doc(
         "to" -> user.id,
-        "from" $in (myFriendIds + me.id)
-      ) ++ me.troll.fold($empty, $doc("troll" -> false))
-    ).sort($doc("date" -> -1)).cursor[Note]().gather[List](100)
+        "from" $in (myFriendIds + me.id)) ++
+        me.troll.fold($empty, $doc("troll" -> false)) ++
+        isMod.fold($empty, $doc("mod" $ne true))
+    ).sort($doc("date" -> -1)).cursor[Note]().gather[List](20)
 
-  def write(to: User, text: String, from: User) = {
+  def write(to: User, text: String, from: User, modOnly: Boolean) = {
 
     val note = Note(
       _id = ornicar.scalalib.Random nextStringUppercase 8,
@@ -35,10 +37,13 @@ final class NoteApi(
       to = to.id,
       text = text,
       troll = from.troll,
+      mod = modOnly,
       date = DateTime.now)
 
     import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
-    timeline ! (Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to)
+    timeline ! {
+      Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
+    }
 
     coll insert note
   }
