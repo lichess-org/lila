@@ -13,7 +13,6 @@ module.exports = function(opts) {
   var multiPv = util.storedProp('ceval.multipv', 1);
   var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = util.storedProp('ceval.hash-size', 128);
-  var showPvs = util.storedProp('ceval.show-pvs', false);
   var curDepth = 0;
   var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
@@ -148,7 +147,6 @@ module.exports = function(opts) {
     multiPv: multiPv,
     threads: threads,
     hashSize: hashSize,
-    showPvs: showPvs,
     hoveringUci: hoveringUci,
     setHoveringUci: function(uci) {
       hoveringUci(uci);

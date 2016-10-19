@@ -185,26 +185,6 @@ module.exports = {
               ])
             ]);
           })('analyse-toggle-gauge'), (function(id) {
-            return m('div.setting', [
-              m('label', {
-                'for': id
-              }, 'Textual lines'),
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ctrl.ceval.showPvs(),
-                  config: util.bindOnce('change', function(e) {
-                    ctrl.ceval.showPvs(e.target.checked);
-                  })
-                }),
-                m('label', {
-                  'for': id
-                })
-              ])
-            ]);
-          })('analyse-toggle-pvs'), (function(id) {
             var max = 5;
             return m('div.setting', [
               m('label', {
