@@ -316,7 +316,7 @@ module.exports = {
         });
       },
     }, [
-      commentTags ? m('interrupt', commentTags) : null,
+      empty(commentTags) ? null : m('interrupt', commentTags),
       root.ply % 2 === 1 ? [
         renderIndex(root.ply, false),
         emptyMove({})
