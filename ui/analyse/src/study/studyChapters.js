@@ -94,16 +94,18 @@ module.exports = {
           ctrl.chapters.list().map(function(chapter, i) {
             var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
+            var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
             return [
               m('div', {
                 key: chapter.id,
                 'data-id': chapter.id,
                 class: 'elem chapter draggable ' + classSet({
-                  active: active,
-                  editing: editing
+                  active: active && !ctrl.vm.loading,
+                  editing: editing,
+                  loading: loading
                 })
               }, [
-                m('span.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : i + 1),
+                m('span.status', i + 1),
                 m('h3', chapter.name),
                 configButton
               ])

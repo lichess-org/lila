@@ -23,6 +23,7 @@ module.exports = {
 
     var vm = {
       loading: false,
+      nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
       behind: false, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
@@ -193,6 +194,7 @@ module.exports = {
           xhrReload();
         }
         vm.loading = true;
+        vm.nextChapterId = id;
       },
       toggleSync: function() {
         if (vm.behind !== false) {
