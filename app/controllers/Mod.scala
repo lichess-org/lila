@@ -1,7 +1,7 @@
 package controllers
 
+import lila.api.Context
 import lila.app._
-import lila.security.Permission
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -15,7 +15,8 @@ object Mod extends LilaController {
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
 
-  def engine(username: String) = Secure(_.MarkEngine) { _ => me => modApi.toggleEngine(me.id, username) inject redirect(username)
+  def engine(username: String) = Secure(_.MarkEngine) { _ => me =>
+    modApi.toggleEngine(me.id, username) inject redirect(username)
   }
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx => _ =>
@@ -28,7 +29,8 @@ object Mod extends LilaController {
     }
   }
 
-  def booster(username: String) = Secure(_.MarkBooster) { _ => me => modApi.toggleBooster(me.id, username) inject redirect(username)
+  def booster(username: String) = Secure(_.MarkBooster) { _ => me =>
+    modApi.toggleBooster(me.id, username) inject redirect(username)
   }
 
   def troll(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
@@ -40,18 +42,22 @@ object Mod extends LilaController {
     }
   }
 
-  def ban(username: String) = Secure(_.IpBan) { implicit ctx => me => modApi.ban(me.id, username) inject redirect(username)
+  def ban(username: String) = Secure(_.IpBan) { implicit ctx => me =>
+    modApi.ban(me.id, username) inject redirect(username)
   }
 
-  def ipban(ip: String) = Secure(_.IpBan) { implicit ctx => me => modApi.ipban(me.id, ip)
+  def ipban(ip: String) = Secure(_.IpBan) { implicit ctx => me =>
+    modApi.ipban(me.id, ip)
   }
 
-  def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me => modApi.closeAccount(me.id, username) flatMap {
-    _ ?? Account.doClose
-  } inject redirect(username)
+  def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
+    modApi.closeAccount(me.id, username) flatMap {
+      _ ?? Account.doClose
+    } inject redirect(username)
   }
 
-  def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me => modApi.reopenAccount(me.id, username) inject redirect(username)
+  def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me =>
+    modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
@@ -83,17 +89,23 @@ object Mod extends LilaController {
     }
   }
 
-  def assessment(username: String) = Open { implicit ctx =>
+  private[controllers] def ModExternalBot(f: => Fu[Result])(implicit ctx: Context) =
     if (!get("api_key").contains(Env.mod.ApiKey)) fuccess(NotFound)
-    else OptionFuResult(UserRepo named username) { user =>
-      Env.mod.jsonView(user) map {
-        case None       => NotFound
-        case Some(data) => Ok(data)
-      } map (_ as JSON)
+    else f
+
+  def assessment(username: String) = Open { implicit ctx =>
+    ModExternalBot {
+      OptionFuResult(UserRepo named username) { user =>
+        Env.mod.jsonView(user) map {
+          case None       => NotFound
+          case Some(data) => Ok(data)
+        } map (_ as JSON)
+      }
     }
   }
 
-  def log = Secure(_.SeeReport) { implicit ctx => me => modLogApi.recent map { html.mod.log(_) }
+  def log = Secure(_.SeeReport) { implicit ctx => me =>
+    modLogApi.recent map { html.mod.log(_) }
   }
 
   def communication(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
@@ -139,9 +151,11 @@ object Mod extends LilaController {
     }
   }
 
-  def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
+  def redirect(username: String, mod: Boolean = true) =
+    Redirect(routes.User.show(username).url + mod.??("?mod"))
 
-  def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me => assessApi.refreshAssessByUsername(username) inject redirect(username)
+  def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
+    assessApi.refreshAssessByUsername(username) inject redirect(username)
   }
 
   def gamify = Secure(_.SeeReport) { implicit ctx => me =>

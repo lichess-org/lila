@@ -53,6 +53,7 @@ object Report {
   case class WithUserAndNotes(withUser: WithUser, notes: List[Note]) {
     def report = withUser.report
     def user = withUser.user
+    def hasClarkeyBotNote = notes.exists(_.from == "clarkey_bot")
   }
 
   def make(

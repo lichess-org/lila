@@ -409,6 +409,7 @@ POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
+GET   /report/next                     controllers.Report.next
 
 # QA
 GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)
