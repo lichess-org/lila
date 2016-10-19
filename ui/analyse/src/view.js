@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
 var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
@@ -230,7 +231,10 @@ module.exports = function(ctrl) {
         if (firstRender) firstRender = false;
         else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
       },
-      class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
+      class: classSet({
+        'gauge_displayed': ctrl.showEvalGauge(),
+        'no_computer': !ctrl.vm.showComputer()
+      })
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
@@ -253,7 +257,9 @@ module.exports = function(ctrl) {
         ])
       ])
     ]),
-    ctrl.embed ? null : m('div.underboard', [
+    ctrl.embed ? null : m('div', {
+      class: 'underboard' + (ctrl.vm.showComputer() ? '' : ' no_computer')
+    }, [
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),

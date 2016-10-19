@@ -214,6 +214,13 @@ module.exports = function(root) {
         delete n.ceval;
         delete n.threat;
       });
+    },
+    removeComputerVariations: function() {
+      ops.mainlineNodeList(root).forEach(function(n) {
+        n.children = n.children.filter(function(c) {
+          return !c.comp;
+        });
+      });
     }
   };
 }

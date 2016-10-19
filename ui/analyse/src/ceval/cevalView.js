@@ -43,7 +43,7 @@ function threatButton(ctrl) {
 
 module.exports = {
   renderGauge: function(ctrl) {
-    if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
+    if (ctrl.ongoing || !ctrl.showEvalGauge() || !ctrl.vm.showComputer()) return;
     var eval, evs = ctrl.currentEvals();
     if (evs) {
       eval = winningChances.povChances('white', evs.fav);
@@ -67,7 +67,7 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.vm.showComputer()) return;
     var enabled = ctrl.ceval.enabled();
     var evs = ctrl.currentEvals() || {};
     var threatMode = ctrl.vm.threatMode;

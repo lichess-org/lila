@@ -62,6 +62,7 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
+    showComputer: util.storedProp('show-computer', true),
     autoScrollRequested: false,
     element: opts.element,
     redirecting: false,
@@ -500,8 +501,20 @@ module.exports = function(opts) {
     else this.chessground.setAutoShapes([]);
   }.bind(this);
 
-  this.toggleGauge = function(v) {
+  this.toggleGauge = function() {
     this.vm.showGauge(!this.vm.showGauge());
+  }.bind(this);
+
+  var onToggleComputer = function() {
+    if (opts.onToggleComputer) opts.onToggleComputer(this.vm.showComputer());
+    if (!this.vm.showComputer()) this.tree.removeComputerVariations();
+  }.bind(this);
+  onToggleComputer();
+
+  this.toggleComputer = function() {
+    var value = !this.vm.showComputer();
+    this.vm.showComputer(value);
+    onToggleComputer();
   }.bind(this);
 
   this.playUci = function(uci) {

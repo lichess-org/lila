@@ -36,6 +36,13 @@ function renderIndex(ply, withDots) {
   };
 }
 
+function noCompNode(node) {
+  return !node.comp;
+}
+function nonEmpty(x) {
+  return !!x;
+}
+
 function renderChildrenOf(ctx, node, opts) {
   var cs = node.children;
   var main = cs[0];
@@ -47,7 +54,7 @@ function renderChildrenOf(ctx, node, opts) {
     var commentTags = renderMainlineCommentsOf(ctx, main, {
       conceal: conceal,
       withColor: true
-    });
+    }).filter(nonEmpty);
     if (!cs[1] && empty(commentTags)) return [
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, {
@@ -133,7 +140,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
   return moveTag(attrs, renderMove(node));
 }
 
-function renderMove(node, eval) {
+function renderMove(node) {
   var eval = node.eval || node.ceval || {};
   return [
     util.fixCrazySan(node.san),
@@ -214,10 +221,11 @@ function renderEval(e) {
 }
 
 function renderMainlineCommentsOf(ctx, node, opts) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   var colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
-  var klass;
   return node.comments.map(function(comment) {
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
+    var klass = '';
     if (comment.text.indexOf('Inaccuracy.') === 0) klass = 'inaccuracy';
     else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
@@ -240,8 +248,9 @@ function renderMainlineComment(comment, klass, withAuthor) {
 }
 
 function renderVariationCommentsOf(ctx, node) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   return node.comments.map(function(comment) {
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
     return renderVariationComment(comment, node.comments.length > 1);
   });
 }
@@ -276,7 +285,8 @@ module.exports = {
     var root = ctrl.tree.root;
     var ctx = {
       ctrl: ctrl,
-      concealOf: concealOf || emptyConcealOf
+      concealOf: concealOf || emptyConcealOf,
+      showComputer: ctrl.vm.showComputer()
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,

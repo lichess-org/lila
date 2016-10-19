@@ -36,7 +36,7 @@ module.exports = function(ctrl) {
     hoveringUci = ctrl.explorer.hoveringUci() || ctrl.ceval.hoveringUci();
   var color = ctrl.chessground.data.movable.color;
   if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
-  if (ctrl.vm.showAutoShapes()) {
+  if (ctrl.vm.showAutoShapes() && ctrl.vm.showComputer()) {
     if (n.eval && n.eval.best)
       shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
     if (!hoveringUci) {

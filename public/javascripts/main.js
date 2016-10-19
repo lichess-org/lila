@@ -1842,6 +1842,12 @@ lichess.notifyApp = (function() {
         }
       } catch (e) {}
     };
+    cfg.onToggleComputer = function(v) {
+      setTimeout(function() {
+        if (v) $('div.analysis_menu a.computer_analysis').mousedown();
+        else $('div.analysis_menu a:eq(1)').mousedown();
+      }.bind(this), 50);
+    };
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     cfg.socketSend = lichess.socket.send;

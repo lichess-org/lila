@@ -29,6 +29,10 @@ var cached = false;
 module.exports = function(ctrl) {
   var d = ctrl.data;
   if (!d.analysis) return;
+  if (!ctrl.vm.showComputer()) {
+    if (cached) cached = false;
+    return;
+  }
 
   var first = ctrl.vm.mainline[0].eval || {};
   if (first.cp || first.mate) {

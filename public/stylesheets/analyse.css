@@ -47,6 +47,9 @@ div.analysis_panels > div {
 div.analysis_panels > div.active {
   display: block;
 }
+div.no_computer div.analysis_menu .computer_analysis {
+  display: none;
+}
 div.analysis_panels .crosstable table {
   margin-top: 60px;
 }
@@ -345,6 +348,9 @@ body.piece_letter .fork move {
   font-size: 0.8em;
   font-family: 'Roboto';
   opacity: 0.8;
+}
+.no_computer eval {
+  display: none;
 }
 
 @media (min-width: 1050px) {
