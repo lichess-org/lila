@@ -238,7 +238,9 @@ object User extends LilaController {
       OptionFuResult(UserRepo named username) { user =>
         UserRepo.lichess.flatten("Missing lichess user") flatMap { lichess =>
           val decision = ~getInt("v") == 1
-          val text = s"Clarkey's bot says ${if (decision) "MARK" else "DO NOT mark"}"
+          val text =
+            if (decision) "Clarkey's bot would mark as engine."
+            else "Clarkey's bot doesn't know whether to mark as engine or not."
           env.noteApi.write(user, text, lichess, true) inject Ok
         }
       }
