@@ -310,6 +310,7 @@ div.underboard .notif.error {
   margin: 4px 0;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 .study_box .chapters .status {
   color: #3893E8;
