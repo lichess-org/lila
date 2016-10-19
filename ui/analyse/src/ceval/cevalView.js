@@ -43,7 +43,7 @@ function threatButton(ctrl) {
 
 module.exports = {
   renderGauge: function(ctrl) {
-    if (ctrl.ongoing || !ctrl.showEvalGauge() || !ctrl.vm.showComputer()) return;
+    if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
     var eval, evs = ctrl.currentEvals();
     if (evs) {
       eval = winningChances.povChances('white', evs.fav);

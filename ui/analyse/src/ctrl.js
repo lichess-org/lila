@@ -489,7 +489,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver() && this.vm.showComputer();
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
