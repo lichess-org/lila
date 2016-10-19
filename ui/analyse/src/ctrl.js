@@ -507,7 +507,10 @@ module.exports = function(opts) {
 
   var onToggleComputer = function() {
     if (opts.onToggleComputer) opts.onToggleComputer(this.vm.showComputer());
-    if (!this.vm.showComputer()) this.tree.removeComputerVariations();
+    if (!this.vm.showComputer()) {
+      this.tree.removeComputerVariations();
+      if (this.ceval.enabled()) this.toggleCeval();
+    }
   }.bind(this);
   onToggleComputer();
 
