@@ -92,15 +92,15 @@ module.exports = {
           }
         }, [
           ctrl.chapters.list().map(function(chapter, i) {
-            var active = current && current.id === chapter.id;
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
             var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
+            var active = !loading && current && current.id === chapter.id;
             return [
               m('div', {
                 key: chapter.id,
                 'data-id': chapter.id,
                 class: 'elem chapter draggable ' + classSet({
-                  active: active && !ctrl.vm.loading,
+                  active: active,
                   editing: editing,
                   loading: loading
                 })
