@@ -9,10 +9,6 @@ import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
 
-import lila.evaluation.{ PlayerAssessment }
-
-import chess.Color
-
 object Mod extends LilaController {
 
   private def modApi = Env.mod.api
