@@ -233,6 +233,18 @@ object User extends LilaController {
     }
   }
 
+  def writeClarkeyBotNote(username: String) = Open { implicit ctx =>
+    Mod.ModExternalBot {
+      OptionFuResult(UserRepo named username) { user =>
+        UserRepo.lichess.flatten("Missing lichess user") flatMap { lichess =>
+          val decision = ~getInt("v") == 1
+          val text = s"Clarkey's bot says ${if (decision) "MARK" else "DO NOT mark"}"
+          env.noteApi.write(user, text, lichess, true) inject Ok
+        }
+      }
+    }
+  }
+
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { ops =>

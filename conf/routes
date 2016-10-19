@@ -54,6 +54,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
+POST  /@/:username/clarkey-bot-note    controllers.User.writeClarkeyBotNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
@@ -409,7 +410,7 @@ POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
-GET   /report/next                     controllers.Report.next
+GET   /report/clarkey-bot-next         controllers.Report.clarkeyBotNext
 
 # QA
 GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)

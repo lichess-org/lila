@@ -52,11 +52,11 @@ object Report extends LilaController {
     }
   }
 
-  def next = Open { implicit ctx =>
+  def clarkeyBotNext = Open { implicit ctx =>
     Mod.ModExternalBot {
       api unprocessedAndRecent 50 map { all =>
         all.find { r =>
-          r.report.isCheat && r.report.unprocessed && !r.hasClarkeyBotNote
+          r.report.isCheat && r.report.unprocessed && !r.hasLichessNote
         } match {
           case None    => NotFound
           case Some(r) => Ok(r.user.id)
