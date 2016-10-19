@@ -10,7 +10,7 @@ private final class MainWatcher(
     bus: lila.common.Bus,
     scheduler: lila.common.Scheduler) {
 
-  private val alerted = new ExpireSetMemo(1 hour)
+  private val alerted = new ExpireSetMemo(6 hour)
 
   private def isAlerted(client: Client) = alerted get client.key.value
 
