@@ -520,6 +520,14 @@ module.exports = function(opts) {
     onToggleComputer();
   }.bind(this);
 
+  this.mergeAnalysisData = function(data) {
+    this.tree.merge(data.tree);
+    if (!this.vm.showComputer()) this.tree.removeComputerVariations();
+    this.data.analysis = data.analysis;
+    this.autoScroll();
+    m.redraw();
+  }.bind(this);
+
   this.playUci = function(uci) {
     var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
