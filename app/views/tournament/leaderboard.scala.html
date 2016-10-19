@@ -34,7 +34,9 @@ moreCss = cssTag("tournament_leaderboard.css")) {
     @freqWinners(winners.classical, PerfType.Classical, "Classical")
     @lila.tournament.WinnersApi.variants.map { v =>
     @PerfType.byVariant(v).map { pt =>
-    @freqWinners(winners.classical, pt, v.name)
+    @winners.variants.get(pt.key).map { w =>
+    @freqWinners(w, pt, v.name)
+    }
     }
     }
   </div>

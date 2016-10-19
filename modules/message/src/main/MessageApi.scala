@@ -8,13 +8,15 @@ import lila.db.paginator._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
+
 final class MessageApi(
     coll: Coll,
     shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
-    follows: (String, String) => Fu[Boolean]) {
+    follows: (String, String) => Fu[Boolean],
+    lilaBus: lila.common.Bus) {
 
   import Thread.ThreadBSONHandler
 
@@ -102,6 +104,7 @@ final class MessageApi(
     (thread isVisibleBy thread.receiverOf(post)) ?? {
       import lila.notify.{ Notification, PrivateMessage }
       import lila.common.String.shorten
+      lilaBus.publish(Event.NewMessage(thread, post), 'newMessage)
       notifyApi addNotification Notification(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(

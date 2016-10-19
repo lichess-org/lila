@@ -34,7 +34,8 @@ final class Env(
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
     notifyApi = notifyApi,
-    follows = follows)
+    follows = follows,
+    lilaBus = system.lilaBus)
 
   lazy val security = new MessageSecurity(
     follows = follows,

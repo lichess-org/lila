@@ -2,15 +2,16 @@ var countDownTimeout;
 
 function doCountDown(targetTime) {
   return function curCounter() {
-    var timeToStart = targetTime - (new Date().getTime() / 1000);
+    var secondsToStart = targetTime - (new Date().getTime() / 1000);
 
     // always play the 0 sound before completing.
-    var bestTick = Math.max(0, Math.round(timeToStart));
+    var bestTick = Math.max(0, Math.round(secondsToStart));
     if (bestTick <= 10) $.sound['countDown' + bestTick]();
 
     if (bestTick > 0) {
-      var timeToNextTick = timeToStart - Math.min(10, bestTick - 1);
-      countDownTimeout = setTimeout(curCounter, timeToNextTick * 1000);
+      var nextTick = Math.min(10, bestTick - 1);
+      countDownTimeout = setTimeout(curCounter, 1000 *
+        Math.min(1.1, Math.max(0.8, (secondsToStart - nextTick))));
     }
   };
 }
@@ -37,7 +38,7 @@ module.exports = {
     if (countDownTimeout) return;
     if (data.secondsToStart > 60 * 60 * 24) return;
     countDownTimeout = setTimeout(
-      doCountDown(new Date().getTime() / 1000 + data.secondsToStart),
-      1000);  // wait 1s before starting countdown.
+      doCountDown(new Date().getTime() / 1000 + data.secondsToStart - 0.1),
+      900);  // wait 900ms before starting countdown.
   }
 };
