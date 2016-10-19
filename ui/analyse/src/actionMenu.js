@@ -227,7 +227,9 @@ module.exports = {
           })('analyse-multipv'),
           ctrl.ceval.pnaclSupported ? [
             (function(id) {
-              var max = navigator.hardwareConcurrency || 1;
+              var max = navigator.hardwareConcurrency;
+              if (!max) return;
+              if (max > 2) max--; // don't overload your computer, you dummy
               return m('div.setting', [
                 m('label', {
                   'for': id
