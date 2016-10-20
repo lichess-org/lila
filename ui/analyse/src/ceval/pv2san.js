@@ -189,8 +189,8 @@ function san(board, uci) {
   var rank = false, file = false;
   for (var i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
-    if (from & 7 === candidates[i] & 7) rank = true;
-    if (from >> 3 === candidates[i] >> 3) file = true;
+    if ((from & 7) === (candidates[i] & 7)) rank = true;
+    if ((from >> 3) === (candidates[i] >> 3)) file = true;
   }
   if (file) san += uci[0];
   if (rank) san += uci[1];
