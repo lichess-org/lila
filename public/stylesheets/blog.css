@@ -87,6 +87,10 @@
   padding: 5px;
   border: 1px solid #ccc;
 }
+#lichess_blog .body iframe.study {
+  border: none;
+  margin: 1em 0;
+}
 
 #lichess_blog .list h1 {
   border-bottom: 1px solid #eee;

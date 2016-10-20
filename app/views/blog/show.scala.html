@@ -26,7 +26,7 @@ description = ~doc.getText("blog.shortlede")).some) {
     <img src="@img.url" />
     }
   </div>
-  <div class="body">
+  <div class="body embed_study">
     @doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(lila.blog.ProtocolFix.remove).map(Html.apply)
   </div>
   @NotForKids {

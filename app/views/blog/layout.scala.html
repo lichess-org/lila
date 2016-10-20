@@ -1,12 +1,9 @@
 @(title: String, side: Option[Html] = None, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("blog.css")
-}
-
 @base.layout(
 title = title,
-moreCss = moreCss,
+moreCss = cssTag("blog.css"),
+moreJs = jsTag("embed-study.js"),
 side = side,
 openGraph = openGraph,
 withLangAnnotations = false) {

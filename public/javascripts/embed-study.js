@@ -2,7 +2,7 @@ $(function() {
 
   // detect study links and convert them to iframes
   $('div.embed_study').each(function() {
-    var urlRegex = /\/study\/(\w{8})#(\w{8})/;
+    var urlRegex = /\/study\/(?:embed\/)?(\w{8})[#\/](\w{8})/;
     var width = 744;
     $(this).find('a').each(function() {
       var matches = this.href.match(urlRegex);
