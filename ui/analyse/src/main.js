@@ -34,8 +34,8 @@ module.exports = function(opts) {
     pathStr: function() {
       return controller.vm.pathStr;
     },
-    forceRender: function() {
-      m.redraw(true);
+    setChapter: function(id) {
+      if (controller.study) controller.study.setChapter(id);
     }
   };
 };

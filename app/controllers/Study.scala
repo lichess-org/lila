@@ -124,7 +124,7 @@ object Study extends LilaController {
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
     negotiate(
-      html = notFound,
+      html = fuccess(Redirect(s"${routes.Study.show(id)}#$chapterId")),
       api = _ => env.chapterRepo.byId(chapterId).map {
       _.filter(_.studyId == id) ?? { chapter =>
         Ok(env.jsonView.chapterConfig(chapter))

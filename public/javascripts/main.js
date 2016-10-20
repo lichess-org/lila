@@ -1992,6 +1992,11 @@ lichess.notifyApp = (function() {
     analyse = LichessAnalyse(cfg);
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
     topMenuIntent();
+    var chapterId = location.hash.replace('#', '');
+    if (chapterId) {
+      analyse.setChapter(chapterId);
+      history.pushState('', document.title, location.pathname);
+    }
   }
 
   /////////////// forum.js ////////////////////

@@ -75,7 +75,7 @@ function formatHashSize(v) {
 
 function studyButton(ctrl) {
   if (ctrl.study && ctrl.embed && !ctrl.ongoing) return m('a.fbt', {
-    href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.currentChapter().id,
+    href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
     target: '_blank'
   }, [
       m('i.icon', {
