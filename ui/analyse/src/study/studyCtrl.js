@@ -8,6 +8,7 @@ var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
 var notifCtrl = require('./notif').ctrl;
+var shareCtrl = require('./studyShare').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
 var concealFeedback = require('./concealFeedback');
@@ -129,6 +130,8 @@ module.exports = {
 
     if (members.canContribute()) form.openIfNew();
 
+    var share = shareCtrl(data, currentChapter);
+
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
@@ -151,6 +154,7 @@ module.exports = {
       notif: notif,
       commentForm: commentForm,
       glyphForm: glyphForm,
+      share: share,
       vm: vm,
       toggleLike: function(v) {
         send("like", {

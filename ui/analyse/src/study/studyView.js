@@ -11,6 +11,7 @@ var currentCommentsView = require('./studyComments').currentComments;
 var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
+var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
 
 function buttons(root) {
@@ -45,6 +46,16 @@ function buttons(root) {
       }, m('i', {
         'data-icon': '{'
       })) : null,
+      m('a.button.share.hint--top', {
+          class: classSet({
+            active: ctrl.share.open()
+          }),
+          'data-hint': 'Share and embed',
+          config: util.bindOnce('click', function() {
+            ctrl.share.toggle();
+          })
+        },
+        m('i.[data-icon=z]')),
       canContribute ? [
         (function(enabled) {
           return m('a.button.comment.hint--top', {
@@ -201,6 +212,7 @@ module.exports = {
     if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
     if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
     if (ctrl.form.open()) return studyFormView(ctrl.form);
+    if (ctrl.share.open()) return studyShareView(ctrl.share);
   },
 
   underboard: function(ctrl) {
