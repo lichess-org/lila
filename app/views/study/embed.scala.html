@@ -12,7 +12,7 @@
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("analyse.css")
-    @cssTag("study_embed.css")
+    @cssTag("study-embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta charset="utf-8">
   </head>
@@ -47,13 +47,18 @@
     socketSend: $.noop
     });
     var board = element.querySelector('.cg-board-wrap');
+    var ground = element.querySelector('.lichess_ground');
 
     var onResize = function() {
-      var w = document.body.offsetWidth;
-      var h = Math.min(w + 200, document.body.offsetHeight || w / 1.4);
+      var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       var boardSize = h;
+      var gr = 1.618;
+      if (boardSize > w / gr) boardSize = w / gr;
+      var groundSize = Math.max(120, w - boardSize);
       board.style.width = boardSize + 'px';
       board.style.height = boardSize + 'px';
+      ground.style.width = groundSize + 'px';
       document.body.dispatchEvent(new Event('chessground.resize'));
     };
     onResize();

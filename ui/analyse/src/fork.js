@@ -42,6 +42,7 @@ module.exports = {
     };
   },
   view: function(root, concealOf) {
+    if (root.embed) return;
     var state = root.fork.state();
     if (!state.displayed) return;
     var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);

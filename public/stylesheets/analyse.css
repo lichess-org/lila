@@ -873,7 +873,7 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
 }
 .tview2 move {
   font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 14px;
+  font-size: 1.092em;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
@@ -920,8 +920,8 @@ body.piece_letter .tview2 move {
   flex: 0 0 43.5%;
   display: flex;
   box-sizing: border-box;
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 1.185em;
+  line-height: 1.75em;
   padding-left: 7px;
   padding-right: 3px;
 }
@@ -942,7 +942,7 @@ body.piece_letter .tview2 move {
   flex: 0 1 auto;
   text-align: center;
   overflow: hidden;
-  font-size: 13px;
+  font-size: 0.82em;
 }
 .tview2 > move glyph:first-child {
   margin-left: 3px;
@@ -954,7 +954,7 @@ body.piece_letter .tview2 move {
   box-sizing: border-box;
   border-right: 1px solid #ddd;
   background: #f8f8f8;
-  line-height: 28px;
+  line-height: 2.07em;
   color: #c0c0c0;
 }
 .tview2 > interrupt {
@@ -1051,7 +1051,7 @@ body.piece_letter .tview2 move {
   height: 6px;
 }
 .tview2 lines line::before {
-  margin-top: 8px;
+  margin-top: 0.624em;
   margin-left: -4px;
   content: ' ';
   border-top: 1px solid #c0c0c0;

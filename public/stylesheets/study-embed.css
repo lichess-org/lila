@@ -1,0 +1,71 @@
+body {
+  overflow: hidden;
+}
+.is2d {
+  background: #fff;
+}
+div.lichess_game {
+  height: 100%;
+  flex-flow: row nowrap;
+}
+div.lichess_game div.lichess_board_wrap {
+  flex: 1 1 100%;
+}
+div.lichess_game div.lichess_ground {
+  flex: 1 1 100%;
+  padding-left: 0;
+  width: auto;
+}
+.cg-512 .cg-board-wrap {
+  width: 100%;
+  height: 100%;
+}
+div.game_control {
+  flex: 0 0 30px;
+}
+div.game_control button {
+  line-height: 30px;
+}
+div.game_control .jumps {
+  flex: 1 1 100%;
+  justify-content: center;
+}
+@media (max-width: 799px) {
+  body,
+  .tview2 {
+    font-size: 12px;
+  }
+  .tview2 lines lines move {
+    font-size: 10.5px;
+  }
+  .cg-board-wrap coords {
+    display: none;
+  }
+}
+@media (max-width: 599px) {
+  body,
+  .tview2 {
+    font-size: 11px;
+  }
+  .tview2 lines lines move {
+    font-size: 10px;
+  }
+  .cg-board-wrap coords {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  body,
+  .tview2 {
+    font-size: 10px;
+  }
+  .tview2 lines lines move {
+    font-size: 9px;
+  }
+}
+@media (max-width: 420px) {
+  div.game_control .jumps button:first-child,
+  div.game_control .jumps button:last-child {
+    display: none;
+  }
+}

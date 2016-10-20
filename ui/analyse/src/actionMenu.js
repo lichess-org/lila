@@ -74,6 +74,15 @@ function formatHashSize(v) {
 }
 
 function studyButton(ctrl) {
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return m('a.fbt', {
+    href: '/study/' + ctrl.study.data.id + '/' + ctrl.study.currentChapter().id,
+    target: '_blank'
+  }, [
+      m('i.icon', {
+        'data-icon': ''
+      }),
+    'Open study'
+  ]);
   if (ctrl.study || ctrl.ongoing) return;
   var realGame = !util.synthetic(ctrl.data);
   return m('form', {
@@ -120,14 +129,15 @@ module.exports = {
     var d = ctrl.data;
     if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
     else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
-    var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
+    var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
       m('div.tools', [
         m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
         ctrl.ongoing ? null : m('a.fbt', {
           href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-          rel: 'nofollow'
+          rel: 'nofollow',
+          target: ctrl.embed ? '_blank' : null
         }, [
           m('i.icon[data-icon=m]'),
           ctrl.trans('boardEditor')
@@ -276,7 +286,7 @@ module.exports = {
       ] : null,
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
-      ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
+      canContinue ? m('div.continue_with.' + d.game.id, [
         m('a.button', {
           href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
@@ -286,7 +296,7 @@ module.exports = {
           href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
-      ])
+      ]) : null
     ]);
   }
 };
