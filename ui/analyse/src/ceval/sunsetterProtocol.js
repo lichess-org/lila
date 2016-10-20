@@ -25,7 +25,7 @@ module.exports = function(worker, opts) {
 
       // transform mate scores
       if (Math.abs(cp) > 20000) {
-        var mate = Math.sign(cp) * Math.floor(30000 - Math.abs(cp));
+        var mate = Math.sign(cp) * Math.floor(16384 - Math.abs(cp/2));
         cp = undefined;
       }
 
