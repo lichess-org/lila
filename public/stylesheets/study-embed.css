@@ -4,6 +4,9 @@ body {
 .is2d {
   background: #fff;
 }
+body.dark .is2d {
+  background: #262626;
+}
 div.lichess_game {
   height: 100%;
   flex-flow: row nowrap;
@@ -19,12 +22,6 @@ div.lichess_game div.lichess_ground {
 .cg-512 .cg-board-wrap {
   width: 100%;
   height: 100%;
-}
-div.game_control {
-  flex: 0 0 30px;
-}
-div.game_control button {
-  line-height: 30px;
 }
 div.game_control .jumps {
   flex: 1 1 100%;
@@ -68,4 +65,12 @@ div.game_control .jumps {
   div.game_control .jumps button:last-child {
     display: none;
   }
+}
+@media (max-height: 400px) {
+div.game_control {
+  flex: 0 0 30px;
+}
+div.game_control button {
+  line-height: 30px;
+}
 }
