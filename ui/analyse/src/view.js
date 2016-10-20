@@ -60,6 +60,7 @@ function makeConcealOf(ctrl) {
 
 function renderAnalyse(ctrl, concealOf) {
   return m('div.areplay', [
+    renderChapterName(ctrl),
     renderOpeningBox(ctrl),
     treeView.render(ctrl, concealOf),
     renderResult(ctrl)
@@ -211,6 +212,12 @@ function renderOpeningBox(ctrl) {
     m('strong', opening.eco),
     ' ' + opening.name
   ]);
+}
+
+function renderChapterName(ctrl) {
+  if (ctrl.embed && ctrl.study) return m('div', {
+    class: 'chapter_name'
+  }, ctrl.study.currentChapter().name);
 }
 
 function renderFork(ctrl) {

@@ -190,7 +190,7 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 div.gauge_displayed .fork {
   margin-left: 11px;
 }
-.opening_box {
+.areplay .opening_box {
   padding: 5px;
   border-bottom: 1px solid #ccc;
   white-space: nowrap;
@@ -198,6 +198,14 @@ div.gauge_displayed .fork {
   text-overflow: ellipsis;
   background: #e4e4e4;
   font-family: 'Roboto';
+}
+.areplay .chapter_name {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  background: #e4e4e4;
+  font-family: 'Roboto';
+  line-height: 1.2em;
+  text-align: center;
 }
 .pv_box .pv {
   height: 2em;
