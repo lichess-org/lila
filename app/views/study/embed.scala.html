@@ -24,46 +24,21 @@
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     "coords_1").mkString(" ")">
     <div class="is2d">
-      <div class="analyse cg-512">@miniBoardContent</div>
+      <div class="embedded_study analyse cg-512">@miniBoardContent</div>
     </div>
     @jQueryTag
     @jsTag("util.js")
     @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+    @jsTag("embed-study.js")
     @embedJs {
-
-    var element = document.querySelector('.analyse');
-
-    var analyse = LichessAnalyse({
+    lichess.startEmbeddedStudy({
+    element: document.querySelector('.embedded_study'),
     study: @Html(J.stringify(data.study)),
     data: @Html(J.stringify(data.analysis)),
     embed: true,
     i18n: @board.userAnalysisI18n(),
-    userId: "null",
-    explorer: {
-    endpoint: "@explorerEndpoint",
-    tablebaseEndpoint: "@tablebaseEndpoint"
-    },
-    element: element,
-    socketSend: $.noop
+    userId: "null"
     });
-    var board = element.querySelector('.cg-board-wrap');
-    var ground = element.querySelector('.lichess_ground');
-
-    var onResize = function() {
-      var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-      var boardSize = h;
-      var gr = 1.618;
-      if (boardSize > w / gr) boardSize = w / gr;
-      var groundSize = Math.min(500, Math.max(120, w - boardSize));
-      board.style.width = boardSize + 'px';
-      board.style.height = boardSize + 'px';
-      ground.style.width = groundSize + 'px';
-      ground.style.maxWidth = groundSize + 'px';
-      document.body.dispatchEvent(new Event('chessground.resize'));
-    };
-    onResize();
-    window.addEventListener('resize', onResize);
     }
     @base.ga()
   </body>

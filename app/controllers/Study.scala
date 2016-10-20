@@ -6,6 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
+import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.study.Order
@@ -126,10 +127,10 @@ object Study extends LilaController {
     negotiate(
       html = fuccess(Redirect(s"${routes.Study.show(id)}#$chapterId")),
       api = _ => env.chapterRepo.byId(chapterId).map {
-      _.filter(_.studyId == id) ?? { chapter =>
-        Ok(env.jsonView.chapterConfig(chapter))
-      }
-    })
+        _.filter(_.studyId == id) ?? { chapter =>
+          Ok(env.jsonView.chapterConfig(chapter))
+        }
+      })
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
@@ -162,30 +163,35 @@ object Study extends LilaController {
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.byIdWithChapter(id, chapterId)) {
-      case lila.study.Study.WithChapter(s, chapter) => CanViewResult(s) {
-        val study = s withChapter chapter // rewind to beginning of chapter
-        val setup = chapter.setup
-        val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
-        Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-          env.jsonView(study, List(chapter.metadata), chapter, ctx.me) flatMap {
-            case (baseData, studyJson) =>
-              import lila.socket.tree.Node.partitionTreeJsonWriter
-              val analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
-              val data = lila.study.JsonView.JsData(
-                study = studyJson,
-                analysis = analysis)
-              negotiate(
-                html = Ok(html.study.embed(study, chapter, data)).fuccess,
-                api = _ => Ok(Json.obj(
-                "study" -> data.study,
-                "analysis" -> data.analysis)).fuccess
-              )
-          }
+    env.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(embedNotFound) {
+        case lila.study.Study.WithChapter(s, chapter) => CanViewResult(s) {
+          val study = s withChapter chapter // rewind to beginning of chapter
+          val setup = chapter.setup
+          val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
+          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
+            env.jsonView(study, List(chapter.metadata), chapter, ctx.me) flatMap {
+              case (baseData, studyJson) =>
+                import lila.socket.tree.Node.partitionTreeJsonWriter
+                val analysis = baseData ++ Json.obj(
+                  "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
+                val data = lila.study.JsonView.JsData(
+                  study = studyJson,
+                  analysis = analysis)
+                negotiate(
+                  html = Ok(html.study.embed(study, chapter, data)).fuccess,
+                  api = _ => Ok(Json.obj(
+                  "study" -> data.study,
+                  "analysis" -> data.analysis)).fuccess
+                )
+            }
+        }
       }
     } map NoCache
   }
+
+  private def embedNotFound(implicit ctx: Context): Fu[Result] =
+    fuccess(NotFound(html.study.embedNotFound()))
 
   def cloneStudy(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byId(id)) { study =>

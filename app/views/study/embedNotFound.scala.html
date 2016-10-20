@@ -1,0 +1,24 @@
+@()(implicit ctx: Context)
+
+<!doctype html>
+<html>
+  <head>
+    <title>404 - Study not available</title>
+    <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet' type='text/css'>
+    @ctx.currentBg match {
+    case "dark" => { @cssTag("dark.css") }
+    case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
+    case _ => {}
+    }
+    @cssTag("common.css")
+    @cssTag("study-embed.css")
+    <meta charset="utf-8">
+  </head>
+  <body class="base @List(
+    ctx.currentTheme.cssClass,
+    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg).mkString(" ")">
+    <div class="not_found">
+      <h1>Study not available</h1>
+    </div>
+  </body>
+</html>

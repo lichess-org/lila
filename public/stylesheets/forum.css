@@ -185,6 +185,7 @@ div.post .message {
 
 div.post .message iframe.study {
   border: none;
+  margin: 1em 0;
 }
 
 form.edit-post-form {

@@ -13,7 +13,7 @@ div.lichess_game {
   flex-flow: row nowrap;
 }
 /* div.lichess_game div.lichess_board_wrap { */
-  /* flex: 1 1 100%; */
+/* flex: 1 1 100%; */
 /* } */
 div.lichess_game div.lichess_ground {
   flex: 1 1 100%;
@@ -68,10 +68,29 @@ div.game_control .jumps {
   }
 }
 @media (max-height: 400px) {
-div.game_control {
-  flex: 0 0 30px;
+  div.game_control {
+    flex: 0 0 30px;
+  }
+  div.game_control button {
+    line-height: 30px;
+  }
 }
-div.game_control button {
-  line-height: 30px;
+.not_found {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: radial-gradient(circle, #484848, #2F3031);
 }
+.not_found h1 {
+  font-family: Roboto;
+  font-size: 6vw;
+  text-align: center;
+  color: rgba(255,255,255,0.3);
+  text-shadow: 0 0 9px rgba(0,0,0,0.3);
 }
