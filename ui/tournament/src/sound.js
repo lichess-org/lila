@@ -37,8 +37,14 @@ module.exports = {
     }
     if (countDownTimeout) return;
     if (data.secondsToStart > 60 * 60 * 24) return;
+
     countDownTimeout = setTimeout(
       doCountDown(new Date().getTime() / 1000 + data.secondsToStart - 0.1),
       900);  // wait 900ms before starting countdown.
+
+    // Preload countdown sounds.
+    for (var i = 10; i>=0; i--) {
+      $.sound.load('countDown' + i);
+    }
   }
 };

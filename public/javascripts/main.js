@@ -864,6 +864,9 @@ lichess.notifyApp = (function() {
         if (enabled()) collection(name).play();
       }
     });
+    play.load = function(name) {
+      if (enabled() && name in names) collection(name);
+    };
     var setVolume = function(v) {
       volumeStorage.set(v);
       Howler.volume(v);
