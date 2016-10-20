@@ -218,10 +218,7 @@ object Puzzle extends LilaController {
 
   def frame = Open { implicit ctx =>
     OptionOk(env.daily()) { daily =>
-      html.puzzle.embed(
-        daily,
-        get("bg") | "light",
-        lila.pref.Theme(~get("theme")).cssClass)
+      html.puzzle.embed(daily)
     }
   }
 }

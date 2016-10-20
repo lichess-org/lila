@@ -40,7 +40,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def is3d = ctxPref("is3d") contains "true"
 
   def currentTheme =
-    ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
+    queryCtxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
 
   def currentTheme3d =
     ctxPref("theme3d").fold(Pref.default.realTheme3d)(lila.pref.Theme3d.apply)
@@ -54,7 +54,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def currentSoundSet =
     ctxPref("soundSet").fold(Pref.default.realSoundSet)(lila.pref.SoundSet.apply)
 
-  lazy val currentBg = ctxPref("bg") | "light"
+  lazy val currentBg = queryCtxPref("bg") | "light"
 
   def transpBgImg = currentBg == "transp" option bgImg
 
@@ -70,6 +70,11 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   private def ctxPref(name: String): Option[String] =
     req.session get name orElse { pref get name }
+
+  private def queryCtxPref(name: String): Option[String] =
+    req.queryString.get(name).flatMap(_.headOption).filter { v =>
+      v.nonEmpty && v != "auto"
+    } orElse ctxPref(name)
 }
 
 sealed abstract class BaseContext(
