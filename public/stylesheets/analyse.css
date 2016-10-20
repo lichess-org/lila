@@ -196,13 +196,13 @@ div.gauge_displayed .fork {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background: #e4e4e4;
+  background: #eaeaea;
   font-family: 'Roboto';
 }
 .areplay .chapter_name {
   padding: 5px;
   border-bottom: 1px solid #ccc;
-  background: #e4e4e4;
+  background: #eaeaea;
   font-family: 'Roboto';
   line-height: 1.2em;
   text-align: center;
@@ -696,7 +696,7 @@ body.piece_letter .tablebase td:first-child {
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 .action_menu h2 {
   text-transform: uppercase;
