@@ -17,7 +17,7 @@ function tablebaseRelevant(fen) {
 module.exports = function(root, opts, allow) {
 
   var allowed = m.prop(allow);
-  var enabled = storedProp('explorer.enabled', false);
+  var enabled = root.embed ? m.prop(false) : storedProp('explorer.enabled', false);
   var loading = m.prop(true);
   var failing = m.prop(false);
   var hoveringUci = m.prop(null);
