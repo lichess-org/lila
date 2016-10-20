@@ -1,5 +1,10 @@
 @()(implicit ctx: Context)
 
+@themeParameters() = {
+<li>- <strong>theme</strong>: Controls the board theme. Available themes: @lila.pref.Theme.list.map(_.name).mkString(", ").</li>
+<li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
+}
+
 @base.layout(title = "Developers") {
 
 <div class="content_box small_box">
@@ -29,13 +34,12 @@
     Just add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="https://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="https://en.@netDomain/tv/embed?theme=auto&bg=auto"&gt;&lt;/script&gt;</pre>
 
   <p>
     Parameters:
     <ul>
-      <li>- <strong>theme</strong>: Controls the board theme. Available themes: @lila.pref.Theme.list.map(_.name).mkString(", ").</li>
-      <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
+      @themeParameters()
     </ul>
   </p>
 </div>
@@ -47,20 +51,50 @@
   <h1 id="embed-puzzle" class="lichess_title">Embed the daily puzzle in your site</h1>
 
   <div style="text-align: center;">
-    <script src="//en.@netDomain/training/embed?theme=blue2&bg=light"></script>
+    <script src="//en.@netDomain/training/embed?theme=auto&bg=auto"></script>
   </div>
 
   <p>
     Just add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="https://en.@netDomain/training/embed?theme=blue2&bg=light"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="https://en.@netDomain/training/embed?theme=auto&bg=auto"&gt;&lt;/script&gt;</pre>
 
   <p>
     Parameters:
     <ul>
-      <li>- <strong>theme</strong>: Controls the board theme. Available themes: @lila.pref.Theme.list.map(_.name).mkString(", ").</li>
-      <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
+      @themeParameters()
+    </ul>
+  </p>
+
+  <p>
+    The text is automatically translated to your visitor language.
+  </p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
+  <h1 id="embed-study" class="lichess_title">Embed a chess analysis in your site</h1>
+
+  <div style="text-align: center;">
+    <iframe width=530 height=327 src="/study/embed/hlLW5y90/1LZLw4v7?bg=auto&theme=auto"
+      frameborder=0 style="margin-bottom:1em"></iframe>
+  </div>
+
+  <p>
+    Create <a href="@routes.Study.allDefault(1)">a study</a>,
+    then click the share button to get the HTML code for the current chapter.
+  </p>
+
+  <pre>@{"""<iframe width=600 height=371 frameborder=0
+src="/study/embed/hlLW5y90/1LZLw4v7?theme=auto&bg=auto"></iframe>"""}</pre>
+
+  <p>
+    Parameters:
+    <ul>
+      @themeParameters()
     </ul>
   </p>
 
