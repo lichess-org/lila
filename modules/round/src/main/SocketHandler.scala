@@ -82,7 +82,7 @@ private[round] final class SocketHandler(
         case ("abort", _)        => send(Abort(playerId))
         case ("moretime", _)     => send(Moretime(playerId))
         case ("outoftime", _)    => send(Outoftime)
-        case ("bye", _)          => socket ! Bye(ref.color)
+        case ("bye2", _)         => socket ! Bye(ref.color)
         case ("talk", o)         => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
