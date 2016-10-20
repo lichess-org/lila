@@ -119,6 +119,7 @@ module.exports = function(opts) {
       fen: node.fen,
       turnColor: color,
       movable: {
+        enabled: !this.embed,
         color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },

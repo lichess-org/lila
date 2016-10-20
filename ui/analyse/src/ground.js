@@ -9,6 +9,7 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
     orientation: data.orientation,
     coordinates: data.pref.coords !== 0,
     movable: {
+      enabled: config.movable.enabledd,
       free: false,
       color: config.movable.color,
       dests: config.movable.dests
@@ -18,7 +19,7 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
       dropNewPiece: onNewPiece
     },
     premovable: {
-      enabled: true
+      enabled: config.movable.enabled
     },
     drawable: {
       enabled: true,
