@@ -202,6 +202,7 @@ function buttons(ctrl) {
 }
 
 function renderOpeningBox(ctrl) {
+  if (ctrl.embed) return;
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
   if (opening) return m('div', {
     class: 'opening_box',
