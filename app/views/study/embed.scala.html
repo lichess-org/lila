@@ -55,10 +55,11 @@
       var boardSize = h;
       var gr = 1.618;
       if (boardSize > w / gr) boardSize = w / gr;
-      var groundSize = Math.max(120, w - boardSize);
+      var groundSize = Math.min(500, Math.max(120, w - boardSize));
       board.style.width = boardSize + 'px';
       board.style.height = boardSize + 'px';
       ground.style.width = groundSize + 'px';
+      ground.style.maxWidth = groundSize + 'px';
       document.body.dispatchEvent(new Event('chessground.resize'));
     };
     onResize();

@@ -351,7 +351,7 @@ lichess.pubsub = (function() {
   };
 })();
 lichess.hasToReload = false;
-lichess.redirectInProgress;
+lichess.redirectInProgress = false;
 lichess.reload = function() {
   if (lichess.redirectInProgress) return;
   lichess.hasToReload = true;

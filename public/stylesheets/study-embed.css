@@ -11,9 +11,9 @@ div.lichess_game {
   height: 100%;
   flex-flow: row nowrap;
 }
-div.lichess_game div.lichess_board_wrap {
-  flex: 1 1 100%;
-}
+/* div.lichess_game div.lichess_board_wrap { */
+  /* flex: 1 1 100%; */
+/* } */
 div.lichess_game div.lichess_ground {
   flex: 1 1 100%;
   padding-left: 0;
