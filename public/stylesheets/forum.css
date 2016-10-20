@@ -183,6 +183,10 @@ div.post .message {
   line-height: 1.5em;
 }
 
+div.post .message iframe.study {
+  border: none;
+}
+
 form.edit-post-form {
   display: none;
   margin-top: 1.5em;
