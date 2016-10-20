@@ -36,10 +36,6 @@ function buttons(root) {
       })(), m('i', {
         'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
       }))),
-      m('a.button.hint--top', {
-        'data-hint': 'Download as PGN',
-        href: '/study/' + ctrl.data.id + '.pgn'
-      }, m('i[data-icon=x]')),
       ctrl.data.features.cloneable ? m('a.button.hint--top', {
         'data-hint': 'Clone this study',
         href: '/study/' + ctrl.data.id + '/clone'

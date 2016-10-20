@@ -26,7 +26,7 @@ module.exports = {
         ctrl.open(false);
       },
       content: [
-        m('h2', 'Share and embed'),
+        m('h2', 'Share and export'),
         m('form.material.form', [
           m('div.form-group', [
             m('input.has-value', {
@@ -47,11 +47,16 @@ module.exports = {
           m('div.form-group', [
             m('input.has-value', {
               readonly: true,
+              disabled: !ctrl.isPublic(),
               value: ctrl.isPublic() ? '<iframe width=600 height=371 src="https://en.lichess.org/study/embed/' + studyId + '/' + chapter.id + '" frameborder=0></iframe>' : 'Only public studies can be embedded.'
             }),
             m('label.control-label', 'Embed current chapter'),
             m('i.bar')
-          ])
+          ]),
+          m('a.button.text.hint--top', {
+            'data-icon': 'x',
+            href: '/study/' + studyId + '.pgn'
+          }, 'Download as PGN'),
         ])
       ]
     });
