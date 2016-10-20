@@ -118,8 +118,10 @@ module.exports = function(opts) {
     var config = {
       fen: node.fen,
       turnColor: color,
-      movable: {
-        enabled: !this.embed,
+      movable: this.embed ? {
+        color: null,
+        dests: {}
+      } : {
         color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
