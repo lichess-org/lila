@@ -18,7 +18,7 @@
   </head>
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
-    ctx.currentBg,
+    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
