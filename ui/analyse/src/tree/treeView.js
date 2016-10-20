@@ -230,11 +230,11 @@ function renderMainlineCommentsOf(ctx, node, opts) {
     else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
     if (opts.conceal) klass += ' ' + opts.conceal;
-    return renderMainlineComment(comment, colorClass + klass, node.comments.length > 1);
+    return renderMainlineComment(comment, colorClass + klass, node.comments.length > 1, ctx);
   });
 }
 
-function renderMainlineComment(comment, klass, withAuthor) {
+function renderMainlineComment(comment, klass, withAuthor, ctx) {
   return {
     tag: 'comment',
     attrs: {
@@ -242,7 +242,7 @@ function renderMainlineComment(comment, klass, withAuthor) {
     },
     children: [
       withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 400)
+      truncateComment(comment.text, 400, ctx)
     ]
   };
 }
@@ -251,21 +251,22 @@ function renderVariationCommentsOf(ctx, node) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   return node.comments.map(function(comment) {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
-    return renderVariationComment(comment, node.comments.length > 1);
+    return renderVariationComment(comment, node.comments.length > 1, ctx);
   });
 }
 
-function renderVariationComment(comment, withAuthor) {
+function renderVariationComment(comment, withAuthor, ctx) {
   return {
     tag: 'comment',
     children: [
       withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 300)
+      truncateComment(comment.text, 300, ctx)
     ]
   };
 }
 
-function truncateComment(text, len) {
+function truncateComment(text, len, ctx) {
+  if (ctx.ctrl.embed) return text;
   if (text.length <= len) return text;
   return text.slice(0, len - 10) + ' [...]';
 }
