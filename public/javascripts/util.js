@@ -350,6 +350,14 @@ lichess.pubsub = (function() {
     }
   };
 })();
+lichess.hasToReload = false;
+lichess.redirectInProgress;
+lichess.reload = function() {
+  if (lichess.redirectInProgress) return;
+  lichess.hasToReload = true;
+  if (window.location.hash) location.reload();
+  else location.href = location.href;
+};
 $.spreadNumber = function(el, nbSteps, getDuration, previous) {
   var previous = previous,
     displayed;

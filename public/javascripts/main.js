@@ -119,7 +119,7 @@ lichess.notifyApp = (function() {
       }
     }
     var href = '//' + location.hostname + '/' + url.replace(/^\//, '');
-    $.redirect.inProgress = href;
+    lichess.redirectInProgress = href;
     location.href = href;
   };
   $.fp = {};
@@ -245,14 +245,6 @@ lichess.notifyApp = (function() {
       resetUrl: location.search.indexOf('reset-ws') != -1
     }
   });
-
-  lichess.hasToReload = false;
-  lichess.reload = function() {
-    if ($.redirect.inProgress) return;
-    lichess.hasToReload = true;
-    if (window.location.hash) location.reload();
-    else location.href = location.href;
-  };
 
   lichess.readServerFen = function(t) {
     return atob(t.split("").reverse().join(""));
