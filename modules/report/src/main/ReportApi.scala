@@ -176,11 +176,11 @@ private[report] final class ReportApi(
       }
     }
 
-  def recentUnprocessed(nb: Int) =
-    coll.find(unprocessedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  private def recentUnprocessed(nb: Int) =
+    coll.find(unprocessedSelect).sort($sort.createdDesc).list[Report](nb)
 
-  def recentProcessed(nb: Int) =
-    coll.find(processedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  private def recentProcessed(nb: Int) =
+    coll.find(processedSelect).sort($sort.createdDesc).list[Report](nb)
 
   private def selectRecent(user: User, reason: Reason) = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),
