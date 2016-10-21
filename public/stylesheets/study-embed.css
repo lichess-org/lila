@@ -83,7 +83,7 @@ body.dark footer {
   border-color: #3d3d3d;
   background: #3a3a3a;
 }
-@media (max-width: 799px) {
+@media (max-width: 699px) {
   body,
   .tview2 {
     font-size: 12px;
@@ -95,7 +95,7 @@ body.dark footer {
     display: none;
   }
 }
-@media (max-width: 599px) {
+@media (max-width: 549px) {
   body,
   .tview2 {
     font-size: 11px;
