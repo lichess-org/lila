@@ -362,6 +362,9 @@ div.underboard .notif.error {
   opacity: 0.7;
   color: #3893E8;
 }
+.study_overboard a.form-help:hover {
+  text-decoration: underline;
+}
 .study_overboard .downloads {
   display: flex;
   justify-content: space-between;
