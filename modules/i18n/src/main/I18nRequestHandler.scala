@@ -13,7 +13,8 @@ final class I18nRequestHandler(
   def apply(req: RequestHeader): Option[Handler] =
     if (HTTPRequest.isRedirectable(req) &&
       req.host != cdnDomain &&
-      pool.domainLang(req).isEmpty) Some(Action(Redirect(redirectUrl(req))))
+      pool.domainLang(req).isEmpty &&
+      !excludePath(req.path)) Some(Action(Redirect(redirectUrl(req))))
     else None
 
   def forUser(req: RequestHeader, userOption: Option[lila.user.User]): Option[Result] = for {
@@ -22,6 +23,9 @@ final class I18nRequestHandler(
     reqLang <- pool domainLang req
     if userLang != reqLang.language
   } yield Redirect(redirectUrlLang(req, userLang))
+
+  private def excludePath(path: String) =
+    path.startsWith("/study/embed/")
 
   private def redirectUrl(req: RequestHeader) =
     redirectUrlLang(req, pool.preferred(req).language)
