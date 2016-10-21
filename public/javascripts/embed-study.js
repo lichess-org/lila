@@ -16,6 +16,8 @@ $(function() {
         $iframe.on('load', function() {
           if (this.contentDocument.title.indexOf("404") >= 0)
             this.style.height = '100px';
+        }).on('mouseenter', function() {
+          $(this).focus();
         });
       }
     });
