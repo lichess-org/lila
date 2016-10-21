@@ -90,11 +90,15 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.unflip = function() {
+    this.vm.flip = false;
+  }.bind(this);
+
   this.topColor = function() {
-    return this.data[this.vm.flip ? 'player' : 'opponent'].color;
+    return opposite(this.bottomColor());
   }.bind(this);
   this.bottomColor = function() {
-    return opposite(this.topColor());
+    return this.vm.flip ? opposite(this.data.orientation) : this.data.orientation;
   }.bind(this);
 
   this.togglePlay = function(delay) {

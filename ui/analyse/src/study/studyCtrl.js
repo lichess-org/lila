@@ -96,6 +96,7 @@ module.exports = {
       document.title = data.name;
       members.dict(s.members);
       chapters.list(s.chapters);
+      ctrl.unflip();
       ctrl.reloadData(d.analysis);
       configureAnalysis();
       ctrl.chessground.set({
