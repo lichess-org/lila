@@ -46,7 +46,7 @@ function buttons(root) {
           class: classSet({
             active: ctrl.share.open()
           }),
-          'data-hint': 'Share and embed',
+          'data-hint': 'Share & export',
           config: util.bindOnce('click', function() {
             ctrl.share.toggle();
           })
