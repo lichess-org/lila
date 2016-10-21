@@ -156,9 +156,9 @@ module.exports = {
           }, m.trust(lichess.spinnerHtml)) : null,
           activeTab === 'game' ? m('div.form-group', [
             m('input#chapter-game', {
-              placeholder: 'Game ID or URL'
+              placeholder: 'Game URL (lichess or chessbase)'
             }),
-            m('label.control-label[for=chapter-game]', 'From played or imported game'),
+            m('label.control-label[for=chapter-game]', 'Load a game from the Internet'),
             m('i.bar')
           ]) : null,
           activeTab === 'fen' ? m('div.form-group.no-label', [
