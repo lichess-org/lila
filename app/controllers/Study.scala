@@ -242,7 +242,7 @@ object Study extends LilaController {
             lila.mon.export.pgn.study()
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
             }
           }
@@ -259,7 +259,7 @@ object Study extends LilaController {
             lila.mon.export.pgn.studyChapter()
             env.pgnDump.ofChapter(study, chapter) map { pgn =>
               Ok(pgn.toString).withHeaders(
-                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter))))
             }
           }

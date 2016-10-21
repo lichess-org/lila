@@ -24,7 +24,7 @@ object Export extends LilaController {
           asImported = get("as") contains "imported",
           asRaw = get("as").contains("raw")) map { content =>
             Ok(content).withHeaders(
-              CONTENT_TYPE -> ContentTypes.TEXT,
+              CONTENT_TYPE -> pgnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
           } recover {
             case err => NotFound(err.getMessage)

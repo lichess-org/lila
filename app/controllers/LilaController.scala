@@ -386,4 +386,6 @@ private[controllers] trait LilaController
 
   protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
     lila.common.Form errorsAsJson form
+
+  protected val pgnContentType = "application/x-chess-pgn"
 }

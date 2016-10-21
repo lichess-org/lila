@@ -65,7 +65,7 @@ object Search extends LilaController {
             import org.joda.time.format.DateTimeFormat
             val date = (DateTimeFormat forPattern "yyyy-MM-dd") print DateTime.now
             Ok.chunked(Env.api.pgnDump exportGamesFromIds ids).withHeaders(
-              CONTENT_TYPE -> ContentTypes.TEXT,
+              CONTENT_TYPE -> pgnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_search_$date.pgn"))
           }
         }
