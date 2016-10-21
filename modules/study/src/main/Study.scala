@@ -33,7 +33,10 @@ case class Study(
 
   def withChapter(c: Chapter.Like): Study =
     if (c.id == position.chapterId) this
-    else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
+    else rewindTo(c)
+
+  def rewindTo(c: Chapter.Like): Study =
+    copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
   def isPublic = visibility == Study.Visibility.Public
 

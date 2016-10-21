@@ -69,7 +69,7 @@ final class StudyApi(
       chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
         val study1 = prev.cloneFor(me)
         val newChapters = chapters.map(_ cloneFor study1)
-        newChapters.headOption.map(study1.withChapter) ?? { study =>
+        newChapters.headOption.map(study1.rewindTo) ?? { study =>
           studyRepo.insert(study) >>
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
               chat ! lila.chat.actorApi.SystemTalk(
@@ -83,7 +83,7 @@ final class StudyApi(
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
     chapters.headOption match {
       case Some(c) if study.isOld && study.position != c.initialPosition =>
-        val newStudy = study withChapter c
+        val newStudy = study rewindTo c
         studyRepo.updateSomeFields(newStudy) inject newStudy
       case _ => fuccess(study)
     }

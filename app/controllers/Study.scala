@@ -165,8 +165,8 @@ object Study extends LilaController {
   def embed(id: String, chapterId: String) = Open { implicit ctx =>
     env.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(embedNotFound) {
-        case lila.study.Study.WithChapter(s, chapter) => CanViewResult(s) {
-          val study = s withChapter chapter // rewind to beginning of chapter
+        case lila.study.Study.WithChapter(x, chapter) => CanViewResult(x) {
+          val study = x rewindTo chapter
           val setup = chapter.setup
           val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
