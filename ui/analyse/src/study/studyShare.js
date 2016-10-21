@@ -31,7 +31,7 @@ module.exports = {
         m('h2', 'Share & export'),
         m('form.material.form', [
           m('div.form-group', [
-            m('input.has-value', {
+            m('input.has-value.autoselect', {
               readonly: true,
               value: baseUrl + studyId
             }),
@@ -39,7 +39,7 @@ module.exports = {
             m('i.bar')
           ]),
           m('div.form-group', [
-            m('input.has-value', {
+            m('input.has-value.autoselect', {
               readonly: true,
               value: baseUrl + studyId + '#' + chapter.id
             }),
@@ -47,7 +47,7 @@ module.exports = {
             m('i.bar')
           ]),
           m('div.form-group', [
-            m('input.has-value', {
+            m('input.has-value.autoselect', {
               readonly: true,
               disabled: !ctrl.isPublic(),
               value: ctrl.isPublic() ? '<iframe width=600 height=371 src="' + baseUrl + 'embed/' + studyId + '/' + chapter.id + '" frameborder=0></iframe>' : 'Only public studies can be embedded.'
