@@ -43,6 +43,9 @@ module.exports = {
               readonly: true,
               value: baseUrl + studyId + '#' + chapter.id
             }),
+            m('p.form-help.text', {
+              'data-icon': ''
+            }, 'Paste this in a forum post to embed the chapter.'),
             m('label.control-label', 'Current chapter URL'),
             m('i.bar')
           ]),
@@ -57,7 +60,7 @@ module.exports = {
               target: '_blank',
               'data-icon': ''
             }, 'Read more about embedding a study chapter'),
-            m('label.control-label', 'Embed current chapter'),
+            m('label.control-label', 'Embed current chapter in your website or blog'),
             m('i.bar')
           ]),
           m('div.downloads', [
