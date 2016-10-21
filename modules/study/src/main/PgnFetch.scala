@@ -19,8 +19,7 @@ private final class PgnFetch {
   }
 
   private def downloadChessbase(id: Int): Fu[Option[Pgn]] = {
-    val url = s"""http://www.chessgames.com/pgn/any.pgn?gid=$id"""
-    WS.url(url).get().map { res =>
+    WS.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().map { res =>
       res.header("Content-Type").contains(pgnContentType) option res.body
     }
   }
