@@ -60,10 +60,16 @@ module.exports = {
             m('label.control-label', 'Embed current chapter'),
             m('i.bar')
           ]),
-          m('a.button.text.hint--top', {
-            'data-icon': 'x',
-            href: '/study/' + studyId + '.pgn'
-          }, 'Download as PGN'),
+          m('div.downloads', [
+            m('a.button.text.hint--top', {
+              'data-icon': 'x',
+              href: '/study/' + studyId + '.pgn'
+            }, 'Study PGN'),
+            m('a.button.text.hint--top', {
+              'data-icon': 'x',
+              href: '/study/' + studyId + '/' + chapter.id + '.pgn'
+            }, 'Current chapter PGN')
+          ])
         ])
       ]
     });

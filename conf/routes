@@ -138,6 +138,7 @@ GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
 POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)

@@ -6,6 +6,7 @@ import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
+import lila.common.String.slugify
 import lila.game.{ Game, GameRepo }
 
 final class PgnDump(
@@ -38,9 +39,15 @@ final class PgnDump(
   def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String = {
-    val name = lila.common.String slugify study.name
     val date = dateFormat.print(study.createdAt)
-    fileR.replaceAllIn(s"lichess_study_${name}_by_${ownerName(study)}_${date}.pgn", "")
+    fileR.replaceAllIn(
+      s"lichess_study_${slugify(study.name)}_by_${ownerName(study)}_${date}.pgn", "")
+  }
+
+  def filename(study: Study, chapter: Chapter): String = {
+    val date = dateFormat.print(chapter.createdAt)
+    fileR.replaceAllIn(
+      s"lichess_study_${slugify(study.name)}_${slugify(chapter.name)}_by_${ownerName(study)}_${date}.pgn", "")
   }
 
   private def studyUrl(id: String) = s"$netBaseUrl/study/$id"

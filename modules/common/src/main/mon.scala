@@ -396,6 +396,7 @@ object mon {
     object pgn {
       def game = inc("export.pgn.game")
       def study = inc("export.pgn.study")
+      def studyChapter = inc("export.pgn.study_chapter")
     }
     object png {
       def game = inc("export.png.game")

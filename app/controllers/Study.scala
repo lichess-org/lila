@@ -251,6 +251,23 @@ object Study extends LilaController {
     }
   }
 
+  def chapterPgn(id: String, chapterId: String) = Open { implicit ctx =>
+    OnlyHumans {
+      env.api.byIdWithChapter(id, chapterId) flatMap {
+        _.fold(notFound) {
+          case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+            lila.mon.export.pgn.studyChapter()
+            env.pgnDump.ofChapter(study, chapter) map { pgn =>
+              Ok(pgn.toString).withHeaders(
+                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter))))
+            }
+          }
+        }
+      }
+    }
+  }
+
   private def CanViewResult(study: lila.study.Study)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else fuccess(Unauthorized(html.study.restricted(study)))
