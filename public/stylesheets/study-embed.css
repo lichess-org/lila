@@ -38,6 +38,39 @@ div.game_control .jumps {
   border-width: 1px 1px 0 0;
   background: #f8f8f8;
 }
+footer {
+  display: flex;
+  border: 1px solid #ccc;
+  border-top: none;
+  box-sizing: border-box;
+  height: 30px;
+  align-items: center;
+  padding: 0 0.5em;
+  background: #e4e4e4;
+  color: #888;
+}
+footer a {
+  color: #3893E8!important;
+}
+footer .left {
+  flex: 1 1 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+footer h1 {
+  display: inline;
+}
+footer .open {
+  flex: 0 0 auto;
+}
+footer > * {
+  opacity: 0.8;
+  transition: opacity 0.13s;
+}
+footer:hover > * {
+  opacity: 1;
+}
 body.dark div.game_control {
   border-color: #3d3d3d;
   background: #333;
@@ -45,6 +78,10 @@ body.dark div.game_control {
 body.dark .action_menu {
   border-color: #3d3d3d;
   background: #303030;
+}
+body.dark footer {
+  border-color: #3d3d3d;
+  background: #3a3a3a;
 }
 @media (max-width: 799px) {
   body,

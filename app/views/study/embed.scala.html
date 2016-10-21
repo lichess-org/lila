@@ -26,6 +26,14 @@
     <div class="is2d">
       <div class="embedded_study analyse cg-512">@miniBoardContent</div>
     </div>
+    <footer>
+      @defining(s"${routes.Study.show(s.id)}#${chapter.id}") { url =>
+      <div class="left">
+        <a href="@url"><h1>@s.name</h1></a> <em>brought to you by <a target="_blank" href="@netBaseUrl">@netDomain</a></em>
+      </div>
+      <a target="_blank" class="open" href="@url">Open</a>
+      }
+    </footer>
     @jQueryTag
     @jsTag("vendor/mousetrap.js")
     @jsTag("util.js")
