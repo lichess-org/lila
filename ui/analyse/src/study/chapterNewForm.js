@@ -124,7 +124,7 @@ module.exports = {
           m('div.study_tabs', [
             makeTab('init', 'Init', 'Start from initial position'),
             makeTab('edit', 'Edit', 'Start from custom position'),
-            makeTab('game', 'game', 'Load a lichess game'),
+            makeTab('game', 'URL', 'Load a game URL'),
             makeTab('fen', 'FEN', 'Load a FEN position'),
             makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
@@ -156,9 +156,9 @@ module.exports = {
           }, m.trust(lichess.spinnerHtml)) : null,
           activeTab === 'game' ? m('div.form-group', [
             m('input#chapter-game', {
-              placeholder: 'Game URL (lichess or chessbase)'
+              placeholder: 'URL of the game'
             }),
-            m('label.control-label[for=chapter-game]', 'Load a game from the Internet'),
+            m('label.control-label[for=chapter-game]', 'Load a game from lichess.org or chessgames.com'),
             m('i.bar')
           ]) : null,
           activeTab === 'fen' ? m('div.form-group.no-label', [
