@@ -2441,6 +2441,16 @@ input.cmn-toggle-round:checked + label::after {
 .hopscotch-content a {
   text-decoration: underline;
 }
+.embedding_study,
+iframe.study {
+  width: 744px;
+  height: 460px;
+  background: rgba(127, 127, 127, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   background: #eee;

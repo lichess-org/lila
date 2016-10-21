@@ -1,27 +1,33 @@
 $(function() {
 
+  var urlRegex = /\/study\/(?:embed\/)?(\w{8})[#\/](\w{8})/;
+  var wait = 100;
+
+  var expand = function(as) {
+    var a = as.shift();
+    if (!a) return;
+    var matches = a.href.match(urlRegex);
+    if (matches && matches[2]) {
+      var $iframe = $('<iframe>').addClass('study')
+        .attr('src', '/study/embed/' + matches[1] + '/' + matches[2]);
+      $(a).replaceWith($iframe);
+      $iframe.on('load', function() {
+        if (this.contentDocument.title.indexOf("404") >= 0)
+          this.style.height = '100px';
+      }).on('mouseenter', function() {
+        $(this).focus();
+      });
+      wait = Math.min(2000, wait *= 2);
+      setTimeout(function() {
+        expand(as);
+      }, wait);
+    } else expand(as);
+  };
+
   // detect study links and convert them to iframes
-  $('div.embed_study').each(function() {
-    var urlRegex = /\/study\/(?:embed\/)?(\w{8})[#\/](\w{8})/;
-    var width = 744;
-    $(this).find('a').each(function() {
-      var matches = this.href.match(urlRegex);
-      if (matches && matches[2]) {
-        var $iframe = $('<iframe>').addClass('study').css({
-            width: width,
-            height: width / 1.618
-          })
-          .attr('src', '/study/embed/' + matches[1] + '/' + matches[2]);
-        $(this).replaceWith($iframe);
-        $iframe.on('load', function() {
-          if (this.contentDocument.title.indexOf("404") >= 0)
-            this.style.height = '100px';
-        }).on('mouseenter', function() {
-          $(this).focus();
-        });
-      }
-    });
-  });
+  expand($('div.embed_study a').filter(function() {
+    return !!this.href.match(urlRegex);
+  }).addClass('embedding_study').html(lichess.spinnerHtml).toArray());
 });
 
 lichess.startEmbeddedStudy = function(opts) {
