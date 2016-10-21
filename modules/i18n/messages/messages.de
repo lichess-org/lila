@@ -1,5 +1,5 @@
-playWithAFriend=Mit einem Freund spielen
-playWithTheMachine=Mit dem Computer spielen
+playWithAFriend=Spiele mit einem Freund
+playWithTheMachine=Spiele mit dem Computer
 toInviteSomeoneToPlayGiveThisUrl=Um jemanden zum Spiel einzuladen, versende diese URL
 gameOver=Spiel vorbei
 waitingForOpponent=Auf den Gegner warten
@@ -400,7 +400,7 @@ seeAllTournaments=Alle Turniere anzeigen
 starting=Beginnt:
 allInformationIsPublicAndOptional=Alle Informationen sind öffentlich und freiwillig.
 yourCityRegionOrDepartment=Deine Stadt, Region oder Bundesland.
-biographyDescription=Über dich, was du am Schach magst, Lieblingseröffnungen, Partien, Spieler…
+biographyDescription=Erzähle über dich, was du am Schach magst, was deine Lieblings -Eröffnungen, -Partien, -Spiele sind--
 maximumNbCharacters=Maximal: %s Zeichen.
 blocks=%s gesperrte Spieler
 listBlockedPlayers=Liste der gesperrten Spieler
