@@ -343,7 +343,8 @@ div.underboard .notif.error {
   margin: 6px 0 0 0;
   display: inline-block;
 }
-.study_overboard .form {
+.study_overboard .material.form {
+  margin: 0;
   padding: 20px;
 }
 .study_overboard .form .editor {
