@@ -26,9 +26,9 @@ module.exports = {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: false, // false if syncing, else incremental number of missed event
+      behind: data.chapter.id === data.position.chapterId ? false : 0, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
-      chapterId: null // only useful when not synchronized
+      chapterId: data.chapter.id === data.position.chapterId ? null : data.chapter.id // only useful when not synchronized
     };
 
     var notif = notifCtrl();
@@ -204,6 +204,7 @@ module.exports = {
       },
       toggleSync: function() {
         if (vm.behind !== false) {
+          tours.onSync();
           vm.chapterId = null;
           vm.catchingUp = true;
           xhrReload().then(function() {

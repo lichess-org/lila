@@ -31,9 +31,9 @@ case class Study(
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
-  def withChapter(c: Chapter.Like): Study =
-    if (c.id == position.chapterId) this
-    else rewindTo(c)
+  def isCurrent(c: Chapter.Like) = c.id == position.chapterId
+
+  def withChapter(c: Chapter.Like): Study = if (isCurrent(c)) this else rewindTo(c)
 
   def rewindTo(c: Chapter.Like): Study =
     copy(position = Position.Ref(chapterId = c.id, path = Path.root))

@@ -39,6 +39,7 @@ final class JsonView(
             ),
             "chapters" -> chapters.map(chapterMetadataWrites.writes),
             "chapter" -> Json.obj(
+              "id" -> currentChapter.id,
               "ownerId" -> currentChapter.ownerId,
               "setup" -> {
                 val setup = Json toJson currentChapter.setup

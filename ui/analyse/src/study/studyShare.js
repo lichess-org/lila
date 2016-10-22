@@ -41,7 +41,7 @@ module.exports = {
           m('div.form-group', [
             m('input.has-value.autoselect', {
               readonly: true,
-              value: baseUrl + studyId + '#' + chapter.id
+              value: baseUrl + studyId + '/' + chapter.id
             }),
             m('p.form-help.text', {
               'data-icon': ''

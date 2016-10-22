@@ -10,6 +10,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.study.Order
+import lila.study.Study.WithChapter
 import views._
 
 object Study extends LilaController {
@@ -84,13 +85,11 @@ object Study extends LilaController {
     }
   }
 
-  def show(id: String) = Open { implicit ctx =>
-    // chapterId is only specified when the user is desynced
-    val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
-      env.api.byIdWithChapter(id, chapterId)
-    }
+  private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
     OptionFuResult(query) {
-      case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+      case WithChapter(x, chapter) => CanViewResult(x) {
+        // val study = x withChapter chapter
+        val study = x
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           env.api.resetIfOld(study, chapters) flatMap { study =>
             if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
@@ -99,7 +98,7 @@ object Study extends LilaController {
             Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
               chatOf(study) zip
               env.jsonView(study, chapters, chapter, ctx.me) zip
-              env.version(id) flatMap {
+              env.version(study.id) flatMap {
                 case (((baseData, chat), studyJson), sVersion) =>
                   import lila.socket.tree.Node.partitionTreeJsonWriter
                   val analysis = baseData ++ Json.obj(
@@ -118,20 +117,23 @@ object Study extends LilaController {
         }
       }
     } map NoCache
-  }
 
-  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
-    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
+  def show(id: String) = Open { implicit ctx =>
+    showQuery(env.api byIdWithChapter id)
+  }
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
     negotiate(
-      html = fuccess(Redirect(s"${routes.Study.show(id)}#$chapterId")),
+      html = showQuery(env.api.byIdWithChapter(id, chapterId)),
       api = _ => env.chapterRepo.byId(chapterId).map {
         _.filter(_.studyId == id) ?? { chapter =>
           Ok(env.jsonView.chapterConfig(chapter))
         }
       })
   }
+
+  private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
+    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
