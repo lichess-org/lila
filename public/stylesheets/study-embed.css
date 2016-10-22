@@ -39,13 +39,14 @@ div.game_control .jumps {
   background: #f8f8f8;
 }
 footer {
+  font-size: 10.5px;
   display: flex;
   border: 1px solid #ccc;
   border-top: none;
   box-sizing: border-box;
-  height: 30px;
+  height: 26px;
   align-items: center;
-  padding: 0 0.5em;
+  padding: 0 0.7em;
   background: #e4e4e4;
   color: #888;
 }
