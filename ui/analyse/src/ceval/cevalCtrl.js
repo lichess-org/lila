@@ -36,7 +36,7 @@ module.exports = function(opts) {
     });
   } else {
     pool = makePool(sunsetterProtocol, {
-      asmjs: '/assets/vendor/Sunsetter/sunsetter.js'
+      asmjs: '/assets/vendor/Sunsetter/sunsetter.js?v=2'
     });
   }
 
