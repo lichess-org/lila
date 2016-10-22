@@ -12,7 +12,7 @@
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("analyse.css")
-    @cssTag("study-embed.css")
+    @cssTag("analyse-embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta charset="utf-8">
   </head>
@@ -38,7 +38,7 @@
     @jsTag("vendor/mousetrap.js")
     @jsTag("util.js")
     @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
-    @jsTag("embed-study.js")
+    @jsTag("embed-analyse.js")
     @embedJs {
     lichess.startEmbeddedAnalyse({
     element: document.querySelector('.embedded_study'),

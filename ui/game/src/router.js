@@ -1,8 +1,8 @@
 var player = function(data) {
   return '/' + data.game.id + data.player.id;
 };
-var game = function(data, color) {
-  return '/' + (data.game ? data.game.id : data) + (color ? '/' + color : '');
+var game = function(data, color, embed) {
+  return (embed ? '/embed/' : '/') + (data.game ? data.game.id : data) + (color ? '/' + color : '');
 };
 
 module.exports = {

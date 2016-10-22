@@ -2,7 +2,7 @@
 
 @moreJs = {
 @jsTag("forum-post.js")
-@jsTag("embed-study.js")
+@jsTag("embed-analyse.js")
 }
 
 @modMenu = {
@@ -36,7 +36,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
   </div>
 
-  <div class="forum_posts_list embed_study">
+  <div class="forum_posts_list embed_analyse">
     @posts.currentPageResults.map { post =>
     <div class="post" id="@post.number">
       <div class="metas clearfix">

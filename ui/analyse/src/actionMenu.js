@@ -105,7 +105,7 @@ function studyButton(ctrl) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    m('button.fbt', {
+    ctrl.embed ? null : m('button.fbt', {
         type: 'submit'
       },
       m('i.icon', {
@@ -128,7 +128,7 @@ module.exports = {
     var flipAttrs = {};
     var d = ctrl.data;
     if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
-    else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
+    else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [

@@ -2450,6 +2450,7 @@ iframe.analyse {
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  border: none;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {

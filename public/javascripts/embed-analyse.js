@@ -1,15 +1,34 @@
 $(function() {
 
-  var urlRegex = /\/study\/(?:embed\/)?(\w{8})[#\/](\w{8})/;
+  var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
+  var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)\b/;
   var wait = 100;
+
+  var parseUrl = function(url) {
+    var matches = url.match(studyRegex);
+    if (matches && matches[2]) return {
+      type: 'study',
+      src: '/study/embed/' + matches[1] + '/' + matches[2]
+    };
+    var matches = url.match(gameRegex);
+    if (matches && matches[1]) {
+      var src = '/embed/' + matches[1];
+      if (matches[2]) src += '/' + matches[2];
+      return {
+        type: 'game',
+        src: src
+      };
+    }
+  };
 
   var expand = function(as) {
     var a = as.shift();
     if (!a) return;
-    var matches = a.href.match(urlRegex);
-    if (matches && matches[2]) {
-      var $iframe = $('<iframe>').addClass('analyse')
-        .attr('src', '/study/embed/' + matches[1] + '/' + matches[2]);
+    var src = a.getAttribute('data-src');
+    var type = a.getAttribute('data-type');
+    console.log(a, src, type);
+    if (src) {
+      var $iframe = $('<iframe>').addClass('analyse ' + type).attr('src', src);
       $(a).replaceWith($iframe);
       $iframe.on('load', function() {
         if (this.contentDocument.title.indexOf("404") >= 0)
@@ -26,13 +45,17 @@ $(function() {
 
   // detect study links and convert them to iframes
   expand($('div.embed_analyse a').filter(function() {
-    return !!this.href.match(urlRegex);
+    var parsed = parseUrl(this.href);
+    if (!parsed) return false;
+    this.setAttribute('data-src', parsed.src);
+    this.setAttribute('data-type', parsed.type);
+    return true;
   }).addClass('embedding_analyse').html(lichess.spinnerHtml).toArray());
 });
 
 lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
-  var analyse = LichessAnalyse(opts);
+  LichessAnalyse(opts);
 
   var board = opts.element.querySelector('.cg-board-wrap');
   var ground = opts.element.querySelector('.lichess_ground');
