@@ -201,6 +201,7 @@ module.exports = {
         }
         vm.loading = true;
         vm.nextChapterId = id;
+        m.redraw();
       },
       toggleSync: function() {
         if (vm.behind !== false) {

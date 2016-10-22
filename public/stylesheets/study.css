@@ -329,9 +329,10 @@ div.underboard .notif.error {
   background: rgba(56, 147, 232, 0.08);
 }
 .study_box .chapter.active .status,
+.study_box .chapter.loading,
 .study_box .chapter.loading .status {
   color: #fff;
-  background: #3893E8;
+  background: #3893E8!important;
 }
 .study_box .chapter.add .status {
   width: 23px;

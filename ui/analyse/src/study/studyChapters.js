@@ -64,6 +64,9 @@ module.exports = {
               if (isUpdate || current.id !== ctrl.chapters.firstChapterId()) {
                 $(el).scrollTo($(el).find('.active'), 200);
               }
+            } else if (ctrl.vm.loading && ctx.loadingId !== ctrl.vm.nextChapterId) {
+              ctx.loadingId = ctrl.vm.nextChapterId;
+              $(el).scrollTo($(el).find('.loading'), 200);
             }
             ctx.count = newCount;
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
@@ -94,7 +97,7 @@ module.exports = {
           ctrl.chapters.list().map(function(chapter, i) {
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
             var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
-            var active = !loading && current && current.id === chapter.id;
+            var active = !ctrl.vm.loading && current && current.id === chapter.id;
             return [
               m('div', {
                 key: chapter.id,
