@@ -1,9 +1,11 @@
-@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+
+@title = @{ s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.str())(_.opening.ecoName)}" }
 
 <!doctype html>
 <html>
   <head>
-    <title>@s.name: @chapter.name</title>
+    <title>@title</title>
     @ctx.currentBg match {
     case "dark" => { @cssTag("dark.css") }
     case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
@@ -12,7 +14,7 @@
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("analyse.css")
-    @cssTag("study-embed.css")
+    @cssTag("analyse-embed.css")
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta charset="utf-8">
   </head>
@@ -24,12 +26,12 @@
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     "coords_1").mkString(" ")">
     <div class="is2d">
-      <div class="embedded_study analyse cg-512">@miniBoardContent</div>
+      <div class="embedded_analyse analyse cg-512">@miniBoardContent</div>
     </div>
     <footer>
-      @defining(routes.Study.chapter(s.id, chapter.id)) { url =>
+      @defining(routes.Round.watcher(pov.gameId, pov.color.name)) { url =>
       <div class="left">
-        <a target="_blank" href="@url"><h1>@s.name</h1></a> <em>brought to you by <a target="_blank" href="@netBaseUrl">@netDomain</a></em>
+        <a target="_blank" href="@url"><h1>@titleGame(pov.game)</h1></a> <em>brought to you by <a target="_blank" href="@netBaseUrl">@netDomain</a></em>
       </div>
       <a target="_blank" class="open" href="@url">Open</a>
       }
@@ -38,12 +40,11 @@
     @jsTag("vendor/mousetrap.js")
     @jsTag("util.js")
     @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
-    @jsTag("embed-study.js")
+    @jsTag("embed-analyse.js")
     @embedJs {
     lichess.startEmbeddedAnalyse({
-    element: document.querySelector('.embedded_study'),
-    study: @Html(J.stringify(data.study)),
-    data: @Html(J.stringify(data.analysis)),
+    element: document.querySelector('.embedded_analyse'),
+    data: @Html(J.stringify(data)),
     embed: true,
     i18n: @board.userAnalysisI18n(),
     userId: "null"

@@ -8,7 +8,7 @@ $(function() {
     if (!a) return;
     var matches = a.href.match(urlRegex);
     if (matches && matches[2]) {
-      var $iframe = $('<iframe>').addClass('study')
+      var $iframe = $('<iframe>').addClass('analyse')
         .attr('src', '/study/embed/' + matches[1] + '/' + matches[2]);
       $(a).replaceWith($iframe);
       $iframe.on('load', function() {
@@ -25,12 +25,12 @@ $(function() {
   };
 
   // detect study links and convert them to iframes
-  expand($('div.embed_study a').filter(function() {
+  expand($('div.embed_analyse a').filter(function() {
     return !!this.href.match(urlRegex);
-  }).addClass('embedding_study').html(lichess.spinnerHtml).toArray());
+  }).addClass('embedding_analyse').html(lichess.spinnerHtml).toArray());
 });
 
-lichess.startEmbeddedStudy = function(opts) {
+lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   var analyse = LichessAnalyse(opts);
 

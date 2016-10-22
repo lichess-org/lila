@@ -22,14 +22,17 @@ module.exports = {
 
     var sri = lichess.StrongSocket && lichess.StrongSocket.sri;
 
-    var vm = {
-      loading: false,
-      nextChapterId: false,
-      tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: data.chapter.id === data.position.chapterId ? false : 0, // false if syncing, else incremental number of missed event
-      catchingUp: false, // was behind, is syncing back
-      chapterId: data.chapter.id === data.position.chapterId ? null : data.chapter.id // only useful when not synchronized
-    };
+    var vm = (function() {
+      var isManualChapter = data.chapter.id !== data.position.chapterId;
+      return {
+        loading: false,
+        nextChapterId: false,
+        tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
+        behind: isManualChapter ? 0 : false, // false if syncing, else incremental number of missed event
+        catchingUp: false, // was behind, is syncing back
+        chapterId: isManualChapter ? data.chapter.id : null // only useful when not synchronized
+      };
+    })();
 
     var notif = notifCtrl();
     var form = studyFormCtrl(function(data, isNew) {

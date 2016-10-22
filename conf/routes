@@ -186,6 +186,9 @@ POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId
 GET   /$gameId<\w{8}>.atom                       controllers.Round.atom(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>.atom   controllers.Round.atom(gameId: String, color: String)
 
+GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "white")
+GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: String, color: String)
+
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)

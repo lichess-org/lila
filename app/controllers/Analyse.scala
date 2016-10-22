@@ -65,13 +65,28 @@ object Analyse extends LilaController {
       }
     }
 
+  def embed(gameId: String, color: String) = Open { implicit ctx =>
+    GameRepo.gameWithInitialFen(gameId) flatMap {
+      case Some((game, initialFen)) =>
+        val pov = Pov(game, chess.Color(color == "white"))
+        Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
+          initialFenO = initialFen.map(_.value).some,
+          withMoveTimes = false,
+          withDivision = false,
+          withOpening = true) map { data =>
+          Ok(html.analyse.embed(pov, data))
+        }
+      case _ => fuccess(NotFound(html.analyse.embedNotFound()))
+    }
+  }
+
   private def RedirectAtFen(pov: Pov, initialFen: Option[String])(or: => Fu[Result])(implicit ctx: Context) =
     get("fen").fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay.plyAtFen(pov.game.pgnMoves, initialFen, pov.game.variant, atFen).fold(
           err => {
-            lila.log("analyse").info(s"RedirectAtFen: http://lichess.org/${pov.gameId} $atFen $err")
+            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
             Redirect(url)
           },
           ply => Redirect(s"$url#$ply"))

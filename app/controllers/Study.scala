@@ -87,9 +87,7 @@ object Study extends LilaController {
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
     OptionFuResult(query) {
-      case WithChapter(x, chapter) => CanViewResult(x) {
-        // val study = x withChapter chapter
-        val study = x
+      case WithChapter(study, chapter) => CanViewResult(study) {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           env.api.resetIfOld(study, chapters) flatMap { study =>
             if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
@@ -169,12 +167,13 @@ object Study extends LilaController {
   def embed(id: String, chapterId: String) = Open { implicit ctx =>
     env.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(embedNotFound) {
-        case lila.study.Study.WithChapter(x, chapter) => CanViewResult(x) {
-          val study = x rewindTo chapter
+        case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
           val setup = chapter.setup
           val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-            env.jsonView(study, List(chapter.metadata), chapter, ctx.me) flatMap {
+            env.jsonView(study.copy(
+              members = lila.study.StudyMembers(Map.empty) // don't need no members
+            ), List(chapter.metadata), chapter, ctx.me) flatMap {
               case (baseData, studyJson) =>
                 import lila.socket.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(

@@ -2441,8 +2441,8 @@ input.cmn-toggle-round:checked + label::after {
 .hopscotch-content a {
   text-decoration: underline;
 }
-.embedding_study,
-iframe.study {
+.embedding_analyse,
+iframe.analyse {
   width: 744px;
   height: 460px;
   background: rgba(127, 127, 127, 0.05);
