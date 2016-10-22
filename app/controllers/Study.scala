@@ -123,13 +123,15 @@ object Study extends LilaController {
   }
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
-    negotiate(
-      html = showQuery(env.api.byIdWithChapter(id, chapterId)),
-      api = _ => env.chapterRepo.byId(chapterId).map {
-        _.filter(_.studyId == id) ?? { chapter =>
-          Ok(env.jsonView.chapterConfig(chapter))
-        }
-      })
+    showQuery(env.api.byIdWithChapter(id, chapterId))
+  }
+
+  def chapterMeta(id: String, chapterId: String) = Open { implicit ctx =>
+    env.chapterRepo.byId(chapterId).map {
+      _.filter(_.studyId == id) ?? { chapter =>
+        Ok(env.jsonView.chapterConfig(chapter))
+      }
+    }
   }
 
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
