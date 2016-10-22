@@ -83,7 +83,7 @@ module.exports = {
             }
             if (!isUpdate)
               el.addEventListener('click', function(e) {
-                var id = e.target.parentNode.getAttribute('data-id');
+                var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
                 if (!id) return;
                 if (e.target.classList.contains('config'))
                   ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
