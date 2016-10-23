@@ -173,12 +173,20 @@ object Tournament extends LilaController {
   def create = AuthBody { implicit ctx =>
     implicit me =>
       NoLame {
+        import play.api.i18n.Messages.Implicits._
         implicit val req = ctx.body
-        env.forms.create.bindFromRequest.fold(
-          err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
-          setup => env.api.createTournament(setup, me) map { tour =>
-            Redirect(routes.Tournament.show(tour.id))
-          })
+        negotiate (
+          html = env.forms.create.bindFromRequest.fold(
+            err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
+            setup => env.api.createTournament(setup, me) map { tour =>
+              Redirect(routes.Tournament.show(tour.id))
+            }),
+          api = _ => env.forms.create.bindFromRequest.fold(
+            err => BadRequest(errorsAsJson(err)).fuccess,
+            setup => env.api.createTournament(setup, me) map { tour =>
+              Ok(Json.obj("ok" -> true, "id" -> tour.id))
+            })
+        )
       }
   }
 
