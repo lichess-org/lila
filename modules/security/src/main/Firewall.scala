@@ -12,8 +12,8 @@ import spray.caching.{ LruCache, Cache }
 
 import lila.common.LilaCookie
 import lila.common.PimpedJson._
-import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 
 final class Firewall(
     coll: Coll,
@@ -68,18 +68,20 @@ final class Firewall(
 
   private def validIp(ip: String) =
     ((ipv4Regex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0") ||
-    ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
+      ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
 
   private type IP = Vector[Byte]
 
   private lazy val ips = new {
     private val cache: Cache[Set[IP]] = LruCache(timeToLive = cachedIpsTtl)
-    private def strToIp(ip: String) = InetAddress.getByName(ip).getAddress.toVector
+    private def strToIp(ip: String): Option[IP] = scala.util.Try {
+      InetAddress.getByName(ip).getAddress.toVector
+    }.toOption
     def apply: Fu[Set[IP]] = cache(true)(fetch)
     def clear { cache.clear }
-    def contains(ip: String) = apply map (_ contains strToIp(ip))
+    def contains(str: String) = strToIp(str) ?? { ip => apply.map(_ contains ip) }
     def fetch: Fu[Set[IP]] =
-      coll.distinct[String, Set]("_id").map(_.map(strToIp)).addEffect { ips =>
+      coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
         lila.mon.security.firewall.ip(ips.size)
       }
   }
