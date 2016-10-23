@@ -25,7 +25,9 @@ case class Event(
 
   def featureSince = startsAt minusHours homepageHours
 
-  def featureNow = featureSince.isBefore(DateTime.now) && !isFinished
+  def featureNow = featureSince.isBefore(DateTime.now) && !isFinishedSoon
+
+  def isFinishedSoon = finishesAt.isBefore(DateTime.now plusMinutes 5)
 
   def isFinished = finishesAt.isBefore(DateTime.now)
 
