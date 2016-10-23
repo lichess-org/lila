@@ -31,7 +31,7 @@ final class Env(
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 

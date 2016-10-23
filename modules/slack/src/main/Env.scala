@@ -4,8 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.hub.actorApi.slack.Event
 import lila.hub.actorApi.plan.ChargeEvent
+import lila.hub.actorApi.slack.Event
+import lila.hub.actorApi.user.Note
 import lila.hub.actorApi.{ DeployPre, DeployPost }
 
 final class Env(
@@ -27,12 +28,13 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case d: ChargeEvent   => api charge d
-      case DeployPre        => api.deployPre
-      case DeployPost       => api.deployPost
-      case e: Event         => api publishEvent e
+      case d: ChargeEvent             => api charge d
+      case DeployPre                  => api.deployPre
+      case DeployPost                 => api.deployPost
+      case Note(from, to, text, true) => api.userModNote(from, to, text)
+      case e: Event                   => api publishEvent e
     }
-  })), 'deploy, 'slack, 'plan)
+  })), 'deploy, 'slack, 'plan, 'userNote)
 }
 
 object Env {

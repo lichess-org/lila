@@ -155,6 +155,10 @@ package fishnet {
 case class AutoAnalyse(gameId: String)
 }
 
+package user {
+  case class Note(from: String, to: String, text: String, mod: Boolean)
+}
+
 package round {
 case class MoveEvent(
   gameId: String,

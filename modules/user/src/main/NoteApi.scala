@@ -15,7 +15,8 @@ case class Note(
 
 final class NoteApi(
     coll: Coll,
-    timeline: akka.actor.ActorSelection) {
+    timeline: akka.actor.ActorSelection,
+    bus: lila.common.Bus) {
 
   import reactivemongo.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -56,11 +57,17 @@ final class NoteApi(
       mod = modOnly,
       date = DateTime.now)
 
-    import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
-    timeline ! {
-      Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
+    coll.insert(note) >>- {
+      import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
+      timeline ! {
+        Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
+      }
+      bus.publish(lila.hub.actorApi.user.Note(
+        from = from.username,
+        to = to.username,
+        text = note.text,
+        mod = modOnly
+      ), 'userNote)
     }
-
-    coll insert note
   }
 }

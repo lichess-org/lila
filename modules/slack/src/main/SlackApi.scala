@@ -97,6 +97,12 @@ final class SlackApi(
     text = s"Let's have a look at https://lichess.org/@/${user.username}?mod",
     channel = "tavern"))
 
+  def userModNote(modName: String, username: String, note: String): Funit = client(SlackMessage(
+    username = modName,
+    icon = "spiral_note_pad",
+    text = s"left a mod note on https://lichess.org/@/$username\n${note.take(140)}",
+    channel = "tavern"))
+
   def deployPre: Funit =
     if (isProd) client(SlackMessage(
       username = "deployment",
