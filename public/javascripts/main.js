@@ -800,8 +800,8 @@ lichess.notifyApp = (function() {
     var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
-    var volumeStorage = lichess.storage.make('sound-volume')
-    Howler.volume(volumeStorage.get() || 0.7);
+    var volumeStorage = lichess.storage.make('sound-volume');
+    var defaultVolume = 0.7;
 
     var names = {
       genericNotify: 'GenericNotify',
@@ -853,7 +853,9 @@ lichess.notifyApp = (function() {
     var play = {};
     Object.keys(names).forEach(function(name) {
       play[name] = function() {
-        if (enabled()) collection(name).play();
+        if (!enabled()) return;
+        Howler.volume(volumeStorage.get() || defaultVolume);
+        collection(name).play();
       }
     });
     play.load = function(name) {
@@ -879,7 +881,7 @@ lichess.notifyApp = (function() {
           max: 1,
           range: 'min',
           step: 0.01,
-          value: Howler.volume(),
+          value: volumeStorage.get() || defaultVolume,
           slide: function(e, ui) {
             manuallySetVolume(ui.value);
           }
