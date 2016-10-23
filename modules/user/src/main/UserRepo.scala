@@ -258,8 +258,10 @@ object UserRepo {
     else {
       import java.util.regex.Matcher.quoteReplacement
       val regex = "^" + id + ".*$"
-      coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
-        .sort($doc("enabled" -> -1, "len" -> 1))
+      coll.find(
+        $doc("_id".$regex(regex, "")) ++ enabledSelect,
+        $doc(F.username -> true))
+        .sort($doc("len" -> 1))
         .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
         .map {
           _ flatMap { _.getAs[String](F.username) }
@@ -295,7 +297,7 @@ object UserRepo {
   def disable(user: User) = coll.update(
     $id(user.id),
     $set(F.enabled -> false) ++
-      user.lameOrTroll.fold($empty, $unset("email" -> true))
+      user.lameOrTroll.fold($empty, $unset("email"))
   )
 
   def passwd(id: ID, password: String): Funit =
