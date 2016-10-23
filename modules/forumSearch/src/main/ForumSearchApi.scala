@@ -46,7 +46,7 @@ final class ForumSearchApi(
           _ <- c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
         } yield Cursor.Cont({})
       }
-    }
+    } >> client.refresh
 
     case _ => funit
   }

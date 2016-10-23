@@ -125,5 +125,5 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
             nowMillis
           }
       } void
-  }
+  } >> client.refresh
 }

@@ -84,7 +84,7 @@ final class StudySearchApi(
         Iteratee.foldM[Study, Unit](()) {
           case (_, study) => doStore(study)
         }
-    }
+    } >> client.refresh
     case _ => funit
   }
 }
