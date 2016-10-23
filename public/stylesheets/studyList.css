@@ -2,24 +2,38 @@
   display: flex;
   align-items: center;
 }
-.studies .top h1 {
+.studies .top .search {
   flex: 1 1 100%;
+  margin: 15px 20px;
+  display: flex;
+}
+.studies .top .search input {
+  flex: 1 1 100%;
+  padding: 0 10px;
+  font-size: 20px;
+  line-height: 40px;
+  border: 1px solid #ccc;
+}
+.studies .top .search .submit {
+  padding: 0 30px;
+  border-radius: 0 3px 3px 0;
+  border-left: 0;
+  font-size: 16px;
+}
+.studies .top .search .submit::before {
+  opacity: 0.7;
+}
+.studies .top .search .submit:hover::before {
+  opacity: 1;
 }
 .studies .top .new_study,
 .studies .top .orders {
   white-space: nowrap;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .studies .top .new_study .button i::before {
   color: #759900;
-  font-size: 27px;
-}
-.studies .top .search input {
-  margin-right: 20px;
-  padding: 0 10px;
-  font-size: 15px;
-  line-height: 28px;
-  border: 1px solid #ccc;
+  font-size: 40px;
 }
 .studies .list {
   display: flex;
@@ -133,15 +147,14 @@ body.dark .studies .study {
   border:0;
 }
 .mselect .button {
-  padding-right: 22px;
-  position: relative;
-  display: inline-block;
+  padding: 0 10px 0 10px;
+  display: flex;
+  align-items: center;
+  line-height: 40px;
 }
 .mselect .button i {
+  margin-left: 5px;
   font-size: 10px;
-  position: absolute;
-  right: 5px;
-  top: 7px;
 }
 .mselect .list {
   margin:0;
