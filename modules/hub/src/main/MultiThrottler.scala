@@ -7,23 +7,23 @@ final class MultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
     logger: lila.log.Logger) extends Actor {
 
-  var executions = Map.empty[String, Unit]
+  var executions = Set.empty[String]
 
   def receive: Receive = {
 
     case MultiThrottler.Work(id, run, delayOption, timeoutOption) if !executions.contains(id) =>
       implicit val system = context.system
-      val fut = lila.common.Future.delay(delayOption | 0.seconds) {
+      lila.common.Future.delay(delayOption | 0.seconds) {
         timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(
             duration = timeout,
             error = lila.common.LilaException(s"Throttler timed out after $timeout")
-          )(context.system)
+          )
         } andThenAnyway {
           self ! MultiThrottler.Done(id)
         }
       }
-      executions = executions + (id -> fut)
+      executions = executions + id
 
     case _: MultiThrottler.Work => // already executing similar work
 
