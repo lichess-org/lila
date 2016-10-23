@@ -24,8 +24,7 @@ final class I18nRequestHandler(
     if userLang != reqLang.language
   } yield Redirect(redirectUrlLang(req, userLang))
 
-  private def excludePath(path: String) =
-    path.startsWith("/study/embed/")
+  private def excludePath(path: String) = path.contains("/embed/")
 
   private def redirectUrl(req: RequestHeader) =
     redirectUrlLang(req, pool.preferred(req).language)
