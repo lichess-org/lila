@@ -63,6 +63,8 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
       .uno[Game]
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
+    import reactivemongo.play.iteratees.cursorProducer
+
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[Entry]] = game.perfType ?? { pt =>
@@ -75,7 +77,7 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
       }
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
       GameRepo.sortedCursor(query, Query.sortChronological)
-        .enumerate(maxGames, stopOnError = true) &>
+        .enumerator(maxGames) &>
         Enumeratee.grouped(Iteratee takeUpTo 4) &>
         Enumeratee.mapM[Seq[Game]].apply[Seq[Entry]] { games =>
           games.map(toEntry).sequenceFu.map(_.flatten).addFailureEffect { e =>

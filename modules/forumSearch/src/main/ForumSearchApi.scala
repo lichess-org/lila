@@ -33,6 +33,8 @@ final class ForumSearchApi(
     Fields.troll -> view.post.troll,
     Fields.date -> view.post.createdAt.getDate)
 
+  import reactivemongo.play.iteratees.cursorProducer
+
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
       import play.api.libs.iteratee._
@@ -44,7 +46,7 @@ final class ForumSearchApi(
       PostRepo.cursor(
         selector = $empty,
         readPreference = ReadPreference.secondaryPreferred)
-        .enumerate(maxEntries, stopOnError = true) &>
+        .enumerator(maxEntries) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Post], Int](0) {
           case (nb, posts) => for {

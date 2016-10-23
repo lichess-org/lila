@@ -124,7 +124,8 @@ object UserRepo {
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
-        s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
+        BSONElement(
+          s"${F.perfs}.${pt.key}", Perf.perfBSONHandler.write(perfs(pt)))
       }
     }
     diff.nonEmpty ?? coll.update(
@@ -169,7 +170,7 @@ object UserRepo {
   val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {
-    val incs: List[(String, BSONInteger)] = List(
+    val incs: List[BSONElement] = List(
       "count.game".some,
       rated option "count.rated",
       ai option "count.ai",
@@ -185,9 +186,9 @@ object UserRepo {
         case 0  => "count.drawH".some
         case _  => none
       }) ifFalse ai
-    ).flatten.map(_ -> BSONInteger(1)) ::: List(
-        totalTime map BSONInteger.apply map (s"${F.playTime}.total" -> _),
-        tvTime map BSONInteger.apply map (s"${F.playTime}.tv" -> _)
+    ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
+        totalTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.total", v)),
+        tvTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.tv", v))
       ).flatten
 
     coll.update($id(id), $inc(incs))
@@ -331,7 +332,7 @@ object UserRepo {
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
   }
 
-  def recentlySeenNotKidIdsCursor(since: DateTime) =
+  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
     coll.find($doc(
       F.enabled -> true,
       "seenAt" $gt since,

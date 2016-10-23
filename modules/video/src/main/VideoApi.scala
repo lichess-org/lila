@@ -170,7 +170,7 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, Unwind, Sort, SumValue }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
 
     private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
       f = filterTags => {
@@ -180,8 +180,8 @@ private[video] final class VideoApi(
           }
           else videoColl.aggregate(
             Match($doc("tags" $all filterTags)),
-            List(Project($doc("tags" -> true)),
-              Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)))).map(
+            List(Project($doc("tags" -> true)), UnwindField("tags"),
+              GroupField("tags")("nb" -> SumValue(1)))).map(
               _.firstBatch.flatMap(_.asOpt[TagNb]))
 
         allPopular zip allPaths map {
@@ -206,7 +206,7 @@ private[video] final class VideoApi(
     private val popularCache = AsyncCache.single[List[TagNb]](
       f = videoColl.aggregate(
         Project($doc("tags" -> true)), List(
-          Unwind("tags"), GroupField("tags")("nb" -> SumValue(1)),
+          UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb")))).map(
           _.firstBatch.flatMap(_.asOpt[TagNb])),
       timeToLive = 1.day)

@@ -20,21 +20,22 @@ private[blog] final class Notifier(
     }
 
   private def doSend(post: Document): Funit = {
+    import reactivemongo.play.iteratees.cursorProducer
+
     val content = NewBlogPost(
       id = NewBlogPost.Id(post.id),
       slug = NewBlogPost.Slug(post.slug),
       title = NewBlogPost.Title(~post.getText("blog.title")))
     UserRepo.recentlySeenNotKidIdsCursor(DateTime.now minusWeeks 1)
-      .enumerate(500 * 1000, stopOnError = true) &>
-      Enumeratee.map {
-        _.getAs[String]("_id") err "User without an id"
-      } |>>>
-      Iteratee.foldM[String, Int](0) {
-        case (count, userId) => notifyApi.addNotificationWithoutSkipOrEvent(
-          Notification(Notification.Notifies(userId), content)
-        ) inject (count + 1)
-      } addEffect { count =>
-        logger.info(s"Sent $count notifications")
-      } void
+      .enumerator(500 * 1000) &> Enumeratee.map {
+      _.getAs[String]("_id") err "User without an id"
+    } |>>>
+    Iteratee.foldM[String, Int](0) {
+      case (count, userId) => notifyApi.addNotificationWithoutSkipOrEvent(
+        Notification(Notification.Notifies(userId), content)
+      ) inject (count + 1)
+    } addEffect { count =>
+      logger.info(s"Sent $count notifications")
+    } void
   }
 }

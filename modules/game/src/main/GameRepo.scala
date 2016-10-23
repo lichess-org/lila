@@ -5,7 +5,7 @@ import scala.util.Random
 import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONBinary
 
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -86,13 +86,15 @@ object GameRepo {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
+    implicit cp: CursorProducer[Game]) =
     coll.find(selector).cursor[Game](readPreference)
 
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
+    implicit cp: CursorProducer[Game]) =
     coll.find(selector).sort(sort).cursor[Game](readPreference)
 
   def unrate(gameId: String) =
@@ -112,7 +114,7 @@ object GameRepo {
       case (Nil, Nil) => funit
       case (sets, unsets) => coll.update(
         $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets: _*))
       ).void
     }
 
@@ -362,7 +364,7 @@ object GameRepo {
       Project($doc(
         F.playerUids -> true,
         F.id -> false)),
-      Unwind(F.playerUids),
+      UnwindField(F.playerUids),
       Match($doc(F.playerUids -> $doc("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
@@ -431,7 +433,7 @@ object GameRepo {
       Match,
       Sort,
       SumValue,
-      Unwind
+      UnwindField
     }
 
     coll.aggregate(Match($doc(
@@ -439,7 +441,7 @@ object GameRepo {
       F.status $gte chess.Status.Mate.id,
       s"${F.playerUids}.0" $exists true
     )), List(
-      Unwind(F.playerUids),
+      UnwindField(F.playerUids),
       Match($doc(
         F.playerUids -> $doc("$ne" -> "")
       )),
