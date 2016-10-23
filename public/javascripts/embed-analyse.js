@@ -56,6 +56,7 @@ $(function() {
 
 lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
+  opts.initialPly = 'url';
   LichessAnalyse(opts);
 
   var board = opts.element.querySelector('.cg-board-wrap');
