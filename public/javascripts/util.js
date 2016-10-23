@@ -392,7 +392,7 @@ $.fn.scrollTo = function(target, offsetTop) {
 };
 $.modal = function(html) {
   if (!html.clone) html = $('<div>' + html + '</div>');
-  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<span class="close" data-icon="L"></span>');
   var $overlay = $('<div id="modal-overlay">').html($wrap);
   $overlay.add($wrap.find('.close')).one('click', $.modal.close);
   $wrap.click(function(e) {

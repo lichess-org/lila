@@ -2258,6 +2258,9 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
+#modal-wrap a {
+  color: #3893E8;
+}
 #modal-wrap .block_buttons .button {
   display: block;
   margin: 0.8em 0;
@@ -2274,6 +2277,7 @@ div.lichess_overboard .close {
   height: 32px;
   background: #fff;
   border-radius: 50%;
+  cursor: pointer;
 }
 #modal-wrap .close:hover,
 div.lichess_overboard .close:hover {

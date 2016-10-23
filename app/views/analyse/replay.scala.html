@@ -62,24 +62,24 @@ atom = atom.some) {
     </div>
     }
     <div class="panel fen_pgn">
-      <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></p>
-      <p><strong>PGN</strong>
-        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
-        @if(analysis.isDefined) {
-        /
-        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
-        }
-        @if(game.isPgnImport) {
-        /
-        <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
-        }
-        /
-        <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
-        @if(lila.game.Game.visualisableVariants(game.variant)) {
-        /
-        <a data-icon="x" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
-        }
-      </p>
+      <div><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable autoselect fen" /></div>
+      <div class="pgn_options">
+        <strong>PGN</strong>
+        <div>
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)">@trans.downloadAnnotated()</a>
+          @if(analysis.isDefined) {
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=raw">@trans.downloadRaw()</a>
+          }
+          @if(game.isPgnImport) {
+          <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
+          }
+          <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
+          @if(lila.game.Game.visualisableVariants(game.variant)) {
+          <a data-icon="=" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
+          }
+          <a data-icon="=" class="text embed_howto" target="_blank">Embed in your website</a>
+        </div>
+      </div>
       <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
     </div>
     <div class="panel move_times">

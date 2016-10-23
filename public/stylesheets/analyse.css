@@ -77,7 +77,7 @@ form.better_analysis {
   display: inline-block;
   line-height: 24px;
 }
-div.fen_pgn p {
+div.fen_pgn > div {
   margin: 0.6em 0;
 }
 div.fen_pgn a {
@@ -91,10 +91,22 @@ div.fen_pgn .pgn {
 div.fen_pgn strong {
   font-size: 1.1em;
   display: inline-block;
-  margin-right: 7px;
+  margin-right: 10px;
 }
 div.fen_pgn input.fen {
   width: 450px;
+}
+div.fen_pgn .pgn_options {
+  display: flex;
+  align-items: center;
+}
+div.fen_pgn .pgn_options div {
+  display: flex;
+  flex-flow: row wrap;
+}
+div.fen_pgn .pgn_options a {
+  flex: 0 0 33%;
+  line-height: 1.6em;
 }
 div.game_control {
   flex: 0 0 36px;

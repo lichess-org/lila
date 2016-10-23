@@ -79,7 +79,7 @@
   <h1 id="embed-study" class="lichess_title">Embed a chess analysis in your site</h1>
 
   <div style="text-align: center;">
-    <iframe width=530 height=327 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto"
+    <iframe width=530 height=353 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto"
       frameborder=0 style="margin-bottom:1em"></iframe>
   </div>
 
@@ -88,8 +88,40 @@
     then click the share button to get the HTML code for the current chapter.
   </p>
 
-  <pre>@{"""<iframe width=600 height=371 frameborder=0
+  <pre>@{"""<iframe width=600 height=397 frameborder=0
 src="https://lichess.org/study/embed/XtFCFYlM/GCUTf2Jk?theme=auto&bg=auto"
+></iframe>"""}</pre>
+
+  <p>
+    Parameters:
+    <ul>
+      @themeParameters()
+    </ul>
+  </p>
+
+  <p>
+    The text is automatically translated to your visitor language.
+  </p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
+  <h1 id="embed-game" class="lichess_title">Embed a chess game in your site</h1>
+
+  <div style="text-align: center;">
+    <iframe width=530 height=353 src="https://lichess.org/embed/MPJcy1JW?bg=auto&theme=auto"
+      frameborder=0 style="margin-bottom:1em"></iframe>
+  </div>
+
+  <p>
+    On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom,
+    then <em>"Embed in your website"</em>.
+  </p>
+
+  <pre>@{"""<iframe width=600 height=397 frameborder=0
+src="https://lichess.org/embed/MPJcy1JW?theme=auto&bg=auto"
 ></iframe>"""}</pre>
 
   <p>
