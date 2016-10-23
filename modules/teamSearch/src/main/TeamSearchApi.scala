@@ -1,7 +1,5 @@
 package lila.teamSearch
 
-import reactivemongo.api.Cursor
-
 import lila.search._
 import lila.team.actorApi._
 import lila.team.{ Team, TeamRepo }
@@ -31,7 +29,7 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
       import reactivemongo.api.ReadPreference
       import lila.db.dsl._
       logger.info(s"Index to ${c.index.name}")
-      val batchSize = 100
+      val batchSize = 200
       val maxEntries = Int.MaxValue
       TeamRepo.cursor(
         selector = $doc("enabled" -> true),

@@ -75,7 +75,6 @@ sealed abstract class PostRepo(troll: Boolean) {
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinct[String, List]("_id", $doc("topicId" -> topicId).some)
 
-  import reactivemongo.api.ReadPreference
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
