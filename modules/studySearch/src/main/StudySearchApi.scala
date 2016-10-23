@@ -78,11 +78,14 @@ final class StudySearchApi(
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      lila.log("studySearch").info(s"Index to ${c.index.name}")
+      logger.info(s"Index to ${c.index.name}")
       import lila.db.dsl._
       studyRepo.cursor($empty).enumerate() |>>>
-        Iteratee.foldM[Study, Unit](()) {
-          case (_, study) => doStore(study)
+        Iteratee.foldM[Study, Int](0) {
+          case (nb, study) => doStore(study) inject {
+            if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
+            nb + 1
+          }
         }
     } >> client.refresh
     case _ => funit
