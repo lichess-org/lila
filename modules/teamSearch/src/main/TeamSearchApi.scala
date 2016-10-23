@@ -27,15 +27,25 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      lila.log("teamSearch").info(s"Index to ${c.index.name}")
+      import play.api.libs.iteratee._
+      import reactivemongo.api.ReadPreference
       import lila.db.dsl._
-
-      TeamRepo.cursor($doc("enabled" -> true)).foldBulksM({}) { (_, teams) =>
-        c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t))).
-          map(Cursor.Cont(_))
-      }
-    }
-
+      logger.info(s"Index to ${c.index.name}")
+      val batchSize = 100
+      val maxEntries = Int.MaxValue
+      TeamRepo.cursor(
+        selector = $doc("enabled" -> true),
+        readPreference = ReadPreference.secondaryPreferred)
+        .enumerate(maxEntries, stopOnError = true) &>
+        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
+        Iteratee.foldM[Seq[Team], Int](0) {
+          case (nb, teams) =>
+            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t))) inject {
+              logger.info(s"Indexed $nb teams")
+              nb + teams.size
+            }
+        }
+    } >> client.refresh
     case _ => funit
   }
 }
