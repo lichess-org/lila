@@ -203,8 +203,8 @@ function buttons(ctrl) {
 }
 
 function renderOpeningBox(ctrl) {
-  if (ctrl.embed) return;
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
+  if (!opening && !ctrl.vm.path) opening = ctrl.data.game.opening;
   if (opening) return m('div', {
     class: 'opening_box',
     title: opening.eco + ' ' + opening.name
