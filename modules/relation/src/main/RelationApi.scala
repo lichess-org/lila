@@ -40,8 +40,8 @@ final class RelationApi(
     "r" -> Follow
   )), List(
     Group(BSONNull)(
-      "u1" -> AddToSet("u1"),
-      "u2" -> AddToSet("u2")),
+      "u1" -> AddFieldToSet("u1"),
+      "u2" -> AddFieldToSet("u2")),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   )).map {
     ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId

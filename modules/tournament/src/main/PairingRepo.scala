@@ -78,7 +78,7 @@ object PairingRepo {
       Match(selectTour(tourId)),
       List(
         Project($doc("u" -> true, "_id" -> false)),
-        Unwind("u"),
+        UnwindField("u"),
         GroupField("u")("nb" -> SumValue(1))
       )).map {
         _.firstBatch.flatMap { doc =>
@@ -125,18 +125,19 @@ object PairingRepo {
       $set(field -> value)).void
   }
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddFieldToSet, Group, Match, Project, PushField, UnwindField }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
       Project($doc("u" -> true, "_id" -> false)),
-      Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
+      UnwindField("u"), Group(BSONBoolean(true))(
+        "ids" -> AddFieldToSet("u")))).map(
       _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
 
   def playingGameIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
-      Group(BSONBoolean(true))("ids" -> Push("_id")))).map(
+      Group(BSONBoolean(true))("ids" -> PushField("_id")))).map(
       _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
         getOrElse(List.empty[String]))
 }

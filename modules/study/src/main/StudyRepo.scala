@@ -24,7 +24,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
+    implicit cp: CursorProducer[Study]) =
     coll.find(selector).cursor[Study](readPreference)
 
   def nameById(id: Study.ID) = coll.primitiveOne[String]($id(id), "name")

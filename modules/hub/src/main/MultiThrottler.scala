@@ -23,7 +23,7 @@ final class MultiThrottler(
           self ! MultiThrottler.Done(id)
         }
       }
-      executions = executions + (id -> fut)
+      executions = executions + (id -> {}/*fut*/)
 
     case _: MultiThrottler.Work => // already executing similar work
 
