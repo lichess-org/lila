@@ -162,8 +162,8 @@ object UserRepo {
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
     F.enabled -> true,
-    F.engine -> $doc("$ne" -> true),
-    F.booster -> $doc("$ne" -> true))
+    F.engine $ne true,
+    F.booster $ne true)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc = $sort desc F.createdAt
@@ -290,15 +290,12 @@ object UserRepo {
 
   def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), "roles", roles)
 
-  def enable(id: ID) = coll.updateField($id(id), "enabled", true)
+  def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
 
   def disable(user: User) = coll.update(
     $id(user.id),
-    $doc("$set" -> $doc("enabled" -> false)) ++
-      user.lameOrTroll.fold(
-        $doc(),
-        $doc("$unset" -> $doc("email" -> true))
-      )
+    $set(F.enabled -> false) ++
+      user.lameOrTroll.fold($empty, $unset("email" -> true))
   )
 
   def passwd(id: ID, password: String): Funit =
@@ -335,9 +332,9 @@ object UserRepo {
   def recentlySeenNotKidIdsCursor(since: DateTime) =
     coll.find($doc(
       F.enabled -> true,
-      "seenAt" -> $doc("$gt" -> since),
-      "count.game" -> $doc("$gt" -> 9),
-      "kid" -> $doc("$ne" -> true)
+      "seenAt" $gt since,
+      "count.game" $gt 9,
+      "kid" $ne true
     ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
