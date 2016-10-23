@@ -1929,14 +1929,10 @@ lichess.notifyApp = (function() {
       }
     });
     $panels.on('click', '.embed_howto', function() {
-      console.log(data);
       var iframe = '<iframe src="https://lichess.org/embed/' + data.game.id + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
-      var div = document.createElement('div');
-      div.appendChild(document.createTextNode(iframe));
-      var escapedIframe = div.innerHTML;
       $.modal($(
         '<strong style="font-size:1.5em">Embed in your website</strong><br /><br />' +
-        '<pre>' + escapedIframe + '</pre><br />' +
+        '<pre>' + lichess.escapeHtml(iframe) + '</pre><br />' +
         iframe + '<br /><br />' +
         '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
       ));

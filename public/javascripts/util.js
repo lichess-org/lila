@@ -358,6 +358,11 @@ lichess.reload = function() {
   if (window.location.hash) location.reload();
   else location.href = location.href;
 };
+lichess.escapeHtml = function(html) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(html));
+  return div.innerHTML;
+};
 $.spreadNumber = function(el, nbSteps, getDuration, previous) {
   var previous = previous,
     displayed;
