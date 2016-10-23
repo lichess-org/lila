@@ -53,7 +53,7 @@ final class JsonView(
               "color" -> player.color.name,
               "version" -> socket.version,
               "spectator" -> false,
-              "user" -> playerUser.map { userJsonView(_, game.perfType) },
+              "user" -> playerUser.map { userJsonView.minimal(_, game.perfType) },
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "provisional" -> player.provisional.option(true),
@@ -69,7 +69,7 @@ final class JsonView(
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
-              "user" -> opponentUser.map { userJsonView(_, game.perfType) },
+              "user" -> opponentUser.map { userJsonView.minimal(_, game.perfType) },
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "provisional" -> opponent.provisional.option(true),
@@ -148,7 +148,7 @@ final class JsonView(
               "version" -> socket.version,
               "spectator" -> true,
               "ai" -> player.aiLevel,
-              "user" -> playerUser.map { userJsonView(_, game.perfType) },
+              "user" -> playerUser.map { userJsonView.minimal(_, game.perfType) },
               "name" -> player.name.map(escapeHtml4),
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
@@ -162,7 +162,7 @@ final class JsonView(
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
-              "user" -> opponentUser.map { userJsonView(_, game.perfType) },
+              "user" -> opponentUser.map { userJsonView.minimal(_, game.perfType) },
               "name" -> opponent.name.map(escapeHtml4),
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
@@ -248,7 +248,7 @@ final class JsonView(
     "turns" -> game.turns,
     "startedAtTurn" -> game.startedAtTurn,
     "lastMove" -> game.castleLastMoveTime.lastMoveString,
-    "threefold" -> game.toChessHistory.threefoldRepetition,
+    "threefold" -> game.toChessHistory.threefoldRepetition.option(true),
     "check" -> game.check.map(_.key),
     "rematch" -> game.next,
     "source" -> game.source.map(sourceJson),
@@ -315,8 +315,7 @@ object JsonView {
     Json.obj(
       "key" -> v.key,
       "name" -> v.name,
-      "short" -> v.shortName,
-      "title" -> v.title)
+      "short" -> v.shortName)
   }
 
   implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
