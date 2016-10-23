@@ -2,6 +2,7 @@ $(function() {
 
   var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
   var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)\b/;
+  var notGames = ['training'];
   var wait = 100;
 
   var parseUrl = function(url) {
@@ -11,7 +12,7 @@ $(function() {
       src: '/study/embed/' + matches[1] + '/' + matches[2]
     };
     var matches = url.match(gameRegex);
-    if (matches && matches[1]) {
+    if (matches && matches[1] && notGames.indexOf(matches[1]) === -1) {
       var src = '/embed/' + matches[1];
       if (matches[2]) src += '/' + matches[2];
       return {
