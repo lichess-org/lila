@@ -166,6 +166,7 @@ object UserRepo {
     F.enabled -> true,
     F.engine $ne true,
     F.booster $ne true)
+  val patronSelect = $doc(s"${F.plan}.active" -> true)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc = $sort desc F.createdAt
@@ -351,10 +352,10 @@ object UserRepo {
       ).map(~_)
 
   def filterByEngine(userIds: List[User.ID]): Fu[List[User.ID]] =
-    coll.primitive[String]($inIds(userIds) ++ engineSelect(true), F.id)
+    coll.distinct[String, List](F.id, Some($inIds(userIds) ++ engineSelect(true)))
 
-  def filterByEnabled(userIds: List[User.ID]): Fu[List[User.ID]] =
-    coll.primitive[String]($inIds(userIds) ++ enabledSelect, F.id)
+  def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
+    coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
     coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
