@@ -326,7 +326,8 @@ div.user_show .note_zone {
 div.user_show .note_zone textarea {
   width: 98%;
   margin-bottom: 5px;
-  height: 8em;
+  height: 2em;
+  resize: vertical;
 }
 div.user_show .note_zone div {
   padding-top: 1em;
