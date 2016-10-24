@@ -5,6 +5,7 @@ import scala.util.Random
 import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
+import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson.BSONBinary
 
@@ -296,7 +297,7 @@ object GameRepo {
     coll.update($id(g.id), $doc("$unset" -> $doc(F.checkAt -> true)))
 
   def unsetPlayingUids(g: Game): Unit =
-    coll.uncheckedUpdate($id(g.id), $unset(F.playingUids))
+    coll.update($id(g.id), $unset(F.playingUids), writeConcern = GetLastError.Unacknowledged)
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
