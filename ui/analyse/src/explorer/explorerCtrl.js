@@ -18,6 +18,7 @@ module.exports = function(root, opts, allow) {
 
   var allowed = m.prop(allow);
   var enabled = root.embed ? m.prop(false) : storedProp('explorer.enabled', false);
+  if (location.hash === '#opening' && !root.embed) enabled(true);
   var loading = m.prop(true);
   var failing = m.prop(false);
   var hoveringUci = m.prop(null);
