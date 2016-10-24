@@ -40,7 +40,8 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
+    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8",
+    "-Xfatal-warnings")
 
   val srcMain = Seq(
     scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
