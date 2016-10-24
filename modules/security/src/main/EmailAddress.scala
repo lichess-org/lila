@@ -28,10 +28,10 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
         case Array(_, domain) if disposable(domain) => none
 
         // other valid addresses
-        case Array(name, domain)                    => s"$name@$domain".some
+        case Array(name, domain) if domain contains "." => s"$name@$domain".some
 
-        // invalid addresses for match exhaustivity sake
-        case _                                      => none
+        // invalid addresses
+        case _ => none
       }
 
   def isValid(email: String) = validate(email).isDefined
