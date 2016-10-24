@@ -68,8 +68,10 @@ $(function() {
         a.element.classList.add('text');
         a.element.setAttribute('data-icon', '=');
         a.element.addEventListener('click', function(e) {
-          e.preventDefault();
-          expand(a);
+          if (e.button === 0) {
+            e.preventDefault();
+            expand(a);
+          }
         });
       });
     });
