@@ -9,7 +9,7 @@ private[team] final class Notifier(notifyApi: NotifyApi) {
 
   def acceptRequest(team: Team, request: Request) = {
     val notificationContent = TeamJoined(Id(team.id), Name(team.name))
-    val notification = Notification(Notifies(request.user), notificationContent)
+    val notification = Notification.make(Notifies(request.user), notificationContent)
 
     notifyApi.addNotification(notification)
   }

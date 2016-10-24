@@ -105,7 +105,7 @@ final class MessageApi(
       import lila.notify.{ Notification, PrivateMessage }
       import lila.common.String.shorten
       lilaBus.publish(Event.NewMessage(thread, post), 'newMessage)
-      notifyApi addNotification Notification(
+      notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(
           PrivateMessage.SenderId(thread senderOf post),

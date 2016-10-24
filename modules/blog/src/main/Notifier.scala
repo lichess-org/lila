@@ -32,7 +32,7 @@ private[blog] final class Notifier(
     } |>>>
     Iteratee.foldM[String, Int](0) {
       case (count, userId) => notifyApi.addNotificationWithoutSkipOrEvent(
-        Notification(Notification.Notifies(userId), content)
+        Notification.make(Notification.Notifies(userId), content)
       ) inject (count + 1)
     } addEffect { count =>
       logger.info(s"Sent $count notifications")

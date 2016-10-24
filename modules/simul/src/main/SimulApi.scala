@@ -59,7 +59,7 @@ private[simul] final class SimulApi(
       else {
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
         Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
-          simul addApplicant SimulApplicant(SimulPlayer(user, variant))
+          simul addApplicant SimulApplicant(SimulPlayer.make(user, variant))
         }
       }
     }

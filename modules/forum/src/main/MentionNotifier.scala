@@ -50,7 +50,7 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
         MentionedInThread.Category(post.categId),
         MentionedInThread.PostId(post.id))
 
-    Notification(mentionedUser, notificationContent)
+    Notification.make(mentionedUser, notificationContent)
   }
 
   private def extractMentionedUsers(post: Post): Set[String] = {

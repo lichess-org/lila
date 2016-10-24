@@ -107,7 +107,7 @@ final class CoachApi(
         if (me.troll) fuccess(review)
         else {
           reviewColl.update($id(id), review, upsert = true) >>
-            notifyApi.addNotification(Notification(
+            notifyApi.addNotification(Notification.make(
               notifies = Notification.Notifies(coach.id.value),
               content = lila.notify.CoachReview
             )) >> refreshCoachNbReviews(coach.id) inject review

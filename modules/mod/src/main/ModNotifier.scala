@@ -17,14 +17,14 @@ private final class ModNotifier(
       "createdBy" -> $ne("lichess")
     ).some) flatMap {
       _.map { reporterId =>
-        notifyApi.addNotification(Notification(
+        notifyApi.addNotification(Notification.make(
           notifies = Notification.Notifies(reporterId),
           content = lila.notify.ReportedBanned))
       }.sequenceFu.void
     }
 
   def refund(user: User, pt: lila.rating.PerfType, points: Int): Funit =
-    notifyApi.addNotification(Notification(
+    notifyApi.addNotification(Notification.make(
       notifies = Notification.Notifies(user.id),
       content = lila.notify.RatingRefund(pt.name, points)))
 }

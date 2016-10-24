@@ -30,7 +30,7 @@ private[qa] final class Notifier(notifyApi: NotifyApi,
     val answerId = QaAnswer.AnswerId(a.id)
 
     val notificationContent = QaAnswer(answererId, question, answerId)
-    val notification = Notification(Notifies(q.userId), notificationContent)
+    val notification = Notification.make(Notifies(q.userId), notificationContent)
 
     notifyApi.addNotification(notification)
   }

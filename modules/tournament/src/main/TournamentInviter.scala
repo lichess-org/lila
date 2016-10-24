@@ -21,7 +21,7 @@ private final class TournamentInviter private (
     case User.Active(user) if qualifies(user) =>
       notifyApi.exists(Notification.Notifies(user.id), $doc("content.type" -> "u")) flatMap {
         case true => funit
-        case false => notifyApi addNotificationWithoutSkipOrEvent Notification(
+        case false => notifyApi addNotificationWithoutSkipOrEvent Notification.make(
           Notification.Notifies(user.id),
           LimitedTournamentInvitation)
       }
