@@ -3,7 +3,6 @@ $(function() {
   var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
   var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)\b/;
   var notGames = ['training', 'analysis'];
-  var wait = 100;
 
   var parseLink = function(a) {
     var matches = a.href.match(studyRegex);
@@ -22,35 +21,84 @@ $(function() {
     }
   };
 
-  var expand = function(as) {
-    var a = as.shift();
-    if (!a) return;
-    var src = a.getAttribute('data-src');
-    var type = a.getAttribute('data-type');
-    if (src) {
-      var $iframe = $('<iframe>').addClass('analyse ' + type).attr('src', src);
-      $(a).replaceWith($iframe);
-      $iframe.on('load', function() {
-        if (this.contentDocument.title.indexOf("404") >= 0)
-          this.style.height = '100px';
-      }).on('mouseenter', function() {
-        $(this).focus();
-      });
-      wait = Math.min(2000, wait *= 2);
-      setTimeout(function() {
-        expand(as);
-      }, wait);
-    } else expand(as);
+  var expand = function(a) {
+    var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
+    $(a.element).replaceWith($iframe);
+    return $iframe.on('load', function() {
+      if (this.contentDocument.title.indexOf("404") >= 0) this.style.height = '100px';
+    }).on('mouseenter', function() {
+      $(this).focus();
+    });
   };
 
-  // detect study links and convert them to iframes
-  expand($('div.embed_analyse a').filter(function() {
-    var parsed = parseLink(this);
+  var expandStudies = function(as, wait) {
+    var a = as.shift(),
+      wait = Math.min(1500, wait || 100);
+    if (a) expand(a).on('load', function() {
+      setTimeout(function() {
+        expandStudies(as, wait + 200);
+      }, wait);
+    });
+  };
+
+  function groupByParent(as) {
+    var groups = [];
+    var current = {
+      parent: null,
+      index: -1
+    };
+    as.forEach(function(a) {
+      if (a.parent === current.parent) groups[current.index].push(a);
+      else {
+        current = {
+          parent: a.parent,
+          index: current.index + 1
+        };
+        groups[current.index] = [a];
+      }
+    });
+    return groups;
+  }
+
+  var expandGames = function(as) {
+    groupByParent(as).forEach(function(group) {
+      if (group.length < 3) group.forEach(expand);
+      else group.forEach(function(a) {
+        a.element.title = 'Click to expand';
+        a.element.classList.add('text');
+        a.element.setAttribute('data-icon', '=');
+        a.element.addEventListener('click', function(e) {
+          e.preventDefault();
+          expand(a);
+        });
+      });
+    });
+  }
+
+  var as = $('div.embed_analyse a').toArray().map(function(el) {
+    var parsed = parseLink(el);
     if (!parsed) return false;
-    this.setAttribute('data-src', parsed.src);
-    this.setAttribute('data-type', parsed.type);
-    return true;
-  }).addClass('embedding_analyse').html(lichess.spinnerHtml).toArray());
+    return {
+      element: el,
+      parent: el.parentNode,
+      type: parsed.type,
+      src: parsed.src
+    };
+  }).filter(function(a) {
+    return a;
+  });
+
+  expandStudies(as.filter(function(a) {
+    return a.type === 'study'
+  }).map(function(a) {
+    a.element.classList.add('embedding_analyse');
+    a.element.innerHTML = lichess.spinnerHtml;
+    return a;
+  }));
+
+  expandGames(as.filter(function(a) {
+    return a.type === 'game'
+  }));
 });
 
 lichess.startEmbeddedAnalyse = function(opts) {
