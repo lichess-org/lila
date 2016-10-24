@@ -21,17 +21,47 @@
 </div>
 }
 
+@eliteWinners = {
+<div class="winner_list">
+  <h2 class="text" data-icon="C">Elite Arena</h2>
+  <ul>
+    @winners.elite.map { w =>
+    <li>
+      @userIdLink(w.userId.some)
+      <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@showDate(w.date)</a>
+    </li>
+    }
+  </ul>
+</div>
+}
+
+@marathonWinners = {
+<div class="winner_list">
+  <h2 class="text" data-icon="\">Marathon</h2>
+  <ul>
+    @winners.marathon.map { w =>
+    <li>
+      @userIdLink(w.userId.some)
+      <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@w.tourName.replace(" Marathon", "")</a>
+    </li>
+    }
+  </ul>
+</div>
+}
+
 @base.layout(
 title = "Tournament leaderboard",
 moreCss = cssTag("tournament_leaderboard.css")) {
 <div class="content_box no_padding tournament_leaderboard">
   <h1>Tournament winners</h1>
   <div class="winner_lists">
+    @eliteWinners
     @freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet")
     @freqWinners(winners.bullet, PerfType.Bullet, "Bullet")
     @freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz")
     @freqWinners(winners.blitz, PerfType.Blitz, "Blitz")
     @freqWinners(winners.classical, PerfType.Classical, "Classical")
+    @marathonWinners
     @lila.tournament.WinnersApi.variants.map { v =>
     @PerfType.byVariant(v).map { pt =>
     @winners.variants.get(pt.key).map { w =>
