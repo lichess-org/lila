@@ -38,12 +38,13 @@ case class AllWinners(
     marathon: List[Winner],
     variants: Map[String, FreqWinners]) {
 
-  lazy val top: List[Winner] = {
-    List(hyperbullet, bullet, superblitz, blitz, classical) :::
-      WinnersApi.variants.flatMap { v =>
-        variants get v.key
-      }
-  }.flatMap(_.top)
+  lazy val top: List[Winner] = List(
+    List(hyperbullet, bullet, superblitz, blitz, classical).flatMap(_.top),
+    List(elite.headOption, marathon.headOption).flatten,
+    WinnersApi.variants.flatMap { v =>
+      variants get v.key flatMap (_.top)
+    }
+  ).flatten
 }
 
 final class WinnersApi(

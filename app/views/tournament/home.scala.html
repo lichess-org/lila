@@ -24,7 +24,7 @@ lichess.StrongSocket.defaults.events.reload = app.update;
     <a href="@routes.Tournament.leaderboard">@trans.leaderboard()</a>
   </h2>
   <ul class="tournament_leaderboard">
-    @winners.top.take(10).map { w =>
+    @winners.top.map { w =>
     <li>
       @userIdLink(w.userId.some)
       <a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a>
