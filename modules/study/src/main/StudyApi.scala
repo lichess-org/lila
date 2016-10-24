@@ -306,7 +306,7 @@ final class StudyApi(
           val newChapter = chapter.copy(
             name = name,
             conceal = (chapter.conceal, data.conceal) match {
-              case (None, true)     => Chapter.Ply(0).some
+              case (None, true)     => Chapter.Ply(chapter.root.ply).some
               case (Some(_), false) => None
               case _                => chapter.conceal
             },
