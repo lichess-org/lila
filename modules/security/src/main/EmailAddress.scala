@@ -37,17 +37,17 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
   def isValid(email: String) = validate(email).isDefined
 
   /**
-    * Returns true if an E-mail address is taken by another user.
-    * @param email The E-mail address to be checked
-    * @param forUser Optionally, the user the E-mail address field is to be assigned to.
-    *                If they already have it assigned, returns false.
-    * @return
-    */
+   * Returns true if an E-mail address is taken by another user.
+   * @param email The E-mail address to be checked
+   * @param forUser Optionally, the user the E-mail address field is to be assigned to.
+   *                If they already have it assigned, returns false.
+   * @return
+   */
   private def isTakenBySomeoneElse(email: String, forUser: Option[User]): Boolean = validate(email) ?? { e =>
     (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
       case (None, _)                  => false
       case (Some(userId), Some(user)) => userId != user.id
-      case (_, _)            => true
+      case (_, _)                     => true
     }
   }
 
