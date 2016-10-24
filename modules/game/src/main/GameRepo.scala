@@ -115,7 +115,7 @@ object GameRepo {
       case (Nil, Nil) => funit
       case (sets, unsets) => coll.update(
         $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets: _*))
+        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
       ).void
     }
 
