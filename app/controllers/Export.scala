@@ -16,20 +16,18 @@ object Export extends LilaController {
   private def env = Env.game
 
   def pgn(id: String) = Open { implicit ctx =>
-    OnlyHumans {
-      lila.mon.export.pgn.game()
-      OptionFuResult(GameRepo game id) { game =>
-        gameToPgn(
-          game,
-          asImported = get("as") contains "imported",
-          asRaw = get("as").contains("raw")) map { content =>
-            Ok(content).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
-              CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
-          } recover {
-            case err => NotFound(err.getMessage)
-          }
-      }
+    lila.mon.export.pgn.game()
+    OptionFuResult(GameRepo game id) { game =>
+      gameToPgn(
+        game,
+        asImported = get("as") contains "imported",
+        asRaw = get("as").contains("raw")) map { content =>
+          Ok(content).withHeaders(
+            CONTENT_TYPE -> pgnContentType,
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
+        } recover {
+          case err => NotFound(err.getMessage)
+        }
     }
   }
 
