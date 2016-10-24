@@ -5,14 +5,14 @@ $(function() {
   var notGames = ['training'];
   var wait = 100;
 
-  var parseUrl = function(url) {
-    var matches = url.match(studyRegex);
-    if (matches && matches[2]) return {
+  var parseLink = function(a) {
+    var matches = a.href.match(studyRegex);
+    if (matches && matches[2] && a.text.match(studyRegex)) return {
       type: 'study',
       src: '/study/embed/' + matches[1] + '/' + matches[2]
     };
-    var matches = url.match(gameRegex);
-    if (matches && matches[1] && notGames.indexOf(matches[1]) === -1) {
+    var matches = a.href.match(gameRegex);
+    if (matches && matches[1] && notGames.indexOf(matches[1]) === -1 && a.text.match(gameRegex)) {
       var src = '/embed/' + matches[1];
       if (matches[2]) src += '/' + matches[2];
       return {
@@ -27,7 +27,6 @@ $(function() {
     if (!a) return;
     var src = a.getAttribute('data-src');
     var type = a.getAttribute('data-type');
-    console.log(a, src, type);
     if (src) {
       var $iframe = $('<iframe>').addClass('analyse ' + type).attr('src', src);
       $(a).replaceWith($iframe);
@@ -46,7 +45,7 @@ $(function() {
 
   // detect study links and convert them to iframes
   expand($('div.embed_analyse a').filter(function() {
-    var parsed = parseUrl(this.href);
+    var parsed = parseLink(this);
     if (!parsed) return false;
     this.setAttribute('data-src', parsed.src);
     this.setAttribute('data-type', parsed.type);
