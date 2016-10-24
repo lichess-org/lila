@@ -1,3 +1,5 @@
+div.side .ratings {
+}
 div.user_lists h2 {
   font-size: 1.1em;
   font-weight: bold;
@@ -7,19 +9,16 @@ div.user_lists h2 {
 div.user_lists h2::before {
   font-size: 1.5em;
 }
-#lichess div.user_lists,
-#lichess div.user_lists div.group {
+#lichess div.user_lists {
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 #lichess div.user_lists div.user_top {
-  float: left;
-  width: 31%;
-  margin-bottom: 1em;
-  margin-right: 3%;
-}
-#lichess div.user_lists div.user_top:last-child {
-  margin-right: 0;
+  flex: 0 0 31%;
+  margin-bottom: 2em;
 }
 div.side div.user_top {
   margin-top: 1em;
@@ -38,6 +37,7 @@ div.user_lists div.user_top table {
 }
 div.user_lists div.user_top td {
   padding: 2px 0;
+  line-height: 18px;
 }
 div.user_lists .tournament_winners td:first-child {
   max-width: 112px;

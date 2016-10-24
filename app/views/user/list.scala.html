@@ -72,7 +72,6 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
 <div class="content_box">
   <div class="user_lists">
 
-    <div class="group">
       @userTopPerf(leaderboards.bullet, PerfType.Bullet)
       @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
       <div class="user_top">
@@ -88,30 +87,20 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
             }
         </tbody></table>
       </div>
-    </div>
 
-    <div class="group">
       @userTopPerf(leaderboards.blitz, PerfType.Blitz)
       @userTopPerf(leaderboards.chess960, PerfType.Chess960)
       @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
-    </div>
 
-    <div class="group">
       @userTopPerf(leaderboards.classical, PerfType.Classical)
       @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
       @userTopPerf(leaderboards.antichess, PerfType.Antichess)
-    </div>
 
-    <div class="group">
       @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
       @userTopPerf(leaderboards.horde, PerfType.Horde)
-    </div>
 
-    <div class="group">
       @userTopPerf(leaderboards.atomic, PerfType.Atomic)
       @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
-    </div>
-
   </div>
 </div>
 }
