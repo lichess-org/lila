@@ -69,7 +69,7 @@ object ApplicationBuild extends Build {
     .settings(
       libraryDependencies ++= provided(
         play.api, hasher, config, apache, jgit, findbugs,
-        reactivemongo.driver, reactivemongo.iteratees, 
+        reactivemongo.driver, reactivemongo.iteratees,
         kamon.core, kamon.statsd)
     ) aggregate (moduleRefs: _*)
 
@@ -288,7 +288,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
-    libraryDependencies ++= provided(play.api, 
+    libraryDependencies ++= provided(play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
