@@ -2,7 +2,7 @@ $(function() {
 
   var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
   var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)\b/;
-  var notGames = ['training'];
+  var notGames = ['training', 'analysis'];
   var wait = 100;
 
   var parseLink = function(a) {
