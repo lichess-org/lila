@@ -33,7 +33,7 @@ object ApplicationBuild extends Build {
       // offline := true,
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
-        jgit, findbugs, reactivemongo.driver, akka.actor, akka.slf4j,
+        jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
         kamon.core, kamon.statsd, java8compat, semver, scrimage),
       TwirlKeys.templateImports ++= Seq(
@@ -172,7 +172,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val game = project("game", Seq(common, memo, db, hub, user, chess, chat)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
   )
 
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
