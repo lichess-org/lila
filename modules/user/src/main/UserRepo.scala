@@ -3,7 +3,6 @@ package lila.user
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
-import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
 import lila.common.ApiVersion
@@ -117,7 +116,7 @@ object UserRepo {
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
-    coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
+    coll.uncheckedUpdate($id(userId), $inc(F.colorIt -> value))
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)
