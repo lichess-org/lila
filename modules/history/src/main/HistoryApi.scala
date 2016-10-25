@@ -36,7 +36,7 @@ final class HistoryApi(coll: Coll) {
     coll.update(
       $id(user.id),
       $doc("$set" -> $doc(changes.map {
-        case (perf, rating) => BSONElement(s"$perf.$days", $int(rating))
+        case (perf, rating) => s"$perf.$days" -> $int(rating)
       })),
       upsert = true
     ).void

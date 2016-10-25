@@ -54,7 +54,7 @@ object BSON extends Handlers {
         val b = collection.immutable.Map.newBuilder[String, V]
         for (tuple <- bson.elements)
           // assume that all values in the document are Bdocs
-          b += (tuple.name -> vr.read(tuple.value.asInstanceOf[Bdoc]))
+          b += (tuple._1 -> vr.read(tuple._2.asInstanceOf[Bdoc]))
         b.result
       }
     }
@@ -82,7 +82,7 @@ object BSON extends Handlers {
         val valueReader = vr.asInstanceOf[BSONReader[BSONValue, V]]
         // mutable optimized implementation
         val b = collection.immutable.Map.newBuilder[String, V]
-        for (tuple <- bson.elements) b += (tuple.name -> valueReader.read(tuple.value))
+        for (tuple <- bson.elements) b += (tuple._1 -> valueReader.read(tuple._2))
         b.result
       }
     }
@@ -108,7 +108,7 @@ object BSON extends Handlers {
     val map = {
       // mutable optimized implementation
       val b = collection.immutable.Map.newBuilder[String, BSONValue]
-      for (tuple <- doc.stream if tuple.isSuccess) b += (tuple.get.name -> tuple.get.value)
+      for (tuple <- doc.stream if tuple.isSuccess) b += (tuple.get._1 -> tuple.get._2)
       b.result
     }
 
@@ -194,7 +194,7 @@ object BSON extends Handlers {
   }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String = (doc.elements.toList map {
-    case BSONElement(k, v) => s"$k: ${debug(v)}"
+    case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
 
   def hashDoc(doc: Bdoc): String = debugDoc(doc).replace(" ", "")

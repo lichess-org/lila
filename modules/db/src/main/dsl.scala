@@ -21,7 +21,7 @@ import reactivemongo.api._
 import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 
-trait dsl extends LowPriorityDsl {
+trait dsl {
 
   type Coll = reactivemongo.api.collections.bson.BSONCollection
   type Bdoc = BSONDocument
@@ -116,8 +116,7 @@ trait dsl extends LowPriorityDsl {
   }
 
   def $rename(item: (String, String), items: (String, String)*)(implicit writer: BSONWriter[String, _ <: BSONValue]): BSONDocument = {
-    $doc("$rename" -> $doc((item +: items).
-      map { case (k, v) => BSONElement(k, BSONString(v)) }))
+    $doc("$rename" -> $doc((Seq(item) ++ items).map(Producer.nameValue2Producer[String]): _*))
   }
 
   def $setOnInsert(item: Producer[BSONElement], items: Producer[BSONElement]*): BSONDocument = {
@@ -129,7 +128,7 @@ trait dsl extends LowPriorityDsl {
   }
 
   def $unset(field: String, fields: String*): BSONDocument = {
-    $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => BSONElement(k, BSONString("")))))
+    $doc("$unset" -> $doc((Seq(field) ++ fields).map(_ -> BSONString(""))))
   }
 
   def $min(item: Producer[BSONElement]): BSONDocument = {
@@ -185,7 +184,7 @@ trait dsl extends LowPriorityDsl {
   }
 
   def $currentDate(items: (String, CurrentDateValueProducer[_])*): BSONDocument = {
-    $doc("$currentDate" -> $doc(items.map(item => BSONElement(item._1, item._2.produce))))
+    $doc("$currentDate" -> $doc(items.map(item => item._1 -> item._2.produce)))
   }
   // End of Top Level Field Update Operators
   //**********************************************************************************************//
@@ -372,16 +371,13 @@ trait dsl extends LowPriorityDsl {
     with LogicalOperators
     with ArrayOperators
 
+  implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
+    expression.field -> expression.value
+  }
+
   implicit def toBSONDocument[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): BSONDocument =
     $doc(expression.field -> expression.value)
 
-}
-
-sealed trait LowPriorityDsl { self: dsl =>
-  // Priority lower than toBSONDocument
-  implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
-    BSONElement(expression.field, expression.value)
-  }
 }
 
 object dsl extends dsl with CollExt with QueryBuilderExt with CursorExt with Handlers

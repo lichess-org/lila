@@ -27,11 +27,8 @@ final class PgnDump(
       }
     }
 
-  def exportUserGames(userId: String): Enumerator[String] = {
-    import reactivemongo.play.iteratees.cursorProducer
-    GameRepo.sortedCursor(Query user userId, Query.sortCreated).
-      enumerator() &> toPgn
-  }
+  def exportUserGames(userId: String): Enumerator[String] =
+    GameRepo.sortedCursor(Query user userId, Query.sortCreated).enumerate() &> toPgn
 
   def exportGamesFromIds(ids: List[String]): Enumerator[String] =
     Enumerator.enumerate(ids grouped 50) &>

@@ -34,18 +34,12 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.9.4"
-
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.12-RC3"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.7.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
-
-  object reactivemongo {
-    val version = "0.12.0"
-    val driver = "org.reactivemongo" %% "reactivemongo" % version
-    val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
-  }
 
   object play {
     val version = "2.4.6"

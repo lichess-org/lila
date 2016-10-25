@@ -27,18 +27,14 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
     case c: ESClientHttp => c.putMapping >> {
       import play.api.libs.iteratee._
       import reactivemongo.api.ReadPreference
-      import reactivemongo.play.iteratees.cursorProducer
       import lila.db.dsl._
-
       logger.info(s"Index to ${c.index.name}")
-
       val batchSize = 200
       val maxEntries = Int.MaxValue
-
       TeamRepo.cursor(
         selector = $doc("enabled" -> true),
         readPreference = ReadPreference.secondaryPreferred)
-        .enumerator(maxEntries) &>
+        .enumerate(maxEntries, stopOnError = true) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Team], Int](0) {
           case (nb, teams) =>

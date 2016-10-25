@@ -77,15 +77,10 @@ object Puzzle {
       case _       => sys error s"Invalid piotr move notation: $move"
     }
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
-
-      case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
-
-      case BSONElement(move, more: BSONDocument) =>
-        Node(readMove(move), read(more))
-
-      case BSONElement(move, value)              =>
-        throw new Exception(s"Can't read value of $move: $value")
+      case (move, BSONBoolean(true))  => Win(readMove(move))
+      case (move, BSONBoolean(false)) => Retry(readMove(move))
+      case (move, more: BSONDocument) => Node(readMove(move), read(more))
+      case (move, value)              => throw new Exception(s"Can't read value of $move: $value")
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"

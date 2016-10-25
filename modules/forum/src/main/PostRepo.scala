@@ -3,7 +3,7 @@ package lila.forum
 import lila.db.dsl._
 import lila.user.User.BSONFields
 import org.joda.time.DateTime
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.ReadPreference
 
 object PostRepo extends PostRepo(false) {
 
@@ -77,7 +77,6 @@ sealed abstract class PostRepo(troll: Boolean) {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Post]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
     coll.find(selector).cursor[Post](readPreference)
 }

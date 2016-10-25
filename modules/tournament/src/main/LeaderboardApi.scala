@@ -29,7 +29,7 @@ final class LeaderboardApi(
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
       Match($doc("u" -> user.id)),
-      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w")))
+      List(GroupField("v")("nb" -> SumValue(1), "points" -> Push("s"), "ratios" -> Push("w")))
     ).map {
         _.firstBatch map leaderboardAggregationResultBSONHandler.read
       }.map { aggs =>

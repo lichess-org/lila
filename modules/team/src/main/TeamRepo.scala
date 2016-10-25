@@ -20,8 +20,7 @@ object TeamRepo {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Team]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
     coll.find(selector).cursor[Team](readPreference)
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
