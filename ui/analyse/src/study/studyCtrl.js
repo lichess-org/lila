@@ -11,7 +11,6 @@ var notifCtrl = require('./notif').ctrl;
 var shareCtrl = require('./studyShare').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
-var concealFeedback = require('./concealFeedback');
 
 module.exports = {
   // data.position.path represents the server state
@@ -251,7 +250,6 @@ module.exports = {
           who && activity(who.u);
           if (who && who.s === sri) {
             data.position.path = position.path + node.id;
-            concealFeedback(ctrl, position.path, node);
             return;
           }
           var newPath = ctrl.tree.addNode(node, position.path);
