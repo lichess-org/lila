@@ -70,6 +70,7 @@ final class Env(
 
     scheduler.effect(3 seconds, "refresh online user ids") {
       system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+      onlineUserIdMemo put "lichess"
     }
   }
 
