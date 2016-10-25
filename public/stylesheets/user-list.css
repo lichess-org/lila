@@ -1,4 +1,42 @@
-div.side .ratings {
+.community.content_box {
+  position: relative;
+}
+.com_tabs {
+  position: absolute;
+  top: -23px;
+  left: -1px;
+  height: 23px;
+  line-height: 22px;
+  display: flex;
+  justify-content: flex-end;
+}
+.com_tabs a {
+  padding: 0 8px;
+  margin-right: 3px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+  transition: 0.13s;
+}
+.com_tabs a:hover {
+  background: #fff;
+}
+.com_tabs a.active {
+  background: #fff;
+  font-weight: bold;
+  border-bottom-color: #fff;
+  border-top: 2px solid #d85000!important;
+  margin-top: -1px;
+}
+body.dark .com_tabs a {
+  background: #393939;
+  border-color: #3d3d3d;
+}
+body.dark .com_tabs a:hover,
+body.dark .com_tabs a.active {
+  background: #2b2b2b;
+}
+body.dark .com_tabs a.active {
+  border-bottom-color: #2b2b2b;
 }
 div.user_lists h2 {
   font-size: 1.1em;
