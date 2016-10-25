@@ -79,6 +79,7 @@ module.exports = {
       }, name);
     };
     var gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
+    var currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
     return dialog.form({
       onClose: ctrl.close,
@@ -182,7 +183,8 @@ module.exports = {
                 ] :
                 ctrl.vm.variants.map(function(v) {
                   return m('option', {
-                    value: v.key
+                    value: v.key,
+                    selected: v.key === currentChapterSetup.variant.key
                   }, v.name)
                 })),
               m('label.control-label[for=chapter-variant]', 'Variant'),
@@ -194,8 +196,10 @@ module.exports = {
                   ctrl.vm.editor && ctrl.vm.editor.setOrientation(e.target.value);
                 }
               }, ['White', 'Black'].map(function(color) {
+                var c = color.toLowerCase();
                 return m('option', {
-                  value: color.toLowerCase()
+                  value: c,
+                  selected: c === currentChapterSetup.orientation
                 }, color)
               })),
               m('label.control-label[for=chapter-orientation]', 'Orientation'),
