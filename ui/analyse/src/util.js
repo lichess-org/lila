@@ -1,4 +1,4 @@
-var piotr2key = require('./piotr').piotr2key;
+var piotr2key = require('./piotr');
 var m = require('mithril');
 
 var UNDEF = 'undefined';
