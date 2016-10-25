@@ -226,7 +226,7 @@ private object BSONHandlers {
     def read(b: Bdoc) = StudyMembers(mapHandler read b map {
       case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
     })
-    def write(x: StudyMembers) = BSONDocument(x.members.mapValues(StudyMemberBSONWriter.write))
+    def write(x: StudyMembers) = $doc(x.members.mapValues(StudyMemberBSONWriter.write))
   }
   import Study.Visibility
   private[study] implicit val VisibilityHandler: BSONHandler[BSONString, Visibility] = new BSONHandler[BSONString, Visibility] {
