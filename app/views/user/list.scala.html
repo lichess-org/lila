@@ -7,32 +7,24 @@
   <h2 class="text" data-icon="@perfType.iconChar">
     <a href="@routes.User.top200(perfType.key)">@perfType.name</a>
   </h2>
-  <table>
-    <tbody>
-      @users.map { l =>
-      <tr>
-        <td>@lightUserLink(l.user)</td>
-        <td>@l.rating</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+  @users.map { l =>
+  <div>
+    <div>@lightUserLink(l.user)</div>
+    <div>@l.rating</div>
+  </div>
+  }
 </div>
 }
 
 @userTopActive(users: List[User.LightCount], title: Any, icon: Option[Char] = None) = {
 <div class="user_top">
   <h2 class="text"@icon.map { i => data-icon="@i" }>@title</h2>
-  <table>
-    <tbody>
-      @users.map { u =>
-      <tr>
-        <td>@lightUserLink(u.user)</td>
-        <td title="@trans.gamesPlayed()">#@u.count.localize</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+  @users.map { u =>
+  <div>
+    <div>@lightUserLink(u.user)</div>
+    <div title="@trans.gamesPlayed()">#@u.count.localize</div>
+  </div>
+  }
 </div>
 }
 
@@ -49,14 +41,12 @@
   <div class="user_lists">
     <div class="user_top">
       <h2>@trans.onlinePlayers()</h2>
-      <table><tbody>
-          @online.map { u =>
-          <tr>
-            <td>@userLink(u)</td>
-            <td>@showBestPerf(u)</td>
-          </tr>
-          }
-      </tbody></table>
+      @online.map { u =>
+      <div>
+        <div>@userLink(u)</div>
+        <div>@showBestPerf(u)</div>
+      </div>
+      }
     </div>
   </div>
 </div>
@@ -73,35 +63,33 @@ description = "Best chess players in bullet, blitz, classical, Chess960 and more
   @communityTabs("leaderboard")
   <div class="user_lists">
 
-      @userTopPerf(leaderboards.bullet, PerfType.Bullet)
-      @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
-      <div class="user_top">
-        <h2 class="text" data-icon="g">
-          <a href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
-        </h2>
-        <table class="tournament_winners"><tbody>
-            @tourneyWinners.take(10).map { w =>
-            <tr>
-              <td>@userIdLink(w.userId.some)</td>
-              <td><a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
-            </tr>
-            }
-        </tbody></table>
+    @userTopPerf(leaderboards.bullet, PerfType.Bullet)
+    @userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse)
+    <div class="user_top">
+      <h2 class="text" data-icon="g">
+        <a href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
+      </h2>
+      @tourneyWinners.take(10).map { w =>
+      <div>
+        <div>@userIdLink(w.userId.some)</div>
+        <div><a title="@w.tourName" href="@routes.Tournament.show(w.tourId)">@scheduledTournamentNameShortHtml(w.tourName)</a></div>
       </div>
+      }
+    </div>
 
-      @userTopPerf(leaderboards.blitz, PerfType.Blitz)
-      @userTopPerf(leaderboards.chess960, PerfType.Chess960)
-      @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
+    @userTopPerf(leaderboards.blitz, PerfType.Blitz)
+    @userTopPerf(leaderboards.chess960, PerfType.Chess960)
+    @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
 
-      @userTopPerf(leaderboards.classical, PerfType.Classical)
-      @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
-      @userTopPerf(leaderboards.antichess, PerfType.Antichess)
+    @userTopPerf(leaderboards.classical, PerfType.Classical)
+    @userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck)
+    @userTopPerf(leaderboards.antichess, PerfType.Antichess)
 
-      @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
-      @userTopPerf(leaderboards.horde, PerfType.Horde)
+    @userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill)
+    @userTopPerf(leaderboards.horde, PerfType.Horde)
 
-      @userTopPerf(leaderboards.atomic, PerfType.Atomic)
-      @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
+    @userTopPerf(leaderboards.atomic, PerfType.Atomic)
+    @userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
   </div>
 </div>
 }

@@ -56,6 +56,7 @@ div.user_lists h2::before {
 }
 #lichess div.user_lists div.user_top {
   flex: 0 0 31%;
+  width: 31%;
   margin-bottom: 2em;
 }
 div.side div.user_top {
@@ -70,25 +71,24 @@ div.side a.more {
   text-align: right;
   margin-top: 0.5em;
 }
-div.user_lists div.user_top table {
+div.user_lists div.user_top > div {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-div.user_lists div.user_top td {
-  padding: 2px 0;
-  line-height: 18px;
+div.user_lists div.user_top div div {
+  line-height: 22px;
+  white-space: nowrap;
 }
-div.user_lists .tournament_winners td:first-child {
-  max-width: 112px;
+div.user_lists div.user_top div div:first-child {
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 5px;
 }
-#site_header div.user_lists div.user_top td {
+#site_header div.user_lists div.user_top div div {
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-div.user_lists div.user_top td:last-child {
-  text-align: right;
 }
 
 div.big_user_list > a {
