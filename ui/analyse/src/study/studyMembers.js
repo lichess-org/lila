@@ -127,7 +127,13 @@ module.exports = {
       isOnline: function(userId) {
         return online[userId];
       },
-      titleNameToId: util.titleNameToId
+      titleNameToId: util.titleNameToId,
+      hasOnlineContributor: function() {
+        var members = dict();
+        for (var i in members)
+          if (online[i] && members[i].role === 'w') return true;
+        return false;
+      }
     };
   },
   view: function(ctrl) {

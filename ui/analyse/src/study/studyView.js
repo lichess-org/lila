@@ -30,7 +30,7 @@ function buttons(root) {
           attrs['data-count'] = ctrl.vm.behind;
           classes.push('data-count');
         }
-        if (ctrl.vm.behind !== false) classes.push('glowed');
+        if (ctrl.vm.behind !== false && ctrl.members.hasOnlineContributor()) classes.push('glowed');
         attrs.class = classes.join(' ');
         return attrs;
       })(), m('i', {
