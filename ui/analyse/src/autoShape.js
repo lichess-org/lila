@@ -40,12 +40,12 @@ module.exports = function(ctrl) {
     if (n.eval && n.eval.best)
       shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
     if (!hoveringUci) {
-      var nextNodeBest = ctrl.nextNodeBest();
-      if (nextNodeBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextNodeBest, 'paleBlue'));
-      else if (ctrl.ceval.enabled() && n.ceval && n.ceval.best)
-        shapes = shapes.concat(makeAutoShapesFromUci(color, n.ceval.best, 'paleBlue'));
+      var nextBest = ctrl.nextNodeBest();
+      if (!nextBest && ctrl.ceval.enabled() && n.ceval && n.ceval.best) nextBest = n.ceval.best;
+      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
       if (ctrl.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(ctrl.vm.threatMode && n.threat && n.threat.pvs && n.threat.pvs[2])) {
-        n.ceval.pvs.slice(1).forEach(function(pv) {
+        n.ceval.pvs.forEach(function(pv) {
+          if (pv.best === nextBest) return;
           var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
           shapes = shapes.concat(makeAutoShapesFromUci(color, pv.best, 'paleGrey', {
