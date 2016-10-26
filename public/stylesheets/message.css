@@ -88,6 +88,9 @@ div.sidebar a {
 #lichess_message div.thread_message_body a {
   color: #3893E8;
 }
+#lichess_message div.thread_message_body frame.analyse {
+  margin: 1em 0;
+}
 #lichess_message div.answer {
   margin-top: 3em;
 }
