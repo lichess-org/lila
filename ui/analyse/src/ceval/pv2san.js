@@ -52,6 +52,14 @@ function knightMovesTo(s) {
   });
 }
 
+function pawnAttacksTo(turn, s) {
+  var left = turn ? 7 : -7;
+  var right = turn ? 9 : -9;
+  return [s + left, s + right].filter(function (o) {
+    return o >= 0 && o < 64 && squareDist(s, o) === 1;
+  });
+}
+
 var ROOK_DELTAS = [8, 1, -8, -1];
 var BISHOP_DELTAS = [9, -9, 7, -7];
 var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
@@ -78,17 +86,20 @@ function isCheck(variant, board) {
   // no check when kings are touching in atomic
   if (variant === 'atomic' && squareDist(board.k, board.K) <= 1) return false;
 
+  var p = board.turn ? 'p' : 'P';
   var n = board.turn ? 'n' : 'N';
   var r = board.turn ? 'r' : 'R';
   var b = board.turn ? 'b' : 'B';
   var q = board.turn ? 'q' : 'Q';
 
-  return (knightMovesTo(ksq).some(function(o) {
-      return board.pieces[o] === n;
+  return (pawnAttacksTo(board.turn, ksq).some(function(o) {
+    return board.pieces[o] === p;
+  }) || knightMovesTo(ksq).some(function(o) {
+    return board.pieces[o] === n;
   }) || slidingMovesTo(ksq, ROOK_DELTAS, board).some(function (o) {
-      return board.pieces[o] === r || board.pieces[o] === q;
+    return board.pieces[o] === r || board.pieces[o] === q;
   }) || slidingMovesTo(ksq, BISHOP_DELTAS, board).some(function (o) {
-      return board.pieces[o] === b || board.pieces[o] === q;
+    return board.pieces[o] === b || board.pieces[o] === q;
   }));
 }
 
