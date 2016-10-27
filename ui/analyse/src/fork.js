@@ -56,7 +56,10 @@ module.exports = {
           }
         }, [
           treeView.renderIndex(node.ply, true),
-          treeView.renderMove(node)
+          treeView.renderMove({
+            isStudy: !!root.study,
+            showComputer: root.vm.showComputer()
+          }, node)
         ]);
       })
     );
