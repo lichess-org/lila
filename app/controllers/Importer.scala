@@ -20,9 +20,10 @@ object Importer extends LilaController {
   def sendGame = OpenBody { implicit ctx =>
     implicit def req = ctx.body
     env.forms.importForm.bindFromRequest.fold(
-      failure => fuccess {
-        Ok(html.game.importGame(failure))
-      },
+      failure => negotiate(
+        html = Ok(html.game.importGame(failure)).fuccess,
+        api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
+      ),
       data => env.importer(data, ctx.userId) flatMap { game =>
         (data.analyse.isDefined && game.analysable) ?? {
           Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
