@@ -503,9 +503,14 @@ module.exports = function(opts) {
     return this.data.analysis || this.ceval.enabled();
   }
 
-  this.toggleAutoShapes = function(v) {
-    if (this.vm.showAutoShapes(v)) this.setAutoShapes();
+  var resetAutoShapes = function() {
+    if (this.vm.showAutoShapes()) this.setAutoShapes();
     else this.chessground.setAutoShapes([]);
+  }.bind(this);
+
+  this.toggleAutoShapes = function(v) {
+    this.vm.showAutoShapes(v);
+    resetAutoShapes();
   }.bind(this);
 
   this.toggleGauge = function() {
@@ -517,9 +522,9 @@ module.exports = function(opts) {
     if (!this.vm.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-    }
+      this.chessground.setAutoShapes([]);
+    } else resetAutoShapes();
   }.bind(this);
-  onToggleComputer();
 
   this.toggleComputer = function() {
     var value = !this.vm.showComputer();
@@ -563,6 +568,7 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
+  onToggleComputer();
   this.startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
