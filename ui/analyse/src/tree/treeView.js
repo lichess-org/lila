@@ -137,14 +137,14 @@ function renderMainlineMoveOf(ctx, node, opts) {
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
-  return moveTag(attrs, renderMove(node));
+  return moveTag(attrs, renderMove(ctx, node));
 }
 
-function renderMove(node) {
+function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     util.fixCrazySan(node.san),
-    node.glyphs ? renderGlyphs(node.glyphs) : null,
+    (node.glyphs && (ctx.isStudy || ctx.showComputer)) ? renderGlyphs(node.glyphs) : null,
     util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
       util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
@@ -287,7 +287,8 @@ module.exports = {
     var ctx = {
       ctrl: ctrl,
       concealOf: concealOf || emptyConcealOf,
-      showComputer: ctrl.vm.showComputer()
+      showComputer: ctrl.vm.showComputer(),
+      isStudy: !!ctrl.study
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,
