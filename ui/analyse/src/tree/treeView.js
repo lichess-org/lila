@@ -220,14 +220,10 @@ function renderEval(e) {
   };
 }
 
-var pgnMetaComment = /\[%[^\]]+\]/g;
-
 function renderMainlineCommentsOf(ctx, node, opts) {
   if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   var colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
   return node.comments.map(function(comment) {
-    comment.text = comment.text.replace(pgnMetaComment,'').trim();
-    if (!comment.text) return;
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     var klass = '';
     if (comment.text.indexOf('Inaccuracy.') === 0) klass = 'inaccuracy';
