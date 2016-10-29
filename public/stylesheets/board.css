@@ -497,12 +497,11 @@ div.table_wrap {
 }
 div.table {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 10px 0;
 }
 .lichess_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
-  margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
   position: relative;
@@ -659,12 +658,25 @@ div.table .spinner {
 }
 div.table div.username {
   white-space: nowrap;
+  font-size: 1.2em;
+  display: flex;
+  margin-left: 4px;
 }
 div.table div.username:first-child {
   margin-bottom: 6px;
 }
 div.table div.username:last-child {
   margin-top: 6px;
+}
+div.table div.username a {
+  display: flex;
+}
+div.table div.username name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.table div.username rating {
+  flex: 0 0 auto;
 }
 div.table div.username span.status {
   display: inline-block;
@@ -679,6 +691,10 @@ div.table div.username.on-game span.status span {
 }
 div.table div.username .line {
   vertical-align: -2.5px;
+}
+div.table div.username rating {
+  margin-left: 0.4em;
+  opacity: 0.7;
 }
 div.table .message {
   margin: 20px 0;
@@ -865,7 +881,7 @@ div.control .button.disabled {
 .lichess_ground .suggestion,
 .lichess_ground .pending,
 .lichess_ground .negotiation {
-  margin: 7px -10px 0 -10px;
+  margin-top: 7px;
   padding: 7px;
   background: #d0d0d0;
 }

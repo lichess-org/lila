@@ -43,14 +43,15 @@ module.exports = {
       }, [
         m('i', {
           class: 'line' + (user.patron ? ' patron' : '')
-        }), (user.title ? user.title + ' ' : '') + user.username,
-        rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
+        }), 
+        m('name', (user.title ? user.title + ' ' : '') + user.username),
+        rating ? m('rating', '(' + rating + (player.provisional ? '?' : '') + ')') : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
         }) : null
       ]),
-      playerOnGameIcon
+      // playerOnGameIcon
     ] : m('span.user_link', [
       player.name || 'Anonymous',
       d.game.source == 'relay' ? null : playerOnGameIcon
