@@ -13,7 +13,7 @@ final class Env(
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
   lazy val (connection, dbName) = {
-    val driver = new MongoDriver(Some(config))
+    val driver = MongoDriver(config)
 
     registerDriverShutdownHook(driver)
 

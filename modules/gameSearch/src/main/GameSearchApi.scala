@@ -100,6 +100,8 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     import lila.db.BSON.BSONJodaDateTimeHandler
     import reactivemongo.api._
     import reactivemongo.bson._
+    import reactivemongo.play.iteratees.cursorProducer
+
     var nbSkipped = 0
     val batchSize = 1000
     val maxGames = Int.MaxValue
@@ -109,7 +111,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
       selector = $doc("ca" $gt since),
       sort = $doc("ca" -> 1),
       readPreference = ReadPreference.secondaryPreferred)
-      .enumerate(maxGames, stopOnError = true) &>
+      .enumerator(maxGames) &>
       Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
       Enumeratee.mapM[Seq[Game]].apply[(Seq[Game], Set[String])] { games =>
         GameRepo filterAnalysed games.map(_.id) map games.->
