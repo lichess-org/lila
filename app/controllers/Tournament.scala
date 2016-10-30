@@ -174,6 +174,7 @@ object Tournament extends LilaController {
     implicit me =>
       NoLame {
         import play.api.i18n.Messages.Implicits._
+        import play.api.Play.current
         implicit val req = ctx.body
         negotiate (
           html = env.forms.create.bindFromRequest.fold(
@@ -184,7 +185,7 @@ object Tournament extends LilaController {
           api = _ => env.forms.create.bindFromRequest.fold(
             err => BadRequest(errorsAsJson(err)).fuccess,
             setup => env.api.createTournament(setup, me) map { tour =>
-              Ok(Json.obj("ok" -> true, "id" -> tour.id))
+              Ok(Json.obj("id" -> tour.id))
             })
         )
       }
