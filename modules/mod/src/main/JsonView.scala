@@ -53,3 +53,8 @@ final class JsonView(assessApi: AssessApi) {
     ).noNull
   }
 }
+
+object JsonView {
+
+  private[mod] implicit val modlogWrites: Writes[Modlog] = Json.writes[Modlog]
+}

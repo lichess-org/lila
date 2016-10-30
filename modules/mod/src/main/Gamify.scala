@@ -11,7 +11,7 @@ import lila.memo.AsyncCache
 
 final class Gamify(
     logColl: Coll,
-    reportColl: Coll,
+    reportApi: lila.report.ReportApi,
     historyColl: Coll) {
 
   import Gamify._
@@ -90,7 +90,7 @@ final class Gamify(
     }
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    reportColl.aggregate(
+    reportApi.coll.aggregate(
       Match($doc(
         "createdAt" -> dateRange(after, before),
         "processedBy" -> notLichess

@@ -96,9 +96,11 @@ object Mod extends LilaController {
   def assessment(username: String) = Open { implicit ctx =>
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
-        Env.mod.jsonView(user) map {
-          case None       => NotFound
-          case Some(data) => Ok(data)
+        Env.mod.jsonView(user) flatMap {
+          case None       => NotFound.fuccess
+          case Some(data) => Env.mod.userHistory(user) map { history =>
+            Ok(data + ("history" -> history))
+          }
         } map (_ as JSON)
       }
     }

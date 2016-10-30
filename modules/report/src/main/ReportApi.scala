@@ -6,8 +6,8 @@ import org.joda.time.DateTime
 import lila.db.dsl._
 import lila.user.{ User, UserRepo, NoteApi }
 
-private[report] final class ReportApi(
-    coll: Coll,
+final class ReportApi(
+    val coll: Coll,
     noteApi: NoteApi,
     isOnline: User.ID => Boolean) {
 
@@ -153,8 +153,18 @@ private[report] final class ReportApi(
 
   def nbUnprocessed = coll.countSel(unprocessedSelect)
 
-  def recent(nb: Int) =
-    coll.find($empty).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  def recent(nb: Int): Fu[List[Report]] =
+    coll.find($empty).sort($sort.createdDesc).list[Report](nb)
+
+  def recent(user: User, nb: Int): Fu[List[Report]] =
+    coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb)
+
+  def recentReportersOf(user: User): Fu[List[User.ID]] =
+    coll.distinct[String, List]("createdBy", $doc(
+      "user" -> user.id,
+      "createdAt" -> $gt(DateTime.now minusDays 3),
+      "createdBy" -> $ne("lichess")
+    ).some)
 
   def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUserAndNotes]] =
     recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
