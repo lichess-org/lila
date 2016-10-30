@@ -30,22 +30,24 @@ module.exports = {
     if (d.relay) return relayUser(d.relay[player.color], klass);
     var perf = user ? user.perfs[d.game.perf] : null;
     var rating = player.rating ? player.rating : (perf ? perf.rating : null);
-    var playerOnGameIcon = m('span.status.hint--top', {
-      'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
-    }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
-      'data-icon': (player.onGame ? '3' : '0')
-    }) : m('span', '?'))
+    var fullName = (user.title ? user.title + ' ' : '') + user.username;
+    var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
     return user ? [
       m('a', {
-        class: 'text ulpt user_link ' + (user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
+        class: 'text ulpt user_link ' +
+          (player.onGame ? 'online' : 'offline') +
+          (klass ? ' ' + klass : '') +
+          (fullName.length > 20 ? ' long' : '') +
+          (connecting ? ' connecting' : ''),
         href: '/@/' + user.username,
         target: game.isPlayerPlaying(d) ? '_blank' : '_self'
       }, [
         m('i', {
-          class: 'line' + (user.patron ? ' patron' : '')
-        }), 
-        m('name', (user.title ? user.title + ' ' : '') + user.username),
-        rating ? m('rating', '(' + rating + (player.provisional ? '?' : '') + ')') : null,
+          class: 'line' + (user.patron ? ' patron' : ''),
+          'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
+        }),
+        m('name', fullName),
+        rating ? m('rating', rating + (player.provisional ? '?' : '')) : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')

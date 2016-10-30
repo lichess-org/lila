@@ -14,12 +14,13 @@ var nullMove = m('move.empty', '');
 
 function renderMove(step, curPly, orEmpty) {
   if (!step) return orEmpty ? emptyMove : nullMove;
+  var san = step.san[0] === 'P' ? step.san.slice(1) : step.san;
   return {
     tag: 'move',
     attrs: step.ply !== curPly ? {} : {
       class: 'active'
     },
-    children: [step.san[0] === 'P' ? step.san.slice(1) : step.san]
+    children: [san]
   };
 }
 
@@ -212,6 +213,7 @@ module.exports = function(ctrl) {
           throttle: util.throttle(300, false, scrollNow)
         };
         scrollNow();
+        window.addEventListener('load', scrollNow);
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);

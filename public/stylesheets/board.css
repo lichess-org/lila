@@ -563,6 +563,7 @@ body.piece_letter .lichess_ground .replay move {
   font-size: 1em;
   text-align: center;
   font-style: italic;
+  padding-bottom: 5px;
 }
 .lichess_ground .replay .buttons {
   text-align: center;
@@ -658,7 +659,6 @@ div.table .spinner {
 }
 div.table div.username {
   white-space: nowrap;
-  font-size: 1.2em;
   display: flex;
   margin-left: 4px;
 }
@@ -670,10 +670,15 @@ div.table div.username:last-child {
 }
 div.table div.username a {
   display: flex;
+  width: 100%;
+  font-size: 1.25em;
 }
 div.table div.username name {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+div.table div.username a.long name {
+  letter-spacing: -0.5px;
 }
 div.table div.username rating {
   flex: 0 0 auto;
@@ -690,11 +695,23 @@ div.table div.username.on-game span.status span {
   color: #759900;
 }
 div.table div.username .line {
-  vertical-align: -2.5px;
+  margin-top: 1px;
+}
+@keyframes connecting {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+div.table a.connecting .line {
+  animation: connecting 0.9s ease-in-out infinite;
 }
 div.table div.username rating {
-  margin-left: 0.4em;
+  margin: 0 0.2em 0 0.3em;
   opacity: 0.7;
+  letter-spacing: -0.5px;
+}
+div.table div.username .rp {
+  margin-right: 0.2em;
 }
 div.table .message {
   margin: 20px 0;
@@ -843,6 +860,9 @@ div.control {
 div.control.icons {
   margin-top: 5px;
 }
+div.control.icons.above_buttons {
+  margin-bottom: 5px;
+}
 div.control.icons .button {
   font-size: 16px;
   height: 34px;
@@ -881,8 +901,7 @@ div.control .button.disabled {
 .lichess_ground .suggestion,
 .lichess_ground .pending,
 .lichess_ground .negotiation {
-  margin-top: 7px;
-  padding: 7px;
+  padding: 10px 7px;
   background: #d0d0d0;
 }
 .lichess_ground .suggestion p {
@@ -934,16 +953,16 @@ div.control .button.disabled {
 .lichess_ground .negotiation a.decline:hover {
   background: #dc322f!important;
 }
-.lichess_ground .follow_up {
-  margin: 7px 0;
-}
 .lichess_ground .follow_up .button {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  border-bottom-width: 0;
+  border-width: 1px 0 0 0;
   border-radius: 0;
   padding: 14px 0;
+}
+.lichess_ground .follow_up .button:first-child {
+  border-top: none;
 }
 .variant_crazyhouse .lichess_ground .follow_up .button {
   padding: 8px 0;
