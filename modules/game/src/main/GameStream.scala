@@ -13,7 +13,7 @@ final class GameStream(system: ActorSystem) {
 
   import GameStream._
 
-  def startedByUserIds(userIds: Set[User.ID]): Enumerator[JsValue] = {
+  def startedByUserIds(userIds: Set[User.ID]): Enumerator[String] = {
 
     def matches(game: Game) = game.userIds match {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
@@ -38,7 +38,7 @@ final class GameStream(system: ActorSystem) {
       }
     })
 
-    enumerator &> withInitialFen &> toJson
+    enumerator &> withInitialFen &> toJson &> stringify
   }
 
   private val withInitialFen =
@@ -46,6 +46,11 @@ final class GameStream(system: ActorSystem) {
 
   private val toJson =
     Enumeratee.map[Game.WithInitialFen].apply[JsValue](gameWithInitialFenWriter.writes)
+
+  private val stringify =
+    Enumeratee.map[JsValue].apply[String] { js =>
+      Json.stringify(js) + "\n"
+    }
 }
 
 object GameStream {
@@ -64,7 +69,6 @@ object GameStream {
         "speed" -> g.speed.key,
         "perf" -> PerfPicker.key(g),
         "createdAt" -> g.createdAt.getDate,
-        "lastMoveAt" -> (g.lastMoveDateTime | g.createdAt).getDate,
         "clock" -> g.clock.map { clock =>
           Json.obj(
             "initial" -> clock.limit,
