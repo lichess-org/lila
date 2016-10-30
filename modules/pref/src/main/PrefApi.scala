@@ -57,6 +57,7 @@ final class PrefApi(
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       insightShare = r.getD("insightShare", Pref.default.insightShare),
       keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
+      rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
       pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       tags = r.getD("tags", Pref.default.tags))
@@ -95,6 +96,7 @@ final class PrefApi(
       "confirmResign" -> o.confirmResign,
       "insightShare" -> o.insightShare,
       "keyboardMove" -> o.keyboardMove,
+      "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
       "pieceNotation" -> o.pieceNotation,
       "tags" -> o.tags)

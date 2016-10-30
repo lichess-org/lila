@@ -38,7 +38,8 @@ function makeConfig(data, ply, flip) {
       free: false,
       color: playing ? data.player.color : null,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
-      showDests: data.pref.destination
+      showDests: data.pref.destination,
+      rookCastle: data.pref.rookCastle
     },
     animation: {
       enabled: true,

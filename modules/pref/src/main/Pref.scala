@@ -36,6 +36,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
     tags: Map[String, String] = Map.empty) {
@@ -169,6 +170,15 @@ object Pref {
   }
 
   object KeyboardMove extends BooleanPref
+
+  object RookCastle {
+    val NO = 0
+    val YES = 1
+
+    val choices = Seq(
+      NO -> "Castle by moving by two squares",
+      YES -> "Castle by moving onto the rook")
+  }
 
   object MoveEvent {
     val CLICK = 0
@@ -336,6 +346,7 @@ object Pref {
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     tags = Map.empty)
