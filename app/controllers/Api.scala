@@ -150,6 +150,14 @@ object Api extends LilaController {
     } map toApiResult
   }
 
+  def gameStream = Action { req =>
+    import play.api.libs.EventSource
+    val userIds = get("users", req).??(_.split(',').toSet map lila.user.User.normalize)
+    Ok.chunked(
+      Env.game.stream.startedByUserIds(userIds) &> EventSource()
+    ) as "text/event-stream"
+  }
+
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult

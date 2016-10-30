@@ -329,6 +329,11 @@ object GameRepo {
     }
   }
 
+  def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
+    initialFen(game) map { fen =>
+      Game.WithInitialFen(game, fen.map(FEN.apply))
+    }
+
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] = games.map { game =>
     initialFen(game) map { fen =>
       game -> fen.map(FEN.apply)

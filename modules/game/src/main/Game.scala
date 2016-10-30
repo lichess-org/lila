@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color.{ White, Black }
-import chess.format.Uci
+import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
@@ -143,8 +143,8 @@ case class Game(
 
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove map {
-      case (orig, dest) => Uci.Move(orig, dest)
-    },
+    case (orig, dest) => Uci.Move(orig, dest)
+  },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
     checkCount = checkCount)
@@ -489,6 +489,8 @@ object Game {
 
   type ID = String
 
+  case class WithInitialFen(game: Game, fen: Option[FEN])
+
   val syntheticId = "synthetic"
 
   val maxPlayingRealtime = 125 // plus 200 correspondence games
@@ -552,7 +554,7 @@ object Game {
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
-    else BinaryFormat.piece write game.board.pieces,
+  else BinaryFormat.piece write game.board.pieces,
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,

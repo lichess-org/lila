@@ -107,7 +107,7 @@ private[api] final class GameApi(
         val validToken = check(token)
         games zip analysisOptions zip initialFens map {
           case ((g, analysisOption), initialFen) =>
-            gameToJson(g, makeUrl(g), analysisOption, initialFen,
+            gameToJson(g, analysisOption, initialFen,
               withAnalysis = withAnalysis,
               withMoves = withMoves,
               withOpening = withOpening,
@@ -123,7 +123,6 @@ private[api] final class GameApi(
 
   private def gameToJson(
     g: Game,
-    url: String,
     analysisOption: Option[Analysis],
     initialFen: Option[String],
     withAnalysis: Boolean,
@@ -186,6 +185,6 @@ private[api] final class GameApi(
       }
     },
     "winner" -> g.winnerColor.map(_.name),
-    "url" -> url
+    "url" -> makeUrl(g)
   ).noNull
 }
