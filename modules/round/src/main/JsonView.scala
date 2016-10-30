@@ -231,7 +231,8 @@ final class JsonView(
           "animationDuration" -> animationDuration(pov, pref),
           "highlight" -> pref.highlight,
           "destination" -> pref.destination,
-          "coords" -> pref.coords
+          "coords" -> pref.coords,
+          "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
         ),
         "path" -> pov.game.turns,
         "userAnalysis" -> true)

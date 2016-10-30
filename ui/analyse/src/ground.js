@@ -11,7 +11,8 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
     movable: {
       free: false,
       color: config.movable.color,
-      dests: config.movable.dests
+      dests: config.movable.dests,
+      rookCastle: data.pref.rookCastle
     },
     events: {
       move: onMove,
