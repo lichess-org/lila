@@ -668,7 +668,7 @@ div.table div.username:first-child {
 div.table div.username:last-child {
   margin-top: 6px;
 }
-div.table div.username a {
+div.table div.username .user_link {
   display: flex;
   width: 100%;
   font-size: 1.25em;
@@ -677,7 +677,7 @@ div.table div.username name {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-div.table div.username a.long name {
+div.table div.username .user_link.long name {
   letter-spacing: -0.5px;
 }
 div.table div.username rating {
