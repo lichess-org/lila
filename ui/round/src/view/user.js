@@ -8,9 +8,9 @@ function ratingDiff(player) {
   if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
 }
 
-function relayUser(player, klass) {
+function relayUser(player) {
   return m('span', {
-    class: 'text ' + klass,
+    class: 'text',
     'data-icon': '8'
   }, [
     (player.title ? player.title + ' ' : '') + player.name,
@@ -24,19 +24,18 @@ function aiName(ctrl, player) {
 }
 
 module.exports = {
-  userHtml: function(ctrl, player, klass) {
+  userHtml: function(ctrl, player) {
     var d = ctrl.data;
     var user = player.user;
-    if (d.relay) return relayUser(d.relay[player.color], klass);
+    if (d.relay) return relayUser(d.relay[player.color]);
     var perf = user ? user.perfs[d.game.perf] : null;
     var rating = player.rating ? player.rating : (perf ? perf.rating : null);
-    var fullName = (user.title ? user.title + ' ' : '') + user.username;
-    var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
-    return user ? [
-      m('a', {
+    if (user) {
+      var fullName = (user.title ? user.title + ' ' : '') + user.username;
+      var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
+      return m('a', {
         class: 'text ulpt user_link ' +
           (player.onGame ? 'online' : 'offline') +
-          (klass ? ' ' + klass : '') +
           (fullName.length > 20 ? ' long' : '') +
           (connecting ? ' connecting' : ''),
         href: '/@/' + user.username,
@@ -52,11 +51,19 @@ module.exports = {
         player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
         }) : null
-      ]),
-      // playerOnGameIcon
-    ] : m('span.user_link', [
-      player.name || 'Anonymous',
-      d.game.source == 'relay' ? null : playerOnGameIcon
+      ]);
+    }
+    var connecting = !player.onGame && ctrl.vm.firstSeconds;
+    return m('span', {
+      class: 'user_link ' +
+        (player.onGame ? 'online' : 'offline') +
+        (connecting ? ' connecting' : ''),
+    }, [
+      m('i', {
+        class: 'line',
+        'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
+      }),
+      m('name', player.name || 'Anonymous')
     ]);
   },
   userTxt: function(ctrl, player) {

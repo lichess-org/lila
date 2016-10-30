@@ -35,15 +35,12 @@ function compact(x) {
 }
 
 function renderPlayer(ctrl, player) {
-  return player.ai ? m('div.username.on-game', [
-    renderUser.aiName(ctrl, player),
-    m('span.status.hint--top', {
-      'data-hint': 'Artificial intelligence is ready'
-    }, m('span', {
-      'data-icon': '3'
-    }))
-  ]) : m('div', {
-      class: 'username ' + player.color + (player.onGame ? ' on-game' : '')
+  return player.ai ? m('div.username',
+    m('span.user_link.online', [
+      m('i.line'),
+      m('name', renderUser.aiName(ctrl, player))
+    ])) : m('div', {
+      class: 'username ' + player.color
     },
     renderUser.userHtml(ctrl, player)
   );
