@@ -13,7 +13,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     firewall: Firewall,
-    reportColl: Coll,
+    reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
     securityApi: lila.security.Api,
@@ -42,7 +42,7 @@ final class Env(
 
   lazy val logApi = new ModlogApi(logColl)
 
-  private lazy val notifier = new ModNotifier(notifyApi, reportColl)
+  private lazy val notifier = new ModNotifier(notifyApi, reportApi)
 
   private lazy val ratingRefund = new RatingRefund(
     scheduler = scheduler,
@@ -77,7 +77,7 @@ final class Env(
 
   lazy val gamify = new Gamify(
     logColl = logColl,
-    reportColl = reportColl,
+    reportApi = reportApi,
     historyColl = db(CollectionGamingHistory))
 
   lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
@@ -88,6 +88,10 @@ final class Env(
 
   lazy val jsonView = new JsonView(
     assessApi = assessApi)
+
+  lazy val userHistory = new UserHistory(
+    logApi = logApi,
+    reportApi = reportApi)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -114,7 +118,7 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
-    reportColl = lila.report.Env.current.reportColl,
+    reportApi = lila.report.Env.current.api,
     userSpy = lila.security.Env.current.userSpy,
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,

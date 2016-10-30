@@ -112,7 +112,9 @@ final class JsonView(
               },
               "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true),
               "moveEvent" -> pref.moveEvent,
-              "keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES).option(true)),
+              "keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES).option(true),
+              "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
+            ),
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),
             "takebackable" -> takebackable,
@@ -229,7 +231,8 @@ final class JsonView(
           "animationDuration" -> animationDuration(pov, pref),
           "highlight" -> pref.highlight,
           "destination" -> pref.destination,
-          "coords" -> pref.coords
+          "coords" -> pref.coords,
+          "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
         ),
         "path" -> pov.game.turns,
         "userAnalysis" -> true)

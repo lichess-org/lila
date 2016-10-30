@@ -96,6 +96,10 @@
           <h2>Input moves with the keyboard</h2>
           @base.form.radios(form("behavior.keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
         </li>
+        <li>
+          <h2>Castle by moving the king by two squares, or onto the rook</h2>
+          @base.form.radios(form("behavior.rookCastle"), lila.pref.Pref.RookCastle.choices)
+        </li>
       </ul>
       }
       @categFieldset(PrefCateg.Privacy, categ) {

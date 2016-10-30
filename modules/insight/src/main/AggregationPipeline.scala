@@ -57,9 +57,9 @@ private final class AggregationPipeline {
   private val regroupStacked = GroupField("_id.dimension")(
     "nb" -> SumField("v"),
     "ids" -> FirstField("ids"),
-    "stack" -> Push(BSONDocument(
-      "metric" -> "_id.metric",
-      "v" -> "v"))).some
+    "stack" -> Push($doc(
+      "metric" -> "$_id.metric",
+      "v" -> "$v"))).some
   private val sliceIds = Project($doc(
     "_id" -> true,
     "v" -> true,

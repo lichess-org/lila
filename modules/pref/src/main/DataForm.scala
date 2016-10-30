@@ -26,7 +26,8 @@ object DataForm {
       "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
       "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
       "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-      "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _))
+      "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _)),
+      "rookCastle" -> optional(number.verifying(Set(0, 1) contains _))
     )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
@@ -55,7 +56,8 @@ object DataForm {
     autoThreefold: Int,
     submitMove: Int,
     confirmResign: Int,
-    keyboardMove: Option[Int])
+    keyboardMove: Option[Int],
+    rookCastle: Option[Int])
 
   case class PrefData(
       display: DisplayData,
@@ -90,6 +92,7 @@ object DataForm {
       confirmResign = behavior.confirmResign,
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+      rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent)
   }
@@ -113,7 +116,8 @@ object DataForm {
         autoThreefold = pref.autoThreefold,
         submitMove = pref.submitMove,
         confirmResign = pref.confirmResign,
-        keyboardMove = pref.keyboardMove.some),
+        keyboardMove = pref.keyboardMove.some,
+        rookCastle = pref.rookCastle.some),
       clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
       clockSound = pref.clockSound.fold(1, 0),
