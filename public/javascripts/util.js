@@ -296,7 +296,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   var lastSeenActive = new Date();
   var onActivity = function() {
     if (!active) {
-      console.log('Wake up');
+      // console.log('Wake up');
       onWakeUp();
     }
     active = true;
@@ -321,7 +321,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   };
   setInterval(function() {
     if (active && new Date() - lastSeenActive > delay) {
-      console.log('Idle mode');
+      // console.log('Idle mode');
       onIdle();
       active = false;
     }

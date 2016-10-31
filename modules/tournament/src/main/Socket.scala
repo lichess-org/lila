@@ -50,7 +50,7 @@ private[tournament] final class Socket(
     case StartGame(game) =>
       game.players foreach { player =>
         player.userId foreach { userId =>
-          membersByUserId(userId) foreach { member =>
+          firstMemberByUserId(userId) foreach { member =>
             notifyMember("redirect", game fullIdOf player.color)(member)
           }
         }

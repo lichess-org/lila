@@ -1,5 +1,5 @@
 var m = require('mithril');
-var socket = require('./socket');
+var makeSocket = require('./socket');
 var xhr = require('./xhr');
 var pagination = require('./pagination');
 var util = require('chessground').util;
@@ -12,7 +12,7 @@ module.exports = function(env) {
 
   this.userId = env.userId;
 
-  this.socket = new socket(env.socketSend, this);
+  this.socket = makeSocket(env.socketSend, this);
 
   this.vm = {
     page: this.data.standing.page,
@@ -45,10 +45,25 @@ module.exports = function(env) {
     redirectToMyGame();
   }.bind(this);
 
+  var lastStorage = lichess.storage.make('last-redirect');
+  var redirected = null;
+  lastStorage.listen(function(e) {
+    if (e.newValue) redirected = e.newValue;
+  });
+
   var redirectToMyGame = function() {
     var gameId = tour.myCurrentGameId(this);
-    if (gameId && lichess.storage.get('last-game') !== gameId)
-      location.href = '/' + gameId;
+    if (gameId) this.redirectFirst(gameId);
+  }.bind(this);
+
+  this.redirectFirst = function(gameId, rightNow) {
+    var delay = (rightNow || lichess.isPageVisible) ? 10 : (1000 + Math.random() * 500);
+    setTimeout(function() {
+      if (redirected !== gameId) {
+        lastStorage.set(gameId);
+        location.href = '/' + gameId;
+      }
+    }.bind(this), delay);
   }.bind(this);
 
   this.loadPage = function(data) {
