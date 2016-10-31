@@ -40,7 +40,11 @@ function renderResult(ctrl) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return [
       m('p.result', result),
-      m('p.status', [
+      m('p.status', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) ctrl.vm.autoScroll.now();
+        }
+      }, [
         renderStatus(ctrl),
         winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
