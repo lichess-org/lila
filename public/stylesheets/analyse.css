@@ -1089,16 +1089,11 @@ body.piece_letter .tview2 move {
 .tview2 .hide {
   display: none;
 }
-.lichess_ground .result {
-  font-weight: bold;
-  font-size: 1.3em;
-  text-align: center;
-}
+.lichess_ground .result,
 .lichess_ground .status {
-  font-size: 1em;
-  text-align: center;
-  font-style: italic;
-  margin-bottom: 5px;
+  background: #f8f8f8;
+}
+.lichess_ground .result {
 }
 div.underboard {
   margin-top: 25px;

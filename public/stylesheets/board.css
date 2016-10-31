@@ -553,15 +553,18 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .replay .result {
-  font-weight: bold;
-  font-size: 1.3em;
-  padding: 4px 0;
+.lichess_ground .result,
+.lichess_ground .status {
   text-align: center;
 }
-.lichess_ground .replay .status {
+.lichess_ground .result {
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 7px 0 4px 0;
+}
+.lichess_ground .status {
   font-size: 1em;
-  text-align: center;
   font-style: italic;
   padding-bottom: 5px;
 }
