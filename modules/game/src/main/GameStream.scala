@@ -4,7 +4,7 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-import actorApi.StartGame
+import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
 import lila.common.PimpedJson._
 import lila.user.User
@@ -25,10 +25,11 @@ final class GameStream(system: ActorSystem) {
       onStart = channel => {
       val actor = system.actorOf(Props(new Actor {
         def receive = {
-          case StartGame(game) if matches(game) => channel push game
+          case StartGame(game) if matches(game)        => channel push game
+          case FinishGame(game, _, _) if matches(game) => channel push game
         }
       }))
-      system.lilaBus.subscribe(actor, 'startGame)
+      system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
       stream = actor.some
     },
       onComplete = {
@@ -69,6 +70,7 @@ object GameStream {
         "speed" -> g.speed.key,
         "perf" -> PerfPicker.key(g),
         "createdAt" -> g.createdAt.getDate,
+        "status" -> g.status.id,
         "clock" -> g.clock.map { clock =>
           Json.obj(
             "initial" -> clock.limit,
