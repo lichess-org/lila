@@ -575,18 +575,11 @@ body.piece_letter .lichess_ground .replay move {
 .lichess_ground .replay .fbt {
   padding: 5px 10px;
 }
-.lichess_ground .replay a.flip {
+.lichess_ground .replay .flip {
   margin-right: 25px;
 }
-.lichess_ground .replay a.analysis {
+.lichess_ground .replay .analysis {
   margin-left: 10px;
-}
-.lichess_ground .replay a.disabled {
-  cursor: default;
-}
-.lichess_ground .replay a.disabled::before {
-  opacity: 0.4;
-  text-shadow: none !important;
 }
 .pocket {
   border-radius: 3px;
@@ -663,7 +656,7 @@ div.table div.username:first-child {
   margin-bottom: 6px;
 }
 div.table div.username:last-child {
-  margin-top: 6px;
+  padding-top: 6px;
 }
 div.table div.username .user_link {
   display: flex;
@@ -833,25 +826,13 @@ div.table_wrap .tournament_rank.bottom {
 div.table_next {
   top: 145px;
 }
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
 div.control {
   text-align: center;
   width: 100%;
 }
-div.control.icons {
-  margin-top: 5px;
-}
-div.control.icons.above_buttons {
-  margin-bottom: 5px;
-}
-div.control.icons .button {
-  font-size: 16px;
-  height: 34px;
-  padding: 0 10px;
-  margin: 0 3px;
+div.control.icons .fbt {
+  font-size: 18px;
+  padding: 8px 17px;
 }
 div.control.icons .takeback-yes span:before {
   display: inline-block;

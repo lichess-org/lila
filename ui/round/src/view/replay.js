@@ -92,7 +92,7 @@ function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
   var attrs = {
     class: classSet({
-      'button analysis': true,
+      'fbt analysis': true,
       'hint--top': !showInfo,
       'hint--bottom': showInfo,
       'glowed': showInfo,
@@ -155,7 +155,7 @@ function renderButtons(ctrl) {
       }
     })
   }, [
-    m('a', flipAttrs, flipIcon), [
+    m('button', flipAttrs, flipIcon), [
       ['W', firstPly],
       ['Y', ctrl.vm.ply - 1],
       ['X', ctrl.vm.ply + 1],

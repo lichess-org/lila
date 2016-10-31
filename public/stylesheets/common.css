@@ -1635,20 +1635,23 @@ div.pagination span.current,
   outline: none;
   padding: 10px 13px;
   text-transform: uppercase;
-  cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  cursor: pointer;
 }
 .fbt:disabled {
   opacity: 0.5;
+  cursor: default;
+}
+.fbt:disabled * {
+  opacity: 0.5;
 }
 .fbt:not(:disabled):hover {
-  cursor: pointer;
   background: #3893E8;
   color: #fff;
 }
-.fbt:active,
+.fbt:not(:disabled):active,
 .fbt.active {
   background: #5ba6ec;
   color: #fff;
