@@ -105,9 +105,10 @@ object Lobby extends LilaController {
         cache(RequestKey(
           uri = ctx.req.uri,
           headers = new Headers(
-          ctx.req.headers.get(COOKIE) ?? { cookie =>
-            List(COOKIE -> cookie)
-          }
+          List(HOST -> ctx.req.host) :::
+            ctx.req.headers.get(COOKIE).?? { cookie =>
+              List(COOKIE -> cookie)
+            }
         )))
       }
   }
