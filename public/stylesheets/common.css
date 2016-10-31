@@ -1656,6 +1656,9 @@ div.pagination span.current,
   background: #5ba6ec;
   color: #fff;
 }
+.fbt.active span {
+  color: #fff;
+}
 .fbt.active-soft,
 .fbt.active-soft:hover {
   color: #fff !important;
