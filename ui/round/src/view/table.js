@@ -191,7 +191,7 @@ module.exports = function(ctrl) {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : ''),
       config: function(el, isUpdate) {
         if (!isUpdate) setTimeout(function() {
-          lichess.powertip.manualUser(el);
+          lichess.powertip.manualUserIn(el, 's');
         }, 500);
       }
     }, [
