@@ -205,21 +205,22 @@ object Study extends LilaController {
   }
 
   private val CloneLimitPerUser = new lila.memo.RateLimit(
-    credits = 10,
+    credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
     key = "clone_study.user")
 
   private val CloneLimitPerIP = new lila.memo.RateLimit(
-    credits = 20,
+    credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
     key = "clone_study.ip")
 
   def cloneApply(id: String) = Auth { implicit ctx => me =>
     implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-    CloneLimitPerUser(me.id, cost = 1) {
-      CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
+    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+    CloneLimitPerUser(me.id, cost = cost) {
+      CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
         OptionFuResult(env.api.byId(id)) { prev =>
           CanViewResult(prev) {
             env.api.clone(me, prev) map { study =>
