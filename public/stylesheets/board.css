@@ -676,7 +676,9 @@ div.table div.username rating {
   letter-spacing: -0.5px;
 }
 div.table div.username .line {
-  margin-top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @keyframes connecting {
   0% { opacity: 0.1; }
