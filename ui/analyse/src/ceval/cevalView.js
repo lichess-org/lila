@@ -112,7 +112,7 @@ module.exports = {
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          threatMode ? 'Show threat' : 'Local ' + util.aiName(ctrl.data.game.variant),
+          threatMode ? 'Show threat' : 'Local Stockfish',
           m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
       ] : m('help',
@@ -139,7 +139,7 @@ module.exports = {
   },
   renderPvs: function(ctrl) {
     if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.ceval.enabled()) return;
-    var multiPv = ctrl.data.game.variant.key === 'crazyhouse' ? 1 : ctrl.ceval.multiPv();
+    var multiPv = ctrl.ceval.multiPv();
     var pvs, threat = false;
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
