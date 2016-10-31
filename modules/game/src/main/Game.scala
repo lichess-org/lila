@@ -497,6 +497,7 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
+    chess.variant.Crazyhouse,
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,

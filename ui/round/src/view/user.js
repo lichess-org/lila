@@ -19,8 +19,7 @@ function relayUser(player) {
 }
 
 function aiName(ctrl, player) {
-  var name = ctrl.data.game.variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
-  return ctrl.trans('aiNameLevelAiLevel', name, player.ai);
+  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
 }
 
 module.exports = {
