@@ -42,7 +42,11 @@ function renderResult(ctrl) {
       m('p.result', result),
       m('p.status', {
         config: function(el, isUpdate) {
-          if (!isUpdate) ctrl.vm.autoScroll.now();
+          if (isUpdate) return;
+          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll.now();
+          else setTimeout(function() {
+            ctrl.vm.autoScroll.now();
+          }, 200);
         }
       }, [
         renderStatus(ctrl),
