@@ -23,9 +23,8 @@ module.exports = {
     };
     return m('button', {
       key: socketMsg || 'click',
-      class: 'button hint--bottom ' + socketMsg + classSet({
-        ' disabled': !enabled()
-      }),
+      class: 'fbt hint--bottom ' + socketMsg,
+      disabled: !enabled(),
       'data-hint': ctrl.trans(hint),
       config: util.bindOnce('click', function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);

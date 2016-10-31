@@ -40,7 +40,15 @@ function renderResult(ctrl) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return [
       m('p.result', result),
-      m('p.status', [
+      m('p.status', {
+        config: function(el, isUpdate) {
+          if (isUpdate) return;
+          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll.now();
+          else setTimeout(function() {
+            ctrl.vm.autoScroll.now();
+          }, 200);
+        }
+      }, [
         renderStatus(ctrl),
         winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
@@ -84,7 +92,7 @@ function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
   var attrs = {
     class: classSet({
-      'button analysis': true,
+      'fbt analysis': true,
       'hint--top': !showInfo,
       'hint--bottom': showInfo,
       'glowed': showInfo,
@@ -129,7 +137,7 @@ function renderButtons(ctrl) {
   var firstPly = round.firstPly(d);
   var lastPly = round.lastPly(d);
   var flipAttrs = {
-    class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
+    class: 'fbt flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
     'data-act': 'flip'
   };
@@ -147,22 +155,20 @@ function renderButtons(ctrl) {
       }
     })
   }, [
-    m('a', flipAttrs, flipIcon), [
+    m('button', flipAttrs, flipIcon), m('nav', [
       ['W', firstPly],
       ['Y', ctrl.vm.ply - 1],
       ['X', ctrl.vm.ply + 1],
       ['V', lastPly]
     ].map(function(b, i) {
       var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return m('a', {
-        class: 'button ' + classSet({
-          disabled: (ctrl.broken || !enabled),
-          glowed: i === 3 && ctrl.isLate() && !ctrl.vm.initializing
-        }),
+      return m('button', {
+        class: 'fbt' + (i === 3 && ctrl.isLate() && !ctrl.vm.initializing ? ' glowed' : ''),
+        disabled: (ctrl.broken || !enabled),
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
       });
-    }), game.userAnalysable(d) ? analyseButton(ctrl) : null
+    })), game.userAnalysable(d) ? analyseButton(ctrl) : m('div.noop')
   ]);
 }
 

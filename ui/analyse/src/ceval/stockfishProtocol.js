@@ -5,14 +5,20 @@ function fenToUci(fen) {
   // lichess: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 +0+0
   // stockfish: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 3+3 0 1
   var m = fen.match(/^(.+) (w|b) (.+) (.+) (\d+) (\d+) \+(\d+)\+(\d+)$/);
-  if (!m) return fen;
-  else {
+  if (m) {
     var w = parseInt(m[7], 10);
     var b = parseInt(m[8], 10);
     var checks = (3 - w) + '+' + (3 - b);
-    var fen = [m[1], m[2], m[3], m[4], checks, m[5], m[6]].join(' ');
-    return fen;
+    return [m[1], m[2], m[3], m[4], checks, m[5], m[6]].join(' ');
   }
+
+  // convert crazyhouse fens
+  // lichess: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1
+  // stockfish: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR[] w KQkq - 0 1
+  m = fen.match(/^((?:\w+\/){7}\w+)\/([PNBRQKpnbrqk]*) (.*)$/);
+  if (m) return m[1] + '[' + m[2] + '] ' + m[3];
+
+  return fen;
 }
 
 module.exports = function(worker, opts) {

@@ -553,43 +553,32 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .replay .result {
-  font-weight: bold;
-  font-size: 1.3em;
-  padding: 4px 0;
+.lichess_ground .result,
+.lichess_ground .status {
   text-align: center;
 }
-.lichess_ground .replay .status {
+.lichess_ground .result {
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 7px 0 4px 0;
+}
+.lichess_ground .status {
   font-size: 1em;
-  text-align: center;
   font-style: italic;
   padding-bottom: 5px;
 }
 .lichess_ground .replay .buttons {
-  text-align: center;
-  margin: 8px 0 5px 0;
+  border-top: 1px solid #e2e2e2;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
 }
-.lichess_ground .replay a.button {
-  opacity: 0.9;
-  padding: 4px 7px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin-left: -1px;
-  margin-right: -1px;
+.lichess_ground .replay .fbt {
+  padding: 5px 10px;
 }
-.lichess_ground .replay a.flip {
-  margin-right: 10px;
-}
-.lichess_ground .replay a.analysis {
-  margin-left: 10px;
-}
-.lichess_ground .replay a.disabled {
-  cursor: default;
-}
-.lichess_ground .replay a.disabled::before {
-  opacity: 0.4;
-  text-shadow: none !important;
+.lichess_ground .replay .noop {
+  width: 30px;
 }
 .pocket {
   border-radius: 3px;
@@ -666,7 +655,7 @@ div.table div.username:first-child {
   margin-bottom: 6px;
 }
 div.table div.username:last-child {
-  margin-top: 6px;
+  padding-top: 6px;
 }
 div.table div.username .user_link {
   display: flex;
@@ -687,7 +676,9 @@ div.table div.username rating {
   letter-spacing: -0.5px;
 }
 div.table div.username .line {
-  margin-top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @keyframes connecting {
   0% { opacity: 0.1; }
@@ -803,7 +794,7 @@ div.table_wrap a.moretime {
   position: absolute;
   font-size: 20px;
   right: 0;
-  top: 2px;
+  top: 7px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -836,25 +827,13 @@ div.table_wrap .tournament_rank.bottom {
 div.table_next {
   top: 145px;
 }
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
 div.control {
   text-align: center;
   width: 100%;
 }
-div.control.icons {
-  margin-top: 5px;
-}
-div.control.icons.above_buttons {
-  margin-bottom: 5px;
-}
-div.control.icons .button {
-  font-size: 16px;
-  height: 34px;
-  padding: 0 10px;
-  margin: 0 3px;
+div.control.icons .fbt {
+  font-size: 18px;
+  padding: 8px 17px;
 }
 div.control.icons .takeback-yes span:before {
   display: inline-block;
