@@ -257,27 +257,6 @@ ol.scheduled_tournaments a {
   justify-content: space-between;
   position: relative;
 }
-.fbt {
-  background: none;
-  border: none;
-  outline: none;
-  padding: 10px 13px;
-  text-transform: uppercase;
-  cursor: default;
-}
-.fbt:disabled {
-  opacity: 0.5;
-}
-.fbt:not(:disabled):hover {
-  cursor: pointer;
-  background: #3893E8;
-  color: #fff;
-}
-.fbt:active,
-.fbt.active {
-  background: #5ba6ec;
-  color: #fff;
-}
 #tournament .highlight {
   position: absolute;
   right: 5px;

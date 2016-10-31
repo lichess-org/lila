@@ -569,20 +569,14 @@ body.piece_letter .lichess_ground .replay move {
   padding-bottom: 5px;
 }
 .lichess_ground .replay .buttons {
-  text-align: center;
-  margin: 8px 0 5px 0;
+  border-top: 1px solid #e2e2e2;
+  font-size: 11px;
 }
-.lichess_ground .replay a.button {
-  opacity: 0.9;
-  padding: 4px 7px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin-left: -1px;
-  margin-right: -1px;
+.lichess_ground .replay .fbt {
+  padding: 5px 10px;
 }
 .lichess_ground .replay a.flip {
-  margin-right: 10px;
+  margin-right: 25px;
 }
 .lichess_ground .replay a.analysis {
   margin-left: 10px;

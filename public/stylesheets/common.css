@@ -1629,6 +1629,30 @@ div.pagination span.current,
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
+.fbt {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px 13px;
+  text-transform: uppercase;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.fbt:disabled {
+  opacity: 0.5;
+}
+.fbt:not(:disabled):hover {
+  cursor: pointer;
+  background: #3893E8;
+  color: #fff;
+}
+.fbt:active,
+.fbt.active {
+  background: #5ba6ec;
+  color: #fff;
+}
 .fbt.active-soft,
 .fbt.active-soft:hover {
   color: #fff !important;

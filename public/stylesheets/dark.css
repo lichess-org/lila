@@ -143,6 +143,8 @@ body.dark div.user_show .note_zone div,
 body.dark .lichess_ground .replay,
 body.dark .lichess_ground .areplay,
 body.dark .lichess_ground .result,
+body.dark .lichess_ground .replay .buttons,
+body.dark .lichess_ground .replay .moves,
 body.dark .tview2 > index,
 body.dark .tview2 > index + move,
 body.dark div.analysis_menu,
@@ -416,8 +418,7 @@ body.dark #challenge_app .owner,
 body.dark group.radio,
 body.dark group.radio label,
 body.dark .ui-slider-handle,
-body.dark .ui-widget-content,
-body.dark .lichess_ground .replay .moves {
+body.dark .ui-widget-content {
   border-color: #323232;
 }
 body.dark #notify_app .site_notification,

@@ -137,7 +137,7 @@ function renderButtons(ctrl) {
   var firstPly = round.firstPly(d);
   var lastPly = round.lastPly(d);
   var flipAttrs = {
-    class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
+    class: 'fbt flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
     'data-act': 'flip'
   };
@@ -162,11 +162,9 @@ function renderButtons(ctrl) {
       ['V', lastPly]
     ].map(function(b, i) {
       var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return m('a', {
-        class: 'button ' + classSet({
-          disabled: (ctrl.broken || !enabled),
-          glowed: i === 3 && ctrl.isLate() && !ctrl.vm.initializing
-        }),
+      return m('button', {
+        class: 'fbt' + (i === 3 && ctrl.isLate() && !ctrl.vm.initializing ? ' glowed' : ''),
+        disabled: (ctrl.broken || !enabled),
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
       });

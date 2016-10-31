@@ -734,24 +734,6 @@ body.piece_letter .tablebase td:first-child {
 .action_menu h2:after {
   left: 8px;
 }
-.action_menu .fbt {
-  background: none;
-  border: none;
-  outline: none;
-  padding: 10px 13px;
-  text-transform: uppercase;
-  cursor: default;
-}
-.action_menu .fbt:hover {
-  cursor: pointer;
-  background: #3893E8;
-  color: #fff;
-}
-.action_menu .fbt:active,
-.action_menu .fbt.active {
-  background: #5ba6ec;
-  color: #fff;
-}
 .action_menu .icon {
   display: block;
   font-size: 2em;
