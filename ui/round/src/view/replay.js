@@ -155,7 +155,7 @@ function renderButtons(ctrl) {
       }
     })
   }, [
-    m('button', flipAttrs, flipIcon), [
+    m('button', flipAttrs, flipIcon), m('nav', [
       ['W', firstPly],
       ['Y', ctrl.vm.ply - 1],
       ['X', ctrl.vm.ply + 1],
@@ -168,7 +168,7 @@ function renderButtons(ctrl) {
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
       });
-    }), game.userAnalysable(d) ? analyseButton(ctrl) : null
+    })), game.userAnalysable(d) ? analyseButton(ctrl) : m('div.noop')
   ]);
 }
 

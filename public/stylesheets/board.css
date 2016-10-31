@@ -571,15 +571,14 @@ body.piece_letter .lichess_ground .replay move {
 .lichess_ground .replay .buttons {
   border-top: 1px solid #e2e2e2;
   font-size: 11px;
+  display: flex;
+  justify-content: space-between;
 }
 .lichess_ground .replay .fbt {
   padding: 5px 10px;
 }
-.lichess_ground .replay .flip {
-  margin-right: 25px;
-}
-.lichess_ground .replay .analysis {
-  margin-left: 10px;
+.lichess_ground .replay .noop {
+  width: 30px;
 }
 .pocket {
   border-radius: 3px;
