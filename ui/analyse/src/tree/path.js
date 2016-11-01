@@ -1,14 +1,3 @@
-function copy(obj, newValues) {
-  var k, c = {};
-  for (k in obj) {
-    c[k] = obj[k];
-  }
-  for (k in newValues) {
-    c[k] = newValues[k];
-  }
-  return c;
-}
-
 module.exports = {
 
   root: '',

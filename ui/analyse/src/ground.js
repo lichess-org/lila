@@ -1,5 +1,4 @@
 var chessground = require('chessground');
-var game = require('game').game;
 
 function makeConfig(data, config, onMove, onNewPiece, isStudy) {
   return {

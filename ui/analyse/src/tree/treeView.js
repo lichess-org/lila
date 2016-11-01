@@ -36,9 +36,6 @@ function renderIndex(ply, withDots) {
   };
 }
 
-function noCompNode(node) {
-  return !node.comp;
-}
 function nonEmpty(x) {
   return !!x;
 }

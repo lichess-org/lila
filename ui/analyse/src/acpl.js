@@ -57,7 +57,7 @@ module.exports = function(ctrl) {
       m('tbody', [
         advices.map(function(a) {
           var nb = d.analysis[color][a[0]];
-          attrs = nb ? {
+          var attrs = nb ? {
             class: 'symbol',
             'data-color': color,
             'data-symbol': a[2]

@@ -150,7 +150,7 @@ function jumpButton(icon, effect) {
       'data-icon': icon
     }
   };
-};
+}
 
 var cachedButtons = (function() {
   return m('div.jumps', [

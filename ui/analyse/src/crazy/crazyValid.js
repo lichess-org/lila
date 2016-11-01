@@ -1,4 +1,3 @@
-var game = require('game').game;
 var util = require('../util');
 
 module.exports = {

@@ -1,6 +1,5 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
-var partial = require('chessground').util.partial;
 var util = require('../util');
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
@@ -28,13 +27,6 @@ module.exports = {
       },
       size: function() {
         return list().length;
-      },
-      rename: function(id, name) {
-        send("renameChapter", {
-          id: id,
-          name: name
-        });
-        confing(null);
       },
       sort: function(ids) {
         send("sortChapters", ids);
