@@ -12,8 +12,6 @@ private final class Monitor(
     sequencer: lila.hub.FutureSequencer,
     scheduler: lila.common.Scheduler) {
 
-  private case class AnalysisMeta(time: Int, nodes: Int, nps: Int, depth: Int, pvSize: Int)
-
   private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
     case (acc, a) => acc + f(a).getOrElse(0)
   }
