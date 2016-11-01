@@ -1640,6 +1640,13 @@ div.pagination span.current,
   -ms-user-select: none;
   cursor: pointer;
 }
+@keyframes fbt-glowing {
+  50% { background: rgba(56,147,232,0.3); }
+}
+.fbt.glowed {
+  box-shadow: none;
+  animation: fbt-glowing 1.5s ease-in-out infinite;
+}
 .fbt:disabled {
   opacity: 0.5;
   cursor: default;
@@ -1650,6 +1657,7 @@ div.pagination span.current,
 .fbt:not(:disabled):hover {
   background: #3893E8;
   color: #fff;
+  animation: none;
 }
 .fbt:not(:disabled):active,
 .fbt.active {
