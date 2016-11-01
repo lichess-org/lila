@@ -3,9 +3,9 @@ package lila.fishnet
 import com.gilt.gfc.semver.SemVer
 import scala.util.{ Try, Success, Failure }
 
-object ClientVersion {
+private final class ClientVersion(minVersionString: String) {
 
-  val minVersion = SemVer("1.7.0")
+  val minVersion = SemVer(minVersionString)
 
   def accept(v: Client.Version): Try[Unit] = Try(SemVer(v.value)) match {
     case Success(version) if version >= minVersion => Success(())

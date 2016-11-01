@@ -18,6 +18,7 @@ final class FishnetApi(
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
+    clientVersion: ClientVersion,
     offlineMode: Boolean,
     analysisNodes: Int)(implicit system: akka.actor.ActorSystem) {
 
@@ -32,7 +33,7 @@ final class FishnetApi(
     else repo.getEnabledClient(req.fishnet.apikey)
   } map {
     case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
-    case Some(client) => ClientVersion accept req.fishnet.version map (_ => client)
+    case Some(client) => clientVersion accept req.fishnet.version map (_ => client)
   } flatMap {
     case Success(client) => repo.updateClientInstance(client, req instance ip) map Success.apply
     case failure         => fuccess(failure)
