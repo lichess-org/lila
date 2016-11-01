@@ -94,11 +94,11 @@ module.exports = function(opts) {
     } else {
       // send fen after latest castling move and the following moves
       for (var i = 1; i < steps.length; i++) {
-        step = steps[i];
-        if (step.san.indexOf('O-O') === 0) {
+        var s = steps[i];
+        if (s.san.indexOf('O-O') === 0) {
           work.moves = [];
-          work.initialFen = step.fen;
-        } else work.moves.push(step.uci);
+          work.initialFen = s.fen;
+        } else work.moves.push(s.uci);
       }
     }
 
