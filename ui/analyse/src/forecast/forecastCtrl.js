@@ -1,7 +1,5 @@
 var m = require('mithril');
 
-var partial = require('chessground').util.partial;
-
 module.exports = function(cfg, saveUrl) {
 
   var forecasts = cfg.steps || [];

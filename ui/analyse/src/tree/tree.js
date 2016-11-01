@@ -1,18 +1,17 @@
 var treePath = require('./path');
 var ops = require('./ops');
-var defined = require('../util').defined;
 
 module.exports = function(root) {
 
   function firstPly() {
     return root.ply;
-  };
+  }
 
   function lastNode() {
     return ops.findInMainline(root, function(node) {
       return !node.children.length;
     });
-  };
+  }
 
   function lastPly() {
     return lastNode().ply;

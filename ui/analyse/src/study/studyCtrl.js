@@ -1,7 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
-var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;

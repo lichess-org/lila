@@ -1,4 +1,3 @@
-var m = require('mithril');
 var util = require('./util');
 var initialFen = require('chessground').fen.initial;
 

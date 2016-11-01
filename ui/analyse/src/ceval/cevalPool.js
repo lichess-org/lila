@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protocolOpts) {
   var worker, protocol, api;
 

@@ -1,5 +1,4 @@
 var control = require('./control');
-var partial = require('chessground').util.partial;
 var m = require('mithril');
 
 module.exports = function(ctrl) {

@@ -12,7 +12,7 @@ function memberActivity(onIdle) {
   };
   schedule();
   return schedule;
-};
+}
 
 module.exports = {
   ctrl: function(initDict, myId, ownerId, send, setTab, startTour, notif) {

@@ -1,6 +1,5 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var partial = chessground.util.partial;
 var classSet = chessground.util.classSet;
 var renderConfig = require('./explorerConfig').view;
 var util = require('../util');
@@ -196,7 +195,6 @@ function showGameEnd(ctrl, title) {
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data && data.opening) {
-    var db = ctrl.explorer.config.data.db.selected();
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
