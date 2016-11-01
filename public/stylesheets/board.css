@@ -831,6 +831,10 @@ div.control {
   text-align: center;
   width: 100%;
 }
+div.control.icons {
+  display: flex;
+  justify-content: center;
+}
 div.control.icons .fbt {
   font-size: 18px;
   padding: 8px 17px;
@@ -848,7 +852,6 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
 }
 div.control.icons .resign_confirm {
-  display: inline-block;
   position: relative;
 }
 div.control.icons .resign_confirm .yes {
@@ -856,9 +859,12 @@ div.control.icons .resign_confirm .yes {
   color: #fff;
 }
 div.control.icons .resign_confirm .no {
+  padding: 8px 0;
+  width: 30px;
+  text-align: center;
   position: absolute;
   top: 0;
-  left: 39px;
+  right: -30px;
 }
 div.control .button.disabled {
   opacity: 0.5;
@@ -1049,11 +1055,11 @@ div.game_tournament .clock {
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament table.standing tr.me td:first-child {
+div.game_tournament tr.me td:first-child {
   border-left: 10px solid #d59120;
   padding-left: 5px;
 }
-div.game_tournament table.standing td {
+div.game_tournament td {
   padding: 0 10px;
   text-align: left;
   line-height: 2em;
@@ -1062,11 +1068,11 @@ div.game_tournament table.standing td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-div.game_tournament table.standing td.name span {
+div.game_tournament td.name span {
   display: inline-block;
   width: 20px;
 }
-div.game_tournament table.standing td.total {
+div.game_tournament td.total {
   text-align: right;
 }
 span.inline_userlist {
