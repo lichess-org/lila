@@ -588,6 +588,7 @@ body.piece_letter .lichess_ground .replay move {
   background: #888;
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
 }
 .pocket.top {
   margin-bottom: 10px;
@@ -596,13 +597,11 @@ body.piece_letter .lichess_ground .replay move {
   margin-top: 10px;
 }
 .pocket piece {
-  display: inline-block;
-  width: 20%!important;
-  height: 56px!important;
-  background-position: center;
+  flex: 0 0 20%;
+  height: 100%;
   position: relative;
 }
-.pocket piece:first-child:hover {
+.pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
 }
 .pocket.usable piece {
