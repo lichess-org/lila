@@ -598,7 +598,7 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket piece {
   flex: 0 0 20%;
-  height: 100%;
+  height: 56px; /* 100% fails on older chrome */
   position: relative;
 }
 .pocket.usable piece:first-child:hover {
