@@ -937,7 +937,7 @@ div.control .button.disabled {
   border-top: none;
 }
 .variant_crazyhouse .lichess_ground .follow_up .button {
-  padding: 8px 0;
+  padding: 10px 0;
 }
 .lichess_ground .follow_up .button.strong {
   margin-bottom: 7px;
