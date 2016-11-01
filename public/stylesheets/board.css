@@ -526,7 +526,7 @@ div.table {
 .lichess_ground .replay index {
   flex: 0 0 34px;
   padding: 2px 0;
-  background: #e0e0e0;
+  background: #e6e6e6;
   text-align: center;
   font-family: 'Roboto';
   font-weight: 300;
@@ -546,7 +546,7 @@ body.piece_letter .lichess_ground .replay move {
   transition: background-color 0.13s;
 }
 .lichess_ground .replay move:not(.empty):hover {
-  background: #e0e0e0;
+  background: #e6e6e6;
 }
 .lichess_ground .replay move.active,
 .lichess_ground .replay move.active::after {
