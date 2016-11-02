@@ -175,7 +175,7 @@ case class Game(
         castles = history.castles,
         lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
-        check = situation.kingPos ifTrue situation.check),
+        check = situation.checkSquare),
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
         BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>

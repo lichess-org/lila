@@ -30,7 +30,8 @@ final class Env(
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
     val PdfExecPath = config getString "pdf.exec_path"
-    val PngExecPath = config getString "png.exec_path"
+    val PngUrl = config getString "png.url"
+    val PngSize = config getInt "png.size"
   }
   import settings._
 
@@ -40,7 +41,7 @@ final class Env(
 
   lazy val pdfExport = PdfExport(PdfExecPath) _
 
-  lazy val pngExport = PngExport(PngExecPath) _
+  lazy val pngExport = new PngExport(PngUrl, PngSize).apply _
 
   lazy val divider = new Divider
 

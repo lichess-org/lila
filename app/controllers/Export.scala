@@ -72,10 +72,12 @@ object Export extends LilaController {
     OnlyHumansAndFacebook {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
         lila.mon.export.png.game()
-        OptionResult(GameRepo game id) { game =>
-          Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
-            CONTENT_TYPE -> "image/png",
-            CACHE_CONTROL -> "max-age=7200")
+        OptionFuResult(GameRepo game id) { game =>
+          env.pngExport(game) map { stream =>
+            Ok.chunked(stream).withHeaders(
+              CONTENT_TYPE -> "image/png",
+              CACHE_CONTROL -> "max-age=7200")
+          }
         }
       }
     }
