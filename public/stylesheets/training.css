@@ -94,3 +94,6 @@ div.training > .board_and_ground > .right .spinner {
   width: 90px;
   height: 90px;
 }
+div.training div.table {
+  padding: 10px;
+}
