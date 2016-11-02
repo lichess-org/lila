@@ -396,7 +396,7 @@ div.user_show .mod_zone .spy_ips ul p {
 }
 div.user_show .mod_zone .spy_ips li li {
   margin-left: 1em;
-  font-family: monospace;
+  font-family: 'Roboto Mono';
 }
 div.user_show .mod_zone .spy_uas {
   margin-left: 34%;

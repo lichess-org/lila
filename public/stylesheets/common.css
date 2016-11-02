@@ -1146,7 +1146,7 @@ body.fpmenu #fpmenu {
 #top div.auth .status .ping,
 #top div.auth .status .server {
   display: block;
-  font-family: monospace;
+  font-family: 'Roboto Mono', 'Roboto';
   padding-left: 10px;
 }
 #top div.auth .status strong {
@@ -2114,7 +2114,6 @@ div.relation_actions a.relation.processing {
 input.copyable,
 textarea.copyable {
   background: #eee;
-  font-family: monospace;
   padding: 3px 5px;
   border: 1px solid #ccc;
 }

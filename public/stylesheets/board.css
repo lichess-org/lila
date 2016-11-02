@@ -739,7 +739,7 @@ div.table_wrap .clock > .time {
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 38px;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Roboto Mono', 'Roboto';
   height: 44px;
   line-height: 44px;
 }
@@ -1044,8 +1044,7 @@ div.game_tournament:hover {
 div.game_tournament .clock {
   text-align: center;
   font-size: 20px;
-  font-family: monospace, 'Noto Sans', 'Lucida Grande';
-  font-weight: bold;
+  font-family: 'Roboto Mono', 'Roboto';
   margin: 10px 0;
 }
 div.game_tournament table.standing {

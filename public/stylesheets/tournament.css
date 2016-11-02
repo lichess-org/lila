@@ -72,8 +72,7 @@ ol.scheduled_tournaments a {
   padding-left: 0;
 }
 #tournament .header .time {
-  font-family: monospace;
-  font-weight: bold;
+  font-family: 'Roboto Mono', 'Roboto';
   font-size: 20px;
 }
 #tournament .header .shy {
@@ -316,6 +315,9 @@ ol.scheduled_tournaments a {
 #tournament table.standing th:first-child {
   padding-left: 10px;
   white-space: nowrap;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #tournament table.standing tbody tr {
   transition: 0.13s;
@@ -346,7 +348,7 @@ ol.scheduled_tournaments a {
 #tournament table.standing .sheet,
 #tournament table.standing .total {
   text-align: right;
-  font-family: monospace;
+  font-family: 'Roboto Mono';
   letter-spacing: 0;
 }
 #tournament table.standing tr.long .sheet {

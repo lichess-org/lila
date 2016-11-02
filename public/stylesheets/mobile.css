@@ -43,13 +43,3 @@
   font-size: 1.8em;
   padding:0 6px 0 0;
 }
-.mobile .support {
-  font-style: monospace;
-  font-weight: bold;
-}
-.mobile .support.good {
-  color: #759900;
-}
-.mobile .support.partial {
-  color: #d59120;
-}

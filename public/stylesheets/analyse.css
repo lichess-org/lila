@@ -79,12 +79,12 @@ form.better_analysis {
 }
 div.fen_pgn > div {
   margin: 0.6em 0;
+  display: flex;
+  align-items: center;
 }
 div.fen_pgn a {
   color: #3893E8;
 }
-div.fen_pgn strong,
-div.fen_pgn input.fen,
 div.fen_pgn .pgn {
   font-family: monospace;
 }
@@ -92,13 +92,6 @@ div.fen_pgn strong {
   font-size: 1.1em;
   display: inline-block;
   margin-right: 10px;
-}
-div.fen_pgn input.fen {
-  width: 450px;
-}
-div.fen_pgn .pgn_options {
-  display: flex;
-  align-items: center;
 }
 div.fen_pgn .pgn_options div {
   display: flex;
@@ -560,7 +553,7 @@ body.dark .explorer_box .black {
   text-align: center;
   padding: 3px 5px;
   border-radius: 3px;
-  font-family: monospace;
+  font-family: 'Roboto Mono', 'Roboto';
   font-size: 0.9em;
 }
 .explorer_box .tablebase {
@@ -1197,7 +1190,6 @@ div.shortcuts li {
   margin-top: 7px;
 }
 .copyables .name {
-  font-family: monospace;
   font-size: 1.2em;
   display: inline-block;
   width: 40px;

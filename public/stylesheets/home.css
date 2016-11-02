@@ -600,9 +600,6 @@ div.game_config .fen_position .fen_form input {
 div.game_config .fen_position .fen_form .button {
   float: right;
 }
-div.game_config input {
-  font-family: monospace;
-}
 div.game_config input#fen.success {
   border-color: #00aa00;
 }

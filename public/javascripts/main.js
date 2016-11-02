@@ -1187,15 +1187,12 @@ lichess.notifyApp = (function() {
       var prefixInt = function(num, length) {
         return (num / Math.pow(10, length)).toFixed(length).substr(2);
       };
-      var b = function(x) {
-        return '<b>' + x + '</b>';
-      };
       var minutes = prefixInt(date.getUTCMinutes(), 2);
       var seconds = prefixInt(date.getSeconds(), 2);
       if (this.time >= 3600000) {
         var hours = prefixInt(date.getUTCHours(), 2);
-        return b(hours) + ':' + b(minutes) + ':' + b(seconds);
-      } else return b(minutes) + ':' + b(seconds);
+        return hours + ':' + minutes + ':' + seconds;
+      } else return minutes + ':' + seconds;
     }
   });
 
