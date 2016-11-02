@@ -262,7 +262,7 @@ module.exports = function(ctrl) {
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),
-    util.synthetic(ctrl.data) ? null : m('div.analeft', [
+    ctrl.embed || util.synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {
