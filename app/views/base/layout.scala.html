@@ -22,7 +22,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta charset="utf-8">
     <title>@if(!isProd){ [dev] }@fullTitle.getOrElse{@title • lichess.org}</title>
     <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&text=0123456789:." rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
     @ctx.currentBg match {
     case "dark" => { @cssTag("dark.css") }
     case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
