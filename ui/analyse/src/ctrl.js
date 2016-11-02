@@ -574,6 +574,11 @@ module.exports = function(opts) {
 
   keyboard.bind(this);
 
+  lichess.pubsub.on('jump', function(ply) {
+    this.jumpToMain(parseInt(ply));
+    m.redraw();
+  }.bind(this));
+
   this.music = null;
   lichess.pubsub.on('sound_set', function(set) {
     if (!this.music && set === 'music')
