@@ -135,11 +135,14 @@ object Plan extends LilaController {
     import lila.plan.Patron.PayPal
     lila.plan.DataForm.ipn.bindFromRequest.fold(
       err => {
-        if (err.errors("txn_type").nonEmpty)
+        if (err.errors("txn_type").nonEmpty) {
           logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-        else
+          fuccess(Ok)
+        }
+        else {
           logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-        fuccess(Ok)
+          fuccess(BadRequest)
+        }
       },
       ipn => Env.plan.api.onPaypalCharge(
         userId = ipn.userId,
