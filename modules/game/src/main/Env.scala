@@ -41,7 +41,7 @@ final class Env(
 
   lazy val pdfExport = PdfExport(PdfExecPath) _
 
-  lazy val pngExport = new PngExport(PngUrl, PngSize).apply _
+  lazy val pngExport = new PngExport(PngUrl, PngSize)
 
   lazy val divider = new Divider
 

@@ -4,21 +4,32 @@ import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import chess.format.Forsyth
+import chess.format.{ Forsyth, FEN }
 
-private final class PngExport(url: String, size: Int) {
+final class PngExport(url: String, size: Int) {
 
-  def apply(game: Game): Fu[Enumerator[Array[Byte]]] = {
+  def fromGame(game: Game): Fu[Enumerator[Array[Byte]]] = apply(
+    fen = FEN(Forsyth >> game.toChess),
+    lastMove = game.castleLastMoveTime.lastMoveString,
+    check = game.toChess.situation.checkSquare,
+    orientation = game.firstColor.some)
+
+  def apply(
+    fen: FEN,
+    lastMove: Option[String],
+    check: Option[chess.Pos],
+    orientation: Option[chess.Color]): Fu[Enumerator[Array[Byte]]] = {
 
     val queryString =
-      ("fen" -> (Forsyth >> game.toChess).split(' ').head) :: List(
-        game.castleLastMoveTime.lastMoveString.map { "lastMove" -> _ },
-        game.toChess.situation.checkSquare.map { "check" -> _.key }
+      ("fen" -> fen.value.takeWhile(' ' !=)) :: List(
+        lastMove.map { "lastMove" -> _ },
+        check.map { "check" -> _.key },
+        orientation.map { "orientation" -> _.name }
       ).flatten
 
     WS.url(url).withQueryString(queryString: _*).getStream() flatMap {
       case (res, body) if res.status != 200 =>
-        logger.warn(s"PgnExport ${game.id} ${res.status}")
+        logger.warn(s"PgnExport ${fen.value} ${res.status}")
         fufail(res.status.toString)
       case (_, body) => fuccess(body)
     }
