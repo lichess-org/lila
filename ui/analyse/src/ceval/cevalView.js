@@ -115,11 +115,14 @@ module.exports = {
           threatMode ? 'Show threat' : 'Local Stockfish',
           m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
-      ] : m('help',
-        'Local computer evaluation',
-        m('br'),
-        'for variation analysis'
-      ),
+      ] : [
+        pearl ? m('pearl', pearl) : null,
+        m('help',
+          'Local computer evaluation',
+          m('br'),
+          'for variation analysis'
+        )
+      ],
       m('div.switch', {
         title: 'Toggle local evaluation (l)'
       }, [
@@ -144,8 +147,7 @@ module.exports = {
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    }
-    else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
+    } else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
       pvs = ctrl.currentEvals().client.pvs;
     else
       pvs = [];
@@ -163,7 +165,7 @@ module.exports = {
             if (uci) ctrl.playUci(uci);
           });
         }
-        setTimeout(function () {
+        setTimeout(function() {
           ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
