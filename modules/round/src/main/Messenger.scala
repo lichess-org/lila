@@ -29,9 +29,14 @@ final class Messenger(
       chat ! UserTalk(gameId + "/w", userId, text)
     }
 
+  private val whisper = "/whisper "
+
   def owner(gameId: String, member: Member, text: String) =
     chat ! (member.userId match {
-      case Some(userId) => UserTalk(gameId, userId, text, public = false)
-      case None         => PlayerTalk(gameId, member.color.white, text)
+      case Some(userId) if text startsWith whisper =>
+        UserTalk(gameId + "/w", userId, text drop whisper.size)
+      case Some(userId) =>
+        UserTalk(gameId, userId, text, public = false)
+      case None => PlayerTalk(gameId, member.color.white, text)
     })
 }
