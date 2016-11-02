@@ -11,6 +11,8 @@ import views._
 
 object Plan extends LilaController {
 
+  private val logger = lila.log("plan")
+
   def index = Open { implicit ctx =>
     ctx.me.fold(indexAnon) { me =>
       import lila.plan.PlanApi.SyncResult._
@@ -86,18 +88,16 @@ object Plan extends LilaController {
     }
   }
 
-  def switch = AuthBody { implicit ctx =>
-    me =>
-      implicit val req = ctx.body
-      lila.plan.Switch.form.bindFromRequest.fold(
-        err => funit,
-        data => Env.plan.api.switch(me, data.cents)
-      ) inject Redirect(routes.Plan.index)
+  def switch = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.plan.Switch.form.bindFromRequest.fold(
+      err => funit,
+      data => Env.plan.api.switch(me, data.cents)
+    ) inject Redirect(routes.Plan.index)
   }
 
-  def cancel = AuthBody { implicit ctx =>
-    me =>
-      Env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
+  def cancel = AuthBody { implicit ctx => me =>
+    Env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
   def charge = OpenBody { implicit ctx =>
@@ -113,7 +113,7 @@ object Plan extends LilaController {
         else routes.Plan.thanks()
       } recover {
         case e: StripeException =>
-          lila.log("plan").error("Plan.charge", e)
+          logger.error("Plan.charge", e)
           BadRequest(html.plan.badCheckout(e.toString))
       }
     )
@@ -135,7 +135,10 @@ object Plan extends LilaController {
     import lila.plan.Patron.PayPal
     lila.plan.DataForm.ipn.bindFromRequest.fold(
       err => {
-        // Cancel or other irrelevant event
+        if (err.errors("txn_type").nonEmpty)
+          logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
+        else
+          logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
         fuccess(Ok)
       },
       ipn => Env.plan.api.onPaypalCharge(
