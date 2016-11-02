@@ -90,6 +90,8 @@ final class Env(
     }
   }
 
+  lazy val stream = new GameStream(system)
+
   private def jsPath =
     "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
 }

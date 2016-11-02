@@ -1,6 +1,5 @@
 var m = require('mithril');
 var dialog = require('./dialog');
-var partial = require('chessground').util.partial;
 
 var baseUrl = 'https://lichess.org/study/';
 

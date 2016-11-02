@@ -3,7 +3,6 @@ var makePool = require('./cevalPool');
 var dict = require('./cevalDict');
 var util = require('../util');
 var stockfishProtocol = require('./stockfishProtocol');
-var sunsetterProtocol = require('./sunsetterProtocol');
 
 module.exports = function(opts) {
 
@@ -20,25 +19,18 @@ module.exports = function(opts) {
   var started = false;
   var hoveringUci = m.prop(null);
 
-  var pool;
-  if (opts.variant.key !== 'crazyhouse') {
-    pool = makePool(stockfishProtocol, {
-      asmjs: '/assets/vendor/stockfish.js/stockfish.js',
-      pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf',
-      onCrash: opts.onCrash
-    }, {
-      minDepth: minDepth,
-      maxDepth: maxDepth,
-      variant: opts.variant,
-      multiPv: multiPv,
-      threads: pnaclSupported && threads,
-      hashSize: pnaclSupported && hashSize
-    });
-  } else {
-    pool = makePool(sunsetterProtocol, {
-      asmjs: '/assets/vendor/Sunsetter/sunsetter.js?v=2'
-    });
-  }
+  var pool = makePool(stockfishProtocol, {
+    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=3',
+    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=3',
+    onCrash: opts.onCrash
+  }, {
+    minDepth: minDepth,
+    maxDepth: maxDepth,
+    variant: opts.variant,
+    multiPv: multiPv,
+    threads: pnaclSupported && threads,
+    hashSize: pnaclSupported && hashSize
+  });
 
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
@@ -102,11 +94,11 @@ module.exports = function(opts) {
     } else {
       // send fen after latest castling move and the following moves
       for (var i = 1; i < steps.length; i++) {
-        var step = steps[i];
-        if (step.san.indexOf('O-O') === 0) {
+        var s = steps[i];
+        if (s.san.indexOf('O-O') === 0) {
           work.moves = [];
-          work.initialFen = step.fen;
-        } else work.moves.push(step.uci);
+          work.initialFen = s.fen;
+        } else work.moves.push(s.uci);
       }
     }
 

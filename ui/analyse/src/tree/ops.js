@@ -32,7 +32,7 @@ function pickFirstChild(node) {
 }
 
 function childById(node, id) {
-  for (i in node.children)
+  for (var i in node.children)
     if (node.children[i].id === id) return node.children[i];
 }
 

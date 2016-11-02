@@ -38,6 +38,41 @@ div.game_control .jumps {
   border-width: 1px 1px 0 0;
   background: #f8f8f8;
 }
+.pocket {
+  border-radius: 0;
+  background: #888!important;
+  padding: 2px 0;
+  margin: 0px!important;
+  justify-content: space-between;
+  max-height: 13%;
+}
+.pocket piece {
+  flex: 0 1 56px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.pocket.usable piece:first-child:hover {
+  border-radius: 0;
+}
+@media (max-width: 739px) {
+  .pocket,
+  .pocket piece {
+    flex-basis: 46px;
+  }
+  .pocket piece::after {
+    line-height: 12px;
+    padding: 2px 3px 2px 3px;
+    font-weight: bold;
+    border-radius: 1px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 599px) {
+  .pocket,
+  .pocket piece {
+    flex-basis: 40px;
+  }
+}
 footer {
   font-size: 10.5px;
   display: flex;

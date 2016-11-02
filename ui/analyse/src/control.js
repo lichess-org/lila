@@ -1,16 +1,5 @@
 var treePath = require('./tree/path');
 
-function canEnterVariation(ctrl) {
-  return ctrl.vm.node.children.length > 1;
-}
-
-function sharedStart(p1, p2) {
-  var L = p1.length,
-    i = 0;
-  while (i < L && p1.charAt(i) === p2.charAt(i)) i++;
-  return p1.substring(0, i);
-}
-
 module.exports = {
 
   canGoForward: function(ctrl) {

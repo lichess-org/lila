@@ -526,7 +526,7 @@ div.table {
 .lichess_ground .replay index {
   flex: 0 0 34px;
   padding: 2px 0;
-  background: #e0e0e0;
+  background: #e6e6e6;
   text-align: center;
   font-family: 'Roboto';
   font-weight: 300;
@@ -546,50 +546,39 @@ body.piece_letter .lichess_ground .replay move {
   transition: background-color 0.13s;
 }
 .lichess_ground .replay move:not(.empty):hover {
-  background: #e0e0e0;
+  background: #e6e6e6;
 }
 .lichess_ground .replay move.active,
 .lichess_ground .replay move.active::after {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .replay .result {
-  font-weight: bold;
-  font-size: 1.3em;
-  padding: 4px 0;
+.lichess_ground .result,
+.lichess_ground .status {
   text-align: center;
 }
-.lichess_ground .replay .status {
+.lichess_ground .result {
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 7px 0 4px 0;
+}
+.lichess_ground .status {
   font-size: 1em;
-  text-align: center;
   font-style: italic;
   padding-bottom: 5px;
 }
 .lichess_ground .replay .buttons {
-  text-align: center;
-  margin: 8px 0 5px 0;
+  border-top: 1px solid #e2e2e2;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
 }
-.lichess_ground .replay a.button {
-  opacity: 0.9;
-  padding: 4px 7px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin-left: -1px;
-  margin-right: -1px;
+.lichess_ground .replay .fbt {
+  padding: 5px 10px;
 }
-.lichess_ground .replay a.flip {
-  margin-right: 10px;
-}
-.lichess_ground .replay a.analysis {
-  margin-left: 10px;
-}
-.lichess_ground .replay a.disabled {
-  cursor: default;
-}
-.lichess_ground .replay a.disabled::before {
-  opacity: 0.4;
-  text-shadow: none !important;
+.lichess_ground .replay .noop {
+  width: 30px;
 }
 .pocket {
   border-radius: 3px;
@@ -599,6 +588,7 @@ body.piece_letter .lichess_ground .replay move {
   background: #888;
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
 }
 .pocket.top {
   margin-bottom: 10px;
@@ -607,13 +597,11 @@ body.piece_letter .lichess_ground .replay move {
   margin-top: 10px;
 }
 .pocket piece {
-  display: inline-block;
-  width: 20%!important;
-  height: 56px!important;
-  background-position: center;
+  flex: 0 0 20%;
+  height: 56px; /* 100% fails on older chrome */
   position: relative;
 }
-.pocket piece:first-child {
+.pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
 }
 .pocket.usable piece {
@@ -666,7 +654,7 @@ div.table div.username:first-child {
   margin-bottom: 6px;
 }
 div.table div.username:last-child {
-  margin-top: 6px;
+  padding-top: 6px;
 }
 div.table div.username .user_link {
   display: flex;
@@ -687,7 +675,9 @@ div.table div.username rating {
   letter-spacing: -0.5px;
 }
 div.table div.username .line {
-  margin-top: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @keyframes connecting {
   0% { opacity: 0.1; }
@@ -803,7 +793,7 @@ div.table_wrap a.moretime {
   position: absolute;
   font-size: 20px;
   right: 0;
-  top: 2px;
+  top: 7px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -836,25 +826,17 @@ div.table_wrap .tournament_rank.bottom {
 div.table_next {
   top: 145px;
 }
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
 div.control {
   text-align: center;
   width: 100%;
 }
 div.control.icons {
-  margin-top: 5px;
+  display: flex;
+  justify-content: center;
 }
-div.control.icons.above_buttons {
-  margin-bottom: 5px;
-}
-div.control.icons .button {
-  font-size: 16px;
-  height: 34px;
-  padding: 0 10px;
-  margin: 0 3px;
+div.control.icons .fbt {
+  font-size: 18px;
+  padding: 8px 17px;
 }
 div.control.icons .takeback-yes span:before {
   display: inline-block;
@@ -869,7 +851,6 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
 }
 div.control.icons .resign_confirm {
-  display: inline-block;
   position: relative;
 }
 div.control.icons .resign_confirm .yes {
@@ -877,9 +858,12 @@ div.control.icons .resign_confirm .yes {
   color: #fff;
 }
 div.control.icons .resign_confirm .no {
+  padding: 8px 0;
+  width: 30px;
+  text-align: center;
   position: absolute;
   top: 0;
-  left: 39px;
+  right: -30px;
 }
 div.control .button.disabled {
   opacity: 0.5;
@@ -952,7 +936,7 @@ div.control .button.disabled {
   border-top: none;
 }
 .variant_crazyhouse .lichess_ground .follow_up .button {
-  padding: 8px 0;
+  padding: 10px 0;
 }
 .lichess_ground .follow_up .button.strong {
   margin-bottom: 7px;
@@ -1070,11 +1054,11 @@ div.game_tournament .clock {
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament table.standing tr.me td:first-child {
+div.game_tournament tr.me td:first-child {
   border-left: 10px solid #d59120;
   padding-left: 5px;
 }
-div.game_tournament table.standing td {
+div.game_tournament td {
   padding: 0 10px;
   text-align: left;
   line-height: 2em;
@@ -1083,11 +1067,11 @@ div.game_tournament table.standing td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-div.game_tournament table.standing td.name span {
+div.game_tournament td.name span {
   display: inline-block;
   width: 20px;
 }
-div.game_tournament table.standing td.total {
+div.game_tournament td.total {
   text-align: right;
 }
 span.inline_userlist {

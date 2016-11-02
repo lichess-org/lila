@@ -103,9 +103,10 @@ div.fen_pgn .pgn_options {
 div.fen_pgn .pgn_options div {
   display: flex;
   flex-flow: row wrap;
+  margin-left: 5px;
 }
 div.fen_pgn .pgn_options a {
-  flex: 0 0 33%;
+  flex: 0 0 50%;
   line-height: 1.6em;
 }
 div.game_control {
@@ -733,24 +734,6 @@ body.piece_letter .tablebase td:first-child {
 .action_menu h2:after {
   left: 8px;
 }
-.action_menu .fbt {
-  background: none;
-  border: none;
-  outline: none;
-  padding: 10px 13px;
-  text-transform: uppercase;
-  cursor: default;
-}
-.action_menu .fbt:hover {
-  cursor: pointer;
-  background: #3893E8;
-  color: #fff;
-}
-.action_menu .fbt:active,
-.action_menu .fbt.active {
-  background: #5ba6ec;
-  color: #fff;
-}
 .action_menu .icon {
   display: block;
   font-size: 2em;
@@ -1088,16 +1071,11 @@ body.piece_letter .tview2 move {
 .tview2 .hide {
   display: none;
 }
-.lichess_ground .result {
-  font-weight: bold;
-  font-size: 1.3em;
-  text-align: center;
-}
+.lichess_ground .result,
 .lichess_ground .status {
-  font-size: 1em;
-  text-align: center;
-  font-style: italic;
-  margin-bottom: 5px;
+  background: #f8f8f8;
+}
+.lichess_ground .result {
 }
 div.underboard {
   margin-top: 25px;

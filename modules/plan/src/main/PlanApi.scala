@@ -99,7 +99,10 @@ final class PlanApi(
       logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
       funit
     }
-    else (cents.value >= 100) ?? {
+    else if (cents.value < 100) {
+      logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
+      funit
+    } else {
       val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(

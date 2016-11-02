@@ -450,6 +450,7 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
+GET   /api/game-stream                 controllers.Api.gameStream
 
 # Events
 GET   /event                           controllers.Event.index

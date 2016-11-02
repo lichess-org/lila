@@ -1031,10 +1031,7 @@ lichess.notifyApp = (function() {
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
       window.history.replaceState(null, null, '/' + data.game.id);
-    if (!data.player.spectator && data.game.status.id < 25) {
-      lichess.storage.set('last-game', data.game.id);
-      topMenuIntent();
-    }
+    if (!data.player.spectator && data.game.status.id < 25) topMenuIntent();
   };
 
   lichess.widget("watchers", {
@@ -1705,7 +1702,7 @@ lichess.notifyApp = (function() {
     lichess.socket = lichess.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
         receive: function(t, d) {
-          tournament.socketReceive(t, d)
+          return tournament.socketReceive(t, d);
         },
         events: {
           crowd: function(data) {
@@ -1750,7 +1747,7 @@ lichess.notifyApp = (function() {
     lichess.socket = lichess.StrongSocket(
       '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
         receive: function(t, d) {
-          simul.socketReceive(t, d)
+          simul.socketReceive(t, d);
         },
         events: {
           crowd: function(data) {

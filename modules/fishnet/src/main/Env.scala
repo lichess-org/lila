@@ -21,9 +21,12 @@ final class Env(
   private val OfflineMode = config getBoolean "offline_mode"
   private val AnalysisNodes = config getInt "analysis.nodes"
   private val MovePlies = config getInt "move.plies"
+  private val ClientMinVersion = config getString "client_min_version"
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
+
+  private val clientVersion = new ClientVersion(ClientMinVersion)
 
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
@@ -54,6 +57,7 @@ final class Env(
     import makeTimeout.short
     hub.socket.round ? Exists(id) mapTo manifest[Boolean]
   },
+    clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes)(system)
 

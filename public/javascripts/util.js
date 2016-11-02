@@ -94,10 +94,12 @@ lichess.powertip = (function() {
     };
   };
 
-  var userPowertip = function(el) {
-    var pos = 'w';
-    if (elementIdContains('site_header', el)) pos = 'e';
-    if (elementIdContains('friend_box', el)) pos = 'nw';
+  var userPowertip = function(el, pos) {
+    if (!pos) {
+      if (elementIdContains('site_header', el)) pos = 'e';
+      else if (elementIdContains('friend_box', el)) pos = 'nw';
+      else pos = 'w';
+    }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       fadeInTime: 100,
@@ -137,11 +139,13 @@ lichess.powertip = (function() {
       if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
-    manualGame: function(el) {
-      Array.prototype.forEach.call(el.querySelectorAll('.glpt'), gamePowertip);
+    manualGameIn: function(parent) {
+      Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
     },
-    manualUser: function(el) {
-      Array.prototype.forEach.call(el.querySelectorAll('.ulpt'), userPowertip);
+    manualUserIn: function(parent, pos) {
+      Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
+        userPowertip(el, pos);
+      });
     }
   };
 })();
@@ -296,7 +300,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   var lastSeenActive = new Date();
   var onActivity = function() {
     if (!active) {
-      console.log('Wake up');
+      // console.log('Wake up');
       onWakeUp();
     }
     active = true;
@@ -321,7 +325,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   };
   setInterval(function() {
     if (active && new Date() - lastSeenActive > delay) {
-      console.log('Idle mode');
+      // console.log('Idle mode');
       onIdle();
       active = false;
     }

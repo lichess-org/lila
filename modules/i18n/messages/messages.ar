@@ -66,7 +66,7 @@ signIn=دخول
 newToLichess=هل أنت جديد هنا؟
 youNeedAnAccountToDoThat=تحتاج حسابا لهذا
 signUp=تسجيل
-computersAreNotAllowedToPlay=برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب أكثر من اللازم مما قد يؤدي إلى الحظر من الموقع
+computersAreNotAllowedToPlay=برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع
 games=لعبات
 forum=منتدى
 xPostedInForumY=%s منشور في الموضوع %s
@@ -83,8 +83,8 @@ oneDay=يوم واحد
 nbDays=%s يوم
 nbHours=%s ساعة
 time=الوقت
-rating=الأداء
-ratingStats=احصائيات الأداء
+rating=التقييم
+ratingStats=احصائيات التقييم
 username=اسم المستخدم
 usernameOrEmail=اسم المستخدم أو البريد الإلكتروني
 password=كلمة السر
@@ -101,9 +101,9 @@ nbGamesWithYou=%s لعبة معك
 declineInvitation=رفض الدعوة
 cancel=إلغاء
 timeOut=انتهى الوقت
-drawOfferSent=عُرض التعادل
-drawOfferDeclined=رُفض عرض التعادل
-drawOfferAccepted=قُبل عرض التعادل
+drawOfferSent=تم ارسال عرض التعادل
+drawOfferDeclined=تم رفض عرض التعادل
+drawOfferAccepted=تم قبول عرض التعادل
 drawOfferCanceled=أُلغي عرض التعادل
 whiteOffersDraw=الأبيض يعرض التعادل
 blackOffersDraw=الأسود يعرض التعادل
@@ -128,7 +128,7 @@ rematchOfferAccepted=قُبل طلب اللعب
 rematchOfferCanceled=أُلغي طلب اللعب
 rematchOfferDeclined=رُفض طلب اللعب
 cancelRematchOffer=إلغاء  طلب اللعب
-viewRematch=شاهد اللعبة الآخرى
+viewRematch=شاهد اللعبة اللاحقة
 play=العب
 inbox=صندوق الرسائل
 chatRoom=غرفة الدردشة
@@ -145,7 +145,7 @@ nbWins=%s فاز
 nbLosses=%s خسر
 nbDraws=%s تعادل
 exportGames=تصدير المباريات
-ratingRange=حدود التقييم
+ratingRange=نطاق التقييم
 giveNbSeconds=إعطاء %s ثانية
 premoveEnabledClickAnywhereToCancel=لديك نقلة استباقية - اضغط أي مكان لإلغائها
 thisPlayerUsesChessComputerAssistance=هذا اللاعب يستعين ببرامج الشطرنج
@@ -154,7 +154,7 @@ opening=افتتاحية
 openingExplorer=مستكشف الافتتاحيات
 takeback=تراجع
 proposeATakeback=اقتراح تراجع عن النقلة الآخيرة
-takebackPropositionSent=أرسل مقترح التراجع
+takebackPropositionSent=أُرسل مقترح التراجع
 takebackPropositionDeclined=رُفض مقترح التراجع
 takebackPropositionAccepted=قُبل مقترح التراجع
 takebackPropositionCanceled=ألغي مقترح التراجع
@@ -168,7 +168,7 @@ tournamentPoints=نقاط المسابقة
 viewTournament=شاهد المسابقة
 backToTournament=عودة للمسابقة
 backToGame=العودة للعبة
-freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو تحميل برامج. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية
+freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية
 teams=الفِرق
 nbMembers=%s عضو
 allTeams=كل الفِرق
@@ -177,7 +177,7 @@ myTeams=فرقي
 noTeamFound=لايوجد فريق
 joinTeam=انضم للفريق
 quitTeam=انسحب من الفريق
-anyoneCanJoin=مقتوح للجميع
+anyoneCanJoin=مفتوح للجميع
 aConfirmationIsRequiredToJoin=الانضمام بموافقة قائد الفريق
 joiningPolicy=قوانين الانضمام
 teamLeader=قائد الفريق
@@ -185,7 +185,7 @@ teamBestPlayers=أفضل اللاعبين
 teamRecentMembers=آخر الأعضاء
 xJoinedTeamY=%s انضم لفريق %s
 xCreatedTeamY=%s أنشأ فريق %s
-averageElo=متوسط الآداء
+averageElo=متوسط التقييم
 location=الموقع
 settings=الإعدادات
 filterGames=تصفية المباريات
@@ -241,13 +241,13 @@ points=النقاط
 wins=الفوز
 losses=الخسارة
 winStreak=فوز متتالي
-createdBy=بدأها
+createdBy=أنشأها
 tournamentIsStarting=بدأت المسابقة
 membersOnly=للأعضاء فقط
 boardEditor=محررالرقعة
 startPosition=وضع البداية
 clearBoard=مسح الرقعة
-savePosition=تخزين الوضع
+savePosition=حفظ الوضع
 loadPosition=تحميل الوضع
 isPrivate=خاص
 reportXToModerators=بلغ الإدارة عن %s
@@ -265,10 +265,10 @@ activeToday=نشيط اليوم
 activePlayers=لاعبين نشطين
 bewareTheGameIsRatedButHasNoClock=كن على حذر, هذه اللعبة مقيمة لكن غير مؤقتة.
 training=تدريب
-yourPuzzleRatingX=تصنيفك في حل الألغاز:  %s
+yourPuzzleRatingX=تقييمك في حل الألغاز:  %s
 findTheBestMoveForWhite=جد أفضل نقلة للأبيض
 findTheBestMoveForBlack=جد أفضل نقلة للأسود
-toTrackYourProgress=لمتابعة تقدمك
+toTrackYourProgress=لمتابعة تقدمك:
 trainingSignupExplanation=سنقدم ألغازا تنساب قدراتك، ليكون التدريب أفضل
 recentlyPlayedPuzzles=آخر الألغاز التي تم لعبها
 puzzleId=%s لغز
@@ -277,7 +277,7 @@ clickToSolve=اضغط للحل
 goodMove=نقلة جيدة
 butYouCanDoBetter=لكن توجد نقلة أفضل
 bestMove=أفضل نقلة
-keepGoing=تابع اللعب...
+keepGoing=تابع ...
 puzzleFailed=لقد خسرت اللغز
 butYouCanKeepTrying=لكن حاول مرة أخرى
 victory=أحسنت!
@@ -286,7 +286,7 @@ puzzleSolvedInXSeconds=حل اللغز بـ  %s ثانية.
 wasThisPuzzleAnyGood=هل استفدت من هذا اللغز؟
 pleaseVotePuzzle=ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم.
 thankYou=شكراً!
-ratingX=التصنيف:  %s
+ratingX=التقييم:  %s
 playedXTimes=لُعبت  %s مرة
 fromGameLink=من لعبة %s
 startTraining=ابدأ التدريب
@@ -299,7 +299,7 @@ nbGamesInPlay=%s لعبة جارية
 automaticallyProceedToNextGameAfterMoving=الانتقال تلقائياً للعبة التالية بعد النقلة
 autoSwitch=تبديل تلقائي
 openingId=افتتاحية %s
-yourOpeningRatingX=أداؤك في الافتتاحية %s
+yourOpeningRatingX=تقييمك في الافتتاحية %s
 findNbStrongMoves=جد %s نقلات قوية
 thisMoveGivesYourOpponentTheAdvantage=هذه النقلة تعطي خصمك الأفضلية
 openingFailed=خسرت الافتتاحية
@@ -315,7 +315,7 @@ description=الوصف
 no=لا
 yes=نعم
 help=مساعدة:
-createANewTopic=ابدأ موضوعا جديدا
+createANewTopic=ابدأ موضوعاً جديداً
 topics=المواضيع
 posts=المنشورات
 lastPost=آخر منشور
@@ -395,7 +395,7 @@ xCompetesInY=%s تنافس في %s
 xAskedY=%s سأل %s
 xAnsweredY=%s أجاب %s
 xCommentedY=%s علّق %s
-timeline=التاريخ
+timeline=الجدول الزمني
 seeAllTournaments=شاهد كل المسابقات
 starting=تبدأ في:
 allInformationIsPublicAndOptional=كل المعلومات متاحة للجميع وهي اختيارية.
@@ -434,7 +434,7 @@ error.email_unique=هذا البريد الإلكتروني مستعمل من ق
 blindfoldChess=(معصوب العينين (إخفاء القطع
 moveConfirmation=تأكيد النقلة
 inCorrespondenceGames=فى العاب المراسلة
-ifRatingIsPlusMinusX=± %s اذا التصنيف
+ifRatingIsPlusMinusX=± %s اذا التقييم
 onlyFriends=الأصدقاء فقط
 menu=القائمة
 castling=تبييت
@@ -461,7 +461,7 @@ createdSimuls=تزامنيات مُنشأة حديثاً
 hostANewSimul=استضف تزامنية جديدة
 noSimulFound=التزامنية غير موجودة
 noSimulExplanation=معرض هذه التزامنية غير موجود.
-returnToSimulHomepage=العودة لصقحة التزامنية
+returnToSimulHomepage=العودة لصفحة التزامنية
 aboutSimul=التزامنيات هي لاعب واحد يواجه عدة خصوم في وقت واحد.
 aboutSimulImage=مع 50 خصماً, فاز فيشر بـ 47 لعبة, تعادل في اثنتين , وخسر واحدة.
 aboutSimulRealLife=تم أخذ مفهوم التزامنيات من أحداث واقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.
@@ -470,13 +470,13 @@ aboutSimulSettings=التزامنيات دائما غير مقيمة. لا يم�
 create=ابدأ
 whenCreateSimul=عندما تبدأ تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد
 simulVariantsHint=إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.
-simulClockHint=ضبط توقيت بالزيادة . كلما زاد عدد اللاعبيت كلما احتجت لوقت أطول.
+simulClockHint=ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.
 simulAddExtraTime=يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.
 simulHostExtraTime=التوقيت الإضافي لساعة المضيف
 lichessTournaments=مسابقات الموقع
 tournamentFAQ=مسابقة أرينا (سؤال وجواب)
 tournamentOfficial=رسمية
-timeBeforeTournamentStarts=الوقت جتى بداية المسابقة
+timeBeforeTournamentStarts=الوقت حتى بداية المسابقة
 averageCentipawnLoss=دقة اللعب (أقل أفضل)
 keyboardShortcuts=اختصارات لوحة المفاتيح
 keyMoveBackwardOrForward=تحرك للخلف/للأمام
@@ -491,11 +491,11 @@ tournamentNotFound=المسابقة غير موجودة
 tournamentDoesNotExist=هذه المسابقة غير موجودة
 tournamentMayHaveBeenCanceled=إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى
 returnToTournamentsHomepage=الرجوع إلى المسابقات
-weeklyPerfTypeRatingDistribution=توزيع الأداء الأسبوعي في %s
+weeklyPerfTypeRatingDistribution=توزيع التقييم الأسبوعي لـ %s
 nbPerfTypePlayersThisWeek=%s %s لاعباً هذا الشهر.
-yourPerfTypeRatingisRating=أداؤك في %s هو %s.
+yourPerfTypeRatingisRating=تقييمك في %s هو %s.
 youAreBetterThanPercentOfPerfTypePlayers=أنت أفضل من %s من %s من اللاعبين.
-youDoNotHaveAnEstablishedPerfTypeRating=ليس لديك أداء ثابت في %s.
+youDoNotHaveAnEstablishedPerfTypeRating=ليس لديك تقييم ثابت في %s.
 checkYourEmail=تحقق من بريدك الإلكتروني
 weHaveSentYouAnEmailClickTheLink=أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك
 ifYouDoNotSeeTheEmailCheckOtherPlaces=إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam
@@ -508,25 +508,25 @@ timeToProcessAMoveOnLichessServer=الوفت المطلوب لتنفيذ الن�
 downloadAnnotated=تحميل مع الشرح
 downloadRaw=تحميل بدون الشرح
 downloadImported=تحميل المستورد
-printFriendlyPDF=تحميل جاهز للطبع
+printFriendlyPDF=تحميل بي دي اف للطبع
 crosstable=تاريخ
 youCanAlsoScrollOverTheBoardToMoveInTheGame=يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.
 pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard=استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة
-confirmResignation=تاكيد الخسارة
+confirmResignation=تأكيد الإستسلام
 letOtherPlayersMessageYou=السماح للاعبين بمراسلتك
 shareYourInsightsData=مشاركة بيانات طريقة لعبك
 youHaveAlreadyRegisteredTheEmail=سبق لك تسجيل هذا البريد الإلكتروني %s
 kidMode=موقع الأطفال
 playChessEverywhere=العب الشطرنج فى كل مكان
 asFreeAsLichess=مجاني
-builtForTheLoveOfChessNotMoney=من حب الشطرنج، لا حب المال
-everybodyGetsAllFeaturesForFree=كل المميزات لكل الأعضاء مجانا
+builtForTheLoveOfChessNotMoney=تم بناؤه حباً في الشطرنج, وليس المال :)
+everybodyGetsAllFeaturesForFree=كل المميزات لكل الأعضاء مجاناً
 zeroAdvertisement=لا دعايات
 fullFeatured=كل المميزات
 phoneAndTablet=للجوالات والأجهزة اللوحية
 bulletBlitzClassical=بالتوقيت المفضل لك
 correspondenceChess=شطرنج بالمراسلة
-onlineAndOfflinePlay=على الإنترنت أو محليا
+onlineAndOfflinePlay=على الإنترنت أو بدون اتصال
 correspondenceAndUnlimited=مراسلة وبدون توقيت
 viewTheSolution=الحل
 followAndChallengeFriends=تابع وتحدى أصدقاءك

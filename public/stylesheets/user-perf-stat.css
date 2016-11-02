@@ -115,9 +115,11 @@
 }
 #perfStat .result td:first-child {
   text-indent: 20px;
+  white-space: nowrap;
 }
 #perfStat .result td:last-child {
   text-align: right;
+  font-size: 0.8em;
 }
 #perfStat .result tr {
   border-bottom: 1px solid #eee;
