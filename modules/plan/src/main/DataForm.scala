@@ -16,8 +16,8 @@ object DataForm {
     "mc_fee" -> bigDecimal,
     "custom" -> optional(text),
     "payer_email" -> optional(nonEmptyText),
-    "first_name" -> optional(nonEmptyText),
-    "last_name" -> optional(nonEmptyText)
+    "first_name" -> optional(text),
+    "last_name" -> optional(text)
   )(Ipn.apply)(Ipn.unapply))
 
   case class Ipn(
