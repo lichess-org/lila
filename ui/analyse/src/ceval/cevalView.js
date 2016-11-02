@@ -33,8 +33,12 @@ function threatInfo(threat) {
 }
 
 function threatButton(ctrl) {
-  if (!ctrl.vm.node.check) return m('a', {
-    class: 'show-threat' + (ctrl.vm.threatMode ? ' active' : ''),
+  return m('a', {
+    class: classSet({
+      'show-threat': true,
+      active: ctrl.vm.threatMode,
+      hidden: ctrl.vm.node.check
+    }),
     'data-icon': '7',
     title: 'Show threat (x)',
     config: util.bindOnce('click', ctrl.toggleThreatMode)

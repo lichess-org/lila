@@ -312,13 +312,17 @@ body.piece_letter .pv_box .pv span {
   font-size: 17px;
   line-height: 36px;
 }
-.ceval_box .show-threat:hover {
+.ceval_box .show-threat:hover:not(.hidden) {
   background: #3893E8;
   color: #fff;
 }
 .ceval_box .show-threat.active {
   background: #dc322f;
   color: #fff;
+}
+.ceval_box .show-threat.hidden {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .fork {
