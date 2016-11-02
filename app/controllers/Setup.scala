@@ -168,7 +168,7 @@ object Setup extends LilaController with TheftPrevention {
     implicit val req = ctx.body
     env.forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
       f => {
-        logger.branch("setup").warn(f.errors.toString)
+        controllerLogger.branch("setup").warn(f.errors.toString)
         BadRequest(()).fuccess
       },
       config => JsonOk(env.processor filter config inject config.render)
