@@ -273,6 +273,7 @@ body.piece_letter .pv_box .pv span {
 .ceval_box .engine .info {
   display: block;
   font-size: 10px;
+  white-space: nowrap;
 }
 .ceval_box help {
   opacity: 0.7;
