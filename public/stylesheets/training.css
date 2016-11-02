@@ -97,3 +97,25 @@ div.training > .board_and_ground > .right .spinner {
 div.training div.table {
   padding: 10px;
 }
+div.training div.current_player {
+  height: 64px;
+}
+div.training div.current_player div.player {
+  position: absolute;
+  margin-left: -5px;
+}
+div.training div.current_player div.no-square {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div.training div.current_player div.player p {
+  height: 64px;
+  line-height: 64px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #888;
+  margin: 0 0 0 64px;
+}

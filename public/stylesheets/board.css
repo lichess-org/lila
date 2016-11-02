@@ -949,33 +949,6 @@ div.separator {
   margin: 10px 0;
   border-bottom: 1px solid #ddd;
 }
-div.current_player {
-  height: 64px;
-}
-div.current_player div.player {
-  position: absolute;
-  margin-left: -5px;
-}
-div.current_player div.no-square {
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-div.current_player div.player p {
-  height: 64px;
-  line-height: 64px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #888;
-  margin: 0 0 0 64px;
-}
-div.table.finished div.player p {
-  line-height: 2em;
-  font-size: 12px;
-  margin-top: 12px;
-}
 div.cemetery {
   flex: 0 0 32px;
   line-height: 0;

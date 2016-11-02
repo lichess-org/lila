@@ -188,12 +188,7 @@ module.exports = function(ctrl) {
   return m('div.table_wrap', [
     anyClock(ctrl, 'top'),
     m('div', {
-      class: 'table' + (status.finished(ctrl.data) ? ' finished' : ''),
-      config: function(el, isUpdate) {
-        if (!isUpdate) setTimeout(function() {
-          lichess.powertip.manualUserIn(el, 's');
-        }, 500);
-      }
+      class: 'table'
     }, [
       renderPlayer(ctrl, topPlayer(ctrl)),
       m('div.table_inner',
