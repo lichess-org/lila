@@ -27,3 +27,8 @@ comp=$TARGET/lichess.js
 lilalog "Compiling $comp"
 closure-compiler --js $orig --js_output_file $comp
 cat $SRC/deps.min.js $comp | sed '/^\/\*.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
+
+# add commit sha1
+version=`git rev-parse --short HEAD`
+logger="console.log(\"lichess $version\");"
+echo $logger >> $comp
