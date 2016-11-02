@@ -1,7 +1,7 @@
 $(function() {
 
   var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
-  var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)\b/;
+  var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
   var notGames = ['training', 'analysis'];
 
   var parseLink = function(a) {
@@ -13,7 +13,8 @@ $(function() {
     var matches = a.href.match(gameRegex);
     if (matches && matches[1] && notGames.indexOf(matches[1]) === -1 && a.text.match(gameRegex)) {
       var src = '/embed/' + matches[1];
-      if (matches[2]) src += '/' + matches[2];
+      if (matches[2]) src += '/' + matches[2]; // orientation
+      if (matches[3]) src += matches[3]; // ply hash
       return {
         type: 'game',
         src: src
