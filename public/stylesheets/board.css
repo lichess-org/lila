@@ -762,7 +762,6 @@ div.table_wrap .clock.running.emerg .time {
 }
 div.table_wrap .clock.outoftime .time {
   background-color: #eFAAAA;
-  font-weight: bold;
   color: #444;
 }
 div.table_wrap .clock_top .time {
