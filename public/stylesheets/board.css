@@ -566,7 +566,7 @@ body.piece_letter .lichess_ground .replay move {
 .lichess_ground .status {
   font-size: 1em;
   font-style: italic;
-  padding-bottom: 5px;
+  padding-bottom: 7px;
 }
 .lichess_ground .replay .buttons {
   border-top: 1px solid #e2e2e2;
