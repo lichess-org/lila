@@ -8,12 +8,46 @@ var pagination = require('../pagination');
 
 var scoreTagNames = ['score', 'streak', 'double'];
 
-function scoreTag(s, i) {
+function scoreTag(s) {
   return {
     tag: scoreTagNames[(s[1] || 1) - 1],
     children: [Array.isArray(s) ? s[0] : s]
   };
 }
+
+function scoreTags(scores) {
+  return scores.map(scoreTag);
+}
+
+// function scoreTags(scores) {
+//   var tags = [];
+//   var current = {
+//     tagName: null,
+//     index: -1,
+//     count: 0
+//   };
+//   for (var i in scores) {
+//     var s = scores[i];
+//     var tagName = scoreTagNames[(s[1] || 1) - 1];
+//     var content = Array.isArray(s) ? s[0] : s;
+//     if (tagName === current.tagName && current.count < 50) {
+//       tags[current.index].children += content;
+//       ++current.count;
+//     }
+//     else {
+//       current = {
+//         tagName: tagName,
+//         index: current.index + 1,
+//         count: 1
+//       };
+//       tags[current.index] = {
+//         tag: tagName,
+//         children: '' + content
+//       };
+//     }
+//   }
+//   return tags;
+// }
 
 function rank(p) {
   return {
@@ -48,7 +82,7 @@ function playerTr(ctrl, player) {
       ]),
       m('td', {
         class: 'sheet'
-      }, player.sheet.scores.map(scoreTag)),
+      }, scoreTags(player.sheet.scores)),
       m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
