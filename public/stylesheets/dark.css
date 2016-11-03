@@ -186,8 +186,6 @@ body.dark .crosstable td:nth-last-child(3) {
 }
 body.dark .tview2 > index,
 body.dark .tview2 > interrupt,
-body.dark .lichess_ground .result,
-body.dark .lichess_ground .status,
 body.dark .explorer_box .config .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
 body.dark div.lichess_overboard .close,
