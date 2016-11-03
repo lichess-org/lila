@@ -959,7 +959,7 @@ div.cemetery:first-child {
   margin-bottom: 5px;
 }
 div.cemetery:last-child {
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 div.cemetery tomb {
   display: inline-block;
