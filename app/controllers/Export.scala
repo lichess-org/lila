@@ -110,7 +110,8 @@ object Export extends LilaController {
             fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
             lastMove = puzzle.initialMove.some,
             check = none,
-            orientation = puzzle.color.some
+            orientation = puzzle.color.some,
+            logHint = s"puzzle $id"
           ) map { stream =>
               Ok.chunked(stream).withHeaders(
                 CONTENT_TYPE -> "image/png",

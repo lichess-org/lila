@@ -12,13 +12,15 @@ final class PngExport(url: String, size: Int) {
     fen = FEN(Forsyth >> game.toChess),
     lastMove = game.castleLastMoveTime.lastMoveString,
     check = game.toChess.situation.checkSquare,
-    orientation = game.firstColor.some)
+    orientation = game.firstColor.some,
+    logHint = s"game ${game.id}")
 
   def apply(
     fen: FEN,
     lastMove: Option[String],
     check: Option[chess.Pos],
-    orientation: Option[chess.Color]): Fu[Enumerator[Array[Byte]]] = {
+    orientation: Option[chess.Color],
+    logHint: => String): Fu[Enumerator[Array[Byte]]] = {
 
     val queryString =
       ("fen" -> fen.value.takeWhile(' ' !=)) :: List(
@@ -29,7 +31,7 @@ final class PngExport(url: String, size: Int) {
 
     WS.url(url).withQueryString(queryString: _*).getStream() flatMap {
       case (res, body) if res.status != 200 =>
-        logger.warn(s"PgnExport ${fen.value} ${res.status}")
+        logger.warn(s"PgnExport $logHint ${fen.value} ${res.status}")
         fufail(res.status.toString)
       case (_, body) => fuccess(body)
     }
