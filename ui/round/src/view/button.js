@@ -147,7 +147,7 @@ module.exports = {
     if (d.tournament && d.tournament.running) return m('div.follow_up', [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong glowed',
+        class: 'text fbt strong glowed',
         href: '/tournament/' + d.tournament.id,
         config: util.bindOnce('click', ctrl.setRedirecting)
       }, ctrl.trans('backToTournament')),

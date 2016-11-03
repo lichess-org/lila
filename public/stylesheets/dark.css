@@ -48,6 +48,7 @@ body.dark #video .tag_list a:hover {
 body.dark #video .card .duration {
   background: rgba(0,0,0,0.7);
 }
+body.dark .fbt.glowed,
 body.dark #site_title {
   color: #acacac;
 }
@@ -67,7 +68,6 @@ body.dark div.side_box .top,
 body.dark div.box,
 body.dark div.box .top,
 body.dark div.table,
-body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
 body.dark #tournament_side .box,

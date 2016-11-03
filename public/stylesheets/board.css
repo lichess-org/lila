@@ -698,12 +698,6 @@ div.table .message::before {
   float: left;
   margin-right: 10px;
 }
-div.table .button.strong {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  font-weight: bold;
-  font-size: 1.2em;
-}
 div.table_wrap .whos_turn {
   height: 2em;
   line-height: 2em;
@@ -925,29 +919,24 @@ div.control .button.disabled {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  border-width: 1px 0 0 0;
   border-radius: 0;
-  padding: 14px 0;
+  padding: 12px 0;
+  border-width: 1px 0 0 0;
 }
-.lichess_ground .follow_up .button:first-child {
-  border-top: none;
+.lichess_ground .follow_up > .button:first-child {
+  border-top-width: 0;
+}
+.lichess_ground .follow_up > .button:last-child {
+  border-bottom-width: 1px;
 }
 .variant_crazyhouse .lichess_ground .follow_up .button {
-  padding: 10px 0;
+  padding: 9px 0;
 }
-.lichess_ground .follow_up .button.strong {
-  margin-bottom: 7px;
-}
-.lichess_ground .follow_up .button:first-child {
-  border-radius: 3px 3px 0 0;
-}
-.lichess_ground .follow_up .button:last-child {
-  border-bottom-width: 1px;
-  border-radius: 0 0 3px 3px;
-}
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
+.lichess_ground .follow_up .fbt.strong {
+  display: block;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1.2em;
 }
 div.cemetery {
   flex: 0 0 32px;

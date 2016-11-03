@@ -1656,7 +1656,7 @@ div.pagination span.current,
 }
 .fbt:not(:disabled):hover {
   background: #3893E8;
-  color: #fff;
+  color: #fff!important;
   animation: none;
 }
 .fbt:not(:disabled):active,
