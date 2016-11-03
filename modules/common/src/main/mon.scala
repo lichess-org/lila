@@ -3,7 +3,7 @@ package lila
 import scala.concurrent.Future
 
 import kamon.Kamon.{ metrics, tracer }
-import kamon.trace.{ TraceContext, Segment }
+import kamon.trace.{ TraceContext, Segment, Status }
 import kamon.util.RelativeNanoTimestamp
 
 object mon {
@@ -477,8 +477,9 @@ object mon {
     val context = tracer.newContext(
       name = name,
       token = None,
+      tags = Map.empty,
       timestamp = RelativeNanoTimestamp.now,
-      isOpen = true,
+      status = Status.Open,
       isLocal = false)
     val firstSegment = context.startSegment(firstName, "logic", "mon")
     new KamonTrace(context, firstSegment)
