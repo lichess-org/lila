@@ -27,7 +27,7 @@ function escapeHtml(html) {
     .replace(/'/g, "&#039;");
 }
 
-var plyPattern = /\b(\d+)\s?(\.+)\s?([NBRQK]?[\w\+#!\?=]+)/g;
+var plyPattern = /\b(\d+)\s?(\.+)\s?([NBRQK]?[\w\+#!\?=-]+)/g;
 function plyReplacer(match, turn, dots, move) {
   var ply = turn * 2 - (dots.length > 1 ? 0 : 1);
   return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
