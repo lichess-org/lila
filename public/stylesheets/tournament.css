@@ -373,6 +373,7 @@ ol.scheduled_tournaments a {
   /* font-weight: bold; */
 }
 #tournament div.standing_wrap td.total {
+  text-align: right;
   font-family: 'Roboto Mono';
   padding-right: 15px;
 }
