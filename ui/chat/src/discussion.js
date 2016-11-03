@@ -16,7 +16,9 @@ function skipSpam(txt) {
 
 function renderLine(ctrl) {
   return function(line) {
-    if (!line.html) line.html = enhance(line.t);
+    if (!line.html) line.html = enhance(line.t, {
+      parseMoves: ctrl.vm.parseMoves
+    });
     if (line.u === 'lichess') return m('li.system', line.html);
     if (line.c) return m('li', [
       m('span', '[' + line.c + ']'),

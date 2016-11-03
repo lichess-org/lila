@@ -37,9 +37,9 @@ function addPlies(html) {
   return html.replace(plyPattern, plyReplacer);
 }
 
-module.exports = function(text) {
+module.exports = function(text, opts) {
   var escaped = escapeHtml(delocalize(text));
   var linked = autoLink(escaped);
-  var plied = linked === escaped ? addPlies(linked) : linked;
+  var plied = (opts.parseMoves && linked === escaped) ? addPlies(linked) : linked;
   return m.trust(plied);
 };

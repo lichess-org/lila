@@ -1011,6 +1011,7 @@ lichess.notifyApp = (function() {
     round = LichessRound(cfg);
     if (cfg.chat) {
       cfg.chat.preset = getPresetGroup(cfg.data);
+      cfg.chat.parseMoves = true;
       lichess.makeChat('chat', cfg.chat, function(c) {
         chat = c;
       });
@@ -1845,7 +1846,10 @@ lichess.notifyApp = (function() {
     analyse = LichessAnalyse(cfg);
     cfg.jumpToIndex = analyse.jumpToIndex;
 
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) {
+      cfg.chat.parseMoves = true;
+      lichess.makeChat('chat', cfg.chat);
+    }
 
     setTimeout(function() {
       $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
