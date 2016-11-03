@@ -143,7 +143,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val memo = project("memo", Seq(common, db)).settings(
-    libraryDependencies ++= Seq(guava, findbugs, spray.caching) ++ provided(play.api, reactivemongo.driver)
+    libraryDependencies ++= Seq(findbugs, spray.caching) ++ provided(play.api, reactivemongo.driver)
   )
 
   lazy val search = project("search", Seq(common, hub)).settings(

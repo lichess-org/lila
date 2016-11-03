@@ -29,7 +29,6 @@ object Dependencies {
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.6"
   val config = "com.typesafe" % "config" % "1.3.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"
-  val guava = "com.google.guava" % "guava" % "20.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
