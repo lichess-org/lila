@@ -22,7 +22,7 @@ function readFen(fen) {
     fmvn: parseInt(parts[5], 10) || 1
   };
 
-  parts[0].split('/').forEach(function(row, y) {
+  parts[0].split('/').slice(0, 8).forEach(function(row, y) {
     var x = 0;
     row.split('').forEach(function(v) {
       if (v == '~') return;
