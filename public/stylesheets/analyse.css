@@ -474,7 +474,6 @@ body.piece_letter .explorer_box .moves td:first-child {
 }
 .explorer_box .moves td:nth-child(2) {
   font-size: 10px;
-  opacity: 0.8;
   text-align: right;
 }
 .explorer_box .moves td:last-child {
