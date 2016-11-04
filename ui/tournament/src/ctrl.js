@@ -46,10 +46,6 @@ module.exports = function(env) {
   }.bind(this);
 
   var lastStorage = lichess.storage.make('last-redirect');
-  var redirected = null;
-  lastStorage.listen(function(e) {
-    if (e.newValue) redirected = e.newValue;
-  });
 
   var redirectToMyGame = function() {
     var gameId = tour.myCurrentGameId(this);
@@ -59,7 +55,7 @@ module.exports = function(env) {
   this.redirectFirst = function(gameId, rightNow) {
     var delay = (rightNow || lichess.isPageVisible) ? 10 : (1000 + Math.random() * 500);
     setTimeout(function() {
-      if (redirected !== gameId) {
+      if (lastStorage.get() !== gameId) {
         lastStorage.set(gameId);
         location.href = '/' + gameId;
       }
