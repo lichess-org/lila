@@ -707,6 +707,8 @@ div.table_wrap .whos_turn {
 }
 div.table_wrap .clock {
   position: relative;
+  display: flex;
+  align-items: stretch;
 }
 div.table_wrap .clock .bar {
   position: absolute;
@@ -772,11 +774,12 @@ div.table_wrap .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
-div.table_wrap .berserk.button {
-  font-size: 17px;
-  margin-left: 5px;
-  line-height: 17px;
-  vertical-align: -3px;
+div.table_wrap .berserk.fbt {
+  font-size: 25px;
+  padding: 0 12px;
+}
+div.table_wrap .tournament_rank {
+  font-size: 20px;
 }
 div.table_wrap a.moretime {
   opacity: 0.4;
@@ -801,20 +804,6 @@ div.table_wrap div.berserk_alert {
 }
 div.table_wrap div.berserk_alert.bottom {
   top: -3px;
-}
-div.table_wrap .tournament_rank {
-  position: absolute;
-  font-size: 20px;
-  right: 0;
-}
-div.table_wrap .tournament_rank.top {
-  top: 5px;
-}
-div.table_wrap .tournament_rank.bottom {
-  bottom: 5px;
-}
-div.table_next {
-  top: 145px;
 }
 div.control {
   text-align: center;

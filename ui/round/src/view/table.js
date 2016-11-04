@@ -120,10 +120,11 @@ function whosTurn(ctrl, color) {
 }
 
 function goBerserk(ctrl) {
-  if (!game.berserkableBy(ctrl.data)) return;
-  if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
+  console.log('berserk');
+  // if (!game.berserkableBy(ctrl.data)) return;
+  // if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
   return m('button', {
-    class: 'button berserk hint--bottom-left',
+    class: 'fbt berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",
     onclick: ctrl.goBerserk
   }, m('span', {
@@ -155,9 +156,9 @@ function renderClock(ctrl, position) {
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
       renderBerserk(ctrl, player.color, position),
-      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl)
-    ]),
-    tourRank(ctrl, player.color, position)
+      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+      tourRank(ctrl, player.color, position)
+    ])
   ];
 }
 
