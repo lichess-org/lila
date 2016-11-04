@@ -73,8 +73,10 @@ atom = atom.some) {
           @if(game.isPgnImport) {
           <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
           }
+          @if(false) {
           <a data-icon="x" class="text" target="_blank" rel="nofollow" href="@cdnUrl(routes.Export.pdf(game.id).url)">@trans.printFriendlyPDF()</a>
-          @if(lila.game.Game.visualisableVariants(game.variant)) {
+          }
+          @if(false && lila.game.Game.visualisableVariants(game.variant)) {
           <a data-icon="=" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
           }
           <a data-icon="=" class="text embed_howto" target="_blank">Embed in your website</a>
