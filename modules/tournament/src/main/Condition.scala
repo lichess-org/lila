@@ -30,7 +30,8 @@ object Condition {
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition with FlatCond {
 
     def apply(user: User) =
-      perf match {
+      if (user.hasTitle) Accepted
+      else perf match {
         case Some(p) if user.perfs(p).nb >= nb => Accepted
         case Some(p)                           => Refused(s"Only ${user.perfs(p).nb} of $nb rated ${p.name} games played")
         case None if user.count.rated >= nb    => Accepted
@@ -58,7 +59,8 @@ object Condition {
   case class MinRating(perf: PerfType, rating: Int) extends Condition with FlatCond {
 
     def apply(user: User) =
-      if (user.perfs(perf).provisional) Refused(s"Provisional ${perf.name} rating")
+      if (user.hasTitle) Accepted
+      else if (user.perfs(perf).provisional) Refused(s"Provisional ${perf.name} rating")
       else if (user.perfs(perf).intRating < rating) Refused(s"Current ${perf.name} rating is too low")
       else Accepted
 
