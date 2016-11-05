@@ -210,6 +210,9 @@ div.side_box .game_infos {
 #site_header .help {
   margin-top: 20px;
 }
+#site_header .help a {
+  color: #3893E8;
+}
 #modal-wrap.card {
   max-width: 500px;
   padding: 0;
