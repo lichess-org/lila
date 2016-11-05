@@ -154,7 +154,7 @@ object PerfType {
     case chess.variant.Atomic        => Atomic.some
     case chess.variant.Horde         => Horde.some
     case chess.variant.RacingKings   => RacingKings.some
-    case _                           => none
+    case chess.variant.Standard      => none
   }
 
   def iconByVariant(variant: chess.variant.Variant): Char =

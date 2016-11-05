@@ -49,6 +49,8 @@ case class Schedule(
   def similarTo(other: Schedule) =
     similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
+  def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+
   override def toString = s"$freq $variant $speed $conditions $at"
 }
 
@@ -193,4 +195,39 @@ object Schedule {
       case (Classical, _, _)                            => TC(10 * 60, 0)
     }
   }
+
+  private[tournament] def conditionFor(s: Schedule) =
+    if (s.conditions.relevant) s.conditions
+    else {
+      import Freq._, Speed._
+
+      val nbRatedGame = (s.speed, s.freq) match {
+        case (HyperBullet | Bullet, Daily)            => 20
+        case (SuperBlitz | Blitz, Daily)              => 15
+        case (Classical, Daily)                       => 10
+
+        case (HyperBullet | Bullet, Weekly | Monthly) => 30
+        case (SuperBlitz | Blitz, Weekly | Monthly)   => 20
+        case (Classical, Weekly | Monthly)            => 15
+
+        case (HyperBullet | Bullet, Weekend)          => 30
+        case (SuperBlitz | Blitz, Weekend)            => 20
+
+        case _                                        => 0
+      }
+
+      val minRating = s.freq match {
+        case Weekend => 2200
+        case _       => 0
+      }
+
+      Condition.All(
+        nbRatedGame = nbRatedGame.some.filter(0<).map {
+          Condition.NbRatedGame(s.perfType.some, _)
+        },
+        minRating = minRating.some.filter(0<).map {
+          Condition.MinRating(s.perfType, _)
+        },
+        maxRating = none)
+    }
 }
