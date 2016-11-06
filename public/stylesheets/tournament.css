@@ -283,29 +283,33 @@ ol.scheduled_tournaments a {
 }
 #tournament table.standing td.player {
   padding-left: 0px;
+  padding-right: 0px;
 }
 #tournament table.standing td.player .name {
   display:inline-block;
   vertical-align: middle;
   white-space: nowrap;
+  padding-right: 5px;
   max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#tournament .user_link.long {
+#tournament table.standing .user_link {
+  white-space: normal;
+}
+#tournament table.standing .user_link.long {
   letter-spacing: -0.7px;
 }
-#tournament .user_link .progress {
+#tournament table.standing .user_link .progress {
   font-style: italic;
   font-size: 0.8em;
-  padding-left: 5px;
   letter-spacing: 0;
 }
-#tournament tr.long .user_link .progress {
+#tournament table.standing tr.long .user_link .progress {
   display: block;
   padding-left: 0px;
 }
-#tournament .user_link .progress span {
+#tournament table.standing .user_link .progress span {
   padding-left: 5px;
 }
 #tournament table.standing tbody tr {
@@ -329,6 +333,7 @@ ol.scheduled_tournaments a {
   font-family: 'Roboto';
   opacity: 0.8;
   padding-left: 10px;
+  width: 1px; /* helps keeping it as small as possible */
 }
 #tournament table.standing .sheet {
   text-align: right;

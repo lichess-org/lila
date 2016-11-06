@@ -57,7 +57,7 @@ function playerTr(ctrl, player) {
       key: userId,
       class: classSet({
         'me': ctrl.userId === userId,
-        'long': player.sheet.scores.length > 30,
+        'long': player.sheet.scores.length > 35,
         'xlong': player.sheet.scores.length > 80
       }),
       onclick: partial(ctrl.showPlayerInfo, player)
