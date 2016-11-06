@@ -49,16 +49,6 @@ function scoreTags(scores) {
 //   return tags;
 // }
 
-function rank(p) {
-  return {
-    tag: 'rank',
-    attrs: p.rank > 99 ? {
-      class: 'big'
-    } : {},
-    children: [p.rank]
-  };
-}
-
 function playerTr(ctrl, player) {
   var userId = player.name.toLowerCase();
   return {
@@ -67,22 +57,18 @@ function playerTr(ctrl, player) {
       key: userId,
       class: classSet({
         'me': ctrl.userId === userId,
-        'long': player.sheet.scores.length > 40,
+        'long': player.sheet.scores.length > 35,
         'xlong': player.sheet.scores.length > 80
       }),
       onclick: partial(ctrl.showPlayerInfo, player)
     },
     children: [
-      m('td', [
-        player.withdraw ? m('rank', {
-          'data-icon': 'b',
-          'title': ctrl.trans('withdraw')
-        }) : rank(player),
-        util.player(player, 'span')
-      ]),
-      m('td', {
-        class: 'sheet'
-      }, scoreTags(player.sheet.scores)),
+      m('td.rank', player.withdraw ? m('i', {
+        'data-icon': 'b',
+        'title': ctrl.trans('withdraw')
+      }) : player.rank),
+      m('td.player', util.player(player, 'span')),
+      m('td.sheet', scoreTags(player.sheet.scores)),
       m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
@@ -144,8 +130,7 @@ module.exports = {
   standing: function(ctrl, pag, klass) {
     var player = util.currentPlayer(ctrl, pag);
     var tableBody = pag.currentPageResults ?
-      pag.currentPageResults.map(partial(playerTr, ctrl)) :
-      (lastBody ? lastBody : m.trust(lichess.spinnerHtml));
+      pag.currentPageResults.map(partial(playerTr, ctrl)) : lastBody;
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('div.controls',

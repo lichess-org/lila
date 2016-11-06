@@ -151,16 +151,12 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           },
 
         List( // week-end elite tournaments!
-          nextSaturday -> Bullet -> 2200,
-          nextSunday -> SuperBlitz -> 2200
+          nextSaturday -> Bullet,
+          nextSunday -> SuperBlitz
         ).flatMap {
-            case ((day, speed), minRating) => at(day, 17) map { date =>
+            case (day, speed) => at(day, 17) map { date =>
               val perf = Schedule.Speed toPerfType speed
-              Schedule(Weekend, speed, Standard, std, date |> orNextWeek,
-                conditions = Condition.All(
-                  nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
-                  maxRating = none,
-                  minRating = Condition.MinRating(perf, minRating).some))
+              Schedule(Weekend, speed, Standard, std, date |> orNextWeek)
             }
           },
 
@@ -265,7 +261,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
       ).flatten
 
-      nextSchedules.foldLeft(List[Schedule]()) {
+      nextSchedules.map { sched =>
+        sched.copy(conditions = Schedule conditionFor sched)
+      }.foldLeft(List[Schedule]()) {
         case (scheds, sched) if sched.at.isBeforeNow      => scheds
         case (scheds, sched) if overlaps(sched, dbScheds) => scheds
         case (scheds, sched) if overlaps(sched, scheds)   => scheds

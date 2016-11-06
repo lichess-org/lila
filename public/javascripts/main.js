@@ -1732,7 +1732,7 @@ lichess.notifyApp = (function() {
         });
       };
       $('#site_header .help a.more').click(function() {
-        $.modal($(this).parent().find('div.more').clone()).addClass('card');
+        $.modal($(this).parent().find('div.more').clone().removeClass('none')).addClass('card');
       });
       return;
     }

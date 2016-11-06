@@ -8,20 +8,30 @@ import lila.evaluation._
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
-final class JsonView(assessApi: AssessApi) {
+final class JsonView(
+    assessApi: AssessApi,
+    relationApi: lila.relation.RelationApi,
+    userJson: lila.user.JsonView) {
 
   def apply(user: User): Fu[Option[JsObject]] =
     assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
       _ ?? {
-        case PlayerAggregateAssessment.WithGames(pag, games) =>
-          GameRepo withInitialFens games map { gamesWithFen =>
-            Json.obj(
-              "assessment" -> pag,
-              "games" -> JsObject(gamesWithFen.map { g =>
-                g._1.id -> gameWithFenWrites.writes(g)
-              })
-            ).some
-          }
+        case PlayerAggregateAssessment.WithGames(pag, games) => for {
+          followers <- relationApi.countFollowers(user.id)
+          following <- relationApi.countFollowing(user.id)
+          blockers <- relationApi.countBlockers(user.id)
+          gamesWithFen <- GameRepo withInitialFens games
+        } yield Json.obj(
+          "user" -> userJson(user),
+          "relation" -> Json.obj(
+            "followers" -> followers,
+            "following" -> following,
+            "blockers" -> blockers),
+          "assessment" -> pag,
+          "games" -> JsObject(gamesWithFen.map { g =>
+            g._1.id -> gameWithFenWrites.writes(g)
+          })
+        ).some
       }
     }
 

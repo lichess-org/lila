@@ -24,7 +24,7 @@ function makeConfig(data, ply, flip) {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, flip),
-    turnColor: data.game.player,
+    turnColor: step.ply % 2 === 0 ? 'white' : 'black',
     lastMove: uci2move(step.uci),
     check: step.check,
     coordinates: data.pref.coords !== 0,

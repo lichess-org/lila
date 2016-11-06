@@ -23,6 +23,8 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
+    relationApi: lila.relation.RelationApi,
+    userJson: lila.user.JsonView,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {
@@ -87,7 +89,9 @@ final class Env(
     emailAddress = emailAddress)
 
   lazy val jsonView = new JsonView(
-    assessApi = assessApi)
+    assessApi = assessApi,
+    relationApi = relationApi,
+    userJson = userJson)
 
   lazy val userHistory = new UserHistory(
     logApi = logApi,
@@ -128,5 +132,7 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     historyApi = lila.history.Env.current.api,
     rankingApi = lila.user.Env.current.rankingApi,
+    relationApi = lila.relation.Env.current.api,
+    userJson = lila.user.Env.current.jsonView,
     emailAddress = lila.security.Env.current.emailAddress)
 }

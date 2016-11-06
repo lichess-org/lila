@@ -57,8 +57,6 @@ final class Env(
 
   lazy val rewind = Rewind
 
-  lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
-
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
   lazy val pgnDump = new PgnDump(
