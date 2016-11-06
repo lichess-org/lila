@@ -783,34 +783,25 @@ div.table_wrap .berserk.fbt {
   font-size: 25px;
   padding: 0 12px;
 }
-div.table_wrap .tournament_rank {
+div.table_wrap .tournament_rank,
+div.table_wrap a.moretime,
+div.table_wrap div.berserk_alert {
   flex: 1 1 100%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  font-size: 20px;
 }
 div.table_wrap a.moretime {
   opacity: 0.4;
-  flex: 1 1 100%;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
 
 div.table_wrap div.berserk_alert {
-  position: absolute;
-  right: 0;
-  top: -14px;
   font-size: 34px;
   color: #D85000;
-}
-div.table_wrap div.berserk_alert.bottom {
-  top: -3px;
 }
 div.control {
   text-align: center;
