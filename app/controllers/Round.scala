@@ -187,14 +187,19 @@ object Round extends LilaController with TheftPrevention {
                 Ok(html.round.watcherBot(pov, initialFen, pgn))
             }
         }.mon(_.http.response.watcher.website),
-        api = apiVersion =>
-          Env.api.roundApi.watcher(pov, apiVersion, tv = none) flatMap { json =>
-            pov.game.metadata.analysed.??(analyser get pov.game.id) map { analysis =>
-              Ok(analysis.fold(json) { a =>
-                json + ("analysis" -> lila.analyse.JsonView.mobile(pov.game, a))
-              })
-            }
+        api = apiVersion => for {
+          data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
+          analysis <- pov.game.metadata.analysed.??(analyser get pov.game.id)
+          chat <- getWatcherChat(pov.game)
+        } yield {
+          val withChat = chat.fold(data) { c =>
+            data + ("chat" -> lila.chat.JsonView(c.chat))
           }
+          val withAnalysis = analysis.fold(withChat) { a =>
+            withChat + ("analysis" -> lila.analyse.JsonView.mobile(pov.game, a))
+          }
+          Ok(withAnalysis)
+        }
       ) map NoCache
     }
 
