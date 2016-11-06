@@ -31,15 +31,18 @@ final class Messenger(
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(gameId: String, member: Member, text: String) =
-    chat ! (member.userId match {
-      case Some(userId) =>
-        whisperCommands.collectFirst {
-          case command if text startsWith command =>
-            UserTalk(watcherId(gameId), userId, text drop command.size)
-        } | UserTalk(gameId, userId, text, public = false)
-      case None => PlayerTalk(gameId, member.color.white, text)
-    })
+  def owner(gameId: String, member: Member, text: String) = (member.userId match {
+    case Some(userId) =>
+      whisperCommands.collectFirst {
+        case command if text startsWith command =>
+          UserTalk(watcherId(gameId), userId, text drop command.size)
+      } orElse {
+        if (text startsWith "/") none // mistyped command?
+        else UserTalk(gameId, userId, text, public = false).some
+      }
+    case None =>
+      PlayerTalk(gameId, member.color.white, text).some
+  }) foreach chat.!
 
   private def watcherId(gameId: String) = s"$gameId/w"
 }
