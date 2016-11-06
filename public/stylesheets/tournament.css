@@ -509,6 +509,12 @@ div.side_box .refused {
   padding-top: 12px;
   background: #fff;
 }
+#tournament_side .player .rank {
+  display: none;
+}
+#tournament_side .player .name {
+  padding-right: 5px;
+}
 #tournament_side .player close {
   position: absolute;
   top: 0px;
