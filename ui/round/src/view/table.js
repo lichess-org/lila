@@ -120,9 +120,8 @@ function whosTurn(ctrl, color) {
 }
 
 function goBerserk(ctrl) {
-  console.log('berserk');
-  // if (!game.berserkableBy(ctrl.data)) return;
-  // if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
+  if (!game.berserkableBy(ctrl.data)) return;
+  if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
   return m('button', {
     class: 'fbt berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",

@@ -784,7 +784,11 @@ div.table_wrap .berserk.fbt {
   padding: 0 12px;
 }
 div.table_wrap .tournament_rank {
+  flex: 1 1 100%;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 div.table_wrap a.moretime {
   opacity: 0.4;
