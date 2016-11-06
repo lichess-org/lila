@@ -792,13 +792,11 @@ div.table_wrap .tournament_rank {
 }
 div.table_wrap a.moretime {
   opacity: 0.4;
-  position: absolute;
+  flex: 1 1 100%;
   font-size: 20px;
-  right: 0;
-  top: 7px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
