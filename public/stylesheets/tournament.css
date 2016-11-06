@@ -331,7 +331,6 @@ ol.scheduled_tournaments a {
 }
 #tournament table.slist td.rank {
   font-family: 'Roboto';
-  opacity: 0.8;
   padding-left: 10px;
   width: 1px; /* helps keeping it as small as possible */
 }
