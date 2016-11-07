@@ -40,7 +40,7 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo lastPlayedPlaying user zip
+      if (user.enabled) GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
@@ -59,6 +59,7 @@ object User extends LilaController {
                 )))
               })
         }
+      else fuccess(Ok(html.user.miniClosed(user)))
     }
   }
 
