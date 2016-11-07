@@ -22,14 +22,10 @@ function renderUserInfos(ctrl) {
         if (hash == ctx.hash) return;
         ctx.hash = hash;
         var dark = document.body.classList.contains('dark');
-        var slots = new Array(historySize + 1);
-        var rating = d.user.rating;
-        slots[historySize] = rating;
-        for (var i = 0; i < historySize; i++) {
-          if (d.user.history[i]) rating += d.user.history[i][1];
-          slots[historySize - 1 - i] = rating;
-        }
-        jQuery(el).sparkline(slots, {
+        var points = d.user.history.map(function(r) {
+          return r[2] + r[1];
+        });
+        jQuery(el).sparkline(points, {
           type: 'line',
           width: '213px',
           height: '80px',
@@ -252,7 +248,6 @@ function renderHistory(ctrl) {
   var d = ctrl.data;
   var slots = [];
   for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
-  slots.reverse();
   return m('div.history', [
     m('div.timeline', [
       slots.map(function(s) {

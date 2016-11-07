@@ -19,7 +19,7 @@ case class Round(
 
 object Round {
 
-  case class Mini(puzzleId: Int, ratingDiff: Int)
+  case class Mini(puzzleId: Int, ratingDiff: Int, rating: Int)
 
   object BSONFields {
     val puzzleId = "p"
@@ -59,6 +59,7 @@ object Round {
     import BSONFields._
     def read(doc: Bdoc): Mini = Mini(
       puzzleId = doc.getAs[Int](puzzleId) err "RoundMini no puzzleId",
+      rating = doc.getAs[Int](rating) err "RoundMini no rating",
       ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff")
   }
 }
