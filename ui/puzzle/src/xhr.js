@@ -72,6 +72,5 @@ module.exports = {
   round: round,
   vote: vote,
   retry: retry,
-  setDifficulty: setDifficulty,
   newPuzzle: newPuzzle
 };
