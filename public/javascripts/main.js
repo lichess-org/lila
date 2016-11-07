@@ -264,6 +264,7 @@ lichess.notifyApp = (function() {
         '</div>'
       ).find('a').click(function() {
         $('#deeplink').remove();
+        document.body.dispatchEvent(new Event('chessground.resize'));
         if ($(this).attr('href')) storage.remove();
         else storage.set(10);
         return true;
