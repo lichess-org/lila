@@ -56,7 +56,7 @@ private[puzzle] final class Selector(
   private def newPuzzleForUser(user: User): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
-    (api.head.find(user) zip api.puzzle.lastId) flatMap {
+    (api.head.find(user) zip api.puzzle.cachedLastId(true)) flatMap {
       case (opHead, maxId) => tryRange(
         rating = rating,
         tolerance = step,

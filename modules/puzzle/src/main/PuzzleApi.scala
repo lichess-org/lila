@@ -1,11 +1,11 @@
 package lila.puzzle
 
 import scala.util.{ Try, Success, Failure }
+import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson.{ BSONArray, BSONValue }
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -31,7 +31,9 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]()
         .gather[List](nb)
 
-    def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
+    private def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
+
+    val cachedLastId = lila.memo.AsyncCache.single(lastId, timeToLive = 5 minutes)
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")
