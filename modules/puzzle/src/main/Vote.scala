@@ -4,9 +4,11 @@ import org.joda.time.DateTime
 
 case class Vote(
     _id: String, // puzzleId/userId
-    vote: Boolean) {
+    v: Boolean) {
 
   def id = _id
+
+  def value = v
 }
 
 object Vote {

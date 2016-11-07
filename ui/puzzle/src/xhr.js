@@ -38,7 +38,7 @@ function vote(ctrl, v) {
     },
     config: xhrConfig
   }).then(function(res) {
-    ctrl.data.round.vote = res[0];
+    ctrl.data.voted = res[0];
     ctrl.data.puzzle.vote = res[1];
   });
 }

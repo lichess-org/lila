@@ -55,15 +55,18 @@ object Puzzle extends LilaController {
   }
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
-    (env userInfos ctx.me) map {
-      infos => JsData(puzzle, infos, "play", animationDuration = env.AnimationDuration)
+    (env userInfos ctx.me) map { infos =>
+      JsData(puzzle, infos, "play", voted = none, animationDuration = env.AnimationDuration)
     }
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
       env.selector(ctx.me) zip (env userInfos ctx.me) map {
-        case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
+        case (puzzle, infos) =>
+          Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"),
+            voted = none,
+            animationDuration = env.AnimationDuration)) as JSON
       } map (_ as JSON)
     }
   }
@@ -82,29 +85,29 @@ object Puzzle extends LilaController {
               case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
                 env.api.puzzle find id zip
                   (env userInfos me2.some) zip
-                  (env.api.vote.find(id, me2)) map {
-                    case ((p2, infos), vote) => Ok {
+                  env.api.vote.value(id, me2) map {
+                    case ((p2, infos), voted) => Ok {
                       JsData(p2 | puzzle, infos, "view",
-                        voted = (vote match {
-                        case Some(_) => true
-                        case _       => false
-                      }) some,
+                        voted = voted,
                         round = newAttempt.some,
                         animationDuration = env.AnimationDuration)
                     }
                   }
               }
-              case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
-                Ok(JsData(puzzle, infos, "view",
-                  round = oldAttempt.some,
-                  win = win.some,
-                  animationDuration = env.AnimationDuration))
-              }
+              case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
+                ctx.me.?? { env.api.vote.value(puzzle.id, _) } map {
+                  case (infos, voted) => Ok(JsData(puzzle, infos, "view",
+                    round = oldAttempt.some,
+                    win = win.some,
+                    voted = voted,
+                    animationDuration = env.AnimationDuration))
+                }
             }
           case None => fuccess {
             lila.mon.puzzle.round.anon()
             Ok(JsData(puzzle, none, "view",
               win = data.isWin.some,
+              voted = none,
               animationDuration = env.AnimationDuration))
           }
         }
@@ -122,7 +125,7 @@ object Puzzle extends LilaController {
         case (p, a) =>
           if (vote == 1) lila.mon.puzzle.vote.up()
           else lila.mon.puzzle.vote.down()
-          Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
+          Ok(play.api.libs.json.Json.arr(a.value, p.vote.sum))
       }
     ) map (_ as JSON)
   }

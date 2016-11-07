@@ -4,7 +4,7 @@
 @embedJs {
 LichessPuzzle(
 document.querySelector('#lichess .round'),
-@Html(toJson(JsData(puzzle, userInfos, mode, animationDuration = animationDuration))),
+@Html(toJson(JsData(puzzle, userInfos, mode, voted = none, animationDuration = animationDuration))),
 @Html(toJson(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,

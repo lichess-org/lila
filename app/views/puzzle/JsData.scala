@@ -15,7 +15,7 @@ object JsData extends lila.Steroids {
     animationDuration: scala.concurrent.duration.Duration,
     round: Option[Round] = None,
     win: Option[Boolean] = None,
-    voted: Option[Boolean] = None)(implicit ctx: Context) = Json.obj(
+    voted: Option[Boolean])(implicit ctx: Context) = Json.obj(
     "puzzle" -> Json.obj(
       "id" -> puzzle.id,
       "rating" -> puzzle.perf.intRating,

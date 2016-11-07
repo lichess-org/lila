@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import scala.util.{ Try, Success, Failure }
 import scala.concurrent.duration._
+import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
@@ -106,6 +106,9 @@ private[puzzle] final class PuzzleApi(
 
   object vote {
 
+    def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
+      voteColl.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
+
     def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl.byId[Vote](Vote.makeId(id, user.id))
 
     def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle find id flatMap {
@@ -113,8 +116,8 @@ private[puzzle] final class PuzzleApi(
       case Some(p1) =>
         val (p2, v2) = v1 match {
           case Some(from) => (
-            (p1 withVote (_.change(from.vote, v))),
-            from.copy(vote = v)
+            (p1 withVote (_.change(from.value, v))),
+            from.copy(v = v)
           )
           case None => (
             (p1 withVote (_ add v)),
@@ -123,7 +126,7 @@ private[puzzle] final class PuzzleApi(
         }
         voteColl.update(
           $id(v2.id),
-          $set("vote" -> v),
+          $set("v" -> v),
           upsert = true) zip
           puzzleColl.update(
             $id(p2.id),

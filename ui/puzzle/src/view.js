@@ -146,25 +146,32 @@ function renderPlayTable(ctrl) {
   );
 }
 
+function voteFunction(ctrl, v) {
+  return function() {
+    ctrl.hasEverVoted.set(1);
+    xhr.vote(ctrl, v);
+  };
+}
+
 function renderVote(ctrl) {
   return m('div.upvote' + (ctrl.data.round ? '.enabled' : ''), [
     m('a[data-icon=S]', {
       title: ctrl.trans('thisPuzzleIsCorrect'),
-      class: ctrl.data.round.vote ? ' active' : '',
-      onclick: partial(xhr.vote, ctrl, 1)
+      class: ctrl.data.voted === true ? ' active' : '',
+      onclick: voteFunction(ctrl, 1)
     }),
     m('span.count.hint--bottom[data-hint=Popularity]', ctrl.data.puzzle.vote),
     m('a[data-icon=R]', {
       title: ctrl.trans('thisPuzzleIsWrong'),
-      class: ctrl.data.round.vote === false ? ' active' : '',
-      onclick: partial(xhr.vote, ctrl, 0)
+      class: ctrl.data.voted === false ? ' active' : '',
+      onclick: voteFunction(ctrl, 0)
     })
   ]);
 }
 
 function renderViewTable(ctrl) {
   return [
-    (ctrl.data.puzzle.enabled && ctrl.data.voted === false) ? m('div.please_vote', [
+    (!ctrl.hasEverVoted.get() && ctrl.data.puzzle.enabled && ctrl.data.voted === null) ? m('div.please_vote', [
       m('p.first', [
         m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
         m('br'),

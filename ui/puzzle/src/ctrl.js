@@ -189,5 +189,7 @@ module.exports = function(cfg, i18n) {
     }, '');
   }
 
+  this.hasEverVoted = lichess.storage.make('puzzle-ever-voted');
+
   this.trans = lichess.trans(i18n);
 };
