@@ -222,6 +222,9 @@
   height: 30px;
   line-height: 30px;
 }
+body.dark #puzzle .timeline > * {
+  background: #444;
+}
 #puzzle .timeline a:first-child {
   margin-left: 0;
 }
