@@ -2,11 +2,6 @@
   position: relative;
   min-height: 600px;
 }
-#puzzle .is::before,
-#puzzle .is::after,
-#puzzle [data-icon]::before {
-  margin-right: 3px;
-}
 #puzzle .board_and_ground {
   display: flex;
 }
@@ -151,7 +146,6 @@
 #puzzle .right .continue_wrap {
   width: 100%;
   text-align: center;
-  margin-top: 20px;
 }
 #puzzle .right .retry {
   display: inline-block;
@@ -190,6 +184,8 @@
 #puzzle div.upvote {
   float: right;
   text-align: center;
+  display: flex;
+  flex-flow: column;
 }
 #puzzle div.upvote a {
   cursor: default;
@@ -198,7 +194,6 @@
   cursor: pointer;
 }
 #puzzle div.upvote a {
-  display: block;
   font-size: 24px;
 }
 #puzzle div.upvote.enabled a:hover,
@@ -206,7 +201,6 @@
   color: #d85000;
 }
 #puzzle div.upvote span.count {
-  display: block;
   font-size: 24px;
   line-height: 1;
 }
