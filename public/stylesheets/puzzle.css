@@ -112,16 +112,29 @@
 #puzzle .please_vote.thanks .then {
   display: block;
 }
-#puzzle .right piece {
-  width: 100%;
-  height: 100%;
+#puzzle .right .player {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+#puzzle .right .no-square {
+  width: 64px;
+  height: 64px;
 }
 .is3d #puzzle .right div.no-square {
   height: 82px;
 }
-#puzzle .right .findit {
+#puzzle .right piece {
+  position: inherit;
   display: block;
-  margin: 1em 0 2em 0;
+  width: 100%;
+  height: 100%;
+}
+#puzzle .right .instruction > * {
+  display: block;
+}
+#puzzle .right .instruction strong {
+  font-size: 1.5em;
 }
 #puzzle .right .control {
   text-align: center;
@@ -223,6 +236,9 @@
 }
 #puzzle .timeline a:hover {
   opacity: 1;
+}
+#puzzle .timeline a.current {
+  background: #3893E8;
 }
 #puzzle .timeline a.win {
   background: #759900;

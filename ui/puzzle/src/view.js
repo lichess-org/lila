@@ -136,27 +136,25 @@ function renderSide(ctrl) {
 
 function renderPlayTable(ctrl) {
   return m('div.table_wrap',
-    m('div.table',
-      m('div.table_inner', [
-        m('div.current_player',
-          m('div.player.' + ctrl.chessground.data.turnColor, [
-            m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
-            m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
-          ])
-        ),
-        m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-        m('div.control',
-          m('a.button.giveup', {
-            config: function(el, isUpdate) {
-              setTimeout(function() {
-                el.classList.add('revealed');
-              }, 1000);
-            },
-            onclick: partial(xhr.round, ctrl, 0)
-          }, ctrl.trans('giveUp'))
-        )
-      ])
-    )
+    m('div.table', [
+      m('div.player.' + ctrl.chessground.data.turnColor, [
+        m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
+        m('div.instruction', [
+          m('strong', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting')),
+          m('em', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
+        ])
+      ]),
+      m('div.control',
+        m('a.button.giveup', {
+          config: function(el, isUpdate) {
+            setTimeout(function() {
+              el.classList.add('revealed');
+            }, 1000);
+          },
+          onclick: partial(xhr.round, ctrl, 0)
+        }, ctrl.trans('giveUp'))
+      )
+    ])
   );
 }
 
@@ -256,14 +254,14 @@ function renderFooter(ctrl) {
 }
 
 function renderHistory(ctrl) {
-  var d = ctrl.data
+  var d = ctrl.data;
   var slots = [];
   for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
   return m('div.history', [
     m('div.timeline', [
       slots.map(function(s) {
         if (s) return m('a', {
-          class: s[1] >= 0 ? 'win' : 'loss',
+          class: d.puzzle.id === s[0] ? 'current' : (s[1] >= 0 ? 'win' : 'loss'),
           href: '/training/' + s[0]
         }, s[1] > 0 ? '+' + s[1] : s[1]);
         return m('span', ' ');
