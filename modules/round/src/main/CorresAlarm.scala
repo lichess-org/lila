@@ -64,11 +64,13 @@ private final class CorresAlarm(coll: Coll) extends Actor {
         _ ?? { game =>
           game.playableCorrespondenceClock ?? { clock =>
             val remainingTime = clock remainingTime game.turnColor
+            // val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 9 / 10)
+            val ringsAt = DateTime.now.plusSeconds(5)
             coll.update(
               $id(game.id),
               Alarm(
                 _id = game.id,
-                ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 9 / 10),
+                ringsAt = ringsAt,
                 expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)),
               upsert = true).void
           }
