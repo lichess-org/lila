@@ -252,6 +252,7 @@ function renderHistory(ctrl) {
   var d = ctrl.data;
   var slots = [];
   for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
+  slots.reverse();
   return m('div.history', [
     m('div.timeline', [
       slots.map(function(s) {
