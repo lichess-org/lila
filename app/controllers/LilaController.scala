@@ -26,7 +26,7 @@ private[controllers] trait LilaController
 
   import Results._
 
-  protected val logger = lila.log("controller")
+  protected val controllerLogger = lila.log("controller")
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -386,4 +386,6 @@ private[controllers] trait LilaController
 
   protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
     lila.common.Form errorsAsJson form
+
+  protected val pgnContentType = "application/x-chess-pgn"
 }

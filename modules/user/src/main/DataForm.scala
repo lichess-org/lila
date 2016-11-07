@@ -5,9 +5,12 @@ import play.api.data.Forms._
 
 object DataForm {
 
-  val note = Form(single(
-    "text" -> nonEmptyText(minLength = 3, maxLength = 2000)
-  ))
+  val note = Form(mapping(
+    "text" -> nonEmptyText(minLength = 3, maxLength = 2000),
+    "mod" -> boolean
+  )(NoteData.apply)(NoteData.unapply))
+
+  case class NoteData(text: String, mod: Boolean)
 
   val profile = Form(mapping(
     "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),

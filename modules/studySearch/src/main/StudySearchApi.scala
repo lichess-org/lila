@@ -76,15 +76,19 @@ final class StudySearchApi(
   private val multiSpaceRegex = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
+  import reactivemongo.play.iteratees.cursorProducer
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      lila.log("studySearch").info(s"Index to ${c.index.name}")
+      logger.info(s"Index to ${c.index.name}")
       import lila.db.dsl._
-      studyRepo.cursor($empty).enumerate() |>>>
-        Iteratee.foldM[Study, Unit](()) {
-          case (_, study) => doStore(study)
+      studyRepo.cursor($empty).enumerator() |>>>
+        Iteratee.foldM[Study, Int](0) {
+          case (nb, study) => doStore(study) inject {
+            if (nb % 100 == 0) logger.info(s"Indexed $nb studies")
+            nb + 1
+          }
         }
-    }
+    } >> client.refresh
     case _ => funit
   }
 }

@@ -3,19 +3,21 @@ var xhr = require('./xhr');
 
 module.exports = function(send, ctrl) {
 
-  this.send = send;
-
   var handlers = {
     reload: function() {
       xhr.reloadTournament(ctrl);
+    },
+    redirect: function(fullId) {
+      ctrl.redirectFirst(fullId.slice(0, 8), true);
+      return true;
     }
   };
 
-  this.receive = function(type, data) {
-    if (handlers[type]) {
-      handlers[type](data);
-      return true;
+  return {
+    send: send,
+    receive: function(type, data) {
+      if (handlers[type]) return handlers[type](data);
+      return false;
     }
-    return false;
-  }.bind(this);
+  };
 };

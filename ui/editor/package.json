@@ -14,7 +14,7 @@
     "editor"
   ],
   "author": "Thibault Duplessis",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
@@ -29,7 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "github:ornicar/chessground#v4.2.1",
+    "chessground": "github:ornicar/chessground#v4.3.9",
     "lodash": "~3.7.0",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }

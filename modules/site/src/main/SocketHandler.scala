@@ -12,7 +12,7 @@ private[site] final class SocketHandler(
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] = {
 
-    Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
+    Handler(hub, socket, uid, Join(uid, userId, flag)) {
       case Connected(enum, member) => (Handler.emptyController, enum, member)
     }
   }

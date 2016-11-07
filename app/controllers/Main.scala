@@ -90,11 +90,14 @@ object Main extends LilaController {
   }
 
   def jslog(id: String) = Open { ctx =>
+    val known = ctx.me.??(_.engine)
     val referer = HTTPRequest.referer(ctx.req)
     val name = get("n", ctx.req) | "?"
-    lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
+    if (!known) {
+      lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
+    }
     lila.mon.cheat.cssBot()
-    ctx.userId.?? {
+    ctx.userId.ifFalse(known) ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
     lila.game.GameRepo pov id map {

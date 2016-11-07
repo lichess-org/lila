@@ -31,7 +31,7 @@ final class Env(
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
@@ -41,11 +41,11 @@ final class Env(
 
   val forms = DataForm
 
-  def lightUser(id: String): Option[lila.common.LightUser] = lightUserApi get id
+  def lightUser(id: User.ID): Option[lila.common.LightUser] = lightUserApi get id
 
-  def uncacheLightUser(id: String): Funit = lightUserApi invalidate id
+  def uncacheLightUser(id: User.ID): Funit = lightUserApi invalidate id
 
-  def isOnline(userId: String) = onlineUserIdMemo get userId
+  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
   def cli = new lila.common.Cli {
     def process = {
@@ -70,6 +70,7 @@ final class Env(
 
     scheduler.effect(3 seconds, "refresh online user ids") {
       system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
+      onlineUserIdMemo put "lichess"
     }
   }
 

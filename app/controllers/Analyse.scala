@@ -7,12 +7,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.evaluation.PlayerAssessments
-import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
-import lila.hub.actorApi.map.Tell
+import lila.game.{ Pov, GameRepo }
 import views._
-
-import chess.Color
 
 object Analyse extends LilaController {
 
@@ -20,37 +16,15 @@ object Analyse extends LilaController {
   private def bookmarkApi = Env.bookmark.api
   private val divider = Env.game.divider
 
-  private val RequestLimitPerUser = new lila.memo.RateLimit(
-    credits = 25,
-    duration = 24 hours,
-    name = "request analysis per user",
-    key = "request_analysis.user")
-
-  private val RequestLimitPerIP = new lila.memo.RateLimit(
-    credits = 50,
-    duration = 24 hours,
-    name = "request analysis per IP",
-    key = "request_analysis.ip")
-
-  private def requestLimiter(me: lila.user.User)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (isGranted(_.Hunter, me)) f
-    else RequestLimitPerUser(me.id, cost = 1) {
-      RequestLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
-        f
-      }
-    }
-
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>
-    requestLimiter(me) {
-      OptionFuResult(GameRepo game id) { game =>
-        Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
-          userId = me.id.some,
-          ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-          mod = isGranted(_.Hunter),
-          system = false)) map {
-          case true  => Ok
-          case false => Unauthorized
-        }
+    OptionFuResult(GameRepo game id) { game =>
+      Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+        userId = me.id.some,
+        ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+        mod = isGranted(_.Hunter),
+        system = false)) map {
+        case true  => Ok
+        case false => Unauthorized
       }
     }
   }
@@ -91,13 +65,28 @@ object Analyse extends LilaController {
       }
     }
 
+  def embed(gameId: String, color: String) = Open { implicit ctx =>
+    GameRepo.gameWithInitialFen(gameId) flatMap {
+      case Some((game, initialFen)) =>
+        val pov = Pov(game, chess.Color(color == "white"))
+        Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
+          initialFenO = initialFen.map(_.value).some,
+          withMoveTimes = false,
+          withDivision = false,
+          withOpening = true) map { data =>
+          Ok(html.analyse.embed(pov, data))
+        }
+      case _ => fuccess(NotFound(html.analyse.embedNotFound()))
+    }
+  }
+
   private def RedirectAtFen(pov: Pov, initialFen: Option[String])(or: => Fu[Result])(implicit ctx: Context) =
     get("fen").fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay.plyAtFen(pov.game.pgnMoves, initialFen, pov.game.variant, atFen).fold(
           err => {
-            lila.log("analyse").info(s"RedirectAtFen: http://lichess.org/${pov.gameId} $atFen $err")
+            lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
             Redirect(url)
           },
           ply => Redirect(s"$url#$ply"))

@@ -60,7 +60,6 @@ viewNbCheckmates=%s מטים
 nbBookmarks=%s מועדפים
 nbPopularGames=%s משחקים פופולריים
 nbAnalysedGames=משחקים מנותחים %s
-bookmarkedByNbPlayers=הועדף על ידי %s שחקנים
 viewInFullSize=צפה בגודל מלא
 logOut=התנתק
 signIn=התחבר

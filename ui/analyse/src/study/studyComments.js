@@ -16,6 +16,7 @@ function authorText(author) {
 }
 
 module.exports = {
+  authorText: authorText,
   currentComments: function(ctrl, includingMine) {
     var path = ctrl.vm.path;
     var node = ctrl.vm.node;

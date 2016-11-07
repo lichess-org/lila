@@ -60,7 +60,6 @@ viewNbCheckmates=Бүх %s мадаар төгссөн өргүүд
 nbBookmarks=%s хадгалсан өргүүд
 nbPopularGames=%s хамгийн их хадгалагдсан өргүүд
 nbAnalysedGames=%s шинжилгээ хийгдсэн өргүүд
-bookmarkedByNbPlayers=%s гишүүд энэхүү өргийг хадгалсан байна
 viewInFullSize=Бүрэн хэмжээсээр харах
 logOut=Гарах
 signIn=Нэвтрэх

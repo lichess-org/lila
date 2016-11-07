@@ -98,6 +98,7 @@ private[round] final class Player(
       fen = Forsyth exportBoard game.toChess.board,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci),
       mobilePushable = game.mobilePushable,
+      alarmable = game.alarmable,
       opponentUserId = game.player(!color).userId,
       simulId = game.simulId
     ), 'moveEvent)

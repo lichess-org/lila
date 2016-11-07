@@ -6,11 +6,10 @@ import reactivemongo.bson._
 
 private object BSONHandlers {
 
-  implicit val CategBSONHandler = Macros.handler[Categ]
+  implicit val CategBSONHandler = LoggingHandler(logger)(Macros.handler[Categ])
 
   implicit val PostEditBSONHandler = Macros.handler[OldVersion]
   implicit val PostBSONHandler = Macros.handler[Post]
 
-  private val topicHandler: BSONDocumentReader[Topic] with BSONDocumentWriter[Topic] with BSONHandler[Bdoc, Topic] = Macros.handler[Topic]
-  implicit val TopicBSONHandler: BSONDocumentReader[Topic] with BSONDocumentWriter[Topic] with BSONHandler[Bdoc, Topic] = LoggingHandler(logger)(topicHandler)
+  implicit val TopicBSONHandler = LoggingHandler(logger)(Macros.handler[Topic])
 }

@@ -11,13 +11,18 @@ private final class ChapterMaker(
     domain: String,
     lightUser: lila.common.LightUser.Getter,
     chat: akka.actor.ActorSelection,
-    importer: Importer) {
+    importer: Importer,
+    pgnFetch: PgnFetch) {
 
   import ChapterMaker._
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
     data.game.??(parsePov) flatMap {
-      case None      => fuccess(fromFenOrPgnOrBlank(study, data, order, userId).some)
+      case None =>
+        data.game.??(pgnFetch.fromUrl) map {
+          case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId).some
+          case None      => fromFenOrPgnOrBlank(study, data, order, userId).some
+        }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     }
   }

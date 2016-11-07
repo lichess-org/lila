@@ -54,6 +54,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
+POST  /@/:username/clarkey-bot-note    controllers.User.writeClarkeyBotNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
@@ -132,10 +133,13 @@ GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
 POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id: String, chapterId: String)
+GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: String, chapterId: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -177,6 +181,9 @@ POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId
 GET   /$gameId<\w{8}>.atom                       controllers.Round.atom(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>.atom   controllers.Round.atom(gameId: String, color: String)
 
+GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "white")
+GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: String, color: String)
+
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
@@ -202,6 +209,7 @@ GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: 
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
+GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index
@@ -333,6 +341,7 @@ GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: String)
+GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
@@ -352,6 +361,7 @@ GET   /forum/search                    controllers.ForumPost.search(text: String
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
+GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: String)
 GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
@@ -400,6 +410,7 @@ POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
+GET   /report/clarkey-bot-next         controllers.Report.clarkeyBotNext
 
 # QA
 GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)
@@ -434,6 +445,7 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
+GET   /api/game-stream                 controllers.Api.gameStream
 
 # Events
 GET   /event                           controllers.Event.index

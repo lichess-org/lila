@@ -1,5 +1,6 @@
 var m = require('mithril');
 var game = require('game').game;
+var raf = require('chessground').util.requestAnimationFrame;
 
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
@@ -8,9 +9,9 @@ function ratingDiff(player) {
   if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
 }
 
-function relayUser(player, klass) {
+function relayUser(player) {
   return m('span', {
-    class: 'text ' + klass,
+    class: 'text',
     'data-icon': '8'
   }, [
     (player.title ? player.title + ' ' : '') + player.name,
@@ -19,41 +20,57 @@ function relayUser(player, klass) {
 }
 
 function aiName(ctrl, player) {
-  var name = ctrl.data.game.variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
-  return ctrl.trans('aiNameLevelAiLevel', name, player.ai);
+  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
 }
 
 module.exports = {
-  userHtml: function(ctrl, player, klass) {
+  userHtml: function(ctrl, player) {
     var d = ctrl.data;
     var user = player.user;
-    if (d.relay) return relayUser(d.relay[player.color], klass);
+    if (d.relay) return relayUser(d.relay[player.color]);
     var perf = user ? user.perfs[d.game.perf] : null;
     var rating = player.rating ? player.rating : (perf ? perf.rating : null);
-    var playerOnGameIcon = m('span.status.hint--top', {
-      'data-hint': 'Player' + (player.onGame ? ' has joined the game' : ' has left the game')
-    }, (player.onGame || !ctrl.vm.firstSeconds) ? m('span', {
-      'data-icon': (player.onGame ? '3' : '0')
-    }) : m('span', '?'))
-    return user ? [
-      m('a', {
-        class: 'text ulpt user_link ' + (user.online ? 'online' : 'offline') + (klass ? ' ' + klass : ''),
+    if (user) {
+      var fullName = (user.title ? user.title + ' ' : '') + user.username;
+      var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
+      var isMe = ctrl.userId === user.id;
+      return m('a', {
+        class: 'text user_link ' +
+          (player.onGame ? 'online' : 'offline') +
+          (fullName.length > 20 ? ' long' : '') +
+          (connecting ? ' connecting' : '') +
+          (isMe ? '' : ' ulpt'),
         href: '/@/' + user.username,
-        target: game.isPlayerPlaying(d) ? '_blank' : '_self'
+        target: game.isPlayerPlaying(d) ? '_blank' : '_self',
+        config: function(el, isUpdate) {
+          if (!isUpdate && !isMe) raf(function() {
+            lichess.powertip.manualUser(el, 's');
+          });
+        }
       }, [
         m('i', {
-          class: 'line' + (user.patron ? ' patron' : '')
-        }), (user.title ? user.title + ' ' : '') + user.username,
-        rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
+          class: 'line' + (user.patron ? ' patron' : ''),
+          'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
+        }),
+        m('name', fullName),
+        rating ? m('rating', rating + (player.provisional ? '?' : '')) : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
         }) : null
-      ]),
-      playerOnGameIcon
-    ] : m('span.user_link', [
-      player.name || 'Anonymous',
-      d.game.source == 'relay' ? null : playerOnGameIcon
+      ]);
+    }
+    var connecting = !player.onGame && ctrl.vm.firstSeconds;
+    return m('span', {
+      class: 'user_link ' +
+        (player.onGame ? 'online' : 'offline') +
+        (connecting ? ' connecting' : ''),
+    }, [
+      m('i', {
+        class: 'line',
+        'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
+      }),
+      m('name', player.name || 'Anonymous')
     ]);
   },
   userTxt: function(ctrl, player) {

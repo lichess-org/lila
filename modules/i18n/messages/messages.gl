@@ -60,7 +60,6 @@ viewNbCheckmates=%s Xaques mates
 nbBookmarks=%s Marcadores
 nbPopularGames=%s Xogos máis populares
 nbAnalysedGames=%s Partidas analizadas
-bookmarkedByNbPlayers=Marcado por %s xogadores
 viewInFullSize=Ver a tamaño completo
 logOut=Pechar sesión
 signIn=Iniciar sesión

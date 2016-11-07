@@ -1,11 +1,10 @@
 var m = require('mithril');
 var classSet = require('chessground').util.classSet;
-var partial = require('chessground').util.partial;
 var util = require('../util');
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
 
-var configIcon = m('i', {
+var configIcon = m('i.action.config', {
   'data-icon': '%'
 });
 
@@ -29,27 +28,22 @@ module.exports = {
       size: function() {
         return list().length;
       },
-      rename: function(id, name) {
-        send("renameChapter", {
-          id: id,
-          name: name
-        });
-        confing(null);
-      },
       sort: function(ids) {
         send("sortChapters", ids);
       },
       firstChapterId: function() {
         return list()[0].id;
+      },
+      toggleNewForm: function() {
+        if (newForm.vm.open || list().length < 64) newForm.toggle();
+        else alert("You have reached the limit of 64 chapters per study. Please create a new study.");
       }
     };
   },
   view: {
     main: function(ctrl) {
 
-      var configButton = function(chapter, editing) {
-        if (ctrl.members.canContribute()) return m('span.action.config', configIcon);
-      };
+      var configButton = ctrl.members.canContribute() ? configIcon : null;
       var current = ctrl.currentChapter();
 
       return [
@@ -62,6 +56,9 @@ module.exports = {
               if (isUpdate || current.id !== ctrl.chapters.firstChapterId()) {
                 $(el).scrollTo($(el).find('.active'), 200);
               }
+            } else if (ctrl.vm.loading && ctx.loadingId !== ctrl.vm.nextChapterId) {
+              ctx.loadingId = ctrl.vm.nextChapterId;
+              $(el).scrollTo($(el).find('.loading'), 200);
             }
             ctx.count = newCount;
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {
@@ -81,45 +78,41 @@ module.exports = {
             }
             if (!isUpdate)
               el.addEventListener('click', function(e) {
-                var id = e.target.getAttribute('data-id') || $(e.target).parents('div.chapter').data('id');
+                var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
                 if (!id) return;
-                if (e.target.parentNode.classList.contains('config'))
+                if (e.target.classList.contains('config'))
                   ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
                 else ctrl.setChapter(id);
               });
           }
         }, [
-          ctrl.chapters.list().map(function(chapter) {
-            var active = current && current.id === chapter.id;
+          ctrl.chapters.list().map(function(chapter, i) {
             var editing = ctrl.chapters.editForm.isEditing(chapter.id);
+            var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
+            var active = !ctrl.vm.loading && current && current.id === chapter.id;
             return [
               m('div', {
                 key: chapter.id,
                 'data-id': chapter.id,
                 class: 'elem chapter draggable ' + classSet({
                   active: active,
-                  editing: editing
+                  editing: editing,
+                  loading: loading
                 })
               }, [
-                m('div.left', [
-                  m('div.status', (active && ctrl.vm.loading) ? m.trust(lichess.spinnerHtml) : m('i', {
-                    'data-icon': active ? 'J' : 'K'
-                  })),
-                  chapter.name
-                ]),
-                configButton(chapter, editing)
+                m('span.status', i + 1),
+                m('h3', chapter.name),
+                configButton
               ])
             ];
           }),
           ctrl.members.canContribute() ? m('div', {
               key: 'new-chapter',
               class: 'elem chapter add',
-              config: util.bindOnce('click', ctrl.chapters.newForm.toggle)
+              config: util.bindOnce('click', ctrl.chapters.toggleNewForm)
             },
-            m('div.left', [
-              m('span.status', m('i[data-icon=O]')),
-              m('span.add_text', 'Add a new chapter')
-            ])
+            m('span.status', m('i[data-icon=O]')),
+            m('h3.add_text', 'Add a new chapter')
           ) : null
         ])
       ];

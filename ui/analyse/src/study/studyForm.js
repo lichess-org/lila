@@ -67,7 +67,8 @@ module.exports = {
               name: e.target.querySelector('#study-name').value,
               visibility: e.target.querySelector('#study-visibility').value,
               computer: e.target.querySelector('#study-computer').value,
-              explorer: e.target.querySelector('#study-explorer').value
+              explorer: e.target.querySelector('#study-explorer').value,
+              cloneable: e.target.querySelector('#study-cloneable').value
             }, isNew);
             e.stopPropagation();
             return false;
@@ -89,13 +90,19 @@ module.exports = {
             m('label.control-label[for=study-name]', 'Name'),
             m('i.bar')
           ]),
-          m('div.game.form-group', select({
-            key: 'visibility',
-            name: 'Visibility',
-            choices: visibilityChoices,
-            selected: data.visibility
-          })),
           m('div', [
+            m('div.game.form-group.half', select({
+              key: 'visibility',
+              name: 'Visibility',
+              choices: visibilityChoices,
+              selected: data.visibility
+            })),
+            m('div.game.form-group.half', select({
+              key: 'cloneable',
+              name: 'Allow cloning',
+              choices: userSelectionChoices,
+              selected: data.settings.cloneable
+            })),
             m('div.game.form-group.half', select({
               key: 'computer',
               name: 'Computer analysis',
@@ -107,7 +114,7 @@ module.exports = {
               name: 'Opening explorer',
               choices: userSelectionChoices,
               selected: data.settings.explorer
-            }))
+            })),
           ]),
           dialog.button(isNew ? 'Start' : 'Save')
         ]),

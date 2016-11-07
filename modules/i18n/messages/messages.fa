@@ -60,7 +60,6 @@ viewNbCheckmates=%s کیش و مات
 nbBookmarks=%s بازی مورد علاقه
 nbPopularGames=%s بازی پرطرفدار
 nbAnalysedGames=%s بازی آنالیز شده
-bookmarkedByNbPlayers=نشانه گذاری شده توسط %s بازیکن
 viewInFullSize=تماشا کردن در اندازه کامل
 logOut=خروج
 signIn=ورود

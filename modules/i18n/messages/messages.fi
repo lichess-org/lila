@@ -60,7 +60,6 @@ viewNbCheckmates=Katso %s shakkimatit
 nbBookmarks=%s omaa kirjanmerkkiä
 nbPopularGames=%s suosittua peliä
 nbAnalysedGames=%s analysoitua peliä
-bookmarkedByNbPlayers=%s kirjanmerkkiä
 viewInFullSize=Näytä täyskokoisena
 logOut=Kirjaudu ulos
 signIn=Kirjaudu sisään

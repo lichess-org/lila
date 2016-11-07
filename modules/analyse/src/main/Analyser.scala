@@ -10,7 +10,7 @@ import lila.hub.actorApi.map.Tell
 
 final class Analyser(
     indexer: ActorSelection,
-    requesterColl: Coll,
+    requesterApi: RequesterApi,
     roundSocket: ActorSelection,
     bus: lila.common.Bus) {
 
@@ -23,24 +23,12 @@ final class Analyser(
         sendAnalysisProgress(analysis) >>- {
           bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
           indexer ! InsertGame(game)
-          logRequester(analysis)
+          requesterApi save analysis
         }
     }
   }
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis)
-
-  private object logRequester {
-    import org.joda.time._
-    private val formatter = format.DateTimeFormat.forPattern("YYYY-MM-dd")
-    def apply(analysis: Analysis) =
-      requesterColl.update(
-        $id(analysis.uid | "anonymous"),
-        $inc("total" -> 1) ++
-          $inc(formatter.print(DateTime.now) -> 1) ++
-          $set("last" -> analysis.id),
-        upsert = true)
-  }
 
   private def sendAnalysisProgress(analysis: Analysis): Funit =
     GameRepo gameWithInitialFen analysis.id map {

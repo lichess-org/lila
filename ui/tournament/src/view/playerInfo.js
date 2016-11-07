@@ -33,7 +33,7 @@ module.exports = function(ctrl) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : null;
   return m('div.box.player', {
-    config: lichess.powertip.manualGame
+    config: lichess.powertip.manualGameIn
   }, [
     m('close[data-icon=L]', {
       onclick: partial(ctrl.showPlayerInfo, data.player)

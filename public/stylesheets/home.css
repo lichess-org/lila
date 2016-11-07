@@ -436,6 +436,9 @@ div.blog.undertable time {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.leaderboards .leaderboard td:last-child {
+  text-align: right;
+}
 #lichess .enterable_list {
   height: auto;
   max-height: 193px;
@@ -597,9 +600,6 @@ div.game_config .fen_position .fen_form input {
 div.game_config .fen_position .fen_form .button {
   float: right;
 }
-div.game_config input {
-  font-family: monospace;
-}
 div.game_config input#fen.success {
   border-color: #00aa00;
 }
@@ -731,6 +731,8 @@ div.game_config .color_submits button.random i {
   margin: 0 10px 0 5px;
 }
 .tour_spotlight img.img {
+  width: 40px;
+  heigth: 40px;
   filter: brightness(9);
   -webkit-filter: brightness(9);
 }

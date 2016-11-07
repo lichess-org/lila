@@ -82,9 +82,10 @@ div.underboard .notif {
 div.underboard .notif.error {
   background-color: #d59120;
 }
-.study_comment_form form {
+.study_comment_form form.material.form {
   display: flex;
   align-items: center;
+  margin: 0;
 }
 .study_comment_form form .form-group {
   width: 100%;
@@ -94,6 +95,7 @@ div.underboard .notif.error {
   height: 80px;
   font-size: 1.2em;
   line-height: 1.3em;
+  resize: vertical;
 }
 .study_comments {
   text-align: left;
@@ -165,7 +167,7 @@ div.underboard .notif.error {
 .study_box .list .status,
 .study_box .list .action {
   display: block;
-  width: 26px;
+  width: 20px;
   height: 26px;
   line-height: 26px;
   text-align: center;
@@ -174,19 +176,22 @@ div.underboard .notif.error {
   flex-shrink: 0;
 }
 .study_box .list .status i,
-.study_box .list .action i {
+.study_box .list .action {
   font-size: 14px;
-  opacity: 0.2;
+  opacity: 0.15;
   transition: opacity 0.13s;
 }
 .study_box .list .action {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: auto;
 }
-.study_box .list .action.leave i {
+.study_box .list .action.leave {
   opacity: 0.6;
   color: #dc322f;
 }
-.study_box .list > div:hover .action i {
+.study_box .list > div:hover .action {
   opacity: 1;
 }
 .study_box .members .status i {
@@ -290,12 +295,48 @@ div.underboard .notif.error {
 .study_box .list div.config .delete {
   margin-top: 15px;
 }
-.study_box .chapters .chapter {
+.study_box .chapter:not(.add) {
   cursor: pointer;
+  align-items: stretch;
+  border: 1px solid transparent;
+  border-width: 1px 0;
 }
-.study_box .chapters .status i {
+.study_box .chapter:not(.add):hover {
+  border-color: rgba(56, 147, 232, 0.1);
+}
+.study_box .chapter h3 {
+  flex: 1 1 100%;
+  line-height: 1.1em;
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.study_box .chapters .status {
   color: #3893E8;
   opacity: 1;
+  font-weight: bold;
+  width: 20px;
+  height: auto;
+  margin-right: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+}
+.study_box .chapter.active:not(.add),
+.study_box .chapter:not(.add):hover {
+  background: rgba(56, 147, 232, 0.08);
+}
+.study_box .chapter.active .status,
+.study_box .chapter.loading,
+.study_box .chapter.loading .status {
+  color: #fff;
+  background: #3893E8!important;
+}
+.study_box .chapter.add .status {
+  width: 23px;
+  margin-right: 3px;
 }
 .study_box .chapters .status .spinner {
   width: 18px;
@@ -303,7 +344,8 @@ div.underboard .notif.error {
   margin: 6px 0 0 0;
   display: inline-block;
 }
-.study_overboard .form {
+.study_overboard .material.form {
+  margin: 0;
   padding: 20px;
 }
 .study_overboard .form .editor {
@@ -320,6 +362,16 @@ div.underboard .notif.error {
 .study_overboard h2 i:hover {
   opacity: 0.7;
   color: #3893E8;
+}
+.study_overboard a.form-help:hover {
+  text-decoration: underline;
+}
+.study_overboard .downloads {
+  display: flex;
+  justify-content: space-between;
+}
+.study_overboard .downloads a {
+  font-weight: normal;
 }
 .study_buttons {
   display: flex;

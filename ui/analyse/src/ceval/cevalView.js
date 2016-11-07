@@ -1,7 +1,9 @@
 var m = require('mithril');
+var winningChances = require('../winningChances');
 var util = require('../util');
 var defined = util.defined;
 var classSet = require('chessground').util.classSet;
+var pv2san = require('./pv2san');
 
 var gaugeLast = 0;
 var gaugeTicks = [];
@@ -31,8 +33,12 @@ function threatInfo(threat) {
 }
 
 function threatButton(ctrl) {
-  if (!ctrl.vm.node.check) return m('a', {
-    class: 'show-threat' + (ctrl.vm.threatMode ? ' active' : ''),
+  return m('a', {
+    class: classSet({
+      'show-threat': true,
+      active: ctrl.vm.threatMode,
+      hidden: ctrl.vm.node.check
+    }),
     'data-icon': '7',
     title: 'Show threat (x)',
     config: util.bindOnce('click', ctrl.toggleThreatMode)
@@ -44,10 +50,7 @@ module.exports = {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
     var eval, evs = ctrl.currentEvals();
     if (evs) {
-      if (defined(evs.fav.cp))
-        eval = 2 / (1 + Math.exp(-0.005 * evs.fav.cp)) - 1;
-      else
-        eval = evs.fav.mate > 0 ? 1 : -1;
+      eval = winningChances.povChances('white', evs.fav);
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 1) * 50;
@@ -68,7 +71,7 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible()) return;
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.vm.showComputer()) return;
     var enabled = ctrl.ceval.enabled();
     var evs = ctrl.currentEvals() || {};
     var threatMode = ctrl.vm.threatMode;
@@ -113,14 +116,17 @@ module.exports = {
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          threatMode ? 'Show threat' : 'Local ' + util.aiName(ctrl.data.game.variant),
+          threatMode ? 'Show threat' : 'Local Stockfish',
           m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
-      ] : m('help',
-        'Local computer evaluation',
-        m('br'),
-        'for variation analysis'
-      ),
+      ] : [
+        pearl ? m('pearl', pearl) : null,
+        m('help',
+          'Local computer evaluation',
+          m('br'),
+          'for variation analysis'
+        )
+      ],
       m('div.switch', {
         title: 'Toggle local evaluation (l)'
       }, [
@@ -136,6 +142,45 @@ module.exports = {
         })
       ]),
       threatButton(ctrl)
-    );
+    )
+  },
+  renderPvs: function(ctrl) {
+    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.ceval.enabled()) return;
+    var multiPv = ctrl.ceval.multiPv();
+    var pvs, threat = false;
+    if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
+      pvs = ctrl.vm.node.threat.pvs;
+      threat = true;
+    } else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
+      pvs = ctrl.currentEvals().client.pvs;
+    else
+      pvs = [];
+    return m('div.pv_box', {
+      config: function(el, isUpdate, ctx) {
+        if (!isUpdate) {
+          el.addEventListener('mouseover', function(e) {
+            ctrl.ceval.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
+          });
+          el.addEventListener('mouseout', function(e) {
+            ctrl.ceval.setHoveringUci(null);
+          });
+          el.addEventListener('mousedown', function(e) {
+            var uci = $(e.target).closest('div.pv').attr('data-uci');
+            if (uci) ctrl.playUci(uci);
+          });
+        }
+        setTimeout(function() {
+          ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+        }, 100);
+      }
+    }, util.range(multiPv).map(function(i) {
+      if (!pvs[i]) return m('div.pv');
+      else return m('div.pv', threat ? {} : {
+        'data-uci': pvs[i].best
+      }, [
+        multiPv > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
+        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+      ]);
+    }));
   }
 };

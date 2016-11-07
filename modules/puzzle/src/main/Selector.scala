@@ -48,8 +48,12 @@ private[puzzle] final class Selector(
             }) >> next
         }
     }
-  }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+  }.mon(_.puzzle.selector.time) addEffect {
+    _ foreach { puzzle =>
+      if (puzzle.vote.sum < -500) logger.info {
+        s"Selected bad puzzle ${puzzle.id} for ${me.map(_.id)} difficulty: $difficulty"
+      }
+      else lila.mon.puzzle.selector.vote(puzzle.vote.sum)
     }
 
   private def toleranceStepFor(rating: Int) =
@@ -59,36 +63,9 @@ private[puzzle] final class Selector(
       case d             => 200
     }
 
-  private def newPuzzleForUser(user: User, difficulty: Int): Fu[Option[Puzzle]] = {
-    val rating = user.perfs.puzzle.intRating min 2300 max 900
-    val step = toleranceStepFor(rating)
-    (api.head.find(user) zip api.puzzle.lastId) flatMap {
-      case (opHead, maxId) => tryRange(
-        rating = rating,
-        tolerance = step,
-        step = step,
-        decay = difficultyDecay(difficulty),
-        last = opHead match {
-          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
-          case _ => puzzleIdMin
-        },
-        idRange = 200,
-        idStep = 100)
-    }
-  }
-
-  private def tryRange(
-    rating: Int,
-    tolerance: Int,
-    step: Int,
-    decay: Int,
-    last: PuzzleId,
-    idRange: Int,
-    idStep: Int): Fu[Option[Puzzle]] =
-    puzzleColl.find($doc(
-      Puzzle.BSONFields.id $gt
-        last $lt
-        (last + idRange),
+  private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: Barr, isMate: Boolean): Fu[Option[Puzzle]] =
+    puzzleColl.find(mateSelector(isMate) ++ $doc(
+      Puzzle.BSONFields.id -> $doc("$nin" -> ids),
       Puzzle.BSONFields.rating $gt
         (rating - tolerance + decay) $lt
         (rating + tolerance + decay),

@@ -4,9 +4,12 @@ import akka.actor.ActorSelection
 import org.joda.time.DateTime
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, NoteApi }
 
-private[report] final class ReportApi(coll: Coll) {
+final class ReportApi(
+    val coll: Coll,
+    noteApi: NoteApi,
+    isOnline: User.ID => Boolean) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReportBSONHandler = reactivemongo.bson.Macros.handler[Report]
@@ -150,24 +153,44 @@ private[report] final class ReportApi(coll: Coll) {
 
   def nbUnprocessed = coll.countSel(unprocessedSelect)
 
-  def recent(nb: Int) =
-    coll.find($empty).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  def recent(nb: Int): Fu[List[Report]] =
+    coll.find($empty).sort($sort.createdDesc).list[Report](nb)
 
-  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUser]] =
-    recentUnprocessed(nb) |+| recentProcessed(nb) flatMap { all =>
+  def recent(user: User, nb: Int): Fu[List[Report]] =
+    coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb)
+
+  def recentReportersOf(user: User): Fu[List[User.ID]] =
+    coll.distinct[String, List]("createdBy", $doc(
+      "user" -> user.id,
+      "createdAt" -> $gt(DateTime.now minusDays 3),
+      "createdBy" -> $ne("lichess")
+    ).some)
+
+  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUserAndNotes]] =
+    recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
       val reports = all take nb
       UserRepo byIds reports.map(_.user).distinct map { users =>
         reports.flatMap { r =>
-          users.find(_.id == r.user) map { Report.WithUser(r, _) }
+          users.find(_.id == r.user) map { u =>
+            Report.WithUser(r, u, isOnline(u.id))
+          }
+        }
+      }
+    } map {
+      _.sortBy(-_.urgency).take(nb * 2)
+    } flatMap { withUsers =>
+      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
+        withUsers.map { wu =>
+          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
         }
       }
     }
 
-  def recentUnprocessed(nb: Int) =
-    coll.find(unprocessedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  private def recentUnprocessed(nb: Int) =
+    coll.find(unprocessedSelect).sort($sort.createdDesc).list[Report](nb)
 
-  def recentProcessed(nb: Int) =
-    coll.find(processedSelect).sort($sort.createdDesc).cursor[Report]().gather[List](nb)
+  private def recentProcessed(nb: Int) =
+    coll.find(processedSelect).sort($sort.createdDesc).list[Report](nb)
 
   private def selectRecent(user: User, reason: Reason) = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),

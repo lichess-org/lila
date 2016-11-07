@@ -77,18 +77,10 @@ body.dark #board_editor .spare.white {
 #board_editor .editor-side select.positions option:checked {
   font-style: italic;
 }
-#board_editor table td, #board_editor table th {
-  padding: 5px;
-  font-family: monospace;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-}
 #board_editor .copyables > p {
   margin-top: 7px;
 }
 #board_editor .copyables .name {
-  font-family: monospace;
   font-size: 1.2em;
   display: inline-block;
   width: 40px;

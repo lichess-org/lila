@@ -60,7 +60,6 @@ viewNbCheckmates=%s Мати
 nbBookmarks=%s Закладки
 nbPopularGames=%s Популярні ігри
 nbAnalysedGames=%s Ігри з аналізом
-bookmarkedByNbPlayers=Додано в закладки %s гравцями
 viewInFullSize=Дивитися в повний розмір
 logOut=Вийти
 signIn=Увійти

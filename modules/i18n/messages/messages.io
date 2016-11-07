@@ -45,7 +45,6 @@ viewNbCheckmates=%s Mortoshaki
 nbBookmarks=%s Paginomarki
 nbPopularGames=%s Populara Ludi
 nbAnalysedGames=%s Analizita Ludi
-bookmarkedByNbPlayers=Paginomarkizita da %s luderi
 viewInFullSize=Vidar plengrande
 logOut=Eksalutar
 signIn=Ensalutar

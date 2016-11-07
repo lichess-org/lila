@@ -16,20 +16,18 @@ object Export extends LilaController {
   private def env = Env.game
 
   def pgn(id: String) = Open { implicit ctx =>
-    OnlyHumans {
-      lila.mon.export.pgn.game()
-      OptionFuResult(GameRepo game id) { game =>
-        gameToPgn(
-          game,
-          asImported = get("as") contains "imported",
-          asRaw = get("as").contains("raw")) map { content =>
-            Ok(content).withHeaders(
-              CONTENT_TYPE -> ContentTypes.TEXT,
-              CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
-          } recover {
-            case err => NotFound(err.getMessage)
-          }
-      }
+    lila.mon.export.pgn.game()
+    OptionFuResult(GameRepo game id) { game =>
+      gameToPgn(
+        game,
+        asImported = get("as") contains "imported",
+        asRaw = get("as").contains("raw")) map { content =>
+          Ok(content).withHeaders(
+            CONTENT_TYPE -> pgnContentType,
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
+        } recover {
+          case err => NotFound(err.getMessage)
+        }
     }
   }
 
@@ -74,10 +72,12 @@ object Export extends LilaController {
     OnlyHumansAndFacebook {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
         lila.mon.export.png.game()
-        OptionResult(GameRepo game id) { game =>
-          Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
-            CONTENT_TYPE -> "image/png",
-            CACHE_CONTROL -> "max-age=7200")
+        OptionFuResult(GameRepo game id) { game =>
+          env.pngExport fromGame game map { stream =>
+            Ok.chunked(stream).withHeaders(
+              CONTENT_TYPE -> "image/png",
+              CACHE_CONTROL -> "max-age=7200")
+          }
         }
       }
     }
@@ -86,7 +86,7 @@ object Export extends LilaController {
   def visualizer(id: String) = Open { implicit ctx =>
     OnlyHumans {
       OptionFuResult(GameRepo game id) { game =>
-        gameToPgn(game, asImported = true, asRaw = true) map { pgn =>
+        gameToPgn(game, asImported = false, asRaw = false) map { pgn =>
           lila.mon.export.visualizer()
           Redirect {
             import lila.api.Env.current.Net._
@@ -105,10 +105,18 @@ object Export extends LilaController {
     OnlyHumansAndFacebook {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
         lila.mon.export.png.puzzle()
-        OptionResult(Env.puzzle.api.puzzle find id) { puzzle =>
-          Ok.chunked(Enumerator.outputStream(Env.puzzle.pngExport(puzzle))).withHeaders(
-            CONTENT_TYPE -> "image/png",
-            CACHE_CONTROL -> "max-age=7200")
+        OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
+          env.pngExport(
+            fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
+            lastMove = puzzle.initialMove.some,
+            check = none,
+            orientation = puzzle.color.some,
+            logHint = s"puzzle $id"
+          ) map { stream =>
+              Ok.chunked(stream).withHeaders(
+                CONTENT_TYPE -> "image/png",
+                CACHE_CONTROL -> "max-age=7200")
+            }
         }
       }
     }

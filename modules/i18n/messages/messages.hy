@@ -58,7 +58,6 @@ viewNbCheckmates=Տեսնել %s մատերը
 nbBookmarks=%s Էջանիշեր
 nbPopularGames=%s Հանրաճանաչ խաղերը
 nbAnalysedGames=%s Վերլուծված խաղեր
-bookmarkedByNbPlayers=էջանշվել է %s խաղացողների կողնից
 viewInFullSize=Մեծացնել չափը
 logOut=Ելք
 signIn=Մուտք

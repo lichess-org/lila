@@ -18,7 +18,6 @@ final class Env(
     val CollectionVote = config getString "collection.vote"
     val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
-    val PngExecPath = config getString "png.exec_path"
   }
   import settings._
 
@@ -53,8 +52,6 @@ final class Env(
     renderer,
     system.scheduler
   ).apply _
-
-  lazy val pngExport = PngExport(PngExecPath) _
 
   def cli = new lila.common.Cli {
     def process = {

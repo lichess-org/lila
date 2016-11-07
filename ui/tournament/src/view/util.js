@@ -43,7 +43,7 @@ module.exports = {
       tag: tag,
       attrs: attrs,
       children: [
-        fullName,
+        m('span.name', fullName),
         m('span.progress', [rating, ratingDiff])
       ]
     };

@@ -31,9 +31,12 @@ case class Study(
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
-  def withChapter(c: Chapter.Like): Study =
-    if (c.id == position.chapterId) this
-    else copy(position = Position.Ref(chapterId = c.id, path = Path.root))
+  def isCurrent(c: Chapter.Like) = c.id == position.chapterId
+
+  def withChapter(c: Chapter.Like): Study = if (isCurrent(c)) this else rewindTo(c)
+
+  def rewindTo(c: Chapter.Like): Study =
+    copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
   def isPublic = visibility == Study.Visibility.Public
 
@@ -61,8 +64,6 @@ case class Study(
 object Study {
 
   def toName(str: String) = str.trim take 100
-
-  case class Views(value: Int) extends AnyVal
 
   sealed trait Visibility {
     lazy val key = toString.toLowerCase
@@ -98,13 +99,15 @@ object Study {
       name: String,
       visibility: String,
       computer: String,
-      explorer: String) {
+      explorer: String,
+      cloneable: String) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
     def settings = for {
       comp <- UserSelection.byKey get computer
       expl <- UserSelection.byKey get explorer
-    } yield Settings(comp, expl)
+      clon <- UserSelection.byKey get cloneable
+    } yield Settings(comp, expl, clon)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

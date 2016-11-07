@@ -49,7 +49,40 @@ function autoplayButtons(ctrl) {
   }));
 }
 
+function rangeConfig(read, write) {
+  return function(el, isUpdate, ctx) {
+    if (isUpdate) return;
+    el.value = read();
+    var handler = function(e) {
+      write(e.target.value);
+    };
+    var blurer = function(e) {
+      e.target.blur();
+    };
+    el.addEventListener('input', handler)
+    el.addEventListener('mouseout', blurer)
+    ctx.onunload = function() {
+      el.removeEventListener('input', handler);
+      el.removeEventListener('mouseout', blurer);
+    };
+  };
+}
+
+function formatHashSize(v) {
+  if (v < 1000) return v + 'MB';
+  else return Math.round(v / 1024) + 'GB';
+}
+
 function studyButton(ctrl) {
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return m('a.fbt', {
+    href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
+    target: '_blank'
+  }, [
+      m('i.icon', {
+        'data-icon': ''
+      }),
+    'Open study'
+  ]);
   if (ctrl.study || ctrl.ongoing) return;
   var realGame = !util.synthetic(ctrl.data);
   return m('form', {
@@ -72,7 +105,7 @@ function studyButton(ctrl) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    m('button.fbt', {
+    ctrl.embed ? null : m('button.fbt', {
         type: 'submit'
       },
       m('i.icon', {
@@ -85,7 +118,7 @@ function studyButton(ctrl) {
 module.exports = {
   controller: function() {
 
-    this.open = false;
+    this.open = location.hash === '#menu';
 
     this.toggle = function() {
       this.open = !this.open;
@@ -95,59 +128,16 @@ module.exports = {
     var flipAttrs = {};
     var d = ctrl.data;
     if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
-    else flipAttrs.href = router.game(d, d.opponent.color) + '#' + ctrl.vm.node.ply;
-    var canContinue = !ctrl.ongoing && d.game.variant.key === 'standard';
+    else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
+    var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
 
     return m('div.action_menu', [
-      m('h2', 'Settings'), [
-        (function(id) {
-          return m('div.setting', [
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showAutoShapes(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleAutoShapes(e.target.checked);
-                })
-              }),
-              m('label', {
-                'for': id
-              })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer arrows')
-          ]);
-        })('analyse-toggle-ceval'), (function(id) {
-          return m('div.setting', [
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showGauge(),
-                config: util.bindOnce('change', function(e) {
-                  ctrl.toggleGauge(e.target.checked);
-                })
-              }),
-              m('label', {
-                'for': id
-              })
-            ]),
-            m('label', {
-              'for': id
-            }, 'Computer gauge')
-          ]);
-        })('analyse-toggle-gauge')
-      ],
-      m('h2', 'Tools'),
       m('div.tools', [
         m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
         ctrl.ongoing ? null : m('a.fbt', {
           href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-          rel: 'nofollow'
+          rel: 'nofollow',
+          target: ctrl.embed ? '_blank' : null
         }, [
           m('i.icon[data-icon=m]'),
           ctrl.trans('boardEditor')
@@ -162,9 +152,141 @@ module.exports = {
         ]) : null,
         studyButton(ctrl)
       ]),
+      ctrl.ceval.possible ? [
+        m('h2', 'Computer analysis'), [
+          (function(id) {
+            return m('div.setting', [
+              m('label', {
+                'for': id
+              }, 'Enable'),
+              m('div.switch', [
+                m('input', {
+                  id: id,
+                  class: 'cmn-toggle cmn-toggle-round',
+                  type: 'checkbox',
+                  checked: ctrl.vm.showComputer(),
+                  config: util.bindOnce('change', function(e) {
+                    ctrl.toggleComputer(e.target.checked);
+                  })
+                }),
+                m('label', {
+                  'for': id
+                })
+              ])
+            ]);
+          })('analyse-toggle-all'),
+          ctrl.vm.showComputer() ? [
+            (function(id) {
+              return m('div.setting', [
+                m('label', {
+                  'for': id
+                }, 'Best move arrow'),
+                m('div.switch', [
+                  m('input', {
+                    id: id,
+                    class: 'cmn-toggle cmn-toggle-round',
+                    type: 'checkbox',
+                    checked: ctrl.vm.showAutoShapes(),
+                    config: util.bindOnce('change', function(e) {
+                      ctrl.toggleAutoShapes(e.target.checked);
+                    })
+                  }),
+                  m('label', {
+                    'for': id
+                  })
+                ])
+              ]);
+            })('analyse-toggle-ceval'), (function(id) {
+              return m('div.setting', [
+                m('label', {
+                  'for': id
+                }, 'Evaluation gauge'),
+                m('div.switch', [
+                  m('input', {
+                    id: id,
+                    class: 'cmn-toggle cmn-toggle-round',
+                    type: 'checkbox',
+                    checked: ctrl.vm.showGauge(),
+                    config: util.bindOnce('change', function(e) {
+                      ctrl.toggleGauge(e.target.checked);
+                    })
+                  }),
+                  m('label', {
+                    'for': id
+                  })
+                ])
+              ]);
+            })('analyse-toggle-gauge'), (function(id) {
+              var max = 5;
+              return m('div.setting', [
+                m('label', {
+                  'for': id
+                }, 'Multiple lines'),
+                m('input', {
+                  id: id,
+                  type: 'range',
+                  min: 1,
+                  max: max,
+                  step: 1,
+                  config: rangeConfig(function() {
+                    return ctrl.ceval.multiPv();
+                  }, function(v) {
+                    ctrl.cevalSetMultiPv(parseInt(v));
+                  })
+                }),
+                m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
+              ]);
+            })('analyse-multipv'),
+            ctrl.ceval.pnaclSupported ? [
+              (function(id) {
+                var max = navigator.hardwareConcurrency;
+                if (!max) return;
+                if (max > 2) max--; // don't overload your computer, you dummy
+                return m('div.setting', [
+                  m('label', {
+                    'for': id
+                  }, 'CPUs'),
+                  m('input', {
+                    id: id,
+                    type: 'range',
+                    min: 1,
+                    max: max,
+                    step: 1,
+                    config: rangeConfig(function() {
+                      return ctrl.ceval.threads();
+                    }, function(v) {
+                      ctrl.cevalSetThreads(parseInt(v));
+                    })
+                  }),
+                  m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+                ]);
+              })('analyse-threads'), (function(id) {
+                return m('div.setting', [
+                  m('label', {
+                    'for': id
+                  }, 'Memory'),
+                  m('input', {
+                    id: id,
+                    type: 'range',
+                    min: 4,
+                    max: 10,
+                    step: 1,
+                    config: rangeConfig(function() {
+                      return Math.floor(Math.log2(ctrl.ceval.hashSize()));
+                    }, function(v) {
+                      ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
+                    })
+                  }),
+                  m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
+                ]);
+              })('analyse-memory')
+            ] : null
+          ] : null
+        ]
+      ] : null,
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
-      ctrl.ongoing ? null : m('div.continue_with.' + d.game.id, [
+      canContinue ? m('div.continue_with.' + d.game.id, [
         m('a.button', {
           href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
@@ -174,7 +296,7 @@ module.exports = {
           href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
-      ])
+      ]) : null
     ]);
   }
 };

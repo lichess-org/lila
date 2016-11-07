@@ -60,7 +60,6 @@ viewNbCheckmates=Sjå %s sjakkmatt
 nbBookmarks=%s Bokmerke
 nbPopularGames=%s Populære Parti
 nbAnalysedGames=%s Analyserte Parti
-bookmarkedByNbPlayers=Bokmerka av %s spelarar
 viewInFullSize=Sjå i full storleik
 logOut=Logg ut
 signIn=Logg inn

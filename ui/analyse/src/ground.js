@@ -1,5 +1,4 @@
 var chessground = require('chessground');
-var game = require('game').game;
 
 function makeConfig(data, config, onMove, onNewPiece, isStudy) {
   return {
@@ -11,14 +10,15 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
     movable: {
       free: false,
       color: config.movable.color,
-      dests: config.movable.dests
+      dests: config.movable.dests,
+      rookCastle: data.pref.rookCastle
     },
     events: {
       move: onMove,
       dropNewPiece: onNewPiece
     },
     premovable: {
-      enabled: true
+      enabled: config.movable.enabled
     },
     drawable: {
       enabled: true,

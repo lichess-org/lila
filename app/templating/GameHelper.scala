@@ -123,7 +123,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case None =>
         val klass = cssClass.??(" " + _)
         val content = (player.aiLevel, player.name) match {
-          case (Some(level), _) => aiNameHtml(variant, level, withRating).body
+          case (Some(level), _) => aiNameHtml(level, withRating).body
           case (_, Some(name))  => escapeHtml(name)
           case _                => User.anonymous
         }

@@ -14,6 +14,7 @@ $(function() {
         source: function(query, sync, async) {
           $.ajax({
             url: '/player/autocomplete?term=' + query,
+            cache: true,
             success: function(res) {
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);
@@ -68,13 +69,15 @@ $(function() {
             $(this).remove();
           });
         }
-        $zone.find('li.ip').slice(0, 3).each(function() {
+        $zone.find('li.ip').slice(0, 2).each(function() {
           var $li = $(this);
-          $.ajax({
-            url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
-            success: function(res) {
-              $li.append($('<span class="intel">' + res + '% proxy</span>'));
-            }
+          $(this).one('mouseover', function() {
+            $.ajax({
+              url: '/mod/ip-intel?ip=' + $(this).find('.address').text(),
+              success: function(res) {
+                $li.append($('<span class="intel">' + res + '% proxy</span>'));
+              }
+            });
           });
         });
       });
@@ -99,6 +102,7 @@ $(function() {
         data: $form.serialize(),
         success: function() {
           $form.find('.saved').fadeIn();
+          lichess.reloadOtherTabs();
         }
       });
     });

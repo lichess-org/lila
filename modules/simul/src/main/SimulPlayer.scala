@@ -17,7 +17,7 @@ private[simul] case class SimulPlayer(
 
 private[simul] object SimulPlayer {
 
-  private[simul] def apply(user: User, variant: Variant): SimulPlayer = {
+  private[simul] def make(user: User, variant: Variant): SimulPlayer = {
 
     val perf =
       if (variant == chess.variant.Standard) {

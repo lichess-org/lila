@@ -11,6 +11,7 @@ var currentCommentsView = require('./studyComments').currentComments;
 var glyphFormView = require('./studyGlyph').view;
 var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
+var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
 
 function buttons(root) {
@@ -29,22 +30,28 @@ function buttons(root) {
           attrs['data-count'] = ctrl.vm.behind;
           classes.push('data-count');
         }
-        if (ctrl.vm.behind !== false) classes.push('glowed');
+        if (ctrl.vm.behind !== false && ctrl.members.hasOnlineContributor()) classes.push('glowed');
         attrs.class = classes.join(' ');
         return attrs;
       })(), m('i', {
         'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
       }))),
-      m('a.button.hint--top', {
-        'data-hint': 'Download as PGN',
-        href: '/study/' + ctrl.data.id + '.pgn'
-      }, m('i[data-icon=x]')),
-      m('a.button.hint--top', {
+      ctrl.data.features.cloneable ? m('a.button.hint--top', {
         'data-hint': 'Clone this study',
         href: '/study/' + ctrl.data.id + '/clone'
       }, m('i', {
         'data-icon': '{'
-      })),
+      })) : null,
+      m('a.button.share.hint--top', {
+          class: classSet({
+            active: ctrl.share.open()
+          }),
+          'data-hint': 'Share & export',
+          config: util.bindOnce('click', function() {
+            ctrl.share.toggle();
+          })
+        },
+        m('i.[data-icon=z]')),
       canContribute ? [
         (function(enabled) {
           return m('a.button.comment.hint--top', {
@@ -201,9 +208,11 @@ module.exports = {
     if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
     if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
     if (ctrl.form.open()) return studyFormView(ctrl.form);
+    if (ctrl.share.open()) return studyShareView(ctrl.share);
   },
 
   underboard: function(ctrl) {
+    if (ctrl.embed) return;
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [

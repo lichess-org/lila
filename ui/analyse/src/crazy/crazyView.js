@@ -10,10 +10,11 @@ module.exports = {
     if (!ctrl.vm.node.crazy) return;
     var pocket = ctrl.vm.node.crazy.pockets[color === 'white' ? 0 : 1];
     var dropped = ctrl.vm.justDropped;
-    var usable = color === ctrl.chessground.data.movable.color;
+    var usable = !ctrl.embed && color === ctrl.chessground.data.movable.color;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
+          if (ctrl.embed) return;
           if (ctx.flip === ctrl.vm.flip) return;
           if (ctx.onunload) ctx.onunload();
           ctx.flip = ctrl.vm.flip;

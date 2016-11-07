@@ -42,6 +42,7 @@ module.exports = {
     };
   },
   view: function(root, concealOf) {
+    if (root.embed) return;
     var state = root.fork.state();
     if (!state.displayed) return;
     var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);
@@ -55,7 +56,10 @@ module.exports = {
           }
         }, [
           treeView.renderIndex(node.ply, true),
-          treeView.renderMove(node)
+          treeView.renderMove({
+            isStudy: !!root.study,
+            showComputer: root.vm.showComputer()
+          }, node)
         ]);
       })
     );

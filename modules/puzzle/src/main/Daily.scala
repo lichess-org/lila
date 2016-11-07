@@ -14,7 +14,7 @@ private[puzzle] final class Daily(
     scheduler: Scheduler) {
 
   private val cache =
-    lila.memo.AsyncCache.single[Option[DailyPuzzle]](f = find, timeToLive = 30 minutes)
+    lila.memo.AsyncCache.single[Option[DailyPuzzle]](f = find, timeToLive = 10 minutes)
 
   def apply(): Fu[Option[DailyPuzzle]] = cache apply true
 
@@ -43,15 +43,15 @@ private[puzzle] final class Daily(
   }
 
   private def findCurrent = coll.find(
-    $doc("day" -> $doc("$gt" -> DateTime.now.minusMinutes(24 * 60 - 15)))
+    $doc("day" $gt DateTime.now.minusMinutes(24 * 60 - 15))
   ).uno[Puzzle]
 
   private def findNew = coll.find(
-    $doc("day" -> $doc("$exists" -> false))
+    $doc("day" $exists false)
   ).sort($doc("vote.sum" -> -1)).uno[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
-        $doc("_id" -> puzzle.id),
-        $doc("$set" -> $doc("day" -> DateTime.now))
+        $id(puzzle.id),
+        $set("day" -> DateTime.now)
       ) inject puzzle.some
       case None => fuccess(none)
     }

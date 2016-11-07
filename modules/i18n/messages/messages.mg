@@ -55,7 +55,6 @@ viewNbCheckmates=%s Echéc et mat
 nbBookmarks=%s Bookmarks
 nbPopularGames=%s ny lalao malaza
 nbAnalysedGames=%s ny lalao voahadihady
-bookmarkedByNbPlayers=Nankafizin'ny mpilalao %s
 viewInFullSize=Alehibiazo
 logOut=Mivoaha
 signIn=Midira

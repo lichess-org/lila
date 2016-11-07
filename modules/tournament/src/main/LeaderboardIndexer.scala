@@ -16,10 +16,11 @@ private final class LeaderboardIndexer(
   import BSONHandlers._
 
   def generateAll: Funit = leaderboardColl.remove(BSONDocument()) >> {
+    import reactivemongo.play.iteratees.cursorProducer
+
     tournamentColl.find(TournamentRepo.finishedSelect)
       .sort(BSONDocument("startsAt" -> -1))
-      .cursor[Tournament]()
-      .enumerate(20 * 1000, stopOnError = true) &>
+      .cursor[Tournament]().enumerator(20 * 1000) &>
       Enumeratee.mapM[Tournament].apply[Seq[Entry]](generateTour) &>
       Enumeratee.mapConcat[Seq[Entry]].apply[Entry](identity) &>
       Enumeratee.grouped(Iteratee takeUpTo 500) |>>>

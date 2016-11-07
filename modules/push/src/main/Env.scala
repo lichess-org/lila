@@ -45,12 +45,14 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move
-      case lila.challenge.Event.Create(c)            => pushApi challengeCreate c
-      case lila.challenge.Event.Accept(c, joinerId)  => pushApi.challengeAccept(c, joinerId)
+      case lila.game.actorApi.FinishGame(game, _, _)    => pushApi finish game
+      case move: lila.hub.actorApi.round.MoveEvent      => pushApi move move
+      case lila.message.Event.NewMessage(t, p)          => pushApi newMessage (t, p)
+      case lila.challenge.Event.Create(c)               => pushApi challengeCreate c
+      case lila.challenge.Event.Accept(c, joinerId)     => pushApi.challengeAccept(c, joinerId)
+      case lila.hub.actorApi.round.CorresAlarmEvent(id) => pushApi corresAlarm id
     }
-  })), 'finishGame, 'moveEvent, 'challenge)
+  })), 'finishGame, 'moveEvent, 'newMessage, 'challenge, 'corresAlarm)
 }
 
 object Env {

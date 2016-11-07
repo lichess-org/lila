@@ -7,7 +7,6 @@ var ground = require('./ground');
 var keyboard = require('./keyboard');
 var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
-var control = require('./control');
 var promotion = require('./promotion');
 var util = require('./util');
 var throttle = require('./util').throttle;
@@ -18,7 +17,6 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
-var crazyView = require('./crazy/crazyView');
 var studyCtrl = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var computeAutoShapes = require('./autoShape');
@@ -27,6 +25,7 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.userId = opts.userId;
+  this.embed = opts.embed;
 
   var initialize = function(data) {
     this.data = data;
@@ -36,7 +35,7 @@ module.exports = function(opts) {
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
-    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : true);
+    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
   }.bind(this);
 
   initialize(opts.data);
@@ -61,6 +60,7 @@ module.exports = function(opts) {
     flip: false,
     showAutoShapes: util.storedProp('show-auto-shapes', true),
     showGauge: util.storedProp('show-gauge', true),
+    showComputer: util.storedProp('show-computer', true),
     autoScrollRequested: false,
     element: opts.element,
     redirecting: false,
@@ -88,11 +88,15 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.unflip = function() {
+    this.vm.flip = false;
+  }.bind(this);
+
   this.topColor = function() {
-    return this.data[this.vm.flip ? 'player' : 'opponent'].color;
+    return opposite(this.bottomColor());
   }.bind(this);
   this.bottomColor = function() {
-    return opposite(this.topColor());
+    return this.vm.flip ? opposite(this.data.orientation) : this.data.orientation;
   }.bind(this);
 
   this.togglePlay = function(delay) {
@@ -116,7 +120,10 @@ module.exports = function(opts) {
     var config = {
       fen: node.fen,
       turnColor: color,
-      movable: {
+      movable: this.embed ? {
+        color: null,
+        dests: {}
+      } : {
         color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
         dests: dests || {}
       },
@@ -148,10 +155,14 @@ module.exports = function(opts) {
     });
   }.bind(this));
 
-  var sound = {
+  var sound = $.sound ? {
     move: throttle(50, false, $.sound.move),
     capture: throttle(50, false, $.sound.capture),
     check: throttle(50, false, $.sound.check)
+  } : {
+    move: $.noop,
+    capture: $.noop,
+    check: $.noop
   };
 
   var onChange = opts.onChange ? throttle(300, false, function() {
@@ -230,8 +241,8 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(treePath.root);
-    this.ceval.stop();
-    this.ceval = makeCeval();
+    this.ceval.destroy();
+    instanciateCeval();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -377,31 +388,45 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var cevalVariants = ['standard', 'fromPosition', 'chess960', 'kingOfTheHill', 'threeCheck', 'horde', 'racingKings', 'atomic', 'crazyhouse'];
-  var cevalPossible = function() {
-    return (util.synthetic(this.data) || !game.playable(this.data)) &&
-      cevalVariants.indexOf(this.data.game.variant.key) !== -1;
+  this.setAutoShapes = function() {
+    this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  var makeCeval = function() {
-    return cevalCtrl(cevalPossible, this.data.game.variant, function(res) {
-      this.tree.updateAt(res.work.path, function(node) {
-        if (res.work.threatMode) {
-          if (node.threat && node.threat.depth >= res.eval.depth) return;
-          node.threat = res.eval;
-        } else {
-          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-          node.ceval = res.eval;
+  var instanciateCeval = function(failsafe) {
+    this.ceval = cevalCtrl({
+      variant: this.data.game.variant,
+      possible: !this.embed && (
+        util.synthetic(this.data) || !game.playable(this.data)
+      ) && this.data.game.variant.key !== 'antichess',
+      emit: function(res) {
+        this.tree.updateAt(res.work.path, function(node) {
+          if (res.work.threatMode) {
+            if (node.threat && node.threat.depth >= res.eval.depth) return;
+            node.threat = res.eval;
+          } else {
+            if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+            node.ceval = res.eval;
+          }
+          if (res.work.path === this.vm.path) {
+            this.setAutoShapes();
+            m.redraw();
+          }
+        }.bind(this));
+      }.bind(this),
+      setAutoShapes: this.setAutoShapes,
+      failsafe: failsafe,
+      onCrash: function(e) {
+        console.log('Local eval failed!', e);
+        if (this.ceval.pnaclSupported) {
+          console.log('Retrying in failsafe mode');
+          instanciateCeval(true);
+          this.startCeval();
         }
-        if (res.work.path === this.vm.path) {
-          this.setAutoShapes();
-          m.redraw();
-        }
-      }.bind(this));
-    }.bind(this))
+      }.bind(this)
+    });
   }.bind(this);
 
-  this.ceval = makeCeval();
+  instanciateCeval();
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
@@ -420,7 +445,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver() && (!this.vm.node.eval || !this.nextNodeBest() || this.vm.threatMode);
+    return !this.gameOver();
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
@@ -437,36 +462,84 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.toggleThreatMode = function() {
+    if (this.vm.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
-    this.vm.threatMode = !this.vm.threatMode && !this.vm.node.check;
+    this.vm.threatMode = !this.vm.threatMode;
     this.setAutoShapes();
     this.startCeval();
     m.redraw();
   }.bind(this);
 
+  var cevalReset = function(f) {
+    this.ceval.stop();
+    if (!this.ceval.enabled()) this.ceval.toggle();
+    this.startCeval();
+    m.redraw();
+  }.bind(this);
+
+  this.cevalSetMultiPv = function(v) {
+    this.ceval.multiPv(v);
+    this.tree.removeCeval();
+    cevalReset();
+  }.bind(this);
+
+  this.cevalSetThreads = function(v) {
+    this.ceval.threads(v);
+    cevalReset();
+  }.bind(this);
+
+  this.cevalSetHashSize = function(v) {
+    this.ceval.hashSize(v);
+    cevalReset();
+  }.bind(this);
+
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver();
+    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver() && this.vm.showComputer();
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
     return this.data.analysis || this.ceval.enabled();
   }
 
-  this.toggleAutoShapes = function(v) {
-    if (this.vm.showAutoShapes(v)) this.setAutoShapes();
+  var resetAutoShapes = function() {
+    if (this.vm.showAutoShapes()) this.setAutoShapes();
     else this.chessground.setAutoShapes([]);
   }.bind(this);
 
-  this.toggleGauge = function(v) {
+  this.toggleAutoShapes = function(v) {
+    this.vm.showAutoShapes(v);
+    resetAutoShapes();
+  }.bind(this);
+
+  this.toggleGauge = function() {
     this.vm.showGauge(!this.vm.showGauge());
   }.bind(this);
 
-  this.setAutoShapes = function() {
-    this.chessground.setAutoShapes(computeAutoShapes(this));
+  var onToggleComputer = function() {
+    if (opts.onToggleComputer) opts.onToggleComputer(this.vm.showComputer());
+    if (!this.vm.showComputer()) {
+      this.tree.removeComputerVariations();
+      if (this.ceval.enabled()) this.toggleCeval();
+      this.chessground.setAutoShapes([]);
+    } else resetAutoShapes();
   }.bind(this);
 
-  var playUci = function(uci) {
+  this.toggleComputer = function() {
+    var value = !this.vm.showComputer();
+    this.vm.showComputer(value);
+    onToggleComputer();
+  }.bind(this);
+
+  this.mergeAnalysisData = function(data) {
+    this.tree.merge(data.tree);
+    if (!this.vm.showComputer()) this.tree.removeComputerVariations();
+    this.data.analysis = data.analysis;
+    this.autoScroll();
+    m.redraw();
+  }.bind(this);
+
+  this.playUci = function(uci) {
     var move = util.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
@@ -478,13 +551,13 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.explorerMove = function(uci) {
-    playUci(uci);
+    this.playUci(uci);
     this.explorer.loading(true);
   }.bind(this);
 
   this.playBestMove = function() {
     var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
-    if (uci) playUci(uci);
+    if (uci) this.playUci(uci);
   }.bind(this);
 
   this.socketReceive = function(type, data) {
@@ -494,11 +567,17 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   showGround();
+  onToggleComputer();
   this.startCeval();
   this.explorer.setNode();
   this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
 
   keyboard.bind(this);
+
+  lichess.pubsub.on('jump', function(ply) {
+    this.jumpToMain(parseInt(ply));
+    m.redraw();
+  }.bind(this));
 
   this.music = null;
   lichess.pubsub.on('sound_set', function(set) {

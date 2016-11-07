@@ -6,6 +6,7 @@ import play.api.data.Forms._
 object DataForm {
 
   private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
+  // ignored types = subscr_cancel, ...
 
   val ipn = Form(mapping(
     "txn_id" -> optional(nonEmptyText),
@@ -15,8 +16,8 @@ object DataForm {
     "mc_fee" -> bigDecimal,
     "custom" -> optional(text),
     "payer_email" -> optional(nonEmptyText),
-    "first_name" -> optional(nonEmptyText),
-    "last_name" -> optional(nonEmptyText)
+    "first_name" -> optional(text),
+    "last_name" -> optional(text)
   )(Ipn.apply)(Ipn.unapply))
 
   case class Ipn(

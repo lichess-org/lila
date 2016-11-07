@@ -1,4 +1,3 @@
-var k = Mousetrap;
 var control = require('./control');
 var m = require('mithril');
 
@@ -18,60 +17,62 @@ var i18nLoaded = false;
 
 module.exports = {
   bind: function(ctrl) {
-    k.bind(['left', 'k'], preventing(function() {
+    if (!window.Mousetrap) return;
+    var kbd = window.Mousetrap;
+    kbd.bind(['left', 'k'], preventing(function() {
       control.prev(ctrl);
       m.redraw();
     }));
-    k.bind(['shift+left', 'shift+k'], preventing(function() {
+    kbd.bind(['shift+left', 'shift+k'], preventing(function() {
       control.exitVariation(ctrl);
       m.redraw();
     }));
-    k.bind(['right', 'j'], preventing(function() {
+    kbd.bind(['right', 'j'], preventing(function() {
       if (!ctrl.fork.proceed()) control.next(ctrl);
       m.redraw();
     }));
-    k.bind(['shift+right', 'shift+j'], preventing(function() {
+    kbd.bind(['shift+right', 'shift+j'], preventing(function() {
       control.enterVariation(ctrl);
       m.redraw();
     }));
-    k.bind(['up', '0'], preventing(function() {
+    kbd.bind(['up', '0'], preventing(function() {
       if (!ctrl.fork.prev()) control.first(ctrl);
       m.redraw();
     }));
-    k.bind(['down', '$'], preventing(function() {
+    kbd.bind(['down', '$'], preventing(function() {
       if (!ctrl.fork.next()) control.last(ctrl);
       m.redraw();
     }));
-    k.bind('shift+c', preventing(function() {
+    kbd.bind('shift+c', preventing(function() {
       ctrl.vm.comments = !ctrl.vm.comments;
       ctrl.autoScroll();
       m.redraw();
     }));
-    k.bind('esc', ctrl.chessground.cancelMove);
-    k.bind('f', preventing(ctrl.flip));
-    k.bind('?', preventing(function() {
+    kbd.bind('esc', ctrl.chessground.cancelMove);
+    kbd.bind('f', preventing(ctrl.flip));
+    kbd.bind('?', preventing(function() {
       ctrl.vm.keyboardHelp = !ctrl.vm.keyboardHelp;
       m.redraw();
     }));
-    k.bind('l', preventing(ctrl.toggleCeval));
-    k.bind('a', preventing(function() {
+    kbd.bind('l', preventing(ctrl.toggleCeval));
+    kbd.bind('a', preventing(function() {
       ctrl.toggleAutoShapes(!ctrl.vm.showAutoShapes());
       m.redraw();
     }));
-    k.bind('x', preventing(ctrl.toggleThreatMode));
-    k.bind('e', preventing(function() {
+    kbd.bind('x', preventing(ctrl.toggleThreatMode));
+    kbd.bind('e', preventing(function() {
       ctrl.explorer.toggle();
       m.redraw();
     }));
-    k.bind('space', preventing(function() {
+    kbd.bind('space', preventing(function() {
       if (ctrl.ceval.enabled()) ctrl.playBestMove();
       else ctrl.toggleCeval();
     }));
     if (ctrl.study) {
-      k.bind('c', preventing(function() {
+      kbd.bind('c', preventing(function() {
         $('.study_buttons a.comment').click();
       }));
-      k.bind('s', preventing(function() {
+      kbd.bind('s', preventing(function() {
         $('.study_buttons a.glyph').click();
       }));
     }

@@ -1,7 +1,9 @@
 package lila.forum
 
 import lila.db.dsl._
+import lila.user.User.BSONFields
 import org.joda.time.DateTime
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 
 object PostRepo extends PostRepo(false) {
 
@@ -73,9 +75,9 @@ sealed abstract class PostRepo(troll: Boolean) {
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinct[String, List]("_id", $doc("topicId" -> topicId).some)
 
-  import reactivemongo.api.ReadPreference
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
+    implicit cp: CursorProducer[Post]) =
     coll.find(selector).cursor[Post](readPreference)
 }

@@ -18,7 +18,7 @@ import play.api.libs.json._
 final class Preload(
     tv: Tv,
     leaderboard: Boolean => Fu[List[User.LightPerf]],
-    tourneyWinners: Int => Fu[List[Winner]],
+    tourneyWinners: Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
     streamsOnAir: () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
@@ -42,7 +42,7 @@ final class Preload(
       tv.getBestGame zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(true) zip
-      tourneyWinners(10) zip
+      tourneyWinners zip
       dailyPuzzle() zip
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) zip

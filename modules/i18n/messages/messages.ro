@@ -60,7 +60,6 @@ viewNbCheckmates=%s maturi
 nbBookmarks=%s marcate
 nbPopularGames=%s partide populare
 nbAnalysedGames=%s partide analizate
-bookmarkedByNbPlayers=Marcat de %s jucatori
 viewInFullSize=Vezi la dimensiune completă
 logOut=Deconectare
 signIn=Autentificare

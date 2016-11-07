@@ -93,6 +93,7 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ chess.variant.FromPosition.id
   val aiVariants = variants :+
+    chess.variant.Crazyhouse.id :+
     chess.variant.KingOfTheHill.id :+
     chess.variant.ThreeCheck.id :+
     chess.variant.Atomic.id :+

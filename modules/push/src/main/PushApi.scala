@@ -8,6 +8,7 @@ import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
+import lila.message.{ Thread, Post }
 import lila.user.User
 
 import play.api.libs.json._
@@ -70,6 +71,42 @@ private final class PushApi(
       }
     }
   }
+
+  def corresAlarm(gameId: String): Funit = GameRepo game gameId flatMap {
+    _ ?? { game =>
+      val pov = Pov(game, game.turnColor)
+      game.player(pov.color).userId ?? { userId =>
+        IfAway(pov) {
+          pushToAll(userId, _.corresAlarm, PushApi.Data(
+            title = "Time is almost up!",
+            body = s"You are about to lose on time against ${opponentName(pov)}",
+            payload = Json.obj(
+              "userId" -> userId,
+              "userData" -> Json.obj(
+                "type" -> "corresAlarm",
+                "gameId" -> game.id,
+                "fullId" -> pov.fullId,
+                "color" -> pov.color.name,
+                "fen" -> Forsyth.exportBoard(game.toChess.board),
+                "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                "secondsLeft" -> pov.remainingSeconds))))
+        }
+      }
+    }
+  }
+
+  def newMessage(t: Thread, p: Post): Funit =
+    lightUser(t.senderOf(p)) ?? { sender =>
+      pushToAll(t.receiverOf(p), _.message, PushApi.Data(
+        title = s"${sender.titleName}: ${t.name}",
+        body = p.text take 140,
+        payload = Json.obj(
+          "userId" -> t.receiverOf(p),
+          "userData" -> Json.obj(
+            "type" -> "newMessage",
+            "threadId" -> t.id,
+            "sender" -> sender))))
+    }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>

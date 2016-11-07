@@ -175,9 +175,8 @@ lichess.StrongSocket = function(url, version, settings) {
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
-        if (settings.receive) settings.receive(m.t, m.d);
-        var h = settings.events[m.t];
-        if (h) h(m.d || null, m);
+        var processed = settings.receive ? settings.receive(m.t, m.d) : false;
+        if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
   };
 

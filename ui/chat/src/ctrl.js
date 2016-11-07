@@ -13,6 +13,7 @@ module.exports = function(opts) {
     isTroll: opts.kobold,
     isMod: opts.permissions.timeout,
     isTimeout: m.prop(opts.timeout),
+    parseMoves: opts.parseMoves,
     placeholderKey: 'talkInChat',
     moderating: m.prop(null),
     tab: m.prop('discussion'),

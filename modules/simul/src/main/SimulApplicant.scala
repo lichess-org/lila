@@ -12,7 +12,7 @@ case class SimulApplicant(
 
 private[simul] object SimulApplicant {
 
-  def apply(player: SimulPlayer): SimulApplicant = new SimulApplicant(
+  def make(player: SimulPlayer): SimulApplicant = new SimulApplicant(
     player = player,
     accepted = false)
 }

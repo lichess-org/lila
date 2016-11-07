@@ -1,4 +1,3 @@
-var m = require('mithril');
 var util = require('./util');
 var initialFen = require('chessground').fen.initial;
 
@@ -46,10 +45,7 @@ module.exports = function(send, ctrl) {
         ctrl.forecast.reloadToLastPly();
     },
     analysisProgress: function(data) {
-      ctrl.tree.merge(data.tree);
-      ctrl.data.analysis = data.analysis;
-      ctrl.autoScroll();
-      m.redraw();
+      ctrl.mergeAnalysisData(data);
     }
   };
 

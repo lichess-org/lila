@@ -2,10 +2,10 @@ var m = require('mithril');
 var contextMenu = require('../contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
-var defined = util.defined;
 var empty = util.empty;
 var game = require('game').game;
 var treePath = require('./path');
+var commentAuthorText = require('../study/studyComments').authorText;
 
 var autoScroll = util.throttle(300, false, function(ctrl, el) {
   var cont = el.parentNode;
@@ -36,6 +36,10 @@ function renderIndex(ply, withDots) {
   };
 }
 
+function nonEmpty(x) {
+  return !!x;
+}
+
 function renderChildrenOf(ctx, node, opts) {
   var cs = node.children;
   var main = cs[0];
@@ -47,7 +51,7 @@ function renderChildrenOf(ctx, node, opts) {
     var commentTags = renderMainlineCommentsOf(ctx, main, {
       conceal: conceal,
       withColor: true
-    });
+    }).filter(nonEmpty);
     if (!cs[1] && empty(commentTags)) return [
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, {
@@ -130,16 +134,16 @@ function renderMainlineMoveOf(ctx, node, opts) {
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
-  return moveTag(attrs, renderMove(node));
+  return moveTag(attrs, renderMove(ctx, node));
 }
 
-function renderMove(node, eval) {
+function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     util.fixCrazySan(node.san),
-    node.glyphs ? renderGlyphs(node.glyphs) : null,
-    defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
-      defined(eval.mate) ? renderEval('#' + eval.mate) : null
+    (node.glyphs && (ctx.isStudy || ctx.showComputer)) ? renderGlyphs(node.glyphs) : null,
+    util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
+      util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
   ];
 }
@@ -214,43 +218,52 @@ function renderEval(e) {
 }
 
 function renderMainlineCommentsOf(ctx, node, opts) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   var colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
-  var klass;
   return node.comments.map(function(comment) {
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
+    var klass = '';
     if (comment.text.indexOf('Inaccuracy.') === 0) klass = 'inaccuracy';
     else if (comment.text.indexOf('Mistake.') === 0) klass = 'mistake';
     else if (comment.text.indexOf('Blunder.') === 0) klass = 'blunder';
     if (opts.conceal) klass += ' ' + opts.conceal;
-    return renderMainlineComment(comment, colorClass, klass);
+    return renderMainlineComment(comment, colorClass + klass, node.comments.length > 1, ctx);
   });
 }
 
-function renderMainlineComment(comment, colorClass, commentClass) {
+function renderMainlineComment(comment, klass, withAuthor, ctx) {
   return {
     tag: 'comment',
     attrs: {
-      class: colorClass + commentClass
+      class: klass
     },
-    children: [truncateComment(comment.text, 400)]
+    children: [
+      withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 400, ctx)
+    ]
   };
 }
 
 function renderVariationCommentsOf(ctx, node) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return null;
+  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
   return node.comments.map(function(comment) {
-    return renderVariationComment(comment);
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
+    return renderVariationComment(comment, node.comments.length > 1, ctx);
   });
 }
 
-function renderVariationComment(comment) {
+function renderVariationComment(comment, withAuthor, ctx) {
   return {
     tag: 'comment',
-    children: [truncateComment(comment.text, 300)]
+    children: [
+      withAuthor ? m('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 300, ctx)
+    ]
   };
 }
 
-function truncateComment(text, len) {
+function truncateComment(text, len, ctx) {
+  if (ctx.ctrl.embed) return text;
   if (text.length <= len) return text;
   return text.slice(0, len - 10) + ' [...]';
 }
@@ -270,7 +283,9 @@ module.exports = {
     var root = ctrl.tree.root;
     var ctx = {
       ctrl: ctrl,
-      concealOf: concealOf || emptyConcealOf
+      concealOf: concealOf || emptyConcealOf,
+      showComputer: ctrl.vm.showComputer(),
+      isStudy: !!ctrl.study
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,
@@ -300,7 +315,7 @@ module.exports = {
         });
       },
     }, [
-      commentTags ? m('interrupt', commentTags) : null,
+      empty(commentTags) ? null : m('interrupt', commentTags),
       root.ply % 2 === 1 ? [
         renderIndex(root.ply, false),
         emptyMove({})

@@ -101,48 +101,6 @@
 #learn_app .result.failed button {
   color: #dc322f;
 }
-#learn_app .lichess_ground .score {
-  background: #4caf50;
-  color: #fff;
-  padding: 10px 20px;
-  text-align: center;
-  border-radius: 3px;
-  margin: 40px auto 0 auto;
-  position: relative;
-}
-#learn_app .lichess_ground .score .plus {
-  position: absolute;
-  top: 0;
-  width: 60%;
-  left: 20%;
-  box-sizing: border-box;
-  font-size: 2em;
-  font-weight: bold;
-  background: #fdd835;
-  padding: 5px 0;
-  border-radius: 3px;
-  text-shadow: 0 1px 0 #000;
-  opacity: 0;
-}
-@keyframes score-show {
-  from {opacity: 1; transform: translateY(20px);}
-  to {opacity: 0; transform: translateY(-20px);}
-}
-#learn_app .lichess_ground .score .plus.show {
-  animation: 1.5s score-show;
-}
-#learn_app .lichess_ground .score .legend {
-  font-size: 1.3em;
-  font-family: 'Roboto';
-  font-weight: 300;
-  letter-spacing: 5px;
-  display: block;
-  margin: 5px;
-}
-#learn_app .lichess_ground .score .value {
-  font-size: 40px;
-  font-family: monospace;
-}
 @keyframes go-home {
   from {opacity: 1;}
   to {opacity: 0.1;}
@@ -324,9 +282,9 @@
 }
 #learn_app .screen .score span {
   font-weight: bold;
+  font-family: 'Roboto Mono';
 }
 #learn_app .screen p {
-  font-family: 'Source Sans Pro', sans-serif;
   color: #999999;
   font-size: 15px;
   padding: 0 15%;

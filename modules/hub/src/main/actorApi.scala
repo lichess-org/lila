@@ -2,6 +2,7 @@ package lila.hub
 package actorApi
 
 import lila.common.LightUser
+import org.joda.time.DateTime
 
 import play.api.libs.json._
 import play.twirl.api.Html
@@ -116,6 +117,7 @@ object propagation {
   case class Friends(user: String) extends Propagation
   case class StaffFriends(user: String) extends Propagation
   case class ExceptUser(user: String) extends Propagation
+  case class ModsOnly(value: Boolean) extends Propagation
 }
 
 import propagation._
@@ -127,6 +129,7 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
   def toFriendsOf(id: String) = add(Friends(id))
   def toStaffFriendsOf(id: String) = add(StaffFriends(id))
   def exceptUser(id: String) = add(ExceptUser(id))
+  def modsOnly(value: Boolean) = add(ModsOnly(value))
   private def add(p: Propagation) = copy(propagations = p :: propagations)
 }
 }
@@ -152,6 +155,10 @@ package fishnet {
 case class AutoAnalyse(gameId: String)
 }
 
+package user {
+  case class Note(from: String, to: String, text: String, mod: Boolean)
+}
+
 package round {
 case class MoveEvent(
   gameId: String,
@@ -159,8 +166,10 @@ case class MoveEvent(
   move: String,
   color: chess.Color,
   mobilePushable: Boolean,
+  alarmable: Boolean,
   opponentUserId: Option[String],
   simulId: Option[String])
+case class CorresAlarmEvent(gameId: String)
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
@@ -199,5 +208,5 @@ case class UnBlock(u1: String, u2: String)
 }
 
 package plan {
-case class ChargeEvent(username: String, amount: Int, percent: Int)
+case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
 }

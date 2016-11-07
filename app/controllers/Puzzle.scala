@@ -158,13 +158,15 @@ object Puzzle extends LilaController {
         _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
           case Some((game, initialFen)) =>
             Ok(Env.api.pgnDump(game, initialFen.map(_.value)).toString).fuccess
-          case _ => lila.game.GameRepo.findRandomFinished(1000) flatMap {
-            _ ?? { game =>
-              lila.game.GameRepo.initialFen(game) map { fen =>
-                Ok(Env.api.pgnDump(game, fen).toString)
+          case _ =>
+            lila.log("puzzle import").info("No recent good game, serving a random one :-/")
+            lila.game.GameRepo.findRandomFinished(1000) flatMap {
+              _ ?? { game =>
+                lila.game.GameRepo.initialFen(game) map { fen =>
+                  Ok(Env.api.pgnDump(game, fen).toString)
+                }
               }
             }
-          }
         }
       }
     }
@@ -193,10 +195,7 @@ object Puzzle extends LilaController {
 
   def frame = Open { implicit ctx =>
     OptionOk(env.daily()) { daily =>
-      html.puzzle.embed(
-        daily,
-        get("bg") | "light",
-        lila.pref.Theme(~get("theme")).cssClass)
+      html.puzzle.embed(daily)
     }
   }
 }

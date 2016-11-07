@@ -30,7 +30,9 @@ private[tournament] case class Player(
 
   def finalRating = rating + ratingDiff
 
-  def recomputeMagicScore = copy(magicScore = (score * 1000000) + (ratingDiff * 1000) + rating)
+  def recomputeMagicScore = copy(
+    magicScore = ((score * 100000) + (ratingDiff * 100) + (rating / 10)) atMost Int.MaxValue
+  )
 }
 
 private[tournament] object Player {

@@ -76,6 +76,8 @@ object Message extends LilaController {
   def create = AuthBody { implicit ctx =>
     implicit me =>
       NotForKids {
+      import play.api.Play.current
+      import play.api.i18n.Messages.Implicits._
         implicit val req = ctx.body
         negotiate (
           html = forms.thread(me).bindFromRequest.fold(
@@ -84,7 +86,7 @@ object Message extends LilaController {
               Redirect(routes.Message.thread(thread.id))
             }),
           api = _ => forms.thread(me).bindFromRequest.fold(
-            err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+            err => fuccess(BadRequest(errorsAsJson(err))),
             data => api.makeThread(data, me) map { thread =>
               Ok(Json.obj("ok" -> true, "id" -> thread.id))
             })

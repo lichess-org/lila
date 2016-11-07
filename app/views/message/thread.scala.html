@@ -14,7 +14,7 @@ title = thread.name) {
   </div>
 
   @thread.posts.map { post =>
-  <div class="thread_message" id="message_@post.id">
+  <div class="thread_message embed_analyse" id="message_@post.id">
     <span class="infos">
       @userIdLink(thread.senderOf(post), none) <span data-icon="H"></span> @userIdLink(thread.receiverOf(post), "inline".some) - @momentFormat(post.createdAt)
     </span>

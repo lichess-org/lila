@@ -44,7 +44,7 @@
 }
 #mod-gamify .champ table tr td {
   font-size: 2em;
-  font-family: monospace;
+  font-family: 'Roboto Mono';
   text-align: right;
   line-height: 50px;
 }

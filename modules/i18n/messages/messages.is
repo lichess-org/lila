@@ -60,7 +60,6 @@ viewNbCheckmates=%s Mát
 nbBookmarks=%s Geymt
 nbPopularGames=%s Vinsælir leikir
 nbAnalysedGames=%s Yfirfarnir Leikir
-bookmarkedByNbPlayers=Geymt af %s leikmönnun
 viewInFullSize=Skoða í fullri mynd
 logOut=Skrá út
 signIn=Skrá inn

@@ -8,7 +8,6 @@ var ground = require('./ground');
 var socket = require('./socket');
 var title = require('./title');
 var promotion = require('./promotion');
-var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
 var blind = require('./blind');
@@ -57,10 +56,7 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    if (hold.applies(this.data)) {
-      hold.register(this, meta);
-      if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this);
-    }
+    lichess.ab && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
@@ -205,10 +201,10 @@ module.exports = function(opts) {
     if (game.isPlayerTurn(this.data)) lichess.desktopNotification(function() {
       var txt = this.trans('yourTurn');
       var opponent = renderUser.userTxt(this, this.data.opponent);
-      if (this.vm.ply < 2)
+      if (this.vm.ply < 1)
         txt = opponent + '\njoined the game.\n' + txt;
       else {
-        var move = this.data.steps[this.data.steps.length - 2].san;
+        var move = this.data.steps[this.data.steps.length - 1].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
         move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
         txt = opponent + '\nplayed ' + move + '.\n' + txt;
@@ -504,6 +500,11 @@ module.exports = function(opts) {
   init.yolo(this);
 
   onChange();
+
+  lichess.pubsub.on('jump', function(ply) {
+    this.jump(parseInt(ply));
+    m.redraw();
+  }.bind(this));
 
   this.music = null;
   lichess.pubsub.on('sound_set', function(set) {

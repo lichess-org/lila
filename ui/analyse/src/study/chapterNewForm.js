@@ -79,6 +79,7 @@ module.exports = {
       }, name);
     };
     var gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
+    var currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
     return dialog.form({
       onClose: ctrl.close,
@@ -124,7 +125,7 @@ module.exports = {
           m('div.study_tabs', [
             makeTab('init', 'Init', 'Start from initial position'),
             makeTab('edit', 'Edit', 'Start from custom position'),
-            makeTab('game', 'game', 'Load a lichess game'),
+            makeTab('game', 'URL', 'Load a game URL'),
             makeTab('fen', 'FEN', 'Load a FEN position'),
             makeTab('pgn', 'PGN', 'Load a PGN game')
           ]),
@@ -156,9 +157,9 @@ module.exports = {
           }, m.trust(lichess.spinnerHtml)) : null,
           activeTab === 'game' ? m('div.form-group', [
             m('input#chapter-game', {
-              placeholder: 'Game ID or URL'
+              placeholder: 'URL of the game'
             }),
-            m('label.control-label[for=chapter-game]', 'From played or imported game'),
+            m('label.control-label[for=chapter-game]', 'Load a game from lichess.org or chessgames.com'),
             m('i.bar')
           ]) : null,
           activeTab === 'fen' ? m('div.form-group.no-label', [
@@ -182,7 +183,8 @@ module.exports = {
                 ] :
                 ctrl.vm.variants.map(function(v) {
                   return m('option', {
-                    value: v.key
+                    value: v.key,
+                    selected: v.key === currentChapterSetup.variant.key
                   }, v.name)
                 })),
               m('label.control-label[for=chapter-variant]', 'Variant'),
@@ -194,8 +196,10 @@ module.exports = {
                   ctrl.vm.editor && ctrl.vm.editor.setOrientation(e.target.value);
                 }
               }, ['White', 'Black'].map(function(color) {
+                var c = color.toLowerCase();
                 return m('option', {
-                  value: color.toLowerCase()
+                  value: c,
+                  selected: c === currentChapterSetup.orientation
                 }, color)
               })),
               m('label.control-label[for=chapter-orientation]', 'Orientation'),

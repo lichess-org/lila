@@ -39,8 +39,6 @@ case class User(
 
   def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
 
-  def titleName = title.fold(username)(_ + " " + username)
-
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
   def langs = ("en" :: lang.toList).distinct.sorted

@@ -7,9 +7,6 @@
 [submodule "submodules/pdfexporter"]
 	path = submodules/pdfexporter
 	url = https://github.com/ornicar/lichessPDFExporter
-[submodule "submodules/boardcreator"]
-	path = submodules/boardcreator
-	url = https://github.com/clarkerubber/board-creator
 [submodule "ui/chessli"]
 	path = ui/chessli
 	url = https://github.com/ornicar/chess.js
@@ -40,7 +37,10 @@
 [submodule "public/visualizer"]
 	path = public/visualizer
 	url = https://github.com/ornicar/chess_game_visualizer
-[submodule "public/vendor/Sunsetter8"]
-	path = public/vendor/Sunsetter8
-	url = https://github.com/niklasf/Sunsetter8
-	branch = js
+[submodule "public/vendor/stockfish.pexe"]
+	path = public/vendor/stockfish.pexe
+	url = https://github.com/niklasf/stockfish.pexe
+	branch = ddugovic
+[submodule "public/vendor/jquery-textcomplete"]
+	path = public/vendor/jquery-textcomplete
+	url = https://github.com/yuku-t/jquery-textcomplete

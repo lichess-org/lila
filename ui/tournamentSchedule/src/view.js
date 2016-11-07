@@ -31,7 +31,7 @@ function laneGrouper(t) {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
-  } else if (t.schedule && t.conditions) {
+  } else if (t.schedule && t.conditions && t.conditions.maxRating) {
     return 50;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;

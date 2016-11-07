@@ -15,8 +15,8 @@ final class EventApi(coll: Coll) {
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,
     "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
-  )).sort($doc("startsAt" -> 1)).list[Event](5).map {
-    _.filter(_.featureNow)
+  )).sort($doc("startsAt" -> 1)).list[Event](10).map {
+    _.filter(_.featureNow) take 3
   }
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)

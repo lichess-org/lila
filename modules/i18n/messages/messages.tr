@@ -60,7 +60,6 @@ viewNbCheckmates=%s Mat Pozisyonu
 nbBookmarks=%s İşaretlenmiş oyun
 nbPopularGames=%s Popüler Oyun
 nbAnalysedGames=%s Analiz Edilmiş Oyun
-bookmarkedByNbPlayers=%s kişi tarafından işaretlendi.
 viewInFullSize=Tam ekran
 logOut=Çıkış
 signIn=Giriş

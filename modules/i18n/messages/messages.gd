@@ -58,7 +58,6 @@ viewNbCheckmates=%s tul-chaisg
 nbBookmarks=%s comharran-lìn
 nbPopularGames=%s geamannan mòr-chòrdte
 nbAnalysedGames=%s geamannan sgrùdaichte
-bookmarkedByNbPlayers=Comharra-leabhair le %s cluicheadairean
 viewInFullSize=Seall sa mheud iomlan
 logOut=Log a-mach
 signIn=Log a-steach

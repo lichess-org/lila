@@ -60,7 +60,6 @@ viewNbCheckmates=Voir les %s mats
 nbBookmarks=%s favoris
 nbPopularGames=%s parties populaires
 nbAnalysedGames=%s parties analysées
-bookmarkedByNbPlayers=Mis en favoris par %s joueurs
 viewInFullSize=Agrandir
 logOut=Déconnexion
 signIn=Connexion

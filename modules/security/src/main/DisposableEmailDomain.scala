@@ -22,7 +22,7 @@ final class DisposableEmailDomain(
   }
 
   private[security] def setDomains(domains: List[String]): Unit = try {
-    matchers = domains.map { d =>
+    matchers = ("lichess.org" :: domains).map { d =>
       val regex = s"""(.+\\.|)${d.replace(".", "\\.")}"""
       makeMatcher(regex)
     }

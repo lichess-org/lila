@@ -3,6 +3,7 @@ package lila.user
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
+import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
 import lila.common.ApiVersion
@@ -116,7 +117,7 @@ object UserRepo {
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
-    coll.uncheckedUpdate($id(userId), $inc(F.colorIt -> value))
+    coll.update($id(userId), $inc(F.colorIt -> value), writeConcern = GetLastError.Unacknowledged)
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)
@@ -124,7 +125,8 @@ object UserRepo {
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
-        s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perfs(pt))
+        BSONElement(
+          s"${F.perfs}.${pt.key}", Perf.perfBSONHandler.write(perfs(pt)))
       }
     }
     diff.nonEmpty ?? coll.update(
@@ -162,14 +164,15 @@ object UserRepo {
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
     F.enabled -> true,
-    F.engine -> $doc("$ne" -> true),
-    F.booster -> $doc("$ne" -> true))
+    F.engine $ne true,
+    F.booster $ne true)
+  val patronSelect = $doc(s"${F.plan}.active" -> true)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {
-    val incs: List[(String, BSONInteger)] = List(
+    val incs: List[BSONElement] = List(
       "count.game".some,
       rated option "count.rated",
       ai option "count.ai",
@@ -185,9 +188,9 @@ object UserRepo {
         case 0  => "count.drawH".some
         case _  => none
       }) ifFalse ai
-    ).flatten.map(_ -> BSONInteger(1)) ::: List(
-        totalTime map BSONInteger.apply map (s"${F.playTime}.total" -> _),
-        tvTime map BSONInteger.apply map (s"${F.playTime}.tv" -> _)
+    ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
+        totalTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.total", v)),
+        tvTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.tv", v))
       ).flatten
 
     coll.update($id(id), $inc(incs))
@@ -250,9 +253,6 @@ object UserRepo {
   def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
 
-  def engineIds: Fu[Set[String]] =
-    coll.distinct[String, Set]("_id", $doc("engine" -> true).some)
-
   private val userIdPattern = """^[\w-]{3,20}$""".r.pattern
 
   def usernamesLike(text: String, max: Int = 10): Fu[List[String]] = {
@@ -261,8 +261,10 @@ object UserRepo {
     else {
       import java.util.regex.Matcher.quoteReplacement
       val regex = "^" + id + ".*$"
-      coll.find($doc("_id".$regex(regex, "")), $doc(F.username -> true))
-        .sort($doc("enabled" -> -1, "len" -> 1))
+      coll.find(
+        $doc("_id".$regex(regex, "")) ++ enabledSelect,
+        $doc(F.username -> true))
+        .sort($doc("len" -> 1))
         .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
         .map {
           _ flatMap { _.getAs[String](F.username) }
@@ -293,15 +295,12 @@ object UserRepo {
 
   def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), "roles", roles)
 
-  def enable(id: ID) = coll.updateField($id(id), "enabled", true)
+  def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
 
   def disable(user: User) = coll.update(
     $id(user.id),
-    $doc("$set" -> $doc("enabled" -> false)) ++
-      user.lameOrTroll.fold(
-        $doc(),
-        $doc("$unset" -> $doc("email" -> true))
-      )
+    $set(F.enabled -> false) ++
+      user.lameOrTroll.fold($empty, $unset("email"))
   )
 
   def passwd(id: ID, password: String): Funit =
@@ -335,32 +334,36 @@ object UserRepo {
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
   }
 
-  def recentlySeenNotKidIdsCursor(since: DateTime) =
+  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
     coll.find($doc(
       F.enabled -> true,
-      "seenAt" -> $doc("$gt" -> since),
-      "count.game" -> $doc("$gt" -> 9),
-      "kid" -> $doc("$ne" -> true)
+      "seenAt" $gt since,
+      "count.game" $gt 9,
+      "kid" $ne true
     ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregate(Match($inIds(ids)),
+    ids.nonEmpty ?? coll.aggregate(
+      Match($inIds(ids)),
       List(Group(BSONNull)(F.toints -> SumField(F.toints)))).map(
         _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
-  def filterByEngine(userIds: List[String]): Fu[List[String]] =
-    coll.primitive[String]($inIds(userIds) ++ engineSelect(true), F.id)
+  def filterByEngine(userIds: List[User.ID]): Fu[List[User.ID]] =
+    coll.distinct[String, List](F.id, Some($inIds(userIds) ++ engineSelect(true)))
 
-  def filterByEnabled(userIds: List[String]): Fu[List[String]] =
-    coll.primitive[String]($inIds(userIds) ++ enabledSelect, F.id)
+  def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
+    coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))
 
-  def countEngines(userIds: List[String]): Fu[Int] =
+  def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
+    coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
+
+  def countEngines(userIds: List[User.ID]): Fu[Int] =
     coll.countSel($inIds(userIds) ++ engineSelect(true))
 
-  def containsEngine(userIds: List[String]): Fu[Boolean] =
+  def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
 
   def mustConfirmEmail(id: String): Fu[Boolean] =

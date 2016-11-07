@@ -1,18 +1,39 @@
 package lila.game
 
-import chess.format.Forsyth
-import java.io.{ File, OutputStream }
-import scala.sys.process._
+import play.api.libs.iteratee._
+import play.api.libs.ws.WS
+import play.api.Play.current
 
-object PngExport {
+import chess.format.{ Forsyth, FEN }
 
-  private val logger = ProcessLogger(_ => (), _ => ())
+final class PngExport(url: String, size: Int) {
 
-  def apply(execPath: String)(game: Game)(out: OutputStream) {
-    val fen = (Forsyth >> game.toChess).split(' ').head
-    val color = game.firstColor.letter.toString
-    val lastMove = ~game.castleLastMoveTime.lastMoveString
-    val exec = Process(Seq("php", "board-creator.php", fen, color, lastMove), new File(execPath))
-    exec #> out ! logger
+  def fromGame(game: Game): Fu[Enumerator[Array[Byte]]] = apply(
+    fen = FEN(Forsyth >> game.toChess),
+    lastMove = game.castleLastMoveTime.lastMoveString,
+    check = game.toChess.situation.checkSquare,
+    orientation = game.firstColor.some,
+    logHint = s"game ${game.id}")
+
+  def apply(
+    fen: FEN,
+    lastMove: Option[String],
+    check: Option[chess.Pos],
+    orientation: Option[chess.Color],
+    logHint: => String): Fu[Enumerator[Array[Byte]]] = {
+
+    val queryString =
+      ("fen" -> fen.value.takeWhile(' ' !=)) :: List(
+        lastMove.map { "lastMove" -> _ },
+        check.map { "check" -> _.key },
+        orientation.map { "orientation" -> _.name }
+      ).flatten
+
+    WS.url(url).withQueryString(queryString: _*).getStream() flatMap {
+      case (res, body) if res.status != 200 =>
+        logger.warn(s"PgnExport $logHint ${fen.value} ${res.status}")
+        fufail(res.status.toString)
+      case (_, body) => fuccess(body)
+    }
   }
 }

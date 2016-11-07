@@ -60,7 +60,6 @@ viewNbCheckmates=%s matova
 nbBookmarks=%s zabilježenih partija
 nbPopularGames=%s popularnih partija
 nbAnalysedGames=%s analiziranih partija
-bookmarkedByNbPlayers=Partiju je zabilježilo %s igrača
 viewInFullSize=Pogledajte u punoj veličini
 logOut=Odjava
 signIn=Prijava

@@ -16,15 +16,26 @@ final class JsonView(isOnline: String => Boolean) {
     "username" -> u.username,
     "title" -> u.title,
     "online" -> isOnline(u.id),
-    "engine" -> u.engine,
-    "booster" -> u.booster,
+    "engine" -> u.engine.option(true),
+    "booster" -> u.booster.option(true),
     "language" -> u.lang,
     "profile" -> u.profile.??(profileWrites.writes).noNull,
     "perfs" -> perfs(u, onlyPerf),
     "createdAt" -> u.createdAt,
     "seenAt" -> u.seenAt,
     "playTime" -> u.playTime,
-    "patron" -> u.isPatron
+    "patron" -> u.isPatron.option(true)
+  ).noNull
+
+  def minimal(u: User, onlyPerf: Option[PerfType]) = Json.obj(
+    "id" -> u.id,
+    "username" -> u.username,
+    "title" -> u.title,
+    "online" -> isOnline(u.id),
+    "engine" -> u.engine.option(true),
+    "booster" -> u.booster.option(true),
+    "perfs" -> perfs(u, onlyPerf),
+    "patron" -> u.isPatron.option(true)
   ).noNull
 
   def lightPerfIsOnline(lp: LightPerf) = {

@@ -82,7 +82,7 @@ private[round] final class SocketHandler(
         case ("abort", _)        => send(Abort(playerId))
         case ("moretime", _)     => send(Moretime(playerId))
         case ("outoftime", _)    => send(Outoftime)
-        case ("bye", _)          => socket ! Bye(ref.color)
+        case ("bye2", _)         => socket ! Bye(ref.color)
         case ("talk", o)         => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
@@ -140,7 +140,7 @@ private[round] final class SocketHandler(
       userTv = userTv,
       apiVersion = apiVersion)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
-      Handler(hub, socket, uid, join, user map (_.id)) {
+      Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }

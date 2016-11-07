@@ -3,7 +3,7 @@ package lila
 import scala.concurrent.Future
 
 import kamon.Kamon.{ metrics, tracer }
-import kamon.trace.{ TraceContext, Segment }
+import kamon.trace.{ TraceContext, Segment, Status }
 import kamon.util.RelativeNanoTimestamp
 
 object mon {
@@ -105,6 +105,10 @@ object mon {
       val game = rec("round.titivate.game") // how many games were processed
       val total = rec("round.titivate.total") // how many games should have been processed
       val old = rec("round.titivate.old") // how many old games remain
+    }
+    object alarm {
+      val time = rec("round.alarm.time")
+      val count = rec("round.alarm.count")
     }
   }
   object explorer {
@@ -316,7 +320,9 @@ object mon {
     }
     object send {
       def move(platform: String) = inc(s"push.send.$platform.move")()
+      def corresAlarm(platform: String) = inc(s"push.send.$platform.corresAlarm")()
       def finish(platform: String) = inc(s"push.send.$platform.finish")()
+      def message(platform: String) = inc(s"push.send.$platform.message")()
       object challenge {
         def create(platform: String) = inc(s"push.send.$platform.challenge_create")()
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
@@ -374,6 +380,8 @@ object mon {
         def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
         def totalSecond = incX(s"fishnet.analysis.total.second.$client")
         def totalPosition = incX(s"fishnet.analysis.total.position.$client")
+        def endgameCount = incX(s"fishnet.analysis.total.endgame.count.$client")
+        def endgameTime = incX(s"fishnet.analysis.total.endgame.time.$client")
       }
       val post = rec("fishnet.analysis.post")
     }
@@ -393,6 +401,7 @@ object mon {
     object pgn {
       def game = inc("export.pgn.game")
       def study = inc("export.pgn.study")
+      def studyChapter = inc("export.pgn.study_chapter")
     }
     object png {
       def game = inc("export.png.game")
@@ -473,8 +482,9 @@ object mon {
     val context = tracer.newContext(
       name = name,
       token = None,
+      tags = Map.empty,
       timestamp = RelativeNanoTimestamp.now,
-      isOpen = true,
+      status = Status.Open,
       isLocal = false)
     val firstSegment = context.startSegment(firstName, "logic", "mon")
     new KamonTrace(context, firstSegment)

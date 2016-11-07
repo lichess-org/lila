@@ -12,12 +12,11 @@ function uncache(url) {
 module.exports = {
 
   reload: function(id, chapterId) {
+    var url = '/study/' + id;
+    if (chapterId) url += '/' + chapterId;
     return m.request({
       method: 'GET',
-      url: uncache('/study/' + id),
-      data: {
-        chapterId: chapterId
-      },
+      url: uncache(url),
       config: xhrConfig,
       background: true
     });
@@ -44,7 +43,7 @@ module.exports = {
   chapterConfig: function(studyId, chapterId) {
     return m.request({
       method: 'GET',
-      url: uncache(['/study', studyId, chapterId].join('/')),
+      url: uncache(['/study', studyId, chapterId, 'meta'].join('/')),
       config: xhrConfig,
       background: true
     });

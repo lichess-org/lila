@@ -191,7 +191,6 @@ private object BSONHandlers {
     def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  private implicit val StudyViewsBSONHandler = intAnyValHandler[Study.Views](_.value, Study.Views.apply)
 
   private implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
     def read(b: BSONString): Tag = b.value.split(":", 2) match {
@@ -203,7 +202,7 @@ private object BSONHandlers {
   private implicit val ChapterFromPgnBSONHandler = Macros.handler[Chapter.FromPgn]
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   import Chapter.Ply
-  private implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
+  implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
@@ -227,7 +226,7 @@ private object BSONHandlers {
     def read(b: Bdoc) = StudyMembers(mapHandler read b map {
       case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
     })
-    def write(x: StudyMembers) = $doc(x.members.mapValues(StudyMemberBSONWriter.write))
+    def write(x: StudyMembers) = BSONDocument(x.members.mapValues(StudyMemberBSONWriter.write))
   }
   import Study.Visibility
   private[study] implicit val VisibilityHandler: BSONHandler[BSONString, Visibility] = new BSONHandler[BSONString, Visibility] {
@@ -253,7 +252,14 @@ private object BSONHandlers {
     def read(bs: BSONString) = UserSelection.byKey get bs.value err s"Invalid user selection ${bs.value}"
     def write(x: UserSelection) = BSONString(x.key)
   }
-  implicit val SettingsBSONHandler = Macros.handler[Settings]
+  implicit val SettingsBSONHandler = new BSON[Settings] {
+    def reads(r: Reader) = Settings(
+      computer = r.get[UserSelection]("computer"),
+      explorer = r.get[UserSelection]("explorer"),
+      cloneable = r.getO[UserSelection]("cloneable") | UserSelection.Everyone)
+    private val writer = Macros.writer[Settings]
+    def writes(w: Writer, s: Settings) = writer write s
+  }
 
   import Study.Likes
   private[study] implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)

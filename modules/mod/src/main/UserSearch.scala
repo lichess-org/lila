@@ -24,7 +24,7 @@ emailAddress: lila.security.EmailAddress) {
     else searchUsername(query)
 
   private def searchIp(ip: String) =
-    securityApi recentUserIdsByIp ip flatMap UserRepo.byOrderedIds
+    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.byOrderedIds
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

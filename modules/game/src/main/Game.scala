@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color.{ White, Black }
-import chess.format.Uci
+import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
@@ -143,8 +143,8 @@ case class Game(
 
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove map {
-      case (orig, dest) => Uci.Move(orig, dest)
-    },
+    case (orig, dest) => Uci.Move(orig, dest)
+  },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
     checkCount = checkCount)
@@ -175,7 +175,7 @@ case class Game(
         castles = history.castles,
         lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
-        check = situation.kingPos ifTrue situation.check),
+        check = situation.checkSquare),
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
         BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
@@ -268,6 +268,8 @@ case class Game(
   def playableByAi: Boolean = playable && player.isAi
 
   def mobilePushable = isCorrespondence && playable && nonAi
+
+  def alarmable = hasCorrespondenceClock && playable && nonAi
 
   def continuable = status != Status.Mate && status != Status.Stalemate
 
@@ -489,12 +491,15 @@ object Game {
 
   type ID = String
 
+  case class WithInitialFen(game: Game, fen: Option[FEN])
+
   val syntheticId = "synthetic"
 
   val maxPlayingRealtime = 125 // plus 200 correspondence games
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
+    chess.variant.Crazyhouse,
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
@@ -552,7 +557,7 @@ object Game {
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
-    else BinaryFormat.piece write game.board.pieces,
+  else BinaryFormat.piece write game.board.pieces,
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,

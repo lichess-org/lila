@@ -15,7 +15,7 @@ private[plan] final class PlanNotifier(
 
   def onStart(user: User) = fuccess {
     scheduler.once(5 seconds) {
-      notifyApi.addNotification(Notification(
+      notifyApi.addNotification(Notification.make(
         Notifies(user.id),
         lila.notify.PlanStart(user.id)
       ))
@@ -25,7 +25,7 @@ private[plan] final class PlanNotifier(
   }
 
   def onExpire(user: User) =
-    notifyApi.addNotification(Notification(
+    notifyApi.addNotification(Notification.make(
       Notifies(user.id),
       lila.notify.PlanExpire(user.id)
     ))
