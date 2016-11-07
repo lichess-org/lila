@@ -131,32 +131,30 @@ private[puzzle] final class PuzzleApi(
     }
   }
 
-    def add(a: Attempt) = attemptColl insert a void
+  object head {
 
-    def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
-      attemptColl.exists($doc(
-        Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
-      ))
+    def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
 
-    def playedIds(user: User): Fu[BSONArray] =
-      attemptColl.distinct[BSONValue, List](
-        Attempt.BSONFields.puzzleId,
-        $doc(Attempt.BSONFields.userId -> user.id).some
-      ) map BSONArray.apply
+    def add(h: PuzzleHead) = headColl update (
+      $id(h.id),
+      h,
+      upsert = true) void
 
-    def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
-      $doc(Attempt.BSONFields.userId -> user.id),
-      $doc(
-        Attempt.BSONFields.vote -> true,
-        Attempt.BSONFields.id -> false
-      )).sort($doc(Attempt.BSONFields.date -> -1))
-      .cursor[Bdoc]()
-      .gather[List](5) map {
-        case attempts if attempts.size < 5 => true
-        case attempts => attempts.foldLeft(false) {
-          case (true, _)    => true
-          case (false, doc) => doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
-        }
-      }
+    def addLearning(user: User, puzzleId: PuzzleId) = headColl update (
+      $id(user.id),
+      $set(PuzzleHead.BSONFields.current -> puzzleId.some),
+      upsert = true) void
+
+    def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
+
+    def solved(user: User, id: PuzzleId) = head find user flatMap {
+      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update (
+        $id(user.id),
+        PuzzleHead(user.id, none, id))
+      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update (
+        $id(user.id),
+        $unset(PuzzleHead.BSONFields.current))
+      case _ => fuccess(none)
+    }
   }
 }
