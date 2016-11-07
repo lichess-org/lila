@@ -100,13 +100,7 @@ object PerfType {
     title = "Training puzzles",
     iconChar = '-')
 
-  case object Opening extends PerfType(21,
-    key = "opening",
-    name = "Opening",
-    title = "Opening trainer",
-    iconChar = ']')
-
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle, Opening)
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -122,7 +116,7 @@ object PerfType {
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
   val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
-  val nonGame: List[PerfType] = List(Puzzle, Opening)
+  val nonGame: List[PerfType] = List(Puzzle)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val variants: List[PerfType] = List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val standard: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence)
