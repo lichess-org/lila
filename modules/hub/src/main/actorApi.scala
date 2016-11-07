@@ -166,8 +166,10 @@ case class MoveEvent(
   move: String,
   color: chess.Color,
   mobilePushable: Boolean,
+  alarmable: Boolean,
   opponentUserId: Option[String],
   simulId: Option[String])
+case class CorresAlarmEvent(gameId: String)
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)

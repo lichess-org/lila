@@ -106,6 +106,10 @@ object mon {
       val total = rec("round.titivate.total") // how many games should have been processed
       val old = rec("round.titivate.old") // how many old games remain
     }
+    object alarm {
+      val time = rec("round.alarm.time")
+      val count = rec("round.alarm.count")
+    }
   }
   object explorer {
     object index {
@@ -316,6 +320,7 @@ object mon {
     }
     object send {
       def move(platform: String) = inc(s"push.send.$platform.move")()
+      def corresAlarm(platform: String) = inc(s"push.send.$platform.corresAlarm")()
       def finish(platform: String) = inc(s"push.send.$platform.finish")()
       def message(platform: String) = inc(s"push.send.$platform.message")()
       object challenge {

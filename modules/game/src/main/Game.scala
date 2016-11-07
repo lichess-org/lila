@@ -269,6 +269,8 @@ case class Game(
 
   def mobilePushable = isCorrespondence && playable && nonAi
 
+  def alarmable = hasCorrespondenceClock && playable && nonAi
+
   def continuable = status != Status.Mate && status != Status.Stalemate
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
