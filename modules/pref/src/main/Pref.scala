@@ -31,7 +31,6 @@ case class Pref(
     challenge: Int,
     message: Int,
     coordColor: Int,
-    puzzleDifficulty: Int,
     submitMove: Int,
     confirmResign: Int,
     insightShare: Int,
@@ -108,17 +107,6 @@ object Pref {
 
   object Tag {
     val verifyTitle = "verifyTitle"
-  }
-
-  object Difficulty {
-    val EASY = 1
-    val NORMAL = 2
-    val HARD = 3
-
-    val choices = Seq(
-      EASY -> "Easy",
-      NORMAL -> "Normal",
-      HARD -> "Hard")
   }
 
   object Color {
@@ -341,7 +329,6 @@ object Pref {
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     coordColor = Color.RANDOM,
-    puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,

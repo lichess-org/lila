@@ -37,7 +37,7 @@ object Puzzle extends LilaController {
   }
 
   def home = Open { implicit ctx =>
-    selectPuzzle(ctx.me) flatMap { puzzle =>
+    env.selector(ctx.me) flatMap { puzzle =>
       renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
     }
   }
@@ -62,33 +62,11 @@ object Puzzle extends LilaController {
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
-      selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
+      env.selector(ctx.me) zip (env userInfos ctx.me) map {
         case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
       } map (_ as JSON)
     }
   }
-
-  def difficulty = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.forms.difficulty.bindFromRequest.fold(
-      err => fuccess(BadRequest(errorsAsJson(err))),
-      value => Env.pref.api.setPref(
-        me,
-        (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value),
-        notifyChange = false) >> {
-          reqToCtx(ctx.req) flatMap { newCtx =>
-            selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
-            }
-          }
-        }
-    ) map (_ as JSON)
-  }
-
-  private def selectPuzzle(user: Option[UserModel]) =
-    Env.pref.api.getPref(user) flatMap { pref =>
-      env.selector(user, pref.puzzleDifficulty)
-    }
 
   def round(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body

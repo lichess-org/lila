@@ -56,17 +56,6 @@ function renderTrainingBox(ctrl) {
   ]);
 }
 
-function renderDifficulty(ctrl) {
-  return m('div.difficulty', map(ctrl.data.difficulty.choices, function(dif) {
-    var id = dif[0],
-      name = dif[1];
-    return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
-      disabled: id == ctrl.data.difficulty.current,
-      onclick: partial(xhr.setDifficulty, ctrl, id)
-    }, name);
-  }));
-}
-
 function renderCommentary(ctrl) {
   switch (ctrl.data.comment) {
     case 'retry':
@@ -129,8 +118,7 @@ function renderResult(ctrl) {
 
 function renderSide(ctrl) {
   return m('div.side', [
-    renderTrainingBox(ctrl),
-    ctrl.data.difficulty ? renderDifficulty(ctrl) : null
+    renderTrainingBox(ctrl)
   ]);
 }
 

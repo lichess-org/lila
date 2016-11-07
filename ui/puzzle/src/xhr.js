@@ -56,18 +56,6 @@ function reloadPage() {
   location.href = '/training';
 }
 
-function setDifficulty(ctrl, d) {
-  showLoading(ctrl);
-  m.request({
-    method: 'POST',
-    url: '/training/difficulty',
-    data: {
-      difficulty: d
-    },
-    config: xhrConfig
-  }).then(ctrl.reload, reloadPage);
-}
-
 function newPuzzle(ctrl) {
   showLoading(ctrl);
   m.request({

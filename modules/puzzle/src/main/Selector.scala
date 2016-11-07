@@ -14,17 +14,11 @@ private[puzzle] final class Selector(
 
   private def popularSelector = $doc(Puzzle.BSONFields.voteSum $gt 0)
 
-  private def difficultyDecay(difficulty: Int) = difficulty match {
-    case 1 => -200
-    case 3 => +200
-    case _ => 0
-  }
-
   private val toleranceMax = 1000
 
   val anonSkipMax = 5000
 
-  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
+  def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
     me match {
       case None =>
@@ -37,10 +31,10 @@ private[puzzle] final class Selector(
           case _ =>
             val isLearn = scala.util.Random.nextInt(5) == 0
             val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
-              case None => newPuzzleForUser(user, difficulty)
+              case None => newPuzzleForUser(user)
               case p    => fuccess(p)
             }
-            else newPuzzleForUser(user, difficulty)
+            else newPuzzleForUser(user)
             (next flatMap {
               case Some(p) if isLearn => api.head.addLearning(user, p.id)
               case Some(p)            => api.head.addNew(user, p.id)
@@ -49,8 +43,8 @@ private[puzzle] final class Selector(
         }
     }
   }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
-    }
+    lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+  }
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
@@ -59,7 +53,7 @@ private[puzzle] final class Selector(
       case d             => 200
     }
 
-  private def newPuzzleForUser(user: User, difficulty: Int): Fu[Option[Puzzle]] = {
+  private def newPuzzleForUser(user: User): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
     (api.head.find(user) zip api.puzzle.lastId) flatMap {
@@ -67,7 +61,6 @@ private[puzzle] final class Selector(
         rating = rating,
         tolerance = step,
         step = step,
-        decay = difficultyDecay(difficulty),
         last = opHead match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
           case _ => puzzleIdMin
@@ -81,7 +74,6 @@ private[puzzle] final class Selector(
     rating: Int,
     tolerance: Int,
     step: Int,
-    decay: Int,
     last: PuzzleId,
     idRange: Int,
     idStep: Int): Fu[Option[Puzzle]] =
@@ -90,12 +82,12 @@ private[puzzle] final class Selector(
         last $lt
         (last + idRange),
       Puzzle.BSONFields.rating $gt
-        (rating - tolerance + decay) $lt
-        (rating + tolerance + decay),
+        (rating - tolerance) $lt
+        (rating + tolerance),
       Puzzle.BSONFields.voteSum $gt -10
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
-        tryRange(rating, tolerance + step, step, decay, last, idRange + idStep, idStep)
+        tryRange(rating, tolerance + step, step, last, idRange + idStep, idStep)
       case res => fuccess(res)
     }
 }
