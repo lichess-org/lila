@@ -379,7 +379,7 @@ object UserRepo {
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean) = {
 
-    val salt = ornicar.scalalib.Random nextStringUppercase 32
+    val salt = ornicar.scalalib.Random secureString 32
     implicit def countHandler = Count.countBSONHandler
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler

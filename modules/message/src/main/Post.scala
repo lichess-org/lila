@@ -24,7 +24,7 @@ object Post {
   def make(
     text: String,
     isByCreator: Boolean): Post = Post(
-    id = Random nextStringUppercase idSize,
+    id = Random nextString idSize,
     text = text,
     isByCreator = isByCreator,
     isRead = false,

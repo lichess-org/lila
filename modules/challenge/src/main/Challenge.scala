@@ -116,7 +116,7 @@ object Challenge {
 
   private val idSize = 8
 
-  private def randomId = ornicar.scalalib.Random nextStringUppercase idSize
+  private def randomId = ornicar.scalalib.Random nextString idSize
 
   private def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))

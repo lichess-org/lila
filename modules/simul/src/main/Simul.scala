@@ -136,7 +136,7 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String): Simul = Simul(
-    _id = Random nextStringUppercase 8,
+    _id = Random nextString 8,
     name = makeName(host),
     status = SimulStatus.Created,
     clock = clock,

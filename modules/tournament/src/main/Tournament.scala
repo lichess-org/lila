@@ -127,7 +127,7 @@ object Tournament {
     `private`: Boolean,
     password: Option[String],
     waitMinutes: Int) = Tournament(
-    id = Random nextStringUppercase 8,
+    id = Random nextString 8,
     name = if (position.initial) GreatPlayer.randomName else position.shortName,
     status = Status.Created,
     system = system,
@@ -146,7 +146,7 @@ object Tournament {
     startsAt = DateTime.now plusMinutes waitMinutes)
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
-    id = Random nextStringUppercase 8,
+    id = Random nextString 8,
     name = sched.name,
     status = Status.Created,
     system = System.default,

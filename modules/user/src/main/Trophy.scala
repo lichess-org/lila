@@ -108,7 +108,7 @@ object Trophy {
   }
 
   def make(userId: String, kind: Trophy.Kind) = Trophy(
-    _id = ornicar.scalalib.Random nextStringUppercase 8,
+    _id = ornicar.scalalib.Random nextString 8,
     user = userId,
     kind = kind,
     date = DateTime.now)

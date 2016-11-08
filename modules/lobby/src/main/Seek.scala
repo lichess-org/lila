@@ -76,7 +76,7 @@ object Seek {
     user: User,
     ratingRange: RatingRange,
     blocking: Set[String]): Seek = new Seek(
-    _id = Random nextStringUppercase idSize,
+    _id = Random nextString idSize,
     variant = variant.id,
     daysPerTurn = daysPerTurn,
     mode = mode.id,
@@ -86,7 +86,7 @@ object Seek {
     createdAt = DateTime.now)
 
   def renew(seek: Seek) = new Seek(
-    _id = Random nextStringUppercase idSize,
+    _id = Random nextString idSize,
     variant = seek.variant,
     daysPerTurn = seek.daysPerTurn,
     mode = seek.mode,
