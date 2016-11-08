@@ -318,6 +318,8 @@ object UserRepo {
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
+  def getTitle(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.title)
+
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONValueWriter[Plan] = Plan.planBSONHandler
     coll.updateField($id(user.id), "plan", plan).void
