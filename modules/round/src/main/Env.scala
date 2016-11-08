@@ -196,9 +196,9 @@ final class Env(
     Props(classOf[Titivate], roundMap, hub.actor.bookmark),
     name = "titivate")
 
-  system.lilaBus.subscribe(system.actorOf(
-    Props(classOf[CorresAlarm], db(CollectionAlarm)),
-    name = "corres-alarm"), 'moveEvent, 'finishGame)
+  // system.lilaBus.subscribe(system.actorOf(
+  //   Props(classOf[CorresAlarm], db(CollectionAlarm)),
+  //   name = "corres-alarm"), 'moveEvent, 'finishGame)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,
