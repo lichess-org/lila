@@ -4,9 +4,6 @@
 [submodule "public/vendor/tagmanager"]
 	path = public/vendor/tagmanager
 	url = https://github.com/max-favilli/tagmanager
-[submodule "submodules/pdfexporter"]
-	path = submodules/pdfexporter
-	url = https://github.com/ornicar/lichessPDFExporter
 [submodule "ui/chessli"]
 	path = ui/chessli
 	url = https://github.com/ornicar/chess.js

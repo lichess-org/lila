@@ -43,25 +43,6 @@ object Export extends LilaController {
     })
   }
 
-  private val PdfRateLimitGlobal = new lila.memo.RateLimit(
-    credits = 20,
-    duration = 1 minute,
-    name = "export PDF global",
-    key = "export.pdf.global")
-
-  def pdf(id: String) = Open { implicit ctx =>
-    OnlyHumans {
-      PdfRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
-        lila.mon.export.pdf()
-        OptionResult(GameRepo game id) { game =>
-          Ok.chunked(Enumerator.outputStream(env.pdfExport(game.id))).withHeaders(
-            CONTENT_TYPE -> "application/pdf",
-            CACHE_CONTROL -> "max-age=7200")
-        }
-      }
-    }
-  }
-
   private val PngRateLimitGlobal = new lila.memo.RateLimit(
     credits = 60,
     duration = 1 minute,
