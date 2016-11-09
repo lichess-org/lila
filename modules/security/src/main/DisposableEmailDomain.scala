@@ -33,7 +33,7 @@ final class DisposableEmailDomain(
   }
 
   private[security] def textToDomains(text: String): List[String] =
-    text.lines.map(_.trim).filter(_.nonEmpty).toList
+    text.lines.map(_.trim.toLowerCase).filter(_.nonEmpty).toList
 
   private var failed = false
 
@@ -54,11 +54,12 @@ final class DisposableEmailDomain(
     (s: String) => matcher(s).matches
   }
 
-  def isMainstream = DisposableEmailDomain.mainstreamDomains.contains _
+  def isMainstream(domain: String) =
+    DisposableEmailDomain.mainstreamDomains contains domain.toLowerCase
 
   def apply(domain: String) =
     if (isMainstream(domain)) false
-    else matchers exists { _(domain) }
+    else matchers exists { _(domain.toLowerCase) }
 }
 
 object DisposableEmailDomain {

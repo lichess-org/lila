@@ -4,7 +4,7 @@ case object Fixtures {
 
   def text = """
 leeching.net
-chacuo.net
+ChaCuo.net
 027168.com
 0-mail.com
 mail1a.de
