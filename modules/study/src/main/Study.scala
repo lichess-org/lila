@@ -59,6 +59,8 @@ case class Study(
       createdAt = DateTime.now,
       updatedAt = DateTime.now)
   }
+
+  def nbMembers = members.members.size
 }
 
 object Study {

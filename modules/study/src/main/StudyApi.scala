@@ -180,7 +180,7 @@ final class StudyApi(
   }
 
   def invite(byUserId: User.ID, studyId: Study.ID, username: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
-    (study isOwner byUserId) ?? {
+    (study.isOwner(byUserId) && study.nbMembers < 30) ?? {
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
           studyRepo.addMember(study, StudyMember make user) >>-
