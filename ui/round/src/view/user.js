@@ -34,25 +34,22 @@ module.exports = {
       var fullName = (user.title ? user.title + ' ' : '') + user.username;
       var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
       var isMe = ctrl.userId === user.id;
-      return m('a', {
-        class: 'text user_link ' +
+      return m('div', {
+        class: 'username user_link ' + player.color + ' ' +
           (player.onGame ? 'online' : 'offline') +
           (fullName.length > 20 ? ' long' : '') +
-          (connecting ? ' connecting' : '') +
-          (isMe ? '' : ' ulpt'),
-        href: '/@/' + user.username,
-        target: game.isPlayerPlaying(d) ? '_blank' : '_self',
-        config: function(el, isUpdate) {
-          if (!isUpdate && !isMe) raf(function() {
-            lichess.powertip.manualUser(el, 's');
-          });
-        }
+          (connecting ? ' connecting' : '')
       }, [
         m('i', {
           class: 'line' + (user.patron ? ' patron' : ''),
           'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
         }),
-        m('name', fullName),
+        m('a', {
+          class: 'text ulpt',
+          'data-pt-pos': 's',
+          href: '/@/' + user.username,
+          target: game.isPlayerPlaying(d) ? '_blank' : '_self',
+        }, fullName),
         rating ? m('rating', rating + (player.provisional ? '?' : '')) : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
@@ -61,8 +58,8 @@ module.exports = {
       ]);
     }
     var connecting = !player.onGame && ctrl.vm.firstSeconds;
-    return m('span', {
-      class: 'user_link ' +
+    return m('div', {
+      class: 'username user_link ' +
         (player.onGame ? 'online' : 'offline') +
         (connecting ? ' connecting' : ''),
     }, [

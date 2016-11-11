@@ -97,8 +97,7 @@ lichess.powertip = (function() {
   var userPowertip = function(el, pos) {
     if (!pos) {
       if (elementIdContains('site_header', el)) pos = 'e';
-      else if (elementIdContains('friend_box', el)) pos = 'nw';
-      else pos = 'w';
+      else pos = el.getAttribute('data-pt-pos') || 'w';
     }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
@@ -141,8 +140,7 @@ lichess.powertip = (function() {
     },
     manualGameIn: function(parent) {
       Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
-    },
-    manualUser: userPowertip
+    }
   };
 })();
 lichess.trans = function(i18n) {
