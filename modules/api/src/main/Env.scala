@@ -86,6 +86,7 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
+    gameCache = gameCache,
     prefApi = prefApi)
 
   val gameApi = new GameApi(
