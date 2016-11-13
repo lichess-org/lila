@@ -217,7 +217,7 @@ name | type | default | description
       "clock":{          // all clock values are expressed in seconds
         "initial": 300,
         "increment": 8,
-        "totalTime": 540  // evaluation of the game duration = initial + 40 * increment
+        "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
       },
       "createdAt": 1389100907239,
       "lastMoveAt": 1389100907239,
@@ -300,7 +300,7 @@ name | type | default | description
   "clock":{          // all clock values are expressed in seconds
     "initial": 300,
     "increment": 8,
-    "totalTime": 540  // evaluation of the game duration = initial + 40 * increment
+    "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
   },
   "createdAt": 1389100907239,
   "lastMoveAt": 1389100907239,
