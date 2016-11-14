@@ -25,11 +25,11 @@ module.exports = {
       data: params
     });
   },
-  tablebase: function(endpoint, fen) {
+  tablebase: function(endpoint, variant, fen) {
     return m.request({
       background: true,
       method: 'GET',
-      url: endpoint,
+      url: endpoint + '/' + variant,
       data: {
         fen: fen
       }

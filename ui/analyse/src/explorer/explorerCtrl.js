@@ -9,8 +9,7 @@ var replayable = require('game').game.replayable;
 function tablebaseRelevant(fen) {
   var parts = fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  var castling = parts[2];
-  return pieceCount <= 6 && castling === '-';
+  return pieceCount <= 7;
 }
 
 module.exports = function(root, opts, allow) {
@@ -58,7 +57,7 @@ module.exports = function(root, opts, allow) {
   }, false);
 
   var fetchTablebase = throttle(250, function(fen) {
-    xhr.tablebase(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
+    xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, root.vm.node.fen).then(function(res) {
       res.nbMoves = res.moves.length;
       res.tablebase = true;
       res.fen = fen;
