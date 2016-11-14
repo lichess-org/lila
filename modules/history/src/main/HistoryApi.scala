@@ -51,7 +51,7 @@ final class HistoryApi(coll: Coll) {
     ).void
   }
 
-  def daysBetween(from: DateTime, to: DateTime): Int =
+  private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
   def get(userId: String): Fu[Option[History]] = coll.uno[History]($id(userId))
