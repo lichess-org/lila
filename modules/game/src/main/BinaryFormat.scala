@@ -226,6 +226,16 @@ object BinaryFormat {
     }
   }
 
+  object unmovedRooks {
+    def write(o: UnmovedRooks): ByteArray = {
+      ???
+    }
+
+    def read(ba: ByteArray): UnmovedRooks = {
+      ???
+    }
+  }
+
   @inline private def toInt(b: Byte): Int = b & 0xff
 
   def writeInt8(int: Int) = math.min(255, int)
