@@ -215,7 +215,6 @@ module.exports = function(opts) {
   setTimeout(showYourMoveNotification, 500);
 
   this.apiMove = function(o) {
-    m.startComputation();
     var d = this.data,
       playing = game.isPlayerPlaying(d);
     d.game.turns = o.ply;
@@ -283,7 +282,7 @@ module.exports = function(opts) {
     });
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
-    m.endComputation();
+    m.redraw();
     if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) this.moveOn.next();
 
@@ -308,7 +307,6 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.reload = function(cfg) {
-    m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
@@ -321,7 +319,7 @@ module.exports = function(opts) {
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
     setQuietMode();
-    m.endComputation();
+    m.redraw();
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
     this.setLoading(false);

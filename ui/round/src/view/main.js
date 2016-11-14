@@ -111,7 +111,8 @@ function blursAndHolds(ctrl) {
   if (stuff.length) return m('div.blurs', stuff);
 }
 
-module.exports = function(ctrl) {
+module.exports = function(vnode) {
+  var ctrl = vnode.state;
   var d = ctrl.data,
     cgData = ctrl.chessground.data,
     material, score;

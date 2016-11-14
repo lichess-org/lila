@@ -67,8 +67,8 @@ function input(ctrl) {
     autocomplete: 'off',
     maxlength: 140,
     disabled: ctrl.vm.isTimeout() || !ctrl.vm.writeable(),
-    config: function(el, isUpdate) {
-      if (!isUpdate) el.addEventListener('keypress', function(e) {
+    oncreate: function(vnode) {
+      vnode.dom.addEventListener('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
           if (e.target.value === '') {
             var kbm = document.querySelector('.keyboard-move input');
@@ -84,27 +84,32 @@ function input(ctrl) {
   })
 }
 
+function autoScroll(ctrl, el) {
+  if (ctrl.data.lines.length > 5) {
+    var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
+    el.scrollTop = 999999;
+    if (autoScroll) setTimeout(function() {
+      el.scrollTop = 999999;
+    }, 500);
+  }
+}
+
 module.exports = {
   view: function(ctrl) {
     if (!ctrl.vm.enabled()) return null;
     return [
       m('ol.messages.content.scroll-shadow-soft', {
-          config: function(el, isUpdate, ctx) {
-            if (!isUpdate) {
-              if (ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
-                ctrl.moderation.open($(e.target).parent().data('username'));
-              });
-              $(el).on('click', 'a.jump', function(e) {
-                lichess.pubsub.emit('jump')(e.target.getAttribute('data-ply'));
-              });
-            }
-            if (ctrl.data.lines.length > 5) {
-              var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
-              el.scrollTop = 999999;
-              if (autoScroll) setTimeout(function() {
-                el.scrollTop = 999999;
-              }, 500);
-            }
+          oncreate: function(vnode) {
+            if (ctrl.moderation) $(vnode.dom).on('click', 'i.mod', function(e) {
+              ctrl.moderation.open($(e.target).parent().data('username'));
+            });
+            $(vnode.dom).on('click', 'a.jump', function(e) {
+              lichess.pubsub.emit('jump')(e.target.getAttribute('data-ply'));
+            });
+            autoScroll(ctrl, vnode.dom);
+          },
+          onupdate: function(vnode) {
+            autoScroll(ctrl, vnode.dom);
           }
         },
         selectLines(ctrl).map(renderLine(ctrl))

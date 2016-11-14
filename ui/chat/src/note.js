@@ -29,16 +29,15 @@ module.exports = {
   view: function(ctrl) {
     var text = ctrl.vm.text();
     if (text === null) return m('div.loading', {
-      config: function(el, isUpdate) {
-        if (!isUpdate) ctrl.fetch();
+      oncreate: function(vnode) {
+        ctrl.fetch();
       }
     }, m.trust(lichess.spinnerHtml));
     return m('textarea', {
       placeholder: ctrl.trans('typePrivateNotesHere'),
-      config: function(el, isUpdate) {
-        if (isUpdate) return;
-        $(el).val(text).on('change keyup paste', function() {
-          ctrl.post($(el).val());
+      oncreate: function(vnode) {
+        $(vnode.dom).val(text).on('change keyup paste', function() {
+          ctrl.post($(vnode.dom).val());
         });
       }
     });

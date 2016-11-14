@@ -17,9 +17,8 @@ function start(ctrl, orig, dest, isPremove) {
       ground.promote(ctrl.chessground, dest, 'queen');
       return false;
     }
-    m.startComputation();
     promoting = [orig, dest];
-    m.endComputation();
+    m.redraw();
     return true;
   }
   return false;

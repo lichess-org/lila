@@ -20,7 +20,7 @@ function renderMove(step, curPly, orEmpty) {
     attrs: step.ply !== curPly ? {} : {
       class: 'active'
     },
-    children: [san]
+    text: san
   };
 }
 
@@ -75,7 +75,7 @@ function renderMoves(ctrl) {
     tag: 'turn',
     children: [{
         tag: 'index',
-        children: [i + 1]
+        text: i + 1
       },
       renderMove(pairs[i][0], ctrl.vm.ply, true),
       renderMove(pairs[i][1], ctrl.vm.ply, false)
@@ -197,11 +197,11 @@ function racingKingsInit(d) {
 
 module.exports = function(ctrl) {
   var d = ctrl.data;
-  var h = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
-  if (ctrl.vm.replayHash === h) return {
-    subtree: 'retain'
-  };
-  ctrl.vm.replayHash = h;
+  // var h = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
+  // if (ctrl.vm.replayHash === h) return {
+  //   subtree: 'retain'
+  // };
+  // ctrl.vm.replayHash = h;
   var message = (d.game.variant.key === 'racingKings' && d.game.turns === 0) ? racingKingsInit : null;
   return m('div.replay', [
     renderButtons(ctrl),

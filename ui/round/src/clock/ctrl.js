@@ -26,11 +26,10 @@ module.exports = function(data, onFlag, soundColor) {
   setLastUpdate();
 
   var update = function(white, black) {
-    m.startComputation();
     data.white = white;
     data.black = black;
     setLastUpdate();
-    m.endComputation();
+    m.redraw();
   };
 
   var tick = function(color) {

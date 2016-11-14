@@ -46,7 +46,8 @@ function normalView(ctrl) {
   ];
 }
 
-module.exports = function(ctrl) {
+module.exports = function(vnode) {
+  var ctrl = vnode.state;
   return m('div', {
       class: 'mchat' + (ctrl.vm.isMod ? ' mod' : '')
     },

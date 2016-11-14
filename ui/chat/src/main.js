@@ -5,15 +5,14 @@ module.exports = function(element, opts) {
 
   var controller = ctrl(opts);
 
-  m.module(element, {
-    controller: function() {
-      return controller;
+  m.mount(element, {
+    oninit: function(vnode) {
+      vnode.state = controller;
     },
     view: require('./view')
   });
 
   lichess.pubsub.emit('chat.ready', controller);
-
 
   Mousetrap.bind('/', function() {
     element.querySelector('input.lichess_say').focus();

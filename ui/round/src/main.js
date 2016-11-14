@@ -6,9 +6,9 @@ module.exports = function(opts) {
 
   var controller = new ctrl(opts);
 
-  m.module(opts.element, {
-    controller: function() {
-      return controller;
+  m.mount(opts.element, {
+    oninit: function(vnode) {
+      vnode.state = controller;
     },
     view: view
   });

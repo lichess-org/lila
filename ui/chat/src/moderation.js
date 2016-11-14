@@ -91,8 +91,8 @@ module.exports = {
               m('form', {
                 action: '/mod/' + data.id + '/troll?set=1',
                 method: 'post',
-                config: function(el, isUpdate) {
-                  if (!isUpdate) $(el).submit(function() {
+                oncreate: function(vnode) {
+                  $(vnode.dom).submit(function() {
                     $.post($(this).attr('action'), function() {
                       ctrl.open(data.username);
                     });
@@ -107,8 +107,8 @@ module.exports = {
           m('div.history.block', [
             m('h2', 'Timeout history'),
             m('table', m('tbody.slist', {
-              config: function(el, isUpdate) {
-                if (!isUpdate) lichess.pubsub.emit('content_loaded')();
+              oncreate: function(vnode) {
+                lichess.pubsub.emit('content_loaded')();
               }
             }, data.history.map(function(e) {
               return m('tr', [

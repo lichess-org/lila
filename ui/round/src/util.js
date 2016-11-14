@@ -3,9 +3,8 @@ var m = require('mithril');
 module.exports = {
   bindOnce: function(eventName, f) {
     var withRedraw = function(e) {
-      m.startComputation();
       f(e);
-      m.endComputation();
+      m.redraw();
     };
     return function(el, isUpdate, ctx) {
       if (isUpdate) return;
