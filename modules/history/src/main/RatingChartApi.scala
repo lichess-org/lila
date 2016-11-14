@@ -25,15 +25,6 @@ final class RatingChartApi(
     timeToLive = cacheTtl,
     keyToString = _.id)
 
-  private val columns = Json stringify {
-    Json.arr(
-      Json.arr("string", "Date"),
-      Json.arr("number", "Standard"),
-      Json.arr("number", "Opponent Rating"),
-      Json.arr("number", "Average")
-    )
-  }
-
   private def build(user: User): Fu[Option[String]] = {
 
     def ratingsMapToJson(perfType: PerfType, ratingsMap: RatingsMap) = Json obj (
