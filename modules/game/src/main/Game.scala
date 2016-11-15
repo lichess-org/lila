@@ -148,7 +148,8 @@ case class Game(
   },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
-    checkCount = checkCount)
+    checkCount = checkCount,
+    unmovedRooks = unmovedRooks)
 
   def update(
     game: ChessGame,
