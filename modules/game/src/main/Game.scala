@@ -506,6 +506,7 @@ object Game {
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
+    chess.variant.Antichess,
     chess.variant.FromPosition,
     chess.variant.Horde,
     chess.variant.Atomic,

@@ -96,12 +96,20 @@ trait BaseConfig {
     chess.variant.Crazyhouse.id :+
     chess.variant.KingOfTheHill.id :+
     chess.variant.ThreeCheck.id :+
+    chess.variant.Antichess.id :+
     chess.variant.Atomic.id :+
     chess.variant.Horde.id :+
     chess.variant.RacingKings.id :+
     chess.variant.FromPosition.id
   val variantsWithVariants =
-    variants :+ chess.variant.Crazyhouse.id :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.Horde.id :+ chess.variant.RacingKings.id
+    variants :+
+      chess.variant.Crazyhouse.id :+
+      chess.variant.KingOfTheHill.id :+
+      chess.variant.ThreeCheck.id :+
+      chess.variant.Antichess.id :+
+      chess.variant.Atomic.id :+
+      chess.variant.Horde.id :+
+      chess.variant.RacingKings.id
   val variantsWithFenAndVariants =
     variantsWithVariants :+ chess.variant.FromPosition.id
 
@@ -109,7 +117,7 @@ trait BaseConfig {
 
   private val timeMin = 0
   private val timeMax = 180
-  private val acceptableFractions = Set(1/2d, 3/4d, 3/2d)
+  private val acceptableFractions = Set(1 / 2d, 3 / 4d, 3 / 2d)
   def validateTime(t: Double) =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
