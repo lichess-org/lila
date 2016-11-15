@@ -397,7 +397,7 @@ module.exports = function(opts) {
       variant: this.data.game.variant,
       possible: !this.embed && (
         util.synthetic(this.data) || !game.playable(this.data)
-      ) && this.data.game.variant.key !== 'antichess',
+      ),
       emit: function(res) {
         this.tree.updateAt(res.work.path, function(node) {
           if (res.work.threatMode) {
