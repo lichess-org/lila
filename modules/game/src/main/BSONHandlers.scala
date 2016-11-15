@@ -9,6 +9,8 @@ import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRook
 
 object BSONHandlers {
 
+  import lila.db.ByteArray.ByteArrayBSONHandler
+
   private[game] implicit val checkCountWriter = new BSONWriter[CheckCount, BSONArray] {
     def write(cc: CheckCount) = BSONArray(cc.white, cc.black)
   }
@@ -19,8 +21,12 @@ object BSONHandlers {
   }
 
   private[game] implicit val unmovedRooksHandler = new BSONHandler[BSONBinary, UnmovedRooks] {
-    def read(bin: BSONBinary): UnmovedRooks = ???
-    def write(x: UnmovedRooks): BSONBinary = ???
+    def read(bin: BSONBinary): UnmovedRooks = BinaryFormat.unmovedRooks.read {
+      ByteArrayBSONHandler.read(bin)
+    }
+    def write(x: UnmovedRooks): BSONBinary = ByteArrayBSONHandler.write {
+      BinaryFormat.unmovedRooks.write(x)
+    }
   }
 
   private[game] implicit val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
@@ -137,8 +143,6 @@ object BSONHandlers {
       analysed -> w.boolO(o.metadata.analysed)
     )
   }
-
-  import lila.db.ByteArray.ByteArrayBSONHandler
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(

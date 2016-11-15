@@ -5,7 +5,7 @@ import scala.util.{ Try, Success, Failure }
 import reactivemongo.bson._
 import reactivemongo.bson.utils.Converters
 
-case class ByteArray(value: Array[Byte]) {
+case class ByteArray(value: Array[Byte]) extends AnyVal {
 
   def isEmpty = value.isEmpty
 

@@ -177,6 +177,7 @@ case class Game(
         lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.checkSquare),
+      unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
         BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
@@ -566,7 +567,7 @@ object Game {
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
-    unmovedRooks = game.board.history.unmovedRooks,
+    unmovedRooks = game.board.unmovedRooks,
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,

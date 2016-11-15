@@ -228,11 +228,28 @@ object BinaryFormat {
 
   object unmovedRooks {
     def write(o: UnmovedRooks): ByteArray = {
-      ???
+      val in = Array.ofDim[Int](2)
+      o.pos.foreach { pos =>
+        val i = if (pos.y == 1) 0 else 1
+        in(i) = in(i) | (1 << (8 - pos.x))
+      }
+      ByteArray(in.map(_.toByte))
     }
 
-    def read(ba: ByteArray): UnmovedRooks = {
-      ???
+    private def bitAt(n: Int, k: Int) = (n >> k) & 1
+
+    private val indexes = (0 to 7).toList
+
+    def read(ba: ByteArray) = UnmovedRooks {
+      List(0, 1).foldLeft(Set.empty[Pos]) {
+        case (allPos, i) =>
+          val int = ba.value(i).toInt
+          allPos ++ indexes.foldLeft(Set.empty[Pos]) {
+            case (acc, j) =>
+              if (bitAt(int, j) == 1) Pos.posAt(8 - j, 1 + 7 * i).fold(acc)(acc +)
+              else acc
+          }
+      }.pp
     }
   }
 
