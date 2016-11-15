@@ -12,7 +12,7 @@ import lila.db.ByteArray.ByteArrayBSONHandler
 private[game] object GameDiff {
 
   type Set = BSONElement // [String, BSONValue]
-  type Unset = BSONElement //[String, BSONBoolean]
+  type Unset = BSONElement // [String, BSONBoolean]
 
   def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
 
