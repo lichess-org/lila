@@ -27,7 +27,6 @@ class BinaryPerfTest extends Specification {
 
   val encodedDataset: List[ByteArray] = dataset map format.write
 
-  val iterations = 500000
   val nbRuns = 10
 
   type Run = () => Unit
@@ -35,7 +34,7 @@ class BinaryPerfTest extends Specification {
   def readDataset() { encodedDataset foreach format.read }
   def writeDataset() { dataset foreach format.write }
 
-  def runTests(run: Run, name: String) = {
+  def runTests(run: Run, name: String, iterations: Int) = {
     println(s"$name warming up")
     for (i <- 1 to iterations) run()
     println(s"$name running")
@@ -55,10 +54,10 @@ class BinaryPerfTest extends Specification {
 
   "unmoved rooks" should {
     "read" in {
-      runTests(readDataset, "read")
+      runTests(readDataset, "read", 100000)
     }
     "write" in {
-      runTests(writeDataset, "write")
+      runTests(writeDataset, "write", 1000000)
     }
   }
 }
