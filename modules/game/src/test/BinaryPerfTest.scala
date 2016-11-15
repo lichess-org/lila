@@ -18,16 +18,16 @@ class BinaryPerfTest extends Specification {
     Set(A1, A8, H8),
     Set(A1, H1, H8),
     Set(A1, H1, A8),
-    Set(A8, H8),
-    Set(A1, H8),
-    Set(A1, H1), 
-    Set(H1, A8),
+    // Set(A8, H8),
+    // Set(A1, H8),
+    // Set(A1, H1), 
+    // Set(H1, A8),
     Set()
   ) map UnmovedRooks.apply
 
   val encodedDataset: List[ByteArray] = dataset map format.write
 
-  val iterations = 50000
+  val iterations = 500000
   val nbRuns = 10
 
   type Run = () => Unit
@@ -47,9 +47,9 @@ class BinaryPerfTest extends Specification {
       duration
     }
     val totalNb = iterations * nbRuns
-    val moveMicros = (1000 * durations.sum) / totalNb
-    println(s"Average = $moveMicros microseconds each")
-    println(s"          ${1000000 / moveMicros} $name per second")
+    val moveNanos = (1000000 * durations.sum) / totalNb
+    println(s"Average = $moveNanos nanoseconds each")
+    println(s"          ${1000000000 / moveNanos} $name per second")
     true === true
   }
 

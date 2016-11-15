@@ -227,29 +227,41 @@ object BinaryFormat {
   }
 
   object unmovedRooks {
+
+    val emptyByteArray = ByteArray(Array(0, 0))
+
     def write(o: UnmovedRooks): ByteArray = {
-      val in = Array.ofDim[Int](2)
-      o.pos.foreach { pos =>
-        val i = if (pos.y == 1) 0 else 1
-        in(i) = in(i) | (1 << (8 - pos.x))
+      if (o.pos.isEmpty) emptyByteArray
+      else {
+        var white = 0
+        var black = 0
+        o.pos.foreach { pos =>
+          if (pos.y == 1) white = white | (1 << (8 - pos.x))
+          else black = black | (1 << (8 - pos.x))
+        }
+        ByteArray(Array(white.toByte, black.toByte))
       }
-      ByteArray(in.map(_.toByte))
     }
 
     private def bitAt(n: Int, k: Int) = (n >> k) & 1
 
-    private val indexes = (0 to 7).toList
+    private val arrIndexes = 0 to 1
+    private val bitIndexes = 0 to 7
+    private val whiteStd = Set(Pos.A1, Pos.H1)
+    private val blackStd = Set(Pos.A8, Pos.H8)
 
     def read(ba: ByteArray) = UnmovedRooks {
-      List(0, 1).foldLeft(Set.empty[Pos]) {
-        case (allPos, i) =>
-          val int = ba.value(i).toInt
-          allPos ++ indexes.foldLeft(Set.empty[Pos]) {
-            case (acc, j) =>
-              if (bitAt(int, j) == 1) Pos.posAt(8 - j, 1 + 7 * i).fold(acc)(acc +)
-              else acc
+      var set = Set.empty[Pos]
+      arrIndexes.foreach { i =>
+        val int = ba.value(i).toInt
+        if (int != 0) {
+          if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
+          else bitIndexes.foreach { j =>
+            if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
           }
+        }
       }
+      set
     }
   }
 
