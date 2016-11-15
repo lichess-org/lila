@@ -249,7 +249,7 @@ object BinaryFormat {
               if (bitAt(int, j) == 1) Pos.posAt(8 - j, 1 + 7 * i).fold(acc)(acc +)
               else acc
           }
-      }.pp
+      }
     }
   }
 
