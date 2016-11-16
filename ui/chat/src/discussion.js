@@ -1,4 +1,5 @@
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 var moderationView = require('./moderation').view;
 var presetView = require('./preset').view;
 var enhance = require('./enhance');
@@ -24,7 +25,7 @@ function renderLine(ctrl) {
       m('span', '[' + line.c + ']'),
       line.t
     ]);
-    return m('li', {
+    return vn('li', undefined, {
       'data-username': line.u
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,

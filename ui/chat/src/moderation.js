@@ -1,4 +1,5 @@
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 var prop = require("mithril/stream")
 var xhr = require('./xhr');
 
@@ -41,7 +42,7 @@ module.exports = {
   },
   view: {
     lineAction: function() {
-      return m('i', {
+      return vn('i', undefined, {
         class: 'mod',
         'data-icon': '',
         title: 'Moderation'
