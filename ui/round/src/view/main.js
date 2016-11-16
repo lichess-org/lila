@@ -140,7 +140,10 @@ module.exports = function(vnode) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        cgData.premovable.current || cgData.predroppable.current.key ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
+        cgData.premovable.current || cgData.predroppable.current.key ? vn(
+          'div', undefined, {
+            class: 'premove_alert'
+          }, undefined, ctrl.trans.noarg('premoveEnabledClickAnywhereToCancel')) : null,
         ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null,
       ]),
       blursAndHolds(ctrl)

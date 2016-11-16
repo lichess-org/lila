@@ -122,7 +122,7 @@ function whosTurn(ctrl, color) {
   if (status.finished(d) || status.aborted(d)) return;
   return m('div.whos_turn',
     d.game.player === color ? (
-      d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
+      d.player.spectator ? ctrl.trans.noarg(d.game.player + 'Plays') : ctrl.trans.noarg(
         d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
       )
     ) : ''

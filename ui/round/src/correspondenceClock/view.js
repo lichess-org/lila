@@ -1,5 +1,6 @@
 var classSet = require('chessground').util.classSet;
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 
 function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -18,7 +19,7 @@ function formatClockTime(trans, time) {
     // days : hours
     var days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
+    str += (days === 1 ? trans.noarg('oneDay') : trans('nbDays', days)) + ' ';
     if (hours !== 0) str += trans('nbHours', hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes
@@ -40,13 +41,15 @@ module.exports = function(ctrl, trans, color, position, runningColor) {
       'emerg': time < ctrl.data.emerg
     })
   }, [
-    ctrl.data.showBar ? m('div.bar',
-      m('span', {
+    ctrl.data.showBar ? vn('div', undefined, {
+      class: 'bar'
+    }, [
+      vn('span', undefined, {
         style: {
           width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
         }
       })
-    ) : null,
+    ]) : null,
     m('div.time', m.trust(formatClockTime(trans, time * 1000)))
   ]);
 }

@@ -56,7 +56,7 @@ function renderResult(ctrl) {
         }
       }, [
         renderStatus(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+        winner ? ', ' + ctrl.trans.noarg(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
     ];
   }
@@ -109,7 +109,7 @@ function analyseButton(ctrl) {
       'glowed': showInfo,
       'text': ctrl.data.forecastCount
     }),
-    'data-hint': ctrl.trans('analysis'),
+    'data-hint': ctrl.trans.noarg('analysis'),
     href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
   };
   if (showInfo) attrs.oncreate = function(vnode) {
@@ -151,7 +151,7 @@ function renderButtons(ctrl) {
   var lastPly = round.lastPly(d);
   var flipAttrs = {
     class: 'fbt flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
-    'data-hint': ctrl.trans('flipBoard'),
+    'data-hint': ctrl.trans.noarg('flipBoard'),
     'data-act': 'flip'
   };
   return m('div.buttons', {

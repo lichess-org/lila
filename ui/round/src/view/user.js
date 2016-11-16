@@ -60,7 +60,7 @@ module.exports = {
         rating ? vn('rating', undefined, undefined, undefined, rating + (player.provisional ? '?' : '')) : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
-          title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
+          title: ctrl.trans.noarg('thisPlayerUsesChessComputerAssistance')
         }) : null
       ]);
     }

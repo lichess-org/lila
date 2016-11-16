@@ -18,14 +18,14 @@ function analysisBoardOrientation(data) {
 
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
-    // disabled if condition callback is provied and is falsy
+    // disabled if condition callback is provided and is falsy
     var enabled = function() {
       return !condition || condition(ctrl.data);
     };
     return vn('button', socketMsg || 'click', {
       class: 'fbt hint--bottom ' + socketMsg,
       disabled: !enabled(),
-      'data-hint': ctrl.trans(hint),
+      'data-hint': ctrl.trans.noarg(hint),
       onclick: function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
       }
@@ -36,25 +36,25 @@ module.exports = {
   forceResign: function(ctrl) {
     if (ctrl.forceResignable())
       return m('div.suggestion', [
-        m('p', ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
+        m('p', ctrl.trans.noarg('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
         m('a.button', {
           onclick: partial(ctrl.socket.sendLoading, 'resign-force', null),
-        }, ctrl.trans('forceResignation')),
+        }, ctrl.trans.noarg('forceResignation')),
         m('a.button', {
           onclick: partial(ctrl.socket.sendLoading, 'draw-force', null),
-        }, ctrl.trans('forceDraw'))
+        }, ctrl.trans.noarg('forceDraw'))
       ]);
   },
   resignConfirm: function(ctrl) {
     return m('div.resign_confirm', [
       m('button.fbt.no.hint--bottom', {
-        'data-hint': ctrl.trans('cancel'),
+        'data-hint': ctrl.trans.noarg('cancel'),
         onclick: partial(ctrl.resign, false)
       }, m('span', {
         'data-icon': 'L'
       })),
       m('button.fbt.yes.active.hint--bottom', {
-        'data-hint': ctrl.trans('resign'),
+        'data-hint': ctrl.trans.noarg('resign'),
         onclick: partial(ctrl.resign, true)
       }, m('span', {
         'data-icon': 'b'
@@ -63,83 +63,83 @@ module.exports = {
   },
   threefoldClaimDraw: function(ctrl) {
     if (ctrl.data.game.threefold) return m('div.suggestion', [
-      m('p', ctrl.trans('threefoldRepetition')),
+      m('p', ctrl.trans.noarg('threefoldRepetition')),
       m('a.button', {
         onclick: partial(ctrl.socket.sendLoading, 'draw-claim', null)
-      }, ctrl.trans('claimADraw'))
+      }, ctrl.trans.noarg('claimADraw'))
     ]);
   },
   cancelDrawOffer: function(ctrl) {
     if (ctrl.data.player.offeringDraw) return m('div.pending', [
-      m('p', ctrl.trans('drawOfferSent'))
+      m('p', ctrl.trans.noarg('drawOfferSent'))
     ]);
   },
   answerOpponentDrawOffer: function(ctrl) {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
-      m('p', ctrl.trans('yourOpponentOffersADraw')),
+      m('p', ctrl.trans.noarg('yourOpponentOffersADraw')),
       m('a.accept[data-icon=E]', {
         onclick: partial(ctrl.socket.sendLoading, 'draw-yes', null),
-        title: ctrl.trans('accept')
+        title: ctrl.trans.noarg('accept')
       }),
       m('a.decline[data-icon=L]', {
         onclick: partial(ctrl.socket.sendLoading, 'draw-no', null),
-        title: ctrl.trans('decline')
+        title: ctrl.trans.noarg('decline')
       }),
     ]);
   },
   cancelTakebackProposition: function(ctrl) {
     if (ctrl.data.player.proposingTakeback) return m('div.pending', [
-      m('p', ctrl.trans('takebackPropositionSent')),
+      m('p', ctrl.trans.noarg('takebackPropositionSent')),
       m('a.button', {
         onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null)
-      }, ctrl.trans('cancel'))
+      }, ctrl.trans.noarg('cancel'))
     ]);
   },
   answerOpponentTakebackProposition: function(ctrl) {
     if (ctrl.data.opponent.proposingTakeback) return m('div.negotiation', [
-      m('p', ctrl.trans('yourOpponentProposesATakeback')),
+      m('p', ctrl.trans.noarg('yourOpponentProposesATakeback')),
       m('a.accept[data-icon=E]', {
         onclick: partial(ctrl.takebackYes),
-        title: ctrl.trans('accept')
+        title: ctrl.trans.noarg('accept')
       }),
       m('a.decline[data-icon=L]', {
         onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null),
-        title: ctrl.trans('decline')
+        title: ctrl.trans.noarg('decline')
       })
     ]);
   },
   submitMove: function(ctrl) {
     if (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) return m('div.negotiation', [
-      m('p', ctrl.trans('moveConfirmation')),
+      m('p', ctrl.trans.noarg('moveConfirmation')),
       m('a.accept[data-icon=E]', {
         onclick: partial(ctrl.submitMove, true),
         title: 'Submit move'
       }),
       m('a.decline[data-icon=L]', {
         onclick: partial(ctrl.submitMove, false),
-        title: ctrl.trans('cancel')
+        title: ctrl.trans.noarg('cancel')
       })
     ]);
   },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return m('div.negotiation', [
-      m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
+      m('p', ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou')),
       m('a.accept[data-icon=E]', {
-        title: ctrl.trans('joinTheGame'),
+        title: ctrl.trans.noarg('joinTheGame'),
         onclick: partial(ctrl.socket.sendLoading, 'rematch-yes', null)
       }),
       m('a.decline[data-icon=L]', {
-        title: ctrl.trans('decline'),
+        title: ctrl.trans.noarg('decline'),
         onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
       })
     ]);
   },
   cancelRematch: function(ctrl) {
     if (ctrl.data.player.offeringRematch) return m('div.pending', [
-      m('p', ctrl.trans('rematchOfferSent')),
+      m('p', ctrl.trans.noarg('rematchOfferSent')),
       m('a.button', {
         onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
-      }, ctrl.trans('cancel'))
+      }, ctrl.trans.noarg('cancel'))
     ]);
   },
   backToTournament: function(ctrl) {
@@ -150,14 +150,14 @@ module.exports = {
         class: 'text fbt strong glowed',
         href: '/tournament/' + d.tournament.id,
         onclick: ctrl.setRedirecting
-      }, ctrl.trans('backToTournament')),
+      }, ctrl.trans.noarg('backToTournament')),
       m('form', {
         method: 'post',
         action: '/tournament/' + d.tournament.id + '/withdraw'
-      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))),
+      }, m('button.text.button[data-icon=b]', ctrl.trans.noarg('withdraw'))),
       game.replayable(d) ? m('a.button', {
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      }, ctrl.trans.noarg('analysis')) : null
     ]);
   },
   moretime: function(ctrl) {
@@ -172,26 +172,26 @@ module.exports = {
     var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
-        ctrl.trans('rematchOfferSent')
+        ctrl.trans.noarg('rematchOfferSent')
       ) : (rematchable ? m('a.button', {
         onclick: function() {
           if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
           else ctrl.challengeRematch();
         }
-      }, ctrl.trans('rematch')) : null),
+      }, ctrl.trans.noarg('rematch')) : null),
       ctrl.data.game.rematch ? m('a.button.hint--top', {
-        'data-hint': ctrl.trans('joinTheGame'),
+        'data-hint': ctrl.trans.noarg('joinTheGame'),
         href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
-      }, ctrl.trans('rematchOfferAccepted')) : null,
+      }, ctrl.trans.noarg('rematchOfferAccepted')) : null,
       d.tournament ? m('a.button', {
         href: '/tournament/' + d.tournament.id
-      }, ctrl.trans('viewTournament')) : null,
+      }, ctrl.trans.noarg('viewTournament')) : null,
       newable ? m('a.button', {
         href: '/?hook_like=' + d.game.id,
-      }, ctrl.trans('newOpponent')) : null,
+      }, ctrl.trans.noarg('newOpponent')) : null,
       game.replayable(d) ? m('a.button', {
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      }, ctrl.trans.noarg('analysis')) : null
     ]);
   },
   watcherFollowUp: function(ctrl) {
@@ -199,13 +199,13 @@ module.exports = {
     return m('div.follow_up', [
       d.game.rematch ? m('a.button.text[data-icon=v]', {
         href: router.game(d.game.rematch, d.opponent.color)
-      }, ctrl.trans('viewRematch')) : null,
+      }, ctrl.trans.noarg('viewRematch')) : null,
       d.tournament ? m('a.button', {
         href: '/tournament/' + d.tournament.id
-      }, ctrl.trans('viewTournament')) : null,
+      }, ctrl.trans.noarg('viewTournament')) : null,
       game.replayable(d) ? m('a.button', {
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      }, ctrl.trans.noarg('analysis')) : null
     ]);
   }
 };
