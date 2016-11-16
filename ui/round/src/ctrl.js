@@ -36,7 +36,6 @@ module.exports = function(opts) {
     loading: false,
     loadingTimeout: null,
     redirecting: false,
-    replayHash: '',
     moveToSubmit: null,
     dropToSubmit: null,
     goneBerserk: {},
@@ -95,9 +94,7 @@ module.exports = function(opts) {
 
   this.stepsHash = function(steps) {
     var h = '';
-    for (var i in steps) {
-      h += steps[i].san;
-    }
+    for (var i in steps) h += steps[i].san;
     return h;
   };
 

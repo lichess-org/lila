@@ -208,34 +208,41 @@ function racingKingsInit(d) {
     ]);
 }
 
-module.exports = function(ctrl) {
-  var d = ctrl.data;
-  // var h = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
-  // if (ctrl.vm.replayHash === h) return {
-  //   subtree: 'retain'
-  // };
-  // ctrl.vm.replayHash = h;
-  var message = (d.game.variant.key === 'racingKings' && d.game.turns === 0) ? racingKingsInit : null;
-  return m('div', {
-    key: 'replay',
-    class: 'replay'
-  }, [
-    renderButtons(ctrl),
-    racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {
-      oncreate: function(vnode) {
-        var scrollNow = partial(autoScroll, vnode.dom, ctrl);
-        ctrl.vm.autoScroll = {
-          now: scrollNow,
-          throttle: util.throttle(300, false, scrollNow)
-        };
-        scrollNow();
-        window.addEventListener('load', scrollNow);
-      },
-      onmousedown: function(e) {
-        var turn = parseInt($(e.target).siblings('index').text());
-        var ply = 2 * turn - 2 + $(e.target).index();
-        if (ply) ctrl.userJump(ply);
-      },
-    }, renderMoves(ctrl)) : renderResult(ctrl))
-  ]);
-}
+module.exports = {
+  oninit: function(vnode) {
+    vnode.state.ctrl = vnode.attrs.ctrl;
+  },
+  onbeforeupdate: function(vnode) {
+    var ctrl = vnode.state.ctrl;
+    var d = ctrl.data;
+    var hash = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
+    if (vnode.state.hash === hash) return false;
+    vnode.state.hash = hash;
+  },
+  view: function(vnode) {
+    var ctrl = vnode.state.ctrl;
+    var d = ctrl.data;
+    return m('div', {
+      key: 'replay',
+      class: 'replay',
+    }, [
+      renderButtons(ctrl),
+      racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {
+        oncreate: function(vnode) {
+          var scrollNow = partial(autoScroll, vnode.dom, ctrl);
+          ctrl.vm.autoScroll = {
+            now: scrollNow,
+            throttle: util.throttle(300, false, scrollNow)
+          };
+          scrollNow();
+          window.addEventListener('load', scrollNow);
+        },
+        onmousedown: function(e) {
+          var turn = parseInt($(e.target).siblings('index').text());
+          var ply = 2 * turn - 2 + $(e.target).index();
+          if (ply) ctrl.userJump(ply);
+        },
+      }, renderMoves(ctrl)) : renderResult(ctrl))
+    ]);
+  }
+};

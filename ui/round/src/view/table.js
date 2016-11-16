@@ -9,7 +9,7 @@ var opposite = chessground.util.opposite;
 var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
-var renderReplay = require('./replay');
+var replayComponent = require('./replay');
 var renderUser = require('./user');
 var button = require('./button');
 
@@ -55,6 +55,12 @@ function controlButtons(children) {
   return m('div', {
     class: 'control buttons'
   }, children);
+}
+
+function renderReplay(ctrl) {
+  return m(replayComponent, {
+    ctrl: ctrl
+  });
 }
 
 function renderTableEnd(ctrl) {
