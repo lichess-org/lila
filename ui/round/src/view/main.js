@@ -123,19 +123,17 @@ module.exports = function(vnode) {
     score = chessground.board.getScore(cgData) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return [
-    m('div.top', [
-      m('div', {
-        class: 'lichess_game variant_' + d.game.variant.key,
-        oncreate: function() {
-          lichess.pubsub.emit('content_loaded')();
-        }
-      }, [
-        d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-        m('div.lichess_ground', [
-          crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
-          renderTable(ctrl),
-          crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
-        ])
+    m('div', {
+      class: 'lichess_game variant_' + d.game.variant.key,
+      oncreate: function() {
+        lichess.pubsub.emit('content_loaded')();
+      }
+    }, [
+      d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+      m('div.lichess_ground', [
+        crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
+        renderTable(ctrl),
+        crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
       ])
     ]),
     m('div.underboard', [
