@@ -58,11 +58,11 @@ function renderVariantReminder(ctrl) {
   return m('div', {
     class: 'variant_reminder is',
     'data-icon': icon,
-    config: function(el, isUpdate) {
-      if (!isUpdate) setTimeout(function() {
-        el.classList.add('gone');
+    oncreate: function(vnode) {
+      setTimeout(function() {
+        vnode.dom.classList.add('gone');
         setTimeout(function() {
-          el.remove();
+          vnode.dom.remove();
         }, 600);
       }, 800);
     }
@@ -73,8 +73,8 @@ function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div', {
       class: 'lichess_board ' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? ' blindfold' : ''),
-      config: function(el, isUpdate) {
-        if (!isUpdate) el.addEventListener('wheel', function(e) {
+      oncreate: function(vnode) {
+        vnode.dom.addEventListener('wheel', function(e) {
           return wheel(ctrl, e);
         });
       }
@@ -87,8 +87,8 @@ function visualBoard(ctrl) {
 function blindBoard(ctrl) {
   return m('div.lichess_board_blind', [
     m('div.textual', {
-      config: function(el, isUpdate) {
-        if (!isUpdate) blind.init(el, ctrl);
+      oncreate: function(vnode) {
+        blind.init(vnode.dom, ctrl);
       }
     }),
     chessground.view(ctrl.chessground)
@@ -126,8 +126,7 @@ module.exports = function(vnode) {
     m('div.top', [
       m('div', {
         class: 'lichess_game variant_' + d.game.variant.key,
-        config: function(el, isUpdate) {
-          if (isUpdate) return;
+        oncreate: function() {
           lichess.pubsub.emit('content_loaded')();
         }
       }, [

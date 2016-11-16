@@ -1,12 +1,19 @@
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 var game = require('game').game;
 var raf = require('chessground').util.requestAnimationFrame;
 
+function rpSpan(klass, text) {
+  return vn('span', undefined, {
+    class: 'rp ' + klass
+  }, undefined, text);
+}
+
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
-  if (player.ratingDiff === 0) return m('span.rp.null', '±0');
-  if (player.ratingDiff > 0) return m('span.rp.up', '+' + player.ratingDiff);
-  if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
+  if (player.ratingDiff === 0) return rpSpan('null', '±0');
+  if (player.ratingDiff > 0) return rpSpan('.up', '+' + player.ratingDiff);
+  if (player.ratingDiff < 0) return rpSpan('down', player.ratingDiff);
 }
 
 function relayUser(player) {
@@ -34,23 +41,23 @@ module.exports = {
       var fullName = (user.title ? user.title + ' ' : '') + user.username;
       var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
       var isMe = ctrl.userId === user.id;
-      return m('div', {
+      return vn('div', 'user-' + player.color, {
         class: 'username user_link ' + player.color + ' ' +
           (player.onGame ? 'online' : 'offline') +
           (fullName.length > 20 ? ' long' : '') +
           (connecting ? ' connecting' : '')
       }, [
-        m('i', {
+        vn('i', undefined, {
           class: 'line' + (user.patron ? ' patron' : ''),
           'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
         }),
-        m('a', {
+        vn('a', undefined, {
           class: 'text ulpt',
           'data-pt-pos': 's',
           href: '/@/' + user.username,
           target: game.isPlayerPlaying(d) ? '_blank' : '_self',
-        }, fullName),
-        rating ? m('rating', rating + (player.provisional ? '?' : '')) : null,
+        }, undefined, fullName),
+        rating ? vn('rating', undefined, undefined, undefined, rating + (player.provisional ? '?' : '')) : null,
         ratingDiff(player),
         player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')

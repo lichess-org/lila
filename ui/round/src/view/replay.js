@@ -8,20 +8,27 @@ var status = require('game').status;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 
-var emptyMove = m('move.empty', '...');
-var nullMove = m('move.empty', '');
+var emptyMove = vn('move', undefined, {
+  class: 'empty'
+}, undefined, '...');
+var nullMove = vn('move', undefined, {
+  class: 'empty'
+}, undefined, '');
 
 function renderMove(step, curPly, orEmpty) {
   if (!step) return orEmpty ? emptyMove : nullMove;
   var san = step.san[0] === 'P' ? step.san.slice(1) : step.san;
-  return {
-    tag: 'move',
-    attrs: step.ply !== curPly ? {} : {
+  return vn(
+    'move',
+    undefined,
+    step.ply !== curPly ? {} : {
       class: 'active'
     },
-    text: san
-  };
+    undefined,
+    san
+  );
 }
 
 function renderResult(ctrl) {
@@ -41,8 +48,7 @@ function renderResult(ctrl) {
     return [
       m('p.result', result),
       m('p.status', {
-        config: function(el, isUpdate) {
-          if (isUpdate) return;
+        oncreate: function() {
           if (ctrl.vm.autoScroll) ctrl.vm.autoScroll.now();
           else setTimeout(function() {
             ctrl.vm.autoScroll.now();
@@ -71,16 +77,21 @@ function renderMoves(ctrl) {
   }
 
   var rows = [];
-  for (var i = 0, len = pairs.length; i < len; i++) rows.push({
-    tag: 'turn',
-    children: [{
-        tag: 'index',
-        text: i + 1
-      },
+  for (var i = 0, len = pairs.length; i < len; i++) rows.push(vn(
+    'turn',
+    undefined,
+    undefined, [
+      vn(
+        'index',
+        undefined,
+        undefined,
+        undefined,
+        i + 1
+      ),
       renderMove(pairs[i][0], ctrl.vm.ply, true),
       renderMove(pairs[i][1], ctrl.vm.ply, false)
     ]
-  });
+  ));
   rows.push(renderResult(ctrl));
 
   return rows;
@@ -101,14 +112,14 @@ function analyseButton(ctrl) {
     'data-hint': ctrl.trans('analysis'),
     href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply,
   };
-  if (showInfo) attrs.config = function(el) {
+  if (showInfo) attrs.oncreate = function(vnode) {
     setTimeout(function() {
-      $(el).powerTip({
+      $(vnode.dom).powerTip({
         manual: true,
         fadeInTime: 300,
         fadeOutTime: 300,
         placement: 'n'
-      }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
+      }).data('powertipjq', $(vnode.dom).siblings('.forecast-info').clone().show()).powerTip('show');
     }, 1000);
   };
   return [
@@ -132,6 +143,8 @@ function analyseButton(ctrl) {
 
 var flipIcon = m('span[data-icon=B]');
 
+var noopNode = m('div.noop');
+
 function renderButtons(ctrl) {
   var d = ctrl.data;
   var firstPly = round.firstPly(d);
@@ -142,7 +155,7 @@ function renderButtons(ctrl) {
     'data-act': 'flip'
   };
   return m('div.buttons', {
-    config: util.bindOnce('mousedown', function(e) {
+    onmousedown: function(e) {
       var ply = parseInt(e.target.getAttribute('data-ply'));
       if (!isNaN(ply)) ctrl.userJump(ply);
       else {
@@ -153,7 +166,7 @@ function renderButtons(ctrl) {
           else ctrl.flip();
         }
       }
-    })
+    }
   }, [
     m('button', flipAttrs, flipIcon), m('nav', [
       ['W', firstPly],
@@ -162,13 +175,13 @@ function renderButtons(ctrl) {
       ['V', lastPly]
     ].map(function(b, i) {
       var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return m('button', {
+      return vn('button', undefined, {
         class: 'fbt' + (i === 3 && ctrl.isLate() && !ctrl.vm.initializing ? ' glowed' : ''),
         disabled: (ctrl.broken || !enabled),
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
       });
-    })), game.userAnalysable(d) ? analyseButton(ctrl) : m('div.noop')
+    })), game.userAnalysable(d) ? analyseButton(ctrl) : noopNode
   ]);
 }
 
@@ -203,24 +216,26 @@ module.exports = function(ctrl) {
   // };
   // ctrl.vm.replayHash = h;
   var message = (d.game.variant.key === 'racingKings' && d.game.turns === 0) ? racingKingsInit : null;
-  return m('div.replay', [
+  return m('div', {
+    key: 'replay',
+    class: 'replay'
+  }, [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {
-      config: function(el, isUpdate, ctx) {
-        if (isUpdate) return;
-        util.bindOnce('mousedown', function(e) {
-          var turn = parseInt($(e.target).siblings('index').text());
-          var ply = 2 * turn - 2 + $(e.target).index();
-          if (ply) ctrl.userJump(ply);
-        })(el, isUpdate, ctx);
-        var scrollNow = partial(autoScroll, el, ctrl);
+      oncreate: function(vnode) {
+        var scrollNow = partial(autoScroll, vnode.dom, ctrl);
         ctrl.vm.autoScroll = {
           now: scrollNow,
           throttle: util.throttle(300, false, scrollNow)
         };
         scrollNow();
         window.addEventListener('load', scrollNow);
-      }
+      },
+      onmousedown: function(e) {
+        var turn = parseInt($(e.target).siblings('index').text());
+        var ply = 2 * turn - 2 + $(e.target).index();
+        if (ply) ctrl.userJump(ply);
+      },
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
 }

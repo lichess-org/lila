@@ -1,4 +1,5 @@
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 var chessground = require('chessground');
 var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
@@ -50,6 +51,12 @@ function spinning(ctrl) {
   if (isSpinning(ctrl)) return m.trust(lichess.spinnerHtml);
 }
 
+function controlButtons(children) {
+  return m('div', {
+    class: 'control buttons'
+  }, children);
+}
+
 function renderTableEnd(ctrl) {
   var buttons = compact(spinning(ctrl) || [
     button.backToTournament(ctrl) || [
@@ -60,7 +67,7 @@ function renderTableEnd(ctrl) {
   ]);
   return [
     renderReplay(ctrl),
-    buttons ? m('div.control.buttons', buttons) : null,
+    buttons ? controlButtons(buttons) : null,
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
@@ -69,7 +76,7 @@ function renderTableWatch(ctrl) {
   var buttons = compact(spinning(ctrl) || button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
-    buttons ? m('div.control.buttons', buttons) : null,
+    buttons ? controlButtons(buttons) : null,
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
@@ -90,6 +97,7 @@ function renderTablePlay(ctrl) {
   return [
     renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
       isSpinning(ctrl) ? null : m('div', {
+        key: 'control-icons',
         class: 'control icons'
       }, [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
@@ -98,7 +106,7 @@ function renderTablePlay(ctrl) {
         ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
-    buttons ? m('div.control.buttons', buttons) : null,
+    buttons ? controlButtons(buttons) : null,
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
 }
@@ -140,8 +148,9 @@ function renderClock(ctrl, position) {
   var time = ctrl.clock.data[player.color];
   var running = ctrl.isClockRunning() && ctrl.data.game.player === player.color;
   var isPlayer = ctrl.data.player.color === player.color;
-  return [
-    m('div', {
+  return vn(
+    'div',
+    undefined, {
       class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
         'outoftime': !time,
         'running': running,
@@ -149,12 +158,15 @@ function renderClock(ctrl, position) {
       })
     }, [
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
-      m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
+      vn('div', undefined, {
+        class: 'time'
+      }, [
+        m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))
+      ]),
       renderBerserk(ctrl, player.color, position),
       isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
       tourRank(ctrl, player.color, position)
-    ])
-  ];
+    ]);
 }
 
 function showBerserk(ctrl, color) {
@@ -187,11 +199,9 @@ module.exports = function(ctrl) {
       class: 'table'
     }, [
       renderPlayer(ctrl, topPlayer(ctrl)),
-      m('div.table_inner',
-        ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-          game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-        )
-      )
+      m('div.table_inner', ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+      ))
     ]),
     anyClock(ctrl, 'bottom')
   ]);

@@ -1,4 +1,4 @@
-var m = require('mithril');
+var vn = require('mithril/render/vnode');
 var game = require('game').game;
 
 function prefixInteger(num, length) {
@@ -34,13 +34,16 @@ function formatClockTime(ctrl, time, running) {
 }
 
 function showBar(ctrl, time, berserk) {
-  return ctrl.data.showBar ? m('div', {
-    class: 'bar' + (berserk ? ' berserk' : '')
-  }, m('span', {
-    style: {
-      width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
-    }
-  })) : null;
+  return ctrl.data.showBar ? vn(
+    'div',
+    undefined, {
+      class: 'bar' + (berserk ? ' berserk' : '')
+    }, [vn('span',
+      undefined, {
+        style: {
+          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
+        }
+      })]) : null;
 }
 
 module.exports = {

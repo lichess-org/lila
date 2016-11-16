@@ -9,8 +9,8 @@ var pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 module.exports = {
   pocket: function(ctrl, color, position) {
+    if (ctrl.data.game.variant.key !== 'crazyhouse') return;
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
-    if (!step.crazy) return;
     var dropped = ctrl.vm.justDropped;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
     var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');

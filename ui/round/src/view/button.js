@@ -26,9 +26,9 @@ module.exports = {
       class: 'fbt hint--bottom ' + socketMsg,
       disabled: !enabled(),
       'data-hint': ctrl.trans(hint),
-      config: util.bindOnce('click', function() {
+      onclick: function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
-      })
+      }
     }, m('span', {
       'data-icon': icon
     }));
@@ -78,7 +78,7 @@ module.exports = {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentOffersADraw')),
       m('a.accept[data-icon=E]', {
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'draw-yes', null)),
+        onclick: partial(ctrl.socket.sendLoading, 'draw-yes', null),
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
@@ -126,11 +126,11 @@ module.exports = {
       m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
       m('a.accept[data-icon=E]', {
         title: ctrl.trans('joinTheGame'),
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-yes', null))
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-yes', null)
       }),
       m('a.decline[data-icon=L]', {
         title: ctrl.trans('decline'),
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
       })
     ]);
   },
@@ -138,7 +138,7 @@ module.exports = {
     if (ctrl.data.player.offeringRematch) return m('div.pending', [
       m('p', ctrl.trans('rematchOfferSent')),
       m('a.button', {
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
+        onclick: partial(ctrl.socket.sendLoading, 'rematch-no', null)
       }, ctrl.trans('cancel'))
     ]);
   },
@@ -149,7 +149,7 @@ module.exports = {
         'data-icon': 'G',
         class: 'text fbt strong glowed',
         href: '/tournament/' + d.tournament.id,
-        config: util.bindOnce('click', ctrl.setRedirecting)
+        onclick: ctrl.setRedirecting
       }, ctrl.trans('backToTournament')),
       m('form', {
         method: 'post',
@@ -163,7 +163,7 @@ module.exports = {
   moretime: function(ctrl) {
     if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
-      config: util.bindOnce('click', ctrl.socket.moreTime)
+      onclick: ctrl.socket.moreTime
     }, m('span[data-icon=O]'));
   },
   followUp: function(ctrl) {
@@ -174,10 +174,10 @@ module.exports = {
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
       ) : (rematchable ? m('a.button', {
-        config: util.bindOnce('click', function() {
+        onclick: function() {
           if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
           else ctrl.challengeRematch();
-        })
+        }
       }, ctrl.trans('rematch')) : null),
       ctrl.data.game.rematch ? m('a.button.hint--top', {
         'data-hint': ctrl.trans('joinTheGame'),
