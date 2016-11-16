@@ -78,7 +78,7 @@ function renderResult(ctrl) {
   }
   if (result || status.aborted(ctrl.data)) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return [
+    return m('div.end', [
       m('p.result', result),
       m('p.status', {
         oncreate: function() {
@@ -91,7 +91,7 @@ function renderResult(ctrl) {
         renderStatus(ctrl),
         winner ? ', ' + ctrl.trans.noarg(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
-    ];
+    ]);
   }
 }
 

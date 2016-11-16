@@ -33,14 +33,14 @@ function renderResult(ctrl) {
       result = '½-½';
   }
   if (result) {
-    var tags = [];
-    tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    tags.push(m('div.status', [
-      renderStatus(ctrl),
-      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
-    ]));
-    return tags;
+    return m('div.end', [
+      m('div.result', result),
+      m('div.status', [
+        renderStatus(ctrl),
+        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+      ])
+    ]);
   }
 }
 

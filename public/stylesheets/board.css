@@ -556,20 +556,20 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .result,
-.lichess_ground .status {
+.lichess_ground .end {
+  flex: 0 0 100%;
   text-align: center;
+  border-top: 1px solid #ddd;
+  padding: 7px 0;
 }
 .lichess_ground .result {
-  border-top: 1px solid #ddd;
   font-weight: bold;
   font-size: 1.3em;
-  padding: 7px 0 4px 0;
+  padding-bottom: 4px;
 }
 .lichess_ground .status {
   font-size: 1em;
   font-style: italic;
-  padding-bottom: 7px;
 }
 .lichess_ground .replay .buttons {
   border-top: 1px solid #e2e2e2;

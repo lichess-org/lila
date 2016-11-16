@@ -1068,8 +1068,7 @@ body.piece_letter .tview2 move {
 .tview2 .hide {
   display: none;
 }
-.lichess_ground .areplay .result,
-.lichess_ground .areplay .status {
+.lichess_ground .areplay .end {
   background: #f8f8f8;
 }
 div.underboard {
