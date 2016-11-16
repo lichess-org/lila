@@ -20,8 +20,8 @@ module.exports = function(opts) {
   var hoveringUci = m.prop(null);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=4',
-    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=4',
+    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=5',
+    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=5',
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,

@@ -69,7 +69,7 @@ fi
 
 lilalog "Rsync scripts, binaries and assets"
 stage="target/universal/stage"
-include="bin $stage/bin $stage/lib public submodules"
+include="bin $stage/bin $stage/lib public"
 rsync_command="rsync $RSYNC_OPTIONS $include $REMOTE:$REMOTE_DIR"
 echo "$rsync_command"
 $rsync_command

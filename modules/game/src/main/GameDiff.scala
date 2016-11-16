@@ -1,13 +1,13 @@
 package lila.game
 
-import chess.{ Clock, Pos, CheckCount }
+import chess.{ Clock, Pos, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.ByteArray
+import lila.db.ByteArray.ByteArrayBSONHandler
 
 private[game] object GameDiff {
 
@@ -40,12 +40,13 @@ private[game] object GameDiff {
 
     val w = lila.db.BSON.writer
 
-    d(binaryPieces, _.binaryPieces, ByteArray.ByteArrayBSONHandler.write)
-    d(binaryPgn, _.binaryPgn, ByteArray.ByteArrayBSONHandler.write)
+    d(binaryPieces, _.binaryPieces, ByteArrayBSONHandler.write)
+    d(binaryPgn, _.binaryPgn, ByteArrayBSONHandler.write)
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
-    d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
+    d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
+    d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

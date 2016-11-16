@@ -5,7 +5,7 @@ import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
 
@@ -24,6 +24,7 @@ case class Game(
     startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
+    unmovedRooks: UnmovedRooks,
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
@@ -147,7 +148,8 @@ case class Game(
   },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
-    checkCount = checkCount)
+    checkCount = checkCount,
+    unmovedRooks = unmovedRooks)
 
   def update(
     game: ChessGame,
@@ -176,6 +178,7 @@ case class Game(
         lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.checkSquare),
+      unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
         BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
@@ -503,6 +506,7 @@ object Game {
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
+    chess.variant.Antichess,
     chess.variant.FromPosition,
     chess.variant.Horde,
     chess.variant.Atomic,
@@ -556,14 +560,16 @@ object Game {
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
-  else BinaryFormat.piece write game.board.pieces,
+    binaryPieces =
+    if (game.isStandardInit) BinaryFormat.piece.standard
+    else BinaryFormat.piece write game.board.pieces,
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
+    unmovedRooks = game.board.unmovedRooks,
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,
@@ -594,6 +600,7 @@ object Game {
     val positionHashes = "ph"
     val checkCount = "cc"
     val castleLastMoveTime = "cl"
+    val unmovedRooks = "ur"
     val daysPerTurn = "cd"
     val moveTimes = "mt"
     val rated = "ra"
