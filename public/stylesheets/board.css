@@ -514,22 +514,19 @@ div.table {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
 }
 .variant_crazyhouse .lichess_ground .replay .moves {
   height: 100px;
 }
-.lichess_ground .replay turn {
-  display: flex;
-  height: 26px;
-}
 .lichess_ground .replay index,
 .lichess_ground .replay move {
-  display: inline-block;
-  height: 22px;
   line-height: 22px;
 }
 .lichess_ground .replay index {
-  flex: 0 0 34px;
+  flex: 0 0 16%;
   padding: 2px 0;
   background: #e6e6e6;
   text-align: center;
@@ -537,10 +534,11 @@ div.table {
   font-weight: 300;
 }
 .lichess_ground .replay move {
-  flex: 1 1 50%;
+  flex: 0 0 42%;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
-  padding: 2px 5px;
+  padding: 2px 8px;
+  box-sizing: border-box;
 }
 body.piece_letter .lichess_ground .replay move {
   font-family: 'Noto Sans';

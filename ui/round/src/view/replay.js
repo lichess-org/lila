@@ -17,8 +17,7 @@ var nullMove = vn('move', undefined, {
   class: 'empty'
 }, undefined, '');
 
-function renderMove(step, curPly, orEmpty) {
-  if (!step) return orEmpty ? emptyMove : nullMove;
+function renderMove(step, curPly) {
   var san = step.san[0] === 'P' ? step.san.slice(1) : step.san;
   return vn(
     'move',
@@ -29,6 +28,40 @@ function renderMove(step, curPly, orEmpty) {
     undefined,
     san
   );
+}
+
+function renderIndex(i) {
+  return vn('index', undefined, undefined, undefined, i);
+}
+
+function renderMoves(ctrl) {
+  var steps = ctrl.data.steps,
+    len = steps.length;
+  var firstPly = round.firstPly(ctrl.data);
+  var lastPly = round.lastPly(ctrl.data);
+  if (typeof lastPly === 'undefined') return [];
+
+  var blackFirst = firstPly % 2 === 1;
+  var nodes = [],
+    startAt = 1;
+
+  if (blackFirst) {
+    nodes.push(renderIndex(1));
+    nodes.push(emptyMove);
+    nodes.push(steps[1] ? renderMove(steps[1], ctrl.vm.ply) : nullMove);
+    startAt = 2;
+  }
+
+  for (var i = startAt; i < len; ++i) {
+    if ((i % 2 === 0) === blackFirst) nodes.push(renderIndex((i + startAt) / 2));
+    nodes.push(renderMove(steps[i], ctrl.vm.ply));
+  }
+
+  if (len % 2 === 0) nodes.push(nullMove);
+
+  nodes.push(renderResult(ctrl));
+
+  return nodes;
 }
 
 function renderResult(ctrl) {
@@ -60,41 +93,6 @@ function renderResult(ctrl) {
       ])
     ];
   }
-}
-
-function renderMoves(ctrl) {
-  var steps = ctrl.data.steps;
-  var firstPly = round.firstPly(ctrl.data);
-  var lastPly = round.lastPly(ctrl.data);
-  if (typeof lastPly === 'undefined') return;
-
-  var pairs = [];
-  if (firstPly % 2 === 0)
-    for (var i = 1, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
-  else {
-    pairs.push([null, steps[1]]);
-    for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
-  }
-
-  var rows = [];
-  for (var i = 0, len = pairs.length; i < len; i++) rows.push(vn(
-    'turn',
-    undefined,
-    undefined, [
-      vn(
-        'index',
-        undefined,
-        undefined,
-        undefined,
-        i + 1
-      ),
-      renderMove(pairs[i][0], ctrl.vm.ply, true),
-      renderMove(pairs[i][1], ctrl.vm.ply, false)
-    ]
-  ));
-  rows.push(renderResult(ctrl));
-
-  return rows;
 }
 
 var analyseButtonIcon = m('span[data-icon="A"]');
@@ -238,8 +236,12 @@ module.exports = {
           window.addEventListener('load', scrollNow);
         },
         onmousedown: function(e) {
-          var turn = parseInt($(e.target).siblings('index').text());
-          var ply = 2 * turn - 2 + $(e.target).index();
+          var ply, prev = e.target.previousElementSibling;
+          if (prev.tagName == 'INDEX') ply = parseInt(prev.textContent) * 2 - 1;
+          else {
+            prev = prev.previousElementSibling;
+            if (prev.tagName == 'INDEX') ply = parseInt(prev.textContent) * 2;
+          }
           if (ply) ctrl.userJump(ply);
         },
       }, renderMoves(ctrl)) : renderResult(ctrl))
