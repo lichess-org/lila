@@ -270,7 +270,6 @@ module.exports = function(opts) {
       });
       if (o.check) $.sound.check();
     }
-    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
     d.steps.push({
       ply: round.lastPly(this.data) + 1,
@@ -280,6 +279,7 @@ module.exports = function(opts) {
       check: o.check,
       crazy: o.crazyhouse
     });
+    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     m.redraw();
