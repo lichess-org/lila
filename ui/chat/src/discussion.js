@@ -22,7 +22,7 @@ function renderLine(ctrl) {
     });
     if (line.u === 'lichess') return m('li.system', line.html);
     if (line.c) return m('li', [
-      m('span', '[' + line.c + ']'),
+      vn('span', undefined, undefined, undefined, '[' + line.c + ']'),
       line.t
     ]);
     return vn('li', undefined, {
