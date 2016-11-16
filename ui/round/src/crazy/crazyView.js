@@ -8,34 +8,22 @@ var vn = require('mithril/render/vnode');
 var eventNames = ['mousedown', 'touchstart'];
 var pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-var config = function(ctrl, position) {
-  return function(vnode) {
-    var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
-    if (vnode.state.flip === ctrl.vm.flip || !usablePos) return;
-    console.log('pocket config');
-    vnode.state.flip = ctrl.vm.flip;
-    if (!vnode.state.onstart) vnode.state.onstart = partial(crazyDrag, ctrl);
-    eventNames.forEach(function(name) {
-      vnode.dom.addEventListener(name, vnode.state.onstart);
-    });
-  };
-};
-
 module.exports = {
   pocket: function(ctrl, color, position) {
     if (ctrl.data.game.variant.key !== 'crazyhouse') return;
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
     var dropped = ctrl.vm.justDropped;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
-    var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
+    var eventuallyUsable = game.isPlayerPlaying(ctrl.data) && ctrl.data.player.color === color;
+    var usableNow = eventuallyUsable && !ctrl.replaying();
     return m('div', {
-        class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
-        oncreate: config(ctrl, position),
-        onupdate: config(ctrl, position),
-        onbeforeremove: function(vnode) {
-          if (vnode.state.onstart) eventNames.forEach(function(name) {
-            vnode.dom.removeEventListener(name, vnode.state.onstart);
+        key: 'pocket-' + color,
+        class: 'pocket is2d ' + position + (usableNow ? ' usable' : ''),
+        oncreate: function(vnode) {
+          if (eventuallyUsable) eventNames.forEach(function(name) {
+            vnode.dom.addEventListener(name, function(e) {
+              if (!ctrl.replaying()) crazyDrag(ctrl, e);
+            });
           });
         }
       },
