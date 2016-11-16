@@ -166,9 +166,7 @@ function renderClock(ctrl, position) {
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
       vn('div', undefined, {
         class: 'time'
-      }, [
-        m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))
-      ]),
+      }, clockView.renderClockTime(ctrl.clock, time * 1000, running)),
       renderBerserk(ctrl, player.color, position),
       isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
       tourRank(ctrl, player.color, position)

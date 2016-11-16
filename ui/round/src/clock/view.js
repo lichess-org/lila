@@ -5,32 +5,34 @@ function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
 }
 
-function bold(x) {
-  return '<b>' + x + '</b>';
+function textNode(text) {
+  return vn('#', undefined, undefined, text);
 }
 
-var sepHigh = '<sep>:</sep>';
-var sepLow = '<sep class="low">:</sep>';
+var sepHigh = vn('sep', undefined, undefined, undefined, ':');
+var sepLow = vn('sep', undefined, {
+  class: 'low'
+}, undefined, ':');
+var sepDot = vn('sep', undefined, undefined, undefined, '.');
 
-function formatClockTime(ctrl, time, running) {
+function renderClockTime(ctrl, time, running) {
   var date = new Date(time);
   var minutes = prefixInteger(date.getUTCMinutes(), 2);
   var secs = date.getSeconds();
   var seconds = prefixInteger(secs, 2);
   var tenths = Math.floor(date.getMilliseconds() / 100);
-  var hundredths = function() {
-    return Math.floor(date.getMilliseconds() / 10) - tenths * 10;
-  };
   var sep = (running && tenths < 5) ? sepLow : sepHigh;
   if ((ctrl.data.showTenths == 2 && time < 3600000) || (ctrl.data.showTenths == 1 && time < 10000)) {
     var showHundredths = !running && secs < 1;
-    return minutes + sep + seconds +
-      '<tenths><sep>.</sep>' + tenths + (showHundredths ? '<huns>' + hundredths() + '</huns>' : '') + '</tenths>';
+    return [textNode(minutes), sep, textNode(seconds), vn('tenths', undefined, undefined, [
+      sepDot, textNode(tenths), showHundredths ?
+      vn('huns', undefined, undefined, undefined, Math.floor(date.getMilliseconds() / 10) - tenths * 10) : null
+    ])];
   } else if (time >= 3600000) {
     var hours = prefixInteger(date.getUTCHours(), 2);
-    return hours + sepHigh + minutes + sep + seconds;
+    return [textNode(hours), sepHigh, textNode(minutes), sep, textNode(seconds)];
   } else
-    return minutes + sep + seconds;
+    return [textNode(minutes), sep, textNode(seconds)];
 }
 
 function showBar(ctrl, time, berserk) {
@@ -47,6 +49,6 @@ function showBar(ctrl, time, berserk) {
 }
 
 module.exports = {
-  formatClockTime: formatClockTime,
+  renderClockTime: renderClockTime,
   showBar: showBar
 };
