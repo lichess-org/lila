@@ -203,9 +203,9 @@ module.exports = function(ctrl) {
       class: 'table'
     }, [
       renderPlayer(ctrl, topPlayer(ctrl)),
-      m('div.table_inner', ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+      ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
         game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-      ))
+      )
     ]),
     anyClock(ctrl, 'bottom')
   ]);
