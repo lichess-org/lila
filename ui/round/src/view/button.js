@@ -161,10 +161,13 @@ module.exports = {
     ]);
   },
   moretime: function(ctrl) {
-    if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
+    if (game.moretimeable(ctrl.data)) return vn('a', 'moretime', {
+      class: 'moretime hint--bottom-left',
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
       onclick: ctrl.socket.moreTime
-    }, m('span[data-icon=O]'));
+    }, [vn('span', undefined, {
+      'data-icon': 'O'
+    })]);
   },
   followUp: function(ctrl) {
     var d = ctrl.data;

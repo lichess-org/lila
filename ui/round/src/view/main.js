@@ -26,7 +26,7 @@ function renderMaterial(ctrl, material, checks, score) {
     var piece = materialTag(role);
     var count = material[role];
     var content;
-    if (count === 1) content = piece;
+    if (count === 1) content = [piece];
     else {
       content = [];
       for (var i = 0; i < count; i++) content.push(piece);

@@ -36,11 +36,8 @@ function compact(x) {
 }
 
 function renderPlayer(ctrl, player) {
-  return player.ai ? m('div.username.user_link.online', [
-      m('i.line'),
-      m('name', renderUser.aiName(ctrl, player))
-    ]) :
-    renderUser.userHtml(ctrl, player);
+  if (player.ai) return renderUser.aiHtml(ctrl, player);
+  return renderUser.userHtml(ctrl, player);
 }
 
 function isSpinning(ctrl) {

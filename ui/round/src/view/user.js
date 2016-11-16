@@ -26,8 +26,12 @@ function relayUser(player) {
   ]);
 }
 
+var aiNameCache = {};
+
 function aiName(ctrl, player) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
+  if (!aiNameCache[player.ai])
+    aiNameCache[player.ai] = ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
+  return aiNameCache[player.ai];
 }
 
 module.exports = {
@@ -87,5 +91,14 @@ module.exports = {
     } else if (player.ai) return aiName(ctrl, player)
     else return 'Anonymous';
   },
-  aiName: aiName
+  aiHtml: function(ctrl, player) {
+    return vn('div', 'user-' + player.color, {
+      class: 'username user_link online',
+    }, [
+      vn('i', undefined, {
+        class: 'line'
+      }),
+      vn('name', undefined, undefined, undefined, aiName(ctrl, player))
+    ])
+  }
 };
