@@ -15,9 +15,14 @@ function findOnlyOrig(allDests, dest) {
 module.exports = {
   ctrl: function(root) {
     var cg = root.chessground;
-    var focus = m.prop(false);
+    var focus = false;
     return {
-      focus: focus,
+      getFocus: function() {
+        return focus;
+      },
+      setFocus: function(v) {
+        focus = v;
+      },
       select: function(key) {
         var selected = cg.data.selected;
         if (selected === key) return cg.cancelMove();
@@ -39,8 +44,8 @@ module.exports = {
             });
           }
         },
-        onfocus: partial(ctrl.focus, true),
-        onblur: partial(ctrl.focus, false),
+        onfocus: partial(ctrl.setFocus, true),
+        onblur: partial(ctrl.setFocus, false),
         onkeyup: function(e) {
           if (e.which == 27) {
             e.target.value = '';
@@ -57,7 +62,7 @@ module.exports = {
           e.target.value = '';
         }
       }),
-      ctrl.focus() ?
+      ctrl.getFocus() ?
       m('em', 'Enter coordinates to select squares. Press escape to cancel, press / to focus chat') :
       m('strong', 'Press <enter> to focus')
     ]);
