@@ -10,20 +10,18 @@ var keyboard = require('../keyboard');
 var crazyView = require('../crazy/crazyView');
 var keyboardMove = require('../keyboardMove');
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 
 function materialTag(role) {
-  return {
-    tag: 'mono-piece',
-    attrs: {
-      class: role
-    }
-  };
+  return vn('mono-piece', undefined, {
+    class: role
+  });
 }
 
 function renderMaterial(ctrl, material, checks, score) {
   var children = [];
   if (score || score === 0)
-    children.push(m('score', score > 0 ? '+' + score : score));
+    children.push(vn('score', undefined, undefined, undefined, score > 0 ? '+' + score : score));
   for (var role in material) {
     var piece = materialTag(role);
     var count = material[role];
@@ -33,12 +31,14 @@ function renderMaterial(ctrl, material, checks, score) {
       content = [];
       for (var i = 0; i < count; i++) content.push(piece);
     }
-    children.push(m('tomb', content));
+    children.push(vn('tomb', undefined, undefined, content));
   }
   for (var i = 0; i < checks; i++) {
     children.push(m('tomb', m('mono-piece.king[title=Check]')));
   }
-  return m('div.cemetery', children);
+  return vn('div', undefined, {
+    class: 'cemetery'
+  }, children);
 }
 
 function wheel(ctrl, e) {
@@ -71,14 +71,14 @@ function renderVariantReminder(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
-    m('div', {
+    vn('div', undefined, {
       class: 'lichess_board ' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? ' blindfold' : ''),
       oncreate: function(vnode) {
         vnode.dom.addEventListener('wheel', function(e) {
           return wheel(ctrl, e);
         });
       }
-    }, chessground.view(ctrl.chessground)),
+    }, [chessground.view(ctrl.chessground)]),
     renderPromotion(ctrl),
     renderVariantReminder(ctrl)
   ]);

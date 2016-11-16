@@ -6,6 +6,7 @@ var status = require('game').status;
 var partial = chessground.util.partial;
 var router = require('game').router;
 var m = require('mithril');
+var vn = require('mithril/render/vnode');
 
 function analysisBoardOrientation(data) {
   if (data.game.variant.key === 'racingKings') {
@@ -21,17 +22,16 @@ module.exports = {
     var enabled = function() {
       return !condition || condition(ctrl.data);
     };
-    return m('button', {
-      key: socketMsg || 'click',
+    return vn('button', socketMsg || 'click', {
       class: 'fbt hint--bottom ' + socketMsg,
       disabled: !enabled(),
       'data-hint': ctrl.trans(hint),
       onclick: function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
       }
-    }, m('span', {
+    }, [vn('span', undefined, {
       'data-icon': icon
-    }));
+    })]);
   },
   forceResign: function(ctrl) {
     if (ctrl.forceResignable())

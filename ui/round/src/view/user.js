@@ -65,16 +65,16 @@ module.exports = {
       ]);
     }
     var connecting = !player.onGame && ctrl.vm.firstSeconds;
-    return m('div', {
+    return vn('div', 'user-' + player.color, {
       class: 'username user_link ' +
         (player.onGame ? 'online' : 'offline') +
         (connecting ? ' connecting' : ''),
     }, [
-      m('i', {
+      vn('i', undefined, {
         class: 'line',
         'title': connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
       }),
-      m('name', player.name || 'Anonymous')
+      vn('name', undefined, undefined, undefined, player.name || 'Anonymous')
     ]);
   },
   userTxt: function(ctrl, player) {
