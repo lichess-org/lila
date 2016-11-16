@@ -12,7 +12,7 @@ function rpSpan(klass, text) {
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
   if (player.ratingDiff === 0) return rpSpan('null', '±0');
-  if (player.ratingDiff > 0) return rpSpan('.up', '+' + player.ratingDiff);
+  if (player.ratingDiff > 0) return rpSpan('up', '+' + player.ratingDiff);
   if (player.ratingDiff < 0) return rpSpan('down', player.ratingDiff);
 }
 
