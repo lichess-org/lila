@@ -1,4 +1,5 @@
 var m = require('mithril');
+var prop = require("mithril/stream")
 var makeModeration = require('./moderation').ctrl;
 var makeNote = require('./note').ctrl;
 var makePreset = require('./preset').ctrl;
@@ -8,16 +9,16 @@ module.exports = function(opts) {
   var data = opts.data;
 
   var vm = {
-    enabled: m.prop(!lichess.storage.get('nochat')),
-    writeable: m.prop(opts.writeable),
+    enabled: prop(!lichess.storage.get('nochat')),
+    writeable: prop(opts.writeable),
     isTroll: opts.kobold,
     isMod: opts.permissions.timeout,
-    isTimeout: m.prop(opts.timeout),
+    isTimeout: prop(opts.timeout),
     parseMoves: opts.parseMoves,
     placeholderKey: 'talkInChat',
-    moderating: m.prop(null),
-    tab: m.prop('discussion'),
-    loading: m.prop(false)
+    moderating: prop(null),
+    tab: prop('discussion'),
+    loading: prop(false)
   };
 
   var post = function(text) {

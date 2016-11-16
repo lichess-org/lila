@@ -1,11 +1,12 @@
 var m = require('mithril');
+var prop = require("mithril/stream")
 var xhr = require('./xhr');
 
 module.exports = {
   ctrl: function(opts) {
     var id = opts.id;
     var vm = {
-      text: m.prop(null)
+      text: prop(null)
     };
     var doPost = $.fp.debounce(function() {
       xhr.setNote(id, vm.text());

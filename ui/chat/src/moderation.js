@@ -1,4 +1,5 @@
 var m = require('mithril');
+var prop = require("mithril/stream")
 var xhr = require('./xhr');
 
 function isToday(timestamp) {
@@ -8,8 +9,8 @@ function isToday(timestamp) {
 module.exports = {
   ctrl: function(opts) {
     var vm = {
-      data: m.prop(null),
-      loading: m.prop(false)
+      data: prop(null),
+      loading: prop(false)
     };
     var close = function() {
       vm.data(null);

@@ -1,4 +1,5 @@
 var m = require('mithril');
+var prop = require("mithril/stream")
 
 function splitIt(s) {
   return s.split('/');
@@ -16,7 +17,7 @@ var groups = {
 module.exports = {
   ctrl: function(opts) {
 
-    var group = m.prop(opts.initialGroup);
+    var group = prop(opts.initialGroup);
 
     var said = [];
 
