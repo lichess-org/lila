@@ -1,4 +1,4 @@
-var m = require('mithril');
+var trust = require('mithril/render/trust');
 
 var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
@@ -41,5 +41,5 @@ module.exports = function(text, opts) {
   var escaped = escapeHtml(delocalize(text));
   var linked = autoLink(escaped);
   var plied = (opts.parseMoves && linked === escaped) ? addPlies(linked) : linked;
-  return m.trust(plied);
+  return trust(plied);
 };

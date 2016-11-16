@@ -1,5 +1,6 @@
-var m = require('mithril');
+var m = require('mithril/hyperscript');
 var vn = require('mithril/render/vnode');
+var trust = require('mithril/render/trust');
 var moderationView = require('./moderation').view;
 var presetView = require('./preset').view;
 var enhance = require('./enhance');
@@ -29,7 +30,7 @@ function renderLine(ctrl) {
       'data-username': line.u
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,
-      m.trust($.userLinkLimit(line.u, 14)),
+      trust($.userLinkLimit(line.u, 14)),
       line.html
     ]);
   };

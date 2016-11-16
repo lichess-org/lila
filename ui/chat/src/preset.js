@@ -1,4 +1,5 @@
-var m = require('mithril');
+var m = require('mithril/hyperscript');
+var redraw = require('mithril/redraw').publish;
 var prop = require("mithril/stream")
 
 function splitIt(s) {
@@ -30,7 +31,7 @@ module.exports = {
         if (p !== group()) {
           group(p);
           if (!p) said = [];
-          m.redraw();
+          redraw();
         }
       },
       post: function(preset) {

@@ -1,5 +1,7 @@
-var m = require('mithril');
+var m = require('mithril/hyperscript');
 var vn = require('mithril/render/vnode');
+var trust = require('mithril/render/trust');
+var redraw = require('mithril/redraw').publish;
 var prop = require("mithril/stream")
 var xhr = require('./xhr');
 
@@ -23,12 +25,12 @@ module.exports = {
       permissions: opts.permissions,
       open: function(username) {
         vm.loading(true);
-        xhr.userModInfo(username).then(function(data) {
+        xhr.userModInfo(username, function(data) {
           vm.data(data);
           vm.loading(false);
-          m.redraw();
+          redraw();
         });
-        m.redraw();
+        redraw();
       },
       close: close,
       timeout: function(reason) {
@@ -50,7 +52,7 @@ module.exports = {
     },
     ui: function(ctrl) {
       if (!ctrl) return;
-      if (ctrl.vm.loading()) return m.trust(lichess.spinnerHtml);
+      if (ctrl.vm.loading()) return trust(lichess.spinnerHtml);
       var data = ctrl.vm.data();
       if (!data) return;
       return [
@@ -99,7 +101,7 @@ module.exports = {
                       ctrl.open(data.username);
                     });
                     ctrl.vm.loading(true);
-                    m.redraw();
+                    redraw();
                     return false;
                   });
                 }

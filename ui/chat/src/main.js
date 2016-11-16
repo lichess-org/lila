@@ -1,11 +1,11 @@
-var m = require('mithril');
+var mount = require('mithril/mount');
 var ctrl = require('./ctrl');
 
 module.exports = function(element, opts) {
 
   var controller = ctrl(opts);
 
-  m.mount(element, {
+  mount(element, {
     oninit: function(vnode) {
       vnode.state = controller;
     },

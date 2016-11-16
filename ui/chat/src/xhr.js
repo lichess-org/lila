@@ -1,25 +1,17 @@
-var m = require('mithril');
-
-var xhrConfig = function(xhr) {
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+var headers = {
+  'Accept': 'application/vnd.lichess.v2+json'
 };
 
-function uncache(url) {
-  return url + '?_=' + new Date().getTime();
-}
-
-function userModInfo(username) {
-  return m.request({
-    background: true,
-    method: 'GET',
-    url: uncache('/mod/chat-user/' + username),
-    config: xhrConfig
+function userModInfo(username, then) {
+  $.ajax({
+    url: '/mod/chat-user/' + username,
+    headers: headers,
+    success: then
   });
 }
 
 function noteUrl(id) {
-  return uncache('/' + id + '/note');
+  return '/' + id + '/note';
 }
 
 function getNote(id) {
@@ -27,14 +19,13 @@ function getNote(id) {
 }
 
 function setNote(id, text) {
-  return m.request({
-    background: true,
-    method: 'POST',
+  $.ajax({
     url: noteUrl(id),
+    method: 'post',
     data: {
       text: text
     },
-    config: xhrConfig
+    headers: headers
   });
 }
 

@@ -1,4 +1,4 @@
-var m = require('mithril');
+var m = require('mithril/hyperscript');
 var moderationView = require('./moderation').view;
 var discussionView = require('./discussion').view;
 var noteView = require('./note').view;
@@ -12,7 +12,9 @@ function tabName(ctrl, t) {
           type: 'checkbox',
           class: 'toggle_chat',
           title: ctrl.trans('toggleTheChat'),
-          onchange: m.withAttr('checked', ctrl.setEnabled),
+          onchange: function(e) {
+            ctrl.setEnabled(e.currentTarget.checked);
+          },
           checked: ctrl.vm.enabled()
         })
       ];

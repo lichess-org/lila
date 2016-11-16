@@ -1,4 +1,4 @@
-var m = require('mithril');
+var redraw = require('mithril/redraw').publish;
 var prop = require("mithril/stream")
 var makeModeration = require('./moderation').ctrl;
 var makeNote = require('./note').ctrl;
@@ -37,20 +37,20 @@ module.exports = function(opts) {
       if (l.u === username) l.d = true;
     });
     if (username.toLowerCase() === data.userId) vm.isTimeout(true);
-    m.redraw();
+    redraw();
   };
 
   var onReinstate = function(userId) {
     if (userId === data.userId) {
       vm.isTimeout(false);
-      m.redraw();
+      redraw();
     }
   };
 
   var onMessage = function(line) {
     if (data.lines.length > 64) data.lines.shift();
     data.lines.push(line);
-    m.redraw();
+    redraw();
   };
 
   var trans = lichess.trans(opts.i18n);
@@ -73,7 +73,7 @@ module.exports = function(opts) {
 
   var setWriteable = function(v) {
     vm.writeable(v);
-    m.redraw();
+    redraw();
   };
 
   lichess.pubsub.on('socket.in.message', onMessage);
@@ -93,6 +93,7 @@ module.exports = function(opts) {
       vm.enabled(v);
       if (!v) lichess.storage.set('nochat', 1);
       else lichess.storage.remove('nochat');
+      console.log(vm.enabled());
     }
   };
 };

@@ -1,5 +1,7 @@
-var m = require('mithril');
+var m = require('mithril/hyperscript');
 var prop = require("mithril/stream")
+var trust = require('mithril/render/trust');
+var redraw = require('mithril/redraw').publish;
 var xhr = require('./xhr');
 
 module.exports = {
@@ -18,7 +20,7 @@ module.exports = {
       fetch: function() {
         xhr.getNote(id).then(function(t) {
           vm.text(t || '');
-          m.redraw();
+          redraw();
         });
       },
       post: function(text) {
@@ -33,7 +35,7 @@ module.exports = {
       oncreate: function(vnode) {
         ctrl.fetch();
       }
-    }, m.trust(lichess.spinnerHtml));
+    }, trust(lichess.spinnerHtml));
     return m('textarea', {
       placeholder: ctrl.trans('typePrivateNotesHere'),
       oncreate: function(vnode) {
