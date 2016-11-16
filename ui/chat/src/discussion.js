@@ -28,9 +28,8 @@ function renderLine(ctrl) {
       'data-username': line.u
     }, [
       ctrl.vm.isMod ? moderationView.lineAction() : null,
-      m.trust(
-        $.userLinkLimit(line.u, 14) + line.html
-      )
+      m.trust($.userLinkLimit(line.u, 14)),
+      line.html
     ]);
   };
 }
