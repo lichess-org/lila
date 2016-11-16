@@ -215,7 +215,7 @@ module.exports = {
   onbeforeupdate: function(vnode) {
     var ctrl = vnode.state.ctrl;
     var d = ctrl.data;
-    var hash = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
+    var hash = ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.ply + ctrl.vm.flip;
     if (vnode.state.hash === hash) return false;
     vnode.state.hash = hash;
   },
