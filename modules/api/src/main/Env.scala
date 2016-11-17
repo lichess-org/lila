@@ -96,17 +96,18 @@ final class Env(
     gameCache = gameCache)
 
   val userGameApi = new UserGameApi(
-    bookmarkApi = bookmarkApi)
+    bookmarkApi = bookmarkApi,
+    lightUser = userEnv.lightUser)
 
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
-      jsonView = roundJsonView,
-      noteApi = noteApi,
-      forecastApi = forecastApi,
-      bookmarkApi = bookmarkApi,
-      getTourAndRanks = getTourAndRanks,
-      getSimul = getSimul,
-      lightUser = userEnv.lightUser),
+    jsonView = roundJsonView,
+    noteApi = noteApi,
+    forecastApi = forecastApi,
+    bookmarkApi = bookmarkApi,
+    getTourAndRanks = getTourAndRanks,
+    getSimul = getSimul,
+    lightUser = userEnv.lightUser),
     system = system,
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
