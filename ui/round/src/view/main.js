@@ -21,7 +21,7 @@ function materialTag(role) {
 function renderMaterial(ctrl, material, checks, score) {
   var children = [];
   if (score || score === 0)
-    children.push(vn('score', undefined, undefined, undefined, score > 0 ? '+' + score : score));
+    children.push(vn('score', 'score', undefined, undefined, score > 0 ? '+' + score : score));
   for (var role in material) {
     var piece = materialTag(role);
     var count = material[role];
@@ -31,11 +31,10 @@ function renderMaterial(ctrl, material, checks, score) {
       content = [];
       for (var i = 0; i < count; i++) content.push(piece);
     }
-    children.push(vn('tomb', undefined, undefined, content));
+    children.push(vn('tomb', role, undefined, content));
   }
-  for (var i = 0; i < checks; i++) {
-    children.push(m('tomb', m('mono-piece.king[title=Check]')));
-  }
+  for (var i = 0; i < checks; i++)
+    children.push(vn('tomb', 'check', undefined, [m('mono-piece.king[title=Check]')]));
   return vn('div', undefined, {
     class: 'cemetery'
   }, children);
