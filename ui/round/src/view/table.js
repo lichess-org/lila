@@ -70,8 +70,7 @@ function renderTableEnd(ctrl) {
   ]);
   return [
     renderReplay(ctrl),
-    buttons ? controlButtons(buttons) : null,
-    renderPlayer(ctrl, bottomPlayer(ctrl))
+    buttons ? controlButtons(buttons) : null
   ];
 }
 
@@ -79,8 +78,7 @@ function renderTableWatch(ctrl) {
   var buttons = compact(spinning(ctrl) || button.watcherFollowUp(ctrl));
   return [
     renderReplay(ctrl),
-    buttons ? controlButtons(buttons) : null,
-    renderPlayer(ctrl, bottomPlayer(ctrl))
+    buttons ? controlButtons(buttons) : null
   ];
 }
 
@@ -109,15 +107,16 @@ function renderTablePlay(ctrl) {
         ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
-    buttons ? controlButtons(buttons) : null,
-    renderPlayer(ctrl, bottomPlayer(ctrl))
+    buttons ? controlButtons(buttons) : null
   ];
 }
 
 function whosTurn(ctrl, color) {
   var d = ctrl.data;
   if (status.finished(d) || status.aborted(d)) return;
-  return m('div.whos_turn',
+  return m('div.whos_turn', {
+      key: 'clock-' + color,
+    },
     d.game.player === color ? (
       d.player.spectator ? ctrl.trans.noarg(d.game.player + 'Plays') : ctrl.trans.noarg(
         d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
@@ -153,7 +152,7 @@ function renderClock(ctrl, position) {
   var isPlayer = ctrl.data.player.color === player.color;
   return vn(
     'div',
-    undefined, {
+    'clock-' + player.color, {
       class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
         'outoftime': !time,
         'running': running,
@@ -194,15 +193,19 @@ function anyClock(ctrl, position) {
 
 module.exports = function(ctrl) {
   var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
-  return m('div.table_wrap', [
+  var inner = ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+    game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+  );
+  return vn('div', undefined, {
+    class: 'table_wrap'
+  }, [
     anyClock(ctrl, 'top'),
-    m('div', {
+    vn('div', 'table', {
       class: 'table'
     }, [
       renderPlayer(ctrl, topPlayer(ctrl)),
-      ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-      )
+      vn('[', 'inner', undefined, inner),
+      renderPlayer(ctrl, bottomPlayer(ctrl))
     ]),
     anyClock(ctrl, 'bottom')
   ]);

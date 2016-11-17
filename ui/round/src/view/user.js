@@ -34,6 +34,10 @@ function aiName(ctrl, player) {
   return aiNameCache[player.ai];
 }
 
+function playerKey(player) {
+  return 'player-' + player.color;
+}
+
 module.exports = {
   userHtml: function(ctrl, player) {
     var d = ctrl.data;
@@ -45,7 +49,7 @@ module.exports = {
       var fullName = (user.title ? user.title + ' ' : '') + user.username;
       var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
       var isMe = ctrl.userId === user.id;
-      return vn('div', 'user-' + player.color, {
+      return vn('div', playerKey(player), {
         class: 'username user_link ' + player.color + ' ' +
           (player.onGame ? 'online' : 'offline') +
           (fullName.length > 20 ? ' long' : '') +
@@ -69,7 +73,7 @@ module.exports = {
       ]);
     }
     var connecting = !player.onGame && ctrl.vm.firstSeconds;
-    return vn('div', 'user-' + player.color, {
+    return vn('div', playerKey(player), {
       class: 'username user_link ' +
         (player.onGame ? 'online' : 'offline') +
         (connecting ? ' connecting' : ''),
@@ -92,7 +96,7 @@ module.exports = {
     else return 'Anonymous';
   },
   aiHtml: function(ctrl, player) {
-    return vn('div', 'user-' + player.color, {
+    return vn('div', playerKey(player), {
       class: 'username user_link online',
     }, [
       vn('i', undefined, {
