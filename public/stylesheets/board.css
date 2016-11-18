@@ -516,6 +516,7 @@ div.table {
   -ms-user-select: none;
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-start;
   align-content: flex-start;
 }
 .variant_crazyhouse .lichess_ground .replay .moves {
