@@ -10,8 +10,8 @@ import lila.game.{ Game, Player, GameRepo, Source, Pov }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 import scala.concurrent._
 import scala.util.Random
 
@@ -107,20 +107,27 @@ final class AssessApi(
     })
   }
 
-  def assessUser(userId: String): Funit =
+  def assessUser(userId: String): Funit = {
     getPlayerAggregateAssessment(userId) flatMap {
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
-          modApi.autoAdjust(userId)
-        case AccountAction.Report(reason) =>
+          UserRepo.getTitle(userId).flatMap {
+            case None => modApi.autoAdjust(userId)
+            case Some(title) => fuccess {
+              val reason = s"Would mark as engine, but has a $title title"
+              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+            }
+          }
+        case AccountAction.Report(reason) => fuccess {
           reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
-          funit
+        }
         case AccountAction.Nothing =>
           // reporter ! lila.hub.actorApi.report.Clean(userId)
           funit
       }
       case none => funit
     }
+  }
 
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
 

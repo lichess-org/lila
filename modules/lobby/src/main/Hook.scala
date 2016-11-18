@@ -90,7 +90,7 @@ object Hook {
     sid: Option[String],
     ratingRange: RatingRange,
     blocking: Set[String]): Hook = new Hook(
-    id = Random nextStringUppercase idSize,
+    id = Random nextString idSize,
     uid = uid,
     variant = variant.id,
     clock = clock,

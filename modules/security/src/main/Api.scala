@@ -51,7 +51,7 @@ final class Api(
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>
-        val sessionId = Random nextStringUppercase 12
+        val sessionId = Random secureString 12
         Store.save(sessionId, userId, req, apiVersion) inject sessionId
     }
 

@@ -61,7 +61,7 @@ object Report {
     reason: Reason,
     text: String,
     createdBy: User): Report = new Report(
-    _id = Random nextStringUppercase 8,
+    _id = Random nextString 8,
     user = user.id,
     reason = reason.name,
     text = text,

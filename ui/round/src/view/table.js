@@ -35,15 +35,11 @@ function compact(x) {
 }
 
 function renderPlayer(ctrl, player) {
-  return player.ai ? m('div.username',
-    m('span.user_link.online', [
+  return player.ai ? m('div.username.user_link.online', [
       m('i.line'),
       m('name', renderUser.aiName(ctrl, player))
-    ])) : m('div', {
-      class: 'username ' + player.color
-    },
-    renderUser.userHtml(ctrl, player)
-  );
+    ]) :
+    renderUser.userHtml(ctrl, player);
 }
 
 function isSpinning(ctrl) {

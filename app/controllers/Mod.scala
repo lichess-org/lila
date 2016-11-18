@@ -97,7 +97,7 @@ object Mod extends LilaController {
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
         Env.mod.jsonView(user) flatMap {
-          case None       => NotFound.fuccess
+          case None => NotFound.fuccess
           case Some(data) => Env.mod.userHistory(user) map { history =>
             Ok(data + ("history" -> history))
           }
@@ -137,7 +137,8 @@ object Mod extends LilaController {
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-          fuccess((ratio * 100).toInt)
+          if (ratio < 0) fufail(s"Error code $ratio")
+          else fuccess((ratio * 100).toInt)
         }
       }.addEffects(
         fail = _ => lila.mon.security.proxy.request.failure(),

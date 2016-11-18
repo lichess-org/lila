@@ -26,7 +26,7 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.6"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "5.7"
   val config = "com.typesafe" % "config" % "1.3.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.4"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
@@ -65,5 +65,6 @@ object Dependencies {
     val version = "0.6.3"
     val core = "io.kamon" %% "kamon-core" % version
     val statsd = "io.kamon" %% "kamon-statsd" % version
+    val influxdb = "io.kamon" %% "kamon-influxdb" % version
   }
 }

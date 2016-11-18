@@ -22,6 +22,7 @@ module.exports = {
     var active = {}; // recently active contributors
     var online = {}; // userId -> bool
     var spectatorIds = [];
+    var max = 30;
 
     var owner = function() {
       return dict()[ownerId];
@@ -91,6 +92,7 @@ module.exports = {
       myMember: myMember,
       isOwner: isOwner,
       canContribute: canContribute,
+      max: max,
       setRole: function(id, role) {
         setActive(id);
         send("setRole", {
@@ -214,6 +216,8 @@ module.exports = {
       ]);
     };
 
+    var ordered = ctrl.members.ordered();
+
     return [
       m('div', {
         key: 'members',
@@ -222,7 +226,7 @@ module.exports = {
           lichess.pubsub.emit('content_loaded')();
         }
       }, [
-        ctrl.members.ordered().map(function(member) {
+        ordered.map(function(member) {
           var confing = ctrl.members.confing() === member.user.id;
           return [
             m('div', {
@@ -238,7 +242,7 @@ module.exports = {
             confing ? memberConfig(member) : null
           ];
         }),
-        isOwner ? m('div', {
+        (isOwner && ordered.length < ctrl.members.max) ? m('div', {
             key: 'invite-someone',
             class: 'elem member add',
             config: util.bindOnce('click', ctrl.members.inviteForm.toggle)

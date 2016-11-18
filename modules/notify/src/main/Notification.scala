@@ -28,7 +28,7 @@ object Notification {
 
   def make(notifies: Notification.Notifies, content: NotificationContent): Notification = {
     val idSize = 8
-    val id = Random nextStringUppercase idSize
+    val id = Random nextString idSize
     new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
   }
 }

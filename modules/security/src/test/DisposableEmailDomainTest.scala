@@ -14,6 +14,8 @@ class DisposableEmailDomainTest extends Specification {
       d("hotmail.com") must beFalse
       d("live.com") must beFalse
       d("docmail.cz") must beTrue
+      d("DoCmAiL.cz") must beTrue
+      d("chacuo.net") must beTrue
     }
     "suffix" in {
       d("foo.some.randomgoodemail.org") must beFalse

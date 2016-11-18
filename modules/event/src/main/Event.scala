@@ -40,7 +40,7 @@ case class Event(
 
 object Event {
 
-  def makeId = ornicar.scalalib.Random nextStringUppercase 8
+  def makeId = ornicar.scalalib.Random nextString 8
 
   case class UserId(value: String) extends AnyVal
 }

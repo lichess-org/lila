@@ -77,7 +77,7 @@ object Post {
     hidden: Boolean): Post = {
 
     Post(
-      _id = Random nextStringUppercase idSize,
+      _id = Random nextString idSize,
       topicId = topicId,
       author = author,
       userId = userId,

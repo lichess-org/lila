@@ -204,19 +204,22 @@ function show(ctrl) {
     var moves = data.moves;
     if (moves.length) lastShow = m('div.data', [
       showTablebase(ctrl, 'Winning', moves.filter(function(move) {
-        return move.real_wdl === -2;
+        return move.wdl === -2;
+      }), data.fen),
+      showTablebase(ctrl, 'Unknown', moves.filter(function(move) {
+        return move.wdl === null;
       }), data.fen),
       showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === -1;
+        return move.wdl === -1;
       }), data.fen),
       showTablebase(ctrl, 'Drawn', moves.filter(function(move) {
-        return move.real_wdl === 0;
+        return move.wdl === 0;
       }), data.fen),
       showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === 1;
+        return move.wdl === 1;
       }), data.fen),
       showTablebase(ctrl, 'Losing', moves.filter(function(move) {
-        return move.real_wdl === 2;
+        return move.wdl === 2;
       }), data.fen)
     ])
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')

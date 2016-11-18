@@ -16,7 +16,7 @@ private[site] final class ApiSocketHandler(
 
   def apply: Fu[JsSocketHandler] = {
 
-    val uid = Random nextStringUppercase 8
+    val uid = Random secureString 8
 
     def controller(member: SocketMember): Handler.Controller = {
       case ("startWatching", o) => o str "d" foreach { ids =>

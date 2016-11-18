@@ -19,6 +19,7 @@ lichess.advantageChart = function(data) {
               if (node.eval.mate < 0) y = -y;
             } else if (node.san.indexOf('#') > 0) {
               y = 100 * (node.ply % 2 === 1 ? max : -max);
+              if (d.game.variant.key === 'antichess') y = -y;
             }
             var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = node.ply % 2 === 1 ? '.' : '...';

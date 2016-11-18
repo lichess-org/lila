@@ -48,6 +48,9 @@ private[controllers] trait LilaController
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
   )
+  protected def NoIframe(res: Result): Result = res.withHeaders(
+    "X-Frame-Options" -> "SAMEORIGIN"
+  )
 
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
     WebSocket.tryAccept[A] { req =>

@@ -82,5 +82,5 @@ case class Comment(
 
 object Comment {
 
-  def makeId = ornicar.scalalib.Random nextStringUppercase 8
+  def makeId = ornicar.scalalib.Random nextString 8
 }

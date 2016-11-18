@@ -62,17 +62,18 @@ private final class CorresAlarm(coll: Coll) extends Actor {
     case move: lila.hub.actorApi.round.MoveEvent if move.alarmable =>
       GameRepo game move.gameId flatMap {
         _ ?? { game =>
-          game.playableCorrespondenceClock ?? { clock =>
-            val remainingTime = clock remainingTime game.turnColor
-            // val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 9 / 10)
-            val ringsAt = DateTime.now.plusSeconds(5)
-            coll.update(
-              $id(game.id),
-              Alarm(
-                _id = game.id,
-                ringsAt = ringsAt,
-                expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)),
-              upsert = true).void
+          game.bothPlayersHaveMoved ?? {
+            game.playableCorrespondenceClock ?? { clock =>
+              val remainingTime = clock remainingTime game.turnColor
+              val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 9 / 10)
+              coll.update(
+                $id(game.id),
+                Alarm(
+                  _id = game.id,
+                  ringsAt = ringsAt,
+                  expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)),
+                upsert = true).void
+            }
           }
         }
       }

@@ -29,6 +29,12 @@ private[study] final class SocketHandler(
   import JsonView.shapeReader
   import lila.socket.tree.Node.openingWriter
 
+  private val InviteLimitPerUser = new lila.memo.RateLimit(
+    credits = 50,
+    duration = 24 hour,
+    name = "study invites per user",
+    key = "study_invite.user")
+
   private def controller(
     socket: ActorRef,
     studyId: Study.ID,
@@ -139,7 +145,9 @@ private[study] final class SocketHandler(
     case ("invite", o) if owner => for {
       byUserId <- member.userId
       username <- o str "d"
-    } api.invite(byUserId, studyId, username, socket)
+    } InviteLimitPerUser(byUserId, cost = 1) {
+      api.invite(byUserId, studyId, username, socket)
+    }
 
     case ("kick", o) if owner   => o str "d" foreach { api.kick(studyId, _) }
 

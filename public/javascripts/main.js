@@ -1159,7 +1159,7 @@ lichess.notifyApp = (function() {
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
 
-        return '<div><a class="user_link ulpt" href="' + url + '">' + icon + user.name + '</a>' + tvButton + '</div>';
+        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + tvButton + '</div>';
       }
     };
   })());
@@ -1733,7 +1733,7 @@ lichess.notifyApp = (function() {
         });
       };
       $('#site_header .help a.more').click(function() {
-        $.modal($(this).parent().find('div.more').clone().removeClass('none')).addClass('card');
+        $.modal($(this).parent().find('div.more')).addClass('card');
       });
       return;
     }
