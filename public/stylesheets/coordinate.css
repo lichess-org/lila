@@ -86,9 +86,9 @@ form.color .color_3 i {
   font-size: 30px;
   opacity: 0.4;
 }
+#trainer #next_coord1,
+#trainer #next_coord2,
 #trainer #next_coord0 {
-  #trainer #next_coord1,
-  #trainer #next_coord2,
   -webkit-user-select: none;
   -moz-user-select: none;
 }
