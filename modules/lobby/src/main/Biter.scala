@@ -27,7 +27,12 @@ private[lobby] object Biter {
       blame(creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← GameRepo insertDenormalized game
-  } yield JoinHook(uid, hook, game, creatorColor)
+  } yield {
+    lila.mon.lobby.hook.join()
+    if (hook.realMode.rated)
+      lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
+    JoinHook(uid, hook, game, creatorColor)
+  }
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] = for {
     user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
