@@ -141,7 +141,7 @@ object Schedule {
       case (Daily | Eastern, Standard, Blitz)         => 120
       case (Daily | Eastern, _, Classical)            => 150
 
-      case (Daily | Eastern, Crazyhouse, Blitz)       => 120
+      case (Daily | Eastern, Crazyhouse, Blitz)       => 87 // end early for bullet.
       case (Daily | Eastern, _, Blitz)                => 60 // variant daily is shorter
 
       case (Weekly, _, HyperBullet | Bullet)          => 60 * 2
@@ -174,7 +174,8 @@ object Schedule {
 
   private val standardIncHours = Set(1, 7, 13, 19)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
+  private def evenHour(s: Schedule) = s.at.getHourOfDay % 2 == 0
+  private def evenDay(s: Schedule) = s.at.getDayOfYear % 2 == 0
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
@@ -184,15 +185,16 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
+      case (Hourly, Standard, Blitz) if standardInc(s)       => TC(3 * 60, 2)
+      case (Hourly, Crazyhouse, SuperBlitz) if evenHour(s)   => TC(3 * 60, 1)
+      case (Hourly, Crazyhouse, Blitz) if evenHour(s)        => TC(4 * 60, 2)
+      case (Daily | Weekly, Crazyhouse, Blitz) if evenDay(s) => TC(5 * 60, 2)
 
-      case (_, _, HyperBullet)                          => TC(30, 0)
-      case (_, _, Bullet)                               => TC(60, 0)
-      case (_, _, SuperBlitz)                           => TC(3 * 60, 0)
-      case (_, _, Blitz)                                => TC(5 * 60, 0)
-      case (_, _, Classical)                            => TC(10 * 60, 0)
+      case (_, _, HyperBullet)                               => TC(30, 0)
+      case (_, _, Bullet)                                    => TC(60, 0)
+      case (_, _, SuperBlitz)                                => TC(3 * 60, 0)
+      case (_, _, Blitz)                                     => TC(5 * 60, 0)
+      case (_, _, Classical)                                 => TC(10 * 60, 0)
     }
   }
 
