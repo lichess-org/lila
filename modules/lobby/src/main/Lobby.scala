@@ -66,7 +66,6 @@ private[lobby] final class Lobby(
     }
 
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
-      lila.mon.lobby.hook.join()
       HookRepo byId hookId foreach { hook =>
         HookRepo byUid uid foreach remove
         Biter(hook, uid, user) pipeTo self

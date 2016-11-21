@@ -49,7 +49,7 @@ object KamonPusher {
 
 import com.typesafe.config.Config
 import kamon.metric.{ MetricKey, Entity }
-import kamon.statsd._
+import kamon.statsd.SimpleMetricKeyGenerator
 
 // don't replace . with _
 // replace / with .

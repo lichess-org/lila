@@ -59,6 +59,8 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
+      def acceptedRatedClock(clock: String) =
+        inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
     }
     object seek {
       val create = inc("lobby.seek.create")
