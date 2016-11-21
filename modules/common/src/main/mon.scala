@@ -386,6 +386,7 @@ object mon {
         def endgameTime = incX(s"fishnet.analysis.total.endgame.time.$client")
       }
       val post = rec("fishnet.analysis.post")
+      val requestCount = inc("fishnet.analysis.request")
     }
   }
   object api {
