@@ -66,5 +66,13 @@ object JsData extends lila.Steroids {
           Json.arr(r.puzzleId, r.ratingDiff, r.rating)
         }
       )
+    },
+    "difficulty" -> ctx.isAuth.option {
+      Json.obj(
+        "choices" -> Json.arr(
+          Json.arr(2, trans.difficultyNormal.str())
+        ),
+        "current" -> 2
+      )
     })
 }
