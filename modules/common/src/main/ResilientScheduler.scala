@@ -32,7 +32,7 @@ object ResilientScheduler {
           logger error msg
           throw new RuntimeException(msg)
 
-        case Tick => f andThen scheduleNext
+        case Tick => f >>- scheduleNext
       }
     }))
   }
