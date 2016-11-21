@@ -69,7 +69,7 @@ module.exports = function(root, opts, allow) {
   }, false);
 
   var fetch = function(fen) {
-    var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960';
+    var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960' || effectiveVariant === 'atomic';
     if (hasTablebase && withGames && tablebaseRelevant(fen)) fetchTablebase(fen);
     else fetchOpening(fen);
   };
