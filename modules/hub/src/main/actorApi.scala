@@ -37,8 +37,6 @@ case class Exists(id: String)
 
 case class WithUserIds(f: Iterable[String] => Unit)
 
-case object GetUids
-case class SocketUids(uids: Set[String])
 case class HasUserId(userId: String)
 
 package report {

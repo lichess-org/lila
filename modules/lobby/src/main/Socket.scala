@@ -53,6 +53,8 @@ private[lobby] final class Socket(
       }
     }
 
+    case GetUids => sender ! SocketUids(members.keySet.toSet)
+
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, blocks, uid, mobile)
