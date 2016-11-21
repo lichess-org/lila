@@ -1157,7 +1157,7 @@ lichess.notifyApp = (function() {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
         var name = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
         var url = '/@/' + name;
-        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+        var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
 
         return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + tvButton + '</div>';
       }
