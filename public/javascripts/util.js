@@ -233,13 +233,17 @@ lichess.desktopNotification = (function() {
   window.addEventListener('blur', function() {
     isPageVisible = false;
   });
-  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-  window.addEventListener('focus', function() {
-    isPageVisible = true;
+  var closeAll = function() {
     notifications.forEach(function(n) {
       n.close();
     });
     notifications = [];
+  };
+  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+  window.addEventListener('focus', function() {
+    isPageVisible = true;
+    closeAll();
+    setTimeout(closeAll, 2000);
   });
   var storage = lichess.storage.make('just-notified');
   var clearStorageSoon = function() {
@@ -258,8 +262,9 @@ lichess.desktopNotification = (function() {
     });
     notification.onclick = function() {
       window.focus();
-    }
+    };
     notifications.push(notification);
+    if (isPageVisible) setTimeout(closeAll, 2000);
   };
   var notify = function(msg) {
     // increase chances that the first tab can put a local storage lock
