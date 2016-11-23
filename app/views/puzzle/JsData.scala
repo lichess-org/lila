@@ -3,6 +3,7 @@ package views.html.puzzle
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.api.Context
+import lila.common.PimpedJson._
 import lila.app.templating.Environment._
 import lila.puzzle._
 
@@ -62,18 +63,18 @@ object JsData extends lila.Steroids {
     "user" -> userInfos.map { i =>
       Json.obj(
         "rating" -> i.user.perfs.puzzle.intRating,
-        "history" -> i.history.map(_.rating), // for mobile BC
+        "history" -> ctx.isMobileApi.option(i.history.map(_.rating)), // for mobile BC
         "recent" -> i.history.map { r =>
           Json.arr(r.puzzleId, r.ratingDiff, r.rating)
         }
-      )
+      ).noNull
     },
-    "difficulty" -> ctx.isAuth.option {
+    "difficulty" -> (ctx.isAuth && ctx.isMobileApi).option {
       Json.obj(
         "choices" -> Json.arr(
           Json.arr(2, trans.difficultyNormal.str())
         ),
         "current" -> 2
       )
-    })
+    }).noNull
 }
