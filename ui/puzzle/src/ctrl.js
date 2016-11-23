@@ -184,7 +184,7 @@ module.exports = function(cfg, i18n) {
   }.bind(this);
 
   this.userHistoryHash = function() {
-    return this.data.user.history.reduce(function(h, r) {
+    return this.data.user.recent.reduce(function(h, r) {
       return h + r[0];
     }, '');
   }

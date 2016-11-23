@@ -62,7 +62,8 @@ object JsData extends lila.Steroids {
     "user" -> userInfos.map { i =>
       Json.obj(
         "rating" -> i.user.perfs.puzzle.intRating,
-        "history" -> i.history.map { r =>
+        "history" -> i.history.map(_.rating), // for mobile BC
+        "recent" -> i.history.map { r =>
           Json.arr(r.puzzleId, r.ratingDiff, r.rating)
         }
       )

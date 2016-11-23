@@ -125,7 +125,7 @@ object Puzzle extends LilaController {
         case (p, a) =>
           if (vote == 1) lila.mon.puzzle.vote.up()
           else lila.mon.puzzle.vote.down()
-          Ok(play.api.libs.json.Json.arr(a.value, p.vote.sum))
+          Ok(Json.arr(a.value, p.vote.sum))
       }
     ) map (_ as JSON)
   }

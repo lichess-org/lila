@@ -16,13 +16,13 @@ function renderUserInfos(ctrl) {
   var d = ctrl.data;
   return m('div.chart_container', [
     m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(d.user.rating)))),
-    d.user.history ? m('div.user_chart', {
+    d.user.recent ? m('div.user_chart', {
       config: function(el, isUpdate, ctx) {
         var hash = ctrl.userHistoryHash();
         if (hash == ctx.hash) return;
         ctx.hash = hash;
         var dark = document.body.classList.contains('dark');
-        var points = d.user.history.map(function(r) {
+        var points = d.user.recent.map(function(r) {
           return r[2] + r[1];
         });
         jQuery(el).sparkline(points, {
@@ -247,7 +247,7 @@ function renderFooter(ctrl) {
 function renderHistory(ctrl) {
   var d = ctrl.data;
   var slots = [];
-  for (var i = 0; i < historySize; i++) slots[i] = d.user.history[i] || null;
+  for (var i = 0; i < historySize; i++) slots[i] = d.user.recent[i] || null;
   return m('div.history', [
     m('div.timeline', [
       slots.map(function(s) {
