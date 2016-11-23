@@ -1,6 +1,7 @@
 package lila.lobby
 
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -8,8 +9,6 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.db.dsl._
 import lila.game.GameRepo
-import lila.hub.actorApi.{ GetUids, SocketUids }
-import lila.socket.actorApi.Broom
 import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
@@ -97,17 +96,18 @@ private[lobby] final class Lobby(
         socket ! RemoveSeek(seek.id)
       }
 
-    case Broom =>
+    case Lobby.Tick(promise) =>
       HookRepo.truncateIfNeeded
-      implicit val timeout = makeTimeout seconds 1
+      implicit val timeout = makeTimeout seconds 5
       (socket ? GetUids mapTo manifest[SocketUids]).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
         .logFailure(logger, err => s"broom cannot get uids from socket: $err")
+        .map { Lobby.WithPromise(_, promise) }
         .pipeTo(self)
 
-    case SocketUids(uids) =>
+    case Lobby.WithPromise(SocketUids(uids), promise) =>
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
         (HookRepo notInUids uids).filter {
@@ -122,6 +122,7 @@ private[lobby] final class Lobby(
       }
       lila.mon.lobby.socket.member(uids.size)
       lila.mon.lobby.hook.size(HookRepo.size)
+      promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
 
@@ -167,6 +168,10 @@ private[lobby] final class Lobby(
 
 private object Lobby {
 
+  private case class Tick(promise: Promise[Unit])
+
+  private case class WithPromise[A](value: A, promise: Promise[Unit])
+
   def start(
     system: ActorSystem,
     name: String,
@@ -174,8 +179,18 @@ private object Lobby {
     resyncIdsPeriod: FiniteDuration)(instance: => Actor) = {
 
     val ref = system.actorOf(Props(instance), name = name)
-    system.scheduler.schedule(5 seconds, broomPeriod, ref, lila.socket.actorApi.Broom)
-    system.scheduler.schedule(10 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    system.scheduler.scheduleOnce(7 seconds) {
+      lila.common.ResilientScheduler(
+        every = broomPeriod,
+        atMost = 10 seconds,
+        system = system,
+        logger = logger) {
+        val promise = Promise[Unit]()
+        ref ! Tick(promise)
+        promise.future
+      }
+    }
     ref
   }
 }

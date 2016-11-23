@@ -10,7 +10,7 @@ import play.twirl.api.Html
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.{ Deploy, GetUids, SocketUids, HasUserId }
+import lila.hub.actorApi.{ Deploy, HasUserId }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -52,8 +52,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     // when a member quits
     case Quit(uid)         => quit(uid)
-
-    case GetUids           => sender ! SocketUids(members.keySet.toSet)
 
     case HasUserId(userId) => sender ! members.values.exists(_.userId.contains(userId))
 

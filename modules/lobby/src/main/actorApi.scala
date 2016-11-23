@@ -70,6 +70,9 @@ private[lobby] case class HookIds(ids: Vector[String])
 
 private[lobby] case class SetIdle(uid: String, value: Boolean)
 
+private[lobby] case object GetUids
+private[lobby] case class SocketUids(uids: Set[String])
+
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
 case class HooksFor(user: Option[User])

@@ -141,7 +141,7 @@ object Schedule {
       case (Daily | Eastern, Standard, Blitz)         => 120
       case (Daily | Eastern, _, Classical)            => 150
 
-      case (Daily | Eastern, Crazyhouse, Blitz)       => 120
+      case (Daily | Eastern, Crazyhouse, Blitz)       => 90
       case (Daily | Eastern, _, Blitz)                => 60 // variant daily is shorter
 
       case (Weekly, _, HyperBullet | Bullet)          => 60 * 2
