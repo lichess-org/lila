@@ -50,7 +50,8 @@ module.exports = function(worker, opts) {
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
       emit();
-      if (stopped) stopped.resolve(true);
+      if (!stopped) stopped = m.deferred();
+      stopped.resolve(true);
       return;
     }
     if (!work) return;
