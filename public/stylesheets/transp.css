@@ -1,6 +1,6 @@
 body.transp {
   background-color: #1a1a1a;
-  color: #ccc;
+  color: #ddd;
 }
 body.transp a,
 body.transp a:visited,
@@ -14,6 +14,7 @@ body.transp div.analysis_menu > a.active,
 body.transp div.chat_menu > a,
 body.transp div.current_player div.player p,
 body.transp div.vstext,
+body.transp .tview2 move,
 body.transp #lichess_forum div.post .message,
 body.transp #lichess_blog {
   color: #ccc;
@@ -31,6 +32,7 @@ body.transp::before {
   will-change: transform;
   z-index: -1;
 }
+body.transp #timeline,
 body.dark .tview2,
 body.transp div.training .box,
 body.transp div.side_box,
@@ -74,7 +76,7 @@ body.transp #powerTip,
 body.transp .study_comment_form .material.form .form-group textarea,
 body.transp div.vstext,
 body.transp .action_menu {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
 }
 body.transp #board_editor,
 body.transp #video .content_box_top form input,
@@ -177,9 +179,7 @@ body.transp table.slist thead {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
 }
 body.transp #timeline {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 4px;
-  width: 224px;
+  padding-left: 7px;
   box-sizing: border-box;
 }
 body.transp div.lichess_board,
