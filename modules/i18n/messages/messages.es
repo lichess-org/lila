@@ -150,7 +150,6 @@ giveNbSeconds=Dar %s segundos
 premoveEnabledClickAnywhereToCancel=Pre-jugada activada - Hacer clic en cualquier lugar para cancelar
 thisPlayerUsesChessComputerAssistance=Este jugador usa un motor de ajedrez
 thisPlayerArtificiallyIncreasesTheirRating=Este jugador incrementa/disminuye artificialmente su puntuación
-opening=Apertura
 openingExplorer=Explorador de aperturas y base de datos de finales
 takeback=Deshacer jugada
 proposeATakeback=Proponer deshacer jugada
