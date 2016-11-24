@@ -81,23 +81,20 @@ private[puzzle] final class PuzzleApi(
 
     def add(l: Learning) = learningColl insert l void
 
-    def update(user: User, puzzle: Puzzle, data: DataForm.RoundData) =
-      if (data.isWin) solved(user, puzzle.id) else failed(user, puzzle.id)
+    def update(user: User, puzzle: Puzzle, data: DataForm.RoundData): Fu[Boolean] =
+      if (data.isWin) solved(user, puzzle.id)
+      else failed(user, puzzle.id)
 
-    def solved(user: User, puzzleId: PuzzleId) = learning find user flatMap {
-      case None => fuccess(none)
+    def solved(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
+      case None => fuccess(false)
       case Some(l) =>
-        learningColl.update(
-          $id(l.id),
-          l solved puzzleId)
+        learningColl.update($id(l.id), l solved puzzleId) inject l.contains(puzzleId)
     }
 
-    def failed(user: User, puzzleId: PuzzleId) = learning find user flatMap {
-      case None => learning add Learning(user.id, List(puzzleId), List())
+    def failed(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
+      case None => learning add Learning(user.id, List(puzzleId), List()) inject false
       case Some(l) =>
-        learningColl.update(
-          $id(l.id),
-          l failed puzzleId)
+        learningColl.update($id(l.id), l failed puzzleId) inject l.contains(puzzleId)
     }
 
     def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {

@@ -26,4 +26,7 @@ case class Learning(
     else if (stackB contains puzzleId)
       copy(stackB = stackB.filter(puzzleId !=))
     else this
+
+  def contains(puzzleId: PuzzleId) =
+    stackA.contains(puzzleId) || stackB.contains(puzzleId)
 }
