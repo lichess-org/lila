@@ -12,8 +12,6 @@ private[puzzle] final class Selector(
     anonMinRating: Int,
     puzzleIdMin: Int) {
 
-  private def popularSelector = $doc(Puzzle.BSONFields.voteSum $gt 0)
-
   private val toleranceMax = 1000
 
   val anonSkipMax = 5000
@@ -22,7 +20,8 @@ private[puzzle] final class Selector(
     lila.mon.puzzle.selector.count()
     me match {
       case None =>
-        puzzleColl.find(popularSelector)
+        puzzleColl.find($empty)
+          .sort($sort desc "vote.sum")
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
       case Some(user) =>
