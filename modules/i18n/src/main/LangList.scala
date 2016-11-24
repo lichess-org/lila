@@ -111,7 +111,7 @@ object LangList {
     "gv" -> "Gaelg, Gailck",
     "mk" -> "македонски јази",
     "mg" -> "fiteny malagasy",
-    "ml" -> "മലയാ",
+    "ml" -> "മലയാളം",
     "mt" -> "Malti",
     "mi" -> "reo Māori",
     "mr" -> "मराठी",
