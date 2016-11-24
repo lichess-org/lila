@@ -9,7 +9,6 @@ import lila.user.User
 private[puzzle] final class Selector(
     puzzleColl: Coll,
     api: PuzzleApi,
-    anonMinRating: Int,
     puzzleIdMin: Int) {
 
   private val toleranceMax = 1000
