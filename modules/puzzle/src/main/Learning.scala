@@ -27,11 +27,3 @@ case class Learning(
       copy(stackB = stackB.filter(puzzleId !=))
     else this
 }
-
-object Learning {
-
-  import reactivemongo.bson._
-  import lila.db.BSON
-
-  implicit val learningBSONHandler = Macros.handler[Learning]
-}

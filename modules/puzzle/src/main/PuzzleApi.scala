@@ -75,6 +75,8 @@ private[puzzle] final class PuzzleApi(
 
   object learning {
 
+    private implicit val learningBSONHandler = reactivemongo.bson.Macros.handler[Learning]
+
     def find(user: User): Fu[Option[Learning]] = learningColl.byId[Learning](user.id)
 
     def add(l: Learning) = learningColl insert l void
