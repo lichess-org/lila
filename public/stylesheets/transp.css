@@ -31,6 +31,7 @@ body.transp::before {
   will-change: transform;
   z-index: -1;
 }
+body.dark .tview2,
 body.transp div.training .box,
 body.transp div.side_box,
 body.transp div.box,
