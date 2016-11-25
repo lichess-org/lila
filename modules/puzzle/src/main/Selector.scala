@@ -55,16 +55,16 @@ private[puzzle] final class Selector(
     val rating = user.perfs.puzzle.intRating min 2300 max 900
     val step = toleranceStepFor(rating)
     (api.head.find(user) zip api.puzzle.cachedLastId(true)) flatMap {
-      case (opHead, maxId) => tryRange(
-        rating = rating,
-        tolerance = step,
-        step = step,
-        last = opHead match {
+      case (opHead, maxId) =>
+        val lastId = opHead match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
           case _ => puzzleIdMin
-        },
-        idRange = 200,
-        idStep = 100)
+        }
+        tryRange(
+          rating = rating,
+          tolerance = step,
+          step = step,
+          idRange = Range(lastId, lastId + 200))
     }
   }
 
@@ -72,20 +72,19 @@ private[puzzle] final class Selector(
     rating: Int,
     tolerance: Int,
     step: Int,
-    last: PuzzleId,
-    idRange: Int,
-    idStep: Int): Fu[Option[Puzzle]] =
+    idRange: Range): Fu[Option[Puzzle]] =
     puzzleColl.find($doc(
       Puzzle.BSONFields.id $gt
-        last $lt
-        (last + idRange),
+        idRange.min $lt
+        idRange.max,
       Puzzle.BSONFields.rating $gt
         (rating - tolerance) $lt
         (rating + tolerance),
       Puzzle.BSONFields.voteSum $gt -10
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
-        tryRange(rating, tolerance + step, step, last, idRange + idStep, idStep)
+        tryRange(rating, tolerance + step, step,
+          idRange = Range(idRange.min, idRange.max + 100))
       case res => fuccess(res)
     }
 }
