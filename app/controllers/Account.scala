@@ -141,6 +141,7 @@ object Account extends LilaController {
     (UserRepo disable user) >>-
       env.onlineUserIdMemo.remove(user.id) >>
       relationEnv.api.unfollowAll(user.id) >>
+      Env.user.rankingApi.remove(user.id) >>
       Env.team.api.quitAll(user.id) >>-
       Env.challenge.api.removeByUserId(user.id) >>-
       Env.tournament.api.withdrawAll(user) >>
