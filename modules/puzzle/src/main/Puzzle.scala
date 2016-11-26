@@ -7,7 +7,7 @@ import lila.rating.Perf
 
 case class Puzzle(
     id: PuzzleId,
-    gameId: Option[String],
+    gameId: String,
     history: List[String],
     fen: String,
     lines: List[Line],
@@ -42,7 +42,7 @@ case class Puzzle(
 object Puzzle {
 
   def make(
-    gameId: Option[String],
+    gameId: String,
     history: List[String],
     fen: String,
     color: Color,
@@ -116,7 +116,7 @@ object Puzzle {
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
-      gameId = r strO gameId,
+      gameId = r str gameId,
       history = r str history split ' ' toList,
       fen = r str fen,
       lines = r.get[Lines](lines),

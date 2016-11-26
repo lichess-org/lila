@@ -3,13 +3,14 @@ package controllers
 import scala.util.{ Try, Success, Failure }
 
 import play.api.i18n.Messages.Implicits._
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.mvc._
 import play.api.Play.current
 import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
+import lila.game.GameRepo
 import lila.puzzle.PuzzleId
 import lila.puzzle.{ Generated, Puzzle => PuzzleModel, UserInfos }
 import lila.user.{ User => UserModel, UserRepo }
@@ -25,23 +26,25 @@ object Puzzle extends LilaController {
     mode: String,
     voted: Option[Boolean],
     round: Option[lila.puzzle.Round] = None,
-    win: Option[Boolean] = None)(implicit ctx: Context) = lila.puzzle.JsonView(
-    puzzle = puzzle,
-    userInfos = userInfos,
-    mode = mode,
-    animationDuration = env.AnimationDuration,
-    pref = ctx.pref,
-    isMobileApi = ctx.isMobileApi,
-    win = win,
-    voted = voted)
+    win: Option[Boolean] = None)(implicit ctx: Context): Fu[JsObject] =
+    (GameRepo game puzzle.gameId).flatten(s"Missing puzzle ${puzzle.id} game!") map { game =>
+      lila.puzzle.JsonView(
+        puzzle = puzzle,
+        game = game,
+        userInfos = userInfos,
+        mode = mode,
+        animationDuration = env.AnimationDuration,
+        pref = ctx.pref,
+        isMobileApi = ctx.isMobileApi,
+        win = win,
+        voted = voted)
+    }
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
-    env userInfos ctx.me map { infos =>
-      views.html.puzzle.show(puzzle, renderJson(
-        puzzle = puzzle,
-        userInfos = infos,
-        mode = mode,
-        voted = none))
+    env userInfos ctx.me flatMap { infos =>
+      renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
+        views.html.puzzle.show(puzzle, json)
+      }
     }
 
   def daily = Open { implicit ctx =>
@@ -74,16 +77,18 @@ object Puzzle extends LilaController {
   }
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
-    (env userInfos ctx.me) map { infos =>
+    (env userInfos ctx.me) flatMap { infos =>
       renderJson(puzzle, infos, "play", voted = none)
     }
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
-      env.selector(ctx.me) zip (env userInfos ctx.me) map {
+      env.selector(ctx.me) zip (env userInfos ctx.me) flatMap {
         case (puzzle, infos) =>
-          Ok(renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)) as JSON
+          renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none) map { json =>
+            Ok(json) as JSON
+          }
       } map (_ as JSON)
     }
   }
@@ -102,24 +107,23 @@ object Puzzle extends LilaController {
               case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
                 env.api.puzzle find id zip
                   (env userInfos me2.some) zip
-                  env.api.vote.value(id, me2) map {
-                    case ((p2, infos), voted) => Ok {
-                      renderJson(p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some)
-                    }
+                  env.api.vote.value(id, me2) flatMap {
+                    case ((p2, infos), voted) => renderJson(
+                      p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some
+                    ) map { Ok(_) }
                   }
               }
               case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
-                ctx.me.?? { env.api.vote.value(puzzle.id, _) } map {
-                  case (infos, voted) => Ok(renderJson(puzzle, infos, "view",
+                ctx.me.?? { env.api.vote.value(puzzle.id, _) } flatMap {
+                  case (infos, voted) => renderJson(puzzle, infos, "view",
                     round = oldAttempt.some,
                     win = win.some,
-                    voted = voted))
+                    voted = voted) map { Ok(_) }
                 }
             }
-          case None => fuccess {
+          case None =>
             lila.mon.puzzle.round.anon()
-            Ok(renderJson(puzzle, none, "view", win = data.isWin.some, voted = none))
-          }
+            renderJson(puzzle, none, "view", win = data.isWin.some, voted = none) map { Ok(_) }
         }
       ) map (_ as JSON)
     }

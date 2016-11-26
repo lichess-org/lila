@@ -3,12 +3,14 @@ package lila.puzzle
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.common.PimpedJson._
+import lila.game.Game
 import lila.puzzle._
 
 object JsonView {
 
   def apply(
     puzzle: Puzzle,
+    game: Game,
     userInfos: Option[UserInfos],
     mode: String,
     animationDuration: scala.concurrent.duration.Duration,

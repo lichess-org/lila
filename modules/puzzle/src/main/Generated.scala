@@ -18,7 +18,7 @@ private case class Generated(
   def colorFromFen = (Forsyth << last_pos).fold(Color.white)(!_.color)
 
   def toPuzzle: PuzzleId => Puzzle = Puzzle.make(
-    gameId = game_id.some,
+    gameId = game_id,
     history = List(last_move),
     fen = last_pos,
     color = colorFromFen,

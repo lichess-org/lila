@@ -72,7 +72,7 @@ object ApplicationBuild extends Build {
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
-    common, memo, hub, db, user, rating, pref)).settings(
+    common, memo, hub, db, user, rating, pref, tree, game)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
