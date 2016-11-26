@@ -1,5 +1,4 @@
-package lila.socket
-package tree
+package lila.tree
 
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair }

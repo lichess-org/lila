@@ -98,7 +98,7 @@ object Study extends LilaController {
               env.jsonView(study, chapters, chapter, ctx.me) zip
               env.version(study.id) flatMap {
                 case (((baseData, chat), studyJson), sVersion) =>
-                  import lila.socket.tree.Node.partitionTreeJsonWriter
+                  import lila.tree.Node.partitionTreeJsonWriter
                   val analysis = baseData ++ Json.obj(
                     "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                   val data = lila.study.JsonView.JsData(
@@ -175,7 +175,7 @@ object Study extends LilaController {
               members = lila.study.StudyMembers(Map.empty) // don't need no members
             ), List(chapter.metadata), chapter, ctx.me) flatMap {
               case (baseData, studyJson) =>
-                import lila.socket.tree.Node.partitionTreeJsonWriter
+                import lila.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
                 val data = lila.study.JsonView.JsData(

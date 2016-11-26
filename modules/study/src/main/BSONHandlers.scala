@@ -11,7 +11,7 @@ import lila.common.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.socket.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Shape, Shapes }
 
 private object BSONHandlers {
 
@@ -67,7 +67,7 @@ private object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
-  import lila.socket.tree.Node.{ Comment, Comments }
+  import lila.tree.Node.{ Comment, Comments }
   private implicit val CommentIdBSONHandler = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {

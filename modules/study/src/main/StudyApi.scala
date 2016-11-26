@@ -10,7 +10,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(

@@ -107,7 +107,7 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
       withTree(pov, analysis = none, initialFen, withOpening = true)_
 
-  import lila.socket.tree.Node.partitionTreeJsonWriter
+  import lila.tree.Node.partitionTreeJsonWriter
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,

@@ -10,7 +10,7 @@ import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.user.User
 
@@ -27,7 +27,7 @@ private final class Socket(
   import Socket._
   import JsonView._
   import jsonView.membersWrites
-  import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 

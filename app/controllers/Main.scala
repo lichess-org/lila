@@ -107,7 +107,7 @@ object Main extends LilaController {
 
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
-    import lila.socket.tree.Node.glyphWriter
+    import lila.tree.Node.glyphWriter
     Ok(Json.obj(
       "move" -> Glyph.MoveAssessment.display,
       "position" -> Glyph.PositionAssessment.display,

@@ -5,7 +5,7 @@ import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
 import chess.opening.FullOpening
 import chess.variant.Crazyhouse
 
-import lila.socket.tree.Node.{ Shape, Shapes, Comment, Comments }
+import lila.tree.Node.{ Shape, Shapes, Comment, Comments }
 import lila.user.User
 
 sealed trait RootOrNode {
@@ -183,7 +183,7 @@ object Node {
       crazyData = variant.crazyhouse option Crazyhouse.Data.init,
       children = emptyChildren)
 
-    def fromRoot(b: lila.socket.tree.Root): Root = Root(
+    def fromRoot(b: lila.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
@@ -191,7 +191,7 @@ object Node {
       children = Children(b.children.toVector map fromBranch))
   }
 
-  def fromBranch(b: lila.socket.tree.Branch): Node = Node(
+  def fromBranch(b: lila.tree.Branch): Node = Node(
     id = b.id,
     ply = b.ply,
     move = b.move,

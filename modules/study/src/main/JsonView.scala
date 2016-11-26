@@ -10,7 +10,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.Shape
+import lila.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
