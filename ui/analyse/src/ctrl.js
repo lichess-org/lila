@@ -1,8 +1,6 @@
 var chessground = require('chessground');
 var opposite = chessground.util.opposite;
-var tree = require('./tree/tree');
-var treePath = require('./tree/path');
-var treeOps = require('./tree/ops');
+var tree = require('tree');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var actionMenu = require('./actionMenu').controller;
@@ -33,7 +31,7 @@ module.exports = function(opts) {
     this.data = data;
     if (!data.game.moveTimes) this.data.game.moveTimes = [];
     this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
-    this.tree = tree(treeOps.reconstruct(this.data.treeParts));
+    this.tree = tree.build(tree.ops.reconstruct(this.data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new socket(opts.socketSend, this);
@@ -42,14 +40,14 @@ module.exports = function(opts) {
 
   initialize(opts.data);
 
-  var initialPath = treePath.root;
+  var initialPath = tree.path.root;
   if (opts.initialPly) {
-    var plyStr = opts.initialPly === 'url' ? (location.hash ? location.hash.replace(/#/, '') : treePath.root) : opts.initialPly;
-    var mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (plyStr === 'last') initialPath = treePath.fromNodeList(mainline);
+    var plyStr = opts.initialPly === 'url' ? (location.hash ? location.hash.replace(/#/, '') : tree.path.root) : opts.initialPly;
+    var mainline = tree.ops.mainlineNodeList(this.tree.root);
+    if (plyStr === 'last') initialPath = tree.path.fromNodeList(mainline);
     else {
       var ply = parseInt(plyStr);
-      if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
+      if (ply) initialPath = tree.ops.takePathWhile(mainline, function(n) {
         return n.ply <= ply;
       });
     }
@@ -76,8 +74,8 @@ module.exports = function(opts) {
   this.setPath = function(path) {
     this.vm.path = path;
     this.vm.nodeList = this.tree.getNodeList(path);
-    this.vm.node = treeOps.last(this.vm.nodeList);
-    this.vm.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.vm.node = tree.ops.last(this.vm.nodeList);
+    this.vm.mainline = tree.ops.mainlineNodeList(this.tree.root);
   }.bind(this);
 
   this.setPath(initialPath);
@@ -220,7 +218,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.mainlinePathToPly = function(ply) {
-    return treeOps.takePathWhile(this.vm.mainline, function(n) {
+    return tree.ops.takePathWhile(this.vm.mainline, function(n) {
       return n.ply <= ply;
     });
   }.bind(this);
@@ -242,7 +240,7 @@ module.exports = function(opts) {
   this.reloadData = function(data) {
     initialize(data);
     this.vm.redirecting = false;
-    this.setPath(treePath.root);
+    this.setPath(tree.path.root);
     this.ceval.destroy();
     instanciateCeval();
   }.bind(this);
@@ -346,12 +344,12 @@ module.exports = function(opts) {
   this.deleteNode = function(path) {
     var node = this.tree.nodeAtPath(path);
     if (!node) return;
-    var count = treeOps.countChildrenAndComments(node);
+    var count = tree.ops.countChildrenAndComments(node);
     if ((count.nodes >= 10 || count.comments > 0) && !confirm(
       'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
     )) return;
     this.tree.deleteNodeAt(path);
-    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
+    if (tree.path.contains(this.vm.path, path)) this.userJump(tree.path.init(path));
     else this.jump(this.vm.path);
     this.study && this.study.deleteNode(path);
   }.bind(this);
@@ -385,7 +383,7 @@ module.exports = function(opts) {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return treeOps.withMainlineChild(this.vm.node, function(n) {
+    return tree.ops.withMainlineChild(this.vm.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);

@@ -1,7 +1,7 @@
 {
-  "name": "analyse",
+  "name": "tree",
   "version": "1.0.0",
-  "description": "lichess.org analyse",
+  "description": "lichess.org moves tree",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -9,11 +9,7 @@
   },
   "keywords": [
     "chess",
-    "lichess",
-    "play",
-    "replay",
-    "analysis",
-    "study"
+    "lichess"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
@@ -31,12 +27,5 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "github:ornicar/chessground#v4.3.10",
-    "common": "file:../common",
-    "chess": "file:../chess",
-    "game": "file:../game",
-    "tree": "file:../tree",
-    "ceval": "file:../ceval",
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
 }

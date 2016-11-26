@@ -1,14 +1,14 @@
 var m = require('mithril');
-var contextMenu = require('../contextMenu');
+var contextMenu = require('./contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
-var util = require('../util');
+var util = require('./util');
 var empty = require('common').empty;
 var defined = require('common').defined;
 var game = require('game').game;
 var fixCrazySan = require('chess').fixCrazySan;
 var normalizeEval = require('chess').renderEval;
-var treePath = require('./path');
-var commentAuthorText = require('../study/studyComments').authorText;
+var treePath = require('tree').path;
+var commentAuthorText = require('./study/studyComments').authorText;
 
 var autoScroll = util.throttle(300, false, function(ctrl, el) {
   var cont = el.parentNode;
