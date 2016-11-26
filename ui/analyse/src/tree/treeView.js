@@ -141,7 +141,7 @@ function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     util.fixCrazySan(node.san),
-    (node.glyphs && (ctx.isStudy || ctx.showComputer)) ? renderGlyphs(node.glyphs) : null,
+    (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
     util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
       util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
@@ -285,7 +285,7 @@ module.exports = {
       ctrl: ctrl,
       concealOf: concealOf || emptyConcealOf,
       showComputer: ctrl.vm.showComputer(),
-      isStudy: !!ctrl.study
+      showGlyphs: !!ctrl.study || ctrl.vm.showComputer()
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,
