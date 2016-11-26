@@ -7,8 +7,6 @@ import chess.variant.Variant
 import lila.analyse.{ Analysis, Info, Advice }
 import lila.socket.tree._
 
-import play.api.libs.json._
-
 object TreeBuilder {
 
   private type Ply = Int

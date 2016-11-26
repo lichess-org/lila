@@ -327,7 +327,11 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val socket = project("socket", Seq(common, hub, memo)).settings(
+  lazy val tree = project("tree", Seq(chess)).settings(
+    libraryDependencies ++= provided(play.api)
+  )
+
+  lazy val socket = project("socket", Seq(common, hub, memo, tree)).settings(
     libraryDependencies ++= provided(play.api)
   )
 
