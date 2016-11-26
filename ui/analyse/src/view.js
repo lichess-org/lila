@@ -1,6 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var classSet = chessground.util.classSet;
+var classSet = require('common').classSet;
 var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
@@ -12,7 +12,7 @@ var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
-var cevalView = require('./ceval/cevalView');
+var cevalView = require('ceval').view;
 var crazyView = require('./crazy/crazyView');
 var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');

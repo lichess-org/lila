@@ -1,6 +1,6 @@
 var round = require('../round');
 var partial = require('chessground').util.partial;
-var classSet = require('chessground').util.classSet;
+var classSet = require('common').classSet;
 var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
 var util = require('../util');

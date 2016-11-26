@@ -1,5 +1,5 @@
 var m = require('mithril');
-var classSet = require('chessground').util.classSet;
+var classSet = require('common').classSet;
 var util = require('../util');
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');

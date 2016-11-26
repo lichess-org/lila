@@ -1,7 +1,7 @@
 {
-  "name": "game",
+  "name": "ceval",
   "version": "1.0.0",
-  "description": "lichess.org game",
+  "description": "lichess.org local computer analysis",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
+    "common": "file:../common",
     "chess": "file:../chess",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }

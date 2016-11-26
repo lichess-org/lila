@@ -1,4 +1,4 @@
-var initialFen = require('../util').initialFen;
+var initialFen = require('chess').initialFen;
 
 var eval = 15;
 

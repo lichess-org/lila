@@ -1,6 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var classSet = chessground.util.classSet;
+var classSet = require('common').classSet;
 var renderConfig = require('./explorerConfig').view;
 var util = require('../util');
 

@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var storedProp = require('../util').storedProp;
-var storedJsonProp = require('../util').storedJsonProp;
+var storedProp = require('common').storedProp;
+var storedJsonProp = require('common').storedJsonProp;
 
 module.exports = {
   controller: function(variant, onClose) {

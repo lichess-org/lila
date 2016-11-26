@@ -2,7 +2,7 @@ var m = require('mithril');
 var throttle = require('../util').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./openingXhr');
-var storedProp = require('../util').storedProp;
+var storedProp = require('common').storedProp;
 var synthetic = require('../util').synthetic;
 var replayable = require('game').game.replayable;
 

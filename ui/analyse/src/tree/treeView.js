@@ -2,8 +2,11 @@ var m = require('mithril');
 var contextMenu = require('../contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
 var util = require('../util');
-var empty = util.empty;
+var empty = require('common').empty;
+var defined = require('common').defined;
 var game = require('game').game;
+var fixCrazySan = require('chess').fixCrazySan;
+var normalizeEval = require('chess').renderEval;
 var treePath = require('./path');
 var commentAuthorText = require('../study/studyComments').authorText;
 
@@ -140,10 +143,10 @@ function renderMainlineMoveOf(ctx, node, opts) {
 function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
-    util.fixCrazySan(node.san),
+    fixCrazySan(node.san),
     (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
-    util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
-      util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
+    defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
+      defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
   ];
 }
@@ -162,7 +165,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,
-    util.fixCrazySan(node.san),
+    fixCrazySan(node.san),
     node.glyphs ? renderGlyphs(node.glyphs) : null
   ]);
 }
@@ -308,7 +311,7 @@ module.exports = {
           return false;
         };
         el.addEventListener('mousedown', function(e) {
-          if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+          if (defined(e.button) && e.button !== 0) return; // only touch or left click
           var path = eventPath(e, ctrl);
           if (path) ctrl.userJump(path);
           m.redraw();

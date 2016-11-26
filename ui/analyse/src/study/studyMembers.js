@@ -1,5 +1,5 @@
 var m = require('mithril');
-var classSet = require('chessground').util.classSet;
+var classSet = require('common').classSet;
 var util = require('../util');
 var inviteFormCtrl = require('./inviteForm').ctrl;
 var partial = require('chessground').util.partial;

@@ -1,7 +1,7 @@
 {
-  "name": "game",
+  "name": "chess",
   "version": "1.0.0",
-  "description": "lichess.org game",
+  "description": "lichess.org chess utils",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -9,9 +9,7 @@
   },
   "keywords": [
     "chess",
-    "lichess",
-    "play",
-    "replay"
+    "lichess"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
@@ -29,7 +27,5 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chess": "file:../chess",
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
 }

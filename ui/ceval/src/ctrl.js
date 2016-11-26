@@ -1,17 +1,18 @@
 var m = require('mithril');
-var makePool = require('./cevalPool');
-var dict = require('./cevalDict');
-var util = require('../util');
+var makePool = require('./pool');
+var dict = require('./dict');
+var median = require('./math').median;
+var storedProp = require('common').storedProp;
 var stockfishProtocol = require('./stockfishProtocol');
 
 module.exports = function(opts) {
 
   var pnaclSupported = !opts.failsafe && navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 6;
-  var maxDepth = util.storedProp('ceval.max-depth', 18);
-  var multiPv = util.storedProp('ceval.multipv', 1);
-  var threads = util.storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
-  var hashSize = util.storedProp('ceval.hash-size', 128);
+  var maxDepth = storedProp('ceval.max-depth', 18);
+  var multiPv = storedProp('ceval.multipv', 1);
+  var threads = storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
+  var hashSize = storedProp('ceval.hash-size', 128);
   var curDepth = 0;
   var enableStorage = lichess.storage.make('client-eval-enabled');
   var allowed = m.prop(true);
@@ -45,7 +46,7 @@ module.exports = function(opts) {
       values.push(res.eval.nps);
       if (values.length >= 5) {
         var depth = 18,
-          knps = util.median(values) / 1000;
+          knps = median(values) / 1000;
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
         if (knps > 250) depth = 21;

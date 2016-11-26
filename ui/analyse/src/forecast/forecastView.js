@@ -2,7 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
 var treePath = require('../tree/path');
-var fixCrazySan = require('../util').fixCrazySan;
+var fixCrazySan = require('chess').fixCrazySan;
 
 var onMyTurn = function(ctrl, fctrl, cNodes) {
   var firstNode = cNodes[0];

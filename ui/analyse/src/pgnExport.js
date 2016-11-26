@@ -1,5 +1,5 @@
-var initialFen = require('./util').initialFen;
-var fixCrazySan = require('./util').fixCrazySan;
+var initialFen = require('chess').initialFen;
+var fixCrazySan = require('chess').fixCrazySan;
 
 function renderNodesTxt(nodes) {
   if (!nodes[0]) return '';

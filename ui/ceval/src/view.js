@@ -1,8 +1,9 @@
 var m = require('mithril');
-var winningChances = require('../winningChances');
-var util = require('../util');
-var defined = util.defined;
-var classSet = require('chessground').util.classSet;
+var winningChances = require('./winningChances');
+var defined = require('common').defined;
+var bindOnce = require('common').bindOnce;
+var classSet = require('common').classSet;
+var renderEval = require('chess').renderEval;
 var pv2san = require('./pv2san');
 
 var gaugeLast = 0;
@@ -12,6 +13,12 @@ for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
     height: (i * 12.5) + '%'
   }
 }));
+
+function range(len) {
+  var r = [];
+  for (var i = 0; i < len; i++) r.push(i);
+  return r;
+}
 
 function localEvalInfo(ctrl, evs) {
   if (!evs.client) {
@@ -41,7 +48,7 @@ function threatButton(ctrl) {
     }),
     'data-icon': '7',
     title: 'Show threat (x)',
-    config: util.bindOnce('click', ctrl.toggleThreatMode)
+    config: bindOnce('click', ctrl.toggleThreatMode)
   });
 }
 
@@ -78,7 +85,7 @@ module.exports = {
     var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
     if (defined(evs.fav) && defined(evs.fav.cp)) {
-      pearl = util.renderEval(evs.fav.cp);
+      pearl = renderEval(evs.fav.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
         (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
@@ -135,7 +142,7 @@ module.exports = {
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          config: util.bindOnce('change', ctrl.toggleCeval)
+          config: bindOnce('change', ctrl.toggleCeval)
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'
@@ -173,12 +180,12 @@ module.exports = {
           ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
-    }, util.range(multiPv).map(function(i) {
+    }, range(multiPv).map(function(i) {
       if (!pvs[i]) return m('div.pv');
       else return m('div.pv', threat ? {} : {
         'data-uci': pvs[i].best
       }, [
-        multiPv > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
+        multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
         m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));

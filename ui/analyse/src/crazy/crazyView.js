@@ -1,5 +1,6 @@
 var crazyDrag = require('./crazyDrag');
 var partial = require('chessground').util.partial;
+var defined = require('common').defined;
 var m = require('mithril');
 
 var eventNames = ['mousedown', 'touchstart'];
@@ -30,7 +31,7 @@ module.exports = {
         }
       },
       oKeys.map(function(role) {
-        var nb = (pocket[role] !== undefined) ? pocket[role] : 0;
+        var nb = defined(pocket[role]) ? pocket[role] : 0;
         if (dropped && dropped.role === role && (dropped.ply % 2 === 1) ^ (color === 'white')) nb--;
         return m('piece', {
           'data-role': role,

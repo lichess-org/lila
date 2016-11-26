@@ -1,5 +1,5 @@
 var util = require('./util');
-var initialFen = require('chessground').fen.initial;
+var initialBoardFen = require('chessground').fen.initial;
 
 module.exports = function(send, ctrl) {
 
@@ -10,7 +10,7 @@ module.exports = function(send, ctrl) {
 
   var anaDestsCache = (
     ctrl.data.game.variant.key === 'standard' &&
-    ctrl.tree.root.fen.split(' ')[0] === initialFen
+    ctrl.tree.root.fen.split(' ')[0] === initialBoardFen
   ) ? {
     '': {
       path: '',

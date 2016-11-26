@@ -9,13 +9,15 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var promotion = require('./promotion');
 var util = require('./util');
+var storedProp = require('common').storedProp;
 var throttle = require('./util').throttle;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
-var cevalCtrl = require('./ceval/cevalCtrl');
+var cevalCtrl = require('ceval').ctrl;
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
+var decomposeUci = require('chess').decomposeUci;
 var crazyValid = require('./crazy/crazyValid');
 var studyCtrl = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
@@ -58,9 +60,9 @@ module.exports = function(opts) {
     cgConfig: null,
     comments: true,
     flip: false,
-    showAutoShapes: util.storedProp('show-auto-shapes', true),
-    showGauge: util.storedProp('show-gauge', true),
-    showComputer: util.storedProp('show-computer', true),
+    showAutoShapes: storedProp('show-auto-shapes', true),
+    showGauge: storedProp('show-gauge', true),
+    showComputer: storedProp('show-computer', true),
     autoScrollRequested: false,
     element: opts.element,
     redirecting: false,
@@ -540,7 +542,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.playUci = function(uci) {
-    var move = util.decomposeUci(uci);
+    var move = decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
         role: util.sanToRole[uci[0]]

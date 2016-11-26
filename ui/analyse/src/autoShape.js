@@ -1,5 +1,6 @@
 var util = require('./util');
-var winningChances = require('./winningChances');
+var winningChances = require('ceval').winningChances;
+var decomposeUci = require('chess').decomposeUci;
 
 function pieceDrop(key, role, color) {
   return {
@@ -13,7 +14,7 @@ function pieceDrop(key, role, color) {
 }
 
 function makeAutoShapesFromUci(color, uci, brush, modifiers) {
-  var move = util.decomposeUci(uci);
+  var move = decomposeUci(uci);
   if (uci[1] === '@') return [{
       orig: move[1],
       brush: brush

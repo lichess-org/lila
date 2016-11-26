@@ -1,8 +1,7 @@
 var m = require('mithril');
 var util = require('../util');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
-var classSet = chessground.util.classSet;
+var partial = require('chessground').util.partial;
+var classSet = require('common').classSet;
 var hookRepo = require('../../hookRepo');
 
 function renderHook(ctrl, hook) {

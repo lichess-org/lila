@@ -1,24 +1,15 @@
 var piotr2key = require('./piotr');
+var fixCrazySan = require('chess').fixCrazySan;
+var common = require('common');
 var m = require('mithril');
-
-var UNDEF = 'undefined';
-
-var defined = function(v) {
-  return typeof v !== UNDEF;
-};
 
 var plyToTurn = function(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-var fixCrazySan = function(san) {
-  return san[0] === 'P' ? san.slice(1) : san;
-}
-
 module.exports = {
-  initialFen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   readDests: function(lines) {
-    if (!defined(lines)) return null;
+    if (!common.defined(lines)) return null;
     var dests = {};
     if (lines) lines.split(' ').forEach(function(line) {
       dests[piotr2key[line[0]]] = line.split('').slice(1).map(function(c) {
@@ -28,21 +19,8 @@ module.exports = {
     return dests;
   },
   readDrops: function(line) {
-    if (typeof line === 'undefined' || line === null) return null;
+    if (!common.defined(line) || line === null) return null;
     return line.match(/.{2}/g) || [];
-  },
-  defined: defined,
-  empty: function(a) {
-    return !a || a.length === 0;
-  },
-  range: function(len) {
-    var r = [];
-    for (var i = 0; i < len; i++) r.push(i);
-    return r;
-  },
-  renderEval: function(e) {
-    e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
-    return (e > 0 ? '+' : '') + e;
   },
   synthetic: function(data) {
     return data.game.id === 'synthetic';
@@ -54,41 +32,6 @@ module.exports = {
     ) + ' ' + fixCrazySan(node.san);
     return 'Initial position';
   },
-  fixCrazySan: fixCrazySan,
-  storedProp: function(k, defaultValue) {
-    var sk = 'analyse.' + k;
-    var value;
-    var isBoolean = defaultValue === true || defaultValue === false;
-    return function(v) {
-      if (defined(v) && v != value) {
-        value = v + '';
-        lichess.storage.set(sk, v);
-      } else if (!defined(value)) {
-        value = lichess.storage.get(sk);
-        if (value === null) value = defaultValue + '';
-      }
-      return isBoolean ? value === 'true' : value;
-    };
-  },
-  storedJsonProp: function(keySuffix, defaultValue) {
-    var key = 'explorer.' + keySuffix;
-    return function() {
-      if (arguments.length) lichess.storage.set(key, JSON.stringify(arguments[0]));
-      var ret = JSON.parse(lichess.storage.get(key));
-      return (ret !== null) ? ret : defaultValue;
-    };
-  },
-  decomposeUci: function(uci) {
-    return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
-  },
-  median: function(values) {
-    values.sort(function(a, b) {
-      return a - b;
-    });
-    var half = Math.floor(values.length / 2);
-    return values.length % 2 ? values[half] :
-      (values[half - 1] + values[half]) / 2.0;
-  },
   plural: function(noun, nb) {
     return nb + ' ' + (nb === 1 ? noun : noun + 's');
   },
@@ -97,20 +40,7 @@ module.exports = {
     var name = split.length == 1 ? split[0] : split[1];
     return name.toLowerCase();
   },
-  bindOnce: function(eventName, f) {
-    var withRedraw = function(e) {
-      m.startComputation();
-      f(e);
-      m.endComputation();
-    };
-    return function(el, isUpdate, ctx) {
-      if (isUpdate) return;
-      el.addEventListener(eventName, withRedraw)
-      ctx.onunload = function() {
-        el.removeEventListener(eventName, withRedraw);
-      };
-    }
-  },
+  bindOnce: common.bindOnce,
   roleToSan: {
     pawn: 'P',
     knight: 'N',

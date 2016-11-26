@@ -1,4 +1,4 @@
-var defined = require('./util').defined;
+var defined = require('common').defined;
 
 function toPov(color, diff) {
   return color === 'white' ? diff : -diff;
