@@ -11,18 +11,37 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.puzzle.PuzzleId
-import lila.puzzle.{ Generated, Puzzle => PuzzleModel }
+import lila.puzzle.{ Generated, Puzzle => PuzzleModel, UserInfos }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
-import views.html.puzzle.JsData
 
 object Puzzle extends LilaController {
 
   private def env = Env.puzzle
 
+  private def renderJson(
+    puzzle: PuzzleModel,
+    userInfos: Option[UserInfos],
+    mode: String,
+    voted: Option[Boolean],
+    round: Option[lila.puzzle.Round] = None,
+    win: Option[Boolean] = None)(implicit ctx: Context) = lila.puzzle.JsonView(
+    puzzle = puzzle,
+    userInfos = userInfos,
+    mode = mode,
+    animationDuration = env.AnimationDuration,
+    pref = ctx.pref,
+    isMobileApi = ctx.isMobileApi,
+    win = win,
+    voted = voted)
+
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env userInfos ctx.me map { infos =>
-      views.html.puzzle.show(puzzle, infos, mode, animationDuration = env.AnimationDuration)
+      views.html.puzzle.show(puzzle, renderJson(
+        puzzle = puzzle,
+        userInfos = infos,
+        mode = mode,
+        voted = none))
     }
 
   def daily = Open { implicit ctx =>
@@ -56,7 +75,7 @@ object Puzzle extends LilaController {
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
     (env userInfos ctx.me) map { infos =>
-      JsData(puzzle, infos, "play", voted = none, animationDuration = env.AnimationDuration)
+      renderJson(puzzle, infos, "play", voted = none)
     }
 
   // XHR load next play puzzle
@@ -64,9 +83,7 @@ object Puzzle extends LilaController {
     XhrOnly {
       env.selector(ctx.me) zip (env userInfos ctx.me) map {
         case (puzzle, infos) =>
-          Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"),
-            voted = none,
-            animationDuration = env.AnimationDuration)) as JSON
+          Ok(renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)) as JSON
       } map (_ as JSON)
     }
   }
@@ -87,28 +104,21 @@ object Puzzle extends LilaController {
                   (env userInfos me2.some) zip
                   env.api.vote.value(id, me2) map {
                     case ((p2, infos), voted) => Ok {
-                      JsData(p2 | puzzle, infos, "view",
-                        voted = voted,
-                        round = newAttempt.some,
-                        animationDuration = env.AnimationDuration)
+                      renderJson(p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some)
                     }
                   }
               }
               case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
                 ctx.me.?? { env.api.vote.value(puzzle.id, _) } map {
-                  case (infos, voted) => Ok(JsData(puzzle, infos, "view",
+                  case (infos, voted) => Ok(renderJson(puzzle, infos, "view",
                     round = oldAttempt.some,
                     win = win.some,
-                    voted = voted,
-                    animationDuration = env.AnimationDuration))
+                    voted = voted))
                 }
             }
           case None => fuccess {
             lila.mon.puzzle.round.anon()
-            Ok(JsData(puzzle, none, "view",
-              win = data.isWin.some,
-              voted = none,
-              animationDuration = env.AnimationDuration))
+            Ok(renderJson(puzzle, none, "view", win = data.isWin.some, voted = none))
           }
         }
       ) map (_ as JSON)

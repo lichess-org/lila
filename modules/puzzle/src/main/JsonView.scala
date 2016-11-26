@@ -1,22 +1,22 @@
-package views.html.puzzle
+package lila.puzzle
 
 import play.api.libs.json.{ JsArray, Json }
 
-import lila.api.Context
 import lila.common.PimpedJson._
-import lila.app.templating.Environment._
 import lila.puzzle._
 
-object JsData extends lila.Steroids {
+object JsonView {
 
   def apply(
     puzzle: Puzzle,
     userInfos: Option[UserInfos],
     mode: String,
     animationDuration: scala.concurrent.duration.Duration,
+    pref: lila.pref.Pref,
+    isMobileApi: Boolean,
     round: Option[Round] = None,
     win: Option[Boolean] = None,
-    voted: Option[Boolean])(implicit ctx: Context) = Json.obj(
+    voted: Option[Boolean]) = Json.obj(
     "puzzle" -> Json.obj(
       "id" -> puzzle.id,
       "rating" -> puzzle.perf.intRating,
@@ -31,25 +31,25 @@ object JsData extends lila.Steroids {
       "vote" -> puzzle.vote.sum
     ),
     "pref" -> Json.obj(
-      "coords" -> ctx.pref.coords
+      "coords" -> pref.coords
     ),
     "chessground" -> Json.obj(
       "highlight" -> Json.obj(
-        "lastMove" -> ctx.pref.highlight,
-        "check" -> ctx.pref.highlight
+        "lastMove" -> pref.highlight,
+        "check" -> pref.highlight
       ),
       "movable" -> Json.obj(
-        "showDests" -> ctx.pref.destination
+        "showDests" -> pref.destination
       ),
       "draggable" -> Json.obj(
-        "showGhost" -> ctx.pref.highlight
+        "showGhost" -> pref.highlight
       ),
       "premovable" -> Json.obj(
-        "showDests" -> ctx.pref.destination
+        "showDests" -> pref.destination
       )
     ),
     "animation" -> Json.obj(
-      "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
+      "duration" -> pref.animationFactor * animationDuration.toMillis
     ),
     "mode" -> mode,
     "round" -> round.map { a =>
@@ -63,16 +63,16 @@ object JsData extends lila.Steroids {
     "user" -> userInfos.map { i =>
       Json.obj(
         "rating" -> i.user.perfs.puzzle.intRating,
-        "history" -> ctx.isMobileApi.option(i.history.map(_.rating)), // for mobile BC
+        "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
         "recent" -> i.history.map { r =>
           Json.arr(r.puzzleId, r.ratingDiff, r.rating)
         }
       ).noNull
     },
-    "difficulty" -> (ctx.isAuth && ctx.isMobileApi).option {
+    "difficulty" -> isMobileApi.option {
       Json.obj(
         "choices" -> Json.arr(
-          Json.arr(2, trans.difficultyNormal.str())
+          Json.arr(2, "Normal")
         ),
         "current" -> 2
       )

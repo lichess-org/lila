@@ -1,10 +1,10 @@
-@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], mode: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @evenMoreJs = {
 @embedJs {
 LichessPuzzle(
 document.querySelector('#lichess .round'),
-@Html(toJson(JsData(puzzle, userInfos, mode, voted = none, animationDuration = animationDuration))),
+@Html(toJson(data)),
 @Html(toJson(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,
