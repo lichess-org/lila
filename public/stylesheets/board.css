@@ -996,10 +996,6 @@ div.game_tournament .clock {
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament tr.me td:first-child {
-  border-left: 10px solid #d59120;
-  padding-left: 5px;
-}
 div.game_tournament td {
   padding: 0 10px;
   text-align: left;
@@ -1008,6 +1004,13 @@ div.game_tournament td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+div.game_tournament table.slist td:first-child {
+  padding-left: 10px;
+}
+div.game_tournament tr.me td:first-child {
+  border-left: 10px solid #d59120;
+  padding-left: 5px;
 }
 div.game_tournament td.name span {
   display: inline-block;
