@@ -27,18 +27,15 @@ object Puzzle extends LilaController {
     voted: Option[Boolean],
     round: Option[lila.puzzle.Round] = None,
     win: Option[Boolean] = None)(implicit ctx: Context): Fu[JsObject] =
-    (GameRepo game puzzle.gameId).flatten(s"Missing puzzle ${puzzle.id} game!") map { game =>
-      lila.puzzle.JsonView(
-        puzzle = puzzle,
-        game = game,
-        userInfos = userInfos,
-        mode = mode,
-        animationDuration = env.AnimationDuration,
-        pref = ctx.pref,
-        isMobileApi = ctx.isMobileApi,
-        win = win,
-        voted = voted)
-    }
+    lila.puzzle.JsonView(
+      puzzle = puzzle,
+      userInfos = userInfos,
+      mode = mode,
+      animationDuration = env.AnimationDuration,
+      pref = ctx.pref,
+      isMobileApi = ctx.isMobileApi,
+      win = win,
+      voted = voted)
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env userInfos ctx.me flatMap { infos =>

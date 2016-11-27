@@ -6,6 +6,12 @@ import chess.variant.Crazyhouse
 
 object JsonView {
 
+  implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
+    Json.obj(
+      "id" -> s.id,
+      "name" -> s.name)
+  }
+
   implicit val crosstableResultWrites = Json.writes[Crosstable.Result]
 
   implicit val crosstableWrites = OWrites[Crosstable] { c =>

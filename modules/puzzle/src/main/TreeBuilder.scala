@@ -2,17 +2,17 @@ package lila.puzzle
 
 import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening.FullOpeningDB
-import chess.variant.Standard
+import lila.game.Game
 import lila.tree
 
 object TreeBuilder {
 
   private type Ply = Int
 
-  def apply(id: String, pgnMoves: List[String]): tree.Root = {
-    chess.Replay.gameMoveWhileValid(pgnMoves, Forsyth.initial, Standard) match {
+  def apply(game: Game): tree.Root = {
+    chess.Replay.gameMoveWhileValid(game.pgnMoves, Forsyth.initial, game.variant) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logChessError(game.id)
         val fen = Forsyth >> init
         val root = tree.Root(
           ply = init.turns,
