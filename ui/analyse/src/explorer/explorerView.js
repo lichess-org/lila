@@ -1,7 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var renderConfig = require('./explorerConfig').view;
-var util = require('../util');
+var bindOnce = require('common').bindOnce;
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
@@ -83,7 +83,7 @@ function showGameTable(ctrl, type, games) {
       ])
     ]),
     m('tbody', {
-      config: util.bindOnce('click', function(e) {
+      config: bindOnce('click', function(e) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         var orientation = ctrl.chessground.data.orientation;
@@ -162,7 +162,7 @@ function closeButton(ctrl) {
   return m('button', {
     class: 'button text',
     'data-icon': 'L',
-    config: util.bindOnce('click', ctrl.explorer.toggle)
+    config: bindOnce('click', ctrl.explorer.toggle)
   }, 'Close');
 }
 
@@ -279,7 +279,7 @@ module.exports = {
       m('div.overlay'),
       content, (!content || explorer.failing()) ? null : m('span.toconf', {
         'data-icon': configOpened ? 'L' : '%',
-        config: util.bindOnce('click', config.toggleOpen)
+        config: bindOnce('click', config.toggleOpen)
       })
     ]);
   }

@@ -12,6 +12,7 @@ object GameJson {
   import lila.game.JsonView._
 
   private val cache = lila.memo.AsyncCache[Game.ID, JsObject](
+    name = "puzzle.gameJson",
     f = generate,
     maxCapacity = 500)
 

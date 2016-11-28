@@ -1,14 +1,14 @@
 var m = require('mithril');
 var xhr = require('./studyXhr');
-var throttle = require('../util').throttle;
+var throttle = require('common').throttle;
+var bindOnce = require('common').bindOnce;
 var nodeFullName = require('../util').nodeFullName;
 var partial = require('chessground').util.partial;
-var util = require('../util');
 
 function renderGlyph(ctrl, node) {
   return function(glyph) {
     return m('a', {
-      config: util.bindOnce('click', function() {
+      config: bindOnce('click', function() {
         ctrl.toggleGlyph(glyph.id);
         return false;
       }),
@@ -81,7 +81,7 @@ module.exports = {
         m('button.button.frameless.close', {
           'data-icon': 'L',
           title: 'Close',
-          config: util.bindOnce('click', partial(ctrl.isOpen, false))
+          config: bindOnce('click', partial(ctrl.isOpen, false))
         }),
         'Annotating position after ',
         m('strong', nodeFullName(node)),

@@ -1,4 +1,4 @@
-var throttle = require('./util').throttle;
+var throttle = require('common').throttle;
 
 function throttled(sound) {
   return throttle(100, false, $.sound[sound]);

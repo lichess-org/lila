@@ -1,7 +1,8 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var classSet = require('common').classSet;
-var util = require('./util');
+var bindOnce = require('common').bindOnce;
+var synthetic = require('./util').synthetic;
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
@@ -84,7 +85,7 @@ function inputs(ctrl) {
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.node.fen,
-      config: util.bindOnce('change', function(e) {
+      config: bindOnce('change', function(e) {
         if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
       })
     }),
@@ -97,7 +98,7 @@ function inputs(ctrl) {
         m('button', {
           class: 'button text',
           'data-icon': 'G',
-          config: util.bindOnce('click', function(e) {
+          config: bindOnce('click', function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
           })
@@ -177,7 +178,7 @@ function dataAct(e) {
 
 function buttons(ctrl) {
   return m('div.game_control', {
-    config: util.bindOnce('mousedown', function(e) {
+    config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
@@ -236,7 +237,7 @@ module.exports = function(ctrl) {
       })
     }, [
       m('div.lichess_game', {
-        config: function(el, isUpdate, context) {
+        config: function(el, isUpdate) {
           if (isUpdate) return;
           lichess.pubsub.emit('content_loaded')();
         }
@@ -262,7 +263,7 @@ module.exports = function(ctrl) {
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),
-    ctrl.embed || util.synthetic(ctrl.data) ? null : m('div.analeft', [
+    ctrl.embed || synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {

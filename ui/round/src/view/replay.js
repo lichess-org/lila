@@ -1,6 +1,7 @@
 var round = require('../round');
 var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
+var throttle = require('common').throttle;
 var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
 var util = require('../util');
@@ -216,7 +217,7 @@ module.exports = function(ctrl) {
         var scrollNow = partial(autoScroll, el, ctrl);
         ctrl.vm.autoScroll = {
           now: scrollNow,
-          throttle: util.throttle(300, false, scrollNow)
+          throttle: throttle(300, false, scrollNow)
         };
         scrollNow();
         window.addEventListener('load', scrollNow);

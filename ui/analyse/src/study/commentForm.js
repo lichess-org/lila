@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var util = require('../util');
-var throttle = require('../util').throttle;
+var bindOnce = require('common').bindOnce;
+var throttle = require('common').throttle;
 
 module.exports = {
   ctrl: function(root) {
@@ -91,12 +91,12 @@ module.exports = {
         m('button.button.frameless.close', {
           'data-icon': 'L',
           title: 'Close',
-          config: util.bindOnce('click', ctrl.close)
+          config: bindOnce('click', ctrl.close)
         }),
         'Commenting position after ',
         m('button.button', {
           class: ctrl.root.vm.path === current.path ? '' : 'active',
-          config: util.bindOnce('click', partial(ctrl.root.userJump, current.path))
+          config: bindOnce('click', partial(ctrl.root.userJump, current.path))
         }, util.nodeFullName(current.node)),
         m('span.saved', {
           config: function(el, isUpdate, ctx) {

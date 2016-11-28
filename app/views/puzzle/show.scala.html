@@ -2,46 +2,11 @@
 
 @evenMoreJs = {
 @embedJs {
-LichessPuzzle(
-document.querySelector('#lichess .round'),
-@Html(toJson(data)),
-@Html(toJson(i18nJsObject(
-trans.training,
-trans.yourPuzzleRatingX,
-trans.goodMove,
-trans.butYouCanDoBetter,
-trans.bestMove,
-trans.keepGoing,
-trans.puzzleFailed,
-trans.butYouCanKeepTrying,
-trans.yourTurn,
-trans.waiting,
-trans.findTheBestMoveForBlack,
-trans.findTheBestMoveForWhite,
-trans.giveUp,
-trans.victory,
-trans.puzzleSolvedInXSeconds,
-trans.fromGameLink,
-trans.boardEditor,
-trans.continueFromHere,
-trans.playWithTheMachine,
-trans.playWithAFriend,
-trans.wasThisPuzzleAnyGood,
-trans.pleaseVotePuzzle,
-trans.thankYou,
-trans.puzzleId,
-trans.ratingX,
-trans.playedXTimes,
-trans.continueTraining,
-trans.retryThisPuzzle,
-trans.toTrackYourProgress,
-trans.signUp,
-trans.trainingSignupExplanation,
-trans.thisPuzzleIsCorrect,
-trans.thisPuzzleIsWrong,
-trans.puzzles,
-trans.analysis)))
-);
+LichessPuzzle({
+element: document.querySelector('#lichess .round'),
+data: @Html(toJson(data)),
+i18n: @jsI18n()
+});
 }
 }
 

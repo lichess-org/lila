@@ -1,6 +1,6 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
-var util = require('../util');
+var bindOnce = require('common').bindOnce;
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
 
@@ -109,7 +109,7 @@ module.exports = {
           ctrl.members.canContribute() ? m('div', {
               key: 'new-chapter',
               class: 'elem chapter add',
-              config: util.bindOnce('click', ctrl.chapters.toggleNewForm)
+              config: bindOnce('click', ctrl.chapters.toggleNewForm)
             },
             m('span.status', m('i[data-icon=O]')),
             m('h3.add_text', 'Add a new chapter')

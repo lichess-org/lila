@@ -1,5 +1,5 @@
 var m = require('mithril');
-var throttle = require('./throttle');
+var throttle = require('common').throttle;
 
 module.exports = function(env, domElement) {
 

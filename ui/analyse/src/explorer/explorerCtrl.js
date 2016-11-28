@@ -1,5 +1,5 @@
 var m = require('mithril');
-var throttle = require('../util').throttle;
+var throttle = require('common').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./openingXhr');
 var storedProp = require('common').storedProp;

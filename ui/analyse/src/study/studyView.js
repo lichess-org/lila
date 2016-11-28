@@ -1,7 +1,8 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
-var util = require('../util');
+var bindOnce = require('common').bindOnce;
+var plural = require('../util').plural;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterNewFormView = require('./chapterNewForm').view;
@@ -47,7 +48,7 @@ function buttons(root) {
             active: ctrl.share.open()
           }),
           'data-hint': 'Share & export',
-          config: util.bindOnce('click', function() {
+          config: bindOnce('click', function() {
             ctrl.share.toggle();
           })
         },
@@ -60,7 +61,7 @@ function buttons(root) {
               disabled: !enabled
             }),
             'data-hint': 'Comment this position',
-            config: util.bindOnce('click', function() {
+            config: bindOnce('click', function() {
               if (ctrl.vm.behind === false) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
             })
           }, m('i[data-icon=c]'));
@@ -71,7 +72,7 @@ function buttons(root) {
                 disabled: !enabled
               }),
               'data-hint': 'Annotate with symbols',
-              config: util.bindOnce('click', function() {
+              config: bindOnce('click', function() {
                 if (root.vm.path && ctrl.vm.behind === false) ctrl.glyphForm.toggle();
               })
             },
@@ -160,15 +161,15 @@ module.exports = {
     var makeTab = function(key, name) {
       return m('a', {
         class: key + (activeTab === key ? ' active' : ''),
-        config: util.bindOnce('mousedown', partial(ctrl.vm.tab, key)),
+        config: bindOnce('mousedown', partial(ctrl.vm.tab, key)),
       }, name);
     };
 
     var tabs = m('div.study_tabs', [
-      makeTab('members', util.plural('Member', ctrl.members.size())),
-      makeTab('chapters', util.plural('Chapter', ctrl.chapters.size())),
+      makeTab('members', plural('Member', ctrl.members.size())),
+      makeTab('chapters', plural('Chapter', ctrl.chapters.size())),
       ctrl.members.isOwner() ? m('a.more', {
-        config: util.bindOnce('click', function() {
+        config: bindOnce('click', function() {
           ctrl.form.open(!ctrl.form.open());
         })
       }, m('i', {
