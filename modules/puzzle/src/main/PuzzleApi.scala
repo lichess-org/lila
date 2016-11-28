@@ -33,7 +33,9 @@ private[puzzle] final class PuzzleApi(
 
     private def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
 
-    val cachedLastId = lila.memo.AsyncCache.single(lastId, timeToLive = 5 minutes)
+    val cachedLastId = lila.memo.AsyncCache.single(
+      name = "puzzle.lastId",
+      lastId, timeToLive = 5 minutes)
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")

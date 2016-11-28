@@ -15,6 +15,7 @@ private[puzzle] final class Daily(
 
   private val cache =
     lila.memo.AsyncCache.single[Option[DailyPuzzle]](
+      name = "puzzle.daily",
       f = find,
       timeToLive = 10 minutes)
 

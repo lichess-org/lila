@@ -33,6 +33,7 @@ private[simul] final class SimulApi(
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache apply true
 
   private val currentHostIdsCache = AsyncCache.single[Set[String]](
+    name = "simul.currentHostIds",
     f = repo.allStarted map (_ map (_.hostId) toSet),
     timeToLive = 10 minutes)
 

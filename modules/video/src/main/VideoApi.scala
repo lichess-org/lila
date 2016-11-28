@@ -129,6 +129,7 @@ private[video] final class VideoApi(
     object count {
 
       private val cache = AsyncCache.single(
+        name = "video.count",
         f = videoColl.count(none),
         timeToLive = 1.day)
 
@@ -206,6 +207,7 @@ private[video] final class VideoApi(
       maxCapacity = 100)
 
     private val popularCache = AsyncCache.single[List[TagNb]](
+      name = "video.popular",
       f = videoColl.aggregate(
         Project($doc("tags" -> true)), List(
           UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),

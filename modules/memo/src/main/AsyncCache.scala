@@ -34,8 +34,12 @@ object AsyncCache {
   )
 
   def single[V](
+    name: String,
     f: => Fu[V],
-    timeToLive: Duration = Duration.Inf) = new AsyncCache[Boolean, V](
+    timeToLive: Duration = Duration.Inf,
+    resultTimeout: FiniteDuration = 5 seconds) = new AsyncCache[Boolean, V](
     cache = LruCache(timeToLive = timeToLive),
-    f = _ => f)
+    f = _ => f.withTimeout(
+      duration = resultTimeout,
+      error = lila.common.LilaException(s"AsyncCache $name single timed out after $resultTimeout")))
 }

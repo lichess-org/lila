@@ -9,6 +9,7 @@ private[tournament] final class Cached(
     rankingTtl: FiniteDuration) {
 
   private val nameCache = MixedCache[String, Option[String]](
+    name = "tournament.name",
     ((id: String) => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName }),
     timeToLive = 6 hours,
     default = _ => none,
@@ -17,6 +18,7 @@ private[tournament] final class Cached(
   def name(id: String): Option[String] = nameCache get id
 
   val promotable = AsyncCache.single(
+    name = "tournament.promotable",
     TournamentRepo.promotable,
     timeToLive = createdTtl)
 

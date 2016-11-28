@@ -56,6 +56,7 @@ final class Env(
     import lila.db.dsl._
     private val coll = db("flag")
     private val cache = lila.memo.MixedCache.single[Int](
+      name = "asset.version",
       f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
         _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },

@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 private[team] final class Cached {
 
   private val nameCache = MixedCache[String, Option[String]](
+    name = "team.name",
     TeamRepo.name,
     timeToLive = 6 hours,
     default = _ => none,
@@ -14,6 +15,7 @@ private[team] final class Cached {
   def name(id: String) = nameCache get id
 
   private[team] val teamIdsCache = MixedCache[String, Set[String]](
+    name = "team.ids",
     MemberRepo.teamIdsByUser,
     timeToLive = 2 hours,
     default = _ => Set.empty,

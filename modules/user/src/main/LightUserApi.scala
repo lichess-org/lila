@@ -26,6 +26,7 @@ final class LightUserApi(coll: Coll) {
   }
 
   private val cache = lila.memo.MixedCache[String, Option[LightUser]](
+    name = "user.light",
     id => coll.find(
       $id(id),
       $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)
