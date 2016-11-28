@@ -26,6 +26,7 @@ final class SeekApi(
       .cursor[Seek]()
 
   private val cache = AsyncCache[CacheKey, List[Seek]](
+    name = "lobby.seek.list",
     f = {
       case ForAnon => allCursor.gather[List](maxPerPage)
       case ForUser => allCursor.gather[List]()

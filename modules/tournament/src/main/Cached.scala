@@ -36,11 +36,13 @@ private[tournament] final class Cached(
 
   // only applies to ongoing tournaments
   private val ongoingRanking = AsyncCache[String, Ranking](
-    PlayerRepo.computeRanking,
+    name = "tournament.ongoingRanking",
+    f = PlayerRepo.computeRanking,
     timeToLive = 3.seconds)
 
   // only applies to finished tournaments
   private val finishedRanking = AsyncCache[String, Ranking](
-    PlayerRepo.computeRanking,
+    name = "tournament.finishedRanking",
+    f = PlayerRepo.computeRanking,
     timeToLive = rankingTtl)
 }

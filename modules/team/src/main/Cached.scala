@@ -5,7 +5,8 @@ import scala.concurrent.duration._
 
 private[team] final class Cached {
 
-  private val nameCache = MixedCache[String, Option[String]](TeamRepo.name,
+  private val nameCache = MixedCache[String, Option[String]](
+    TeamRepo.name,
     timeToLive = 6 hours,
     default = _ => none,
     logger = logger)
@@ -20,7 +21,8 @@ private[team] final class Cached {
 
   def teamIds(userId: String) = teamIdsCache get userId
 
-  val nbRequests = AsyncCache(
-    (userId: String) => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
+  val nbRequests = AsyncCache[String, Int](
+    name = "team.nbRequests",
+    f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
     maxCapacity = 20000)
 }

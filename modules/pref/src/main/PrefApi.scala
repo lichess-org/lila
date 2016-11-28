@@ -15,7 +15,10 @@ final class PrefApi(
     cacheTtl: Duration) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
-  private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
+  private val cache = AsyncCache(
+    name = "pref.fetchPref",
+    f = fetchPref,
+    timeToLive = cacheTtl)
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 

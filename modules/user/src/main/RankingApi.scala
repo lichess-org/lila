@@ -78,6 +78,7 @@ final class RankingApi(
       } map (_.flatten.toMap)
 
     private val cache = AsyncCache[Perf.ID, Map[User.ID, Rank]](
+      name = "rankingApi.weeklyStableRanking",
       f = compute,
       timeToLive = 15 minutes)
 

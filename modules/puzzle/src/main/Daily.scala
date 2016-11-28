@@ -14,7 +14,9 @@ private[puzzle] final class Daily(
     scheduler: Scheduler) {
 
   private val cache =
-    lila.memo.AsyncCache.single[Option[DailyPuzzle]](f = find, timeToLive = 10 minutes)
+    lila.memo.AsyncCache.single[Option[DailyPuzzle]](
+      f = find,
+      timeToLive = 10 minutes)
 
   def apply(): Fu[Option[DailyPuzzle]] = cache apply true
 
