@@ -45,6 +45,11 @@ final class Env(
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _
 
+  lazy val teamInfo = new mashup.TeamInfoApi(
+    api = Env.team.api,
+    getForumNbPosts = Env.forum.categApi.teamNbPosts _,
+    getForumPosts = Env.forum.recent.team _)
+
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {
       Env.puzzle.daily()

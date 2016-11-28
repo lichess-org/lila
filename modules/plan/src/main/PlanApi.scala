@@ -219,6 +219,7 @@ final class PlanApi(
   }
 
   private val recentChargeUserIdsCache = AsyncCache[Int, List[User.ID]](
+    name = "plan.recentChargeUserIds",
     f = nb => chargeColl.primitive[User.ID](
       $empty, sort = $doc("date" -> -1), nb = nb * 3 / 2, "userId"
     ) flatMap filterUserIds map (_ take nb),
@@ -230,6 +231,7 @@ final class PlanApi(
     chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
   private val topPatronUserIdsCache = AsyncCache[Int, List[User.ID]](
+    name = "plan.topPatronUserIds",
     f = nb => chargeColl.aggregate(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),

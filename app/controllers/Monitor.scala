@@ -15,6 +15,7 @@ object Monitor extends LilaController {
     val coachPageView = "servers.lichess.statsite.counts.main.counter.coach.page_view.profile"
   }
   private val coachPageViewCache = lila.memo.AsyncCache[lila.user.User.ID, Result](
+    name = "monitor.coachPageView",
     f = userId =>
     Env.coach.api byId lila.coach.Coach.Id(userId) flatMap {
       _ ?? { coach =>

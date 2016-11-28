@@ -85,6 +85,7 @@ final class Cached(
     keyToString = _.toString)
 
   val top50Online = lila.memo.AsyncCache.single[List[User]](
+    name = "user.top50online",
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
     timeToLive = 10 seconds)
 

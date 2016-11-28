@@ -51,6 +51,7 @@ final class Env(
 
   object isStreamer {
     private val cache = lila.memo.MixedCache.single[Set[String]](
+      name = "tv.streamers",
       f = streamerList.lichessIds,
       timeToLive = 10 seconds,
       default = Set.empty,
@@ -60,6 +61,7 @@ final class Env(
 
   object streamsOnAir {
     private val cache = lila.memo.AsyncCache.single[List[StreamOnAir]](
+      name = "tv.streamsOnAir",
       f = streaming.onAir,
       timeToLive = 2 seconds)
     def all = cache(true)

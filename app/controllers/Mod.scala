@@ -130,7 +130,9 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    lila.memo.AsyncCache[String, Int](ip => {
+    lila.memo.AsyncCache[String, Int](
+      name = "ipIntel",
+      f = ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
       val email = Env.api.Net.Email

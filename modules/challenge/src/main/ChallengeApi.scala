@@ -37,7 +37,10 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  val countInFor = AsyncCache(repo.countCreatedByDestId, maxCapacity = 20000)
+  val countInFor = AsyncCache(
+    name = "challenge.countInFor",
+    f = repo.countCreatedByDestId,
+    maxCapacity = 20000)
 
   def createdByChallengerId = repo createdByChallengerId _
 

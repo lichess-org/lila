@@ -66,6 +66,7 @@ object Lobby extends LilaController {
       headers: Headers)
 
     private val cache = lila.memo.AsyncCache[RequestKey, Html](
+      name = "lobby.homeCache",
       f = renderRequestKey,
       timeToLive = 1 second)
 

@@ -22,22 +22,25 @@ case class TeamInfo(
   def hasRequests = requests.nonEmpty
 }
 
-object TeamInfo {
+final class TeamInfoApi(
+    api: TeamApi,
+    getForumNbPosts: String => Fu[Int],
+    getForumPosts: String => Fu[List[MiniForumPost]]) {
 
   private case class Cachable(bestUserIds: List[User.ID], toints: Int)
 
+  private def fetchCachable(id: String): Fu[Cachable] = for {
+    userIds ← (MemberRepo userIdsByTeam id).thenPp(s"team $id userIds")
+    bestUserIds ← UserRepo.idsByIdsSortRating(userIds, 10).thenPp(s"team $id bestUserIds")
+    toints ← UserRepo.idsSumToints(userIds).thenPp(s"team $id toints")
+  } yield Cachable(bestUserIds, toints)
+
   private val cache = lila.memo.AsyncCache[String, Cachable](
-    teamId => for {
-      userIds ← MemberRepo userIdsByTeam teamId
-      bestUserIds ← UserRepo.idsByIdsSortRating(userIds, 10)
-      toints ← UserRepo.idsSumToints(userIds)
-    } yield Cachable(bestUserIds, toints),
+    name = "teamInfo",
+    f = fetchCachable,
     timeToLive = 10 minutes)
 
-  def apply(
-    api: TeamApi,
-    getForumNbPosts: String => Fu[Int],
-    getForumPosts: String => Fu[List[MiniForumPost]])(team: Team, me: Option[User]): Fu[TeamInfo] = for {
+  def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
     mine = me.??(m => api.belongsTo(team.id, m.id))
     requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))

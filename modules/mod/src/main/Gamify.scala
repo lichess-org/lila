@@ -56,6 +56,7 @@ final class Gamify(
   def leaderboards = leaderboardsCache(true)
 
   private val leaderboardsCache = AsyncCache.single[Leaderboards](
+    name = "mod.leaderboards",
     f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
       mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
       mixedLeaderboard(DateTime.now minusMonths 1, none) map {

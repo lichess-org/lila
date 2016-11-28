@@ -17,18 +17,29 @@ final class AsyncCache[K, V] private (cache: Cache[V], f: K => Fu[V]) {
 
 object AsyncCache {
 
+  implicit private val system = lila.common.PlayApp.system
+
   def apply[K, V](
+    name: String,
     f: K => Fu[V],
     maxCapacity: Int = 500,
     initialCapacity: Int = 16,
     timeToLive: Duration = Duration.Inf,
-    timeToIdle: Duration = Duration.Inf) = new AsyncCache(
+    timeToIdle: Duration = Duration.Inf,
+    resultTimeout: FiniteDuration = 5 seconds) = new AsyncCache(
     cache = LruCache(maxCapacity, initialCapacity, timeToLive, timeToIdle),
-    f = f)
+    f = (key: K) => f(key).withTimeout(
+      duration = resultTimeout,
+      error = lila.common.LilaException(s"AsyncCache $name $key timed out after $resultTimeout"))
+  )
 
   def single[V](
+    name: String,
     f: => Fu[V],
-    timeToLive: Duration = Duration.Inf) = new AsyncCache[Boolean, V](
+    timeToLive: Duration = Duration.Inf,
+    resultTimeout: FiniteDuration = 5 seconds) = new AsyncCache[Boolean, V](
     cache = LruCache(timeToLive = timeToLive),
-    f = _ => f)
+    f = _ => f.withTimeout(
+      duration = resultTimeout,
+      error = lila.common.LilaException(s"AsyncCache $name single timed out after $resultTimeout")))
 }

@@ -18,6 +18,7 @@ object Prismic {
   }
 
   private val fetchPrismicApi = AsyncCache.single[PrismicApi](
+    name = "prismic.fetchPrismicApi",
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
     timeToLive = 1 minute)
 
