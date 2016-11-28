@@ -19,6 +19,7 @@ module.exports = function(opts, i18n) {
   var vm = {
     loading: false,
     justPlayed: null,
+    initialPath: null
   };
 
   var data = opts.data;
@@ -33,7 +34,8 @@ module.exports = function(opts, i18n) {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   };
 
-  setPath(treePath.fromNodeList(treeOps.mainlineNodeList(tree.root)));
+  vm.initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
+  setPath(vm.initialPath);
 
   var showGround = function() {
     var node = vm.node;

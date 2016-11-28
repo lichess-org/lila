@@ -112,7 +112,10 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var attrs = {
     p: path
   };
-  if (path === ctx.ctrl.vm.path) attrs.class = 'active';
+  var classes = [];
+  if (path === ctx.ctrl.vm.path) classes.push('active');
+  if (path === ctx.ctrl.vm.initialPath) classes.push('current');
+  if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, renderMove(ctx, node));
 }
 
