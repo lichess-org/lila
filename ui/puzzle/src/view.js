@@ -3,6 +3,7 @@ var chessground = require('chessground');
 var bindOnce = require('common').bindOnce;
 var treeView = require('./treeView');
 var control = require('./control');
+var feedbackView = require('./feedbackView');
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
@@ -108,6 +109,7 @@ module.exports = function(ctrl) {
           // cevalView.renderCeval(ctrl),
           // cevalView.renderPvs(ctrl),
           renderAnalyse(ctrl),
+          feedbackView(ctrl),
           buttons(ctrl)
         ])
       ])

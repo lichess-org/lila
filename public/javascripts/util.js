@@ -151,6 +151,10 @@ lichess.trans = function(i18n) {
     });
     return str;
   };
+  // optimisation for translations without arguments
+  trans.noarg = function(key) {
+    return i18n[key] || key;
+  };
   trans.merge = function(more) {
     Object.keys(more).forEach(function(k) {
       i18n[k] = more[k];

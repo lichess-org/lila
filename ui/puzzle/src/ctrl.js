@@ -181,6 +181,7 @@ module.exports = function(opts, i18n) {
 
   return {
     vm: vm,
+    data: data,
     tree: tree,
     ground: ground,
     userJump: userJump,

@@ -186,8 +186,7 @@ module.exports = {
     var root = ctrl.tree.root;
     var ctx = {
       ctrl: ctrl,
-      showComputer: false,
-      showGlyphs: false
+      showComputer: false
     };
     return m('div.tview2', {
       config: function(el, isUpdate) {
