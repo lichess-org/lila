@@ -9,8 +9,8 @@ object TreeBuilder {
 
   private type Ply = Int
 
-  def apply(game: Game): tree.Root = {
-    chess.Replay.gameMoveWhileValid(game.pgnMoves, Forsyth.initial, game.variant) match {
+  def apply(game: Game, plies: Int): tree.Root = {
+    chess.Replay.gameMoveWhileValid(game.pgnMoves take plies, Forsyth.initial, game.variant) match {
       case (init, games, error) =>
         error foreach logChessError(game.id)
         val fen = Forsyth >> init

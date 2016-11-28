@@ -18,7 +18,7 @@ object JsonView {
     round: Option[Round] = None,
     win: Option[Boolean] = None,
     voted: Option[Boolean]): Fu[JsObject] =
-    (!isMobileApi ?? GameJson(puzzle.gameId).map(_.some)) map { gameJson =>
+    (!isMobileApi ?? GameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
         "puzzle" -> Json.obj(

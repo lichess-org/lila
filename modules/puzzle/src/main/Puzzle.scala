@@ -19,9 +19,7 @@ case class Puzzle(
     attempts: Int,
     mate: Boolean) {
 
-  def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
-    move * 2 + color.fold(0, 1)
-  }
+  def initialPly: Int = history.size
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 

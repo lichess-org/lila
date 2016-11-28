@@ -29,7 +29,7 @@ function makeConfig(data, config, onMove) {
     },
     animation: {
       enabled: true,
-      duration: data.pref.animationDuration
+      duration: data.animation.duration
     },
     disableContextMenu: true
   };

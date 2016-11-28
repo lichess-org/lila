@@ -1,16 +1,3 @@
-div.board_wrap {
-  float: left;
-  width: 514px;
-  min-height: 558px;
-}
-div.moves_wrap {
-  margin-left: 532px;
-  position: relative;
-}
-p.rematch_wrap {
-  margin-top: 31px;
-  text-align: center;
-}
 div.analysis_menu {
   text-align: center;
   border-top: 1px solid #c0c0c0;

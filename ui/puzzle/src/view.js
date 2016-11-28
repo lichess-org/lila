@@ -1,6 +1,8 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var bindOnce = require('common').bindOnce;
 var treeView = require('./treeView');
+var control = require('./control');
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
@@ -45,6 +47,46 @@ function visualBoard(ctrl) {
   ]);
 }
 
+function dataAct(e) {
+  return e.target.getAttribute('data-act') ||
+    e.target.parentNode.getAttribute('data-act');
+}
+
+function jumpButton(icon, effect) {
+  return {
+    tag: 'button',
+    attrs: {
+      'data-act': effect,
+      'data-icon': icon
+    }
+  };
+}
+
+var cachedButtons = (function() {
+  return m('div.jumps', [
+    jumpButton('W', 'first'),
+    jumpButton('Y', 'prev'),
+    jumpButton('X', 'next'),
+    jumpButton('V', 'last')
+  ])
+})();
+
+function buttons(ctrl) {
+  return m('div.game_control', {
+    config: bindOnce('mousedown', function(e) {
+      var action = dataAct(e);
+      if (action === 'prev') control.prev(ctrl);
+      else if (action === 'next') control.next(ctrl);
+      else if (action === 'first') control.first(ctrl);
+      else if (action === 'last') control.last(ctrl);
+      // else if (action === 'explorer') ctrl.explorer.toggle();
+      // else if (action === 'menu') ctrl.actionMenu.toggle();
+    })
+  }, [
+    cachedButtons
+  ]);
+}
+
 var firstRender = true;
 
 module.exports = function(ctrl) {
@@ -66,7 +108,7 @@ module.exports = function(ctrl) {
           // cevalView.renderCeval(ctrl),
           // cevalView.renderPvs(ctrl),
           renderAnalyse(ctrl),
-          // buttons(ctrl)
+          buttons(ctrl)
         ])
       ])
     ]),

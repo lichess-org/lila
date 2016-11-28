@@ -1,10 +1,12 @@
 var m = require('mithril');
 var treeBuild = require('tree').build;
 var treeOps = require('tree').ops;
+var treePath = require('tree').path;
 var cevalCtrl = require('ceval').ctrl;
 var readDests = require('chess').readDests;
 var k = Mousetrap;
 var chessground = require('chessground');
+var keyboard = require('./keyboard');
 var opposite = chessground.util.opposite;
 var groundBuild = require('./ground');
 var socketBuild = require('./socket');
@@ -22,6 +24,7 @@ module.exports = function(opts, i18n) {
   var data = opts.data;
   var tree = treeBuild(treeOps.reconstruct(opts.data.game.treeParts));
   var ground;
+  var ceval;
 
   var setPath = function(path) {
     vm.path = path;
@@ -30,7 +33,7 @@ module.exports = function(opts, i18n) {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   };
 
-  setPath('');
+  setPath(treePath.fromNodeList(treeOps.mainlineNodeList(tree.root)));
 
   var showGround = function() {
     var node = vm.node;
@@ -93,6 +96,34 @@ module.exports = function(opts, i18n) {
     ground.playPremove();
   };
 
+  var instanciateCeval = function(failsafe) {
+    ceval = cevalCtrl({
+      variant: data.game.variant,
+      possible: true,
+      emit: function(res) {
+        tree.updateAt(res.work.path, function(node) {
+          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+          node.ceval = res.eval;
+          // if (res.work.path === vm.path) {
+          //   setAutoShapes();
+          //   m.redraw();
+          // }
+        });
+      },
+      setAutoShapes: $.noop,
+      failsafe: failsafe,
+      onCrash: function(e) {
+        console.log('Local eval failed!', e);
+        if (ceval.pnaclSupported) {
+          console.log('Retrying in failsafe mode');
+          instanciateCeval(true);
+          startCeval();
+        }
+      }
+    });
+  };
+  instanciateCeval();
+
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
     if (vm.node.check) {
@@ -138,6 +169,11 @@ module.exports = function(opts, i18n) {
   });
 
   showGround();
+
+  keyboard.bind({
+    vm: vm,
+    userJump: userJump
+  });
 
   console.log(data);
 

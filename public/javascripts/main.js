@@ -2009,7 +2009,7 @@ lichess.notifyApp = (function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('#lichess .puzzle_app');
+    cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {
