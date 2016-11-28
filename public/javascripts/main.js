@@ -355,6 +355,7 @@ lichess.notifyApp = (function() {
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
+    else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
 
@@ -1300,7 +1301,7 @@ lichess.notifyApp = (function() {
       window.history.replaceState(null, null, '/');
     };
     lichess.socket = lichess.StrongSocket(
-      '/lobby/socket/v1',
+      '/lobby/socket/v2',
       cfg.data.version, {
         receive: function(t, d) {
           lobby.socketReceive(t, d);
@@ -2000,6 +2001,30 @@ lichess.notifyApp = (function() {
       analyse.setChapter(chapterId);
       history.pushState('', document.title, location.pathname);
     }
+  }
+
+  ////////////////
+  // puzzle.js //
+  ////////////////
+
+  function startPuzzle(cfg) {
+    var puzzle;
+    cfg.element = document.querySelector('#lichess .puzzle_app');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
+    lichess.socket = lichess.StrongSocket('/socket', 0, {
+      options: {
+        name: "puzzle"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        puzzle.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    puzzle = LichessPuzzle(cfg);
+    topMenuIntent();
   }
 
   /////////////// forum.js ////////////////////

@@ -4,7 +4,7 @@ var m = require('mithril');
 
 module.exports = function(opts) {
 
-  var controller = new ctrl(opts.data, opts.i18n);
+  var controller = new ctrl(opts);
 
   m.module(opts.element, {
     controller: function() {

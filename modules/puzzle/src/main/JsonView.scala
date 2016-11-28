@@ -35,7 +35,8 @@ object JsonView {
           "vote" -> puzzle.vote.sum
         ),
         "pref" -> Json.obj(
-          "coords" -> pref.coords
+          "coords" -> pref.coords,
+          "rookCastle" -> pref.rookCastle
         ),
         "chessground" -> Json.obj(
           "highlight" -> Json.obj(

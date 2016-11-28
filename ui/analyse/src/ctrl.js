@@ -7,6 +7,8 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var promotion = require('./promotion');
 var util = require('./util');
+var readDests = require('chess').readDests;
+var readDrops = require('chess').readDrops;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var socket = require('./socket');
@@ -115,8 +117,8 @@ module.exports = function(opts) {
   var showGround = function() {
     var node = this.vm.node;
     var color = node.ply % 2 === 0 ? 'white' : 'black';
-    var dests = util.readDests(node.dests);
-    var drops = util.readDrops(node.drops);
+    var dests = readDests(node.dests);
+    var drops = readDrops(node.drops);
     var config = {
       fen: node.fen,
       turnColor: color,
@@ -147,8 +149,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var getDests = throttle(800, false, function() {
-    if (this.vm.node.dests) return;
-    this.socket.sendAnaDests({
+    if (!this.vm.node.dests) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.vm.node.fen,
       path: this.vm.path

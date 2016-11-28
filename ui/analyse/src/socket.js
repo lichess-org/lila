@@ -1,4 +1,4 @@
-var util = require('./util');
+var synthetic = require('./util').synthetic;
 var initialBoardFen = require('chessground').fen.initial;
 
 module.exports = function(send, ctrl) {
@@ -18,7 +18,7 @@ module.exports = function(send, ctrl) {
     }
   } : {};
 
-  if (!util.synthetic(ctrl.data)) setTimeout(function() {
+  if (!synthetic(ctrl.data)) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 

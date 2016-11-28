@@ -2,11 +2,11 @@
 
 @evenMoreJs = {
 @embedJs {
-LichessPuzzle({
-element: document.querySelector('#lichess .round'),
+lichess = lichess || {};
+lichess.puzzle = {
 data: @Html(toJson(data)),
 i18n: @jsI18n()
-});
+};
 }
 }
 
@@ -21,5 +21,5 @@ description = s"Tactic puzzle #${puzzle.id}: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ).str() + s" Played by ${puzzle.attempts} players.").some) {
-<div class="round cg-512">@miniBoardContent</div>
+<div class="puzzle_app cg-512">@miniBoardContent</div>
 }

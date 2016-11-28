@@ -1,4 +1,3 @@
-var piotr2key = require('./piotr');
 var fixCrazySan = require('chess').fixCrazySan;
 var common = require('common');
 var m = require('mithril');
@@ -8,20 +7,6 @@ var plyToTurn = function(ply) {
 }
 
 module.exports = {
-  readDests: function(lines) {
-    if (!common.defined(lines)) return null;
-    var dests = {};
-    if (lines) lines.split(' ').forEach(function(line) {
-      dests[piotr2key[line[0]]] = line.split('').slice(1).map(function(c) {
-        return piotr2key[c];
-      });
-    });
-    return dests;
-  },
-  readDrops: function(line) {
-    if (!common.defined(line) || line === null) return null;
-    return line.match(/.{2}/g) || [];
-  },
   synthetic: function(data) {
     return data.game.id === 'synthetic';
   },

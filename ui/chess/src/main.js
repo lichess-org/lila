@@ -1,3 +1,5 @@
+var piotr = require('./piotr');
+
 module.exports = {
 
   initialFen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -12,5 +14,20 @@ module.exports = {
   renderEval: function(e) {
     e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
     return (e > 0 ? '+' : '') + e;
+  },
+
+  readDests: function(lines) {
+    if (typeof lines === 'undefined') return null;
+    var dests = {};
+    if (lines) lines.split(' ').forEach(function(line) {
+      dests[piotr[line[0]]] = line.split('').slice(1).map(function(c) {
+        return piotr[c];
+      });
+    });
+    return dests;
+  },
+  readDrops: function(line) {
+    if (typeof line === 'undefined' || line === null) return null;
+    return line.match(/.{2}/g) || [];
   }
 };
