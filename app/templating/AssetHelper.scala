@@ -8,6 +8,7 @@ import play.twirl.api.Html
 trait AssetHelper { self: I18nHelper =>
 
   def assetVersion = lila.api.Env.current.assetVersion.get
+  def disableHooks = lila.lobby.Env.current.disableHooks.get
 
   def isProd: Boolean
 

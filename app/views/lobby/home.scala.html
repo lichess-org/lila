@@ -59,6 +59,7 @@ lichess = lichess || {};
 lichess.lobby = {
 perfIcons: @nonPuzzlePerfTypeNameIcons,
 data: @Html(J.stringify(data)),
+noHooks: @disableHooks,
 playban: @playban.fold(Html("null")){ pb =>
 @Html(J.stringify(J.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
 },

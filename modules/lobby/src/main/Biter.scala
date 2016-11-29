@@ -4,7 +4,7 @@ import akka.actor.ActorRef
 import chess.{ Game => ChessGame, Board, Mode, Clock, Color => ChessColor }
 import org.joda.time.DateTime
 
-import actorApi.{ RemoveHook, BiteHook, BiteSeek, JoinHook, JoinSeek, LobbyUser }
+import actorApi.{ JoinHook, JoinSeek, LobbyUser }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress, PerfPicker }
 import lila.user.{ User, UserRepo }
 

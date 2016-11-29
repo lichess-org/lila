@@ -88,6 +88,7 @@ private[lobby] final class Socket(
       membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
     case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
+    case NbHooks(count)                        => notifyAllAsync(makeMessage("nb_hooks", count))
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 

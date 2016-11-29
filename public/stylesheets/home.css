@@ -64,6 +64,12 @@ body.dark #hooks_wrap {
 #hooks_wrap .lobby_box.seeks {
   max-height: 510px;
 }
+#hooks_wrap .lobby_box .no_hooks {
+  text-align: center;
+  line-height: 2em;
+  margin-top: 80px;
+  font-size: 1.3em;
+}
 #hooks_wrap .tabs {
   position: absolute;
   top: -23px;

@@ -18,7 +18,8 @@ private[lobby] final class Lobby(
     maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
-    onStart: String => Unit) extends Actor {
+    onStart: String => Unit,
+    hideHooks: () => Boolean) extends Actor {
 
   def receive = {
 
@@ -50,7 +51,7 @@ private[lobby] final class Lobby(
 
     case SaveHook(msg) =>
       HookRepo save msg.hook
-      socket ! msg
+      if (!hideHooks()) socket ! msg
 
     case SaveSeek(msg) => (seekApi insert msg.seek) >>- {
       socket ! msg
@@ -127,7 +128,10 @@ private[lobby] final class Lobby(
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync =>
-      socket ! HookIds(HookRepo.vector.map(_.id))
+      if (!hideHooks()) socket ! HookIds(HookRepo.vector.map(_.id))
+
+    case Lobby.SendNbHooks =>
+      if (hideHooks()) socket ! NbHooks(HookRepo.size)
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
@@ -162,7 +166,7 @@ private[lobby] final class Lobby(
 
   private def remove(hook: Hook) = {
     HookRepo remove hook
-    socket ! RemoveHook(hook.id)
+    if (!hideHooks()) socket ! RemoveHook(hook.id)
   }
 }
 
@@ -172,6 +176,8 @@ private object Lobby {
 
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
+  private object SendNbHooks
+
   def start(
     system: ActorSystem,
     name: String,
@@ -180,6 +186,7 @@ private object Lobby {
 
     val ref = system.actorOf(Props(instance), name = name)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    system.scheduler.schedule(10 seconds, 2 seconds, ref, SendNbHooks)
     system.scheduler.scheduleOnce(7 seconds) {
       lila.common.ResilientScheduler(
         every = broomPeriod,
