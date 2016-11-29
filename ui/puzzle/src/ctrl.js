@@ -23,6 +23,7 @@ module.exports = function(opts, i18n) {
     loading: false,
     justPlayed: null,
     initialPath: null,
+    initialNode: null,
     canViewSolution: false,
     keepGoing: false
   };
@@ -40,6 +41,7 @@ module.exports = function(opts, i18n) {
   };
 
   vm.initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
+  vm.initialNode = tree.nodeAtPath(vm.initialPath);
   setPath(treePath.init(vm.initialPath));
   setTimeout(function() {
     jump(vm.initialPath);
@@ -133,7 +135,10 @@ module.exports = function(opts, i18n) {
   var applyProgress = function(progress) {
     console.log(progress);
     if (progress === 'fail') {
-      if (vm.mode === 'play') vm.mode = 'try';
+      if (vm.mode === 'play') {
+        vm.canViewSolution = true;
+        vm.mode = 'try';
+      }
     }
     if (progress && progress.orig) {
       vm.keepGoing = true;
@@ -217,7 +222,7 @@ module.exports = function(opts, i18n) {
 
   var viewSolution = function() {
     vm.mode = 'view';
-    mergeSolution(tree, vm.initialPath, data.puzzle.branch);
+    mergeSolution(tree, vm.initialNode, data.puzzle.branch);
     m.redraw();
   };
 
