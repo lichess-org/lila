@@ -30,9 +30,9 @@ final class TeamInfoApi(
   private case class Cachable(bestUserIds: List[User.ID], toints: Int)
 
   private def fetchCachable(id: String): Fu[Cachable] = for {
-    userIds ← (MemberRepo userIdsByTeam id).thenPp(s"team $id userIds")
-    bestUserIds ← UserRepo.idsByIdsSortRating(userIds, 10).thenPp(s"team $id bestUserIds")
-    toints ← UserRepo.idsSumToints(userIds).thenPp(s"team $id toints")
+    userIds ← (MemberRepo userIdsByTeam id)
+    bestUserIds ← UserRepo.idsByIdsSortRating(userIds, 10)
+    toints ← UserRepo.idsSumToints(userIds)
   } yield Cachable(bestUserIds, toints)
 
   private val cache = lila.memo.AsyncCache[String, Cachable](
