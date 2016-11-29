@@ -23,7 +23,8 @@ module.exports = function(opts, i18n) {
     loading: false,
     justPlayed: null,
     initialPath: null,
-    canViewSolution: false
+    canViewSolution: false,
+    keepGoing: false
   };
 
   var data = opts.data;
@@ -92,8 +93,6 @@ module.exports = function(opts, i18n) {
     };
     if (prom) move.promotion = prom;
     socket.sendAnaMove(move);
-    moveTest(vm.path, move);
-    // preparePremoving();
   };
 
   // var preparePremoving = function() {
@@ -123,6 +122,17 @@ module.exports = function(opts, i18n) {
     jump(newPath);
     m.redraw();
     ground.playPremove();
+
+    var progress = moveTest();
+    console.log(progress);
+    if (progress && progress.orig) {
+      vm.keepGoing = true;
+      setTimeout(function() {
+        socket.sendAnaMove(progress);
+      }, 500);
+    }
+    // preparePremoving();
+    m.redraw();
   };
 
   var addDests = function(dests, path, opening) {
@@ -213,7 +223,7 @@ module.exports = function(opts, i18n) {
     },
     destsCache: data.game.destsCache
   });
-  var moveTest = moveTestBuild(tree, vm.initialPath, data.puzzle.lines);
+  var moveTest = moveTestBuild(vm, data.puzzle);
 
   showGround();
 
