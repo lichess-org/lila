@@ -199,7 +199,7 @@ private[simul] final class SimulApi(
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
         site ! siteMessage
         repo.allCreated foreach { simuls =>
