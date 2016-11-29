@@ -59,16 +59,23 @@ private[lobby] final class Socket(
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
-    case AddHook(hook) =>
+    case AddHook(hook) => Future {
       val json = hook.render
       members.foreach {
-        case (uid, member) => if (!idleUids(uid)) notifyMemberOfHook(member.pp, hook, json)
+        case (uid, member) =>
+          if (!member.mobile && !idleUids(uid)) notifyMemberOfHook(member, hook, json)
       }
+    }
 
     case AddSeek(_) => notifySeeks
 
-    case RemoveHook(hookId) =>
-      notifyAllActiveAsync(makeMessage("hrm", hookId))
+    case RemoveHook(hookId) => Future {
+      val msg = makeMessage("hrm", hookId)
+      members.foreach {
+        case (uid, member) =>
+          if (!member.mobile && !idleUids(uid)) member push msg
+      }
+    }
 
     case RemoveSeek(_) => notifySeeks
 
@@ -80,7 +87,13 @@ private[lobby] final class Socket(
       membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
       membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
-    case HookIds(ids)                         => notifyAllAsync(makeMessage("hli", ids mkString ","))
+    case HookIds(ids)                         => Future {
+      val msg = makeMessage("hli", ids mkString ",")
+      members.foreach {
+        case (uid, member) =>
+          if (!member.mobile && !idleUids(uid)) member push msg
+      }
+    }
     case NbHooks(count)                       => notifyAllAsync(makeMessage("nb_hooks", count))
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
