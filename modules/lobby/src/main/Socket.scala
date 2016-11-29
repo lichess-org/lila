@@ -42,10 +42,6 @@ private[lobby] final class Socket(
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) => Future {
-      ping(uid)
-    }
-
     case GetUids => sender ! SocketUids(members.keySet.toSet)
 
     case Join(uid, user, blocks, mobile) =>
