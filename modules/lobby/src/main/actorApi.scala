@@ -8,22 +8,16 @@ import lila.user.User
 private[lobby] case class LobbyUser(
     id: String,
     username: String,
-    troll: Boolean,
     engine: Boolean,
-    booster: Boolean,
     ratingMap: Map[String, Int],
-    blocking: Set[String]) {
-  def lame = engine || booster
-}
+    blocking: Set[String])
 
 private[lobby] object LobbyUser {
 
   def make(user: User, blocking: Set[String]) = LobbyUser(
     id = user.id,
     username = user.username,
-    troll = user.troll,
     engine = user.engine,
-    booster = user.booster,
     ratingMap = user.perfs.ratingMap,
     blocking = blocking)
 }
@@ -35,7 +29,7 @@ private[lobby] case class Member(
     mobile: Boolean) extends SocketMember {
 
   val userId = user map (_.id)
-  val troll = user ?? (_.troll)
+  val troll = false
 }
 
 private[lobby] object Member {
