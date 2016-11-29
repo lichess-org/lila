@@ -10,6 +10,7 @@ var keyboard = require('./keyboard');
 var opposite = chessground.util.opposite;
 var groundBuild = require('./ground');
 var socketBuild = require('./socket');
+var moveTestBuild = require('./moveTest');
 var throttle = require('common').throttle;
 var xhr = require('./xhr');
 var sound = require('./sound');
@@ -35,7 +36,11 @@ module.exports = function(opts, i18n) {
   };
 
   vm.initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
-  setPath(vm.initialPath);
+  setPath(treePath.init(vm.initialPath));
+  setTimeout(function() {
+    jump(vm.initialPath);
+    m.redraw();
+  }, 500);
 
   var showGround = function() {
     var node = vm.node;
@@ -51,12 +56,12 @@ module.exports = function(opts, i18n) {
       check: node.check,
       lastMove: uciToLastMove(node.uci)
     };
-    if (!dests && !node.check) {
-      // premove while dests are loading from server
-      // can't use when in check because it highlights the wrong king
-      config.turnColor = opposite(color);
-      config.movable.color = color;
-    }
+    // if (!dests && !node.check) {
+    //   // premove while dests are loading from server
+    //   // can't use when in check because it highlights the wrong king
+    //   config.turnColor = opposite(color);
+    //   config.movable.color = color;
+    // }
     vm.cgConfig = config;
     if (!ground) ground = groundBuild(data, config, userMove);
     ground.set(config);
@@ -69,11 +74,34 @@ module.exports = function(opts, i18n) {
     sendMove(orig, dest);
   };
 
-  var getDests = throttle(800, false, function() {
-    if (!vm.node.dests) socket.sendAnaDests({
+  var sendMove = function(orig, dest, prom) {
+    var move = {
+      orig: orig,
+      dest: dest,
       fen: vm.node.fen,
       path: vm.path
-    });
+    };
+    if (prom) move.promotion = prom;
+    socket.sendAnaMove(move);
+    moveTest(vm.path, move);
+    // preparePremoving();
+  };
+
+  // var preparePremoving = function() {
+  //   ground.set({
+  //     turnColor: ground.data.movable.color,
+  //     movable: {
+  //       color: opposite(ground.chessground.data.movable.color)
+  //     }
+  //   });
+  // };
+
+  var getDests = throttle(800, false, function() {
+    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
+      socket.sendAnaDests({
+        fen: vm.node.fen,
+        path: vm.path
+      });
   });
 
   var uciToLastMove = function(uci) {
@@ -170,6 +198,7 @@ module.exports = function(opts, i18n) {
     },
     destsCache: data.game.destsCache
   });
+  var moveTest = moveTestBuild(tree, vm.initialPath, data.puzzle.lines);
 
   showGround();
 

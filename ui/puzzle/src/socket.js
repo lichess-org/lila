@@ -11,6 +11,10 @@ module.exports = function(opts) {
     };
 
   var handlers = {
+    node: function(data) {
+      clearTimeout(anaMoveTimeout);
+      opts.addNode(data.node, data.path);
+    },
     stepFailure: function(data) {
       clearTimeout(anaMoveTimeout);
       opts.reset();
@@ -38,7 +42,7 @@ module.exports = function(opts) {
     clearTimeout(anaDestsTimeout);
     if (anaDestsCache[req.path]) setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
-    }, 300);
+    }, 10);
     else {
       opts.send('anaDests', req);
       anaDestsTimeout = setTimeout(function() {
