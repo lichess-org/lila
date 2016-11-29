@@ -14,7 +14,6 @@ import lila.user.{ User, UserContext }
 
 final class LobbyApi(
     lobby: ActorRef,
-    lobbyVersion: () => Int,
     getFilter: UserContext => Fu[FilterConfig],
     lightUser: String => Option[LightUser],
     seekApi: SeekApi) {
@@ -30,7 +29,6 @@ final class LobbyApi(
           "me" -> ctx.me.map { u =>
             Json.obj("username" -> u.username)
           },
-          "version" -> lobbyVersion(),
           "hooks" -> JsArray(hooks map (_.render)),
           "seeks" -> JsArray(seeks map (_.render)),
           "nowPlaying" -> JsArray(povs take 9 map nowPlaying),

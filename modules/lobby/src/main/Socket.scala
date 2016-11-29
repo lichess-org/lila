@@ -17,12 +17,11 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.SocketActor
 import makeTimeout.short
 
 private[lobby] final class Socket(
-    val history: History[Messadata],
-    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
+    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) {
 
   override val startsOnApplicationBoot = true
 
@@ -45,12 +44,6 @@ private[lobby] final class Socket(
 
     case PingVersion(uid, v) => Future {
       ping(uid)
-      withActiveMember(uid) { m =>
-        history.since(v).fold {
-          lila.mon.lobby.socket.resync()
-          resync(m)
-        }(_ foreach sendMessage(m))
-      }
     }
 
     case GetUids => sender ! SocketUids(members.keySet.toSet)
@@ -71,13 +64,17 @@ private[lobby] final class Socket(
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) =>
-      notifyVersion("had", hook.render, Messadata(hook = hook.some))
+      val json = hook.render
+      members.foreach {
+        case (uid, member) => if (!idleUids(uid)) notifyMemberOfHook(member.pp, hook, json)
+      }
 
-    case AddSeek(_)         => notifySeeks
+    case AddSeek(_) => notifySeeks
 
-    case RemoveHook(hookId) => notifyVersion("hrm", hookId, Messadata())
+    case RemoveHook(hookId) =>
+      notifyAllActiveAsync(makeMessage("hrm", hookId))
 
-    case RemoveSeek(_)      => notifySeeks
+    case RemoveSeek(_) => notifySeeks
 
     case JoinHook(uid, hook, game, creatorColor) =>
       withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
@@ -87,8 +84,8 @@ private[lobby] final class Socket(
       membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
       membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
-    case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
-    case NbHooks(count)                        => notifyAllAsync(makeMessage("nb_hooks", count))
+    case HookIds(ids)                         => notifyAllAsync(makeMessage("hli", ids mkString ","))
+    case NbHooks(count)                       => notifyAllAsync(makeMessage("nb_hooks", count))
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
@@ -110,30 +107,22 @@ private[lobby] final class Socket(
       "cookie" -> AnonCookie.json(game, color)
     ).noNull) _
 
-  def notifyAllActiveAsync(msg: JsObject) = scala.concurrent.Future {
+  def notifyAllActiveAsync(msg: JsObject) = Future {
     members.foreach {
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
   }
 
+  def notifyMemberOfHook(member: Member, hook: Hook, json: JsObject) =
+    if (hook.uid == member.uid || Biter.canJoin(hook, member.user))
+      member push makeMessage("had", json)
+
   def withActiveMember(uid: String)(f: Member => Unit) {
     if (!idleUids(uid)) members get uid foreach f
   }
 
-  override def sendMessage(message: Message)(member: Member) =
-    if (!idleUids(member.uid)) member push {
-      if (shouldSkipMessageFor(message, member)) message.skipMsg
-      else message.fullMsg
-    }
-
-  protected def shouldSkipMessageFor(message: Message, member: Member) =
-    message.metadata.hook ?? { hook =>
-      hook.uid != member.uid && !Biter.canJoin(hook, member.user)
-    }
-
   private def playerUrl(fullId: String) = s"/$fullId"
 
-  private def notifySeeks() {
+  private def notifySeeks =
     notifyAll(makeMessage("reload_seeks"))
-  }
 }

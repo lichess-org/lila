@@ -114,7 +114,6 @@ final class Env(
 
   val lobbyApi = new LobbyApi(
     lobby = lobbyEnv.lobby,
-    lobbyVersion = () => lobbyEnv.history.version,
     getFilter = setupEnv.filter,
     lightUser = userEnv.lightUser,
     seekApi = lobbyEnv.seekApi)

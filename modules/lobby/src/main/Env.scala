@@ -4,7 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.socket.History
 
 final class Env(
     config: Config,
@@ -18,11 +17,9 @@ final class Env(
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val MessageTtl = config duration "message.ttl"
     val NetDomain = config getString "net.domain"
     val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
-    val OrphanHookTtl = config duration "orphan_hook.ttl"
     val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
@@ -35,7 +32,6 @@ final class Env(
   import settings._
 
   private val socket = system.actorOf(Props(new Socket(
-    history = history,
     uidTtl = SocketUidTtl)), name = SocketName)
 
   lazy val seekApi = new SeekApi(
@@ -64,8 +60,6 @@ final class Env(
     lobby = lobby,
     socket = socket,
     blocking = blocking)
-
-  lazy val history = new History[actorApi.Messadata](ttl = MessageTtl)
 
   object disableHooks {
     import reactivemongo.bson._

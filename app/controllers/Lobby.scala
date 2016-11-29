@@ -12,15 +12,14 @@ import views._
 
 object Lobby extends LilaController {
 
+  private val lobbyJson = Json.obj(
+    "lobby" -> Json.obj("version" -> 0)
+  )
+
   def home = Open { implicit ctx =>
     negotiate(
       html = renderHome(Results.Ok).map(NoCache),
-      api = _ => fuccess {
-        Ok(Json.obj(
-          "lobby" -> Json.obj(
-            "version" -> Env.lobby.history.version)
-        ))
-      }
+      api = _ => fuccess(Ok(lobbyJson))
     )
   }
 
