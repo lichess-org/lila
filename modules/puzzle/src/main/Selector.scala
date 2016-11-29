@@ -80,7 +80,7 @@ private[puzzle] final class Selector(
       Puzzle.BSONFields.rating $gt
         (rating - tolerance) $lt
         (rating + tolerance),
-      Puzzle.BSONFields.voteSum $gt -10
+      Puzzle.BSONFields.voteSum $gt -100
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
         tryRange(rating, tolerance + step, step,
