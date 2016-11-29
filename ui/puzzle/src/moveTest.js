@@ -19,13 +19,23 @@ module.exports = function(vm, puzzle) {
     var progress = puzzle.lines;
     for (var i in ucis) {
       progress = progress[ucis[i]];
-      if (!progress) return 'fail';
-      if (progress === 'retry') return 'retry';
-      if (progress === 'win') return 'win';
+      if (!progress) progress = 'fail';
+      if (typeof progress === 'string') break;
+    }
+    if (typeof progress === 'string') {
+      vm.node.puzzle = progress;
+      return progress;
     }
 
     var nextKey = Object.keys(progress)[0]
-    if (progress[nextKey] === 'win') return 'win';
+    if (progress[nextKey] === 'win') {
+      vm.node.puzzle = 'win';
+      return 'win';
+    }
+
+    // from here we have a next move
+
+    vm.node.puzzle = 'good';
 
     var opponentUci = decomposeUci(nextKey);
 

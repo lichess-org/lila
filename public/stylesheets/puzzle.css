@@ -50,6 +50,26 @@
   opacity: 1;
 }
 
+#puzzle move {
+  justify-content: space-between;
+}
+#puzzle move glyph {
+  font-size: 2em;
+}
+#puzzle move.good glyph,
+#puzzle move.win glyph {
+  color: #759900;
+}
+#puzzle move.fail glyph {
+  color: #dc322f;
+}
+#puzzle move.retry glyph {
+  color: #d59120;
+}
+#puzzle move:hover glyph {
+  color: #fff;
+}
+
 #puzzle .timeline {
   display: flex;
   margin-top: 10px;

@@ -115,14 +115,52 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.initialPath) classes.push('current');
+  if (node.puzzle) {
+    classes.push(node.puzzle);
+  }
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, renderMove(ctx, node));
+}
+
+function renderGlyph(glyph) {
+  return {
+    tag: 'glyph',
+    attrs: {
+      title: glyph.name
+    },
+    children: [glyph.symbol]
+  };
+}
+
+function puzzleGlyph(ctx, node) {
+  switch (node.puzzle) {
+    case 'good':
+    case 'win':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('bestMove'),
+        symbol: '✓'
+      });
+      break;
+    case 'fail':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('puzzleFailed'),
+        symbol: '✗'
+      });
+      break;
+    case 'retry':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('goodMove'),
+        symbol: '?!'
+      });
+      break;
+  }
 }
 
 function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     node.san,
+    puzzleGlyph(ctx, node),
     defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
       defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
@@ -138,6 +176,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
   else if (pathContains(ctx, path)) classes.push('parent');
+  if (node.puzzle) classes.push(node.puzzle);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,

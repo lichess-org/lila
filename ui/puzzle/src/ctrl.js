@@ -124,15 +124,23 @@ module.exports = function(opts, i18n) {
     ground.playPremove();
 
     var progress = moveTest();
+    console.log(progress, vm.node);
+    if (progress) applyProgress(progress);
+    // preparePremoving();
+    m.redraw();
+  };
+
+  var applyProgress = function(progress) {
     console.log(progress);
+    if (progress === 'fail') {
+      if (vm.mode === 'play') vm.mode = 'try';
+    }
     if (progress && progress.orig) {
       vm.keepGoing = true;
       setTimeout(function() {
         socket.sendAnaMove(progress);
       }, 500);
     }
-    // preparePremoving();
-    m.redraw();
   };
 
   var addDests = function(dests, path, opening) {
