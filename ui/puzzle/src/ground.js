@@ -5,7 +5,7 @@ function makeConfig(data, config, onMove) {
     fen: config.fen,
     check: config.check,
     lastMove: config.lastMove,
-    orientation: data.orientation,
+    orientation: data.puzzle.color,
     coordinates: data.pref.coords !== 0,
     movable: {
       free: false,

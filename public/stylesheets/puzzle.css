@@ -8,7 +8,8 @@
   background: #fff;
   height: 38%;
   display: flex;
-  align-items: center;
+  flex-flow: column;
+  justify-content: center;
 }
 #puzzle .feedback .player {
   display: flex;
@@ -33,6 +34,20 @@
 }
 #puzzle .feedback .instruction strong {
   font-size: 1.5em;
+}
+@keyframes reveal {
+  0% { opacity: 0; }
+  100% { opacity: 0.8; }
+}
+#puzzle .feedback .view_solution {
+  margin-top: 20px;
+  text-align: center;
+  opacity: 0.8;
+  animation: reveal 1s;
+  transition: opacity 0.13s;
+}
+#puzzle .feedback .view_solution:hover {
+  opacity: 1;
 }
 
 #puzzle .timeline {

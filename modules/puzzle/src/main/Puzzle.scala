@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import chess.Color
+import chess.format.Uci
 import org.joda.time.DateTime
 
 import lila.rating.Perf
@@ -23,7 +24,7 @@ case class Puzzle(
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
-  def initialMove = history.last
+  def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
 
   def enabled = vote.sum > -9000
 
@@ -31,8 +32,7 @@ case class Puzzle(
     import chess.format.{ Uci, Forsyth }
     for {
       sit1 <- Forsyth << fen
-      uci <- Uci.Move(initialMove)
-      sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
+      sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> sit2
   }
 }

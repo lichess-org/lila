@@ -11,6 +11,7 @@ var opposite = chessground.util.opposite;
 var groundBuild = require('./ground');
 var socketBuild = require('./socket');
 var moveTestBuild = require('./moveTest');
+var mergeSolution = require('./solution');
 var throttle = require('common').throttle;
 var xhr = require('./xhr');
 var sound = require('./sound');
@@ -18,9 +19,11 @@ var sound = require('./sound');
 module.exports = function(opts, i18n) {
 
   var vm = {
+    mode: 'play', // play | try | view
     loading: false,
     justPlayed: null,
-    initialPath: null
+    initialPath: null,
+    canViewSolution: false
   };
 
   var data = opts.data;
@@ -41,6 +44,12 @@ module.exports = function(opts, i18n) {
     jump(vm.initialPath);
     m.redraw();
   }, 500);
+
+  setTimeout(function() {
+    vm.canViewSolution = true;
+    m.redraw();
+  }, 500);
+  // }, 5000);
 
   var showGround = function() {
     var node = vm.node;
@@ -188,6 +197,12 @@ module.exports = function(opts, i18n) {
     jump(path);
   };
 
+  var viewSolution = function() {
+    vm.mode = 'view';
+    mergeSolution(tree, vm.initialPath, data.puzzle.branch);
+    m.redraw();
+  };
+
   var socket = socketBuild({
     send: opts.socketSend,
     addNode: addNode,
@@ -215,6 +230,7 @@ module.exports = function(opts, i18n) {
     tree: tree,
     ground: ground,
     userJump: userJump,
+    viewSolution: viewSolution,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive
   };

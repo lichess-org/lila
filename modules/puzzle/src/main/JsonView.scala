@@ -5,6 +5,7 @@ import play.api.libs.json._
 import lila.common.PimpedJson._
 import lila.game.Game
 import lila.puzzle._
+import lila.tree
 
 object JsonView {
 
@@ -27,10 +28,11 @@ object JsonView {
           "attempts" -> puzzle.attempts,
           "fen" -> puzzle.fen,
           "color" -> puzzle.color.name,
-          "initialMove" -> puzzle.initialMove,
+          "initialMove" -> puzzle.initialMove.uci,
           "initialPly" -> puzzle.initialPly,
           "gameId" -> puzzle.gameId,
           "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
+          "branch" -> makeBranch(puzzle),
           "enabled" -> puzzle.enabled,
           "vote" -> puzzle.vote.sum
         ),
@@ -83,4 +85,28 @@ object JsonView {
           )
         }).noNull
     }
+
+  private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
+    import chess.format._
+    val solution: List[Uci.Move] = Line solution puzzle.lines map { uci =>
+      Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
+    }
+    val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
+    val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
+      case ((prev, branches), uci) =>
+        val (game, _) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
+        val branch = tree.Branch(
+          id = UciCharPair(uci),
+          ply = game.turns,
+          move = Uci.WithSan(uci, game.pgnMoves.last),
+          fen = chess.format.Forsyth >> game,
+          check = game.situation.check,
+          crazyData = none)
+        (game, branch :: branches)
+    }
+    branchList.foldLeft[Option[tree.Branch]](None) {
+      case (None, branch)        => branch.some
+      case (Some(child), branch) => Some(branch addChild child)
+    }
+  }
 }
