@@ -4,6 +4,11 @@ module.exports = function(opts) {
   var anaDestsTimeout;
 
   var anaDestsCache = {};
+  for (var path in opts.destsCache)
+    anaDestsCache[path] = {
+      path: path,
+      dests: opts.destsCache[path]
+    };
 
   var handlers = {
     stepFailure: function(data) {

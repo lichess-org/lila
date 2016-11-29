@@ -167,7 +167,8 @@ module.exports = function(opts, i18n) {
     reset: function() {
       showGround();
       m.redraw();
-    }
+    },
+    destsCache: data.game.destsCache
   });
 
   showGround();

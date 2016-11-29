@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.socket.AnaDests
 import lila.tree.Node.partitionTreeJsonWriter
 
 object GameJson {
@@ -23,6 +24,8 @@ object GameJson {
   def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies) =>
       (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") map { game =>
+        val tree = TreeBuilder(game, plies)
+        val anaDests = lastAnaDests(game, tree)
         Json.obj(
           "id" -> game.id,
           "speed" -> game.speed.key,
@@ -33,8 +36,18 @@ object GameJson {
           "status" -> game.status,
           "tournamentId" -> game.tournamentId,
           "createdAt" -> game.createdAt,
-          "treeParts" -> partitionTreeJsonWriter.writes(TreeBuilder(game, plies))
+          "treeParts" -> partitionTreeJsonWriter.writes(tree),
+          "destsCache" -> Json.obj(
+            anaDests.path -> anaDests.dests
+          )
         ).noNull
       }
   }
+
+  private def lastAnaDests(game: Game, root: lila.tree.Root): AnaDests =
+    root.mainlineNodeList.foldLeft("" -> "") {
+      case ((path, _), node) => (node.idOption.fold(path)(path +), node.fen)
+    } match {
+      case (path, fen) => AnaDests(game.variant, fen, path)
+    }
 }
