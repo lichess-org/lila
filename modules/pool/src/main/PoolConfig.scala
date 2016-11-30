@@ -14,12 +14,6 @@ object PoolConfig {
 
   case class Id(value: String) extends AnyVal
 
-  // 10+5
-  def parse(str: String): Option[PoolConfig] = str.split('+') match {
-    case Array(lim, inc) => for {
-      limit <- parseIntOption(lim)
-      increment <- parseIntOption(inc)
-    } yield PoolConfig(chess.Clock(limit * 60, increment))
-    case _ => none
-  }
+  def apply(minutes: Int, increment: Int): PoolConfig =
+    PoolConfig(chess.Clock(minutes * 60, increment))
 }
