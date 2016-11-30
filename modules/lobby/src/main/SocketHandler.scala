@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.lobby._
+import lila.pool.{PoolApi,PoolConfig}
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -18,6 +19,7 @@ private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
     lobby: ActorRef,
     socket: ActorRef,
+    poolApi: PoolApi,
     blocking: String => Fu[Set[String]]) {
 
   private def controller(
@@ -38,6 +40,14 @@ private[lobby] final class SocketHandler(
       user <- member.user
     } lobby ! CancelSeek(id, user)
     case ("idle", o) => socket ! SetIdle(uid, ~(o boolean "d"))
+    case ("poolIn", o) => for {
+      id <- o str "d"
+      user <- member.user
+    } poolApi.join(PoolConfig.Id(id), PoolApi.Joiner(user.id, user.ratingMap))
+    case ("poolOut", o) => for {
+      id <- o str "d"
+      user <- member.user
+    } poolApi.leave(PoolConfig.Id(id), user.id)
   }
 
   def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =

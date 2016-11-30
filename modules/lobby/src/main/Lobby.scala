@@ -18,6 +18,7 @@ private[lobby] final class Lobby(
     maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
+    poolApi: lila.pool.PoolApi,
     onStart: String => Unit,
     hideHooks: () => Boolean) extends Actor {
 

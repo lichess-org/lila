@@ -13,8 +13,8 @@ private final class PoolActor(config: PoolConfig) extends Actor {
 
   def receive = {
 
-    case Join(user) =>
-      members = members.filter(_.userId != user.id) :+ PoolMember(user, config)
+    case Join(joiner) =>
+      members = members.filter(_.userId != joiner.userId) :+ PoolMember(joiner, config)
 
     case Leave(userId) =>
       members = members.filter(_.userId != userId)
@@ -28,7 +28,7 @@ private final class PoolActor(config: PoolConfig) extends Actor {
 
 private object PoolActor {
 
-  case class Join(user: User) extends AnyVal
+  case class Join(joiner: PoolApi.Joiner) extends AnyVal
   case class Leave(userId: User.ID) extends AnyVal
 
   case object MakePairings

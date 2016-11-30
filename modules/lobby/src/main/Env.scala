@@ -13,6 +13,7 @@ final class Env(
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     gameCache: lila.game.Cached,
+    poolApi: lila.pool.PoolApi,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -51,6 +52,7 @@ final class Env(
         maxPlaying = MaxPlaying,
         blocking = blocking,
         playban = playban,
+        poolApi = poolApi,
         onStart = onStart,
         hideHooks = () => disableHooks.get)
     }
@@ -59,6 +61,7 @@ final class Env(
     hub = hub,
     lobby = lobby,
     socket = socket,
+    poolApi = poolApi,
     blocking = blocking)
 
   object disableHooks {
@@ -96,6 +99,7 @@ object Env {
     blocking = lila.relation.Env.current.api.fetchBlocking,
     playban = lila.playban.Env.current.api.currentBan _,
     gameCache = lila.game.Env.current.cached,
+    poolApi = lila.pool.Env.current.api,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

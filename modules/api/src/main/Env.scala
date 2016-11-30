@@ -154,6 +154,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    pools = lila.pool.Env.current.pools.configs,
+    pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd)
 }

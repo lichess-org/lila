@@ -31,11 +31,11 @@ module.exports = function(send, ctrl) {
   };
 
   this.poolIn = function(id) {
-    send('pool_in', id);
+    send('poolIn', id);
   }.bind(this);
 
   this.poolOut = function(id) {
-    send('pool_out', id);
+    send('poolOut', id);
   }.bind(this);
 
   this.receive = function(type, data) {

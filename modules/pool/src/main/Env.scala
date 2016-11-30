@@ -13,7 +13,7 @@ final class Env(
 
   private val PoolList = (config getStringList "list").toList flatMap PoolConfig.parse
 
-  val pools = new Pools(PoolList, system)
+  lazy val api = new PoolApi(PoolList, system)
 }
 
 object Env {

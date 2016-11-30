@@ -11,8 +11,9 @@ case class PoolMember(
 
 object PoolMember {
 
-  def apply(user: User, config: PoolConfig): PoolMember = PoolMember(
-    user.id,
-    user.perfs(config.perfType).intRating,
-    DateTime.now)
+  def apply(joiner: PoolApi.Joiner, config: PoolConfig): PoolMember =
+    PoolMember(
+      joiner.userId,
+      joiner.ratingMap.getOrElse(config.perfType.key, 1500),
+      DateTime.now)
 }
