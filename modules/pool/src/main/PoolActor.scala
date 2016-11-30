@@ -17,13 +17,13 @@ private final class PoolActor(
 
     case Join(joiner) =>
       members = members.filter(_.userId != joiner.userId) :+ PoolMember(joiner, config)
-      if (members.pp.size > 1) self ! MakePairings
+      if (members.size > 1) self ! MakePairings
 
     case Leave(userId) =>
       members = members.filter(_.userId != userId)
 
     case MakePairings if members.size > 1 =>
-      val pairings = MatchMaking(members).pp
+      val pairings = MatchMaking(members)
       members = members diff pairings.flatMap(_.members)
       gameStarter(config, pairings)
       sender ! pairings
