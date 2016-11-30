@@ -3,7 +3,7 @@ var socket = require('./socket');
 var variant = require('./variant');
 var hookRepo = require('./hookRepo');
 var seekRepo = require('./seekRepo');
-var store = require('./store');
+var makeStore = require('./store');
 var xhr = require('./xhr');
 var util = require('chessground').util;
 
@@ -21,6 +21,8 @@ module.exports = function(env) {
   seekRepo.initAll(this);
 
   this.socket = new socket(env.socketSend, this);
+
+  var store = makeStore(this.data.me ? this.data.me.username.toLowerCase() : null);
 
   this.vm = {
     tab: store.tab.get(),
@@ -61,6 +63,7 @@ module.exports = function(env) {
     if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
     this.vm.tab = store.tab.set(tab);
     this.vm.filterOpen = false;
+    if (this.vm.tab !== 'pools') this.clickPool(null);
   }.bind(this);
 
   this.setMode = function(mode) {
@@ -83,6 +86,7 @@ module.exports = function(env) {
   }.bind(this);
 
   this.clickHook = function(id) {
+    if (!this.data.me) return;
     var hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.vm.stepping || this.vm.redirecting) return;
     if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
