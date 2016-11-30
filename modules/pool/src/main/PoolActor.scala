@@ -22,6 +22,7 @@ private final class PoolActor(config: PoolConfig) extends Actor {
     case MakePairings =>
       val pairings = MatchMaking(members)
       members = members diff pairings.flatMap(_.members)
+      sender ! pairings
   }
 }
 

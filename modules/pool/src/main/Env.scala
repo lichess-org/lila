@@ -8,7 +8,8 @@ import lila.common.PimpedConfig._
 
 final class Env(
     system: akka.actor.ActorSystem,
-    config: Config) {
+    config: Config,
+    onStart: String => Unit) {
 
   private val PoolList = (config getStringList "list").toList flatMap PoolConfig.parse
 
@@ -19,6 +20,7 @@ object Env {
 
   lazy val current: Env = "pool" boot new Env(
     system = lila.common.PlayApp.system,
-    config = lila.common.PlayApp loadConfig "pool")
+    config = lila.common.PlayApp loadConfig "pool",
+    onStart = lila.game.Env.current.onStart)
 }
 
