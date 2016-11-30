@@ -3,19 +3,31 @@ package lila.pool
 import lila.game.{ Game, Player, GameRepo }
 import lila.user.{ User, UserRepo }
 
-private final class GameStarter(onStart: Game.ID => Unit) {
+private final class GameStarter(
+    bus: lila.common.Bus,
+    onStart: Game.ID => Unit) {
 
-  def apply(pool: PoolConfig, pairings: List[Pairing]): Funit =
-    pairings.map(one(pool)).sequenceFu.void
+  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
+    couples.map(one(pool)).sequenceFu.void
 
-  private def one(pool: PoolConfig)(pairing: Pairing): Funit =
-    UserRepo.byIds(pairing.members.map(_.userId)) flatMap {
+  private def one(pool: PoolConfig)(couple: MatchMaking.Couple): Funit =
+    UserRepo.byIds(couple.members.map(_.userId)) flatMap {
       case List(u1, u2) => for {
         u1White <- UserRepo.firstGetsWhite(u1.id, u2.id)
         (whiteUser, blackUser) = u1White.fold(u1 -> u2, u2 -> u1)
+        (whiteMember, blackMember) = (whiteUser.id == couple.p1.userId).fold(
+          couple.p1 -> couple.p2,
+          couple.p2 -> couple.p1)
         game = makeGame(pool, whiteUser, blackUser).start
         _ <- GameRepo insertDenormalized game
       } yield {
+
+        bus.publish(PoolApi.Pairing(
+          game,
+          whiteUid = whiteMember.socketId,
+          blackUid = blackMember.socketId
+        ), 'poolGame)
+
         onStart(game.id)
         // lila.mon.lobby.hook.join()
         // lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()

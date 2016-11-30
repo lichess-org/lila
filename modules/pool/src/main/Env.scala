@@ -1,24 +1,22 @@
 package lila.pool
 
-import akka.actor._
-import com.typesafe.config.Config
-import scala.collection.JavaConversions._
-
-import lila.common.PimpedConfig._
-
 final class Env(
     system: akka.actor.ActorSystem,
-    config: Config,
     onStart: String => Unit) {
 
-  lazy val api = new PoolApi(PoolList.all, system)
+  lazy val api = new PoolApi(
+    configs = PoolList.all,
+    gameStarter,
+    system)
+
+  private lazy val gameStarter = new GameStarter(
+    bus = system.lilaBus,
+    onStart = onStart)
 }
 
 object Env {
 
   lazy val current: Env = "pool" boot new Env(
     system = lila.common.PlayApp.system,
-    config = lila.common.PlayApp loadConfig "pool",
     onStart = lila.game.Env.current.onStart)
 }
-

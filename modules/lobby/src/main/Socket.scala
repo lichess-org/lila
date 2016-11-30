@@ -12,7 +12,7 @@ import play.twirl.api.Html
 import actorApi._
 import lila.common.PimpedJson._
 import lila.game.actorApi._
-import lila.game.AnonCookie
+import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
@@ -27,7 +27,7 @@ private[lobby] final class Socket(
 
   override def preStart() {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
   }
 
   override def postStop() {
@@ -87,7 +87,11 @@ private[lobby] final class Socket(
       membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
       membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
-    case HookIds(ids)                         => Future {
+    case lila.pool.PoolApi.Pairing(game, whiteUid, blackUid) =>
+      withMember(whiteUid.value)(notifyPlayerStart(game, chess.White))
+      withMember(blackUid.value)(notifyPlayerStart(game, chess.Black))
+
+    case HookIds(ids) => Future {
       val msg = makeMessage("hli", ids mkString ",")
       members.foreach {
         case (uid, member) =>
@@ -108,7 +112,7 @@ private[lobby] final class Socket(
     case SetIdle(uid, false)    => idleUids -= uid
   }
 
-  private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
+  private def notifyPlayerStart(game: Game, color: chess.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
       "url" -> playerUrl(game fullIdOf color),

@@ -2,10 +2,13 @@ package lila.pool
 
 import akka.actor._
 
+import lila.game.Game
+import lila.socket.Socket.{ Uid => SocketId }
 import lila.user.User
 
 final class PoolApi(
     val configs: List[PoolConfig],
+    gameStarter: GameStarter,
     system: ActorSystem) {
 
   import PoolApi._
@@ -13,7 +16,7 @@ final class PoolApi(
 
   private val actors: Map[PoolConfig.Id, ActorRef] = configs.map { config =>
     config.id -> system.actorOf(
-      Props(classOf[PoolActor], config),
+      Props(classOf[PoolActor], config, gameStarter),
       name = s"pool-${config.id.value}")
   }.toMap
 
@@ -30,5 +33,10 @@ final class PoolApi(
 
 object PoolApi {
 
-  case class Joiner(userId: User.ID, ratingMap: Map[String, Int])
+  case class Joiner(
+    userId: User.ID,
+    socketId: SocketId,
+    ratingMap: Map[String, Int])
+
+  case class Pairing(game: Game, whiteUid: SocketId, blackUid: SocketId)
 }

@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.lobby._
-import lila.pool.{PoolApi,PoolConfig}
+import lila.pool.{ PoolApi, PoolConfig }
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -43,7 +43,9 @@ private[lobby] final class SocketHandler(
     case ("poolIn", o) => for {
       id <- o str "d"
       user <- member.user
-    } poolApi.join(PoolConfig.Id(id), PoolApi.Joiner(user.id, user.ratingMap))
+    } poolApi.join(
+      PoolConfig.Id(id),
+      PoolApi.Joiner(user.id, lila.socket.Socket.Uid(member.uid), user.ratingMap))
     case ("poolOut", o) => for {
       id <- o str "d"
       user <- member.user
