@@ -30,6 +30,14 @@ module.exports = function(send, ctrl) {
     }
   };
 
+  this.poolIn = function(id) {
+    send('pool_in', id);
+  }.bind(this);
+
+  this.poolOut = function(id) {
+    send('pool_out', id);
+  }.bind(this);
+
   this.receive = function(type, data) {
     if (this.music) this.music.receive(type, data);
     if (handlers[type]) {

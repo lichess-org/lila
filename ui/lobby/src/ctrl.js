@@ -29,7 +29,8 @@ module.exports = function(env) {
     filterOpen: false,
     stepHooks: this.data.hooks.slice(0),
     stepping: false,
-    redirecting: false
+    redirecting: false,
+    inPool: null
   };
 
   var flushHooksTimeout;
@@ -97,6 +98,13 @@ module.exports = function(env) {
     this.data.seeks = seeks;
     seekRepo.initAll(this);
     m.redraw();
+  }.bind(this);
+
+  this.clickPool = function(id) {
+    var prev = this.inPool;
+    this.inPool = prev === id ? null : id;
+    if (this.inPool) this.socket.poolIn(this.inPool);
+    else this.socket.poolOut(prev);
   }.bind(this);
 
   this.gameActivity = function(gameId) {

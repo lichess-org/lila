@@ -30,6 +30,7 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Option[String],
     getTournamentName: String => Option[String],
+    pools: List[lila.pool.PoolConfig],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -116,7 +117,8 @@ final class Env(
     lobby = lobbyEnv.lobby,
     getFilter = setupEnv.filter,
     lightUser = userEnv.lightUser,
-    seekApi = lobbyEnv.seekApi)
+    seekApi = lobbyEnv.seekApi,
+    pools = pools)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
@@ -152,5 +154,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    pools = lila.pool.Env.current.pools.configs,
     isProd = lila.common.PlayApp.isProd)
 }

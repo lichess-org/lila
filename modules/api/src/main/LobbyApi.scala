@@ -16,9 +16,20 @@ final class LobbyApi(
     lobby: ActorRef,
     getFilter: UserContext => Fu[FilterConfig],
     lightUser: String => Option[LightUser],
-    seekApi: SeekApi) {
+    seekApi: SeekApi,
+    pools: List[lila.pool.PoolConfig]) {
 
   import makeTimeout.large
+
+  private val poolsJson = JsArray {
+    pools.map { p =>
+      Json.obj(
+        "id" -> p.id.value,
+        "lim" -> p.clock.limitInMinutes,
+        "inc" -> p.clock.increment,
+        "perf" -> p.perfType.name)
+    }
+  }
 
   def apply(implicit ctx: Context): Fu[JsObject] =
     (lobby ? HooksFor(ctx.me)).mapTo[Vector[Hook]] zip
@@ -33,7 +44,8 @@ final class LobbyApi(
           "seeks" -> JsArray(seeks map (_.render)),
           "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
           "nbNowPlaying" -> povs.size,
-          "filter" -> filter.render)
+          "filter" -> filter.render,
+          "pools" -> poolsJson)
       }
 
   def nowPlaying(pov: Pov) = Json.obj(
