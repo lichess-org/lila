@@ -105,6 +105,15 @@ module.exports = function(env) {
   }.bind(this);
 
   this.clickPool = function(id) {
+    if (!this.data.me) {
+      if (id) {
+        xhr.anonPoolSeek(this.data.pools.filter(function(p) {
+          return p.id === id;
+        })[0]);
+        this.setTab('real_time');
+      }
+      return;
+    }
     var prev = this.inPool;
     this.inPool = prev === id ? null : id;
     if (this.inPool) this.socket.poolIn(this.inPool);

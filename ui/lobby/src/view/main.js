@@ -11,7 +11,7 @@ module.exports = function(ctrl) {
   if (ctrl.playban || ctrl.currentGame) return;
   switch (ctrl.vm.tab) {
     case 'pools':
-      body = renderPools.render(ctrl);
+      body = renderPools(ctrl);
       break;
     case 'real_time':
       body = renderRealTime(ctrl);
@@ -25,7 +25,6 @@ module.exports = function(ctrl) {
   }
   return [
     m('div.tabs', renderTabs(ctrl)),
-    m('div.lobby_box.' + ctrl.vm.tab, body),
-    (ctrl.vm.tab === 'pools' && !ctrl.data.me) ? renderPools.anonOverlay() : null
+    m('div.lobby_box.' + ctrl.vm.tab, body)
   ];
 };

@@ -383,7 +383,6 @@ body.dark #hooks_wrap .hook_filter {
 /*********** POOLS *********/
 
 #hooks_wrap .lobby_box.pools {
-  position: relative;
   padding: 12px 12px 0 12px;
   max-height: 510px;
   box-sizing: border-box;
@@ -430,36 +429,6 @@ body.dark #hooks_wrap .hook_filter {
 }
 #hooks_wrap .lobby_box.pools > div:hover {
   background: rgba(191, 231, 255, 0.7);
-}
-#hooks_wrap .pool_overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(230,230,230,0.7);
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: stretch;
-  font-size: 1.3em;
-}
-#hooks_wrap .pool_overlay .text {
-  background: #fff;
-  text-align: center;
-  padding: 27px 0;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-}
-#hooks_wrap .pool_overlay a {
-  color: #3893E8;
-}
-#hooks_wrap .pool_overlay h2 {
-  font-size: 2em;
-  text-shadow: 0 0 20px #fff;
-  margin-bottom: 0.5em;
-}
-#hooks_wrap .pool_overlay p {
-  line-height: 1.6em;
 }
 
 /*********** MISC *********/
