@@ -86,7 +86,6 @@ module.exports = function(env) {
   }.bind(this);
 
   this.clickHook = function(id) {
-    if (!this.data.me) return;
     var hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.vm.stepping || this.vm.redirecting) return;
     if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
