@@ -53,7 +53,7 @@ object ApplicationBuild extends Build {
     chess, common, db, rating, user, security, hub, socket,
     message, notifyModule, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
-    analyse, mod, site, round, lobby, setup,
+    analyse, mod, site, round, pool, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
     history, worldMap, video, shutup, push,
@@ -187,7 +187,7 @@ object ApplicationBuild extends Build {
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
-  lazy val pool = project("pool", Seq(common, user)).settings(
+  lazy val pool = project("pool", Seq(common, game, user)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
