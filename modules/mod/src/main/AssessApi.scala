@@ -129,7 +129,7 @@ final class AssessApi(
     }
   }
 
-  private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
+  private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
 
