@@ -27,7 +27,7 @@ private[lobby] final class Socket(
 
   override def preStart() {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'socketDoor)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds)
   }
 
   override def postStop() {
@@ -106,7 +106,6 @@ private[lobby] final class Socket(
 
     case SetIdle(uid, true)     => idleUids += uid
     case SetIdle(uid, false)    => idleUids -= uid
-    case SocketLeave(uid, _)    => idleUids -= uid
   }
 
   private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
@@ -128,6 +127,11 @@ private[lobby] final class Socket(
 
   def withActiveMember(uid: String)(f: Member => Unit) {
     if (!idleUids(uid)) members get uid foreach f
+  }
+
+  override def quit(uid: String) {
+    super.quit(uid)
+    idleUids -= uid
   }
 
   private def playerUrl(fullId: String) = s"/$fullId"
