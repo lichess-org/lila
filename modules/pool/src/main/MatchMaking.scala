@@ -6,7 +6,9 @@ object MatchMaking {
     def members = Vector(p1, p2)
   }
 
-  def apply(members: Vector[PoolMember]): Vector[Couple] =
+  def apply(members: Vector[PoolMember]): Vector[Couple] = simple(members)
+
+  def simple(members: Vector[PoolMember]): Vector[Couple] =
     members.sortBy(-_.rating) grouped 2 collect {
       case Vector(p1, p2) => Couple(p1, p2)
     } toVector
