@@ -16,9 +16,7 @@ private object AntmaPairing {
 
     def f(x: Int): Int = (11500000 - 3500000 * x) * x
 
-    def pairScore(i: Int, j: Int): Int = {
-      val a = playersArray(i)
-      val b = playersArray(j)
+    def pairScore(a: RankedPlayer, b: RankedPlayer): Int = {
       Math.abs(a.rank - b.rank) * 1000 +
         Math.abs(a.player.rating - b.player.rating) +
         f {
@@ -27,19 +25,13 @@ private object AntmaPairing {
         }
     }
 
-    try {
-      val mate = WMMatching.minWeightMatching(WMMatching.fullGraph(playersArray.length, pairScore))
-      WMMatching.mateToEdges(mate).map {
-        case (i, j) => Pairing.prep(
-          tour,
-          playersArray(i).player,
-          playersArray(j).player)
-      }
-    }
-    catch {
-      case e: Exception =>
-        logger.error("AntmaPairing", e)
+    WMMatching(players.toArray, pairScore).fold(
+      err => {
+        logger.error("AntmaPairing", err)
         Nil
-    }
+      },
+      _ map {
+        case (a, b) => Pairing.prep(tour, a.player, b.player)
+      })
   }
 }
