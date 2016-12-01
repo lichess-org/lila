@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump at 2016-11-07 14:19:08 UTC
+// Generated with bin/trans-dump at 2016-12-01 08:22:12 UTC
 package lila.i18n
 
 import play.twirl.api.Html
