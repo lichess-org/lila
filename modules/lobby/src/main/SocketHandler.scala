@@ -55,7 +55,7 @@ private[lobby] final class SocketHandler(
     // entering the hooks view
     case ("hookIn", _)  => lobby ! HookSub(member, true)
     // leaving the hooks view
-    case ("hookOut", _) => lobby ! HookSub(member, false)
+    case ("hookOut", _) => socket ! HookSub(member, false)
   }
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =

@@ -131,9 +131,6 @@ private[lobby] final class Lobby(
         HookRepo.vector.filter { hook =>
           hook.uid == member.uid || Biter.canJoin(hook, member.user)
         })
-
-    case msg@HookSub(_, false) =>
-      socket ! msg
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
