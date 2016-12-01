@@ -37,8 +37,11 @@ div.lobby_and_ground {
 #lobby_playban h2,
 #lobby_current_game h2 {
   font-size: 1.5em;
-  line-height: 3;
+  line-height: 2.5em;
   margin-top: 1em;
+}
+#lobby_playban a {
+  color: #3893E8;
 }
 .current_game #hooks_wrap {
   visibility: hidden;

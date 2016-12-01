@@ -168,20 +168,23 @@ module.exports = function(env) {
 
   this.trans = lichess.trans(env.i18n);
 
-  if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
 
-  if (location.hash.indexOf('#pool/') === 0) {
-    var regex = /^#pool\/(\d+\+\d+)$/
-    var match = regex.exec(location.hash);
-    if (match) {
-      this.setTab('pools');
-      this.clickPool(match[1]);
-      if (window.history.replaceState) window.history.replaceState(null, null, '/');
+  if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
+  else {
+
+    setInterval(function() {
+      if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
+      else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+    }.bind(this), 10 * 1000);
+
+    if (location.hash.indexOf('#pool/') === 0) {
+      var regex = /^#pool\/(\d+\+\d+)$/
+      var match = regex.exec(location.hash);
+      if (match) {
+        this.setTab('pools');
+        this.clickPool(match[1]);
+        if (window.history.replaceState) window.history.replaceState(null, null, '/');
+      }
     }
   }
-
-  setInterval(function() {
-    if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
-    else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
-  }.bind(this), 10 * 1000);
 };
