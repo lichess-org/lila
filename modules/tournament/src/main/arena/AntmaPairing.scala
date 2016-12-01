@@ -9,8 +9,6 @@ private object AntmaPairing {
   def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
-    val playersArray: Array[RankedPlayer] = players.toArray
-
     def playedTogether(u1: String, u2: String) =
       if (lastOpponents.hash.get(u1).contains(u2)) 1 else 0
 
@@ -27,7 +25,7 @@ private object AntmaPairing {
 
     WMMatching(players.toArray, pairScore).fold(
       err => {
-        logger.error("AntmaPairing", err)
+        logger.error("WMMatching", err)
         Nil
       },
       _ map {
