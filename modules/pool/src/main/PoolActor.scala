@@ -27,8 +27,8 @@ private final class PoolActor(
 
   def receive = {
 
-    case Join(joiner) =>
-      members = members.filter(_.userId != joiner.userId) :+ PoolMember(joiner, config)
+    case Join(joiner) if !members.exists(_.userId == joiner.userId) =>
+      members = members :+ PoolMember(joiner, config)
       if (members.size >= config.wave.players.value) self ! Wave
 
     case Leave(userId) =>
@@ -37,7 +37,7 @@ private final class PoolActor(
     case Wave =>
       nextWave.cancel()
       val pairings = MatchMaking(members)
-      members = members diff pairings.flatMap(_.members)
+      members = members.diff(pairings.flatMap(_.members)).map(_.incMisses)
       gameStarter(config, pairings)
       scheduleWave
   }

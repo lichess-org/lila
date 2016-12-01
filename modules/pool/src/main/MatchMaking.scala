@@ -17,16 +17,28 @@ object MatchMaking {
       case Vector(p1, p2) => Couple(p1, p2)
     } toVector
 
-  private def pairScore(a: PoolMember, b: PoolMember): Int =
-    Math.abs(a.rating - b.rating)
+  private object wmMatching {
 
-  private def wmMatching(members: Vector[PoolMember]): Option[Vector[Couple]] = {
-    WMMatching(members.toArray, pairScore).fold(
-      err => {
-        logger.error("WMMatching", err)
-        none
-      },
-      _.map { case (a, b) => Couple(a, b) }.toVector.some
-    )
+    // above that, no pairing is allowed
+    private val MaxScore = 300
+
+    // quality of a potential pairing. Lower is better.
+    private def pairScore(a: PoolMember, b: PoolMember): Int =
+      Math.abs(a.rating - b.rating) - missBonus(a) - missBonus(b)
+
+    // score bonus based on how many waves the member missed
+    private def missBonus(p: PoolMember): Int = p.misses * 30
+
+    def apply(members: Vector[PoolMember]): Option[Vector[Couple]] = {
+      WMMatching(members.toArray, pairScore).fold(
+        err => {
+          logger.error("WMMatching", err)
+          none
+        },
+        _.collect {
+          case (a, b) if pairScore(a, b).pp < MaxScore => Couple(a, b)
+        }.toVector.some
+      )
+    }
   }
 }
