@@ -56,7 +56,7 @@ object ApplicationBuild extends Build {
     analyse, mod, site, round, pool, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
-    history, worldMap, video, shutup, push,
+    history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan, event, coach)
 
@@ -90,10 +90,6 @@ object ApplicationBuild extends Build {
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
-  )
-
-  lazy val worldMap = project("worldMap", Seq(common, hub, memo, rating)).settings(
-    libraryDependencies ++= provided(play.api, maxmind)
   )
 
   lazy val qa = project("qa", Seq(common, db, memo, user, security, notifyModule)).settings(

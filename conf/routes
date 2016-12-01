@@ -463,10 +463,6 @@ GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 
-# Map
-GET   /network                         controllers.WorldMap.index
-GET   /network/stream                  controllers.WorldMap.stream
-
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
 POST  /mobile/unregister               controllers.Main.mobileUnregister
