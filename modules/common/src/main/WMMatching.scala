@@ -15,8 +15,7 @@ A C program for maximum weight matching by Ed Rothberg was used extensively
 to validate this new code.
 */
 
-package lila.tournament
-package arena
+package lila.common
 
 import scala.annotation.tailrec
 
