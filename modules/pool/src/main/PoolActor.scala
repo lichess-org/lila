@@ -29,7 +29,7 @@ private final class PoolActor(
 
     case Join(joiner) =>
       members = members.filter(_.userId != joiner.userId) :+ PoolMember(joiner, config)
-      if (members.size > config.wave.players.value) self ! Wave
+      if (members.size >= config.wave.players.value) self ! Wave
 
     case Leave(userId) =>
       members = members.filter(_.userId != userId)

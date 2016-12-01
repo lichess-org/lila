@@ -4,6 +4,7 @@ import akka.actor._
 
 import lila.game.{ Game, Player, GameRepo }
 import lila.hub.Sequencer
+import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
@@ -14,18 +15,25 @@ private final class GameStarter(
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Unit =
     sequencer ! Sequencer.work(all(pool, couples))
 
-  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.map(one(pool)).sequenceFu.void
+  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
+    val userIds = couples.flatMap(_.userIds)
+    UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
+      couples.map(one(pool, perfs)).sequenceFu.void
+    }
+  }
 
-  private def one(pool: PoolConfig)(couple: MatchMaking.Couple): Funit =
-    UserRepo.byIds(couple.members.map(_.userId)) flatMap {
-      case List(u1, u2) => for {
-        u1White <- UserRepo.firstGetsWhite(u1.id, u2.id)
-        (whiteUser, blackUser) = u1White.fold(u1 -> u2, u2 -> u1)
-        (whiteMember, blackMember) = (whiteUser.id == couple.p1.userId).fold(
-          couple.p1 -> couple.p2,
-          couple.p2 -> couple.p1)
-        game = makeGame(pool, whiteUser, blackUser).start
+  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
+    import couple._
+    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
+      case (perf1, perf2) => for {
+        p1White <- UserRepo.firstGetsWhite(p1.userId, p2.userId)
+        (whitePerf, blackPerf) = p1White.fold(perf1 -> perf2, perf2 -> perf1)
+        (whiteMember, blackMember) = p1White.fold(p1 -> p2, p2 -> p1)
+        game = makeGame(
+          pool,
+          whiteMember.userId -> whitePerf,
+          blackMember.userId -> blackPerf
+        ).start
         _ <- GameRepo insertDenormalized game
       } yield {
 
@@ -39,15 +47,18 @@ private final class GameStarter(
         // lila.mon.lobby.hook.join()
         // lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
       }
-      case _ => funit
     }
+  }
 
-  private def makeGame(pool: PoolConfig, whiteUser: User, blackUser: User) = Game.make(
+  private def makeGame(
+    pool: PoolConfig,
+    whiteUser: (User.ID, Perf),
+    blackUser: (User.ID, Perf)) = Game.make(
     game = chess.Game(
       board = chess.Board init chess.variant.Standard,
       clock = pool.clock.some),
-    whitePlayer = Player.white.withUser(whiteUser.id, whiteUser.perfs(pool.perfType)),
-    blackPlayer = Player.black.withUser(blackUser.id, blackUser.perfs(pool.perfType)),
+    whitePlayer = Player.white.withUser(whiteUser._1, whiteUser._2),
+    blackPlayer = Player.black.withUser(blackUser._1, blackUser._2),
     mode = chess.Mode.Rated,
     variant = chess.variant.Standard,
     source = lila.game.Source.Pool,

@@ -6,6 +6,7 @@ object MatchMaking {
 
   case class Couple(p1: PoolMember, p2: PoolMember) {
     def members = Vector(p1, p2)
+    def userIds = members.map(_.userId)
   }
 
   def apply(members: Vector[PoolMember]): Vector[Couple] =

@@ -327,11 +327,24 @@ object UserRepo {
     coll.updateField($id(user.id), "plan", plan).void
   }
 
+  private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
+    doc.getAs[Bdoc](F.perfs).flatMap(_.getAs[Perf](perfType.key))
+
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $id(id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
   ).uno[Bdoc].map {
-      _.flatMap(_.getAs[Bdoc](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
+      _.flatMap { docPerf(_, perfType) }
+    }
+
+  def perfOf(ids: Iterable[ID], perfType: PerfType): Fu[Map[ID, Perf]] = coll.find(
+    $inIds(ids),
+    $doc(s"${F.perfs}.${perfType.key}" -> true)
+  ).cursor[Bdoc]()
+    .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]()).map { docs =>
+      docs.map { doc =>
+        ~doc.getAs[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
+      }.toMap
     }
 
   def setSeenAt(id: ID) {
