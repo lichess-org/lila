@@ -17,7 +17,7 @@ private object PoolList {
     PoolConfig(15 ++ 15, Wave(120 seconds, 16 players))
   )
 
-  private implicit final class PimpedInt(self: Int) {
+  private implicit class PimpedInt(self: Int) {
     def ++(increment: Int) = chess.Clock(self * 60, increment)
     def players = NbPlayers(self)
   }
