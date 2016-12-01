@@ -13,7 +13,7 @@ module.exports = function(ctrl) {
       }, [
         m('div.clock', pool.lim + '+' + pool.inc),
         m('div.perf', pool.perf),
-        // active ? m.trust(lichess.spinnerHtml) : null
+        active ? m.trust(lichess.spinnerHtml) : null
       ]);
     }),
     m('div.custom', {

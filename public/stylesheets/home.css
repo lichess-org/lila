@@ -403,37 +403,16 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  transition: 0.3s;
+  transition: opacity 0.3s;
 }
 body.dark #hooks_wrap .pools > div {
   background: rgba(20,20,20,0.5);
   border: 1px solid #3d3d3d;
 }
 #hooks_wrap .pools .active {
-  position: relative;
   background: #fff;
   border-radius: 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-body.dark #hooks_wrap .pools .active {
-  background: #202020;
-  box-shadow-color: #000;
-}
-@keyframes square_check{
-  25%{ left: 93%; top: 0; background-color: #42a5f5; }
-  50%{ left: 93%; top: 93%; background-color: #f44336; }
-  75%{ left: 0; top: 93%; background-color: #fdd835; }
-  100%{ left: 0; top: 0; background-color: #4caf50; }
-}
-#hooks_wrap .pools .active::after{
-  width: 7%;
-  height: 7%;
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  background-color: #4caf50; 
-  animation: square_check 3s ease-in-out infinite;
 }
 #hooks_wrap .pools .transp {
   opacity: 0.5;
