@@ -393,6 +393,7 @@ body.dark #hooks_wrap .hook_filter {
   flex-flow: row wrap;
   justify-content: space-between;
   font-family: Roboto;
+  -webkit-user-select: none;
 }
 #hooks_wrap .pools > div {
   margin-bottom: 12px;
