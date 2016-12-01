@@ -86,7 +86,6 @@ object mon {
       }
       object join {
         def count(id: String) = inc(s"lobby.pool.$id.join.count")
-        def wait(id: String) = rec(s"lobby.pool.$id.join.wait")
       }
       object leave {
         def count(id: String) = inc(s"lobby.pool.$id.leave.count")

@@ -1,7 +1,7 @@
 package lila.pool
 
-import scala.concurrent.Promise
 import akka.actor._
+import scala.concurrent.Promise
 
 import lila.game.{ Game, Player, GameRepo }
 import lila.hub.Sequencer
@@ -19,12 +19,13 @@ private final class GameStarter(
     promise.future
   }
 
-  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
-    val userIds = couples.flatMap(_.userIds)
-    UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
-      couples.map(one(pool, perfs)).sequenceFu.void
+  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
+    couples.nonEmpty ?? {
+      val userIds = couples.flatMap(_.userIds)
+      UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
+        couples.map(one(pool, perfs)).sequenceFu.void
+      }
     }
-  }
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
     import couple._

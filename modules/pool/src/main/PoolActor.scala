@@ -54,7 +54,9 @@ private final class PoolActor(
     }
     val pairedMembers = pairings.flatMap(_.members)
     members = members.diff(pairedMembers).map(_.incMisses)
-    gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(idString))
+
+    if (pairings.nonEmpty)
+      gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(idString))
 
     monitor.wave.paired(idString)(pairedMembers.size)
     monitor.wave.missed(idString)(members.size)
