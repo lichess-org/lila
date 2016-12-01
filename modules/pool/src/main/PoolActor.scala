@@ -36,7 +36,7 @@ private final class PoolActor(
 
     case Wave =>
       nextWave.cancel()
-      val pairings = MatchMaking(members).pp(config.id.value)
+      val pairings = MatchMaking(members)
       members = members diff pairings.flatMap(_.members)
       gameStarter(config, pairings)
       scheduleWave

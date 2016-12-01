@@ -15,6 +15,10 @@ function analysisBoardOrientation(data) {
   }
 }
 
+function poolUrl(clock) {
+  return '/#pool/' + (clock.initial / 60) + '+' + clock.increment;
+}
+
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
@@ -169,7 +173,9 @@ module.exports = {
   followUp: function(ctrl) {
     var d = ctrl.data;
     var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
-    var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
+    var newable = (status.finished(d) || status.aborted(d)) && (
+      d.game.source === 'lobby' ||
+      d.game.source === 'pool');
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
@@ -187,7 +193,7 @@ module.exports = {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       newable ? m('a.button', {
-        href: '/?hook_like=' + d.game.id,
+        href: d.game.source === 'pool' ? poolUrl(d.clock) : '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
       game.replayable(d) ? m('a.button', {
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')

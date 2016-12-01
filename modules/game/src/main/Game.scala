@@ -369,6 +369,8 @@ case class Game(
 
   def imported = source contains Source.Import
 
+  def fromPool = source contains Source.Pool
+
   def winner = players find (_.wins)
 
   def loser = winner map opponent

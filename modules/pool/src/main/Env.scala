@@ -17,8 +17,9 @@ final class Env(
     bus = system.lilaBus,
     onStart = onStart,
     sequencer = system.actorOf(Props(
-      classOf[lila.hub.Sequencer], none, 10.seconds, logger
-    )))
+      classOf[lila.hub.Sequencer], none, 10.seconds.some, logger
+    ), name = "pool-sequencer")
+  )
 }
 
 object Env {

@@ -3,8 +3,8 @@ var m = require('mithril');
 module.exports = function(ctrl) {
   return [
     ctrl.data.pools.map(function(pool) {
-      var active = ctrl.inPool === pool.id;
-      var transp = ctrl.inPool && !active;
+      var active = ctrl.vm.inPool === pool.id;
+      var transp = ctrl.vm.inPool && !active;
       return m('div.pool', {
         class: active ? 'active' : (transp ? 'transp' : ''),
         onclick: function() {
@@ -17,7 +17,7 @@ module.exports = function(ctrl) {
       ]);
     }),
     m('div.custom', {
-      class: ctrl.inPool ? 'transp' : '',
+      class: ctrl.vm.inPool ? 'transp' : '',
       onclick: function() {
         $('#start_buttons .config_hook').mousedown();
       }

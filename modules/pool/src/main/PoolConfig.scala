@@ -11,7 +11,7 @@ case class PoolConfig(
 
   val perfType = PerfType(chess.Speed(clock).key) | PerfType.Classical
 
-  val id = PoolConfig.Id(clock.show)
+  val id = PoolConfig clockToId clock
 }
 
 object PoolConfig {
@@ -20,4 +20,6 @@ object PoolConfig {
   case class NbPlayers(value: Int) extends AnyVal
 
   case class Wave(every: FiniteDuration, players: NbPlayers)
+
+  def clockToId(clock: Clock) = Id(clock.show)
 }
