@@ -49,9 +49,8 @@ private[lobby] final class Lobby(
       socket ! msg
     }
 
-    case CancelHook(uid) => {
+    case CancelHook(uid) =>
       HookRepo byUid uid foreach remove
-    }
 
     case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
       socket ! RemoveSeek(seekId)

@@ -22,16 +22,14 @@ private[lobby] final class SocketHandler(
     poolApi: PoolApi,
     blocking: String => Fu[Set[String]]) {
 
-  private def controller(
-    socket: ActorRef,
-    uid: String,
-    member: Member): Handler.Controller = {
+  private def controller(socket: ActorRef, member: Member): Handler.Controller = {
     case ("join", o) =>
       o str "d" foreach { id =>
-        lobby ! BiteHook(id, uid, member.user)
+        lobby ! BiteHook(id, member.uid, member.user)
       }
-    case ("cancel", o) =>
-      lobby ! CancelHook(uid) case ("joinSeek", o) => for {
+    case ("cancel", _) =>
+      lobby ! CancelHook(member.uid)
+    case ("joinSeek", o) => for {
       id <- o str "d"
       user <- member.user
     } lobby ! BiteSeek(id, user)
@@ -39,14 +37,17 @@ private[lobby] final class SocketHandler(
       id <- o str "d"
       user <- member.user
     } lobby ! CancelSeek(id, user)
-    case ("idle", o) => socket ! SetIdle(uid, ~(o boolean "d"))
+    case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
     // entering a pool
     case ("poolIn", o) => for {
       id <- o str "d"
       user <- member.user
-    } poolApi.join(
-      PoolConfig.Id(id),
-      PoolApi.Joiner(user.id, lila.socket.Socket.Uid(member.uid), user.ratingMap))
+    } {
+      lobby ! CancelHook(member.uid) // in case there's one...
+      poolApi.join(
+        PoolConfig.Id(id),
+        PoolApi.Joiner(user.id, lila.socket.Socket.Uid(member.uid), user.ratingMap))
+    }
     // leaving a pool
     case ("poolOut", o) => for {
       id <- o str "d"
@@ -63,7 +64,7 @@ private[lobby] final class SocketHandler(
       val join = Join(uid = uid, user = user, blocking = blockedUserIds)
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
-          (controller(socket, uid, member), enum, member)
+          (controller(socket, member), enum, member)
       }
     }
 }
