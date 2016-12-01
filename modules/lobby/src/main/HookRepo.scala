@@ -6,7 +6,7 @@ object HookRepo {
 
   private var hooks = Vector[Hook]()
 
-  private val hardLimit = 250
+  private val hardLimit = 150
 
   def size = hooks.size
 

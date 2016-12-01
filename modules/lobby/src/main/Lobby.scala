@@ -24,15 +24,6 @@ private[lobby] final class Lobby(
 
   def receive = {
 
-    case HooksFor(userOption) =>
-      val replyTo = sender
-      (userOption.map(_.id) ?? blocking) foreach { blocks =>
-        val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.vector.filter { hook =>
-          ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
-        }
-      }
-
     case msg@AddHook(hook) => {
       lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
@@ -133,6 +124,16 @@ private[lobby] final class Lobby(
 
     case Lobby.SendNbHooks =>
       if (hideHooks()) socket ! NbHooks(HookRepo.size)
+
+    case msg@HookSub(member, true) =>
+      socket ! AllHooksFor(
+        member,
+        HookRepo.vector.filter { hook =>
+          hook.uid == member.uid || Biter.canJoin(hook, member.user)
+        })
+
+    case msg@HookSub(_, false) =>
+      socket ! msg
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {

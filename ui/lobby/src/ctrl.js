@@ -10,6 +10,7 @@ var util = require('chessground').util;
 module.exports = function(env) {
 
   this.data = env.data;
+  this.data.hooks = []; // no longer preloaded!
   this.playban = env.playban;
   this.currentGame = env.currentGame;
   this.perfIcons = env.perfIcons;
@@ -60,11 +61,24 @@ module.exports = function(env) {
   flushHooksSchedule();
 
   this.setTab = function(tab) {
-    if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
-    this.vm.tab = store.tab.set(tab);
+    if (tab !== this.vm.tab) {
+
+      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
+
+      if (tab === 'real_time') this.socket.realTimeIn();
+      else if (this.vm.tab === 'real_time') {
+        this.socket.realTimeOut();
+        this.data.hooks = [];
+      }
+
+      if (this.vm.tab === 'pools') this.clickPool(null);
+
+      this.vm.tab = store.tab.set(tab);
+    }
     this.vm.filterOpen = false;
-    if (this.vm.tab !== 'pools') this.clickPool(null);
   }.bind(this);
+
+  if (this.vm.tab === 'real_time') this.socket.realTimeIn();
 
   this.setMode = function(mode) {
     this.vm.mode = store.mode.set(mode);
@@ -168,5 +182,6 @@ module.exports = function(env) {
 
   setInterval(function() {
     if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
+    else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
   }.bind(this), 10 * 1000);
 };

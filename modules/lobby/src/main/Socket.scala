@@ -40,13 +40,15 @@ private[lobby] final class Socket(
 
   var idleUids = scala.collection.mutable.Set[String]()
 
+  var hookSubscriberUids = scala.collection.mutable.Set[String]()
+
   def receiveSpecific = {
 
     case GetUids => sender ! SocketUids(members.keySet.toSet)
 
-    case Join(uid, user, blocks, mobile) =>
+    case Join(uid, user, blocks) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, mobile)
+      val member = Member(channel, user, blocks, uid)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
@@ -60,10 +62,11 @@ private[lobby] final class Socket(
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) => Future {
-      val json = hook.render
-      members.foreach {
-        case (uid, member) =>
-          if (!member.mobile && !idleUids(uid)) notifyMemberOfHook(member, hook, json)
+      val msg = makeMessage("had", hook.render)
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid) { member =>
+          if (hook.uid == member.uid || Biter.canJoin(hook, member.user)) member push msg
+        }
       }
     }
 
@@ -71,9 +74,8 @@ private[lobby] final class Socket(
 
     case RemoveHook(hookId) => Future {
       val msg = makeMessage("hrm", hookId)
-      members.foreach {
-        case (uid, member) =>
-          if (!member.mobile && !idleUids(uid)) member push msg
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid)(_ push msg)
       }
     }
 
@@ -93,9 +95,8 @@ private[lobby] final class Socket(
 
     case HookIds(ids) => Future {
       val msg = makeMessage("hli", ids mkString ",")
-      members.foreach {
-        case (uid, member) =>
-          if (!member.mobile && !idleUids(uid)) member push msg
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid)(_ push msg)
       }
     }
     case NbHooks(count)                       => notifyAllAsync(makeMessage("nb_hooks", count))
@@ -110,6 +111,12 @@ private[lobby] final class Socket(
 
     case SetIdle(uid, true)     => idleUids += uid
     case SetIdle(uid, false)    => idleUids -= uid
+
+    case HookSub(member, true)  => hookSubscriberUids += member.uid
+    case HookSub(member, false) => hookSubscriberUids -= member.uid
+    case AllHooksFor(member, hooks) =>
+      notifyMember("hooks", JsArray(hooks map (_.render)))(member)
+      hookSubscriberUids += member.uid
   }
 
   private def notifyPlayerStart(game: Game, color: chess.Color) =
@@ -125,10 +132,6 @@ private[lobby] final class Socket(
     }
   }
 
-  def notifyMemberOfHook(member: Member, hook: Hook, json: JsObject) =
-    if (hook.uid == member.uid || Biter.canJoin(hook, member.user))
-      member push makeMessage("had", json)
-
   def withActiveMember(uid: String)(f: Member => Unit) {
     if (!idleUids(uid)) members get uid foreach f
   }
@@ -136,6 +139,7 @@ private[lobby] final class Socket(
   override def quit(uid: String) {
     super.quit(uid)
     idleUids -= uid
+    hookSubscriberUids -= uid
   }
 
   private def playerUrl(fullId: String) = s"/$fullId"

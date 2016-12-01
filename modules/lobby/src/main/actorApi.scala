@@ -25,8 +25,7 @@ private[lobby] object LobbyUser {
 private[lobby] case class Member(
     channel: JsChannel,
     user: Option[LobbyUser],
-    uid: String,
-    mobile: Boolean) extends SocketMember {
+    uid: String) extends SocketMember {
 
   val userId = user map (_.id)
   val troll = false
@@ -34,11 +33,10 @@ private[lobby] case class Member(
 
 private[lobby] object Member {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: String, mobile: Boolean): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: String): Member = Member(
     channel = channel,
     user = user map { LobbyUser.make(_, blocking) },
-    uid = uid,
-    mobile = mobile)
+    uid = uid)
 }
 
 private[lobby] case class HookMeta(hookId: Option[String] = None)
@@ -58,16 +56,18 @@ private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[Lob
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String], mobile: Boolean)
+private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String])
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 private[lobby] case class NbHooks(count: Int)
 
 private[lobby] case class SetIdle(uid: String, value: Boolean)
 
+private[lobby] case class HookSub(member: Member, value: Boolean)
+private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
+
 private[lobby] case object GetUids
 private[lobby] case class SocketUids(uids: Set[String])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
-case class HooksFor(user: Option[User])

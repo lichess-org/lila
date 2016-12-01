@@ -17,6 +17,11 @@ module.exports = function(send, ctrl) {
       hookRepo.remove(ctrl, id);
       if (ctrl.vm.tab === 'real_time') m.redraw();
     },
+    hooks: function(hooks) {
+      hookRepo.setAll(ctrl, hooks);
+      ctrl.flushHooks(true);
+      m.redraw();
+    },
     hli: function(ids) {
       hookRepo.syncIds(ctrl, ids.split(','));
       if (ctrl.vm.tab === 'real_time') m.redraw();
@@ -30,13 +35,20 @@ module.exports = function(send, ctrl) {
     }
   };
 
+  this.realTimeIn = function() {
+    send('hookIn');
+  };
+  this.realTimeOut = function() {
+    send('hookOut');
+  };
+
   this.poolIn = function(id) {
     send('poolIn', id);
-  }.bind(this);
+  };
 
   this.poolOut = function(id) {
     send('poolOut', id);
-  }.bind(this);
+  };
 
   this.receive = function(type, data) {
     if (this.music) this.music.receive(type, data);

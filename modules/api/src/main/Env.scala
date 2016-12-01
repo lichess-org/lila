@@ -114,7 +114,6 @@ final class Env(
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
   val lobbyApi = new LobbyApi(
-    lobby = lobbyEnv.lobby,
     getFilter = setupEnv.filter,
     lightUser = userEnv.lightUser,
     seekApi = lobbyEnv.seekApi,

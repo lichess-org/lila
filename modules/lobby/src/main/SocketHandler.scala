@@ -40,21 +40,27 @@ private[lobby] final class SocketHandler(
       user <- member.user
     } lobby ! CancelSeek(id, user)
     case ("idle", o) => socket ! SetIdle(uid, ~(o boolean "d"))
+    // entering a pool
     case ("poolIn", o) => for {
       id <- o str "d"
       user <- member.user
     } poolApi.join(
       PoolConfig.Id(id),
       PoolApi.Joiner(user.id, lila.socket.Socket.Uid(member.uid), user.ratingMap))
+    // leaving a pool
     case ("poolOut", o) => for {
       id <- o str "d"
       user <- member.user
     } poolApi.leave(PoolConfig.Id(id), user.id)
+    // entering the hooks view
+    case ("hookIn", _)  => lobby ! HookSub(member, true)
+    // leaving the hooks view
+    case ("hookOut", _) => lobby ! HookSub(member, false)
   }
 
-  def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
+  def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid = uid, user = user, blocking = blockedUserIds, mobile = mobile)
+      val join = Join(uid = uid, user = user, blocking = blockedUserIds)
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(socket, uid, member), enum, member)

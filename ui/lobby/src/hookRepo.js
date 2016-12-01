@@ -27,6 +27,10 @@ module.exports = {
     init(hook);
     ctrl.data.hooks.push(hook);
   },
+  setAll: function(ctrl, hooks) {
+    ctrl.data.hooks = hooks;
+    initAll(ctrl);
+  },
   remove: function(ctrl, id) {
     ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
       return h.id !== id;
