@@ -403,6 +403,7 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
+  transition: opacity 0.3s;
 }
 #hooks_wrap .lobby_box.pools .active {
   background: #fff;
