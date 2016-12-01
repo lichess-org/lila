@@ -18,12 +18,13 @@ to validate this new code.
 package lila.common
 
 import scala.annotation.tailrec
-import scala.util.Try
+import scala.util.{ Try, Success }
 
 object WMMatching {
 
   def apply[A](vertices: Array[A], pairScore: (A, A) => Int): Try[List[(A, A)]] = Try {
-    lowLevel(
+    if (vertices.length < 2) Nil
+    else lowLevel(
       vertices.length,
       (i, j) => pairScore(vertices(i), vertices(j))
     ) map {
