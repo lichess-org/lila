@@ -382,7 +382,7 @@ body.dark #hooks_wrap .hook_filter {
 }
 /*********** POOLS *********/
 
-#hooks_wrap .lobby_box.pools {
+#hooks_wrap .pools {
   padding: 12px 12px 0 12px;
   max-height: 510px;
   box-sizing: border-box;
@@ -391,7 +391,7 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: space-between;
   font-family: Roboto;
 }
-#hooks_wrap .lobby_box.pools > div {
+#hooks_wrap .pools > div {
   margin-bottom: 12px;
   flex: 0 0 31%;
   height: 152px;
@@ -403,32 +403,57 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  transition: opacity 0.3s;
+  transition: 0.3s;
 }
-#hooks_wrap .lobby_box.pools .active {
+body.dark #hooks_wrap .pools > div {
+  background: rgba(20,20,20,0.5);
+  border: 1px solid #3d3d3d;
+}
+#hooks_wrap .pools .active {
+  position: relative;
   background: #fff;
   border-radius: 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
-#hooks_wrap .lobby_box.pools .transp {
+body.dark #hooks_wrap .pools .active {
+  background: #202020;
+  box-shadow-color: #000;
+}
+@keyframes square_check{
+  25%{ left: 93%; top: 0; background-color: #42a5f5; }
+  50%{ left: 93%; top: 93%; background-color: #f44336; }
+  75%{ left: 0; top: 93%; background-color: #fdd835; }
+  100%{ left: 0; top: 0; background-color: #4caf50; }
+}
+#hooks_wrap .pools .active::after{
+  width: 7%;
+  height: 7%;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  background-color: #4caf50; 
+  animation: square_check 3s ease-in-out infinite;
+}
+#hooks_wrap .pools .transp {
   opacity: 0.5;
 }
-#hooks_wrap .lobby_box.pools .spinner {
+#hooks_wrap .pools .spinner {
   margin: 14px 0 0 0;
 }
-#hooks_wrap .lobby_box.pools .clock {
+#hooks_wrap .pools .clock {
   display: block;
   font-size: 2.5em;
   line-height: 1.5em;
   letter-spacing: 5px;
 }
-#hooks_wrap .lobby_box.pools .perf {
+#hooks_wrap .pools .perf {
   font-size: 1.5em;
 }
-#hooks_wrap .lobby_box.pools .custom {
+#hooks_wrap .pools .custom {
   font-size: 1.5em;
 }
-#hooks_wrap .lobby_box.pools > div:hover {
+#hooks_wrap .pools > div:hover {
   background: rgba(191, 231, 255, 0.7);
 }
 

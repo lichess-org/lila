@@ -272,6 +272,7 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 body.dark #site_header div.side_menu a:hover,
 body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
+body.dark #hooks_wrap .pools > div:hover,
 body.dark #now_playing > a:hover,
 body.dark .explorer_box tr:hover,
 body.dark .pv_box .pv[data-uci]:hover,
