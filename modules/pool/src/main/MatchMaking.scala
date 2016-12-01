@@ -7,6 +7,7 @@ object MatchMaking {
   case class Couple(p1: PoolMember, p2: PoolMember) {
     def members = Vector(p1, p2)
     def userIds = members.map(_.userId)
+    def ratingDiff = p1 ratingDiff p2
   }
 
   def apply(members: Vector[PoolMember]): Vector[Couple] =
@@ -24,7 +25,7 @@ object MatchMaking {
 
     // quality of a potential pairing. Lower is better.
     private def pairScore(a: PoolMember, b: PoolMember): Int =
-      Math.abs(a.rating - b.rating) - missBonus(a) - missBonus(b)
+      a.ratingDiff(b) - missBonus(a) - missBonus(b)
 
     // score bonus based on how many waves the member missed
     private def missBonus(p: PoolMember): Int = p.misses * 30

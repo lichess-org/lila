@@ -21,7 +21,7 @@ private final class PoolActor(
   def scheduleWave =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,
-      self, Wave)
+      self, ScheduledWave)
 
   scheduleWave
 
@@ -29,18 +29,47 @@ private final class PoolActor(
 
     case Join(joiner) if !members.exists(_.userId == joiner.userId) =>
       members = members :+ PoolMember(joiner, config)
-      if (members.size >= config.wave.players.value) self ! Wave
+      if (members.size >= config.wave.players.value) self ! FullWave
+      monitor.join.count(idString)()
 
-    case Leave(userId) =>
-      members = members.filter(_.userId != userId)
+    case Leave(userId) => members.find(_.userId == userId) foreach { member =>
+      members = members.filter(member !=)
+      monitor.leave.count(idString)()
+      monitor.leave.wait(idString)(member.waitMillis)
+    }
 
-    case Wave =>
-      nextWave.cancel()
-      val pairings = MatchMaking(members)
-      members = members.diff(pairings.flatMap(_.members)).map(_.incMisses)
-      gameStarter(config, pairings)
-      scheduleWave
+    case ScheduledWave =>
+      monitor.wave.scheduled(idString)()
+      runWave
+
+    case FullWave =>
+      monitor.wave.full(idString)()
+      runWave
   }
+
+  def runWave = {
+    nextWave.cancel()
+    val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(idString)) {
+      MatchMaking(members)
+    }
+    val pairedMembers = pairings.flatMap(_.members)
+    members = members.diff(pairedMembers).map(_.incMisses)
+    gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(idString))
+
+    monitor.wave.paired(idString)(pairedMembers.size)
+    monitor.wave.missed(idString)(members.size)
+    pairedMembers.foreach { m =>
+      monitor.wave.wait(idString)(m.waitMillis)
+    }
+    pairings.foreach { p =>
+      monitor.wave.ratingDiff(idString)(p.ratingDiff)
+    }
+    scheduleWave
+  }
+
+  val idString = config.id.value
+
+  val monitor = lila.mon.lobby.pool
 }
 
 private object PoolActor {
@@ -48,6 +77,6 @@ private object PoolActor {
   case class Join(joiner: PoolApi.Joiner) extends AnyVal
   case class Leave(userId: User.ID) extends AnyVal
 
-  case object Wave
-
+  case object ScheduledWave
+  case object FullWave
 }

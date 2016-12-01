@@ -75,6 +75,30 @@ object mon {
       val anon = inc("lobby.cache.count.anon")
       val miss = inc("lobby.cache.count.miss")
     }
+    object pool {
+      object wave {
+        def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
+        def full(id: String) = inc(s"lobby.pool.$id.wave.full")
+        def paired(id: String) = rec(s"lobby.pool.$id.wave.paired")
+        def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
+        def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
+        def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
+      }
+      object join {
+        def count(id: String) = inc(s"lobby.pool.$id.join.count")
+        def wait(id: String) = rec(s"lobby.pool.$id.join.wait")
+      }
+      object leave {
+        def count(id: String) = inc(s"lobby.pool.$id.leave.count")
+        def wait(id: String) = rec(s"lobby.pool.$id.leave.wait")
+      }
+      object matchMaking {
+        def duration(id: String) = rec(s"lobby.pool.$id.match_making.duration")
+      }
+      object gameStart {
+        def duration(id: String) = rec(s"lobby.pool.$id.game_start.duration")
+      }
+    }
   }
   object round {
     object api {
