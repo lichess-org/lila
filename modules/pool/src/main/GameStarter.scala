@@ -1,13 +1,20 @@
 package lila.pool
 
+import akka.actor._
+
 import lila.game.{ Game, Player, GameRepo }
+import lila.hub.Sequencer
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
     bus: lila.common.Bus,
-    onStart: Game.ID => Unit) {
+    onStart: Game.ID => Unit,
+    sequencer: ActorRef) {
 
-  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
+  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Unit =
+    sequencer ! Sequencer.work(all(pool, couples))
+
+  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.map(one(pool)).sequenceFu.void
 
   private def one(pool: PoolConfig)(couple: MatchMaking.Couple): Funit =

@@ -1,5 +1,9 @@
 package lila.pool
 
+import scala.concurrent.duration._
+
+import akka.actor._
+
 final class Env(
     system: akka.actor.ActorSystem,
     onStart: String => Unit) {
@@ -11,7 +15,10 @@ final class Env(
 
   private lazy val gameStarter = new GameStarter(
     bus = system.lilaBus,
-    onStart = onStart)
+    onStart = onStart,
+    sequencer = system.actorOf(Props(
+      classOf[lila.hub.Sequencer], none, 10.seconds, logger
+    )))
 }
 
 object Env {
