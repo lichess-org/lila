@@ -10,8 +10,6 @@ cd Kamon
 sbt publish-local
 cd ..
 
-exit
-
 git clone https://github.com/gilt/gfc-semver
 cd gfc-semver
 sbt publish-local
