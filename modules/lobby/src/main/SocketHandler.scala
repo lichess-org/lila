@@ -47,10 +47,11 @@ private[lobby] final class SocketHandler(
       poolApi.join(
         PoolConfig.Id(id),
         PoolApi.Joiner(
-          user.id,
-          lila.socket.Socket.Uid(member.uid),
-          user.ratingMap,
-          user.engine))
+          userId = user.id,
+          socketId = lila.socket.Socket.Uid(member.uid),
+          ratingMap = user.ratingMap,
+          ratingRange = none,
+          engine = user.engine))
     }
     // leaving a pool
     case ("poolOut", o) => for {
