@@ -14,7 +14,7 @@ private object PoolList {
     PoolConfig(5 ++ 0, Wave(15 seconds, 30 players)),
     PoolConfig(5 ++ 3, Wave(20 seconds, 20 players)),
     PoolConfig(10 ++ 0, Wave(30 seconds, 20 players)),
-    PoolConfig(15 ++ 15, Wave(120 seconds, 16 players))
+    PoolConfig(15 ++ 15, Wave(60 seconds, 16 players))
   )
 
   private implicit class PimpedInt(self: Int) {
