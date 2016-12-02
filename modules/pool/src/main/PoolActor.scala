@@ -6,7 +6,6 @@ import scala.util.Random
 import akka.actor._
 import org.joda.time.DateTime
 
-import lila.socket.Socket.{ Uid => SocketId }
 import lila.user.User
 
 private final class PoolActor(
@@ -38,9 +37,6 @@ private final class PoolActor(
       monitor.leave.count(monId)()
       monitor.leave.wait(monId)(member.waitMillis)
     }
-
-    case SocketClose(socketId) =>
-      members = members.filter(_.socketId != socketId)
 
     case ScheduledWave =>
       monitor.wave.scheduled(monId)()
@@ -83,7 +79,6 @@ private object PoolActor {
 
   case class Join(joiner: PoolApi.Joiner) extends AnyVal
   case class Leave(userId: User.ID) extends AnyVal
-  case class SocketClose(socketId: SocketId)
 
   case object ScheduledWave
   case object FullWave

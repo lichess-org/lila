@@ -33,7 +33,6 @@ final class Env(
   import settings._
 
   private val socket = system.actorOf(Props(new Socket(
-    poolApi = poolApi,
     uidTtl = SocketUidTtl)), name = SocketName)
 
   lazy val seekApi = new SeekApi(
