@@ -149,7 +149,7 @@ module.exports = function(element, cfg) {
     }
   }
 
-  function hookToPool(color, data) {
+  function hookToPool(color, data, $ratings) {
     var find = function(key) {
       for (var i in data)
         if (data[i].name === key) return data[i].value;
@@ -160,9 +160,15 @@ module.exports = function(element, cfg) {
       find('timeMode') == 1;
     if (!valid) return false;
     var clock = parseInt(find('time')) + '+' + parseInt(find('increment'));
-    return lichess.lobby.data.pools.filter(function(p) {
+    var pool = lichess.lobby.data.pools.filter(function(p) {
       return p.id === clock;
     })[0];
+    if (!pool) return;
+    var rating = parseInt($ratings.find('strong:visible').text());
+    var range = find('ratingRange').split('-');
+    var ratingMin = parseInt(range[0]),
+      ratingMax = parseInt(range[1]);
+    if ((rating - ratingMin) > 200 && (ratingMax - rating) > 200) return pool;
   }
 
   function prepareForm() {
@@ -239,8 +245,8 @@ module.exports = function(element, cfg) {
           .attr('title', $.trans('You need an account to do that'));
       }
       var ajaxSubmit = function(color) {
+        var pool = hookToPool(color, $formTag.serializeArray(), $ratings);
         $form.find('a.close').click();
-        var pool = hookToPool(color, $formTag.serializeArray());
         if (pool) {
           lobby.enterPool(pool.id);
           return false;
