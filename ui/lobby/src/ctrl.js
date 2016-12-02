@@ -128,7 +128,7 @@ module.exports = function(env) {
     var prev = this.vm.inPool;
     this.vm.inPool = prev === id ? null : id;
     if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
-    else this.socket.poolOut(prev);
+    else if (prev) this.socket.poolOut(prev);
   }.bind(this);
 
   this.enterPool = function(id) {
