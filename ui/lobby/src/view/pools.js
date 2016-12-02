@@ -19,6 +19,7 @@ module.exports = function(ctrl) {
     m('div.custom', {
       class: ctrl.vm.inPool ? 'transp' : '',
       onclick: function() {
+        ctrl.clickPool(null);
         $('#start_buttons .config_hook').mousedown();
       }
     }, 'Custom')
