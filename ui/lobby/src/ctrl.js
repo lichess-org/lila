@@ -24,6 +24,12 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   var store = makeStore(this.data.me ? this.data.me.username.toLowerCase() : null);
+  var poolInStorage = lichess.storage.make('lobby.pool-in');
+  poolInStorage.listen(function() {
+    // when another tab joins a pool
+    this.clickPool(null);
+    m.redraw();
+  }.bind(this));
 
   this.vm = {
     tab: store.tab.get(),
@@ -127,8 +133,13 @@ module.exports = function(env) {
     }
     var prev = this.vm.inPool;
     this.vm.inPool = prev === id ? null : id;
-    if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
+    if (this.vm.inPool) this.poolIn();
     else if (prev) this.socket.poolOut(prev);
+  }.bind(this);
+
+  this.poolIn = function() {
+    poolInStorage.set(1);
+    this.socket.poolIn(this.vm.inPool);
   }.bind(this);
 
   this.enterPool = function(id) {
@@ -176,7 +187,7 @@ module.exports = function(env) {
   else {
 
     setInterval(function() {
-      if (this.vm.inPool) this.socket.poolIn(this.vm.inPool);
+      if (this.vm.inPool) this.poolIn();
       else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
     }.bind(this), 10 * 1000);
 
