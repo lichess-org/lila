@@ -44,7 +44,10 @@ private[lobby] final class Socket(
 
   def receiveSpecific = {
 
-    case GetUids => sender ! SocketUids(members.keySet.toSet)
+    case GetUids =>
+      sender ! SocketUids(members.keySet.toSet)
+      lila.mon.lobby.socket.idle(idleUids.size)
+      lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
 
     case Join(uid, user, blocks) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

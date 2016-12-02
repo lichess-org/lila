@@ -69,6 +69,8 @@ object mon {
     object socket {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
+      val idle = rec("lobby.socket.idle")
+      val hookSubscribers = rec("lobby.socket.hook_subscribers")
     }
     object cache {
       val user = inc("lobby.cache.count.user")
