@@ -49,8 +49,6 @@ private final class GameStarter(
         ), 'poolGame)
 
         onStart(game.id)
-        // lila.mon.lobby.hook.join()
-        // lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
       }
     }
   }
