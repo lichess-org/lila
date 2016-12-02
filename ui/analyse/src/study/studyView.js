@@ -97,13 +97,19 @@ function renderTable(rows) {
   })));
 }
 
+
+function urlToLink(text) {
+  var exp = /\bhttps?:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  return text.replace(exp, "<a href='//$1'>$1</a>");
+}
+
 function renderPgn(setup) {
   var obj = setup.fromPgn || setup.game;
   if (obj) return renderTable([
     ['Fen', m('pre#study_fen', '')],
   ].concat(obj.tags.map(function(tag) {
     if (tag.name.toLowerCase() !== 'fen') return [
-      tag.name, m.trust($.urlToLink(tag.value))
+      tag.name, m.trust(urlToLink(tag.value))
     ];
   })));
 }

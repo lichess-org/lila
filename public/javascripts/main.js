@@ -917,11 +917,6 @@ lichess.notifyApp = (function() {
     return str;
   };
 
-  $.urlToLink = function(text) {
-    var exp = /\bhttps?:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(exp, "<a href='//$1'>$1</a>");
-  }
-
   function startTournamentClock() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
