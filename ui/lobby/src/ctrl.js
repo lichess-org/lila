@@ -131,6 +131,12 @@ module.exports = function(env) {
     else this.socket.poolOut(prev);
   }.bind(this);
 
+  this.enterPool = function(id) {
+    this.setTab('pools');
+    this.clickPool(id);
+    m.redraw();
+  }.bind(this);
+
   this.gameActivity = function(gameId) {
     if (this.data.nowPlaying.filter(function(p) {
       return p.gameId === gameId;

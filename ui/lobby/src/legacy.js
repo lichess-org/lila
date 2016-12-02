@@ -149,6 +149,22 @@ module.exports = function(element, cfg) {
     }
   }
 
+  function hookToPool(color, data) {
+    var find = function(key) {
+      for (var i in data)
+        if (data[i].name === key) return data[i].value;
+    };
+    var valid = color == 'random' &&
+      find('variant') == 1 &&
+      find('mode') == 1 &&
+      find('timeMode') == 1;
+    if (!valid) return false;
+    var clock = parseInt(find('time')) + '+' + parseInt(find('increment'));
+    return lichess.lobby.data.pools.filter(function(p) {
+      return p.id === clock;
+    })[0];
+  }
+
   function prepareForm() {
     var $form = $('.lichess_overboard');
     var $timeModeSelect = $form.find('#timeMode');
@@ -223,12 +239,17 @@ module.exports = function(element, cfg) {
           .attr('title', $.trans('You need an account to do that'));
       }
       var ajaxSubmit = function(color) {
+        $form.find('a.close').click();
+        var pool = hookToPool(color, $formTag.serializeArray());
+        if (pool) {
+          lobby.enterPool(pool.id);
+          return false;
+        }
         $.ajax({
           url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
           data: $formTag.serialize() + "&color=" + color,
           type: 'post'
         });
-        $form.find('a.close').click();
         lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
         return false;
       };

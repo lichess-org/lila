@@ -25,7 +25,8 @@ module.exports = {
         m.redraw();
       },
       gameActivity: controller.gameActivity,
-      setRedirecting: controller.setRedirecting
+      setRedirecting: controller.setRedirecting,
+      enterPool: controller.enterPool
     };
   },
   legacy: legacy
