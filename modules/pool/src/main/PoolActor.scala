@@ -58,7 +58,7 @@ private final class PoolActor(
     if (pairings.nonEmpty)
       gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(idString))
 
-    logger.info(s"$idString wave: ${pairings.size} pairings, ${members.size} missed")
+    logger.debug(s"$idString wave: ${pairings.size} pairings, ${members.size} missed")
 
     monitor.wave.paired(idString)(pairedMembers.size)
     monitor.wave.missed(idString)(members.size)
@@ -75,7 +75,7 @@ private final class PoolActor(
 
   val monitor = lila.mon.lobby.pool
 
-  logger.info(s"Start $idString")
+  logger.debug(s"Start $idString")
 }
 
 private object PoolActor {
