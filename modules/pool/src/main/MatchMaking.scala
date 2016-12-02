@@ -37,7 +37,7 @@ object MatchMaking {
           none
         },
         _.collect {
-          case (a, b) if pairScore(a, b).pp < MaxScore => Couple(a, b)
+          case (a, b) if pairScore(a, b) < MaxScore => Couple(a, b)
         }.toVector.some
       )
     }
