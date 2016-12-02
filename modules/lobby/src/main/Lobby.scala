@@ -100,6 +100,7 @@ private[lobby] final class Lobby(
         .pipeTo(self)
 
     case Lobby.WithPromise(SocketUids(uids), promise) =>
+      poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
         (HookRepo notInUids uids).filter {

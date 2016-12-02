@@ -45,6 +45,11 @@ private final class PoolActor(
     case FullWave =>
       monitor.wave.full(monId)()
       runWave
+
+    case SocketIds(ids) =>
+      members = members.filter { m =>
+        ids contains m.socketId.value
+      }
   }
 
   def runWave = {
@@ -79,6 +84,7 @@ private object PoolActor {
 
   case class Join(joiner: PoolApi.Joiner) extends AnyVal
   case class Leave(userId: User.ID) extends AnyVal
+  case class SocketIds(ids: Set[String])
 
   case object ScheduledWave
   case object FullWave
