@@ -210,6 +210,6 @@ module.exports = function(env) {
   }.bind(this));
 
   window.addEventListener('beforeunload', function() {
-    if (this.vm.inPool) this.socket.poolOut();
+    if (this.vm.inPool) this.socket.poolOut(this.vm.inPool);
   }.bind(this));
 };
