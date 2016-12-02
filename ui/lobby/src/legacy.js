@@ -168,7 +168,7 @@ module.exports = function(element, cfg) {
     var range = find('ratingRange').split('-');
     var ratingMin = parseInt(range[0]),
       ratingMax = parseInt(range[1]);
-    if ((rating - ratingMin) > 200 && (ratingMax - rating) > 200) return pool;
+    if ((rating - ratingMin) > 150 && (ratingMax - rating) > 150) return pool;
   }
 
   function prepareForm() {
