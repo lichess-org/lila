@@ -30,52 +30,49 @@ private final class PoolActor(
     case Join(joiner) if !members.exists(_.userId == joiner.userId) =>
       members = members :+ PoolMember(joiner, config)
       if (members.size >= config.wave.players.value) self ! FullWave
-      monitor.join.count(idString)()
+      monitor.join.count(monId)()
 
     case Leave(userId) => members.find(_.userId == userId) foreach { member =>
       members = members.filter(member !=)
-      monitor.leave.count(idString)()
-      monitor.leave.wait(idString)(member.waitMillis)
+      monitor.leave.count(monId)()
+      monitor.leave.wait(monId)(member.waitMillis)
     }
 
     case ScheduledWave =>
-      monitor.wave.scheduled(idString)()
+      monitor.wave.scheduled(monId)()
       runWave
 
     case FullWave =>
-      monitor.wave.full(idString)()
+      monitor.wave.full(monId)()
       runWave
   }
 
   def runWave = {
     nextWave.cancel()
-    val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(idString)) {
+    val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
       MatchMaking(members)
     }
     val pairedMembers = pairings.flatMap(_.members)
     members = members.diff(pairedMembers).map(_.incMisses)
 
     if (pairings.nonEmpty)
-      gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(idString))
+      gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(monId))
 
-    logger.debug(s"$idString wave: ${pairings.size} pairings, ${members.size} missed")
+    logger.debug(s"${config.id.value} wave: ${pairings.size} pairings, ${members.size} missed")
 
-    monitor.wave.paired(idString)(pairedMembers.size)
-    monitor.wave.missed(idString)(members.size)
+    monitor.wave.paired(monId)(pairedMembers.size)
+    monitor.wave.missed(monId)(members.size)
     pairedMembers.foreach { m =>
-      monitor.wave.wait(idString)(m.waitMillis)
+      monitor.wave.wait(monId)(m.waitMillis)
     }
     pairings.foreach { p =>
-      monitor.wave.ratingDiff(idString)(p.ratingDiff)
+      monitor.wave.ratingDiff(monId)(p.ratingDiff)
     }
     scheduleWave
   }
 
-  val idString = config.id.value
-
   val monitor = lila.mon.lobby.pool
-
-  logger.debug(s"Start $idString")
+  val monId = config.id.value.replace("+", "_")
 }
 
 private object PoolActor {
