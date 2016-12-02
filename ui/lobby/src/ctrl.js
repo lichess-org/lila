@@ -208,4 +208,8 @@ module.exports = function(env) {
       this.socket.realTimeIn();
     }
   }.bind(this));
+
+  window.addEventListener('beforeunload', function() {
+    if (this.vm.inPool) this.socket.poolOut();
+  }.bind(this));
 };
