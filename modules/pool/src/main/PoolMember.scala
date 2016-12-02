@@ -8,6 +8,7 @@ case class PoolMember(
     userId: User.ID,
     socketId: lila.socket.Socket.Uid,
     rating: Int,
+    engine: Boolean,
     since: DateTime,
     misses: Int = 0 // how many waves they missed
 ) {
@@ -23,8 +24,9 @@ object PoolMember {
 
   def apply(joiner: PoolApi.Joiner, config: PoolConfig): PoolMember =
     PoolMember(
-      joiner.userId,
-      joiner.socketId,
-      joiner.ratingMap.getOrElse(config.perfType.key, 1500),
+      userId = joiner.userId,
+      socketId = joiner.socketId,
+      engine = joiner.engine,
+      rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       since = DateTime.now)
 }

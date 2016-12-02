@@ -46,7 +46,11 @@ private[lobby] final class SocketHandler(
       lobby ! CancelHook(member.uid) // in case there's one...
       poolApi.join(
         PoolConfig.Id(id),
-        PoolApi.Joiner(user.id, lila.socket.Socket.Uid(member.uid), user.ratingMap))
+        PoolApi.Joiner(
+          user.id,
+          lila.socket.Socket.Uid(member.uid),
+          user.ratingMap,
+          user.engine))
     }
     // leaving a pool
     case ("poolOut", o) => for {

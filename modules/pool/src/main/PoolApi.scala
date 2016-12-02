@@ -36,7 +36,8 @@ object PoolApi {
   case class Joiner(
     userId: User.ID,
     socketId: SocketId,
-    ratingMap: Map[String, Int])
+    ratingMap: Map[String, Int],
+    engine: Boolean)
 
   case class Pairing(game: Game, whiteUid: SocketId, blackUid: SocketId)
 }
