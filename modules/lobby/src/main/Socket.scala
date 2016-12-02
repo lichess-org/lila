@@ -17,10 +17,12 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
+import lila.socket.Socket.{ Uid => SocketId }
 import lila.socket.SocketActor
 import makeTimeout.short
 
 private[lobby] final class Socket(
+    poolApi: lila.pool.PoolApi,
     uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) {
 
   override val startsOnApplicationBoot = true
@@ -137,6 +139,9 @@ private[lobby] final class Socket(
   }
 
   override def quit(uid: String) {
+    members get uid foreach { member =>
+      if (member.isAuth) poolApi socketClose SocketId(uid)
+    }
     super.quit(uid)
     idleUids -= uid
     hookSubscriberUids -= uid
