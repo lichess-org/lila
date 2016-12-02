@@ -105,6 +105,7 @@ object Puzzle extends LilaController {
             }
           case None => fuccess {
             lila.mon.puzzle.round.anon()
+            env.finisher.incPuzzleAttempts(puzzle)
             Ok(JsData(puzzle, none, "view",
               win = data.isWin.some,
               voted = none,
