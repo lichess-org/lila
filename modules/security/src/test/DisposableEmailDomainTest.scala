@@ -41,6 +41,9 @@ class DisposableEmailDomainTest extends Specification {
       d("guerrillamail.com") must beTrue
       d("jetable.fr.nf") must beTrue
       d("notjetable.fr") must beFalse
+      d("disposable-email.ml") must beTrue
+      d("disposableemailaddresses.emailmiser.com") must beTrue
+      d("dispose.it") must beTrue
     }
   }
 }
