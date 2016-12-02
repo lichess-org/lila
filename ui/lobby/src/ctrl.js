@@ -78,8 +78,6 @@ module.exports = function(env) {
     this.vm.filterOpen = false;
   }.bind(this);
 
-  if (this.vm.tab === 'real_time') this.socket.realTimeIn();
-
   this.setMode = function(mode) {
     this.vm.mode = store.mode.set(mode);
     this.vm.filterOpen = false;
@@ -168,7 +166,6 @@ module.exports = function(env) {
 
   this.trans = lichess.trans(env.i18n);
 
-
   if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
   else {
 
@@ -187,4 +184,11 @@ module.exports = function(env) {
       }
     }
   }
+
+  lichess.pubsub.on('socket.open', function() {
+    if (this.vm.tab === 'real_time') {
+      this.data.hooks = [];
+      this.socket.realTimeIn();
+    }
+  }.bind(this));
 };
