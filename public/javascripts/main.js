@@ -1584,16 +1584,4 @@ lichess.notifyApp = (function() {
       history.pushState('', document.title, location.pathname);
     }
   }
-
-  /////////////// forum.js ////////////////////
-
-  $('#lichess_forum').on('click', 'a.delete', function() {
-    $.post($(this).attr("href"));
-    $(this).closest(".post").slideUp(100);
-    return false;
-  }).on('click', 'form.unsub button', function() {
-    var $form = $(this).parent().toggleClass('on off');
-    $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
-    return false;
-  });
 })();
