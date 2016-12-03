@@ -212,7 +212,7 @@ module.exports = function(env) {
     if (this.vm.tab === 'real_time') {
       this.data.hooks = [];
       this.socket.realTimeIn();
-    }
+    } else if (this.vm.tab === 'pools' && this.vm.poolMember) this.poolIn();
   }.bind(this));
 
   window.addEventListener('beforeunload', function() {

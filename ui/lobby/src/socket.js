@@ -43,7 +43,12 @@ module.exports = function(send, ctrl) {
   };
 
   this.poolIn = function(member) {
-    send('poolIn', member);
+    // last arg=true: must not retry
+    // because if poolIn is sent before socket opens,
+    // then poolOut is sent,
+    // then poolIn shouldn't be sent again after socket opens.
+    // poolIn is sent anyway on socket open event.
+    send('poolIn', member, {}, true);
   };
 
   this.poolOut = function(member) {
