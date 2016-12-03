@@ -54,7 +54,8 @@ private[lobby] final class SocketHandler(
           socketId = lila.socket.Socket.Uid(member.uid),
           ratingMap = user.ratingMap,
           ratingRange = ratingRange,
-          engine = user.engine))
+          engine = user.engine,
+          blocking = user.blocking))
     }
     // leaving a pool
     case ("poolOut", o) => for {

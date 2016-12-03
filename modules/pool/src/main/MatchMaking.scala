@@ -26,7 +26,13 @@ object MatchMaking {
 
     // quality of a potential pairing. Lower is better.
     private def pairScore(a: PoolMember, b: PoolMember) =
-      a.ratingDiff(b) - missBonus(a) - missBonus(b) + rangeMalus(a, b) + rangeMalus(b, a)
+      a.ratingDiff(b) - {
+        missBonus(a) + missBonus(b)
+      } + {
+        rangeMalus(a, b) + rangeMalus(b, a)
+      } + {
+        blockMalus(a, b) + blockMalus(b, a)
+      }
 
     // score bonus based on how many waves the member missed
     private def missBonus(p: PoolMember) = (p.misses * 30) atMost 1000
@@ -34,6 +40,10 @@ object MatchMaking {
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =
       if (a.ratingRange.exists(!_.contains(b.rating))) 2000 else 0
+
+    // huge malus if players block each other
+    private def blockMalus(a: PoolMember, b: PoolMember) =
+      if (a.blocking.ids contains b.userId) 5000 else 0
 
     def apply(members: Vector[PoolMember]): Option[Vector[Couple]] = {
       WMMatching(members.toArray, pairScore).fold(
