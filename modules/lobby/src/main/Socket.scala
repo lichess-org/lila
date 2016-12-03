@@ -145,8 +145,8 @@ private[lobby] final class Socket(
     hookSubscriberUids -= uid
   }
 
-  private def playerUrl(fullId: String) = s"/$fullId"
+  def playerUrl(fullId: String) = s"/$fullId"
 
-  private def notifySeeks =
-    notifyAll(makeMessage("reload_seeks"))
+  def notifySeeks =
+    notifyAllActiveAsync(makeMessage("reload_seeks"))
 }
