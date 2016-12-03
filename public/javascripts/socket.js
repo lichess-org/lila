@@ -73,7 +73,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var send = function(t, d, o, noRetry) {
-    var data = d || {},
+    var data = (d == null) ? {} : d,
       options = o || {};
     if (options.withLag) d.l = Math.round(averageLag);
     if (options.ackable) ackableMessages.push({

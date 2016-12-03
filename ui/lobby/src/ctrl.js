@@ -187,6 +187,19 @@ module.exports = function(env) {
 
   this.trans = lichess.trans(env.i18n);
 
+  this.awake = function() {
+    switch (this.vm.tab) {
+      case 'real_time':
+        this.data.hooks = [];
+        this.socket.realTimeIn();
+        break;
+      case 'seeks':
+        xhr.seeks().then(this.setSeeks);
+        break;
+      default:
+    }
+  }.bind(this);
+
   if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
   else {
 

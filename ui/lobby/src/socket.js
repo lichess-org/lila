@@ -64,8 +64,9 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  lichess.idleTimer(5 * 60 * 1000, partial(send, 'idle', true), function() {
-    location.reload();
+  lichess.idleTimer(3 * 60 * 1000, partial(send, 'idle', true), function() {
+    send('idle', false);
+    ctrl.awake();
   });
 
   this.music = null;
