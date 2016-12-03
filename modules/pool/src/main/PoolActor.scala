@@ -27,10 +27,19 @@ private final class PoolActor(
 
   def receive = {
 
-    case Join(joiner) if !members.exists(_.userId == joiner.userId) =>
-      members = members :+ PoolMember(joiner, config)
-      if (members.size >= config.wave.players.value) self ! FullWave
-      monitor.join.count(monId)()
+    case Join(joiner) =>
+      members.find(joiner.is) match {
+        case None =>
+          members = members :+ PoolMember(joiner, config)
+          if (members.size >= config.wave.players.value) self ! FullWave
+          monitor.join.count(monId)()
+        case Some(member) if member.ratingRange != joiner.ratingRange =>
+          members = members.map {
+            case m if m == member => m withRange joiner.ratingRange
+            case m                => m
+          }
+        case _ => // no change
+      }
 
     case Leave(userId) => members.find(_.userId == userId) foreach { member =>
       members = members.filter(member !=)
@@ -53,7 +62,11 @@ private final class PoolActor(
   }
 
   def runWave = {
+
     nextWave.cancel()
+
+    monitor.wave.withRange(monId)(members.count(_.hasRange))
+
     val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
       MatchMaking(members)
     }
@@ -73,6 +86,7 @@ private final class PoolActor(
     pairings.foreach { p =>
       monitor.wave.ratingDiff(monId)(p.ratingDiff)
     }
+
     scheduleWave
   }
 

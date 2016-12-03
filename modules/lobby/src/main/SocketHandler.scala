@@ -10,6 +10,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.lobby._
 import lila.pool.{ PoolApi, PoolConfig }
+import lila.rating.RatingRange
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -40,8 +41,10 @@ private[lobby] final class SocketHandler(
     case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
     // entering a pool
     case ("poolIn", o) => for {
-      id <- o str "d"
       user <- member.user
+      d <- o obj "d"
+      id <- d str "id"
+      ratingRange = d str "range" flatMap RatingRange.apply
     } {
       lobby ! CancelHook(member.uid) // in case there's one...
       poolApi.join(
@@ -50,7 +53,7 @@ private[lobby] final class SocketHandler(
           userId = user.id,
           socketId = lila.socket.Socket.Uid(member.uid),
           ratingMap = user.ratingMap,
-          ratingRange = none,
+          ratingRange = ratingRange,
           engine = user.engine))
     }
     // leaving a pool

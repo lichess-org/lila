@@ -42,12 +42,12 @@ module.exports = function(send, ctrl) {
     send('hookOut');
   };
 
-  this.poolIn = function(id) {
-    send('poolIn', id);
+  this.poolIn = function(member) {
+    send('poolIn', member);
   };
 
-  this.poolOut = function(id) {
-    send('poolOut', id);
+  this.poolOut = function(member) {
+    send('poolOut', member.id);
   };
 
   this.receive = function(type, data) {

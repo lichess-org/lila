@@ -434,7 +434,8 @@ body.dark #hooks_wrap .pools .active {
   line-height: 1.5em;
   letter-spacing: 5px;
 }
-#hooks_wrap .pools .perf {
+#hooks_wrap .pools .perf,
+#hooks_wrap .pools .range {
   font-size: 1.5em;
 }
 #hooks_wrap .pools .custom {

@@ -1,23 +1,29 @@
 var m = require('mithril');
 
+function renderRange(range) {
+  return m('div.range', range.replace('-', ' - '));
+}
+
 module.exports = function(ctrl) {
+  var member = ctrl.vm.poolMember;
   return [
     ctrl.data.pools.map(function(pool) {
-      var active = ctrl.vm.inPool === pool.id;
-      var transp = ctrl.vm.inPool && !active;
+      var active = member && member.id === pool.id;
+      var transp = member && !active;
       return m('div.pool', {
         class: active ? 'active' : (transp ? 'transp' : ''),
         onclick: function() {
-          ctrl.clickPool(pool.id);
+          ctrl.clickPool({
+            id: pool.id
+          });
         }
       }, [
-        m('div.clock', pool.lim + '+' + pool.inc),
-        m('div.perf', pool.perf),
+        m('div.clock', pool.lim + '+' + pool.inc), (active && member.range) ? renderRange(member.range) : m('div.perf', pool.perf),
         active ? m.trust(lichess.spinnerHtml) : null
       ]);
     }),
     m('div.custom', {
-      class: ctrl.vm.inPool ? 'transp' : '',
+      class: member ? 'transp' : '',
       onclick: function() {
         ctrl.clickPool(null);
         $('#start_buttons .config_hook').mousedown();

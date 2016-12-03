@@ -33,7 +33,7 @@ object MatchMaking {
 
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =
-      if (a.range.exists(!_.contains(b.rating))) 1000 else 0
+      if (a.ratingRange.exists(!_.contains(b.rating))) 2000 else 0
 
     def apply(members: Vector[PoolMember]): Option[Vector[Couple]] = {
       WMMatching(members.toArray, pairScore).fold(

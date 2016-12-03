@@ -3,9 +3,9 @@ package lila.pool
 import akka.actor._
 
 import lila.game.Game
+import lila.rating.RatingRange
 import lila.socket.Socket.{ Uid => SocketId }
 import lila.user.User
-import lila.rating.RatingRange
 
 final class PoolApi(
     val configs: List[PoolConfig],
@@ -40,11 +40,14 @@ final class PoolApi(
 object PoolApi {
 
   case class Joiner(
-    userId: User.ID,
-    socketId: SocketId,
-    ratingMap: Map[String, Int],
-    ratingRange: Option[RatingRange],
-    engine: Boolean)
+      userId: User.ID,
+      socketId: SocketId,
+      ratingMap: Map[String, Int],
+      ratingRange: Option[RatingRange],
+      engine: Boolean) {
+
+    def is(member: PoolMember) = userId == member.userId
+  }
 
   case class Pairing(game: Game, whiteUid: SocketId, blackUid: SocketId)
 }

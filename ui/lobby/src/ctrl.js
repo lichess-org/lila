@@ -39,7 +39,7 @@ module.exports = function(env) {
     stepHooks: this.data.hooks.slice(0),
     stepping: false,
     redirecting: false,
-    inPool: null
+    poolMember: null
   };
 
   var flushHooksTimeout;
@@ -121,30 +121,30 @@ module.exports = function(env) {
     m.redraw();
   }.bind(this);
 
-  this.clickPool = function(id) {
+  this.clickPool = function(member) {
     if (!this.data.me) {
-      if (id) {
+      if (member) {
         xhr.anonPoolSeek(this.data.pools.filter(function(p) {
-          return p.id === id;
+          return p.id === member.id;
         })[0]);
         this.setTab('real_time');
       }
       return;
     }
-    var prev = this.vm.inPool;
-    this.vm.inPool = prev === id ? null : id;
-    if (this.vm.inPool) this.poolIn();
+    var prev = this.vm.poolMember;
+    this.vm.poolMember = (prev && prev.id === member.id && prev.range == member.range) ? null : member;
+    if (this.vm.poolMember) this.poolIn();
     else if (prev) this.socket.poolOut(prev);
   }.bind(this);
 
   this.poolIn = function() {
     poolInStorage.set(1);
-    this.socket.poolIn(this.vm.inPool);
+    this.socket.poolIn(this.vm.poolMember);
   }.bind(this);
 
-  this.enterPool = function(id) {
+  this.enterPool = function(member) {
     this.setTab('pools');
-    this.clickPool(id);
+    this.clickPool(member);
     m.redraw();
   }.bind(this);
 
@@ -187,7 +187,7 @@ module.exports = function(env) {
   else {
 
     setInterval(function() {
-      if (this.vm.inPool) this.poolIn();
+      if (this.vm.poolMember) this.poolIn();
       else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
     }.bind(this), 10 * 1000);
 
@@ -196,7 +196,7 @@ module.exports = function(env) {
       var match = regex.exec(location.hash);
       if (match) {
         this.setTab('pools');
-        this.clickPool(match[1]);
+        this.clickPool({id: match[1]});
         if (window.history.replaceState) window.history.replaceState(null, null, '/');
       }
     }
@@ -210,6 +210,6 @@ module.exports = function(env) {
   }.bind(this));
 
   window.addEventListener('beforeunload', function() {
-    if (this.vm.inPool) this.socket.poolOut(this.vm.inPool);
+    if (this.vm.poolMember) this.socket.poolOut(this.vm.poolMember);
   }.bind(this));
 };

@@ -85,6 +85,7 @@ object mon {
         def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
         def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
         def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
+        def withRange(id: String) = rec(s"lobby.pool.$id.wave.with_range")
       }
       object join {
         def count(id: String) = inc(s"lobby.pool.$id.join.count")
