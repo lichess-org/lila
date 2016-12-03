@@ -407,7 +407,7 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  transition: opacity 0.3s;
+  transition: opacity 0.7s;
 }
 body.dark #hooks_wrap .pools > div {
   background: rgba(20,20,20,0.5);
