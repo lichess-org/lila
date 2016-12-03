@@ -13,9 +13,7 @@ module.exports = function(ctrl) {
       return m('div.pool', {
         class: active ? 'active' : (transp ? 'transp' : ''),
         onclick: function() {
-          ctrl.clickPool({
-            id: pool.id
-          });
+          ctrl.clickPool(pool.id);
         }
       }, [
         m('div.clock', pool.lim + '+' + pool.inc), (active && member.range) ? renderRange(member.range) : m('div.perf', pool.perf),
@@ -25,7 +23,6 @@ module.exports = function(ctrl) {
     m('div.custom', {
       class: member ? 'transp' : '',
       onclick: function() {
-        ctrl.clickPool(null);
         $('#start_buttons .config_hook').mousedown();
       }
     }, 'Custom')

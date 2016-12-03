@@ -251,16 +251,16 @@ module.exports = function(element, cfg) {
       var ajaxSubmit = function(color) {
         var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);
         $form.find('a.close').click();
-        if (poolMember) {
-          lobby.enterPool(poolMember);
-          return false;
-        }
-        $.ajax({
+        var call = {
           url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
           data: $formTag.serialize() + "&color=" + color,
           type: 'post'
-        });
-        lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
+        };
+        if (poolMember) {
+          lobby.enterPool(poolMember);
+          call.url += '?pool=1';
+        } else lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
+        $.ajax(call);
         return false;
       };
       $formTag.find('.color_submits button').click(function() {
@@ -406,6 +406,7 @@ module.exports = function(element, cfg) {
   }
 
   $startButtons.find('a').not('.disabled').on('mousedown', function() {
+    lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {

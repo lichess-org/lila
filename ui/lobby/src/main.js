@@ -26,7 +26,8 @@ module.exports = {
       },
       gameActivity: controller.gameActivity,
       setRedirecting: controller.setRedirecting,
-      enterPool: controller.enterPool
+      enterPool: controller.enterPool,
+      leavePool: controller.leavePool
     };
   },
   legacy: legacy

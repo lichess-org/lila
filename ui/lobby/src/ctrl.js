@@ -27,7 +27,7 @@ module.exports = function(env) {
   var poolInStorage = lichess.storage.make('lobby.pool-in');
   poolInStorage.listen(function() {
     // when another tab joins a pool
-    this.clickPool(null);
+    this.leavePool();
     m.redraw();
   }.bind(this));
 
@@ -77,7 +77,7 @@ module.exports = function(env) {
         this.data.hooks = [];
       }
 
-      if (this.vm.tab === 'pools') this.clickPool(null);
+      if (this.vm.tab === 'pools') this.leavePool();
 
       this.vm.tab = store.tab.set(tab);
     }
@@ -121,31 +121,35 @@ module.exports = function(env) {
     m.redraw();
   }.bind(this);
 
-  this.clickPool = function(member) {
+  this.clickPool = function(id) {
     if (!this.data.me) {
-      if (member) {
-        xhr.anonPoolSeek(this.data.pools.filter(function(p) {
-          return p.id === member.id;
-        })[0]);
-        this.setTab('real_time');
-      }
-      return;
-    }
-    var prev = this.vm.poolMember;
-    this.vm.poolMember = (prev && prev.id === member.id && (!member.range || prev.range == member.range)) ? null : member;
-    if (this.vm.poolMember) this.poolIn();
-    else if (prev) this.socket.poolOut(prev);
+      xhr.anonPoolSeek(this.data.pools.filter(function(p) {
+        return p.id === id;
+      })[0]);
+      this.setTab('real_time');
+    } else if (this.vm.poolMember && this.vm.poolMember.id === id) this.leavePool();
+    else this.enterPool({
+      id: id
+    });
+  }.bind(this);
+
+  this.enterPool = function(member) {
+    this.setTab('pools');
+    this.vm.poolMember = member;
+    this.poolIn();
+    m.redraw();
+  }.bind(this);
+
+  this.leavePool = function() {
+    if (!this.vm.poolMember) return;
+    this.socket.poolOut(this.vm.poolMember);
+    this.vm.poolMember = null;
+    m.redraw();
   }.bind(this);
 
   this.poolIn = function() {
     poolInStorage.set(1);
     this.socket.poolIn(this.vm.poolMember);
-  }.bind(this);
-
-  this.enterPool = function(member) {
-    this.setTab('pools');
-    this.clickPool(member);
-    m.redraw();
   }.bind(this);
 
   this.gameActivity = function(gameId) {
@@ -196,7 +200,9 @@ module.exports = function(env) {
       var match = regex.exec(location.hash);
       if (match) {
         this.setTab('pools');
-        this.clickPool({id: match[1]});
+        this.enterPool({
+          id: match[1]
+        });
         if (window.history.replaceState) window.history.replaceState(null, null, '/');
       }
     }
