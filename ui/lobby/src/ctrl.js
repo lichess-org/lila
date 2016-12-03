@@ -132,7 +132,7 @@ module.exports = function(env) {
       return;
     }
     var prev = this.vm.poolMember;
-    this.vm.poolMember = (prev && prev.id === member.id && prev.range == member.range) ? null : member;
+    this.vm.poolMember = (prev && prev.id === member.id && (!member.range || prev.range == member.range)) ? null : member;
     if (this.vm.poolMember) this.poolIn();
     else if (prev) this.socket.poolOut(prev);
   }.bind(this);
