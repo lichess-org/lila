@@ -124,8 +124,6 @@ object Setup extends LilaController with TheftPrevention {
 
   private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
 
-  private val hookRefused = BadRequest(jsonError("Game was not created"))
-
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
