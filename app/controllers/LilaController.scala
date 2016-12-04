@@ -6,7 +6,6 @@ import play.api.http._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
 import play.api.mvc._, Results._
-import play.api.mvc.WebSocket.FrameFormatter
 import play.twirl.api.Html
 import scalaz.Monoid
 
@@ -51,38 +50,6 @@ private[controllers] trait LilaController
   protected def NoIframe(res: Result): Result = res.withHeaders(
     "X-Frame-Options" -> "SAMEORIGIN"
   )
-
-  protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
-    WebSocket.tryAccept[A] { req =>
-      SocketCSRF(req) {
-        reqToCtx(req) flatMap f map scala.util.Right.apply
-      }
-    }
-
-  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
-    WebSocket.tryAccept[A] { req =>
-      SocketCSRF(req) {
-        reqToCtx(req) flatMap f
-      }
-    }
-
-  protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    WebSocket.tryAccept[A] { req =>
-      SocketCSRF(req) {
-        reqToCtx(req) flatMap f map {
-          case None       => Left(NotFound(jsonError("socket resource not found")))
-          case Some(pair) => Right(pair)
-        }
-      }
-    }
-
-  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    rateLimitedSocket[A](consumer, name) { ctx =>
-      f(ctx) map {
-        case None       => Left(NotFound(jsonError("socket resource not found")))
-        case Some(pair) => Right(pair)
-      }
-    }
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
     Open(BodyParsers.parse.empty)(f)
@@ -357,14 +324,11 @@ private[controllers] trait LilaController
       }
     }
 
-  private val csrfCheck = Env.security.csrfRequestHandler.check _
-  private val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
+  protected val csrfCheck = Env.security.csrfRequestHandler.check _
+  protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
     if (csrfCheck(req)) f else csrfForbiddenResult
-
-  protected def SocketCSRF[A](req: RequestHeader)(f: => Fu[Either[Result, A]]): Fu[Either[Result, A]] =
-    if (csrfCheck(req)) f else csrfForbiddenResult map Left.apply
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound

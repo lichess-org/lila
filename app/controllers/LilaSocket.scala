@@ -12,9 +12,41 @@ import lila.common.HTTPRequest
 
 trait LilaSocket { self: LilaController =>
 
+  def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
+    WebSocket.tryAccept[A] { req =>
+      SocketCSRF(req) {
+        reqToCtx(req) flatMap f map scala.util.Right.apply
+      }
+    }
+
+  def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
+    WebSocket.tryAccept[A] { req =>
+      SocketCSRF(req) {
+        reqToCtx(req) flatMap f
+      }
+    }
+
+  def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    WebSocket.tryAccept[A] { req =>
+      SocketCSRF(req) {
+        reqToCtx(req) flatMap f map {
+          case None       => Left(NotFound(jsonError("socket resource not found")))
+          case Some(pair) => Right(pair)
+        }
+      }
+    }
+
+  def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    rateLimitedSocket[A](consumer, name) { ctx =>
+      f(ctx) map {
+        case None       => Left(NotFound(jsonError("socket resource not found")))
+        case Some(pair) => Right(pair)
+      }
+    }
+
   private type AcceptType[A] = Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]
 
-  private val logger = lila.log("ratelimit")
+  private val rateLimitLogger = lila.log("ratelimit")
 
   def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
@@ -26,7 +58,6 @@ trait LilaSocket { self: LilaController =>
             val username = ctx.usernameOrAnon
             s"user:$username sri:$sri"
           }
-          // logger.debug(s"socket:$name socket connect $ip $userInfo")
           f(ctx).map { resultOrSocket =>
             resultOrSocket.right.map {
               case (readIn, writeOut) => (e, i) => {
@@ -35,7 +66,7 @@ trait LilaSocket { self: LilaController =>
                   consumer(ip).map { credit =>
                     if (credit >= 0) in
                     else {
-                      logger.info(s"socket:$name socket close $ip $userInfo $in")
+                      rateLimitLogger.info(s"socket:$name socket close $ip $userInfo $in")
                       Input.EOF
                     }
                   }
@@ -46,4 +77,7 @@ trait LilaSocket { self: LilaController =>
         }
       }
     }
+
+  private def SocketCSRF[A](req: RequestHeader)(f: => Fu[Either[Result, A]]): Fu[Either[Result, A]] =
+    if (csrfCheck(req)) f else csrfForbiddenResult map Left.apply
 }
