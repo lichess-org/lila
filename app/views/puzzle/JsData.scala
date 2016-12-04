@@ -3,8 +3,8 @@ package views.html.puzzle
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.api.Context
-import lila.common.PimpedJson._
 import lila.app.templating.Environment._
+import lila.common.PimpedJson._
 import lila.puzzle._
 
 object JsData extends lila.Steroids {
@@ -33,7 +33,7 @@ object JsData extends lila.Steroids {
     "pref" -> Json.obj(
       "coords" -> ctx.pref.coords
     ),
-    "chessground" -> Json.obj(
+    "chessground" -> (!ctx.isMobileApi).option(Json.obj(
       "highlight" -> Json.obj(
         "lastMove" -> ctx.pref.highlight,
         "check" -> ctx.pref.highlight
@@ -47,7 +47,7 @@ object JsData extends lila.Steroids {
       "premovable" -> Json.obj(
         "showDests" -> ctx.pref.destination
       )
-    ),
+    )),
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
