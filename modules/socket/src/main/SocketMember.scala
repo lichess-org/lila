@@ -2,7 +2,7 @@ package lila.socket
 
 import play.api.libs.json.JsValue
 
-trait SocketMember extends Ordered[SocketMember] {
+trait SocketMember {
 
   protected val channel: JsChannel
   val userId: Option[String]
@@ -10,15 +10,9 @@ trait SocketMember extends Ordered[SocketMember] {
 
   def isAuth = userId.isDefined
 
-  def compare(other: SocketMember) = ~userId compare ~other.userId
+  def push(msg: JsValue) = channel push msg
 
-  def push(msg: JsValue) {
-    channel push msg
-  }
-
-  def end {
-    channel.end
-  }
+  def end = channel.end
 }
 
 object SocketMember {
