@@ -12,43 +12,37 @@ import lila.common.HTTPRequest
 
 trait LilaSocket { self: LilaController =>
 
-  def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
-    WebSocket.tryAccept[A] { req =>
-      SocketCSRF(req) {
-        reqToCtx(req) flatMap f map scala.util.Right.apply
-      }
-    }
+  private type Pipe[A] = (Iteratee[A, _], Enumerator[A])
 
-  def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
+  private val notFoundResponse = NotFound(jsonError("socket resource not found"))
+
+  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, Pipe[A]]]) =
     WebSocket.tryAccept[A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap f
       }
     }
 
-  def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    WebSocket.tryAccept[A] { req =>
-      SocketCSRF(req) {
-        reqToCtx(req) flatMap f map {
-          case None       => Left(NotFound(jsonError("socket resource not found")))
-          case Some(pair) => Right(pair)
-        }
-      }
+  protected def Socket[A: FrameFormatter](f: Context => Fu[Pipe[A]]) =
+    SocketEither[A] { ctx =>
+      f(ctx) map scala.util.Right.apply
     }
 
-  def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+  protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[Pipe[A]]]) =
+    SocketEither[A] { ctx =>
+      f(ctx).map(_ toRight notFoundResponse)
+    }
+
+  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[Pipe[A]]]) =
     rateLimitedSocket[A](consumer, name) { ctx =>
-      f(ctx) map {
-        case None       => Left(NotFound(jsonError("socket resource not found")))
-        case Some(pair) => Right(pair)
-      }
+      f(ctx).map(_ toRight notFoundResponse)
     }
 
-  private type AcceptType[A] = Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]
+  private type AcceptType[A] = Context => Fu[Either[Result, Pipe[A]]]
 
   private val rateLimitLogger = lila.log("ratelimit")
 
-  def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
+  private def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap { ctx =>
