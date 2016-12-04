@@ -72,6 +72,9 @@ private[lobby] final class Socket(
           if (hook.uid == member.uid || Biter.canJoin(hook, member.user)) member push msg
         }
       }
+      if (hook.likePoolFiveO) withMember(hook.uid) { member =>
+        lila.mon.lobby.hook.likePoolFiveO(member.mobile)()
+      }
     }
 
     case AddSeek(_) => notifySeeks

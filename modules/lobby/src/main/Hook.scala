@@ -6,10 +6,10 @@ import ornicar.scalalib.Random
 import play.api.libs.json._
 
 import actorApi.LobbyUser
+import lila.common.PimpedJson._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
-import lila.common.PimpedJson._
 
 // realtime chess, volatile
 case class Hook(
@@ -69,6 +69,9 @@ case class Hook(
   ).noNull
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
+
+  def likePoolFiveO =
+    realMode.rated && realVariant.standard && color == "random" && clock.show == "5+0"
 
   private lazy val speed = Speed(clock.some)
 }
