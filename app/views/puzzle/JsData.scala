@@ -61,7 +61,8 @@ object JsData extends lila.Steroids {
     "attempt" -> round.ifTrue(ctx.isMobileApi).map { r =>
       Json.obj(
         "userRatingDiff" -> r.ratingDiff,
-        "win" -> r.win
+        "win" -> r.win,
+        "seconds" -> "a few" // lol we don't have the value anymore
       )
     },
     "win" -> win,
