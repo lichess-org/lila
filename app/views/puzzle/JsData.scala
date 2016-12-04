@@ -52,10 +52,16 @@ object JsData extends lila.Steroids {
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "mode" -> mode,
-    "round" -> round.map { a =>
+    "round" -> round.map { r =>
       Json.obj(
-        "ratingDiff" -> a.ratingDiff,
-        "win" -> a.win
+        "ratingDiff" -> r.ratingDiff,
+        "win" -> r.win
+      )
+    },
+    "attempt" -> round.ifTrue(ctx.isMobileApi).map { r =>
+      Json.obj(
+        "userRatingDiff" -> r.ratingDiff,
+        "win" -> r.win
       )
     },
     "win" -> win,
