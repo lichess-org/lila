@@ -61,16 +61,19 @@ object mon {
       val size = rec("lobby.hook.size")
       def acceptedRatedClock(clock: String) =
         inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
+      val mobile = rec(s"lobby.socket.mobile")
     }
     object cache {
       val user = inc("lobby.cache.count.user")

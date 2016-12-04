@@ -48,10 +48,11 @@ private[lobby] final class Socket(
       sender ! SocketUids(members.keySet.toSet)
       lila.mon.lobby.socket.idle(idleUids.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
+      lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
 
-    case Join(uid, user, blocks) =>
+    case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid)
+      val member = Member(channel, user, blocks, uid, mobile)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
@@ -85,12 +86,24 @@ private[lobby] final class Socket(
     case RemoveSeek(_) => notifySeeks
 
     case JoinHook(uid, hook, game, creatorColor) =>
-      withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
-      withMember(uid)(notifyPlayerStart(game, !creatorColor))
+      withMember(hook.uid) { member =>
+        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        notifyPlayerStart(game, creatorColor)(member)
+      }
+      withMember(uid) { member =>
+        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        notifyPlayerStart(game, !creatorColor)(member)
+      }
 
     case JoinSeek(userId, seek, game, creatorColor) =>
-      membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
-      membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
+      membersByUserId(seek.user.id) foreach { member =>
+        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        notifyPlayerStart(game, creatorColor)(member)
+      }
+      membersByUserId(userId) foreach { member =>
+        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        notifyPlayerStart(game, !creatorColor)(member)
+      }
 
     case lila.pool.PoolApi.Pairing(game, whiteUid, blackUid) =>
       withMember(whiteUid.value)(notifyPlayerStart(game, chess.White))
