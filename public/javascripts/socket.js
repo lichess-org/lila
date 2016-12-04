@@ -104,7 +104,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var scheduleConnect = function(delay) {
-    if (options.idle) delay = delay * 3;
+    if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
