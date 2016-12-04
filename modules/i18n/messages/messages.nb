@@ -1,7 +1,7 @@
 playWithAFriend=Spill mot en venn
 playWithTheMachine=Spill mot maskinen
 toInviteSomeoneToPlayGiveThisUrl=For å invitere noen til et spill, gi dem denne lenken
-gameOver=Spillet er slutt
+gameOver=Partiet er slutt
 waitingForOpponent=Venter på motstander
 waiting=Venter
 yourTurn=Ditt trekk
@@ -16,7 +16,7 @@ stalemate=Patt
 white=Hvit
 black=Svart
 randomColor=Tilfeldig farge
-createAGame=Start et spill
+createAGame=Start et parti
 whiteIsVictorious=Hvit har vunnet
 blackIsVictorious=Svart har vunnet
 kingInTheCenter=Kongen i midten
