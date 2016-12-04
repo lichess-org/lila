@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -18,7 +17,7 @@ private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
-    lightUser: String => Option[LightUser],
+    lightUser: LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
