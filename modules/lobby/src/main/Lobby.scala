@@ -121,9 +121,6 @@ private[lobby] final class Lobby(
     case Resync =>
       socket ! HookIds(HookRepo.vector.map(_.id))
 
-    case Lobby.SendNbHooks =>
-      socket ! NbHooks(HookRepo.size)
-
     case msg@HookSub(member, true) =>
       socket ! AllHooksFor(
         member,
@@ -180,8 +177,6 @@ private object Lobby {
 
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
-  private object SendNbHooks
-
   def start(
     system: ActorSystem,
     name: String,
@@ -190,7 +185,6 @@ private object Lobby {
 
     val ref = system.actorOf(Props(instance), name = name)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
-    system.scheduler.schedule(10 seconds, 2 seconds, ref, SendNbHooks)
     system.scheduler.scheduleOnce(7 seconds) {
       lila.common.ResilientScheduler(
         every = broomPeriod,

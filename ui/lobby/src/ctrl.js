@@ -15,8 +15,6 @@ module.exports = function(env) {
   this.currentGame = env.currentGame;
   this.perfIcons = env.perfIcons;
 
-  this.nbHooks = env.nbHooks;
-
   hookRepo.initAll(this);
   seekRepo.initAll(this);
 

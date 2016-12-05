@@ -120,7 +120,6 @@ private[lobby] final class Socket(
         withActiveMember(uid)(_ push msg)
       }
     }
-    case NbHooks(count)                       => notifyAllAsync(makeMessage("nb_hooks", count))
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 

@@ -28,10 +28,6 @@ module.exports = function(send, ctrl) {
     },
     reload_seeks: function() {
       if (ctrl.vm.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
-    },
-    nb_hooks: function(nb) {
-      ctrl.nbHooks = nb;
-      m.redraw();
     }
   };
 

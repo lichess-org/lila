@@ -61,7 +61,6 @@ private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creat
 private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String], mobile: Boolean)
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
-private[lobby] case class NbHooks(count: Int)
 
 private[lobby] case class SetIdle(uid: String, value: Boolean)
 
