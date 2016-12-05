@@ -19,8 +19,7 @@ private[lobby] final class Lobby(
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     poolApi: lila.pool.PoolApi,
-    onStart: String => Unit,
-    hideHooks: () => Boolean) extends Actor {
+    onStart: String => Unit) extends Actor {
 
   def receive = {
 
@@ -43,7 +42,7 @@ private[lobby] final class Lobby(
 
     case SaveHook(msg) =>
       HookRepo save msg.hook
-      if (!hideHooks()) socket ! msg
+      socket ! msg
 
     case SaveSeek(msg) => (seekApi insert msg.seek) >>- {
       socket ! msg
@@ -120,10 +119,10 @@ private[lobby] final class Lobby(
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync =>
-      if (!hideHooks()) socket ! HookIds(HookRepo.vector.map(_.id))
+      socket ! HookIds(HookRepo.vector.map(_.id))
 
     case Lobby.SendNbHooks =>
-      if (hideHooks()) socket ! NbHooks(HookRepo.size)
+      socket ! NbHooks(HookRepo.size)
 
     case msg@HookSub(member, true) =>
       socket ! AllHooksFor(
@@ -165,7 +164,7 @@ private[lobby] final class Lobby(
 
   private def remove(hook: Hook) = {
     HookRepo remove hook
-    if (!hideHooks()) socket ! RemoveHook(hook.id)
+    socket ! RemoveHook(hook.id)
   }
 }
 

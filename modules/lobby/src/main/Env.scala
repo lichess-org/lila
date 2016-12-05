@@ -53,8 +53,7 @@ final class Env(
         blocking = blocking,
         playban = playban,
         poolApi = poolApi,
-        onStart = onStart,
-        hideHooks = () => disableHooks.get)
+        onStart = onStart)
     }
 
   lazy val socketHandler = new SocketHandler(
@@ -63,22 +62,6 @@ final class Env(
     socket = socket,
     poolApi = poolApi,
     blocking = blocking)
-
-  object disableHooks {
-    import reactivemongo.bson._
-    import lila.db.dsl._
-   import scala.concurrent.duration._
-    private val coll = db("flag")
-    private val cache = lila.memo.MixedCache.single[Boolean](
-      name = "lobby.no_hooks",
-      f = coll.primitiveOne[BSONBoolean]($id("noHooks"), "value").map {
-        _.fold(false)(_.value)
-      },
-      timeToLive = 10.seconds,
-      default = false,
-      logger = lila.log("disableHooks"))
-    def get = cache get true
-  }
 
   private val abortListener = new AbortListener(seekApi = seekApi)
 
