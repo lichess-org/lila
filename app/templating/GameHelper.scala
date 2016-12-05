@@ -22,7 +22,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     description = describePov(pov))
 
   def titleGame(g: Game) = {
-    val speed = chess.Speed(g.clock).name
+    val speed = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
   }
@@ -34,7 +34,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speedAndClock =
       if (game.imported) "imported"
       else game.clock.fold(chess.Speed.Correspondence.name) { c =>
-        s"${chess.Speed(c.some).name} (${c.show})"
+        s"${chess.Speed(c.config).name} (${c.show})"
       }
     val mode = game.mode.name
     val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
@@ -75,10 +75,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case v                          => v.name
   }
 
-  def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
+  def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Html =
     clock.fold(trans.unlimited())(shortClockName)
 
-  def shortClockName(clock: Clock): Html = Html(clock.show)
+  def shortClockName(clock: Clock.Config): Html = Html(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
     case Mode.Casual => trans.casual.str()
@@ -248,7 +248,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
-    val speed = c.clock.map(_.chessClock).fold(trans.unlimited.str()) { clock =>
+    val speed = c.clock.map(_.config).fold(trans.unlimited.str()) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"

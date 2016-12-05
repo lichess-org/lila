@@ -13,7 +13,7 @@
 @lightUser(pov.opponent.userId).flatMap(_.title).map(" " + _)
 </div>
 @pov.game.clock.map { c =>
-<div class="center"><span data-icon="p"> @shortClockName(c)</span></div>
+<div class="center"><span data-icon="p"> @shortClockName(c.config)</span></div>
 }.getOrElse {
 @ctxOption.map { ctx =>
 @pov.game.daysPerTurn.map { days =>

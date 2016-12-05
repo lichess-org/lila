@@ -83,7 +83,7 @@ case class Tournament(
     case _                                       => false
   }
 
-  def speed = Speed(clock.some)
+  def speed = Speed(clock)
 
   def perfType = PerfPicker.perfType(speed, variant, none)
   def perfLens = PerfPicker.mainOrDefault(speed, variant, none)

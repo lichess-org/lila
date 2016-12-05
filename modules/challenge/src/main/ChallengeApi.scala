@@ -77,7 +77,7 @@ final class ChallengeApi(
             variant = pov.game.variant,
             initialFen = initialFen,
             timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-              case (Some(clock), _) => TimeControl.Clock(clock.limit, clock.increment)
+              case (Some(clock), _) => TimeControl.Clock(clock.config)
               case (_, Some(days))  => TimeControl.Correspondence(days)
               case _                => TimeControl.Unlimited
             },

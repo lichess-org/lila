@@ -31,7 +31,7 @@ private[setup] trait Config {
   lazy val creatorColor = color.resolve
 
   def makeGame(v: chess.variant.Variant): ChessGame =
-    ChessGame(board = Board init v, clock = makeClock)
+    ChessGame(board = Board init v, clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -42,7 +42,7 @@ private[setup] trait Config {
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock =
-    Clock((time * 60).toInt, clockHasTime.fold(increment, 1))
+    Clock.Config((time * 60).toInt, clockHasTime.fold(increment, 1))
 
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
@@ -68,7 +68,7 @@ trait Positional { self: Config =>
           player = color,
           turns = sit.turns,
           startedAtTurn = sit.turns,
-          clock = makeClock)
+          clock = makeClock.map(_.toClock))
         if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
         else game -> baseState
     }

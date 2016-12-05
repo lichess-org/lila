@@ -78,7 +78,7 @@ case class Hook(
 
   def likePoolFiveO = poolCompatible && clock.show == "5+0"
 
-  private lazy val speed = Speed(clock.some)
+  private lazy val speed = Speed(clock)
 }
 
 object Hook {
