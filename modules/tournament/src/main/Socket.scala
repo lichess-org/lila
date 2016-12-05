@@ -26,7 +26,7 @@ private[tournament] final class Socket(
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
 
-  private var clock = none[chess.Clock]
+  private var clock = none[chess.Clock.Config]
 
   private var waitingUsers = WaitingUsers.empty
 
@@ -43,8 +43,7 @@ private[tournament] final class Socket(
 
   def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) =>
-      clock = tour.clock.chessClock.some
+    case SetTournament(Some(tour)) => clock = tour.clock.some
 
     case StartGame(game) =>
       game.players foreach { player =>

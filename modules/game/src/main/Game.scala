@@ -247,7 +247,7 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     playable ?? correspondenceClock
 
-  def speed = chess.Speed(clock)
+  def speed = chess.Speed(clock.map(_.config))
 
   def perfKey = PerfPicker.key(this)
   def perfType = PerfType(perfKey)
@@ -317,7 +317,7 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
-  def berserkable = clock.??(_.berserkable) && status == Status.Started && playedTurns < 2
+  def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>

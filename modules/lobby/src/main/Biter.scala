@@ -62,7 +62,7 @@ private[lobby] object Biter {
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
       board = Board init hook.realVariant,
-      clock = hook.clock.some),
+      clock = hook.clock.toClock.some),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = hook.realMode,

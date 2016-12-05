@@ -17,7 +17,7 @@ case class Hook(
     uid: String, // owner socket uid
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
-    clock: Clock,
+    clock: Clock.Config,
     mode: Int,
     allowAnon: Boolean,
     color: String,
@@ -88,7 +88,7 @@ object Hook {
   def make(
     uid: String,
     variant: chess.variant.Variant,
-    clock: Clock,
+    clock: Clock.Config,
     mode: Mode,
     allowAnon: Boolean,
     color: String,
