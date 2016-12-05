@@ -42,6 +42,9 @@ object HookRepo {
     partition(_.createdAt isAfter limit)
   }
 
+  def poolHooks(poolClock: chess.Clock.Config): Vector[lila.pool.PoolHook] =
+    hooks.filter(_ compatibleWithPool poolClock).map(_.toPool)
+
   // keeps hooks that hold true
   // returns removed hooks
   private def partition(f: Hook => Boolean): Vector[Hook] = {

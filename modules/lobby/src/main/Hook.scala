@@ -72,11 +72,25 @@ case class Hook(
 
   def randomColor = color == "random"
 
-  lazy val poolCompatible =
+  lazy val compatibleWithPools =
     realMode.rated && realVariant.standard && randomColor &&
       lila.pool.PoolList.clockStringSet.contains(clock.show)
 
-  def likePoolFiveO = poolCompatible && clock.show == "5+0"
+  def compatibleWithPool(poolClock: chess.Clock.Config) =
+    compatibleWithPools && clock == poolClock
+
+  def likePoolFiveO = compatibleWithPools && clock.show == "5+0"
+
+  def toPool = lila.pool.PoolHook(
+    hookId = id,
+    member = lila.pool.PoolMember(
+      userId = user.??(_.id),
+      socketId = lila.socket.Socket.Uid(uid),
+      rating = rating | lila.rating.Glicko.defaultIntRating,
+      ratingRange = realRatingRange,
+      engine = user.??(_.engine),
+      blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+      since = createdAt))
 
   private lazy val speed = Speed(clock)
 }

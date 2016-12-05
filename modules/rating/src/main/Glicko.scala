@@ -41,6 +41,8 @@ case object Glicko {
 
   val default = Glicko(1500d, 350d, 0.06d)
 
+  val defaultIntRating = default.rating.toInt
+
   val provisionalDeviation = 110
 
   def range(rating: Double, deviation: Double) = (
