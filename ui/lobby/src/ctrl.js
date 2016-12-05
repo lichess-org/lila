@@ -77,8 +77,6 @@ module.exports = function(env) {
         this.data.hooks = [];
       }
 
-      if (this.vm.tab === 'pools') this.leavePool();
-
       this.vm.tab = store.tab.set(tab);
     }
     this.vm.filterOpen = false;

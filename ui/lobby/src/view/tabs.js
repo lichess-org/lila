@@ -7,6 +7,7 @@ function tab(ctrl, key, active, content) {
     config: util.bindOnce('mousedown', partial(ctrl.setTab, key))
   }
   if (key === active) attrs.class = 'active';
+  else if (key === 'pools' && ctrl.vm.poolMember) attrs.class = 'glow';
   return m('a', attrs, content);
 }
 

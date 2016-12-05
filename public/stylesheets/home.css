@@ -101,6 +101,9 @@ body.dark #hooks_wrap {
   border-top: 2px solid #d85000;
   margin-top: -1px;
 }
+#hooks_wrap .tabs a.glow {
+  animation: fbt-glowing 1s ease-in-out infinite;
+}
 #hooks_wrap .tabs .unread {
   margin-left: 5px;
 }
