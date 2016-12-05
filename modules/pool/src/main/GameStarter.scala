@@ -59,7 +59,7 @@ private final class GameStarter(
     blackUser: (User.ID, Perf)) = Game.make(
     game = chess.Game(
       board = chess.Board init chess.variant.Standard,
-      clock = pool.clock.some),
+      clock = pool.clock.toClock.some),
     whitePlayer = Player.white.withUser(whiteUser._1, whiteUser._2),
     blackPlayer = Player.black.withUser(blackUser._1, blackUser._2),
     mode = chess.Mode.Rated,
