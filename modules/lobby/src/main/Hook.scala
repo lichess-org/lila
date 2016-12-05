@@ -70,8 +70,13 @@ case class Hook(
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  def likePoolFiveO =
-    realMode.rated && realVariant.standard && color == "random" && clock.show == "5+0"
+  def randomColor = color == "random"
+
+  def poolCompatible =
+    realMode.rated && realVariant.standard && randomColor &&
+      lila.pool.PoolList.clockStringSet.contains(clock.show)
+
+  def likePoolFiveO = poolCompatible && clock.show == "5+0"
 
   private lazy val speed = Speed(clock.some)
 }

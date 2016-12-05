@@ -2,7 +2,7 @@ package lila.pool
 
 import scala.concurrent.duration._
 
-private object PoolList {
+object PoolList {
 
   import PoolConfig._
 
@@ -16,6 +16,8 @@ private object PoolList {
     PoolConfig(10 ++ 0, Wave(30 seconds, 20 players)),
     PoolConfig(15 ++ 15, Wave(60 seconds, 16 players))
   )
+
+  val clockStringSet: Set[String] = all.map(_.clock.show).toSet
 
   private implicit class PimpedInt(self: Int) {
     def ++(increment: Int) = chess.Clock(self * 60, increment)
