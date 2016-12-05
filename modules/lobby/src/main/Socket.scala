@@ -73,7 +73,7 @@ private[lobby] final class Socket(
         }
       }
       if (hook.likePoolFiveO) withMember(hook.uid) { member =>
-        lila.mon.lobby.hook.likePoolFiveO(member.mobile)()
+        lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
       }
     }
 
@@ -95,6 +95,8 @@ private[lobby] final class Socket(
       }
       withMember(uid) { member =>
         lila.mon.lobby.hook.joinMobile(member.mobile)()
+        if (hook.likePoolFiveO)
+          lila.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
