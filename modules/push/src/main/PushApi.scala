@@ -31,6 +31,7 @@ private final class PushApi(
               case _           => "It's a draw."
             },
             body = s"Your game with ${opponentName(pov)} is over.",
+            group = "gameStatus",
             payload = Json.obj(
               "userId" -> userId,
               "userData" -> Json.obj(
@@ -55,6 +56,7 @@ private final class PushApi(
               pushToAll(userId, _.move, PushApi.Data(
                 title = "It's your turn!",
                 body = s"${opponentName(pov)} played $sanMove",
+                group = "yourTurn",
                 payload = Json.obj(
                   "userId" -> userId,
                   "userData" -> Json.obj(
@@ -80,6 +82,7 @@ private final class PushApi(
           pushToAll(userId, _.corresAlarm, PushApi.Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against ${opponentName(pov)}",
+            group = "yourTurn",
             payload = Json.obj(
               "userId" -> userId,
               "userData" -> Json.obj(
@@ -100,6 +103,7 @@ private final class PushApi(
       pushToAll(t.receiverOf(p), _.message, PushApi.Data(
         title = s"${sender.titleName}: ${t.name}",
         body = p.text take 140,
+        group = "message",
         payload = Json.obj(
           "userId" -> t.receiverOf(p),
           "userData" -> Json.obj(
@@ -114,6 +118,7 @@ private final class PushApi(
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
           title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
           body = describeChallenge(c),
+          group = "challenge",
           payload = Json.obj(
             "userId" -> dest.id,
             "userData" -> Json.obj(
@@ -129,6 +134,7 @@ private final class PushApi(
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
         title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
         body = describeChallenge(c),
+        group = "challenge",
         payload = Json.obj(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
@@ -186,5 +192,6 @@ private object PushApi {
   case class Data(
     title: String,
     body: String,
+    group: String,
     payload: JsObject)
 }
