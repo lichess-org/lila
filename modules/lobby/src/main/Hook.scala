@@ -54,7 +54,7 @@ case class Hook(
   def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
   def engine = user ?? (_.engine)
 
-  def render: JsObject = Json.obj(
+  lazy val render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
     "u" -> user.map(_.username),
@@ -72,7 +72,7 @@ case class Hook(
 
   def randomColor = color == "random"
 
-  def poolCompatible =
+  lazy val poolCompatible =
     realMode.rated && realVariant.standard && randomColor &&
       lila.pool.PoolList.clockStringSet.contains(clock.show)
 

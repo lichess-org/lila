@@ -136,7 +136,7 @@ private[lobby] final class Socket(
     case HookSub(member, true)  => hookSubscriberUids += member.uid
     case HookSub(member, false) => hookSubscriberUids -= member.uid
     case AllHooksFor(member, hooks) =>
-      notifyMember("hooks", JsArray(hooks map (_.render)))(member)
+      notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
       hookSubscriberUids += member.uid
   }
 
