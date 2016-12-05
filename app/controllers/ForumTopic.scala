@@ -80,7 +80,7 @@ object ForumTopic extends LilaController with ForumController {
    */
   def participants(topicId: String) = Auth { implicit ctx => me =>
     postApi.userIds(topicId) map { ids =>
-      val usernames = Env.user.lightUserApi.getList(ids.sorted).map(_.titleName)
+      val usernames = Env.user.lightUserApi.getList(ids.sorted).map(_.name)
       Ok(Json.toJson(usernames))
     }
   }
