@@ -52,6 +52,9 @@ final class Env(
   val ExplorerEndpoint = config getString "explorer.endpoint"
   val TablebaseEndpoint = config getString "explorer.tablebase.endpoint"
 
+  private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
+  private val InfluxEventEnv = config getString "api.influx_event.env"
+
   object assetVersion {
     import reactivemongo.bson._
     import lila.db.dsl._
@@ -126,6 +129,11 @@ final class Env(
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
   }
+
+  if (InfluxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
+    endpoint = InfluxEventEndpoint,
+    env = InfluxEventEnv
+  )), name = "influx-event")
 }
 
 object Env {
