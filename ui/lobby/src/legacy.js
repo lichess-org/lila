@@ -168,7 +168,7 @@ module.exports = function(element, cfg) {
     var range = find('ratingRange').split('-');
     var ratingMin = parseInt(range[0]),
       ratingMax = parseInt(range[1]);
-    var keepRange = (rating - ratingMin) < 200 || (ratingMax - rating) < 200;
+    var keepRange = (rating - ratingMin) < 300 || (ratingMax - rating) < 300;
     return {
       id: id,
       range: keepRange ? range.join('-') : null
