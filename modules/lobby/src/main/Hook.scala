@@ -81,7 +81,7 @@ case class Hook(
 
   def likePoolFiveO = compatibleWithPools && clock.show == "5+0"
 
-  def toPool = lila.pool.PoolHook(
+  def toPool = lila.pool.HookThieve.PoolHook(
     hookId = id,
     member = lila.pool.PoolMember(
       userId = user.??(_.id),

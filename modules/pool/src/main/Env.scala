@@ -5,13 +5,17 @@ import scala.concurrent.duration._
 import akka.actor._
 
 final class Env(
+    lobbyActor: ActorSelection,
     system: akka.actor.ActorSystem,
     onStart: String => Unit) {
 
+  private lazy val hookThieve = new HookThieve(lobbyActor)
+
   lazy val api = new PoolApi(
     configs = PoolList.all,
-    gameStarter,
-    system)
+    hookThieve = hookThieve,
+    gameStarter = gameStarter,
+    system = system)
 
   private lazy val gameStarter = new GameStarter(
     bus = system.lilaBus,
@@ -25,6 +29,7 @@ final class Env(
 object Env {
 
   lazy val current: Env = "pool" boot new Env(
+    lobbyActor = lila.hub.Env.current.actor.lobby,
     system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart)
 }

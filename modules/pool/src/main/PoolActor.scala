@@ -4,12 +4,14 @@ import scala.concurrent.duration._
 import scala.util.Random
 
 import akka.actor._
+import akka.pattern.pipe
 import org.joda.time.DateTime
 
 import lila.user.User
 
 private final class PoolActor(
     config: PoolConfig,
+    hookThieve: HookThieve,
     gameStarter: GameStarter) extends Actor {
 
   import PoolActor._
@@ -49,45 +51,53 @@ private final class PoolActor(
 
     case ScheduledWave =>
       monitor.wave.scheduled(monId)()
-      runWave
+      self ! RunWave
 
     case FullWave =>
       monitor.wave.full(monId)()
-      runWave
+      self ! RunWave
+
+    case RunWave =>
+      nextWave.cancel()
+      hookThieve.candidates(config.clock, monId) pipeTo self
+
+    case HookThieve.PoolHooks(hooks) => {
+
+      monitor.wave.withRange(monId)(members.count(_.hasRange))
+
+      val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
+        MatchMaking(members ++ hooks.map(_.member))
+      }
+
+      val pairedMembers = pairings.flatMap(_.members)
+
+      hookThieve.stolen(hooks.filter { h =>
+        pairedMembers.exists(h.is)
+      }, monId)
+
+      members = members.diff(pairedMembers).map(_.incMisses)
+
+      if (pairings.nonEmpty)
+        gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(monId))
+
+      logger.debug(s"${config.id.value} wave: ${pairings.size} pairings, ${members.size} missed")
+
+      monitor.wave.paired(monId)(pairedMembers.size)
+      monitor.wave.missed(monId)(members.size)
+      pairedMembers.foreach { m =>
+        monitor.wave.wait(monId)(m.waitMillis)
+      }
+      pairings.foreach { p =>
+        monitor.wave.ratingDiff(monId)(p.ratingDiff)
+      }
+
+      scheduleWave
+    }
 
     case SocketIds(ids) =>
       members = members.filter { m =>
         ids contains m.socketId.value
       }
-  }
-
-  def runWave = {
-
-    nextWave.cancel()
-
-    monitor.wave.withRange(monId)(members.count(_.hasRange))
-
-    val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
-      MatchMaking(members)
-    }
-    val pairedMembers = pairings.flatMap(_.members)
-    members = members.diff(pairedMembers).map(_.incMisses)
-
-    if (pairings.nonEmpty)
-      gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(monId))
-
-    logger.debug(s"${config.id.value} wave: ${pairings.size} pairings, ${members.size} missed")
-
-    monitor.wave.paired(monId)(pairedMembers.size)
-    monitor.wave.missed(monId)(members.size)
-    pairedMembers.foreach { m =>
-      monitor.wave.wait(monId)(m.waitMillis)
-    }
-    pairings.foreach { p =>
-      monitor.wave.ratingDiff(monId)(p.ratingDiff)
-    }
-
-    scheduleWave
   }
 
   val monitor = lila.mon.lobby.pool
@@ -102,4 +112,5 @@ private object PoolActor {
 
   case object ScheduledWave
   case object FullWave
+  case object RunWave
 }

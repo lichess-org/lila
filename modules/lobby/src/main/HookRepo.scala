@@ -22,6 +22,8 @@ object HookRepo {
 
   def byId(id: String) = hooks find (_.id == id)
 
+  def byIds(ids: Set[String]) = hooks filter { h => ids contains h.id }
+
   def byUid(uid: String) = hooks find (_.uid == uid)
 
   def bySid(sid: String) = hooks find (_.sid == sid.some)
@@ -42,8 +44,8 @@ object HookRepo {
     partition(_.createdAt isAfter limit)
   }
 
-  def poolHooks(poolClock: chess.Clock.Config): Vector[lila.pool.PoolHook] =
-    hooks.filter(_ compatibleWithPool poolClock).map(_.toPool)
+  def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
+    hooks.filter(_ compatibleWithPool clock).map(_.toPool)
 
   // keeps hooks that hold true
   // returns removed hooks

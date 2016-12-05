@@ -130,6 +130,12 @@ private[lobby] final class Lobby(
         HookRepo.vector.filter { hook =>
           hook.uid == member.uid || Biter.canJoin(hook, member.user)
         })
+
+    case lila.pool.HookThieve.GetCandidates(clock) =>
+      sender ! lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
+
+    case lila.pool.HookThieve.StolenHookIds(ids) =>
+      HookRepo byIds ids.toSet foreach remove
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {

@@ -92,6 +92,11 @@ object mon {
         def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
         def withRange(id: String) = rec(s"lobby.pool.$id.wave.with_range")
       }
+      object thieve {
+        def timeout(id: String) = inc(s"lobby.pool.$id.thieve.timeout")
+        def candidates(id: String) = rec(s"lobby.pool.$id.thieve.candidates")
+        def stolen(id: String) = rec(s"lobby.pool.$id.thieve.stolen")
+      }
       object join {
         def count(id: String) = inc(s"lobby.pool.$id.join.count")
       }
