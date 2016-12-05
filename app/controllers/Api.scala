@@ -150,8 +150,8 @@ object Api extends LilaController {
     } map toApiResult
   }
 
-  def gameStream = Action { req =>
-    val userIds = get("users", req).??(_.split(',').take(300).toSet map lila.user.User.normalize)
+  def gameStream = Action(parse.tolerantText) { req =>
+    val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
     Ok.chunked(Env.game.stream.startedByUserIds(userIds))
   }
 
