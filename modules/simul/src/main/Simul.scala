@@ -95,7 +95,7 @@ case class Simul(
 
   def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
     lila.game.PerfPicker.perfType(
-      speed = chess.Speed(clock.chessClock.some),
+      speed = chess.Speed(clock.config.some),
       variant = variant,
       daysPerTurn = none)
   }
@@ -144,7 +144,7 @@ object Simul {
     hostRating = host.perfs.bestRatingIn {
       variants flatMap { variant =>
         lila.game.PerfPicker.perfType(
-          speed = chess.Speed(clock.chessClock.some),
+          speed = chess.Speed(clock.config.some),
           variant = variant,
           daysPerTurn = none)
       }
