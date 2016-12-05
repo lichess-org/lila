@@ -57,7 +57,7 @@ object Report extends LilaController {
 
   def clarkeyBotNext = Open { implicit ctx =>
     Mod.ModExternalBot {
-      api unprocessedAndRecent 50 map { all =>
+      api unprocessedAndRecent 100 map { all =>
         all.find { r =>
           r.report.isCheat && r.report.unprocessed && !r.hasLichessNote &&
             !clarkeyProcessedUserIds.get(r.user.id)
