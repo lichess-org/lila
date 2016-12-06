@@ -64,6 +64,7 @@
 }
 #puzzle move glyph {
   font-size: 1.3em;
+  width: 25px;
 }
 #puzzle move.good glyph,
 #puzzle move.win glyph {

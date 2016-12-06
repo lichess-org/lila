@@ -51,8 +51,8 @@ module.exports = function(opts, i18n) {
   setTimeout(function() {
     vm.canViewSolution = true;
     m.redraw();
-  }, 500);
-  // }, 5000);
+    // }, 500);
+  }, 5000);
 
   var showGround = function() {
     var node = vm.node;
@@ -72,12 +72,16 @@ module.exports = function(opts, i18n) {
       check: node.check,
       lastMove: uciToLastMove(node.uci)
     };
-    // if (!dests && !node.check) {
-    //   // premove while dests are loading from server
-    //   // can't use when in check because it highlights the wrong king
-    //   config.turnColor = opposite(color);
-    //   config.movable.color = color;
-    // }
+    if (!dests && !node.check) {
+      // premove while dests are loading from server
+      // can't use when in check because it highlights the wrong king
+      config.turnColor = opposite(color);
+      config.movable.color = color;
+    } else if (vm.mode !== 'view' && color !== data.puzzle.color) { //  && !node.check) {
+      config.turnColor = color;
+      config.movable.color = data.puzzle.color;
+    }
+    console.log(dests, config);
     vm.cgConfig = config;
     if (!ground) ground = groundBuild(data, config, userMove);
     ground.set(config);
@@ -105,7 +109,7 @@ module.exports = function(opts, i18n) {
   //   ground.set({
   //     turnColor: ground.data.movable.color,
   //     movable: {
-  //       color: opposite(ground.chessground.data.movable.color)
+  //       color: opposite(ground.data.movable.color)
   //     }
   //   });
   // };
@@ -131,7 +135,7 @@ module.exports = function(opts, i18n) {
     ground.playPremove();
 
     var progress = moveTest();
-    console.log(progress, vm.node);
+    // console.log(progress, vm.node);
     if (progress) applyProgress(progress);
     // preparePremoving();
     m.redraw();
@@ -148,6 +152,7 @@ module.exports = function(opts, i18n) {
 
   var revertUserMove = function() {
     setTimeout(function() {
+      ground.cancelPremove();
       userJump(treePath.init(vm.path));
       m.redraw();
     }, 500);
