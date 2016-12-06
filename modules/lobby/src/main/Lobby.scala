@@ -28,7 +28,7 @@ private[lobby] final class Lobby(
       if (hook.realVariant.standard) lila.mon.lobby.hook.standardColor(hook.realMode.name, hook.color)()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      findCompatible(hook) foreach {
+      if (!hook.compatibleWithPools) findCompatible(hook) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
         case None    => self ! SaveHook(msg)
       }
