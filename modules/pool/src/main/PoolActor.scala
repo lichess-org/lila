@@ -65,8 +65,10 @@ private final class PoolActor(
 
       monitor.wave.withRange(monId)(members.count(_.hasRange))
 
+      val candidates = members ++ hooks.map(_.member)
+
       val pairings = lila.mon.measure(_.lobby.pool.matchMaking.duration(monId)) {
-        MatchMaking(members ++ hooks.map(_.member))
+        MatchMaking(candidates)
       }
 
       val pairedMembers = pairings.flatMap(_.members)
@@ -82,6 +84,7 @@ private final class PoolActor(
 
       logger.debug(s"${config.id.value} wave: ${pairings.size} pairings, ${members.size} missed")
 
+      monitor.wave.candidates(monId)(candidates.size)
       monitor.wave.paired(monId)(pairedMembers.size)
       monitor.wave.missed(monId)(members.size)
       pairedMembers.foreach { m =>

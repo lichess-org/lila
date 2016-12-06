@@ -87,6 +87,7 @@ object mon {
       object wave {
         def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
         def full(id: String) = inc(s"lobby.pool.$id.wave.full")
+        def candidates(id: String) = rec(s"lobby.pool.$id.wave.candidates")
         def paired(id: String) = rec(s"lobby.pool.$id.wave.paired")
         def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
         def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
