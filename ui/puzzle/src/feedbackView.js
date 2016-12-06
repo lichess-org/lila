@@ -37,14 +37,27 @@ function good(ctrl) {
   ]);
 }
 
+function retry(ctrl) {
+  return m('div.feedback.retry', [
+    m('div.player', [
+      m('div.icon', '!'),
+      m('div.instruction', [
+        m('strong', ctrl.trans.noarg('goodMove')),
+        m('em', ctrl.trans.noarg('butYouCanDoBetter'))
+      ])
+    ]),
+    ctrl.vm.canViewSolution ? viewSolution(ctrl) : null
+  ]);
+}
+
 function view(ctrl) {
   return m('div.feedback.view', [
     'view'
   ]);
 }
 
-function failed(ctrl) {
-  return m('div.feedback.try', [
+function fail(ctrl) {
+  return m('div.feedback.fail', [
     m('div.player', [
       m('div.icon', '✗'),
       m('div.instruction', [
@@ -56,14 +69,23 @@ function failed(ctrl) {
   ]);
 }
 
+function win(ctrl) {
+  return m('div.feedback.win', [
+    m('div.player', [
+      m('div.icon', '✓'),
+      m('div.instruction', [
+        m('strong', ctrl.trans.noarg('victory'))
+      ])
+    ]),
+    'Show next button'
+  ]);
+}
+
 module.exports = function(ctrl) {
 
-  if (ctrl.vm.mode === 'play') {
-    if (ctrl.vm.initialNode.children.filter(function(node) {
-      return node.puzzle === 'good';
-    }).length) return good(ctrl);
-    return initial(ctrl);
-  }
-  if (ctrl.vm.mode === 'try') return failed(ctrl);
-  if (ctrl.vm.mode === 'view') return view(ctrl);
+  if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
+  if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
+  if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);
+  if (ctrl.vm.lastFeedback === 'fail') return fail(ctrl);
+  if (ctrl.vm.lastFeedback === 'win') return win(ctrl);
 };

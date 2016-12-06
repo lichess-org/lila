@@ -116,11 +116,6 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        ctrl.vm.mode,
-        (ctrl.vm.mode !== 'view' && ctrl.vm.keepGoing) ? m('div.comment.great', [
-          m('h3.text[data-icon=E]', m('strong', ctrl.trans.noarg('bestMove'))),
-          m('span', ctrl.trans.noarg('keepGoing'))
-        ]) : null
       ])
     ])
   ];

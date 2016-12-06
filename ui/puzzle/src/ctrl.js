@@ -25,7 +25,8 @@ module.exports = function(opts, i18n) {
     initialPath: null,
     initialNode: null,
     canViewSolution: false,
-    keepGoing: false
+    keepGoing: false,
+    lastFeedback: 'init'
   };
 
   var data = opts.data;
@@ -69,6 +70,9 @@ module.exports = function(opts, i18n) {
       fen: node.fen,
       turnColor: color,
       movable: movable,
+      premovable: {
+        enabled: false
+      },
       check: node.check,
       lastMove: uciToLastMove(node.uci)
     };
@@ -77,9 +81,11 @@ module.exports = function(opts, i18n) {
       // can't use when in check because it highlights the wrong king
       config.turnColor = opposite(color);
       config.movable.color = color;
+      config.premovable.enabled = true;
     } else if (vm.mode !== 'view' && color !== data.puzzle.color) { //  && !node.check) {
       config.turnColor = color;
       config.movable.color = data.puzzle.color;
+      config.premovable.enabled = true;
     }
     console.log(dests, config);
     vm.cgConfig = config;
@@ -141,12 +147,16 @@ module.exports = function(opts, i18n) {
     m.redraw();
   };
 
-  var reorderChildren = function(path) {
-    tree.nodeAtPath(path).children.sort(function(c1, c2) {
+  var reorderChildren = function(path, recursive) {
+    var node = tree.nodeAtPath(path);
+    node.children.sort(function(c1, c2) {
       if (c1.puzzle === 'fail') return 1;
       if (c1.puzzle === 'retry') return 1;
       if (c1.puzzle === 'good') return -1;
       return 0;
+    });
+    if (recursive) node.children.forEach(function(child) {
+      reorderChildren(path + child.id, true);
     });
   };
 
@@ -160,17 +170,25 @@ module.exports = function(opts, i18n) {
 
   var applyProgress = function(progress) {
     if (progress === 'fail') {
+      vm.lastFeedback = 'fail';
       revertUserMove();
       if (vm.mode === 'play') {
         vm.canViewSolution = true;
         vm.mode = 'try';
       }
     }
-    if (progress === 'retry') {
+    else if (progress === 'retry') {
+      vm.lastFeedback = 'retry';
       revertUserMove();
     }
-    if (progress && progress.orig) {
-      console.log(tree);
+    else if (progress === 'win') {
+      vm.lastFeedback = 'win';
+      vm.mode = 'view';
+      showGround(); // to disable premoves
+    }
+    else if (progress && progress.orig) {
+      vm.lastFeedback = 'good';
+      // console.log(tree);
       vm.keepGoing = true;
       setTimeout(function() {
         socket.sendAnaMove(progress);
@@ -252,7 +270,9 @@ module.exports = function(opts, i18n) {
 
   var viewSolution = function() {
     vm.mode = 'view';
-    mergeSolution(tree, vm.initialNode, data.puzzle.branch);
+    mergeSolution(tree, vm.initialNode, data.puzzle.branch, data.puzzle.color);
+    reorderChildren(vm.initialPath, true);
+    vm.autoScrollRequested = true;
     m.redraw();
   };
 
