@@ -63,11 +63,12 @@
   justify-content: space-between;
 }
 #puzzle move glyph {
-  font-size: 2em;
+  font-size: 1.3em;
 }
 #puzzle move.good glyph,
 #puzzle move.win glyph {
   color: #759900;
+  font-size: 2em;
 }
 #puzzle move.fail glyph {
   color: #dc322f;

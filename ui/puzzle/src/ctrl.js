@@ -58,13 +58,17 @@ module.exports = function(opts, i18n) {
     var node = vm.node;
     var color = node.ply % 2 === 0 ? 'white' : 'black';
     var dests = readDests(node.dests);
+    var movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
+      color: (dests && Object.keys(dests).length > 0) ? color : null,
+      dests: dests || {}
+    } : {
+      color: null,
+      dests: {}
+    };
     var config = {
       fen: node.fen,
       turnColor: color,
-      movable: {
-        color: (dests && Object.keys(dests).length > 0) ? color : null,
-        dests: dests || {}
-      },
+      movable: movable,
       check: node.check,
       lastMove: uciToLastMove(node.uci)
     };
@@ -122,6 +126,7 @@ module.exports = function(opts, i18n) {
   var addNode = function(node, path) {
     var newPath = tree.addNode(node, path);
     jump(newPath);
+    reorderChildren(path);
     m.redraw();
     ground.playPremove();
 
@@ -132,15 +137,35 @@ module.exports = function(opts, i18n) {
     m.redraw();
   };
 
+  var reorderChildren = function(path) {
+    tree.nodeAtPath(path).children.sort(function(c1, c2) {
+      if (c1.puzzle === 'fail') return 1;
+      if (c1.puzzle === 'retry') return 1;
+      if (c1.puzzle === 'good') return -1;
+      return 0;
+    });
+  };
+
+  var revertUserMove = function() {
+    setTimeout(function() {
+      userJump(treePath.init(vm.path));
+      m.redraw();
+    }, 500);
+  };
+
   var applyProgress = function(progress) {
-    console.log(progress);
     if (progress === 'fail') {
+      revertUserMove();
       if (vm.mode === 'play') {
         vm.canViewSolution = true;
         vm.mode = 'try';
       }
     }
+    if (progress === 'retry') {
+      revertUserMove();
+    }
     if (progress && progress.orig) {
+      console.log(tree);
       vm.keepGoing = true;
       setTimeout(function() {
         socket.sendAnaMove(progress);
