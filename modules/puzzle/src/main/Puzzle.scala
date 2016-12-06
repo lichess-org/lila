@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import chess.Color
-import chess.format.Uci
+import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
 
 import lila.rating.Perf
@@ -20,7 +20,11 @@ case class Puzzle(
     attempts: Int,
     mate: Boolean) {
 
-  def initialPly: Int = history.size
+  def initialPly: Int = {
+    fen.split(' ').lastOption flatMap parseIntOption map { move =>
+      move * 2 - color.fold(2, 1)
+    }
+  } | 0
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
@@ -29,7 +33,6 @@ case class Puzzle(
   def enabled = vote.sum > -9000
 
   def fenAfterInitialMove: Option[String] = {
-    import chess.format.{ Uci, Forsyth }
     for {
       sit1 <- Forsyth << fen
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
@@ -75,7 +78,7 @@ object Puzzle {
       case BSONElement(move, more: BSONDocument) =>
         Node(readMove(move), read(more))
 
-      case BSONElement(move, value)              =>
+      case BSONElement(move, value) =>
         throw new Exception(s"Can't read value of $move: $value")
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
