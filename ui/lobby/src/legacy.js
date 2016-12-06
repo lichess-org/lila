@@ -19,6 +19,18 @@ module.exports = function(element, cfg) {
     lobby.setTab('real_time');
     window.history.replaceState(null, null, '/');
   };
+  var filterStreams = function() {
+    var langs = navigator.languages;
+    if (!langs) return; // tss... https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages
+    langs = langs.map(function(l) {
+      return l.slice(0, 2);
+    });
+    $('#streams_on_air').find('a').each(function() {
+      var match = $(this).text().match(/\[(\w{2})\]/mi);
+      if (match && langs.indexOf(match[1]) === -1) $(this).hide();
+    });
+  };
+  filterStreams();
   lichess.socket = lichess.StrongSocket(
     '/lobby/socket/v1',
     cfg.data.version, {
@@ -43,6 +55,7 @@ module.exports = function(element, cfg) {
         },
         streams: function(html) {
           $('#streams_on_air').html(html);
+          filterStreams();
         },
         featured: function(o) {
           $('#featured_game').html(o.html);
