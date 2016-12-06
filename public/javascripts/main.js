@@ -1585,4 +1585,29 @@ lichess.notifyApp = (function() {
       history.pushState('', document.title, location.pathname);
     }
   }
+
+  ////////////////
+  // puzzle.js //
+  ////////////////
+
+  function startPuzzle(cfg) {
+    var puzzle;
+    cfg.element = document.querySelector('#puzzle');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
+    lichess.socket = lichess.StrongSocket('/socket', 0, {
+      options: {
+        name: "puzzle"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        puzzle.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    puzzle = LichessPuzzle(cfg);
+    topMenuIntent();
+  }
+
 })();
