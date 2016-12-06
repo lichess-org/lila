@@ -40,7 +40,7 @@ object JsonView {
           "coords" -> pref.coords,
           "rookCastle" -> pref.rookCastle
         ),
-        "chessground" -> Json.obj(
+        "chessground" -> (!isMobileApi).option(Json.obj(
           "highlight" -> Json.obj(
             "lastMove" -> pref.highlight,
             "check" -> pref.highlight
@@ -54,7 +54,7 @@ object JsonView {
           "premovable" -> Json.obj(
             "showDests" -> pref.destination
           )
-        ),
+        )),
         "animation" -> Json.obj(
           "duration" -> pref.animationFactor * animationDuration.toMillis
         ),
@@ -63,6 +63,13 @@ object JsonView {
           Json.obj(
             "ratingDiff" -> a.ratingDiff,
             "win" -> a.win
+          )
+        },
+        "attempt" -> round.ifTrue(isMobileApi).map { r =>
+          Json.obj(
+            "userRatingDiff" -> r.ratingDiff,
+            "win" -> r.win,
+            "seconds" -> "a few" // lol we don't have the value anymore
           )
         },
         "win" -> win,

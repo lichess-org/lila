@@ -121,11 +121,7 @@ object Puzzle extends LilaController {
           case None =>
             lila.mon.puzzle.round.anon()
             env.finisher.incPuzzleAttempts(puzzle)
-            Ok(JsData(puzzle, none, "view",
-              win = data.isWin.some,
-              voted = none,
-              animationDuration = env.AnimationDuration))
-          }
+            renderJson(puzzle, none, "view", win = data.isWin.some, voted = none) map { Ok(_) }
         }
       ) map (_ as JSON)
     }
