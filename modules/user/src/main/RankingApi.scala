@@ -2,10 +2,10 @@ package lila.user
 
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
 import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
@@ -80,7 +80,8 @@ final class RankingApi(
     private val cache = AsyncCache[Perf.ID, Map[User.ID, Rank]](
       name = "rankingApi.weeklyStableRanking",
       f = compute,
-      timeToLive = 15 minutes)
+      timeToLive = 15 minutes,
+      resultTimeout = 10 seconds)
 
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
       coll.find(
@@ -88,7 +89,7 @@ final class RankingApi(
         $doc("user" -> true, "_id" -> false)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state @ (rank, b), doc) =>
+          case (state@(rank, b), doc) =>
             doc.getAs[User.ID]("user").fold(state) { user =>
               b += (user -> rank)
               (rank + 1) -> b
@@ -113,7 +114,8 @@ final class RankingApi(
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregate(
           Match($doc("perf" -> perfId)),
-          List(Project($doc(
+          List(
+            Project($doc(
             "_id" -> false,
             "r" -> $doc(
               "$subtract" -> $arr(

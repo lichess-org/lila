@@ -72,8 +72,8 @@ lichess.StrongSocket = function(url, version, settings) {
     scheduleConnect(options.pingMaxLag);
   };
 
-  var send = function(t, d, o, again) {
-    var data = d || {},
+  var send = function(t, d, o, noRetry) {
+    var data = (d == null) ? {} : d,
       options = o || {};
     if (options.withLag) d.l = Math.round(averageLag);
     if (options.ackable) ackableMessages.push({
@@ -90,7 +90,7 @@ lichess.StrongSocket = function(url, version, settings) {
     } catch (e) {
       // maybe sent before socket opens,
       // try again a second later,once.
-      if (!again) setTimeout(function() {
+      if (!noRetry) setTimeout(function() {
         send(t, d, o, true);
       }, 1000);
     }
@@ -104,7 +104,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var scheduleConnect = function(delay) {
-    if (options.idle) delay = delay * 3;
+    if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);

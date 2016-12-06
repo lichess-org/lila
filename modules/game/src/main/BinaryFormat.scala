@@ -71,17 +71,15 @@ object BinaryFormat {
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) =>
         readTimer(b9, b10, b11, b12) match {
           case 0 => PausedClock(
+            config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            limit = readClockLimit(b1),
-            increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk)
           case timer => RunningClock(
+            config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            limit = readClockLimit(b1),
-            increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             whiteBerserk = whiteBerserk,
@@ -92,9 +90,8 @@ object BinaryFormat {
       // #TODO remove me! But fix the DB first!
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
         PausedClock(
+          config = Clock.Config(readClockLimit(b1), b2),
           color = color,
-          limit = readClockLimit(b1),
-          increment = b2,
           whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
           blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
           whiteBerserk = whiteBerserk,

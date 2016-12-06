@@ -42,6 +42,7 @@ private[puzzle] final class Finisher(
             } inject (a -> none)
           }
       case _ =>
+        incPuzzleAttempts(puzzle)
         val a = new Round(
           puzzleId = puzzle.id,
           userId = user.id,
@@ -55,6 +56,9 @@ private[puzzle] final class Finisher(
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
+
+  def incPuzzleAttempts(puzzle: Puzzle) =
+    puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
 
   private def mkRating(perf: Perf) = new Rating(
     math.max(1000, perf.glicko.rating),

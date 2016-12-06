@@ -103,8 +103,8 @@ object Schedule {
       case (Bullet, HyperBullet) => true
       case _                     => false
     }
-    def fromClock(clock: TournamentClock) = {
-      val time = clock.chessClock.estimateTotalTime
+    def fromClock(clock: chess.Clock.Config) = {
+      val time = clock.estimateTotalTime
       if (time < 60) HyperBullet
       else if (time < 180) Bullet
       else if (time < 480) Blitz
@@ -180,7 +180,7 @@ object Schedule {
     import Freq._, Speed._
     import chess.variant._
 
-    val TC = TournamentClock
+    val TC = chess.Clock.Config
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.

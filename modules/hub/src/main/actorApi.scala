@@ -173,10 +173,6 @@ case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
 case class IsOnGame(color: chess.Color)
 sealed trait SocketEvent
-object SocketEvent {
-  case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
-  case class Stop(gameId: String) extends SocketEvent
-}
 case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
 }
 

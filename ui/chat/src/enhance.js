@@ -29,6 +29,7 @@ function escapeHtml(html) {
 
 var movePattern = /\b(\d+)\s?(\.+)\s?(?:[o0-]+|[NBRQK]*[a-h]?[1-8]?x?@?[a-h][0-9]=?[NBRQK]?)\+?\#?[!\?=]*/gi;
 function moveReplacer(match, turn, dots) {
+  if (turn < 1 || turn > 200) return match;
   var ply = turn * 2 - (dots.length > 1 ? 0 : 1);
   return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
 }

@@ -30,6 +30,7 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Option[String],
     getTournamentName: String => Option[String],
+    pools: List[lila.pool.PoolConfig],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -50,6 +51,9 @@ final class Env(
   val EditorAnimationDuration = config duration "editor.animation.duration"
   val ExplorerEndpoint = config getString "explorer.endpoint"
   val TablebaseEndpoint = config getString "explorer.tablebase.endpoint"
+
+  private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
+  private val InfluxEventEnv = config getString "api.influx_event.env"
 
   object assetVersion {
     import reactivemongo.bson._
@@ -113,11 +117,10 @@ final class Env(
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
   val lobbyApi = new LobbyApi(
-    lobby = lobbyEnv.lobby,
-    lobbyVersion = () => lobbyEnv.history.version,
     getFilter = setupEnv.filter,
     lightUser = userEnv.lightUser,
-    seekApi = lobbyEnv.seekApi)
+    seekApi = lobbyEnv.seekApi,
+    pools = pools)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
@@ -126,6 +129,11 @@ final class Env(
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
   }
+
+  if (InfluxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
+    endpoint = InfluxEventEndpoint,
+    env = InfluxEventEnv
+  )), name = "influx-event")
 }
 
 object Env {
@@ -153,5 +161,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd)
 }

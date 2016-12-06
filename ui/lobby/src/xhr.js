@@ -2,7 +2,7 @@ var m = require('mithril');
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v2+json');
 }
 
 function uncache(url) {
@@ -25,6 +25,20 @@ module.exports = {
       config: xhrConfig
     }).then(function(o) {
       return o.nowPlaying;
+    });
+  },
+  anonPoolSeek: function(pool) {
+    return m.request({
+      method: 'POST',
+      url: '/setup/hook/' + lichess.StrongSocket.sri,
+      data: {
+        variant: 1,
+        timeMode: 1,
+        time: pool.lim,
+        increment: pool.inc,
+        days: 1,
+        color: 'random'
+      }
     });
   }
 };

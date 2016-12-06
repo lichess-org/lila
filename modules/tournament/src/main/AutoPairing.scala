@@ -33,7 +33,7 @@ final class AutoPairing(
       ) |> { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
-            clock = tour.clock.chessClock.some,
+            clock = tour.clock.toClock.some,
             turns = turns,
             startedAtTurn = turns)
         },

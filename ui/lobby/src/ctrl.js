@@ -3,13 +3,14 @@ var socket = require('./socket');
 var variant = require('./variant');
 var hookRepo = require('./hookRepo');
 var seekRepo = require('./seekRepo');
-var store = require('./store');
+var makeStore = require('./store');
 var xhr = require('./xhr');
 var util = require('chessground').util;
 
 module.exports = function(env) {
 
   this.data = env.data;
+  this.data.hooks = []; // no longer preloaded!
   this.playban = env.playban;
   this.currentGame = env.currentGame;
   this.perfIcons = env.perfIcons;
@@ -19,6 +20,14 @@ module.exports = function(env) {
 
   this.socket = new socket(env.socketSend, this);
 
+  var store = makeStore(this.data.me ? this.data.me.username.toLowerCase() : null);
+  var poolInStorage = lichess.storage.make('lobby.pool-in');
+  poolInStorage.listen(function() {
+    // when another tab joins a pool
+    this.leavePool();
+    m.redraw();
+  }.bind(this));
+
   this.vm = {
     tab: store.tab.get(),
     mode: store.mode.get(),
@@ -26,7 +35,8 @@ module.exports = function(env) {
     filterOpen: false,
     stepHooks: this.data.hooks.slice(0),
     stepping: false,
-    redirecting: false
+    redirecting: false,
+    poolMember: null
   };
 
   var flushHooksTimeout;
@@ -54,8 +64,18 @@ module.exports = function(env) {
   flushHooksSchedule();
 
   this.setTab = function(tab) {
-    if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
-    this.vm.tab = store.tab.set(tab);
+    if (tab !== this.vm.tab) {
+
+      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
+
+      if (tab === 'real_time') this.socket.realTimeIn();
+      else if (this.vm.tab === 'real_time') {
+        this.socket.realTimeOut();
+        this.data.hooks = [];
+      }
+
+      this.vm.tab = store.tab.set(tab);
+    }
     this.vm.filterOpen = false;
   }.bind(this);
 
@@ -96,6 +116,37 @@ module.exports = function(env) {
     m.redraw();
   }.bind(this);
 
+  this.clickPool = function(id) {
+    if (!this.data.me) {
+      xhr.anonPoolSeek(this.data.pools.filter(function(p) {
+        return p.id === id;
+      })[0]);
+      this.setTab('real_time');
+    } else if (this.vm.poolMember && this.vm.poolMember.id === id) this.leavePool();
+    else this.enterPool({
+      id: id
+    });
+  }.bind(this);
+
+  this.enterPool = function(member) {
+    this.setTab('pools');
+    this.vm.poolMember = member;
+    this.poolIn();
+    m.redraw();
+  }.bind(this);
+
+  this.leavePool = function() {
+    if (!this.vm.poolMember) return;
+    this.socket.poolOut(this.vm.poolMember);
+    this.vm.poolMember = null;
+    m.redraw();
+  }.bind(this);
+
+  this.poolIn = function() {
+    poolInStorage.set(1);
+    this.socket.poolIn(this.vm.poolMember);
+  }.bind(this);
+
   this.gameActivity = function(gameId) {
     if (this.data.nowPlaying.filter(function(p) {
       return p.gameId === gameId;
@@ -131,5 +182,48 @@ module.exports = function(env) {
 
   this.trans = lichess.trans(env.i18n);
 
+  this.awake = function() {
+    switch (this.vm.tab) {
+      case 'real_time':
+        this.data.hooks = [];
+        this.socket.realTimeIn();
+        break;
+      case 'seeks':
+        xhr.seeks().then(this.setSeeks);
+        break;
+      default:
+    }
+  }.bind(this);
+
   if (this.playban) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
+  else {
+
+    setInterval(function() {
+      if (this.vm.poolMember) this.poolIn();
+      else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+    }.bind(this), 10 * 1000);
+
+    if (location.hash.indexOf('#pool/') === 0) {
+      var regex = /^#pool\/(\d+\+\d+)$/
+      var match = regex.exec(location.hash);
+      if (match) {
+        this.setTab('pools');
+        this.enterPool({
+          id: match[1]
+        });
+        if (window.history.replaceState) window.history.replaceState(null, null, '/');
+      }
+    }
+  }
+
+  lichess.pubsub.on('socket.open', function() {
+    if (this.vm.tab === 'real_time') {
+      this.data.hooks = [];
+      this.socket.realTimeIn();
+    } else if (this.vm.tab === 'pools' && this.vm.poolMember) this.poolIn();
+  }.bind(this));
+
+  window.addEventListener('beforeunload', function() {
+    if (this.vm.poolMember) this.socket.poolOut(this.vm.poolMember);
+  }.bind(this));
 };

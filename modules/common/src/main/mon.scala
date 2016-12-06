@@ -61,20 +61,56 @@ object mon {
       val size = rec("lobby.hook.size")
       def acceptedRatedClock(clock: String) =
         inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
+      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
+      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
+      def standardColor(mode: String, color: String) = inc(s"lobby.hook.standard_color.$mode.$color")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
-      val resync = inc("lobby.socket.resync")
+      val idle = rec("lobby.socket.idle")
+      val hookSubscribers = rec("lobby.socket.hook_subscribers")
+      val mobile = rec(s"lobby.socket.mobile")
     }
     object cache {
       val user = inc("lobby.cache.count.user")
       val anon = inc("lobby.cache.count.anon")
       val miss = inc("lobby.cache.count.miss")
+    }
+    object pool {
+      object wave {
+        def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
+        def full(id: String) = inc(s"lobby.pool.$id.wave.full")
+        def paired(id: String) = rec(s"lobby.pool.$id.wave.paired")
+        def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
+        def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
+        def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
+        def withRange(id: String) = rec(s"lobby.pool.$id.wave.with_range")
+      }
+      object thieve {
+        def timeout(id: String) = inc(s"lobby.pool.$id.thieve.timeout")
+        def candidates(id: String) = rec(s"lobby.pool.$id.thieve.candidates")
+        def stolen(id: String) = rec(s"lobby.pool.$id.thieve.stolen")
+      }
+      object join {
+        def count(id: String) = inc(s"lobby.pool.$id.join.count")
+      }
+      object leave {
+        def count(id: String) = inc(s"lobby.pool.$id.leave.count")
+        def wait(id: String) = rec(s"lobby.pool.$id.leave.wait")
+      }
+      object matchMaking {
+        def duration(id: String) = rec(s"lobby.pool.$id.match_making.duration")
+      }
+      object gameStart {
+        def duration(id: String) = rec(s"lobby.pool.$id.game_start.duration")
+      }
     }
   }
   object round {

@@ -18,24 +18,17 @@ private[lobby] final class Lobby(
     maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
+    poolApi: lila.pool.PoolApi,
     onStart: String => Unit) extends Actor {
 
   def receive = {
 
-    case HooksFor(userOption) =>
-      val replyTo = sender
-      (userOption.map(_.id) ?? blocking) foreach { blocks =>
-        val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.vector.filter { hook =>
-          ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
-        }
-      }
-
     case msg@AddHook(hook) => {
       lila.mon.lobby.hook.create()
+      if (hook.realVariant.standard) lila.mon.lobby.hook.standardColor(hook.realMode.name, hook.color)()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      findCompatible(hook) foreach {
+      if (!hook.compatibleWithPools) findCompatible(hook) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
         case None    => self ! SaveHook(msg)
       }
@@ -56,9 +49,8 @@ private[lobby] final class Lobby(
       socket ! msg
     }
 
-    case CancelHook(uid) => {
+    case CancelHook(uid) =>
       HookRepo byUid uid foreach remove
-    }
 
     case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
       socket ! RemoveSeek(seekId)
@@ -108,6 +100,7 @@ private[lobby] final class Lobby(
         .pipeTo(self)
 
     case Lobby.WithPromise(SocketUids(uids), promise) =>
+      poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
         (HookRepo notInUids uids).filter {
@@ -128,6 +121,19 @@ private[lobby] final class Lobby(
 
     case Resync =>
       socket ! HookIds(HookRepo.vector.map(_.id))
+
+    case msg@HookSub(member, true) =>
+      socket ! AllHooksFor(
+        member,
+        HookRepo.vector.filter { hook =>
+          hook.uid == member.uid || Biter.canJoin(hook, member.user)
+        })
+
+    case lila.pool.HookThieve.GetCandidates(clock) =>
+      sender ! lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
+
+    case lila.pool.HookThieve.StolenHookIds(ids) =>
+      HookRepo byIds ids.toSet foreach remove
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {

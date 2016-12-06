@@ -37,8 +37,11 @@ div.lobby_and_ground {
 #lobby_playban h2,
 #lobby_current_game h2 {
   font-size: 1.5em;
-  line-height: 3;
+  line-height: 2.5em;
   margin-top: 1em;
+}
+#lobby_playban a {
+  color: #3893E8;
 }
 .current_game #hooks_wrap {
   visibility: hidden;
@@ -63,6 +66,12 @@ body.dark #hooks_wrap {
 }
 #hooks_wrap .lobby_box.seeks {
   max-height: 510px;
+}
+#hooks_wrap .lobby_box .no_hooks {
+  text-align: center;
+  line-height: 2em;
+  margin-top: 80px;
+  font-size: 1.3em;
 }
 #hooks_wrap .tabs {
   position: absolute;
@@ -91,6 +100,9 @@ body.dark #hooks_wrap {
   border-bottom-color: #f0f0f0;
   border-top: 2px solid #d85000;
   margin-top: -1px;
+}
+#hooks_wrap .tabs a.glow {
+  animation: fbt-glowing 1s ease-in-out infinite;
 }
 #hooks_wrap .tabs .unread {
   margin-left: 5px;
@@ -374,6 +386,68 @@ body.dark #hooks_wrap .hook_filter {
   font-size: 30px;
   margin-right: 10px;
 }
+/*********** POOLS *********/
+
+#hooks_wrap .pools {
+  padding: 12px 12px 0 12px;
+  max-height: 510px;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  font-family: Roboto;
+  -webkit-user-select: none;
+}
+#hooks_wrap .pools > div {
+  margin-bottom: 12px;
+  flex: 0 0 31%;
+  height: 152px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid #ccc;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: opacity 0.7s;
+}
+body.dark #hooks_wrap .pools > div {
+  background: rgba(20,20,20,0.5);
+  border: 1px solid #3d3d3d;
+}
+#hooks_wrap .pools .active {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+body.dark #hooks_wrap .pools .active {
+  background: #202020;
+  box-shadow-color: #000;
+}
+#hooks_wrap .pools .transp {
+  opacity: 0.5;
+}
+#hooks_wrap .pools .spinner {
+  margin: 14px 0 0 0;
+}
+#hooks_wrap .pools .clock {
+  display: block;
+  font-size: 2.5em;
+  line-height: 1.5em;
+  letter-spacing: 5px;
+}
+#hooks_wrap .pools .perf,
+#hooks_wrap .pools .range {
+  font-size: 1.5em;
+}
+#hooks_wrap .pools .custom {
+  font-size: 1.5em;
+}
+#hooks_wrap .pools > div:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
+
 /*********** MISC *********/
 
 #site_header .board_left {
