@@ -222,7 +222,7 @@ function eventPath(e, ctrl) {
 
 module.exports = {
   render: function(ctrl) {
-    var root = ctrl.tree.root;
+    var root = ctrl.getTree().root;
     var ctx = {
       ctrl: ctrl,
       showComputer: false

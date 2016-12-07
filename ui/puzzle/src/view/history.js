@@ -14,11 +14,7 @@ module.exports = function(data) {
           href: '/training/' + s[0]
         }, s[1] > 0 ? '+' + s[1] : s[1]);
         return m('span', ' ');
-      }),
-      m('a', {
-        class: 'new',
-        href: '/training'
-      }, '+')
+      })
     ])
   ]);
 };

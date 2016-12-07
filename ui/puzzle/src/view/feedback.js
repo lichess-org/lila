@@ -12,7 +12,7 @@ function viewSolution(ctrl) {
 }
 
 function initial(ctrl) {
-  var puzzleColor = ctrl.data.puzzle.color;
+  var puzzleColor = ctrl.getData().puzzle.color;
   return m('div.feedback.play', [
     m('div.player', [
       m('div.no-square', m('piece.king.' + puzzleColor)),

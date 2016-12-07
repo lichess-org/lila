@@ -4,11 +4,6 @@ module.exports = function(opts) {
   var anaDestsTimeout;
 
   var anaDestsCache = {};
-  for (var path in opts.destsCache)
-    anaDestsCache[path] = {
-      path: path,
-      dests: opts.destsCache[path]
-    };
 
   var handlers = {
     node: function(data) {
@@ -59,6 +54,15 @@ module.exports = function(opts) {
         return true;
       }
       return false;
+    },
+
+    setDestsCache: function(c) {
+      anaDestsCache = {};
+      for (var path in opts.destsCache)
+        anaDestsCache[path] = {
+          path: path,
+          dests: opts.destsCache[path]
+        };
     },
 
     sendAnaMove: sendAnaMove,

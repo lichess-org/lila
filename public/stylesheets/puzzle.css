@@ -146,6 +146,11 @@ body.dark #puzzle .timeline > * {
 .puzzle_box .players {
   padding-bottom: 14px;
 }
+.puzzle_box .players .color-icon::before {
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
 
 body.dark #puzzle .timeline a.new {
   background: #555;

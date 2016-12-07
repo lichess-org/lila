@@ -7,7 +7,7 @@ var feedbackView = require('./feedback');
 var historyView = require('./history');
 
 function renderOpeningBox(ctrl) {
-  var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
+  var opening = ctrl.getTree().getOpening(ctrl.vm.nodeList);
   if (opening) return m('div', {
     class: 'opening_box',
     title: opening.eco + ' ' + opening.name
@@ -117,7 +117,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        historyView(ctrl.data)
+        historyView(ctrl.getData())
       ])
     ])
   ];

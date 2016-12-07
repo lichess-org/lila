@@ -7,8 +7,8 @@ function strong(txt) {
 
 module.exports = function(ctrl) {
 
-  var puzzle = ctrl.data.puzzle;
-  var game = ctrl.data.game;
+  var puzzle = ctrl.getData().puzzle;
+  var game = ctrl.getData().game;
 
   return [
     m('div.game_infos.puzzle[data-icon="-"]', [

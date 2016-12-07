@@ -18,21 +18,8 @@ var sound = require('./sound');
 
 module.exports = function(opts, i18n) {
 
-  var vm = {
-    mode: 'play', // play | try | view
-    loading: false,
-    justPlayed: null,
-    initialPath: null,
-    initialNode: null,
-    canViewSolution: false, // just to delay button display
-    keepGoing: false,
-    lastFeedback: 'init'
-  };
-
-  var data = opts.data;
-  var tree = treeBuild(treeOps.reconstruct(opts.data.game.treeParts));
-  var ground;
-  var ceval;
+  var vm = {};
+  var data, tree, ground, ceval, moveTest;
 
   var setPath = function(path) {
     vm.path = path;
@@ -41,19 +28,36 @@ module.exports = function(opts, i18n) {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   };
 
-  vm.initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
-  vm.initialNode = tree.nodeAtPath(vm.initialPath);
-  setPath(treePath.init(vm.initialPath));
-  setTimeout(function() {
-    jump(vm.initialPath);
-    m.redraw();
-  }, 500);
+  var initiate = function(fromData) {
+    data = fromData;
+    tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
+    var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
+    vm.mode = 'play'; // play | try | view
+    vm.loading = false;
+    vm.justPlayed = null;
+    vm.resultSent = false;
+    vm.lastFeedback = 'init';
+    vm.initialPath = initialPath;
+    vm.initialNode = tree.nodeAtPath(initialPath);
 
-  setTimeout(function() {
-    vm.canViewSolution = true;
+    setPath(treePath.init(initialPath));
+    setTimeout(function() {
+      jump(initialPath);
+      m.redraw();
+    }, 500);
+
+    vm.canViewSolution = false; // just to delay button display
+    setTimeout(function() {
+      vm.canViewSolution = true;
+      m.redraw();
+    }, 5000);
+
+    socket.setDestsCache(data.game.destsCache);
+    moveTest = moveTestBuild(vm, data.puzzle);
+
+    showGround();
     m.redraw();
-  }, 500);
-  // }, 5000);
+  };
 
   var showGround = function() {
     var node = vm.node;
@@ -190,7 +194,6 @@ module.exports = function(opts, i18n) {
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
       // console.log(tree);
-      vm.keepGoing = true;
       setTimeout(function() {
         socket.sendAnaMove(progress);
       }, 500);
@@ -198,6 +201,8 @@ module.exports = function(opts, i18n) {
   };
 
   var sendResult = function(win) {
+    if (vm.resultSent) return;
+    vm.resultSent = true;
     vm.loading = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
@@ -207,10 +212,10 @@ module.exports = function(opts, i18n) {
 
   var nextPuzzle = function() {
     vm.loading = true;
-    xhr.nextPuzzle().then(function(cfg) {
-      reload(cfg);
-      pushState(cfg);
+    xhr.nextPuzzle().then(function(d) {
+      // pushState(cfg);
       vm.loading = false;
+      initiate(d);
     });
   };
 
@@ -250,7 +255,7 @@ module.exports = function(opts, i18n) {
       }
     });
   };
-  instanciateCeval();
+  // instanciateCeval();
 
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
@@ -287,6 +292,7 @@ module.exports = function(opts, i18n) {
   };
 
   var viewSolution = function() {
+    sendResult(false);
     vm.mode = 'view';
     mergeSolution(tree, vm.initialNode, data.puzzle.branch, data.puzzle.color);
     reorderChildren(vm.initialPath, true);
@@ -301,12 +307,10 @@ module.exports = function(opts, i18n) {
     reset: function() {
       showGround();
       m.redraw();
-    },
-    destsCache: data.game.destsCache
+    }
   });
-  var moveTest = moveTestBuild(vm, data.puzzle);
 
-  showGround();
+  initiate(opts.data);
 
   keyboard.bind({
     vm: vm,
@@ -317,8 +321,12 @@ module.exports = function(opts, i18n) {
 
   return {
     vm: vm,
-    data: data,
-    tree: tree,
+    getData: function() {
+      return data;
+    },
+    getTree: function() {
+      return tree;
+    },
     ground: ground,
     userJump: userJump,
     viewSolution: viewSolution,
