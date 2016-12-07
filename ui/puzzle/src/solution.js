@@ -3,7 +3,7 @@ var treeOps = require('tree').ops;
 module.exports = function(tree, initialNode, solution, color) {
 
   tree.ops.updateAll(solution, function(node) {
-    if (color === 'white' ^ (node.ply % 2 === 0)) node.puzzle = 'good';
+    if ((color === 'white') === (node.ply % 2 === 0)) node.puzzle = 'good';
   });
 
   var solutionNode = treeOps.childById(initialNode, solution.id);

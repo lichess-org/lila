@@ -3,11 +3,10 @@ package lila.puzzle
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.Game
 import lila.puzzle._
 import lila.tree
 
-object JsonView {
+final class JsonView(gameJson: GameJson) {
 
   def apply(
     puzzle: Puzzle,
@@ -19,7 +18,7 @@ object JsonView {
     round: Option[Round] = None,
     result: Option[Result] = None,
     voted: Option[Boolean]): Fu[JsObject] =
-    (!isMobileApi ?? GameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
+    (!isMobileApi ?? gameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
         "puzzle" -> Json.obj(
@@ -74,7 +73,7 @@ object JsonView {
         },
         "win" -> result.ifTrue(isMobileApi).map(_.win),
         "voted" -> voted,
-        "user" -> userInfos.map(infos(isMobileApi)),
+        "user" -> userInfos.map(JsonView.infos(isMobileApi)),
         "difficulty" -> isMobileApi.option {
           Json.obj(
             "choices" -> Json.arr(
@@ -84,14 +83,6 @@ object JsonView {
           )
         }).noNull
     }
-
-  def infos(isMobileApi: Boolean)(i: UserInfos): JsObject = Json.obj(
-    "rating" -> i.user.perfs.puzzle.intRating,
-    "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
-    "recent" -> i.history.map { r =>
-      Json.arr(r.puzzleId, r.ratingDiff, r.rating)
-    }
-  ).noNull
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._
@@ -116,4 +107,15 @@ object JsonView {
       case (Some(child), branch) => Some(branch addChild child)
     }
   }
+}
+
+object JsonView {
+
+  def infos(isMobileApi: Boolean)(i: UserInfos): JsObject = Json.obj(
+    "rating" -> i.user.perfs.puzzle.intRating,
+    "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
+    "recent" -> i.history.map { r =>
+      Json.arr(r.puzzleId, r.ratingDiff, r.rating)
+    }
+  ).noNull
 }

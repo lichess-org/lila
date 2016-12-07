@@ -24,7 +24,7 @@ module.exports = function(opts, i18n) {
     justPlayed: null,
     initialPath: null,
     initialNode: null,
-    canViewSolution: false,
+    canViewSolution: false, // just to delay button display
     keepGoing: false,
     lastFeedback: 'init'
   };
@@ -52,8 +52,8 @@ module.exports = function(opts, i18n) {
   setTimeout(function() {
     vm.canViewSolution = true;
     m.redraw();
-    // }, 500);
-  }, 5000);
+  }, 500);
+  // }, 5000);
 
   var showGround = function() {
     var node = vm.node;
@@ -177,20 +177,17 @@ module.exports = function(opts, i18n) {
         vm.mode = 'try';
         sendResult(false);
       }
-    }
-    else if (progress === 'retry') {
+    } else if (progress === 'retry') {
       vm.lastFeedback = 'retry';
       revertUserMove();
-    }
-    else if (progress === 'win') {
+    } else if (progress === 'win') {
       if (vm.mode === 'play') {
         vm.lastFeedback = 'win';
         vm.mode = 'view';
         showGround(); // to disable premoves
         sendResult(true);
       }
-    }
-    else if (progress && progress.orig) {
+    } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
       // console.log(tree);
       vm.keepGoing = true;
@@ -204,6 +201,15 @@ module.exports = function(opts, i18n) {
     vm.loading = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
+      vm.loading = false;
+    });
+  };
+
+  var nextPuzzle = function() {
+    vm.loading = true;
+    xhr.nextPuzzle().then(function(cfg) {
+      reload(cfg);
+      pushState(cfg);
       vm.loading = false;
     });
   };
@@ -316,6 +322,7 @@ module.exports = function(opts, i18n) {
     ground: ground,
     userJump: userJump,
     viewSolution: viewSolution,
+    nextPuzzle: nextPuzzle,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive
   };

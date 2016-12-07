@@ -4,11 +4,6 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 }
 
-function showLoading(ctrl) {
-  ctrl.vm.loading = true;
-  m.redraw();
-}
-
 function uncache(url) {
   return url + '?_=' + new Date().getTime();
 }
@@ -40,36 +35,17 @@ function vote(ctrl, v) {
   });
 }
 
-function retry(ctrl) {
-  showLoading(ctrl);
-  m.request({
-    method: 'GET',
-    url: uncache('/training/' + ctrl.data.puzzle.id + '/load'),
-    config: xhrConfig,
-    background: true
-  }).then(ctrl.reload);
-}
-
-function reloadPage() {
-  location.href = '/training';
-}
-
-function newPuzzle(ctrl) {
-  showLoading(ctrl);
-  m.request({
+function nextPuzzle() {
+  return m.request({
     method: 'GET',
     url: uncache('/training/new'),
     config: xhrConfig,
     background: true
-  }).then(function(cfg) {
-    ctrl.reload(cfg);
-    ctrl.pushState(cfg);
-  }, reloadPage);
+  });
 }
 
 module.exports = {
   round: round,
   vote: vote,
-  retry: retry,
-  newPuzzle: newPuzzle
+  nextPuzzle: nextPuzzle
 };

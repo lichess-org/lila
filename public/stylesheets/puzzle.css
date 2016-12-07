@@ -19,6 +19,7 @@
 #puzzle .feedback .no-square {
   width: 64px;
   height: 64px;
+  margin-right: 10px;
 }
 .is3d #puzzle .feedback div.no-square {
   height: 82px;
@@ -118,6 +119,34 @@ body.dark #puzzle .timeline > * {
   color: #444;
   font-size: 1.5em;
 }
+.puzzle_box {
+  padding: 0 7px;
+}
+
+.puzzle_box .game_infos {
+  margin-top: 14px!important;
+  padding-bottom: 14px!important;
+}
+.puzzle_box .header a {
+  color: #3893E8;
+}
+.puzzle_box .game_infos.puzzle {
+  padding-left: 56px;
+}
+.puzzle_box .game_infos.puzzle::before {
+  font-size: 47px;
+}
+.puzzle_box .puzzle .header a {
+  font-size: 1.2em;
+}
+.puzzle_box .game_infos.game {
+  border: none;
+  padding-bottom: 0!important;
+}
+.puzzle_box .players {
+  padding-bottom: 14px;
+}
+
 body.dark #puzzle .timeline a.new {
   background: #555;
   color: #ddd;

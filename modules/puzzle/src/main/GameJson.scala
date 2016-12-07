@@ -8,7 +8,8 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.socket.AnaDests
 import lila.tree.Node.partitionTreeJsonWriter
 
-object GameJson {
+private final class GameJson(
+  lightUser: lila.common.LightUser.Getter) {
 
   import lila.game.JsonView._
 
@@ -24,13 +25,24 @@ object GameJson {
   def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies) =>
       (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") map { game =>
+        val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
         val tree = TreeBuilder(game, plies)
         val anaDests = lastAnaDests(game, tree)
         Json.obj(
           "id" -> game.id,
           "speed" -> game.speed.key,
-          "perf" -> PerfPicker.key(game),
+          "clock" -> game.clock.map(_.show),
+          "perf" -> Json.obj(
+            "icon" -> perfType.iconChar.toString,
+            "name" -> perfType.name),
           "rated" -> game.rated,
+          "players" -> JsArray(game.players.map { p =>
+            Json.obj(
+              "userId" -> p.userId,
+              "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUser),
+              "color" -> p.color.name
+            )
+          }),
           "winner" -> game.winnerColor.map(_.name),
           "turns" -> game.turns,
           "status" -> game.status,

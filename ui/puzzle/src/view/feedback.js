@@ -1,6 +1,7 @@
 var m = require('mithril');
 var bindOnce = require('common').bindOnce;
 var treePath = require('tree').path;
+var afterView = require('./after');
 
 function viewSolution(ctrl) {
   return m('div.view_solution',
@@ -50,12 +51,6 @@ function retry(ctrl) {
   ]);
 }
 
-function view(ctrl) {
-  return m('div.feedback.view', [
-    'view'
-  ]);
-}
-
 function fail(ctrl) {
   return m('div.feedback.fail', [
     m('div.player', [
@@ -82,7 +77,7 @@ function win(ctrl) {
 }
 
 module.exports = function(ctrl) {
-
+  if (ctrl.vm.mode === 'view') return afterView(ctrl);
   if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
   if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);

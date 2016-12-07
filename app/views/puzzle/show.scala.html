@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, gameOption: Option[Game])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -18,15 +18,7 @@ i18n: @jsI18n()
 }
 
 @side = {
-@gameOption.map { g =>
-@game.side(Pov(g, puzzle.color),
-initialFen = none,
-tour = none,
-simul = none,
-bookmarked = false,
-suspense = true)
 <div class="side_box puzzle_box"></div>
-}
 }
 
 @base.layout(
