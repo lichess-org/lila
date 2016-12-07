@@ -17,7 +17,7 @@ object JsonView {
     pref: lila.pref.Pref,
     isMobileApi: Boolean,
     round: Option[Round] = None,
-    win: Option[Boolean] = None,
+    result: Option[Result] = None,
     voted: Option[Boolean]): Fu[JsObject] =
     (!isMobileApi ?? GameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
       Json.obj(
@@ -62,17 +62,17 @@ object JsonView {
         "round" -> round.map { a =>
           Json.obj(
             "ratingDiff" -> a.ratingDiff,
-            "win" -> a.win
+            "win" -> a.result.win
           )
         },
         "attempt" -> round.ifTrue(isMobileApi).map { r =>
           Json.obj(
             "userRatingDiff" -> r.ratingDiff,
-            "win" -> r.win,
+            "win" -> r.result.win,
             "seconds" -> "a few" // lol we don't have the value anymore
           )
         },
-        "win" -> win,
+        "win" -> result.ifTrue(isMobileApi).map(_.win),
         "voted" -> voted,
         "user" -> userInfos.map { i =>
           Json.obj(

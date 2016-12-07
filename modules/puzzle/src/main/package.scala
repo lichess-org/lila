@@ -7,4 +7,9 @@ package object puzzle extends PackageObject with WithPlay {
   type Lines = List[Line]
 
   private[puzzle] def logger = lila.log("puzzle")
+
+  case class Result(win: Boolean) extends AnyVal {
+
+    def loss = !win
+  }
 }

@@ -11,8 +11,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.game.GameRepo
-import lila.puzzle.PuzzleId
-import lila.puzzle.{ Generated, Puzzle => PuzzleModel, UserInfos }
+import lila.puzzle.{ PuzzleId, Result, Generated, Puzzle => PuzzleModel, UserInfos }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -26,7 +25,7 @@ object Puzzle extends LilaController {
     mode: String,
     voted: Option[Boolean],
     round: Option[lila.puzzle.Round] = None,
-    win: Option[Boolean] = None)(implicit ctx: Context): Fu[JsObject] =
+    result: Option[Result] = None)(implicit ctx: Context): Fu[JsObject] =
     lila.puzzle.JsonView(
       puzzle = puzzle,
       userInfos = userInfos,
@@ -34,7 +33,7 @@ object Puzzle extends LilaController {
       animationDuration = env.AnimationDuration,
       pref = ctx.pref,
       isMobileApi = ctx.isMobileApi,
-      win = win,
+      result = result,
       voted = voted)
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
@@ -97,35 +96,75 @@ object Puzzle extends LilaController {
       else lila.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
         err => fuccess(BadRequest(errorsAsJson(err))),
-        data => ctx.me match {
-          case Some(me) =>
-            lila.mon.puzzle.round.user()
-            env.finisher(puzzle, me, data) flatMap {
-              case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
-                env.api.puzzle find id zip
-                  (env userInfos me2.some) zip
-                  env.api.vote.value(id, me2) flatMap {
-                    case ((p2, infos), voted) => renderJson(
-                      p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some
-                    ) map { Ok(_) }
+        resultInt => {
+          val result = Result(resultInt == 1)
+          ctx.me match {
+            case Some(me) =>
+              lila.mon.puzzle.round.user()
+              env.finisher(puzzle, me, result) flatMap {
+                case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
+                  env.api.puzzle find id zip
+                    (env userInfos me2.some) zip
+                    env.api.vote.value(id, me2) flatMap {
+                      case ((p2, infos), voted) => renderJson(
+                        p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some
+                      ) map { Ok(_) }
+                    }
+                }
+                case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
+                  ctx.me.?? { env.api.vote.value(puzzle.id, _) } flatMap {
+                    case (infos, voted) => renderJson(puzzle, infos, "view",
+                      round = oldAttempt.some,
+                      result = result.some,
+                      voted = voted) map { Ok(_) }
                   }
               }
-              case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
-                ctx.me.?? { env.api.vote.value(puzzle.id, _) } flatMap {
-                  case (infos, voted) => renderJson(puzzle, infos, "view",
-                    round = oldAttempt.some,
-                    win = win.some,
-                    voted = voted) map { Ok(_) }
-                }
-            }
-          case None =>
-            lila.mon.puzzle.round.anon()
-            env.finisher.incPuzzleAttempts(puzzle)
-            renderJson(puzzle, none, "view", win = data.isWin.some, voted = none) map { Ok(_) }
+            case None =>
+              lila.mon.puzzle.round.anon()
+              env.finisher.incPuzzleAttempts(puzzle)
+              renderJson(puzzle, none, "view", result = result.some, voted = none) map { Ok(_) }
+          }
         }
       ) map (_ as JSON)
     }
   }
+
+  // def round2(id: PuzzleId) = OpenBody { implicit ctx =>
+  //   implicit val req = ctx.body
+  //   OptionFuResult(env.api.puzzle find id) { puzzle =>
+  //     if (puzzle.mate) lila.mon.puzzle.round.mate()
+  //     else lila.mon.puzzle.round.material()
+  //     env.forms.round.bindFromRequest.fold(
+  //       err => fuccess(BadRequest(errorsAsJson(err))),
+  //       data => ctx.me match {
+  //         case Some(me) =>
+  //           lila.mon.puzzle.round.user()
+  //           env.finisher(puzzle, me, data) flatMap {
+  //             case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
+  //               env.api.puzzle find id zip
+  //                 (env userInfos me2.some) zip
+  //                 env.api.vote.value(id, me2) flatMap {
+  //                   case ((p2, infos), voted) => renderJson(
+  //                     p2 | puzzle, infos, "view", voted = voted, round = newAttempt.some
+  //                   ) map { Ok(_) }
+  //                 }
+  //             }
+  //             case (oldAttempt, Some(win)) => env.userInfos(me.some) zip
+  //               ctx.me.?? { env.api.vote.value(puzzle.id, _) } flatMap {
+  //                 case (infos, voted) => renderJson(puzzle, infos, "view",
+  //                   round = oldAttempt.some,
+  //                   win = win.some,
+  //                   voted = voted) map { Ok(_) }
+  //               }
+  //           }
+  //         case None =>
+  //           lila.mon.puzzle.round.anon()
+  //           env.finisher.incPuzzleAttempts(puzzle)
+  //           renderJson(puzzle, none, "view", win = data.isWin.some, voted = none) map { Ok(_) }
+  //       }
+  //     ) map (_ as JSON)
+  //   }
+  // }
 
   def vote(id: PuzzleId) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
