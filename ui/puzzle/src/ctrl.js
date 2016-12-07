@@ -51,8 +51,8 @@ module.exports = function(opts, i18n) {
     setTimeout(function() {
       vm.canViewSolution = true;
       m.redraw();
-    // }, 5000);
-    }, 50);
+    }, 5000);
+    // }, 50);
 
     socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
