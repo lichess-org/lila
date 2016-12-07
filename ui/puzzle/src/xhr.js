@@ -13,18 +13,15 @@ function uncache(url) {
   return url + '?_=' + new Date().getTime();
 }
 
-function round(ctrl, win) {
-  showLoading(ctrl);
-  m.request({
+function round(puzzleId, win) {
+  return m.request({
     method: 'POST',
-    url: '/training/' + ctrl.data.puzzle.id + '/round',
+    url: '/training/' + puzzleId + '/round2',
     data: {
       win: win ? 1 : 0
     },
-    config: xhrConfig
-  }).then(function(cfg) {
-    cfg.progress = ctrl.data.progress;
-    ctrl.reload(cfg);
+    config: xhrConfig,
+    background: true
   });
 }
 
@@ -35,7 +32,8 @@ function vote(ctrl, v) {
     data: {
       vote: v
     },
-    config: xhrConfig
+    config: xhrConfig,
+    background: true
   }).then(function(res) {
     ctrl.data.voted = res[0];
     ctrl.data.puzzle.vote = res[1];
@@ -47,7 +45,8 @@ function retry(ctrl) {
   m.request({
     method: 'GET',
     url: uncache('/training/' + ctrl.data.puzzle.id + '/load'),
-    config: xhrConfig
+    config: xhrConfig,
+    background: true
   }).then(ctrl.reload);
 }
 
@@ -60,7 +59,8 @@ function newPuzzle(ctrl) {
   m.request({
     method: 'GET',
     url: uncache('/training/new'),
-    config: xhrConfig
+    config: xhrConfig,
+    background: true
   }).then(function(cfg) {
     ctrl.reload(cfg);
     ctrl.pushState(cfg);

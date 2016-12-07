@@ -74,15 +74,7 @@ object JsonView {
         },
         "win" -> result.ifTrue(isMobileApi).map(_.win),
         "voted" -> voted,
-        "user" -> userInfos.map { i =>
-          Json.obj(
-            "rating" -> i.user.perfs.puzzle.intRating,
-            "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
-            "recent" -> i.history.map { r =>
-              Json.arr(r.puzzleId, r.ratingDiff, r.rating)
-            }
-          ).noNull
-        },
+        "user" -> userInfos.map(infos(isMobileApi)),
         "difficulty" -> isMobileApi.option {
           Json.obj(
             "choices" -> Json.arr(
@@ -92,6 +84,14 @@ object JsonView {
           )
         }).noNull
     }
+
+  def infos(isMobileApi: Boolean)(i: UserInfos): JsObject = Json.obj(
+    "rating" -> i.user.perfs.puzzle.intRating,
+    "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
+    "recent" -> i.history.map { r =>
+      Json.arr(r.puzzleId, r.ratingDiff, r.rating)
+    }
+  ).noNull
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._

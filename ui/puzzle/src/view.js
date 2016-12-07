@@ -4,6 +4,7 @@ var bindOnce = require('common').bindOnce;
 var treeView = require('./treeView');
 var control = require('./control');
 var feedbackView = require('./feedbackView');
+var historyView = require('./historyView');
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
@@ -116,6 +117,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
+        historyView(ctrl.data)
       ])
     ])
   ];

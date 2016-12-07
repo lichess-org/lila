@@ -175,6 +175,7 @@ module.exports = function(opts, i18n) {
       if (vm.mode === 'play') {
         vm.canViewSolution = true;
         vm.mode = 'try';
+        sendResult(false);
       }
     }
     else if (progress === 'retry') {
@@ -182,9 +183,12 @@ module.exports = function(opts, i18n) {
       revertUserMove();
     }
     else if (progress === 'win') {
-      vm.lastFeedback = 'win';
-      vm.mode = 'view';
-      showGround(); // to disable premoves
+      if (vm.mode === 'play') {
+        vm.lastFeedback = 'win';
+        vm.mode = 'view';
+        showGround(); // to disable premoves
+        sendResult(true);
+      }
     }
     else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
@@ -194,6 +198,14 @@ module.exports = function(opts, i18n) {
         socket.sendAnaMove(progress);
       }, 500);
     }
+  };
+
+  var sendResult = function(win) {
+    vm.loading = true;
+    xhr.round(data.puzzle.id, win).then(function(res) {
+      data.user = res.user;
+      vm.loading = false;
+    });
   };
 
   var addDests = function(dests, path, opening) {
