@@ -27,9 +27,9 @@ module.exports = function(ctrl) {
     }, [
       m('div.header', [
         'From game ',
-        m('a.title', {
+        ctrl.vm.mode === 'view' ? m('a.title', {
           href: '/' + game.id
-        }, '#' + game.id),
+        }, '#' + game.id) : '#' + game.id.slice(0, 5) + '...',
         m('p', [
           game.clock, ' • ',
           game.perf.name, ' • ',
