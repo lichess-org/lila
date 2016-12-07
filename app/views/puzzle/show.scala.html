@@ -1,6 +1,13 @@
-@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, gameOption: Option[Game])(implicit ctx: Context)
 
-@evenMoreJs = {
+@moreCss = {
+@cssTag("analyse.css")
+@cssTag("puzzle.css")
+}
+
+@moreJs = {
+@jsTag("vendor/sparkline.min.js")
+@jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
 lichess.puzzle = {
@@ -10,9 +17,25 @@ i18n: @jsI18n()
 }
 }
 
-@layout(
-trans.training.str(),
-evenMoreJs = Some(evenMoreJs),
+@side = {
+@gameOption.map { g =>
+@game.side(Pov(g, puzzle.color),
+initialFen = none,
+tour = none,
+simul = none,
+bookmarked = false,
+suspense = true)
+<div class="side_box puzzle_box"></div>
+}
+}
+
+@base.layout(
+title = trans.training.str(),
+side = side.some,
+moreCss = moreCss,
+moreJs = moreJs,
+chessground = false,
+withLangAnnotations = false,
 openGraph = lila.app.ui.OpenGraph(
 image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
 title = s"Chess tactic training ${puzzle.id} • ${puzzle.color.name.capitalize} to play",

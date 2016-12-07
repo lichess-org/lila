@@ -38,8 +38,10 @@ object Puzzle extends LilaController {
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env userInfos ctx.me flatMap { infos =>
-      renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
-        views.html.puzzle.show(puzzle, json)
+      renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) flatMap { json =>
+        (!ctx.isMobileApi).??(GameRepo game puzzle.gameId) map { game =>
+          views.html.puzzle.show(puzzle, json, game)
+        }
       }
     }
 

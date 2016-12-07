@@ -1,10 +1,10 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var bindOnce = require('common').bindOnce;
-var treeView = require('./treeView');
-var control = require('./control');
-var feedbackView = require('./feedbackView');
-var historyView = require('./historyView');
+var treeView = require('./tree');
+var control = require('../control');
+var feedbackView = require('./feedback');
+var historyView = require('./history');
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);

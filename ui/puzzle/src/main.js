@@ -1,5 +1,6 @@
 var ctrl = require('./ctrl');
-var view = require('./view');
+var view = require('./view/main');
+var sideView = require('./view/side');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -13,13 +14,13 @@ module.exports = function(opts) {
     view: view
   });
 
-  // if (opts.sideElement) m.module(opts.sideElement, {
-  //   controller: function() {
-  //     m.redraw.strategy("diff"); // prevents double full redraw on page load
-  //     return controller.side;
-  //   },
-  //   view: sideView
-  // });
+  m.module(opts.sideElement, {
+    controller: function() {
+      m.redraw.strategy("diff"); // prevents double full redraw on page load
+      return controller;
+    },
+    view: sideView
+  });
 
   return {
     socketReceive: controller.socketReceive
