@@ -14,7 +14,7 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 [opening trainer](https://lichess.org/training/opening),
 a [mobile app](https://lichess.org/mobile),
-and a [network world map](https://lichess.org/network).
+and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
