@@ -86,7 +86,7 @@ function ratingChart(ctrl) {
       });
       jQuery(el).sparkline(points, {
         type: 'line',
-        width: '213px',
+        width: '224px',
         height: '80px',
         lineColor: dark ? '#4444ff' : '#0000ff',
         fillColor: dark ? '#222255' : '#ccccff'

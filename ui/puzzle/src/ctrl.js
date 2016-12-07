@@ -30,7 +30,6 @@ module.exports = function(opts, i18n) {
 
   var initiate = function(fromData) {
     data = fromData;
-    console.log(data);
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play'; // play | try | view
