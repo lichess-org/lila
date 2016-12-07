@@ -1,8 +1,13 @@
 var m = require('mithril');
 
 var historySize = 15;
+var recentHash = '';
 
-module.exports = function(data) {
+module.exports = function(ctrl) {
+  var hash = ctrl.recentHash();
+  if (hash === recentHash) return {subtree: 'retain'};
+  recentHash = hash;
+  var data = ctrl.getData();
   if (!data.user) return;
   var slots = [];
   for (var i = 0; i < historySize; i++) slots[i] = data.user.recent[i] || null;

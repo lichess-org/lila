@@ -1593,7 +1593,7 @@ lichess.notifyApp = (function() {
   function startPuzzle(cfg) {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
-    cfg.sideElement = document.querySelector('#site_header .puzzle_box');
+    cfg.sideElement = document.querySelector('#site_header .puzzle_side');
     lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {
         name: "puzzle"

@@ -138,14 +138,15 @@ object Puzzle extends LilaController {
         resultInt => ctx.me match {
           case Some(me) =>
             lila.mon.puzzle.round.user()
-            env.finisher(puzzle, me, Result(resultInt == 1)) >> {
-              for {
-                me2 <- UserRepo byId me.id map (_ | me)
-                infos <- env userInfos me2
-              } yield Ok(Json.obj(
-                "user" -> lila.puzzle.JsonView.infos(false)(infos)
-              ))
-            }
+            for {
+              finished <- env.finisher(puzzle, me, Result(resultInt == 1))
+              (round, _) = finished
+              me2 <- UserRepo byId me.id map (_ | me)
+              infos <- env userInfos me2
+            } yield Ok(Json.obj(
+              "user" -> lila.puzzle.JsonView.infos(false)(infos),
+              "round" -> lila.puzzle.JsonView.round(round)
+            ))
           case None =>
             lila.mon.puzzle.round.anon()
             env.finisher.incPuzzleAttempts(puzzle)

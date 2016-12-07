@@ -30,10 +30,12 @@ module.exports = function(opts, i18n) {
 
   var initiate = function(fromData) {
     data = fromData;
+    console.log(data);
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play'; // play | try | view
     vm.loading = false;
+    vm.round = null;
     vm.justPlayed = null;
     vm.resultSent = false;
     vm.lastFeedback = 'init';
@@ -50,13 +52,17 @@ module.exports = function(opts, i18n) {
     setTimeout(function() {
       vm.canViewSolution = true;
       m.redraw();
-    }, 5000);
+    // }, 5000);
+    }, 50);
 
     socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
 
     showGround();
     m.redraw();
+
+    if (window.history.pushState)
+      window.history.replaceState(null, null, '/training/' + data.puzzle.id);
   };
 
   var showGround = function() {
@@ -72,6 +78,7 @@ module.exports = function(opts, i18n) {
     };
     var config = {
       fen: node.fen,
+      orientation: data.puzzle.color,
       turnColor: color,
       movable: movable,
       premovable: {
@@ -91,8 +98,6 @@ module.exports = function(opts, i18n) {
       config.movable.color = data.puzzle.color;
       config.premovable.enabled = true;
     }
-    console.log(dests, config);
-    vm.cgConfig = config;
     if (!ground) ground = groundBuild(data, config, userMove);
     ground.set(config);
     if (!dests) getDests();
@@ -145,9 +150,7 @@ module.exports = function(opts, i18n) {
     ground.playPremove();
 
     var progress = moveTest();
-    // console.log(progress, vm.node);
     if (progress) applyProgress(progress);
-    // preparePremoving();
     m.redraw();
   };
 
@@ -193,7 +196,6 @@ module.exports = function(opts, i18n) {
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
-      // console.log(tree);
       setTimeout(function() {
         socket.sendAnaMove(progress);
       }, 500);
@@ -206,7 +208,9 @@ module.exports = function(opts, i18n) {
     vm.loading = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
+      vm.round = res.round;
       vm.loading = false;
+      m.redraw();
     });
   };
 
@@ -214,6 +218,7 @@ module.exports = function(opts, i18n) {
     vm.loading = true;
     xhr.nextPuzzle().then(function(d) {
       // pushState(cfg);
+      vm.round = null;
       vm.loading = false;
       initiate(d);
     });
@@ -310,14 +315,18 @@ module.exports = function(opts, i18n) {
     }
   });
 
+  var recentHash = function() {
+    return data.user ? data.user.recent.reduce(function(h, r) {
+      return h + r[0];
+    }, '') : '';
+  };
+
   initiate(opts.data);
 
   keyboard.bind({
     vm: vm,
     userJump: userJump
   });
-
-  console.log(data);
 
   return {
     vm: vm,
@@ -331,6 +340,7 @@ module.exports = function(opts, i18n) {
     userJump: userJump,
     viewSolution: viewSolution,
     nextPuzzle: nextPuzzle,
+    recentHash: recentHash,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive
   };

@@ -117,7 +117,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        historyView(ctrl.getData())
+        historyView(ctrl)
       ])
     ])
   ];

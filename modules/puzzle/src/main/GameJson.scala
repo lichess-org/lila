@@ -30,7 +30,6 @@ private final class GameJson(
         val anaDests = lastAnaDests(game, tree)
         Json.obj(
           "id" -> game.id,
-          "speed" -> game.speed.key,
           "clock" -> game.clock.map(_.show),
           "perf" -> Json.obj(
             "icon" -> perfType.iconChar.toString,
@@ -43,11 +42,6 @@ private final class GameJson(
               "color" -> p.color.name
             )
           }),
-          "winner" -> game.winnerColor.map(_.name),
-          "turns" -> game.turns,
-          "status" -> game.status,
-          "tournamentId" -> game.tournamentId,
-          "createdAt" -> game.createdAt,
           "treeParts" -> partitionTreeJsonWriter.writes(tree),
           "destsCache" -> Json.obj(
             anaDests.path -> anaDests.dests

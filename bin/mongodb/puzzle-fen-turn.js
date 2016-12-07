@@ -4,19 +4,20 @@ function fullMoveNumber(p) {
   return Math.floor(1 + p.history.split(' ').length / 2);
 }
 
-function changeFenMoveNumber(fen, n) {
+function changeFenMoveNumber(fen) {
   parts = fen.split(' ');
-  parts[parts.length - 1] = n;
+  if (parts[1] === 'b') return fen;
+  parts[5] = parseInt(parts[5]) + 1;
   return parts.join(' ');
 }
 
 puzzles.find({
+  // _id: 10107
   "_id": {
     "$lt": 60121
   }
 }).forEach(function(p) {
-  var newMoveNumber = fullMoveNumber(p);
-  var newFen = changeFenMoveNumber(p.fen, newMoveNumber);
+  var newFen = changeFenMoveNumber(p.fen);
   puzzles.update({
     _id: p._id
   }, {

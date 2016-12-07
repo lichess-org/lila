@@ -24,7 +24,8 @@ var m = require('mithril');
 // }
 
 module.exports = function(ctrl) {
-  return m('div.feedback.view', [
+  var data = ctrl.getData();
+  return m('div.feedback.after', [
     // (!ctrl.hasEverVoted.get() && ctrl.data.puzzle.enabled && ctrl.data.voted === null) ? m('div.please_vote', [
     //   m('p.first', [
     //     m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
@@ -36,8 +37,11 @@ module.exports = function(ctrl) {
     //   )
     // ]) : null,
     // (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
-    m('a.continue.button.text[data-icon=G]', {
+    m('a.continue', {
       onclick: ctrl.nextPuzzle
-    }, ctrl.trans.noarg('continueTraining'))
+    }, [
+      m('i[data-icon=G]'),
+      ctrl.trans.noarg('continueTraining')
+    ])
   ]);
 }

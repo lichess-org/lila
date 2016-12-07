@@ -58,12 +58,7 @@ final class JsonView(gameJson: GameJson) {
           "duration" -> pref.animationFactor * animationDuration.toMillis
         ),
         "mode" -> mode,
-        "round" -> round.map { a =>
-          Json.obj(
-            "ratingDiff" -> a.ratingDiff,
-            "win" -> a.result.win
-          )
-        },
+        "round" -> round.map(JsonView.round),
         "attempt" -> round.ifTrue(isMobileApi).map { r =>
           Json.obj(
             "userRatingDiff" -> r.ratingDiff,
@@ -86,9 +81,9 @@ final class JsonView(gameJson: GameJson) {
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._
-    val solution: List[Uci.Move] = Line solution puzzle.lines map { uci =>
+    val solution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
       Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
-    }
+    }.init
     val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
@@ -118,4 +113,9 @@ object JsonView {
       Json.arr(r.puzzleId, r.ratingDiff, r.rating)
     }
   ).noNull
+
+  def round(r: Round): JsObject = Json.obj(
+    "ratingDiff" -> r.ratingDiff,
+    "win" -> r.result.win
+  )
 }

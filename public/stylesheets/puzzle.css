@@ -39,6 +39,12 @@
   line-height: 64px;
   text-align: center;
 }
+#puzzle .feedback.win .icon {
+  color: #759900;
+}
+#puzzle .feedback.fail .icon {
+  color: #dc322f;
+}
 #puzzle .feedback .instruction > * {
   display: block;
 }
@@ -58,6 +64,16 @@
 }
 #puzzle .feedback .view_solution:hover {
   opacity: 1;
+}
+
+#puzzle .after .continue {
+  display: flex;
+  height: 50%;
+  width: 100%;
+  font-size: 1.3em;
+  background: #3893E8;
+  color: #fff;
+  align-items: center;
 }
 
 #puzzle move {
@@ -119,37 +135,50 @@ body.dark #puzzle .timeline > * {
   color: #444;
   font-size: 1.5em;
 }
-.puzzle_box {
+.puzzle_side .side_box.metas {
   padding: 0 7px;
 }
 
-.puzzle_box .game_infos {
+.puzzle_side .game_infos {
   margin-top: 14px!important;
   padding-bottom: 14px!important;
 }
-.puzzle_box .header a {
+.puzzle_side .header a {
   color: #3893E8;
 }
-.puzzle_box .game_infos.puzzle {
+.puzzle_side .game_infos.puzzle {
   padding-left: 56px;
 }
-.puzzle_box .game_infos.puzzle::before {
+.puzzle_side .game_infos.puzzle::before {
   font-size: 47px;
 }
-.puzzle_box .puzzle .header a {
+.puzzle_side .puzzle .header a {
   font-size: 1.2em;
 }
-.puzzle_box .game_infos.game {
+.puzzle_side .game_infos.game {
   border: none;
   padding-bottom: 0!important;
 }
-.puzzle_box .players {
+.puzzle_side .players {
   padding-bottom: 14px;
 }
-.puzzle_box .players .color-icon::before {
+.puzzle_side .players .color-icon::before {
   width: 30px;
   display: inline-block;
   text-align: center;
+}
+
+.puzzle_side .rating h2 {
+  padding: 7px;
+}
+.puzzle_side .rating span.rp {
+  /* font-size: 1.2em; */
+}
+.puzzle_side .rating span.rp.up {
+  color: #759900;
+}
+.puzzle_side .rating span.rp.down {
+  color: #ac524f;
 }
 
 body.dark #puzzle .timeline a.new {

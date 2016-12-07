@@ -20,9 +20,10 @@ case class Puzzle(
     attempts: Int,
     mate: Boolean) {
 
+  // ply after "initial move" when we start solving
   def initialPly: Int = {
     fen.split(' ').lastOption flatMap parseIntOption map { move =>
-      move * 2 - color.fold(2, 1)
+      move * 2 - color.fold(0, 1)
     }
   } | 0
 
