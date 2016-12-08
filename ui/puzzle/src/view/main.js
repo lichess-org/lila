@@ -43,7 +43,8 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground.view(ctrl.ground)
+      chessground.view(ctrl.ground),
+      ctrl.promotion.view()
     ]),
     cevalView.renderGauge(ctrl)
   ]);

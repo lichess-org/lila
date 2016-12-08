@@ -14,6 +14,7 @@ var groundBuild = require('./ground');
 var socketBuild = require('./socket');
 var moveTestBuild = require('./moveTest');
 var mergeSolution = require('./solution');
+var makePromotion = require('./promotion');
 var computeAutoShapes = require('./autoShape');
 var throttle = require('common').throttle;
 var xhr = require('./xhr');
@@ -22,7 +23,6 @@ var sound = require('./sound');
 module.exports = function(opts, i18n) {
 
   var vm = {
-    mode: 'play'
   };
   var data, tree, ground, ceval, moveTest;
 
@@ -106,6 +106,7 @@ module.exports = function(opts, i18n) {
       config.movable.color = data.puzzle.color;
       config.premovable.enabled = true;
     }
+    vm.cgConfig = config;
     if (!ground) ground = groundBuild(data, config, userMove);
     ground.set(config);
     if (!dests) getDests();
@@ -114,7 +115,7 @@ module.exports = function(opts, i18n) {
   var userMove = function(orig, dest, capture) {
     vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
-    sendMove(orig, dest);
+    if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
   var sendMove = function(orig, dest, prom) {
@@ -328,6 +329,7 @@ module.exports = function(opts, i18n) {
       ceval.stop();
       startCeval();
     }
+    promotion.cancel();
     vm.justPlayed = null;
     vm.autoScrollRequested = true;
   };
@@ -394,6 +396,8 @@ module.exports = function(opts, i18n) {
 
   initiate(opts.data);
 
+  var promotion = makePromotion(vm, ground);
+
   keyboard.bind({
     vm: vm,
     userJump: userJump
@@ -451,6 +455,7 @@ module.exports = function(opts, i18n) {
     },
     getOrientation: function() {
       return ground.data.orientation;
-    }
+    },
+    promotion: promotion
   };
 }
