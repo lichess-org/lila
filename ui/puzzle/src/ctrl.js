@@ -63,6 +63,7 @@ module.exports = function(opts, i18n) {
     socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
 
+    if (ground) ground.setAutoShapes([]);
     showGround();
     m.redraw();
 
@@ -223,6 +224,7 @@ module.exports = function(opts, i18n) {
   };
 
   var nextPuzzle = function() {
+    ceval.stop();
     vm.loading = true;
     xhr.nextPuzzle().then(function(d) {
       // pushState(cfg);
