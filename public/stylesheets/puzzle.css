@@ -6,7 +6,7 @@
   border: 1px solid #ccc;
   border-top: 0;
   background: #fff;
-  height: 38%;
+  height: 32%;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -106,7 +106,8 @@
   opacity: 0.7;
 }
 #puzzle .feedback.after .vote a::before {
-  font-size: 34px;
+  font-size: 30px;
+  line-height: 28px;
 }
 #puzzle .feedback.after .vote a:hover,
 #puzzle .feedback.after .vote a.active {
@@ -114,7 +115,7 @@
   color: #d85000;
 }
 #puzzle .feedback.after .vote span.count {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
 }
 
