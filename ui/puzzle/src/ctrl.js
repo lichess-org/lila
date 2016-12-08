@@ -245,6 +245,7 @@ module.exports = function(opts, i18n) {
   var instanciateCeval = function(failsafe) {
     ceval = cevalCtrl({
       storageKeyPrefix: 'puzzle',
+      multiPvDefault: 3,
       variant: {
         key: 'standard'
       },
