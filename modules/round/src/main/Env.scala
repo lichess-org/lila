@@ -51,6 +51,7 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionHistory = config getString "collection.history"
     val CollectionForecast = config getString "collection.forecast"
+    val CollectionAlarm = config getString "collection.alarm"
     val ChannelMoveTime = config getString "channel.move_time.name "
   }
   import settings._
@@ -194,6 +195,10 @@ final class Env(
   system.actorOf(
     Props(classOf[Titivate], roundMap, hub.actor.bookmark),
     name = "titivate")
+
+  system.lilaBus.subscribe(system.actorOf(
+    Props(classOf[CorresAlarm], db(CollectionAlarm)),
+    name = "corres-alarm"), 'moveEvent, 'finishGame)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

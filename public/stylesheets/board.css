@@ -15,8 +15,8 @@
   line-height: 0;
   background-size: cover;
 }
-.manipulable .cg-board.hold piece {
-  opacity: 0.99;
+.manipulable .cg-board.bh1 piece {
+  opacity: 0.98;
 }
 .manipulable .cg-board {
   cursor: pointer;
@@ -24,6 +24,11 @@
 .is2d .cg-board {
   top: 0;
   height: 100%;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }
 square {
   position: absolute;
@@ -497,12 +502,11 @@ div.table_wrap {
 }
 div.table {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 10px 0;
 }
 .lichess_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
-  margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
   position: relative;
@@ -527,7 +531,7 @@ div.table {
 .lichess_ground .replay index {
   flex: 0 0 34px;
   padding: 2px 0;
-  background: #e0e0e0;
+  background: #e6e6e6;
   text-align: center;
   font-family: 'Roboto';
   font-weight: 300;
@@ -547,49 +551,39 @@ body.piece_letter .lichess_ground .replay move {
   transition: background-color 0.13s;
 }
 .lichess_ground .replay move:not(.empty):hover {
-  background: #e0e0e0;
+  background: #e6e6e6;
 }
 .lichess_ground .replay move.active,
 .lichess_ground .replay move.active::after {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .replay .result {
+.lichess_ground .result,
+.lichess_ground .status {
+  text-align: center;
+}
+.lichess_ground .result {
+  border-top: 1px solid #ddd;
   font-weight: bold;
   font-size: 1.3em;
-  padding: 4px 0;
-  text-align: center;
+  padding: 7px 0 4px 0;
 }
-.lichess_ground .replay .status {
+.lichess_ground .status {
   font-size: 1em;
-  text-align: center;
   font-style: italic;
+  padding-bottom: 7px;
 }
 .lichess_ground .replay .buttons {
-  text-align: center;
-  margin: 8px 0 5px 0;
+  border-top: 1px solid #e2e2e2;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
 }
-.lichess_ground .replay a.button {
-  opacity: 0.9;
-  padding: 4px 7px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin-left: -1px;
-  margin-right: -1px;
+.lichess_ground .replay .fbt {
+  padding: 5px 10px;
 }
-.lichess_ground .replay a.flip {
-  margin-right: 10px;
-}
-.lichess_ground .replay a.analysis {
-  margin-left: 10px;
-}
-.lichess_ground .replay a.disabled {
-  cursor: default;
-}
-.lichess_ground .replay a.disabled::before {
-  opacity: 0.4;
-  text-shadow: none !important;
+.lichess_ground .replay .noop {
+  width: 30px;
 }
 .pocket {
   border-radius: 3px;
@@ -599,6 +593,7 @@ body.piece_letter .lichess_ground .replay move {
   background: #888;
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
 }
 .pocket.top {
   margin-bottom: 10px;
@@ -607,13 +602,12 @@ body.piece_letter .lichess_ground .replay move {
   margin-top: 10px;
 }
 .pocket piece {
-  display: inline-block;
-  width: 20%!important;
-  height: 56px!important;
-  background-position: center;
-  position: relative;
+  flex: 0 0 20%;
+  height: 56px!important; /* 100% fails on older chrome */
+  width: auto!important;
+  position: relative!important;
 }
-.pocket piece:first-child {
+.pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
 }
 .pocket.usable piece {
@@ -657,28 +651,47 @@ div.table .spinner {
   width: 30px;
   height: 30px;
 }
-div.table div.username {
+div.table .username {
   white-space: nowrap;
+  display: flex;
+  margin-left: 3px;
+  font-size: 1.25em;
 }
-div.table div.username:first-child {
+div.table .username:first-child {
   margin-bottom: 6px;
 }
-div.table div.username:last-child {
-  margin-top: 6px;
+div.table .username:last-child {
+  padding-top: 6px;
 }
-div.table div.username span.status {
-  display: inline-block;
-  margin-left: 5px;
+div.table .username a {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-div.table div.username span.status span {
-  vertical-align: 1px;
-  color: #ac524f;
+div.table .username.long a {
+  letter-spacing: -0.5px;
 }
-div.table div.username.on-game span.status span {
-  color: #759900;
+div.table .username rating {
+  flex: 0 0 auto;
+  margin: 0 0.25em 0 0.3em;
+  opacity: 0.6;
+  letter-spacing: -0.5px;
 }
-div.table div.username .line {
-  vertical-align: -2.5px;
+div.table .username .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes connecting {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+div.table .connecting .line {
+  animation: connecting 0.9s ease-in-out infinite;
+}
+div.table .username .rp {
+  margin-right: 0.2em;
 }
 div.table .message {
   margin: 20px 0;
@@ -687,12 +700,6 @@ div.table .message::before {
   font-size: 3em;
   float: left;
   margin-right: 10px;
-}
-div.table .button.strong {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  font-weight: bold;
-  font-size: 1.2em;
 }
 div.table_wrap .whos_turn {
   height: 2em;
@@ -703,6 +710,8 @@ div.table_wrap .whos_turn {
 }
 div.table_wrap .clock {
   position: relative;
+  display: flex;
+  align-items: stretch;
 }
 div.table_wrap .clock .bar {
   position: absolute;
@@ -728,25 +737,22 @@ div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
-  font-size: 36px;
-  font-family: monospace, 'Noto Sans', 'Lucida Grande';
+  font-size: 38px;
+  font-family: 'Roboto Mono', 'Roboto';
+  height: 44px;
+  line-height: 44px;
 }
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
 div.table_wrap .clock .time tenths {
   font-size: 70%;
-  font-weight: normal;
 }
 div.table_wrap .clock .time huns {
   font-size: 80%;
 }
-div.table_wrap .clock .time {
-  font-weight: bold;
-}
 div.table_wrap .clock .time sep {
-  font-weight: normal;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 div.table_wrap .clock .time sep.low {
   opacity: 0.15;
@@ -761,7 +767,6 @@ div.table_wrap .clock.running.emerg .time {
 }
 div.table_wrap .clock.outoftime .time {
   background-color: #eFAAAA;
-  font-weight: bold;
   color: #444;
 }
 div.table_wrap .clock_top .time {
@@ -772,66 +777,41 @@ div.table_wrap .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
-div.table_wrap .berserk.button {
-  font-size: 17px;
-  margin-left: 5px;
-  line-height: 17px;
-  vertical-align: -3px;
+div.table_wrap .berserk.fbt {
+  font-size: 25px;
+  padding: 0 12px;
+}
+div.table_wrap .tournament_rank,
+div.table_wrap a.moretime,
+div.table_wrap div.berserk_alert {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 20px;
 }
 div.table_wrap a.moretime {
   opacity: 0.4;
-  position: absolute;
-  font-size: 20px;
-  right: 0;
-  top: 2px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
 
 div.table_wrap div.berserk_alert {
-  position: absolute;
-  right: 0;
-  top: -14px;
   font-size: 34px;
   color: #D85000;
-}
-div.table_wrap div.berserk_alert.bottom {
-  top: -3px;
-}
-div.table_wrap .tournament_rank {
-  position: absolute;
-  font-size: 20px;
-  right: 0;
-}
-div.table_wrap .tournament_rank.top {
-  top: 5px;
-}
-div.table_wrap .tournament_rank.bottom {
-  bottom: 5px;
-}
-div.table_next {
-  top: 145px;
-}
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
 }
 div.control {
   text-align: center;
   width: 100%;
 }
 div.control.icons {
-  margin-top: 5px;
+  display: flex;
+  justify-content: center;
 }
-div.control.icons .button {
-  font-size: 16px;
-  height: 34px;
-  padding: 0 10px;
-  margin: 0 3px;
+div.control.icons .fbt {
+  font-size: 18px;
+  padding: 8px 17px;
 }
 div.control.icons .takeback-yes span:before {
   display: inline-block;
@@ -846,7 +826,6 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
 }
 div.control.icons .resign_confirm {
-  display: inline-block;
   position: relative;
 }
 div.control.icons .resign_confirm .yes {
@@ -854,9 +833,12 @@ div.control.icons .resign_confirm .yes {
   color: #fff;
 }
 div.control.icons .resign_confirm .no {
+  padding: 8px 0;
+  width: 30px;
+  text-align: center;
   position: absolute;
   top: 0;
-  left: 39px;
+  right: -30px;
 }
 div.control .button.disabled {
   opacity: 0.5;
@@ -865,8 +847,7 @@ div.control .button.disabled {
 .lichess_ground .suggestion,
 .lichess_ground .pending,
 .lichess_ground .negotiation {
-  margin: 7px -10px 0 -10px;
-  padding: 7px;
+  padding: 10px 7px;
   background: #d0d0d0;
 }
 .lichess_ground .suggestion p {
@@ -918,60 +899,28 @@ div.control .button.disabled {
 .lichess_ground .negotiation a.decline:hover {
   background: #dc322f!important;
 }
-.lichess_ground .follow_up {
-  margin: 7px 0;
-}
 .lichess_ground .follow_up .button {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  border-bottom-width: 0;
   border-radius: 0;
-  padding: 14px 0;
+  padding: 12px 0;
+  border-width: 1px 0 0 0;
+}
+.lichess_ground .follow_up > .button:first-child {
+  border-top-width: 0;
+}
+.lichess_ground .follow_up > .button:last-child {
+  border-bottom-width: 1px;
 }
 .variant_crazyhouse .lichess_ground .follow_up .button {
-  padding: 8px 0;
+  padding: 9px 0;
 }
-.lichess_ground .follow_up .button.strong {
-  margin-bottom: 7px;
-}
-.lichess_ground .follow_up .button:first-child {
-  border-radius: 3px 3px 0 0;
-}
-.lichess_ground .follow_up .button:last-child {
-  border-bottom-width: 1px;
-  border-radius: 0 0 3px 3px;
-}
-div.separator {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-}
-div.current_player {
-  height: 64px;
-}
-div.current_player div.player {
-  position: absolute;
-  margin-left: -5px;
-}
-div.current_player div.no-square {
-  width: 64px;
-  height: 64px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-div.current_player div.player p {
-  height: 64px;
-  line-height: 64px;
-  font-size: 15px;
-  font-weight: bold;
-  color: #888;
-  margin: 0 0 0 64px;
-}
-div.table.finished div.player p {
-  line-height: 2em;
-  font-size: 12px;
-  margin-top: 12px;
+.lichess_ground .follow_up .fbt.strong {
+  display: block;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1.2em;
 }
 div.cemetery {
   flex: 0 0 32px;
@@ -983,7 +932,7 @@ div.cemetery:first-child {
   margin-bottom: 5px;
 }
 div.cemetery:last-child {
-  margin-bottom: 5px;
+  margin-top: 5px;
 }
 div.cemetery tomb {
   display: inline-block;
@@ -1041,18 +990,13 @@ div.game_tournament:hover {
 div.game_tournament .clock {
   text-align: center;
   font-size: 20px;
-  font-family: monospace, 'Noto Sans', 'Lucida Grande';
-  font-weight: bold;
+  font-family: 'Roboto Mono', 'Roboto';
   margin: 10px 0;
 }
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament table.standing tr.me td:first-child {
-  border-left: 10px solid #d59120;
-  padding-left: 5px;
-}
-div.game_tournament table.standing td {
+div.game_tournament td {
   padding: 0 10px;
   text-align: left;
   line-height: 2em;
@@ -1061,11 +1005,18 @@ div.game_tournament table.standing td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-div.game_tournament table.standing td.name span {
+div.game_tournament table.slist td:first-child {
+  padding-left: 10px;
+}
+div.game_tournament tr.me td:first-child {
+  border-left: 10px solid #d59120;
+  padding-left: 5px;
+}
+div.game_tournament td.name span {
   display: inline-block;
   width: 20px;
 }
-div.game_tournament table.standing td.total {
+div.game_tournament td.total {
   text-align: right;
 }
 span.inline_userlist {

@@ -115,10 +115,10 @@ time {
 }
 .user_link.online .line,
 .user_link .line.patron {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .user_link.online .line.patron {
-  opacity: 0.9;
+  opacity: 1;
 }
 .user_link .line::before {
   content: '';
@@ -699,7 +699,6 @@ div.side_box .game_infos {
 div.side_box .players .player {
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
 }
 .notification .message_infos::before,
 .notification .game_infos::before,
@@ -1147,7 +1146,7 @@ body.fpmenu #fpmenu {
 #top div.auth .status .ping,
 #top div.auth .status .server {
   display: block;
-  font-family: monospace;
+  font-family: 'Roboto Mono', 'Roboto';
   padding-left: 10px;
 }
 #top div.auth .status strong {
@@ -1184,7 +1183,7 @@ body.fpmenu #fpmenu {
   justify-content: space-between;
 }
 
-#site_notifications_tag span:before {
+#site_notifications_tag span::before {
   font-size: 1.45em;
   padding-left: 3px;
 }
@@ -1205,6 +1204,13 @@ form.wide textarea {
 #top a.toggle:hover,
 #sound_state:hover {
   color: #303030;
+}
+@keyframes pulse-once {
+  0% { background: #d85000; }
+  100% { background: none; }
+}
+#top a.toggle.pulse {
+  animation: pulse-once 1.5s linear;
 }
 #top #themepicker_toggle,
 #top #sound_state {
@@ -1502,13 +1508,13 @@ body.fpmenu #friend_box {
 .user_link {
   white-space: nowrap;
 }
-a.user_link span.rp:before {
+.user_link span.rp:before {
   content: " ";
 }
-a.user_link span.rp.up {
+.user_link span.rp.up {
   color: #759900;
 }
-a.user_link span.rp.down {
+.user_link span.rp.down {
   color: #ac524f;
 }
 .user_link span.title {
@@ -1623,8 +1629,44 @@ div.pagination span.current,
   border-color: #b84400 !important;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
 }
-.button.active-soft,
-.button.active-soft:hover,
+.fbt {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px 13px;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: pointer;
+}
+@keyframes fbt-glowing {
+  50% { background: rgba(56,147,232,0.3); }
+}
+.fbt.glowed {
+  box-shadow: none;
+  animation: fbt-glowing 1.5s ease-in-out infinite;
+}
+.fbt:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.fbt:disabled * {
+  opacity: 0.5;
+}
+.fbt:not(:disabled):hover {
+  background: #3893E8;
+  color: #fff!important;
+  animation: none;
+}
+.fbt:not(:disabled):active,
+.fbt.active {
+  background: #5ba6ec;
+  color: #fff;
+}
+.fbt.active span {
+  color: #fff;
+}
 .fbt.active-soft,
 .fbt.active-soft:hover {
   color: #fff !important;
@@ -1820,7 +1862,6 @@ a.mini_board {
   display: block;
 }
 .mini_board .cg-board-wrap {
-  margin: auto;
   width: 224px;
   height: 224px;
   position: relative;
@@ -1828,6 +1869,7 @@ a.mini_board {
 #challenge .mini_board .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
+  margin: auto;
 }
 #now_playing {
   padding: 4px 0 0 4px;
@@ -2072,7 +2114,6 @@ div.relation_actions a.relation.processing {
 input.copyable,
 textarea.copyable {
   background: #eee;
-  font-family: monospace;
   padding: 3px 5px;
   border: 1px solid #ccc;
 }
@@ -2253,6 +2294,9 @@ textarea.copyable {
   text-align: center;
   cursor: default;
 }
+#modal-wrap a {
+  color: #3893E8;
+}
 #modal-wrap .block_buttons .button {
   display: block;
   margin: 0.8em 0;
@@ -2269,6 +2313,7 @@ div.lichess_overboard .close {
   height: 32px;
   background: #fff;
   border-radius: 50%;
+  cursor: pointer;
 }
 #modal-wrap .close:hover,
 div.lichess_overboard .close:hover {
@@ -2435,6 +2480,17 @@ input.cmn-toggle-round:checked + label::after {
 }
 .hopscotch-content a {
   text-decoration: underline;
+}
+.embedding_analyse,
+iframe.analyse {
+  width: 744px;
+  height: 460px;
+  background: rgba(127, 127, 127, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  border: none;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {

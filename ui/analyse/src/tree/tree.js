@@ -1,18 +1,17 @@
 var treePath = require('./path');
 var ops = require('./ops');
-var defined = require('../util').defined;
 
 module.exports = function(root) {
 
   function firstPly() {
     return root.ply;
-  };
+  }
 
   function lastNode() {
     return ops.findInMainline(root, function(node) {
       return !node.children.length;
     });
-  };
+  }
 
   function lastPly() {
     return lastNode().ply;
@@ -196,18 +195,31 @@ module.exports = function(root) {
     promoteNodeAt: promoteNodeAt,
     plyOfNextGlyphSymbol: function(color, symbol, mainline, fromPly) {
       var len = mainline.length;
+      var fromIndex = fromPly - root.ply;
       for (var i = 1; i < len; i++) {
-        var ply = (fromPly + i) % len;
-        var glyphs = mainline[ply].glyphs;
-        var found = (ply % 2 === (color === 'white' ? 1 : 0)) && glyphs && glyphs.filter(function(g) {
+        var node = mainline[(fromIndex + i) % len];
+        var found = (node.ply % 2 === (color === 'white' ? 1 : 0)) && node.glyphs && node.glyphs.filter(function(g) {
           return g.symbol === symbol;
         })[0];
-        if (found) return ply;
+        if (found) return node.ply;
       }
     },
     getCurrentNodesAfterPly: getCurrentNodesAfterPly,
     merge: function(tree) {
       ops.merge(root, tree);
+    },
+    removeCeval: function() {
+      ops.updateAll(root, function(n) {
+        delete n.ceval;
+        delete n.threat;
+      });
+    },
+    removeComputerVariations: function() {
+      ops.mainlineNodeList(root).forEach(function(n) {
+        n.children = n.children.filter(function(c) {
+          return !c.comp;
+        });
+      });
     }
   };
 }

@@ -1,37 +1,24 @@
 var m = require('mithril');
 var moderationView = require('./moderation').view;
 var presetView = require('./preset').view;
+var enhance = require('./enhance');
 
-var delocalizePattern = /(^|[\s\n]|<[A-Za-z]*\/?>)\w{2}\.lichess\.org/gi;
+var isSpammer = lichess.storage.make('spammer');
 
-function delocalize(html) {
-  return html.replace(delocalizePattern, '$1lichess.org');
+function isSpam(txt) {
+  return /chess-bot/.test(txt);
 }
 
-function escapeHtml(html) {
-  return html
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function skipSpam(txt) {
+  if (isSpam(txt) && isSpammer.get() != '1') return true;
+  return false;
 }
-
-var linkPattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?):\/\/|lichess\.org\/)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-
-var linkReplace = function(match, before, url) {
-  var fullUrl = url.indexOf('http') === 0 ? url : 'https://' + url;
-  var minUrl = url.replace(/^(?:https:\/\/)?(.+)$/, '$1');
-  return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
-};
-
-function autoLink(html) {
-  return html.replace(linkPattern, linkReplace);
-};
 
 function renderLine(ctrl) {
   return function(line) {
-    if (!line.html) line.html = m.trust(autoLink(escapeHtml(delocalize(line.t))));
+    if (!line.html) line.html = enhance(line.t, {
+      parseMoves: ctrl.vm.parseMoves
+    });
     if (line.u === 'lichess') return m('li.system', line.html);
     if (line.c) return m('li', [
       m('span', '[' + line.c + ']'),
@@ -57,7 +44,8 @@ function selectLines(ctrl) {
   ctrl.data.lines.forEach(function(line) {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.vm.isTroll)
+      (!line.r || ctrl.vm.isTroll) &&
+      !skipSpam(line.t)
     ) ls.push(line);
     prev = line;
   });
@@ -86,6 +74,7 @@ function input(ctrl) {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
           } else {
+            if (isSpam(e.target.value)) isSpammer.set(1);
             ctrl.post(e.target.value);
             e.target.value = '';
           }
@@ -101,9 +90,14 @@ module.exports = {
     return [
       m('ol.messages.content.scroll-shadow-soft', {
           config: function(el, isUpdate, ctx) {
-            if (!isUpdate && ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
-              ctrl.moderation.open($(e.target).parent().data('username'));
-            });
+            if (!isUpdate) {
+              if (ctrl.moderation) $(el).on('click', 'i.mod', function(e) {
+                ctrl.moderation.open($(e.target).parent().data('username'));
+              });
+              $(el).on('click', 'a.jump', function(e) {
+                lichess.pubsub.emit('jump')(e.target.getAttribute('data-ply'));
+              });
+            }
             if (ctrl.data.lines.length > 5) {
               var autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
               el.scrollTop = 999999;

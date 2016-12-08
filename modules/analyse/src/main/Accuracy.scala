@@ -4,7 +4,7 @@ import lila.game.Pov
 
 object Accuracy {
 
-  def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
+  private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
 
   private val makeDiff: PartialFunction[(Option[Score], Option[Int], Option[Score], Option[Int]), Int] = {
     case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns

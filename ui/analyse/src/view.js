@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
 var util = require('./util');
 var game = require('game').game;
 var renderStatus = require('game').view.status;
@@ -59,6 +60,8 @@ function makeConcealOf(ctrl) {
 
 function renderAnalyse(ctrl, concealOf) {
   return m('div.areplay', [
+    renderChapterName(ctrl),
+    renderOpeningBox(ctrl),
     treeView.render(ctrl, concealOf),
     renderResult(ctrl)
   ]);
@@ -147,7 +150,7 @@ function jumpButton(icon, effect) {
       'data-icon': icon
     }
   };
-};
+}
 
 var cachedButtons = (function() {
   return m('div.jumps', [
@@ -184,7 +187,7 @@ function buttons(ctrl) {
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    m('button', {
+    ctrl.embed ? null : m('button', {
       id: 'open_explorer',
       'data-hint': ctrl.trans('openingExplorer'),
       'data-act': 'explorer',
@@ -201,6 +204,7 @@ function buttons(ctrl) {
 
 function renderOpeningBox(ctrl) {
   var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
+  if (!opening && !ctrl.vm.path) opening = ctrl.data.game.opening;
   if (opening) return m('div', {
     class: 'opening_box',
     title: opening.eco + ' ' + opening.name
@@ -210,13 +214,10 @@ function renderOpeningBox(ctrl) {
   ]);
 }
 
-function renderFork(ctrl) {
-  if (!true) return;
-  return m('div.fork',
-    ctrl.vm.node.children.map(function(node) {
-      return m('move', treeView.renderMove(node));
-    })
-  );
+function renderChapterName(ctrl) {
+  if (ctrl.embed && ctrl.study) return m('div', {
+    class: 'chapter_name'
+  }, ctrl.study.currentChapter().name);
 }
 
 var firstRender = true;
@@ -229,7 +230,10 @@ module.exports = function(ctrl) {
         if (firstRender) firstRender = false;
         else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
       },
-      class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
+      class: classSet({
+        'gauge_displayed': ctrl.showEvalGauge(),
+        'no_computer': !ctrl.vm.showComputer()
+      })
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate, context) {
@@ -242,7 +246,7 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
-            renderOpeningBox(ctrl),
+            cevalView.renderPvs(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             explorerView.renderExplorer(ctrl)
@@ -252,11 +256,13 @@ module.exports = function(ctrl) {
         ])
       ])
     ]),
-    m('div.underboard', [
+    ctrl.embed ? null : m('div', {
+      class: 'underboard' + (ctrl.vm.showComputer() ? '' : ' no_computer')
+    }, [
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),
-    util.synthetic(ctrl.data) ? null : m('div.analeft', [
+    ctrl.embed || util.synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {

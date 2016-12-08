@@ -1,0 +1,5 @@
+@(active: String)(implicit ctx: Context)
+<div class="com_tabs">
+  <a class="@active.active("leaderboard")" href="@routes.User.list">@trans.leaderboard()</a>
+  <a class="@active.active("ratings")" href="@routes.Stat.ratingDistribution("blitz")">@trans.ratingStats()</a>
+</div>

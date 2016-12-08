@@ -23,7 +23,8 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  if (options.resetUrl || options.prodPipe) lichess.storage.remove(options.baseUrlKey);
+  var storage = lichess.storage.make(options.baseUrlKey);
+  if (options.resetUrl || options.prodPipe) storage.remove();
   if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
 
   var connect = function() {
@@ -32,10 +33,7 @@ lichess.StrongSocket = function(url, version, settings) {
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
     debug("connection attempt to " + fullUrl, true);
     try {
-      if (window.MozWebSocket) ws = new MozWebSocket(fullUrl);
-      else if (window.WebSocket) ws = new WebSocket(fullUrl);
-      else throw "[lila] no websockets found on this browser!";
-
+      ws = new WebSocket(fullUrl);
       ws.onerror = function(e) {
         onError(e);
       };
@@ -74,8 +72,8 @@ lichess.StrongSocket = function(url, version, settings) {
     scheduleConnect(options.pingMaxLag);
   };
 
-  var send = function(t, d, o, again) {
-    var data = d || {},
+  var send = function(t, d, o, noRetry) {
+    var data = (d == null) ? {} : d,
       options = o || {};
     if (options.withLag) d.l = Math.round(averageLag);
     if (options.ackable) ackableMessages.push({
@@ -92,7 +90,7 @@ lichess.StrongSocket = function(url, version, settings) {
     } catch (e) {
       // maybe sent before socket opens,
       // try again a second later,once.
-      if (!again) setTimeout(function() {
+      if (!noRetry) setTimeout(function() {
         send(t, d, o, true);
       }, 1000);
     }
@@ -106,7 +104,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var scheduleConnect = function(delay) {
-    if (options.idle) delay = delay * 3;
+    if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
@@ -177,9 +175,8 @@ lichess.StrongSocket = function(url, version, settings) {
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
-        if (settings.receive) settings.receive(m.t, m.d);
-        var h = settings.events[m.t];
-        if (h) h(m.d || null, m);
+        var processed = settings.receive ? settings.receive(m.t, m.d) : false;
+        if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
   };
 
@@ -241,22 +238,19 @@ lichess.StrongSocket = function(url, version, settings) {
       options.onNextConnect();
       delete options.onNextConnect;
     }
-    if (lichess.proxy) lichess.proxy.getLatency(options.protocol + "//" + baseUrl(), function(ms) {
-      console.log(ms, 'latency');
-    });
   };
 
   var baseUrl = function() {
     var key = options.baseUrlKey;
     var urls = options.baseUrls;
-    var url = lichess.storage.get(key);
+    var url = storage.get();
     if (!url) {
       url = urls[0];
-      lichess.storage.set(key, url);
+      storage.set(url);
     } else if (tryOtherUrl) {
       tryOtherUrl = false;
       url = urls[(urls.indexOf(url) + 1) % urls.length];
-      lichess.storage.set(key, url);
+      storage.set(url);
     }
     return url;
   };

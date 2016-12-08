@@ -1,41 +1,45 @@
 package lila.api
 
-import akka.actor.ActorRef
-import akka.pattern.ask
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
-import lila.lobby.actorApi.HooksFor
-import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
+import lila.lobby.SeekApi
 import lila.setup.FilterConfig
 import lila.user.{ User, UserContext }
 
 final class LobbyApi(
-    lobby: ActorRef,
-    lobbyVersion: () => Int,
     getFilter: UserContext => Fu[FilterConfig],
     lightUser: String => Option[LightUser],
-    seekApi: SeekApi) {
+    seekApi: SeekApi,
+    pools: List[lila.pool.PoolConfig]) {
 
   import makeTimeout.large
 
+  private val poolsJson = JsArray {
+    pools.map { p =>
+      Json.obj(
+        "id" -> p.id.value,
+        "lim" -> p.clock.limitInMinutes,
+        "inc" -> p.clock.increment,
+        "perf" -> p.perfType.name)
+    }
+  }
+
   def apply(implicit ctx: Context): Fu[JsObject] =
-    (lobby ? HooksFor(ctx.me)).mapTo[Vector[Hook]] zip
       ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
       (ctx.me ?? GameRepo.urgentGames) zip
       getFilter(ctx) map {
-        case (((hooks, seeks), povs), filter) => Json.obj(
+        case ((seeks, povs), filter) => Json.obj(
           "me" -> ctx.me.map { u =>
             Json.obj("username" -> u.username)
           },
-          "version" -> lobbyVersion(),
-          "hooks" -> JsArray(hooks map (_.render)),
           "seeks" -> JsArray(seeks map (_.render)),
           "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
           "nbNowPlaying" -> povs.size,
-          "filter" -> filter.render)
+          "filter" -> filter.render,
+          "pools" -> poolsJson)
       }
 
   def nowPlaying(pov: Pov) = Json.obj(

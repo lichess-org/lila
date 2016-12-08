@@ -11,7 +11,7 @@ import lila.memo.AsyncCache
 
 final class Gamify(
     logColl: Coll,
-    reportColl: Coll,
+    reportApi: lila.report.ReportApi,
     historyColl: Coll) {
 
   import Gamify._
@@ -56,6 +56,7 @@ final class Gamify(
   def leaderboards = leaderboardsCache(true)
 
   private val leaderboardsCache = AsyncCache.single[Leaderboards](
+    name = "mod.leaderboards",
     f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
       mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
       mixedLeaderboard(DateTime.now minusMonths 1, none) map {
@@ -84,20 +85,20 @@ final class Gamify(
     )), List(
       GroupField("mod")("nb" -> SumValue(1)),
       Sort(Descending("nb")))).map {
-      _.documents.flatMap { obj =>
+      _.firstBatch.flatMap { obj =>
         obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
       }
     }
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    reportColl.aggregate(
+    reportApi.coll.aggregate(
       Match($doc(
         "createdAt" -> dateRange(after, before),
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb")))).map {
-        _.documents.flatMap { obj =>
+        _.firstBatch.flatMap { obj =>
           obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
         }
       }

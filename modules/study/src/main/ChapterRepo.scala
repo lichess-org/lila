@@ -54,7 +54,7 @@ final class ChapterRepo(coll: Coll) {
     ) map { order => ~order + 1 }
 
   def setConceal(chapterId: Chapter.ID, conceal: Chapter.Ply) =
-    coll.updateField($id(chapterId), "conceal", conceal.value).void
+    coll.updateField($id(chapterId), "conceal", conceal).void
 
   def removeConceal(chapterId: Chapter.ID) =
     coll.unsetField($id(chapterId), "conceal").void

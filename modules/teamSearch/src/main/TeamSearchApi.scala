@@ -5,7 +5,6 @@ import lila.team.actorApi._
 import lila.team.{ Team, TeamRepo }
 
 import play.api.libs.json._
-import play.api.libs.iteratee._
 
 final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
@@ -26,15 +25,29 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      lila.log("teamSearch").info(s"Index to ${c.index.name}")
+      import play.api.libs.iteratee._
+      import reactivemongo.api.ReadPreference
+      import reactivemongo.play.iteratees.cursorProducer
       import lila.db.dsl._
-      TeamRepo.cursor($doc("enabled" -> true))
-        .enumerateBulks(Int.MaxValue) |>>>
-        Iteratee.foldM[Iterator[Team], Unit](()) {
-          case (_, teams) =>
-            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t)))
+
+      logger.info(s"Index to ${c.index.name}")
+
+      val batchSize = 200
+      val maxEntries = Int.MaxValue
+
+      TeamRepo.cursor(
+        selector = $doc("enabled" -> true),
+        readPreference = ReadPreference.secondaryPreferred)
+        .enumerator(maxEntries) &>
+        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
+        Iteratee.foldM[Seq[Team], Int](0) {
+          case (nb, teams) =>
+            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t))) inject {
+              logger.info(s"Indexed $nb teams")
+              nb + teams.size
+            }
         }
-    }
+    } >> client.refresh
     case _ => funit
   }
 }

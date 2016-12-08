@@ -97,16 +97,12 @@
   margin-top: 30px;
   width: 300px;
 }
-#simul .title_tag {
-  float: right;
-  font-size: 20px;
-  font-family: monospace;
-  font-weight: bold;
-  margin: 25px 25px 0 0;
-}
 #simul .top_right {
   float: right;
   margin: 20px 25px 0 0;
+}
+#simul .top_right.finished {
+  font-size: 20px;
 }
 #simul .instructions {
   text-align: center;
@@ -213,6 +209,9 @@ div.side_box .game_infos {
 }
 #site_header .help {
   margin-top: 20px;
+}
+#site_header .help a {
+  color: #3893E8;
 }
 #modal-wrap.card {
   max-width: 500px;

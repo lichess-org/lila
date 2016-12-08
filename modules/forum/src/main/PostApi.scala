@@ -187,4 +187,6 @@ final class PostApi(
   def nbByUser(userId: String) = env.postColl.countSel($doc("userId" -> userId))
 
   def userIds(topic: Topic) = PostRepo userIdsByTopicId topic.id
+
+  def userIds(topicId: String) = PostRepo userIdsByTopicId topicId
 }

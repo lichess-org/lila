@@ -31,11 +31,11 @@ final class JsonView(
     "initialFen" -> c.initialFen,
     "rated" -> c.mode.rated,
     "timeControl" -> (c.timeControl match {
-      case c@TimeControl.Clock(l, i) => Json.obj(
+      case c@TimeControl.Clock(clock) => Json.obj(
         "type" -> "clock",
-        "limit" -> l,
-        "increment" -> i,
-        "show" -> c.show)
+        "limit" -> clock.limit,
+        "increment" -> clock.increment,
+        "show" -> clock.show)
       case TimeControl.Correspondence(d) => Json.obj(
         "type" -> "correspondence",
         "daysPerTurn" -> d)

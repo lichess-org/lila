@@ -26,19 +26,46 @@ lichess.storage = (function() {
         return s.getItem(k);
       });
     },
-    remove: function(k) {
-      withStorage(function(s) {
-        s.removeItem(k);
-      });
-    },
     set: function(k, v) {
       // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
       withStorage(function(s) {
         s.removeItem(k);
         s.setItem(k, v);
       });
+    },
+    remove: function(k) {
+      withStorage(function(s) {
+        s.removeItem(k);
+      });
+    },
+    make: function(k) {
+      return {
+        get: function() {
+          return lichess.storage.get(k);
+        },
+        set: function(v) {
+          return lichess.storage.set(k, v);
+        },
+        remove: function() {
+          return lichess.storage.remove(k);
+        },
+        listen: function(f) {
+          window.addEventListener('storage', function(e) {
+            if (e.key === k) f(e);
+          });
+        }
+      };
     }
   };
+})();
+lichess.reloadOtherTabs = (function() {
+  var storage = lichess.storage.make('reload-other-tabs');
+  storage.listen(function() {
+    lichess.reload();
+  });
+  return function() {
+    storage.set(1);
+  }
 })();
 lichess.once = function(key, mod) {
   if (mod === 'always') return true;
@@ -67,10 +94,11 @@ lichess.powertip = (function() {
     };
   };
 
-  var userPowertip = function(el) {
-    var pos = 'w';
-    if (elementIdContains('site_header', el)) pos = 'e';
-    if (elementIdContains('friend_box', el)) pos = 'nw';
+  var userPowertip = function(el, pos) {
+    if (!pos) {
+      if (elementIdContains('site_header', el)) pos = 'e';
+      else pos = el.getAttribute('data-pt-pos') || 'w';
+    }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
       fadeInTime: 100,
@@ -110,8 +138,8 @@ lichess.powertip = (function() {
       if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
-    manualGame: function(el) {
-      Array.prototype.forEach.call(el.querySelectorAll('.glpt'), gamePowertip);
+    manualGameIn: function(parent) {
+      Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
     }
   };
 })();
@@ -205,32 +233,38 @@ lichess.desktopNotification = (function() {
   window.addEventListener('blur', function() {
     isPageVisible = false;
   });
-  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-  window.addEventListener('focus', function() {
-    isPageVisible = true;
+  var closeAll = function() {
     notifications.forEach(function(n) {
       n.close();
     });
     notifications = [];
+  };
+  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+  window.addEventListener('focus', function() {
+    isPageVisible = true;
+    closeAll();
+    setTimeout(closeAll, 2000);
   });
-  var storageKey = 'just-notified';
+  var storage = lichess.storage.make('just-notified');
   var clearStorageSoon = function() {
     setTimeout(function() {
-      lichess.storage.remove(storageKey);
+      storage.remove();
     }, 3000);
   };
   var doNotify = function(msg) {
-    if (lichess.storage.get(storageKey)) return;
-    lichess.storage.set(storageKey, 1);
+    if (storage.get()) return;
+    storage.set(1);
     clearStorageSoon();
+    if ($.isFunction(msg)) msg = msg();
     var notification = new Notification('lichess.org', {
       icon: '//lichess1.org/assets/images/logo.256.png',
       body: msg
     });
     notification.onclick = function() {
       window.focus();
-    }
+    };
     notifications.push(notification);
+    if (isPageVisible) setTimeout(closeAll, 2000);
   };
   var notify = function(msg) {
     // increase chances that the first tab can put a local storage lock
@@ -265,7 +299,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   var lastSeenActive = new Date();
   var onActivity = function() {
     if (!active) {
-      console.log('Wake up');
+      // console.log('Wake up');
       onWakeUp();
     }
     active = true;
@@ -290,7 +324,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   };
   setInterval(function() {
     if (active && new Date() - lastSeenActive > delay) {
-      console.log('Idle mode');
+      // console.log('Idle mode');
       onIdle();
       active = false;
     }
@@ -322,6 +356,19 @@ lichess.pubsub = (function() {
     }
   };
 })();
+lichess.hasToReload = false;
+lichess.redirectInProgress = false;
+lichess.reload = function() {
+  if (lichess.redirectInProgress) return;
+  lichess.hasToReload = true;
+  if (window.location.hash) location.reload();
+  else location.href = location.href;
+};
+lichess.escapeHtml = function(html) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(html));
+  return div.innerHTML;
+};
 $.spreadNumber = function(el, nbSteps, getDuration, previous) {
   var previous = previous,
     displayed;
@@ -356,7 +403,7 @@ $.fn.scrollTo = function(target, offsetTop) {
 };
 $.modal = function(html) {
   if (!html.clone) html = $('<div>' + html + '</div>');
-  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<a class="close" data-icon="L"></a>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().removeClass('none').show()).prepend('<span class="close" data-icon="L"></span>');
   var $overlay = $('<div id="modal-overlay">').html($wrap);
   $overlay.add($wrap.find('.close')).one('click', $.modal.close);
   $wrap.click(function(e) {

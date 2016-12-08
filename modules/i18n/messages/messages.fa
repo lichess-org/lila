@@ -19,7 +19,7 @@ randomColor=رنگ تصادفی
 createAGame=ساخت یک بازی
 whiteIsVictorious=بازیکن سفید برنده است
 blackIsVictorious=بازیکن سیاه برنده است
-kingInTheCenter=شاه در وسط
+kingInTheCenter=شاه در مرکز
 threeChecks=سه کیش
 raceFinished=مسابقه تمام شد
 variantEnding=تمام شدن مسابقه
@@ -60,7 +60,6 @@ viewNbCheckmates=%s کیش و مات
 nbBookmarks=%s بازی مورد علاقه
 nbPopularGames=%s بازی پرطرفدار
 nbAnalysedGames=%s بازی آنالیز شده
-bookmarkedByNbPlayers=نشانه گذاری شده توسط %s بازیکن
 viewInFullSize=تماشا کردن در اندازه کامل
 logOut=خروج
 signIn=ورود
@@ -151,7 +150,6 @@ giveNbSeconds=%s ثانیه اضافه کن
 premoveEnabledClickAnywhereToCancel=حرکت زودتر از موعد فعال است - برای لغو هر جای صفحه کلیک کنید
 thisPlayerUsesChessComputerAssistance=این بازیکن از رایانه کمک می گیرد
 thisPlayerArtificiallyIncreasesTheirRating=این بازیکن رتبه‌اش را به شکل مجازی بالا و پایین می‌کند
-opening=گشایش
 openingExplorer=باز کردن جستجوگر
 takeback=پس گرفتن حرکت
 proposeATakeback=پیشنهاد پس گرفتن حرکت
@@ -271,7 +269,6 @@ findTheBestMoveForWhite=بهترین حرکت را برای سفید بیابی�
 findTheBestMoveForBlack=بهترین حرکت را برای سیاه  بیابید
 toTrackYourProgress=برای ثبت پیشرفت خود:
 trainingSignupExplanation=در صورت نام‌نویسی، تلاش می‌کنیم مسائلی انتخاب کنیم که با توانایی‌های شما همخوانی داشته باشد، تا تمرینات بهتری داشته باشید.
-recentlyPlayedPuzzles=مسئله‌های اخیر
 puzzleId=مسئله شماره %s
 puzzleOfTheDay=مسئله روز
 clickToSolve=برای حل کلیک کنید
@@ -299,16 +296,8 @@ youHaveNbSecondsToMakeYourFirstMove=شما برای انجام اولین حرک
 nbGamesInPlay=%s بازی در حال انجام است
 automaticallyProceedToNextGameAfterMoving=حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن
 autoSwitch=تعویض خودکار
-openingId=گشایش %s
-yourOpeningRatingX=ریتینگ گشایش شما: %s
-findNbStrongMoves=%s حرکت قوی پیدا کنید
-thisMoveGivesYourOpponentTheAdvantage=این حرکت به حریف شما برتری میدهد
-openingFailed=گشایش را اشتباه حل کردید
-openingSolved=گشایش حل شد
-recentlyPlayedOpenings=گشایش های اخیر
 puzzles=پازل ها
 coordinates=مختصات
-openings=گشایش ها
 latestUpdates=آخرین به روز رسانی ها
 tournamentWinners=برندگان مسابقات
 name=نام

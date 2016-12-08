@@ -18,10 +18,9 @@ function round(ctrl, win) {
   showLoading(ctrl);
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.round(ctrl.data.puzzle.id).url,
+    url: '/training/' + ctrl.data.puzzle.id + '/round',
     data: {
-      win: win ? 1 : 0,
-      time: new Date().getTime() - (ctrl.data.startedAt || new Date()).getTime()
+      win: win ? 1 : 0
     },
     config: xhrConfig
   }).then(function(cfg) {
@@ -33,13 +32,13 @@ function round(ctrl, win) {
 function vote(ctrl, v) {
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.vote(ctrl.data.puzzle.id).url,
+    url: '/training/' + ctrl.data.puzzle.id + '/vote',
     data: {
       vote: v
     },
     config: xhrConfig
   }).then(function(res) {
-    ctrl.data.round.vote = res[0];
+    ctrl.data.voted = res[0];
     ctrl.data.puzzle.vote = res[1];
   });
 }
@@ -48,25 +47,13 @@ function retry(ctrl) {
   showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: uncache(ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url),
+    url: uncache('/training/' + ctrl.data.puzzle.id + '/load'),
     config: xhrConfig
   }).then(ctrl.reload);
 }
 
 function reloadPage() {
   location.href = '/training';
-}
-
-function setDifficulty(ctrl, d) {
-  showLoading(ctrl);
-  m.request({
-    method: 'POST',
-    url: '/training/difficulty',
-    data: {
-      difficulty: d
-    },
-    config: xhrConfig
-  }).then(ctrl.reload, reloadPage);
 }
 
 function newPuzzle(ctrl) {
@@ -85,6 +72,5 @@ module.exports = {
   round: round,
   vote: vote,
   retry: retry,
-  setDifficulty: setDifficulty,
   newPuzzle: newPuzzle
 };

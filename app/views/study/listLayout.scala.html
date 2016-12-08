@@ -1,4 +1,4 @@
-@(title: String, active: String, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChaptersAndLiked], url: controllers.Study.ListUrl)(titleHtml: Html)(implicit ctx: Context)
+@(title: String, active: String, order: lila.study.Order, pag: Paginator[lila.study.Study.WithChaptersAndLiked], url: controllers.Study.ListUrl, searchFilter: String)(titleHtml: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("studyList.css")
@@ -24,9 +24,9 @@ moreJs = moreJs,
 withLangAnnotations = false) {
 <div class="content_box no_padding studies">
   <div class="top">
-    <h1>@titleHtml</h1>
     <form class="search" action="@routes.Study.search()" method="get">
-      <input name="q" placeholder="@trans.search()" />
+      <input name="q" placeholder="@title" value="@searchFilter@if(searchFilter.nonEmpty){ }" />
+      <button type="submit" class="submit button" data-icon="y"></button>
     </form>
     @orderChoice(o => url(o.key), order, if (active == "all") lila.study.Order.allButOldest else lila.study.Order.all)
     @newForm()

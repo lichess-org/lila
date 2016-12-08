@@ -5,8 +5,8 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import lila.common.ApiVersion
 import lila.analyse.Analysis
+import lila.common.ApiVersion
 import lila.game.Pov
 import lila.pref.Pref
 
@@ -73,7 +73,8 @@ private[api] final class RoundApiBalancer(
     router ? Watcher(pov, apiVersion, tv, initialFenO, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
-  def review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
+  def review(pov: Pov, apiVersion: ApiVersion,
+    tv: Option[lila.round.OnTv] = None,
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,

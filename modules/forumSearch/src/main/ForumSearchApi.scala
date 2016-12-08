@@ -33,18 +33,32 @@ final class ForumSearchApi(
     Fields.troll -> view.post.troll,
     Fields.date -> view.post.createdAt.getDate)
 
+  import reactivemongo.play.iteratees.cursorProducer
+
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      lila.log("forumSearch").info(s"Index to ${c.index.name}")
-      import lila.db.dsl._
       import play.api.libs.iteratee._
-      PostRepo.cursor($empty).enumerateBulks(Int.MaxValue) |>>>
-        Iteratee.foldM[Iterator[Post], Unit](()) {
-          case (_, posts) => (postApi liteViews posts.toList) flatMap { views =>
-            c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+      import reactivemongo.api.ReadPreference
+      import lila.db.dsl._
+      logger.info(s"Index to ${c.index.name}")
+      val batchSize = 500
+      val maxEntries = Int.MaxValue
+      PostRepo.cursor(
+        selector = $empty,
+        readPreference = ReadPreference.secondaryPreferred)
+        .enumerator(maxEntries) &>
+        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
+        Iteratee.foldM[Seq[Post], Int](0) {
+          case (nb, posts) => for {
+            views <- postApi liteViews posts.toList
+            _ <- c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
+          } yield {
+            logger.info(s"Indexed $nb forum posts")
+            nb + posts.size
           }
         }
-    }
+    } >> client.refresh
+
     case _ => funit
   }
 }

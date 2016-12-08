@@ -15,6 +15,10 @@ function analysisBoardOrientation(data) {
   }
 }
 
+function poolUrl(clock) {
+  return '/#pool/' + (clock.initial / 60) + '+' + clock.increment;
+}
+
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
@@ -23,9 +27,8 @@ module.exports = {
     };
     return m('button', {
       key: socketMsg || 'click',
-      class: 'button hint--bottom ' + socketMsg + classSet({
-        ' disabled': !enabled()
-      }),
+      class: 'fbt hint--bottom ' + socketMsg,
+      disabled: !enabled(),
       'data-hint': ctrl.trans(hint),
       config: util.bindOnce('click', function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
@@ -48,16 +51,17 @@ module.exports = {
   },
   resignConfirm: function(ctrl) {
     return m('div.resign_confirm', [
-      m('button.button.yes.active.hint--bottom', {
-        'data-hint': ctrl.trans('resign'),
-        onclick: partial(ctrl.resign, true)
-      }, m('span', {
-        'data-icon': 'b'
-      })), m('button.button.no.hint--bottom', {
+      m('button.fbt.no.hint--bottom', {
         'data-hint': ctrl.trans('cancel'),
         onclick: partial(ctrl.resign, false)
       }, m('span', {
         'data-icon': 'L'
+      })),
+      m('button.fbt.yes.active.hint--bottom', {
+        'data-hint': ctrl.trans('resign'),
+        onclick: partial(ctrl.resign, true)
+      }, m('span', {
+        'data-icon': 'b'
       }))
     ]);
   },
@@ -147,7 +151,7 @@ module.exports = {
     if (d.tournament && d.tournament.running) return m('div.follow_up', [
       m('a', {
         'data-icon': 'G',
-        class: 'text button strong glowed',
+        class: 'text fbt strong glowed',
         href: '/tournament/' + d.tournament.id,
         config: util.bindOnce('click', ctrl.setRedirecting)
       }, ctrl.trans('backToTournament')),
@@ -169,7 +173,9 @@ module.exports = {
   followUp: function(ctrl) {
     var d = ctrl.data;
     var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
-    var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
+    var newable = (status.finished(d) || status.aborted(d)) && (
+      d.game.source === 'lobby' ||
+      d.game.source === 'pool');
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
@@ -187,7 +193,7 @@ module.exports = {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       newable ? m('a.button', {
-        href: '/?hook_like=' + d.game.id,
+        href: d.game.source === 'pool' ? poolUrl(d.clock) : '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
       game.replayable(d) ? m('a.button', {
         href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')

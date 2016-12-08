@@ -13,7 +13,7 @@ final class Divider {
     else Option(cache getIfPresent game.id) | {
       val div = chess.Replay.boards(
         moveStrs = game.pgnMoves,
-        initialFen = initialFen,
+        initialFen = initialFen map chess.format.FEN,
         variant = game.variant
       ).toOption.fold(Division.empty)(chess.Divider.apply)
       cache.put(game.id, div)

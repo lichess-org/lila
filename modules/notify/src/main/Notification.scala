@@ -26,9 +26,9 @@ object Notification {
   case class Notifies(value: String) extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 
-  def apply(notifies: Notification.Notifies, content: NotificationContent): Notification = {
+  def make(notifies: Notification.Notifies, content: NotificationContent): Notification = {
     val idSize = 8
-    val id = Random nextStringUppercase idSize
+    val id = Random nextString idSize
     new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
   }
 }

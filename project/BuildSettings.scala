@@ -1,4 +1,4 @@
-import play.Play.autoImport._
+import play.sbt.Play.autoImport._
 import sbt._, Keys._
 
 object BuildSettings {
@@ -7,7 +7,7 @@ object BuildSettings {
 
   val globalScalaVersion = "2.11.8"
 
-  def buildSettings = Defaults.defaultSettings ++ Seq(
+  def buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
@@ -40,11 +40,12 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
+    "-Xfatal-warnings",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
 
   val srcMain = Seq(
-    scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
-    scalaSource in Test <<= (sourceDirectory in Test)(identity)
+    scalaSource in Compile := (sourceDirectory in Compile).value,
+    scalaSource in Test := (sourceDirectory in Test).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

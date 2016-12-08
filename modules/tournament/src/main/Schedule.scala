@@ -49,6 +49,8 @@ case class Schedule(
   def similarTo(other: Schedule) =
     similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
+  def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+
   override def toString = s"$freq $variant $speed $conditions $at"
 }
 
@@ -101,8 +103,8 @@ object Schedule {
       case (Bullet, HyperBullet) => true
       case _                     => false
     }
-    def fromClock(clock: TournamentClock) = {
-      val time = clock.chessClock.estimateTotalTime
+    def fromClock(clock: chess.Clock.Config) = {
+      val time = clock.estimateTotalTime
       if (time < 60) HyperBullet
       else if (time < 180) Bullet
       else if (time < 480) Blitz
@@ -126,41 +128,41 @@ object Schedule {
   private[tournament] def durationFor(s: Schedule): Option[Int] = {
     import Freq._, Speed._
     import chess.variant._
-    Some((s.freq, s.speed, s.variant) match {
+    Some((s.freq, s.variant, s.speed) match {
 
-      case (Hourly, HyperBullet | Bullet, _)          => 27
-      case (Hourly, SuperBlitz, _)                    => 57
-      case (Hourly, Blitz, _)                         => 57
-      case (Hourly, Classical, _) if s.hasMaxRating   => 57
-      case (Hourly, Classical, _)                     => 117
+      case (Hourly, _, HyperBullet | Bullet)          => 27
+      case (Hourly, _, SuperBlitz)                    => 57
+      case (Hourly, _, Blitz)                         => 57
+      case (Hourly, _, Classical) if s.hasMaxRating   => 57
+      case (Hourly, _, Classical)                     => 117
 
-      case (Daily | Eastern, HyperBullet | Bullet, _) => 60
-      case (Daily | Eastern, SuperBlitz, _)           => 90
-      case (Daily | Eastern, Blitz, Standard)         => 120
-      case (Daily | Eastern, Classical, _)            => 150
+      case (Daily | Eastern, _, HyperBullet | Bullet) => 60
+      case (Daily | Eastern, _, SuperBlitz)           => 90
+      case (Daily | Eastern, Standard, Blitz)         => 120
+      case (Daily | Eastern, _, Classical)            => 150
 
-      case (Daily | Eastern, Blitz, Crazyhouse)       => 120
-      case (Daily | Eastern, Blitz, _)                => 60 // variant daily is shorter
+      case (Daily | Eastern, Crazyhouse, Blitz)       => 90
+      case (Daily | Eastern, _, Blitz)                => 60 // variant daily is shorter
 
-      case (Weekly, HyperBullet | Bullet, _)          => 60 * 2
-      case (Weekly, SuperBlitz, _)                    => 60 * 3
-      case (Weekly, Blitz, _)                         => 60 * 3
-      case (Weekly, Classical, _)                     => 60 * 4
+      case (Weekly, _, HyperBullet | Bullet)          => 60 * 2
+      case (Weekly, _, SuperBlitz)                    => 60 * 3
+      case (Weekly, _, Blitz)                         => 60 * 3
+      case (Weekly, _, Classical)                     => 60 * 4
 
-      case (Weekend, HyperBullet | Bullet, _)         => 90
-      case (Weekend, SuperBlitz, _)                   => 60 * 2
-      case (Weekend, Blitz, _)                        => 60 * 3
-      case (Weekend, Classical, _)                    => 60 * 4
+      case (Weekend, _, HyperBullet | Bullet)         => 90
+      case (Weekend, _, SuperBlitz)                   => 60 * 2
+      case (Weekend, _, Blitz)                        => 60 * 3
+      case (Weekend, _, Classical)                    => 60 * 4
 
-      case (Monthly, HyperBullet | Bullet, _)         => 60 * 3
-      case (Monthly, SuperBlitz, _)                   => 60 * 3 + 30
-      case (Monthly, Blitz, _)                        => 60 * 4
-      case (Monthly, Classical, _)                    => 60 * 5
+      case (Monthly, _, HyperBullet | Bullet)         => 60 * 3
+      case (Monthly, _, SuperBlitz)                   => 60 * 3 + 30
+      case (Monthly, _, Blitz)                        => 60 * 4
+      case (Monthly, _, Classical)                    => 60 * 5
 
-      case (Yearly, HyperBullet | Bullet, _)          => 60 * 4
-      case (Yearly, SuperBlitz, _)                    => 60 * 5
-      case (Yearly, Blitz, _)                         => 60 * 6
-      case (Yearly, Classical, _)                     => 60 * 8
+      case (Yearly, _, HyperBullet | Bullet)          => 60 * 4
+      case (Yearly, _, SuperBlitz)                    => 60 * 5
+      case (Yearly, _, Blitz)                         => 60 * 6
+      case (Yearly, _, Classical)                     => 60 * 8
 
       case (Marathon, _, _)                           => 60 * 24 // lol
       case (ExperimentalMarathon, _, _)               => 60 * 4
@@ -178,19 +180,54 @@ object Schedule {
     import Freq._, Speed._
     import chess.variant._
 
-    val TC = TournamentClock
+    val TC = chess.Clock.Config
 
-    (s.speed, s.variant, s.freq) match {
+    (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (SuperBlitz, Crazyhouse, Hourly) if zhInc(s) => TC(3 * 60, 1)
-      case (Blitz, Crazyhouse, Hourly) if zhInc(s)      => TC(4 * 60, 2)
-      case (Blitz, Standard, Hourly) if standardInc(s)  => TC(3 * 60, 2)
+      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
+      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
+      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
 
-      case (HyperBullet, _, _)                          => TC(30, 0)
-      case (Bullet, _, _)                               => TC(60, 0)
-      case (SuperBlitz, _, _)                           => TC(3 * 60, 0)
-      case (Blitz, _, _)                                => TC(5 * 60, 0)
-      case (Classical, _, _)                            => TC(10 * 60, 0)
+      case (_, _, HyperBullet)                          => TC(30, 0)
+      case (_, _, Bullet)                               => TC(60, 0)
+      case (_, _, SuperBlitz)                           => TC(3 * 60, 0)
+      case (_, _, Blitz)                                => TC(5 * 60, 0)
+      case (_, _, Classical)                            => TC(10 * 60, 0)
     }
   }
+
+  private[tournament] def conditionFor(s: Schedule) =
+    if (s.conditions.relevant) s.conditions
+    else {
+      import Freq._, Speed._
+
+      val nbRatedGame = (s.freq, s.speed) match {
+        case (Daily | Eastern, HyperBullet | Bullet)  => 20
+        case (Daily | Eastern, SuperBlitz | Blitz)    => 15
+        case (Daily | Eastern, Classical)             => 10
+
+        case (Weekly | Monthly, HyperBullet | Bullet) => 30
+        case (Weekly | Monthly, SuperBlitz | Blitz)   => 20
+        case (Weekly | Monthly, Classical)            => 15
+
+        case (Weekend, HyperBullet | Bullet)          => 30
+        case (Weekend, SuperBlitz | Blitz)            => 20
+
+        case _                                        => 0
+      }
+
+      val minRating = s.freq match {
+        case Weekend => 2200
+        case _       => 0
+      }
+
+      Condition.All(
+        nbRatedGame = nbRatedGame.some.filter(0<).map {
+          Condition.NbRatedGame(s.perfType.some, _)
+        },
+        minRating = minRating.some.filter(0<).map {
+          Condition.MinRating(s.perfType, _)
+        },
+        maxRating = none)
+    }
 }

@@ -6,7 +6,7 @@ var results = require('./results');
 
 module.exports = function(ctrl) {
   return [
-    m('div.title_tag', ctrl.trans('finished')),
+    m('div.top_right.finished', ctrl.trans('finished')),
     util.title(ctrl),
     results(ctrl),
     pairings(ctrl)

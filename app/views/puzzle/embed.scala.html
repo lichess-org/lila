@@ -1,11 +1,13 @@
-@(daily: lila.puzzle.DailyPuzzle, bg: String, theme: String)(implicit ctx: Context)
+@(daily: lila.puzzle.DailyPuzzle)(implicit ctx: Context)
 
 <!doctype html>
 <html>
   <head>
     <title>lichess.org training</title>
-    @if(bg == "dark") {
-    @cssTag("dark.css")
+    @ctx.currentBg match {
+    case "dark" => { @cssTag("dark.css") }
+    case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
+    case _ => {}
     }
     @cssTag(s"piece/merida.css")
     @cssTag("common.css")
@@ -13,9 +15,11 @@
     <meta charset="utf-8">
   </head>
   <body
-    class="base highlight @bg no-bg"
+    class="base highlight
+    @if(ctx.currentBg == "transp") {"dark transp"} else {@ctx.currentBg} no-bg
+    @ctx.currentTheme.cssClass"
     style="width: 224px; height: 264px; overflow: hidden;">
-    <div id="daily_puzzle" class="is2d highlight @bg @theme merida" title="@trans.clickToSolve()">
+    <div id="daily_puzzle" class="is2d highlight merida" title="@trans.clickToSolve()">
       @daily.html
       <div class="vstext" style="text-align: center">
         @trans.puzzleOfTheDay()<br />

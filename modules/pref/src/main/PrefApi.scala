@@ -12,11 +12,13 @@ import reactivemongo.bson._
 
 final class PrefApi(
     coll: Coll,
-    cacheTtl: Duration,
-    bus: lila.common.Bus) {
+    cacheTtl: Duration) {
 
-  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find(BSONDocument("_id" -> id)).uno[Pref]
-  private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
+  private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
+  private val cache = AsyncCache(
+    name = "pref.fetchPref",
+    f = fetchPref,
+    timeToLive = cacheTtl)
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 
@@ -53,16 +55,16 @@ final class PrefApi(
       challenge = r.getD("challenge", Pref.default.challenge),
       message = r.getD("message", Pref.default.message),
       coordColor = r.getD("coordColor", Pref.default.coordColor),
-      puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       insightShare = r.getD("insightShare", Pref.default.insightShare),
       keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
+      rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
       pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       tags = r.getD("tags", Pref.default.tags))
 
-    def writes(w: BSON.Writer, o: Pref) = BSONDocument(
+    def writes(w: BSON.Writer, o: Pref) = $doc(
       "_id" -> o._id,
       "dark" -> o.dark,
       "transp" -> o.transp,
@@ -91,11 +93,11 @@ final class PrefApi(
       "challenge" -> o.challenge,
       "message" -> o.message,
       "coordColor" -> o.coordColor,
-      "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
       "confirmResign" -> o.confirmResign,
       "insightShare" -> o.insightShare,
       "keyboardMove" -> o.keyboardMove,
+      "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
       "pieceNotation" -> o.pieceNotation,
       "tags" -> o.tags)
@@ -103,8 +105,8 @@ final class PrefApi(
 
   def saveTag(user: User, name: String, value: String) =
     coll.update(
-      BSONDocument("_id" -> user.id),
-      BSONDocument("$set" -> BSONDocument(s"tags.$name" -> value)),
+      $id(user.id),
+      $set(s"tags.$name" -> value),
       upsert = true).void >>- { cache remove user.id }
 
   def getPrefById(id: String): Fu[Pref] = cache(id) map (_ getOrElse Pref.create(id))
@@ -116,14 +118,14 @@ final class PrefApi(
   def getPref[A](userId: String, pref: Pref => A): Fu[A] = getPref(userId) map pref
 
   def followable(userId: String): Fu[Boolean] =
-    coll.find(BSONDocument("_id" -> userId), BSONDocument("follow" -> true)).uno[BSONDocument] map {
+    coll.find($id(userId), $doc("follow" -> true)).uno[Bdoc] map {
       _ flatMap (_.getAs[Boolean]("follow")) getOrElse Pref.default.follow
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.distinct("_id", ($inIds(userIds) ++ $doc(
+    coll.distinct[String, Set]("_id", ($inIds(userIds) ++ $doc(
       "follow" -> false
-    )).some) map lila.db.BSON.asStringSet
+    )).some)
 
   def followableIds(userIds: List[String]): Fu[Set[String]] =
     unfollowableIds(userIds) map userIds.toSet.diff
@@ -132,9 +134,8 @@ final class PrefApi(
     followableIds(userIds) map { followables => userIds map followables.contains }
 
   def setPref(pref: Pref, notifyChange: Boolean): Funit =
-    coll.update(BSONDocument("_id" -> pref.id), pref, upsert = true).void >>- {
+    coll.update($id(pref.id), pref, upsert = true).void >>- {
       cache remove pref.id
-      if (notifyChange) bus.publish(SendTo(pref.id, "prefChange", true), 'users)
     }
 
   def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =

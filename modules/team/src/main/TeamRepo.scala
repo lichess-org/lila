@@ -18,13 +18,17 @@ object TeamRepo {
 
   def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Team](ids)(_.id)
 
-  def cursor(selector: Bdoc) = coll.find(selector).cursor[Team]()
+  def cursor(
+    selector: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
+    implicit cp: CursorProducer[Team]) =
+    coll.find(selector).cursor[Team](readPreference)
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
     coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: String): Fu[List[String]] =
-    coll.distinct("_id", BSONDocument("createdBy" -> userId).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List]("_id", BSONDocument("createdBy" -> userId).some)
 
   def name(id: String): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")

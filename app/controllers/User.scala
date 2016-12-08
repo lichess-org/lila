@@ -21,6 +21,7 @@ object User extends LilaController {
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
   private def relationApi = Env.relation.api
+  private def ratingChartApi = Env.history.ratingChartApi
   private def userGameSearch = Env.gameSearch.userGameSearch
 
   def tv(username: String) = Open { implicit ctx =>
@@ -40,7 +41,7 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo lastPlayedPlaying user zip
+      if (user.enabled) GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
         (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
@@ -59,6 +60,7 @@ object User extends LilaController {
                 )))
               })
         }
+      else fuccess(Ok(html.user.miniClosed(user)))
     }
   }
 
@@ -72,8 +74,8 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached top50Online true map { list =>
-        Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
-      }
+      Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
+    }
     )
   }
 
@@ -114,7 +116,7 @@ object User extends LilaController {
       page = page)(ctx.body)
     relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
-      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _) }
+      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
     blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
@@ -163,7 +165,7 @@ object User extends LilaController {
       //     env lightUser pair.userId map { UserModel.LightCount(_, pair.nb) }
       //   }
       // }
-      tourneyWinners ← Env.tournament.winners scheduled nb
+      tourneyWinners ← Env.tournament.winners.all.map(_.top)
       online ← env.cached top50Online true
       res <- negotiate(
         html = fuccess(Ok(html.user.list(
@@ -191,7 +193,7 @@ object User extends LilaController {
   }
 
   def top200(perfKey: String) = Open { implicit ctx =>
-    lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+    PerfType(perfKey).fold(notFound) { perfType =>
       env.cached top200Perf perfType.id map { users =>
         Ok(html.user.top200(perfType, users))
       }
@@ -202,12 +204,12 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached.topWeek(true).map { users =>
-        Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
-      })
+      Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
+    })
   }
 
-  def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
-    me => OptionFuOk(UserRepo named username) { user =>
+  def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
+    OptionFuOk(UserRepo named username) { user =>
       (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
         (Env.security userSpy user.id) zip
         (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
@@ -222,13 +224,34 @@ object User extends LilaController {
     }
   }
 
-  def writeNote(username: String) = AuthBody { implicit ctx =>
-    me => OptionFuResult(UserRepo named username) { user =>
+  def writeNote(username: String) = AuthBody { implicit ctx => me =>
+    OptionFuResult(UserRepo named username) { user =>
       implicit val req = ctx.body
       env.forms.note.bindFromRequest.fold(
         err => filter(username, none, 1, Results.BadRequest),
-        text => env.noteApi.write(user, text, me) inject Redirect(routes.User.show(username).url + "?note")
+        data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote)) inject
+          Redirect(routes.User.show(username).url + "?note")
       )
+    }
+  }
+
+  private case class ClarkeyBot(result: Boolean, reason: String)
+  private implicit val clarkeyBotReads = Json.reads[ClarkeyBot]
+
+  def writeClarkeyBotNote(username: String) = OpenBody(parse.json) { implicit ctx =>
+    Mod.ModExternalBot {
+      OptionFuResult(UserRepo named username) { user =>
+        UserRepo.lichess.flatten("Missing lichess user") flatMap { lichess =>
+          ctx.body.body.validate[ClarkeyBot].fold(
+            err => fuccess(BadRequest(err.toString)),
+            data => {
+              val text =
+                if (data.result) s"Clarkey's bot would mark as engine: ${data.reason}"
+                else s"Clarkey's bot is indecise: ${data.reason}"
+              env.noteApi.write(user, text, lichess, true) inject Ok
+            })
+        }
+      }
     }
   }
 
@@ -254,7 +277,7 @@ object User extends LilaController {
   def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { u =>
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
-      else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+      else PerfType(perfKey).fold(notFound) { perfType =>
         for {
           perfStat <- Env.perfStat.get(u, perfType)
           ranks <- Env.user.cached.ranking.getAll(u.id)
@@ -264,7 +287,13 @@ object User extends LilaController {
           data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
           response <- negotiate(
             html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
-            api = _ => Ok(data).fuccess)
+            api = _ =>
+            getBool("graph").?? {
+              Env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
+            } map {
+              _.fold(data) { graph => data + ("graph" -> graph) }
+            } map { Ok(_) }
+          )
         } yield response
       }
     }
@@ -276,8 +305,7 @@ object User extends LilaController {
     }
   }
 
-  def myself = Auth { ctx =>
-    me =>
-      fuccess(Redirect(routes.User.show(me.username)))
+  def myself = Auth { ctx => me =>
+    fuccess(Redirect(routes.User.show(me.username)))
   }
 }

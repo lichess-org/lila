@@ -9,18 +9,21 @@ object Importer extends LilaController {
 
   private def env = Env.importer
 
-  def importGame = Open { implicit ctx =>
+  def importGame = OpenBody { implicit ctx =>
     fuccess {
-      Ok(html.game.importGame(env.forms.importForm))
+      val pgn = ctx.body.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+      val data = lila.importer.ImportData(pgn, None)
+      Ok(html.game.importGame(env.forms.importForm.fill(data)))
     }
   }
 
   def sendGame = OpenBody { implicit ctx =>
     implicit def req = ctx.body
     env.forms.importForm.bindFromRequest.fold(
-      failure => fuccess {
-        Ok(html.game.importGame(failure))
-      },
+      failure => negotiate(
+        html = Ok(html.game.importGame(failure)).fuccess,
+        api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
+      ),
       data => env.importer(data, ctx.userId) flatMap { game =>
         (data.analyse.isDefined && game.analysable) ?? {
           Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
@@ -31,7 +34,7 @@ object Importer extends LilaController {
         } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
-          logger.branch("importer").warn(
+          controllerLogger.branch("importer").warn(
             s"Imported game validates but can't be replayed:\n${data.pgn}", e)
           Redirect(routes.Importer.importGame)
       }

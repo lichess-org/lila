@@ -65,6 +65,7 @@ final class CrosstableApi(
 
   // to avoid creating it twice during a new matchup
   private val creationCache = AsyncCache[(String, String), Option[Crosstable]](
+    name = "crosstable",
     f = (create _).tupled,
     timeToLive = 20 seconds)
 

@@ -15,6 +15,7 @@ private final class FishnetRepo(
   import BSONHandlers._
 
   private val clientCache = AsyncCache[Client.Key, Option[Client]](
+    name = "fishnet.client",
     f = key => clientColl.find(selectClient(key)).uno[Client],
     timeToLive = 10 seconds)
 

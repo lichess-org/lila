@@ -12,8 +12,8 @@ import spray.caching.{ LruCache, Cache }
 
 import lila.common.LilaCookie
 import lila.common.PimpedJson._
-import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 
 final class Firewall(
     coll: Coll,
@@ -44,7 +44,7 @@ final class Firewall(
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     logger.info("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(name, Random nextStringUppercase 32)
+    val cookie = LilaCookie.cookie(name, Random secureString 32)
     Redirect("/") withCookies cookie
   }
 
@@ -61,23 +61,27 @@ final class Firewall(
     (cookies get name).isDefined
 
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipRegex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
+  private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
+
+  // ipv6 address in standard form (no compression, no leading zeros)
+  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
 
   private def validIp(ip: String) =
-    (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
+    ((ipv4Regex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0") ||
+      ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
 
   private type IP = Vector[Byte]
 
   private lazy val ips = new {
     private val cache: Cache[Set[IP]] = LruCache(timeToLive = cachedIpsTtl)
-    private def strToIp(ip: String) = InetAddress.getByName(ip).getAddress.toVector
+    private def strToIp(ip: String): Option[IP] = scala.util.Try {
+      InetAddress.getByName(ip).getAddress.toVector
+    }.toOption
     def apply: Fu[Set[IP]] = cache(true)(fetch)
     def clear { cache.clear }
-    def contains(ip: String) = apply map (_ contains strToIp(ip))
+    def contains(str: String) = strToIp(str) ?? { ip => apply.map(_ contains ip) }
     def fetch: Fu[Set[IP]] =
-      coll.distinct("_id") map { res =>
-        lila.db.BSON.asStringSet(res) map strToIp
-      } addEffect { ips =>
+      coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
         lila.mon.security.firewall.ip(ips.size)
       }
   }

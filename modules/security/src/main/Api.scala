@@ -51,7 +51,7 @@ final class Api(
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>
-        val sessionId = Random nextStringUppercase 12
+        val sessionId = Random secureString 12
         Store.save(sessionId, userId, req, apiVersion) inject sessionId
     }
 
@@ -61,6 +61,7 @@ final class Api(
         reqSessionId(req) ?? { sessionId =>
           Store userIdAndFingerprint sessionId flatMap {
             _ ?? { d =>
+              if (d.isOld) Store.setDateToNow(sessionId)
               UserRepo.byId(d.user) map {
                 _ map {
                   FingerprintedUser(_, d.fp.isDefined)
@@ -94,18 +95,18 @@ final class Api(
   def recentByIpExists(ip: String): Fu[Boolean] = Store recentByIpExists ip
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    coll.distinct(
+    coll.distinct[String, List](
       field,
       $doc("user" -> userId, field -> $doc("$exists" -> true)).some
     ).flatMap {
         case Nil => fuccess(Nil)
-        case values => coll.distinct(
+        case values => coll.distinct[String, List](
           "user",
           $doc(
             field $in values,
             "user" $ne userId
           ).some
-        ) map lila.db.BSON.asStrings
+        )
       }
 
   def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
@@ -113,13 +114,13 @@ final class Api(
   def recentUserIdsByIp = recentUserIdsByField("ip") _
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
-    coll.distinct(
+    coll.distinct[String, List](
       "user",
       $doc(
         field -> value,
         "date" $gt DateTime.now.minusYears(1)
       ).some
-    ) map lila.db.BSON.asStrings
+    )
 }
 
 object Api {

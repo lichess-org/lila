@@ -8,6 +8,7 @@ import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
+import lila.message.{ Thread, Post }
 import lila.user.User
 
 import play.api.libs.json._
@@ -30,6 +31,7 @@ private final class PushApi(
               case _           => "It's a draw."
             },
             body = s"Your game with ${opponentName(pov)} is over.",
+            stacking = Stacking.GameFinish,
             payload = Json.obj(
               "userId" -> userId,
               "userData" -> Json.obj(
@@ -54,6 +56,7 @@ private final class PushApi(
               pushToAll(userId, _.move, PushApi.Data(
                 title = "It's your turn!",
                 body = s"${opponentName(pov)} played $sanMove",
+                stacking = Stacking.GameMove,
                 payload = Json.obj(
                   "userId" -> userId,
                   "userData" -> Json.obj(
@@ -71,12 +74,51 @@ private final class PushApi(
     }
   }
 
+  def corresAlarm(gameId: String): Funit = GameRepo game gameId flatMap {
+    _ ?? { game =>
+      val pov = Pov(game, game.turnColor)
+      game.player(pov.color).userId ?? { userId =>
+        IfAway(pov) {
+          pushToAll(userId, _.corresAlarm, PushApi.Data(
+            title = "Time is almost up!",
+            body = s"You are about to lose on time against ${opponentName(pov)}",
+            stacking = Stacking.GameMove,
+            payload = Json.obj(
+              "userId" -> userId,
+              "userData" -> Json.obj(
+                "type" -> "corresAlarm",
+                "gameId" -> game.id,
+                "fullId" -> pov.fullId,
+                "color" -> pov.color.name,
+                "fen" -> Forsyth.exportBoard(game.toChess.board),
+                "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                "secondsLeft" -> pov.remainingSeconds))))
+        }
+      }
+    }
+  }
+
+  def newMessage(t: Thread, p: Post): Funit =
+    lightUser(t.senderOf(p)) ?? { sender =>
+      pushToAll(t.receiverOf(p), _.message, PushApi.Data(
+        title = s"${sender.titleName}: ${t.name}",
+        body = p.text take 140,
+        stacking = Stacking.NewMessage,
+        payload = Json.obj(
+          "userId" -> t.receiverOf(p),
+          "userData" -> Json.obj(
+            "type" -> "newMessage",
+            "threadId" -> t.id,
+            "sender" -> sender))))
+    }
+
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
       lightUser(challenger.id) ?? { lightChallenger =>
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
           title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
           body = describeChallenge(c),
+          stacking = Stacking.ChallengeCreate,
           payload = Json.obj(
             "userId" -> dest.id,
             "userData" -> Json.obj(
@@ -92,6 +134,7 @@ private final class PushApi(
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
         title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
         body = describeChallenge(c),
+        stacking = Stacking.ChallengeAccept,
         payload = Json.obj(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
@@ -149,5 +192,6 @@ private object PushApi {
   case class Data(
     title: String,
     body: String,
+    stacking: Stacking,
     payload: JsObject)
 }

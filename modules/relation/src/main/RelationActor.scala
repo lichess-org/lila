@@ -22,7 +22,7 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, LightUser]()
 
-  private val onlinePlayings = new ExpireSetMemo(1 hour)
+  private val onlinePlayings = new ExpireSetMemo(4 hour)
 
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'startGame)

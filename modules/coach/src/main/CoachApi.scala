@@ -18,6 +18,7 @@ final class CoachApi(
   import BsonHandlers._
 
   private val cache = AsyncCache.single[List[Coach]](
+    name = "coach.list",
     f = coachColl.find($empty).list[Coach](),
     timeToLive = 10 minutes)
 
@@ -104,11 +105,14 @@ final class CoachApi(
             approved = false,
             updatedAt = DateTime.now)
         }
-        reviewColl.update($id(id), review, upsert = true) >>
-          notifyApi.addNotification(Notification(
-            notifies = Notification.Notifies(coach.id.value),
-            content = lila.notify.CoachReview
-          )) >> refreshCoachNbReviews(coach.id) inject review
+        if (me.troll) fuccess(review)
+        else {
+          reviewColl.update($id(id), review, upsert = true) >>
+            notifyApi.addNotification(Notification.make(
+              notifies = Notification.Notifies(coach.id.value),
+              content = lila.notify.CoachReview
+            )) >> refreshCoachNbReviews(coach.id) inject review
+        }
       }
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)

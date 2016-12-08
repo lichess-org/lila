@@ -18,6 +18,7 @@ object Global extends GlobalSettings {
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
     lila.mon.http.request.all()
+    if (req.remoteAddress contains ":") lila.mon.http.request.ipv6()
     Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
   }
 

@@ -7,7 +7,10 @@ final class UserSearch(
 emailAddress: lila.security.EmailAddress) {
 
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipPattern = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r.pattern
+  private val ipv4Pattern = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r.pattern
+
+  // ipv6 in standard form
+  private val ipv6Pattern = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r.pattern
 
   // from playframework
   private val emailPattern =
@@ -15,12 +18,13 @@ emailAddress: lila.security.EmailAddress) {
 
   def apply(query: String): Fu[List[User]] =
     if (query.isEmpty) fuccess(Nil)
-    else if (ipPattern.matcher(query).matches) searchIp(query)
     else if (emailPattern.matcher(query).matches) searchEmail(query)
+    else if (ipv4Pattern.matcher(query).matches) searchIp(query)
+    else if (ipv6Pattern.matcher(query).matches) searchIp(query)
     else searchUsername(query)
 
   private def searchIp(ip: String) =
-    securityApi recentUserIdsByIp ip flatMap UserRepo.byOrderedIds
+    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.byOrderedIds
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

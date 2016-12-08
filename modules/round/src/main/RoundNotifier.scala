@@ -21,7 +21,7 @@ private final class RoundNotifier(
           perf = perfType.key)) toUser userId)
       }
       isUserPresent(game, userId) foreach {
-        case false => notifyApi.addNotification(Notification(
+        case false => notifyApi.addNotification(Notification.make(
           Notification.Notifies(userId),
           GameEnd(
             GameEnd.GameId(game.id),

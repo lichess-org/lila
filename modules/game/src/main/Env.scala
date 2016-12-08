@@ -29,8 +29,8 @@ final class Env(
     val JsPathCompiled = config getString "js_path.compiled"
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
-    val PdfExecPath = config getString "pdf.exec_path"
-    val PngExecPath = config getString "png.exec_path"
+    val PngUrl = config getString "png.url"
+    val PngSize = config getInt "png.size"
   }
   import settings._
 
@@ -38,9 +38,7 @@ final class Env(
 
   lazy val playTime = new PlayTime(gameColl)
 
-  lazy val pdfExport = PdfExport(PdfExecPath) _
-
-  lazy val pngExport = PngExport(PngExecPath) _
+  lazy val pngExport = new PngExport(PngUrl, PngSize)
 
   lazy val divider = new Divider
 
@@ -55,8 +53,6 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val rewind = Rewind
-
-  lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
 
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
@@ -89,6 +85,8 @@ final class Env(
       }
     }
   }
+
+  lazy val stream = new GameStream(system)
 
   private def jsPath =
     "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))

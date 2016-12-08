@@ -5,14 +5,13 @@ dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
 
-git clone https://github.com/gilt/gfc-semver
-cd gfc-semver
+git clone https://github.com/ornicar/Kamon --branch lila
+cd Kamon
 sbt publish-local
 cd ..
 
-git clone https://github.com/ornicar/ReactiveMongo --branch lichess
-cd ReactiveMongo
-git checkout b3e895f1c723d7cb518763f31fba62dc74311eab
+git clone https://github.com/gilt/gfc-semver
+cd gfc-semver
 sbt publish-local
 cd ..
 

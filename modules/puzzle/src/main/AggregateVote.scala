@@ -19,7 +19,7 @@ case class AggregateVote(up: Int, down: Int, sum: Int) {
 
 object AggregateVote {
 
-  val default = AggregateVote(0, 0, 0)
+  val default = AggregateVote(1, 0, 1)
   val disable = AggregateVote(0, 9000, 0).computeSum
 
   import reactivemongo.bson.Macros

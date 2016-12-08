@@ -6,6 +6,7 @@ import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
+import lila.common.String.slugify
 import lila.game.{ Game, GameRepo }
 
 final class PgnDump(
@@ -23,43 +24,58 @@ final class PgnDump(
 
   def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
     (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
-      case Some((game, initialFen)) => gamePgnDump.tags(game, initialFen.map(_.value), none)
-      case None                     => tags(study, chapter)
+      case Some((game, initialFen)) =>
+        gamePgnDump.tags(game, initialFen.map(_.value), none) :+ annotatorTag(study)
+      case None => makeTags(study, chapter)
     }.map { tags =>
       Pgn(
         tags = tags,
-        turns =toTurns(chapter.root),
+        turns = toTurns(chapter.root),
         initial = Initial(chapter.root.comments.list.map(_.text.value)))
     }
 
   private val fileR = """[\s,]""".r
 
+  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
+
   def filename(study: Study): String = {
-    val name = lila.common.String slugify study.name
-    val owner = lightUser(study.ownerId).fold(study.ownerId)(_.name)
     val date = dateFormat.print(study.createdAt)
-    fileR.replaceAllIn(s"lichess_study_${name}_by_${owner}_${date}.pgn", "")
+    fileR.replaceAllIn(
+      s"lichess_study_${slugify(study.name)}_by_${ownerName(study)}_${date}.pgn", "")
+  }
+
+  def filename(study: Study, chapter: Chapter): String = {
+    val date = dateFormat.print(chapter.createdAt)
+    fileR.replaceAllIn(
+      s"lichess_study_${slugify(study.name)}_${slugify(chapter.name)}_by_${ownerName(study)}_${date}.pgn", "")
   }
 
   private def studyUrl(id: String) = s"$netBaseUrl/study/$id"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
-  private def tags(study: Study, chapter: Chapter): List[Tag] = {
+  private def annotatorTag(study: Study) =
+    Tag(_.Annotator, s"${ownerName(study)} @ https://lichess.org")
+
+  private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
-    List(
+    val fromTags = chapter.setup.fromPgn.??(_.tags)
+    val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
       Tag(_.Date, dateFormat.print(chapter.createdAt)),
-      // Tag(_.White, "?"),
-      // Tag(_.Black, "?"),
       Tag(_.Variant, chapter.setup.variant.name.capitalize),
       Tag(_.ECO, opening.fold("?")(_.eco)),
       Tag(_.Opening, opening.fold("?")(_.name))
-    ) ::: (chapter.root.fen.value != Forsyth.initial).??(List(
+    ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(List(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))
+    genTags.foldLeft(fromTags.reverse) {
+      case (tags, tag) =>
+        if (tags.exists(t => tag.name == t.name)) tags
+        else tag :: tags
+    }.reverse
   }
 }
 

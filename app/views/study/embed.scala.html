@@ -1,0 +1,54 @@
+@(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit ctx: Context)
+
+<!doctype html>
+<html>
+  <head>
+    <title>@s.name: @chapter.name</title>
+    @ctx.currentBg match {
+    case "dark" => { @cssTag("dark.css") }
+    case "transp" => { @cssTag("dark.css")@cssTag("transp.css") }
+    case _ => {}
+    }
+    @cssTag("common.css")
+    @cssTag("board.css")
+    @cssTag("analyse.css")
+    @cssTag("analyse-embed.css")
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
+    <meta charset="utf-8">
+  </head>
+  <body class="base highlight @List(
+    ctx.currentTheme.cssClass,
+    if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
+    ctx.pref.highlight ?? "highlight",
+    ctx.pref.destination ?? "destination",
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
+    "coords_1").mkString(" ")">
+    <div class="is2d">
+      <div class="embedded_study analyse cg-512">@miniBoardContent</div>
+    </div>
+    <footer>
+      @defining(routes.Study.chapter(s.id, chapter.id)) { url =>
+      <div class="left">
+        <a target="_blank" href="@url"><h1>@s.name</h1></a> <em>brought to you by <a target="_blank" href="@netBaseUrl">@netDomain</a></em>
+      </div>
+      <a target="_blank" class="open" href="@url">Open</a>
+      }
+    </footer>
+    @jQueryTag
+    @jsTag("vendor/mousetrap.js")
+    @jsTag("util.js")
+    @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+    @jsTag("embed-analyse.js")
+    @embedJs {
+    lichess.startEmbeddedAnalyse({
+    element: document.querySelector('.embedded_study'),
+    study: @Html(J.stringify(data.study)),
+    data: @Html(J.stringify(data.analysis)),
+    embed: true,
+    i18n: @board.userAnalysisI18n(),
+    userId: "null"
+    });
+    }
+    @base.ga()
+  </body>
+</html>

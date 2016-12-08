@@ -3,7 +3,7 @@ package lila.tournament
 import chess.variant.Variant
 import chess.{ Speed, Mode, StartingPosition }
 import lila.db.BSON
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 import lila.rating.PerfType
 import reactivemongo.bson._
 
@@ -19,7 +19,19 @@ object BSONHandlers {
     def write(x: Status) = BSONInteger(x.id)
   }
 
-  private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
+  private implicit val scheduleFreqHandler = new BSONHandler[BSONString, Schedule.Freq] {
+    def read(bsonStr: BSONString) = Schedule.Freq(bsonStr.value) err s"No such freq: ${bsonStr.value}"
+    def write(x: Schedule.Freq) = BSONString(x.name)
+  }
+  private implicit val scheduleSpeedHandler = new BSONHandler[BSONString, Schedule.Speed] {
+    def read(bsonStr: BSONString) = Schedule.Speed(bsonStr.value) err s"No such speed: ${bsonStr.value}"
+    def write(x: Schedule.Speed) = BSONString(x.name)
+  }
+
+  private implicit val tournamentClockBSONHandler = {
+    import chess.Clock.Config
+    Macros.handler[Config]
+  }
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
@@ -41,7 +53,7 @@ object BSONHandlers {
         name = r str "name",
         status = r.get[Status]("status"),
         system = r.intO("system").fold[System](System.default)(System.orDefault),
-        clock = r.get[TournamentClock]("clock"),
+        clock = r.get[chess.Clock.Config]("clock"),
         minutes = r int "minutes",
         variant = variant,
         position = position,
@@ -50,9 +62,9 @@ object BSONHandlers {
         password = r.strO("password"),
         conditions = conditions,
         schedule = for {
-          doc <- r.getO[BSONDocument]("schedule")
-          freq <- doc.getAs[String]("freq") flatMap Schedule.Freq.apply
-          speed <- doc.getAs[String]("speed") flatMap Schedule.Speed.apply
+          doc <- r.getO[Bdoc]("schedule")
+          freq <- doc.getAs[Schedule.Freq]("freq")
+          speed <- doc.getAs[Schedule.Speed]("speed")
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
@@ -62,7 +74,7 @@ object BSONHandlers {
         featuredId = r strO "featured",
         spotlight = r.getO[Spotlight]("spotlight"))
     }
-    def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
+    def writes(w: BSON.Writer, o: Tournament) = $doc(
       "_id" -> o.id,
       "name" -> o.name,
       "status" -> o.status,
@@ -76,9 +88,9 @@ object BSONHandlers {
       "password" -> o.password,
       "conditions" -> o.conditions.ifNonEmpty,
       "schedule" -> o.schedule.map { s =>
-        BSONDocument(
-          "freq" -> s.freq.name,
-          "speed" -> s.speed.name)
+        $doc(
+          "freq" -> s.freq,
+          "speed" -> s.speed)
       },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
@@ -102,7 +114,7 @@ object BSONHandlers {
       magicScore = r int "m",
       fire = r boolD "f",
       performance = r intO "e")
-    def writes(w: BSON.Writer, o: Player) = BSONDocument(
+    def writes(w: BSON.Writer, o: Player) = $doc(
       "_id" -> o._id,
       "tid" -> o.tourId,
       "uid" -> o.userId,
@@ -132,7 +144,7 @@ object BSONHandlers {
         berserk1 = r intD "b1",
         berserk2 = r intD "b2")
     }
-    def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
+    def writes(w: BSON.Writer, o: Pairing) = $doc(
       "_id" -> o.id,
       "tid" -> o.tourId,
       "s" -> o.status.id,
@@ -157,7 +169,7 @@ object BSONHandlers {
       perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
       date = r date "d")
 
-    def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = BSONDocument(
+    def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = $doc(
       "_id" -> o.id,
       "u" -> o.userId,
       "t" -> o.tourId,

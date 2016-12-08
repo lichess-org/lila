@@ -18,13 +18,12 @@ final class Env(
     val CollectionVote = config getString "collection.vote"
     val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
-    val PngExecPath = config getString "png.exec_path"
   }
   import settings._
 
   val AnimationDuration = config duration "animation.duration"
 
-  private val db = new lila.db.Env(config getConfig "mongodb", lifecycle)
+  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
@@ -41,7 +40,6 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    anonMinRating = config getInt "selector.anon_min_rating",
     puzzleIdMin = config getInt "selector.puzzle_id_min")
 
   lazy val userInfos = UserInfos(roundColl = roundColl)
@@ -53,8 +51,6 @@ final class Env(
     renderer,
     system.scheduler
   ).apply _
-
-  lazy val pngExport = PngExport(PngExecPath) _
 
   def cli = new lila.common.Cli {
     def process = {

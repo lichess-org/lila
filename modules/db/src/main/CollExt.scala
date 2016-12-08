@@ -1,6 +1,7 @@
 package lila.db
 
 import reactivemongo.api._
+import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
 trait CollExt { self: dsl with QueryBuilderExt =>
@@ -34,10 +35,13 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).map(0!=)
 
     def byOrderedIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary)(docId: D => String): Fu[List[D]] =
-      coll.find($inIds(ids)).cursor[D](readPreference = readPreference).collect[List]() map { docs =>
-        val docsMap = docs.map(u => docId(u) -> u).toMap
-        ids.flatMap(docsMap.get).toList
-      }
+      coll.find($inIds(ids)).cursor[D](readPreference = readPreference).
+        collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]()).
+        map { docs =>
+          val docsMap = docs.map(u => docId(u) -> u).toMap
+          ids.flatMap(docsMap.get).toList
+        }
+
     // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
     //   byOrderedIds[String, A](ids)
 
@@ -88,14 +92,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def updateField[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
       coll.update(selector, $set(field -> value))
 
-    def updateFieldUnchecked[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
-      coll.uncheckedUpdate(selector, $set(field -> value))
+    def updateFieldUnchecked[V: BSONValueWriter](selector: Bdoc, field: String, value: V): Unit =
+      coll.update(selector, $set(field -> value), writeConcern = GetLastError.Unacknowledged)
 
     def incField(selector: Bdoc, field: String, value: Int = 1) =
       coll.update(selector, $inc(field -> value))
 
-    def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1) =
-      coll.uncheckedUpdate(selector, $inc(field -> value))
+    def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1): Unit =
+      coll.update(selector, $inc(field -> value), writeConcern = GetLastError.Unacknowledged)
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update(selector, $unset(field), multi = multi)

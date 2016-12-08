@@ -3,23 +3,17 @@ package lila.puzzle
 import org.joda.time.DateTime
 
 case class Vote(
-    _id: String, // userId/puzzleId
-    vote: Boolean) {
+    _id: String, // puzzleId/userId
+    v: Boolean) {
 
   def id = _id
+
+  def value = v
 }
 
 object Vote {
 
   def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
 
-  object BSONFields {
-    val id = "_id"
-    val vote = "vote"
-  }
-
-  import reactivemongo.bson._
-  import lila.db.BSON
-  
-  implicit val voteBSONHandler = Macros.handler[Vote]
+  implicit val voteBSONHandler = reactivemongo.bson.Macros.handler[Vote]
 }

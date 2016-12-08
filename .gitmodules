@@ -4,12 +4,6 @@
 [submodule "public/vendor/tagmanager"]
 	path = public/vendor/tagmanager
 	url = https://github.com/max-favilli/tagmanager
-[submodule "submodules/pdfexporter"]
-	path = submodules/pdfexporter
-	url = https://github.com/ornicar/lichessPDFExporter
-[submodule "submodules/boardcreator"]
-	path = submodules/boardcreator
-	url = https://github.com/clarkerubber/board-creator
 [submodule "ui/chessli"]
 	path = ui/chessli
 	url = https://github.com/ornicar/chess.js
@@ -31,9 +25,6 @@
 [submodule "public/vendor/stockfish.js"]
 	path = public/vendor/stockfish.js
 	url = https://github.com/niklasf/stockfish.js
-[submodule "public/vendor/Sunsetter"]
-	path = public/vendor/Sunsetter
-	url = https://github.com/niklasf/Sunsetter.git
 [submodule "public/vendor/flatpickr"]
 	path = public/vendor/flatpickr
 	url = https://github.com/chmln/flatpickr
@@ -43,3 +34,10 @@
 [submodule "public/visualizer"]
 	path = public/visualizer
 	url = https://github.com/ornicar/chess_game_visualizer
+[submodule "public/vendor/stockfish.pexe"]
+	path = public/vendor/stockfish.pexe
+	url = https://github.com/niklasf/stockfish.pexe
+	branch = ddugovic
+[submodule "public/vendor/jquery-textcomplete"]
+	path = public/vendor/jquery-textcomplete
+	url = https://github.com/yuku-t/jquery-textcomplete

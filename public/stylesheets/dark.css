@@ -7,7 +7,8 @@ body.dark a,
 body.dark a:visited,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
-body.dark .button {
+body.dark .button,
+body.dark .fbt {
   color: #8f8f8f;
 }
 body.dark #video .content_box_top form input,
@@ -47,6 +48,7 @@ body.dark #video .tag_list a:hover {
 body.dark #video .card .duration {
   background: rgba(0,0,0,0.7);
 }
+body.dark .fbt.glowed,
 body.dark #site_title {
   color: #acacac;
 }
@@ -66,15 +68,15 @@ body.dark div.side_box .top,
 body.dark div.box,
 body.dark div.box .top,
 body.dark div.table,
-body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #tournament_schedule .schedule,
 body.dark #tournament_side .box,
 body.dark #tournament_side .player .stats,
 body.dark #tournament_side .player tr > *,
 body.dark #tournament_side .player tr:hover th,
-body.dark .lichess_ground .ceval_box,
-body.dark .lichess_ground .opening_box,
+body.dark .ceval_box,
+body.dark .areplay .opening_box,
+body.dark .areplay .chapter_name,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
@@ -140,6 +142,9 @@ body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
 body.dark .lichess_ground .replay,
 body.dark .lichess_ground .areplay,
+body.dark .lichess_ground .result,
+body.dark .lichess_ground .replay .buttons,
+body.dark .lichess_ground .replay .moves,
 body.dark .tview2 > index,
 body.dark .tview2 > index + move,
 body.dark div.analysis_menu,
@@ -157,7 +162,7 @@ body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
-body.dark div.training div.box,
+body.dark #puzzle div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
 body.dark div.side_box .game_infos,
@@ -181,6 +186,8 @@ body.dark .crosstable td:nth-last-child(3) {
 }
 body.dark .tview2 > index,
 body.dark .tview2 > interrupt,
+body.dark .lichess_ground .areplay .result,
+body.dark .lichess_ground .areplay .status,
 body.dark .explorer_box .config .choices span:hover,
 body.dark #perfStat .counter tr.full td:last-child,
 body.dark div.lichess_overboard .close,
@@ -265,8 +272,10 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 body.dark #site_header div.side_menu a:hover,
 body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
+body.dark #hooks_wrap .pools > div:hover,
 body.dark #now_playing > a:hover,
 body.dark .explorer_box tr:hover,
+body.dark .pv_box .pv[data-uci]:hover,
 body.dark #tournament table.standing:not(.created):not(.loading) tbody tr:hover {
   background: rgba(27, 51, 68, 0.7);
 }
@@ -290,8 +299,9 @@ body.dark div.table_not_started {
 }
 body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .replay move:not(.empty):hover,
-body.dark .lichess_ground .ceval_box pearl,
-body.dark .lichess_ground .opening_box,
+body.dark .ceval_box pearl,
+body.dark .areplay .opening_box,
+body.dark .areplay .chapter_name,
 body.dark #challenge_app div.challenge,
 body.dark #challenge_app div.empty,
 body.dark #challenge_app div.initiating,
@@ -409,8 +419,7 @@ body.dark #challenge_app .owner,
 body.dark group.radio,
 body.dark group.radio label,
 body.dark .ui-slider-handle,
-body.dark .ui-widget-content,
-body.dark .lichess_ground .replay .moves {
+body.dark .ui-widget-content {
   border-color: #323232;
 }
 body.dark #notify_app .site_notification,
@@ -422,8 +431,6 @@ body.dark a.button:hover {
   background: rgb(44, 44, 44);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(40, 40, 40, 1) 100%);
 }
-body.dark .button.active-soft,
-body.dark .button.active-soft:hover,
 body.dark .fbt.active-soft,
 body.dark .fbt.active-soft:hover {
   color: #ccc !important;
@@ -443,18 +450,18 @@ body.dark #hooks_wrap .hooks_chart > span.label {
 body.dark .pull-quote p:after {
   background: #1a1a1a;
 }
-body.dark div.training > .side div.fail,
-body.dark div.training > .side div.loss {
+body.dark #puzzle > .side div.fail,
+body.dark #puzzle > .side div.loss {
   color: #e97472;
   background: #582b33;
 }
-body.dark div.training > .side div.retry {
+body.dark #puzzle > .side div.retry {
   color: #8482c9;
   background: #101034;
 }
-body.dark div.training > .side div.great,
-body.dark div.training > .side div.win,
-body.dark #puzzle > .right .please_vote {
+body.dark #puzzle > .side div.great,
+body.dark #puzzle > .side div.win,
+body.dark #puzzle .please_vote {
   background: #103410;
   color: #74a962;
 }

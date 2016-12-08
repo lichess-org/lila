@@ -1,7 +1,7 @@
 package lila.socket
 
-import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
+import ornicar.scalalib.Zero
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -20,20 +20,22 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  val AnaRateLimit = new lila.memo.RateLimit(120, 30 seconds,
+  private val AnaRateLimiter = new lila.memo.RateLimit(120, 30 seconds,
     name = "socket analysis move",
     key = "socket_analysis_move")
 
+  def AnaRateLimit[A: Zero](uid: String, member: SocketMember)(op: => A) =
+    AnaRateLimiter(uid, msg = s"user: ${member.userId | "anon"}")(op)
+
   def apply(
     hub: lila.hub.Env,
-    socket: ActorRef,
+    socket: akka.actor.ActorRef,
     uid: String,
-    join: Any,
-    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
+    join: Any)(connecter: Connecter): Fu[JsSocketHandler] = {
 
     def baseController(member: SocketMember): Controller = {
       case ("p", _) => socket ! Ping(uid)
-      case ("following_onlines", _) => userId foreach { u =>
+      case ("following_onlines", _) => member.userId foreach { u =>
         hub.actor.relation ! ReloadOnlineFriends(u)
       }
       case ("startWatching", o) => o str "d" foreach { ids =>
@@ -42,7 +44,7 @@ object Handler {
       case ("moveLat", o) => hub.channel.roundMoveTime ! (~(o boolean "d")).fold(
         Channel.Sub(member),
         Channel.UnSub(member))
-      case ("anaMove", o) => AnaRateLimit(uid) {
+      case ("anaMove", o) => AnaRateLimit(uid, member) {
         AnaMove parse o foreach { anaMove =>
           anaMove.branch match {
             case scalaz.Success(branch) =>
@@ -55,7 +57,7 @@ object Handler {
           }
         }
       }
-      case ("anaDrop", o) => AnaRateLimit(uid) {
+      case ("anaDrop", o) => AnaRateLimit(uid, member) {
         AnaDrop parse o foreach { anaDrop =>
           anaDrop.branch match {
             case scalaz.Success(branch) =>
@@ -68,7 +70,7 @@ object Handler {
           }
         }
       }
-      case ("anaDests", o) => AnaRateLimit(uid) {
+      case ("anaDests", o) => AnaRateLimit(uid, member) {
         AnaDests parse o map (_.compute) match {
           case Some(req) =>
             member push lila.socket.Socket.makeMessage("dests", Json.obj(

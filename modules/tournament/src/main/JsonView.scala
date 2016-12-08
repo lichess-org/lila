@@ -1,10 +1,11 @@
 package lila.tournament
 
-import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
+import chess.Clock.{ Config => TournamentClock }
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, Pov }
@@ -59,7 +60,7 @@ final class JsonView(
     "perf" -> tour.perfType,
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
-    "clock" -> clockJson(tour.clock),
+    "clock" -> tour.clock,
     "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
     "private" -> tour.`private`.option(true),
     "verdicts" -> verdicts,
@@ -174,21 +175,24 @@ final class JsonView(
   )
 
   private val firstPageCache = lila.memo.AsyncCache[String, JsObject](
-    (id: String) => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
+    name = "tournament.firstPage",
+    id => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
     timeToLive = 1 second)
 
-  private val cachableData = lila.memo.AsyncCache[String, CachableData](id =>
-    for {
-      pairings <- PairingRepo.recentByTour(id, 40)
-      tour <- TournamentRepo byId id
-      featured <- tour ?? fetchFeaturedGame
-      podium <- podiumJson(id)
-      next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
-    } yield CachableData(
-      pairings = JsArray(pairings map pairingJson),
-      featured = featured map featuredJson,
-      podium = podium,
-      next = next),
+  private val cachableData = lila.memo.AsyncCache[String, CachableData](
+    name = "tournament.json.cachable",
+    id =>
+      for {
+        pairings <- PairingRepo.recentByTour(id, 40)
+        tour <- TournamentRepo byId id
+        featured <- tour ?? fetchFeaturedGame
+        podium <- podiumJson(id)
+        next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
+      } yield CachableData(
+        pairings = JsArray(pairings map pairingJson),
+        featured = featured map featuredJson,
+        podium = podium,
+        next = next),
     timeToLive = 1 second)
 
   private def nextJson(tour: Tournament) = Json.obj(
@@ -315,9 +319,7 @@ object JsonView {
     "freq" -> s.freq.name,
     "speed" -> s.speed.name)
 
-  private[tournament] def clockJson(c: TournamentClock) = Json.obj(
-    "limit" -> c.limit,
-    "increment" -> c.increment)
+  private[tournament] implicit val clockWriter: Writes[TournamentClock] = Json.writes[TournamentClock]
 
   private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
     "eco" -> s.eco,

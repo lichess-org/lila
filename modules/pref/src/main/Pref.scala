@@ -31,11 +31,11 @@ case class Pref(
     challenge: Int,
     message: Int,
     coordColor: Int,
-    puzzleDifficulty: Int,
     submitMove: Int,
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
     tags: Map[String, String] = Map.empty) {
@@ -109,17 +109,6 @@ object Pref {
     val verifyTitle = "verifyTitle"
   }
 
-  object Difficulty {
-    val EASY = 1
-    val NORMAL = 2
-    val HARD = 3
-
-    val choices = Seq(
-      EASY -> "Easy",
-      NORMAL -> "Normal",
-      HARD -> "Hard")
-  }
-
   object Color {
     val WHITE = 1
     val RANDOM = 2
@@ -169,6 +158,15 @@ object Pref {
   }
 
   object KeyboardMove extends BooleanPref
+
+  object RookCastle {
+    val NO = 0
+    val YES = 1
+
+    val choices = Seq(
+      NO -> "Castle by moving by two squares",
+      YES -> "Castle by moving onto the rook")
+  }
 
   object MoveEvent {
     val CLICK = 0
@@ -331,11 +329,11 @@ object Pref {
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     coordColor = Color.RANDOM,
-    puzzleDifficulty = Difficulty.NORMAL,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     tags = Map.empty)

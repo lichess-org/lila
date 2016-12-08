@@ -1,33 +1,22 @@
 package views.html.puzzle
 
 import play.api.libs.json.{ JsArray, Json }
-import play.twirl.api.Html
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.common.PimpedJson._
 import lila.puzzle._
 
 object JsData extends lila.Steroids {
 
-  def history(infos: UserInfos) = Json.obj(
-    "attempts" -> infos.history.map { a =>
-      Json.obj(
-        "puzzleId" -> a.puzzleId,
-        "date" -> a.date,
-        "win" -> a.win,
-        "userRating" -> a.userRating,
-        "userRatingDiff" -> a.userRatingDiff)
-    })
-
   def apply(
     puzzle: Puzzle,
-    userInfos: Option[lila.puzzle.UserInfos],
+    userInfos: Option[UserInfos],
     mode: String,
     animationDuration: scala.concurrent.duration.Duration,
     round: Option[Round] = None,
     win: Option[Boolean] = None,
-    voted: Option[Boolean] = None)(implicit ctx: Context) = Json.obj(
+    voted: Option[Boolean])(implicit ctx: Context) = Json.obj(
     "puzzle" -> Json.obj(
       "id" -> puzzle.id,
       "rating" -> puzzle.perf.intRating,
@@ -39,13 +28,12 @@ object JsData extends lila.Steroids {
       "gameId" -> puzzle.gameId,
       "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
       "enabled" -> puzzle.enabled,
-      "vote" -> puzzle.vote.sum,
-      "url" -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id)}"
+      "vote" -> puzzle.vote.sum
     ),
     "pref" -> Json.obj(
       "coords" -> ctx.pref.coords
     ),
-    "chessground" -> Json.obj(
+    "chessground" -> (!ctx.isMobileApi).option(Json.obj(
       "highlight" -> Json.obj(
         "lastMove" -> ctx.pref.highlight,
         "check" -> ctx.pref.highlight
@@ -59,15 +47,22 @@ object JsData extends lila.Steroids {
       "premovable" -> Json.obj(
         "showDests" -> ctx.pref.destination
       )
-    ),
+    )),
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "mode" -> mode,
-    "round" -> round.map { a =>
+    "round" -> round.map { r =>
       Json.obj(
-        "userRatingDiff" -> a.userRatingDiff,
-        "win" -> a.win
+        "ratingDiff" -> r.ratingDiff,
+        "win" -> r.win
+      )
+    },
+    "attempt" -> round.ifTrue(ctx.isMobileApi).map { r =>
+      Json.obj(
+        "userRatingDiff" -> r.ratingDiff,
+        "win" -> r.win,
+        "seconds" -> "a few" // lol we don't have the value anymore
       )
     },
     "win" -> win,
@@ -75,15 +70,18 @@ object JsData extends lila.Steroids {
     "user" -> userInfos.map { i =>
       Json.obj(
         "rating" -> i.user.perfs.puzzle.intRating,
-        "history" -> i.history.nonEmpty.option(Json.toJson(i.chart))
-      )
+        "history" -> ctx.isMobileApi.option(i.history.map(_.rating)), // for mobile BC
+        "recent" -> i.history.map { r =>
+          Json.arr(r.puzzleId, r.ratingDiff, r.rating)
+        }
+      ).noNull
     },
-    "difficulty" -> ctx.isAuth.option {
+    "difficulty" -> (ctx.isAuth && ctx.isMobileApi).option {
       Json.obj(
-        "choices" -> JsArray(translatedDifficultyChoices.map {
-          case (k, v) => Json.arr(k, v)
-        }),
-        "current" -> ctx.pref.puzzleDifficulty
+        "choices" -> Json.arr(
+          Json.arr(2, trans.difficultyNormal.str())
+        ),
+        "current" -> 2
       )
-    })
+    }).noNull
 }

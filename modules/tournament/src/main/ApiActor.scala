@@ -1,14 +1,10 @@
 package lila.tournament
 
-import scala.concurrent.duration._
 import akka.actor._
 
 import lila.game.actorApi.FinishGame
 
 private[tournament] final class ApiActor(api: TournamentApi) extends Actor {
-
-  override def preStart {
-  }
 
   def receive = {
 

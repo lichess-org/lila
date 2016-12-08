@@ -7,6 +7,7 @@ case class Patron(
     stripe: Option[Patron.Stripe] = none,
     payPal: Option[Patron.PayPal] = none,
     expiresAt: Option[DateTime] = none,
+    lifetime: Option[Boolean] = None,
     lastLevelUp: DateTime) {
 
   def id = _id
@@ -37,6 +38,8 @@ case class Patron(
     expiresAt = none)
 
   def isDefined = stripe.isDefined || payPal.isDefined
+
+  def isLifetime = ~lifetime
 }
 
 object Patron {

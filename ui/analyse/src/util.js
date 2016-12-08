@@ -1,4 +1,4 @@
-var piotr2key = require('./piotr').piotr2key;
+var piotr2key = require('./piotr');
 var m = require('mithril');
 
 var UNDEF = 'undefined';
@@ -27,9 +27,6 @@ module.exports = {
     });
     return dests;
   },
-  aiName: function(variant) {
-    return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
-  },
   readDrops: function(line) {
     if (typeof line === 'undefined' || line === null) return null;
     return line.match(/.{2}/g) || [];
@@ -37,6 +34,11 @@ module.exports = {
   defined: defined,
   empty: function(a) {
     return !a || a.length === 0;
+  },
+  range: function(len) {
+    var r = [];
+    for (var i = 0; i < len; i++) r.push(i);
+    return r;
   },
   renderEval: function(e) {
     e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);

@@ -67,7 +67,8 @@ private[api] final class RoundApi(
         }
     }
 
-  def review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
+  def review(pov: Pov, apiVersion: ApiVersion,
+    tv: Option[lila.round.OnTv] = None,
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false,

@@ -106,13 +106,23 @@ object Node {
     def ++(shapes: Shapes) = Shapes(value ::: shapes.value)
   }
 
-  case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author)
+  case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
+    def removeMeta = text.removeMeta map { t =>
+      copy(text = t)
+    }
+  }
   object Comment {
     case class Id(value: String) extends AnyVal
     object Id {
       def make = Id(scala.util.Random.alphanumeric take 4 mkString)
     }
-    case class Text(value: String) extends AnyVal
+    private val metaReg = """\[%[^\]]+\]""".r
+    case class Text(value: String) extends AnyVal {
+      def removeMeta: Option[Text] = {
+        val v = metaReg.replaceAllIn(value, "").trim
+        v.nonEmpty option Text(v)
+      }
+    }
     sealed trait Author
     object Author {
       case class User(id: String, titleName: String) extends Author
@@ -213,13 +223,14 @@ object Node {
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
+    val comments = node.comments.list.flatMap(_.removeMeta)
     (
       add("id", idOption.map(_.toString)) _ compose
       add("uci", moveOption.map(_.uci.uci)) _ compose
       add("san", moveOption.map(_.san)) _ compose
       add("check", true, check) _ compose
       add("eval", eval.filterNot(_.isEmpty)) _ compose
-      add("comments", comments.list, comments.list.nonEmpty) _ compose
+      add("comments", comments, comments.nonEmpty) _ compose
       add("glyphs", glyphs.nonEmpty) _ compose
       add("shapes", shapes.list, shapes.list.nonEmpty) _ compose
       add("opening", opening) _ compose

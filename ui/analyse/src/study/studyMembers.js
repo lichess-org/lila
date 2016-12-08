@@ -12,7 +12,7 @@ function memberActivity(onIdle) {
   };
   schedule();
   return schedule;
-};
+}
 
 module.exports = {
   ctrl: function(initDict, myId, ownerId, send, setTab, startTour, notif) {
@@ -22,6 +22,7 @@ module.exports = {
     var active = {}; // recently active contributors
     var online = {}; // userId -> bool
     var spectatorIds = [];
+    var max = 30;
 
     var owner = function() {
       return dict()[ownerId];
@@ -91,6 +92,7 @@ module.exports = {
       myMember: myMember,
       isOwner: isOwner,
       canContribute: canContribute,
+      max: max,
       setRole: function(id, role) {
         setActive(id);
         send("setRole", {
@@ -127,7 +129,13 @@ module.exports = {
       isOnline: function(userId) {
         return online[userId];
       },
-      titleNameToId: util.titleNameToId
+      titleNameToId: util.titleNameToId,
+      hasOnlineContributor: function() {
+        var members = dict();
+        for (var i in members)
+          if (online[i] && members[i].role === 'w') return true;
+        return false;
+      }
     };
   },
   view: function(ctrl) {
@@ -158,22 +166,20 @@ module.exports = {
 
     var configButton = function(ctrl, member) {
       if (isOwner && member.user.id !== ctrl.members.myId)
-        return m('span.action.config', {
+        return m('i.action.config', {
+          'data-icon': '%',
           key: 'config-' + member.user.id,
           config: util.bindOnce('click', function() {
             ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
           })
-        }, m('i', {
-          'data-icon': '%'
-        }));
+        });
       if (!isOwner && member.user.id === ctrl.members.myId)
         return m('span.action.leave', {
+          'data-icon': 'F',
           key: 'leave',
           title: 'Leave the study',
           config: util.bindOnce('click', ctrl.members.leave)
-        }, m('i', {
-          'data-icon': 'F'
-        }));
+        });
     };
 
     var memberConfig = function(member) {
@@ -210,6 +216,8 @@ module.exports = {
       ]);
     };
 
+    var ordered = ctrl.members.ordered();
+
     return [
       m('div', {
         key: 'members',
@@ -218,7 +226,7 @@ module.exports = {
           lichess.pubsub.emit('content_loaded')();
         }
       }, [
-        ctrl.members.ordered().map(function(member) {
+        ordered.map(function(member) {
           var confing = ctrl.members.confing() === member.user.id;
           return [
             m('div', {
@@ -234,7 +242,7 @@ module.exports = {
             confing ? memberConfig(member) : null
           ];
         }),
-        isOwner ? m('div', {
+        (isOwner && ordered.length < ctrl.members.max) ? m('div', {
             key: 'invite-someone',
             class: 'elem member add',
             config: util.bindOnce('click', ctrl.members.inviteForm.toggle)

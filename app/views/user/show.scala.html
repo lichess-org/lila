@@ -108,6 +108,12 @@ description = describeUser(u)).some) {
     <form class="wide" action="@routes.User.writeNote(u.username)?note" method="post">
       <textarea name="text" placeholder="Write a note about this user only you and your friends can read"></textarea>
       <button type="submit" class="button">@trans.send()</button>
+      @if(isGranted(_.ModNote)) {
+      <label style="margin-left: 1em;">
+        <input type="checkbox" name="mod" checked="true" value="true" style="vertical-align: middle;"/>
+        For moderators only
+      </label>
+      } else { <input type="hidden" name="mod" value="false" /> }
     </form>
     @if(notes.isEmpty) {
     <div>No note yet</div>
@@ -219,7 +225,7 @@ description = describeUser(u)).some) {
     }
   </div>
   }
-  @if(u.hasGames || info.nbImported > 0) {
+  @if(u.hasGames || info.nbImported > 0 || info.nbBookmark > 0) {
   <div class="content_box_inter tabs" id="games">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">

@@ -51,7 +51,7 @@ final class StudyApi(
   def byIdWithChapter(id: Study.ID, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       chapterRepo.byId(chapterId) map {
-        _ map { Study.WithChapter(study, _) }
+        _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }
   }
@@ -64,25 +64,26 @@ final class StudyApi(
         scheduleTimeline(res.study.id) inject res
     }
 
-  def clone(me: User, prev: Study): Fu[Study] = {
-    chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
-      val study1 = prev.cloneFor(me)
-      val newChapters = chapters.map(_ cloneFor study1)
-      val study = study1.withChapter(newChapters.headOption.err {
-        s"Cloning study ${study1.id} from ${prev.id} has no first chapter!"
-      })
-      studyRepo.insert(study) >>
-        newChapters.map(chapterRepo.insert).sequenceFu >>- {
-          chat ! lila.chat.actorApi.SystemTalk(study.id,
-            s"Cloned from lichess.org/study/${prev.id}")
-        } inject study
+  def clone(me: User, prev: Study): Fu[Option[Study]] =
+    Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) ?? {
+      chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
+        val study1 = prev.cloneFor(me)
+        val newChapters = chapters.map(_ cloneFor study1)
+        newChapters.headOption.map(study1.rewindTo) ?? { study =>
+          studyRepo.insert(study) >>
+            newChapters.map(chapterRepo.insert).sequenceFu >>- {
+              chat ! lila.chat.actorApi.SystemTalk(
+                study.id,
+                s"Cloned from lichess.org/study/${prev.id}")
+            } inject study.some
+        }
+      }
     }
-  }
 
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
     chapters.headOption match {
       case Some(c) if study.isOld && study.position != c.initialPosition =>
-        val newStudy = study withChapter c
+        val newStudy = study rewindTo c
         studyRepo.updateSomeFields(newStudy) inject newStudy
       case _ => fuccess(study)
     }
@@ -179,11 +180,11 @@ final class StudyApi(
   }
 
   def invite(byUserId: User.ID, studyId: Study.ID, username: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
-    (study isOwner byUserId) ?? {
+    (study.isOwner(byUserId) && study.nbMembers < 30) ?? {
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
           studyRepo.addMember(study, StudyMember make user) >>-
-            notifier(study, user, socket)
+            notifier.invite(study, user, socket)
         }
       } >>- reloadMembers(study) >>- indexStudy(study)
     }
@@ -305,7 +306,7 @@ final class StudyApi(
           val newChapter = chapter.copy(
             name = name,
             conceal = (chapter.conceal, data.conceal) match {
-              case (None, true)     => Chapter.Ply(0).some
+              case (None, true)     => Chapter.Ply(chapter.root.ply).some
               case (Some(_), false) => None
               case _                => chapter.conceal
             },

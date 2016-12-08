@@ -1,16 +1,15 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
 var throttle = require('../util').throttle;
-var storedProp = require('../util').storedProp;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
 var notifCtrl = require('./notif').ctrl;
+var shareCtrl = require('./studyShare').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
-var concealFeedback = require('./concealFeedback');
 
 module.exports = {
   // data.position.path represents the server state
@@ -19,15 +18,19 @@ module.exports = {
 
     var send = ctrl.socket.send;
 
-    var sri = lichess.StrongSocket.sri;
+    var sri = lichess.StrongSocket && lichess.StrongSocket.sri;
 
-    var vm = {
-      loading: false,
-      tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: false, // false if syncing, else incremental number of missed event
-      catchingUp: false, // was behind, is syncing back
-      chapterId: null // only useful when not synchronized
-    };
+    var vm = (function() {
+      var isManualChapter = data.chapter.id !== data.position.chapterId;
+      return {
+        loading: false,
+        nextChapterId: false,
+        tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
+        behind: isManualChapter ? 0 : false, // false if syncing, else incremental number of missed event
+        catchingUp: false, // was behind, is syncing back
+        chapterId: isManualChapter ? data.chapter.id : null // only useful when not synchronized
+      };
+    })();
 
     var notif = notifCtrl();
     var form = studyFormCtrl(function(data, isNew) {
@@ -74,6 +77,7 @@ module.exports = {
     ctrl.userJump(data.position.path);
 
     var configureAnalysis = function() {
+      if (ctrl.embed) return;
       lichess.pubsub.emit('chat.writeable')(!!members.myMember());
       if (!data.chapter.features.computer) ctrl.ceval.enabled(false);
       ctrl.ceval.allowed(data.chapter.features.computer);
@@ -87,19 +91,15 @@ module.exports = {
       if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
         return lichess.reload();
       if (s.position !== data.position) commentForm.close();
-      data.position = s.position;
-      data.name = document.title = s.name;
-      data.visibility = s.visibility;
-      data.settings = s.settings;
-      data.visibility = s.visibility;
-      data.views = s.views;
-      data.chapter = s.chapter;
-      data.likes = s.likes;
-      data.liked = s.liked;
+      ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
+        data[key] = s[key];
+      });
+      document.title = data.name;
       members.dict(s.members);
       chapters.list(s.chapters);
-      configureAnalysis();
+      ctrl.unflip();
       ctrl.reloadData(d.analysis);
+      configureAnalysis();
       ctrl.chessground.set({
         orientation: d.analysis.orientation
       });
@@ -133,6 +133,8 @@ module.exports = {
 
     if (members.canContribute()) form.openIfNew();
 
+    var share = shareCtrl(data, currentChapter);
+
     ctrl.chessground.set({
       drawable: {
         onChange: function(shapes) {
@@ -155,6 +157,7 @@ module.exports = {
       notif: notif,
       commentForm: commentForm,
       glyphForm: glyphForm,
+      share: share,
       vm: vm,
       toggleLike: function(v) {
         send("like", {
@@ -198,9 +201,12 @@ module.exports = {
           xhrReload();
         }
         vm.loading = true;
+        vm.nextChapterId = id;
+        m.redraw();
       },
       toggleSync: function() {
         if (vm.behind !== false) {
+          tours.onSync();
           vm.chapterId = null;
           vm.catchingUp = true;
           xhrReload().then(function() {
@@ -243,7 +249,6 @@ module.exports = {
           who && activity(who.u);
           if (who && who.s === sri) {
             data.position.path = position.path + node.id;
-            concealFeedback(ctrl, position.path, node);
             return;
           }
           var newPath = ctrl.tree.addNode(node, position.path);

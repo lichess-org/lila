@@ -1,6 +1,5 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var partial = chessground.util.partial;
 var classSet = chessground.util.classSet;
 var renderConfig = require('./explorerConfig').view;
 var util = require('../util');
@@ -21,30 +20,26 @@ function resultBar(move) {
 
 var lastShow = null;
 
-function $trUci($tr) {
-  return $tr[0] ? $tr[0].getAttribute('data-uci') : null;
-}
-
 function moveTableAttributes(ctrl, fen) {
   return {
     config: function(el, isUpdate, ctx) {
       if (!isUpdate) {
         el.addEventListener('mouseover', function(e) {
-          ctrl.explorer.setHoveringUci($trUci($(e.target).parents('tr')));
+          ctrl.explorer.setHoveringUci($(e.target).parents('tr').attr('data-uci'));
         });
         el.addEventListener('mouseout', function(e) {
           ctrl.explorer.setHoveringUci(null);
         });
-        el.addEventListener('click', function(e) {
-          var $tr = $(e.target).parents('tr');
-          if ($tr.length) ctrl.explorerMove($trUci($tr));
+        el.addEventListener('mousedown', function(e) {
+          var uci = $(e.target).parents('tr').attr('data-uci');
+          if (uci) ctrl.explorerMove(uci);
         });
         return;
       }
       if (ctx.lastFen === fen) return;
       ctx.lastFen = fen;
       setTimeout(function() {
-        ctrl.explorer.setHoveringUci($trUci($(el).find('tr:hover')));
+        ctrl.explorer.setHoveringUci($(el).find('tr:hover').attr('data-uci'));
       }, 100);
     }
   };
@@ -200,7 +195,6 @@ function showGameEnd(ctrl, title) {
 function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data && data.opening) {
-    var db = ctrl.explorer.config.data.db.selected();
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
     var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
     var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
@@ -210,19 +204,22 @@ function show(ctrl) {
     var moves = data.moves;
     if (moves.length) lastShow = m('div.data', [
       showTablebase(ctrl, 'Winning', moves.filter(function(move) {
-        return move.real_wdl === -2;
+        return move.wdl === -2;
+      }), data.fen),
+      showTablebase(ctrl, 'Unknown', moves.filter(function(move) {
+        return move.wdl === null;
       }), data.fen),
       showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === -1;
+        return move.wdl === -1;
       }), data.fen),
       showTablebase(ctrl, 'Drawn', moves.filter(function(move) {
-        return move.real_wdl === 0;
+        return move.wdl === 0;
       }), data.fen),
       showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === 1;
+        return move.wdl === 1;
       }), data.fen),
       showTablebase(ctrl, 'Losing', moves.filter(function(move) {
-        return move.real_wdl === 2;
+        return move.wdl === 2;
       }), data.fen)
     ])
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')

@@ -24,7 +24,7 @@ function makeConfig(data, ply, flip) {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, flip),
-    turnColor: data.game.player,
+    turnColor: step.ply % 2 === 0 ? 'white' : 'black',
     lastMove: uci2move(step.uci),
     check: step.check,
     coordinates: data.pref.coords !== 0,
@@ -38,7 +38,8 @@ function makeConfig(data, ply, flip) {
       free: false,
       color: playing ? data.player.color : null,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
-      showDests: data.pref.destination
+      showDests: data.pref.destination,
+      rookCastle: data.pref.rookCastle
     },
     animation: {
       enabled: true,

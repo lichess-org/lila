@@ -54,6 +54,8 @@ case class Chapter(
     studyId = study.id,
     ownerId = study.ownerId,
     createdAt = DateTime.now)
+
+  def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 }
 
 object Chapter {

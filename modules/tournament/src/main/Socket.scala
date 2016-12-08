@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -18,7 +17,7 @@ private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
-    lightUser: String => Option[LightUser],
+    lightUser: LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
@@ -27,7 +26,7 @@ private[tournament] final class Socket(
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
 
-  private var clock = none[chess.Clock]
+  private var clock = none[chess.Clock.Config]
 
   private var waitingUsers = WaitingUsers.empty
 
@@ -44,13 +43,12 @@ private[tournament] final class Socket(
 
   def receiveSpecific = ({
 
-    case SetTournament(Some(tour)) =>
-      clock = tour.clock.chessClock.some
+    case SetTournament(Some(tour)) => clock = tour.clock.some
 
     case StartGame(game) =>
       game.players foreach { player =>
         player.userId foreach { userId =>
-          membersByUserId(userId) foreach { member =>
+          firstMemberByUserId(userId) foreach { member =>
             notifyMember("redirect", game fullIdOf player.color)(member)
           }
         }

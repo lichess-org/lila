@@ -1,6 +1,6 @@
 package lila.challenge
 
-import chess.variant.{Variant, FromPosition}
+import chess.variant.{ Variant, FromPosition }
 import chess.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 
@@ -87,10 +87,11 @@ object Challenge {
   object TimeControl {
     case object Unlimited extends TimeControl
     case class Correspondence(days: Int) extends TimeControl
-    case class Clock(limit: Int, increment: Int) extends TimeControl {
+    case class Clock(config: chess.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
-      def show = chessClock.show
-      lazy val chessClock = chess.Clock(limit, increment)
+      def limit = config.limit
+      def increment = config.increment
+      def show = config.show
     }
   }
 
@@ -102,8 +103,8 @@ object Challenge {
   }
 
   private def speedOf(timeControl: TimeControl) = timeControl match {
-    case c: TimeControl.Clock => Speed(c.chessClock)
-    case _                    => Speed.Correspondence
+    case TimeControl.Clock(config) => Speed(config)
+    case _                         => Speed.Correspondence
   }
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
@@ -116,7 +117,7 @@ object Challenge {
 
   private val idSize = 8
 
-  private def randomId = ornicar.scalalib.Random nextStringUppercase idSize
+  private def randomId = ornicar.scalalib.Random nextString idSize
 
   private def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))

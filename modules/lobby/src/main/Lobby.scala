@@ -1,6 +1,7 @@
 package lila.lobby
 
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -8,8 +9,6 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.db.dsl._
 import lila.game.GameRepo
-import lila.hub.actorApi.{ GetUids, SocketUids }
-import lila.socket.actorApi.Broom
 import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
@@ -19,24 +18,17 @@ private[lobby] final class Lobby(
     maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
+    poolApi: lila.pool.PoolApi,
     onStart: String => Unit) extends Actor {
 
   def receive = {
 
-    case HooksFor(userOption) =>
-      val replyTo = sender
-      (userOption.map(_.id) ?? blocking) foreach { blocks =>
-        val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.vector.filter { hook =>
-          ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
-        }
-      }
-
     case msg@AddHook(hook) => {
       lila.mon.lobby.hook.create()
+      if (hook.realVariant.standard) lila.mon.lobby.hook.standardColor(hook.realMode.name, hook.color)()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      findCompatible(hook) foreach {
+      (scala.util.Random.nextBoolean || !hook.compatibleWithPools).??(findCompatible(hook)) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
         case None    => self ! SaveHook(msg)
       }
@@ -57,16 +49,14 @@ private[lobby] final class Lobby(
       socket ! msg
     }
 
-    case CancelHook(uid) => {
+    case CancelHook(uid) =>
       HookRepo byUid uid foreach remove
-    }
 
     case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
       socket ! RemoveSeek(seekId)
     }
 
     case BiteHook(hookId, uid, user) => NoPlayban(user) {
-      lila.mon.lobby.hook.join()
       HookRepo byId hookId foreach { hook =>
         HookRepo byUid uid foreach remove
         Biter(hook, uid, user) pipeTo self
@@ -98,17 +88,19 @@ private[lobby] final class Lobby(
         socket ! RemoveSeek(seek.id)
       }
 
-    case Broom =>
+    case Lobby.Tick(promise) =>
       HookRepo.truncateIfNeeded
-      implicit val timeout = makeTimeout seconds 1
+      implicit val timeout = makeTimeout seconds 5
       (socket ? GetUids mapTo manifest[SocketUids]).chronometer
         .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
         .mon(_.lobby.socket.getUids)
         .result
         .logFailure(logger, err => s"broom cannot get uids from socket: $err")
+        .map { Lobby.WithPromise(_, promise) }
         .pipeTo(self)
 
-    case SocketUids(uids) =>
+    case Lobby.WithPromise(SocketUids(uids), promise) =>
+      poolApi socketIds uids
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
         (HookRepo notInUids uids).filter {
@@ -123,11 +115,25 @@ private[lobby] final class Lobby(
       }
       lila.mon.lobby.socket.member(uids.size)
       lila.mon.lobby.hook.size(HookRepo.size)
+      promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync =>
       socket ! HookIds(HookRepo.vector.map(_.id))
+
+    case msg@HookSub(member, true) =>
+      socket ! AllHooksFor(
+        member,
+        HookRepo.vector.filter { hook =>
+          hook.uid == member.uid || Biter.canJoin(hook, member.user)
+        })
+
+    case lila.pool.HookThieve.GetCandidates(clock) =>
+      sender ! lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
+
+    case lila.pool.HookThieve.StolenHookIds(ids) =>
+      HookRepo byIds ids.toSet foreach remove
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
@@ -168,6 +174,10 @@ private[lobby] final class Lobby(
 
 private object Lobby {
 
+  private case class Tick(promise: Promise[Unit])
+
+  private case class WithPromise[A](value: A, promise: Promise[Unit])
+
   def start(
     system: ActorSystem,
     name: String,
@@ -175,8 +185,18 @@ private object Lobby {
     resyncIdsPeriod: FiniteDuration)(instance: => Actor) = {
 
     val ref = system.actorOf(Props(instance), name = name)
-    system.scheduler.schedule(5 seconds, broomPeriod, ref, lila.socket.actorApi.Broom)
-    system.scheduler.schedule(10 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
+    system.scheduler.scheduleOnce(7 seconds) {
+      lila.common.ResilientScheduler(
+        every = broomPeriod,
+        atMost = 10 seconds,
+        system = system,
+        logger = logger) {
+        val promise = Promise[Unit]()
+        ref ! Tick(promise)
+        promise.future
+      }
+    }
     ref
   }
 }

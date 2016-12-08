@@ -14,7 +14,7 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 [opening trainer](https://lichess.org/training/opening),
 a [mobile app](https://lichess.org/mobile),
-and a [network world map](https://lichess.org/network).
+and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
@@ -48,7 +48,10 @@ drop us an email at contact@lichess.org and we'll discuss it.
 
 ### API Limits
 
-To respect the API servers and avoid an IP ban, please wait 1 second between requests. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.
+To respect the API servers and avoid an IP ban, please wait 1 second between requests.
+If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.
+
+Please do not automate computer analysis requests. They're very expensive.
 
 ### `GET /api/user/<username>` fetch one user
 
@@ -214,7 +217,7 @@ name | type | default | description
       "clock":{          // all clock values are expressed in seconds
         "initial": 300,
         "increment": 8,
-        "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
+        "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
       },
       "createdAt": 1389100907239,
       "lastMoveAt": 1389100907239,
@@ -297,7 +300,7 @@ name | type | default | description
   "clock":{          // all clock values are expressed in seconds
     "initial": 300,
     "increment": 8,
-    "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
+    "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
   },
   "createdAt": 1389100907239,
   "lastMoveAt": 1389100907239,
@@ -573,4 +576,6 @@ Others and older browsers are guaranteed not to work with lichess and we don't c
 Licence
 -------
 
-Lila is realeased under the MIT license.
+Lila is licensed under the GNU Affero General Public License 3 or any later
+version at your choice with an exception for Highcharts. See COPYING for
+details.

@@ -150,6 +150,11 @@ object Api extends LilaController {
     } map toApiResult
   }
 
+  def gameStream = Action(parse.tolerantText) { req =>
+    val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
+    Ok.chunked(Env.game.stream.startedByUserIds(userIds))
+  }
+
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult

@@ -40,11 +40,11 @@ final class RelationApi(
     "r" -> Follow
   )), List(
     Group(BSONNull)(
-      "u1" -> AddToSet("u1"),
-      "u2" -> AddToSet("u2")),
+      "u1" -> AddFieldToSet("u1"),
+      "u2" -> AddFieldToSet("u2")),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   )).map {
-    ~_.documents.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
+    ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
   def fetchFollows(u1: ID, u2: ID) =
@@ -57,12 +57,14 @@ final class RelationApi(
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
   private val countFollowingCache = AsyncCache[ID, Int](
+    name = "relation.count.following",
     f = userId => coll.countSel($doc("u1" -> userId, "r" -> Follow)),
     timeToLive = 10 minutes)
 
   def countFollowing(userId: ID) = countFollowingCache(userId)
 
   private val countFollowersCache = AsyncCache[ID, Int](
+    name = "relation.count.followers",
     f = userId => coll.countSel($doc("u2" -> userId, "r" -> Follow)),
     timeToLive = 10 minutes)
 

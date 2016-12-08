@@ -1,6 +1,55 @@
 #trainer {
   margin-bottom: 160px;
+  position: relative;
+  min-height: 600px;
 }
+#trainer .board_and_ground {
+  display: flex;
+  align-items: center;
+}
+#trainer div.box {
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  padding: 7px;
+}
+#trainer > .side {
+  position: absolute;
+  top: 64px;
+  left: -222px;
+  width: 212px;
+}
+#trainer > .side h1 {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#trainer > .side div.box {
+  margin-bottom: 20px;
+  padding: 0;
+}
+#trainer > .side div.box p {
+  padding: 10px;
+}
+body.dark #trainer > .side div.box {
+  border-color: #3d3d3d;
+}
+#trainer > .side div.box {
+}
+
+#trainer .right {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding-left: 15px;
+  width: 242px;
+}
+body.transp #trainer .right {
+  padding: 8px;
+  margin-left: 10px;
+  background: rgba(0,0,0,0.6);
+}
+
 form.color .color i {
   display: block;
   width: 30px;
@@ -86,9 +135,9 @@ form.color .color_3 i {
   font-size: 30px;
   opacity: 0.4;
 }
+#trainer #next_coord1,
+#trainer #next_coord2,
 #trainer #next_coord0 {
-  #trainer #next_coord1,
-  #trainer #next_coord2,
   -webkit-user-select: none;
   -moz-user-select: none;
 }
@@ -109,7 +158,7 @@ form.color .color_3 i {
   top: 202px;
   left: 202px;
   z-index: 9;
-  font-family: monospace;
+  font-family: 'Roboto Mono';
   font-size: 70px;
   display: block;
   margin: auto;

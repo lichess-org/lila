@@ -6,9 +6,11 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
+import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.study.Order
+import lila.study.Study.WithChapter
 import views._
 
 object Study extends LilaController {
@@ -53,57 +55,48 @@ object Study extends LilaController {
     }
   }
 
-  def mine(order: String, page: Int) = Auth { implicit ctx =>
-    me =>
-      env.pager.mine(me, Order(order), page) map { pag =>
-        Ok(html.study.mine(pag, Order(order), me))
-      }
-  }
-
-  def minePublic(order: String, page: Int) = Auth { implicit ctx =>
-    me =>
-      env.pager.minePublic(me, Order(order), page) map { pag =>
-        Ok(html.study.minePublic(pag, Order(order), me))
-      }
-  }
-
-  def minePrivate(order: String, page: Int) = Auth { implicit ctx =>
-    me =>
-      env.pager.minePrivate(me, Order(order), page) map { pag =>
-        Ok(html.study.minePrivate(pag, Order(order), me))
-      }
-  }
-
-  def mineMember(order: String, page: Int) = Auth { implicit ctx =>
-    me =>
-      env.pager.mineMember(me, Order(order), page) map { pag =>
-        Ok(html.study.mineMember(pag, Order(order), me))
-      }
-  }
-
-  def mineLikes(order: String, page: Int) = Auth { implicit ctx =>
-    me =>
-      env.pager.mineLikes(me, Order(order), page) map { pag =>
-        Ok(html.study.mineLikes(pag, Order(order), me))
-      }
-  }
-
-  def show(id: String) = Open { implicit ctx =>
-    val query = get("chapterId").fold(env.api byIdWithChapter id) { chapterId =>
-      env.api.byIdWithChapter(id, chapterId)
+  def mine(order: String, page: Int) = Auth { implicit ctx => me =>
+    env.pager.mine(me, Order(order), page) map { pag =>
+      Ok(html.study.mine(pag, Order(order), me))
     }
+  }
+
+  def minePublic(order: String, page: Int) = Auth { implicit ctx => me =>
+    env.pager.minePublic(me, Order(order), page) map { pag =>
+      Ok(html.study.minePublic(pag, Order(order), me))
+    }
+  }
+
+  def minePrivate(order: String, page: Int) = Auth { implicit ctx => me =>
+    env.pager.minePrivate(me, Order(order), page) map { pag =>
+      Ok(html.study.minePrivate(pag, Order(order), me))
+    }
+  }
+
+  def mineMember(order: String, page: Int) = Auth { implicit ctx => me =>
+    env.pager.mineMember(me, Order(order), page) map { pag =>
+      Ok(html.study.mineMember(pag, Order(order), me))
+    }
+  }
+
+  def mineLikes(order: String, page: Int) = Auth { implicit ctx => me =>
+    env.pager.mineLikes(me, Order(order), page) map { pag =>
+      Ok(html.study.mineLikes(pag, Order(order), me))
+    }
+  }
+
+  private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
     OptionFuResult(query) {
-      case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+      case WithChapter(study, chapter) => CanViewResult(study) {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           env.api.resetIfOld(study, chapters) flatMap { study =>
             if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
             val setup = chapter.setup
-            val initialFen = chapter.root.fen
-            val pov = UserAnalysis.makePov(initialFen.value.some, setup.variant)
+            val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
             Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
               chatOf(study) zip
               env.jsonView(study, chapters, chapter, ctx.me) zip
-              env.version(id) flatMap {
+              env.version(study.id) flatMap {
                 case (((baseData, chat), studyJson), sVersion) =>
                   import lila.socket.tree.Node.partitionTreeJsonWriter
                   val analysis = baseData ++ Json.obj(
@@ -114,28 +107,33 @@ object Study extends LilaController {
                   negotiate(
                     html = Ok(html.study.show(study, data, chat, sVersion)).fuccess,
                     api = _ => Ok(Json.obj(
-                      "study" -> data.study,
-                      "analysis" -> data.analysis)).fuccess
+                    "study" -> data.study,
+                    "analysis" -> data.analysis)).fuccess
                   )
               }
           }
         }
       }
     } map NoCache
+
+  def show(id: String) = Open { implicit ctx =>
+    showQuery(env.api byIdWithChapter id)
+  }
+
+  def chapter(id: String, chapterId: String) = Open { implicit ctx =>
+    showQuery(env.api.byIdWithChapter(id, chapterId))
+  }
+
+  def chapterMeta(id: String, chapterId: String) = Open { implicit ctx =>
+    env.chapterRepo.byId(chapterId).map {
+      _.filter(_.studyId == id) ?? { chapter =>
+        Ok(env.jsonView.chapterConfig(chapter))
+      }
+    }
   }
 
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
     ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
-
-  def chapter(id: String, chapterId: String) = Open { implicit ctx =>
-    negotiate(
-      html = notFound,
-      api = _ => env.chapterRepo.byId(chapterId).map {
-        _.filter(_.studyId == id) ?? { chapter =>
-          Ok(env.jsonView.chapterConfig(chapter))
-        }
-      })
-  }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
@@ -151,58 +149,87 @@ object Study extends LilaController {
     }
   }
 
-  def create = AuthBody { implicit ctx =>
-    me =>
-      implicit val req = ctx.body
-      lila.study.DataForm.form.bindFromRequest.fold(
-        err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-        data => env.api.create(data, me) map { sc =>
-          Redirect(routes.Study.show(sc.study.id))
-        })
+  def create = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.study.DataForm.form.bindFromRequest.fold(
+      err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+      data => env.api.create(data, me) map { sc =>
+        Redirect(routes.Study.show(sc.study.id))
+      })
   }
 
-  def delete(id: String) = Auth { implicit ctx =>
-    me =>
-      env.api.byId(id) flatMap { study =>
-        study.filter(_ isOwner me.id) ?? env.api.delete
-      } inject Redirect(routes.Study.allDefault(1))
+  def delete(id: String) = Auth { implicit ctx => me =>
+    env.api.byId(id) flatMap { study =>
+      study.filter(_ isOwner me.id) ?? env.api.delete
+    } inject Redirect(routes.Study.allDefault(1))
   }
 
-  def cloneStudy(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(env.api.byId(id)) { study =>
-        CanViewResult(study) {
-          Ok(html.study.clone(study)).fuccess
+  def embed(id: String, chapterId: String) = Open { implicit ctx =>
+    env.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(embedNotFound) {
+        case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+          val setup = chapter.setup
+          val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
+          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
+            env.jsonView(study.copy(
+              members = lila.study.StudyMembers(Map.empty) // don't need no members
+            ), List(chapter.metadata), chapter, ctx.me) flatMap {
+              case (baseData, studyJson) =>
+                import lila.socket.tree.Node.partitionTreeJsonWriter
+                val analysis = baseData ++ Json.obj(
+                  "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
+                val data = lila.study.JsonView.JsData(
+                  study = studyJson,
+                  analysis = analysis)
+                negotiate(
+                  html = Ok(html.study.embed(study, chapter, data)).fuccess,
+                  api = _ => Ok(Json.obj(
+                  "study" -> data.study,
+                  "analysis" -> data.analysis)).fuccess
+                )
+            }
         }
       }
+    } map NoCache
+  }
+
+  private def embedNotFound(implicit ctx: Context): Fu[Result] =
+    fuccess(NotFound(html.study.embedNotFound()))
+
+  def cloneStudy(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.api.byId(id)) { study =>
+      CanViewResult(study) {
+        Ok(html.study.clone(study)).fuccess
+      }
+    }
   }
 
   private val CloneLimitPerUser = new lila.memo.RateLimit(
-    credits = 10,
+    credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
     key = "clone_study.user")
 
   private val CloneLimitPerIP = new lila.memo.RateLimit(
-    credits = 20,
+    credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
     key = "clone_study.ip")
 
-  def cloneApply(id: String) = Auth { implicit ctx =>
-    me =>
-      implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-      CloneLimitPerUser(me.id, cost = 1) {
-        CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
-          OptionFuResult(env.api.byId(id)) { prev =>
-            CanViewResult(prev) {
-              env.api.clone(me, prev) map { study =>
-                Redirect(routes.Study.show(study.id))
-              }
+  def cloneApply(id: String) = Auth { implicit ctx => me =>
+    implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
+    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+    CloneLimitPerUser(me.id, cost = cost) {
+      CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
+        OptionFuResult(env.api.byId(id)) { prev =>
+          CanViewResult(prev) {
+            env.api.clone(me, prev) map { study =>
+              Redirect(routes.Study.show((study | prev).id))
             }
           }
         }
       }
+    }
   }
 
   private val PgnRateLimitGlobal = new lila.memo.RateLimit(
@@ -219,8 +246,25 @@ object Study extends LilaController {
             lila.mon.export.pgn.study()
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_TYPE -> ContentTypes.TEXT,
+                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+            }
+          }
+        }
+      }
+    }
+  }
+
+  def chapterPgn(id: String, chapterId: String) = Open { implicit ctx =>
+    OnlyHumans {
+      env.api.byIdWithChapter(id, chapterId) flatMap {
+        _.fold(notFound) {
+          case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+            lila.mon.export.pgn.studyChapter()
+            env.pgnDump.ofChapter(study, chapter) map { pgn =>
+              Ok(pgn.toString).withHeaders(
+                CONTENT_TYPE -> pgnContentType,
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter))))
             }
           }
         }

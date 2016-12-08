@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.Color
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
 
 import lila.rating.Perf
 
@@ -18,8 +17,6 @@ case class Puzzle(
     perf: Perf,
     vote: AggregateVote,
     attempts: Int,
-    wins: Int,
-    time: Int,
     mate: Boolean) {
 
   def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
@@ -27,8 +24,6 @@ case class Puzzle(
   }
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
-
-  def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
   def initialMove = history.last
 
@@ -64,8 +59,6 @@ object Puzzle {
     perf = Perf.default,
     vote = AggregateVote(0, 0, 0),
     attempts = 0,
-    wins = 0,
-    time = 0,
     mate = mate)
 
   import reactivemongo.bson._
@@ -77,10 +70,15 @@ object Puzzle {
       case _       => sys error s"Invalid piotr move notation: $move"
     }
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case (move, BSONBoolean(true))  => Win(readMove(move))
-      case (move, BSONBoolean(false)) => Retry(readMove(move))
-      case (move, more: BSONDocument) => Node(readMove(move), read(more))
-      case (move, value)              => throw new Exception(s"Can't read value of $move: $value")
+      case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
+
+      case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
+
+      case BSONElement(move, more: BSONDocument) =>
+        Node(readMove(move), read(more))
+
+      case BSONElement(move, value)              =>
+        throw new Exception(s"Can't read value of $move: $value")
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
@@ -107,8 +105,6 @@ object Puzzle {
     val vote = "vote"
     val voteSum = s"$vote.sum"
     val attempts = "attempts"
-    val wins = "wins"
-    val time = "time"
     val mate = "mate"
   }
 
@@ -130,8 +126,6 @@ object Puzzle {
       perf = r.get[Perf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
-      wins = r int wins,
-      time = r int time,
       mate = r bool mate)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
@@ -146,8 +140,6 @@ object Puzzle {
       perf -> o.perf,
       vote -> o.vote,
       attempts -> o.attempts,
-      wins -> o.wins,
-      time -> o.time,
       mate -> o.mate)
   }
 }

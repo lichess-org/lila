@@ -99,13 +99,14 @@ object PlayerRepo {
   private def aggregationUserIdList(res: Stream[Bdoc]): List[String] =
     res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, Push, Sort }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort }
 
   def userIds(tourId: String): Fu[List[String]] =
-    coll.distinct("uid", selectTour(tourId).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List]("uid", selectTour(tourId).some)
 
   def activeUserIds(tourId: String): Fu[List[String]] =
-    coll.distinct("uid", (selectTour(tourId) ++ selectActive).some) map lila.db.BSON.asStrings
+    coll.distinct[String, List](
+      "uid", (selectTour(tourId) ++ selectActive).some)
 
   def winner(tourId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).uno[Player]
@@ -113,8 +114,8 @@ object PlayerRepo {
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
-      Group(BSONNull)("uids" -> Push("uid")))) map {
-      _.documents.headOption.fold(Map.empty: Ranking) {
+      Group(BSONNull)("uids" -> PushField("uid")))) map {
+      _.firstBatch.headOption.fold(Map.empty: Ranking) {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
             // mutable optimized implementation

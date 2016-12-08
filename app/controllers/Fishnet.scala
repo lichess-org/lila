@@ -15,7 +15,7 @@ object Fishnet extends LilaController {
 
   private def env = Env.fishnet
   private def api = env.api
-  override val logger = lila.log("fishnet")
+  private val logger = lila.log("fishnet")
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
     client =>

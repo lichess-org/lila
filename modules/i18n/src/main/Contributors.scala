@@ -9,7 +9,7 @@ private[i18n] object Contributors {
     "tr" -> List("Yakup Ipek", "Usolando"),
     "sr" -> List("Nenad Nikolić"),
     "lv" -> List("Anonymous"),
-    "bs" -> List("Jacikka"),
+    "bs" -> List("Jacikka", "munja_bs"),
     "da" -> List("Henrik Bjornskov", "Kurt Keller (DE)"),
     "es" -> List("FennecFoxz"),
     "ro" -> List("Cristian Niţă"),
@@ -87,7 +87,8 @@ private[i18n] object Contributors {
     "fy" -> List("FishingCat"),
     "jb" -> List("username05"),
     "tg" -> List("mondayguy"),
-    "cv" -> List("pentille"))
+    "cv" -> List("pentille"),
+    "ia" -> List("GuimaraesMello"))
 
   def apply(code: String): List[String] = ~(all get code)
 }

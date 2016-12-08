@@ -32,7 +32,7 @@ function pickFirstChild(node) {
 }
 
 function childById(node, id) {
-  for (i in node.children)
+  for (var i in node.children)
     if (node.children[i].id === id) return node.children[i];
 }
 
@@ -120,5 +120,13 @@ module.exports = {
   removeChild: removeChild,
   countChildrenAndComments: countChildrenAndComments,
   reconstruct: reconstruct,
-  merge: merge
+  merge: merge,
+  updateAll: function(root, f) {
+    // applies f recursively to all nodes
+    var update = function(node) {
+      f(node);
+      node.children.forEach(update);
+    };
+    update(root);
+  }
 }

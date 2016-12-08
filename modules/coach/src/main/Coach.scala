@@ -1,6 +1,6 @@
 package lila.coach
 
-import org.joda.time.DateTime
+import org.joda.time.{DateTime,Days}
 
 import lila.user.User
 
@@ -22,6 +22,8 @@ case class Coach(
   def hasPicture = picturePath.isDefined
 
   def isListed = listed.value && approved.value
+
+  def daysOld = Days.daysBetween(createdAt, DateTime.now).getDays
 }
 
 object Coach {

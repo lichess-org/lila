@@ -12,23 +12,22 @@ import play.twirl.api.Html
 import actorApi._
 import lila.common.PimpedJson._
 import lila.game.actorApi._
-import lila.game.AnonCookie
+import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
-import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.SocketActor
 import makeTimeout.short
 
 private[lobby] final class Socket(
-    val history: History[Messadata],
-    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
+    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) {
 
   override val startsOnApplicationBoot = true
 
   override def preStart() {
     super.preStart()
-    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'socketDoor)
+    context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
   }
 
   override def postStop() {
@@ -41,17 +40,15 @@ private[lobby] final class Socket(
 
   var idleUids = scala.collection.mutable.Set[String]()
 
+  var hookSubscriberUids = scala.collection.mutable.Set[String]()
+
   def receiveSpecific = {
 
-    case PingVersion(uid, v) => Future {
-      ping(uid)
-      withActiveMember(uid) { m =>
-        history.since(v).fold {
-          lila.mon.lobby.socket.resync()
-          resync(m)
-        }(_ foreach sendMessage(m))
-      }
-    }
+    case GetUids =>
+      sender ! SocketUids(members.keySet.toSet)
+      lila.mon.lobby.socket.idle(idleUids.size)
+      lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
+      lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
 
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
@@ -68,24 +65,61 @@ private[lobby] final class Socket(
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
-    case AddHook(hook) =>
-      notifyVersion("had", hook.render, Messadata(hook = hook.some))
+    case AddHook(hook) => Future {
+      val msg = makeMessage("had", hook.render)
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid) { member =>
+          if (hook.uid == member.uid || Biter.canJoin(hook, member.user)) member push msg
+        }
+      }
+      if (hook.likePoolFiveO) withMember(hook.uid) { member =>
+        lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
+      }
+    }
 
-    case AddSeek(_)         => notifySeeks
+    case AddSeek(_) => notifySeeks
 
-    case RemoveHook(hookId) => notifyVersion("hrm", hookId, Messadata())
+    case RemoveHook(hookId) => Future {
+      val msg = makeMessage("hrm", hookId)
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid)(_ push msg)
+      }
+    }
 
-    case RemoveSeek(_)      => notifySeeks
+    case RemoveSeek(_) => notifySeeks
 
     case JoinHook(uid, hook, game, creatorColor) =>
-      withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
-      withMember(uid)(notifyPlayerStart(game, !creatorColor))
+      withMember(hook.uid) { member =>
+        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        notifyPlayerStart(game, creatorColor)(member)
+      }
+      withMember(uid) { member =>
+        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        if (hook.likePoolFiveO)
+          lila.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
+        notifyPlayerStart(game, !creatorColor)(member)
+      }
 
     case JoinSeek(userId, seek, game, creatorColor) =>
-      membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
-      membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
+      membersByUserId(seek.user.id) foreach { member =>
+        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        notifyPlayerStart(game, creatorColor)(member)
+      }
+      membersByUserId(userId) foreach { member =>
+        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        notifyPlayerStart(game, !creatorColor)(member)
+      }
 
-    case HookIds(ids)                         => notifyVersion("hli", ids mkString ",", Messadata())
+    case lila.pool.PoolApi.Pairing(game, whiteUid, blackUid) =>
+      withMember(whiteUid.value)(notifyPlayerStart(game, chess.White))
+      withMember(blackUid.value)(notifyPlayerStart(game, chess.Black))
+
+    case HookIds(ids) => Future {
+      val msg = makeMessage("hli", ids mkString ",")
+      hookSubscriberUids.foreach { uid =>
+        withActiveMember(uid)(_ push msg)
+      }
+    }
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
@@ -97,17 +131,22 @@ private[lobby] final class Socket(
 
     case SetIdle(uid, true)     => idleUids += uid
     case SetIdle(uid, false)    => idleUids -= uid
-    case SocketLeave(uid, _)    => idleUids -= uid
+
+    case HookSub(member, true)  => hookSubscriberUids += member.uid
+    case HookSub(member, false) => hookSubscriberUids -= member.uid
+    case AllHooksFor(member, hooks) =>
+      notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
+      hookSubscriberUids += member.uid
   }
 
-  private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
+  private def notifyPlayerStart(game: Game, color: chess.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
       "url" -> playerUrl(game fullIdOf color),
       "cookie" -> AnonCookie.json(game, color)
     ).noNull) _
 
-  def notifyAllActiveAsync(msg: JsObject) = scala.concurrent.Future {
+  def notifyAllActiveAsync(msg: JsObject) = Future {
     members.foreach {
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
@@ -117,20 +156,14 @@ private[lobby] final class Socket(
     if (!idleUids(uid)) members get uid foreach f
   }
 
-  override def sendMessage(message: Message)(member: Member) =
-    if (!idleUids(member.uid)) member push {
-      if (shouldSkipMessageFor(message, member)) message.skipMsg
-      else message.fullMsg
-    }
-
-  protected def shouldSkipMessageFor(message: Message, member: Member) =
-    message.metadata.hook ?? { hook =>
-      hook.uid != member.uid && !Biter.canJoin(hook, member.user)
-    }
-
-  private def playerUrl(fullId: String) = s"/$fullId"
-
-  private def notifySeeks() {
-    notifyAll(makeMessage("reload_seeks"))
+  override def quit(uid: String) {
+    super.quit(uid)
+    idleUids -= uid
+    hookSubscriberUids -= uid
   }
+
+  def playerUrl(fullId: String) = s"/$fullId"
+
+  def notifySeeks =
+    notifyAllActiveAsync(makeMessage("reload_seeks"))
 }

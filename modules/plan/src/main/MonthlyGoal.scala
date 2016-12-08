@@ -17,7 +17,7 @@ private final class MonthlyGoalApi(goal: Cents, chargeColl: Coll) {
       Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)), List(
         Group(BSONNull)("cents" -> SumField("cents"))
       )).map {
-        ~_.documents.headOption.flatMap { _.getAs[Int]("cents") }
+        ~_.firstBatch.headOption.flatMap { _.getAs[Int]("cents") }
       } map Cents.apply
 }
 

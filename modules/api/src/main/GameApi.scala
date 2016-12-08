@@ -37,40 +37,40 @@ private[api] final class GameApi(
     nb: Int,
     page: Int): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
-      adapter = new Adapter[Game](
-        collection = GameRepo.coll,
-        selector = {
-          if (~playing) lila.game.Query.nowPlaying(user.id)
-          else $doc(
-            G.playerUids -> user.id,
-            G.status $gte chess.Status.Mate.id,
-            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-          )
-        } ++ $doc(
-          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-        ),
-        projection = $empty,
-        sort = $doc(G.createdAt -> -1),
-        readPreference = ReadPreference.secondaryPreferred
-      ),
-      nbResults =
-        if (~playing) gameCache.nbPlaying(user.id)
-        else fuccess {
-          rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
-        }
-    ),
+    adapter = new Adapter[Game](
+    collection = GameRepo.coll,
+    selector = {
+    if (~playing) lila.game.Query.nowPlaying(user.id)
+    else $doc(
+      G.playerUids -> user.id,
+      G.status $gte chess.Status.Mate.id,
+      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+    )
+  } ++ $doc(
+    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+  ),
+    projection = $empty,
+    sort = $doc(G.createdAt -> -1),
+    readPreference = ReadPreference.secondaryPreferred
+  ),
+    nbResults =
+    if (~playing) gameCache.nbPlaying(user.id)
+    else fuccess {
+      rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
+    }
+  ),
     currentPage = page,
     maxPerPage = nb) flatMap { pag =>
-      gamesJson(
-        withAnalysis = withAnalysis,
-        withMoves = withMoves,
-        withOpening = withOpening,
-        withFens = false,
-        withMoveTimes = withMoveTimes,
-        token = token)(pag.currentPageResults) map { games =>
-          PaginatorJson(pag withCurrentPageResults games)
-        }
+    gamesJson(
+      withAnalysis = withAnalysis,
+      withMoves = withMoves,
+      withOpening = withOpening,
+      withFens = false,
+      withMoveTimes = withMoveTimes,
+      token = token)(pag.currentPageResults) map { games =>
+      PaginatorJson(pag withCurrentPageResults games)
     }
+  }
 
   def one(
     id: String,
@@ -107,7 +107,7 @@ private[api] final class GameApi(
         val validToken = check(token)
         games zip analysisOptions zip initialFens map {
           case ((g, analysisOption), initialFen) =>
-            gameToJson(g, makeUrl(g), analysisOption, initialFen,
+            gameToJson(g, analysisOption, initialFen,
               withAnalysis = withAnalysis,
               withMoves = withMoves,
               withOpening = withOpening,
@@ -123,7 +123,6 @@ private[api] final class GameApi(
 
   private def gameToJson(
     g: Game,
-    url: String,
     analysisOption: Option[Analysis],
     initialFen: Option[String],
     withAnalysis: Boolean,
@@ -177,11 +176,15 @@ private[api] final class GameApi(
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.??(g.opening),
     "fens" -> (withFens && g.finished) ?? {
-      chess.Replay.boards(g.pgnMoves, initialFen, g.variant).toOption map { boards =>
+      chess.Replay.boards(
+        moveStrs = g.pgnMoves,
+        initialFen = initialFen map chess.format.FEN,
+        variant = g.variant
+      ).toOption map { boards =>
         JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }
     },
     "winner" -> g.winnerColor.map(_.name),
-    "url" -> url
+    "url" -> makeUrl(g)
   ).noNull
 }

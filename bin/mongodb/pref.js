@@ -1,4 +1,4 @@
-var props = ['animation', 'autoQueen', 'autoThreefold', 'challenge', 'coordColor', 'puzzleDifficulty', 'takeback'];
+var props = ['animation', 'autoQueen', 'autoThreefold', 'challenge', 'coordColor', 'takeback'];
 db.pref.find().forEach(function(p) {
   var set = {}, unset = {};
   props.forEach(function(prop) {

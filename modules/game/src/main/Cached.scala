@@ -36,6 +36,7 @@ final class Cached(
   //   timeToLive = 1 hour)
 
   private val countShortTtl = AsyncCache[Bdoc, Int](
+    name = "game.countShortTtl",
     f = (o: Bdoc) => coll countSel o,
     timeToLive = 5.seconds)
 

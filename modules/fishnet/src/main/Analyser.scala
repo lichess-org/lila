@@ -33,7 +33,9 @@ final class Analyser(
                   // queued for someone else, do nothing
                   case Some(similar) => funit
                   // first request, store
-                  case _             => repo addAnalysis work
+                  case _ =>
+                    lila.mon.fishnet.analysis.requestCount()
+                    repo addAnalysis work
                 }
               }
             }

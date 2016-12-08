@@ -4,7 +4,6 @@ package templating
 import chess.{ Mode, Speed }
 import lila.api.Context
 import lila.pref.Pref
-import lila.pref.Pref.Difficulty
 import lila.report.Reason
 import lila.setup.TimeMode
 import lila.tournament.System
@@ -58,9 +57,11 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedAiVariantChoices(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
+      variantTuple(chess.variant.Crazyhouse) :+
       variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
+      variantTuple(chess.variant.Antichess) :+
       variantTuple(chess.variant.Atomic) :+
       variantTuple(chess.variant.Horde) :+
       variantTuple(chess.variant.RacingKings) :+
@@ -120,12 +121,6 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.AutoThreefold.NEVER, trans.never.str()),
     (Pref.AutoThreefold.ALWAYS, trans.always.str()),
     (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.str())
-  )
-
-  def translatedDifficultyChoices(implicit ctx: Context) = List(
-    (Pref.Difficulty.EASY, trans.difficultyEasy.str()),
-    (Pref.Difficulty.NORMAL, trans.difficultyNormal.str()),
-    (Pref.Difficulty.HARD, trans.difficultyHard.str())
   )
 
   def submitMoveChoices(implicit ctx: Context) = List(

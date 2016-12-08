@@ -15,6 +15,7 @@ private[api] final class UserApi(
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
+    gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
     makeUrl: String => String) {
 
@@ -32,8 +33,10 @@ private[api] final class UserApi(
       ctx.isAuth.?? { prefApi followable u.id } zip
       ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
       ctx.userId.?? { relationApi.fetchFollows(u.id, _) } zip
-      bookmarkApi.countByUser(u) map {
-        case (((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed), nbBookmarks) =>
+      bookmarkApi.countByUser(u) zip
+      gameCache.nbPlaying(u.id) zip
+      gameCache.nbImportedBy(u.id) map {
+        case (((((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed), nbBookmarks), nbPlaying), nbImported) =>
           jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
@@ -51,6 +54,8 @@ private[api] final class UserApi(
                 "win" -> u.count.win,
                 "winH" -> u.count.winH,
                 "bookmark" -> nbBookmarks,
+                "playing" -> nbPlaying,
+                "import" -> nbImported,
                 "me" -> nbGamesWithMe)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,

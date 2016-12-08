@@ -64,7 +64,9 @@ final class Env(
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
+    pgnFetch = new PgnFetch,
     lightUser = getLightUser,
+    chat = hub.actor.chat,
     domain = NetDomain)
 
   private lazy val studyMaker = new StudyMaker(

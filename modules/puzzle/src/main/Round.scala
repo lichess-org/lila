@@ -2,34 +2,39 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class Round(
     puzzleId: PuzzleId,
-    userId: String,
+    userId: User.ID,
     date: DateTime,
     win: Boolean,
-    userRating: Int,
-    userRatingDiff: Int) {
+    rating: Int,
+    ratingDiff: Int) {
 
   def loss = !win
 
-  def userPostRating = userRating + userRatingDiff
+  def userPostRating = rating + ratingDiff
 }
 
 object Round {
 
+  case class Mini(puzzleId: Int, ratingDiff: Int, rating: Int)
+
   object BSONFields {
     val puzzleId = "p"
     val userId = "u"
-    val date = "d"
+    val date = "a"
     val win = "w"
-    val userRating = "ur"
-    val userRatingDiff = "ud"
+    val rating = "r"
+    val ratingDiff = "d"
   }
 
   import reactivemongo.bson._
   import lila.db.BSON
+  import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
-  implicit val roundBSONHandler = new BSON[Round] {
+  implicit val RoundBSONHandler = new BSON[Round] {
 
     import BSONFields._
 
@@ -38,15 +43,23 @@ object Round {
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r bool win,
-      userRating = r int userRating,
-      userRatingDiff = r int userRatingDiff)
+      rating = r int rating,
+      ratingDiff = r int ratingDiff)
 
     def writes(w: BSON.Writer, o: Round) = BSONDocument(
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,
       win -> o.win,
-      userRating -> w.int(o.userRating),
-      userRatingDiff -> w.int(o.userRatingDiff))
+      rating -> w.int(o.rating),
+      ratingDiff -> w.int(o.ratingDiff))
+  }
+
+  private[puzzle] implicit val RoundMiniBSONReader = new BSONDocumentReader[Mini] {
+    import BSONFields._
+    def read(doc: Bdoc): Mini = Mini(
+      puzzleId = doc.getAs[Int](puzzleId) err "RoundMini no puzzleId",
+      rating = doc.getAs[Int](rating) err "RoundMini no rating",
+      ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff")
   }
 }

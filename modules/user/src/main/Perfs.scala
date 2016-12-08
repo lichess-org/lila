@@ -20,8 +20,7 @@ case class Perfs(
     blitz: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf,
-    opening: Perf) {
+    puzzle: Perf) {
 
   def perfs = List(
     "standard" -> standard,
@@ -37,8 +36,7 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle,
-    "opening" -> opening)
+    "puzzle" -> puzzle)
 
   def bestPerf: Option[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
@@ -97,8 +95,7 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle,
-    "opening" -> opening)
+    "puzzle" -> puzzle)
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
 
@@ -121,7 +118,6 @@ case class Perfs(
     case PerfType.RacingKings    => racingKings
     case PerfType.Crazyhouse     => crazyhouse
     case PerfType.Puzzle         => puzzle
-    case PerfType.Opening        => opening
   }
 
   def inShort = perfs map {
@@ -130,20 +126,20 @@ case class Perfs(
 
   def updateStandard = copy(
     standard = {
-      val subs = List(bullet, blitz, classical, correspondence)
-      subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
-        val nb = subs.map(_.nb).sum
-        val glicko = Glicko(
-          rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
-          deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
-          volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum)
-        Perf(
-          glicko = glicko,
-          nb = nb,
-          recent = Nil,
-          latest = date.some)
-      }
+    val subs = List(bullet, blitz, classical, correspondence)
+    subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
+      val nb = subs.map(_.nb).sum
+      val glicko = Glicko(
+        rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+        deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+        volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum)
+      Perf(
+        glicko = glicko,
+        nb = nb,
+        recent = Nil,
+        latest = date.some)
     }
+  }
   )
 
   def latest: Option[DateTime] =
@@ -158,7 +154,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -202,8 +198,7 @@ case object Perfs {
         blitz = perf("blitz"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle"),
-        opening = perf("opening"))
+        puzzle = perf("puzzle"))
     }
 
     private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
@@ -222,8 +217,7 @@ case object Perfs {
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
-      "puzzle" -> notNew(o.puzzle),
-      "opening" -> notNew(o.opening))
+      "puzzle" -> notNew(o.puzzle))
   }
 
   case class Leaderboards(

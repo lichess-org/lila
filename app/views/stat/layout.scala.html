@@ -8,8 +8,13 @@
 }
 }
 
+@moreCss = {
+@cssTag("user-list.css")
+@cssTag("stat.css")
+}
+
 @base.layout(
 title = title,
 menu = menu.some,
-moreCss = cssTag("stat.css"),
+moreCss = moreCss,
 moreJs = moreJs)(body)

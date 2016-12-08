@@ -67,6 +67,9 @@ private[setup] final class Processor(
   def saveFriendConfig(config: FriendConfig)(implicit ctx: UserContext) =
     saveConfig(_ withFriend config)
 
+  def saveHookConfig(config: HookConfig)(implicit ctx: UserContext) =
+    saveConfig(_ withHook config)
+
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
     ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)
 }

@@ -99,7 +99,10 @@ final class PlanApi(
       logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
       funit
     }
-    else (cents.value >= 100) ?? {
+    else if (cents.value < 100) {
+      logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
+      funit
+    } else {
       val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
@@ -178,35 +181,37 @@ final class PlanApi(
   def sync(user: User): Fu[PlanApi.SyncResult] = userPatron(user) flatMap {
 
     case None if user.plan.active =>
-      logger.warn(s"sync: disable plan of non-patron")
+      logger.warn(s"${user.username} sync: disable plan of non-patron")
       setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
     case None => fuccess(Synced(none, none))
+
+    case Some(patron) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
     case Some(patron) => (patron.stripe, patron.payPal) match {
 
       case (Some(stripe), _) => stripeClient.getCustomer(stripe.customerId) flatMap {
         case None =>
-          logger.warn(s"sync: unset DB patron that's not in stripe")
+          logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
           patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isEmpty =>
-          logger.warn(s"sync: unset DB patron of customer without a subscription")
+          logger.warn(s"${user.username} sync: unset DB patron of customer without a subscription")
           patronColl.update($id(patron.id), patron.removeStripe) >> sync(user)
         case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
-          logger.warn(s"sync: enable plan of customer with a subscription")
+          logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         case customer => fuccess(Synced(patron.some, customer))
       }
 
       case (_, Some(paypal)) =>
         if (!user.plan.active) {
-          logger.warn(s"sync: enable plan of customer with paypal")
+          logger.warn(s"${user.username} sync: enable plan of customer with paypal")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
         }
         else fuccess(Synced(patron.some, none))
 
       case (None, None) if user.plan.active =>
-        logger.warn(s"sync: disable plan of patron with no paypal or stripe")
+        logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
         setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
       case _ => fuccess(Synced(patron.some, none))
@@ -214,9 +219,10 @@ final class PlanApi(
   }
 
   private val recentChargeUserIdsCache = AsyncCache[Int, List[User.ID]](
+    name = "plan.recentChargeUserIds",
     f = nb => chargeColl.primitive[User.ID](
-      $empty, sort = $doc("date" -> -1), nb = nb, "userId"
-    ) flatMap filterUserIds,
+      $empty, sort = $doc("date" -> -1), nb = nb * 3 / 2, "userId"
+    ) flatMap filterUserIds map (_ take nb),
     timeToLive = 1 hour)
 
   def recentChargeUserIds(nb: Int): Fu[List[User.ID]] = recentChargeUserIdsCache(nb)
@@ -225,22 +231,22 @@ final class PlanApi(
     chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
   private val topPatronUserIdsCache = AsyncCache[Int, List[User.ID]](
+    name = "plan.topPatronUserIds",
     f = nb => chargeColl.aggregate(
       Match($doc("userId" $exists true)), List(
         GroupField("userId")("total" -> SumField("cents")),
         Sort(Descending("total")),
-        Limit(nb))).map {
-        _.documents.flatMap { _.getAs[User.ID]("_id") }
-      } flatMap filterUserIds,
+        Limit(nb * 3 / 2))).map {
+        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+      } flatMap filterUserIds map (_ take nb),
     timeToLive = 1 hour)
 
   def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
 
   private def filterUserIds(ids: List[User.ID]): Fu[List[User.ID]] = {
     val dedup = ids.distinct
-    UserRepo.filterByEnabled(dedup) map { enableds =>
-      val set = enableds.toSet
-      dedup filter set.contains
+    UserRepo.filterByEnabledPatrons(dedup) map { enableds =>
+      dedup filter enableds.contains
     }
   }
 
@@ -252,7 +258,8 @@ final class PlanApi(
           bus.publish(lila.hub.actorApi.plan.ChargeEvent(
             username = charge.userId.flatMap(lightUserApi.get).fold("Anonymous")(_.name),
             amount = charge.cents.value,
-            percent = m.percent), 'plan)
+            percent = m.percent,
+            DateTime.now), 'plan)
           lila.mon.plan.goal(m.goal.value)
           lila.mon.plan.current(m.current.value)
           lila.mon.plan.percent(m.percent)

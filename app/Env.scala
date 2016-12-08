@@ -13,14 +13,13 @@ final class Env(
   val CliUsername = config getString "cli.username"
 
   private val RendererName = config getString "app.renderer.name"
-  private val WebPath = config getString "app.web_path"
 
   lazy val bus = lila.common.Bus(system)
 
   lazy val preloader = new mashup.Preload(
     tv = Env.tv.tv,
     leaderboard = Env.user.cached.topWeek,
-    tourneyWinners = Env.tournament.winners.scheduled,
+    tourneyWinners = Env.tournament.winners.all.map(_.top),
     timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
@@ -45,6 +44,11 @@ final class Env(
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _
+
+  lazy val teamInfo = new mashup.TeamInfoApi(
+    api = Env.team.api,
+    getForumNbPosts = Env.forum.categApi.teamNbPosts _,
+    getForumPosts = Env.forum.recent.team _)
 
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {
@@ -83,7 +87,6 @@ final class Env(
     Env.playban, // required to load the actor
     Env.shutup, // required to load the actor
     Env.insight, // required to load the actor
-    Env.worldMap, // required to load the actor
     Env.push, // required to load the actor
     Env.perfStat, // required to load the actor
     Env.slack, // required to load the actor
@@ -148,8 +151,6 @@ object Env {
   def blog = lila.blog.Env.current
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
-  def worldMap = lila.worldMap.Env.current
-  def opening = lila.opening.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
@@ -166,4 +167,5 @@ object Env {
   def plan = lila.plan.Env.current
   def event = lila.event.Env.current
   def coach = lila.coach.Env.current
+  def pool = lila.pool.Env.current
 }

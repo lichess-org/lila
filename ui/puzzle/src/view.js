@@ -5,21 +5,27 @@ var m = require('mithril');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');
 
+var historySize = 15;
+
 // useful in translation arguments
 function strong(txt) {
   return '<strong>' + txt + '</strong>';
 }
 
 function renderUserInfos(ctrl) {
+  var d = ctrl.data;
   return m('div.chart_container', [
-    m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(ctrl.data.user.rating)))),
-    ctrl.data.user.history ? m('div.user_chart', {
-      config: function(el, isUpdate, context) {
-        var hash = ctrl.data.user.history.join('');
-        if (hash == context.hash) return;
-        context.hash = hash;
+    m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(d.user.rating)))),
+    d.user.recent ? m('div.user_chart', {
+      config: function(el, isUpdate, ctx) {
+        var hash = ctrl.userHistoryHash();
+        if (hash == ctx.hash) return;
+        ctx.hash = hash;
         var dark = document.body.classList.contains('dark');
-        jQuery(el).sparkline(ctrl.data.user.history, {
+        var points = d.user.recent.map(function(r) {
+          return r[2] + r[1];
+        });
+        jQuery(el).sparkline(points, {
           type: 'line',
           width: '213px',
           height: '80px',
@@ -44,17 +50,6 @@ function renderTrainingBox(ctrl) {
       m('p', ctrl.trans('trainingSignupExplanation'))
     ])
   ]);
-}
-
-function renderDifficulty(ctrl) {
-  return m('div.difficulty', map(ctrl.data.difficulty.choices, function(dif) {
-    var id = dif[0],
-      name = dif[1];
-    return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
-      disabled: id == ctrl.data.difficulty.current,
-      onclick: partial(xhr.setDifficulty, ctrl, id)
-    }, name);
-  }));
 }
 
 function renderCommentary(ctrl) {
@@ -87,7 +82,7 @@ function renderWin(ctrl, round) {
   return m('div.comment.win', [
     m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
-      round ? renderRatingDiff(round.userRatingDiff) : null
+      round ? renderRatingDiff(round.ratingDiff) : null
     ])
   ]);
 }
@@ -96,7 +91,7 @@ function renderLoss(ctrl, round) {
   return m('div.comment.loss',
     m('h3.text[data-icon=k]', [
       m('strong', ctrl.trans('puzzleFailed')),
-      round ? renderRatingDiff(round.userRatingDiff) : null
+      round ? renderRatingDiff(round.ratingDiff) : null
     ])
   );
 }
@@ -119,58 +114,60 @@ function renderResult(ctrl) {
 
 function renderSide(ctrl) {
   return m('div.side', [
-    renderTrainingBox(ctrl),
-    ctrl.data.difficulty ? renderDifficulty(ctrl) : null,
-    renderCommentary(ctrl),
-    renderResult(ctrl)
+    renderTrainingBox(ctrl)
   ]);
 }
 
 function renderPlayTable(ctrl) {
   return m('div.table_wrap',
-    m('div.table',
-      m('div.table_inner', [
-        m('div.current_player',
-          m('div.player.' + ctrl.chessground.data.turnColor, [
-            m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
-            m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
-          ])
-        ),
-        m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-        m('div.control',
-          m('a.button.giveup', {
-            config: function(el, isUpdate) {
-              setTimeout(function() {
-                el.classList.add('revealed');
-              }, 1000);
-            },
-            onclick: partial(xhr.round, ctrl, 0)
-          }, ctrl.trans('giveUp'))
-        )
-      ])
-    )
+    m('div.table', [
+      m('div.player.' + ctrl.chessground.data.turnColor, [
+        m('div.no-square', m('piece.king.' + ctrl.chessground.data.turnColor)),
+        m('div.instruction', [
+          m('strong', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting')),
+          m('em', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
+        ])
+      ]),
+      m('div.control',
+        m('a.button.giveup', {
+          config: function(el, isUpdate) {
+            setTimeout(function() {
+              el.classList.add('revealed');
+            }, 1000);
+          },
+          onclick: partial(xhr.round, ctrl, 0)
+        }, ctrl.trans('giveUp'))
+      )
+    ])
   );
+}
+
+function voteFunction(ctrl, v) {
+  return function() {
+    ctrl.hasEverVoted.set(1);
+    xhr.vote(ctrl, v);
+  };
 }
 
 function renderVote(ctrl) {
   return m('div.upvote' + (ctrl.data.round ? '.enabled' : ''), [
     m('a[data-icon=S]', {
       title: ctrl.trans('thisPuzzleIsCorrect'),
-      class: ctrl.data.round.vote ? ' active' : '',
-      onclick: partial(xhr.vote, ctrl, 1)
+      class: ctrl.data.voted === true ? ' active' : '',
+      onclick: voteFunction(ctrl, 1)
     }),
     m('span.count.hint--bottom[data-hint=Popularity]', ctrl.data.puzzle.vote),
     m('a[data-icon=R]', {
       title: ctrl.trans('thisPuzzleIsWrong'),
-      class: ctrl.data.round.vote === false ? ' active' : '',
-      onclick: partial(xhr.vote, ctrl, 0)
+      class: ctrl.data.voted === false ? ' active' : '',
+      onclick: voteFunction(ctrl, 0)
     })
   ]);
 }
 
 function renderViewTable(ctrl) {
   return [
-    (ctrl.data.puzzle.enabled && ctrl.data.voted === false) ? m('div.please_vote', [
+    (!ctrl.hasEverVoted.get() && ctrl.data.puzzle.enabled && ctrl.data.voted === null) ? m('div.please_vote', [
       m('p.first', [
         m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
         m('br'),
@@ -184,18 +181,20 @@ function renderViewTable(ctrl) {
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
       m('h2.text[data-icon="-"]',
         m('a', {
-          href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
+          href: '/training/' + ctrl.data.puzzle.id
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
       ),
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.puzzle.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.puzzle.attempts)))),
       m('p',
         m('input.copyable.autoselect[readonly][spellCheck=false]', {
-          value: ctrl.data.puzzle.url
+          value: 'https://lichess.org/training/' + ctrl.data.puzzle.id
         })
       )
     ]),
     m('div.continue_wrap', [
+      renderCommentary(ctrl),
+      renderResult(ctrl),
       ctrl.data.win === null ? m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
@@ -208,27 +207,18 @@ function renderViewTable(ctrl) {
 }
 
 function renderViewControls(ctrl, fen) {
-  var history = ctrl.data.replay.history;
-  var step = ctrl.data.replay.step;
+  var d = ctrl.data;
+  var history = d.replay.history;
+  var step = d.replay.step;
   return m('div.game_control', [
-    ctrl.data.puzzle.gameId ? m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
-      href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color).url + '#' + ctrl.data.puzzle.initialPly
+    d.puzzle.gameId ? m('a.button.hint--bottom', {
+      'data-hint': ctrl.trans('fromGameLink', d.puzzle.gameId),
+      href: '/' + d.puzzle.gameId + '/' + d.puzzle.color + '#' + d.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
-    m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('boardEditor'),
-      href: ctrl.router.Editor.load(fen).url
-    }, m('span[data-icon=m]')),
     m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('analysis'),
       href: puzzle.makeUrl('/analysis/', fen) + '?color=' + ctrl.chessground.data.orientation,
     }, m('span[data-icon=A]')),
-    m('a.button.hint--bottom', {
-      'data-hint': ctrl.trans('continueFromHere'),
-      onclick: function() {
-        $.modal($('.continue_with'));
-      }
-    }, m('span[data-icon=U]')),
     m('div#GameButtons.hint--bottom', {
       'data-hint': 'Review puzzle solution'
     }, [
@@ -246,43 +236,33 @@ function renderViewControls(ctrl, fen) {
   ]);
 }
 
-function renderContinueLinks(ctrl, fen) {
-  return m('div.continue_with', [
-    m('a.button', {
-      href: '/?fen=' + fen + '#ai',
-      rel: 'nofollow'
-    }, ctrl.trans('playWithTheMachine')),
-    m('br'),
-    m('a.button', {
-      href: '/?fen=' + fen + '#friend',
-      rel: 'nofollow'
-    }, ctrl.trans('playWithAFriend'))
-  ]);
-}
-
 function renderFooter(ctrl) {
   if (ctrl.data.mode != 'view') return null;
   var fen = ctrl.data.replay.history[ctrl.data.replay.step].fen;
   return m('div', [
-    renderViewControls(ctrl, fen),
-    renderContinueLinks(ctrl, fen)
+    renderViewControls(ctrl, fen)
   ]);
 }
 
 function renderHistory(ctrl) {
-  return m('div.history', {
-    config: function(el, isUpdate, context) {
-      var hash = ctrl.data.user.history.join('');
-      if (hash == context.hash) return;
-      context.hash = hash;
-      $.ajax({
-        url: '/training/history',
-        success: function(html) {
-          el.innerHTML = html;
-        }
-      });
-    }
-  });
+  var d = ctrl.data;
+  var slots = [];
+  for (var i = 0; i < historySize; i++) slots[i] = d.user.recent[i] || null;
+  return m('div.history', [
+    m('div.timeline', [
+      slots.map(function(s) {
+        if (s) return m('a', {
+          class: d.puzzle.id === s[0] ? 'current' : (s[1] >= 0 ? 'win' : 'loss'),
+          href: '/training/' + s[0]
+        }, s[1] > 0 ? '+' + s[1] : s[1]);
+        return m('span', ' ');
+      }),
+      m('a', {
+        class: 'new',
+        href: '/training'
+      }, '+')
+    ])
+  ]);
 }
 
 function wheel(ctrl, e) {
@@ -295,7 +275,7 @@ function wheel(ctrl, e) {
 }
 
 module.exports = function(ctrl) {
-  return m('div#puzzle.training', [
+  return m('div#puzzle', [
     renderSide(ctrl),
     m('div.board_and_ground', [
       m('div', {

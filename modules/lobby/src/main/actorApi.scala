@@ -6,24 +6,18 @@ import lila.socket.SocketMember
 import lila.user.User
 
 private[lobby] case class LobbyUser(
-    id: String,
-    username: String,
-    troll: Boolean,
-    engine: Boolean,
-    booster: Boolean,
-    ratingMap: Map[String, Int],
-    blocking: Set[String]) {
-  def lame = engine || booster
-}
+  id: String,
+  username: String,
+  engine: Boolean,
+  ratingMap: Map[String, Int],
+  blocking: Set[String])
 
 private[lobby] object LobbyUser {
 
   def make(user: User, blocking: Set[String]) = LobbyUser(
     id = user.id,
     username = user.username,
-    troll = user.troll,
     engine = user.engine,
-    booster = user.booster,
     ratingMap = user.perfs.ratingMap,
     blocking = blocking)
 }
@@ -34,8 +28,8 @@ private[lobby] case class Member(
     uid: String,
     mobile: Boolean) extends SocketMember {
 
-  val userId = user map (_.id)
-  val troll = user ?? (_.troll)
+  val userId = user.map(_.id)
+  val troll = false
 }
 
 private[lobby] object Member {
@@ -70,6 +64,11 @@ private[lobby] case class HookIds(ids: Vector[String])
 
 private[lobby] case class SetIdle(uid: String, value: Boolean)
 
+private[lobby] case class HookSub(member: Member, value: Boolean)
+private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
+
+private[lobby] case object GetUids
+private[lobby] case class SocketUids(uids: Set[String])
+
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
-case class HooksFor(user: Option[User])

@@ -33,14 +33,14 @@ private[simul] final class SimulApi(
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache apply true
 
   private val currentHostIdsCache = AsyncCache.single[Set[String]](
+    name = "simul.currentHostIds",
     f = repo.allStarted map (_ map (_.hostId) toSet),
     timeToLive = 10 minutes)
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
-        limit = setup.clockTime * 60,
-        increment = setup.clockIncrement,
+        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
         hostExtraTime = setup.clockExtra * 60),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
@@ -59,7 +59,7 @@ private[simul] final class SimulApi(
       else {
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
         Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
-          simul addApplicant SimulApplicant(SimulPlayer(user, variant))
+          simul addApplicant SimulApplicant.make(SimulPlayer.make(user, variant))
         }
       }
     }
@@ -198,7 +198,7 @@ private[simul] final class SimulApi(
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
         site ! siteMessage
         repo.allCreated foreach { simuls =>

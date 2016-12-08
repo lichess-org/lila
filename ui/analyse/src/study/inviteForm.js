@@ -1,6 +1,5 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var objectValues = require('../util').objectValues;
 var titleNameToId = require('../util').titleNameToId;
 var dialog = require('./dialog');
 

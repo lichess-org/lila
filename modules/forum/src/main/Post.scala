@@ -1,8 +1,8 @@
 package lila.forum
 
+import lila.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-import lila.user.User
 import scala.concurrent.duration._
 
 case class OldVersion(text: String, createdAt: DateTime)
@@ -19,9 +19,9 @@ case class Post(
     troll: Boolean,
     hidden: Boolean,
     lang: Option[String],
-    editHistory: List[OldVersion],
+    editHistory: Option[List[OldVersion]] = None,
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: Option[DateTime] = None) {
 
   private val permitEditsFor = 4 hours
   private val showEditFormFor = 3 hours
@@ -36,23 +36,28 @@ case class Post(
 
   def isStaff = categId == "staff"
 
+  def updatedOrCreatedAt = updatedAt | createdAt
+
   def canStillBeEdited() = {
-    updatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
+    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
   }
 
   def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
 
   def shouldShowEditForm(editingId: String) =
-    canBeEditedBy(editingId) && updatedAt.plus(showEditFormFor.toMillis).isAfter(DateTime.now)
+    canBeEditedBy(editingId) &&
+      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfter(DateTime.now)
 
-  def editPost(updated: DateTime, newText: String) : Post = {
-    val oldVersion = new OldVersion(text, updatedAt)
-    val history = oldVersion :: editHistory
+  def editPost(updated: DateTime, newText: String): Post = {
+    val oldVersion = new OldVersion(text, updatedOrCreatedAt)
 
-    this.copy(editHistory = history, text = newText, updatedAt = updated)
+    // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
+    val history = (oldVersion :: ~editHistory).take(5)
+
+    copy(editHistory = history.some, text = newText, updatedAt = updated.some)
   }
 
-  def hasEdits = editHistory.nonEmpty
+  def hasEdits = editHistory.isDefined
 }
 
 object Post {
@@ -71,10 +76,8 @@ object Post {
     troll: Boolean,
     hidden: Boolean): Post = {
 
-    val now = DateTime.now
-
     Post(
-      _id = Random nextStringUppercase idSize,
+      _id = Random nextString idSize,
       topicId = topicId,
       author = author,
       userId = userId,
@@ -82,11 +85,9 @@ object Post {
       text = text,
       number = number,
       lang = lang,
-      editHistory = List.empty,
       troll = troll,
       hidden = hidden,
-      createdAt = now,
-      updatedAt = now,
+      createdAt = DateTime.now,
       categId = categId)
   }
 }

@@ -34,23 +34,12 @@ function compact(x) {
   return x;
 }
 
-function aiName(variant) {
-  return variant.key === 'crazyhouse' ? 'Sunsetter' : 'Stockfish';
-}
-
 function renderPlayer(ctrl, player) {
-  return player.ai ? m('div.username.on-game', [
-    ctrl.trans('aiNameLevelAiLevel', aiName(ctrl.data.game.variant), player.ai),
-    m('span.status.hint--top', {
-      'data-hint': 'Artificial intelligence is ready'
-    }, m('span', {
-      'data-icon': '3'
-    }))
-  ]) : m('div', {
-      class: 'username ' + player.color + (player.onGame ? ' on-game' : '')
-    },
-    renderUser(ctrl, player)
-  );
+  return player.ai ? m('div.username.user_link.online', [
+      m('i.line'),
+      m('name', renderUser.aiName(ctrl, player))
+    ]) :
+    renderUser.userHtml(ctrl, player);
 }
 
 function isSpinning(ctrl) {
@@ -100,7 +89,9 @@ function renderTablePlay(ctrl) {
   ]);
   return [
     renderReplay(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
-      isSpinning(ctrl) ? null : m('div.control.icons', [
+      isSpinning(ctrl) ? null : m('div', {
+        class: 'control icons'
+      }, [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
@@ -128,7 +119,7 @@ function goBerserk(ctrl) {
   if (!game.berserkableBy(ctrl.data)) return;
   if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
   return m('button', {
-    class: 'button berserk hint--bottom-left',
+    class: 'fbt berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",
     onclick: ctrl.goBerserk
   }, m('span', {
@@ -160,9 +151,9 @@ function renderClock(ctrl, position) {
       clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
       m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
       renderBerserk(ctrl, player.color, position),
-      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl)
-    ]),
-    tourRank(ctrl, player.color, position)
+      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+      tourRank(ctrl, player.color, position)
+    ])
   ];
 }
 
@@ -193,7 +184,7 @@ module.exports = function(ctrl) {
   return m('div.table_wrap', [
     anyClock(ctrl, 'top'),
     m('div', {
-      class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
+      class: 'table'
     }, [
       renderPlayer(ctrl, topPlayer(ctrl)),
       m('div.table_inner',

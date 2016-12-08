@@ -3,6 +3,7 @@ package lila.tournament
 import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 
+import chess.Clock.{ Config => TournamentClock }
 import chess.{ Speed, Mode, StartingPosition }
 import lila.game.{ PovRef, PerfPicker }
 import lila.user.User
@@ -82,7 +83,7 @@ case class Tournament(
     case _                                       => false
   }
 
-  def speed = Speed(clock.chessClock.some)
+  def speed = Speed(clock)
 
   def perfType = PerfPicker.perfType(speed, variant, none)
   def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
@@ -91,11 +92,19 @@ case class Tournament(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = system.berserkable && clock.chessClock.berserkable
+  def berserkable = system.berserkable && clock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 
   def schedulePair = schedule map { this -> _ }
+
+  def winner = winnerId map { userId =>
+    Winner(
+      tourId = id,
+      userId = userId,
+      tourName = name,
+      date = finishesAt)
+  }
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
@@ -119,7 +128,7 @@ object Tournament {
     `private`: Boolean,
     password: Option[String],
     waitMinutes: Int) = Tournament(
-    id = Random nextStringUppercase 8,
+    id = Random nextString 8,
     name = if (position.initial) GreatPlayer.randomName else position.shortName,
     status = Status.Created,
     system = system,
@@ -138,7 +147,7 @@ object Tournament {
     startsAt = DateTime.now plusMinutes waitMinutes)
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
-    id = Random nextStringUppercase 8,
+    id = Random nextString 8,
     name = sched.name,
     status = Status.Created,
     system = System.default,

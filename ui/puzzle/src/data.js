@@ -14,7 +14,7 @@ module.exports = function(cfg) {
     chess: chess.make(cfg.puzzle.fen)
   };
 
-  if (cfg.user) cfg.user.history = cfg.user.history || [];
+  if (cfg.user) cfg.user.recent = cfg.user.recent || [];
 
   merge.recursive(data, cfg);
 

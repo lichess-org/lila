@@ -12,7 +12,7 @@
   @playerUser.ratingDiff.map(showRatingDiff)
   }.getOrElse {
   @player.aiLevel.map { level =>
-  <span>@trans.aiNameLevelAiLevel.str(aiName(variant), level)</span><br />@aiRating(level)
+  <span>@aiName(level, false)</span><br />@aiRating(level)
   }.getOrElse {
   <span>@player.nameSplit match {
     case Some((name, rating)) => {

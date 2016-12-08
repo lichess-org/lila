@@ -2,11 +2,12 @@ package lila.tournament
 
 import org.joda.time.DateTime
 
+import chess.Clock.{ Config => TournamentClock }
 import lila.user.User
 
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],
-    clock: Option[chess.Clock],
+    clock: Option[TournamentClock],
     date: DateTime) {
 
   // hyperbullet -> 10
@@ -43,13 +44,13 @@ private[tournament] case class WaitingUsers(
     }.toList
   }
 
-  def update(us: Set[User.ID], clock: Option[chess.Clock]) = {
+  def update(us: Set[User.ID], clock: Option[TournamentClock]) = {
     val newDate = DateTime.now
     copy(
       date = newDate,
       clock = clock,
       hash = hash.filterKeys(us.contains) ++
-        us.filterNot(hash.contains).map { _ -> newDate }
+      us.filterNot(hash.contains).map { _ -> newDate }
     )
   }
 

@@ -1,6 +1,6 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
-@forum.layout(title = "New forum topic") {
+@forum.layout(title = "New forum topic", moreJs=jsTag("forum-post.js")) {
 <ol class="crumbs">
   <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
   <li><h1>@categ.name</h1></li>
@@ -23,7 +23,7 @@
     <input class="subject" autofocus="true" minlength=3 maxlength=100 value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
     @errMsg(form("name"))
   </label>
-  @forum.post.formFields(form("post")("text"), form("post")("author"))
+  @forum.post.formFields(form("post")("text"), form("post")("author"), None)
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
   <button class="submit button" type="submit" data-icon="E"> @trans.createTheTopic()</button>

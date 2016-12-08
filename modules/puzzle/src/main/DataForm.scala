@@ -10,13 +10,10 @@ object DataForm {
   ))
 
   val round = Form(mapping(
-    "win" -> number,
-    "time" -> number
+    "win" -> number
   )(RoundData.apply)(RoundData.unapply))
 
-  case class RoundData(
-      win: Int,
-      time: Int) {
+  case class RoundData(win: Int) extends AnyVal {
 
     def isWin = win == 1
   }

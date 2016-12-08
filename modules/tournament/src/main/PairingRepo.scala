@@ -32,8 +32,8 @@ object PairingRepo {
     coll.find(
       selectTour(tourId) ++ $doc("u" $in userIds),
       $doc("_id" -> false, "u" -> true)
-    ).sort(recentSort).cursor[Bdoc]().enumerate(nb) |>>>
-      Iteratee.fold(scala.collection.immutable.Map.empty[String, String]) { (acc, doc) =>
+    ).sort(recentSort).cursor[Bdoc]().fold(
+      scala.collection.immutable.Map.empty[String, String], nb) { (acc, doc) =>
         ~doc.getAs[List[String]]("u") match {
           case List(u1, u2) =>
             val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
@@ -78,10 +78,10 @@ object PairingRepo {
       Match(selectTour(tourId)),
       List(
         Project($doc("u" -> true, "_id" -> false)),
-        Unwind("u"),
+        UnwindField("u"),
         GroupField("u")("nb" -> SumValue(1))
       )).map {
-        _.documents.flatMap { doc =>
+        _.firstBatch.flatMap { doc =>
           doc.getAs[String]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
@@ -125,18 +125,19 @@ object PairingRepo {
       $set(field -> value)).void
   }
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddToSet, Group, Match, Project, Push, Unwind }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddFieldToSet, Group, Match, Project, PushField, UnwindField }
 
   def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
       Project($doc("u" -> true, "_id" -> false)),
-      Unwind("u"), Group(BSONBoolean(true))("ids" -> AddToSet("u")))).map(
-      _.documents.headOption.flatMap(_.getAs[Set[String]]("ids")).
+      UnwindField("u"), Group(BSONBoolean(true))(
+        "ids" -> AddFieldToSet("u")))).map(
+      _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
 
   def playingGameIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
-      Group(BSONBoolean(true))("ids" -> Push("_id")))).map(
-      _.documents.headOption.flatMap(_.getAs[List[String]]("ids")).
+      Group(BSONBoolean(true))("ids" -> PushField("_id")))).map(
+      _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
         getOrElse(List.empty[String]))
 }

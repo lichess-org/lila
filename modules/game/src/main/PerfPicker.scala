@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.Speed
+import chess.{Speed,Clock}
 import lila.rating.{ Perf, PerfType }
 import lila.user.Perfs
 
