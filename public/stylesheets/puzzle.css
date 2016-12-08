@@ -39,6 +39,7 @@
   line-height: 64px;
   text-align: center;
 }
+#puzzle .feedback.good .icon,
 #puzzle .feedback.win .icon {
   color: #759900;
 }
@@ -66,14 +67,65 @@
   opacity: 1;
 }
 
-#puzzle .after .continue {
+#puzzle .feedback.after {
+}
+
+#puzzle .feedback.after .half {
+  flex: 0 0 50%;
+}
+
+#puzzle .feedback.after .half.top {
   display: flex;
-  height: 50%;
-  width: 100%;
+  flex-flow: row nowrap;
+}
+
+#puzzle .feedback.after .complete {
+  flex: 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#puzzle .feedback.after .vote {
+  flex: 0 1;
+  display: flex;
+  flex-flow: column;
+  margin: 0 10px;
+  align-items: center;
+  justify-content: center;
+}
+#puzzle .feedback.after .vote a {
+  cursor: default;
+  cursor: pointer;
+  opacity: 0.7;
+}
+#puzzle .feedback.after .vote a::before {
+  font-size: 34px;
+}
+#puzzle .feedback.after .vote a:hover,
+#puzzle .feedback.after .vote a.active {
+  opacity: 1;
+  color: #d85000;
+}
+#puzzle .feedback.after .vote span.count {
+  font-size: 22px;
+  line-height: 1;
+}
+
+#puzzle .feedback.after .continue {
+  display: flex;
   font-size: 1.3em;
   background: #3893E8;
   color: #fff;
   align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+#puzzle .feedback.after .continue:hover {
+  background: #5ba6ec;
+}
+#puzzle .feedback.after .continue i::before {
+  font-size: 2.5em;
+  margin-right: 10px;
 }
 
 #puzzle move {

@@ -143,9 +143,11 @@ object Puzzle extends LilaController {
               (round, _) = finished
               me2 <- UserRepo byId me.id map (_ | me)
               infos <- env userInfos me2
+              voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
             } yield Ok(Json.obj(
               "user" -> lila.puzzle.JsonView.infos(false)(infos),
-              "round" -> lila.puzzle.JsonView.round(round)
+              "round" -> lila.puzzle.JsonView.round(round),
+              "voted" -> voted
             ))
           case None =>
             lila.mon.puzzle.round.anon()

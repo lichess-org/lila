@@ -20,18 +20,15 @@ function round(puzzleId, win) {
   });
 }
 
-function vote(ctrl, v) {
-  m.request({
+function vote(puzzleId, v) {
+  return m.request({
     method: 'POST',
-    url: '/training/' + ctrl.data.puzzle.id + '/vote',
+    url: '/training/' + puzzleId + '/vote',
     data: {
-      vote: v
+      vote: v ? 1 : 0
     },
     config: xhrConfig,
     background: true
-  }).then(function(res) {
-    ctrl.data.voted = res[0];
-    ctrl.data.puzzle.vote = res[1];
   });
 }
 

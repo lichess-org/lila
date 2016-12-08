@@ -31,7 +31,7 @@ final class JsonView(gameJson: GameJson) {
           "initialPly" -> puzzle.initialPly,
           "gameId" -> puzzle.gameId,
           "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
-          "branch" -> makeBranch(puzzle),
+          "branch" -> (!isMobileApi).option(makeBranch(puzzle)),
           "enabled" -> puzzle.enabled,
           "vote" -> puzzle.vote.sum
         ),

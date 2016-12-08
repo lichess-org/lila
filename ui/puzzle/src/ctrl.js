@@ -35,6 +35,7 @@ module.exports = function(opts, i18n) {
     vm.mode = 'play'; // play | try | view
     vm.loading = false;
     vm.round = null;
+    vm.voted = null;
     vm.justPlayed = null;
     vm.resultSent = false;
     vm.lastFeedback = 'init';
@@ -51,8 +52,8 @@ module.exports = function(opts, i18n) {
     setTimeout(function() {
       vm.canViewSolution = true;
       m.redraw();
-    }, 5000);
-    // }, 50);
+      // }, 5000);
+    }, 50);
 
     socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
@@ -187,11 +188,11 @@ module.exports = function(opts, i18n) {
       vm.lastFeedback = 'retry';
       revertUserMove();
     } else if (progress === 'win') {
-      if (vm.mode === 'play') {
+      if (vm.mode !== 'view') {
         vm.lastFeedback = 'win';
         vm.mode = 'view';
         showGround(); // to disable premoves
-        sendResult(true);
+        if (vm.mode === 'play') sendResult(true);
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
@@ -208,6 +209,7 @@ module.exports = function(opts, i18n) {
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
       vm.round = res.round;
+      vm.voted = res.voted;
       vm.loading = false;
       m.redraw();
     });
@@ -320,6 +322,17 @@ module.exports = function(opts, i18n) {
     }, '') : '';
   };
 
+  var hasEverVoted = lichess.storage.make('puzzle-ever-voted');
+
+  var vote = function(v) {
+    hasEverVoted.set(1);
+    vm.voted = v;
+    xhr.vote(data.puzzle.id, v).then(function(res) {
+      data.puzzle.vote = res[1];
+      m.redraw();
+    });
+  };
+
   initiate(opts.data);
 
   keyboard.bind({
@@ -340,6 +353,8 @@ module.exports = function(opts, i18n) {
     viewSolution: viewSolution,
     nextPuzzle: nextPuzzle,
     recentHash: recentHash,
+    hasEverVoted: hasEverVoted,
+    vote: vote,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive
   };
