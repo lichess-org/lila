@@ -302,6 +302,11 @@ module.exports = function(opts, i18n) {
     vm.mode = 'view';
     mergeSolution(tree, vm.initialNode, data.puzzle.branch, data.puzzle.color);
     reorderChildren(vm.initialPath, true);
+
+    // try and play the solution next move
+    var next = vm.node.children[0];
+    if (next) userJump(vm.path + next.id);
+
     vm.autoScrollRequested = true;
     m.redraw();
   };
