@@ -368,9 +368,9 @@ module.exports = function(opts, i18n) {
   });
 
   var recentHash = function() {
-    return data.user ? data.user.recent.reduce(function(h, r) {
+    return data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
       return h + r[0];
-    }, '') : '';
+    }, '') : '');
   };
 
   var hasEverVoted = lichess.storage.make('puzzle-ever-voted');
