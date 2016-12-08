@@ -214,12 +214,10 @@ module.exports = function(opts, i18n) {
   var sendResult = function(win) {
     if (vm.resultSent) return;
     vm.resultSent = true;
-    vm.loading = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
       vm.round = res.round;
       vm.voted = res.voted;
-      vm.loading = false;
       m.redraw();
     });
   };
@@ -228,7 +226,6 @@ module.exports = function(opts, i18n) {
     ceval.stop();
     vm.loading = true;
     xhr.nextPuzzle().then(function(d) {
-      // pushState(cfg);
       vm.round = null;
       vm.loading = false;
       initiate(d);

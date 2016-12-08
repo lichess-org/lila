@@ -1,12 +1,11 @@
 var m = require('mithril');
-var bindOnce = require('common').bindOnce;
 var treePath = require('tree').path;
 var afterView = require('./after');
 
 function viewSolution(ctrl) {
   return m('div.view_solution',
     m('a.button', {
-      config: bindOnce('click', ctrl.viewSolution)
+      onclick: ctrl.viewSolution
     }, 'View the solution')
   );
 }
@@ -76,7 +75,12 @@ function win(ctrl) {
   ]);
 }
 
+function loading() {
+  return m('div.feedback.loading', m.trust(lichess.spinnerHtml));
+}
+
 module.exports = function(ctrl) {
+  if (ctrl.vm.loading) return loading();
   if (ctrl.vm.mode === 'view') return afterView(ctrl);
   if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
