@@ -107,7 +107,7 @@ module.exports = function(opts, i18n) {
       config.premovable.enabled = true;
     }
     vm.cgConfig = config;
-    if (!ground) ground = groundBuild(data, config, userMove);
+    if (!ground) ground = groundBuild(data, config, opts.pref, userMove);
     ground.set(config);
     if (!dests) getDests();
   };

@@ -29,8 +29,6 @@ object Puzzle extends LilaController {
     puzzle = puzzle,
     userInfos = userInfos,
     mode = mode,
-    animationDuration = env.AnimationDuration,
-    pref = ctx.pref,
     isMobileApi = ctx.isMobileApi,
     result = result,
     voted = voted)
@@ -38,7 +36,7 @@ object Puzzle extends LilaController {
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env userInfos ctx.me flatMap { infos =>
       renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
-        views.html.puzzle.show(puzzle, json)
+        views.html.puzzle.show(puzzle, data = json, pref = env.jsonView.pref(ctx.pref))
       }
     }
 

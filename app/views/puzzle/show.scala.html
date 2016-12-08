@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -12,6 +12,7 @@
 lichess = lichess || {};
 lichess.puzzle = {
 data: @Html(toJson(data)),
+pref: @Html(toJson(pref)),
 i18n: @jsI18n()
 };
 }

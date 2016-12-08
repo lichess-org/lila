@@ -1,17 +1,17 @@
 var chessground = require('chessground');
 
-function makeConfig(data, config, onMove) {
-  return {
+module.exports = function(data, config, pref, onMove) {
+  return new chessground.controller({
     fen: config.fen,
     check: config.check,
     lastMove: config.lastMove,
     orientation: data.puzzle.color,
-    coordinates: data.pref.coords !== 0,
+    coordinates: pref.coords !== 0,
     movable: {
       free: false,
       color: config.movable.color,
       dests: config.movable.dests,
-      rookCastle: data.pref.rookCastle
+      rookCastle: pref.rookCastle
     },
     events: {
       move: onMove
@@ -23,18 +23,14 @@ function makeConfig(data, config, onMove) {
       enabled: true
     },
     highlight: {
-      lastMove: true,
-      check: true,
+      lastMove: pref.highlight,
+      check: pref.highlight,
       dragOver: true
     },
     animation: {
       enabled: true,
-      duration: data.animation.duration
+      duration: pref.animation.duration
     },
     disableContextMenu: true
-  };
-}
-
-module.exports = function(data, config, onMove) {
-  return new chessground.controller(makeConfig(data, config, onMove));
+  });
 };

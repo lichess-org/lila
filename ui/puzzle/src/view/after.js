@@ -2,6 +2,7 @@ var m = require('mithril');
 
 function renderVote(ctrl) {
   var data = ctrl.getData();
+  if (!data.puzzle.enabled) return;
   return m('div.vote', [
     m('a[data-icon=S]', {
       title: ctrl.trans.noarg('thisPuzzleIsCorrect'),

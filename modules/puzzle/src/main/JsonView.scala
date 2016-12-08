@@ -6,14 +6,14 @@ import lila.common.PimpedJson._
 import lila.puzzle._
 import lila.tree
 
-final class JsonView(gameJson: GameJson) {
+final class JsonView(
+    gameJson: GameJson,
+    animationDuration: scala.concurrent.duration.Duration) {
 
   def apply(
     puzzle: Puzzle,
     userInfos: Option[UserInfos],
     mode: String,
-    animationDuration: scala.concurrent.duration.Duration,
-    pref: lila.pref.Pref,
     isMobileApi: Boolean,
     round: Option[Round] = None,
     result: Option[Result] = None,
@@ -34,28 +34,6 @@ final class JsonView(gameJson: GameJson) {
           "branch" -> (!isMobileApi).option(makeBranch(puzzle)),
           "enabled" -> puzzle.enabled,
           "vote" -> puzzle.vote.sum
-        ),
-        "pref" -> Json.obj(
-          "coords" -> pref.coords,
-          "rookCastle" -> pref.rookCastle
-        ),
-        "chessground" -> (!isMobileApi).option(Json.obj(
-          "highlight" -> Json.obj(
-            "lastMove" -> pref.highlight,
-            "check" -> pref.highlight
-          ),
-          "movable" -> Json.obj(
-            "showDests" -> pref.destination
-          ),
-          "draggable" -> Json.obj(
-            "showGhost" -> pref.highlight
-          ),
-          "premovable" -> Json.obj(
-            "showDests" -> pref.destination
-          )
-        )),
-        "animation" -> Json.obj(
-          "duration" -> pref.animationFactor * animationDuration.toMillis
         ),
         "mode" -> mode,
         "round" -> round.map(JsonView.round),
@@ -78,6 +56,14 @@ final class JsonView(gameJson: GameJson) {
           )
         }).noNull
     }
+
+  def pref(p: lila.pref.Pref) = Json.obj(
+    "coords" -> p.coords,
+    "rookCastle" -> p.rookCastle,
+    "animation" -> Json.obj(
+      "duration" -> p.animationFactor * animationDuration.toMillis
+    ),
+    "highlight" -> p.highlight)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._
