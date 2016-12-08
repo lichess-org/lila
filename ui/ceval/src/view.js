@@ -1,7 +1,6 @@
 var m = require('mithril');
 var winningChances = require('./winningChances');
 var defined = require('common').defined;
-var bindOnce = require('common').bindOnce;
 var classSet = require('common').classSet;
 var renderEval = require('chess').renderEval;
 var pv2san = require('./pv2san');
@@ -48,7 +47,7 @@ function threatButton(ctrl) {
     }),
     'data-icon': '7',
     title: 'Show threat (x)',
-    config: bindOnce('click', ctrl.toggleThreatMode)
+    onclick: ctrl.toggleThreatMode
   });
 }
 
@@ -78,8 +77,9 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.vm.showComputer()) return;
-    var enabled = ctrl.ceval.enabled();
+    var instance = ctrl.getCeval();
+    if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
+    var enabled = instance.enabled();
     var evs = ctrl.currentEvals() || {};
     var threatMode = ctrl.vm.threatMode;
     var threat = threatMode && ctrl.vm.node.threat;
@@ -142,7 +142,7 @@ module.exports = {
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          config: bindOnce('change', ctrl.toggleCeval)
+          onchange: ctrl.toggleCeval
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'
@@ -152,8 +152,9 @@ module.exports = {
     )
   },
   renderPvs: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.ceval.enabled()) return;
-    var multiPv = ctrl.ceval.multiPv();
+    var instance = ctrl.getCeval();
+    if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
+    var multiPv = instance.multiPv();
     var pvs, threat = false;
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
@@ -166,10 +167,10 @@ module.exports = {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
           el.addEventListener('mouseover', function(e) {
-            ctrl.ceval.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
+            instance.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
           });
           el.addEventListener('mouseout', function(e) {
-            ctrl.ceval.setHoveringUci(null);
+            instance.setHoveringUci(null);
           });
           el.addEventListener('mousedown', function(e) {
             var uci = $(e.target).closest('div.pv').attr('data-uci');
@@ -177,7 +178,7 @@ module.exports = {
           });
         }
         setTimeout(function() {
-          ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+          instance.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
     }, range(multiPv).map(function(i) {
@@ -186,7 +187,7 @@ module.exports = {
         'data-uci': pvs[i].best
       }, [
         multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(ctrl.ceval.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));
   }

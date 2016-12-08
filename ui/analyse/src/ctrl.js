@@ -433,6 +433,10 @@ module.exports = function(opts) {
 
   instanciateCeval();
 
+  this.getCeval = function() {
+    return this.ceval;
+  }.bind(this);
+
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
     if (this.vm.node.check) {

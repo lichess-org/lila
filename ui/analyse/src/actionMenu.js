@@ -131,6 +131,7 @@ module.exports = {
     if (d.userAnalysis) flipAttrs.config = bindOnce('click', ctrl.flip);
     else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
+    var ceval = ctrl.getCeval();
 
     return m('div.action_menu', [
       m('div.tools', [
@@ -153,7 +154,7 @@ module.exports = {
         ]) : null,
         studyButton(ctrl)
       ]),
-      ctrl.ceval.possible ? [
+      ceval.possible ? [
         m('h2', 'Computer analysis'), [
           (function(id) {
             return m('div.setting', [
@@ -230,15 +231,15 @@ module.exports = {
                   max: max,
                   step: 1,
                   config: rangeConfig(function() {
-                    return ctrl.ceval.multiPv();
+                    return ceval.multiPv();
                   }, function(v) {
                     ctrl.evalSetMultiPv(parseInt(v));
                   })
                 }),
-                m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
+                m('div.range_value', ceval.multiPv() + ' / ' + max)
               ]);
             })('analyse-multipv'),
-            ctrl.ceval.pnaclSupported ? [
+            ceval.pnaclSupported ? [
               (function(id) {
                 var max = navigator.hardwareConcurrency;
                 if (!max) return;
@@ -254,12 +255,12 @@ module.exports = {
                     max: max,
                     step: 1,
                     config: rangeConfig(function() {
-                      return ctrl.ceval.threads();
+                      return ceval.threads();
                     }, function(v) {
                       ctrl.cevalSetThreads(parseInt(v));
                     })
                   }),
-                  m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+                  m('div.range_value', ceval.threads() + ' / ' + max)
                 ]);
               })('analyse-threads'), (function(id) {
                 return m('div.setting', [
@@ -273,12 +274,12 @@ module.exports = {
                     max: 10,
                     step: 1,
                     config: rangeConfig(function() {
-                      return Math.floor(Math.log2(ctrl.ceval.hashSize()));
+                      return Math.floor(Math.log2(ceval.hashSize()));
                     }, function(v) {
                       ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
                     })
                   }),
-                  m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
+                  m('div.range_value', formatHashSize(ceval.hashSize()))
                 ]);
               })('analyse-memory')
             ] : null

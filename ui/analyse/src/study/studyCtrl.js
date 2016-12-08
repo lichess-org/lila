@@ -79,8 +79,8 @@ module.exports = {
     var configureAnalysis = function() {
       if (ctrl.embed) return;
       lichess.pubsub.emit('chat.writeable')(!!members.myMember());
-      if (!data.chapter.features.computer) ctrl.ceval.enabled(false);
-      ctrl.ceval.allowed(data.chapter.features.computer);
+      if (!data.chapter.features.computer) ctrl.getCeval().enabled(false);
+      ctrl.getCeval().allowed(data.chapter.features.computer);
       if (!data.chapter.features.explorer) ctrl.explorer.disable();
       ctrl.explorer.allowed(data.chapter.features.explorer);
     };

@@ -356,6 +356,7 @@ module.exports = function(opts, i18n) {
 
     vm.autoScrollRequested = true;
     m.redraw();
+    startCeval();
   };
 
   var socket = socketBuild({
@@ -417,7 +418,9 @@ module.exports = function(opts, i18n) {
     recentHash: recentHash,
     hasEverVoted: hasEverVoted,
     vote: vote,
-    ceval: ceval,
+    getCeval: function() {
+      return ceval;
+    },
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive,
     gameOver: gameOver,
