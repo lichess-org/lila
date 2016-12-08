@@ -305,7 +305,13 @@ module.exports = function(opts, i18n) {
 
     // try and play the solution next move
     var next = vm.node.children[0];
-    if (next) userJump(vm.path + next.id);
+    if (next && next.puzzle === 'good') userJump(vm.path + next.id);
+    else {
+      var firstGoodPath = treeOps.takePathWhile(vm.mainline, function(node) {
+        return node.puzzle !== 'good';
+      });
+      if (firstGoodPath) userJump(firstGoodPath + tree.nodeAtPath(firstGoodPath).children[0].id);
+    }
 
     vm.autoScrollRequested = true;
     m.redraw();
