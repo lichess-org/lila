@@ -4,6 +4,8 @@ var treeOps = require('tree').ops;
 var treePath = require('tree').path;
 var cevalCtrl = require('ceval').ctrl;
 var readDests = require('chess').readDests;
+var decomposeUci = require('chess').decomposeUci;
+var sanToRole = require('chess').sanToRole;
 var k = Mousetrap;
 var chessground = require('chessground');
 var keyboard = require('./keyboard');
@@ -12,13 +14,16 @@ var groundBuild = require('./ground');
 var socketBuild = require('./socket');
 var moveTestBuild = require('./moveTest');
 var mergeSolution = require('./solution');
+var computeAutoShapes = require('./autoShape');
 var throttle = require('common').throttle;
 var xhr = require('./xhr');
 var sound = require('./sound');
 
 module.exports = function(opts, i18n) {
 
-  var vm = {};
+  var vm = {
+    mode: 'play'
+  };
   var data, tree, ground, ceval, moveTest;
 
   var setPath = function(path) {
@@ -52,14 +57,16 @@ module.exports = function(opts, i18n) {
     setTimeout(function() {
       vm.canViewSolution = true;
       m.redraw();
-      // }, 5000);
-    }, 50);
+    }, 5000);
+    // }, 50);
 
     socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
 
     showGround();
     m.redraw();
+
+    instanciateCeval();
 
     if (window.history.pushState)
       window.history.replaceState(null, null, '/training/' + data.puzzle.id);
@@ -237,19 +244,27 @@ module.exports = function(opts, i18n) {
 
   var instanciateCeval = function(failsafe) {
     ceval = cevalCtrl({
-      variant: data.game.variant,
+      storageKeyPrefix: 'puzzle',
+      variant: {
+        key: 'standard'
+      },
       possible: true,
       emit: function(res) {
         tree.updateAt(res.work.path, function(node) {
-          if (node.ceval && node.ceval.depth >= res.eval.depth) return;
-          node.ceval = res.eval;
-          // if (res.work.path === vm.path) {
-          //   setAutoShapes();
-          //   m.redraw();
-          // }
+          if (res.work.threatMode) {
+            if (node.threat && node.threat.depth >= res.eval.depth) return;
+            node.threat = res.eval;
+          } else {
+            if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+            node.ceval = res.eval;
+          }
+          if (res.work.path === vm.path) {
+            setAutoShapes();
+            m.redraw();
+          }
         });
       },
-      setAutoShapes: $.noop,
+      setAutoShapes: setAutoShapes,
       failsafe: failsafe,
       onCrash: function(e) {
         console.log('Local eval failed!', e);
@@ -261,7 +276,30 @@ module.exports = function(opts, i18n) {
       }
     });
   };
-  // instanciateCeval();
+
+  var setAutoShapes = function() {
+    ground.setAutoShapes(computeAutoShapes({
+      vm: vm,
+      ceval: ceval,
+      ground: ground,
+      nextNodeBest: nextNodeBest
+    }));
+  };
+
+  var canUseCeval = function() {
+    return vm.mode === 'view' && !gameOver();
+  }.bind(this);
+
+  var startCeval = throttle(800, false, function() {
+    if (ceval.enabled() && canUseCeval())
+      ceval.start(vm.path, vm.nodeList, vm.threatMode);
+  }.bind(this));
+
+  var nextNodeBest = function() {
+    return treeOps.withMainlineChild(vm.node, function(n) {
+      return n.eval ? n.eval.best : null;
+    });
+  };
 
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
@@ -284,9 +322,9 @@ module.exports = function(opts, i18n) {
         else sound.move();
       }
       if (/\+|\#/.test(vm.node.san)) sound.check();
-      // this.vm.threatMode = false;
-      // this.ceval.stop();
-      // this.startCeval();
+      vm.threatMode = false;
+      ceval.stop();
+      startCeval();
     }
     vm.justPlayed = null;
     vm.autoScrollRequested = true;
@@ -344,6 +382,14 @@ module.exports = function(opts, i18n) {
     });
   };
 
+  // required by ceval
+  vm.showComputer = function() {
+    return vm.mode === 'view';
+  };
+  vm.showAutoShapes = function() {
+    return true;
+  };
+
   initiate(opts.data);
 
   keyboard.bind({
@@ -366,7 +412,43 @@ module.exports = function(opts, i18n) {
     recentHash: recentHash,
     hasEverVoted: hasEverVoted,
     vote: vote,
+    ceval: ceval,
     trans: lichess.trans(opts.i18n),
-    socketReceive: socket.receive
+    socketReceive: socket.receive,
+    gameOver: gameOver,
+    toggleCeval: function() {
+      ceval.toggle();
+      setAutoShapes();
+      startCeval();
+      if (!ceval.enabled()) vm.threatMode = false;
+      m.redraw();
+    },
+    toggleThreatMode: function() {
+      if (vm.node.check) return;
+      if (!ceval.enabled()) ceval.toggle();
+      if (!ceval.enabled()) return;
+      vm.threatMode = !vm.threatMode;
+      setAutoShapes();
+      startCeval();
+      m.redraw();
+    },
+    currentEvals: function() {
+      return vm.node.ceval ? {
+        client: vm.node.ceval,
+        fav: vm.node.ceval
+      } : null;
+    },
+    nextNodeBest: nextNodeBest,
+    playUci: function(uci) {
+      var move = decomposeUci(uci);
+      if (!move[2]) sendMove(move[0], move[1])
+      else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
+    },
+    showEvalGauge: function() {
+      return vm.showComputer() && ceval.enabled();
+    },
+    getOrientation: function() {
+      return ground.data.orientation;
+    }
   };
 }

@@ -160,10 +160,10 @@ function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     node.san,
-    puzzleGlyph(ctx, node),
     defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
       defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
+    puzzleGlyph(ctx, node)
   ];
 }
 

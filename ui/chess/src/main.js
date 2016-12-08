@@ -29,5 +29,19 @@ module.exports = {
   readDrops: function(line) {
     if (typeof line === 'undefined' || line === null) return null;
     return line.match(/.{2}/g) || [];
+  },
+  roleToSan: {
+    pawn: 'P',
+    knight: 'N',
+    bishop: 'B',
+    rook: 'R',
+    queen: 'Q'
+  },
+  sanToRole: {
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen'
   }
 };

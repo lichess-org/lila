@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 var bindOnce = require('common').bindOnce;
 var treeView = require('./tree');
+var cevalView = require('ceval').view;
 var control = require('../control');
 var feedbackView = require('./feedback');
 var historyView = require('./history');
@@ -20,8 +21,7 @@ function renderOpeningBox(ctrl) {
 function renderAnalyse(ctrl) {
   return m('div.areplay', [
     renderOpeningBox(ctrl),
-    treeView.render(ctrl),
-    // renderResult(ctrl)
+    treeView.render(ctrl)
   ]);
 }
 
@@ -45,7 +45,7 @@ function visualBoard(ctrl) {
     }, [
       chessground.view(ctrl.ground)
     ]),
-    // cevalView.renderGauge(ctrl)
+    cevalView.renderGauge(ctrl)
   ]);
 }
 
@@ -97,7 +97,8 @@ module.exports = function(ctrl) {
       config: function(el, isUpdate) {
         if (firstRender) firstRender = false;
         else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
-      }
+      },
+      class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [
       m('div.lichess_game', {
         config: function(el, isUpdate) {
@@ -107,8 +108,10 @@ module.exports = function(ctrl) {
       }, [
         visualBoard(ctrl),
         m('div.lichess_ground', [
-          // cevalView.renderCeval(ctrl),
-          // cevalView.renderPvs(ctrl),
+          ctrl.vm.showComputer() ? [
+            cevalView.renderCeval(ctrl),
+            cevalView.renderPvs(ctrl)
+          ] : null,
           renderAnalyse(ctrl),
           feedbackView(ctrl),
           buttons(ctrl)

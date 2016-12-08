@@ -7,14 +7,18 @@ var stockfishProtocol = require('./stockfishProtocol');
 
 module.exports = function(opts) {
 
+  var storageKey = function(k) {
+    return opts.storageKeyPrefix ? opts.storageKeyPrefix + '.' + k : k;
+  };
+
   var pnaclSupported = !opts.failsafe && navigator.mimeTypes['application/x-pnacl'];
   var minDepth = 6;
-  var maxDepth = storedProp('ceval.max-depth', 18);
-  var multiPv = storedProp('ceval.multipv', 1);
-  var threads = storedProp('ceval.threads', Math.ceil((navigator.hardwareConcurrency || 1) / 2));
-  var hashSize = storedProp('ceval.hash-size', 128);
+  var maxDepth = storedProp(storageKey('ceval.max-depth'), 18);
+  var multiPv = storedProp(storageKey('ceval.multipv'), 1);
+  var threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
+  var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   var curDepth = 0;
-  var enableStorage = lichess.storage.make('client-eval-enabled');
+  var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1');
   var started = false;
@@ -155,6 +159,7 @@ module.exports = function(opts) {
       return curDepth;
     },
     maxDepth: maxDepth,
+    variant: opts.variant,
     destroy: pool.destroy
   };
 };

@@ -65,7 +65,7 @@ module.exports = {
       class: classSet({
         eval_gauge: true,
         empty: eval === null,
-        reverse: ctrl.data.orientation === 'black'
+        reverse: ctrl.getOrientation() === 'black'
       })
     }, [
       m('div', {
@@ -186,7 +186,7 @@ module.exports = {
         'data-uci': pvs[i].best
       }, [
         multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+        m('span', pv2san(ctrl.ceval.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));
   }

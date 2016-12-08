@@ -9,6 +9,8 @@ var promotion = require('./promotion');
 var util = require('./util');
 var readDests = require('chess').readDests;
 var readDrops = require('chess').readDrops;
+var sanToRole = require('chess').sanToRole;
+var decomposeUci = require('chess').decomposeUci;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var socket = require('./socket');
@@ -17,7 +19,6 @@ var cevalCtrl = require('ceval').ctrl;
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
-var decomposeUci = require('chess').decomposeUci;
 var crazyValid = require('./crazy/crazyValid');
 var studyCtrl = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
@@ -99,6 +100,9 @@ module.exports = function(opts) {
   }.bind(this);
   this.bottomColor = function() {
     return this.vm.flip ? opposite(this.data.orientation) : this.data.orientation;
+  }.bind(this);
+  this.getOrientation = function() {
+    return this.data.orientation;
   }.bind(this);
 
   this.togglePlay = function(delay) {
@@ -544,11 +548,11 @@ module.exports = function(opts) {
     var move = decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
-        role: util.sanToRole[uci[0]]
+        role: sanToRole[uci[0]]
       },
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], util.sanToRole[move[2].toUpperCase()]);
+    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
   }.bind(this);
 
   this.explorerMove = function(uci) {

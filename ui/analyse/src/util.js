@@ -24,19 +24,5 @@ module.exports = {
     var split = titleName.split(' ');
     var name = split.length == 1 ? split[0] : split[1];
     return name.toLowerCase();
-  },
-  roleToSan: {
-    pawn: 'P',
-    knight: 'N',
-    bishop: 'B',
-    rook: 'R',
-    queen: 'Q'
-  },
-  sanToRole: {
-    P: 'pawn',
-    N: 'knight',
-    B: 'bishop',
-    R: 'rook',
-    Q: 'queen'
   }
 };
