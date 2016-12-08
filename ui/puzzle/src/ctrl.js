@@ -198,10 +198,10 @@ module.exports = function(opts, i18n) {
       revertUserMove();
     } else if (progress === 'win') {
       if (vm.mode !== 'view') {
+        if (vm.mode === 'play') sendResult(true);
         vm.lastFeedback = 'win';
         vm.mode = 'view';
         showGround(); // to disable premoves
-        if (vm.mode === 'play') sendResult(true);
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
