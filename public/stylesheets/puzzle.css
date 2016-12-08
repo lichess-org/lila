@@ -107,7 +107,7 @@
 }
 #puzzle .feedback.after .vote a::before {
   font-size: 30px;
-  line-height: 28px;
+  line-height: 24px;
 }
 #puzzle .feedback.after .vote a:hover,
 #puzzle .feedback.after .vote a.active {
