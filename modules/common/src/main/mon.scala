@@ -64,7 +64,6 @@ object mon {
       def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
       def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
       def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
-      def standardColor(mode: String, color: String) = inc(s"lobby.hook.standard_color.$mode.$color")
     }
     object seek {
       val create = inc("lobby.seek.create")
