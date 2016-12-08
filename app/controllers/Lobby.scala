@@ -40,12 +40,13 @@ object Lobby extends LilaController {
     )
   }
 
-  private val socketConsumer = lila.api.TokenBucket.create(
-    system = lila.common.PlayApp.system,
-    size = 10,
-    rate = 6)
+  private val MessageLimitPerIP = new lila.memo.RateLimit(
+    credits = 50,
+    duration = 10 seconds,
+    name = "lobby socket message per IP",
+    key = "lobby_socket.message.ip")
 
-  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](socketConsumer, "lobby") { implicit ctx =>
+  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(uid = uid, user = ctx.me, mobile = getBool("mobile")) map some
     }

@@ -9,7 +9,7 @@ import play.api.mvc._, Results._
 import play.twirl.api.Html
 import scalaz.Monoid
 
-import lila.api.{ PageData, Context, HeaderContext, BodyContext, TokenBucket }
+import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, ApiVersion }
 import lila.notify.Notification.Notifies
