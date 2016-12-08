@@ -57,11 +57,17 @@
   100% { opacity: 0.8; }
 }
 #puzzle .feedback .view_solution {
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: -5px;
   text-align: center;
+  opacity: 0;
+  visibility: hidden;
+}
+#puzzle .feedback .view_solution.show {
+  visibility: visible;
   opacity: 0.8;
-  animation: reveal 1s;
   transition: opacity 0.13s;
+  animation: reveal 1.5s;
 }
 #puzzle .feedback .view_solution:hover {
   opacity: 1;

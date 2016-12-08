@@ -3,7 +3,9 @@ var treePath = require('tree').path;
 var afterView = require('./after');
 
 function viewSolution(ctrl) {
-  return m('div.view_solution',
+  return m('div.view_solution', {
+      class: ctrl.vm.canViewSolution ? 'show' : '',
+    },
     m('a.button', {
       onclick: ctrl.viewSolution
     }, 'View the solution')
@@ -20,7 +22,7 @@ function initial(ctrl) {
         m('em', ctrl.trans.noarg(puzzleColor === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
       ])
     ]),
-    ctrl.vm.canViewSolution ? viewSolution(ctrl) : null
+    viewSolution(ctrl)
   ]);
 }
 
@@ -33,7 +35,7 @@ function good(ctrl) {
         m('em', ctrl.trans.noarg('keepGoing'))
       ])
     ]),
-    ctrl.vm.canViewSolution ? viewSolution(ctrl) : null
+    viewSolution(ctrl)
   ]);
 }
 
@@ -46,7 +48,7 @@ function retry(ctrl) {
         m('em', ctrl.trans.noarg('butYouCanDoBetter'))
       ])
     ]),
-    ctrl.vm.canViewSolution ? viewSolution(ctrl) : null
+    viewSolution(ctrl)
   ]);
 }
 

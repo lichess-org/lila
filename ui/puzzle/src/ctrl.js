@@ -337,6 +337,7 @@ module.exports = function(opts, i18n) {
   };
 
   var viewSolution = function() {
+    if (!vm.canViewSolution) return;
     sendResult(false);
     vm.mode = 'view';
     mergeSolution(tree, vm.initialNode, data.puzzle.branch, data.puzzle.color);
