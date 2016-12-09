@@ -1,26 +1,5 @@
 var m = require('mithril');
 
-function fenToUci(fen) {
-  // convert three check fens
-  // lichess: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 +0+0
-  // stockfish: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 3+3 0 1
-  var m = fen.match(/^(.+) (w|b) (.+) (.+) (\d+) (\d+) \+(\d+)\+(\d+)$/);
-  if (m) {
-    var w = parseInt(m[7], 10);
-    var b = parseInt(m[8], 10);
-    var checks = (3 - w) + '+' + (3 - b);
-    return [m[1], m[2], m[3], m[4], checks, m[5], m[6]].join(' ');
-  }
-
-  // convert crazyhouse fens
-  // lichess: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR/ w KQkq - 0 1
-  // stockfish: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR[] w KQkq - 0 1
-  m = fen.match(/^((?:\w+\/){7}\w+)\/([PNBRQKpnbrqk]*) (.*)$/);
-  if (m) return m[1] + '[' + m[2] + '] ' + m[3];
-
-  return fen;
-}
-
 module.exports = function(worker, opts) {
 
   var work = null;
@@ -108,7 +87,7 @@ module.exports = function(worker, opts) {
       if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
       if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
       worker.send('setoption name MultiPV value ' + opts.multiPv());
-      worker.send(['position', 'fen', fenToUci(work.initialFen), 'moves'].concat(work.moves).join(' '));
+      worker.send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
     },
     stop: function() {
