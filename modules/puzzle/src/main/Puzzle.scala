@@ -1,13 +1,14 @@
 package lila.puzzle
 
 import chess.Color
+import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
 
 import lila.rating.Perf
 
 case class Puzzle(
     id: PuzzleId,
-    gameId: Option[String],
+    gameId: String,
     history: List[String],
     fen: String,
     lines: List[Line],
@@ -19,22 +20,23 @@ case class Puzzle(
     attempts: Int,
     mate: Boolean) {
 
-  def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
-    move * 2 + color.fold(0, 1)
-  }
+  // ply after "initial move" when we start solving
+  def initialPly: Int = {
+    fen.split(' ').lastOption flatMap parseIntOption map { move =>
+      move * 2 - color.fold(0, 1)
+    }
+  } | 0
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
-  def initialMove = history.last
+  def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
 
   def enabled = vote.sum > -9000
 
   def fenAfterInitialMove: Option[String] = {
-    import chess.format.{ Uci, Forsyth }
     for {
       sit1 <- Forsyth << fen
-      uci <- Uci.Move(initialMove)
-      sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
+      sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> sit2
   }
 }
@@ -42,7 +44,7 @@ case class Puzzle(
 object Puzzle {
 
   def make(
-    gameId: Option[String],
+    gameId: String,
     history: List[String],
     fen: String,
     color: Color,
@@ -77,7 +79,7 @@ object Puzzle {
       case BSONElement(move, more: BSONDocument) =>
         Node(readMove(move), read(more))
 
-      case BSONElement(move, value)              =>
+      case BSONElement(move, value) =>
         throw new Exception(s"Can't read value of $move: $value")
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
@@ -116,7 +118,7 @@ object Puzzle {
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
-      gameId = r strO gameId,
+      gameId = r str gameId,
       history = r str history split ' ' toList,
       fen = r str fen,
       lines = r.get[Lines](lines),

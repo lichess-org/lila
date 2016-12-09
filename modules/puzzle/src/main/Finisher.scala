@@ -3,6 +3,7 @@ package lila.puzzle
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
+import chess.Mode
 import lila.db.dsl._
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
@@ -13,15 +14,15 @@ private[puzzle] final class Finisher(
 
   private val maxTime = 5 * 60 * 1000
 
-  def apply(puzzle: Puzzle, user: User, data: DataForm.RoundData): Fu[(Round, Option[Boolean])] =
+  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] =
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id) >>
-          api.learning.update(user, puzzle, data).flatMap { isLearning =>
+          api.learning.update(user, puzzle, result).flatMap { isLearning =>
             val userRating = user.perfs.puzzle.toRating
             val puzzleRating = puzzle.perf.toRating
             updateRatings(userRating, puzzleRating,
-              result = data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss),
+              result = result.win.fold(Glicko.Result.Win, Glicko.Result.Loss),
               isLearning = isLearning)
             val date = DateTime.now
             val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
@@ -30,7 +31,7 @@ private[puzzle] final class Finisher(
               puzzleId = puzzle.id,
               userId = user.id,
               date = DateTime.now,
-              win = data.isWin,
+              result = result,
               rating = user.perfs.puzzle.intRating,
               ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
             (api.round add a) >> {
@@ -39,7 +40,7 @@ private[puzzle] final class Finisher(
                 $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                   $set(Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf))
               ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-            } inject (a -> none)
+            } inject (a -> Mode.Rated)
           }
       case _ =>
         incPuzzleAttempts(puzzle)
@@ -47,10 +48,10 @@ private[puzzle] final class Finisher(
           puzzleId = puzzle.id,
           userId = user.id,
           date = DateTime.now,
-          win = data.isWin,
+          result = result,
           rating = user.perfs.puzzle.intRating,
           ratingDiff = 0)
-        fuccess(a -> data.isWin.some)
+        fuccess(a -> Mode.Casual)
     }
 
   private val VOLATILITY = Glicko.default.volatility

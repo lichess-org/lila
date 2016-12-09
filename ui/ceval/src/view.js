@@ -1,8 +1,8 @@
 var m = require('mithril');
-var winningChances = require('../winningChances');
-var util = require('../util');
-var defined = util.defined;
-var classSet = require('chessground').util.classSet;
+var winningChances = require('./winningChances');
+var defined = require('common').defined;
+var classSet = require('common').classSet;
+var renderEval = require('chess').renderEval;
 var pv2san = require('./pv2san');
 
 var gaugeLast = 0;
@@ -12,6 +12,12 @@ for (var i = 1; i < 8; i++) gaugeTicks.push(m(i === 4 ? 'tick.zero' : 'tick', {
     height: (i * 12.5) + '%'
   }
 }));
+
+function range(len) {
+  var r = [];
+  for (var i = 0; i < len; i++) r.push(i);
+  return r;
+}
 
 function localEvalInfo(ctrl, evs) {
   if (!evs.client) {
@@ -41,7 +47,7 @@ function threatButton(ctrl) {
     }),
     'data-icon': '7',
     title: 'Show threat (x)',
-    config: util.bindOnce('click', ctrl.toggleThreatMode)
+    onclick: ctrl.toggleThreatMode
   });
 }
 
@@ -58,7 +64,7 @@ module.exports = {
       class: classSet({
         eval_gauge: true,
         empty: eval === null,
-        reverse: ctrl.data.orientation === 'black'
+        reverse: ctrl.getOrientation() === 'black'
       })
     }, [
       m('div', {
@@ -71,14 +77,15 @@ module.exports = {
     ]);
   },
   renderCeval: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.vm.showComputer()) return;
-    var enabled = ctrl.ceval.enabled();
+    var instance = ctrl.getCeval();
+    if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
+    var enabled = instance.enabled();
     var evs = ctrl.currentEvals() || {};
     var threatMode = ctrl.vm.threatMode;
     var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
     if (defined(evs.fav) && defined(evs.fav.cp)) {
-      pearl = util.renderEval(evs.fav.cp);
+      pearl = renderEval(evs.fav.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
         (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
@@ -135,7 +142,7 @@ module.exports = {
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          config: util.bindOnce('change', ctrl.toggleCeval)
+          onchange: ctrl.toggleCeval
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'
@@ -145,8 +152,9 @@ module.exports = {
     )
   },
   renderPvs: function(ctrl) {
-    if (!ctrl.ceval.allowed() || !ctrl.ceval.possible || !ctrl.ceval.enabled()) return;
-    var multiPv = ctrl.ceval.multiPv();
+    var instance = ctrl.getCeval();
+    if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
+    var multiPv = instance.multiPv();
     var pvs, threat = false;
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
@@ -159,10 +167,10 @@ module.exports = {
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
           el.addEventListener('mouseover', function(e) {
-            ctrl.ceval.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
+            instance.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
           });
           el.addEventListener('mouseout', function(e) {
-            ctrl.ceval.setHoveringUci(null);
+            instance.setHoveringUci(null);
           });
           el.addEventListener('mousedown', function(e) {
             var uci = $(e.target).closest('div.pv').attr('data-uci');
@@ -170,16 +178,16 @@ module.exports = {
           });
         }
         setTimeout(function() {
-          ctrl.ceval.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+          instance.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
-    }, util.range(multiPv).map(function(i) {
+    }, range(multiPv).map(function(i) {
       if (!pvs[i]) return m('div.pv');
       else return m('div.pv', threat ? {} : {
         'data-uci': pvs[i].best
       }, [
-        multiPv > 1 ? m('strong', util.defined(pvs[i].mate) ? ('#' + pvs[i].mate) : util.renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(ctrl.data.game.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+        multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
+        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
       ]);
     }));
   }

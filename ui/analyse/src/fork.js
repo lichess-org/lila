@@ -1,5 +1,5 @@
 var m = require('mithril');
-var treeView = require('./tree/treeView');
+var treeView = require('./treeView');
 
 module.exports = {
   ctrl: function(root) {

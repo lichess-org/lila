@@ -1,13 +1,16 @@
 var m = require('mithril');
-var contextMenu = require('../contextMenu');
+var contextMenu = require('./contextMenu');
 var raf = require('chessground').util.requestAnimationFrame;
-var util = require('../util');
-var empty = util.empty;
+var empty = require('common').empty;
+var throttle = require('common').throttle;
+var defined = require('common').defined;
 var game = require('game').game;
-var treePath = require('./path');
-var commentAuthorText = require('../study/studyComments').authorText;
+var fixCrazySan = require('chess').fixCrazySan;
+var normalizeEval = require('chess').renderEval;
+var treePath = require('tree').path;
+var commentAuthorText = require('./study/studyComments').authorText;
 
-var autoScroll = util.throttle(300, false, function(ctrl, el) {
+var autoScroll = throttle(300, false, function(ctrl, el) {
   var cont = el.parentNode;
   raf(function() {
     var target = el.querySelector('.active');
@@ -140,10 +143,10 @@ function renderMainlineMoveOf(ctx, node, opts) {
 function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
-    util.fixCrazySan(node.san),
-    (node.glyphs && (ctx.isStudy || ctx.showComputer)) ? renderGlyphs(node.glyphs) : null,
-    util.defined(eval.cp) ? renderEval(util.renderEval(eval.cp)) : (
-      util.defined(eval.mate) ? renderEval('#' + eval.mate) : null
+    fixCrazySan(node.san),
+    (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
+    defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
+      defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
   ];
 }
@@ -162,7 +165,7 @@ function renderVariationMoveOf(ctx, node, opts) {
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,
-    util.fixCrazySan(node.san),
+    fixCrazySan(node.san),
     node.glyphs ? renderGlyphs(node.glyphs) : null
   ]);
 }
@@ -285,7 +288,7 @@ module.exports = {
       ctrl: ctrl,
       concealOf: concealOf || emptyConcealOf,
       showComputer: ctrl.vm.showComputer(),
-      isStudy: !!ctrl.study
+      showGlyphs: !!ctrl.study || ctrl.vm.showComputer()
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,
@@ -308,7 +311,7 @@ module.exports = {
           return false;
         };
         el.addEventListener('mousedown', function(e) {
-          if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+          if (defined(e.button) && e.button !== 0) return; // only touch or left click
           var path = eventPath(e, ctrl);
           if (path) ctrl.userJump(path);
           m.redraw();

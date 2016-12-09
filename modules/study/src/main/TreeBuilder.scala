@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
-import lila.socket.tree
+import lila.tree
 
 import play.api.libs.json._
 

@@ -16,7 +16,7 @@ object Export {
             "id" -> puzzle.id,
             "fen" -> puzzle.fen,
             "color" -> puzzle.color.name,
-            "move" -> puzzle.initialMove,
+            "move" -> puzzle.initialMove.uci,
             "lines" -> lila.puzzle.Line.toJson(puzzle.lines))
         })
         s""""$encoded"""" -> puzzle.vote.sum

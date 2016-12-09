@@ -1,53 +1,34 @@
-@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], mode: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, data: play.api.libs.json.JsObject, pref: play.api.libs.json.JsObject)(implicit ctx: Context)
 
-@evenMoreJs = {
+@moreCss = {
+@cssTag("analyse.css")
+@cssTag("puzzle.css")
+}
+
+@moreJs = {
+@jsTag("vendor/sparkline.min.js")
+@jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
 @embedJs {
-LichessPuzzle(
-document.querySelector('#lichess .round'),
-@Html(toJson(JsData(puzzle, userInfos, mode, voted = none, animationDuration = animationDuration))),
-@Html(toJson(i18nJsObject(
-trans.training,
-trans.yourPuzzleRatingX,
-trans.goodMove,
-trans.butYouCanDoBetter,
-trans.bestMove,
-trans.keepGoing,
-trans.puzzleFailed,
-trans.butYouCanKeepTrying,
-trans.yourTurn,
-trans.waiting,
-trans.findTheBestMoveForBlack,
-trans.findTheBestMoveForWhite,
-trans.giveUp,
-trans.victory,
-trans.puzzleSolvedInXSeconds,
-trans.fromGameLink,
-trans.boardEditor,
-trans.continueFromHere,
-trans.playWithTheMachine,
-trans.playWithAFriend,
-trans.wasThisPuzzleAnyGood,
-trans.pleaseVotePuzzle,
-trans.thankYou,
-trans.puzzleId,
-trans.ratingX,
-trans.playedXTimes,
-trans.continueTraining,
-trans.retryThisPuzzle,
-trans.toTrackYourProgress,
-trans.signUp,
-trans.trainingSignupExplanation,
-trans.thisPuzzleIsCorrect,
-trans.thisPuzzleIsWrong,
-trans.puzzles,
-trans.analysis)))
-);
+lichess = lichess || {};
+lichess.puzzle = {
+data: @Html(toJson(data)),
+pref: @Html(toJson(pref)),
+i18n: @jsI18n()
+};
 }
 }
 
-@layout(
-trans.training.str(),
-evenMoreJs = Some(evenMoreJs),
+@side = {
+<div class="puzzle_side"></div>
+}
+
+@base.layout(
+title = trans.training.str(),
+side = side.some,
+moreCss = moreCss,
+moreJs = moreJs,
+chessground = false,
+withLangAnnotations = false,
 openGraph = lila.app.ui.OpenGraph(
 image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
 title = s"Chess tactic training ${puzzle.id} • ${puzzle.color.name.capitalize} to play",
@@ -56,5 +37,5 @@ description = s"Tactic puzzle #${puzzle.id}: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ).str() + s" Played by ${puzzle.attempts} players.").some) {
-<div class="round cg-512">@miniBoardContent</div>
+<div id="puzzle" class="cg-512">@miniBoardContent</div>
 }

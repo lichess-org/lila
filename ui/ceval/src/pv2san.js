@@ -1,4 +1,5 @@
-var util = require('../util');
+var fixCrazySan = require('chess').fixCrazySan;
+var decomposeUci = require('chess').decomposeUci;
 
 function square(name) {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
@@ -112,7 +113,7 @@ function makeMove(variant, board, uci) {
     return;
   }
 
-  var move = util.decomposeUci(uci);
+  var move = decomposeUci(uci);
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];
@@ -163,9 +164,9 @@ function makeMove(variant, board, uci) {
 }
 
 function san(board, uci) {
-  if (uci.indexOf('@') !== -1) return util.fixCrazySan(uci);
+  if (uci.indexOf('@') !== -1) return fixCrazySan(uci);
 
-  var move = util.decomposeUci(uci);
+  var move = decomposeUci(uci);
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];

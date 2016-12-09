@@ -1,5 +1,5 @@
 /**
- * https://github.com/niksy/throttle-debounce/blob/master/lib/throttle.js
+ * https://github.com/niksy/throttle-debounce/blob/master/throttle.js
  *
  * Throttle execution of a function. Especially useful for rate limiting
  * execution of handlers on events like resize and scroll.
@@ -82,5 +82,6 @@ module.exports = function(delay, noTrailing, callback, debounceMode) {
       // execute after `delay` ms.
       timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
     }
+
   };
 };

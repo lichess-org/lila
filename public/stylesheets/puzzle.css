@@ -1,213 +1,172 @@
-#puzzle {
-  position: relative;
-  min-height: 600px;
-}
-#puzzle .board_and_ground {
-  display: flex;
-}
-#puzzle div.box {
-  margin-bottom: 1em;
-  border: 1px solid #ccc;
-  padding: 7px;
-}
-#puzzle > .side {
-  position: absolute;
-  top: 64px;
-  left: -222px;
-  width: 212px;
-}
-#puzzle > .side h1 {
-  text-align: center;
-  font-size: 1.4em;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-#puzzle > .side div.box {
-  margin-bottom: 20px;
-}
-#puzzle div.box > p, div.training div.box > div {
-  line-height: 1.8em;
-}
-#puzzle > .side .register {
-  margin-top: 1em;
-}
-#puzzle > .side .register .signup {
-  margin: 1em auto;
-  text-align: center;
-}
-#puzzle > .side .user_chart {
-  margin: 0 0 -10px -9px;
-}
-#puzzle > .side .chart_container {
-  margin-top: 30px;
-}
-#puzzle > .side .chart_container p {
-  margin-bottom: 3px;
-}
-#puzzle div.comment {
-  padding: 10px 5px;
-  text-align: center;
-  margin-bottom: 1em;
-}
-#puzzle div.comment h3 {
-  font-size: inherit;
-  margin: 4px;
-  display: block;
-}
-#puzzle .comment.great,
-#puzzle .comment.win {
-  background: #DFF0D8;
-  color: #3c763d;
-}
-#puzzle .comment.loss,
-#puzzle .comment.fail {
-  color: #a94442;
-  background: #ebccd1;
-}
-#puzzle .comment .rating {
-  font-size: 2em;
-  vertical-align: -3px;
-  padding-left: 5px;
-}
-#puzzle > .center {
-  width: 512px;
-}
-#puzzle .right {
-  display: flex;
-  flex-flow: column nowrap;
+#puzzle .game_control {
   justify-content: center;
-  padding-left: 15px;
-  width: 242px;
 }
-#puzzle .right .spinner {
-  width: 90px;
-  height: 90px;
+
+#puzzle .feedback {
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  height: 30%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
-#puzzle .right .box input {
-  width: 214px;
+body.dark #puzzle .feedback {
+  background: #303030;
+  color: #aaa;
+  border-color: #3d3d3d;
 }
-#puzzle .right h2 {
-  font-size: 1.4em;
-  margin-bottom: 7px;
-}
-#puzzle .please_vote {
-  background: #DFF0D8;
-  color: #3c763d;
-  margin-bottom: 1em;
-  text-align: center;
-  padding: 10px 5px;
-}
-#puzzle .please_vote .then,
-#puzzle .please_vote.thanks .first {
-  display: none;
-}
-#puzzle .please_vote.thanks .then {
-  display: block;
-}
-#puzzle .right .player {
+#puzzle .feedback .player {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-left: 10px;
 }
-#puzzle .right .no-square {
+#puzzle .feedback .no-square {
   width: 64px;
   height: 64px;
+  margin-right: 10px;
 }
-.is3d #puzzle .right div.no-square {
+.is3d #puzzle .feedback div.no-square {
   height: 82px;
 }
-#puzzle .right piece {
+#puzzle .feedback piece {
   position: inherit;
   display: block;
   width: 100%;
   height: 100%;
 }
-#puzzle .right .instruction > * {
+#puzzle .feedback .icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  font-size: 50px;
+  font-size: 64px;
+  line-height: 64px;
+  text-align: center;
+}
+#puzzle .feedback.good .icon,
+#puzzle .feedback.win .icon {
+  color: #759900;
+}
+#puzzle .feedback.fail .icon {
+  color: #dc322f;
+}
+#puzzle .feedback .instruction > * {
   display: block;
 }
-#puzzle .right .instruction strong {
+#puzzle .feedback .instruction strong {
   font-size: 1.5em;
 }
-#puzzle .right .control {
-  text-align: center;
-  font-size: 1.3em;
-  margin-bottom: 10px;
+@keyframes reveal {
+  0% { opacity: 0; }
+  100% { opacity: 0.8; }
 }
-#puzzle .right .control .giveup {
-  visibility: hidden;
-  font-weight: normal;
-  transition: 1s;
+#puzzle .feedback .view_solution {
+  margin-top: 5px;
+  margin-bottom: -5px;
+  text-align: center;
   opacity: 0;
+  visibility: hidden;
 }
-#puzzle .right .control .giveup.revealed {
-  opacity: 1;
+#puzzle .feedback .view_solution.show {
   visibility: visible;
+  opacity: 0.8;
+  transition: opacity 0.13s;
+  animation: reveal 1.5s;
 }
-#puzzle .right .continue_wrap {
-  width: 100%;
-  text-align: center;
+#puzzle .feedback .view_solution:hover {
+  opacity: 1;
 }
-#puzzle .right .retry {
-  display: inline-block;
-  margin-top: 20px;
+
+#puzzle .feedback.after {
 }
-#puzzle .right .continue {
-  display: inline-block;
-  white-space: nowrap;
+
+#puzzle .feedback.after .half {
+  flex: 0 0 50%;
+}
+
+#puzzle .feedback.after .half.top {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#puzzle .feedback.after .complete {
+  flex: 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.3em;
-  font-weight: bold;
 }
-#puzzle .game_control {
-  text-align: center;
-  margin-top: 15px;
-}
-#puzzle .game_control a {
-  font-size: 16px;
-  height: 22px;
-  display:inline-block;
-}
-#puzzle #GameButtons {
-  display: inline-block;
-  margin-left: 10px;
-}
-#puzzle #GameButtons a {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  margin-left: -2px;
-  margin-right: -3px;
-}
-#puzzle #GameButtons a.disabled::before {
-  opacity: 0.5;
-  text-shadow: none !important;
-}
-#puzzle div.upvote {
-  float: right;
-  text-align: center;
+#puzzle .feedback.after .vote {
+  flex: 0 1;
   display: flex;
   flex-flow: column;
+  margin: 0 10px;
+  align-items: center;
+  justify-content: center;
 }
-#puzzle div.upvote a {
+#puzzle .feedback.after .vote a {
   cursor: default;
-}
-#puzzle div.upvote.enabled a {
   cursor: pointer;
+  opacity: 0.7;
 }
-#puzzle div.upvote a {
-  font-size: 24px;
+#puzzle .feedback.after .vote a::before {
+  font-size: 30px;
+  line-height: 24px;
 }
-#puzzle div.upvote.enabled a:hover,
-#puzzle div.upvote a.active {
+#puzzle .feedback.after .vote a:hover,
+#puzzle .feedback.after .vote a.active {
+  opacity: 1;
   color: #d85000;
 }
-#puzzle div.upvote span.count {
-  font-size: 24px;
+#puzzle .feedback.after .vote span.count {
+  font-size: 20px;
   line-height: 1;
 }
-#puzzle .undertable td {
-  text-align: left;
-  padding-left: 10px;
+
+#puzzle .feedback.after .continue {
+  display: flex;
+  font-size: 1.3em;
+  background: #3893E8;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 10px;
 }
+#puzzle .feedback.after .continue:hover {
+  background: #5ba6ec;
+}
+#puzzle .feedback.after .continue i::before {
+  font-size: 2.5em;
+  margin-right: 10px;
+}
+
+#puzzle move {
+  justify-content: space-between;
+}
+#puzzle move.hist {
+  opacity: 0.7;
+}
+#puzzle move glyph {
+  font-size: 1.3em;
+  width: 25px;
+}
+#puzzle move.good glyph,
+#puzzle move.win glyph {
+  color: #759900;
+  font-size: 2em;
+}
+#puzzle move.fail glyph {
+  color: #dc322f;
+}
+#puzzle move.retry glyph {
+  color: #d59120;
+}
+#puzzle move:hover glyph {
+  color: #fff;
+}
+
 #puzzle .timeline {
   display: flex;
   margin-top: 10px;
@@ -216,9 +175,9 @@
   flex: 1 0;
   background: #ccc;
   color: #fff;
-  margin-left: 1px;
+  margin-left: 4px;
   box-sizing: border-box;
-  opacity: 0.8;
+  opacity: 0.7;
   height: 30px;
   line-height: 30px;
 }
@@ -232,20 +191,56 @@ body.dark #puzzle .timeline > * {
   opacity: 1;
 }
 #puzzle .timeline a.current {
-  background: #3893E8;
+  background: #3893E8!important;
 }
 #puzzle .timeline a.win {
-  background: #759900;
+  background: #759900!important;
 }
 #puzzle .timeline a.loss {
-  background: #dc322f;
+  background: #dc322f!important;
 }
-#puzzle .timeline a.new {
-  background: #fff;
-  color: #444;
-  font-size: 1.5em;
+.puzzle_side .side_box.metas {
+  padding: 0 7px;
 }
-body.dark #puzzle .timeline a.new {
-  background: #555;
-  color: #ddd;
+
+.puzzle_side .game_infos {
+  margin-top: 14px!important;
+  padding-bottom: 14px!important;
+}
+.puzzle_side .header a {
+  color: #3893E8!important;
+}
+.puzzle_side .game_infos.puzzle {
+  padding-left: 56px;
+}
+.puzzle_side .game_infos.puzzle::before {
+  font-size: 47px;
+}
+.puzzle_side .puzzle .header a {
+  font-size: 1.2em;
+}
+.puzzle_side .game_infos.game {
+  border: none;
+  padding-bottom: 0!important;
+}
+.puzzle_side .players {
+  padding-bottom: 14px;
+}
+.puzzle_side .players .color-icon::before {
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
+.puzzle_side .rating h2 {
+  padding: 7px;
+}
+.puzzle_side .rating span.rp {
+  /* font-size: 1.2em; */
+}
+.puzzle_side .rating span.rp.up {
+  color: #759900;
+}
+.puzzle_side .rating span.rp.down {
+  color: #ac524f;
 }

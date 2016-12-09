@@ -24,19 +24,19 @@ final class RateLimit(
 
   logger.info(s"[start] $name ($credits/$duration)")
 
-  def apply[A](key: String, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
-    Option(storage getIfPresent key) match {
+  def apply[A](k: String, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
+    Option(storage getIfPresent k) match {
       case None =>
-        storage.put(key, cost -> makeClearAt)
+        storage.put(k, cost -> makeClearAt)
         op
       case Some((a, clearAt)) if a <= credits =>
-        storage.put(key, (a + cost) -> clearAt)
+        storage.put(k, (a + cost) -> clearAt)
         op
       case Some((_, clearAt)) if nowMillis > clearAt =>
-        storage.put(key, cost -> makeClearAt)
+        storage.put(k, cost -> makeClearAt)
         op
       case _ =>
-        logger.info(s"$name ($credits/$duration) $key cost: $cost $msg")
+        logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
         monitor()
         default.zero
     }

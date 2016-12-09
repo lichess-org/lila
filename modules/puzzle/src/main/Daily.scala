@@ -35,7 +35,7 @@ private[puzzle] final class Daily(
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
     import makeTimeout.short
     ~puzzle.fenAfterInitialMove.map { fen =>
-      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove) map {
+      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
         case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
       }
     }

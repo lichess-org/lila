@@ -22,14 +22,6 @@ module.exports = {
     return path.slice(-2);
   },
 
-  take: function(path, plies) {
-    return path.slice(0, 2 * plies);
-  },
-
-  isRoot: function(path) {
-    return path === '';
-  },
-
   contains: function(p1, p2) {
     return p1.indexOf(p2) === 0;
   },

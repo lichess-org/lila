@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.format.pgn.Tag
 import lila.hub.MultiThrottler
 import lila.search._
-import lila.socket.tree.Node.{ Comments, Comment }
+import lila.tree.Node.{ Comments, Comment }
 import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
 
 final class StudySearchApi(

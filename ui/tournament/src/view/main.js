@@ -1,5 +1,5 @@
 var m = require('mithril');
-var util = require('chessground').util;
+var classSet = require('common').classSet;
 
 var created = require('./created');
 var started = require('./started');
@@ -16,7 +16,7 @@ module.exports = function(ctrl) {
   return [
     side ? m('div#tournament_side', side) : null,
     m('div', {
-        class: util.classSet({
+        class: classSet({
           'content_box no_padding tournament_box tournament_show': true,
           'finished': ctrl.data.isFinished
         })

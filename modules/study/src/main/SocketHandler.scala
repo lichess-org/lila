@@ -13,7 +13,7 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ Handler, AnaMove, AnaDests, AnaDrop }
 import lila.user.User
 import makeTimeout.short
@@ -27,7 +27,7 @@ private[study] final class SocketHandler(
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
-  import lila.socket.tree.Node.openingWriter
+  import lila.tree.Node.openingWriter
 
   private val InviteLimitPerUser = new lila.memo.RateLimit(
     credits = 50,

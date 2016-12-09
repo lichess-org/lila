@@ -1,76 +1,48 @@
 var m = require('mithril');
-var data = require('./data');
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-}
-
-function showLoading(ctrl) {
-  ctrl.vm.loading = true;
-  m.redraw();
 }
 
 function uncache(url) {
   return url + '?_=' + new Date().getTime();
 }
 
-function round(ctrl, win) {
-  showLoading(ctrl);
-  m.request({
+function round(puzzleId, win) {
+  return m.request({
     method: 'POST',
-    url: '/training/' + ctrl.data.puzzle.id + '/round',
+    url: '/training/' + puzzleId + '/round2',
     data: {
       win: win ? 1 : 0
     },
-    config: xhrConfig
-  }).then(function(cfg) {
-    cfg.progress = ctrl.data.progress;
-    ctrl.reload(cfg);
+    config: xhrConfig,
+    background: true
   });
 }
 
-function vote(ctrl, v) {
-  m.request({
+function vote(puzzleId, v) {
+  return m.request({
     method: 'POST',
-    url: '/training/' + ctrl.data.puzzle.id + '/vote',
+    url: '/training/' + puzzleId + '/vote',
     data: {
-      vote: v
+      vote: v ? 1 : 0
     },
-    config: xhrConfig
-  }).then(function(res) {
-    ctrl.data.voted = res[0];
-    ctrl.data.puzzle.vote = res[1];
+    config: xhrConfig,
+    background: true
   });
 }
 
-function retry(ctrl) {
-  showLoading(ctrl);
-  m.request({
-    method: 'GET',
-    url: uncache('/training/' + ctrl.data.puzzle.id + '/load'),
-    config: xhrConfig
-  }).then(ctrl.reload);
-}
-
-function reloadPage() {
-  location.href = '/training';
-}
-
-function newPuzzle(ctrl) {
-  showLoading(ctrl);
-  m.request({
+function nextPuzzle() {
+  return m.request({
     method: 'GET',
     url: uncache('/training/new'),
-    config: xhrConfig
-  }).then(function(cfg) {
-    ctrl.reload(cfg);
-    ctrl.pushState(cfg);
-  }, reloadPage);
+    config: xhrConfig,
+    background: true
+  });
 }
 
 module.exports = {
   round: round,
   vote: vote,
-  retry: retry,
-  newPuzzle: newPuzzle
+  nextPuzzle: nextPuzzle
 };

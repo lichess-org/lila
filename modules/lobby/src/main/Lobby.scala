@@ -25,10 +25,9 @@ private[lobby] final class Lobby(
 
     case msg@AddHook(hook) => {
       lila.mon.lobby.hook.create()
-      if (hook.realVariant.standard) lila.mon.lobby.hook.standardColor(hook.realMode.name, hook.color)()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
-      (scala.util.Random.nextBoolean || !hook.compatibleWithPools).??(findCompatible(hook)) foreach {
+      (!hook.compatibleWithPools).??(findCompatible(hook)) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
         case None    => self ! SaveHook(msg)
       }

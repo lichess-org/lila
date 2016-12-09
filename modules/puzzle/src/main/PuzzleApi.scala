@@ -83,8 +83,8 @@ private[puzzle] final class PuzzleApi(
 
     def add(l: Learning) = learningColl insert l void
 
-    def update(user: User, puzzle: Puzzle, data: DataForm.RoundData): Fu[Boolean] =
-      if (data.isWin) solved(user, puzzle.id)
+    def update(user: User, puzzle: Puzzle, result: Result): Fu[Boolean] =
+      if (result.win) solved(user, puzzle.id)
       else failed(user, puzzle.id)
 
     def solved(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {

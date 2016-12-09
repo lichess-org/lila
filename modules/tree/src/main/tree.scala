@@ -1,5 +1,4 @@
-package lila.socket
-package tree
+package lila.tree
 
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair }
@@ -37,7 +36,7 @@ sealed trait Node {
   def color = chess.Color(ply % 2 == 0)
 
   def mainlineNodeList: List[Node] =
-    dropFirstChild :: children.headOption.??(_.mainlineNodeList)
+    dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)
 }
 
 case class Root(
@@ -120,7 +119,7 @@ object Node {
     case class Text(value: String) extends AnyVal {
       def removeMeta: Option[Text] = {
         val v = metaReg.replaceAllIn(value, "").trim
-        v.nonEmpty option Text(v)
+        if (v.nonEmpty) Some(Text(v)) else None
       }
     }
     sealed trait Author

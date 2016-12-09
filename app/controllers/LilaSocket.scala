@@ -6,7 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 
-import lila.api.{ Context, TokenBucket }
+import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 
@@ -33,8 +33,8 @@ trait LilaSocket { self: LilaController =>
       f(ctx).map(_ toRight notFoundResponse)
     }
 
-  protected def SocketOptionLimited[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: Context => Fu[Option[Pipe[A]]]) =
-    rateLimitedSocket[A](consumer, name) { ctx =>
+  protected def SocketOptionLimited[A: FrameFormatter](limiter: lila.memo.RateLimit, name: String)(f: Context => Fu[Option[Pipe[A]]]) =
+    rateLimitedSocket[A](limiter, name) { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }
 
@@ -42,7 +42,7 @@ trait LilaSocket { self: LilaController =>
 
   private val rateLimitLogger = lila.log("ratelimit")
 
-  private def rateLimitedSocket[A: FrameFormatter](consumer: TokenBucket.Consumer, name: String)(f: AcceptType[A]): WebSocket[A, A] =
+  private def rateLimitedSocket[A: FrameFormatter](limiter: lila.memo.RateLimit, name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap { ctx =>
@@ -56,13 +56,11 @@ trait LilaSocket { self: LilaController =>
             resultOrSocket.right.map {
               case (readIn, writeOut) => (e, i) => {
                 writeOut |>> i
-                e &> Enumeratee.mapInputM { in =>
-                  consumer(ip).map { credit =>
-                    if (credit >= 0) in
-                    else {
-                      rateLimitLogger.info(s"socket:$name socket close $ip $userInfo $in")
-                      Input.EOF
-                    }
+                e &> Enumeratee.mapInput { in =>
+                  if (limiter(ip, 1)(true)) in
+                  else {
+                    rateLimitLogger.info(s"socket:$name socket close $ip $userInfo $in")
+                    Input.EOF
                   }
                 } |>> readIn
               }

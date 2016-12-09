@@ -7,7 +7,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 
 case class Chapter(

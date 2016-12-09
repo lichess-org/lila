@@ -50,7 +50,6 @@ object Query {
 
   def user(u: String): Bdoc = F.playerUids $eq u
   def user(u: User): Bdoc = F.playerUids $eq u.id
-  def users(u: Seq[String]) = F.playerUids $in u
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,

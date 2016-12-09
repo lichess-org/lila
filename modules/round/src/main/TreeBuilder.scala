@@ -5,9 +5,7 @@ import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import lila.analyse.{ Analysis, Info, Advice }
-import lila.socket.tree._
-
-import play.api.libs.json._
+import lila.tree._
 
 object TreeBuilder {
 

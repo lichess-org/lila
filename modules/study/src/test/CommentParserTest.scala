@@ -2,8 +2,8 @@ package lila.study
 
 import org.specs2.mutable._
 import org.specs2.specification._
-import lila.socket.tree.Node.Shapes
-import lila.socket.tree.Node.Shape._
+import lila.tree.Node.Shapes
+import lila.tree.Node.Shape._
 
 class CommentParserTest extends Specification {
 

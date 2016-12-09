@@ -1,4 +1,4 @@
-var throttle = require('./util').throttle;
+var throttle = require('common').throttle;
 var router = require('game').router;
 
 // #FIXME jQuery crap here

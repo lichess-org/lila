@@ -12,6 +12,7 @@ final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     lightUser: LightUser.Getter) {
 
+  import lila.game.JsonView._
   import lila.round.JsonView._
   import LightUser.lightUserWrites
 

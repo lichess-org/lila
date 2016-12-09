@@ -1,4 +1,4 @@
-var treePath = require('./tree/path');
+var treePath = require('tree').path;
 
 module.exports = {
 

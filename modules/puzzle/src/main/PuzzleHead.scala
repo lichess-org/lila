@@ -21,5 +21,5 @@ object PuzzleHead {
   import reactivemongo.bson._
   import lila.db.BSON
   
-  implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
+  private[puzzle] implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
 }

@@ -8,11 +8,9 @@ case class Round(
     puzzleId: PuzzleId,
     userId: User.ID,
     date: DateTime,
-    win: Boolean,
+    result: Result,
     rating: Int,
     ratingDiff: Int) {
-
-  def loss = !win
 
   def userPostRating = rating + ratingDiff
 }
@@ -25,7 +23,7 @@ object Round {
     val puzzleId = "p"
     val userId = "u"
     val date = "a"
-    val win = "w"
+    val result = "w"
     val rating = "r"
     val ratingDiff = "d"
   }
@@ -34,6 +32,9 @@ object Round {
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
+
+  private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)
+
   implicit val RoundBSONHandler = new BSON[Round] {
 
     import BSONFields._
@@ -42,7 +43,7 @@ object Round {
       puzzleId = r int puzzleId,
       userId = r str userId,
       date = r.get[DateTime](date),
-      win = r bool win,
+      result = r.get[Result](result),
       rating = r int rating,
       ratingDiff = r int ratingDiff)
 
@@ -50,7 +51,7 @@ object Round {
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,
-      win -> o.win,
+      result -> o.result,
       rating -> w.int(o.rating),
       ratingDiff -> w.int(o.ratingDiff))
   }

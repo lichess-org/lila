@@ -1,6 +1,7 @@
 var m = require('mithril');
-var classSet = require('chessground').util.classSet;
-var util = require('../util');
+var classSet = require('common').classSet;
+var bindOnce = require('common').bindOnce;
+var titleNameToId = require('../util').titleNameToId;
 var inviteFormCtrl = require('./inviteForm').ctrl;
 var partial = require('chessground').util.partial;
 
@@ -123,13 +124,13 @@ module.exports = {
       },
       setSpectators: function(usernames) {
         this.inviteForm.setSpectators(usernames);
-        spectatorIds = usernames.map(util.titleNameToId);
+        spectatorIds = usernames.map(titleNameToId);
         updateOnline();
       },
       isOnline: function(userId) {
         return online[userId];
       },
-      titleNameToId: util.titleNameToId,
+      titleNameToId: titleNameToId,
       hasOnlineContributor: function() {
         var members = dict();
         for (var i in members)
@@ -169,7 +170,7 @@ module.exports = {
         return m('i.action.config', {
           'data-icon': '%',
           key: 'config-' + member.user.id,
-          config: util.bindOnce('click', function() {
+          config: bindOnce('click', function() {
             ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
           })
         });
@@ -178,7 +179,7 @@ module.exports = {
           'data-icon': 'F',
           key: 'leave',
           title: 'Leave the study',
-          config: util.bindOnce('click', ctrl.members.leave)
+          config: bindOnce('click', ctrl.members.leave)
         });
     };
 
@@ -245,7 +246,7 @@ module.exports = {
         (isOwner && ordered.length < ctrl.members.max) ? m('div', {
             key: 'invite-someone',
             class: 'elem member add',
-            config: util.bindOnce('click', ctrl.members.inviteForm.toggle)
+            config: bindOnce('click', ctrl.members.inviteForm.toggle)
           },
           m('div.left', [
             m('span.status', m('i[data-icon=O]')),

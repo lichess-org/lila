@@ -7,7 +7,7 @@ import play.api.libs.json.JsObject
 import scalaz.Validation.FlatMap._
 
 import lila.common.PimpedJson._
-import tree.Branch
+import lila.tree.Branch
 
 case class AnaMove(
     orig: chess.Pos,

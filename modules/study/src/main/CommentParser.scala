@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.{ Pos, Color }
-import lila.socket.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
 

@@ -89,7 +89,7 @@ object Export extends LilaController {
         OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
           env.pngExport(
             fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
-            lastMove = puzzle.initialMove.some,
+            lastMove = puzzle.initialMove.uci.some,
             check = none,
             orientation = puzzle.color.some,
             logHint = s"puzzle $id"
