@@ -118,6 +118,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var classes = [];
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.initialPath) classes.push('current');
+  else if (node.ply < ctx.ctrl.vm.initialNode.ply) classes.push('hist');
   if (node.puzzle) {
     classes.push(node.puzzle);
   }
