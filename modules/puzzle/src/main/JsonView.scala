@@ -36,7 +36,6 @@ final class JsonView(
           "vote" -> puzzle.vote.sum
         ),
         "mode" -> mode,
-        "round" -> round.map(JsonView.round),
         "attempt" -> round.ifTrue(isMobileApi).map { r =>
           Json.obj(
             "userRatingDiff" -> r.ratingDiff,
@@ -44,7 +43,6 @@ final class JsonView(
             "seconds" -> "a few" // lol we don't have the value anymore
           )
         },
-        "win" -> result.ifTrue(isMobileApi).map(_.win),
         "voted" -> voted,
         "user" -> userInfos.map(JsonView.infos(isMobileApi)),
         "difficulty" -> isMobileApi.option {

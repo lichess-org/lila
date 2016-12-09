@@ -29,6 +29,7 @@ object Puzzle extends LilaController {
     result: Option[Result] = None)(implicit ctx: Context): Fu[JsObject] = env.jsonView(
     puzzle = puzzle,
     userInfos = userInfos,
+    round = round,
     mode = mode,
     isMobileApi = ctx.isMobileApi,
     result = result,
@@ -107,12 +108,16 @@ object Puzzle extends LilaController {
               data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
             } yield {
               lila.mon.puzzle.round.user()
-              Ok(data)
+              val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
+              Ok(d2)
             }
             case None =>
               lila.mon.puzzle.round.anon()
               env.finisher.incPuzzleAttempts(puzzle)
-              renderJson(puzzle, none, "view", result = result.some, voted = none) map { Ok(_) }
+              renderJson(puzzle, none, "view", result = result.some, voted = none) map { data =>
+                val d2 = data ++ Json.obj("win" -> result.win)
+                Ok(d2)
+              }
           }
         }
       ) map (_ as JSON)
