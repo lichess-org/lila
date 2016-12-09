@@ -33,5 +33,10 @@ module.exports = {
       control.last(ctrl);
       m.redraw();
     }));
+    kbd.bind('space', preventing(function() {
+      if (ctrl.vm.mode !== 'view') return;
+      if (ctrl.getCeval().enabled()) ctrl.playBestMove();
+      else ctrl.toggleCeval();
+    }));
   }
 };

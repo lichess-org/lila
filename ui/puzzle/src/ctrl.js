@@ -303,6 +303,25 @@ module.exports = function(opts, i18n) {
     });
   };
 
+  var playUci = function(uci) {
+    var move = decomposeUci(uci);
+    if (!move[2]) sendMove(move[0], move[1])
+    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
+  };
+
+  var getCeval = function() {
+    return ceval;
+  };
+
+  var toggleCeval = function() {
+    ceval.toggle();
+    setAutoShapes();
+    startCeval();
+    if (!ceval.enabled()) vm.threatMode = false;
+    vm.autoScrollRequested = true;
+    m.redraw();
+  };
+
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
     if (vm.node.check) {
@@ -401,7 +420,13 @@ module.exports = function(opts, i18n) {
 
   keyboard.bind({
     vm: vm,
-    userJump: userJump
+    userJump: userJump,
+    getCeval: getCeval,
+    toggleCeval: toggleCeval,
+    playBestMove: function() {
+      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.best);
+      if (uci) playUci(uci);
+    }
   });
 
   return {
@@ -419,19 +444,11 @@ module.exports = function(opts, i18n) {
     recentHash: recentHash,
     hasEverVoted: hasEverVoted,
     vote: vote,
-    getCeval: function() {
-      return ceval;
-    },
+    getCeval: getCeval,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive,
     gameOver: gameOver,
-    toggleCeval: function() {
-      ceval.toggle();
-      setAutoShapes();
-      startCeval();
-      if (!ceval.enabled()) vm.threatMode = false;
-      m.redraw();
-    },
+    toggleCeval: toggleCeval,
     toggleThreatMode: function() {
       if (vm.node.check) return;
       if (!ceval.enabled()) ceval.toggle();
@@ -448,11 +465,7 @@ module.exports = function(opts, i18n) {
       } : null;
     },
     nextNodeBest: nextNodeBest,
-    playUci: function(uci) {
-      var move = decomposeUci(uci);
-      if (!move[2]) sendMove(move[0], move[1])
-      else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
-    },
+    playUci: playUci,
     showEvalGauge: function() {
       return vm.showComputer() && ceval.enabled();
     },
