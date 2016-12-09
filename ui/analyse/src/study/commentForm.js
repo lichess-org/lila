@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var nodeFullName = require('../util').nodeFullName;
 var bindOnce = require('common').bindOnce;
 var throttle = require('common').throttle;
 
@@ -97,7 +98,7 @@ module.exports = {
         m('button.button', {
           class: ctrl.root.vm.path === current.path ? '' : 'active',
           config: bindOnce('click', partial(ctrl.root.userJump, current.path))
-        }, util.nodeFullName(current.node)),
+        }, nodeFullName(current.node)),
         m('span.saved', {
           config: function(el, isUpdate, ctx) {
             if (ctrl.dirty())
