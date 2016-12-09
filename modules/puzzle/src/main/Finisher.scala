@@ -3,6 +3,7 @@ package lila.puzzle
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 
+import chess.Mode
 import lila.db.dsl._
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.{ User, UserRepo }
@@ -13,7 +14,7 @@ private[puzzle] final class Finisher(
 
   private val maxTime = 5 * 60 * 1000
 
-  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Option[Result])] =
+  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] =
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id) >>
@@ -39,7 +40,7 @@ private[puzzle] final class Finisher(
                 $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                   $set(Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf))
               ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-            } inject (a -> none)
+            } inject (a -> Mode.Rated)
           }
       case _ =>
         incPuzzleAttempts(puzzle)
@@ -50,7 +51,7 @@ private[puzzle] final class Finisher(
           result = result,
           rating = user.perfs.puzzle.intRating,
           ratingDiff = 0)
-        fuccess(a -> result.some)
+        fuccess(a -> Mode.Casual)
     }
 
   private val VOLATILITY = Glicko.default.volatility
