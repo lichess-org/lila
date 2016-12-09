@@ -34,6 +34,7 @@ module.exports = {
       m.redraw();
     }));
     kbd.bind('l', preventing(ctrl.toggleCeval));
+    kbd.bind('x', preventing(ctrl.toggleThreatMode));
     kbd.bind('space', preventing(function() {
       if (ctrl.vm.mode !== 'view') return;
       if (ctrl.getCeval().enabled()) ctrl.playBestMove();

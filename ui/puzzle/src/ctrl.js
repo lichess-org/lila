@@ -322,6 +322,16 @@ module.exports = function(opts, i18n) {
     m.redraw();
   };
 
+  var toggleThreatMode = function() {
+    if (vm.node.check) return;
+    if (!ceval.enabled()) ceval.toggle();
+    if (!ceval.enabled()) return;
+    vm.threatMode = !vm.threatMode;
+    setAutoShapes();
+    startCeval();
+    m.redraw();
+  };
+
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
     if (vm.node.check) {
@@ -423,6 +433,7 @@ module.exports = function(opts, i18n) {
     userJump: userJump,
     getCeval: getCeval,
     toggleCeval: toggleCeval,
+    toggleThreatMode: toggleThreatMode,
     playBestMove: function() {
       var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.best);
       if (uci) playUci(uci);
@@ -449,15 +460,7 @@ module.exports = function(opts, i18n) {
     socketReceive: socket.receive,
     gameOver: gameOver,
     toggleCeval: toggleCeval,
-    toggleThreatMode: function() {
-      if (vm.node.check) return;
-      if (!ceval.enabled()) ceval.toggle();
-      if (!ceval.enabled()) return;
-      vm.threatMode = !vm.threatMode;
-      setAutoShapes();
-      startCeval();
-      m.redraw();
-    },
+    toggleThreatMode: toggleThreatMode,
     currentEvals: function() {
       return vm.node.ceval ? {
         client: vm.node.ceval,
