@@ -65,9 +65,15 @@ final class JsonView(
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._
-    val solution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
+    val fullSolution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
       Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
-    }.init
+    }
+    val solution =
+      if (fullSolution.size < 2) fullSolution.init
+      else {
+        logger.warn(s"Puzzle ${puzzle.id} has an empty or short solution $fullSolution")
+        fullSolution
+      }
     val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
