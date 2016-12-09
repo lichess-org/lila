@@ -40,9 +40,12 @@ object Line {
       case path :: siblings => getIn(lines, path) match {
         case List(Win(m))   => path :+ m
         case List(Retry(_)) => loop(siblings)
-        case ahead =>
+        case ahead => ahead.collectFirst {
+          case Win(m) => path :+ m
+        } | {
           val children = ahead collect { case Node(m, ls) => path :+ m }
           loop(siblings ::: children)
+        }
       }
     }
 

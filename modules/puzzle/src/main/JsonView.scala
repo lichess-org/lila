@@ -69,11 +69,12 @@ final class JsonView(
       Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
     }
     val solution =
-      if (fullSolution.size < 2) fullSolution.init
-      else {
-        logger.warn(s"Puzzle ${puzzle.id} has an empty or short solution $fullSolution")
+      if (fullSolution.isEmpty) {
+        logger.warn(s"Puzzle ${puzzle.id} has an empty solution from ${puzzle.lines}")
         fullSolution
       }
+      else if (fullSolution.size % 2 == 0) fullSolution.init
+      else fullSolution
     val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
