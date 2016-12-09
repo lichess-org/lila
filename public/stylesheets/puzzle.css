@@ -208,7 +208,7 @@ body.dark #puzzle .timeline > * {
   padding-bottom: 14px!important;
 }
 .puzzle_side .header a {
-  color: #3893E8;
+  color: #3893E8!important;
 }
 .puzzle_side .game_infos.puzzle {
   padding-left: 56px;
