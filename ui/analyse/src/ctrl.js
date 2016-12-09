@@ -10,6 +10,7 @@ var util = require('./util');
 var readDests = require('chess').readDests;
 var readDrops = require('chess').readDrops;
 var sanToRole = require('chess').sanToRole;
+var roleToSan = require('chess').roleToSan;
 var decomposeUci = require('chess').decomposeUci;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
@@ -281,7 +282,7 @@ module.exports = function(opts) {
 
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
-      this.vm.justPlayed = util.roleToSan[piece.role] + '@' + pos;
+      this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = {
         ply: this.vm.node.ply,
         role: piece.role
