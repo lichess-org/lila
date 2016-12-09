@@ -91,8 +91,14 @@ function buttons(ctrl) {
 }
 
 var firstRender = true;
+var cevalShown = false;
 
 module.exports = function(ctrl) {
+  var showCeval = ctrl.vm.showComputer();
+  if (cevalShown !== showCeval) {
+    if (!cevalShown) ctrl.vm.autoScrollNow = true;
+    cevalShown = showCeval;
+  }
   return [
     m('div', {
       config: function(el, isUpdate) {
@@ -109,10 +115,12 @@ module.exports = function(ctrl) {
       }, [
         visualBoard(ctrl),
         m('div.lichess_ground', [
-          ctrl.vm.showComputer() ? [
+          // we need the wrapping div here
+          // so the siblings are only updated when ceval is added
+          m('div', showCeval ? [
             cevalView.renderCeval(ctrl),
             cevalView.renderPvs(ctrl)
-          ] : null,
+          ] : null),
           renderAnalyse(ctrl),
           feedbackView(ctrl),
           buttons(ctrl)

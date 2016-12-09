@@ -5,7 +5,8 @@ var defined = require('common').defined;
 var normalizeEval = require('chess').renderEval;
 var treePath = require('tree').path;
 
-var autoScroll = throttle(300, false, function(ctrl, el) {
+
+var autoScrollNow = function(ctrl, el) {
   var cont = el.parentNode;
   raf(function() {
     var target = el.querySelector('.active');
@@ -15,7 +16,9 @@ var autoScroll = throttle(300, false, function(ctrl, el) {
     }
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
-});
+};
+
+var autoScroll = throttle(300, false, autoScrollNow);
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
@@ -229,7 +232,12 @@ module.exports = {
     };
     return m('div.tview2', {
       config: function(el, isUpdate) {
-        if (ctrl.vm.autoScrollRequested || !isUpdate) {
+        if (ctrl.vm.autoScrollNow) {
+          autoScrollNow(ctrl, el);
+          ctrl.vm.autoScrollNow = false;
+          ctrl.vm.autoScrollRequested = false;
+        }
+        else if (ctrl.vm.autoScrollRequested || !isUpdate) {
           if (isUpdate || ctrl.vm.path !== treePath.root) autoScroll(ctrl, el);
           ctrl.vm.autoScrollRequested = false;
         }
