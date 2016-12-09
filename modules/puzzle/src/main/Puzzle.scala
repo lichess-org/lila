@@ -68,7 +68,7 @@ object Puzzle {
     "e1c1" -> "e1a1",
     "e1g1" -> "e1h1",
     "e8c8" -> "e8a8",
-    "e8c8" -> "e8a8")
+    "e8g8" -> "e8h8")
 
   import reactivemongo.bson._
   import lila.db.BSON
