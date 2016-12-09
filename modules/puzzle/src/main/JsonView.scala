@@ -27,14 +27,14 @@ final class JsonView(
           "attempts" -> puzzle.attempts,
           "fen" -> puzzle.fen,
           "color" -> puzzle.color.name,
-          "initialMove" -> puzzle.initialMove.uci,
+          "initialMove" -> isMobileApi.option(puzzle.initialMove.uci),
           "initialPly" -> puzzle.initialPly,
           "gameId" -> puzzle.gameId,
           "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
           "branch" -> (!isMobileApi).option(makeBranch(puzzle)),
           "enabled" -> puzzle.enabled,
           "vote" -> puzzle.vote.sum
-        ),
+        ).noNull,
         "mode" -> mode,
         "attempt" -> round.ifTrue(isMobileApi).map { r =>
           Json.obj(
@@ -78,11 +78,11 @@ final class JsonView(
     val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
       case ((prev, branches), uci) =>
-        val (game, _) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
+        val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
         val branch = tree.Branch(
-          id = UciCharPair(uci),
+          id = UciCharPair(move.toUci),
           ply = game.turns,
-          move = Uci.WithSan(uci, game.pgnMoves.last),
+          move = Uci.WithSan(move.toUci, game.pgnMoves.last),
           fen = chess.format.Forsyth >> game,
           check = game.situation.check,
           crazyData = none)
