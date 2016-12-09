@@ -63,13 +63,22 @@ object Puzzle {
     attempts = 0,
     mate = mate)
 
+  // some DB puzzles have UCI with old castling notation
+  private val castleFixes = Map(
+    "e1c1" -> "e1a1",
+    "e1g1" -> "e1h1",
+    "e8c8" -> "e8a8",
+    "e8c8" -> "e8a8")
+
   import reactivemongo.bson._
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
     private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
-      case Some(m) => s"$m${move drop 2}"
-      case _       => sys error s"Invalid piotr move notation: $move"
+      case Some(m) =>
+        val fixed = castleFixes.getOrElse(m, m)
+        s"$fixed${move drop 2}"
+      case _ => sys error s"Invalid piotr move notation: $move"
     }
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
       case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
