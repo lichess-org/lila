@@ -33,6 +33,7 @@ module.exports = {
       control.last(ctrl);
       m.redraw();
     }));
+    kbd.bind('l', preventing(ctrl.toggleCeval));
     kbd.bind('space', preventing(function() {
       if (ctrl.vm.mode !== 'view') return;
       if (ctrl.getCeval().enabled()) ctrl.playBestMove();
