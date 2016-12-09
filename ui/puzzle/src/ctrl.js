@@ -22,8 +22,7 @@ var sound = require('./sound');
 
 module.exports = function(opts, i18n) {
 
-  var vm = {
-  };
+  var vm = {};
   var data, tree, ground, ceval, moveTest;
 
   var setPath = function(path) {
@@ -95,16 +94,18 @@ module.exports = function(opts, i18n) {
       check: node.check,
       lastMove: uciToLastMove(node.uci)
     };
-    if (!dests && !node.check) {
-      // premove while dests are loading from server
-      // can't use when in check because it highlights the wrong king
-      config.turnColor = opposite(color);
-      config.movable.color = color;
-      config.premovable.enabled = true;
-    } else if (vm.mode !== 'view' && color !== data.puzzle.color) { //  && !node.check) {
-      config.turnColor = color;
-      config.movable.color = data.puzzle.color;
-      config.premovable.enabled = true;
+    if (node.ply >= vm.initialNode.ply) {
+      if (!dests && !node.check) {
+        // premove while dests are loading from server
+        // can't use when in check because it highlights the wrong king
+        config.turnColor = opposite(color);
+        config.movable.color = color;
+        config.premovable.enabled = true;
+      } else if (vm.mode !== 'view' && color !== data.puzzle.color) { //  && !node.check) {
+        config.turnColor = color;
+        config.movable.color = data.puzzle.color;
+        config.premovable.enabled = true;
+      }
     }
     vm.cgConfig = config;
     if (!ground) ground = groundBuild(data, config, opts.pref, userMove);
