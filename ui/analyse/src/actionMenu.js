@@ -233,7 +233,7 @@ module.exports = {
                   config: rangeConfig(function() {
                     return ceval.multiPv();
                   }, function(v) {
-                    ctrl.evalSetMultiPv(parseInt(v));
+                    ctrl.cevalSetMultiPv(parseInt(v));
                   })
                 }),
                 m('div.range_value', ceval.multiPv() + ' / ' + max)
