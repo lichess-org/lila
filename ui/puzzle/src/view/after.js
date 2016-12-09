@@ -11,7 +11,7 @@ function renderVote(ctrl) {
         ctrl.vote(true);
       }
     }),
-    m('span.count.hint--bottom[data-hint=Popularity]', data.puzzle.vote),
+    m('span.count.hint--bottom[data-hint=Popularity]', Math.max(0, data.puzzle.vote)),
     m('a[data-icon=R]', {
       title: ctrl.trans.noarg('thisPuzzleIsWrong'),
       class: ctrl.vm.voted === false ? ' active' : '',
