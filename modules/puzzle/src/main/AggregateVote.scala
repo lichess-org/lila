@@ -15,6 +15,8 @@ case class AggregateVote(up: Int, down: Int, sum: Int) {
   def count = up + down
 
   def computeSum = copy(sum = up - down)
+
+  def disabled = up * 9 < down && count > 50
 }
 
 object AggregateVote {
