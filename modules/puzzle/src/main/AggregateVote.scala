@@ -16,7 +16,7 @@ case class AggregateVote(up: Int, down: Int, enabled: Boolean) {
 
   def sum = up - down
 
-  def computeEnabled = copy(enabled = count < 50 || up * 3 > down)
+  def computeEnabled = copy(enabled = count < 30 || up * 3 > down)
 }
 
 object AggregateVote {
