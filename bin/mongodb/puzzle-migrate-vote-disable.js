@@ -5,7 +5,9 @@ puzzles.find({}).forEach(function(p) {
     _id: p._id
   }, {
     $set: {
-      voteDisabled: (p.vote.up * 9 < p.vote.down) && (p.vote.up + p.vote.down > 50)
+      vote: {
+        enabled: (p.vote.up * 3 > p.vote.down) || (p.vote.up + p.vote.down < 50)
+      }
     }
   });
 });

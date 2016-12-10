@@ -31,8 +31,6 @@ case class Puzzle(
 
   def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
 
-  def enabled = vote.sum > -9000
-
   def fenAfterInitialMove: Option[String] = {
     for {
       sit1 <- Forsyth << fen
@@ -59,7 +57,7 @@ object Puzzle {
     color = color,
     date = DateTime.now,
     perf = Perf.default,
-    vote = AggregateVote(0, 0, 0),
+    vote = AggregateVote(0, 0, true),
     attempts = 0,
     mate = mate)
 
@@ -106,7 +104,7 @@ object Puzzle {
     val rating = s"$perf.gl.r"
     val vote = "vote"
     val voteSum = s"$vote.sum"
-    val voteDisabled = s"$vote.disabled"
+    val voteEnabled = s"$vote.enabled"
     val attempts = "attempts"
     val mate = "mate"
   }
