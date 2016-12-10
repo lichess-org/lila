@@ -16,6 +16,7 @@ private[puzzle] final class PuzzleApi(
     learningColl: Coll,
     voteColl: Coll,
     headColl: Coll,
+    puzzleIdMin: PuzzleId,
     apiToken: String) {
 
   import Puzzle.puzzleBSONHandler
@@ -49,11 +50,12 @@ private[puzzle] final class PuzzleApi(
         val p = generated toPuzzle id
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
+          "_id" -> $gte(puzzleIdMin),
           "fen".$regex(fenStart.replace("/", "\\/"), ""),
           "vote.sum" -> $gt(-100)
         )) flatMap {
           case false => puzzleColl insert p inject id
-          case _     => fufail("Duplicate puzzle")
+          case _     => fufail(s"Duplicate puzzle $fenStart")
         }
       }
 
