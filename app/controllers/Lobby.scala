@@ -13,7 +13,12 @@ import views._
 object Lobby extends LilaController {
 
   private val lobbyJson = Json.obj(
-    "lobby" -> Json.obj("version" -> 0)
+    "lobby" -> Json.obj(
+      "version" -> 0,
+      "pool" -> Json.obj(
+        "list" -> lila.pool.PoolList.all.map(_.clock.show)
+      )
+    )
   )
 
   def home = Open { implicit ctx =>
