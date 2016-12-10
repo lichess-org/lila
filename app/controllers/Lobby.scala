@@ -15,9 +15,7 @@ object Lobby extends LilaController {
   private val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pool" -> Json.obj(
-        "list" -> lila.pool.PoolList.all.map(_.clock.show)
-      )
+      "pools" -> Env.api.lobbyApi.poolsJson
     )
   )
 
