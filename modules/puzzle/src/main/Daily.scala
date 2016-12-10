@@ -50,7 +50,8 @@ private[puzzle] final class Daily(
   ).uno[Puzzle]
 
   private def findNew = coll.find(
-    $doc("day" $exists false)
+    $doc("day" $exists false,
+      Puzzle.BSONFields.id $gt 61000)
   ).sort($doc("vote.sum" -> -1)).uno[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
         $id(puzzle.id),
