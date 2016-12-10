@@ -106,6 +106,7 @@ object Puzzle {
     val rating = s"$perf.gl.r"
     val vote = "vote"
     val voteSum = s"$vote.sum"
+    val day = "day"
     val attempts = "attempts"
     val mate = "mate"
   }
