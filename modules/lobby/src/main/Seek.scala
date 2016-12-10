@@ -45,7 +45,7 @@ case class Seek(
 
   def rating = perfType map (_.key) flatMap user.ratingMap.get
 
-  def render: JsObject = Json.obj(
+  lazy val render: JsObject = Json.obj(
     "id" -> _id,
     "username" -> user.username,
     "rating" -> rating,
