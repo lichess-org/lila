@@ -46,14 +46,16 @@ module.exports = function(vm, puzzle) {
     vm.node.puzzle = 'good';
 
     var opponentUci = decomposeUci(nextKey);
+    var promotion = opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null;
 
     var move = {
       orig: opponentUci[0],
       dest: opponentUci[1],
-      promotion: opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null,
       fen: vm.node.fen,
       path: vm.path
     };
+    if (promotion) move.promotion = promotion;
+
     return move;
   };
 };
