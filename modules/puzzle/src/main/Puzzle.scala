@@ -60,7 +60,7 @@ object Puzzle {
     color = color,
     date = DateTime.now,
     perf = Perf.default,
-    vote = AggregateVote(1, 0, 1, 1),
+    vote = AggregateVote.default,
     attempts = 0,
     mate = mate)
 
