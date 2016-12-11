@@ -52,7 +52,7 @@ private[puzzle] final class PuzzleApi(
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
           F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), ""),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleColl insert p inject id
           case _     => fufail(s"Duplicate puzzle $fenStart")
