@@ -56,15 +56,6 @@ module.exports = function(opts) {
       return false;
     },
 
-    setDestsCache: function(c) {
-      anaDestsCache = {};
-      for (var path in opts.destsCache)
-        anaDestsCache[path] = {
-          path: path,
-          dests: opts.destsCache[path]
-        };
-    },
-
     sendAnaMove: sendAnaMove,
 
     sendAnaDests: sendAnaDests
