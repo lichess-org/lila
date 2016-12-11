@@ -1,6 +1,7 @@
 var treeOps = require('tree').ops;
 var pathOps = require('tree').path;
 var decomposeUci = require('chess').decomposeUci;
+var sanToRole = require('chess').sanToRole;
 
 var altCastles = {
   e1a1: 'e1c1',
@@ -49,7 +50,7 @@ module.exports = function(vm, puzzle) {
     var move = {
       orig: opponentUci[0],
       dest: opponentUci[1],
-      promotion: opponentUci[2],
+      promotion: opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null,
       fen: vm.node.fen,
       path: vm.path
     };
