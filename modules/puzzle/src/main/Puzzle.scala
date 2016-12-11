@@ -27,11 +27,12 @@ case class Puzzle(
     }
   } | 0
 
+  // (1 - 3)/(1 + 3) = -0.5
+  def enabled = vote.ratio > AggregateVote.minRatio || vote.nb < AggregateVote.minVotes
+
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
   def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
-
-  def enabled = vote.sum > -9000
 
   def fenAfterInitialMove: Option[String] = {
     for {
@@ -59,7 +60,7 @@ object Puzzle {
     color = color,
     date = DateTime.now,
     perf = Perf.default,
-    vote = AggregateVote(0, 0, 0),
+    vote = AggregateVote.default,
     attempts = 0,
     mate = mate)
 
@@ -105,7 +106,8 @@ object Puzzle {
     val perf = "perf"
     val rating = s"$perf.gl.r"
     val vote = "vote"
-    val voteSum = s"$vote.sum"
+    val voteNb = s"$vote.nb"
+    val voteRatio = s"$vote.ratio"
     val day = "day"
     val attempts = "attempts"
     val mate = "mate"

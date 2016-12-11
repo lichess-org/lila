@@ -5,6 +5,7 @@ import scala.util.Random
 
 import lila.db.dsl._
 import lila.user.User
+import Puzzle.{BSONFields => F}
 
 private[puzzle] final class Selector(
     puzzleColl: Coll,
@@ -74,13 +75,16 @@ private[puzzle] final class Selector(
     step: Int,
     idRange: Range): Fu[Option[Puzzle]] =
     puzzleColl.find($doc(
-      Puzzle.BSONFields.id $gt
+      F.id $gt
         idRange.min $lt
         idRange.max,
-      Puzzle.BSONFields.rating $gt
+      F.rating $gt
         (rating - tolerance) $lt
         (rating + tolerance),
-      Puzzle.BSONFields.voteSum $gt -100
+      $or(
+        F.voteRatio $gt AggregateVote.minRatio,
+        F.voteNb $lt AggregateVote.minVotes
+      )
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
         tryRange(rating, tolerance + step, step,
