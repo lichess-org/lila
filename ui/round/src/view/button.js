@@ -209,7 +209,7 @@ module.exports = {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
+        href: router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply
       }, ctrl.trans('analysis')) : null
     ]);
   }
