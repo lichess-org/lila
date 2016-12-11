@@ -26,6 +26,9 @@ object AggregateVote {
   val default = AggregateVote(1, 0, 1, 100)
   val disable = AggregateVote(0, 9000, 9000, -100).computeNbAndRatio
 
+  val minRatio = -50
+  val minVotes = 30
+
   import reactivemongo.bson.Macros
   implicit val aggregatevoteBSONHandler = Macros.handler[AggregateVote]
 }

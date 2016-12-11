@@ -28,7 +28,7 @@ case class Puzzle(
   } | 0
 
   // (1 - 3)/(1 + 3) = -0.5
-  def enabled = vote.ratio > -50 || vote.nb < 30
+  def enabled = vote.ratio > AggregateVote.minRatio || vote.nb < AggregateVote.minVotes
 
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 

@@ -82,8 +82,8 @@ private[puzzle] final class Selector(
         (rating - tolerance) $lt
         (rating + tolerance),
       $or(
-        F.voteRatio $gt -50,
-        F.voteNb $lt 30
+        F.voteRatio $gt AggregateVote.minRatio,
+        F.voteNb $lt AggregateVote.minVotes
       )
     )).uno[Puzzle] flatMap {
       case None if (tolerance + step) <= toleranceMax =>
