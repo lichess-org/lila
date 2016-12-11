@@ -1079,7 +1079,7 @@ lichess.notifyApp = (function() {
         var patrons = self.element.data('patrons').split(',');
         self.set(users, playings, patrons);
       },
-      _findByUsername(n) {
+      _findByUsername: function(n) {
         return this.users.filter(function(u) {
           return isSameUser(n.toLowerCase(), u);
         })[0];
