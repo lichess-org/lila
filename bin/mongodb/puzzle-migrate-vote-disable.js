@@ -2,7 +2,9 @@ var puzzles = db.puzzle;
 
 modified = 0;
 
-puzzles.find().forEach(function(p) {
+puzzles.find({
+  'vote.ratio': {'$exists': false}
+}).forEach(function(p) {
   puzzles.update({
     _id: p._id
   }, {
