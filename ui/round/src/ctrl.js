@@ -44,7 +44,8 @@ module.exports = function(opts) {
     autoScroll: null,
     element: opts.element,
     challengeRematched: false,
-    justDropped: null
+    justDropped: null,
+    preDrop: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -76,6 +77,11 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
+  var onPredrop = function(role) {
+    this.vm.preDrop = role;
+    m.redraw();
+  }.bind(this);
+
   var onNewPiece = function(piece, key) {
     sound.move();
   }.bind(this);
@@ -86,7 +92,8 @@ module.exports = function(opts) {
     onUserMove: onUserMove,
     onUserNewPiece: onUserNewPiece,
     onMove: onMove,
-    onNewPiece: onNewPiece
+    onNewPiece: onNewPiece,
+    onPredrop: onPredrop
   });
 
   this.replaying = function() {
@@ -117,6 +124,7 @@ module.exports = function(opts) {
     if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return;
     this.vm.ply = ply;
     this.vm.justDropped = null;
+    this.vm.preDrop = null;
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
@@ -169,12 +177,11 @@ module.exports = function(opts) {
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
-      m.redraw();
     } else this.socket.send('move', move, {
       ackable: true,
       withLag: !!this.clock
     });
-    this.vm.justDropped = null;
+    m.redraw();
   }.bind(this);
 
   this.sendNewPiece = function(role, key, isPredrop) {
@@ -185,15 +192,12 @@ module.exports = function(opts) {
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
-      m.redraw();
     } else this.socket.send('drop', drop, {
       ackable: true,
       withLag: !!this.clock
     });
-    this.vm.justDropped = {
-      ply: this.vm.ply,
-      role: role
-    };
+    this.vm.justDropped = role;
+    this.vm.preDrop = null;
     m.redraw();
   }.bind(this);
 
@@ -231,6 +235,7 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
+      this.vm.justDropped = null;
       if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
       else this.chessground.apiNewPiece({
         role: o.role,
@@ -314,6 +319,7 @@ module.exports = function(opts) {
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
+    this.vm.preDrop = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
