@@ -3,10 +3,10 @@
 }
 
 #puzzle .feedback {
+  flex: 1 1 0;
   border: 1px solid #ccc;
   border-top: 0;
   background: #fff;
-  height: 30%;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -78,11 +78,8 @@ body.dark #puzzle .feedback {
   opacity: 1;
 }
 
-#puzzle .feedback.after {
-}
-
 #puzzle .feedback.after .half {
-  flex: 0 0 50%;
+  flex: 1 1 50%;
 }
 
 #puzzle .feedback.after .half.top {
@@ -98,7 +95,6 @@ body.dark #puzzle .feedback {
   font-size: 1.3em;
 }
 #puzzle .feedback.after .vote {
-  flex: 0 1;
   display: flex;
   flex-flow: column;
   margin: 0 10px;
