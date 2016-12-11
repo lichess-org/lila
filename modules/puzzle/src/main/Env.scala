@@ -20,6 +20,7 @@ final class Env(
     val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
     val AnimationDuration = config duration "animation.duration"
+    val PuzzleIdMin = config getInt "selector.puzzle_id_min"
   }
   import settings._
 
@@ -37,6 +38,7 @@ final class Env(
     learningColl = learningColl,
     voteColl = voteColl,
     headColl = headColl,
+    puzzleIdMin = PuzzleIdMin,
     apiToken = ApiToken)
 
   lazy val finisher = new Finisher(
@@ -46,7 +48,7 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    puzzleIdMin = config getInt "selector.puzzle_id_min")
+    puzzleIdMin = PuzzleIdMin)
 
   lazy val userInfos = UserInfos(roundColl = roundColl)
 

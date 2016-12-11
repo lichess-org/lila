@@ -16,16 +16,9 @@ final class LobbyApi(
     pools: List[lila.pool.PoolConfig]) {
 
   import makeTimeout.large
+  import lila.pool.JsonView._
 
-  private val poolsJson = JsArray {
-    pools.map { p =>
-      Json.obj(
-        "id" -> p.id.value,
-        "lim" -> p.clock.limitInMinutes,
-        "inc" -> p.clock.increment,
-        "perf" -> p.perfType.name)
-    }
-  }
+  val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[JsObject] =
       ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip

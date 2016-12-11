@@ -9,6 +9,7 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import Puzzle.{BSONFields => F}
 
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
@@ -16,6 +17,7 @@ private[puzzle] final class PuzzleApi(
     learningColl: Coll,
     voteColl: Coll,
     headColl: Coll,
+    puzzleIdMin: PuzzleId,
     apiToken: String) {
 
   import Puzzle.puzzleBSONHandler
@@ -23,11 +25,11 @@ private[puzzle] final class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl.find($doc("_id" -> id)).uno[Puzzle]
+      puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
 
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find($empty)
-        .sort($doc("date" -> -1))
+        .sort($doc(F.date -> -1))
         .cursor[Puzzle]()
         .gather[List](nb)
 
@@ -49,24 +51,25 @@ private[puzzle] final class PuzzleApi(
         val p = generated toPuzzle id
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
-          "fen".$regex(fenStart.replace("/", "\\/"), ""),
-          "vote.sum" -> $gt(-100)
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), ""),
+          F.voteSum -> $gt(-100)
         )) flatMap {
           case false => puzzleColl insert p inject id
-          case _     => fufail("Duplicate puzzle")
+          case _     => fufail(s"Duplicate puzzle $fenStart")
         }
       }
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
-      puzzleColl.find($doc("mate" -> mate))
-        .sort($doc(Puzzle.BSONFields.voteSum -> -1))
+      puzzleColl.find($doc(F.mate -> mate))
+        .sort($doc(F.voteSum -> -1))
         .cursor[Puzzle]().gather[List](nb / 2)
     }.sequenceFu.map(_.flatten)
 
     def disable(id: PuzzleId): Funit =
       puzzleColl.update(
         $id(id),
-        $doc("$set" -> $doc(Puzzle.BSONFields.vote -> AggregateVote.disable))
+        $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
       ).void
   }
 
@@ -131,7 +134,7 @@ private[puzzle] final class PuzzleApi(
           upsert = true) zip
           puzzleColl.update(
             $id(p2.id),
-            $set(Puzzle.BSONFields.vote -> p2.vote)) map {
+            $set(F.vote -> p2.vote)) map {
               case _ => p2 -> v2
             }
     }

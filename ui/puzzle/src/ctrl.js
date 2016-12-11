@@ -203,6 +203,7 @@ module.exports = function(opts, i18n) {
         vm.lastFeedback = 'win';
         vm.mode = 'view';
         showGround(); // to disable premoves
+        startCeval();
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
@@ -292,9 +293,12 @@ module.exports = function(opts, i18n) {
     return vm.mode === 'view' && !gameOver();
   }.bind(this);
 
-  var startCeval = throttle(800, false, function() {
-    if (ceval.enabled() && canUseCeval())
-      ceval.start(vm.path, vm.nodeList, vm.threatMode);
+  var startCeval = function() {
+    if (ceval.enabled() && canUseCeval()) doStartCeval();
+  }.bind(this);
+
+  var doStartCeval = throttle(800, false, function() {
+    ceval.start(vm.path, vm.nodeList, vm.threatMode);
   }.bind(this));
 
   var nextNodeBest = function() {

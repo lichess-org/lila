@@ -7,6 +7,7 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 
 import lila.db.dsl._
+import Puzzle.{BSONFields => F}
 
 private[puzzle] final class Daily(
     coll: Coll,
@@ -46,16 +47,21 @@ private[puzzle] final class Daily(
   }
 
   private def findCurrent = coll.find(
-    $doc("day" $gt DateTime.now.minusMinutes(24 * 60 - 15))
+    $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
   ).uno[Puzzle]
 
   private def findNew = coll.find(
+<<<<<<< HEAD
     $doc("day" $exists false,
       Puzzle.BSONFields.id $gt 61000)
   ).sort($doc("vote.sum" -> -1)).uno[Puzzle] flatMap {
+=======
+    $doc(F.day $exists false)
+  ).sort($doc(F.voteSum -> -1)).uno[Puzzle] flatMap {
+>>>>>>> 5a819b403e2331b38f461ec229439d0a75b4fc48
       case Some(puzzle) => coll.update(
         $id(puzzle.id),
-        $set("day" -> DateTime.now)
+        $set(F.day -> DateTime.now)
       ) inject puzzle.some
       case None => fuccess(none)
     }
