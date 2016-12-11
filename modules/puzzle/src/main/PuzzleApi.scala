@@ -53,7 +53,6 @@ private[puzzle] final class PuzzleApi(
         puzzleColl.exists($doc(
           F.id -> $gte(puzzleIdMin),
           F.fen.$regex(fenStart.replace("/", "\\/"), ""),
-          F.voteRatio -> $gte(AggregateVote.minRatio)
         )) flatMap {
           case false => puzzleColl insert p inject id
           case _     => fufail(s"Duplicate puzzle $fenStart")
