@@ -59,7 +59,6 @@ module.exports = function(opts, i18n) {
     }, 5000);
     // }, 50);
 
-    socket.setDestsCache(data.game.destsCache);
     moveTest = moveTestBuild(vm, data.puzzle);
 
     if (ground) ground.setAutoShapes([]);
