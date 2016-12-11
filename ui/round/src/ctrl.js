@@ -235,7 +235,6 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      this.vm.justDropped = null;
       if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
       else this.chessground.apiNewPiece({
         role: o.role,
@@ -286,6 +285,7 @@ module.exports = function(opts) {
       check: o.check,
       crazy: o.crazyhouse
     });
+    this.vm.justDropped = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     m.endComputation();
