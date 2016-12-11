@@ -7,7 +7,8 @@ puzzles.find().forEach(function(p) {
     _id: p._id
   }, {
     $set: {
-      "vote.enabled": (p.vote.up * 3 > p.vote.down) || (p.vote.up + p.vote.down < 30)
+      "vote.ratio": Math.floor(100*(p.vote.up - p.vote.down)/(p.vote.up + p.vote.down)),
+      "vote.nb": (p.vote.up + p.vote.down)
     }
   });
   modified += 1;
