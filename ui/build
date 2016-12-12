@@ -13,6 +13,9 @@ build() {
   app=$1
   echo "Building $app"
   cd ui/$app
+  rm -rf node_modules/common
+  rm -rf node_modules/chess
+  rm -rf node_modules/tree
   npm install --no-optional && gulp $target
   cd -
 }
