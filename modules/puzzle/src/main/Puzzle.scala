@@ -4,8 +4,6 @@ import chess.Color
 import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
 
-import lila.rating.Perf
-
 case class Puzzle(
     id: PuzzleId,
     gameId: String,
@@ -15,7 +13,7 @@ case class Puzzle(
     depth: Int,
     color: Color,
     date: DateTime,
-    perf: Perf,
+    perf: PuzzlePerf,
     vote: AggregateVote,
     attempts: Int,
     mate: Boolean) {
@@ -59,7 +57,7 @@ object Puzzle {
     depth = Line minDepth lines,
     color = color,
     date = DateTime.now,
-    perf = Perf.default,
+    perf = PuzzlePerf.default,
     vote = AggregateVote.default,
     attempts = 0,
     mate = mate)
@@ -116,7 +114,7 @@ object Puzzle {
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
 
     import BSONFields._
-    import Perf.perfBSONHandler
+    import PuzzlePerf.puzzlePerfBSONHandler
     import AggregateVote.aggregatevoteBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
@@ -128,7 +126,7 @@ object Puzzle {
       depth = r int depth,
       color = Color(r bool white),
       date = r date date,
-      perf = r.get[Perf](perf),
+      perf = r.get[PuzzlePerf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
       mate = r bool mate)
