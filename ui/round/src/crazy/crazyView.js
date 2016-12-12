@@ -14,8 +14,9 @@ module.exports = {
     var droppedRole = ctrl.vm.justDropped;
     var preDropRole = ctrl.vm.preDrop;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');
+    var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
     var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
+    var activeColor = color === ctrl.data.player.color;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
@@ -34,12 +35,12 @@ module.exports = {
       },
       pieceRoles.map(function(role) {
         var nb = pocket[role] || 0;
-        if (color === ctrl.data.player.color && droppedRole === role) nb--;
+        if (activeColor && droppedRole === role) nb--;
         return m('piece', {
           'data-role': role,
           'data-color': color,
           'data-nb': nb,
-          'data-premove': preDropRole === role,
+          'data-premove': activeColor && preDropRole === role,
           class: role + ' ' + color
         });
       })
