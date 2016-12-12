@@ -6,10 +6,14 @@ var storedProp = require('common').storedProp;
 var synthetic = require('../util').synthetic;
 var replayable = require('game').game.replayable;
 
-function tablebaseRelevant(fen) {
+function tablebaseRelevant(variant, fen) {
   var parts = fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  return pieceCount <= 7;
+
+  if (variant === 'standard' || variant === 'chess960' || variant === 'atomic')
+    return pieceCount <= 7;
+  else if (variant === 'antichess') return pieceCount <= 6;
+  else return false;
 }
 
 module.exports = function(root, opts, allow) {
@@ -69,8 +73,7 @@ module.exports = function(root, opts, allow) {
   }, false);
 
   var fetch = function(fen) {
-    var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960' || effectiveVariant === 'atomic' || effectiveVariant == 'antichess';
-    if (hasTablebase && withGames && tablebaseRelevant(fen)) fetchTablebase(fen);
+    if (withGames && tablebaseRelevant(effectiveVariant, fen)) fetchTablebase(fen);
     else fetchOpening(fen);
   };
 
@@ -82,7 +85,7 @@ module.exports = function(root, opts, allow) {
   function setNode() {
     if (!enabled()) return;
     var node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(node.fen)) {
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
     var cached = cache[node.fen];
