@@ -33,7 +33,7 @@ object WMMatching {
 
   private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
     val graph = fullGraph(nvertex, pairScore)
-    if (graph.size < 2) Nil
+    if (graph.size < 1) Nil
     else mateToEdges(minWeightMatching(graph))
   }
 
