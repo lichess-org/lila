@@ -83,7 +83,7 @@ object Round extends LilaController with TheftPrevention {
         else Env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game) map {
             case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c, mobileEscape = apiVersion.v1))
+              data + ("chat" -> lila.chat.JsonView(c.chat, mobileEscape = apiVersion.v1))
             })
           }
       }.mon(_.http.response.player.mobile)
@@ -212,9 +212,11 @@ object Round extends LilaController with TheftPrevention {
     Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me) map (_.some)
   }
 
-  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context) =
+  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.Chat.Restricted]] =
     (game.hasChat && ctx.noKid) ?? {
-      Env.chat.api.playerChat.find(game.id) map (_.some)
+      Env.chat.api.playerChat.find(game.id).map { chat =>
+        lila.chat.Chat.Restricted(chat, game.fromLobby && ctx.isAnon).some
+      }
     }
 
   def playerText(fullId: String) = Open { implicit ctx =>

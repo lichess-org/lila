@@ -53,7 +53,7 @@ function selectLines(ctrl) {
 }
 
 function input(ctrl) {
-  if (ctrl.data.loginRequired && !ctrl.data.userId) return m('input.lichess_say', {
+  if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted) return m('input.lichess_say', {
     placeholder: 'Login to chat',
     disabled: true
   });
