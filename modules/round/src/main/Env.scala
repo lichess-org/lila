@@ -193,7 +193,7 @@ final class Env(
   scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
-    Props(classOf[Titivate], roundMap, hub.actor.bookmark),
+    Props(classOf[Titivate], roundMap, hub.actor.bookmark, hub.actor.chat),
     name = "titivate")
 
   system.lilaBus.subscribe(system.actorOf(
