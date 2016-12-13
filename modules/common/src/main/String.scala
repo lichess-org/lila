@@ -26,4 +26,17 @@ object String {
     if (t.size > (length + sep.size)) (t take length) ++ sep
     else t
   }
+
+  object base64 {
+    import java.util.Base64
+    import java.nio.charset.StandardCharsets
+    def encode(txt: String) =
+      Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
+    def decode(txt: String): Option[String] = try {
+      Some(new String(Base64.getDecoder decode txt))
+    }
+    catch {
+      case _: java.lang.IllegalArgumentException => none
+    }
+  }
 }

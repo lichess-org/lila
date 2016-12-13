@@ -113,13 +113,7 @@ trait StringHelper { self: NumberHelper =>
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)
 
-  private def base64encode(str: String) = {
-    import java.util.Base64
-    import java.nio.charset.StandardCharsets
-    Base64.getEncoder.encodeToString(str getBytes StandardCharsets.UTF_8)
-  }
-
-  def encodeFen(fen: String) = base64encode(fen).reverse
+  def encodeFen(fen: String) = lila.common.String.base64.encode(fen).reverse
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
