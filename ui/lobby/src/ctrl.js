@@ -6,6 +6,7 @@ var seekRepo = require('./seekRepo');
 var makeStore = require('./store');
 var xhr = require('./xhr');
 var util = require('chessground').util;
+var poolRangeStorage = require('./poolRangeStorage');
 
 module.exports = function(env) {
 
@@ -129,6 +130,7 @@ module.exports = function(env) {
   }.bind(this);
 
   this.enterPool = function(member) {
+    poolRangeStorage.set(member.id, member.range);
     this.setTab('pools');
     this.vm.poolMember = member;
     this.poolIn();
@@ -203,14 +205,18 @@ module.exports = function(env) {
       else if (this.vm.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
     }.bind(this), 10 * 1000);
 
+    // new opponent button
     if (location.hash.indexOf('#pool/') === 0) {
       var regex = /^#pool\/(\d+\+\d+)$/
       var match = regex.exec(location.hash);
+      var member = {
+        id: match[1]
+      };
+      var range = poolRangeStorage.get(member.id);
+      if (range) member.range = range;
       if (match) {
         this.setTab('pools');
-        this.enterPool({
-          id: match[1]
-        });
+        this.enterPool(member);
         if (window.history.replaceState) window.history.replaceState(null, null, '/');
       }
     }
