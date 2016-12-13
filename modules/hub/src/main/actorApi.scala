@@ -162,7 +162,6 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  color: chess.Color,
   mobilePushable: Boolean,
   alarmable: Boolean,
   opponentUserId: Option[String],
