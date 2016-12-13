@@ -137,7 +137,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, trans.never.str()),
-    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(500).toString()),
+    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(lila.pref.Pref.Challenge.ratingThreshold).toString()),
     (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
     (Pref.Challenge.ALWAYS, trans.always.str())
   )

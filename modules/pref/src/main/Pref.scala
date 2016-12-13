@@ -268,7 +268,7 @@ object Pref {
     val FRIEND = 3
     val ALWAYS = 4
 
-    private val ratingThreshold = 500
+    val ratingThreshold = 300
 
     val choices = Seq(
       NEVER -> "Never",
