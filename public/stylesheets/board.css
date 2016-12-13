@@ -607,6 +607,7 @@ body.piece_letter .lichess_ground .replay move {
   height: 56px!important; /* 100% fails on older chrome */
   width: auto!important;
   position: relative!important;
+  background-position: center;
 }
 .pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
