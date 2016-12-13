@@ -2,6 +2,9 @@ package lila.push
 
 import akka.actor._
 import akka.pattern.ask
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
@@ -11,13 +14,12 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 import lila.user.User
 
-import play.api.libs.json._
-
 private final class PushApi(
     googlePush: GooglePush,
     oneSignalPush: OneSignalPush,
     implicit val lightUser: String => Option[LightUser],
-    roundSocketHub: ActorSelection) {
+    roundSocketHub: ActorSelection,
+    scheduler: lila.common.Scheduler) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -47,26 +49,28 @@ private final class PushApi(
     }.sequenceFu.void
 
   def move(move: MoveEvent): Funit = move.mobilePushable ?? {
-    GameRepo game move.gameId flatMap {
-      _ ?? { game =>
-        val pov = Pov(game, !move.color)
-        game.player(!move.color).userId ?? { userId =>
-          game.pgnMoves.lastOption ?? { sanMove =>
+    scheduler.after(2 seconds) {
+      GameRepo game move.gameId flatMap {
+        _.filter(_.playable) ?? { game =>
+          val pov = Pov(game, game.player.color)
+          game.player.userId ?? { userId =>
             IfAway(pov) {
-              pushToAll(userId, _.move, PushApi.Data(
-                title = "It's your turn!",
-                body = s"${opponentName(pov)} played $sanMove",
-                stacking = Stacking.GameMove,
-                payload = Json.obj(
-                  "userId" -> userId,
-                  "userData" -> Json.obj(
-                    "type" -> "gameMove",
-                    "gameId" -> game.id,
-                    "fullId" -> pov.fullId,
-                    "color" -> pov.color.name,
-                    "fen" -> Forsyth.exportBoard(game.toChess.board),
-                    "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                    "secondsLeft" -> pov.remainingSeconds))))
+              game.pgnMoves.lastOption ?? { sanMove =>
+                pushToAll(userId, _.move, PushApi.Data(
+                  title = "It's your turn!",
+                  body = s"${opponentName(pov)} played $sanMove",
+                  stacking = Stacking.GameMove,
+                  payload = Json.obj(
+                    "userId" -> userId,
+                    "userData" -> Json.obj(
+                      "type" -> "gameMove",
+                      "gameId" -> game.id,
+                      "fullId" -> pov.fullId,
+                      "color" -> pov.color.name,
+                      "fen" -> Forsyth.exportBoard(game.toChess.board),
+                      "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                      "secondsLeft" -> pov.remainingSeconds))))
+              }
             }
           }
         }
