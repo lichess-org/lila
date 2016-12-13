@@ -35,13 +35,15 @@ module.exports = {
     knight: 'N',
     bishop: 'B',
     rook: 'R',
-    queen: 'Q'
+    queen: 'Q',
+    king: 'K'
   },
   sanToRole: {
     P: 'pawn',
     N: 'knight',
     B: 'bishop',
     R: 'rook',
-    Q: 'queen'
+    Q: 'queen',
+    K: 'king'
   }
 };
