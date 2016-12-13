@@ -618,10 +618,10 @@ body.piece_letter .lichess_ground .replay move {
   background-color: #999;
   transition: background-color 0.13s;
 }
-.pocket.usable piece[data-premove=true] {
+.pocket.usable piece.premove {
   background-color: #555;
 }
-.pocket.usable piece:hover[data-premove=true] {
+.pocket.usable piece.premove:hover {
   background-color: #666;
 }
 .pocket piece[data-nb='0'] {

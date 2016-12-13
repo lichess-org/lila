@@ -40,8 +40,7 @@ module.exports = {
           'data-role': role,
           'data-color': color,
           'data-nb': nb,
-          'data-premove': activeColor && preDropRole === role,
-          class: role + ' ' + color
+          class: role + ' ' + color + (activeColor && preDropRole === role ? ' premove' : '')
         });
       })
     );
