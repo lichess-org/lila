@@ -354,7 +354,7 @@ case class Game(
 
   def accountable = playedTurns >= 2 || isTournament
 
-  def replayable = isPgnImport || finished
+  def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
 
   def analysable =
     replayable && playedTurns > 4 &&

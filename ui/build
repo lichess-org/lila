@@ -15,6 +15,7 @@ build() {
   cd ui/$app
   rm -rf node_modules/common
   rm -rf node_modules/chess
+  rm -rf node_modules/game
   rm -rf node_modules/tree
   npm install --no-optional && gulp $target
   cd -
