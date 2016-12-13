@@ -17,9 +17,6 @@ final class LoginToken(secret: String) {
     private val separator = '|'
 
     private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take 14
-    private def getPasswd(userId: User.ID) = UserRepo getPasswordHash userId map { p =>
-      makeHash(~p) take 6
-    }
     private def makePayload(userId: String, milliStr: String) = s"$userId$separator$milliStr"
 
     private object DateStr {
