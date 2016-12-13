@@ -38,6 +38,7 @@ final class Env(
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
     val PasswordResetMailgunBaseUrl = config getString "password_reset.mailgun.base_url"
     val PasswordResetSecret = config getString "password_reset.secret"
+    val LoginTokenSecret = config getString "login_token.secret"
     val TorProviderUrl = config getString "tor.provider_url"
     val TorRefreshDelay = config duration "tor.refresh_delay"
     val DisposableEmailProviderUrl = config getString "disposable_email.provider_url"
@@ -96,6 +97,9 @@ final class Env(
     sender = PasswordResetMailgunSender,
     baseUrl = PasswordResetMailgunBaseUrl,
     secret = PasswordResetSecret)
+
+  lazy val loginToken = new LoginToken(
+    secret = LoginTokenSecret)
 
   lazy val emailAddress = new EmailAddress(disposableEmailDomain)
 

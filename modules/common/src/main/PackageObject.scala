@@ -69,6 +69,13 @@ trait PackageObject extends Steroids with WithFuture {
     case e: NumberFormatException => None
   }
 
+  def parseLongOption(str: String): Option[Long] = try {
+    Some(java.lang.Long.parseLong(str))
+  }
+  catch {
+    case e: NumberFormatException => None
+  }
+
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
 
