@@ -25,14 +25,17 @@ object MatchMaking {
     private val MaxScore = 300
 
     // quality of a potential pairing. Lower is better.
-    private def pairScore(a: PoolMember, b: PoolMember) =
-      a.ratingDiff(b) - {
+    // None indicates a forbidden pairing
+    private def pairScore(a: PoolMember, b: PoolMember): Option[Int] = {
+      val score = a.ratingDiff(b) - {
         missBonus(a) + missBonus(b)
       } + {
         rangeMalus(a, b) + rangeMalus(b, a)
       } + {
         blockMalus(a, b) + blockMalus(b, a)
       }
+      if (score <= MaxScore) Some(score) else None
+    }
 
     // score bonus based on how many waves the member missed
     private def missBonus(p: PoolMember) = (p.misses * 30) atMost 1000
@@ -51,9 +54,7 @@ object MatchMaking {
           logger.error("WMMatching", err)
           none
         },
-        _.collect {
-          case (a, b) if pairScore(a, b) < MaxScore => Couple(a, b)
-        }.toVector.some
+        _.map { case (a, b) => Couple(a, b) }.toVector.some
       )
     }
   }

@@ -107,7 +107,7 @@ body.dark #puzzle .feedback {
   opacity: 0.7;
 }
 #puzzle .feedback.after .vote a::before {
-  font-size: 30px;
+  font-size: 26px;
   line-height: 24px;
 }
 #puzzle .feedback.after .vote a:hover,

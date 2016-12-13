@@ -146,6 +146,8 @@ function showDtm(stm, move) {
 function showDtz(stm, move) {
   if (move.checkmate) return m('result.' + winner(stm, move), 'Checkmate');
   else if (move.stalemate) return m('result.draws', 'Stalemate');
+  else if (move.variant_win) return m('result.' + winner(stm, move), 'Variant loss');
+  else if (move.variant_loss) return m('result.' + winner(stm, move), 'Variant win');
   else if (move.insufficient_material) return m('result.draws', 'Insufficient material');
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return m('result.draws', 'Draw');
@@ -223,6 +225,7 @@ function show(ctrl) {
     ])
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
     else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
+    else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
     else lastShow = showEmpty(ctrl);
   }
   return lastShow;

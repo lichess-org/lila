@@ -5,8 +5,24 @@ var enhance = require('./enhance');
 
 var isSpammer = lichess.storage.make('spammer');
 
+var spamRegex = new RegExp([
+  'xcamweb.com',
+  'chess-bot',
+  'coolteenbitch.blogspot.com',
+  'goo.gl/',
+  'letcafa.webcam',
+  'tinyurl.com/',
+  'wooga.info/',
+  'bit.ly/',
+  'wbt.link/',
+  'eb.by/',
+  '001.rs/',
+].map(function(url) {
+  return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
+}).join('|'));
+
 function isSpam(txt) {
-  return /chess-bot/.test(txt);
+  return !!txt.match(spamRegex);
 }
 
 function skipSpam(txt) {
@@ -53,7 +69,7 @@ function selectLines(ctrl) {
 }
 
 function input(ctrl) {
-  if (ctrl.data.loginRequired && !ctrl.data.userId) return m('input.lichess_say', {
+  if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted) return m('input.lichess_say', {
     placeholder: 'Login to chat',
     disabled: true
   });
@@ -74,7 +90,10 @@ function input(ctrl) {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
           } else {
-            if (isSpam(e.target.value)) isSpammer.set(1);
+            if (isSpam(e.target.value)) {
+              $.post('/jslog/____________?n=spam');
+              isSpammer.set(1);
+            }
             ctrl.post(e.target.value);
             e.target.value = '';
           }

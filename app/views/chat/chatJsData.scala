@@ -1,20 +1,26 @@
 package views.html.chat
 
-import play.api.libs.json.{ JsArray, Json }
+import play.api.libs.json.{ JsArray, Json, JsBoolean }
 
-import lila.common.PimpedJson._
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.common.PimpedJson._
 
 object ChatJsData {
 
-  def json(chat: lila.chat.AnyChat, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true)(implicit ctx: Context) = Json.obj(
+  def restricted(chat: lila.chat.Chat.Restricted, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true)(implicit ctx: Context) =
+    json(
+      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, restricted = chat.restricted
+    )
+
+  def json(chat: lila.chat.AnyChat, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true, restricted: Boolean = false)(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
       "name" -> name,
       "lines" -> lila.chat.JsonView(chat),
       "userId" -> ctx.userId,
-      "loginRequired" -> chat.loginRequired
+      "loginRequired" -> chat.loginRequired,
+      "restricted" -> restricted
     ),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,

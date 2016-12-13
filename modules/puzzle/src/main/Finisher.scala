@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 
 import chess.Mode
 import lila.db.dsl._
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
@@ -25,12 +25,12 @@ private[puzzle] final class Finisher(
               result = result.win.fold(Glicko.Result.Win, Glicko.Result.Loss),
               isLearning = isLearning)
             val date = DateTime.now
-            val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
+            val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
             val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
             val a = new Round(
               puzzleId = puzzle.id,
               userId = user.id,
-              date = DateTime.now,
+              date = date,
               result = result,
               rating = user.perfs.puzzle.intRating,
               ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
@@ -38,7 +38,7 @@ private[puzzle] final class Finisher(
               puzzleColl.update(
                 $id(puzzle.id),
                 $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
-                  $set(Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf))
+                  $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
               ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
             } inject (a -> Mode.Rated)
           }
@@ -60,11 +60,6 @@ private[puzzle] final class Finisher(
 
   def incPuzzleAttempts(puzzle: Puzzle) =
     puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
-
-  private def mkRating(perf: Perf) = new Rating(
-    math.max(1000, perf.glicko.rating),
-    perf.glicko.deviation,
-    perf.glicko.volatility, perf.nb)
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result, isLearning: Boolean) {
     val results = new RatingPeriodResults()

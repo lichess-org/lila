@@ -214,6 +214,15 @@ module.exports = function(element, cfg) {
       } else
         $form.find('.color_submits button').toggleClass('nope', true);
     };
+    var inputsAreFiveEight = function() {
+      return $timeInput.val() == 5 && $incrementInput.val() == 8;
+    };
+    if (!$modeChoices.length && inputsAreFiveEight()) {
+        var mouseCount = 0;
+        document.addEventListener('mousemove', function() {
+          ++mouseCount;
+        });
+      }
     var showRating = function() {
       var timeMode = $timeModeSelect.val();
       var key;
@@ -263,6 +272,7 @@ module.exports = function(element, cfg) {
       }
       var ajaxSubmit = function(color) {
         var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);
+        if (typeof mouseCount !== 'undefined' && mouseCount < 50 && inputsAreFiveEight()) return false;
         $form.find('a.close').click();
         var call = {
           url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),

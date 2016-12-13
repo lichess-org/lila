@@ -52,8 +52,7 @@ private[puzzle] final class PuzzleApi(
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
           F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), ""),
-          F.voteSum -> $gt(-100)
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleColl insert p inject id
           case _     => fufail(s"Duplicate puzzle $fenStart")
@@ -62,7 +61,7 @@ private[puzzle] final class PuzzleApi(
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc(F.mate -> mate))
-        .sort($doc(F.voteSum -> -1))
+        .sort($doc(F.voteRatio -> -1))
         .cursor[Puzzle]().gather[List](nb / 2)
     }.sequenceFu.map(_.flatten)
 

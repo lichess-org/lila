@@ -4,8 +4,6 @@ import chess.Color
 import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
 
-import lila.rating.Perf
-
 case class Puzzle(
     id: PuzzleId,
     gameId: String,
@@ -15,7 +13,7 @@ case class Puzzle(
     depth: Int,
     color: Color,
     date: DateTime,
-    perf: Perf,
+    perf: PuzzlePerf,
     vote: AggregateVote,
     attempts: Int,
     mate: Boolean) {
@@ -27,11 +25,12 @@ case class Puzzle(
     }
   } | 0
 
+  // (1 - 3)/(1 + 3) = -0.5
+  def enabled = vote.ratio > AggregateVote.minRatio || vote.nb < AggregateVote.minVotes
+
   def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
 
   def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
-
-  def enabled = vote.sum > -9000
 
   def fenAfterInitialMove: Option[String] = {
     for {
@@ -58,8 +57,8 @@ object Puzzle {
     depth = Line minDepth lines,
     color = color,
     date = DateTime.now,
-    perf = Perf.default,
-    vote = AggregateVote(0, 0, 0),
+    perf = PuzzlePerf.default,
+    vote = AggregateVote.default,
     attempts = 0,
     mate = mate)
 
@@ -105,7 +104,8 @@ object Puzzle {
     val perf = "perf"
     val rating = s"$perf.gl.r"
     val vote = "vote"
-    val voteSum = s"$vote.sum"
+    val voteNb = s"$vote.nb"
+    val voteRatio = s"$vote.ratio"
     val day = "day"
     val attempts = "attempts"
     val mate = "mate"
@@ -114,7 +114,7 @@ object Puzzle {
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
 
     import BSONFields._
-    import Perf.perfBSONHandler
+    import PuzzlePerf.puzzlePerfBSONHandler
     import AggregateVote.aggregatevoteBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
@@ -126,7 +126,7 @@ object Puzzle {
       depth = r int depth,
       color = Color(r bool white),
       date = r date date,
-      perf = r.get[Perf](perf),
+      perf = r.get[PuzzlePerf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
       mate = r bool mate)

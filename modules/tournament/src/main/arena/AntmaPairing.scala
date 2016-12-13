@@ -14,7 +14,7 @@ private object AntmaPairing {
 
     def f(x: Int): Int = (11500000 - 3500000 * x) * x
 
-    def pairScore(a: RankedPlayer, b: RankedPlayer): Int = {
+    def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] = Some {
       Math.abs(a.rank - b.rank) * 1000 +
         Math.abs(a.player.rating - b.player.rating) +
         f {

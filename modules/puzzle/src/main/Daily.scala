@@ -51,8 +51,8 @@ private[puzzle] final class Daily(
   ).uno[Puzzle]
 
   private def findNew = coll.find(
-    $doc(F.day $exists false)
-  ).sort($doc(F.voteSum -> -1)).uno[Puzzle] flatMap {
+    $doc(F.day $exists false, F.voteNb $gte 200)
+  ).sort($doc(F.voteRatio -> -1)).uno[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
         $id(puzzle.id),
         $set(F.day -> DateTime.now)

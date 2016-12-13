@@ -25,8 +25,8 @@ final class ChatApi(
     def find(chatId: ChatId): Fu[UserChat] =
       findOption(chatId) map (_ | Chat.makeUser(chatId))
 
-    def findAll(chatIds : List[ChatId]) : Fu[List[UserChat]] =
-        coll.byIds[UserChat](chatIds)
+    def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
+      coll.byIds[UserChat](chatIds)
 
     def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
       (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) map {
@@ -126,6 +126,8 @@ final class ChatApi(
           PlayerLine(color, Writer preprocessUserInput t2)
       }
   }
+
+  private[chat] def remove(chatId: String) = coll.remove($id(chatId))
 
   private def pushLine(chatId: ChatId, line: Line): Funit = coll.update(
     $id(chatId),
