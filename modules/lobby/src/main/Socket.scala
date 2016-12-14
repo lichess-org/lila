@@ -69,7 +69,7 @@ private[lobby] final class Socket(
       val msg = makeMessage("had", hook.render)
       hookSubscriberUids.foreach { uid =>
         withActiveMember(uid) { member =>
-          if (hook.uid == member.uid || Biter.canJoin(hook, member.user)) member push msg
+          if (Biter.showHookTo(hook, member)) member push msg
         }
       }
       if (hook.likePoolFiveO) withMember(hook.uid) { member =>
@@ -139,7 +139,7 @@ private[lobby] final class Socket(
       hookSubscriberUids += member.uid
   }
 
-  private def notifyPlayerStart(game: Game, color: chess.Color) =
+  def notifyPlayerStart(game: Game, color: chess.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
       "url" -> playerUrl(game fullIdOf color),

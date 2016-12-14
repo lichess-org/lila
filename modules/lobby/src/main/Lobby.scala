@@ -122,11 +122,7 @@ private[lobby] final class Lobby(
       socket ! HookIds(HookRepo.vector.map(_.id))
 
     case msg@HookSub(member, true) =>
-      socket ! AllHooksFor(
-        member,
-        HookRepo.vector.filter { hook =>
-          hook.uid == member.uid || Biter.canJoin(hook, member.user)
-        })
+      socket ! AllHooksFor(member, HookRepo.vector.filter { Biter.showHookTo(_, member) })
 
     case lila.pool.HookThieve.GetCandidates(clock) =>
       sender ! lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
