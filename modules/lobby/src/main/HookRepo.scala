@@ -15,7 +15,8 @@ object HookRepo {
   def truncateIfNeeded = if (size >= hardLimit) {
     logger.warn(s"Found ${size} hooks, cleaning up!")
     cleanupOld
-    hooks = hooks.take(hardLimit / 2)
+    hooks = hooks.sortBy(-_.createdAt.getMillis).take(hardLimit * 2 / 3)
+    logger.warn(s"Kept ${hooks.size} hooks")
   }
 
   def vector = hooks
