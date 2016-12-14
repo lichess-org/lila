@@ -178,18 +178,17 @@ object WMMatching {
       dualvar(edges(k)._1) + dualvar(edges(k)._2) - 2 * edges(k)._3
     }
 
-    // Generate the leaf vertices of a blossom.
-    def blossomLeaves(b: Int): Traversable[Int] = {
-      class BlossomLeavesTraversable(b: Int) extends Traversable[Int] {
-        def foreach[U](f: Int => U): Unit = {
-          def g(v: Int): Unit = {
-            blossomchilds(v).foreach(w => if (w < nvertex) f(w) else g(w))
-          }
-          if (b < nvertex) f(b) else g(b)
+    class BlossomLeavesTraversable(b: Int) extends Traversable[Int] {
+      def foreach[U](f: Int => U): Unit = {
+        def g(v: Int): Unit = {
+          blossomchilds(v).foreach(w => if (w < nvertex) f(w) else g(w))
         }
+        if (b < nvertex) f(b) else g(b)
       }
-      new BlossomLeavesTraversable(b)
     }
+
+    // Generate the leaf vertices of a blossom.
+    def blossomLeaves(b: Int): Traversable[Int] = new BlossomLeavesTraversable(b)
 
     // Assign label t to the top-level blossom containing vertex w
     // and record the fact that w was reached through the edge with
