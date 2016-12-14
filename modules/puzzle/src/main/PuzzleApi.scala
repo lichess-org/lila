@@ -16,6 +16,7 @@ private[puzzle] final class PuzzleApi(
     roundColl: Coll,
     learningColl: Coll,
     voteColl: Coll,
+    tagVoteColl: Coll,
     headColl: Coll,
     puzzleIdMin: PuzzleId,
     apiToken: String) {
@@ -137,6 +138,20 @@ private[puzzle] final class PuzzleApi(
             $set(F.vote -> p2.vote)) map {
               case _ => p2 -> v2
             }
+    }
+  }
+
+  object voteTag {
+
+    def find(id: PuzzleId, tag: Tag, user: User): Fu[Option[TagVote]] = tagVoteColl.byId[TagVote](TagVote.makeId(id, tag.id, user.id))
+
+    def update(id: PuzzleId, tag: Tag, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, TagVote)] = puzzle find id flatMap {
+      case None => fufail(s"Can't tag vote for non existing puzzle ${id}")
+      case Some(p1) =>
+        val (p2, v2) = v1 match {
+          case Some(from) => (
+            (p1 ))
+        }
     }
   }
 

@@ -18,7 +18,8 @@ case class Puzzle(
     perf: Perf,
     vote: AggregateVote,
     attempts: Int,
-    mate: Boolean) {
+    mate: Boolean,
+    tags: List[TagVoted]) {
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
@@ -40,6 +41,12 @@ case class Puzzle(
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> sit2
   }
+
+  def visibleTags: List[TagVoted] = tags.filter(_.sum > 2)
+
+  def withTagVote(f: List[TagVoted] => List[TagVoted]) = copy(tags = f(tags))
+
+  def trustedTags: List[TagVoted] = tags.filter(_.trusted)
 }
 
 object Puzzle {

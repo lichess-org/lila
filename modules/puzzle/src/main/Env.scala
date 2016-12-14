@@ -17,6 +17,7 @@ final class Env(
     val CollectionRound = config getString "collection.round"
     val CollectionLearning = config getString "collection.learning"
     val CollectionVote = config getString "collection.vote"
+    val CollectionTagVote = config getString "collection.tagvote"
     val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
     val AnimationDuration = config duration "animation.duration"
@@ -37,6 +38,7 @@ final class Env(
     roundColl = roundColl,
     learningColl = learningColl,
     voteColl = voteColl,
+    tagVoteColl = tagVoteColl,
     headColl = headColl,
     puzzleIdMin = PuzzleIdMin,
     apiToken = ApiToken)
@@ -75,6 +77,7 @@ final class Env(
   private[puzzle] lazy val roundColl = db(CollectionRound)
   private[puzzle] lazy val learningColl = db(CollectionLearning)
   private[puzzle] lazy val voteColl = db(CollectionVote)
+  private[puzzle] lazy val tagVoteColl = db(CollectionTagVote)
   private[puzzle] lazy val headColl = db(CollectionHead)
 }
 
