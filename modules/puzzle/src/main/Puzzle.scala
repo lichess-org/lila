@@ -17,7 +17,7 @@ case class Puzzle(
     vote: AggregateVote,
     attempts: Int,
     mate: Boolean,
-    tags: List[TagVoted]) {
+    tags: TagVoteds) {
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
@@ -40,11 +40,11 @@ case class Puzzle(
     } yield Forsyth >> sit2
   }
 
-  def visibleTags: List[TagVoted] = tags.filter(_.vote.sum > 2)
+  def visibleTags: List[TagVoted] = tags.value.filter(_.visible)
 
-  def withTagVote(f: List[TagVoted] => List[TagVoted]) = copy(tags = f(tags))
+  def withTagVote(f: List[TagVoted] => List[TagVoted]) = copy(tags = TagVoteds(f(tags.value)))
 
-  def trustedTags: List[TagVoted] = tags.filter(_.trusted)
+  def trustedTags: List[TagVoted] = tags.value.filter(_.trusted)
 }
 
 object Puzzle {
@@ -68,7 +68,7 @@ object Puzzle {
     vote = AggregateVote.default,
     attempts = 0,
     mate = mate,
-    tags = List())
+    tags = TagVoteds(Nil))
 
   import reactivemongo.bson._
   import lila.db.BSON
