@@ -89,7 +89,7 @@ case class PovRef(gameId: String, color: Color) {
 
   def unary_! = PovRef(gameId, !color)
 
-  override def toString = s"$gameId/$color"
+  override def toString = s"$gameId/${color.name}"
 }
 
 case class PlayerRef(gameId: String, playerId: String)

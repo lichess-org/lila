@@ -11,11 +11,13 @@ module.exports = function(send, ctrl) {
     had: function(hook) {
       hookRepo.add(ctrl, hook);
       if (hook.action === 'cancel') ctrl.flushHooks(true);
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+      m.redraw();
     },
-    hrm: function(id) {
-      hookRepo.remove(ctrl, id);
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+    hrm: function(ids) {
+      ids.match(/.{8}/g).forEach(function(id) {
+        hookRepo.remove(ctrl, id);
+      });
+      m.redraw();
     },
     hooks: function(hooks) {
       hookRepo.setAll(ctrl, hooks);
@@ -23,8 +25,8 @@ module.exports = function(send, ctrl) {
       m.redraw();
     },
     hli: function(ids) {
-      hookRepo.syncIds(ctrl, ids.split(','));
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+      hookRepo.syncIds(ctrl, ids.match(/.{8}/g));
+      m.redraw();
     },
     reload_seeks: function() {
       if (ctrl.vm.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);

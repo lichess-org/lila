@@ -326,6 +326,8 @@ GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email:
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
 POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: String, ms: Int)
+POST  /auth/token                      controllers.Auth.makeLoginToken
+GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)

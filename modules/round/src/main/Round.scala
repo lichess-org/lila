@@ -248,7 +248,7 @@ private[round] final class Round(
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
     pov flatten "pov not found" flatMap { p =>
-      if (p.player.isAi) fufail("player can't play AI") else op(p)
+      if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)
     }
   } recover errorHandler("handlePov")
 

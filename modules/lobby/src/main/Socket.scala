@@ -28,6 +28,7 @@ private[lobby] final class Socket(
   override def preStart() {
     super.preStart()
     context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
+    context.system.scheduler.scheduleOnce(3 seconds, self, SendHookRemovals)
   }
 
   override def postStop() {
@@ -41,6 +42,8 @@ private[lobby] final class Socket(
   var idleUids = scala.collection.mutable.Set[String]()
 
   var hookSubscriberUids = scala.collection.mutable.Set[String]()
+
+  var removedHookIds = ""
 
   def receiveSpecific = {
 
@@ -69,7 +72,7 @@ private[lobby] final class Socket(
       val msg = makeMessage("had", hook.render)
       hookSubscriberUids.foreach { uid =>
         withActiveMember(uid) { member =>
-          if (hook.uid == member.uid || Biter.canJoin(hook, member.user)) member push msg
+          if (Biter.showHookTo(hook, member)) member push msg
         }
       }
       if (hook.likePoolFiveO) withMember(hook.uid) { member =>
@@ -79,12 +82,18 @@ private[lobby] final class Socket(
 
     case AddSeek(_) => notifySeeks
 
-    case RemoveHook(hookId) => Future {
-      val msg = makeMessage("hrm", hookId)
-      hookSubscriberUids.foreach { uid =>
-        withActiveMember(uid)(_ push msg)
+    case RemoveHook(hookId) =>
+      removedHookIds = s"$removedHookIds$hookId"
+
+    case SendHookRemovals =>
+      if (removedHookIds.nonEmpty) {
+        val msg = makeMessage("hrm", removedHookIds)
+        hookSubscriberUids.foreach { uid =>
+          withActiveMember(uid)(_ push msg)
+        }
+        removedHookIds = ""
       }
-    }
+      context.system.scheduler.scheduleOnce(1 second, self, SendHookRemovals)
 
     case RemoveSeek(_) => notifySeeks
 
@@ -115,7 +124,7 @@ private[lobby] final class Socket(
       withMember(blackUid.value)(notifyPlayerStart(game, chess.Black))
 
     case HookIds(ids) => Future {
-      val msg = makeMessage("hli", ids mkString ",")
+      val msg = makeMessage("hli", ids mkString "")
       hookSubscriberUids.foreach { uid =>
         withActiveMember(uid)(_ push msg)
       }
@@ -139,7 +148,7 @@ private[lobby] final class Socket(
       hookSubscriberUids += member.uid
   }
 
-  private def notifyPlayerStart(game: Game, color: chess.Color) =
+  def notifyPlayerStart(game: Game, color: chess.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
       "url" -> playerUrl(game fullIdOf color),

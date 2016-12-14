@@ -1,10 +1,11 @@
 package lila.security
 
-import lila.user.{ User, UserRepo }
-
 import com.roundeights.hasher.{ Hasher, Algo }
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
+
+import lila.common.String.base64
+import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
     apiUrl: String,
@@ -54,21 +55,14 @@ Please do not reply to this message; it was sent from an unmonitored email addre
       base64 encode token
     }
 
-    def read(token: String): Fu[Option[User]] = base64 decode token split separator match {
-      case Array(userId, userPass, hash) if makeHash(makePayload(userId, userPass)) == hash =>
-        getPasswd(userId) flatMap { passwd =>
-          (userPass == passwd) ?? (UserRepo enabledById userId)
-        }
-      case _ => fuccess(none)
+    def read(token: String): Fu[Option[User]] = (base64 decode token) ?? {
+      _ split separator match {
+        case Array(userId, userPass, hash) if makeHash(makePayload(userId, userPass)) == hash =>
+          getPasswd(userId) flatMap { passwd =>
+            (userPass == passwd) ?? (UserRepo enabledById userId)
+          }
+        case _ => fuccess(none)
+      }
     }
-  }
-
-  private object base64 {
-    import java.util.Base64
-    import java.nio.charset.StandardCharsets
-    def encode(txt: String) =
-      Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
-    def decode(txt: String) =
-      new String(Base64.getDecoder decode txt)
   }
 }

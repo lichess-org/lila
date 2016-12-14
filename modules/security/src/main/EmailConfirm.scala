@@ -6,6 +6,7 @@ import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import scala.concurrent.duration._
 
+import lila.common.String.base64
 import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
@@ -95,19 +96,6 @@ Please do not reply to this message; it was sent from an unmonitored email addre
           }
         case _ => fuccess(none)
       }
-    }
-  }
-
-  private object base64 {
-    import java.util.Base64
-    import java.nio.charset.StandardCharsets
-    def encode(txt: String) =
-      Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
-    def decode(txt: String): Option[String] = try {
-      Some(new String(Base64.getDecoder decode txt))
-    }
-    catch {
-      case _: java.lang.IllegalArgumentException => none
     }
   }
 }

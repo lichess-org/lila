@@ -42,7 +42,7 @@ private[api] final class RoundApiBalancer(
         def process = {
           case Player(pov, apiVersion, ctx) => {
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
-              logger.error(pov.toString, e)
+              logger.error(s"player ${pov.toString}", e)
             }
           }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>

@@ -22,9 +22,8 @@ import scala.util.{ Try, Success }
 
 object WMMatching {
 
-  def apply[A](vertices: Array[A], pairScore: (A, A) => Int): Try[List[(A, A)]] = Try {
-    if (vertices.length < 2) Nil
-    else lowLevel(
+  def apply[A](vertices: Array[A], pairScore: (A, A) => Option[Int]): Try[List[(A, A)]] = Try {
+    lowLevel(
       vertices.length,
       (i, j) => pairScore(vertices(i), vertices(j))
     ) map {
@@ -32,8 +31,11 @@ object WMMatching {
       }
   }
 
-  private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Int): List[(Int, Int)] =
-    mateToEdges(minWeightMatching(fullGraph(nvertex, pairScore)))
+  private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
+    val graph = fullGraph(nvertex, pairScore)
+    if (graph.size < 1) Nil
+    else mateToEdges(minWeightMatching(graph))
+  }
 
   private def maxWeightMatching(edges: Array[(Int, Int, Int)], maxcardinality: Boolean): Array[Int] = {
     /*
@@ -176,18 +178,17 @@ object WMMatching {
       dualvar(edges(k)._1) + dualvar(edges(k)._2) - 2 * edges(k)._3
     }
 
-    // Generate the leaf vertices of a blossom.
-    def blossomLeaves(b: Int): Traversable[Int] = {
-      class BlossomLeavesTraversable(b: Int) extends Traversable[Int] {
-        def foreach[U](f: Int => U): Unit = {
-          def g(v: Int): Unit = {
-            blossomchilds(v).foreach(w => if (w < nvertex) f(w) else g(w))
-          }
-          if (b < nvertex) f(b) else g(b)
+    class BlossomLeavesTraversable(b: Int) extends Traversable[Int] {
+      def foreach[U](f: Int => U): Unit = {
+        def g(v: Int): Unit = {
+          blossomchilds(v).foreach(w => if (w < nvertex) f(w) else g(w))
         }
+        if (b < nvertex) f(b) else g(b)
       }
-      new BlossomLeavesTraversable(b)
     }
+
+    // Generate the leaf vertices of a blossom.
+    def blossomLeaves(b: Int): Traversable[Int] = new BlossomLeavesTraversable(b)
 
     // Assign label t to the top-level blossom containing vertex w
     // and record the fact that w was reached through the edge with
@@ -737,12 +738,20 @@ object WMMatching {
     }
     mate
   }
+
   private def minWeightMatching(edges: Array[(Int, Int, Int)]): Array[Int] = {
     val maxweight = edges.view.map(_._3).max
     maxWeightMatching(edges.map { x => (x._1, x._2, maxweight - x._3) }, true)
   }
-  private def fullGraph(nvertex: Int, pairScore: (Int, Int) => Int): Array[(Int, Int, Int)] =
-    (for (j <- 1 until nvertex; i <- 0 until j) yield (i, j, pairScore(i, j))).toArray
+
+  private def fullGraph(nvertex: Int, pairScore: (Int, Int) => Option[Int]): Array[(Int, Int, Int)] = {
+    for {
+      j <- 1 until nvertex
+      i <- 0 until j
+      p <- pairScore(i, j)
+    } yield (i, j, p)
+  }.toArray
+
   private def mateToEdges(mate: Array[Int]): List[(Int, Int)] =
     (for (i <- 0 until mate.length; if (i < mate(i))) yield (i, mate(i))).toList
 }

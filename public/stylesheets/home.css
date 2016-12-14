@@ -878,6 +878,7 @@ body.dark .tour_spotlight:hover .img {
   opacity: 0.6;
 }
 #timeline {
+  flex: 1 1;
   margin-top: 10px;
   border-top: 1px solid #e4e4e4;
   margin-left: -30px;

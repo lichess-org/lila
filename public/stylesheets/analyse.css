@@ -234,7 +234,7 @@ body.piece_letter .pv_box .pv span {
   align-items: stretch;
 }
 .ceval_box .switch {
-  flex: 0 1;
+  flex: 0 1 40px;
   margin-right: 8px;
   display: flex;
   align-items: center;

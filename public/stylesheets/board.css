@@ -198,6 +198,7 @@ div.lichess_game {
 }
 div.lichess_game div.lichess_board_wrap {
   position: relative;
+  flex: 0 0 512px;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
@@ -606,16 +607,23 @@ body.piece_letter .lichess_ground .replay move {
   height: 56px!important; /* 100% fails on older chrome */
   width: auto!important;
   position: relative!important;
+  background-position: center;
 }
 .pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
 }
 .pocket.usable piece {
   cursor: pointer;
-  transition: background-color 0.13s;
 }
 .pocket.usable piece:hover {
   background-color: #999;
+  transition: background-color 0.13s;
+}
+.pocket.usable piece.premove {
+  background-color: #555;
+}
+.pocket.usable piece.premove:hover {
+  background-color: #666;
 }
 .pocket piece[data-nb='0'] {
   cursor: auto;

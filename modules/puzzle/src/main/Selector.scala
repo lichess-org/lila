@@ -20,8 +20,9 @@ private[puzzle] final class Selector(
     lila.mon.puzzle.selector.count()
     me match {
       case None =>
-        puzzleColl.find($empty)
-          .sort($sort desc "vote.sum")
+        puzzleColl // this query precisely matches a mongodb partial index
+          .find($doc(F.voteNb $gte 50))
+          .sort($sort desc F.voteRatio)
           .skip(Random nextInt anonSkipMax)
           .uno[Puzzle]
       case Some(user) =>

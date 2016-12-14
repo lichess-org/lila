@@ -104,4 +104,9 @@ private[lobby] object Biter {
       seek.realRatingRange.fold(true) { range =>
         (seek.perfType map (_.key) flatMap user.ratingMap.get) ?? range.contains
       }
+
+  @inline final def showHookTo(hook: Hook, member: actorApi.Member): Boolean =
+    hook.uid == member.uid || {
+      (hook.isAuth == member.isAuth) && canJoin(hook, member.user)
+    }
 }

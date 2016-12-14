@@ -11,10 +11,12 @@ module.exports = {
   pocket: function(ctrl, color, position) {
     var step = round.plyStep(ctrl.data, ctrl.vm.ply);
     if (!step.crazy) return;
-    var dropped = ctrl.vm.justDropped;
+    var droppedRole = ctrl.vm.justDropped;
+    var preDropRole = ctrl.vm.preDrop;
     var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-    var usablePos = position == (ctrl.vm.flip ? 'top' : 'bottom');
+    var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
     var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
+    var activeColor = color === ctrl.data.player.color;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
@@ -33,12 +35,12 @@ module.exports = {
       },
       pieceRoles.map(function(role) {
         var nb = pocket[role] || 0;
-        if (dropped && dropped.role === role && dropped.ply === ctrl.vm.ply && (dropped.ply % 2 === 1) ^ (color === 'white')) nb--;
+        if (activeColor && droppedRole === role) nb--;
         return m('piece', {
           'data-role': role,
           'data-color': color,
           'data-nb': nb,
-          class: role + ' ' + color
+          class: role + ' ' + color + (activeColor && preDropRole === role ? ' premove' : '')
         });
       })
     );

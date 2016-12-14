@@ -243,4 +243,23 @@ object Auth extends LilaController {
       case _ => notFound
     }
   }
+
+  def makeLoginToken = Auth { implicit ctx => me =>
+    JsonOk {
+      val baseUrl = Env.api.Net.BaseUrl
+      val url = routes.Auth.loginWithToken(env.loginToken generate me).url
+      fuccess(Json.obj(
+        "userId" -> me.id,
+        "url" -> s"$baseUrl$url"
+      ))
+    }
+  }
+
+  def loginWithToken(token: String) = Open { implicit ctx =>
+    Firewall {
+      env.loginToken consume token flatMap {
+        _.fold(notFound)(authenticateUser)
+      }
+    }
+  }
 }

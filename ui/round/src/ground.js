@@ -55,11 +55,7 @@ function makeConfig(data, ply, flip) {
       }
     },
     predroppable: {
-      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
-      events: {
-        set: m.redraw,
-        unset: m.redraw
-      }
+      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse'
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,
@@ -84,6 +80,10 @@ function make(opts) {
   config.events = {
     move: opts.onMove,
     dropNewPiece: opts.onNewPiece
+  };
+  config.predroppable.events = {
+    set: opts.onPredrop,
+    unset: opts.onPredrop
   };
   config.viewOnly = opts.data.player.spectator;
   return new chessground.controller(config);
