@@ -44,18 +44,21 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val pairingGroupSize = 44
+  private val maxGroupSize = 44
 
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (data.tour.isRecentlyStarted) naivePairings(tour, idles)
-      else idles.grouped(pairingGroupSize).toList match {
-        case a :: b :: _ => smartPairings(data, a) ::: smartPairings(data, b)
-        case a :: Nil    => smartPairings(data, a)
-        case Nil         => Nil
+      else if (idles.size > maxGroupSize) {
+        // make sure groupSize is even with / 4 * 2
+        val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
+        smartPairings(data, idles take groupSize) :::
+          smartPairings(data, idles drop groupSize take groupSize)
       }
+      else if (idles.size > 1) smartPairings(data, idles)
+      else Nil
     }
   }.chronometer.mon(_.tournament.pairing.prepTime).logIfSlow(200, pairingLogger) { preps =>
     s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
