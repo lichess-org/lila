@@ -11,7 +11,7 @@ case class TagVote(
 
 object TagVote {
 
-    def makeId(puzzleId: PuzzleId, tagId: String, userId: String) = s"$puzzleId/$tagId/$userid"
+    def makeId(puzzleId: PuzzleId, tagId: String, userId: String) = s"$puzzleId/$tagId/$userId"
 
     implicit val tagVoteBSONHandler = reactivemongo.bson.Macros.handler[TagVote]
 }

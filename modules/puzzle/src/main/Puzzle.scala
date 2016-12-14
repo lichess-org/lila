@@ -40,7 +40,7 @@ case class Puzzle(
     } yield Forsyth >> sit2
   }
 
-  def visibleTags: List[TagVoted] = tags.filter(_.sum > 2)
+  def visibleTags: List[TagVoted] = tags.filter(_.vote.sum > 2)
 
   def withTagVote(f: List[TagVoted] => List[TagVoted]) = copy(tags = f(tags))
 
@@ -105,9 +105,10 @@ object Puzzle {
       case BSONDocument(id -> BSONDocument("up" -> up, "down" -> down)) => TagVoted(Tag.byId(id), TagAggregateVote(up, down))
       case _ => throw new Exception(s"malformed BSONDocument")
     }*/
-    def write(tags: List[TagVoted]): BSONDocument = BSONDocument(tags map {
-      t => BSONDocument(t.tag.id -> BSONDocument("up" -> t.vote.up, "down" -> t.vote.down))
-    })
+    def write(tags: List[TagVoted]): BSONDocument = ???
+      // BSONDocument(tags map {
+      //   t => BSONDocument(t.tag.id -> BSONDocument("up" -> t.vote.up, "down" -> t.vote.down))
+      // })
   }
 
   object BSONFields {
@@ -148,7 +149,8 @@ object Puzzle {
       perf = r.get[PuzzlePerf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
-      mate = r bool mate)
+      mate = r bool mate,
+      tags = ???)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
@@ -162,6 +164,7 @@ object Puzzle {
       perf -> o.perf,
       vote -> o.vote,
       attempts -> o.attempts,
-      mate -> o.mate)
+      mate -> o.mate,
+      tags -> ???)
   }
 }

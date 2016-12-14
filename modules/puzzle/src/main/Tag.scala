@@ -1,13 +1,16 @@
 package lila.puzzle
 
 sealed abstract class Tag(
-    val name: Tag.name,
-    val desc: Tag.desc) {
+    val name: Tag.Name,
+    val desc: Tag.Desc) {
 
     val id = toString
 }
 
 object Tag {
+
+  type Name = String
+  type Desc = String
 
     case object Fork extends Tag(
         name = "Fork/Double Attack",
@@ -77,7 +80,7 @@ object Tag {
         name = "Desperado",
         desc = "Use a doomed piece to capture as much material as possible")
 
-    case object Zugszwang extends Tag(
+    case object Zugzwang extends Tag(
         name = "Zugzwang",
         desc = "A position where it would be ideal to be able to pass the turn")
 
