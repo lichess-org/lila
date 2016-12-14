@@ -52,6 +52,7 @@ private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)
 private[lobby] case class RemoveSeek(seekId: String)
 private[lobby] case class RemoveHooks(hooks: Set[Hook])
+private[lobby] object SendHookRemovals
 private[lobby] case class CancelHook(uid: String)
 private[lobby] case class CancelSeek(seekId: String, user: LobbyUser)
 private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[LobbyUser])
