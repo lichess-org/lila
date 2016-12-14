@@ -144,7 +144,7 @@ private[puzzle] final class PuzzleApi(
   object voteTag {
 
     def find(id: PuzzleId, tag: Tag, user: User): Fu[Option[TagVote]] = tagVoteColl.byId[TagVote](TagVote.makeId(id, tag.id, user.id))
-
+/*
     def update(id: PuzzleId, tag: Tag, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, TagVote)] = puzzle find id flatMap {
       case None => fufail(s"Can't tag vote for non existing puzzle ${id}")
       case Some(p1) =>
@@ -153,8 +153,8 @@ private[puzzle] final class PuzzleApi(
             (p1 ))
         }
     }
+*/
   }
-
   object head {
 
     def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
