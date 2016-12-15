@@ -1,6 +1,8 @@
 [lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
 ---------------------------------
 
+[@lichessorg](https://twitter.com/)
+
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
 Lila is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
