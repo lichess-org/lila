@@ -100,8 +100,15 @@ object Main extends LilaController {
     ctx.userId.ifFalse(known) ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
-    lila.game.GameRepo pov id map {
-      _ ?? lila.game.GameRepo.setBorderAlert
+    lila.game.GameRepo pov id flatMap {
+      _ ?? { pov =>
+        if (name == "ceval") fuccess {
+          Env.round.roundMap ! lila.hub.actorApi.map.Tell(
+            pov.gameId,
+            lila.round.actorApi.round.Cheat(pov.color))
+        }
+        else lila.game.GameRepo.setBorderAlert(pov)
+      }
     } inject Ok
   }
 
