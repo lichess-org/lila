@@ -93,15 +93,16 @@ object Main extends LilaController {
     val known = ctx.me.??(_.engine)
     val referer = HTTPRequest.referer(ctx.req)
     val name = get("n", ctx.req) | "?"
-    if (!known) {
-      lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
-    }
     lila.mon.cheat.cssBot()
     ctx.userId.ifFalse(known) ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
     lila.game.GameRepo pov id flatMap {
       _ ?? { pov =>
+        if (!known) {
+          lila.log("cheat").branch("jslog").info(
+            s"${ctx.req.remoteAddress} ${ctx.userId} $referer https://lichess.org/${pov.gameId}/${pov.color}#${pov.game.turns} $name")
+        }
         if (name == "ceval") fuccess {
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
             pov.gameId,
