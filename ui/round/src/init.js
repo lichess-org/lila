@@ -5,6 +5,7 @@ var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
 var keyboard = require('./keyboard');
+var cevalSub = require('./cevalSub');
 var k = Mousetrap;
 
 module.exports = {
@@ -36,6 +37,7 @@ module.exports = {
         }
       });
       k.bind(['esc'], ctrl.chessground.cancelMove);
+      cevalSub(ctrl);
     }
 
     keyboard.init(ctrl);

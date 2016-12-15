@@ -69,7 +69,12 @@ module.exports = function(opts) {
     npsRecorder(res);
     curDepth = res.eval.depth;
     opts.emit(res);
-  }
+    publish(res);
+  };
+
+  var publish = function(res) {
+    if (res.eval.depth === 12) lichess.storage.set('ceval.fen', res.work.currentFen);
+  };
 
   var start = function(path, steps, threatMode) {
     if (!enabled() || !opts.possible) return;
