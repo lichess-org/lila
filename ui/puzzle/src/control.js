@@ -17,10 +17,16 @@ module.exports = {
   },
 
   last: function(ctrl) {
-    ctrl.userJump(treePath.fromNodeList(ctrl.vm.mainline));
+    var toInit = !treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
+    ctrl.userJump(
+      toInit ? ctrl.vm.initialPath : treePath.fromNodeList(ctrl.vm.mainline)
+    );
   },
 
   first: function(ctrl) {
-    ctrl.userJump(treePath.root);
+    var toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
+    ctrl.userJump(
+      toInit ? ctrl.vm.initialPath : treePath.root
+    );
   }
 };
