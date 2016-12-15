@@ -102,7 +102,12 @@ case class Game(
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
-  def durationSeconds = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt
+  def durationSeconds =
+    (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
+      clock.fold(Int.MaxValue) { c =>
+        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).toInt
+      }
+    }
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
