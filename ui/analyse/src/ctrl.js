@@ -360,10 +360,10 @@ module.exports = function(opts) {
     this.study && this.study.deleteNode(path);
   }.bind(this);
 
-  this.promoteNode = function(path) {
-    this.tree.promoteNodeAt(path);
+  this.promote = function(path, toMainline) {
+    this.tree.promoteAt(path, toMainline);
     this.jump(this.vm.path);
-    this.study && this.study.promoteNode(path);
+    if (this.study) this.study.promote(path, toMainline);
   }.bind(this);
 
   this.reset = function() {

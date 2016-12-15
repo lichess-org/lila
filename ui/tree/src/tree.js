@@ -122,16 +122,15 @@ module.exports = function(root) {
     ops.removeChild(parent, id);
   }
 
-  function promoteNodeAt(path) {
+  function promoteAt(path, toMainline) {
     var nodes = getNodeList(path);
     for (var i = nodes.length - 2; i >= 0; i--) {
       var node = nodes[i + 1];
       var parent = nodes[i];
       if (parent.children[0].id !== node.id) {
-        parent.children = parent.children.filter(function(c) {
-          return c.id !== node.id;
-        });
+        ops.removeChild(parent, node.id);
         parent.children.unshift(node);
+        if (!toMainline) break;
       }
     }
   }
@@ -192,7 +191,7 @@ module.exports = function(root) {
     lastMainlineNode: lastMainlineNode,
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
-    promoteNodeAt: promoteNodeAt,
+    promoteAt: promoteAt,
     plyOfNextGlyphSymbol: function(color, symbol, mainline, fromPly) {
       var len = mainline.length;
       var fromIndex = fromPly - root.ply;

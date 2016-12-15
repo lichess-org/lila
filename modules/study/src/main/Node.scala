@@ -75,14 +75,29 @@ object Node {
       case Some((head, tail))                   => updateChildren(head, _.deleteNodeAt(tail))
     }
 
-    def promoteNodeAt(path: Path): Option[Children] = path.split match {
+    def promoteToMainlineAt(path: Path): Option[Children] = path.split match {
       case None => this.some
       case Some((head, tail)) =>
         get(head).flatMap { node =>
-          node.withChildren(_.promoteNodeAt(tail)).map { promoted =>
+          node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
             copy(nodes = promoted +: nodes.filterNot(node ==))
           }
         }
+    }
+
+    def promoteUpAt(path: Path): Option[(Children, Boolean)] = path.split match {
+      case None => Some(this -> false)
+      case Some((head, tail)) => for {
+        node <- get(head)
+        mainlineNode <- nodes.headOption
+        res <- node.children promoteUpAt tail
+        (newChildren, isDone) = res
+        newNode = node.copy(children = newChildren)
+      } yield {
+        if (isDone) update(newNode) -> true
+        else if (newNode.id == mainlineNode.id) update(newNode) -> false
+        else copy(nodes = newNode +: nodes.filterNot(newNode ==)) -> true
+      }
     }
 
     def setShapesAt(shapes: Shapes, path: Path): Option[Children] = path.split match {

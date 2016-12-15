@@ -159,15 +159,18 @@ final class StudyApi(
     }
   }
 
-  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
+  def promote(userId: User.ID, studyId: Study.ID, position: Position.Ref, toMainline: Boolean, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.updateRoot { root =>
-        root.withChildren(_.promoteNodeAt(position.path))
+        root.withChildren { children =>
+          if (toMainline) children.promoteToMainlineAt(position.path)
+          else children.promoteUpAt(position.path).map(_._1)
+        }
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study, Socket.PromoteNode(position, uid))
-        case None => fufail(s"Invalid promoteNode $studyId $position") >>- reloadUid(study, uid)
+            sendTo(study, Socket.Promote(position, toMainline, uid))
+        case None => fufail(s"Invalid promoteToMainline $studyId $position") >>- reloadUid(study, uid)
       }
     }
   }

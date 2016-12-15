@@ -13,8 +13,8 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ Handler, AnaMove, AnaDests, AnaDrop }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 import makeTimeout.short
 
@@ -128,11 +128,12 @@ private[study] final class SocketHandler(
           api.deleteNodeAt(userId, studyId, position.ref, uid)
       }
     }
-    case ("promoteNode", o) => AnaRateLimit(uid.value, member) {
+    case ("promote", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
-        member.userId foreach { userId =>
-          api.promoteNodeAt(userId, studyId, position.ref, uid)
-        }
+        for {
+          toMainline <- (o \ "d" \ "toMainline").asOpt[Boolean]
+          userId <- member.userId
+        } api.promote(userId, studyId, position.ref, toMainline, uid)
       }
     }
     case ("setRole", o) if owner => AnaRateLimit(uid.value, member) {

@@ -10,8 +10,8 @@ import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 
 private final class Socket(
@@ -65,8 +65,9 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case PromoteNode(pos, uid) => notifyVersion("promoteNode", Json.obj(
+    case Promote(pos, toMainline, uid) => notifyVersion("promote", Json.obj(
       "p" -> pos,
+      "toMainline" -> toMainline,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -222,7 +223,7 @@ private object Socket {
 
   case class AddNode(position: Position.Ref, node: Node, uid: Uid)
   case class DeleteNode(position: Position.Ref, uid: Uid)
-  case class PromoteNode(position: Position.Ref, uid: Uid)
+  case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: Shapes, uid: Uid)

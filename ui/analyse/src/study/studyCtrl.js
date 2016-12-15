@@ -189,8 +189,9 @@ module.exports = {
           jumpTo: ctrl.vm.path
         }));
       },
-      promoteNode: function(path) {
-        contribute("promoteNode", addChapterId({
+      promote: function(path, toMainline) {
+        contribute("promote", addChapterId({
+          toMainline: toMainline,
           path: path
         }));
       },
@@ -269,7 +270,7 @@ module.exports = {
           ctrl.tree.deleteNodeAt(position.path);
           ctrl.jump(ctrl.vm.path);
         },
-        promoteNode: function(d) {
+        promote: function(d, toMainline) {
           var position = d.p,
             who = d.w;
           who && activity(who.u);
@@ -277,7 +278,7 @@ module.exports = {
           if (who && who.s === sri) return;
           if (position.chapterId !== data.position.chapterId) return;
           if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-          ctrl.tree.promoteNodeAt(position.path);
+          ctrl.tree.promoteAt(position.path, toMainline);
           ctrl.jump(ctrl.vm.path);
         },
         reload: xhrReload,
