@@ -17,6 +17,7 @@ build() {
   rm -rf node_modules/chess
   rm -rf node_modules/game
   rm -rf node_modules/tree
+  rm -rf node_modules/ceval
   npm install --no-optional && gulp $target
   cd -
 }

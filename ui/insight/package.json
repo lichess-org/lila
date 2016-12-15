@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "mithril": "github:ornicar/mithril.js#v1.0.1",
+    "common": "file:../common",
     "numeral": "^1.5.3"
   }
 }
