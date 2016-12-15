@@ -1,7 +1,7 @@
 [lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
 ---------------------------------
 
-[@lichessorg](https://twitter.com/)
+[@lichessorg](https://twitter.com/lichessorg)
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
