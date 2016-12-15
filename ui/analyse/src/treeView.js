@@ -303,7 +303,7 @@ module.exports = {
         if (isUpdate) return;
         el.oncontextmenu = function(e) {
           var path = eventPath(e, ctrl);
-          contextMenu.open(e, {
+          if (path !== null) contextMenu.open(e, {
             path: path,
             root: ctrl
           });
