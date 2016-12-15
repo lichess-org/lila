@@ -105,7 +105,7 @@ case class Game(
   def durationSeconds =
     (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
       clock.fold(Int.MaxValue) { c =>
-        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).toInt
+        ((c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns) * 1.1).toInt
       }
     }
 
