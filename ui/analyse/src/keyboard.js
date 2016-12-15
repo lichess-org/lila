@@ -70,10 +70,14 @@ module.exports = {
     }));
     if (ctrl.study) {
       kbd.bind('c', preventing(function() {
-        $('.study_buttons a.comment').click();
+        $('.study_buttons a.comment').each(function() {
+          this.click();
+        });
       }));
       kbd.bind('s', preventing(function() {
-        $('.study_buttons a.glyph').click();
+        $('.study_buttons a.glyph').each(function() {
+          this.click();
+        });
       }));
     }
   },
