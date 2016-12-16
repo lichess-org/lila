@@ -7,32 +7,33 @@ import play.api.mvc.Results._
 import play.api.data._
 import play.api.data.Forms._
 
+import lila.common.LightUser
+import lila.common.paginator._
 import lila.common.PimpedJson._
 import lila.user.User
-import lila.common.paginator._
 
 final class JsonView(
-    isOnline: lila.user.User.ID => Boolean
-    ) {
+    isOnline: lila.user.User.ID => Boolean,
+    lightUser: LightUser.Getter) {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(PaginatorJson(threads.mapResults { t =>
-        Json.obj(
-          "id" -> t.id,
-          "author" -> t.otherUserId(me),
-          "name" -> t.name,
-          "updatedAt" -> t.updatedAt,
-          "isUnread" -> t.isUnReadBy(me)
-        )
-      })
+      Json.obj(
+        "id" -> t.id,
+        "author" -> t.otherUserId(me),
+        "name" -> t.name,
+        "updatedAt" -> t.updatedAt,
+        "isUnread" -> t.isUnReadBy(me)
+      )
+    })
     )
 
   def thread(thread: Thread): Fu[JsValue] =
-    fuccess (
+    fuccess(
       Json.obj(
         "id" -> thread.id,
         "name" -> thread.name,
-        "posts" -> thread.posts.map { post => threadPost(thread, post)}
+        "posts" -> thread.posts.map { post => threadPost(thread, post) }
       )
     )
 
@@ -44,9 +45,11 @@ final class JsonView(
       "createdAt" -> post.createdAt
     )
 
-  def user(userId: String): JsValue =
-    Json.obj(
-      "username" -> userId,
-      "online" -> isOnline(userId)
-    )
+  private def user(userId: String) =
+    lightUser(userId).map { l =>
+      LightUser.lightUserWrites.writes(l) ++ Json.obj(
+        "online" -> isOnline(userId),
+        "username" -> l.name // for mobile app BC
+      )
+    }
 }
