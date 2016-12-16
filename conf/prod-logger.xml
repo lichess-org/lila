@@ -37,8 +37,6 @@
     <appender-ref ref="STDOUT_WARN" />
   </root>
 
-  <!-- But allow some interesting INFOs in STDOUT -->
-  <logger name="cheat.jslog" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="boot" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="play" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="akka" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
