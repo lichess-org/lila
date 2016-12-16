@@ -362,7 +362,7 @@ module.exports = function(opts) {
 
   this.promote = function(path, toMainline) {
     this.tree.promoteAt(path, toMainline);
-    this.jump(this.vm.path);
+    this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
   }.bind(this);
 
