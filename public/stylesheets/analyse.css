@@ -369,19 +369,22 @@ body.piece_letter .fork move {
   }
 }
 
-.explorer_box {
+.explorer_box,
+.retro_box {
   position: relative;
   flex: 2.5 1 0px;
   border: 1px solid #ccc;
   margin-top: 5px;
-  overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   transition: 0.3s;
   transition-delay: 0.3s;
+}
+.explorer_box {
+  overflow-y: scroll;
 }
 .explorer_box.config {
   flex: 3.5 1 0px;
@@ -1094,9 +1097,17 @@ div.copyables .pgn:hover .action {
 }
 div.advice_summary {
   margin-top: -12px;
+  display: flex;
+  flex-flow: column;
+  height: 210px;
+  justify-content: space-between;
+  align-items: center;
+}
+div.advice_summary table {
+  width: 100%;
 }
 div.advice_summary td {
-  padding: 2px 8px;
+  padding: 1px 8px;
   text-align: center;
 }
 div.advice_summary tbody td {
@@ -1106,10 +1117,7 @@ div.advice_summary tr.symbol {
   cursor: pointer;
 }
 div.advice_summary tr.symbol:hover {
-  text-decoration: underline;
-}
-div.advice_summary table:first-child {
-  margin-bottom: 5px;
+  color: #3893E8;
 }
 #adv_chart,
 #movetimes_chart {

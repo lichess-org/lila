@@ -25,6 +25,34 @@ var advices = [
 
 var cached = false;
 
+function playerTable(ctrl, color) {
+  var d = ctrl.data;
+  return m('table', [
+    m('thead', m('tr', [
+      m('td', m('i.is.color-icon.' + color)),
+      m('th', renderPlayer(d, color))
+    ])),
+    m('tbody', [
+      advices.map(function(a) {
+        var nb = d.analysis[color][a[0]];
+        var attrs = nb ? {
+          class: 'symbol',
+          'data-color': color,
+          'data-symbol': a[2]
+        } : {};
+        return m('tr', attrs, [
+          m('td', nb),
+          m('th', ctrl.trans(a[1]))
+        ]);
+      }),
+      m('tr', [
+        m('td', d.analysis[color].acpl),
+        m('th', ctrl.trans('averageCentipawnLoss'))
+      ])
+    ])
+  ])
+}
+
 module.exports = function(ctrl) {
   var d = ctrl.data;
   if (!d.analysis) return;
@@ -48,30 +76,11 @@ module.exports = function(ctrl) {
           ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
         });
     }
-  }, ['white', 'black'].map(function(color) {
-    return m('table', [
-      m('thead', m('tr', [
-        m('td', m('i.is.color-icon.' + color)),
-        m('th', renderPlayer(d, color))
-      ])),
-      m('tbody', [
-        advices.map(function(a) {
-          var nb = d.analysis[color][a[0]];
-          var attrs = nb ? {
-            class: 'symbol',
-            'data-color': color,
-            'data-symbol': a[2]
-          } : {};
-          return m('tr', attrs, [
-            m('td', nb),
-            m('th', ctrl.trans(a[1]))
-          ]);
-        }),
-        m('tr', [
-          m('td', d.analysis[color].acpl),
-          m('th', ctrl.trans('averageCentipawnLoss'))
-        ])
-      ])
-    ]);
-  }));
+  }, [
+    playerTable(ctrl, 'white'),
+    m('a.button.text[data-icon=G]', {
+      onclick: ctrl.toggleRetro,
+    }, 'Learn from your mistakes'),
+    playerTable(ctrl, 'black')
+  ]);
 };

@@ -21,8 +21,9 @@ var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
 var crazyValid = require('./crazy/crazyValid');
-var studyCtrl = require('./study/studyCtrl');
+var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
+var makeRetro = require('./retrospect/retroCtrl');
 var computeAutoShapes = require('./autoShape');
 var m = require('mithril');
 
@@ -580,7 +581,14 @@ module.exports = function(opts) {
   onToggleComputer();
   this.startCeval();
   this.explorer.setNode();
-  this.study = opts.study ? studyCtrl.init(opts.study, this) : null;
+  this.study = opts.study ? makeStudy(opts.study, this) : null;
+
+  this.retro = null;
+
+  this.toggleRetro = function() {
+    if (this.retro) this.retro = null;
+    else this.retro = makeRetro(this);
+  }.bind(this);
 
   keyboard.bind(this);
 

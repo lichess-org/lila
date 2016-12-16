@@ -257,33 +257,31 @@ function showFailing(ctrl) {
   ]);
 }
 
-module.exports = {
-  renderExplorer: function(ctrl) {
-    var explorer = ctrl.explorer
-    if (!explorer.enabled()) return;
-    var data = explorer.current();
-    var config = explorer.config;
-    var configOpened = config.data.open();
-    var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-    var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
-    return m('div', {
-      class: classSet({
-        explorer_box: true,
-        loading: loading,
-        config: configOpened,
-        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
-      }),
-      config: function(el, isUpdate, ctx) {
-        if (!isUpdate || !data || ctx.lastFen === data.fen) return;
-        ctx.lastFen = data.fen;
-        el.scrollTop = 0;
-      }
-    }, [
-      m('div.overlay'),
-      content, (!content || explorer.failing()) ? null : m('span.toconf', {
-        'data-icon': configOpened ? 'L' : '%',
-        config: bindOnce('click', config.toggleOpen)
-      })
-    ]);
-  }
+module.exports = function(ctrl) {
+  var explorer = ctrl.explorer
+  if (!explorer.enabled()) return;
+  var data = explorer.current();
+  var config = explorer.config;
+  var configOpened = config.data.open();
+  var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
+  var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
+  return m('div', {
+    class: classSet({
+      explorer_box: true,
+      loading: loading,
+      config: configOpened,
+      reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
+    }),
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate || !data || ctx.lastFen === data.fen) return;
+      ctx.lastFen = data.fen;
+      el.scrollTop = 0;
+    }
+  }, [
+    m('div.overlay'),
+    content, (!content || explorer.failing()) ? null : m('span.toconf', {
+      'data-icon': configOpened ? 'L' : '%',
+      config: bindOnce('click', config.toggleOpen)
+    })
+  ]);
 };
