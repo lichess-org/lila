@@ -94,7 +94,7 @@ object Main extends LilaController {
     val referer = HTTPRequest.referer(ctx.req)
     val name = get("n", ctx.req) | "?"
     lila.mon.cheat.cssBot()
-    ctx.userId.ifFalse(known) ?? {
+    ctx.userId.ifTrue(!known && name != "ceval") ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
     lila.game.GameRepo pov id flatMap {

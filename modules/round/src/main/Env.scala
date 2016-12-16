@@ -162,7 +162,7 @@ final class Env(
     messenger = messenger,
     finisher = finisher)
 
-  private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
+  private lazy val cheatDetector = new CheatDetector
 
   lazy val messenger = new Messenger(
     chat = hub.actor.chat,
