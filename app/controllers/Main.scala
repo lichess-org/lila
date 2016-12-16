@@ -101,7 +101,7 @@ object Main extends LilaController {
       _ ?? { pov =>
         if (!known) {
           lila.log("cheat").branch("jslog").info(
-            s"${ctx.req.remoteAddress} ${ctx.userId} $referer https://lichess.org/${pov.gameId}/${pov.color}#${pov.game.turns} $name")
+            s"${ctx.req.remoteAddress} ${ctx.userId} $referer https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} $name")
         }
         if (name == "ceval") fuccess {
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
