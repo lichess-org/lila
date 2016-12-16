@@ -22,8 +22,6 @@ private[round] final class CheatDetector {
 
   private def gameUrl(gameId: String) = s"https://lichess.org/${gameId}"
 
-  private val TURNS_MODULUS = 10
-
   private def interesting(game: Game) =
-    game.rated && game.turns > 0 && (game.turns % TURNS_MODULUS == 0)
+    game.rated && game.turns == 15 && game.speed != chess.Speed.Bullet
 }
