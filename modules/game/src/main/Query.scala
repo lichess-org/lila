@@ -65,8 +65,7 @@ object Query {
 
   def loss(u: String) = user(u) ++ $doc(
     F.status $in Status.finishedWithWinner.map(_.id),
-    F.winnerId -> $exists(true).++($ne(u))
-  )
+    F.winnerId $ne u)
 
   def opponents(u1: User, u2: User) =
     $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
