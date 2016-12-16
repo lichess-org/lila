@@ -73,7 +73,7 @@ object Puzzle extends LilaController {
 
   private def puzzleJson(puzzle: PuzzleModel)(implicit ctx: Context) =
     (env userInfos ctx.me) flatMap { infos =>
-      renderJson(puzzle, infos, "play", voted = none)
+      renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none)
     }
 
   // XHR load next play puzzle
