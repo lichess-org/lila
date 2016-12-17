@@ -192,17 +192,6 @@ module.exports = function(root) {
     pathExists: pathExists,
     deleteNodeAt: deleteNodeAt,
     promoteAt: promoteAt,
-    plyOfNextGlyphSymbol: function(color, symbol, mainline, fromPly) {
-      var len = mainline.length;
-      var fromIndex = fromPly - root.ply;
-      for (var i = 1; i < len; i++) {
-        var node = mainline[(fromIndex + i) % len];
-        var found = (node.ply % 2 === (color === 'white' ? 1 : 0)) && node.glyphs && node.glyphs.filter(function(g) {
-          return g.symbol === symbol;
-        })[0];
-        if (found) return node.ply;
-      }
-    },
     getCurrentNodesAfterPly: getCurrentNodesAfterPly,
     merge: function(tree) {
       ops.merge(root, tree);

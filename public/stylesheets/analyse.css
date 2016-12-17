@@ -676,6 +676,11 @@ body.piece_letter .tablebase td:first-child {
   font-weight: bold;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
+
+.retro_box {
+  flex: 1 1 0px;
+}
+
 .lichess_ground .areplay,
 .action_menu {
   overflow: auto;

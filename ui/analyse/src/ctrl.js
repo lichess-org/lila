@@ -25,6 +25,7 @@ var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
 var computeAutoShapes = require('./autoShape');
+var nodeFinder = require('./nodeFinder');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -239,8 +240,8 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.jumpToGlyphSymbol = function(color, symbol) {
-    var ply = this.tree.plyOfNextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
-    if (ply) this.jumpToMain(ply);
+    var node = nodeFinder.nextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
+    if (node) this.jumpToMain(node.ply);
     m.redraw();
   }.bind(this);
 
@@ -589,6 +590,7 @@ module.exports = function(opts) {
     if (this.retro) this.retro = null;
     else this.retro = makeRetro(this);
   }.bind(this);
+  this.toggleRetro();
 
   keyboard.bind(this);
 
