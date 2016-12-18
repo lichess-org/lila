@@ -67,7 +67,7 @@ private[lobby] final class SocketHandler(
             socketId = lila.socket.Socket.Uid(member.uid),
             ratingMap = user.ratingMap,
             ratingRange = ratingRange,
-            engine = user.engine,
+            lame = user.lame,
             blocking = user.blocking))
       }
     }

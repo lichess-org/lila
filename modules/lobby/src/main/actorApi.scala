@@ -8,7 +8,7 @@ import lila.user.User
 private[lobby] case class LobbyUser(
   id: String,
   username: String,
-  engine: Boolean,
+  lame: Boolean,
   ratingMap: Map[String, Int],
   blocking: Set[String])
 
@@ -17,7 +17,7 @@ private[lobby] object LobbyUser {
   def make(user: User, blocking: Set[String]) = LobbyUser(
     id = user.id,
     username = user.username,
-    engine = user.engine,
+    lame = user.lame,
     ratingMap = user.perfs.ratingMap,
     blocking = blocking)
 }
