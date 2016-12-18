@@ -1,5 +1,5 @@
 playWithAFriend=Spill mot en venn
-playWithTheMachine=Spill mot maskinen
+playWithTheMachine=Spill mot computer
 toInviteSomeoneToPlayGiveThisUrl=For å invitere noen til å spille, gi dem denne lenken
 gameOver=Partiet er slutt
 waitingForOpponent=Venter på motstander
