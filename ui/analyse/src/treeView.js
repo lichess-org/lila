@@ -104,6 +104,8 @@ function renderLines(ctx, nodes, opts) {
       class: (nodes[1] ? '' : 'single') // + (opts.conceal ? ' ' + opts.conceal : '')
     },
     children: nodes.map(function(n) {
+      if (n.comp && ctx.ctrl.retro && !ctx.ctrl.retro.isPlySolved(n.ply - 1))
+        return lineTag('Retrospective: find a better move');
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
         isMainline: false,
@@ -143,8 +145,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
 function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
-    fixCrazySan(node.san),
-    (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
+    fixCrazySan(node.san), (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
     defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
       defined(eval.mate) ? renderEval('#' + eval.mate) : null
     ),
@@ -287,7 +288,7 @@ module.exports = {
     var ctx = {
       ctrl: ctrl,
       concealOf: concealOf || emptyConcealOf,
-      showComputer: ctrl.vm.showComputer(),
+      showComputer: ctrl.vm.showComputer() && !ctrl.retro,
       showGlyphs: !!ctrl.study || ctrl.vm.showComputer()
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {

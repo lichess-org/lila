@@ -2,6 +2,14 @@ var nodeFinder = require('../nodeFinder');
 
 module.exports = function(root) {
 
+  var color = root.bottomColor();
+  var solvedPlies = [];
+  var node;
+
+  var isPlySolved = function(ply) {
+    return $.fp.contains(solvedPlies, ply)
+  };
+
   var candidateNodes = function() {
     var c = root.bottomColor();
     return nodeFinder.evalSwings(root.vm.mainline);
@@ -18,19 +26,24 @@ module.exports = function(root) {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
     for (var i in candidates) {
       var node = candidates[i];
-      if (node.ply % 2 === colorModulo && !$.fp.contains(solvedPlies, node.ply)) return node;
+      if (node.ply % 2 === colorModulo && !isPlySolved(node.ply)) return node;
     }
   };
 
   var jumpToNext = function() {
+    node = findNextNode();
+    if (!node) return;
+    root.jumpToMain(node.ply);
+    setTimeout(function() {
+      root.jumpToMain(node.ply - 1);
+    }, 500);
   };
 
-  var color = root.bottomColor();
-  var solvedPlies = [];
-  var node = findNextNode();
+  jumpToNext();
 
   return {
     node: node,
-    color: color
+    color: color,
+    isPlySolved: isPlySolved
   };
 };

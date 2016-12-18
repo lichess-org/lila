@@ -267,6 +267,7 @@ body.piece_letter .pv_box .pv span {
   flex: 1 0;
   margin: 5px;
   font-size: 0.9em;
+  white-space: nowrap;
 }
 .ceval_box .bar {
   position: absolute;
@@ -369,8 +370,7 @@ body.piece_letter .fork move {
   }
 }
 
-.explorer_box,
-.retro_box {
+.explorer_box {
   position: relative;
   flex: 2.5 1 0px;
   border: 1px solid #ccc;
@@ -679,6 +679,37 @@ body.piece_letter .tablebase td:first-child {
 
 .retro_box {
   flex: 1 1 0px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.retro_box .player {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.retro_box .no-square {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+}
+.is3d .retro_box div.no-square {
+  height: 82px;
+}
+.retro_box piece {
+  position: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.retro_box .instruction > * {
+  display: block;
+}
+.retro_box .instruction strong {
+  font-size: 1.5em;
 }
 
 .lichess_ground .areplay,

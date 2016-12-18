@@ -38,6 +38,11 @@ module.exports = function(ctrl) {
     shapes = [],
     hoveringUci = ctrl.explorer.hoveringUci() || instance.hoveringUci();
   var color = ctrl.chessground.data.movable.color;
+  if (ctrl.retro && ctrl.retro.node) {
+    return makeAutoShapesFromUci(color, ctrl.retro.node.uci, 'paleRed', {
+      lineWidth: 8
+    });
+  }
   if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
   if (ctrl.vm.showAutoShapes() && ctrl.vm.showComputer()) {
     if (n.eval && n.eval.best)

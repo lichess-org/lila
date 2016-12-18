@@ -589,6 +589,7 @@ module.exports = function(opts) {
   this.toggleRetro = function() {
     if (this.retro) this.retro = null;
     else this.retro = makeRetro(this);
+    this.setAutoShapes();
   }.bind(this);
   this.toggleRetro();
 
