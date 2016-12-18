@@ -10,7 +10,7 @@ case class PoolMember(
     socketId: lila.socket.Socket.Uid,
     rating: Int,
     ratingRange: Option[RatingRange],
-    engine: Boolean,
+    lame: Boolean,
     blocking: PoolMember.BlockedUsers,
     since: DateTime,
     misses: Int = 0 // how many waves they missed
@@ -37,7 +37,7 @@ object PoolMember {
     PoolMember(
       userId = joiner.userId,
       socketId = joiner.socketId,
-      engine = joiner.engine,
+      lame = joiner.lame,
       rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),

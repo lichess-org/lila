@@ -45,7 +45,7 @@ object PoolApi {
       socketId: SocketId,
       ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
-      engine: Boolean,
+      lame: Boolean,
       blocking: Set[String]) {
 
     def is(member: PoolMember) = userId == member.userId

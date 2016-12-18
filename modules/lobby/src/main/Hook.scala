@@ -52,7 +52,7 @@ case class Hook(
   def isAuth = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
   def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
-  def engine = user ?? (_.engine)
+  def lame = user ?? (_.lame)
 
   lazy val render: JsObject = Json.obj(
     "id" -> id,
@@ -88,7 +88,7 @@ case class Hook(
       socketId = lila.socket.Socket.Uid(uid),
       rating = rating | lila.rating.Glicko.defaultIntRating,
       ratingRange = realRatingRange,
-      engine = user.??(_.engine),
+      lame = user.??(_.lame),
       blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
       since = createdAt))
 
