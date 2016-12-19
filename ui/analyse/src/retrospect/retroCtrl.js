@@ -68,7 +68,7 @@ module.exports = function(root) {
     if (!current() || current().fault.node.ply !== node.ply) return;
     if (node.comp) onWin(); // the computer solution line
     else if (node.eval) onFail(); // the move that was played in the game
-    else if (node.ceval && node.ceval.depth >= 16) {
+    else if (node.ceval && node.ceval.depth >= 17) {
       var diff = Math.abs(winningChances.povDiff('white', current().prev.node.eval, node.ceval));
       if (diff < 0.02) onWin();
       else onFail();
