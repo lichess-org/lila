@@ -335,6 +335,7 @@ module.exports = function(opts) {
   this.addNode = function(node, path) {
     var newPath = this.tree.addNode(node, path);
     this.jump(newPath);
+    if (this.retro) this.retro.addNode(node, path);
     m.redraw();
     this.chessground.playPremove();
   }.bind(this);

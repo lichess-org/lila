@@ -39,11 +39,16 @@ module.exports = function(root) {
     }, 500);
   };
 
+  var addNode = function(node, path) {
+    console.log(node, path);
+  };
+
   jumpToNext();
 
   return {
     node: node,
     color: color,
-    isPlySolved: isPlySolved
+    isPlySolved: isPlySolved,
+    addNode: addNode
   };
 };
