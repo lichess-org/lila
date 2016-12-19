@@ -53,18 +53,18 @@ object Report extends LilaController {
   }
 
   import scala.concurrent.duration._
-  private lazy val clarkeyProcessedUserIds = new lila.memo.ExpireSetMemo(ttl = 30 minutes)
+  private lazy val irwinProcessedUserIds = new lila.memo.ExpireSetMemo(ttl = 30 minutes)
 
-  def clarkeyBotNext = Open { implicit ctx =>
+  def irwinBotNext = Open { implicit ctx =>
     Mod.ModExternalBot {
       api unprocessedAndRecent 100 map { all =>
         all.find { r =>
           r.report.isCheat && r.report.unprocessed && !r.hasLichessNote &&
-            !clarkeyProcessedUserIds.get(r.user.id)
+            !irwinProcessedUserIds.get(r.user.id)
         } match {
           case None => NotFound
           case Some(r) =>
-            clarkeyProcessedUserIds put r.user.id
+            irwinProcessedUserIds put r.user.id
             Ok(r.user.id)
         }
       }

@@ -235,26 +235,6 @@ object User extends LilaController {
     }
   }
 
-  private case class ClarkeyBot(result: Boolean, reason: String)
-  private implicit val clarkeyBotReads = Json.reads[ClarkeyBot]
-
-  def writeClarkeyBotNote(username: String) = OpenBody(parse.json) { implicit ctx =>
-    Mod.ModExternalBot {
-      OptionFuResult(UserRepo named username) { user =>
-        UserRepo.lichess.flatten("Missing lichess user") flatMap { lichess =>
-          ctx.body.body.validate[ClarkeyBot].fold(
-            err => fuccess(BadRequest(err.toString)),
-            data => {
-              val text =
-                if (data.result) s"Clarkey's bot would mark as engine: ${data.reason}"
-                else s"Clarkey's bot is indecise: ${data.reason}"
-              env.noteApi.write(user, text, lichess, true) inject Ok
-            })
-        }
-      }
-    }
-  }
-
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { ops =>

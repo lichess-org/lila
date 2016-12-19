@@ -124,6 +124,9 @@ object UserRepo {
   val lichessId = "lichess"
   def lichess = byId(lichessId)
 
+  val irwinId = "irwin"
+  def irwin = byId(irwinId)
+
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
