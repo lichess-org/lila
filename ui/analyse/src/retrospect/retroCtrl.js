@@ -72,7 +72,10 @@ module.exports = function(root) {
       var diff = Math.abs(winningChances.povDiff('white', current().prev.node.eval, node.ceval));
       if (diff < 0.02) onWin();
       else onFail();
-    } else feedback('eval');
+    } else {
+      feedback('eval');
+      if (!root.ceval.enabled()) root.toggleCeval();
+    }
     root.setAutoShapes();
   };
 
