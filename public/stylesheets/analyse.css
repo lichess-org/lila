@@ -678,10 +678,29 @@ body.piece_letter .tablebase td:first-child {
 }
 
 .retro_box {
-  flex: 1 1 0px;
+  flex: 1.5 1 0px;
   border: 1px solid #ccc;
   border-top: 0;
   background: #fff;
+  display: flex;
+  flex-flow: column;
+}
+.retro_box .title {
+  flex: 0 0 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 22px;
+  background: #3b93da;
+  color: #fff;
+  text-align: left;
+  padding: 0 5px 0 10px;
+}
+.retro_box .title .close {
+  cursor:pointer;
+}
+.retro_box .feedback {
+  flex: 1 1 100%;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -718,10 +737,10 @@ body.piece_letter .tablebase td:first-child {
   line-height: 64px;
   text-align: center;
 }
-.retro_box.win .icon {
+.retro_box .win .icon {
   color: #759900;
 }
-.retro_box.fail .icon {
+.retro_box .fail .icon {
   color: #dc322f;
 }
 .retro_box .instruction {

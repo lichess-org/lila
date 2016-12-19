@@ -24,9 +24,14 @@ module.exports = {
   evalSwings: function(mainline) {
     var threshold = 0.06;
     var found = [];
+    var node, prev;
     for (var i = 1; i < mainline.length - 1; i++) {
-      var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
-      if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
+      node = mainline[i];
+      prev = mainline[i - 1];
+      if (node.eval && prev.eval) {
+        var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
+        if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
+      }
     }
     return found;
   }

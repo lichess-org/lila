@@ -92,6 +92,10 @@ module.exports = function(opts) {
     this.chessground.set({
       orientation: this.bottomColor()
     });
+    if (this.retro) {
+      this.retro = null;
+      this.toggleRetro();
+    }
     m.redraw();
   }.bind(this);
 

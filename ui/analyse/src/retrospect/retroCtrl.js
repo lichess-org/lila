@@ -69,7 +69,7 @@ module.exports = function(root) {
     if (node.comp) onWin(); // the computer solution line
     else if (node.eval) onFail(); // the move that was played in the game
     else if (node.ceval && node.ceval.depth >= 16) {
-      var diff = Math.abs(winningChances.povDiff('white', current().prev.eval, node.ceval));
+      var diff = Math.abs(winningChances.povDiff('white', current().prev.node.eval, node.ceval));
       if (diff < 0.02) onWin();
       else onFail();
     } else feedback('eval');
@@ -140,6 +140,13 @@ module.exports = function(root) {
     showBadNode: showBadNode,
     onCeval: onCeval,
     feedback: feedback,
+    completion: function() {
+      return [solvedPlies.length, candidateNodes.length];
+    },
+    reset: function() {
+      solvedPlies = [];
+      jumpToNext();
+    },
     trans: root.trans
   };
 };
