@@ -59,7 +59,7 @@ object Report extends LilaController {
     Mod.ModExternalBot {
       api unprocessedAndRecent 100 map { all =>
         all.find { r =>
-          r.report.isCheat && r.report.unprocessed && !r.hasLichessNote &&
+          r.report.isCheat && r.report.unprocessed && !r.hasIrwinNote &&
             !irwinProcessedUserIds.get(r.user.id)
         } match {
           case None => NotFound
