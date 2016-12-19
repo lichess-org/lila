@@ -93,6 +93,10 @@ body.dark #puzzle .feedback {
   align-items: center;
   justify-content: center;
   font-size: 1.3em;
+  border: none;
+}
+#puzzle .feedback.after .complete.win {
+  align-items: flex-start;
 }
 #puzzle .feedback.after .vote {
   display: flex;
