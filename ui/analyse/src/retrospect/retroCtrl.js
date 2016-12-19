@@ -19,7 +19,7 @@ module.exports = function(root) {
 
   var findNextNode = function() {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = nodeFinder.evalSwings(root.vm.mainline).filter(function(n) {
+    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, root.data.game.division).filter(function(n) {
       return n.ply % 2 === colorModulo;
     });
     return candidateNodes.filter(function(n) {
@@ -63,24 +63,37 @@ module.exports = function(root) {
     if (node.ceval && node.ceval.depth >= 16) return node.ceval;
   };
 
-  var onMove = function() {
+  var onJump = function() {
     var node = root.vm.node;
-    if (!current() || current().fault.node.ply !== node.ply) return;
-    if (node.comp) onWin(); // the computer solution line
-    else if (node.eval) onFail(); // the move that was played in the game
-    else if (node.ceval && node.ceval.depth >= 17) {
-      var diff = Math.abs(winningChances.povDiff('white', current().prev.node.eval, node.ceval));
-      if (diff < 0.02) onWin();
-      else onFail();
-    } else {
-      feedback('eval');
-      if (!root.ceval.enabled()) root.toggleCeval();
+    var fb = feedback();
+    var cur = current();
+    if (!cur) return;
+    if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
+      feedback('find');
+      root.setAutoShapes();
+      return;
+    }
+    if (isSolving() && cur.fault.node.ply === node.ply) {
+      if (node.comp) onWin(); // the computer solution line
+      else if (node.eval) onFail(); // the move that was played in the game
+      else {
+        feedback('eval');
+        if (!root.ceval.enabled()) root.toggleCeval();
+        checkCeval();
+      }
     }
     root.setAutoShapes();
   };
 
-  var onCeval = function() {
-    if (feedback() === 'eval') onMove();
+  var checkCeval = function() {
+    var node = root.vm.node,
+      cur = current();
+    if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
+    if (node.ceval && node.ceval.depth >= 17) {
+      var diff = Math.abs(winningChances.povDiff('white', cur.prev.node.eval, node.ceval));
+      if (diff < 0.02) onWin();
+      else onFail();
+    }
   };
 
   var onWin = function() {
@@ -124,8 +137,13 @@ module.exports = function(root) {
     return feedback() !== 'win';
   };
   var showBadNode = function() {
+    var cur = current();
+    if (cur && isSolving() && cur.prev.path === root.vm.path) return cur.fault.node;
+  };
+
+  var isSolving = function() {
     var fb = feedback();
-    if ((fb === 'find' || fb === 'fail') && current()) return current().fault.node;
+    return fb === 'find' || fb === 'fail';
   };
 
   jumpToNext();
@@ -134,14 +152,14 @@ module.exports = function(root) {
     current: current,
     color: color,
     isPlySolved: isPlySolved,
-    onMove: onMove,
+    onJump: onJump,
     jumpToNext: jumpToNext,
     skip: skip,
     viewSolution: viewSolution,
     hideComputerLine: hideComputerLine,
     hidePvs: hidePvs,
     showBadNode: showBadNode,
-    onCeval: onCeval,
+    onCeval: checkCeval,
     feedback: feedback,
     completion: function() {
       return [solvedPlies.length, candidateNodes.length];

@@ -374,7 +374,7 @@ body.piece_letter .fork move {
   position: relative;
   flex: 2.5 1 0px;
   border: 1px solid #ccc;
-  margin-top: 5px;
+  border-top: 0;
   overflow: hidden;
   white-space: nowrap;
   -webkit-user-select: none;

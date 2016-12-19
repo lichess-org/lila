@@ -213,6 +213,7 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
+    if (this.retro) this.retro.onJump();
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
@@ -340,7 +341,6 @@ module.exports = function(opts) {
   this.addNode = function(node, path) {
     var newPath = this.tree.addNode(node, path);
     this.jump(newPath);
-    if (this.retro) this.retro.onMove();
     m.redraw();
     this.chessground.playPremove();
   }.bind(this);
@@ -596,7 +596,10 @@ module.exports = function(opts) {
   this.toggleRetro = function() {
     acplUncache();
     if (this.retro) this.retro = null;
-    else this.retro = makeRetro(this);
+    else {
+      this.retro = makeRetro(this);
+      if (this.explorer.enabled()) this.explorer.toggle();
+    }
     this.setAutoShapes();
   }.bind(this);
   this.toggleRetro();

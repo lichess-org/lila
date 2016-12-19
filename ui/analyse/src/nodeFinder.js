@@ -21,8 +21,7 @@ module.exports = {
     }
   },
 
-  evalSwings: function(mainline) {
-    var threshold = 0.06;
+  evalSwings: function(mainline, division) {
     var found = [];
     var node, prev;
     for (var i = 1; i < mainline.length - 1; i++) {
@@ -30,6 +29,7 @@ module.exports = {
       prev = mainline[i - 1];
       if (node.eval && prev.eval) {
         var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
+        var threshold = division.middle && node.ply < division.middle ? 0.10 : 0.06;
         if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
       }
     }
