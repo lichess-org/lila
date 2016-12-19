@@ -65,18 +65,6 @@ function fail(ctrl) {
   ]);
 }
 
-function win(ctrl) {
-  return m('div.feedback.win', [
-    m('div.player', [
-      m('div.icon', '✓'),
-      m('div.instruction', [
-        m('strong', ctrl.trans.noarg('victory'))
-      ])
-    ]),
-    'Show next button'
-  ]);
-}
-
 function loading() {
   return m('div.feedback.loading', m.trust(lichess.spinnerHtml));
 }
@@ -88,5 +76,4 @@ module.exports = function(ctrl) {
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
   if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);
   if (ctrl.vm.lastFeedback === 'fail') return fail(ctrl);
-  if (ctrl.vm.lastFeedback === 'win') return win(ctrl);
 };

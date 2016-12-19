@@ -37,7 +37,10 @@ module.exports = function(ctrl) {
     // ]) : null,
     // (data.puzzle.enabled && data.user) ? renderVote(ctrl) : null,
     m('div.half.top', [
-      m('div.complete', 'Puzzle complete!'),
+      ctrl.vm.lastFeedback === 'win' ? m('div.complete.feedback.win', m('div.player', [
+        m('div.icon', '✓'),
+        m('div.instruction', ctrl.trans.noarg('victory'))
+      ])) : m('div.complete', 'Puzzle complete!'),
       data.user ? renderVote(ctrl) : null
     ]),
     m('a.half.continue', {
