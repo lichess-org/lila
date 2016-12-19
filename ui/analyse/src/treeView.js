@@ -104,7 +104,7 @@ function renderLines(ctx, nodes, opts) {
       class: (nodes[1] ? '' : 'single') // + (opts.conceal ? ' ' + opts.conceal : '')
     },
     children: nodes.map(function(n) {
-      if (n.comp && ctx.ctrl.retro && !ctx.ctrl.retro.isPlySolved(n.ply - 1))
+      if (n.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(n, opts.parentPath))
         return lineTag('Retrospective: find a better move');
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
@@ -137,6 +137,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
+  else if (ctx.ctrl.retro && ctx.ctrl.retro.current() && ctx.ctrl.retro.current().prev.path === path) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, renderMove(ctx, node));
@@ -146,9 +147,11 @@ function renderMove(ctx, node) {
   var eval = node.eval || node.ceval || {};
   return [
     fixCrazySan(node.san), (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
-    defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
-      defined(eval.mate) ? renderEval('#' + eval.mate) : null
-    ),
+    ctx.showEval ? (
+      defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
+        defined(eval.mate) ? renderEval('#' + eval.mate) : null
+      )
+    ) : null,
   ];
 }
 
@@ -289,7 +292,8 @@ module.exports = {
       ctrl: ctrl,
       concealOf: concealOf || emptyConcealOf,
       showComputer: ctrl.vm.showComputer() && !ctrl.retro,
-      showGlyphs: !!ctrl.study || ctrl.vm.showComputer()
+      showGlyphs: !!ctrl.study || ctrl.vm.showComputer(),
+      showEval: !!ctrl.study || ctrl.vm.showComputer()
     };
     var commentTags = renderMainlineCommentsOf(ctx, root, {
       withColor: false,

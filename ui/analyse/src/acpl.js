@@ -23,8 +23,6 @@ var advices = [
   ['blunder', 'blunders', '??']
 ];
 
-var cached = false;
-
 function playerTable(ctrl, color) {
   var d = ctrl.data;
   return m('table', [
@@ -53,34 +51,43 @@ function playerTable(ctrl, color) {
   ])
 }
 
-module.exports = function(ctrl) {
-  var d = ctrl.data;
-  if (!d.analysis) return;
-  if (!ctrl.vm.showComputer()) {
-    if (cached) cached = false;
-    return;
-  }
+var cached = false;
 
-  var first = ctrl.vm.mainline[0].eval || {};
-  if (first.cp || first.mate) {
-    if (cached) return {
-      subtree: 'retain'
-    };
-    else cached = true;
-  }
-
-  return m('div.advice_summary', {
-    config: function(el, isUpdate) {
-      if (!isUpdate)
-        $(el).on('click', 'tr.symbol', function() {
-          ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-        });
+module.exports = {
+  uncache: function() {
+    cached = false;
+  },
+  render: function(ctrl) {
+    var d = ctrl.data;
+    if (!d.analysis) return;
+    if (!ctrl.vm.showComputer()) {
+      if (cached) cached = false;
+      return;
     }
-  }, [
-    playerTable(ctrl, 'white'),
-    m('a.button.text[data-icon=G]', {
-      onclick: ctrl.toggleRetro,
-    }, 'Learn from your mistakes'),
-    playerTable(ctrl, 'black')
-  ]);
+
+    var first = ctrl.vm.mainline[0].eval || {};
+    if (first.cp || first.mate) {
+      if (cached) return {
+        subtree: 'retain'
+      };
+      else cached = true;
+    }
+
+    return m('div.advice_summary', {
+      config: function(el, isUpdate) {
+        if (!isUpdate)
+          $(el).on('click', 'tr.symbol', function() {
+            ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
+          });
+      }
+    }, [
+      playerTable(ctrl, 'white'),
+      m('a', {
+        class: 'button text' + (ctrl.retro ? ' active' : ''),
+        'data-icon': 'G',
+        onclick: ctrl.toggleRetro,
+      }, 'Learn from your mistakes'),
+      playerTable(ctrl, 'black')
+    ]);
+  }
 };

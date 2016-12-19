@@ -24,8 +24,9 @@ var crazyValid = require('./crazy/crazyValid');
 var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
-var computeAutoShapes = require('./autoShape');
+var computeAutoShapes = require('./autoShape').compute;
 var nodeFinder = require('./nodeFinder');
+var acplUncache = require('./acpl').uncache;
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -335,7 +336,7 @@ module.exports = function(opts) {
   this.addNode = function(node, path) {
     var newPath = this.tree.addNode(node, path);
     this.jump(newPath);
-    if (this.retro) this.retro.addNode(node, path);
+    if (this.retro) this.retro.onMove();
     m.redraw();
     this.chessground.playPremove();
   }.bind(this);
@@ -418,6 +419,7 @@ module.exports = function(opts) {
           }
           if (res.work.path === this.vm.path) {
             this.setAutoShapes();
+            if (this.retro) this.retro.onCeval();
             m.redraw();
           }
         }.bind(this));
@@ -588,6 +590,7 @@ module.exports = function(opts) {
   this.retro = null;
 
   this.toggleRetro = function() {
+    acplUncache();
     if (this.retro) this.retro = null;
     else this.retro = makeRetro(this);
     this.setAutoShapes();

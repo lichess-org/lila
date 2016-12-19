@@ -20,7 +20,7 @@ var explorerView = require('./explorer/explorerView');
 var retroView = require('./retrospect/retroView');
 var studyView = require('./study/studyView');
 var forkView = require('./fork').view;
-var acplView = require('./acpl');
+var acplView = require('./acpl').render;
 
 function renderResult(ctrl) {
   var result;
@@ -248,7 +248,7 @@ module.exports = function(ctrl) {
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
-            cevalView.renderPvs(ctrl),
+            (ctrl.retro && ctrl.retro.hidePvs()) ? null : cevalView.renderPvs(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || explorerView(ctrl)

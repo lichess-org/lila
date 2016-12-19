@@ -103,7 +103,11 @@ module.exports = function(root) {
   // returns new path
   function addNode(node, path) {
     var newPath = path + node.id;
-    if (nodeAtPathOrNull(newPath)) return newPath;
+    var existing = nodeAtPathOrNull(newPath);
+    if (existing) {
+      if (node.dests && !existing.dests) existing.dests = node.dests;
+      return newPath;
+    }
     if (updateAt(path, function(parent) {
       parent.children.push(node);
     })) return newPath;

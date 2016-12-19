@@ -1,5 +1,11 @@
 var winningChances = require('ceval').winningChances;
 
+function hasCompChild(node) {
+  return !!node.children.filter(function(c) {
+    return c.comp;
+  })[0];
+}
+
 module.exports = {
 
   nextGlyphSymbol: function(color, symbol, mainline, fromPly) {
@@ -16,11 +22,11 @@ module.exports = {
   },
 
   evalSwings: function(mainline) {
-    var threshold = 0.05;
+    var threshold = 0.06;
     var found = [];
     for (var i = 1; i < mainline.length - 1; i++) {
       var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
-      if (diff > threshold) found.push(mainline[i]);
+      if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
     }
     return found;
   }

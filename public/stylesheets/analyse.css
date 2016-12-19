@@ -691,6 +691,9 @@ body.piece_letter .tablebase td:first-child {
   align-items: center;
   margin-left: 10px;
 }
+.retro_box:not(.find) .player {
+  height: 100%;
+}
 .retro_box .no-square {
   width: 64px;
   height: 64px;
@@ -705,11 +708,63 @@ body.piece_letter .tablebase td:first-child {
   width: 100%;
   height: 100%;
 }
+.retro_box .icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  font-size: 50px;
+  font-size: 64px;
+  line-height: 64px;
+  text-align: center;
+}
+.retro_box.win .icon {
+  color: #759900;
+}
+.retro_box.fail .icon {
+  color: #dc322f;
+}
+.retro_box .instruction {
+  font-size: 1.1em;
+}
 .retro_box .instruction > * {
   display: block;
 }
-.retro_box .instruction strong {
-  font-size: 1.5em;
+.retro_box .instruction > strong {
+  font-weight: normal;
+  font-size: 1.3em;
+}
+.retro_box .instruction glyph {
+  font-weight: normal;
+  opacity: 0.7;
+}
+.retro_box .half {
+  flex: 1 1 50%;
+}
+.retro_box .skip_view {
+  line-height: 1.6em;
+  margin: 5px 0 -5px 0;
+}
+.retro_box .skip_view a {
+  display: block;
+  color: #3893E8;
+}
+.retro_box .continue {
+  display: flex;
+  font-size: 1.3em;
+  background: #3893E8;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 10px;
+}
+.retro_box .continue:hover {
+  background: #5ba6ec;
+}
+.retro_box .continue i::before {
+  font-size: 2.5em;
+  margin-right: 10px;
 }
 
 .lichess_ground .areplay,
