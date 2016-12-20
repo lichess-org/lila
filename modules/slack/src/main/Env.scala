@@ -28,11 +28,11 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case d: ChargeEvent                                  => api charge d
-      case DeployPre                                       => api.deployPre
-      case DeployPost                                      => api.deployPost
-      case Note(from, to, text, true) if from != "lichess" => api.userModNote(from, to, text)
-      case e: Event                                        => api publishEvent e
+      case d: ChargeEvent                                => api charge d
+      case DeployPre                                     => api.deployPre
+      case DeployPost                                    => api.deployPost
+      case Note(from, to, text, true) if from != "irwin" => api.userModNote(from, to, text)
+      case e: Event                                      => api publishEvent e
     }
   })), 'deploy, 'slack, 'plan, 'userNote)
 }
