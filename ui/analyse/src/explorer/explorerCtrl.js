@@ -52,9 +52,9 @@ module.exports = function(root, opts, allow) {
   };
 
   var cacheResult = function(fen, res, isTablebase) {
-    res[isTablebase ? 'tablebase' : 'opening'] = true;
-    res.nbMoves = res.moves.length;
-    res.fen = fen;
+      res[isTablebase ? 'tablebase' : 'opening'] = true;
+      res.nbMoves = res.moves.length;
+      res.fen = fen;
     cache[fen] = res;
   };
 

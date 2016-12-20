@@ -518,5 +518,5 @@ onlineAndOfflinePlay=Jugar en línea o fuera de línea
 correspondenceAndUnlimited=Correspondencia y sin límite de tiempo
 viewTheSolution=Ver la solución
 followAndChallengeFriends=Seguir y retar a amigos
-availableInNbLanguages=¡Disponible en %s lenguajes!
+availableInNbLanguages=¡Disponible en %s idiomas!
 gameAnalysis=Análisis de juego
