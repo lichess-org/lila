@@ -30,21 +30,21 @@ private[lobby] final class SocketHandler(
     key = "lobby.hook_pool.member")
 
   private def controller(socket: ActorRef, member: Member): Handler.Controller = {
-    case ("join", o) => HookPoolLimitPerMember(member.uid, cost = 5) {
+    case ("join", o) => HookPoolLimitPerMember(member.uid, cost = 5, msg = "join") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.uid, member.user)
       }
     }
-    case ("cancel", _) => HookPoolLimitPerMember(member.uid, cost = 1) {
+    case ("cancel", _) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "cancel") {
       lobby ! CancelHook(member.uid)
     }
-    case ("joinSeek", o) => HookPoolLimitPerMember(member.uid, cost = 5) {
+    case ("joinSeek", o) => HookPoolLimitPerMember(member.uid, cost = 5, msg = "joinSeek") {
       for {
         id <- o str "d"
         user <- member.user
       } lobby ! BiteSeek(id, user)
     }
-    case ("cancelSeek", o) => HookPoolLimitPerMember(member.uid, cost = 1) {
+    case ("cancelSeek", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "cancelSeek") {
       for {
         id <- o str "d"
         user <- member.user
@@ -52,7 +52,7 @@ private[lobby] final class SocketHandler(
     }
     case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
     // entering a pool
-    case ("poolIn", o) => HookPoolLimitPerMember(member.uid, cost = 1) {
+    case ("poolIn", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "poolIn") {
       for {
         user <- member.user
         d <- o obj "d"
@@ -72,14 +72,14 @@ private[lobby] final class SocketHandler(
       }
     }
     // leaving a pool
-    case ("poolOut", o) => HookPoolLimitPerMember(member.uid, cost = 1) {
+    case ("poolOut", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "poolOut") {
       for {
         id <- o str "d"
         user <- member.user
       } poolApi.leave(PoolConfig.Id(id), user.id)
     }
     // entering the hooks view
-    case ("hookIn", _)  => HookPoolLimitPerMember(member.uid, cost = 2) {
+    case ("hookIn", _)  => HookPoolLimitPerMember(member.uid, cost = 2, msg = "hookIn") {
       lobby ! HookSub(member, true)
     }
     // leaving the hooks view
