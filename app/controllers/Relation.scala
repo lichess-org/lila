@@ -108,7 +108,7 @@ object Relation extends LilaController {
     maxPerPage = 30)
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
-    UserRepo byIds userIds.map(UserModel.normalize) flatMap { users =>
+    UserRepo byOrderedIds userIds.map(UserModel.normalize) flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>
