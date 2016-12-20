@@ -34,7 +34,7 @@ case class Hook(
 
   def compatibleWith(h: Hook) =
     isAuth == h.isAuth &&
-    mode == h.mode &&
+      mode == h.mode &&
       variant == h.variant &&
       clock == h.clock &&
       (realColor compatibleWith h.realColor) &&
@@ -45,7 +45,9 @@ case class Hook(
     range => h.rating ?? range.contains
   }
 
-  lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
+  lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
+    RatingRange noneIfDefault ratingRange
+  }
 
   def userId = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
