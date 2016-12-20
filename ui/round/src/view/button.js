@@ -18,6 +18,18 @@ function poolUrl(clock) {
   return '/#pool/' + (clock.initial / 60) + '+' + clock.increment;
 }
 
+function analysisButton(ctrl) {
+  var d = ctrl.data;
+  var url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply;
+  return game.replayable(d) ? m('a.button', {
+    href: url,
+    // force page load in case the URL is the same
+    onclick: function() {
+      if (location.pathname === url.split('#')[0]) location.reload();
+    }
+  }, ctrl.trans('analysis')) : null;
+}
+
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
     // disabled if condition callback is provied and is falsy
@@ -158,9 +170,7 @@ module.exports = {
         method: 'post',
         action: '/tournament/' + d.tournament.id + '/withdraw'
       }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))),
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   },
   moretime: function(ctrl) {
@@ -194,9 +204,7 @@ module.exports = {
       newable ? m('a.button', {
         href: d.game.source === 'pool' ? poolUrl(d.clock) : '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   },
   watcherFollowUp: function(ctrl) {
@@ -208,9 +216,7 @@ module.exports = {
       d.tournament ? m('a.button', {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   }
 };
