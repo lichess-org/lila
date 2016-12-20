@@ -519,7 +519,7 @@ module.exports = function(opts) {
 
   this.hasAnyComputerAnalysis = function() {
     return this.data.analysis || this.ceval.enabled();
-  }
+  }.bind(this);
 
   this.hasFullComputerAnalysis = function() {
     return this.vm.mainline[0].eval && Object.keys(this.vm.mainline[0].eval).length;
