@@ -249,7 +249,7 @@ module.exports = function(ctrl) {
         m('div.lichess_ground', [
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
-            cevalView.renderCeval(ctrl), (ctrl.retro && ctrl.retro.hidePvs()) ? null : cevalView.renderPvs(ctrl),
+            cevalView.renderCeval(ctrl), (ctrl.retro && ctrl.retro.isSolving()) ? null : cevalView.renderPvs(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || explorerView(ctrl)

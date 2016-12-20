@@ -737,10 +737,10 @@ body.piece_letter .tablebase td:first-child {
   line-height: 64px;
   text-align: center;
 }
-.retro_box .win .icon {
+.retro_box .win .icon:not(.off) {
   color: #759900;
 }
-.retro_box .fail .icon {
+.retro_box .fail .icon:not(.off) {
   color: #dc322f;
 }
 .retro_box .instruction {
@@ -760,11 +760,11 @@ body.piece_letter .tablebase td:first-child {
 .retro_box .half {
   flex: 1 1 50%;
 }
-.retro_box .skip_view {
+.retro_box .choices {
   line-height: 1.6em;
   margin: 5px 0 -5px 0;
 }
-.retro_box .skip_view a {
+.retro_box .choices a {
   display: block;
   color: #3893E8;
 }

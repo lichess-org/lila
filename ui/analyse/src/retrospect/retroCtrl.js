@@ -158,9 +158,6 @@ module.exports = function(root) {
     return (node.ply % 2 === 0) !== (color === 'white') &&
       !isPlySolved(node.ply);
   };
-  var hidePvs = function() {
-    return isSolving();
-  };
   var showBadNode = function() {
     var cur = current();
     if (cur && isSolving() && cur.prev.path === root.vm.path) return cur.fault.node;
@@ -182,10 +179,10 @@ module.exports = function(root) {
     skip: skip,
     viewSolution: viewSolution,
     hideComputerLine: hideComputerLine,
-    hidePvs: hidePvs,
     showBadNode: showBadNode,
     onCeval: checkCeval,
     feedback: feedback,
+    isSolving: isSolving,
     completion: function() {
       return [solvedPlies.length, candidateNodes.length];
     },
@@ -193,6 +190,7 @@ module.exports = function(root) {
       solvedPlies = [];
       jumpToNext();
     },
+    close: root.toggleRetro,
     trans: root.trans
   };
 };

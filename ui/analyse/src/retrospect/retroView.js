@@ -4,7 +4,7 @@ var renderMove = require('../treeView').renderMove;
 var opposite = require('chessground').util.opposite;
 
 function skipOrViewSolution(ctrl) {
-  return m('div.skip_view', [
+  return m('div.choices', [
     m('a', {
       onclick: ctrl.viewSolution
     }, ctrl.trans.noarg('viewTheSolution')),
@@ -39,6 +39,26 @@ var feedback = {
           ]),
           m('em', 'Find a better move for ' + ctrl.color),
           skipOrViewSolution(ctrl)
+        ])
+      ])
+    ];
+  },
+  // user has browsed away from the move to solve
+  offTrack: function(ctrl) {
+    return [
+      m('div.player', [
+        m('div.icon.off', '!'),
+        m('div.instruction', [
+          m('strong', 'You browsed away'),
+          m('em', 'What do you want to do?'),
+          m('div.choices', [
+            m('a', {
+              onclick: ctrl.jumpToNext
+            }, 'Resume learning'),
+            m('a', {
+              onclick: ctrl.close
+            }, 'Close learning')
+          ])
         ])
       ])
     ];
@@ -107,7 +127,7 @@ var feedback = {
           m('em', nothing ?
             'No mistake found for ' + ctrl.color :
             'Done reviewing ' + ctrl.color + ' mistakes'),
-          m('div.skip_view', [
+          m('div.choices', [
             nothing ? null : m('a', {
               onclick: ctrl.reset
             }, 'Do it again'),
@@ -121,11 +141,14 @@ var feedback = {
   },
 };
 
-function renderFeedback(ctrl, fb, flip) {
+function renderFeedback(root, fb) {
+  var ctrl = root.retro;
+  var current = ctrl.current();
+  if (ctrl.isSolving() && current && root.vm.path !== current.prev.path)
+    return feedback.offTrack(ctrl, current);
   if (fb === 'find') {
-    var current = ctrl.current();
     if (current) return feedback.find(ctrl, current);
-    else return feedback.end(ctrl, flip);
+    return feedback.end(ctrl, root.flip);
   }
   if (fb === 'win') return feedback.win(ctrl);
   if (fb === 'fail') return feedback.fail(ctrl);
@@ -133,13 +156,13 @@ function renderFeedback(ctrl, fb, flip) {
   if (fb === 'view') return feedback.view(ctrl);
 }
 
-function renderTitle(ctrl, close) {
+function renderTitle(ctrl) {
   var completion = ctrl.completion();
   return m('div.title', [
     m('span', 'Learn from your mistakes'),
     m('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
     m('span.close[data-icon=L]', {
-      onclick: close
+      onclick: ctrl.close
     })
   ]);
 }
@@ -149,7 +172,7 @@ module.exports = function(root) {
   if (!ctrl) return;
   var fb = ctrl.feedback();
   return m('div.retro_box', [
-    renderTitle(ctrl, root.toggleRetro),
-    m('div.feedback.' + fb, renderFeedback(ctrl, fb, root.flip))
+    renderTitle(ctrl),
+    m('div.feedback.' + fb, renderFeedback(root, fb))
   ]);
 };
