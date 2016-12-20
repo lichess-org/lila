@@ -21,7 +21,7 @@ module.exports = function(root) {
 
   var findNextNode = function() {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, game.division).filter(function(n) {
+    candidateNodes = nodeFinder.evalSwings(root.vm.mainline).filter(function(n) {
       return n.ply % 2 === colorModulo && !$.fp.contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.filter(function(n) {
@@ -61,8 +61,9 @@ module.exports = function(root) {
     if (!game.division.middle || fault.node.ply < game.division.middle) {
       root.explorer.fetchOpening(prev.node.fen).then(function(res) {
         var cur = current();
-        var ucis = res.moves.map(function(m) {
-          return m.uci;
+        var ucis = [];
+        res.moves.forEach(function(m) {
+          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
         if (ucis.filter(function(uci) {
           return fault.node.uci === uci;
@@ -114,8 +115,8 @@ module.exports = function(root) {
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (node.ceval && node.ceval.depth >= 16) {
-      var diff = Math.abs(winningChances.povDiff('white', cur.prev.node.eval, node.ceval));
-      if (diff < 0.02) onWin();
+      var diff = winningChances.povDiff(color, node.ceval, cur.prev.node.eval);
+      if (diff > -0.03) onWin();
       else onFail();
     }
   };
