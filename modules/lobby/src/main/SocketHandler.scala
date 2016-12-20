@@ -15,6 +15,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
+import ornicar.scalalib.Zero
 
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
@@ -29,22 +30,28 @@ private[lobby] final class SocketHandler(
     name = "lobby hook/pool per member",
     key = "lobby.hook_pool.member")
 
+  private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
+    HookPoolLimitPerMember(
+      k = member.uid,
+      cost = cost,
+      msg = s"$msg mobile=${member.mobile}")(op)
+
   private def controller(socket: ActorRef, member: Member): Handler.Controller = {
-    case ("join", o) => HookPoolLimitPerMember(member.uid, cost = 5, msg = "join") {
+    case ("join", o) => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.uid, member.user)
       }
     }
-    case ("cancel", _) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "cancel") {
+    case ("cancel", _) => HookPoolLimit(member, cost = 1, msg = "cancel") {
       lobby ! CancelHook(member.uid)
     }
-    case ("joinSeek", o) => HookPoolLimitPerMember(member.uid, cost = 5, msg = "joinSeek") {
+    case ("joinSeek", o) => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
       for {
         id <- o str "d"
         user <- member.user
       } lobby ! BiteSeek(id, user)
     }
-    case ("cancelSeek", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "cancelSeek") {
+    case ("cancelSeek", o) => HookPoolLimit(member, cost = 1, msg = s"cancelSeek $o") {
       for {
         id <- o str "d"
         user <- member.user
@@ -52,7 +59,7 @@ private[lobby] final class SocketHandler(
     }
     case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
     // entering a pool
-    case ("poolIn", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "poolIn") {
+    case ("poolIn", o) => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
       for {
         user <- member.user
         d <- o obj "d"
@@ -72,14 +79,14 @@ private[lobby] final class SocketHandler(
       }
     }
     // leaving a pool
-    case ("poolOut", o) => HookPoolLimitPerMember(member.uid, cost = 1, msg = "poolOut") {
+    case ("poolOut", o) => HookPoolLimit(member, cost = 1, msg = s"poolOut $o") {
       for {
         id <- o str "d"
         user <- member.user
       } poolApi.leave(PoolConfig.Id(id), user.id)
     }
     // entering the hooks view
-    case ("hookIn", _)  => HookPoolLimitPerMember(member.uid, cost = 2, msg = "hookIn") {
+    case ("hookIn", _) => HookPoolLimit(member, cost = 2, msg = "hookIn") {
       lobby ! HookSub(member, true)
     }
     // leaving the hooks view
