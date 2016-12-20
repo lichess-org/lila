@@ -521,6 +521,10 @@ module.exports = function(opts) {
     return this.data.analysis || this.ceval.enabled();
   }
 
+  this.hasFullComputerAnalysis = function() {
+    return this.vm.mainline[0].eval && Object.keys(this.vm.mainline[0].eval).length;
+  }.bind(this);
+
   var resetAutoShapes = function() {
     if (this.vm.showAutoShapes()) this.setAutoShapes();
     else this.chessground.setAutoShapes([]);
@@ -555,6 +559,7 @@ module.exports = function(opts) {
     if (!this.vm.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     this.autoScroll();
+    if (this.retro) this.retro.onMergeAnalysisData();
     m.redraw();
   }.bind(this);
 
@@ -602,7 +607,6 @@ module.exports = function(opts) {
     }
     this.setAutoShapes();
   }.bind(this);
-  this.toggleRetro();
 
   keyboard.bind(this);
 

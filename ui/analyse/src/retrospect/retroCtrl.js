@@ -170,6 +170,10 @@ module.exports = function(root) {
 
   jumpToNext();
 
+  var onMergeAnalysisData = function() {
+    if (isSolving() && !current()) jumpToNext();
+  };
+
   return {
     current: current,
     color: color,
@@ -181,6 +185,7 @@ module.exports = function(root) {
     hideComputerLine: hideComputerLine,
     showBadNode: showBadNode,
     onCeval: checkCeval,
+    onMergeAnalysisData: onMergeAnalysisData,
     feedback: feedback,
     isSolving: isSolving,
     completion: function() {
