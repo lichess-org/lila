@@ -74,7 +74,7 @@ object Mod extends LilaController {
               val text =
                 if (data.result) s"Irwin would mark as engine: ${data.reason}"
                 else s"Irwin is indecise: ${data.reason}"
-              (if (data.result) modApi.setEngine(irwin.username, username, true)
+              (if (data.result) modApi.setEngine(irwin.id, username, true)
               else funit) >>
               Env.user.noteApi.write(user, text, irwin, true) inject Ok
             })
