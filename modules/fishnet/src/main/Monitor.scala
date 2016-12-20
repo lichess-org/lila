@@ -46,6 +46,13 @@ private final class Monitor(
     avgOf(_.depth) foreach { monitor.depth(_) }
     avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
 
+    val significantPvSizes =
+      result.analysis.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pvList.size)
+
+    monitor.pvTotal(significantPvSizes.size)
+    monitor.pvShort(significantPvSizes.count(_ < 3))
+    monitor.pvLong(significantPvSizes.count(_ >= 6))
+
     // endgame positions count and total time
     if (work.game.variant.standard)
       chess.Replay.boardsFromUci(~work.game.uciList, work.game.initialFen, work.game.variant).fold(
