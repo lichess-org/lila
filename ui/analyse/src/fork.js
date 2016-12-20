@@ -42,7 +42,7 @@ module.exports = {
     };
   },
   view: function(root, concealOf) {
-    if (root.embed || root.fork) return;
+    if (root.embed || root.retro) return;
     var state = root.fork.state();
     if (!state.displayed) return;
     var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);
