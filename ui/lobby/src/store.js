@@ -1,13 +1,9 @@
-var tab = function(isAuth) {
-  var list = ['pools', 'real_time', 'seeks', 'now_playing'];
-  var defaultTab = isAuth ? 'pools' : 'real_time';
-  return {
-    key: 'lobby.tab',
-    fix: function(t) {
-      if (list.indexOf(t) === -1) t = defaultTab;
-      return t;
-    }
-  };
+var tab = {
+  key: 'lobby.tab',
+  fix: function(t) {
+    if (['pools', 'real_time', 'seeks', 'now_playing'].indexOf(t) === -1) t = 'pools';
+    return t;
+  }
 };
 var mode = {
   key: 'lobby.mode',
@@ -40,7 +36,7 @@ function makeStore(conf, userId) {
 
 module.exports = function(userId) {
   return {
-    tab: makeStore(tab(!!userId), userId),
+    tab: makeStore(tab, userId),
     mode: makeStore(mode, userId),
     sort: makeStore(sort, userId)
   }
