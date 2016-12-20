@@ -150,6 +150,7 @@ body.dark .tview2 > index + move,
 body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .explorer_box,
+body.dark .retro_box,
 body.dark .explorer_box .config .choices span,
 body.dark .lichess_ground .areplay interrupt,
 body.dark div.content_box.prefs form li,
@@ -246,8 +247,6 @@ body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
 body.dark .tview2,
-body.dark .explorer_box .title,
-body.dark .explorer_box thead,
 body.dark .explorer_box tr:nth-child(even),
 body.dark div.mchat .messages,
 body.dark div.side_box,

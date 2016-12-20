@@ -435,7 +435,8 @@ body.piece_letter .fork move {
   padding-left: 10px;
 }
 body.dark .explorer_box thead th,
-body.dark .explorer_box .title {
+body.dark .explorer_box .title,
+body.dark .retro_box .title {
   background: #215279;
   color: #ccc;
 }
@@ -784,6 +785,10 @@ body.piece_letter .tablebase td:first-child {
 .retro_box .continue i::before {
   font-size: 2.5em;
   margin-right: 10px;
+}
+body.dark .retro_box {
+  background: #303030;
+  color: #aaa;
 }
 
 .lichess_ground .areplay,
