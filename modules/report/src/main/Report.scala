@@ -54,6 +54,7 @@ object Report {
     def report = withUser.report
     def user = withUser.user
     def hasLichessNote = notes.exists(_.from == "lichess")
+    def hasIrwinNote = notes.exists(_.from == "irwin")
   }
 
   def make(

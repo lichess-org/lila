@@ -8,6 +8,7 @@ import views._
 import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.libs.json._
 
 object Mod extends LilaController {
 
@@ -58,6 +59,28 @@ object Mod extends LilaController {
 
   def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx => me =>
     modApi.reopenAccount(me.id, username) inject redirect(username)
+  }
+
+  private case class Irwin(result: Boolean, reason: String)
+  private implicit val IrwinReads = Json.reads[Irwin]
+
+  def irwin(username: String) = OpenBody(parse.json) { implicit ctx =>
+    Mod.ModExternalBot {
+      OptionFuResult(UserRepo named username) { user =>
+        UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
+          ctx.body.body.validate[Irwin].fold(
+            err => fuccess(BadRequest(err.toString)),
+            data => {
+              val text =
+                if (data.result) s"Irwin would mark as engine: ${data.reason}"
+                else s"Irwin is indecise: ${data.reason}"
+              (if (data.result) modApi.setEngine(irwin.username, username, true)
+              else funit) >>
+              Env.user.noteApi.write(user, text, irwin, true) inject Ok
+            })
+        }
+      }
+    }
   }
 
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
