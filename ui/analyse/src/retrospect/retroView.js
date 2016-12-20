@@ -123,7 +123,7 @@ var feedback = {
       m('div.half.top',
         m('div.player', [
           m('div.icon', m.trust(lichess.spinnerHtml)),
-          m('div.instruction', 'Waiting for analysis to complete...')
+          m('div.instruction', 'Waiting for analysis...')
         ])
       )
     ];
