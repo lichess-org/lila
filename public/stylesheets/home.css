@@ -688,9 +688,6 @@ div.game_config .slider {
 div.game_config .slider span {
   font-weight: bold;
 }
-div.game_config label.pointer {
-  cursor: pointer;
-}
 div.game_config .ratings {
   line-height: 50px;
   width: 100%;

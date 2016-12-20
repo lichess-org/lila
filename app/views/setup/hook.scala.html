@@ -12,13 +12,7 @@
   @setup.radios(form("mode"), translatedModeChoices)
   }
 </div>
-<div class="range_and_members optional_config">
-  @if(ctx.isAuth) {
-  <div class="members_only">
-    <label class="required pointer" for="@form("membersOnly").name">@trans.membersOnly()</label>
-    @setup.checkbox(form("membersOnly"))
-  </div>
-  }
+<div class="optional_config">
   <div class="rating_range_config slider">
     @trans.ratingRange(): <span class="range">? - ?</span>
     <div class="rating_range">

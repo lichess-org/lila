@@ -83,10 +83,8 @@ private[lobby] object Biter {
     pgnImport = None)
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
-    hook.realMode.casual.fold(
-      user.isDefined || hook.allowAnon,
-      user ?? { _.lame == hook.lame }
-    ) &&
+    hook.isAuth == user.isDefined &&
+      user.?? { _.lame == hook.lame } &&
       !(user ?? (u => hook.userId contains u.id)) &&
       !(hook.userId ?? (user ?? (_.blocking)).contains) &&
       !(user.map(_.id) ?? (hook.user ?? (_.blocking)).contains) &&

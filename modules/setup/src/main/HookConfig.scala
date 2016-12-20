@@ -13,7 +13,6 @@ case class HookConfig(
     increment: Int,
     days: Int,
     mode: Mode,
-    allowAnon: Boolean,
     color: Color,
     ratingRange: RatingRange) extends HumanConfig {
 
@@ -22,8 +21,7 @@ case class HookConfig(
       lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
       color != Color.Random) Color.Random else color)
 
-  // allowAnons -> membersOnly
-  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
+  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) = tc match {
     case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
@@ -42,7 +40,6 @@ case class HookConfig(
       variant = variant,
       clock = justMakeClock,
       mode = mode,
-      allowAnon = allowAnon,
       color = color.name,
       user = user,
       blocking = blocking,
@@ -73,9 +70,8 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
+  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
-    val useRatingRange = realMode.rated || membersOnly
     new HookConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -83,8 +79,7 @@ object HookConfig extends BaseHumanConfig {
       increment = i,
       days = d,
       mode = realMode,
-      allowAnon = !membersOnly, // membersOnly
-      ratingRange = e.filter(_ => useRatingRange).fold(RatingRange.default)(RatingRange.orDefault),
+      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
 
@@ -95,7 +90,6 @@ object HookConfig extends BaseHumanConfig {
     increment = 8,
     days = 2,
     mode = Mode.default,
-    allowAnon = true,
     ratingRange = RatingRange.default,
     color = Color.default)
 
@@ -113,7 +107,6 @@ object HookConfig extends BaseHumanConfig {
       increment = r int "i",
       days = r int "d",
       mode = Mode orDefault (r int "m"),
-      allowAnon = r bool "a",
       color = Color.Random,
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
@@ -124,7 +117,6 @@ object HookConfig extends BaseHumanConfig {
       "i" -> o.increment,
       "d" -> o.days,
       "m" -> o.mode.id,
-      "a" -> o.allowAnon,
       "e" -> o.ratingRange.toString)
   }
 }

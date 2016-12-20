@@ -344,13 +344,6 @@ module.exports = function(element, cfg) {
         });
       });
     });
-    $modeChoices.add($form.find('.members_only input')).on('change', function() {
-      var rated = $rated.prop('checked');
-      var membersOnly = $form.find('.members_only input').prop('checked');
-      $form.find('.rating_range_config').toggle(rated || membersOnly);
-      $form.find('.members_only').toggle(!rated);
-      toggleButtons();
-    }).trigger('change');
     $timeModeSelect.on('change', function() {
       var timeMode = $(this).val();
       $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
