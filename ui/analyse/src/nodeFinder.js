@@ -24,7 +24,7 @@ module.exports = {
   evalSwings: function(mainline) {
     var found = [];
     var node, prev;
-    for (var i = 1; i < mainline.length - 1; i++) {
+    for (var i = 1; i < mainline.length; i++) {
       node = mainline[i];
       prev = mainline[i - 1];
       if (node.eval && prev.eval) {
