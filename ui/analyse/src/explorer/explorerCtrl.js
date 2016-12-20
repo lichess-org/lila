@@ -52,9 +52,9 @@ module.exports = function(root, opts, allow) {
   };
 
   var cacheResult = function(fen, res, isTablebase) {
-      res[isTablebase ? 'tablebase' : 'opening'] = true;
-      res.nbMoves = res.moves.length;
-      res.fen = fen;
+    res[isTablebase ? 'tablebase' : 'opening'] = true;
+    res.nbMoves = res.moves.length;
+    res.fen = fen;
     cache[fen] = res;
   };
 
@@ -122,10 +122,8 @@ module.exports = function(root, opts, allow) {
     },
     fetchOpening: function(fen) {
       if (cache[fen]) {
-        var d = m.deferred(cache[fen]);
-        setTimeout(function() {
-          d.resolve(cache[fen]);
-        }, 10);
+        var d = m.deferred();
+        d.resolve(cache[fen]);
         return d.promise;
       }
       return fetchOpening(fen).then(function(res) {

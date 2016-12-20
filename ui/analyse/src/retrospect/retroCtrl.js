@@ -59,7 +59,6 @@ module.exports = function(root) {
     });
     // fetch opening explorer moves
     if (!game.division.middle || fault.node.ply < game.division.middle) {
-      console.log(root.explorer.fetchOpening(prev.node.fen));
       root.explorer.fetchOpening(prev.node.fen).then(function(res) {
         var cur = current();
         var ucis = res.moves.map(function(m) {
@@ -69,7 +68,7 @@ module.exports = function(root) {
           return fault.node.uci === uci;
         })[0]) {
           explorerCancelPlies.push(fault.node.ply);
-          jumpToNext();
+          setTimeout(jumpToNext, 100);
         } else {
           cur.openingUcis = ucis;
           current(cur);
@@ -96,7 +95,10 @@ module.exports = function(root) {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (node.comp) onWin(); // the computer solution line
+      if (cur.openingUcis.filter(function(uci) {
+        return node.uci === uci;
+      })[0]) onWin(); // found in opening explorer
+      else if (node.comp) onWin(); // the computer solution line
       else if (node.eval) onFail(); // the move that was played in the game
       else {
         feedback('eval');
@@ -111,7 +113,7 @@ module.exports = function(root) {
     var node = root.vm.node,
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
-    if (node.ceval && node.ceval.depth >= 17) {
+    if (node.ceval && node.ceval.depth >= 16) {
       var diff = Math.abs(winningChances.povDiff('white', cur.prev.node.eval, node.ceval));
       if (diff < 0.02) onWin();
       else onFail();
@@ -156,7 +158,7 @@ module.exports = function(root) {
       !isPlySolved(node.ply);
   };
   var hidePvs = function() {
-    return feedback() !== 'win';
+    return isSolving();
   };
   var showBadNode = function() {
     var cur = current();
