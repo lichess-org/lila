@@ -97,7 +97,8 @@ private final class Monitor(
     sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
 
     repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
-      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
+      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) } >>
+      repo.countUserAnalysis.map { forUser(Analysis.key)(_) }
 
   } andThenAnyway scheduleWork
 

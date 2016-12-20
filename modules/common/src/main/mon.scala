@@ -399,6 +399,7 @@ object mon {
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
+      def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
       val moveDbSize = rec("fishnet.work.move.db_size")
     }
     object move {

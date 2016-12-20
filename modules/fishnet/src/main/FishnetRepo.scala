@@ -49,6 +49,9 @@ private final class FishnetRepo(
   def countAnalysis(acquired: Boolean) = analysisColl.count($doc(
     "acquired" $exists acquired
   ).some)
+  def countUserAnalysis = analysisColl.count($doc(
+    "sender.system" -> false
+  ).some)
   def getAnalysisByGameId(gameId: String) = analysisColl.find($doc(
     "game.id" -> gameId
   )).uno[Work.Analysis]
