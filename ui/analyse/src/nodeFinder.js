@@ -29,7 +29,7 @@ module.exports = {
       prev = mainline[i - 1];
       if (node.eval && prev.eval) {
         var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
-        var threshold = division.middle && node.ply < division.middle ? 0.10 : 0.06;
+        var threshold = 0.06; //division.middle && node.ply < division.middle ? 0.09 : 0.06;
         if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
       }
     }

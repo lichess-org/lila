@@ -7,8 +7,10 @@ var m = require('mithril');
 
 module.exports = function(root) {
 
+  var game = root.data.game;
   var color = root.bottomColor();
   var candidateNodes = [];
+  var explorerCancelPlies = [];
   var solvedPlies = [];
   var current = m.prop();
   var feedback = m.prop('find'); // find | eval | win | fail | view
@@ -19,8 +21,8 @@ module.exports = function(root) {
 
   var findNextNode = function() {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, root.data.game.division).filter(function(n) {
-      return n.ply % 2 === colorModulo;
+    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, game.division).filter(function(n) {
+      return n.ply % 2 === colorModulo && !$.fp.contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.filter(function(n) {
       return !isPlySolved(n.ply);
@@ -52,8 +54,28 @@ module.exports = function(root) {
       solution: {
         node: solutionNode,
         path: prevPath + solutionNode.id
-      }
+      },
+      openingUcis: []
     });
+    // fetch opening explorer moves
+    if (!game.division.middle || fault.node.ply < game.division.middle) {
+      console.log(root.explorer.fetchOpening(prev.node.fen));
+      root.explorer.fetchOpening(prev.node.fen).then(function(res) {
+        var cur = current();
+        var ucis = res.moves.map(function(m) {
+          return m.uci;
+        });
+        if (ucis.filter(function(uci) {
+          return fault.node.uci === uci;
+        })[0]) {
+          explorerCancelPlies.push(fault.node.ply);
+          jumpToNext();
+        } else {
+          cur.openingUcis = ucis;
+          current(cur);
+        }
+      });
+    }
     root.userJump(prev.path);
     m.redraw();
   };

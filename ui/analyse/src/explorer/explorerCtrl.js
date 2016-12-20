@@ -37,11 +37,6 @@ module.exports = function(root, opts, allow) {
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
-  var setCache = function(fen, res) {
-    cache[fen] = res;
-    movesAway(res.nbMoves ? 0 : movesAway() + 1);
-  };
-
   var handleFetchError = function(err) {
     loading(false);
     failing(true);
@@ -56,13 +51,18 @@ module.exports = function(root, opts, allow) {
     return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
   };
 
+  var cacheResult = function(fen, res, isTablebase) {
+    res[isTablebase ? 'tablebase' : 'opening'] = true;
+    res.nbMoves = res.moves.length;
+    res.fen = fen;
+    cache[fen] = res;
+  };
+
   var fetch = throttle(250, function(fen) {
     var isTablebase = withGames && tablebaseRelevant(effectiveVariant, fen);
     (isTablebase ? fetchTablebase : fetchOpening)(fen).then(function(res) {
-      res[isTablebase ? 'tablebase' : 'opening'] = true;
-      res.nbMoves = res.moves.length;
-      res.fen = fen;
-      setCache(fen, res);
+      cacheResult(fen, res, isTablebase);
+      movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
       m.redraw();
@@ -120,6 +120,18 @@ module.exports = function(root, opts, allow) {
       hoveringUci(uci);
       root.setAutoShapes();
     },
-    fetchOpening: fetchOpening
+    fetchOpening: function(fen) {
+      if (cache[fen]) {
+        var d = m.deferred(cache[fen]);
+        setTimeout(function() {
+          d.resolve(cache[fen]);
+        }, 10);
+        return d.promise;
+      }
+      return fetchOpening(fen).then(function(res) {
+        cacheResult(fen, res, false);
+        return res;
+      });
+    }
   };
 };
