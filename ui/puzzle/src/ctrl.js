@@ -410,14 +410,14 @@ module.exports = function(opts, i18n) {
 
   var hasEverVoted = lichess.storage.make('puzzle-ever-voted');
 
-  var vote = function(v) {
+  var vote = throttle(1000, false, function(v) {
     hasEverVoted.set(1);
     vm.voted = v;
     xhr.vote(data.puzzle.id, v).then(function(res) {
       data.puzzle.vote = res[1];
       m.redraw();
     });
-  };
+  });
 
   // required by ceval
   vm.showComputer = function() {
