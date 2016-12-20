@@ -7,7 +7,7 @@ function skipOrViewSolution(ctrl) {
   return m('div.choices', [
     m('a', {
       onclick: ctrl.viewSolution
-    }, ctrl.trans.noarg('viewTheSolution')),
+    }, 'View the solution'),
     m('a', {
       onclick: ctrl.skip
     }, 'Skip this move')
@@ -80,7 +80,7 @@ var feedback = {
       m('div.half.top',
         m('div.player', [
           m('div.icon', '✓'),
-          m('div.instruction', m('strong', ctrl.trans.noarg('goodMove')))
+          m('div.instruction', m('strong', 'Good move'))
         ])
       ),
       jumpToNext(ctrl)
