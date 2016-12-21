@@ -44,7 +44,7 @@ div.sidebar a {
 #lichess_message td.check input {
   vertical-align: middle;
 }
-#lichess_message td.author {
+#lichess_message td.author, td.no_messages {
   padding: 1em 1em 1em 20px;
   width: 150px;
   max-width: 150px;
