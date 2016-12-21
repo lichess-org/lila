@@ -199,7 +199,6 @@ private object BSONHandlers {
     }
     def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
   }
-  private implicit val ChapterFromPgnBSONHandler = Macros.handler[Chapter.FromPgn]
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   import Chapter.Ply
   implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)

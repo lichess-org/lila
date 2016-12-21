@@ -167,7 +167,6 @@ object JsonView {
       "name" -> t.name.toString,
       "value" -> escapeHtml4(t.value))
   }
-  private implicit val chapterFromPgnWrites = Json.writes[Chapter.FromPgn]
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name)

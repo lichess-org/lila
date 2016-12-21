@@ -104,11 +104,10 @@ function urlToLink(text) {
   return text.replace(exp, "<a href='//$1'>$1</a>");
 }
 
-function renderPgn(setup) {
-  var obj = setup.fromPgn || setup.game;
-  if (obj) return renderTable([
+function renderPgnTags(tags) {
+  return renderTable([
     ['Fen', m('pre#study_fen', '')],
-  ].concat(obj.tags.map(function(tag) {
+  ].concat(tags.map(function(tag) {
     if (tag.name.toLowerCase() !== 'fen') return [
       tag.name, m.trust(urlToLink(tag.value))
     ];
@@ -153,7 +152,7 @@ function metadata(ctrl) {
       }, d.likes)
     ]),
     m('div.undertable_inner',
-      renderPgn(setup) || renderFen(setup)
+      renderPgnTags(d.chapter.tags) || renderFen(setup)
     )
   ]);
 }

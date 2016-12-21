@@ -20,6 +20,7 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
+    tagsFixer: ChapterTagsFixer,
     lightUser: lila.common.LightUser.Getter,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
@@ -33,9 +34,14 @@ final class StudyApi(
 
   def publicByIds(ids: Seq[String]) = byIds(ids) map { _.filter(_.isPublic) }
 
+  private def fetchAndFixChapter(id: Chapter.ID): Fu[Option[Chapter]] =
+    chapterRepo.byId(id) flatMap {
+      _ ?? { c => tagsFixer(c) map some }
+    }
+
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      chapterRepo.byId(study.position.chapterId) flatMap {
+      fetchAndFixChapter(study.position.chapterId) flatMap {
         case None => chapterRepo.firstByStudy(study.id) flatMap {
           case None => fuccess(none)
           case Some(chapter) =>
@@ -50,7 +56,7 @@ final class StudyApi(
 
   def byIdWithChapter(id: Study.ID, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      chapterRepo.byId(chapterId) map {
+      fetchAndFixChapter(chapterId) map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }

@@ -59,7 +59,6 @@ final class PgnDump(
 
   private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
-    val fromTags = chapter.setup.fromPgn.??(_.tags)
     val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
@@ -71,7 +70,7 @@ final class PgnDump(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))
-    genTags.foldLeft(fromTags.reverse) {
+    genTags.foldLeft(chapter.tags.reverse) {
       case (tags, tag) =>
         if (tags.exists(t => tag.name == t.name)) tags
         else tag :: tags

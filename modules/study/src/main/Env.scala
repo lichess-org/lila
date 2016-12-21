@@ -80,10 +80,10 @@ final class Env(
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
     notifier = new StudyNotifier(
-      netBaseUrl = NetBaseUrl,
-      notifyApi = lila.notify.Env.current.api,
-      relationApi = lila.relation.Env.current.api
-    ),
+    netBaseUrl = NetBaseUrl,
+    notifyApi = lila.notify.Env.current.api,
+    relationApi = lila.relation.Env.current.api),
+    tagsFixer = new ChapterTagsFixer(chapterRepo),
     lightUser = getLightUser,
     scheduler = system.scheduler,
     chat = hub.actor.chat,

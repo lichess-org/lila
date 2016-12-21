@@ -16,6 +16,7 @@ case class Chapter(
     name: String,
     setup: Chapter.Setup,
     root: Node.Root,
+    tags: List[Tag],
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
@@ -75,12 +76,9 @@ object Chapter {
       gameId: Option[String],
       variant: Variant,
       orientation: Color,
-      fromPgn: Option[FromPgn] = None,
       fromFen: Option[Boolean] = None) {
     def isFromFen = ~fromFen
   }
-
-  case class FromPgn(tags: List[Tag])
 
   case class Metadata(
     _id: Chapter.ID,
@@ -100,12 +98,13 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = toName(name),
     setup = setup,
     root = root,
+    tags = tags,
     order = order,
     ownerId = ownerId,
     conceal = conceal,

@@ -8,8 +8,8 @@ import scala.concurrent.duration._
 import chess.format.pgn.Tag
 import lila.hub.MultiThrottler
 import lila.search._
-import lila.tree.Node.{ Comments, Comment }
 import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
+import lila.tree.Node.{ Comments, Comment }
 
 final class StudySearchApi(
     client: ESClient,
@@ -57,10 +57,8 @@ final class StudySearchApi(
     Tag.ECO, Tag.Opening, Tag.Annotator)
 
   private def chapterText(c: Chapter): String = {
-    nodeText(c.root) :: c.setup.fromPgn.?? { pgn =>
-      pgn.tags collect {
-        case Tag(name, value) if relevantPgnTags.contains(name) => value
-      }
+    nodeText(c.root) :: c.tags collect {
+      case Tag(name, value) if relevantPgnTags.contains(name) => value
     }
   }.flatten mkString " "
 
