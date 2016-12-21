@@ -221,6 +221,18 @@ final class StudyApi(
     }
   }
 
+  def setTag(userId: User.ID, studyId: Study.ID, setTag: actorApi.SetTag, uid: Uid) = sequenceStudy(studyId) { study =>
+    Contribute(userId, study) {
+      chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
+        _ ?? { oldChapter =>
+          val chapter = oldChapter.setTag(setTag.tag)
+          chapterRepo.setTagsFor(chapter) >>-
+            sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
+        } >>- indexStudy(study)
+      }
+    }
+  }
+
   def setComment(userId: User.ID, studyId: Study.ID, position: Position.Ref, text: Comment.Text, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       (study.members get userId) ?? { byMember =>

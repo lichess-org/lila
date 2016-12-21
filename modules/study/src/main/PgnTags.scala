@@ -4,7 +4,7 @@ import chess.format.pgn.{ Tag, TagType }
 
 private object PgnTags {
 
-  def apply(tags: List[Tag]) = sort(tags filter isRelevant)
+  def apply(tags: List[Tag]): List[Tag] = sort(tags filter isRelevant)
 
   private def isRelevant(tag: Tag) = tag match {
     case Tag(t, _) if !relevantTags(t) => false
@@ -17,7 +17,7 @@ private object PgnTags {
   private val relevantTags: Set[TagType] = {
     import Tag._
     Set(Event, Site, Date, Round, White, Black, TimeControl,
-      WhiteElo, BlackElo, WhiteTitle, BlackTitle,
+      WhiteElo, BlackElo, WhiteTitle, BlackTitle, WhiteTeam, BlackTeam,
       Tag.Result, Tag.FEN, Termination, Annotator)
   }
 

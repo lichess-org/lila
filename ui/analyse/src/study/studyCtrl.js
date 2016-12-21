@@ -8,6 +8,7 @@ var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
 var notifCtrl = require('./notif').ctrl;
 var shareCtrl = require('./studyShare').ctrl;
+var tagsCtrl = require('./studyTags').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
 
@@ -68,6 +69,9 @@ module.exports = function(data, ctrl) {
 
   var commentForm = commentFormCtrl(ctrl);
   var glyphForm = glyphFormCtrl(ctrl);
+  var tags = tagsCtrl(ctrl, function() {
+    return data.chapter;
+  }, members);
 
   var addChapterId = function(req) {
     req.chapterId = data.position.chapterId;
@@ -157,6 +161,7 @@ module.exports = function(data, ctrl) {
     commentForm: commentForm,
     glyphForm: glyphForm,
     share: share,
+    tags: tags,
     vm: vm,
     toggleLike: function(v) {
       send("like", {
@@ -313,6 +318,11 @@ module.exports = function(data, ctrl) {
         if (vm.behind !== false) return;
         if (position.chapterId !== data.position.chapterId) return;
         ctrl.tree.setCommentAt(d.c, position.path);
+        m.redraw();
+      },
+      setTags: function(d) {
+        d.w && activity(d.w.u);
+        if (d.chapterId === data.position.chapterId) data.chapter.tags = d.tags;
         m.redraw();
       },
       deleteComment: function(d) {

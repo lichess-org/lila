@@ -92,6 +92,12 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
+    case SetTags(chapterId, tags, uid) => notifyVersion("setTags", Json.obj(
+      "chapterId" -> chapterId,
+      "tags" -> tags,
+      "w" -> who(uid)
+    ), noMessadata)
+
     case DeleteComment(pos, commentId, uid) => notifyVersion("deleteComment", Json.obj(
       "p" -> pos,
       "id" -> commentId,
@@ -235,6 +241,7 @@ private object Socket {
   case class ChangeChapter(uid: Uid)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
+  case class SetTags(chapterId: Chapter.ID, tags: List[chess.format.pgn.Tag], uid: Uid)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

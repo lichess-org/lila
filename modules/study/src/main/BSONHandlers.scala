@@ -192,7 +192,7 @@ private object BSONHandlers {
     def write(x: Variant) = BSONInteger(x.id)
   }
 
-  private implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
+  implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
     def read(b: BSONString): Tag = b.value.split(":", 2) match {
       case Array(name, value) => Tag(name, value)
       case _                  => sys error s"Invalid pgn tag ${b.value}"

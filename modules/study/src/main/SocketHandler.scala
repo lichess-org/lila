@@ -197,6 +197,13 @@ private[study] final class SocketHandler(
         api.editStudy(studyId, data)
       }
 
+    case ("setTag", o) =>
+      reading[actorApi.SetTag](o) { setTag =>
+        member.userId foreach { byUserId =>
+          api.setTag(byUserId, studyId, setTag, uid)
+        }
+      }
+
     case ("setComment", o) =>
       reading[AtPosition](o) { position =>
         for {
@@ -235,7 +242,7 @@ private[study] final class SocketHandler(
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
-  private case class AtPosition(path: String, chapterId: String) {
+  private case class AtPosition(path: String, chapterId: Chapter.ID) {
     def ref = Position.Ref(chapterId, Path(path))
   }
   private implicit val atPositionReader = Json.reads[AtPosition]
@@ -244,6 +251,7 @@ private[study] final class SocketHandler(
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
   private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
+  private implicit val setTagReader = Json.reads[actorApi.SetTag]
 
   def join(
     studyId: Study.ID,

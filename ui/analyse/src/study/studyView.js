@@ -14,6 +14,7 @@ var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
 var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
+var tagsView = require('./studyTags').view;
 
 function buttons(root) {
   var ctrl = root.study;
@@ -89,56 +90,10 @@ function buttons(root) {
   ]);
 }
 
-function renderTable(rows) {
-  return m('table.tags.slist', m('tbody', rows.map(function(r) {
-    if (r) return m('tr', [
-      m('th', r[0]),
-      m('td', r[1])
-    ]);
-  })));
-}
-
-
-function urlToLink(text) {
-  var exp = /\bhttps?:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  return text.replace(exp, "<a href='//$1'>$1</a>");
-}
-
-function renderPgnTags(tags) {
-  return renderTable([
-    ['Fen', m('pre#study_fen', '')],
-  ].concat(tags.map(function(tag) {
-    if (tag.name.toLowerCase() !== 'fen') return [
-      tag.name, m.trust(urlToLink(tag.value))
-    ];
-  })));
-}
-
-function renderFen(setup) {
-  return renderTable([
-    ['Fen', m('pre#study_fen', '')],
-    ['Variant', setup.variant.name]
-  ]);
-}
-
-var lastMetaKey;
-
 function metadata(ctrl) {
-  lichess.raf(function() {
-    var n = document.getElementById('study_fen');
-    if (n) n.textContent = ctrl.currentNode().fen;
-  });
   var chapter = ctrl.currentChapter();
   if (!chapter) return;
   var d = ctrl.data;
-  var cacheKey = [chapter.id, d.name, chapter.name, d.likes].join('|');
-  if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') {
-    return {
-      subtree: 'retain'
-    };
-  }
-  lastMetaKey = cacheKey;
-  var setup = d.chapter.setup;
   return m('div.study_metadata.undertable', [
     m('h2.undertable_top', [
       m('span.name', {
@@ -151,9 +106,7 @@ function metadata(ctrl) {
         onclick: ctrl.toggleLike
       }, d.likes)
     ]),
-    m('div.undertable_inner',
-      renderPgnTags(d.chapter.tags) || renderFen(setup)
-    )
+    m('div.undertable_inner', tagsView(ctrl.tags))
   ]);
 }
 

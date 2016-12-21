@@ -145,11 +145,9 @@ object JsonView {
   private implicit val variantWrites = OWrites[chess.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  private implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+  implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
     import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
-    Json.obj(
-      "name" -> t.name.toString,
-      "value" -> escapeHtml4(t.value))
+    Json.arr(t.name.toString, escapeHtml4(t.value))
   }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>

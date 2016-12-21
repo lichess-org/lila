@@ -57,6 +57,10 @@ case class Chapter(
     createdAt = DateTime.now)
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
+
+  def setTag(tag: Tag) = copy(
+    tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
+  )
 }
 
 object Chapter {
