@@ -101,7 +101,7 @@ object Main extends LilaController {
       _ ?? { pov =>
         if (!known) {
           lila.log("cheat").branch("jslog").info(
-            s"${ctx.req.remoteAddress} ${ctx.userId | "anon"} ${referer | "?"} $name")
+            s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
         }
         if (name == "ceval" || name == "rcb") fuccess {
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
