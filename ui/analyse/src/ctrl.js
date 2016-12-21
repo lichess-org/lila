@@ -599,12 +599,12 @@ module.exports = function(opts) {
   this.retro = null;
 
   this.toggleRetro = function() {
-    acplUncache();
     if (this.retro) this.retro = null;
     else {
       this.retro = makeRetro(this);
       if (this.explorer.enabled()) this.explorer.toggle();
     }
+    acplUncache();
     this.setAutoShapes();
   }.bind(this);
 
