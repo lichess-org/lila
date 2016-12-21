@@ -14,6 +14,7 @@ module.exports = function(root) {
   var solvedPlies = [];
   var current = m.prop();
   var feedback = m.prop('find'); // find | eval | win | fail | view
+  var lastTryAt = new Date();
 
   var isPlySolved = function(ply) {
     return $.fp.contains(solvedPlies, ply)
@@ -102,6 +103,7 @@ module.exports = function(root) {
       else if (node.comp) onWin(); // the computer solution line
       else if (node.eval) onFail(); // the move that was played in the game
       else {
+        lastTryAt = new Date();
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
         checkCeval();
@@ -110,11 +112,18 @@ module.exports = function(root) {
     root.setAutoShapes();
   };
 
+  var isCevalReady = function(node) {
+    return node.ceval && (
+      node.ceval.depth >= 16 ||
+      (node.ceval.depth >= 14 && new Date() - lastTryAt > 7000)
+    );
+  };
+
   var checkCeval = function() {
     var node = root.vm.node,
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
-    if (node.ceval && node.ceval.depth >= 16) {
+    if (isCevalReady(node)) {
       var diff = winningChances.povDiff(color, node.ceval, cur.prev.node.eval);
       if (diff > -0.03) onWin();
       else onFail();
