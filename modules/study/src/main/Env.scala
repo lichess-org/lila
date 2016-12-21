@@ -60,7 +60,7 @@ final class Env(
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
-  lazy val jsonView = new JsonView(studyRepo, getLightUser, gamePgnDump)
+  lazy val jsonView = new JsonView(studyRepo, getLightUser)
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
@@ -83,7 +83,7 @@ final class Env(
     netBaseUrl = NetBaseUrl,
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api),
-    tagsFixer = new ChapterTagsFixer(chapterRepo),
+    tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
     lightUser = getLightUser,
     scheduler = system.scheduler,
     chat = hub.actor.chat,

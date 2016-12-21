@@ -261,11 +261,10 @@ object Study extends LilaController {
         _.fold(notFound) {
           case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
             lila.mon.export.pgn.studyChapter()
-            env.pgnDump.ofChapter(study, chapter) map { pgn =>
-              Ok(pgn.toString).withHeaders(
-                CONTENT_TYPE -> pgnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter))))
-            }
+            Ok(env.pgnDump.ofChapter(study, chapter).toString).withHeaders(
+              CONTENT_TYPE -> pgnContentType,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter)))
+            ).fuccess
           }
         }
       }

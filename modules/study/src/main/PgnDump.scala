@@ -7,7 +7,6 @@ import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
 import lila.common.String.slugify
-import lila.game.{ Game, GameRepo }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -18,21 +17,14 @@ final class PgnDump(
   import PgnDump._
 
   def apply(study: Study): Fu[List[Pgn]] =
-    chapterRepo.orderedByStudy(study.id) flatMap { chapters =>
-      chapters.map { ofChapter(study, _) }.sequenceFu
+    chapterRepo.orderedByStudy(study.id).map {
+      _.map { ofChapter(study, _) }
     }
 
-  def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
-    (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
-      case Some((game, initialFen)) =>
-        gamePgnDump.tags(game, initialFen.map(_.value), none) :+ annotatorTag(study)
-      case None => makeTags(study, chapter)
-    }.map { tags =>
-      Pgn(
-        tags = tags,
-        turns = toTurns(chapter.root),
-        initial = Initial(chapter.root.comments.list.map(_.text.value)))
-    }
+  def ofChapter(study: Study, chapter: Chapter) = Pgn(
+    tags = makeTags(study, chapter),
+    turns = toTurns(chapter.root),
+    initial = Initial(chapter.root.comments.list.map(_.text.value)))
 
   private val fileR = """[\s,]""".r
 

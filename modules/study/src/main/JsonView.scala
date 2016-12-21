@@ -8,15 +8,13 @@ import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo }
 import lila.socket.Socket.Uid
 import lila.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.Getter,
-    gamePgnDump: lila.game.PgnDump) {
+    lightUser: LightUser.Getter) {
 
   import JsonView._
 
@@ -29,33 +27,26 @@ final class JsonView(
     def allowed(selection: Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection, study, me.map(_.id))
 
-    currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen) zip
-      me.?? { studyRepo.liked(study, _) } map {
-        case (gameOption, liked) =>
-          studyWrites.writes(study) ++ Json.obj(
-            "liked" -> liked,
-            "features" -> Json.obj(
-              "cloneable" -> allowed(study.settings.cloneable)
-            ),
-            "chapters" -> chapters.map(chapterMetadataWrites.writes),
-            "chapter" -> Json.obj(
-              "id" -> currentChapter.id,
-              "ownerId" -> currentChapter.ownerId,
-              "setup" -> {
-                val setup = Json toJson currentChapter.setup
-                gameOption.fold(setup) { game =>
-                  setup.as[JsObject] ++ Json.obj("game" -> game)
-                }
-              },
-              "game" -> gameOption,
-              "conceal" -> currentChapter.conceal,
-              "features" -> Json.obj(
-                "computer" -> allowed(study.settings.computer),
-                "explorer" -> allowed(study.settings.explorer)
-              )
-            )
+    me.?? { studyRepo.liked(study, _) } map { liked =>
+      studyWrites.writes(study) ++ Json.obj(
+        "liked" -> liked,
+        "features" -> Json.obj(
+          "cloneable" -> allowed(study.settings.cloneable)
+        ),
+        "chapters" -> chapters.map(chapterMetadataWrites.writes),
+        "chapter" -> Json.obj(
+          "id" -> currentChapter.id,
+          "ownerId" -> currentChapter.ownerId,
+          "setup" -> currentChapter.setup,
+          "tags" -> currentChapter.tags,
+          "conceal" -> currentChapter.conceal,
+          "features" -> Json.obj(
+            "computer" -> allowed(study.settings.computer),
+            "explorer" -> allowed(study.settings.explorer)
           )
-      }
+        )
+      )
+    }
   }.chronometer
     // .mon(_.fishnet.acquire time client.skill.key)
     .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
@@ -66,13 +57,6 @@ final class JsonView(
     "name" -> c.name,
     "conceal" -> c.conceal,
     "orientation" -> c.setup.orientation)
-
-  private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
-    case (g, fen) => Json.obj(
-      "id" -> g.id,
-      "tags" -> PgnTags(gamePgnDump.tags(g, fen.map(_.value), none))
-    )
-  }
 
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
