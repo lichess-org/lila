@@ -21,16 +21,16 @@ module.exports = {
     }
   },
 
-  evalSwings: function(mainline) {
+  evalSwings: function(mainline, nodeFilter) {
     var found = [];
     var node, prev;
+    var threshold = 0.07;
     for (var i = 1; i < mainline.length; i++) {
       node = mainline[i];
       prev = mainline[i - 1];
-      if (node.eval && prev.eval) {
-        var diff = Math.abs(winningChances.povDiff('white', mainline[i - 1].eval, mainline[i].eval));
-        var threshold = 0.07;
-        if (diff > threshold && hasCompChild(mainline[i - 1])) found.push(mainline[i]);
+      if (nodeFilter(node) && node.eval && prev.eval) {
+        var diff = Math.abs(winningChances.povDiff('white', prev.eval, node.eval));
+        if (diff > threshold && hasCompChild(prev)) found.push(node);
       }
     }
     return found;

@@ -22,7 +22,7 @@ module.exports = function(root) {
 
   var findNextNode = function() {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = nodeFinder.evalSwings(root.vm.mainline).filter(function(n) {
+    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, function(n) {
       return n.ply % 2 === colorModulo && !$.fp.contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.filter(function(n) {
