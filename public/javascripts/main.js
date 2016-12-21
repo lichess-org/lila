@@ -786,17 +786,6 @@ lichess.notifyApp = (function() {
     }, 50);
   });
 
-  $.lazy = function(factory) {
-    var loaded = {};
-    var f = function(key) {
-      if (!loaded[key]) loaded[key] = factory(key);
-      return loaded[key];
-    };
-    f.clear = function() {
-      loaded = {};
-    };
-    return f;
-  };
 
   $.sound = (function() {
     var version = 1;
@@ -804,6 +793,18 @@ lichess.notifyApp = (function() {
     var soundSet = $('body').data('sound-set');
     var volumeStorage = lichess.storage.make('sound-volume');
     var defaultVolume = 0.7;
+
+    var memoize = function(factory) {
+      var loaded = {};
+      var f = function(key) {
+        if (!loaded[key]) loaded[key] = factory(key);
+        return loaded[key];
+      };
+      f.clear = function() {
+        loaded = {};
+      };
+      return f;
+    };
 
     var names = {
       genericNotify: 'GenericNotify',
@@ -831,10 +832,10 @@ lichess.notifyApp = (function() {
       explode: 0.35,
       confirmation: 0.5
     };
-    var collection = new $.lazy(function(k) {
+    var collection = new memoize(function(k) {
       var set = soundSet;
       if (set === 'music') {
-        if (k === 'move' || k === 'capture' || k === 'check') return {
+        if ($.fp.contains(['move', 'capture', 'check'], k)) return {
           play: $.noop
         };
         set = 'standard';
