@@ -154,14 +154,9 @@ function renderFeedback(root, fb) {
   var current = ctrl.current();
   if (ctrl.isSolving() && current && root.vm.path !== current.prev.path)
     return feedback.offTrack(ctrl, current);
-  if (fb === 'find') {
-    if (current) return feedback.find(ctrl, current);
-    return feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
-  }
-  if (fb === 'win') return feedback.win(ctrl);
-  if (fb === 'fail') return feedback.fail(ctrl);
-  if (fb === 'eval') return feedback.eval(ctrl);
-  if (fb === 'view') return feedback.view(ctrl);
+  if (fb === 'find') return current ? feedback.find(ctrl, current) :
+    feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
+  return feedback[fb](ctrl);
 }
 
 function renderTitle(ctrl) {
