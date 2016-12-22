@@ -114,7 +114,7 @@ module.exports = function(root) {
 
   var isCevalReady = function(node) {
     return node.ceval && (
-      node.ceval.depth >= 16 ||
+      node.ceval.depth >= 17 ||
       (node.ceval.depth >= 14 && new Date() - lastTryAt > 7000)
     );
   };
