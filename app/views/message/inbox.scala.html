@@ -5,21 +5,23 @@ title = trans.inbox.str()) {
 <div id="lichess_message" class="content_box no_padding">
   <div class="head with_actions">
     <h1>@trans.inbox()</h1>
-    <div class="actions">
-      <select class="select">
-        <option value="">Select</option>
-        <option value="all">All</option>
-        <option value="none">None</option>
-        <option value="unread">Unread</option>
-        <option value="read">Read</option>
-      </select>
-      <select class="action">
-        <option value="">Do</option>
-        <option value="unread">Mark as unread</option>
-        <option value="read">Mark as read</option>
-        <option value="delete">Delete</option>
-      </select>
-    </div>
+    @if(threads.nbResults > 0) {
+      <div class="actions">
+        <select class="select">
+          <option value="">Select</option>
+          <option value="all">All</option>
+          <option value="none">None</option>
+          <option value="unread">Unread</option>
+          <option value="read">Read</option>
+        </select>
+        <select class="action">
+          <option value="">Do</option>
+          <option value="unread">Mark as unread</option>
+          <option value="read">Mark as read</option>
+          <option value="delete">Delete</option>
+        </select>
+      </div>
+    }
   </div>
   <table>
     @if(threads.nbResults > 0) {
@@ -47,8 +49,7 @@ title = trans.inbox.str()) {
     } else {
     <tbody>
       <tr>
-        <td colspan="4">
-          <br />
+        <td class="no_messages">
           @trans.noNewMessages()
         </td>
       </tr>
