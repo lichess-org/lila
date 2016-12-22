@@ -159,6 +159,7 @@ object LangList {
     "ss" -> "siSwati",
     "sv" -> "svenska",
     "ta" -> "தமிழ்",
+    "tc" -> "繁體中文", // traditional chinese
     "te" -> "తెలుగు",
     "tg" -> "тоҷикӣ",
     "th" -> "ไทย",
