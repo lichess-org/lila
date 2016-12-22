@@ -54,6 +54,7 @@ function renderPgnTags(chapter, submit, node, types) {
       ]),
       editable(['', ''], function(value) {
         if (selectedType) submit(selectedType)(value);
+        selectedType = null;
       })
     ]);
   }
