@@ -60,7 +60,7 @@ module.exports = function(root) {
     });
     // fetch opening explorer moves
     if (game.variant.key === 'standard' && (!game.division.middle || fault.node.ply < game.division.middle)) {
-      root.explorer.fetchOpening(prev.node.fen).then(function(res) {
+      root.explorer.fetchMasterOpening(prev.node.fen).then(function(res) {
         var cur = current();
         var ucis = [];
         res.moves.forEach(function(m) {

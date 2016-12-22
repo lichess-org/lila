@@ -33,7 +33,7 @@ module.exports = function(root, opts, allow) {
     setNode();
   }
   var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
-  var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
+  var effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
 
@@ -74,7 +74,7 @@ module.exports = function(root, opts, allow) {
     moves: {}
   };
 
-  function setNode() {
+  var setNode = function() {
     if (!enabled()) return;
     var node = root.vm.node;
     if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
@@ -89,7 +89,7 @@ module.exports = function(root, opts, allow) {
       loading(true);
       fetch(node.fen);
     }
-  }
+  };
 
   return {
     allowed: allowed,
@@ -120,16 +120,23 @@ module.exports = function(root, opts, allow) {
       hoveringUci(uci);
       root.setAutoShapes();
     },
-    fetchOpening: function(fen) {
-      if (cache[fen]) {
-        var d = m.deferred();
-        d.resolve(cache[fen]);
-        return d.promise;
+    fetchMasterOpening: (function() {
+      var masterCache = {};
+      return function(fen) {
+        if (masterCache[fen]) {
+          var d = m.deferred();
+          d.resolve(masterCache[fen]);
+          return d.promise;
+        }
+        return xhr.opening(opts.endpoint, 'standard', fen, {
+          db: {
+            selected: m.prop('masters')
+          }
+        }, false).then(function(res) {
+          masterCache[fen] = res;
+          return res;
+        });
       }
-      return fetchOpening(fen).then(function(res) {
-        cacheResult(fen, res, false);
-        return res;
-      });
-    }
+    })()
   };
 };
