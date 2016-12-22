@@ -31,7 +31,7 @@ final class Env(
       case d: ChargeEvent                                => api charge d
       case DeployPre                                     => api.deployPre
       case DeployPost                                    => api.deployPost
-      case Note(from, to, text, true) if from != "irwin" => api.userModNote(from, to, text)
+      case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
       case e: Event                                      => api publishEvent e
     }
   })), 'deploy, 'slack, 'plan, 'userNote)
