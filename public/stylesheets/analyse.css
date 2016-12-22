@@ -1214,15 +1214,16 @@ div.advice_summary {
   margin-top: -12px;
   display: flex;
   flex-flow: column;
-  height: 210px;
+  height: 216px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 div.advice_summary table {
   width: 100%;
 }
 div.advice_summary td {
-  padding: 1px 8px;
+  width: 25px;
+  padding-right: 5px;
   text-align: center;
 }
 div.advice_summary tbody td {
@@ -1234,6 +1235,10 @@ div.advice_summary tr.symbol {
 div.advice_summary tr.symbol:hover {
   color: #3893E8;
 }
+div.advice_summary .button {
+  margin-left: 29px;
+}
+
 #adv_chart,
 #movetimes_chart {
   height: 210px;
