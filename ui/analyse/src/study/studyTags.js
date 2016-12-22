@@ -1,11 +1,6 @@
 var m = require('mithril');
 var throttle = require('common').throttle;
 
-function urlToLink(text) {
-  var exp = /\bhttps?:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  return text.replace(exp, "<a href='//$1'>$1</a>");
-}
-
 function editable(tag, submit) {
   return m('input', {
     value: tag[1],
@@ -34,7 +29,7 @@ function renderPgnTags(chapter, submit, node) {
   rows = rows.concat(chapter.tags.map(function(tag) {
     return [
       tag[0],
-      submit ? editable(tag, submit) : fixed(m.trust(urlToLink(tag[1])))
+      submit ? editable(tag, submit) : fixed(tag[1])
     ];
   }));
 

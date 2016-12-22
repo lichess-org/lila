@@ -146,8 +146,7 @@ object JsonView {
     Json.obj("key" -> v.key, "name" -> v.name)
   }
   implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
-    import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
-    Json.arr(t.name.toString, escapeHtml4(t.value))
+    Json.arr(t.name.toString, t.value)
   }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
