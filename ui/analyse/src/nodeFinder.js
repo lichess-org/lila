@@ -24,7 +24,7 @@ module.exports = {
   evalSwings: function(mainline, nodeFilter) {
     var found = [];
     var node, prev;
-    var threshold = 0.07;
+    var threshold = 0.075;
     for (var i = 1; i < mainline.length; i++) {
       node = mainline[i];
       prev = mainline[i - 1];

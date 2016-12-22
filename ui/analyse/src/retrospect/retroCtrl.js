@@ -125,7 +125,7 @@ module.exports = function(root) {
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
       var diff = winningChances.povDiff(color, node.ceval, cur.prev.node.eval);
-      if (diff > -0.03) onWin();
+      if (diff > -0.035) onWin();
       else onFail();
     }
   };
