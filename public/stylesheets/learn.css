@@ -2,7 +2,7 @@
 }
 #learn_app div.lichess_ground {
   width: 267px;
-  justify-content: flex-start;
+  justify-content: center;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
@@ -28,14 +28,10 @@
   font-size: 1.3em;
   padding: 0 15px;
   text-align: center;
-  height: 100px;
+  height: 135px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-body.dark #learn_app .goal  {
-  background: #303030;
-  border-color: #444;
 }
 #learn_app .result {
   display: flex;
@@ -47,7 +43,8 @@ body.dark #learn_app .goal  {
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
-  min-height: 100px;
+  min-height: 135px;
+  padding: 0;
   font-size: 2em;
 }
 @keyframes shadow-glow {
@@ -429,9 +426,6 @@ body.dark #learn_app .goal  {
   border: 1px solid #ccc;
   border-top: 0px;
 }
-body.dark #learn_app .progress  {
-  border: none;
-}
 #learn_app .progress a {
   flex: 1 1 100%;
   display: flex;
@@ -461,13 +455,25 @@ body.dark #learn_app .progress  {
   background: #fdd835;
 }
 #learn_app .progress a.done {
-  color: #FFF;
-  background: #4caf50;
+  color: #fff!important;
+  background: #4caf50!important;
 }
 #learn_app .progress a.active {
   opacity: 1;
-  color: #FFF;
-  background: #3893E8;
+  color: #fff!important;
+  background: #3893E8!important;
+}
+body.dark #learn_app .goal,
+body.dark #learn_app .progress,
+body.dark #learn_app .progress a {
+  background: #303030;
+  border-color: #444;
+  color: #aaa;
+}
+body.dark #learn_app .goal,
+body.dark #learn_app .result {
+  border-color: #444;
+  border-width: 1px 0;
 }
 
 #learn_side {
