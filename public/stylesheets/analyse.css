@@ -317,16 +317,16 @@ body.piece_letter .pv_box .pv span {
 .fork {
   position: absolute;
   top: 100%;
-  left: 61px;
-  width: 150px;
+  left: 91px;
+  width: 130px;
   background: #fff;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3), 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.3), 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 .fork move {
   font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 32px;
   display: block;
   cursor: pointer;
   padding: 0 15px;
@@ -335,7 +335,7 @@ body.piece_letter .pv_box .pv span {
 }
 body.piece_letter .fork move {
   font-family: 'Noto Sans';
-  font-size: 15px;
+  font-size: 13px;
 }
 .fork move:last-child {
   border-bottom: none;
@@ -366,7 +366,7 @@ body.piece_letter .fork move {
     min-width: 280px;
   }
   .fork {
-    left: 80px;
+    left: 90px;
   }
 }
 
