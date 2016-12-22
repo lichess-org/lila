@@ -18,7 +18,7 @@ private object PgnTags {
     import Tag._
     Set(Event, Site, Date, Round, White, Black, TimeControl,
       WhiteElo, BlackElo, WhiteTitle, BlackTitle, WhiteTeam, BlackTeam,
-      Tag.Result, Tag.FEN, Termination, Annotator)
+      Tag.Result, Termination, Annotator)
   }
 
   private def sort(tags: List[Tag]) = tags.sortBy {

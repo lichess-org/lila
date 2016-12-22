@@ -132,7 +132,6 @@ div.lichess_game div.lichess_ground {
   position: relative;
   transition: padding-left 0.3s;
 }
-div.lichess_game{ display: none; }
 div.eval_gauge {
   position: absolute;
   right: -20px;

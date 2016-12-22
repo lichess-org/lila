@@ -35,7 +35,7 @@ object HookRepo {
   }
 
   def remove(hook: Hook) {
-    hooks = hooks filterNot (_.id == hook.id)
+    hooks = hooks.filterNot(_.id == hook.id)
   }
 
   // returns removed hooks

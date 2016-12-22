@@ -597,6 +597,7 @@ table.tags td input {
   border: none;
   background: none;
   width: 100%;
+  box-sizing: border-box;
 }
 table.tags td input:hover,
 table.tags td input:focus {
