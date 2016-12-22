@@ -33,6 +33,10 @@
   align-items: center;
   justify-content: center;
 }
+body.dark #learn_app .goal  {
+  background: #303030;
+  border-color: #444;
+}
 #learn_app .result {
   display: flex;
   align-items: center;
