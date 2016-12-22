@@ -14,7 +14,7 @@ var xhr = require('./studyXhr');
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
-module.exports = function(data, ctrl) {
+module.exports = function(data, ctrl, tagTypes) {
 
   var send = ctrl.socket.send;
 
@@ -71,7 +71,7 @@ module.exports = function(data, ctrl) {
   var glyphForm = glyphFormCtrl(ctrl);
   var tags = tagsCtrl(ctrl, function() {
     return data.chapter;
-  }, members);
+  }, members, tagTypes);
 
   var addChapterId = function(req) {
     req.chapterId = data.position.chapterId;

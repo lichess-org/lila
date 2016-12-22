@@ -7,7 +7,7 @@ function editable(tag, submit) {
     config: function(el, isUpdate, ctx) {
       if (isUpdate) return;
       el.onblur = function() {
-        submit(tag[0], el.value);
+        submit(el.value);
       };
       el.onkeypress = function(e) {
         if ((e.keyCode || e.which) == '13') el.blur();
@@ -20,7 +20,9 @@ function fixed(text) {
   return m('span', text);
 }
 
-function renderPgnTags(chapter, submit, node) {
+var selectedType;
+
+function renderPgnTags(chapter, submit, node, types) {
   var rows = [
     ['Fen', m('pre#study_fen', node.fen)]
   ];
@@ -29,12 +31,37 @@ function renderPgnTags(chapter, submit, node) {
   rows = rows.concat(chapter.tags.map(function(tag) {
     return [
       tag[0],
-      submit ? editable(tag, submit) : fixed(tag[1])
+      submit ? editable(tag, submit(tag[0])) : fixed(tag[1])
     ];
   }));
+  if (submit) {
+    var existingTypes = chapter.tags.map(function(t) {
+      return t[0];
+    });
+    rows.push([
+      m('select', {
+        onchange: function(e) {
+          selectedType = e.target.value;
+          $(e.target).parents('tr').find('input').focus();
+        }
+      }, [
+        m('option', 'New tag'),
+        types.map(function(t) {
+          if (!$.fp.contains(existingTypes, t)) return m('option', {
+            value: t
+          }, t);
+        })
+      ]),
+      editable(['', ''], function(value) {
+        if (selectedType) submit(selectedType)(value);
+      })
+    ]);
+  }
 
   return m('table.tags.slist', m('tbody', rows.map(function(r) {
-    return m('tr', [
+    return m('tr', {
+      key: r[0]
+    }, [
       m('th', r[0]),
       m('td', r[1])
     ]);
@@ -44,28 +71,34 @@ function renderPgnTags(chapter, submit, node) {
 var lastCacheKey;
 
 module.exports = {
-  ctrl: function(root, getChapter, members) {
+  ctrl: function(root, getChapter, members, types) {
 
     var submit = throttle(500, false, function(name, value) {
       root.study.contribute('setTag', {
         chapterId: getChapter().id,
         name: name,
-        value: value
+        value: value.substr(0, 140)
       });
     });
 
     return {
-      submit: submit,
+      submit: function(name) {
+        return function(value) {
+          submit(name, value);
+        }
+      },
       getChapter: getChapter,
       members: members,
+      types: types,
       cacheKey: m.prop('')
     }
   },
   view: function(root) {
     var ctrl = root.tags,
       node = root.currentNode(),
-      chapter = ctrl.getChapter();
-    var key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags].join('|');
+      chapter = ctrl.getChapter(),
+      canContribute = ctrl.members.canContribute();
+    var key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags, canContribute].join('|');
     if (key === ctrl.cacheKey() && m.redraw.strategy() === 'diff') {
       lichess.raf(function() {
         document.getElementById('study_fen').textContent = node.fen;
@@ -77,7 +110,8 @@ module.exports = {
     ctrl.cacheKey(key);
     return m('div.undertable_inner', renderPgnTags(
       chapter,
-      ctrl.members.canContribute() && ctrl.submit,
-      node))
+      canContribute && ctrl.submit,
+      node,
+      ctrl.types))
   }
 };

@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.pgn.{ Tag, TagType }
 
-private object PgnTags {
+object PgnTags {
 
   def apply(tags: List[Tag]): List[Tag] = sort(tags filter isRelevant)
 
@@ -22,6 +22,8 @@ private object PgnTags {
       Termination,
       Site, Event, Round, Annotator)
   }
+
+  val typesToString = sortedTypes mkString ","
 
   private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
 
