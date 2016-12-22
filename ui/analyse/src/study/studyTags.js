@@ -40,6 +40,9 @@ function renderPgnTags(chapter, submit, node, types) {
     });
     rows.push([
       m('select', {
+        config: function(el) {
+          selectedType = el.value;
+        },
         onchange: function(e) {
           selectedType = e.target.value;
           $(e.target).parents('tr').find('input').focus();
@@ -54,7 +57,6 @@ function renderPgnTags(chapter, submit, node, types) {
       ]),
       editable(['', ''], function(value) {
         if (selectedType) submit(selectedType)(value);
-        selectedType = null;
       })
     ]);
   }

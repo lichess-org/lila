@@ -576,7 +576,7 @@ table.tags th {
   opacity: 0.7;
   border-top: 1px solid #eaeaea;
   width: 1px;
-  padding-right: 5px;
+  padding: 0 5px 0 15px!important;
 }
 body.dark .study_box .add,
 body.dark table.tags th {
