@@ -1577,7 +1577,6 @@ lichess.notifyApp = (function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    cfg.tagTypes = 'White,WhiteElo,WhiteTitle,WhiteTeam,Black,BlackElo,BlackTitle,BlackTeam,TimeControl,Date,Result,Termination,Site,Event,Round,Annotator';
     analyse = LichessAnalyse(cfg);
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
     topMenuIntent();
