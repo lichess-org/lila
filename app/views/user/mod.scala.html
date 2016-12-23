@@ -271,6 +271,7 @@
         <th>IPban</th>
         <th>Closed</th>
         <th>Created</th>
+        <th>Active</th>
       </tr>
     </thead>
     <tbody>
@@ -297,6 +298,7 @@
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
         <td>@momentFromNow(o.createdAt)</td>
+        <td>@u.seenAt.map(momentFromNow)</td>
       </tr>
       }
       }
