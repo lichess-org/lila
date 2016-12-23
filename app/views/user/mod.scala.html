@@ -298,7 +298,7 @@
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
         <td>@momentFromNow(o.createdAt)</td>
-        <td>@u.seenAt.map(momentFromNow)</td>
+        <td>@o.seenAt.map(momentFromNow)</td>
       </tr>
       }
       }
