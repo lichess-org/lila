@@ -223,7 +223,7 @@ div.lichess_board {
 
 .blue .is2d .cg-board,
 #top div.color_demo.blue {
-  background-image: url(../images/board/blue.png);
+  background-image: url(../images/board/svg/blue.svg);
 }
 .blue2 .is2d .cg-board,
 #top div.color_demo.blue2 {
@@ -247,11 +247,11 @@ div.lichess_board {
 }
 .brown .is2d .cg-board,
 #top div.color_demo.brown {
-  background-image: url(../images/board/brown.png);
+  background-image: url(../images/board/svg/brown.svg);
 }
 .green .is2d .cg-board,
 #top div.color_demo.green {
-  background-image: url(../images/board/green.png);
+  background-image: url(../images/board/svg/green.svg);
 }
 .olive .is2d .cg-board,
 #top div.color_demo.olive {
@@ -259,7 +259,7 @@ div.lichess_board {
 }
 .purple .is2d .cg-board,
 #top div.color_demo.purple {
-  background-image: url(../images/board/purple.png);
+  background-image: url(../images/board/svg/purple.svg);
 }
 .grey .is2d .cg-board,
 #top div.color_demo.grey {
