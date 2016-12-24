@@ -13,6 +13,13 @@ module.exports = function(data, config, pref, onMove) {
       dests: config.movable.dests,
       rookCastle: pref.rookCastle
     },
+    draggable: {
+      enabled: pref.moveEvent > 0,
+      showGhost: pref.highlight
+    },
+    selectable: {
+      enabled: pref.moveEvent !== 1
+    },
     events: {
       move: onMove
     },

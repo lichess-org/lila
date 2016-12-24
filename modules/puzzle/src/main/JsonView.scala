@@ -61,6 +61,7 @@ final class JsonView(
     "animation" -> Json.obj(
       "duration" -> p.animationFactor * animationDuration.toMillis
     ),
+    "moveEvent" -> p.moveEvent,
     "highlight" -> p.highlight)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
