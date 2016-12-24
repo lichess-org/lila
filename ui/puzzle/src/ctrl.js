@@ -57,7 +57,6 @@ module.exports = function(opts, i18n) {
       vm.canViewSolution = true;
       m.redraw();
     }, 5000);
-    // }, 50);
 
     moveTest = moveTestBuild(vm, data.puzzle);
 
@@ -244,6 +243,7 @@ module.exports = function(opts, i18n) {
   };
 
   var instanciateCeval = function(failsafe) {
+    if (ceval) ceval.destroy();
     ceval = cevalCtrl({
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,

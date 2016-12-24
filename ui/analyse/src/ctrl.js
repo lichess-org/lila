@@ -255,7 +255,6 @@ module.exports = function(opts) {
     initialize(data);
     this.vm.redirecting = false;
     this.setPath(tree.path.root);
-    this.ceval.destroy();
     instanciateCeval();
   }.bind(this);
 
@@ -407,6 +406,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var instanciateCeval = function(failsafe) {
+    if (this.ceval) this.ceval.destroy();
     this.ceval = cevalCtrl({
       variant: this.data.game.variant,
       possible: !this.embed && (
