@@ -177,11 +177,11 @@ final class AssessApi(
       // someone is using a bot
       else if (game.players.exists(_.hasSuspiciousHoldAlert)) HoldAlert.some
       // white has consistent move times
-      else if (whiteSuspCoefVariation.isDefined && randomPercent(50)) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
+      else if (whiteSuspCoefVariation.isDefined && randomPercent(70)) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
       // black has consistent move times
-      else if (blackSuspCoefVariation.isDefined && randomPercent(50)) blackSuspCoefVariation.map(_ => BlackMoveTime)
+      else if (blackSuspCoefVariation.isDefined && randomPercent(70)) blackSuspCoefVariation.map(_ => BlackMoveTime)
       // don't analyse half of other bullet games
-      else if (game.speed == chess.Speed.Bullet && randomPercent(33)) none
+      else if (game.speed == chess.Speed.Bullet && randomPercent(50)) none
       // someone blurs a lot
       else if (game.players exists manyBlurs) Blurs.some
       // the winner shows a great rating progress
@@ -189,7 +189,7 @@ final class AssessApi(
       // analyse some tourney games
       // else if (game.isTournament) randomPercent(20) option "Tourney random"
       /// analyse new player games
-      else if (winnerNbGames.??(30 >) && randomPercent(70)) NewPlayerWin.some
+      else if (winnerNbGames.??(30 >) && randomPercent(75)) NewPlayerWin.some
       else none
 
     shouldAnalyse foreach { reason =>
