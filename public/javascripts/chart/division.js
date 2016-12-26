@@ -32,7 +32,7 @@ lichess.divisionLines = function(div) {
   }
   if (div.end) divisionLines.push({
     label: {
-      text: 'End-Game',
+      text: 'Endgame',
       verticalAlign: 'top',
       align: 'left',
       y: 0,
