@@ -14,13 +14,14 @@ function puzzleBox(ctrl) {
 }
 
 function puzzleInfos(ctrl, puzzle) {
+
   return m('div.game_infos.puzzle[data-icon="-"]', [
     m('div.header', [
       m('a.title', {
         href: '/training/' + puzzle.id
       }, ctrl.trans('puzzleId', puzzle.id)),
       m('p', m.trust(ctrl.trans('ratingX',
-        strong(ctrl.vm.mode === 'view' ? puzzle.rating : '?')))),
+        strong(ctrl.vm.mode !== 'play' ? puzzle.rating : '?')))),
       m('p', m.trust(ctrl.trans('playedXTimes',
         strong(lichess.numberFormat(puzzle.attempts)))))
     ])
@@ -34,7 +35,7 @@ function gameInfos(ctrl, game, puzzle) {
     }, [
       m('div.header', [
         'From game ',
-        ctrl.vm.mode === 'view' ? m('a.title', {
+        ctrl.vm.mode !== 'play' ? m('a.title', {
           href: '/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly
         }, '#' + game.id) : '#' + game.id.slice(0, 5) + '...',
         m('p', [
