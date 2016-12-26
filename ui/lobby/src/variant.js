@@ -6,7 +6,7 @@ var variantConfirms = {
   "atomic": "This is an Atomic chess game!\n\nCapturing a piece causes an explosion, taking out your piece and surrounding non-pawns. Win by mating or exploding your opponent's king.",
   "horde": "This is a Horde chess game!\n\Black must take all White pawns to win. White must checkmate the Black king.",
   "racingKings": "This is a Racing Kings game!\n\nPlayers must race their kings to the eighth rank. Checks are not allowed.",
-  "crazyhouse": "This is a Crazyhouse game!\n\nEvery time a piece is captured the capturing player gets a piece of the same type and of their color in their pocket."
+  "crazyhouse": "This is a Crazyhouse game!\n\nEvery time a piece is captured, the capturing player gets a piece of the same type and of their color in their pocket."
 };
 
 function storageKey(key) {
