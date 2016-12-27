@@ -1,6 +1,13 @@
+.is3d .lichess_board {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  /* transform: scale(0.95); */
+  z-index: 1;
+}
 .is3d .cg-board-wrap {
   position: relative;
   background-size: cover;
+  transform: rotateX(30deg);
 }
 .is3d .cg-512 .cg-board-wrap {
   height: 479.08572px;
