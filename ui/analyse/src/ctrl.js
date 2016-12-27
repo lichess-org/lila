@@ -594,7 +594,7 @@ module.exports = function(opts) {
   onToggleComputer();
   this.startCeval();
   this.explorer.setNode();
-  this.study = opts.study ? makeStudy(opts.study, this, opts.tagTypes.split(',')) : null;
+  this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(',')) : null;
 
   this.retro = null;
 
