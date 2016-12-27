@@ -14,7 +14,6 @@ It features a [search engine](https://lichess.org/games/search),
 [forums](https://lichess.org/forum),
 [teams](https://lichess.org/team),
 [tactic trainer](https://lichess.org/training),
-[opening trainer](https://lichess.org/training/opening),
 a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
