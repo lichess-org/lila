@@ -784,6 +784,7 @@ div.game_config .color_submits button.random i {
   text-shadow: 0 1px 1px #fff;
 }
 .tour_spotlight.invert,
+.tour_spotlight.event_spotlight,
 .tour_spotlight:hover {
   color: #fff!important;
   background: #3893E8;
@@ -860,6 +861,7 @@ body.dark .tour_spotlight.little {
   text-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
 body.dark .tour_spotlight.invert,
+body.dark .tour_spotlight.event_spotlight,
 body.dark .tour_spotlight:hover {
   background: #4166a0;
 }
