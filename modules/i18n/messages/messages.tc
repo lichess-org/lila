@@ -351,7 +351,6 @@ chessClock=棋鐘
 tenthsOfSeconds=十分之一秒
 never=從不
 whenTimeRemainingLessThanTenSeconds=當剩餘時間小於10秒
-horizo​​ntalGreenProgressBars=綠色橫進度條
 soundWhenTimeGetsCritical=時間不足時聲音提醒
 gameBehavior=遊戲行為
 premovesPlayingDuringOpponentTurn=預先走棋（在對手的回合走棋）
