@@ -1,6 +1,8 @@
 [lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
 ---------------------------------
 
+[@lichessorg](https://twitter.com/lichessorg)
+
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
 Lila is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
@@ -12,9 +14,8 @@ It features a [search engine](https://lichess.org/games/search),
 [forums](https://lichess.org/forum),
 [teams](https://lichess.org/team),
 [tactic trainer](https://lichess.org/training),
-[opening trainer](https://lichess.org/training/opening),
 a [mobile app](https://lichess.org/mobile),
-and a [network world map](https://lichess.org/network).
+and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
@@ -217,7 +218,7 @@ name | type | default | description
       "clock":{          // all clock values are expressed in seconds
         "initial": 300,
         "increment": 8,
-        "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
+        "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
       },
       "createdAt": 1389100907239,
       "lastMoveAt": 1389100907239,
@@ -300,7 +301,7 @@ name | type | default | description
   "clock":{          // all clock values are expressed in seconds
     "initial": 300,
     "increment": 8,
-    "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
+    "totalTime": 620  // evaluation of the game duration = initial + 40 * increment
   },
   "createdAt": 1389100907239,
   "lastMoveAt": 1389100907239,

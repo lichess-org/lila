@@ -1,8 +1,8 @@
 $(function() {
 
-  var studyRegex = /\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
-  var gameRegex = /\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
-  var notGames = ['training', 'analysis'];
+  var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})\b/;
+  var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
+  var notGames = ['training', 'analysis', 'insights'];
 
   var parseLink = function(a) {
     var matches = a.href.match(studyRegex);

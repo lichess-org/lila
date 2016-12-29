@@ -33,7 +33,6 @@ object JsonView {
       "challenge" -> p.challenge,
       "message" -> p.message,
       "coordColor" -> p.coordColor,
-      "puzzleDifficulty" -> p.puzzleDifficulty,
       "submitMove" -> p.submitMove,
       "confirmResign" -> p.confirmResign,
       "insightShare" -> p.insightShare,

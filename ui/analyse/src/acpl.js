@@ -23,55 +23,71 @@ var advices = [
   ['blunder', 'blunders', '??']
 ];
 
+function playerTable(ctrl, color) {
+  var d = ctrl.data;
+  return m('table', [
+    m('thead', m('tr', [
+      m('td', m('i.is.color-icon.' + color)),
+      m('th', renderPlayer(d, color))
+    ])),
+    m('tbody', [
+      advices.map(function(a) {
+        var nb = d.analysis[color][a[0]];
+        var attrs = nb ? {
+          class: 'symbol',
+          'data-color': color,
+          'data-symbol': a[2]
+        } : {};
+        return m('tr', attrs, [
+          m('td', nb),
+          m('th', ctrl.trans(a[1]))
+        ]);
+      }),
+      m('tr', [
+        m('td', d.analysis[color].acpl),
+        m('th', ctrl.trans('averageCentipawnLoss'))
+      ])
+    ])
+  ])
+}
+
 var cached = false;
 
-module.exports = function(ctrl) {
-  var d = ctrl.data;
-  if (!d.analysis) return;
-  if (!ctrl.vm.showComputer()) {
-    if (cached) cached = false;
-    return;
-  }
-
-  var first = ctrl.vm.mainline[0].eval || {};
-  if (first.cp || first.mate) {
-    if (cached) return {
-      subtree: 'retain'
-    };
-    else cached = true;
-  }
-
-  return m('div.advice_summary', {
-    config: function(el, isUpdate) {
-      if (!isUpdate)
-        $(el).on('click', 'tr.symbol', function() {
-          ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
-        });
+module.exports = {
+  uncache: function() {
+    cached = false;
+  },
+  render: function(ctrl) {
+    var d = ctrl.data;
+    if (!d.analysis) return;
+    if (!ctrl.vm.showComputer()) {
+      if (cached) cached = false;
+      return;
     }
-  }, ['white', 'black'].map(function(color) {
-    return m('table', [
-      m('thead', m('tr', [
-        m('td', m('i.is.color-icon.' + color)),
-        m('th', renderPlayer(d, color))
-      ])),
-      m('tbody', [
-        advices.map(function(a) {
-          var nb = d.analysis[color][a[0]];
-          var attrs = nb ? {
-            class: 'symbol',
-            'data-color': color,
-            'data-symbol': a[2]
-          } : {};
-          return m('tr', attrs, [
-            m('td', nb),
-            m('th', ctrl.trans(a[1]))
-          ]);
-        }),
-        m('tr', [
-          m('td', d.analysis[color].acpl),
-          m('th', ctrl.trans('averageCentipawnLoss'))
-        ])
-      ])
+
+    var first = ctrl.vm.mainline[0].eval || {};
+    if (first.cp || first.mate) {
+      if (cached) return {
+        subtree: 'retain'
+      };
+      else cached = true;
+    }
+
+    return m('div.advice_summary', {
+      config: function(el, isUpdate) {
+        if (!isUpdate)
+          $(el).on('click', 'tr.symbol', function() {
+            ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
+          });
+      }
+    }, [
+      playerTable(ctrl, 'white'),
+      m('a', {
+        class: 'button text' + (ctrl.retro ? ' active' : ''),
+        'data-icon': 'G',
+        onclick: ctrl.toggleRetro,
+      }, 'Learn from your mistakes'),
+      playerTable(ctrl, 'black')
     ]);
-  }));
+  }
 };

@@ -1,6 +1,7 @@
 var partial = require('chessground').util.partial;
 var router = require('game').router;
-var util = require('./util');
+var bindOnce = require('common').bindOnce;
+var synthetic = require('./util').synthetic;
 var pgnExport = require('./pgnExport');
 var m = require('mithril');
 
@@ -44,7 +45,7 @@ function autoplayButtons(ctrl) {
   return m('div.autoplay', speeds.map(function(speed, i) {
     return m('a', {
       class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: util.bindOnce('click', partial(ctrl.togglePlay, speed.delay))
+      config: bindOnce('click', partial(ctrl.togglePlay, speed.delay))
     }, speed.name);
   }));
 }
@@ -84,7 +85,7 @@ function studyButton(ctrl) {
     'Open study'
   ]);
   if (ctrl.study || ctrl.ongoing) return;
-  var realGame = !util.synthetic(ctrl.data);
+  var realGame = !synthetic(ctrl.data);
   return m('form', {
     method: 'post',
     action: '/study',
@@ -127,9 +128,10 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     var d = ctrl.data;
-    if (d.userAnalysis) flipAttrs.config = util.bindOnce('click', ctrl.flip);
+    if (d.userAnalysis) flipAttrs.config = bindOnce('click', ctrl.flip);
     else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
+    var ceval = ctrl.getCeval();
 
     return m('div.action_menu', [
       m('div.tools', [
@@ -143,7 +145,7 @@ module.exports = {
           ctrl.trans('boardEditor')
         ]),
         canContinue ? m('a.fbt', {
-          config: util.bindOnce('click', function() {
+          config: bindOnce('click', function() {
             $.modal($('.continue_with.' + d.game.id));
           })
         }, [
@@ -152,7 +154,7 @@ module.exports = {
         ]) : null,
         studyButton(ctrl)
       ]),
-      ctrl.ceval.possible ? [
+      ceval.possible ? [
         m('h2', 'Computer analysis'), [
           (function(id) {
             return m('div.setting', [
@@ -165,7 +167,7 @@ module.exports = {
                   class: 'cmn-toggle cmn-toggle-round',
                   type: 'checkbox',
                   checked: ctrl.vm.showComputer(),
-                  config: util.bindOnce('change', function(e) {
+                  config: bindOnce('change', function(e) {
                     ctrl.toggleComputer(e.target.checked);
                   })
                 }),
@@ -187,7 +189,7 @@ module.exports = {
                     class: 'cmn-toggle cmn-toggle-round',
                     type: 'checkbox',
                     checked: ctrl.vm.showAutoShapes(),
-                    config: util.bindOnce('change', function(e) {
+                    config: bindOnce('change', function(e) {
                       ctrl.toggleAutoShapes(e.target.checked);
                     })
                   }),
@@ -207,7 +209,7 @@ module.exports = {
                     class: 'cmn-toggle cmn-toggle-round',
                     type: 'checkbox',
                     checked: ctrl.vm.showGauge(),
-                    config: util.bindOnce('change', function(e) {
+                    config: bindOnce('change', function(e) {
                       ctrl.toggleGauge(e.target.checked);
                     })
                   }),
@@ -229,15 +231,15 @@ module.exports = {
                   max: max,
                   step: 1,
                   config: rangeConfig(function() {
-                    return ctrl.ceval.multiPv();
+                    return ceval.multiPv();
                   }, function(v) {
                     ctrl.cevalSetMultiPv(parseInt(v));
                   })
                 }),
-                m('div.range_value', ctrl.ceval.multiPv() + ' / ' + max)
+                m('div.range_value', ceval.multiPv() + ' / ' + max)
               ]);
             })('analyse-multipv'),
-            ctrl.ceval.pnaclSupported ? [
+            ceval.pnaclSupported ? [
               (function(id) {
                 var max = navigator.hardwareConcurrency;
                 if (!max) return;
@@ -253,12 +255,12 @@ module.exports = {
                     max: max,
                     step: 1,
                     config: rangeConfig(function() {
-                      return ctrl.ceval.threads();
+                      return ceval.threads();
                     }, function(v) {
                       ctrl.cevalSetThreads(parseInt(v));
                     })
                   }),
-                  m('div.range_value', ctrl.ceval.threads() + ' / ' + max)
+                  m('div.range_value', ceval.threads() + ' / ' + max)
                 ]);
               })('analyse-threads'), (function(id) {
                 return m('div.setting', [
@@ -272,12 +274,12 @@ module.exports = {
                     max: 10,
                     step: 1,
                     config: rangeConfig(function() {
-                      return Math.floor(Math.log2(ctrl.ceval.hashSize()));
+                      return Math.floor(Math.log2(ceval.hashSize()));
                     }, function(v) {
                       ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
                     })
                   }),
-                  m('div.range_value', formatHashSize(ctrl.ceval.hashSize()))
+                  m('div.range_value', formatHashSize(ceval.hashSize()))
                 ]);
               })('analyse-memory')
             ] : null

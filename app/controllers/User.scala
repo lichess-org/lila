@@ -21,6 +21,7 @@ object User extends LilaController {
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
   private def relationApi = Env.relation.api
+  private def ratingChartApi = Env.history.ratingChartApi
   private def userGameSearch = Env.gameSearch.userGameSearch
 
   def tv(username: String) = Open { implicit ctx =>
@@ -192,7 +193,7 @@ object User extends LilaController {
   }
 
   def top200(perfKey: String) = Open { implicit ctx =>
-    lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+    PerfType(perfKey).fold(notFound) { perfType =>
       env.cached top200Perf perfType.id map { users =>
         Ok(html.user.top200(perfType, users))
       }
@@ -234,26 +235,6 @@ object User extends LilaController {
     }
   }
 
-  private case class ClarkeyBot(result: Boolean, reason: String)
-  private implicit val clarkeyBotReads = Json.reads[ClarkeyBot]
-
-  def writeClarkeyBotNote(username: String) = OpenBody(parse.json) { implicit ctx =>
-    Mod.ModExternalBot {
-      OptionFuResult(UserRepo named username) { user =>
-        UserRepo.lichess.flatten("Missing lichess user") flatMap { lichess =>
-          ctx.body.body.validate[ClarkeyBot].fold(
-            err => fuccess(BadRequest(err.toString)),
-            data => {
-              val text =
-                if (data.result) s"Clarkey's bot would mark as engine: ${data.reason}"
-                else s"Clarkey's bot is indecise: ${data.reason}"
-              env.noteApi.write(user, text, lichess, true) inject Ok
-            })
-        }
-      }
-    }
-  }
-
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { ops =>
@@ -276,7 +257,7 @@ object User extends LilaController {
   def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { u =>
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
-      else lila.rating.PerfType(perfKey).fold(notFound) { perfType =>
+      else PerfType(perfKey).fold(notFound) { perfType =>
         for {
           perfStat <- Env.perfStat.get(u, perfType)
           ranks <- Env.user.cached.ranking.getAll(u.id)
@@ -286,7 +267,13 @@ object User extends LilaController {
           data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
           response <- negotiate(
             html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
-            api = _ => Ok(data).fuccess)
+            api = _ =>
+            getBool("graph").?? {
+              Env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
+            } map {
+              _.fold(data) { graph => data + ("graph" -> graph) }
+            } map { Ok(_) }
+          )
         } yield response
       }
     }

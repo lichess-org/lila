@@ -94,7 +94,6 @@ private[round] final class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     bus.publish(MoveEvent(
       gameId = game.id,
-      color = color,
       fen = Forsyth exportBoard game.toChess.board,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci),
       mobilePushable = game.mobilePushable,

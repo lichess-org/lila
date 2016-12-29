@@ -1,7 +1,8 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var classSet = require('chessground').util.classSet;
-var util = require('../util');
+var classSet = require('common').classSet;
+var bindOnce = require('common').bindOnce;
+var plural = require('../util').plural;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;
 var chapterNewFormView = require('./chapterNewForm').view;
@@ -13,6 +14,7 @@ var inviteFormView = require('./inviteForm').view;
 var studyFormView = require('./studyForm').view;
 var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
+var tagsView = require('./studyTags').view;
 
 function buttons(root) {
   var ctrl = root.study;
@@ -47,7 +49,7 @@ function buttons(root) {
             active: ctrl.share.open()
           }),
           'data-hint': 'Share & export',
-          config: util.bindOnce('click', function() {
+          config: bindOnce('click', function() {
             ctrl.share.toggle();
           })
         },
@@ -60,7 +62,7 @@ function buttons(root) {
               disabled: !enabled
             }),
             'data-hint': 'Comment this position',
-            config: util.bindOnce('click', function() {
+            config: bindOnce('click', function() {
               if (ctrl.vm.behind === false) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
             })
           }, m('i[data-icon=c]'));
@@ -71,7 +73,7 @@ function buttons(root) {
                 disabled: !enabled
               }),
               'data-hint': 'Annotate with symbols',
-              config: util.bindOnce('click', function() {
+              config: bindOnce('click', function() {
                 if (root.vm.path && ctrl.vm.behind === false) ctrl.glyphForm.toggle();
               })
             },
@@ -88,51 +90,9 @@ function buttons(root) {
   ]);
 }
 
-function renderTable(rows) {
-  return m('table.tags.slist', m('tbody', rows.map(function(r) {
-    if (r) return m('tr', [
-      m('th', r[0]),
-      m('td', r[1])
-    ]);
-  })));
-}
-
-function renderPgn(setup) {
-  var obj = setup.fromPgn || setup.game;
-  if (obj) return renderTable([
-    ['Fen', m('pre#study_fen', '')],
-  ].concat(obj.tags.map(function(tag) {
-    if (tag.name.toLowerCase() !== 'fen') return [
-      tag.name, m.trust($.urlToLink(tag.value))
-    ];
-  })));
-}
-
-function renderFen(setup) {
-  return renderTable([
-    ['Fen', m('pre#study_fen', '')],
-    ['Variant', setup.variant.name]
-  ]);
-}
-
-var lastMetaKey;
-
 function metadata(ctrl) {
-  lichess.raf(function() {
-    var n = document.getElementById('study_fen');
-    if (n) n.textContent = ctrl.currentNode().fen;
-  });
   var chapter = ctrl.currentChapter();
-  if (!chapter) return;
   var d = ctrl.data;
-  var cacheKey = [chapter.id, d.name, chapter.name, d.likes].join('|');
-  if (cacheKey === lastMetaKey && m.redraw.strategy() === 'diff') {
-    return {
-      subtree: 'retain'
-    };
-  }
-  lastMetaKey = cacheKey;
-  var setup = d.chapter.setup;
   return m('div.study_metadata.undertable', [
     m('h2.undertable_top', [
       m('span.name', {
@@ -145,9 +105,7 @@ function metadata(ctrl) {
         onclick: ctrl.toggleLike
       }, d.likes)
     ]),
-    m('div.undertable_inner',
-      renderPgn(setup) || renderFen(setup)
-    )
+    tagsView(ctrl)
   ]);
 }
 
@@ -160,15 +118,15 @@ module.exports = {
     var makeTab = function(key, name) {
       return m('a', {
         class: key + (activeTab === key ? ' active' : ''),
-        config: util.bindOnce('mousedown', partial(ctrl.vm.tab, key)),
+        config: bindOnce('mousedown', partial(ctrl.vm.tab, key)),
       }, name);
     };
 
     var tabs = m('div.study_tabs', [
-      makeTab('members', util.plural('Member', ctrl.members.size())),
-      makeTab('chapters', util.plural('Chapter', ctrl.chapters.size())),
+      makeTab('members', plural('Member', ctrl.members.size())),
+      makeTab('chapters', plural('Chapter', ctrl.chapters.size())),
       ctrl.members.isOwner() ? m('a.more', {
-        config: util.bindOnce('click', function() {
+        config: bindOnce('click', function() {
           ctrl.form.open(!ctrl.form.open());
         })
       }, m('i', {

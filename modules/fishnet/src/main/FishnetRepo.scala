@@ -15,6 +15,7 @@ private final class FishnetRepo(
   import BSONHandlers._
 
   private val clientCache = AsyncCache[Client.Key, Option[Client]](
+    name = "fishnet.client",
     f = key => clientColl.find(selectClient(key)).uno[Client],
     timeToLive = 10 seconds)
 
@@ -47,6 +48,9 @@ private final class FishnetRepo(
   def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
   def countAnalysis(acquired: Boolean) = analysisColl.count($doc(
     "acquired" $exists acquired
+  ).some)
+  def countUserAnalysis = analysisColl.count($doc(
+    "sender.system" -> false
   ).some)
   def getAnalysisByGameId(gameId: String) = analysisColl.find($doc(
     "game.id" -> gameId

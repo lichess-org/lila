@@ -34,22 +34,22 @@ object Relation extends LilaController {
 
   def follow(userId: String) = Auth { implicit ctx =>
     me =>
-      env.api.follow(me.id, userId).nevermind >> renderActions(userId, getBool("mini"))
+      env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
   def unfollow(userId: String) = Auth { implicit ctx =>
     me =>
-      env.api.unfollow(me.id, userId).nevermind >> renderActions(userId, getBool("mini"))
+      env.api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
   def block(userId: String) = Auth { implicit ctx =>
     me =>
-      env.api.block(me.id, userId).nevermind >> renderActions(userId, getBool("mini"))
+      env.api.block(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
   def unblock(userId: String) = Auth { implicit ctx =>
     me =>
-      env.api.unblock(me.id, userId).nevermind >> renderActions(userId, getBool("mini"))
+      env.api.unblock(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
   def following(username: String, page: Int) = Open { implicit ctx =>
@@ -108,7 +108,7 @@ object Relation extends LilaController {
     maxPerPage = 30)
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
-    UserRepo byIds userIds flatMap { users =>
+    UserRepo byOrderedIds userIds.map(UserModel.normalize) flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>

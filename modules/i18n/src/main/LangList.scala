@@ -111,7 +111,7 @@ object LangList {
     "gv" -> "Gaelg, Gailck",
     "mk" -> "македонски јази",
     "mg" -> "fiteny malagasy",
-    "ml" -> "മലയാ",
+    "ml" -> "മലയാളം",
     "mt" -> "Malti",
     "mi" -> "reo Māori",
     "mr" -> "मराठी",
@@ -159,6 +159,7 @@ object LangList {
     "ss" -> "siSwati",
     "sv" -> "svenska",
     "ta" -> "தமிழ்",
+    "tc" -> "繁體中文", // traditional chinese
     "te" -> "తెలుగు",
     "tg" -> "тоҷикӣ",
     "th" -> "ไทย",

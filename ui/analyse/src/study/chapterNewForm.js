@@ -1,5 +1,5 @@
 var m = require('mithril');
-var storedProp = require('../util').storedProp;
+var storedProp = require('common').storedProp;
 var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 var dialog = require('./dialog');

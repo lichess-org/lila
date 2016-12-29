@@ -3,13 +3,18 @@ package lila.api
 import play.api.libs.json._
 
 import chess.format.Forsyth
+import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.common.PimpedJson._
 import lila.game.{ Game, PerfPicker }
 
-final class UserGameApi(bookmarkApi: lila.bookmark.BookmarkApi) {
+final class UserGameApi(
+    bookmarkApi: lila.bookmark.BookmarkApi,
+    lightUser: LightUser.Getter) {
 
+  import lila.game.JsonView._
   import lila.round.JsonView._
+  import LightUser.lightUserWrites
 
   def filter(filterName: String, pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
     bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
@@ -35,10 +40,11 @@ final class UserGameApi(bookmarkApi: lila.bookmark.BookmarkApi) {
     "correspondence" -> g.daysPerTurn.map { d =>
       Json.obj("daysPerTurn" -> d)
     },
-    "opening" -> g.opening,
+    "source" -> g.source.map(_.name),
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
-        "userId" -> p.userId,
+        "user" -> p.userId.flatMap(lightUser),
+        "userId" -> p.userId, // for BC
         "name" -> p.name,
         "aiLevel" -> p.aiLevel,
         "rating" -> p.rating,

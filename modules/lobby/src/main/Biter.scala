@@ -4,7 +4,7 @@ import akka.actor.ActorRef
 import chess.{ Game => ChessGame, Board, Mode, Clock, Color => ChessColor }
 import org.joda.time.DateTime
 
-import actorApi.{ RemoveHook, BiteHook, BiteSeek, JoinHook, JoinSeek, LobbyUser }
+import actorApi.{ JoinHook, JoinSeek, LobbyUser }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress, PerfPicker }
 import lila.user.{ User, UserRepo }
 
@@ -27,7 +27,12 @@ private[lobby] object Biter {
       blame(creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← GameRepo insertDenormalized game
-  } yield JoinHook(uid, hook, game, creatorColor)
+  } yield {
+    lila.mon.lobby.hook.join()
+    if (hook.realMode.rated)
+      lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
+    JoinHook(uid, hook, game, creatorColor)
+  }
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] = for {
     user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
@@ -57,7 +62,7 @@ private[lobby] object Biter {
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
       board = Board init hook.realVariant,
-      clock = hook.clock.some),
+      clock = hook.clock.toClock.some),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = hook.realMode,
@@ -78,18 +83,15 @@ private[lobby] object Biter {
     pgnImport = None)
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
-    hook.realMode.casual.fold(
-      user.isDefined || hook.allowAnon,
-      user ?? { _.lame == hook.lame }
-    ) &&
-      !(user ?? (u => hook.userId contains u.id)) &&
-      !(hook.userId ?? (user ?? (_.blocking)).contains) &&
-      !(user.map(_.id) ?? (hook.user ?? (_.blocking)).contains) &&
-      hook.realRatingRange.fold(true) { range =>
-        user ?? { u =>
-          (hook.perfType map (_.key) flatMap u.ratingMap.get) ?? range.contains
+    hook.isAuth == user.isDefined && user.fold(true) { u =>
+      u.lame == hook.lame &&
+        !hook.userId.contains(u.id) &&
+        !hook.userId.??(u.blocking.contains) &&
+        !hook.user.??(_.blocking).contains(u.id) &&
+        hook.realRatingRange.fold(true) { range =>
+          (hook.perfType.map(_.key) flatMap u.ratingMap.get) ?? range.contains
         }
-      }
+    }
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
     seek.user.id != user.id &&
@@ -99,4 +101,7 @@ private[lobby] object Biter {
       seek.realRatingRange.fold(true) { range =>
         (seek.perfType map (_.key) flatMap user.ratingMap.get) ?? range.contains
       }
+
+  @inline final def showHookTo(hook: Hook, member: actorApi.Member): Boolean =
+    hook.uid == member.uid || canJoin(hook, member.user)
 }

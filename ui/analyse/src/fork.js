@@ -1,5 +1,5 @@
 var m = require('mithril');
-var treeView = require('./tree/treeView');
+var treeView = require('./treeView');
 
 module.exports = {
   ctrl: function(root) {
@@ -42,7 +42,7 @@ module.exports = {
     };
   },
   view: function(root, concealOf) {
-    if (root.embed) return;
+    if (root.embed || root.retro) return;
     var state = root.fork.state();
     if (!state.displayed) return;
     var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);
@@ -57,8 +57,8 @@ module.exports = {
         }, [
           treeView.renderIndex(node.ply, true),
           treeView.renderMove({
-            isStudy: !!root.study,
-            showComputer: root.vm.showComputer()
+            showEval: root.vm.showComputer(),
+            showGlyphs: root.vm.showComputer()
           }, node)
         ]);
       })

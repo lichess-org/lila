@@ -93,21 +93,29 @@ object Main extends LilaController {
     val known = ctx.me.??(_.engine)
     val referer = HTTPRequest.referer(ctx.req)
     val name = get("n", ctx.req) | "?"
-    if (!known) {
-      lila.log("cheat").branch("jslog").info(s"${ctx.req.remoteAddress} ${ctx.userId} $referer $name")
-    }
     lila.mon.cheat.cssBot()
-    ctx.userId.ifFalse(known) ?? {
+    ctx.userId.ifTrue(!known && name != "ceval") ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
-    lila.game.GameRepo pov id map {
-      _ ?? lila.game.GameRepo.setBorderAlert
+    lila.game.GameRepo pov id flatMap {
+      _ ?? { pov =>
+        if (!known) {
+          lila.log("cheat").branch("jslog").info(
+            s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
+        }
+        if (name == "ceval" || name == "rcb") fuccess {
+          Env.round.roundMap ! lila.hub.actorApi.map.Tell(
+            pov.gameId,
+            lila.round.actorApi.round.Cheat(pov.color))
+        }
+        else lila.game.GameRepo.setBorderAlert(pov)
+      }
     } inject Ok
   }
 
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
-    import lila.socket.tree.Node.glyphWriter
+    import lila.tree.Node.glyphWriter
     Ok(Json.obj(
       "move" -> Glyph.MoveAssessment.display,
       "position" -> Glyph.PositionAssessment.display,

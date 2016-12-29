@@ -162,7 +162,7 @@ final class Env(
     messenger = messenger,
     finisher = finisher)
 
-  private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
+  private lazy val cheatDetector = new CheatDetector
 
   lazy val messenger = new Messenger(
     chat = hub.actor.chat,
@@ -193,12 +193,12 @@ final class Env(
   scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
-    Props(classOf[Titivate], roundMap, hub.actor.bookmark),
+    Props(classOf[Titivate], roundMap, hub.actor.bookmark, hub.actor.chat),
     name = "titivate")
 
-  // system.lilaBus.subscribe(system.actorOf(
-  //   Props(classOf[CorresAlarm], db(CollectionAlarm)),
-  //   name = "corres-alarm"), 'moveEvent, 'finishGame)
+  system.lilaBus.subscribe(system.actorOf(
+    Props(classOf[CorresAlarm], db(CollectionAlarm)),
+    name = "corres-alarm"), 'moveEvent, 'finishGame)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

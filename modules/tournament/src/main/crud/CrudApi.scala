@@ -36,7 +36,7 @@ final class CrudApi {
 
   private def empty = Tournament.make(
     createdByUserId = "lichess",
-    clock = TournamentClock(0, 0),
+    clock = chess.Clock.Config(0, 0),
     minutes = 0,
     system = System.Arena,
     variant = chess.variant.Standard,
@@ -48,7 +48,7 @@ final class CrudApi {
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
-    val clock = TournamentClock((clockTime * 60).toInt, clockIncrement)
+    val clock = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
     val v = chess.variant.Variant.orDefault(variant)
     tour.copy(
       name = name,

@@ -47,7 +47,7 @@ case class TextReport(textType: TextType, ratios: List[Double]) {
 
   def minRatios = textType.rotation / 15
   def nbBad = ratios.count(_ > TextReport.unacceptableRatio)
-  def tolerableNb = (ratios.size / 10) max 3
+  def tolerableNb = (ratios.size / 10) atLeast 4
 
   def unacceptable = (ratios.size >= minRatios) && (nbBad > tolerableNb)
 }

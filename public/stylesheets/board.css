@@ -24,11 +24,6 @@
 .is2d .cg-board {
   top: 0;
   height: 100%;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -o-crisp-edges;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: pixelated;
-  -ms-interpolation-mode: nearest-neighbor;
 }
 square {
   position: absolute;
@@ -198,6 +193,7 @@ div.lichess_game {
 }
 div.lichess_game div.lichess_board_wrap {
   position: relative;
+  flex: 0 0 512px;
 }
 body.blind_mode .cg-board-wrap {
   display: none;
@@ -222,7 +218,7 @@ div.lichess_board {
 
 .blue .is2d .cg-board,
 #top div.color_demo.blue {
-  background-image: url(../images/board/blue.png);
+  background-image: url(../images/board/svg/blue.svg);
 }
 .blue2 .is2d .cg-board,
 #top div.color_demo.blue2 {
@@ -246,11 +242,11 @@ div.lichess_board {
 }
 .brown .is2d .cg-board,
 #top div.color_demo.brown {
-  background-image: url(../images/board/brown.png);
+  background-image: url(../images/board/svg/brown.svg);
 }
 .green .is2d .cg-board,
 #top div.color_demo.green {
-  background-image: url(../images/board/green.png);
+  background-image: url(../images/board/svg/green.svg);
 }
 .olive .is2d .cg-board,
 #top div.color_demo.olive {
@@ -258,7 +254,7 @@ div.lichess_board {
 }
 .purple .is2d .cg-board,
 #top div.color_demo.purple {
-  background-image: url(../images/board/purple.png);
+  background-image: url(../images/board/svg/purple.svg);
 }
 .grey .is2d .cg-board,
 #top div.color_demo.grey {
@@ -603,18 +599,26 @@ body.piece_letter .lichess_ground .replay move {
 }
 .pocket piece {
   flex: 0 0 20%;
-  height: 56px; /* 100% fails on older chrome */
-  position: relative;
+  height: 56px!important; /* 100% fails on older chrome */
+  width: auto!important;
+  position: relative!important;
+  background-position: center;
 }
 .pocket.usable piece:first-child:hover {
   border-radius: 3px 0 0 3px;
 }
 .pocket.usable piece {
   cursor: pointer;
-  transition: background-color 0.13s;
 }
 .pocket.usable piece:hover {
   background-color: #999;
+  transition: background-color 0.13s;
+}
+.pocket.usable piece.premove {
+  background-color: #555;
+}
+.pocket.usable piece.premove:hover {
+  background-color: #666;
 }
 .pocket piece[data-nb='0'] {
   cursor: auto;
@@ -650,36 +654,33 @@ div.table .spinner {
   width: 30px;
   height: 30px;
 }
-div.table div.username {
+div.table .username {
   white-space: nowrap;
   display: flex;
-  margin-left: 4px;
-}
-div.table div.username:first-child {
-  margin-bottom: 6px;
-}
-div.table div.username:last-child {
-  padding-top: 6px;
-}
-div.table div.username .user_link {
-  display: flex;
-  width: 100%;
+  margin-left: 3px;
   font-size: 1.25em;
 }
-div.table div.username name {
+div.table .username:first-child {
+  margin-bottom: 6px;
+}
+div.table .username:last-child {
+  padding-top: 6px;
+}
+div.table .username a {
+  flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-div.table div.username .user_link.long name {
+div.table .username.long a {
   letter-spacing: -0.5px;
 }
-div.table div.username rating {
+div.table .username rating {
   flex: 0 0 auto;
-  margin: 0 0.2em 0 0.3em;
+  margin: 0 0.25em 0 0.3em;
   opacity: 0.6;
   letter-spacing: -0.5px;
 }
-div.table div.username .line {
+div.table .username .line {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -689,10 +690,10 @@ div.table div.username .line {
   50% { opacity: 0.3; }
   100% { opacity: 0.1; }
 }
-div.table a.connecting .line {
+div.table .connecting .line {
   animation: connecting 0.9s ease-in-out infinite;
 }
-div.table div.username .rp {
+div.table .username .rp {
   margin-right: 0.2em;
 }
 div.table .message {
@@ -998,10 +999,6 @@ div.game_tournament .clock {
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament tr.me td:first-child {
-  border-left: 10px solid #d59120;
-  padding-left: 5px;
-}
 div.game_tournament td {
   padding: 0 10px;
   text-align: left;
@@ -1010,6 +1007,13 @@ div.game_tournament td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+div.game_tournament table.slist td:first-child {
+  padding-left: 10px;
+}
+div.game_tournament tr.me td:first-child {
+  border-left: 10px solid #d59120;
+  padding-left: 5px;
 }
 div.game_tournament td.name span {
   display: inline-block;

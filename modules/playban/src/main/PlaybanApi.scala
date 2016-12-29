@@ -26,8 +26,11 @@ final class PlaybanApi(
 
   private case class Blame(player: Player, outcome: Outcome)
 
+  private def blameableSource(source: Source) =
+    source == Source.Lobby || source == Source.Pool
+
   private def blameable(game: Game): Fu[Boolean] =
-    (game.source.contains(Source.Lobby) && game.hasClock && !isRematch(game.id)) ?? {
+    (game.source.exists(blameableSource) && game.hasClock && !isRematch(game.id)) ?? {
       if (game.rated) fuccess(true)
       else UserRepo.containsEngine(game.userIds) map (!_)
     }

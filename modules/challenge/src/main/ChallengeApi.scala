@@ -37,7 +37,10 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  val countInFor = AsyncCache(repo.countCreatedByDestId, maxCapacity = 20000)
+  val countInFor = AsyncCache(
+    name = "challenge.countInFor",
+    f = repo.countCreatedByDestId,
+    maxCapacity = 20000)
 
   def createdByChallengerId = repo createdByChallengerId _
 
@@ -74,7 +77,7 @@ final class ChallengeApi(
             variant = pov.game.variant,
             initialFen = initialFen,
             timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-              case (Some(clock), _) => TimeControl.Clock(clock.limit, clock.increment)
+              case (Some(clock), _) => TimeControl.Clock(clock.config)
               case (_, Some(days))  => TimeControl.Correspondence(days)
               case _                => TimeControl.Unlimited
             },

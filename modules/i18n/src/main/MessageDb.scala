@@ -9,7 +9,7 @@ private object MessageDb {
         logger.info(s"${lap.millis}ms MessageDb")
       }
 
-  def playDefaultMessages: Map[String, String] = Map(
+  private def playDefaultMessages: Map[String, String] = Map(
     "constraint.required" -> "Required",
     "constraint.min" -> "Minimum value: {0}",
     "constraint.max" -> "Maximum value: {0}",

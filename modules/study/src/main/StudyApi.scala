@@ -10,7 +10,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -20,6 +20,7 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
+    tagsFixer: ChapterTagsFixer,
     lightUser: lila.common.LightUser.Getter,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
@@ -33,9 +34,14 @@ final class StudyApi(
 
   def publicByIds(ids: Seq[String]) = byIds(ids) map { _.filter(_.isPublic) }
 
+  private def fetchAndFixChapter(id: Chapter.ID): Fu[Option[Chapter]] =
+    chapterRepo.byId(id) flatMap {
+      _ ?? { c => tagsFixer(c) map some }
+    }
+
   def byIdWithChapter(id: Study.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      chapterRepo.byId(study.position.chapterId) flatMap {
+      fetchAndFixChapter(study.position.chapterId) flatMap {
         case None => chapterRepo.firstByStudy(study.id) flatMap {
           case None => fuccess(none)
           case Some(chapter) =>
@@ -50,7 +56,7 @@ final class StudyApi(
 
   def byIdWithChapter(id: Study.ID, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      chapterRepo.byId(chapterId) map {
+      fetchAndFixChapter(chapterId) map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }
@@ -159,15 +165,18 @@ final class StudyApi(
     }
   }
 
-  def promoteNodeAt(userId: User.ID, studyId: Study.ID, position: Position.Ref, uid: Uid) = sequenceStudyWithChapter(studyId) {
+  def promote(userId: User.ID, studyId: Study.ID, position: Position.Ref, toMainline: Boolean, uid: Uid) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.updateRoot { root =>
-        root.withChildren(_.promoteNodeAt(position.path))
+        root.withChildren { children =>
+          if (toMainline) children.promoteToMainlineAt(position.path)
+          else children.promoteUpAt(position.path).map(_._1)
+        }
       } match {
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
-            sendTo(study, Socket.PromoteNode(position, uid))
-        case None => fufail(s"Invalid promoteNode $studyId $position") >>- reloadUid(study, uid)
+            sendTo(study, Socket.Promote(position, toMainline, uid))
+        case None => fufail(s"Invalid promoteToMainline $studyId $position") >>- reloadUid(study, uid)
       }
     }
   }
@@ -180,11 +189,11 @@ final class StudyApi(
   }
 
   def invite(byUserId: User.ID, studyId: Study.ID, username: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
-    (study isOwner byUserId) ?? {
+    (study.isOwner(byUserId) && study.nbMembers < 30) ?? {
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
           studyRepo.addMember(study, StudyMember make user) >>-
-            notifier(study, user, socket)
+            notifier.invite(study, user, socket)
         }
       } >>- reloadMembers(study) >>- indexStudy(study)
     }
@@ -208,6 +217,18 @@ final class StudyApi(
             case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
           }
         }
+      }
+    }
+  }
+
+  def setTag(userId: User.ID, studyId: Study.ID, setTag: actorApi.SetTag, uid: Uid) = sequenceStudy(studyId) { study =>
+    Contribute(userId, study) {
+      chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
+        _ ?? { oldChapter =>
+          val chapter = oldChapter.setTag(setTag.tag)
+          chapterRepo.setTagsFor(chapter) >>-
+            sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
+        } >>- indexStudy(study)
       }
     }
   }

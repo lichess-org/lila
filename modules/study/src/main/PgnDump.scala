@@ -7,7 +7,6 @@ import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
 import lila.common.String.slugify
-import lila.game.{ Game, GameRepo }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -18,21 +17,14 @@ final class PgnDump(
   import PgnDump._
 
   def apply(study: Study): Fu[List[Pgn]] =
-    chapterRepo.orderedByStudy(study.id) flatMap { chapters =>
-      chapters.map { ofChapter(study, _) }.sequenceFu
+    chapterRepo.orderedByStudy(study.id).map {
+      _.map { ofChapter(study, _) }
     }
 
-  def ofChapter(study: Study, chapter: Chapter): Fu[Pgn] =
-    (chapter.setup.gameId ?? GameRepo.gameWithInitialFen).map {
-      case Some((game, initialFen)) =>
-        gamePgnDump.tags(game, initialFen.map(_.value), none) :+ annotatorTag(study)
-      case None => makeTags(study, chapter)
-    }.map { tags =>
-      Pgn(
-        tags = tags,
-        turns = toTurns(chapter.root),
-        initial = Initial(chapter.root.comments.list.map(_.text.value)))
-    }
+  def ofChapter(study: Study, chapter: Chapter) = Pgn(
+    tags = makeTags(study, chapter),
+    turns = toTurns(chapter.root),
+    initial = Initial(chapter.root.comments.list.map(_.text.value)))
 
   private val fileR = """[\s,]""".r
 
@@ -59,7 +51,6 @@ final class PgnDump(
 
   private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
     val opening = chapter.opening
-    val fromTags = chapter.setup.fromPgn.??(_.tags)
     val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
       Tag(_.Site, studyUrl(study.id)),
@@ -71,7 +62,7 @@ final class PgnDump(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))
-    genTags.foldLeft(fromTags.reverse) {
+    genTags.foldLeft(chapter.tags.reverse) {
       case (tags, tag) =>
         if (tags.exists(t => tag.name == t.name)) tags
         else tag :: tags

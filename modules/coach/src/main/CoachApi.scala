@@ -18,6 +18,7 @@ final class CoachApi(
   import BsonHandlers._
 
   private val cache = AsyncCache.single[List[Coach]](
+    name = "coach.list",
     f = coachColl.find($empty).list[Coach](),
     timeToLive = 10 minutes)
 

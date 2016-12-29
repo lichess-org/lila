@@ -31,14 +31,14 @@ private object BSONHandlers {
   }
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
     def reads(r: Reader) = (r.intO("l") |@| r.intO("i")) {
-      case (limit, inc) => TimeControl.Clock(limit, inc)
+      case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
     } orElse {
       r intO "d" map TimeControl.Correspondence.apply
     } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) = t match {
-      case TimeControl.Clock(l, i)       => $doc("l" -> l, "i" -> i)
-      case TimeControl.Correspondence(d) => $doc("d" -> d)
-      case TimeControl.Unlimited         => $empty
+      case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
+      case TimeControl.Correspondence(d)               => $doc("d" -> d)
+      case TimeControl.Unlimited                       => $empty
     }
   }
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {

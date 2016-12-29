@@ -59,6 +59,9 @@ case class MixedChat(
 
 object Chat {
 
+  // if restricted, only presets are available
+  case class Restricted(chat: MixedChat, restricted: Boolean)
+
   import lila.db.BSON
 
   def makeUser(id: ChatId) = UserChat(id, Nil)

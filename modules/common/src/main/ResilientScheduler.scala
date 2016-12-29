@@ -1,0 +1,40 @@
+package lila.common
+
+import scala.concurrent.duration._
+
+import akka.actor._
+import akka.pattern.ask
+import ornicar.scalalib.Random.{ approximatly, nextString }
+
+object ResilientScheduler {
+
+  private case object Tick
+
+  def apply(
+    every: FiniteDuration,
+    atMost: FiniteDuration,
+    system: ActorSystem,
+    logger: lila.log.Logger)(f: => Fu[Unit]) {
+
+    system.actorOf(Props(new Actor {
+
+      override def preStart {
+        context setReceiveTimeout (atMost + 2.second)
+        scheduleNext
+      }
+
+      def scheduleNext = context.system.scheduler.scheduleOnce(every, self, Tick)
+
+      def receive = {
+
+        case ReceiveTimeout =>
+          val msg = s"ResilientScheduler timed out after $atMost"
+          logger error msg
+          throw new RuntimeException(msg)
+
+        case Tick => f >>- scheduleNext
+      }
+    }))
+  }
+
+}

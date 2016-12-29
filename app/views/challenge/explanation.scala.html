@@ -5,6 +5,6 @@
   @c.daysPerTurn.map { days =>
   <span class="text" data-icon=";">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
   }.getOrElse {
-  <span class="text" data-icon="p">@shortClockName(c.clock.map(_.chessClock))</span>
+  <span class="text" data-icon="p">@shortClockName(c.clock.map(_.config))</span>
   }
 </p>

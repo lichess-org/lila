@@ -10,7 +10,9 @@ final class EventApi(coll: Coll) {
 
   import BsonHandlers._
 
-  val promotable = AsyncCache.single(fetchPromotable, timeToLive = 5 minutes)
+  val promotable = AsyncCache.single(
+    name = "event.promotable",
+    fetchPromotable, timeToLive = 5 minutes)
 
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,

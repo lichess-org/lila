@@ -11,6 +11,7 @@ final class Env(
     db: lila.db.Env,
     getLightUser: String => Option[lila.common.LightUser],
     roundSocketHub: ActorSelection,
+    scheduler: lila.common.Scheduler,
     system: ActorSystem) {
 
   private val CollectionDevice = config getString "collection.device"
@@ -40,7 +41,8 @@ final class Env(
     googlePush,
     oneSignalPush,
     getLightUser,
-    roundSocketHub)
+    roundSocketHub,
+    scheduler = scheduler)
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
@@ -62,5 +64,6 @@ object Env {
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUser,
     roundSocketHub = lila.hub.Env.current.socket.round,
+    scheduler = lila.common.PlayApp.scheduler,
     config = lila.common.PlayApp loadConfig "push")
 }

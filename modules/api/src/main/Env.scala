@@ -30,6 +30,7 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Option[String],
     getTournamentName: String => Option[String],
+    pools: List[lila.pool.PoolConfig],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -51,11 +52,15 @@ final class Env(
   val ExplorerEndpoint = config getString "explorer.endpoint"
   val TablebaseEndpoint = config getString "explorer.tablebase.endpoint"
 
+  private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
+  private val InfluxEventEnv = config getString "api.influx_event.env"
+
   object assetVersion {
     import reactivemongo.bson._
     import lila.db.dsl._
     private val coll = db("flag")
     private val cache = lila.memo.MixedCache.single[Int](
+      name = "asset.version",
       f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
         _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
       },
@@ -86,6 +91,7 @@ final class Env(
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
+    gameCache = gameCache,
     prefApi = prefApi)
 
   val gameApi = new GameApi(
@@ -95,26 +101,26 @@ final class Env(
     gameCache = gameCache)
 
   val userGameApi = new UserGameApi(
-    bookmarkApi = bookmarkApi)
+    bookmarkApi = bookmarkApi,
+    lightUser = userEnv.lightUser)
 
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
-      jsonView = roundJsonView,
-      noteApi = noteApi,
-      forecastApi = forecastApi,
-      bookmarkApi = bookmarkApi,
-      getTourAndRanks = getTourAndRanks,
-      getSimul = getSimul,
-      lightUser = userEnv.lightUser),
+    jsonView = roundJsonView,
+    noteApi = noteApi,
+    forecastApi = forecastApi,
+    bookmarkApi = bookmarkApi,
+    getTourAndRanks = getTourAndRanks,
+    getSimul = getSimul,
+    lightUser = userEnv.lightUser),
     system = system,
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
   val lobbyApi = new LobbyApi(
-    lobby = lobbyEnv.lobby,
-    lobbyVersion = () => lobbyEnv.history.version,
     getFilter = setupEnv.filter,
     lightUser = userEnv.lightUser,
-    seekApi = lobbyEnv.seekApi)
+    seekApi = lobbyEnv.seekApi,
+    pools = pools)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
@@ -123,6 +129,11 @@ final class Env(
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
   }
+
+  if (InfluxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
+    endpoint = InfluxEventEndpoint,
+    env = InfluxEventEnv
+  )), name = "influx-event")
 }
 
 object Env {
@@ -150,5 +161,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd)
 }

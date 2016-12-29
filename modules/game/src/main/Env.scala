@@ -29,7 +29,6 @@ final class Env(
     val JsPathCompiled = config getString "js_path.compiled"
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
-    val PdfExecPath = config getString "pdf.exec_path"
     val PngUrl = config getString "png.url"
     val PngSize = config getInt "png.size"
   }
@@ -38,8 +37,6 @@ final class Env(
   lazy val gameColl = db(CollectionGame)
 
   lazy val playTime = new PlayTime(gameColl)
-
-  lazy val pdfExport = PdfExport(PdfExecPath) _
 
   lazy val pngExport = new PngExport(PngUrl, PngSize)
 

@@ -44,7 +44,7 @@ final class TournamentApi(
     var variant = chess.variant.Variant orDefault setup.variant
     val tour = Tournament.make(
       createdByUserId = me.id,
-      clock = TournamentClock((setup.clockTime * 60).toInt, setup.clockIncrement),
+      clock = chess.Clock.Config((setup.clockTime * 60).toInt, setup.clockIncrement),
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
       mode = setup.mode.fold(Mode.default)(Mode.orDefault),
@@ -310,7 +310,8 @@ final class TournamentApi(
   }
 
   private val miniStandingCache = lila.memo.AsyncCache[String, List[RankedPlayer]](
-    (id: String) => PlayerRepo.bestByTourWithRank(id, 30),
+    name = "tournament.miniStanding",
+    id => PlayerRepo.bestByTourWithRank(id, 30),
     timeToLive = 3 second)
 
   def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
@@ -384,7 +385,7 @@ final class TournamentApi(
   }
 
   private object publish {
-    private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, {
       (_: Debouncer.Nothing) =>
         fetchVisibleTournaments foreach { vis =>
           site ! SendToFlag("tournament", Json.obj(

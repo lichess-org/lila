@@ -1,0 +1,31 @@
+{
+  "name": "tree",
+  "version": "1.0.0",
+  "description": "lichess.org moves tree",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "devDependencies": {
+    "browserify": "~13.0",
+    "gulp": "~3.9",
+    "gulp-streamify": "~1.0",
+    "gulp-uglify": "~2.0",
+    "gulp-util": "~3.0",
+    "vinyl-source-stream": "~1.1",
+    "watchify": "~3.7"
+  },
+  "dependencies": {
+  }
+}

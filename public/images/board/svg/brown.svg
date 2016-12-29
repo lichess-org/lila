@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+<g id="brown-board">
+<g id="Light" fill="#f0d9b5">
+<rect width="800" height="800"/>
+</g>
+<g id="Frame" fill="none">
+<rect width="800" height="800"/>
+</g>
+<g id="Dark" fill="#b58863">
+<g id="raz">
+<g id="dva">
+<g id="tri">
+<rect x="100" width="100" height="100"/>
+<rect x="300" width="100" height="100"/>
+<rect x="500" width="100" height="100"/>
+<rect x="700" width="100" height="100"/>
+</g>
+<use transform="translate(-100,100)" xlink:href="#tri"/>
+</g>
+<use transform="translate(0,200)" xlink:href="#dva"/>
+</g>
+<use transform="translate(0,400)" xlink:href="#raz"/>
+</g>
+</g>
+</svg>

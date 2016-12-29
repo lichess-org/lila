@@ -5,6 +5,11 @@ dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
 
+git clone https://github.com/ornicar/Kamon --branch lila
+cd Kamon
+sbt publish-local
+cd ..
+
 git clone https://github.com/gilt/gfc-semver
 cd gfc-semver
 sbt publish-local
@@ -28,7 +33,7 @@ cd ..
 
 git clone https://github.com/Nycto/Hasher
 cd Hasher
-sbt publish-local
+sbt '+ publish-local'
 cd ..
 
 rm -rf "$dir"

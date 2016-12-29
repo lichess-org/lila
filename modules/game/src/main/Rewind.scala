@@ -32,6 +32,7 @@ object Rewind {
           lastMove = rewindedHistory.lastMove.map(_.origDest),
           lastMoveTime = Some(((nowMillis - game.createdAt.getMillis) / 100).toInt),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
+        unmovedRooks = rewindedGame.board.unmovedRooks,
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,

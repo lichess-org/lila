@@ -1,16 +1,3 @@
-div.board_wrap {
-  float: left;
-  width: 514px;
-  min-height: 558px;
-}
-div.moves_wrap {
-  margin-left: 532px;
-  position: relative;
-}
-p.rematch_wrap {
-  margin-top: 31px;
-  text-align: center;
-}
 div.analysis_menu {
   text-align: center;
   border-top: 1px solid #c0c0c0;
@@ -247,7 +234,7 @@ body.piece_letter .pv_box .pv span {
   align-items: stretch;
 }
 .ceval_box .switch {
-  flex: 0 1;
+  flex: 0 1 40px;
   margin-right: 8px;
   display: flex;
   align-items: center;
@@ -280,6 +267,7 @@ body.piece_letter .pv_box .pv span {
   flex: 1 0;
   margin: 5px;
   font-size: 0.9em;
+  white-space: nowrap;
 }
 .ceval_box .bar {
   position: absolute;
@@ -329,16 +317,16 @@ body.piece_letter .pv_box .pv span {
 .fork {
   position: absolute;
   top: 100%;
-  left: 61px;
-  width: 150px;
+  left: 91px;
+  width: 130px;
   background: #fff;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3), 0px 0px 25px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.3), 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 .fork move {
   font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 14px;
+  line-height: 32px;
   display: block;
   cursor: pointer;
   padding: 0 15px;
@@ -347,7 +335,7 @@ body.piece_letter .pv_box .pv span {
 }
 body.piece_letter .fork move {
   font-family: 'Noto Sans';
-  font-size: 15px;
+  font-size: 13px;
 }
 .fork move:last-child {
   border-bottom: none;
@@ -378,7 +366,7 @@ body.piece_letter .fork move {
     min-width: 280px;
   }
   .fork {
-    left: 80px;
+    left: 90px;
   }
 }
 
@@ -386,15 +374,17 @@ body.piece_letter .fork move {
   position: relative;
   flex: 2.5 1 0px;
   border: 1px solid #ccc;
-  margin-top: 5px;
-  overflow: scroll;
-  overflow-x: hidden;
+  border-top: 0;
+  overflow: hidden;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   transition: 0.3s;
   transition-delay: 0.3s;
+}
+.explorer_box {
+  overflow-y: scroll;
 }
 .explorer_box.config {
   flex: 3.5 1 0px;
@@ -445,7 +435,8 @@ body.piece_letter .fork move {
   padding-left: 10px;
 }
 body.dark .explorer_box thead th,
-body.dark .explorer_box .title {
+body.dark .explorer_box .title,
+body.dark .retro_box .title {
   background: #215279;
   color: #ccc;
 }
@@ -686,6 +677,120 @@ body.piece_letter .tablebase td:first-child {
   font-weight: bold;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
+
+.retro_box {
+  flex: 1.5 1 0px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  display: flex;
+  flex-flow: column;
+}
+.retro_box .title {
+  flex: 0 0 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 22px;
+  background: #3b93da;
+  color: #fff;
+  text-align: left;
+  padding: 0 5px 0 10px;
+}
+.retro_box .title .close {
+  cursor:pointer;
+}
+.retro_box .feedback {
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.retro_box .player {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.retro_box:not(.find) .player {
+  height: 100%;
+}
+.retro_box .no-square {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+}
+.is3d .retro_box div.no-square {
+  height: 82px;
+}
+.retro_box piece {
+  position: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.retro_box .icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  font-size: 50px;
+  font-size: 64px;
+  line-height: 64px;
+  text-align: center;
+}
+.retro_box .win .icon:not(.off) {
+  color: #759900;
+}
+.retro_box .fail .icon:not(.off) {
+  color: #dc322f;
+}
+.retro_box .instruction {
+  font-size: 1.1em;
+}
+.retro_box .instruction > * {
+  display: block;
+}
+.retro_box .instruction > strong {
+  font-weight: normal;
+  font-size: 1.3em;
+}
+.retro_box .instruction glyph {
+  font-weight: normal;
+  opacity: 0.7;
+}
+.retro_box .half {
+  flex: 1 1 50%;
+}
+.retro_box .choices {
+  line-height: 1.6em;
+  margin: 5px 0 -5px 0;
+}
+.retro_box .choices a {
+  display: block;
+  color: #3893E8;
+}
+.retro_box .continue {
+  display: flex;
+  font-size: 1.3em;
+  background: #3893E8;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 0 10px;
+}
+.retro_box .continue:hover {
+  background: #5ba6ec;
+}
+.retro_box .continue i::before {
+  font-size: 2.5em;
+  margin-right: 10px;
+}
+body.dark .retro_box {
+  background: #303030;
+  color: #aaa;
+}
+
 .lichess_ground .areplay,
 .action_menu {
   overflow: auto;
@@ -1107,9 +1212,18 @@ div.copyables .pgn:hover .action {
 }
 div.advice_summary {
   margin-top: -12px;
+  display: flex;
+  flex-flow: column;
+  height: 216px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+div.advice_summary table {
+  width: 100%;
 }
 div.advice_summary td {
-  padding: 2px 8px;
+  width: 25px;
+  padding-right: 5px;
   text-align: center;
 }
 div.advice_summary tbody td {
@@ -1119,11 +1233,12 @@ div.advice_summary tr.symbol {
   cursor: pointer;
 }
 div.advice_summary tr.symbol:hover {
-  text-decoration: underline;
+  color: #3893E8;
 }
-div.advice_summary table:first-child {
-  margin-bottom: 5px;
+div.advice_summary .button {
+  margin-left: 29px;
 }
+
 #adv_chart,
 #movetimes_chart {
   height: 210px;

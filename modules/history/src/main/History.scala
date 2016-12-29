@@ -42,7 +42,6 @@ object History {
 
   import reactivemongo.bson._
   import lila.db.BSON
-  import BSON.MapDocument.MapReader
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
     def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {

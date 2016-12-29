@@ -8,6 +8,7 @@ import views._
 import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.libs.json._
 
 object Mod extends LilaController {
 
@@ -60,6 +61,28 @@ object Mod extends LilaController {
     modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
+  private case class Irwin(result: Boolean, reason: String)
+  private implicit val IrwinReads = Json.reads[Irwin]
+
+  def irwin(username: String) = OpenBody(parse.json) { implicit ctx =>
+    Mod.ModExternalBot {
+      OptionFuResult(UserRepo named username) { user =>
+        UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
+          ctx.body.body.validate[Irwin].fold(
+            err => fuccess(BadRequest(err.toString)),
+            data => {
+              val text =
+                if (data.result) s"Irwin would mark as engine: ${data.reason}"
+                else s"Irwin is indecise: ${data.reason}"
+              (if (data.result) modApi.setEngine(irwin.id, username, true)
+              else funit) >>
+              Env.user.noteApi.write(user, text, irwin, true) inject Ok
+            })
+        }
+      }
+    }
+  }
+
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
@@ -97,7 +120,7 @@ object Mod extends LilaController {
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
         Env.mod.jsonView(user) flatMap {
-          case None       => NotFound.fuccess
+          case None => NotFound.fuccess
           case Some(data) => Env.mod.userHistory(user) map { history =>
             Ok(data + ("history" -> history))
           }
@@ -130,14 +153,17 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    lila.memo.AsyncCache[String, Int](ip => {
+    lila.memo.AsyncCache[String, Int](
+      name = "ipIntel",
+      f = ip => {
       import play.api.libs.ws.WS
       import play.api.Play.current
       val email = Env.api.Net.Email
       val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
       WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-          fuccess((ratio * 100).toInt)
+          if (ratio < 0) fufail(s"Error code $ratio")
+          else fuccess((ratio * 100).toInt)
         }
       }.addEffects(
         fail = _ => lila.mon.security.proxy.request.failure(),

@@ -37,8 +37,6 @@ case class Exists(id: String)
 
 case class WithUserIds(f: Iterable[String] => Unit)
 
-case object GetUids
-case class SocketUids(uids: Set[String])
 case class HasUserId(userId: String)
 
 package report {
@@ -164,7 +162,6 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  color: chess.Color,
   mobilePushable: Boolean,
   alarmable: Boolean,
   opponentUserId: Option[String],
@@ -175,10 +172,6 @@ case class Abort(gameId: String, byColor: String)
 case class Berserk(gameId: String, userId: String)
 case class IsOnGame(color: chess.Color)
 sealed trait SocketEvent
-object SocketEvent {
-  case class OwnerJoin(gameId: String, color: chess.Color, ip: String) extends SocketEvent
-  case class Stop(gameId: String) extends SocketEvent
-}
 case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
 }
 

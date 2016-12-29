@@ -37,8 +37,6 @@
     <appender-ref ref="STDOUT_WARN" />
   </root>
 
-  <!-- But allow some interesting INFOs in STDOUT -->
-  <logger name="cheat.jslog" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="boot" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="play" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
   <logger name="akka" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
@@ -71,6 +69,16 @@
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>/var/log/lichess/lobby-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="pool" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/pool.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/pool-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
         <maxHistory>7</maxHistory>
       </rollingPolicy>
     </appender>

@@ -35,7 +35,8 @@ object ApplicationBuild extends Build {
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
-        kamon.core, kamon.statsd, java8compat, semver, scrimage),
+        kamon.core, kamon.statsd, kamon.influxdb,
+        java8compat, semver, scrimage),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -44,9 +45,6 @@ object ApplicationBuild extends Build {
         "lila.app.templating.Environment._",
         "lila.api.Context",
         "lila.common.paginator.Paginator"),
-      watchSources <<= sourceDirectory in Compile map { sources =>
-        (sources ** "*").get
-      },
       // trump sbt-web into not looking at public/
       resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
     ))
@@ -55,10 +53,10 @@ object ApplicationBuild extends Build {
     chess, common, db, rating, user, security, hub, socket,
     message, notifyModule, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
-    analyse, mod, site, round, lobby, setup,
+    analyse, mod, site, round, pool, lobby, setup,
     importer, tournament, simul, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, qa,
-    history, worldMap, opening, video, shutup, push,
+    history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan, event, coach)
 
@@ -70,20 +68,15 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= provided(
         play.api, hasher, config, apache, jgit, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
-        kamon.core, kamon.statsd)
+        kamon.core, kamon.statsd, kamon.influxdb)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
-    common, memo, hub, db, user, rating)).settings(
+    common, memo, hub, db, user, rating, pref, tree, game)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val quote = project("quote", Seq())
-
-  lazy val opening = project("opening", Seq(
-    common, memo, hub, db, user)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver)
-  )
 
   lazy val video = project("video", Seq(
     common, memo, hub, db, user)).settings(
@@ -97,10 +90,6 @@ object ApplicationBuild extends Build {
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
-  )
-
-  lazy val worldMap = project("worldMap", Seq(common, hub, memo, rating)).settings(
-    libraryDependencies ++= provided(play.api, maxmind)
   )
 
   lazy val qa = project("qa", Seq(common, db, memo, user, security, notifyModule)).settings(
@@ -194,8 +183,13 @@ object ApplicationBuild extends Build {
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
+  lazy val pool = project("pool", Seq(common, game, user)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  )
+
   lazy val lobby = project("lobby", Seq(
-    common, db, memo, hub, socket, chess, game, user, round, timeline, relation, playban, security)).settings(
+    common, db, memo, hub, socket, chess, game, user,
+    round, timeline, relation, playban, security, pool)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -208,16 +202,19 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val insight = project("insight",
+  lazy val insight = project(
+    "insight",
     Seq(common, chess, game, user, analyse, relation, pref, socket, round, security)
   ).settings(
-    libraryDependencies ++= provided(play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      libraryDependencies ++= provided(
+        play.api,
+        reactivemongo.driver, reactivemongo.iteratees)
     )
 
   lazy val tournament = project("tournament", Seq(
     common, hub, socket, chess, game, round, security, chat, memo, quote, history, notifyModule)).settings(
-    libraryDependencies ++= provided(play.api,
+    libraryDependencies ++= provided(
+      play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
@@ -247,7 +244,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val studySearch = project("studySearch", Seq(common, hub, study, search)).settings(
-    libraryDependencies ++= provided(play.api,
+    libraryDependencies ++= provided(
+      play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
@@ -288,7 +286,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
-    libraryDependencies ++= provided(play.api,
+    libraryDependencies ++= provided(
+      play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
@@ -297,7 +296,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
-    libraryDependencies ++= provided(play.api,
+    libraryDependencies ++= provided(
+      play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
@@ -322,7 +322,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val explorer = project("explorer", Seq(common, db, game)).settings(
-    libraryDependencies ++= provided(play.api,
+    libraryDependencies ++= provided(
+      play.api,
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
@@ -334,7 +335,11 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val socket = project("socket", Seq(common, hub, memo)).settings(
+  lazy val tree = project("tree", Seq(chess)).settings(
+    libraryDependencies ++= provided(play.api)
+  )
+
+  lazy val socket = project("socket", Seq(common, hub, memo, tree)).settings(
     libraryDependencies ++= provided(play.api)
   )
 

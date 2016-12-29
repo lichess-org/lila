@@ -1,5 +1,6 @@
 var m = require('mithril');
 var game = require('game').game;
+var throttle = require('common').throttle;
 var ground = require('./ground');
 var util = require('./util');
 var xhr = require('./xhr');
@@ -83,11 +84,11 @@ module.exports = function(send, ctrl) {
     }
   };
 
-  this.moreTime = util.throttle(300, false, partial(this.send, 'moretime', null));
+  this.moreTime = throttle(300, false, partial(this.send, 'moretime', null));
 
-  this.outoftime = util.throttle(500, false, partial(this.send, 'outoftime', null));
+  this.outoftime = throttle(500, false, partial(this.send, 'outoftime', null));
 
-  this.berserk = util.throttle(200, false, partial(this.send, 'berserk', null, {
+  this.berserk = throttle(200, false, partial(this.send, 'berserk', null, {
     ackable: true
   }));
 

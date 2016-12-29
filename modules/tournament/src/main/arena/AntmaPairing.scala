@@ -1,6 +1,7 @@
 package lila.tournament
 package arena
 
+import lila.common.WMMatching
 import PairingSystem.{ Data, url }
 
 private object AntmaPairing {
@@ -8,32 +9,23 @@ private object AntmaPairing {
   def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
-    val a: Array[RankedPlayer] = players.toArray
-    val n: Int = a.length
+    def justPlayedTogether(u1: String, u2: String) =
+      lastOpponents.hash.get(u1).contains(u2) ||
+        lastOpponents.hash.get(u2).contains(u1)
 
-    def playedTogether(u1: String, u2: String) =
-      if (lastOpponents.hash.get(u1).contains(u2)) 1 else 0
-
-    def f(x: Int): Int = (11500000 - 3500000 * x) * x
-
-    def pairScore(i: Int, j: Int): Int =
-      Math.abs(a(i).rank - a(j).rank) * 1000 +
-        Math.abs(a(i).player.rating - a(j).player.rating) +
-        f {
-          playedTogether(a(i).player.userId, a(j).player.userId) +
-            playedTogether(a(j).player.userId, a(i).player.userId)
-        }
-
-    try {
-      val mate = WMMatching.minWeightMatching(WMMatching.fullGraph(n, pairScore))
-      WMMatching.mateToEdges(mate).map { x =>
-        Pairing.prep(tour, a(x._1).player, a(x._2).player)
+    def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
+      !justPlayedTogether(a.player.userId, b.player.userId) option {
+        Math.abs(a.rank - b.rank) * 1000 +
+          Math.abs(a.player.rating - b.player.rating)
       }
-    }
-    catch {
-      case e: Exception =>
-        logger.error("AntmaPairing", e)
+
+    WMMatching(players.toArray, pairScore).fold(
+      err => {
+        logger.error("WMMatching", err)
         Nil
-    }
+      },
+      _ map {
+        case (a, b) => Pairing.prep(tour, a.player, b.player)
+      })
   }
 }

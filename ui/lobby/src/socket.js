@@ -11,19 +11,46 @@ module.exports = function(send, ctrl) {
     had: function(hook) {
       hookRepo.add(ctrl, hook);
       if (hook.action === 'cancel') ctrl.flushHooks(true);
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+      m.redraw();
     },
-    hrm: function(id) {
-      hookRepo.remove(ctrl, id);
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+    hrm: function(ids) {
+      ids.match(/.{8}/g).forEach(function(id) {
+        hookRepo.remove(ctrl, id);
+      });
+      m.redraw();
+    },
+    hooks: function(hooks) {
+      hookRepo.setAll(ctrl, hooks);
+      ctrl.flushHooks(true);
+      m.redraw();
     },
     hli: function(ids) {
-      hookRepo.syncIds(ctrl, ids.split(','));
-      if (ctrl.vm.tab === 'real_time') m.redraw();
+      hookRepo.syncIds(ctrl, ids.match(/.{8}/g));
+      m.redraw();
     },
     reload_seeks: function() {
       if (ctrl.vm.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
     }
+  };
+
+  this.realTimeIn = function() {
+    send('hookIn');
+  };
+  this.realTimeOut = function() {
+    send('hookOut');
+  };
+
+  this.poolIn = function(member) {
+    // last arg=true: must not retry
+    // because if poolIn is sent before socket opens,
+    // then poolOut is sent,
+    // then poolIn shouldn't be sent again after socket opens.
+    // poolIn is sent anyway on socket open event.
+    send('poolIn', member, {}, true);
+  };
+
+  this.poolOut = function(member) {
+    send('poolOut', member.id);
   };
 
   this.receive = function(type, data) {
@@ -35,8 +62,9 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  lichess.idleTimer(5 * 60 * 1000, partial(send, 'idle', true), function() {
-    location.reload();
+  lichess.idleTimer(3 * 60 * 1000, partial(send, 'idle', true), function() {
+    send('idle', false);
+    ctrl.awake();
   });
 
   this.music = null;

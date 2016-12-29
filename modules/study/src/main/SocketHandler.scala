@@ -13,8 +13,8 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ Handler, AnaMove, AnaDests, AnaDrop }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 import makeTimeout.short
 
@@ -27,7 +27,13 @@ private[study] final class SocketHandler(
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
-  import lila.socket.tree.Node.openingWriter
+  import lila.tree.Node.openingWriter
+
+  private val InviteLimitPerUser = new lila.memo.RateLimit(
+    credits = 50,
+    duration = 24 hour,
+    name = "study invites per user",
+    key = "study_invite.user")
 
   private def controller(
     socket: ActorRef,
@@ -122,11 +128,12 @@ private[study] final class SocketHandler(
           api.deleteNodeAt(userId, studyId, position.ref, uid)
       }
     }
-    case ("promoteNode", o) => AnaRateLimit(uid.value, member) {
+    case ("promote", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
-        member.userId foreach { userId =>
-          api.promoteNodeAt(userId, studyId, position.ref, uid)
-        }
+        for {
+          toMainline <- (o \ "d" \ "toMainline").asOpt[Boolean]
+          userId <- member.userId
+        } api.promote(userId, studyId, position.ref, toMainline, uid)
       }
     }
     case ("setRole", o) if owner => AnaRateLimit(uid.value, member) {
@@ -139,7 +146,9 @@ private[study] final class SocketHandler(
     case ("invite", o) if owner => for {
       byUserId <- member.userId
       username <- o str "d"
-    } api.invite(byUserId, studyId, username, socket)
+    } InviteLimitPerUser(byUserId, cost = 1) {
+      api.invite(byUserId, studyId, username, socket)
+    }
 
     case ("kick", o) if owner   => o str "d" foreach { api.kick(studyId, _) }
 
@@ -188,6 +197,13 @@ private[study] final class SocketHandler(
         api.editStudy(studyId, data)
       }
 
+    case ("setTag", o) =>
+      reading[actorApi.SetTag](o) { setTag =>
+        member.userId foreach { byUserId =>
+          api.setTag(byUserId, studyId, setTag, uid)
+        }
+      }
+
     case ("setComment", o) =>
       reading[AtPosition](o) { position =>
         for {
@@ -226,7 +242,7 @@ private[study] final class SocketHandler(
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
-  private case class AtPosition(path: String, chapterId: String) {
+  private case class AtPosition(path: String, chapterId: Chapter.ID) {
     def ref = Position.Ref(chapterId, Path(path))
   }
   private implicit val atPositionReader = Json.reads[AtPosition]
@@ -235,6 +251,7 @@ private[study] final class SocketHandler(
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
   private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
+  private implicit val setTagReader = Json.reads[actorApi.SetTag]
 
   def join(
     studyId: Study.ID,

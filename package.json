@@ -4,7 +4,8 @@
   "description": "[lichess.org](http://lichess.org)",
   "main": "index.js",
   "dependencies": {
-    "gulp": "^3.8.11"
+    "common": "file:../common"
+  }
   },
   "devDependencies": {
     "gulp-svgmin": "^1.1.1",

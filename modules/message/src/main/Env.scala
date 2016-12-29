@@ -13,7 +13,8 @@ final class Env(
     follows: (String, String) => Fu[Boolean],
     getPref: String => Fu[lila.pref.Pref],
     system: ActorSystem,
-    isOnline: lila.user.User.ID => Boolean) {
+    isOnline: lila.user.User.ID => Boolean,
+    lightUser: lila.common.LightUser.Getter) {
 
   private val CollectionThread = config getString "collection.thread"
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
@@ -22,7 +23,7 @@ final class Env(
 
   lazy val forms = new DataForm(security = security)
 
-  lazy val jsonView = new JsonView(isOnline)
+  lazy val jsonView = new JsonView(isOnline, lightUser)
 
   lazy val batch = new MessageBatch(
     coll = threadColl,
@@ -55,5 +56,6 @@ object Env {
     follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,
     system = lila.common.PlayApp.system,
-    isOnline = lila.user.Env.current.isOnline)
+    isOnline = lila.user.Env.current.isOnline,
+    lightUser = lila.user.Env.current.lightUser)
 }

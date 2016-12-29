@@ -1,7 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var storedProp = require('../util').storedProp;
-var storedJsonProp = require('../util').storedJsonProp;
+var storedProp = require('common').storedProp;
+var storedJsonProp = require('common').storedJsonProp;
 
 module.exports = {
   controller: function(variant, onClose) {
@@ -71,7 +71,7 @@ module.exports = {
         m('p', "Two million OTB games of 2200+ FIDE rated players from 1952 to 2016"),
       ]) : m('div', [
         m('section.rating', [
-          m('label', 'Players Average rating'),
+          m('label', 'Players\' average rating'),
           m('div.choices',
             d.rating.available.map(function(r) {
               return m('span', {

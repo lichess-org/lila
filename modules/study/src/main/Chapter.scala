@@ -7,7 +7,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 
 case class Chapter(
@@ -16,6 +16,7 @@ case class Chapter(
     name: String,
     setup: Chapter.Setup,
     root: Node.Root,
+    tags: List[Tag],
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
@@ -56,6 +57,10 @@ case class Chapter(
     createdAt = DateTime.now)
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
+
+  def setTag(tag: Tag) = copy(
+    tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
+  )
 }
 
 object Chapter {
@@ -75,12 +80,9 @@ object Chapter {
       gameId: Option[String],
       variant: Variant,
       orientation: Color,
-      fromPgn: Option[FromPgn] = None,
       fromFen: Option[Boolean] = None) {
     def isFromFen = ~fromFen
   }
-
-  case class FromPgn(tags: List[Tag])
 
   case class Metadata(
     _id: Chapter.ID,
@@ -100,12 +102,13 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = toName(name),
     setup = setup,
     root = root,
+    tags = tags,
     order = order,
     ownerId = ownerId,
     conceal = conceal,

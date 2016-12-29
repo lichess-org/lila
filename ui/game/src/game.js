@@ -20,8 +20,12 @@ function playedTurns(data) {
   return data.game.turns - data.game.startedAtTurn;
 }
 
+function bothPlayersHavePlayed(data) {
+  return playedTurns(data) > 1;
+}
+
 function abortable(data) {
-  return playable(data) && playedTurns(data) < 2 && !mandatory(data);
+  return playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data);
 }
 
 function takebackable(data) {
@@ -29,7 +33,7 @@ function takebackable(data) {
     data.takebackable &&
     !data.tournament &&
     !data.simul &&
-    playedTurns(data) > 1 &&
+    bothPlayersHavePlayed(data) &&
     !data.player.proposingTakeback &&
     !data.opponent.proposingTakeback;
 }
@@ -50,7 +54,7 @@ function berserkableBy(data) {
   return data.tournament &&
     data.tournament.berserkable &&
     isPlayerPlaying(data) &&
-    playedTurns(data) < 2;
+    !bothPlayersHavePlayed(data);
 }
 
 function moretimeable(data) {
@@ -62,7 +66,8 @@ function imported(data) {
 }
 
 function replayable(data) {
-  return imported(data) || status.finished(data);
+  return imported(data) || status.finished(data) ||
+    (status.aborted(data) && bothPlayersHavePlayed(data));
 }
 
 function getPlayer(data, color) {

@@ -96,8 +96,9 @@ object Auth extends LilaController {
     }
   }
 
-  private def mustConfirmEmailByIP(ip: String): Fu[Boolean] =
-    api.recentByIpExists(ip) >>|
+  private def mustConfirmEmailByIP(ip: String, username: String): Fu[Boolean] =
+    fuccess(username.toLowerCase.contains("argeskent")) >>|
+      api.recentByIpExists(ip) >>|
       Mod.ipIntelCache(ip).map(80 <).recover { case _: Exception => false }
 
   def signupPost = OpenBody { implicit ctx =>
@@ -110,7 +111,10 @@ object Auth extends LilaController {
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
-                mustConfirmEmailByIP(HTTPRequest lastRemoteAddress ctx.req) flatMap { mustConfirmEmail =>
+                mustConfirmEmailByIP(
+                  ip = HTTPRequest lastRemoteAddress ctx.req,
+                  username = data.username
+                ) flatMap { mustConfirmEmail =>
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
                   val email = env.emailAddress.validate(data.email) err s"Invalid email ${data.email}"
@@ -172,21 +176,20 @@ object Auth extends LilaController {
     html = Unauthorized(html.auth.tor()).fuccess,
     api = _ => Unauthorized(jsonError("Can't login from Tor, sorry!")).fuccess)
 
-  def setFingerprint(fp: String, ms: Int) = Auth { ctx =>
-    me =>
-      api.setFingerprint(ctx.req, fp) flatMap {
-        _ ?? { hash =>
-          !me.lame ?? {
-            api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
-              case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
-                case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
-                case _                                        => funit
-              }
-              case _ => funit
+  def setFingerprint(fp: String, ms: Int) = Auth { ctx => me =>
+    api.setFingerprint(ctx.req, fp) flatMap {
+      _ ?? { hash =>
+        !me.lame ?? {
+          api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
+            case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
+              case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
+              case _                                        => funit
             }
+            case _ => funit
           }
         }
-      } inject Ok
+      }
+    } inject Ok
   }
 
   def passwordReset = Open { implicit ctx =>
@@ -238,6 +241,25 @@ object Auth extends LilaController {
           UserRepo.passwd(user.id, data.newPasswd1) >> authenticateUser(user)
         }
       case _ => notFound
+    }
+  }
+
+  def makeLoginToken = Auth { implicit ctx => me =>
+    JsonOk {
+      val baseUrl = Env.api.Net.BaseUrl
+      val url = routes.Auth.loginWithToken(env.loginToken generate me).url
+      fuccess(Json.obj(
+        "userId" -> me.id,
+        "url" -> s"$baseUrl$url"
+      ))
+    }
+  }
+
+  def loginWithToken(token: String) = Open { implicit ctx =>
+    Firewall {
+      env.loginToken consume token flatMap {
+        _.fold(notFound)(authenticateUser)
+      }
     }
   }
 }

@@ -4,13 +4,12 @@ object Spam {
 
   def detect(texts: String*) = {
     val text = texts mkString " "
-    blacklist exists text.contains
+    fullBlacklist exists text.contains
   }
 
-  val in = "moc.satimulocni".reverse
   val cb = "tob-ssehc".reverse
 
-  private val blacklist = List(
+  private val referBlacklist = List(
     /* While links to other chess websites are welcome,
      * refer links grant the referrer money,
      * effectively inducing spam */
@@ -18,9 +17,13 @@ object Spam {
     "chess24.com?ref=",
     "chess.com/register?refId=",
     /* links to cheats */
-    cb,
-    s"${in}/pages/lichess-bot"
+    cb
   )
+
+  private val spamBlacklist = List(
+    "sexual-health.ga")
+
+  private val fullBlacklist = referBlacklist ::: spamBlacklist
 
   def replace(text: String) = replacements.foldLeft(text) {
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
@@ -34,8 +37,7 @@ object Spam {
     s"""${protocol}velocitychess.com/ref/\\w+""" -> "velocitychess.com",
     s"""${protocol}chess24.com?ref=\\w+""" -> "chess24.com",
     s"""${protocol}chess.com/register?refId=\\w+""" -> "chess.com",
-    s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl,
-    s"""${protocol}${in}[^\\s]+""" -> tosUrl
+    s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl
   ).map {
     case (regex, replacement) => regex.r -> replacement
   }

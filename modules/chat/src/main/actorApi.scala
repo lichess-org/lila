@@ -9,3 +9,4 @@ case class Timeout(chatId: String, modId: String, userId: String, reason: ChatTi
 
 case class OnTimeout(username: String)
 case class OnReinstate(userId: String)
+case class Remove(gameId: String)

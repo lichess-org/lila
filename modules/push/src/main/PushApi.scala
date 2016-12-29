@@ -2,6 +2,9 @@ package lila.push
 
 import akka.actor._
 import akka.pattern.ask
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
@@ -11,13 +14,12 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 import lila.user.User
 
-import play.api.libs.json._
-
 private final class PushApi(
     googlePush: GooglePush,
     oneSignalPush: OneSignalPush,
     implicit val lightUser: String => Option[LightUser],
-    roundSocketHub: ActorSelection) {
+    roundSocketHub: ActorSelection,
+    scheduler: lila.common.Scheduler) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -31,6 +33,7 @@ private final class PushApi(
               case _           => "It's a draw."
             },
             body = s"Your game with ${opponentName(pov)} is over.",
+            stacking = Stacking.GameFinish,
             payload = Json.obj(
               "userId" -> userId,
               "userData" -> Json.obj(
@@ -46,25 +49,28 @@ private final class PushApi(
     }.sequenceFu.void
 
   def move(move: MoveEvent): Funit = move.mobilePushable ?? {
-    GameRepo game move.gameId flatMap {
-      _ ?? { game =>
-        val pov = Pov(game, !move.color)
-        game.player(!move.color).userId ?? { userId =>
-          game.pgnMoves.lastOption ?? { sanMove =>
+    scheduler.after(2 seconds) {
+      GameRepo game move.gameId flatMap {
+        _.filter(_.playable) ?? { game =>
+          val pov = Pov(game, game.player.color)
+          game.player.userId ?? { userId =>
             IfAway(pov) {
-              pushToAll(userId, _.move, PushApi.Data(
-                title = "It's your turn!",
-                body = s"${opponentName(pov)} played $sanMove",
-                payload = Json.obj(
-                  "userId" -> userId,
-                  "userData" -> Json.obj(
-                    "type" -> "gameMove",
-                    "gameId" -> game.id,
-                    "fullId" -> pov.fullId,
-                    "color" -> pov.color.name,
-                    "fen" -> Forsyth.exportBoard(game.toChess.board),
-                    "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                    "secondsLeft" -> pov.remainingSeconds))))
+              game.pgnMoves.lastOption ?? { sanMove =>
+                pushToAll(userId, _.move, PushApi.Data(
+                  title = "It's your turn!",
+                  body = s"${opponentName(pov)} played $sanMove",
+                  stacking = Stacking.GameMove,
+                  payload = Json.obj(
+                    "userId" -> userId,
+                    "userData" -> Json.obj(
+                      "type" -> "gameMove",
+                      "gameId" -> game.id,
+                      "fullId" -> pov.fullId,
+                      "color" -> pov.color.name,
+                      "fen" -> Forsyth.exportBoard(game.toChess.board),
+                      "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                      "secondsLeft" -> pov.remainingSeconds))))
+              }
             }
           }
         }
@@ -80,6 +86,7 @@ private final class PushApi(
           pushToAll(userId, _.corresAlarm, PushApi.Data(
             title = "Time is almost up!",
             body = s"You are about to lose on time against ${opponentName(pov)}",
+            stacking = Stacking.GameMove,
             payload = Json.obj(
               "userId" -> userId,
               "userData" -> Json.obj(
@@ -100,6 +107,7 @@ private final class PushApi(
       pushToAll(t.receiverOf(p), _.message, PushApi.Data(
         title = s"${sender.titleName}: ${t.name}",
         body = p.text take 140,
+        stacking = Stacking.NewMessage,
         payload = Json.obj(
           "userId" -> t.receiverOf(p),
           "userData" -> Json.obj(
@@ -114,6 +122,7 @@ private final class PushApi(
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
           title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
           body = describeChallenge(c),
+          stacking = Stacking.ChallengeCreate,
           payload = Json.obj(
             "userId" -> dest.id,
             "userData" -> Json.obj(
@@ -129,6 +138,7 @@ private final class PushApi(
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
         title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
         body = describeChallenge(c),
+        stacking = Stacking.ChallengeAccept,
         payload = Json.obj(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
@@ -186,5 +196,6 @@ private object PushApi {
   case class Data(
     title: String,
     body: String,
+    stacking: Stacking,
     payload: JsObject)
 }

@@ -7,6 +7,7 @@ function tab(ctrl, key, active, content) {
     config: util.bindOnce('mousedown', partial(ctrl.setTab, key))
   }
   if (key === active) attrs.class = 'active';
+  else if (key === 'pools' && ctrl.vm.poolMember) attrs.class = 'glow';
   return m('a', attrs, content);
 }
 
@@ -16,7 +17,8 @@ module.exports = function(ctrl) {
   }).length;
   var active = ctrl.vm.tab;
   return [
-    tab(ctrl, 'real_time', active, ctrl.trans('realTime')),
+    tab(ctrl, 'pools', active, 'Quick game'),
+    tab(ctrl, 'real_time', active, 'Lobby'),
     tab(ctrl, 'seeks', active, ctrl.trans('correspondence')),
     (active === 'now_playing' || ctrl.data.nbNowPlaying > 0) ? tab(ctrl, 'now_playing', active, [
       ctrl.trans('nbGamesInPlay', ctrl.data.nbNowPlaying),

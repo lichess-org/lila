@@ -10,8 +10,8 @@ import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
-import lila.socket.tree.Node.{ Shape, Shapes, Comment }
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
+import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 
 private final class Socket(
@@ -27,7 +27,7 @@ private final class Socket(
   import Socket._
   import JsonView._
   import jsonView.membersWrites
-  import lila.socket.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -65,8 +65,9 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case PromoteNode(pos, uid) => notifyVersion("promoteNode", Json.obj(
+    case Promote(pos, toMainline, uid) => notifyVersion("promote", Json.obj(
       "p" -> pos,
+      "toMainline" -> toMainline,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -88,6 +89,12 @@ private final class Socket(
     case SetComment(pos, comment, uid) => notifyVersion("setComment", Json.obj(
       "p" -> pos,
       "c" -> comment,
+      "w" -> who(uid)
+    ), noMessadata)
+
+    case SetTags(chapterId, tags, uid) => notifyVersion("setTags", Json.obj(
+      "chapterId" -> chapterId,
+      "tags" -> tags,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -222,7 +229,7 @@ private object Socket {
 
   case class AddNode(position: Position.Ref, node: Node, uid: Uid)
   case class DeleteNode(position: Position.Ref, uid: Uid)
-  case class PromoteNode(position: Position.Ref, uid: Uid)
+  case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class ReloadMembers(members: StudyMembers)
   case class SetShapes(position: Position.Ref, shapes: Shapes, uid: Uid)
@@ -234,6 +241,7 @@ private object Socket {
   case class ChangeChapter(uid: Uid)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
+  case class SetTags(chapterId: Chapter.ID, tags: List[chess.format.pgn.Tag], uid: Uid)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

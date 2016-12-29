@@ -45,6 +45,11 @@ final class Env(
     getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate) _
 
+  lazy val teamInfo = new mashup.TeamInfoApi(
+    api = Env.team.api,
+    getForumNbPosts = Env.forum.categApi.teamNbPosts _,
+    getForumPosts = Env.forum.recent.team _)
+
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {
       Env.puzzle.daily()
@@ -82,7 +87,6 @@ final class Env(
     Env.playban, // required to load the actor
     Env.shutup, // required to load the actor
     Env.insight, // required to load the actor
-    Env.worldMap, // required to load the actor
     Env.push, // required to load the actor
     Env.perfStat, // required to load the actor
     Env.slack, // required to load the actor
@@ -147,8 +151,6 @@ object Env {
   def blog = lila.blog.Env.current
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
-  def worldMap = lila.worldMap.Env.current
-  def opening = lila.opening.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
   def shutup = lila.shutup.Env.current
@@ -165,4 +167,5 @@ object Env {
   def plan = lila.plan.Env.current
   def event = lila.event.Env.current
   def coach = lila.coach.Env.current
+  def pool = lila.pool.Env.current
 }

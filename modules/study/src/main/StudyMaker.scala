@@ -41,6 +41,7 @@ private final class StudyMaker(
           variant = pov.game.variant,
           orientation = pov.color),
         root = root,
+        tags = Nil,
         order = 1,
         ownerId = user.id,
         conceal = None)

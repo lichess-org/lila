@@ -14,6 +14,8 @@ class DisposableEmailDomainTest extends Specification {
       d("hotmail.com") must beFalse
       d("live.com") must beFalse
       d("docmail.cz") must beTrue
+      d("DoCmAiL.cz") must beTrue
+      d("chacuo.net") must beTrue
     }
     "suffix" in {
       d("foo.some.randomgoodemail.org") must beFalse
@@ -39,6 +41,9 @@ class DisposableEmailDomainTest extends Specification {
       d("guerrillamail.com") must beTrue
       d("jetable.fr.nf") must beTrue
       d("notjetable.fr") must beFalse
+      d("disposable-email.ml") must beTrue
+      d("disposableemailaddresses.emailmiser.com") must beTrue
+      d("dispose.it") must beTrue
     }
   }
 }

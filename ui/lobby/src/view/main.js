@@ -1,6 +1,7 @@
 var m = require('mithril');
 
 var renderTabs = require('./tabs');
+var renderPools = require('./pools');
 var renderRealTime = require('./realTime/main');
 var renderSeeks = require('./correspondence');
 var renderPlaying = require('./playing');
@@ -9,6 +10,9 @@ module.exports = function(ctrl) {
   var body;
   if (ctrl.playban || ctrl.currentGame) return;
   switch (ctrl.vm.tab) {
+    case 'pools':
+      body = renderPools(ctrl);
+      break;
     case 'real_time':
       body = renderRealTime(ctrl);
       break;

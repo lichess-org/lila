@@ -97,8 +97,7 @@ lichess.powertip = (function() {
   var userPowertip = function(el, pos) {
     if (!pos) {
       if (elementIdContains('site_header', el)) pos = 'e';
-      else if (elementIdContains('friend_box', el)) pos = 'nw';
-      else pos = 'w';
+      else pos = el.getAttribute('data-pt-pos') || 'w';
     }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
@@ -141,8 +140,7 @@ lichess.powertip = (function() {
     },
     manualGameIn: function(parent) {
       Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
-    },
-    manualUser: userPowertip
+    }
   };
 })();
 lichess.trans = function(i18n) {
@@ -152,6 +150,10 @@ lichess.trans = function(i18n) {
       str = str.replace('%s', arg);
     });
     return str;
+  };
+  // optimisation for translations without arguments
+  trans.noarg = function(key) {
+    return i18n[key] || key;
   };
   trans.merge = function(more) {
     Object.keys(more).forEach(function(k) {
@@ -235,13 +237,17 @@ lichess.desktopNotification = (function() {
   window.addEventListener('blur', function() {
     isPageVisible = false;
   });
-  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-  window.addEventListener('focus', function() {
-    isPageVisible = true;
+  var closeAll = function() {
     notifications.forEach(function(n) {
       n.close();
     });
     notifications = [];
+  };
+  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
+  window.addEventListener('focus', function() {
+    isPageVisible = true;
+    closeAll();
+    setTimeout(closeAll, 2000);
   });
   var storage = lichess.storage.make('just-notified');
   var clearStorageSoon = function() {
@@ -260,8 +266,9 @@ lichess.desktopNotification = (function() {
     });
     notification.onclick = function() {
       window.focus();
-    }
+    };
     notifications.push(notification);
+    if (isPageVisible) setTimeout(closeAll, 2000);
   };
   var notify = function(msg) {
     // increase chances that the first tab can put a local storage lock
@@ -400,7 +407,7 @@ $.fn.scrollTo = function(target, offsetTop) {
 };
 $.modal = function(html) {
   if (!html.clone) html = $('<div>' + html + '</div>');
-  var $wrap = $('<div id="modal-wrap">').html(html.clone().show()).prepend('<span class="close" data-icon="L"></span>');
+  var $wrap = $('<div id="modal-wrap">').html(html.clone().removeClass('none').show()).prepend('<span class="close" data-icon="L"></span>');
   var $overlay = $('<div id="modal-overlay">').html($wrap);
   $overlay.add($wrap.find('.close')).one('click', $.modal.close);
   $wrap.click(function(e) {

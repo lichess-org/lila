@@ -46,18 +46,12 @@ private final class Monitor(
     avgOf(_.depth) foreach { monitor.depth(_) }
     avgOf(_.pvList.size.some) foreach { monitor.pvSize(_) }
 
-    // endgame positions count and total time
-    if (work.game.variant.standard)
-      chess.Replay.boardsFromUci(~work.game.uciList, work.game.initialFen, work.game.variant).fold(
-        err => logger.warn(s"Monitor couldn't get ${work.game.id}'s boards"),
-        boards => {
-          val (count, time) = (boards zip result.analysis).foldLeft(0 -> 0) {
-            case ((count, time), (board, _)) if board.pieces.size > 5 => (count, time)
-            case ((count, time), (_, eval))                           => (count + 1, time + ~eval.time)
-          }
-          if (count > 0) monitor.endgameCount(count)
-          if (time > 0) monitor.endgameTime(time)
-        })
+    val significantPvSizes =
+      result.analysis.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pvList.size)
+
+    monitor.pvTotal(significantPvSizes.size)
+    monitor.pvShort(significantPvSizes.count(_ < 3))
+    monitor.pvLong(significantPvSizes.count(_ >= 6))
   }
 
   private def sample[A](elems: List[A], n: Int) =
@@ -97,7 +91,8 @@ private final class Monitor(
     sequencer.withQueueSize(lila.mon.fishnet.queue.sequencer(Analysis.key)(_))
 
     repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
-      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) }
+      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) } >>
+      repo.countUserAnalysis.map { forUser(Analysis.key)(_) }
 
   } andThenAnyway scheduleWork
 

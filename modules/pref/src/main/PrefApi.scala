@@ -15,7 +15,10 @@ final class PrefApi(
     cacheTtl: Duration) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
-  private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
+  private val cache = AsyncCache(
+    name = "pref.fetchPref",
+    f = fetchPref,
+    timeToLive = cacheTtl)
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 
@@ -52,7 +55,6 @@ final class PrefApi(
       challenge = r.getD("challenge", Pref.default.challenge),
       message = r.getD("message", Pref.default.message),
       coordColor = r.getD("coordColor", Pref.default.coordColor),
-      puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       submitMove = r.getD("submitMove", Pref.default.submitMove),
       confirmResign = r.getD("confirmResign", Pref.default.confirmResign),
       insightShare = r.getD("insightShare", Pref.default.insightShare),
@@ -91,7 +93,6 @@ final class PrefApi(
       "challenge" -> o.challenge,
       "message" -> o.message,
       "coordColor" -> o.coordColor,
-      "puzzleDifficulty" -> o.puzzleDifficulty,
       "submitMove" -> o.submitMove,
       "confirmResign" -> o.confirmResign,
       "insightShare" -> o.insightShare,

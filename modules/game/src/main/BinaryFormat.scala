@@ -71,17 +71,15 @@ object BinaryFormat {
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) =>
         readTimer(b9, b10, b11, b12) match {
           case 0 => PausedClock(
+            config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            limit = readClockLimit(b1),
-            increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk)
           case timer => RunningClock(
+            config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            limit = readClockLimit(b1),
-            increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             whiteBerserk = whiteBerserk,
@@ -92,9 +90,8 @@ object BinaryFormat {
       // #TODO remove me! But fix the DB first!
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
         PausedClock(
+          config = Clock.Config(readClockLimit(b1), b2),
           color = color,
-          limit = readClockLimit(b1),
-          increment = b2,
           whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
           blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
           whiteBerserk = whiteBerserk,
@@ -223,6 +220,45 @@ object BinaryFormat {
       case Rook   => 3
       case Knight => 4
       case Bishop => 5
+    }
+  }
+
+  object unmovedRooks {
+
+    val emptyByteArray = ByteArray(Array(0, 0))
+
+    def write(o: UnmovedRooks): ByteArray = {
+      if (o.pos.isEmpty) emptyByteArray
+      else {
+        var white = 0
+        var black = 0
+        o.pos.foreach { pos =>
+          if (pos.y == 1) white = white | (1 << (8 - pos.x))
+          else black = black | (1 << (8 - pos.x))
+        }
+        ByteArray(Array(white.toByte, black.toByte))
+      }
+    }
+
+    private def bitAt(n: Int, k: Int) = (n >> k) & 1
+
+    private val arrIndexes = 0 to 1
+    private val bitIndexes = 0 to 7
+    private val whiteStd = Set(Pos.A1, Pos.H1)
+    private val blackStd = Set(Pos.A8, Pos.H8)
+
+    def read(ba: ByteArray) = UnmovedRooks {
+      var set = Set.empty[Pos]
+      arrIndexes.foreach { i =>
+        val int = ba.value(i).toInt
+        if (int != 0) {
+          if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
+          else bitIndexes.foreach { j =>
+            if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
+          }
+        }
+      }
+      set
     }
   }
 

@@ -1,16 +1,19 @@
 var m = require('mithril');
-var throttle = require('../util').throttle;
+var throttle = require('common').throttle;
 var configCtrl = require('./explorerConfig').controller;
 var xhr = require('./openingXhr');
-var storedProp = require('../util').storedProp;
+var storedProp = require('common').storedProp;
 var synthetic = require('../util').synthetic;
 var replayable = require('game').game.replayable;
 
-function tablebaseRelevant(fen) {
+function tablebaseRelevant(variant, fen) {
   var parts = fen.split(/\s/);
   var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
-  var castling = parts[2];
-  return pieceCount <= 6 && castling === '-';
+
+  if (variant === 'standard' || variant === 'chess960' || variant === 'atomic')
+    return pieceCount <= 7;
+  else if (variant === 'antichess') return pieceCount <= 6;
+  else return false;
 }
 
 module.exports = function(root, opts, allow) {
@@ -30,14 +33,9 @@ module.exports = function(root, opts, allow) {
     setNode();
   }
   var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
-  var effectiveVariant = root.data.game.variant.key == 'fromPosition' ? 'standard' : root.data.game.variant.key;
+  var effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
   var config = configCtrl(root.data.game.variant, onConfigClose);
-
-  var setCache = function(fen, res) {
-    cache[fen] = res;
-    movesAway(res.nbMoves ? 0 : movesAway() + 1);
-  };
 
   var handleFetchError = function(err) {
     loading(false);
@@ -45,45 +43,41 @@ module.exports = function(root, opts, allow) {
     m.redraw();
   };
 
-  var fetchOpening = throttle(250, function(fen) {
-    xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames).then(function(res) {
-      res.opening = true;
-      res.nbMoves = res.moves.length;
-      res.fen = fen;
-      setCache(fen, res);
-      loading(false);
-      failing(false);
-      m.redraw();
-    }, handleFetchError);
-  }, false);
-
-  var fetchTablebase = throttle(250, function(fen) {
-    xhr.tablebase(opts.tablebaseEndpoint, root.vm.node.fen).then(function(res) {
-      res.nbMoves = res.moves.length;
-      res.tablebase = true;
-      res.fen = fen;
-      setCache(fen, res);
-      loading(false);
-      failing(false);
-      m.redraw();
-    }, handleFetchError);
-  }, false);
-
-  var fetch = function(fen) {
-    var hasTablebase = effectiveVariant === 'standard' || effectiveVariant === 'chess960';
-    if (hasTablebase && withGames && tablebaseRelevant(fen)) fetchTablebase(fen);
-    else fetchOpening(fen);
+  var fetchOpening = function(fen) {
+    return xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
   };
+
+  var fetchTablebase = function(fen) {
+    return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
+  };
+
+  var cacheResult = function(fen, res, isTablebase) {
+    res[isTablebase ? 'tablebase' : 'opening'] = true;
+    res.nbMoves = res.moves.length;
+    res.fen = fen;
+    cache[fen] = res;
+  };
+
+  var fetch = throttle(250, function(fen) {
+    var isTablebase = withGames && tablebaseRelevant(effectiveVariant, fen);
+    (isTablebase ? fetchTablebase : fetchOpening)(fen).then(function(res) {
+      cacheResult(fen, res, isTablebase);
+      movesAway(res.nbMoves ? 0 : movesAway() + 1);
+      loading(false);
+      failing(false);
+      m.redraw();
+    }, handleFetchError);
+  }, false);
 
   var empty = {
     opening: true,
     moves: {}
   };
 
-  function setNode() {
+  var setNode = function() {
     if (!enabled()) return;
     var node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(node.fen)) {
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
     var cached = cache[node.fen];
@@ -95,7 +89,7 @@ module.exports = function(root, opts, allow) {
       loading(true);
       fetch(node.fen);
     }
-  }
+  };
 
   return {
     allowed: allowed,
@@ -125,6 +119,24 @@ module.exports = function(root, opts, allow) {
     setHoveringUci: function(uci) {
       hoveringUci(uci);
       root.setAutoShapes();
-    }
+    },
+    fetchMasterOpening: (function() {
+      var masterCache = {};
+      return function(fen) {
+        if (masterCache[fen]) {
+          var d = m.deferred();
+          d.resolve(masterCache[fen]);
+          return d.promise;
+        }
+        return xhr.opening(opts.endpoint, 'standard', fen, {
+          db: {
+            selected: m.prop('masters')
+          }
+        }, false).then(function(res) {
+          masterCache[fen] = res;
+          return res;
+        });
+      }
+    })()
   };
 };

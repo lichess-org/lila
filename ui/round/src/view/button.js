@@ -1,9 +1,8 @@
-var chessground = require('chessground');
-var classSet = chessground.util.classSet;
+var partial = require('chessground').util.partial;
+var classSet = require('common').classSet;
 var util = require('../util');
 var game = require('game').game;
 var status = require('game').status;
-var partial = chessground.util.partial;
 var router = require('game').router;
 var m = require('mithril');
 
@@ -13,6 +12,22 @@ function analysisBoardOrientation(data) {
   } else {
     return data.player.color;
   }
+}
+
+function poolUrl(clock) {
+  return '/#pool/' + (clock.initial / 60) + '+' + clock.increment;
+}
+
+function analysisButton(ctrl) {
+  var d = ctrl.data;
+  var url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply;
+  return game.replayable(d) ? m('a.button', {
+    href: url,
+    // force page load in case the URL is the same
+    onclick: function() {
+      if (location.pathname === url.split('#')[0]) location.reload();
+    }
+  }, ctrl.trans('analysis')) : null;
 }
 
 module.exports = {
@@ -155,9 +170,7 @@ module.exports = {
         method: 'post',
         action: '/tournament/' + d.tournament.id + '/withdraw'
       }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))),
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   },
   moretime: function(ctrl) {
@@ -169,7 +182,9 @@ module.exports = {
   followUp: function(ctrl) {
     var d = ctrl.data;
     var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
-    var newable = (status.finished(d) || status.aborted(d)) && d.game.source == 'lobby';
+    var newable = (status.finished(d) || status.aborted(d)) && (
+      d.game.source === 'lobby' ||
+      d.game.source === 'pool');
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
@@ -187,11 +202,9 @@ module.exports = {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
       newable ? m('a.button', {
-        href: '/?hook_like=' + d.game.id,
+        href: d.game.source === 'pool' ? poolUrl(d.clock) : '/?hook_like=' + d.game.id,
       }, ctrl.trans('newOpponent')) : null,
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   },
   watcherFollowUp: function(ctrl) {
@@ -203,9 +216,7 @@ module.exports = {
       d.tournament ? m('a.button', {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
-      game.replayable(d) ? m('a.button', {
-        href: router.game(d, analysisBoardOrientation(d)) + (ctrl.replaying() ? '#' + ctrl.vm.ply : '')
-      }, ctrl.trans('analysis')) : null
+      analysisButton(ctrl)
     ]);
   }
 };

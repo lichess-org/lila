@@ -44,7 +44,7 @@ div.sidebar a {
 #lichess_message td.check input {
   vertical-align: middle;
 }
-#lichess_message td.author {
+#lichess_message td.author, td.no_messages {
   padding: 1em 1em 1em 20px;
   width: 150px;
   max-width: 150px;
@@ -88,7 +88,7 @@ div.sidebar a {
 #lichess_message div.thread_message_body a {
   color: #3893E8;
 }
-#lichess_message div.thread_message_body frame.analyse {
+#lichess_message div.thread_message_body iframe.analyse {
   margin: 1em 0;
 }
 #lichess_message div.answer {

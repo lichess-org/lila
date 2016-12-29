@@ -28,7 +28,10 @@ object BSONHandlers {
     def write(x: Schedule.Speed) = BSONString(x.name)
   }
 
-  private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
+  private implicit val tournamentClockBSONHandler = {
+    import chess.Clock.Config
+    Macros.handler[Config]
+  }
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
@@ -50,7 +53,7 @@ object BSONHandlers {
         name = r str "name",
         status = r.get[Status]("status"),
         system = r.intO("system").fold[System](System.default)(System.orDefault),
-        clock = r.get[TournamentClock]("clock"),
+        clock = r.get[chess.Clock.Config]("clock"),
         minutes = r int "minutes",
         variant = variant,
         position = position,

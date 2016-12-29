@@ -6,7 +6,7 @@ case class RatingRange(min: Int, max: Int) {
 
   def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
 
-  override def toString = "%d-%d".format(min, max)
+  override def toString = s"$min-$max"
 }
 
 object RatingRange {
@@ -28,7 +28,9 @@ object RatingRange {
 
   def orDefault(from: String) = apply(from) | default
 
-  def noneIfDefault(from: String) = apply(from) filter (_ != default)
+  def noneIfDefault(from: String) =
+    if (from == default.toString) none
+    else apply(from).filter(_ != default)
 
   def valid(from: String) = apply(from).isDefined
 

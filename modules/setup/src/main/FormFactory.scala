@@ -83,7 +83,6 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "increment" -> increment,
       "days" -> days,
       "mode" -> mode(ctx.isAuth && !casualOnly),
-      "membersOnly" -> boolean,
       "ratingRange" -> optional(ratingRange),
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)

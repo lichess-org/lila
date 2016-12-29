@@ -1,24 +1,26 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var classSet = chessground.util.classSet;
-var util = require('./util');
+var classSet = require('common').classSet;
+var bindOnce = require('common').bindOnce;
+var synthetic = require('./util').synthetic;
 var game = require('game').game;
 var renderStatus = require('game').view.status;
 var router = require('game').router;
-var treePath = require('./tree/path');
-var treeView = require('./tree/treeView');
+var treePath = require('tree').path;
+var treeView = require('./treeView');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 var renderPromotion = require('./promotion').view;
 var pgnExport = require('./pgnExport');
 var forecastView = require('./forecast/forecastView');
-var cevalView = require('./ceval/cevalView');
+var cevalView = require('ceval').view;
 var crazyView = require('./crazy/crazyView');
 var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');
+var retroView = require('./retrospect/retroView');
 var studyView = require('./study/studyView');
 var forkView = require('./fork').view;
-var acplView = require('./acpl');
+var acplView = require('./acpl').render;
 
 function renderResult(ctrl) {
   var result;
@@ -84,7 +86,7 @@ function inputs(ctrl) {
     m('label.name', 'FEN'),
     m('input.copyable.autoselect[spellCheck=false]', {
       value: ctrl.vm.node.fen,
-      config: util.bindOnce('change', function(e) {
+      config: bindOnce('change', function(e) {
         if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
       })
     }),
@@ -97,7 +99,7 @@ function inputs(ctrl) {
         m('button', {
           class: 'button text',
           'data-icon': 'G',
-          config: util.bindOnce('click', function(e) {
+          config: bindOnce('click', function(e) {
             var pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
           })
@@ -177,7 +179,7 @@ function dataAct(e) {
 
 function buttons(ctrl) {
   return m('div.game_control', {
-    config: util.bindOnce('mousedown', function(e) {
+    config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
@@ -191,7 +193,9 @@ function buttons(ctrl) {
       id: 'open_explorer',
       'data-hint': ctrl.trans('openingExplorer'),
       'data-act': 'explorer',
-      class: 'hint--bottom' + (ctrl.actionMenu.open || !ctrl.explorer.allowed() ? ' hidden' : (ctrl.explorer.enabled() ? ' active' : ''))
+      class: 'hint--bottom' + (
+        ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
+          ctrl.explorer.enabled() ? ' active' : ''))
     }, icon(']')),
     cachedButtons,
     m('button', {
@@ -236,7 +240,7 @@ module.exports = function(ctrl) {
       })
     }, [
       m('div.lichess_game', {
-        config: function(el, isUpdate, context) {
+        config: function(el, isUpdate) {
           if (isUpdate) return;
           lichess.pubsub.emit('content_loaded')();
         }
@@ -245,11 +249,10 @@ module.exports = function(ctrl) {
         m('div.lichess_ground', [
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
-            cevalView.renderCeval(ctrl),
-            cevalView.renderPvs(ctrl),
+            cevalView.renderCeval(ctrl), (ctrl.retro && ctrl.retro.isSolving()) ? null : cevalView.renderPvs(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
-            explorerView.renderExplorer(ctrl)
+            retroView(ctrl) || explorerView(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl)
@@ -262,7 +265,7 @@ module.exports = function(ctrl) {
       m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
       m('div.right', acplView(ctrl))
     ]),
-    ctrl.embed || util.synthetic(ctrl.data) ? null : m('div.analeft', [
+    ctrl.embed || synthetic(ctrl.data) ? null : m('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? m('div.back_to_game',
         m('a', {

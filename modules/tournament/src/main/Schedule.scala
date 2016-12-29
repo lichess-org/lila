@@ -103,8 +103,8 @@ object Schedule {
       case (Bullet, HyperBullet) => true
       case _                     => false
     }
-    def fromClock(clock: TournamentClock) = {
-      val time = clock.chessClock.estimateTotalTime
+    def fromClock(clock: chess.Clock.Config) = {
+      val time = clock.estimateTotalTime
       if (time < 60) HyperBullet
       else if (time < 180) Bullet
       else if (time < 480) Blitz
@@ -141,7 +141,7 @@ object Schedule {
       case (Daily | Eastern, Standard, Blitz)         => 120
       case (Daily | Eastern, _, Classical)            => 150
 
-      case (Daily | Eastern, Crazyhouse, Blitz)       => 120
+      case (Daily | Eastern, Crazyhouse, Blitz)       => 90
       case (Daily | Eastern, _, Blitz)                => 60 // variant daily is shorter
 
       case (Weekly, _, HyperBullet | Bullet)          => 60 * 2
@@ -180,7 +180,7 @@ object Schedule {
     import Freq._, Speed._
     import chess.variant._
 
-    val TC = TournamentClock
+    val TC = chess.Clock.Config
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
@@ -202,9 +202,9 @@ object Schedule {
       import Freq._, Speed._
 
       val nbRatedGame = (s.freq, s.speed) match {
-        case (Daily, HyperBullet | Bullet)            => 20
-        case (Daily, SuperBlitz | Blitz)              => 15
-        case (Daily, Classical)                       => 10
+        case (Daily | Eastern, HyperBullet | Bullet)  => 20
+        case (Daily | Eastern, SuperBlitz | Blitz)    => 15
+        case (Daily | Eastern, Classical)             => 10
 
         case (Weekly | Monthly, HyperBullet | Bullet) => 30
         case (Weekly | Monthly, SuperBlitz | Blitz)   => 20

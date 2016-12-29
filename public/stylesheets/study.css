@@ -567,26 +567,44 @@ form .editor a.button {
   opacity: 1;
   color: #dc322f!important;
 }
-.study_metadata table {
+table.tags {
   border: none;
 }
-.study_metadata th {
+table.tags th {
   text-transform: uppercase;
   font-size: 1.1em;
   opacity: 0.7;
   border-top: 1px solid #eaeaea;
+  width: 1px;
+  padding: 0 5px 0 15px!important;
 }
 body.dark .study_box .add,
-body.dark .study_metadata th {
+body.dark table.tags th {
   border-color: #3d3d3d;
 }
-.study_metadata tr:first-child th {
+table.tags tr:first-child th {
   border-top: none;
 }
-.study_metadata table.slist td {
-  padding: 0.9em;
+table.tags td {
+  padding: 0;
 }
-.study_metadata #study_fen {
+table.tags td input,
+table.tags td span,
+table.tags td pre {
+  padding-left: 10px;
+  line-height: 2.5em;
+}
+table.tags td input {
+  border: none;
+  background: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+table.tags td input:hover,
+table.tags td input:focus {
+  background: rgba(56, 147, 232, 0.08);
+}
+table.tags #study_fen {
   font-size: 0.8em;
   margin: 0.3em 0;
 }

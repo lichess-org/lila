@@ -101,19 +101,21 @@ object UserRepo {
       }
   }
 
-  def firstGetsWhite(u1O: Option[String], u2O: Option[String]): Fu[Boolean] =
+  def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] = coll.find(
+    $inIds(List(u1, u2)),
+    $id(true)
+  ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
+      _.fold(scala.util.Random.nextBoolean) { doc =>
+        doc.getAs[User.ID]("_id") contains u1
+      }
+    }.addEffect { v =>
+      incColor(u1, v.fold(1, -1))
+      incColor(u2, v.fold(-1, 1))
+    }
+
+  def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
     (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean)) {
-      case (u1, u2) => coll.find(
-        $inIds(List(u1, u2)),
-        $id(true)
-      ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
-          _.fold(scala.util.Random.nextBoolean) { doc =>
-            doc.getAs[String]("_id") contains u1
-          }
-        }.addEffect { v =>
-          incColor(u1, v.fold(1, -1))
-          incColor(u2, v.fold(-1, 1))
-        }
+      case (u1, u2) => firstGetsWhite(u1, u2)
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
@@ -121,6 +123,9 @@ object UserRepo {
 
   val lichessId = "lichess"
   def lichess = byId(lichessId)
+
+  val irwinId = "irwin"
+  def irwin = byId(irwinId)
 
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
@@ -189,8 +194,8 @@ object UserRepo {
         case _  => none
       }) ifFalse ai
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
-        totalTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.total", v)),
-        tvTime map BSONInteger.apply map(v => BSONElement(s"${F.playTime}.tv", v))
+        totalTime map BSONInteger.apply map (v => BSONElement(s"${F.playTime}.total", v)),
+        tvTime map BSONInteger.apply map (v => BSONElement(s"${F.playTime}.tv", v))
       ).flatten
 
     coll.update($id(id), $inc(incs))
@@ -325,11 +330,24 @@ object UserRepo {
     coll.updateField($id(user.id), "plan", plan).void
   }
 
+  private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
+    doc.getAs[Bdoc](F.perfs).flatMap(_.getAs[Perf](perfType.key))
+
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.find(
     $id(id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
   ).uno[Bdoc].map {
-      _.flatMap(_.getAs[Bdoc](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
+      _.flatMap { docPerf(_, perfType) }
+    }
+
+  def perfOf(ids: Iterable[ID], perfType: PerfType): Fu[Map[ID, Perf]] = coll.find(
+    $inIds(ids),
+    $doc(s"${F.perfs}.${perfType.key}" -> true)
+  ).cursor[Bdoc]()
+    .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]()).map { docs =>
+      docs.map { doc =>
+        ~doc.getAs[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
+      }.toMap
     }
 
   def setSeenAt(id: ID) {

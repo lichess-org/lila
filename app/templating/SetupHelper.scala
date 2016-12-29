@@ -4,7 +4,6 @@ package templating
 import chess.{ Mode, Speed }
 import lila.api.Context
 import lila.pref.Pref
-import lila.pref.Pref.Difficulty
 import lila.report.Reason
 import lila.setup.TimeMode
 import lila.tournament.System
@@ -62,6 +61,7 @@ trait SetupHelper { self: I18nHelper =>
       variantTuple(chess.variant.Chess960) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
+      variantTuple(chess.variant.Antichess) :+
       variantTuple(chess.variant.Atomic) :+
       variantTuple(chess.variant.Horde) :+
       variantTuple(chess.variant.RacingKings) :+
@@ -123,12 +123,6 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.str())
   )
 
-  def translatedDifficultyChoices(implicit ctx: Context) = List(
-    (Pref.Difficulty.EASY, trans.difficultyEasy.str()),
-    (Pref.Difficulty.NORMAL, trans.difficultyNormal.str()),
-    (Pref.Difficulty.HARD, trans.difficultyHard.str())
-  )
-
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.str()),
     (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.inCorrespondenceGames.str()),
@@ -143,7 +137,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, trans.never.str()),
-    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(500).toString()),
+    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(lila.pref.Pref.Challenge.ratingThreshold).toString()),
     (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
     (Pref.Challenge.ALWAYS, trans.always.str())
   )

@@ -1,8 +1,7 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var classSet = chessground.util.classSet;
+var classSet = require('common').classSet;
 var renderConfig = require('./explorerConfig').view;
-var util = require('../util');
+var bindOnce = require('common').bindOnce;
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;
@@ -84,7 +83,7 @@ function showGameTable(ctrl, type, games) {
       ])
     ]),
     m('tbody', {
-      config: util.bindOnce('click', function(e) {
+      config: bindOnce('click', function(e) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         var orientation = ctrl.chessground.data.orientation;
@@ -147,6 +146,8 @@ function showDtm(stm, move) {
 function showDtz(stm, move) {
   if (move.checkmate) return m('result.' + winner(stm, move), 'Checkmate');
   else if (move.stalemate) return m('result.draws', 'Stalemate');
+  else if (move.variant_win) return m('result.' + winner(stm, move), 'Variant loss');
+  else if (move.variant_loss) return m('result.' + winner(stm, move), 'Variant win');
   else if (move.insufficient_material) return m('result.draws', 'Insufficient material');
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return m('result.draws', 'Draw');
@@ -163,7 +164,7 @@ function closeButton(ctrl) {
   return m('button', {
     class: 'button text',
     'data-icon': 'L',
-    config: util.bindOnce('click', ctrl.explorer.toggle)
+    config: bindOnce('click', ctrl.explorer.toggle)
   }, 'Close');
 }
 
@@ -204,23 +205,27 @@ function show(ctrl) {
     var moves = data.moves;
     if (moves.length) lastShow = m('div.data', [
       showTablebase(ctrl, 'Winning', moves.filter(function(move) {
-        return move.real_wdl === -2;
+        return move.wdl === -2;
+      }), data.fen),
+      showTablebase(ctrl, 'Unknown', moves.filter(function(move) {
+        return move.wdl === null;
       }), data.fen),
       showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === -1;
+        return move.wdl === -1;
       }), data.fen),
       showTablebase(ctrl, 'Drawn', moves.filter(function(move) {
-        return move.real_wdl === 0;
+        return move.wdl === 0;
       }), data.fen),
       showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) {
-        return move.real_wdl === 1;
+        return move.wdl === 1;
       }), data.fen),
       showTablebase(ctrl, 'Losing', moves.filter(function(move) {
-        return move.real_wdl === 2;
+        return move.wdl === 2;
       }), data.fen)
     ])
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
     else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
+    else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
     else lastShow = showEmpty(ctrl);
   }
   return lastShow;
@@ -252,33 +257,31 @@ function showFailing(ctrl) {
   ]);
 }
 
-module.exports = {
-  renderExplorer: function(ctrl) {
-    var explorer = ctrl.explorer
-    if (!explorer.enabled()) return;
-    var data = explorer.current();
-    var config = explorer.config;
-    var configOpened = config.data.open();
-    var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-    var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
-    return m('div', {
-      class: classSet({
-        explorer_box: true,
-        loading: loading,
-        config: configOpened,
-        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
-      }),
-      config: function(el, isUpdate, ctx) {
-        if (!isUpdate || !data || ctx.lastFen === data.fen) return;
-        ctx.lastFen = data.fen;
-        el.scrollTop = 0;
-      }
-    }, [
-      m('div.overlay'),
-      content, (!content || explorer.failing()) ? null : m('span.toconf', {
-        'data-icon': configOpened ? 'L' : '%',
-        config: util.bindOnce('click', config.toggleOpen)
-      })
-    ]);
-  }
+module.exports = function(ctrl) {
+  var explorer = ctrl.explorer
+  if (!explorer.enabled()) return;
+  var data = explorer.current();
+  var config = explorer.config;
+  var configOpened = config.data.open();
+  var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
+  var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
+  return m('div', {
+    class: classSet({
+      explorer_box: true,
+      loading: loading,
+      config: configOpened,
+      reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
+    }),
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate || !data || ctx.lastFen === data.fen) return;
+      ctx.lastFen = data.fen;
+      el.scrollTop = 0;
+    }
+  }, [
+    m('div.overlay'),
+    content, (!content || explorer.failing()) ? null : m('span.toconf', {
+      'data-icon': configOpened ? 'L' : '%',
+      config: bindOnce('click', config.toggleOpen)
+    })
+  ]);
 };

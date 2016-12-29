@@ -64,7 +64,8 @@ function view(ctrl) {
     }
   }, [
     m('p.title', nodeFullName(ctrl.node)),
-    ctrl.isMainline ? null : action('E', 'Promote to main line', partial(ctrl.root.promoteNode, ctrl.path)),
+    ctrl.isMainline ? null : action('S', 'Promote variation', partial(ctrl.root.promote, ctrl.path, false)),
+    ctrl.isMainline ? null : action('E', 'Make main line', partial(ctrl.root.promote, ctrl.path, true)),
     action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path)),
     ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : null
   ]);

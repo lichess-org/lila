@@ -78,4 +78,3 @@ object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
 
   override def createExtension(system: ExtendedActorSystem) = new Bus(system)
 }
-

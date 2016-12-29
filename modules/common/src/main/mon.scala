@@ -59,20 +59,58 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
+      def acceptedRatedClock(clock: String) =
+        inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
+      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
+      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
+      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
       val getUids = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
-      val resync = inc("lobby.socket.resync")
+      val idle = rec("lobby.socket.idle")
+      val hookSubscribers = rec("lobby.socket.hook_subscribers")
+      val mobile = rec(s"lobby.socket.mobile")
     }
     object cache {
       val user = inc("lobby.cache.count.user")
       val anon = inc("lobby.cache.count.anon")
       val miss = inc("lobby.cache.count.miss")
+    }
+    object pool {
+      object wave {
+        def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
+        def full(id: String) = inc(s"lobby.pool.$id.wave.full")
+        def candidates(id: String) = rec(s"lobby.pool.$id.wave.candidates")
+        def paired(id: String) = rec(s"lobby.pool.$id.wave.paired")
+        def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
+        def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
+        def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
+        def withRange(id: String) = rec(s"lobby.pool.$id.wave.with_range")
+      }
+      object thieve {
+        def timeout(id: String) = inc(s"lobby.pool.$id.thieve.timeout")
+        def candidates(id: String) = rec(s"lobby.pool.$id.thieve.candidates")
+        def stolen(id: String) = rec(s"lobby.pool.$id.thieve.stolen")
+      }
+      object join {
+        def count(id: String) = inc(s"lobby.pool.$id.join.count")
+      }
+      object leave {
+        def count(id: String) = inc(s"lobby.pool.$id.leave.count")
+        def wait(id: String) = rec(s"lobby.pool.$id.leave.wait")
+      }
+      object matchMaking {
+        def duration(id: String) = rec(s"lobby.pool.$id.match_making.duration")
+      }
+      object gameStart {
+        def duration(id: String) = rec(s"lobby.pool.$id.game_start.duration")
+      }
     }
   }
   object round {
@@ -282,7 +320,7 @@ object mon {
       val time = rec("puzzle.selector")
       def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
-    object attempt {
+    object round {
       val user = inc("puzzle.attempt.user")
       val anon = inc("puzzle.attempt.anon")
       val mate = inc("puzzle.attempt.mate")
@@ -361,6 +399,7 @@ object mon {
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
+      def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
       val moveDbSize = rec("fishnet.work.move.db_size")
     }
     object move {
@@ -377,13 +416,15 @@ object mon {
         def nps = rec(s"fishnet.analysis.nps.$client")
         def depth = rec(s"fishnet.analysis.depth.$client")
         def pvSize = rec(s"fishnet.analysis.pv_size.$client")
+        def pvTotal = incX(s"fishnet.analysis.pvs.total.$client")
+        def pvShort = incX(s"fishnet.analysis.pvs.short.$client")
+        def pvLong = incX(s"fishnet.analysis.pvs.long.$client")
         def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
         def totalSecond = incX(s"fishnet.analysis.total.second.$client")
         def totalPosition = incX(s"fishnet.analysis.total.position.$client")
-        def endgameCount = incX(s"fishnet.analysis.total.endgame.count.$client")
-        def endgameTime = incX(s"fishnet.analysis.total.endgame.time.$client")
       }
       val post = rec("fishnet.analysis.post")
+      val requestCount = inc("fishnet.analysis.request")
     }
   }
   object api {

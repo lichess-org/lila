@@ -24,7 +24,11 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     def read(bsonInt: BSONInteger): Variant = Variant(bsonInt.value) err s"No such variant: ${bsonInt.value}"
     def write(x: Variant) = BSONInteger(x.id)
   }
-  private implicit val ClockBSONHandler = Macros.handler[SimulClock]
+  private implicit val ClockBSONHandler = {
+    import chess.Clock.Config
+    implicit val clockHandler = Macros.handler[Config]
+    Macros.handler[SimulClock]
+  }
   private implicit val PlayerBSONHandler = Macros.handler[SimulPlayer]
   private implicit val ApplicantBSONHandler = Macros.handler[SimulApplicant]
   private implicit val SimulPairingBSONHandler = new BSON[SimulPairing] {

@@ -7,6 +7,7 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 
 import lila.db.dsl._
+import Puzzle.{BSONFields => F}
 
 private[puzzle] final class Daily(
     coll: Coll,
@@ -14,7 +15,10 @@ private[puzzle] final class Daily(
     scheduler: Scheduler) {
 
   private val cache =
-    lila.memo.AsyncCache.single[Option[DailyPuzzle]](f = find, timeToLive = 10 minutes)
+    lila.memo.AsyncCache.single[Option[DailyPuzzle]](
+      name = "puzzle.daily",
+      f = find,
+      timeToLive = 10 minutes)
 
   def apply(): Fu[Option[DailyPuzzle]] = cache apply true
 
@@ -32,7 +36,7 @@ private[puzzle] final class Daily(
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
     import makeTimeout.short
     ~puzzle.fenAfterInitialMove.map { fen =>
-      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove) map {
+      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
         case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
       }
     }
@@ -43,15 +47,15 @@ private[puzzle] final class Daily(
   }
 
   private def findCurrent = coll.find(
-    $doc("day" $gt DateTime.now.minusMinutes(24 * 60 - 15))
+    $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
   ).uno[Puzzle]
 
   private def findNew = coll.find(
-    $doc("day" $exists false)
-  ).sort($doc("vote.sum" -> -1)).uno[Puzzle] flatMap {
+    $doc(F.day $exists false, F.voteNb $gte 200)
+  ).sort($doc(F.voteRatio -> -1)).uno[Puzzle] flatMap {
       case Some(puzzle) => coll.update(
         $id(puzzle.id),
-        $set("day" -> DateTime.now)
+        $set(F.day -> DateTime.now)
       ) inject puzzle.some
       case None => fuccess(none)
     }

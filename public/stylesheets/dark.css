@@ -150,6 +150,7 @@ body.dark .tview2 > index + move,
 body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
 body.dark .explorer_box,
+body.dark .retro_box,
 body.dark .explorer_box .config .choices span,
 body.dark .lichess_ground .areplay interrupt,
 body.dark div.content_box.prefs form li,
@@ -162,7 +163,7 @@ body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
-body.dark div.training div.box,
+body.dark #puzzle div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
 body.dark div.side_box .game_infos,
@@ -246,8 +247,6 @@ body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
 body.dark .tview2,
-body.dark .explorer_box .title,
-body.dark .explorer_box thead,
 body.dark .explorer_box tr:nth-child(even),
 body.dark div.mchat .messages,
 body.dark div.side_box,
@@ -272,6 +271,7 @@ body.dark #hooks_wrap .table_wrap tr.cancel td {
 body.dark #site_header div.side_menu a:hover,
 body.dark div.doc_box a.variant:hover,
 body.dark #hooks_wrap .table_wrap tr.join:hover td,
+body.dark #hooks_wrap .pools > div:hover,
 body.dark #now_playing > a:hover,
 body.dark .explorer_box tr:hover,
 body.dark .pv_box .pv[data-uci]:hover,
@@ -449,18 +449,18 @@ body.dark #hooks_wrap .hooks_chart > span.label {
 body.dark .pull-quote p:after {
   background: #1a1a1a;
 }
-body.dark div.training > .side div.fail,
-body.dark div.training > .side div.loss {
+body.dark #puzzle > .side div.fail,
+body.dark #puzzle > .side div.loss {
   color: #e97472;
   background: #582b33;
 }
-body.dark div.training > .side div.retry {
+body.dark #puzzle > .side div.retry {
   color: #8482c9;
   background: #101034;
 }
-body.dark div.training > .side div.great,
-body.dark div.training > .side div.win,
-body.dark #puzzle > .right .please_vote {
+body.dark #puzzle > .side div.great,
+body.dark #puzzle > .side div.win,
+body.dark #puzzle .please_vote {
   background: #103410;
   color: #74a962;
 }

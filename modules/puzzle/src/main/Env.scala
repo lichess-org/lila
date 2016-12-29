@@ -8,23 +8,37 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     renderer: ActorSelection,
+    lightUser: lila.common.LightUser.Getter,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
-    val CollectionAttempt = config getString "collection.attempt"
+    val CollectionRound = config getString "collection.round"
+    val CollectionLearning = config getString "collection.learning"
+    val CollectionVote = config getString "collection.vote"
+    val CollectionHead = config getString "collection.head"
     val ApiToken = config getString "api.token"
+    val AnimationDuration = config duration "animation.duration"
+    val PuzzleIdMin = config getInt "selector.puzzle_id_min"
   }
   import settings._
 
-  val AnimationDuration = config duration "animation.duration"
-
   private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
+
+  private lazy val gameJson = new GameJson(lightUser)
+
+  lazy val jsonView = new JsonView(
+    gameJson,
+    animationDuration = AnimationDuration)
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
-    attemptColl = attemptColl,
+    roundColl = roundColl,
+    learningColl = learningColl,
+    voteColl = voteColl,
+    headColl = headColl,
+    puzzleIdMin = PuzzleIdMin,
     apiToken = ApiToken)
 
   lazy val finisher = new Finisher(
@@ -34,10 +48,9 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    anonMinRating = config getInt "selector.anon_min_rating",
-    maxAttempts = config getInt "selector.max_attempts")
+    puzzleIdMin = PuzzleIdMin)
 
-  lazy val userInfos = UserInfos(attemptColl = attemptColl)
+  lazy val userInfos = UserInfos(roundColl = roundColl)
 
   lazy val forms = DataForm
 
@@ -49,9 +62,6 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "puzzle" :: "export" :: nbStr :: Nil => parseIntOption(nbStr) ?? { nb =>
-        Export(api, nb)
-      }
       case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
         api.puzzle disable id inject "Done"
       }
@@ -59,7 +69,10 @@ final class Env(
   }
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val attemptColl = db(CollectionAttempt)
+  private[puzzle] lazy val roundColl = db(CollectionRound)
+  private[puzzle] lazy val learningColl = db(CollectionLearning)
+  private[puzzle] lazy val voteColl = db(CollectionVote)
+  private[puzzle] lazy val headColl = db(CollectionHead)
 }
 
 object Env {
@@ -67,6 +80,7 @@ object Env {
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     renderer = lila.hub.Env.current.actor.renderer,
+    lightUser = lila.user.Env.current.lightUser _,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle)
 }

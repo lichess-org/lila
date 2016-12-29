@@ -512,7 +512,7 @@ div.side_box .refused {
 #tournament_side .player .rank {
   display: none;
 }
-#tournament_side .player .name {
+#tournament_side .user_link .name {
   padding-right: 5px;
 }
 #tournament_side .player close {

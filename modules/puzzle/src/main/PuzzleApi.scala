@@ -1,18 +1,23 @@
 package lila.puzzle
 
+import scala.concurrent.duration._
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
 import play.api.libs.json.JsValue
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson.{ BSONArray, BSONValue }
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import Puzzle.{BSONFields => F}
 
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
-    attemptColl: Coll,
+    roundColl: Coll,
+    learningColl: Coll,
+    voteColl: Coll,
+    headColl: Coll,
+    puzzleIdMin: PuzzleId,
     apiToken: String) {
 
   import Puzzle.puzzleBSONHandler
@@ -20,13 +25,19 @@ private[puzzle] final class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl.find($doc("_id" -> id)).uno[Puzzle]
+      puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
 
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find($empty)
-        .sort($doc("date" -> -1))
+        .sort($doc(F.date -> -1))
         .cursor[Puzzle]()
         .gather[List](nb)
+
+    private def lastId: Fu[Int] = lila.db.Util findNextId puzzleColl map (_ - 1)
+
+    val cachedLastId = lila.memo.AsyncCache.single(
+      name = "puzzle.lastId",
+      lastId, timeToLive = 5 minutes)
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")
@@ -40,78 +51,118 @@ private[puzzle] final class PuzzleApi(
         val p = generated toPuzzle id
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
-          "fen".$regex(fenStart.replace("/", "\\/"), ""),
-          "vote.sum" -> $gt(-100)
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleColl insert p inject id
-          case _     => fufail("Duplicate puzzle")
+          case _     => fufail(s"Duplicate puzzle $fenStart")
         }
       }
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
-      puzzleColl.find($doc("mate" -> mate))
-        .sort($doc(Puzzle.BSONFields.voteSum -> -1))
+      puzzleColl.find($doc(F.mate -> mate))
+        .sort($doc(F.voteRatio -> -1))
         .cursor[Puzzle]().gather[List](nb / 2)
     }.sequenceFu.map(_.flatten)
 
     def disable(id: PuzzleId): Funit =
       puzzleColl.update(
         $id(id),
-        $doc("$set" -> $doc(Puzzle.BSONFields.vote -> Vote.disable))
+        $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
       ).void
   }
 
-  object attempt {
+  object round {
 
-    def find(puzzleId: PuzzleId, userId: String): Fu[Option[Attempt]] =
-      attemptColl.find($doc(
-        Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
-      )).uno[Attempt]
+    def add(a: Round) = roundColl insert a void
+  }
 
-    def vote(a1: Attempt, v: Boolean): Fu[(Puzzle, Attempt)] = puzzle find a1.puzzleId flatMap {
-      case None => fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
-      case Some(p1) =>
-        val p2 = a1.vote match {
-          case Some(from) => p1 withVote (_.change(from, v))
-          case None       => p1 withVote (_ add v)
-        }
-        val a2 = a1.copy(vote = v.some)
-        attemptColl.update(
-          $id(a2.id),
-          $doc("$set" -> $doc(Attempt.BSONFields.vote -> v))) zip
-          puzzleColl.update(
-            $doc("_id" -> p2.id),
-            $doc("$set" -> $doc(Puzzle.BSONFields.vote -> p2.vote))) map {
-              case _ => p2 -> a2
-            }
+  object learning {
+
+    private implicit val learningBSONHandler = reactivemongo.bson.Macros.handler[Learning]
+
+    def find(user: User): Fu[Option[Learning]] = learningColl.byId[Learning](user.id)
+
+    def add(l: Learning) = learningColl insert l void
+
+    def update(user: User, puzzle: Puzzle, result: Result): Fu[Boolean] =
+      if (result.win) solved(user, puzzle.id)
+      else failed(user, puzzle.id)
+
+    def solved(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
+      case None => fuccess(false)
+      case Some(l) =>
+        learningColl.update($id(l.id), l solved puzzleId) inject l.contains(puzzleId)
     }
 
-    def add(a: Attempt) = attemptColl insert a void
+    def failed(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
+      case None => learning add Learning(user.id, List(puzzleId), List()) inject false
+      case Some(l) =>
+        learningColl.update($id(l.id), l failed puzzleId) inject l.contains(puzzleId)
+    }
 
-    def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
-      attemptColl.exists($doc(
-        Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
-      ))
+    def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
+      case None    => fuccess(none)
+      case Some(l) => l.nextPuzzleId ?? puzzle.find
+    }
+  }
 
-    def playedIds(user: User): Fu[BSONArray] =
-      attemptColl.distinct[BSONValue, List](
-        Attempt.BSONFields.puzzleId,
-        $doc(Attempt.BSONFields.userId -> user.id).some
-      ) map BSONArray.apply
+  object vote {
 
-    def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
-      $doc(Attempt.BSONFields.userId -> user.id),
-      $doc(
-        Attempt.BSONFields.vote -> true,
-        Attempt.BSONFields.id -> false
-      )).sort($doc(Attempt.BSONFields.date -> -1))
-      .cursor[Bdoc]()
-      .gather[List](5) map {
-        case attempts if attempts.size < 5 => true
-        case attempts => attempts.foldLeft(false) {
-          case (true, _)    => true
-          case (false, doc) => doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
+    def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
+      voteColl.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
+
+    def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl.byId[Vote](Vote.makeId(id, user.id))
+
+    def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] = puzzle find id flatMap {
+      case None => fufail(s"Can't vote for non existing puzzle ${id}")
+      case Some(p1) =>
+        val (p2, v2) = v1 match {
+          case Some(from) => (
+            (p1 withVote (_.change(from.value, v))),
+            from.copy(v = v)
+          )
+          case None => (
+            (p1 withVote (_ add v)),
+            Vote(Vote.makeId(id, user.id), v)
+          )
         }
-      }
+        voteColl.update(
+          $id(v2.id),
+          $set("v" -> v),
+          upsert = true) zip
+          puzzleColl.update(
+            $id(p2.id),
+            $set(F.vote -> p2.vote)) map {
+              case _ => p2 -> v2
+            }
+    }
+  }
+
+  object head {
+
+    def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
+
+    def add(h: PuzzleHead) = headColl update (
+      $id(h.id),
+      h,
+      upsert = true) void
+
+    def addLearning(user: User, puzzleId: PuzzleId) = headColl update (
+      $id(user.id),
+      $set(PuzzleHead.BSONFields.current -> puzzleId.some),
+      upsert = true) void
+
+    def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
+
+    def solved(user: User, id: PuzzleId) = head find user flatMap {
+      case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update (
+        $id(user.id),
+        PuzzleHead(user.id, none, id))
+      case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update (
+        $id(user.id),
+        $unset(PuzzleHead.BSONFields.current))
+      case _ => fuccess(none)
+    }
   }
 }

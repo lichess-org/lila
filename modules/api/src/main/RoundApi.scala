@@ -11,6 +11,7 @@ import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
 import lila.tournament.{ Tournament, SecondsToDoFirstMove, TourAndRanks }
+import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -107,7 +108,6 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
       withTree(pov, analysis = none, initialFen, withOpening = true)_
 
-  import lila.socket.tree.Node.partitionTreeJsonWriter
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(lila.round.TreeBuilder(
       id = pov.game.id,

@@ -5,7 +5,7 @@ import scalaz.Validation.FlatMap._
 import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn, Glyphs, San, Dumper }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.importer.{ ImportData, Preprocessed }
-import lila.socket.tree.Node.{ Comment, Comments, Shape, Shapes }
+import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
 
 private object PgnImport {
 

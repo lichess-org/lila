@@ -82,27 +82,6 @@ function splitOverlaping(lanes) {
   return ret;
 }
 
-// Tries to compress lanes by moving tours
-// upwards until it hits another tournament.
-// Should not bubble past existing ones.
-function bubbleUp(lanes, tours) {
-  var returnLanes = lanes.concat([]);
-  tours.forEach(function(tour) {
-    var i = returnLanes.length - 1;
-    while (i >= 0) {
-      if (!fitLane(returnLanes[i], tour))
-        break;
-      i--;
-    }
-    if (i + 1 >= returnLanes.length) {
-      returnLanes.push([tour]);
-    } else {
-      returnLanes[i + 1].push(tour);
-    }
-  });
-  return returnLanes;
-}
-
 function tournamentClass(tour) {
   var classes = [
     'tournament',
@@ -225,7 +204,7 @@ module.exports = function(ctrl) {
 
   // group system tournaments into dedicated lanes for PerfType
   var tourLanes = splitOverlaping(
-    bubbleUp(group(ctrl.data.systemTours, laneGrouper), ctrl.data.userTours));
+    group(ctrl.data.systemTours, laneGrouper).concat([ctrl.data.userTours]));
 
   return m('div.schedule.dragscroll', {
     config: function(el, isUpdate) {

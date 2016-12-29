@@ -29,7 +29,10 @@ module.exports = function(ctrl, e) {
   obj[key] = piece;
   ctrl.chessground.setPieces(obj);
   var bounds = ctrl.chessground.data.bounds();
-  var squareBounds = ctrl.vm.element.querySelector('.cg-board piece').getBoundingClientRect();
+  var squareBounds = {
+    width: bounds.width / 8,
+    height: bounds.height / 8
+  };
   var rel = [
     (coords[0] - 1) * squareBounds.width + bounds.left, (8 - coords[1]) * squareBounds.height + bounds.top
   ];

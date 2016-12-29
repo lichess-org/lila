@@ -50,7 +50,6 @@ object Query {
 
   def user(u: String): Bdoc = F.playerUids $eq u
   def user(u: User): Bdoc = F.playerUids $eq u.id
-  def users(u: Seq[String]) = F.playerUids $in u
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
@@ -66,8 +65,7 @@ object Query {
 
   def loss(u: String) = user(u) ++ $doc(
     F.status $in Status.finishedWithWinner.map(_.id),
-    F.winnerId -> $exists(true).++($ne(u))
-  )
+    F.winnerId $ne u)
 
   def opponents(u1: User, u2: User) =
     $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))

@@ -12,15 +12,17 @@ import views._
 
 object Lobby extends LilaController {
 
+  private val lobbyJson = Json.obj(
+    "lobby" -> Json.obj(
+      "version" -> 0,
+      "pools" -> Env.api.lobbyApi.poolsJson
+    )
+  )
+
   def home = Open { implicit ctx =>
     negotiate(
       html = renderHome(Results.Ok).map(NoCache),
-      api = _ => fuccess {
-        Ok(Json.obj(
-          "lobby" -> Json.obj(
-            "version" -> Env.lobby.history.version)
-        ))
-      }
+      api = _ => fuccess(Ok(lobbyJson))
     )
   }
 
@@ -41,17 +43,15 @@ object Lobby extends LilaController {
     )
   }
 
-  private val socketConsumer = lila.api.TokenBucket.create(
-    system = lila.common.PlayApp.system,
-    size = 10,
-    rate = 6)
+  private val MessageLimitPerIP = new lila.memo.RateLimit(
+    credits = 40,
+    duration = 10 seconds,
+    name = "lobby socket message per IP",
+    key = "lobby_socket.message.ip")
 
-  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](socketConsumer, "lobby") { implicit ctx =>
+  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
     get("sri") ?? { uid =>
-      Env.lobby.socketHandler(
-        uid = uid,
-        user = ctx.me,
-        mobile = getBool("mobile")) map some
+      Env.lobby.socketHandler(uid = uid, user = ctx.me, mobile = getBool("mobile")) map some
     }
   }
 
@@ -66,6 +66,7 @@ object Lobby extends LilaController {
       headers: Headers)
 
     private val cache = lila.memo.AsyncCache[RequestKey, Html](
+      name = "lobby.homeCache",
       f = renderRequestKey,
       timeToLive = 1 second)
 

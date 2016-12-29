@@ -1,10 +1,10 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
+var opposite = chessground.util.opposite;
+var classSet = require('common').classSet;
 var game = require('game').game;
 var status = require('game').status;
-var opposite = chessground.util.opposite;
 var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
@@ -35,15 +35,11 @@ function compact(x) {
 }
 
 function renderPlayer(ctrl, player) {
-  return player.ai ? m('div.username',
-    m('span.user_link.online', [
+  return player.ai ? m('div.username.user_link.online', [
       m('i.line'),
       m('name', renderUser.aiName(ctrl, player))
-    ])) : m('div', {
-      class: 'username ' + player.color
-    },
-    renderUser.userHtml(ctrl, player)
-  );
+    ]) :
+    renderUser.userHtml(ctrl, player);
 }
 
 function isSpinning(ctrl) {

@@ -321,12 +321,6 @@ object JsonView {
       "short" -> v.shortName)
   }
 
-  implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
-    Json.obj(
-      "id" -> s.id,
-      "name" -> s.name)
-  }
-
   implicit val clockWriter: OWrites[Clock] = OWrites { c =>
     import lila.common.Maths.truncateAt
     Json.obj(

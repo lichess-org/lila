@@ -24,11 +24,37 @@ private final class Streaming(
     import makeTimeout.short
     actor ? Get mapTo manifest[List[StreamOnAir]]
     // fuccess(List(StreamOnAir(
-    //   service = "twitch",
     //   name = "Chess master streams at lichess.org",
-    //   streamer = "ChessNetwork",
+    //   streamer = StreamerList.Streamer(
+    //     service = StreamerList.Twitch,
+    //     streamerName = "en_guy",
+    //     streamerNameForDisplay = "en guy".some,
+    //     lichessName = "en_guy",
+    //     featured = true,
+    //     chat = true),
     //   url = "http://foo.com",
-    //   streamId = "test")))
+    //   streamId = "test_en"), StreamOnAir(
+    //   name = "[fr] some french stream",
+    //   streamer = StreamerList.Streamer(
+    //     service = StreamerList.Twitch,
+    //     streamerName = "fr_guy",
+    //     streamerNameForDisplay = "fr guy".some,
+    //     lichessName = "fr_guy",
+    //     featured = true,
+    //     chat = true),
+    //   url = "http://foo.com",
+    //   streamId = "test_fr"), StreamOnAir(
+    //   name = "[ES] some spanish stream",
+    //   streamer = StreamerList.Streamer(
+    //     service = StreamerList.Twitch,
+    //     streamerName = "es_guy",
+    //     streamerNameForDisplay = "es guy".some,
+    //     lichessName = "es_guy",
+    //     featured = true,
+    //     chat = true),
+    //   url = "http://foo.com",
+    //   streamId = "test_es")
+    // ))
   }
 
   private[tv] val actor = system.actorOf(Props(new Actor {

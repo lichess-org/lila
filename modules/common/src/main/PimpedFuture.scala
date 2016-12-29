@@ -1,8 +1,8 @@
 package lila
 
 import play.api.libs.concurrent.Execution.Implicits._
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 object PimpedFuture {
 
@@ -98,12 +98,14 @@ object PimpedFuture {
     }
 
     def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
-      Future firstCompletedOf Seq(fua,
+      Future firstCompletedOf Seq(
+        fua,
         akka.pattern.after(duration, system.scheduler)(Future failed error))
     }
 
     def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit system: akka.actor.ActorSystem): Fu[A] = {
-      Future firstCompletedOf Seq(fua,
+      Future firstCompletedOf Seq(
+        fua,
         akka.pattern.after(duration, system.scheduler)(Future(default)))
     }
 

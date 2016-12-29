@@ -38,9 +38,8 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def ai = process(env.forms.ai) { config =>
-    implicit ctx =>
-      env.processor ai config
+  def ai = process(env.forms.ai) { config => implicit ctx =>
+    env.processor ai config
   }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
@@ -78,10 +77,10 @@ object Setup extends LilaController with TheftPrevention {
                     variant = config.variant,
                     initialFen = config.fen,
                     timeControl = config.makeClock map { c =>
-                      TimeControl.Clock(c.limit, c.increment)
-                    } orElse config.makeDaysPerTurn.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited,
+                    TimeControl.Clock(chess.Clock.Config(c.limit, c.increment))
+                  } orElse config.makeDaysPerTurn.map {
+                    TimeControl.Correspondence.apply
+                  } getOrElse TimeControl.Unlimited,
                     mode = config.mode,
                     color = config.color.name,
                     challenger = (ctx.me, HTTPRequest sid req) match {
@@ -123,7 +122,7 @@ object Setup extends LilaController with TheftPrevention {
     case HookResult.Refused => BadRequest(jsonError("Game was not created"))
   }
 
-  private val hookRefused = BadRequest(jsonError("Game was not created"))
+  private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -133,10 +132,12 @@ object Setup extends LilaController with TheftPrevention {
           err => negotiate(
             html = BadRequest(errorsAsJson(err).toString).fuccess,
             api = _ => BadRequest(errorsAsJson(err)).fuccess),
-          config => (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
-            blocking =>
-              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
-          }
+          config =>
+            if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
+            else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
+              blocking =>
+                env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
+            }
         )
       }
     }

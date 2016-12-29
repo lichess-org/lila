@@ -1,4 +1,4 @@
-var util = require('../util');
+var readDrops = require('chess').readDrops;
 
 module.exports = {
 
@@ -8,7 +8,7 @@ module.exports = {
 
     if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
 
-    var drops = util.readDrops(possibleDrops);
+    var drops = readDrops(possibleDrops);
 
     if (drops === null) return true;
 

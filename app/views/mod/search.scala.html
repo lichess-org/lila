@@ -35,6 +35,7 @@ active = "search") {
         <th>IPban</th>
         <th>Closed</th>
         <th>Created</th>
+        <th>Active</th>
       </tr>
     </thead>
     <tbody>
@@ -50,6 +51,7 @@ active = "search") {
         <td>@if(u.ipBan){IPBAN}</td>
         <td>@if(u.disabled){CLOSED}</td>
         <td>@momentFromNow(u.createdAt)</td>
+        <td>@u.seenAt.map(momentFromNow)</td>
       </tr>
       }
   </tbody></table>

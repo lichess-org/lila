@@ -5,7 +5,7 @@ import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
 import scala.concurrent.duration.FiniteDuration
 
@@ -24,6 +24,7 @@ case class Game(
     startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
+    unmovedRooks: UnmovedRooks,
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
@@ -101,7 +102,12 @@ case class Game(
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
-  def durationSeconds = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt
+  def durationSeconds =
+    (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
+      clock.fold(Int.MaxValue) { c =>
+        ((c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns) * 1.1).toInt
+      }
+    }
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
@@ -147,7 +153,8 @@ case class Game(
   },
     castles = castleLastMoveTime.castles,
     positionHashes = positionHashes,
-    checkCount = checkCount)
+    checkCount = checkCount,
+    unmovedRooks = unmovedRooks)
 
   def update(
     game: ChessGame,
@@ -176,6 +183,7 @@ case class Game(
         lastMove = history.lastMove.map(_.origDest),
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.checkSquare),
+      unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
         BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
@@ -244,7 +252,7 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     playable ?? correspondenceClock
 
-  def speed = chess.Speed(clock)
+  def speed = chess.Speed(clock.map(_.config))
 
   def perfKey = PerfPicker.key(this)
   def perfType = PerfType(perfKey)
@@ -314,7 +322,7 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
-  def berserkable = clock.??(_.berserkable) && status == Status.Started && playedTurns < 2
+  def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
@@ -351,7 +359,7 @@ case class Game(
 
   def accountable = playedTurns >= 2 || isTournament
 
-  def replayable = isPgnImport || finished
+  def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
 
   def analysable =
     replayable && playedTurns > 4 &&
@@ -365,6 +373,9 @@ case class Game(
   def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
   def imported = source contains Source.Import
+
+  def fromPool = source contains Source.Pool
+  def fromLobby = source contains Source.Lobby
 
   def winner = players find (_.wins)
 
@@ -503,6 +514,7 @@ object Game {
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
+    chess.variant.Antichess,
     chess.variant.FromPosition,
     chess.variant.Horde,
     chess.variant.Atomic,
@@ -556,14 +568,16 @@ object Game {
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
-  else BinaryFormat.piece write game.board.pieces,
+    binaryPieces =
+    if (game.isStandardInit) BinaryFormat.piece.standard
+    else BinaryFormat.piece write game.board.pieces,
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
+    unmovedRooks = game.board.unmovedRooks,
     daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,
@@ -594,6 +608,7 @@ object Game {
     val positionHashes = "ph"
     val checkCount = "cc"
     val castleLastMoveTime = "cl"
+    val unmovedRooks = "ur"
     val daysPerTurn = "cd"
     val moveTimes = "mt"
     val rated = "ra"

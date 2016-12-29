@@ -2,18 +2,11 @@ package lila.simul
 
 // All durations are expressed in seconds
 case class SimulClock(
-    limit: Int,
-    increment: Int,
+    config: chess.Clock.Config,
     hostExtraTime: Int) {
 
-  def limitInMinutes = limit / 60
-
-  def show = s"${limitInMinutes}+${increment}"
-
-  def chessClock = chess.Clock(limit, increment)
-
   def chessClockOf(hostColor: chess.Color) =
-    chessClock.giveTime(hostColor, hostExtraTime)
+    config.toClock.giveTime(hostColor, hostExtraTime)
 
   def hostExtraMinutes = hostExtraTime / 60
 }

@@ -34,6 +34,10 @@ final class JsonView(isOnline: String => Boolean) {
     "online" -> isOnline(u.id),
     "engine" -> u.engine.option(true),
     "booster" -> u.booster.option(true),
+    "language" -> u.lang,
+    "profile" -> u.profile.flatMap(_.country).map { country =>
+      Json.obj("country" -> country)
+    },
     "perfs" -> perfs(u, onlyPerf),
     "patron" -> u.isPatron.option(true)
   ).noNull
@@ -57,7 +61,8 @@ object JsonView {
       "username" -> l.user.name,
       "title" -> l.user.title,
       "perfs" -> Json.obj(
-        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress))
+        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)),
+      "patron" -> l.user.isPatron.option(true)
     ).noNull
   }
 

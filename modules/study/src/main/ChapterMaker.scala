@@ -45,9 +45,9 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           none,
           res.variant,
-          data.realOrientation,
-          fromPgn = Chapter.FromPgn(tags = res.tags).some),
+          data.realOrientation),
         root = res.root,
+        tags = res.tags,
         order = order,
         ownerId = userId,
         conceal = data.conceal option Chapter.Ply(res.root.ply))
@@ -80,6 +80,7 @@ private final class ChapterMaker(
           data.realOrientation,
           fromFen = isFromFen option true),
         root = root,
+        tags = Nil,
         order = order,
         ownerId = userId,
         conceal = None)
@@ -99,6 +100,7 @@ private final class ChapterMaker(
           pov.game.variant,
           data.realOrientation),
         root = root,
+        tags = Nil,
         order = order,
         ownerId = userId,
         conceal = data.conceal option Chapter.Ply(root.ply)).some
@@ -115,7 +117,7 @@ private final class ChapterMaker(
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
-    initialFen.fold(GameRepo.initialFen(game)) { fen =>
+    initialFen.fold(GameRepo initialFen game) { fen =>
       fuccess(fen.value.some)
     } map { initialFen =>
       Node.Root.fromRoot {

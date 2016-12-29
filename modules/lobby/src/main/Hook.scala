@@ -6,10 +6,10 @@ import ornicar.scalalib.Random
 import play.api.libs.json._
 
 import actorApi.LobbyUser
+import lila.common.PimpedJson._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
-import lila.common.PimpedJson._
 
 // realtime chess, volatile
 case class Hook(
@@ -17,9 +17,8 @@ case class Hook(
     uid: String, // owner socket uid
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
-    clock: Clock,
+    clock: Clock.Config,
     mode: Int,
-    allowAnon: Boolean,
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
@@ -31,12 +30,14 @@ case class Hook(
 
   val realMode = Mode orDefault mode
 
-  def memberOnly = !allowAnon
+  val isAuth = user.nonEmpty
 
   def compatibleWith(h: Hook) =
-    compatibilityProperties == h.compatibilityProperties &&
+    isAuth == h.isAuth &&
+      mode == h.mode &&
+      variant == h.variant &&
+      clock == h.clock &&
       (realColor compatibleWith h.realColor) &&
-      (memberOnly || h.memberOnly).fold(isAuth && h.isAuth, true) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
@@ -44,19 +45,16 @@ case class Hook(
     range => h.rating ?? range.contains
   }
 
-  private def compatibilityProperties = (variant, clock.limit, clock.increment, mode)
-
-  lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
+  lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
+    RatingRange noneIfDefault ratingRange
+  }
 
   def userId = user.map(_.id)
-  def isAuth = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
   def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
-  def engine = user ?? (_.engine)
-  def booster = user ?? (_.booster)
   def lame = user ?? (_.lame)
 
-  def render: JsObject = Json.obj(
+  lazy val render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
     "u" -> user.map(_.username),
@@ -72,7 +70,29 @@ case class Hook(
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  private lazy val speed = Speed(clock.some)
+  def randomColor = color == "random"
+
+  lazy val compatibleWithPools =
+    realMode.rated && realVariant.standard && randomColor &&
+      lila.pool.PoolList.clockStringSet.contains(clock.show)
+
+  def compatibleWithPool(poolClock: chess.Clock.Config) =
+    compatibleWithPools && clock == poolClock
+
+  def likePoolFiveO = compatibleWithPools && clock.show == "5+0"
+
+  def toPool = lila.pool.HookThieve.PoolHook(
+    hookId = id,
+    member = lila.pool.PoolMember(
+      userId = user.??(_.id),
+      socketId = lila.socket.Socket.Uid(uid),
+      rating = rating | lila.rating.Glicko.defaultIntRating,
+      ratingRange = realRatingRange,
+      lame = user.??(_.lame),
+      blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+      since = createdAt))
+
+  private lazy val speed = Speed(clock)
 }
 
 object Hook {
@@ -82,9 +102,8 @@ object Hook {
   def make(
     uid: String,
     variant: chess.variant.Variant,
-    clock: Clock,
+    clock: Clock.Config,
     mode: Mode,
-    allowAnon: Boolean,
     color: String,
     user: Option[User],
     sid: Option[String],
@@ -95,7 +114,6 @@ object Hook {
     variant = variant.id,
     clock = clock,
     mode = mode.id,
-    allowAnon = allowAnon || user.isEmpty,
     color = color,
     user = user map { LobbyUser.make(_, blocking) },
     sid = sid,
