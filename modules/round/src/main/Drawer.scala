@@ -15,7 +15,8 @@ private[round] final class Drawer(
 
   def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
     import Pref.PrefZero
-    pov.player.userId ?? prefApi.getPref map { pref =>
+    if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
+    else pov.player.userId ?? prefApi.getPref map { pref =>
       pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
         pref.autoThreefold == Pref.AutoThreefold.TIME &&
           game.clock ?? { _.remainingTime(pov.color) < 30 }
