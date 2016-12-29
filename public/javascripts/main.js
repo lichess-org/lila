@@ -172,8 +172,6 @@ lichess.notifyApp = (function() {
         $('#friend_box').friends('stopped_playing', name);
       },
       new_notification: function(e) {
-        var notification = e.notification;
-
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
         $.sound.newPM();
       },
@@ -655,9 +653,9 @@ lichess.notifyApp = (function() {
 
       function translateTexts() {
         $('.trans_me').each(function() {
-          $(this).removeClass('trans_me');
-          if ($(this).val()) $(this).val($.trans($(this).val()));
-          else $(this).text($.trans($(this).text()));
+          var t = $(this).removeClass('trans_me');
+          if (t.val()) t.val($.trans(t.val()));
+          else t.text($.trans(t.text()));
         });
       }
       translateTexts();
@@ -1005,7 +1003,7 @@ lichess.notifyApp = (function() {
     cfg.onChange = function(d) {
       if (chat) chat.preset.setGroup(getPresetGroup(d));
     };
-    cfg.isGuineaPig = $('body').data('guineapig');
+    // cfg.isGuineaPig = $('body').data('guineapig');
     round = LichessRound(cfg);
     if (cfg.chat) {
       cfg.chat.preset = getPresetGroup(cfg.data);

@@ -105,7 +105,7 @@ function renderLines(ctx, nodes, opts) {
     },
     children: nodes.map(function(n) {
       if (n.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(n, opts.parentPath))
-        return lineTag('Retrospective: find a better move');
+        return lineTag('Learn from this mistake');
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
         isMainline: false,
