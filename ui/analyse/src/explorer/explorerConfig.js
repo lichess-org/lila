@@ -4,17 +4,20 @@ var storedProp = require('common').storedProp;
 var storedJsonProp = require('common').storedJsonProp;
 
 module.exports = {
-  controller: function(variant, onClose) {
+  controller: function(game, withGames, onClose) {
+    var variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
+
     var available = ['lichess'];
-    if (variant.key === 'standard' || variant.key === 'fromPosition') {
-      available.push('masters');
+    if (variant === 'standard') available.push('masters');
+    else if (variant === 'antichess' && withGames && game.initialFen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1') {
+        available.push('watkins');
     }
 
     var data = {
       open: m.prop(false),
       db: {
         available: available,
-        selected: available.length > 1 ? storedProp('explorer.db', available[0]) : function() {
+        selected: available.length > 1 ? storedProp('explorer.db.' + variant, available[0]) : function() {
           return available[0];
         }
       },
@@ -69,6 +72,9 @@ module.exports = {
       d.db.selected() === 'masters' ? m('div.masters.message', [
         m('i[data-icon=C]'),
         m('p', "Two million OTB games of 2200+ FIDE rated players from 1952 to 2016"),
+      ]) : (d.db.selected() === 'watkins' ? m('div.masters.message', [
+        m('i[data-icon=@]'),
+        m('p', "Watkins antichess solution: 1. e3 is a win for white")
       ]) : m('div', [
         m('section.rating', [
           m('label', 'Players\' average rating'),
@@ -92,7 +98,7 @@ module.exports = {
             })
           )
         ])
-      ]),
+      ])),
       m('section.save',
         m('button.button.text[data-icon=E]', {
           onclick: ctrl.toggleOpen

@@ -130,6 +130,27 @@ function showTablebase(ctrl, title, moves, fen) {
   ];
 }
 
+function showWatkins(ctrl, moves, fen) {
+  return [
+    m('div.title', 'Watkins antichess solution'),
+    m('table.tablebase', [
+      m('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
+        return m('tr', {
+          key: move.uci,
+          'data-uci': move.uci
+        }, [
+          m('td', move.san),
+          m('td', [
+            m('result.white', {
+              title: 'Proof tree size'
+            }, move.nodes + ' nodes')
+          ])
+        ]);
+      }))
+    ])
+  ];
+}
+
 function winner(stm, move) {
   if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
     return 'white';
@@ -227,6 +248,10 @@ function show(ctrl) {
     else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
     else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
     else lastShow = showEmpty(ctrl);
+  } else if (data && data.watkins) {
+    if (data.game_over) lastShow = showGameEnd(ctrl, 'Antichess win');
+    else if (data.moves && data.moves.length) lastShow = showWatkins(ctrl, data.moves, data.fen);
+    else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }
@@ -258,7 +283,7 @@ function showFailing(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  var explorer = ctrl.explorer
+  var explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   var data = explorer.current();
   var config = explorer.config;
