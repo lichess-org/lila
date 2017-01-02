@@ -215,6 +215,9 @@ module.exports = function(opts) {
       }
       return txt;
     }.bind(this));
+    else if (this.vm.ply < 1) lichess.desktopNotification(function() {
+      return renderUser.userTxt(this, this.data.opponent) + '\njoined the game.';
+    }.bind(this));
   }.bind(this);
   setTimeout(showYourMoveNotification, 500);
 
