@@ -22,7 +22,7 @@ body.dark #puzzle .feedback {
   margin-left: 10px;
 }
 #puzzle .feedback .no-square {
-  width: 64px;
+  flex: 0 0 64px;
   height: 64px;
   margin-right: 10px;
 }
