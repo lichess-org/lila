@@ -20,18 +20,18 @@ final class SlackApi(
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
     def apply(event: ChargeEvent): Funit =
-      if (event.amount <= 2000) addToBuffer(event)
+      if (event.amount < 5000) addToBuffer(event)
       else displayMessage {
         s"${link(event)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
       }
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(3)) ?? {
-        val links = buffer map link mkString ", "
+      (buffer.head.date isBefore DateTime.now.minusHours(4)) ?? {
+        val patrons = buffer map (_.username) mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
-          s"$links donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
+          s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
         } >>- {
           buffer = Vector.empty
         }
