@@ -172,7 +172,7 @@ module.exports = function(element, cfg) {
       find('mode') == 1 &&
       find('timeMode') == 1;
     if (!valid) return false;
-    var id = parseInt(find('time')) + '+' + parseInt(find('increment'));
+    var id = parseFloat(find('time')) + '+' + parseInt(find('increment'));
     var exists = lichess.lobby.data.pools.filter(function(p) {
       return p.id === id;
     }).length;
