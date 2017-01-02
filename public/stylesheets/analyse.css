@@ -725,8 +725,8 @@ body.piece_letter .tablebase td:first-child {
 .retro_box piece {
   position: inherit;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 100%!important;
+  height: 100%!important;
 }
 .retro_box .icon {
   display: block;
