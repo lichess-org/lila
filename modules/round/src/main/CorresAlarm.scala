@@ -1,15 +1,21 @@
 package lila.round
 
 import akka.actor._
+import akka.pattern.ask
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.game.GameRepo
+import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.round.IsOnGame
+import lila.game.{ GameRepo, Pov }
+import makeTimeout.short
 
-private final class CorresAlarm(coll: Coll) extends Actor {
+private final class CorresAlarm(
+    coll: Coll,
+    roundSocketHub: ActorSelection) extends Actor {
 
   object Schedule
   object Run
@@ -45,12 +51,17 @@ private final class CorresAlarm(coll: Coll) extends Actor {
       )).cursor[Alarm](ReadPreference.secondaryPreferred)
         .enumerator(100, Cursor.ContOnError())
         .|>>>(Iteratee.foldM[Alarm, Int](0) {
-          case (count, alarm) => {
-            context.system.lilaBus.publish(
-              lila.hub.actorApi.round.CorresAlarmEvent(alarm._id),
-              'corresAlarm)
-            coll.remove($id(alarm._id))
-          } inject (count + 1)
+          case (count, alarm) => GameRepo.game(alarm._id).flatMap {
+            _ ?? { game =>
+              val pov = Pov(game, game.turnColor)
+              roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] addEffect {
+                case true => // already looking at the game
+                case false => context.system.lilaBus.publish(
+                  lila.game.actorApi.CorresAlarmEvent(pov),
+                  'corresAlarm)
+              }
+            }
+          } >> coll.remove($id(alarm._id)) inject (count + 1)
         })
         .chronometer.mon(_.round.alarm.time).result
         .addEffect(c => lila.mon.round.alarm.count(c))

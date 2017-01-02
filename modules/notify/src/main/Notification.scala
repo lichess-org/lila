@@ -35,7 +35,8 @@ object Notification {
 
 sealed abstract class NotificationContent(val key: String)
 
-case class MentionedInThread(mentionedBy: MentionedInThread.MentionedBy,
+case class MentionedInThread(
+  mentionedBy: MentionedInThread.MentionedBy,
   topic: MentionedInThread.Topic,
   topidId: MentionedInThread.TopicId,
   category: MentionedInThread.Category,
@@ -49,7 +50,8 @@ object MentionedInThread {
   case class PostId(value: String) extends AnyVal with StringValue
 }
 
-case class InvitedToStudy(invitedBy: InvitedToStudy.InvitedBy,
+case class InvitedToStudy(
+  invitedBy: InvitedToStudy.InvitedBy,
   studyName: InvitedToStudy.StudyName,
   studyId: InvitedToStudy.StudyId) extends NotificationContent("invitedStudy")
 
@@ -122,3 +124,7 @@ case object CoachReview extends NotificationContent("coachReview")
 
 case class PlanStart(userId: String) extends NotificationContent("planStart")
 case class PlanExpire(userId: String) extends NotificationContent("planExpire")
+
+case class CorresAlarm(
+  gameId: lila.game.Game.ID,
+  opponent: String) extends NotificationContent("corresAlarm")

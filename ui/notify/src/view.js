@@ -255,6 +255,22 @@ var handlers = {
       return 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'
     }
   },
+  corresAlarm: {
+    html: function(notification) {
+      var url = '/' + notification.content.id;
+
+      return genericNotification(notification, url, ';', [
+        m('span', [
+          m('strong', 'Time is almost up!'),
+          drawTime(notification)
+        ]),
+        m('span', 'Game vs ' + notification.content.op)
+      ]);
+    },
+    text: function(n) {
+      return 'Time is almost up!';
+    }
+  },
 };
 
 function drawNotification(notification) {
