@@ -16,6 +16,8 @@ final class Env(
   private val Writeable = config getBoolean "writeable"
   private val Endpoint = config getString "endpoint"
 
+  lazy val jsonView = new JsonView()
+
   val makeClient = (index: Index) =>
     if (Enabled) new ESClientHttp(Endpoint, index, Writeable)
     else new ESClientStub

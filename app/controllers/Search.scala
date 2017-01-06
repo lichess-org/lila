@@ -50,10 +50,13 @@ object Search extends LilaController {
                   failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                   data => data.nonEmptyQuery ?? { query =>
                     env.paginator(query, page) map (_.some)
-                  } map { pager =>
-                    Ok(_)
+                  } map { pager => pager match {
+                      case Some(s) => Env.search.jsonView.showResults(s)
+                      case None => Ok("Hello World")
+                    }
                   }
                 )
+              )
             }
           }
         }
