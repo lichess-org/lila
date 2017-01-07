@@ -24,10 +24,11 @@ moreJs = moreJs) {
   @defining(reports.count(_.report.unprocessed)) { nb =>
   <h1 data-icon="@icon.mod" class="text">
     @title
-    (@nb@if(nb>=50){+} new,
-    @reports.count(_.report.unprocessedCheat) cheats,
-    @reports.count(_.report.unprocessedTrollOrInsult) trolls,
-    @reports.count(_.report.unprocessedOther) others)
+    (@nb@if(nb>=200){+} new,
+    @reports.count(_.report.unprocessedCheat) <a href="@routes.Report.listWithFilter("cheat")" style="text-decoration: underline">cheats</a>,
+    @reports.count(_.report.unprocessedTroll) <a href="@routes.Report.listWithFilter("troll")" style="text-decoration: underline">trolls</a>,
+    @reports.count(_.report.unprocessedInsult) <a href="@routes.Report.listWithFilter("insult")" style="text-decoration: underline">insults</a>,
+    @reports.count(_.report.unprocessedOther) <a href="@routes.Report.listWithFilter("other")" style="text-decoration: underline">others</a>)
   </h1>
   }
   <table class="slist see">

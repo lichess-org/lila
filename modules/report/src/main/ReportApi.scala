@@ -186,6 +186,26 @@ final class ReportApi(
       }
     }
 
+  def unprocessedAndRecentWithFilter(nb: Int, reason: String): Fu[List[Report.WithUserAndNotes]] =
+    coll.find($doc("processedBy" -> $doc("$exists" -> false), "reason" -> reason)).sort($sort.createdDesc).list[Report](nb * 2) |+| coll.find($doc("processedBy" -> $doc("$exists" -> true), "reason" -> reason)).sort($sort.createdDesc).list[Report](nb) flatMap { all =>
+      val reports = all take nb
+      UserRepo byIds reports.map(_.user).distinct map { users =>
+        reports.flatMap { r =>
+          users.find(_.id == r.user) map { u =>
+            Report.WithUser(r, u, isOnline(u.id))
+          }
+        }
+      }
+    } map {
+      _.sortBy(-_.urgency).take(nb * 2)
+    } flatMap { withUsers =>
+      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
+        withUsers.map { wu =>
+          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
+        }
+      }
+    }
+
   private def recentUnprocessed(nb: Int) =
     coll.find(unprocessedSelect).sort($sort.createdDesc).list[Report](nb)
 

@@ -19,6 +19,13 @@ object Report extends LilaController {
     }
   }
 
+  def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => _ =>
+    api unprocessedAndRecentWithFilter(200, reason) map { reports =>
+      html.report.list(reports)
+    }
+  }
+
+
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.process(id, me) inject Redirect(routes.Report.list)
   }
