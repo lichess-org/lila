@@ -30,6 +30,7 @@ final class Env(
     val EmailConfirmMailgunApiUrl = config getString "email_confirm.mailgun.api.url"
     val EmailConfirmMailgunApiKey = config getString "email_confirm.mailgun.api.key"
     val EmailConfirmMailgunSender = config getString "email_confirm.mailgun.sender"
+    val EmailConfirmMailgunReplyTo = config getString "email_confirm.mailgun.reply_to"
     val EmailConfirmMailgunBaseUrl = config getString "email_confirm.mailgun.base_url"
     val EmailConfirmSecret = config getString "email_confirm.secret"
     val EmailConfirmEnabled = config getBoolean "email_confirm.enabled"
@@ -86,6 +87,7 @@ final class Env(
       apiUrl = EmailConfirmMailgunApiUrl,
       apiKey = EmailConfirmMailgunApiKey,
       sender = EmailConfirmMailgunSender,
+      replyTo = EmailConfirmMailgunReplyTo,
       baseUrl = EmailConfirmMailgunBaseUrl,
       secret = EmailConfirmSecret,
       system = system)
