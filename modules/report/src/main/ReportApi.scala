@@ -150,6 +150,8 @@ final class ReportApi(
 
   private val unprocessedSelect: Bdoc = "processedBy" $exists false
   private val processedSelect: Bdoc = "processedBy" $exists true
+  private def reasonSelect(reason: Option[Reason]): Bdoc =
+    reason.?? { r => $doc("reason" -> r.name) }
 
   def nbUnprocessed = coll.countSel(unprocessedSelect)
 
@@ -166,53 +168,31 @@ final class ReportApi(
       "createdBy" -> $ne("lichess")
     ).some)
 
-  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUserAndNotes]] =
-    recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
-      val reports = all take nb
-      UserRepo byIds reports.map(_.user).distinct map { users =>
-        reports.flatMap { r =>
-          users.find(_.id == r.user) map { u =>
-            Report.WithUser(r, u, isOnline(u.id))
+  def unprocessedAndRecentWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] =
+    findRecent(nb * 2, unprocessedSelect ++ reasonSelect(reason)) |+|
+      findRecent(nb, processedSelect ++ reasonSelect(reason)) flatMap { all =>
+        val reports = all take nb
+        UserRepo byIds reports.map(_.user).distinct map { users =>
+          reports.flatMap { r =>
+            users.find(_.id == r.user) map { u =>
+              Report.WithUser(r, u, isOnline(u.id))
+            }
+          }
+        }
+      } map {
+        _.sortBy(-_.urgency).take(nb * 2)
+      } flatMap { withUsers =>
+        noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
+          withUsers.map { wu =>
+            Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
           }
         }
       }
-    } map {
-      _.sortBy(-_.urgency).take(nb * 2)
-    } flatMap { withUsers =>
-      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
-        withUsers.map { wu =>
-          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
-        }
-      }
-    }
 
-  def unprocessedAndRecentWithFilter(nb: Int, reason: String): Fu[List[Report.WithUserAndNotes]] =
-    coll.find($doc("processedBy" -> $doc("$exists" -> false), "reason" -> reason)).sort($sort.createdDesc).list[Report](nb * 2) |+| coll.find($doc("processedBy" -> $doc("$exists" -> true), "reason" -> reason)).sort($sort.createdDesc).list[Report](nb) flatMap { all =>
-      val reports = all take nb
-      UserRepo byIds reports.map(_.user).distinct map { users =>
-        reports.flatMap { r =>
-          users.find(_.id == r.user) map { u =>
-            Report.WithUser(r, u, isOnline(u.id))
-          }
-        }
-      }
-    } map {
-      _.sortBy(-_.urgency).take(nb * 2)
-    } flatMap { withUsers =>
-      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
-        withUsers.map { wu =>
-          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
-        }
-      }
-    }
+  private def findRecent(nb: Int, selector: Bdoc) =
+    coll.find(selector).sort($sort.createdDesc).list[Report](nb)
 
-  private def recentUnprocessed(nb: Int) =
-    coll.find(unprocessedSelect).sort($sort.createdDesc).list[Report](nb)
-
-  private def recentProcessed(nb: Int) =
-    coll.find(processedSelect).sort($sort.createdDesc).list[Report](nb)
-
-  private def selectRecent(user: User, reason: Reason) = $doc(
+  private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),
     "user" -> user.id,
     "reason" -> reason.name)
