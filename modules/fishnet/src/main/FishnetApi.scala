@@ -139,6 +139,13 @@ final class FishnetApi(
   def prioritaryAnalysisInProgress(gameId: String): Fu[Option[Work.InProgress]] =
     repo.getAnalysisByGameId(gameId) map { _.flatMap(_.inProgress) }
 
+  def status = repo.countAnalysis(acquired = false) map { queued =>
+    import play.api.libs.json.Json
+    Json.obj(
+      "analysis" -> Json.obj(
+        "queued" -> queued))
+  }
+
   private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
     Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
       val client = Client(
