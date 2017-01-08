@@ -47,7 +47,7 @@
 }
 #report_list .tabs {
   display: flex;
-  margin-right: 20px;
+  margin-right: 15px;
   font-size: 1.2em;
 }
 #report_list .tabs a {
@@ -71,5 +71,5 @@
   word-break: break-all;
 }
 #report_list tr.new td:first-child {
-  border-left: 3px solid red;
+  border-left: 3px solid #3893E8;
 }
