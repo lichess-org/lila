@@ -5,8 +5,8 @@ import play.twirl.api.Html
 import views._
 
 import lila.app._
-import lila.security.Granter
 import lila.report.Reason
+import lila.security.Granter
 import lila.user.{ User => UserModel, UserRepo }
 
 object Report extends LilaController {
@@ -17,8 +17,10 @@ object Report extends LilaController {
   def list = listWithFilter("all")
 
   def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => _ =>
-    api.unprocessedAndRecentWithFilter(50, Reason(reason)) map { reports =>
-      html.report.list(reports)
+    api.unprocessedAndRecentWithFilter(50, Reason(reason)) flatMap { reports =>
+      api.countUnprocesssedByReasons map { counts =>
+        html.report.list(reports, reason, counts)
+      }
     }
   }
 

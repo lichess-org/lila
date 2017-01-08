@@ -41,7 +41,7 @@ case class Report(
   def unprocessed = processedBy.isEmpty
   def processed = processedBy.isDefined
 
-  lazy val realReason: Reason = Reason byName reason
+  lazy val realReason: Reason = Reason byKey reason
 }
 
 object Report {
@@ -68,7 +68,7 @@ object Report {
     createdBy: User): Report = new Report(
     _id = Random nextString 8,
     user = user.id,
-    reason = reason.name,
+    reason = reason.key,
     text = text,
     processedBy = none,
     createdAt = DateTime.now,

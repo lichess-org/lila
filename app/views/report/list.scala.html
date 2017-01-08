@@ -1,8 +1,8 @@
-@(reports: List[lila.report.Report.WithUserAndNotes])(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: Map[lila.report.Reason, Int])(implicit ctx: Context)
 
 @import lila.report.Report.{WithUser,WithUserAndNotes}
 
-@title = @{ "User reports" }
+@title = @{ "Reports" }
 
 @moreJs = {
 <script>
@@ -14,23 +14,30 @@
 </script>
 }
 
+@tab(reports: List[WithUserAndNotes], reason: lila.report.Reason) = {
+<a href="@routes.Report.listWithFilter(reason.key)"
+  class="@when(counts.contains(reason), "new") @filter.active(reason.key)"
+  @counts.get(reason).map { nb => data-count="@nb" }>@reason.name</a>
+}
+
 @mod.layout(
 title = title,
 active = "report",
 moreCss = cssTag("report.css"),
 moreJs = moreJs) {
 
-<div id="report" class="content_box no_padding">
-  @defining(reports.count(_.report.unprocessed)) { nb =>
-  <h1 data-icon="@icon.mod" class="text">
-    @title
-    (@nb@if(nb>=200){+} new,
-    @reports.count(_.report.unprocessedCheat) <a href="@routes.Report.listWithFilter("cheat")" style="text-decoration: underline">cheats</a>,
-    @reports.count(_.report.unprocessedTroll) <a href="@routes.Report.listWithFilter("troll")" style="text-decoration: underline">trolls</a>,
-    @reports.count(_.report.unprocessedInsult) <a href="@routes.Report.listWithFilter("insult")" style="text-decoration: underline">insults</a>,
-    @reports.count(_.report.unprocessedOther) <a href="@routes.Report.listWithFilter("other")" style="text-decoration: underline">others</a>)
-  </h1>
-  }
+<div id="report_list" class="content_box no_padding">
+  <div class="header">
+    <h1 data-icon="@icon.mod" class="text">@title</h1>
+    <span class="tabs">
+      <a href="@routes.Report.list"
+        class="@when(counts.nonEmpty, "new") @filter.active("all")"
+        @if(counts.nonEmpty) { data-count="@counts.values.sum" }>All</a>
+      @lila.report.Reason.all.map { r =>
+      @tab(reports, r)
+      }
+    </span>
+  </div>
   <table class="slist see">
     <thead>
       <tr>
