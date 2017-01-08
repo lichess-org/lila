@@ -127,7 +127,7 @@ object PairingRepo {
 
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddFieldToSet, Group, Match, Project, PushField, UnwindField }
 
-  def playingUserIds(tour: Tournament): Fu[Set[String]] =
+  private[tournament] def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
       Project($doc("u" -> true, "_id" -> false)),
       UnwindField("u"), Group(BSONBoolean(true))(
