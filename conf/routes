@@ -411,6 +411,7 @@ GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
+GET   /report/list/:reason             controllers.Report.listWithFilter(reason: String)
 POST  /report/:id/process              controllers.Report.process(id: String)
 GET   /report/irwin-bot-next           controllers.Report.irwinBotNext
 

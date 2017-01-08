@@ -10,7 +10,7 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection) ex
 
   val create = Form(mapping(
     "username" -> nonEmptyText.verifying("Unknown username", { fetchUser(_).isDefined }),
-    "reason" -> nonEmptyText.verifying(Reason.names contains _),
+    "reason" -> nonEmptyText.verifying(Reason.keys contains _),
     "text" -> text(minLength = 5, maxLength = 2000),
     "gameId" -> text,
     "move" -> text

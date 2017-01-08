@@ -21,10 +21,14 @@ case class Report(
 
   def isCheat = realReason == Reason.Cheat
   def isOther = realReason == Reason.Other
+  def isTroll = realReason == Reason.Troll
+  def isInsult = realReason == Reason.Insult
   def isTrollOrInsult = realReason == Reason.Troll || realReason == Reason.Insult
 
   def unprocessedCheat = unprocessed && isCheat
   def unprocessedOther = unprocessed && isOther
+  def unprocessedTroll = unprocessed && isTroll
+  def unprocessedInsult = unprocessed && isInsult
   def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
 
   def isCommunication = Reason.communication contains realReason
@@ -37,7 +41,7 @@ case class Report(
   def unprocessed = processedBy.isEmpty
   def processed = processedBy.isDefined
 
-  lazy val realReason: Reason = Reason byName reason
+  lazy val realReason: Reason = Reason byKey reason
 }
 
 object Report {
@@ -64,7 +68,7 @@ object Report {
     createdBy: User): Report = new Report(
     _id = Random nextString 8,
     user = user.id,
-    reason = reason.name,
+    reason = reason.key,
     text = text,
     processedBy = none,
     createdAt = DateTime.now,
