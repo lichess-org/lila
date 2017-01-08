@@ -37,6 +37,7 @@ final class Env(
     val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
     val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
+    val PasswordResetMailgunReplyTo = config getString "password_reset.mailgun.reply_to"
     val PasswordResetMailgunBaseUrl = config getString "password_reset.mailgun.base_url"
     val PasswordResetSecret = config getString "password_reset.secret"
     val LoginTokenSecret = config getString "login_token.secret"
@@ -97,6 +98,7 @@ final class Env(
     apiUrl = PasswordResetMailgunApiUrl,
     apiKey = PasswordResetMailgunApiKey,
     sender = PasswordResetMailgunSender,
+    replyTo = PasswordResetMailgunReplyTo,
     baseUrl = PasswordResetMailgunBaseUrl,
     secret = PasswordResetSecret)
 
