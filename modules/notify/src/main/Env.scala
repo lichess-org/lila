@@ -22,17 +22,25 @@ final class Env(
     repo = repo)
 
   // api actor
-  system.actorOf(Props(new Actor {
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.notify.Notified(userId) =>
         api markAllRead Notification.Notifies(userId)
+      case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
+        api addNotification Notification.make(
+          Notification.Notifies(userId),
+          CorresAlarm(
+            gameId = pov.gameId,
+            opponent = lila.game.Namer.playerString(pov.opponent)(getLightUser)))
+      }
     }
-  }), name = ActorName)
+  }), name = ActorName), 'corresAlarm)
 }
 
 object Env {
 
-  lazy val current = "notify" boot new Env(db = lila.db.Env.current,
+  lazy val current = "notify" boot new Env(
+    db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "notify",
     getLightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system)

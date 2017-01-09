@@ -78,29 +78,23 @@ private final class PushApi(
     }
   }
 
-  def corresAlarm(gameId: String): Funit = GameRepo game gameId flatMap {
-    _ ?? { game =>
-      val pov = Pov(game, game.turnColor)
-      game.player(pov.color).userId ?? { userId =>
-        IfAway(pov) {
-          pushToAll(userId, _.corresAlarm, PushApi.Data(
-            title = "Time is almost up!",
-            body = s"You are about to lose on time against ${opponentName(pov)}",
-            stacking = Stacking.GameMove,
-            payload = Json.obj(
-              "userId" -> userId,
-              "userData" -> Json.obj(
-                "type" -> "corresAlarm",
-                "gameId" -> game.id,
-                "fullId" -> pov.fullId,
-                "color" -> pov.color.name,
-                "fen" -> Forsyth.exportBoard(game.toChess.board),
-                "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                "secondsLeft" -> pov.remainingSeconds))))
-        }
-      }
+  def corresAlarm(pov: Pov): Funit =
+    pov.player.userId ?? { userId =>
+      pushToAll(userId, _.corresAlarm, PushApi.Data(
+        title = "Time is almost up!",
+        body = s"You are about to lose on time against ${opponentName(pov)}",
+        stacking = Stacking.GameMove,
+        payload = Json.obj(
+          "userId" -> userId,
+          "userData" -> Json.obj(
+            "type" -> "corresAlarm",
+            "gameId" -> pov.gameId,
+            "fullId" -> pov.fullId,
+            "color" -> pov.color.name,
+            "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
+            "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
+            "secondsLeft" -> pov.remainingSeconds))))
     }
-  }
 
   def newMessage(t: Thread, p: Post): Funit =
     lightUser(t.senderOf(p)) ?? { sender =>

@@ -266,6 +266,7 @@ POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: S
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
+GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
@@ -411,6 +412,7 @@ GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
+GET   /report/list/:reason             controllers.Report.listWithFilter(reason: String)
 POST  /report/:id/process              controllers.Report.process(id: String)
 GET   /report/irwin-bot-next           controllers.Report.irwinBotNext
 

@@ -61,6 +61,10 @@ object Fishnet extends LilaController {
     }
   }
 
+  def status = Action.async {
+    api.status map { Ok(_) }
+  }
+
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]])(implicit reads: Reads[A]) =
     Action.async(BodyParsers.parse.tolerantJson) { req =>
       req.body.validate[A].fold(

@@ -327,7 +327,7 @@ object ApplicationBuild extends Build {
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
-  lazy val notifyModule = project("notify", Seq(common, db, user, hub, relation)).settings(
+  lazy val notifyModule = project("notify", Seq(common, db, game, user, hub, relation)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

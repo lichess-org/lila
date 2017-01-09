@@ -46,6 +46,9 @@ final class JSONHandlers(
         case RatingRefund(perf, points) => Json.obj(
           "perf" -> perf,
           "points" -> points)
+        case CorresAlarm(gameId, opponent) => Json.obj(
+          "id" -> gameId,
+          "op" -> opponent)
       }
     }
 

@@ -23,7 +23,7 @@ final class ReportApi(
         text = setup.text,
         createdBy = by)
       !isAlreadySlain(report, user) ?? {
-        lila.mon.mod.report.create(reason.name)()
+        lila.mon.mod.report.create(reason.key)()
         if (by.id == UserRepo.lichessId) coll.update(
           selectRecent(user, reason),
           $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
@@ -118,7 +118,7 @@ final class ReportApi(
   def processEngine(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" $in List(Reason.Cheat.name, Reason.CheatPrint.name)
+      "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true).void >>- monitorUnprocessed
@@ -126,7 +126,7 @@ final class ReportApi(
   def processTroll(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" $in List(Reason.Insult.name, Reason.Troll.name, Reason.Other.name)
+      "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true).void >>- monitorUnprocessed
@@ -150,6 +150,8 @@ final class ReportApi(
 
   private val unprocessedSelect: Bdoc = "processedBy" $exists false
   private val processedSelect: Bdoc = "processedBy" $exists true
+  private def reasonSelect(reason: Option[Reason]): Bdoc =
+    reason.?? { r => $doc("reason" -> r.key) }
 
   def nbUnprocessed = coll.countSel(unprocessedSelect)
 
@@ -166,36 +168,47 @@ final class ReportApi(
       "createdBy" -> $ne("lichess")
     ).some)
 
-  def unprocessedAndRecent(nb: Int): Fu[List[Report.WithUserAndNotes]] =
-    recentUnprocessed(nb * 2) |+| recentProcessed(nb) flatMap { all =>
-      val reports = all take nb
-      UserRepo byIds reports.map(_.user).distinct map { users =>
-        reports.flatMap { r =>
-          users.find(_.id == r.user) map { u =>
-            Report.WithUser(r, u, isOnline(u.id))
-          }
-        }
-      }
-    } map {
-      _.sortBy(-_.urgency).take(nb * 2)
-    } flatMap { withUsers =>
-      noteApi.byUserIdsForMod(withUsers.map(_.user.id).distinct) map { notes =>
-        withUsers.map { wu =>
-          Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
+  def unprocessedAndRecentWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] = for {
+    unprocessed <- findRecent(nb, unprocessedSelect ++ reasonSelect(reason))
+    processed <- findRecent(nb - unprocessed.size, processedSelect ++ reasonSelect(reason))
+    reports = unprocessed ++ processed
+    withUsers <- UserRepo byIds reports.map(_.user).distinct map { users =>
+      reports.flatMap { r =>
+        users.find(_.id == r.user) map { u =>
+          Report.WithUser(r, u, isOnline(u.id))
         }
       }
     }
+    sorted = withUsers.sortBy(-_.urgency)
+    withNotes <- noteApi.byUserIdsForMod(sorted.map(_.user.id).distinct) map { notes =>
+      sorted.map { wu =>
+        Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
+      }
+    }
+  } yield withNotes
 
-  private def recentUnprocessed(nb: Int) =
-    coll.find(unprocessedSelect).sort($sort.createdDesc).list[Report](nb)
+  def countUnprocesssedByReasons: Fu[Map[Reason, Int]] = {
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregate(
+      Match(unprocessedSelect),
+      List(
+        GroupField("reason")("nb" -> SumValue(1))
+      )).map {
+        _.firstBatch.flatMap { doc =>
+          doc.getAs[String]("_id") flatMap Reason.apply flatMap { reason =>
+            doc.getAs[Int]("nb") map { reason -> _ }
+          }
+        }.toMap
+      }
+  }
 
-  private def recentProcessed(nb: Int) =
-    coll.find(processedSelect).sort($sort.createdDesc).list[Report](nb)
+  private def findRecent(nb: Int, selector: Bdoc) =
+    coll.find(selector).sort($sort.createdDesc).list[Report](nb)
 
-  private def selectRecent(user: User, reason: Reason) = $doc(
+  private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),
     "user" -> user.id,
-    "reason" -> reason.name)
+    "reason" -> reason.key)
 
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
     coll.uno[Report](selectRecent(user, reason))

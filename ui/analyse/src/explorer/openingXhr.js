@@ -23,6 +23,9 @@ module.exports = {
       method: 'GET',
       url: endpoint + url,
       data: params
+    }).then(function (data) {
+      data.opening = true;
+      return data;
     });
   },
   tablebase: function(endpoint, variant, fen) {
@@ -33,6 +36,25 @@ module.exports = {
       data: {
         fen: fen
       }
+    }).then(function(data) {
+      data.tablebase = true;
+      return data;
+    });
+  },
+  watkins: function(endpoint, moves) {
+    return m.request({
+      background: true,
+      method: 'POST',
+      url: endpoint + '/watkins',
+      data: {
+        moves: moves.join(' ')
+      },
+      serialize: function(data) {
+        return data.moves;
+      }
+    }).then(function(data) {
+      data.watkins = true;
+      return data;
     });
   }
 };

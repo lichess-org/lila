@@ -35,7 +35,7 @@ module.exports = function(root, opts, allow) {
   var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
   var effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
-  var config = configCtrl(root.data.game.variant, onConfigClose);
+  var config = configCtrl(root.data.game, withGames, onConfigClose);
 
   var handleFetchError = function(err) {
     loading(false);
@@ -44,15 +44,23 @@ module.exports = function(root, opts, allow) {
   };
 
   var fetchOpening = function(fen) {
-    return xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
+    if (config.data.db.selected() === 'watkins') return fetchWatkins(opts.tablebaseEndpoint);
+    else return xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
   };
 
   var fetchTablebase = function(fen) {
     return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
   };
 
-  var cacheResult = function(fen, res, isTablebase) {
-    res[isTablebase ? 'tablebase' : 'opening'] = true;
+  var fetchWatkins = function(fen) {
+    var moves = [];
+    for (var i = 1; i < root.vm.nodeList.length; i++) {
+      moves.push(root.vm.nodeList[i].uci);
+    }
+    return xhr.watkins(opts.tablebaseEndpoint, moves);
+  };
+
+  var cacheResult = function(fen, res) {
     res.nbMoves = res.moves.length;
     res.fen = fen;
     cache[fen] = res;
@@ -61,7 +69,7 @@ module.exports = function(root, opts, allow) {
   var fetch = throttle(250, function(fen) {
     var isTablebase = withGames && tablebaseRelevant(effectiveVariant, fen);
     (isTablebase ? fetchTablebase : fetchOpening)(fen).then(function(res) {
-      cacheResult(fen, res, isTablebase);
+      cacheResult(fen, res);
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
@@ -77,7 +85,7 @@ module.exports = function(root, opts, allow) {
   var setNode = function() {
     if (!enabled()) return;
     var node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen) && config.data.db.selected() !== 'watkins') {
       cache[node.fen] = empty;
     }
     var cached = cache[node.fen];

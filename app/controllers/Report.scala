@@ -5,6 +5,7 @@ import play.twirl.api.Html
 import views._
 
 import lila.app._
+import lila.report.Reason
 import lila.security.Granter
 import lila.user.{ User => UserModel, UserRepo }
 
@@ -13,9 +14,13 @@ object Report extends LilaController {
   private def forms = Env.report.forms
   private def api = Env.report.api
 
-  def list = Secure(_.SeeReport) { implicit ctx => _ =>
-    api unprocessedAndRecent 50 map { reports =>
-      html.report.list(reports)
+  def list = listWithFilter("all")
+
+  def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => _ =>
+    api.unprocessedAndRecentWithFilter(50, Reason(reason)) flatMap { reports =>
+      api.countUnprocesssedByReasons map { counts =>
+        html.report.list(reports, reason, counts)
+      }
     }
   }
 
@@ -57,10 +62,9 @@ object Report extends LilaController {
 
   def irwinBotNext = Open { implicit ctx =>
     Mod.ModExternalBot {
-      api unprocessedAndRecent 100 map { all =>
+      api.unprocessedAndRecentWithFilter(100, Reason.Cheat.some) map { all =>
         all.find { r =>
-          r.report.isCheat && r.report.unprocessed && !r.hasIrwinNote &&
-            !irwinProcessedUserIds.get(r.user.id)
+          r.report.unprocessed && !r.hasIrwinNote && !irwinProcessedUserIds.get(r.user.id)
         } match {
           case None => NotFound
           case Some(r) =>
