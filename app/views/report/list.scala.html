@@ -6,7 +6,7 @@
 
 @moreJs = {
 <script>
-  $('#report form').submit(function() {
+  $('#report_list form').submit(function() {
     $.post($(this).attr('action'));
     $(this).parents('tr').removeClass('new').end().remove();
     return false;
