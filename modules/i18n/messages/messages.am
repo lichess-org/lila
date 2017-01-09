@@ -1,4 +1,16 @@
 playWithAFriend=ከጓደኛ ጋር ይጫወቱ
 playWithTheMachine=ማሽኑ ጋር ይጫወቱ m
 toInviteSomeoneToPlayGiveThisUrl=ለማጫወት አንድ ሰው ለመጋበዝ, ይህን ዩአርኤል መስጠት
+gameOver=ጨዋታው አለቀ
+waitingForOpponent=ትለው በመጠበቅ ላይ
+waiting=በመጠበቅ ላይ
+yourTurn=Your turn
+aiNameLevelAiLevel=%s level %s
+level=Level
+toggleTheChat=ወደ ውይይት ቀይር
+toggleSound=ቀያይር ድምፅ
+chat=ውይይት
+resign=ሥራ ለቀቀ
+checkmate=Checkmate
+stalemate=Stalemate
 computersAreNotAllowedToPlay=ኮምፒዩተሮች እና ኮምፒውተር-ድጋፍ ተጫዋቾች መጫወት አይፈቀድላቸውም. በማጫወት ላይ ሳለ, ወይም ከሌሎች ተጫዋቾች ከ የቼዝ ፕሮግራሞች, ጎታዎች እርዳታ ማግኘት አይስጡ. በተጨማሪም በርካታ መለያዎች ማድረግ በጥብቅ ተስፋ እና ከመጠን የብዝሃ-የሂሳብ እገዳ እየተደረገ ሊመራ እንደሚችል ልብ ይበሉ.
