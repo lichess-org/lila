@@ -17,10 +17,10 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedReasonChoices(implicit ctx: Context) = List(
-    (Reason.Cheat.name, trans.cheat.str()),
-    (Reason.Insult.name, trans.insult.str()),
-    (Reason.Troll.name, trans.troll.str()),
-    (Reason.Other.name, trans.other.str())
+    (Reason.Cheat.key, trans.cheat.str()),
+    (Reason.Insult.key, trans.insult.str()),
+    (Reason.Troll.key, trans.troll.str()),
+    (Reason.Other.key, trans.other.str())
   )
 
   def translatedModeChoices(implicit ctx: Context) = List(
