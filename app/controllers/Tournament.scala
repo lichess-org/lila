@@ -58,27 +58,27 @@ object Tournament extends LilaController {
     val page = getInt("page")
     negotiate(
       html = repo byId id flatMap {
-        _.fold(tournamentNotFound.fuccess) { tour =>
-          (env.api.verdicts(tour, ctx.me) zip
-            env.version(tour.id) zip {
-              ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
-            }).flatMap {
-              case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.me, none, version.some) map {
-                html.tournament.show(tour, verdicts, _, chat)
-              }
-            }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
-        }
-      },
+      _.fold(tournamentNotFound.fuccess) { tour =>
+        (env.api.verdicts(tour, ctx.me) zip
+          env.version(tour.id) zip {
+            ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
+          }).flatMap {
+            case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.me, none, version.some) map {
+              html.tournament.show(tour, verdicts, _, chat)
+            }
+          }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
+      }
+    },
       api = _ => repo byId id flatMap {
-        case None => NotFound(jsonError("No such tournament")).fuccess
-        case Some(tour) => {
-          get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
-            getBool("socketVersion").??(env version tour.id map some) flatMap {
-              case (playerInfoExt, socketVersion) =>
-                env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion)
-            } map { Ok(_) }
-        }.mon(_.http.response.tournament.show.mobile)
-      } map (_ as JSON)
+      case None => NotFound(jsonError("No such tournament")).fuccess
+      case Some(tour) => {
+        get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
+          getBool("socketVersion").??(env version tour.id map some) flatMap {
+            case (playerInfoExt, socketVersion) =>
+              env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion)
+          } map { Ok(_) }
+      }.mon(_.http.response.tournament.show.mobile)
+    } map (_ as JSON)
     ) map NoCache
   }
 
@@ -126,79 +126,74 @@ object Tournament extends LilaController {
     }
   }
 
-  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx =>
-    implicit me =>
-      NoLame {
-        val password = ctx.body.body.\("p").asOpt[String]
-        negotiate(
-          html = repo enterableById id map {
-            case None => tournamentNotFound
-            case Some(tour) =>
-              env.api.join(tour.id, me, password)
-              Redirect(routes.Tournament.show(tour.id))
-          },
-          api = _ => OptionFuOk(repo enterableById id) { tour =>
-            env.api.join(tour.id, me, password)
-            fuccess(Json.obj("ok" -> true))
-          }
-        )
-      }
+  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
+    NoLame {
+      val password = ctx.body.body.\("p").asOpt[String]
+      negotiate(
+        html = repo enterableById id map {
+        case None => tournamentNotFound
+        case Some(tour) =>
+          env.api.join(tour.id, me, password)
+          Redirect(routes.Tournament.show(tour.id))
+      },
+        api = _ => OptionFuResult(repo enterableById id) { tour =>
+        env.api.joinWithResult(tour.id, me, password) map { result =>
+          if (result) Ok(jsonOkBody)
+          else BadRequest(Json.obj("joined" -> false))
+        }
+      })
+    }
   }
 
-  def withdraw(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionResult(repo byId id) { tour =>
-        env.api.withdraw(tour.id, me.id)
-        if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
-        else Redirect(routes.Tournament.show(tour.id))
-      }
+  def withdraw(id: String) = Auth { implicit ctx => me =>
+    OptionResult(repo byId id) { tour =>
+      env.api.withdraw(tour.id, me.id)
+      if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
+      else Redirect(routes.Tournament.show(tour.id))
+    }
   }
 
-  def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx =>
-    me =>
-      OptionResult(repo startedById id) { tour =>
-        env.api finish tour
-        Env.mod.logApi.terminateTournament(me.id, tour.fullName)
-        Redirect(routes.Tournament show tour.id)
-      }
+  def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
+    OptionResult(repo startedById id) { tour =>
+      env.api finish tour
+      Env.mod.logApi.terminateTournament(me.id, tour.fullName)
+      Redirect(routes.Tournament show tour.id)
+    }
   }
 
-  def form = Auth { implicit ctx =>
-    me =>
-      NoLame {
-        Ok(html.tournament.form(env.forms.create, env.forms)).fuccess
-      }
+  def form = Auth { implicit ctx => me =>
+    NoLame {
+      Ok(html.tournament.form(env.forms.create, env.forms)).fuccess
+    }
   }
 
-  def create = AuthBody { implicit ctx =>
-    implicit me =>
-      NoLame {
-        import play.api.i18n.Messages.Implicits._
-        import play.api.Play.current
-        implicit val req = ctx.body
-        negotiate (
-          html = env.forms.create.bindFromRequest.fold(
-            err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
-            setup => env.api.createTournament(setup, me) map { tour =>
-              Redirect(routes.Tournament.show(tour.id))
-            }),
-          api = _ => env.forms.create.bindFromRequest.fold(
-            err => BadRequest(errorsAsJson(err)).fuccess,
-            setup => env.api.createTournament(setup, me) map { tour =>
-              Ok(Json.obj("id" -> tour.id))
-            })
-        )
-      }
+  def create = AuthBody { implicit ctx => implicit me =>
+    NoLame {
+      import play.api.i18n.Messages.Implicits._
+      import play.api.Play.current
+      implicit val req = ctx.body
+      negotiate(
+        html = env.forms.create.bindFromRequest.fold(
+          err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
+          setup => env.api.createTournament(setup, me) map { tour =>
+            Redirect(routes.Tournament.show(tour.id))
+          }),
+        api = _ => env.forms.create.bindFromRequest.fold(
+          err => BadRequest(errorsAsJson(err)).fuccess,
+          setup => env.api.createTournament(setup, me) map { tour =>
+            Ok(Json.obj("id" -> tour.id))
+          })
+      )
+    }
   }
 
-  def limitedInvitation = Auth { implicit ctx =>
-    me =>
-      env.api.fetchVisibleTournaments.flatMap { tours =>
-        lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
-      } map {
-        case None    => Redirect(routes.Tournament.home(1))
-        case Some(t) => Redirect(routes.Tournament.show(t.id))
-      }
+  def limitedInvitation = Auth { implicit ctx => me =>
+    env.api.fetchVisibleTournaments.flatMap { tours =>
+      lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
+    } map {
+      case None    => Redirect(routes.Tournament.home(1))
+      case Some(t) => Redirect(routes.Tournament.show(t.id))
+    }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>

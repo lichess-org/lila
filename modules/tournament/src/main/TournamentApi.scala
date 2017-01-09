@@ -190,7 +190,16 @@ final class TournamentApi(
             }
           }
         }
-      } else fuccess(socketReload(tour.id))
+      }
+      else fuccess(socketReload(tour.id))
+    }
+  }
+
+  def joinWithResult(tourId: String, me: User, p: Option[String]): Fu[Boolean] = {
+    join(tourId, me, p)
+    // atrocious hack, because joining is fire and forget
+    akka.pattern.after(500 millis, system.scheduler) {
+      PlayerRepo.find(tourId, me.id) map { _ ?? (_.active) }
     }
   }
 
