@@ -135,7 +135,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= Seq(findbugs, spray.caching) ++ provided(play.api, reactivemongo.driver)
   )
 
-  lazy val search = project("search", Seq(common, game, hub)).settings(
+  lazy val search = project("search", Seq(common, hub)).settings(
     libraryDependencies ++= provided(play.api)
   )
 
