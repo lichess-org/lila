@@ -27,6 +27,16 @@ final class UserGameApi(
       )
     }
 
+  def search(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
+    bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
+      implicit val gameWriter = Writes[Game] { g =>
+        write(g, bookmarkedIds(g.id))
+      }
+      Json.obj(
+        "paginator" -> lila.common.paginator.PaginatorJson(pag)
+      )
+    }
+
   private def write(g: Game, bookmarked: Boolean) = Json.obj(
     "id" -> g.id,
     "rated" -> g.rated,
