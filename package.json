@@ -1,12 +1,7 @@
 {
   "name": "lila",
   "version": "1.0.0",
-  "description": "[lichess.org](http://lichess.org)",
-  "main": "index.js",
-  "dependencies": {
-    "common": "file:../common"
-  }
-  },
+  "description": "lichess.org: the forever free, adless and open source chess server",
   "devDependencies": {
     "gulp-svgmin": "^1.1.1",
     "map-stream": "0.0.5",
@@ -25,5 +20,5 @@
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
-  "homepage": "http://lichess.org"
+  "homepage": "https://lichess.org"
 }
