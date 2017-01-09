@@ -1,4 +1,3 @@
-var treeOps = require('tree').ops;
 var pathOps = require('tree').path;
 var decomposeUci = require('chess').decomposeUci;
 var sanToRole = require('chess').sanToRole;

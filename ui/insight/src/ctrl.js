@@ -31,7 +31,7 @@ module.exports = function(env, domElement) {
     filters: env.initialQuestion.filters,
     loading: true,
     answer: null,
-    panel: !!Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
+    panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
   };
 
   this.setPanel = function(p) {

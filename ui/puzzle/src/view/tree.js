@@ -37,10 +37,6 @@ function renderIndex(ply, withDots) {
   };
 }
 
-function nonEmpty(x) {
-  return !!x;
-}
-
 function renderChildrenOf(ctx, node, opts) {
   var cs = node.children;
   var main = cs[0];
@@ -144,19 +140,16 @@ function puzzleGlyph(ctx, node) {
         name: ctx.ctrl.trans.noarg('bestMove'),
         symbol: '✓'
       });
-      break;
     case 'fail':
       return renderGlyph({
         name: ctx.ctrl.trans.noarg('puzzleFailed'),
         symbol: '✗'
       });
-      break;
     case 'retry':
       return renderGlyph({
         name: ctx.ctrl.trans.noarg('goodMove'),
         symbol: '?!'
       });
-      break;
   }
 }
 

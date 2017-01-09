@@ -1,6 +1,4 @@
 var fixCrazySan = require('chess').fixCrazySan;
-var common = require('common');
-var m = require('mithril');
 
 var plyToTurn = function(ply) {
   return Math.floor((ply - 1) / 2) + 1;

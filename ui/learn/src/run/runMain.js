@@ -1,4 +1,3 @@
-var m = require('mithril');
 var runCtrl = require('./runCtrl');
 var runView = require('./runView');
 

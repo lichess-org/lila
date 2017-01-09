@@ -1,4 +1,3 @@
-var util = require('./util');
 var winningChances = require('ceval').winningChances;
 var decomposeUci = require('chess').decomposeUci;
 var sanToRole = require('chess').sanToRole;

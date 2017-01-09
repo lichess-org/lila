@@ -20,7 +20,7 @@ function renderSeek(ctrl, seek) {
       'data-icon': seek.perf.icon
     }), ctrl.trans(seek.mode === 1 ? 'rated' : 'casual')]
   ]));
-};
+}
 
 function createSeek(ctrl) {
   if (ctrl.data.me && ctrl.data.seeks.length < 8)

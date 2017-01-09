@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var throttle = require('common').throttle;
 
 var xhrConfig = function(xhr) {

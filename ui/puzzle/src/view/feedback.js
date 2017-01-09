@@ -1,5 +1,4 @@
 var m = require('mithril');
-var treePath = require('tree').path;
 var afterView = require('./after');
 
 function viewSolution(ctrl) {

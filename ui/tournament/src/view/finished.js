@@ -1,6 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
-var util = require('./util');
 var arena = require('./arena');
 var pairings = require('./pairings');
 var playerInfo = require('./playerInfo');

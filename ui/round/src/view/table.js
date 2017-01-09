@@ -1,11 +1,7 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
-var opposite = chessground.util.opposite;
 var classSet = require('common').classSet;
 var game = require('game').game;
 var status = require('game').status;
-var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
@@ -180,7 +176,6 @@ function anyClock(ctrl, position) {
 }
 
 module.exports = function(ctrl) {
-  var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
   return m('div.table_wrap', [
     anyClock(ctrl, 'top'),
     m('div', {

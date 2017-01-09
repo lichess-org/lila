@@ -1,5 +1,4 @@
 var m = require('mithril');
-var router = require('game').router;
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

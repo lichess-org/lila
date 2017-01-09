@@ -101,8 +101,8 @@ function podiumStats(p, data) {
     m('table.stats', [
       m('tr', [m('th', 'Games played'), m('td', nb.game)]),
       nb.game ? [
-        m('tr', [m('th', 'Win rate'), m('td', util.ratio2percent(nb.win / nb.game))]),
-        m('tr', [m('th', 'Berserk rate'), m('td', util.ratio2percent(nb.berserk / nb.game))])
+        m('tr', [m('th', 'Win rate'), m('td', ratio2percent(nb.win / nb.game))]),
+        m('tr', [m('th', 'Berserk rate'), m('td', ratio2percent(nb.berserk / nb.game))])
       ] : null,
       p.performance ? m('tr', [m('th', 'Performance'), m('td', p.performance)]) : null
     ])
@@ -128,7 +128,6 @@ module.exports = {
     ]);
   },
   standing: function(ctrl, pag, klass) {
-    var player = util.currentPlayer(ctrl, pag);
     var tableBody = pag.currentPageResults ?
       pag.currentPageResults.map(partial(playerTr, ctrl)) : lastBody;
     if (pag.currentPageResults) lastBody = tableBody;

@@ -87,8 +87,6 @@ function renderMoves(ctrl) {
   return rows;
 }
 
-var analyseButtonIcon = m('span[data-icon="A"]');
-
 function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
   var attrs = {
@@ -203,7 +201,6 @@ module.exports = function(ctrl) {
     subtree: 'retain'
   };
   ctrl.vm.replayHash = h;
-  var message = (d.game.variant.key === 'racingKings' && d.game.turns === 0) ? racingKingsInit : null;
   return m('div.replay', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? m('div.moves', {

@@ -24,7 +24,7 @@ function renderHook(ctrl, hook) {
       'data-icon': ctrl.perfIcons[hook.perf]
     }), ctrl.trans(hook.ra ? 'rated' : 'casual')]
   ]));
-};
+}
 
 function isStandard(value) {
   return function(hook) {

@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 module.exports = function(ctrl) {
   switch (ctrl.data.game.status.name) {
     case 'started':
@@ -18,10 +16,8 @@ module.exports = function(ctrl) {
           return ctrl.trans('blackLeftTheGame');
         case 'black':
           return ctrl.trans('whiteLeftTheGame');
-        default:
-          return ctrl.trans('draw');
       }
-      break;
+      return ctrl.trans('draw');
     case 'draw':
       return ctrl.trans('draw');
     case 'outoftime':
@@ -36,10 +32,8 @@ module.exports = function(ctrl) {
           return ctrl.trans('kingInTheCenter');
         case 'threeCheck':
           return ctrl.trans('threeChecks');
-        default:
-          return ctrl.trans('variantEnding');
       }
-      break;
+      return ctrl.trans('variantEnding');
     default:
       return ctrl.data.game.status.name;
   }

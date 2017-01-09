@@ -1,4 +1,3 @@
-var m = require('mithril');
 var util = require('../util');
 var assert = require('../assert');
 var and = assert.and;
@@ -59,4 +58,3 @@ module.exports = {
   complete: 'Congratulations! You know how to setup the chess board.',
   cssClass: 'no-go-home'
 };
-;

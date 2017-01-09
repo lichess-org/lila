@@ -1,4 +1,3 @@
-var m = require('mithril');
 var xhr = require('./xhr');
 
 module.exports = function(send, ctrl) {

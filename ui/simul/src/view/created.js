@@ -2,18 +2,11 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var simul = require('../simul');
 var util = require('./util');
-var button = require('./button');
 var xhr = require('../xhr');
-
-function maybeWithdrawButton(ctrl, applicant) {
-  if (ctrl.userId === applicant.player.id) return m('a.thin.button', {
-    onclick: partial(xhr.withdraw, ctrl)
-  }, ctrl.trans('withdraw'));
-}
 
 function byRating(a, b) {
   return a.rating > b.rating
-};
+}
 
 function randomButton(ctrl, candidates) {
   return candidates.length ? m('a.button.top_right.text', {

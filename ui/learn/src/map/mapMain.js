@@ -1,4 +1,3 @@
-var m = require('mithril');
 var mapView = require('./mapView');
 var stages = require('../stage/list');
 var scoring = require('../score');

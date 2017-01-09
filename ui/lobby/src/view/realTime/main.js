@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 var list = require('./list');
 var chart = require('./chart');
 var filter = require('../../filter');

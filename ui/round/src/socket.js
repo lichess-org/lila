@@ -2,7 +2,6 @@ var m = require('mithril');
 var game = require('game').game;
 var throttle = require('common').throttle;
 var ground = require('./ground');
-var util = require('./util');
 var xhr = require('./xhr');
 var sound = require('./sound');
 var partial = require('chessground').util.partial;

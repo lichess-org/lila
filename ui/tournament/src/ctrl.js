@@ -2,7 +2,6 @@ var m = require('mithril');
 var makeSocket = require('./socket');
 var xhr = require('./xhr');
 var pagination = require('./pagination');
-var util = require('chessground').util;
 var sound = require('./sound');
 var tour = require('./tournament');
 

@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 

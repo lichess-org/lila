@@ -1,5 +1,4 @@
 var nodeFinder = require('../nodeFinder');
-var makeAutoShapes = require('../autoShape').makeAutoShapesFromUci;
 var winningChances = require('ceval').winningChances;
 var treePath = require('tree').path;
 var empty = require('common').empty;
@@ -79,11 +78,6 @@ module.exports = function(root) {
     }
     root.userJump(prev.path);
     m.redraw();
-  };
-
-  var trustedEval = function(node) {
-    if (node.eval) return node.eval;
-    if (node.ceval && node.ceval.depth >= 16) return node.ceval;
   };
 
   var onJump = function() {

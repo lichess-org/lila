@@ -1,6 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
-var xhr = require('../xhr');
 var isIn = require('../tournament').isIn;
 
 function orJoinSpinner(ctrl, f) {

@@ -1,4 +1,3 @@
-var m = require('mithril');
 var util = require('../util');
 var assert = require('../assert');
 var arrow = util.arrow;
@@ -68,4 +67,4 @@ module.exports = {
   }),
   complete: 'Congratulations! You know the value of material!<br>' +
     'Queen = 9<br>Rook = 5<br>Bishop = 3<br>Knight = 3<br>Pawn = 1'
-};;
+};

@@ -22,7 +22,7 @@ function drawTime(notification) {
     class: "moment-from-now",
     datetime: new Date(notification.date).toISOString()
   });
-};
+}
 
 var handlers = {
   mention: {

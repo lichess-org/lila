@@ -1,6 +1,5 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var ground = require('./ground');
 var opposite = chessground.util.opposite;
 var invertKey = chessground.util.invertKey;
 var key2pos = chessground.util.key2pos;
