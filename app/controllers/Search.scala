@@ -47,12 +47,17 @@ object Search extends LilaController {
                   }
                 ),
                 api = _ => searchForm.bindFromRequest.fold(
-                  failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+                  failure => Ok(jsonError("Could to process search query")).fuccess,
                   data => data.nonEmptyQuery ?? { query =>
                     env.paginator(query, page) map (_.some)
-                  } map { pager => pager match {
-                      case Some(s) => Env.search.jsonView.showResults(s)
-                      case None => Ok("Hello World")
+                  } flatMap { pager =>
+                    pager match {
+                      case Some(s) =>
+                        Env.api.userGameApi.search(s) map {
+                          Ok(_)
+                        }
+                      case None =>
+                        Ok(jsonError("Could to process search query")).fuccess
                     }
                   }
                 )
