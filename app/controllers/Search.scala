@@ -47,7 +47,7 @@ object Search extends LilaController {
                   }
                 ),
                 api = _ => searchForm.bindFromRequest.fold(
-                  failure => Ok(jsonError("Could to process search query")).fuccess,
+                  failure => Ok(jsonError("Could not process search query")).fuccess,
                   data => data.nonEmptyQuery ?? { query =>
                     env.paginator(query, page) map (_.some)
                   } flatMap { pager =>
@@ -57,7 +57,7 @@ object Search extends LilaController {
                           Ok(_)
                         }
                       case None =>
-                        Ok(jsonError("Could to process search query")).fuccess
+                        Ok(jsonError("Could not process search query")).fuccess
                     }
                   }
                 )
