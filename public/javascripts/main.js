@@ -418,6 +418,10 @@ lichess.notifyApp = (function() {
         $(this).parents('tr').removeClass('new').end().remove();
         return false;
       });
+      // temp fix, remove me!
+      $('#report form .field_reason option').each(function() {
+        $(this).attr('value',$(this).attr('value').toLowerCase());
+      });
 
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
