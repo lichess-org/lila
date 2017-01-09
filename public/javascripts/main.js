@@ -412,6 +412,13 @@ lichess.notifyApp = (function() {
         }, 10);
       });
 
+      // temp fix, remove me!
+      $('#report_list form').submit(function() {
+        $.post($(this).attr('action'));
+        $(this).parents('tr').removeClass('new').end().remove();
+        return false;
+      });
+
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function setMoment() {
