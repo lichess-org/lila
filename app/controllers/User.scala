@@ -94,8 +94,8 @@ object User extends LilaController {
             }
           }.map { status(_) }.mon(_.http.response.user.show.website),
           api = _ => userGames(u, filterOption, page).flatMap {
-            case (filterName, pag) => Env.api.userGameApi.filter(filterName, pag) map {
-              Ok(_)
+            case (filterName, pag) => Env.api.userGameApi.jsPaginator(pag) map { res =>
+              Ok(res ++ Json.obj("filter" -> filterName))
             }
           }.mon(_.http.response.user.show.mobile))
         else negotiate(

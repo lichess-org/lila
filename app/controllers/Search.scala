@@ -37,7 +37,7 @@ object Search extends LilaController {
           RateLimitGlobal("-", cost = cost) {
             Env.game.cached.nbTotal flatMap { nbGames =>
               implicit def req = ctx.body
-              negotiate (
+              negotiate(
                 html = searchForm.bindFromRequest.fold(
                   failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                   data => data.nonEmptyQuery ?? { query =>
@@ -50,15 +50,13 @@ object Search extends LilaController {
                   failure => Ok(jsonError("Could not process search query")).fuccess,
                   data => data.nonEmptyQuery ?? { query =>
                     env.paginator(query, page) map (_.some)
-                  } flatMap { pager =>
-                    pager match {
-                      case Some(s) =>
-                        Env.api.userGameApi.search(s) map {
-                          Ok(_)
-                        }
-                      case None =>
-                        Ok(jsonError("Could not process search query")).fuccess
-                    }
+                  } flatMap {
+                    case Some(s) =>
+                      Env.api.userGameApi.jsPaginator(s) map {
+                        Ok(_)
+                      }
+                    case None =>
+                      BadRequest(jsonError("Could not process search query")).fuccess
                   }
                 )
               )

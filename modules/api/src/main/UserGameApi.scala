@@ -16,18 +16,7 @@ final class UserGameApi(
   import lila.round.JsonView._
   import LightUser.lightUserWrites
 
-  def filter(filterName: String, pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
-    bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
-      implicit val gameWriter = Writes[Game] { g =>
-        write(g, bookmarkedIds(g.id))
-      }
-      Json.obj(
-        "filter" -> filterName,
-        "paginator" -> lila.common.paginator.PaginatorJson(pag)
-      )
-    }
-
-  def search(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
+  def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
     bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
       implicit val gameWriter = Writes[Game] { g =>
         write(g, bookmarkedIds(g.id))
