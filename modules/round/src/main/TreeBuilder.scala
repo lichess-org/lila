@@ -13,7 +13,7 @@ object TreeBuilder {
   private type OpeningOf = String => Option[FullOpening]
 
   private def makeEval(info: Info) = Node.Eval(
-    cp = info.score.map(_.ceiled.centipawns),
+    cp = info.score.map(_.centipawns),
     mate = info.mate,
     best = info.best)
 

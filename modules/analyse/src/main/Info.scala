@@ -52,7 +52,7 @@ object Info {
 
   def start(ply: Int) = Info(ply, Score.initial.some, none, Nil)
 
-  def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
+  private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array()               => Info(ply).some
     case Array(cp)             => Info(ply, Score(cp)).some
     case Array(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
