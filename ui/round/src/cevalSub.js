@@ -9,11 +9,12 @@ function truncateFen(fen) {
 }
 
 module.exports = function(ctrl) {
-  if (ctrl.data.opponent.ai) return;
+  if (!ctrl.data.game.rated) return;
   lichess.storage.make('ceval.fen').listen(function(ev) {
-    if (!found && ev.newValue && ctrl.vm.ply > minPly && playable(ctrl.data) &&
-      truncateFen(plyStep(ctrl.data, ctrl.vm.ply).fen) === truncateFen(ev.newValue)) {
-      $.post('/jslog/' + ctrl.data.game.id + ctrl.data.player.id + '?n=ceval');
+    var d = ctrl.data;
+    if (!found && ev.newValue && ctrl.vm.ply > minPly && playable(d) &&
+      truncateFen(plyStep(d, ctrl.vm.ply).fen) === truncateFen(ev.newValue)) {
+      $.post('/jslog/' + d.game.id + d.player.id + '?n=ceval');
       found = true;
     }
   });
