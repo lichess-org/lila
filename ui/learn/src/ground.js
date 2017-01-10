@@ -1,5 +1,4 @@
 var chessground = require('chessground');
-var partial = chessground.util.partial;
 var raf = chessground.util.requestAnimationFrame;
 var util = require('./util');
 

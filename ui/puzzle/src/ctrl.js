@@ -6,7 +6,6 @@ var cevalCtrl = require('ceval').ctrl;
 var readDests = require('chess').readDests;
 var decomposeUci = require('chess').decomposeUci;
 var sanToRole = require('chess').sanToRole;
-var k = Mousetrap;
 var chessground = require('chessground');
 var keyboard = require('./keyboard');
 var opposite = chessground.util.opposite;

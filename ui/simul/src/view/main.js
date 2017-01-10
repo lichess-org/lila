@@ -1,5 +1,4 @@
 var m = require('mithril');
-var util = require('chessground').util;
 
 var created = require('./created');
 var started = require('./started');

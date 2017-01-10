@@ -1,8 +1,6 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var opposite = require('chessground').util.opposite;
 var util = require('./util');
-var status = require('game').status;
 
 function user(p, it) {
   return {

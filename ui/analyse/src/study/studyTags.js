@@ -71,8 +71,6 @@ function renderPgnTags(chapter, submit, node, types) {
   })));
 }
 
-var lastCacheKey;
-
 module.exports = {
   ctrl: function(root, getChapter, members, types) {
 

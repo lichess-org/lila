@@ -1,7 +1,4 @@
-var m = require('mithril');
 var socket = require('./socket');
-var xhr = require('./xhr');
-var util = require('chessground').util;
 var simul = require('./simul');
 
 module.exports = function(env) {

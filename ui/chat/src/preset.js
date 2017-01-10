@@ -2,7 +2,7 @@ var m = require('mithril');
 
 function splitIt(s) {
   return s.split('/');
-};
+}
 
 var groups = {
   start: [

@@ -107,8 +107,6 @@ function renderTournament(ctrl, tour) {
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
-  var hasMaxRating = tour.conditions && tour.conditions.maxRating;
-
   return m('a', {
     key: tour.id,
     href: '/tournament/' + tour.id,

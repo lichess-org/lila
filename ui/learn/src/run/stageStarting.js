@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 
 module.exports = function(ctrl) {
   return m('div.screen-overlay', {

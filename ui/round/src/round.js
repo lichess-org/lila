@@ -1,14 +1,14 @@
 function firstPly(d) {
   return d.steps[0].ply;
-};
+}
 
 function lastPly(d) {
   return d.steps[d.steps.length - 1].ply;
-};
+}
 
 function plyStep(d, ply) {
   return d.steps[ply - firstPly(d)];
-};
+}
 
 module.exports = {
   merge: function(old, cfg) {

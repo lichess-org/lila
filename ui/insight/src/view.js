@@ -50,7 +50,7 @@ module.exports = function(ctrl) {
           onclick: function() {
             ctrl.setPanel('filter');
           }
-        }, 'Filters'), !!Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
+        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
           'data-hint': 'Clear all filters',
           onclick: ctrl.clearFilters
         }, m('span', {

@@ -1,6 +1,4 @@
-var m = require('mithril');
 var util = require('../util');
-var assert = require('../assert');
 var arrow = util.arrow;
 
 var imgUrl = util.assetUrl + 'images/learn/guards.svg';

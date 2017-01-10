@@ -1,5 +1,4 @@
 var m = require('mithril');
-var util = require('./util');
 var makeItems = require('./item').ctrl;
 var itemView = require('./item').view;
 var makeScenario = require('./scenario');

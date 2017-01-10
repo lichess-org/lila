@@ -1,12 +1,7 @@
 var m = require('mithril');
-var game = require('game').game;
 
 function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
-}
-
-function bold(x) {
-  return '<b>' + x + '</b>';
 }
 
 var sepHigh = '<sep>:</sep>';

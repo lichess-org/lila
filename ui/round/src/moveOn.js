@@ -1,7 +1,5 @@
 var game = require('game').game;
 var xhr = require('./xhr');
-var router = require('game').router;
-var m = require('mithril');
 
 module.exports = function(ctrl, key) {
 

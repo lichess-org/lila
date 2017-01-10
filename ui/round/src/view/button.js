@@ -1,5 +1,4 @@
 var partial = require('chessground').util.partial;
-var classSet = require('common').classSet;
 var util = require('../util');
 var game = require('game').game;
 var status = require('game').status;

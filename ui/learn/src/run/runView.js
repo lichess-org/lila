@@ -1,6 +1,5 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var raf = chessground.util.requestAnimationFrame;
 var ground = require('../ground');
 var classSet = require('common').classSet;
 var congrats = require('../congrats');

@@ -1,7 +1,5 @@
-var m = require('mithril');
 var util = require('./util');
 var partial = require('chessground').util.partial;
-var opposite = require('chessground').util.opposite;
 var ground = require('./ground');
 
 module.exports = function(blueprint, opts) {

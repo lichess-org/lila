@@ -1,6 +1,5 @@
 var m = require('mithril');
 var game = require('game').game;
-var raf = require('chessground').util.requestAnimationFrame;
 
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
@@ -33,7 +32,6 @@ module.exports = {
     if (user) {
       var fullName = (user.title ? user.title + ' ' : '') + user.username;
       var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
-      var isMe = ctrl.userId === user.id;
       return m('div', {
         class: 'username user_link ' + player.color + ' ' +
           (player.onGame ? 'online' : 'offline') +

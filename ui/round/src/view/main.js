@@ -4,7 +4,6 @@ var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
 var mod = require('game').view.mod;
-var button = require('./button');
 var blind = require('../blind');
 var keyboard = require('../keyboard');
 var crazyView = require('../crazy/crazyView');

@@ -3,7 +3,6 @@ var title = require('./title');
 var blur = require('./blur');
 var round = require('./round');
 var game = require('game').game;
-var status = require('game').status;
 var keyboard = require('./keyboard');
 var cevalSub = require('./cevalSub');
 var k = Mousetrap;

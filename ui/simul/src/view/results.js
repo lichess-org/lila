@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var status = require('game').status;
 
 module.exports = function(ctrl) {
