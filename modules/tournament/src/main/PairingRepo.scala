@@ -72,7 +72,7 @@ object PairingRepo {
   def count(tourId: String): Fu[Int] =
     coll.count(selectTour(tourId).some)
 
-  def countByTourIdAndUserIds(tourId: String): Fu[Map[String, Int]] = {
+  private[tournament] def countByTourIdAndUserIds(tourId: String): Fu[Map[String, Int]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
       Match(selectTour(tourId)),
@@ -135,7 +135,7 @@ object PairingRepo {
       _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
 
-  def playingGameIds(tourId: String): Fu[List[String]] =
+  private[tournament] def playingGameIds(tourId: String): Fu[List[String]] =
     coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
       Group(BSONBoolean(true))("ids" -> PushField("_id")))).map(
       _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
