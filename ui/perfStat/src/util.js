@@ -47,10 +47,10 @@ module.exports = {
   streaks: function(s, f) {
     return [
       m('div.streak', [
-        m('h3', 'Longest: '), (f || streak)(s.max)
+        m('h3', 'Longest: '), f(s.max)
       ]),
       m('div.streak', [
-        m('h3', 'Current streak'), (f || streak)(s.cur)
+        m('h3', 'Current streak'), f(s.cur)
       ])
     ];
   },
