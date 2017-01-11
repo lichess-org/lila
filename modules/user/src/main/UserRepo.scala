@@ -265,7 +265,7 @@ object UserRepo {
     if (!userIdPattern.matcher(id).matches) fuccess(Nil)
     else {
       import java.util.regex.Matcher.quoteReplacement
-      val regex = "^" + id + ".*$"
+      val regex = ".*" + id + ".*"
       coll.find(
         $doc("_id".$regex(regex, "")) ++ enabledSelect,
         $doc(F.username -> true))
