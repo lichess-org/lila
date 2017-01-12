@@ -77,6 +77,16 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
+  var onPremove = function(orig, dest) {
+    promotion.start(this, orig, dest, true);
+    m.redraw();
+  }.bind(this);
+
+  var onCancelPremove = function() {
+    promotion.cancel(this);
+    m.redraw();
+  }.bind(this);
+
   var onPredrop = function(role) {
     this.vm.preDrop = role;
     m.redraw();
@@ -93,6 +103,8 @@ module.exports = function(opts) {
     onUserNewPiece: onUserNewPiece,
     onMove: onMove,
     onNewPiece: onNewPiece,
+    onPremove: onPremove,
+    onCancelPremove: onCancelPremove,
     onPredrop: onPredrop
   });
 

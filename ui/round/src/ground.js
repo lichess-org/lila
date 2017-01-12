@@ -49,10 +49,6 @@ function makeConfig(data, ply, flip) {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination,
       castle: data.game.variant.key !== 'antichess',
-      events: {
-        set: m.redraw,
-        unset: m.redraw
-      }
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse'
@@ -80,6 +76,10 @@ function make(opts) {
   config.events = {
     move: opts.onMove,
     dropNewPiece: opts.onNewPiece
+  };
+  config.premovable.events = {
+    set: opts.onPremove,
+    unset: opts.onCancelPremove
   };
   config.predroppable.events = {
     set: opts.onPredrop,

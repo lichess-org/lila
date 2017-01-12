@@ -6,36 +6,74 @@ var xhr = require('./xhr');
 var invertKey = chessground.util.invertKey;
 var key2pos = chessground.util.key2pos;
 
-var promoting = false;
+var promoting = null;
+var prePromotionRole = null;
 
 function start(ctrl, orig, dest, isPremove) {
   var piece = ctrl.chessground.data.pieces[dest];
-  if (piece && piece.role == 'pawn' && (
+  var premovePiece = ctrl.chessground.data.pieces[orig];
+  if (((piece && piece.role == 'pawn') || (premovePiece && premovePiece.role == 'pawn')) && (
     (dest[1] == 8 && ctrl.data.player.color == 'white') ||
     (dest[1] == 1 && ctrl.data.player.color == 'black'))) {
-    if (ctrl.data.pref.autoQueen === 3 || (ctrl.data.pref.autoQueen === 2 && isPremove)) {
-      ground.promote(ctrl.chessground, dest, 'queen');
-      return false;
+    if (prePromotionRole && isPremove) {
+      ground.promote(ctrl.chessground, dest, prePromotionRole);
+      ctrl.sendMove(orig, dest, prePromotionRole);
+      cancelPrePromotion(ctrl);
+      return true;
+    }
+    if (ctrl.data.pref.autoQueen === 3 || (ctrl.data.pref.autoQueen === 2)) {
+      if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
+      else {
+        ground.promote(ctrl.chessground, dest, 'queen');
+        ctrl.sendMove(orig, dest, 'queen');
+        cancelPrePromotion(ctrl);
+      }
+      return true;
     }
     m.startComputation();
-    promoting = [orig, dest];
+    cancelPrePromotion(ctrl);
+    promoting = {
+      move: [orig, dest],
+      pre: !!premovePiece
+    };
     m.endComputation();
     return true;
   }
   return false;
 }
 
+function setPrePromotion(ctrl, dest, role) {
+  prePromotionRole = role;
+  ctrl.chessground.setAutoShapes([{
+    orig: dest,
+    piece: {
+      color: ctrl.data.player.color,
+      role: role,
+      opacity: 0.8
+    }
+  }]);
+}
+
+function cancelPrePromotion(ctrl) {
+  if (prePromotionRole) ctrl.chessground.setAutoShapes([]);
+  prePromotionRole = null;
+}
+
 function finish(ctrl, role) {
   if (promoting) {
-    ground.promote(ctrl.chessground, promoting[1], role);
-    ctrl.sendMove(promoting[0], promoting[1], role);
+    if (promoting.pre) setPrePromotion(ctrl, promoting.move[1], role);
+    else {
+      ground.promote(ctrl.chessground, promoting.move[1], role);
+      ctrl.sendMove(promoting.move[0], promoting.move[1], role);
+    }
   }
-  promoting = false;
+  promoting = null;
 }
 
 function cancel(ctrl) {
+  cancelPrePromotion(ctrl);
   if (promoting) xhr.reload(ctrl).then(ctrl.reload);
-  promoting = false;
+  promoting = null;
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
@@ -59,13 +97,14 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
 module.exports = {
 
   start: start,
+  cancel: cancel,
 
   view: function(ctrl) {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
     if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
 
-    return renderPromotion(ctrl, promoting[1], pieces,
+    return renderPromotion(ctrl, promoting.move[1], pieces,
         ctrl.data.player.color,
         ctrl.chessground.data.orientation);
   }
