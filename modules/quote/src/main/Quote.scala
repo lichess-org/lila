@@ -140,7 +140,7 @@ object Quote {
     , new Quote("For surely of all the drugs in the world, chess must be the most permanently pleasurable.", "Assiac")
     , new Quote("A thorough understanding of the typical mating continuations makes the most complicated sacrificial combinations leading up to them not only not difficult, but almost a matter of course.", "Siegbert Tarrasch")
     , new Quote("Chess problems demand from the composer the same virtues that characterize all worthwhile art: originality, invention, conciseness, harmony, complexity, and splendid insincerity.", "Vladimir Nabokov")
-    , new Quote("Personally, I rather look forward to a computer program winning the world chess Championship. Humanity needs a lesson in humility.", "Richard Dawkings")
+    , new Quote("Personally, I rather look forward to a computer program winning the world chess Championship. Humanity needs a lesson in humility.", "Richard Dawkins")
     , new Quote("The boy (then a 12 year old boy named Anatoly Karpov) doesn’t have a clue about chess, and there’s no future at all for him in this profession.", "Mikhail Botvinnik")
     , new Quote("As one by one I mowed them down, my superiority soon became apparent.", "Jose Capablanca")
     , new Quote("Though most people love to look at the games of the great attacking masters, some of the most successful players in history have been the quiet positional players. They slowly grind you down by taking away your space, tying up your pieces, and leaving you with virtually nothing to do!", "Yasser Seirawan")
