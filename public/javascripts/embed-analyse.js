@@ -107,7 +107,7 @@ $(function() {
 lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
-  LichessAnalyse(opts);
+  LichessAnalyse.mithril(opts);
 
   var board = opts.element.querySelector('.cg-board-wrap');
   var ground = opts.element.querySelector('.lichess_ground');
