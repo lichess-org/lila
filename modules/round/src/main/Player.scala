@@ -16,7 +16,6 @@ private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
     bus: lila.common.Bus,
     finisher: Finisher,
-    cheatDetector: CheatDetector,
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
@@ -30,16 +29,13 @@ private[round] final class Player(
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
-                    cheatDetector(progress.game) addEffect {
-                      case Some(color) => round ! Cheat(color)
-                      case None =>
-                        if (progress.game.playableByAi) requestFishnet(progress.game, round)
-                        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-                        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                        moveOrDrop.left.toOption.ifTrue(pov.game.forecastable).foreach { move =>
-                          round ! ForecastPlay(move)
-                        }
-                    } inject progress.events
+                    if (progress.game.playableByAi) requestFishnet(progress.game, round)
+                    if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+                    if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+                    if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+                      round ! ForecastPlay(move)
+                    }
+                    fuccess(progress.events)
                   }) >>- promiseOption.foreach(_.success(()))
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)

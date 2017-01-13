@@ -154,15 +154,12 @@ final class Env(
     fishnetPlayer = fishnetPlayer,
     bus = system.lilaBus,
     finisher = finisher,
-    cheatDetector = cheatDetector,
     uciMemo = uciMemo)
 
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
     messenger = messenger,
     finisher = finisher)
-
-  private lazy val cheatDetector = new CheatDetector
 
   lazy val messenger = new Messenger(
     chat = hub.actor.chat,
