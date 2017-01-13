@@ -414,7 +414,9 @@ final class TournamentApi(
   private object updateTournamentStanding {
     private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
       (tourId: String) =>
-        standingChannel ! lila.socket.Socket.makeMessage("tournamentStanding", tourId)
+        standingChannel ! lila.socket.Channel.Publish(
+          lila.socket.Socket.makeMessage("tournamentStanding", tourId)
+        )
     })))
     def apply(tour: Tournament) {
       debouncer ! tour.id
