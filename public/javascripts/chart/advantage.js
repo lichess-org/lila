@@ -88,6 +88,19 @@ lichess.advantageChart = function(data) {
               }
             }
           },
+          tooltip: {
+            pointFormatter: function (format) {
+              format = format.replace('{series.name}', 'Advantage');
+              var eval = data.treeParts[this.x + 1].eval;
+              if (!eval) return;
+              else if (eval.mate) return format.replace('{point.y}', '#' + eval.mate);
+              else if (typeof eval.cp !== 'undefined') {
+                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99);
+                if (e > 0) e = '+' + e;
+                return format.replace('{point.y}', e);
+              }
+            }
+          },
           title: noText,
           xAxis: {
             title: noText,
