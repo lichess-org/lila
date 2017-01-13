@@ -2,33 +2,7 @@ var m = require('mithril');
 var moderationView = require('./moderation').view;
 var presetView = require('./preset').view;
 var enhance = require('./enhance');
-
-var isSpammer = lichess.storage.make('spammer');
-
-var spamRegex = new RegExp([
-  'xcamweb.com',
-  'chess-bot',
-  'coolteenbitch.blogspot.com',
-  'goo.gl/',
-  'letcafa.webcam',
-  'tinyurl.com/',
-  'wooga.info/',
-  'bit.ly/',
-  'wbt.link/',
-  'eb.by/',
-  '001.rs/',
-].map(function(url) {
-  return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
-}).join('|'));
-
-function isSpam(txt) {
-  return !!txt.match(spamRegex);
-}
-
-function skipSpam(txt) {
-  if (isSpam(txt) && isSpammer.get() != '1') return true;
-  return false;
-}
+var spam = require('./spam');
 
 function renderLine(ctrl) {
   return function(line) {
@@ -61,7 +35,7 @@ function selectLines(ctrl) {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
       (!line.r || ctrl.vm.isTroll) &&
-      !skipSpam(line.t)
+      !spam.skip(line.t)
     ) ls.push(line);
     prev = line;
   });
@@ -90,10 +64,7 @@ function input(ctrl) {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
           } else {
-            if (isSpam(e.target.value)) {
-              $.post('/jslog/____________?n=spam');
-              isSpammer.set(1);
-            }
+            spam.report(e.target.value);
             ctrl.post(e.target.value);
             e.target.value = '';
           }
