@@ -33,6 +33,7 @@ final class Env(config: Config, system: ActorSystem) {
 
   object channel {
     val roundMoveTime = select("channel.round.move_time")
+    val tvSelect = select("channel.tv.select")
   }
 
   object socket {

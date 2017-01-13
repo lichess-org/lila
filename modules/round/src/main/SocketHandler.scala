@@ -142,6 +142,8 @@ private[round] final class SocketHandler(
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
+          // register to the TV channel when watching TV
+          if (playerId.isEmpty && pov.game.isRecentTv) hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
           (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }
     }

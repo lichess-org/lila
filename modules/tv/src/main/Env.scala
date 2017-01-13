@@ -24,12 +24,15 @@ final class Env(
   private val Keyword = config getString "streaming.keyword"
   private val HitboxUrl = config getString "streaming.hitbox.url"
   private val TwitchClientId = config getString "streaming.twitch.client_id"
+  private val ChannelSelect = config getString "channel.select.name "
+
+  private val selectChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelSelect)
 
   lazy val tv = new Tv(tvActor)
 
   private val tvActor =
     system.actorOf(
-      Props(classOf[TvActor], hub.actor.renderer, hub.socket.round, lightUser),
+      Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser)),
       name = "tv")
 
   private lazy val streaming = new Streaming(

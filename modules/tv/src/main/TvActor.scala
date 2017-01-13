@@ -12,6 +12,7 @@ import lila.hub.actorApi.map.{ Tell, TellIds }
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
+    selectChannel: ActorRef,
     lightUser: String => Option[LightUser]) extends Actor {
 
   import TvActor._
@@ -57,23 +58,16 @@ private[tv] final class TvActor(
       (user |@| player.rating) apply {
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r))
       }
-      channelActors.collect {
-        case (c, actor) if c != channel => actor ? ChannelActor.GetGameId mapTo manifest[Option[String]]
-      }.sequenceFu.foreach { otherIds =>
-        val gameIds = (previousId.toList ::: otherIds.toList.flatten).distinct
-        roundSocket ! TellIds(gameIds, {
-          lila.hub.actorApi.tv.Select(makeMessage("tvSelect", Json.obj(
-            "channel" -> channel.key,
-            "id" -> game.id,
-            "color" -> game.firstColor.name,
-            "player" -> user.map { u =>
-              Json.obj(
-                "name" -> u.name,
-                "title" -> u.title,
-                "rating" -> player.rating)
-            })))
-        })
-      }
+      selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
+        "channel" -> channel.key,
+        "id" -> game.id,
+        "color" -> game.firstColor.name,
+        "player" -> user.map { u =>
+          Json.obj(
+            "name" -> u.name,
+            "title" -> u.title,
+            "rating" -> player.rating)
+        })))
       if (channel == Tv.Channel.Best)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: play.twirl.api.Html =>
