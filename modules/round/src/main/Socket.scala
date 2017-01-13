@@ -178,10 +178,6 @@ private[round] final class Socket(
       _ push makeMessage("resync")
     }
 
-    case round.TournamentStanding(id) => owners.foreach {
-      _ push makeMessage("tournamentStanding", id)
-    }
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       val event = Event.Crowd(

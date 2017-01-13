@@ -16,7 +16,7 @@ import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
-import lila.round.actorApi.round.{ GoBerserk, TournamentStanding, AbortForce }
+import lila.round.actorApi.round.{ GoBerserk, AbortForce }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -38,7 +38,7 @@ final class TournamentApi(
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
-    roundSocketHub: ActorSelection) {
+    standingChannel: ActorRef) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     var variant = chess.variant.Variant orDefault setup.variant
@@ -414,9 +414,7 @@ final class TournamentApi(
   private object updateTournamentStanding {
     private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
       (tourId: String) =>
-        PairingRepo playingGameIds tourId foreach { ids =>
-          roundSocketHub ! TellIds(ids, TournamentStanding(tourId))
-        }
+        standingChannel ! lila.socket.Socket.makeMessage("tournamentStanding", tourId)
     })))
     def apply(tour: Tournament) {
       debouncer ! tour.id

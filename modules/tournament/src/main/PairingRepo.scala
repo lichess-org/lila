@@ -134,10 +134,4 @@ object PairingRepo {
         "ids" -> AddFieldToSet("u")))).map(
       _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
         getOrElse(Set.empty[String]))
-
-  private[tournament] def playingGameIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
-      Group(BSONBoolean(true))("ids" -> PushField("_id")))).map(
-      _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
-        getOrElse(List.empty[String]))
 }

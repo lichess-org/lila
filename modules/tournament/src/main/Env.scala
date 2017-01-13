@@ -45,9 +45,12 @@ final class Env(
     val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
+    val ChannelStanding = config getString "channel.standing.name "
     val NetDomain = config getString "net.domain"
   }
   import settings._
+
+  private val standingChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelStanding)
 
   lazy val forms = new DataForm
 
@@ -80,7 +83,7 @@ final class Env(
     verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
-    roundSocketHub = roundSocketHub)
+    standingChannel = standingChannel)
 
   lazy val crudApi = new crud.CrudApi
 
