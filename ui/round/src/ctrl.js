@@ -21,6 +21,7 @@ var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
 var keyboardMove = require('./keyboardMove');
 var renderUser = require('./view/user');
+var cevalSub = require('./cevalSub');
 
 module.exports = function(opts) {
 
@@ -305,8 +306,10 @@ module.exports = function(opts) {
     delete this.data.forecastCount;
     m.endComputation();
     if (d.blind) blind.reload(this);
-    if (playing && playedColor === d.player.color) this.moveOn.next();
-
+    if (playing && playedColor === d.player.color) {
+      this.moveOn.next();
+      cevalSub.publish(this, o);
+    }
     if (!this.replaying() && playedColor !== d.player.color) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
