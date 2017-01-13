@@ -1367,7 +1367,7 @@ lichess.notifyApp = (function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse(cfg);
+    analyse = LichessAnalyse.mithril(cfg);
     lichess.topMenuIntent();
   }
 
@@ -1397,7 +1397,7 @@ lichess.notifyApp = (function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse(cfg);
+    analyse = LichessAnalyse.mithril(cfg);
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
     lichess.topMenuIntent();
     var chapterId = location.hash.replace('#', '');
