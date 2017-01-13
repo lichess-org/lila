@@ -215,21 +215,22 @@ module.exports = function(opts) {
   }.bind(this);
 
   var showYourMoveNotification = function() {
-    if (game.isPlayerTurn(this.data)) lichess.desktopNotification(function() {
+    var d = this.data;
+    if (game.isPlayerTurn(d)) lichess.desktopNotification(function() {
       var txt = this.trans('yourTurn');
-      var opponent = renderUser.userTxt(this, this.data.opponent);
+      var opponent = renderUser.userTxt(this, d.opponent);
       if (this.vm.ply < 1)
         txt = opponent + '\njoined the game.\n' + txt;
       else {
-        var move = this.data.steps[this.data.steps.length - 1].san;
+        var move = d.steps[d.steps.length - 1].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
         move = turn + (this.vm.ply % 2 === 1 ? '.' : '...') + ' ' + move;
         txt = opponent + '\nplayed ' + move + '.\n' + txt;
       }
       return txt;
     }.bind(this));
-    else if (this.vm.ply < 1) lichess.desktopNotification(function() {
-      return renderUser.userTxt(this, this.data.opponent) + '\njoined the game.';
+    else if (game.isPlayerPlaying(d) && this.vm.ply < 1) lichess.desktopNotification(function() {
+      return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
     }.bind(this));
   }.bind(this);
   setTimeout(showYourMoveNotification, 500);
