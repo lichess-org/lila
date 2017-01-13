@@ -131,19 +131,8 @@ lichess.notifyApp = (function() {
     location.href = href;
   };
   $.fp = {};
-  $.fp.range = function(to) {
-    return Array.apply(null, Array(to)).map(function(_, i) {
-      return i;
-    });
-  };
   $.fp.contains = function(list, needle) {
     return list.indexOf(needle) !== -1;
-  };
-  $.fp.find = function(list, pred) {
-    for (var i = 0, len = list.length; i < len; i++) {
-      if (pred(list[i])) return list[i];
-    }
-    return undefined;
   };
   $.fp.debounce = function(func, wait, immediate) {
     var timeout;
@@ -465,6 +454,11 @@ lichess.notifyApp = (function() {
             $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
         };
         var $themepicker = $('#themepicker');
+        var findInBodyClasses = function(choices) {
+          var list = document.body.classList;
+          for (var i in list)
+            if ($.fp.contains(choices, list[i])) return list[i];
+        };
         $.ajax({
           url: $(this).data('url'),
           success: function(html) {
@@ -474,18 +468,12 @@ lichess.notifyApp = (function() {
             var $dropdown = $themepicker.find('.dropdown');
             var $pieceSprite = $('#piece-sprite');
             var themes = $dropdown.data('themes').split(' ');
-            var theme = $.fp.find(document.body.classList, function(a) {
-              return $.fp.contains(themes, a);
-            });
+            var theme = findInBodyClasses(themes);
             var set = $body.data('piece-set');
             var theme3ds = $dropdown.data('theme3ds').split(' ');
-            var theme3d = $.fp.find(document.body.classList, function(a) {
-              return $.fp.contains(theme3ds, a);
-            });
+            var theme3d = findInBodyClasses(theme3ds);
             var set3ds = $dropdown.data('set3ds').split(' ');
-            var set3d = $.fp.find(document.body.classList, function(a) {
-              return $.fp.contains(set3ds, a);
-            });
+            var set3d = findInBodyClasses(set3ds);
             var background = $body.data('bg');
             var is3d = $content.hasClass('is3d');
             $themepicker.find('.is2d div.theme').hover(function() {
