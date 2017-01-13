@@ -8,26 +8,23 @@ lichess.advantageChart = function(data) {
         };
 
         var $elem = $('#adv_chart');
-        var max = 10;
 
         var makeSerieData = function(d) {
           return d.treeParts.slice(1).map(function(node) {
-            var y = null;
-            if (node.eval && typeof node.eval.cp !== 'undefined') y = node.eval.cp;
-            else if (node.eval && node.eval.mate) {
-              y = max * 100 - Math.abs(node.eval.mate);
-              if (node.eval.mate < 0) y = -y;
+            if (node.eval && node.eval.mate) {
+              var cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {
-              y = 100 * (node.ply % 2 === 1 ? max : -max);
-              if (d.game.variant.key === 'antichess') y = -y;
-            }
+              var cp = node.ply % 2 === 1 ? Infinity : -Infinity;
+              if (d.game.variant.key === 'antichess') cp = -cp;
+            } else if (node.eval && typeof node.eval.cp !== 'undefined') {
+              var cp = node.eval.cp;
+            } else return {y: null};
+
             var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = node.ply % 2 === 1 ? '.' : '...';
-            return y === null ? {
-              y: null
-            } : {
+            return {
               name: turn + dots + ' ' + node.san,
-              y: Math.max(-9.9, Math.min(y / 100, 9.9))
+              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
             };
           });
         };
@@ -111,8 +108,10 @@ lichess.advantageChart = function(data) {
           },
           yAxis: {
             title: noText,
-            min: -max,
-            max: max,
+            min: -1.1,
+            max: 1.1,
+            startOnTick: false,
+            endOnTick: false,
             labels: disabled,
             lineWidth: 1,
             gridLineWidth: 0,
