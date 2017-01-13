@@ -972,7 +972,7 @@ lichess.notifyApp = (function() {
             });
           },
           tournamentStanding: function(id) {
-            $.ajax({
+            if (data.tournament && id === data.tournament.id) $.ajax({
               url: '/tournament/' + id + '/game-standing',
               success: function(html) {
                 $('#site_header div.game_tournament').replaceWith(html);
