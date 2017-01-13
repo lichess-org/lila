@@ -10,21 +10,22 @@ var promoting = null;
 var prePromotionRole = null;
 
 function start(ctrl, orig, dest, isPremove) {
-  var piece = ctrl.chessground.data.pieces[dest];
-  var premovePiece = ctrl.chessground.data.pieces[orig];
-  if (((piece && piece.role == 'pawn') || (premovePiece && premovePiece.role == 'pawn')) && (
-    (dest[1] == 8 && ctrl.data.player.color == 'white') ||
-    (dest[1] == 1 && ctrl.data.player.color == 'black'))) {
+  var d = ctrl.data, cg = ctrl.chessground;
+  var piece = cg.data.pieces[dest];
+  var premovePiece = cg.data.pieces[orig];
+  if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
+    (dest[1] == 8 && d.player.color === 'white') ||
+    (dest[1] == 1 && d.player.color === 'black'))) {
     if (prePromotionRole && isPremove) {
-      ground.promote(ctrl.chessground, dest, prePromotionRole);
+      ground.promote(cg, dest, prePromotionRole);
       ctrl.sendMove(orig, dest, prePromotionRole);
       cancelPrePromotion(ctrl);
       return true;
     }
-    if (ctrl.data.pref.autoQueen === 3 || (ctrl.data.pref.autoQueen === 2)) {
+    if (d.pref.autoQueen === 3 || d.pref.autoQueen === 2) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else {
-        ground.promote(ctrl.chessground, dest, 'queen');
+        ground.promote(cg, dest, 'queen');
         ctrl.sendMove(orig, dest, 'queen');
         cancelPrePromotion(ctrl);
       }
