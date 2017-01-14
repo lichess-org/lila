@@ -57,6 +57,7 @@ function input(ctrl) {
     autocomplete: 'off',
     maxlength: 140,
     disabled: ctrl.vm.isTimeout() || !ctrl.vm.writeable(),
+    autofocus: true,
     config: function(el, isUpdate) {
       if (!isUpdate) el.addEventListener('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
