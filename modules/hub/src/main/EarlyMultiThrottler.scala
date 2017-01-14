@@ -15,48 +15,56 @@ final class EarlyMultiThrottler(
 
   import EarlyMultiThrottler._
 
-  var executions = Map.empty[String, Run]
+  var running = Set.empty[String]
+  var planned = Map.empty[String, Work]
 
   def receive: Receive = {
 
-    case Work(id, run, cooldownOption, timeoutOption) if !executions.contains(id) =>
-      implicit val system = context.system
-      lila.common.Future.makeItLast(cooldownOption | 0.seconds) {
-        timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
-          run().withTimeout(
-            duration = timeout,
-            error = lila.common.LilaException(s"EarlyMultiThrottler timed out after $timeout"))
-        }
-      } andThenAnyway {
-        self ! Done(id)
+    case work: Work if !running(work.id) =>
+      execute(work) andThenAnyway {
+        self ! Done(work.id)
       }
-      executions = executions + (id -> run)
+      running = running + work.id
 
-    case _: Work => // already executing similar work
+    case work: Work => // already executing similar work
+      planned = planned + (work.id -> work)
 
     case Done(id) =>
-      executions = executions - id
+      running = running - id
+      planned get id foreach { work =>
+        self ! work
+        planned = planned - work.id
+      }
 
     case x => logger.branch("EarlyMultiThrottler").warn(s"Unsupported message $x")
+  }
+
+  def execute(work: Work): Funit = {
+    implicit val system = context.system
+    lila.common.Future.makeItLast(work.cooldown) {
+      work.timeout.orElse(executionTimeout).fold(work.run()) { timeout =>
+        work.run().withTimeout(
+          duration = timeout,
+          error = lila.common.LilaException(s"EarlyMultiThrottler timed out after $timeout"))
+      }
+    }
   }
 }
 
 object EarlyMultiThrottler {
 
-  type Run = () => Funit
-
   case class Work(
     id: String,
-    run: Run,
-    cooldown: Option[FiniteDuration], // how long to wait after running, before next run
+    run: () => Funit,
+    cooldown: FiniteDuration, // how long to wait after running, before next run
     timeout: Option[FiniteDuration]) // how long to wait before timing out
-
-  case class Done(id: String)
 
   def work(
     id: String,
     run: => Funit,
-    cooldown: Option[FiniteDuration] = None,
+    cooldown: FiniteDuration,
     timeout: Option[FiniteDuration] = None) =
     Work(id, () => run, cooldown, timeout)
+
+  private case class Done(id: String)
 }
