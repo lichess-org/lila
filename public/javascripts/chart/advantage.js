@@ -18,7 +18,9 @@ lichess.advantageChart = function(data) {
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               var cp = node.eval.cp;
-            } else return {y: null};
+            } else return {
+              y: null
+            };
 
             var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = node.ply % 2 === 1 ? '.' : '...';
@@ -56,10 +58,15 @@ lichess.advantageChart = function(data) {
               fillColor: Highcharts.theme.lichess.area.white,
               negativeFillColor: Highcharts.theme.lichess.area.black,
               threshold: 0,
-              lineWidth: 2,
-              color: Highcharts.theme.lichess.line.fat,
+              lineWidth: 1,
+              color: '#3893E8',
               allowPointSelect: true,
               cursor: 'pointer',
+              states: {
+                hover: {
+                  lineWidth: 1
+                }
+              },
               events: {
                 click: function(event) {
                   if (event.point) {
@@ -72,21 +79,19 @@ lichess.advantageChart = function(data) {
                 radius: 1,
                 states: {
                   hover: {
-                    radius: 3,
-                    lineColor: '#d85000',
-                    fillColor: '#ffffff'
+                    radius: 4,
+                    lineColor: '#3893E8'
                   },
                   select: {
                     radius: 4,
-                    lineColor: '#d85000',
-                    fillColor: '#ffffff'
+                    lineColor: '#3893E8'
                   }
                 }
               }
             }
           },
           tooltip: {
-            pointFormatter: function (format) {
+            pointFormatter: function(format) {
               format = format.replace('{series.name}', 'Advantage');
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;

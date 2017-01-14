@@ -18,8 +18,8 @@ lichess.chartCommon = function(type) {
         fat: '#d85000' // light ? '#a0a0a0' : '#707070'
       };
       var area = {
-        white: light ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)',
-        black: light ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,1)'
+        white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
+        black: light ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)'
       };
       return {
         light: light,
@@ -61,6 +61,9 @@ lichess.chartCommon = function(type) {
               color: text.weak,
               font: Highcharts.makeFont(12)
             }
+          },
+          crosshair: {
+            color: line.weak
           }
         },
         yAxis: {
