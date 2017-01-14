@@ -263,7 +263,7 @@ final class TournamentApi(
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
         PairingRepo.finish(game) >>
           game.userIds.map(updatePlayer(tour)).sequenceFu.void >>-
-          socketReload(tour.id) >>- updateTournamentStanding(tour)
+          socketReload(tour.id) >>- updateTournamentStanding(tour.id)
       }
     }
   }
@@ -412,18 +412,24 @@ final class TournamentApi(
   }
 
   private object updateTournamentStanding {
-    private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
-      (tourId: String) =>
-        standingChannel ! lila.socket.Channel.Publish(
-          lila.socket.Socket.makeMessage("tournamentStanding", tourId)
-        )
-    })))
-    def apply(tour: Tournament) {
-      debouncer ! tour.id
+
+    import lila.hub.EarlyMultiThrottler
+
+    private def publishNow(tourId: Tournament.ID) = fuccess {
+      standingChannel ! lila.socket.Channel.Publish(
+        lila.socket.Socket.makeMessage("tournamentStanding", tourId)
+      )
     }
+
+    private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
+
+    def apply(tourId: Tournament.ID): Unit =
+      throttler ! EarlyMultiThrottler.work(
+        id = tourId,
+        run = publishNow(tourId),
+        cooldown = 10.seconds)
   }
 
-  private def sendTo(tourId: String, msg: Any) {
+  private def sendTo(tourId: String, msg: Any): Unit =
     socketHub ! Tell(tourId, msg)
-  }
 }

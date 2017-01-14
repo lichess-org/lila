@@ -54,7 +54,7 @@ private[tournament] case class WaitingUsers(
     )
   }
 
-  def intersect(us: Seq[User.ID]) = copy(hash = hash filterKeys us.contains)
+  def intersect(us: Set[User.ID]) = copy(hash = hash filterKeys us.contains)
 
   def diff(us: Set[User.ID]) = copy(hash = hash filterKeys { k => !us.contains(k) })
 

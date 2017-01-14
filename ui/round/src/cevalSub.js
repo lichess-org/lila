@@ -9,6 +9,8 @@ function truncateFen(fen) {
 
 module.exports = {
   subscribe: function(ctrl) {
+    // allow everyone to cheat against the AI
+    if (ctrl.data.opponent.ai) return;
     // allow registered players to use assistance in casual games
     if (!ctrl.data.game.rated && ctrl.userId) return;
     lichess.storage.make('ceval.fen').listen(function(ev) {
