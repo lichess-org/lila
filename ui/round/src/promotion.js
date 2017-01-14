@@ -22,7 +22,7 @@ function start(ctrl, orig, dest, isPremove) {
       cancelPrePromotion(ctrl);
       return true;
     }
-    if (d.pref.autoQueen === 3 || d.pref.autoQueen === 2) {
+    if (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece)) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else {
         ground.promote(cg, dest, 'queen');
