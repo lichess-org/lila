@@ -123,15 +123,13 @@ module.exports = function(element, cfg) {
     storage.set(panel);
     setPanel(panel);
   });
-  if (cfg.data.analysis) setPanel('computer_analysis');
+  var stored = storage.get();
+  if (stored && $menu.children('.' + stored).length) setPanel(stored);
   else {
-    var stored = storage.get();
-    if (stored && $menu.children('.' + stored).length) setPanel(stored);
-    else {
-      var $ct = $menu.children('.crosstable');
-      ($ct.length ? $ct : $menu.children(':first')).trigger('mousedown');
-    }
-
+    var $ct = $menu.children('.crosstable');
+    ($ct.length ? $ct : $menu.children(':first')).trigger('mousedown');
+  }
+  if (!cfg.data.analysis) {
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
         if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
