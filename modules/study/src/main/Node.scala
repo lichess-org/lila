@@ -39,6 +39,8 @@ case class Node(
       copy(children = newChildren)
     }
 
+  def isCommented = comments.value.nonEmpty
+
   def setComment(comment: Comment) = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
 
@@ -47,6 +49,11 @@ case class Node(
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
   def mainline: List[Node] = this :: children.first.??(_.mainline)
+
+  def updateMainlineLast(f: Node => Node): Node =
+    children.first.fold(f(this)) { main =>
+      copy(children = children.update(main updateMainlineLast f))
+    }
 }
 
 object Node {
@@ -66,13 +73,13 @@ object Node {
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
       case None if has(node.id) => this.some
-      case None                 => copy(nodes = nodes :+ node).some
+      case None                 => Children(nodes :+ node).some
       case Some((head, tail))   => updateChildren(head, _.addNodeAt(node, tail))
     }
 
     def deleteNodeAt(path: Path): Option[Children] = path.split match {
       case None                                 => none
-      case Some((head, Path(Nil))) if has(head) => copy(nodes = nodes.filterNot(_.id == head)).some
+      case Some((head, Path(Nil))) if has(head) => Children(nodes.filterNot(_.id == head)).some
       case Some((_, Path(Nil)))                 => none
       case Some((head, tail))                   => updateChildren(head, _.deleteNodeAt(tail))
     }
@@ -82,7 +89,7 @@ object Node {
       case Some((head, tail)) =>
         get(head).flatMap { node =>
           node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
-            copy(nodes = promoted +: nodes.filterNot(node ==))
+            Children(promoted +: nodes.filterNot(node ==))
           }
         }
     }
@@ -98,7 +105,7 @@ object Node {
       } yield {
         if (isDone) update(newNode) -> true
         else if (newNode.id == mainlineNode.id) update(newNode) -> false
-        else copy(nodes = newNode +: nodes.filterNot(newNode ==)) -> true
+        else Children(newNode +: nodes.filterNot(newNode ==)) -> true
       }
     }
 
@@ -130,11 +137,10 @@ object Node {
     def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
       updateWith(id, _ withChildren f)
 
-    def update(child: Node): Children = copy(
-      nodes = nodes.map {
-        case n if child.id == n.id => child
-        case n                     => n
-      })
+    def update(child: Node): Children = Children(nodes.map {
+      case n if child.id == n.id => child
+      case n                     => n
+    })
   }
   val emptyChildren = Children(Vector.empty)
 
@@ -172,6 +178,10 @@ object Node {
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
       else withChildren(_.toggleGlyphAt(glyph, path))
+
+    def updateMainlineLast(f: Node => Node): Root = children.first.fold(this) { main =>
+      copy(children = children.update(main updateMainlineLast f))
+    }
 
     lazy val mainline: List[Node] = children.first.??(_.mainline)
 

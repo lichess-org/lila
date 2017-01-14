@@ -16,11 +16,11 @@ private object PgnImport {
 
   def apply(pgn: String): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, result, initialFen, parsedPgn) =>
+      case prep@Preprocessed(game, replay, result, initialFen, parsedPgn) =>
         val annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
         makeShapesAndComments(parsedPgn.initialPosition.comments, annotator) match {
-          case (shapes, comments) => Result(
-            root = Node.Root(
+          case (shapes, comments) =>
+            val root = Node.Root(
               ply = replay.setup.turns,
               fen = initialFen | FEN(game.variant.initialFen),
               check = replay.setup.situation.check,
@@ -33,20 +33,39 @@ private object PgnImport {
                 sans = parsedPgn.sans,
                 annotator = annotator
               ).fold(
-                  err => {
-                    logger.warn(s"PgnImport $err")
-                    Node.emptyChildren
-                  },
-                  node => {
-                    Node.Children {
-                      val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
-                      node.fold(variations)(_ :: variations).toVector
-                    }
-                  })),
-            variant = game.variant,
-            tags = PgnTags(parsedPgn.tags))
+                err => {
+                  logger.warn(s"PgnImport $err")
+                  Node.emptyChildren
+                },
+                node =>
+                  Node.Children {
+                    val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
+                    node.fold(variations)(_ :: variations).toVector
+                  }
+              ))
+            val commented =
+              if (root.mainline.lastOption.??(_.isCommented)) root
+              else endComment(prep).fold(root) { comment =>
+                root updateMainlineLast { _.setComment(comment) }
+              }
+            Result(
+              root = commented,
+              variant = game.variant,
+              tags = PgnTags(parsedPgn.tags))
         }
     }
+
+  private def endComment(prep: Preprocessed) = {
+    import lila.tree.Node.Comment
+    import prep._
+    val winner = game.winnerColor orElse result.flatMap(_.winner)
+    val resultText = chess.Color.showResult(winner)
+    (if (game.finished) game.status.some else result.map(_.status)) map { status =>
+      val statusText = lila.game.StatusText(status, winner, game.variant)
+      val text = s"$resultText $statusText"
+      Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+    }
+  }
 
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
