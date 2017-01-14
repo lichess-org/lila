@@ -68,10 +68,15 @@ lichess.movetimeChart = function(data) {
                   negativeFillColor: Highcharts.theme.lichess.area.black,
                   fillOpacity: 1,
                   threshold: 0,
-                  lineWidth: 2,
-                  color: Highcharts.theme.lichess.line.fat,
+                  lineWidth: 1,
+                  color: '#3893E8',
                   allowPointSelect: true,
                   cursor: 'pointer',
+                  states: {
+                    hover: {
+                      lineWidth: 1
+                    }
+                  },
                   events: {
                     click: function(event) {
                       if (event.point) {
@@ -85,12 +90,12 @@ lichess.movetimeChart = function(data) {
                     states: {
                       hover: {
                         radius: 3,
-                        lineColor: '#b57600',
+                        lineColor: '#3893E8',
                         fillColor: '#ffffff'
                       },
                       select: {
                         radius: 4,
-                        lineColor: '#b57600',
+                        lineColor: '#3893E8',
                         fillColor: '#ffffff'
                       }
                     }
