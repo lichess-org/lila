@@ -16,7 +16,7 @@
     "chess"
   ],
   "author": "Thibault Duplessis",
-  "license": "MIT",
+  "license": "AGPL",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
