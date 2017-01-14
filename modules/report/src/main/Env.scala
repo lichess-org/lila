@@ -20,6 +20,8 @@ final class Env(
 
   lazy val api = new ReportApi(reportColl, noteApi, isOnline)
 
+  lazy val modFilters = new ModReportFilter
+
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {

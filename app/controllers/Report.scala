@@ -4,6 +4,7 @@ import play.api.mvc._
 import play.twirl.api.Html
 import views._
 
+import lila.api.Context
 import lila.app._
 import lila.report.Reason
 import lila.security.Granter
@@ -11,18 +12,24 @@ import lila.user.{ User => UserModel, UserRepo }
 
 object Report extends LilaController {
 
-  private def forms = Env.report.forms
-  private def api = Env.report.api
+  private def env = Env.report
+  private def api = env.api
 
-  def list = listWithFilter("all")
+  def list = Secure(_.SeeReport) { implicit ctx => me =>
+    renderList(env.modFilters.get(me).fold("all")(_.key))
+  }
 
-  def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => _ =>
+  def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => me =>
+    env.modFilters.set(me, Reason(reason))
+    renderList(reason)
+  }
+
+  private def renderList(reason: String)(implicit ctx: Context) =
     api.unprocessedAndRecentWithFilter(50, Reason(reason)) flatMap { reports =>
       api.countUnprocesssedByReasons map { counts =>
-        html.report.list(reports, reason, counts)
+        Ok(html.report.list(reports, reason, counts))
       }
     }
-  }
 
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.process(id, me) inject Redirect(routes.Report.list)
@@ -31,7 +38,7 @@ object Report extends LilaController {
   def form = Auth { implicit ctx => implicit me =>
     NotForKids {
       get("username") ?? UserRepo.named flatMap { user =>
-        forms.createWithCaptcha map {
+        env.forms.createWithCaptcha map {
           case (form, captcha) => Ok(html.report.form(form, user, captcha))
         }
       }
@@ -40,9 +47,9 @@ object Report extends LilaController {
 
   def create = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
-    forms.create.bindFromRequest.fold(
+    env.forms.create.bindFromRequest.fold(
       err => get("username") ?? UserRepo.named flatMap { user =>
-        forms.anyCaptcha map { captcha =>
+        env.forms.anyCaptcha map { captcha =>
           BadRequest(html.report.form(err, user, captcha))
         }
       },
