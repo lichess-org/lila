@@ -42,6 +42,8 @@ case class Node(
   def setComment(comment: Comment) = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
 
+  def setShapes(s: Shapes) = copy(shapes = s)
+
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
   def mainline: List[Node] = this :: children.first.??(_.mainline)
@@ -100,27 +102,22 @@ object Node {
       }
     }
 
-    def setShapesAt(shapes: Shapes, path: Path): Option[Children] = path.split match {
-      case None                    => none
-      case Some((head, Path(Nil))) => updateWith(head, _.copy(shapes = shapes).some)
-      case Some((head, tail))      => updateChildren(head, _.setShapesAt(shapes, tail))
-    }
+    def setShapesAt(shapes: Shapes, path: Path): Option[Children] =
+      updateAt(path, _ setShapes shapes)
 
-    def setCommentAt(comment: Comment, path: Path): Option[Children] = path.split match {
-      case None                    => none
-      case Some((head, Path(Nil))) => updateWith(head, _.setComment(comment).some)
-      case Some((head, tail))      => updateChildren(head, _.setCommentAt(comment, tail))
-    }
-    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Children] = path.split match {
-      case None                    => none
-      case Some((head, Path(Nil))) => updateWith(head, _.deleteComment(commentId).some)
-      case Some((head, tail))      => updateChildren(head, _.deleteCommentAt(commentId, tail))
-    }
+    def setCommentAt(comment: Comment, path: Path): Option[Children] =
+      updateAt(path, _ setComment comment)
 
-    def toggleGlyphAt(glyph: Glyph, path: Path): Option[Children] = path.split match {
+    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Children] =
+      updateAt(path, _ deleteComment commentId)
+
+    def toggleGlyphAt(glyph: Glyph, path: Path): Option[Children] =
+      updateAt(path, _ toggleGlyph glyph)
+
+    private def updateAt(path: Path, f: Node => Node): Option[Children] = path.split match {
       case None                    => none
-      case Some((head, Path(Nil))) => updateWith(head, _.toggleGlyph(glyph).some)
-      case Some((head, tail))      => updateChildren(head, _.toggleGlyphAt(glyph, tail))
+      case Some((head, Path(Nil))) => updateWith(head, n => Some(f(n)))
+      case Some((head, tail))      => updateChildren(head, _.updateAt(tail, f))
     }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
