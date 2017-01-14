@@ -5,12 +5,12 @@
 }
 
 @base.layout(
-title = u.username + " powaaa",
+title = u.username + " permissions",
 moreCss = moreCss) {
 
-<div id="powaaa" class="content_box small_box">
-  <h1>@userLink(u) powaaa</h1>
-  <form action="@routes.Mod.powaaa(u.username)" method="post">
+<div id="permissions" class="content_box small_box">
+  <h1>@userLink(u) permissions</h1>
+  <form action="@routes.Mod.permissions(u.username)" method="post">
     <select name="permissions[]" multiple>
       @lila.security.Permission.allButSuperAdmin.map { p =>
       <option
@@ -20,7 +20,7 @@ moreCss = moreCss) {
       }
     </select>
     <div>
-      <button class="button clear" onclick="$('#powaaa option:selected').removeAttr('selected');">Clear</button>
+      <button class="button clear" onclick="$('#permissions option:selected').removeAttr('selected');">Clear</button>
       <button type="submit" class="button">Save</button>
     </div>
   </form>

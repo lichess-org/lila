@@ -349,8 +349,8 @@ GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
 GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
-GET   /mod/:username/powaaa            controllers.Mod.powaaa(username: String)
-POST  /mod/:username/powaaa            controllers.Mod.savePowaaa(username: String)
+GET   /mod/:username/permissions       controllers.Mod.permissions(username: String)
+POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/:username/irwin             controllers.Mod.irwin(username: String)
 

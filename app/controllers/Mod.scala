@@ -214,13 +214,13 @@ object Mod extends LilaController {
     }
   }
 
-  def powaaa(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
+  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
     OptionOk(UserRepo named username) { user =>
-      html.mod.powaaa(user)
+      html.mod.permissions(user)
     }
   }
 
-  def savePowaaa(username: String) = SecureBody(_.ChangePermission) { implicit ctx => me =>
+  def savePermissions(username: String) = SecureBody(_.ChangePermission) { implicit ctx => me =>
     implicit def req = ctx.body
     OptionFuResult(UserRepo named username) { user =>
       import play.api.data._
@@ -230,7 +230,7 @@ object Mod extends LilaController {
           lila.security.Permission.allButSuperAdmin.exists(_.name == str)
         })
       )).bindFromRequest.fold(
-        err => BadRequest(html.mod.powaaa(user)).fuccess,
+        err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
           UserRepo.setRoles(user.id, permissions.map(_.toUpperCase)) inject
             Redirect(routes.User.show(user.username) + "?mod")
