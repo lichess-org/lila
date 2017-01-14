@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.paginator._
 import lila.db.dsl._
-import lila.hub.MultiThrottler
+import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.search.PaginatorBuilder
 import lila.study.actorApi._
@@ -25,10 +25,9 @@ final class Env(
 
   private val client = makeClient(Index(IndexName))
 
-  private val indexThrottler = system.actorOf(Props(new MultiThrottler(
+  private val indexThrottler = system.actorOf(Props(new LateMultiThrottler(
     executionTimeout = 3.seconds.some,
-    logger = logger)
-  ))
+    logger = logger)))
 
   val api = new StudySearchApi(
     client = client,

@@ -46,7 +46,12 @@ object Future {
   }
 
   def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
-    akka.pattern.after(duration, system.scheduler)(run)
+    if (duration == 0.millis) run
+    else akka.pattern.after(duration, system.scheduler)(run)
+
+  def makeItLast[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
+    if (duration == 0.millis) run
+    else run zip akka.pattern.after(duration, system.scheduler)(funit) map (_._1)
 
   def neverCompletes[T]: Fu[T] = {
     val p = scala.concurrent.Promise[T]()

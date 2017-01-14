@@ -6,7 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tag
-import lila.hub.MultiThrottler
+import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
 import lila.tree.Node.{ Comments, Comment }
@@ -26,7 +26,7 @@ final class StudySearchApi(
   def count(query: Query) = client.count(query) map (_.count)
 
   def store(study: Study) = fuccess {
-    indexThrottler ! MultiThrottler.work(
+    indexThrottler ! LateMultiThrottler.work(
       id = study.id,
       run = studyRepo byId study.id flatMap { _ ?? doStore },
       delay = 30.seconds.some)
