@@ -6,9 +6,9 @@ import lila.user.{ UserRepo, User => UserModel }
 import views._
 
 import org.joda.time.DateTime
+import play.api.libs.json._
 import play.api.mvc._
 import play.api.mvc.Results._
-import play.api.libs.json._
 
 object Mod extends LilaController {
 
@@ -76,7 +76,7 @@ object Mod extends LilaController {
                 else s"Irwin is indecise: ${data.reason}"
               (if (data.result) modApi.setEngine(irwin.id, username, true)
               else funit) >>
-              Env.user.noteApi.write(user, text, irwin, true) inject Ok
+                Env.user.noteApi.write(user, text, irwin, true) inject Ok
             })
         }
       }
@@ -214,25 +214,26 @@ object Mod extends LilaController {
     }
   }
 
-  def powaaa(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
+  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
     OptionOk(UserRepo named username) { user =>
-      html.mod.powaaa(user)
+      html.mod.permissions(user)
     }
   }
 
-  def savePowaaa(username: String) = SecureBody(_.ChangePermission) { implicit ctx => me =>
+  def savePermissions(username: String) = SecureBody(_.ChangePermission) { implicit ctx => me =>
     implicit def req = ctx.body
+    import lila.security.Permission
     OptionFuResult(UserRepo named username) { user =>
       import play.api.data._
       import play.api.data.Forms._
       Form(single(
         "permissions" -> list(nonEmptyText.verifying { str =>
-          lila.security.Permission.allButSuperAdmin.exists(_.name == str)
+          Permission.allButSuperAdmin.exists(_.name == str)
         })
       )).bindFromRequest.fold(
-        err => BadRequest(html.mod.powaaa(user)).fuccess,
+        err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
-          UserRepo.setRoles(user.id, permissions.map(_.toUpperCase)) inject
+          modApi.setPermissions(me.id, user.username, Permission(permissions)) inject
             Redirect(routes.User.show(user.username) + "?mod")
       )
     }

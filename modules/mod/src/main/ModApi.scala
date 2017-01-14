@@ -2,6 +2,7 @@ package lila.mod
 
 import chess.Color
 import lila.db.dsl._
+import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, LightUserApi }
 
@@ -108,6 +109,11 @@ final class ModApi(
     UserRepo.email(user.id, email) >>
       UserRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)
+  }
+
+  def setPermissions(mod: String, username: String, permissions: List[Permission]): Funit = withUser(username) { user =>
+    UserRepo.setRoles(user.id, permissions.map(_.name)) >>
+      logApi.setPermissions(mod, user.id, permissions)
   }
 
   def ipban(mod: String, ip: String): Funit =

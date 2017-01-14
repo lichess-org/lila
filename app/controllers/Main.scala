@@ -97,20 +97,20 @@ object Main extends LilaController {
     ctx.userId.ifTrue(!known && name != "ceval") ?? {
       Env.report.api.autoBotReport(_, referer, name)
     }
-    lila.game.GameRepo pov id flatMap {
-      _ ?? { pov =>
-        if (!known) {
-          lila.log("cheat").branch("jslog").info(
-            s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
-        }
-        if (name == "ceval" || name == "rcb") fuccess {
+    def doLog = lila.log("cheat").branch("jslog").info(
+      s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
+    if (id == "________") doLog
+    else lila.game.GameRepo pov id foreach {
+      _ foreach { pov =>
+        if (!known) doLog
+        if (name == "ceval" || name == "rcb")
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
             pov.gameId,
             lila.round.actorApi.round.Cheat(pov.color))
-        }
         else lila.game.GameRepo.setBorderAlert(pov)
       }
-    } inject Ok
+    }
+    Ok.fuccess
   }
 
   private lazy val glyphsResult: Result = {

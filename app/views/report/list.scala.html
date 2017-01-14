@@ -30,7 +30,7 @@ moreJs = moreJs) {
   <div class="header">
     <h1 data-icon="@icon.mod" class="text">@title</h1>
     <span class="tabs">
-      <a href="@routes.Report.list"
+      <a href="@routes.Report.listWithFilter("all")"
         class="@when(counts.nonEmpty, "new") @filter.active("all")"
         @if(counts.nonEmpty) { data-count="@counts.values.sum" }>All</a>
       @lila.report.Reason.all.map { r =>

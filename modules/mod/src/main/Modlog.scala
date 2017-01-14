@@ -36,6 +36,7 @@ case class Modlog(
     case Modlog.chatTimeout         => "chat timeout"
     case Modlog.troll               => "shadowban"
     case Modlog.untroll             => "un-shadowban"
+    case Modlog.permissions         => "set permissions"
     case a                          => a
   }
 
@@ -50,6 +51,7 @@ object Modlog {
   val unbooster = "unbooster"
   val troll = "troll"
   val untroll = "untroll"
+  val permissions = "permissions"
   val ban = "ban"
   val ipban = "ipban"
   val closeAccount = "closeAccount"

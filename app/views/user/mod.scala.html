@@ -67,7 +67,7 @@
 <div class="user_spy">
   @if(isGranted(_.ChangePermission) || (isGranted(_.Admin) && u.roles.nonEmpty)) {
   <div class="mod_roles">
-    <@if(isGranted(_.ChangePermission)){a href="@routes.Mod.powaaa(u.username)"}else{span}>
+    <@if(isGranted(_.ChangePermission)){a href="@routes.Mod.permissions(u.username)"}else{span}>
     <strong class="text inline" data-icon="">Mod permissions:</strong>
     @if(u.roles.isEmpty) { Add some } else { @u.roles.mkString(", ") }
     </@if(isGranted(_.ChangePermission)){a}else{span}>

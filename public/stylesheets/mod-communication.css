@@ -78,14 +78,14 @@ body.dark #communication .player_chats .game .title {
   border-color: #3d3d3d;
 }
 
-#powaaa form {
+#permissions form {
   text-align: center;
 }
-#powaaa select {
+#permissions select {
   height: 400px;
   margin: 30px;
 }
-#powaaa select option {
+#permissions select option {
   padding: 5px 10px;
 }
 
