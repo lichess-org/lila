@@ -134,6 +134,16 @@ module.exports = function(data, ctrl, tagTypes) {
     }));
   });
 
+  var resync = function() {
+    tours.onSync();
+    vm.chapterId = null;
+    vm.catchingUp = true;
+    xhrReload().then(function() {
+      vm.behind = false;
+      m.redraw();
+    });
+  }
+
   if (members.canContribute()) form.openIfNew();
 
   var share = shareCtrl(data, currentChapter);
@@ -210,15 +220,8 @@ module.exports = function(data, ctrl, tagTypes) {
       m.redraw();
     },
     toggleSync: function() {
-      if (vm.behind !== false) {
-        tours.onSync();
-        vm.chapterId = null;
-        vm.catchingUp = true;
-        xhrReload().then(function() {
-          vm.behind = false;
-          m.redraw();
-        });
-      } else {
+      if (vm.behind !== false) resync();
+      else {
         vm.behind = 0;
         vm.chapterId = currentChapterId();
       }
@@ -288,7 +291,8 @@ module.exports = function(data, ctrl, tagTypes) {
       reload: xhrReload,
       changeChapter: function(d) {
         d.w && activity(d.w.u);
-        if (vm.behind === false) xhrReload();
+        if (vm.behind && d.w && d.w.u === ctrl.userId) resync();
+        else if (vm.behind === false) xhrReload();
       },
       members: function(d) {
         members.update(d);
