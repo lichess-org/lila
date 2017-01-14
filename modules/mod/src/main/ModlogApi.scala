@@ -1,6 +1,7 @@
 package lila.mod
 
 import lila.db.dsl._
+import lila.security.Permission
 
 final class ModlogApi(coll: Coll) {
 
@@ -88,6 +89,10 @@ final class ModlogApi(coll: Coll) {
 
   def chatTimeout(mod: String, user: String, reason: String) = add {
     Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
+  }
+
+  def setPermissions(mod: String, user: String, permissions: List[Permission]) = add {
+    Modlog(mod, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
