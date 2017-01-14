@@ -181,21 +181,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) result match {
-      case Some(true)  => "1-0"
-      case Some(false) => "0-1"
-      case None        => "½-½"
-    }
-    else "*"
+    val res = if (finished) chess.Color.showResult(result map Color.apply) else "*"
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
   def gameResult(game: Game) =
-    if (game.finished) game.winnerColor match {
-      case Some(chess.White) => "1-0"
-      case Some(chess.Black) => "0-1"
-      case None              => "½-½"
-    }
+    if (game.finished) chess.Color.showResult(game.winnerColor)
     else "*"
 
   lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
