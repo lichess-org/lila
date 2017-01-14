@@ -28,6 +28,14 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
+echo "##################################################"
+echo "#                                                #"
+echo "#              * Deploy and restart *            #"
+echo "#                                                #"
+echo "##################################################"
+
+read -p "Press enter to continue"
+
 if [ "$2" = "asset" ]; then
   bin/prod/compile-client
 fi
