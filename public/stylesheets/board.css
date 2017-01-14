@@ -278,6 +278,35 @@ div.lichess_board {
   background-image: url(../images/board/maple.jpg);
 }
 
+.brown coord,
+.green coord {
+  text-shadow: none;
+}
+.brown .orientation-white .files coords:nth-child(2n+1),
+.brown .orientation-white .ranks coords:nth-child(2n),
+.brown .orientation-black .files coords:nth-child(2n),
+.brown .orientation-black .ranks coords:nth-child(2n+1) {
+  color: #F0D9B5;
+}
+.brown .orientation-white .files coord:nth-child(2n),
+.brown .orientation-white .ranks coord:nth-child(2n+1),
+.brown .orientation-black .files coord:nth-child(2n+1),
+.brown .orientation-black .ranks coord:nth-child(2n) {
+  color: #946f51;
+}
+.green .orientation-white .files coords:nth-child(2n+1),
+.green .orientation-white .ranks coords:nth-child(2n),
+.green .orientation-black .files coords:nth-child(2n),
+.green .orientation-black .ranks coords:nth-child(2n+1) {
+  color: #FFFFDD;
+}
+.green .orientation-white .files coord:nth-child(2n),
+.green .orientation-white .ranks coord:nth-child(2n+1),
+.green .orientation-black .files coord:nth-child(2n+1),
+.green .orientation-black .ranks coord:nth-child(2n) {
+  color: #6d8753;
+}
+
 .kingOfTheHill .cg-board::before {
   width: 25%;
   height: 25%;
@@ -290,7 +319,7 @@ div.lichess_board {
 
 /* Racing Kings board decorations */
 
-.racingKings .cg-board.orientation-white::before {
+.racingKings .cg-board-wrap.orientation-white::before {
   width: 100%;
   height: 12.5%;
   box-shadow: inset 0 -2px 10px rgba(0, 0, 0, 0.5);
@@ -300,7 +329,7 @@ div.lichess_board {
   left: 0;
 }
 
-.racingKings .cg-board.orientation-black::before {
+.racingKings .cg-board-wrap.orientation-black::before {
   width: 100%;
   height: 12.5%;
   box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -380,12 +409,12 @@ mono-piece.king {
 .pirouetti .is2d .piece.animating {
   -webkit-filter: none!important;
 }
-body.kappa .cg-board.orientation-white piece.king.white,
-body.kappa .cg-board.orientation-black piece.king.black {
+body.kappa .cg-board-wrap.orientation-white piece.king.white,
+body.kappa .cg-board-wrap.orientation-black piece.king.black {
   background-image: url(../piece/other/kappa.png);
 }
-body.doggy .cg-board.orientation-white piece.pawn.white,
-body.doggy .cg-board.orientation-black piece.pawn.black {
+body.doggy .cg-board-wrap.orientation-white piece.pawn.white,
+body.doggy .cg-board-wrap.orientation-black piece.pawn.black {
   background-image: url(../piece/other/doggy.png);
 }
 div.lichess_overboard {
