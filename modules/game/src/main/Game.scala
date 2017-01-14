@@ -163,11 +163,13 @@ case class Game(
     lag: Option[FiniteDuration] = None): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
-    def copyPlayer(player: Player) = player.copy(
-      blurs = math.min(
-        playerMoves(player.color),
-        player.blurs + (blur && moveOrDrop.fold(_.color, _.color) == player.color).fold(1, 0))
-    )
+    def copyPlayer(player: Player) =
+      if (blur) player.copy(
+        blurs = math.min(
+          playerMoves(player.color),
+          player.blurs + (moveOrDrop.fold(_.color, _.color) == player.color).fold(1, 0))
+      )
+      else player
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
