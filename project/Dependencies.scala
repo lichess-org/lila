@@ -41,7 +41,7 @@ object Dependencies {
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
 
   object reactivemongo {
-    val version = "0.12.1"
+    val version = "0.12.1-LILA"
     val driver = "org.reactivemongo" %% "reactivemongo" % version
     val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
   }
