@@ -192,8 +192,12 @@ lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
+lichess.assetConfig = {
+  url: document.body.getAttribute('data-asset-url'),
+  version: document.body.getAttribute('data-asset-version')
+};
 lichess.assetUrl = function(url, noVersion) {
-  return $('body').data('asset-url') + url + (noVersion ? '' : '?v=' + $('body').data('asset-version'));
+  return lichess.assetConfig.url + url + (noVersion ? '' : '?v=' + lichess.assetConfig.version);
 };
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
@@ -223,7 +227,7 @@ lichess.shepherd = function(f) {
   });
 };
 lichess.makeChat = function(id, data, callback) {
-  var isDev = $('body').data('dev');
+  var isDev = document.body.getAttribute('data-dev');
   lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
   lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
