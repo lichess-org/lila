@@ -427,7 +427,7 @@ final class TournamentApi(
       throttler ! EarlyMultiThrottler.work(
         id = tourId,
         run = publishNow(tourId),
-        cooldown = 10.seconds)
+        cooldown = 15.seconds)
   }
 
   private def sendTo(tourId: String, msg: Any): Unit =
