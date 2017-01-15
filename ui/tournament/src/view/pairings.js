@@ -60,27 +60,29 @@ function nextTournament(ctrl) {
   ];
 }
 
-module.exports = function(ctrl) {
-  var pairing = function(p) {
-    return {
-      tag: 'a',
-      attrs: {
-        key: p.id,
-        href: '/' + p.id
-      },
-      children: [
-        user(p, 0),
-        'vs',
-        user(p, 1)
-      ]
-    };
+function renderPairing(p) {
+  return {
+    tag: 'a',
+    attrs: {
+      key: p.id,
+      href: '/' + p.id,
+      class: 'glpt'
+    },
+    children: [
+      user(p, 0),
+      'vs',
+      user(p, 1)
+    ]
   };
+}
+
+module.exports = function(ctrl) {
   return [
     ctrl.data.featured ? featured(ctrl.data.featured) : nextTournament(ctrl),
     m('div.box.all_pairings.scroll-shadow-soft', {
       onclick: function() {
         return !ctrl.vm.disableClicks;
       }
-    }, ctrl.data.pairings.map(pairing))
+    }, ctrl.data.pairings.map(renderPairing))
   ];
 };
