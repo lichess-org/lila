@@ -83,15 +83,16 @@ module.exports = function(ctrl) {
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
-              m('td.variant.text', {
+              m('td.variant', {
                 'data-icon': variant.icon
-              }, variant.name),
-              m('td.action', isHost ? m('a.button.text', {
+              }),
+              m('td.action', isHost ? m('a.button', {
                 'data-icon': 'E',
+                title: 'Accept',
                 onclick: function(e) {
                   xhr.accept(applicant.player.id)(ctrl);
                 }
-              }, 'Accept') : null)
+              }) : null)
             ])
           })))
       ),
@@ -114,9 +115,9 @@ module.exports = function(ctrl) {
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
-              m('td.variant.text', {
+              m('td.variant', {
                 'data-icon': variant.icon
-              }, variant.name),
+              }),
               m('td.action', isHost ? m('a.button', {
                 'data-icon': 'L',
                 onclick: function(e) {

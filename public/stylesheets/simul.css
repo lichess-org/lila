@@ -171,6 +171,10 @@ div.side_box .game_infos {
 #simul .join_choice {
   display: none;
 }
+#simul table.slist td:first-child {
+  padding-left: 1em;
+}
+
 #simul_list table.slist {
   line-height: 2.3em;
 }
