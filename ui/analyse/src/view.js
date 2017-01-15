@@ -144,24 +144,16 @@ function blindBoard(ctrl) {
   ]);
 }
 
-function jumpButton(icon, effect) {
+function jumpButton(icon, effect, enabled) {
   return {
     tag: 'button',
     attrs: {
       'data-act': effect,
-      'data-icon': icon
+      'data-icon': icon,
+      disabled: !enabled
     }
   };
 }
-
-var cachedButtons = (function() {
-  return m('div.jumps', [
-    jumpButton('W', 'first'),
-    jumpButton('Y', 'prev'),
-    jumpButton('X', 'next'),
-    jumpButton('V', 'last')
-  ])
-})();
 
 function icon(c) {
   return {
@@ -178,6 +170,8 @@ function dataAct(e) {
 }
 
 function buttons(ctrl) {
+  var canJumpPrev = ctrl.vm.path !== '';
+  var canJumpNext = !!ctrl.vm.node.children[0];
   return m('div.game_control', {
     config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
@@ -197,7 +191,12 @@ function buttons(ctrl) {
         ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
           ctrl.explorer.enabled() ? ' active' : ''))
     }, icon(']')),
-    cachedButtons,
+    m('div.jumps', [
+      jumpButton('W', 'first', canJumpPrev),
+      jumpButton('Y', 'prev', canJumpPrev),
+      jumpButton('X', 'next', canJumpNext),
+      jumpButton('V', 'last', canJumpNext)
+    ]),
     m('button', {
       class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
       'data-hint': 'Menu',

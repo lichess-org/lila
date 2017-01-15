@@ -102,7 +102,14 @@ div.game_control button {
   outline: none;
   line-height: 36px;
 }
-div.game_control button:hover {
+div.game_control button.hidden {
+  visibility: hidden;
+}
+div.game_control  button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+div.game_control button:hover:not(:disabled) {
   background: #3893E8;
   color: #fff;
 }
@@ -110,9 +117,6 @@ div.game_control button:active,
 div.game_control button.active {
   background: #5ba6ec;
   color: #fff;
-}
-div.game_control button.hidden {
-  visibility: hidden;
 }
 div.game_control .jumps {
   display: flex;
