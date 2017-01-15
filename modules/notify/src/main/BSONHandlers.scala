@@ -1,6 +1,5 @@
 package lila.notify
 
-import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.db.{ dsl, BSON }
@@ -22,7 +21,6 @@ private object BSONHandlers {
   implicit val InvitedToStudyByHandler = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
   implicit val StudyNameHandler = stringAnyValHandler[StudyName](_.value, StudyName.apply)
   implicit val StudyIdHandler = stringAnyValHandler[StudyId](_.value, StudyId.apply)
-  import Notification.{ Notifies, NotificationRead }
   implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   import PrivateMessage._

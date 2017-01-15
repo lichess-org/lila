@@ -2,8 +2,6 @@ package lila.learn
 
 import org.joda.time.DateTime
 
-import lila.user.User
-
 case class LearnProgress(
     _id: LearnProgress.Id,
     stages: Map[String, StageProgress],

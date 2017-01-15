@@ -4,21 +4,17 @@ import scala.concurrent.duration._
 import scala.concurrent.Future
 
 import akka.actor._
-import akka.pattern.ask
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import play.twirl.api.Html
 
 import actorApi._
 import lila.common.PimpedJson._
-import lila.game.actorApi._
 import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.socket.actorApi.{ SocketLeave, Connected => _, _ }
+import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketActor
-import makeTimeout.short
 
 private[lobby] final class Socket(
     uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) {

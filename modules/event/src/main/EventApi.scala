@@ -1,6 +1,6 @@
 package lila.event
 
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._

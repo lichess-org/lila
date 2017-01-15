@@ -3,9 +3,8 @@ package lila.analyse
 import akka.actor.ActorSelection
 
 import chess.format.FEN
-import lila.db.dsl._
 import lila.game.actorApi.InsertGame
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.hub.actorApi.map.Tell
 
 final class Analyser(

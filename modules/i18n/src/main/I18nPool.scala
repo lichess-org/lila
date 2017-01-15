@@ -1,7 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import play.api.mvc.{ Action, RequestHeader, Handler }
+import play.api.mvc.RequestHeader
 
 private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 

@@ -4,7 +4,6 @@ package templating
 import chess.format.Forsyth
 import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
-import play.api.mvc.Call
 import play.twirl.api.Html
 
 import lila.game.{ Game, Player, Namer, Pov }

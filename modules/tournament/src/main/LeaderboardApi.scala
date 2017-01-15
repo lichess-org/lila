@@ -1,13 +1,10 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import reactivemongo.bson._
-import scala.concurrent.duration._
 
 import lila.common.Maths
 import lila.common.paginator.Paginator
-import lila.db.BSON._
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.rating.PerfType

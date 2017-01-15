@@ -1,17 +1,13 @@
 package lila.round
 
-import akka.actor.ActorSelection
-import akka.pattern.ask
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Clock, Color => ChessColor, Castles }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles }
 import ChessColor.{ White, Black }
 
-import lila.db.dsl._
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
-import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,

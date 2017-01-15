@@ -3,7 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.format.{ Uci, Forsyth, FEN }
+import chess.format.{ Uci, FEN }
 import chess.variant.Variant
 
 import lila.common.Maths
@@ -178,7 +178,7 @@ object JsonApi {
       case JsNull => JsSuccess(None)
       case obj    => EvaluationReads reads obj map some
     }
-    implicit val PostAnalysisReads = Json.reads[Request.PostAnalysis]
+    implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
   }
 
   object writers {

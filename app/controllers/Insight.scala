@@ -3,7 +3,6 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.insight.{ Metric, Dimension }
-import play.api.libs.json.Json
 import play.api.mvc._
 import views._
 

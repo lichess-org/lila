@@ -1,9 +1,7 @@
 package lila.game
 
 import akka.actor._
-import akka.pattern.pipe
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 

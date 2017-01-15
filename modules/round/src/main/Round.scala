@@ -1,7 +1,7 @@
 package lila.round
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 

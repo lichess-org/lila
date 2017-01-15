@@ -1,7 +1,5 @@
 package lila.video
 
-import org.joda.time.DateTime
-
 case class TagNb(_id: Tag, nb: Int) {
 
   def tag = _id

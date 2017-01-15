@@ -1,7 +1,5 @@
 package lila.message
 
-import akka.pattern.pipe
-
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._

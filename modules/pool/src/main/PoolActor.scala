@@ -5,7 +5,6 @@ import scala.util.Random
 
 import akka.actor._
 import akka.pattern.pipe
-import org.joda.time.DateTime
 
 import lila.user.User
 

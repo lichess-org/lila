@@ -1,9 +1,8 @@
 package controllers
 
-import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Success, Failure }
 
 import lila.app._
 import lila.common.HTTPRequest

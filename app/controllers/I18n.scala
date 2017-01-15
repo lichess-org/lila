@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app._
 import lila.common.{ Captcha, LilaCookie, HTTPRequest }
-import lila.i18n.{ Translation, TransInfo }
+import lila.i18n.TransInfo
 import views._
 
 object I18n extends LilaController {

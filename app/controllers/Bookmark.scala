@@ -1,9 +1,6 @@
 package controllers
 
 import lila.app._
-import views._
-
-import play.api.mvc._
 
 object Bookmark extends LilaController {
 

@@ -1,13 +1,9 @@
 package lila.setup
 
 import play.api.mvc._
-import reactivemongo.api._
 import reactivemongo.bson._
 
-import lila.common.{ LilaCookie, LilaException }
 import lila.db.dsl._
-import lila.game.Game
-import lila.user.User
 
 private[setup] object AnonConfigRepo {
 

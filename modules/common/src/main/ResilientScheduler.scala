@@ -3,8 +3,6 @@ package lila.common
 import scala.concurrent.duration._
 
 import akka.actor._
-import akka.pattern.ask
-import ornicar.scalalib.Random.{ approximatly, nextString }
 
 object ResilientScheduler {
 

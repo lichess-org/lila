@@ -1,12 +1,9 @@
 package lila.challenge
 
-import akka.actor.ActorSelection
-import akka.pattern.ask
-
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Situation, Mode }
-import lila.game.{ GameRepo, Game, Pov, Source, Player, PerfPicker }
+import lila.game.{ GameRepo, Game, Pov, Source, Player }
 import lila.user.{ User, UserRepo }
 
 private[challenge] final class Joiner(onStart: String => Unit) {

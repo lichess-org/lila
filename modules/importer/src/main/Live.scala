@@ -1,7 +1,6 @@
 package lila.importer
 
 import akka.actor.ActorRef
-import chess.Color
 import chess.format.Uci
 import lila.game.{ Game, Player, Source, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell

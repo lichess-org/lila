@@ -23,7 +23,6 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
 
   private implicit val stepBSONHandler = Macros.handler[Step]
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
-  import Forecast._
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
     lila.mon.round.forecast.create()

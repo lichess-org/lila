@@ -1,7 +1,5 @@
 package lila.plan
 
-import org.joda.time.DateTime
-
 sealed trait CustomerInfo
 
 case class MonthlyCustomerInfo(

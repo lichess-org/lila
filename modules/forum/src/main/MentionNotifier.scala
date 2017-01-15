@@ -4,7 +4,6 @@ import lila.notify.{Notification, MentionedInThread}
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
 import lila.user.{UserRepo, User}
-import org.joda.time.DateTime
 import lila.common.Future
 
 /**

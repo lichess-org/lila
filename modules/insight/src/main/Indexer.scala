@@ -10,7 +10,6 @@ import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.hub.Sequencer
-import lila.rating.PerfType
 import lila.user.User
 
 private final class Indexer(storage: Storage, sequencer: ActorRef) {

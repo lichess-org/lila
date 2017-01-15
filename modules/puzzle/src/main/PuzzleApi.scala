@@ -1,14 +1,11 @@
 package lila.puzzle
 
 import scala.concurrent.duration._
-import scala.util.{ Try, Success, Failure }
 
-import org.joda.time.DateTime
 import play.api.libs.json.JsValue
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 import Puzzle.{BSONFields => F}
 
 private[puzzle] final class PuzzleApi(

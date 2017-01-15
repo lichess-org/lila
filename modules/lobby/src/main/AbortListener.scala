@@ -1,7 +1,5 @@
 package lila.lobby
 
-import org.joda.time.DateTime
-
 import lila.game.Pov
 import lila.user.UserRepo
 

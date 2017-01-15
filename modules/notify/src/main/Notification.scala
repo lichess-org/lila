@@ -1,6 +1,5 @@
 package lila.notify
 
-import chess.Color
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime

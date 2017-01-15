@@ -1,7 +1,6 @@
 package lila.history
 
 import lila.rating.PerfType
-import org.joda.time.{ Days, DateTime }
 
 case class History(
     standard: RatingsMap,
@@ -41,7 +40,6 @@ case class History(
 object History {
 
   import reactivemongo.bson._
-  import lila.db.BSON
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
     def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {

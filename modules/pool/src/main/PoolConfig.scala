@@ -2,7 +2,6 @@ package lila.pool
 
 import scala.concurrent.duration._
 
-import chess.Clock
 import lila.rating.PerfType
 
 case class PoolConfig(

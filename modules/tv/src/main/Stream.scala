@@ -1,6 +1,5 @@
 package lila.tv
 
-import com.roundeights.hasher.Implicits._
 import play.api.libs.json._
 import StreamerList.Streamer
 

@@ -5,11 +5,8 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.paginator._
-import lila.db.dsl._
 import lila.hub.LateMultiThrottler
 import lila.search._
-import lila.search.PaginatorBuilder
-import lila.study.actorApi._
 import lila.study.Study
 import lila.user.User
 

@@ -1,6 +1,5 @@
 package lila.tournament
 
-import lila.game.PerfPicker
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 

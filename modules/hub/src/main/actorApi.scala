@@ -5,7 +5,6 @@ import lila.common.LightUser
 import org.joda.time.DateTime
 
 import play.api.libs.json._
-import play.twirl.api.Html
 
 case class SendTo(userId: String, message: JsObject)
 

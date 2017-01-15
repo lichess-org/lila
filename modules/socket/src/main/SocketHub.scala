@@ -1,13 +1,6 @@
 package lila.socket
 
-import scala.concurrent.duration._
-
 import akka.actor._
-import akka.dispatch.Dispatchers
-import akka.pattern.{ ask, pipe }
-import akka.routing._
-
-import actorApi._
 
 final class SocketHub extends Actor {
 

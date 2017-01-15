@@ -1,7 +1,5 @@
 package lila.i18n
 
-import play.api.libs.json.Json
-
 import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
 

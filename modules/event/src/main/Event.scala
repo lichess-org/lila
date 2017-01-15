@@ -2,8 +2,6 @@ package lila.event
 
 import org.joda.time.DateTime
 
-import lila.db.dsl._
-
 case class Event(
     _id: String,
     title: String,

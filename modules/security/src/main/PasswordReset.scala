@@ -1,6 +1,6 @@
 package lila.security
 
-import com.roundeights.hasher.{ Hasher, Algo }
+import com.roundeights.hasher.Algo
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 

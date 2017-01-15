@@ -4,8 +4,6 @@ import scala.concurrent.duration.Duration
 
 import play.api.libs.json._
 
-import actorApi._
-
 final class History[Metadata](ttl: Duration) {
 
   type Message = History.Message[Metadata]

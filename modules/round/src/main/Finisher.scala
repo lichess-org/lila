@@ -1,15 +1,12 @@
 package lila.round
 
-import chess.Color._
-import chess.Status._
-import chess.{ Status, Color, Speed }
+import chess.{ Status, Color }
 
-import lila.db.dsl._
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ GameRepo, Game, Pov, Event }
+import lila.game.{ GameRepo, Game, Pov }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import lila.playban.{ PlaybanApi, Outcome }
-import lila.user.{ User, UserRepo, Perfs }
+import lila.playban.PlaybanApi
+import lila.user.{ User, UserRepo }
 
 private[round] final class Finisher(
     messenger: Messenger,
@@ -73,20 +70,20 @@ private[round] final class Finisher(
             winnerColor = winner,
             winnerId = winner flatMap (g.player(_).userId),
             status = prog.game.status) >>
-            UserRepo.pair(
-              g.whitePlayer.userId,
-              g.blackPlayer.userId).flatMap {
-                case (whiteO, blackO) => {
-                  val finish = FinishGame(g, whiteO, blackO)
-                  updateCountAndPerfs(finish) inject {
-                    message foreach { messenger.system(g, _) }
-                    GameRepo game g.id foreach { newGame =>
-                      bus.publish(finish.copy(game = newGame | g), 'finishGame)
-                    }
-                    prog.events
-                  }
+          UserRepo.pair(
+            g.whitePlayer.userId,
+            g.blackPlayer.userId).flatMap {
+            case (whiteO, blackO) => {
+              val finish = FinishGame(g, whiteO, blackO)
+              updateCountAndPerfs(finish) inject {
+                message foreach { messenger.system(g, _) }
+                GameRepo game g.id foreach { newGame =>
+                  bus.publish(finish.copy(game = newGame | g), 'finishGame)
                 }
+                prog.events
               }
+            }
+          }
       }
   } >>- proxy.invalidate
 
@@ -105,8 +102,8 @@ private[round] final class Finisher(
     val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = if (game.winnerUserId exists (user.id==)) 1
-      else if (game.loserUserId exists (user.id==)) -1
-      else 0,
+    else if (game.loserUserId exists (user.id==)) -1
+    else 0,
       totalTime = totalTime,
       tvTime = tvTime).void
   }

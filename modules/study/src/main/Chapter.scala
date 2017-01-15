@@ -1,13 +1,12 @@
 package lila.study
 
 import chess.Color
-import chess.format.FEN
 import chess.format.pgn.{ Glyph, Tag }
 import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 
 case class Chapter(

@@ -7,7 +7,6 @@ import scala.concurrent.Future
 object PimpedFuture {
 
   private type Fu[A] = Future[A]
-  private type Funit = Fu[Unit]
 
   final class LilaPimpedFuture[A](val fua: Fu[A]) extends AnyVal {
 
@@ -17,7 +16,7 @@ object PimpedFuture {
 
     def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap (_ => fub)
 
-    def void: Funit = fua map (_ => Unit)
+    def void: Fu[Unit] = fua map (_ => ())
 
     def inject[B](b: => B): Fu[B] = fua map (_ => b)
 

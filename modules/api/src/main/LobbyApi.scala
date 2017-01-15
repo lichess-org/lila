@@ -7,7 +7,7 @@ import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.lobby.SeekApi
 import lila.setup.FilterConfig
-import lila.user.{ User, UserContext }
+import lila.user.UserContext
 
 final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
@@ -15,7 +15,6 @@ final class LobbyApi(
     seekApi: SeekApi,
     pools: List[lila.pool.PoolConfig]) {
 
-  import makeTimeout.large
   import lila.pool.JsonView._
 
   val poolsJson = Json toJson pools

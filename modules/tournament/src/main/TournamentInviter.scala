@@ -3,7 +3,6 @@ package lila.tournament
 import lila.user.User
 
 import akka.actor._
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._

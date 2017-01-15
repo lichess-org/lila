@@ -1,19 +1,14 @@
 package controllers
 
-import scala.util.{ Try, Success, Failure }
-
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
+import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
-import play.twirl.api.Html
 
-import chess.Mode
 import lila.api.Context
 import lila.app._
-import lila.game.GameRepo
-import lila.puzzle.{ PuzzleId, Result, Generated, Puzzle => PuzzleModel, UserInfos }
-import lila.user.{ User => UserModel, UserRepo }
+import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
+import lila.user.UserRepo
 import views._
 
 object Puzzle extends LilaController {

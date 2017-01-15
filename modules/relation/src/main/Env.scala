@@ -1,7 +1,6 @@
 package lila.relation
 
 import akka.actor._
-import akka.pattern.pipe
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 

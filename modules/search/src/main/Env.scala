@@ -1,9 +1,5 @@
 package lila.search
 
-import scala.collection.JavaConversions._
-import scala.concurrent.Future
-import scala.util.{ Success, Failure }
-
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
 

@@ -1,6 +1,6 @@
 package lila.tv
 
-import com.typesafe.config.{ Config, ConfigFactory }
+import com.typesafe.config.ConfigFactory
 import scala.collection.JavaConversions._
 import scala.util.{ Try, Success, Failure }
 

@@ -1,9 +1,6 @@
 package lila.shutup
 
-import org.joda.time.DateTime
 import reactivemongo.bson._
-import reactivemongo.core.commands._
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.game.GameRepo

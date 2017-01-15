@@ -1,11 +1,9 @@
 package lila.socket
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
 import com.typesafe.config.Config
 
 import actorApi._
-import makeTimeout.short
 
 final class Env(
     config: Config,

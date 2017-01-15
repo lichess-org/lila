@@ -1,18 +1,12 @@
 package lila.importer
 
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import akka.actor.ActorRef
-import akka.pattern.ask
-import chess.{ Color, MoveOrDrop, Status, Situation }
 import chess.format.FEN
-import makeTimeout.large
+import chess.{ Status, Situation }
 
-import lila.db.dsl._
-import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round._
+import lila.game.{ Game, GameRepo }
 
 final class Importer(
     roundMap: ActorRef,

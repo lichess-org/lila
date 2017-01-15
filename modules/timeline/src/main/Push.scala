@@ -1,17 +1,13 @@
 package lila.timeline
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
-import play.api.libs.json._
-import play.twirl.api.Html
 
 import lila.hub.actorApi.lobby.NewForumPost
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
 import lila.security.{ Granter, Permission }
 import lila.user.UserRepo
-import makeTimeout.short
 
 private[timeline] final class Push(
     lobbySocket: ActorSelection,

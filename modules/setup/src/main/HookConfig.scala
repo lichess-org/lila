@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Mode, Color => ChessColor }
+import chess.Mode
 import lila.lobby.Color
 import lila.lobby.{ Hook, Seek }
 import lila.rating.RatingRange

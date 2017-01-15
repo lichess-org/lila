@@ -1,6 +1,6 @@
 package lila.security
 
-import com.roundeights.hasher.{ Hasher, Algo }
+import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
 
 import lila.common.String.base64

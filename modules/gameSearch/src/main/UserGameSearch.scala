@@ -1,6 +1,5 @@
 package lila.gameSearch
 
-import lila.common.paginator._
 import lila.game.Game
 import play.api.mvc.Request
 

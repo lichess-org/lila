@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import controllers.routes
-import lila.api.Context
 import lila.tournament.Env.{ current => tournamentEnv }
 import lila.tournament.{ Tournament, System, Schedule }
 import lila.user.{ User, UserContext }

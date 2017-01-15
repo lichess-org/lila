@@ -5,8 +5,7 @@ import ornicar.scalalib.Random
 
 import chess.Clock.{ Config => TournamentClock }
 import chess.{ Speed, Mode, StartingPosition }
-import lila.game.{ PovRef, PerfPicker }
-import lila.user.User
+import lila.game.PerfPicker
 
 case class Tournament(
     id: Tournament.ID,

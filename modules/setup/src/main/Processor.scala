@@ -1,17 +1,10 @@
 package lila.setup
 
 import akka.actor.ActorSelection
-import akka.pattern.ask
-import chess.{ Game => ChessGame, Board, Color => ChessColor }
-import play.api.libs.json.{ Json, JsObject }
 
-import lila.db.dsl._
-import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
-import lila.i18n.I18nDomain
+import lila.game.{ GameRepo, Pov, PerfPicker }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
-import lila.lobby.Hook
 import lila.user.{ User, UserContext }
-import makeTimeout.short
 
 private[setup] final class Processor(
     lobby: ActorSelection,

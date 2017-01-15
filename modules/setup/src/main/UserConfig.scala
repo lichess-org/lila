@@ -1,9 +1,5 @@
 package lila.setup
 
-import org.joda.time.DateTime
-
-import lila.user.User
-
 private[setup] case class UserConfig(
     id: String,
     ai: AiConfig,

@@ -1,7 +1,5 @@
 package lila.tournament
 
-import scala.concurrent.duration._
-
 import akka.actor._
 import akka.pattern.ask
 

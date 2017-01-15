@@ -2,8 +2,7 @@ package lila.bookmark
 
 import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.user.User
 
 private[bookmark] final class PaginatorBuilder(

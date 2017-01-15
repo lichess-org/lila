@@ -2,8 +2,6 @@ package lila.forum
 
 import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
-import lila.user.{ User, UserContext }
 
 private[forum] final class CategApi(env: Env) {
 

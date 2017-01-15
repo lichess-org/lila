@@ -4,7 +4,7 @@ import chess.format.pgn.Tag
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.game.{ Game, Pov, GameRepo, Namer }
-import lila.importer.{ Importer, ImportData }
+import lila.importer.Importer
 import lila.user.User
 
 private final class ChapterMaker(

@@ -1,11 +1,7 @@
 package lila.puzzle
 
-import scala.util.{ Try, Success, Failure }
-import scalaz.Validation.FlatMap._
-
 import chess.Color
-import chess.format.{ Forsyth, Uci }
-import org.joda.time.DateTime
+import chess.format.Forsyth
 import play.api.libs.json._
 
 private case class Generated(

@@ -52,10 +52,6 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
     bus publish event
   }
 
-  private def log(msg: => String) {
-    // loginfo(msg)
-  }
-
   private val bus = new ActorEventBus with LookupClassification {
 
     type Event = Bus.Event

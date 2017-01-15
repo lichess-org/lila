@@ -1,9 +1,7 @@
 package controllers
 
-import play.api.http._
 import play.api.libs.iteratee._
-import play.api.libs.json._
-import play.api.mvc._, Results._
+import play.api.mvc._
 import play.api.mvc.WebSocket.FrameFormatter
 
 import lila.api.Context

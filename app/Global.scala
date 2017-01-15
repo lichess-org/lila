@@ -3,7 +3,7 @@ package lila.app
 import lila.common.HTTPRequest
 import play.api.mvc._
 import play.api.mvc.Results._
-import play.api.{ Application, GlobalSettings, Mode }
+import play.api.{ Application, GlobalSettings }
 
 object Global extends GlobalSettings {
 

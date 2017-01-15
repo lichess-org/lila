@@ -87,8 +87,6 @@ private[i18n] final class GitWrite(
 
   final class Git(repo: Repository, debug: Boolean = false) {
 
-    import org.eclipse.jgit.api._
-
     val api = new org.eclipse.jgit.api.Git(repo)
 
     def currentBranch: Fu[String] = Future {

@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import lila.db.dsl._
 
-import scala.collection.JavaConversions._
 import scala.concurrent.duration._
 
 final class Env(

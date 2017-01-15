@@ -1,6 +1,5 @@
 package lila
 
-import reactivemongo.api._
 import reactivemongo.api.commands.WriteResult
 
 package object db extends PackageObject with WithPlay {

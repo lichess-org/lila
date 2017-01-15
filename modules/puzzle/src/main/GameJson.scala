@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, PerfPicker }
@@ -9,8 +8,6 @@ import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
   lightUser: lila.common.LightUser.Getter) {
-
-  import lila.game.JsonView._
 
   case class CacheKey(gameId: Game.ID, plies: Int)
 

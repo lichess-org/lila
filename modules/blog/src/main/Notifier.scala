@@ -3,7 +3,6 @@ package lila.blog
 import io.prismic.Document
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
-import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.notify.{ Notification, NotifyApi, NewBlogPost }

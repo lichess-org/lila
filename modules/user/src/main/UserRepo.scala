@@ -9,7 +9,7 @@ import reactivemongo.bson._
 import lila.common.ApiVersion
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Perf, PerfType }
 
 object UserRepo {
 
@@ -20,7 +20,7 @@ object UserRepo {
 
   // dirty
   private val coll = Env.current.userColl
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
+  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Group, SumField }
 
   val normalize = User normalize _
 
@@ -264,7 +264,6 @@ object UserRepo {
     val id = normalize(text)
     if (!userIdPattern.matcher(id).matches) fuccess(Nil)
     else {
-      import java.util.regex.Matcher.quoteReplacement
       val regex = "^" + id + ".*$"
       coll.find(
         $doc("_id".$regex(regex, "")) ++ enabledSelect,

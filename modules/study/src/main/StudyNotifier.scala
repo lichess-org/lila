@@ -4,12 +4,10 @@ import akka.actor._
 import akka.pattern.ask
 
 import lila.hub.actorApi.HasUserId
-import lila.notify.InvitedToStudy.InvitedBy
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.relation.RelationApi
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
-import org.joda.time.DateTime
 
 private final class StudyNotifier(
     netBaseUrl: String,

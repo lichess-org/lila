@@ -2,11 +2,10 @@ package lila.round
 
 import chess.{ Speed }
 import org.goochjs.glicko2._
-import org.joda.time.DateTime
 
-import lila.game.{ GameRepo, Game, Pov, PerfPicker }
+import lila.game.{ GameRepo, Game, PerfPicker }
 import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf, PerfType => PT }
+import lila.rating.{ Glicko, Perf }
 import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
@@ -56,10 +55,12 @@ final class PerfsUpdater(
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
         def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
         resetGameRatings.fold(
-          GameRepo.setRatingAndDiffs(game.id,
+          GameRepo.setRatingAndDiffs(
+            game.id,
             intRatingLens(white.perfs) -> (intRatingLens(perfsW) - intRatingLens(white.perfs)),
             intRatingLens(black.perfs) -> (intRatingLens(perfsB) - intRatingLens(black.perfs))),
-          GameRepo.setRatingDiffs(game.id,
+          GameRepo.setRatingDiffs(
+            game.id,
             intRatingLens(perfsW) - intRatingLens(white.perfs),
             intRatingLens(perfsB) - intRatingLens(black.perfs))
         ) zip

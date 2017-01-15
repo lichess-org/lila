@@ -1,8 +1,8 @@
 package lila.socket
 
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import ornicar.scalalib.Zero
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.iteratee.Iteratee
 import play.api.libs.json._
 import scala.concurrent.duration._
 

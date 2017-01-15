@@ -1,8 +1,5 @@
 package lila.analyse
 
-import org.joda.time.DateTime
-import play.api.libs.json.Json
-
 import lila.db.dsl._
 import lila.game.Game
 

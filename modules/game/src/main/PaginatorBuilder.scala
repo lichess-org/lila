@@ -1,6 +1,5 @@
 package lila.game
 
-import chess.Status
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._

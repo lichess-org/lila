@@ -1,11 +1,7 @@
 package lila.hub
 
-import scala.concurrent.duration._
-
 import actorApi.map._
 import akka.actor._
-import akka.pattern.{ ask, pipe }
-import makeTimeout.short
 
 trait ActorMap extends Actor {
 

@@ -4,8 +4,6 @@ import java.security.MessageDigest
 import lila.db.ByteArray
 import org.joda.time.DateTime
 
-import chess.Color
-
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],

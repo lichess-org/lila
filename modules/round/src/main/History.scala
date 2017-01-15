@@ -1,9 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration._
-
-import actorApi._
-import akka.actor._
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
@@ -11,7 +7,6 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.game.Event
-import lila.socket.actorApi.GetVersion
 
 /**
  * NOT THREAD SAFE

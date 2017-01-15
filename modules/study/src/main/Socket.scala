@@ -11,7 +11,7 @@ import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 
 private final class Socket(

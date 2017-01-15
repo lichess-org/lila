@@ -1,16 +1,15 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._, Results._
+import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.api.{ Context, BodyContext }
+import lila.api.BodyContext
 import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.HTTPRequest
 import lila.common.paginator.Paginator
-import lila.evaluation.{ PlayerAggregateAssessment }
-import lila.game.{ GameRepo, Pov, Game => GameModel }
+import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
 import lila.user.{ User => UserModel, UserRepo }
 import views._

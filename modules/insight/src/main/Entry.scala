@@ -2,7 +2,7 @@ package lila.insight
 
 import chess.opening.Ecopening
 import chess.{ Color, Role }
-import lila.game.{ PgnMoves, Game, Pov }
+import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
 import scalaz.NonEmptyList

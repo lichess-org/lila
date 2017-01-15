@@ -1,11 +1,10 @@
 package controllers
 
 import play.api.mvc._
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
-import lila.game.{ GameRepo, Game => GameModel, Pov }
+import lila.game.{ GameRepo, Pov }
 import views._
 
 object Tv extends LilaController {

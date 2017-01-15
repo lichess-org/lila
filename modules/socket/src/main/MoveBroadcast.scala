@@ -1,7 +1,6 @@
 package lila.socket
 
 import akka.actor._
-import scala.concurrent.duration._
 
 import actorApi.{ SocketLeave, StartWatching }
 import lila.hub.actorApi.round.MoveEvent

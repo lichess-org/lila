@@ -4,15 +4,14 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
-import chess.Color
+import akka.pattern.ask
 import chess.format.Uci
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
-import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
+import lila.game.{ Pov, PovRef, GameRepo }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
 import lila.socket.actorApi.{ Connected => _, _ }

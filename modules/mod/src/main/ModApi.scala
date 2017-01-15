@@ -1,7 +1,5 @@
 package lila.mod
 
-import chess.Color
-import lila.db.dsl._
 import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, LightUserApi }

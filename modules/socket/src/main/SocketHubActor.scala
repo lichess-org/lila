@@ -1,7 +1,5 @@
 package lila.socket
 
-import akka.actor._
-
 import lila.hub.ActorMap
 
 trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap {

@@ -4,10 +4,7 @@ import lila.api.Context
 import lila.app._
 import lila.game.{ Game => GameModel, Pov, AnonCookie }
 import lila.security.Granter
-import play.api.http.ContentTypes._
 import play.api.mvc._
-import play.api.mvc.Results._
-import views._
 
 private[controllers] trait TheftPrevention { self: LilaController =>
 

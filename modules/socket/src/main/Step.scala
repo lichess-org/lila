@@ -4,9 +4,7 @@ import chess.format.Uci
 import chess.Pos
 import chess.variant.Crazyhouse
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.api.libs.json.Reads._
 
 case class Step(
     ply: Int,

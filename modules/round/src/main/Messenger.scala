@@ -1,6 +1,5 @@
 package lila.round
 
-import akka.actor.ActorRef
 import akka.actor.ActorSelection
 
 import actorApi._

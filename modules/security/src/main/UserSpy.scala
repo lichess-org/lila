@@ -1,9 +1,5 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
-import reactivemongo.bson._
-
-import lila.common.PimpedJson._
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 

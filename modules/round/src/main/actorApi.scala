@@ -8,7 +8,7 @@ import chess.Color
 import chess.format.Uci
 
 import lila.common.ApiVersion
-import lila.game.{ Game, Event, PlayerRef }
+import lila.game.Event
 import lila.socket.SocketMember
 import lila.user.User
 

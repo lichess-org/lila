@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.Clock.{ Config => TournamentClock }
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.user.User

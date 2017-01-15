@@ -1,7 +1,6 @@
 package lila.insight
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
 import lila.db.dsl._

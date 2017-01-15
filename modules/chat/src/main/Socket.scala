@@ -4,7 +4,7 @@ import akka.actor._
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.socket.{ Handler, SocketMember, Historical }
+import lila.socket.{ Handler, SocketMember }
 
 object Socket {
 

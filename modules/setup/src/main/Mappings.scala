@@ -3,7 +3,6 @@ package lila.setup
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 
-import chess.format.Forsyth
 import chess.Mode
 import lila.rating.RatingRange
 import lila.lobby.Color

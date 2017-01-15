@@ -4,11 +4,10 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
 import lila.common.PimpedJson._
 import lila.db.dsl._
-import lila.game.actorApi._
 import lila.game.{ Game, GameRepo }
 import lila.search._
 
@@ -96,7 +95,6 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Try(dateFormatter parseDateTime str).toOption
 
   private def doIndex(client: ESClientHttp, since: DateTime): Funit = {
-    import lila.game.BSONHandlers._
     import lila.db.BSON.BSONJodaDateTimeHandler
     import reactivemongo.api._
     import reactivemongo.bson._

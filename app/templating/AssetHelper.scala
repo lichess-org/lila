@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.twirl.api.Html
 
 trait AssetHelper { self: I18nHelper =>

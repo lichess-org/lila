@@ -1,9 +1,8 @@
 package lila.common
 
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTimeZone
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
-import play.api.data.FormError
 import play.api.data.Forms._
 import play.api.libs.json._
 
@@ -39,9 +38,6 @@ object Form {
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", (nb != 1).fold("s", ""))
-
-  private def pluralize(pattern: String, nb: Double) =
-    pattern.replace("{s}", (nb < 1).fold("s", ""))
 
   private val jsonGlobalErrorRenamer = __.json update (
     (__ \ "global").json copyFrom (__ \ "").json.pick

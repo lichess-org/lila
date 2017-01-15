@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -8,8 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, PairingRepo, Tournament => Tourney, VisibleTournaments }
-import lila.user.UserRepo
+import lila.tournament.{ System, TournamentRepo, PairingRepo }
 import views._
 
 object Tournament extends LilaController {

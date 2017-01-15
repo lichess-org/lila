@@ -5,14 +5,12 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
-import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
+import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.{ Game, Player, GameRepo, Source, Pov }
 import lila.user.{ User, UserRepo }
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
-import scala.concurrent._
 import scala.util.Random
 
 import chess.Color

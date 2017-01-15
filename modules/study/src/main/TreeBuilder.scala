@@ -1,10 +1,7 @@
 package lila.study
 
-import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
 import lila.tree
-
-import play.api.libs.json._
 
 object TreeBuilder {
 

@@ -3,7 +3,6 @@ package lila.insight
 import chess.{ Role, Board }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov, GameRepo }
-import lila.user.User
 import scalaz.NonEmptyList
 
 object PovToEntry {

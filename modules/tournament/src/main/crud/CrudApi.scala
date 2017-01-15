@@ -1,8 +1,6 @@
 package lila.tournament
 package crud
 
-import org.joda.time.{ DateTime, DateTimeZone }
-
 import lila.user.User
 
 final class CrudApi {

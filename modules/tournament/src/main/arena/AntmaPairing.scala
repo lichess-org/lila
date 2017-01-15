@@ -2,7 +2,7 @@ package lila.tournament
 package arena
 
 import lila.common.WMMatching
-import PairingSystem.{ Data, url }
+import PairingSystem.Data
 
 private object AntmaPairing {
 

@@ -3,7 +3,6 @@ package lila.db
 import scala.collection.generic.CanBuildFrom
 
 import reactivemongo.api._
-import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 
 trait QueryBuilderExt { self: dsl =>

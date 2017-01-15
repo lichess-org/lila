@@ -1,7 +1,5 @@
 package lila.learn
 
-import org.joda.time.DateTime
-
 case class StageProgress(
     scores: Vector[StageProgress.Score]) {
 

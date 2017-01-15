@@ -1,9 +1,6 @@
 package controllers
 
-import play.api.mvc._
-
 import lila.app._
-import views._
 
 object Coordinate extends LilaController {
 

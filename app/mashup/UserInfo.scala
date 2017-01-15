@@ -1,13 +1,10 @@
 package lila.app
 package mashup
 
-import chess.Color
-import org.joda.time.Period
-
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
+import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.{ User, Trophy, Trophies, TrophyApi }

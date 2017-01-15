@@ -4,7 +4,6 @@ import play.api.libs.json._
 import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 
-import lila.common.PimpedJson._
 import lila.user.User
 
 private final class StripeClient(config: StripeClient.Config) {

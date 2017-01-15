@@ -4,11 +4,8 @@ import play.api.libs.json._
 
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
-import lila.db.dsl._
 import lila.game.GameRepo
-import lila.rating.Perf
-import lila.user.{ UserRepo, User, Perfs, Profile }
-import makeTimeout.short
+import lila.user.{ UserRepo, User }
 
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,

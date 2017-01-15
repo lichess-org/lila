@@ -2,12 +2,9 @@ package lila.app
 package templating
 
 import controllers.routes
-import lila.api.Context
 import lila.simul.Simul
-import lila.user.{ User, UserContext }
 import lila.simul.Env.{ current => simulEnv }
 
-import play.api.libs.json.Json
 import play.twirl.api.Html
 
 trait SimulHelper { self: I18nHelper =>

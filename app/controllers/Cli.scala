@@ -2,7 +2,7 @@ package controllers
 
 import lila.app._
 
-import play.api.mvc._, Results._
+import play.api.mvc._
 import play.api.data._, Forms._
 
 object Cli extends LilaController {

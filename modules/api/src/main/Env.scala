@@ -4,7 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import lila.simul.Simul
-import scala.collection.JavaConversions._
 import scala.concurrent.duration._
 
 final class Env(

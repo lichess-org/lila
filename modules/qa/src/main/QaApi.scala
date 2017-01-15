@@ -10,7 +10,7 @@ import spray.caching.{ LruCache, Cache }
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class QaApi(
     questionColl: Coll,

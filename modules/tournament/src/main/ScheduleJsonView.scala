@@ -3,10 +3,7 @@ package lila.tournament
 import play.api.libs.json._
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo }
 import lila.rating.PerfType
-import lila.user.User
 
 final class ScheduleJsonView(
     getLightUser: String => Option[LightUser]) {

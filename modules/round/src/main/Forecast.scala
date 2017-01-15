@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 import chess.format.Uci
-import chess.{ Pos, Move }
+import chess.Move
 import lila.game.Game
 
 case class Forecast(

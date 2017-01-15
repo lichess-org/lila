@@ -1,7 +1,6 @@
 package lila.forum
 
 import lila.db.dsl._
-import lila.user.User.BSONFields
 import org.joda.time.DateTime
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 

@@ -1,10 +1,8 @@
 package lila.challenge
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 
 private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
 

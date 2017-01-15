@@ -1,20 +1,14 @@
 package controllers
 
-import akka.pattern.ask
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, ApiVersion }
-import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round._
-import lila.tournament.{ TournamentRepo, Tournament => Tourney, MiniStanding }
-import lila.user.{ User => UserModel, UserRepo }
-import makeTimeout.large
+import lila.game.{ Pov, GameRepo, Game => GameModel }
+import lila.tournament.MiniStanding
+import lila.user.{ User => UserModel }
 import views._
 
 object Round extends LilaController with TheftPrevention {
@@ -128,19 +122,18 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def next(gameId: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(GameRepo game gameId) { currentGame =>
-        otherPovs(currentGame) map getNext(currentGame) map {
-          _ orElse Pov(currentGame, me)
-        } flatMap {
-          case Some(next) => renderPlayer(next)
-          case None => fuccess(Redirect(currentGame.simulId match {
-            case Some(simulId) => routes.Simul.show(simulId)
-            case None          => routes.Round.watcher(gameId, "white")
-          }))
-        }
+  def next(gameId: String) = Auth { implicit ctx => me =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(currentGame) map getNext(currentGame) map {
+        _ orElse Pov(currentGame, me)
+      } flatMap {
+        case Some(next) => renderPlayer(next)
+        case None => fuccess(Redirect(currentGame.simulId match {
+          case Some(simulId) => routes.Simul.show(simulId)
+          case None          => routes.Round.watcher(gameId, "white")
+        }))
       }
+    }
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
@@ -241,21 +234,19 @@ object Round extends LilaController with TheftPrevention {
     OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, true) }
   }
 
-  def writeNote(gameId: String) = AuthBody { implicit ctx =>
-    me =>
-      import play.api.data.Forms._
-      import play.api.data._
-      implicit val req = ctx.body
-      Form(single("text" -> text)).bindFromRequest.fold(
-        err => fuccess(BadRequest),
-        text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
+  def writeNote(gameId: String) = AuthBody { implicit ctx => me =>
+    import play.api.data.Forms._
+    import play.api.data._
+    implicit val req = ctx.body
+    Form(single("text" -> text)).bindFromRequest.fold(
+      err => fuccess(BadRequest),
+      text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
   }
 
-  def readNote(gameId: String) = Auth { implicit ctx =>
-    me =>
-      Env.round.noteApi.get(gameId, me.id) map { text =>
-        Ok(text)
-      }
+  def readNote(gameId: String) = Auth { implicit ctx => me =>
+    Env.round.noteApi.get(gameId, me.id) map { text =>
+      Ok(text)
+    }
   }
 
   private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =

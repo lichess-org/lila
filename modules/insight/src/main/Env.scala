@@ -2,10 +2,6 @@ package lila.insight
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
-
-import akka.actor._
-import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,

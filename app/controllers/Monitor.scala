@@ -1,12 +1,11 @@
 package controllers
 
 import play.api.libs.ws.WS
-import play.api.mvc._, Results._
+import play.api.mvc._
 import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.app._
-import views._
 
 object Monitor extends LilaController {
 

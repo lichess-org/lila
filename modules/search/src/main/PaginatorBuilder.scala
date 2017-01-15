@@ -1,7 +1,6 @@
 package lila.search
 
 import lila.common.paginator._
-import makeTimeout.large
 
 import play.api.libs.json.Writes
 

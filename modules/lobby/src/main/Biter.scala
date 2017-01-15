@@ -1,11 +1,9 @@
 package lila.lobby
 
-import akka.actor.ActorRef
-import chess.{ Game => ChessGame, Board, Mode, Clock, Color => ChessColor }
-import org.joda.time.DateTime
+import chess.{ Game => ChessGame, Board, Color => ChessColor }
 
 import actorApi.{ JoinHook, JoinSeek, LobbyUser }
-import lila.game.{ GameRepo, Game, Player, Pov, Progress, PerfPicker }
+import lila.game.{ GameRepo, Game, Player, PerfPicker }
 import lila.user.{ User, UserRepo }
 
 private[lobby] object Biter {

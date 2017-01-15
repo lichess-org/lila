@@ -1,6 +1,5 @@
 package lila.forumSearch
 
-import lila.forum.actorApi._
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
 

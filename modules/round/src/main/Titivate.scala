@@ -7,7 +7,6 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Query, Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.{ Outoftime, Abandon }

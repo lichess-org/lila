@@ -4,8 +4,7 @@ package actor
 import akka.actor._
 import play.twirl.api.Html
 
-import lila.game.{ GameRepo, Pov }
-import lila.user.UserRepo
+import lila.game.Pov
 import views.{ html => V }
 
 private[app] final class Renderer extends Actor {

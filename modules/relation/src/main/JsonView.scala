@@ -1,6 +1,5 @@
 package lila.relation
 
-import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.OnlineFriends
 import play.api.libs.json._
 

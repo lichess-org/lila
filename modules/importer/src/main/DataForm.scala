@@ -2,7 +2,7 @@ package lila.importer
 
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
 import chess.format.{ FEN, Forsyth }
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, MoveOrDrop, Status }
+import chess.{ Replay, Color, Mode, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scalaz.Validation.FlatMap._

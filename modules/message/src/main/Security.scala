@@ -1,7 +1,5 @@
 package lila.message
 
-import lila.user.User
-
 private[message] final class MessageSecurity(
     follows: (String, String) => Fu[Boolean],
     blocks: (String, String) => Fu[Boolean],

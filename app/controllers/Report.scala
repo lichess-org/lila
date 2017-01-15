@@ -1,14 +1,11 @@
 package controllers
 
-import play.api.mvc._
-import play.twirl.api.Html
 import views._
 
 import lila.api.Context
 import lila.app._
 import lila.report.Reason
-import lila.security.Granter
-import lila.user.{ User => UserModel, UserRepo }
+import lila.user.UserRepo
 
 object Report extends LilaController {
 

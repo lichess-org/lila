@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._, Results._
+import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.app._

@@ -10,7 +10,6 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy

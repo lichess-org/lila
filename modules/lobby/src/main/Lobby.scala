@@ -7,7 +7,6 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._
-import lila.db.dsl._
 import lila.game.GameRepo
 import org.joda.time.DateTime
 

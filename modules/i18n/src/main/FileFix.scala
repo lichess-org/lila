@@ -1,6 +1,5 @@
 package lila.i18n
 
-import java.io._
 import scala.concurrent.Future
 
 import play.api.i18n.Lang

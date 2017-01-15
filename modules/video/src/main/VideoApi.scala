@@ -1,16 +1,14 @@
 package lila.video
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.memo.AsyncCache
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 private[video] final class VideoApi(
     videoColl: Coll,

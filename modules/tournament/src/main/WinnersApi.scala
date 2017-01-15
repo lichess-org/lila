@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 
 import chess.variant.{ Variant, Standard, FromPosition }
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 import Schedule.{ Freq, Speed }
 
 case class Winner(

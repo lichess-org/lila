@@ -3,7 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 
 import chess.format.Uci
-import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis, Evaluation }
+import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
 

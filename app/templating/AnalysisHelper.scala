@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import lila.analyse.Advice.Judgment
-import play.api.data._
 
 import lila.api.Context
 

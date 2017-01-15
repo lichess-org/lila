@@ -1,20 +1,14 @@
 package lila.lobby
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
-import play.api.libs.iteratee._
-import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.PimpedJson._
-import lila.hub.actorApi.lobby._
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
-import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
-import makeTimeout.short
 import ornicar.scalalib.Zero
 
 private[lobby] final class SocketHandler(

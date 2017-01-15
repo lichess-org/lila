@@ -3,17 +3,14 @@ package lila.tournament
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
 import chess.{ Mode, StartingPosition }
-import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scalaz.NonEmptyList
 
 import actorApi._
 import lila.common.Debouncer
-import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
-import lila.hub.actorApi.map.{ Tell, TellIds }
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }

@@ -1,17 +1,14 @@
 package lila.relation
 
-import akka.actor.{ Actor, ActorSelection }
-import akka.pattern.{ ask, pipe }
-import lila.game.Game
+import akka.actor.Actor
+import akka.pattern.pipe
 import lila.memo.ExpireSetMemo
-import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.{ SendTo, SendTos }
-import makeTimeout.short
 
 private[relation] final class RelationActor(
     getOnlineUserIds: () => Set[String],

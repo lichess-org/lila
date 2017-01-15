@@ -1,6 +1,5 @@
 package lila.report
 
-import akka.actor.ActorSelection
 import org.joda.time.DateTime
 
 import lila.db.dsl._

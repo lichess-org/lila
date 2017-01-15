@@ -9,7 +9,7 @@ import actorApi.LobbyUser
 import lila.common.PimpedJson._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
-import lila.user.{ User, Perfs }
+import lila.user.User
 
 // realtime chess, volatile
 case class Hook(

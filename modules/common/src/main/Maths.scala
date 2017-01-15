@@ -1,7 +1,7 @@
 package lila.common
 
 import scala.annotation._
-import scala.math.{ pow, abs, sqrt, E, exp }
+import scala.math.{ pow, sqrt }
 import scalaz.NonEmptyList
 
 object Maths {

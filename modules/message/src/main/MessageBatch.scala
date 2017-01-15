@@ -1,7 +1,7 @@
 package lila.message
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class MessageBatch(
     coll: Coll,

@@ -1,6 +1,5 @@
 package lila.team
 
-import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.db.dsl._

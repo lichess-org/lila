@@ -1,9 +1,7 @@
 package lila.perfStat
 
 import akka.actor.ActorRef
-import play.api.libs.iteratee._
 
-import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.hub.Sequencer
 import lila.rating.PerfType

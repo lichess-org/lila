@@ -3,7 +3,7 @@ package lila.team
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 private[team] final class PaginatorBuilder(
     coll: Colls,

@@ -26,8 +26,6 @@ private[forum] final class Recent(
 
   def invalidate: Funit = fuccess(cache.clear)
 
-  import makeTimeout.large
-
   private def userCacheKey(user: Option[User], getTeams: GetTeams): String =
     user.fold("en")(_.langs.mkString(",")) :: {
       (user.??(_.troll) ?? List("[troll]")) :::

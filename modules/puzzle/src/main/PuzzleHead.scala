@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
-
 case class PuzzleHead(
     _id: String, // userId
     current: Option[PuzzleId],
@@ -19,7 +17,6 @@ object PuzzleHead {
   }
 
   import reactivemongo.bson._
-  import lila.db.BSON
   
   private[puzzle] implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
 }

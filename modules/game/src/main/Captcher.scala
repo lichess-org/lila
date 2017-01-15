@@ -1,15 +1,14 @@
 package lila.game
 
-import scala.concurrent.duration._
 import scala.concurrent.Future
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.pipe
 import chess.format.{ Forsyth, pgn }
-import chess.{ Game => ChessGame, Color }
+import chess.{ Game => ChessGame }
 import scalaz.{ NonEmptyList, OptionT }
 
-import lila.common.Captcha, Captcha._
+import lila.common.Captcha
 import lila.hub.actorApi.captcha._
 
 // only works with standard chess (not chess960)

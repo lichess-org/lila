@@ -1,7 +1,6 @@
 package lila.teamSearch
 
 import lila.search._
-import lila.team.actorApi._
 import lila.team.{ Team, TeamRepo }
 
 import play.api.libs.json._

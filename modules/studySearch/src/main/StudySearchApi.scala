@@ -9,7 +9,7 @@ import chess.format.pgn.Tag
 import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
-import lila.tree.Node.{ Comments, Comment }
+import lila.tree.Node.Comments
 
 final class StudySearchApi(
     client: ESClient,

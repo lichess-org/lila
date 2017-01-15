@@ -1,9 +1,7 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
+import chess.format.{ Uci, UciCharPair, FEN }
 import chess.Pos
-import org.joda.time.DateTime
 import play.api.libs.json._
 
 import lila.common.LightUser

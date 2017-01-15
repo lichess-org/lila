@@ -10,8 +10,6 @@ private[team] final class DataForm(
   teamColl: Coll,
   val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
-  import lila.common.Form._
-
   private object Fields {
     val name = "name" -> text(minLength = 3, maxLength = 60)
     val location = "location" -> optional(text(minLength = 3, maxLength = 80))

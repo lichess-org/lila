@@ -12,7 +12,6 @@ case class Filter[A](
   def isEmpty = selected.isEmpty || selected.size == Dimension.valuesOf(dimension).size
 
   import reactivemongo.bson._
-  import Dimension.MovetimeRange
 
   def matcher: BSONDocument = Dimension.filtersOf(dimension, selected)
 }

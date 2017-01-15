@@ -6,7 +6,6 @@ import lila.db.paginator.Adapter
 import lila.hub.actorApi.SendTo
 import lila.memo.AsyncCache
 import lila.user.UserRepo
-import scala.concurrent.Future
 
 final class NotifyApi(
     bus: lila.common.Bus,

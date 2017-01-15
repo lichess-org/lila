@@ -180,7 +180,6 @@ case object Perfs {
   val perfsBSONHandler = new BSON[Perfs] {
 
     implicit def perfHandler = Perf.perfBSONHandler
-    import BSON.MapDocument._
 
     def reads(r: BSON.Reader): Perfs = {
       def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default

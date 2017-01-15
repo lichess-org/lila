@@ -219,7 +219,6 @@ object TournamentRepo {
   def exists(id: String) = coll exists $id(id)
 
   def toursToWithdrawWhenEntering(tourId: String): Fu[List[Tournament]] = {
-    import Schedule.Freq._
     coll.find(
       enterableSelect ++
         nonEmptySelect ++

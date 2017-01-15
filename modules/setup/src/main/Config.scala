@@ -1,6 +1,5 @@
 package lila.setup
 
-import chess.format.Forsyth
 import chess.{ Game => ChessGame, Board, Situation, Clock, Speed }
 
 import lila.game.Game

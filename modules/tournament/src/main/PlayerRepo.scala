@@ -1,8 +1,6 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import BSONHandlers._
 import lila.db.BSON._

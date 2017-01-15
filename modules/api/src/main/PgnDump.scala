@@ -1,7 +1,6 @@
 package lila.api
 
-import chess.format.pgn.{ Pgn, Parser }
-import lila.db.dsl._
+import chess.format.pgn.Pgn
 import lila.game.Game
 import lila.game.{ GameRepo, Query }
 import play.api.libs.iteratee._

@@ -12,7 +12,6 @@ import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
-import lila.user.User
 
 private final class PushApi(
     googlePush: GooglePush,

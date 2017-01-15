@@ -1,7 +1,5 @@
 package lila.game
 
-import chess.Clock
-
 import lila.common.LightUser
 import play.twirl.api.Html
 

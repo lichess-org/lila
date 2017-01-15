@@ -1,13 +1,12 @@
 package lila.lobby
 
 import org.joda.time.DateTime
-import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import actorApi.LobbyUser
 import lila.db.dsl._
 import lila.memo.AsyncCache
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class SeekApi(
     coll: Coll,

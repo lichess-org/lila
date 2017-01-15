@@ -21,28 +21,11 @@ private[analyse] final class Annotator(netDomain: String) {
       )
     }
 
-  import chess.{ Status => S }
-  private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) = (winner match {
-    case Some(color) =>
-      val loserName = (!color).toString.capitalize
-      status match {
-        case Status.Mate      => s"$loserName is checkmated".some
-        case Status.Resign    => s"$loserName resigns".some
-        case Status.Timeout   => s"$loserName leaves the game".some
-        case Status.Outoftime => s"$loserName forfeits on time".some
-        case Status.Cheat     => s"$loserName forfeits by computer assistance".some
-        case _                => none
-      }
-    case None => status match {
-      case Status.Aborted   => "Game is aborted".some
-      case Status.Stalemate => "Stalemate".some
-      case Status.Draw      => "Draw".some
-      case _                => none
+  private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
+    lila.game.StatusText(status, winner, chess.variant.Standard) match {
+      case ""   => p
+      case text => p.updateLastPly(_.copy(result = text.some))
     }
-  }) match {
-    case Some(text) => p.updateLastPly(_.copy(result = text.some))
-    case None       => p
-  }
 
   private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) = opening.fold(p) { o =>
     p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))

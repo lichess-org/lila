@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent.duration._
 

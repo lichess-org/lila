@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.variant.{ Variant, FromPosition }
-import chess.{ Mode, Clock, Speed }
+import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 
 import lila.game.PerfPicker

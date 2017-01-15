@@ -2,10 +2,10 @@ package lila.tournament
 
 import scala.concurrent.duration._
 
-import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
+import akka.actor.{ ActorRef, ActorSystem }
 
 import chess.Color
-import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source, PerfPicker }
+import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.NoStartColor
 import lila.user.{ User, UserRepo }
@@ -28,21 +28,21 @@ final class AutoPairing(
     user2 ← getUser(pairing.user2)
     game1 = Game.make(
       game = chess.Game(
-        variantOption = tour.variant.some,
-        fen = tour.position.some.filterNot(_.initial).map(_.fen)
-      ) |> { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = tour.clock.toClock.some,
-            turns = turns,
-            startedAtTurn = turns)
-        },
+      variantOption = tour.variant.some,
+      fen = tour.position.some.filterNot(_.initial).map(_.fen)
+    ) |> { g =>
+        val turns = g.player.fold(0, 1)
+        g.copy(
+          clock = tour.clock.toClock.some,
+          turns = turns,
+          startedAtTurn = turns)
+      },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
       variant =
-        if (tour.position.initial) tour.variant
-        else chess.variant.FromPosition,
+      if (tour.position.initial) tour.variant
+      else chess.variant.FromPosition,
       source = Source.Tournament,
       pgnImport = None)
     game2 = game1

@@ -1,14 +1,10 @@
 package lila.insight
 
-import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
-import scala.concurrent.duration._
 import scalaz.NonEmptyList
 
 import lila.db.dsl._
-import lila.user.UserRepo
 import lila.rating.PerfType
 
 private final class Storage(coll: Coll) {

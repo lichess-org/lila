@@ -1,7 +1,7 @@
 package lila.push
 
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSAuthScheme }
+import play.api.libs.ws.WS
 import play.api.Play.current
 
 private final class GooglePush(

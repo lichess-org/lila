@@ -7,7 +7,6 @@ import lila.event.Event
 import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov, GameRepo }
 import lila.playban.TempBan
-import lila.rating.PerfType
 import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }

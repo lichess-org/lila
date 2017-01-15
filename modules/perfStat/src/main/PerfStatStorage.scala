@@ -1,8 +1,6 @@
 package lila.perfStat
 
-import org.joda.time.DateTime
 import reactivemongo.bson._
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.rating.PerfType

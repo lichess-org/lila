@@ -1,9 +1,6 @@
 package lila.study
 
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 

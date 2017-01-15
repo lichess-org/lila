@@ -1,15 +1,11 @@
 package lila.user
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, Group, GroupField, SumField, SumValue }
-import reactivemongo.api.Cursor
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, GroupField, SumValue }
 import reactivemongo.api.ReadPreference
-import reactivemongo.api.{ Cursor, ReadPreference }
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-import lila.db.BSON.MapValue.MapHandler
 import lila.db.dsl._
 import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }

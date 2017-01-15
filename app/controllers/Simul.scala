@@ -1,15 +1,12 @@
 package controllers
 
-import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
 import lila.simul.{ Simul => Sim }
-import lila.user.UserRepo
 import views._
 
 object Simul extends LilaController {

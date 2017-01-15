@@ -2,7 +2,6 @@ package lila.socket
 package actorApi
 
 import play.api.libs.json.JsObject
-import akka.actor.ActorRef
 
 case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,

@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import Math.{ pow, abs, sqrt, E, exp }
+import Math.{ pow, abs, sqrt, exp }
 import scalaz.NonEmptyList
 
 object Statistics {

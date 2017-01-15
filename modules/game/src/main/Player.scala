@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Pos, Piece, Color }
+import chess.Color
 
 import lila.user.User
 

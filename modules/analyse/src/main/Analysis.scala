@@ -50,7 +50,6 @@ case class Analysis(
 object Analysis {
 
   import lila.db.BSON
-  import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson._
 
   private[analyse] implicit val analysisBSONHandler = new BSON[Analysis] {

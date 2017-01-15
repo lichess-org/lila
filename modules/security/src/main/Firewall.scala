@@ -5,13 +5,11 @@ import scala.concurrent.duration._
 import java.net.InetAddress
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-import play.api.libs.json._
 import play.api.mvc.Results.Redirect
-import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
+import play.api.mvc.{ RequestHeader, Action, Cookies }
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.LilaCookie
-import lila.common.PimpedJson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 

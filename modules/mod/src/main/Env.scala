@@ -3,7 +3,6 @@ package lila.mod
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.dsl.Coll
 import lila.security.{ Firewall, UserSpy }
 
 final class Env(

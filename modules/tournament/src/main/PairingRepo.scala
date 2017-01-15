@@ -1,9 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import BSONHandlers._
 import lila.db.dsl._
@@ -124,8 +122,6 @@ object PairingRepo {
       selectId(pairing.id),
       $set(field -> value)).void
   }
-
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddFieldToSet, Group, Match, Project, PushField, UnwindField }
 
   private[tournament] def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.distinct[String, Set]("u", Some(selectTour(tour.id) ++ selectPlaying))

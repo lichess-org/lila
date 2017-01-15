@@ -2,7 +2,6 @@ package controllers
 
 import lila.app._
 import lila.user.UserRepo
-import play.api.mvc._
 import views._
 
 object UserTournament extends LilaController {

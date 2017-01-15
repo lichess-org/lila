@@ -9,7 +9,6 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.common.LightUser
 import lila.hub.TimeBomb
-import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 

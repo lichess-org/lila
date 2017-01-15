@@ -1,7 +1,7 @@
 package lila.chat
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 import org.joda.time.DateTime
 import reactivemongo.bson._

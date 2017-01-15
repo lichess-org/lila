@@ -1,7 +1,5 @@
 package lila.simul
 
-import lila.game.{ PovRef, IdGenerator }
-
 case class SimulApplicant(
     player: SimulPlayer,
     accepted: Boolean) {

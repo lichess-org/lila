@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Color, Status }
+import chess.Status
 import org.joda.time.DateTime
 import reactivemongo.bson._
 

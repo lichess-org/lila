@@ -2,7 +2,7 @@ package lila.site
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.{ Ping, StartWatching }
+import lila.socket.actorApi.StartWatching
 
 import lila.common.PimpedJson._
 import ornicar.scalalib.Random

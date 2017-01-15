@@ -1,9 +1,7 @@
 package lila.tournament
 
 import chess.Color
-import lila.game.{ Game, PovRef, IdGenerator }
-
-import org.joda.time.DateTime
+import lila.game.{ PovRef, IdGenerator }
 
 case class Pairing(
     id: String, // game Id

@@ -3,8 +3,7 @@ package lila.tv
 import scala.concurrent.duration._
 
 import akka.actor._
-import akka.actor.ActorSelection
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }

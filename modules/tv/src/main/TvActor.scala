@@ -6,8 +6,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.map.{ Tell, TellIds }
+import lila.game.GameRepo
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,

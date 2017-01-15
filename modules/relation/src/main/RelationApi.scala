@@ -2,13 +2,11 @@ package lila.relation
 
 import akka.actor.ActorSelection
 import scala.concurrent.duration._
-import scala.util.Success
 
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.memo.AsyncCache
-import lila.user.{ User => UserModel, UserRepo }
 
 import BSONHandlers._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._

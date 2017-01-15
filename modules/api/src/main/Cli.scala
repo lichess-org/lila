@@ -1,11 +1,8 @@
 package lila.api
 
 import akka.actor.ActorSelection
-import akka.pattern.{ ask, pipe }
-import play.twirl.api.Html
 
 import lila.hub.actorApi.Deploy
-import makeTimeout.short
 
 private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
 

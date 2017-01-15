@@ -1,15 +1,10 @@
 package controllers
 
-import play.api.mvc.Action
 import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
-import play.api.http.ContentTypes
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.mvc.Result
-import views._
 
 object Export extends LilaController {
 

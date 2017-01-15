@@ -37,7 +37,6 @@ final class Env(
   }), name = ActorName), 'finishGame)
 
   def cli = new lila.common.Cli {
-    import akka.pattern.ask
     private implicit def timeout = makeTimeout minutes 60
     def process = {
       case "game" :: "search" :: "index" :: "all" :: Nil => api.indexAll inject "done"

@@ -1,8 +1,6 @@
 package lila.site
 package actorApi
 
-import play.api.libs.json._
-
 import lila.socket.SocketMember
 
 case class Member(

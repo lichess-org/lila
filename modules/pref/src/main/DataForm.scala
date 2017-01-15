@@ -3,8 +3,6 @@ package lila.pref
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.user.User
-
 object DataForm {
 
   val pref = Form(mapping(

@@ -3,7 +3,6 @@ package lila.socket
 import akka.actor._
 import play.api.libs.json.JsObject
 import scala.collection.mutable
-import scala.concurrent.duration._
 
 import actorApi.{ SocketLeave, SocketEnter }
 import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }

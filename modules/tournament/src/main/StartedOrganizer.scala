@@ -1,7 +1,7 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import scala.concurrent.duration._
 
 import actorApi._

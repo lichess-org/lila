@@ -2,10 +2,8 @@ package controllers
 
 import akka.pattern.ask
 import play.api.data._, Forms._
-import play.api.libs.concurrent.Akka
-import play.api.libs.iteratee._
 import play.api.libs.json._
-import play.api.mvc._, Results._
+import play.api.mvc._
 
 import lila.app._
 import lila.common.HTTPRequest

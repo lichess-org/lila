@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.round.MoveEvent
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }

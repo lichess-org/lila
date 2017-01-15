@@ -3,7 +3,7 @@ package controllers
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
-import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
+import play.api.mvc.{ Result, Results }
 import play.api.Play.current
 import scala.concurrent.duration._
 
@@ -12,7 +12,7 @@ import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ GameRepo, Pov, AnonCookie }
 import lila.setup.Processor.HookResult
-import lila.setup.{ HookConfig, ValidFen }
+import lila.setup.ValidFen
 import lila.user.UserRepo
 import views._
 

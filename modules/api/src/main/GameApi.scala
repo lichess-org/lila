@@ -4,7 +4,6 @@ import play.api.libs.json._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
-import chess.format.pgn.Pgn
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.PimpedJson._
@@ -12,9 +11,8 @@ import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
-import lila.game.{ Game, Pov, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.user.User
-import makeTimeout.short
 
 private[api] final class GameApi(
     netBaseUrl: String,

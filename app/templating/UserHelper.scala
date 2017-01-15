@@ -8,7 +8,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.common.LightUser
 import lila.rating.{ PerfType, Perf }
-import lila.user.{ User, UserContext, Perfs }
+import lila.user.{ User, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 

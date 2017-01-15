@@ -8,8 +8,6 @@ import chess.Status
 import chess.variant.Variant
 import lila.db.BSON
 import lila.db.dsl._
-import lila.game.{ Game, GameRepo }
-import lila.user.{ User, UserRepo }
 
 private[simul] final class SimulRepo(simulColl: Coll) {
 

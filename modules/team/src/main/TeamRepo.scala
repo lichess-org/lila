@@ -5,7 +5,6 @@ import reactivemongo.api._
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 
 object TeamRepo {
 

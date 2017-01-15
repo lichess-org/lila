@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.Glyph
 import com.google.common.cache.LoadingCache
 import play.api.libs.json._
 

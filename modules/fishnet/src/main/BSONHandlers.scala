@@ -1,10 +1,9 @@
 package lila.fishnet
 
-import lila.db.BSON
 import lila.db.BSON.{ BSONJodaDateTimeHandler, stringAnyValHandler }
 import reactivemongo.bson._
 
-import chess.format.{ Uci, FEN }
+import chess.format.FEN
 import chess.variant.Variant
 
 private object BSONHandlers {

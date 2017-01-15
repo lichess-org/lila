@@ -1,8 +1,6 @@
 package lila.video
 
-import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 

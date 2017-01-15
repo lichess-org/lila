@@ -2,7 +2,6 @@ package lila.team
 
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
 import lila.notify.NotifyApi
 
 final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lila.db.Env) {

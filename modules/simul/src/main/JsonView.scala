@@ -5,7 +5,6 @@ import play.api.libs.json._
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
-import lila.user.{ User, UserRepo }
 
 final class JsonView(
     getLightUser: String => Option[LightUser]) {

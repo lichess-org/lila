@@ -8,13 +8,11 @@ import scala.concurrent.duration._
 
 import actorApi._
 import chess.StartingPosition
-import lila.rating.PerfType
 
 private final class TournamentScheduler private (api: TournamentApi) extends Actor {
 
   import Schedule.Freq._
   import Schedule.Speed._
-  import Schedule.Season._
   import chess.variant._
 
   // def marathonDates = List(

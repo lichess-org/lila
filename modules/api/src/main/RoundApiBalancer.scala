@@ -1,7 +1,7 @@
 package lila.api
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 

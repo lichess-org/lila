@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.mvc._, Results._
-
 import lila.app._
 import views._
 

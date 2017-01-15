@@ -2,7 +2,6 @@ package lila.game
 
 import chess.variant.Variant
 import org.joda.time.DateTime
-import scala.util.{ Try, Success, Failure }
 
 import chess._
 

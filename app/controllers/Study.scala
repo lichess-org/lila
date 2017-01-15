@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.http.ContentTypes
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._

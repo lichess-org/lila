@@ -1,11 +1,10 @@
 package controllers
 
-import play.api.mvc._, Results._
+import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachReviewForm, CoachPager }
-import lila.user.{ User => UserModel, UserRepo }
+import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
 import views._
 
 object Coach extends LilaController {

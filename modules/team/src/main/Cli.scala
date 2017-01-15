@@ -1,7 +1,7 @@
 package lila.team
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli {
 

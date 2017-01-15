@@ -6,7 +6,6 @@ import scala.concurrent.Future
 
 import com.google.common.io.Files
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.Repository
 
 import lila.memo.AsyncCache
 

@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.variant.Variant
-import chess.{ Speed, Mode, StartingPosition }
+import chess.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType

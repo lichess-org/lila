@@ -1,9 +1,7 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
 
-import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import views._

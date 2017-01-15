@@ -1,10 +1,8 @@
 package lila.app
 package templating
 
-import controllers._
-import play.api.i18n.{ Lang, Messages }
+import play.api.i18n.Lang
 import play.api.libs.json.JsObject
-import play.api.mvc.{ RequestHeader, Call }
 import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }

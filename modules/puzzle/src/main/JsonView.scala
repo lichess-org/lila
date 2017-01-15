@@ -3,7 +3,6 @@ package lila.puzzle
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.puzzle._
 import lila.tree
 
 final class JsonView(

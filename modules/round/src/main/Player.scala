@@ -1,14 +1,11 @@
 package lila.round
 
 import chess.format.{ Forsyth, FEN, Uci }
-import chess.Pos.posAt
-import chess.{ Status, Role, Color, MoveOrDrop }
-import scalaz.Validation.FlatMap._
+import chess.{ Status, Color, MoveOrDrop }
 
-import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, PlayResult, Cheat, ForecastPlay }
+import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
-import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.hub.actorApi.map.Tell
+import lila.game.{ Game, Pov, UciMemo }
 import lila.hub.actorApi.round.MoveEvent
 import scala.concurrent.duration._
 

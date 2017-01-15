@@ -1,9 +1,7 @@
 package lila.setup
 
-import chess.{ Mode, Clock, Color => ChessColor }
-import lila.game.{ Game, Player, Source, Pov }
+import chess.Mode
 import lila.lobby.Color
-import lila.rating.RatingRange
 
 case class FriendConfig(
     variant: chess.variant.Variant,

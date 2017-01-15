@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.Forsyth
-import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn, Initial }
+import chess.format.pgn.{ Pgn, Tag, Initial }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 

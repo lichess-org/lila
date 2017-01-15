@@ -1,19 +1,14 @@
 package lila.security
 
-import scala.collection.JavaConversions._
-
-import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
-import lila.db.dsl.Coll
-import lila.user.{ User, UserRepo }
 
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
-    system: ActorSystem,
+    system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
 

@@ -5,7 +5,7 @@ import dsl.Coll
 import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver }
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }
-import scala.util.{ Failure, Success, Try }
+import scala.util.{ Failure, Success }
 
 final class Env(
     name: String,

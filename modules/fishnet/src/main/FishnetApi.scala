@@ -2,8 +2,6 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
-import scala.concurrent.duration._
-import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import Client.Skill

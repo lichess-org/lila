@@ -1,9 +1,6 @@
 package lila.playban
 
-import org.joda.time.DateTime
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
-import scala.concurrent.duration._
 
 import chess.Color
 import lila.db.BSON._

@@ -1,7 +1,7 @@
 package lila.security
 
 import akka.actor.ActorSystem
-import com.roundeights.hasher.{ Hasher, Algo }
+import com.roundeights.hasher.Algo
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import scala.concurrent.duration._

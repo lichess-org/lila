@@ -3,7 +3,6 @@ package templating
 
 import play.twirl.api.Html
 
-import chess.variant.Variant
 import lila.user.UserContext
 
 trait AiHelper { self: I18nHelper =>

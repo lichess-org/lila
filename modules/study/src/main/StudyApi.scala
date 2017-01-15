@@ -1,16 +1,14 @@
 package lila.study
 
 import akka.actor.{ ActorRef, ActorSelection }
-import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import scala.concurrent.duration._
 
-import chess.format.pgn.{ Glyphs, Glyph }
-import chess.format.{ Forsyth, FEN }
+import chess.format.pgn.Glyph
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shapes, Comment }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(

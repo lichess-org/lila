@@ -4,7 +4,6 @@ import lila.app._
 import lila.notify.Notification.Notifies
 
 import play.api.libs.json._
-import views.html
 
 object Notify extends LilaController {
 

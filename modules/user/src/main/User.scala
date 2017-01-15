@@ -4,7 +4,6 @@ import scala.concurrent.duration._
 
 import lila.common.LightUser
 
-import chess.Speed
 import lila.rating.PerfType
 import org.joda.time.DateTime
 

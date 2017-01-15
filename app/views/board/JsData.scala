@@ -1,7 +1,7 @@
 package views.html.board
 
 import controllers.routes
-import play.api.libs.json.{ JsArray, Json }
+import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
 import lila.api.Context

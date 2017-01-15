@@ -1,7 +1,5 @@
 package lila.round
 
-import org.joda.time.DateTime
-
 import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 

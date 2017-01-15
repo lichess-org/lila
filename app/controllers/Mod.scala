@@ -5,10 +5,8 @@ import lila.app._
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.mvc.Results._
 
 object Mod extends LilaController {
 

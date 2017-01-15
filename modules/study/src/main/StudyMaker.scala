@@ -1,8 +1,8 @@
 package lila.study
 
-import chess.format.{ Forsyth, FEN }
+import chess.format.FEN
 import lila.game.{ GameRepo, Pov, Namer }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 private final class StudyMaker(
     lightUser: lila.common.LightUser.Getter,

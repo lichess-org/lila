@@ -1,6 +1,6 @@
 package lila.db
 
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
 import reactivemongo.bson._
 import reactivemongo.bson.utils.Converters
@@ -49,6 +49,4 @@ object ByteArray {
   }
 
   def subtype = Subtype.GenericBinarySubtype
-
-  private val binarySubType = Converters hex2Str Array(subtype.value)
 }

@@ -110,8 +110,6 @@ object Condition {
 
   object BSONHandlers {
     import reactivemongo.bson._
-    import lila.db.BSON
-    import lila.db.dsl._
     private implicit val PerfTypeBSONHandler = new BSONHandler[BSONString, PerfType] {
       def read(bs: BSONString): PerfType = PerfType(bs.value) err s"No such PerfType: ${bs.value}"
       def write(x: PerfType) = BSONString(x.key)
@@ -142,7 +140,6 @@ object Condition {
   }
 
   object DataForm {
-    import play.api.data._
     import play.api.data.Forms._
     import lila.common.Form._
     val perfChoices = PerfType.nonPuzzle.map { pt =>

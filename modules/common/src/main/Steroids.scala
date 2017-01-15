@@ -53,7 +53,7 @@ trait JodaTimeSteroids {
 
 trait ListSteroids {
 
-  import scala.util.{ Try, Success }
+  import scala.util.Try
 
   implicit final class LilaPimpedTryList[A](list: List[Try[A]]) {
     def sequence: Try[List[A]] = (Try(List[A]()) /: list) {

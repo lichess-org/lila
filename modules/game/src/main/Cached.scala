@@ -2,14 +2,9 @@ package lila.game
 
 import scala.concurrent.duration._
 
-import chess.variant.Variant
-import org.joda.time.DateTime
-
-import lila.db.BSON._
 import lila.db.dsl._
-import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
-import lila.user.{ User, UidNb }
-import UidNb.UidNbBSONHandler
+import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo }
+import lila.user.User
 
 final class Cached(
     coll: Coll,
@@ -28,12 +23,6 @@ final class Cached(
   val rematch960 = new ExpireSetMemo(3.hours)
 
   val isRematch = new ExpireSetMemo(3.hours)
-
-  // very expensive
-  // val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
-  //   prefix = "player:active:day",
-  //   (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
-  //   timeToLive = 1 hour)
 
   private val countShortTtl = AsyncCache[Bdoc, Int](
     name = "game.countShortTtl",

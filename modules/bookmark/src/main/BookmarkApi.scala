@@ -13,8 +13,6 @@ final class BookmarkApi(
     coll: Coll,
     paginator: PaginatorBuilder) {
 
-  import lila.game.BSONHandlers.gameBSONHandler
-
   private def exists(gameId: String, userId: String): Fu[Boolean] =
     coll exists selectId(gameId, userId)
 

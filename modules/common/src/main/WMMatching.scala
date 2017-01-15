@@ -18,7 +18,7 @@ to validate this new code.
 package lila.common
 
 import scala.annotation.tailrec
-import scala.util.{ Try, Success }
+import scala.util.Try
 
 object WMMatching {
 
@@ -253,7 +253,7 @@ object WMMatching {
     variable to zero; relabel its T-vertices to S and add them to the queue.
     */
     def addBlossom(base: Int, k: Int) = {
-      val (v, w, wt) = edges(k)
+      val (v, w, _) = edges(k)
       val bb = inblossom(base)
       // Create blossom.
       val b = unusedblossoms.head
@@ -307,7 +307,7 @@ object WMMatching {
           else blossombestedges(bv)
         for (k <- nblists) {
           val e = edges(k)
-          val (i, j) = if (inblossom(e._2) == b) (e._2, e._1) else (e._1, e._2)
+          val (_, j) = if (inblossom(e._2) == b) (e._2, e._1) else (e._1, e._2)
           val bj = inblossom(j)
           if (bj != b && label(bj) == 1 && (bestedgeto(bj) == -1 || slack(k) < slack(bestedgeto(bj)))) bestedgeto(bj) = k
         }
@@ -436,7 +436,7 @@ object WMMatching {
       if (t >= nvertex)
         augmentBlossom(t, v)
       // Decide in which direction we will go round the blossom.
-      var l1 = blossomchilds(b).length - 1
+      val l1 = blossomchilds(b).length - 1
       val i = blossomchilds(b).indexOf(t)
       var j = i
       val (jstep, endptrick) =
@@ -469,7 +469,7 @@ object WMMatching {
     // single vertices. The augmenting path runs through edge k, which
     // connects a pair of S vertices.
     def augmentMatching(k: Int): Unit = {
-      val (v, w, wt) = edges(k)
+      val (v, w, _) = edges(k)
       // Match vertex s to remote endpoint p. Then trace back from s
       // until we find a single vertex, swapping matched and unmatched
       // edges as we go.
@@ -680,14 +680,14 @@ object WMMatching {
       else if (dt.tp == 2) {
         // Use the least-slack edge to continue the search.
         allowedge(dt.extra) = true
-        val (ei, ej, wt) = edges(dt.extra)
-        val (i, j) = if (label(inblossom(ei)) == 0) (ej, ei) else (ei, ej)
+        val (ei, ej, _) = edges(dt.extra)
+        val (i, _) = if (label(inblossom(ei)) == 0) (ej, ei) else (ei, ej)
         queue ::= i
       }
       else if (dt.tp == 3) {
         // Use the least-slack edge to continue the search.
         allowedge(dt.extra) = true
-        val (i, j, wt) = edges(dt.extra)
+        val (i, _, _) = edges(dt.extra)
         queue ::= i
       }
       else if (dt.tp == 4) {

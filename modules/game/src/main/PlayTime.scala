@@ -3,9 +3,7 @@ package lila.game
 import lila.db.dsl._
 import lila.db.ByteArray
 import lila.user.{ User, UserRepo }
-import org.joda.time.Period
 
-import play.api.libs.iteratee.Iteratee
 import reactivemongo.bson._
 
 final class PlayTime(gameColl: Coll) {

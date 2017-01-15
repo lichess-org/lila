@@ -2,11 +2,8 @@ package controllers
 
 import scala.concurrent.duration._
 
-import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel, GameRepo }
-import play.api.http.ContentTypes
 import views._
 
 object Search extends LilaController {

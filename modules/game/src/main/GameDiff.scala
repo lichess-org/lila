@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Clock, Pos, CheckCount, UnmovedRooks }
+import chess.{ Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
 import org.joda.time.DateTime

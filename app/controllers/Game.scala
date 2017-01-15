@@ -1,11 +1,7 @@
 package controllers
 
-import play.api.mvc.Action
-
 import lila.app._
-import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel, GameRepo }
-import play.api.http.ContentTypes
+import lila.game.GameRepo
 import views._
 
 object Game extends LilaController {

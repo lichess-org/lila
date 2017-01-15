@@ -1,7 +1,6 @@
 package lila.api
 
-import play.api.libs.json.{ JsObject, JsArray }
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.hub.actorApi.relation.OnlineFriends

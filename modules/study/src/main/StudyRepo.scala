@@ -3,7 +3,6 @@ package lila.study
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.User

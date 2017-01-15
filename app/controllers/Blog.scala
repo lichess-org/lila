@@ -1,11 +1,10 @@
 package controllers
 
-import play.api.mvc._, Results._
+import play.api.mvc._
 
 import io.prismic.Document
 
 import lila.app._
-import views._
 
 object Blog extends LilaController {
 

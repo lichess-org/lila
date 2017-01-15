@@ -1,11 +1,9 @@
 package lila.pref
 
-import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
 import lila.db.BSON
 import lila.db.dsl._
-import lila.hub.actorApi.SendTo
 import lila.memo.AsyncCache
 import lila.user.User
 import reactivemongo.bson._

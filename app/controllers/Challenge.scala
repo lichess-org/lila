@@ -1,12 +1,9 @@
 package controllers
 
-import play.api.data.Form
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
-import play.api.mvc.{ Result, Cookie }
-import scala.concurrent.duration._
+import play.api.mvc.Result
 
-import lila.api.{ Context, BodyContext }
+import lila.api.Context
 import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }

@@ -5,8 +5,6 @@ case class Crosstable(
     user2: Crosstable.User,
     results: List[Crosstable.Result]) {
 
-  import Crosstable.Result
-
   def nonEmpty = results.nonEmpty option this
 
   def nbGames = (user1.score + user2.score) / 10

@@ -1,8 +1,6 @@
 package lila.simul
 
 import chess.variant.Variant
-import lila.game.PerfPicker
-import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
 private[simul] case class SimulPlayer(

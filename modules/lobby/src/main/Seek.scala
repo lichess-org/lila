@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Mode, Clock, Speed }
+import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
@@ -8,7 +8,7 @@ import play.api.libs.json._
 import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
-import lila.user.{ User, Perfs }
+import lila.user.User
 
 // correspondence chess, persistent
 case class Seek(

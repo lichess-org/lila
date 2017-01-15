@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest }
 import views._
 
 object Lobby extends LilaController {

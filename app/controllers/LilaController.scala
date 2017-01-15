@@ -3,11 +3,9 @@ package controllers
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
-import play.api.mvc._, Results._
+import play.api.libs.json.{ Json, JsObject, Writes }
+import play.api.mvc._
 import play.twirl.api.Html
-import scalaz.Monoid
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
@@ -22,8 +20,6 @@ private[controllers] trait LilaController
     with RequestGetter
     with ResponseWriter
     with LilaSocket {
-
-  import Results._
 
   protected val controllerLogger = lila.log("controller")
 

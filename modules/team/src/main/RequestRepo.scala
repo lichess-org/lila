@@ -1,7 +1,5 @@
 package lila.team
 
-import reactivemongo.api._
-
 import lila.db.dsl._
 
 object RequestRepo {

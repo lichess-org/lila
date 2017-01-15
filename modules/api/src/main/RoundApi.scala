@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.libs.json._
 
-import lila.analyse.{ JsonView => analysisJson, Analysis, Info }
+import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.PimpedJson._
 import lila.common.{ LightUser, ApiVersion }
 import lila.game.{ Pov, Game, GameRepo }
@@ -10,9 +10,8 @@ import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ Tournament, SecondsToDoFirstMove, TourAndRanks }
+import lila.tournament.{ SecondsToDoFirstMove, TourAndRanks }
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.User
 
 private[api] final class RoundApi(
     jsonView: JsonView,

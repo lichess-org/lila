@@ -1,6 +1,5 @@
 package lila.blog
 
-import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._

@@ -24,7 +24,6 @@ object Metric {
     case object Percent extends DataType
   }
 
-  import BSONHandlers._
   import DataType._
   import Position._
   import Entry.{ BSONFields => F }

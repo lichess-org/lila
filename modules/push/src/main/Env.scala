@@ -2,9 +2,6 @@ package lila.push
 
 import akka.actor._
 import com.typesafe.config.Config
-import java.io.InputStream
-
-import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
@@ -45,7 +42,6 @@ final class Env(
     scheduler = scheduler)
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
       case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move

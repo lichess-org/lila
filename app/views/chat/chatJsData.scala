@@ -1,6 +1,6 @@
 package views.html.chat
 
-import play.api.libs.json.{ JsArray, Json, JsBoolean }
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._

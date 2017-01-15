@@ -1,13 +1,11 @@
 package lila.insight
 
 import reactivemongo.bson._
-import reactivemongo.bson.Macros
 
 import chess.opening.{ Ecopening, EcopeningDB }
 import chess.{ Role, Color }
 import lila.db.BSON
 import lila.db.dsl._
-import lila.game.BSONHandlers.StatusBSONHandler
 import lila.rating.PerfType
 
 private object BSONHandlers {

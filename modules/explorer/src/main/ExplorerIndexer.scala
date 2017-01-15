@@ -3,7 +3,6 @@ package lila.explorer
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
 
-import chess.variant.Variant
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._

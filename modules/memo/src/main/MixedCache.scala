@@ -3,7 +3,6 @@ package lila.memo
 import scala.concurrent.duration._
 
 import com.google.common.cache.{ LoadingCache => SyncCache }
-import spray.caching.{ LruCache, Cache }
 
 final class MixedCache[K, V] private (
     cache: SyncCache[K, V],

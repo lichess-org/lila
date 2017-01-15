@@ -1,12 +1,11 @@
 package controllers
 
-import play.api.mvc._, Results._
+import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.common.PimpedJson._
-import lila.security.Permission
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 

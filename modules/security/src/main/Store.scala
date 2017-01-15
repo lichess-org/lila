@@ -1,7 +1,5 @@
 package lila.security
 
-import scala.concurrent.Future
-
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
@@ -9,7 +7,6 @@ import reactivemongo.bson.Macros
 import lila.common.{ HTTPRequest, ApiVersion }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 
 object Store {
 

@@ -1,13 +1,11 @@
 package lila.history
 
 import scala.concurrent.duration._
-import scala.math.round
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
-import lila.rating.{ Glicko, PerfType }
-import lila.user.{ User, Perfs }
+import lila.rating.PerfType
+import lila.user.User
 
 final class RatingChartApi(
     historyApi: HistoryApi,

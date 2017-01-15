@@ -2,7 +2,6 @@ package lila.study
 
 import org.joda.time.DateTime
 
-import lila.common.LightUser
 import lila.user.User
 
 case class StudyMember(

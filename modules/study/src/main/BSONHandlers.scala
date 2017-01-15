@@ -3,11 +3,10 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ Pos, Color, Role, PromotableRole }
+import chess.{ Pos, Role, PromotableRole }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.common.LightUser
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._

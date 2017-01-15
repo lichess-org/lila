@@ -3,7 +3,6 @@ package lila.teamSearch
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.db.dsl._
 import lila.search._
 
 final class Env(

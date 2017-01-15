@@ -36,7 +36,6 @@ case class PlayerLine(
 
 object Line {
 
-  import lila.db.BSON
   import reactivemongo.bson.{ BSONHandler, BSONString }
   import org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4
 

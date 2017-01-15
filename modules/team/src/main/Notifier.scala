@@ -1,6 +1,5 @@
 package lila.team
 
-import akka.actor.ActorSelection
 import lila.notify.Notification.Notifies
 import lila.notify.TeamJoined.{Id, Name}
 import lila.notify.{Notification, TeamJoined, NotifyApi}

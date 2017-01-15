@@ -7,7 +7,6 @@ import lila.game.Game
 import lila.user.User
 
 import reactivemongo.bson._
-import scala.concurrent._
 
 final class BoostingApi(
     modApi: ModApi,

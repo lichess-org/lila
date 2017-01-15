@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
-
 case class Vote(
     _id: String, // puzzleId/userId
     v: Boolean) {
