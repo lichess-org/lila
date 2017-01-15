@@ -27,21 +27,21 @@ object Dependencies {
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.7"
-  val config = "com.typesafe" % "config" % "1.3.0"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.4"
+  val config = "com.typesafe" % "config" % "1.3.1"
+  val apache = "org.apache.commons" % "commons-lang3" % "3.5"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.9.4"
+  val jodaTime = "joda-time" % "joda-time" % "2.9.7"
 
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
-  val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
-  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
+  val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
+  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
 
   object reactivemongo {
-    val version = "0.12.0"
+    val version = "0.12.1"
     val driver = "org.reactivemongo" %% "reactivemongo" % version
     val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
   }
@@ -57,7 +57,7 @@ object Dependencies {
     val util = "io.spray" %% "spray-util" % version
   }
   object akka {
-    val version = "2.4.12"
+    val version = "2.4.16"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
