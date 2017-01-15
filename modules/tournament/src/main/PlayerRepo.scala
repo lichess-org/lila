@@ -1,5 +1,6 @@
 package lila.tournament
 
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort, AvgField }
 import reactivemongo.bson._
 
 import BSONHandlers._
@@ -93,8 +94,6 @@ object PlayerRepo {
       selectTour(tourId) ++ $doc("m" -> $doc("$gt" -> 0))
     ).cursor[Player]().gather[List]()
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort }
-
   def userIds(tourId: String): Fu[List[String]] =
     coll.distinct[String, List]("uid", selectTour(tourId).some)
 
@@ -107,7 +106,8 @@ object PlayerRepo {
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
-    coll.aggregate(Match(selectTour(tourId)), List(Sort(Descending("m")),
+    coll.aggregate(Match(selectTour(tourId)), List(
+      Sort(Descending("m")),
       Group(BSONNull)("uids" -> PushField("uid")))) map {
       _.firstBatch.headOption.fold(Map.empty: Ranking) {
         _ get "uids" match {
@@ -123,6 +123,13 @@ object PlayerRepo {
           case _ => Map.empty
         }
       }
+    }
+
+  // expensive, cache it
+  private[tournament] def averageRating(tourId: String): Fu[Int] =
+    coll.aggregate(Match(selectTour(tourId)), List(
+      Group(BSONNull)("rating" -> AvgField("r")))) map {
+      ~_.firstBatch.headOption.flatMap(_.getAs[Double]("rating").map(_.toInt))
     }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =

@@ -18,10 +18,13 @@ final class TournamentStatsApi(mongoCache: lila.memo.MongoCache.Builder) {
     prefix = "tournament:stats",
     keyToString = identity,
     f = fetch,
-    timeToLive = 90 days)
+    timeToLive = 10 minutes,
+    timeToLiveMongo = 90.days.some)
 
-  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
-    PairingRepo.rawStats(tournamentId) map TournamentStats.readAggregation
+  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] = for {
+    rating <- PlayerRepo.averageRating(tournamentId)
+    rawStats <- PairingRepo.rawStats(tournamentId)
+  } yield TournamentStats.readAggregation(rating)(rawStats)
 }
 
 case class TournamentStats(
@@ -30,7 +33,8 @@ case class TournamentStats(
   whiteWins: Int,
   blackWins: Int,
   draws: Int,
-  berserks: Int)
+  berserks: Int,
+  averageRating: Int)
 
 private object TournamentStats {
 
@@ -38,7 +42,7 @@ private object TournamentStats {
     def berserks = b1 + b2
   }
 
-  def readAggregation(docs: List[Bdoc]): TournamentStats = {
+  def readAggregation(rating: Int)(docs: List[Bdoc]): TournamentStats = {
     val colorStats = docs.map { doc =>
       doc.getAs[Boolean]("_id").map(Color.apply) ->
         ColorStats(
@@ -53,6 +57,7 @@ private object TournamentStats {
       whiteWins = colorStats.get(Color.White.some).??(_.games),
       blackWins = colorStats.get(Color.Black.some).??(_.games),
       draws = colorStats.get(none).??(_.games),
-      berserks = colorStats.foldLeft(0)(_ + _._2.berserks))
+      berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
+      averageRating = rating)
   }
 }
