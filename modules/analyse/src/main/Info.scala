@@ -17,7 +17,7 @@ case class Info(
   def color = Color(ply % 2 == 1)
 
   def encode: String = List(
-    best ?? (_.keysPiotr),
+    best ?? (_.piotr),
     variation take Info.LineMaxPlies mkString " ",
     mate ?? (_.toString),
     score ?? (_.centipawns.toString)

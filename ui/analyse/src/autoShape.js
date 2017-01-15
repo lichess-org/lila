@@ -39,6 +39,7 @@ module.exports = {
       shapes = [],
       hoveringUci = ctrl.explorer.hoveringUci() || instance.hoveringUci();
     var color = ctrl.chessground.data.movable.color;
+    var rcolor = color === 'white' ? 'black' : 'white';
     if (ctrl.retro && ctrl.retro.showBadNode()) {
       return makeAutoShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
         lineWidth: 8
@@ -47,7 +48,7 @@ module.exports = {
     if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
     if (ctrl.vm.showAutoShapes() && ctrl.vm.showComputer()) {
       if (n.eval && n.eval.best)
-        shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
+        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
       if (!hoveringUci) {
         var nextBest = ctrl.nextNodeBest();
         if (!nextBest && instance.enabled() && n.ceval && n.ceval.best) nextBest = n.ceval.best;
@@ -65,7 +66,6 @@ module.exports = {
       }
     }
     if (instance.enabled() && ctrl.vm.threatMode && n.threat && n.threat.best) {
-      var rcolor = color === 'white' ? 'black' : 'white';
       if (n.threat.pvs[1]) {
         shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.best, 'paleRed'));
         n.threat.pvs.slice(1).forEach(function(pv) {
