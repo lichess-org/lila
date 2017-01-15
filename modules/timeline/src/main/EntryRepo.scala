@@ -2,6 +2,7 @@ package lila.timeline
 
 import lila.db.dsl._
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
 private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
@@ -19,13 +20,12 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
   private def userEntries(userId: String, max: Int): Fu[List[Entry]] =
     coll.find($doc("users" -> userId), projection)
       .sort($doc("date" -> -1))
-      .cursor[Entry]()
+      .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[List](max)
 
   def findRecent(typ: String, since: DateTime) =
-    coll.find($doc(
-      "typ" -> typ,
-      "date" -> $doc("$gt" -> since)),
+    coll.find(
+      $doc("typ" -> typ, "date" $gt since),
       projection
     ).cursor[Entry]()
       .gather[List]()
