@@ -4,8 +4,8 @@ var simul = require('../simul');
 var util = require('./util');
 var xhr = require('../xhr');
 
-function byRating(a, b) {
-  return a.rating > b.rating
+function byName(a, b) {
+  return a.player.username > b.player.username
 }
 
 function randomButton(ctrl, candidates) {
@@ -32,8 +32,8 @@ function startOrCancel(ctrl, accepted) {
 }
 
 module.exports = function(ctrl) {
-  var candidates = simul.candidates(ctrl).sort(byRating);
-  var accepted = simul.accepted(ctrl).sort(byRating);
+  var candidates = simul.candidates(ctrl).sort(byName);
+  var accepted = simul.accepted(ctrl).sort(byName);
   var isHost = simul.createdByMe(ctrl);
   return [
     ctrl.userId ? (
