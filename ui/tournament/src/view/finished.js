@@ -21,7 +21,7 @@ function confetti(data) {
 }
 
 function stats(st) {
-  return m('div.stats.box', [
+  if (st) return m('div.stats.box', [
     m('h2', 'Tournament complete'),
     m('table', [
       numberRow('Average rating', st.averageRating),
@@ -33,6 +33,35 @@ function stats(st) {
       numberRow('Berserk rate', [st.berserks / 2, st.games], 'percent')
     ])
   ]);
+}
+
+function nextTournament(t) {
+  if (t) return [
+    m('a.next', {
+      href: '/tournament/' + t.id
+    }, [
+      m('i', {
+        'data-icon': t.perf.icon
+      }),
+      m('span.content', [
+        m('span', 'Next ' + t.perf.name + ' tournament:'),
+        m('span.name', t.name),
+        m('span.more', [
+          ctrl.trans('nbConnectedPlayers', t.nbPlayers),
+          ' • ',
+          t.finishesAt ? [
+            'finishes ',
+            m('time.moment-from-now', {
+              datetime: t.finishesAt
+            }, t.finishesAt)
+          ] : m('time.moment-from-now', {
+            datetime: t.startsAt
+          }, t.startsAt)
+        ])
+      ])
+    ]),
+    m('a.others[href=/tournament]', 'View more tournaments')
+  ];
 }
 
 module.exports = {
@@ -48,9 +77,12 @@ module.exports = {
     ];
   },
   side: function(ctrl) {
-    return ctrl.vm.playerInfo.id ? playerInfo(ctrl) : [
-      stats ? stats(ctrl.data.stats) : null,
-      pairings(ctrl)
+    var player = ctrl.vm.playerInfo.id;
+    return [
+      nextTournament(ctrl.data.next),
+      player ? playerInfo(ctrl) : null,
+      player ? null : stats(ctrl.data.stats),
+      player ? null : pairings(ctrl)
     ];
   }
 };
