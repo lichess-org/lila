@@ -40,10 +40,10 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    // "-Xfatal-warnings",
-    // "-Ywarn-unused-import", 
+    "-Xfatal-warnings",
     "-Ywarn-dead-code",
-    "-Ywarn-unused",
+    // "-Ywarn-unused-import",
+    // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
 
