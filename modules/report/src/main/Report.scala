@@ -61,6 +61,8 @@ object Report {
     def hasIrwinNote = notes.exists(_.from == "irwin")
   }
 
+  case class ByAndAbout(by: List[Report], about: List[Report])
+
   def make(
     user: User,
     reason: Reason,

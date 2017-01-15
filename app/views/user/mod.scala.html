@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: List[lila.report.Report], pref: lila.pref.Pref)(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -262,17 +262,32 @@
     }
   </div>
   <div class="reports">
-    <strong class="text" data-icon="!">Reports sent@if(reports.isEmpty){: nothing to show.}</strong>
-    @if(reports.nonEmpty) {
-    <ul>
-      @reports.map { r =>
-      <li>
-        @userIdLink(r.user.some) for @r.realReason "@shorten(r.text, 200)" @momentFromNow(r.createdAt)
-      </li>
+    <div class="half">
+      <strong class="text" data-icon="!">Reports sent by the user@if(reports.by.isEmpty){: nothing to show.}</strong>
+      @if(reports.by.nonEmpty) {
+      <ul>
+        @reports.by.map { r =>
+        <li>
+          @userIdLink(r.user.some) for @r.realReason @momentFromNow(r.createdAt) @shorten(r.text, 200)
+        </li>
+        }
+      </ul>
+      <br />
       }
-    </ul>
-    <br />
-    }
+    </div>
+    <div class="half">
+      <strong class="text" data-icon="!">Reports concerning this user@if(reports.about.isEmpty){: nothing to show.}</strong>
+      @if(reports.about.nonEmpty) {
+      <ul>
+        @reports.about.map { r =>
+        <li>
+          @userIdLink(r.createdBy.some) for @r.realReason @momentFromNow(r.createdAt) @shorten(r.text, 200)
+        </li>
+        }
+      </ul>
+      <br />
+      }
+    </div>
   </div>
   <table class="others slist">
     <thead>

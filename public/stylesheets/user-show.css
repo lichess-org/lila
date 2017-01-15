@@ -419,6 +419,23 @@ div.user_show .mod_zone .plan_charges ul {
   max-height: 100px;
   overflow: auto;
 }
+div.user_show .mod_zone .reports {
+  display: flex;
+}
+div.user_show .mod_zone .reports .half {
+  flex: 1 1 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 0.5s;
+  transition-delay: 0.3s;
+}
+div.user_show .mod_zone .reports .half:first-child {
+  margin-right: 20px;
+  border-right: 1px solid #ccc;
+}
+div.user_show .mod_zone .reports .half:hover {
+  flex: 0 0 90%;
+}
 div.user_show .evaluation time {
   display: inline;
 }
