@@ -683,7 +683,7 @@ div.table .spinner {
 div.table .username {
   white-space: nowrap;
   display: flex;
-  margin-left: 3px;
+  margin: 0 3px;
   font-size: 1.25em;
 }
 div.table .username:first-child {
