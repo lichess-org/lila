@@ -19,16 +19,17 @@ private[timeline] final class EntryRepo(coll: Coll, userMax: Int) {
 
   private def userEntries(userId: String, max: Int): Fu[List[Entry]] =
     coll.find($doc("users" -> userId), projection)
-      .sort($doc("date" -> -1))
+      .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[List](max)
 
-  def findRecent(typ: String, since: DateTime) =
+  def findRecent(typ: String, since: DateTime, max: Int) =
     coll.find(
       $doc("typ" -> typ, "date" $gt since),
       projection
-    ).cursor[Entry]()
-      .gather[List]()
+    ).sort($sort desc "date")
+      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .gather[List](max)
 
   def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
     coll.count($doc(
