@@ -5,6 +5,10 @@ function strong(txt) {
   return '<strong>' + txt + '</strong>';
 }
 
+function hidden() {
+  return '<span class="hidden">[hidden]</span>';
+}
+
 function puzzleBox(ctrl) {
   var data = ctrl.getData();
   return m('div.side_box.metas', [
@@ -21,7 +25,7 @@ function puzzleInfos(ctrl, puzzle) {
         href: '/training/' + puzzle.id
       }, ctrl.trans('puzzleId', puzzle.id)),
       m('p', m.trust(ctrl.trans('ratingX',
-        strong(ctrl.vm.mode !== 'play' ? puzzle.rating : '?')))),
+        ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes',
         strong(lichess.numberFormat(puzzle.attempts)))))
     ])
@@ -35,9 +39,9 @@ function gameInfos(ctrl, game, puzzle) {
     }, [
       m('div.header', [
         'From game ',
-        ctrl.vm.mode !== 'play' ? m('a.title', {
+        m('a.title', {
           href: '/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly
-        }, '#' + game.id) : '#' + game.id.slice(0, 5) + '...',
+        }, '#' + game.id),
         m('p', [
           game.clock, ' • ',
           game.perf.name, ' • ',

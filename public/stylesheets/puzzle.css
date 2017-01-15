@@ -210,6 +210,10 @@ body.dark #puzzle .timeline > * {
 .puzzle_side .header a {
   color: #3893E8!important;
 }
+.puzzle_side .header .hidden {
+  opacity: 0.7;
+  text-transform: uppercase;
+}
 .puzzle_side .game_infos.puzzle {
   padding-left: 56px;
 }
