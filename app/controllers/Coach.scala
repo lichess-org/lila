@@ -95,7 +95,6 @@ object Coach extends LilaController {
   def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx =>
     me =>
       OptionFuResult(api findOrInit me) { c =>
-        implicit val req = ctx.body
         ctx.body.body.file("picture") match {
           case Some(pic) => api.uploadPicture(c, pic) recover {
             case e: lila.common.LilaException => BadRequest(html.coach.picture(c, e.message.some))

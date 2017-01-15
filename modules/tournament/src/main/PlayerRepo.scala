@@ -14,7 +14,6 @@ object PlayerRepo {
 
   private def selectId(id: String) = $doc("_id" -> id)
   private def selectTour(tourId: String) = $doc("tid" -> tourId)
-  private def selectUser(userId: String) = $doc("uid" -> userId)
   private def selectTourUser(tourId: String, userId: String) = $doc(
     "tid" -> tourId,
     "uid" -> userId)
@@ -93,9 +92,6 @@ object PlayerRepo {
     coll.find(
       selectTour(tourId) ++ $doc("m" -> $doc("$gt" -> 0))
     ).cursor[Player]().gather[List]()
-
-  private def aggregationUserIdList(res: Stream[Bdoc]): List[String] =
-    res.headOption flatMap { _.getAs[List[String]]("uids") } getOrElse Nil
 
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort }
 

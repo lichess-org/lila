@@ -5,9 +5,6 @@ import lila.tree
 
 object TreeBuilder {
 
-  private type Ply = Int
-  private type OpeningOf = String => Option[FullOpening]
-
   def apply(root: Node.Root) = tree.Root(
     ply = root.ply,
     fen = root.fen.value,

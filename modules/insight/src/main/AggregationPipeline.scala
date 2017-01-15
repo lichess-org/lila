@@ -38,7 +38,7 @@ private final class AggregationPipeline {
   }
 
   private val sampleGames = Sample(10 * 1000)
-  private val sortDate = Sort(Descending(F.date))
+  // private val sortDate = Sort(Descending(F.date))
   private val sampleMoves = Sample(200 * 1000).some
   private val unwindMoves = UnwindField(F.moves).some
   private val sortNb = Sort(Descending("nb")).some

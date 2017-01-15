@@ -32,6 +32,4 @@ private final class StudyNotifier(
       case true  => relationApi.fetchFollows(to.id, fromId)
       case false => !relationApi.fetchBlocks(to.id, fromId)
     }
-
-  private def studyUrl(study: Study) = s"$netBaseUrl/study/${study.id}"
 }

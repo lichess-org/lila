@@ -8,7 +8,6 @@ final class Env(
     gameColl: lila.db.dsl.Coll,
     system: ActorSystem) {
 
-  private val Endpoint = config getString "endpoint"
   private val InternalEndpoint = config getString "internal_endpoint"
   private val IndexFlow = config getBoolean "index_flow"
 

@@ -24,7 +24,7 @@ final class PublicChat(
   def simulChats: Fu[List[(Simul, UserChat)]] =
     fetchVisibleSimuls.flatMap {
       simuls =>
-        var ids = simuls.map(_.id)
+        val ids = simuls.map(_.id)
         chatApi.userChat.findAll(ids).map {
           chats =>
             chats.map { chat =>

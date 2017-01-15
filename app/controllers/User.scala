@@ -17,10 +17,7 @@ import views._
 object User extends LilaController {
 
   private def env = Env.user
-  private def gamePaginator = Env.game.paginator
-  private def forms = lila.user.DataForm
   private def relationApi = Env.relation.api
-  private def ratingChartApi = Env.history.ratingChartApi
   private def userGameSearch = Env.gameSearch.userGameSearch
 
   def tv(username: String) = Open { implicit ctx =>
@@ -69,7 +66,6 @@ object User extends LilaController {
 
   def online = Open { implicit req =>
     val max = 50
-    def get(nb: Int) = UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, nb)
     negotiate(
       html = notFound,
       api = _ => env.cached top50Online true map { list =>

@@ -171,10 +171,6 @@ object Auth extends LilaController {
     } recoverWith authRecovery
   }
 
-  private def noTorResponse(implicit ctx: Context) = negotiate(
-    html = Unauthorized(html.auth.tor()).fuccess,
-    api = _ => Unauthorized(jsonError("Can't login from Tor, sorry!")).fuccess)
-
   def setFingerprint(fp: String, ms: Int) = Auth { ctx => me =>
     api.setFingerprint(ctx.req, fp) flatMap {
       _ ?? { hash =>

@@ -41,8 +41,10 @@ object BuildSettings {
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
     // "-Xfatal-warnings",
-    "-Ywarn-unused-import", "-Ywarn-dead-code",
-    // "-Ywarn-unused", "-Xlint:missing-interpolator",
+    // "-Ywarn-unused-import", 
+    "-Ywarn-dead-code",
+    "-Ywarn-unused",
+    // "-Xlint:missing-interpolator",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
 
   val srcMain = Seq(

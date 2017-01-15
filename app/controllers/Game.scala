@@ -6,8 +6,6 @@ import views._
 
 object Game extends LilaController {
 
-  private def cached = Env.game.cached
-
   def delete(gameId: String) = Auth { implicit ctx =>
     me =>
       OptionFuResult(GameRepo game gameId) { game =>

@@ -8,7 +8,6 @@ import views._
 
 object Search extends LilaController {
 
-  private def paginator = Env.game.paginator
   private def env = Env.gameSearch
   def searchForm = env.forms.search
 

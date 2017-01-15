@@ -40,20 +40,11 @@ final class Firewall(
   def unblockIps(ips: Iterable[String]): Funit =
     coll.remove($inIds(ips filter validIp)).void >>- refresh
 
-  private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
-    logger.info("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(name, Random secureString 32)
-    Redirect("/") withCookies cookie
-  }
-
   def blocksIp(ip: String): Fu[Boolean] = ips contains ip
 
   private def refresh {
     ips.clear
   }
-
-  private def formatReq(req: RequestHeader) =
-    "%s %s %s".format(ipOf(req), req.uri, req.headers.get("User-Agent") | "?")
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined

@@ -23,8 +23,6 @@ final class Env(
     val CaptcherDuration = config duration "captcher.duration"
     val CollectionGame = config getString "collection.game"
     val CollectionCrosstable = config getString "collection.crosstable"
-    val JsPathRaw = config getString "js_path.raw"
-    val JsPathCompiled = config getString "js_path.compiled"
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
     val PngUrl = config getString "png.url"
@@ -85,9 +83,6 @@ final class Env(
   }
 
   lazy val stream = new GameStream(system)
-
-  private def jsPath =
-    "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
 }
 
 object Env {

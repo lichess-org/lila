@@ -210,7 +210,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withLink: Boolean = true,
     withLive: Boolean = true)(implicit ctx: UserContext) = Html {
     val game = pov.game
-    var isLive = withLive && game.isBeingPlayed
+    val isLive = withLive && game.isBeingPlayed
     val href = withLink ?? s"""href="${gameLink(game, pov.color, ownerLink, tv)}""""
     val title = withTitle ?? s"""title="${gameTitle(game, pov.color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
@@ -223,7 +223,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false) = Html {
-    var isLive = pov.game.isBeingPlayed
+    val isLive = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
     s"""<a href="%s%s" title="%s" class="mini_board mini_board_${pov.game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,

@@ -18,7 +18,6 @@ object TournamentRepo {
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
   private[tournament] val finishedSelect = $doc("status" -> Status.Finished.id)
-  private val startedOrFinishedSelect = $doc("status" -> $doc("$gte" -> Status.Started.id))
   private val unfinishedSelect = $doc("status" -> $doc("$ne" -> Status.Finished.id))
   private[tournament] val scheduledSelect = $doc("schedule" -> $doc("$exists" -> true))
   private def sinceSelect(date: DateTime) = $doc("startsAt" -> $doc("$gt" -> date))

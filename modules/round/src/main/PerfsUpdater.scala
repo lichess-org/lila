@@ -87,7 +87,7 @@ final class PerfsUpdater(
     classical: Rating,
     correspondence: Rating)
 
-  private def mkRatings(perfs: Perfs) = new Ratings(
+  private def mkRatings(perfs: Perfs) = Ratings(
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     threeCheck = perfs.threeCheck.toRating,

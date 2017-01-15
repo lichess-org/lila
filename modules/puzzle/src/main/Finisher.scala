@@ -12,8 +12,6 @@ private[puzzle] final class Finisher(
     api: PuzzleApi,
     puzzleColl: Coll) {
 
-  private val maxTime = 5 * 60 * 1000
-
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] =
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>

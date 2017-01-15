@@ -26,7 +26,6 @@ private[tournament] final class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      val myself = self
       TournamentRepo.allCreated(30).map { tours =>
         tours foreach { tour =>
           tour.schedule match {

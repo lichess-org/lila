@@ -38,7 +38,7 @@ final class TournamentApi(
     standingChannel: ActorRef) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
-    var variant = chess.variant.Variant orDefault setup.variant
+    val variant = chess.variant.Variant orDefault setup.variant
     val tour = Tournament.make(
       createdByUserId = me.id,
       clock = chess.Clock.Config((setup.clockTime * 60).toInt, setup.clockIncrement),

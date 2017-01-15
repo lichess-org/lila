@@ -65,19 +65,19 @@ object Api extends LilaController {
     }
   }
 
-  private val GamesRateLimitPerIP = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 10 minutes,
     name = "user games API per IP",
     key = "user_games.api.ip")
 
-  private val GamesRateLimitPerUA = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 5 minutes,
     name = "user games API per UA",
     key = "user_games.api.ua")
 
-  private val GamesRateLimitGlobal = new lila.memo.RateLimit(
+  private val UserGamesRateLimitGlobal = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 1 minute,
     name = "user games API global",
@@ -88,9 +88,9 @@ object Api extends LilaController {
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    GamesRateLimitPerIP(ip, cost = cost) {
-      GamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
-        GamesRateLimitGlobal("-", cost = cost, msg = ip) {
+    UserGamesRateLimitPerIP(ip, cost = cost) {
+      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
+        UserGamesRateLimitGlobal("-", cost = cost, msg = ip) {
           lila.mon.api.userGames.cost(cost)
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
@@ -114,16 +114,15 @@ object Api extends LilaController {
     }
   }
 
-  private val GameRateLimitPerIdAndIP = new lila.memo.RateLimit(
-    credits = 5,
-    duration = 3 minutes,
-    name = "game API per Id/IP",
-    key = "game.api.id_ip")
+  private val GameRateLimitPerIP = new lila.memo.RateLimit(
+    credits = 100,
+    duration = 1 minute,
+    name = "game API per IP",
+    key = "game.api.one.ip")
 
   def game(id: String) = ApiRequest { implicit ctx =>
     val ip = HTTPRequest lastRemoteAddress ctx.req
-    val key = s"$id:$ip"
-    GamesRateLimitPerIP(key, cost = 1) {
+    GameRateLimitPerIP(ip, cost = 1) {
       lila.mon.api.game.cost(1)
       gameApi.one(
         id = id take lila.game.Game.gameIdSize,

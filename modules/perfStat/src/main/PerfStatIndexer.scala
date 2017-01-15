@@ -9,8 +9,6 @@ import lila.user.User
 
 final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
 
-  private implicit val timeout = makeTimeout minutes 2
-
   def userPerf(user: User, perfType: PerfType): Funit = {
     val p = scala.concurrent.Promise[Unit]()
     sequencer ! Sequencer.work(compute(user, perfType), p.some)

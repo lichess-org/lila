@@ -52,7 +52,6 @@ object Entry {
   case class ForUsers(entry: Entry, userIds: List[String])
 
   private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer write data
-  private def fromBson[A](bson: Bdoc)(implicit reader: BSONDocumentReader[A]) = reader read bson
 
   private[timeline] def make(data: Atom): Entry = {
     import atomBsonHandlers._

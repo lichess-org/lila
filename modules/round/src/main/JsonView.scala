@@ -275,10 +275,6 @@ final class JsonView(
       "sd" -> h.sd)
   }
 
-  private def getUsers(game: Game) = UserRepo.pair(
-    game.whitePlayer.userId,
-    game.blackPlayer.userId)
-
   private def sourceJson(source: Source) = source.name
 
   private def clockJson(clock: Clock): JsObject =

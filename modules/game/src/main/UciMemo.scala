@@ -35,7 +35,7 @@ final class UciMemo(ttl: Duration) {
     memo.put(game.id, current.take(current.size - nb))
   }
 
-  private def compute(game: Game, max: Int = hardLimit): Fu[Vector[String]] = for {
+  private def compute(game: Game, max: Int): Fu[Vector[String]] = for {
     fen ← GameRepo initialFen game
     uciMoves ← UciDump(game.pgnMoves.take(max), fen, game.variant).future
   } yield uciMoves.toVector

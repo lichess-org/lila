@@ -100,7 +100,6 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     import reactivemongo.bson._
     import reactivemongo.play.iteratees.cursorProducer
 
-    var nbSkipped = 0
     val batchSize = 1000
     val maxGames = Int.MaxValue
     // val maxGames = 10 * 1000 * 1000

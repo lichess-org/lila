@@ -33,7 +33,6 @@ private[tournament] final class StartedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      val myself = self
       val startAt = nowMillis
       TournamentRepo.started.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>

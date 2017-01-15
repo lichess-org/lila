@@ -153,7 +153,6 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           nextSunday -> SuperBlitz
         ).flatMap {
             case (day, speed) => at(day, 17) map { date =>
-              val perf = Schedule.Speed toPerfType speed
               Schedule(Weekend, speed, Standard, std, date |> orNextWeek)
             }
           },

@@ -57,9 +57,6 @@ final class CrosstableApi(
     case _ => funit
   }
 
-  private def exists(u1: String, u2: String) =
-    coll.exists(select(u1, u2))
-
   private def createFast(u1: String, u2: String) =
     creationCache(u1 -> u2).withTimeoutDefault(1 second, none)(system)
 

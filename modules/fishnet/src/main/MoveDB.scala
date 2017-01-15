@@ -29,7 +29,6 @@ private final class MoveDB(
 
   def clean = actor ? Clean mapTo manifest[Iterable[Move]]
 
-  private object GetSize
   private object Mon
   private object Clean
   private case class Add(move: Move)

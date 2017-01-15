@@ -100,7 +100,6 @@ final class TeamApi(
     requestable(team, user) flatMap {
       _ ?? {
         val request = Request.make(team = team.id, user = user.id, message = setup.message)
-        val rwu = RequestWithUser(request, user)
         coll.request.insert(request).void >> (cached.nbRequests remove team.createdBy)
       }
     }

@@ -97,8 +97,7 @@ object Node {
       case Some((head, tail)) => for {
         node <- get(head)
         mainlineNode <- nodes.headOption
-        res <- node.children promoteUpAt tail
-        (newChildren, isDone) = res
+        (newChildren, isDone) <- node.children promoteUpAt tail
         newNode = node.copy(children = newChildren)
       } yield {
         if (isDone) update(newNode) -> true

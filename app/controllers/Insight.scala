@@ -63,13 +63,4 @@ object Insight extends LilaController {
         }
       }
     }
-
-  private def AccessibleJson(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
-    lila.user.UserRepo named username flatMap {
-      _.fold(notFoundJson(s"No such user: $username")) { u =>
-        env.share.grant(u, ctx.me) flatMap {
-          _.fold(f(u), fuccess(Forbidden(jsonError(s"User $username data is protected"))))
-        }
-      }
-    } map (_ as JSON)
 }

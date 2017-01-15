@@ -31,11 +31,6 @@ private[i18n] final class JsDump(
 
   private val pathFile = new File(path)
 
-  private def dumpFromDefault(messages: List[I18nKey], lang: Lang): String =
-    messages.map { key =>
-      """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
-    }.mkString("{", ",", "}")
-
   private def dumpFromKey(messages: List[I18nKey], lang: Lang): String =
     messages.map { key =>
       """"%s":"%s"""".format(key.key, escape(key.to(lang)()))

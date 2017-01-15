@@ -116,8 +116,6 @@ final class Env(
 
 object Env {
 
-  private def hub = lila.hub.Env.current
-
   lazy val current = "simul" boot new Env(
     config = lila.common.PlayApp loadConfig "simul",
     system = lila.common.PlayApp.system,

@@ -11,8 +11,6 @@ import views._
 object Analyse extends LilaController {
 
   private def env = Env.analyse
-  private def bookmarkApi = Env.bookmark.api
-  private val divider = Env.game.divider
 
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game id) { game =>

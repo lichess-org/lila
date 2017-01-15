@@ -153,7 +153,6 @@ object Account extends LilaController {
 
   def kidConfirm = Auth { ctx =>
     me =>
-      implicit val req = ctx.req
       (UserRepo toggleKid me) inject Redirect(routes.Account.kid)
   }
 

@@ -7,8 +7,6 @@ import lila.tree
 
 object TreeBuilder {
 
-  private type Ply = Int
-
   def apply(game: Game, plies: Int): tree.Root = {
     chess.Replay.gameMoveWhileValid(game.pgnMoves take plies, Forsyth.initial, game.variant) match {
       case (init, games, error) =>

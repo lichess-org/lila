@@ -17,7 +17,6 @@ final class Env(
     gameCache: lila.game.Cached,
     system: ActorSystem) {
 
-  private val FriendMemoTtl = config duration "friend.memo.ttl"
   private val MaxPlaying = config getInt "max_playing"
   private val CollectionUserConfig = config getString "collection.user_config"
   private val CollectionAnonConfig = config getString "collection.anon_config"

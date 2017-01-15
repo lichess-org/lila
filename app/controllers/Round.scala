@@ -14,7 +14,6 @@ import views._
 object Round extends LilaController with TheftPrevention {
 
   private def env = Env.round
-  private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
 
   def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>

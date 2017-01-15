@@ -42,8 +42,6 @@ object GameFilterMenu {
     me: Option[User],
     currentNameOption: Option[String]): GameFilterMenu = {
 
-    val user = info.user
-
     val filters = NonEmptyList.nel(All, List(
       (info.nbWithMe > 0) option Me,
       (info.nbRated > 0) option Rated,

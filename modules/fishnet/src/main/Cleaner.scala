@@ -42,9 +42,6 @@ private final class Cleaner(
     }.sequenceFu.void
   }
 
-  private def scheduleMoves = scheduler.once(1 second)(cleanMoves)
-  private def scheduleAnalysis = scheduler.once(5 second)(cleanAnalysis)
-
   scheduler.effect(3 seconds, "fishnet clean moves")(cleanMoves)
   scheduler.effect(10 seconds, "fishnet clean analysis")(cleanAnalysis)
 }

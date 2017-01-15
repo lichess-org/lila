@@ -80,7 +80,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   private def setStatus(
     challenge: Challenge,
     status: Status,
-    expiresAt: Option[DateTime => DateTime] = None) = coll.update(
+    expiresAt: Option[DateTime => DateTime]) = coll.update(
     selectCreated ++ $id(challenge.id),
     $doc("$set" -> $doc(
       "status" -> status.id,

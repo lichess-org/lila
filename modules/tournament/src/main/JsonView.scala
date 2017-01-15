@@ -141,8 +141,7 @@ final class JsonView(
             cached ranking tour flatMap { ranking =>
               PlayerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
                 for {
-                  players <- pairOption
-                  (p1, p2) = players
+                  (p1, p2) <- pairOption
                   rp1 <- RankedPlayer(ranking)(p1)
                   rp2 <- RankedPlayer(ranking)(p2)
                 } yield FeaturedGame(game, rp1, rp2)
@@ -232,9 +231,6 @@ final class JsonView(
     "rank" -> i.rank,
     "withdraw" -> i.withdraw,
     "username" -> u.map(_.titleUsername))
-
-  private def gameUserJson(player: lila.game.Player): JsObject =
-    gameUserJson(player.userId, player.rating)
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
     val light = userId flatMap getLightUser

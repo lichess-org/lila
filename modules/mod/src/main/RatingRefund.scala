@@ -33,8 +33,6 @@ private final class RatingRefund(
         .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
         .list(30)
 
-      def opponent(game: Game) = game.playerByUserId(cheater.id) map game.opponent
-
       def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
         case (refs, g) => (for {
           perf <- g.perfType

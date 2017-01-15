@@ -12,8 +12,6 @@ import lila.user.UserContext
 trait I18nHelper {
 
   private def pool = i18nEnv.pool
-  private def transInfos = i18nEnv.transInfos
-  private def hideCallsCookieName = i18nEnv.hideCallsCookieName
 
   lazy val trans = i18nEnv.keys
   lazy val protocol = i18nEnv.RequestHandlerProtocol
@@ -62,7 +60,4 @@ trait I18nHelper {
     ctx.req.acceptLanguages exists (_.language == lang.language)
 
   private val uriPlaceholder = "[URI]"
-
-  private def langUrl(lang: Lang)(i18nDomain: I18nDomain) =
-    protocol + (i18nDomain withLang lang).domain + uriPlaceholder
 }

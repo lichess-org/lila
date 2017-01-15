@@ -208,7 +208,4 @@ final class ReportApi(
     "createdAt" $gt DateTime.now.minusDays(7),
     "user" -> user.id,
     "reason" -> reason.key)
-
-  private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
-    coll.uno[Report](selectRecent(user, reason))
 }
