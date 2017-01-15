@@ -135,7 +135,6 @@ module.exports = function(data, ctrl, tagTypes) {
   });
 
   var resync = function() {
-    tours.onSync();
     vm.chapterId = null;
     vm.catchingUp = true;
     xhrReload().then(function() {
@@ -220,8 +219,10 @@ module.exports = function(data, ctrl, tagTypes) {
       m.redraw();
     },
     toggleSync: function() {
-      if (vm.behind !== false) resync();
-      else {
+      if (vm.behind !== false) {
+        tours.onSync();
+        resync();
+      } else {
         vm.behind = 0;
         vm.chapterId = currentChapterId();
       }
