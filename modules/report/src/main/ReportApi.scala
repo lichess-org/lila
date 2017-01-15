@@ -160,6 +160,9 @@ final class ReportApi(
   def recent(user: User, nb: Int): Fu[List[Report]] =
     coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb)
 
+  def recentBy(user: User, nb: Int): Fu[List[Report]] =
+    coll.find($doc("createdBy" -> user.id)).sort($sort.createdDesc).list[Report](nb)
+
   def recentReportersOf(user: User): Fu[List[User.ID]] =
     coll.distinct[String, List]("createdBy", $doc(
       "user" -> user.id,
