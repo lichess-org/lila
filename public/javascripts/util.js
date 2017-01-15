@@ -140,6 +140,9 @@ lichess.powertip = (function() {
     },
     manualGameIn: function(parent) {
       Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
+    },
+    manualUserIn: function(parent) {
+      Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), userPowertip);
     }
   };
 })();
