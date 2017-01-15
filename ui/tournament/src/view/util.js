@@ -16,6 +16,10 @@ function miniBoard(game) {
   }, boardContent);
 }
 
+function ratio2percent(r) {
+  return Math.round(100 * r) + '%';
+}
+
 module.exports = {
   currentPlayer: function(ctrl, pag) {
     if (!ctrl.userId || !pag.currentPageResults) return null;
@@ -48,7 +52,12 @@ module.exports = {
     };
   },
   miniBoard: miniBoard,
-  ratio2percent: function(r) {
-    return Math.round(100 * r) + '%';
+  ratio2percent: ratio2percent,
+  numberRow(name, value, typ) {
+    return m('tr', [m('th', name), m('td',
+      typ === 'percent' ? (
+        value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
+      ) : lichess.numberFormat(value)
+    )]);
   }
 };

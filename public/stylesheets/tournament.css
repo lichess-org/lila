@@ -504,11 +504,6 @@ div.side_box .refused {
   margin: 30px auto;
   opacity: 0.8;
 }
-#tournament_side .player h2 {
-  font-size: 1.2em;
-  padding-top: 12px;
-  background: #fff;
-}
 #tournament_side .player .rank {
   display: none;
 }
@@ -526,18 +521,29 @@ div.side_box .refused {
 #tournament_side .player close:hover {
   opacity: 1;
 }
-#tournament_side .player .stats {
+#tournament_side .stats {
+  font-size: 1.1em;
   background: #fff;
   padding: 12px 0;
   border-bottom: 1px solid #ccc;
 }
-#tournament_side .player table {
+#tournament_side h2 {
+  font-size: 1.1em;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid #d0d0d0;
+  margin-bottom: 0.8em;
+}
+#tournament_side table {
   margin: auto;
 }
-#tournament_side .player .stats td {
+#tournament_side .stats td {
   font-weight: bold;
   padding-left: 10px;
   text-align: right;
+  line-height: 1.8em;
+}
+#tournament_side .stats td:last-child {
+  font-family: 'Roboto Mono', 'Roboto';
 }
 #tournament_side .player .pairings {
   text-align: left;

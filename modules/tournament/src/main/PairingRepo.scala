@@ -31,7 +31,7 @@ object PairingRepo {
       selectTour(tourId) ++ $doc("u" $in userIds),
       $doc("_id" -> false, "u" -> true)
     ).sort(recentSort).cursor[Bdoc]().fold(
-      scala.collection.immutable.Map.empty[String, String], nb) { (acc, doc) =>
+        scala.collection.immutable.Map.empty[String, String], nb) { (acc, doc) =>
         ~doc.getAs[List[String]]("u") match {
           case List(u1, u2) =>
             val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
@@ -125,4 +125,17 @@ object PairingRepo {
 
   private[tournament] def playingUserIds(tour: Tournament): Fu[Set[String]] =
     coll.distinct[String, Set]("u", Some(selectTour(tour.id) ++ selectPlaying))
+
+  private[tournament] def rawStats(tourId: String): Fu[List[Bdoc]] = {
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregate(
+      Match(selectTour(tourId)),
+      List(
+        GroupField("w")(
+          "games" -> SumValue(1),
+          "moves" -> SumField("t"),
+          "b1" -> SumField("b1"),
+          "b2" -> SumField("b2"))
+      )).map { _.firstBatch }
+  }
 }

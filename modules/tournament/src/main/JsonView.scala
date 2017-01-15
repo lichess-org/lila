@@ -17,6 +17,7 @@ final class JsonView(
     getLightUser: String => Option[LightUser],
     cached: Cached,
     performance: Performance,
+    statsApi: TournamentStatsApi,
     verify: Condition.Verify) {
 
   import JsonView._
@@ -49,6 +50,7 @@ final class JsonView(
       case Some(user) if myInfo.isDefined => fuccess(tour.conditions.accepted)
       case Some(user)                     => verify(tour.conditions, user)
     }
+    stats <- statsApi(tour)
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -82,6 +84,7 @@ final class JsonView(
     "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)),
     "spotlight" -> tour.spotlight,
     "socketVersion" -> socketVersion,
+    "stats" -> stats,
     "next" -> data.next
   ).noNull
 
@@ -334,4 +337,6 @@ object JsonView {
       "icon" -> pt.iconChar.toString,
       "name" -> pt.name)
   }
+
+  private[tournament] implicit val statsWrites: Writes[TournamentStats] = Json.writes[TournamentStats]
 }

@@ -4,6 +4,7 @@ var pairings = require('./pairings');
 var playerInfo = require('./playerInfo');
 var pagination = require('../pagination');
 var header = require('./header');
+var numberRow = require('./util').numberRow;
 
 function confetti(data) {
   if (!data.me) return;
@@ -19,6 +20,20 @@ function confetti(data) {
   });
 }
 
+function stats(st) {
+  return m('div.stats.box', [
+    m('h2', 'Tournament complete'),
+    m('table', [
+      numberRow('Games played', st.games),
+      numberRow('Moves played', st.moves),
+      numberRow('White wins', [st.whiteWins, st.games], 'percent'),
+      numberRow('Black wins', [st.blackWins, st.games], 'percent'),
+      numberRow('Draws', [st.draws, st.games], 'percent'),
+      numberRow('Berserk rate', [st.berserks / 2, st.games], 'percent')
+    ])
+  ]);
+}
+
 module.exports = {
   main: function(ctrl) {
     var pag = pagination.players(ctrl);
@@ -32,6 +47,9 @@ module.exports = {
     ];
   },
   side: function(ctrl) {
-    return ctrl.vm.playerInfo.id ? playerInfo(ctrl) : pairings(ctrl);
+    return ctrl.vm.playerInfo.id ? playerInfo(ctrl) : [
+      stats ? stats(ctrl.data.stats) : null,
+      pairings(ctrl)
+    ];
   }
 };

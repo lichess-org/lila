@@ -66,6 +66,9 @@ final class Env(
     ttl = LeaderboardCacheTtl,
     scheduler = scheduler)
 
+  lazy val statsApi = new TournamentStatsApi(
+    mongoCache = mongoCache)
+
   lazy val api = new TournamentApi(
     cached = cached,
     scheduleJsonView = scheduleJsonView,
@@ -97,7 +100,7 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val jsonView = new JsonView(lightUser, cached, performance, verify)
+  lazy val jsonView = new JsonView(lightUser, cached, performance, statsApi, verify)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
