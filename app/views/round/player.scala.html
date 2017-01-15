@@ -7,7 +7,6 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
 @embedJs {
-$(function() {
 lichess.startRound(document.getElementById('lichess'), {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
@@ -15,7 +14,6 @@ userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.restricted(c, name = trans.chatRoom.str(), timeout = false, withNote = true)
 })
-});
 });
 }
 }
