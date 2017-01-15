@@ -558,7 +558,6 @@ module.exports = function(opts) {
     this.tree.merge(data.tree);
     if (!this.vm.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    this.autoScroll();
     if (this.retro) this.retro.onMergeAnalysisData();
     m.redraw();
   }.bind(this);
