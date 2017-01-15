@@ -433,6 +433,9 @@ div.user_show .mod_zone .reports .half:first-child {
   margin-right: 20px;
   border-right: 1px solid #ccc;
 }
+body.dark div.user_show .mod_zone .reports .half:first-child {
+  border-color: #3d3d3d;
+}
 div.user_show .mod_zone .reports .half:hover {
   flex: 0 0 90%;
 }
