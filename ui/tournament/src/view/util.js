@@ -53,7 +53,7 @@ module.exports = {
   },
   miniBoard: miniBoard,
   ratio2percent: ratio2percent,
-  numberRow(name, value, typ) {
+  numberRow: function(name, value, typ) {
     return m('tr', [m('th', name), m('td',
       typ === 'percent' ? (
         value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
