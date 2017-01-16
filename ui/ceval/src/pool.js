@@ -111,6 +111,7 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
 
   return {
     start: function(work) {
+      lichess.storage.set('ceval.pool.start', 1);
       stopAll();
       getWorker().start(work);
     },
