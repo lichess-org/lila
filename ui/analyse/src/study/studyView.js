@@ -92,6 +92,7 @@ function buttons(root) {
 
 function metadata(ctrl) {
   var chapter = ctrl.currentChapter();
+  if (!chapter) return;
   var d = ctrl.data;
   return m('div.study_metadata.undertable', [
     m('h2.undertable_top', [

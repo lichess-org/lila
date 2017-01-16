@@ -19,6 +19,8 @@ module.exports = {
   fieldValue: fieldValue,
   ctrl: function(send, chapters, setTab, root) {
 
+    var multiPgnMax = 20;
+
     var vm = {
       variants: [],
       open: false,
@@ -44,6 +46,40 @@ module.exports = {
       vm.open = false;
     };
 
+    var submitMultiPgn = function(d) {
+      if (d.pgn) {
+        var parts = d.pgn.split('\n\n\n');
+        if (parts.length > 1) {
+          if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
+          var step = function(ds) {
+            if (ds.length) {
+              send('addChapter', ds[0]);
+              setTimeout(function() {
+                step(ds.slice(1));
+              }, 500);
+            } else {}
+          };
+          var firstIt = vm.initial() ? 1 : (chapters().length + 1);
+          step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
+            return {
+              initial: !i && vm.initial(),
+              conceal: d.conceal,
+              name: 'Chapter ' + (firstIt + i),
+              orientation: d.orientation,
+              pgn: pgn,
+              variant: d.variant
+            };
+          }));
+          return true;
+        }
+      }
+    };
+
+    var submitSingle = function(d) {
+      d.initial = vm.initial();
+      send("addChapter", d)
+    };
+
     return {
       vm: vm,
       open: open,
@@ -57,15 +93,14 @@ module.exports = {
         if (vm.open) close();
         else open();
       },
-      initial: vm.initial,
-      submit: function(data) {
-        data.initial = vm.initial();
-        send("addChapter", data)
+      submit: function(d) {
+        if (!submitMultiPgn(d)) submitSingle(d);
         close();
         setTab();
       },
       chapters: chapters,
-      startTour: partial(tours.chapter, vm.tab)
+      startTour: partial(tours.chapter, vm.tab),
+      multiPgnMax: multiPgnMax
     }
   },
   view: function(ctrl) {
@@ -113,7 +148,7 @@ module.exports = {
               maxlength: 80,
               config: function(el, isUpdate) {
                 if (!isUpdate && !el.value) {
-                  el.value = 'Chapter ' + (ctrl.initial() ? 1 : (ctrl.chapters().length + 1));
+                  el.value = 'Chapter ' + (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1));
                   el.select();
                   el.focus();
                 }
@@ -170,7 +205,7 @@ module.exports = {
           ]) : null,
           activeTab === 'pgn' ? m('div.form-group.no-label', [
             m('textarea#chapter-pgn', {
-              placeholder: 'Paste your PGN here, one game only'
+              placeholder: 'Paste your PGN here, up to ' + ctrl.multiPgnMax + ' games'
             }),
             m('i.bar')
           ]) : null,
