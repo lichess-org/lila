@@ -23,7 +23,7 @@ module.exports = function(root, opts, allow) {
   if (location.hash === '#opening' && !root.embed) enabled(true);
   var loading = m.prop(true);
   var failing = m.prop(false);
-  var hoveringUci = m.prop(null);
+  var hovering = m.prop(null);
   var movesAway = m.prop(0);
 
   var cache = {};
@@ -105,7 +105,7 @@ module.exports = function(root, opts, allow) {
     setNode: setNode,
     loading: loading,
     failing: failing,
-    hoveringUci: hoveringUci,
+    hovering: hovering,
     movesAway: movesAway,
     config: config,
     withGames: withGames,
@@ -124,8 +124,11 @@ module.exports = function(root, opts, allow) {
         root.autoScroll();
       }
     },
-    setHoveringUci: function(uci) {
-      hoveringUci(uci);
+    setHovering: function(fen, uci) {
+      hovering(uci ? {
+        fen: fen,
+        uci: uci,
+      } : null);
       root.setAutoShapes();
     },
     fetchMasterOpening: (function() {

@@ -22,7 +22,7 @@ module.exports = function(opts) {
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1');
   var started = false;
-  var hoveringUci = m.prop(null);
+  var hovering = m.prop(null);
 
   var pool = makePool(stockfishProtocol, {
     asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=9',
@@ -150,9 +150,12 @@ module.exports = function(opts) {
     multiPv: multiPv,
     threads: threads,
     hashSize: hashSize,
-    hoveringUci: hoveringUci,
-    setHoveringUci: function(uci) {
-      hoveringUci(uci);
+    hovering: hovering,
+    setHovering: function(fen, uci) {
+      hovering(uci ? {
+        fen: fen,
+        uci: uci
+      } : null);
       opts.setAutoShapes();
     },
     toggle: function() {

@@ -37,7 +37,7 @@ module.exports = {
     var instance = ctrl.getCeval(),
       n = ctrl.vm.node,
       shapes = [],
-      hoveringUci = ctrl.explorer.hoveringUci() || instance.hoveringUci();
+      hovering = ctrl.explorer.hovering() || instance.hovering();
     var color = ctrl.chessground.data.movable.color;
     var rcolor = color === 'white' ? 'black' : 'white';
     if (ctrl.retro && ctrl.retro.showBadNode()) {
@@ -45,11 +45,11 @@ module.exports = {
         lineWidth: 8
       });
     }
-    if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
+    if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
     if (ctrl.vm.showAutoShapes() && ctrl.vm.showComputer()) {
       if (n.eval && n.eval.best)
         shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
-      if (!hoveringUci) {
+      if (!hovering) {
         var nextBest = ctrl.nextNodeBest();
         if (!nextBest && instance.enabled() && n.ceval && n.ceval.best) nextBest = n.ceval.best;
         if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
