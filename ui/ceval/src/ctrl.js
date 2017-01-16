@@ -20,7 +20,7 @@ module.exports = function(opts) {
   var curDepth = 0;
   var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
-  var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1');
+  var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   var started = false;
   var hovering = m.prop(null);
 
