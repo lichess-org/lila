@@ -6,6 +6,7 @@ import ornicar.scalalib.Random
 import chess.Clock.{ Config => TournamentClock }
 import chess.{ Speed, Mode, StartingPosition }
 import lila.game.PerfPicker
+import lila.user.User
 
 case class Tournament(
     id: Tournament.ID,
@@ -117,7 +118,7 @@ object Tournament {
   val minPlayers = 2
 
   def make(
-    createdByUserId: String,
+    by: Either[User.ID, User],
     clock: TournamentClock,
     minutes: Int,
     system: System,
@@ -128,12 +129,18 @@ object Tournament {
     password: Option[String],
     waitMinutes: Int) = Tournament(
     id = Random nextString 8,
-    name = if (position.initial) GreatPlayer.randomName else position.shortName,
+    name =
+    if (position.initial) by.fold(
+      _ => GreatPlayer.randomName,
+      user =>
+        if (user.hasTitle) user.titleUsername
+        else GreatPlayer.randomName)
+    else position.shortName,
     status = Status.Created,
     system = system,
     clock = clock,
     minutes = minutes,
-    createdBy = createdByUserId,
+    createdBy = by.fold(identity, _.id),
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = variant,
