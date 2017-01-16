@@ -59,7 +59,7 @@ function title(ctrl) {
         href: d.greatPlayer.url,
         target: '_blank'
       }, d.greatPlayer.name),
-      ' tournament'
+      ' Arena'
     ] : d.fullName,
     d.private ? [
       ' ',

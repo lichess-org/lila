@@ -1262,7 +1262,6 @@ div.panel.computer_analysis {
   display: flex;
   border: 1px solid #ccc;
   border-radius: 0 50px 50px 0;
-  transition: left 1s;
 }
 #adv_chart_loader span {
   margin-left: 7px;
