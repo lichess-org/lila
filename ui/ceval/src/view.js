@@ -164,13 +164,14 @@ module.exports = {
     else
       pvs = [];
     return m('div.pv_box', {
+      'data-fen': ctrl.vm.node.fen,
       config: function(el, isUpdate, ctx) {
         if (!isUpdate) {
           el.addEventListener('mouseover', function(e) {
-            instance.setHoveringUci($(e.target).closest('div.pv').attr('data-uci'));
+            instance.setHovering($(el).attr('data-fen'), $(e.target).closest('div.pv').attr('data-uci'));
           });
           el.addEventListener('mouseout', function(e) {
-            instance.setHoveringUci(null);
+            instance.setHovering($(el).attr('data-fen'), null);
           });
           el.addEventListener('mousedown', function(e) {
             var uci = $(e.target).closest('div.pv').attr('data-uci');
@@ -178,7 +179,7 @@ module.exports = {
           });
         }
         setTimeout(function() {
-          instance.setHoveringUci($(el).find('div.pv:hover').attr('data-uci'));
+          instance.setHovering($(el).attr('data-fen'), $(el).find('div.pv:hover').attr('data-uci'));
         }, 100);
       }
     }, range(multiPv).map(function(i) {
