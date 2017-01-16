@@ -46,14 +46,19 @@ module.exports = {
       vm.open = false;
     };
 
+    var identity = function(x) { return x; }
+
     var submitMultiPgn = function(d) {
       if (d.pgn) {
-        // ensure 2 spaces after each game
         var lines = d.pgn.split('\n');
         var parts = lines.map(function(l, i) {
+          // ensure 2 spaces after each game
           if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
           return l;
-        }).join('\n').split('\n\n\n');
+        }).join('\n').split('\n\n\n').map(function(part) {
+          // remove empty lines in each game
+          return part.split('\n').filter(identity).join('\n');
+        }).filter(identity); // remove empty games
         if (parts.length > 1) {
           if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
           var step = function(ds) {
