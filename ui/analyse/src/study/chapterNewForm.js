@@ -48,7 +48,12 @@ module.exports = {
 
     var submitMultiPgn = function(d) {
       if (d.pgn) {
-        var parts = d.pgn.split('\n\n\n');
+        // ensure 2 spaces after each game
+        var lines = d.pgn.split('\n');
+        var parts = lines.map(function(l, i) {
+          if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
+          return l;
+        }).join('\n').split('\n\n\n');
         if (parts.length > 1) {
           if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
           var step = function(ds) {
