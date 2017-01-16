@@ -1,6 +1,9 @@
 var countDownTimeout;
 
 function doCountDown(targetTime) {
+
+  var started = false;
+
   return function curCounter() {
     var secondsToStart = targetTime - (new Date().getTime() / 1000);
 
@@ -12,6 +15,11 @@ function doCountDown(targetTime) {
       var nextTick = Math.min(10, bestTick - 1);
       countDownTimeout = setTimeout(curCounter, 1000 *
         Math.min(1.1, Math.max(0.8, (secondsToStart - nextTick))));
+    }
+
+    if (!started && bestTick <= 10) {
+      started = true;
+      lichess.desktopNotification('The tournament is starting!');
     }
   };
 }
