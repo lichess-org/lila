@@ -14,13 +14,13 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
 module.exports = function(opts) {
   var n = opts.vm.node,
     shapes = [],
-    hoveringUci = opts.ceval.hoveringUci();
+    hovering = opts.ceval.hovering();
   var color = opts.ground.data.movable.color;
-  if (hoveringUci) shapes = shapes.concat(makeAutoShapesFromUci(color, hoveringUci, 'paleBlue'));
+  if (hovering) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval && n.eval.best)
       shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
-    if (!hoveringUci) {
+    if (!hovering) {
       var nextBest = opts.nextNodeBest();
       if (!nextBest && opts.ceval.enabled() && n.ceval && n.ceval.best) nextBest = n.ceval.best;
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
