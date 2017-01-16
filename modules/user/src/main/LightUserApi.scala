@@ -15,6 +15,8 @@ final class LightUserApi(coll: Coll) {
 
   def getList(ids: List[String]): List[LightUser] = ids flatMap get
 
+  def usernameList(ids: List[String]): List[String] = getList(ids).map(_.name)
+
   private implicit val lightUserReader = new BSONDocumentReader[LightUser] {
 
     def read(doc: BSONDocument) =

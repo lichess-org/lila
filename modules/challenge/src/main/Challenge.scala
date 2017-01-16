@@ -53,6 +53,9 @@ case class Challenge(
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
+  def setDestUser(u: User) = copy(
+    destUser = toRegistered(variant, timeControl)(u).some)
+
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
 

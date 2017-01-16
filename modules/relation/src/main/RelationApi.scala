@@ -7,6 +7,7 @@ import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.memo.AsyncCache
+import lila.user.{ User, UserRepo }
 
 import BSONHandlers._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
@@ -152,6 +153,9 @@ final class RelationApi(
       }
       case _ => funit
     }
+
+  def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
+    RelationRepo.followingLike(u.id, term) map { _.sorted take max }
 
   private def reloadOnlineFriends(u1: ID, u2: ID) {
     import lila.hub.actorApi.relation.ReloadOnlineFriends

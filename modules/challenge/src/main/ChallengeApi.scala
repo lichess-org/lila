@@ -90,6 +90,8 @@ final class ChallengeApi(
       } yield success
     }
 
+  def setDestUser(c: Challenge, u: User): Funit = repo.update(c setDestUser u)
+
   def removeByUserId(userId: User.ID) = repo allWithUserId userId flatMap { cs =>
     lila.common.Future.applySequentially(cs)(remove).void
   }

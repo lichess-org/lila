@@ -41,6 +41,16 @@ lichess.startChallenge = function(element, opts) {
       });
       $(this).html(lichess.spinnerHtml);
     });
+    $('.lichess_overboard').find('input.friend-autocomplete').each(function() {
+      var $input = $(this);
+      lichess.userAutocomplete($input, {
+        focus: 1,
+        friend: 1,
+        onSelect: function() {
+          $input.parents('form').submit();
+        }
+      });
+    });
   };
   init();
 

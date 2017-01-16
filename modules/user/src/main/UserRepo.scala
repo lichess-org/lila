@@ -258,22 +258,17 @@ object UserRepo {
   def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
 
-  private val userIdPattern = """^[\w-]{3,20}$""".r.pattern
-
   def usernamesLike(text: String, max: Int = 10): Fu[List[String]] = {
     val id = normalize(text)
-    if (!userIdPattern.matcher(id).matches) fuccess(Nil)
-    else {
-      val regex = "^" + id + ".*$"
-      coll.find(
-        $doc("_id".$regex(regex, "")) ++ enabledSelect,
-        $doc(F.username -> true))
-        .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
-        .map {
-          _ flatMap { _.getAs[String](F.username) }
-        }
-    }
+    if (!User.idPattern.matcher(id).matches) fuccess(Nil)
+    else coll.find(
+      $doc("_id".$regex("^" + id + ".*$", "")) ++ enabledSelect,
+      $doc(F.username -> true))
+      .sort($doc("len" -> 1))
+      .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
+      .map {
+        _ flatMap { _.getAs[String](F.username) }
+      }
   }
 
   def toggleEngine(id: ID): Funit =

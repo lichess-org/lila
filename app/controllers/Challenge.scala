@@ -15,15 +15,14 @@ object Challenge extends LilaController {
 
   private def env = Env.challenge
 
-  def all = Auth { implicit ctx =>
-    me =>
-      env.api allFor me.id map { all =>
-        Ok {
-          env.jsonView(all) + (
-            "i18n" -> translations
-          )
-        } as JSON
-      }
+  def all = Auth { implicit ctx => me =>
+    env.api allFor me.id map { all =>
+      Ok {
+        env.jsonView(all) + (
+          "i18n" -> translations
+        )
+      } as JSON
+    }
   }
 
   def show(id: String) = Open { implicit ctx =>
@@ -92,12 +91,11 @@ object Challenge extends LilaController {
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(env.api byId id) { c =>
-        if (isForMe(c)) env.api decline c
-        else notFound
-      }
+  def decline(id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.api byId id) { c =>
+      if (isForMe(c)) env.api decline c
+      else notFound
+    }
   }
 
   def cancel(id: String) = Open { implicit ctx =>
@@ -107,20 +105,37 @@ object Challenge extends LilaController {
     }
   }
 
-  def rematchOf(gameId: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(GameRepo game gameId) { g =>
-        Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
-          _ ?? { opponent =>
-            restriction(opponent) flatMap {
-              case Some(r) => BadRequest(jsonError(r.replace("{{user}}", opponent.username))).fuccess
-              case _ => env.api.rematchOf(g, me) map {
-                _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
-              }
+  def toFriend(id: String) = AuthBody { implicit ctx => me =>
+    import play.api.data._
+    import play.api.data.Forms._
+    implicit def req = ctx.body
+    OptionFuResult(env.api byId id) { c =>
+      if (isMine(c)) Form(single(
+        "username" -> nonEmptyText
+      )).bindFromRequest.fold(
+        err => funit,
+        username => UserRepo named username flatMap {
+          case None       => funit
+          case Some(dest) => env.api.setDestUser(c, dest)
+        }
+      ) inject Redirect(routes.Challenge.show(c.id))
+      else notFound
+    }
+  }
+
+  def rematchOf(gameId: String) = Auth { implicit ctx => me =>
+    OptionFuResult(GameRepo game gameId) { g =>
+      Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
+        _ ?? { opponent =>
+          restriction(opponent) flatMap {
+            case Some(r) => BadRequest(jsonError(r.replace("{{user}}", opponent.username))).fuccess
+            case _ => env.api.rematchOf(g, me) map {
+              _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
             }
           }
         }
       }
+    }
   }
 
   def restriction(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {

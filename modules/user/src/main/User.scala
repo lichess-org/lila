@@ -107,6 +107,8 @@ object User {
 
   val anonymous = "Anonymous"
 
+  val idPattern = """^[\w-]{3,20}$""".r.pattern
+
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 

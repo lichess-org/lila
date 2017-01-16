@@ -278,7 +278,12 @@ lichess.notifyApp = (function() {
         highlight: false,
         source: function(query, sync, async) {
           $.ajax({
-            url: '/player/autocomplete?term=' + query,
+            method: 'get',
+            url: '/player/autocomplete',
+            data: {
+              term: query,
+              friend: opts.friend ? 1 : 0
+            },
             success: function(res) {
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);
@@ -658,13 +663,13 @@ lichess.notifyApp = (function() {
       lichess.pubsub.on('content_loaded', translateTexts);
 
       $('input.user-autocomplete').each(function() {
-        if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), {
-          focus: 1
-        });
+        var opts = {
+          focus: 1,
+          friend: $(this).data('friend')
+        };
+        if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
         else $(this).one('focus', function() {
-          lichess.userAutocomplete($(this), {
-            focus: 1
-          });
+          lichess.userAutocomplete($(this), opts);
         });
       });
 

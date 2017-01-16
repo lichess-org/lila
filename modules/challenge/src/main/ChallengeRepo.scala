@@ -21,6 +21,8 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       }
     }
 
+  def update(c: Challenge): Funit = coll.update($id(c.id), c).void
+
   def createdByChallengerId(userId: String): Fu[List[Challenge]] =
     coll.find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))

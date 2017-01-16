@@ -15,6 +15,16 @@ private[relation] object RelationRepo {
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
+  def followingLike(userId: ID, term: String): Fu[List[ID]] = {
+    val id = term.toLowerCase
+    if (id.isEmpty) fuccess(Nil)
+    else coll.distinct[String, List]("u2", $doc(
+      "u1" -> userId,
+      "u2".$regex("^" + id + ".*$", ""),
+      "r" -> Follow
+    ).some)
+  }
+
   private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
     coll.distinct[String, Set]("u1", $doc(
       "u2" -> userId,
