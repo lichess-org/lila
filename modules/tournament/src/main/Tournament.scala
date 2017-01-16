@@ -130,11 +130,8 @@ object Tournament {
     waitMinutes: Int) = Tournament(
     id = Random nextString 8,
     name =
-    if (position.initial) by.fold(
-      _ => GreatPlayer.randomName,
-      user =>
-        if (user.hasTitle) user.titleUsername
-        else GreatPlayer.randomName)
+    if (position.initial)
+      by.right.toOption.filter(_.hasTitle).fold(GreatPlayer.randomName)(_.titleUsername)
     else position.shortName,
     status = Status.Created,
     system = system,
