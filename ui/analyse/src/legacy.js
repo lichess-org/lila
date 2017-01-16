@@ -90,7 +90,8 @@ module.exports = function(element, cfg) {
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
-      'Analysis<br>in progress' + lichess.spinnerHtml +
+      '<span>' + lichess.engineName + '<br>server analysis</span>' +
+      lichess.spinnerHtml +
       '</div>'
   };
   var startAdvantageChart = function() {

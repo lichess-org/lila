@@ -123,15 +123,15 @@ module.exports = {
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          threatMode ? 'Show threat' : 'Local Stockfish',
+          threatMode ? 'Show threat' : lichess.engineName,
           m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
         ])
       ] : [
         pearl ? m('pearl', pearl) : null,
         m('help',
-          'Local computer evaluation',
+          lichess.engineName,
           m('br'),
-          'for variation analysis'
+          'in local browser'
         )
       ],
       m('div.switch', {

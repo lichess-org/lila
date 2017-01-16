@@ -4,6 +4,7 @@
 
 var lichess = window.lichess = window.lichess || {};
 
+lichess.engineName = 'Stockfish 8';
 lichess.getParameterByName = function(name) {
   var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
   return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
