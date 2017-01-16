@@ -263,7 +263,7 @@
   </div>
   <div class="reports">
     <div class="half">
-      <strong class="text" data-icon="!">Reports sent by the user@if(reports.by.isEmpty){: nothing to show.}</strong>
+      <strong class="text" data-icon="!">Reports sent by @u.username@if(reports.by.isEmpty){: nothing to show.}</strong>
       @if(reports.by.nonEmpty) {
       <ul>
         @reports.by.map { r =>
@@ -276,7 +276,7 @@
       }
     </div>
     <div class="half">
-      <strong class="text" data-icon="!">Reports concerning this user@if(reports.about.isEmpty){: nothing to show.}</strong>
+      <strong class="text" data-icon="!">Reports concerning @u.username@if(reports.about.isEmpty){: nothing to show.}</strong>
       @if(reports.about.nonEmpty) {
       <ul>
         @reports.about.map { r =>
