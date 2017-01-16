@@ -61,7 +61,7 @@ module.exports = {
               send('addChapter', ds[0]);
               setTimeout(function() {
                 step(ds.slice(1));
-              }, 500);
+              }, 600);
             } else {}
           };
           var firstIt = vm.initial() ? 1 : (chapters().length + 1);

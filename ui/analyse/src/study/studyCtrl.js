@@ -115,10 +115,10 @@ module.exports = function(data, ctrl, tagTypes) {
     ctrl.startCeval();
   };
 
-  var xhrReload = throttle(1000, false, function() {
+  var xhrReload = function() {
     vm.loading = true;
     return xhr.reload(data.id, vm.chapterId).then(onReload);
-  });
+  };
 
   var activity = function(userId) {
     members.setActive(userId);
