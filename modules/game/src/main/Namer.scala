@@ -24,7 +24,7 @@ object Namer {
     ) { level => s"A.I. level $level" }
 
   def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): String =
-    s"${playerText(game.whitePlayer, withRatings)} vs ${playerText(game.blackPlayer, withRatings)}"
+    s"${playerText(game.whitePlayer, withRatings)} - ${playerText(game.blackPlayer, withRatings)}"
 
   private def ratingString(p: Player) = p.rating match {
     case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"

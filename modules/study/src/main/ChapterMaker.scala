@@ -41,7 +41,7 @@ private final class ChapterMaker(
         white <- Tag.find(res.tags, "White")
         black <- Tag.find(res.tags, "Black")
         if data.name.isEmpty || Chapter.isDefaultName(data.name)
-      } yield s"$white vs $black") | data.name,
+      } yield s"$white - $black") | data.name,
         setup = Chapter.Setup(
           none,
           res.variant,
