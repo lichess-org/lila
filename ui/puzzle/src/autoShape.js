@@ -16,10 +16,11 @@ module.exports = function(opts) {
     shapes = [],
     hovering = opts.ceval.hovering();
   var color = opts.ground.data.movable.color;
-  if (hovering) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
+  var rcolor = color === 'white' ? 'black' : 'white';
+  if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval && n.eval.best)
-      shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best, 'paleGreen'));
+      shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
     if (!hovering) {
       var nextBest = opts.nextNodeBest();
       if (!nextBest && opts.ceval.enabled() && n.ceval && n.ceval.best) nextBest = n.ceval.best;
@@ -37,7 +38,6 @@ module.exports = function(opts) {
     }
   }
   if (opts.ceval.enabled() && opts.vm.threatMode && n.threat && n.threat.best) {
-    var rcolor = color === 'white' ? 'black' : 'white';
     if (n.threat.pvs[1]) {
       shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.best, 'paleRed'));
       n.threat.pvs.slice(1).forEach(function(pv) {
