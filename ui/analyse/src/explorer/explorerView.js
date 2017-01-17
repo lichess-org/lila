@@ -186,7 +186,7 @@ function closeButton(ctrl) {
   return m('button', {
     class: 'button text',
     'data-icon': 'L',
-    config: bindOnce('click', ctrl.explorer.toggle)
+    config: bindOnce('click', ctrl.toggleExplorer)
   }, 'Close');
 }
 

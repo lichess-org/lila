@@ -61,7 +61,7 @@ module.exports = {
     }));
     kbd.bind('x', preventing(ctrl.toggleThreatMode));
     kbd.bind('e', preventing(function() {
-      ctrl.explorer.toggle();
+      ctrl.toggleExplorer();
       m.redraw();
     }));
     kbd.bind('space', preventing(function() {

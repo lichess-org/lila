@@ -440,7 +440,8 @@ body.piece_letter .fork move {
 }
 body.dark .explorer_box thead th,
 body.dark .explorer_box .title,
-body.dark .retro_box .title {
+body.dark .retro_box .title,
+body.dark .practice_box .title {
   background: #215279;
   color: #ccc;
 }
@@ -793,6 +794,29 @@ body.piece_letter .tablebase td:first-child {
 body.dark .retro_box {
   background: #303030;
   color: #aaa;
+}
+
+.practice_box {
+  flex: 1.5 1 0px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  display: flex;
+  flex-flow: column;
+}
+.practice_box .title {
+  flex: 0 0 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 22px;
+  background: #3b93da;
+  color: #fff;
+  text-align: left;
+  padding: 0 5px 0 10px;
+}
+.practice_box .title .close {
+  cursor:pointer;
 }
 
 .lichess_ground .areplay,

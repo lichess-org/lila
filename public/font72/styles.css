@@ -380,3 +380,6 @@
 .icon-code-fork:before {
   content: "\7b";
 }
+.icon-bullseye:before {
+  content: "\e001";
+}

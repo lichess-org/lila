@@ -24,6 +24,7 @@ var crazyValid = require('./crazy/crazyValid');
 var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
+var makePractice = require('./practice/practiceCtrl');
 var computeAutoShapes = require('./autoShape').compute;
 var nodeFinder = require('./nodeFinder');
 var acplUncache = require('./acpl').uncache;
@@ -214,6 +215,7 @@ module.exports = function(opts) {
     this.autoScroll();
     promotion.cancel(this);
     if (this.retro) this.retro.onJump();
+    if (this.practice) this.practice.onJump();
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
@@ -424,6 +426,7 @@ module.exports = function(opts) {
           if (res.work.path === this.vm.path) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
+            if (this.practice) this.practice.onCeval();
             m.redraw();
           }
         }.bind(this));
@@ -601,10 +604,28 @@ module.exports = function(opts) {
     if (this.retro) this.retro = null;
     else {
       this.retro = makeRetro(this);
-      if (this.explorer.enabled()) this.explorer.toggle();
+      if (this.practice) this.togglePractice();
+      if (this.explorer.enabled()) this.toggleExplorer();
     }
     acplUncache();
     this.setAutoShapes();
+  }.bind(this);
+
+  this.practice = null;
+
+  this.togglePractice = function() {
+    if (this.practice) this.practice = null;
+    else {
+      if (this.retro) this.retro.toggle();
+      if (this.explorer.enabled()) this.toggleExplorer();
+      this.practice = makePractice(this);
+    }
+  }.bind(this);
+  if (location.hash === '#practice') this.togglePractice();
+
+  this.toggleExplorer = function() {
+    if (this.practice) this.togglePractice();
+    this.explorer.toggle();
   }.bind(this);
 
   keyboard.bind(this);

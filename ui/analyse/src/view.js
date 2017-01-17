@@ -18,6 +18,7 @@ var crazyView = require('./crazy/crazyView');
 var keyboardView = require('./keyboard').view;
 var explorerView = require('./explorer/explorerView');
 var retroView = require('./retrospect/retroView');
+var practiceView = require('./practice/practiceView');
 var studyView = require('./study/studyView');
 var forkView = require('./fork').view;
 var acplView = require('./acpl').render;
@@ -179,18 +180,27 @@ function buttons(ctrl) {
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-      else if (action === 'explorer') ctrl.explorer.toggle();
+      else if (action === 'explorer') ctrl.toggleExplorer();
+      else if (action === 'practice') ctrl.togglePractice();
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    ctrl.embed ? null : m('button', {
-      id: 'open_explorer',
-      'data-hint': ctrl.trans('openingExplorer'),
-      'data-act': 'explorer',
-      class: 'hint--bottom' + (
-        ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
-          ctrl.explorer.enabled() ? ' active' : ''))
-    }, icon(']')),
+    ctrl.embed ? null : m('div.features', [
+      m('button', {
+        'data-hint': ctrl.trans('openingExplorer'),
+        'data-act': 'explorer',
+        class: 'hint--bottom' + (
+          ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
+            ctrl.explorer.enabled() ? ' active' : ''))
+      }, icon(']')),
+      m('button', {
+        'data-hint': 'Practice with computer',
+        'data-act': 'practice',
+        class: 'hint--bottom' + (
+          ctrl.actionMenu.open || ctrl.retro ? ' hidden' : (
+            ctrl.practice ? ' active' : ''))
+      }, icon(''))
+    ]),
     m('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
@@ -251,7 +261,7 @@ module.exports = function(ctrl) {
             cevalView.renderCeval(ctrl), (ctrl.retro && ctrl.retro.isSolving()) ? null : cevalView.renderPvs(ctrl),
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
-            retroView(ctrl) || explorerView(ctrl)
+            retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ],
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl)
