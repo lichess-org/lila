@@ -1,7 +1,6 @@
 var winningChances = require('ceval').winningChances;
 var treePath = require('tree').path;
 var winningChances = require('ceval').winningChances;
-var control = require('../control');
 var pv2san = require('ceval').pv2san;
 var m = require('mithril');
 
@@ -62,7 +61,10 @@ module.exports = function(root) {
 
   return {
     onCeval: checkCeval,
-    onJump: checkCeval,
+    onJump: function() {
+      // because running(false) is called after the jump
+      setTimeout(checkCeval, 50)
+    },
     close: root.togglePractice,
     trans: root.trans,
     turnColor: turnColor,
