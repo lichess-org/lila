@@ -9,30 +9,26 @@ var key2pos = chessground.util.key2pos;
 var promoting = null;
 var prePromotionRole = null;
 
+function sendPromotion(ctrl, orig, dest, role) {
+  ground.promote(ctrl.chessground, dest, role);
+  ctrl.sendMove(orig, dest, role);
+  return true;
+}
+
 function start(ctrl, orig, dest, isPremove) {
-  var d = ctrl.data, cg = ctrl.chessground;
-  var piece = cg.data.pieces[dest];
-  var premovePiece = cg.data.pieces[orig];
+  var d = ctrl.data;
+  var piece = ctrl.chessground.data.pieces[dest];
+  var premovePiece = ctrl.chessground.data.pieces[orig];
   if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] == 8 && d.player.color === 'white') ||
     (dest[1] == 1 && d.player.color === 'black'))) {
-    if (prePromotionRole && isPremove) {
-      ground.promote(cg, dest, prePromotionRole);
-      ctrl.sendMove(orig, dest, prePromotionRole);
-      cancelPrePromotion(ctrl);
-      return true;
-    }
+    if (prePromotionRole && isPremove) return sendPromotion(ctrl, orig, dest, prePromotionRole);
     if (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece)) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
-      else {
-        ground.promote(cg, dest, 'queen');
-        ctrl.sendMove(orig, dest, 'queen');
-        cancelPrePromotion(ctrl);
-      }
+      else sendPromotion(ctrl, orig, dest, 'queen');
       return true;
     }
     m.startComputation();
-    cancelPrePromotion(ctrl);
     promoting = {
       move: [orig, dest],
       pre: !!premovePiece
@@ -63,16 +59,14 @@ function cancelPrePromotion(ctrl) {
 function finish(ctrl, role) {
   if (promoting) {
     if (promoting.pre) setPrePromotion(ctrl, promoting.move[1], role);
-    else {
-      ground.promote(ctrl.chessground, promoting.move[1], role);
-      ctrl.sendMove(promoting.move[0], promoting.move[1], role);
-    }
+    else sendPromotion(ctrl, promoting.move[0], promoting.move[1], role);
   }
   promoting = null;
 }
 
 function cancel(ctrl) {
   cancelPrePromotion(ctrl);
+  ctrl.chessground.cancelPremove();
   if (promoting) xhr.reload(ctrl).then(ctrl.reload);
   promoting = null;
 }
@@ -99,11 +93,12 @@ module.exports = {
 
   start: start,
   cancel: cancel,
+  cancelPrePromotion: cancelPrePromotion,
 
   view: function(ctrl) {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
-    if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
+    if (ctrl.data.game.variant.key === 'antichess') pieces.push('king');
 
     return renderPromotion(ctrl, promoting.move[1], pieces,
         ctrl.data.player.color,
