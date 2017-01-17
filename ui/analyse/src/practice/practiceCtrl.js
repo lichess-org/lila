@@ -28,7 +28,7 @@ module.exports = function(root) {
       comment(null);
       if (hasCeval(node, WEAK)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (hasCeval(parentNode, WEAK))
+        if (hasCeval(parentNode, WEAK - 1))
           comment(makeComment(parentNode, node, root.vm.path));
       }
       if (hasCeval(node, DEEP)) root.playUci(node.ceval.best);

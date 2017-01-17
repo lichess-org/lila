@@ -55,9 +55,9 @@ module.exports = function(root) {
         m('div.instruction', [
           m('strong', ctrl.isMyTurn() ? 'Your move' : 'Computer thinking...'),
           m('div.choices', [
-            m('a', {
+            ctrl.isMyTurn() ? m('a', {
               onclick: ctrl.hint
-            }, 'Get a hint')
+            }, 'Get a hint') : ''
           ])
         ])
       ]) : offTrack(ctrl)
