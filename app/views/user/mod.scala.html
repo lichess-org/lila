@@ -1,4 +1,4 @@
-@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref)(implicit ctx: Context)
+@(u: User, email: Option[String], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -295,9 +295,7 @@
         <th>@spy.otherUsers.size user(s) on these IPs</th>
         <th>Same</th>
         <th>Games</th>
-        <th>Marks</th>
-        <th>IPban</th>
-        <th>Closed</th>
+        <th colspan=7>Status</th>
         <th>Created</th>
         <th>Active</th>
       </tr>
@@ -313,18 +311,19 @@
           }
         </td>
         <td>@o.count.game.localize</td>
-        <td>
-          @if(o.engine){ENGINE}
-          @if(o.booster){BOOSTER}
-          @if(o.troll){SHADOWBAN}
-          @bans.get(o.id).map { nb =>
-          <span class="hint--top-left" data-hint="Temporarily banned from playing for aborting or not playing games.">
-            PLAYBAN(@nb)
-          </span>
+        <td class="i">
+          @defining(notes.filter(_.to == o.id)) { notes =>
+          @if(notes.nonEmpty) {
+          <a href="@routes.User.show(o.username)?notes"><i title="Notes from @notes.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@notes.size</a>
+          }
           }
         </td>
-        <td>@if(o.ipBan){IPBAN}</td>
-        <td>@if(o.disabled){CLOSED}</td>
+        <td class="i">@bans.get(o.id).map { nb => <i title="Playban" data-icon="p"></i>@nb }</td>
+        <td class="i">@if(o.troll){<i title="Shadowban" data-icon="c"></i>}</td>
+        <td class="i">@if(o.booster){<i title="Boosting" data-icon="9"></i>}</td>
+        <td class="i">@if(o.engine){<i title="Engine" data-icon="n"></i>}</td>
+        <td class="i">@if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}</td>
+        <td class="i">@if(o.disabled){<i title="Closed" data-icon="k"></i>}</td>
         <td>@momentFromNow(o.createdAt)</td>
         <td>@o.seenAt.map(momentFromNow)</td>
       </tr>

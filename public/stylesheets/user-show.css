@@ -419,6 +419,15 @@ div.user_show .mod_zone .plan_charges ul {
   max-height: 100px;
   overflow: auto;
 }
+div.user_show .mod_zone table.others.slist td:first-child {
+  padding-left: 10px;
+}
+div.user_show .mod_zone .others .i {
+  padding: 0 2px;
+}
+div.user_show .mod_zone .others .i i {
+  font-size: 1.5em;
+}
 div.user_show .mod_zone .reports {
   display: flex;
 }

@@ -13,6 +13,8 @@ case class Note(
   mod: Boolean,
   date: DateTime)
 
+case class UserNotes(user: User, notes: List[Note])
+
 final class NoteApi(
     coll: Coll,
     timeline: akka.actor.ActorSelection,

@@ -205,18 +205,17 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
-      (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
-        (Env.security userSpy user.id) zip
-        (Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)) zip
-        Env.mod.logApi.userHistory(user.id) zip
-        Env.plan.api.recentChargesOf(user) zip
-        Env.report.api.byAndAbout(user, 20) zip
-        Env.pref.api.getPref(user) flatMap {
-          case ((((((email, spy), playerAggregateAssessment), history), charges), reports), pref) =>
-            (Env.playban.api bans spy.usersSharingIp.map(_.id)) map { bans =>
-              html.user.mod(user, email, spy, playerAggregateAssessment, bans, history, charges, reports, pref)
-            }
-        }
+      for {
+        email <- (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id))
+        spy <- Env.security userSpy user.id
+        pag <- Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)
+        history <- Env.mod.logApi.userHistory(user.id)
+        charges <- Env.plan.api.recentChargesOf(user)
+        reports <- Env.report.api.byAndAbout(user, 20)
+        pref <- Env.pref.api.getPref(user)
+        bans <- Env.playban.api bans spy.usersSharingIp.map(_.id)
+        notes <- Env.user.noteApi.byUserIdsForMod(spy.otherUsers.map(_.user.id))
+      } yield html.user.mod(user, email, spy, pag, bans, history, charges, reports, pref, notes)
     }
   }
 
