@@ -30,5 +30,9 @@ module.exports = {
     return nodes.map(function(n) {
       return n.id;
     }).join('');
+  },
+
+  isChildOf: function(child, parent) {
+    return child && child.slice(0, -2) === parent;
   }
 };

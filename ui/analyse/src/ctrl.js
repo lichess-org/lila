@@ -222,7 +222,12 @@ module.exports = function(opts) {
   this.userJump = function(path) {
     this.autoplay.stop();
     this.chessground.selectSquare(null);
-    this.jump(path);
+    if (this.practice) {
+      var prev = this.vm.path;
+      this.jump(path);
+      this.practice.onUserJump(prev, this.vm.path);
+    } else
+      this.jump(path);
   }.bind(this);
 
   var canJumpTo = function(path) {
@@ -616,7 +621,7 @@ module.exports = function(opts) {
   this.togglePractice = function() {
     if (this.practice) this.practice = null;
     else {
-      if (this.retro) this.retro.toggle();
+      if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
       this.practice = makePractice(this);
     }

@@ -741,7 +741,8 @@ body.piece_letter .tablebase td:first-child {
   width: 100%!important;
   height: 100%!important;
 }
-.retro_box .icon {
+.retro_box .icon,
+.practice_box .icon {
   display: block;
   width: 64px;
   height: 64px;
@@ -761,7 +762,8 @@ body.piece_letter .tablebase td:first-child {
 .practice_box .instruction {
   font-size: 1.1em;
 }
-.retro_box .instruction > * {
+.retro_box .instruction > *,
+.practice_box .instruction > * {
   display: block;
 }
 .retro_box .instruction > strong,
@@ -808,6 +810,27 @@ body.dark .retro_box {
 }
 
 .practice_box {
+  flex: 1 1 0px;
+}
+.practice_box .comment {
+  flex: 0 0 30px;
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border-top: 1px solid #ddd;
+  padding: 0 5px 0 15px;
+}
+.practice_box .comment span {
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+.practice_box .comment.best span,
+.practice_box .comment.good span {
+  color: #4caf50;
+}
+.practice_box .comment.mistake span,
+.practice_box .comment.blunder span {
+  color: #dc322f;
 }
 
 .lichess_ground .areplay,
