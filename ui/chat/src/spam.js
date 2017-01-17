@@ -13,6 +13,7 @@ var regex = new RegExp([
   'eb.by/',
   '001.rs/',
   'shr.name/',
+  'u.to/',
 ].map(function(url) {
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
