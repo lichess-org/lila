@@ -21,10 +21,13 @@ private[lobby] final class Socket(
 
   override val startsOnApplicationBoot = true
 
+  case object Cleanup
+
   override def preStart() {
     super.preStart()
     context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams, 'nbMembers, 'nbRounds, 'poolGame)
     context.system.scheduler.scheduleOnce(3 seconds, self, SendHookRemovals)
+    context.system.scheduler.schedule(1 minute, 1 minute, self, Cleanup)
   }
 
   override def postStop() {
@@ -48,6 +51,10 @@ private[lobby] final class Socket(
       lila.mon.lobby.socket.idle(idleUids.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberUids.size)
       lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
+
+    case Cleanup =>
+      idleUids retain members.contains
+      hookSubscriberUids retain members.contains
 
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
@@ -137,7 +144,6 @@ private[lobby] final class Socket(
     case SetIdle(uid, true)     => idleUids += uid
     case SetIdle(uid, false)    => idleUids -= uid
 
-    case HookSub(member, true)  => hookSubscriberUids += member.uid
     case HookSub(member, false) => hookSubscriberUids -= member.uid
     case AllHooksFor(member, hooks) =>
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
