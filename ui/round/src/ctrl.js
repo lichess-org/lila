@@ -84,7 +84,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var onCancelPremove = function() {
-    promotion.cancel(this);
+    promotion.cancelPrePromotion(this);
     m.redraw();
   }.bind(this);
 
@@ -317,7 +317,10 @@ module.exports = function(opts) {
       // https://github.com/ornicar/lila/issues/343
       var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
       setTimeout(function() {
-        if (!this.chessground.playPremove() && !playPredrop()) showYourMoveNotification();
+        if (!this.chessground.playPremove() && !playPredrop()) {
+          promotion.cancel(this);
+          showYourMoveNotification();
+        }
       }.bind(this), premoveDelay);
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
@@ -429,6 +432,7 @@ module.exports = function(opts) {
   this.takebackYes = function() {
     this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();
+    promotion.cancel(this);
   }.bind(this);
 
   this.resign = function(v) {
