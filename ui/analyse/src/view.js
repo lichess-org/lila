@@ -237,6 +237,7 @@ var firstRender = true;
 
 module.exports = function(ctrl) {
   var concealOf = makeConcealOf(ctrl);
+  var showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
   return [
     m('div', {
       config: function(el, isUpdate) {
@@ -258,7 +259,8 @@ module.exports = function(ctrl) {
         m('div.lichess_ground', [
           ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
           ctrl.actionMenu.open ? actionMenu(ctrl) : [
-            cevalView.renderCeval(ctrl), (ctrl.retro && ctrl.retro.isSolving()) ? null : cevalView.renderPvs(ctrl),
+            cevalView.renderCeval(ctrl),
+            showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)

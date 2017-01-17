@@ -12,8 +12,22 @@ function renderTitle(ctrl) {
 module.exports = function(root) {
   var ctrl = root.practice;
   if (!ctrl) return;
+  var turnColor = ctrl.turnColor();
+  var isMyTurn = root.bottomColor() === turnColor;
   return m('div.practice_box', [
     renderTitle(ctrl),
-    'Practice'
+    m('div.feedback', [
+      m('div.player', [
+        m('div.no-square', m('piece.king.' + ctrl.turnColor())),
+        m('div.instruction', [
+          m('strong', isMyTurn ? 'Your move' : 'Computer thinking...'),
+          m('div.choices', [
+            m('a', {
+              onclick: ctrl.hint
+            }, 'Get a hint')
+          ])
+        ])
+      ])
+    ])
   ]);
 };

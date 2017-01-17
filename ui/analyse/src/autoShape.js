@@ -34,6 +34,7 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
 module.exports = {
   makeAutoShapesFromUci: makeAutoShapesFromUci,
   compute: function(ctrl) {
+    if (ctrl.practice) return [];
     var instance = ctrl.getCeval(),
       n = ctrl.vm.node,
       shapes = [],

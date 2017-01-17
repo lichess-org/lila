@@ -683,7 +683,8 @@ body.piece_letter .tablebase td:first-child {
   box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
 }
 
-.retro_box {
+.retro_box,
+.practice_box {
   flex: 1.5 1 0px;
   border: 1px solid #ccc;
   border-top: 0;
@@ -691,7 +692,8 @@ body.piece_letter .tablebase td:first-child {
   display: flex;
   flex-flow: column;
 }
-.retro_box .title {
+.retro_box .title,
+.practice_box .title {
   flex: 0 0 22px;
   display: flex;
   justify-content: space-between;
@@ -702,16 +704,19 @@ body.piece_letter .tablebase td:first-child {
   text-align: left;
   padding: 0 5px 0 10px;
 }
-.retro_box .title .close {
+.retro_box .title .close,
+.practice_box .title .close {
   cursor:pointer;
 }
-.retro_box .feedback {
+.retro_box .feedback,
+.practice_box .feedback {
   flex: 1 1 100%;
   display: flex;
   flex-flow: column;
   justify-content: center;
 }
-.retro_box .player {
+.retro_box .player,
+.practice_box .player {
   display: flex;
   align-items: center;
   margin-left: 10px;
@@ -719,15 +724,18 @@ body.piece_letter .tablebase td:first-child {
 .retro_box:not(.find) .player {
   height: 100%;
 }
-.retro_box .no-square {
+.retro_box .no-square,
+.practice_box .no-square {
   width: 64px;
   height: 64px;
   margin-right: 10px;
 }
-.is3d .retro_box div.no-square {
+.is3d .retro_box div.no-square,
+.is3d .practice_box div.no-square {
   height: 82px;
 }
-.retro_box piece {
+.retro_box piece,
+.practice_box piece {
   position: inherit;
   display: block;
   width: 100%!important;
@@ -749,13 +757,15 @@ body.piece_letter .tablebase td:first-child {
 .retro_box .fail .icon:not(.off) {
   color: #dc322f;
 }
-.retro_box .instruction {
+.retro_box .instruction,
+.practice_box .instruction {
   font-size: 1.1em;
 }
 .retro_box .instruction > * {
   display: block;
 }
-.retro_box .instruction > strong {
+.retro_box .instruction > strong,
+.practice_box .instruction > strong {
   font-weight: normal;
   font-size: 1.3em;
 }
@@ -770,7 +780,8 @@ body.piece_letter .tablebase td:first-child {
   line-height: 1.6em;
   margin: 5px 0 -5px 0;
 }
-.retro_box .choices a {
+.retro_box .choices a,
+.practice_box .choices a {
   display: block;
   color: #3893E8;
 }
@@ -797,26 +808,6 @@ body.dark .retro_box {
 }
 
 .practice_box {
-  flex: 1.5 1 0px;
-  border: 1px solid #ccc;
-  border-top: 0;
-  background: #fff;
-  display: flex;
-  flex-flow: column;
-}
-.practice_box .title {
-  flex: 0 0 22px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  line-height: 22px;
-  background: #3b93da;
-  color: #fff;
-  text-align: left;
-  padding: 0 5px 0 10px;
-}
-.practice_box .title .close {
-  cursor:pointer;
 }
 
 .lichess_ground .areplay,
