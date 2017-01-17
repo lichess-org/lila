@@ -59,7 +59,7 @@ module.exports = function(opts) {
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && lichess.ab(this, meta);
-    if (!promotion.start(this, orig, dest, meta.premove))
+    if (!promotion.start(this, orig, dest, meta))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
@@ -78,8 +78,8 @@ module.exports = function(opts) {
     } else sound.move();
   }.bind(this);
 
-  var onPremove = function(orig, dest) {
-    promotion.start(this, orig, dest, true);
+  var onPremove = function(orig, dest, meta) {
+    promotion.start(this, orig, dest, meta);
     m.redraw();
   }.bind(this);
 
