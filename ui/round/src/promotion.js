@@ -15,15 +15,15 @@ function sendPromotion(ctrl, orig, dest, role) {
   return true;
 }
 
-function start(ctrl, orig, dest, isPremove) {
+function start(ctrl, orig, dest, meta) {
   var d = ctrl.data;
   var piece = ctrl.chessground.data.pieces[dest];
   var premovePiece = ctrl.chessground.data.pieces[orig];
   if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] == 8 && d.player.color === 'white') ||
     (dest[1] == 1 && d.player.color === 'black'))) {
-    if (prePromotionRole && isPremove) return sendPromotion(ctrl, orig, dest, prePromotionRole);
-    if (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece)) {
+    if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole);
+    if (!meta.ctrlKey && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else sendPromotion(ctrl, orig, dest, 'queen');
       return true;
