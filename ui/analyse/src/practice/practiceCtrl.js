@@ -12,6 +12,7 @@ module.exports = function(root) {
   var hinting = m.prop();
 
   var ensureCevalRunnning = function() {
+    if (!root.vm.showComputer()) root.toggleComputer();
     if (!root.ceval.enabled()) root.toggleCeval();
     if (root.vm.threatMode) root.toggleThreatMode();
   };

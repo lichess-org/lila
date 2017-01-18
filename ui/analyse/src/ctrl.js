@@ -564,6 +564,7 @@ module.exports = function(opts) {
   this.toggleComputer = function() {
     var value = !this.vm.showComputer();
     this.vm.showComputer(value);
+    if (!value && this.practice) this.practice = null;
     if (opts.onToggleComputer) opts.onToggleComputer(value);
     onToggleComputer();
   }.bind(this);

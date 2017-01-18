@@ -79,9 +79,9 @@ function studyButton(ctrl) {
     href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
     target: '_blank'
   }, [
-      m('i.icon', {
-        'data-icon': ''
-      }),
+    m('i.icon', {
+      'data-icon': ''
+    }),
     'Open study'
   ]);
   if (ctrl.study || ctrl.ongoing) return;
@@ -167,9 +167,7 @@ module.exports = {
                   class: 'cmn-toggle cmn-toggle-round',
                   type: 'checkbox',
                   checked: ctrl.vm.showComputer(),
-                  config: bindOnce('change', function(e) {
-                    ctrl.toggleComputer(e.target.checked);
-                  })
+                  config: bindOnce('change', ctrl.toggleComputer)
                 }),
                 m('label', {
                   'for': id
