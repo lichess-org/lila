@@ -778,7 +778,8 @@ body.piece_letter .tablebase td:first-child {
 .retro_box .half {
   flex: 1 1 50%;
 }
-.retro_box .choices {
+.retro_box .choices,
+.practice_box .choices {
   line-height: 1.6em;
   margin: 5px 0 -5px 0;
 }
@@ -811,6 +812,9 @@ body.dark .retro_box {
 
 .practice_box {
   flex: 1 1 0px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .practice_box .comment {
   flex: 0 0 30px;

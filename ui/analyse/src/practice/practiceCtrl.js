@@ -11,6 +11,7 @@ module.exports = function(root) {
   var running = m.prop(true);
   var comment = m.prop();
   var hovering = m.prop();
+  var hinting = m.prop();
 
   var commentable = function(ceval) {
     return ceval && (ceval.depth >= 15 || (ceval.depth >= 14 && ceval.millis > 4000));
@@ -26,7 +27,13 @@ module.exports = function(root) {
   var checkCeval = function() {
     if (!running()) return;
     var node = root.vm.node;
-    if (!isMyTurn()) {
+    if (isMyTurn()) {
+      var h = hinting();
+      if (h) {
+        h.uci = node.ceval.best;
+        root.setAutoShapes();
+      }
+    } else {
       comment(null);
       if (commentable(node.ceval)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
@@ -64,6 +71,7 @@ module.exports = function(root) {
   return {
     onCeval: checkCeval,
     onJump: function() {
+      hinting(null);
       // because running(false) is called after the jump
       setTimeout(checkCeval, 50)
     },
@@ -74,6 +82,7 @@ module.exports = function(root) {
     comment: comment,
     running: running,
     hovering: hovering,
+    hinting: hinting,
     resume: function() {
       running(true);
       checkCeval();
@@ -93,6 +102,16 @@ module.exports = function(root) {
       if (!enable || !c) hovering(null);
       else hovering({
         uci: c.best.uci
+      });
+      root.setAutoShapes();
+    },
+    hint: function() {
+      var best = root.vm.node.ceval ? root.vm.node.ceval.best : null;
+      var prev = hinting();
+      if (!best || (prev && prev.mode === 'move')) hinting(null);
+      else hinting({
+        mode: prev ? 'move' : 'piece',
+        uci: best
       });
       root.setAutoShapes();
     }

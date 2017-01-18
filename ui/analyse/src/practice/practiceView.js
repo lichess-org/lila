@@ -67,6 +67,7 @@ module.exports = function(root) {
   var ctrl = root.practice;
   if (!ctrl) return;
   var comment = ctrl.comment();
+  var hint = ctrl.hinting();
   return m('div.practice_box', [
     renderTitle(ctrl),
     m('div.feedback', [
@@ -77,7 +78,7 @@ module.exports = function(root) {
           m('div.choices', [
             ctrl.isMyTurn() ? m('a', {
               onclick: ctrl.hint
-            }, 'Get a hint') : ''
+            }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
           ])
         ])
       ]) : offTrack(ctrl)

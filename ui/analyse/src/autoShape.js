@@ -35,8 +35,9 @@ module.exports = {
   makeAutoShapesFromUci: makeAutoShapesFromUci,
   compute: function(ctrl) {
     if (ctrl.practice) {
-      if (ctrl.practice.hovering())
-        return makeAutoShapesFromUci(color, ctrl.practice.hovering().uci, 'paleBlue');
+      if (ctrl.practice.hovering()) return makeAutoShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
+      var hint = ctrl.practice.hinting();
+      if (hint) return makeAutoShapesFromUci(color, hint.uci.slice(0, hint.mode === 'piece' ? 2 : 5), 'paleBlue');
       return [];
     }
     var instance = ctrl.getCeval(),
