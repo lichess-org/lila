@@ -5,6 +5,7 @@ module.exports = function(worker, opts) {
   var work = null;
   var state = null;
   var minLegalMoves = 0;
+  var startedAt = null;
 
   var stopped = m.deferred();
   stopped.resolve(true);
@@ -63,7 +64,8 @@ module.exports = function(worker, opts) {
           best: matches[6].split(' ')[0],
           cp: cp,
           mate: mate,
-          pvs: []
+          pvs: [],
+          millis: new Date() - startedAt
         }
       };
     } else if (!state || depth < state.eval.depth) return; // multipv progress
@@ -89,6 +91,7 @@ module.exports = function(worker, opts) {
       worker.send('setoption name MultiPV value ' + opts.multiPv());
       worker.send(['position', 'fen', work.initialFen, 'moves'].concat(work.moves).join(' '));
       worker.send('go depth ' + work.maxDepth);
+      startedAt = new Date();
     },
     stop: function() {
       if (!stopped) {
