@@ -193,13 +193,13 @@ function buttons(ctrl) {
           ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
             ctrl.explorer.enabled() ? ' active' : ''))
       }, icon(']')),
-      m('button', {
+      ctrl.ceval.possible ? m('button', {
         'data-hint': 'Practice with computer',
         'data-act': 'practice',
         class: 'hint--bottom' + (
           ctrl.actionMenu.open || ctrl.retro ? ' hidden' : (
             ctrl.practice ? ' active' : ''))
-      }, icon(''))
+      }, icon('')) : null
     ]),
     m('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
