@@ -50,7 +50,7 @@ module.exports = {
     if (!data) return;
 
     var isLoaded = !!data.orientation;
-    var isConcealing = data.conceal !== null;
+    var mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : 'normal');
 
     return dialog.form({
       onClose: partial(ctrl.current, null),
@@ -60,7 +60,7 @@ module.exports = {
           onsubmit: function(e) {
             ctrl.submit({
               name: chapterForm.fieldValue(e, 'name'),
-              conceal: !!chapterForm.fieldValue(e, 'conceal'),
+              mode: chapterForm.fieldValue(e, 'mode'),
               orientation: chapterForm.fieldValue(e, 'orientation')
             });
             e.stopPropagation();
@@ -96,13 +96,13 @@ module.exports = {
               m('i.bar')
             ]),
             m('div.form-group', [
-              m('select#chapter-conceal', chapterForm.concealChoices.map(function(c) {
+              m('select#chapter-mode', chapterForm.modeChoices.map(function(c) {
                 return m('option', {
                   value: c[0],
-                  selected: !!c[0] === isConcealing
+                  selected: c[0] === mode,
                 }, c[1])
               })),
-              m('label.control-label[for=chapter-conceal]', 'Progressive move display'),
+              m('label.control-label[for=chapter-mode]', 'Analysis mode'),
               m('i.bar')
             ]),
             dialog.button('Save chapter')

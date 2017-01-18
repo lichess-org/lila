@@ -19,6 +19,7 @@ case class Chapter(
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
+    practice: Option[Boolean] = None,
     createdAt: DateTime) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
@@ -60,6 +61,8 @@ case class Chapter(
   def setTag(tag: Tag) = copy(
     tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
   )
+
+  def isPractice = ~practice
 }
 
 object Chapter {
@@ -79,10 +82,8 @@ object Chapter {
       gameId: Option[String],
       variant: Variant,
       orientation: Color,
-      practice: Option[Boolean] = None,
       fromFen: Option[Boolean] = None) {
     def isFromFen = ~fromFen
-    def isPractice = ~practice
   }
 
   case class Metadata(
@@ -103,7 +104,7 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = toName(name),
@@ -112,6 +113,7 @@ object Chapter {
     tags = tags,
     order = order,
     ownerId = ownerId,
+    practice = practice option true,
     conceal = conceal,
     createdAt = DateTime.now)
 }

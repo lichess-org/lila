@@ -97,10 +97,7 @@ module.exports = function(opts) {
       this.retro = null;
       this.toggleRetro();
     }
-    if (this.practice) {
-      this.practice = null;
-      this.togglePractice();
-    }
+    if (this.practice) this.restartPractice();
     m.redraw();
   }.bind(this);
 
@@ -640,6 +637,11 @@ module.exports = function(opts) {
     this.setAutoShapes();
   }.bind(this);
   if (location.hash === '#practice') this.togglePractice();
+
+  this.restartPractice = function() {
+    this.practice = null;
+    this.togglePractice();
+  }.bind(this);
 
   keyboard.bind(this);
 
