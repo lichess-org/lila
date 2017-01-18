@@ -29,7 +29,11 @@ module.exports = function(root) {
   };
 
   var checkCeval = function() {
-    if (!running()) return;
+    if (!running() || root.gameOver()) {
+      comment(null);
+      m.redraw();
+      return;
+    }
     ensureCevalRunnning();
     var node = root.vm.node;
     if (isMyTurn()) {
@@ -80,8 +84,6 @@ module.exports = function(root) {
       // because running(false) is called after the jump
       setTimeout(checkCeval, 50)
     },
-    close: root.togglePractice,
-    trans: root.trans,
     turnColor: turnColor,
     isMyTurn: isMyTurn,
     comment: comment,

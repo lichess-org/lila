@@ -816,6 +816,9 @@ body.dark .retro_box {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+.practice_box .feedback color {
+  text-transform: capitalize;
+}
 .practice_box .comment {
   flex: 0 0 30px;
   display: flex;

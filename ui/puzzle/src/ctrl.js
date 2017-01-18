@@ -336,12 +336,7 @@ module.exports = function(opts, i18n) {
 
   var gameOver = function() {
     if (vm.node.dests !== '') return false;
-    if (vm.node.check) {
-      var san = vm.node.san;
-      var checkmate = san && san[san.length - 1] === '#';
-      return checkmate;
-    }
-    return true;
+    return vm.node.check ? 'checkmate' : 'stalemate';
   };
 
   var jump = function(path) {

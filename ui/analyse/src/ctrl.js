@@ -461,18 +461,14 @@ module.exports = function(opts) {
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
-    if (this.vm.node.check) {
-      var san = this.vm.node.san;
-      var checkmate = san && san[san.length - 1] === '#';
-      return checkmate;
-    }
+    if (this.vm.node.check) return checkmate && 'checkmate';
     if (this.vm.node.crazy) {
       // no stalemate with full crazyhouse pockets
       var wtm = this.vm.node.fen.indexOf(' w ') !== -1;
       var p = this.vm.node.crazy.pockets[wtm ? 0 : 1];
       if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
     }
-    return true;
+    return 'stalemate';
   }.bind(this);
 
   var canUseCeval = function() {
@@ -480,8 +476,10 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
-    if (this.ceval.enabled() && canUseCeval())
-      this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
+    if (this.ceval.enabled()) {
+      if (canUseCeval()) this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
+      else this.ceval.stop();
+    }
   }.bind(this));
 
   this.toggleCeval = function() {

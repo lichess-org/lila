@@ -1,10 +1,10 @@
 var m = require('mithril');
 
-function renderTitle(ctrl) {
+function renderTitle(close) {
   return m('div.title', [
     m('span', 'Practice with the computer'),
     m('span.close[data-icon=L]', {
-      onclick: ctrl.close
+      onclick: close
     })
   ]);
 }
@@ -15,6 +15,11 @@ var commentText = {
   inaccuracy: 'Inaccuracy.',
   mistake: 'Mistake.',
   blunder: 'Blunder'
+};
+
+var endText = {
+  checkmate: 'Checkmate!',
+  stalemate: 'Stalemate.'
 };
 
 var altCastles = {
@@ -47,7 +52,7 @@ function commentBest(c, ctrl) {
   ];
 }
 
-function offTrack(ctrl) {
+function renderOffTrack(ctrl) {
   return [
     m('div.player', [
       m('div.icon.off', '!'),
@@ -63,32 +68,49 @@ function offTrack(ctrl) {
   ];
 }
 
+function renderEnd(ctrl, end) {
+  return m('div.player', [
+    ctrl.turnColor() ? m('div.no-square', m('piece.king.' + ctrl.turnColor())) : m('div.icon.off', '!'),
+    m('div.instruction', [
+      m('strong', endText[end]),
+      m('em', end === 'checkmate' ? [
+        m('color', ctrl.turnColor()),
+        ' wins.'
+      ] : 'the game is a draw.')
+    ])
+  ]);
+}
+
+function renderRunning(ctrl) {
+  var hint = ctrl.hinting();
+  return m('div.player', [
+    m('div.no-square', m('piece.king.' + ctrl.turnColor())),
+    m('div.instruction', [
+      m('strong', ctrl.isMyTurn() ? 'Your move' : 'Computer thinking...'),
+      m('div.choices', [
+        ctrl.isMyTurn() ? m('a', {
+          onclick: ctrl.hint
+        }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
+      ])
+    ])
+  ]);
+}
+
 module.exports = function(root) {
   var ctrl = root.practice;
   if (!ctrl) return;
   var comment = ctrl.comment();
-  var hint = ctrl.hinting();
+  var running = ctrl.running();
+  var end = root.gameOver();
   return m('div.practice_box', [
-    renderTitle(ctrl),
-    m('div.feedback', [
-      ctrl.running() ? m('div.player', [
-        m('div.no-square', m('piece.king.' + ctrl.turnColor())),
-        m('div.instruction', [
-          m('strong', ctrl.isMyTurn() ? 'Your move' : 'Computer thinking...'),
-          m('div.choices', [
-            ctrl.isMyTurn() ? m('a', {
-              onclick: ctrl.hint
-            }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
-          ])
-        ])
-      ]) : offTrack(ctrl)
-    ]),
+    renderTitle(root.togglePractice),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(ctrl))),
     ctrl.running() ? m('div', {
       class: 'comment ' + (comment ? comment.verdict : 'none')
     }, comment ? [
       m('span', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() ? '' : 'Evaluating your move...')) : null
+    ] : (ctrl.isMyTurn() || end ? '' : 'Evaluating your move...')) : null
   ]);
 };

@@ -124,7 +124,9 @@ module.exports = {
         m('pearl', pearl),
         m('div.engine', [
           threatMode ? 'Show threat' : lichess.engineName,
-          m('span.info', threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs))
+          m('span.info', ctrl.gameOver() ? 'Game over.' : (
+            threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs)
+          ))
         ])
       ] : [
         pearl ? m('pearl', pearl) : null,
