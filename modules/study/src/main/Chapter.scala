@@ -79,8 +79,10 @@ object Chapter {
       gameId: Option[String],
       variant: Variant,
       orientation: Color,
+      practice: Option[Boolean] = None,
       fromFen: Option[Boolean] = None) {
     def isFromFen = ~fromFen
+    def isPractice = ~practice
   }
 
   case class Metadata(

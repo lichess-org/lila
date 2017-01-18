@@ -163,6 +163,7 @@ private[study] object ChapterMaker {
       pgn: Option[String],
       orientation: String,
       conceal: Boolean,
+      practice: Boolean,
       initial: Boolean) {
 
     def realOrientation = chess.Color(orientation) | chess.White

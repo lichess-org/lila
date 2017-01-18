@@ -24,6 +24,7 @@ private final class StudyMaker(
       pgn = data.pgnStr,
       orientation = data.orientation.name,
       conceal = false,
+      practice = false,
       initial = true),
       order = 1,
       userId = user.id)
