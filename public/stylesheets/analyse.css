@@ -843,6 +843,7 @@ body.dark .practice_box {
 }
 body.dark .practice_box .comment {
   background: #404040;
+  white-space: nowrap;
 }
 body.dark .practice_box .feedback .progress {
   background: #666;

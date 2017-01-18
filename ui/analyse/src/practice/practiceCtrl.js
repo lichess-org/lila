@@ -25,10 +25,6 @@ module.exports = function(root) {
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
   };
 
-  var isMyTurn = function() {
-    return turnColor() === root.bottomColor();
-  };
-
   var checkCeval = function() {
     if (!running() || root.gameOver()) {
       comment(null);
@@ -75,7 +71,11 @@ module.exports = function(root) {
   }
 
   var turnColor = function() {
-    return root.chessground.data.movable.color;
+    return root.vm.node.ply % 2 === 0 ? 'white' : 'black';
+  };
+
+  var isMyTurn = function() {
+    return turnColor() === root.bottomColor();
   };
 
   return {
