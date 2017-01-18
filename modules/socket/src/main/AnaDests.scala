@@ -15,9 +15,14 @@ case class AnaDests(
 
   val dests: String =
     if (isInitial) "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
-    else chess.Game(variant.some, fen.some).situation.destinations map {
-      case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-    } mkString " "
+    else {
+      val sit = chess.Game(variant.some, fen.some).situation
+      sit.playable(false) ?? {
+        sit.destinations map {
+          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+        } mkString " "
+      }
+    }
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
     FullOpeningDB findByFen fen
