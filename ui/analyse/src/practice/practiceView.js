@@ -81,12 +81,29 @@ function renderEnd(ctrl, end) {
   ]);
 }
 
-function renderRunning(ctrl) {
+var minDepth = 8;
+var maxDepth = 18;
+
+function renderEvalProgress(root) {
+  var node = root.vm.node;
+  if (!node.ceval) return '';
+  return m('div.progress', m('div', {
+    style: {
+      width: (100 * (node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%'
+    }
+  }));
+}
+
+function renderRunning(root) {
+  var ctrl = root.practice;
   var hint = ctrl.hinting();
   return m('div.player', [
     m('div.no-square', m('piece.king.' + ctrl.turnColor())),
     m('div.instruction', [
-      m('strong', ctrl.isMyTurn() ? 'Your move' : 'Computer thinking...'),
+      ctrl.isMyTurn() ? m('strong', 'Your move') : [
+        m('strong', 'Computer thinking...'),
+        renderEvalProgress(root)
+      ],
       m('div.choices', [
         ctrl.isMyTurn() ? m('a', {
           onclick: ctrl.hint
@@ -104,7 +121,7 @@ module.exports = function(root) {
   var end = root.gameOver();
   return m('div.practice_box', [
     renderTitle(root.togglePractice),
-    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(ctrl))),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
     ctrl.running() ? m('div', {
       class: 'comment ' + (comment ? comment.verdict : 'none')
     }, comment ? [

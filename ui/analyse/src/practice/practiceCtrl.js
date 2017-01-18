@@ -56,10 +56,10 @@ module.exports = function(root) {
 
   var makeComment = function(prev, node, path) {
     var c, shift = -winningChances.povDiff(root.bottomColor(), node.ceval, prev.ceval);
-    if (shift < 0.03) c = 'best';
-    else if (shift < 0.06) c = 'good';
-    else if (shift < 0.1) c = 'inaccuracy';
-    else if (shift < 0.2) c = 'mistake';
+    if (shift < 0.02) c = 'best';
+    else if (shift < 0.04) c = 'good';
+    else if (shift < 0.08) c = 'inaccuracy';
+    else if (shift < 0.16) c = 'mistake';
     else c = 'blunder';
     return {
       prev: prev,
