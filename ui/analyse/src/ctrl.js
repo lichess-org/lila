@@ -97,6 +97,10 @@ module.exports = function(opts) {
       this.retro = null;
       this.toggleRetro();
     }
+    if (this.practice) {
+      this.practice = null;
+      this.togglePractice();
+    }
     m.redraw();
   }.bind(this);
 
@@ -634,6 +638,7 @@ module.exports = function(opts) {
       if (this.explorer.enabled()) this.toggleExplorer();
       this.practice = makePractice(this);
     }
+    this.setAutoShapes();
   }.bind(this);
   if (location.hash === '#practice') this.togglePractice();
 
