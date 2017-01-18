@@ -74,6 +74,7 @@ module.exports = {
             return {
               initial: !i && vm.initial(),
               conceal: d.conceal,
+              practice: d.practice,
               name: 'Chapter ' + (firstIt + i),
               orientation: d.orientation,
               pgn: pgn,
@@ -145,7 +146,8 @@ module.exports = {
               fen: fieldValue(e, 'fen') || (activeTab === 'edit' ? ctrl.vm.editorFen() : null),
               pgn: fieldValue(e, 'pgn'),
               orientation: fieldValue(e, 'orientation'),
-              conceal: !!fieldValue(e, 'conceal')
+              conceal: !!fieldValue(e, 'conceal'),
+              practice: !!fieldValue(e, 'practice')
             });
             e.stopPropagation();
             return false;
