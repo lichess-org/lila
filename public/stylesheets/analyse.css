@@ -805,7 +805,8 @@ body.piece_letter .tablebase td:first-child {
   font-size: 2.5em;
   margin-right: 10px;
 }
-body.dark .retro_box {
+body.dark .retro_box,
+body.dark .practice_box {
   background: #303030;
   color: #aaa;
 }
@@ -839,6 +840,12 @@ body.dark .retro_box {
   background: #f8f8f8;
   border-top: 1px solid #ddd;
   padding: 0 5px 0 15px;
+}
+body.dark .practice_box .comment {
+  background: #404040;
+}
+body.dark .practice_box .feedback .progress {
+  background: #666;
 }
 .practice_box .comment span {
   font-weight: bold;
