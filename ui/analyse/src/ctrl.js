@@ -488,7 +488,7 @@ module.exports = function(opts) {
     this.startCeval();
     if (!this.ceval.enabled()) {
       this.vm.threatMode = false;
-      this.practice = null;
+      if (this.practice) this.togglePractice();
     }
     m.redraw();
   }.bind(this);
@@ -498,7 +498,7 @@ module.exports = function(opts) {
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.vm.threatMode = !this.vm.threatMode;
-    if (this.vm.threatMode) this.practice = null;
+    if (this.vm.threatMode && this.practice) this.togglePractice();
     this.setAutoShapes();
     this.startCeval();
     m.redraw();
@@ -564,7 +564,7 @@ module.exports = function(opts) {
   this.toggleComputer = function() {
     var value = !this.vm.showComputer();
     this.vm.showComputer(value);
-    if (!value && this.practice) this.practice = null;
+    if (!value && this.practice) this.togglePractice();
     if (opts.onToggleComputer) opts.onToggleComputer(value);
     onToggleComputer();
   }.bind(this);
@@ -631,7 +631,7 @@ module.exports = function(opts) {
   this.practice = null;
 
   this.togglePractice = function() {
-    if (this.practice) this.practice = null;
+    if (this.practice || !this.ceval.possible) this.practice = null;
     else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
