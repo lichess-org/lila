@@ -821,6 +821,7 @@ body.dark .retro_box {
   padding: 0 5px 0 15px;
 }
 .practice_box .comment span {
+  font-weight: bold;
   font-size: 1.2em;
   margin-right: 10px;
 }
@@ -831,6 +832,10 @@ body.dark .retro_box {
 .practice_box .comment.mistake span,
 .practice_box .comment.blunder span {
   color: #dc322f;
+}
+.practice_box .comment a {
+  margin-left: 5px;
+  color: #3893E8;
 }
 
 .lichess_ground .areplay,

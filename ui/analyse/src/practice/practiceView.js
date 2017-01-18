@@ -10,17 +10,41 @@ function renderTitle(ctrl) {
 }
 
 var commentText = {
-  best: 'Best move!',
+  best: 'Great move!',
   good: 'Good move.',
   inaccuracy: 'Inaccuracy.',
   mistake: 'Mistake.',
   blunder: 'Blunder'
 };
 
-function commentBest(c) {
-  if (c.prev.ceval.best === c.node.uci) return;
-  var pre = c.verdict === 'best' ? 'An alternative was ' : 'Best was ';
-  return pre + c.best.san;
+var altCastles = {
+  e1a1: 'e1c1',
+  e1h1: 'e1g1',
+  e8a8: 'e8c8',
+  e8h8: 'e8g8'
+};
+
+function commentBest(c, ctrl) {
+  if (c.prev.ceval.best === c.node.uci || c.prev.ceval.best === altCastles[c.node.uci]) return;
+  var pre = c.verdict === 'best' ? 'An alternative was' : 'Best was';
+  return [
+    pre,
+    m('a', {
+        onclick: ctrl.playCommentBest,
+        onmouseover: function() {
+          ctrl.commentShape(true);
+        },
+        onmouseout: function() {
+          ctrl.commentShape(false);
+        },
+        config: function(el, isUpdate, ctx) {
+          if (!isUpdate) ctx.onunload = function() {
+            ctrl.commentShape(false);
+          };
+        }
+      },
+      c.best.san)
+  ];
 }
 
 function offTrack(ctrl) {
@@ -29,14 +53,10 @@ function offTrack(ctrl) {
       m('div.icon.off', '!'),
       m('div.instruction', [
         m('strong', 'You browsed away'),
-        m('em', 'What do you want to do?'),
         m('div.choices', [
           m('a', {
             onclick: ctrl.resume
-          }, 'Resume practice'),
-          m('a', {
-            onclick: ctrl.close
-          }, 'Close practice')
+          }, 'Resume practice')
         ])
       ])
     ])
@@ -67,7 +87,7 @@ module.exports = function(root) {
     }, comment ? [
       m('span', commentText[comment.verdict]),
       ' ',
-      commentBest(comment)
-    ] : (ctrl.isMyTurn() ? 'Think carefully...' : 'Evaluating your move...')) : null
+      commentBest(comment, ctrl)
+    ] : (ctrl.isMyTurn() ? '' : 'Evaluating your move...')) : null
   ]);
 };

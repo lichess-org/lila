@@ -10,11 +10,13 @@ module.exports = function(root) {
 
   var running = m.prop(true);
   var comment = m.prop();
-  var WEAK = 16;
-  var DEEP = 18;
+  var hovering = m.prop();
 
-  var hasCeval = function(node, minDepth) {
-    return node.ceval && node.ceval.depth >= minDepth;
+  var commentable = function(ceval) {
+    return ceval && (ceval.depth >= 15 || (ceval.depth >= 14 && ceval.millis > 4000));
+  };
+  var playable = function(ceval) {
+    return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
   };
 
   var isMyTurn = function() {
@@ -26,12 +28,12 @@ module.exports = function(root) {
     var node = root.vm.node;
     if (!isMyTurn()) {
       comment(null);
-      if (hasCeval(node, WEAK)) {
+      if (commentable(node.ceval)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (hasCeval(parentNode, WEAK - 1))
+        if (commentable(parentNode.ceval))
           comment(makeComment(parentNode, node, root.vm.path));
       }
-      if (hasCeval(node, DEEP)) root.playUci(node.ceval.best);
+      if (playable(node.ceval)) root.playUci(node.ceval.best);
       m.redraw();
     }
   };
@@ -71,6 +73,7 @@ module.exports = function(root) {
     isMyTurn: isMyTurn,
     comment: comment,
     running: running,
+    hovering: hovering,
     resume: function() {
       running(true);
       checkCeval();
@@ -78,6 +81,20 @@ module.exports = function(root) {
     onUserJump: function(from, to) {
       running(false);
       comment(null);
+    },
+    playCommentBest: function() {
+      var c = comment();
+      if (!c) return;
+      root.jump(treePath.init(c.path));
+      root.playUci(c.best.uci);
+    },
+    commentShape: function(enable) {
+      var c = comment();
+      if (!enable || !c) hovering(null);
+      else hovering({
+        uci: c.best.uci
+      });
+      root.setAutoShapes();
     }
   };
 };

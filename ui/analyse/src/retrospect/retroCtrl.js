@@ -13,7 +13,6 @@ module.exports = function(root) {
   var solvedPlies = [];
   var current = m.prop();
   var feedback = m.prop('find'); // find | eval | win | fail | view
-  var lastTryAt = new Date();
 
   var isPlySolved = function(ply) {
     return $.fp.contains(solvedPlies, ply)
@@ -97,7 +96,6 @@ module.exports = function(root) {
       else if (node.comp) onWin(); // the computer solution line
       else if (node.eval) onFail(); // the move that was played in the game
       else {
-        lastTryAt = new Date();
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
         checkCeval();
@@ -108,8 +106,8 @@ module.exports = function(root) {
 
   var isCevalReady = function(node) {
     return node.ceval && (
-      node.ceval.depth >= 17 ||
-      (node.ceval.depth >= 14 && new Date() - lastTryAt > 7000)
+      node.ceval.depth >= 18 ||
+      (node.ceval.depth >= 14 && node.ceval.millis > 7000)
     );
   };
 
