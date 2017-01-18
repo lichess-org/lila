@@ -86,12 +86,11 @@ var maxDepth = 18;
 
 function renderEvalProgress(root) {
   var node = root.vm.node;
-  if (!node.ceval) return '';
-  return m('div.progress', m('div', {
+  return m('div.progress', node.ceval ? m('div', {
     style: {
       width: (100 * (node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%'
     }
-  }));
+  }) : null);
 }
 
 function renderRunning(root) {

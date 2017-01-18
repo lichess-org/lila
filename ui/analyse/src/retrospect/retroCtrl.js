@@ -197,6 +197,9 @@ module.exports = function(root) {
       jumpToNext();
     },
     close: root.toggleRetro,
-    trans: root.trans
+    trans: root.trans,
+    node: function() {
+      return root.vm.node;
+    }
   };
 };

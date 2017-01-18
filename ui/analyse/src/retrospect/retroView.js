@@ -23,6 +23,17 @@ function jumpToNext(ctrl) {
   ]);
 }
 
+var minDepth = 8;
+var maxDepth = 18;
+
+function renderEvalProgress(node) {
+  return m('div.progress', node.ceval ? m('div', {
+    style: {
+      width: (100 * (node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%'
+    }
+  }) : null);
+}
+
 var feedback = {
   find: function(ctrl) {
     return [
@@ -111,9 +122,11 @@ var feedback = {
   eval: function(ctrl) {
     return [
       m('div.half.top',
-        m('div.player', [
-          m('div.icon', m.trust(lichess.spinnerHtml)),
-          m('div.instruction', 'Evaluating your move...')
+        m('div.player.center', [
+          m('div.instruction', [
+            m('strong', 'Evaluating your move'),
+            renderEvalProgress(ctrl.node())
+          ])
         ])
       )
     ];
