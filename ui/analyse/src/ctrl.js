@@ -620,6 +620,11 @@ module.exports = function(opts) {
     this.setAutoShapes();
   }.bind(this);
 
+  this.toggleExplorer = function() {
+    if (this.practice) this.togglePractice();
+    this.explorer.toggle();
+  }.bind(this);
+
   this.practice = null;
 
   this.togglePractice = function() {
@@ -630,12 +635,7 @@ module.exports = function(opts) {
       this.practice = makePractice(this);
     }
   }.bind(this);
-  if (location.hash === '#practice' || true) this.togglePractice();
-
-  this.toggleExplorer = function() {
-    if (this.practice) this.togglePractice();
-    this.explorer.toggle();
-  }.bind(this);
+  if (location.hash === '#practice') this.togglePractice();
 
   keyboard.bind(this);
 
