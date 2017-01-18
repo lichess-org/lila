@@ -37,6 +37,7 @@ final class JsonView(
           "ownerId" -> currentChapter.ownerId,
           "setup" -> currentChapter.setup,
           "tags" -> currentChapter.tags,
+          "practice" -> currentChapter.isPractice,
           "conceal" -> currentChapter.conceal,
           "features" -> Json.obj(
             "computer" -> allowed(study.settings.computer),
@@ -53,6 +54,7 @@ final class JsonView(
   def chapterConfig(c: Chapter) = Json.obj(
     "id" -> c.id,
     "name" -> c.name,
+    "practice" -> c.practice,
     "conceal" -> c.conceal,
     "orientation" -> c.setup.orientation)
 

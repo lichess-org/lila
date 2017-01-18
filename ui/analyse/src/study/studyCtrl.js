@@ -82,10 +82,16 @@ module.exports = function(data, ctrl, tagTypes) {
   var configureAnalysis = function() {
     if (ctrl.embed) return;
     lichess.pubsub.emit('chat.writeable')(!!members.myMember());
-    if (!data.chapter.features.computer) ctrl.getCeval().enabled(false);
-    ctrl.getCeval().allowed(data.chapter.features.computer);
+    var computer = data.chapter.features.computer || data.chapter.practice;
+    if (!computer) ctrl.getCeval().enabled(false);
+    ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
     ctrl.explorer.allowed(data.chapter.features.explorer);
+
+    setTimeout(function() {
+      if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
+      if (data.chapter.practice) ctrl.restartPractice();
+    }, 50);
   };
   configureAnalysis();
 

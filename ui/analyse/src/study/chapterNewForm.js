@@ -5,9 +5,10 @@ var xhr = require('./studyXhr');
 var dialog = require('./dialog');
 var tours = require('./studyTour');
 
-var concealChoices = [
-  ['', "Reveal all moves at once"],
-  ['1', "Conceal next moves (puzzle mode)"]
+var modeChoices = [
+  ['normal', "Normal analysis"],
+  ['practice', "Play with computer (practice mode)"],
+  ['conceal', "Conceal next moves (puzzle mode)"]
 ];
 var fieldValue = function(e, id) {
   var el = e.target.querySelector('#chapter-' + id);
@@ -15,7 +16,7 @@ var fieldValue = function(e, id) {
 };
 
 module.exports = {
-  concealChoices: concealChoices,
+  modeChoices: modeChoices,
   fieldValue: fieldValue,
   ctrl: function(send, chapters, setTab, root) {
 
@@ -73,8 +74,7 @@ module.exports = {
           step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
             return {
               initial: !i && vm.initial(),
-              conceal: d.conceal,
-              practice: d.practice,
+              mode: d.mode,
               name: 'Chapter ' + (firstIt + i),
               orientation: d.orientation,
               pgn: pgn,
@@ -146,8 +146,7 @@ module.exports = {
               fen: fieldValue(e, 'fen') || (activeTab === 'edit' ? ctrl.vm.editorFen() : null),
               pgn: fieldValue(e, 'pgn'),
               orientation: fieldValue(e, 'orientation'),
-              conceal: !!fieldValue(e, 'conceal'),
-              practice: !!fieldValue(e, 'practice')
+              mode: fieldValue(e, 'mode')
             });
             e.stopPropagation();
             return false;
@@ -253,15 +252,15 @@ module.exports = {
               m('i.bar')
             ])
           ]),
-          gameOrPgn ? m('div.form-group', [
-            m('select#chapter-conceal', concealChoices.map(function(c) {
+          m('div.form-group', [
+            m('select#chapter-mode', modeChoices.map(function(c) {
               return m('option', {
                 value: c[0]
               }, c[1])
             })),
-            m('label.control-label[for=chapter-conceal]', 'Progressive move display'),
+            m('label.control-label[for=chapter-mode]', 'Analysis mode'),
             m('i.bar')
-          ]) : null,
+          ]),
           dialog.button('Create chapter')
         ])
       ]

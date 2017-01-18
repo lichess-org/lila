@@ -50,7 +50,8 @@ private final class ChapterMaker(
         tags = res.tags,
         order = order,
         ownerId = userId,
-        conceal = data.conceal option Chapter.Ply(res.root.ply))
+        practice = data.isPractice,
+        conceal = data.isConceal option Chapter.Ply(res.root.ply))
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -83,6 +84,7 @@ private final class ChapterMaker(
         tags = Nil,
         order = order,
         ownerId = userId,
+        practice = data.isPractice,
         conceal = None)
     }
   }
@@ -103,7 +105,8 @@ private final class ChapterMaker(
         tags = Nil,
         order = order,
         ownerId = userId,
-        conceal = data.conceal option Chapter.Ply(root.ply)).some
+        practice = data.isPractice,
+        conceal = data.isConceal option Chapter.Ply(root.ply)).some
     } addEffect { _ =>
       notifyChat(study, pov.game, userId)
     }
@@ -155,26 +158,38 @@ private final class ChapterMaker(
 
 private[study] object ChapterMaker {
 
-  case class Data(
-      name: String,
-      game: Option[String],
-      variant: Option[String],
-      fen: Option[String],
-      pgn: Option[String],
-      orientation: String,
-      conceal: Boolean,
-      practice: Boolean,
-      initial: Boolean) {
-
-    def realOrientation = chess.Color(orientation) | chess.White
+  sealed trait Mode {
+    def key = toString.toLowerCase
   }
+  object Mode {
+    case object Normal extends Mode
+    case object Practice extends Mode
+    case object Conceal extends Mode
+    val all = List(Normal, Practice, Conceal)
+    def apply(key: String) = all.find(_.key == key)
+  }
+
+  trait ChapterData {
+    def orientation: String
+    def mode: String
+    def realOrientation = chess.Color(orientation) | chess.White
+    def isPractice = mode == Mode.Practice.key
+    def isConceal = mode == Mode.Conceal.key
+  }
+
+  case class Data(
+    name: String,
+    game: Option[String],
+    variant: Option[String],
+    fen: Option[String],
+    pgn: Option[String],
+    orientation: String,
+    mode: String,
+    initial: Boolean) extends ChapterData
 
   case class EditData(
-      id: String,
-      name: String,
-      orientation: String,
-      conceal: Boolean) {
-
-    def realOrientation = chess.Color(orientation) | chess.White
-  }
+    id: String,
+    name: String,
+    orientation: String,
+    mode: String) extends ChapterData
 }

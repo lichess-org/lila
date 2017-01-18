@@ -23,8 +23,7 @@ private final class StudyMaker(
       fen = data.fenStr,
       pgn = data.pgnStr,
       orientation = data.orientation.name,
-      conceal = false,
-      practice = false,
+      mode = ChapterMaker.Mode.Normal.key,
       initial = true),
       order = 1,
       userId = user.id)
@@ -45,6 +44,7 @@ private final class StudyMaker(
         tags = Nil,
         order = 1,
         ownerId = user.id,
+        practice = false,
         conceal = None)
       Study.WithChapter(study withChapter chapter, chapter)
     } addEffect { swc =>
