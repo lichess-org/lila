@@ -6,12 +6,16 @@ var m = require('mithril');
 
 module.exports = function(root) {
 
-  if (!root.ceval.enabled()) root.toggleCeval();
-
   var running = m.prop(true);
   var comment = m.prop();
   var hovering = m.prop();
   var hinting = m.prop();
+
+  var ensureCevalRunnning = function() {
+    if (!root.ceval.enabled()) root.toggleCeval();
+    if (root.vm.threatMode) root.toggleThreatMode();
+  };
+  ensureCevalRunnning();
 
   var commentable = function(ceval) {
     return ceval && (ceval.depth >= 15 || (ceval.depth >= 14 && ceval.millis > 4000));
@@ -26,6 +30,7 @@ module.exports = function(root) {
 
   var checkCeval = function() {
     if (!running()) return;
+    ensureCevalRunnning();
     var node = root.vm.node;
     if (isMyTurn()) {
       var h = hinting();

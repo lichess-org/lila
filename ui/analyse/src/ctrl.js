@@ -484,7 +484,10 @@ module.exports = function(opts) {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
-    if (!this.ceval.enabled()) this.vm.threatMode = false;
+    if (!this.ceval.enabled()) {
+      this.vm.threatMode = false;
+      this.practice = null;
+    }
     m.redraw();
   }.bind(this);
 
@@ -493,6 +496,7 @@ module.exports = function(opts) {
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.vm.threatMode = !this.vm.threatMode;
+    if (this.vm.threatMode) this.practice = null;
     this.setAutoShapes();
     this.startCeval();
     m.redraw();
