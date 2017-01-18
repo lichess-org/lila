@@ -55,9 +55,9 @@ module.exports = {
   ratio2percent: ratio2percent,
   numberRow: function(name, value, typ) {
     return m('tr', [m('th', name), m('td',
-      typ === 'percent' ? (
+      typ === 'raw' ? value : (typ === 'percent' ? (
         value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
-      ) : lichess.numberFormat(value)
+      ) : lichess.numberFormat(value))
     )]);
   }
 };

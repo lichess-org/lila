@@ -45,12 +45,12 @@ module.exports = function(ctrl) {
     m('div.stats', [
       playerTitle(data.player),
       m('table', [
-        data.player.performance ? numberRow('Performance', data.player.performance) : null,
+        data.player.performance ? numberRow('Performance', data.player.performance, 'raw') : null,
         numberRow('Games played', nb.game),
         nb.game ? [
           numberRow('Win rate', [nb.win, nb.game], 'percent'),
           numberRow('Berserk rate', [nb.berserk, nb.game], 'percent'),
-          numberRow('Average opponent', avgOp)
+          numberRow('Average opponent', avgOp, 'raw')
         ] : null
       ])
     ]),

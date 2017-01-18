@@ -24,7 +24,7 @@ function stats(st) {
   return m('div.stats.box', [
     m('h2', 'Tournament complete'),
     m('table', [
-      numberRow('Average rating', st.averageRating),
+      numberRow('Average rating', st.averageRating, 'raw'),
       numberRow('Games played', st.games),
       numberRow('Moves played', st.moves),
       numberRow('White wins', [st.whiteWins, st.games], 'percent'),
