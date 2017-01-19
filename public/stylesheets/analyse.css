@@ -261,6 +261,16 @@ body.piece_letter .pv_box .pv span {
   flex: 1 0;
   margin: 5px 0 0 5px;
 }
+.ceval_box .native {
+  margin-left: 5px;
+  text-transform: uppercase;
+  color: #759900;
+  font-weight: bold;
+}
+.ceval_box .asmjs {
+  margin-left: 5px;
+  text-transform: uppercase;
+}
 .ceval_box .engine .info {
   display: block;
   font-size: 10px;
