@@ -23,6 +23,7 @@ module.exports = function(opts) {
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   var started = false;
   var hovering = m.prop(null);
+  var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
     asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=9',
@@ -77,10 +78,14 @@ module.exports = function(opts) {
     if (res.eval.depth === 12) lichess.storage.set('ceval.fen', res.work.currentFen);
   };
 
-  var start = function(path, steps, threatMode, maxD) {
+  var start = function(path, steps, threatMode, deeper) {
+
     if (!enabled() || !opts.possible) return;
+
+    isDeeper(deeper);
+    var maxD = deeper ? 99 : maxDepth();
+
     var step = steps[steps.length - 1];
-    maxD = maxD || maxDepth();
 
     var existing = step[threatMode ? 'threat' : 'ceval'];
     if (existing && existing.depth >= maxD) return;
@@ -139,10 +144,12 @@ module.exports = function(opts) {
     };
   };
 
-  var deeper = function() {
+  var goDeeper = function() {
     var s = started;
-    stop();
-    start(s.path, s.steps, s.threatMode, 99);
+    if (s) {
+      stop();
+      start(s.path, s.steps, s.threatMode, true);
+    }
   };
 
   var stop = function() {
@@ -186,7 +193,8 @@ module.exports = function(opts) {
     },
     maxDepth: maxDepth,
     variant: opts.variant,
-    deeper: deeper,
+    isDeeper: isDeeper,
+    goDeeper: goDeeper,
     destroy: pool.destroy
   };
 };
