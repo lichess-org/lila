@@ -61,14 +61,10 @@ var feedback = {
         m('div.icon.off', '!'),
         m('div.instruction', [
           m('strong', 'You browsed away'),
-          m('em', 'What do you want to do?'),
           m('div.choices', [
             m('a', {
               onclick: ctrl.jumpToNext
-            }, 'Resume learning'),
-            m('a', {
-              onclick: ctrl.close
-            }, 'Close learning')
+            }, 'Resume learning')
           ])
         ])
       ])
