@@ -834,7 +834,7 @@ body.dark .practice_box .feedback .progress {
 }
 
 .practice_box {
-  flex: 1 1 0px;
+  flex: 0 0 135px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
