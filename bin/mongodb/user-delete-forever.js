@@ -8,7 +8,7 @@ var multi = {
   multi: true
 };
 print('\n\n Delete user ' + user.username + ' with ' + user.count.game + ' games!\n\n');
-// sleep(5000);
+sleep(5000);
 
 print('Set black games as anon');
 print(db.game5.update({
@@ -26,7 +26,7 @@ print(db.game5.update({
   'us.0': userId
 }, {
   $set: {
-    'us.$': ''
+    'us.0': ''
   }
 }, multi).nModified + ' done');
 print('done');
