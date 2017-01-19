@@ -1,4 +1,5 @@
 var m = require('mithril');
+var opposite = require('chessground').util.opposite;
 
 function renderTitle(close) {
   return m('div.title', [
@@ -68,12 +69,14 @@ function renderOffTrack(ctrl) {
 }
 
 function renderEnd(ctrl, end) {
+  var color = ctrl.turnColor();
+  if (end === 'checkmate') color = opposite(color);
   return m('div.player', [
-    ctrl.turnColor() ? m('div.no-square', m('piece.king.' + ctrl.turnColor())) : m('div.icon.off', '!'),
+    color ? m('div.no-square', m('piece.king.' + color)) : m('div.icon.off', '!'),
     m('div.instruction', [
       m('strong', endText[end]),
       m('em', end === 'checkmate' ? [
-        m('color', ctrl.turnColor()),
+        m('color', color),
         ' wins.'
       ] : 'the game is a draw.')
     ])
