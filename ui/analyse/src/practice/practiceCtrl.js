@@ -113,8 +113,10 @@ module.exports = function(root) {
       checkCeval();
     },
     onUserJump: function(from, to) {
-      running(false);
-      comment(null);
+      if (from !== to) {
+        running(false);
+        comment(null);
+      }
     },
     playCommentBest: function() {
       var c = comment();

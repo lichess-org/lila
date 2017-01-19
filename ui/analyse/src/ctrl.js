@@ -227,8 +227,10 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
-    if (this.retro) this.retro.onJump();
-    if (this.practice) this.practice.onJump();
+    if (pathChanged) {
+      if (this.retro) this.retro.onJump();
+      if (this.practice) this.practice.onJump();
+    }
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
