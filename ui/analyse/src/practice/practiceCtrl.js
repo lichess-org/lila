@@ -16,38 +16,12 @@ module.exports = function(root) {
     if (!root.ceval.enabled()) root.toggleCeval();
     if (root.vm.threatMode) root.toggleThreatMode();
   };
-  ensureCevalRunnning();
 
   var commentable = function(ceval) {
     return ceval && (ceval.depth >= 14 || (ceval.depth >= 13 && ceval.millis > 3000));
   };
   var playable = function(ceval) {
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
-  };
-
-  var checkCeval = function() {
-    if (!running() || root.gameOver()) {
-      comment(null);
-      m.redraw();
-      return;
-    }
-    ensureCevalRunnning();
-    var node = root.vm.node;
-    if (isMyTurn()) {
-      var h = hinting();
-      if (h) {
-        h.uci = node.ceval.best;
-        root.setAutoShapes();
-      }
-    } else {
-      comment(null);
-      if (commentable(node.ceval)) {
-        var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (commentable(parentNode.ceval))
-          comment(makeComment(parentNode, node, root.vm.path));
-      }
-      if (playable(node.ceval)) root.playUci(node.ceval.best);
-    }
   };
 
   var makeComment = function(prev, node, path) {
@@ -75,6 +49,33 @@ module.exports = function(root) {
   var isMyTurn = function() {
     return turnColor() === root.bottomColor();
   };
+
+  var checkCeval = function() {
+    if (!running() || root.gameOver()) {
+      comment(null);
+      m.redraw();
+      return;
+    }
+    ensureCevalRunnning();
+    var node = root.vm.node;
+    if (isMyTurn()) {
+      var h = hinting();
+      if (h) {
+        h.uci = node.ceval.best;
+        root.setAutoShapes();
+      }
+    } else {
+      comment(null);
+      if (commentable(node.ceval)) {
+        var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
+        if (commentable(parentNode.ceval))
+          comment(makeComment(parentNode, node, root.vm.path));
+      }
+      if (playable(node.ceval)) root.playUci(node.ceval.best);
+    }
+  };
+
+  checkCeval();
 
   return {
     onCeval: checkCeval,
