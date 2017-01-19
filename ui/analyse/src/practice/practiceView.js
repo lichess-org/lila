@@ -117,12 +117,12 @@ module.exports = function(root) {
   var comment = ctrl.comment();
   var running = ctrl.running();
   var end = root.gameOver();
-  return m('div.practice_box', [
+  return m('div', {
+    class: 'practice_box ' + (comment ? comment.verdict : '')
+  }, [
     renderTitle(root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
-    ctrl.running() ? m('div', {
-      class: 'comment ' + (comment ? comment.verdict : 'none')
-    }, comment ? [
+    ctrl.running() ? m('div.comment', comment ? [
       m('span', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
