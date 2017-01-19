@@ -47,7 +47,7 @@ module.exports = function(root) {
       prev: prev,
       node: node,
       path: path,
-      verdict: 'good',
+      verdict: c,
       best: best ? {
         uci: best,
         san: pv2san(root.data.game.variant.key, prev.fen, false, best)

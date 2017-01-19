@@ -11,9 +11,9 @@ function renderTitle(close) {
 }
 
 var commentText = {
-  good: 'Good move.',
-  inaccuracy: 'Inaccuracy.',
-  mistake: 'Mistake.',
+  good: 'Good move',
+  inaccuracy: 'Inaccuracy',
+  mistake: 'Mistake',
   blunder: 'Blunder'
 };
 
@@ -119,9 +119,9 @@ module.exports = function(root) {
     renderTitle(root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
     ctrl.running() ? m('div.comment', comment ? [
-      m('span', commentText[comment.verdict]),
+      m('span.verdict', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() || end ? '' : 'Evaluating your move...')) : null
+    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : null
   ]);
 };

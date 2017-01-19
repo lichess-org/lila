@@ -855,10 +855,11 @@ body.dark .practice_box .feedback .progress {
 .practice_box .comment {
   flex: 0 0 30px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
-  padding: 0 5px 0 15px;
+  white-space: nowrap;
+  line-height: 30px;
 }
 body.dark .practice_box .comment {
   background: #404040;
@@ -877,20 +878,47 @@ body.dark .practice_box .comment {
 .practice_box.blunder .progress div {
   background: #dc322f;
 }
-.practice_box .comment span {
+.practice_box .comment .wait {
+  padding-left: 15px;
+}
+.practice_box .verdict {
   font-weight: bold;
   font-size: 1.2em;
   margin-right: 10px;
+  display: flex;
 }
-.practice_box.good .comment span {
+.practice_box .verdict::before {
+  width: 30px;
+  height: 100%;
+  color: #fff;
+  margin-right: 5px;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: normal;
+}
+.practice_box.good .verdict {
   color: #4caf50;
 }
-.practice_box.inaccuracy .comment span {
+.practice_box.good .verdict::before {
+  background: #4caf50;
+  content: '✓';
+  font-size: 1.7em;
+}
+.practice_box.inaccuracy .verdict {
   color: #d59120;
 }
-.practice_box.mistake .comment span,
-.practice_box.blunder .comment span {
+.practice_box.inaccuracy .verdict::before {
+  background: #d59120;
+  content: '?';
+}
+.practice_box.mistake .verdict,
+.practice_box.blunder .verdict {
   color: #dc322f;
+}
+.practice_box.mistake .verdict::before,
+.practice_box.blunder .verdict::before {
+  background: #dc322f;
+  content: '✗';
 }
 .practice_box .comment a {
   margin-left: 5px;
