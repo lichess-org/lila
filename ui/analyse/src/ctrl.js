@@ -505,6 +505,10 @@ module.exports = function(opts) {
     return !!this.practice;
   }.bind(this);
 
+  this.mandatoryCeval = function() {
+    return !!this.practice;
+  }.bind(this);
+
   var cevalReset = function(f) {
     this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();

@@ -132,6 +132,7 @@ module.exports = {
     else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
     var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
     var ceval = ctrl.getCeval();
+    var mandatoryCeval = ctrl.mandatoryCeval();
 
     return m('div.action_menu', [
       m('div.tools', [
@@ -157,7 +158,9 @@ module.exports = {
       ceval.possible ? [
         m('h2', 'Computer analysis'), [
           (function(id) {
-            return m('div.setting', [
+            return m('div.setting', {
+              title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8'
+            }, [
               m('label', {
                 'for': id
               }, 'Enable'),
@@ -167,7 +170,8 @@ module.exports = {
                   class: 'cmn-toggle cmn-toggle-round',
                   type: 'checkbox',
                   checked: ctrl.vm.showComputer(),
-                  config: bindOnce('change', ctrl.toggleComputer)
+                  config: bindOnce('change', ctrl.toggleComputer),
+                  disabled: mandatoryCeval
                 }),
                 m('label', {
                   'for': id
@@ -196,7 +200,7 @@ module.exports = {
                   })
                 ])
               ]);
-            })('analyse-toggle-ceval'), (function(id) {
+            })('analyse-toggle-shapes'), (function(id) {
               return m('div.setting', [
                 m('label', {
                   'for': id
