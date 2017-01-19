@@ -630,9 +630,6 @@ body.dark input.cmn-toggle-round + label:after {
   background-color: #aaa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
-body.dark input.cmn-toggle-round:checked + label:before {
-  background-color: #75aa00;
-}
 body.dark ::-webkit-scrollbar,
 body.dark ::-webkit-scrollbar-corner {
   background: #262626;
