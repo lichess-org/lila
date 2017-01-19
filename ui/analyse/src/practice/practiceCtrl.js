@@ -118,6 +118,9 @@ module.exports = function(root) {
         comment(null);
       }
     },
+    onUserMove: function() {
+      running(true);
+    },
     playCommentBest: function() {
       var c = comment();
       if (!c) return;

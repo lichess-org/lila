@@ -335,6 +335,7 @@ module.exports = function(opts) {
     this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
+    if (this.practice) this.practice.onUserMove();
   }.bind(this);
 
   var sendMove = function(orig, dest, prom) {
