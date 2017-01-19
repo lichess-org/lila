@@ -19,7 +19,7 @@ module.exports = function(root) {
   ensureCevalRunnning();
 
   var commentable = function(ceval) {
-    return ceval && (ceval.depth >= 15 || (ceval.depth >= 14 && ceval.millis > 4000));
+    return ceval && (ceval.depth >= 14 || (ceval.depth >= 13 && ceval.millis > 3000));
   };
   var playable = function(ceval) {
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
@@ -53,10 +53,9 @@ module.exports = function(root) {
 
   var makeComment = function(prev, node, path) {
     var c, shift = -winningChances.povDiff(root.bottomColor(), node.ceval, prev.ceval);
-    if (shift < 0.02) c = 'best';
-    else if (shift < 0.04) c = 'good';
-    else if (shift < 0.08) c = 'inaccuracy';
-    else if (shift < 0.16) c = 'mistake';
+    if (shift < 0.025) c = 'good';
+    else if (shift < 0.06) c = 'inaccuracy';
+    else if (shift < 0.14) c = 'mistake';
     else c = 'blunder';
     return {
       prev: prev,

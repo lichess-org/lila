@@ -10,7 +10,6 @@ function renderTitle(close) {
 }
 
 var commentText = {
-  best: 'Great move!',
   good: 'Good move.',
   inaccuracy: 'Inaccuracy.',
   mistake: 'Mistake.',
@@ -31,7 +30,7 @@ var altCastles = {
 
 function commentBest(c, ctrl) {
   if (c.prev.ceval.best === c.node.uci || c.prev.ceval.best === altCastles[c.node.uci]) return;
-  var pre = c.verdict === 'best' ? 'An alternative was' : 'Best was';
+  var pre = c.verdict === 'good' ? 'An alternative was' : 'Best was';
   return [
     pre,
     m('a', {
