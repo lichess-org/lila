@@ -117,6 +117,7 @@ module.exports = {
       if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
       else percent = 0;
     }
+    var mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
     return m('div.ceval_box',
       enabled ? m('div.bar', m('span', {
         class: threatMode ? 'threat' : '',
@@ -151,14 +152,15 @@ module.exports = {
         )
       ],
       m('div.switch', {
-        title: 'Toggle local evaluation (l)'
+        title: mandatoryCeval ? 'Required by practice mode' : 'Toggle local evaluation (l)'
       }, [
         m('input', {
           id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          onchange: ctrl.toggleCeval
+          onchange: ctrl.toggleCeval,
+          disabled: mandatoryCeval
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'
