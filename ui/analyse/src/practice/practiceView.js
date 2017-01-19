@@ -23,7 +23,7 @@ var endText = {
 };
 
 function commentBest(c, ctrl) {
-  if (c.prev.ceval.best === c.node.uci || c.prev.ceval.best === altCastles[c.node.uci]) return;
+  if (!c.best) return;
   var pre = c.verdict === 'good' ? 'An alternative was' : 'Best was';
   return [
     pre,
