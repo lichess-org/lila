@@ -1453,8 +1453,12 @@ body #themepicker div.is3d,
   border: 1px solid #ccc;
   border-right: 0;
   min-width: 150px;
+  max-height: 95%;
   /* improve scroll perfs */
   backface-visibility: hidden;
+}
+#friend_box:hover {
+  overflow-y: auto;
 }
 body.fpmenu #friend_box {
   display: none;
