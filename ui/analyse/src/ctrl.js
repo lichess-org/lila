@@ -355,6 +355,9 @@ module.exports = function(opts) {
       turnColor: this.chessground.data.movable.color,
       movable: {
         color: opposite(this.chessground.data.movable.color)
+      },
+      premovable: {
+        enabled: true
       }
     });
   }.bind(this);
