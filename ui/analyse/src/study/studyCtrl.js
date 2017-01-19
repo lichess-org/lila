@@ -87,13 +87,13 @@ module.exports = function(data, ctrl, tagTypes) {
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
     ctrl.explorer.allowed(data.chapter.features.explorer);
-
-    setTimeout(function() {
-      if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
-      if (data.chapter.practice) ctrl.restartPractice();
-    }, 50);
   };
   configureAnalysis();
+
+  var configurePractice = function() {
+    if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
+    if (data.chapter.practice) ctrl.restartPractice();
+  };
 
   var onReload = function(d) {
     var s = d.study;
@@ -115,6 +115,9 @@ module.exports = function(data, ctrl, tagTypes) {
     vm.loading = false;
     if (vm.behind === false || vm.catchingUp) ctrl.userJump(data.position.path);
     else ctrl.userJump('');
+
+    configurePractice();
+
     vm.catchingUp = false;
     m.redraw.strategy("all");
     m.redraw();
