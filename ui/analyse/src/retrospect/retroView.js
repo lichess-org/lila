@@ -23,6 +23,17 @@ function jumpToNext(ctrl) {
   ]);
 }
 
+var minDepth = 8;
+var maxDepth = 18;
+
+function renderEvalProgress(node) {
+  return m('div.progress', m('div', {
+    style: {
+      width: node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0
+    }
+  }));
+}
+
 var feedback = {
   find: function(ctrl) {
     return [
@@ -50,14 +61,10 @@ var feedback = {
         m('div.icon.off', '!'),
         m('div.instruction', [
           m('strong', 'You browsed away'),
-          m('em', 'What do you want to do?'),
           m('div.choices', [
             m('a', {
               onclick: ctrl.jumpToNext
-            }, 'Resume learning'),
-            m('a', {
-              onclick: ctrl.close
-            }, 'Close learning')
+            }, 'Resume learning')
           ])
         ])
       ])
@@ -111,9 +118,11 @@ var feedback = {
   eval: function(ctrl) {
     return [
       m('div.half.top',
-        m('div.player', [
-          m('div.icon', m.trust(lichess.spinnerHtml)),
-          m('div.instruction', 'Evaluating your move...')
+        m('div.player.center', [
+          m('div.instruction', [
+            m('strong', 'Evaluating your move'),
+            renderEvalProgress(ctrl.node())
+          ])
         ])
       )
     ];

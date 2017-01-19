@@ -202,6 +202,10 @@ object Schedule {
       import Freq._, Speed._
 
       val nbRatedGame = (s.freq, s.speed) match {
+        case (Hourly, HyperBullet | Bullet)           => 20
+        case (Hourly, SuperBlitz | Blitz)             => 15
+        case (Hourly, Classical)                      => 10
+
         case (Daily | Eastern, HyperBullet | Bullet)  => 20
         case (Daily | Eastern, SuperBlitz | Blitz)    => 15
         case (Daily | Eastern, Classical)             => 10

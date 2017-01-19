@@ -70,7 +70,7 @@ function renderPairing(p) {
     },
     children: [
       user(p, 0),
-      'vs',
+      '-',
       user(p, 1)
     ]
   };

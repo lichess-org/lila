@@ -715,11 +715,29 @@ body.piece_letter .tablebase td:first-child {
   flex-flow: column;
   justify-content: center;
 }
+.retro_box .progress,
+.practice_box .progress {
+  margin-top: 5px;
+  opacity: 0.8;
+  width: 100%;
+  height: 4px;
+  background: #ddd;
+}
+.retro_box .progress div,
+.practice_box .progress div {
+  background: #4caf50;
+  height: 4px;
+  transition: width 0.5s;
+  max-width: 100%;
+}
 .retro_box .player,
 .practice_box .player {
   display: flex;
   align-items: center;
   margin-left: 10px;
+}
+.retro_box .player.center {
+  justify-content: center;
 }
 .retro_box:not(.find) .player {
   height: 100%;
@@ -810,28 +828,19 @@ body.dark .practice_box {
   background: #303030;
   color: #aaa;
 }
+body.dark .retro_box .feedback .progress,
+body.dark .practice_box .feedback .progress {
+  background: #666;
+}
 
 .practice_box {
-  flex: 1 1 0px;
+  flex: 0 0 135px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
 .practice_box .feedback color {
   text-transform: capitalize;
-}
-.practice_box .feedback .progress {
-  margin-top: 5px;
-  opacity: 0.7;
-  width: 100%;
-  height: 4px;
-  background: #ddd;
-}
-.practice_box .feedback .progress div {
-  background: #4caf50;
-  height: 4px;
-  transition: width 0.3s;
-  max-width: 100%;
 }
 .practice_box .comment {
   flex: 0 0 30px;
@@ -843,26 +852,40 @@ body.dark .practice_box {
 }
 body.dark .practice_box .comment {
   background: #404040;
+  white-space: nowrap;
 }
-body.dark .practice_box .feedback .progress {
-  background: #666;
+.practice_box .progress div {
+  background: #aaa;
+}
+.practice_box.good .progress div {
+  background: #4caf50;
+}
+.practice_box.inaccuracy .progress div {
+  background: #d59120;
+}
+.practice_box.mistake .progress div,
+.practice_box.blunder .progress div {
+  background: #dc322f;
 }
 .practice_box .comment span {
   font-weight: bold;
   font-size: 1.2em;
   margin-right: 10px;
 }
-.practice_box .comment.best span,
-.practice_box .comment.good span {
+.practice_box.good .comment span {
   color: #4caf50;
 }
-.practice_box .comment.mistake span,
-.practice_box .comment.blunder span {
+.practice_box.inaccuracy .comment span {
+  color: #d59120;
+}
+.practice_box.mistake .comment span,
+.practice_box.blunder .comment span {
   color: #dc322f;
 }
 .practice_box .comment a {
   margin-left: 5px;
   color: #3893E8;
+  transition: 0.3s;
 }
 
 .lichess_ground .areplay,

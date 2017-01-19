@@ -458,7 +458,7 @@ module.exports = function(opts) {
 
   this.gameOver = function() {
     if (this.vm.node.dests !== '') return false;
-    if (this.vm.node.check) return checkmate && 'checkmate';
+    if (this.vm.node.check) return 'checkmate';
     if (this.vm.node.crazy) {
       // no stalemate with full crazyhouse pockets
       var wtm = this.vm.node.fen.indexOf(' w ') !== -1;

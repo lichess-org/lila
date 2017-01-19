@@ -10,7 +10,6 @@ function renderTitle(close) {
 }
 
 var commentText = {
-  best: 'Great move!',
   good: 'Good move.',
   inaccuracy: 'Inaccuracy.',
   mistake: 'Mistake.',
@@ -31,7 +30,7 @@ var altCastles = {
 
 function commentBest(c, ctrl) {
   if (c.prev.ceval.best === c.node.uci || c.prev.ceval.best === altCastles[c.node.uci]) return;
-  var pre = c.verdict === 'best' ? 'An alternative was' : 'Best was';
+  var pre = c.verdict === 'good' ? 'An alternative was' : 'Best was';
   return [
     pre,
     m('a', {
@@ -86,10 +85,9 @@ var maxDepth = 18;
 
 function renderEvalProgress(root) {
   var node = root.vm.node;
-  if (!node.ceval) return '';
   return m('div.progress', m('div', {
     style: {
-      width: (100 * (node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%'
+      width: node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0
     }
   }));
 }
@@ -119,12 +117,12 @@ module.exports = function(root) {
   var comment = ctrl.comment();
   var running = ctrl.running();
   var end = root.gameOver();
-  return m('div.practice_box', [
+  return m('div', {
+    class: 'practice_box ' + (comment ? comment.verdict : '')
+  }, [
     renderTitle(root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
-    ctrl.running() ? m('div', {
-      class: 'comment ' + (comment ? comment.verdict : 'none')
-    }, comment ? [
+    ctrl.running() ? m('div.comment', comment ? [
       m('span', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
