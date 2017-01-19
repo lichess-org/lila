@@ -261,6 +261,16 @@ body.piece_letter .pv_box .pv span {
   flex: 1 0;
   margin: 5px 0 0 5px;
 }
+.ceval_box .native {
+  margin-left: 5px;
+  text-transform: uppercase;
+  color: #759900;
+  font-weight: bold;
+}
+.ceval_box .asmjs {
+  margin-left: 5px;
+  text-transform: uppercase;
+}
 .ceval_box .engine .info {
   display: block;
   font-size: 10px;
@@ -725,7 +735,7 @@ body.piece_letter .tablebase td:first-child {
 }
 .retro_box .progress div,
 .practice_box .progress div {
-  background: #4caf50;
+  background: #759900;
   height: 4px;
   transition: width 0.5s;
   max-width: 100%;
@@ -845,10 +855,11 @@ body.dark .practice_box .feedback .progress {
 .practice_box .comment {
   flex: 0 0 30px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
-  padding: 0 5px 0 15px;
+  white-space: nowrap;
+  line-height: 30px;
 }
 body.dark .practice_box .comment {
   background: #404040;
@@ -857,30 +868,64 @@ body.dark .practice_box .comment {
 .practice_box .progress div {
   background: #aaa;
 }
+.practice_box.good .title,
 .practice_box.good .progress div {
-  background: #4caf50;
+  background: #759900!important;
+  color: #fff!important;
 }
+.practice_box.inaccuracy .title,
 .practice_box.inaccuracy .progress div {
-  background: #d59120;
+  background: #d59120!important;
+  color: #fff!important;
 }
+.practice_box.mistake .title,
+.practice_box.blunder .title,
 .practice_box.mistake .progress div,
 .practice_box.blunder .progress div {
-  background: #dc322f;
+  background: #dc322f!important;
+  color: #fff!important;
 }
-.practice_box .comment span {
+.practice_box .comment .wait {
+  padding-left: 15px;
+}
+.practice_box .verdict {
   font-weight: bold;
   font-size: 1.2em;
   margin-right: 10px;
+  display: flex;
 }
-.practice_box.good .comment span {
-  color: #4caf50;
+.practice_box .verdict::before {
+  width: 30px;
+  height: 100%;
+  color: #fff;
+  margin-right: 7px;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: normal;
 }
-.practice_box.inaccuracy .comment span {
+.practice_box.good .verdict {
+  color: #759900;
+}
+.practice_box.good .verdict::before {
+  background: #759900;
+  content: '✓';
+  font-size: 1.7em;
+}
+.practice_box.inaccuracy .verdict {
   color: #d59120;
 }
-.practice_box.mistake .comment span,
-.practice_box.blunder .comment span {
+.practice_box.inaccuracy .verdict::before {
+  background: #d59120;
+  content: '?';
+}
+.practice_box.mistake .verdict,
+.practice_box.blunder .verdict {
   color: #dc322f;
+}
+.practice_box.mistake .verdict::before,
+.practice_box.blunder .verdict::before {
+  background: #dc322f;
+  content: '✗';
 }
 .practice_box .comment a {
   margin-left: 5px;

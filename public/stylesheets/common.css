@@ -2436,7 +2436,7 @@ input.cmn-toggle-round:hover + label::after {
   transition: margin 0.2s;
 }
 input.cmn-toggle-round:checked + label::before {
-  background-color: #8ce196;
+  background-color: rgba(117, 153, 0, 0.7)!important;
 }
 input.cmn-toggle-round:checked + label::after {
   margin-left: 20px;

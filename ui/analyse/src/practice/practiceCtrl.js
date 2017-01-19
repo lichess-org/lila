@@ -17,28 +17,41 @@ module.exports = function(root) {
     if (root.vm.threatMode) root.toggleThreatMode();
   };
 
-  var commentable = function(ceval) {
-    return ceval && (ceval.depth >= 14 || (ceval.depth >= 13 && ceval.millis > 3000));
+  var commentable = function(ceval, bonus) {
+    return ceval && ((ceval.depth + (bonus || 0)) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000));
   };
   var playable = function(ceval) {
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
   };
 
+  var altCastles = {
+    e1a1: 'e1c1',
+    e1h1: 'e1g1',
+    e8a8: 'e8c8',
+    e8h8: 'e8g8'
+  };
+
   var makeComment = function(prev, node, path) {
     var c, shift = -winningChances.povDiff(root.bottomColor(), node.ceval, prev.ceval);
-    if (shift < 0.025) c = 'good';
+
+    var best = prev.ceval.best;
+    if (best === node.uci || best === altCastles[node.uci]) best = null;
+
+    if (!best) c = 'good';
+    else if (shift < 0.025) c = 'good';
     else if (shift < 0.06) c = 'inaccuracy';
     else if (shift < 0.14) c = 'mistake';
     else c = 'blunder';
+
     return {
       prev: prev,
       node: node,
       path: path,
       verdict: c,
-      best: {
-        uci: prev.ceval.best,
-        san: pv2san(root.data.game.variant.key, prev.fen, false, prev.ceval.best)
-      }
+      best: best ? {
+        uci: best,
+        san: pv2san(root.data.game.variant.key, prev.fen, false, best)
+      } : null
     };
   }
 
@@ -51,7 +64,7 @@ module.exports = function(root) {
   };
 
   var checkCeval = function() {
-    if (!running() || root.gameOver()) {
+    if (!running()) {
       comment(null);
       m.redraw();
       return;
@@ -68,7 +81,7 @@ module.exports = function(root) {
       comment(null);
       if (commentable(node.ceval)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (commentable(parentNode.ceval))
+        if (commentable(parentNode.ceval, +1))
           comment(makeComment(parentNode, node, root.vm.path));
       }
       if (playable(node.ceval)) root.playUci(node.ceval.best);

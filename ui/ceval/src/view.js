@@ -51,6 +51,13 @@ function threatButton(ctrl) {
   });
 }
 
+function engineName(ctrl) {
+  return [
+    lichess.engineName,
+    ctrl.pnaclSupported ? m('span.native', 'native') : m('span.asmjs', 'asmjs')
+  ];
+}
+
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
@@ -124,7 +131,7 @@ module.exports = {
       enabled ? [
         m('pearl', pearl),
         m('div.engine', [
-          threatMode ? 'Show threat' : lichess.engineName,
+          threatMode ? 'Show threat' : engineName(instance),
           m('span.info', ctrl.gameOver() ? 'Game over.' : (
             threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs)
           ))
@@ -132,7 +139,7 @@ module.exports = {
       ] : [
         pearl ? m('pearl', pearl) : null,
         m('help',
-          lichess.engineName,
+          engineName(instance),
           m('br'),
           'in local browser'
         )

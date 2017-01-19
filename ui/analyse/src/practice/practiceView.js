@@ -11,9 +11,9 @@ function renderTitle(close) {
 }
 
 var commentText = {
-  good: 'Good move.',
-  inaccuracy: 'Inaccuracy.',
-  mistake: 'Mistake.',
+  good: 'Good move',
+  inaccuracy: 'Inaccuracy',
+  mistake: 'Mistake',
   blunder: 'Blunder'
 };
 
@@ -22,15 +22,8 @@ var endText = {
   stalemate: 'Stalemate.'
 };
 
-var altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
-
 function commentBest(c, ctrl) {
-  if (c.prev.ceval.best === c.node.uci || c.prev.ceval.best === altCastles[c.node.uci]) return;
+  if (!c.best) return;
   var pre = c.verdict === 'good' ? 'An alternative was' : 'Best was';
   return [
     pre,
@@ -126,9 +119,9 @@ module.exports = function(root) {
     renderTitle(root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
     ctrl.running() ? m('div.comment', comment ? [
-      m('span', commentText[comment.verdict]),
+      m('span.verdict', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() || end ? '' : 'Evaluating your move...')) : null
+    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : null
   ]);
 };

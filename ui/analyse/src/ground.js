@@ -18,7 +18,7 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
       dropNewPiece: onNewPiece
     },
     premovable: {
-      enabled: config.movable.enabled
+      enabled: config.premovable
     },
     drawable: {
       enabled: true,
