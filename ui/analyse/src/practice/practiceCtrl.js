@@ -64,7 +64,7 @@ module.exports = function(root) {
   };
 
   var checkCeval = function() {
-    if (!running() || root.gameOver()) {
+    if (!running()) {
       comment(null);
       m.redraw();
       return;
