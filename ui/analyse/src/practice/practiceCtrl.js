@@ -47,7 +47,6 @@ module.exports = function(root) {
           comment(makeComment(parentNode, node, root.vm.path));
       }
       if (playable(node.ceval)) root.playUci(node.ceval.best);
-      m.redraw();
     }
   };
 

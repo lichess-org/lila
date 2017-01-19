@@ -715,14 +715,6 @@ body.piece_letter .tablebase td:first-child {
   flex-flow: column;
   justify-content: center;
 }
-@keyframes progress-appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .retro_box .progress,
 .practice_box .progress {
   margin-top: 5px;
@@ -730,9 +722,6 @@ body.piece_letter .tablebase td:first-child {
   width: 100%;
   height: 4px;
   background: #ddd;
-  opacity: 0;
-  animation: progress-appear 0.3s normal forwards;
-  animation-delay: 0.3s;
 }
 .retro_box .progress div,
 .practice_box .progress div {
