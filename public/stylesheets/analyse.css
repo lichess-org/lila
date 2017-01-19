@@ -735,7 +735,7 @@ body.piece_letter .tablebase td:first-child {
 }
 .retro_box .progress div,
 .practice_box .progress div {
-  background: #4caf50;
+  background: #759900;
   height: 4px;
   transition: width 0.5s;
   max-width: 100%;
@@ -868,15 +868,22 @@ body.dark .practice_box .comment {
 .practice_box .progress div {
   background: #aaa;
 }
+.practice_box.good .title,
 .practice_box.good .progress div {
-  background: #4caf50;
+  background: #759900!important;
+  color: #fff!important;
 }
+.practice_box.inaccuracy .title,
 .practice_box.inaccuracy .progress div {
-  background: #d59120;
+  background: #d59120!important;
+  color: #fff!important;
 }
+.practice_box.mistake .title,
+.practice_box.blunder .title,
 .practice_box.mistake .progress div,
 .practice_box.blunder .progress div {
-  background: #dc322f;
+  background: #dc322f!important;
+  color: #fff!important;
 }
 .practice_box .comment .wait {
   padding-left: 15px;
@@ -891,16 +898,16 @@ body.dark .practice_box .comment {
   width: 30px;
   height: 100%;
   color: #fff;
-  margin-right: 5px;
+  margin-right: 7px;
   text-align: center;
   font-size: 1.4em;
   font-weight: normal;
 }
 .practice_box.good .verdict {
-  color: #4caf50;
+  color: #759900;
 }
 .practice_box.good .verdict::before {
-  background: #4caf50;
+  background: #759900;
   content: '✓';
   font-size: 1.7em;
 }
