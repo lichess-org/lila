@@ -25,8 +25,14 @@ function localEvalInfo(ctrl, evs) {
     return 'Loading engine...';
   }
   if (evs.client.dict) return 'Book move';
-  var t = 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth;
-  if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
+  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
+  if (evs.client.depth >= evs.client.maxDepth)
+    t.push(m('a.deeper', {
+      onclick: function() {
+        ctrl.getCeval().deeper();
+      }
+    }, 'Go deeper!'))
+  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
   return t;
 }
 

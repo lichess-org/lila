@@ -77,12 +77,13 @@ module.exports = function(opts) {
     if (res.eval.depth === 12) lichess.storage.set('ceval.fen', res.work.currentFen);
   };
 
-  var start = function(path, steps, threatMode) {
+  var start = function(path, steps, threatMode, maxD) {
     if (!enabled() || !opts.possible) return;
     var step = steps[steps.length - 1];
+    maxD = maxD || maxDepth();
 
     var existing = step[threatMode ? 'threat' : 'ceval'];
-    if (existing && existing.depth >= maxDepth()) return;
+    if (existing && existing.depth >= maxD) return;
 
     var work = {
       initialFen: steps[0].fen,
@@ -90,7 +91,7 @@ module.exports = function(opts) {
       currentFen: step.fen,
       path: path,
       ply: step.ply,
-      maxDepth: maxDepth(),
+      maxDepth: maxD,
       threatMode: threatMode,
       emit: function(res) {
         if (enabled()) onEmit(res);
@@ -120,7 +121,7 @@ module.exports = function(opts) {
         work.emit({
           work: work,
           eval: {
-            depth: maxDepth(),
+            depth: maxD,
             cp: dictRes.cp,
             best: dictRes.best,
             pvs: dictRes.pvs,
@@ -131,7 +132,17 @@ module.exports = function(opts) {
       pool.warmup();
     } else pool.start(work);
 
-    started = true;
+    started = {
+      path: path,
+      steps: steps,
+      threatMode: threatMode
+    };
+  };
+
+  var deeper = function() {
+    var s = started;
+    stop();
+    start(s.path, s.steps, s.threatMode, 99);
   };
 
   var stop = function() {
@@ -175,6 +186,7 @@ module.exports = function(opts) {
     },
     maxDepth: maxDepth,
     variant: opts.variant,
+    deeper: deeper,
     destroy: pool.destroy
   };
 };

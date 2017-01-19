@@ -276,6 +276,11 @@ body.piece_letter .pv_box .pv span {
   font-size: 10px;
   white-space: nowrap;
 }
+.ceval_box .engine .info .deeper {
+  color: #3893e8;
+  font-weight: bold;
+  margin-left: 5px;
+}
 .ceval_box help {
   opacity: 0.7;
   flex: 1 0;
