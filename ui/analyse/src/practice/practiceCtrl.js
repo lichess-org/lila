@@ -10,6 +10,7 @@ module.exports = function(root) {
   var comment = m.prop();
   var hovering = m.prop();
   var hinting = m.prop();
+  var played = m.prop(false);
 
   var ensureCevalRunnning = function() {
     if (!root.vm.showComputer()) root.toggleComputer();
@@ -84,7 +85,10 @@ module.exports = function(root) {
         if (commentable(parentNode.ceval, +1))
           comment(makeComment(parentNode, node, root.vm.path));
       }
-      if (playable(node.ceval)) root.playUci(node.ceval.best);
+      if (!played() && playable(node.ceval)) {
+        root.playUci(node.ceval.best);
+        played(true);
+      }
     }
   };
 
@@ -93,6 +97,7 @@ module.exports = function(root) {
   return {
     onCeval: checkCeval,
     onJump: function() {
+      played(false);
       hinting(null);
       // because running(false) is called after the jump
       setTimeout(checkCeval, 50)
