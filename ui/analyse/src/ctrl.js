@@ -136,6 +136,11 @@ module.exports = function(opts) {
     var color = node.ply % 2 === 0 ? 'white' : 'black';
     var dests = readDests(node.dests);
     var drops = readDrops(node.drops);
+    var movableColor = this.practice ? this.bottomColor() : (
+      this.embed ||
+      (dests && Object.keys(dests).length > 0) ||
+      drops === null ||
+      drops.length ? color : null);
     var config = {
       fen: node.fen,
       turnColor: color,
@@ -143,8 +148,8 @@ module.exports = function(opts) {
         color: null,
         dests: {}
       } : {
-        color: (dests && Object.keys(dests).length > 0) || drops === null || drops.length ? color : null,
-        dests: dests || {}
+        color: movableColor,
+        dests: movableColor === color ? (dests || {}) : {}
       },
       check: node.check,
       lastMove: uciToLastMove(node.uci)
@@ -155,6 +160,10 @@ module.exports = function(opts) {
       config.turnColor = opposite(color);
       config.movable.color = color;
     }
+    config.premovable = {
+      enabled: config.movable.color && config.turnColor !== config.movable.color
+    };
+
     this.vm.cgConfig = config;
     if (!this.chessground)
       this.chessground = ground.make(this.data, config, userMove, userNewPiece, !!opts.study);
