@@ -516,6 +516,10 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
+  this.disableThreatMode = function() {
+    return !!this.practice;
+  }.bind(this);
+
   var cevalReset = function(f) {
     this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();
@@ -651,7 +655,8 @@ module.exports = function(opts) {
     }
     this.setAutoShapes();
   }.bind(this);
-  if (location.hash === '#practice') this.togglePractice();
+
+  if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
 
   this.restartPractice = function() {
     this.practice = null;
