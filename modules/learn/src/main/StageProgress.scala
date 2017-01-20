@@ -1,7 +1,6 @@
 package lila.learn
 
-case class StageProgress(
-    scores: Vector[StageProgress.Score]) {
+case class StageProgress(scores: Vector[StageProgress.Score]) extends AnyVal {
 
   import StageProgress._
 
@@ -13,7 +12,7 @@ case class StageProgress(
 
 object StageProgress {
 
-  def empty(stage: String) = StageProgress(scores = Vector.empty)
+  def empty = StageProgress(scores = Vector.empty)
 
   case class Score(value: Int) extends AnyVal
 }

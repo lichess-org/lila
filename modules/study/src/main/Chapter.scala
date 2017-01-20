@@ -63,6 +63,7 @@ case class Chapter(
   )
 
   def isPractice = ~practice
+  def isConceal = conceal.isDefined
 }
 
 object Chapter {
@@ -94,6 +95,8 @@ object Chapter {
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
     def compare(that: Ply) = value - that.value
   }
+
+  case class FullId(studyId: Study.ID, chapterId: Chapter.ID)
 
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
   def isDefaultName(str: String) = defaultNamePattern.matcher(str).matches

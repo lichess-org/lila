@@ -57,10 +57,14 @@ final class StudySearchApi(
     Tag.ECO, Tag.Opening, Tag.Annotator)
 
   private def chapterText(c: Chapter): String = {
-    nodeText(c.root) :: c.tags collect {
+    nodeText(c.root) :: c.tags.collect {
       case Tag(name, value) if relevantPgnTags.contains(name) => value
-    }
+    } :: chapterModeText(c)
   }.flatten mkString " "
+
+  private def chapterModeText(c: Chapter): List[String] = List(
+    c.isPractice option "practice",
+    c.isConceal option "conceal puzzle")
 
   private def nodeText(n: RootOrNode): String =
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")
