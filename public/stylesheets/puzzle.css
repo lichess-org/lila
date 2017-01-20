@@ -40,7 +40,6 @@ body.dark #puzzle .feedback {
   width: 64px;
   height: 64px;
   font-size: 50px;
-  font-size: 64px;
   line-height: 64px;
   text-align: center;
 }
@@ -155,7 +154,7 @@ body.dark #puzzle .feedback {
 #puzzle move.good glyph,
 #puzzle move.win glyph {
   color: #759900;
-  font-size: 2em;
+  font-size: 1.6em;
 }
 #puzzle move.fail glyph {
   color: #dc322f;
