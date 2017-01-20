@@ -20,6 +20,7 @@ object BSONHandlers {
   import Chapter._
 
   implicit val StudyIdBSONHandler = stringIsoHandler[Study.Id](Study.idIso)
+  implicit val ChapterIdBSONHandler = stringIsoHandler[Chapter.Id](Chapter.idIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -209,7 +210,7 @@ object BSONHandlers {
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
-  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter.ID, Chapter]
+  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter.Id, Chapter]
 
   implicit val PositionRefBSONHandler = new BSONHandler[BSONString, Position.Ref] {
     def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"

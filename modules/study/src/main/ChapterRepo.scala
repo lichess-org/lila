@@ -12,15 +12,15 @@ final class ChapterRepo(coll: Coll) {
 
   val noRootProjection = $doc("root" -> false)
 
-  def byId(id: Chapter.ID): Fu[Option[Chapter]] = coll.byId[Chapter](id)
+  def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll.byId[Chapter, Chapter.Id](id)
 
-  // def metadataById(id: Chapter.ID): Fu[Option[Chapter.Metadata]] =
+  // def metadataById(id: Chapter.Id): Fu[Option[Chapter.Metadata]] =
   // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
 
   def deleteByStudy(s: Study): Funit = coll.remove($studyId(s.id)).void
 
-  def byIdAndStudy(id: Chapter.ID, studyId: Study.Id): Fu[Option[Chapter]] =
-    coll.byId[Chapter](id).map { _.filter(_.studyId == studyId) }
+  def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
+    coll.byId[Chapter, Chapter.Id](id).map { _.filter(_.studyId == studyId) }
 
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
@@ -38,7 +38,7 @@ final class ChapterRepo(coll: Coll) {
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
       .gather[List](maxChapters)
 
-  def sort(study: Study, ids: List[Chapter.ID]): Funit = ids.zipWithIndex.map {
+  def sort(study: Study, ids: List[Chapter.Id]): Funit = ids.zipWithIndex.map {
     case (id, index) =>
       coll.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
   }.sequenceFu.void
@@ -50,10 +50,10 @@ final class ChapterRepo(coll: Coll) {
       "order"
     ) map { order => ~order + 1 }
 
-  def setConceal(chapterId: Chapter.ID, conceal: Chapter.Ply) =
+  def setConceal(chapterId: Chapter.Id, conceal: Chapter.Ply) =
     coll.updateField($id(chapterId), "conceal", conceal).void
 
-  def removeConceal(chapterId: Chapter.ID) =
+  def removeConceal(chapterId: Chapter.Id) =
     coll.unsetField($id(chapterId), "conceal").void
 
   def setTagsFor(chapter: Chapter) =
@@ -84,7 +84,7 @@ final class ChapterRepo(coll: Coll) {
 
   def update(c: Chapter): Funit = coll.update($id(c.id), c).void
 
-  def delete(id: Chapter.ID): Funit = coll.remove($id(id)).void
+  def delete(id: Chapter.Id): Funit = coll.remove($id(id)).void
   def delete(c: Chapter): Funit = delete(c.id)
 
   private def $studyId(id: Study.Id) = $doc("studyId" -> id)

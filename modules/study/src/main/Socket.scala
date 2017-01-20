@@ -241,7 +241,7 @@ private object Socket {
   case class ChangeChapter(uid: Uid)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
-  case class SetTags(chapterId: Chapter.ID, tags: List[chess.format.pgn.Tag], uid: Uid)
+  case class SetTags(chapterId: Chapter.Id, tags: List[chess.format.pgn.Tag], uid: Uid)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

@@ -136,7 +136,7 @@ object Study {
       _id = makeId,
       name = s"${user.username}'s Study",
       members = StudyMembers(Map(user.id -> owner)),
-      position = Position.Ref("", Path.root),
+      position = Position.Ref(Chapter.Id(""), Path.root),
       ownerId = user.id,
       visibility = Visibility.Public,
       settings = Settings.init,

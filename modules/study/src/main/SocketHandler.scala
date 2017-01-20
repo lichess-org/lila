@@ -60,7 +60,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               d ← o obj "d"
-              chapterId <- d str "chapterId"
+              chapterId <- d.get[Chapter.Id]("chapterId")
             } api.addNode(
               userId,
               studyId,
@@ -85,7 +85,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               d ← o obj "d"
-              chapterId <- d str "chapterId"
+              chapterId <- d.get[Chapter.Id]("chapterId")
             } api.addNode(
               userId,
               studyId,
@@ -172,7 +172,7 @@ private[study] final class SocketHandler(
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
-      chapterId <- o str "d"
+      chapterId <- o.get[Chapter.Id]("d")
     } api.setChapter(byUserId, studyId, chapterId, socket, uid)
 
     case ("editChapter", o) =>
@@ -184,12 +184,12 @@ private[study] final class SocketHandler(
 
     case ("deleteChapter", o) => for {
       byUserId <- member.userId
-      id <- o str "d"
+      id <- o.get[Chapter.Id]("d")
     } api.deleteChapter(byUserId, studyId, id, socket, uid)
 
     case ("sortChapters", o) => for {
       byUserId <- member.userId
-      ids <- o strs "d"
+      ids <- o.get[List[Chapter.Id]]("d")
     } api.sortChapters(byUserId, studyId, ids, socket, uid)
 
     case ("editStudy", o) if owner =>
@@ -242,9 +242,10 @@ private[study] final class SocketHandler(
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
 
-  private case class AtPosition(path: String, chapterId: Chapter.ID) {
+  private case class AtPosition(path: String, chapterId: Chapter.Id) {
     def ref = Position.Ref(chapterId, Path(path))
   }
+  private implicit val chapterIdReader = Reads.of[String].map(Chapter.Id.apply)
   private implicit val atPositionReader = Json.reads[AtPosition]
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]

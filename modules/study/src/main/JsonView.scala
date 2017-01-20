@@ -94,6 +94,7 @@ object JsonView {
   case class JsData(study: JsObject, analysis: JsObject)
 
   implicit val studyIdWrites: Writes[Study.Id] = stringAnyValWriter[Study.Id](_.value)
+  implicit val chapterIdWrites: Writes[Chapter.Id] = stringAnyValWriter[Chapter.Id](_.value)
 
   private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)

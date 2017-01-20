@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.study.Study.WithChapter
-import lila.study.{ Order, Study => StudyModel }
+import lila.study.{ Chapter, Order, Study => StudyModel }
 import views._
 
 object Study extends LilaController {
@@ -277,4 +277,5 @@ object Study extends LilaController {
     study.isPublic || ctx.userId.exists(study.members.contains)
 
   private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
+  private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
 }

@@ -10,7 +10,7 @@ import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 
 case class Chapter(
-    _id: Chapter.ID,
+    _id: Chapter.Id,
     studyId: Study.Id,
     name: String,
     setup: Chapter.Setup,
@@ -68,10 +68,11 @@ case class Chapter(
 
 object Chapter {
 
-  type ID = String
+  case class Id(value: String) extends AnyVal with StringValue
+  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
 
   sealed trait Like {
-    val _id: Chapter.ID
+    val _id: Chapter.Id
     val name: String
     val setup: Chapter.Setup
     def id = _id
@@ -88,7 +89,7 @@ object Chapter {
   }
 
   case class Metadata(
-    _id: Chapter.ID,
+    _id: Chapter.Id,
     name: String,
     setup: Chapter.Setup) extends Like
 
@@ -96,7 +97,7 @@ object Chapter {
     def compare(that: Ply) = value - that.value
   }
 
-  case class FullId(studyId: Study.Id, chapterId: Chapter.ID)
+  case class FullId(studyId: Study.Id, chapterId: Chapter.Id)
 
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
   def isDefaultName(str: String) = defaultNamePattern.matcher(str).matches
@@ -105,7 +106,7 @@ object Chapter {
 
   val idSize = 8
 
-  def makeId = scala.util.Random.alphanumeric take idSize mkString
+  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
   def make(studyId: Study.Id, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, conceal: Option[Ply]) = Chapter(
     _id = makeId,

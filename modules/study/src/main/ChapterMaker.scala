@@ -188,7 +188,7 @@ private[study] object ChapterMaker {
     initial: Boolean) extends ChapterData
 
   case class EditData(
-    id: String,
+    id: Chapter.Id,
     name: String,
     orientation: String,
     mode: String) extends ChapterData

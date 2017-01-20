@@ -12,7 +12,7 @@ case class StudyProgress(moves: StudyProgress.ChapterNbMoves) extends AnyVal {
 
 object StudyProgress {
 
-  type ChapterNbMoves = Map[lila.study.Chapter.ID, StudyProgress.NbMoves]
+  type ChapterNbMoves = Map[lila.study.Chapter.Id, StudyProgress.NbMoves]
 
   def empty = StudyProgress(moves = Map.empty)
 

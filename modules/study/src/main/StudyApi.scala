@@ -32,7 +32,7 @@ final class StudyApi(
 
   def publicByIds(ids: Seq[Study.Id]) = byIds(ids) map { _.filter(_.isPublic) }
 
-  private def fetchAndFixChapter(id: Chapter.ID): Fu[Option[Chapter]] =
+  private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
     chapterRepo.byId(id) flatMap {
       _ ?? { c => tagsFixer(c) map some }
     }
@@ -52,7 +52,7 @@ final class StudyApi(
     }
   }
 
-  def byIdWithChapter(id: Study.Id, chapterId: Chapter.ID): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
+  def byIdWithChapter(id: Study.Id, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
       fetchAndFixChapter(chapterId) map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
@@ -303,11 +303,11 @@ final class StudyApi(
     }
   }
 
-  def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     study.canContribute(byUserId) ?? doSetChapter(study, chapterId, socket, uid)
   }
 
-  private def doSetChapter(study: Study, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) =
+  private def doSetChapter(study: Study, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) =
     (study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
@@ -355,7 +355,7 @@ final class StudyApi(
     }
   }
 
-  def deleteChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.ID, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def deleteChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
         _ ?? { chapter =>
@@ -372,7 +372,7 @@ final class StudyApi(
     }
   }
 
-  def sortChapters(byUserId: User.ID, studyId: Study.Id, chapterIds: List[Chapter.ID], socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def sortChapters(byUserId: User.ID, studyId: Study.Id, chapterIds: List[Chapter.Id], socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.sort(study, chapterIds) >>- reloadChapters(study)
     }
