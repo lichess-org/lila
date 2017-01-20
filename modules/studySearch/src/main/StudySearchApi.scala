@@ -45,7 +45,7 @@ final class StudySearchApi(
     Fields.chapterNames -> s.chapters.collect {
       case c if !Chapter.isDefaultName(c.name) => c.name
     }.mkString(" "),
-    Fields.chapterTexts -> noMultiSpace(s.chapters.map(chapterText).pp.mkString(" ")),
+    Fields.chapterTexts -> noMultiSpace(s.chapters.map(chapterText).mkString(" ")),
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
     Fields.likes -> s.study.likes.value,
@@ -60,7 +60,7 @@ final class StudySearchApi(
     nodeText(c.root) :: c.tags.collect {
       case Tag(name, value) if relevantPgnTags.contains(name) => value
     } ::: chapterModeText(c)
-  } mkString " "
+  }.mkString(" ").trim
 
   private def chapterModeText(c: Chapter) = List(
     c.isPractice option "practice",
