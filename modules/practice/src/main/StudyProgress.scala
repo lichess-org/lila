@@ -17,4 +17,5 @@ object StudyProgress {
   def empty = StudyProgress(moves = Map.empty)
 
   case class NbMoves(value: Int) extends AnyVal
+  implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
 }

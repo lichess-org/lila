@@ -21,8 +21,8 @@ final class PrefApi(
   private implicit val prefBSONHandler = new BSON[Pref] {
 
     import lila.db.BSON.MapValue.{ MapReader, MapWriter }
-    implicit val tagsReader = MapReader[String]
-    implicit val tagsWriter = MapWriter[String]
+    implicit val tagsReader = MapReader[String, String]
+    implicit val tagsWriter = MapWriter[String, String]
 
     def reads(r: BSON.Reader): Pref = Pref(
       _id = r str "_id",

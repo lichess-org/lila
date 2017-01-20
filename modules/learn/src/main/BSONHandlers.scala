@@ -22,6 +22,6 @@ object BSONHandlers {
       else LearnProgress.UserId(bs.value)
     def write(x: LearnProgress.Id) = BSONString(x.str)
   }
-  private implicit val LearnProgressStagesHandler = BSON.MapValue.MapHandler[StageProgress]
+  private implicit val LearnProgressStagesHandler = BSON.MapValue.MapHandler[String, StageProgress]
   implicit val LearnProgressHandler = Macros.handler[LearnProgress]
 }
