@@ -23,6 +23,7 @@ module.exports = function(opts) {
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   var started = false;
   var hovering = m.prop(null);
+  var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
     asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=9',
@@ -77,12 +78,17 @@ module.exports = function(opts) {
     if (res.eval.depth === 12) lichess.storage.set('ceval.fen', res.work.currentFen);
   };
 
-  var start = function(path, steps, threatMode) {
+  var start = function(path, steps, threatMode, deeper) {
+
     if (!enabled() || !opts.possible) return;
+
+    isDeeper(deeper);
+    var maxD = deeper ? 99 : maxDepth();
+
     var step = steps[steps.length - 1];
 
     var existing = step[threatMode ? 'threat' : 'ceval'];
-    if (existing && existing.depth >= maxDepth()) return;
+    if (existing && existing.depth >= maxD) return;
 
     var work = {
       initialFen: steps[0].fen,
@@ -90,7 +96,7 @@ module.exports = function(opts) {
       currentFen: step.fen,
       path: path,
       ply: step.ply,
-      maxDepth: maxDepth(),
+      maxDepth: maxD,
       threatMode: threatMode,
       emit: function(res) {
         if (enabled()) onEmit(res);
@@ -120,7 +126,7 @@ module.exports = function(opts) {
         work.emit({
           work: work,
           eval: {
-            depth: maxDepth(),
+            depth: maxD,
             cp: dictRes.cp,
             best: dictRes.best,
             pvs: dictRes.pvs,
@@ -131,7 +137,19 @@ module.exports = function(opts) {
       pool.warmup();
     } else pool.start(work);
 
-    started = true;
+    started = {
+      path: path,
+      steps: steps,
+      threatMode: threatMode
+    };
+  };
+
+  var goDeeper = function() {
+    var s = started;
+    if (s) {
+      stop();
+      start(s.path, s.steps, s.threatMode, true);
+    }
   };
 
   var stop = function() {
@@ -175,6 +193,8 @@ module.exports = function(opts) {
     },
     maxDepth: maxDepth,
     variant: opts.variant,
+    isDeeper: isDeeper,
+    goDeeper: goDeeper,
     destroy: pool.destroy
   };
 };

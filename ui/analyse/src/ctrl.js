@@ -224,8 +224,10 @@ module.exports = function(opts) {
     updateHref();
     this.autoScroll();
     promotion.cancel(this);
-    if (this.retro) this.retro.onJump();
-    if (this.practice) this.practice.onJump();
+    if (pathChanged) {
+      if (this.retro) this.retro.onJump();
+      if (this.practice) this.practice.onJump();
+    }
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);
 
@@ -330,6 +332,7 @@ module.exports = function(opts) {
     this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
+    if (this.practice) this.practice.onUserMove();
   }.bind(this);
 
   var sendMove = function(orig, dest, prom) {
@@ -350,6 +353,9 @@ module.exports = function(opts) {
       turnColor: this.chessground.data.movable.color,
       movable: {
         color: opposite(this.chessground.data.movable.color)
+      },
+      premovable: {
+        enabled: true
       }
     });
   }.bind(this);
@@ -432,12 +438,10 @@ module.exports = function(opts) {
       emit: function(res) {
         this.tree.updateAt(res.work.path, function(node) {
           if (res.work.threatMode) {
-            if (node.threat && node.threat.depth >= res.eval.depth) return;
-            node.threat = res.eval;
-          } else {
-            if (node.ceval && node.ceval.depth >= res.eval.depth) return;
+            if (!node.threat || node.threat.depth < res.eval.depth || node.threat.maxDepth < res.eval.maxDepth)
+              node.threat = res.eval;
+          } else if (!node.ceval || node.ceval.depth < res.eval.depth || node.ceval.maxDepth < res.eval.maxDepth)
             node.ceval = res.eval;
-          }
           if (res.work.path === this.vm.path) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();

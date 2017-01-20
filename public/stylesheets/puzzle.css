@@ -40,7 +40,6 @@ body.dark #puzzle .feedback {
   width: 64px;
   height: 64px;
   font-size: 50px;
-  font-size: 64px;
   line-height: 64px;
   text-align: center;
 }
@@ -112,7 +111,7 @@ body.dark #puzzle .feedback {
 }
 #puzzle .feedback.after .vote a::before {
   font-size: 26px;
-  line-height: 24px;
+  line-height: 22px;
 }
 #puzzle .feedback.after .vote a:hover,
 #puzzle .feedback.after .vote a.active {
@@ -120,7 +119,7 @@ body.dark #puzzle .feedback {
   color: #d85000;
 }
 #puzzle .feedback.after .vote span.count {
-  font-size: 20px;
+  font-size: 15px;
   line-height: 1;
 }
 
@@ -155,7 +154,7 @@ body.dark #puzzle .feedback {
 #puzzle move.good glyph,
 #puzzle move.win glyph {
   color: #759900;
-  font-size: 2em;
+  font-size: 1.6em;
 }
 #puzzle move.fail glyph {
   color: #dc322f;

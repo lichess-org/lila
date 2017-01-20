@@ -20,13 +20,20 @@ function range(len) {
 }
 
 function localEvalInfo(ctrl, evs) {
+  var ceval = ctrl.getCeval();
   if (!evs.client) {
     if (evs.server && ctrl.nextNodeBest()) return 'Using server analysis';
     return 'Loading engine...';
   }
   if (evs.client.dict) return 'Book move';
-  var t = 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth;
-  if (evs.client.nps) t += ', ' + Math.round(evs.client.nps / 1000) + ' knodes/s';
+  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
+  if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
+    t.push(m('a.deeper', {
+      onclick: function() {
+        ceval.goDeeper();
+      }
+    }, 'Go deeper!'))
+  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
   return t;
 }
 
