@@ -111,7 +111,7 @@ body.dark #puzzle .feedback {
 }
 #puzzle .feedback.after .vote a::before {
   font-size: 26px;
-  line-height: 23px;
+  line-height: 22px;
 }
 #puzzle .feedback.after .vote a:hover,
 #puzzle .feedback.after .vote a.active {
