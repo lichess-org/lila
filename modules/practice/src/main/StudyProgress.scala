@@ -1,18 +1,21 @@
 package lila.practice
 
+import lila.study.Chapter
+
 case class StudyProgress(moves: StudyProgress.ChapterNbMoves) extends AnyVal {
 
   import StudyProgress._
 
-  // def withScore(level: Int, s: Score) = copy(
-  //   scores = (0 until scores.size.max(level)).map { i =>
-  //     scores.lift(i) | Score(0)
-  //   }.updated(level - 1, s).toVector)
+  def withNbMoves(chapterId: Chapter.Id, nbMoves: NbMoves) = copy(
+    moves = moves - chapterId + (chapterId -> nbMoves)
+  )
+
+  def get = moves.get _
 }
 
 object StudyProgress {
 
-  type ChapterNbMoves = Map[lila.study.Chapter.Id, StudyProgress.NbMoves]
+  type ChapterNbMoves = Map[Chapter.Id, StudyProgress.NbMoves]
 
   def empty = StudyProgress(moves = Map.empty)
 

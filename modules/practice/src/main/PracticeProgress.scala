@@ -2,19 +2,24 @@ package lila.practice
 
 import org.joda.time.DateTime
 
+import lila.study.{ Study, Chapter }
+
 case class PracticeProgress(
     _id: PracticeProgress.Id,
-    studies: Map[lila.study.Study.Id, StudyProgress],
+    studies: Map[Study.Id, StudyProgress],
     createdAt: DateTime,
     updatedAt: DateTime) {
 
   def id = _id
 
-  // def withNbMoves(chapterId: String, level: Int, s: StageProgress.Score) = copy(
-  //   studies = stages + (
-  //     stage -> stages.getOrElse(stage, StageProgress empty stage).withScore(level, s)
-  //   ),
-  //   updatedAt = DateTime.now)
+  def apply(fullId: Chapter.FullId): Option[StudyProgress.NbMoves] =
+    studies get fullId.studyId flatMap (_ get fullId.chapterId)
+
+  def withNbMoves(fullId: Chapter.FullId, nbMoves: StudyProgress.NbMoves) = copy(
+    studies = studies + (
+      fullId.studyId -> studies.getOrElse(fullId.studyId, StudyProgress.empty).withNbMoves(fullId.chapterId, nbMoves)
+    ),
+    updatedAt = DateTime.now)
 }
 
 object PracticeProgress {
