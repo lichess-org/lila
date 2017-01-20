@@ -246,6 +246,7 @@ private[study] final class SocketHandler(
     def ref = Position.Ref(chapterId, Path(path))
   }
   private implicit val chapterIdReader = Reads.of[String].map(Chapter.Id.apply)
+  private implicit val chapterNameReader = Reads.of[String].map(Chapter.Name.apply)
   private implicit val atPositionReader = Json.reads[AtPosition]
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]

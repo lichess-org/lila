@@ -39,11 +39,11 @@ final class StudySearchApi(
   }.mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
-    Fields.name -> s.study.name,
+    Fields.name -> s.study.name.value,
     Fields.owner -> s.study.ownerId,
     Fields.members -> s.study.members.ids,
     Fields.chapterNames -> s.chapters.collect {
-      case c if !Chapter.isDefaultName(c.name) => c.name
+      case c if !Chapter.isDefaultName(c.name) => c.name.value
     }.mkString(" "),
     Fields.chapterTexts -> noMultiSpace(s.chapters.map(chapterText).mkString(" ")),
     // Fields.createdAt -> study.createdAt)

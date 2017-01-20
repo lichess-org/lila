@@ -21,7 +21,7 @@ private final class StudyNotifier(
           study.owner.ifFalse(isPresent) foreach { owner =>
             val notificationContent = InvitedToStudy(
               InvitedToStudy.InvitedBy(owner.id),
-              InvitedToStudy.StudyName(study.name),
+              InvitedToStudy.StudyName(study.name.value),
               InvitedToStudy.StudyId(study.id.value))
             val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
             notifyApi.addNotification(notification)

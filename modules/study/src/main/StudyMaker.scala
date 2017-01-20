@@ -18,7 +18,7 @@ private final class StudyMaker(
     val study = Study.make(user, Study.From.Scratch)
     val chapter = chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
       game = none,
-      name = "Chapter 1",
+      name = Chapter.Name("Chapter 1"),
       variant = data.variantStr,
       fen = data.fenStr,
       pgn = data.pgnStr,
@@ -32,10 +32,10 @@ private final class StudyMaker(
 
   private def createFromPov(pov: Pov, initialFen: Option[FEN], user: User): Fu[Study.WithChapter] =
     chapterMaker.game2root(pov.game, initialFen) map { root =>
-      val study = Study.make(user, Study.From.Game(pov.game.id)).copy(name = "Game study")
+      val study = Study.make(user, Study.From.Game(pov.game.id)).copy(name = Study.Name("Game study"))
       val chapter: Chapter = Chapter.make(
         studyId = study.id,
-        name = Namer.gameVsText(pov.game, withRatings = false)(lightUser),
+        name = Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser)),
         setup = Chapter.Setup(
           gameId = pov.game.id.some,
           variant = pov.game.variant,

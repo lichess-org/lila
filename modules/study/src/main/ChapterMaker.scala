@@ -40,8 +40,8 @@ private final class ChapterMaker(
         name = (for {
         white <- Tag.find(res.tags, "White")
         black <- Tag.find(res.tags, "Black")
-        if data.name.isEmpty || Chapter.isDefaultName(data.name)
-      } yield s"$white - $black") | data.name,
+        if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+      } yield Chapter.Name(s"$white - $black")) | data.name,
         setup = Chapter.Setup(
           none,
           res.variant,
@@ -95,7 +95,7 @@ private final class ChapterMaker(
         studyId = study.id,
         name =
         if (Chapter isDefaultName data.name)
-          Namer.gameVsText(pov.game, withRatings = false)(lightUser)
+          Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser))
         else data.name,
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,
@@ -178,7 +178,7 @@ private[study] object ChapterMaker {
   }
 
   case class Data(
-    name: String,
+    name: Chapter.Name,
     game: Option[String],
     variant: Option[String],
     fen: Option[String],
@@ -189,7 +189,7 @@ private[study] object ChapterMaker {
 
   case class EditData(
     id: Chapter.Id,
-    name: String,
+    name: Chapter.Name,
     orientation: String,
     mode: String) extends ChapterData
 }

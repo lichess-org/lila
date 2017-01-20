@@ -6,7 +6,7 @@ import lila.user.User
 
 case class Study(
     _id: Study.Id,
-    name: String,
+    name: Study.Name,
     members: StudyMembers,
     position: Position.Ref,
     ownerId: User.ID,
@@ -68,7 +68,10 @@ object Study {
   case class Id(value: String) extends AnyVal with StringValue
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
 
-  def toName(str: String) = str.trim take 100
+  case class Name(value: String) extends AnyVal with StringValue
+  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
+
+  def toName(str: String) = Name(str.trim take 100)
 
   sealed trait Visibility {
     lazy val key = toString.toLowerCase
@@ -134,7 +137,7 @@ object Study {
       addedAt = DateTime.now)
     Study(
       _id = makeId,
-      name = s"${user.username}'s Study",
+      name = Name(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(Chapter.Id(""), Path.root),
       ownerId = user.id,
