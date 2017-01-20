@@ -19,10 +19,10 @@ object BSONHandlers {
 
   import Chapter._
 
-  implicit val StudyIdBSONHandler = stringIsoHandler[Study.Id](Study.idIso)
-  implicit val StudyNameBSONHandler = stringIsoHandler[Study.Name](Study.nameIso)
-  implicit val ChapterIdBSONHandler = stringIsoHandler[Chapter.Id](Chapter.idIso)
-  implicit val ChapterNameBSONHandler = stringIsoHandler[Chapter.Name](Chapter.nameIso)
+  implicit val StudyIdBSONHandler = stringIsoHandler(Study.idIso)
+  implicit val StudyNameBSONHandler = stringIsoHandler(Study.nameIso)
+  implicit val ChapterIdBSONHandler = stringIsoHandler(Chapter.idIso)
+  implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"

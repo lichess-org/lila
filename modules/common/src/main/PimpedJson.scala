@@ -10,6 +10,10 @@ object PimpedJson {
   def intAnyValWriter[O](f: O => Int): Writes[O] = anyValWriter[O, Int](f)
   def stringAnyValWriter[O](f: O => String): Writes[O] = anyValWriter[O, String](f)
 
+  def stringIsoWriter[O](iso: Iso[String, O]): Writes[O] = anyValWriter[O, String](iso.to)
+
+  def stringIsoReader[O](iso: Iso[String, O]): Reads[O] = Reads.of[String] map iso.from
+
   implicit final class LilaPimpedJsObject(val js: JsObject) extends AnyVal {
 
     def str(key: String): Option[String] =
