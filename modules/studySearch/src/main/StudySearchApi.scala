@@ -19,7 +19,7 @@ final class StudySearchApi(
 
   def search(query: Query, from: From, size: Size) = {
     client.search(query, from, size) flatMap { res =>
-      studyRepo byOrderedIds res.ids
+      studyRepo byOrderedIds res.ids.map(Study.Id.apply)
     }
   }.mon(_.study.search.query.time) >>- lila.mon.study.search.query.count()
 
@@ -27,14 +27,14 @@ final class StudySearchApi(
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
-      id = study.id,
+      id = study.id.value,
       run = studyRepo byId study.id flatMap { _ ?? doStore },
       delay = 30.seconds.some)
   }
 
   private def doStore(study: Study) = {
     getChapters(study) flatMap { s =>
-      client.store(Id(s.study.id), toDoc(s))
+      client.store(Id(s.study.id.value), toDoc(s))
     }
   }.mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
 

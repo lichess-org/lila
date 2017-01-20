@@ -27,6 +27,8 @@ case class Team(
 
 object Team {
 
+  type ID = String
+
   def make(
     name: String,
     location: Option[String],

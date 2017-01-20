@@ -1,5 +1,5 @@
 @(s: lila.study.Study.WithChaptersAndLiked)(implicit ctx: Context)
-<a class="overlay" href="@routes.Study.show(s.study.id)"></a>
+<a class="overlay" href="@routes.Study.show(s.study.id.value)"></a>
 <h2>
   <i class="icon" data-icon=""></i>
   <strong>@s.study.name</strong>

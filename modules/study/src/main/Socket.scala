@@ -15,7 +15,7 @@ import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 
 private final class Socket(
-    studyId: String,
+    studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
     lightUser: lila.common.LightUser.Getter,

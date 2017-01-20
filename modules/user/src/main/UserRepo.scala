@@ -45,7 +45,7 @@ object UserRepo {
     }
 
   def byOrderedIds(ids: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User](ids)(_.id)
+    coll.byOrderedIds[User, User.ID](ids)(_.id)
 
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
     coll.list[User](enabledSelect ++ $inIds(ids))
@@ -76,25 +76,25 @@ object UserRepo {
       }
 
   def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    coll.byOrderedIds[User, User.ID](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
 
   def usernameById(id: ID) =
-    coll.primitiveOne[String]($id(id), F.username)
+    coll.primitiveOne[User.ID]($id(id), F.username)
 
   def usernamesByIds(ids: List[ID]) =
-    coll.distinct[String, List](F.username, $inIds(ids).some)
+    coll.distinct[User.ID, List](F.username, $inIds(ids).some)
 
-  def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] = {
+  def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] = {
     coll.find(
       $inIds(List(u1, u2)),
       $doc(s"${F.count}.game" -> true)
     ).cursor[Bdoc]().gather[List]() map { docs =>
         docs.sortBy {
           _.getAs[Bdoc](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
-        }.map(_.getAs[String]("_id")).flatten match {
+        }.map(_.getAs[User.ID]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
         }

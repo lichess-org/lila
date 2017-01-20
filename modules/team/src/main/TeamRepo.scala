@@ -15,7 +15,7 @@ object TeamRepo {
 
   type ID = String
 
-  def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Team](ids)(_.id)
+  def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
   def cursor(
     selector: Bdoc,

@@ -121,8 +121,8 @@ final class PostApi(
     } yield PostView(post, topic, categ, lastPageOf(topic))
   } flatten
 
-  def viewsFromIds(postIds: Seq[String]): Fu[List[PostView]] =
-    env.postColl.byOrderedIds[Post](postIds)(_.id) flatMap views
+  def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
+    env.postColl.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
 
   def view(post: Post): Fu[Option[PostView]] =
     views(List(post)) map (_.headOption)

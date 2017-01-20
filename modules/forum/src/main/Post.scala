@@ -62,6 +62,8 @@ case class Post(
 
 object Post {
 
+  type ID = String
+
   val idSize = 8
 
   def make(

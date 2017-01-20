@@ -4,6 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
+import lila.common.Iso
+import lila.common.Iso._
+
 trait Handlers {
 
   implicit object BSONJodaDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
@@ -11,26 +14,23 @@ trait Handlers {
     def write(x: DateTime) = BSONDateTime(x.getMillis)
   }
 
-  def stringAnyValHandler[A](from: A => String, to: String => A) = new BSONHandler[BSONString, A] {
-    def read(x: BSONString) = to(x.value)
-    def write(x: A) = BSONString(from(x))
+  def isoHandler[A, B, C <: BSONValue](iso: Iso[B, A])(implicit handler: BSONHandler[C, B]): BSONHandler[C, A] = new BSONHandler[C, A] {
+    def read(x: C): A = iso.from(handler read x)
+    def write(x: A): C = handler write iso.to(x)
   }
-  def intAnyValHandler[A](from: A => Int, to: Int => A) = new BSONHandler[BSONInteger, A] {
-    def read(x: BSONInteger) = to(x.value)
-    def write(x: A) = BSONInteger(from(x))
-  }
-  def booleanAnyValHandler[A](from: A => Boolean, to: Boolean => A) = new BSONHandler[BSONBoolean, A] {
-    def read(x: BSONBoolean) = to(x.value)
-    def write(x: A) = BSONBoolean(from(x))
-  }
-  def dateAnyValHandler[A](from: A => DateTime, to: DateTime => A) = new BSONHandler[BSONDateTime, A] {
-    def read(x: BSONDateTime) = to(BSONJodaDateTimeHandler read x)
-    def write(x: A) = BSONJodaDateTimeHandler write from(x)
-  }
-  def isoHandler[A, B, C <: BSONValue](from: A => B, to: B => A)(implicit handler: BSONHandler[C, B]) = new BSONHandler[C, A] {
-    def read(x: C): A = to(handler read x)
-    def write(x: A): C = handler write from(x)
-  }
+  def isoHandler[A, B, C <: BSONValue](to: A => B, from: B => A)(implicit handler: BSONHandler[C, B]): BSONHandler[C, A] =
+    isoHandler(Iso(from, to))
+
+  def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[BSONString, A] = isoHandler[A, String, BSONString](iso)
+  def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[BSONString, A] = stringIsoHandler(Iso(from, to))
+
+  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[BSONInteger, A] = isoHandler[A, Int, BSONInteger](iso)
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[BSONInteger, A] = intIsoHandler(Iso(from, to))
+
+  def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[BSONBoolean, A] = isoHandler[A, Boolean, BSONBoolean](iso)
+  def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[BSONBoolean, A] = booleanIsoHandler(Iso(from, to))
+
+  def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[BSONDateTime, A] = isoHandler[A, DateTime, BSONDateTime](iso)
 
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList

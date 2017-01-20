@@ -19,13 +19,13 @@ case class LearnProgress(
 
 object LearnProgress {
 
-  sealed trait Id {
+  sealed trait Id extends Any {
     def str: String
   }
-  case class UserId(value: String) extends Id {
+  case class UserId(value: String) extends AnyVal with Id {
     def str = value
   }
-  case class AnonId(value: String) extends Id {
+  case class AnonId(value: String) extends AnyVal with Id {
     def str = s"anon:$value"
   }
 

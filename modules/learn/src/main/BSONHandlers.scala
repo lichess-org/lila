@@ -1,8 +1,10 @@
 package lila.learn
 
+import reactivemongo.bson._
+
+import lila.common.Iso
 import lila.db.BSON
 import lila.db.dsl._
-import reactivemongo.bson._
 
 object BSONHandlers {
 
@@ -11,7 +13,8 @@ object BSONHandlers {
   private implicit val ScoreHandler = intAnyValHandler[Score](_.value, Score.apply)
   private implicit val ScoresHandler = bsonArrayToVectorHandler[Score]
   private implicit val StageProgressHandler =
-    isoHandler[StageProgress, Vector[Score], BSONArray](_.scores, StageProgress.apply)(ScoresHandler)
+    isoHandler[StageProgress, Vector[Score], BSONArray](
+      (s: StageProgress) => s.scores, StageProgress.apply _)(ScoresHandler)
 
   implicit val LearnProgressIdHandler = new BSONHandler[BSONString, LearnProgress.Id] {
     def read(bs: BSONString): LearnProgress.Id =

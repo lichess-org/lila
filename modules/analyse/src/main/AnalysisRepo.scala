@@ -17,7 +17,7 @@ object AnalysisRepo {
   def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
-    coll.optionsByOrderedIds[Analysis](ids)(_.id)
+    coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(_.id)) map { as =>

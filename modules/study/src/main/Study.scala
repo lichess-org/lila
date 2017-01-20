@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Study(
-    _id: Study.ID,
+    _id: Study.Id,
     name: String,
     members: StudyMembers,
     position: Position.Ref,
@@ -65,6 +65,9 @@ case class Study(
 
 object Study {
 
+  case class Id(value: String) extends AnyVal with StringValue
+  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+
   def toName(str: String) = str.trim take 100
 
   sealed trait Visibility {
@@ -94,7 +97,7 @@ object Study {
   object From {
     case object Scratch extends From
     case class Game(id: String) extends From
-    case class Study(id: String) extends From
+    case class Study(id: Id) extends From
   }
 
   case class Data(
@@ -120,11 +123,9 @@ object Study {
 
   case class WithChaptersAndLiked(study: Study, chapters: Seq[String], liked: Boolean)
 
-  type ID = String
-
   val idSize = 8
 
-  def makeId = scala.util.Random.alphanumeric take idSize mkString
+  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
   def make(user: User, from: From) = {
     val owner = StudyMember(

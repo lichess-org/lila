@@ -37,7 +37,7 @@ final class Env(
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(studyId: String) = new Socket(
-        studyId = studyId,
+        studyId = Study.Id(studyId),
         jsonView = jsonView,
         studyRepo = studyRepo,
         lightUser = getLightUser,
@@ -47,8 +47,8 @@ final class Env(
         socketTimeout = SocketTimeout)
     }), name = SocketName)
 
-  def version(studyId: Study.ID): Fu[Int] =
-    socketHub ? Ask(studyId, GetVersion) mapTo manifest[Int]
+  def version(studyId: Study.Id): Fu[Int] =
+    socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[Int]
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

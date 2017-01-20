@@ -11,7 +11,7 @@ import lila.user.User
 
 case class Chapter(
     _id: Chapter.ID,
-    studyId: Study.ID,
+    studyId: Study.Id,
     name: String,
     setup: Chapter.Setup,
     root: Node.Root,
@@ -96,7 +96,7 @@ object Chapter {
     def compare(that: Ply) = value - that.value
   }
 
-  case class FullId(studyId: Study.ID, chapterId: Chapter.ID)
+  case class FullId(studyId: Study.Id, chapterId: Chapter.ID)
 
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
   def isDefaultName(str: String) = defaultNamePattern.matcher(str).matches
@@ -107,7 +107,7 @@ object Chapter {
 
   def makeId = scala.util.Random.alphanumeric take idSize mkString
 
-  def make(studyId: Study.ID, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.Id, name: String, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = toName(name),

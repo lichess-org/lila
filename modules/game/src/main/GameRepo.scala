@@ -26,13 +26,13 @@ object GameRepo {
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game](gameIds)(_.id)
+  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, Game.ID](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
-    coll.byOrderedIds[Game](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    coll.byOrderedIds[Game, Game.ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
   def gameOptions(gameIds: Seq[ID]): Fu[Seq[Option[Game]]] =
-    coll.optionsByOrderedIds[Game](gameIds)(_.id)
+    coll.optionsByOrderedIds[Game, Game.ID](gameIds)(_.id)
 
   def finished(gameId: ID): Fu[Option[Game]] =
     coll.uno[Game]($id(gameId) ++ Query.finished)
@@ -68,7 +68,7 @@ object GameRepo {
   def remove(id: ID) = coll.remove($id(id)).void
 
   def userPovsByGameIds(gameIds: List[String], user: User): Fu[List[Pov]] =
-    coll.byOrderedIds[Game](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
+    coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] =
     coll.find(Query user user).sort(Query.sortCreated).cursor[Game]().gather[List](nb)

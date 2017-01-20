@@ -42,7 +42,7 @@ final class PgnDump(
       s"lichess_study_${slugify(study.name)}_${slugify(chapter.name)}_by_${ownerName(study)}_${date}.pgn", "")
   }
 
-  private def studyUrl(id: String) = s"$netBaseUrl/study/$id"
+  private def studyUrl(id: Study.Id) = s"$netBaseUrl/study/$id"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 

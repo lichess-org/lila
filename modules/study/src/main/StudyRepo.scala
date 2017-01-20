@@ -17,9 +17,9 @@ final class StudyRepo(private[study] val coll: Coll) {
     "views" -> false,
     "rank" -> false)
 
-  def byId(id: Study.ID) = coll.find($id(id), projection).uno[Study]
+  def byId(id: Study.Id) = coll.find($id(id), projection).uno[Study]
 
-  def byOrderedIds(ids: Seq[String]) = coll.byOrderedIds[Study](ids)(_.id)
+  def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
   def cursor(
     selector: Bdoc,
@@ -27,9 +27,9 @@ final class StudyRepo(private[study] val coll: Coll) {
     implicit cp: CursorProducer[Study]) =
     coll.find(selector).cursor[Study](readPreference)
 
-  def nameById(id: Study.ID) = coll.primitiveOne[String]($id(id), "name")
+  def nameById(id: Study.Id) = coll.primitiveOne[String]($id(id), "name")
 
-  def exists(id: Study.ID) = coll.exists($id(id))
+  def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc("uids" -> memberId)
@@ -57,10 +57,10 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def delete(s: Study): Funit = coll.remove($id(s.id)).void
 
-  def membersById(id: Study.ID): Fu[Option[StudyMembers]] =
+  def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
-  def setPosition(studyId: Study.ID, position: Position.Ref): Funit =
+  def setPosition(studyId: Study.Id, position: Position.Ref): Funit =
     coll.update(
       $id(studyId),
       $set(
@@ -91,10 +91,10 @@ final class StudyRepo(private[study] val coll: Coll) {
       $set(s"members.$userId.role" -> role)
     ).void
 
-  def uids(studyId: Study.ID): Fu[Set[User.ID]] =
+  def uids(studyId: Study.Id): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
 
-  def like(studyId: Study.ID, userId: User.ID, v: Boolean): Fu[Study.Likes] =
+  def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     doLike(studyId, userId, v) >> countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
       case Some((likes, createdAt)) => coll.update($id(studyId), $set(
@@ -106,14 +106,15 @@ final class StudyRepo(private[study] val coll: Coll) {
   def liked(study: Study, user: User): Fu[Boolean] =
     coll.exists($id(study.id) ++ selectLiker(user.id))
 
-  def filterLiked(user: User, studyIds: Seq[Study.ID]): Fu[Set[Study.ID]] =
-    coll.primitive[Study.ID]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
+  def filterLiked(user: User, studyIds: Seq[Study.Id]): Fu[Set[Study.Id]] =
+    coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
+
     $empty, $doc("likes" -> true, "createdAt" -> true)
   ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
     ~(for {
-      id <- doc.getAs[Study.ID]("_id")
+      id <- doc.getAs[Study.Id]("_id")
       likes <- doc.getAs[Study.Likes]("likes")
       createdAt <- doc.getAs[DateTime]("createdAt")
     } yield coll.update(
@@ -121,14 +122,14 @@ final class StudyRepo(private[study] val coll: Coll) {
     ).void) inject Cursor.Cont(count + 1)
   }
 
-  private def doLike(studyId: Study.ID, userId: User.ID, v: Boolean): Funit =
+  private def doLike(studyId: Study.Id, userId: User.ID, v: Boolean): Funit =
     coll.update(
       $id(studyId),
       if (v) $addToSet("likers" -> userId)
       else $pull("likers" -> userId)
     ).void
 
-  private def countLikes(studyId: Study.ID): Fu[Option[(Study.Likes, DateTime)]] =
+  private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
     coll.aggregate(
       Match($id(studyId)),
       List(Project($doc(

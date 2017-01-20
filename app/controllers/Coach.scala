@@ -24,7 +24,7 @@ object Coach extends LilaController {
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
           Env.study.api.publicByIds {
-            c.coach.profile.studyIds.map(_.value)
+            c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
           } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
             api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
               ctx.me.?? { api.reviews.isPending(_, c.coach) } map { isPending =>

@@ -52,6 +52,8 @@ object Analysis {
   import lila.db.BSON
   import reactivemongo.bson._
 
+  type ID = String
+
   private[analyse] implicit val analysisBSONHandler = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {
       val startPly = r intD "ply"

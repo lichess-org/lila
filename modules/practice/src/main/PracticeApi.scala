@@ -7,17 +7,17 @@ final class PracticeApi(coll: Coll) {
 
   import BSONHandlers._
 
-  def get(user: User): Fu[PracticeProgress] =
-    coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.UserId(user.id)) }
+  // def get(user: User): Fu[PracticeProgress] =
+  //   coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.UserId(user.id)) }
 
-  private def save(p: PracticeProgress): Funit =
-    coll.update($id(p.id), p, upsert = true).void
+  // private def save(p: PracticeProgress): Funit =
+  //   coll.update($id(p.id), p, upsert = true).void
 
-  def setScore(user: User, stage: String, level: Int, score: StageProgress.Score) =
-    get(user) flatMap { prog =>
-      save(prog.withScore(stage, level, score))
-    }
+  // def setScore(user: User, stage: String, level: Int, score: StageProgress.Score) =
+  //   get(user) flatMap { prog =>
+  //     save(prog.withScore(stage, level, score))
+  //   }
 
-  def reset(user: User) =
-    coll.remove($id(user.id)).void
+  // def reset(user: User) =
+  //   coll.remove($id(user.id)).void
 }

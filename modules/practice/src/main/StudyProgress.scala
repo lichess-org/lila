@@ -4,10 +4,10 @@ case class StudyProgress(moves: StudyProgress.ChapterNbMoves) extends AnyVal {
 
   import StudyProgress._
 
-  def withScore(level: Int, s: Score) = copy(
-    scores = (0 until scores.size.max(level)).map { i =>
-      scores.lift(i) | Score(0)
-    }.updated(level - 1, s).toVector)
+  // def withScore(level: Int, s: Score) = copy(
+  //   scores = (0 until scores.size.max(level)).map { i =>
+  //     scores.lift(i) | Score(0)
+  //   }.updated(level - 1, s).toVector)
 }
 
 object StudyProgress {

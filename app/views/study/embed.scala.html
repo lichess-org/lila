@@ -27,7 +27,7 @@
       <div class="embedded_study analyse cg-512">@miniBoardContent</div>
     </div>
     <footer>
-      @defining(routes.Study.chapter(s.id, chapter.id)) { url =>
+      @defining(routes.Study.chapter(s.id.value, chapter.id)) { url =>
       <div class="left">
         <a target="_blank" href="@url"><h1>@s.name</h1></a> <em>brought to you by <a target="_blank" href="@netBaseUrl">@netDomain</a></em>
       </div>

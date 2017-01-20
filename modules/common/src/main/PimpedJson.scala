@@ -7,8 +7,8 @@ object PimpedJson {
   def anyValWriter[O, A: Writes](f: O => A): Writes[O] = Writes[O] { o =>
     Json toJson f(o)
   }
-  def intAnyValWriter[O](f: O => Int) = anyValWriter[O, Int](f)
-  def stringAnyValWriter[O](f: O => String) = anyValWriter[O, String](f)
+  def intAnyValWriter[O](f: O => Int): Writes[O] = anyValWriter[O, Int](f)
+  def stringAnyValWriter[O](f: O => String): Writes[O] = anyValWriter[O, String](f)
 
   implicit final class LilaPimpedJsObject(val js: JsObject) extends AnyVal {
 

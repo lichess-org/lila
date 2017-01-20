@@ -52,7 +52,7 @@ final class Env(
     import lila.study.actorApi._
     def receive = {
       case SaveStudy(study) => api store study
-      case RemoveStudy(id)  => client deleteById Id(id)
+      case RemoveStudy(id)  => client deleteById Id(id.value)
     }
   }), name = ActorName)
 }

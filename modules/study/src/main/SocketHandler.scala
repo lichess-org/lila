@@ -37,7 +37,7 @@ private[study] final class SocketHandler(
 
   private def controller(
     socket: ActorRef,
-    studyId: Study.ID,
+    studyId: Study.Id,
     uid: Uid,
     member: Socket.Member,
     owner: Boolean): Handler.Controller = ({
@@ -234,7 +234,7 @@ private[study] final class SocketHandler(
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, socket, uid)
   }: Handler.Controller) orElse lila.chat.Socket.in(
-    chatId = studyId,
+    chatId = studyId.value,
     member = member,
     socket = socket,
     chat = chat)
@@ -254,11 +254,11 @@ private[study] final class SocketHandler(
   private implicit val setTagReader = Json.reads[actorApi.SetTag]
 
   def join(
-    studyId: Study.ID,
+    studyId: Study.Id,
     uid: Uid,
     user: Option[User],
     owner: Boolean): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(studyId) mapTo manifest[ActorRef]
+    socket ← socketHub ? Get(studyId.value) mapTo manifest[ActorRef]
     join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
     handler ← Handler(hub, socket, uid.value, join) {
       case Socket.Connected(enum, member) =>

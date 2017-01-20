@@ -7,8 +7,8 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.study.Order
 import lila.study.Study.WithChapter
+import lila.study.{ Order, Study => StudyModel }
 import views._
 
 object Study extends LilaController {
@@ -131,7 +131,7 @@ object Study extends LilaController {
   }
 
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
-    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id, ctx.me).map(some)
+    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id.value, ctx.me).map(some)
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
@@ -152,7 +152,7 @@ object Study extends LilaController {
     lila.study.DataForm.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => env.api.create(data, me) map { sc =>
-        Redirect(routes.Study.show(sc.study.id))
+        Redirect(routes.Study.show(sc.study.id.value))
       })
   }
 
@@ -165,7 +165,7 @@ object Study extends LilaController {
   def embed(id: String, chapterId: String) = Open { implicit ctx =>
     env.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(embedNotFound) {
-        case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+        case WithChapter(study, chapter) => CanViewResult(study) {
           val setup = chapter.setup
           val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
           Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
@@ -222,7 +222,7 @@ object Study extends LilaController {
         OptionFuResult(env.api.byId(id)) { prev =>
           CanViewResult(prev) {
             env.api.clone(me, prev) map { study =>
-              Redirect(routes.Study.show((study | prev).id))
+              Redirect(routes.Study.show((study | prev).id.value))
             }
           }
         }
@@ -257,7 +257,7 @@ object Study extends LilaController {
     OnlyHumans {
       env.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) {
-          case lila.study.Study.WithChapter(study, chapter) => CanViewResult(study) {
+          case WithChapter(study, chapter) => CanViewResult(study) {
             lila.mon.export.pgn.studyChapter()
             Ok(env.pgnDump.ofChapter(study, chapter).toString).withHeaders(
               CONTENT_TYPE -> pgnContentType,
@@ -269,10 +269,12 @@ object Study extends LilaController {
     }
   }
 
-  private def CanViewResult(study: lila.study.Study)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else fuccess(Unauthorized(html.study.restricted(study)))
 
-  private def canView(study: lila.study.Study)(implicit ctx: lila.api.Context) =
+  private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
     study.isPublic || ctx.userId.exists(study.members.contains)
+
+  private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
 }

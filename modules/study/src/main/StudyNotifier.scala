@@ -19,7 +19,10 @@ private final class StudyNotifier(
       _ ?? {
         socket ? HasUserId(invited.id) mapTo manifest[Boolean] map { isPresent =>
           study.owner.ifFalse(isPresent) foreach { owner =>
-            val notificationContent = InvitedToStudy(InvitedToStudy.InvitedBy(owner.id), InvitedToStudy.StudyName(study.name), InvitedToStudy.StudyId(study.id))
+            val notificationContent = InvitedToStudy(
+              InvitedToStudy.InvitedBy(owner.id),
+              InvitedToStudy.StudyName(study.name),
+              InvitedToStudy.StudyId(study.id.value))
             val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
             notifyApi.addNotification(notification)
           }

@@ -12,9 +12,14 @@ import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.tree.Node.{ Shape, Shapes }
 
-private object BSONHandlers {
+import lila.common.Iso
+import lila.common.Iso._
+
+object BSONHandlers {
 
   import Chapter._
+
+  implicit val StudyIdBSONHandler = stringIsoHandler[Study.Id](Study.idIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -110,10 +115,10 @@ private object BSONHandlers {
       "b" -> w.strO(writePocket(s.pockets.black)))
   }
 
-  private implicit val GlyphsBSONHandler = new BSONHandler[BSONArray, Glyphs] {
+  private implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
     private val idsHandler = bsonArrayToListHandler[Int]
-    def read(b: BSONArray) = Glyphs.fromList(idsHandler read b flatMap Glyph.find)
-    def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
+    def read(b: Barr) = Glyphs.fromList(idsHandler read b flatMap Glyph.find)
+    def write(x: Glyphs) = $arr(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
@@ -162,9 +167,9 @@ private object BSONHandlers {
       "z" -> s.crazyData,
       "n" -> s.children)
   }
-  implicit val ChildrenBSONHandler = new BSONHandler[BSONArray, Node.Children] {
+  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
     private val nodesHandler = bsonArrayToVectorHandler[Node]
-    def read(b: BSONArray) = try {
+    def read(b: Barr) = try {
       Node.Children(nodesHandler read b)
     }
     catch {
@@ -204,7 +209,7 @@ private object BSONHandlers {
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
-  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter]
+  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter.ID, Chapter]
 
   implicit val PositionRefBSONHandler = new BSONHandler[BSONString, Position.Ref] {
     def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"
@@ -220,7 +225,7 @@ private object BSONHandlers {
     def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role, x.addedAt)
   }
   private[study] implicit val MembersBSONHandler = new BSONHandler[Bdoc, StudyMembers] {
-    private val mapHandler = BSON.MapDocument.MapHandler[DbMember]
+    private val mapHandler = BSON.MapDocument.MapHandler[String, DbMember]
     def read(b: Bdoc) = StudyMembers(mapHandler read b map {
       case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
     })
@@ -236,7 +241,7 @@ private object BSONHandlers {
     def read(bs: BSONString) = bs.value.split(' ') match {
       case Array("scratch")   => From.Scratch
       case Array("game", id)  => From.Game(id)
-      case Array("study", id) => From.Study(id)
+      case Array("study", id) => From.Study(Study.Id(id))
       case _                  => sys error s"Invalid from ${bs.value}"
     }
     def write(x: From) = BSONString(x match {
@@ -262,7 +267,7 @@ private object BSONHandlers {
   import Study.Likes
   private[study] implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
   import Study.Rank
-  private[study] implicit val RankBSONHandler = dateAnyValHandler[Rank](_.value, Rank.apply)
+  private[study] implicit val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
   implicit val StudyBSONHandler = Macros.handler[Study]
 }

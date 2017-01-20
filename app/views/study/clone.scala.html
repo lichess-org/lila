@@ -4,7 +4,7 @@
 title = s"Clone ${s.name}",
 icon = Some(Html("")),
 back = false) {
-<form action="@routes.Study.cloneApply(s.id)" method="POST">
+<form action="@routes.Study.cloneApply(s.id.value)" method="POST">
   <p>
     This will create a new private study with the same chapters.
   </p>
@@ -22,7 +22,7 @@ back = false) {
       style="margin: 30px auto; display: block; font-size: 2em;">Clone the study</button>
   </p>
   <p>
-    <a href="@routes.Study.show(s.id)" class="text" data-icon="I">@trans.cancel()</a>
+    <a href="@routes.Study.show(s.id.value)" class="text" data-icon="I">@trans.cancel()</a>
   </p>
 </form>
 }
