@@ -1,0 +1,44 @@
+@(data: lila.practice.UserPractice)(implicit ctx: Context)
+
+@moreJs = {
+}
+
+@side = {
+<div id="learn_side" class="side_box learn_box">
+</div>
+}
+
+@base.layout(
+title = "Practice chess positions",
+side = side.some,
+moreJs = moreJs,
+moreCss = cssTag("practice.css"),
+openGraph = lila.app.ui.OpenGraph(
+title = "Practice your chess",
+description = "Learn how to master the most common chess positions",
+url = s"$netBaseUrl${routes.Practice.index}"
+).some) {
+<div id="practice_app">
+  <ol class="sections">
+    @data.structure.sections.map { section =>
+    <li>
+      <h2>@section.name</h2>
+      <ol class="studies">
+        @section.studies.map { stud =>
+        <li>
+          <i class="practice icon @stud.id"></i>
+          <h3><a href="@routes.Study.show(stud.id.value)">@stud.name</a></h3>
+          <em>@stud.desc</em>
+          <p class="progress">
+            @defining(data.progressOn(stud.id)) { prog =>
+            @prog.done / @prog.total
+            }
+          </p>
+        </li>
+        }
+      </ol>
+    </li>
+    }
+  </ol>
+</div>
+}

@@ -14,6 +14,11 @@ final class PracticeApi(
 
   import BSONHandlers._
 
+  def get(user: Option[User]): Fu[UserPractice] = for {
+    struct <- structure.get
+    prog <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
+  } yield UserPractice(struct, prog)
+
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)
     def set = configStore.set _
@@ -36,7 +41,7 @@ final class PracticeApi(
   object progress {
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.UserId(user.id)) }
+      coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
 
     private def save(p: PracticeProgress): Funit =
       coll.update($id(p.id), p, upsert = true).void

@@ -10,10 +10,17 @@ object Practice extends LilaController {
 
   private def env = Env.practice
 
-  def config = Auth { implicit ctx => me => for {
-    struct <- env.api.structure.get
-    form <- env.api.config.form
-  } yield Ok(html.practice.config(struct, form))
+  def index = Open { implicit ctx =>
+    env.api.get(ctx.me) map { p =>
+      Ok(html.practice.index(p))
+    }
+  }
+
+  def config = Auth { implicit ctx => me =>
+    for {
+      struct <- env.api.structure.get
+      form <- env.api.config.form
+    } yield Ok(html.practice.config(struct, form))
   }
 
   def configSave = SecureBody(_.StreamConfig) { implicit ctx => me =>

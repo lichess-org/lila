@@ -18,19 +18,14 @@ case class PracticeProgress(
   def withNbMoves(chapterId: Chapter.Id, nbMoves: PracticeProgress.NbMoves) = copy(
     chapters = chapters - chapterId + (chapterId -> nbMoves),
     updatedAt = DateTime.now)
+
+  def countDone(chapterIds: List[Chapter.Id]): Int =
+    chapterIds count chapters.contains
 }
 
 object PracticeProgress {
 
-  sealed trait Id extends Any {
-    def str: String
-  }
-  case class UserId(value: String) extends AnyVal with Id {
-    def str = value
-  }
-  case class AnonId(value: String) extends AnyVal with Id {
-    def str = s"anon:$value"
-  }
+  case class Id(value: String) extends AnyVal
 
   case class NbMoves(value: Int) extends AnyVal
   implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
@@ -42,4 +37,6 @@ object PracticeProgress {
     chapters = Map.empty,
     createdAt = DateTime.now,
     updatedAt = DateTime.now)
+
+  def anon = empty(Id("anon"))
 }

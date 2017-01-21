@@ -157,6 +157,11 @@ POST  /patron/webhook                  controllers.Plan.webhook
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
 
+# Practice
+GET   /practice                               controllers.Practice.index
+GET   /practice/config                        controllers.Practice.config
+POST  /practice/config                        controllers.Practice.configSave
+
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
@@ -231,10 +236,6 @@ POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
-
-# Practice
-GET   /practice/config                        controllers.Practice.config
-POST  /practice/config                        controllers.Practice.configSave
 
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)

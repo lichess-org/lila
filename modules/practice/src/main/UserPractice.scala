@@ -3,14 +3,17 @@ package lila.practice
 import lila.study.{ Study, Chapter }
 
 case class UserPractice(
-    progress: PracticeProgress,
     structure: PracticeStructure,
-    chapters: Map[Study.Id, Vector[Chapter.IdName]]) {
+    progress: PracticeProgress) {
 
   import UserPractice._
 
-  // def progress(studyId: Study.Id) = Progress(
-  //   done = 
+  def progressOn(studyId: Study.Id) = {
+    val chapterIds = structure.study(studyId).??(_.chapterIds)
+    Progress(
+      done = progress countDone chapterIds,
+      total = chapterIds.size)
+  }
 
 }
 
