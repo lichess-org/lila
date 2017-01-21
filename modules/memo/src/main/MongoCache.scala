@@ -38,7 +38,7 @@ final class MongoCache[K, V: MongoCache.Handler] private (
 
   private def makeKey(k: K) = s"$prefix:${keyToString(k)}"
 
-  private def select(k: K) = BSONDocument("_id" -> makeKey(k))
+  private def select(k: K) = $id(makeKey(k))
 }
 
 object MongoCache {

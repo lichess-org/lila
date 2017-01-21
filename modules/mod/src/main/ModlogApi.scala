@@ -12,6 +12,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, none, Modlog.streamConfig)
   }
 
+  def practiceConfig(mod: String) = add {
+    Modlog(mod, none, Modlog.practiceConfig)
+  }
+
   def engine(mod: String, user: String, v: Boolean) = add {
     Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
   }

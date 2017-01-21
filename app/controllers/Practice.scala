@@ -1,0 +1,30 @@
+package controllers
+
+import play.api.mvc._
+
+import lila.api.Context
+import lila.app._
+import views._
+
+object Practice extends LilaController {
+
+  private def env = Env.practice
+
+  def config = Auth { implicit ctx => me => for {
+    struct <- env.api.structure.get
+    form <- env.api.structure.form
+  } yield Ok(html.practice.config(struct, form))
+  }
+
+  def configSave = SecureBody(_.StreamConfig) { implicit ctx => me =>
+    implicit val req = ctx.body
+    env.api.structure.form.flatMap { form =>
+      FormFuResult(form) { err =>
+        env.api.structure.get map { html.practice.config(_, err) }
+      } { text =>
+        env.api.structure.set(text).valueOr(_ => funit) >>
+          Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
+      }
+    }
+  }
+}

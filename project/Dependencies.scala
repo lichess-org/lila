@@ -39,6 +39,7 @@ object Dependencies {
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
+  val configs = "com.github.kxbmap" %% "configs" % "0.4.4"
 
   object reactivemongo {
     val version = "0.12.0"

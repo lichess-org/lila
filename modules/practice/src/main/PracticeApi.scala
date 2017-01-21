@@ -1,24 +1,35 @@
 package lila.practice
 
 import lila.db.dsl._
-import lila.user.User
 import lila.study.Chapter
+import lila.user.User
 
-final class PracticeApi(coll: Coll) {
+final class PracticeApi(
+    coll: Coll,
+    configStore: lila.memo.ConfigStore[PracticeStructure]) {
 
   import BSONHandlers._
 
-  def get(user: User): Fu[PracticeProgress] =
-    coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.UserId(user.id)) }
+  object structure {
+    def get = configStore.get map (_ | PracticeStructure.empty)
+    def set = configStore.set _
+    def form = configStore.makeForm
+  }
 
-  private def save(p: PracticeProgress): Funit =
-    coll.update($id(p.id), p, upsert = true).void
+  object progress {
 
-  def setNbMoves(user: User, fullId: Chapter.FullId, score: StudyProgress.NbMoves) =
-    get(user) flatMap { prog =>
-      save(prog.withNbMoves(fullId, score))
-    }
+    def get(user: User): Fu[PracticeProgress] =
+      coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.UserId(user.id)) }
 
-  def reset(user: User) =
-    coll.remove($id(user.id)).void
+    private def save(p: PracticeProgress): Funit =
+      coll.update($id(p.id), p, upsert = true).void
+
+    def setNbMoves(user: User, fullId: Chapter.FullId, score: StudyProgress.NbMoves) =
+      get(user) flatMap { prog =>
+        save(prog.withNbMoves(fullId, score))
+      }
+
+    def reset(user: User) =
+      coll.remove($id(user.id)).void
+  }
 }

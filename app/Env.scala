@@ -168,4 +168,5 @@ object Env {
   def event = lila.event.Env.current
   def coach = lila.coach.Env.current
   def pool = lila.pool.Env.current
+  def practice = lila.practice.Env.current
 }

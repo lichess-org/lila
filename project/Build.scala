@@ -36,7 +36,7 @@ object ApplicationBuild extends Build {
         jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         spray.caching, maxmind, prismic,
         kamon.core, kamon.statsd, kamon.influxdb,
-        java8compat, semver, scrimage),
+        java8compat, semver, scrimage, configs),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -133,7 +133,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val memo = project("memo", Seq(common, db)).settings(
-    libraryDependencies ++= Seq(findbugs, spray.caching) ++ provided(play.api, reactivemongo.driver)
+    libraryDependencies ++= Seq(findbugs, spray.caching, configs) ++ provided(play.api, reactivemongo.driver)
   )
 
   lazy val search = project("search", Seq(common, hub)).settings(
@@ -254,8 +254,8 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val practice = project("practice", Seq(common, db, user, study)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  lazy val practice = project("practice", Seq(common, db, memo, user, study)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver, configs)
   )
 
   lazy val playban = project("playban", Seq(common, db, game)).settings(
