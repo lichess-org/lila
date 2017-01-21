@@ -31,9 +31,7 @@ module.exports = function(opts) {
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
-    maxDepth: maxDepth,
     variant: opts.variant,
-    multiPv: multiPv,
     threads: pnaclSupported && threads,
     hashSize: pnaclSupported && hashSize
   });
@@ -97,6 +95,7 @@ module.exports = function(opts) {
       path: path,
       ply: step.ply,
       maxDepth: maxD,
+      multiPv: parseInt(multiPv()),
       threatMode: threatMode,
       emit: function(res) {
         if (enabled()) onEmit(res);
