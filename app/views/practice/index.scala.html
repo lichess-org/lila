@@ -8,6 +8,12 @@
 </div>
 }
 
+@ribbon(prog: lila.practice.UserPractice.Progress) = {
+<span class="ribbon-wrapper">
+  <span class="ribbon @if(prog.complete) {done} else {ongoing}">@prog.done / @prog.total</span>
+</span>
+}
+
 @base.layout(
 title = "Practice chess positions",
 side = side.some,
@@ -19,26 +25,24 @@ description = "Learn how to master the most common chess positions",
 url = s"$netBaseUrl${routes.Practice.index}"
 ).some) {
 <div id="practice_app">
-  <ol class="sections">
+  <div class="sections">
     @data.structure.sections.map { section =>
-    <li>
+    <div class="section">
       <h2>@section.name</h2>
-      <ol class="studies">
+      <div class="studies">
         @section.studies.map { stud =>
-        <li>
+        <a class="study ongoing" href="@routes.Study.show(stud.id.value)">
+          @ribbon(data.progressOn(stud.id))
           <i class="practice icon @stud.id"></i>
-          <h3><a href="@routes.Study.show(stud.id.value)">@stud.name</a></h3>
-          <em>@stud.desc</em>
-          <p class="progress">
-            @defining(data.progressOn(stud.id)) { prog =>
-            @prog.done / @prog.total
-            }
-          </p>
-        </li>
+          <span class="text">
+            <h3>@stud.name</h3>
+            <em>@stud.desc</em>
+          </span>
+        </a>
         }
-      </ol>
-    </li>
+      </div>
+    </div>
     }
-  </ol>
+  </div>
 </div>
 }

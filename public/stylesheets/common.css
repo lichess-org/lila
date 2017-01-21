@@ -49,6 +49,7 @@ button {
 }
 time {
   display: inline-block;
+  white-space: nowrap;
 }
 @font-face {
   font-family: "lichess";

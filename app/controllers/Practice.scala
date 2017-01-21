@@ -30,6 +30,7 @@ object Practice extends LilaController {
         env.api.structure.get map { html.practice.config(_, err) }
       } { text =>
         env.api.config.set(text).valueOr(_ => funit) >>
+          env.api.structure.clear >>
           Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
     }

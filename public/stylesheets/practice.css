@@ -1,0 +1,228 @@
+#practice_app .section {
+  width: 742px;
+  padding-top: 10px;
+}
+#practice_app .section > h2 {
+  font-size: 2em;
+  font-family: 'Roboto';
+  font-weight: 300;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #999;
+  text-shadow: 0 1px 1px #fff;
+  text-align: center;
+}
+body.dark #practice_app .section > h2 {
+  text-shadow: 0 1px 1px #000;
+}
+#practice_app .studies {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 10px 0 36px 0;
+}
+#practice_app .study {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 49%;
+  width: 49%;
+  height: 90px;
+  color: #fff;
+  box-sizing: border-box;
+  margin-top: 13px;
+  transition: 0.13s;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3), 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  font-size: 1.2em;
+}
+#practice_app .study .icon {
+  flex: 0 0 70px;
+  height: 70px;
+  box-sizing: border-box;
+  margin: 0 13px;
+  opacity: 0.9;
+}
+#practice_app .study h3 {
+  font-size: 1.5em;
+  margin: 0 0 5px -1px;
+}
+@keyframes soft-bright {
+  50%{
+    -webkit-filter: brightness(1.1);
+  }
+}
+#practice_app .study.ongoing {
+  background: #3893E8;
+  -webkit-filter: brightness(0.9);
+}
+#practice_app .study.ongoing {
+  animation: 1.7s soft-bright ease-in-out infinite;
+}
+#practice_app .study.ongoing:hover {
+  -webkit-filter: brightness(1.2);
+}
+#practice_app .study.done {
+  background: #4caf50;
+}
+#practice_app .study.future {
+  opacity: 0.7;
+  background: #f57c00;
+}
+#practice_app .study.future .icon {
+  opacity: 0.7;
+}
+#practice_app a.study.active,
+#practice_app a.study:hover {
+  -webkit-filter: brightness(1.08);
+  transform: scale(1.02);
+  opacity: 1;
+}
+#practice_app .study .ribbon-wrapper {
+  display: block;
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+}
+#practice_app .study .ribbon {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  transform: rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 120px;
+  color: #6a6340;
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+}
+#practice_app .study .ribbon i {
+  color: #d59120;
+  animation: 0.6s soft-hue ease-in-out infinite;
+  text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
+}
+#practice_app .study .ribbon i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+#practice_app .study .ribbon i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+#practice_app .study .ribbon:before,
+#practice_app .study .ribbon:after {
+  content: "";
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+#practice_app .study .ribbon:before {
+  left: 0;
+}
+#practice_app .study .ribbon:after {
+  right: 0;
+}
+
+#practice_app .study .ribbon.done {
+  background-color: #BFDC7A;
+}
+#practice_app .study .ribbon.done:before,
+#practice_app .study .ribbon.done:after {
+  border-top:   3px solid #6e8900;
+}
+#practice_app .study .ribbon.ongoing {
+  background-color: #B3E5FC;
+}
+#practice_app .study .ribbon.ongoing:before,
+#practice_app .study .ribbon.ongoing:after {
+  border-top: 3px solid #536DFE;
+}
+#practice_app .what_next > p {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2em;
+}
+
+i.icon {
+  background: url('/assets/images/practice/help.svg');
+  background-size: cover;
+}
+i.ptQ1LLvm {
+  background-image: url('/assets/images/practice/arrowed.svg');
+}
+
+#practice_app .ribbon-wrapper {
+  display: block;
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+}
+#practice_app .ribbon {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  transform: rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 120px;
+  color: #6a6340;
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+}
+#practice_app .ribbon i {
+  color: #d59120;
+  animation: 0.6s soft-hue ease-in-out infinite;
+  text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
+}
+#practice_app .ribbon i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+#practice_app .ribbon i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+#practice_app .ribbon:before,
+#practice_app .ribbon:after {
+  content: "";
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+#practice_app .ribbon:before {
+  left: 0;
+}
+#practice_app .ribbon:after {
+  right: 0;
+}
+
+#practice_app .ribbon.done {
+  background-color: #BFDC7A;
+}
+#practice_app .ribbon.done:before,
+#practice_app .ribbon.done:after {
+  border-top:   3px solid #6e8900;
+}
+#practice_app .ribbon.ongoing {
+  background-color: #B3E5FC;
+}
+#practice_app .ribbon.ongoing:before,
+#practice_app .ribbon.ongoing:after {
+  border-top: 3px solid #536DFE;
+}

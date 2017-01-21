@@ -5,7 +5,7 @@
   flex: 1 1 50%;
   width: auto;
 }
-.practice_config .both ol {
+.practice_config .both .preview {
   height: 500px;
   overflow: hidden;
   overflow-y: auto;

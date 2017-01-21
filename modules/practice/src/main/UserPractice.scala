@@ -22,5 +22,7 @@ object UserPractice {
   case class Progress(done: Int, total: Int) {
 
     def percent = if (total == 0) 0 else done * 100 / total
+
+    def complete = done >= total
   }
 }
