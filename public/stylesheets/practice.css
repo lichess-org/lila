@@ -1,3 +1,59 @@
+.study_box .title {
+  display: flex;
+  padding: 7px;
+  background: #3893E8;
+  color: #fff;
+  white-space: nowrap;
+}
+.study_box .title .icon {
+  flex: 0 0 40px;
+  height: 40px;
+  margin-right: 10px;
+  opacity: 0.9;
+}
+.study_box .title h1 {
+  font-size: 1.3em;
+}
+.study_box .title em {
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+.study_box .list {
+  border-top: 0;
+  max-height: 400px;
+}
+.study_box .elem.chapter {
+  border-bottom: 1px solid #ddd;
+}
+.study_box .chapter h3 {
+  margin: 12px 0 12px 0px;
+}
+.study_box .list .status {
+  width: 30px;
+  opacity: 1;
+  font-size: 1.2em;
+}
+.study_box .list .status.ongoing {
+  color: #ccc;
+}
+.study_box .list .status.done {
+  color: #3893E8;
+}
+.study_box .list .active .status {
+  color: #fff;
+}
+.study_box .finally {
+  padding: 12px 0;
+  display: flex;
+  background: #ddd;
+}
+.study_box .finally .back {
+  width: 34px;
+  text-align: center;
+  margin-right: 5px;
+  font-size: 1.2em;
+}
+
 #practice_app .section {
   width: 742px;
   padding-top: 10px;
@@ -79,7 +135,7 @@ body.dark #practice_app .section > h2 {
   transform: scale(1.02);
   opacity: 1;
 }
-#practice_app .study .ribbon-wrapper {
+#practice_app .ribbon-wrapper {
   display: block;
   width: 85px;
   height: 88px;
@@ -88,7 +144,7 @@ body.dark #practice_app .section > h2 {
   top: -3px;
   right: -3px;
 }
-#practice_app .study .ribbon {
+#practice_app .ribbon {
   display: block;
   font-size: 15px;
   font-weight: bold;
@@ -104,45 +160,45 @@ body.dark #practice_app .section > h2 {
   color: #6a6340;
   box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
-#practice_app .study .ribbon i {
+#practice_app .ribbon i {
   color: #d59120;
   animation: 0.6s soft-hue ease-in-out infinite;
   text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
 }
-#practice_app .study .ribbon i:nth-child(2) {
+#practice_app .ribbon i:nth-child(2) {
   animation-delay: 0.2s;
 }
-#practice_app .study .ribbon i:nth-child(3) {
+#practice_app .ribbon i:nth-child(3) {
   animation-delay: 0.4s;
 }
 
-#practice_app .study .ribbon:before,
-#practice_app .study .ribbon:after {
+#practice_app .ribbon:before,
+#practice_app .ribbon:after {
   content: "";
   border-left:  3px solid transparent;
   border-right: 3px solid transparent;
   position:absolute;
   bottom: -3px;
 }
-#practice_app .study .ribbon:before {
+#practice_app .ribbon:before {
   left: 0;
 }
-#practice_app .study .ribbon:after {
+#practice_app .ribbon:after {
   right: 0;
 }
 
-#practice_app .study .ribbon.done {
+#practice_app .ribbon.done {
   background-color: #BFDC7A;
 }
-#practice_app .study .ribbon.done:before,
-#practice_app .study .ribbon.done:after {
+#practice_app .ribbon.done:before,
+#practice_app .ribbon.done:after {
   border-top:   3px solid #6e8900;
 }
-#practice_app .study .ribbon.ongoing {
+#practice_app .ribbon.ongoing {
   background-color: #B3E5FC;
 }
-#practice_app .study .ribbon.ongoing:before,
-#practice_app .study .ribbon.ongoing:after {
+#practice_app .ribbon.ongoing:before,
+#practice_app .ribbon.ongoing:after {
   border-top: 3px solid #536DFE;
 }
 #practice_app .what_next > p {
@@ -219,7 +275,7 @@ body.dark #practice_app .section > h2 {
   border-top: 3px solid #536DFE;
 }
 
-i.icon {
+i.practice {
   background: url('/assets/images/practice/help.svg');
   background-size: cover;
 }

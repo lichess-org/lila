@@ -10,7 +10,7 @@
 @jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
 @embedJs {
 lichess = lichess || {};
-lichess.study = {
+lichess.practice = {
 practice: @Html(J.stringify(data.practice)),
 study: @Html(J.stringify(data.study)),
 data: @Html(J.stringify(data.analysis)),

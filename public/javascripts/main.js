@@ -355,6 +355,7 @@ lichess.notifyApp = (function() {
     else if (lichess.analyse) LichessAnalyse.legacy(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
+    else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
@@ -1398,6 +1399,30 @@ lichess.notifyApp = (function() {
       analyse.setChapter(chapterId);
       history.pushState('', document.title, location.pathname);
     }
+  }
+
+  ////////////////
+  // practice.js //
+  ////////////////
+
+  function startPractice(element, cfg) {
+    var analyse;
+    cfg.element = element.querySelector('.analyse');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
+    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+      options: {
+        name: "practice"
+      },
+      params: {
+        ran: "--ranph--"
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    analyse = LichessAnalyse.mithril(cfg);
+    lichess.topMenuIntent();
   }
 
   ////////////////

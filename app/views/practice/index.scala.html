@@ -31,7 +31,7 @@ url = s"$netBaseUrl${routes.Practice.index}"
       <h2>@section.name</h2>
       <div class="studies">
         @section.studies.map { stud =>
-        <a class="study ongoing" href="@routes.Practice.show(section.id, slugify(stud.name), stud.id.value)">
+        <a class="study ongoing" href="@routes.Practice.show(section.id, stud.slug, stud.id.value)">
           @ribbon(data.progressOn(stud.id))
           <i class="practice icon @stud.id"></i>
           <span class="text">

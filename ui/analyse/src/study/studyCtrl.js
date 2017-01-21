@@ -14,7 +14,7 @@ var xhr = require('./studyXhr');
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
-module.exports = function(data, ctrl, tagTypes) {
+module.exports = function(data, ctrl, tagTypes, practice) {
 
   var send = ctrl.socket.send;
 
@@ -245,6 +245,7 @@ module.exports = function(data, ctrl, tagTypes) {
     currentNode: function() {
       return ctrl.vm.node;
     },
+    practice: practice,
     socketHandlers: {
       path: function(d) {
         var position = d.p,

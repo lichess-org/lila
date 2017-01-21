@@ -7,6 +7,17 @@ case class PracticeStructure(
 
   def study(id: Study.Id): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption
+
+  def prev(id: Study.Id): Option[PracticeStudy] =
+    studyPosition(id).map(_ + 1) flatMap allStudies.lift
+  def next(id: Study.Id): Option[PracticeStudy] =
+    studyPosition(id).map(_ - 1) flatMap allStudies.lift
+
+  private def studyPosition(id: Study.Id): Option[Int] =
+    sections.indexOf(id).some.filter(0 <=)
+
+  lazy val allStudies: Vector[PracticeStudy] =
+    sections.flatMap(_.studies).toVector
 }
 
 case class PracticeSection(
@@ -22,6 +33,8 @@ case class PracticeStudy(
     name: String,
     desc: String,
     chapters: List[Chapter.IdName]) {
+
+  val slug = lila.common.String slugify name
 
   def chapterIds = chapters.map(_.id)
 }
