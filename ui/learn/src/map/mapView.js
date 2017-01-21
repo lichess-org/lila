@@ -84,7 +84,7 @@ module.exports = function(ctrl) {
                   src: s.image
                 }),
                 m('div.text', [
-                  m('h2', s.title),
+                  m('h3', s.title),
                   m('p.subtitle', s.subtitle)
                 ])
               ]);

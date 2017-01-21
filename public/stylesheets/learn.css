@@ -11,7 +11,8 @@
   background: #3893E8;
   color: #fff;
 }
-#learn_app .title h2 {
+#learn_app .title h2,
+#learn_app .title h3 {
   font-size: 2.3em;
   margin: 15px 0 5px -3px;
   white-space: nowrap;
@@ -700,7 +701,7 @@ body.dark #learn_app .map .categ > h2 {
   margin: 0 13px;
   opacity: 0.9;
 }
-#learn_app .map .stage h2 {
+#learn_app .map .stage h3 {
   font-size: 2em;
   letter-spacing: 4px;
   margin: 0 0 5px -1px;

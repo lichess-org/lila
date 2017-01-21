@@ -36,7 +36,7 @@ function renderInStage(ctrl) {
                 m('img', {
                   src: s.image
                 }),
-                m('h2', s.title)
+                m('h3', s.title)
               ]);
             }))
         ]);
