@@ -24,9 +24,9 @@ final class PracticeApi(
     private def save(p: PracticeProgress): Funit =
       coll.update($id(p.id), p, upsert = true).void
 
-    def setNbMoves(user: User, fullId: Chapter.FullId, score: StudyProgress.NbMoves) =
+    def setNbMoves(user: User, chapterId: Chapter.Id, score: PracticeProgress.NbMoves) =
       get(user) flatMap { prog =>
-        save(prog.withNbMoves(fullId, score))
+        save(prog.withNbMoves(chapterId, score))
       }
 
     def reset(user: User) =

@@ -100,8 +100,6 @@ object Chapter {
     def compare(that: Ply) = value - that.value
   }
 
-  case class FullId(studyId: Study.Id, chapterId: Chapter.Id)
-
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
   def isDefaultName(n: Name) = defaultNamePattern.matcher(n.value).matches
 
