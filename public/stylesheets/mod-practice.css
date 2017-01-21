@@ -5,10 +5,13 @@
   flex: 1 1 50%;
   width: auto;
 }
-.practice_config .both .list {
+.practice_config .both ol {
   height: 500px;
   overflow: hidden;
   overflow-y: auto;
+}
+.practice_config .both ol a {
+  color: #3893E8;
 }
 .practice_config .both > ol {
   width: 100%;
@@ -27,10 +30,13 @@
   font-size: 1.2em;
   margin: 0;
 }
+.practice_config .both li li li {
+  font-size: 0.9em;
+}
 .practice_config .both em {
   display: block;
   font-style: italic;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 .practice_config textarea.practice_text {
   width: 100%;

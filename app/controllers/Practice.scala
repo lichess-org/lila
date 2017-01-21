@@ -12,17 +12,17 @@ object Practice extends LilaController {
 
   def config = Auth { implicit ctx => me => for {
     struct <- env.api.structure.get
-    form <- env.api.structure.form
+    form <- env.api.config.form
   } yield Ok(html.practice.config(struct, form))
   }
 
   def configSave = SecureBody(_.StreamConfig) { implicit ctx => me =>
     implicit val req = ctx.body
-    env.api.structure.form.flatMap { form =>
+    env.api.config.form.flatMap { form =>
       FormFuResult(form) { err =>
         env.api.structure.get map { html.practice.config(_, err) }
       } { text =>
-        env.api.structure.set(text).valueOr(_ => funit) >>
+        env.api.config.set(text).valueOr(_ => funit) >>
           Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
     }

@@ -59,19 +59,21 @@ final class ChapterRepo(coll: Coll) {
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
-  private[study] def namesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[String]]] =
+  private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
       $doc("studyId" $in studyIds),
-      $doc("studyId" -> true, "name" -> true)
+      $doc("studyId" -> true, "_id" -> true, "name" -> true)
     ).sort($sort asc "order").list[Bdoc]().map { docs =>
-        docs.foldLeft(Map.empty[Study.Id, Vector[String]]) {
+        docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
           case (hash, doc) => {
             for {
               studyId <- doc.getAs[Study.Id]("studyId")
-              name <- doc.getAs[String]("name")
+              id <- doc.getAs[Chapter.Id]("_id")
+              name <- doc.getAs[Chapter.Name]("name")
+              idName = Chapter.IdName(id, name)
             } yield hash + (studyId -> (hash.get(studyId) match {
-              case None        => Vector(name)
-              case Some(names) => names :+ name
+              case None        => Vector(idName)
+              case Some(names) => names :+ idName
             }))
           } | hash
         }

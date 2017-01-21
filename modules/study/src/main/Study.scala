@@ -120,11 +120,11 @@ object Study {
 
   case class WithChapter(study: Study, chapter: Chapter)
 
-  case class WithChapters(study: Study, chapters: Seq[String])
+  case class WithChapters(study: Study, chapters: Seq[Chapter.Name])
 
   case class WithActualChapters(study: Study, chapters: Seq[Chapter])
 
-  case class WithChaptersAndLiked(study: Study, chapters: Seq[String], liked: Boolean)
+  case class WithChaptersAndLiked(study: Study, chapters: Seq[Chapter.Name], liked: Boolean)
 
   val idSize = 8
 

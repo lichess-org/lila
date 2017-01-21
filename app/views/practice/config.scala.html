@@ -20,8 +20,15 @@ moreCss = cssTag("mod-practice.css")) {
           @section.studies.map { stud =>
           <li>
             <i class="practice icon @stud.id"></i>
-            <h3>@stud.name (#@stud.id)</h3>
+            <h3><a href="@routes.Study.show(stud.id.value)">@stud.name (#@stud.id)</a></h3>
             <em>@stud.desc</em>
+            <ol>
+              @stud.chapters.map { cha =>
+              <li>
+                <a href="@routes.Study.chapter(stud.id.value, cha.id.value)">@cha.name</a>
+              </li>
+              }
+            </ol>
           </li>
           }
         </ol>

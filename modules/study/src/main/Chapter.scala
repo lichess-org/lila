@@ -96,6 +96,8 @@ object Chapter {
     name: Chapter.Name,
     setup: Chapter.Setup) extends Like
 
+  case class IdName(id: Chapter.Id, name: Chapter.Name)
+
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
     def compare(that: Ply) = value - that.value
   }

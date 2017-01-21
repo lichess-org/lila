@@ -66,9 +66,11 @@ final class StudyPager(
   }
 
   def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
-    chapterRepo namesByStudyIds studies.map(_.id) map { chapters =>
+    chapterRepo idNamesByStudyIds studies.map(_.id) map { chapters =>
       studies.map { study =>
-        Study.WithChapters(study, ~(chapters get study.id))
+        Study.WithChapters(study, ~(chapters get study.id map {
+          _ map (_.name)
+        }))
       }
     }
 

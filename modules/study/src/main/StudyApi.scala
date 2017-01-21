@@ -410,6 +410,9 @@ final class StudyApi(
 
   def resetAllRanks = studyRepo.resetAllRanks
 
+  def chapterIdNames(studyIds: List[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
+    chapterRepo.idNamesByStudyIds(studyIds)
+
   private def indexStudy(study: Study) = indexer ! actorApi.SaveStudy(study)
 
   private def reloadUid(study: Study, uid: Uid) =
