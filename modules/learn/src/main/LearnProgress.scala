@@ -12,22 +12,14 @@ case class LearnProgress(
 
   def withScore(stage: String, level: Int, s: StageProgress.Score) = copy(
     stages = stages + (
-      stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
-    ),
+    stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
+  ),
     updatedAt = DateTime.now)
 }
 
 object LearnProgress {
 
-  sealed trait Id extends Any {
-    def str: String
-  }
-  case class UserId(value: String) extends AnyVal with Id {
-    def str = value
-  }
-  case class AnonId(value: String) extends AnyVal with Id {
-    def str = s"anon:$value"
-  }
+  case class Id(value: String) extends AnyVal
 
   def empty(id: Id) = LearnProgress(
     _id = id,
