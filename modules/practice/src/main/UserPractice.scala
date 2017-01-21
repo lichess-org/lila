@@ -10,19 +10,20 @@ case class UserPractice(
 
   def progressOn(studyId: Study.Id) = {
     val chapterIds = structure.study(studyId).??(_.chapterIds)
-    Progress(
+    Completion(
       done = progress countDone chapterIds,
       total = chapterIds.size)
   }
-
 }
 
-object UserPractice {
+case class UserStudy(
+  practice: UserPractice,
+  practiceStudy: PracticeStudy,
+  study: Study.WithChapter)
 
-  case class Progress(done: Int, total: Int) {
+case class Completion(done: Int, total: Int) {
 
-    def percent = if (total == 0) 0 else done * 100 / total
+  def percent = if (total == 0) 0 else done * 100 / total
 
-    def complete = done >= total
-  }
+  def complete = done >= total
 }

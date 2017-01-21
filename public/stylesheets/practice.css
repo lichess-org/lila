@@ -152,14 +152,6 @@ body.dark #practice_app .section > h2 {
   font-size: 1.2em;
 }
 
-i.icon {
-  background: url('/assets/images/practice/help.svg');
-  background-size: cover;
-}
-i.ptQ1LLvm {
-  background-image: url('/assets/images/practice/arrowed.svg');
-}
-
 #practice_app .ribbon-wrapper {
   display: block;
   width: 85px;
@@ -225,4 +217,15 @@ i.ptQ1LLvm {
 #practice_app .ribbon.ongoing:before,
 #practice_app .ribbon.ongoing:after {
   border-top: 3px solid #536DFE;
+}
+
+i.icon {
+  background: url('/assets/images/practice/help.svg');
+  background-size: cover;
+}
+i.ptQ1LLvm {
+  background-image: url('/assets/images/practice/backstab.svg');
+}
+i.E1lqtqFt {
+  background-image: url('/assets/images/practice/arrowed.svg');
 }

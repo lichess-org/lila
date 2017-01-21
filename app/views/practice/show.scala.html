@@ -1,0 +1,42 @@
+@(us: lila.practice.UserStudy, data: lila.practice.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("analyse.css")
+@cssTag("study.css")
+@cssTag("practice.css")
+}
+
+@moreJs = {
+@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@embedJs {
+lichess = lichess || {};
+lichess.study = {
+practice: @Html(J.stringify(data.practice)),
+study: @Html(J.stringify(data.study)),
+data: @Html(J.stringify(data.analysis)),
+i18n: @board.userAnalysisI18n(),
+userId: @jsUserId,
+explorer: {
+endpoint: "@explorerEndpoint",
+tablebaseEndpoint: "@tablebaseEndpoint"
+},
+socketUrl: "@routes.Study.websocket(us.study.study.id.value, apiVersion.value)",
+socketVersion: @socketVersion
+};
+}
+}
+
+@side = {
+<div class="side_box study_box"></div>
+}
+
+@base.layout(
+title = us.practiceStudy.name,
+side = side.some,
+underchat = none,
+moreCss = moreCss,
+moreJs = moreJs,
+chessground = false,
+withLangAnnotations = false) {
+<div class="analyse cg-512">@miniBoardContent</div>
+}

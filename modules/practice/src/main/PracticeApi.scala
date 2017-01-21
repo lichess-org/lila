@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.AsyncCache
-import lila.study.Chapter
+import lila.study.{ Chapter, Study }
 import lila.user.User
 
 final class PracticeApi(
@@ -18,6 +18,13 @@ final class PracticeApi(
     struct <- structure.get
     prog <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
   } yield UserPractice(struct, prog)
+
+  def getStudy(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
+    up <- get(user)
+    studyOption <- studyApi byIdWithChapter studyId
+  } yield studyOption.flatMap { study =>
+    up.structure study studyId map { UserStudy(up, _, study) }
+  }
 
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)

@@ -159,6 +159,7 @@ GET   /features                        controllers.Plan.features
 
 # Practice
 GET   /practice                               controllers.Practice.index
+GET   /practice/:sectionId/:studySlug/:studyId controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
 GET   /practice/config                        controllers.Practice.config
 POST  /practice/config                        controllers.Practice.configSave
 
