@@ -32,7 +32,7 @@ function localEvalInfo(ctrl, evs) {
       onclick: function() {
         ceval.goDeeper();
       }
-    }, 'Go deeper!'))
+    }, 'Go deeper'))
   else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
   return t;
 }
