@@ -1,7 +1,13 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 
+var firstRender = true;
+
 function selector(practice) {
+  if (!firstRender && m.redraw.strategy() === 'diff') return {
+    subtree: 'retain'
+  };
+  firstRender = false;
   return m('select.selector', {
     onchange: function(e) {
       location.href = '/practice/' + e.target.value;
