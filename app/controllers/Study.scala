@@ -124,7 +124,7 @@ object Study extends LilaController {
 
   def chapterMeta(id: String, chapterId: String) = Open { implicit ctx =>
     env.chapterRepo.byId(chapterId).map {
-      _.filter(_.studyId == id) ?? { chapter =>
+      _.filter(_.studyId.value == id) ?? { chapter =>
         Ok(env.jsonView.chapterConfig(chapter))
       }
     }
