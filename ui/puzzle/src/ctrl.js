@@ -253,9 +253,9 @@ module.exports = function(opts, i18n) {
       emit: function(res) {
         tree.updateAt(res.work.path, function(node) {
           if (res.work.threatMode) {
-            if (!node.threat || node.threat.depth < res.eval.depth || node.threat.maxDepth < res.eval.maxDepth)
+            if (!node.threat || node.threat.depth <= res.eval.depth || node.threat.maxDepth < res.eval.maxDepth)
               node.threat = res.eval;
-          } else if (!node.ceval || node.ceval.depth < res.eval.depth || node.ceval.maxDepth < res.eval.maxDepth)
+          } else if (!node.ceval || node.ceval.depth <= res.eval.depth || node.ceval.maxDepth < res.eval.maxDepth)
             node.ceval = res.eval;
           if (res.work.path === vm.path) {
             setAutoShapes();
