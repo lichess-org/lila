@@ -5,7 +5,7 @@ title = "Practice structure",
 active = "practice",
 moreCss = cssTag("mod-practice.css")) {
 <div class="content_box practice_config">
-  <h1 data-icon="" class="text lichess_title">Practice config</h1>
+  <h1 data-icon="" class="text lichess_title"><a href="@routes.Practice.index">Practice</a> config</h1>
   <div class="both">
     <form action="@routes.Practice.configSave" method="POST">
       <textarea class="practice_text" name="text">@form("text").value</textarea>

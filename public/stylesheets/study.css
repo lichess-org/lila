@@ -322,16 +322,18 @@ div.underboard .notif.error {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .study_box .chapter.active:not(.add),
 .study_box .chapter:not(.add):hover {
-  background: rgba(56, 147, 232, 0.08);
+  background: rgba(56, 147, 232, 0.1);
 }
 .study_box .chapter.active .status,
+.study_box .chapter:active,
+.study_box .chapter:active .status,
 .study_box .chapter.loading,
 .study_box .chapter.loading .status {
-  color: #fff;
+  color: #fff!important;
   background: #3893E8!important;
 }
 .study_box .chapter.add .status {

@@ -23,24 +23,26 @@
   max-height: 800px;
 }
 .study_box .elem.chapter {
+  border-top: 0;
   border-bottom: 1px solid #ddd;
 }
 .study_box .chapter h3 {
   margin: 12px 0 12px 0px;
 }
 .study_box .list .status {
-  width: 30px;
+  width: 28px;
   opacity: 1;
-  font-size: 1.2em;
+  font-size: 1.25em;
+  margin-right: 4px;
 }
 .study_box .list .status.ongoing {
-  color: #ccc;
+  color: #d0d0d0;
 }
 .study_box .list .status.done {
   color: #3893E8;
 }
 .study_box .list .active .status {
-  color: #fff;
+  font-size: 1em;
 }
 .study_box .finally {
   padding: 12px 0;
