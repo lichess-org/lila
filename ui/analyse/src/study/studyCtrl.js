@@ -33,9 +33,9 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     };
   })();
 
-  var practice = practiceData && practiceCtrl(ctrl, practiceData);
 
   var notif = notifCtrl();
+  var practice = practiceData && practiceCtrl(ctrl, practiceData, notif);
   var form = studyFormCtrl(function(data, isNew) {
     send("editStudy", data);
     if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)

@@ -171,7 +171,8 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
-    if (ctrl.embed || (ctrl.study && ctrl.study.practice)) return;
+    if (ctrl.study && ctrl.study.practice) return notifView(ctrl.study.notif);
+    if (ctrl.embed) return;
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [

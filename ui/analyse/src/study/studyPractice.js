@@ -29,12 +29,12 @@ function selector(data) {
 
 module.exports = {
 
-  ctrl: function(root, data) {
+  ctrl: function(root, data, notif) {
 
     var victoryType = function() {
       return root.study.data.chapter.tags.filter(function(tag) {
         return tag[0] === 'Termination' && tag[1].toLowerCase() === 'draw';
-      }) ? 'draw' : 'checkmate';
+      })[0] ? 'draw' : 'checkmate';
     };
 
     var complete = function(chapterId, nbMoves) {
@@ -42,6 +42,10 @@ module.exports = {
       if (nbMoves >= former) return;
       data.completion[chapterId] = nbMoves;
       xhr.practiceComplete(chapterId, nbMoves);
+      notif.set({
+        text: 'Success!',
+        duration: 2000
+      });
     };
 
     var isVictory = function() {
