@@ -17,7 +17,7 @@ module.exports = function(opts) {
   var multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   var threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
-  var curDepth = 0;
+  var curEval = null;
   var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
@@ -39,14 +39,14 @@ module.exports = function(opts) {
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
     var values = [];
-    var applies = function(res) {
-      return res.eval.nps && res.eval.depth >= 16 &&
-        !res.eval.mate && Math.abs(res.eval.cp) < 500 &&
-        (res.work.currentFen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
+    var applies = function(eval) {
+      return eval.nps && eval.depth >= 16 &&
+        !eval.mate && Math.abs(eval.cp) < 500 &&
+        (eval.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     }
-    return function(res) {
-      if (!applies(res)) return;
-      values.push(res.eval.nps);
+    return function(eval) {
+      if (!applies(eval)) return;
+      values.push(eval.nps);
       if (values.length >= 5) {
         var depth = 18,
           knps = median(values) / 1000;
@@ -64,16 +64,15 @@ module.exports = function(opts) {
     };
   })();
 
-  var onEmit = function(res) {
-    res.eval.maxDepth = res.work.maxDepth;
-    npsRecorder(res);
-    curDepth = res.eval.depth;
-    opts.emit(res);
-    publish(res);
+  var onEmit = function(eval, work) {
+    npsRecorder(eval);
+    curEval = eval;
+    opts.emit(eval, work);
+    publish(eval);
   };
 
-  var publish = function(res) {
-    if (res.eval.depth === 12) lichess.storage.set('ceval.fen', res.work.currentFen);
+  var publish = function(eval) {
+    if (eval.depth === 12) lichess.storage.set('ceval.fen', eval.fen);
   };
 
   var start = function(path, steps, threatMode, deeper) {
@@ -97,9 +96,9 @@ module.exports = function(opts) {
       maxDepth: maxD,
       multiPv: parseInt(multiPv()),
       threatMode: threatMode,
-      emit: function(res) {
-        if (enabled()) onEmit(res);
-      }
+    };
+    work.emit = function(eval) {
+      if (enabled()) onEmit(eval, work);
     };
 
     if (threatMode) {
@@ -123,14 +122,11 @@ module.exports = function(opts) {
       setTimeout(function() {
         // this has to be delayed, or it slows down analysis first render.
         work.emit({
-          work: work,
-          eval: {
-            depth: maxD,
-            cp: dictRes.cp,
-            best: dictRes.best,
-            pvs: dictRes.pvs,
-            dict: true
-          }
+          depth: maxD,
+          cp: dictRes.cp,
+          best: dictRes.best,
+          pvs: dictRes.pvs,
+          dict: true
         });
       }, 500);
       pool.warmup();
@@ -188,7 +184,7 @@ module.exports = function(opts) {
       enableStorage.set(enabled() ? '1' : '0');
     },
     curDepth: function() {
-      return curDepth;
+      return curEval ? curEval.depth : 0;
     },
     maxDepth: maxDepth,
     variant: opts.variant,

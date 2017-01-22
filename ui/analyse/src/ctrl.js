@@ -440,14 +440,14 @@ module.exports = function(opts) {
       possible: !this.embed && (
         util.synthetic(this.data) || !game.playable(this.data)
       ),
-      emit: function(res) {
-        this.tree.updateAt(res.work.path, function(node) {
-          if (res.work.threatMode) {
-            if (!node.threat || node.threat.depth < res.eval.depth || node.threat.maxDepth < res.eval.maxDepth)
-              node.threat = res.eval;
-          } else if (!node.ceval || node.ceval.depth < res.eval.depth || node.ceval.maxDepth < res.eval.maxDepth)
-            node.ceval = res.eval;
-          if (res.work.path === this.vm.path) {
+      emit: function(eval, work) {
+        this.tree.updateAt(work.path, function(node) {
+          if (work.threatMode) {
+            if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
+              node.threat = eval;
+          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
+            node.ceval = eval;
+          if (work.path === this.vm.path) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
             if (this.practice) this.practice.onCeval();
