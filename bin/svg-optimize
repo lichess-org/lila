@@ -4,9 +4,11 @@
 # and set this variable.
 #SVGCLEANER=svgcleaner/target/release/svgcleaner
 
+SVGO=./node_modules/svgo/bin/svgo
+
 svgo_optimize() {
   echo "$1 -> $2"
-  svgo --quiet --multipass -i "$1" -o "$2"
+  $SVGO --quiet --multipass -i "$1" -o "$2"
 }
 
 svgcleaner_optimize() {
@@ -22,7 +24,7 @@ svgcleaner_optimize() {
 svg_optimize () {
   svgcleaner_optimize "$1" "$2"
 
-  svgo --quiet --multipass -i "$2"
+  $SVGO --quiet --multipass -i "$2"
 
   if [[ $SVGCLEANER ]]; then
     $SVGCLEANER --multipass true "$2" "$2"
