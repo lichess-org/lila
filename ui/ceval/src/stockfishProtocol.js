@@ -5,10 +5,10 @@ var EVAL_REGEX = new RegExp(''
   + /score (cp|mate) ([-\d]+) /.source
   + /(?:(upper|lower)bound )?nodes (\d+) nps (\d+) /.source
   + /(?:hashfull \d+ )?tbhits \d+ time (\d+) /.source
-  + /pv(.*)/.source);
+  + /pv (.+)/.source);
 
 module.exports = function(worker, opts) {
-
+  var emitTimer = null;
   var work = null;
   var state = null;
 
@@ -16,10 +16,10 @@ module.exports = function(worker, opts) {
   stopped.resolve(true);
 
   var emit = function() {
+    emitTimer = clearTimeout(emitTimer);
     if (!work || !state) return;
-    clearTimeout(state.emitTimer);
     work.emit(state);
-  }.bind(this);
+  };
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
@@ -49,9 +49,9 @@ module.exports = function(worker, opts) {
         nodes = parseInt(matches[6]),
         nps = parseInt(matches[7]),
         elapsedMs = parseInt(matches[8]),
-        pv = matches[9].trim();
+        pv = matches[9];
 
-    if (depth < opts.minDepth || !pv) return;
+    if (depth < opts.minDepth) return;
     if (work.ply % 2 === 1) eval = -eval;
 
     // For now, ignore most upperbound/lowerbound messages.
@@ -64,7 +64,7 @@ module.exports = function(worker, opts) {
       pv: pv,
       cp: isMate ? undefined : eval,
       mate: isMate ? eval : undefined,
-      depth: depth
+      depth: depth,
     };
 
     if (multiPv === 1) {
@@ -77,8 +77,8 @@ module.exports = function(worker, opts) {
           cp: pvData.cp,
           mate: pvData.mate,
           pvs: [pvData],
-          millis: elapsedMs
-        }
+          millis: elapsedMs,
+        },
       };
     } else if (state) {
       state.eval.pvs.push(pvData);
@@ -90,8 +90,8 @@ module.exports = function(worker, opts) {
       state = null;
     } else {
       // emit timeout in case there aren't a full set of PVs.
-      clearTimeout(state.emitTimer);
-      state.emitTimer = setTimeout(emit, 50);
+      clearTimeout(emitTimer);
+      emitTimer = setTimeout(emit, 50);
     }
   };
 
