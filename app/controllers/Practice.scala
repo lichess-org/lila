@@ -15,7 +15,7 @@ object Practice extends LilaController {
   private def studyEnv = Env.study
 
   def index = Open { implicit ctx =>
-    WithUserPractice { up =>
+    env.api.get(ctx.me) flatMap { up =>
       Ok(html.practice.index(up)).fuccess
     }
   }
@@ -23,22 +23,19 @@ object Practice extends LilaController {
   def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
     OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId)) {
       case us@lila.practice.UserStudy(up, practiceStudy, chapters, WithChapter(study, chapter)) =>
-        studyEnv.api.resetIfOld(study, chapters) flatMap { study =>
-          val setup = chapter.setup
-          val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
-          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-            studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
-              case (baseData, studyJson) =>
-                import lila.tree.Node.partitionTreeJsonWriter
-                val analysis = baseData ++ Json.obj(
-                  "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
-                val data = lila.practice.JsonView.JsData(
-                  study = studyJson,
-                  analysis = analysis,
-                  practice = lila.practice.JsonView(us))
-                Ok(html.practice.show(us, data))
-            }
-        }
+        val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
+        Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
+          studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
+            case (baseData, studyJson) =>
+              import lila.tree.Node.partitionTreeJsonWriter
+              val analysis = baseData ++ Json.obj(
+                "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
+              val data = lila.practice.JsonView.JsData(
+                study = studyJson,
+                analysis = analysis,
+                practice = lila.practice.JsonView(us))
+              Ok(html.practice.show(us, data))
+          }
     } map NoCache
   }
 
@@ -65,9 +62,6 @@ object Practice extends LilaController {
       }
     }
   }
-
-  private def WithUserPractice(f: lila.practice.UserPractice => Fu[Result])(implicit ctx: Context) =
-    env.api.get(ctx.me) flatMap { f(_) }
 
   private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)

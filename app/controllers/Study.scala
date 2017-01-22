@@ -89,9 +89,8 @@ object Study extends LilaController {
         env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
           env.api.resetIfOld(study, chapters) flatMap { study =>
             if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
-            val setup = chapter.setup
-            val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
-            Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
+            val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
+            Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
               chatOf(study) zip
               env.jsonView(study, chapters, chapter, ctx.me) zip
               env.version(study.id) flatMap {
