@@ -66,6 +66,20 @@ object Api extends LilaController {
     }
   }
 
+  def usersByIds = OpenBody(parse.tolerantText) { implicit ctx =>
+    val usernames = ctx.body.body.split(',').take(300).toList
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    val cost = usernames.size / 4
+    UsersRateLimitPerIP(ip, cost = cost) {
+      UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+        lila.mon.api.users.cost(1)
+        lila.user.UserRepo nameds usernames map {
+          _.map { Env.user.jsonView(_, none) }
+        } map toApiResult map toHttp
+      }
+    }
+  }
+
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 10 minutes,

@@ -11,7 +11,7 @@ final class JsonView(isOnline: String => Boolean) {
   private implicit val profileWrites = Json.writes[Profile]
   private implicit val playTimeWrites = Json.writes[PlayTime]
 
-  def apply(u: User, onlyPerf: Option[PerfType] = None) = Json.obj(
+  def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject = Json.obj(
     "id" -> u.id,
     "username" -> u.username,
     "title" -> u.title,
@@ -88,7 +88,8 @@ object JsonView {
 
   def perfs(u: User, onlyPerf: Option[PerfType] = None) =
     JsObject(u.perfs.perfsMap collect {
-      case (key, perf) if onlyPerf.fold(true)(_.key == key) => key -> perfWrites.writes(perf)
+      case (key, perf) if perf.nb > 0 && onlyPerf.fold(true)(_.key == key) =>
+        key -> perfWrites.writes(perf)
     })
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
