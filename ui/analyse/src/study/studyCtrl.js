@@ -26,7 +26,7 @@ module.exports = function(data, ctrl, tagTypes, practice) {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: isManualChapter ? 0 : false, // false if syncing, else incremental number of missed event
+      behind: (isManualChapter || practice) ? 0 : false, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
       chapterId: isManualChapter ? data.chapter.id : null // only useful when not synchronized
     };
