@@ -91,7 +91,7 @@ module.exports = function(worker, opts) {
     } else {
       // emit timeout in case there aren't a full set of PVs.
       clearTimeout(state.emitTimer);
-      state.emitTimer = setTimeout(emit, 100);
+      state.emitTimer = setTimeout(emit, 50);
     }
   };
 
