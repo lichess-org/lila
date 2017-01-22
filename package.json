@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "lichess.org: the forever free, adless and open source chess server",
   "devDependencies": {
-    "gulp-svgmin": "^1.1.1",
-    "map-stream": "0.0.5",
-    "svgo": "^0.7.1",
-    "vinyl": "^0.4.6"
+    "svgo": "^0.7.1"
   },
   "repository": {
     "type": "git",
