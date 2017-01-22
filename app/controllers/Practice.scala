@@ -44,6 +44,10 @@ object Practice extends LilaController {
     } map NoCache
   }
 
+  def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>
+    env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+  }
+
   def config = Auth { implicit ctx => me =>
     for {
       struct <- env.api.structure.get

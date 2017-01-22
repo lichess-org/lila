@@ -1,7 +1,7 @@
 var ctrl = require('./ctrl');
 var view = require('./view');
 var studyView = require('./study/studyView');
-var practiceView = require('./study/practiceView');
+var studyPractice = require('./study/studyPractice');
 var legacy = require('./legacy');
 var m = require('mithril');
 
@@ -22,7 +22,7 @@ module.exports = {
         m.redraw.strategy("diff"); // prevents double full redraw on page load
         return controller.study;
       },
-      view: controller.study.practice ? practiceView.main : studyView.main
+      view: controller.study.practice ? studyPractice.view : studyView.main
     });
 
     return {

@@ -49,13 +49,15 @@ final class PracticeApi(
 
   object progress {
 
+    import PracticeProgress.NbMoves
+
     def get(user: User): Fu[PracticeProgress] =
       coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
 
     private def save(p: PracticeProgress): Funit =
       coll.update($id(p.id), p, upsert = true).void
 
-    def setNbMoves(user: User, chapterId: Chapter.Id, score: PracticeProgress.NbMoves) =
+    def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves) =
       get(user) flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
       }

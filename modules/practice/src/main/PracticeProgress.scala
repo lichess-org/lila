@@ -10,13 +10,17 @@ case class PracticeProgress(
     createdAt: DateTime,
     updatedAt: DateTime) {
 
+  import PracticeProgress.NbMoves
+
   def id = _id
 
-  def apply(chapterId: Chapter.Id): Option[PracticeProgress.NbMoves] =
+  def apply(chapterId: Chapter.Id): Option[NbMoves] =
     chapters get chapterId
 
   def withNbMoves(chapterId: Chapter.Id, nbMoves: PracticeProgress.NbMoves) = copy(
-    chapters = chapters - chapterId + (chapterId -> nbMoves),
+    chapters = chapters - chapterId + {
+    chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
+  },
     updatedAt = DateTime.now)
 
   def countDone(chapterIds: List[Chapter.Id]): Int =

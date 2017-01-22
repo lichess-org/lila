@@ -115,6 +115,10 @@ module.exports = function(opts) {
     return this.data.orientation;
   }.bind(this);
 
+  this.turnColor = function() {
+    return this.vm.node.ply % 2 === 0 ? 'white' : 'black';
+  }.bind(this);
+
   this.togglePlay = function(delay) {
     this.autoplay.toggle(delay);
     this.actionMenu.open = false;
@@ -130,7 +134,7 @@ module.exports = function(opts) {
 
   var showGround = function() {
     var node = this.vm.node;
-    var color = node.ply % 2 === 0 ? 'white' : 'black';
+    var color = this.turnColor();
     var dests = readDests(node.dests);
     var drops = readDrops(node.drops);
     var movableColor = this.practice ? this.bottomColor() : (
@@ -227,6 +231,7 @@ module.exports = function(opts) {
     if (pathChanged) {
       if (this.retro) this.retro.onJump();
       if (this.practice) this.practice.onJump();
+      if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.vm.node);
   }.bind(this);

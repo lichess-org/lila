@@ -47,5 +47,14 @@ module.exports = {
       config: xhrConfig,
       background: true
     });
+  },
+
+  practiceComplete: function(chapterId, nbMoves) {
+    return m.request({
+      method: 'POST',
+      url: ['/practice/complete', chapterId, nbMoves].join('/'),
+      config: xhrConfig,
+      background: true
+    });
   }
 };

@@ -3,6 +3,7 @@ var partial = require('chessground').util.partial;
 var throttle = require('common').throttle;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
+var practiceCtrl = require('./studyPractice').ctrl;
 var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
@@ -14,7 +15,7 @@ var xhr = require('./studyXhr');
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
-module.exports = function(data, ctrl, tagTypes, practice) {
+module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var send = ctrl.socket.send;
 
@@ -26,11 +27,13 @@ module.exports = function(data, ctrl, tagTypes, practice) {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: (isManualChapter || practice) ? 0 : false, // false if syncing, else incremental number of missed event
+      behind: (isManualChapter || practiceData) ? 0 : false, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
       chapterId: isManualChapter ? data.chapter.id : null // only useful when not synchronized
     };
   })();
+
+  var practice = practiceData && practiceCtrl(ctrl, practiceData);
 
   var notif = notifCtrl();
   var form = studyFormCtrl(function(data, isNew) {
@@ -204,6 +207,7 @@ module.exports = function(data, ctrl, tagTypes, practice) {
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal
       );
     },
+    onJump: practice ? practice.onJump : function() {},
     withPosition: function(obj) {
       obj.chapterId = currentChapterId();
       obj.path = ctrl.vm.path;

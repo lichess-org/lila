@@ -56,12 +56,8 @@ module.exports = function(root) {
     };
   }
 
-  var turnColor = function() {
-    return root.vm.node.ply % 2 === 0 ? 'white' : 'black';
-  };
-
   var isMyTurn = function() {
-    return turnColor() === root.bottomColor();
+    return root.turnColor() === root.bottomColor();
   };
 
   var checkCeval = function() {
@@ -102,7 +98,6 @@ module.exports = function(root) {
       // because running(false) is called after the jump
       setTimeout(checkCeval, 50)
     },
-    turnColor: turnColor,
     isMyTurn: isMyTurn,
     comment: comment,
     running: running,

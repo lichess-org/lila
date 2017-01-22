@@ -61,8 +61,8 @@ function renderOffTrack(ctrl) {
   ];
 }
 
-function renderEnd(ctrl, end) {
-  var color = ctrl.turnColor();
+function renderEnd(root, end) {
+  var color = root.turnColor();
   if (end === 'checkmate') color = opposite(color);
   return m('div.player', [
     color ? m('div.no-square', m('piece.king.' + color)) : m('div.icon.off', '!'),
@@ -92,7 +92,7 @@ function renderRunning(root) {
   var ctrl = root.practice;
   var hint = ctrl.hinting();
   return m('div.player', [
-    m('div.no-square', m('piece.king.' + ctrl.turnColor())),
+    m('div.no-square', m('piece.king.' + root.turnColor())),
     m('div.instruction', [
       ctrl.isMyTurn() ? m('strong', 'Your move') : [
         m('strong', 'Computer thinking...'),
@@ -117,7 +117,7 @@ module.exports = function(root) {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
     renderTitle(root.togglePractice),
-    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl, end) : renderRunning(root))),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root, end) : renderRunning(root))),
     ctrl.running() ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),
       ' ',

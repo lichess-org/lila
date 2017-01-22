@@ -1,9 +1,10 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
+var xhr = require('./studyXhr');
 
 var firstRender = true;
 
-function selector(practice) {
+function selector(data) {
   if (!firstRender && m.redraw.strategy() === 'diff') return {
     subtree: 'retain'
   };
@@ -14,7 +15,7 @@ function selector(practice) {
     }
   }, [
     m('option[disabled][selected]', 'Practice list'),
-    practice.structure.map(function(section) {
+    data.structure.map(function(section) {
       return m('optgroup', {
         label: section.name
       }, section.studies.map(function(study) {
@@ -28,17 +29,38 @@ function selector(practice) {
 
 module.exports = {
 
-  main: function(ctrl) {
+  ctrl: function(root, data) {
+
+    var complete = function(chapterId, nbMoves) {
+      xhr.practiceComplete(chapterId, nbMoves);
+      data.completion[chapterId] = Math.min(data.completion[chapterId] || 999, nbMoves);
+    };
+
+    var isVictory = function() {
+      return root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
+    };
+
+    var onJump = function() {
+      if (isVictory()) complete(root.study.currentChapter().id, root.vm.node.ply);
+    };
+
+    return {
+      onJump: onJump,
+      data: data
+    }
+  },
+
+  view: function(ctrl) {
 
     var current = ctrl.currentChapter();
-    var practice = ctrl.practice;
+    var data = ctrl.practice.data;
 
     return [
       m('div.title', [
-        m('i.practice.icon.' + practice.study.id),
+        m('i.practice.icon.' + data.study.id),
         m('div.text', [
-          m('h1', practice.study.name),
-          m('em', practice.study.desc)
+          m('h1', data.study.name),
+          m('em', data.study.desc)
         ])
       ]),
       m('div', {
@@ -66,7 +88,7 @@ module.exports = {
             }, [
               m('span', {
                 'data-icon': 'E',
-                class: 'status ' + (practice.completion[chapter.id] ? 'done' : 'ongoing')
+                class: 'status ' + (data.completion[chapter.id] ? 'done' : 'ongoing')
               }),
               m('h3', chapter.name)
             ])
@@ -79,7 +101,7 @@ module.exports = {
           href: '/practice',
           title: 'More practice'
         }),
-        selector(ctrl.practice)
+        selector(data)
       ])
     ];
   }
