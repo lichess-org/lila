@@ -151,16 +151,15 @@ module.exports = {
           'in local browser'
         )
       ],
-      m('div.switch', {
-        title: mandatoryCeval ? 'Required by practice mode' : 'Toggle local evaluation (l)'
+      mandatoryCeval ? null : m('div.switch', {
+        title: 'Toggle local evaluation (l)'
       }, [
         m('input', {
           id: 'analyse-toggle-ceval',
           class: 'cmn-toggle cmn-toggle-round',
           type: 'checkbox',
           checked: enabled,
-          onchange: ctrl.toggleCeval,
-          disabled: mandatoryCeval
+          onchange: ctrl.toggleCeval
         }),
         m('label', {
           'for': 'analyse-toggle-ceval'
