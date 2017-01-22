@@ -27,9 +27,19 @@ function selector(data) {
   ]);
 };
 
+var readOnlyProp = function(value) {
+  return function() {
+    return value;
+  };
+};
+
 module.exports = {
 
   ctrl: function(root, data, notif) {
+
+    root.vm.showAutoShapes = readOnlyProp(true);
+    root.vm.showGauge = readOnlyProp(true);
+    root.vm.showComputer = readOnlyProp(true);
 
     var victoryType = function() {
       return root.study.data.chapter.tags.filter(function(tag) {
