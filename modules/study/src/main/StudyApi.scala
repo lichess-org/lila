@@ -421,6 +421,8 @@ final class StudyApi(
   def chapterIdNames(studyIds: List[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     chapterRepo.idNamesByStudyIds(studyIds)
 
+  def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
+
   private def indexStudy(study: Study) = indexer ! actorApi.SaveStudy(study)
 
   private def reloadUid(study: Study, uid: Uid) =

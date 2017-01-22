@@ -19,14 +19,17 @@ final class PracticeApi(
     prog <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
   } yield UserPractice(struct, prog)
 
-  def getStudy(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
+  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
     up <- get(user)
-    studyOption <- studyApi byIdWithFirstChapter studyId
-  } yield studyOption.flatMap { sc =>
-    up.structure study studyId map { struct =>
-      UserStudy(up, struct, sc.copy(study = sc.study.withoutMembers))
+    chapters <- studyApi.chapterMetadatas(studyId)
+    chapterId = up.progress firstOngoingIn chapters.map(_.id)
+    studyOption <- chapterId.fold(studyApi byIdWithFirstChapter studyId) {
+      studyApi.byIdWithChapter(studyId, _)
     }
-  }
+  } yield for {
+    sc <- studyOption
+    practiceStudy <- up.structure study studyId
+  } yield UserStudy(up, practiceStudy, chapters, sc.copy(study = sc.study.withoutMembers))
 
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)

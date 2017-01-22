@@ -19,6 +19,7 @@ case class UserPractice(
 case class UserStudy(
   practice: UserPractice,
   practiceStudy: PracticeStudy,
+  chapters: List[Chapter.Metadata],
   study: Study.WithChapter)
 
 case class Completion(done: Int, total: Int) {

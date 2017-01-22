@@ -25,6 +25,9 @@ case class PracticeProgress(
 
   def countDone(chapterIds: List[Chapter.Id]): Int =
     chapterIds count chapters.contains
+
+  def firstOngoingIn(chapterIds: List[Chapter.Id]): Option[Chapter.Id] =
+    chapterIds.find(c => !chapters.contains(c)) orElse chapterIds.headOption
 }
 
 object PracticeProgress {
