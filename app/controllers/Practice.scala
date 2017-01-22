@@ -28,9 +28,8 @@ object Practice extends LilaController {
             val setup = chapter.setup
             val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
             Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
-              studyEnv.jsonView(study, chapters, chapter, ctx.me) zip
-              studyEnv.version(study.id) map {
-                case ((baseData, studyJson), sVersion) =>
+              studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
+                case (baseData, studyJson) =>
                   import lila.tree.Node.partitionTreeJsonWriter
                   val analysis = baseData ++ Json.obj(
                     "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
@@ -38,7 +37,7 @@ object Practice extends LilaController {
                     study = studyJson,
                     analysis = analysis,
                     practice = lila.practice.JsonView(us))
-                  Ok(html.practice.show(us, data, sVersion))
+                  Ok(html.practice.show(us, data))
               }
           }
         }

@@ -1,4 +1,4 @@
-@(us: lila.practice.UserStudy, data: lila.practice.JsonView.JsData, socketVersion: Int)(implicit ctx: Context)
+@(us: lila.practice.UserStudy, data: lila.practice.JsonView.JsData)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -19,9 +19,7 @@ userId: @jsUserId,
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
-},
-socketUrl: "@routes.Study.websocket(us.study.study.id.value, apiVersion.value)",
-socketVersion: @socketVersion
+}
 };
 }
 }

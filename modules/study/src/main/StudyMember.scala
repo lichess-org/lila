@@ -37,3 +37,7 @@ case class StudyMembers(members: StudyMember.MemberMap) {
 
   def ids = members.keys
 }
+
+object StudyMembers {
+  val empty = StudyMembers(Map.empty)
+}

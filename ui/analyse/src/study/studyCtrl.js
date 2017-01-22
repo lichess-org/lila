@@ -43,7 +43,15 @@ module.exports = function(data, ctrl, tagTypes, practice) {
   var startTour = function() {
     tours.study(ctrl);
   };
-  var members = memberCtrl(data.members, ctrl.userId, data.ownerId, send, partial(vm.tab, 'members'), startTour, notif);
+  var members = memberCtrl({
+    initDict: data.members,
+    myId: practice ? null : ctrl.userId,
+    ownerId: data.ownerId,
+    send: send,
+    setTab: partial(vm.tab, 'members'),
+    startTour: startTour,
+    notif: notif
+  });
   var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), partial(xhr.chapterConfig, data.id), ctrl);
 
   var currentChapterId = function() {

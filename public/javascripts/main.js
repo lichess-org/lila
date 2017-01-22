@@ -1409,7 +1409,7 @@ lichess.notifyApp = (function() {
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+    lichess.socket = lichess.StrongSocket('/socket', 0, {
       options: {
         name: "practice"
       },

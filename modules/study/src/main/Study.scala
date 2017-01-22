@@ -61,6 +61,8 @@ case class Study(
   }
 
   def nbMembers = members.members.size
+
+  def withoutMembers = copy(members = StudyMembers.empty)
 }
 
 object Study {

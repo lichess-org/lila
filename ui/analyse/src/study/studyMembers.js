@@ -16,9 +16,9 @@ function memberActivity(onIdle) {
 }
 
 module.exports = {
-  ctrl: function(initDict, myId, ownerId, send, setTab, startTour, notif) {
+  ctrl: function(opts) {
 
-    var dict = m.prop(initDict);
+    var dict = m.prop(opts.initDict);
     var confing = m.prop(null); // which user is being configured by us
     var active = {}; // recently active contributors
     var online = {}; // userId -> bool
@@ -26,22 +26,22 @@ module.exports = {
     var max = 30;
 
     var owner = function() {
-      return dict()[ownerId];
+      return dict()[opts.ownerId];
     };
 
     var isOwner = function() {
-      return myId === ownerId;
+      return opts.myId === opts.ownerId;
     };
 
     var myMember = function() {
-      return myId ? dict()[myId] : null;
+      return opts.myId ? dict()[opts.myId] : null;
     };
 
     var canContribute = function() {
       return (myMember() || {}).role === 'w';
     };
 
-    var inviteForm = inviteFormCtrl(send, dict, setTab);
+    var inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab);
 
     var setActive = function(id) {
       if (active[id]) active[id]();
@@ -64,7 +64,7 @@ module.exports = {
     return {
       dict: dict,
       confing: confing,
-      myId: myId,
+      myId: opts.myId,
       inviteForm: inviteForm,
       update: function(members) {
         if (isOwner()) confing(Object.keys(members).filter(function(uid) {
@@ -74,12 +74,12 @@ module.exports = {
         var wasContrib = myMember() && canContribute();
         dict(members);
         if (wasViewer && canContribute()) {
-          if (lichess.once('study-tour')) startTour();
-          notif.set({
+          if (lichess.once('study-tour')) opts.startTour();
+          opts.notif.set({
             text: 'You are now a contributor',
             duration: 3000
           });
-        } else if (wasContrib && !canContribute()) notif.set({
+        } else if (wasContrib && !canContribute()) opts.notif.set({
           text: 'You are now a spectator',
           duration: 3000
         });
@@ -96,18 +96,18 @@ module.exports = {
       max: max,
       setRole: function(id, role) {
         setActive(id);
-        send("setRole", {
+        opts.send("setRole", {
           userId: id,
           role: role
         });
         confing(null);
       },
       kick: function(id) {
-        send("kick", id);
+        opts.send("kick", id);
         confing(null);
       },
       leave: function() {
-        send("leave");
+        opts.send("leave");
       },
       ordered: function() {
         var d = dict();
