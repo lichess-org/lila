@@ -60,6 +60,14 @@ final class StudyApi(
     }
   }
 
+  def byIdWithFirstChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
+    _ ?? { study =>
+      chapterRepo.firstByStudy(study.id) map {
+        _ ?? { Study.WithChapter(study, _).some }
+      }
+    }
+  }
+
   def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
     studyMaker(data, user) flatMap { res =>
       studyRepo.insert(res.study) >>

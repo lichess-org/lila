@@ -21,7 +21,7 @@ final class PracticeApi(
 
   def getStudy(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
     up <- get(user)
-    studyOption <- studyApi byIdWithChapter studyId
+    studyOption <- studyApi byIdWithFirstChapter studyId
   } yield studyOption.flatMap { study =>
     up.structure study studyId map { UserStudy(up, _, study) }
   }
