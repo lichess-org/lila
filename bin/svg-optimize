@@ -1,27 +1,59 @@
-#!/bin/zsh
+#!/bin/bash -e
 
-# PIECES
+# For extra optimizations install https://github.com/RazrFalcon/svgcleaner
+# and set this variable.
+#SVGCLEANER=svgcleaner/target/release/svgcleaner
 
-for set (alpha cburnett chess7 chessnut companion fantasy letter merida mono pirouetti reillycraig spatial shapes); do
+svgo_optimize() {
+  echo "$1 -> $2"
+  svgo --quiet --multipass -i "$1" -o "$2"
+}
 
-  from=public/piece-src/$set
-  to=public/piece/$set
-  echo $to
+svgcleaner_optimize() {
+  echo "$1 -> $2"
 
-  mkdir -p $to
-  mkdir -p $to/invert
+  if [[ $SVGCLEANER ]]; then
+    $SVGCLEANER --multipass true "$1" "$2"
+  else
+    cp "$1" "$2"
+  fi
+}
 
-  for file ($from/*.svg); do
-    svgo -i $file -o $(echo $file | sed 's#/piece-src/#/piece/#')
+svg_optimize () {
+  svgcleaner_optimize "$1" "$2"
+
+  svgo --quiet --multipass -i "$2"
+
+  if [[ $SVGCLEANER ]]; then
+    $SVGCLEANER --multipass true "$2" "$2"
+  fi
+}
+
+# pieces
+for pset in alpha chess7 chessnut fantasy letter merida mono pirouetti reillycraig spatial shapes; do
+  mkdir -p public/piece/$pset
+  for file in public/piece-src/$pset/*.svg; do
+    svg_optimize $file $(echo $file | sed 's#/piece-src/#/piece/#')
   done
-  # for file ($from/invert/*.svg); do
-  #   svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
-  # done
-
 done
 
-# LOGO
+# pieces broken by svgcleaner
+for pset in cburnett; do
+  mkdir -p public/piece/$pset
+  for file in public/piece-src/$pset/*.svg; do
+    svgo_optimize $file $(echo $file | sed 's#/piece-src/#/piece/#')
+  done
+done
 
-for file (public/images/bN-bg.src.svg public/images/wN-bg.src.svg); do
-  svgo -i $file -o $(echo $file | sed 's#.src.svg#.svg#')
+# pieces broken by svgo
+for pset in companion; do
+  mkdir -p public/piece/$pset
+  for file in public/piece-src/$pset/*.svg; do
+    svgcleaner_optimize $file $(echo $file | sed 's#/piece-src/#/piece/#')
+  done
+done
+
+# logo
+for file in public/images/bN-bg.src.svg public/images/wN-bg.src.svg; do
+  svg_optimize $file $(echo $file | sed 's#.src.svg#.svg#')
 done
