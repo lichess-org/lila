@@ -4,6 +4,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
+import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 
@@ -135,6 +136,17 @@ object Api extends LilaController {
     }
   }
 
+  def games = OpenBody(parse.tolerantText) { implicit ctx =>
+    val gameIds = ctx.body.body.split(',').take(300)
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    GameRateLimitPerIP(ip, cost = gameIds.size / 4) {
+      lila.mon.api.game.cost(1)
+      gameApi.many(
+        ids = gameIds,
+        withMoves = getBool("with_moves")) map toApiResult map toHttp
+    }
+  }
+
   def currentTournaments = ApiRequest { implicit ctx =>
     Env.tournament.api.fetchVisibleTournaments map
       Env.tournament.scheduleJsonView.apply map Data.apply
@@ -158,16 +170,19 @@ object Api extends LilaController {
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
-  def toApiResult(json: Option[JsValue]) = json.fold[ApiResult](NoData)(Data.apply)
+  def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
+  def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
 
-  private def ApiRequest(js: lila.api.Context => Fu[ApiResult]) = Open { implicit ctx =>
-    js(ctx) map {
-      case Limited => TooManyRequest(jsonError("Try again later"))
-      case NoData  => NotFound
-      case Data(json) => get("callback") match {
-        case None           => Ok(json) as JSON
-        case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
-      }
+  private def ApiRequest(js: Context => Fu[ApiResult]) = Open { implicit ctx =>
+    js(ctx) map toHttp
+  }
+
+  private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
+    case Limited => TooManyRequest(jsonError("Try again later"))
+    case NoData  => NotFound
+    case Data(json) => get("callback") match {
+      case None           => Ok(json) as JSON
+      case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
     }
   }
 }

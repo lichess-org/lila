@@ -359,6 +359,19 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
+### `POST /api/games` fetch many games by ID
+
+```
+> curl --data "x2kpaixn,gtSLJGOK" 'https://en.lichess.org/api/games'
+```
+
+Games are returned in the order same order as the ids.
+All parameters are optional.
+
+name | type | default | description
+--- | --- | --- | ---
+**with_moves** | 1 or 0 | 0 | include a list of PGN moves
+
 ### `GET /game/export/{id}.pgn` fetch one game PGN by ID
 
 https://en.lichess.org/game/export/Qa7FJNk2.pgn

@@ -91,6 +91,18 @@ private[api] final class GameApi(
       }
     }
 
+  def many(ids: Seq[String], withMoves: Boolean): Fu[Seq[JsObject]] =
+    GameRepo gamesFromPrimary ids flatMap {
+      gamesJson(
+        withAnalysis = false,
+        withMoves = withMoves,
+        withOpening = false,
+        withFens = false,
+        withMoveTimes = false,
+        token = none
+      ) _
+    }
+
   private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 
   private def gamesJson(
