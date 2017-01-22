@@ -2,7 +2,7 @@
 
 # PIECES
 
-for set (cburnett mono pirouetti merida spatial alpha chess7 reillycraig fantasy shapes letter); do
+for set (alpha cburnett chess7 chessnut companion fantasy letter merida mono pirouetti reillycraig spatial shapes); do
 
   from=public/piece-src/$set
   to=public/piece/$set
