@@ -19,7 +19,7 @@ var commentText = {
 
 var endText = {
   checkmate: 'Checkmate!',
-  stalemate: 'Stalemate.'
+  draw: 'Draw.'
 };
 
 function commentBest(c, ctrl) {

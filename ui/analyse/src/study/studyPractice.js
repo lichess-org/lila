@@ -31,23 +31,39 @@ module.exports = {
 
   ctrl: function(root, data) {
 
+    var victoryType = function() {
+      return root.study.data.chapter.tags.filter(function(tag) {
+        return tag[0] === 'Termination' && tag[1].toLowerCase() === 'draw';
+      }) ? 'draw' : 'checkmate';
+    };
+
     var complete = function(chapterId, nbMoves) {
+      var former = data.completion[chapterId] || 999;
+      if (nbMoves >= former) return;
+      data.completion[chapterId] = nbMoves;
       xhr.practiceComplete(chapterId, nbMoves);
-      data.completion[chapterId] = Math.min(data.completion[chapterId] || 999, nbMoves);
     };
 
     var isVictory = function() {
-      return root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
+      switch (victoryType()) {
+        case 'checkmate':
+          return root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
+        case 'draw':
+          if (root.gameOver() === 'draw') return true;
+          var n = root.vm.node;
+          if (n.ply >= 20 && n.ceval && n.ceval.depth === 16 && Math.abs(n.ceval.cp) < 100) return true;
+      }
     };
 
-    var onJump = function() {
+    var checkVictory = function() {
       if (isVictory()) complete(root.study.currentChapter().id, root.vm.node.ply);
     };
 
     return {
-      onJump: onJump,
+      onJump: checkVictory,
+      onCeval: checkVictory,
       data: data
-    }
+    };
   },
 
   view: function(ctrl) {
@@ -77,6 +93,7 @@ module.exports = {
         ctrl.chapters.list().map(function(chapter, i) {
           var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
           var active = !ctrl.vm.loading && current && current.id === chapter.id;
+          var completion = data.completion[chapter.id] ? 'done' : 'ongoing';
           return [
             m('div', {
               key: chapter.id,
@@ -87,8 +104,8 @@ module.exports = {
               })
             }, [
               m('span', {
-                'data-icon': 'E',
-                class: 'status ' + (data.completion[chapter.id] ? 'done' : 'ongoing')
+                'data-icon': ((loading || active) && completion === 'ongoing') ? 'G' : 'E',
+                class: 'status ' + completion
               }),
               m('h3', chapter.name)
             ])

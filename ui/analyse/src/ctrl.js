@@ -451,6 +451,7 @@ module.exports = function(opts) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
             if (this.practice) this.practice.onCeval();
+            if (this.study && this.study.practice) this.study.practice.onCeval();
             m.redraw();
           }
         }.bind(this));
@@ -483,7 +484,7 @@ module.exports = function(opts) {
       var p = this.vm.node.crazy.pockets[wtm ? 0 : 1];
       if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
     }
-    return 'stalemate';
+    return 'draw';
   }.bind(this);
 
   var canUseCeval = function() {

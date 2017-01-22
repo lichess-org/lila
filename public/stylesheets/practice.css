@@ -20,7 +20,7 @@
 }
 .study_box .list {
   border-top: 0;
-  max-height: 400px;
+  max-height: 800px;
 }
 .study_box .elem.chapter {
   border-bottom: 1px solid #ddd;
@@ -287,4 +287,7 @@ i.E1lqtqFt {
 }
 i.xebrDvFe {
   background-image: url('/assets/images/practice/key.svg');
+}
+i.A4ujYOer {
+  background-image: url('/assets/images/practice/push.svg');
 }
