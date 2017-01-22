@@ -650,7 +650,7 @@ lichess.notifyApp = (function() {
       var manuallySetZoom = $.fp.debounce(setZoom, 10);
       if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
       lichess.pubsub.on('reset_zoom', function() {
-        setZoom(getZoom());
+        if (getZoom() > 1) setZoom(getZoom());
       });
 
       function translateTexts() {
