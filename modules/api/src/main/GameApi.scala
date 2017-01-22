@@ -111,8 +111,11 @@ private[api] final class GameApi(
     withOpening: Boolean,
     withFens: Boolean,
     withMoveTimes: Boolean,
-    token: Option[String])(games: Seq[Game]): Fu[Seq[JsObject]] =
-    AnalysisRepo byIds games.map(_.id) flatMap { analysisOptions =>
+    token: Option[String])(games: Seq[Game]): Fu[Seq[JsObject]] = {
+    val allAnalysis =
+      if (withAnalysis) AnalysisRepo byIds games.map(_.id)
+      else fuccess(List.fill(games.size)(none[Analysis]))
+    allAnalysis flatMap { analysisOptions =>
       (games map GameRepo.initialFen).sequenceFu map { initialFens =>
         val validToken = check(token)
         games zip analysisOptions zip initialFens map {
@@ -128,6 +131,7 @@ private[api] final class GameApi(
         }
       }
     }
+  }
 
   private def check(token: Option[String]) = token contains apiToken
 
