@@ -3,26 +3,23 @@ var m = require('mithril');
 var EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
   + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|upper)bound )?nodes (\d+) nps (\d+) /.source
+  + /(?:(upper|lower)bound )?nodes (\d+) nps (\d+) /.source
   + /(?:hashfull \d+ )?tbhits \d+ time (\d+) /.source
-  + /pv ?(.*)/.source);
+  + /pv(.*)/.source);
 
 module.exports = function(worker, opts) {
 
   var work = null;
   var state = null;
-  var minLegalMoves = 0;
 
   var stopped = m.deferred();
   stopped.resolve(true);
 
   var emit = function() {
     if (!work || !state) return;
-    minLegalMoves = Math.max(minLegalMoves, state.eval.pvs.length);
-    if (state.eval.pvs.length < minLegalMoves) return;
+    clearTimeout(state.emitTimer);
     work.emit(state);
-    state = null;
-  };
+  }.bind(this);
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
@@ -35,7 +32,6 @@ module.exports = function(worker, opts) {
 
   var processOutput = function(text) {
     if (text.indexOf('bestmove ') === 0) {
-      emit();
       if (!stopped) stopped = m.deferred();
       stopped.resolve(true);
       return;
@@ -53,22 +49,23 @@ module.exports = function(worker, opts) {
         nodes = parseInt(matches[6]),
         nps = parseInt(matches[7]),
         elapsedMs = parseInt(matches[8]),
-        pv = matches[9];
+        pv = matches[9].trim();
 
-    if (depth < opts.minDepth) return;
+    if (depth < opts.minDepth || !pv) return;
     if (work.ply % 2 === 1) eval = -eval;
 
-    if (evalType) return; // Ignore lowerbound and upperbound for now.
+    // For now, ignore most upperbound/lowerbound messages.
+    // The exception is for multiPV, sometimes non-primary PVs
+    // only have an upperbound. See: ddugovic/Stockfish#228
+    if (evalType && (multiPv === 1 || evalType !== 'upper' || !state)) return;
 
     var pvData = {
       best: pv.split(' ', 2)[0],
       pv: pv,
       cp: isMate ? undefined : eval,
       mate: isMate ? eval : undefined,
-    }
-
-    // Ignore output from earlier depths.
-    if (state && depth < state.eval.depth) return;
+      depth: depth
+    };
 
     if (multiPv === 1) {
       state = {
@@ -84,10 +81,18 @@ module.exports = function(worker, opts) {
         }
       };
     } else if (state) {
-      state.eval.pvs[multiPv - 1] = pvData;
+      state.eval.pvs.push(pvData);
+      state.eval.depth = Math.min(state.eval.depth, depth);
     }
 
-    if (multiPv === work.multiPv) emit();
+    if (multiPv === work.multiPv) {
+      emit();
+      state = null;
+    } else {
+      // emit timeout in case there aren't a full set of PVs.
+      clearTimeout(state.emitTimer);
+      state.emitTimer = setTimeout(emit, 100);
+    }
   };
 
   return {
