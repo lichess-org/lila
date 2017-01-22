@@ -1,3 +1,7 @@
+div.game_control {
+  justify-content: center;
+}
+
 .study_box .title {
   display: flex;
   padding: 7px;

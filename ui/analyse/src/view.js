@@ -173,6 +173,7 @@ function dataAct(e) {
 function buttons(ctrl) {
   var canJumpPrev = ctrl.vm.path !== '';
   var canJumpNext = !!ctrl.vm.node.children[0];
+  var isStudyPractice = ctrl.study && ctrl.study.practice;
   return m('div.game_control', {
     config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
@@ -185,7 +186,7 @@ function buttons(ctrl) {
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    ctrl.embed ? null : m('div.features', [
+    (isStudyPractice || ctrl.embed) ? null : m('div.features', [
       m('button', {
         'data-hint': ctrl.trans('openingExplorer'),
         'data-act': 'explorer',
@@ -207,7 +208,7 @@ function buttons(ctrl) {
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    m('button', {
+    isStudyPractice ? null : m('button', {
       class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
       'data-hint': 'Menu',
       'data-act': 'menu'
