@@ -2,7 +2,7 @@ Copying Lila
 ============
 
 Any file in this project that does not state otherwise and is not listed as an
-exception below is part of lila and copyright (c) 2012-2016 the lila authors.
+exception below is part of lila and copyright (c) 2012-2017 the lila authors.
 
 For a list of the authors see the commit log or
 https://github.com/ornicar/lila/graphs/contributors.
@@ -41,9 +41,9 @@ public/images/staunton | [James Clarke](https://github.com/clarkerubber/Staunton
 public/images/trophy | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces/tree/master/Trophies) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
 public/images/flags | [Go Squared Ltd.](https://www.gosquared.com/resources/flag-icons/) | [MIT](https://github.com/gosquared/flags/blob/master/LICENSE.txt)
 public/images/boards | the lila authors and [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
-public/piece-src/cburnett | [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
-public/piece-src/mono | [Thibault Duplessis](Thibault Duplessis) and [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/images/learn/pieces | [Thibault Duplessis](Thibault Duplessis) and [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
+public/piece-src/mono | [Thibault Duplessis](Thibault Duplessis) and [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
+public/piece-src/cburnett | [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/piece-src/chessnut | [Alexis Luengas](https://github.com/LexLuengas) | [Apache 2.0](https://github.com/LexLuengas/chessnut-pieces/blob/master/LICENSE.txt)
 public/piece-src/letter | [usolando](https://lichess.org/@/usolando) | AGPLv3+
 public/piece-src/pirouetti | [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
