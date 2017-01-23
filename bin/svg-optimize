@@ -2,7 +2,9 @@
 
 # For extra optimizations install https://github.com/RazrFalcon/svgcleaner
 # and set this variable.
-#SVGCLEANER=svgcleaner/target/release/svgcleaner
+# SVGCLEANER=svgcleaner/target/release/svgcleaner
+# or
+# SVGCLEANER=svgcleaner
 
 SVGO=./node_modules/svgo/bin/svgo
 
