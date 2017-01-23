@@ -3,6 +3,7 @@ var makePool = require('./pool');
 var dict = require('./dict');
 var median = require('./math').median;
 var storedProp = require('common').storedProp;
+var throttle = require('common').throttle;
 var stockfishProtocol = require('./stockfishProtocol');
 
 module.exports = function(opts) {
@@ -65,10 +66,12 @@ module.exports = function(opts) {
     };
   })();
 
+  var throttledEmit = throttle(150, false, opts.emit);
+
   var onEmit = function(eval, work) {
     npsRecorder(eval);
     curEval = eval;
-    opts.emit(eval, work);
+    throttledEmit(eval, work);
     publish(eval);
   };
 
