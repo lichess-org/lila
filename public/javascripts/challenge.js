@@ -9,9 +9,6 @@ lichess.startChallenge = function(element, opts) {
       options: {
         name: "challenge"
       },
-      params: {
-        ran: "--ranph--"
-      },
       events: {
         reload: function() {
           $.ajax({

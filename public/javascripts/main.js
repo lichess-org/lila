@@ -943,7 +943,6 @@ lichess.notifyApp = (function() {
           name: "round"
         },
         params: {
-          ran: "--ranph--",
           userTv: $('.user_tv').data('user-tv')
         },
         receive: function(t, d) {
@@ -1353,9 +1352,6 @@ lichess.notifyApp = (function() {
       options: {
         name: "analyse"
       },
-      params: {
-        ran: "--ranph--"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -1377,9 +1373,6 @@ lichess.notifyApp = (function() {
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       options: {
         name: "study"
-      },
-      params: {
-        ran: "--ranph--"
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
@@ -1413,9 +1406,6 @@ lichess.notifyApp = (function() {
       options: {
         name: "practice"
       },
-      params: {
-        ran: "--ranph--"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -1436,9 +1426,6 @@ lichess.notifyApp = (function() {
     lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
         name: "puzzle"
-      },
-      params: {
-        ran: "--ranph--"
       },
       receive: function(t, d) {
         puzzle.socketReceive(t, d);

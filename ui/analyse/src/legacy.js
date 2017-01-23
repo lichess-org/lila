@@ -10,7 +10,6 @@ module.exports = function(element, cfg) {
         name: "analyse"
       },
       params: {
-        ran: "--ranph--",
         userTv: $('.user_tv').data('user-tv')
       },
       receive: function(t, d) {
