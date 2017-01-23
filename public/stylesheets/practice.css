@@ -59,31 +59,46 @@ div.game_control {
   margin-right: 5px;
   font-size: 1.2em;
 }
-.underboard .complete {
+.underboard .feedback {
   position: absolute;
   top: -10px;
   left: 0;
   width: 100%;
-  height: 53px;
+  padding: 15px 20px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.4em;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+.underboard .feedback.complete {
   background: #759900;
   color: #fff;
-  font-size: 1.4em;
   animation: 1.7s soft-bright ease-in-out infinite;
   opacity: 0.8;
   transition: 0.13s;
 }
-.underboard .complete:hover {
+.underboard .feedback:hover {
   opacity: 1;
 }
-.underboard .complete span {
+.underboard .feedback span {
   margin-right: 10px;
 }
-.underboard .complete strong {
+.underboard .feedback strong {
   margin-left: 3px;
+}
+.underboard .feedback.ongoing {
+  align-items: flex-start;
+  flex-flow: column;
+  text-align: left;
+}
+.underboard .feedback .goal {
+  margin-bottom: 10px;
+}
+.underboard .feedback .comment {
+  display: block;
 }
 
 #practice_app .section {

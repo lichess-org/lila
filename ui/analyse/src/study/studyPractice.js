@@ -41,7 +41,7 @@ module.exports = {
     root.vm.showGauge = readOnlyProp(true);
     root.vm.showComputer = readOnlyProp(true);
 
-    var completeFeedback = m.prop();
+    var feedback = m.prop();
 
     var victoryType = function() {
       return root.study.data.chapter.tags.filter(function(tag) {
@@ -55,27 +55,33 @@ module.exports = {
         data.completion[chapterId] = nbMoves;
         xhr.practiceComplete(chapterId, nbMoves);
       }
-      completeFeedback({
+      feedback({
         success: true,
         nbMoves: nbMoves,
         next: findNextOngoingChapter() || findNextChapter()
       });
     };
 
-    var isVictory = function() {
-      switch (victoryType()) {
-        case 'checkmate':
-          return root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
-        case 'draw':
-          if (root.gameOver() === 'draw') return true;
-          var n = root.vm.node;
-          if (n.ply >= 20 && n.ceval && n.ceval.depth === 16 && Math.abs(n.ceval.cp) < 100) return true;
-      }
-    };
-
     var checkVictory = function() {
-      if (isVictory()) complete(root.study.currentChapter().id, root.vm.node.ply);
-      else completeFeedback(null);
+      var n = root.vm.node,
+        vt = victoryType(),
+        nbMoves = Math.ceil(n.ply / 2),
+        isVictory;
+      switch (vt) {
+        case 'checkmate':
+          isVictory = root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
+          break;
+        case 'draw':
+          isVictory = root.gameOver() === 'draw' || (
+            nbMoves >= 15 && n.ceval && n.ceval.depth === 16 && Math.abs(n.ceval.cp) < 100
+          );
+      }
+      if (isVictory) complete(root.study.currentChapter().id, nbMoves);
+      else feedback({
+        goal: vt,
+        nbMoves: nbMoves,
+        comment: root.tree.root.comments[0]
+      });
     };
 
     var findNextOngoingChapter = function() {
@@ -95,14 +101,15 @@ module.exports = {
       onJump: checkVictory,
       onCeval: checkVictory,
       data: data,
-      completeFeedback: completeFeedback
+      feedback: feedback
     };
   },
 
   view: {
     underboard: function(ctrl) {
-      var fb = ctrl.practice.completeFeedback();
-      if (fb) return m('a.complete', {
+      var fb = ctrl.practice.feedback();
+      if (!fb) return;
+      if (fb.success) return m('a.feedback.complete', {
         onclick: function() {
           ctrl.setChapter(fb.next.id);
         }
@@ -110,6 +117,15 @@ module.exports = {
         m('span', 'Success!'),
         'Next: ',
         m('strong', fb.next.name)
+      ]);
+      return m('div.feedback.ongoing', [
+        m('div.goal', [
+          'Your goal: ',
+          m('strong',
+            fb.goal === 'checkmate' ? 'Checkmate the opponent' :
+            'Hold the draw for ' + (16 - fb.nbMoves) + ' more moves.')
+        ]),
+        fb.comment ? m('div.comment', fb.comment.text) : null
       ]);
     },
     main: function(ctrl) {
