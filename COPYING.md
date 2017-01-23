@@ -70,3 +70,22 @@ public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
 * The other sounds in public/sound.
 * The other artwork in public/images.
 * The icon font in public/font70.
+
+External services
+-----------------
+
+Lichess as deployed on https://lichess.org/ also uses these external services:
+
+* [cdnjs](https://cdnjs.com/) as the primary source for widely used JavaScript libraries
+* [Cloudflare](https://www.cloudflare.com/) to serve static assets
+* [Mailgun](https://www.mailgun.com/) for transactional email
+* [prismic.io](https://prismic.io/) for help/documentation pages and the blog
+* [Disqus](https://disqus.com/) for blog comments
+* [twitch](https://www.twitch.tv/) for featured livestreams
+* [YouTube](https://www.youtube.com) for the [Video library](https://de.lichess.org/video)
+* [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://de.lichess.org/patron)
+* [Spreadshirt](https://shop.spreadshirt.com/lichess-org)
+* [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
+* [getipintel.net](https://getipintel.net/)
+* [Google Fonts](https://fonts.google.com/)
+* [Google Analytics](https://analytics.google.com/)
