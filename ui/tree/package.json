@@ -27,5 +27,6 @@
     "watchify": "~3.7"
   },
   "dependencies": {
+    "common": "file:../common"
   }
 }

@@ -1,5 +1,6 @@
 var treePath = require('./path');
 var ops = require('./ops');
+var defined = require('common').defined;
 
 module.exports = function(root) {
 
@@ -105,7 +106,7 @@ module.exports = function(root) {
     var newPath = path + node.id;
     var existing = nodeAtPathOrNull(newPath);
     if (existing) {
-      if (node.dests && !existing.dests) existing.dests = node.dests;
+      if (defined(node.dests) && !defined(existing.dests)) existing.dests = node.dests;
       return newPath;
     }
     if (updateAt(path, function(parent) {

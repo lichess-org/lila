@@ -14,6 +14,7 @@ var roleToSan = require('chess').roleToSan;
 var decomposeUci = require('chess').decomposeUci;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
+var defined = require('common').defined;
 var socket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('ceval').ctrl;
@@ -170,13 +171,13 @@ module.exports = function(opts) {
       this.chessground = ground.make(this.data, config, userMove, userNewPiece, !!opts.study);
     this.chessground.set(config);
     onChange();
-    if (!dests) getDests();
+    if (!defined(node.dests)) getDests();
     this.setAutoShapes();
     if (node.shapes) this.chessground.setShapes(node.shapes);
   }.bind(this);
 
   var getDests = throttle(800, false, function() {
-    if (!this.vm.node.dests) this.socket.sendAnaDests({
+    if (!defined(this.vm.node.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.vm.node.fen,
       path: this.vm.path
@@ -387,8 +388,8 @@ module.exports = function(opts) {
     if (!node) return;
     var count = tree.ops.countChildrenAndComments(node);
     if ((count.nodes >= 10 || count.comments > 0) && !confirm(
-      'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
-    )) return;
+        'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
+      )) return;
     this.tree.deleteNodeAt(path);
     if (tree.path.contains(this.vm.path, path)) this.userJump(tree.path.init(path));
     else this.jump(this.vm.path);
