@@ -12,6 +12,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
   var url = url;
   var version = version;
+  var versioned = version !== false;
   var options = settings.options;
   var ws = null;
   var pingSchedule = null;
@@ -146,10 +147,10 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var pingData = function() {
-    return JSON.stringify({
+    return versioned ? JSON.stringify({
       t: "p",
       v: version
-    });
+    }) : '{"t":"p"}';
   };
 
   var handle = function(m) {

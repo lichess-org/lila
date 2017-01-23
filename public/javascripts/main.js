@@ -449,7 +449,7 @@ lichess.notifyApp = (function() {
       }
 
       setTimeout(function() {
-        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", 0);
+        if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
       // themepicker
@@ -1349,7 +1349,7 @@ lichess.notifyApp = (function() {
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
-    lichess.socket = lichess.StrongSocket('/socket', 0, {
+    lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
         name: "analyse"
       },
@@ -1409,7 +1409,7 @@ lichess.notifyApp = (function() {
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
-    lichess.socket = lichess.StrongSocket('/socket', 0, {
+    lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
         name: "practice"
       },
@@ -1433,7 +1433,7 @@ lichess.notifyApp = (function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lichess.socket = lichess.StrongSocket('/socket', 0, {
+    lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
         name: "puzzle"
       },
