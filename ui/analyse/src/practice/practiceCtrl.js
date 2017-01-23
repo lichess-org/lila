@@ -88,6 +88,11 @@ module.exports = function(root) {
     }
   };
 
+  var resume = function() {
+    running(true);
+    checkCeval();
+  };
+
   checkCeval();
 
   return {
@@ -103,14 +108,14 @@ module.exports = function(root) {
     running: running,
     hovering: hovering,
     hinting: hinting,
-    resume: function() {
-      running(true);
-      checkCeval();
-    },
+    resume: resume,
     onUserJump: function(from, to) {
       if (from !== to) {
-        running(false);
-        comment(null);
+        if (isMyTurn()) resume();
+        else {
+          running(false);
+          comment(null);
+        }
       }
     },
     onUserMove: function() {

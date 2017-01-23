@@ -118,10 +118,10 @@ module.exports = function(root) {
   }, [
     renderTitle(root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root, end) : renderRunning(root))),
-    ctrl.running() ? m('div.comment', comment ? [
+    running ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : null
+    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : m('div.comment')
   ]);
 };
