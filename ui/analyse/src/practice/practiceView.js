@@ -24,7 +24,7 @@ var endText = {
 
 function commentBest(c, ctrl) {
   if (!c.best) return;
-  var pre = c.verdict === 'good' ? 'An alternative was' : 'Best was';
+  var pre = c.verdict === 'good' ? 'Another was' : 'Best was';
   return [
     pre,
     m('a', {
