@@ -177,7 +177,8 @@ function renderVariationMoveOf(ctx, node, opts) {
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
     withIndex ? renderIndex(node.ply, true) : null,
-    node.san
+    node.san,
+    puzzleGlyph(ctx, node)
   ]);
 }
 
