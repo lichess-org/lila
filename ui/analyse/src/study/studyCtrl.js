@@ -3,7 +3,7 @@ var partial = require('chessground').util.partial;
 var throttle = require('common').throttle;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
-var practiceCtrl = require('./studyPractice').ctrl;
+var practiceCtrl = require('./practice/studyPracticeCtrl');
 var commentFormCtrl = require('./commentForm').ctrl;
 var glyphFormCtrl = require('./studyGlyph').ctrl;
 var studyFormCtrl = require('./studyForm').ctrl;
@@ -35,7 +35,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
 
   var notif = notifCtrl();
-  var practice = practiceData && practiceCtrl(ctrl, practiceData);
   var form = studyFormCtrl(function(data, isNew) {
     send("editStudy", data);
     if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)
@@ -104,6 +103,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   var configurePractice = function() {
     if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
     if (data.chapter.practice) ctrl.restartPractice();
+    if (practice) practice.onReload();
   };
 
   var onReload = function(d) {
@@ -166,6 +166,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   if (members.canContribute()) form.openIfNew();
 
   var share = shareCtrl(data, currentChapter);
+
+  var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
 
   ctrl.chessground.set({
     drawable: {

@@ -15,7 +15,7 @@ var studyFormView = require('./studyForm').view;
 var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
 var tagsView = require('./studyTags').view;
-var practiceView = require('./studyPractice').view;
+var practiceView = require('./practice/studyPracticeView');
 
 function buttons(root) {
   var ctrl = root.study;
