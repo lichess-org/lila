@@ -59,6 +59,32 @@ div.game_control {
   margin-right: 5px;
   font-size: 1.2em;
 }
+.underboard .complete {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 53px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #759900;
+  color: #fff;
+  font-size: 1.4em;
+  animation: 1.7s soft-bright ease-in-out infinite;
+  opacity: 0.8;
+  transition: 0.13s;
+}
+.underboard .complete:hover {
+  opacity: 1;
+}
+.underboard .complete span {
+  margin-right: 10px;
+}
+.underboard .complete strong {
+  margin-left: 3px;
+}
 
 #practice_app .section {
   width: 742px;

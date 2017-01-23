@@ -22,7 +22,7 @@ module.exports = {
         m.redraw.strategy("diff"); // prevents double full redraw on page load
         return controller.study;
       },
-      view: controller.study.practice ? studyPractice.view : studyView.main
+      view: controller.study.practice ? studyPractice.view.main : studyView.main
     });
 
     return {

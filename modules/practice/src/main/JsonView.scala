@@ -19,8 +19,6 @@ object JsonView {
 
   def apply(us: UserStudy) = Json.obj(
     "study" -> us.practiceStudy,
-    "prev" -> us.practice.structure.prev(us.practiceStudy.id),
-    "next" -> us.practice.structure.next(us.practiceStudy.id),
     "completion" -> JsObject {
       us.practiceStudy.chapters.flatMap { c =>
         us.practice.progress.chapters collectFirst {

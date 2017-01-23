@@ -8,18 +8,12 @@ case class PracticeStructure(
   def study(id: Study.Id): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption
 
-  def prev(id: Study.Id): Option[PracticeStudy] =
-    studyPosition(id).map(_ + 1) flatMap allStudies.lift
-  def next(id: Study.Id): Option[PracticeStudy] =
-    studyPosition(id).map(_ - 1) flatMap allStudies.lift
+  lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
+    sections.flatMap(_.studies).map { s =>
+      s.id -> s
+    }.toMap
 
-  private def studyPosition(id: Study.Id): Option[Int] =
-    sections.indexOf(id).some.filter(0 <=)
-
-  lazy val allStudies: Vector[PracticeStudy] =
-    sections.flatMap(_.studies).toVector
-
-  def hasStudy(id: Study.Id) = allStudies.exists(_.id == id)
+  def hasStudy(id: Study.Id) = studiesByIds contains id
 }
 
 case class PracticeSection(

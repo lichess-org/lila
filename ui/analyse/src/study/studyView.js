@@ -15,6 +15,7 @@ var studyFormView = require('./studyForm').view;
 var studyShareView = require('./studyShare').view;
 var notifView = require('./notif').view;
 var tagsView = require('./studyTags').view;
+var practiceView = require('./studyPractice').view;
 
 function buttons(root) {
   var ctrl = root.study;
@@ -171,7 +172,7 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
-    if (ctrl.study && ctrl.study.practice) return notifView(ctrl.study.notif);
+    if (ctrl.study && ctrl.study.practice) return practiceView.underboard(ctrl.study);
     if (ctrl.embed) return;
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
