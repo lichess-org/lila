@@ -54,6 +54,7 @@ module.exports = function(root, studyData, data) {
       )
     );
     if (!isVictory) return;
+    nbMoves(Math.max(1, nbMoves()));
     won(true);
     var chapterId = root.study.currentChapter().id;
     var former = data.completion[chapterId] || 999;
