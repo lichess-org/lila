@@ -11,8 +11,8 @@ function uncache(url) {
 
 module.exports = {
 
-  reload: function(id, chapterId) {
-    var url = '/study/' + id;
+  reload: function(baseUrl, id, chapterId) {
+    var url = '/' + baseUrl + '/' + id;
     if (chapterId) url += '/' + chapterId;
     return m.request({
       method: 'GET',

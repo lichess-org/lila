@@ -18,6 +18,8 @@ case class PracticeStructure(
 
   lazy val allStudies: Vector[PracticeStudy] =
     sections.flatMap(_.studies).toVector
+
+  def hasStudy(id: Study.Id) = allStudies.exists(_.id == id)
 }
 
 case class PracticeSection(

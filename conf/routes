@@ -158,11 +158,12 @@ POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
 
 # Practice
-GET   /practice                                 controllers.Practice.index
-GET   /practice/:sectionId/:studySlug/:studyId  controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
-POST  /practice/complete/:chapterId/:moves      controllers.Practice.complete(chapterId: String, moves: Int)
-GET   /practice/config                          controllers.Practice.config
-POST  /practice/config                          controllers.Practice.configSave
+GET   /practice                                   controllers.Practice.index
+GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
+POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
+GET   /practice/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Practice.chapter(studyId: String, chapterId: String)
+GET   /practice/config                            controllers.Practice.config
+POST  /practice/config                            controllers.Practice.configSave
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

@@ -26,9 +26,18 @@ final class PracticeApi(
     studyOption <- chapterId.fold(studyApi byIdWithFirstChapter studyId) {
       studyApi.byIdWithChapter(studyId, _)
     }
-  } yield for {
+  } yield makeUserStudy(studyOption, up, chapters)
+
+  def getStudyWithChapter(user: Option[User], studyId: Study.Id, chapterId: Chapter.Id): Fu[Option[UserStudy]] = for {
+    up <- get(user)
+    chapters <- studyApi.chapterMetadatas(studyId)
+    studyOption <- studyApi.byIdWithChapter(studyId, chapterId)
+  } yield makeUserStudy(studyOption, up, chapters)
+
+  private def makeUserStudy(studyOption: Option[Study.WithChapter], up: UserPractice, chapters: List[Chapter.Metadata]) = for {
     sc <- studyOption
-    practiceStudy <- up.structure study studyId
+    practiceStudy <- up.structure study sc.study.id
+    if up.structure hasStudy sc.study.id
   } yield UserStudy(up, practiceStudy, chapters, sc.copy(study = sc.study.withoutMembers))
 
   object config {
