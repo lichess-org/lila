@@ -10,15 +10,15 @@ var EVAL_REGEX = new RegExp(''
 module.exports = function(worker, opts) {
   var emitTimer = null;
   var work = null;
-  var state = null;
+  var curEval = null;
 
   var stopped = m.deferred();
   stopped.resolve(true);
 
   var emit = function() {
     emitTimer = clearTimeout(emitTimer);
-    if (!work || !state) return;
-    work.emit(state);
+    if (!work || !curEval) return;
+    work.emit(curEval);
   };
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
@@ -57,7 +57,7 @@ module.exports = function(worker, opts) {
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
     // only have an upperbound. See: ddugovic/Stockfish#228
-    if (evalType && (multiPv === 1 || evalType !== 'upper' || !state)) return;
+    if (evalType && (multiPv === 1 || evalType !== 'upper' || !curEval)) return;
 
     var pvData = {
       best: pv.split(' ', 2)[0],
@@ -68,26 +68,25 @@ module.exports = function(worker, opts) {
     };
 
     if (multiPv === 1) {
-      state = {
-        work: work,
-        eval: {
-          depth: depth,
-          nps: nps,
-          best: pvData.best,
-          cp: pvData.cp,
-          mate: pvData.mate,
-          pvs: [pvData],
-          millis: elapsedMs,
-        },
+      curEval = {
+        fen: work.currentFen,
+        maxDepth: work.maxDepth,
+        depth: depth,
+        nps: nps,
+        best: pvData.best,
+        cp: pvData.cp,
+        mate: pvData.mate,
+        pvs: [pvData],
+        millis: elapsedMs,
       };
-    } else if (state) {
-      state.eval.pvs.push(pvData);
-      state.eval.depth = Math.min(state.eval.depth, depth);
+    } else if (curEval) {
+      curEval.pvs.push(pvData);
+      curEval.depth = Math.min(curEval.depth, depth);
     }
 
     if (multiPv === work.multiPv) {
       emit();
-      state = null;
+      curEval = null;
     } else {
       // emit timeout in case there aren't a full set of PVs.
       clearTimeout(emitTimer);
@@ -98,7 +97,7 @@ module.exports = function(worker, opts) {
   return {
     start: function(w) {
       work = w;
-      state = null;
+      curEval = null;
       stopped = null;
       minLegalMoves = 0;
       if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());

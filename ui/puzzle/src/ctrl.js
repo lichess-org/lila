@@ -250,14 +250,14 @@ module.exports = function(opts, i18n) {
         key: 'standard'
       },
       possible: true,
-      emit: function(res) {
-        tree.updateAt(res.work.path, function(node) {
-          if (res.work.threatMode) {
-            if (!node.threat || node.threat.depth <= res.eval.depth || node.threat.maxDepth < res.eval.maxDepth)
-              node.threat = res.eval;
-          } else if (!node.ceval || node.ceval.depth <= res.eval.depth || node.ceval.maxDepth < res.eval.maxDepth)
-            node.ceval = res.eval;
-          if (res.work.path === vm.path) {
+      emit: function(eval, work) {
+        tree.updateAt(work.path, function(node) {
+          if (work.threatMode) {
+            if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
+              node.threat = eval;
+          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
+            node.ceval = eval;
+          if (work.path === vm.path) {
             setAutoShapes();
             m.redraw();
           }
