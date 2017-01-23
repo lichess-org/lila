@@ -97,7 +97,9 @@ object Study extends LilaController {
                 case (((baseData, chat), studyJson), sVersion) =>
                   import lila.tree.Node.partitionTreeJsonWriter
                   val analysis = baseData ++ Json.obj(
-                    "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
+                    "treeParts" -> partitionTreeJsonWriter.writes {
+                      lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+                    })
                   val data = lila.study.JsonView.JsData(
                     study = studyJson,
                     analysis = analysis)
@@ -174,7 +176,9 @@ object Study extends LilaController {
               case (baseData, studyJson) =>
                 import lila.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(
-                  "treeParts" -> partitionTreeJsonWriter.writes(lila.study.TreeBuilder(chapter.root)))
+                  "treeParts" -> partitionTreeJsonWriter.writes {
+                    lila.study.TreeBuilder.makeRoot(chapter.root)
+                  })
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
                   analysis = analysis)

@@ -5,7 +5,19 @@ import lila.tree
 
 object TreeBuilder {
 
-  def apply(root: Node.Root) = tree.Root(
+  private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
+
+  def apply(root: Node.Root, variant: chess.variant.Variant) = {
+    val dests =
+      if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
+      else {
+        val sit = chess.Game(variant.some, root.fen.value.some).situation
+        sit.playable(false) ?? sit.destinations
+      }
+    makeRoot(root).copy(dests = dests.some)
+  }
+
+  def makeRoot(root: Node.Root) = tree.Root(
     ply = root.ply,
     fen = root.fen.value,
     check = root.check,
@@ -29,6 +41,6 @@ object TreeBuilder {
     children = toBranches(node.children),
     opening = FullOpeningDB findByFen node.fen.value)
 
-  private def toBranches(children: Node.Children) =
+  private def toBranches(children: Node.Children): List[tree.Branch] =
     children.nodes.toList.map(toBranch)
 }
