@@ -57,7 +57,8 @@ module.exports = function(opts) {
         if (knps > 1000) depth = 23;
         if (knps > 2000) depth = 24;
         if (knps > 3500) depth = 25;
-        if (knps > 7000) depth = 26;
+        if (knps > 5000) depth = 26;
+        if (knps > 7000) depth = 27;
         maxDepth(depth);
         if (values.length > 20) values.shift();
       }
