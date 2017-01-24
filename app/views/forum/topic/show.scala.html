@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean], canModCateg: Boolean)(implicit ctx: Context)
 
 @moreJs = {
 @jsTag("forum-post.js")
@@ -57,7 +57,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         @if(ctx.userId.fold(false)(post.shouldShowEditForm(_))) {
         <a class="mod thin edit button" data-icon="m"> Edit</a>
         }
-        @if(isGrantedMod(categ.slug)) {
+        @if(canModCateg) {
         <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
@@ -87,7 +87,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     <button class="button">@topic.hidden.fold("Feature", "Un-feature")</button>
   </form>
   }
-  @if(isGrantedMod(categ.slug)) {
+  @if(canModCateg) {
   <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
     <button class="button">@topic.closed.fold("Reopen", "Close")</button>
   </form>
