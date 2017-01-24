@@ -86,9 +86,14 @@ object JsonView {
       "prog" -> o.progress)
   }
 
+  private val standardPerfKeys = PerfType.standard.map(_.key).toSet
+
+  private def select(key: String, perf: Perf) =
+    perf.nb > 0 || standardPerfKeys(key)
+
   def perfs(u: User, onlyPerf: Option[PerfType] = None) =
     JsObject(u.perfs.perfsMap collect {
-      case (key, perf) if perf.nb > 0 && onlyPerf.fold(true)(_.key == key) =>
+      case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
         key -> perfWrites.writes(perf)
     })
 
