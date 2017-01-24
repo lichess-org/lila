@@ -2,14 +2,13 @@ package lila.i18n
 
 import java.io.File
 import scala.collection.JavaConversions._
+import scala.concurrent.duration._
 import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.ask
 import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
-
-import makeTimeout.veryLarge
 
 private[i18n] final class GitWrite(
     transRelPath: String,
@@ -25,6 +24,7 @@ private[i18n] final class GitWrite(
   private val git = new Git(repo, debug = true)
 
   def apply(translations: List[Translation]): Funit = {
+    import makeTimeout.veryLarge
     logger.info("Working on " + repoPath)
     git.currentBranch flatMap { currentBranch =>
       logger.info("Current branch is " + currentBranch)
@@ -58,7 +58,7 @@ private[i18n] final class GitWrite(
               logger.info("- " + commitMsg) >>
               (git commit commitMsg).void
           )
-        }).await
+        }).await(1.minute)
       }
 
     }

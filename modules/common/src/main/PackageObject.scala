@@ -96,9 +96,6 @@ trait WithFuture extends scalalib.Validation {
   def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
   def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
   val funit = fuccess(())
-
-  implicit def SprayPimpedFuture[T](fut: Future[T]) =
-    new spray.util.pimps.PimpedFuture[T](fut)
 }
 
 trait WithPlay { self: PackageObject =>

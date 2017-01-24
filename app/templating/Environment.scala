@@ -1,6 +1,8 @@
 package lila.app
 package templating
 
+import scala.concurrent.duration._
+
 import ornicar.scalalib
 import play.twirl.api.Html
 
@@ -64,7 +66,8 @@ object Environment
     "Due to temporary maintenance on the servers, only casual games are available."
   }
 
-  def reportNbUnprocessed: Int = lila.report.Env.current.api.nbUnprocessed.await
+  def reportNbUnprocessed: Int =
+    lila.report.Env.current.api.nbUnprocessed await 1.second
 
   val openingBrace = "{"
   val closingBrace = "}"

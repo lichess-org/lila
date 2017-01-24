@@ -91,10 +91,11 @@ object PimpedFuture {
       fua
     }
 
-    def awaitSeconds(seconds: Int): A = {
-      import scala.concurrent.duration._
-      scala.concurrent.Await.result(fua, seconds.seconds)
-    }
+    def await(duration: FiniteDuration): A =
+      scala.concurrent.Await.result(fua, duration)
+
+    def awaitSeconds(seconds: Int): A =
+      await(seconds.seconds)
 
     def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
       Future firstCompletedOf Seq(
