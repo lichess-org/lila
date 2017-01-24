@@ -128,7 +128,7 @@ div.underboard .notif.error {
 }
 
 .study_box .list {
-  max-height: 160px;
+  max-height: 180px;
   overflow: hidden;
   overflow-y: auto;
   position: relative;
