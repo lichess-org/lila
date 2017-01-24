@@ -9,14 +9,15 @@ import scala.collection.JavaConversions._
 object PlayApp {
 
   val startedAt = DateTime.now
+  val startedAtMillis = nowMillis
 
   def uptime = new Period(startedAt, DateTime.now)
 
   def startedSinceMinutes(minutes: Int) =
-    startedAt.isBefore(DateTime.now minusMinutes minutes)
+    startedSinceSeconds(minutes * 60)
 
   def startedSinceSeconds(seconds: Int) =
-    startedAt.isBefore(DateTime.now minusSeconds seconds)
+    startedAtMillis < (nowMillis - (seconds * 1000))
 
   def loadConfig: Config = withApp(_.configuration.underlying)
 
