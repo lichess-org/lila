@@ -35,10 +35,13 @@ final class PracticeApi(
   } yield makeUserStudy(studyOption, up, chapters)
 
   private def makeUserStudy(studyOption: Option[Study.WithChapter], up: UserPractice, chapters: List[Chapter.Metadata]) = for {
-    sc <- studyOption
+    rawSc <- studyOption
+    sc = rawSc.copy(
+      study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
+      chapter = rawSc.chapter.withoutChildren)
     practiceStudy <- up.structure study sc.study.id
     if up.structure hasStudy sc.study.id
-  } yield UserStudy(up, practiceStudy, chapters, sc.copy(study = sc.study.withoutMembers))
+  } yield UserStudy(up, practiceStudy, chapters, sc)
 
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)

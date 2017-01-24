@@ -64,6 +64,8 @@ case class Chapter(
 
   def isPractice = ~practice
   def isConceal = conceal.isDefined
+
+  def withoutChildren = copy(root = root.withoutChildren)
 }
 
 object Chapter {
