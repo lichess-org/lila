@@ -103,14 +103,11 @@ function renderInlined(ctx, nodes, opts) {
   var found;
   if (!treeOps.hasBranching(nodes[1], 4)) found = [0, 1];
   else if (!treeOps.hasBranching(nodes[0], 4)) found = [1, 0];
-  if (!found) return;
-  var node = nodes[found[0]];
-  var alt = nodes[found[1]];
-  return renderMoveAndChildrenOf(ctx, node, {
+  if (found) return renderMoveAndChildrenOf(ctx, nodes[found[0]], {
     parentPath: opts.parentPath,
     isMainline: false,
     noConceal: opts.noConceal,
-    inline: alt
+    inline: nodes[found[1]]
   });
 }
 
