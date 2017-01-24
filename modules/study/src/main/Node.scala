@@ -156,6 +156,8 @@ object Node {
         copy(children = newChildren)
       }
 
+    def withoutChildren = copy(children = Node.emptyChildren)
+
     def nodeAt(path: Path): Option[RootOrNode] =
       if (path.isEmpty) this.some else children nodeAt path
 
