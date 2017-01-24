@@ -121,7 +121,8 @@ object BSONHandlers {
   private implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
     private val idsHandler = bsonArrayToListHandler[Int]
     def read(b: Barr) = Glyphs.fromList(idsHandler read b flatMap Glyph.find)
-    def write(x: Glyphs) = $arr(x.toList.map(_.id).map(BSONInteger.apply))
+    // must be BSONArray and not $arr!
+    def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
