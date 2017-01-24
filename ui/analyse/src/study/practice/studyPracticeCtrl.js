@@ -38,7 +38,11 @@ module.exports = function(root, studyData, data) {
     goal(findGoal());
     nbMoves(0);
     won(false);
-    comment(root.tree.root.comments && root.tree.root.comments[0].text);
+    var r = root.tree.root;
+    if (r.comments) {
+      comment(r.comments[0].text);
+      delete r.comments;
+    }
   };
   onLoad();
 
