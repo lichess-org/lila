@@ -15,8 +15,7 @@ object Builder {
    * backed by a Cache from Google Collections.
    */
   def cache[K, V](ttl: Duration, f: K => V): LoadingCache[K, V] =
-    cacheBuilder[K, V](ttl)
-      .build[K, V](f)
+    cacheBuilder[K, V](ttl).build[K, V](f)
 
   def expiry[K, V](ttl: Duration): Cache[K, V] =
     cacheBuilder[K, V](ttl).build[K, V]

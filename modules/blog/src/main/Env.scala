@@ -7,7 +7,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
-    notifyApi: lila.notify.NotifyApi) {
+    notifyApi: lila.notify.NotifyApi)(implicit system: akka.actor.ActorSystem) {
 
   private val PrismicApiUrl = config getString "prismic.api_url"
   private val PrismicCollection = config getString "prismic.collection"
@@ -38,5 +38,6 @@ object Env {
   lazy val current: Env = "blog" boot new Env(
     config = lila.common.PlayApp loadConfig "blog",
     scheduler = lila.common.PlayApp.scheduler,
-    notifyApi = lila.notify.Env.current.api)
+    notifyApi = lila.notify.Env.current.api)(
+    lila.common.PlayApp.system)
 }

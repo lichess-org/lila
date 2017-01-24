@@ -2,21 +2,29 @@ package lila.blog
 
 import scala.concurrent.duration._
 
-final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
+final class LastPostCache(
+    api: BlogApi,
+    ttl: FiniteDuration,
+    collection: String)(implicit system: akka.actor.ActorSystem) {
 
-  private val cache = lila.memo.MixedCache.single[List[MiniPost]](
+  private val cache = new lila.memo.Syncache[Boolean, List[MiniPost]](
     name = "blog.lastPost",
-    f = api.prismicApi flatMap { prismic =>
+    compute = _ => fetch,
+    default = _ => Nil,
+    timeToLive = ttl,
+    awaitTime = 1.millisecond,
+    logger = logger)
+
+  private def fetch = {
+    println("----------- fetching from prismic!")
+    api.prismicApi flatMap { prismic =>
       api.recent(prismic, none, 3) map {
         _ ?? {
           _.results.toList flatMap MiniPost.fromDocument(collection)
         }
       }
-    },
-    timeToLive = ttl,
-    default = Nil,
-    awaitTime = 1.millisecond,
-    logger = logger)
+    }
+  }
 
   def apply = cache get true
 
