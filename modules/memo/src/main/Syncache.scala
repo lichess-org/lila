@@ -30,18 +30,18 @@ final class Syncache[K, V](
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {
-      println(s"*** $name chm put $k")
+      // println(s"*** $name chm put $k")
       compute(k).withTimeout(
         duration = resultTimeout,
         error = lila.common.LilaException(s"MixedCache2 $name $k timed out after $resultTimeout")
       ).addEffects(
           err => {
-            println(s"*** $name chm fail $k")
+            // println(s"*** $name chm fail $k")
             logger.branch(name).warn(s"$err key=$k")
             chm remove k
           },
           res => {
-            println(s"*** $name sync put $k")
+            // println(s"*** $name sync put $k")
             sync.put(k, res)
             chm remove k
           }
@@ -49,24 +49,30 @@ final class Syncache[K, V](
     }
   }
 
-  def get(k: K): V = Option(sync getIfPresent k) match {
-    case Some(v) =>
-      println(s"*** $name hit $k")
-      v
-    case None =>
-      println(s"*** $name miss $k")
-      chm.computeIfAbsent(k, loadFunction)
-      strategy match {
-        case NeverWait => default(k)
-        case AlwaysWait(duration) => try {
-          chm.get(k) await duration
-        }
-        catch {
-          case e: java.util.concurrent.TimeoutException =>
-            println(s"*** $name wait $k $e")
-            default(k)
-        }
+  private def waitForResult(k: K, duration: FiniteDuration): V =
+    Option(chm get k).fold(default(k)) { fu =>
+      try {
+        val v = fu await duration
+        // println(s"*** $name wait success $k")
+        v
       }
+      catch {
+        case e: java.util.concurrent.TimeoutException =>
+          // println(s"*** $name wait timeout $k $e")
+          default(k)
+      }
+    }
+
+  def get(k: K): V = Option(sync getIfPresent k) getOrElse {
+    // println(s"*** $name miss $k")
+    chm.computeIfAbsent(k, loadFunction)
+    strategy match {
+      case NeverWait            => default(k)
+      case AlwaysWait(duration) => waitForResult(k, duration)
+      case WaitAfterUptime(duration, uptime) =>
+        if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
+        else default(k)
+    }
   }
 
   def invalidate(k: K): Unit = sync invalidate k
@@ -78,4 +84,5 @@ object Syncache {
 
   case object NeverWait extends Strategy
   case class AlwaysWait(duration: FiniteDuration) extends Strategy
+  case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 12) extends Strategy
 }

@@ -14,11 +14,10 @@ final class LastPostCache(
     compute = _ => fetch,
     default = _ => Nil,
     timeToLive = ttl,
-    strategy = Syncache.AlwaysWait(100.millisecond),
+    strategy = Syncache.NeverWait,
     logger = logger)
 
   private def fetch = {
-    println("----------- fetching from prismic!")
     api.prismicApi flatMap { prismic =>
       api.recent(prismic, none, 3) map {
         _ ?? {
