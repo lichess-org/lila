@@ -15,8 +15,17 @@ function authorText(author) {
   return author.name;
 }
 
+var commentYoutubeRegex = /(?:https?:\/\/)(?:www\.)(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})/gi;
+
+function embedYoutube(text) {
+  return m.trust(lichess.escapeHtml(text).replace(commentYoutubeRegex, function(m, id) {
+    return '<iframe width="100%" height="300" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+  }));
+}
+
 module.exports = {
   authorText: authorText,
+  embedYoutube: embedYoutube,
   currentComments: function(ctrl, includingMine) {
     var path = ctrl.vm.path;
     var node = ctrl.vm.node;
@@ -45,7 +54,7 @@ module.exports = {
           m('span.node', nodeFullName(node))
         ] : null,
         ': ',
-        m('span.text', comment.text)
+        m('span.text', embedYoutube(comment.text))
       ]);
     }));
   }

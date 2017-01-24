@@ -110,6 +110,9 @@ div.underboard .notif.error {
   overflow: hidden;
   word-wrap: break-word;
 }
+.study_comments .text iframe {
+  margin: 10px 0;
+}
 .study_comments .edit {
   float: right;
   margin-left: 8px;

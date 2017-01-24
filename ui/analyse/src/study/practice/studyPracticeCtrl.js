@@ -1,5 +1,6 @@
 var m = require('mithril');
 var xhr = require('../studyXhr');
+var embedYoutube = require('../studyComments').embedYoutube;
 
 var readOnlyProp = function(value) {
   return function() {
@@ -18,9 +19,7 @@ module.exports = function(root, studyData, data) {
 
   var makeComment = function(treeRoot) {
     if (!treeRoot.comments) return;
-    var c = m.trust(treeRoot.comments[0].text.replace(commentYoutubeRegex, function(m, id) {
-      return '<iframe width="472" height="300" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
-    }));
+    var c = embedYoutube(treeRoot.comments[0].text);
     delete treeRoot.comments;
     return c;
   };
