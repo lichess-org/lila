@@ -8,6 +8,7 @@ var game = require('game').game;
 var fixCrazySan = require('chess').fixCrazySan;
 var normalizeEval = require('chess').renderEval;
 var treePath = require('tree').path;
+var treeOps = require('tree').ops;
 var commentAuthorText = require('./study/studyComments').authorText;
 
 var autoScroll = throttle(300, false, function(ctrl, el) {
@@ -94,7 +95,20 @@ function renderChildrenOf(ctx, node, opts) {
     ];
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-  return renderLines(ctx, cs, opts);
+  return renderInlined(ctx, cs, opts) || renderLines(ctx, cs, opts);
+}
+
+function renderInlined(ctx, nodes, opts) {
+  if (nodes[1] && !nodes[2] && !treeOps.hasBranching(nodes[1], 4)) {
+    var n = nodes[0];
+    return renderMoveAndChildrenOf(ctx, n, {
+      parentPath: opts.parentPath,
+      isMainline: false,
+      noConceal: opts.noConceal,
+      truncate: n.comp && !pathContains(ctx, opts.parentPath + n.id) ? 3 : null,
+      inline: nodes[1]
+    });
+  }
 }
 
 function renderLines(ctx, nodes, opts) {
@@ -182,6 +196,7 @@ function renderMoveAndChildrenOf(ctx, node, opts) {
   return [
     renderMoveOf(ctx, node, opts),
     renderVariationCommentsOf(ctx, node),
+    opts.inline ? renderInline(ctx, opts.inline, opts) : null,
     renderChildrenOf(ctx, node, {
       parentPath: path,
       isMainline: opts.isMainline,
@@ -189,6 +204,18 @@ function renderMoveAndChildrenOf(ctx, node, opts) {
       truncate: opts.truncate ? opts.truncate - 1 : null
     })
   ];
+}
+
+function renderInline(ctx, node, opts) {
+  return m('inline', [
+    renderMoveAndChildrenOf(ctx, node, {
+      withIndex: true,
+      parentPath: opts.parentPath,
+      isMainline: false,
+      noConceal: opts.noConceal,
+      truncate: opts.truncate
+    })
+  ]);
 }
 
 function moveTag(attrs, content) {

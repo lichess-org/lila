@@ -96,14 +96,20 @@ function merge(n1, n2) {
   n2.comments && n2.comments.forEach(function(c) {
     if (!n1.comments) n1.comments = [c];
     else if (!n1.comments.filter(function(d) {
-      return d.text === c.text;
-    }).length) n1.comments.push(c);
+        return d.text === c.text;
+      }).length) n1.comments.push(c);
   });
   n2.children.forEach(function(c) {
     var existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);
   });
+}
+
+function hasBranching(node, maxDepth) {
+  return maxDepth <= 0 || node.children[1] ? true : (
+    node.children[0] ? hasBranching(node.children[0], maxDepth - 1) : false
+  );
 }
 
 module.exports = {
@@ -121,6 +127,7 @@ module.exports = {
   countChildrenAndComments: countChildrenAndComments,
   reconstruct: reconstruct,
   merge: merge,
+  hasBranching: hasBranching,
   updateAll: function(root, f) {
     // applies f recursively to all nodes
     var update = function(node) {

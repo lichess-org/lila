@@ -1313,6 +1313,19 @@ body.piece_letter .tview2 move {
 .tview2 lines lines:last-child {
   margin-bottom: 0;
 }
+.tview2 inline {
+  display: inline-block;
+}
+.tview2 inline::before {
+  vertical-align: top;
+  content: '(';
+  margin-left: 3px;
+}
+.tview2 inline::after {
+  vertical-align: top;
+  content: ')';
+  margin-right: 3px;
+}
 .tview2 .conceal {
   opacity: 0.4;
 }
