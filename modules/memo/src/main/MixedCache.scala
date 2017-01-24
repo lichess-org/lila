@@ -38,7 +38,7 @@ object MixedCache {
     val async = AsyncCache(name, f, maxCapacity = 10000, timeToLive = 1 minute)
     val sync = Builder.cache[K, V](
       timeToLive,
-      (k: K) => async(k) await makeTimeout(awaitTime))
+      (k: K) => async(k) await awaitTime)
     new MixedCache(sync, default, invalidate(async, sync) _, logger branch "MixedCache")
   }
 
@@ -64,7 +64,7 @@ object MixedCache {
     val async = AsyncCache.single(name, f, timeToLive = 1 minute)
     val sync = Builder.cache[Boolean, V](
       timeToLive,
-      (_: Boolean) => async(true) await makeTimeout(awaitTime))
+      (_: Boolean) => async(true) await awaitTime)
     new MixedCache(sync, _ => default, invalidate(async, sync) _, logger branch "MixedCache")
   }
 }
