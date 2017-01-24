@@ -526,7 +526,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.mandatoryCeval = function() {
-    return !!this.practice;
+    return !!this.studyPractice;
   }.bind(this);
 
   var cevalReset = function(f) {
