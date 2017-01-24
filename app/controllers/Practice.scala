@@ -23,41 +23,38 @@ object Practice extends LilaController {
   }
 
   def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId)) {
-      case us@UserStudy(_, practiceStudy, chapters, WithChapter(study, chapter)) =>
-        val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-        Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
-          studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
-            case (baseData, studyJson) =>
-              val analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes {
-                  lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-                })
-              val data = lila.practice.JsonView.JsData(
-                study = studyJson,
-                analysis = analysis,
-                practice = lila.practice.JsonView(us))
-              Ok(html.practice.show(us, data))
-          }
+    OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId)) { us =>
+      analysisJson(us) map {
+        case (analysisJson, studyJson) => Ok(html.practice.show(us, lila.practice.JsonView.JsData(
+          study = studyJson,
+          analysis = analysisJson,
+          practice = lila.practice.JsonView(us))))
+      }
     } map NoCache
   }
 
   def chapter(studyId: String, chapterId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId)) {
-      case us@UserStudy(_, practiceStudy, chapters, WithChapter(study, chapter)) =>
-        val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-        Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
-          studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
-            case (baseData, studyJson) =>
-              val analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes {
-                  lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-                })
-              Ok(Json.obj(
-                "study" -> studyJson,
-                "analysis" -> analysis)) as JSON
-          }
+    OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
+      analysisJson(us) map {
+        case (analysisJson, studyJson) => Ok(Json.obj(
+          "study" -> studyJson,
+          "analysis" -> analysisJson)) as JSON
+      }
     } map NoCache
+  }
+
+  private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
+    case UserStudy(_, _, chapters, WithChapter(study, chapter)) =>
+      val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
+      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
+        studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
+          case (baseData, studyJson) =>
+            val analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+              })
+            (analysis, studyJson)
+        }
   }
 
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>
