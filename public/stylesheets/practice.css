@@ -60,9 +60,6 @@ div.game_control {
   font-size: 1.2em;
 }
 .underboard .feedback {
-  position: absolute;
-  top: -10px;
-  left: 0;
   width: 100%;
   padding: 15px 20px;
   box-sizing: border-box;
