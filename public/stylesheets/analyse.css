@@ -1314,17 +1314,24 @@ body.piece_letter .tview2 move {
   margin-bottom: 0;
 }
 .tview2 inline {
-  display: inline-block;
+  display: inline;
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+.tview2 inline::before,
+.tview2 inline::after {
+  vertical-align: 0.4em;
+  opacity: 0.7;
+  font-size: 0.9em;
 }
 .tview2 inline::before {
-  vertical-align: top;
   content: '(';
-  margin-left: 3px;
+  margin-left: 2px;
 }
 .tview2 inline::after {
-  vertical-align: top;
   content: ')';
-  margin-right: 3px;
+  margin-right: 2px;
 }
 .tview2 .conceal {
   opacity: 0.4;
