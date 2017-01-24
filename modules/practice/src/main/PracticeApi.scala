@@ -53,7 +53,7 @@ final class PracticeApi(
         conf <- config.get
         chapters <- studyApi.chapterIdNames(conf.studyIds)
       } yield PracticeStructure.make(conf, chapters),
-      timeToLive = 1.hour)
+      timeToLive = 3.hours)
 
     def get = cache(true)
     def clear = cache.clear
