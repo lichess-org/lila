@@ -4,9 +4,9 @@ var opposite = require('chessground').util.opposite;
 function renderTitle(close) {
   return m('div.title', [
     m('span', 'Practice with the computer'),
-    m('span.close[data-icon=L]', {
+    close ? m('span.close[data-icon=L]', {
       onclick: close
-    })
+    }) : null
   ]);
 }
 
@@ -116,7 +116,7 @@ module.exports = function(root) {
   return m('div', {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
-    renderTitle(root.togglePractice),
+    renderTitle(root.studyPractice ? null : root.togglePractice),
     m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root, end) : renderRunning(root))),
     running ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),

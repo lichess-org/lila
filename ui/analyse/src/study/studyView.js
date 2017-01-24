@@ -172,7 +172,7 @@ module.exports = {
   },
 
   underboard: function(ctrl) {
-    if (ctrl.study && ctrl.study.practice) return practiceView.underboard(ctrl.study);
+    if (ctrl.studyPractice) return practiceView.underboard(ctrl.study);
     if (ctrl.embed) return;
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);

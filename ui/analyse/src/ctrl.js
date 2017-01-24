@@ -452,7 +452,7 @@ module.exports = function(opts) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
             if (this.practice) this.practice.onCeval();
-            if (this.study && this.study.practice) this.study.practice.onCeval();
+            if (this.studyPractice) this.studyPractice.onCeval();
             m.redraw();
           }
         }.bind(this));
@@ -634,6 +634,7 @@ module.exports = function(opts) {
   this.startCeval();
   this.explorer.setNode();
   this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : null;
+  this.studyPractice = this.study ? this.study.practice : null;
 
   this.retro = null;
 
