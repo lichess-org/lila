@@ -97,6 +97,9 @@ div.game_control {
 .underboard .feedback .comment {
   display: block;
 }
+.underboard .feedback .comment iframe {
+  margin: 10px 0;
+}
 
 #practice_app .section {
   width: 742px;

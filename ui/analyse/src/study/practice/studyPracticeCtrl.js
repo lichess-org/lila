@@ -7,12 +7,23 @@ var readOnlyProp = function(value) {
   };
 };
 
+var commentYoutubeRegex = /(?:https?:\/\/)(?:www\.)(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})/gi;
+
 module.exports = function(root, studyData, data) {
 
   var goal = m.prop();
   var comment = m.prop();
   var nbMoves = m.prop(0);
   var won = m.prop(false);
+
+  var makeComment = function(treeRoot) {
+    if (!treeRoot.comments) return;
+    var c = m.trust(treeRoot.comments[0].text.replace(commentYoutubeRegex, function(m, id) {
+      return '<iframe width="472" height="300" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+    }));
+    delete treeRoot.comments;
+    return c;
+  };
 
   var onLoad = function() {
     root.vm.showAutoShapes = readOnlyProp(true);
@@ -21,11 +32,7 @@ module.exports = function(root, studyData, data) {
     goal(root.data.practiceGoal);
     nbMoves(0);
     won(false);
-    var r = root.tree.root;
-    if (r.comments) {
-      comment(r.comments[0].text);
-      delete r.comments;
-    }
+    comment(makeComment(root.tree.root));
   };
   onLoad();
 
