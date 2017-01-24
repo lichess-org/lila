@@ -23,9 +23,6 @@ trait ForumHelper { self: UserHelper with StringHelper =>
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
     Granter isGrantedWrite categSlug
 
-  def isGrantedMod(categSlug: String)(implicit ctx: Context) =
-    Granter.isGrantedMod(categSlug).await
-
   def authorName(post: Post) = post.userId match {
     case Some(userId) => userIdSpanMini(userId, withOnline = true)
     case None         => Html(lila.user.User.anonymous)

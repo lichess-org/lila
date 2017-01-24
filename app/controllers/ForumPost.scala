@@ -1,8 +1,8 @@
 package controllers
 
-import scala.concurrent.duration._
-import lila.common.HTTPRequest
 import lila.app._
+import lila.common.HTTPRequest
+import scala.concurrent.duration._
 import views._
 
 object ForumPost extends LilaController with ForumController {
@@ -38,11 +38,11 @@ object ForumPost extends LilaController with ForumController {
           case (categ, topic, posts) =>
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
             else forms.post.bindFromRequest.fold(
-              err => forms.anyCaptcha flatMap { captcha =>
-                ctx.userId ?? Env.timeline.status(s"forum:${topic.id}") map { unsub =>
-                  BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub))
-                }
-              },
+              err => for {
+                captcha <- forms.anyCaptcha
+                unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
+                canModCateg <- isGrantedMod(categ.slug)
+              } yield BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)),
               data => postApi.makePost(categ, topic, data) map { post =>
                 Redirect(routes.ForumPost.redirect(post.id))
               }
@@ -52,23 +52,22 @@ object ForumPost extends LilaController with ForumController {
     }
   }
 
-  def edit(postId: String) = AuthBody { implicit ctx =>
-    me =>
+  def edit(postId: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
 
-    forms.postEdit.bindFromRequest.fold(err => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-       data =>
-         postApi.editPost(postId, data.changes, me).map { post =>
-            Redirect(routes.ForumPost.redirect(post.id))
-         }
+    forms.postEdit.bindFromRequest.fold(
+      err => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+      data =>
+        postApi.editPost(postId, data.changes, me).map { post =>
+          Redirect(routes.ForumPost.redirect(post.id))
+        }
     )
   }
 
-  def delete(categSlug: String, id: String) = Auth { implicit ctx =>
-    me =>
-      CategGrantMod(categSlug) {
-        postApi.delete(categSlug, id, me) map { Ok(_) }
-      }
+  def delete(categSlug: String, id: String) = Auth { implicit ctx => me =>
+    CategGrantMod(categSlug) {
+      postApi.delete(categSlug, id, me) map { Ok(_) }
+    }
   }
 
   def redirect(id: String) = Open { implicit ctx =>
