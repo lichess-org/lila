@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
+import lila.practice.JsonView._
 import lila.practice.UserStudy
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
@@ -52,7 +53,8 @@ object Practice extends LilaController {
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
                 lila.study.TreeBuilder(chapter.root.withoutChildren, chapter.setup.variant)
-              })
+              },
+              "practiceGoal" -> lila.practice.PracticeGoal(chapter))
             (analysis, studyJson)
         }
   }

@@ -7,8 +7,6 @@ var readOnlyProp = function(value) {
   };
 };
 
-var drawInRegex = /draw in (\d+)/i;
-
 module.exports = function(root, studyData, data) {
 
   var goal = m.prop();
@@ -16,26 +14,11 @@ module.exports = function(root, studyData, data) {
   var nbMoves = m.prop(0);
   var won = m.prop(false);
 
-  var findGoal = function() {
-    var tags = studyData.chapter.tags;
-    for (var i in tags)
-      if (tags[i][0] === 'Termination') {
-        var nbMoves = parseInt(tags[i][1].replace(drawInRegex, '$1'));
-        if (nbMoves) return {
-          result: 'draw',
-          nbMoves: nbMoves
-        };
-      }
-    return {
-      result: 'checkmate'
-    };
-  };
-
   var onLoad = function() {
     root.vm.showAutoShapes = readOnlyProp(true);
     root.vm.showGauge = readOnlyProp(true);
     root.vm.showComputer = readOnlyProp(true);
-    goal(findGoal());
+    goal(root.data.practiceGoal);
     nbMoves(0);
     won(false);
     var r = root.tree.root;
