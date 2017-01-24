@@ -1,5 +1,6 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
+var plural = require('../../util').plural;
 
 var firstRender = true;
 
@@ -26,6 +27,17 @@ function selector(data) {
   ]);
 };
 
+function renderGoal(practice) {
+  switch (practice.goal().result) {
+    case 'checkmate':
+      return 'Checkmate the opponent';
+    case 'draw':
+      return 'Hold the draw for ' + plural('more move', practice.goal().moves - practice.nbMoves());
+    case 'eval':
+      return 'Get a winning position in ' + plural('move', practice.goal().moves - practice.nbMoves());
+  }
+}
+
 module.exports = {
   underboard: function(ctrl) {
     var p = ctrl.practice;
@@ -44,9 +56,7 @@ module.exports = {
     return m('div.feedback.ongoing', [
       m('div.goal', [
         'Your goal: ',
-        m('strong',
-          p.goal().result === 'checkmate' ? 'Checkmate the opponent' :
-          'Hold the draw for ' + (p.goal().nbMoves - p.nbMoves()) + ' more moves.')
+        m('strong', renderGoal(p))
       ]),
       p.comment() ? m('div.comment', p.comment()) : null
     ]);

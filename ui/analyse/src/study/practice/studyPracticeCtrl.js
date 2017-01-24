@@ -29,17 +29,31 @@ module.exports = function(root, studyData, data) {
   };
   onLoad();
 
+  var isDrawish = function(eval) {
+    return eval && eval.depth >= 16 && !eval.mate && Math.abs(eval.cp) < 200;
+  };
+  var isWinning = function(eval, goalCp) {
+    if (!eval || eval.depth < 16) return;
+    var cp = eval.mate > 0 ? 9999 : (eval.mate < 0 ? -9999 : eval.cp);
+    return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
+  };
+
   var checkVictory = function() {
     if (won()) return;
-    var n = root.vm.node;
+    var n = root.vm.node,
+      g = goal();
     nbMoves(Math.floor(n.ply / 2));
-    var isVictory = goal().result === 'checkmate' ? (
-      root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor()
-    ) : (
-      root.gameOver() === 'draw' || (
-        nbMoves() >= goal().nbMoves && n.ceval && n.ceval.depth >= 16 && Math.abs(n.ceval.cp) < 200
-      )
-    );
+    var isVictory = false;
+    switch (g.result) {
+      case 'draw':
+        isVictory = root.gameOver() === 'draw' || (nbMoves() >= g.moves && isDrawish(n.ceval));
+        break;
+      case 'eval':
+        isVictory = nbMoves() >= g.moves && isWinning(n.ceval, g.cp);
+        break;
+      default:
+        isVictory = root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
+    }
     if (!isVictory) return;
     nbMoves(Math.max(1, nbMoves()));
     won(true);
