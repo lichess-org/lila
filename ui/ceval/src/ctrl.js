@@ -160,7 +160,10 @@ module.exports = function(opts) {
   // stop when another tab starts
   lichess.storage.make('ceval.pool.start').listen(function() {
     // click on element, the only way to have chrome act on background tab
-    if (enabled()) $('#analyse-toggle-ceval').click();
+    if (enabled()) {
+      console.log('ceval.pool.start, closing ceval');
+      $('#analyse-toggle-ceval').click();
+    }
   });
 
   return {
