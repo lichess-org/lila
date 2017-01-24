@@ -279,7 +279,8 @@ div.lichess_board {
 }
 
 .brown coord,
-.green coord {
+.green coord,
+.blue coord {
   text-shadow: none;
 }
 .brown .orientation-white .files coords:nth-child(2n+1),
@@ -305,6 +306,18 @@ div.lichess_board {
 .green .orientation-black .files coord:nth-child(2n+1),
 .green .orientation-black .ranks coord:nth-child(2n) {
   color: #6d8753;
+}
+.blue .orientation-white .files coords:nth-child(2n+1),
+.blue .orientation-white .ranks coords:nth-child(2n),
+.blue .orientation-black .files coords:nth-child(2n),
+.blue .orientation-black .ranks coords:nth-child(2n+1) {
+  color: #DEE3E6;
+}
+.blue .orientation-white .files coord:nth-child(2n),
+.blue .orientation-white .ranks coord:nth-child(2n+1),
+.blue .orientation-black .files coord:nth-child(2n+1),
+.blue .orientation-black .ranks coord:nth-child(2n) {
+  color: #788a94;
 }
 
 .kingOfTheHill .cg-board::before {
