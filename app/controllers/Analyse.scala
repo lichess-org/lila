@@ -34,9 +34,9 @@ object Analyse extends LilaController {
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi(pov.game) zip
-          Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-            case (((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked) =>
-              val pgn = Env.api.pgnDump(pov.game, initialFen)
+          Env.bookmark.api.exists(pov.game, ctx.me) zip
+          Env.api.pgnDump(pov.game, initialFen) flatMap {
+            case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
                 analysis,
@@ -89,20 +89,17 @@ object Analyse extends LilaController {
       }
     }
 
-  private def replayBot(pov: Pov)(implicit ctx: Context) =
-    GameRepo initialFen pov.game.id flatMap { initialFen =>
-      (env.analyser get pov.game.id) zip
-        (pov.game.simulId ?? Env.simul.repo.find) zip
-        Env.game.crosstableApi(pov.game) map {
-          case ((analysis, simul), crosstable) =>
-            val pgn = Env.api.pgnDump(pov.game, initialFen)
-            Ok(html.analyse.replayBot(
-              pov,
-              initialFen,
-              Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-              analysis,
-              simul,
-              crosstable))
-        }
-    }
+  private def replayBot(pov: Pov)(implicit ctx: Context) = for {
+    initialFen <- GameRepo initialFen pov.game.id
+    analysis <- env.analyser get pov.game.id
+    simul <- pov.game.simulId ?? Env.simul.repo.find
+    crosstable <- Env.game.crosstableApi(pov.game)
+    pgn <- Env.api.pgnDump(pov.game, initialFen)
+  } yield Ok(html.analyse.replayBot(
+    pov,
+    initialFen,
+    Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+    analysis,
+    simul,
+    crosstable))
 }

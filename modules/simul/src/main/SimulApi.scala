@@ -123,7 +123,8 @@ private[simul] final class SimulApi(
               _.finish(game.status, game.winnerUserId, game.turns)
             )
             update(simul2) >> currentHostIdsCache.clear >>- {
-              if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(simul2.hostId,
+              if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(
+                simul2.hostId,
                 lila.socket.Socket.makeMessage("simulEnd", Json.obj(
                   "id" -> simul.id,
                   "name" -> simul.name
@@ -150,6 +151,9 @@ private[simul] final class SimulApi(
       }
     }
   }
+
+  def idToName(id: Simul.ID): Fu[Option[String]] =
+    repo find id map2 { (simul: Simul) => simul.fullName }
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"

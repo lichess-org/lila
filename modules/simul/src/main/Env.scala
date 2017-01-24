@@ -101,8 +101,6 @@ final class Env(
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
-  lazy val cached = new Cached(repo)
-
   private[simul] val simulColl = db(CollectionSimul)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>

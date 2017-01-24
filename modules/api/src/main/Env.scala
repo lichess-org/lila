@@ -27,7 +27,7 @@ final class Env(
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     getSimul: Simul.ID => Fu[Option[Simul]],
-    getSimulName: Simul.ID => Option[String],
+    getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
     pools: List[lila.pool.PoolConfig],
     val isProd: Boolean) {
@@ -81,8 +81,8 @@ final class Env(
 
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
-    simulName = getSimulName,
-    tournamentName = getTournamentName)
+    getSimulName = getSimulName,
+    getTournamentName = getTournamentName)
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -146,7 +146,7 @@ object Env {
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     getSimul = lila.simul.Env.current.repo.find,
-    getSimulName = lila.simul.Env.current.cached.name,
+    getSimulName = lila.simul.Env.current.api.idToName,
     getTournamentName = lila.tournament.Env.current.cached.name,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
