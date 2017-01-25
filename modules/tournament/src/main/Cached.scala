@@ -16,7 +16,7 @@ private[tournament] final class Cached(
     timeToLive = 6 hours,
     logger = logger)
 
-  def name(id: String): Option[String] = nameCache get id
+  def name(id: String): Option[String] = nameCache sync id
 
   val promotable = AsyncCache.single(
     name = "tournament.promotable",

@@ -27,7 +27,7 @@ final class LastPostCache(
     }
   }
 
-  def apply = cache get true
+  def apply = cache sync true
 
   private[blog] def clear {
     cache invalidate true

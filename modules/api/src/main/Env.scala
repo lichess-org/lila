@@ -71,7 +71,7 @@ final class Env(
       strategy = Syncache.NeverWait,
       timeToLive = 10.seconds,
       logger = lila.log("assetVersion"))(system)
-    def get = cache get true
+    def get = cache sync true
   }
 
   object Accessibility {

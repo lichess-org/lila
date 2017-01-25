@@ -13,7 +13,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     timeToLive = 12 hours,
     logger = logger)
 
-  def name(id: String) = nameCache get id
+  def name(id: String) = nameCache sync id
 
   private[team] val teamIdsCache = MixedCache[String, Set[String]](
     name = "team.ids",

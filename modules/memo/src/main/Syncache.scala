@@ -24,9 +24,9 @@ final class Syncache[K, V](
   private val chm = new ConcurrentHashMap[K, Fu[V]]
 
   // sync cached values
-  private val sync = Builder.expiry[K, V](timeToLive)
+  private val cache = Builder.expiry[K, V](timeToLive)
 
-  def get(k: K): V = Option(sync getIfPresent k) getOrElse {
+  def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
     // println(s"*** $name miss $k")
     chm.computeIfAbsent(k, loadFunction)
     strategy match {
@@ -38,7 +38,15 @@ final class Syncache[K, V](
     }
   }
 
-  def invalidate(k: K): Unit = sync invalidate k
+  // get the value asynchronously, never block (preferred)
+  def async(k: K): Fu[V] = Option(cache getIfPresent k) match {
+    case Some(v) => fuccess(v)
+    case None =>
+      chm.computeIfAbsent(k, loadFunction)
+      chm get k
+  }
+
+  def invalidate(k: K): Unit = cache invalidate k
 
   // TODO preload stuff (homepage usernames)
   // def preload(keys: List[K]): Funit
@@ -56,8 +64,8 @@ final class Syncache[K, V](
             chm remove k
           },
           res => {
-            // println(s"*** $name sync put $k")
-            sync.put(k, res)
+            // println(s"*** $name cache put $k")
+            cache.put(k, res)
             chm remove k
           }
         )
