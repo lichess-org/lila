@@ -33,7 +33,7 @@ final class Syncache[K, V](
       // println(s"*** $name chm put $k")
       compute(k).withTimeout(
         duration = resultTimeout,
-        error = lila.common.LilaException(s"MixedCache2 $name $k timed out after $resultTimeout")
+        error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
       ).addEffects(
           err => {
             // println(s"*** $name chm fail $k")
