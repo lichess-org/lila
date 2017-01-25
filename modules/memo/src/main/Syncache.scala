@@ -3,8 +3,6 @@ package lila.memo
 import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 
-import com.google.common.cache.{ LoadingCache => SyncCache }
-
 /**
  * A synchronous cache from asynchronous computations.
  * It will attempt to serve cached responses synchronously.
