@@ -3,6 +3,7 @@ package lila.api
 import akka.actor._
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
+import lila.memo.Syncache
 import lila.simul.Simul
 import scala.concurrent.duration._
 
@@ -58,14 +59,15 @@ final class Env(
     import reactivemongo.bson._
     import lila.db.dsl._
     private val coll = db("flag")
-    private val cache = lila.memo.MixedCache.single[Int](
+    private val cache = new Syncache[Boolean, Int](
       name = "asset.version",
-      f = coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
-        _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
-      },
+      compute = _ => coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
+      _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
+    },
+      default = _ => Net.AssetVersion,
+      strategy = Syncache.NeverWait,
       timeToLive = 10.seconds,
-      default = Net.AssetVersion,
-      logger = lila.log("assetVersion"))
+      logger = lila.log("assetVersion"))(system)
     def get = cache get true
   }
 
