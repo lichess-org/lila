@@ -181,6 +181,7 @@ div.post .message {
   margin-top: 1.5em;
   color: #555;
   line-height: 1.5em;
+  cursor: initial;
 }
 
 div.post .message iframe.analyse {

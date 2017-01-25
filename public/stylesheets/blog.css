@@ -42,6 +42,7 @@
   font-size: 1.4em;
   line-height: 1.6;
   margin: 20px 0 80px 0;
+  cursor: initial;
 }
 #lichess_blog .body p {
   margin: 15px 0;
