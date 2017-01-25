@@ -29,6 +29,8 @@ final class Syncache[K, V](
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
     // println(s"*** $name miss $k")
+    // Thread.dumpStack()
+    incMiss()
     chm.computeIfAbsent(k, loadFunction)
     strategy match {
       case NeverWait            => default(k)
@@ -51,6 +53,8 @@ final class Syncache[K, V](
 
   def preloadOne(k: K): Funit =
     if (cache.getIfPresent(k) == null) {
+      incPreload()
+      // println(s"*** $name preload $k")
       chm.computeIfAbsent(k, loadFunction)
       chm.get(k).void
     }
@@ -81,17 +85,19 @@ final class Syncache[K, V](
 
   private def waitForResult(k: K, duration: FiniteDuration): V =
     Option(chm get k).fold(default(k)) { fu =>
+      incWait()
+      // println(s"*** $name wait $k")
       try {
-        val v = fu await duration
-        // println(s"*** $name wait success $k")
-        v
+        fu await duration
       }
       catch {
-        case e: java.util.concurrent.TimeoutException =>
-          // println(s"*** $name wait timeout $k $e")
-          default(k)
+        case e: java.util.concurrent.TimeoutException => default(k)
       }
     }
+
+  private val incMiss = lila.mon.syncache.miss(name)
+  private val incWait = lila.mon.syncache.wait(name)
+  private val incPreload = lila.mon.syncache.preload(name)
 }
 
 object Syncache {

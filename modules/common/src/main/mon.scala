@@ -54,6 +54,11 @@ object mon {
       val websocket = inc("http.csrf.websocket")
     }
   }
+  object syncache {
+    def miss(name: String) = inc(s"syncache.miss.$name")
+    def wait(name: String) = inc(s"syncache.wait.$name")
+    def preload(name: String) = inc(s"syncache.preload.$name")
+  }
   object lobby {
     object hook {
       val create = inc("lobby.hook.create")
