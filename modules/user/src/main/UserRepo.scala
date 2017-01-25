@@ -58,7 +58,7 @@ object UserRepo {
   def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
 
   // expensive, send to secondary
-  def byIdsSortRating(ids: Iterable[ID], nb: Int) =
+  def byIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll.find($inIds(ids) ++ goodLadSelectBson)
       .sort($sort desc "perfs.standard.gl.r")
       .cursor[User](ReadPreference.secondaryPreferred)

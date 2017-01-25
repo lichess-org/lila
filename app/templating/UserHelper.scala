@@ -150,7 +150,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
-    params: String = "") = Html {
+    params: String = ""): Html = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, params)
     val content = text | user.username

@@ -70,8 +70,7 @@ object User extends LilaController {
       html = notFound,
       api = _ => env.cached top50Online true map { list =>
       Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
-    }
-    )
+    })
   }
 
   private def filter(
