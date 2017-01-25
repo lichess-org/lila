@@ -4,7 +4,12 @@ import com.typesafe.config.Config
 
 import lila.notify.NotifyApi
 
-final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lila.db.Env) {
+final class Env(
+    config: Config,
+    hub: lila.hub.Env,
+    notifyApi: NotifyApi,
+    system: akka.actor.ActorSystem,
+    db: lila.db.Env) {
 
   private val settings = new {
     val CollectionTeam = config getString "collection.team"
@@ -39,7 +44,7 @@ final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lil
 
   lazy val cli = new Cli(api, colls)
 
-  lazy val cached = new Cached
+  lazy val cached = new Cached()(system)
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 }
@@ -50,5 +55,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "team",
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current)
 }

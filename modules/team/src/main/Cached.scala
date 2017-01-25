@@ -1,15 +1,16 @@
 package lila.team
 
-import lila.memo.{ MixedCache, AsyncCache }
+import lila.memo.{ Syncache, MixedCache, AsyncCache }
 import scala.concurrent.duration._
 
-private[team] final class Cached {
+private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
 
-  private val nameCache = MixedCache[String, Option[String]](
+  private val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
-    TeamRepo.name,
-    timeToLive = 6 hours,
+    compute = TeamRepo.name,
     default = _ => none,
+    strategy = Syncache.WaitAfterUptime(30 millis),
+    timeToLive = 12 hours,
     logger = logger)
 
   def name(id: String) = nameCache get id
