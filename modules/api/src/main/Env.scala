@@ -3,9 +3,7 @@ package lila.api
 import akka.actor._
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
-import lila.memo.Syncache
 import lila.simul.Simul
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -54,25 +52,9 @@ final class Env(
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
-  object assetVersion {
-    import reactivemongo.bson._
-    import lila.db.dsl._
-    private val initialVersion = config getInt "net.asset.version"
-    private var lastVersion = initialVersion
-    private val coll = db("flag")
-    private val cache = new Syncache[Boolean, Int](
-      name = "asset.version",
-      compute = _ => coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
-      _.fold(lastVersion)(_.toInt max initialVersion)
-    } addEffect { version =>
-      lastVersion = version
-    },
-      default = _ => lastVersion,
-      strategy = Syncache.NeverWait,
-      timeToLive = 10.seconds,
-      logger = lila.log("assetVersion"))(system)
-    def get = cache sync true
-  }
+  val assetVersion = new AssetVersionApi(
+    initialVersion = config getInt "net.asset.version",
+    coll = db("flag"))(system)
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
