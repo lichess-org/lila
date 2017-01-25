@@ -43,7 +43,6 @@ final class Env(
     val BaseUrl = config getString "net.base_url"
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
-    val AssetVersion = config getInt "net.asset.version"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
   }
@@ -58,13 +57,17 @@ final class Env(
   object assetVersion {
     import reactivemongo.bson._
     import lila.db.dsl._
+    private val initialVersion = config getInt "net.asset.version"
+    private var lastVersion = initialVersion
     private val coll = db("flag")
     private val cache = new Syncache[Boolean, Int](
       name = "asset.version",
       compute = _ => coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
-      _.fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
+      _.fold(lastVersion)(_.toInt max initialVersion)
+    } addEffect { version =>
+      lastVersion = version
     },
-      default = _ => Net.AssetVersion,
+      default = _ => lastVersion,
       strategy = Syncache.NeverWait,
       timeToLive = 10.seconds,
       logger = lila.log("assetVersion"))(system)
