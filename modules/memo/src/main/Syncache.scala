@@ -56,7 +56,7 @@ final class Syncache[K, V](
     }
     else funit
 
-  def preloadMany(ks: List[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
+  def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {
