@@ -51,6 +51,7 @@ object ForumTopic extends LilaController with ForumController {
             canWrite <- isGrantedWrite(categSlug)
             form <- (!posts.hasNextPage && canWrite && topic.open) ?? forms.postWithCaptcha.map(_.some)
             canModCateg <- isGrantedMod(categ.slug)
+            _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
           } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
         }
       }

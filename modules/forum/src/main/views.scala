@@ -28,6 +28,7 @@ case class TopicView(
   def nbPosts = topic nbPosts troll
   def nbReplies = topic nbReplies troll
   def lastPostId = topic lastPostId troll
+  def lastPostUserId = lastPost.flatMap(_.userId)
 
   def id = topic.id
   def slug = topic.slug

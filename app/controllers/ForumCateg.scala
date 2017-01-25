@@ -20,10 +20,10 @@ object ForumCateg extends LilaController with ForumController {
       Reasonable(page, 50, errorPage = notFound) {
         CategGrantRead(slug) {
           OptionFuOk(categApi.show(slug, page, ctx.troll)) {
-            case (categ, topics) =>
-              isGrantedWrite(categ.slug) map { canWrite =>
-                html.forum.categ.show(categ, topics, canWrite)
-              }
+            case (categ, topics) => for {
+              canWrite <- isGrantedWrite(categ.slug)
+              _ <- Env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
+            } yield html.forum.categ.show(categ, topics, canWrite)
           }
         }
       }
