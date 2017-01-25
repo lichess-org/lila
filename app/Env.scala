@@ -39,7 +39,7 @@ final class Env(
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
     isHostingSimul = Env.simul.isHosting,
-    isStreamer = Env.tv.isStreamer.apply,
+    fetchIsStreamer = Env.tv.isStreamer.apply,
     fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,

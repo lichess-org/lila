@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.db.dsl._
-import lila.memo.Syncache
+import lila.memo.AsyncCache
 
 import scala.concurrent.duration._
 
@@ -53,14 +53,11 @@ final class Env(
   })
 
   object isStreamer {
-    private val cache = new Syncache[Boolean, Set[String]](
+    private val cache = AsyncCache.single[Set[lila.user.User.ID]](
       name = "tv.streamers",
-      compute = _ => streamerList.lichessIds,
-      default = _ => Set.empty,
-      strategy = Syncache.WaitAfterUptime(50 millis),
-      timeToLive = 10 seconds,
-      logger = logger)(system)
-    def apply(id: String) = cache get true contains id
+      f = streamerList.lichessIds,
+      timeToLive = 10 seconds)
+    def apply(id: lila.user.User.ID): Fu[Boolean] = cache(true) map { _ contains id }
   }
 
   object streamsOnAir {

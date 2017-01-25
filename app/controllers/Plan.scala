@@ -63,11 +63,12 @@ object Plan extends LilaController {
     nbFollowers <- Env.relation.api.countFollowers(me.id)
     nbFollowing <- Env.relation.api.countFollowing(me.id)
     nbForumPosts <- Env.forum.postApi.nbByUser(me.id)
+    isStreamer <- Env.tv.isStreamer(me.id)
   } yield lila.plan.PlanTrackingUserData(
     user = me,
     nbTournaments = tournaments.allPerfResults.nb,
     medianTournamentRank = tournaments.allPerfResults.rankPercentMedian,
-    isStreamer = Env.tv.isStreamer(me.id),
+    isStreamer = isStreamer,
     nbFollowers = nbFollowers,
     nbFollowing = nbFollowing,
     nbForumPosts = nbForumPosts)
