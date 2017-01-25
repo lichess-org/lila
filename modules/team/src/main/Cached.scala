@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.memo.{ Syncache, MixedCache, AsyncCache }
+import lila.memo.{ Syncache, AsyncCache }
 import scala.concurrent.duration._
 
 private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
@@ -15,14 +15,15 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
 
   def name(id: String) = nameCache sync id
 
-  private[team] val teamIdsCache = MixedCache[String, Set[String]](
+  private[team] val teamIdsCache = new Syncache[String, Set[String]](
     name = "team.ids",
-    MemberRepo.teamIdsByUser,
-    timeToLive = 2 hours,
+    compute = MemberRepo.teamIdsByUser,
     default = _ => Set.empty,
+    strategy = Syncache.WaitAfterUptime(30 millis),
+    timeToLive = 2 hours,
     logger = logger)
 
-  def teamIds(userId: String) = teamIdsCache get userId
+  def teamIds(userId: String) = teamIdsCache sync userId
 
   val nbRequests = AsyncCache[String, Int](
     name = "team.nbRequests",
