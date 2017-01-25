@@ -42,18 +42,6 @@ object MixedCache {
     new MixedCache(sync, default, invalidate(async, sync) _, logger branch "MixedCache")
   }
 
-  // def fromAsync[K, V](
-  //   async: AsyncCache[K,V],
-  //   timeToLive: Duration = Duration.Inf,
-  //   awaitTime: FiniteDuration = 10.milliseconds,
-  //   default: K => V,
-  //   logger: lila.log.Logger): MixedCache[K, V] = {
-  //   val sync = Builder.cache[K, V](
-  //     timeToLive,
-  //     (k: K) => async(k) await makeTimeout(awaitTime))
-  //   new MixedCache(sync, default, invalidate(async, sync) _, logger branch "MixedCache")
-  // }
-
   def single[V](
     name: String,
     f: => Fu[V],
