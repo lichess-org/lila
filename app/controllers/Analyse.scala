@@ -28,7 +28,7 @@ object Analyse extends LilaController {
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.game.id flatMap { initialFen =>
-      RedirectAtFen(pov, initialFen) {
+      Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game.id) zip
           Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip

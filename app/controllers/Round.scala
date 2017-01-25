@@ -49,7 +49,7 @@ object Round extends LilaController with TheftPrevention {
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = pov.game.started.fold(
-        PreventTheft(pov) {
+        Game.preloadUsers(pov.game) >> PreventTheft(pov) {
           myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             getPlayerChat(pov.game) zip
@@ -158,7 +158,7 @@ object Round extends LilaController with TheftPrevention {
   def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-      case _ => negotiate(
+      case _ => Game.preloadUsers(pov.game) >> negotiate(
         html = {
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
           else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
