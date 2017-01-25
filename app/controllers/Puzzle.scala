@@ -1,8 +1,8 @@
 package controllers
 
+import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
 import lila.api.Context
@@ -173,13 +173,17 @@ object Puzzle extends LilaController {
       Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
         _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
           case Some((game, initialFen)) =>
-            Ok(Env.api.pgnDump(game, initialFen.map(_.value)).toString).fuccess
+            Env.api.pgnDump(game, initialFen.map(_.value)) map { pgn =>
+              Ok(pgn.render)
+            }
           case _ =>
             lila.log("puzzle import").info("No recent good game, serving a random one :-/")
             lila.game.GameRepo.findRandomFinished(1000) flatMap {
               _ ?? { game =>
-                lila.game.GameRepo.initialFen(game) map { fen =>
-                  Ok(Env.api.pgnDump(game, fen).toString)
+                lila.game.GameRepo.initialFen(game) flatMap { fen =>
+                  Env.api.pgnDump(game, fen) map { pgn =>
+                    Ok(pgn.render)
+                  }
                 }
               }
             }
