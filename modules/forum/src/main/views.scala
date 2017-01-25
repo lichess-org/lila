@@ -10,6 +10,7 @@ case class CategView(
   def nbTopics = categ nbTopics troll
   def nbPosts = categ nbPosts troll
   def lastPostId = categ lastPostId troll
+  def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
   def slug = categ.slug
   def name = categ.name

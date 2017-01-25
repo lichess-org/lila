@@ -10,6 +10,7 @@ object ForumCateg extends LilaController with ForumController {
       for {
         teamIds <- ctx.userId ?? teamCache.teamIds
         categs <- categApi.list(teamIds, ctx.troll)
+        _ <- Env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
       } yield html.forum.categ.index(categs)
     }
   }
