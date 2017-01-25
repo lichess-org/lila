@@ -27,7 +27,7 @@ final class Env(
 
   lazy val userColl = db(CollectionUser)
 
-  lazy val lightUserApi = new LightUserApi(userColl)
+  lazy val lightUserApi = new LightUserApi(userColl)(system)
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
@@ -43,7 +43,7 @@ final class Env(
 
   def lightUser(id: User.ID): Option[lila.common.LightUser] = lightUserApi get id
 
-  def uncacheLightUser(id: User.ID): Funit = lightUserApi invalidate id
+  def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 

@@ -85,7 +85,7 @@ object Mod extends LilaController {
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
       err => fuccess(redirect(username, mod = true)),
-      title => modApi.setTitle(me.id, username, title) >>
+      title => modApi.setTitle(me.id, username, title) >>-
         Env.user.uncacheLightUser(UserModel normalize username) inject
         redirect(username, mod = false)
     )

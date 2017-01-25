@@ -1,15 +1,16 @@
 package lila.user
 
-import lila.common.LightUser
-
-import lila.db.dsl._
 import reactivemongo.bson._
 import scala.concurrent.duration._
+
+import lila.common.LightUser
+import lila.db.dsl._
+import lila.memo.Syncache
 import User.{ BSONFields => F }
 
-final class LightUserApi(coll: Coll) {
+final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
 
-  def get(id: String): Option[LightUser] = cache get id
+  def get(id: String): Option[LightUser] = cache sync id
 
   def invalidate = cache invalidate _
 
@@ -19,21 +20,20 @@ final class LightUserApi(coll: Coll) {
 
   private implicit val lightUserReader = new BSONDocumentReader[LightUser] {
 
-    def read(doc: BSONDocument) =
-      LightUser(
-        id = doc.getAs[String](F.id) err "LightUser id missing",
-        name = doc.getAs[String](F.username) err "LightUser username missing",
-        title = doc.getAs[String](F.title),
-        isPatron = ~doc.getAs[Bdoc](F.plan).flatMap(_.getAs[Boolean]("active")))
+    def read(doc: BSONDocument) = LightUser(
+      id = doc.getAs[String](F.id) err "LightUser id missing",
+      name = doc.getAs[String](F.username) err "LightUser username missing",
+      title = doc.getAs[String](F.title),
+      isPatron = ~doc.getAs[Bdoc](F.plan).flatMap(_.getAs[Boolean]("active")))
   }
 
-  private val cache = lila.memo.MixedCache[String, Option[LightUser]](
+  private val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)
+
+  private val cache = new Syncache[String, Option[LightUser]](
     name = "user.light",
-    id => coll.find(
-      $id(id),
-      $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)
-    ).uno[LightUser],
-    timeToLive = 20 minutes,
+    compute = id => coll.find($id(id), projection).uno[LightUser],
     default = id => LightUser(id, id, None, false).some,
+    strategy = Syncache.WaitAfterUptime(10 millis),
+    timeToLive = 20 minutes,
     logger = logger branch "LightUserApi")
 }

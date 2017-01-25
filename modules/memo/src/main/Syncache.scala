@@ -26,6 +26,7 @@ final class Syncache[K, V](
   // sync cached values
   private val cache = Builder.expiry[K, V](timeToLive)
 
+  // get the value synchronously, might block depending on strategy
   def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
     // println(s"*** $name miss $k")
     chm.computeIfAbsent(k, loadFunction)
@@ -38,7 +39,7 @@ final class Syncache[K, V](
     }
   }
 
-  // get the value asynchronously, never block (preferred)
+  // get the value asynchronously, never blocks (preferred)
   def async(k: K): Fu[V] = Option(cache getIfPresent k) match {
     case Some(v) => fuccess(v)
     case None =>

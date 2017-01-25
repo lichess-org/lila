@@ -314,7 +314,7 @@ final class PlanApi(
   }
 
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
-    UserRepo.setPlan(user, plan) >> lightUserApi.invalidate(user.id)
+    UserRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
 
   private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data, plan) flatMap { customer =>
