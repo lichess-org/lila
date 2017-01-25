@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     db: lila.db.Env,
     config: Config,
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lila.common.LightUser.GetterSync,
     system: ActorSystem) {
 
   private val CollectionNotifications = config getString "collection.notify"
@@ -42,7 +42,7 @@ object Env {
   lazy val current = "notify" boot new Env(
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "notify",
-    getLightUser = lila.user.Env.current.lightUser,
+    getLightUser = lila.user.Env.current.lightUserSync,
     system = lila.common.PlayApp.system)
 
 }

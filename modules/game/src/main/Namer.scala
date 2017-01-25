@@ -5,10 +5,10 @@ import play.twirl.api.Html
 
 object Namer {
 
-  def players(game: Game, withRatings: Boolean = true)(implicit lightUser: LightUser.Getter): (Html, Html) =
+  def players(game: Game, withRatings: Boolean = true)(implicit lightUser: LightUser.GetterSync): (Html, Html) =
     player(game.firstPlayer, withRatings) -> player(game.secondPlayer, withRatings)
 
-  def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.Getter) = Html {
+  def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) = Html {
     p.aiLevel.fold(
       p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
         if (withRating) s"${withTitle.fold(user.titleNameHtml, user.name)}&nbsp;(${ratingString(p)})"
@@ -16,14 +16,14 @@ object Namer {
       }) { level => s"A.I. level $level" }
   }
 
-  def playerText(player: Player, withRating: Boolean = false)(implicit lightUser: LightUser.Getter): String =
+  def playerText(player: Player, withRating: Boolean = false)(implicit lightUser: LightUser.GetterSync): String =
     player.aiLevel.fold(
       player.userId.flatMap(lightUser).fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r => s"${u.titleName} ($r)" }
       }
     ) { level => s"A.I. level $level" }
 
-  def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): String =
+  def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.GetterSync): String =
     s"${playerText(game.whitePlayer, withRatings)} - ${playerText(game.blackPlayer, withRatings)}"
 
   private def ratingString(p: Player) = p.rating match {
@@ -31,6 +31,6 @@ object Namer {
     case _            => "?"
   }
 
-  def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: String => Option[LightUser]) =
+  def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) =
     player(p, withRating, withTitle)(lightUser).body.replace("&nbsp;", " ")
 }

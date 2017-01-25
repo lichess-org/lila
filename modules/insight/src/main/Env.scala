@@ -7,7 +7,6 @@ final class Env(
     config: Config,
     getPref: String => Fu[lila.pref.Pref],
     areFriends: (String, String) => Fu[Boolean],
-    lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
@@ -55,7 +54,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "insight",
     getPref = lila.pref.Env.current.api.getPrefById,
     areFriends = lila.relation.Env.current.api.fetchAreFriends,
-    lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle)
 }

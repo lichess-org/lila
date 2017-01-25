@@ -41,7 +41,8 @@ final class Env(
 
   val forms = DataForm
 
-  def lightUser(id: User.ID): Option[lila.common.LightUser] = lightUserApi get id
+  def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
+  def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 

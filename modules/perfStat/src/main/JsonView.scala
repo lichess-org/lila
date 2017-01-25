@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 
-final class JsonView(getLightUser: String => Option[LightUser]) {
+final class JsonView(getLightUser: LightUser.GetterSync) {
 
   import JsonView._
 

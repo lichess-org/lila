@@ -18,7 +18,7 @@ private final class Socket(
     studyId: Study.Id,
     jsonView: JsonView,
     studyRepo: StudyRepo,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: LightUser.GetterSync,
     val history: History[Socket.Messadata],
     destCache: LoadingCache[AnaDests.Ref, AnaDests],
     uidTimeout: Duration,
@@ -160,7 +160,7 @@ private final class Socket(
       val json =
         if (members.size <= maxSpectatorUsers) fuccess(showSpectators(lightUser)(members.values))
         else studyRepo.uids(studyId) map { memberIds =>
-          showSpectatorsAndMembers(lightUser)(memberIds, members.values)
+          showSpectatorsAndMembers(memberIds, members.values)
         }
       json foreach { notifyAll("crowd", _) }
   }: Actor.Receive) orElse lila.chat.Socket.out(
@@ -178,7 +178,7 @@ private final class Socket(
 
   // always show study members
   // since that's how the client knows if they're online
-  def showSpectatorsAndMembers(lightUser: String => Option[LightUser])(memberIds: Set[User.ID], watchers: Iterable[Member]): JsValue = {
+  def showSpectatorsAndMembers(memberIds: Set[User.ID], watchers: Iterable[Member]): JsValue = {
 
     val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
       case ((total, anons, userIds), member) => member.userId match {

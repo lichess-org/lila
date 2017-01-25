@@ -48,7 +48,7 @@ object Insight extends LilaController {
         err => BadRequest(jsonError(err.toString)).fuccess,
         qJson => qJson.question.fold(BadRequest.fuccess) { q =>
           env.api.ask(q, user) map
-            lila.insight.Chart.fromAnswer(Env.user.lightUser) map
+            lila.insight.Chart.fromAnswer(Env.user.lightUserSync) map
             env.jsonView.chart.apply map { Ok(_) }
         }
       )

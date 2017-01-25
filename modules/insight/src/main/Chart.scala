@@ -29,7 +29,7 @@ object Chart {
     stack: Option[String],
     data: List[Double])
 
-  def fromAnswer[X](getLightUser: String => Option[LightUser])(answer: Answer[X]): Chart = {
+  def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X]): Chart = {
 
     import answer._, question._
 

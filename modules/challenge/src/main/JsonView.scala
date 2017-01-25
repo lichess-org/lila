@@ -5,7 +5,7 @@ import play.api.libs.json._
 import lila.common.PimpedJson._
 
 final class JsonView(
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.user.User.ID => Boolean) {
 
   import Challenge._

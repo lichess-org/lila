@@ -19,7 +19,7 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     notifier: StudyNotifier,
     tagsFixer: ChapterTagsFixer,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
     indexer: ActorSelection,

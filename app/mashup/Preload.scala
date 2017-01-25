@@ -24,7 +24,7 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUser: String => Option[LightUser]) {
+    lightUser: LightUser.GetterSync) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
@@ -55,7 +55,7 @@ object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 
-  def currentGame(lightUser: String => Option[LightUser])(user: User) =
+  def currentGame(lightUser: LightUser.GetterSync)(user: User) =
     GameRepo.urgentGames(user) map { povs =>
       povs.find { p =>
         p.game.nonAi && p.game.hasClock && p.isMyTurn

@@ -8,7 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     renderer: ActorSelection,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.common.LightUser.GetterSync,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
@@ -80,7 +80,7 @@ object Env {
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     renderer = lila.hub.Env.current.actor.renderer,
-    lightUser = lila.user.Env.current.lightUser _,
+    lightUser = lila.user.Env.current.lightUserSync,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle)
 }

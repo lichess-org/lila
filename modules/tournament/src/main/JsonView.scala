@@ -14,7 +14,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 final class JsonView(
-    getLightUser: String => Option[LightUser],
+    getLightUser: LightUser.GetterSync,
     cached: Cached,
     performance: Performance,
     statsApi: TournamentStatsApi,

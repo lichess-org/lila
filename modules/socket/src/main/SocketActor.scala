@@ -167,7 +167,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val maxSpectatorUsers = 10
 
-  def showSpectators(lightUser: String => Option[LightUser])(watchers: Iterable[SocketMember]): JsValue = {
+  def showSpectators(lightUser: LightUser.GetterSync)(watchers: Iterable[SocketMember]): JsValue = {
 
     val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
       case ((total, anons, userIds), member) => member.userId match {

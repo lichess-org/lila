@@ -14,7 +14,7 @@ final class Env(
     getPref: String => Fu[lila.pref.Pref],
     system: ActorSystem,
     isOnline: lila.user.User.ID => Boolean,
-    lightUser: lila.common.LightUser.Getter) {
+    lightUser: lila.common.LightUser.GetterSync) {
 
   private val CollectionThread = config getString "collection.thread"
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
@@ -57,5 +57,5 @@ object Env {
     getPref = lila.pref.Env.current.api.getPref,
     system = lila.common.PlayApp.system,
     isOnline = lila.user.Env.current.isOnline,
-    lightUser = lila.user.Env.current.lightUser)
+    lightUser = lila.user.Env.current.lightUserSync)
 }

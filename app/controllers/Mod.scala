@@ -206,7 +206,7 @@ object Mod extends LilaController {
   }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
-    implicit val lightUser = Env.user.lightUser _
+    implicit val lightUser = Env.user.lightUserSync _
     JsonOptionOk {
       Env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
     }

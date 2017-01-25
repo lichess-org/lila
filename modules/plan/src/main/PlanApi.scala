@@ -256,7 +256,7 @@ final class PlanApi(
       topPatronUserIdsCache.clear >>- {
         monthlyGoalApi.get foreach { m =>
           bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-            username = charge.userId.flatMap(lightUserApi.get).fold("Anonymous")(_.name),
+            username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
             amount = charge.cents.value,
             percent = m.percent,
             DateTime.now), 'plan)

@@ -11,7 +11,7 @@ import lila.common.String.slugify
 final class PgnDump(
     chapterRepo: ChapterRepo,
     gamePgnDump: lila.game.PgnDump,
-    lightUser: LightUser.Getter,
+    lightUser: LightUser.GetterSync,
     netBaseUrl: String) {
 
   import PgnDump._

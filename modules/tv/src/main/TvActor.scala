@@ -12,7 +12,7 @@ private[tv] final class TvActor(
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
     selectChannel: ActorRef,
-    lightUser: String => Option[LightUser]) extends Actor {
+    lightUser: LightUser.GetterSync) extends Actor {
 
   import TvActor._
 

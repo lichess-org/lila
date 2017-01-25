@@ -13,7 +13,7 @@ import lila.rating.{ Perf, PerfType }
 final class RankingApi(
     coll: Coll,
     mongoCache: MongoCache.Builder,
-    lightUser: String => Option[lila.common.LightUser]) {
+    lightUser: lila.common.LightUser.Getter) {
 
   import RankingApi._
   private implicit val rankingBSONHandler = Macros.handler[Ranking]
@@ -51,16 +51,18 @@ final class RankingApi(
       coll.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
         .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
-        .gather[List](nb) map {
-          _.flatMap { r =>
-            lightUser(r.user).map { light =>
-              User.LightPerf(
-                user = light,
-                perfKey = perfKey,
-                rating = r.rating,
-                progress = ~r.prog)
+        .gather[List](nb) flatMap {
+          _.map { r =>
+            lightUser(r.user).map {
+              _ map { light =>
+                User.LightPerf(
+                  user = light,
+                  perfKey = perfKey,
+                  rating = r.rating,
+                  progress = ~r.prog)
+              }
             }
-          }
+          }.sequenceFu.map(_.flatten)
         }
     }
 
@@ -112,14 +114,14 @@ final class RankingApi(
           Match($doc("perf" -> perfId)),
           List(
             Project($doc(
-            "_id" -> false,
-            "r" -> $doc(
-              "$subtract" -> $arr(
-                "$rating",
-                $doc("$mod" -> $arr("$rating", Stat.group))
+              "_id" -> false,
+              "r" -> $doc(
+                "$subtract" -> $arr(
+                  "$rating",
+                  $doc("$mod" -> $arr("$rating", Stat.group))
+                )
               )
-            )
-          )),
+            )),
             GroupField("r")("nb" -> SumValue(1))
           )).map { res =>
             val hash = res.firstBatch.flatMap { obj =>

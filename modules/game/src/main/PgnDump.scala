@@ -9,7 +9,7 @@ import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: String => Option[LightUser]) {
+    getLightUser: LightUser.GetterSync) {
 
   import PgnDump._
 

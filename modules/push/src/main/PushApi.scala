@@ -16,7 +16,7 @@ import lila.message.{ Thread, Post }
 private final class PushApi(
     googlePush: GooglePush,
     oneSignalPush: OneSignalPush,
-    implicit val lightUser: String => Option[LightUser],
+    implicit val lightUser: LightUser.GetterSync,
     roundSocketHub: ActorSelection,
     scheduler: lila.common.Scheduler) {
 

@@ -15,7 +15,7 @@ final class Env(
     system: ActorSystem,
     onStart: String => Unit,
     gameCache: lila.game.Cached,
-    lightUser: String => Option[lila.common.LightUser],
+    lightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.user.User.ID => Boolean,
     hub: lila.hub.Env,
     db: lila.db.Env,
@@ -79,7 +79,7 @@ object Env {
     onStart = lila.game.Env.current.onStart,
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,
-    lightUser = lila.user.Env.current.lightUser,
+    lightUser = lila.user.Env.current.lightUserSync,
     isOnline = lila.user.Env.current.isOnline,
     db = lila.db.Env.current,
     scheduler = lila.common.PlayApp.scheduler)

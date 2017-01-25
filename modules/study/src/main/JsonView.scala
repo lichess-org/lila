@@ -12,7 +12,7 @@ import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.Getter) {
+    lightUser: LightUser.GetterSync) {
 
   import JsonView._
 

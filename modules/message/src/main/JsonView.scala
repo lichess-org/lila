@@ -10,7 +10,7 @@ import lila.user.User
 
 final class JsonView(
     isOnline: lila.user.User.ID => Boolean,
-    lightUser: LightUser.Getter) {
+    lightUser: LightUser.GetterSync) {
 
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(PaginatorJson(threads.mapResults { t =>

@@ -11,7 +11,7 @@ import lila.user.UserContext
 
 final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
-    lightUser: String => Option[LightUser],
+    lightUser: LightUser.GetterSync,
     seekApi: SeekApi,
     pools: List[lila.pool.PoolConfig]) {
 

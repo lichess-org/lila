@@ -50,7 +50,7 @@ final class Syncache[K, V](
   def invalidate(k: K): Unit = cache invalidate k
 
   // TODO preload stuff (homepage usernames)
-  // def preload(keys: List[K]): Funit
+  def preload(keys: List[K]): Funit = ???
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {

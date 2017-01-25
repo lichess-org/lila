@@ -13,7 +13,7 @@ import makeTimeout.short
 
 final class Env(
     config: Config,
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lila.common.LightUser.GetterSync,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
     system: ActorSystem,
@@ -125,7 +125,7 @@ object Env {
 
   lazy val current: Env = "study" boot new Env(
     config = lila.common.PlayApp loadConfig "study",
-    getLightUser = lila.user.Env.current.lightUser,
+    getLightUser = lila.user.Env.current.lightUserSync,
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
     system = lila.common.PlayApp.system,

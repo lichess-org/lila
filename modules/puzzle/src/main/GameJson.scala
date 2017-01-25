@@ -7,7 +7,7 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
-  lightUser: lila.common.LightUser.Getter) {
+  lightUser: lila.common.LightUser.GetterSync) {
 
   case class CacheKey(gameId: Game.ID, plies: Int)
 

@@ -3,8 +3,8 @@ package lila.api
 import play.api.libs.json._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
+import lila.common.ApiVersion
 import lila.common.PimpedJson._
-import lila.common.{ LightUser, ApiVersion }
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
@@ -19,8 +19,7 @@ private[api] final class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
-    getSimul: Simul.ID => Fu[Option[Simul]],
-    lightUser: String => Option[LightUser]) {
+    getSimul: Simul.ID => Fu[Option[Simul]]) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) flatMap { initialFen =>

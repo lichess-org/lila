@@ -10,11 +10,14 @@ import User.{ BSONFields => F }
 
 final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
 
-  def get(id: String): Option[LightUser] = cache sync id
+  def sync(id: String): Option[LightUser] = cache sync id
+  def async(id: String): Fu[Option[LightUser]] = cache async id
 
   def invalidate = cache invalidate _
 
-  def getList(ids: List[String]): List[LightUser] = ids flatMap get
+  def preload = cache preload _
+
+  def getList(ids: List[String]): List[LightUser] = ids flatMap sync
 
   def usernameList(ids: List[String]): List[String] = getList(ids).map(_.name)
 

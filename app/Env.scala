@@ -26,7 +26,7 @@ final class Env(
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
-    lightUser = Env.user.lightUser)
+    lightUser = Env.user.lightUserSync)
 
   lazy val userInfo = mashup.UserInfo(
     bookmarkApi = Env.bookmark.api,
@@ -63,8 +63,7 @@ final class Env(
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   lila.log.boot.info("Preloading modules")
-  lila.common.Chronometer.syncEffect(List(
-    Env.socket,
+  lila.common.Chronometer.syncEffect(List(Env.socket,
     Env.site,
     Env.tournament,
     Env.lobby,

@@ -88,7 +88,7 @@ final class Env(
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
-    lightUser = userEnv.lightUser)
+    lightUser = userEnv.lightUserSync)
 
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
@@ -97,14 +97,13 @@ final class Env(
     forecastApi = forecastApi,
     bookmarkApi = bookmarkApi,
     getTourAndRanks = getTourAndRanks,
-    getSimul = getSimul,
-    lightUser = userEnv.lightUser),
+    getSimul = getSimul),
     system = system,
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
 
   val lobbyApi = new LobbyApi(
     getFilter = setupEnv.filter,
-    lightUser = userEnv.lightUser,
+    lightUser = userEnv.lightUserSync,
     seekApi = lobbyEnv.seekApi,
     pools = pools)
 

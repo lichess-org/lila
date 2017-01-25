@@ -24,7 +24,7 @@ import makeTimeout.short
 private[round] final class Socket(
     gameId: String,
     history: History,
-    lightUser: String => Option[LightUser],
+    lightUser: LightUser.GetterSync,
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,

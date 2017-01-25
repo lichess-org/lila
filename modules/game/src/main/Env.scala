@@ -11,7 +11,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Builder,
     system: ActorSystem,
     hub: lila.hub.Env,
-    getLightUser: String => Option[lila.common.LightUser],
+    getLightUser: lila.common.LightUser.GetterSync,
     appPath: String,
     isProd: Boolean,
     scheduler: lila.common.Scheduler) {
@@ -93,7 +93,7 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
-    getLightUser = lila.user.Env.current.lightUser,
+    getLightUser = lila.user.Env.current.lightUserSync,
     appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     scheduler = lila.common.PlayApp.scheduler)

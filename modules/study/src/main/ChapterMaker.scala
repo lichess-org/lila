@@ -9,7 +9,7 @@ import lila.user.User
 
 private final class ChapterMaker(
     domain: String,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.common.LightUser.GetterSync,
     chat: akka.actor.ActorSelection,
     importer: Importer,
     pgnFetch: PgnFetch) {

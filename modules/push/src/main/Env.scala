@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    getLightUser: String => Option[lila.common.LightUser],
+    getLightUser: lila.common.LightUser.GetterSync,
     roundSocketHub: ActorSelection,
     scheduler: lila.common.Scheduler,
     system: ActorSystem) {
@@ -58,7 +58,7 @@ object Env {
   lazy val current: Env = "push" boot new Env(
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUser,
+    getLightUser = lila.user.Env.current.lightUserSync,
     roundSocketHub = lila.hub.Env.current.socket.round,
     scheduler = lila.common.PlayApp.scheduler,
     config = lila.common.PlayApp loadConfig "push")

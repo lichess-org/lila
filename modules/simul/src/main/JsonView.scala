@@ -6,8 +6,7 @@ import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 
-final class JsonView(
-    getLightUser: String => Option[LightUser]) {
+final class JsonView(getLightUser: LightUser.GetterSync) {
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds

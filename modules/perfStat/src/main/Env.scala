@@ -8,7 +8,7 @@ import akka.actor._
 final class Env(
     config: Config,
     system: ActorSystem,
-    lightUser: String => Option[lila.common.LightUser],
+    lightUser: lila.common.LightUser.GetterSync,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -48,6 +48,6 @@ object Env {
   lazy val current: Env = "perfStat" boot new Env(
     config = lila.common.PlayApp loadConfig "perfStat",
     system = lila.common.PlayApp.system,
-    lightUser = lila.user.Env.current.lightUser,
+    lightUser = lila.user.Env.current.lightUserSync,
     db = lila.db.Env.current)
 }

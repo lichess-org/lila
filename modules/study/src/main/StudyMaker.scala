@@ -5,7 +5,7 @@ import lila.game.{ GameRepo, Pov, Namer }
 import lila.user.User
 
 private final class StudyMaker(
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.common.LightUser.GetterSync,
     chapterMaker: ChapterMaker) {
 
   def apply(data: DataForm.Data, user: User): Fu[Study.WithChapter] =

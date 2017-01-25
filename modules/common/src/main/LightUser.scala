@@ -23,5 +23,6 @@ object LightUser {
       "patron" -> u.isPatron).noNull
   }
 
-  type Getter = String => Option[LightUser]
+  type Getter = String => Fu[Option[LightUser]]
+  type GetterSync = String => Option[LightUser]
 }

@@ -27,7 +27,7 @@ object JsonView {
 
   def apply(line: Line): JsValue = lineWriter writes line
 
-  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.Getter) =
+  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
       "history" -> u.history)
 
@@ -37,7 +37,7 @@ object JsonView {
     Json.obj("key" -> r.key, "name" -> r.name)
   }
 
-  implicit def timeoutEntryWriter(implicit lightUser: LightUser.Getter) = OWrites[ChatTimeout.UserEntry] { e =>
+  implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync) = OWrites[ChatTimeout.UserEntry] { e =>
     Json.obj(
       "reason" -> e.reason.key,
       "mod" -> lightUser(e.mod).fold("?")(_.name),

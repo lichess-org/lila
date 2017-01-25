@@ -16,7 +16,7 @@ private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
-    lightUser: LightUser.Getter,
+    lightUser: LightUser.GetterSync,
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 

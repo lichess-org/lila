@@ -10,7 +10,7 @@ import lila.hub.actorApi.{ DeployPre, DeployPost }
 
 final class Env(
     config: Config,
-    getLightUser: String => Option[lila.common.LightUser],
+    getLightUser: lila.common.LightUser.Getter,
     system: ActorSystem) {
 
   private val IncomingUrl = config getString "incoming.url"

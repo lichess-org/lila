@@ -13,7 +13,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    lightUser: String => Option[lila.common.LightUser],
+    lightUser: lila.common.LightUser.GetterSync,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     isProd: Boolean) {
@@ -90,7 +90,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "tv",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    lightUser = lila.user.Env.current.lightUser,
+    lightUser = lila.user.Env.current.lightUserSync,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)

@@ -12,7 +12,7 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 
 private[relation] final class RelationActor(
     getOnlineUserIds: () => Set[String],
-    lightUser: String => Option[LightUser],
+    lightUser: LightUser.GetterSync,
     api: RelationApi) extends Actor {
 
   private val bus = context.system.lilaBus
