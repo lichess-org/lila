@@ -6,7 +6,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.Clock.{ Config => TournamentClock }
-import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
@@ -14,7 +13,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 final class JsonView(
-    getLightUser: LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     cached: Cached,
     performance: Performance,
     statsApi: TournamentStatsApi,
@@ -186,12 +185,13 @@ final class JsonView(
     id =>
       for {
         pairings <- PairingRepo.recentByTour(id, 40)
+        jsonPairings <- pairings.map(pairingJson).sequenceFu
         tour <- TournamentRepo byId id
         featured <- tour ?? fetchFeaturedGame
         podium <- podiumJson(id)
         next <- tour.filter(_.isFinished) ?? cached.findNext map2 nextJson
       } yield CachableData(
-        pairings = JsArray(pairings map pairingJson),
+        pairings = JsArray(jsonPairings),
         featured = featured map featuredJson,
         podium = podium,
         next = next),
@@ -208,7 +208,7 @@ final class JsonView(
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
     def ofPlayer(rp: RankedPlayer, p: lila.game.Player) = {
-      val light = getLightUser(rp.player.userId)
+      val light = lightUserApi sync rp.player.userId
       Json.obj(
         "rank" -> rp.rank,
         "name" -> light.fold(rp.player.userId)(_.name),
@@ -236,7 +236,7 @@ final class JsonView(
     "username" -> u.map(_.titleUsername))
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
-    val light = userId flatMap getLightUser
+    val light = userId flatMap lightUserApi.sync
     Json.obj(
       "name" -> light.map(_.name),
       "title" -> light.flatMap(_.title),
@@ -266,7 +266,7 @@ final class JsonView(
 
   private def playerJson(sheet: Option[ScoreSheet], tour: Tournament, rankedPlayer: RankedPlayer): JsObject = {
     val p = rankedPlayer.player
-    val light = getLightUser(p.userId)
+    val light = lightUserApi sync p.userId
     Json.obj(
       "rank" -> rankedPlayer.rank,
       "name" -> light.fold(p.userId)(_.name),
@@ -297,11 +297,15 @@ final class JsonView(
       }
     }
 
-  private def pairingUserJson(userId: String) = getLightUser(userId).fold(userId)(_.name)
+  private def pairingUserJson(userId: String): Fu[String] =
+    lightUserApi.async(userId).map(_.fold(userId)(_.name))
 
-  private def pairingJson(p: Pairing) = Json.obj(
+  private def pairingJson(p: Pairing): Fu[JsObject] = for {
+    u1 <- pairingUserJson(p.user1)
+    u2 <- pairingUserJson(p.user2)
+  } yield Json.obj(
     "id" -> p.gameId,
-    "u" -> Json.arr(pairingUserJson(p.user1), pairingUserJson(p.user2)),
+    "u" -> Json.arr(u1, u2),
     "s" -> (if (p.finished) p.winner match {
       case Some(w) if w == p.user1 => 2
       case Some(w)                 => 3

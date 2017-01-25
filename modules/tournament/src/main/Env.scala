@@ -21,7 +21,7 @@ final class Env(
     hub: lila.hub.Env,
     roundMap: ActorRef,
     roundSocketHub: ActorSelection,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     isOnline: String => Boolean,
     onStart: String => Unit,
     historyApi: lila.history.HistoryApi,
@@ -100,9 +100,9 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val jsonView = new JsonView(lightUser, cached, performance, statsApi, verify)
+  lazy val jsonView = new JsonView(lightUserApi, cached, performance, statsApi, verify)
 
-  lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
+  lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.sync)
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
@@ -120,7 +120,7 @@ final class Env(
         jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
-        lightUser = lightUser)
+        lightUser = lightUserApi.sync)
     }), name = SocketName)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
@@ -186,7 +186,7 @@ object Env {
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
     roundSocketHub = lila.hub.Env.current.socket.round,
-    lightUser = lila.user.Env.current.lightUserSync,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
     historyApi = lila.history.Env.current.api,
