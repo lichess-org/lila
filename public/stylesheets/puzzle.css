@@ -134,7 +134,7 @@ body.dark #puzzle .feedback {
   padding: 0 10px;
 }
 #puzzle .feedback.after .continue:hover {
-  background: #5ba6ec;
+  background: rgba(56,147,232,0.8);
 }
 #puzzle .feedback.after .continue i::before {
   font-size: 2.5em;

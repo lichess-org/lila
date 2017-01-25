@@ -110,12 +110,12 @@ div.game_control  button:disabled {
   cursor: default;
 }
 div.game_control button:hover:not(:disabled) {
-  background: #3893E8;
+  background: rgba(56,147,232,0.8);
   color: #fff;
 }
 div.game_control button:active,
 div.game_control button.active {
-  background: #5ba6ec;
+  background: #3893E8!important;
   color: #fff;
 }
 div.game_control .jumps {
@@ -338,7 +338,7 @@ body.piece_letter .pv_box .pv span {
   left: 91px;
   width: 130px;
   background: #fff;
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.3), 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 .fork move {
@@ -360,7 +360,7 @@ body.piece_letter .fork move {
 }
 .fork move:hover,
 .fork:not(:hover) move.selected {
-  background: #3893e8;
+  background: rgba(56,147,232,0.8);
   color: #fff!important;
 }
 .fork glyph {
@@ -823,7 +823,7 @@ body.piece_letter .tablebase td:first-child {
 .retro_box .continue {
   display: flex;
   font-size: 1.3em;
-  background: #3893E8;
+  background: rgba(56,147,232,0.8);
   color: #fff;
   align-items: center;
   justify-content: center;
@@ -831,7 +831,7 @@ body.piece_letter .tablebase td:first-child {
   padding: 0 10px;
 }
 .retro_box .continue:hover {
-  background: #5ba6ec;
+  background: rgba(56,147,232,1);
 }
 .retro_box .continue i::before {
   font-size: 2.5em;
@@ -960,7 +960,7 @@ body.dark .practice_box .comment {
   padding-bottom: 10px;
 }
 .explorer_box, .retro_box, .practice_box, .action_menu {
-  border-bottom: 3px solid #5ba6ec!important;
+  border-bottom: 3px solid #3893E8!important;
 }
 .action_menu h2 {
   text-transform: uppercase;

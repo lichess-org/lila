@@ -1660,13 +1660,13 @@ div.pagination span.current,
   opacity: 0.5;
 }
 .fbt:not(:disabled):hover {
-  background: #3893E8;
+  background: rgba(56,147,232,0.8);
   color: #fff!important;
   animation: none;
 }
 .fbt:not(:disabled):active,
 .fbt.active {
-  background: #5ba6ec;
+  background: #3893E8!important;
   color: #fff;
 }
 .fbt.active span {
