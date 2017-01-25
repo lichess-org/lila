@@ -959,6 +959,9 @@ body.dark .practice_box .comment {
   justify-content: flex-end;
   padding-bottom: 10px;
 }
+.explorer_box, .retro_box, .practice_box, .action_menu {
+  border-bottom: 3px solid #5ba6ec!important;
+}
 .action_menu h2 {
   text-transform: uppercase;
   text-align: center;
