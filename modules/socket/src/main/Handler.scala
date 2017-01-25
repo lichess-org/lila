@@ -9,9 +9,9 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import makeTimeout.large
 import lila.tree.Node.defaultNodeJsonWriter
 import lila.tree.Node.openingWriter
+import makeTimeout.large
 
 object Handler {
 
@@ -81,6 +81,11 @@ object Handler {
               })
           case None =>
             member push lila.socket.Socket.makeMessage("destsFailure", "Bad dests request")
+        }
+      }
+      case ("opening", o) => AnaRateLimit(uid, member) {
+        GetOpening(o) foreach { res =>
+          member push lila.socket.Socket.makeMessage("opening", res)
         }
       }
       case ("notified", _) => member.userId foreach { userId =>
