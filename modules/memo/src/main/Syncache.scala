@@ -28,7 +28,7 @@ final class Syncache[K, V](
 
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
-    // println(s"*** $name miss $k")
+    println(s"*** $name miss $k")
     chm.computeIfAbsent(k, loadFunction)
     strategy match {
       case NeverWait            => default(k)
@@ -49,23 +49,30 @@ final class Syncache[K, V](
 
   def invalidate(k: K): Unit = cache invalidate k
 
-  // TODO preload stuff (homepage usernames)
-  def preload(keys: List[K]): Funit = ???
+  // def preloadOne(k: K): Funit =
+  //   if (cache.getIfPresent(k) == null) {
+  //     println(s"*** preload $name $k")
+  //     chm.computeIfAbsent(k, loadFunction)
+  //     chm.get(k).void
+  //   }
+  //   else funit
+
+  // def preloadMany(ks: List[K]): Funit = ks.map(async).sequenceFu.void
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {
-      // println(s"*** $name chm put $k")
+      println(s"*** $name chm put $k")
       compute(k).withTimeout(
         duration = resultTimeout,
         error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
       ).addEffects(
           err => {
-            // println(s"*** $name chm fail $k")
+            println(s"*** $name chm fail $k")
             logger.branch(name).warn(s"$err key=$k")
             chm remove k
           },
           res => {
-            // println(s"*** $name cache put $k")
+            println(s"*** $name cache put $k")
             cache.put(k, res)
             chm remove k
           }
@@ -77,12 +84,12 @@ final class Syncache[K, V](
     Option(chm get k).fold(default(k)) { fu =>
       try {
         val v = fu await duration
-        // println(s"*** $name wait success $k")
+        println(s"*** $name wait success $k")
         v
       }
       catch {
         case e: java.util.concurrent.TimeoutException =>
-          // println(s"*** $name wait timeout $k $e")
+          println(s"*** $name wait timeout $k $e")
           default(k)
       }
     }
