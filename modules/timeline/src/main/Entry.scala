@@ -44,6 +44,8 @@ case class Entry(
       none
   }
 
+  def userIds = decode.??(_.userIds)
+
   def okForKid = decode ?? (_.okForKid)
 }
 

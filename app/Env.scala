@@ -26,7 +26,7 @@ final class Env(
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
-    lightUser = Env.user.lightUserSync)
+    lightUserApi = Env.user.lightUserApi)
 
   lazy val userInfo = mashup.UserInfo(
     bookmarkApi = Env.bookmark.api,

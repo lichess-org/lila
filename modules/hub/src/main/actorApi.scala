@@ -90,22 +90,54 @@ case class Victory(msg: String) extends Event
 package timeline {
 case class ReloadTimeline(user: String)
 
-sealed abstract class Atom(val channel: String, val okForKid: Boolean)
-case class Follow(u1: String, u2: String) extends Atom("follow", true)
-case class TeamJoin(userId: String, teamId: String) extends Atom("teamJoin", false)
-case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false)
-case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false)
-case class NoteCreate(from: String, to: String) extends Atom("note", false)
-case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true)
-case class QaQuestion(userId: String, id: Int, title: String) extends Atom("qa", true)
-case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom("qa", true)
-case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom("qa", true)
-case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true)
-case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom("simulCreate", true)
-case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true)
-case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom("studyCreate", true)
-case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true)
-case class PlanStart(userId: String) extends Atom("planStart", true)
+sealed abstract class Atom(val channel: String, val okForKid: Boolean) {
+  def userIds: List[String]
+}
+case class Follow(u1: String, u2: String) extends Atom("follow", true) {
+  def userIds = List(u1, u2)
+}
+case class TeamJoin(userId: String, teamId: String) extends Atom("teamJoin", false) {
+  def userIds = List(userId)
+}
+case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false) {
+  def userIds = List(userId)
+}
+case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false) {
+  def userIds = List(userId)
+}
+case class NoteCreate(from: String, to: String) extends Atom("note", false) {
+  def userIds = List(from, to)
+}
+case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
+  def userIds = List(userId)
+}
+case class QaQuestion(userId: String, id: Int, title: String) extends Atom("qa", true) {
+  def userIds = List(userId)
+}
+case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom("qa", true) {
+  def userIds = List(userId)
+}
+case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom("qa", true) {
+  def userIds = List(userId)
+}
+case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true) {
+  def userIds = opponent.toList
+}
+case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom("simulCreate", true) {
+  def userIds = List(userId)
+}
+case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
+  def userIds = List(userId)
+}
+case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom("studyCreate", true) {
+  def userIds = List(userId)
+}
+case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
+  def userIds = List(userId)
+}
+case class PlanStart(userId: String) extends Atom("planStart", true) {
+  def userIds = List(userId)
+}
 
 object propagation {
   sealed trait Propagation
@@ -153,7 +185,7 @@ case class AutoAnalyse(gameId: String)
 }
 
 package user {
-  case class Note(from: String, to: String, text: String, mod: Boolean)
+case class Note(from: String, to: String, text: String, mod: Boolean)
 }
 
 package round {

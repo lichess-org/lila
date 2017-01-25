@@ -2,7 +2,6 @@ package lila.app
 package mashup
 
 import lila.api.Context
-import lila.common.LightUser
 import lila.event.Event
 import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov, GameRepo }
@@ -11,6 +10,7 @@ import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.{ Tv, StreamOnAir }
+import lila.user.LightUserApi
 import lila.user.User
 import play.api.libs.json._
 
@@ -24,7 +24,7 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUser: LightUser.GetterSync) {
+    lightUserApi: LightUserApi) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
@@ -45,9 +45,14 @@ final class Preload(
       dailyPuzzle() zip
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) zip
-      (ctx.me ?? Preload.currentGame(lightUser)) map {
+      (ctx.me ?? Preload.currentGame(lightUserApi.sync)) flatMap {
         case (((((((((((((data, posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), currentGame)) =>
-          (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
+          lightUserApi.preloadMany {
+            tWinners.map(_.userId) :::
+              posts.flatMap(_.userId) :::
+              entries.flatMap(_.userIds)
+          } inject
+            (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
       }
 }
 
@@ -55,7 +60,7 @@ object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 
-  def currentGame(lightUser: LightUser.GetterSync)(user: User) =
+  def currentGame(lightUser: lila.common.LightUser.GetterSync)(user: User) =
     GameRepo.urgentGames(user) map { povs =>
       povs.find { p =>
         p.game.nonAi && p.game.hasClock && p.isMyTurn

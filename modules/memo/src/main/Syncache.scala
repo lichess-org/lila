@@ -49,15 +49,14 @@ final class Syncache[K, V](
 
   def invalidate(k: K): Unit = cache invalidate k
 
-  // def preloadOne(k: K): Funit =
-  //   if (cache.getIfPresent(k) == null) {
-  //     println(s"*** preload $name $k")
-  //     chm.computeIfAbsent(k, loadFunction)
-  //     chm.get(k).void
-  //   }
-  //   else funit
+  def preloadOne(k: K): Funit =
+    if (cache.getIfPresent(k) == null) {
+      chm.computeIfAbsent(k, loadFunction)
+      chm.get(k).void
+    }
+    else funit
 
-  // def preloadMany(ks: List[K]): Funit = ks.map(async).sequenceFu.void
+  def preloadMany(ks: List[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {
