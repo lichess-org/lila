@@ -163,6 +163,7 @@ object User extends LilaController {
       // }
       tourneyWinners ← Env.tournament.winners.all.map(_.top)
       online ← env.cached top50Online true
+      _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
       res <- negotiate(
         html = fuccess(Ok(html.user.list(
           tourneyWinners = tourneyWinners,
