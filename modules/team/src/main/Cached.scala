@@ -9,7 +9,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     name = "team.name",
     compute = TeamRepo.name,
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(30 millis),
+    strategy = Syncache.WaitAfterUptime(20 millis),
     timeToLive = 12 hours,
     logger = logger)
 
@@ -19,7 +19,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     name = "team.ids",
     compute = MemberRepo.teamIdsByUser,
     default = _ => Set.empty,
-    strategy = Syncache.WaitAfterUptime(30 millis),
+    strategy = Syncache.WaitAfterUptime(20 millis),
     timeToLive = 2 hours,
     logger = logger)
 

@@ -12,7 +12,7 @@ private[tournament] final class Cached(
     name = "tournament.name",
     compute = id => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName },
     default = _ => none,
-    strategy = Syncache.WaitAfterUptime(50 millis),
+    strategy = Syncache.WaitAfterUptime(20 millis),
     timeToLive = 6 hours,
     logger = logger)
 
