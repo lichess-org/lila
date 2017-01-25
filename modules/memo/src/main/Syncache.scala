@@ -28,6 +28,23 @@ final class Syncache[K, V](
   // sync cached values
   private val sync = Builder.expiry[K, V](timeToLive)
 
+  def get(k: K): V = Option(sync getIfPresent k) getOrElse {
+    // println(s"*** $name miss $k")
+    chm.computeIfAbsent(k, loadFunction)
+    strategy match {
+      case NeverWait            => default(k)
+      case AlwaysWait(duration) => waitForResult(k, duration)
+      case WaitAfterUptime(duration, uptime) =>
+        if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
+        else default(k)
+    }
+  }
+
+  def invalidate(k: K): Unit = sync invalidate k
+
+  // TODO preload stuff (homepage usernames)
+  // def preload(keys: List[K]): Funit
+
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {
       // println(s"*** $name chm put $k")
@@ -62,20 +79,6 @@ final class Syncache[K, V](
           default(k)
       }
     }
-
-  def get(k: K): V = Option(sync getIfPresent k) getOrElse {
-    // println(s"*** $name miss $k")
-    chm.computeIfAbsent(k, loadFunction)
-    strategy match {
-      case NeverWait            => default(k)
-      case AlwaysWait(duration) => waitForResult(k, duration)
-      case WaitAfterUptime(duration, uptime) =>
-        if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
-        else default(k)
-    }
-  }
-
-  def invalidate(k: K): Unit = sync invalidate k
 }
 
 object Syncache {
