@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     getOnlineUserIds: () => Set[String],
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.common.LightUser.Getter,
     followable: String => Fu[Boolean],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
@@ -45,7 +45,7 @@ final class Env(
 
   scheduler.once(15 seconds) {
     scheduler.message(ActorNotifyFreq) {
-      actor -> actorApi.NotifyMovement
+      actor -> actorApi.ComputeMovement
     }
   }
 }
@@ -57,7 +57,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
-    lightUser = lila.user.Env.current.lightUserSync,
+    lightUser = lila.user.Env.current.lightUser,
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)

@@ -12,7 +12,7 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 
 private[relation] final class RelationActor(
     getOnlineUserIds: () => Set[String],
-    lightUser: LightUser.GetterSync,
+    lightUser: LightUser.Getter,
     api: RelationApi) extends Actor {
 
   private val bus = context.system.lilaBus
@@ -26,7 +26,7 @@ private[relation] final class RelationActor(
     context.system.lilaBus.subscribe(self, 'finishGame)
   }
 
-  override def postStop() : Unit = {
+  override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }
@@ -41,15 +41,18 @@ private[relation] final class RelationActor(
         bus.publish(SendTo(userId, JsonView.writeOnlineFriends(onlineFriends)), 'users)
     }
 
-    case NotifyMovement =>
+    case ComputeMovement =>
       val prevIds = onlineIds
       val curIds = getOnlineUserIds()
       val leaveIds = (prevIds diff curIds).toList
       val enterIds = (curIds diff prevIds).toList
-      val leaves = leaveIds.flatMap(i => lightUser(i))
-      val enters = enterIds.flatMap(i => lightUser(i))
-      onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
+      for {
+        leaves <- leaveIds.map(lightUser).sequenceFu.map(_.flatten)
+        enters <- enterIds.map(lightUser).sequenceFu.map(_.flatten)
+      } self ! NotifyMovement(leaves, enters)
 
+    case NotifyMovement(leaves, enters) =>
+      onlines = onlines -- leaves.map(_.id) ++ enters.map(e => e.id -> e)
       val friendsEntering = enters.map(makeFriendEntering)
       notifyFollowersFriendEnters(friendsEntering)
       notifyFollowersFriendLeaves(leaves)
