@@ -24,6 +24,7 @@ case class UserInfo(
     nbStudies: Int,
     playTime: User.PlayTime,
     trophies: Trophies,
+    teamIds: Set[String],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
@@ -73,6 +74,7 @@ object UserInfo {
     getRanks: String => Fu[Map[String, Int]],
     isHostingSimul: String => Fu[Boolean],
     fetchIsStreamer: String => Fu[Boolean],
+    fetchTeamIds: User.ID => Fu[Set[String]],
     fetchIsCoach: User => Fu[Boolean],
     insightShare: lila.insight.Share,
     getPlayTime: User => Fu[User.PlayTime],
@@ -87,13 +89,14 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
+      fetchTeamIds(user.id) zip
       fetchIsCoach(user) zip
       fetchIsStreamer(user.id) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) zip
       bookmarkApi.countByUser(user) flatMap {
-        case (((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), isCoach), isStreamer), insightVisible), playTime), completionRate), nbBookmarks) =>
+        case ((((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), teamIds), isCoach), isStreamer), insightVisible), playTime), completionRate), nbBookmarks) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -110,6 +113,7 @@ object UserInfo {
               nbStudies = nbStudies,
               playTime = playTime,
               trophies = trophies,
+              teamIds = teamIds,
               isStreamer = isStreamer,
               isCoach = isCoach,
               insightVisible = insightVisible,

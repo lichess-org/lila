@@ -15,7 +15,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
 
   def name(id: String) = nameCache sync id
 
-  private[team] val teamIdsCache = new Syncache[String, Set[String]](
+  private val teamIdsCache = new Syncache[String, Set[String]](
     name = "team.ids",
     compute = MemberRepo.teamIdsByUser,
     default = _ => Set.empty,
@@ -23,7 +23,10 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     timeToLive = 2 hours,
     logger = logger)
 
-  def teamIds(userId: String) = teamIdsCache sync userId
+  def syncTeamIds = teamIdsCache sync _
+  def teamIds = teamIdsCache async _
+
+  def invalidateTeamIds = teamIdsCache invalidate _
 
   val nbRequests = AsyncCache[String, Int](
     name = "team.nbRequests",

@@ -40,7 +40,7 @@ final class TeamInfoApi(
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
-    mine = me.??(m => api.belongsTo(team.id, m.id))
+    mine <- me.??(m => api.belongsTo(team.id, m.id))
     requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
     cachable <- cache(team.id)
     forumNbPosts ← getForumNbPosts(team.id)

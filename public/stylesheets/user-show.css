@@ -293,6 +293,9 @@ div.user_show .teams a {
   display: block;
   margin: 5px 0;
 }
+div.user_show .teams a.mine {
+  color: #d59120;
+}
 div.user_show div.games {
   margin-top: 10px;
 }

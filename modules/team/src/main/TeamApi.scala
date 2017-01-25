@@ -35,7 +35,7 @@ final class TeamApi(
       createdBy = me)
     coll.team.insert(team) >>
       MemberRepo.add(team.id, me.id) >>- {
-        (cached.teamIdsCache invalidate me.id)
+        (cached invalidateTeamIds me.id)
         (forum ! MakeTeam(team.id, team.name))
         (indexer ! InsertTeam(team))
         (timeline ! Propagate(
@@ -49,13 +49,14 @@ final class TeamApi(
       location = e.location,
       description = e.description,
       open = e.isOpen) |> { team =>
-        coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
-      }
+      coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
+    }
   }
 
-  def mine(me: User): Fu[List[Team]] = coll.team.byIds[Team](cached teamIds me.id)
+  def mine(me: User): Fu[List[Team]] =
+    cached teamIds me.id flatMap coll.team.byIds[Team]
 
-  def hasTeams(me: User): Boolean = cached.teamIds(me.id).nonEmpty
+  def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.nonEmpty)
 
   def hasCreatedRecently(me: User): Fu[Boolean] =
     TeamRepo.userHasCreatedSince(me.id, creationPeriod)
@@ -90,11 +91,10 @@ final class TeamApi(
     able ← teamOption.??(requestable(_, user))
   } yield teamOption filter (_ => able)
 
-  def requestable(team: Team, user: User): Fu[Boolean] =
-    RequestRepo.exists(team.id, user.id).map { _ -> belongsTo(team.id, user.id) } map {
-      case (false, false) => true
-      case _              => false
-    }
+  def requestable(team: Team, user: User): Fu[Boolean] = for {
+    belongs <- belongsTo(team.id, user.id)
+    requested <- RequestRepo.exists(team.id, user.id)
+  } yield !belongs && !requested
 
   def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
     requestable(team, user) flatMap {
@@ -113,13 +113,15 @@ final class TeamApi(
     )
   } yield ()
 
-  def doJoin(team: Team, userId: String): Funit = (!belongsTo(team.id, userId)) ?? {
-    MemberRepo.add(team.id, userId) >>
-      TeamRepo.incMembers(team.id, +1) >>- {
-        cached.teamIdsCache invalidate userId
-        timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
-      }
-  } recover lila.db.recoverDuplicateKey(e => ())
+  def doJoin(team: Team, userId: String): Funit = !belongsTo(team.id, userId) flatMap {
+    _ ?? {
+      MemberRepo.add(team.id, userId) >>
+        TeamRepo.incMembers(team.id, +1) >>- {
+          cached invalidateTeamIds userId
+          timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
+        }
+    } recover lila.db.recoverDuplicateKey(e => ())
+  }
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← coll.team.byId[Team](teamId)
@@ -128,10 +130,12 @@ final class TeamApi(
     })
   } yield result
 
-  def doQuit(team: Team, userId: String): Funit = belongsTo(team.id, userId) ?? {
-    MemberRepo.remove(team.id, userId) >>
-      TeamRepo.incMembers(team.id, -1) >>-
-      (cached.teamIdsCache invalidate userId)
+  def doQuit(team: Team, userId: String): Funit = belongsTo(team.id, userId) flatMap {
+    _ ?? {
+      MemberRepo.remove(team.id, userId) >>
+        TeamRepo.incMembers(team.id, -1) >>-
+        (cached invalidateTeamIds userId)
+    }
   }
 
   def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)
@@ -150,8 +154,11 @@ final class TeamApi(
       MemberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
-  def belongsTo(teamId: String, userId: String): Boolean =
-    cached.teamIds(userId) contains teamId
+  def syncBelongsTo(teamId: String, userId: String): Boolean =
+    cached.syncTeamIds(userId) contains teamId
+
+  def belongsTo(teamId: String, userId: String): Fu[Boolean] =
+    cached.teamIds(userId) map (_ contains teamId)
 
   def owns(teamId: String, userId: String): Fu[Boolean] =
     TeamRepo ownerOf teamId map (Some(userId) ==)

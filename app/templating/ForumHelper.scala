@@ -10,7 +10,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   private object Granter extends lila.forum.Granter {
 
-    protected def userBelongsToTeam(teamId: String, userId: String): Boolean =
+    protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
       Env.team.api.belongsTo(teamId, userId)
 
     protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =

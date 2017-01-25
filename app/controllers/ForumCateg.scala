@@ -7,7 +7,10 @@ object ForumCateg extends LilaController with ForumController {
 
   def index = Open { implicit ctx =>
     NotForKids {
-      categApi.list(ctx.userId ?? teamCache.teamIds, ctx.troll) map { html.forum.categ.index(_) }
+      for {
+        teamIds <- ctx.userId ?? teamCache.teamIds
+        categs <- categApi.list(teamIds, ctx.troll)
+      } yield html.forum.categ.index(categs)
     }
   }
 
@@ -15,8 +18,11 @@ object ForumCateg extends LilaController with ForumController {
     NotForKids {
       Reasonable(page, 50, errorPage = notFound) {
         CategGrantRead(slug) {
-          OptionOk(categApi.show(slug, page, ctx.troll)) {
-            case (categ, topics) => html.forum.categ.show(categ, topics)
+          OptionFuOk(categApi.show(slug, page, ctx.troll)) {
+            case (categ, topics) =>
+              isGrantedWrite(categ.slug) map { canWrite =>
+                html.forum.categ.show(categ, topics, canWrite)
+              }
           }
         }
       }

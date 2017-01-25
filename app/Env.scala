@@ -40,6 +40,7 @@ final class Env(
     getRanks = Env.user.cached.ranking.getAll,
     isHostingSimul = Env.simul.isHosting,
     fetchIsStreamer = Env.tv.isStreamer.apply,
+    fetchTeamIds = Env.team.api.teamIds,
     fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
     getPlayTime = Env.game.playTime.apply,
@@ -62,7 +63,8 @@ final class Env(
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   lila.log.boot.info("Preloading modules")
-  lila.common.Chronometer.syncEffect(List(Env.socket,
+  lila.common.Chronometer.syncEffect(List(
+    Env.socket,
     Env.site,
     Env.tournament,
     Env.lobby,

@@ -1,7 +1,7 @@
-@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView], canWrite: Boolean)(implicit ctx: Context)
 
 @newTopicButton = {
-@if(isGrantedWrite(categ.slug)) {
+@if(canWrite) {
 <a href="@routes.ForumTopic.form(categ.slug)" class="action button" data-icon="m"> @trans.createANewTopic()</a>
 }
 }

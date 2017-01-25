@@ -13,10 +13,10 @@ private[forum] final class Recent(
     nb: Int,
     publicCategIds: List[String]) {
 
-  private type GetTeams = String => Set[String]
+  private type GetTeamIds = String => Fu[Set[String]]
 
-  def apply(user: Option[User], getTeams: GetTeams): Fu[List[MiniForumPost]] =
-    userCacheKey(user, getTeams) |> { key => cache(key)(fetch(key)) }
+  def apply(user: Option[User], getTeams: GetTeamIds): Fu[List[MiniForumPost]] =
+    userCacheKey(user, getTeams) flatMap { key => cache(key)(fetch(key)) }
 
   def team(teamId: String): Fu[List[MiniForumPost]] = {
     // prepend empty language list
@@ -26,12 +26,14 @@ private[forum] final class Recent(
 
   def invalidate: Funit = fuccess(cache.clear)
 
-  private def userCacheKey(user: Option[User], getTeams: GetTeams): String =
-    user.fold("en")(_.langs.mkString(",")) :: {
-      (user.??(_.troll) ?? List("[troll]")) :::
-        (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
-        ((user.map(_.id) ?? getTeams) map teamSlug).toList
-    } mkString ";"
+  private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
+    (user.map(_.id) ?? getTeams).map { teamIds =>
+      user.fold("en")(_.langs.mkString(",")) :: {
+        (user.??(_.troll) ?? List("[troll]")) :::
+          (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
+          (teamIds map teamSlug).toList
+      } mkString ";"
+    }
 
   private lazy val staffCategIds = "staff" :: publicCategIds
 

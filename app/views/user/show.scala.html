@@ -209,8 +209,8 @@ description = describeUser(u)).some) {
         <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
         }
         <div class="teams">
-          @teamIds(u.id).toList.sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, myTeam(teamId).option("mine"))
+          @info.teamIds.toList.map(t => t -> myTeam(t)).sortBy(t => (!t._2, t._1)).map { t =>
+          @teamLink(t._1, t._2.option("mine"))
           }
         </div>
       </div>
