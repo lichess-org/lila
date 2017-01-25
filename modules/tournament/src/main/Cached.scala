@@ -6,13 +6,14 @@ import lila.memo._
 
 private[tournament] final class Cached(
     createdTtl: FiniteDuration,
-    rankingTtl: FiniteDuration) {
+    rankingTtl: FiniteDuration)(implicit system: akka.actor.ActorSystem) {
 
-  private val nameCache = MixedCache[String, Option[String]](
+  private val nameCache = new Syncache[String, Option[String]](
     name = "tournament.name",
-    ((id: String) => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName }),
-    timeToLive = 6 hours,
+    compute = id => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName },
     default = _ => none,
+    strategy = Syncache.WaitAfterUptime(50 millis),
+    timeToLive = 6 hours,
     logger = logger)
 
   def name(id: String): Option[String] = nameCache get id

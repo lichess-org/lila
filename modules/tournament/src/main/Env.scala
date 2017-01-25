@@ -56,7 +56,7 @@ final class Env(
 
   lazy val cached = new Cached(
     createdTtl = CreatedCacheTtl,
-    rankingTtl = RankingCacheTtl)
+    rankingTtl = RankingCacheTtl)(system)
 
   lazy val verify = new Condition.Verify(historyApi)
 
