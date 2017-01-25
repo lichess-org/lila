@@ -1,15 +1,15 @@
-@(pov: Pov, bg: String, theme: String)
+@(pov: Pov, bg: String, theme: String, assetVersion: lila.common.AssetVersion)
 
 <!doctype html>
 <html>
   <head>
     <title>lichess.org TV</title>
     @if(bg == "dark") {
-    @cssTag("dark.css")
+    @cssAt("stylesheets/dark.css", true, assetVersion)
     }
-    @cssTag(s"piece/merida.css")
-    @cssTag("common.css")
-    @cssTag("board.css")
+    @cssAt(s"stylesheets/piece/merida.css", true, assetVersion)
+    @cssAt("stylesheets/common.css", true, assetVersion)
+    @cssAt("stylesheets/board.css", true, assetVersion)
     <meta charset="utf-8">
   </head>
   <body
@@ -21,8 +21,8 @@
       @game.vstext(pov)(none)
     </div>
     @jQueryTag
-    @jsTag("vendor/chessground.min.js")
-    @jsTagCompiled("tv.js")
+    @jsAt("javascripts/vendor/chessground.min.js", true, assetVersion)
+    @jsAt("compiled/tv.js", true, assetVersion)
     @base.ga()
   </body>
 </html>

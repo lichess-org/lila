@@ -4,9 +4,10 @@ package templating
 import controllers.routes
 import play.twirl.api.Html
 
-trait AssetHelper { self: I18nHelper =>
+import lila.common.AssetVersion
+import lila.api.Context
 
-  def assetVersion = lila.api.Env.current.assetVersion.get
+trait AssetHelper { self: I18nHelper =>
 
   def isProd: Boolean
 
@@ -19,18 +20,29 @@ trait AssetHelper { self: I18nHelper =>
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
+  def cssTag(name: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
+    cssAt("stylesheets/" + name, staticDomain)
 
-  def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)
+  def cssVendorTag(name: String, staticDomain: Boolean = true)(implicit ctx: Context) =
+    cssAt("vendor/" + name, staticDomain)
 
-  def cssAt(path: String, staticDomain: Boolean = true) = Html {
+  def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
     val href = if (staticDomain) staticUrl(path) else routes.Assets.at(path)
-    s"""<link href="$href?v=$assetVersion" type="text/css" rel="stylesheet"/>"""
+    s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
   }
+  def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
+    cssAt(path, staticDomain, ctx.pageData.assetVersion)
 
-  def jsTag(name: String) = jsAt("javascripts/" + name)
+  def jsTag(name: String)(implicit ctx: Context) = jsAt("javascripts/" + name)
 
-  def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
+  def jsTagCompiled(name: String)(implicit ctx: Context) =
+    if (isProd) jsAt("compiled/" + name) else jsTag(name)
+
+  def jsAt(path: String, static: Boolean, version: AssetVersion): Html = Html {
+    s"""<script src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
+  }
+  def jsAt(path: String, static: Boolean = true)(implicit ctx: Context): Html =
+    jsAt(path, static, ctx.pageData.assetVersion)
 
   val jQueryTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
@@ -91,10 +103,6 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
     else
       s"""<script src="$local"></script>"""
-  }
-
-  def jsAt(path: String, static: Boolean = true) = Html {
-    s"""<script src="${static.fold(staticUrl(path), path)}?v=$assetVersion"></script>"""
   }
 
   def embedJs(js: String): Html = Html {

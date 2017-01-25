@@ -284,7 +284,7 @@ private[controllers] trait LilaController
 
   import lila.hub.actorApi.relation._
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
-    ctx.me.fold(fuccess(PageData anon blindMode(ctx))) { me =>
+    ctx.me.fold(fuccess(PageData.anon(getAssetVersion, blindMode(ctx)))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
         if (isPage) getOnlineFriends(me) zip
@@ -298,9 +298,12 @@ private[controllers] trait LilaController
         case (pref, (((onlineFriends, teamNbRequests), nbChallenges), nbNotifications)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
-            hasFingerprint = hasFingerprint)
+            hasFingerprint = hasFingerprint,
+            getAssetVersion)
       }
     }
+
+  private def getAssetVersion = Env.api.assetVersion.get
 
   private def getOnlineFriends(me: UserModel): Fu[OnlineFriends] = {
     import akka.pattern.ask

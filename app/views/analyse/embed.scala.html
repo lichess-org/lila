@@ -15,7 +15,7 @@
     @cssTag("board.css")
     @cssTag("analyse.css")
     @cssTag("analyse-embed.css")
-    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$ctx.pageData.assetVersion")" type="text/css" rel="stylesheet"/>
     <meta charset="utf-8">
   </head>
   <body class="base highlight @List(

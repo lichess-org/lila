@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.mvc.RequestHeader
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, AssetVersion }
 import lila.hub.actorApi.relation.OnlineFriends
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -14,13 +14,15 @@ case class PageData(
   nbNotifications: Int,
   pref: Pref,
   blindMode: Boolean,
-  hasFingerprint: Boolean)
+  hasFingerprint: Boolean,
+  assetVersion: AssetVersion)
 
 object PageData {
 
-  val default = PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false)
+  def default(v: AssetVersion) =
+    PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false, v)
 
-  def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
+  def anon(v: AssetVersion, blindMode: Boolean) = default(v).copy(blindMode = blindMode)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -93,8 +95,8 @@ final class HeaderContext(
 
 object Context {
 
-  def apply(req: RequestHeader): HeaderContext =
-    new HeaderContext(UserContext(req, none), PageData.default)
+  def apply(req: RequestHeader, v: AssetVersion): HeaderContext =
+    new HeaderContext(UserContext(req, none), PageData default v)
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

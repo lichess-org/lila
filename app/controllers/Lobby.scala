@@ -92,7 +92,7 @@ object Lobby extends LilaController {
       }
       new lila.api.HeaderContext(
         headerContext = new lila.user.HeaderUserContext(req, none),
-        data = lila.api.PageData.default)
+        data = lila.api.PageData default Env.api.assetVersion.get)
     }
 
     def apply(ctx: Context) =

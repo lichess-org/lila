@@ -122,7 +122,8 @@ object Tv extends LilaController {
       case Some(game) => Ok(views.html.tv.embed(
         Pov first game,
         get("bg", req) | "light",
-        lila.pref.Theme(~get("theme", req)).cssClass
+        lila.pref.Theme(~get("theme", req)).cssClass,
+        assetVersion = Env.api.assetVersion.get
       ))
     }
   }

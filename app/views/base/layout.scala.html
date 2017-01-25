@@ -32,7 +32,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @cssTag("board.css")
     @if(ctx.is3d) { @cssTag("board-3d.css") }
     @moreCss
-    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$ctx.pageData.assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
@@ -68,7 +68,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     data-sound-set="@ctx.currentSoundSet"
     data-bg="@ctx.currentBg"
     data-asset-url="@assetBaseUrl"
-    data-asset-version="@assetVersion"
+    data-asset-version="@ctx.pageData.assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
@@ -83,7 +83,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       <div class="lichess_language fright">
         <a class="toggle link" href="#">@langName(lang)</a>
-        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@ctx.pageData.assetVersion">
           <ul>
             <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
           </ul>

@@ -53,7 +53,7 @@ final class Env(
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
   val assetVersion = new AssetVersionApi(
-    initialVersion = config getInt "net.asset.version",
+    initialVersion = lila.common.AssetVersion(config getInt "net.asset.version"),
     coll = db("flag"))(system)
 
   object Accessibility {
