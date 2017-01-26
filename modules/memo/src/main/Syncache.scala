@@ -1,5 +1,7 @@
 package lila.memo
 
+import com.github.benmanes.caffeine.cache._
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 
@@ -24,7 +26,10 @@ final class Syncache[K, V](
   private val chm = new ConcurrentHashMap[K, Fu[V]]
 
   // sync cached values
-  private val cache = Builder.expiry[K, V](timeToLive)
+  private val cache: Cache[K, V] = Caffeine.newBuilder()
+    .asInstanceOf[Caffeine[K, V]]
+    .expireAfterAccess(timeToLive.toMillis, TimeUnit.MILLISECONDS)
+    .build[K, V]()
 
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = {
