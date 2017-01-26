@@ -37,25 +37,24 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      if (user.enabled) GameRepo lastPlayedPlaying user zip
-        (ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }) zip
-        (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
-        (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
-        (ctx.userId ?? { relationApi.fetchRelation(_, user.id) }) flatMap {
-          case ((((pov, blocked), crosstable), followable), relation) =>
-            negotiate(
-              html = fuccess {
-                Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
-                  .withHeaders(CACHE_CONTROL -> "max-age=5")
-              },
-              api = _ => {
-                import lila.game.JsonView.crosstableWrites
-                fuccess(Ok(Json.obj(
-                  "crosstable" -> crosstable,
-                  "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
-                )))
-              })
-        }
+      if (user.enabled) for {
+        blocked <- ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }
+        crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) }
+        followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
+        relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
+        res <- negotiate(
+          html = GameRepo lastPlayedPlaying user map { pov =>
+          Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
+            .withHeaders(CACHE_CONTROL -> "max-age=5")
+        },
+          api = _ => {
+          import lila.game.JsonView.crosstableWrites
+          fuccess(Ok(Json.obj(
+            "crosstable" -> crosstable,
+            "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
+          )))
+        })
+      } yield res
       else fuccess(Ok(html.user.miniClosed(user)))
     }
   }

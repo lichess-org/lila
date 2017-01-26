@@ -167,7 +167,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val maxSpectatorUsers = 10
 
-  def showSpectators(lightUser: LightUser.GetterSync)(watchers: Iterable[SocketMember]): JsValue = {
+  def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = {
 
     val (total, anons, userIds) = watchers.foldLeft((0, 0, Set.empty[String])) {
       case ((total, anons, userIds), member) => member.userId match {
@@ -177,12 +177,14 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       }
     }
 
-    if (total == 0) JsNull
-    else if (userIds.size >= maxSpectatorUsers) Json.obj("nb" -> total)
-    else Json.obj(
-      "nb" -> total,
-      "users" -> userIds.flatMap { lightUser(_) }.map(_.titleName),
-      "anons" -> anons)
+    if (total == 0) fuccess(JsNull)
+    else if (userIds.size >= maxSpectatorUsers) fuccess(Json.obj("nb" -> total))
+    else userIds.map(lightUser).sequenceFu.map { users =>
+      Json.obj(
+        "nb" -> total,
+        "users" -> users.flatten.map(_.titleName),
+        "anons" -> anons)
+    }
   }
 
   def withMember(uid: String)(f: M => Unit) {

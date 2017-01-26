@@ -85,33 +85,32 @@ object Study extends LilaController {
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
     OptionFuResult(query) {
-      case WithChapter(study, chapter) => CanViewResult(study) {
-        env.chapterRepo.orderedMetadataByStudy(study.id) flatMap { chapters =>
-          env.api.resetIfOld(study, chapters) flatMap { study =>
-            if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
-            val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-            Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
-              chatOf(study) zip
-              env.jsonView(study, chapters, chapter, ctx.me) zip
-              env.version(study.id) flatMap {
-                case (((baseData, chat), studyJson), sVersion) =>
-                  import lila.tree.Node.partitionTreeJsonWriter
-                  val analysis = baseData ++ Json.obj(
-                    "treeParts" -> partitionTreeJsonWriter.writes {
-                      lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-                    })
-                  val data = lila.study.JsonView.JsData(
-                    study = studyJson,
-                    analysis = analysis)
-                  negotiate(
-                    html = Ok(html.study.show(study, data, chat, sVersion)).fuccess,
-                    api = _ => Ok(Json.obj(
-                    "study" -> data.study,
-                    "analysis" -> data.analysis)).fuccess
-                  )
-              }
-          }
-        }
+      case WithChapter(s, chapter) => CanViewResult(s) {
+        import lila.tree.Node.partitionTreeJsonWriter
+        for {
+          chapters <- env.chapterRepo.orderedMetadataByStudy(s.id)
+          study <- env.api.resetIfOld(s, chapters)
+          _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
+          _ = if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
+          pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
+          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false)
+          studyJson <- env.jsonView(study, chapters, chapter, ctx.me)
+          data = lila.study.JsonView.JsData(
+            study = studyJson,
+            analysis = baseData ++ Json.obj(
+            "treeParts" -> partitionTreeJsonWriter.writes {
+              lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+            }))
+          res <- negotiate(
+            html = for {
+            chat <- chatOf(study)
+            sVersion <- env.version(study.id)
+          } yield Ok(html.study.show(study, data, chat, sVersion)),
+            api = _ => Ok(Json.obj(
+            "study" -> data.study,
+            "analysis" -> data.analysis)).fuccess
+          )
+        } yield res
       }
     } map NoCache
 

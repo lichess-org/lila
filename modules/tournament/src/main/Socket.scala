@@ -7,7 +7,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
@@ -16,7 +15,7 @@ private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
     jsonView: JsonView,
-    lightUser: LightUser.GetterSync,
+    lightUser: lila.common.LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
@@ -88,7 +87,9 @@ private[tournament] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      notifyAll("crowd", showSpectators(lightUser)(members.values))
+      showSpectators(lightUser)(members.values) foreach {
+        notifyAll("crowd", _)
+      }
 
     case NotifyReload =>
       delayedReloadNotification = false

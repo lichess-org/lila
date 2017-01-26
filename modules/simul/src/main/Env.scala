@@ -19,7 +19,7 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     hub: lila.hub.Env,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean) {
 
@@ -121,7 +121,7 @@ object Env {
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
     hub = lila.hub.Env.current,
-    lightUser = lila.user.Env.current.lightUserSync,
+    lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline)
 }

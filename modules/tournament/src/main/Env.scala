@@ -120,7 +120,7 @@ final class Env(
         jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
-        lightUser = lightUserApi.sync)
+        lightUser = lightUserApi.async)
     }), name = SocketName)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>

@@ -13,7 +13,7 @@ import makeTimeout.short
 
 final class Env(
     config: Config,
-    getLightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
     system: ActorSystem,
@@ -40,7 +40,7 @@ final class Env(
         studyId = Study.Id(studyId),
         jsonView = jsonView,
         studyRepo = studyRepo,
-        lightUser = getLightUser,
+        lightUser = lightUserApi.async,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         destCache = destCache,
         uidTimeout = UidTimeout,
@@ -60,17 +60,17 @@ final class Env(
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
-  lazy val jsonView = new JsonView(studyRepo, getLightUser)
+  lazy val jsonView = new JsonView(studyRepo, lightUserApi.sync)
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
     pgnFetch = new PgnFetch,
-    lightUser = getLightUser,
+    lightUser = lightUserApi.sync,
     chat = hub.actor.chat,
     domain = NetDomain)
 
   private lazy val studyMaker = new StudyMaker(
-    lightUser = getLightUser,
+    lightUser = lightUserApi.sync,
     chapterMaker = chapterMaker)
 
   lazy val api = new StudyApi(
@@ -84,7 +84,7 @@ final class Env(
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api),
     tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
-    lightUser = getLightUser,
+    lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
     chat = hub.actor.chat,
     indexer = hub.actor.studySearch,
@@ -99,7 +99,7 @@ final class Env(
   lazy val pgnDump = new PgnDump(
     chapterRepo = chapterRepo,
     gamePgnDump = gamePgnDump,
-    lightUser = getLightUser,
+    lightUser = lightUserApi.sync,
     netBaseUrl = NetBaseUrl)
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
@@ -125,7 +125,7 @@ object Env {
 
   lazy val current: Env = "study" boot new Env(
     config = lila.common.PlayApp loadConfig "study",
-    getLightUser = lila.user.Env.current.lightUserSync,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
     system = lila.common.PlayApp.system,

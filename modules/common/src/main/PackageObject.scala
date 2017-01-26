@@ -103,7 +103,8 @@ trait WithPlay { self: PackageObject =>
   import play.api.libs.json._
   import scalalib.Zero
 
-  implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
+  implicit val execontext = play.api.libs.concurrent.Execution.defaultContext
+  val directEC = lila.PimpedFuture.DirectExecutionContext
 
   implicit val LilaFutureMonad = new Monad[Fu] {
     override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
