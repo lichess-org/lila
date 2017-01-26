@@ -10,7 +10,6 @@ object Dependencies {
     // val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
-    val sprayRepo = "spray repo" at "http://repo.spray.io"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
     // val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
 
@@ -21,8 +20,7 @@ object Dependencies {
       awesomepom,
       typesafe,
       prismic,
-      jgitMaven,
-      sprayRepo)
+      jgitMaven)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
@@ -52,10 +50,6 @@ object Dependencies {
     val version = "2.4.6"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
-  }
-  object spray {
-    val version = "1.3.4"
-    val util = "io.spray" %% "spray-util" % version
   }
   object akka {
     val version = "2.4.16"

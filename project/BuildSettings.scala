@@ -22,7 +22,7 @@ object BuildSettings {
     publishArtifact in (Compile, packageSrc) := false
   )
 
-  def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws, java8compat)
+  def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
