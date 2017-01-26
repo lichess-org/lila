@@ -26,6 +26,6 @@ final class AssetVersionApi(
   },
     default = _ => lastVersion,
     strategy = Syncache.NeverWait,
-    timeToLive = 5.seconds,
+    expireAfter = Syncache.ExpireAfterWrite(5 seconds),
     logger = lila.log("assetVersion"))(system)
 }

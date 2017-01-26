@@ -13,7 +13,7 @@ final class LastPostCache(
     name = "blog.lastPost",
     compute = _ => fetch,
     default = _ => Nil,
-    timeToLive = ttl,
+    expireAfter = Syncache.ExpireAfterWrite(ttl),
     strategy = Syncache.NeverWait,
     logger = logger)
 

@@ -30,7 +30,7 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
     compute = id => coll.find($id(id), projection).uno[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(10 millis),
-    timeToLive = 20 minutes,
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
     logger = logger branch "LightUserApi")
 }
 

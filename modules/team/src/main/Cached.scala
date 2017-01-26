@@ -10,7 +10,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     compute = TeamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    timeToLive = 12 hours,
+    expireAfter = Syncache.ExpireAfterAccess(1 hour),
     logger = logger)
 
   def name(id: String) = nameCache sync id
@@ -20,7 +20,7 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
     compute = MemberRepo.teamIdsByUser,
     default = _ => Set.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    timeToLive = 2 hours,
+    expireAfter = Syncache.ExpireAfterAccess(1 hour),
     logger = logger)
 
   def syncTeamIds = teamIdsCache sync _
