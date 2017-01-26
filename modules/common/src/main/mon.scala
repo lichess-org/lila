@@ -58,6 +58,8 @@ object mon {
     def miss(name: String) = inc(s"syncache.miss.$name")
     def wait(name: String) = inc(s"syncache.wait.$name")
     def preload(name: String) = inc(s"syncache.preload.$name")
+    def timeout(name: String) = inc(s"syncache.timeout.$name")
+    def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
   }
   object lobby {
     object hook {
@@ -466,6 +468,12 @@ object mon {
     path(this)(System.nanoTime() - start)
     res
   }
+  def measureIncMicros[A](path: IncXPath)(op: => A) = {
+    val start = System.nanoTime()
+    val res = op
+    path(this)(((System.nanoTime() - start) / 1000).toInt)
+    res
+  }
 
   def since[A](path: RecPath)(start: Long) = path(this)(System.nanoTime() - start)
 
@@ -475,6 +483,7 @@ object mon {
 
   type RecPath = lila.mon.type => Rec
   type IncPath = lila.mon.type => Inc
+  type IncXPath = lila.mon.type => IncX
 
   def recPath(f: lila.mon.type => Rec): Rec = f(this)
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
