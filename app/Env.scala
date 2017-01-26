@@ -121,6 +121,7 @@ object Env {
   def security = lila.security.Env.current
   def hub = lila.hub.Env.current
   def socket = lila.socket.Env.current
+  def memo = lila.memo.Env.current
   def message = lila.message.Env.current
   def i18n = lila.i18n.Env.current
   def game = lila.game.Env.current

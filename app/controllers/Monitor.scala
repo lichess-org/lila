@@ -13,7 +13,7 @@ object Monitor extends LilaController {
   private object path {
     val coachPageView = "servers.lichess.statsite.counts.main.counter.coach.page_view.profile"
   }
-  private val coachPageViewCache = lila.memo.AsyncCache[lila.user.User.ID, Result](
+  private val coachPageViewCache = Env.memo.asyncCache[lila.user.User.ID, Result](
     name = "monitor.coachPageView",
     f = userId =>
     Env.coach.api byId lila.coach.Coach.Id(userId) flatMap {
@@ -33,10 +33,9 @@ object Monitor extends LilaController {
           }
       }
     },
-    timeToLive = 10 seconds
-  )
+    expireAfter = _.ExpireAfterWrite(10 minute))
 
   def coachPageView = Secure(_.Coach) { ctx => me =>
-    coachPageViewCache(me.id)
+    coachPageViewCache get me.id
   }
 }
