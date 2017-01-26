@@ -210,14 +210,17 @@ object User extends LilaController {
       for {
         email <- (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id))
         spy <- Env.security userSpy user.id
-        pag <- Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)
+        assess <- Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id)
         history <- Env.mod.logApi.userHistory(user.id)
         charges <- Env.plan.api.recentChargesOf(user)
         reports <- Env.report.api.byAndAbout(user, 20)
         pref <- Env.pref.api.getPref(user)
         bans <- Env.playban.api bans spy.usersSharingIp.map(_.id)
         notes <- Env.user.noteApi.byUserIdsForMod(spy.otherUsers.map(_.user.id))
-      } yield html.user.mod(user, email, spy, pag, bans, history, charges, reports, pref, notes)
+        _ <- Env.user.lightUserApi preloadMany {
+          reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
+        }
+      } yield html.user.mod(user, email, spy, assess, bans, history, charges, reports, pref, notes)
     }
   }
 

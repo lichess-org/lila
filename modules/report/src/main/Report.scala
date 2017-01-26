@@ -65,7 +65,9 @@ object Report {
     def userIds = report.userIds ::: notes.flatMap(_.userIds)
   }
 
-  case class ByAndAbout(by: List[Report], about: List[Report])
+  case class ByAndAbout(by: List[Report], about: List[Report]) {
+    def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
+  }
 
   def make(
     user: User,
