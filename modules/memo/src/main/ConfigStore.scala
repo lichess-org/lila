@@ -2,26 +2,20 @@ package lila.memo
 
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import com.typesafe.config.ConfigFactory
+import configs.Configs
 import configs.syntax._
-import configs.{ Configs, ConfigError }
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation._
-import scala.concurrent.duration._
+import play.api.data.Form
 import scala.util.Try
 
 import lila.db.dsl._
 
-final class ConfigStore[A: Configs](
-    coll: Coll,
-    id: String,
-    logger: lila.log.Logger) {
+final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Logger) {
 
   private val mongoDocKey = "config"
 
   private val cache: AsyncLoadingCache[Unit, Option[A]] = Scaffeine()
     .maximumSize(1)
-    .buildAsyncFuture(_ => rawText.map {
+    .buildAsyncFuture[Unit, Option[A]](_ => rawText.map {
       _.flatMap { text =>
         parse(text).fold(
           errs => {
@@ -49,6 +43,8 @@ final class ConfigStore[A: Configs](
   }
 
   def makeForm: Fu[Form[String]] = {
+    import play.api.data.Forms._
+    import play.api.data.validation._
     val form = Form(single(
       "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
         parse(t) match {
