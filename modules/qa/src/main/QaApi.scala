@@ -88,7 +88,7 @@ final class QaApi(
       f = nb => questionColl.find($empty)
         .sort($doc("vote.score" -> -1))
         .cursor[Question]().gather[List](nb),
-      timeToLive = 3 hour,
+      timeToLive = 6 hour,
       keyToString = _.toString)
 
     def popular(max: Int): Fu[List[Question]] = popularCache(max)

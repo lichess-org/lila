@@ -8,11 +8,10 @@ import lila.user.User
 
 final class Cached(
     coll: Coll,
-    mongoCache: MongoCache.Builder,
-    defaultTtl: FiniteDuration) {
+    mongoCache: MongoCache.Builder) {
 
-  def nbImportedBy(userId: String): Fu[Int] = countCache(Query imported userId)
-  def clearNbImportedByCache(userId: String) = countCache.remove(Query imported userId)
+  def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
+  def clearNbImportedByCache = nbImportedCache remove _
 
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
@@ -26,12 +25,19 @@ final class Cached(
 
   private val countShortTtl = AsyncCache[Bdoc, Int](
     name = "game.countShortTtl",
-    f = (o: Bdoc) => coll countSel o,
+    f = coll.countSel,
     timeToLive = 5.seconds)
 
-  private val countCache = mongoCache(
+  private val nbImportedCache = mongoCache[User.ID, Int](
+    prefix = "game:imported",
+    f = userId => coll countSel Query.imported(userId),
+    timeToLive = 1 hour,
+    timeToLiveMongo = 30.days.some,
+    keyToString = identity)
+
+  private val countCache = mongoCache[Bdoc, Int](
     prefix = "game:count",
-    f = (o: Bdoc) => coll countSel o,
-    timeToLive = defaultTtl,
+    f = coll.countSel,
+    timeToLive = 1 hour,
     keyToString = lila.db.BSON.hashDoc)
 }

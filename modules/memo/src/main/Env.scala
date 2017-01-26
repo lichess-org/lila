@@ -7,7 +7,7 @@ final class Env(config: Config, db: lila.db.Env) {
   private val CollectionCache = config getString "collection.cache"
   private val CollectionConfig = config getString "collection.config"
 
-  lazy val mongoCache: MongoCache.Builder = MongoCache(db(CollectionCache))
+  lazy val mongoCache: MongoCache.Builder = new MongoCache.Builder(db(CollectionCache))
 
   lazy val configStore: ConfigStore.Builder = ConfigStore(db(CollectionConfig))
 }

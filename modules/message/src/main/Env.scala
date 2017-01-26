@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
     shutup: ActorSelection,
     notifyApi: lila.notify.NotifyApi,
     blocks: (String, String) => Fu[Boolean],
@@ -50,7 +49,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
     shutup = lila.hub.Env.current.actor.shutup,
-    mongoCache = lila.memo.Env.current.mongoCache,
     notifyApi = lila.notify.Env.current.api,
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,

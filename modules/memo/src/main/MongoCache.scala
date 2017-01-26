@@ -18,7 +18,7 @@ final class MongoCache[K, V: MongoCache.Handler] private (
     keyToString: K => String) {
 
   def apply(k: K): Fu[V] = cache.get(k, k =>
-    coll.find(select(k)).uno[Entry] flatMap {
+    coll.find($id(makeKey(k))).uno[Entry] flatMap {
       case None => f(k) flatMap { v =>
         persist(k, v) inject v
       }
@@ -37,12 +37,16 @@ final class MongoCache[K, V: MongoCache.Handler] private (
 
   private implicit val entryBSONHandler = Macros.handler[Entry]
 
-  private def persist(k: K, v: V): Funit =
-    coll.insert(Entry(makeKey(k), v, mongoExpiresAt())).void recover lila.db.recoverDuplicateKey(_ => ())
-
   private def makeKey(k: K) = s"$prefix:${keyToString(k)}"
 
-  private def select(k: K) = $id(makeKey(k))
+  private def persist(k: K, v: V): Funit = {
+    val mongoKey = makeKey(k)
+    coll.update(
+      $id(mongoKey),
+      Entry(mongoKey, v, mongoExpiresAt()),
+      upsert = true
+    ).void
+  }
 }
 
 object MongoCache {
@@ -64,13 +68,14 @@ object MongoCache {
       f: K => Fu[V],
       maxCapacity: Int = 1024,
       timeToLive: FiniteDuration,
+      timeToLiveMongo: Option[FiniteDuration] = None,
       keyToString: K => String): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
       cache = Scaffeine()
         .expireAfterWrite(timeToLive)
         .maximumSize(maxCapacity)
         .build[K, Fu[V]],
-      mongoExpiresAt = mongoExpiresAt(timeToLive),
+      mongoExpiresAt = mongoExpiresAt(timeToLiveMongo | timeToLive),
       coll = coll,
       f = f,
       keyToString = keyToString)
@@ -89,6 +94,4 @@ object MongoCache {
       f = _ => f,
       keyToString = _.toString)
   }
-
-  def apply(coll: Coll) = new Builder(coll)
 }
