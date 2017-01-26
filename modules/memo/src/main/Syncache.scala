@@ -28,6 +28,7 @@ final class Syncache[K, V](
 
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
+    println(s"*** miss $name $k")
     incMiss()
     chm.computeIfAbsent(k, loadFunction)
     strategy match {
@@ -51,6 +52,7 @@ final class Syncache[K, V](
 
   def preloadOne(k: K): Funit =
     if (cache.getIfPresent(k) == null) {
+      println(s"*** preload $name $k")
       incPreload()
       chm.computeIfAbsent(k, loadFunction)
       chm.get(k).void
@@ -58,6 +60,12 @@ final class Syncache[K, V](
     else funit
 
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
+
+  def setOneIfAbsent(k: K, v: => V): Unit =
+    if (cache.getIfPresent(k) == null) {
+      incPreload()
+      cache.put(k, v)
+    }
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = {

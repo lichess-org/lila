@@ -287,10 +287,13 @@ private[controllers] trait LilaController
     ctx.me.fold(fuccess(PageData.anon(getAssetVersion, blindMode(ctx)))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
-        if (isPage) getOnlineFriends(me) zip
-          Env.team.api.nbRequests(me.id) zip
-          Env.challenge.api.countInFor(me.id) zip
-          Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
+        if (isPage) {
+          Env.user.lightUserApi preloadUser me
+          getOnlineFriends(me) zip
+            Env.team.api.nbRequests(me.id) zip
+            Env.challenge.api.countInFor(me.id) zip
+            Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
+        }
         else fuccess {
           (((OnlineFriends.empty, 0), 0), 0)
         }

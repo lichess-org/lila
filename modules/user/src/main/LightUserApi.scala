@@ -19,6 +19,7 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
 
   def preloadOne = cache preloadOne _
   def preloadMany = cache preloadMany _
+  def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
 
   def getList(ids: List[String]): List[LightUser] = ids flatMap sync
 
