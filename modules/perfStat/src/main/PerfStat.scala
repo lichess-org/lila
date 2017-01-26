@@ -31,6 +31,8 @@ case class PerfStat(
       playStreak = playStreak agg pov
     )
   }
+
+  def userIds = bestWins.userIds ::: worstLosses.userIds
 }
 
 object PerfStat {
@@ -162,9 +164,10 @@ case class Results(results: List[Result]) {
         pov.game.id
       ) :: results).sortBy(_.opInt * comp) take Results.nb)
   }
+  def userIds = results.map(_.opId)
 }
 object Results {
   val nb = 5
 }
 
-case class UserId(value: String)
+case class UserId(value: String) extends AnyVal
