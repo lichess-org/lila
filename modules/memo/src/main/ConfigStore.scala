@@ -65,6 +65,4 @@ object ConfigStore {
     def apply[A: Configs](id: String, logger: lila.log.Logger) =
       new ConfigStore[A](coll, id, logger branch "config_store")
   }
-
-  def apply(coll: Coll) = new Builder(coll)
 }
