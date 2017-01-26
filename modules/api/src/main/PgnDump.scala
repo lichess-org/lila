@@ -20,8 +20,8 @@ final class PgnDump(
 
   private val toPgn =
     Enumeratee.mapM[Game].apply[String] { game =>
-      GameRepo initialFen game map { initialFen =>
-        apply(game, initialFen).toString + "\n\n\n"
+      GameRepo initialFen game flatMap { initialFen =>
+        apply(game, initialFen).map(pgn => s"$pgn\n\n\n")
       }
     }
 
