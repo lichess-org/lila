@@ -28,7 +28,8 @@ final class Syncache[K, V](
 
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
-    println(s"*** miss $name $k")
+    // println(s"*** miss $name $k")
+    // Thread.dumpStack()
     incMiss()
     chm.computeIfAbsent(k, loadFunction)
     strategy match {
