@@ -4,10 +4,10 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import chess.format.pgn.Glyph
-import com.google.common.cache.LoadingCache
+import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 
+import chess.format.pgn.Glyph
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }

@@ -2,6 +2,7 @@ package lila.study
 
 import akka.actor._
 import akka.pattern.ask
+import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -9,6 +10,7 @@ import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
+import lila.socket.AnaDests
 import makeTimeout.short
 
 final class Env(
@@ -109,10 +111,9 @@ final class Env(
       logger = logger)
   }))
 
-  private lazy val destCache = {
-    import lila.socket.AnaDests
-    lila.memo.Builder.cache[AnaDests.Ref, AnaDests](1 minute, _.compute)
-  }
+  private lazy val destCache: LoadingCache[AnaDests.Ref, AnaDests] = Scaffeine()
+    .expireAfterAccess(1 minute)
+    .build(_.compute)
 
   def cli = new lila.common.Cli {
     def process = {

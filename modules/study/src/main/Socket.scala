@@ -1,11 +1,11 @@
 package lila.study
 
 import akka.actor._
-import chess.format.pgn.Glyphs
-import com.google.common.cache.LoadingCache
+import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
+import chess.format.pgn.Glyphs
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
