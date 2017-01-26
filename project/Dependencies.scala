@@ -41,7 +41,7 @@ object Dependencies {
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val configs = "com.github.kxbmap" %% "configs" % "0.4.4"
-  val scalaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
+  val scaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
 
   object reactivemongo {
     val version = "0.12.0"

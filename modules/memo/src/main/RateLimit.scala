@@ -1,5 +1,7 @@
 package lila.memo
 
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+
 import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration
 
@@ -15,7 +17,9 @@ final class RateLimit(
   private type Cost = Int
   private type ClearAt = Long
 
-  private val storage = Builder.expiry[String, (Cost, ClearAt)](ttl = duration)
+  private val storage = Scaffeine()
+    .expireAfterWrite(duration)
+    .build[String, (Cost, ClearAt)]()
 
   private def makeClearAt = nowMillis + duration.toMillis
 
@@ -25,7 +29,7 @@ final class RateLimit(
   logger.info(s"[start] $name ($credits/$duration)")
 
   def apply[A](k: String, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
-    Option(storage getIfPresent k) match {
+    storage getIfPresent k match {
       case None =>
         storage.put(k, cost -> makeClearAt)
         op
