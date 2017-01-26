@@ -33,7 +33,7 @@ object Team extends LilaController {
 
   def show(id: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      OptionFuOk(api team id) { team => renderTeam(team, page) }
+      OptionFuOk(api team id) { renderTeam(_, page) }
     }
   }
 
@@ -46,10 +46,11 @@ object Team extends LilaController {
     }
   }
 
-  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
-    teamInfo(team, ctx.me) zip paginator.teamMembers(team, page) map {
-      case (info, pag) => html.team.show(team, pag, info)
-    }
+  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
+    info <- teamInfo(team, ctx.me)
+    members <- paginator.teamMembers(team, page)
+    _ <- Env.user.lightUserApi preloadMany info.userIds
+  } yield html.team.show(team, members, info)
 
   def edit(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>

@@ -18,6 +18,8 @@ case class TeamInfo(
     forumPosts: List[MiniForumPost]) {
 
   def hasRequests = requests.nonEmpty
+
+  def userIds = bestUserIds ::: forumPosts.flatMap(_.userId)
 }
 
 final class TeamInfoApi(
