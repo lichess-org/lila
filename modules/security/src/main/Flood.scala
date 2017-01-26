@@ -1,5 +1,6 @@
 package lila.security
 
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration.Duration
 
 import org.joda.time.DateTime
@@ -15,7 +16,9 @@ final class Flood(duration: Duration) {
   }
   type Messages = List[Message]
 
-  private val messages = lila.memo.Builder.expiry[String, Messages](duration)
+  private val cache: Cache[String, Messages] = Scaffeine()
+    .expireAfterAccess(duration)
+    .build[String, Messages]
 
   def filterMessage[A](uid: String, text: String)(op: => Unit) {
     if (allowMessage(uid, text)) op
@@ -23,9 +26,9 @@ final class Flood(duration: Duration) {
 
   def allowMessage(uid: String, text: String): Boolean = {
     val msg = Message(text, DateTime.now)
-    val msgs = ~Option(messages getIfPresent uid)
+    val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
-      _ ?? messages.put(uid, msg :: msgs)
+      _ ?? cache.put(uid, msg :: msgs)
     }
   }
 
