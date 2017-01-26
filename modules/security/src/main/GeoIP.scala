@@ -1,13 +1,16 @@
 package lila.security
 
+import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
-
 import scala.concurrent.duration._
 
-final class GeoIP(file: String, cacheTtl: Duration) {
+final class GeoIP(file: String, cacheTtl: FiniteDuration) {
 
   private val geoIp = MaxMindIpGeo(file, 0)
-  private val cache = lila.memo.Builder.cache(cacheTtl, compute)
+
+  private val cache: LoadingCache[String, Option[Location]] = Scaffeine()
+    .expireAfterAccess(cacheTtl)
+    .build(compute)
 
   private def compute(ip: String): Option[Location] =
     geoIp getLocation ip map Location.apply
