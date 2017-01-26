@@ -44,19 +44,18 @@ object Plan extends LilaController {
       renderIndex(email, patron = none)
     }
 
-  private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] =
-    Env.plan.api.recentChargeUserIds(50) zip
-      Env.plan.api.topPatronUserIds(120) zip
-      ctx.me.??(me => makeTrackingUserData(me) map some) map {
-        case ((recentIds, bestIds), trackingData) =>
-          Ok(html.plan.index(
-            stripePublicKey = Env.plan.stripePublicKey,
-            email = email,
-            patron = patron,
-            recentIds = recentIds,
-            bestIds = bestIds,
-            trackingData = trackingData))
-      }
+  private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
+    recentIds <- Env.plan.api.recentChargeUserIds(50)
+    bestIds <- Env.plan.api.topPatronUserIds(120)
+    trackingData <- ctx.me.??(me => makeTrackingUserData(me) map some)
+    _ <- Env.user.lightUserApi preloadMany { recentIds ::: bestIds }
+  } yield Ok(html.plan.index(
+    stripePublicKey = Env.plan.stripePublicKey,
+    email = email,
+    patron = patron,
+    recentIds = recentIds,
+    bestIds = bestIds,
+    trackingData = trackingData))
 
   private def makeTrackingUserData(me: UserModel) = for {
     tournaments <- Env.tournament.leaderboardApi.chart(me)
