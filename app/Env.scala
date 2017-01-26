@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 final class Env(
     config: Config,
     val scheduler: lila.common.Scheduler,
-    system: ActorSystem,
+    val system: ActorSystem,
     appPath: String) {
 
   val CliUsername = config getString "cli.username"
