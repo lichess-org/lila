@@ -1,12 +1,22 @@
 #!/bin/bash -e
 
-# For extra optimizations install https://github.com/RazrFalcon/svgcleaner
-# and set this variable.
-# SVGCLEANER=svgcleaner/target/release/svgcleaner
-# or
-# SVGCLEANER=svgcleaner
+# Uses svgo and also https://github.com/RazrFalcon/svgcleaner unless run with
+# --no-svgcleaner.
 
+SVGCLEANER=svgcleaner
 SVGO=./node_modules/svgo/bin/svgo
+
+for opt in "$@"; do
+  case $opt in
+    --no-svgcleaner)
+      unset SVGCLEANER
+    ;;
+    *)
+      echo "Unknown option: $opt"
+      exit 129
+    ;;
+  esac
+done
 
 svgo_optimize() {
   echo "$1 -> $2"
