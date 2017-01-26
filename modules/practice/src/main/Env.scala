@@ -13,7 +13,7 @@ final class Env(
 
   lazy val api = new PracticeApi(
     coll = db(CollectionProgress),
-    configStore = configStore[PracticeConfig]("practice", 1.hour, logger),
+    configStore = configStore[PracticeConfig]("practice", logger),
     studyApi = studyApi)
 }
 
