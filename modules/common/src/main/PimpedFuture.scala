@@ -2,11 +2,17 @@ package lila
 
 import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration._
-import scala.concurrent.Future
+import scala.concurrent.{ Future, ExecutionContext }
 
 object PimpedFuture {
 
   private type Fu[A] = Future[A]
+
+  object DirectExecutionContext extends ExecutionContext {
+    override def execute(command: Runnable): Unit = command.run()
+    override def reportFailure(cause: Throwable): Unit =
+      throw new IllegalStateException("lila DirectExecutionContext failure", cause)
+  }
 
   final class LilaPimpedFuture[A](val fua: Fu[A]) extends AnyVal {
 
@@ -16,9 +22,9 @@ object PimpedFuture {
 
     def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap (_ => fub)
 
-    def void: Fu[Unit] = fua map (_ => ())
+    def void: Fu[Unit] = fua.map(_ => ())(DirectExecutionContext)
 
-    def inject[B](b: => B): Fu[B] = fua map (_ => b)
+    def inject[B](b: => B): Fu[B] = fua.map(_ => b)(DirectExecutionContext)
 
     def injectAnyway[B](b: => B): Fu[B] = fold(_ => b, _ => b)
 
