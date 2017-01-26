@@ -7,20 +7,21 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 
 import lila.db.dsl._
-import Puzzle.{BSONFields => F}
+import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Daily(
     coll: Coll,
     renderer: ActorSelection,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     scheduler: Scheduler) {
 
   private val cache =
-    lila.memo.AsyncCache.single[Option[DailyPuzzle]](
+    asyncCache.single[Option[DailyPuzzle]](
       name = "puzzle.daily",
       f = find,
-      timeToLive = 10 minutes)
+      expireAfter = _.ExpireAfterWrite(10 minutes))
 
-  def apply(): Fu[Option[DailyPuzzle]] = cache apply true
+  def apply: Fu[Option[DailyPuzzle]] = cache.get
 
   private def find: Fu[Option[DailyPuzzle]] = (findCurrent orElse findNew) recover {
     case e: Exception =>
@@ -28,9 +29,7 @@ private[puzzle] final class Daily(
       none
   } flatMap {
     case Some(puzzle) => makeDaily(puzzle)
-    case None =>
-      scheduler.scheduleOnce(10.seconds)(cache.clear)
-      fuccess(none)
+    case None         => fuccess(none)
   }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {

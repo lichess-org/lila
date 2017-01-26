@@ -7,15 +7,15 @@ import reactivemongo.bson._
 
 import lila.common.LightUser
 import lila.db.dsl._
-import lila.memo.{ ExpireSetMemo, MongoCache }
 import lila.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }
 
 final class Cached(
     userColl: Coll,
     nbTtl: FiniteDuration,
-    onlineUserIdMemo: ExpireSetMemo,
-    mongoCache: MongoCache.Builder,
+    onlineUserIdMemo: lila.memo.ExpireSetMemo,
+    mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     rankingApi: RankingApi) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1
@@ -77,10 +77,10 @@ final class Cached(
     timeToLive = 34 minutes,
     keyToString = _.toString)
 
-  val top50Online = lila.memo.AsyncCache.single[List[User]](
+  val top50Online = asyncCache.single[List[User]](
     name = "user.top50online",
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
-    timeToLive = 10 seconds)
+    expireAfter = _.ExpireAfterWrite(10 seconds))
 
   object ranking {
 

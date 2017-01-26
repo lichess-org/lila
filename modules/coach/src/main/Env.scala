@@ -5,6 +5,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     notifyApi: lila.notify.NotifyApi,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     db: lila.db.Env) {
 
   private val CollectionCoach = config getString "collection.coach"
@@ -21,6 +22,7 @@ final class Env(
     coachColl = coachColl,
     reviewColl = reviewColl,
     photographer = photographer,
+    asyncCache = asyncCache,
     notifyApi = notifyApi)
 
   lazy val pager = new CoachPager(api)
@@ -38,5 +40,6 @@ object Env {
   lazy val current: Env = "coach" boot new Env(
     config = lila.common.PlayApp loadConfig "coach",
     notifyApi = lila.notify.Env.current.api,
+    asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current)
 }

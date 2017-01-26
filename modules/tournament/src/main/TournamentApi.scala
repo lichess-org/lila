@@ -35,6 +35,7 @@ final class TournamentApi(
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     standingChannel: ActorRef) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
@@ -315,15 +316,15 @@ final class TournamentApi(
     }
   }
 
-  private val miniStandingCache = lila.memo.AsyncCache[String, List[RankedPlayer]](
+  private val miniStandingCache = asyncCache.multi[String, List[RankedPlayer]](
     name = "tournament.miniStanding",
     id => PlayerRepo.bestByTourWithRank(id, 30),
-    timeToLive = 3 second)
+    expireAfter = _.ExpireAfterWrite(3 second))
 
   def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
     TournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        if (withStanding) miniStandingCache(tour.id) map { rps =>
+        if (withStanding) miniStandingCache get tour.id map { rps =>
           MiniStanding(tour, rps.some).some
         }
         else fuccess(MiniStanding(tour, none).some)

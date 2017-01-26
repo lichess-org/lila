@@ -71,9 +71,9 @@ object Lobby extends LilaController {
 
     private def renderCtx(implicit ctx: Context): Fu[Html] = Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
-      tours = Env.tournament.cached promotable true,
-      events = Env.event.api promotable true,
-      simuls = Env.simul allCreatedFeaturable true
+      tours = Env.tournament.cached.promotable.get,
+      events = Env.event.api.promotable.get,
+      simuls = Env.simul.allCreatedFeaturable.get
     ) map (html.lobby.home.apply _).tupled
 
     private def renderRequestKey(r: RequestKey): Fu[Html] = renderCtx {

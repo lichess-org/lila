@@ -30,7 +30,7 @@ object Simul extends LilaController {
   }
 
   private def fetchSimuls =
-    env.allCreated(true) zip env.repo.allStarted zip env.repo.allFinished(30)
+    env.allCreated.get zip env.repo.allStarted zip env.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
     env.repo find id flatMap {

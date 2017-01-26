@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import lila.memo._
 
 private[tournament] final class Cached(
+    asyncCache: lila.memo.AsyncCache2.Builder,
     createdTtl: FiniteDuration,
     rankingTtl: FiniteDuration)(implicit system: akka.actor.ActorSystem) {
 
@@ -18,13 +19,13 @@ private[tournament] final class Cached(
 
   def name(id: String): Option[String] = nameCache sync id
 
-  val promotable = AsyncCache.single(
+  val promotable = asyncCache.single(
     name = "tournament.promotable",
     TournamentRepo.promotable,
-    timeToLive = createdTtl)
+    expireAfter = _.ExpireAfterWrite(createdTtl))
 
   def findNext(tour: Tournament): Fu[Option[Tournament]] = tour.perfType ?? { pt =>
-    promotable(true) map { tours =>
+    promotable.get map { tours =>
       tours
         .filter(_.perfType contains pt)
         .filter(_.isScheduled)
@@ -34,18 +35,18 @@ private[tournament] final class Cached(
   }
 
   def ranking(tour: Tournament): Fu[Ranking] =
-    if (tour.isFinished) finishedRanking(tour.id)
-    else ongoingRanking(tour.id)
+    if (tour.isFinished) finishedRanking get tour.id
+    else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments
-  private val ongoingRanking = AsyncCache[String, Ranking](
+  private val ongoingRanking = asyncCache.multi[String, Ranking](
     name = "tournament.ongoingRanking",
     f = PlayerRepo.computeRanking,
-    timeToLive = 3.seconds)
+    expireAfter = _.ExpireAfterWrite(3.seconds))
 
   // only applies to finished tournaments
-  private val finishedRanking = AsyncCache[String, Ranking](
+  private val finishedRanking = asyncCache.multi[String, Ranking](
     name = "tournament.finishedRanking",
     f = PlayerRepo.computeRanking,
-    timeToLive = rankingTtl)
+    expireAfter = _.ExpireAfterAccess(rankingTtl))
 }

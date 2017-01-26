@@ -19,6 +19,7 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     hub: lila.hub.Env,
     db: lila.db.Env,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -58,6 +59,7 @@ final class Env(
     maxPlaying = MaxPlaying,
     socketHub = socketHub,
     userRegister = hub.actor.userRegister,
+    asyncCache = asyncCache,
     lilaBus = system.lilaBus)
 
   private lazy val repo = new ChallengeRepo(
@@ -82,5 +84,6 @@ object Env {
     lightUser = lila.user.Env.current.lightUserSync,
     isOnline = lila.user.Env.current.isOnline,
     db = lila.db.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -3,17 +3,18 @@ package lila.game
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo }
+import lila.memo.{ MongoCache, ExpireSetMemo }
 import lila.user.User
 
 final class Cached(
     coll: Coll,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     mongoCache: MongoCache.Builder) {
 
   def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
   def clearNbImportedByCache = nbImportedCache remove _
 
-  def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
+  def nbPlaying(userId: String): Fu[Int] = countShortTtl.get(Query nowPlaying userId)
 
   def nbTotal: Fu[Int] = countCache($empty)
 
@@ -23,10 +24,10 @@ final class Cached(
 
   val isRematch = new ExpireSetMemo(3.hours)
 
-  private val countShortTtl = AsyncCache[Bdoc, Int](
+  private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
     f = coll.countSel,
-    timeToLive = 5.seconds)
+    expireAfter = _.ExpireAfterWrite(5.seconds))
 
   private val nbImportedCache = mongoCache[User.ID, Int](
     prefix = "game:imported",

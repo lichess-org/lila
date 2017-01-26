@@ -14,6 +14,7 @@ final class Env(
     getLightUser: lila.common.LightUser.GetterSync,
     appPath: String,
     isProd: Boolean,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -39,6 +40,7 @@ final class Env(
 
   lazy val cached = new Cached(
     coll = gameColl,
+    asyncCache = asyncCache,
     mongoCache = mongoCache)
 
   lazy val paginator = new PaginatorBuilder(
@@ -94,5 +96,6 @@ object Env {
     getLightUser = lila.user.Env.current.lightUserSync,
     appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
+    asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler)
 }

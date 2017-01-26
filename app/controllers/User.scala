@@ -67,7 +67,7 @@ object User extends LilaController {
     val max = 50
     negotiate(
       html = notFound,
-      api = _ => env.cached top50Online true map { list =>
+      api = _ => env.cached.top50Online.get map { list =>
       Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
     })
   }
@@ -162,7 +162,7 @@ object User extends LilaController {
       //   }
       // }
       tourneyWinners ← Env.tournament.winners.all.map(_.top)
-      online ← env.cached top50Online true
+      online ← env.cached.top50Online.get
       _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
       res <- negotiate(
         html = fuccess(Ok(html.user.list(

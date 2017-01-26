@@ -9,6 +9,7 @@ final class Env(
     config: Config,
     renderer: ActorSelection,
     lightUser: lila.common.LightUser.GetterSync,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle) {
 
@@ -26,7 +27,7 @@ final class Env(
 
   private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
 
-  private lazy val gameJson = new GameJson(lightUser)
+  private lazy val gameJson = new GameJson(asyncCache, lightUser)
 
   lazy val jsonView = new JsonView(
     gameJson,
@@ -39,6 +40,7 @@ final class Env(
     voteColl = voteColl,
     headColl = headColl,
     puzzleIdMin = PuzzleIdMin,
+    asyncCache = asyncCache,
     apiToken = ApiToken)
 
   lazy val finisher = new Finisher(
@@ -57,6 +59,7 @@ final class Env(
   lazy val daily = new Daily(
     puzzleColl,
     renderer,
+    asyncCache = asyncCache,
     system.scheduler
   ).apply _
 
@@ -81,6 +84,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "puzzle",
     renderer = lila.hub.Env.current.actor.renderer,
     lightUser = lila.user.Env.current.lightUserSync,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle)
 }

@@ -17,6 +17,7 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
@@ -55,6 +56,7 @@ final class Env(
   lazy val forms = new DataForm
 
   lazy val cached = new Cached(
+    asyncCache = asyncCache,
     createdTtl = CreatedCacheTtl,
     rankingTtl = RankingCacheTtl)(system)
 
@@ -86,6 +88,7 @@ final class Env(
     verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
+    asyncCache = asyncCache,
     standingChannel = standingChannel)
 
   lazy val crudApi = new crud.CrudApi
@@ -182,6 +185,7 @@ object Env {
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
+    asyncCache = lila.memo.Env.current.asyncCache,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,

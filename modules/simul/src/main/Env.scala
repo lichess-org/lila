@@ -20,7 +20,8 @@ final class Env(
     hub: lila.hub.Env,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
-    isOnline: String => Boolean) {
+    isOnline: String => Boolean,
+    asyncCache: lila.memo.AsyncCache2.Builder) {
 
   private val settings = new {
     val CollectionSimul = config getString "collection.simul"
@@ -47,7 +48,8 @@ final class Env(
     userRegister = hub.actor.userRegister,
     lobby = hub.socket.lobby,
     onGameStart = onGameStart,
-    sequencers = sequencerMap)
+    sequencers = sequencerMap,
+    asyncCache = asyncCache)
 
   lazy val forms = new DataForm
 
@@ -80,7 +82,8 @@ final class Env(
       case move: lila.hub.actorApi.round.MoveEvent =>
         move.simulId foreach { simulId =>
           move.opponentUserId foreach { opId =>
-            hub.actor.userRegister ! lila.hub.actorApi.SendTo(opId,
+            hub.actor.userRegister ! lila.hub.actorApi.SendTo(
+              opId,
               lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId))
           }
         }
@@ -89,13 +92,15 @@ final class Env(
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
-  val allCreated = lila.memo.AsyncCache.single(
+  val allCreated = asyncCache.single(
     name = "simul.allCreated",
-    repo.allCreated, timeToLive = CreatedCacheTtl)
+    repo.allCreated,
+    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl))
 
-  val allCreatedFeaturable = lila.memo.AsyncCache.single(
+  val allCreatedFeaturable = asyncCache.single(
     name = "simul.allCreatedFeaturable",
-    repo.allCreatedFeaturable, timeToLive = CreatedCacheTtl)
+    repo.allCreatedFeaturable,
+    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl))
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
@@ -121,5 +126,6 @@ object Env {
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,
-    isOnline = lila.user.Env.current.isOnline)
+    isOnline = lila.user.Env.current.isOnline,
+    asyncCache = lila.memo.Env.current.asyncCache)
 }

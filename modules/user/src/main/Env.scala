@@ -4,12 +4,12 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.memo.{ ExpireSetMemo, MongoCache }
 
 final class Env(
     config: Config,
     db: lila.db.Env,
-    mongoCache: MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
     system: ActorSystem) {
@@ -29,13 +29,13 @@ final class Env(
 
   lazy val lightUserApi = new LightUserApi(userColl)(system)
 
-  lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
+  lazy val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)
+  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
 
   lazy val jsonView = new JsonView(isOnline)
 
@@ -80,6 +80,7 @@ final class Env(
     nbTtl = CachedNbTtl,
     onlineUserIdMemo = onlineUserIdMemo,
     mongoCache = mongoCache,
+    asyncCache = asyncCache,
     rankingApi = rankingApi)
 }
 
@@ -89,6 +90,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
+    asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.actor.timeline,
     system = lila.common.PlayApp.system)

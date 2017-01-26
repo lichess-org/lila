@@ -2,11 +2,11 @@ package lila.challenge
 
 import akka.actor._
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo
-import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -17,6 +17,7 @@ final class ChallengeApi(
     maxPlaying: Int,
     socketHub: ActorRef,
     userRegister: ActorSelection,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     lilaBus: lila.common.Bus) {
 
   import Challenge._
@@ -29,38 +30,40 @@ final class ChallengeApi(
     case true => fuccess(false)
     case false => {
       repo like c flatMap { _ ?? repo.cancel }
-    } >> (repo insert c) >> uncacheAndNotify(c) >>- {
+    } >> (repo insert c) >>- {
+      uncacheAndNotify(c)
       lilaBus.publish(Event.Create(c), 'challenge)
     } inject true
   }
 
   def byId = repo byId _
 
-  val countInFor = AsyncCache(
+  val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
     f = repo.countCreatedByDestId,
-    maxCapacity = 20000)
+    expireAfter = _.ExpireAfterAccess(12 minutes))
 
   def createdByChallengerId = repo createdByChallengerId _
 
   def createdByDestId = repo createdByDestId _
 
-  def cancel(c: Challenge) = (repo cancel c) >> uncacheAndNotify(c)
+  def cancel(c: Challenge) = (repo cancel c) >>- uncacheAndNotify(c)
 
-  private def offline(c: Challenge) = (repo offline c) >> uncacheAndNotify(c)
+  private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
 
   private[challenge] def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
     case Some(Status.Created) => repo setSeen id
-    case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).flatMap { _ ?? uncacheAndNotify }
+    case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
     case _                    => fuccess(socketReload(id))
   }
 
-  def decline(c: Challenge) = (repo decline c) >> uncacheAndNotify(c)
+  def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
 
   def accept(c: Challenge, user: Option[User]): Fu[Option[Pov]] =
     joiner(c, user).flatMap {
       case None => fuccess(None)
-      case Some(pov) => (repo accept c) >> uncacheAndNotify(c) >>- {
+      case Some(pov) => (repo accept c) >>- {
+        uncacheAndNotify(c)
         lilaBus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
       } inject pov.some
     }
@@ -111,22 +114,20 @@ final class ChallengeApi(
       }
 
   private def remove(c: Challenge) =
-    repo.remove(c.id) >> uncacheAndNotify(c)
+    repo.remove(c.id) >>- uncacheAndNotify(c)
 
-  private def uncacheAndNotify(c: Challenge) = {
-    (c.destUserId ?? countInFor.remove) >>-
-      (c.destUserId ?? notify) >>-
-      (c.challengerUserId ?? notify) >>-
-      socketReload(c.id)
+  private def uncacheAndNotify(c: Challenge): Unit = {
+    c.destUserId ?? countInFor.invalidate
+    c.destUserId ?? notify
+    c.challengerUserId ?? notify
+    socketReload(c.id)
   }
 
-  private def socketReload(id: Challenge.ID) {
+  private def socketReload(id: Challenge.ID): Unit =
     socketHub ! Tell(id, Socket.Reload)
-  }
 
-  private def notify(userId: User.ID) {
+  private def notify(userId: User.ID): Unit =
     allFor(userId) foreach { all =>
       userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)))
     }
-  }
 }

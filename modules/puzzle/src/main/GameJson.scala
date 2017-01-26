@@ -1,22 +1,25 @@
 package lila.puzzle
 
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
-  lightUser: lila.common.LightUser.GetterSync) {
+    asyncCache: lila.memo.AsyncCache2.Builder,
+    lightUser: lila.common.LightUser.GetterSync) {
 
   case class CacheKey(gameId: Game.ID, plies: Int)
 
-  private val cache = lila.memo.AsyncCache[CacheKey, JsObject](
+  private val cache = asyncCache.multi[CacheKey, JsObject](
     name = "puzzle.gameJson",
     f = generate,
-    maxCapacity = 500)
+    expireAfter = _.ExpireAfterAccess(1 hour),
+    maxCapacity = 1024)
 
-  def apply(gameId: Game.ID, plies: Int): Fu[JsObject] = cache(CacheKey(gameId, plies))
+  def apply(gameId: Game.ID, plies: Int): Fu[JsObject] = cache get CacheKey(gameId, plies)
 
   def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies) =>

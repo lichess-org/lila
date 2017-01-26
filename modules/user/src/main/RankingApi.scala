@@ -7,12 +7,12 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.{ AsyncCache, MongoCache }
 import lila.rating.{ Perf, PerfType }
 
 final class RankingApi(
     coll: Coll,
-    mongoCache: MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     lightUser: lila.common.LightUser.Getter) {
 
   import RankingApi._
@@ -72,13 +72,13 @@ final class RankingApi(
 
     def of(userId: User.ID): Fu[Map[Perf.Key, Int]] =
       lila.common.Future.traverseSequentially(PerfType.leaderboardable) { perf =>
-        cache(perf.id) map { _ get userId map (perf.key -> _) }
+        cache.get(perf.id) map { _ get userId map (perf.key -> _) }
       } map (_.flatten.toMap)
 
-    private val cache = AsyncCache[Perf.ID, Map[User.ID, Rank]](
+    private val cache = asyncCache.multi[Perf.ID, Map[User.ID, Rank]](
       name = "rankingApi.weeklyStableRanking",
       f = compute,
-      timeToLive = 15 minutes,
+      expireAfter = _.ExpireAfterWrite(15 minutes),
       resultTimeout = 10 seconds)
 
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =

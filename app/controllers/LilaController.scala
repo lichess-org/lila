@@ -291,7 +291,7 @@ private[controllers] trait LilaController
           Env.user.lightUserApi preloadUser me
           getOnlineFriends(me) zip
             Env.team.api.nbRequests(me.id) zip
-            Env.challenge.api.countInFor(me.id) zip
+            Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
         }
         else fuccess {

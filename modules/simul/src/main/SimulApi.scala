@@ -11,7 +11,6 @@ import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
-import lila.memo.AsyncCache
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -26,14 +25,15 @@ private[simul] final class SimulApi(
     timeline: ActorSelection,
     userRegister: ActorSelection,
     lobby: ActorSelection,
-    repo: SimulRepo) {
+    repo: SimulRepo,
+    asyncCache: lila.memo.AsyncCache2.Builder) {
 
-  def currentHostIds: Fu[Set[String]] = currentHostIdsCache apply true
+  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 
-  private val currentHostIdsCache = AsyncCache.single[Set[String]](
+  private val currentHostIdsCache = asyncCache.single[Set[String]](
     name = "simul.currentHostIds",
     f = repo.allStarted map (_ map (_.hostId) toSet),
-    timeToLive = 10 minutes)
+    expireAfter = _.ExpireAfterAccess(10 minutes))
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
@@ -90,7 +90,7 @@ private[simul] final class SimulApi(
                 }
               }
             } flatMap update
-          } >> currentHostIdsCache.remove(true)
+          } >>- currentHostIdsCache.refresh
         }
       }
     }
@@ -122,7 +122,8 @@ private[simul] final class SimulApi(
               game.id,
               _.finish(game.status, game.winnerUserId, game.turns)
             )
-            update(simul2) >> currentHostIdsCache.remove(true) >>- {
+            update(simul2) >>- {
+              currentHostIdsCache.refresh
               if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(
                 simul2.hostId,
                 lila.socket.Socket.makeMessage("simulEnd", Json.obj(

@@ -1,10 +1,12 @@
 package lila.blog
 
 import io.prismic._
-import lila.memo.AsyncCache
 import scala.concurrent.duration._
 
-final class BlogApi(prismicUrl: String, collection: String) {
+final class BlogApi(
+    asyncCache: lila.memo.AsyncCache2.Builder,
+    prismicUrl: String,
+    collection: String) {
 
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
@@ -38,12 +40,12 @@ final class BlogApi(prismicUrl: String, collection: String) {
     case _      => logger info message
   }
 
-  private val fetchPrismicApi = AsyncCache.single[Api](
+  private val fetchPrismicApi = asyncCache.single[Api](
     name = "blogApi.fetchPrismicApi",
     f = Api.get(prismicUrl, cache = cache, logger = prismicLogger),
-    timeToLive = 10 seconds)
+    expireAfter = _.ExpireAfterWrite(15 seconds))
 
-  def prismicApi = fetchPrismicApi(true)
+  def prismicApi = fetchPrismicApi.get
 }
 
 object BlogApi {
