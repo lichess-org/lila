@@ -200,7 +200,7 @@ object User extends LilaController {
   def topWeek = Open { implicit ctx =>
     negotiate(
       html = notFound,
-      api = _ => env.cached.topWeek(true).map { users =>
+      api = _ => env.cached.topWeek(()).map { users =>
       Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
     })
   }

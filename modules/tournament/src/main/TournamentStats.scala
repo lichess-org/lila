@@ -18,8 +18,7 @@ final class TournamentStatsApi(mongoCache: lila.memo.MongoCache.Builder) {
     prefix = "tournament:stats",
     keyToString = identity,
     f = fetch,
-    timeToLive = 10 minutes,
-    timeToLiveMongo = 90.days.some)
+    timeToLive = 10 minutes)
 
   private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] = for {
     rating <- PlayerRepo.averageRating(tournamentId)

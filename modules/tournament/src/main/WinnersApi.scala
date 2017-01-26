@@ -116,12 +116,12 @@ final class WinnersApi(
     f = fetchAll,
     timeToLive = ttl)
 
-  def all: Fu[AllWinners] = allCache(true)
+  def all: Fu[AllWinners] = allCache(())
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament) =
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
-      scheduler.once(5.seconds) { allCache.remove(true) }
+      scheduler.once(5.seconds) { allCache.remove(()) }
 
 }
 
