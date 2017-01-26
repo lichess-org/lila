@@ -34,18 +34,24 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
 module.exports = {
   makeAutoShapesFromUci: makeAutoShapesFromUci,
   compute: function(ctrl) {
+    var color = ctrl.chessground.data.movable.color;
+    var rcolor = color === 'white' ? 'black' : 'white';
     if (ctrl.practice) {
       if (ctrl.practice.hovering()) return makeAutoShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
       var hint = ctrl.practice.hinting();
-      if (hint) return makeAutoShapesFromUci(color, hint.uci.slice(0, hint.mode === 'piece' ? 2 : 5), 'paleBlue');
+      if (hint) {
+        if (hint.mode === 'move') return makeAutoShapesFromUci(color, hint.uci, 'paleBlue');
+        else return [{
+          orig: hint.uci[1] === '@' ? hint.uci.slice(2, 4) : hint.uci.slice(0, 2),
+          brush: 'paleBlue'
+        }];
+      }
       return [];
     }
     var instance = ctrl.getCeval(),
       n = ctrl.vm.node,
       shapes = [],
       hovering = ctrl.explorer.hovering() || instance.hovering();
-    var color = ctrl.chessground.data.movable.color;
-    var rcolor = color === 'white' ? 'black' : 'white';
     if (ctrl.retro && ctrl.retro.showBadNode()) {
       return makeAutoShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
         lineWidth: 8
