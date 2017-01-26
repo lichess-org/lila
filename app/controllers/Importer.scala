@@ -25,13 +25,14 @@ object Importer extends LilaController {
         api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
       ),
       data => env.importer(data, ctx.userId) flatMap { game =>
-        (data.analyse.isDefined && game.analysable) ?? {
-          Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
-            userId = ctx.userId,
-            ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-            mod = isGranted(_.Hunter),
-            system = false))
-        } inject Redirect(routes.Round.watcher(game.id, "white"))
+        (ctx.userId ?? Env.game.cached.clearNbImportedByCache) >>
+          (data.analyse.isDefined && game.analysable) ?? {
+            Env.fishnet.analyser(game, lila.fishnet.Work.Sender(
+              userId = ctx.userId,
+              ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+              mod = isGranted(_.Hunter),
+              system = false))
+          } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
           controllerLogger.branch("importer").warn(
