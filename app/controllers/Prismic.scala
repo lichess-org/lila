@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
-import lila.memo.AsyncCache2Single
 
 object Prismic {
 

@@ -5,6 +5,7 @@ import lila.app._
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
+import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -151,7 +152,7 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    lila.memo.AsyncCache[String, Int](
+    Env.memo.asyncCache[String, Int](
       name = "ipIntel",
       f = ip => {
       import play.api.libs.ws.WS
@@ -169,10 +170,11 @@ object Mod extends LilaController {
         lila.mon.security.proxy.percent(percent max 0)
         lila.mon.security.proxy.request.success()
       })
-    }, maxCapacity = 1024)
+    },
+    expireAfter = _.ExpireAfterAccess(3 days))
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx => me =>
-    ipIntelCache(ip).map { Ok(_) }.recover {
+    ipIntelCache.get(ip).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
   }
