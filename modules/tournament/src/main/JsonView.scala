@@ -170,10 +170,10 @@ final class JsonView(
         p.player.userId -> tour.system.scoringSystem.sheet(tour, p.player.userId, pairings)
       }
     }.sequenceFu.map(_.toMap)
+    players <- rankedPlayers.map(playerJson(sheets, tour)).sequenceFu
   } yield Json.obj(
     "page" -> page,
-    "players" -> rankedPlayers.map(playerJson(sheets, tour))
-  )
+    "players" -> players)
 
   private val firstPageCache = lila.memo.AsyncCache[String, JsObject](
     name = "tournament.firstPage",
@@ -261,23 +261,24 @@ final class JsonView(
     case s                            => JsNumber(score.value)
   }
 
-  private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer): JsObject =
+  private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer): Fu[JsObject] =
     playerJson(sheets get rankedPlayer.player.userId, tour, rankedPlayer)
 
-  private def playerJson(sheet: Option[ScoreSheet], tour: Tournament, rankedPlayer: RankedPlayer): JsObject = {
+  private def playerJson(sheet: Option[ScoreSheet], tour: Tournament, rankedPlayer: RankedPlayer): Fu[JsObject] = {
     val p = rankedPlayer.player
-    val light = lightUserApi sync p.userId
-    Json.obj(
-      "rank" -> rankedPlayer.rank,
-      "name" -> light.fold(p.userId)(_.name),
-      "title" -> light.flatMap(_.title),
-      "rating" -> p.rating,
-      "provisional" -> p.provisional.option(true),
-      "withdraw" -> p.withdraw.option(true),
-      "score" -> p.score,
-      "ratingDiff" -> p.ratingDiff,
-      "sheet" -> sheet.map(sheetJson)
-    ).noNull
+    lightUserApi async p.userId map { light =>
+      Json.obj(
+        "rank" -> rankedPlayer.rank,
+        "name" -> light.fold(p.userId)(_.name),
+        "title" -> light.flatMap(_.title),
+        "rating" -> p.rating,
+        "provisional" -> p.provisional.option(true),
+        "withdraw" -> p.withdraw.option(true),
+        "score" -> p.score,
+        "ratingDiff" -> p.ratingDiff,
+        "sheet" -> sheet.map(sheetJson)
+      ).noNull
+    }
   }
 
   private def podiumJson(id: String): Fu[Option[JsArray]] =
@@ -289,7 +290,8 @@ final class JsonView(
               pairings <- PairingRepo.finishedByPlayerChronological(tour.id, player.userId)
               sheet = tour.system.scoringSystem.sheet(tour, player.userId, pairings)
               tpr <- performance(tour, player, pairings)
-            } yield playerJson(sheet.some, tour, rp) ++ Json.obj(
+              json <- playerJson(sheet.some, tour, rp)
+            } yield json ++ Json.obj(
               "nb" -> sheetNbs(player.userId, sheet, pairings),
               "performance" -> tpr)
           }.sequenceFu
