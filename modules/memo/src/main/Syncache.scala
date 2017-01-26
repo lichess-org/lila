@@ -1,8 +1,8 @@
 package lila.memo
 
 import com.github.benmanes.caffeine.cache._
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._
 
 /**
@@ -16,7 +16,7 @@ final class Syncache[K, V](
     compute: K => Fu[V],
     default: K => V,
     strategy: Syncache.Strategy,
-    timeToLive: FiniteDuration,
+    expireAfter: Syncache.ExpireAfter,
     logger: lila.log.Logger,
     resultTimeout: FiniteDuration = 5 seconds)(implicit system: akka.actor.ActorSystem) {
 
@@ -26,10 +26,14 @@ final class Syncache[K, V](
   private val chm = new ConcurrentHashMap[K, Fu[V]]
 
   // sync cached values
-  private val cache: Cache[K, V] = Caffeine.newBuilder()
-    .asInstanceOf[Caffeine[K, V]]
-    .expireAfterAccess(timeToLive.toMillis, TimeUnit.MILLISECONDS)
-    .build[K, V]()
+  private val cache: Cache[K, V] = {
+    val b1 = Caffeine.newBuilder().asInstanceOf[Caffeine[K, V]]
+    val b2 = expireAfter match {
+      case ExpireAfterAccess(duration) => b1.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
+      case ExpireAfterWrite(duration)  => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+    }
+    b2.build[K, V]()
+  }
 
   // get the value synchronously, might block depending on strategy
   def sync(k: K): V = {
@@ -121,8 +125,11 @@ final class Syncache[K, V](
 object Syncache {
 
   sealed trait Strategy
-
   case object NeverWait extends Strategy
   case class AlwaysWait(duration: FiniteDuration) extends Strategy
   case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 12) extends Strategy
+
+  sealed trait ExpireAfter
+  case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
+  case class ExpireAfterWrite(duration: FiniteDuration) extends ExpireAfter
 }

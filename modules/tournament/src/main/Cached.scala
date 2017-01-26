@@ -13,7 +13,7 @@ private[tournament] final class Cached(
     compute = id => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    timeToLive = 6 hours,
+    expireAfter = Syncache.ExpireAfterAccess(1 hour),
     logger = logger)
 
   def name(id: String): Option[String] = nameCache sync id
