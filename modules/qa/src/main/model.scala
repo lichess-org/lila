@@ -56,6 +56,8 @@ case class Answer(
   def ownBy(user: User) = userId == user.id
 
   def editNow = copy(editedAt = Some(DateTime.now))
+
+  def userIds = userId :: comments.map(_.userId)
 }
 
 case class AnswerWithQuestion(answer: Answer, question: Question)

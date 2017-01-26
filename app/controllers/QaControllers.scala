@@ -12,18 +12,17 @@ trait QaController extends LilaController {
   protected def api = Env.qa.api
   protected def forms = Env.qa.forms
 
-  protected def renderQuestion(q: Question, answerForm: Option[Form[_]] = None)(implicit ctx: Context): Fu[Result] =
-    (api.answer popular q.id) zip
-      fetchPopular zip
-      api.relation.questions(q, 10) zip
-      (QaAuth.canAsk ?? { forms.anyCaptcha map (_.some) }) flatMap {
-        case (((answers, popular), related), captcha) => fuccess {
-          Ok(views.html.qa.questionShow(q, answers, popular, related,
-            answerForm = if (QaAuth canAnswer q) answerForm orElse Some(forms.answer) else None,
-            captcha = captcha))
-        }
-        case _ => notFound
-      }
+  protected def renderQuestion(q: Question, answerForm: Option[Form[_]] = None)(implicit ctx: Context): Fu[Result] = for {
+    answers <- api.answer popular q.id
+    popular <- fetchPopular
+    related <- api.relation.questions(q, 10)
+    captcha <- QaAuth.canAsk ?? { forms.anyCaptcha map (_.some) }
+    _ <- Env.user.lightUserApi preloadMany answers.flatMap(_.userIds)
+  } yield Ok(
+    views.html.qa.questionShow(
+      q, answers, popular, related,
+      answerForm = (QaAuth canAnswer q) option { answerForm | forms.answer },
+      captcha = captcha))
 
   protected def renderN00b(implicit ctx: Context) = fetchPopular map { popular =>
     Forbidden(views.html.qa.n00b(popular))
