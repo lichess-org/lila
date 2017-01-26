@@ -24,7 +24,7 @@ import makeTimeout.short
 private[round] final class Socket(
     gameId: String,
     history: History,
-    lightUser: LightUser.GetterSync,
+    lightUser: LightUser.Getter,
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,
@@ -179,11 +179,14 @@ private[round] final class Socket(
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      val event = Event.Crowd(
-        white = ownerOf(White).isDefined,
-        black = ownerOf(Black).isDefined,
-        watchers = showSpectators(lightUser)(watchers))
-      notifyAll(event.typ, event.data)
+      showSpectators(lightUser)(watchers) foreach { spectators =>
+        val event = Event.Crowd(
+          white = ownerOf(White).isDefined,
+          black = ownerOf(Black).isDefined,
+          watchers = spectators)
+        notifyAll(event.typ, event.data)
+      }
+
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)
   )
