@@ -8,7 +8,7 @@ private[tournament] final class Cached(
     createdTtl: FiniteDuration,
     rankingTtl: FiniteDuration)(implicit system: akka.actor.ActorSystem) {
 
-  private val nameCache = new Syncache[String, Option[String]](
+  val nameCache = new Syncache[String, Option[String]](
     name = "tournament.name",
     compute = id => TournamentRepo byId id map2 { (tour: Tournament) => tour.fullName },
     default = _ => none,
