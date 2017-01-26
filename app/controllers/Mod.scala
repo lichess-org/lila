@@ -152,7 +152,7 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    Env.memo.asyncCache[String, Int](
+    Env.memo.asyncCache.multi[String, Int](
       name = "ipIntel",
       f = ip => {
       import play.api.libs.ws.WS

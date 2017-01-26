@@ -1,16 +1,18 @@
 package lila.notify
 
+import scala.concurrent.duration._
+
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.SendTo
-import lila.memo.AsyncCache
 import lila.user.UserRepo
 
 final class NotifyApi(
     bus: lila.common.Bus,
     jsonHandlers: JSONHandlers,
-    repo: NotificationRepo) {
+    repo: NotificationRepo,
+    asyncCache: lila.memo.AsyncCache2.Builder) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
@@ -30,16 +32,15 @@ final class NotifyApi(
     getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
-    repo.markAllRead(userId) >> unreadCountCache.remove(userId)
+    repo.markAllRead(userId) >>- unreadCountCache.invalidate(userId)
 
-  private val unreadCountCache =
-    AsyncCache(
-      name = "notify.unreadCountCache",
-      f = repo.unreadNotificationsCount,
-      maxCapacity = 20000)
+  private val unreadCountCache = asyncCache.clearable(
+    name = "notify.unreadCountCache",
+    f = repo.unreadNotificationsCount,
+    expireAfter = _.ExpireAfterAccess(15 minutes))
 
   def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
-    unreadCountCache(userId) map Notification.UnreadCount.apply
+    unreadCountCache get userId map Notification.UnreadCount.apply
 
   def addNotification(notification: Notification): Funit =
     // Add to database and then notify any connected clients of the new notification
@@ -50,13 +51,13 @@ final class NotifyApi(
     }
 
   def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
-    repo.insert(notification) >> unreadCountCache.remove(notification.notifies)
+    repo.insert(notification) >>- unreadCountCache.invalidate(notification.notifies)
 
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
-    repo.remove(notifies, selector) >> unreadCountCache.remove(notifies)
+    repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
 
   def exists = repo.exists _
 

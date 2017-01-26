@@ -49,7 +49,8 @@ final class Env(
   lazy val teamInfo = new mashup.TeamInfoApi(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
-    getForumPosts = Env.forum.recent.team _)
+    getForumPosts = Env.forum.recent.team _,
+    asyncCache = Env.memo.asyncCache)
 
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {

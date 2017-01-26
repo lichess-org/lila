@@ -64,10 +64,10 @@ object Lobby extends LilaController {
       uri: String,
       headers: Headers)
 
-    private val cache = lila.memo.AsyncCache[RequestKey, Html](
+    private val cache = Env.memo.asyncCache.multi[RequestKey, Html](
       name = "lobby.homeCache",
       f = renderRequestKey,
-      timeToLive = 1 second)
+      expireAfter = _.ExpireAfterWrite(1 second))
 
     private def renderCtx(implicit ctx: Context): Fu[Html] = Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
@@ -102,14 +102,14 @@ object Lobby extends LilaController {
       }
       else {
         lila.mon.lobby.cache.anon()
-        cache(RequestKey(
+        cache get RequestKey(
           uri = ctx.req.uri,
           headers = new Headers(
           List(HOST -> ctx.req.host) :::
             ctx.req.headers.get(COOKIE).?? { cookie =>
               List(COOKIE -> cookie)
             }
-        )))
+        ))
       }
   }
 }

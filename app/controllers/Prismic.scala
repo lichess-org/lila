@@ -16,7 +16,7 @@ object Prismic {
     case _      => logger info message
   }
 
-  private val prismicApiCache = Env.memo.asyncCacheSingle[PrismicApi](
+  private val prismicApiCache = Env.memo.asyncCache.single[PrismicApi](
     name = "prismic.fetchPrismicApi",
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
     expireAfter = _.ExpireAfterWrite(1 minute))

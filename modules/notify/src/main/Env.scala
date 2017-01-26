@@ -7,6 +7,7 @@ final class Env(
     db: lila.db.Env,
     config: Config,
     getLightUser: lila.common.LightUser.GetterSync,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     system: ActorSystem) {
 
   private val CollectionNotifications = config getString "collection.notify"
@@ -19,7 +20,8 @@ final class Env(
   lazy val api = new NotifyApi(
     bus = system.lilaBus,
     jsonHandlers = jsonHandlers,
-    repo = repo)
+    repo = repo,
+    asyncCache = asyncCache)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -43,6 +45,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "notify",
     getLightUser = lila.user.Env.current.lightUserSync,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system)
 
 }
