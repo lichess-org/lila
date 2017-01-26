@@ -11,12 +11,14 @@ sealed trait AnyChat {
   def forUser(u: Option[User]): AnyChat
 
   def isEmpty = lines.isEmpty
+
+  def userIds: List[User.ID]
 }
 
 sealed trait Chat[L <: Line] extends AnyChat {
   def id: ChatId
   def lines: List[L]
-  def nonEmpty = lines exists (_.isHuman)
+  def nonEmpty = lines.exists(_.isHuman)
 }
 
 case class UserChat(
@@ -25,7 +27,8 @@ case class UserChat(
 
   val loginRequired = true
 
-  def forUser(u: Option[User]) = u.??(_.troll).fold(this,
+  def forUser(u: Option[User]) = u.??(_.troll).fold(
+    this,
     copy(lines = lines filterNot (_.troll)))
 
   def markDeleted(u: User) = copy(
@@ -36,6 +39,8 @@ case class UserChat(
   def add(line: UserLine) = copy(lines = lines :+ line)
 
   def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)
+
+  def userIds = lines.map(_.userId)
 }
 
 object UserChat {
@@ -48,13 +53,18 @@ case class MixedChat(
 
   val loginRequired = false
 
-  def forUser(u: Option[User]) = u.??(_.troll).fold(this,
+  def forUser(u: Option[User]) = u.??(_.troll).fold(
+    this,
     copy(lines = lines filter {
       case l: UserLine   => !l.troll
       case l: PlayerLine => true
     }))
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
+
+  def userIds = lines.collect {
+    case l: UserLine => l.userId
+  }
 }
 
 object Chat {

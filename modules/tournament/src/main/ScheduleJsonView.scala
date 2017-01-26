@@ -5,8 +5,7 @@ import play.api.libs.json._
 import lila.common.LightUser
 import lila.rating.PerfType
 
-final class ScheduleJsonView(
-    getLightUser: String => Option[LightUser]) {
+final class ScheduleJsonView(getLightUser: LightUser.GetterSync) {
 
   import JsonView._
   import Condition.JSONHandlers._

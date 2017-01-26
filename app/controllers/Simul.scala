@@ -35,11 +35,12 @@ object Simul extends LilaController {
   def show(id: String) = Open { implicit ctx =>
     env.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
-        env.version(sim.id) zip
-          env.jsonView(sim) zip
-          (ctx.noKid ?? Env.chat.api.userChat.findMine(sim.id, ctx.me).map(some)) map {
-            case ((version, data), chat) => html.simul.show(sim, version, data, chat)
-          }
+        for {
+          version <- env.version(sim.id)
+          json <- env.jsonView(sim)
+          chat <- ctx.noKid ?? Env.chat.api.userChat.findMine(sim.id, ctx.me).map(some)
+          _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
+        } yield html.simul.show(sim, version, json, chat)
       }
     } map NoCache
   }
@@ -72,43 +73,39 @@ object Simul extends LilaController {
     }
   }
 
-  def form = Auth { implicit ctx =>
-    me =>
-      NoEngine {
-        Ok(html.simul.form(env.forms.create, env.forms)).fuccess
-      }
+  def form = Auth { implicit ctx => me =>
+    NoEngine {
+      Ok(html.simul.form(env.forms.create, env.forms)).fuccess
+    }
   }
 
-  def create = AuthBody { implicit ctx =>
-    implicit me =>
-      NoEngine {
-        implicit val req = ctx.body
-        env.forms.create.bindFromRequest.fold(
-          err => BadRequest(html.simul.form(err, env.forms)).fuccess,
-          setup => env.api.create(setup, me) map { simul =>
-            Redirect(routes.Simul.show(simul.id))
-          })
-      }
+  def create = AuthBody { implicit ctx => implicit me =>
+    NoEngine {
+      implicit val req = ctx.body
+      env.forms.create.bindFromRequest.fold(
+        err => BadRequest(html.simul.form(err, env.forms)).fuccess,
+        setup => env.api.create(setup, me) map { simul =>
+          Redirect(routes.Simul.show(simul.id))
+        })
+    }
   }
 
-  def join(id: String, variant: String) = Auth { implicit ctx =>
-    implicit me =>
-      NoEngine {
-        fuccess {
-          env.api.addApplicant(id, me, variant)
-          if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
-          else Redirect(routes.Simul.show(id))
-        }
-      }
-  }
-
-  def withdraw(id: String) = Auth { implicit ctx =>
-    me =>
+  def join(id: String, variant: String) = Auth { implicit ctx => implicit me =>
+    NoEngine {
       fuccess {
-        env.api.removeApplicant(id, me)
+        env.api.addApplicant(id, me, variant)
         if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Simul.show(id))
       }
+    }
+  }
+
+  def withdraw(id: String) = Auth { implicit ctx => me =>
+    fuccess {
+      env.api.removeApplicant(id, me)
+      if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+      else Redirect(routes.Simul.show(id))
+    }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>

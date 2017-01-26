@@ -21,16 +21,22 @@ object Tournament extends LilaController {
     negotiate(
       html = Reasonable(page, 20) {
         val finishedPaginator = repo.finishedPaginator(maxPerPage = 30, page = page)
-        if (HTTPRequest isXhr ctx.req) finishedPaginator map { pag =>
-          Ok(html.tournament.finishedPaginator(pag))
+        if (HTTPRequest isXhr ctx.req) for {
+          pag <- finishedPaginator
+          _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
+        } yield Ok(html.tournament.finishedPaginator(pag))
+        else for {
+          visible <- env.api.fetchVisibleTournaments
+          scheduled <- repo.scheduledDedup
+          finished <- finishedPaginator
+          winners <- env.winners.all
+          _ <- Env.user.lightUserApi preloadMany {
+            finished.currentPageResults.flatMap(_.winnerId).toList :::
+              scheduled.flatMap(_.winnerId) ::: winners.userIds
+          }
+        } yield NoCache {
+          Ok(html.tournament.home(scheduled, finished, winners, env scheduleJsonView visible))
         }
-        else env.api.fetchVisibleTournaments zip
-          repo.scheduledDedup zip
-          finishedPaginator zip
-          env.winners.all map {
-            case (((visible, scheduled), finished), winners) =>
-              Ok(html.tournament.home(scheduled, finished, winners, env scheduleJsonView visible))
-          } map NoCache
       },
       api = _ => env.api.fetchVisibleTournaments map { tours =>
         Ok(env scheduleJsonView tours)
@@ -47,9 +53,10 @@ object Tournament extends LilaController {
   }
 
   def leaderboard = Open { implicit ctx =>
-    env.winners.all.map { winners =>
-      Ok(html.tournament.leaderboard(winners))
-    }
+    for {
+      winners <- env.winners.all
+      _ <- Env.user.lightUserApi preloadMany winners.userIds
+    } yield Ok(html.tournament.leaderboard(winners))
   }
 
   def show(id: String) = Open { implicit ctx =>
@@ -57,14 +64,13 @@ object Tournament extends LilaController {
     negotiate(
       html = repo byId id flatMap {
       _.fold(tournamentNotFound.fuccess) { tour =>
-        (env.api.verdicts(tour, ctx.me) zip
-          env.version(tour.id) zip {
-            ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
-          }).flatMap {
-            case ((verdicts, version), chat) => env.jsonView(tour, page, ctx.me, none, version.some) map {
-              html.tournament.show(tour, verdicts, _, chat)
-            }
-          }.map { Ok(_) }.mon(_.http.response.tournament.show.website)
+        (for {
+          verdicts <- env.api.verdicts(tour, ctx.me)
+          version <- env.version(tour.id)
+          chat <- ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
+          json <- env.jsonView(tour, page, ctx.me, none, version.some)
+          _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
+        } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)
       }
     },
       api = _ => repo byId id flatMap {

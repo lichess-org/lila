@@ -199,7 +199,10 @@ object Round extends LilaController with TheftPrevention {
     }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = ctx.noKid ?? {
-    Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me) map (_.some)
+    for {
+      chat <- Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me)
+      _ <- Env.user.lightUserApi.preloadMany(chat.chat.userIds)
+    } yield chat.some
   }
 
   private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.Chat.Restricted]] =

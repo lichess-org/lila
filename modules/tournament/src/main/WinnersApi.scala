@@ -25,6 +25,8 @@ case class FreqWinners(
       weekly.filter(_.date isAfter DateTime.now.minusDays(1)) orElse
       monthly.filter(_.date isAfter DateTime.now.minusDays(3)) orElse
       yearly orElse monthly orElse weekly orElse daily
+
+  def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
 }
 
 case class AllWinners(
@@ -44,6 +46,11 @@ case class AllWinners(
       variants get v.key flatMap (_.top)
     }
   ).flatten
+
+  def userIds =
+    List(hyperbullet, bullet, superblitz, blitz, classical).flatMap(_.userIds) :::
+      elite.map(_.userId) ::: marathon.map(_.userId) :::
+      variants.values.toList.flatMap(_.userIds)
 }
 
 final class WinnersApi(
