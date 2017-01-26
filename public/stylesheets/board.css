@@ -870,10 +870,6 @@ div.control.icons .resign span:before {
 div.control.icons .resign_confirm {
   position: relative;
 }
-div.control.icons .resign_confirm .yes {
-  background: #dc322f;
-  color: #fff;
-}
 div.control.icons .resign_confirm .no {
   padding: 8px 0;
   width: 30px;
