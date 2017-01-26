@@ -11,12 +11,12 @@ final class Cached(
     mongoCache: MongoCache.Builder,
     defaultTtl: FiniteDuration) {
 
-  def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
-  def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
+  def nbImportedBy(userId: String): Fu[Int] = countCache(Query imported userId)
+  def clearNbImportedByCache(userId: String) = countCache.remove(Query imported userId)
 
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
-  def nbTotal: Fu[Int] = count($empty)
+  def nbTotal: Fu[Int] = countCache($empty)
 
   private implicit val userHandler = User.userBSONHandler
 
@@ -29,7 +29,7 @@ final class Cached(
     f = (o: Bdoc) => coll countSel o,
     timeToLive = 5.seconds)
 
-  private val count = mongoCache(
+  private val countCache = mongoCache(
     prefix = "game:count",
     f = (o: Bdoc) => coll countSel o,
     timeToLive = defaultTtl,
