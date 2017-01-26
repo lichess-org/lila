@@ -17,7 +17,6 @@ final class Env(
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val CachedNbTtl = config duration "cached.nb.ttl"
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val CaptcherName = config getString "captcher.name"
     val CaptcherDuration = config duration "captcher.duration"
@@ -40,8 +39,7 @@ final class Env(
 
   lazy val cached = new Cached(
     coll = gameColl,
-    mongoCache = mongoCache,
-    defaultTtl = CachedNbTtl)
+    mongoCache = mongoCache)
 
   lazy val paginator = new PaginatorBuilder(
     coll = gameColl,

@@ -21,11 +21,6 @@ final class Cached(
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
 
-  private val countCache = mongoCache.single[Int](
-    prefix = "user:nb",
-    f = userColl.count(UserRepo.enabledSelect.some),
-    timeToLive = nbTtl)
-
   private implicit val LightUserBSONHandler = Macros.handler[LightUser]
   private implicit val LightPerfBSONHandler = Macros.handler[LightPerf]
   private implicit val LightCountBSONHandler = Macros.handler[LightCount]
