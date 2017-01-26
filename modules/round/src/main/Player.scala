@@ -25,7 +25,7 @@ private[round] final class Player(
                 (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, color) map { progress.events ::: _ }, {
+                  moveFinish(progress.game, color) dmap { progress.events ::: _ }, {
                     if (progress.game.playableByAi) requestFishnet(progress.game, round)
                     if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
                     if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
@@ -54,7 +54,7 @@ private[round] final class Player(
                 uciMemo.add(progress.game, moveOrDrop) >>-
                 notifyMove(moveOrDrop, progress.game) >>
                 progress.game.finished.fold(
-                  moveFinish(progress.game, game.turnColor) map { progress.events ::: _ },
+                  moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ },
                   fuccess(progress.events)
                 )
           }
