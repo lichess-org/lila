@@ -109,6 +109,7 @@ object User extends LilaController {
       me = ctx.me,
       page = page)(ctx.body)
     _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+    _ <- Env.team.cached.nameCache preloadSet info.teamIds
     relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }

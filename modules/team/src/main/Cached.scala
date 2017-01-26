@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
 
-  private val nameCache = new Syncache[String, Option[String]](
+  val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
     compute = TeamRepo.name,
     default = _ => none,
