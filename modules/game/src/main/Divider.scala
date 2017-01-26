@@ -8,10 +8,9 @@ import chess.variant.Variant
 
 final class Divider {
 
-  private val cache: Cache[Game.ID, Division] =
-    Scaffeine()
-      .expireAfterAccess(20 minutes)
-      .build[Game.ID, Division]
+  private val cache: Cache[Game.ID, Division] = Scaffeine()
+    .expireAfterAccess(20 minutes)
+    .build[Game.ID, Division]
 
   def apply(game: Game, initialFen: Option[String]): Division =
     if (!Variant.divisionSensibleVariants(game.variant)) Division.empty
