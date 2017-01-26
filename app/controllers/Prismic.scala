@@ -2,6 +2,7 @@ package controllers
 
 import scala.concurrent.duration._
 
+import lila.memo.AsyncCache2Single
 import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
@@ -16,10 +17,10 @@ object Prismic {
     case _      => logger info message
   }
 
-  private val prismicApiCache = lila.memo.AsyncCache2Single[PrismicApi](
+  private val prismicApiCache = AsyncCache2Single[PrismicApi](
     name = "prismic.fetchPrismicApi",
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
-    timeToLive = 1 minute)(Env.current.system)
+    expireAfter = AsyncCache2Single.ExpireAfterWrite(1 minute))(Env.current.system)
 
   def prismicApi = prismicApiCache.get
 
