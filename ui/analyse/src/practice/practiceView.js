@@ -71,7 +71,7 @@ function renderEnd(root, end) {
       m('em', end === 'checkmate' ? [
         m('color', color),
         ' wins.'
-      ] : 'the game is a draw.')
+      ] : 'The game is a draw.')
     ])
   ]);
 }
