@@ -5,13 +5,15 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 case class Note(
-  _id: String,
-  from: String,
-  to: String,
-  text: String,
-  troll: Boolean,
-  mod: Boolean,
-  date: DateTime)
+    _id: String,
+    from: String,
+    to: String,
+    text: String,
+    troll: Boolean,
+    mod: Boolean,
+    date: DateTime) {
+  def userIds = List(from, to)
+}
 
 case class UserNotes(user: User, notes: List[Note])
 

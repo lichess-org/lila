@@ -21,12 +21,11 @@ object Report extends LilaController {
     renderList(reason)
   }
 
-  private def renderList(reason: String)(implicit ctx: Context) =
-    api.unprocessedAndRecentWithFilter(50, Reason(reason)) flatMap { reports =>
-      api.countUnprocesssedByReasons map { counts =>
-        Ok(html.report.list(reports, reason, counts))
-      }
-    }
+  private def renderList(reason: String)(implicit ctx: Context) = for {
+    reports <- api.unprocessedAndRecentWithFilter(50, Reason(reason))
+    counts <- api.countUnprocesssedByReasons
+    _ <- Env.user.lightUserApi preloadMany reports.flatMap(_.userIds)
+  } yield Ok(html.report.list(reports, reason, counts))
 
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.process(id, me) inject Redirect(routes.Report.list)

@@ -41,6 +41,8 @@ case class Report(
   def unprocessed = processedBy.isEmpty
   def processed = processedBy.isDefined
 
+  def userIds = List(user, createdBy)
+
   lazy val realReason: Reason = Reason byKey reason
 }
 
@@ -59,6 +61,8 @@ object Report {
     def user = withUser.user
     def hasLichessNote = notes.exists(_.from == "lichess")
     def hasIrwinNote = notes.exists(_.from == "irwin")
+
+    def userIds = report.userIds ::: notes.flatMap(_.userIds)
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report])
