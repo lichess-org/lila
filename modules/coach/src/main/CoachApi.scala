@@ -36,7 +36,7 @@ final class CoachApi(
   def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     find(user) orElse {
       val c = Coach.WithUser(Coach make user, user)
-      coachColl.insert(c.coach) >> cache.clear inject c.some
+      coachColl.insert(c.coach) >> cache.remove(true) inject c.some
     }
   }
 

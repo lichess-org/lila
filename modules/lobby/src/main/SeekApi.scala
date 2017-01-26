@@ -27,10 +27,15 @@ final class SeekApi(
   private val cache = AsyncCache[CacheKey, List[Seek]](
     name = "lobby.seek.list",
     f = {
-      case ForAnon => allCursor.gather[List](maxPerPage)
-      case ForUser => allCursor.gather[List]()
-    },
+    case ForAnon => allCursor.gather[List](maxPerPage)
+    case ForUser => allCursor.gather[List]()
+  },
     timeToLive = 3.seconds)
+
+  private def cacheClear = {
+    cache remove ForAnon
+    cache remove ForUser
+  }
 
   def forAnon = cache(ForAnon)
 
@@ -62,7 +67,7 @@ final class SeekApi(
     case seeks if seeks.size <= maxPerUser => funit
     case seeks =>
       seeks.drop(maxPerUser).map(remove).sequenceFu
-  } >> cache.clear
+  } >> cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.find($doc("user.id" -> userId))
@@ -70,14 +75,14 @@ final class SeekApi(
       .cursor[Seek]().gather[List]()
 
   def remove(seek: Seek) =
-    coll.remove($doc("_id" -> seek.id)).void >> cache.clear
+    coll.remove($doc("_id" -> seek.id)).void >> cacheClear
 
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.write(seek) ++ $doc(
       "gameId" -> gameId,
       "archivedAt" -> DateTime.now)
     coll.remove($doc("_id" -> seek.id)).void >>
-      cache.clear >>
+      cacheClear >>
       archiveColl.insert(archiveDoc)
   }
 
@@ -88,5 +93,5 @@ final class SeekApi(
     coll.remove($doc(
       "_id" -> seekId,
       "user.id" -> userId
-    )).void >> cache.clear
+    )) >> cacheClear
 }

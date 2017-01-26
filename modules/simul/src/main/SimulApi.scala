@@ -90,7 +90,7 @@ private[simul] final class SimulApi(
                 }
               }
             } flatMap update
-          } >> currentHostIdsCache.clear
+          } >> currentHostIdsCache.remove(true)
         }
       }
     }
@@ -122,7 +122,7 @@ private[simul] final class SimulApi(
               game.id,
               _.finish(game.status, game.winnerUserId, game.turns)
             )
-            update(simul2) >> currentHostIdsCache.clear >>- {
+            update(simul2) >> currentHostIdsCache.remove(true) >>- {
               if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(
                 simul2.hostId,
                 lila.socket.Socket.makeMessage("simulEnd", Json.obj(

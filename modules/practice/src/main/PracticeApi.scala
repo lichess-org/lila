@@ -59,7 +59,7 @@ final class PracticeApi(
       timeToLive = 3.hours)
 
     def get = cache(true)
-    def clear = cache.clear
+    def clear = cache.remove(true)
   }
 
   object progress {

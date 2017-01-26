@@ -131,7 +131,7 @@ private[video] final class VideoApi(
         f = videoColl.count(none),
         timeToLive = 1.day)
 
-      def clearCache = cache.clear
+      def clearCache = cache.remove(true)
 
       def apply: Fu[Int] = cache apply true
     }
@@ -166,7 +166,7 @@ private[video] final class VideoApi(
 
     def allPopular: Fu[List[TagNb]] = popularCache(true)
 
-    def clearCache = pathsCache.clear >> popularCache.clear
+    def clearCache = pathsCache.clear >> popularCache.remove(true)
 
     private val max = 25
 
