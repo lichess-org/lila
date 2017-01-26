@@ -27,26 +27,32 @@ final class Syncache[K, V](
   private val cache = Builder.expiry[K, V](timeToLive)
 
   // get the value synchronously, might block depending on strategy
-  def sync(k: K): V = Option(cache getIfPresent k) getOrElse {
-    // println(s"*** miss $name $k")
-    // Thread.dumpStack()
-    incMiss()
-    chm.computeIfAbsent(k, loadFunction)
-    strategy match {
-      case NeverWait            => default(k)
-      case AlwaysWait(duration) => waitForResult(k, duration)
-      case WaitAfterUptime(duration, uptime) =>
-        if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
-        else default(k)
+  def sync(k: K): V = {
+    val v = cache getIfPresent k
+    if (v != null) v
+    else {
+      // println(s"*** miss $name $k")
+      // Thread.dumpStack()
+      incMiss()
+      chm.computeIfAbsent(k, loadFunction)
+      strategy match {
+        case NeverWait            => default(k)
+        case AlwaysWait(duration) => waitForResult(k, duration)
+        case WaitAfterUptime(duration, uptime) =>
+          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
+          else default(k)
+      }
     }
   }
 
   // get the value asynchronously, never blocks (preferred)
-  def async(k: K): Fu[V] = Option(cache getIfPresent k) match {
-    case Some(v) => fuccess(v)
-    case None =>
+  def async(k: K): Fu[V] = {
+    val v = cache getIfPresent k
+    if (v != null) fuccess(v)
+    else {
       chm.computeIfAbsent(k, loadFunction)
       chm get k
+    }
   }
 
   def invalidate(k: K): Unit = cache invalidate k
