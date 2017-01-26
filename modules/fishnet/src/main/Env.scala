@@ -13,6 +13,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     bus: lila.common.Bus,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     sink: lila.analyse.Analyser) {
 
   private val ActorName = config getString "actor.name"
@@ -28,7 +29,8 @@ final class Env(
 
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
-    clientColl = clientColl)
+    clientColl = clientColl,
+    asyncCache = asyncCache)
 
   private val moveDb = new MoveDB(
     roundMap = hub.actor.roundMap,
@@ -123,5 +125,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
     bus = lila.common.PlayApp.system.lilaBus,
+    asyncCache = lila.memo.Env.current.asyncCache,
     sink = lila.analyse.Env.current.analyser)
 }
