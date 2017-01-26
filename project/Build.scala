@@ -34,7 +34,7 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-        spray.caching, maxmind, prismic,
+        maxmind, prismic,
         kamon.core, kamon.statsd, kamon.influxdb,
         java8compat, semver, scrimage, configs, scaffeine),
       TwirlKeys.templateImports ++= Seq(
@@ -133,7 +133,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val memo = project("memo", Seq(common, db)).settings(
-    libraryDependencies ++= Seq(findbugs, spray.caching, scaffeine, configs) ++ provided(play.api, reactivemongo.driver)
+    libraryDependencies ++= Seq(findbugs, scaffeine, configs) ++ provided(play.api, reactivemongo.driver)
   )
 
   lazy val search = project("search", Seq(common, hub)).settings(
@@ -174,7 +174,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val analyse = project("analyse", Seq(common, hub, chess, game, user, notifyModule)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver, spray.caching)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val round = project("round", Seq(
@@ -283,11 +283,11 @@ object ApplicationBuild extends Build {
   )
 
   lazy val message = project("message", Seq(common, db, user, hub, relation, security, notifyModule)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver, spray.caching)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val forum = project("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(
-    libraryDependencies ++= provided(play.api, reactivemongo.driver, spray.caching)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(

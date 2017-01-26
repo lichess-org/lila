@@ -9,6 +9,7 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: NotifyApi,
     system: akka.actor.ActorSystem,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -44,7 +45,7 @@ final class Env(
 
   lazy val cli = new Cli(api, colls)
 
-  lazy val cached = new Cached()(system)
+  lazy val cached = new Cached(asyncCache)(system)
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 }
@@ -56,5 +57,6 @@ object Env {
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
     system = lila.common.PlayApp.system,
+    asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current)
 }

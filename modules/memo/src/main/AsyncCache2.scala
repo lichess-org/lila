@@ -7,6 +7,8 @@ import scala.concurrent.duration._
 final class AsyncCache2[K, V](cache: AsyncLoadingCache[K, V], f: K => Fu[V]) {
 
   def get(k: K): Fu[V] = cache get k
+
+  def refresh(k: K): Unit = cache.put(k, f(k))
 }
 
 final class AsyncCache2Clearable[K, V](cache: Cache[K, Fu[V]], f: K => Fu[V]) {
@@ -14,6 +16,8 @@ final class AsyncCache2Clearable[K, V](cache: Cache[K, Fu[V]], f: K => Fu[V]) {
   def get(k: K): Fu[V] = cache.get(k, f)
 
   def invalidate(k: K): Unit = cache invalidate k
+
+  def invalidateAll: Unit = cache.invalidateAll
 }
 
 final class AsyncCache2Single[V](cache: AsyncLoadingCache[Unit, V], f: Unit => Fu[V]) {

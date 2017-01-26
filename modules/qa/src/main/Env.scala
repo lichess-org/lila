@@ -8,6 +8,7 @@ final class Env(
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
     mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     notifyApi: lila.notify.NotifyApi,
     db: lila.db.Env) {
 
@@ -20,6 +21,7 @@ final class Env(
     questionColl = questionColl,
     answerColl = db(CollectionAnswer),
     mongoCache = mongoCache,
+    asyncCache = asyncCache,
     notifier = notifier)
 
   private lazy val notifier = new Notifier(
@@ -38,6 +40,7 @@ object Env {
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     mongoCache = lila.memo.Env.current.mongoCache,
+    asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
     db = lila.db.Env.current)
 }

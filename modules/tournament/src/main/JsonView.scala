@@ -17,6 +17,7 @@ final class JsonView(
     cached: Cached,
     performance: Performance,
     statsApi: TournamentStatsApi,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     verify: Condition.Verify) {
 
   import JsonView._
@@ -34,7 +35,7 @@ final class JsonView(
     me: Option[User],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[Int]): Fu[JsObject] = for {
-    data <- cachableData(tour.id)
+    data <- cachableData get tour.id
     myInfo <- me ?? { u => PlayerRepo.playerInfo(tour.id, u.id) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
@@ -88,11 +89,13 @@ final class JsonView(
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
-    if (page == 1) firstPageCache(tour.id)
+    if (page == 1) firstPageCache get tour.id
     else computeStanding(tour, page)
 
-  def clearCache(id: String) =
-    firstPageCache.remove(id) >> cachableData.remove(id)
+  def clearCache(id: String) = {
+    firstPageCache invalidate id
+    cachableData invalidate id
+  }
 
   def playerInfo(info: PlayerInfoExt): Fu[JsObject] = for {
     ranking <- cached ranking info.tour
@@ -175,12 +178,12 @@ final class JsonView(
     "page" -> page,
     "players" -> players)
 
-  private val firstPageCache = lila.memo.AsyncCache[String, JsObject](
+  private val firstPageCache = asyncCache.clearable[String, JsObject](
     name = "tournament.firstPage",
     id => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
-    timeToLive = 1 second)
+    expireAfter = _.ExpireAfterWrite(1 second))
 
-  private val cachableData = lila.memo.AsyncCache[String, CachableData](
+  private val cachableData = asyncCache.clearable[String, CachableData](
     name = "tournament.json.cachable",
     id =>
       for {
@@ -195,7 +198,7 @@ final class JsonView(
         featured = featured map featuredJson,
         podium = podium,
         next = next),
-    timeToLive = 1 second)
+    expireAfter = _.ExpireAfterWrite(1 second))
 
   private def nextJson(tour: Tournament) = Json.obj(
     "id" -> tour.id,

@@ -16,6 +16,7 @@ final class PlanApi(
     notifier: PlanNotifier,
     lightUserApi: lila.user.LightUserApi,
     bus: lila.common.Bus,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     payPalIpnKey: PayPalIpnKey,
     monthlyGoalApi: MonthlyGoalApi) {
 
@@ -78,7 +79,8 @@ final class PlanApi(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
-                setDbUserPlan(user,
+                setDbUserPlan(
+                  user,
                   if (patron.canLevelUp) user.plan.incMonths
                   else user.plan.enable)
             }
@@ -102,7 +104,8 @@ final class PlanApi(
     else if (cents.value < 100) {
       logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
       funit
-    } else {
+    }
+    else {
       val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
@@ -133,7 +136,8 @@ final class PlanApi(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
-                  setDbUserPlan(user,
+                  setDbUserPlan(
+                    user,
                     if (patron.canLevelUp) user.plan.incMonths
                     else user.plan.enable)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
@@ -184,7 +188,7 @@ final class PlanApi(
       logger.warn(s"${user.username} sync: disable plan of non-patron")
       setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
-    case None => fuccess(Synced(none, none))
+    case None                              => fuccess(Synced(none, none))
 
     case Some(patron) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
@@ -218,30 +222,32 @@ final class PlanApi(
     }
   }
 
-  private val recentChargeUserIdsCache = AsyncCache[Int, List[User.ID]](
+  private val recentChargeUserIdsNb = 50
+  private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.recentChargeUserIds",
-    f = nb => chargeColl.primitive[User.ID](
-      $empty, sort = $doc("date" -> -1), nb = nb * 3 / 2, "userId"
-    ) flatMap filterUserIds map (_ take nb),
-    timeToLive = 1 hour)
+    f = chargeColl.primitive[User.ID](
+    $empty, sort = $doc("date" -> -1), nb = recentChargeUserIdsNb * 3 / 2, "userId"
+  ) flatMap filterUserIds map (_ take recentChargeUserIdsNb),
+    expireAfter = _.ExpireAfterWrite(1 hour))
 
-  def recentChargeUserIds(nb: Int): Fu[List[User.ID]] = recentChargeUserIdsCache(nb)
+  def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.get
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
     chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
-  private val topPatronUserIdsCache = AsyncCache[Int, List[User.ID]](
+  private val topPatronUserIdsNb = 120
+  private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
-    f = nb => chargeColl.aggregate(
-      Match($doc("userId" $exists true)), List(
-        GroupField("userId")("total" -> SumField("cents")),
-        Sort(Descending("total")),
-        Limit(nb * 3 / 2))).map {
-        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
-      } flatMap filterUserIds map (_ take nb),
-    timeToLive = 1 hour)
+    f = chargeColl.aggregate(
+    Match($doc("userId" $exists true)), List(
+      GroupField("userId")("total" -> SumField("cents")),
+      Sort(Descending("total")),
+      Limit(topPatronUserIdsNb * 3 / 2))).map {
+      _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+    } flatMap filterUserIds map (_ take topPatronUserIdsNb),
+    expireAfter = _.ExpireAfterWrite(1 hour))
 
-  def topPatronUserIds(nb: Int): Fu[List[User.ID]] = topPatronUserIdsCache(nb)
+  def topPatronUserIds: Fu[List[User.ID]] = topPatronUserIdsCache.get
 
   private def filterUserIds(ids: List[User.ID]): Fu[List[User.ID]] = {
     val dedup = ids.distinct
@@ -251,28 +257,28 @@ final class PlanApi(
   }
 
   private def addCharge(charge: Charge): Funit =
-    chargeColl.insert(charge) >>
-      recentChargeUserIdsCache.clear >>
-      topPatronUserIdsCache.clear >>- {
-        monthlyGoalApi.get foreach { m =>
-          bus.publish(lila.hub.actorApi.plan.ChargeEvent(
-            username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
-            amount = charge.cents.value,
-            percent = m.percent,
-            DateTime.now), 'plan)
-          lila.mon.plan.goal(m.goal.value)
-          lila.mon.plan.current(m.current.value)
-          lila.mon.plan.percent(m.percent)
-          if (charge.isPayPal) {
-            lila.mon.plan.amount.paypal(charge.cents.value)
-            lila.mon.plan.count.paypal()
-          }
-          else if (charge.isStripe) {
-            lila.mon.plan.amount.stripe(charge.cents.value)
-            lila.mon.plan.count.stripe()
-          }
+    chargeColl.insert(charge).void >>- {
+      recentChargeUserIdsCache.refresh
+      topPatronUserIdsCache.refresh
+      monthlyGoalApi.get foreach { m =>
+        bus.publish(lila.hub.actorApi.plan.ChargeEvent(
+          username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
+          amount = charge.cents.value,
+          percent = m.percent,
+          DateTime.now), 'plan)
+        lila.mon.plan.goal(m.goal.value)
+        lila.mon.plan.current(m.current.value)
+        lila.mon.plan.percent(m.percent)
+        if (charge.isPayPal) {
+          lila.mon.plan.amount.paypal(charge.cents.value)
+          lila.mon.plan.count.paypal()
+        }
+        else if (charge.isStripe) {
+          lila.mon.plan.amount.stripe(charge.cents.value)
+          lila.mon.plan.count.stripe()
         }
       }
+    }
 
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)

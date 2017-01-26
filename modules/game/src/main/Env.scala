@@ -59,6 +59,7 @@ final class Env(
   lazy val crosstableApi = new CrosstableApi(
     coll = db(CollectionCrosstable),
     gameColl = gameColl,
+    asyncCache = asyncCache,
     system = system)
 
   // load captcher actor

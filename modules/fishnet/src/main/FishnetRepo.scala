@@ -5,32 +5,32 @@ import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.memo.AsyncCache
 
 private final class FishnetRepo(
     analysisColl: Coll,
-    clientColl: Coll) {
+    clientColl: Coll,
+    asyncCache: lila.memo.AsyncCache2.Builder) {
 
   import BSONHandlers._
 
-  private val clientCache = AsyncCache[Client.Key, Option[Client]](
+  private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
     f = key => clientColl.find(selectClient(key)).uno[Client],
-    timeToLive = 10 seconds)
+    expireAfter = _.ExpireAfterWrite(30 seconds))
 
-  def getClient(key: Client.Key) = clientCache(key)
+  def getClient(key: Client.Key) = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClient(client: Client): Funit =
-    clientColl.update(selectClient(client.key), client, upsert = true).void >> clientCache.remove(client.key)
+    clientColl.update(selectClient(client.key), client, upsert = true).void >>- clientCache.invalidate(client.key)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
     }
   def addClient(client: Client) = clientColl.insert(client)
-  def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >> clientCache.remove(key)
+  def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >>- clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update(selectClient(key), $set("enabled" -> v)).void >> clientCache.remove(key)
+    clientColl.update(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
   def allRecentClients = clientColl.find($doc(
     "instance.seenAt" $gt Client.Instance.recentSince
   )).cursor[Client]().gather[List]()

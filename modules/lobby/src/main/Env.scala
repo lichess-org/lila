@@ -14,6 +14,7 @@ final class Env(
     playban: String => Fu[Option[lila.playban.TempBan]],
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -39,22 +40,23 @@ final class Env(
     coll = db(CollectionSeek),
     archiveColl = db(CollectionSeekArchive),
     blocking = blocking,
+    asyncCache = asyncCache,
     maxPerPage = SeekMaxPerPage,
     maxPerUser = SeekMaxPerUser)
 
   val lobby = Lobby.start(system, ActorName,
     broomPeriod = BroomPeriod,
     resyncIdsPeriod = ResyncIdsPeriod) {
-      new Lobby(
-        socket = socket,
-        seekApi = seekApi,
-        gameCache = gameCache,
-        maxPlaying = MaxPlaying,
-        blocking = blocking,
-        playban = playban,
-        poolApi = poolApi,
-        onStart = onStart)
-    }
+    new Lobby(
+      socket = socket,
+      seekApi = seekApi,
+      gameCache = gameCache,
+      maxPlaying = MaxPlaying,
+      blocking = blocking,
+      playban = playban,
+      poolApi = poolApi,
+      onStart = onStart)
+  }
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -83,6 +85,7 @@ object Env {
     playban = lila.playban.Env.current.api.currentBan _,
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

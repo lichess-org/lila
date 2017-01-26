@@ -1,30 +1,29 @@
 package lila.forum
 
-import scala.concurrent.duration.Duration
-
-import spray.caching.{ LruCache, Cache }
+import scala.concurrent.duration.FiniteDuration
 
 import lila.security.{ Permission, Granter => MasterGranter }
 import lila.user.User
 
 private[forum] final class Recent(
     postApi: PostApi,
-    ttl: Duration,
+    ttl: FiniteDuration,
     nb: Int,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     publicCategIds: List[String]) {
 
   private type GetTeamIds = String => Fu[Set[String]]
 
   def apply(user: Option[User], getTeams: GetTeamIds): Fu[List[MiniForumPost]] =
-    userCacheKey(user, getTeams) flatMap { key => cache(key)(fetch(key)) }
+    userCacheKey(user, getTeams) flatMap cache.get
 
   def team(teamId: String): Fu[List[MiniForumPost]] = {
     // prepend empty language list
     val key = ";" + teamSlug(teamId)
-    cache(key)(fetch(key))
+    cache get key
   }
 
-  def invalidate: Funit = fuccess(cache.clear)
+  def invalidate: Unit = cache.invalidateAll
 
   private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
     (user.map(_.id) ?? getTeams).map { teamIds =>
@@ -37,7 +36,10 @@ private[forum] final class Recent(
 
   private lazy val staffCategIds = "staff" :: publicCategIds
 
-  private val cache: Cache[List[MiniForumPost]] = LruCache(timeToLive = ttl)
+  private val cache = asyncCache.clearable(
+    name = "forum.recent",
+    f = fetch,
+    expireAfter = _.ExpireAfterAccess(ttl))
 
   private def parseLangs(langStr: String) = langStr.split(",").toList filter (_.nonEmpty)
 

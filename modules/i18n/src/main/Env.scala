@@ -10,6 +10,7 @@ final class Env(
     system: akka.actor.ActorSystem,
     messages: Messages,
     captcher: akka.actor.ActorSelection,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     appPath: String) {
 
   private val settings = new {
@@ -78,7 +79,7 @@ final class Env(
     repoPath = appPath,
     system = system)
 
-  lazy val context = new Context(ContextGitUrl, ContextGitFile, keys)
+  lazy val context = new Context(ContextGitUrl, ContextGitFile, asyncCache, keys)
 
   private lazy val callApi = new CallApi(
     hideCallsCookieName = hideCallsCookieName,
@@ -113,6 +114,7 @@ object Env {
     system = PlayApp.system,
     messages = MessageDb.load,
     captcher = lila.hub.Env.current.actor.captcher,
+    asyncCache = lila.memo.Env.current.asyncCache,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }

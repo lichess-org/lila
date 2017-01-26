@@ -10,6 +10,7 @@ final class Env(
     captcher: akka.actor.ActorSelection,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -54,6 +55,7 @@ final class Env(
     coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
+    asyncCache = asyncCache,
     cachedIpsTtl = FirewallCachedIpsTtl)
 
   lazy val flood = new Flood(FloodDuration)
@@ -130,5 +132,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    asyncCache = lila.memo.Env.current.asyncCache,
     captcher = lila.hub.Env.current.actor.captcher)
 }

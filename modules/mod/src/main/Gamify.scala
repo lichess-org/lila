@@ -7,11 +7,11 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.AsyncCache
 
 final class Gamify(
     logColl: Coll,
     reportApi: lila.report.ReportApi,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     historyColl: Coll) {
 
   import Gamify._
@@ -53,16 +53,16 @@ final class Gamify(
       }.sequenceFu
     }.void
 
-  def leaderboards = leaderboardsCache(true)
+  def leaderboards = leaderboardsCache.get
 
-  private val leaderboardsCache = AsyncCache.single[Leaderboards](
+  private val leaderboardsCache = asyncCache.single[Leaderboards](
     name = "mod.leaderboards",
     f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
       mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
       mixedLeaderboard(DateTime.now minusMonths 1, none) map {
         case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
       },
-    timeToLive = 10 seconds)
+    expireAfter = _.ExpireAfterWrite(10 seconds))
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
     actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {

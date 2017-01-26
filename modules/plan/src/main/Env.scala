@@ -9,6 +9,7 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
     bus: lila.common.Bus,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     lightUserApi: lila.user.LightUserApi,
     scheduler: lila.common.Scheduler) {
 
@@ -45,6 +46,7 @@ final class Env(
     tracking = tracking,
     lightUserApi = lightUserApi,
     bus = bus,
+    asyncCache = asyncCache,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
     monthlyGoalApi = monthlyGoalApi)
 
@@ -68,5 +70,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
     bus = lila.common.PlayApp.system.lilaBus,
+    asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler)
 }

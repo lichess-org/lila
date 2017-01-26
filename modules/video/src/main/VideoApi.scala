@@ -7,12 +7,12 @@ import scala.concurrent.duration._
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.memo.AsyncCache
 import lila.user.User
 
 private[video] final class VideoApi(
     videoColl: Coll,
-    viewColl: Coll) {
+    viewColl: Coll,
+    asyncCache: lila.memo.AsyncCache2.Builder) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
@@ -126,14 +126,12 @@ private[video] final class VideoApi(
 
     object count {
 
-      private val cache = AsyncCache.single(
+      private val cache = asyncCache.single(
         name = "video.count",
         f = videoColl.count(none),
-        timeToLive = 1.day)
+        expireAfter = _.ExpireAfterWrite(3 hours))
 
-      def clearCache = cache.remove(true)
-
-      def apply: Fu[Int] = cache apply true
+      def apply: Fu[Int] = cache.get
     }
   }
 
@@ -162,17 +160,15 @@ private[video] final class VideoApi(
 
   object tag {
 
-    def paths(filterTags: List[Tag]): Fu[List[TagNb]] = pathsCache(filterTags.sorted)
+    def paths(filterTags: List[Tag]): Fu[List[TagNb]] = pathsCache get filterTags.sorted
 
-    def allPopular: Fu[List[TagNb]] = popularCache(true)
-
-    def clearCache = pathsCache.clear >> popularCache.remove(true)
+    def allPopular: Fu[List[TagNb]] = popularCache.get
 
     private val max = 25
 
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
 
-    private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
+    private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
       f = filterTags => {
       val allPaths =
@@ -202,15 +198,15 @@ private[video] final class VideoApi(
           }
       }
     },
-      maxCapacity = 100)
+    expireAfter = _.ExpireAfterAccess(10 minutes))
 
-    private val popularCache = AsyncCache.single[List[TagNb]](
+    private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
       f = videoColl.aggregate(
         Project($doc("tags" -> true)), List(
           UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb")))).map(
           _.firstBatch.flatMap(_.asOpt[TagNb])),
-      timeToLive = 1.day)
+      expireAfter = _.ExpireAfterWrite(1.day))
   }
 }

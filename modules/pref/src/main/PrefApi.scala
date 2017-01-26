@@ -1,22 +1,22 @@
 package lila.pref
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration.FiniteDuration
 
 import lila.db.BSON
 import lila.db.dsl._
-import lila.memo.AsyncCache
 import lila.user.User
 import reactivemongo.bson._
 
 final class PrefApi(
     coll: Coll,
-    cacheTtl: Duration) {
+    asyncCache: lila.memo.AsyncCache2.Builder,
+    cacheTtl: FiniteDuration) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
-  private val cache = AsyncCache(
+  private val cache = asyncCache.multi(
     name = "pref.fetchPref",
     f = fetchPref,
-    timeToLive = cacheTtl)
+    expireAfter = _.ExpireAfterAccess(cacheTtl))
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 
@@ -105,9 +105,9 @@ final class PrefApi(
     coll.update(
       $id(user.id),
       $set(s"tags.$name" -> value),
-      upsert = true).void >>- { cache remove user.id }
+      upsert = true).void >>- { cache refresh user.id }
 
-  def getPrefById(id: String): Fu[Pref] = cache(id) map (_ getOrElse Pref.create(id))
+  def getPrefById(id: String): Fu[Pref] = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref = getPrefById _
   def getPref(user: User): Fu[Pref] = getPref(user.id)
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
@@ -133,7 +133,7 @@ final class PrefApi(
 
   def setPref(pref: Pref, notifyChange: Boolean): Funit =
     coll.update($id(pref.id), pref, upsert = true).void >>- {
-      cache remove pref.id
+      cache refresh pref.id
     }
 
   def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =

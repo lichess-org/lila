@@ -103,7 +103,7 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, performance, statsApi, verify)
+  lazy val jsonView = new JsonView(lightUserApi, cached, performance, statsApi, asyncCache, verify)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.sync)
 

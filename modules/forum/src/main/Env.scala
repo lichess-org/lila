@@ -19,6 +19,7 @@ final class Env(
     detectLanguage: DetectLanguage,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     system: ActorSystem) {
 
   private val settings = new {
@@ -60,7 +61,7 @@ final class Env(
     mentionNotifier = mentionNotifier)
 
   lazy val forms = new DataForm(hub.actor.captcher)
-  lazy val recent = new Recent(postApi, RecentTtl, RecentNb, PublicCategIds)
+  lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
   system.actorOf(Props(new Actor {
     def receive = {
@@ -84,5 +85,6 @@ object Env {
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system)
 }

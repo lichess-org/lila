@@ -100,13 +100,13 @@ final class TeamApi(
     requestable(team, user) flatMap {
       _ ?? {
         val request = Request.make(team = team.id, user = user.id, message = setup.message)
-        coll.request.insert(request).void >> (cached.nbRequests remove team.createdBy)
+        coll.request.insert(request).void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }
 
   def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
     _ ← coll.request.remove(request)
-    _ ← cached.nbRequests remove team.createdBy
+    _ = cached.nbRequests invalidate team.createdBy
     userOption ← UserRepo byId request.user
     _ ← userOption.filter(_ => accept).??(user =>
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
@@ -167,7 +167,7 @@ final class TeamApi(
 
   def teamName(teamId: String) = cached name teamId
 
-  def nbRequests(teamId: String) = cached nbRequests teamId
+  def nbRequests(teamId: String) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
     coll.team.find($empty).cursor[Team]().foldWhileM({}) { (_, team) =>

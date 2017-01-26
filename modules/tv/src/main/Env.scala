@@ -5,7 +5,6 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.db.dsl._
-import lila.memo.AsyncCache
 
 import scala.concurrent.duration._
 
@@ -16,6 +15,7 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     isProd: Boolean) {
 
   private val FeaturedSelect = config duration "featured.select"
@@ -47,25 +47,25 @@ final class Env(
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._
     private val coll = db("flag")
-    def get = coll.primitiveOne[String]($id("streamer"), "text") map (~_)
+    def get = coll.primitiveOne[String]($id("streamer"), "text") dmap (~_)
     def set(text: String) =
       coll.update($id("streamer"), $doc("text" -> text), upsert = true).void
   })
 
   object isStreamer {
-    private val cache = AsyncCache.single[Set[lila.user.User.ID]](
+    private val cache = asyncCache.single[Set[lila.user.User.ID]](
       name = "tv.streamers",
       f = streamerList.lichessIds,
-      timeToLive = 10 seconds)
-    def apply(id: lila.user.User.ID): Fu[Boolean] = cache(true) map { _ contains id }
+      expireAfter = _.ExpireAfterWrite(10 seconds))
+    def apply(id: lila.user.User.ID): Fu[Boolean] = cache.get dmap { _ contains id }
   }
 
   object streamsOnAir {
-    private val cache = lila.memo.AsyncCache.single[List[StreamOnAir]](
+    private val cache = asyncCache.single[List[StreamOnAir]](
       name = "tv.streamsOnAir",
       f = streaming.onAir,
-      timeToLive = 2 seconds)
-    def all = cache(true)
+      expireAfter = _.ExpireAfterWrite(2 seconds))
+    def all = cache.get
   }
 
   {
@@ -93,6 +93,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUserSync,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    asyncCache = lila.memo.Env.current.asyncCache,
     isProd = lila.common.PlayApp.isProd)
 }
 

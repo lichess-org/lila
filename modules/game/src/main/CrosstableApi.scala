@@ -3,12 +3,12 @@ package lila.game
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.AsyncCache
 import lila.user.UserRepo
 
 final class CrosstableApi(
     coll: Coll,
     gameColl: Coll,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     system: akka.actor.ActorSystem) {
 
   import Crosstable.Result
@@ -58,13 +58,13 @@ final class CrosstableApi(
   }
 
   private def createFast(u1: String, u2: String) =
-    creationCache(u1 -> u2).withTimeoutDefault(1 second, none)(system)
+    creationCache.get(u1 -> u2).withTimeoutDefault(1 second, none)(system)
 
   // to avoid creating it twice during a new matchup
-  private val creationCache = AsyncCache[(String, String), Option[Crosstable]](
+  private val creationCache = asyncCache.multi[(String, String), Option[Crosstable]](
     name = "crosstable",
     f = (create _).tupled,
-    timeToLive = 20 seconds)
+    expireAfter = _.ExpireAfterWrite(20 seconds))
 
   private val winnerProjection = $doc(Game.BSONFields.winnerId -> true)
 

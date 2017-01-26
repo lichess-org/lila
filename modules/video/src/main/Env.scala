@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     isDev: Boolean) {
 
   private val settings = new {
@@ -23,6 +24,7 @@ final class Env(
   import settings._
 
   lazy val api = new VideoApi(
+    asyncCache = asyncCache,
     videoColl = videoColl,
     viewColl = viewColl)
 
@@ -56,5 +58,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "video",
     scheduler = lila.common.PlayApp.scheduler,
     isDev = lila.common.PlayApp.isDev,
+    asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current)
 }

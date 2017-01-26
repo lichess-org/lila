@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
-import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 import BSONHandlers._
@@ -20,6 +19,7 @@ final class RelationApi(
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: ID => Fu[Boolean],
+    asyncCache: lila.memo.AsyncCache2.Builder,
     maxFollow: Int,
     maxBlock: Int) {
 
@@ -55,19 +55,19 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID) =
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
-  private val countFollowingCache = AsyncCache[ID, Int](
+  private val countFollowingCache = asyncCache.clearable[ID, Int](
     name = "relation.count.following",
     f = userId => coll.countSel($doc("u1" -> userId, "r" -> Follow)),
-    timeToLive = 10 minutes)
+    expireAfter = _.ExpireAfterAccess(10 minutes))
 
-  def countFollowing(userId: ID) = countFollowingCache(userId)
+  def countFollowing(userId: ID) = countFollowingCache get userId
 
-  private val countFollowersCache = AsyncCache[ID, Int](
+  private val countFollowersCache = asyncCache.clearable[ID, Int](
     name = "relation.count.followers",
     f = userId => coll.countSel($doc("u2" -> userId, "r" -> Follow)),
-    timeToLive = 10 minutes)
+    expireAfter = _.ExpireAfterAccess(10 minutes))
 
-  def countFollowers(userId: ID) = countFollowersCache(userId)
+  def countFollowers(userId: ID) = countFollowersCache get userId
 
   def countBlocking(userId: ID) =
     coll.count($doc("u1" -> userId, "r" -> Block).some)
@@ -101,8 +101,8 @@ final class RelationApi(
         case (Some(Follow), _) => funit
         case (_, Some(Block))  => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
-          countFollowersCache remove u2
-          countFollowingCache remove u1
+          countFollowersCache invalidate u2
+          countFollowingCache invalidate u1
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
           lila.mon.relation.follow()
@@ -133,8 +133,8 @@ final class RelationApi(
     if (u1 == u2) funit
     else fetchFollows(u1, u2) flatMap {
       case true => RelationRepo.unfollow(u1, u2) >>- {
-        countFollowersCache remove u2
-        countFollowingCache remove u1
+        countFollowersCache invalidate u2
+        countFollowingCache invalidate u1
         reloadOnlineFriends(u1, u2)
         lila.mon.relation.unfollow()
       }

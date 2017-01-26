@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import reactivemongo.bson._
 
 import org.joda.time.DateTime
-import spray.caching.{ LruCache, Cache }
 
 import lila.common.paginator._
 import lila.db.dsl._
@@ -16,6 +15,7 @@ final class QaApi(
     questionColl: Coll,
     answerColl: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     notifier: Notifier) {
 
   object question {
@@ -41,18 +41,20 @@ final class QaApi(
           acceptedAt = None,
           editedAt = None)
 
-        (questionColl insert q) >>
-          tag.clearCache >>
-          relation.clearCache >>-
-          notifier.createQuestion(q, user) inject q
+        (questionColl insert q) >>- {
+          tag.clearCache
+          relation.clearCache
+          notifier.createQuestion(q, user)
+        } inject q
       }
 
     def edit(data: QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
       _ ?? { q =>
         val q2 = q.copy(title = data.title, body = data.body, tags = data.tags).editNow
-        questionColl.update($doc("_id" -> q2.id), q2) >>
-          tag.clearCache >>
-          relation.clearCache inject q2.some
+        questionColl.update($id(q2.id), q2) >>- {
+          tag.clearCache
+          relation.clearCache
+        } inject q2.some
       }
     }
 
@@ -75,19 +77,19 @@ final class QaApi(
     private def paginator(selector: Bdoc, sort: Bdoc, page: Int, perPage: Int): Fu[Paginator[Question]] =
       Paginator(
         adapter = new Adapter[Question](
-          collection = questionColl,
-          selector = selector,
-          projection = $empty,
-          sort = sort
-        ),
+        collection = questionColl,
+        selector = selector,
+        projection = $empty,
+        sort = sort
+      ),
         currentPage = page,
         maxPerPage = perPage)
 
     private def popularCache = mongoCache[Int, List[Question]](
       prefix = "qa:popular",
       f = nb => questionColl.find($empty)
-        .sort($doc("vote.score" -> -1))
-        .cursor[Question]().gather[List](nb),
+      .sort($doc("vote.score" -> -1))
+      .cursor[Question]().gather[List](nb),
       timeToLive = 6 hour,
       keyToString = _.toString)
 
@@ -125,7 +127,7 @@ final class QaApi(
     }
 
     def setAnswers(id: QuestionId, nb: Int) = questionColl.update(
-      $doc("_id" -> id),
+      $id(id),
       $doc(
         "$set" -> $doc(
           "answers" -> BSONInteger(nb),
@@ -135,12 +137,13 @@ final class QaApi(
 
     def remove(id: QuestionId) =
       questionColl.remove($doc("_id" -> id)) >>
-        (answer removeByQuestion id) >>
-        tag.clearCache >>
-        relation.clearCache
+        (answer removeByQuestion id) >>- {
+          tag.clearCache
+          relation.clearCache
+        }
 
     def removeComment(id: QuestionId, c: CommentId) = questionColl.update(
-      $doc("_id" -> id),
+      $id(id),
       $doc("$pull" -> $doc("comments" -> $doc("id" -> c)))
     )
   }
@@ -282,12 +285,18 @@ final class QaApi(
   }
 
   object tag {
-    private val cache: Cache[List[Tag]] = LruCache(timeToLive = 1.day)
 
-    def clearCache = fuccess(cache.clear)
+    private val cache = asyncCache.single(
+      name = "qa.tags",
+      f = fetch,
+      expireAfter = _.ExpireAfterAccess(1 day))
+
+    def clearCache = cache.refresh
 
     // list all tags found in questions collection
-    def all: Fu[List[Tag]] = cache(true) {
+    def all: Fu[List[Tag]] = cache.get
+
+    private def fetch: Fu[List[Tag]] = {
       val col = questionColl
       import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ AddFieldToSet, Group, Project, UnwindField }
 
@@ -300,17 +309,24 @@ final class QaApi(
   }
 
   object relation {
-    private val questionsCache: Cache[List[Question]] =
-      LruCache(timeToLive = 3.hours)
+    private val cache = asyncCache.clearable(
+      "qa.relation",
+      f = fetch,
+      expireAfter = _.ExpireAfterAccess(3 hours))
 
-    def questions(q: Question, max: Int): Fu[List[Question]] = questionsCache(q.id -> max) {
-      question.byTags(q.tags, 2000) map { qs =>
-        qs.filter(_.id != q.id) sortBy { q2 =>
-          -q.tags.union(q2.tags).size
-        } take max
+    def questions(q: Question): Fu[List[Question]] = cache get q.id
+
+    private def fetch(questionId: Int): Fu[List[Question]] =
+      question.findById(questionId) flatMap {
+        _ ?? { q =>
+          question.byTags(q.tags, 2000) map { qs =>
+            qs.filter(_.id != q.id) sortBy { q2 =>
+              -q.tags.union(q2.tags).size
+            } take 10
+          }
+        }
       }
-    }
 
-    def clearCache = fuccess(questionsCache.clear)
+    def clearCache = cache.invalidateAll
   }
 }

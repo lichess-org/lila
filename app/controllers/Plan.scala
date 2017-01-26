@@ -45,8 +45,8 @@ object Plan extends LilaController {
     }
 
   private def renderIndex(email: Option[String], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
-    recentIds <- Env.plan.api.recentChargeUserIds(50)
-    bestIds <- Env.plan.api.topPatronUserIds(120)
+    recentIds <- Env.plan.api.recentChargeUserIds
+    bestIds <- Env.plan.api.topPatronUserIds
     trackingData <- ctx.me.??(me => makeTrackingUserData(me) map some)
     _ <- Env.user.lightUserApi preloadMany { recentIds ::: bestIds }
   } yield Ok(html.plan.index(

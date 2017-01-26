@@ -24,6 +24,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     relationApi: lila.relation.RelationApi,
     userJson: lila.user.JsonView,
+    asyncCache: lila.memo.AsyncCache2.Builder,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {
@@ -79,6 +80,7 @@ final class Env(
   lazy val gamify = new Gamify(
     logColl = logColl,
     reportApi = reportApi,
+    asyncCache = asyncCache,
     historyColl = db(CollectionGamingHistory))
 
   lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
@@ -133,5 +135,6 @@ object Env {
     rankingApi = lila.user.Env.current.rankingApi,
     relationApi = lila.relation.Env.current.api,
     userJson = lila.user.Env.current.jsonView,
+    asyncCache = lila.memo.Env.current.asyncCache,
     emailAddress = lila.security.Env.current.emailAddress)
 }

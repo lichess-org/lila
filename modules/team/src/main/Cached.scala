@@ -1,9 +1,11 @@
 package lila.team
 
-import lila.memo.{ Syncache, AsyncCache }
+import lila.memo.Syncache
 import scala.concurrent.duration._
 
-private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
+private[team] final class Cached(
+    asyncCache: lila.memo.AsyncCache2.Builder
+)(implicit system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
@@ -28,8 +30,8 @@ private[team] final class Cached(implicit system: akka.actor.ActorSystem) {
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
-  val nbRequests = AsyncCache[String, Int](
+  val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
     name = "team.nbRequests",
     f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    maxCapacity = 20000)
+    expireAfter = _.ExpireAfterAccess(12 minutes))
 }

@@ -7,17 +7,20 @@ import scala.concurrent.Future
 import com.google.common.io.Files
 import org.eclipse.jgit.api.Git
 
-import lila.memo.AsyncCache
-
-private[i18n] final class Context(gitUrl: String, gitFile: String, keys: I18nKeys) {
+private[i18n] final class Context(
+    gitUrl: String,
+    gitFile: String,
+    asyncCache: lila.memo.AsyncCache2.Builder,
+    keys: I18nKeys) {
 
   type Contexts = Map[String, String]
 
-  def get: Fu[Contexts] = cache(true)
+  def get: Fu[Contexts] = cache.get
 
-  private val cache = AsyncCache.single[Contexts](
+  private val cache = asyncCache.single[Contexts](
     name = "i18n.contexts",
-    fetch, timeToLive = 1 hour)
+    fetch,
+    expireAfter = _.ExpireAfterWrite(1 hour))
 
   private def parse(text: String): Contexts =
     text.lines.toList.map(_.trim).filter(_.nonEmpty).map(_.split('=')).foldLeft(Map[String, String]()) {

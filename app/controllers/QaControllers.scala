@@ -15,7 +15,7 @@ trait QaController extends LilaController {
   protected def renderQuestion(q: Question, answerForm: Option[Form[_]] = None)(implicit ctx: Context): Fu[Result] = for {
     answers <- api.answer popular q.id
     popular <- fetchPopular
-    related <- api.relation.questions(q, 10)
+    related <- api.relation questions q
     captcha <- QaAuth.canAsk ?? { forms.anyCaptcha map (_.some) }
     _ <- Env.user.lightUserApi preloadMany answers.flatMap(_.userIds)
   } yield Ok(

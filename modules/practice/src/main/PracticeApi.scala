@@ -3,13 +3,13 @@ package lila.practice
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.AsyncCache
 import lila.study.{ Chapter, Study }
 import lila.user.User
 
 final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
+    asyncCache: lila.memo.AsyncCache2.Builder,
     studyApi: lila.study.StudyApi) {
 
   import BSONHandlers._
@@ -50,16 +50,16 @@ final class PracticeApi(
   }
 
   object structure {
-    private val cache = AsyncCache.single[PracticeStructure](
+    private val cache = asyncCache.single[PracticeStructure](
       "practice.structure",
       f = for {
         conf <- config.get
         chapters <- studyApi.chapterIdNames(conf.studyIds)
       } yield PracticeStructure.make(conf, chapters),
-      timeToLive = 3.hours)
+      expireAfter = _.ExpireAfterAccess(3.hours))
 
-    def get = cache(true)
-    def clear = cache.remove(true)
+    def get = cache.get
+    def clear = cache.refresh
   }
 
   object progress {

@@ -48,7 +48,7 @@ final class PostApi(
                 shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
               } >>
               env.categColl.update($id(categ.id), categ withTopic post) >>-
-              (!categ.quiet ?? (indexer ! InsertPost(post))) >>
+              (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate) >>-
               ctx.userId.?? { userId =>
                 shutup ! post.isTeam.fold(
@@ -176,7 +176,7 @@ final class PostApi(
         env.topicApi.delete(view.categ, view.topic),
         env.postColl.remove(view.post) >>
           (env.topicApi denormalize view.topic) >>
-          (env.categApi denormalize view.categ) >>
+          (env.categApi denormalize view.categ) >>-
           env.recent.invalidate >>-
           (indexer ! RemovePost(post.id)))
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,

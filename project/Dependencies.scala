@@ -55,7 +55,6 @@ object Dependencies {
   }
   object spray {
     val version = "1.3.4"
-    val caching = "io.spray" %% "spray-caching" % version
     val util = "io.spray" %% "spray-util" % version
   }
   object akka {

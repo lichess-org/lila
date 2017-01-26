@@ -7,7 +7,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ RequestHeader, Action, Cookies }
-import spray.caching.{ LruCache, Cache }
 
 import lila.common.LilaCookie
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -17,7 +16,8 @@ final class Firewall(
     coll: Coll,
     cookieName: Option[String],
     enabled: Boolean,
-    cachedIpsTtl: Duration) {
+    asyncCache: lila.memo.AsyncCache2.Builder,
+    cachedIpsTtl: FiniteDuration) {
 
   private def ipOf(req: RequestHeader) =
     lila.common.HTTPRequest lastRemoteAddress req
@@ -62,14 +62,17 @@ final class Firewall(
   private type IP = Vector[Byte]
 
   private lazy val ips = new {
-    private val cache: Cache[Set[IP]] = LruCache(timeToLive = cachedIpsTtl)
+    private val cache = asyncCache.single(
+      name = "firewall.ips",
+      f = fetch,
+      expireAfter = _.ExpireAfterWrite(cachedIpsTtl))
     private def strToIp(ip: String): Option[IP] = scala.util.Try {
       InetAddress.getByName(ip).getAddress.toVector
     }.toOption
-    def apply: Fu[Set[IP]] = cache(true)(fetch)
-    def clear { cache.clear }
-    def contains(str: String) = strToIp(str) ?? { ip => apply.map(_ contains ip) }
-    def fetch: Fu[Set[IP]] =
+    def apply: Fu[Set[IP]] = cache.get
+    def clear = cache.refresh
+    def contains(str: String) = strToIp(str) ?? { ip => apply.dmap(_ contains ip) }
+    private def fetch: Fu[Set[IP]] =
       coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
         lila.mon.security.firewall.ip(ips.size)
       }

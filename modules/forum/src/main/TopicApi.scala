@@ -61,7 +61,7 @@ private[forum] final class TopicApi(
         env.postColl.insert(post) >>
           env.topicColl.insert(topic withPost post) >>
           env.categColl.update($id(categ.id), categ withTopic post) >>-
-          (!categ.quiet ?? (indexer ! InsertPost(post))) >>
+          (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
           (!categ.quiet ?? env.recent.invalidate) >>-
           ctx.userId.?? { userId =>
             val text = topic.name + " " + post.text
@@ -102,7 +102,7 @@ private[forum] final class TopicApi(
     PostRepo.idsByTopicId(topic.id) flatMap { postIds =>
       (PostRepo removeByTopic topic.id zip env.topicColl.remove($id(topic.id))) >>
         (env.categApi denormalize categ) >>-
-        (indexer ! RemovePosts(postIds)) >>
+        (indexer ! RemovePosts(postIds)) >>-
         env.recent.invalidate
     }
 
@@ -115,9 +115,9 @@ private[forum] final class TopicApi(
   def toggleHide(categ: Categ, topic: Topic, mod: User): Funit =
     TopicRepo.hide(topic.id, topic.visibleOnHome) >> {
       MasterGranter(_.ModerateForum)(mod) ?? {
-        PostRepo.hideByTopic(topic.id, topic.visibleOnHome) zip
+        PostRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
           modLog.toggleHideTopic(mod.id, categ.name, topic.name, topic.visibleOnHome)
-      } >> env.recent.invalidate
+      } >>- env.recent.invalidate
     }
 
   def denormalize(topic: Topic): Funit = for {
