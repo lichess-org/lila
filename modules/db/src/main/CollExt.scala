@@ -32,7 +32,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def countSel(selector: Bdoc): Fu[Int] = coll count selector.some
 
-    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).map(0!=)
+    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
       coll.find($inIds(ids)).cursor[D](readPreference = readPreference).
@@ -54,7 +54,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))
         .list[Bdoc]()
-        .map {
+        .dmap {
           _ flatMap { _.getAs[V](field) }
         }
 
@@ -62,7 +62,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.find(selector, $doc(field -> true))
         .sort(sort)
         .list[Bdoc]()
-        .map {
+        .dmap {
           _ flatMap { _.getAs[V](field) }
         }
 
@@ -70,14 +70,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.find(selector, $doc(field -> true))
         .sort(sort)
         .list[Bdoc](nb)
-        .map {
+        .dmap {
           _ flatMap { _.getAs[V](field) }
         }
 
     def primitiveOne[V: BSONValueReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll.find(selector, $doc(field -> true))
         .uno[Bdoc]
-        .map {
+        .dmap {
           _ flatMap { _.getAs[V](field) }
         }
 
@@ -85,7 +85,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.find(selector, $doc(field -> true))
         .sort(sort)
         .uno[Bdoc]
-        .map {
+        .dmap {
           _ flatMap { _.getAs[V](field) }
         }
 
