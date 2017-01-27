@@ -87,7 +87,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     req.chapterId = data.position.chapterId;
     return req;
   }
-  ctrl.userJump(data.position.path);
+  if (vm.behind === false) ctrl.userJump(data.position.path);
 
   var configureAnalysis = function() {
     if (ctrl.embed) return;
