@@ -116,7 +116,7 @@ final class Syncache[K, V](
   private val incMiss = lila.mon.syncache.miss(name)
   private val incWait = lila.mon.syncache.wait(name)
   private val incPreload = lila.mon.syncache.preload(name)
-  private val incTimeout = lila.mon.syncache.preload(name)
+  private val incTimeout = lila.mon.syncache.timeout(name)
   private val incWaitMicros = lila.mon.syncache.waitMicros(name)
 }
 
