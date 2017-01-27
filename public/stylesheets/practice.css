@@ -153,18 +153,14 @@ body.dark #practice_app .section > h2 {
 }
 @keyframes soft-bright {
   50%{
-    -webkit-filter: brightness(1.1);
+    -webkit-filter: brightness(1.2);
   }
 }
 #practice_app .study.ongoing {
   background: #3893E8;
-  -webkit-filter: brightness(0.9);
-}
-#practice_app .study.ongoing {
-  animation: 1.7s soft-bright ease-in-out infinite;
 }
 #practice_app .study.ongoing:hover {
-  -webkit-filter: brightness(1.2);
+  animation: 1.7s soft-bright ease-in-out infinite;
 }
 #practice_app .study.done {
   background: #4caf50;
@@ -207,17 +203,6 @@ body.dark #practice_app .section > h2 {
   color: #6a6340;
   box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
-#practice_app .ribbon i {
-  color: #d59120;
-  animation: 0.6s soft-hue ease-in-out infinite;
-  text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
-}
-#practice_app .ribbon i:nth-child(2) {
-  animation-delay: 0.2s;
-}
-#practice_app .ribbon i:nth-child(3) {
-  animation-delay: 0.4s;
-}
 
 #practice_app .ribbon:before,
 #practice_app .ribbon:after {
@@ -253,73 +238,6 @@ body.dark #practice_app .section > h2 {
   text-align: center;
   margin: 20px 0;
   font-size: 1.2em;
-}
-
-#practice_app .ribbon-wrapper {
-  display: block;
-  width: 85px;
-  height: 88px;
-  overflow: hidden;
-  position: absolute;
-  top: -3px;
-  right: -3px;
-}
-#practice_app .ribbon {
-  display: block;
-  font-size: 15px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
-  transform: rotate(45deg);
-  position: relative;
-  padding: 7px 0;
-  left: -5px;
-  top: 15px;
-  width: 120px;
-  color: #6a6340;
-  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-}
-#practice_app .ribbon i {
-  color: #d59120;
-  animation: 0.6s soft-hue ease-in-out infinite;
-  text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
-}
-#practice_app .ribbon i:nth-child(2) {
-  animation-delay: 0.2s;
-}
-#practice_app .ribbon i:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-#practice_app .ribbon:before,
-#practice_app .ribbon:after {
-  content: "";
-  border-left:  3px solid transparent;
-  border-right: 3px solid transparent;
-  position:absolute;
-  bottom: -3px;
-}
-#practice_app .ribbon:before {
-  left: 0;
-}
-#practice_app .ribbon:after {
-  right: 0;
-}
-
-#practice_app .ribbon.done {
-  background-color: #BFDC7A;
-}
-#practice_app .ribbon.done:before,
-#practice_app .ribbon.done:after {
-  border-top:   3px solid #6e8900;
-}
-#practice_app .ribbon.ongoing {
-  background-color: #B3E5FC;
-}
-#practice_app .ribbon.ongoing:before,
-#practice_app .ribbon.ongoing:after {
-  border-top: 3px solid #536DFE;
 }
 
 i.practice {
