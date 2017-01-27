@@ -10,6 +10,7 @@
   </appender>
 
   <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
     <file>${application.home}/logs/all.log</file>
     <encoder><pattern>%date %-5level %logger{30} %message%n%xException{60}</pattern></encoder>
   </appender>
