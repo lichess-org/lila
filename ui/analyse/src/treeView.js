@@ -6,9 +6,9 @@ var throttle = require('common').throttle;
 var defined = require('common').defined;
 var game = require('game').game;
 var fixCrazySan = require('chess').fixCrazySan;
-var normalizeEval = require('chess').renderEval;
 var treePath = require('tree').path;
 var treeOps = require('tree').ops;
+var moveView = require('./moveView');
 var commentAuthorText = require('./study/studyComments').authorText;
 
 var autoScroll = throttle(300, false, function(ctrl, el) {
@@ -25,19 +25,6 @@ var autoScroll = throttle(300, false, function(ctrl, el) {
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
-}
-
-function plyToTurn(ply) {
-  return Math.floor((ply - 1) / 2) + 1;
-}
-
-function renderIndex(ply, withDots) {
-  return {
-    tag: 'index',
-    children: [
-      plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '')
-    ]
-  };
 }
 
 function nonEmpty(x) {
@@ -57,7 +44,7 @@ function renderChildrenOf(ctx, node, opts) {
       withColor: true
     }).filter(nonEmpty);
     if (!cs[1] && empty(commentTags)) return [
-      isWhite ? renderIndex(main.ply, false) : null,
+      isWhite ? moveView.renderIndex(main.ply, false) : null,
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
@@ -75,7 +62,7 @@ function renderChildrenOf(ctx, node, opts) {
       conceal: conceal
     };
     return [
-      isWhite ? renderIndex(main.ply, false) : null,
+      isWhite ? moveView.renderIndex(main.ply, false) : null,
       renderMoveOf(ctx, main, passOpts),
       isWhite ? emptyMove(passOpts) : null,
       m('interrupt', [
@@ -88,7 +75,7 @@ function renderChildrenOf(ctx, node, opts) {
         })
       ]),
       isWhite && mainChildren ? [
-        renderIndex(main.ply, false),
+        moveView.renderIndex(main.ply, false),
         emptyMove(passOpts)
       ] : null,
       mainChildren
@@ -154,19 +141,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
   else if (ctx.ctrl.retro && ctx.ctrl.retro.current() && ctx.ctrl.retro.current().prev.path === path) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
-  return moveTag(attrs, renderMove(ctx, node));
-}
-
-function renderMove(ctx, node) {
-  var eval = node.eval || node.ceval || {};
-  return [
-    fixCrazySan(node.san), (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
-    ctx.showEval ? (
-      defined(eval.cp) ? renderEval(normalizeEval(eval.cp)) : (
-        defined(eval.mate) ? renderEval('#' + eval.mate) : null
-      )
-    ) : null,
-  ];
+  return moveTag(attrs, moveView.renderMove(ctx, node));
 }
 
 function renderVariationMoveOf(ctx, node, opts) {
@@ -182,9 +157,9 @@ function renderVariationMoveOf(ctx, node, opts) {
   if (opts.conceal) classes.push(ctx.conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, [
-    withIndex ? renderIndex(node.ply, true) : null,
+    withIndex ? moveView.renderIndex(node.ply, true) : null,
     fixCrazySan(node.san),
-    node.glyphs ? renderGlyphs(node.glyphs) : null
+    node.glyphs ? moveView.renderGlyphs(node.glyphs) : null
   ]);
 }
 
@@ -230,25 +205,6 @@ function emptyMove(opts) {
   return moveTag({
     class: 'empty' + (opts.conceal ? ' ' + opts.conceal : '')
   }, '...');
-}
-
-function renderGlyphs(glyphs) {
-  return glyphs.map(function(glyph) {
-    return {
-      tag: 'glyph',
-      attrs: {
-        title: glyph.name
-      },
-      children: [glyph.symbol]
-    };
-  });
-}
-
-function renderEval(e) {
-  return {
-    tag: 'eval',
-    children: [e]
-  };
 }
 
 function renderMainlineCommentsOf(ctx, node, opts) {
@@ -352,7 +308,7 @@ module.exports = {
     }, [
       empty(commentTags) ? null : m('interrupt', commentTags),
       root.ply % 2 === 1 ? [
-        renderIndex(root.ply, false),
+        moveView.renderIndex(root.ply, false),
         emptyMove({})
       ] : null,
       renderChildrenOf(ctx, root, {
@@ -360,7 +316,5 @@ module.exports = {
         isMainline: true
       })
     ]);
-  },
-  renderIndex: renderIndex,
-  renderMove: renderMove
+  }
 };

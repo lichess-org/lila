@@ -1,15 +1,19 @@
 var m = require('mithril');
 var dialog = require('./dialog');
+var renderIndexAndMove = require('../moveView').renderIndexAndMove;
 
 var baseUrl = 'https://lichess.org/study/';
 
 function fromPly(ctrl) {
+  var node = ctrl.currentNode();
   return m('div.ply-wrap', m('label.ply', [
     m('input[type=checkbox]', {
       onchange: m.withAttr("checked", ctrl.withPly)
     }),
-    'Start at ply ',
-    m('strong', ctrl.currentNode().ply)
+    'Start at ',
+    m('strong', renderIndexAndMove({
+      withDots: true,
+    }, node))
   ]));
 }
 

@@ -1,5 +1,5 @@
 var m = require('mithril');
-var treeView = require('./treeView');
+var renderIndexAndMove = require('./moveView').renderIndexAndMove;
 
 module.exports = {
   ctrl: function(root) {
@@ -54,13 +54,11 @@ module.exports = {
           onclick: function() {
             root.fork.proceed(node.id);
           }
-        }, [
-          treeView.renderIndex(node.ply, true),
-          treeView.renderMove({
-            showEval: root.vm.showComputer(),
-            showGlyphs: root.vm.showComputer()
-          }, node)
-        ]);
+        }, renderIndexAndMove({
+          withDots: true,
+          showEval: root.vm.showComputer(),
+          showGlyphs: root.vm.showComputer()
+        }, node));
       })
     );
   }

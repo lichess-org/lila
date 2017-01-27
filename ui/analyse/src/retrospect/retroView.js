@@ -1,6 +1,5 @@
 var m = require('mithril');
-var renderIndex = require('../treeView').renderIndex;
-var renderMove = require('../treeView').renderMove;
+var renderIndexAndMove = require('../moveView').renderIndexAndMove;
 var opposite = require('chessground').util.opposite;
 
 function skipOrViewSolution(ctrl) {
@@ -41,8 +40,8 @@ var feedback = {
         m('div.no-square', m('piece.king.' + ctrl.color)),
         m('div.instruction', [
           m('strong', [
-            renderIndex(ctrl.current().fault.node.ply, true),
-            renderMove({
+            renderIndexAndMove({
+              withDots: true,
               showGlyphs: true,
               showEval: false
             }, ctrl.current().fault.node),
@@ -103,8 +102,8 @@ var feedback = {
             m('em', [
               'Best move was ',
               m('strong', [
-                renderIndex(ctrl.current().solution.node.ply, true),
-                renderMove({
+                renderIndexAndMove({
+                  withDots: true,
                   showEval: false
                 }, ctrl.current().solution.node)
               ])
