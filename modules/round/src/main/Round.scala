@@ -230,20 +230,20 @@ private[round] final class Round(
       if (lag > 0) lila.mon.round.move.networkLag(lag)
     }
 
-  protected def handle[A](op: Game => Fu[Events]): Funit =
+  private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  protected def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
-    handlePov((proxy playerPov playerId))(op)
+  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
+    handlePov(proxy playerPov playerId)(op)
 
-  protected def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId
       }
     }(op)
 
-  protected def handle(color: Color)(op: Pov => Fu[Events]): Funit =
+  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
@@ -260,13 +260,13 @@ private[round] final class Round(
     game flatten "game not found" flatMap op
   } recover errorHandler("handleGame")
 
-  private def publish[A](op: Fu[Events]): Funit = op.addEffect { events =>
+  private def publish[A](op: Fu[Events]): Funit = op.map { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
     if (events exists {
       case e: Event.Move => e.threefold
       case _             => false
     }) self ! Threefold
-  }.void recover errorHandler("publish")
+  }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError  => lila.mon.round.error.client()
