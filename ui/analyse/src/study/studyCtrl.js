@@ -23,16 +23,16 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var vm = (function() {
     var isManualChapter = data.chapter.id !== data.position.chapterId;
+    var synced = !ctrl.vm.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: (isManualChapter || practiceData) ? 0 : false, // false if syncing, else incremental number of missed event
+      behind: synced ? false : 0, // false if syncing, else incremental number of missed event
       catchingUp: false, // was behind, is syncing back
-      chapterId: isManualChapter ? data.chapter.id : null // only useful when not synchronized
+      chapterId: synced ? null : data.chapter.id // only useful when not synchronized
     };
   })();
-
 
   var notif = notifCtrl();
   var form = studyFormCtrl(function(data, isNew) {

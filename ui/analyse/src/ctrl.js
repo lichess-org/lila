@@ -50,9 +50,11 @@ module.exports = function(opts) {
   initialize(opts.data);
 
   var initialPath = tree.path.root;
-  console.log(opts.initialPly, location.hash);
   if (opts.initialPly) {
-    var plyStr = opts.initialPly === 'url' ? (location.hash || '').replace(/#/, '') : opts.initialPly;
+    var locationHash = location.hash;
+    var plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
+    // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+    if (locationHash) history.pushState("", document.title, location.pathname + location.search);
     var mainline = tree.ops.mainlineNodeList(this.tree.root);
     if (plyStr === 'last') initialPath = tree.path.fromNodeList(mainline);
     else {
