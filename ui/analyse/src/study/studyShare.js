@@ -3,6 +3,16 @@ var dialog = require('./dialog');
 
 var baseUrl = 'https://lichess.org/study/';
 
+function fromPly(ctrl) {
+  return m('div.ply-wrap', m('label.ply', [
+    m('input[type=checkbox]', {
+      onchange: m.withAttr("checked", ctrl.withPly)
+    }),
+    'Start at ply ',
+    m('strong', ctrl.currentNode().ply)
+  ]));
+}
+
 module.exports = {
   ctrl: function(data, currentChapter, currentNode) {
     var open = m.prop(false);
@@ -26,7 +36,12 @@ module.exports = {
     var studyId = ctrl.studyId;
     var chapter = ctrl.chapter();
     var fullUrl = baseUrl + studyId + '/' + chapter.id;
-    if (ctrl.withPly()) fullUrl += '#' + ctrl.currentNode().ply;
+    var embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
+    if (ctrl.withPly()) {
+      var p = ctrl.currentNode().ply;
+      fullUrl += '#' + p;
+      embedUrl += '#' + p;
+    }
     return dialog.form({
       onClose: function() {
         ctrl.open(false);
@@ -47,13 +62,7 @@ module.exports = {
               readonly: true,
               value: fullUrl
             }),
-            m('div.ply-wrap', m('label.ply', [
-              m('input[type=checkbox]', {
-                onchange: m.withAttr("checked", ctrl.withPly)
-              }),
-              'Start at ply ',
-              m('strong', ctrl.currentNode().ply)
-            ])),
+            fromPly(ctrl),
             m('p.form-help.text', {
               'data-icon': ''
             }, 'You can paste this in the forum to embed the chapter.'),
@@ -64,8 +73,9 @@ module.exports = {
             m('input.has-value.autoselect', {
               readonly: true,
               disabled: !ctrl.isPublic(),
-              value: ctrl.isPublic() ? '<iframe width=600 height=371 src="' + baseUrl + 'embed/' + studyId + '/' + chapter.id + '" frameborder=0></iframe>' : 'Only public studies can be embedded.'
+              value: ctrl.isPublic() ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded.'
             }),
+            fromPly(ctrl),
             m('a.form-help.text', {
               href: '/developers#embed-study',
               target: '_blank',
