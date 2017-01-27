@@ -269,17 +269,17 @@ private[controllers] trait LilaController
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {
       case Some(v) => api(v) map (_ as JSON)
       case _       => html
-    }) map (_.withHeaders("Vary" -> "Accept"))
+    }).dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
     val ctx = UserContext(req, d.map(_.user))
-    pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
+    pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
       val ctx = UserContext(req, d.map(_.user))
-      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) map { Context(ctx, _) }
+      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
   import lila.hub.actorApi.relation._
@@ -292,7 +292,7 @@ private[controllers] trait LilaController
           getOnlineFriends(me) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor.get(me.id) zip
-            Env.notifyModule.api.unreadCount(Notifies(me.id)).map(_.value)
+            Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value)
         }
         else fuccess {
           (((OnlineFriends.empty, 0), 0), 0)
