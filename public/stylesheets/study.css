@@ -45,6 +45,9 @@ form.chapter_form.material.form .form-group textarea {
   line-height: 1.2em;
   font-size: 0.9em;
 }
+.form.share input {
+  font-size: 13px!important;
+}
 div.underboard {
   margin-top: 20px;
   min-height: 370px;

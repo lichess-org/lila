@@ -28,7 +28,7 @@ module.exports = {
       },
       content: [
         m('h2', 'Share & export'),
-        m('form.material.form', [
+        m('form.material.form.share', [
           m('div.form-group', [
             m('input.has-value.autoselect', {
               readonly: true,
