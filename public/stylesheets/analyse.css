@@ -145,6 +145,7 @@ div.eval_gauge {
   background: #fff;
   background-size: 100% 100%;
   border-radius: 5px;
+  overflow: hidden;
 }
 div.eval_gauge.reverse {
   transform: rotateX(180deg);
