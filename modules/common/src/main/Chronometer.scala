@@ -5,6 +5,7 @@ object Chronometer {
   case class Lap[A](result: A, nanos: Long) {
 
     def millis = (nanos / 1000000).toInt
+    def micros = (nanos / 1000).toInt
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
       if (millis >= threshold) logger.debug(s"<${millis}ms> ${msg(result)}")
@@ -15,23 +16,28 @@ object Chronometer {
   case class FuLap[A](lap: Fu[Lap[A]]) {
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
-      lap.foreach(_.logIfSlow(threshold, logger)(msg))
+      lap.dforeach(_.logIfSlow(threshold, logger)(msg))
       this
     }
 
     def mon(path: lila.mon.RecPath) = {
-      lap foreach { l =>
+      lap dforeach { l =>
         lila.mon.recPath(path)(l.nanos)
       }
       this
     }
 
-    def result = lap.map(_.result)
+    def pp: Fu[A] = lap dmap { l =>
+      println(s"chrono ${l.micros} micros")
+      l.result
+    }
+
+    def result = lap.dmap(_.result)
   }
 
   def apply[A](f: => Fu[A]): FuLap[A] = {
     val start = nowNanos
-    FuLap(f map { Lap(_, nowNanos - start) })
+    FuLap(f dmap { Lap(_, nowNanos - start) })
   }
 
   def sync[A](f: => A): Lap[A] = {
