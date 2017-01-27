@@ -75,10 +75,17 @@ module.exports = function(opts) {
     m.redraw();
   };
 
-  lichess.pubsub.on('socket.in.message', onMessage);
-  lichess.pubsub.on('socket.in.chat_timeout', onTimeout);
-  lichess.pubsub.on('socket.in.chat_reinstate', onReinstate);
-  lichess.pubsub.on('chat.writeable', setWriteable);
+  var ps = lichess.pubsub;
+
+  ps.on('socket.in.message', onMessage);
+  ps.on('socket.in.chat_timeout', onTimeout);
+  ps.on('socket.in.chat_reinstate', onReinstate);
+  ps.on('chat.writeable', setWriteable);
+
+  var emitEnabled = function() {
+    ps.emit('chat.enabled')(vm.enabled());
+  };
+  emitEnabled();
 
   return {
     data: data,
@@ -90,6 +97,7 @@ module.exports = function(opts) {
     trans: trans,
     setEnabled: function(v) {
       vm.enabled(v);
+      emitEnabled();
       if (!v) lichess.storage.set('nochat', 1);
       else lichess.storage.remove('nochat');
     }

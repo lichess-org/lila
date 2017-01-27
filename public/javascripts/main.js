@@ -1385,7 +1385,12 @@ lichess.notifyApp = (function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.mithril(cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) {
+      lichess.pubsub.on('chat.enabled', function(v) {
+        $('#site_header .board_left').toggleClass('no_chat', !v);
+      });
+      lichess.makeChat('chat', cfg.chat);
+    }
     lichess.topMenuIntent();
     var chapterId = location.hash.replace('#', '');
     if (chapterId) {
