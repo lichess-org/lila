@@ -23,18 +23,23 @@ socketVersion: @socketVersion
 }
 }
 
+@moreCss = {
+@cssTag("analyse.css")
+@cssTag("study.css")
+}
+
 @side = {
 <div class="side_box study_box"></div>
 }
 
-@underchat = {
-@views.html.game.watchers()
-}
-
-@study.layout(
+@base.layout(
 title = s.name.value,
-side = side,
-underchat = underchat,
-moreJs = moreJs) {
+side = side.some,
+chat = chat.dom().some,
+underchat = views.html.game.watchers().some,
+moreCss = moreCss,
+moreJs = moreJs,
+chessground = false,
+withLangAnnotations = false) {
 <div class="analyse cg-512">@miniBoardContent</div>
 }
