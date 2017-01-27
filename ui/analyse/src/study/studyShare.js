@@ -4,8 +4,9 @@ var dialog = require('./dialog');
 var baseUrl = 'https://lichess.org/study/';
 
 module.exports = {
-  ctrl: function(data, currentChapter) {
+  ctrl: function(data, currentChapter, currentNode) {
     var open = m.prop(false);
+    var withPly = m.prop(false);
     return {
       open: open,
       toggle: function() {
@@ -15,13 +16,17 @@ module.exports = {
       chapter: currentChapter,
       isPublic: function() {
         return data.visibility === 'public';
-      }
+      },
+      currentNode: currentNode,
+      withPly: withPly
     }
   },
   view: function(ctrl) {
     if (!ctrl.open()) return;
     var studyId = ctrl.studyId;
     var chapter = ctrl.chapter();
+    var fullUrl = baseUrl + studyId + '/' + chapter.id;
+    if (ctrl.withPly()) fullUrl += '#' + ctrl.currentNode().ply;
     return dialog.form({
       onClose: function() {
         ctrl.open(false);
@@ -40,11 +45,18 @@ module.exports = {
           m('div.form-group', [
             m('input.has-value.autoselect', {
               readonly: true,
-              value: baseUrl + studyId + '/' + chapter.id
+              value: fullUrl
             }),
+            m('div.ply-wrap', m('label.ply', [
+              m('input[type=checkbox]', {
+                onchange: m.withAttr("checked", ctrl.withPly)
+              }),
+              'Start at ply ',
+              m('strong', ctrl.currentNode().ply)
+            ])),
             m('p.form-help.text', {
               'data-icon': ''
-            }, 'Paste this in a forum post to embed the chapter.'),
+            }, 'You can paste this in the forum to embed the chapter.'),
             m('label.control-label', 'Current chapter URL'),
             m('i.bar')
           ]),

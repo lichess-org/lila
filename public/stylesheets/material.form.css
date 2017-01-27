@@ -80,7 +80,7 @@
   margin-top: -1rem;
 }
 
-.material.form .form-group input {
+.material.form .form-group input:not([type="checkbox"]) {
   height: 1.9rem;
 }
 .material.form .form-group textarea {
@@ -132,7 +132,7 @@
   transition: left 0.28s ease, width 0.28s ease;
   z-index: 2;
 }
-.material.form .form-group input,
+.material.form .form-group input:not([type="checkbox"]),
 .material.form .form-group textarea {
   display: block;
   background: none;

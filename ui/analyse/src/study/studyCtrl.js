@@ -165,7 +165,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   if (members.canContribute()) form.openIfNew();
 
-  var share = shareCtrl(data, currentChapter);
+  var currentNode = function() {
+    return ctrl.vm.node;
+  };
+
+  var share = shareCtrl(data, currentChapter, currentNode);
 
   var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -256,9 +260,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     contribute: contribute,
     startTour: startTour,
     userJump: ctrl.userJump,
-    currentNode: function() {
-      return ctrl.vm.node;
-    },
+    currentNode: currentNode,
     practice: practice,
     socketHandlers: {
       path: function(d) {
