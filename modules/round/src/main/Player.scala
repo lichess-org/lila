@@ -21,19 +21,19 @@ private[round] final class Player(
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag + humanLag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(proxy save progress) >>-
-                (pov.game.hasAi ! uciMemo.add(pov.game, moveOrDrop)) >>-
-                notifyMove(moveOrDrop, progress.game) >>
-                progress.game.finished.fold(
-                  moveFinish(progress.game, color) dmap { progress.events ::: _ }, {
-                    if (progress.game.playableByAi) requestFishnet(progress.game, round)
-                    if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-                    if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
-                    if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
-                      round ! ForecastPlay(move)
-                    }
-                    fuccess(progress.events)
-                  }) >>- promiseOption.foreach(_.success(()))
+              p.trace.segment("save", "db")(proxy save progress) >>- {
+                if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
+                notifyMove(moveOrDrop, progress.game)
+              } >> progress.game.finished.fold(
+                moveFinish(progress.game, color) dmap { progress.events ::: _ }, {
+                  if (progress.game.playableByAi) requestFishnet(progress.game, round)
+                  if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+                  if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+                  if (pov.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
+                    round ! ForecastPlay(move)
+                  }
+                  fuccess(progress.events)
+                }) >>- promiseOption.foreach(_.success(()))
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
@@ -96,13 +96,10 @@ private[round] final class Player(
     ), 'moveEvent)
   }
 
-  private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = {
-    lazy val winner = game.toChess.situation.winner
-    game.status match {
-      case Status.Mate                             => finisher.other(game, _.Mate, winner)
-      case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, winner)
-      case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
-      case _                                       => fuccess(Nil)
-    }
+  private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {
+    case Status.Mate                             => finisher.other(game, _.Mate, game.toChess.situation.winner)
+    case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, game.toChess.situation.winner)
+    case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
+    case _                                       => fuccess(Nil)
   }
 }

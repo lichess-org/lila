@@ -85,21 +85,19 @@ final class Syncache[K, V](
     }
 
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
-    def apply(k: K) = {
-      compute(k).withTimeout(
-        duration = resultTimeout,
-        error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
-      ).addEffects(
-          err => {
-            logger.branch(name).warn(s"$err key=$k")
-            chm remove k
-          },
-          res => {
-            cache.put(k, res)
-            chm remove k
-          }
-        )
-    }
+    def apply(k: K) = compute(k).withTimeout(
+      duration = resultTimeout,
+      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+    ).addEffects(
+        err => {
+          logger.branch(name).warn(s"$err key=$k")
+          chm remove k
+        },
+        res => {
+          cache.put(k, res)
+          chm remove k
+        }
+      )
   }
 
   private def waitForResult(k: K, duration: FiniteDuration): V =
