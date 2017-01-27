@@ -16,7 +16,8 @@ object PimpedFuture {
 
   final class LilaPimpedFuture[A](val fua: Fu[A]) extends AnyVal {
 
-    def dmap[B](f: A => B) = fua.map(f)(DirectExecutionContext)
+    def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
+    def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
 
     def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
       case _ => sideEffect
