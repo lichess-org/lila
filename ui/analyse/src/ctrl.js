@@ -50,8 +50,9 @@ module.exports = function(opts) {
   initialize(opts.data);
 
   var initialPath = tree.path.root;
+  console.log(opts.initialPly, location.hash);
   if (opts.initialPly) {
-    var plyStr = opts.initialPly === 'url' ? (location.hash ? location.hash.replace(/#/, '') : tree.path.root) : opts.initialPly;
+    var plyStr = opts.initialPly === 'url' ? (location.hash || '').replace(/#/, '') : opts.initialPly;
     var mainline = tree.ops.mainlineNodeList(this.tree.root);
     if (plyStr === 'last') initialPath = tree.path.fromNodeList(mainline);
     else {

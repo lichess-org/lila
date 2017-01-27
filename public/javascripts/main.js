@@ -1346,7 +1346,7 @@ lichess.notifyApp = (function() {
 
   function startUserAnalysis(element, cfg) {
     var analyse;
-    cfg.initialPly = 'url';
+    cfg.initialPly = 5;
     cfg.element = element.querySelector('.analyse');
     lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
@@ -1368,6 +1368,8 @@ lichess.notifyApp = (function() {
   function startStudy(element, cfg) {
     var $watchers = $("div.watchers").watchers();
     var analyse;
+    cfg.initialPly = 'url';
+    location.hash = '#5';
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
     lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
