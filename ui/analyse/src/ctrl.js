@@ -477,14 +477,8 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.gameOver = function() {
-    if (this.vm.node.dests !== '') return false;
-    if (this.vm.node.check && this.vm.node.san) return this.vm.node.san.indexOf('#') !== -1 ? 'checkmate' : false;
-    if (this.vm.node.crazy) {
-      // no stalemate with full crazyhouse pockets
-      var wtm = this.vm.node.fen.indexOf(' w ') !== -1;
-      var p = this.vm.node.crazy.pockets[wtm ? 0 : 1];
-      if (p.pawn || p.knight || p.bishop || p.rook || p.queen) return false;
-    }
+    if (this.vm.node.dests !== '' || this.vm.node.drops) return false;
+    if (this.vm.node.check) return 'checkmate';
     return 'draw';
   }.bind(this);
 
