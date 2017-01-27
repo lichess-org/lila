@@ -1346,7 +1346,7 @@ lichess.notifyApp = (function() {
 
   function startUserAnalysis(element, cfg) {
     var analyse;
-    cfg.initialPly = 5;
+    cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
     lichess.socket = lichess.StrongSocket('/socket', false, {
       options: {
