@@ -758,6 +758,11 @@ lichess.notifyApp = (function() {
       $('#ham-plate').click(function() {
         document.body.classList.toggle('fpmenu');
       });
+
+      // still bind esc even in form fields
+      Mousetrap.prototype.stopCallback = function(e, el, combo) {
+        return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
+      };
       Mousetrap.bind('esc', function() {
         var $oc = $('.lichess_overboard .close');
         if ($oc.length) $oc.click();
