@@ -60,6 +60,7 @@ object mon {
     def preload(name: String) = inc(s"syncache.preload.$name")
     def timeout(name: String) = inc(s"syncache.timeout.$name")
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
+    def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
   }
   object lobby {
     object hook {

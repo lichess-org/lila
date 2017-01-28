@@ -87,8 +87,9 @@ final class Syncache[K, V](
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
-      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
-    ).addEffects(
+      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout"))
+      .chronometer.mon(_ => recComputeNanos).result // monitoring: record async time
+      .addEffects(
         err => {
           logger.branch(name).warn(s"$err key=$k")
           chm remove k
@@ -104,6 +105,7 @@ final class Syncache[K, V](
     Option(chm get k).fold(default(k)) { fu =>
       incWait()
       try {
+        // monitoring: increment lock time
         lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
       }
       catch {
@@ -118,6 +120,7 @@ final class Syncache[K, V](
   private val incPreload = lila.mon.syncache.preload(name)
   private val incTimeout = lila.mon.syncache.timeout(name)
   private val incWaitMicros = lila.mon.syncache.waitMicros(name)
+  private val recComputeNanos = lila.mon.syncache.computeNanos(name)
 }
 
 object Syncache {
