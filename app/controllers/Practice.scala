@@ -69,6 +69,11 @@ object Practice extends LilaController {
     env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
+  def reset = AuthBody { implicit ctx =>
+    me =>
+      env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+  }
+
   def config = Auth { implicit ctx => me =>
     for {
       struct <- env.api.structure.get

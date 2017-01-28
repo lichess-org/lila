@@ -165,6 +165,7 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /practice/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Practice.chapter(studyId: String, chapterId: String)
 GET   /practice/config                            controllers.Practice.config
 POST  /practice/config                            controllers.Practice.configSave
+POST  /practice/reset                             controllers.Practice.reset
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

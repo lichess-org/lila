@@ -247,6 +247,84 @@ body.dark #practice_app .section > h2 {
   font-size: 1.2em;
 }
 
+#practice_side {
+  border: none;
+  background: transparent!important;
+}
+body.dark #practice_side a {
+  color: #bbb;
+}
+#practice_side .home {
+  width: 220px;
+  background: #3893E8;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+#practice_side .home h1 {
+  font-size: 30px;
+}
+#practice_side .home h2 {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+@keyframes fat-glide {
+  50%{
+    opacity: 1;
+  }
+}
+#practice_side .home i.fat {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background: url(../images/practice/robot-golem.svg);
+  margin: auto;
+  opacity: 0.8;
+}
+#practice_side .home:hover i.fat {
+  animation: 1.2s fat-glide ease-in-out infinite;
+}
+#practice_side .home .progress {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  /* border-top: 3px solid #1566b2; */
+  background: #1a7edb;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+}
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 0 1000%; }
+}
+#practice_side .home .progress .bar {
+  height: 100%;
+  background: #1566b2;
+  border-radius: 0 5px 5px 0;
+  background-image: url(../images/grain.png);
+  animation: animatedBackground 50s linear infinite;
+}
+#practice_side .home .progress .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 30px;
+}
+#practice_side .home .actions {
+  padding: 20px 10px;
+  text-align: left;
+}
+#practice_side .home a {
+  opacity: 0.6;
+  color: #fff!important;
+}
+#practice_side .home a:hover {
+  opacity: 1;
+}
+
 i.practice {
   background: url('/assets/images/practice/help.svg');
   background-size: cover;

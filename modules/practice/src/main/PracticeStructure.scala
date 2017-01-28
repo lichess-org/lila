@@ -20,6 +20,10 @@ case class PracticeStructure(
       }
     }.toMap
 
+  lazy val chapterIds: List[Chapter.Id] = sections.flatMap(_.studies).flatMap(_.chapterIds)
+
+  lazy val nbChapters = chapterIds.size
+
   def findSection(id: Study.Id): Option[PracticeSection] = sectionsByStudyIds get id
 
   def hasStudy(id: Study.Id) = studiesByIds contains id
@@ -30,7 +34,12 @@ case class PracticeSection(
     name: String,
     studies: List[PracticeStudy]) {
 
-  def study(id: Study.Id): Option[PracticeStudy] = studies find (_.id == id)
+  lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
+    studies.map { s =>
+      s.id -> s
+    }.toMap
+
+  def study(id: Study.Id): Option[PracticeStudy] = studiesByIds get id
 }
 
 case class PracticeStudy(

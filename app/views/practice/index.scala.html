@@ -4,7 +4,21 @@
 }
 
 @side = {
-<div id="learn_side" class="side_box learn_box">
+<div id="practice_side" class="side_box">
+  <div class="home">
+    <i class="fat"></i>
+    <h1>Practice</h1>
+    <h2>makes your chess perfect</h2>
+    <div class="progress">
+      <div class="text">Progress: @data.progressPercent%</div>
+      <div class="bar" style="width: @data.progressPercent%"></div>
+    </div>
+    <form id="practice_reset" class="actions" action="@routes.Practice.reset" method="post">
+      @if(data.nbDoneChapters > 0) {
+      <a class="confirm" onclick="$('#practice_reset').submit()">Reset my progress</a>
+      }
+    </form>
+  </div>
 </div>
 }
 

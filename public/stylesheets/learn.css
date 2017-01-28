@@ -525,10 +525,16 @@ body.dark #learn_side a {
   background: #1a7edb;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
 }
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 0 1000%; }
+}
 #learn_side .home .progress .bar {
   height: 100%;
   background: #1566b2;
   border-radius: 0 5px 5px 0;
+  background-image: url(../images/grain.png);
+  animation: animatedBackground 50s linear infinite;
 }
 #learn_side .home .progress .text {
   position: absolute;
