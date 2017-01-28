@@ -11,22 +11,16 @@ object Future {
       }
     }
 
-  def filter[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = {
-    list.map {
-      element => f(element) map (_ option element)
-    }.sequenceFu.map(_.flatten)
-  }
-
   def filterNot[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = {
     list.map {
-      element => !f(element) map (_ option element)
-    }.sequenceFu.map(_.flatten)
+      element => !f(element) dmap (_ option element)
+    }.sequenceFu.dmap(_.flatten)
   }
 
   def traverseSequentially[A, B](list: List[A])(f: A => Fu[B]): Fu[List[B]] =
     list match {
       case h :: t => f(h).flatMap { r =>
-        traverseSequentially(t)(f) map (r +: _)
+        traverseSequentially(t)(f) dmap (r +: _)
       }
       case Nil => fuccess(Nil)
     }
@@ -51,10 +45,5 @@ object Future {
 
   def makeItLast[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
     if (duration == 0.millis) run
-    else run zip akka.pattern.after(duration, system.scheduler)(funit) map (_._1)
-
-  def neverCompletes[T]: Fu[T] = {
-    val p = scala.concurrent.Promise[T]()
-    p.future
-  }
+    else run zip akka.pattern.after(duration, system.scheduler)(funit) dmap (_._1)
 }
