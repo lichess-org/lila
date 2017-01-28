@@ -65,6 +65,8 @@ function engineName(ctrl) {
   ];
 }
 
+var serverNodes = 3.5e6;
+
 function getBestEval(evs) {
   var serverEv = evs.server,
       localEv = evs.client;
@@ -73,7 +75,7 @@ function getBestEval(evs) {
   if (!localEv) return serverEv;
 
   // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
-  if (localEv.nodes > 3.5e6 ||
+  if (localEv.nodes > serverNodes ||
       (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
     return localEv;
 
