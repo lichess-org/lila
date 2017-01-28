@@ -456,10 +456,9 @@ module.exports = function(opts, i18n) {
     toggleCeval: toggleCeval,
     toggleThreatMode: toggleThreatMode,
     currentEvals: function() {
-      return vm.node.ceval ? {
-        client: vm.node.ceval,
-        fav: vm.node.ceval
-      } : null;
+      return {
+        client: vm.node.ceval
+      };
     },
     nextNodeBest: nextNodeBest,
     playUci: playUci,

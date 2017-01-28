@@ -65,12 +65,27 @@ function engineName(ctrl) {
   ];
 }
 
+function getBestEval(evs) {
+  var serverEv = evs.server,
+      localEv = evs.client;
+
+  if (!serverEv) return localEv;
+  if (!localEv) return serverEv;
+
+  // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
+  if (localEv.nodes > 3.5e6 ||
+      (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
+    return localEv;
+
+  return serverEv;
+}
+
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-    var eval, evs = ctrl.currentEvals();
-    if (evs) {
-      eval = winningChances.povChances('white', evs.fav);
+    var eval, bestEv = getBestEval(ctrl.currentEvals());
+    if (bestEv) {
+      eval = winningChances.povChances('white', bestEv);
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 1) * 50;
@@ -94,17 +109,18 @@ module.exports = {
     var instance = ctrl.getCeval();
     if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
     var enabled = instance.enabled();
-    var evs = ctrl.currentEvals() || {};
+    var evs = ctrl.currentEvals();
+    var bestEv = getBestEval(evs);
     var threatMode = ctrl.vm.threatMode;
     var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
-    if (defined(evs.fav) && defined(evs.fav.cp)) {
-      pearl = renderEval(evs.fav.cp);
+    if (bestEv && defined(bestEv.cp)) {
+      pearl = renderEval(bestEv.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
         (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
-    } else if (defined(evs.fav) && defined(evs.fav.mate)) {
-      pearl = '#' + evs.fav.mate;
+    } else if (bestEv && defined(bestEv.mate)) {
+      pearl = '#' + bestEv.mate;
       percent = 100;
     } else if (ctrl.gameOver()) {
       pearl = '-';
@@ -176,8 +192,8 @@ module.exports = {
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    } else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
-      pvs = ctrl.currentEvals().client.pvs;
+    } else if (ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
+      pvs = ctrl.vm.node.ceval.pvs;
     else
       pvs = [];
     return m('div.pv_box', {
