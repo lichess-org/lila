@@ -1,26 +1,28 @@
 // returns null if not deep enough to know
 function isDrawish(node) {
-  var eval = node.ceval;
-  if (!eval || eval.depth < 16) return null;
-  return !eval.mate && Math.abs(eval.cp) < 150;
-};
+  if (!hasSolidEval(node)) return null;
+  return !node.ceval.mate && Math.abs(node.ceval.cp) < 150;
+}
 // returns null if not deep enough to know
 function isWinning(node, goalCp) {
-  var eval = node.ceval;
-  if (!eval || eval.depth < 16) return null;
-  var cp = eval.mate > 0 ? 9999 : (eval.mate < 0 ? -9999 : eval.cp);
+  if (!hasSolidEval(node)) return null;
+  var cp = node.ceval.mate > 0 ? 9999 : (node.ceval.mate < 0 ? -9999 : node.ceval.cp);
   return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
-};
+}
+
+function hasSolidEval(node) {
+  return node.ceval && node.ceval.depth >= 16;
+}
 
 function isMate(root) {
   return root.gameOver() === 'checkmate';
-};
+}
 function isMyMate(root) {
   return isMate(root) && root.turnColor() !== root.bottomColor();
-};
+}
 function isTheirMate(root) {
   return isMate(root) && root.turnColor() === root.bottomColor();
-};
+}
 
 // returns null = ongoing, true = win, false = fail
 module.exports = function(root, goal, nbMoves) {
