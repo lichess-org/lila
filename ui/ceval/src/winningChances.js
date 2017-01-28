@@ -26,7 +26,7 @@ function evalWinningChances(eval) {
 }
 
 function povChances(color, eval) {
-  return toPov(color, evalWinningChances(eval));
+  return eval && toPov(color, evalWinningChances(eval));
 }
 
 module.exports = {

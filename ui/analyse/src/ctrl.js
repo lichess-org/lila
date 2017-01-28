@@ -414,15 +414,6 @@ module.exports = function(opts) {
     return this.vm.node.fen.replace(/\s/g, '_');
   }.bind(this);
 
-  this.currentEvals = function() {
-    var node = this.vm.node;
-    return node && (node.eval || node.ceval) ? {
-      server: node.eval,
-      client: node.ceval,
-      fav: node.eval || node.ceval
-    } : null;
-  }.bind(this);
-
   this.forecast = opts.data.forecast ? forecastCtrl(
     opts.data.forecast,
     router.forecasts(this.data)) : null;

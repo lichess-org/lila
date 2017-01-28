@@ -19,21 +19,21 @@ function range(len) {
   return r;
 }
 
-function localEvalInfo(ctrl, evs) {
+function localEvalInfo(ctrl, node, localEv) {
   var ceval = ctrl.getCeval();
-  if (!evs.client) {
-    if (evs.server && ctrl.nextNodeBest()) return 'Using server analysis';
+  if (!localEv) {
+    if (node.eval && ctrl.nextNodeBest()) return 'Using server analysis';
     return 'Loading engine...';
   }
-  if (evs.client.dict) return 'Book move';
-  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
-  if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
+  if (localEv.dict) return 'Book move';
+  var t = ['Depth ' + (localEv.depth || 0) + '/' + localEv.maxDepth];
+  if (ceval.pnaclSupported && localEv.depth >= localEv.maxDepth && !ceval.isDeeper())
     t.push(m('a.deeper', {
       onclick: function() {
         ceval.goDeeper();
       }
     }, 'Go deeper'))
-  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
+  else if (localEv.nps) t.push(', ' + Math.round(localEv.nps / 1000) + ' knodes/s');
   return t;
 }
 
@@ -65,12 +65,28 @@ function engineName(ctrl) {
   ];
 }
 
+function getBestEval(node) {
+  if (!node) return;
+  var serverEv = node.eval,
+      localEv = node.ceval;
+
+  if (!serverEv) return localEv;
+  if (!localEv) return serverEv;
+
+  // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
+  if (localEv.nodes > 3.5e6 ||
+      (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
+    return localEv;
+
+  return serverEv;
+}
+
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-    var eval, evs = ctrl.currentEvals();
-    if (evs) {
-      eval = winningChances.povChances('white', evs.fav);
+    var eval, ev = getBestEval(ctrl.vm.node);
+    if (ev) {
+      eval = winningChances.povChances('white', ev);
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 1) * 50;
@@ -94,18 +110,22 @@ module.exports = {
     var instance = ctrl.getCeval();
     if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
     var enabled = instance.enabled();
-    var evs = ctrl.currentEvals() || {};
+    var node = ctrl.vm.node;
+    var bestEv = getBestEval(node);
+    var localEv = node.ceval;
     var threatMode = ctrl.vm.threatMode;
     var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
-    if (defined(evs.fav) && defined(evs.fav.cp)) {
-      pearl = renderEval(evs.fav.cp);
-      percent = ctrl.nextNodeBest() ?
-        100 :
-        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
-    } else if (defined(evs.fav) && defined(evs.fav.mate)) {
-      pearl = '#' + evs.fav.mate;
-      percent = 100;
+    if (bestEv) {
+      if (defined(bestEv.cp)) {
+        pearl = renderEval(bestEv.cp);
+        percent = ctrl.nextNodeBest() ?
+          100 :
+          (localEv ? Math.min(100, Math.round(100 * localEv.depth / localEv.maxDepth)) : 0)
+      } else if (defined(bestEv.mate)) {
+        pearl = '#' + bestEv.mate;
+        percent = 100;
+      }
     } else if (ctrl.gameOver()) {
       pearl = '-';
       percent = 0;
@@ -140,7 +160,7 @@ module.exports = {
         m('div.engine', [
           threatMode ? 'Show threat' : engineName(instance),
           m('span.info', ctrl.gameOver() ? 'Game over.' : (
-            threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs)
+            threatMode ? threatInfo(threat) : localEvalInfo(ctrl, node, localEv)
           ))
         ])
       ] : [
@@ -176,8 +196,8 @@ module.exports = {
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    } else if (ctrl.currentEvals() && ctrl.currentEvals().client && ctrl.currentEvals().client.pvs)
-      pvs = ctrl.currentEvals().client.pvs;
+    } else if (ctrl.vm.node && ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
+      pvs = ctrl.vm.node.ceval.pvs;
     else
       pvs = [];
     return m('div.pv_box', {
