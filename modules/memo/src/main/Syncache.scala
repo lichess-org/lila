@@ -43,12 +43,12 @@ final class Syncache[K, V](
       // println(s"*** miss $name $k")
       // Thread.dumpStack()
       incMiss()
-      chm.computeIfAbsent(k, loadFunction)
+      val fu = chm.computeIfAbsent(k, loadFunction)
       strategy match {
         case NeverWait            => default(k)
-        case AlwaysWait(duration) => waitForResult(k, duration)
+        case AlwaysWait(duration) => waitForResult(k, fu, duration)
         case WaitAfterUptime(duration, uptime) =>
-          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, duration)
+          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
           else default(k)
       }
     }
@@ -97,19 +97,18 @@ final class Syncache[K, V](
       )
   }
 
-  private def waitForResult(k: K, duration: FiniteDuration): V =
-    Option(chm get k).fold(default(k)) { fu =>
-      incWait()
-      try {
-        // monitoring: increment lock time
-        lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
-      }
-      catch {
-        case e: java.util.concurrent.TimeoutException =>
-          incTimeout()
-          default(k)
-      }
+  private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
+    incWait()
+    try {
+      // monitoring: increment lock time
+      lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
     }
+    catch {
+      case e: java.util.concurrent.TimeoutException =>
+        incTimeout()
+        default(k)
+    }
+  }
 
   private val incMiss = lila.mon.syncache.miss(name)
   private val incWait = lila.mon.syncache.wait(name)
