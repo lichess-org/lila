@@ -76,7 +76,7 @@ private final class CorresAlarm(
           game.bothPlayersHaveMoved ?? {
             game.playableCorrespondenceClock ?? { clock =>
               val remainingTime = clock remainingTime game.turnColor
-              val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 9 / 10)
+              val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 8 / 10)
               coll.update(
                 $id(game.id),
                 Alarm(
