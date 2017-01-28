@@ -7,8 +7,8 @@ var tours = require('./studyTour');
 
 var modeChoices = [
   ['normal', "Normal analysis"],
-  ['practice', "Play with computer (practice mode)"],
-  ['conceal', "Conceal next moves (puzzle mode)"]
+  ['practice', "Practice with computer"],
+  ['conceal', "Hide next moves"]
 ];
 var fieldValue = function(e, id) {
   var el = e.target.querySelector('#chapter-' + id);
