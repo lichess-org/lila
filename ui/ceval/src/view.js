@@ -19,21 +19,21 @@ function range(len) {
   return r;
 }
 
-function localEvalInfo(ctrl, node, localEv) {
+function localEvalInfo(ctrl, evs) {
   var ceval = ctrl.getCeval();
-  if (!localEv) {
-    if (node.eval && ctrl.nextNodeBest()) return 'Using server analysis';
+  if (!evs.client) {
+    if (evs.server && ctrl.nextNodeBest()) return 'Using server analysis';
     return 'Loading engine...';
   }
-  if (localEv.dict) return 'Book move';
-  var t = ['Depth ' + (localEv.depth || 0) + '/' + localEv.maxDepth];
-  if (ceval.pnaclSupported && localEv.depth >= localEv.maxDepth && !ceval.isDeeper())
+  if (evs.client.dict) return 'Book move';
+  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
+  if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
     t.push(m('a.deeper', {
       onclick: function() {
         ceval.goDeeper();
       }
     }, 'Go deeper'))
-  else if (localEv.nps) t.push(', ' + Math.round(localEv.nps / 1000) + ' knodes/s');
+  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
   return t;
 }
 
@@ -65,10 +65,9 @@ function engineName(ctrl) {
   ];
 }
 
-function getBestEval(node) {
-  if (!node) return;
-  var serverEv = node.eval,
-      localEv = node.ceval;
+function getBestEval(evs) {
+  var serverEv = evs.server,
+      localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
@@ -84,9 +83,9 @@ function getBestEval(node) {
 module.exports = {
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-    var eval, ev = getBestEval(ctrl.vm.node);
-    if (ev) {
-      eval = winningChances.povChances('white', ev);
+    var eval, bestEv = getBestEval(ctrl.currentEvals());
+    if (bestEv) {
+      eval = winningChances.povChances('white', bestEv);
       gaugeLast = eval;
     } else eval = gaugeLast;
     var height = 100 - (eval + 1) * 50;
@@ -110,22 +109,19 @@ module.exports = {
     var instance = ctrl.getCeval();
     if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
     var enabled = instance.enabled();
-    var node = ctrl.vm.node;
-    var bestEv = getBestEval(node);
-    var localEv = node.ceval;
+    var evs = ctrl.currentEvals();
+    var bestEv = getBestEval(evs);
     var threatMode = ctrl.vm.threatMode;
     var threat = threatMode && ctrl.vm.node.threat;
     var pearl, percent;
-    if (bestEv) {
-      if (defined(bestEv.cp)) {
-        pearl = renderEval(bestEv.cp);
-        percent = ctrl.nextNodeBest() ?
-          100 :
-          (localEv ? Math.min(100, Math.round(100 * localEv.depth / localEv.maxDepth)) : 0)
-      } else if (defined(bestEv.mate)) {
-        pearl = '#' + bestEv.mate;
-        percent = 100;
-      }
+    if (bestEv && defined(bestEv.cp)) {
+      pearl = renderEval(bestEv.cp);
+      percent = ctrl.nextNodeBest() ?
+        100 :
+        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
+    } else if (bestEv && defined(bestEv.mate)) {
+      pearl = '#' + bestEv.mate;
+      percent = 100;
     } else if (ctrl.gameOver()) {
       pearl = '-';
       percent = 0;
@@ -160,7 +156,7 @@ module.exports = {
         m('div.engine', [
           threatMode ? 'Show threat' : engineName(instance),
           m('span.info', ctrl.gameOver() ? 'Game over.' : (
-            threatMode ? threatInfo(threat) : localEvalInfo(ctrl, node, localEv)
+            threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs)
           ))
         ])
       ] : [
@@ -196,7 +192,7 @@ module.exports = {
     if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    } else if (ctrl.vm.node && ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
+    } else if (ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
       pvs = ctrl.vm.node.ceval.pvs;
     else
       pvs = [];

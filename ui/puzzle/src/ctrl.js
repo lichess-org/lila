@@ -455,6 +455,11 @@ module.exports = function(opts, i18n) {
     gameOver: gameOver,
     toggleCeval: toggleCeval,
     toggleThreatMode: toggleThreatMode,
+    currentEvals: function() {
+      return {
+        client: vm.node.ceval
+      };
+    },
     nextNodeBest: nextNodeBest,
     playUci: playUci,
     showEvalGauge: function() {
