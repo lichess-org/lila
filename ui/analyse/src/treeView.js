@@ -12,8 +12,9 @@ var moveView = require('./moveView');
 var commentAuthorText = require('./study/studyComments').authorText;
 
 var autoScroll = throttle(300, false, function(ctrl, el) {
-  var cont = el.parentNode;
   raf(function() {
+    var cont = el.parentNode;
+    if (!cont) return;
     var target = el.querySelector('.active');
     if (!target) {
       cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
