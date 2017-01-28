@@ -18,8 +18,9 @@ module.exports = function(root) {
     if (root.vm.threatMode) root.toggleThreatMode();
   };
 
-  var commentable = function(ceval, bonus) {
-    return ceval && ((ceval.depth + (bonus || 0)) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000));
+  var commentable = function(node, bonus) {
+    var ceval = node.ceval;
+    return node.san && ceval && ((ceval.depth + (bonus || 0)) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000));
   };
   var playable = function(ceval) {
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
@@ -76,9 +77,9 @@ module.exports = function(root) {
       }
     } else {
       comment(null);
-      if (commentable(node.ceval)) {
+      if (commentable(node)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (commentable(parentNode.ceval, +1))
+        if (commentable(parentNode, +1))
           comment(makeComment(parentNode, node, root.vm.path));
       }
       if (!played() && playable(node.ceval)) {
