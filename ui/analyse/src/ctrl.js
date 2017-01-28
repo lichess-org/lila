@@ -202,9 +202,9 @@ module.exports = function(opts) {
     opts.onChange(this.vm.node.fen, this.vm.path, mainlinePly);
   }.bind(this)) : $.noop;
 
-  var updateHref = (!opts.study && history.replaceState) ? throttle(750, false, function() {
+  var updateHref = opts.study ? $.noop : throttle(750, false, function() {
     history.replaceState(null, null, '#' + this.vm.node.ply);
-  }.bind(this), false) : $.noop;
+  }.bind(this), false);
 
   this.autoScroll = function() {
     this.vm.autoScrollRequested = true;
