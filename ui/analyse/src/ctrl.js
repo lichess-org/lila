@@ -416,11 +416,10 @@ module.exports = function(opts) {
 
   this.currentEvals = function() {
     var node = this.vm.node;
-    return node && (node.eval || node.ceval) ? {
+    return {
       server: node.eval,
-      client: node.ceval,
-      fav: node.eval || node.ceval
-    } : null;
+      client: node.ceval
+    };
   }.bind(this);
 
   this.forecast = opts.data.forecast ? forecastCtrl(

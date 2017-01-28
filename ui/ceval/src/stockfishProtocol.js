@@ -73,6 +73,7 @@ module.exports = function(worker, opts) {
         maxDepth: work.maxDepth,
         depth: depth,
         nps: nps,
+        nodes: nodes,
         best: pvData.best,
         cp: pvData.cp,
         mate: pvData.mate,
