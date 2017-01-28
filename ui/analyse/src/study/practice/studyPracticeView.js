@@ -38,6 +38,8 @@ function renderGoal(practice, inMoves) {
       return 'Hold the draw for ' + plural('more move', inMoves);
     case 'evalIn':
       return 'Get a winning position in ' + plural('move', inMoves);
+    case 'promotion':
+      return 'Safely promote your pawn';
   }
 }
 
