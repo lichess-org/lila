@@ -9,13 +9,13 @@ final class ExpireSetMemo(ttl: Duration) {
     .expireAfterWrite(ttl)
     .build[String, Boolean]
 
-  def get(key: String): Boolean = cache getIfPresent key getOrElse false
+  private def isNotNull[A](a: A) = a != null
+
+  def get(key: String): Boolean = isNotNull(cache.underlying getIfPresent key)
 
   def put(key: String) = cache.put(key, true)
 
-  def putAll(keys: Iterable[String]) {
-    keys.toList.distinct foreach { cache.put(_, true) }
-  }
+  def putAll(keys: Iterable[String]) = cache putAll keys.map(_ -> true).toMap
 
   def remove(key: String) = cache invalidate key
 
@@ -23,5 +23,5 @@ final class ExpireSetMemo(ttl: Duration) {
 
   def keySet: Set[String] = keys.toSet
 
-  def count = cache.asMap.size
+  def count = cache.estimatedSize.toInt
 }
