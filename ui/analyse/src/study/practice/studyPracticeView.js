@@ -44,7 +44,7 @@ function renderGoal(practice) {
 module.exports = {
   underboard: function(ctrl) {
     var p = ctrl.practice;
-    if (p.won()) {
+    if (p.success()) {
       var next = p.nextChapter();
       return m('a.feedback.complete', {
         onclick: function() {
@@ -58,6 +58,7 @@ module.exports = {
     }
     return m('div.feedback.ongoing', [
       m('div.goal', [
+        p.nbMoves(),
         'Your goal: ',
         m('strong', renderGoal(p))
       ]),

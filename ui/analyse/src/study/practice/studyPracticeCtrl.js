@@ -1,6 +1,7 @@
 var m = require('mithril');
 var xhr = require('../studyXhr');
 var embedYoutube = require('../studyComments').embedYoutube;
+var makeSuccess = require('./studyPracticeSuccess');
 
 var readOnlyProp = function(value) {
   return function() {
@@ -15,7 +16,7 @@ module.exports = function(root, studyData, data) {
   var goal = m.prop();
   var comment = m.prop();
   var nbMoves = m.prop(0);
-  var won = m.prop(false);
+  var success = m.prop(null); // null = ongoing, true = win, false = fail
 
   var makeComment = function(treeRoot) {
     if (!treeRoot.comments) return;
@@ -30,41 +31,27 @@ module.exports = function(root, studyData, data) {
     root.vm.showComputer = readOnlyProp(true);
     goal(root.data.practiceGoal);
     nbMoves(0);
-    won(false);
+    success(null);
     comment(makeComment(root.tree.root));
-    // history.replaceState(null, studyData.chapter.name, data.url + '/' + studyData.chapter.id);
+    var chapter = studyData.chapter;
+    // history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
   };
   onLoad();
 
-  var isDrawish = function(eval) {
-    return eval && eval.depth >= 16 && !eval.mate && Math.abs(eval.cp) < 200;
-  };
-  var isWinning = function(eval, goalCp) {
-    if (!eval || eval.depth < 16) return;
-    var cp = eval.mate > 0 ? 9999 : (eval.mate < 0 ? -9999 : eval.cp);
-    return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
+  var computeNbMoves = function() {
+    var plies = root.vm.node.ply - root.tree.root.ply;
+    if (root.bottomColor() !== root.data.player.color) plies--;
+    return Math.ceil(plies / 2);
   };
 
-  var checkVictory = function() {
-    if (won()) return;
-    var n = root.vm.node,
-      g = goal();
-    nbMoves(Math.floor(n.ply / 2));
-    var isVictory = false;
-    switch (g.result) {
-      case 'drawIn':
-        isVictory = root.gameOver() === 'draw' || (nbMoves() >= g.moves && isDrawish(n.ceval));
-        break;
-      case 'evalIn':
-        isVictory = nbMoves() >= g.moves && isWinning(n.ceval, g.cp);
-        break;
-      case 'mate':
-      default:
-        isVictory = root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
-    }
-    if (!isVictory) return;
-    nbMoves(Math.max(1, nbMoves()));
-    won(true);
+  var checkSuccess = function() {
+    if (success() !== null) return;
+    nbMoves(computeNbMoves());
+    success(makeSuccess(root, goal(), nbMoves()));
+    if (success()) onVictory();
+  };
+
+  var onVictory = function() {
     var chapterId = root.study.currentChapter().id;
     var former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
@@ -88,11 +75,11 @@ module.exports = function(root, studyData, data) {
 
   return {
     onReload: onLoad,
-    onJump: checkVictory,
-    onCeval: checkVictory,
+    onJump: checkSuccess,
+    onCeval: checkSuccess,
     data: data,
     goal: goal,
-    won: won,
+    success: success,
     comment: comment,
     nbMoves: nbMoves,
     nextChapter: function() {
