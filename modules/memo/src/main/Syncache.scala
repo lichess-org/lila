@@ -58,10 +58,7 @@ final class Syncache[K, V](
   def async(k: K): Fu[V] = {
     val v = cache getIfPresent k
     if (v != null) fuccess(v)
-    else {
-      chm.computeIfAbsent(k, loadFunction)
-      chm get k
-    }
+    else chm.computeIfAbsent(k, loadFunction)
   }
 
   def invalidate(k: K): Unit = cache invalidate k
