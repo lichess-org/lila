@@ -6,7 +6,7 @@ function isDrawish(node) {
 // returns null if not deep enough to know
 function isWinning(node, goalCp) {
   if (!hasSolidEval(node)) return null;
-  var cp = node.ceval.mate > 0 ? 9999 : (node.ceval.mate < 0 ? -9999 : node.ceval.cp);
+  var cp = node.ceval.mate > 0 ? 99999 : (node.ceval.mate < 0 ? -99999 : node.ceval.cp);
   return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
 }
 
@@ -28,6 +28,7 @@ function isTheirMate(root) {
 module.exports = function(root, goal, nbMoves) {
   if (isTheirMate(root)) return false;
   var node = root.vm.node;
+  if (!node.uci) return null;
   switch (goal.result) {
     case 'drawIn':
       if (isDrawish(node) === false) return false;
