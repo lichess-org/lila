@@ -75,7 +75,7 @@ private final class Monitor(
     instances.map(_.python.value).groupBy(identity).mapValues(_.size) foreach {
       case (s, nb) => python(s)(nb)
     }
-  } andThenAnyway scheduleClients
+  } addEffectAnyway scheduleClients
 
   private def monitorWork: Unit = {
 
@@ -90,7 +90,7 @@ private final class Monitor(
       repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) } >>
       repo.countUserAnalysis.map { forUser(Analysis.key)(_) }
 
-  } andThenAnyway scheduleWork
+  } addEffectAnyway scheduleWork
 
   private def scheduleClients = scheduler.once(1 minute)(monitorClients)
   private def scheduleWork = scheduler.once(10 seconds)(monitorWork)

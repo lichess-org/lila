@@ -25,7 +25,7 @@ final class LateMultiThrottler(
             run().withTimeout(
               duration = timeout,
               error = lila.common.LilaException(s"LateMultiThrottler timed out after $timeout"))
-        } andThenAnyway {
+        } addEffectAnyway {
           self ! Done(id)
         }
       }

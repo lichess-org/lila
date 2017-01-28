@@ -72,7 +72,7 @@ object FutureSequencer {
               duration = timeout,
               error = Timeout(timeout)
             )(context.system)
-          }.andThenAnyway {
+          }.addEffectAnyway {
             self ! Done
           }
         case FSequencer.WithQueueSize(f) =>

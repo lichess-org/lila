@@ -21,7 +21,7 @@ final class EarlyMultiThrottler(
   def receive: Receive = {
 
     case work: Work if !running(work.id) =>
-      execute(work) andThenAnyway {
+      execute(work) addEffectAnyway {
         self ! Done(work.id)
       }
       running = running + work.id

@@ -65,7 +65,7 @@ private final class CorresAlarm(
         })
         .chronometer.mon(_.round.alarm.time).result
         .addEffect(c => lila.mon.round.alarm.count(c))
-        .andThenAnyway(scheduleNext)
+        .addEffectAnyway(scheduleNext)
 
     case lila.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))

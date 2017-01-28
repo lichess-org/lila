@@ -45,7 +45,7 @@ private[tournament] final class CreatedOrganizer(
       }.chronometer
         .mon(_.tournament.createdOrganizer.tickTime)
         .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
-        .result andThenAnyway scheduleNext
+        .result addEffectAnyway scheduleNext
   }
 
   private def ejectLeavers(tour: Tournament) =

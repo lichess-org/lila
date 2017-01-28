@@ -46,7 +46,7 @@ final class Sequencer(
             duration = timeout,
             error = lila.common.LilaException(s"Sequencer timed out after $timeout")
           )(context.system)
-        } andThenAnyway {
+        } addEffectAnyway {
           self ! Done
         }
         promiseOption foreach (_ completeWith future)

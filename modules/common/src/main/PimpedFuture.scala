@@ -39,14 +39,6 @@ object PimpedFuture {
       }
     }
 
-    def andThenAnyway(sideEffect: => Unit): Fu[A] = {
-      fua onComplete {
-        case scala.util.Failure(_) => sideEffect
-        case scala.util.Success(_) => sideEffect
-      }
-      fua
-    }
-
     def fold[B](fail: Exception => B, succ: A => B): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
 
@@ -57,15 +49,15 @@ object PimpedFuture {
       addFailureEffect { e => logger.warn(msg(e), e) }
     def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
-    def addEffect(effect: A => Unit): Fu[A] = {
-      fua foreach effect
-      fua
-    }
-
     def addFailureEffect(effect: Exception => Unit) = {
       fua onFailure {
         case e: Exception => effect(e)
       }
+      fua
+    }
+
+    def addEffect(effect: A => Unit): Fu[A] = {
+      fua foreach effect
       fua
     }
 
@@ -74,6 +66,13 @@ object PimpedFuture {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
+      }
+      fua
+    }
+
+    def addEffectAnyway(inAnyCase: => Unit): Fu[A] = {
+      fua onComplete {
+        case _ => inAnyCase
       }
       fua
     }

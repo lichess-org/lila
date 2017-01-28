@@ -70,7 +70,7 @@ trait SequentialProvider extends Actor {
       case Envelope(msg, replyTo) =>
         (process orElse fallback)(msg)
           .withTimeout(futureTimeout, LilaException(s"Sequential provider timeout: $futureTimeout"))(context.system)
-          .pipeTo(replyTo) andThenAnyway { self ! Done }
+          .pipeTo(replyTo) addEffectAnyway { self ! Done }
       case x => logger.branch("SequentialProvider").warn(s"should never have received $x")
     }
   }

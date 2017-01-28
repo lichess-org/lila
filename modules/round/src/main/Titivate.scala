@@ -82,7 +82,7 @@ private[round] final class Titivate(
         }.>> {
           GameRepo.count(_.checkableOld).map(lila.mon.round.titivate.old(_))
         }
-        .andThenAnyway(scheduleNext)
+        .addEffectAnyway(scheduleNext)
     }
   }
 }

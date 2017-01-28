@@ -53,7 +53,7 @@ trait SequentialActor extends Actor {
         val future = (process orElse fallback)(msg)
         futureTimeout.fold(future) { timeout =>
           future.withTimeout(timeout, LilaException(s"Sequential actor timeout: $timeout"))(context.system)
-        }.addFailureEffect(onFailure).andThenAnyway { self ! Done }
+        }.addFailureEffect(onFailure).addEffectAnyway { self ! Done }
     }
   }
 }

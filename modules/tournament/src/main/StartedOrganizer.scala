@@ -54,7 +54,7 @@ private[tournament] final class StartedOrganizer(
       }.chronometer
         .mon(_.tournament.startedOrganizer.tickTime)
         .logIfSlow(500, logger)(_ => "StartedOrganizer.Tick")
-        .result andThenAnyway scheduleNext
+        .result addEffectAnyway scheduleNext
   }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
