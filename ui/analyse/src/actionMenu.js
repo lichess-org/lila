@@ -221,6 +221,28 @@ module.exports = {
                 ])
               ]);
             })('analyse-toggle-gauge'), (function(id) {
+              return m('div.setting', {
+                title: 'Removes the depth limit, and keeps your computer warm'
+              }, [
+                m('label', {
+                  'for': id
+                }, 'Infinite analysis'),
+                m('div.switch', [
+                  m('input', {
+                    id: id,
+                    class: 'cmn-toggle cmn-toggle-round',
+                    type: 'checkbox',
+                    checked: ceval.infinite(),
+                    config: bindOnce('change', function(e) {
+                      ctrl.cevalSetInfinite(e.target.checked);
+                    })
+                  }),
+                  m('label', {
+                    'for': id
+                  })
+                ])
+              ]);
+            })('analyse-toggle-infinite'), (function(id) {
               var max = 5;
               return m('div.setting', [
                 m('label', {

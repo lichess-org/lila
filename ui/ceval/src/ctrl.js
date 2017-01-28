@@ -18,6 +18,7 @@ module.exports = function(opts) {
   var multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   var threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
+  var infinite = storedProp(storageKey('ceval.infinite'), false);
   var curEval = null;
   var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
@@ -84,7 +85,7 @@ module.exports = function(opts) {
     if (!enabled() || !opts.possible) return;
 
     isDeeper(deeper);
-    var maxD = deeper ? 99 : maxDepth();
+    var maxD = (deeper || infinite()) ? 99 : maxDepth();
 
     var step = steps[steps.length - 1];
 
@@ -177,6 +178,7 @@ module.exports = function(opts) {
     multiPv: multiPv,
     threads: threads,
     hashSize: hashSize,
+    infinite: infinite,
     hovering: hovering,
     setHovering: function(fen, uci) {
       hovering(uci ? {

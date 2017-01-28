@@ -553,6 +553,11 @@ module.exports = function(opts) {
     cevalReset();
   }.bind(this);
 
+  this.cevalSetInfinite = function(v) {
+    this.ceval.infinite(v);
+    cevalReset();
+  }.bind(this);
+
   this.showEvalGauge = function() {
     return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver() && this.vm.showComputer();
   }.bind(this);
