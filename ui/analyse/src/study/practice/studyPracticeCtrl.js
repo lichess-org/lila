@@ -84,6 +84,11 @@ module.exports = function(root, studyData, data) {
     nbMoves: nbMoves,
     nextChapter: function() {
       return findNextOngoingChapter() || findNextChapter();
+    },
+    reset: function() {
+      root.tree.root.children = [];
+      root.userJump('');
+      onLoad();
     }
   };
 };

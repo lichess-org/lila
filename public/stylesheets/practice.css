@@ -70,8 +70,15 @@ div.game_control {
   background: #fff;
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
-.underboard .feedback.complete {
+.underboard .feedback.win {
   background: #759900;
+  color: #fff;
+  animation: 1.7s soft-bright ease-in-out infinite;
+  opacity: 0.8;
+  transition: 0.13s;
+}
+.underboard .feedback.fail {
+  background: #dc322f;
   color: #fff;
   animation: 1.7s soft-bright ease-in-out infinite;
   opacity: 0.8;

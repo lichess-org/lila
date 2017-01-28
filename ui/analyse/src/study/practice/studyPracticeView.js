@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var plural = require('../../util').plural;
+var partial = require('chessground').util.partial;
 
 var firstRender = true;
 
@@ -27,43 +28,48 @@ function selector(data) {
   ]);
 };
 
-function renderGoal(practice) {
-  var moves = practice.goal().moves - practice.nbMoves();
+function renderGoal(practice, inMoves) {
   switch (practice.goal().result) {
     case 'mate':
       return 'Checkmate the opponent';
     case 'mateIn':
-      return 'Checkmate the opponent in ' + plural('move', moves);
+      return 'Checkmate the opponent in ' + plural('move', inMoves);
     case 'drawIn':
-      return 'Hold the draw for ' + plural('more move', moves);
+      return 'Hold the draw for ' + plural('more move', inMoves);
     case 'evalIn':
-      return 'Get a winning position in ' + plural('move', moves);
+      return 'Get a winning position in ' + plural('move', inMoves);
   }
 }
 
 module.exports = {
   underboard: function(ctrl) {
     var p = ctrl.practice;
-    if (p.success()) {
-      var next = p.nextChapter();
-      return m('a.feedback.complete', {
-        onclick: function() {
-          ctrl.setChapter(next.id);
-        }
-      }, [
-        m('span', 'Success!'),
-        'Next: ',
-        m('strong', next.name)
-      ]);
+    switch (p.success()) {
+      case true:
+        var next = p.nextChapter();
+        return m('a.feedback.win', {
+          onclick: partial(ctrl.setChapter, next.id)
+        }, [
+          m('span', 'Success!'),
+          'Next: ',
+          m('strong', next.name)
+        ]);
+      case false:
+        return m('a.feedback.fail', {
+          onclick: p.reset
+        }, [
+          m('span', renderGoal(p, p.goal().moves)),
+          m('strong', 'Click to retry')
+        ]);
+      default:
+        return m('div.feedback.ongoing', [
+          m('div.goal', [
+            'Your goal: ',
+            m('strong', renderGoal(p, p.goal().moves - p.nbMoves()))
+          ]),
+          p.comment() ? m('div.comment', p.comment()) : null
+        ]);
     }
-    return m('div.feedback.ongoing', [
-      m('div.goal', [
-        p.nbMoves(),
-        'Your goal: ',
-        m('strong', renderGoal(p))
-      ]),
-      p.comment() ? m('div.comment', p.comment()) : null
-    ]);
   },
   main: function(ctrl) {
 

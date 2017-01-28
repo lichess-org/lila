@@ -1,13 +1,13 @@
 // returns null if not deep enough to know
 function isDrawish(node) {
-  var eval = node.eval;
-  if (!eval || eval.depth < 16) return;
+  var eval = node.ceval;
+  if (!eval || eval.depth < 16) return null;
   return !eval.mate && Math.abs(eval.cp) < 150;
 };
 // returns null if not deep enough to know
 function isWinning(node, goalCp) {
-  var eval = node.eval;
-  if (!eval || eval.depth < 16) return;
+  var eval = node.ceval;
+  if (!eval || eval.depth < 16) return null;
   var cp = eval.mate > 0 ? 9999 : (eval.mate < 0 ? -9999 : eval.cp);
   return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
 };
@@ -39,6 +39,7 @@ module.exports = function(root, goal, nbMoves) {
     case 'mateIn':
       if (nbMoves > goal.moves) return false;
       if (isMyMate(root)) return true;
+      if (nbMoves === goal.moves) return false;
       break;
     case 'mate':
     default:
