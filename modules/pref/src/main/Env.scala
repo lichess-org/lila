@@ -5,7 +5,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env) {
 
   private val CollectionPref = config getString "collection.pref"

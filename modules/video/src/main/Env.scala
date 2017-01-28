@@ -8,7 +8,7 @@ final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     isDev: Boolean) {
 
   private val settings = new {

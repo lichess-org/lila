@@ -11,7 +11,7 @@ final class SeekApi(
     coll: Coll,
     archiveColl: Coll,
     blocking: String => Fu[Set[String]],
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     maxPerPage: Int,
     maxPerUser: Int) {
 

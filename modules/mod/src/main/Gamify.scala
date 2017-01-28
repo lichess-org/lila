@@ -11,7 +11,7 @@ import lila.db.dsl._
 final class Gamify(
     logColl: Coll,
     reportApi: lila.report.ReportApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     historyColl: Coll) {
 
   import Gamify._

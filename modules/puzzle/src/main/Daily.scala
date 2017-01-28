@@ -12,7 +12,7 @@ import Puzzle.{ BSONFields => F }
 private[puzzle] final class Daily(
     coll: Coll,
     renderer: ActorSelection,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: Scheduler) {
 
   private val cache =

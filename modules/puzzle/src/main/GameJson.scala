@@ -8,7 +8,7 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     lightUser: lila.common.LightUser.GetterSync) {
 
   case class CacheKey(gameId: Game.ID, plies: Int)

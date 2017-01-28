@@ -9,7 +9,7 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: NotifyApi,
     system: akka.actor.ActorSystem,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env) {
 
   private val settings = new {

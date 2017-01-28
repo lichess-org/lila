@@ -9,7 +9,7 @@ import lila.user.User
 final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     studyApi: lila.study.StudyApi) {
 
   import BSONHandlers._

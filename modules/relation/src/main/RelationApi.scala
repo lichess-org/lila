@@ -19,7 +19,7 @@ final class RelationApi(
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: ID => Fu[Boolean],
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     maxFollow: Int,
     maxBlock: Int) {
 

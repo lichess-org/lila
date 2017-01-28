@@ -14,7 +14,7 @@ final class Env(
     playban: String => Fu[Option[lila.playban.TempBan]],
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 

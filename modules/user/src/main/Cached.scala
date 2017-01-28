@@ -15,7 +15,7 @@ final class Cached(
     nbTtl: FiniteDuration,
     onlineUserIdMemo: lila.memo.ExpireSetMemo,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     rankingApi: RankingApi) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1

@@ -12,7 +12,7 @@ import lila.user.User
 private[video] final class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros

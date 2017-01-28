@@ -7,7 +7,7 @@ final class Env(
     db: lila.db.Env,
     config: Config,
     getLightUser: lila.common.LightUser.GetterSync,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem) {
 
   private val CollectionNotifications = config getString "collection.notify"

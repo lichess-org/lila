@@ -14,7 +14,7 @@ final class Env(
     getLightUser: lila.common.LightUser.GetterSync,
     appPath: String,
     isProd: Boolean,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {

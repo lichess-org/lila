@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem) {
 
   private val CollectionEvent = config getString "collection.event"

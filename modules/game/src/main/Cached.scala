@@ -8,7 +8,7 @@ import lila.user.User
 
 final class Cached(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     mongoCache: MongoCache.Builder) {
 
   def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)

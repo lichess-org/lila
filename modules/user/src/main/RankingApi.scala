@@ -12,7 +12,7 @@ import lila.rating.{ Perf, PerfType }
 final class RankingApi(
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     lightUser: lila.common.LightUser.Getter) {
 
   import RankingApi._

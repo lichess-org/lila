@@ -4,7 +4,7 @@ import lila.memo.Syncache
 import scala.concurrent.duration._
 
 private[team] final class Cached(
-    asyncCache: lila.memo.AsyncCache2.Builder
+    asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](

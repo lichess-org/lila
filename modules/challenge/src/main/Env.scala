@@ -19,7 +19,7 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     hub: lila.hub.Env,
     db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {

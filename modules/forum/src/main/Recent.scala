@@ -9,7 +9,7 @@ private[forum] final class Recent(
     postApi: PostApi,
     ttl: FiniteDuration,
     nb: Int,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     publicCategIds: List[String]) {
 
   private type GetTeamIds = String => Fu[Set[String]]

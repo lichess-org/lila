@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lila.memo._
 
 private[tournament] final class Cached(
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     createdTtl: FiniteDuration,
     rankingTtl: FiniteDuration)(implicit system: akka.actor.ActorSystem) {
 

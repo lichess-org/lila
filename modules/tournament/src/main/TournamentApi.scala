@@ -35,7 +35,7 @@ final class TournamentApi(
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     standingChannel: ActorRef) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {

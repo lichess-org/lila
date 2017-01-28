@@ -9,7 +9,7 @@ import lila.db.dsl._
 private final class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   import BSONHandlers._
 

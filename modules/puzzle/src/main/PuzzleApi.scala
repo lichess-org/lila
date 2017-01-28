@@ -15,7 +15,7 @@ private[puzzle] final class PuzzleApi(
     voteColl: Coll,
     headColl: Coll,
     puzzleIdMin: PuzzleId,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     apiToken: String) {
 
   import Puzzle.puzzleBSONHandler

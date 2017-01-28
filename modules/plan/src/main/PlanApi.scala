@@ -16,7 +16,7 @@ final class PlanApi(
     notifier: PlanNotifier,
     lightUserApi: lila.user.LightUserApi,
     bus: lila.common.Bus,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     payPalIpnKey: PayPalIpnKey,
     monthlyGoalApi: MonthlyGoalApi) {
 

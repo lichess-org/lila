@@ -24,7 +24,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     relationApi: lila.relation.RelationApi,
     userJson: lila.user.JsonView,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     emailAddress: lila.security.EmailAddress) {
 
   private object settings {

@@ -9,7 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
     system: ActorSystem) {

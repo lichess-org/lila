@@ -21,7 +21,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   private val settings = new {
     val CollectionSimul = config getString "collection.simul"

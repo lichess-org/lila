@@ -17,7 +17,7 @@ final class JsonView(
     cached: Cached,
     performance: Performance,
     statsApi: TournamentStatsApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     verify: Condition.Verify) {
 
   import JsonView._

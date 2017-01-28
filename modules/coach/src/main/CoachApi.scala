@@ -12,7 +12,7 @@ final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
     photographer: Photographer,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: NotifyApi) {
 
   import BsonHandlers._

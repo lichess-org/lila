@@ -8,7 +8,7 @@ import lila.memo._
 
 final class EventApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   import BsonHandlers._
 

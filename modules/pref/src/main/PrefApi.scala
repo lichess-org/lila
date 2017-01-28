@@ -9,7 +9,7 @@ import reactivemongo.bson._
 
 final class PrefApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     cacheTtl: FiniteDuration) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]

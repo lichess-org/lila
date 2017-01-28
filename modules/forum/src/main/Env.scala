@@ -19,7 +19,7 @@ final class Env(
     detectLanguage: DetectLanguage,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem) {
 
   private val settings = new {

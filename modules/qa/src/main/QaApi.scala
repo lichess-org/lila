@@ -15,7 +15,7 @@ final class QaApi(
     questionColl: Coll,
     answerColl: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     notifier: Notifier) {
 
   object question {

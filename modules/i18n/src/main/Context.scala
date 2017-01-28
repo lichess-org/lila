@@ -10,7 +10,7 @@ import org.eclipse.jgit.api.Git
 private[i18n] final class Context(
     gitUrl: String,
     gitFile: String,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     keys: I18nKeys) {
 
   type Contexts = Map[String, String]

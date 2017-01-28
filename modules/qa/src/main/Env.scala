@@ -8,7 +8,7 @@ final class Env(
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: lila.notify.NotifyApi,
     db: lila.db.Env) {
 

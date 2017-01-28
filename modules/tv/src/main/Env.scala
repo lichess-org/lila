@@ -15,7 +15,7 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     isProd: Boolean) {
 
   private val FeaturedSelect = config duration "featured.select"

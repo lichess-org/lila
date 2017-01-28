@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     notifyApi: lila.notify.NotifyApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env) {
 
   private val CollectionCoach = config getString "collection.coach"

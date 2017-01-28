@@ -17,7 +17,7 @@ final class ChallengeApi(
     maxPlaying: Int,
     socketHub: ActorRef,
     userRegister: ActorSelection,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus) {
 
   import Challenge._

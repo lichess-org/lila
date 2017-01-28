@@ -8,7 +8,7 @@ final class Env(
     config: Config,
     configStore: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env,
     system: ActorSystem) {
 

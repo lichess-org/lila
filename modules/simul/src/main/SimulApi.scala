@@ -26,7 +26,7 @@ private[simul] final class SimulApi(
     userRegister: ActorSelection,
     lobby: ActorSelection,
     repo: SimulRepo,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 

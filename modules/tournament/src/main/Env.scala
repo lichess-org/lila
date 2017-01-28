@@ -17,7 +17,7 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,

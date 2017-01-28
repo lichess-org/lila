@@ -16,7 +16,7 @@ final class Firewall(
     coll: Coll,
     cookieName: Option[String],
     enabled: Boolean,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     cachedIpsTtl: FiniteDuration) {
 
   private def ipOf(req: RequestHeader) =

@@ -12,7 +12,7 @@ final class NotifyApi(
     bus: lila.common.Bus,
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._

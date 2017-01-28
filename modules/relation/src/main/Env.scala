@@ -14,7 +14,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     followable: String => Fu[Boolean],
     system: ActorSystem,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {

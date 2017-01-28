@@ -10,7 +10,7 @@ final class Env(
     system: akka.actor.ActorSystem,
     messages: Messages,
     captcher: akka.actor.ActorSelection,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     appPath: String) {
 
   private val settings = new {

@@ -8,7 +8,7 @@ import lila.user.UserRepo
 final class CrosstableApi(
     coll: Coll,
     gameColl: Coll,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem) {
 
   import Crosstable.Result

@@ -7,7 +7,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: lila.notify.NotifyApi)(implicit system: akka.actor.ActorSystem) {
 
   private val PrismicApiUrl = config getString "prismic.api_url"

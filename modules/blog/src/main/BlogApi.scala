@@ -4,7 +4,7 @@ import io.prismic._
 import scala.concurrent.duration._
 
 final class BlogApi(
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String) {
 

@@ -9,7 +9,7 @@ final class Env(
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
     bus: lila.common.Bus,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
     scheduler: lila.common.Scheduler) {
 

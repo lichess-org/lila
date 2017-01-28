@@ -14,7 +14,7 @@ final class Env(
 
   lazy val configStore: ConfigStore.Builder = new ConfigStore.Builder(db(CollectionConfig))
 
-  lazy val asyncCache: AsyncCache2.Builder = new AsyncCache2.Builder()(system)
+  lazy val asyncCache: AsyncCache.Builder = new AsyncCache.Builder()(system)
 }
 
 object Env {

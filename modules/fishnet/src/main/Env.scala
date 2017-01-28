@@ -13,7 +13,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     bus: lila.common.Bus,
-    asyncCache: lila.memo.AsyncCache2.Builder,
+    asyncCache: lila.memo.AsyncCache.Builder,
     sink: lila.analyse.Analyser) {
 
   private val ActorName = config getString "actor.name"

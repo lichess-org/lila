@@ -26,7 +26,7 @@ final class TeamInfoApi(
     api: TeamApi,
     getForumNbPosts: String => Fu[Int],
     getForumPosts: String => Fu[List[MiniForumPost]],
-    asyncCache: lila.memo.AsyncCache2.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   private case class Cachable(bestUserIds: List[User.ID], toints: Int)
 
