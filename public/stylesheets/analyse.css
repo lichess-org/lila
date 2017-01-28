@@ -967,7 +967,7 @@ body.dark .practice_box .comment {
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
-  margin: 15px 0 5px 0;
+  margin: 15px 0 3px 0;
   display: table;
   padding: 0 10px;
 }
@@ -999,8 +999,13 @@ body.dark .practice_box .comment {
 }
 .action_menu .tools > * {
   flex: 0 0 50%;
-  box-sizing: border-box;
   text-align: center;
+  padding: 0;
+  height: 75px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  line-height: 1em;
 }
 .action_menu .tools form .fbt {
   width: 100%;
@@ -1010,11 +1015,12 @@ body.dark .practice_box .comment {
 }
 .action_menu .autoplay .fbt {
   flex: 1 1 auto;
+  padding: 7px 0;
   text-align: center;
 }
 .action_menu form.delete {
-  margin-top: 2em;
   text-align: right;
+  margin-top: 6px;
 }
 .action_menu form.delete .button {
   display: inline-block;
@@ -1024,14 +1030,13 @@ body.dark .practice_box .comment {
   font-size: 1.2em;
 }
 .action_menu .setting {
-  padding: 5px 0 5px 10px;
+  padding: 4px 0 4px 10px;
   line-height: 22px;
   display: flex;
 }
 .action_menu .setting > label {
   flex: 1 0;
   cursor: pointer;
-  text-transform: uppercase;
 }
 .action_menu input[type=range] {
   width: 100px;
