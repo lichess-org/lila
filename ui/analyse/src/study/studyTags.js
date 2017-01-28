@@ -3,6 +3,7 @@ var throttle = require('common').throttle;
 
 function editable(tag, submit) {
   return m('input', {
+    spellcheck: false,
     value: tag[1],
     config: function(el, isUpdate, ctx) {
       if (isUpdate) return;
