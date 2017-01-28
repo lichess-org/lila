@@ -70,8 +70,7 @@ final class Syncache[K, V](
     if (cache.getIfPresent(k) == null) {
       // println(s"*** preload $name $k")
       incPreload()
-      chm.computeIfAbsent(k, loadFunction)
-      chm.get(k).void
+      chm.computeIfAbsent(k, loadFunction).void
     }
     else funit
 
