@@ -22,7 +22,7 @@ final class StudyApi(
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
-    indexer: ActorSelection,
+    bus: lila.common.Bus,
     timeline: ActorSelection,
     socketHub: ActorRef) {
 
@@ -403,7 +403,7 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      (indexer ! actorApi.RemoveStudy(study.id))
+      bus.publish(actorApi.RemoveStudy(study.id), 'study)
   }
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
@@ -423,7 +423,8 @@ final class StudyApi(
 
   def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
 
-  private def indexStudy(study: Study) = indexer ! actorApi.SaveStudy(study)
+  private def indexStudy(study: Study) =
+    bus.publish(actorApi.SaveStudy(study), 'study)
 
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))

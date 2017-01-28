@@ -46,6 +46,8 @@ case class PracticeStudy(
 
 object PracticeStructure {
 
+  def isChapterNameCommented(name: Chapter.Name) = name.value.startsWith("//")
+
   def make(conf: PracticeConfig, chapters: Map[Study.Id, Vector[Chapter.IdName]]) =
     PracticeStructure(
       sections = conf.sections.map { sec =>
@@ -58,7 +60,9 @@ object PracticeStructure {
               id = id,
               name = stu.name,
               desc = stu.desc,
-              chapters = chapters.get(id).??(_.toList))
+              chapters = chapters.get(id).??(_.filterNot { c =>
+                isChapterNameCommented(c.name)
+              }.toList))
           })
       })
 }

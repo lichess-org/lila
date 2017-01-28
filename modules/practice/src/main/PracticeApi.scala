@@ -41,7 +41,10 @@ final class PracticeApi(
       chapter = rawSc.chapter.withoutChildren)
     practiceStudy <- up.structure study sc.study.id
     section <- up.structure findSection sc.study.id
-  } yield UserStudy(up, practiceStudy, chapters, sc, section)
+    publishedChapters = chapters.filterNot { c =>
+      PracticeStructure isChapterNameCommented c.name
+    }
+  } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)
@@ -60,6 +63,9 @@ final class PracticeApi(
 
     def get = cache.get
     def clear = cache.refresh
+    def onSave(study: Study) = get foreach { structure =>
+      if (structure.hasStudy(study.id)) clear
+    }
   }
 
   object progress {

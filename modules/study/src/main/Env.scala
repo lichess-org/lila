@@ -89,7 +89,7 @@ final class Env(
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
     chat = hub.actor.chat,
-    indexer = hub.actor.studySearch,
+    bus = system.lilaBus,
     timeline = hub.actor.timeline,
     socketHub = socketHub)
 
