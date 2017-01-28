@@ -69,12 +69,14 @@ object PimpedFuture {
       fua
     }
 
-    def addEffects(fail: Exception => Unit, succ: A => Unit): Fu[A] =
-      fua andThen {
+    def addEffects(fail: Exception => Unit, succ: A => Unit): Fu[A] = {
+      fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
         case scala.util.Failure(e)            => throw e // Throwables
         case scala.util.Success(e)            => succ(e)
       }
+      fua
+    }
 
     def mapFailure(f: Exception => Exception) = fua recover {
       case cause: Exception => throw f(cause)
