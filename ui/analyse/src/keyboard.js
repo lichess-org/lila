@@ -49,6 +49,9 @@ module.exports = {
       m.redraw();
     }));
     kbd.bind('esc', ctrl.chessground.cancelMove);
+
+    if (ctrl.studyPractice) return;
+
     kbd.bind('f', preventing(ctrl.flip));
     kbd.bind('?', preventing(function() {
       ctrl.vm.keyboardHelp = !ctrl.vm.keyboardHelp;
