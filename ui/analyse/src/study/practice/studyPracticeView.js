@@ -29,11 +29,11 @@ function selector(data) {
 
 function renderGoal(practice) {
   switch (practice.goal().result) {
-    case 'checkmate':
+    case 'mate':
       return 'Checkmate the opponent';
-    case 'draw':
+    case 'drawIn':
       return 'Hold the draw for ' + plural('more move', practice.goal().moves - practice.nbMoves());
-    case 'eval':
+    case 'evalIn':
       return 'Get a winning position in ' + plural('move', practice.goal().moves - practice.nbMoves());
   }
 }

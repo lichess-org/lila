@@ -51,12 +51,13 @@ module.exports = function(root, studyData, data) {
     nbMoves(Math.floor(n.ply / 2));
     var isVictory = false;
     switch (g.result) {
-      case 'draw':
+      case 'drawIn':
         isVictory = root.gameOver() === 'draw' || (nbMoves() >= g.moves && isDrawish(n.ceval));
         break;
-      case 'eval':
+      case 'evalIn':
         isVictory = nbMoves() >= g.moves && isWinning(n.ceval, g.cp);
         break;
+      case 'mate':
       default:
         isVictory = root.gameOver() === 'checkmate' && root.turnColor() !== root.bottomColor();
     }
