@@ -81,8 +81,7 @@ module.exports = function(env, domElement) {
   }.bind(this);
 
   this.pushState = function() {
-    if (window.history.replaceState)
-      window.history.replaceState({}, null, this.makeCurrentUrl());
+    history.replaceState({}, null, this.makeCurrentUrl());
   }.bind(this);
 
   this.validCombination = function(dimension, metric) {

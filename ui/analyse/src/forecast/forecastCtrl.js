@@ -64,7 +64,7 @@ module.exports = function(cfg, saveUrl) {
   var reloadToLastPly = function() {
     loading(true);
     m.redraw();
-    if (window.history.replaceState) window.history.replaceState(null, null, '#last');
+    if (history.replaceState) history.replaceState(null, null, '#last');
     lichess.reload();
   };
 

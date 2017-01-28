@@ -217,7 +217,7 @@ module.exports = function(env) {
       if (match) {
         this.setTab('pools');
         this.enterPool(member);
-        if (window.history.replaceState) window.history.replaceState(null, null, '/');
+        history.replaceState(null, null, '/');
       }
     }
   }

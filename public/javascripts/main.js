@@ -1022,7 +1022,7 @@ lichess.notifyApp = (function() {
       return true;
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-      window.history.replaceState(null, null, '/' + data.game.id);
+      history.replaceState(null, null, '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
   };
 

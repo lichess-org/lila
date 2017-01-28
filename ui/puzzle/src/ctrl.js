@@ -65,8 +65,7 @@ module.exports = function(opts, i18n) {
 
     instanciateCeval();
 
-    if (window.history.pushState)
-      window.history.replaceState(null, null, '/training/' + data.puzzle.id);
+    history.replaceState(null, null, '/training/' + data.puzzle.id);
   };
 
   var showGround = function() {

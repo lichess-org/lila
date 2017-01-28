@@ -17,7 +17,7 @@ module.exports = function(element, cfg) {
     if (!gameId) return;
     $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
     lobby.setTab('real_time');
-    window.history.replaceState(null, null, '/');
+    history.replaceState(null, null, '/');
   };
   var filterStreams = function() {
     var langs = navigator.languages;
@@ -444,6 +444,6 @@ module.exports = function(element, cfg) {
         lobby.setTab('seeks');
     }
 
-    window.history.replaceState(null, null, '/');
+    history.replaceState(null, null, '/');
   }
 };

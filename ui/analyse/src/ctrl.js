@@ -202,8 +202,8 @@ module.exports = function(opts) {
     opts.onChange(this.vm.node.fen, this.vm.path, mainlinePly);
   }.bind(this)) : $.noop;
 
-  var updateHref = (!opts.study && window.history.replaceState) ? throttle(750, false, function() {
-    window.history.replaceState(null, null, '#' + this.vm.node.ply);
+  var updateHref = (!opts.study && history.replaceState) ? throttle(750, false, function() {
+    history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false) : $.noop;
 
   this.autoScroll = function() {
