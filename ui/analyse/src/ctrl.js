@@ -446,7 +446,7 @@ module.exports = function(opts) {
       ),
       emit: function(eval, work) {
         this.tree.updateAt(work.path, function(node) {
-          if (node.fen !== eval.fen) {
+          if (node.fen !== eval.fen && !work.threatMode) {
             console.log('got eval for the wrong node!', eval, node);
             return;
           }
