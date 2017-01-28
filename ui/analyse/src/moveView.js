@@ -2,6 +2,7 @@ var m = require('mithril');
 var fixCrazySan = require('chess').fixCrazySan;
 var normalizeEval = require('chess').renderEval;
 var defined = require('common').defined;
+var getBestEval = require('ceval').view.getBestEval;
 
 function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
@@ -36,7 +37,7 @@ function renderIndex(ply, withDots) {
 }
 
 function renderMove(ctx, node) {
-  var eval = node.eval || node.ceval || {};
+  var eval = getBestEval({client: node.ceval, server: node.eval});
   return [
     fixCrazySan(node.san), (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
     ctx.showEval ? (

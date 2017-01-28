@@ -83,6 +83,7 @@ function getBestEval(evs) {
 }
 
 module.exports = {
+  getBestEval: getBestEval,
   renderGauge: function(ctrl) {
     if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
     var eval, bestEv = getBestEval(ctrl.currentEvals());
