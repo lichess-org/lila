@@ -24,14 +24,20 @@ object Practice extends LilaController {
   }
 
   def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId)) { us =>
-      analysisJson(us) map {
-        case (analysisJson, studyJson) => Ok(html.practice.show(us, lila.practice.JsonView.JsData(
-          study = studyJson,
-          analysis = analysisJson,
-          practice = lila.practice.JsonView(us))))
-      }
-    } map NoCache
+    OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
+  }
+
+  def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
+    OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
+  }
+
+  private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
+    case (analysisJson, studyJson) => NoCache(Ok(
+      html.practice.show(us, lila.practice.JsonView.JsData(
+        study = studyJson,
+        analysis = analysisJson,
+        practice = lila.practice.JsonView(us)))
+    ))
   }
 
   def chapter(studyId: String, chapterId: String) = Open { implicit ctx =>
@@ -45,7 +51,7 @@ object Practice extends LilaController {
   }
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
-    case UserStudy(_, _, chapters, WithChapter(study, chapter)) =>
+    case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
       Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
         studyEnv.jsonView(study, chapters, chapter, ctx.me) map {

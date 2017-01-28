@@ -160,6 +160,7 @@ GET   /features                        controllers.Plan.features
 # Practice
 GET   /practice                                   controllers.Practice.index
 GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
+GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
 POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
 GET   /practice/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Practice.chapter(studyId: String, chapterId: String)
 GET   /practice/config                            controllers.Practice.config

@@ -32,6 +32,7 @@ module.exports = function(root, studyData, data) {
     nbMoves(0);
     won(false);
     comment(makeComment(root.tree.root));
+    history.replaceState(null, studyData.chapter.name, data.url + '/' + studyData.chapter.id);
   };
   onLoad();
 

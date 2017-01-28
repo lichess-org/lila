@@ -17,10 +17,14 @@ case class UserPractice(
 }
 
 case class UserStudy(
-  practice: UserPractice,
-  practiceStudy: PracticeStudy,
-  chapters: List[Chapter.Metadata],
-  study: Study.WithChapter)
+    practice: UserPractice,
+    practiceStudy: PracticeStudy,
+    chapters: List[Chapter.Metadata],
+    study: Study.WithChapter,
+    section: PracticeSection) {
+
+  def url = s"/practice/${section.id}/${practiceStudy.slug}/${study.study.id}"
+}
 
 case class Completion(done: Int, total: Int) {
 

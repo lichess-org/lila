@@ -40,8 +40,8 @@ final class PracticeApi(
       study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
       chapter = rawSc.chapter.withoutChildren)
     practiceStudy <- up.structure study sc.study.id
-    if up.structure hasStudy sc.study.id
-  } yield UserStudy(up, practiceStudy, chapters, sc)
+    section <- up.structure findSection sc.study.id
+  } yield UserStudy(up, practiceStudy, chapters, sc, section)
 
   object config {
     def get = configStore.get map (_ | PracticeConfig.empty)
