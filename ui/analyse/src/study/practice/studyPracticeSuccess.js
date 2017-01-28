@@ -24,11 +24,16 @@ function isTheirMate(root) {
   return isMate(root) && root.turnColor() === root.bottomColor();
 }
 
+function hasBlundered(comment) {
+  return comment && (comment.verdict === 'mistake' || comment.verdict === 'blunder');
+}
+
 // returns null = ongoing, true = win, false = fail
 module.exports = function(root, goal, nbMoves) {
-  if (isTheirMate(root)) return false;
   var node = root.vm.node;
   if (!node.uci) return null;
+  if (isTheirMate(root)) return false;
+  if (hasBlundered(root.practice.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
       if (isDrawish(node) === false) return false;
