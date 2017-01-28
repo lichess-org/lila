@@ -37,7 +37,7 @@ function renderIndex(ply, withDots) {
 }
 
 function renderMove(ctx, node) {
-  var eval = getBestEval({client: node.ceval, server: node.eval});
+  var eval = getBestEval({client: node.ceval, server: node.eval}) || {};
   return [
     fixCrazySan(node.san), (node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : null,
     ctx.showEval ? (
