@@ -1,5 +1,7 @@
 package lila.practice
 
+import chess.format.pgn.Tag
+
 sealed trait PracticeGoal
 
 object PracticeGoal {
@@ -9,17 +11,21 @@ object PracticeGoal {
   case class DrawIn(nbMoves: Int) extends PracticeGoal
   case class EvalIn(cp: Int, nbMoves: Int) extends PracticeGoal
 
-  val MateRegex = """(?i)^(?:check)?mate$""".r
-  val MateInRegex = """(?i)^(?:check)?mate in (\d+)$""".r
-  val DrawInRegex = """(?i)^draw in (\d+)$""".r
-  val EvalInRegex = """(?i)^((?:\+|-|)\d+)cp in (\d+)$""".r
+  private val MateR = """(?i)^(?:check)?mate$""".r
+  private val MateInR = """(?i)^(?:check)?mate in (\d+)$""".r
+  private val DrawInR = """(?i)^draw in (\d+)$""".r
+  private val EvalInR = """(?i)^((?:\+|-|)\d+)cp in (\d+)$""".r
+
+  private val MultiSpaceR = """\s{2,}""".r
+
+  private def tagText(tag: Tag) = MultiSpaceR.replaceAllIn(tag.value.trim, " ")
 
   def apply(chapter: lila.study.Chapter): PracticeGoal =
-    chapter.tags.find(_.name == chess.format.pgn.Tag.Termination).map(_.value.trim).flatMap {
-      case MateRegex()           => Mate.some
-      case MateInRegex(movesStr) => parseIntOption(movesStr) map MateIn.apply
-      case DrawInRegex(movesStr) => parseIntOption(movesStr) map DrawIn.apply
-      case EvalInRegex(cpStr, movesStr) => for {
+    chapter.tags.find(_.name == Tag.Termination).map(tagText).flatMap {
+      case MateR()           => Mate.some
+      case MateInR(movesStr) => parseIntOption(movesStr) map MateIn.apply
+      case DrawInR(movesStr) => parseIntOption(movesStr) map DrawIn.apply
+      case EvalInR(cpStr, movesStr) => for {
         cp <- parseIntOption(cpStr)
         moves <- parseIntOption(movesStr)
       } yield EvalIn(cp, moves)
