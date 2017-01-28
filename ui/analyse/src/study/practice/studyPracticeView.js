@@ -28,13 +28,16 @@ function selector(data) {
 };
 
 function renderGoal(practice) {
+  var moves = practice.goal().moves - practice.nbMoves();
   switch (practice.goal().result) {
     case 'mate':
       return 'Checkmate the opponent';
+    case 'mateIn':
+      return 'Checkmate the opponent in ' + plural('move', moves);
     case 'drawIn':
-      return 'Hold the draw for ' + plural('more move', practice.goal().moves - practice.nbMoves());
+      return 'Hold the draw for ' + plural('more move', moves);
     case 'evalIn':
-      return 'Get a winning position in ' + plural('move', practice.goal().moves - practice.nbMoves());
+      return 'Get a winning position in ' + plural('move', moves);
   }
 }
 
