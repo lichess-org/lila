@@ -126,6 +126,7 @@ module.exports = function(opts) {
       setTimeout(function() {
         // this has to be delayed, or it slows down analysis first render.
         work.emit({
+          fen: work.currentFen,
           depth: maxD,
           cp: dictRes.cp,
           best: dictRes.best,
