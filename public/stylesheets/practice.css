@@ -16,7 +16,7 @@ div.game_control {
   opacity: 0.9;
 }
 .study_box .title h1 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 .study_box .title em {
   font-size: 0.9em;
@@ -155,7 +155,7 @@ body.dark #practice_app .section > h2 {
   opacity: 0.9;
 }
 #practice_app .study h3 {
-  font-size: 1.5em;
+  font-size: 1.4em;
   margin: 0 0 5px -1px;
 }
 @keyframes soft-bright {
