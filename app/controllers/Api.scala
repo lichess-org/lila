@@ -80,6 +80,22 @@ object Api extends LilaController {
     }
   }
 
+  def usersStatus = ApiRequest { implicit ctx =>
+    val ids = get("ids").??(_.split(',').take(40).toList map lila.user.User.normalize)
+    Env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
+      val actualIds = users.map(_.id)
+      val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
+      val playingIds = Env.relation.onlinePlayings intersect actualIds
+      toApiResult {
+        users.map { u =>
+          lila.common.LightUser.lightUserWrites.writes(u) ++ Json.obj(
+            "online" -> onlineIds.contains(u.id),
+            "playing" -> playingIds.contains(u.id))
+        }
+      }
+    }
+  }
+
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
     credits = 10 * 1000,
     duration = 10 minutes,

@@ -15,6 +15,8 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
   def sync(id: String): Option[LightUser] = cache sync id
   def async(id: String): Fu[Option[LightUser]] = cache async id
 
+  def asyncMany = cache.asyncMany _
+
   def invalidate = cache invalidate _
 
   def preloadOne = cache preloadOne _

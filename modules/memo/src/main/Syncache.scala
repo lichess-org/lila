@@ -63,6 +63,9 @@ final class Syncache[K, V](
     else chm.computeIfAbsent(k, loadFunction)
   }
 
+  // maybe optimize later with cach batching
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).sequenceFu
+
   def invalidate(k: K): Unit = cache invalidate k
 
   def preloadOne(k: K): Funit =
@@ -73,6 +76,7 @@ final class Syncache[K, V](
     }
     else funit
 
+  // maybe optimize later with cach batching
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
   def preloadSet(ks: Set[K]): Funit = ks.map(preloadOne).sequenceFu.void
 

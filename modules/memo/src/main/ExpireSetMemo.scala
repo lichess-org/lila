@@ -13,6 +13,11 @@ final class ExpireSetMemo(ttl: Duration) {
 
   def get(key: String): Boolean = isNotNull(cache.underlying getIfPresent key)
 
+  def intersect(keys: Iterable[String]): Set[String] = {
+    val res = cache getAllPresent keys
+    keys filter res.contains
+  } toSet
+
   def put(key: String) = cache.put(key, true)
 
   def putAll(keys: Iterable[String]) = cache putAll keys.map(_ -> true).toMap
