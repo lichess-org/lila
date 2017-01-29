@@ -49,12 +49,17 @@ module.exports = {
     switch (p.success()) {
       case true:
         var next = p.nextChapter();
-        return m('a.feedback.win', {
+        if (next) return m('a.feedback.win', {
           onclick: partial(ctrl.setChapter, next.id)
         }, [
+          m('span', 'Success!'), [
+            'Next: ',
+            m('strong', next.name)
+          ]
+        ]);
+        return m('a.feedback.win[href=/practice]', [
           m('span', 'Success!'),
-          'Next: ',
-          m('strong', next.name)
+          'Back to practice menu'
         ]);
       case false:
         return m('a.feedback.fail', {

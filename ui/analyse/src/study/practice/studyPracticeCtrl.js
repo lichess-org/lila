@@ -60,19 +60,6 @@ module.exports = function(root, studyData, data) {
     }
   };
 
-  var findNextOngoingChapter = function() {
-    return root.study.data.chapters.filter(function(c) {
-      return !data.completion[c.id];
-    })[0];
-  };
-  var findNextChapter = function() {
-    var chapters = root.study.data.chapters;
-    var currentId = root.study.currentChapter().id;
-    for (var i in chapters)
-      if (chapters[i].id === currentId) return chapters[(i + 1) % chapters.length];
-    return chapters[0];
-  };
-
   return {
     onReload: onLoad,
     onJump: checkSuccess,
@@ -83,7 +70,10 @@ module.exports = function(root, studyData, data) {
     comment: comment,
     nbMoves: nbMoves,
     nextChapter: function() {
-      return findNextOngoingChapter() || findNextChapter();
+      var chapters = root.study.data.chapters;
+      var currentId = root.study.currentChapter().id;
+      for (var i in chapters)
+        if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
     },
     reset: function() {
       root.tree.root.children = [];
