@@ -59,6 +59,9 @@ div.game_control {
   margin-right: 5px;
   font-size: 1.2em;
 }
+.underboard .spinner {
+  margin: 15px auto;
+}
 .underboard .feedback {
   width: 100%;
   padding: 15px 20px;
@@ -99,6 +102,10 @@ div.game_control {
   text-align: left;
 }
 .underboard .feedback .goal {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  width: 100%;
   margin-bottom: 10px;
 }
 .underboard .feedback .comment {

@@ -1,7 +1,6 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var plural = require('../../util').plural;
-var partial = require('chessground').util.partial;
 
 var firstRender = true;
 
@@ -45,12 +44,15 @@ function renderGoal(practice, inMoves) {
 
 module.exports = {
   underboard: function(ctrl) {
+    if (ctrl.vm.loading) return m('div.feedback', m.trust(lichess.spinnerHtml));
     var p = ctrl.practice;
     switch (p.success()) {
       case true:
         var next = p.nextChapter();
         if (next) return m('a.feedback.win', {
-          onclick: partial(ctrl.setChapter, next.id)
+          onclick: function() {
+            ctrl.setChapter(next.id);
+          }
         }, [
           m('span', 'Success!'), [
             'Next: ',
@@ -70,10 +72,7 @@ module.exports = {
         ]);
       default:
         return m('div.feedback.ongoing', [
-          m('div.goal', [
-            'Your goal: ',
-            m('strong', renderGoal(p, p.goal().moves - p.nbMoves()))
-          ]),
+          m('div.goal', renderGoal(p, p.goal().moves - p.nbMoves())),
           p.comment() ? m('div.comment', p.comment()) : null
         ]);
     }
