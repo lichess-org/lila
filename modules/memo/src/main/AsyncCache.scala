@@ -1,6 +1,8 @@
 package lila.memo
 
 import akka.actor.ActorSystem
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
 
@@ -48,12 +50,12 @@ object AsyncCache {
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
         lila.common.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout"))
-      new AsyncCache[K, V](
-        cache = makeExpire(
-          Scaffeine().maximumSize(maxCapacity),
-          expireAfter
-        ).buildAsyncFuture(safeF),
-        safeF)
+      val cache: AsyncLoadingCache[K, V] = makeExpire(
+        Scaffeine().maximumSize(maxCapacity),
+        expireAfter
+      ).recordStats.buildAsyncFuture(safeF)
+      monitor(name, cache.underlying.synchronous)
+      new AsyncCache[K, V](cache, safeF)
     }
 
     def clearable[K, V](
@@ -66,13 +68,12 @@ object AsyncCache {
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
         lila.common.LilaException(s"$fullName key=$k timed out after $resultTimeout"))
-      new AsyncCacheClearable[K, V](
-        cache = makeExpire(
-          Scaffeine().maximumSize(maxCapacity),
-          expireAfter
-        ).build[K, Fu[V]],
-        safeF,
-        logger = logger branch fullName)
+      val cache: Cache[K, Fu[V]] = makeExpire(
+        Scaffeine().maximumSize(maxCapacity),
+        expireAfter
+      ).recordStats.build[K, Fu[V]]
+      monitor(name, cache.underlying)
+      new AsyncCacheClearable[K, V](cache, safeF, logger = logger branch fullName)
     }
 
     def single[V](
@@ -83,12 +84,30 @@ object AsyncCache {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
         lila.common.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout"))
-      new AsyncCacheSingle[V](
-        cache = makeExpire(
-          Scaffeine().maximumSize(1),
-          expireAfter
-        ).buildAsyncFuture(safeF),
-        safeF)
+      val cache: AsyncLoadingCache[Unit, V] = makeExpire(
+        Scaffeine().maximumSize(1),
+        expireAfter
+      ).recordStats.buildAsyncFuture(safeF)
+      monitor(name, cache.underlying.synchronous)
+      new AsyncCacheSingle[V](cache, safeF)
+    }
+
+    private def monitor(name: String, cache: CaffeineCache[_, _]): Unit = {
+      logger.info(s"AsyncCache $name started")
+      val monitor = new lila.mon.Caffeine(name)
+      system.scheduler.schedule(1 minute, 1 minute) {
+        val stats = cache.stats
+        monitor hitCount stats.hitCount
+        monitor hitRate stats.hitRate
+        monitor missCount stats.missCount
+        monitor missRate stats.missRate
+        monitor loadSuccessCount stats.loadSuccessCount
+        monitor loadFailureCount stats.loadFailureCount
+        monitor loadFailureRate stats.loadFailureRate
+        monitor totalLoadTime stats.totalLoadTime
+        monitor averageLoadPenalty stats.averageLoadPenalty.toLong
+        monitor evictionCount stats.evictionCount
+      }
     }
   }
 

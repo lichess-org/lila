@@ -62,6 +62,18 @@ object mon {
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
   }
+  class Caffeine(name: String) {
+    val hitCount = rec(s"caffeine.count.hit.$name")
+    val hitRate = rate(s"caffeine.rate.hit.$name")
+    val missCount = rec(s"caffeine.count.miss.$name")
+    val missRate = rate(s"caffeine.rate.miss.$name")
+    val loadSuccessCount = rec(s"caffeine.count.load.success.$name")
+    val loadFailureCount = rec(s"caffeine.count.load.failure.$name")
+    val loadFailureRate = rate(s"caffeine.rate.load.failure.$name")
+    val totalLoadTime = rec(s"caffeine.total.load_time.$name")
+    val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
+    val evictionCount = rec(s"caffeine.count.eviction.$name")
+  }
   object lobby {
     object hook {
       val create = inc("lobby.hook.create")
@@ -481,6 +493,7 @@ object mon {
   type Rec = Long => Unit
   type Inc = () => Unit
   type IncX = Int => Unit
+  type Rate = Double => Unit
 
   type RecPath = lila.mon.type => Rec
   type IncPath = lila.mon.type => Inc
@@ -502,6 +515,15 @@ object mon {
     value => {
       if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
       else hist.record(value)
+    }
+  }
+  // to record Double rates [0..1],
+  // we multiply by 100,000 and convert to Int [0..100000]
+  private def rate(name: String): Rate = {
+    val hist = metrics.histogram(name)
+    value => {
+      if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
+      else hist.record((value * 100000).toInt)
     }
   }
 
