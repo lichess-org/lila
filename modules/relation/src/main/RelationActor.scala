@@ -57,12 +57,12 @@ private[relation] final class RelationActor(
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
-      usersPlaying.foreach(onlinePlayings.remove)
+      onlinePlayings removeAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       val usersPlaying = game.userIds
-      onlinePlayings.putAll(usersPlaying)
+      onlinePlayings putAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_playing")
   }
 
