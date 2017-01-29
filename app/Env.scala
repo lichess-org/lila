@@ -53,7 +53,9 @@ final class Env(
     asyncCache = Env.memo.asyncCache)
 
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
-    Env.puzzle.daily.get.withTimeoutDefault(100 millis, none)(system) recover {
+    scala.concurrent.Future {
+      Env.puzzle.daily.get
+    }.flatMap(identity).withTimeoutDefault(50 millis, none)(system) recover {
       case e: Exception =>
         lila.log("preloader").warn("daily puzzle", e)
         none
