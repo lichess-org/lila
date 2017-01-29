@@ -36,31 +36,31 @@ module.exports = function(root) {
   };
 
   var makeComment = function(prev, node, path) {
-    var nodeEval = node.ceval;
+    var verdict, best;
     var over = root.gameOver(node);
-    if (over === 'draw') nodeEval = {
-      cp: 0
-    };
-    else if (over === 'checkmate') nodeEval = {
-      mate: 0
-    };
-    var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
-    var best = prev.ceval.best;
-    if (best === node.uci || best === altCastles[node.uci]) best = null;
+    if (over === 'checkmate') verdict = 'good';
+    else {
+      var nodeEval = node.ceval = over === 'draw' ? {
+        cp: 0
+      } : node.ceval;
+      var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
-    var c;
-    if (!best) c = 'good';
-    else if (shift < 0.025) c = 'good';
-    else if (shift < 0.06) c = 'inaccuracy';
-    else if (shift < 0.14) c = 'mistake';
-    else c = 'blunder';
+      best = prev.ceval.best;
+      if (best === node.uci || best === altCastles[node.uci]) best = null;
+
+      if (!best) verdict = 'good';
+      else if (shift < 0.025) verdict = 'good';
+      else if (shift < 0.06) verdict = 'inaccuracy';
+      else if (shift < 0.14) verdict = 'mistake';
+      else verdict = 'blunder';
+    }
 
     return {
       prev: prev,
       node: node,
       path: path,
-      verdict: c,
+      verdict: verdict,
       best: best ? {
         uci: best,
         san: pv2san(root.data.game.variant.key, prev.fen, false, best)
