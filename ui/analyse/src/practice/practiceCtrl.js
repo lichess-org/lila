@@ -112,8 +112,9 @@ module.exports = function(root) {
     onJump: function() {
       played(false);
       hinting(null);
+      checkCeval();
       // because running(false) is called after the jump
-      setTimeout(checkCeval, 50)
+      // setTimeout(checkCeval, 50)
     },
     isMyTurn: isMyTurn,
     comment: comment,
