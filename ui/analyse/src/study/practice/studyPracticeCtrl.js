@@ -34,7 +34,7 @@ module.exports = function(root, studyData, data) {
     success(null);
     comment(makeComment(root.tree.root));
     var chapter = studyData.chapter;
-    // history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
+    history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
   };
   onLoad();
 
