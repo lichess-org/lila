@@ -18,10 +18,13 @@ module.exports = function(root) {
     if (root.vm.threatMode) root.toggleThreatMode();
   };
 
-  var commentable = function(ceval, bonus) {
+  var commentable = function(node, bonus) {
+    if (root.gameOver(node)) return true;
+    var ceval = node.ceval;
     return ceval && ((ceval.depth + (bonus || 0)) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000));
   };
-  var playable = function(ceval) {
+  var playable = function(node) {
+    var ceval = node.ceval;
     return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
   };
 
@@ -33,11 +36,20 @@ module.exports = function(root) {
   };
 
   var makeComment = function(prev, node, path) {
-    var c, shift = -winningChances.povDiff(root.bottomColor(), node.ceval, prev.ceval);
+    var nodeEval = node.ceval;
+    var over = root.gameOver(node);
+    if (over === 'draw') nodeEval = {
+      cp: 0
+    };
+    else if (over === 'checkmate') nodeEval = {
+      mate: 0
+    };
+    var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
     var best = prev.ceval.best;
     if (best === node.uci || best === altCastles[node.uci]) best = null;
 
+    var c;
     if (!best) c = 'good';
     else if (shift < 0.025) c = 'good';
     else if (shift < 0.06) c = 'inaccuracy';
@@ -76,12 +88,12 @@ module.exports = function(root) {
       }
     } else {
       comment(null);
-      if (node.san && commentable(node.ceval)) {
+      if (node.san && commentable(node)) {
         var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
-        if (commentable(parentNode.ceval, +1))
+        if (commentable(parentNode, +1))
           comment(makeComment(parentNode, node, root.vm.path));
       }
-      if (!played() && playable(node.ceval)) {
+      if (!played() && playable(node)) {
         root.playUci(node.ceval.best);
         played(true);
       }

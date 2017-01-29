@@ -482,9 +482,10 @@ module.exports = function(opts) {
     return this.ceval;
   }.bind(this);
 
-  this.gameOver = function() {
-    if (this.vm.node.dests !== '' || this.vm.node.drops) return false;
-    if (this.vm.node.check) return 'checkmate';
+  this.gameOver = function(node) {
+    var n = node || this.vm.node;
+    if (n.dests !== '' || n.drops) return false;
+    if (n.check) return 'checkmate';
     return 'draw';
   }.bind(this);
 
