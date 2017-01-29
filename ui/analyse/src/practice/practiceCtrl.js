@@ -109,6 +109,10 @@ module.exports = function(root) {
     hovering: hovering,
     hinting: hinting,
     resume: resume,
+    reset: function() {
+      comment(null);
+      hinting(null);
+    },
     onUserJump: function(from, to) {
       if (from !== to) {
         if (isMyTurn()) resume();

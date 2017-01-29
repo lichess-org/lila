@@ -88,6 +88,7 @@ module.exports = function(root, studyData, data) {
     reset: function() {
       root.tree.root.children = [];
       root.userJump('');
+      root.practice.reset();
       onLoad();
     }
   };
