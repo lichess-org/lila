@@ -9,7 +9,7 @@ import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUser: lila.common.LightUser.GetterSync) {
+    lightUserApi: lila.user.LightUserApi) {
 
   case class CacheKey(gameId: Game.ID, plies: Int)
 
@@ -22,26 +22,26 @@ private final class GameJson(
   def apply(gameId: Game.ID, plies: Int): Fu[JsObject] = cache get CacheKey(gameId, plies)
 
   def generate(ck: CacheKey): Fu[JsObject] = ck match {
-    case CacheKey(gameId, plies) =>
-      (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") map { game =>
-        val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
-        val tree = TreeBuilder(game, plies)
+    case CacheKey(gameId, plies) => for {
+      game <- (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!")
+      _ <- lightUserApi preloadMany game.userIds
+      perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
+      tree = TreeBuilder(game, plies)
+    } yield Json.obj(
+      "id" -> game.id,
+      "clock" -> game.clock.map(_.show),
+      "perf" -> Json.obj(
+        "icon" -> perfType.iconChar.toString,
+        "name" -> perfType.name),
+      "rated" -> game.rated,
+      "players" -> JsArray(game.players.map { p =>
         Json.obj(
-          "id" -> game.id,
-          "clock" -> game.clock.map(_.show),
-          "perf" -> Json.obj(
-            "icon" -> perfType.iconChar.toString,
-            "name" -> perfType.name),
-          "rated" -> game.rated,
-          "players" -> JsArray(game.players.map { p =>
-            Json.obj(
-              "userId" -> p.userId,
-              "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUser),
-              "color" -> p.color.name
-            )
-          }),
-          "treeParts" -> partitionTreeJsonWriter.writes(tree)
-        ).noNull
-      }
+          "userId" -> p.userId,
+          "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
+          "color" -> p.color.name
+        )
+      }),
+      "treeParts" -> partitionTreeJsonWriter.writes(tree)
+    ).noNull
   }
 }

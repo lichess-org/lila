@@ -8,7 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     renderer: ActorSelection,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle) {
@@ -27,7 +27,7 @@ final class Env(
 
   private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
 
-  private lazy val gameJson = new GameJson(asyncCache, lightUser)
+  private lazy val gameJson = new GameJson(asyncCache, lightUserApi)
 
   lazy val jsonView = new JsonView(
     gameJson,
@@ -82,7 +82,7 @@ object Env {
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     renderer = lila.hub.Env.current.actor.renderer,
-    lightUser = lila.user.Env.current.lightUserSync,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     lifecycle = lila.common.PlayApp.lifecycle)
