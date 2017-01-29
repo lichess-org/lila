@@ -245,8 +245,9 @@ module.exports = function(opts) {
     this.chessground.selectSquare(null);
     if (this.practice) {
       var prev = this.vm.path;
+      this.practice.preUserJump(prev, path);
       this.jump(path);
-      this.practice.onUserJump(prev, this.vm.path);
+      this.practice.postUserJump(prev, this.vm.path);
     } else
       this.jump(path);
   }.bind(this);

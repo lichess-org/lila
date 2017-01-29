@@ -126,14 +126,14 @@ module.exports = function(root) {
       comment(null);
       hinting(null);
     },
-    onUserJump: function(from, to) {
+    preUserJump: function(from, to) {
       if (from !== to) {
-        if (isMyTurn()) resume();
-        else {
-          running(false);
-          comment(null);
-        }
+        running(false);
+        comment(null);
       }
+    },
+    postUserJump: function(from, to) {
+      if (from !== to && isMyTurn()) resume();
     },
     onUserMove: function() {
       running(true);
