@@ -130,7 +130,7 @@ $.ajax({
 });
 ```
 
-### `GET /api/user` fetch many users
+### `GET /api/user` fetch many users from a team
 
 ```
 > curl https://en.lichess.org/api/user?team=coders&nb=10&page=1
@@ -186,6 +186,36 @@ $.ajax({
 ```
 
 Users are returned in the order same order as the ids.
+
+### `GET /api/users/status` fetch many users `online` and `playing` flags
+
+```
+> curl -s 'https://en.lichess.org/api/users/status?ids=thibault,chess-network'
+```
+
+name | type | default | description
+--- | --- | --- | ---
+**ids** | string | - | user ids separated by commas. Max 40 user IDs.
+
+```javascript
+[
+  {
+    "id": "thibault",
+    "name": "thibault",
+    "patron": true,
+    "online": true,
+    "playing": true
+  },
+  {
+    "id": "chess-network",
+    "name": "Chess-Network",
+    "title": "NM",
+    "patron": true,
+    "online": false,
+    "playing": false
+  }
+]
+```
 
 ### `GET /api/user/<username>/games` fetch user games
 
