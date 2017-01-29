@@ -570,9 +570,11 @@ body.coords_2 .is3d square[data-coord-x]::after {
 .Staunton .is3d .bishop.white {
   background-image: url(../images/staunton/piece/Staunton/White-Bishop.png);
 }
-.Staunton .is3d .knight.white,
-#top .is3d piece.Staunton {
+.Staunton .is3d .knight.white {
   background-image: url(../images/staunton/piece/Staunton/White-Knight.png);
+}
+#top .is3d piece.Staunton {
+  background-image: url(../images/staunton/piece/Staunton/White-Knight-Preview.png);
 }
 .Staunton .is3d .rook.white {
   background-image: url(../images/staunton/piece/Staunton/White-Rook.png);
