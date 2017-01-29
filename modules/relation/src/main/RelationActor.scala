@@ -36,9 +36,8 @@ private[relation] final class RelationActor(
     case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
 
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
-      case onlineFriends =>
-        bus.publish(SendTo(userId, JsonView.writeOnlineFriends(onlineFriends)), 'users)
+    case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach { res =>
+      bus.publish(SendTo(userId, JsonView.writeOnlineFriends(res)), 'users)
     }
 
     case ComputeMovement =>
@@ -57,7 +56,7 @@ private[relation] final class RelationActor(
       notifyFollowersFriendEnters(friendsEntering)
       notifyFollowersFriendLeaves(leaves)
 
-    case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if game.hasClock =>
+    case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
       usersPlaying.foreach(onlinePlayings.remove)
       notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
