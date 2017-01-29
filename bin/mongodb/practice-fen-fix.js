@@ -18,12 +18,22 @@ var chapters = db.study_chapter.find({
   var fen = chapter.root.f;
   var fixed = fixFen(fen);
   if (fixed != fen) {
-    print('Fix chapter ' + chapter._id + ': ' + fixed);
+    print('Fix chapter FEN ' + chapter._id + ': ' + fixed);
     db.study_chapter.update({
       _id: chapter._id
     }, {
       $set: {
         'root.f': fixed
+      }
+    });
+  }
+  if (chapter.root.p != 0) {
+    print('Fix chapter root ply ' + chapter._id);
+    db.study_chapter.update({
+      _id: chapter._id
+    }, {
+      $set: {
+        'root.p': NumberInt(0)
       }
     });
   }
