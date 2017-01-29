@@ -195,7 +195,7 @@ Users are returned in the order same order as the ids.
 
 name | type | default | description
 --- | --- | --- | ---
-**ids** | string | - | user ids separated by commas. Max 40 user IDs.
+**ids** | string | - | user ids separated by commas. Max 40 user ids.
 
 ```javascript
 [
