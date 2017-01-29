@@ -85,7 +85,7 @@ object UserRepo {
     coll.primitiveOne[User.ID]($id(id), F.username)
 
   def usernamesByIds(ids: List[ID]) =
-    coll.distinct[User.ID, List](F.username, $inIds(ids).some)
+    coll.distinct[String, List](F.username, $inIds(ids).some)
 
   def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] = {
     coll.find(

@@ -77,10 +77,10 @@ object ForumTopic extends LilaController with ForumController {
   /**
    * Returns a list of the usernames of people participating in a forum topic conversation
    */
-  def participants(topicId: String) = Auth { implicit ctx => me =>
-    postApi.userIds(topicId) map { ids =>
-      val usernames = Env.user.lightUserApi.getList(ids.sorted).map(_.name)
-      Ok(Json.toJson(usernames))
-    }
+  def participants(topicId: String) = Auth { implicit ctx => _ =>
+    for {
+      userIds <- postApi userIds topicId
+      usernames <- lila.user.UserRepo usernamesByIds userIds
+    } yield Ok(Json.toJson(usernames.sorted))
   }
 }

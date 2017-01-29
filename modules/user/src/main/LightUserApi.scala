@@ -21,10 +21,6 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
   def preloadMany = cache preloadMany _
   def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
 
-  def getList(ids: List[String]): List[LightUser] = ids flatMap sync
-
-  def usernameList(ids: List[String]): List[String] = getList(ids).map(_.name)
-
   private val cache = new Syncache[String, Option[LightUser]](
     name = "user.light",
     compute = id => coll.find($id(id), projection).uno[LightUser],
