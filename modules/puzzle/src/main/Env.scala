@@ -60,8 +60,7 @@ final class Env(
     puzzleColl,
     renderer,
     asyncCache = asyncCache,
-    system.scheduler
-  ).apply _
+    system.scheduler)
 
   def cli = new lila.common.Cli {
     def process = {

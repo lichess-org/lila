@@ -21,7 +21,7 @@ private[puzzle] final class Daily(
       f = find,
       expireAfter = _.ExpireAfterWrite(10 minutes))
 
-  def apply: Fu[Option[DailyPuzzle]] = cache.get
+  def get: Fu[Option[DailyPuzzle]] = cache.get
 
   private def find: Fu[Option[DailyPuzzle]] = (findCurrent orElse findNew) recover {
     case e: Exception =>

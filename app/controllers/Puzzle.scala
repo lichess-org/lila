@@ -38,7 +38,7 @@ object Puzzle extends LilaController {
     }
 
   def daily = Open { implicit ctx =>
-    OptionFuResult(env.daily() flatMap {
+    OptionFuResult(env.daily.get flatMap {
       _.map(_.id) ?? env.api.puzzle.find
     }) { puzzle =>
       negotiate(
@@ -214,7 +214,7 @@ object Puzzle extends LilaController {
   }
 
   def frame = Open { implicit ctx =>
-    OptionOk(env.daily()) { daily =>
+    OptionOk(env.daily.get) { daily =>
       html.puzzle.embed(daily)
     }
   }

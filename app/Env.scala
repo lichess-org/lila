@@ -53,9 +53,7 @@ final class Env(
     asyncCache = Env.memo.asyncCache)
 
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
-    scala.concurrent.Future {
-      Env.puzzle.daily()
-    }.flatMap(identity).withTimeoutDefault(100 millis, none)(system) recover {
+    Env.puzzle.daily.get.withTimeoutDefault(100 millis, none)(system) recover {
       case e: Exception =>
         lila.log("preloader").warn("daily puzzle", e)
         none
@@ -64,7 +62,8 @@ final class Env(
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   lila.log.boot.info("Preloading modules")
-  lila.common.Chronometer.syncEffect(List(Env.socket,
+  lila.common.Chronometer.syncEffect(List(
+    Env.socket,
     Env.site,
     Env.tournament,
     Env.lobby,
