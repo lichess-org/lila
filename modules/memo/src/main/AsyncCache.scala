@@ -91,23 +91,25 @@ object AsyncCache {
       monitor(name, cache.underlying.synchronous)
       new AsyncCacheSingle[V](cache, safeF)
     }
+  }
 
-    private def monitor(name: String, cache: CaffeineCache[_, _]): Unit = {
-      logger.info(s"AsyncCache $name started")
-      val monitor = new lila.mon.Caffeine(name)
-      system.scheduler.schedule(1 minute, 1 minute) {
-        val stats = cache.stats
-        monitor hitCount stats.hitCount
-        monitor hitRate stats.hitRate
-        monitor missCount stats.missCount
-        monitor missRate stats.missRate
+  private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
+    logger.info(s"Caffeine cache $name started")
+    val monitor = new lila.mon.Caffeine(name)
+    system.scheduler.schedule(1 minute, 1 minute) {
+      val stats = cache.stats
+      monitor hitCount stats.hitCount
+      monitor hitRate stats.hitRate
+      monitor missCount stats.missCount
+      monitor missRate stats.missRate
+      if (stats.totalLoadTime > 0) {
         monitor loadSuccessCount stats.loadSuccessCount
         monitor loadFailureCount stats.loadFailureCount
         monitor loadFailureRate stats.loadFailureRate
         monitor totalLoadTime stats.totalLoadTime
         monitor averageLoadPenalty stats.averageLoadPenalty.toLong
-        monitor evictionCount stats.evictionCount
       }
+      monitor evictionCount stats.evictionCount
     }
   }
 
