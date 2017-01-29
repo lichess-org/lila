@@ -13,13 +13,12 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 private[relation] final class RelationActor(
     getOnlineUserIds: () => Set[String],
     lightUser: LightUser.Getter,
-    api: RelationApi) extends Actor {
+    api: RelationApi,
+    onlinePlayings: ExpireSetMemo) extends Actor {
 
   private val bus = context.system.lilaBus
 
   private var onlines = Map[ID, LightUser]()
-
-  private val onlinePlayings = new ExpireSetMemo(4 hour)
 
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'startGame)

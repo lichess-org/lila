@@ -39,10 +39,13 @@ final class Env(
     maxFollow = MaxFollow,
     maxBlock = MaxBlock)
 
+  val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
+
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
     lightUser = lightUser,
-    api = api
+    api = api,
+    onlinePlayings
   )), name = ActorName)
 
   scheduler.once(15 seconds) {
