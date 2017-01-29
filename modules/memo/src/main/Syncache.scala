@@ -32,7 +32,9 @@ final class Syncache[K, V](
       case ExpireAfterAccess(duration) => b1.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
       case ExpireAfterWrite(duration)  => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
-    b2.build[K, V]()
+    val cache = b2.recordStats.build[K, V]()
+    AsyncCache.monitor(s"syncache.$name", cache)
+    cache
   }
 
   // get the value synchronously, might block depending on strategy
