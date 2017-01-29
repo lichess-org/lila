@@ -9,7 +9,7 @@ module.exports = {
 
     var available = ['lichess'];
     if (variant === 'standard') available.push('masters');
-    else if (variant === 'antichess' && withGames && game.initialFen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1') {
+    else if (variant === 'antichess' && withGames && game.initialFen.indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
         available.push('watkins');
     }
 
