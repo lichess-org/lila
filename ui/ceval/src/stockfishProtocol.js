@@ -8,18 +8,12 @@ var EVAL_REGEX = new RegExp(''
   + /pv (.+)/.source);
 
 module.exports = function(worker, opts) {
-  var emitTimer = null;
   var work = null;
   var curEval = null;
+  var expectedPvs = 0;
 
   var stopped = m.deferred();
   stopped.resolve(true);
-
-  var emit = function() {
-    emitTimer = clearTimeout(emitTimer);
-    if (!work || !curEval) return;
-    work.emit(curEval);
-  };
 
   if (opts.variant.key === 'fromPosition' || opts.variant.key === 'chess960')
     worker.send('setoption name UCI_Chess960 value true');
@@ -44,12 +38,15 @@ module.exports = function(worker, opts) {
     var depth = parseInt(matches[1]),
         multiPv = parseInt(matches[2]),
         isMate = matches[3] === 'mate',
-        eval = parseFloat(matches[4]),
+        eval = parseInt(matches[4]),
         evalType = matches[5],
         nodes = parseInt(matches[6]),
         nps = parseInt(matches[7]),
         elapsedMs = parseInt(matches[8]),
         pv = matches[9];
+
+    // Track max pv index to determine when pv prints are done.
+    if (expectedPvs < multiPv) expectedPvs = multiPv;
 
     if (depth < opts.minDepth) return;
     if (work.ply % 2 === 1) eval = -eval;
@@ -57,7 +54,7 @@ module.exports = function(worker, opts) {
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
     // only have an upperbound. See: ddugovic/Stockfish#228
-    if (evalType && (multiPv === 1 || evalType !== 'upper' || !curEval)) return;
+    if (evalType && multiPv === 1) return;
 
     var pvData = {
       best: pv.split(' ', 2)[0],
@@ -85,13 +82,9 @@ module.exports = function(worker, opts) {
       curEval.depth = Math.min(curEval.depth, depth);
     }
 
-    if (multiPv === work.multiPv) {
-      emit();
+    if (multiPv === expectedPvs && curEval) {
+      work.emit(curEval);
       curEval = null;
-    } else {
-      // emit timeout in case there aren't a full set of PVs.
-      clearTimeout(emitTimer);
-      emitTimer = setTimeout(emit, 50);
     }
   };
 
@@ -100,7 +93,7 @@ module.exports = function(worker, opts) {
       work = w;
       curEval = null;
       stopped = null;
-      minLegalMoves = 0;
+      expectedPvs = 1;
       if (opts.threads) worker.send('setoption name Threads value ' + opts.threads());
       if (opts.hashSize) worker.send('setoption name Hash value ' + opts.hashSize());
       worker.send('setoption name MultiPV value ' + work.multiPv);
