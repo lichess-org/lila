@@ -9,6 +9,10 @@ function fixFen(fen) {
   return parts.join(' ');
 }
 
+function makePly(fen) {
+  return fen.split(' ')[1] === 'w' ? 0 : 1;
+}
+
 var chapters = db.study_chapter.find({
   studyId: {
     $in: studyIds
@@ -27,13 +31,15 @@ var chapters = db.study_chapter.find({
       }
     });
   }
-  if (chapter.root.p != 0) {
+
+  var ply = makePly(fixed);
+  if (chapter.root.p != ply) {
     print('Fix chapter root ply ' + chapter._id);
     db.study_chapter.update({
       _id: chapter._id
     }, {
       $set: {
-        'root.p': NumberInt(0)
+        'root.p': NumberInt(ply)
       }
     });
   }
