@@ -178,7 +178,7 @@ object Api extends LilaController {
   }
 
   def currentTournaments = ApiRequest { implicit ctx =>
-    Env.tournament.api.fetchVisibleTournaments map
+    Env.tournament.api.fetchVisibleTournaments flatMap
       Env.tournament.scheduleJsonView.apply map Data.apply
   }
 
