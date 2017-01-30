@@ -2487,7 +2487,8 @@ input.cmn-toggle-round:checked + label::after {
   text-decoration: underline;
 }
 .embedding_analyse,
-iframe.analyse {
+iframe.analyse,
+iframe.video {
   width: 744px;
   height: 460px;
   background: rgba(127, 127, 127, 0.05);

@@ -2,9 +2,15 @@ $(function() {
 
   var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
   var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
+  var youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:[^\s]*)/i;
   var notGames = ['training', 'analysis', 'insights', 'practice'];
 
   var parseLink = function(a) {
+    var matches = a.href.match(youtubeRegex);
+    if (matches) return {
+      type: 'youtube',
+      src: 'https://www.youtube.com/embed/' + matches[1]
+    };
     var matches = a.href.match(studyRegex);
     if (matches && matches[2] && a.text.match(studyRegex)) return {
       type: 'study',
@@ -20,6 +26,22 @@ $(function() {
         src: src
       };
     }
+  };
+
+  var expandYoutube = function(a) {
+    var $iframe = $('<iframe>').addClass('video ' + a.type).attr('src', a.src);
+    $(a.element).replaceWith($iframe);
+    return $iframe;
+  };
+
+  var expandYoutubes = function(as, wait) {
+    var a = as.shift(),
+      wait = Math.min(1500, wait || 100);
+    if (a) expandYoutube(a).on('load', function() {
+      setTimeout(function() {
+        expandYoutubes(as, wait + 200);
+      }, wait);
+    });
   };
 
   var expand = function(a) {
@@ -59,7 +81,7 @@ $(function() {
       }
     });
     return groups;
-  }
+  };
 
   var expandGames = function(as) {
     groupByParent(as).forEach(function(group) {
@@ -76,7 +98,7 @@ $(function() {
         });
       });
     });
-  }
+  };
 
   var as = $('div.embed_analyse a').toArray().map(function(el) {
     var parsed = parseLink(el);
@@ -90,6 +112,10 @@ $(function() {
   }).filter(function(a) {
     return a;
   });
+
+  expandYoutubes(as.filter(function(a) {
+    return a.type === 'youtube'
+  }));
 
   expandStudies(as.filter(function(a) {
     return a.type === 'study'
