@@ -68,7 +68,7 @@ object mon {
     val missCount = rec(s"caffeine.count.miss.$name")
     val loadSuccessCount = rec(s"caffeine.count.load.success.$name")
     val loadFailureCount = rec(s"caffeine.count.load.failure.$name")
-    val totalLoadTime = rec(s"caffeine.total.load_time.$name")
+    val totalLoadTime = rec(s"caffeine.total.load_time.$name") // in millis
     val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
     val evictionCount = rec(s"caffeine.count.eviction.$name")
   }

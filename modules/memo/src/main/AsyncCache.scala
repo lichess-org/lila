@@ -104,7 +104,7 @@ object AsyncCache {
       if (stats.totalLoadTime > 0) {
         monitor loadSuccessCount stats.loadSuccessCount
         monitor loadFailureCount stats.loadFailureCount
-        monitor totalLoadTime stats.totalLoadTime
+        monitor totalLoadTime (stats.totalLoadTime / 1000000) // too much nanos for Kamon to handle
         monitor averageLoadPenalty stats.averageLoadPenalty.toLong
       }
       monitor evictionCount stats.evictionCount
