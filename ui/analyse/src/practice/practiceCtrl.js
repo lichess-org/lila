@@ -2,6 +2,7 @@ var winningChances = require('ceval').winningChances;
 var treePath = require('tree').path;
 var winningChances = require('ceval').winningChances;
 var pv2san = require('ceval').pv2san;
+var defined = require('common').defined;
 var m = require('mithril');
 
 module.exports = function(root) {
@@ -41,7 +42,7 @@ module.exports = function(root) {
 
     if (over === 'checkmate') verdict = 'good';
     else {
-      var nodeEval = node.ceval = over === 'draw' ? {
+      var nodeEval = (node.threefold || over === 'draw') ? {
         cp: 0
       } : node.ceval;
       var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
@@ -105,6 +106,21 @@ module.exports = function(root) {
     checkCeval();
   };
 
+  var threefoldFen = function(fen) {
+    return fen.split(' ').slice(0, 4).join(' ');
+  };
+
+  var detectThreefold = function() {
+    var n = root.vm.node;
+    if (defined(n.threefold)) return;
+    var currentFen = threefoldFen(n.fen);
+    var nbSimilarPositions = 0;
+    for (var i in root.vm.mainline)
+      if (threefoldFen(root.vm.mainline[i].fen) === currentFen)
+        nbSimilarPositions++;
+    n.threefold = nbSimilarPositions > 2;
+  };
+
   checkCeval();
 
   return {
@@ -112,9 +128,8 @@ module.exports = function(root) {
     onJump: function() {
       played(false);
       hinting(null);
+      detectThreefold();
       checkCeval();
-      // because running(false) is called after the jump
-      // setTimeout(checkCeval, 50)
     },
     isMyTurn: isMyTurn,
     comment: comment,

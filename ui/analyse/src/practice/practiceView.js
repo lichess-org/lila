@@ -19,6 +19,7 @@ var commentText = {
 
 var endText = {
   checkmate: 'Checkmate!',
+  threefold: 'Threefold repetition',
   draw: 'Draw.'
 };
 
@@ -112,7 +113,7 @@ module.exports = function(root) {
   if (!ctrl) return;
   var comment = ctrl.comment();
   var running = ctrl.running();
-  var end = root.gameOver();
+  var end = root.vm.node.threefold ? 'threefold' : root.gameOver();
   return m('div', {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [

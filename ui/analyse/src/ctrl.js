@@ -342,7 +342,6 @@ module.exports = function(opts) {
     this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
-    if (this.practice) this.practice.onUserMove();
   }.bind(this);
 
   var sendMove = function(orig, dest, prom) {
@@ -354,6 +353,7 @@ module.exports = function(opts) {
       path: this.vm.path
     };
     if (prom) move.promotion = prom;
+    if (this.practice) this.practice.onUserMove();
     this.socket.sendAnaMove(move);
     preparePremoving();
   }.bind(this);
@@ -491,7 +491,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver();
+    return !this.gameOver() && !this.vm.node.threefold;
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
