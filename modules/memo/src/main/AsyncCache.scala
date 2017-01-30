@@ -108,6 +108,7 @@ object AsyncCache {
         monitor averageLoadPenalty stats.averageLoadPenalty.toLong
       }
       monitor evictionCount stats.evictionCount
+      monitor entryCount cache.estimatedSize
     }
   }
 

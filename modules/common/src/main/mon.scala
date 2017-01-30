@@ -71,6 +71,7 @@ object mon {
     val totalLoadTime = rec(s"caffeine.total.load_time.$name") // in millis
     val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
     val evictionCount = rec(s"caffeine.count.eviction.$name")
+    val entryCount = rec(s"caffeine.count.entry.$name")
   }
   object lobby {
     object hook {
