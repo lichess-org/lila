@@ -21,6 +21,7 @@ object JsonView {
     case Mate              => Json.obj("result" -> "mate")
     case MateIn(moves)     => Json.obj("result" -> "mateIn", "moves" -> moves)
     case DrawIn(moves)     => Json.obj("result" -> "drawIn", "moves" -> moves)
+    case EqualIn(moves)    => Json.obj("result" -> "equalIn", "moves" -> moves)
     case EvalIn(cp, moves) => Json.obj("result" -> "evalIn", "cp" -> cp, "moves" -> moves)
     case Promotion(cp)     => Json.obj("result" -> "promotion", "cp" -> cp)
   }

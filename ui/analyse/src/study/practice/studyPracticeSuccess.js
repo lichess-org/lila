@@ -36,6 +36,7 @@ module.exports = function(root, goal, nbMoves) {
   if (hasBlundered(root.practice.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
+    case 'equalIn':
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves) return false;
       if (root.gameOver() === 'draw') return true;

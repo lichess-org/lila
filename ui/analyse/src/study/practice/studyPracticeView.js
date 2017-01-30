@@ -35,6 +35,8 @@ function renderGoal(practice, inMoves) {
       return 'Checkmate the opponent in ' + plural('move', inMoves);
     case 'drawIn':
       return 'Hold the draw for ' + plural('more move', inMoves);
+    case 'equalIn':
+      return 'Equalize in ' + plural('move', inMoves);
     case 'evalIn':
       return 'Get a winning position in ' + plural('move', inMoves);
     case 'promotion':
