@@ -101,11 +101,9 @@ object AsyncCache {
       monitor hitCount stats.hitCount
       monitor hitRate stats.hitRate
       monitor missCount stats.missCount
-      monitor missRate stats.missRate
       if (stats.totalLoadTime > 0) {
         monitor loadSuccessCount stats.loadSuccessCount
         monitor loadFailureCount stats.loadFailureCount
-        monitor loadFailureRate stats.loadFailureRate
         monitor totalLoadTime stats.totalLoadTime
         monitor averageLoadPenalty stats.averageLoadPenalty.toLong
       }
