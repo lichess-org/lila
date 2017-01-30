@@ -2,7 +2,6 @@ package lila.api
 
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
-import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.lobby.SeekApi
@@ -11,7 +10,7 @@ import lila.user.UserContext
 
 final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
-    lightUser: LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
     pools: List[lila.pool.PoolConfig]) {
 
@@ -20,18 +19,19 @@ final class LobbyApi(
   val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[JsObject] =
-      ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
+    ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
       (ctx.me ?? GameRepo.urgentGames) zip
-      getFilter(ctx) map {
-        case ((seeks, povs), filter) => Json.obj(
-          "me" -> ctx.me.map { u =>
-            Json.obj("username" -> u.username)
-          },
-          "seeks" -> JsArray(seeks map (_.render)),
-          "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
-          "nbNowPlaying" -> povs.size,
-          "filter" -> filter.render,
-          "pools" -> poolsJson)
+      getFilter(ctx) flatMap {
+        case ((seeks, povs), filter) =>
+          lightUserApi.preloadMany(povs.flatMap(_.opponent.userId)) inject Json.obj(
+            "me" -> ctx.me.map { u =>
+              Json.obj("username" -> u.username)
+            },
+            "seeks" -> JsArray(seeks map (_.render)),
+            "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
+            "nbNowPlaying" -> povs.size,
+            "filter" -> filter.render,
+            "pools" -> poolsJson)
       }
 
   def nowPlaying(pov: Pov) = Json.obj(
@@ -48,7 +48,7 @@ final class LobbyApi(
     "rated" -> pov.game.rated,
     "opponent" -> Json.obj(
       "id" -> pov.opponent.userId,
-      "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUser),
+      "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUserApi.sync),
       "rating" -> pov.opponent.rating,
       "ai" -> pov.opponent.aiLevel).noNull,
     "isMyTurn" -> pov.isMyTurn,

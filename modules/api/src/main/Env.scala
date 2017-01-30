@@ -103,7 +103,7 @@ final class Env(
 
   val lobbyApi = new LobbyApi(
     getFilter = setupEnv.filter,
-    lightUser = userEnv.lightUserSync,
+    lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
     pools = pools)
 
