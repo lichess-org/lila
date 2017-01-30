@@ -16,7 +16,7 @@ private final class FishnetRepo(
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
     f = key => clientColl.find(selectClient(key)).uno[Client],
-    expireAfter = _.ExpireAfterWrite(30 seconds))
+    expireAfter = _.ExpireAfterWrite(5 minutes))
 
   def getClient(key: Client.Key) = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
