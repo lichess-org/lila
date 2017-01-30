@@ -115,8 +115,8 @@ module.exports = function(root) {
     if (defined(n.threefold)) return;
     var currentFen = threefoldFen(n.fen);
     var nbSimilarPositions = 0;
-    for (var i in root.vm.mainline)
-      if (threefoldFen(root.vm.mainline[i].fen) === currentFen)
+    for (var i in root.vm.nodeList)
+      if (threefoldFen(root.vm.nodeList[i].fen) === currentFen)
         nbSimilarPositions++;
     n.threefold = nbSimilarPositions > 2;
   };
