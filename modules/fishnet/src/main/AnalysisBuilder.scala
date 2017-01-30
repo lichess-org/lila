@@ -6,6 +6,7 @@ import chess.format.Uci
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.game.GameRepo
+import lila.tree.Eval
 
 private object AnalysisBuilder {
 
@@ -57,13 +58,14 @@ private object AnalysisBuilder {
         val best = variation.headOption flatMap Uci.Move.apply
         val info = Info(
           ply = index + 1 + startedAtPly,
-          score = after.score.cp map lila.analyse.Score.apply,
-          mate = after.score.mate,
-          variation = variation,
-          best = best)
+          eval = Eval(
+            after.score.cp,
+            after.score.mate,
+            best),
+          variation = variation)
         if (info.ply % 2 == 1) info.invert else info
       }
-      case ((_, _), index) => Info(index + 1 + startedAtPly)
+      case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
 
   case class GameIsGone(id: String) extends lila.common.LilaException {

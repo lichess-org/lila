@@ -4,12 +4,13 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.game.Game
+import lila.tree.Eval.JsonHandlers._
 
 object JsonView {
 
   def moves(analysis: Analysis) = JsArray(analysis.infoAdvices map {
     case ((info, adviceOption)) => Json.obj(
-      "eval" -> info.score.map(_.centipawns),
+      "eval" -> info.cp,
       "mate" -> info.mate,
       "best" -> info.best.map(_.uci),
       "variation" -> info.variation.nonEmpty.option(info.variation mkString " "),

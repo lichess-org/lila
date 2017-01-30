@@ -12,8 +12,8 @@ object TreeBuilder {
   private type Ply = Int
   private type OpeningOf = String => Option[FullOpening]
 
-  private def makeEval(info: Info) = Node.Eval(
-    cp = info.score.map(_.centipawns),
+  private def makeEval(info: Info) = Eval(
+    cp = info.cp,
     mate = info.mate,
     best = info.best)
 

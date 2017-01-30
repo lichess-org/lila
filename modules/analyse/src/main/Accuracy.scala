@@ -1,16 +1,17 @@
 package lila.analyse
 
 import lila.game.Pov
+import lila.tree.Eval._
 
 object Accuracy {
 
   private def withSignOf(i: Int, signed: Int) = if (signed < 0) -i else i
 
-  private val makeDiff: PartialFunction[(Option[Score], Option[Int], Option[Score], Option[Int]), Int] = {
+  private val makeDiff: PartialFunction[(Option[Cp], Option[Mate], Option[Cp], Option[Mate]), Int] = {
     case (Some(s1), _, Some(s2), _) => s2.ceiled.centipawns - s1.ceiled.centipawns
-    case (Some(s1), _, _, Some(m2)) => withSignOf(Score.CEILING, m2) - s1.ceiled.centipawns
-    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Score.CEILING, m1)
-    case (_, Some(m1), _, Some(m2)) => withSignOf(Score.CEILING, m2) - withSignOf(Score.CEILING, m1)
+    case (Some(s1), _, _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - s1.ceiled.centipawns
+    case (_, Some(m1), Some(s2), _) => s2.ceiled.centipawns - withSignOf(Cp.CEILING, m1.value)
+    case (_, Some(m1), _, Some(m2)) => withSignOf(Cp.CEILING, m2.value) - withSignOf(Cp.CEILING, m1.value)
   }
 
   def diffsList(pov: Pov, analysis: Analysis): List[Int] =
@@ -19,7 +20,7 @@ object Accuracy {
       analysis.infos
     ).grouped(2).foldLeft(List[Int]()) {
         case (list, List(i1, i2)) =>
-          makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
+          makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
             (if (pov.color.white) -diff else diff).max(0) :: list
           }
         case (list, _) => list

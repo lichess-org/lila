@@ -3,7 +3,6 @@ package lila.evaluation
 import chess.{ Color, Speed }
 import lila.analyse.{ Accuracy, Analysis }
 import lila.game.{ Game, Pov }
-import Math.signum
 import org.joda.time.DateTime
 
 case class Analysed(game: Game, analysis: Analysis)
@@ -21,7 +20,7 @@ case class Assessible(analysed: Analysed) {
 
   def alwaysHasAdvantage(color: Color): Boolean =
     !analysis.infos.exists { info =>
-      info.score.fold(info.mate.fold(false) { a => (signum(a).toInt == color.fold(-1, 1)) }) { cp =>
+      info.cp.fold(info.mate.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)
       }
     }

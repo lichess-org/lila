@@ -1,6 +1,7 @@
 package lila.analyse
 
 import chess.format.pgn.Glyph
+import lila.tree.Eval._
 
 sealed trait Advice {
   def judgment: Advice.Judgment
@@ -10,7 +11,7 @@ sealed trait Advice {
   def ply = info.ply
   def turn = info.turn
   def color = info.color
-  def score = info.score
+  def cp = info.cp
   def mate = info.mate
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): String =
@@ -58,8 +59,8 @@ private[analyse] object CpAdvice {
     50 -> Advice.Judgment.Inaccuracy)
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
-    cp ← prev.score map (_.ceiled.centipawns)
-    infoCp ← info.score map (_.ceiled.centipawns)
+    cp ← prev.cp map (_.ceiled.centipawns)
+    infoCp ← info.cp map (_.ceiled.centipawns)
     delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
     judgment ← cpJudgments find { case (d, n) => d <= delta } map (_._2)
   } yield CpAdvice(judgment, info, prev)
@@ -74,12 +75,12 @@ private[analyse] case object MateCreated extends MateSequence(
   desc = "Checkmate is now unavoidable")
 
 private[analyse] object MateSequence {
-  def apply(prev: Option[Int], next: Option[Int]): Option[MateSequence] =
+  def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
     (prev, next).some collect {
-      case (None, Some(n)) if n < 0                        => MateCreated
-      case (Some(p), None) if p > 0                        => MateLost
-      case (Some(p), Some(n)) if (p > 0) && (n < 0)        => MateLost
-      case (Some(p), Some(n)) if p > 0 && n >= p && p <= 5 => MateDelayed
+      case (None, Some(n)) if n < 0                              => MateCreated
+      case (Some(p), None) if p > 0                              => MateLost
+      case (Some(p), Some(n)) if (p > 0) && (n < 0)              => MateLost
+      case (Some(p), Some(n)) if p > 0 && n >= p.value && p <= 5 => MateDelayed
     }
 }
 private[analyse] case class MateAdvice(
@@ -90,19 +91,20 @@ private[analyse] case class MateAdvice(
 private[analyse] object MateAdvice {
 
   def apply(prev: Info, info: Info): Option[MateAdvice] = {
-    def reverse(m: Int) = info.color.fold(m, -m)
-    def prevScore = reverse(prev.score ?? (_.centipawns))
-    def nextScore = reverse(info.score ?? (_.centipawns))
-    MateSequence(prev.mate map reverse, info.mate map reverse) map { sequence =>
+    def invertCp(cp: Cp) = cp invertIf info.color.black
+    def invertMate(mate: Mate) = mate invertIf info.color.black
+    def prevCp = prev.cp.map(invertCp).??(_.centipawns)
+    def nextCp = info.cp.map(invertCp).??(_.centipawns)
+    MateSequence(prev.mate map invertMate, info.mate map invertMate) map { sequence =>
       import Advice.Judgment._
       val judgment = sequence match {
-        case MateCreated if prevScore < -999 => Inaccuracy
-        case MateCreated if prevScore < -700 => Mistake
-        case MateCreated                     => Blunder
-        case MateLost if nextScore > 999     => Inaccuracy
-        case MateLost if nextScore > 700     => Mistake
-        case MateLost                        => Blunder
-        case MateDelayed                     => Inaccuracy
+        case MateCreated if prevCp < -999 => Inaccuracy
+        case MateCreated if prevCp < -700 => Mistake
+        case MateCreated                  => Blunder
+        case MateLost if nextCp > 999     => Inaccuracy
+        case MateLost if nextCp > 700     => Mistake
+        case MateLost                     => Blunder
+        case MateDelayed                  => Inaccuracy
       }
       MateAdvice(sequence, judgment, info, prev)
     }

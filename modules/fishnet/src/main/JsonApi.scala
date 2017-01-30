@@ -8,6 +8,8 @@ import chess.variant.Variant
 
 import lila.common.Maths
 import lila.fishnet.{ Work => W }
+import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.JsonHandlers._
 
 object JsonApi {
 
@@ -114,7 +116,7 @@ object JsonApi {
 
     object Evaluation {
 
-      case class Score(cp: Option[Int], mate: Option[Int])
+      case class Score(cp: Option[Cp], mate: Option[Mate])
 
       val npsCeil = 10 * 1000 * 1000
 

@@ -15,7 +15,7 @@ sealed trait Node {
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
   def drops: Option[List[Pos]]
-  def eval: Option[Node.Eval]
+  def eval: Option[Eval]
   def shapes: Node.Shapes
   def comments: Node.Comments
   def glyphs: Glyphs
@@ -44,7 +44,7 @@ case class Root(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
-    eval: Option[Node.Eval] = None,
+    eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
@@ -70,7 +70,7 @@ case class Branch(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
     drops: Option[List[Pos]] = None,
-    eval: Option[Node.Eval] = None,
+    eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
@@ -151,19 +151,6 @@ object Node {
     def +(comment: Comment) = Comments(comment :: value)
   }
 
-  case class Eval(
-      cp: Option[Int] = None,
-      mate: Option[Int] = None,
-      best: Option[Uci.Move]) {
-
-    def isEmpty = cp.isEmpty && mate.isEmpty
-  }
-
-  private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
-    JsString(uci.uci)
-  }
-  private implicit val evalJsonWriter = Json.writes[Eval]
-
   // TODO copied from lila.game
   // put all that shit somewhere else
   private implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
@@ -217,6 +204,7 @@ object Node {
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
     JsArray(s.list.map(commentWriter.writes))
   }
+  import Eval.JsonHandlers.evalWrites
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
