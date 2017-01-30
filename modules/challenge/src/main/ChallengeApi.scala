@@ -41,7 +41,7 @@ final class ChallengeApi(
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
     f = repo.countCreatedByDestId,
-    expireAfter = _.ExpireAfterAccess(12 minutes))
+    expireAfter = _.ExpireAfterAccess(20 minutes))
 
   def createdByChallengerId = repo createdByChallengerId _
 
