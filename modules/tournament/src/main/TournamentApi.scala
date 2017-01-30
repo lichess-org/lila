@@ -394,11 +394,8 @@ final class TournamentApi(
   private object publish {
     private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, {
       (_: Debouncer.Nothing) =>
-        fetchVisibleTournaments foreach { vis =>
-          site ! SendToFlag("tournament", Json.obj(
-            "t" -> "reload",
-            "d" -> scheduleJsonView(vis)
-          ))
+        fetchVisibleTournaments flatMap scheduleJsonView.apply foreach { json =>
+          site ! SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json))
         }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {

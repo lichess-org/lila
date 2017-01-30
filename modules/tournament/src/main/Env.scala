@@ -105,7 +105,7 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUserApi, cached, performance, statsApi, asyncCache, verify)
 
-  lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.sync)
+  lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,

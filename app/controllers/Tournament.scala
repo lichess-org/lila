@@ -34,13 +34,15 @@ object Tournament extends LilaController {
             finished.currentPageResults.flatMap(_.winnerId).toList :::
               scheduled.flatMap(_.winnerId) ::: winners.userIds
           }
+          scheduleJson <- env scheduleJsonView visible
         } yield NoCache {
-          Ok(html.tournament.home(scheduled, finished, winners, env scheduleJsonView visible))
+          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
         }
       },
-      api = _ => env.api.fetchVisibleTournaments map { tours =>
-        Ok(env scheduleJsonView tours)
-      }
+      api = _ => for {
+        visible <- env.api.fetchVisibleTournaments
+        scheduleJson <- env scheduleJsonView visible
+      } yield Ok(scheduleJson)
     )
   }
 
