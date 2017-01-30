@@ -1,3 +1,5 @@
+var defined = require('common').defined;
+
 module.exports = function(element, cfg) {
   var data = cfg.data;
   lichess.openInMobileApp('/analyse/' + data.game.id);
@@ -46,7 +48,7 @@ module.exports = function(element, cfg) {
         if (mainlinePly === false) unselect(chart);
         else {
           point = chart.series[0].data[mainlinePly - 1 - cfg.data.game.startedAtTurn];
-          if (typeof point != "undefined") point.select();
+          if (defined(point)) point.select();
           else unselect(chart);
         }
       }
@@ -60,7 +62,7 @@ module.exports = function(element, cfg) {
           var serie = white ? 0 : 1;
           var turn = Math.floor((mainlinePly - 1 - cfg.data.game.startedAtTurn) / 2);
           point = chart.series[serie].data[turn];
-          if (typeof point != "undefined") point.select();
+          if (defined(point)) point.select();
           else unselect(chart);
         }
       }
