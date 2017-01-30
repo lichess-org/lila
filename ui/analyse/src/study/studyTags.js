@@ -99,7 +99,7 @@ module.exports = {
     var ctrl = root.tags,
       node = root.currentNode(),
       chapter = ctrl.getChapter(),
-      canContribute = ctrl.members.canContribute();
+      canContribute = ctrl.members.canContribute() && root.vm.behind === false;
     var key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags, canContribute].join('|');
     if (key === ctrl.cacheKey() && m.redraw.strategy() === 'diff') {
       lichess.raf(function() {
