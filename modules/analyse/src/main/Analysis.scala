@@ -5,7 +5,7 @@ import chess.Color
 import org.joda.time.DateTime
 
 case class Analysis(
-    id: String,
+    id: Analysis.ID,
     infos: List[Info],
     startPly: Int,
     uid: Option[String], // requester lichess ID
@@ -53,6 +53,12 @@ object Analysis {
   import reactivemongo.bson._
 
   type ID = String
+
+  // analysis that is not done computing, some infos are missing
+  case class Partial(
+    id: Analysis.ID,
+    infos: List[Option[Info]],
+    startPly: Int)
 
   private[analyse] implicit val analysisBSONHandler = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {

@@ -8,7 +8,7 @@ import chess.variant.Variant
 
 import lila.common.Maths
 import lila.fishnet.{ Work => W }
-import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.{ Score, Cp, Mate }
 import lila.tree.Eval.JsonHandlers._
 
 object JsonApi {
@@ -96,7 +96,7 @@ object JsonApi {
 
     case class Evaluation(
         pv: Option[String],
-        score: Evaluation.Score,
+        score: Score,
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
@@ -109,14 +109,10 @@ object JsonApi {
 
       val cappedPvList = pvList take lila.analyse.Info.LineMaxPlies
 
-      def isCheckmate = score.mate contains 0
-      def mateFound = score.mate.isDefined
       def deadDraw = score.cp contains 0
     }
 
     object Evaluation {
-
-      case class Score(cp: Option[Cp], mate: Option[Mate])
 
       val npsCeil = 10 * 1000 * 1000
 
@@ -170,7 +166,7 @@ object JsonApi {
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
     implicit val EvaluationReads: Reads[Request.Evaluation] = (
       (__ \ "pv").readNullable[String] and
-      (__ \ "score").read[Request.Evaluation.Score] and
+      (__ \ "score").read[Score] and
       (__ \ "time").readNullable[Int] and
       (__ \ "nodes").readNullable[Long].map(Maths.toInt) and
       (__ \ "nps").readNullable[Long].map(Maths.toInt) and

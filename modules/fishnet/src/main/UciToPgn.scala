@@ -5,7 +5,7 @@ import chess.format.Uci
 import chess.{ Replay, Move, Drop, Situation }
 import scalaz.Validation.FlatMap._
 
-import lila.analyse.{ Analysis, Info, PgnMove }
+import lila.analyse.{ Analysis, Info, Advice, PgnMove }
 import lila.common.LilaException
 
 // convert variations from UCI to PGN.
@@ -14,13 +14,13 @@ private object UciToPgn {
 
   type WithErrors[A] = (A, List[Exception])
 
-  def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
+  def apply(replay: Replay, infos: List[Info], advices: List[Advice]): WithErrors[List[Info]] = {
 
-    val pliesWithAdviceAndVariation = (analysis.advices collect {
+    val pliesWithAdviceAndVariation = (advices collect {
       case a if a.info.hasVariation => a.ply
     }).toSet
 
-    val onlyMeaningfulVariations: List[Info] = analysis.infos map { info =>
+    val onlyMeaningfulVariations: List[Info] = infos map { info =>
       if (pliesWithAdviceAndVariation(info.ply)) info
       else info.dropVariation
     }
@@ -49,7 +49,7 @@ private object UciToPgn {
         pgn => (info.copy(variation = pgn) :: infos, errs)
       )
     } match {
-      case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors
+      case (infos, errors) => infos.reverse -> errors
     }
   }
 }

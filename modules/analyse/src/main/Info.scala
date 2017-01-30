@@ -22,8 +22,8 @@ case class Info(
   def encode: String = List(
     best ?? (_.piotr),
     variation take Info.LineMaxPlies mkString " ",
-    mate ?? (_.toString),
-    cp ?? (_.centipawns.toString)
+    mate ?? (_.value.toString),
+    cp ?? (_.value.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
   def hasVariation = variation.nonEmpty
@@ -48,7 +48,7 @@ case class Info(
 
 object Info {
 
-  import Eval.{ Cp, Mate }
+  import Eval.{ Score, Cp, Mate }
 
   val LineMaxPlies = 14
 
@@ -57,12 +57,17 @@ object Info {
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
 
+  // unsafe functions for speed
+  def unsafeCp(str: String) = Cp(java.lang.Integer.parseInt(str))
+  def unsafeMate(str: String) = Mate(java.lang.Integer.parseInt(str))
+  def unsafeScore(cp: String, mate: String) =
+    if (cp.isEmpty) Score mate unsafeMate(mate) else Score cp unsafeCp(cp)
+
   private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
-    case Array()               => Info(ply, Eval.empty).some
-    case Array(cp)             => Info(ply, Eval(Cp(cp), None, None)).some
-    case Array(cp, ma)         => Info(ply, Eval(Cp(cp), Mate(ma), None)).some
-    case Array(cp, ma, va)     => Info(ply, Eval(Cp(cp), Mate(ma), None), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Eval(Cp(cp), Mate(ma), Uci.Move piotr be), va.split(' ').toList).some
+    case Array(cp)             => Info(ply, Eval(Score cp unsafeCp(cp), None)).some
+    case Array(cp, ma)         => Info(ply, Eval(unsafeScore(cp, ma), None)).some
+    case Array(cp, ma, va)     => Info(ply, Eval(unsafeScore(cp, ma), None), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Eval(unsafeScore(cp, ma), Uci.Move piotr be), va.split(' ').toList).some
     case _                     => none
   }
 
@@ -74,6 +79,6 @@ object Info {
 
   def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
 
-  def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
-    ply => Info(ply, Eval(cp, mate, None), variation)
+  // def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
+  //   ply => Info(ply, Eval(cp, mate, None), variation)
 }
