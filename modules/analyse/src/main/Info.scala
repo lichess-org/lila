@@ -22,8 +22,8 @@ case class Info(
   def encode: String = List(
     best ?? (_.piotr),
     variation take Info.LineMaxPlies mkString " ",
-    mate ?? (_.toString),
-    cp ?? (_.centipawns.toString)
+    mate ?? (_.value.toString),
+    cp ?? (_.value.toString)
   ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
   def hasVariation = variation.nonEmpty
