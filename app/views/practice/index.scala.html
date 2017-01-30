@@ -24,7 +24,7 @@
 
 @ribbon(prog: lila.practice.Completion) = {
 <span class="ribbon-wrapper">
-  <span class="ribbon @if(prog.complete) {done} else {ongoing}">@prog.done / @prog.total</span>
+  <span class="ribbon">@prog.done / @prog.total</span>
 </span>
 }
 
@@ -45,14 +45,16 @@ url = s"$netBaseUrl${routes.Practice.index}"
       <h2>@section.name</h2>
       <div class="studies">
         @section.studies.map { stud =>
-        <a class="study ongoing" href="@routes.Practice.show(section.id, stud.slug, stud.id.value)">
-          @ribbon(data.progressOn(stud.id))
+        @defining(data.progressOn(stud.id)) { prog =>
+        <a class="study @if(prog.complete) {done} else {ongoing}" href="@routes.Practice.show(section.id, stud.slug, stud.id.value)">
+          @ribbon(prog)
           <i class="practice icon @stud.id"></i>
           <span class="text">
             <h3>@stud.name</h3>
             <em>@stud.desc</em>
           </span>
         </a>
+        }
         }
       </div>
     </div>

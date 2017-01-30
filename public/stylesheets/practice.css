@@ -233,19 +233,19 @@ body.dark #practice_app .section > h2 {
   right: 0;
 }
 
-#practice_app .ribbon.done {
-  background-color: #BFDC7A;
-}
-#practice_app .ribbon.done:before,
-#practice_app .ribbon.done:after {
-  border-top:   3px solid #6e8900;
-}
-#practice_app .ribbon.ongoing {
+#practice_app .ribbon {
   background-color: #B3E5FC;
 }
-#practice_app .ribbon.ongoing:before,
-#practice_app .ribbon.ongoing:after {
+#practice_app .ribbon:before,
+#practice_app .ribbon:after {
   border-top: 3px solid #536DFE;
+}
+#practice_app .done .ribbon {
+  background-color: #BFDC7A;
+}
+#practice_app .done .ribbon:before,
+#practice_app .done .ribbon:after {
+  border-top:   3px solid #6e8900;
 }
 #practice_app .what_next > p {
   width: 100%;
