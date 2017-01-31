@@ -18,14 +18,12 @@ private object EvalCacheParser {
     fen <- d str "fen"
     nodes <- d int "nodes"
     depth <- d int "depth"
-    engine <- d str "engine"
     pvObjs <- d objs "pvs"
     pvs <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
   } yield Input.Candidate(fen, Eval(
     pvs = pvs,
     nodes = nodes,
     depth = depth,
-    engine = engine,
     by = user.id,
     date = DateTime.now))
 

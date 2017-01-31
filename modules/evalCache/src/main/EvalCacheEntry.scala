@@ -36,7 +36,6 @@ object EvalCacheEntry {
       pvs: NonEmptyList[Pv],
       nodes: Int,
       depth: Int,
-      engine: String,
       by: lila.user.User.ID,
       date: DateTime) {
 
