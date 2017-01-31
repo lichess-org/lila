@@ -48,6 +48,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
+    <meta name="twitter:site" content="@@lichessorg" />
   </head>
   <body class="preload base @List(
     ctx.currentTheme.cssClass,
