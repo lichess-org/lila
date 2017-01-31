@@ -15,7 +15,7 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEval(fen: FEN, multiPv: Int): Fu[Option[Eval]] = SmallFen.validate(fen) ?? getEval
+  def getEval(fen: FEN, multiPv: Int): Fu[Option[Eval]] = getEval(SmallFen.trusted(fen))
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
     candidate.input ?? { put(trustedUser, _) }

@@ -8,7 +8,8 @@ import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.SmallFen,
-    evals: List[EvalCacheEntry.TrustedEval]) {
+    evals: List[EvalCacheEntry.TrustedEval],
+    accessedAt: DateTime) {
 
   import EvalCacheEntry._
 
@@ -17,8 +18,11 @@ case class EvalCacheEntry(
   def bestEval: Option[Eval] = evals.headOption.map(_.eval)
 
   def add(trustedEval: TrustedEval) = copy(
-    evals = EvalCacheSelector(trustedEval :: evals)
-  )
+    evals = EvalCacheSelector(trustedEval :: evals),
+    accessedAt = DateTime.now)
+
+  def bestMultiPvEval(multiPv: Int): Option[Eval] =
+    evals.map(_.eval).filter(_.multiPv >= multiPv).sortBy(_.negativeNodesAndDepth).headOption
 }
 
 object EvalCacheEntry {
@@ -37,6 +41,9 @@ object EvalCacheEntry {
       depth: Int,
       by: lila.user.User.ID,
       date: DateTime) {
+
+    // for sorting
+    def negativeNodesAndDepth = (-nodes, -depth)
 
     def multiPv = pvs.size
 
@@ -71,13 +78,6 @@ object EvalCacheEntry {
 
   case class TrustedUser(trust: Trust, user: lila.user.User)
 
-  final class MultiPv private (val value: Int) extends AnyVal
-
-  object MultiPv {
-    private val range = 1 to MAX_MULTI_PV
-    def apply(value: Int): Option[MultiPv] = range.contains(value) option { new MultiPv(value) }
-  }
-
   final class SmallFen private (val value: String) extends AnyVal
 
   object SmallFen {
@@ -90,7 +90,7 @@ object EvalCacheEntry {
 
   case class Input(fen: SmallFen, eval: Eval) {
     def trusted(trust: Trust) = TrustedEval(trust, eval)
-    def entry(trust: Trust) = EvalCacheEntry(fen, List(trusted(trust)))
+    def entry(trust: Trust) = EvalCacheEntry(fen, List(trusted(trust)), DateTime.now)
   }
 
   object Input {

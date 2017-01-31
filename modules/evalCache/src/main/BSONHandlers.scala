@@ -16,9 +16,6 @@ object BSONHandlers {
     _.value,
     v => SmallFen.trusted(FEN(v)))
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
-  private implicit val MultiPvBSONHandler = intAnyValHandler[MultiPv](
-    _.value,
-    v => MultiPv(v) err s"Invalid MultiPv = $v")
 
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {
     def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
