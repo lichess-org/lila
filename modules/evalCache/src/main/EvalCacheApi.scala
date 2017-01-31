@@ -28,6 +28,8 @@ final class EvalCacheApi(
     }
   }
 
+  def shouldPut = truster shouldPut _
+
   private def makeController(trustedUser: TrustedUser): Controller = {
     case ("evalPut", o) => EvalCacheParser.parsePut(trustedUser.user, o) foreach { put(trustedUser, _) }
   }

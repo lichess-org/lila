@@ -12,7 +12,8 @@ import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.GetterSync) {
+    lightUser: LightUser.GetterSync,
+    evalCache: lila.evalCache.EvalCacheApi) {
 
   import JsonView._
 
@@ -43,7 +44,8 @@ final class JsonView(
             "computer" -> allowed(study.settings.computer),
             "explorer" -> allowed(study.settings.explorer)
           )
-        )
+        ),
+        "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
       )
     }
   }.chronometer

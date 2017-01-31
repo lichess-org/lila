@@ -64,7 +64,10 @@ final class Env(
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
-  lazy val jsonView = new JsonView(studyRepo, lightUserApi.sync)
+  lazy val jsonView = new JsonView(
+    studyRepo,
+    lightUserApi.sync,
+    evalCache = evalCache)
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,

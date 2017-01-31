@@ -24,6 +24,8 @@ private final class Truster {
         nbGamesBonus(user)
     }
 
+  def shouldPut(user: User) = !apply(user).isTooLow
+
   private def seniorityBonus(user: User) =
     Months.monthsBetween(user.createdAt, DateTime.now).getMonths atMost 10
 
