@@ -13,12 +13,16 @@ object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
-  private implicit val MultiPvBSONHandler = intAnyValHandler[MultiPv](_.value, MultiPv.apply)
+  private implicit val MultiPvBSONHandler = intAnyValHandler[MultiPv](
+    _.value,
+    v => MultiPv(v) err s"Invalid MultiPv = $v")
 
   implicit val IdHandler = new BSONHandler[BSONString, Id] {
     private val separator = '|'
     def read(bs: BSONString): Id = bs.value.split(separator) match {
-      case Array(fen, multiPvStr) => Id(SmallFen(fen), MultiPv(parseIntUnsafe(multiPvStr)))
+      case Array(fen, multiPvStr) => Id(
+        SmallFen(fen),
+        parseIntOption(multiPvStr) flatMap MultiPv.apply err s"Invalid MultiPv $multiPvStr")
     }
     def write(id: Id) = BSONString(s"${id.fen.value}$separator${id.multiPv.value}")
   }
@@ -26,6 +30,11 @@ object BSONHandlers {
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {
     def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
     def write(x: Uci) = BSONString(x.uci)
+  }
+  implicit val PvHandler = new BSONHandler[BSONString, Pv] {
+    private val separator = " "
+    def read(bs: BSONString): Pv = Pv(bs.value.split(separator).toList flatMap { Uci(_) })
+    def write(x: Pv) = BSONString(x.value map (_.uci) mkString separator)
   }
   implicit val ScoreHandler = new BSONHandler[BSONInteger, Score] {
     private val sillyThreshold = math.pow(10, 6).toInt
