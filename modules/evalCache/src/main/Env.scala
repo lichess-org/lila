@@ -10,7 +10,8 @@ final class Env(
   private val CollectionEvalCache = config getString "collection.eval_cache"
 
   lazy val api = new EvalCacheApi(
-    coll = db(CollectionEvalCache))
+    coll = db(CollectionEvalCache),
+    truster = new Truster)
 }
 
 object Env {

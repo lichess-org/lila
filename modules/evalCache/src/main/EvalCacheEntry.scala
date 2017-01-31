@@ -19,7 +19,7 @@ case class EvalCacheEntry(
 
   def bestEval: Option[Eval] = evals.headOption.map(_.eval)
 
-  def add(eval: Eval) = copy(evals = TrustedEval(Trust(1), eval) :: evals)
+  def add(trustedEval: TrustedEval) = copy(evals = trustedEval :: evals)
 }
 
 object EvalCacheEntry {
@@ -63,7 +63,11 @@ object EvalCacheEntry {
     def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
-  case class Trust(value: Double) extends AnyVal
+  case class Trust(value: Double) extends AnyVal {
+    def isTooLow = value <= 0
+  }
+
+  case class TrustedUser(trust: Trust, user: lila.user.User)
 
   final class MultiPv private (val value: Int) extends AnyVal
 
@@ -90,7 +94,8 @@ object EvalCacheEntry {
   }
 
   case class Input(id: Id, eval: Eval) {
-    def entry(trust: Trust) = EvalCacheEntry(id, List(TrustedEval(trust, eval)))
+    def trusted(trust: Trust) = TrustedEval(trust, eval)
+    def entry(trust: Trust) = EvalCacheEntry(id, List(trusted(trust)))
   }
 
   object Input {
