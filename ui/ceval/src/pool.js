@@ -60,7 +60,11 @@ function makePNaClModule(makeProtocol, poolOpts, protocolOpts) {
       document.body.appendChild(worker);
       ['crash', 'error'].forEach(function(eventType) {
         worker.addEventListener(eventType, function() {
-          poolOpts.onCrash('lastError: ' + worker.lastError);
+          poolOpts.onCrash({
+            lastError: worker.lastError,
+            hash: protocolOpts.hashSize(),
+            threads: protocolOpts.threads()
+          });
         }, true);
       });
       return worker;
