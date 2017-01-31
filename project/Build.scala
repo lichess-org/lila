@@ -254,7 +254,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val evalCache = project("evalCache", Seq(common, db, user, tree)).settings(
+  lazy val evalCache = project("evalCache", Seq(common, db, user, socket, tree)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

@@ -22,7 +22,7 @@ final class EvalCacheApi(coll: Coll) {
 
   private def put(input: Input): Funit =
     getEntry(input.id) map {
-      _.fold(input.entry)(_ add input.eval)
+      _.fold(input entry Trust(1))(_ add input.eval)
     } flatMap { entry =>
       coll.update($id(entry.id), entry, upsert = true).void
     }

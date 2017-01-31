@@ -7,7 +7,7 @@ import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
-    evals: List[EvalCacheEntry.Eval]) {
+    evals: List[EvalCacheEntry.TrustedEval]) {
 
   import EvalCacheEntry._
 
@@ -16,9 +16,9 @@ case class EvalCacheEntry(
   def fen = _id.fen
   def multiPv = _id.multiPv
 
-  def bestEval: Option[Eval] = evals.headOption
+  def bestEval: Option[Eval] = evals.headOption.map(_.eval)
 
-  def add(eval: Eval) = copy(evals = eval :: evals)
+  def add(eval: Eval) = copy(evals = TrustedEval(Trust(1), eval) :: evals)
 }
 
 object EvalCacheEntry {
@@ -29,6 +29,8 @@ object EvalCacheEntry {
   val MAX_PV_SIZE = 8
   val MAX_MULTI_PV = 5
 
+  case class TrustedEval(trust: Trust, eval: Eval)
+
   case class Eval(
       score: Score,
       pv: Pv,
@@ -36,7 +38,6 @@ object EvalCacheEntry {
       depth: Int,
       engine: String,
       by: lila.user.User.ID,
-      trust: Trust,
       date: DateTime) {
 
     def bestMove: Option[Uci] = pv.value.headOption
@@ -78,7 +79,7 @@ object EvalCacheEntry {
   }
 
   case class Input(id: Id, eval: Eval) {
-    def entry = EvalCacheEntry(id, List(eval))
+    def entry(trust: Trust) = EvalCacheEntry(id, List(TrustedEval(trust, eval)))
   }
 
   object Input {

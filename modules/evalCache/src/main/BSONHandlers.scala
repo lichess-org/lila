@@ -50,5 +50,6 @@ object BSONHandlers {
   }
 
   implicit val evalHandler = Macros.handler[Eval]
+  implicit val trustedEvalHandler = Macros.handler[TrustedEval]
   implicit val entryHandler = Macros.handler[EvalCacheEntry]
 }
