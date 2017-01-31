@@ -468,12 +468,18 @@ module.exports = function(opts) {
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
       onCrash: function(info) {
-        console.log('Local eval failed after depth ' + this.vm.node.ceval.depth);
+        var ceval = this.vm.node.ceval;
+        console.log('Local eval failed after depth ' + (ceval && ceval.depth));
         console.log(info);
         if (this.ceval.pnaclSupported) {
-          console.log('Retrying in failsafe mode');
-          instanciateCeval(true);
-          this.startCeval();
+          if (ceval && ceval.depth >= 20 && !ceval.retried) {
+            console.log('Remain on native stockfish for now');
+            ceval.retried = true;
+          } else {
+            console.log('Fallback to ASMJS now');
+            instanciateCeval(true);
+            this.startCeval();
+          }
         }
       }.bind(this)
     });
