@@ -62,6 +62,8 @@ trait PackageObject extends Steroids with WithFuture {
     case e: NumberFormatException => None
   }
 
+  def parseIntUnsafe(str: String) = java.lang.Integer.parseInt(str)
+
   def parseFloatOption(str: String): Option[Float] = try {
     Some(java.lang.Float.parseFloat(str))
   }

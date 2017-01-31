@@ -11,12 +11,17 @@ object BSONHandlers {
 
   import EvalCacheEntry._
 
-  // private implicit val nbMovesHandler = intIsoHandler(PracticeProgress.nbMovesIso)
-  // private implicit val chapterNbMovesHandler = BSON.MapValue.MapHandler[Chapter.Id, NbMoves]
-
-  // implicit val practiceProgressIdHandler = stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
+  private implicit val MultiPvBSONHandler = intAnyValHandler[MultiPv](_.value, MultiPv.apply)
+
+  implicit val IdHandler = new BSONHandler[BSONString, Id] {
+    private val separator = '|'
+    def read(bs: BSONString): Id = bs.value.split(separator) match {
+      case Array(fen, multiPvStr) => Id(SmallFen(fen), MultiPv(parseIntUnsafe(multiPvStr)))
+    }
+    def write(id: Id) = BSONString(s"${id.fen.value}$separator${id.multiPv.value}")
+  }
 
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {
     def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
