@@ -1,17 +1,22 @@
 package lila.evalCache
 
-import org.joda.time.DateTime
 import chess.format.{ FEN, Uci }
+import org.joda.time.DateTime
 
 import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
-  _id: FEN,
-  evals: List[EvalCacheEntry.Eval])
+    _id: FEN,
+    evals: List[EvalCacheEntry.Eval]) {
+
+  import EvalCacheEntry._
+
+  def add(eval: Eval) = copy(evals = eval :: evals)
+}
 
 object EvalCacheEntry {
 
-  case class Trust(value: Float) extends AnyVal
+  case class Trust(value: Double) extends AnyVal
 
   case class Eval(
       score: Score,
