@@ -13,7 +13,7 @@ private final class Truster {
   private val HIGHER = Trust(9999)
 
   def apply(user: User): Trust =
-    if (user.createdAt isBefore DateTime.now.minusDays(14)) LOWER
+    if (user.createdAt isAfter DateTime.now.minusDays(14)) LOWER
     else if (user.lameOrTroll) LOWER
     else if (Granter(_.SeeReport)(user)) HIGHER
     else Trust {
