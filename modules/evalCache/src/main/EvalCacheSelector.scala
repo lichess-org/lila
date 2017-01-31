@@ -5,8 +5,8 @@ import scala.math.sqrt
 import EvalCacheEntry._
 
 /**
- * sorts the evals (best first)
- * and drops the superfluous ones
+ * selects the evals to store
+ * for a given position
  */
 object EvalCacheSelector {
 
