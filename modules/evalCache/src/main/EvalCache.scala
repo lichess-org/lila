@@ -5,11 +5,11 @@ import chess.format.{ FEN, Uci }
 
 import lila.tree.Eval.{ Score }
 
-case class EvalCache(
+case class EvalCacheEntry(
   _id: FEN,
-  evals: List[EvalCache.Eval])
+  evals: List[EvalCacheEntry.Eval])
 
-object EvalCache {
+object EvalCacheEntry {
 
   case class Trust(value: Float) extends AnyVal
 
