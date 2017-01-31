@@ -33,17 +33,19 @@ final class SocketHandler(api: EvalCacheApi) {
     nodes <- d int "nodes"
     depth <- d int "depth"
     engine <- d str "engine"
-    pvStr <- d str "pv"
-    pv <- pvStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).toList.foldLeft(List.empty[Uci].some) {
-      case (Some(ucis), str) => Uci(str) map (_ :: ucis)
-      case _                 => None
-    }.map(_.reverse)
+    strPvs <- d strs "pvs"
+    pvs <- strPvs.flatMap { strPv =>
+      strPv.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).toList.foldLeft(List.empty[Uci].some) {
+        case (Some(ucis), str) => Uci(str) map (_ :: ucis)
+        case _                 => None
+      }.map(_.reverse).flatMap(_.toNel) map Pv.apply
+    }.toNel
   } yield Input.Candidate(
     fen,
     multiPv,
     Eval(
       score = score,
-      pv = Pv(pv),
+      pvs = pvs,
       nodes = nodes,
       depth = depth,
       engine = engine,

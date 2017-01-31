@@ -2,6 +2,7 @@ package lila.evalCache
 
 import chess.format.{ Forsyth, FEN, Uci }
 import org.joda.time.DateTime
+import scalaz.NonEmptyList
 
 import lila.tree.Eval.{ Score }
 
@@ -33,23 +34,25 @@ object EvalCacheEntry {
 
   case class Eval(
       score: Score,
-      pv: Pv,
+      pvs: NonEmptyList[Pv],
       nodes: Int,
       depth: Int,
       engine: String,
       by: lila.user.User.ID,
       date: DateTime) {
 
-    def bestMove: Option[Uci] = pv.value.headOption
+    def bestMove: Uci = pvs.head.value.head
 
     def isValid = score.mateFound || {
-      nodes >= MIN_NODES && depth >= MIN_DEPTH && pv.value.size > MIN_PV_SIZE
+      nodes >= MIN_NODES && depth >= MIN_DEPTH && pvs.list.forall(_.value.size > MIN_PV_SIZE)
     }
+
+    def truncatePvs = copy(pvs = pvs.map(_.truncate))
   }
 
-  case class Pv(value: List[Uci]) extends AnyVal {
+  case class Pv(value: NonEmptyList[Uci]) extends AnyVal {
 
-    def truncate = Pv(value take MAX_PV_SIZE)
+    def truncate = Pv(NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
   case class Trust(value: Double) extends AnyVal
@@ -85,7 +88,7 @@ object EvalCacheEntry {
   object Input {
     case class Candidate(fen: String, multiPv: Int, eval: Eval) {
       def input = Id(fen, multiPv) ifTrue eval.isValid map { id =>
-        Input(id, eval.copy(pv = eval.pv.truncate))
+        Input(id, eval.truncatePvs)
       }
     }
   }

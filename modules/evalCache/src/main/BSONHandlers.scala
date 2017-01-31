@@ -33,8 +33,9 @@ object BSONHandlers {
   }
   implicit val PvHandler = new BSONHandler[BSONString, Pv] {
     private val separator = " "
-    def read(bs: BSONString): Pv = Pv(bs.value.split(separator).toList flatMap { Uci(_) })
-    def write(x: Pv) = BSONString(x.value map (_.uci) mkString separator)
+    def read(bs: BSONString): Pv =
+      bs.value.split(separator).toList.flatMap { Uci(_) }.toNel map Pv.apply err s"Invalid Pv ${bs.value}"
+    def write(x: Pv) = BSONString(x.value.list map (_.uci) mkString separator)
   }
   implicit val ScoreHandler = new BSONHandler[BSONInteger, Score] {
     private val sillyThreshold = math.pow(10, 6).toInt
