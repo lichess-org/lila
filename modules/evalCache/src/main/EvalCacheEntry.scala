@@ -7,19 +7,18 @@ import scalaz.NonEmptyList
 import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
-    _id: EvalCacheEntry.Id,
+    _id: EvalCacheEntry.SmallFen,
     evals: List[EvalCacheEntry.TrustedEval]) {
 
   import EvalCacheEntry._
 
-  def id = _id
-
-  def fen = _id.fen
-  def multiPv = _id.multiPv
+  def fen = _id
 
   def bestEval: Option[Eval] = evals.headOption.map(_.eval)
 
-  def add(trustedEval: TrustedEval) = copy(evals = trustedEval :: evals)
+  def add(trustedEval: TrustedEval) = copy(
+    evals = EvalCacheSelector(trustedEval :: evals)
+  )
 }
 
 object EvalCacheEntry {
@@ -39,6 +38,8 @@ object EvalCacheEntry {
       by: lila.user.User.ID,
       date: DateTime) {
 
+    def multiPv = pvs.size
+
     def bestPv: Pv = pvs.head
 
     def bestMove: Uci = bestPv.moves.value.head
@@ -48,6 +49,8 @@ object EvalCacheEntry {
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
+
+    def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }
 
   case class Pv(score: Score, moves: Moves) {
@@ -75,32 +78,25 @@ object EvalCacheEntry {
     def apply(value: Int): Option[MultiPv] = range.contains(value) option { new MultiPv(value) }
   }
 
-  case class Id(fen: SmallFen, multiPv: MultiPv)
-
-  object Id {
-    def apply(fenStr: String, multiPvInt: Int): Option[Id] = for {
-      multiPv <- MultiPv(multiPvInt)
-      fen <- Forsyth.<<(fenStr).exists(_ playable false) option FEN(fenStr)
-    } yield Id(SmallFen from fen, multiPv)
-  }
-
-  case class SmallFen(value: String) extends AnyVal
+  final class SmallFen private (val value: String) extends AnyVal
 
   object SmallFen {
-    def from(fen: FEN): SmallFen = SmallFen {
-      fen.value.replace("/", "").split(' ').take(4).mkString(" ")
-    }
+    def trusted(fen: FEN) = new SmallFen(fen.value)
+    def validate(fen: FEN): Option[SmallFen] =
+      Forsyth.<<(fen.value).exists(_ playable false) option {
+        new SmallFen(fen.value.replace("/", "").split(' ').take(4).mkString(" "))
+      }
   }
 
-  case class Input(id: Id, eval: Eval) {
+  case class Input(fen: SmallFen, eval: Eval) {
     def trusted(trust: Trust) = TrustedEval(trust, eval)
-    def entry(trust: Trust) = EvalCacheEntry(id, List(trusted(trust)))
+    def entry(trust: Trust) = EvalCacheEntry(fen, List(trusted(trust)))
   }
 
   object Input {
     case class Candidate(fen: String, eval: Eval) {
-      def input = Id(fen, eval.pvs.size) ifTrue eval.isValid map { id =>
-        Input(id, eval.truncatePvs)
+      def input = SmallFen.validate(FEN(fen)) ifTrue eval.isValid map {
+        Input(_, eval.truncatePvs)
       }
     }
   }

@@ -10,12 +10,12 @@ import lila.user.User
 
 final class EvalCacheApi(
     coll: Coll,
-    truster: Truster) {
+    truster: EvalCacheTruster) {
 
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEval(fen: String, multiPv: Int): Fu[Option[Eval]] = Id(fen, multiPv) ?? getEval
+  def getEval(fen: FEN, multiPv: Int): Fu[Option[Eval]] = SmallFen.validate(fen) ?? getEval
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
     candidate.input ?? { put(trustedUser, _) }
@@ -34,17 +34,17 @@ final class EvalCacheApi(
     case ("evalPut", o) => EvalCacheParser.parsePut(trustedUser.user, o) foreach { put(trustedUser, _) }
   }
 
-  private def getEval(id: Id): Fu[Option[Eval]] = getEntry(id) map {
+  private def getEval(fen: SmallFen): Fu[Option[Eval]] = getEntry(fen) map {
     _.flatMap(_.bestEval)
   }
 
-  private def getEntry(id: Id): Fu[Option[EvalCacheEntry]] = coll.find($id(id)).one[EvalCacheEntry]
+  private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = coll.find($id(fen)).one[EvalCacheEntry]
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = {
-    getEntry(input.id) map {
+    getEntry(input.fen) map {
       _.fold(input entry trustedUser.trust)(_ add input.trusted(trustedUser.trust))
     } flatMap { entry =>
-      coll.update($id(entry.id), entry, upsert = true).void
+      coll.update($id(entry.fen), entry, upsert = true).void
     }
   }
 }

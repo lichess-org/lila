@@ -11,7 +11,7 @@ final class Env(
 
   lazy val api = new EvalCacheApi(
     coll = db(CollectionEvalCache),
-    truster = new Truster)
+    truster = new EvalCacheTruster)
 }
 
 object Env {

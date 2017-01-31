@@ -5,7 +5,7 @@ import org.joda.time.{ DateTime, Months }
 import lila.security.Granter
 import lila.user.User
 
-private final class Truster {
+private final class EvalCacheTruster {
 
   import EvalCacheEntry.Trust
 

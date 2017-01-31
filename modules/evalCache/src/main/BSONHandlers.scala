@@ -12,21 +12,13 @@ object BSONHandlers {
 
   import EvalCacheEntry._
 
-  private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
+  implicit val SmallFenBSONHandler = stringAnyValHandler[SmallFen](
+    _.value,
+    v => SmallFen.trusted(FEN(v)))
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
   private implicit val MultiPvBSONHandler = intAnyValHandler[MultiPv](
     _.value,
     v => MultiPv(v) err s"Invalid MultiPv = $v")
-
-  implicit val IdHandler = new BSONHandler[BSONString, Id] {
-    private val separator = '|'
-    def read(bs: BSONString): Id = bs.value.split(separator) match {
-      case Array(fen, multiPvStr) => Id(
-        SmallFen(fen),
-        parseIntOption(multiPvStr) flatMap MultiPv.apply err s"Invalid MultiPv $multiPvStr")
-    }
-    def write(id: Id) = BSONString(s"${id.fen.value}$separator${id.multiPv.value}")
-  }
 
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {
     def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
