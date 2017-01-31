@@ -34,10 +34,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     };
   })();
 
+  var isStandard = function() {
+    return ctrl.data.game.variant.key === 'standard';
+  };
+
   var notif = notifCtrl();
   var form = studyFormCtrl(function(data, isNew) {
     send("editStudy", data);
-    if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)
+    if (isNew && isStandard() && ctrl.vm.mainline.length === 1)
       chapters.newForm.openInitial();
   }, function() {
     return data;
@@ -161,7 +165,27 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       vm.behind = false;
       m.redraw();
     });
-  }
+  };
+
+  // var evalPutMinDepth = 20;
+  // var evalPutMinNodes = 5e6;
+  var evalPutMinDepth = 16;
+  var evalPutMinNodes = 1e6;
+  var onCeval = throttle(1000, false, function(eval) {
+    if (isStandard() && eval.depth >= evalPutMinDepth && eval.nodes > evalPutMinNodes) send("evalPut", {
+      fen: eval.fen,
+      nodes: eval.nodes,
+      depth: eval.depth,
+      engine: 'local',
+      pvs: eval.pvs.map(function(pv) {
+        return {
+          cp: pv.cp,
+          mate: pv.mate,
+          moves: pv.pv
+        };
+      })
+    });
+  });
 
   if (members.canContribute()) form.openIfNew();
 
@@ -198,6 +222,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     share: share,
     tags: tags,
     vm: vm,
+    onCeval: onCeval,
     toggleLike: function(v) {
       send("like", {
         liked: !data.liked

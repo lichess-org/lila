@@ -33,7 +33,6 @@ object EvalCacheEntry {
   case class TrustedEval(trust: Trust, eval: Eval)
 
   case class Eval(
-      score: Score,
       pvs: NonEmptyList[Pv],
       nodes: Int,
       depth: Int,
@@ -41,18 +40,27 @@ object EvalCacheEntry {
       by: lila.user.User.ID,
       date: DateTime) {
 
-    def bestMove: Uci = pvs.head.value.head
+    def bestPv: Pv = pvs.head
 
-    def isValid = score.mateFound || {
-      nodes >= MIN_NODES && depth >= MIN_DEPTH && pvs.list.forall(_.value.size > MIN_PV_SIZE)
+    def bestMove: Uci = bestPv.moves.value.head
+
+    def isValid = pvs.list.forall(_.isValid) && {
+      pvs.list.forall(_.score.mateFound) || (nodes >= MIN_NODES && depth >= MIN_DEPTH)
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
   }
 
-  case class Pv(value: NonEmptyList[Uci]) extends AnyVal {
+  case class Pv(score: Score, moves: Moves) {
 
-    def truncate = Pv(NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
+    def isValid = score.mateFound || moves.value.size > MIN_PV_SIZE
+
+    def truncate = copy(moves = moves.truncate)
+  }
+
+  case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
+
+    def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
   case class Trust(value: Double) extends AnyVal
@@ -86,8 +94,8 @@ object EvalCacheEntry {
   }
 
   object Input {
-    case class Candidate(fen: String, multiPv: Int, eval: Eval) {
-      def input = Id(fen, multiPv) ifTrue eval.isValid map { id =>
+    case class Candidate(fen: String, eval: Eval) {
+      def input = Id(fen, eval.pvs.size) ifTrue eval.isValid map { id =>
         Input(id, eval.truncatePvs)
       }
     }

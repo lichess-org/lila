@@ -26,31 +26,29 @@ final class SocketHandler(api: EvalCacheApi) {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     if variant.standard
     fen <- d str "fen"
-    multiPv <- d int "multiPv"
-    cp = d int "cp" map Cp.apply
-    mate = d int "mate" map Mate.apply
-    score <- cp.map(Score.cp) orElse mate.map(Score.mate)
     nodes <- d int "nodes"
     depth <- d int "depth"
     engine <- d str "engine"
-    strPvs <- d strs "pvs"
-    pvs <- strPvs.flatMap { strPv =>
-      strPv.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).toList.foldLeft(List.empty[Uci].some) {
-        case (Some(ucis), str) => Uci(str) map (_ :: ucis)
-        case _                 => None
-      }.map(_.reverse).flatMap(_.toNel) map Pv.apply
-    }.toNel
-  } yield Input.Candidate(
-    fen,
-    multiPv,
-    Eval(
-      score = score,
-      pvs = pvs,
-      nodes = nodes,
-      depth = depth,
-      engine = engine,
-      by = user.id,
-      date = DateTime.now))
+    pvObjs <- d objs "pvs"
+    pvs <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
+  } yield Input.Candidate(fen, Eval(
+    pvs = pvs,
+    nodes = nodes,
+    depth = depth,
+    engine = engine,
+    by = user.id,
+    date = DateTime.now))
+
+  private def parsePv(d: JsObject): Option[Pv] = for {
+    movesStr <- d str "pv"
+    moves <- movesStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).toList.foldLeft(List.empty[Uci].some) {
+      case (Some(ucis), str) => Uci(str) map (_ :: ucis)
+      case _                 => None
+    }.flatMap(_.reverse.toNel) map Moves.apply
+    cp = d int "cp" map Cp.apply
+    mate = d int "mate" map Mate.apply
+    score <- cp.map(Score.cp) orElse mate.map(Score.mate)
+  } yield Pv(score, moves)
 
   private def canPut(user: User) = true
 }

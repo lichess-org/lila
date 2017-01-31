@@ -1,6 +1,7 @@
 package lila.evalCache
 
 import reactivemongo.bson._
+import scalaz.NonEmptyList
 
 import chess.format.{ FEN, Uci }
 import lila.db.BSON
@@ -31,11 +32,12 @@ object BSONHandlers {
     def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
     def write(x: Uci) = BSONString(x.uci)
   }
-  implicit val PvHandler = new BSONHandler[BSONString, Pv] {
+  implicit val MovesHandler = new BSONHandler[BSONString, Moves] {
     private val separator = " "
-    def read(bs: BSONString): Pv =
-      bs.value.split(separator).toList.flatMap { Uci(_) }.toNel map Pv.apply err s"Invalid Pv ${bs.value}"
-    def write(x: Pv) = BSONString(x.value.list map (_.uci) mkString separator)
+    def read(bs: BSONString): Moves = Moves {
+      bs.value.split(separator).toList.flatMap { Uci(_) }.toNel err s"Invalid Pv ${bs.value}"
+    }
+    def write(x: Moves) = BSONString(x.value.list map (_.uci) mkString separator)
   }
   implicit val ScoreHandler = new BSONHandler[BSONInteger, Score] {
     private val sillyThreshold = math.pow(10, 6).toInt
@@ -50,6 +52,7 @@ object BSONHandlers {
     })
   }
 
+  implicit val pvHandler = Macros.handler[Pv]
   implicit val evalHandler = Macros.handler[Eval]
   implicit val trustedEvalHandler = Macros.handler[TrustedEval]
   implicit val entryHandler = Macros.handler[EvalCacheEntry]

@@ -459,6 +459,7 @@ module.exports = function(opts) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
             if (this.practice) this.practice.onCeval();
+            if (this.study) this.study.onCeval(eval);
             if (this.studyPractice) this.studyPractice.onCeval();
             m.redraw();
           }
