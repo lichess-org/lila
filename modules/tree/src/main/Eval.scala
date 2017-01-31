@@ -16,6 +16,24 @@ case class Eval(
 
 object Eval {
 
+  case class Score(value: Either[Cp, Mate]) extends AnyVal {
+
+    def cp: Option[Cp] = value.left.toOption
+    def mate: Option[Mate] = value.right.toOption
+
+    def isCheckmate = value == Right(0)
+    def mateFound = value.isRight
+
+    def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
+    def invertIf(cond: Boolean) = if (cond) invert else this
+  }
+
+  object Score {
+
+    def cp(x: Cp): Score = Score(Left(x))
+    def mate(y: Mate): Score = Score(Right(y))
+  }
+
   case class Cp(value: Int) extends AnyVal {
 
     def centipawns = value

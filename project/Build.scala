@@ -59,7 +59,7 @@ object ApplicationBuild extends Build {
     history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan,
-    event, coach, practice)
+    event, coach, practice, evalCache)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -251,6 +251,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val learn = project("learn", Seq(common, db, user)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  )
+
+  lazy val evalCache = project("evalCache", Seq(common, db, user, tree)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

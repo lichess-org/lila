@@ -173,4 +173,5 @@ object Env {
   def coach = lila.coach.Env.current
   def pool = lila.pool.Env.current
   def practice = lila.practice.Env.current
+  def evalCache = lila.evalCache.Env.current
 }
