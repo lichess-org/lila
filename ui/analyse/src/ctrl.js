@@ -467,8 +467,9 @@ module.exports = function(opts) {
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
-      onCrash: function(e) {
-        console.log('Local eval failed!', e);
+      onCrash: function(info) {
+        console.log('Local eval failed after depth ' + this.vm.node.ceval.depth);
+        console.log(info);
         if (this.ceval.pnaclSupported) {
           console.log('Retrying in failsafe mode');
           instanciateCeval(true);
