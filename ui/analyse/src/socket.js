@@ -33,7 +33,7 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       anaDestsCache[data.path] = data;
-      ctrl.addDests(data.dests, data.path, data.opening);
+      ctrl.addDests(data.dests, data.path, data.opening, data.eval);
       clearTimeout(anaDestsTimeout);
     },
     destsFailure: function(data) {
@@ -83,6 +83,7 @@ module.exports = function(send, ctrl) {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
+      if (ctrl.study) ctrl.study.mutateAnaDestsReq(req);
       this.send('anaDests', req);
       anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
     }

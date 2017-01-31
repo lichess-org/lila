@@ -76,11 +76,10 @@ object EvalCacheEntry {
   final class SmallFen private (val value: String) extends AnyVal
 
   object SmallFen {
-    def trusted(fen: FEN) = new SmallFen(fen.value)
+    def raw(fen: FEN) = new SmallFen(fen.value)
+    def make(fen: FEN) = new SmallFen(fen.value.replace("/", "").split(' ').take(4).mkString(" "))
     def validate(fen: FEN): Option[SmallFen] =
-      Forsyth.<<(fen.value).exists(_ playable false) option {
-        new SmallFen(fen.value.replace("/", "").split(' ').take(4).mkString(" "))
-      }
+      Forsyth.<<(fen.value).exists(_ playable false) option make(fen)
   }
 
   case class Input(fen: SmallFen, eval: Eval) {

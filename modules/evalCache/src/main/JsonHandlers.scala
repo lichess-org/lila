@@ -1,17 +1,29 @@
 package lila.evalCache
 
 import org.joda.time.DateTime
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 
-import chess.format.Uci
+import chess.format.{Uci,FEN}
 import EvalCacheEntry._
 import lila.common.PimpedJson._
 import lila.tree.Eval._
 import lila.user.User
 
-private object EvalCacheParser {
+object JsonHandlers {
 
-  def parsePut(user: User, o: JsObject): Option[Input.Candidate] = for {
+  def writeEval(e: Eval, fen: FEN) = Json.obj(
+    "fen" -> fen.value,
+    "nodes" -> e.nodes,
+    "depth" -> e.depth,
+    "pvs" -> e.pvs.list.map(writePv))
+
+  private def writePv(pv: Pv) = Json.obj(
+    "cp" -> pv.score.cp.map(_.value),
+    "mate" -> pv.score.mate.map(_.value),
+    "best" -> pv.moves.value.head.uci,
+    "pv" -> pv.moves.value.list.map(_.uci).mkString(" "))
+
+  def readPut(user: User, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
     variant = chess.variant.Variant orDefault ~d.str("variant")
     if variant.standard

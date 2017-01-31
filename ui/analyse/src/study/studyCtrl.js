@@ -12,6 +12,7 @@ var shareCtrl = require('./studyShare').ctrl;
 var tagsCtrl = require('./studyTags').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
+var makeEvalCache = require('./evalCache');
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
@@ -167,27 +168,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     });
   };
 
-  // var evalPutMinDepth = 20;
-  // var evalPutMinNodes = 5e6;
-  var evalPutMinDepth = 16;
-  var evalPutMinNodes = 1e6;
-  var evalPutMaxMoves = 8;
-  var onCeval = throttle(1000, false, function(eval) {
-    if (data.evalPut && isStandard() && eval.depth >= evalPutMinDepth && eval.nodes > evalPutMinNodes) send("evalPut", {
-      fen: eval.fen,
-      nodes: eval.nodes,
-      depth: eval.depth,
-      engine: 'local',
-      pvs: eval.pvs.map(function(pv) {
-        return {
-          cp: pv.cp,
-          mate: pv.mate,
-          moves: pv.pv.split(' ').slice(0, evalPutMaxMoves).join(' ')
-        };
-      })
-    });
-  });
-
   if (members.canContribute()) form.openIfNew();
 
   var currentNode = function() {
@@ -197,6 +177,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   var share = shareCtrl(data, currentChapter, currentNode);
 
   var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
+
+  var evalCache = makeEvalCache({
+    enabled: function() {
+      return data.evalPut && isStandard();
+    },
+    getCeval: ctrl.getCeval,
+    send: send
+  });
 
   ctrl.chessground.set({
     drawable: {
@@ -223,7 +211,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     share: share,
     tags: tags,
     vm: vm,
-    onCeval: onCeval,
+    onCeval: evalCache.onCeval,
+    mutateAnaDestsReq: evalCache.mutateAnaDestsReq,
     toggleLike: function(v) {
       send("like", {
         liked: !data.liked

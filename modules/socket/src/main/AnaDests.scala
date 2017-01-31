@@ -8,13 +8,14 @@ import play.api.libs.json.JsObject
 case class AnaDests(
     variant: Variant,
     fen: String,
-    path: String) {
+    path: String,
+    multiPv: Option[Int]) {
 
   def isInitial =
     variant.standard && fen == chess.format.Forsyth.initial && path == ""
 
   val dests: String =
-    if (isInitial) "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+    if (isInitial) AnaDests.initialDests
     else {
       val sit = chess.Game(variant.some, fen.some).situation
       sit.playable(false) ?? {
@@ -31,12 +32,15 @@ case class AnaDests(
 
 object AnaDests {
 
+  private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+
   case class Ref(
       variant: Variant,
       fen: String,
-      path: String) {
+      path: String,
+      multiPv: Option[Int]) {
 
-    def compute = AnaDests(variant, fen, path)
+    def compute = AnaDests(variant, fen, path, multiPv)
   }
 
   def parse(o: JsObject) = for {
@@ -44,5 +48,6 @@ object AnaDests {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-  } yield AnaDests.Ref(variant = variant, fen = fen, path = path)
+    multiPv = d int "multiPv"
+  } yield AnaDests.Ref(variant = variant, fen = fen, path = path, multiPv = multiPv)
 }

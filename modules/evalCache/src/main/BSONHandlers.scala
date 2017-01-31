@@ -14,7 +14,7 @@ object BSONHandlers {
 
   implicit val SmallFenBSONHandler = stringAnyValHandler[SmallFen](
     _.value,
-    v => SmallFen.trusted(FEN(v)))
+    v => SmallFen raw FEN(v))
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
 
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {

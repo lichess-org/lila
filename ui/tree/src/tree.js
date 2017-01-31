@@ -110,8 +110,8 @@ module.exports = function(root) {
       return newPath;
     }
     if (updateAt(path, function(parent) {
-      parent.children.push(node);
-    })) return newPath;
+        parent.children.push(node);
+      })) return newPath;
   }
 
   function addNodes(nodes, path) {
@@ -178,10 +178,11 @@ module.exports = function(root) {
     updateAt: updateAt,
     addNode: addNode,
     addNodes: addNodes,
-    addDests: function(dests, path, opening) {
+    addDests: function(dests, path, opening, eval) {
       return updateAt(path, function(node) {
         node.dests = dests;
         if (opening) node.opening = opening;
+        if (eval) node.ceval = eval;
       });
     },
     setShapes: function(shapes, path) {

@@ -7,6 +7,7 @@ import akka.pattern.ask
 import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 
+import chess.format.FEN
 import chess.format.pgn.Glyph
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
@@ -102,16 +103,28 @@ private[study] final class SocketHandler(
       }
     }
     case ("anaDests", o) => AnaRateLimit(uid.value, member) {
-      member push {
-        AnaDests.parse(o).map(destCache.get).fold(makeMessage("destsFailure", "Bad dests request")) { res =>
-          makeMessage("dests", Json.obj(
+      AnaDests.parse(o).map(destCache.get) match {
+        case None => member push makeMessage("destsFailure", "Bad dests request")
+        case Some(res) =>
+          val json = Json.obj(
             "dests" -> res.dests,
             "path" -> res.path
           ) ++ res.opening.?? { o =>
               Json.obj("opening" -> o)
             }
-          )
-        }
+          res.multiPv match {
+            case None => member push makeMessage("dests", json)
+            case Some(multiPv) =>
+              val fen = FEN(res.fen)
+              evalCache.getEval(
+                fen = lila.evalCache.EvalCacheEntry.SmallFen make fen,
+                multiPv = multiPv.atMost(res.dests.count(' ' ==) + 1)
+              ).thenPp foreach { eval =>
+                  member push makeMessage("dests", json ++ eval.?? { e =>
+                    Json.obj("eval" -> lila.evalCache.JsonHandlers.writeEval(e, fen))
+                  })
+                }
+          }
       }
     }
     case ("setPath", o) => AnaRateLimit(uid.value, member) {
