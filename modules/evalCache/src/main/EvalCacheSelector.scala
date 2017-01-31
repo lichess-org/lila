@@ -18,7 +18,7 @@ object EvalCacheSelector {
       // and sort the groups by multiPv, higher first
       .sortBy(-_._1).map(_._2)
       // then sort each group's evals, and keep only the best eval in each group
-      .map(_ sortBy ranking).map(_.headOption).flatten
+      .map(_ sortBy ranking).map(_.lastOption).flatten
       // finally, remove superfluous evals
       .foldLeft(Nil: Evals) {
         case (acc, te) if acc.exists { a => makesObsolete(a.eval, te.eval) } => acc
@@ -27,11 +27,11 @@ object EvalCacheSelector {
 
   private def greatTrust(t: Trust) = t.value >= 5
 
-  private def ranking(te: TrustedEval): Double = -{
-    // if well trusted, only rank on depth
-    if (greatTrust(te.trust)) te.eval.depth * 1000
-    // else, rank on trust, and tie on depth
-    else te.trust.value + te.eval.depth / 1000
+  private def ranking(te: TrustedEval): (Double, Double, Double) = {
+    // if well trusted, only rank on depth and tie on nodes
+    if (greatTrust(te.trust)) (99999, te.eval.depth, te.eval.nodes)
+    // else, rank on trust, and tie on depth then nodes
+    else (te.trust.value, te.eval.depth, te.eval.nodes)
   }
 
   //     {multiPv:4,depth:30} makes {multiPv:2,depth:25} obsolete,
