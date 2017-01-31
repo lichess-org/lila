@@ -18,6 +18,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
+    evalCache: lila.evalCache.EvalCacheApi,
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env) {
@@ -57,7 +58,8 @@ final class Env(
     socketHub = socketHub,
     chat = hub.actor.chat,
     destCache = destCache,
-    api = api)
+    api = api,
+    evalCache = evalCache)
 
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
@@ -129,6 +131,7 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
+    evalCache = lila.evalCache.Env.current.api,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)

@@ -171,6 +171,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   // var evalPutMinNodes = 5e6;
   var evalPutMinDepth = 16;
   var evalPutMinNodes = 1e6;
+  var evalPutMaxMoves = 8;
   var onCeval = throttle(1000, false, function(eval) {
     if (isStandard() && eval.depth >= evalPutMinDepth && eval.nodes > evalPutMinNodes) send("evalPut", {
       fen: eval.fen,
@@ -181,7 +182,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         return {
           cp: pv.cp,
           mate: pv.mate,
-          moves: pv.pv
+          moves: pv.pv.split(' ').slice(0, evalPutMaxMoves).join(' ')
         };
       })
     });

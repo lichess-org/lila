@@ -23,7 +23,8 @@ private[study] final class SocketHandler(
     socketHub: ActorRef,
     chat: ActorSelection,
     destCache: LoadingCache[AnaDests.Ref, AnaDests],
-    api: StudyApi) {
+    api: StudyApi,
+    evalCache: lila.evalCache.EvalCacheApi) {
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
@@ -40,7 +41,8 @@ private[study] final class SocketHandler(
     studyId: Study.Id,
     uid: Uid,
     member: Socket.Member,
-    owner: Boolean): Handler.Controller = ({
+    owner: Boolean,
+    user: Option[User]): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid.value, v)
     }
@@ -233,7 +235,7 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, socket, uid)
-  }: Handler.Controller) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse evalCache.socketHandler(user) orElse lila.chat.Socket.in(
     chatId = studyId.value,
     member = member,
     socket = socket,
@@ -264,7 +266,7 @@ private[study] final class SocketHandler(
     join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
     handler ← Handler(hub, socket, uid.value, join) {
       case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member, owner = owner), enum, member)
+        (controller(socket, studyId, uid, member, owner = owner, user = user), enum, member)
     }
   } yield handler.some
 }
