@@ -15,7 +15,9 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEval(fen: FEN, multiPv: Int): Fu[Option[Eval]] = getEval(SmallFen.trusted(fen))
+  def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
+    _.flatMap(_ bestMultiPvEval multiPv)
+  }
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
     candidate.input ?? { put(trustedUser, _) }
@@ -32,10 +34,6 @@ final class EvalCacheApi(
 
   private def makeController(trustedUser: TrustedUser): Controller = {
     case ("evalPut", o) => EvalCacheParser.parsePut(trustedUser.user, o) foreach { put(trustedUser, _) }
-  }
-
-  private def getEval(fen: SmallFen): Fu[Option[Eval]] = getEntry(fen) map {
-    _.flatMap(_.bestEval)
   }
 
   private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = coll.find($id(fen)).one[EvalCacheEntry]

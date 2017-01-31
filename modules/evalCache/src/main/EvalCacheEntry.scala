@@ -15,14 +15,12 @@ case class EvalCacheEntry(
 
   def fen = _id
 
-  def bestEval: Option[Eval] = evals.headOption.map(_.eval)
-
   def add(trustedEval: TrustedEval) = copy(
     evals = EvalCacheSelector(trustedEval :: evals),
     accessedAt = DateTime.now)
 
   def bestMultiPvEval(multiPv: Int): Option[Eval] =
-    evals.map(_.eval).filter(_.multiPv >= multiPv).sortBy(_.negativeNodesAndDepth).headOption
+    evals.map(_.eval).find(_.multiPv >= multiPv)
 }
 
 object EvalCacheEntry {
@@ -41,9 +39,6 @@ object EvalCacheEntry {
       depth: Int,
       by: lila.user.User.ID,
       date: DateTime) {
-
-    // for sorting
-    def negativeNodesAndDepth = (-nodes, -depth)
 
     def multiPv = pvs.size
 
