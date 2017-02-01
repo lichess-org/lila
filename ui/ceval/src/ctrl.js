@@ -191,6 +191,7 @@ module.exports = function(opts) {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
+      console.log('toggle', enabled());
       enableStorage.set(enabled() ? '1' : '0');
     },
     curDepth: function() {

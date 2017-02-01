@@ -33,10 +33,7 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       anaDestsCache[data.path] = data;
-      if (data.eval) {
-        data.eval.cloud = data.eval.depth;
-        console.log(data.eval, 'from cloud');
-      }
+      ctrl.evalCache.onDests(data);
       ctrl.addDests(data.dests, data.path, data.opening, data.eval);
       clearTimeout(anaDestsTimeout);
     },

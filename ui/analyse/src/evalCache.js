@@ -6,6 +6,13 @@ var evalPutMinNodes = 3e6;
 // var evalPutMinNodes = 1e6;
 var evalPutMaxMoves = 8;
 
+/**
+ * remembers the cloud eval depths seen for each FEN
+ * so that we don't try to put an eval with a depth
+ * lower than what the cloud already sent us.
+ */
+var fenCloudDepths = {};
+
 function makeEvalPutData(eval) {
   return {
     fen: eval.fen,
@@ -31,7 +38,14 @@ module.exports = function(opts) {
       }
     }),
     mutateAnaDestsReq: function(req) {
+      console.log(req, opts.canGet(), opts.getCeval().enabled());
       if (opts.canGet() && opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
+    },
+    onDests: function(data) {
+      if (data.eval) {
+        data.eval.cloud = data.eval.depth;
+        console.log(data.eval, 'from cloud');
+      }
     }
   };
 };

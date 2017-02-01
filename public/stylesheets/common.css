@@ -243,7 +243,6 @@ ul.ui-autocomplete li a.ui-state-focus {
   z-index: 2;
   width: 1.2em;
   height: 1.2em;
-  cursor: default;
   outline:0;
   cursor:pointer;
 }

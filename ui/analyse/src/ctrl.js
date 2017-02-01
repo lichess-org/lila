@@ -438,6 +438,10 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
+  var isEvalBetter = function(a, b) {
+    return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
+  };
+
   var instanciateCeval = function(failsafe) {
     if (this.ceval) this.ceval.destroy();
     this.ceval = cevalCtrl({
@@ -451,9 +455,9 @@ module.exports = function(opts) {
             return;
           }
           if (work.threatMode) {
-            if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
+            if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
               node.threat = eval;
-          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth) {
+          } else if (!node.ceval || isEvalBetter(eval, node.ceval) || eval.maxDepth > node.ceval.maxDepth) {
             var prevCloudDepth = node.ceval && node.ceval.cloud;
             node.ceval = eval;
             if (prevCloudDepth >= eval.depth) node.ceval.cloud = prevCloudDepth;
