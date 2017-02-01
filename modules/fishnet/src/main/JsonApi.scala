@@ -109,9 +109,9 @@ object JsonApi {
 
       val cappedPvList = pvList take lila.analyse.Info.LineMaxPlies
 
-      def isCheckmate = score.mate contains 0
+      def isCheckmate = score.mate has Mate(0)
       def mateFound = score.mate.isDefined
-      def deadDraw = score.cp contains 0
+      def deadDraw = score.cp has Cp(0)
     }
 
     object Evaluation {
