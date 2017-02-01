@@ -1,7 +1,7 @@
 var throttle = require('common').throttle;
 
 var evalPutMinDepth = 20;
-var evalPutMinNodes = 4e6;
+var evalPutMinNodes = 3e6;
 // var evalPutMinDepth = 16;
 // var evalPutMinNodes = 1e6;
 var evalPutMaxMoves = 8;
@@ -24,11 +24,11 @@ function makeEvalPutData(eval) {
 module.exports = function(opts) {
   return {
     onCeval: throttle(1000, false, function(eval) {
-      if (opts.enabled() && eval.depth >= evalPutMinDepth && eval.nodes > evalPutMinNodes)
+      if (opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes))
         opts.send("evalPut", makeEvalPutData(eval));
     }),
     mutateAnaDestsReq: function(req) {
-      if (opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
+      if (opts.canGet() && opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
     }
   };
 };

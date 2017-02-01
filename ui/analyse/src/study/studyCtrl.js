@@ -12,7 +12,6 @@ var shareCtrl = require('./studyShare').ctrl;
 var tagsCtrl = require('./studyTags').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
-var makeEvalCache = require('./evalCache');
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
@@ -35,14 +34,10 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     };
   })();
 
-  var isStandard = function() {
-    return ctrl.data.game.variant.key === 'standard';
-  };
-
   var notif = notifCtrl();
   var form = studyFormCtrl(function(data, isNew) {
     send("editStudy", data);
-    if (isNew && isStandard() && ctrl.vm.mainline.length === 1)
+    if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)
       chapters.newForm.openInitial();
   }, function() {
     return data;
@@ -181,14 +176,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
 
-  var evalCache = makeEvalCache({
-    enabled: function() {
-      return data.evalPut && isStandard();
-    },
-    getCeval: ctrl.getCeval,
-    send: send
-  });
-
   ctrl.chessground.set({
     drawable: {
       onChange: function(shapes) {
@@ -214,8 +201,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     share: share,
     tags: tags,
     vm: vm,
-    onCeval: evalCache.onCeval,
-    mutateAnaDestsReq: evalCache.mutateAnaDestsReq,
     toggleLike: function(v) {
       send("like", {
         liked: !data.liked

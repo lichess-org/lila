@@ -15,7 +15,7 @@ var decomposeUci = require('chess').decomposeUci;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var defined = require('common').defined;
-var socket = require('./socket');
+var makeSocket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('ceval').ctrl;
 var explorerCtrl = require('./explorer/explorerCtrl');
@@ -26,6 +26,7 @@ var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
 var makePractice = require('./practice/practiceCtrl');
+var makeEvalCache = require('./evalCache');
 var computeAutoShapes = require('./autoShape').compute;
 var nodeFinder = require('./nodeFinder');
 var acplUncache = require('./acpl').uncache;
@@ -43,7 +44,7 @@ module.exports = function(opts) {
     this.tree = tree.build(tree.ops.reconstruct(this.data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
-    this.socket = new socket(opts.socketSend, this);
+    this.socket = new makeSocket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
   }.bind(this);
 
@@ -459,7 +460,7 @@ module.exports = function(opts) {
             this.setAutoShapes();
             if (this.retro) this.retro.onCeval();
             if (this.practice) this.practice.onCeval();
-            if (this.study) this.study.onCeval(eval);
+            if (this.evalCache) this.evalCache.onCeval(eval);
             if (this.studyPractice) this.studyPractice.onCeval();
             m.redraw();
           }
@@ -643,6 +644,21 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
+
+  var isStandard = function() {
+    return this.data.game.variant.key === 'standard'
+  }.bind(this);
+
+  this.evalCache = makeEvalCache({
+    canGet: function() {
+      return opts.study && isStandard();
+    },
+    canPut: function() {
+      return opts.study && opts.study.evalPut && isStandard();
+    },
+    getCeval: this.getCeval,
+    send: this.socket.send
+  });
 
   showGround();
   onToggleComputer();

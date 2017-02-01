@@ -27,11 +27,11 @@ function localEvalInfo(ctrl, evs) {
   }
   if (evs.client.dict) return 'Book move';
   var t = evs.client.cloud ? [
-    'Depth ' + (evs.client.depth || 0) + ' from the cloud'
+    'Depth ' + (evs.client.depth || 0) + ' (cloud)'
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
-  if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
+  if (ceval.pnaclSupported && evs.client.depth >= (evs.client.maxDepth || ceval.maxDepth()) && !ceval.isDeeper())
     t.push(m('a.deeper', {
       onclick: function() {
         ceval.goDeeper();

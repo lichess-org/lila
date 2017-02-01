@@ -84,7 +84,7 @@ module.exports = function(send, ctrl) {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
-      if (ctrl.study) ctrl.study.mutateAnaDestsReq(req);
+      if (ctrl.evalCache) ctrl.evalCache.mutateAnaDestsReq(req);
       this.send('anaDests', req);
       anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
     }
