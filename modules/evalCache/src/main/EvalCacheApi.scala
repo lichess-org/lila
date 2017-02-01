@@ -1,6 +1,7 @@
 package lila.evalCache
 
 import org.joda.time.DateTime
+import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
 import chess.format.{ FEN, Uci }
@@ -15,9 +16,15 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
-    _.flatMap(_ bestMultiPvEval multiPv)
-  }
+  def getEvalJson(anaDests: lila.socket.AnaDests): Fu[Option[JsObject]] =
+    anaDests.multiPv ?? { multiPv =>
+      getEval(
+        fen = lila.evalCache.EvalCacheEntry.SmallFen make anaDests.fen,
+        multiPv = multiPv.atMost(anaDests.dests.count(' ' ==) + 1)
+      ) map {
+          _.map { lila.evalCache.JsonHandlers.writeEval(_, anaDests.fen) }
+        }
+    }
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =
     candidate.input ?? { put(trustedUser, _) }
@@ -31,6 +38,10 @@ final class EvalCacheApi(
   }
 
   def shouldPut = truster shouldPut _
+
+  private def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
+    _.flatMap(_ bestMultiPvEval multiPv)
+  }
 
   private def makeController(trustedUser: TrustedUser): Controller = {
     case ("evalPut", o) => JsonHandlers.readPut(trustedUser.user, o) foreach { put(trustedUser, _) }
