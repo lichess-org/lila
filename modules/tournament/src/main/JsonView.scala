@@ -332,6 +332,7 @@ object JsonView {
   private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
     "eco" -> s.eco,
     "name" -> s.name,
+    "wikiPath" -> s.wikiPath,
     "fen" -> s.fen)
 
   private[tournament] implicit val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
