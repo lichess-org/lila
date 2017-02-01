@@ -42,7 +42,7 @@ case class Simul(
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
 
   def addApplicant(applicant: SimulApplicant) = Created {
-    if (!hasApplicant(applicant.player.user) && variants.contains(applicant.player.variant))
+    if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
       copy(applicants = applicants :+ applicant)
     else this
   }

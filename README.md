@@ -27,6 +27,7 @@ It uses [MongoDB 3.2](https://mongodb.org) to store more than 350 million games,
 HTTP requests and websocket connections are proxied by [nginx 1.8](http://nginx.org).
 Client-side is written in [mithril.js](http://mithril.js.org/).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
+Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
 
 Join us on #lichess IRC channel on freenode for more info.
 Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.

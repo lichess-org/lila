@@ -68,11 +68,11 @@
   font-size: 0.8em;
   text-align: center;
 }
-#lichess_blog ol li {
-  list-style: decimal inside;
+#lichess_blog ol, #lichess_blog ul {
+  margin: 25px;
 }
-#lichess_blog ul li {
-  list-style: disc inside;
+#lichess_blog li {
+  list-style: disc outside;
 }
 #lichess_blog .body h2 {
   font-size: 1.4em;

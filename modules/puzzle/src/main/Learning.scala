@@ -20,13 +20,13 @@ case class Learning(
     stackB = stackB.filter(puzzleId !=))
 
   def solved(puzzleId: PuzzleId): Learning =
-    if (stackA contains puzzleId) copy(
+    if (stackA has puzzleId) copy(
       stackA = stackA.filter(puzzleId !=),
       stackB = (puzzleId :: stackB) take 50)
-    else if (stackB contains puzzleId)
+    else if (stackB has puzzleId)
       copy(stackB = stackB.filter(puzzleId !=))
     else this
 
   def contains(puzzleId: PuzzleId) =
-    stackA.contains(puzzleId) || stackB.contains(puzzleId)
+    stackA.has(puzzleId) || stackB.has(puzzleId)
 }

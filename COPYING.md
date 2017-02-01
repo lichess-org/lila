@@ -66,6 +66,7 @@ public/piece-src/fantasy | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/c
 public/piece-src/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
 public/piece-src/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
+public/images/staunton/staunton/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 * The other sounds in public/sound.
 * The other artwork in public/images.
