@@ -58,7 +58,7 @@ object Practice extends LilaController {
           case (baseData, studyJson) =>
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+                lila.study.TreeBuilder(chapter.root)
               },
               "practiceGoal" -> lila.practice.PracticeGoal(chapter))
             (analysis, studyJson)
