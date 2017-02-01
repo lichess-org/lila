@@ -3,7 +3,7 @@ package lila.evalCache
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.format.{Uci,FEN}
+import chess.format.{ Uci, FEN }
 import EvalCacheEntry._
 import lila.common.PimpedJson._
 import lila.tree.Eval._
@@ -18,10 +18,13 @@ object JsonHandlers {
     "pvs" -> e.pvs.list.map(writePv))
 
   private def writePv(pv: Pv) = Json.obj(
-    "cp" -> pv.score.cp.map(_.value),
-    "mate" -> pv.score.mate.map(_.value),
     "best" -> pv.moves.value.head.uci,
     "pv" -> pv.moves.value.list.map(_.uci).mkString(" "))
+    .add("cp", pv.score.cp)
+    .add("mate", pv.score.mate)
+
+  private implicit val cpWriter = intAnyValWriter[Cp](_.value)
+  private implicit val mateWriter = intAnyValWriter[Mate](_.value)
 
   def readPut(user: User, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
