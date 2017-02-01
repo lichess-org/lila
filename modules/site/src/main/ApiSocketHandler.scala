@@ -16,11 +16,11 @@ private[site] final class ApiSocketHandler(
 
   def apply: Fu[JsSocketHandler] = {
 
-    val uid = Random secureString 8
+    val uid = Socket.Uid(Random secureString 8)
 
     def controller(member: SocketMember): Handler.Controller = {
       case ("startWatching", o) => o str "d" foreach { ids =>
-        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
+        hub.actor.moveBroadcast ! StartWatching(uid.value, member, ids.split(' ').toSet)
       }
       case _ => // not available on API socket
     }

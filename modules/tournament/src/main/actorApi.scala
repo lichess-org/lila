@@ -20,7 +20,7 @@ private[tournament] object Member {
 private[tournament] case class Messadata(trollish: Boolean = false)
 
 private[tournament] case class Join(
-  uid: String,
+  uid: lila.socket.Socket.Uid,
   user: Option[User])
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[tournament] case object Reload

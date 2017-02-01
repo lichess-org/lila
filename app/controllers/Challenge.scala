@@ -152,7 +152,7 @@ object Challenge extends LilaController {
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     env.api byId id flatMap {
       _ ?? { c =>
-        get("sri") ?? { uid =>
+        getSocketUid("sri") ?? { uid =>
           env.socketHandler.join(id, uid, ctx.userId, isMine(c))
         }
       }

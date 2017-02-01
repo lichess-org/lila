@@ -49,8 +49,8 @@ object Lobby extends LilaController {
     key = "lobby_socket.message.ip")
 
   def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
-    get("sri") ?? { uid =>
-      Env.lobby.socketHandler(uid = uid, user = ctx.me, mobile = getBool("mobile")) map some
+    getSocketUid("sri") ?? { uid =>
+      Env.lobby.socketHandler(uid, user = ctx.me, mobile = getBool("mobile")) map some
     }
   }
 

@@ -8,7 +8,7 @@ private[site] final class SocketHandler(
     hub: lila.hub.Env) {
 
   def apply(
-    uid: String,
+    uid: Socket.Uid,
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] = {
 

@@ -8,6 +8,7 @@ import lila.common.PimpedJson._
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.Handler
+import lila.socket.Socket.Uid
 import lila.user.User
 import ornicar.scalalib.Zero
 
@@ -87,9 +88,9 @@ private[lobby] final class SocketHandler(
     case ("hookOut", _) => socket ! HookSub(member, false)
   }
 
-  def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
+  def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid = uid, user = user, blocking = blockedUserIds, mobile = mobile)
+      val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(socket, member), enum, member)

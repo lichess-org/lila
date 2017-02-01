@@ -10,6 +10,7 @@ import chess.format.Uci
 import lila.common.ApiVersion
 import lila.game.Event
 import lila.socket.SocketMember
+import lila.socket.Socket.Uid
 import lila.user.User
 
 case class EventList(events: List[Event])
@@ -72,7 +73,7 @@ case class Watcher(
 }
 
 case class Join(
-  uid: String,
+  uid: Uid,
   user: Option[User],
   color: Color,
   playerId: Option[String],

@@ -83,7 +83,7 @@ private[simul] final class Socket(
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid, member)
+      addMember(uid.value, member)
       notifyCrowd
       sender ! Connected(enumerator, member)
 

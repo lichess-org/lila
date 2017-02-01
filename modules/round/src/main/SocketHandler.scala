@@ -16,6 +16,7 @@ import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
+import lila.socket.Socket.Uid
 import lila.user.User
 import makeTimeout.short
 
@@ -29,14 +30,14 @@ private[round] final class SocketHandler(
   private def controller(
     gameId: String,
     socket: ActorRef,
-    uid: String,
+    uid: Uid,
     ref: PovRef,
     member: Member): Handler.Controller = {
 
     def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
     def ping(o: JsObject) =
-      o int "v" foreach { v => socket ! PingVersion(uid, v) }
+      o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o)         => ping(o)
@@ -54,7 +55,7 @@ private[round] final class SocketHandler(
           case (move, blur, lag) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid)
+              case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, move, blur, lag.millis, promise.some))
             member push ackEvent
@@ -63,7 +64,7 @@ private[round] final class SocketHandler(
           case (drop, blur, lag) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid)
+              case _: Exception => socket ! Resync(uid.value)
             }
             send(HumanPlay(playerId, drop, blur, lag.millis, promise.some))
             member push ackEvent
@@ -103,7 +104,7 @@ private[round] final class SocketHandler(
   def watcher(
     gameId: String,
     colorName: String,
-    uid: String,
+    uid: Uid,
     user: Option[User],
     ip: String,
     userTv: Option[String],
@@ -114,7 +115,7 @@ private[round] final class SocketHandler(
 
   def player(
     pov: Pov,
-    uid: String,
+    uid: Uid,
     user: Option[User],
     ip: String,
     apiVersion: ApiVersion): Fu[JsSocketHandler] =
@@ -123,7 +124,7 @@ private[round] final class SocketHandler(
   private def join(
     pov: Pov,
     playerId: Option[String],
-    uid: String,
+    uid: Uid,
     user: Option[User],
     ip: String,
     userTv: Option[String],

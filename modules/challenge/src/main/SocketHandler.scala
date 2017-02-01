@@ -7,6 +7,7 @@ import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
+import lila.socket.Socket.Uid
 import lila.user.User
 import makeTimeout.short
 
@@ -17,11 +18,11 @@ private[challenge] final class SocketHandler(
 
   def join(
     challengeId: Challenge.ID,
-    uid: String,
+    uid: Uid,
     userId: Option[User.ID],
     owner: Boolean): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
-    join = Socket.Join(uid = uid, userId = userId, owner = owner)
+    join = Socket.Join(uid, userId = userId, owner = owner)
     handler ← Handler(hub, socket, uid, join) {
       case Socket.Connected(enum, member) =>
         (controller(socket, challengeId, uid, member), enum, member)
@@ -31,10 +32,10 @@ private[challenge] final class SocketHandler(
   private def controller(
     socket: ActorRef,
     challengeId: Challenge.ID,
-    uid: String,
+    uid: Uid,
     member: Socket.Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
-      socket ! PingVersion(uid, v)
+      socket ! PingVersion(uid.value, v)
     }
     case ("ping", _) if member.owner => pingChallenge(challengeId)
   }

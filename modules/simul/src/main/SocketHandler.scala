@@ -8,6 +8,7 @@ import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
+import lila.socket.Socket.Uid
 import lila.user.User
 import makeTimeout.short
 
@@ -19,7 +20,7 @@ private[simul] final class SocketHandler(
 
   def join(
     simId: String,
-    uid: String,
+    uid: Uid,
     user: Option[User]): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {
@@ -37,9 +38,9 @@ private[simul] final class SocketHandler(
   private def controller(
     socket: ActorRef,
     simId: String,
-    uid: String,
+    uid: Uid,
     member: Member): Handler.Controller = ({
-    case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+    case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = simId,
     member = member,

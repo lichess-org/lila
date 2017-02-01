@@ -58,8 +58,8 @@ private[lobby] final class Socket(
 
     case Join(uid, user, blocks, mobile) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, uid, mobile)
-      addMember(uid, member)
+      val member = Member(channel, user, blocks, uid.value, mobile)
+      addMember(uid.value, member)
       sender ! Connected(enumerator, member)
 
     case ReloadTournaments(html) => notifyAllActiveAsync(makeMessage("tournaments", html))

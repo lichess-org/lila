@@ -3,6 +3,7 @@ package actorApi
 
 import lila.game.Game
 import lila.socket.SocketMember
+import lila.socket.Socket.Uid
 import lila.user.User
 
 private[lobby] case class LobbyUser(
@@ -59,7 +60,7 @@ private[lobby] case class BiteHook(hookId: String, uid: String, user: Option[Lob
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(uid: String, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class Join(uid: String, user: Option[User], blocking: Set[String], mobile: Boolean)
+private[lobby] case class Join(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean)
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 
