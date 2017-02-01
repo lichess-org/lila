@@ -109,9 +109,7 @@ private[study] final class SocketHandler(
           val json = Json.obj(
             "dests" -> res.dests,
             "path" -> res.path
-          ) ++ res.opening.?? { o =>
-              Json.obj("opening" -> o)
-            }
+          ).add("opening", res.opening)
           res.multiPv match {
             case None => member push makeMessage("dests", json)
             case Some(multiPv) =>
@@ -119,10 +117,10 @@ private[study] final class SocketHandler(
               evalCache.getEval(
                 fen = lila.evalCache.EvalCacheEntry.SmallFen make fen,
                 multiPv = multiPv.atMost(res.dests.count(' ' ==) + 1)
-              ).thenPp foreach { eval =>
-                  member push makeMessage("dests", json ++ eval.?? { e =>
-                    Json.obj("eval" -> lila.evalCache.JsonHandlers.writeEval(e, fen))
-                  })
+              ) foreach { eval =>
+                  member push makeMessage(
+                    "dests",
+                    json.add("eval", eval.map { lila.evalCache.JsonHandlers.writeEval(_, fen) }))
                 }
           }
       }

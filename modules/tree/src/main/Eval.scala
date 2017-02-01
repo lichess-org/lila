@@ -63,8 +63,6 @@ object Eval {
     val CEILING = 1000
 
     val initial = Cp(15)
-
-    def apply(str: String): Option[Cp] = parseIntOption(str) map Cp.apply
   }
 
   case class Mate(value: Int) extends AnyVal {
@@ -81,11 +79,6 @@ object Eval {
     def ==(i: Int): Boolean = value == i
 
     def signum: Int = Math.signum(value).toInt
-  }
-
-  object Mate {
-
-    def apply(str: String): Option[Mate] = parseIntOption(str) map Mate.apply
   }
 
   val initial = Eval(Some(Cp.initial), None, None)
@@ -107,12 +100,5 @@ object Eval {
       Writes { mate => JsNumber(mate.value) })
 
     implicit val evalWrites = Json.writes[Eval]
-  }
-
-  private def parseIntOption(str: String): Option[Int] = try {
-    Some(java.lang.Integer.parseInt(str))
-  }
-  catch {
-    case e: NumberFormatException => None
   }
 }

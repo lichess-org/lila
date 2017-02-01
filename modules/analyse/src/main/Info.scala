@@ -57,12 +57,15 @@ object Info {
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
 
+  private def strCp(s: String) = parseIntOption(s) map Cp.apply
+  private def strMate(s: String) = parseIntOption(s) map Mate.apply
+
   private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array()               => Info(ply, Eval.empty).some
-    case Array(cp)             => Info(ply, Eval(Cp(cp), None, None)).some
-    case Array(cp, ma)         => Info(ply, Eval(Cp(cp), Mate(ma), None)).some
-    case Array(cp, ma, va)     => Info(ply, Eval(Cp(cp), Mate(ma), None), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Eval(Cp(cp), Mate(ma), Uci.Move piotr be), va.split(' ').toList).some
+    case Array(cp)             => Info(ply, Eval(strCp(cp), None, None)).some
+    case Array(cp, ma)         => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
+    case Array(cp, ma, va)     => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move piotr be), va.split(' ').toList).some
     case _                     => none
   }
 
