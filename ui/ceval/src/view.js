@@ -31,7 +31,9 @@ function localEvalInfo(ctrl, evs) {
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
-  if (ceval.pnaclSupported && evs.client.depth >= (evs.client.maxDepth || ceval.maxDepth()) && !ceval.isDeeper())
+  if (ceval.pnaclSupported && !ceval.isDeeper() && (
+      evs.client.depth >= evs.client.maxDepth || (evs.client.cloud && evs.client.depth < 99)
+    ))
     t.push(m('a.deeper', {
       onclick: function() {
         ceval.goDeeper();
