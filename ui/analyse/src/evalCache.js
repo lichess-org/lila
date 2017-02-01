@@ -25,7 +25,7 @@ module.exports = function(opts) {
   return {
     onCeval: throttle(1000, false, function() {
       var eval = opts.getNode().ceval;
-      if (!eval.cloud && !eval.dict && opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes)) {
+      if (eval && !eval.cloud && !eval.dict && opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes)) {
         console.log(eval, 'to cloud');
         opts.send("evalPut", makeEvalPutData(eval));
       }
