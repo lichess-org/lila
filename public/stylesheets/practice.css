@@ -109,6 +109,7 @@ div.game_control {
   margin-bottom: 10px;
 }
 .underboard .feedback .comment {
+  width: 100%;
   display: block;
 }
 .underboard .feedback .comment iframe {
