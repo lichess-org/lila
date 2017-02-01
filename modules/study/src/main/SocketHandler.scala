@@ -29,7 +29,6 @@ private[study] final class SocketHandler(
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
-  import lila.tree.Node.openingWriter
 
   private val InviteLimitPerUser = new lila.memo.RateLimit(
     credits = 50,
@@ -106,12 +105,8 @@ private[study] final class SocketHandler(
       AnaDests.parse(o).map(destCache.get) match {
         case None => member push makeMessage("destsFailure", "Bad dests request")
         case Some(res) =>
-          val json = Json.obj(
-            "dests" -> res.dests,
-            "path" -> res.path
-          ).add("opening", res.opening)
           evalCache.getEvalJson(res) foreach { eval =>
-            member push makeMessage("dests", json.add("eval" -> eval))
+            member push makeMessage("dests", res.json.add("eval" -> eval))
           }
       }
     }

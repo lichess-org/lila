@@ -341,8 +341,7 @@ object JsonView {
     Json.obj(
       "eco" -> o.opening.eco,
       "name" -> o.opening.name,
-      "ply" -> o.ply
-    )
+      "ply" -> o.ply)
   }
 
   implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
