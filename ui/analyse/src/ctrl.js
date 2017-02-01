@@ -448,7 +448,6 @@ module.exports = function(opts) {
       emit: function(eval, work) {
         this.tree.updateAt(work.path, function(node) {
           if (node.fen !== eval.fen && !work.threatMode) {
-            console.log('got eval for the wrong node!', eval, node);
             return;
           }
           if (work.threatMode) {
@@ -458,10 +457,12 @@ module.exports = function(opts) {
             node.ceval = eval;
           if (work.path === this.vm.path) {
             this.setAutoShapes();
-            if (this.retro) this.retro.onCeval();
-            if (this.practice) this.practice.onCeval();
-            if (this.evalCache) this.evalCache.onCeval(node.ceval);
-            if (this.studyPractice) this.studyPractice.onCeval();
+            if (!work.threatMode) {
+              if (this.retro) this.retro.onCeval();
+              if (this.practice) this.practice.onCeval();
+              if (this.evalCache) this.evalCache.onCeval();
+              if (this.studyPractice) this.studyPractice.onCeval();
+            }
             m.redraw();
           }
         }.bind(this));
@@ -657,6 +658,9 @@ module.exports = function(opts) {
       return opts.study && opts.study.evalPut && isStandard();
     },
     getCeval: this.getCeval,
+    getNode: function() {
+      return this.vm.node;
+    }.bind(this),
     send: this.socket.send
   });
 
