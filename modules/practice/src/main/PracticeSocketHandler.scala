@@ -34,6 +34,6 @@ private[practice] final class PracticeSocketHandler(
 
   def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
     Handler(hub, socket, uid, Join(uid, user.map(_.id))) {
-      case Connected(enum, member) => (Handler.emptyController, enum, member)
+      case Connected(enum, member) => (controller(socket, uid, member, user), enum, member)
     }
 }
