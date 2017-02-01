@@ -10,7 +10,7 @@ case class Member(
 
   val troll = false
 
-  def hasFlag(f: String) = flag contains f
+  def hasFlag(f: String) = flag has f
 
   def isApi = hasFlag("api")
 }

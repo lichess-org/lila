@@ -56,8 +56,8 @@ private[api] final class UserApi(
                 "me" -> nbGamesWithMe)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
-                "following" -> relation.contains(true),
-                "blocking" -> relation.contains(false),
+                "following" -> relation.has(true),
+                "blocking" -> relation.has(false),
                 "followsYou" -> isFollowed
               ))
           }.noNull

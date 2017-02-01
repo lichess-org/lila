@@ -56,14 +56,19 @@ trait ListSteroids {
   import scala.util.Try
 
   implicit final class LilaPimpedTryList[A](list: List[Try[A]]) {
+
     def sequence: Try[List[A]] = (Try(List[A]()) /: list) {
       (a, b) => a flatMap (c => b map (d => d :: c))
     } map (_.reverse)
   }
+
   implicit final class LilaPimpedList[A](list: List[A]) {
+
     def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith {
       case (x, y) => other.indexOf(f(x)) < other.indexOf(f(y))
     }
+
+    def has(a: A) = list contains a
   }
 }
 

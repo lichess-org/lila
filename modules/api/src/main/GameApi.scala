@@ -133,7 +133,7 @@ private[api] final class GameApi(
     }
   }
 
-  private def check(token: Option[String]) = token contains apiToken
+  private def check(token: Option[String]) = token has apiToken
 
   private def gameToJson(
     g: Game,
