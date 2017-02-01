@@ -1,23 +1,24 @@
 package lila.socket
 
 import chess.opening._
+import chess.format.FEN
 import chess.variant.Variant
 import lila.common.PimpedJson._
 import play.api.libs.json.JsObject
 
 case class AnaDests(
     variant: Variant,
-    fen: String,
+    fen: FEN,
     path: String,
     multiPv: Option[Int]) {
 
   def isInitial =
-    variant.standard && fen == chess.format.Forsyth.initial && path == ""
+    variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
     else {
-      val sit = chess.Game(variant.some, fen.some).situation
+      val sit = chess.Game(variant.some, fen.value.some).situation
       sit.playable(false) ?? {
         sit.destinations map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
@@ -26,7 +27,7 @@ case class AnaDests(
     }
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen
+    FullOpeningDB findByFen fen.value
   }
 }
 
@@ -40,7 +41,7 @@ object AnaDests {
       path: String,
       multiPv: Option[Int]) {
 
-    def compute = AnaDests(variant, fen, path, multiPv)
+    def compute = AnaDests(variant, FEN(fen), path, multiPv)
   }
 
   def parse(o: JsObject) = for {
