@@ -42,5 +42,5 @@ object EvalCacheSelector {
     a.multiPv > b.multiPv && a.depth >= b.depth
 
   // for sorting
-  def negativeNodesAndDepth(te: TrustedEval) = (-te.eval.nodes, -te.eval.depth)
+  def negativeNodesAndDepth(te: TrustedEval) = (-te.eval.depth, -te.eval.nodes)
 }
