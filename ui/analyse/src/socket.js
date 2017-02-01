@@ -33,7 +33,10 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       anaDestsCache[data.path] = data;
-      if (data.eval) data.eval.cloud = true;
+      if (data.eval) {
+        data.eval.cloud = true;
+        console.log(data.eval, 'from cloud');
+      }
       ctrl.addDests(data.dests, data.path, data.opening, data.eval);
       clearTimeout(anaDestsTimeout);
     },
@@ -86,7 +89,10 @@ module.exports = function(send, ctrl) {
     else {
       if (ctrl.evalCache) ctrl.evalCache.mutateAnaDestsReq(req);
       this.send('anaDests', req);
-      anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
+      anaDestsTimeout = setTimeout(function() {
+        console.log(req, 'resendAnaDests');
+        this.sendAnaDests(req);
+      }.bind(this), 3000);
     }
   }.bind(this);
 
