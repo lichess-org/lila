@@ -46,11 +46,11 @@ function threatInfo(threat) {
 }
 
 function threatButton(ctrl) {
-  return m('a', {
+  if (!ctrl.disableThreatMode || !ctrl.disableThreatMode()) return m('a', {
     class: classSet({
       'show-threat': true,
       active: ctrl.vm.threatMode,
-      hidden: ctrl.vm.node.check || (ctrl.disableThreatMode && ctrl.disableThreatMode())
+      hidden: ctrl.vm.node.check
     }),
     'data-icon': '7',
     title: 'Show threat (x)',
