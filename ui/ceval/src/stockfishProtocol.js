@@ -4,7 +4,7 @@ var EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
   + /score (cp|mate) ([-\d]+) /.source
   + /(?:(upper|lower)bound )?nodes (\d+) nps (\d+) /.source
-  + /(?:hashfull \d+ )?tbhits \d+ time (\d+) /.source
+  + /(?:hashfull \d+ )?tbhits \d+ time ([^\s]+) /.source
   + /pv (.+)/.source);
 
 module.exports = function(worker, opts) {
@@ -45,6 +45,9 @@ module.exports = function(worker, opts) {
         elapsedMs = parseInt(matches[8]),
         pv = matches[9];
 
+    // time is negative on safari
+    if (!elapsedMs || elapsedMs < 0) elapsedMs = (new Date() - work.startedAt)
+
     // Track max pv index to determine when pv prints are done.
     if (expectedPvs < multiPv) expectedPvs = multiPv;
 
@@ -75,7 +78,7 @@ module.exports = function(worker, opts) {
         cp: pvData.cp,
         mate: pvData.mate,
         pvs: [pvData],
-        millis: elapsedMs,
+        millis: elapsedMs
       };
     } else if (curEval) {
       curEval.pvs.push(pvData);
@@ -91,6 +94,7 @@ module.exports = function(worker, opts) {
   return {
     start: function(w) {
       work = w;
+      work.startedAt = new Date();
       curEval = null;
       stopped = null;
       expectedPvs = 1;
