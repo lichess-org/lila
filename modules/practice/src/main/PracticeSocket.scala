@@ -9,15 +9,17 @@ import play.api.libs.json.JsValue
 import lila.socket._
 
 private final class PracticeSocket(
-  timeout: FiniteDuration) extends SocketActor[PracticeSocket.Member](timeout) {
+    timeout: FiniteDuration) extends SocketActor[PracticeSocket.Member](timeout) {
+
+  import PracticeSocket._
 
   def receiveSpecific = {
 
-    case PracticeSocket.Join(uid, userId) => {
+    case Join(uid, userId) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = PracticeSocket.Member(channel, userId)
+      val member = Member(channel, userId)
       addMember(uid.value, member)
-      sender ! PracticeSocket.Connected(enumerator, member)
+      sender ! Connected(enumerator, member)
     }
   }
 }
@@ -31,6 +33,6 @@ private object PracticeSocket {
     val troll = false
   }
 
-  case class Join(uid: Socket.Uid, userId: Option[String])
+  case class Join(uid: Socket.Uid, userId: Option[lila.user.User.ID])
   case class Connected(enumerator: JsEnumerator, member: Member)
 }

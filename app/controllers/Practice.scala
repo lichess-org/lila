@@ -65,6 +65,12 @@ object Practice extends LilaController {
         }
   }
 
+  def socket = SocketOption { implicit ctx =>
+    getSocketUid("sri") ?? { uid =>
+      Env.practice.socketHandler.join(uid, ctx.me) map some
+    }
+  }
+
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>
     env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }

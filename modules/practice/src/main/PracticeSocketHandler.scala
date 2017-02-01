@@ -12,7 +12,7 @@ private[practice] final class PracticeSocketHandler(
     hub: lila.hub.Env,
     evalCache: lila.evalCache.EvalCacheApi) {
 
-  import PracticeSocketHandler._
+  import PracticeSocket._
   import Handler.AnaRateLimit
 
   private def controller(
@@ -32,23 +32,8 @@ private[practice] final class PracticeSocketHandler(
     }
   }: Handler.Controller) orElse evalCache.socketHandler(user)
 
-  def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] = {
-
+  def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
     Handler(hub, socket, uid, Join(uid, user.map(_.id))) {
       case Connected(enum, member) => (Handler.emptyController, enum, member)
     }
-  }
-}
-
-private object PracticeSocketHandler {
-
-  case class Member(
-      channel: JsChannel,
-      userId: Option[String]) extends SocketMember {
-
-    val troll = false
-  }
-
-  case class Join(uid: Socket.Uid, userId: Option[User.ID])
-  private[practice] case class Connected(enumerator: JsEnumerator, member: Member)
 }
