@@ -56,8 +56,7 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(T, _, T, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
       case PlayerFlags(T, _, _, T, _, _, _) => Cheating // high accuracy, moderate blurs
 
-      case PlayerFlags(_, T, _, T, T, _, _) => LikelyCheating // always has advantage, moderate blurs, highly consistent move times
-      case PlayerFlags(_, _, _, T, T, _, _) => LikelyCheating // high accuracy, moderate blurs => 93% chance cheating
+      case PlayerFlags(_, _, _, T, T, _, _) => LikelyCheating // moderate blurs, highly consistent move times
       case PlayerFlags(T, _, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
       case PlayerFlags(_, T, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
 
