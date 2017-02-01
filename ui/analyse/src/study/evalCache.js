@@ -1,7 +1,7 @@
 var throttle = require('common').throttle;
 
 var evalPutMinDepth = 20;
-var evalPutMinNodes = 5e6;
+var evalPutMinNodes = 4e6;
 // var evalPutMinDepth = 16;
 // var evalPutMinNodes = 1e6;
 var evalPutMaxMoves = 8;

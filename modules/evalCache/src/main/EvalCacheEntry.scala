@@ -25,7 +25,7 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry {
 
-  val MIN_NODES = 5 * math.pow(10, 6)
+  val MIN_NODES = 4 * math.pow(10, 6)
   val MIN_DEPTH = 20
   val MIN_PV_SIZE = 6
   val MAX_PV_SIZE = 8
