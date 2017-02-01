@@ -453,8 +453,11 @@ module.exports = function(opts) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
               node.threat = eval;
-          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
+          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth) {
+            var prevCloudDepth = node.ceval && node.ceval.cloud;
             node.ceval = eval;
+            if (prevCloudDepth >= eval.depth) node.ceval.cloud = prevCloudDepth;
+          }
           if (work.path === this.vm.path) {
             this.setAutoShapes();
             if (!work.threatMode) {
