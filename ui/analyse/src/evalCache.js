@@ -24,7 +24,7 @@ function makeEvalPutData(eval) {
 module.exports = function(opts) {
   return {
     onCeval: throttle(1000, false, function(eval) {
-      if (opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes))
+      if (!eval.cloud && opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes))
         opts.send("evalPut", makeEvalPutData(eval));
     }),
     mutateAnaDestsReq: function(req) {

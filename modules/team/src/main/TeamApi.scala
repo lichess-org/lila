@@ -120,7 +120,7 @@ final class TeamApi(
           cached invalidateTeamIds userId
           timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
         }
-    } recover lila.db.recoverDuplicateKey(e => ())
+    } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {

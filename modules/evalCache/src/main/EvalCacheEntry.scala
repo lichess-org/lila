@@ -21,6 +21,9 @@ case class EvalCacheEntry(
 
   def bestMultiPvEval(multiPv: Int): Option[Eval] =
     evals.map(_.eval).find(_.multiPv >= multiPv)
+
+  def similarTo(other: EvalCacheEntry) =
+    fen == other.fen && evals == other.evals
 }
 
 object EvalCacheEntry {

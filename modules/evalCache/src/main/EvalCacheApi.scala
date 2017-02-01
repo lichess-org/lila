@@ -38,11 +38,11 @@ final class EvalCacheApi(
 
   private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = coll.find($id(fen)).one[EvalCacheEntry]
 
-  private def put(trustedUser: TrustedUser, input: Input): Funit = {
-    getEntry(input.fen) map {
-      _.fold(input entry trustedUser.trust)(_ add input.trusted(trustedUser.trust))
-    } flatMap { entry =>
-      coll.update($id(entry.fen), entry, upsert = true).void
-    }
+  private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.fen) map {
+    case None => coll.insert(input entry trustedUser.trust) recover lila.db.recoverDuplicateKey(_ => ()) void
+    case Some(oldEntry) =>
+      val entry = oldEntry add input.trusted(trustedUser.trust)
+      !entry.similarTo(oldEntry) ?? coll.update($id(entry.fen), entry, upsert = true).void
   }
+
 }
