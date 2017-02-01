@@ -9,7 +9,7 @@ import chess.variant.Variant
 final class Divider {
 
   private val cache: Cache[Game.ID, Division] = Scaffeine()
-    .expireAfterAccess(20 minutes)
+    .expireAfterAccess(10 minutes)
     .build[Game.ID, Division]
 
   def apply(game: Game, initialFen: Option[String]): Division =
