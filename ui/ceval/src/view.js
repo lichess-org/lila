@@ -26,7 +26,11 @@ function localEvalInfo(ctrl, evs) {
     return 'Loading engine...';
   }
   if (evs.client.dict) return 'Book move';
-  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
+  var t = evs.client.cloud ? [
+    'Depth ' + (evs.client.depth || 0) + ' from the cloud'
+  ] : [
+    'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
+  ];
   if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
     t.push(m('a.deeper', {
       onclick: function() {
@@ -69,14 +73,14 @@ var serverNodes = 3.5e6;
 
 function getBestEval(evs) {
   var serverEv = evs.server,
-      localEv = evs.client;
+    localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
 
   // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
   if (localEv.nodes > serverNodes ||
-      (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
+    (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
     return localEv;
 
   return serverEv;
