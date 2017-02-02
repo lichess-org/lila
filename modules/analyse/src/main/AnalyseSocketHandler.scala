@@ -5,6 +5,7 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.socket._
+import lila.socket.Socket.makeMessage
 import lila.user.User
 
 private[analyse] final class AnalyseSocketHandler(
@@ -23,11 +24,25 @@ private[analyse] final class AnalyseSocketHandler(
 
     case ("anaDests", o) => AnaRateLimit(uid.value, member) {
       AnaDests.parse(o).map(_.compute) match {
-        case None => member push Socket.makeMessage("destsFailure", "Bad dests request")
-        case Some(res) =>
+        case None => member push makeMessage("destsFailure", "Bad dests request")
+        case Some(res) if res.ply < 10 =>
           evalCache.getEvalJson(res) foreach { eval =>
-            member push Socket.makeMessage("dests", res.json.add("eval" -> eval))
+            member push makeMessage("dests", res.json.add("eval" -> eval))
           }
+        case Some(res) => member push makeMessage("dests", res.json)
+      }
+    }
+
+    case ("anaMove", o) => AnaRateLimit(uid.value, member) {
+      AnaMove parse o foreach { anaMove =>
+        anaMove.branch match {
+          case scalaz.Failure(err) => member push makeMessage("stepFailure", err.toString)
+          case scalaz.Success(node) if node.ply < 10 =>
+            evalCache.getEvalJson(node, anaMove.multiPv) foreach { eval =>
+              member push makeMessage("node", anaMove.json(node).add("eval" -> eval))
+            }
+          case scalaz.Success(node) => member push makeMessage("node", anaMove json node)
+        }
       }
     }
   }: Handler.Controller) orElse evalCache.socketHandler(user)

@@ -55,10 +55,9 @@ private[study] final class SocketHandler(
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            member push makeMessage("node", Json.obj(
-              "node" -> branch,
-              "path" -> anaMove.path
-            ))
+            evalCache.getEvalJson(branch, anaMove.multiPv) foreach { eval =>
+              member push makeMessage("node", anaMove.json(branch).add("eval" -> eval))
+            }
             for {
               userId <- member.userId
               d ← o obj "d"

@@ -29,6 +29,13 @@ function makeEvalPutData(eval) {
   };
 }
 
+function expandCloudEval(e) {
+  e.cp = e.pvs[0].cp;
+  e.mate = e.pvs[0].mate;
+  e.cloud = e.depth;
+  return e;
+}
+
 module.exports = function(opts) {
   return {
     onCeval: throttle(1000, false, function() {
@@ -38,15 +45,25 @@ module.exports = function(opts) {
         (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes) &&
         (node.fen.split(' ', 1)[0] !== initialBoardFen || eval.depth >= 27)
       ) {
-        opts.send("evalPut", makeEvalPutData(eval));
+        var data = makeEvalPutData(eval);
+        console.log(data, 'to cloud');
+        opts.send("evalPut", data);
       }
     }),
     mutateAnaDestsReq: function(req) {
-      if (opts.canGet(opts.getNode()) && opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
+      if (opts.canGet(opts.getNode()) && opts.getCeval().enabled())
+        req.multiPv = parseInt(opts.getCeval().multiPv());
     },
     onDests: function(data) {
       if (data.eval) {
-        data.eval.cloud = data.eval.depth;
+        expandCloudEval(data.eval);
+        console.log(data.eval, 'from cloud');
+      }
+    },
+    onNode: function(data) {
+      if (data.eval) {
+        expandCloudEval(data.eval);
+        data.node.ceval = expandCloudEval(data.eval);
         console.log(data.eval, 'from cloud');
       }
     }

@@ -17,10 +17,14 @@ case class AnaDests(
   def isInitial =
     variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
 
+  val game = chess.Game(variant.some, fen.value.some)
+
+  def ply = game.turns
+
   val dests: String =
     if (isInitial) AnaDests.initialDests
     else {
-      val sit = chess.Game(variant.some, fen.value.some).situation
+      val sit = game.situation
       sit.playable(false) ?? {
         sit.destinations map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"

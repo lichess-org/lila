@@ -30,10 +30,10 @@ module.exports = function(work, variant, multiPv) {
     var pv = dict[work.moves.join(' ')];
     if (pv) return {
       cp: eval,
-      best: pv.split(' ')[0],
+      best: pv.split(' ', 1)[0],
       pvs: [{
         cp: eval,
-        best: pv.split(' ')[0],
+        best: pv.split(' ', 1)[0],
         pv: pv
       }]
     };

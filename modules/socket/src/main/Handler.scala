@@ -9,8 +9,8 @@ import scala.concurrent.duration._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.tree.Node.defaultNodeJsonWriter
 import lila.socket.Socket.makeMessage
+import lila.tree.Node.defaultNodeJsonWriter
 import makeTimeout.large
 
 object Handler {
@@ -47,13 +47,8 @@ object Handler {
       case ("anaMove", o) => AnaRateLimit(uid.value, member) {
         AnaMove parse o foreach { anaMove =>
           anaMove.branch match {
-            case scalaz.Success(branch) =>
-              member push makeMessage("node", Json.obj(
-                "node" -> branch,
-                "path" -> anaMove.path
-              ))
-            case scalaz.Failure(err) =>
-              member push makeMessage("stepFailure", err.toString)
+            case scalaz.Success(node) => member push makeMessage("node", anaMove json node)
+            case scalaz.Failure(err)  => member push makeMessage("stepFailure", err.toString)
           }
         }
       }
