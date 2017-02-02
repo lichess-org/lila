@@ -18,6 +18,7 @@ var defined = require('common').defined;
 var makeSocket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('ceval').ctrl;
+var isEvalBetter = require('ceval').isEvalBetter;
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
@@ -437,10 +438,6 @@ module.exports = function(opts) {
   this.setAutoShapes = function() {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
-
-  var isEvalBetter = function(a, b) {
-    return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
-  };
 
   var instanciateCeval = function(failsafe) {
     if (this.ceval) this.ceval.destroy();

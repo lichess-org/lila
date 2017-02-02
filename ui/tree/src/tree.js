@@ -106,6 +106,7 @@ module.exports = function(root) {
     var newPath = path + node.id;
     var existing = nodeAtPathOrNull(newPath);
     if (existing) {
+      console.log(node, existing, 'tree.addNode existing');
       if (defined(node.dests) && !defined(existing.dests)) existing.dests = node.dests;
       return newPath;
     }

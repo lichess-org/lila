@@ -25,7 +25,6 @@ function localEvalInfo(ctrl, evs) {
     if (evs.server && ctrl.nextNodeBest()) return 'Using server analysis';
     return 'Loading engine...';
   }
-  if (evs.client.dict) return 'Book move';
   var t = evs.client.cloud ? [
     'Depth ' + (evs.client.depth || 0) + ' (cloud)'
   ] : [
@@ -45,7 +44,6 @@ function localEvalInfo(ctrl, evs) {
 
 function threatInfo(threat) {
   if (!threat) return 'Loading engine...';
-  if (threat.dict) return 'Book move';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
   if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;

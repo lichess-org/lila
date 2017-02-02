@@ -1,6 +1,5 @@
 var m = require('mithril');
 var makePool = require('./pool');
-var dict = require('./dict');
 var median = require('./math').median;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
@@ -122,21 +121,7 @@ module.exports = function(opts) {
       }
     }
 
-    var dictRes = dict(work, opts.variant, multiPv());
-    if (dictRes) {
-      setTimeout(function() {
-        // this has to be delayed, or it slows down analysis first render.
-        work.emit({
-          fen: work.currentFen,
-          depth: maxD,
-          cp: dictRes.cp,
-          best: dictRes.best,
-          pvs: dictRes.pvs,
-          dict: true
-        });
-      }, 500);
-      pool.warmup();
-    } else pool.start(work);
+    pool.start(work);
 
     started = {
       path: path,
