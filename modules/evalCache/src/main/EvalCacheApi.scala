@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Uci }
+import chess.format.{ FEN, Uci, Forsyth }
 import lila.db.dsl._
 import lila.socket.Handler.Controller
 import lila.user.User
@@ -22,6 +22,10 @@ final class EvalCacheApi(
     multiPv = multiPv
   ) map {
     _.map { lila.evalCache.JsonHandlers.writeEval(_, fen) }
+  } addEffect { res =>
+    Forsyth getPly fen.value foreach { ply =>
+      lila.mon.evalCache.register(ply, res.isDefined)
+    }
   }
 
   def put(trustedUser: TrustedUser, candidate: Input.Candidate): Funit =

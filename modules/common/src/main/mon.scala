@@ -73,6 +73,20 @@ object mon {
     val evictionCount = rec(s"caffeine.count.eviction.$name")
     val entryCount = rec(s"caffeine.count.entry.$name")
   }
+  object evalCache {
+    private val hit = inc("eval_Cache.all.hit")
+    private val miss = inc("eval_Cache.all.miss")
+    private def hitIf(cond: Boolean) = if (cond) hit else miss
+    private object byPly {
+      def hit(ply: Int) = inc(s"eval_Cache.ply.$ply.hit")
+      def miss(ply: Int) = inc(s"eval_Cache.ply.$ply.miss")
+      def hitIf(ply: Int, cond: Boolean) = if (cond) hit(ply) else miss(ply)
+    }
+    def register(ply: Int, isHit: Boolean) = {
+      hitIf(isHit)()
+      if (ply <= 10) byPly.hitIf(ply, isHit)()
+    }
+  }
   object lobby {
     object hook {
       val create = inc("lobby.hook.create")
