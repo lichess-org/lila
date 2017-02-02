@@ -264,8 +264,7 @@ final class JsonView(
     val percent = game.playerBlurPercent(player.color)
     (percent > 30) option Json.obj(
       "nb" -> player.blurs,
-      "percent" -> percent
-    )
+      "percent" -> percent)
   }
 
   private def hold(player: lila.game.Player) = player.holdAlert map { h =>
