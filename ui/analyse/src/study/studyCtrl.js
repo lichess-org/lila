@@ -87,10 +87,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     req.chapterId = data.position.chapterId;
     return req;
   }
-  if (vm.behind === false) setTimeout(function() {
-    // must be delayed so ctrl.study exists when jumping (for cached eval)
-    ctrl.userJump(data.position.path);
-  }, 10);
+  ctrl.userJump(data.position.path);
 
   var configureAnalysis = function() {
     if (ctrl.embed) return;
