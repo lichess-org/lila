@@ -99,7 +99,7 @@ object Study extends LilaController {
             study = studyJson,
             analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {
-              lila.study.TreeBuilder(chapter.root)
+              lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
             }))
           res <- negotiate(
             html = for {
@@ -176,7 +176,7 @@ object Study extends LilaController {
                 import lila.tree.Node.partitionTreeJsonWriter
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes {
-                    lila.study.TreeBuilder(chapter.root)
+                    lila.study.TreeBuilder.makeRoot(chapter.root)
                   })
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
