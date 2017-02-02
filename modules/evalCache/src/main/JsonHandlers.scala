@@ -28,8 +28,8 @@ object JsonHandlers {
 
   def readPut(user: User, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
-    if variant.standard
+    // variant = chess.variant.Variant orDefault ~d.str("variant")
+    // if variant.standard
     fen <- d str "fen"
     nodes <- d int "nodes"
     depth <- d int "depth"
