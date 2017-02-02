@@ -12,8 +12,7 @@ import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.GetterSync,
-    evalCache: lila.evalCache.EvalCacheApi) {
+    lightUser: LightUser.GetterSync) {
 
   import JsonView._
 

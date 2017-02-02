@@ -9,9 +9,15 @@ final class Env(
 
   private val CollectionEvalCache = config getString "collection.eval_cache"
 
+  private lazy val truster = new EvalCacheTruster
+
   lazy val api = new EvalCacheApi(
     coll = db(CollectionEvalCache),
-    truster = new EvalCacheTruster)
+    truster = truster)
+
+  lazy val socketHandler = new EvalCacheSocketHandler(
+    api = api,
+    truster = truster)
 }
 
 object Env {

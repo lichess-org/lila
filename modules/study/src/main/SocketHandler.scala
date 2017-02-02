@@ -24,7 +24,7 @@ private[study] final class SocketHandler(
     socketHub: ActorRef,
     chat: ActorSelection,
     api: StudyApi,
-    evalCache: lila.evalCache.EvalCacheApi) {
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler) {
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
@@ -218,7 +218,7 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, socket, uid)
-  }: Handler.Controller) orElse evalCache.socketHandler(user) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
     chatId = studyId.value,
     member = member,
     socket = socket,

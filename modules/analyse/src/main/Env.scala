@@ -9,7 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     system: ActorSystem,
-    evalCache: lila.evalCache.EvalCacheApi,
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     hub: lila.hub.Env,
     roundSocket: ActorSelection,
     indexer: ActorSelection) {
@@ -35,7 +35,7 @@ final class Env(
   private val socket = system.actorOf(
     Props(new AnalyseSocket(timeout = SocketUidTtl)), name = SocketName)
 
-  lazy val socketHandler = new AnalyseSocketHandler(socket, hub, evalCache)
+  lazy val socketHandler = new AnalyseSocketHandler(socket, hub, evalCacheHandler)
 }
 
 object Env {
@@ -44,7 +44,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    evalCache = lila.evalCache.Env.current.api,
+    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     hub = lila.hub.Env.current,
     roundSocket = lila.hub.Env.current.socket.round,
     indexer = lila.hub.Env.current.actor.gameSearch)

@@ -18,7 +18,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
-    evalCache: lila.evalCache.EvalCacheApi,
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env) {
@@ -57,15 +57,14 @@ final class Env(
     socketHub = socketHub,
     chat = hub.actor.chat,
     api = api,
-    evalCache = evalCache)
+    evalCacheHandler = evalCacheHandler)
 
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
   lazy val jsonView = new JsonView(
     studyRepo,
-    lightUserApi.sync,
-    evalCache = evalCache)
+    lightUserApi.sync)
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
@@ -128,7 +127,7 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
-    evalCache = lila.evalCache.Env.current.api,
+    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current)

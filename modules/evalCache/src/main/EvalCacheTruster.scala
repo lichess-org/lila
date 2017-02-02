@@ -24,6 +24,8 @@ private final class EvalCacheTruster {
         nbGamesBonus(user)
     }
 
+  def makeTrusted(user: User) = EvalCacheEntry.TrustedUser(apply(user), user)
+
   def shouldPut(user: User) = !apply(user).isTooLow
 
   private def seniorityBonus(user: User) =

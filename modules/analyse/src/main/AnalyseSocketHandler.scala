@@ -11,19 +11,16 @@ import lila.user.User
 private[analyse] final class AnalyseSocketHandler(
     socket: akka.actor.ActorRef,
     hub: lila.hub.Env,
-    evalCache: lila.evalCache.EvalCacheApi) {
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler) {
 
   import AnalyseSocket._
   import Handler.AnaRateLimit
 
-  private def controller(
-    socket: ActorRef,
-    uid: Socket.Uid,
-    member: Member,
-    user: Option[User]): Handler.Controller = evalCache.socketHandler(user)
+  private def controller(member: Member, user: Option[User]): Handler.Controller =
+    evalCacheHandler(member, user)
 
   def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
     Handler(hub, socket, uid, Join(uid, user.map(_.id))) {
-      case Connected(enum, member) => (controller(socket, uid, member, user), enum, member)
+      case Connected(enum, member) => (controller(member, user), enum, member)
     }
 }
