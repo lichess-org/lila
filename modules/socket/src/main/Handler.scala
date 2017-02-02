@@ -46,9 +46,11 @@ object Handler {
         Channel.UnSub(member))
       case ("anaMove", o) => AnaRateLimit(uid.value, member) {
         AnaMove parse o foreach { anaMove =>
-          anaMove.branch match {
-            case scalaz.Success(node) => member push makeMessage("node", anaMove json node)
-            case scalaz.Failure(err)  => member push makeMessage("stepFailure", err.toString)
+          member push {
+            anaMove.branch match {
+              case scalaz.Success(node) => makeMessage("node", anaMove json node)
+              case scalaz.Failure(err)  => makeMessage("stepFailure", err.toString)
+            }
           }
         }
       }
@@ -66,11 +68,11 @@ object Handler {
         }
       }
       case ("anaDests", o) => AnaRateLimit(uid.value, member) {
-        AnaDests parse o map (_.compute) match {
-          case Some(res) =>
-            member push makeMessage("dests", res.json)
-          case None =>
-            member push makeMessage("destsFailure", "Bad dests request")
+        member push {
+          AnaDests parse o map (_.compute) match {
+            case Some(res) => makeMessage("dests", res.json)
+            case None      => makeMessage("destsFailure", "Bad dests request")
+          }
         }
       }
       case ("opening", o) => AnaRateLimit(uid.value, member) {

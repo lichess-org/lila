@@ -45,7 +45,6 @@ final class Env(
         studyRepo = studyRepo,
         lightUser = lightUserApi.async,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
-        destCache = destCache,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout)
     }), name = SocketName)
@@ -57,7 +56,6 @@ final class Env(
     hub = hub,
     socketHub = socketHub,
     chat = hub.actor.chat,
-    destCache = destCache,
     api = api,
     evalCache = evalCache)
 
@@ -115,10 +113,6 @@ final class Env(
       executionTimeout = 5.seconds.some,
       logger = logger)
   }))
-
-  private lazy val destCache: LoadingCache[AnaDests.Ref, AnaDests] = Scaffeine()
-    .expireAfterAccess(1 minute)
-    .build(_.compute)
 
   def cli = new lila.common.Cli {
     def process = {

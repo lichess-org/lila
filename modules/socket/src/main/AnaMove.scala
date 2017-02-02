@@ -15,8 +15,7 @@ case class AnaMove(
     variant: Variant,
     fen: String,
     path: String,
-    promotion: Option[chess.PromotableRole],
-    multiPv: Option[Int]) {
+    promotion: Option[chess.PromotableRole]) {
 
   def branch: Valid[Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap {
@@ -52,13 +51,11 @@ object AnaMove {
     fen ← d str "fen"
     path ← d str "path"
     prom = d str "promotion" flatMap chess.Role.promotable
-    multiPv = d int "multiPv"
   } yield AnaMove(
     orig = orig,
     dest = dest,
     variant = variant,
     fen = fen,
     path = path,
-    promotion = prom,
-    multiPv = multiPv)
+    promotion = prom)
 }

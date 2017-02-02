@@ -16,16 +16,6 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEvalJson(anaDests: lila.socket.AnaDests): Fu[Option[JsObject]] =
-    anaDests.multiPv ?? { mpv =>
-      getEvalJson(anaDests.fen, mpv.atMost(anaDests.dests.count(' '==) + 1))
-    }
-
-  def getEvalJson(node: lila.tree.Branch, multiPv: Option[Int]): Fu[Option[JsObject]] =
-    multiPv ?? { mpv =>
-      getEvalJson(FEN(node.fen), mpv atMost node.dests.size)
-    }
-
   def getEvalJson(fen: FEN, multiPv: Int): Fu[Option[JsObject]] = getEval(
     fen = lila.evalCache.EvalCacheEntry.SmallFen make fen,
     multiPv = multiPv

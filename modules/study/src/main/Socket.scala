@@ -19,7 +19,6 @@ private final class Socket(
     studyRepo: StudyRepo,
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
-    destCache: LoadingCache[AnaDests.Ref, AnaDests],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
@@ -50,7 +49,7 @@ private final class Socket(
     ), noMessadata)
 
     case AddNode(pos, node, uid) =>
-      val dests = destCache.get(AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString, none))
+      val dests = AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString).compute
       notifyVersion("addNode", Json.obj(
         "n" -> TreeBuilder.toBranch(node),
         "p" -> pos,

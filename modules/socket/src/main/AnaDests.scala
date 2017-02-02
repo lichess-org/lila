@@ -11,8 +11,7 @@ import lila.tree.Node.openingWriter
 case class AnaDests(
     variant: Variant,
     fen: FEN,
-    path: String,
-    multiPv: Option[Int]) {
+    path: String) {
 
   def isInitial =
     variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
@@ -46,13 +45,9 @@ object AnaDests {
 
   private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
-  case class Ref(
-      variant: Variant,
-      fen: String,
-      path: String,
-      multiPv: Option[Int]) {
+  case class Ref(variant: Variant, fen: String, path: String) {
 
-    def compute = AnaDests(variant, FEN(fen), path, multiPv)
+    def compute = AnaDests(variant, FEN(fen), path)
   }
 
   def parse(o: JsObject) = for {
@@ -60,6 +55,5 @@ object AnaDests {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    multiPv = d int "multiPv"
-  } yield AnaDests.Ref(variant = variant, fen = fen, path = path, multiPv = multiPv)
+  } yield AnaDests.Ref(variant = variant, fen = fen, path = path)
 }

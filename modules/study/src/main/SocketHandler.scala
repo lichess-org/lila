@@ -23,7 +23,6 @@ private[study] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
-    destCache: LoadingCache[AnaDests.Ref, AnaDests],
     api: StudyApi,
     evalCache: lila.evalCache.EvalCacheApi) {
 
@@ -55,9 +54,7 @@ private[study] final class SocketHandler(
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            evalCache.getEvalJson(branch, anaMove.multiPv) foreach { eval =>
-              member push makeMessage("node", anaMove.json(branch).add("eval" -> eval))
-            }
+            member push makeMessage("node", anaMove.json(branch))
             for {
               userId <- member.userId
               d ← o obj "d"
@@ -98,15 +95,6 @@ private[study] final class SocketHandler(
           case scalaz.Failure(err) =>
             member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
         }
-      }
-    }
-    case ("anaDests", o) => AnaRateLimit(uid.value, member) {
-      AnaDests.parse(o).map(destCache.get) match {
-        case None => member push makeMessage("destsFailure", "Bad dests request")
-        case Some(res) =>
-          evalCache.getEvalJson(res) foreach { eval =>
-            member push makeMessage("dests", res.json.add("eval" -> eval))
-          }
       }
     }
     case ("setPath", o) => AnaRateLimit(uid.value, member) {
