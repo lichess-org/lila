@@ -37,11 +37,13 @@ function expandCloudEval(e) {
 }
 
 module.exports = function(opts) {
+  var fenSent = [];
   return {
     onCeval: throttle(1000, false, function() {
       var node = opts.getNode();
       var eval = node.ceval;
       if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {
+        eval.cloud = true;
         var data = makeEvalPutData(eval);
         console.log(data, 'to cloud');
         opts.send("evalPut", data);
@@ -49,7 +51,10 @@ module.exports = function(opts) {
     }),
     fetch: function(path, multiPv) {
       var node = opts.getNode();
-      if ((!node.ceval || !node.ceval.cloud) && opts.canGet(node)) opts.send("evalGet", {
+      if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
+      if (fenSent.indexOf(node.fen) !== -1) return;
+      fenSent.push(node.fen);
+      opts.send("evalGet", {
         fen: node.fen,
         mpv: multiPv,
         path: path

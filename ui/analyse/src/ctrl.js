@@ -287,6 +287,7 @@ module.exports = function(opts) {
     this.vm.redirecting = false;
     this.setPath(tree.path.root);
     instanciateCeval();
+    instanciateEvalCache();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -515,8 +516,7 @@ module.exports = function(opts) {
       if (canUseCeval()) {
         this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
         this.evalCache.fetch(this.vm.path, parseInt(this.ceval.multiPv()));
-      }
-      else this.ceval.stop();
+      } else this.ceval.stop();
     }
   }.bind(this));
 
@@ -659,20 +659,24 @@ module.exports = function(opts) {
     return (opts.study || node.ply < 10) && this.data.game.variant.key === 'standard'
   }.bind(this);
 
-  this.evalCache = makeEvalCache({
-    canGet: canEvalGet,
-    canPut: function(node) {
-      return this.data.evalPut && canEvalGet(node) && (
-        // if not in study, only put decent opening moves
-        opts.study || (node.ply < 10 && !node.ceval.mate && Math.abs(node.ceval.cp) < 99)
-      );
-    }.bind(this),
-    getNode: function() {
-      return this.vm.node;
-    }.bind(this),
-    send: this.socket.send,
-    receive: onNewCeval
-  });
+  this.evalCache;
+  var instanciateEvalCache = function() {
+    this.evalCache = makeEvalCache({
+      canGet: canEvalGet,
+      canPut: function(node) {
+        return this.data.evalPut && canEvalGet(node) && (
+          // if not in study, only put decent opening moves
+          opts.study || (node.ply < 10 && !node.ceval.mate && Math.abs(node.ceval.cp) < 99)
+        );
+      }.bind(this),
+      getNode: function() {
+        return this.vm.node;
+      }.bind(this),
+      send: this.socket.send,
+      receive: onNewCeval
+    });
+  }.bind(this);
+  instanciateEvalCache();
 
   showGround();
   onToggleComputer();
