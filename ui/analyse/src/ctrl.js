@@ -464,8 +464,8 @@ module.exports = function(opts) {
             if (!work.threatMode) {
               if (this.retro) this.retro.onCeval();
               if (this.practice) this.practice.onCeval();
-              if (this.evalCache) this.evalCache.onCeval();
               if (this.studyPractice) this.studyPractice.onCeval();
+              this.evalCache.onCeval();
             }
             m.redraw();
           }

@@ -25,7 +25,6 @@ module.exports = function(send, ctrl) {
   var handlers = {
     node: function(data) {
       clearTimeout(anaMoveTimeout);
-      ctrl.evalCache.onNode(data);
       ctrl.addNode(data.node, data.path);
     },
     stepFailure: function(data) {
@@ -34,8 +33,7 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       anaDestsCache[data.path] = data;
-      ctrl.evalCache.onDests(data);
-      ctrl.addDests(data.dests, data.path, data.opening, data.eval);
+      ctrl.addDests(data.dests, data.path, data.opening);
       clearTimeout(anaDestsTimeout);
     },
     destsFailure: function(data) {
@@ -66,7 +64,6 @@ module.exports = function(send, ctrl) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     if (ctrl.study) ctrl.study.anaMoveConfig(req);
-    ctrl.evalCache.mutateAnaDestsReq(req);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
@@ -86,7 +83,6 @@ module.exports = function(send, ctrl) {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
-      ctrl.evalCache.mutateAnaDestsReq(req);
       this.send('anaDests', req);
       anaDestsTimeout = setTimeout(function() {
         console.log(req, 'resendAnaDests');
