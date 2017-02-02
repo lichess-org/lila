@@ -439,6 +439,30 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
+  var onNewCeval = function(eval, path, threatMode) {
+    this.tree.updateAt(path, function(node) {
+      if (node.fen !== eval.fen && !threatMode) return;
+      if (threatMode) {
+        if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
+          node.threat = eval;
+      } else if (!node.ceval || isEvalBetter(eval, node.ceval) || eval.maxDepth > node.ceval.maxDepth) {
+        var prevCloudDepth = node.ceval && node.ceval.cloud;
+        node.ceval = eval;
+        if (prevCloudDepth >= eval.depth) node.ceval.cloud = prevCloudDepth;
+      }
+      if (path === this.vm.path) {
+        this.setAutoShapes();
+        if (!threatMode) {
+          if (this.retro) this.retro.onCeval();
+          if (this.practice) this.practice.onCeval();
+          if (this.studyPractice) this.studyPractice.onCeval();
+          this.evalCache.onCeval();
+        }
+        m.redraw();
+      }
+    }.bind(this));
+  }.bind(this);
+
   var instanciateCeval = function(failsafe) {
     if (this.ceval) this.ceval.destroy();
     this.ceval = cevalCtrl({
@@ -447,29 +471,7 @@ module.exports = function(opts) {
         util.synthetic(this.data) || !game.playable(this.data)
       ),
       emit: function(eval, work) {
-        this.tree.updateAt(work.path, function(node) {
-          if (node.fen !== eval.fen && !work.threatMode) {
-            return;
-          }
-          if (work.threatMode) {
-            if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
-              node.threat = eval;
-          } else if (!node.ceval || isEvalBetter(eval, node.ceval) || eval.maxDepth > node.ceval.maxDepth) {
-            var prevCloudDepth = node.ceval && node.ceval.cloud;
-            node.ceval = eval;
-            if (prevCloudDepth >= eval.depth) node.ceval.cloud = prevCloudDepth;
-          }
-          if (work.path === this.vm.path) {
-            this.setAutoShapes();
-            if (!work.threatMode) {
-              if (this.retro) this.retro.onCeval();
-              if (this.practice) this.practice.onCeval();
-              if (this.studyPractice) this.studyPractice.onCeval();
-              this.evalCache.onCeval();
-            }
-            m.redraw();
-          }
-        }.bind(this));
+        onNewCeval(eval, work.path, work.threatMode);
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
@@ -512,7 +514,7 @@ module.exports = function(opts) {
     if (this.ceval.enabled()) {
       if (canUseCeval()) {
         this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
-        this.evalCache.fetch(parseInt(this.ceval.multiPv()));
+        this.evalCache.fetch(this.vm.path, parseInt(this.ceval.multiPv()));
       }
       else this.ceval.stop();
     }
@@ -668,7 +670,8 @@ module.exports = function(opts) {
     getNode: function() {
       return this.vm.node;
     }.bind(this),
-    send: this.socket.send
+    send: this.socket.send,
+    receive: onNewCeval
   });
 
   showGround();

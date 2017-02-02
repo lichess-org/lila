@@ -1,5 +1,7 @@
 package lila.evalCache
 
+import play.api.libs.json._
+
 import chess.format.FEN
 import lila.common.PimpedJson._
 import lila.socket._
@@ -24,8 +26,11 @@ final class EvalCacheSocketHandler(
       d <- o obj "d"
       fen <- d str "fen"
       multiPv <- d int "mpv"
-    } api.getEvalJson(FEN(fen), multiPv) foreach { json =>
-      member push Socket.makeMessage("evalHit", json)
+      path <- d str "path"
+    } api.getEvalJson(FEN(fen), multiPv) foreach {
+      _ foreach { json =>
+        member push Socket.makeMessage("evalHit", json + ("path" -> JsString(path)))
+      }
     }
   }
 }

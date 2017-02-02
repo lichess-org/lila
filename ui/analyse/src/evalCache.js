@@ -1,6 +1,5 @@
 var m = require('mithril');
 var throttle = require('common').throttle;
-var initialBoardFen = require('chessground').fen.initial;
 var defined = require('common').defined;
 var isEvalBetter = require('ceval').isEvalBetter;
 
@@ -29,7 +28,7 @@ function makeEvalPutData(eval) {
 
 function expandCloudEval(e) {
   if (defined(e.pvs[0].cp)) e.cp = e.pvs[0].cp;
-  if (defined(e.pvs[0].mate)) e.mate = e.pvs[0].mate;
+  else e.mate = e.pvs[0].mate;
   e.best = e.pvs[0].pv.split(' ', 1)[0];
   e.cloud = e.depth;
 }
@@ -39,29 +38,25 @@ module.exports = function(opts) {
     onCeval: throttle(1000, false, function() {
       var node = opts.getNode();
       var eval = node.ceval;
-      if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node) &&
-        (node.fen.split(' ', 1)[0] !== initialBoardFen || eval.depth >= 27)
-      ) {
+      if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {
         var data = makeEvalPutData(eval);
         console.log(data, 'to cloud');
         opts.send("evalPut", data);
       }
     }),
-    fetch: function(multiPv) {
+    fetch: function(path, multiPv) {
       var node = opts.getNode();
       if ((!node.ceval || !node.ceval.cloud) && opts.canGet(node)) opts.send("evalGet", {
         fen: node.fen,
-        mpv: multiPv
+        mpv: multiPv,
+        path: path
       });
     },
     onCloudEval: function(eval) {
-      var node = opts.getNode();
-      if (node.fen !== eval.fen) return; // browsed away already
       expandCloudEval(eval);
-      if (isEvalBetter(eval, node.ceval)) {
-        node.ceval = eval;
-        m.redraw();
-      }
+      var path = eval.path;
+      delete eval.path;
+      opts.receive(eval, path);
     }
   };
 };
