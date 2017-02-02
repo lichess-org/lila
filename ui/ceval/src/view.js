@@ -39,7 +39,7 @@ function localEvalInfo(ctrl, evs) {
         ceval.goDeeper();
       }
     }, 'Go deeper'))
-  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
+  else if (evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
@@ -47,16 +47,16 @@ function threatInfo(threat) {
   if (!threat) return 'Loading engine...';
   if (threat.dict) return 'Book move';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
-  if (threat.nps) t += ', ' + Math.round(threat.nps / 1000) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
 
 function threatButton(ctrl) {
-  return m('a', {
+  if (!ctrl.disableThreatMode || !ctrl.disableThreatMode()) return m('a', {
     class: classSet({
       'show-threat': true,
       active: ctrl.vm.threatMode,
-      hidden: ctrl.vm.node.check || (ctrl.disableThreatMode && ctrl.disableThreatMode())
+      hidden: ctrl.vm.node.check
     }),
     'data-icon': '7',
     title: 'Show threat (x)',

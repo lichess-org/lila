@@ -42,16 +42,16 @@ module.exports = function(opts) {
   var npsRecorder = (function() {
     var values = [];
     var applies = function(eval) {
-      return eval.nps && eval.depth >= 16 &&
+      return eval.knps && eval.depth >= 16 &&
         !eval.mate && Math.abs(eval.cp) < 500 &&
         (eval.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     }
     return function(eval) {
       if (!applies(eval)) return;
-      values.push(eval.nps);
+      values.push(eval.knps);
       if (values.length >= 5) {
         var depth = 18,
-          knps = median(values) / 1000;
+          knps = median(values);
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
         if (knps > 250) depth = 21;

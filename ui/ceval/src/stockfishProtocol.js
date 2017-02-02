@@ -3,8 +3,8 @@ var m = require('mithril');
 var EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
   + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|lower)bound )?nodes (\d+) nps (\d+) /.source
-  + /(?:hashfull \d+ )?tbhits \d+ time (\d+) /.source
+  + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
+  + /(?:hashfull \d+ )?tbhits \d+ time (\S+) /.source
   + /pv (.+)/.source);
 
 module.exports = function(worker, opts) {
@@ -41,9 +41,11 @@ module.exports = function(worker, opts) {
         eval = parseInt(matches[4]),
         evalType = matches[5],
         nodes = parseInt(matches[6]),
-        nps = parseInt(matches[7]),
-        elapsedMs = parseInt(matches[8]),
-        pv = matches[9];
+        elapsedMs = parseInt(matches[7]),
+        pv = matches[8];
+
+    // time is negative on safari
+    if (!elapsedMs || elapsedMs < 0) elapsedMs = (new Date() - work.startedAt)
 
     // Track max pv index to determine when pv prints are done.
     if (expectedPvs < multiPv) expectedPvs = multiPv;
@@ -69,13 +71,13 @@ module.exports = function(worker, opts) {
         fen: work.currentFen,
         maxDepth: work.maxDepth,
         depth: depth,
-        nps: nps,
+        knps: nodes / elapsedMs,
         nodes: nodes,
         best: pvData.best,
         cp: pvData.cp,
         mate: pvData.mate,
         pvs: [pvData],
-        millis: elapsedMs,
+        millis: elapsedMs
       };
     } else if (curEval) {
       curEval.pvs.push(pvData);
@@ -91,6 +93,7 @@ module.exports = function(worker, opts) {
   return {
     start: function(w) {
       work = w;
+      work.startedAt = new Date();
       curEval = null;
       stopped = null;
       expectedPvs = 1;
