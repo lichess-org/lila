@@ -11,7 +11,8 @@ import lila.user.User
 
 final class EvalCacheApi(
     coll: Coll,
-    truster: EvalCacheTruster) {
+    truster: EvalCacheTruster,
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   import EvalCacheEntry._
   import BSONHandlers._
@@ -28,11 +29,21 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
+  private val cache = asyncCache.multi[SmallFen, Option[EvalCacheEntry]](
+    name = "eval_cache",
+    f = fetchAndSetAccess,
+    expireAfter = _.ExpireAfterAccess(10 minutes))
+
   private def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
     _.flatMap(_ bestMultiPvEval multiPv)
   }
 
-  private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = coll.find($id(fen)).one[EvalCacheEntry]
+  private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = cache get fen
+
+  private def fetchAndSetAccess(fen: SmallFen): Fu[Option[EvalCacheEntry]] =
+    coll.find($id(fen)).one[EvalCacheEntry] addEffect { res =>
+      if (res.isDefined) coll.updateFieldUnchecked($id(fen), "accessedAt", DateTime.now)
+    }
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.smallFen) map {
     case None =>
@@ -41,10 +52,15 @@ final class EvalCacheApi(
         nbMoves = destSize(input.fen),
         evals = List(input trusted trustedUser.trust),
         accessedAt = DateTime.now)
-      coll insert entry recover lila.db.recoverDuplicateKey(_ => ()) void
+      coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+        cache.refreshWith(input.smallFen, entry.some)
     case Some(oldEntry) =>
       val entry = oldEntry add input.trusted(trustedUser.trust)
-      !entry.similarTo(oldEntry) ?? coll.update($id(entry.fen), entry, upsert = true).void
+      !(entry similarTo oldEntry) ?? {
+        coll.update($id(entry.fen), entry, upsert = true).void >>-
+          cache.refreshWith(input.smallFen, entry.some)
+      }
+
   }
 
   private def destSize(fen: FEN): Int =
