@@ -34,11 +34,19 @@ final class EvalCacheApi(
 
   private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = coll.find($id(fen)).one[EvalCacheEntry]
 
-  private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.fen) map {
-    case None => coll.insert(input entry trustedUser.trust) recover lila.db.recoverDuplicateKey(_ => ()) void
+  private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.smallFen) map {
+    case None =>
+      val entry = EvalCacheEntry(
+        _id = input.smallFen,
+        maxMultiPv = destSize(input.fen),
+        evals = List(input trusted trustedUser.trust),
+        accessedAt = DateTime.now)
+      coll insert entry recover lila.db.recoverDuplicateKey(_ => ()) void
     case Some(oldEntry) =>
       val entry = oldEntry add input.trusted(trustedUser.trust)
       !entry.similarTo(oldEntry) ?? coll.update($id(entry.fen), entry, upsert = true).void
   }
 
+  private def destSize(fen: FEN): Int =
+    chess.Game(chess.variant.Standard.some, fen.value.some).situation.destinations.size
 }

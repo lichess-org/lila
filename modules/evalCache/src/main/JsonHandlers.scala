@@ -11,6 +11,9 @@ import lila.user.User
 
 object JsonHandlers {
 
+  private implicit val cpWriter = intAnyValWriter[Cp](_.value)
+  private implicit val mateWriter = intAnyValWriter[Mate](_.value)
+
   def writeEval(e: Eval, fen: FEN) = Json.obj(
     "fen" -> fen.value,
     "nodes" -> e.nodes,
@@ -18,13 +21,9 @@ object JsonHandlers {
     "pvs" -> e.pvs.list.map(writePv))
 
   private def writePv(pv: Pv) = Json.obj(
-    "best" -> pv.moves.value.head.uci,
     "pv" -> pv.moves.value.list.map(_.uci).mkString(" "))
     .add("cp", pv.score.cp)
     .add("mate", pv.score.mate)
-
-  private implicit val cpWriter = intAnyValWriter[Cp](_.value)
-  private implicit val mateWriter = intAnyValWriter[Mate](_.value)
 
   def readPut(user: User, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
