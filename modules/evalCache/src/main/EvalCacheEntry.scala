@@ -20,8 +20,12 @@ case class EvalCacheEntry(
     evals = EvalCacheSelector(trustedEval :: evals),
     accessedAt = DateTime.now)
 
-  def bestMultiPvEval(multiPv: Int): Option[Eval] =
-    evals.map(_.eval).find(_.multiPv >= multiPv.atMost(nbMoves))
+  // finds the best eval with at least multiPv pvs,
+  // and truncates its pvs to multiPv
+  def makeBestMultiPvEval(multiPv: Int): Option[Eval] =
+    evals
+      .find(_.eval.multiPv >= multiPv.atMost(nbMoves))
+      .map(_.eval takePvs multiPv)
 
   def similarTo(other: EvalCacheEntry) =
     fen == other.fen && evals == other.evals
@@ -55,6 +59,9 @@ object EvalCacheEntry {
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
+
+    def takePvs(multiPv: Int) = copy(
+      pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1)))
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }

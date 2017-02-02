@@ -39,7 +39,7 @@ final class EvalCacheApi(
     expireAfter = _.ExpireAfterAccess(10 minutes))
 
   private def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
-    _.flatMap(_ bestMultiPvEval multiPv)
+    _.flatMap(_ makeBestMultiPvEval multiPv)
   }
 
   private def getEntry(fen: SmallFen): Fu[Option[EvalCacheEntry]] = cache get fen
