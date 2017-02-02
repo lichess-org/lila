@@ -34,7 +34,7 @@ module.exports = function(opts) {
     onCeval: throttle(1000, false, function() {
       var node = opts.getNode();
       var eval = node.ceval;
-      if (eval && !eval.cloud && !eval.dict && opts.canPut() &&
+      if (eval && !eval.cloud && !eval.dict && opts.canPut(node) &&
         (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes) &&
         (node.fen.split(' ', 1)[0] !== initialBoardFen || eval.depth >= 27)
       ) {
@@ -42,8 +42,7 @@ module.exports = function(opts) {
       }
     }),
     mutateAnaDestsReq: function(req) {
-      console.log(req, opts.canGet(), opts.getCeval().enabled());
-      if (opts.canGet() && opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
+      if (opts.canGet(opts.getNode()) && opts.getCeval().enabled()) req.multiPv = parseInt(opts.getCeval().multiPv());
     },
     onDests: function(data) {
       if (data.eval) {

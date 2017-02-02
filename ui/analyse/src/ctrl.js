@@ -653,14 +653,17 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  var canEvalGet = function() {
-    return (opts.study || this.vm.node.ply < 10) && this.data.game.variant.key === 'standard'
+  var canEvalGet = function(node) {
+    return (opts.study || node.ply < 10) && this.data.game.variant.key === 'standard'
   }.bind(this);
 
   this.evalCache = makeEvalCache({
     canGet: canEvalGet,
-    canPut: function() {
-      return this.data.evalPut && canEvalGet();
+    canPut: function(node) {
+      return this.data.evalPut && canEvalGet(node) && (
+        // if not in study, only put decent opening moves
+        opts.study || (node.ply < 10 && !node.ceval.mate && Math.abs(node.ceval.cp) < 99)
+      );
     }.bind(this),
     getCeval: this.getCeval,
     getNode: function() {
