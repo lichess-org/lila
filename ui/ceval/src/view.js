@@ -33,7 +33,7 @@ function localEvalInfo(ctrl, evs) {
         ceval.goDeeper();
       }
     }, 'Go deeper'))
-  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
+  else if (evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
@@ -41,7 +41,7 @@ function threatInfo(threat) {
   if (!threat) return 'Loading engine...';
   if (threat.dict) return 'Book move';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
-  if (threat.nps) t += ', ' + Math.round(threat.nps / 1000) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
 
