@@ -11,10 +11,11 @@ function qualityCheck(eval) {
   return eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes;
 }
 
-function makeEvalPutData(eval) {
+// from client eval to server eval
+function toPutData(eval) {
   return {
     fen: eval.fen,
-    nodes: eval.nodes,
+    knodes: Math.round(eval.nodes / 1000),
     depth: eval.depth,
     pvs: eval.pvs.map(function(pv) {
       return {
@@ -26,14 +27,28 @@ function makeEvalPutData(eval) {
   };
 }
 
-function expandCloudEval(e) {
-  if (defined(e.pvs[0].cp)) e.cp = e.pvs[0].cp;
-  else e.mate = e.pvs[0].mate;
-  e.pvs.forEach(function(pv) {
-    pv.best = pv.pv.split(' ', 1)[0];
-  });
-  e.best = e.pvs[0].best;
-  e.cloud = e.depth;
+// from server eval to client eval
+function toCeval(e) {
+  var res = {
+    fen: e.fen,
+    nodes: e.knodes * 1000,
+    depth: e.depth,
+    pvs: e.pvs.map(function(from) {
+      var to = {
+        pv: from.moves,
+        best: from.moves.split(' ', 1)[0]
+      };
+      if (defined(from.cp)) to.cp = from.cp;
+      else to.mate = from.mate;
+      return to;
+    }),
+    cloud: true
+  };
+  if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
+  else res.mate = res.pvs[0].mate;
+  res.best = res.pvs[0].best;
+  res.cloud = res.depth;
+  return res;
 }
 
 module.exports = function(opts) {
@@ -43,10 +58,8 @@ module.exports = function(opts) {
       var node = opts.getNode();
       var eval = node.ceval;
       if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {
-        eval.cloud = true;
-        var data = makeEvalPutData(eval);
-        console.log(data, 'to cloud');
-        opts.send("evalPut", data);
+        eval.cloud = eval.depth;
+        opts.send("evalPut", toPutData(eval));
       }
     }),
     fetch: function(path, multiPv) {
@@ -60,11 +73,8 @@ module.exports = function(opts) {
         path: path
       });
     },
-    onCloudEval: function(eval) {
-      expandCloudEval(eval);
-      var path = eval.path;
-      delete eval.path;
-      opts.receive(eval, path);
+    onCloudEval: function(serverEval) {
+      opts.receive(toCeval(serverEval), serverEval.path);
     }
   };
 };

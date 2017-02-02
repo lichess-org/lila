@@ -39,7 +39,7 @@ object EvalCacheEntry {
 
   case class Eval(
       pvs: NonEmptyList[Pv],
-      nodes: Int,
+      knodes: Knodes,
       depth: Int,
       by: lila.user.User.ID,
       date: DateTime) {
@@ -51,13 +51,15 @@ object EvalCacheEntry {
     def bestMove: Uci = bestPv.moves.value.head
 
     def isValid = pvs.list.forall(_.isValid) && {
-      pvs.list.forall(_.score.mateFound) || (nodes >= MIN_NODES || depth >= MIN_DEPTH)
+      pvs.list.forall(_.score.mateFound) || (knodes.value >= MIN_NODES || depth >= MIN_DEPTH)
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }
+
+  case class Knodes(value: Int) extends AnyVal
 
   case class Pv(score: Score, moves: Moves) {
 

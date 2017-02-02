@@ -31,9 +31,9 @@ object EvalCacheSelector {
 
   private def ranking(te: TrustedEval): (Double, Double, Double) = {
     // if well trusted, only rank on depth and tie on nodes
-    if (greatTrust(te.trust)) (99999, te.eval.depth, te.eval.nodes)
+    if (greatTrust(te.trust)) (99999, te.eval.depth, te.eval.knodes.value)
     // else, rank on trust, and tie on depth then nodes
-    else (te.trust.value, te.eval.depth, te.eval.nodes)
+    else (te.trust.value, te.eval.depth, te.eval.knodes.value)
   }
 
   //     {multiPv:4,depth:30} makes {multiPv:2,depth:25} obsolete,
@@ -42,5 +42,5 @@ object EvalCacheSelector {
     a.multiPv > b.multiPv && a.depth >= b.depth
 
   // for sorting
-  def negativeNodesAndDepth(te: TrustedEval) = (-te.eval.depth, -te.eval.nodes)
+  def negativeNodesAndDepth(te: TrustedEval) = (-te.eval.depth, -te.eval.knodes.value)
 }

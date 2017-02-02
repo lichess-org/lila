@@ -16,6 +16,7 @@ object BSONHandlers {
     _.value,
     v => SmallFen raw FEN(v))
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
+  private implicit val KnodesBSONHandler = intAnyValHandler[Knodes](_.value, Knodes.apply)
 
   implicit val PvHandler = new BSONHandler[BSONString, Pv] {
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
