@@ -653,17 +653,15 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  var isStandard = function() {
-    return this.data.game.variant.key === 'standard'
+  var canEvalGet = function() {
+    return (opts.study || this.vm.node.ply < 10) && this.data.game.variant.key === 'standard'
   }.bind(this);
 
   this.evalCache = makeEvalCache({
-    canGet: function() {
-      return opts.study && isStandard();
-    },
+    canGet: canEvalGet,
     canPut: function() {
-      return opts.study && opts.study.evalPut && isStandard();
-    },
+      return this.data.evalPut && canEvalGet();
+    }.bind(this),
     getCeval: this.getCeval,
     getNode: function() {
       return this.vm.node;

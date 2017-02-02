@@ -1,4 +1,5 @@
 var throttle = require('common').throttle;
+var initialBoardFen = require('chessground').fen.initial;
 
 var evalPutMinDepth = 20;
 var evalPutMinNodes = 3e6;
@@ -31,9 +32,12 @@ function makeEvalPutData(eval) {
 module.exports = function(opts) {
   return {
     onCeval: throttle(1000, false, function() {
-      var eval = opts.getNode().ceval;
-      if (eval && !eval.cloud && !eval.dict && opts.canPut() && (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes)) {
-        console.log(eval, 'to cloud');
+      var node = opts.getNode();
+      var eval = node.ceval;
+      if (eval && !eval.cloud && !eval.dict && opts.canPut() &&
+        (eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes) &&
+        (node.fen.split(' ', 1)[0] !== initialBoardFen || eval.depth >= 27)
+      ) {
         opts.send("evalPut", makeEvalPutData(eval));
       }
     }),

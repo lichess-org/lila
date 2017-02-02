@@ -1,4 +1,4 @@
-package lila.practice
+package lila.analyse
 
 import akka.actor._
 import play.api.libs.json._
@@ -7,12 +7,12 @@ import lila.common.PimpedJson._
 import lila.socket._
 import lila.user.User
 
-private[practice] final class PracticeSocketHandler(
+private[analyse] final class AnalyseSocketHandler(
     socket: akka.actor.ActorRef,
     hub: lila.hub.Env,
     evalCache: lila.evalCache.EvalCacheApi) {
 
-  import PracticeSocket._
+  import AnalyseSocket._
   import Handler.AnaRateLimit
 
   private def controller(

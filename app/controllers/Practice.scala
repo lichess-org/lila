@@ -53,7 +53,7 @@ object Practice extends LilaController {
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
+      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false, me = ctx.me) zip
         studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
           case (baseData, studyJson) =>
             val analysis = baseData ++ Json.obj(
@@ -63,12 +63,6 @@ object Practice extends LilaController {
               "practiceGoal" -> lila.practice.PracticeGoal(chapter))
             (analysis, studyJson)
         }
-  }
-
-  def socket = SocketOption { implicit ctx =>
-    getSocketUid("sri") ?? { uid =>
-      Env.practice.socketHandler.join(uid, ctx.me) map some
-    }
   }
 
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>

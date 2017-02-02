@@ -93,7 +93,7 @@ object Study extends LilaController {
           _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
           _ = if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
           pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false)
+          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false, me = ctx.me)
           studyJson <- env.jsonView(study, chapters, chapter, ctx.me)
           data = lila.study.JsonView.JsData(
             study = studyJson,
@@ -168,7 +168,7 @@ object Study extends LilaController {
         case WithChapter(study, chapter) => CanViewResult(study) {
           val setup = chapter.setup
           val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
-          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
+          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false, me = ctx.me) zip
             env.jsonView(study.copy(
               members = lila.study.StudyMembers(Map.empty) // don't need no members
             ), List(chapter.metadata), chapter, ctx.me) flatMap {

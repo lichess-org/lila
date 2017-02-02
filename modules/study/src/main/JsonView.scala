@@ -43,10 +43,7 @@ final class JsonView(
           "features" -> Json.obj(
             "computer" -> allowed(study.settings.computer),
             "explorer" -> allowed(study.settings.explorer)
-          )
-        ),
-        "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
-      )
+          )))
     }
   }.chronometer
     // .mon(_.fishnet.acquire time client.skill.key)

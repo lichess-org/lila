@@ -10,7 +10,7 @@ module.exports = function(send, ctrl) {
 
   var anaDestsCache = (
     ctrl.data.game.variant.key === 'standard' &&
-    ctrl.tree.root.fen.split(' ')[0] === initialBoardFen
+    ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
   ) ? {
     '': {
       path: '',

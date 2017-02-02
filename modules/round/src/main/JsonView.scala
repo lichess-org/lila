@@ -24,6 +24,7 @@ final class JsonView(
     getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
     divider: lila.game.Divider,
+    evalCache: lila.evalCache.EvalCacheApi,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
 
@@ -200,7 +201,12 @@ final class JsonView(
     if (l.deleted) j + ("d" -> JsBoolean(true)) else j
   }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color, owner: Boolean) =
+  def userAnalysisJson(
+    pov: Pov,
+    pref: Pref,
+    orientation: chess.Color,
+    owner: Boolean,
+    me: Option[User]) =
     (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
       import pov._
       val fen = Forsyth >> game.toChess
@@ -235,7 +241,8 @@ final class JsonView(
           "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
         ),
         "path" -> pov.game.turns,
-        "userAnalysis" -> true)
+        "userAnalysis" -> true,
+        "evalPut" -> JsBoolean(me.??(evalCache.shouldPut)))
     }
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(

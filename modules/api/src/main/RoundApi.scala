@@ -6,6 +6,7 @@ import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
+import lila.user.User
 import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
@@ -95,15 +96,15 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
-      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
+      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner, me = me) map
         withTree(pov, analysis = none, initialFen, withOpening = true)_ map
         withForecast(pov, owner, fco)_
     }
 
-  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
-    jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User]) =
+    jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me) map
       withTree(pov, analysis = none, initialFen, withOpening = true)_
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =

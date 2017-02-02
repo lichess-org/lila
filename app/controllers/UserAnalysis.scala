@@ -34,7 +34,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
     val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
-    Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false) map { data =>
+    Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
       Ok(html.board.userAnalysis(data, pov))
     }
   }
@@ -79,10 +79,16 @@ object UserAnalysis extends LilaController with TheftPrevention {
     OptionFuResult(GameRepo game id) { game =>
       GameRepo initialFen game.id flatMap { initialFen =>
         val pov = Pov(game, chess.Color(color == "white"))
-        Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov)) map { data =>
+        Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) map { data =>
           Ok(html.board.userAnalysis(data, pov))
         }
       } map NoCache
+    }
+  }
+
+  def socket = SocketOption { implicit ctx =>
+    getSocketUid("sri") ?? { uid =>
+      Env.analyse.socketHandler.join(uid, ctx.me) map some
     }
   }
 
@@ -95,7 +101,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>
             val pov = Pov(game, chess.White)
-            Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen.map(_.value), pov.color, owner = false) map { data =>
+            Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen.map(_.value), pov.color, owner = false, me = ctx.me) map { data =>
               Ok(data)
             }
         })

@@ -34,6 +34,7 @@ final class Env(
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
+    evalCache: lila.evalCache.EvalCacheApi,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -180,6 +181,7 @@ final class Env(
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
     divider = divider,
+    evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)
 
@@ -241,5 +243,6 @@ object Env {
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,
+    evalCache = lila.evalCache.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

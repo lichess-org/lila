@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import lila.analyse.Analysis
 import lila.common.ApiVersion
 import lila.game.Pov
+import lila.user.User
 import lila.pref.Pref
 
 private[api] final class RoundApiBalancer(
@@ -32,8 +33,8 @@ private[api] final class RoundApiBalancer(
       withDivision: Boolean = false,
       withOpening: Boolean = false,
       ctx: Context)
-    case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean)
-    case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color)
+    case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User])
+    case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User])
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
@@ -49,10 +50,10 @@ private[api] final class RoundApiBalancer(
             api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
           case Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) =>
             api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening)(ctx)
-          case UserAnalysis(pov, pref, initialFen, orientation, owner) =>
-            api.userAnalysisJson(pov, pref, initialFen, orientation, owner)
-          case FreeStudy(pov, pref, initialFen, orientation) =>
-            api.freeStudyJson(pov, pref, initialFen, orientation)
+          case UserAnalysis(pov, pref, initialFen, orientation, owner, me) =>
+            api.userAnalysisJson(pov, pref, initialFen, orientation, owner, me)
+          case FreeStudy(pov, pref, initialFen, orientation, me) =>
+            api.freeStudyJson(pov, pref, initialFen, orientation, me)
         }
       })), "api.round.router")
   }
@@ -83,9 +84,9 @@ private[api] final class RoundApiBalancer(
     router ? Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean): Fu[JsObject] =
-    router ? UserAnalysis(pov, pref, initialFen, orientation, owner) mapTo manifest[JsObject]
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]): Fu[JsObject] =
+    router ? UserAnalysis(pov, pref, initialFen, orientation, owner, me) mapTo manifest[JsObject]
 
-  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color): Fu[JsObject] =
-    router ? FreeStudy(pov, pref, initialFen, orientation) mapTo manifest[JsObject]
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User]): Fu[JsObject] =
+    router ? FreeStudy(pov, pref, initialFen, orientation, me) mapTo manifest[JsObject]
 }

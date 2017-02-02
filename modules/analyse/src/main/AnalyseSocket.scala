@@ -1,4 +1,4 @@
-package lila.practice
+package lila.analyse
 
 import scala.concurrent.duration.FiniteDuration
 
@@ -8,10 +8,10 @@ import play.api.libs.json.JsValue
 
 import lila.socket._
 
-private final class PracticeSocket(
-    timeout: FiniteDuration) extends SocketActor[PracticeSocket.Member](timeout) {
+private final class AnalyseSocket(
+    timeout: FiniteDuration) extends SocketActor[AnalyseSocket.Member](timeout) {
 
-  import PracticeSocket._
+  import AnalyseSocket._
 
   def receiveSpecific = {
 
@@ -24,7 +24,7 @@ private final class PracticeSocket(
   }
 }
 
-private object PracticeSocket {
+private object AnalyseSocket {
 
   case class Member(
       channel: JsChannel,
