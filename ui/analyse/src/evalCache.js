@@ -29,7 +29,10 @@ function makeEvalPutData(eval) {
 function expandCloudEval(e) {
   if (defined(e.pvs[0].cp)) e.cp = e.pvs[0].cp;
   else e.mate = e.pvs[0].mate;
-  e.best = e.pvs[0].pv.split(' ', 1)[0];
+  e.pvs.forEach(function(pv) {
+    pv.best = pv.pv.split(' ', 1)[0];
+  });
+  e.best = e.pvs[0].best;
   e.cloud = e.depth;
 }
 
