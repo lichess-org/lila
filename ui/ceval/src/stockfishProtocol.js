@@ -3,7 +3,7 @@ var m = require('mithril');
 var EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
   + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|lower)bound )?nodes (\d+) nps (\d+) /.source
+  + /(?:(upper|lower)bound )?nodes (\d+) nps \d+ /.source
   + /(?:hashfull \d+ )?tbhits \d+ time ([^\s]+) /.source
   + /pv (.+)/.source);
 
@@ -41,9 +41,8 @@ module.exports = function(worker, opts) {
         eval = parseInt(matches[4]),
         evalType = matches[5],
         nodes = parseInt(matches[6]),
-        nps = parseInt(matches[7]),
-        elapsedMs = parseInt(matches[8]),
-        pv = matches[9];
+        elapsedMs = parseInt(matches[7]),
+        pv = matches[8];
 
     // time is negative on safari
     if (!elapsedMs || elapsedMs < 0) elapsedMs = (new Date() - work.startedAt)
@@ -72,7 +71,7 @@ module.exports = function(worker, opts) {
         fen: work.currentFen,
         maxDepth: work.maxDepth,
         depth: depth,
-        nps: nps,
+        knps: nodes / elapsedMs,
         nodes: nodes,
         best: pvData.best,
         cp: pvData.cp,
