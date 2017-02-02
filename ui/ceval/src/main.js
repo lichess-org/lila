@@ -4,6 +4,6 @@ module.exports = {
   winningChances: require('./winningChances.js'),
   pv2san: require('./pv2san'),
   isEvalBetter: function(a, b) {
-    return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
+    return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
   }
 };

@@ -379,8 +379,8 @@ module.exports = function(opts) {
     this.chessground.playPremove();
   }.bind(this);
 
-  this.addDests = function(dests, path, opening, eval) {
-    this.tree.addDests(dests, path, opening, eval);
+  this.addDests = function(dests, path, opening) {
+    this.tree.addDests(dests, path, opening);
     if (path === this.vm.path) {
       showGround();
       m.redraw();
@@ -510,7 +510,10 @@ module.exports = function(opts) {
 
   this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled()) {
-      if (canUseCeval()) this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
+      if (canUseCeval()) {
+        this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
+        this.evalCache.fetch(parseInt(this.ceval.multiPv()));
+      }
       else this.ceval.stop();
     }
   }.bind(this));
@@ -662,7 +665,6 @@ module.exports = function(opts) {
         opts.study || (node.ply < 10 && !node.ceval.mate && Math.abs(node.ceval.cp) < 99)
       );
     }.bind(this),
-    getCeval: this.getCeval,
     getNode: function() {
       return this.vm.node;
     }.bind(this),

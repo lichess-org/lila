@@ -1,6 +1,8 @@
+var m = require('mithril');
 var throttle = require('common').throttle;
 var initialBoardFen = require('chessground').fen.initial;
 var defined = require('common').defined;
+var isEvalBetter = require('ceval').isEvalBetter;
 
 var evalPutMinDepth = 20;
 var evalPutMinNodes = 3e6;
@@ -30,7 +32,6 @@ function expandCloudEval(e) {
   if (defined(e.pvs[0].mate)) e.mate = e.pvs[0].mate;
   e.best = e.pvs[0].pv.split(' ', 1)[0];
   e.cloud = e.depth;
-  return e;
 }
 
 module.exports = function(opts) {
@@ -45,6 +46,22 @@ module.exports = function(opts) {
         console.log(data, 'to cloud');
         opts.send("evalPut", data);
       }
-    })
+    }),
+    fetch: function(multiPv) {
+      var node = opts.getNode();
+      if ((!node.ceval || !node.ceval.cloud) && opts.canGet(node)) opts.send("evalGet", {
+        fen: node.fen,
+        mpv: multiPv
+      });
+    },
+    onCloudEval: function(eval) {
+      var node = opts.getNode();
+      if (node.fen !== eval.fen) return; // browsed away already
+      expandCloudEval(eval);
+      if (isEvalBetter(eval, node.ceval)) {
+        node.ceval = eval;
+        m.redraw();
+      }
+    }
   };
 };

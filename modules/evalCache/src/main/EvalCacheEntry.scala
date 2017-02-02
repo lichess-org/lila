@@ -8,7 +8,7 @@ import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
     _id: EvalCacheEntry.SmallFen,
-    maxMultiPv: Int, // multipv cannot be greater than number of legal moves
+    nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.TrustedEval],
     accessedAt: DateTime) {
 
@@ -21,7 +21,7 @@ case class EvalCacheEntry(
     accessedAt = DateTime.now)
 
   def bestMultiPvEval(multiPv: Int): Option[Eval] =
-    evals.map(_.eval).find(_.multiPv >= multiPv.atMost(maxMultiPv))
+    evals.map(_.eval).find(_.multiPv >= multiPv.atMost(nbMoves))
 
   def similarTo(other: EvalCacheEntry) =
     fen == other.fen && evals == other.evals

@@ -46,6 +46,9 @@ module.exports = function(send, ctrl) {
     },
     analysisProgress: function(data) {
       ctrl.mergeAnalysisData(data);
+    },
+    evalHit: function(e) {
+      ctrl.evalCache.onCloudEval(e);
     }
   };
 

@@ -38,7 +38,7 @@ final class EvalCacheApi(
     case None =>
       val entry = EvalCacheEntry(
         _id = input.smallFen,
-        maxMultiPv = destSize(input.fen),
+        nbMoves = destSize(input.fen),
         evals = List(input trusted trustedUser.trust),
         accessedAt = DateTime.now)
       coll insert entry recover lila.db.recoverDuplicateKey(_ => ()) void

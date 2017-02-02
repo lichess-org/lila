@@ -106,7 +106,6 @@ module.exports = function(root) {
     var newPath = path + node.id;
     var existing = nodeAtPathOrNull(newPath);
     if (existing) {
-      console.log(node, existing, 'tree.addNode existing');
       if (defined(node.dests) && !defined(existing.dests)) existing.dests = node.dests;
       return newPath;
     }
@@ -179,11 +178,10 @@ module.exports = function(root) {
     updateAt: updateAt,
     addNode: addNode,
     addNodes: addNodes,
-    addDests: function(dests, path, opening, eval) {
+    addDests: function(dests, path, opening) {
       return updateAt(path, function(node) {
         node.dests = dests;
         if (opening) node.opening = opening;
-        if (eval) node.ceval = eval;
       });
     },
     setShapes: function(shapes, path) {

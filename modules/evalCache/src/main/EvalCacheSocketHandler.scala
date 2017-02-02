@@ -25,7 +25,7 @@ final class EvalCacheSocketHandler(
       fen <- d str "fen"
       multiPv <- d int "mpv"
     } api.getEvalJson(FEN(fen), multiPv) foreach { json =>
-      member push Socket.makeMessage("eval", json)
+      member push Socket.makeMessage("evalHit", json)
     }
   }
 }
