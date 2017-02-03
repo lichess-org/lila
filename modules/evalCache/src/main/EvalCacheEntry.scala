@@ -44,8 +44,7 @@ object EvalCacheEntry {
       knodes: Knodes,
       depth: Int,
       by: lila.user.User.ID,
-      trust: Trust,
-      date: DateTime) {
+      trust: Trust) {
 
     def multiPv = pvs.size
 

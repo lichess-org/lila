@@ -40,8 +40,7 @@ object JsonHandlers {
     knodes = Knodes(knodes),
     depth = depth,
     by = trustedUser.user.id,
-    trust = trustedUser.trust,
-    date = DateTime.now))
+    trust = trustedUser.trust))
 
   private def parsePv(d: JsObject): Option[Pv] = for {
     movesStr <- d str "moves"
