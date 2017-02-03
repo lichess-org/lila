@@ -16,7 +16,7 @@ object BSONHandlers {
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
   private implicit val KnodesBSONHandler = intAnyValHandler[Knodes](_.value, Knodes.apply)
 
-  implicit val PvHandler = new BSONHandler[BSONString, Pv] {
+  implicit val PvsHandler = new BSONHandler[BSONString, NonEmptyList[Pv]] {
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") parseIntOption(str drop 1) map { m => Score mate Mate(m) }
@@ -24,14 +24,21 @@ object BSONHandlers {
     private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.list
     private def movesRead(str: String): Option[Moves] =
       Uci readListPiotr str flatMap (_.toNel) map Moves.apply
-    private val separator = '|'
-    def read(bs: BSONString): Pv = bs.value.split(separator) match {
-      case Array(score, moves) => Pv(
-        scoreRead(score) err s"Invalid score $score",
-        movesRead(moves) err s"Invalid moves $moves")
-      case _ => sys error s"Invalid PV ${bs.value}"
+    private val scoreSeparator = ':'
+    private val pvSeparator = "|"
+    def read(bs: BSONString): NonEmptyList[Pv] = bs.value.split(pvSeparator).toList.map { pvStr =>
+      pvStr.split(scoreSeparator) match {
+        case Array(score, moves) => Pv(
+          scoreRead(score) err s"Invalid score $score",
+          movesRead(moves) err s"Invalid moves $moves")
+        case _ => sys error s"Invalid PV ${bs.value}"
+      }
+    }.toNel err s"Empty PVs ${bs.value}"
+    def write(x: NonEmptyList[Pv]) = BSONString {
+      x.list.map { pv =>
+        s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
+      } mkString pvSeparator
     }
-    def write(x: Pv) = BSONString(s"${scoreWrite(x.score)}$separator${movesWrite(x.moves)}")
   }
 
   implicit val evalHandler = Macros.handler[Eval]
