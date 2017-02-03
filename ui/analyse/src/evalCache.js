@@ -5,7 +5,7 @@ var isEvalBetter = require('ceval').isEvalBetter;
 
 var evalPutMinDepth = 20;
 var evalPutMinNodes = 3e6;
-var evalPutMaxMoves = 8;
+var evalPutMaxMoves = 10;
 
 function qualityCheck(eval) {
   return eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes;

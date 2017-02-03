@@ -36,7 +36,7 @@ object EvalCacheEntry {
   val MIN_KNODES = 3000
   val MIN_DEPTH = 20
   val MIN_PV_SIZE = 6
-  val MAX_PV_SIZE = 8
+  val MAX_PV_SIZE = 10
   val MAX_MULTI_PV = 5
 
   case class Eval(
