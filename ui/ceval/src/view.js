@@ -34,8 +34,10 @@ function localEvalInfo(ctrl, evs) {
       evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
     ))
     t.push(m('a.deeper', {
+      title: 'Go deeper',
+      'data-icon': 'O',
       onclick: ceval.goDeeper
-    }, 'Go deeper'))
+    }))
   else if (evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
