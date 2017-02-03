@@ -7,3 +7,12 @@ module.exports = {
     return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
   }
 };
+
+// stop when another tab starts. Listen only once.
+lichess.storage.make('ceval.pool.start').listen(function() {
+  var toggle = document.getElementById('analyse-toggle-ceval');
+  if (toggle && toggle.checked) {
+    console.log('ceval.pool.start, closing ceval');
+    $('#analyse-toggle-ceval').click();
+  }
+});
