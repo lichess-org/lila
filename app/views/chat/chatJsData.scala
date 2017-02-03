@@ -8,12 +8,25 @@ import lila.common.PimpedJson._
 
 object ChatJsData {
 
-  def restricted(chat: lila.chat.Chat.Restricted, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true)(implicit ctx: Context) =
+  def restricted(
+    chat: lila.chat.Chat.Restricted,
+    name: String,
+    timeout: Boolean,
+    public: Boolean, // game players chat is not public
+    withNote: Boolean = false,
+    writeable: Boolean = true)(implicit ctx: Context) =
     json(
-      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, restricted = chat.restricted
+      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, public = public, restricted = chat.restricted
     )
 
-  def json(chat: lila.chat.AnyChat, name: String, timeout: Boolean, withNote: Boolean = false, writeable: Boolean = true, restricted: Boolean = false)(implicit ctx: Context) = Json.obj(
+  def json(
+    chat: lila.chat.AnyChat,
+    name: String,
+    timeout: Boolean,
+    public: Boolean, // game players chat is not public
+    withNote: Boolean = false,
+    writeable: Boolean = true,
+    restricted: Boolean = false)(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
       "name" -> name,
@@ -25,6 +38,7 @@ object ChatJsData {
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
     "noteId" -> withNote.option(chat.id take 8),
+    "public" -> public,
     "kobold" -> ctx.troll,
     "permissions" -> Json.obj(
       "timeout" -> isGranted(_.ChatTimeout).option(true),

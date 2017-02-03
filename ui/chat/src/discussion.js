@@ -64,8 +64,10 @@ function input(ctrl) {
             var kbm = document.querySelector('.keyboard-move input');
             if (kbm) kbm.focus();
           } else {
-            spam.report(e.target.value);
-            ctrl.post(e.target.value);
+            var txt = e.target.value;
+            spam.report(txt);
+            if (ctrl.public && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+            else ctrl.post(txt);
             e.target.value = '';
           }
         }

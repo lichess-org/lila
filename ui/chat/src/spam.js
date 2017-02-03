@@ -1,6 +1,6 @@
 var isSpammer = lichess.storage.make('spammer');
 
-var regex = new RegExp([
+var spamRegex = new RegExp([
   'xcamweb.com',
   'chess-bot',
   'coolteenbitch',
@@ -19,10 +19,15 @@ var regex = new RegExp([
 }).join('|'));
 
 function analyse(txt) {
-  return !!txt.match(regex);
+  return !!txt.match(spamRegex);
 }
 
+var teamUrlRegex = /lichess\.org\/team\//
+
 module.exports = {
+  hasTeamUrl: function(txt) {
+    return !!txt.match(teamUrlRegex);
+  },
   skip: function(txt) {
     return analyse(txt) && isSpammer.get() != '1';
   },
