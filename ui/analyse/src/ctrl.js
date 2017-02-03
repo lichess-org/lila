@@ -432,7 +432,7 @@ module.exports = function(opts) {
 
   this.nextNodeBest = function() {
     return tree.ops.withMainlineChild(this.vm.node, function(n) {
-      return n.eval ? n.eval.moves[0] : null;
+      return n.eval ? n.eval.best : null;
     });
   }.bind(this);
 

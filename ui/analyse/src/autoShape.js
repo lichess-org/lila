@@ -59,7 +59,7 @@ module.exports = {
     }
     if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
     if (ctrl.vm.showAutoShapes() && ctrl.vm.showComputer()) {
-      if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.moves[0], 'paleGreen'));
+      if (n.eval && n.eval.best) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
       if (!hovering) {
         var nextBest = ctrl.nextNodeBest();
         if (!nextBest && instance.enabled() && n.ceval) nextBest = n.ceval.moves[0];
