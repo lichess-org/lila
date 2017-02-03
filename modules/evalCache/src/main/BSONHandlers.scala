@@ -25,19 +25,20 @@ object BSONHandlers {
     private def movesRead(str: String): Option[Moves] =
       Uci readListPiotr str flatMap (_.toNel) map Moves.apply
     private val scoreSeparator = ':'
-    private val pvSeparator = "|"
+    private val pvSeparator = '/'
+    private val pvSeparatorStr = pvSeparator.toString
     def read(bs: BSONString): NonEmptyList[Pv] = bs.value.split(pvSeparator).toList.map { pvStr =>
       pvStr.split(scoreSeparator) match {
         case Array(score, moves) => Pv(
           scoreRead(score) err s"Invalid score $score",
           movesRead(moves) err s"Invalid moves $moves")
-        case _ => sys error s"Invalid PV ${bs.value}"
+        case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${bs.value})"
       }
     }.toNel err s"Empty PVs ${bs.value}"
     def write(x: NonEmptyList[Pv]) = BSONString {
       x.list.map { pv =>
         s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
-      } mkString pvSeparator
+      } mkString pvSeparatorStr
     }
   }
 
