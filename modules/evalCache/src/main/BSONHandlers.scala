@@ -12,9 +12,7 @@ object BSONHandlers {
 
   import EvalCacheEntry._
 
-  implicit val SmallFenBSONHandler = stringAnyValHandler[SmallFen](
-    _.value,
-    v => SmallFen raw FEN(v))
+  implicit val SmallFenBSONHandler = stringAnyValHandler[SmallFen](_.value, SmallFen.raw)
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
   private implicit val KnodesBSONHandler = intAnyValHandler[Knodes](_.value, Knodes.apply)
 

@@ -87,8 +87,12 @@ object EvalCacheEntry {
   final class SmallFen private (val value: String) extends AnyVal
 
   object SmallFen {
-    def raw(fen: FEN) = new SmallFen(fen.value)
-    def make(fen: FEN) = new SmallFen(fen.value.replace("/", "").split(' ').take(4).mkString(" "))
+    private[evalCache] def raw(str: String) = new SmallFen(str)
+    def make(fen: FEN) = new SmallFen(
+      fen.value.split(' ').take(4).mkString("").filter { c =>
+        c != '/' && c != '-' && c != 'w'
+      }
+    )
     def validate(fen: FEN): Option[SmallFen] =
       Forsyth.<<(fen.value).exists(_ playable false) option make(fen)
   }
