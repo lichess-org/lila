@@ -47,7 +47,7 @@ function toCeval(e) {
   if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
   else res.mate = res.pvs[0].mate;
   res.best = res.pvs[0].best;
-  res.cloud = res.depth;
+  res.cloud = true;
   return res;
 }
 
