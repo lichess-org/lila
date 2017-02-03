@@ -52,7 +52,7 @@ lichess.storage = (function() {
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
-            if (e.key === k) f(e);
+            if (e.key === k && e.newValue !== null) f(e);
           });
         }
       };
