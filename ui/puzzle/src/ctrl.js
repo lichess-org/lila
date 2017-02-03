@@ -429,7 +429,7 @@ module.exports = function(opts, i18n) {
     toggleCeval: toggleCeval,
     toggleThreatMode: toggleThreatMode,
     playBestMove: function() {
-      var uci = nextNodeBest() || vm.node.ceval;
+      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.moves[0]);
       if (uci) playUci(uci);
     }
   });

@@ -643,7 +643,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.playBestMove = function() {
-    var uci = this.nextNodeBest() || this.vm.node.ceval;
+    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.moves[0]);
     if (uci) this.playUci(uci);
   }.bind(this);
 
