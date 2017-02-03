@@ -432,7 +432,7 @@ module.exports = function(opts) {
 
   this.nextNodeBest = function() {
     return tree.ops.withMainlineChild(this.vm.node, function(n) {
-      return n.eval ? n.eval.best : null;
+      return n.eval ? n.eval.moves[0] : null;
     });
   }.bind(this);
 
@@ -643,7 +643,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.playBestMove = function() {
-    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
+    var uci = this.nextNodeBest() || this.vm.node.ceval;
     if (uci) this.playUci(uci);
   }.bind(this);
 

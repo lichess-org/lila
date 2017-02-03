@@ -214,11 +214,10 @@ function san(board, uci) {
   return san;
 }
 
-module.exports = function(variant, fen, threat, pv, mate) {
+module.exports = function(variant, fen, threat, moves, mate) {
   var board = readFen(fen);
   if (threat) board.turn = !board.turn;
   var turn = board.turn;
-  var moves = pv.split(' ').slice(0, 10);
 
   var first = true;
   var line = moves.map(function(uci) {

@@ -230,10 +230,10 @@ module.exports = {
     }, range(multiPv).map(function(i) {
       if (!pvs[i]) return m('div.pv');
       else return m('div.pv', threat ? {} : {
-        'data-uci': pvs[i].best
+        'data-uci': pvs[i].moves[0]
       }, [
         multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].moves, pvs[i].mate))
       ]);
     }));
   }

@@ -21,7 +21,7 @@ function toPutData(eval) {
       return {
         cp: pv.cp,
         mate: pv.mate,
-        moves: pv.pv.split(' ', evalPutMaxMoves).join(' ')
+        moves: pv.moves.slice(0, evalPutMaxMoves).join(' ')
       };
     })
   };
@@ -35,8 +35,7 @@ function toCeval(e) {
     depth: e.depth,
     pvs: e.pvs.map(function(from) {
       var to = {
-        pv: from.moves,
-        best: from.moves.split(' ', 1)[0]
+        pv: from.moves.split(' ')
       };
       if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;
@@ -46,7 +45,6 @@ function toCeval(e) {
   };
   if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
   else res.mate = res.pvs[0].mate;
-  res.best = res.pvs[0].best;
   res.cloud = true;
   return res;
 }

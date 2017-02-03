@@ -42,7 +42,7 @@ module.exports = function(worker, opts) {
         evalType = matches[5],
         nodes = parseInt(matches[6]),
         elapsedMs = parseInt(matches[7]),
-        pv = matches[8];
+        moves = matches[8].split(' ', 10);
 
     // time is negative on safari
     if (!elapsedMs || elapsedMs < 0) elapsedMs = (new Date() - work.startedAt)
@@ -59,8 +59,7 @@ module.exports = function(worker, opts) {
     if (evalType && multiPv === 1) return;
 
     var pvData = {
-      best: pv.split(' ', 2)[0],
-      pv: pv,
+      moves: moves,
       cp: isMate ? undefined : eval,
       mate: isMate ? eval : undefined,
       depth: depth,
@@ -73,7 +72,6 @@ module.exports = function(worker, opts) {
         depth: depth,
         knps: nodes / elapsedMs,
         nodes: nodes,
-        best: pvData.best,
         cp: pvData.cp,
         mate: pvData.mate,
         pvs: [pvData],
