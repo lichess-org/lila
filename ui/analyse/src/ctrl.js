@@ -708,7 +708,11 @@ module.exports = function(opts) {
     else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
-      this.practice = makePractice(this);
+      this.practice = makePractice(this, function() {
+        // push to 20 to store AI moves in the cloud
+        // lower to 18 after task completion (or failure)
+        return this.study && this.study.practice && this.study.practice.success() === null ? 20 : 18;
+      }.bind(this));
     }
     this.setAutoShapes();
   }.bind(this);

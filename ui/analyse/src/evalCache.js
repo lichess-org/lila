@@ -54,7 +54,7 @@ function toCeval(e) {
 module.exports = function(opts) {
   var fenSent = [];
   return {
-    onCeval: throttle(1000, false, function() {
+    onCeval: throttle(500, false, function() {
       var node = opts.getNode();
       var eval = node.ceval;
       if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {

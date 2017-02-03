@@ -5,14 +5,13 @@ var pv2san = require('ceval').pv2san;
 var defined = require('common').defined;
 var m = require('mithril');
 
-module.exports = function(root) {
+module.exports = function(root, playableDepth) {
 
   var running = m.prop(true);
   var comment = m.prop();
   var hovering = m.prop();
   var hinting = m.prop();
   var played = m.prop(false);
-  var playableDepth = m.prop(18); // set to 20 to allow cloud push of AI moves
 
   var ensureCevalRunnning = function() {
     if (!root.vm.showComputer()) root.toggleComputer();
