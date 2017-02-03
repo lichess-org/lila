@@ -126,7 +126,7 @@ final class JsonView(
     pov: Pov,
     pref: Pref,
     apiVersion: ApiVersion,
-    user: Option[User],
+    me: Option[User],
     tv: Option[OnTv],
     withBlurs: Boolean,
     initialFen: Option[String] = None,
@@ -192,7 +192,8 @@ final class JsonView(
             ),
             "tv" -> tv.map { onTv =>
               Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
-            }
+            },
+            "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).noNull
       }
 
