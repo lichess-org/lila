@@ -12,6 +12,7 @@ module.exports = function(root) {
   var hovering = m.prop();
   var hinting = m.prop();
   var played = m.prop(false);
+  var playableDepth = m.prop(18); // set to 20 to allow cloud push of AI moves
 
   var ensureCevalRunnning = function() {
     if (!root.vm.showComputer()) root.toggleComputer();
@@ -26,7 +27,7 @@ module.exports = function(root) {
   };
   var playable = function(node) {
     var ceval = node.ceval;
-    return ceval && (ceval.depth >= 18 || (ceval.depth >= 16 && ceval.millis > 7000));
+    return ceval && (ceval.depth >= playableDepth() || (ceval.depth >= 15 && ceval.millis > 5000));
   };
 
   var altCastles = {
@@ -137,6 +138,7 @@ module.exports = function(root) {
     hovering: hovering,
     hinting: hinting,
     resume: resume,
+    playableDepth: playableDepth,
     reset: function() {
       comment(null);
       hinting(null);

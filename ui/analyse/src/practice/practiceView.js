@@ -78,9 +78,8 @@ function renderEnd(root, end) {
 }
 
 var minDepth = 8;
-var maxDepth = 18;
 
-function renderEvalProgress(root) {
+function renderEvalProgress(root, maxDepth) {
   var node = root.vm.node;
   return m('div.progress', m('div', {
     style: {
@@ -97,7 +96,7 @@ function renderRunning(root) {
     m('div.instruction', [
       ctrl.isMyTurn() ? m('strong', 'Your move') : [
         m('strong', 'Computer thinking...'),
-        renderEvalProgress(root)
+        renderEvalProgress(root, ctrl.playableDepth())
       ],
       m('div.choices', [
         ctrl.isMyTurn() ? m('a', {
