@@ -250,7 +250,7 @@ body.piece_letter .pv_box .pv span {
 }
 .ceval_box pearl {
   flex: 0 0 75px;
-  line-height: 38px;
+  line-height: 40px;
   font-size: 2em;
   text-align: center;
   font-weight: bold;
@@ -275,14 +275,27 @@ body.piece_letter .pv_box .pv span {
   margin-left: 5px;
   text-transform: uppercase;
 }
+.ceval_box .cloud {
+  margin-left: 4px;
+  background: rgba(117, 153, 0, 0.7);
+  color: #fff;
+  padding: 0px 3px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 9px;
+}
 .ceval_box .engine .info {
   display: block;
   font-size: 10px;
   white-space: nowrap;
 }
-.ceval_box .engine .info .deeper {
+.ceval_box .deeper {
   color: #3893e8;
-  margin-left: 5px;
+  margin-left: 4px;
+}
+.ceval_box .deeper::before {
+  font-size: 12px;
+  vertical-align: -2px;
 }
 .ceval_box help {
   opacity: 0.7;

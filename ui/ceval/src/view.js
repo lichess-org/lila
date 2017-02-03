@@ -26,7 +26,12 @@ function localEvalInfo(ctrl, evs) {
     return 'Loading engine...';
   }
   var t = evs.client.cloud ? [
-    'Depth ' + (evs.client.depth || 0) + ' (cloud)'
+    [
+      'Depth ' + (evs.client.depth || 0),
+      m('span.cloud', {
+        title: 'Cloud Analysis'
+      }, 'cloud')
+    ]
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
@@ -38,7 +43,7 @@ function localEvalInfo(ctrl, evs) {
       'data-icon': 'O',
       onclick: ceval.goDeeper
     }))
-  else if (evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
