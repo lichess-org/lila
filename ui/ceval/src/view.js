@@ -30,13 +30,11 @@ function localEvalInfo(ctrl, evs) {
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
-  if (ceval.pnaclSupported && !ceval.isDeeper() && (
-      evs.client.depth >= evs.client.maxDepth || (evs.client.cloud && evs.client.depth < 99)
+  if (ceval.canGoDeeper() && (
+      evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
     ))
     t.push(m('a.deeper', {
-      onclick: function() {
-        ceval.goDeeper();
-      }
+      onclick: ceval.goDeeper
     }, 'Go deeper'))
   else if (evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
@@ -125,7 +123,7 @@ module.exports = {
       pearl = renderEval(bestEv.cp);
       percent = ctrl.nextNodeBest() ?
         100 :
-        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
+        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0)
     } else if (bestEv && defined(bestEv.mate)) {
       pearl = '#' + bestEv.mate;
       percent = 100;

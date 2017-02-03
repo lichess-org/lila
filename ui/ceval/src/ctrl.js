@@ -79,12 +79,16 @@ module.exports = function(opts) {
     if (eval.depth === 12) lichess.storage.set('ceval.fen', eval.fen);
   };
 
+  var effectiveMaxDepth = function() {
+    return (isDeeper() || infinite()) ? 99 : maxDepth();
+  };
+
   var start = function(path, steps, threatMode, deeper) {
 
     if (!enabled() || !opts.possible) return;
 
     isDeeper(deeper);
-    var maxD = (deeper || infinite()) ? 99 : maxDepth();
+    var maxD = effectiveMaxDepth();
 
     var step = steps[steps.length - 1];
 
@@ -182,10 +186,13 @@ module.exports = function(opts) {
     curDepth: function() {
       return curEval ? curEval.depth : 0;
     },
-    maxDepth: maxDepth,
+    effectiveMaxDepth: effectiveMaxDepth,
     variant: opts.variant,
     isDeeper: isDeeper,
     goDeeper: goDeeper,
+    canGoDeeper: function() {
+      return pnaclSupported && !isDeeper() && !infinite();
+    },
     destroy: pool.destroy
   };
 };

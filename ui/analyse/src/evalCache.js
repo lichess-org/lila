@@ -58,7 +58,6 @@ module.exports = function(opts) {
       var node = opts.getNode();
       var eval = node.ceval;
       if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {
-        eval.cloud = eval.depth;
         opts.send("evalPut", toPutData(eval));
       }
     }),
