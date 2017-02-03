@@ -2,15 +2,23 @@ package lila.common
 
 object LameName {
 
-  def apply(n: String) = {
-    val name = n.toLowerCase
-    (lameUsernames exists name.contains) ||
-      (lamePrefixes exists name.startsWith) ||
-      (lameSuffixes exists name.endsWith)
+  def apply(name: String) = {
+    val id = name.toLowerCase
+    (lameUsernames exists id.contains) ||
+      (lamePrefixes exists id.startsWith) ||
+      (lameSuffixes exists id.endsWith) ||
+      (uppercaseTitles exists name.startsWith)
   }
 
+  private val titles = for {
+    prefix <- List("", "w")
+    char <- "ncfigl"
+  } yield s"${prefix}${char}m"
+
+  private val uppercaseTitles = titles.map(_.toUpperCase)
+
   private val lamePrefixes = "_" :: "-" :: (for {
-    title <- ("wg" :: "ncfigl".toList).map(_ + "m")
+    title <- titles
     sep <- List("-", "_")
   } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
 
