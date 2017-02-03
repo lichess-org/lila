@@ -10,7 +10,7 @@ case class EvalCacheEntry(
     _id: EvalCacheEntry.SmallFen,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.Eval],
-    accessedAt: DateTime) {
+    usedAt: DateTime) {
 
   import EvalCacheEntry._
 
@@ -18,7 +18,7 @@ case class EvalCacheEntry(
 
   def add(eval: Eval) = copy(
     evals = EvalCacheSelector(eval :: evals),
-    accessedAt = DateTime.now)
+    usedAt = DateTime.now)
 
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv

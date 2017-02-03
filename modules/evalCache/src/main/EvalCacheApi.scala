@@ -46,7 +46,7 @@ final class EvalCacheApi(
 
   private def fetchAndSetAccess(fen: SmallFen): Fu[Option[EvalCacheEntry]] =
     coll.find($id(fen)).one[EvalCacheEntry] addEffect { res =>
-      if (res.isDefined) coll.updateFieldUnchecked($id(fen), "accessedAt", DateTime.now)
+      if (res.isDefined) coll.updateFieldUnchecked($id(fen), "usedAt", DateTime.now)
     }
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.smallFen) map {
@@ -55,7 +55,7 @@ final class EvalCacheApi(
         _id = input.smallFen,
         nbMoves = destSize(input.fen),
         evals = List(input.eval),
-        accessedAt = DateTime.now)
+        usedAt = DateTime.now)
       coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
         cache.put(input.smallFen, entry.some)
     case Some(oldEntry) =>
