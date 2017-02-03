@@ -10,30 +10,30 @@ import EvalCacheEntry._
  */
 object EvalCacheSelector {
 
-  private type Evals = List[TrustedEval]
+  private type Evals = List[Eval]
 
   def apply(evals: Evals): Evals =
     // first, let us group evals by multiPv
-    evals.groupBy(_.eval.multiPv).toList
+    evals.groupBy(_.multiPv).toList
       // and sort the groups by multiPv, higher first
       .sortBy(-_._1).map(_._2)
       // then sort each group's evals, and keep only the best eval in each group
       .map(_ sortBy ranking).map(_.lastOption).flatten
       // now remove obsolete evals
       .foldLeft(Nil: Evals) {
-        case (acc, te) if acc.exists { a => makesObsolete(a.eval, te.eval) } => acc
-        case (acc, te) => acc :+ te
+        case (acc, e) if acc.exists { makesObsolete(_, e) } => acc
+        case (acc, e)                                       => e :: acc
       }
       // and finally ensure ordering by depth and nodes, best first
       .sortBy(negativeNodesAndDepth)
 
   private def greatTrust(t: Trust) = t.value >= 5
 
-  private def ranking(te: TrustedEval): (Double, Double, Double) = {
+  private def ranking(e: Eval): (Double, Double, Double) = {
     // if well trusted, only rank on depth and tie on nodes
-    if (greatTrust(te.trust)) (99999, te.eval.depth, te.eval.knodes.value)
+    if (greatTrust(e.trust)) (99999, e.depth, e.knodes.value)
     // else, rank on trust, and tie on depth then nodes
-    else (te.trust.value, te.eval.depth, te.eval.knodes.value)
+    else (e.trust.value, e.depth, e.knodes.value)
   }
 
   //     {multiPv:4,depth:30} makes {multiPv:2,depth:25} obsolete,
@@ -42,5 +42,5 @@ object EvalCacheSelector {
     a.multiPv > b.multiPv && a.depth >= b.depth
 
   // for sorting
-  def negativeNodesAndDepth(te: TrustedEval) = (-te.eval.depth, -te.eval.knodes.value)
+  def negativeNodesAndDepth(e: Eval) = (-e.depth, -e.knodes.value)
 }

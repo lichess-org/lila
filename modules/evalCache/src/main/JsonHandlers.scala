@@ -26,7 +26,7 @@ object JsonHandlers {
     .add("cp", pv.score.cp)
     .add("mate", pv.score.mate)
 
-  def readPut(user: User, o: JsObject): Option[Input.Candidate] = for {
+  def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
     // variant = chess.variant.Variant orDefault ~d.str("variant")
     // if variant.standard
@@ -39,7 +39,8 @@ object JsonHandlers {
     pvs = pvs,
     knodes = Knodes(knodes),
     depth = depth,
-    by = user.id,
+    by = trustedUser.user.id,
+    trust = trustedUser.trust,
     date = DateTime.now))
 
   private def parsePv(d: JsObject): Option[Pv] = for {

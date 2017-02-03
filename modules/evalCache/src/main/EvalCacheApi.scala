@@ -54,15 +54,15 @@ final class EvalCacheApi(
       val entry = EvalCacheEntry(
         _id = input.smallFen,
         nbMoves = destSize(input.fen),
-        evals = List(input trusted trustedUser.trust),
+        evals = List(input.eval),
         accessedAt = DateTime.now)
       coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
-        cache.refreshWith(input.smallFen, entry.some)
+        cache.put(input.smallFen, entry.some)
     case Some(oldEntry) =>
-      val entry = oldEntry add input.trusted(trustedUser.trust)
+      val entry = oldEntry add input.eval
       !(entry similarTo oldEntry) ?? {
         coll.update($id(entry.fen), entry, upsert = true).void >>-
-          cache.refreshWith(input.smallFen, entry.some)
+          cache.put(input.smallFen, entry.some)
       }
 
   }

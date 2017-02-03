@@ -9,23 +9,23 @@ import lila.tree.Eval.{ Score }
 case class EvalCacheEntry(
     _id: EvalCacheEntry.SmallFen,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
-    evals: List[EvalCacheEntry.TrustedEval],
+    evals: List[EvalCacheEntry.Eval],
     accessedAt: DateTime) {
 
   import EvalCacheEntry._
 
   def fen = _id
 
-  def add(trustedEval: TrustedEval) = copy(
-    evals = EvalCacheSelector(trustedEval :: evals),
+  def add(eval: Eval) = copy(
+    evals = EvalCacheSelector(eval :: evals),
     accessedAt = DateTime.now)
 
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv
   def makeBestMultiPvEval(multiPv: Int): Option[Eval] =
     evals
-      .find(_.eval.multiPv >= multiPv.atMost(nbMoves))
-      .map(_.eval takePvs multiPv)
+      .find(_.multiPv >= multiPv.atMost(nbMoves))
+      .map(_ takePvs multiPv)
 
   def similarTo(other: EvalCacheEntry) =
     fen == other.fen && evals == other.evals
@@ -39,13 +39,12 @@ object EvalCacheEntry {
   val MAX_PV_SIZE = 8
   val MAX_MULTI_PV = 5
 
-  case class TrustedEval(trust: Trust, eval: Eval)
-
   case class Eval(
       pvs: NonEmptyList[Pv],
       knodes: Knodes,
       depth: Int,
       by: lila.user.User.ID,
+      trust: Trust,
       date: DateTime) {
 
     def multiPv = pvs.size
@@ -95,9 +94,7 @@ object EvalCacheEntry {
       Forsyth.<<(fen.value).exists(_ playable false) option make(fen)
   }
 
-  case class Input(fen: FEN, smallFen: SmallFen, eval: Eval) {
-    def trusted(trust: Trust) = TrustedEval(trust, eval)
-  }
+  case class Input(fen: FEN, smallFen: SmallFen, eval: Eval)
 
   object Input {
     case class Candidate(fen: String, eval: Eval) {

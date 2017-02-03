@@ -19,7 +19,7 @@ final class EvalCacheSocketHandler(
   private def makeController(member: SocketMember, trustedUser: Option[TrustedUser]): Handler.Controller = {
 
     case ("evalPut", o) => trustedUser foreach { tu =>
-      JsonHandlers.readPut(tu.user, o) foreach { api.put(tu, _) }
+      JsonHandlers.readPut(tu, o) foreach { api.put(tu, _) }
     }
 
     case ("evalGet", o) => for {
