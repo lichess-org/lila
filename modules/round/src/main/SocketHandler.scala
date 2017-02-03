@@ -25,6 +25,7 @@ private[round] final class SocketHandler(
     socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     bus: lila.common.Bus) {
 
   private def controller(
@@ -32,7 +33,8 @@ private[round] final class SocketHandler(
     socket: ActorRef,
     uid: Uid,
     ref: PovRef,
-    member: Member): Handler.Controller = {
+    member: Member,
+    me: Option[User]): Handler.Controller = {
 
     def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
@@ -43,7 +45,7 @@ private[round] final class SocketHandler(
       case ("p", o)         => ping(o)
       case ("talk", o)      => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(Outoftime)
-    }: Handler.Controller) orElse lila.chat.Socket.in(
+    }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
       member = member,
       socket = socket,
@@ -146,7 +148,7 @@ private[round] final class SocketHandler(
           // register to the tournament standing channel when playing a tournament game
           if (playerId.isDefined && pov.game.isTournament)
             hub.channel.tournamentStanding ! lila.socket.Channel.Sub(member)
-          (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
+          (controller(pov.gameId, socket, uid, pov.ref, member, user), enum, member)
       }
     }
   }

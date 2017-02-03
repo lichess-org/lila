@@ -35,6 +35,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -122,6 +123,7 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
+    evalCacheHandler = evalCacheHandler,
     bus = system.lilaBus)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
@@ -244,5 +246,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
+    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     scheduler = lila.common.PlayApp.scheduler)
 }
