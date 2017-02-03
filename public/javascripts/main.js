@@ -599,7 +599,7 @@ lichess.notifyApp = (function() {
 
       // Zoom
       var getZoom = function() {
-        return (lichess.isTrident || lichess.isSafari) ? 1 : (lichess.storage.get('zoom') || 1);
+        return lichess.isTrident ? 1 : (lichess.storage.get('zoom') || 1);
       };
       var setZoom = function(zoom) {
         lichess.storage.set('zoom', zoom);

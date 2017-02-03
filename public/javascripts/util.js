@@ -194,7 +194,6 @@ lichess.widget = function(name, prototype) {
 };
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
-lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetConfig = {
   url: document.body.getAttribute('data-asset-url'),
