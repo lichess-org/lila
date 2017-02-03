@@ -33,7 +33,7 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry {
 
-  val MIN_NODES = 3 * math.pow(10, 6)
+  val MIN_KNODES = 3000
   val MIN_DEPTH = 20
   val MIN_PV_SIZE = 6
   val MAX_PV_SIZE = 8
@@ -53,7 +53,7 @@ object EvalCacheEntry {
     def bestMove: Uci = bestPv.moves.value.head
 
     def isValid = pvs.list.forall(_.isValid) && {
-      pvs.list.forall(_.score.mateFound) || (knodes.value >= MIN_NODES || depth >= MIN_DEPTH)
+      pvs.list.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
     }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
