@@ -6,7 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.practice.JsonView._
-import lila.practice.UserStudy
+import lila.practice.{ UserStudy, PracticeSection, PracticeStudy }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
@@ -29,6 +29,22 @@ object Practice extends LilaController {
 
   def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
     OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
+  }
+
+  def showSection(sectionId: String) =
+    redirectTo(sectionId)(_.studies.headOption)
+
+  def showStudySlug(sectionId: String, studySlug: String) =
+    redirectTo(sectionId)(_.studies.find(_.slug == studySlug))
+
+  private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) = Open { implicit ctx =>
+    env.api.structure.get.flatMap { struct =>
+      struct.sections.find(_.id == sectionId).fold(notFound) { section =>
+        select(section) ?? { study =>
+          Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+        }
+      }
+    }
   }
 
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
@@ -69,9 +85,8 @@ object Practice extends LilaController {
     env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
-  def reset = AuthBody { implicit ctx =>
-    me =>
-      env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+  def reset = AuthBody { implicit ctx => me =>
+    env.api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
   def config = Auth { implicit ctx => me =>
