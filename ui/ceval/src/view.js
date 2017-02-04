@@ -201,10 +201,10 @@ module.exports = {
     if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
     var multiPv = instance.multiPv();
     var pvs, threat = false;
-    if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
+    if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    } else if (ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
+    } else if (ctrl.vm.node.ceval)
       pvs = ctrl.vm.node.ceval.pvs;
     else
       pvs = [];

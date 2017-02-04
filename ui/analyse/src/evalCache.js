@@ -35,7 +35,7 @@ function toCeval(e) {
     depth: e.depth,
     pvs: e.pvs.map(function(from) {
       var to = {
-        pv: from.moves.split(' ')
+        moves: from.moves.split(' ')
       };
       if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;

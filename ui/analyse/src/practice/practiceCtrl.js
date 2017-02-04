@@ -47,7 +47,7 @@ module.exports = function(root, playableDepth) {
       } : node.ceval;
       var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
-      best = prev.ceval.moves[0];
+      best = prev.ceval.pvs[0].moves[0];
       if (best === node.uci || best === altCastles[node.uci]) best = null;
 
       if (!best) verdict = 'good';
@@ -84,7 +84,7 @@ module.exports = function(root, playableDepth) {
     if (isMyTurn()) {
       var h = hinting();
       if (h) {
-        h.uci = node.ceval.moves[0];
+        h.uci = node.ceval.pvs[0].moves[0];
         root.setAutoShapes();
       }
     } else {
@@ -95,7 +95,7 @@ module.exports = function(root, playableDepth) {
           comment(makeComment(parentNode, node, root.vm.path));
       }
       if (!played() && playable(node)) {
-        root.playUci(node.ceval.moves[0]);
+        root.playUci(node.ceval.pvs[0].moves[0]);
         played(true);
       }
     }
@@ -169,7 +169,7 @@ module.exports = function(root, playableDepth) {
       root.setAutoShapes();
     },
     hint: function() {
-      var best = root.vm.node.ceval ? root.vm.node.ceval.moves[0] : null;
+      var best = root.vm.node.ceval ? root.vm.node.ceval.pvs[0].moves[0] : null;
       var prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({

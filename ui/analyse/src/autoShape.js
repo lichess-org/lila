@@ -62,9 +62,9 @@ module.exports = {
       if (n.eval && n.eval.best) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
       if (!hovering) {
         var nextBest = ctrl.nextNodeBest();
-        if (!nextBest && instance.enabled() && n.ceval) nextBest = n.ceval.moves[0];
+        if (!nextBest && instance.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
         if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
-        if (instance.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(ctrl.vm.threatMode && n.threat && n.threat.pvs && n.threat.pvs[2])) {
+        if (instance.enabled() && n.ceval && n.ceval.pvs[1] && !(ctrl.vm.threatMode && n.threat && n.threat.pvs[2])) {
           n.ceval.pvs.forEach(function(pv) {
             if (pv.moves[0] === nextBest) return;
             var shift = winningChances.povDiff(color, n.ceval.pvs[0], pv);
@@ -76,9 +76,9 @@ module.exports = {
         }
       }
     }
-    if (instance.enabled() && ctrl.vm.threatMode && n.threat && n.threat.moves[0]) {
+    if (instance.enabled() && ctrl.vm.threatMode && n.threat) {
       if (n.threat.pvs[1]) {
-        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.moves[0], 'paleRed'));
+        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.pvs[0].moves[0], 'paleRed'));
         n.threat.pvs.slice(1).forEach(function(pv) {
           var shift = winningChances.povDiff(rcolor, pv, n.threat.pvs[0]);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
@@ -87,7 +87,7 @@ module.exports = {
           }));
         });
       } else
-        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.moves[0], 'red'));
+        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.pvs[0].moves[0], 'red'));
     }
     return shapes;
   }
