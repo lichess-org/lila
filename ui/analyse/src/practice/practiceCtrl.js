@@ -26,7 +26,10 @@ module.exports = function(root, playableDepth) {
   };
   var playable = function(node) {
     var ceval = node.ceval;
-    return ceval && (ceval.depth >= playableDepth() || (ceval.depth >= 15 && ceval.millis > 5000));
+    return ceval && (
+      ceval.depth >= Math.min(ceval.maxDepth, playableDepth()) ||
+      (ceval.depth >= 15 && ceval.millis > 5000)
+    );
   };
 
   var altCastles = {
