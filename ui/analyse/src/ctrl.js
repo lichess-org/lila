@@ -464,7 +464,7 @@ module.exports = function(opts) {
 
   var instanciateCeval = function(failsafe) {
     if (this.ceval) this.ceval.destroy();
-    this.ceval = cevalCtrl({
+    var cfg = {
       variant: this.data.game.variant,
       possible: !this.embed && (
         util.synthetic(this.data) || !game.playable(this.data)
@@ -489,7 +489,12 @@ module.exports = function(opts) {
           }
         }
       }.bind(this)
-    });
+    };
+    if (opts.study && opts.practice) {
+      cfg.storageKeyPrefix = 'practice';
+      cfg.multiPvDefault = 1;
+    }
+    this.ceval = cevalCtrl(cfg);
   }.bind(this);
 
   instanciateCeval();
@@ -711,7 +716,7 @@ module.exports = function(opts) {
       this.practice = makePractice(this, function() {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
-        return this.study && this.study.practice && this.study.practice.success() === null ? 20 : 18;
+        return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       }.bind(this));
     }
     this.setAutoShapes();
