@@ -160,15 +160,15 @@ GET   /features                        controllers.Plan.features
 
 # Practice
 GET   /practice                                   controllers.Practice.index
+GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: String, chapterId: String)
+GET   /practice/config                            controllers.Practice.config
+POST  /practice/config                            controllers.Practice.configSave
+POST  /practice/reset                             controllers.Practice.reset
 GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId: String)
 GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId: String, studySlug: String)
 GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
 GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
 POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
-GET   /practice/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Practice.chapter(studyId: String, chapterId: String)
-GET   /practice/config                            controllers.Practice.config
-POST  /practice/config                            controllers.Practice.configSave
-POST  /practice/reset                             controllers.Practice.reset
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
