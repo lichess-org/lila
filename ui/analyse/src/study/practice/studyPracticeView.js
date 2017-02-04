@@ -98,8 +98,10 @@ module.exports = {
         config: function(el, isUpdate) {
           if (!isUpdate)
             el.addEventListener('click', function(e) {
+              e.preventDefault();
               var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
               if (id) ctrl.setChapter(id);
+              return false;
             });
         }
       }, [
@@ -108,7 +110,8 @@ module.exports = {
           var active = !ctrl.vm.loading && current && current.id === chapter.id;
           var completion = data.completion[chapter.id] ? 'done' : 'ongoing';
           return [
-            m('div', {
+            m('a', {
+              href: data.url + '/' + chapter.id,
               key: chapter.id,
               'data-id': chapter.id,
               class: 'elem chapter ' + classSet({
