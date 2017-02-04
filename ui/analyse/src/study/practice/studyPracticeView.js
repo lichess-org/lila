@@ -95,15 +95,15 @@ module.exports = {
       m('div', {
         key: 'chapters',
         class: 'list chapters',
-        config: function(el, isUpdate) {
-          if (!isUpdate)
-            el.addEventListener('click', function(e) {
-              e.preventDefault();
-              var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
-              if (id) ctrl.setChapter(id);
-              return false;
-            });
-        }
+        // config: function(el, isUpdate) {
+        //   if (!isUpdate)
+        //     el.addEventListener('click', function(e) {
+        //       e.preventDefault();
+        //       var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
+        //       if (id) ctrl.setChapter(id);
+        //       return false;
+        //     });
+        // }
       }, [
         ctrl.chapters.list().map(function(chapter, i) {
           var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
