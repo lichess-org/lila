@@ -59,24 +59,6 @@ object Export extends LilaController {
     }
   }
 
-  def visualizer(id: String) = Open { implicit ctx =>
-    OnlyHumans {
-      OptionFuResult(GameRepo game id) { game =>
-        gameToPgn(game, asImported = false, asRaw = false) map { pgn =>
-          lila.mon.export.visualizer()
-          Redirect {
-            import lila.api.Env.current.Net._
-            val base = s"$Protocol$AssetDomain/assets"
-            val encoded = java.net.URLEncoder.encode(pgn.toString, "UTF-8")
-            s"$base/visualizer/index_lichess.html?pgn=$encoded"
-          }
-        } recoverWith {
-          case _: Exception => notFound
-        }
-      }
-    }
-  }
-
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebook {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {

@@ -271,7 +271,6 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
-GET   /game/visualizer/$gameId<\w{8}>         controllers.Export.visualizer(gameId: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
