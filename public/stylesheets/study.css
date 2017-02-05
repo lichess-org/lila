@@ -123,6 +123,7 @@ div.underboard .notif.error {
   margin-bottom: 10px;
 }
 .study_comments .text {
+  width: 100%;
   overflow: hidden;
   word-wrap: break-word;
 }

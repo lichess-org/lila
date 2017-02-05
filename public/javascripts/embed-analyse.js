@@ -2,14 +2,13 @@ $(function() {
 
   var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
   var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
-  var youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:[^\s]*)/i;
   var notGames = ['training', 'analysis', 'insights', 'practice'];
 
   var parseLink = function(a) {
-    var matches = a.href.match(youtubeRegex);
-    if (matches) return {
+    var yt = lichess.toYouTubeEmbedUrl(a.href);
+    if (yt) return {
       type: 'youtube',
-      src: 'https://www.youtube.com/embed/' + matches[1]
+      src: yt
     };
     var matches = a.href.match(studyRegex);
     if (matches && matches[2] && a.text.match(studyRegex)) return {
