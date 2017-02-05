@@ -22,8 +22,10 @@ final class PngExport(url: String, size: Int) {
     orientation: Option[chess.Color],
     logHint: => String): Fu[Enumerator[Array[Byte]]] = {
 
-    val queryString =
-      ("fen" -> fen.value.takeWhile(' ' !=)) :: List(
+    val queryString = List(
+      "fen" -> fen.value.takeWhile(' ' !=),
+      "size" -> size.toString
+    ) ::: List(
         lastMove.map { "lastMove" -> _ },
         check.map { "check" -> _.key },
         orientation.map { "orientation" -> _.name }
