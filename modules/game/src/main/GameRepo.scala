@@ -362,7 +362,7 @@ object GameRepo {
 
   // #TODO expensive stuff, run on DB replica
   // Can't be done on reactivemongo 0.11.9 :(
-  def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
+  private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(Match($doc(F.playerUids -> userId)), List(
       Match($doc(F.playerUids -> $doc("$size" -> 2))),

@@ -185,7 +185,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
         <div class="content list"></div>
         <div class="nobody@if(ctx.onlineFriends.users.nonEmpty){ none}">
           <span>@trans.noFriendsOnline()</span>
-          <a class="find button" href="@routes.User.opponents(me.username)">
+          <a class="find button" href="@routes.User.opponents">
             <span class="is3 text" data-icon="h">@trans.findFriends()</span>
           </a>
         </div>
