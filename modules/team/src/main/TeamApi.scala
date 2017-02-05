@@ -163,8 +163,6 @@ final class TeamApi(
   def owns(teamId: String, userId: String): Fu[Boolean] =
     TeamRepo ownerOf teamId map (Some(userId) ==)
 
-  def teamIdsSet(userId: String) = cached teamIdsSet userId
-
   def teamName(teamId: String) = cached name teamId
 
   def nbRequests(teamId: String) = cached.nbRequests get teamId

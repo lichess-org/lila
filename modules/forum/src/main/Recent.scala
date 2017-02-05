@@ -12,7 +12,7 @@ private[forum] final class Recent(
     asyncCache: lila.memo.AsyncCache.Builder,
     publicCategIds: List[String]) {
 
-  private type GetTeamIds = String => Fu[Set[String]]
+  private type GetTeamIds = String => Fu[List[String]]
 
   def apply(user: Option[User], getTeams: GetTeamIds): Fu[List[MiniForumPost]] =
     userCacheKey(user, getTeams) flatMap cache.get

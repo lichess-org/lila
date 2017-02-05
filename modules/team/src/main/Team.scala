@@ -36,8 +36,6 @@ object Team {
     def toArray: Array[ID] = value.split(IdsStr.separator)
 
     def toList = toArray.toList
-
-    def toSet = toArray.toSet
   }
 
   object IdsStr {

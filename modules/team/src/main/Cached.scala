@@ -28,7 +28,7 @@ private[team] final class Cached(
 
   def syncTeamIds = teamIdsCache sync _
   def teamIds = teamIdsCache async _
-  def teamIdsSet(userId: lila.user.User.ID) = teamIdsCache async userId dmap (_.toSet)
+  def teamIdsList(userId: lila.user.User.ID) = teamIds(userId).dmap(_.toList)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 

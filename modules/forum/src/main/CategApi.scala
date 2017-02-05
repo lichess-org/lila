@@ -7,7 +7,7 @@ private[forum] final class CategApi(env: Env) {
 
   import BSONHandlers._
 
-  def list(teams: Set[String], troll: Boolean): Fu[List[CategView]] = for {
+  def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
     views ← (categs map { categ =>
       env.postApi get (categ lastPostId troll) map { topicPost =>
