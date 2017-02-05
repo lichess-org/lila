@@ -30,6 +30,9 @@ div.game_control {
   border-top: 0;
   border-bottom: 1px solid #ddd;
 }
+body.dark .study_box .elem.chapter {
+  border-color: #333;
+}
 .study_box .chapter h3 {
   margin: 12px 0 12px 0px;
 }
@@ -42,6 +45,9 @@ div.game_control {
 .study_box .list .status.ongoing {
   color: #d0d0d0;
 }
+body.dark .study_box .list .status.ongoing {
+  color: #444;
+}
 .study_box .list .status.done {
   color: #3893E8;
 }
@@ -52,6 +58,9 @@ div.game_control {
   padding: 12px 0;
   display: flex;
   background: #ddd;
+}
+body.dark .study_box .finally {
+  background: #404040;
 }
 .study_box .finally .back {
   width: 34px;
@@ -73,15 +82,18 @@ div.game_control {
   background: #fff;
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
+body.dark .underboard .feedback {
+  background: #333;
+}
 .underboard .feedback.win {
-  background: #759900;
+  background: #759900!important;
   color: #fff;
   animation: 1.7s soft-bright ease-in-out infinite;
   opacity: 0.8;
   transition: 0.13s;
 }
 .underboard .feedback.fail {
-  background: #dc322f;
+  background: #dc322f!important;
   color: #fff;
   animation: 1.7s soft-bright ease-in-out infinite;
   opacity: 0.8;
