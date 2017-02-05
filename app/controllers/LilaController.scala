@@ -350,8 +350,8 @@ private[controllers] trait LilaController
     if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
 
-  protected def OnlyHumansAndFacebook(result: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isFacebookBot ctx.req) result
+  protected def OnlyHumansAndFacebookOrTwitter(result: => Fu[Result])(implicit ctx: lila.api.Context) =
+    if (HTTPRequest isFacebookOrTwitterBot ctx.req) result
     else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
 

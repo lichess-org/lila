@@ -45,7 +45,7 @@ object Export extends LilaController {
     key = "export.pgn.global")
 
   def png(id: String) = Open { implicit ctx =>
-    OnlyHumansAndFacebook {
+    OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
         lila.mon.export.png.game()
         OptionFuResult(GameRepo game id) { game =>
@@ -60,7 +60,7 @@ object Export extends LilaController {
   }
 
   def puzzlePng(id: Int) = Open { implicit ctx =>
-    OnlyHumansAndFacebook {
+    OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
         lila.mon.export.png.puzzle()
         OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
