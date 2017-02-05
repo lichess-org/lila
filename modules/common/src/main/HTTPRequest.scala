@@ -53,7 +53,7 @@ object HTTPRequest {
   def isHuman(req: RequestHeader) = !isBot(req)
 
   def isFacebookOrTwitterBot(req: RequestHeader) = userAgent(req) ?? { ua =>
-    ua.contains("facebookexternalhit") || ua.contains("twitterbot")
+    ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
   }
 
   private val fileExtensionPattern = """.+\.[a-z0-9]{2,4}$""".r.pattern
