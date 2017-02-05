@@ -29,6 +29,26 @@ object Team {
 
   type ID = String
 
+  case class IdsStr(value: String) extends AnyVal {
+
+    def contains(teamId: ID) = value contains teamId
+
+    def toArray: Array[ID] = value.split(IdsStr.separator)
+
+    def toList = toArray.toList
+
+    def toSet = toArray.toSet
+  }
+
+  object IdsStr {
+
+    private val separator = ' '
+
+    val empty = IdsStr("")
+
+    def apply(ids: Iterable[ID]): IdsStr = IdsStr(ids mkString separator.toString)
+  }
+
   def make(
     name: String,
     location: Option[String],
