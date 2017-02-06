@@ -2,6 +2,7 @@ package lila.game
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import scala.collection.Searching._
 
 import chess._
 
@@ -26,21 +27,14 @@ object BinaryFormat {
 
     private type MT = Int // tenths of seconds
     private val size = 16
-    private val encodeList: List[(MT, Int)] = List(1, 5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400, 600).zipWithIndex
-    private val encodeMap: Map[MT, Int] = encodeList.toMap
-    private val decodeList: List[(Int, MT)] = encodeList.map(x => x._2 -> x._1)
+    private val buckets = List(1, 5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400, 600)
+    private val encodeCutoffsMS = buckets zip buckets.tail map {case (i1, i2) => (i1 + i2) * 50} toVector
+
+    private val decodeList: List[(Int, MT)] = buckets.zipWithIndex.map(x => x._2 -> x._1)
     private val decodeMap: Map[Int, MT] = decodeList.toMap
 
-    private def findClose(v: MT, in: List[(MT, Int)]): Option[Int] = in match {
-      case (a, b) :: (c, d) :: rest =>
-        if (math.abs(a - v) <= math.abs(c - v)) Some(b)
-        else findClose(v, (c, d) :: rest)
-      case (a, b) :: rest => Some(b)
-      case _              => None
-    }
-
     def write(mts: Vector[MT]): ByteArray = ByteArray {
-      def enc(mt: MT) = encodeMap get mt orElse findClose(mt, encodeList) getOrElse (size - 1)
+      def enc(mt: MT) = encodeCutoffsMS.search(mt * 100).insertionPoint
       (mts grouped 2 map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a)    => enc(a) << 4
