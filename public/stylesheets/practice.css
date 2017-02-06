@@ -184,13 +184,13 @@ body.dark #practice_app .section > h2 {
   }
 }
 #practice_app .study.ongoing {
-  background: #3893E8;
+  background: #3893E8!important;
 }
 #practice_app .study.ongoing:hover {
   animation: 1.7s soft-bright ease-in-out infinite;
 }
 #practice_app .study.done {
-  background: #4caf50;
+  background: #4caf50!important;
 }
 #practice_app .study.future {
   opacity: 0.7;
