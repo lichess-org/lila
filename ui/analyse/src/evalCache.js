@@ -50,20 +50,23 @@ function toCeval(e) {
 }
 
 module.exports = function(opts) {
-  var fenSent = [];
+  var fenFetched = [];
+  var hasFetched = function(node) {
+    return fenFetched.indexOf(node.fen) !== -1;
+  };
   return {
     onCeval: throttle(500, false, function() {
       var node = opts.getNode();
       var eval = node.ceval;
-      if (eval && !eval.cloud && qualityCheck(eval) && opts.canPut(node)) {
+      if (eval && !eval.cloud && hasFetched(node) && qualityCheck(eval) && opts.canPut(node)) {
         opts.send("evalPut", toPutData(eval));
       }
     }),
     fetch: function(path, multiPv) {
       var node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
-      if (fenSent.indexOf(node.fen) !== -1) return;
-      fenSent.push(node.fen);
+      if (hasFetched(node)) return;
+      fenFetched.push(node.fen);
       opts.send("evalGet", {
         fen: node.fen,
         mpv: multiPv,
