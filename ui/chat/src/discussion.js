@@ -58,7 +58,9 @@ function input(ctrl) {
     maxlength: 140,
     disabled: ctrl.vm.isTimeout() || !ctrl.vm.writeable(),
     config: function(el, isUpdate) {
-      if (!isUpdate) el.addEventListener('keypress', function(e) {
+      if (isUpdate) return;
+      var whisperRegex = /^\/w(?:hisper)?\s/
+      el.addEventListener('keyup', function(e) {
         if (e.which == 10 || e.which == 13) {
           if (e.target.value === '') {
             var kbm = document.querySelector('.keyboard-move input');
@@ -69,8 +71,9 @@ function input(ctrl) {
             if (ctrl.public && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
             else ctrl.post(txt);
             e.target.value = '';
+            el.classList.remove('whisper');
           }
-        }
+        } else el.classList.toggle('whisper', el.value.match(whisperRegex));
       });
     }
   })

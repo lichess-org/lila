@@ -72,6 +72,11 @@ div.mchat .lichess_say {
   padding: 3px 20px 3px 4px;
   flex: 0 0 auto;
 }
+div.mchat .lichess_say.whisper {
+  color: #759900;
+  font-weight: bold;
+  font-style: italic;
+}
 div.mchat .messages {
   display: block;
   height: 100%;
