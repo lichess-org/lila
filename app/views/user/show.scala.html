@@ -200,8 +200,9 @@ description = describeUser(u)).some) {
         <a href="@routes.Account.profile" title="@trans.editProfile()">
           Profile completion: @profile.completionPercent%
         </a>
+        <br />
+        <a href="@routes.User.opponents">@trans.favoriteOpponents()</a>
         }
-        <!-- <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a> -->
         <br />
         <br />
         <p>@trans.tpTimeSpentPlaying(showPeriod(info.playTime.totalPeriod))</p>

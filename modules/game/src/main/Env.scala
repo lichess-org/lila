@@ -84,6 +84,8 @@ final class Env(
   }
 
   lazy val stream = new GameStream(system)
+
+  lazy val bestOpponents = new BestOpponents
 }
 
 object Env {

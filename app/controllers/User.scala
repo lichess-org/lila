@@ -109,7 +109,7 @@ object User extends LilaController {
       page = page)(ctx.body)
     _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
     _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-    _ <- Env.team.cached.nameCache preloadSet info.teamIds
+    _ <- Env.team.cached.nameCache preloadMany info.teamIds
     relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
@@ -235,23 +235,16 @@ object User extends LilaController {
     }
   }
 
-  def opponents(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
-      lila.game.BestOpponents(user.id, 50) flatMap { ops =>
-        ctx.isAuth.fold(
-          Env.pref.api.followables(ops map (_._1.id)),
-          fuccess(List.fill(50)(true))
-        ) flatMap { followables =>
-            (ops zip followables).map {
-              case ((u, nb), followable) => ctx.userId ?? {
-                relationApi.fetchRelation(_, u.id)
-              } map { lila.relation.Related(u, nb.some, followable, _) }
-            }.sequenceFu map { relateds =>
-              html.user.opponents(user, relateds)
-            }
-          }
-      }
-    }
+  def opponents = Auth { implicit ctx => me =>
+    for {
+      ops <- Env.game.bestOpponents(me.id)
+      followables <- Env.pref.api.followables(ops map (_._1.id))
+      relateds <- ops.zip(followables).map {
+        case ((u, nb), followable) => relationApi.fetchRelation(me.id, u.id) map {
+          lila.relation.Related(u, nb.some, followable, _)
+        }
+      }.sequenceFu
+    } yield html.user.opponents(me, relateds)
   }
 
   def perfStat(username: String, perfKey: String) = Open { implicit ctx =>

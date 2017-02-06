@@ -11,7 +11,7 @@ object CategRepo {
 
   def bySlug(slug: String) = coll.byId[Categ](slug)
 
-  def withTeams(teams: Set[String]): Fu[List[Categ]] =
+  def withTeams(teams: Iterable[String]): Fu[List[Categ]] =
     coll.find($or(
       "team" $exists false,
       $doc("team" $in teams))

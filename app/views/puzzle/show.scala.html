@@ -31,9 +31,9 @@ chessground = false,
 withLangAnnotations = false,
 openGraph = lila.app.ui.OpenGraph(
 image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
-title = s"Chess tactic training ${puzzle.id} • ${puzzle.color.name.capitalize} to play",
+title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
 url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-description = s"Tactic puzzle #${puzzle.id}: " + puzzle.color.fold(
+description = s"Lichess tactic trainer: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ).str() + s" Played by ${puzzle.attempts} players.").some) {
