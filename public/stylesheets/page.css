@@ -24,8 +24,8 @@ div.doc_box .body ol {
   margin: 1em 0;
 }
 div.doc_box .body ul li {
-  list-style: disc inside;
-  margin: 0.5em 0;
+  list-style: disc outside;
+  margin: 0.5em 0 0 1.5em;
 }
 div.doc_box .body ol li {
   list-style: decimal inside;
