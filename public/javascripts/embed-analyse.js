@@ -2,7 +2,7 @@ $(function() {
 
   var studyRegex = /lichess\.org\/study\/(?:embed\/)?(\w{8})\/(\w{8})(#\d+)?\b/;
   var gameRegex = /lichess\.org\/(?:embed\/)?(\w{8})(?:(?:\/(white|black))|\w{4}|)(#\d+)?\b/;
-  var notGames = ['training', 'analysis', 'insights', 'practice'];
+  var notGames = ['training', 'analysis', 'insights', 'practice', 'features'];
 
   var parseLink = function(a) {
     var yt = lichess.toYouTubeEmbedUrl(a.href);
