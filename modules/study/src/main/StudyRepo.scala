@@ -27,8 +27,6 @@ final class StudyRepo(private[study] val coll: Coll) {
     implicit cp: CursorProducer[Study]) =
     coll.find(selector).cursor[Study](readPreference)
 
-  def nameById(id: Study.Id) = coll.primitiveOne[String]($id(id), "name")
-
   def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)

@@ -409,9 +409,10 @@ final class StudyApi(
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
     studyRepo.like(studyId, userId, v) map { likes =>
       sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
-      if (v) studyRepo.nameById(studyId) foreach {
-        _ ?? { name =>
-          timeline ! (Propagate(StudyLike(userId, studyId.value, name)) toFollowersOf userId)
+      if (v) studyRepo byId studyId foreach {
+        _ foreach { study =>
+          if (userId != study.ownerId)
+            timeline ! (Propagate(StudyLike(userId, study.id.value, study.name.value)) toFollowersOf userId)
         }
       }
     }
