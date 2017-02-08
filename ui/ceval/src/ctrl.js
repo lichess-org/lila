@@ -27,8 +27,8 @@ module.exports = function(opts) {
   var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=9',
-    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=9',
+    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=10',
+    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=10',
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
