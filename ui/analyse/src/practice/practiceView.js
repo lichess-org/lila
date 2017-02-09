@@ -47,6 +47,9 @@ function commentBest(c, ctrl) {
 }
 
 function renderOffTrack(ctrl) {
+  var analysisUrl = '/analysis/standard/' +
+    ctrl.currentNode().fen.replace(/ /g, '_') +
+    '?color=' + ctrl.bottomColor();
   return [
     m('div.player', [
       m('div.icon.off', '!'),
@@ -55,7 +58,7 @@ function renderOffTrack(ctrl) {
         m('div.choices', [
           m('a', {
             target: '_blank',
-            href: '/analysis/standard/' + ctrl.currentNode().fen.replace(/ /g, '_'),
+            href: analysisUrl,
           }, 'Analyse in new window'),
           m('a', {
             onclick: ctrl.resume
@@ -66,8 +69,7 @@ function renderOffTrack(ctrl) {
   ];
 }
 
-function renderEnd(root, end) {
-  var color = root.turnColor();
+function renderEnd(color, end) {
   if (end === 'checkmate') color = opposite(color);
   return m('div.player', [
     color ? m('div.no-square', m('piece.king.' + color)) : m('div.icon.off', '!'),
@@ -120,7 +122,7 @@ module.exports = function(root) {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
     renderTitle(root.studyPractice ? null : root.togglePractice),
-    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root, end) : renderRunning(root))),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl.bottomColor, end) : renderRunning(root))),
     running ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),
       ' ',

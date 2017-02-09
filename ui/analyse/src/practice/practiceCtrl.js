@@ -185,6 +185,7 @@ module.exports = function(root, playableDepth) {
       });
       root.setAutoShapes();
     },
-    currentNode: currentNode
+    currentNode: currentNode,
+    bottomColor: root.bottomColor
   };
 };
