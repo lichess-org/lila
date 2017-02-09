@@ -76,6 +76,10 @@ module.exports = function(root, playableDepth) {
     return root.turnColor() === root.bottomColor();
   };
 
+  var currentNode = function() {
+    return root.vm.node;
+  };
+
   var checkCeval = function() {
     if (!running()) {
       comment(null);
@@ -83,7 +87,7 @@ module.exports = function(root, playableDepth) {
       return;
     }
     ensureCevalRunnning();
-    var node = root.vm.node;
+    var node = currentNode();
     if (isMyTurn()) {
       var h = hinting();
       if (h) {
@@ -114,7 +118,7 @@ module.exports = function(root, playableDepth) {
   };
 
   var detectThreefold = function() {
-    var n = root.vm.node;
+    var n = currentNode();
     if (defined(n.threefold)) return;
     var currentFen = threefoldFen(n.fen);
     var nbSimilarPositions = 0;
@@ -172,7 +176,7 @@ module.exports = function(root, playableDepth) {
       root.setAutoShapes();
     },
     hint: function() {
-      var best = root.vm.node.ceval ? root.vm.node.ceval.pvs[0].moves[0] : null;
+      var best = currentNode().ceval ? currentNode().ceval.pvs[0].moves[0] : null;
       var prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({
@@ -180,6 +184,7 @@ module.exports = function(root, playableDepth) {
         uci: best
       });
       root.setAutoShapes();
-    }
+    },
+    currentNode: currentNode
   };
 };

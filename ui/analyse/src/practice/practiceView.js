@@ -54,6 +54,10 @@ function renderOffTrack(ctrl) {
         m('strong', 'You browsed away'),
         m('div.choices', [
           m('a', {
+            target: '_blank',
+            href: '/analysis/standard/' + ctrl.currentNode().fen.replace(/ /g, '_'),
+          }, 'Analyse in new window'),
+          m('a', {
             onclick: ctrl.resume
           }, 'Resume practice')
         ])
@@ -79,8 +83,7 @@ function renderEnd(root, end) {
 
 var minDepth = 8;
 
-function renderEvalProgress(root, maxDepth) {
-  var node = root.vm.node;
+function renderEvalProgress(node, maxDepth) {
   return m('div.progress', m('div', {
     style: {
       width: node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0
@@ -96,7 +99,7 @@ function renderRunning(root) {
     m('div.instruction', [
       ctrl.isMyTurn() ? m('strong', 'Your move') : [
         m('strong', 'Computer thinking...'),
-        renderEvalProgress(root, ctrl.playableDepth())
+        renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth())
       ],
       m('div.choices', [
         ctrl.isMyTurn() ? m('a', {
@@ -112,7 +115,7 @@ module.exports = function(root) {
   if (!ctrl) return;
   var comment = ctrl.comment();
   var running = ctrl.running();
-  var end = root.vm.node.threefold ? 'threefold' : root.gameOver();
+  var end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
   return m('div', {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
@@ -122,6 +125,8 @@ module.exports = function(root) {
       m('span.verdict', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : m('div.comment')
+    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : (
+      running ? m('div.comment') : null
+    )
   ]);
 };
