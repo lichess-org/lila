@@ -30,7 +30,8 @@ module.exports = {
             ctrl.registerHandler(lichessKeyboardMove({
               input: el,
               focus: ctrl.focus,
-              select: ctrl.select
+              select: ctrl.select,
+              cancel: ctrl.cancel
             }));
           });
         },

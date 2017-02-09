@@ -1090,6 +1090,10 @@ div.underboard .keyboard-move input {
   margin-right: 10px;
   border: 1px solid #ccc;
 }
+div.underboard .keyboard-move input.wrong {
+  background: #dc322f;
+  color: #fff;
+}
 div.underboard .keyboard-move em {
   opacity: 0.7;
 }

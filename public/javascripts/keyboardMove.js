@@ -1,18 +1,24 @@
+var keyRegex = /[a-h][1-8]/;
+var fileRegex = /[a-h]/;
 function lichessKeyboardMove(opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   var writer = sanWriter();
   var sans = null;
   makeBindings(opts, function(v, clear) {
-    var foundUci = sans && sanToUci(v, sans);
+    var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
+      opts.cancel();
       opts.select(foundUci.slice(0, 2));
       opts.select(foundUci.slice(2));
       clear();
-    } else if (v.match(/[a-h][1-8]/)) {
+    } else if (v.match(keyRegex)) {
       opts.select(v);
       clear();
-    }
+    } else if (v.match(fileRegex)) {
+      // do nothing
+    } else
+      opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
   });
   return function(fen, dests) {
     if (!dests) sans = {};
@@ -26,13 +32,14 @@ function makeBindings(opts, handle) {
   });
   var clear = function() {
     opts.input.value = '';
+    opts.input.classList.remove('wrong');
   };
   opts.input.addEventListener('keyup', function(e) {
     var v = e.target.value;
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else if (v.length >= 2) handle(v, clear);
+    } else handle(v, clear);
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
@@ -46,10 +53,14 @@ function makeBindings(opts, handle) {
 function sanToUci(san, sans) {
   var lowered = san.toLowerCase();
   for (var i in sans)
-    if (
-      i.toLowerCase() === lowered ||
-      i.toLowerCase().replace('x', '') === lowered
-    ) return sans[i];
+    if (i.toLowerCase() === lowered) return sans[i];
+}
+
+function sanCandidates(san, sans) {
+  var lowered = san.toLowerCase();
+  return Object.keys(sans).filter(function(s) {
+    return s.toLowerCase().indexOf(lowered) === 0;
+  });
 }
 
 function destsToUcis(dests) {
@@ -203,7 +214,10 @@ function sanWriter() {
     var board = readFen(fen);
     var sans = {}
     ucis.forEach(function(uci) {
-      sans[sanOf(board, uci)] = uci;
+      var san = sanOf(board, uci);
+      sans[san] = uci;
+      if (san.indexOf('x') !== -1)
+        sans[san.replace('x', '')] = uci;
     });
     return sans;
   }
