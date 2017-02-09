@@ -13,6 +13,10 @@ function lichessKeyboardMove(opts) {
       opts.select(v);
       clear();
     }
+  }, function(q, cb) {
+    cb(Object.keys(sans).filter(function(san) {
+      return san.toLowerCase().indexOf(q.toLowerCase()) === 0;
+    }));
   });
   return function(fen, dests) {
     if (!dests) sans = {};
@@ -20,14 +24,17 @@ function lichessKeyboardMove(opts) {
   };
 }
 
-function makeBindings(opts, handle) {
+function makeBindings(opts, handle, autocomplete) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
   var clear = function() {
-    opts.input.value = '';
+    // opts.input.value = '';
+    $(opts.input).typeahead('val', '');
   };
   opts.input.addEventListener('keyup', function(e) {
+    // discard typeahead keyup events
+    if (e.key.length > 1) return;
     var v = e.target.value;
     if (v.indexOf('/') > -1) {
       focusChat();
@@ -41,6 +48,28 @@ function makeBindings(opts, handle) {
     opts.focus(false);
   });
   opts.input.focus();
+  lichess.loadCss('/assets/stylesheets/autocomplete.css');
+  lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+    $(opts.input).typeahead(null, {
+      minLength: 1,
+      hint: true,
+      highlight: false,
+      source: autocomplete,
+      limit: 10,
+      // templates: {
+      //   empty: '<div class="empty">No player found</div>',
+      //   pending: lichess.spinnerHtml,
+      //   suggestion: function(a) {
+      //     return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
+      //   }
+      // }
+    // }).bind('typeahead:select', function(ev, sel) {
+    //   handle(sel, clear);
+    });
+    // }).keypress(function(e) {
+    //   if (e.which == 10 || e.which == 13) go($(this).val());
+    // }).focus();
+  });
 }
 
 function sanToUci(san, sans) {
