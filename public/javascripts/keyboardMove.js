@@ -10,9 +10,7 @@ function lichessKeyboardMove(opts) {
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
-      opts.cancel();
-      opts.select(foundUci.slice(0, 2));
-      opts.select(foundUci.slice(2));
+      opts.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
       opts.select(v);

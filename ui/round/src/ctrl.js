@@ -58,7 +58,7 @@ module.exports = function(opts) {
   this.socket = new socket(opts.socketSend, this);
 
   var onUserMove = function(orig, dest, meta) {
-    lichess.ab && lichess.ab(this, meta);
+    lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);

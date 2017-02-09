@@ -5,6 +5,11 @@ module.exports = {
     var focus = m.prop(false);
     var handler;
     var preHandlerBuffer = step.fen;
+    var select = function(key) {
+      if (cg.data.selected === key) cg.cancelMove();
+      else cg.selectSquare(key, true);
+    };
+    var usedSan = false;
     return {
       update: function(step) {
         if (handler) handler(step.fen, cg.data.movable.dests);
@@ -15,11 +20,14 @@ module.exports = {
         if (preHandlerBuffer) handler(preHandlerBuffer, cg.data.movable.dests);
       },
       focus: focus,
-      select: function(key) {
-        if (cg.data.selected === key) cg.cancelMove();
-        else cg.selectSquare(key, true);
+      san: function(orig, dest) {
+        usedSan = true;
+        cg.cancelMove();
+        select(orig);
+        select(dest);
       },
-      cancel: cg.cancelMove
+      select: select,
+      usedSan: usedSan
     };
   },
   view: function(ctrl) {
@@ -31,7 +39,7 @@ module.exports = {
               input: el,
               focus: ctrl.focus,
               select: ctrl.select,
-              cancel: ctrl.cancel
+              san: ctrl.san
             }));
           });
         },
