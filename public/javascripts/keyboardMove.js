@@ -3,15 +3,15 @@ function lichessKeyboardMove(opts) {
   opts.input.classList.add('ready');
   var writer = sanWriter();
   var sans = null;
-  makeBindings(opts, function(v) {
+  makeBindings(opts, function(v, clear) {
     var foundUci = sans && sanToUci(v, sans);
     if (foundUci) {
       opts.select(foundUci.slice(0, 2));
       opts.select(foundUci.slice(2));
-      opts.input.value = '';
+      clear();
     } else if (v.match(/[a-h][1-8]/)) {
       opts.select(v);
-      opts.input.value = '';
+      clear();
     }
   });
   return function(fen, dests) {
@@ -27,7 +27,9 @@ function makeBindings(opts, handle) {
   opts.input.addEventListener('keyup', function(e) {
     var v = e.target.value;
     if (v.indexOf('/') > -1) focusChat();
-    else if (v.length >= 2) handle(v);
+    else if (v.length >= 2) handle(v, function() {
+      e.target.value = '';
+    });
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
@@ -195,9 +197,10 @@ function sanWriter() {
   }
 
   return function(fen, ucis) {
+    var board = readFen(fen);
     var sans = {}
     ucis.forEach(function(uci) {
-      sans[sanOf(readFen(fen), uci)] = uci;
+      sans[sanOf(board, uci)] = uci;
     });
     return sans;
   }
