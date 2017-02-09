@@ -16,8 +16,8 @@ module.exports = {
       },
       focus: focus,
       select: function(key) {
-        if (cg.data.selected === key) return cg.cancelMove();
-        cg.selectSquare(key, true);
+        if (cg.data.selected === key) cg.cancelMove();
+        else cg.selectSquare(key, true);
       },
       cancel: cg.cancelMove
     };

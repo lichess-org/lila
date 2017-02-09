@@ -1,11 +1,12 @@
-var keyRegex = /[a-h][1-8]/;
-var fileRegex = /[a-h]/;
+var keyRegex = /^[a-h][1-8]$/;
+var fileRegex = /^[a-h]$/;
+
 function lichessKeyboardMove(opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   var writer = sanWriter();
   var sans = null;
-  makeBindings(opts, function(v, clear, force) {
+  var submit = function(v, force) {
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
@@ -13,17 +14,22 @@ function lichessKeyboardMove(opts) {
       opts.select(foundUci.slice(0, 2));
       opts.select(foundUci.slice(2));
       clear();
-    } else if (v.match(keyRegex)) {
+    } else if (sans && v.match(keyRegex)) {
       opts.select(v);
       clear();
-    } else if (v.match(fileRegex)) {
+    } else if (sans && v.match(fileRegex)) {
       // do nothing
     } else
       opts.input.classList.toggle('wrong', v.length && sans && !sanCandidates(v, sans).length);
-  });
+  };
+  var clear = function() {
+    opts.input.value = '';
+    opts.input.classList.remove('wrong');
+  };
+  makeBindings(opts, submit);
   return function(fen, dests) {
-    if (!dests) sans = {};
-    else sans = writer(fen, destsToUcis(dests));
+    sans = dests && Object.keys(dests).length ? writer(fen, destsToUcis(dests)) : null;
+    submit(opts.input.value);
   };
 }
 
@@ -31,16 +37,12 @@ function makeBindings(opts, handle) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
-  var clear = function() {
-    opts.input.value = '';
-    opts.input.classList.remove('wrong');
-  };
   opts.input.addEventListener('keyup', function(e) {
     var v = e.target.value;
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else handle(v, clear, e.keyCode === 13);
+    } else handle(v, e.keyCode === 13);
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
