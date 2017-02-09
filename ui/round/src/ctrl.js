@@ -359,6 +359,7 @@ module.exports = function(opts) {
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
+    if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
   }.bind(this);
 
   this.challengeRematch = function() {
