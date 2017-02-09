@@ -80,11 +80,11 @@ lichess.advantageChart = function(data) {
                 states: {
                   hover: {
                     radius: 4,
-                    lineColor: '#3893E8'
+                    lineColor: '#d85000'
                   },
                   select: {
                     radius: 4,
-                    lineColor: '#3893E8'
+                    lineColor: '#d85000'
                   }
                 }
               }
