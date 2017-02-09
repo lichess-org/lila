@@ -26,14 +26,14 @@ function lichessKeyboardMove(opts) {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
-  makeBindings(opts, submit);
+  makeBindings(opts, submit, clear);
   return function(fen, dests) {
     sans = dests && Object.keys(dests).length ? writer(fen, destsToUcis(dests)) : null;
     submit(opts.input.value);
   };
 }
 
-function makeBindings(opts, handle) {
+function makeBindings(opts, submit, clear) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
@@ -42,7 +42,7 @@ function makeBindings(opts, handle) {
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else handle(v, e.keyCode === 13);
+    } else submit(v, e.keyCode === 13);
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
