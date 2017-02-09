@@ -19,7 +19,7 @@ var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
 var crazyValid = require('./crazy/crazyValid');
-var keyboardMove = require('./keyboardMove');
+var makeKeyboardMove = require('./keyboardMove').ctrl;
 var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
 
@@ -157,6 +157,7 @@ module.exports = function(opts) {
       if (/[+#]/.test(s.san)) sound.check();
     }
     this.vm.autoScroll && this.vm.autoScroll.throttle();
+    if (this.keyboardMove) this.keyboardMove.update(s);
     return true;
   }.bind(this);
 
@@ -294,14 +295,15 @@ module.exports = function(opts) {
     }
     if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
-    d.steps.push({
+    var step = {
       ply: round.lastPly(this.data) + 1,
       fen: o.fen,
       san: o.san,
       uci: o.uci,
       check: o.check,
       crazy: o.crazyhouse
-    });
+    };
+    d.steps.push(step);
     this.vm.justDropped = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
@@ -325,6 +327,7 @@ module.exports = function(opts) {
     }
     this.vm.autoScroll && this.vm.autoScroll.now();
     onChange();
+    if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
   }.bind(this);
 
@@ -524,7 +527,7 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  this.keyboardMove = this.data.pref.keyboardMove ? keyboardMove.ctrl(this) : null;
+  this.keyboardMove = this.data.pref.keyboardMove ? makeKeyboardMove(this.chessground, round.plyStep(this.data, this.vm.ply)) : null;
 
   init.yolo(this);
 

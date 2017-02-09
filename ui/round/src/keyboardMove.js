@@ -1,10 +1,19 @@
 var m = require('mithril');
 
 module.exports = {
-  ctrl: function(root) {
-    var cg = root.chessground;
+  ctrl: function(cg, step) {
     var focus = m.prop(false);
+    var handler;
+    var preHandlerBuffer = step.fen;
     return {
+      update: function(step) {
+        if (handler) handler(step.fen, cg.data.movable.dests);
+        else preHandlerBuffer = step.fen;
+      },
+      registerHandler: function(h) {
+        handler = h;
+        if (preHandlerBuffer) handler(preHandlerBuffer, cg.data.movable.dests);
+      },
       focus: focus,
       select: function(key) {
         if (cg.data.selected === key) return cg.cancelMove();
@@ -18,16 +27,16 @@ module.exports = {
       m('input', {
         config: function(el, isUpdate) {
           if (!isUpdate) lichess.loadScript('/assets/javascripts/keyboardMove.js').then(function() {
-            lichessKeyboardMove({
+            ctrl.registerHandler(lichessKeyboardMove({
               input: el,
               focus: ctrl.focus,
               select: ctrl.select
-            });
+            }));
           });
         },
       }),
       ctrl.focus() ?
-      m('em', 'Enter coordinates to select squares. Press escape to cancel, press / to focus chat') :
+      m('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
       m('strong', 'Press <enter> to focus')
     ]);
   }
