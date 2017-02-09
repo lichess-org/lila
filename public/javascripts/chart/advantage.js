@@ -59,7 +59,7 @@ lichess.advantageChart = function(data) {
               negativeFillColor: Highcharts.theme.lichess.area.black,
               threshold: 0,
               lineWidth: 1,
-              color: '#3893E8',
+              color: '#d85000',
               allowPointSelect: true,
               cursor: 'pointer',
               states: {
