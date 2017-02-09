@@ -24,12 +24,15 @@ function makeBindings(opts, handle) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
+  var clear = function() {
+    opts.input.value = '';
+  };
   opts.input.addEventListener('keyup', function(e) {
     var v = e.target.value;
-    if (v.indexOf('/') > -1) focusChat();
-    else if (v.length >= 2) handle(v, function() {
-      e.target.value = '';
-    });
+    if (v.indexOf('/') > -1) {
+      focusChat();
+      clear();
+    } else if (v.length >= 2) handle(v, clear);
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
