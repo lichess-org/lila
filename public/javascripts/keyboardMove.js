@@ -5,9 +5,10 @@ function lichessKeyboardMove(opts) {
   opts.input.classList.add('ready');
   var writer = sanWriter();
   var sans = null;
-  makeBindings(opts, function(v, clear) {
+  makeBindings(opts, function(v, clear, force) {
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
+      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       opts.cancel();
       opts.select(foundUci.slice(0, 2));
       opts.select(foundUci.slice(2));
@@ -39,7 +40,7 @@ function makeBindings(opts, handle) {
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else handle(v, clear);
+    } else handle(v, clear, e.keyCode === 13);
   });
   opts.input.addEventListener('focus', function() {
     opts.focus(true);
