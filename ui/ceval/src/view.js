@@ -128,9 +128,7 @@ module.exports = {
     var pearl, percent;
     if (bestEv && defined(bestEv.cp)) {
       pearl = renderEval(bestEv.cp);
-      percent = ctrl.nextNodeBest() ?
-        100 :
-        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0)
+      percent = evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0;
     } else if (bestEv && defined(bestEv.mate)) {
       pearl = '#' + bestEv.mate;
       percent = 100;
