@@ -22,7 +22,8 @@ module.exports = function(opts) {
   var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
-  var started = false;
+  var started = false; // object if started
+  var lastStarted = false; // last started object (for going deeper even if stopped)
   var hovering = m.prop(null);
   var isDeeper = m.prop(false);
 
@@ -135,7 +136,7 @@ module.exports = function(opts) {
   };
 
   var goDeeper = function() {
-    var s = started;
+    var s = started || lastStarted;
     if (s) {
       stop();
       start(s.path, s.steps, s.threatMode, true);
@@ -145,6 +146,7 @@ module.exports = function(opts) {
   var stop = function() {
     if (!enabled() || !started) return;
     pool.stop();
+    lastStarted = started;
     started = false;
   };
 
