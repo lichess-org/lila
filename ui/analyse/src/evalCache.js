@@ -67,11 +67,12 @@ module.exports = function(opts) {
       if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
       if (hasFetched(node)) return;
       fenFetched.push(node.fen);
-      opts.send("evalGet", {
+      var obj = {
         fen: node.fen,
-        mpv: multiPv,
         path: path
-      });
+      };
+      if (multiPv > 1) obj.mpv = multiPv;
+      opts.send("evalGet", obj);
     },
     onCloudEval: function(serverEval) {
       opts.receive(toCeval(serverEval), serverEval.path);

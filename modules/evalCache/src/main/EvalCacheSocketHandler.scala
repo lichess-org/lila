@@ -25,7 +25,7 @@ final class EvalCacheSocketHandler(
     case ("evalGet", o) => for {
       d <- o obj "d"
       fen <- d str "fen"
-      multiPv <- d int "mpv"
+      multiPv = (d int "mpv") | 1
       path <- d str "path"
     } api.getEvalJson(FEN(fen), multiPv) foreach {
       _ foreach { json =>
