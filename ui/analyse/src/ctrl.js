@@ -676,7 +676,10 @@ module.exports = function(opts) {
         return this.vm.node;
       }.bind(this),
       send: this.socket.send,
-      receive: onNewCeval
+      receive: function(eval, path) {
+        if (eval.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
+        onNewCeval(eval, path);
+      }.bind(this)
     });
   }.bind(this);
   instanciateEvalCache();
