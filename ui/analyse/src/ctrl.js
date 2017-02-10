@@ -456,6 +456,7 @@ module.exports = function(opts) {
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
           this.evalCache.onCeval();
+          if (eval.cloud && eval.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
         }
         m.redraw();
       }
@@ -676,10 +677,7 @@ module.exports = function(opts) {
         return this.vm.node;
       }.bind(this),
       send: this.socket.send,
-      receive: function(eval, path) {
-        if (eval.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
-        onNewCeval(eval, path);
-      }.bind(this)
+      receive: onNewCeval
     });
   }.bind(this);
   instanciateEvalCache();

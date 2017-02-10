@@ -81,7 +81,7 @@ module.exports = function(opts) {
   };
 
   var effectiveMaxDepth = function() {
-    return (isDeeper() || infinite()) ? 99 : maxDepth();
+    return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
   };
 
   var start = function(path, steps, threatMode, deeper) {
