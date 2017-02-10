@@ -167,13 +167,14 @@ div.eval_gauge::after {
 }
 div.eval_gauge tick {
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
   width: 100%;
   border-bottom: 2px ridge #eee;
   opacity: 0.4;
 }
 div.eval_gauge tick.zero {
+  top: 0;
   opacity: 1;
   border-bottom: 7px solid #dc322f!important;
   margin-top: -3px;
