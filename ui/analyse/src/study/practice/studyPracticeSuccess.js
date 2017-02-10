@@ -37,6 +37,7 @@ module.exports = function(root, goal, nbMoves) {
   switch (goal.result) {
     case 'drawIn':
     case 'equalIn':
+      if (node.threefold) return true;
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves) return false;
       if (root.gameOver() === 'draw') return true;
