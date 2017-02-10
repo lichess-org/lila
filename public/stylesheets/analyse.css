@@ -370,7 +370,7 @@ body.piece_letter .pv_box .pv span {
 .fork move {
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 14px;
-  line-height: 32px;
+  line-height: 28px;
   display: block;
   cursor: pointer;
   padding: 0 15px;
