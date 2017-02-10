@@ -43,10 +43,10 @@ function makeBindings(opts, submit, clear) {
     } else submit(v, e.keyCode === 13);
   });
   opts.input.addEventListener('focus', function() {
-    opts.focus(true);
+    opts.setFocus(true);
   });
   opts.input.addEventListener('blur', function() {
-    opts.focus(false);
+    opts.setFocus(false);
   });
   opts.input.focus();
 }

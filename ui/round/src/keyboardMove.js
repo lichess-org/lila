@@ -20,6 +20,10 @@ module.exports = {
         if (preHandlerBuffer) handler(preHandlerBuffer, cg.data.movable.dests);
       },
       focus: focus,
+      setFocus: function(v) {
+        focus(v);
+        m.redraw();
+      },
       san: function(orig, dest) {
         usedSan = true;
         cg.cancelMove();
@@ -39,7 +43,7 @@ module.exports = {
           if (!isUpdate) lichess.loadScript('/assets/javascripts/keyboardMove.js').then(function() {
             ctrl.registerHandler(lichessKeyboardMove({
               input: el,
-              focus: ctrl.focus,
+              setFocus: ctrl.setFocus,
               select: ctrl.select,
               san: ctrl.san
             }));
