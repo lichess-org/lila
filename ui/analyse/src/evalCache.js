@@ -71,7 +71,7 @@ module.exports = function(opts) {
         fen: node.fen,
         path: path
       };
-      if (multiPv > 1) obj.mpv = multiPv;
+      if (multiPv > 1 || true) obj.mpv = multiPv;
       opts.send("evalGet", obj);
     },
     onCloudEval: function(serverEval) {
