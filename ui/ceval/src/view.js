@@ -146,7 +146,9 @@ module.exports = {
       else percent = 0;
     }
     var mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
-    return m('div.ceval_box',
+    return m('div', {
+        class: 'ceval_box ' + (percent < 100 && instance.isComputing() ? 'computing' : '')
+      },
       enabled ? m('div.bar', m('span', {
         class: threatMode ? 'threat' : '',
         style: {

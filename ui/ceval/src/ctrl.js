@@ -186,6 +186,9 @@ module.exports = function(opts) {
     canGoDeeper: function() {
       return pnaclSupported && !isDeeper() && !infinite();
     },
+    isComputing: function() {
+      return !!started;
+    },
     destroy: pool.destroy
   };
 };

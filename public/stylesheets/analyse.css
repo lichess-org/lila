@@ -310,15 +310,23 @@ body.piece_letter .pv_box .pv span {
   height: 3px;
   top: 0px;
 }
+@keyframes bar-anim {
+  from { background-position: 0 0; }
+  to { background-position: 100000px 0; }
+}
 .ceval_box .bar span {
   display: block;
   height: 3px;
   width: 0;
   background: #759900;
-  transition: 1s;
+  transition: width 1s;
 }
 .ceval_box .bar span.threat {
   background: #dc322f;
+}
+.ceval_box.computing .bar span {
+  background-image: url(../images/bar-highlight.png);
+  animation: bar-anim 1000s linear infinite;
 }
 .ceval_box .show-threat {
   position: absolute;
