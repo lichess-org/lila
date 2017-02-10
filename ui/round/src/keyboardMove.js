@@ -33,6 +33,8 @@ module.exports = {
   view: function(ctrl) {
     return m('div.keyboard-move', [
       m('input', {
+        spellcheck: false,
+        autocomplete: false,
         config: function(el, isUpdate) {
           if (!isUpdate) lichess.loadScript('/assets/javascripts/keyboardMove.js').then(function() {
             ctrl.registerHandler(lichessKeyboardMove({
