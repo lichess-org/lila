@@ -31,7 +31,7 @@ function controls(ctrl, fen) {
         value: pos.fen,
         selected: currentPosition && currentPosition.fen === pos.fen
       },
-      children: [pos.name]
+      children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
     };
   }
   return m('div.editor-side', [
