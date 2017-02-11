@@ -92,8 +92,6 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def acceptedRatedClock(clock: String) =
-        inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
       def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
       def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
       def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")

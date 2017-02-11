@@ -27,8 +27,6 @@ private[lobby] object Biter {
     _ ← GameRepo insertDenormalized game
   } yield {
     lila.mon.lobby.hook.join()
-    if (hook.realMode.rated)
-      lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
     JoinHook(uid, hook, game, creatorColor)
   }
 
