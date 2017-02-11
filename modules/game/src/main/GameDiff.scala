@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
 
 private[game] object GameDiff {
@@ -46,7 +47,8 @@ private[game] object GameDiff {
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
-    d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
+    dOpt(legacyMoveTimes, _.legacyMoveTimes, ((o: Option[ByteArray]) => o.map(ByteArrayBSONHandler.write _)))
+    dOpt(clockTimes, _.binaryClockTimes, ((o: Option[ByteArray]) => o.map(ByteArrayBSONHandler.write _)))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

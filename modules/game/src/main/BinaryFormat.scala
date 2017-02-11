@@ -23,7 +23,7 @@ object BinaryFormat {
       format.pgn.Binary.readMoves(ba.value.toList, nb).get
   }
 
-  object moveTime {
+  object legacyMoveTimes {
 
     private type MT = Int // tenths of seconds
     private val size = 16
@@ -47,6 +47,28 @@ object BinaryFormat {
         Array(dec(k >> 4), dec(k & 15))
       }
     }.toVector
+  }
+
+  object clockTimes {
+
+    def read(ba: ByteArray): Vector[Int] = {
+      val in = new java.io.ByteArrayInputStream(ba.value)
+      val times = scala.collection.mutable.ListBuffer.empty[Int]
+      while (in.available > 0) {
+        times += in.read() << 16 | in.read() << 8 | in.read()
+      }
+      times.toVector
+    }
+
+    def write(times: Vector[Int]): ByteArray = {
+      val out = new java.io.ByteArrayOutputStream()
+      times.foreach { v =>
+        out.write(0xff & (v >> 16))
+        out.write(0xff & (v >> 8))
+        out.write(0xff & v)
+      }
+      ByteArray(out.toByteArray)
+    }
   }
 
   case class clock(since: DateTime) {
