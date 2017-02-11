@@ -11,6 +11,7 @@ module.exports = function(worker, opts) {
   var work = null;
   var curEval = null;
   var expectedPvs = 0;
+  var engineVersion;
 
   var stopped = m.deferred();
   stopped.resolve(true);
@@ -33,7 +34,13 @@ module.exports = function(worker, opts) {
     if (!work) return;
 
     var matches = text.match(EVAL_REGEX);
-    if (!matches) return;
+    if (!matches) {
+      if (!engineVersion) {
+        var m = text.match(/Stockfish (.+) by /);
+        engineVersion = m && m[1];
+      }
+      return;
+    }
 
     var depth = parseInt(matches[1]),
         multiPv = parseInt(matches[2]),
@@ -109,6 +116,9 @@ module.exports = function(worker, opts) {
       }
       return stopped;
     },
-    received: processOutput
+    received: processOutput,
+    engineVersion: function() {
+      return engineVersion;
+    }
   };
 };

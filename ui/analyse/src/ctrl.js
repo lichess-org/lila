@@ -478,7 +478,21 @@ module.exports = function(opts) {
       onCrash: function(info) {
         var ceval = this.vm.node.ceval;
         console.log('Local eval failed after depth ' + (ceval && ceval.depth));
-        console.log(info);
+        var env = this.ceval.env();
+        var desc = [
+          'ceval crash',
+          env.pnacl ? 'native' : 'asmjs',
+          'engine:' + (env.engine || '?').replace(/ /g, '_'),
+          'multiPv:' + env.multiPv,
+          'threads:' + env.threads,
+          'hashSize:' + env.hashSize,
+          'depth:' + (ceval && ceval.depth || 0) + '/' + env.maxDepth,
+          info.lastError
+        ].join(' ');
+        console.log('send exception: ' + desc);
+        if (window.ga) window.ga('send', 'exception', {
+          exDescription: desc
+        });
         if (this.ceval.pnaclSupported) {
           if (ceval && ceval.depth >= 20 && !ceval.retried) {
             console.log('Remain on native stockfish for now');
