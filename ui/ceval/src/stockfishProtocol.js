@@ -36,8 +36,8 @@ module.exports = function(worker, opts) {
     var matches = text.match(EVAL_REGEX);
     if (!matches) {
       if (!engineVersion) {
-        var m = text.match(/Stockfish (.+) by /);
-        engineVersion = m && m[1];
+        var match = text.match(/Stockfish (.+) by /);
+        engineVersion = match && match[1];
       }
       return;
     }
