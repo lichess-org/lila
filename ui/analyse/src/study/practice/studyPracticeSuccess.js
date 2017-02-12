@@ -4,10 +4,10 @@ function isDrawish(node) {
   return !node.ceval.mate && Math.abs(node.ceval.cp) < 150;
 }
 // returns null if not deep enough to know
-function isWinning(node, goalCp) {
+function isWinning(node, goalCp, color) {
   if (!hasSolidEval(node)) return null;
   var cp = node.ceval.mate > 0 ? 99999 : (node.ceval.mate < 0 ? -99999 : node.ceval.cp);
-  return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
+  return color === 'white' ? cp >= goalCp : cp <= goalCp;
 }
 
 function hasSolidEval(node) {
@@ -44,7 +44,7 @@ module.exports = function(root, goal, nbMoves) {
       if (nbMoves === goal.moves) return isDrawish(node);
       break;
     case 'evalIn':
-      if (nbMoves === goal.moves) return isWinning(node, goal.cp);
+      if (nbMoves === goal.moves) return isWinning(node, goal.cp, root.bottomColor());
       break;
     case 'mateIn':
       if (nbMoves > goal.moves) return false;
@@ -53,7 +53,7 @@ module.exports = function(root, goal, nbMoves) {
       break;
     case 'promotion':
       if (!node.uci[4]) return null;
-      return isWinning(node, goal.cp);
+      return isWinning(node, goal.cp, root.bottomColor());
       break;
     case 'mate':
     default:
