@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     getOnlineUserIds: () => Set[String],
     lightUser: lila.common.LightUser.Getter,
+    lightUserSync: lila.common.LightUser.GetterSync,
     followable: String => Fu[Boolean],
     system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -40,12 +41,17 @@ final class Env(
     maxBlock = MaxBlock)
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
+  val onlineStudying = new OnlineStudyingMemo(4 hour) // people with write access in public studies
+  val onlineStudyingAll = new OnlineStudyingMemo(4 hour) // people with write or read access in public and private studies
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
     lightUser = lightUser,
+    lightUserSync = lightUserSync,
     api = api,
-    onlinePlayings
+    onlinePlayings,
+    onlineStudying,
+    onlineStudyingAll
   )), name = ActorName)
 
   scheduler.once(15 seconds) {
@@ -63,6 +69,7 @@ object Env {
     hub = lila.hub.Env.current,
     getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
     lightUser = lila.user.Env.current.lightUser,
+    lightUserSync = lila.user.Env.current.lightUserSync,
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,

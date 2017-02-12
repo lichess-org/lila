@@ -1,6 +1,7 @@
 package lila.relation
 
 import lila.hub.actorApi.relation.OnlineFriends
+import lila.common.LightUser
 import play.api.libs.json._
 
 object JsonView {
@@ -22,7 +23,9 @@ object JsonView {
       "t" -> "following_onlines",
       "d" -> onlineFriends.users.map(_.titleName),
       "playing" -> onlineFriends.playing,
-      "patrons" -> onlineFriends.patrons)
+      "studying" -> onlineFriends.studying,
+      "patrons" -> onlineFriends.patrons
+    )
   }
 
   def writeFriendEntering(friendEntering: FriendEntering) = {
@@ -31,7 +34,16 @@ object JsonView {
       "t" -> "following_enters",
       "d" -> friendEntering.user.titleName,
       "playing" -> friendEntering.isPlaying,
+      "studyId" -> friendEntering.studyId,
       "patron" -> friendEntering.user.isPatron
+    )
+  }
+
+  def writeFriendJoinedOrQuitStudy(user: LightUser, studyId: String, message: String) = {
+    Json.obj(
+      "t" -> message,
+      "user" -> user.titleName,
+      "studyId" -> studyId
     )
   }
 }

@@ -24,7 +24,8 @@ final class StudyApi(
     chat: ActorSelection,
     bus: lila.common.Bus,
     timeline: ActorSelection,
-    socketHub: ActorRef) {
+    socketHub: ActorRef,
+    lightStudyCache: LightStudyCache) {
 
   def byId = studyRepo byId _
 
@@ -189,7 +190,14 @@ final class StudyApi(
 
   def setRole(byUserId: User.ID, studyId: Study.Id, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
+      val previousRole = study.members.get(userId).get.role
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+      if (previousRole == StudyMember.Role.Read && role == StudyMember.Role.Write) {
+        bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value, study.isPublic), 'study)
+      } else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
+        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
+      }
+      lightStudyCache.remove(studyId.value)
       studyRepo.setRole(study, userId, role) >>- reloadMembers(study)
     }
   }
@@ -207,6 +215,10 @@ final class StudyApi(
 
   def kick(studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
     study.isMember(userId) ?? {
+      if (study canContribute userId) {
+        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
+      }
+      lightStudyCache.remove(studyId.value)
       studyRepo.removeMember(study, userId)
     } >>- reloadMembers(study) >>- indexStudy(study)
   }
@@ -392,10 +404,16 @@ final class StudyApi(
         name = Study toName data.name,
         settings = settings,
         visibility = data.vis)
+      if (study.visibility == Study.Visibility.Private && newStudy.visibility == Study.Visibility.Public) {
+        bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+      } else if (study.visibility == Study.Visibility.Public && newStudy.visibility == Study.Visibility.Private) {
+        bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+      }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study, Socket.ReloadAll) >>-
-          indexStudy(study)
+          indexStudy(study) >>-
+          lightStudyCache.remove(studyId.value)
       }
     }
   }
@@ -403,7 +421,8 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      bus.publish(actorApi.RemoveStudy(study.id), 'study)
+      bus.publish(actorApi.RemoveStudy(study.id), 'study) >>-
+      lightStudyCache.remove(study.id.value)
   }
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
