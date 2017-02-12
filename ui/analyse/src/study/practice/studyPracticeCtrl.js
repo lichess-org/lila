@@ -78,6 +78,9 @@ module.exports = function(root, studyData, data) {
       root.userJump('');
       root.practice.reset();
       onLoad();
+    },
+    isWhite: function() {
+      return root.bottomColor() === 'white';
     }
   };
 };

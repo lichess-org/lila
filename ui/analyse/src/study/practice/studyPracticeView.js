@@ -28,7 +28,8 @@ function selector(data) {
 };
 
 function renderGoal(practice, inMoves) {
-  switch (practice.goal().result) {
+  var goal = practice.goal();
+  switch (goal.result) {
     case 'mate':
       return 'Checkmate the opponent';
     case 'mateIn':
@@ -38,7 +39,9 @@ function renderGoal(practice, inMoves) {
     case 'equalIn':
       return 'Equalize in ' + plural('move', inMoves);
     case 'evalIn':
-      return 'Get a winning position in ' + plural('move', inMoves);
+      if (practice.isWhite() === (goal.cp >= 0))
+        return 'Get a winning position in ' + plural('move', inMoves);
+      return 'Defend for ' + plural('move', inMoves);
     case 'promotion':
       return 'Safely promote your pawn';
   }
