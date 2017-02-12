@@ -182,6 +182,12 @@ trait WithPlay { self: PackageObject =>
     def lilaBus = lila.common.Bus(self)
   }
 
+  implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
+
+    def toTenths: Long = self.toMillis / 100
+    def toHundredths: Long = self.toMillis / 10
+  }
+
   object makeTimeout {
 
     import akka.util.Timeout
