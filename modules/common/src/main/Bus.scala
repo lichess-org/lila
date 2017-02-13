@@ -3,7 +3,7 @@ package lila.common
 import akka.actor._
 import akka.event._
 
-final class Bus(system: ActorSystem) extends Extension with EventBus {
+final class Bus private(system: ActorSystem) extends Extension with EventBus {
 
   type Event = Bus.Event
   type Classifier = Symbol
