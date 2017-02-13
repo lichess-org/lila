@@ -1090,11 +1090,11 @@ lichess.notifyApp = (function() {
           return isSameUser(n.toLowerCase(), u);
         })[0];
       },
-      _makeUser: function(name, playing, studyId, patron) {
+      _makeUser: function(name, playing, studying, patron) {
         return {
           'name': name,
           'playing': !!playing,
-          'studyId': studyId,
+          'studying': !!studying,
           'patron': !!patron
         }
       },
@@ -1123,7 +1123,7 @@ lichess.notifyApp = (function() {
       },
       set: function(us, playings, studyings, patrons) {
         this.users = us.map(function(user) {
-          return this._makeUser(user, false, null, false);
+          return this._makeUser(user, false, false, false);
         }.bind(this));
         for (i in playings) this._setPlaying(playings[i], true);
         for (i in studyings) this._setStudying(studyings[i], true);
@@ -1174,7 +1174,7 @@ lichess.notifyApp = (function() {
         var name = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-        var studyButton = user.studying ? '<a data-icon="&#xe00e;" class="is-green friend-study" data-pt-pos="nw" href="' + url + '/studyTv" data-href="' + '' + '"></a>' : '';
+        var studyButton = user.studying ? '<a data-icon="&#xe00e;" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
         var rightButton = tvButton || studyButton;
 
         return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + rightButton + '</div>';

@@ -116,7 +116,7 @@ final class Env(
       logger = logger)
   }))
 
-  lazy val lightStudyCache = new lila.study.LightStudyCache(4 hour, studyRepo, asyncCache)
+  lazy val lightStudyCache = new lila.study.LightStudyCache(studyRepo, asyncCache)
 
   def cli = new lila.common.Cli {
     def process = {

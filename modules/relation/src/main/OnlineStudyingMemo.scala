@@ -17,7 +17,4 @@ final class OnlineStudyingMemo(ttl: Duration) {
 
 	def remove(userId: String): Unit =
 	  cache invalidate userId
-
-	def getMap(): Map[String, String] =
-	  scala.collection.immutable.Map() ++ (cache asMap)
 }

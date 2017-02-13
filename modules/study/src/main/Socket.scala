@@ -43,7 +43,7 @@ private final class Socket(
   }
 
   def sendStudyJoin(userId: User.ID) {
-    lightStudyCache.get(studyId.value) foreach { studyOption =>
+    lightStudyCache.get(studyId) foreach { studyOption =>
       studyOption foreach { study =>
         val contributor = study.contributors.contains(userId)
         context.system.lilaBus.publish(lila.hub.actorApi.study.StudyJoin(userId, studyId.value, contributor, study.isPublic), 'study)
@@ -52,7 +52,7 @@ private final class Socket(
   }
 
   def sendStudyQuit(userId: User.ID) {
-    lightStudyCache.get(studyId.value) foreach { studyOption =>
+    lightStudyCache.get(studyId) foreach { studyOption =>
       studyOption foreach { study =>
         val contributor = study.contributors.contains(userId)
         context.system.lilaBus.publish(lila.hub.actorApi.study.StudyQuit(userId, studyId.value, contributor, study.isPublic), 'study)
@@ -63,10 +63,7 @@ private final class Socket(
   def receiveSpecific = ({
 
     case SetPath(pos, uid) =>
-      uidToUserId(uid) match {
-        case Some(userId) => sendStudyJoin(userId)
-        case None => {}
-      }
+      uidToUserId(uid) foreach sendStudyJoin
       notifyVersion("path", Json.obj(
         "p" -> pos,
         "w" -> who(uid).map(whoWriter.writes)
@@ -170,16 +167,12 @@ private final class Socket(
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
-      userId match {
-        case Some(u) => sendStudyJoin(u)
-        case None => {}
-      }
+      userId foreach sendStudyJoin
 
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
-        val userId = member.userId.get
-        sendStudyQuit(userId)
+        member.userId foreach sendStudyQuit
         notifyCrowd
       }
 

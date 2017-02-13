@@ -6,23 +6,22 @@ import scala.concurrent.duration._
 import lila.study._
 import lila.user.User
 
-final class LightStudyCache(ttl: Duration,
-	                        studyRepo: StudyRepo,
-	                        asyncCache: lila.memo.AsyncCache.Builder) {
+final class LightStudyCache(studyRepo: StudyRepo,
+	                          asyncCache: lila.memo.AsyncCache.Builder) {
 	private val cache = asyncCache.clearable(
 	  name = "study.lightStudyCache",
     f = fetch,
-    expireAfter = _.ExpireAfterWrite(4 hours)
+    expireAfter = _.ExpireAfterWrite(20 minutes)
 	)
 
-    def remove(studyId: String): Unit =
+    def remove(studyId: Study.Id): Unit =
       cache invalidate studyId
 
-    def get(studyId: String): Fu[Option[LightStudy]] =
+    def get(studyId: Study.Id): Fu[Option[LightStudy]] =
       cache get studyId
 
-    private def fetch(studyId: String): Fu[Option[LightStudy]] =
-      studyRepo byId new Study.Id(studyId) flatMap { studyOption =>
+    private def fetch(studyId: Study.Id): Fu[Option[LightStudy]] =
+      studyRepo byId studyId flatMap { studyOption =>
         studyOption match {
           case Some(study) => fuccess(Some(new LightStudy(study.isPublic, study.members.members.filter(_._2.canContribute).map(_._1).toSet)))
           case None => fuccess(None)
