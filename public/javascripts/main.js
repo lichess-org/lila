@@ -1123,7 +1123,7 @@ lichess.notifyApp = (function() {
       },
       set: function(us, playings, studyings, patrons) {
         this.users = us.map(function(user) {
-          return this._makeUser(user, false, null, false);
+          return this._makeUser(user, false, false, false);
         }.bind(this));
         for (i in playings) this._setPlaying(playings[i], true);
         for (i in studyings) this._setStudying(studyings[i], true);
