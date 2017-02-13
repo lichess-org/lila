@@ -38,12 +38,4 @@ object JsonView {
       "patron" -> friendEntering.user.isPatron
     )
   }
-
-  def writeFriendJoinedOrQuitStudy(user: LightUser, studyId: String, message: String) = {
-    Json.obj(
-      "t" -> message,
-      "user" -> user.titleName,
-      "studyId" -> studyId
-    )
-  }
 }
