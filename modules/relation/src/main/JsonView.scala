@@ -34,7 +34,7 @@ object JsonView {
       "t" -> "following_enters",
       "d" -> friendEntering.user.titleName,
       "playing" -> friendEntering.isPlaying,
-      "studyId" -> friendEntering.studyId,
+      "studying" -> friendEntering.isStudying,
       "patron" -> friendEntering.user.isPatron
     )
   }

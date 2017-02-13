@@ -1090,11 +1090,11 @@ lichess.notifyApp = (function() {
           return isSameUser(n.toLowerCase(), u);
         })[0];
       },
-      _makeUser: function(name, playing, studyId, patron) {
+      _makeUser: function(name, playing, studying, patron) {
         return {
           'name': name,
           'playing': !!playing,
-          'studyId': studyId,
+          'studying': !!studying,
           'patron': !!patron
         }
       },

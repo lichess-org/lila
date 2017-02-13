@@ -114,8 +114,7 @@ private[relation] final class RelationActor(
   }
 
   private def makeFriendEntering(enters: LightUser) = {
-    val studyId = onlineStudying.get(enters.id)
-    FriendEntering(enters, onlinePlayings.get(enters.id), studyId)
+    FriendEntering(enters, onlinePlayings.get(enters.id), onlineStudying.get(enters.id).isDefined)
   }
 
   private def onlineIds: Set[ID] = onlines.keySet
