@@ -63,10 +63,7 @@ private final class Socket(
   def receiveSpecific = ({
 
     case SetPath(pos, uid) =>
-      uidToUserId(uid) match {
-        case Some(userId) => sendStudyJoin(userId)
-        case None => {}
-      }
+      uidToUserId(uid) foreach sendStudyJoin
       notifyVersion("path", Json.obj(
         "p" -> pos,
         "w" -> who(uid).map(whoWriter.writes)
