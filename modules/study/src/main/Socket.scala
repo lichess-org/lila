@@ -172,8 +172,7 @@ private final class Socket(
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
-        val userId = member.userId.get
-        sendStudyQuit(userId)
+        member.userId foreach sendStudyQuit
         notifyCrowd
       }
 

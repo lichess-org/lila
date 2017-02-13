@@ -190,12 +190,14 @@ final class StudyApi(
 
   def setRole(byUserId: User.ID, studyId: Study.Id, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
-      val previousRole = study.members.get(userId).get.role
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-      if (previousRole == StudyMember.Role.Read && role == StudyMember.Role.Write) {
-        bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value, study.isPublic), 'study)
-      } else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
-        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
+      study.members.get(userId) foreach { member =>
+        val previousRole = member.role
+        if (previousRole == StudyMember.Role.Read && role == StudyMember.Role.Write) {
+          bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value, study.isPublic), 'study)
+        } else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
+          bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
+        }
       }
       lightStudyCache.remove(studyId)
       studyRepo.setRole(study, userId, role) >>- reloadMembers(study)
