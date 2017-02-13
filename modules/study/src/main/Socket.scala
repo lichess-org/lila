@@ -167,10 +167,7 @@ private final class Socket(
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
-      userId match {
-        case Some(u) => sendStudyJoin(u)
-        case None => {}
-      }
+      userId foreach sendStudyJoin
 
     case Quit(uid) =>
       members get uid foreach { member =>
