@@ -41,8 +41,8 @@ final class Env(
     maxBlock = MaxBlock)
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
-  val onlineStudying = new OnlineStudyingMemo(4 hour) // people with write access in public studies
-  val onlineStudyingAll = new OnlineStudyingMemo(4 hour) // people with write or read access in public and private studies
+  val onlineStudying = new OnlineStudyingMemo(20 minutes) // people with write access in public studies
+  val onlineStudyingAll = new OnlineStudyingMemo(20 minutes) // people with write or read access in public and private studies
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
