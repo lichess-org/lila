@@ -31,6 +31,9 @@ module.exports = {
         select(dest);
       },
       select: select,
+      hasSelected: function() {
+        return cg.data.selected;
+      },
       usedSan: usedSan
     };
   },
@@ -45,6 +48,7 @@ module.exports = {
               input: el,
               setFocus: ctrl.setFocus,
               select: ctrl.select,
+              hasSelected: ctrl.hasSelected,
               san: ctrl.san
             }));
           });
