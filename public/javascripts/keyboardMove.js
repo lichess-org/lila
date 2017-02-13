@@ -9,8 +9,11 @@ function lichessKeyboardMove(opts) {
   var submit = function(v, force) {
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
+      // ambiguous castle
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
-      opts.san(foundUci.slice(0, 2), foundUci.slice(2));
+      // ambiguous UCI
+      if (v.match(keyRegex) && opts.hasSelected()) opts.select(v);
+      else opts.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
     } else if (sans && v.match(keyRegex)) {
       opts.select(v);
