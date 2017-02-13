@@ -74,7 +74,7 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyJoin(userId, studyId, contributor, public) =>
       onlineStudyingAll.put(userId, studyId)
       if (contributor && public) {
-        val wasAlreadyInStudy = onlineStudying.get(userId) != None
+        val wasAlreadyInStudy = onlineStudying.get(userId).isDefined
         onlineStudying.put(userId, studyId)
         if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
@@ -87,27 +87,27 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
-      val contributorsInStudy = contributors.filter(onlineStudying.get(_) != None).toSet
+      val contributorsInStudy = contributors.filter(onlineStudying.get(_).isDefined)
       for (c <- contributorsInStudy) {
         onlineStudying remove c
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
-      val contributorsInStudy = contributors.filter(onlineStudyingAll.get(_) != None).toSet
+      val contributorsInStudy = contributors.filter(onlineStudyingAll.get(_).isDefined)
       for (c <- contributorsInStudy) {
         onlineStudying.put(c, studyId)
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId, public) if public =>
-      if (onlineStudyingAll.get(userId) != None) {
+      if (onlineStudyingAll.get(userId).isDefined) {
         onlineStudying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId, public) if public =>
-      if (onlineStudying.get(userId) != None) {
+      if (onlineStudying.get(userId).isDefined) {
         onlineStudying remove userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
@@ -132,7 +132,7 @@ private[relation] final class RelationActor(
   }
 
   private def filterFriendsStudying(friends: List[LightUser]): Set[String] = {
-    friends.filter(p => onlineStudying.get(p.id) != None).map(_.id).toSet
+    friends.filter(p => onlineStudying.get(p.id).isDefined).map(_.id).toSet
   }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
