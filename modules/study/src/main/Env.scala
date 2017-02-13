@@ -21,7 +21,8 @@ final class Env(
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     system: ActorSystem,
     hub: lila.hub.Env,
-    db: lila.db.Env) {
+    db: lila.db.Env,
+    asyncCache: lila.memo.AsyncCache.Builder) {
 
   private val settings = new {
     val CollectionStudy = config getString "collection.study"
@@ -46,7 +47,8 @@ final class Env(
         lightUser = lightUserApi.async,
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout)
+        socketTimeout = SocketTimeout,
+        lightStudyCache = lightStudyCache)
     }), name = SocketName)
 
   def version(studyId: Study.Id): Fu[Int] =
@@ -93,7 +95,8 @@ final class Env(
     chat = hub.actor.chat,
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
-    socketHub = socketHub)
+    socketHub = socketHub,
+    lightStudyCache = lightStudyCache)
 
   lazy val pager = new StudyPager(
     studyRepo = studyRepo,
@@ -113,6 +116,8 @@ final class Env(
       logger = logger)
   }))
 
+  lazy val lightStudyCache = new lila.study.LightStudyCache(4 hour, studyRepo, asyncCache)
+
   def cli = new lila.common.Cli {
     def process = {
       case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
@@ -130,5 +135,6 @@ object Env {
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache)
 }

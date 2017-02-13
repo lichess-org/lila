@@ -218,16 +218,25 @@ case class Remove(gameId: String)
 package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
-case class OnlineFriends(users: List[LightUser], playing: Set[String]) {
+case class OnlineFriends(users: List[LightUser], playing: Set[String], studying: Set[String]) {
   def patrons: List[String] = users collect {
     case u if u.isPatron => u.id
   }
 }
 object OnlineFriends {
-  val empty = OnlineFriends(Nil, Set.empty[String])
+  val empty = OnlineFriends(Nil, Set.empty[String], Set.empty[String])
 }
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
+}
+
+package study {
+case class StudyJoin(userId: String, studyId: String, contributor: Boolean, public: Boolean)
+case class StudyQuit(userId: String, studyId: String, contributor: Boolean, public: Boolean)
+case class StudyBecamePrivate(studyId: String, contributors: Set[String])
+case class StudyBecamePublic (studyId: String, contributors: Set[String])
+case class StudyMemberGotWriteAccess(userId: String, studyId: String, public: Boolean)
+case class StudyMemberLostWriteAccess(userId: String, studyId: String, public: Boolean)
 }
 
 package plan {

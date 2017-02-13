@@ -6,3 +6,5 @@ case class RemoveStudy(id: Study.Id)
 case class SetTag(chapterId: Chapter.Id, name: String, value: String) {
   def tag = chess.format.pgn.Tag(name, value take 140)
 }
+case class UserJoined(userId: String, studyId: String)
+case class UserLeft(userId: String, studyId: String)

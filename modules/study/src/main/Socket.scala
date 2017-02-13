@@ -20,7 +20,8 @@ private final class Socket(
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
+    socketTimeout: Duration,
+    lightStudyCache: LightStudyCache) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
   import Socket._
   import JsonView._
@@ -41,12 +42,35 @@ private final class Socket(
     lilaBus.unsubscribe(self)
   }
 
+  def sendStudyJoin(userId: User.ID) {
+    lightStudyCache.get(studyId.value) foreach { studyOption =>
+      studyOption foreach { study =>
+        val contributor = study.contributors.contains(userId)
+        context.system.lilaBus.publish(lila.hub.actorApi.study.StudyJoin(userId, studyId.value, contributor, study.isPublic), 'study)
+      }
+    }
+  }
+
+  def sendStudyQuit(userId: User.ID) {
+    lightStudyCache.get(studyId.value) foreach { studyOption =>
+      studyOption foreach { study =>
+        val contributor = study.contributors.contains(userId)
+        context.system.lilaBus.publish(lila.hub.actorApi.study.StudyQuit(userId, studyId.value, contributor, study.isPublic), 'study)
+      }
+    }
+  }
+
   def receiveSpecific = ({
 
-    case SetPath(pos, uid) => notifyVersion("path", Json.obj(
-      "p" -> pos,
-      "w" -> who(uid).map(whoWriter.writes)
-    ), noMessadata)
+    case SetPath(pos, uid) =>
+      uidToUserId(uid) match {
+        case Some(userId) => sendStudyJoin(userId)
+        case None => {}
+      }
+      notifyVersion("path", Json.obj(
+        "p" -> pos,
+        "w" -> who(uid).map(whoWriter.writes)
+      ), noMessadata)
 
     case AddNode(pos, node, uid) =>
       val dests = AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString).compute
@@ -146,10 +170,16 @@ private final class Socket(
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
+      userId match {
+        case Some(u) => sendStudyJoin(u)
+        case None => {}
+      }
 
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
+        val userId = member.userId.get
+        sendStudyQuit(userId)
         notifyCrowd
       }
 
