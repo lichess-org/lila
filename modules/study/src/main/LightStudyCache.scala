@@ -6,13 +6,12 @@ import scala.concurrent.duration._
 import lila.study._
 import lila.user.User
 
-final class LightStudyCache(ttl: Duration,
-	                        studyRepo: StudyRepo,
-	                        asyncCache: lila.memo.AsyncCache.Builder) {
+final class LightStudyCache(studyRepo: StudyRepo,
+	                          asyncCache: lila.memo.AsyncCache.Builder) {
 	private val cache = asyncCache.clearable(
 	  name = "study.lightStudyCache",
     f = fetch,
-    expireAfter = _.ExpireAfterWrite(4 hours)
+    expireAfter = _.ExpireAfterWrite(20 minutes)
 	)
 
     def remove(studyId: String): Unit =
