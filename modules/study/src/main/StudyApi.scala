@@ -406,9 +406,9 @@ final class StudyApi(
         name = Study toName data.name,
         settings = settings,
         visibility = data.vis)
-      if (study.visibility == Study.Visibility.Private && newStudy.visibility == Study.Visibility.Public) {
+      if (!study.isPublic && newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
-      } else if (study.visibility == Study.Visibility.Public && newStudy.visibility == Study.Visibility.Private) {
+      } else if (study.isPublic && !newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
       }
       (newStudy != study) ?? {
