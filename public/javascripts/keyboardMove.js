@@ -8,12 +8,12 @@ function lichessKeyboardMove(opts) {
   var sans = null;
   var submit = function(v, force) {
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
-    if (sans && v.match(keyRegex)) {
-      opts.select(v);
-      clear();
-    } else if (foundUci) {
+    if (foundUci) {
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !force) return;
       opts.san(foundUci.slice(0, 2), foundUci.slice(2));
+      clear();
+    } else if (sans && v.match(keyRegex)) {
+      opts.select(v);
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
