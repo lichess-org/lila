@@ -43,7 +43,7 @@ private final class Socket(
   }
 
   def sendStudyJoin(userId: User.ID) {
-    lightStudyCache.get(studyId.value) foreach { studyOption =>
+    lightStudyCache.get(studyId) foreach { studyOption =>
       studyOption foreach { study =>
         val contributor = study.contributors.contains(userId)
         context.system.lilaBus.publish(lila.hub.actorApi.study.StudyJoin(userId, studyId.value, contributor, study.isPublic), 'study)
@@ -52,7 +52,7 @@ private final class Socket(
   }
 
   def sendStudyQuit(userId: User.ID) {
-    lightStudyCache.get(studyId.value) foreach { studyOption =>
+    lightStudyCache.get(studyId) foreach { studyOption =>
       studyOption foreach { study =>
         val contributor = study.contributors.contains(userId)
         context.system.lilaBus.publish(lila.hub.actorApi.study.StudyQuit(userId, studyId.value, contributor, study.isPublic), 'study)
