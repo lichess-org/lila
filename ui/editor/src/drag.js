@@ -9,10 +9,7 @@ module.exports = function(ctrl, e) {
   if (!role || !color) return;
   e.stopPropagation();
   e.preventDefault();
-  var key = find(util.allKeys, function(k) {
-    return !ctrl.chessground.data.pieces[k];
-  });
-  if (!key) return;
+  var key = 'a0';
   var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
   var piece = {
     role: role,
@@ -35,7 +32,8 @@ module.exports = function(ctrl, e) {
     pos: [e.clientX - rel[0], e.clientY - rel[1]],
     dec: [-squareBounds.width / 2, -squareBounds.height / 2],
     bounds: bounds,
-    started: true
+    started: true,
+    newPiece: true
   };
   drag.processDrag(ctrl.chessground.data);
 }

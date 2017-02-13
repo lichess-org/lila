@@ -9,14 +9,7 @@ module.exports = function(ctrl, color, e) {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  var key;
-  for (var i in util.allKeys) {
-    if (!ctrl.chessground.data.pieces[util.allKeys[i]]) {
-      key = util.allKeys[i];
-      break;
-    }
-  }
-  if (!key) return;
+  var key = 'a0';
   var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
   var piece = {
     role: role,
