@@ -34,7 +34,7 @@ object User extends LilaController {
   def studyTv(username: String) = Open { implicit ctx =>
     OptionFuResult (UserRepo named username) { user =>
       lila.relation.Env.current.onlineStudying.get(user.id) match {
-        case None => notFound
+        case None => fuccess(Redirect(routes.Study.byOwnerDefault(user.id)))
         case Some(studyId) => fuccess(Redirect(routes.Study.show(studyId)))
       }
     }
