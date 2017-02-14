@@ -13,7 +13,7 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 import play.api.libs.json.Json
 
 private[relation] final class RelationActor(
-    getOnlineUserIds: () => Set[String],
+    getOnlineUserIds: () => Set[ID],
     lightUser: LightUser.Getter,
     api: RelationApi,
     onlinePlayings: ExpireSetMemo,
@@ -126,10 +126,10 @@ private[relation] final class RelationActor(
       OnlineFriends(friends, friendsPlaying, friendsStudying)
     }
 
-  private def filterFriendsPlaying(friendIds: Set[UserId]): Set[UserId] =
+  private def filterFriendsPlaying(friendIds: Set[ID]): Set[ID] =
     onlinePlayings intersect friendIds
 
-  private def filterFriendsStudying(friendIds: Set[UserId]): Set[UserId] = {
+  private def filterFriendsStudying(friendIds: Set[ID]): Set[ID] = {
     val found = onlineStudying.getAllPresent(friendIds)
     friendIds filter found.contains
   }

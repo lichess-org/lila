@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    getOnlineUserIds: () => Set[String],
+    getOnlineUserIds: () => Set[ID],
     lightUser: lila.common.LightUser.Getter,
     lightUserSync: lila.common.LightUser.GetterSync,
     followable: String => Fu[Boolean],
@@ -43,10 +43,10 @@ final class Env(
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
 
-  private val onlineStudying: Cache[UserId, String] /* userId, studyId */ =
-    Scaffeine().expireAfterAccess(20 minutes).build[UserId, String] // people with write access in public studies
+  private val onlineStudying: Cache[ID, String] /* userId, studyId */ =
+    Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write access in public studies
 
-  val currentlyStudying: UserId => Option[String] = onlineStudying.getIfPresent
+  val currentlyStudying: ID => Option[String] = onlineStudying.getIfPresent
 
   private val onlineStudyingAll = new lila.memo.ExpireSetMemo(20 minutes) // people with write or read access in public and private studies
 
