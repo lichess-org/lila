@@ -15,7 +15,6 @@ import play.api.libs.json.Json
 private[relation] final class RelationActor(
     getOnlineUserIds: () => Set[String],
     lightUser: LightUser.Getter,
-    lightUserSync: LightUser.GetterSync,
     api: RelationApi,
     onlinePlayings: ExpireSetMemo,
     onlineStudying: OnlineStudyingCache,

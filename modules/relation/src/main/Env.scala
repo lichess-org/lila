@@ -53,7 +53,6 @@ final class Env(
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
     lightUser = lightUser,
-    lightUserSync = lightUserSync,
     api = api,
     onlinePlayings,
     onlineStudying,
