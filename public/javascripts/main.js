@@ -1081,7 +1081,7 @@ lichess.notifyApp = (function() {
 
         var users = self.element.data('preload').split(',');
         var playings = self.element.data('playing').split(',');
-        var studyings = self.element.data('studying').split(',');
+        var studyings = []; // self.element.data('studying').split(',');
         var patrons = self.element.data('patrons').split(',');
         self.set(users, playings, studyings, patrons);
       },
