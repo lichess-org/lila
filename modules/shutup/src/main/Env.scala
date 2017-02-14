@@ -8,7 +8,8 @@ final class Env(
     reporter: akka.actor.ActorSelection,
     follows: (String, String) => Fu[Boolean],
     system: ActorSystem,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val settings = new {
     val CollectionShutup = config getString "collection.shutup"
@@ -19,7 +20,8 @@ final class Env(
   lazy val api = new ShutupApi(
     coll = coll,
     follows = follows,
-    reporter = reporter)
+    reporter = reporter
+  )
 
   private lazy val coll = db(CollectionShutup)
 
@@ -48,5 +50,6 @@ object Env {
     reporter = lila.hub.Env.current.actor.report,
     system = lila.common.PlayApp.system,
     follows = lila.relation.Env.current.api.fetchFollows _,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

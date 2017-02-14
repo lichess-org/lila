@@ -9,7 +9,8 @@ final class Env(
     config: Config,
     system: ActorSystem,
     lightUser: lila.common.LightUser.GetterSync,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val settings = new {
     val CollectionPerfStat = config getString "collection.perf_stat"
@@ -17,14 +18,16 @@ final class Env(
   import settings._
 
   lazy val storage = new PerfStatStorage(
-    coll = db(CollectionPerfStat))
+    coll = db(CollectionPerfStat)
+  )
 
   lazy val indexer = new PerfStatIndexer(
     storage = storage,
     sequencer = system.actorOf(Props(
       classOf[lila.hub.Sequencer],
       None, None, lila.log("perfStat")
-    )))
+    ))
+  )
 
   lazy val jsonView = new JsonView(lightUser)
 
@@ -49,5 +52,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "perfStat",
     system = lila.common.PlayApp.system,
     lightUser = lila.user.Env.current.lightUserSync,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

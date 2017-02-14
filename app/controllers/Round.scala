@@ -129,7 +129,7 @@ object Round extends LilaController with TheftPrevention {
         case Some(next) => renderPlayer(next)
         case None => fuccess(Redirect(currentGame.simulId match {
           case Some(simulId) => routes.Simul.show(simulId)
-          case None          => routes.Round.watcher(gameId, "white")
+          case None => routes.Round.watcher(gameId, "white")
         }))
       }
     }
@@ -240,7 +240,8 @@ object Round extends LilaController with TheftPrevention {
     implicit val req = ctx.body
     Form(single("text" -> text)).bindFromRequest.fold(
       err => fuccess(BadRequest),
-      text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
+      text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+    )
   }
 
   def readNote(gameId: String) = Auth { implicit ctx => me =>
@@ -264,7 +265,8 @@ object Round extends LilaController with TheftPrevention {
       Redirect("%s?fen=%s#%s".format(
         routes.Lobby.home(),
         get("fen") | (chess.format.Forsyth >> game.toChess),
-        mode))
+        mode
+      ))
     }
   }
 
@@ -273,8 +275,7 @@ object Round extends LilaController with TheftPrevention {
       if (isTheft(pov)) {
         controllerLogger.warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
         fuccess(routes.Lobby.home)
-      }
-      else {
+      } else {
         env resign pov
         import scala.concurrent.duration._
         val scheduler = lila.common.PlayApp.system.scheduler

@@ -13,7 +13,8 @@ object Namer {
       p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
         if (withRating) s"${withTitle.fold(user.titleNameHtml, user.name)}&nbsp;(${ratingString(p)})"
         else withTitle.fold(user.titleName, user.name)
-      }) { level => s"A.I. level $level" }
+      }
+    ) { level => s"A.I. level $level" }
   }
 
   def playerText(player: Player, withRating: Boolean = false)(implicit lightUser: LightUser.GetterSync): String =
@@ -28,7 +29,7 @@ object Namer {
 
   private def ratingString(p: Player) = p.rating match {
     case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
-    case _            => "?"
+    case _ => "?"
   }
 
   def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) =

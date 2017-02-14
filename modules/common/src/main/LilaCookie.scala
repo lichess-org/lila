@@ -34,5 +34,6 @@ object LilaCookie {
     "/",
     domain(req).some,
     Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-    httpOnly | Session.httpOnly)
+    httpOnly | Session.httpOnly
+  )
 }

@@ -45,6 +45,6 @@ final class CSRFRequestHandler(domain: String, enabled: Boolean) {
   private val RefererToOriginRegex = """^([^:]+://[^/]+).*""".r // a.k.a. pokemon face regex
   private def refererToOrigin(r: String): Option[String] = r match {
     case RefererToOriginRegex(origin) => origin.some
-    case _                            => none
+    case _ => none
   }
 }

@@ -18,7 +18,8 @@ object DataForm {
       orientationStr: Option[String] = None,
       fenStr: Option[String] = None,
       pgnStr: Option[String] = None,
-      variantStr: Option[String] = None) {
+      variantStr: Option[String] = None
+  ) {
 
     def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
   }

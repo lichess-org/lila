@@ -17,7 +17,8 @@ final class Env(
     followable: String => Fu[Boolean],
     system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val CollectionRelation = config getString "collection.relation"
@@ -39,7 +40,8 @@ final class Env(
     followable = followable,
     asyncCache = asyncCache,
     maxFollow = MaxFollow,
-    maxBlock = MaxBlock)
+    maxBlock = MaxBlock
+  )
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
 
@@ -79,5 +81,6 @@ object Env {
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

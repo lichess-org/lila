@@ -12,7 +12,8 @@ object Socket {
     chatId: String,
     member: SocketMember,
     socket: ActorRef,
-    chat: ActorSelection): Handler.Controller = {
+    chat: ActorSelection
+  ): Handler.Controller = {
 
     case ("talk", o) => for {
       text <- o str "d"
@@ -33,7 +34,7 @@ object Socket {
 
     case actorApi.ChatLine(_, line) => line match {
       case line: UserLine => send("message", JsonView(line), line.troll)
-      case _              =>
+      case _ =>
     }
 
     case actorApi.OnTimeout(username) => send("chat_timeout", JsString(username), false)

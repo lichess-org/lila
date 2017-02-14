@@ -5,14 +5,16 @@ import lila.user.User
 case class Settings(
   computer: Settings.UserSelection,
   explorer: Settings.UserSelection,
-  cloneable: Settings.UserSelection)
+  cloneable: Settings.UserSelection
+)
 
 object Settings {
 
   val init = Settings(
     computer = UserSelection.Everyone,
     explorer = UserSelection.Everyone,
-    cloneable = UserSelection.Everyone)
+    cloneable = UserSelection.Everyone
+  )
 
   sealed trait UserSelection {
     lazy val key = toString.toLowerCase
@@ -25,9 +27,9 @@ object Settings {
     val byKey = List(Everyone, Nobody, Owner, Contributor).map { v => v.key -> v }.toMap
 
     def allows(sel: UserSelection, study: Study, userId: Option[User.ID]): Boolean = sel match {
-      case Everyone    => true
-      case Nobody      => false
-      case Owner       => userId ?? study.isOwner
+      case Everyone => true
+      case Nobody => false
+      case Owner => userId ?? study.isOwner
       case Contributor => userId ?? study.canContribute
     }
   }

@@ -9,7 +9,8 @@ import lila.user.User
 final class Cached(
     coll: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
-    mongoCache: MongoCache.Builder) {
+    mongoCache: MongoCache.Builder
+) {
 
   def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
   def clearNbImportedByCache = nbImportedCache remove _
@@ -27,18 +28,21 @@ final class Cached(
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
     f = coll.countSel,
-    expireAfter = _.ExpireAfterWrite(5.seconds))
+    expireAfter = _.ExpireAfterWrite(5.seconds)
+  )
 
   private val nbImportedCache = mongoCache[User.ID, Int](
     prefix = "game:imported",
     f = userId => coll countSel Query.imported(userId),
     timeToLive = 1 hour,
     timeToLiveMongo = 30.days.some,
-    keyToString = identity)
+    keyToString = identity
+  )
 
   private val countCache = mongoCache[Bdoc, Int](
     prefix = "game:count",
     f = coll.countSel,
     timeToLive = 1 hour,
-    keyToString = lila.db.BSON.hashDoc)
+    keyToString = lila.db.BSON.hashDoc
+  )
 }

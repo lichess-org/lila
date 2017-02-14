@@ -80,22 +80,29 @@ object GameRepo {
       ++ Query.user(userId)
       ++ Query.analysed(true)
       ++ Query.turnsMoreThan(20)
-      ++ Query.clock(true))
+      ++ Query.clock(true)
+  )
     .sort($sort asc F.createdAt)
     .cursor[Game](ReadPreference.secondaryPreferred)
     .gather[List](nb)
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Game]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(
+    implicit
+    cp: CursorProducer[Game]
+  ) =
     coll.find(selector).cursor[Game](readPreference)
 
   def sortedCursor(
     selector: Bdoc,
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Game]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(
+    implicit
+    cp: CursorProducer[Game]
+  ) =
     coll.find(selector).sort(sort).cursor[Game](readPreference)
 
   def unrate(gameId: String) =
@@ -125,7 +132,8 @@ object GameRepo {
   def setRatingDiffs(id: ID, white: Int, black: Int) =
     coll.update($id(id), $set(
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> white,
-      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black))
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black
+    ))
 
   // used by RatingFest
   def setRatingAndDiffs(id: ID, white: (Int, Int), black: (Int, Int)) =
@@ -133,7 +141,8 @@ object GameRepo {
       s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white._1,
       s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black._1,
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> white._2,
-      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black._2))
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black._2
+    ))
 
   def urgentGames(user: User): Fu[List[Pov]] =
     coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map { games =>
@@ -219,7 +228,8 @@ object GameRepo {
     id: ID,
     winnerColor: Option[Color],
     winnerId: Option[String],
-    status: Status) = {
+    status: Status
+  ) = {
     val partialUnsets = $doc(
       F.positionHashes -> true,
       F.playingUids -> true,
@@ -229,7 +239,8 @@ object GameRepo {
       ("p0." + Player.BSONFields.isOfferingDraw) -> true,
       ("p1." + Player.BSONFields.isOfferingDraw) -> true,
       ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-      ("p1." + Player.BSONFields.proposeTakebackAt) -> true)
+      ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+    )
     // keep the checkAt field when game is aborted,
     // so it gets deleted in 24h
     val unsets =
@@ -309,7 +320,8 @@ object GameRepo {
     $set(F.next -> nextId) ++
       $unset(
         "p0." + Player.BSONFields.isOfferingRematch,
-        "p1." + Player.BSONFields.isOfferingRematch)
+        "p1." + Player.BSONFields.isOfferingRematch
+      )
   ).void
 
   def initialFen(gameId: ID): Fu[Option[String]] =
@@ -370,12 +382,14 @@ object GameRepo {
       Limit(1000), // only look in the last 1000 games
       Project($doc(
         F.playerUids -> true,
-        F.id -> false)),
+        F.id -> false
+      )),
       UnwindField(F.playerUids),
       Match($doc(F.playerUids -> $doc("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
-      Limit(limit))).map(_.firstBatch.flatMap { obj =>
+      Limit(limit)
+    )).map(_.firstBatch.flatMap { obj =>
       obj.getAs[String]("_id") flatMap { id =>
         obj.getAs[Int]("gs") map { id -> _ }
       }
@@ -454,7 +468,8 @@ object GameRepo {
       )),
       GroupField(F.playerUids)("nb" -> SumValue(1)),
       Sort(Descending("nb")),
-      Limit(max))).map(_.firstBatch.flatMap { obj =>
+      Limit(max)
+    )).map(_.firstBatch.flatMap { obj =>
       obj.getAs[Int]("nb") map { nb =>
         UidNb(~obj.getAs[String]("_id"), nb)
       }

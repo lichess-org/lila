@@ -17,7 +17,8 @@ object TreeBuilder {
           fen = fen,
           check = init.situation.check,
           opening = FullOpeningDB findByFen fen,
-          crazyData = None)
+          crazyData = None
+        )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           tree.Branch(
@@ -27,7 +28,8 @@ object TreeBuilder {
             fen = fen,
             check = g.situation.check,
             opening = FullOpeningDB findByFen fen,
-            crazyData = None)
+            crazyData = None
+          )
         }
         games.zipWithIndex.reverse match {
           case Nil => root

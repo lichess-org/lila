@@ -23,11 +23,11 @@ private final class Indexer(storage: Storage, sequencer: ActorRef) {
   def update(game: Game, userId: String, previous: Entry): Funit =
     PovToEntry(game, userId, previous.provisional) flatMap {
       case Right(e) => storage update e.copy(number = previous.number)
-      case _        => funit
+      case _ => funit
     }
 
   private def compute(user: User): Funit = storage.fetchLast(user.id) flatMap {
-    case None    => fromScratch(user)
+    case None => fromScratch(user)
     case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
   }
 

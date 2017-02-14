@@ -20,7 +20,8 @@ case class Chapter(
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
-    createdAt: DateTime) extends Chapter.Like {
+    createdAt: DateTime
+) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
     f(root) map { newRoot =>
@@ -54,7 +55,8 @@ case class Chapter(
     _id = Chapter.makeId,
     studyId = study.id,
     ownerId = study.ownerId,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
@@ -89,14 +91,16 @@ object Chapter {
       gameId: Option[String],
       variant: Variant,
       orientation: Color,
-      fromFen: Option[Boolean] = None) {
+      fromFen: Option[Boolean] = None
+  ) {
     def isFromFen = ~fromFen
   }
 
   case class Metadata(
     _id: Chapter.Id,
     name: Chapter.Name,
-    setup: Chapter.Setup) extends Like
+    setup: Chapter.Setup
+  ) extends Like
 
   case class IdName(id: Chapter.Id, name: Chapter.Name)
 
@@ -124,5 +128,6 @@ object Chapter {
     ownerId = ownerId,
     practice = practice option true,
     conceal = conceal,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 }

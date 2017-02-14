@@ -16,7 +16,8 @@ final class QaApi(
     answerColl: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    notifier: Notifier) {
+    notifier: Notifier
+) {
 
   object question {
 
@@ -39,7 +40,8 @@ final class QaApi(
           createdAt = DateTime.now,
           updatedAt = DateTime.now,
           acceptedAt = None,
-          editedAt = None)
+          editedAt = None
+        )
 
         (questionColl insert q) >>- {
           tag.clearCache
@@ -83,7 +85,8 @@ final class QaApi(
         sort = sort
       ),
         currentPage = page,
-        maxPerPage = perPage)
+        maxPerPage = perPage
+      )
 
     private def popularCache = mongoCache[Int, List[Question]](
       prefix = "qa:popular",
@@ -91,7 +94,8 @@ final class QaApi(
       .sort($doc("vote.score" -> -1))
       .cursor[Question]().gather[List](nb),
       timeToLive = 6 hour,
-      keyToString = _.toString)
+      keyToString = _.toString
+    )
 
     def popular(max: Int): Fu[List[Question]] = popularCache(max)
 
@@ -105,7 +109,8 @@ final class QaApi(
 
     def addComment(c: Comment)(q: Question) = questionColl.update(
       $doc("_id" -> q.id),
-      $doc("$push" -> $doc("comments" -> c)))
+      $doc("$push" -> $doc("comments" -> c))
+    )
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       question findById id flatMap {
@@ -120,7 +125,8 @@ final class QaApi(
 
     def incViews(q: Question) = questionColl.update(
       $id(q.id),
-      $doc("$inc" -> $doc("views" -> BSONInteger(1))))
+      $doc("$inc" -> $doc("views" -> BSONInteger(1)))
+    )
 
     def recountAnswers(id: QuestionId) = answer.countByQuestionId(id) flatMap {
       setAnswers(id, _)
@@ -133,7 +139,8 @@ final class QaApi(
           "answers" -> BSONInteger(nb),
           "updatedAt" -> DateTime.now
         )
-      )).void
+      )
+    ).void
 
     def remove(id: QuestionId) =
       questionColl.remove($doc("_id" -> id)) >>
@@ -165,7 +172,8 @@ final class QaApi(
           comments = Nil,
           acceptedAt = None,
           createdAt = DateTime.now,
-          editedAt = None)
+          editedAt = None
+        )
 
         (answerColl insert a) >>
           (question recountAnswers q.id) >>-
@@ -205,7 +213,8 @@ final class QaApi(
 
     def addComment(c: Comment)(a: Answer) = answerColl.update(
       $doc("_id" -> a.id),
-      $doc("$push" -> $doc("comments" -> c)))
+      $doc("$push" -> $doc("comments" -> c))
+    )
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       answer findById id flatMap {
@@ -230,14 +239,16 @@ final class QaApi(
     def removeComment(id: QuestionId, c: CommentId) = answerColl.update(
       $doc("questionId" -> id),
       $doc("$pull" -> $doc("comments" -> $doc("id" -> c))),
-      multi = true)
+      multi = true
+    )
 
     def moveToQuestionComment(a: Answer, q: Question) = {
       val allComments = Comment(
         id = Comment.makeId,
         userId = a.userId,
         body = a.body,
-        createdAt = a.createdAt) :: a.comments
+        createdAt = a.createdAt
+      ) :: a.comments
       allComments.map(c => question.addComment(c)(q)).sequenceFu >> remove(a)
     }
 
@@ -248,7 +259,8 @@ final class QaApi(
             id = Comment.makeId,
             userId = a.userId,
             body = a.body,
-            createdAt = a.createdAt) :: a.comments
+            createdAt = a.createdAt
+          ) :: a.comments
           allComments.map(c => addComment(c)(toAnswer)).sequenceFu >> remove(a)
         }
       }
@@ -264,7 +276,8 @@ final class QaApi(
         id = Comment.makeId,
         userId = user.id,
         body = data.body,
-        createdAt = DateTime.now)
+        createdAt = DateTime.now
+      )
       subject.fold(question addComment c, answer addComment c) >>- {
         subject match {
           case Left(q) => notifier.createQuestionComment(q, c, user)
@@ -289,7 +302,8 @@ final class QaApi(
     private val cache = asyncCache.single(
       name = "qa.tags",
       f = fetch,
-      expireAfter = _.ExpireAfterAccess(1 day))
+      expireAfter = _.ExpireAfterAccess(1 day)
+    )
 
     def clearCache = cache.refresh
 
@@ -302,7 +316,9 @@ final class QaApi(
 
       col.aggregate(Project($doc("tags" -> BSONBoolean(true))), List(
         UnwindField("tags"), Group(
-          BSONBoolean(true))("tags" -> AddFieldToSet("tags")))).
+          BSONBoolean(true)
+        )("tags" -> AddFieldToSet("tags"))
+      )).
         map(_.firstBatch.headOption.flatMap(_.getAs[List[String]]("tags")).
           getOrElse(List.empty[String]).map(_.toLowerCase).distinct)
     }
@@ -312,7 +328,8 @@ final class QaApi(
     private val cache = asyncCache.clearable(
       "qa.relation",
       f = fetch,
-      expireAfter = _.ExpireAfterAccess(3 hours))
+      expireAfter = _.ExpireAfterAccess(3 hours)
+    )
 
     def questions(q: Question): Fu[List[Question]] = cache get q.id
 

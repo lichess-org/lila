@@ -29,7 +29,8 @@ final class Env(
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
     pools: List[lila.pool.PoolConfig],
-    val isProd: Boolean) {
+    val isProd: Boolean
+) {
 
   val CliUsername = config getString "cli.username"
 
@@ -54,7 +55,8 @@ final class Env(
 
   val assetVersion = new AssetVersionApi(
     initialVersion = lila.common.AssetVersion(config getInt "net.asset.version"),
-    coll = db("flag"))(system)
+    coll = db("flag")
+  )(system)
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -69,7 +71,8 @@ final class Env(
   val pgnDump = new PgnDump(
     dumper = gamePgnDump,
     getSimulName = getSimulName,
-    getTournamentName = getTournamentName)
+    getTournamentName = getTournamentName
+  )
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
@@ -78,17 +81,20 @@ final class Env(
     bookmarkApi = bookmarkApi,
     crosstableApi = crosstableApi,
     gameCache = gameCache,
-    prefApi = prefApi)
+    prefApi = prefApi
+  )
 
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
     pgnDump = pgnDump,
-    gameCache = gameCache)
+    gameCache = gameCache
+  )
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
-    lightUser = userEnv.lightUserSync)
+    lightUser = userEnv.lightUserSync
+  )
 
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
@@ -97,15 +103,18 @@ final class Env(
     forecastApi = forecastApi,
     bookmarkApi = bookmarkApi,
     getTourAndRanks = getTourAndRanks,
-    getSimul = getSimul),
+    getSimul = getSimul
+  ),
     system = system,
-    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1)))
+    nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
+  )
 
   val lobbyApi = new LobbyApi(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
-    pools = pools)
+    pools = pools
+  )
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
@@ -147,5 +156,6 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     pools = lila.pool.Env.current.api.configs,
-    isProd = lila.common.PlayApp.isProd)
+    isProd = lila.common.PlayApp.isProd
+  )
 }

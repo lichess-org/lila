@@ -15,7 +15,8 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     gameCache: lila.game.Cached,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val MaxPlaying = config getInt "max_playing"
   private val CollectionUserConfig = config getString "collection.user_config"
@@ -33,7 +34,8 @@ final class Env(
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
     fishnetPlayer = fishnetPlayer,
-    onStart = onStart)
+    onStart = onStart
+  )
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)
@@ -50,5 +52,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     gameCache = lila.game.Env.current.cached,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

@@ -9,13 +9,15 @@ import lila.user.User
 private[simul] case class Member(
   channel: JsChannel,
   userId: Option[String],
-  troll: Boolean) extends SocketMember
+  troll: Boolean
+) extends SocketMember
 
 private[simul] object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
     channel = channel,
     userId = user map (_.id),
-    troll = user.??(_.troll))
+    troll = user.??(_.troll)
+  )
 }
 
 private[simul] case class Messadata(trollish: Boolean = false)

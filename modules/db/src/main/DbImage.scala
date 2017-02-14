@@ -15,7 +15,8 @@ case class DbImage(
     name: String,
     contentType: Option[String],
     size: Int, // in bytes
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def id = _id
 
@@ -33,7 +34,8 @@ object DbImage {
       name = name,
       contentType = contentType,
       size = file.length.toInt,
-      createdAt = DateTime.now)
+      createdAt = DateTime.now
+    )
   }
 
   implicit val DbImageBSONHandler = Macros.handler[DbImage]

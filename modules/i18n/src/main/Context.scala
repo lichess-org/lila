@@ -11,7 +11,8 @@ private[i18n] final class Context(
     gitUrl: String,
     gitFile: String,
     asyncCache: lila.memo.AsyncCache.Builder,
-    keys: I18nKeys) {
+    keys: I18nKeys
+) {
 
   type Contexts = Map[String, String]
 
@@ -20,7 +21,8 @@ private[i18n] final class Context(
   private val cache = asyncCache.single[Contexts](
     name = "i18n.contexts",
     fetch,
-    expireAfter = _.ExpireAfterWrite(1 hour))
+    expireAfter = _.ExpireAfterWrite(1 hour)
+  )
 
   private def parse(text: String): Contexts =
     text.lines.toList.map(_.trim).filter(_.nonEmpty).map(_.split('=')).foldLeft(Map[String, String]()) {

@@ -10,9 +10,10 @@ import scala.concurrent.duration._
  */
 final class LateMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger) extends Actor {
+    logger: lila.log.Logger
+) extends Actor {
 
-      import LateMultiThrottler._
+  import LateMultiThrottler._
 
   var executions = Set.empty[String]
 
@@ -21,10 +22,11 @@ final class LateMultiThrottler(
     case Work(id, run, delayOption, timeoutOption) if !executions.contains(id) =>
       implicit val system = context.system
       lila.common.Future.delay(delayOption | 0.seconds) {
-          timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
-            run().withTimeout(
-              duration = timeout,
-              error = lila.common.LilaException(s"LateMultiThrottler timed out after $timeout"))
+        timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
+          run().withTimeout(
+            duration = timeout,
+            error = lila.common.LilaException(s"LateMultiThrottler timed out after $timeout")
+          )
         } addEffectAnyway {
           self ! Done(id)
         }
@@ -46,7 +48,8 @@ object LateMultiThrottler {
     id: String,
     run: () => Funit,
     delay: Option[FiniteDuration], // how long to wait before running
-    timeout: Option[FiniteDuration]) // how long to wait before timing out
+    timeout: Option[FiniteDuration]
+  ) // how long to wait before timing out
 
   case class Done(id: String)
 
@@ -54,6 +57,7 @@ object LateMultiThrottler {
     id: String,
     run: => Funit,
     delay: Option[FiniteDuration] = None,
-    timeout: Option[FiniteDuration] = None) =
+    timeout: Option[FiniteDuration] = None
+  ) =
     Work(id, () => run, delay, timeout)
 }

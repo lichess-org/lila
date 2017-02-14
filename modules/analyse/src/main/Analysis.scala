@@ -10,7 +10,8 @@ case class Analysis(
     startPly: Int,
     uid: Option[String], // requester lichess ID
     by: Option[String], // analyser lichess ID
-    date: DateTime) {
+    date: DateTime
+) {
 
   def requestedBy = uid | "lichess"
 
@@ -64,7 +65,8 @@ object Analysis {
         startPly = startPly,
         uid = r strO "uid",
         by = r strO "by",
-        date = r date "date")
+        date = r date "date"
+      )
     }
     def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
       "_id" -> o.id,
@@ -72,6 +74,7 @@ object Analysis {
       "ply" -> w.intO(o.startPly),
       "uid" -> o.uid,
       "by" -> o.by,
-      "date" -> w.date(o.date))
+      "date" -> w.date(o.date)
+    )
   }
 }

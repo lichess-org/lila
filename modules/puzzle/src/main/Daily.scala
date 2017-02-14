@@ -13,13 +13,15 @@ private[puzzle] final class Daily(
     coll: Coll,
     renderer: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: Scheduler) {
+    scheduler: Scheduler
+) {
 
   private val cache =
     asyncCache.single[Option[DailyPuzzle]](
       name = "puzzle.daily",
       f = find,
-      expireAfter = _.ExpireAfterWrite(10 minutes))
+      expireAfter = _.ExpireAfterWrite(10 minutes)
+    )
 
   def get: Fu[Option[DailyPuzzle]] = cache.get
 
@@ -29,7 +31,7 @@ private[puzzle] final class Daily(
       none
   } flatMap {
     case Some(puzzle) => makeDaily(puzzle)
-    case None         => fuccess(none)
+    case None => fuccess(none)
   }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {

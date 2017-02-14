@@ -14,7 +14,8 @@ final class Env(
     config: Config,
     studyEnv: lila.study.Env,
     makeClient: Index => ESClient,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val IndexName = config getString "index"
   private val MaxPerPage = config getInt "paginator.max_per_page"
@@ -23,13 +24,15 @@ final class Env(
 
   private val indexThrottler = system.actorOf(Props(new LateMultiThrottler(
     executionTimeout = 3.seconds.some,
-    logger = logger)))
+    logger = logger
+  )))
 
   val api = new StudySearchApi(
     client = client,
     indexThrottler = indexThrottler,
     studyEnv.studyRepo,
-    studyEnv.chapterRepo)
+    studyEnv.chapterRepo
+  )
 
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
@@ -39,7 +42,8 @@ final class Env(
       def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
     } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
-      maxPerPage = MaxPerPage)
+      maxPerPage = MaxPerPage
+    )
 
   def cli = new lila.common.Cli {
     def process = {
@@ -51,7 +55,7 @@ final class Env(
     import lila.study.actorApi._
     def receive = {
       case SaveStudy(study) => api store study
-      case RemoveStudy(id)  => client deleteById Id(id.value)
+      case RemoveStudy(id) => client deleteById Id(id.value)
     }
   })), 'study)
 }
@@ -62,5 +66,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "studySearch",
     studyEnv = lila.study.Env.current,
     makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

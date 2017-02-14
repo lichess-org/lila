@@ -9,4 +9,5 @@ case class PlanTrackingUserData(
   medianTournamentRank: Option[Int],
   nbFollowers: Int,
   nbFollowing: Int,
-  nbForumPosts: Int)
+  nbForumPosts: Int
+)

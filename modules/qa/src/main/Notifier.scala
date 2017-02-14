@@ -7,8 +7,10 @@ import lila.user.User
 
 import akka.actor.ActorSelection
 
-private[qa] final class Notifier(notifyApi: NotifyApi,
-    timeline: ActorSelection) {
+private[qa] final class Notifier(
+    notifyApi: NotifyApi,
+    timeline: ActorSelection
+) {
 
   private[qa] def createQuestion(q: Question, u: User) {
     val msg = Propagate(QaQuestion(u.id, q.id, q.title))

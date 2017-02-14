@@ -28,8 +28,10 @@ object Main extends LilaController {
               Env.api.Accessibility.blindCookieName,
               if (enable == "0") "" else Env.api.Accessibility.hash,
               maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
-              httpOnly = true.some)
-        })
+              httpOnly = true.some
+            )
+        }
+      )
     }
   }
 
@@ -96,7 +98,8 @@ object Main extends LilaController {
       Env.report.api.autoBotReport(_, referer, name)
     }
     def doLog = lila.log("cheat").branch("jslog").info(
-      s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
+      s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name"
+    )
     if (id == "________") doLog
     else lila.game.GameRepo pov id foreach {
       _ foreach { pov =>
@@ -104,7 +107,8 @@ object Main extends LilaController {
         if (name == "ceval" || name == "rcb")
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
             pov.gameId,
-            lila.round.actorApi.round.Cheat(pov.color))
+            lila.round.actorApi.round.Cheat(pov.color)
+          )
         else lila.game.GameRepo.setBorderAlert(pov)
       }
     }
@@ -132,7 +136,8 @@ object Main extends LilaController {
         Ok(image.data).withHeaders(
           CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
-          CONTENT_LENGTH -> image.size.toString)
+          CONTENT_LENGTH -> image.size.toString
+        )
     }
   }
 

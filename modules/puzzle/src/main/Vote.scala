@@ -2,7 +2,8 @@ package lila.puzzle
 
 case class Vote(
     _id: String, // puzzleId/userId
-    v: Boolean) {
+    v: Boolean
+) {
 
   def id = _id
 

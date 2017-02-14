@@ -12,7 +12,8 @@ import lila.user.User
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   import EvalCacheEntry._
   import BSONHandlers._
@@ -36,7 +37,8 @@ final class EvalCacheApi(
   private val cache = asyncCache.multi[SmallFen, Option[EvalCacheEntry]](
     name = "eval_cache",
     f = fetchAndSetAccess,
-    expireAfter = _.ExpireAfterAccess(10 minutes))
+    expireAfter = _.ExpireAfterAccess(10 minutes)
+  )
 
   private def getEval(fen: SmallFen, multiPv: Int): Fu[Option[Eval]] = getEntry(fen) map {
     _.flatMap(_ makeBestMultiPvEval multiPv)
@@ -55,7 +57,8 @@ final class EvalCacheApi(
         _id = input.smallFen,
         nbMoves = destSize(input.fen),
         evals = List(input.eval),
-        usedAt = DateTime.now)
+        usedAt = DateTime.now
+      )
       coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
         cache.put(input.smallFen, entry.some)
     case Some(oldEntry) =>

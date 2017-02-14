@@ -9,7 +9,8 @@ import lila.user.User
 private final class RoundNotifier(
     timeline: akka.actor.ActorSelection,
     isUserPresent: (Game, User.ID) => Fu[Boolean],
-    notifyApi: NotifyApi) {
+    notifyApi: NotifyApi
+) {
 
   def gameEnd(game: Game)(color: chess.Color) = {
     if (!game.aborted) game.player(color).userId foreach { userId =>
@@ -18,7 +19,8 @@ private final class RoundNotifier(
           playerId = game fullIdOf color,
           opponent = game.player(!color).userId,
           win = game.winnerColor map (color ==),
-          perf = perfType.key)) toUser userId)
+          perf = perfType.key
+        )) toUser userId)
       }
       isUserPresent(game, userId) foreach {
         case false => notifyApi.addNotification(Notification.make(
@@ -26,7 +28,9 @@ private final class RoundNotifier(
           GameEnd(
             GameEnd.GameId(game.id),
             game.opponent(color).userId map GameEnd.OpponentId.apply,
-            game.wonBy(color) map GameEnd.Win.apply)))
+            game.wonBy(color) map GameEnd.Win.apply
+          )
+        ))
         case _ =>
       }
     }

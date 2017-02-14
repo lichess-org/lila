@@ -11,7 +11,8 @@ import lila.tree.Node.openingWriter
 case class AnaDests(
     variant: Variant,
     fen: FEN,
-    path: String) {
+    path: String
+) {
 
   def isInitial =
     variant.standard && fen.value == chess.format.Forsyth.initial && path == ""

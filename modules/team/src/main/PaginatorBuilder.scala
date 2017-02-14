@@ -8,23 +8,27 @@ import lila.user.UserRepo
 private[team] final class PaginatorBuilder(
     coll: Colls,
     maxPerPage: Int,
-    maxUserPerPage: Int) {
+    maxUserPerPage: Int
+) {
 
   import BSONHandlers._
 
   def popularTeams(page: Int): Fu[Paginator[Team]] = Paginator(
     adapter = new Adapter(
-      collection = coll.team,
-      selector = TeamRepo.enabledQuery,
-      projection = $empty,
-      sort = TeamRepo.sortPopular),
+    collection = coll.team,
+    selector = TeamRepo.enabledQuery,
+    projection = $empty,
+    sort = TeamRepo.sortPopular
+  ),
     page,
-    maxPerPage)
+    maxPerPage
+  )
 
   def teamMembers(team: Team, page: Int): Fu[Paginator[MemberWithUser]] = Paginator(
     adapter = new TeamAdapter(team),
     page,
-    maxUserPerPage)
+    maxUserPerPage
+  )
 
   private final class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
 

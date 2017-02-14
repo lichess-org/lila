@@ -12,7 +12,8 @@ final class PgnDump(
     chapterRepo: ChapterRepo,
     gamePgnDump: lila.game.PgnDump,
     lightUser: LightUser.GetterSync,
-    netBaseUrl: String) {
+    netBaseUrl: String
+) {
 
   import PgnDump._
 
@@ -24,7 +25,8 @@ final class PgnDump(
   def ofChapter(study: Study, chapter: Chapter) = Pgn(
     tags = makeTags(study, chapter),
     turns = toTurns(chapter.root),
-    initial = Initial(chapter.root.comments.list.map(_.text.value)))
+    initial = Initial(chapter.root.comments.list.map(_.text.value))
+  )
 
   private val fileR = """[\s,]""".r
 
@@ -33,13 +35,15 @@ final class PgnDump(
   def filename(study: Study): String = {
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}.pgn", "")
+      s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}.pgn", ""
+    )
   }
 
   def filename(study: Study, chapter: Chapter): String = {
     val date = dateFormat.print(chapter.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}.pgn", "")
+      s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}.pgn", ""
+    )
   }
 
   private def studyUrl(id: Study.Id) = s"$netBaseUrl/study/$id"
@@ -83,12 +87,14 @@ private[study] object PgnDump {
     result = none,
     variations = variations.toList.map { child =>
       toTurns(child.mainline, noVariations)
-    })
+    }
+  )
 
   def toTurn(first: Node, second: Option[Node], variations: Variations) = chessPgn.Turn(
     number = first.fullMoveNumber,
     white = node2move(first, variations).some,
-    black = second map { node2move(_, first.children.variations) })
+    black = second map { node2move(_, first.children.variations) }
+  )
 
   def toTurns(root: Node.Root): List[chessPgn.Turn] = toTurns(root.mainline, root.children.variations)
 

@@ -1,8 +1,8 @@
 package lila.team
 
 import lila.notify.Notification.Notifies
-import lila.notify.TeamJoined.{Id, Name}
-import lila.notify.{Notification, TeamJoined, NotifyApi}
+import lila.notify.TeamJoined.{ Id, Name }
+import lila.notify.{ Notification, TeamJoined, NotifyApi }
 
 private[team] final class Notifier(notifyApi: NotifyApi) {
 

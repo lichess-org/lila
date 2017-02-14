@@ -16,7 +16,8 @@ final class Env(
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val NetDomain = config getString "net.domain"
@@ -34,7 +35,8 @@ final class Env(
   import settings._
 
   private val socket = system.actorOf(Props(new Socket(
-    uidTtl = SocketUidTtl)), name = SocketName)
+    uidTtl = SocketUidTtl
+  )), name = SocketName)
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -42,7 +44,8 @@ final class Env(
     blocking = blocking,
     asyncCache = asyncCache,
     maxPerPage = SeekMaxPerPage,
-    maxPerUser = SeekMaxPerUser)
+    maxPerUser = SeekMaxPerUser
+  )
 
   val lobby = Lobby.start(system, ActorName,
     broomPeriod = BroomPeriod,
@@ -55,7 +58,8 @@ final class Env(
       blocking = blocking,
       playban = playban,
       poolApi = poolApi,
-      onStart = onStart)
+      onStart = onStart
+    )
   }
 
   lazy val socketHandler = new SocketHandler(
@@ -63,7 +67,8 @@ final class Env(
     lobby = lobby,
     socket = socket,
     poolApi = poolApi,
-    blocking = blocking)
+    blocking = blocking
+  )
 
   private val abortListener = new AbortListener(seekApi = seekApi)
 
@@ -87,5 +92,6 @@ object Env {
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

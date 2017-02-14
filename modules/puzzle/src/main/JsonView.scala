@@ -7,7 +7,8 @@ import lila.tree
 
 final class JsonView(
     gameJson: GameJson,
-    animationDuration: scala.concurrent.duration.Duration) {
+    animationDuration: scala.concurrent.duration.Duration
+) {
 
   def apply(
     puzzle: Puzzle,
@@ -16,7 +17,8 @@ final class JsonView(
     isMobileApi: Boolean,
     round: Option[Round] = None,
     result: Option[Result] = None,
-    voted: Option[Boolean]): Fu[JsObject] =
+    voted: Option[Boolean]
+  ): Fu[JsObject] =
     (!isMobileApi ?? gameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
@@ -51,7 +53,8 @@ final class JsonView(
             ),
             "current" -> 2
           )
-        }).noNull
+        }
+      ).noNull
     }
 
   def pref(p: lila.pref.Pref) = Json.obj(
@@ -61,7 +64,8 @@ final class JsonView(
       "duration" -> p.animationFactor * animationDuration.toMillis
     ),
     "moveEvent" -> p.moveEvent,
-    "highlight" -> p.highlight)
+    "highlight" -> p.highlight
+  )
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._
@@ -85,11 +89,12 @@ final class JsonView(
           move = Uci.WithSan(move.toUci, game.pgnMoves.last),
           fen = chess.format.Forsyth >> game,
           check = game.situation.check,
-          crazyData = none)
+          crazyData = none
+        )
         (game, branch :: branches)
     }
     branchList.foldLeft[Option[tree.Branch]](None) {
-      case (None, branch)        => branch.some
+      case (None, branch) => branch.some
       case (Some(child), branch) => Some(branch addChild child)
     }
   }

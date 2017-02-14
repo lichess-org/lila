@@ -45,18 +45,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)         => ping(uid)
+    case Ping(uid) => ping(uid)
 
-    case Broom             => broom
+    case Broom => broom
 
     // when a member quits
-    case Quit(uid)         => quit(uid)
+    case Quit(uid) => quit(uid)
 
     case HasUserId(userId) => sender ! members.values.exists(_.userId.contains(userId))
 
-    case Resync(uid)       => resync(uid)
+    case Resync(uid) => resync(uid)
 
-    case d: Deploy         => onDeploy(d)
+    case d: Deploy => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -183,7 +183,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       Json.obj(
         "nb" -> total,
         "users" -> users.flatten.map(_.titleName),
-        "anons" -> anons)
+        "anons" -> anons
+      )
     }
   }
 

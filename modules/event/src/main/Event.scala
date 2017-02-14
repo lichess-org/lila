@@ -13,7 +13,8 @@ case class Event(
     createdBy: Event.UserId,
     createdAt: DateTime,
     startsAt: DateTime,
-    finishesAt: DateTime) {
+    finishesAt: DateTime
+) {
 
   def willStartLater = startsAt isAfter DateTime.now
 

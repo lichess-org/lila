@@ -15,19 +15,22 @@ object TreeBuilder {
   private def makeEval(info: Info) = Eval(
     cp = info.cp,
     mate = info.mate,
-    best = info.best)
+    best = info.best
+  )
 
   def apply(
     game: lila.game.Game,
     analysis: Option[Analysis],
     initialFen: String,
-    withOpening: Boolean): Root = apply(
+    withOpening: Boolean
+  ): Root = apply(
     id = game.id,
     pgnMoves = game.pgnMoves,
     variant = game.variant,
     analysis = analysis,
     initialFen = initialFen,
-    withOpening = withOpening)
+    withOpening = withOpening
+  )
 
   def apply(
     id: String,
@@ -35,7 +38,8 @@ object TreeBuilder {
     variant: Variant,
     analysis: Option[Analysis],
     initialFen: String,
-    withOpening: Boolean): Root = {
+    withOpening: Boolean
+  ): Root = {
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
@@ -53,7 +57,8 @@ object TreeBuilder {
           check = init.situation.check,
           opening = openingOf(fen),
           crazyData = init.situation.board.crazyData,
-          eval = infos lift 0 map makeEval)
+          eval = infos lift 0 map makeEval
+        )
         def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           val info = infos lift (index - 1)
@@ -73,9 +78,11 @@ object TreeBuilder {
                 Node.Comment(
                   Node.Comment.Id.make,
                   Node.Comment.Text(text),
-                  Node.Comment.Author.Lichess)
+                  Node.Comment.Author.Lichess
+                )
               }
-            })
+            }
+          )
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map {
               case (fromGame, _) =>
@@ -104,7 +111,8 @@ object TreeBuilder {
         check = g.situation.check,
         opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
-        eval = none)
+        eval = none
+      )
     }
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
       case (init, games, error) =>

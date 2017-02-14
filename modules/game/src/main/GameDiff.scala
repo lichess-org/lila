@@ -32,7 +32,7 @@ private[game] object GameDiff {
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else toBson(vb) match {
-          case None    => unsetBuilder += (name -> bTrue)
+          case None => unsetBuilder += (name -> bTrue)
           case Some(x) => setBuilder += name -> x
         }
       }
@@ -71,7 +71,7 @@ private[game] object GameDiff {
   private val bTrue = BSONBoolean(true)
 
   private def addUa(sets: List[Set]): List[Set] = sets match {
-    case Nil  => Nil
+    case Nil => Nil
     case sets => (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
   }
 }

@@ -11,7 +11,8 @@ case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
 final class BookmarkApi(
     coll: Coll,
-    paginator: PaginatorBuilder) {
+    paginator: PaginatorBuilder
+) {
 
   private def exists(gameId: String, userId: String): Fu[Boolean] =
     coll exists selectId(gameId, userId)
@@ -58,7 +59,8 @@ final class BookmarkApi(
       "_id" -> makeId(gameId, userId),
       "g" -> gameId,
       "u" -> userId,
-      "d" -> date)).void
+      "d" -> date
+    )).void
 
   private def userIdQuery(userId: String) = $doc("u" -> userId)
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"

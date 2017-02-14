@@ -6,7 +6,7 @@ import org.specs2.mutable._
 import org.specs2.specification._
 import ornicar.scalalib.test._
 
-class DataFormTest extends Specification with ScalazValidationMatchers  {
+class DataFormTest extends Specification with ScalazValidationMatchers {
 
   "Import from position" should {
     "preserve initial FEN" in {

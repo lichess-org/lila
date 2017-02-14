@@ -17,7 +17,7 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
 
   val post = Form(postMapping)
 
-  val postEdit = Form(mapping("changes" -> text(minLength=3))(PostEdit.apply)(PostEdit.unapply))
+  val postEdit = Form(mapping("changes" -> text(minLength = 3))(PostEdit.apply)(PostEdit.unapply))
 
   def postWithCaptcha = withCaptcha(post)
 
@@ -33,11 +33,13 @@ object DataForm {
     text: String,
     author: Option[String],
     gameId: String,
-    move: String)
+    move: String
+  )
 
   case class TopicData(
     name: String,
-    post: PostData)
+    post: PostData
+  )
 
-    case class PostEdit(changes: String)
+  case class PostEdit(changes: String)
 }

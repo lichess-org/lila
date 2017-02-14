@@ -20,7 +20,8 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
     Fields.name -> team.name,
     Fields.description -> team.description.take(10000),
     Fields.location -> team.location,
-    Fields.nbMembers -> team.nbMembers)
+    Fields.nbMembers -> team.nbMembers
+  )
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
@@ -36,7 +37,8 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
       TeamRepo.cursor(
         selector = $doc("enabled" -> true),
-        readPreference = ReadPreference.secondaryPreferred)
+        readPreference = ReadPreference.secondaryPreferred
+      )
         .enumerator(maxEntries) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Team], Int](0) {

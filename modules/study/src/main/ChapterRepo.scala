@@ -72,7 +72,7 @@ final class ChapterRepo(coll: Coll) {
               name <- doc.getAs[Chapter.Name]("name")
               idName = Chapter.IdName(id, name)
             } yield hash + (studyId -> (hash.get(studyId) match {
-              case None        => Vector(idName)
+              case None => Vector(idName)
               case Some(names) => names :+ idName
             }))
           } | hash

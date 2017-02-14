@@ -53,7 +53,8 @@ object Query {
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
-    "p1.ai" $exists false)
+    "p1.ai" $exists false
+  )
 
   def nowPlaying(u: String) = $doc(F.playingUids -> u)
 
@@ -65,14 +66,16 @@ object Query {
 
   def loss(u: String) = user(u) ++ $doc(
     F.status $in Status.finishedWithWinner.map(_.id),
-    F.winnerId $ne u)
+    F.winnerId $ne u
+  )
 
   def opponents(u1: User, u2: User) =
     $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
 
   val noProvisional: Bdoc = $doc(
     "p0.p" $exists false,
-    "p1.p" $exists false)
+    "p1.p" $exists false
+  )
 
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e" $gt v, "p1.e" $gt v)
 
@@ -85,7 +88,7 @@ object Query {
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> v.standard.fold[BSONValue]($exists(false), $int(v.id)))
 
-  lazy val  variantStandard = variant(chess.variant.Standard)
+  lazy val variantStandard = variant(chess.variant.Standard)
 
   lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
     F.variant $ne chess.variant.Horde.id,

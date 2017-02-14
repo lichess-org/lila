@@ -21,7 +21,8 @@ object Spam {
   )
 
   private val spamBlacklist = List(
-    "sexual-health.ga")
+    "sexual-health.ga"
+  )
 
   private val fullBlacklist = referBlacklist ::: spamBlacklist
 
@@ -39,6 +40,6 @@ object Spam {
     s"""${protocol}chess.com/register?refId=\\w+""" -> "chess.com",
     s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl
   ).map {
-    case (regex, replacement) => regex.r -> replacement
-  }
+      case (regex, replacement) => regex.r -> replacement
+    }
 }

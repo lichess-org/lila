@@ -31,12 +31,14 @@ object Importer extends LilaController {
               userId = ctx.userId,
               ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
               mod = isGranted(_.Hunter),
-              system = false))
+              system = false
+            ))
           } inject Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e =>
           controllerLogger.branch("importer").warn(
-            s"Imported game validates but can't be replayed:\n${data.pgn}", e)
+            s"Imported game validates but can't be replayed:\n${data.pgn}", e
+          )
           Redirect(routes.Importer.importGame)
       }
     )
@@ -59,7 +61,8 @@ object Importer extends LilaController {
         case Some(pgn) => env.importer(
           lila.importer.ImportData(pgn, none),
           user = "lichess".some,
-          forceId = id.some) map redirectAtFen
+          forceId = id.some
+        ) map redirectAtFen
       }
     }
   }

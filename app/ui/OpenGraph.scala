@@ -11,7 +11,8 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     siteName: String = "lichess.org",
-    more: List[(String, String)] = Nil) {
+    more: List[(String, String)] = Nil
+) {
 
   def html = Html(og.str + twitter.str)
 

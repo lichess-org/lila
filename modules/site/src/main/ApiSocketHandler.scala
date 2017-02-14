@@ -9,7 +9,8 @@ import ornicar.scalalib.Random
 
 private[site] final class ApiSocketHandler(
     socket: akka.actor.ActorRef,
-    hub: lila.hub.Env) {
+    hub: lila.hub.Env
+) {
 
   private val flag = "api".some
   private val userId = none[String]

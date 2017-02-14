@@ -15,7 +15,8 @@ final class StudySearchApi(
     client: ESClient,
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo) extends SearchReadApi[Study, Query] {
+    chapterRepo: ChapterRepo
+) extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) = {
     client.search(query, from, size) flatMap { res =>
@@ -29,7 +30,8 @@ final class StudySearchApi(
     indexThrottler ! LateMultiThrottler.work(
       id = study.id.value,
       run = studyRepo byId study.id flatMap { _ ?? doStore },
-      delay = 30.seconds.some)
+      delay = 30.seconds.some
+    )
   }
 
   private def doStore(study: Study) = {
@@ -49,12 +51,14 @@ final class StudySearchApi(
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
     Fields.likes -> s.study.likes.value,
-    Fields.public -> s.study.isPublic)
+    Fields.public -> s.study.isPublic
+  )
 
   private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
     Tag.Variant, Tag.Event, Tag.Round,
     Tag.White, Tag.Black,
-    Tag.ECO, Tag.Opening, Tag.Annotator)
+    Tag.ECO, Tag.Opening, Tag.Annotator
+  )
 
   private def chapterText(c: Chapter): String = {
     nodeText(c.root) :: c.tags.collect {
@@ -64,7 +68,8 @@ final class StudySearchApi(
 
   private def chapterModeText(c: Chapter) = List(
     c.isPractice option "practice",
-    c.isConceal option "conceal puzzle").flatten
+    c.isConceal option "conceal puzzle"
+  ).flatten
 
   private def nodeText(n: RootOrNode): String =
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")

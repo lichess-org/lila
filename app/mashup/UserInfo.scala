@@ -28,7 +28,8 @@ case class UserInfo(
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    completionRate: Option[Double]) {
+    completionRate: Option[Double]
+) {
 
   def nbRated = user.count.rated
 
@@ -46,17 +47,20 @@ case class UserInfo(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now),
+      date = org.joda.time.DateTime.now
+    ),
     isDeveloper option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now),
+      date = org.joda.time.DateTime.now
+    ),
     isStreamer option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Streamer,
-      date = org.joda.time.DateTime.now)
+      date = org.joda.time.DateTime.now
+    )
   ).flatten ::: trophies
 }
 
@@ -78,7 +82,8 @@ object UserInfo {
     fetchIsCoach: User => Fu[Boolean],
     insightShare: lila.insight.Share,
     getPlayTime: User => Fu[User.PlayTime],
-    completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
+    completionRate: User.ID => Fu[Option[Double]]
+  )(user: User, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
@@ -117,7 +122,8 @@ object UserInfo {
               isStreamer = isStreamer,
               isCoach = isCoach,
               insightVisible = insightVisible,
-              completionRate = completionRate)
+              completionRate = completionRate
+            )
           }
       }
 }

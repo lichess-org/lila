@@ -6,7 +6,8 @@ import chess.Color
 case class CorrespondenceClock(
     increment: Int,
     whiteTime: Float,
-    blackTime: Float) {
+    blackTime: Float
+) {
 
   def daysPerTurn = increment / 60 / 60 / 24
 

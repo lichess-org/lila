@@ -113,7 +113,7 @@ trait OptionSteroids {
     import scalaz.std.{ option => o }
 
     def fold[X](some: A => X, none: => X): X = self match {
-      case None    => none
+      case None => none
       case Some(a) => some(a)
     }
 

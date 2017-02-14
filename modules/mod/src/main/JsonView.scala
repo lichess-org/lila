@@ -11,7 +11,8 @@ import lila.user.User
 final class JsonView(
     assessApi: AssessApi,
     relationApi: lila.relation.RelationApi,
-    userJson: lila.user.JsonView) {
+    userJson: lila.user.JsonView
+) {
 
   def apply(user: User): Fu[Option[JsObject]] =
     assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
@@ -26,7 +27,8 @@ final class JsonView(
           "relation" -> Json.obj(
             "followers" -> followers,
             "following" -> following,
-            "blockers" -> blockers),
+            "blockers" -> blockers
+          ),
           "assessment" -> pag,
           "games" -> JsObject(gamesWithFen.map { g =>
             g._1.id -> gameWithFenWrites.writes(g)

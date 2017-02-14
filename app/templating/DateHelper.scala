@@ -22,7 +22,8 @@ trait DateHelper { self: I18nHelper =>
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,
-    DurationFieldType.minutes)
+    DurationFieldType.minutes
+  )
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -31,19 +32,22 @@ trait DateHelper { self: I18nHelper =>
   private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
       lang(ctx).code,
-      DateTimeFormat forStyle dateTimeStyle withLocale lang(ctx).toLocale)
+      DateTimeFormat forStyle dateTimeStyle withLocale lang(ctx).toLocale
+    )
 
   private def dateFormatter(ctx: Context): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
       lang(ctx).code,
-      DateTimeFormat forStyle dateStyle withLocale lang(ctx).toLocale)
+      DateTimeFormat forStyle dateStyle withLocale lang(ctx).toLocale
+    )
 
   private def periodFormatter(ctx: Context): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
       lang(ctx).code, {
-        Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased lang(ctx).toLocale
-      })
+      Locale setDefault Locale.ENGLISH
+      PeriodFormat wordBased lang(ctx).toLocale
+    }
+    )
 
   def showDateTime(date: DateTime)(implicit ctx: Context): String =
     dateTimeFormatter(ctx) print date

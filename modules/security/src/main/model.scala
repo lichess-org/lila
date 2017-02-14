@@ -9,7 +9,8 @@ case class UserSession(
     ip: String,
     ua: String,
     api: Option[Int],
-    date: Option[DateTime]) {
+    date: Option[DateTime]
+) {
 
   def id = _id
 

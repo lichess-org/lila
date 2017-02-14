@@ -6,7 +6,6 @@ import lila.db.paginator._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-
 final class MessageApi(
     coll: Coll,
     shutup: akka.actor.ActorSelection,
@@ -14,16 +13,18 @@ final class MessageApi(
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
     follows: (String, String) => Fu[Boolean],
-    lilaBus: lila.common.Bus) {
+    lilaBus: lila.common.Bus
+) {
 
   import Thread.ThreadBSONHandler
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
-      collection = coll,
-      selector = ThreadRepo visibleByUserQuery me.id,
-      projection = $empty,
-      sort = ThreadRepo.recentSort),
+    collection = coll,
+    selector = ThreadRepo visibleByUserQuery me.id,
+    projection = $empty,
+    sort = ThreadRepo.recentSort
+  ),
     currentPage = page,
     maxPerPage = maxPerPage
   )
@@ -41,7 +42,8 @@ final class MessageApi(
           name = data.subject,
           text = data.text,
           creatorId = me.id,
-          invitedId = data.user.id)
+          invitedId = data.user.id
+        )
         muteThreadIfNecessary(t, me, invited, data) flatMap { thread =>
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
@@ -71,7 +73,8 @@ final class MessageApi(
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
     val post = Post.make(
       text = text,
-      isByCreator = thread isCreator me)
+      isByCreator = thread isCreator me
+    )
     if (thread endsWith post) fuccess(thread) // prevent duplicate post
     else blocks(thread receiverOf post, me.id) flatMap {
       case true => fuccess(thread)
@@ -91,7 +94,8 @@ final class MessageApi(
         ThreadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
             lila.notify.Notification.Notifies(me.id),
-            $doc("content.thread.id" -> thread.id)) void
+            $doc("content.thread.id" -> thread.id)
+          ) void
       }
     }
 
@@ -108,6 +112,8 @@ final class MessageApi(
         PrivateMessage(
           PrivateMessage.SenderId(thread senderOf post),
           PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
-          PrivateMessage.Text(shorten(post.text, 80))))
+          PrivateMessage.Text(shorten(post.text, 80))
+        )
+      )
     }
 }

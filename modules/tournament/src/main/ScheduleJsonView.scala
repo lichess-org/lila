@@ -17,7 +17,8 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
   } yield Json.obj(
     "created" -> created,
     "started" -> started,
-    "finished" -> finished)
+    "finished" -> finished
+  )
 
   private def tournamentJson(tour: Tournament): Fu[JsObject] =
     tour.winnerId.??(lightUser).map { winner =>
@@ -35,7 +36,8 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
         "variant" -> Json.obj(
           "key" -> tour.variant.key,
           "short" -> tour.variant.shortName,
-          "name" -> tour.variant.name),
+          "name" -> tour.variant.name
+        ),
         "secondsToStart" -> tour.secondsToStart,
         "startsAt" -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,
@@ -43,17 +45,20 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
         "schedule" -> tour.schedule.map(scheduleJson),
         "winner" -> winner.map(userJson),
         "conditions" -> tour.conditions.ifNonEmpty,
-        "perf" -> tour.perfType.map(perfJson))
+        "perf" -> tour.perfType.map(perfJson)
+      )
     }
 
   private def userJson(u: LightUser) = Json.obj(
     "id" -> u.id,
     "name" -> u.name,
-    "title" -> u.title)
+    "title" -> u.title
+  )
 
   private def perfJson(p: PerfType) = Json.obj(
     "icon" -> p.iconChar.toString,
     "name" -> p.name,
-    "position" -> PerfType.all.indexOf(p))
+    "position" -> PerfType.all.indexOf(p)
+  )
 
 }

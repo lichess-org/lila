@@ -25,7 +25,8 @@ final class StudyApi(
     bus: lila.common.Bus,
     timeline: ActorSelection,
     socketHub: ActorRef,
-    lightStudyCache: LightStudyCache) {
+    lightStudyCache: LightStudyCache
+) {
 
   def byId = studyRepo byId _
 
@@ -87,7 +88,8 @@ final class StudyApi(
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
               chat ! lila.chat.actorApi.SystemTalk(
                 study.id.value,
-                s"Cloned from lichess.org/study/${prev.id}")
+                s"Cloned from lichess.org/study/${prev.id}"
+              )
             } inject study.some
         }
       }
@@ -257,7 +259,8 @@ final class StudyApi(
           val comment = Comment(
             id = Comment.Id.make,
             text = text,
-            by = Comment.Author.User(author.id, author.titleName))
+            by = Comment.Author.User(author.id, author.titleName)
+          )
           chapter.setComment(comment, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
@@ -345,11 +348,12 @@ final class StudyApi(
             name = name,
             practice = data.isPractice option true,
             conceal = (chapter.conceal, data.isConceal) match {
-              case (None, true)     => Chapter.Ply(chapter.root.ply).some
+              case (None, true) => Chapter.Ply(chapter.root.ply).some
               case (Some(_), false) => None
-              case _                => chapter.conceal
+              case _ => chapter.conceal
             },
-            setup = chapter.setup.copy(orientation = data.realOrientation))
+            setup = chapter.setup.copy(orientation = data.realOrientation)
+          )
           if (chapter == newChapter) funit
           else chapterRepo.update(newChapter) >> {
             if (chapter.conceal != newChapter.conceal) {
@@ -402,7 +406,8 @@ final class StudyApi(
       val newStudy = study.copy(
         name = Study toName data.name,
         settings = settings,
-        visibility = data.vis)
+        visibility = data.vis
+      )
       if (!study.isPublic && newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
       }

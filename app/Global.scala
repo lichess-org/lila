@@ -37,8 +37,7 @@ object Global extends GlobalSettings {
     else if (niceError(req)) {
       lila.mon.http.response.code400()
       controllers.Lobby.handleStatus(req, Results.BadRequest)
-    }
-    else fuccess(BadRequest(error))
+    } else fuccess(BadRequest(error))
 
   override def onError(req: RequestHeader, ex: Throwable) =
     if (niceError(req)) {
@@ -47,8 +46,6 @@ object Global extends GlobalSettings {
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
           lila.api.Context(req, lila.app.Env.api.assetVersion.get)
         }))
-      }
-      else super.onError(req, ex)
-    }
-    else fuccess(InternalServerError(ex.getMessage))
+      } else super.onError(req, ex)
+    } else fuccess(InternalServerError(ex.getMessage))
 }

@@ -9,7 +9,8 @@ import lila.tree.Node.partitionTreeJsonWriter
 
 private final class GameJson(
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi) {
+    lightUserApi: lila.user.LightUserApi
+) {
 
   case class CacheKey(gameId: Game.ID, plies: Int)
 
@@ -17,7 +18,8 @@ private final class GameJson(
     name = "puzzle.gameJson",
     f = generate,
     expireAfter = _.ExpireAfterAccess(1 hour),
-    maxCapacity = 1024)
+    maxCapacity = 1024
+  )
 
   def apply(gameId: Game.ID, plies: Int): Fu[JsObject] = cache get CacheKey(gameId, plies)
 
@@ -32,7 +34,8 @@ private final class GameJson(
       "clock" -> game.clock.map(_.show),
       "perf" -> Json.obj(
         "icon" -> perfType.iconChar.toString,
-        "name" -> perfType.name),
+        "name" -> perfType.name
+      ),
       "rated" -> game.rated,
       "players" -> JsArray(game.players.map { p =>
         Json.obj(

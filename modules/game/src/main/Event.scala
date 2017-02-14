@@ -31,7 +31,8 @@ object Event {
 
   private def withCrazyData(
     data: Option[Crazyhouse.Data],
-    drops: Option[List[Pos]])(js: JsObject): JsObject =
+    drops: Option[List[Pos]]
+  )(js: JsObject): JsObject =
     data.fold(js) { d =>
       val js1 = js + ("crazyhouse" -> crazyhouseDataWriter.writes(d))
       drops.fold(js1) { squares =>
@@ -49,7 +50,8 @@ object Event {
       clock: Option[Event],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data])(extra: JsObject) = {
+      crazyData: Option[Crazyhouse.Data]
+    )(extra: JsObject) = {
       extra ++ Json.obj(
         "fen" -> fen,
         "check" -> check.option(true),
@@ -60,7 +62,8 @@ object Event {
         "wDraw" -> state.whiteOffersDraw.option(true),
         "bDraw" -> state.blackOffersDraw.option(true),
         "clock" -> clock.map(_.data),
-        "dests" -> PossibleMoves.json(possibleMoves))
+        "dests" -> PossibleMoves.json(possibleMoves)
+      )
     }.noNull |> withCrazyData(crazyData, possibleDrops)
   }
 
@@ -78,7 +81,8 @@ object Event {
       clock: Option[Event],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data]) extends Event {
+      crazyData: Option[Crazyhouse.Data]
+  ) extends Event {
     def typ = "move"
     def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
       Json.obj(
@@ -86,7 +90,8 @@ object Event {
         "san" -> san,
         "promotion" -> promotion.map(_.data),
         "enpassant" -> enpassant.map(_.data),
-        "castle" -> castle.map(_.data))
+        "castle" -> castle.map(_.data)
+      )
     }
   }
   object Move {
@@ -108,7 +113,8 @@ object Event {
       clock = clock,
       possibleMoves = situation.destinations,
       possibleDrops = situation.drops,
-      crazyData = crazyData)
+      crazyData = crazyData
+    )
   }
 
   case class Drop(
@@ -122,13 +128,15 @@ object Event {
       clock: Option[Event],
       possibleMoves: Map[Pos, List[Pos]],
       crazyData: Option[Crazyhouse.Data],
-      possibleDrops: Option[List[Pos]]) extends Event {
+      possibleDrops: Option[List[Pos]]
+  ) extends Event {
     def typ = "drop"
     def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
       Json.obj(
         "role" -> role.name,
         "uci" -> s"${role.pgn}@${pos.key}",
-        "san" -> san)
+        "san" -> san
+      )
     }
   }
   object Drop {
@@ -143,7 +151,8 @@ object Event {
       clock = clock,
       possibleMoves = situation.destinations,
       possibleDrops = situation.drops,
-      crazyData = crazyData)
+      crazyData = crazyData
+    )
   }
 
   object PossibleMoves {
@@ -158,7 +167,8 @@ object Event {
     def typ = "enpassant"
     def data = Json.obj(
       "key" -> pos.key,
-      "color" -> color)
+      "color" -> color
+    )
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
@@ -173,7 +183,8 @@ object Event {
   case class RedirectOwner(
       color: Color,
       id: String,
-      cookie: Option[JsObject]) extends Event {
+      cookie: Option[JsObject]
+  ) extends Event {
     def typ = "redirect"
     def data = Json.obj(
       "id" -> id,
@@ -230,12 +241,14 @@ object Event {
     def typ = "clock"
     def data = Json.obj(
       "white" -> truncateAt(white, 2),
-      "black" -> truncateAt(black, 2))
+      "black" -> truncateAt(black, 2)
+    )
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
       clock remainingTime Color.White,
-      clock remainingTime Color.Black)
+      clock remainingTime Color.Black
+    )
     def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
 
@@ -267,7 +280,8 @@ object Event {
       status: Option[Status],
       winner: Option[Color],
       whiteOffersDraw: Boolean,
-      blackOffersDraw: Boolean) extends Event {
+      blackOffersDraw: Boolean
+  ) extends Event {
     def typ = "state"
     def data = Json.obj(
       "color" -> color,
@@ -281,7 +295,8 @@ object Event {
 
   case class TakebackOffers(
       white: Boolean,
-      black: Boolean) extends Event {
+      black: Boolean
+  ) extends Event {
     def typ = "takebackOffers"
     def data = Json.obj(
       "white" -> white.option(true),
@@ -293,12 +308,14 @@ object Event {
   case class Crowd(
       white: Boolean,
       black: Boolean,
-      watchers: JsValue) extends Event {
+      watchers: JsValue
+  ) extends Event {
     def typ = "crowd"
     def data = Json.obj(
       "white" -> white,
       "black" -> black,
-      "watchers" -> watchers)
+      "watchers" -> watchers
+    )
   }
 
   private implicit val colorWriter: Writes[Color] = Writes { c =>

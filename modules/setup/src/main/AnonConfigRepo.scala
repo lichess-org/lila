@@ -16,7 +16,8 @@ private[setup] object AnonConfigRepo {
         coll.update(
           $id(config.id),
           f(config),
-          upsert = true).void
+          upsert = true
+        ).void
       }
     }
 

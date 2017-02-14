@@ -22,7 +22,7 @@ object EvalCacheSelector {
       // now remove obsolete evals
       .foldLeft(Nil: Evals) {
         case (acc, e) if acc.exists { makesObsolete(_, e) } => acc
-        case (acc, e)                                       => e :: acc
+        case (acc, e) => e :: acc
       }
       // and finally ensure ordering by depth and nodes, best first
       .sortBy(negativeNodesAndDepth)

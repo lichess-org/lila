@@ -18,7 +18,8 @@ private[relation] final class RelationActor(
     api: RelationApi,
     onlinePlayings: ExpireSetMemo,
     onlineStudying: OnlineStudyingCache,
-    onlineStudyingAll: OnlineStudyingCache) extends Actor {
+    onlineStudyingAll: OnlineStudyingCache
+) extends Actor {
 
   private val bus = context.system.lilaBus
 

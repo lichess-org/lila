@@ -14,7 +14,8 @@ final class Env(
     scheduler: lila.common.Scheduler,
     bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
-    sink: lila.analyse.Analyser) {
+    sink: lila.analyse.Analyser
+) {
 
   private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
@@ -30,17 +31,20 @@ final class Env(
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
     clientColl = clientColl,
-    asyncCache = asyncCache)
+    asyncCache = asyncCache
+  )
 
   private val moveDb = new MoveDB(
     roundMap = hub.actor.roundMap,
-    system = system)
+    system = system
+  )
 
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
     receiveTimeout = None,
     executionTimeout = Some(1 second),
-    logger = logger)
+    logger = logger
+  )
 
   private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
 
@@ -59,22 +63,26 @@ final class Env(
   },
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
-    analysisNodes = AnalysisNodes)(system)
+    analysisNodes = AnalysisNodes
+  )(system)
 
   val player = new Player(
     moveDb = moveDb,
     uciMemo = uciMemo,
-    maxPlies = MovePlies)
+    maxPlies = MovePlies
+  )
 
   private val limiter = new Limiter(
     analysisColl = analysisColl,
-    requesterApi = requesterApi)
+    requesterApi = requesterApi
+  )
 
   val analyser = new Analyser(
     repo = repo,
     uciMemo = uciMemo,
     sequencer = sequencer,
-    limiter = limiter)
+    limiter = limiter
+  )
 
   val aiPerfApi = new AiPerfApi
 
@@ -83,12 +91,14 @@ final class Env(
     moveDb = moveDb,
     analysisColl = analysisColl,
     monitor = monitor,
-    scheduler = scheduler)
+    scheduler = scheduler
+  )
 
   new MainWatcher(
     repo = repo,
     bus = bus,
-    scheduler = scheduler)
+    scheduler = scheduler
+  )
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -126,5 +136,6 @@ object Env {
     scheduler = lila.common.PlayApp.scheduler,
     bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
-    sink = lila.analyse.Env.current.analyser)
+    sink = lila.analyse.Env.current.analyser
+  )
 }

@@ -7,7 +7,8 @@ import play.api.libs.json._
 
 final class ForumSearchApi(
     client: ESClient,
-    postApi: PostApi) extends SearchReadApi[PostView, Query] {
+    postApi: PostApi
+) extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -30,7 +31,8 @@ final class ForumSearchApi(
     Fields.topicId -> view.topic.id,
     Fields.staff -> view.post.isStaff,
     Fields.troll -> view.post.troll,
-    Fields.date -> view.post.createdAt.getDate)
+    Fields.date -> view.post.createdAt.getDate
+  )
 
   import reactivemongo.play.iteratees.cursorProducer
 
@@ -44,7 +46,8 @@ final class ForumSearchApi(
       val maxEntries = Int.MaxValue
       PostRepo.cursor(
         selector = $empty,
-        readPreference = ReadPreference.secondaryPreferred)
+        readPreference = ReadPreference.secondaryPreferred
+      )
         .enumerator(maxEntries) &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
         Iteratee.foldM[Seq[Post], Int](0) {

@@ -9,7 +9,8 @@ final class InsightApi(
     storage: Storage,
     userCacheApi: UserCacheApi,
     pipeline: AggregationPipeline,
-    indexer: Indexer) {
+    indexer: Indexer
+) {
 
   import InsightApi._
 

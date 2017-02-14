@@ -19,13 +19,14 @@ private[challenge] final class Joiner(onStart: String => Unit) {
 
           val baseState = c.initialFen.ifTrue(c.variant == chess.variant.FromPosition) flatMap Forsyth.<<<
           val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
-            case sit@SituationPlus(Situation(board, color), _) =>
+            case sit @ SituationPlus(Situation(board, color), _) =>
               val game = chess.Game(
                 board = board,
                 player = color,
                 turns = sit.turns,
                 startedAtTurn = sit.turns,
-                clock = c.clock.map(_.config.toClock))
+                clock = c.clock.map(_.config.toClock)
+              )
               if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
               else game -> baseState
           }
@@ -43,15 +44,17 @@ private[challenge] final class Joiner(onStart: String => Unit) {
             variant = realVariant,
             source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
             daysPerTurn = c.daysPerTurn,
-            pgnImport = None).copy(id = c.id).|> { g =>
+            pgnImport = None
+          ).copy(id = c.id).|> { g =>
               state.fold(g) {
-                case sit@SituationPlus(Situation(board, _), _) => g.copy(
+                case sit @ SituationPlus(Situation(board, _), _) => g.copy(
                   variant = chess.variant.FromPosition,
                   castleLastMoveTime = g.castleLastMoveTime.copy(
                     lastMove = board.history.lastMove.map(_.origDest),
                     castles = board.history.castles
                   ),
-                  turns = sit.turns)
+                  turns = sit.turns
+                )
               }
             }.start
           (GameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some

@@ -8,7 +8,8 @@ final class Env(
     config: Config,
     getLightUser: lila.common.LightUser.GetterSync,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val CollectionNotifications = config getString "collection.notify"
   private val ActorName = config getString "actor.name"
@@ -21,7 +22,8 @@ final class Env(
     bus = system.lilaBus,
     jsonHandlers = jsonHandlers,
     repo = repo,
-    asyncCache = asyncCache)
+    asyncCache = asyncCache
+  )
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -33,7 +35,9 @@ final class Env(
           Notification.Notifies(userId),
           CorresAlarm(
             gameId = pov.gameId,
-            opponent = lila.game.Namer.playerString(pov.opponent)(getLightUser)))
+            opponent = lila.game.Namer.playerString(pov.opponent)(getLightUser)
+          )
+        )
       }
     }
   }), name = ActorName), 'corresAlarm)
@@ -46,6 +50,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "notify",
     getLightUser = lila.user.Env.current.lightUserSync,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 
 }

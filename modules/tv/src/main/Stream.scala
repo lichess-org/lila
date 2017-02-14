@@ -7,7 +7,8 @@ case class StreamOnAir(
     streamer: Streamer,
     name: String,
     url: String,
-    streamId: String) {
+    streamId: String
+) {
 
   def id = streamer.id
 
@@ -54,7 +55,8 @@ object Hitbox {
         streamer = streamer,
         name = s.media_status,
         url = s.channel.channel_link,
-        streamId = s.media_name)
+        streamId = s.media_name
+      )
     }
   }
   object Reads {
@@ -77,7 +79,8 @@ object Youtube {
         streamer = streamer,
         name = item.snippet.title,
         url = s"https://www.youtube.com/channel/${item.snippet.channelId}/live",
-        streamId = item.id.videoId)
+        streamId = item.id.videoId
+      )
     }
   }
   object Reads {

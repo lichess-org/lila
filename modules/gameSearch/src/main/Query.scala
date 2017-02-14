@@ -25,7 +25,8 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     whiteUser: Option[String] = None,
-    blackUser: Option[String] = None) {
+    blackUser: Option[String] = None
+) {
 
   def nonEmpty =
     user1.nonEmpty ||
@@ -90,7 +91,8 @@ object Query {
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d move{s}")
+    "%d move{s}"
+  )
 
   val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e => e -> (e + " Rating") }
 
@@ -106,11 +108,11 @@ object Query {
     options(1 to 5, "y", "%d year{s} ago")
 
   val statuses = Status.finishedNotCheated.map {
-    case s if s.is(_.Timeout)       => none
-    case s if s.is(_.NoStart)       => none
+    case s if s.is(_.Timeout) => none
+    case s if s.is(_.NoStart) => none
     case s if s.is(_.UnknownFinish) => none
-    case s if s.is(_.Outoftime)     => Some(s.id -> "Clock Flag")
-    case s if s.is(_.VariantEnd)    => Some(s.id -> "Variant End")
-    case s                          => Some(s.id -> s.toString)
+    case s if s.is(_.Outoftime) => Some(s.id -> "Clock Flag")
+    case s if s.is(_.VariantEnd) => Some(s.id -> "Variant End")
+    case s => Some(s.id -> s.toString)
   }.flatten
 }

@@ -20,7 +20,8 @@ final class CrudApi {
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
     description = tour.spotlight.??(_.description),
-    conditions = Condition.DataForm.AllSetup(tour.conditions))
+    conditions = Condition.DataForm.AllSetup(tour.conditions)
+  )
 
   def update(old: Tournament, data: CrudForm.Data) =
     TournamentRepo update updateTour(old, data) void
@@ -42,7 +43,8 @@ final class CrudApi {
     mode = chess.Mode.Rated,
     `private` = false,
     password = None,
-    waitMinutes = 0)
+    waitMinutes = 0
+  )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
@@ -59,13 +61,16 @@ final class CrudApi {
         speed = Schedule.Speed.fromClock(clock),
         variant = v,
         position = chess.StartingPosition.initial,
-        at = date).some,
+        at = date
+      ).some,
       spotlight = Spotlight(
         headline = headline,
         description = description,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconFont = none,
-        iconImg = image.some.filter(_.nonEmpty)).some,
-      conditions = data.conditions.convert)
+        iconImg = image.some.filter(_.nonEmpty)
+      ).some,
+      conditions = data.conditions.convert
+    )
   }
 }

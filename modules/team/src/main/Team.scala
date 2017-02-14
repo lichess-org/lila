@@ -14,7 +14,8 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: String) {
+    createdBy: String
+) {
 
   def id = _id
 
@@ -50,7 +51,8 @@ object Team {
     location: Option[String],
     description: String,
     open: Boolean,
-    createdBy: User): Team = new Team(
+    createdBy: User
+  ): Team = new Team(
     _id = nameToId(name),
     name = name,
     location = location,
@@ -59,7 +61,8 @@ object Team {
     enabled = true,
     open = open,
     createdAt = DateTime.now,
-    createdBy = createdBy.id)
+    createdBy = createdBy.id
+  )
 
   def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>
     // if most chars are not latin, go for random slug

@@ -18,7 +18,8 @@ case class Topic(
     lastPostIdTroll: String,
     troll: Boolean,
     closed: Boolean,
-    hidden: Boolean) {
+    hidden: Boolean
+) {
 
   def id = _id
 
@@ -36,7 +37,8 @@ case class Topic(
     updatedAt = post.troll.fold(updatedAt, post.createdAt),
     nbPostsTroll = nbPostsTroll + 1,
     lastPostIdTroll = post.id,
-    updatedAtTroll = post.createdAt)
+    updatedAtTroll = post.createdAt
+  )
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 }
@@ -55,7 +57,8 @@ object Topic {
     slug: String,
     name: String,
     troll: Boolean,
-    hidden: Boolean): Topic = Topic(
+    hidden: Boolean
+  ): Topic = Topic(
     _id = Random nextString idSize,
     categId = categId,
     slug = slug,
@@ -70,5 +73,6 @@ object Topic {
     lastPostIdTroll = "",
     troll = troll,
     closed = false,
-    hidden = hidden)
+    hidden = hidden
+  )
 }

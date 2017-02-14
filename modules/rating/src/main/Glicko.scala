@@ -7,7 +7,8 @@ import lila.db.BSON
 case class Glicko(
     rating: Double,
     deviation: Double,
-    volatility: Double) {
+    volatility: Double
+) {
 
   def intRating = rating.toInt
   def intDeviation = deviation.toInt
@@ -55,12 +56,14 @@ case object Glicko {
     def reads(r: BSON.Reader): Glicko = Glicko(
       rating = r double "r",
       deviation = r double "d",
-      volatility = r double "v")
+      volatility = r double "v"
+    )
 
     def writes(w: BSON.Writer, o: Glicko) = BSONDocument(
       "r" -> w.double(o.rating),
       "d" -> w.double(o.deviation),
-      "v" -> w.double(o.volatility))
+      "v" -> w.double(o.volatility)
+    )
   }
 
   sealed abstract class Result(val v: Double) {

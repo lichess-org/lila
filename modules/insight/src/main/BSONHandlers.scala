@@ -68,7 +68,8 @@ private object BSONHandlers {
       cpl = r.intO("c"),
       material = r.int("i"),
       opportunism = r.boolO("o"),
-      luck = r.boolO("l"))
+      luck = r.boolO("l")
+    )
     def writes(w: BSON.Writer, b: Move) = BSONDocument(
       "p" -> b.phase,
       "t" -> b.tenths,
@@ -78,7 +79,8 @@ private object BSONHandlers {
       "c" -> b.cpl,
       "i" -> b.material,
       "o" -> b.opportunism,
-      "l" -> b.luck)
+      "l" -> b.luck
+    )
   }
 
   implicit def EntryBSONHandler = new BSON[Entry] {
@@ -101,7 +103,8 @@ private object BSONHandlers {
       ratingDiff = r.int(ratingDiff),
       analysed = r.boolD(analysed),
       provisional = r.boolD(provisional),
-      date = r.date(date))
+      date = r.date(date)
+    )
     def writes(w: BSON.Writer, e: Entry) = BSONDocument(
       id -> e.id,
       number -> e.number,
@@ -120,6 +123,7 @@ private object BSONHandlers {
       ratingDiff -> e.ratingDiff,
       analysed -> w.boolO(e.analysed),
       provisional -> w.boolO(e.provisional),
-      date -> e.date)
+      date -> e.date
+    )
   }
 }

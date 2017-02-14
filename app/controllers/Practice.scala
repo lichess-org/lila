@@ -52,7 +52,8 @@ object Practice extends LilaController {
       html.practice.show(us, lila.practice.JsonView.JsData(
         study = studyJson,
         analysis = analysisJson,
-        practice = lila.practice.JsonView(us)))
+        practice = lila.practice.JsonView(us)
+      ))
     ))
   }
 
@@ -61,7 +62,8 @@ object Practice extends LilaController {
       analysisJson(us) map {
         case (analysisJson, studyJson) => Ok(Json.obj(
           "study" -> studyJson,
-          "analysis" -> analysisJson)) as JSON
+          "analysis" -> analysisJson
+        )) as JSON
       }
     } map NoCache
   }
@@ -76,7 +78,8 @@ object Practice extends LilaController {
               "treeParts" -> partitionTreeJsonWriter.writes {
                 lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
               },
-              "practiceGoal" -> lila.practice.PracticeGoal(chapter))
+              "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+            )
             (analysis, studyJson)
         }
   }

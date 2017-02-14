@@ -26,7 +26,8 @@ object TreeBuilder {
     glyphs = root.glyphs,
     crazyData = root.crazyData,
     children = toBranches(root.children),
-    opening = FullOpeningDB findByFen root.fen.value)
+    opening = FullOpeningDB findByFen root.fen.value
+  )
 
   def toBranch(node: Node): tree.Branch = tree.Branch(
     id = node.id,
@@ -39,7 +40,8 @@ object TreeBuilder {
     glyphs = node.glyphs,
     crazyData = node.crazyData,
     children = toBranches(node.children),
-    opening = FullOpeningDB findByFen node.fen.value)
+    opening = FullOpeningDB findByFen node.fen.value
+  )
 
   private def toBranches(children: Node.Children): List[tree.Branch] =
     children.nodes.toList.map(toBranch)

@@ -31,8 +31,10 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
       Forecast(
         _id = pov.fullId,
         steps = steps,
-        date = DateTime.now).truncate,
-      upsert = true).void
+        date = DateTime.now
+      ).truncate,
+      upsert = true
+    ).void
   }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
@@ -44,7 +46,8 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
   def playAndSave(
     pov: Pov,
     uciMove: String,
-    steps: Forecast.Steps): Funit =
+    steps: Forecast.Steps
+  ): Funit =
     if (!pov.isMyTurn) funit
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
@@ -53,7 +56,8 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
         uci = uci,
         blur = true,
         lag = Duration.Zero,
-        promise = promise.some))
+        promise = promise.some
+      ))
       saveSteps(pov, steps) >> promise.future
     }
 
@@ -80,7 +84,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
           coll.update($id(fc._id), newFc) inject uciMove.some
         case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
-        case _                      => clearPov(Pov player g) inject none
+        case _ => clearPov(Pov player g) inject none
       }
     }
   }

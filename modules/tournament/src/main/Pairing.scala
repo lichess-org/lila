@@ -12,7 +12,8 @@ case class Pairing(
     winner: Option[String],
     turns: Option[Int],
     berserk1: Int,
-    berserk2: Int) {
+    berserk2: Int
+) {
 
   def gameId = id
 
@@ -70,7 +71,8 @@ private[tournament] object Pairing {
     winner = none,
     turns = none,
     berserk1 = 0,
-    berserk2 = 0)
+    berserk2 = 0
+  )
 
   case class Prep(tourId: String, user1: String, user2: String) {
     def toPairing(firstGetsWhite: Boolean) =

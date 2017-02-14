@@ -16,7 +16,8 @@ final class Cached(
     onlineUserIdMemo: lila.memo.ExpireSetMemo,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    rankingApi: RankingApi) {
+    rankingApi: RankingApi
+) {
 
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
@@ -48,26 +49,30 @@ final class Cached(
     antichess = antichess,
     atomic = atomic,
     horde = horde,
-    racingKings = racingKings)
+    racingKings = racingKings
+  )
 
   val top10Perf = mongoCache[Perf.ID, List[LightPerf]](
     prefix = "user:top10:perf",
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 10),
     timeToLive = 10 seconds,
-    keyToString = _.toString)
+    keyToString = _.toString
+  )
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
     prefix = "user:top200:perf",
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
     timeToLive = 10 minutes,
-    keyToString = _.toString)
+    keyToString = _.toString
+  )
 
   private val topWeekCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:week",
     f = PerfType.leaderboardable.map { perf =>
       rankingApi.topPerf(perf.id, 1)
     }.sequenceFu.map(_.flatten),
-    timeToLive = 9 minutes)
+    timeToLive = 9 minutes
+  )
 
   def topWeek = topWeekCache.apply _
 
@@ -75,12 +80,14 @@ final class Cached(
     prefix = "user:top:nbGame",
     f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
     timeToLive = 34 minutes,
-    keyToString = _.toString)
+    keyToString = _.toString
+  )
 
   val top50Online = asyncCache.single[List[User]](
     name = "user.top50online",
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
-    expireAfter = _.ExpireAfterWrite(10 seconds))
+    expireAfter = _.ExpireAfterWrite(10 seconds)
+  )
 
   object ranking {
 

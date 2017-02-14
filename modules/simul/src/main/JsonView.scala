@@ -25,7 +25,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
         "username" -> host.name,
         "title" -> host.title,
         "rating" -> simul.hostRating,
-        "gameId" -> simul.hostGameId)
+        "gameId" -> simul.hostGameId
+      )
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
@@ -35,12 +36,14 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
-    "quote" -> lila.quote.Quote.one(simul.id))
+    "quote" -> lila.quote.Quote.one(simul.id)
+  )
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
     "key" -> v.key,
     "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
-    "name" -> v.name)
+    "name" -> v.name
+  )
 
   private def playerJson(player: SimulPlayer): Fu[JsObject] =
     getLightUser(player.user) map { light =>
@@ -59,7 +62,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
     playerJson(app.player) map { player =>
       Json.obj(
         "player" -> player,
-        "accepted" -> app.accepted)
+        "accepted" -> app.accepted
+      )
     }
 
   private def gameJson(hostId: String)(g: Game) = Json.obj(
@@ -67,7 +71,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
     "status" -> g.status.id,
     "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
     "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
-    "orient" -> g.playerByUserId(hostId).map(_.color))
+    "orient" -> g.playerByUserId(hostId).map(_.color)
+  )
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[JsObject] =
     playerJson(p.player) map { player =>
@@ -76,7 +81,8 @@ final class JsonView(getLightUser: LightUser.Getter) {
         "hostColor" -> p.hostColor,
         "winnerColor" -> p.winnerColor,
         "wins" -> p.wins, // can't be normalized because BC
-        "game" -> games.find(_.id == p.gameId).map(gameJson(hostId)))
+        "game" -> games.find(_.id == p.gameId).map(gameJson(hostId))
+      )
     }
 
   private implicit val colorWriter: Writes[chess.Color] = Writes { c =>

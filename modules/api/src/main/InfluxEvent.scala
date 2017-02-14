@@ -14,7 +14,7 @@ private final class InfluxEvent(endpoint: String, env: String) extends Actor {
   }
 
   def receive = {
-    case DeployPre  => event("lila_deploy_pre", "Lila will soon restart")
+    case DeployPre => event("lila_deploy_pre", "Lila will soon restart")
     case DeployPost => event("lila_deploy_post", "Lila restarts for deploy now")
   }
 

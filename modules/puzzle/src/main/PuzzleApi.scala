@@ -6,7 +6,7 @@ import play.api.libs.json.JsValue
 
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{BSONFields => F}
+import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
@@ -16,7 +16,8 @@ private[puzzle] final class PuzzleApi(
     headColl: Coll,
     puzzleIdMin: PuzzleId,
     asyncCache: lila.memo.AsyncCache.Builder,
-    apiToken: String) {
+    apiToken: String
+) {
 
   import Puzzle.puzzleBSONHandler
 
@@ -35,8 +36,9 @@ private[puzzle] final class PuzzleApi(
 
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
-      lastId, 
-      expireAfter = _.ExpireAfterWrite(20 minutes))
+      lastId,
+      expireAfter = _.ExpireAfterWrite(20 minutes)
+    )
 
     def importOne(json: JsValue, token: String): Fu[PuzzleId] =
       if (token != apiToken) fufail("Invalid API token")
@@ -54,7 +56,7 @@ private[puzzle] final class PuzzleApi(
           F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleColl insert p inject id
-          case _     => fufail(s"Duplicate puzzle $fenStart")
+          case _ => fufail(s"Duplicate puzzle $fenStart")
         }
       }
 
@@ -101,7 +103,7 @@ private[puzzle] final class PuzzleApi(
     }
 
     def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
-      case None    => fuccess(none)
+      case None => fuccess(none)
       case Some(l) => l.nextPuzzleId ?? puzzle.find
     }
   }
@@ -129,10 +131,12 @@ private[puzzle] final class PuzzleApi(
         voteColl.update(
           $id(v2.id),
           $set("v" -> v),
-          upsert = true) zip
+          upsert = true
+        ) zip
           puzzleColl.update(
             $id(p2.id),
-            $set(F.vote -> p2.vote)) map {
+            $set(F.vote -> p2.vote)
+          ) map {
               case _ => p2 -> v2
             }
     }
@@ -145,22 +149,26 @@ private[puzzle] final class PuzzleApi(
     def add(h: PuzzleHead) = headColl update (
       $id(h.id),
       h,
-      upsert = true) void
+      upsert = true
+    ) void
 
     def addLearning(user: User, puzzleId: PuzzleId) = headColl update (
       $id(user.id),
       $set(PuzzleHead.BSONFields.current -> puzzleId.some),
-      upsert = true) void
+      upsert = true
+    ) void
 
     def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
 
     def solved(user: User, id: PuzzleId) = head find user flatMap {
       case Some(PuzzleHead(_, Some(c), n)) if c == id && c > n => headColl update (
         $id(user.id),
-        PuzzleHead(user.id, none, id))
+        PuzzleHead(user.id, none, id)
+      )
       case Some(PuzzleHead(_, Some(c), n)) if c == id => headColl update (
         $id(user.id),
-        $unset(PuzzleHead.BSONFields.current))
+        $unset(PuzzleHead.BSONFields.current)
+      )
       case _ => fuccess(none)
     }
   }

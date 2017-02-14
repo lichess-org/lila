@@ -21,7 +21,7 @@ object Plan extends LilaController {
           renderIndex(email, patron.some)
         }
         case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
-        case Synced(_, _)                         => indexFreeUser(me)
+        case Synced(_, _) => indexFreeUser(me)
       }
     }
   }
@@ -30,9 +30,9 @@ object Plan extends LilaController {
     ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
       import lila.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {
-        case ReloadUser         => Redirect(routes.Plan.list).fuccess
+        case ReloadUser => Redirect(routes.Plan.list).fuccess
         case Synced(Some(_), _) => indexFreeUser(me)
-        case _                  => Redirect(routes.Plan.index).fuccess
+        case _ => Redirect(routes.Plan.index).fuccess
       }
     }
   }
@@ -55,7 +55,8 @@ object Plan extends LilaController {
     patron = patron,
     recentIds = recentIds,
     bestIds = bestIds,
-    trackingData = trackingData))
+    trackingData = trackingData
+  ))
 
   private def makeTrackingUserData(me: UserModel) = for {
     tournaments <- Env.tournament.leaderboardApi.chart(me)
@@ -70,7 +71,8 @@ object Plan extends LilaController {
     isStreamer = isStreamer,
     nbFollowers = nbFollowers,
     nbFollowing = nbFollowing,
-    nbForumPosts = nbForumPosts)
+    nbForumPosts = nbForumPosts
+  )
 
   private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me, customer) flatMap {
@@ -108,8 +110,7 @@ object Plan extends LilaController {
         if (ctx.isAuth) {
           if (data.freq.renew) routes.Plan.index()
           else routes.Plan.thanks()
-        }
-        else routes.Plan.thanks()
+        } else routes.Plan.thanks()
       } recover {
         case e: StripeException =>
           logger.error("Plan.charge", e)
@@ -137,8 +138,7 @@ object Plan extends LilaController {
         if (err.errors("txn_type").nonEmpty) {
           logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
           fuccess(Ok)
-        }
-        else {
+        } else {
           logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
           fuccess(BadRequest)
         }

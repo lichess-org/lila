@@ -15,7 +15,8 @@ case class Study(
     from: Study.From,
     likes: Study.Likes,
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: DateTime
+) {
 
   import Study._
 
@@ -48,7 +49,8 @@ case class Study(
     val owner = StudyMember(
       id = user.id,
       role = StudyMember.Role.Write,
-      addedAt = DateTime.now)
+      addedAt = DateTime.now
+    )
     copy(
       _id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
@@ -57,7 +59,8 @@ case class Study(
       from = Study.From.Study(id),
       likes = Likes(1),
       createdAt = DateTime.now,
-      updatedAt = DateTime.now)
+      updatedAt = DateTime.now
+    )
   }
 
   def nbMembers = members.members.size
@@ -112,7 +115,8 @@ object Study {
       visibility: String,
       computer: String,
       explorer: String,
-      cloneable: String) {
+      cloneable: String
+  ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
     def settings = for {
@@ -140,7 +144,8 @@ object Study {
     val owner = StudyMember(
       id = user.id,
       role = StudyMember.Role.Write,
-      addedAt = DateTime.now)
+      addedAt = DateTime.now
+    )
     Study(
       _id = makeId,
       name = Name(s"${user.username}'s Study"),
@@ -152,6 +157,7 @@ object Study {
       from = from,
       likes = Likes(1),
       createdAt = DateTime.now,
-      updatedAt = DateTime.now)
+      updatedAt = DateTime.now
+    )
   }
 }

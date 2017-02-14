@@ -5,7 +5,8 @@ import chess.format.Uci
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Uci.Move]) {
+    best: Option[Uci.Move]
+) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 
@@ -93,11 +94,13 @@ object Eval {
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
       Reads.of[Int] map Cp.apply,
-      Writes { cp => JsNumber(cp.value) })
+      Writes { cp => JsNumber(cp.value) }
+    )
 
     implicit val mateFormat: Format[Mate] = Format[Mate](
       Reads.of[Int] map Mate.apply,
-      Writes { mate => JsNumber(mate.value) })
+      Writes { mate => JsNumber(mate.value) }
+    )
 
     implicit val evalWrites = Json.writes[Eval]
   }

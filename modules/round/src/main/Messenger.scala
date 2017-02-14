@@ -10,7 +10,8 @@ import lila.i18n.I18nKeys
 
 final class Messenger(
     val chat: ActorSelection,
-    i18nKeys: I18nKeys) {
+    i18nKeys: I18nKeys
+) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*) {
     val translated = message(i18nKeys).en(args: _*)

@@ -18,7 +18,8 @@ final class Syncache[K, V](
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter,
     logger: lila.log.Logger,
-    resultTimeout: FiniteDuration = 5 seconds)(implicit system: akka.actor.ActorSystem) {
+    resultTimeout: FiniteDuration = 5 seconds
+)(implicit system: akka.actor.ActorSystem) {
 
   import Syncache._
 
@@ -30,7 +31,7 @@ final class Syncache[K, V](
     val b1 = Caffeine.newBuilder().asInstanceOf[Caffeine[K, V]]
     val b2 = expireAfter match {
       case ExpireAfterAccess(duration) => b1.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
-      case ExpireAfterWrite(duration)  => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+      case ExpireAfterWrite(duration) => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
     val cache = b2.recordStats.build[K, V]()
     AsyncCache.monitor(s"syncache.$name", cache)
@@ -47,7 +48,7 @@ final class Syncache[K, V](
       incMiss()
       val fu = chm.computeIfAbsent(k, loadFunction)
       strategy match {
-        case NeverWait            => default(k)
+        case NeverWait => default(k)
         case AlwaysWait(duration) => waitForResult(k, fu, duration)
         case WaitAfterUptime(duration, uptime) =>
           if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
@@ -89,7 +90,8 @@ final class Syncache[K, V](
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
-      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout"))
+      error = lila.common.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+    )
       .chronometer.mon(_ => recComputeNanos).result // monitoring: record async time
       .addEffects(
         err => {

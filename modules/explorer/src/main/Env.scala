@@ -6,14 +6,16 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     gameColl: lila.db.dsl.Coll,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val InternalEndpoint = config getString "internal_endpoint"
   private val IndexFlow = config getBoolean "index_flow"
 
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
-    internalEndpoint = InternalEndpoint)
+    internalEndpoint = InternalEndpoint
+  )
 
   def cli = new lila.common.Cli {
     def process = {
@@ -26,7 +28,7 @@ final class Env(
     import play.api.Play.current
     WS.url(s"$InternalEndpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
-      case _                        => None
+      case _ => None
     }
   }
 
@@ -42,5 +44,6 @@ object Env {
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

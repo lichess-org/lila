@@ -18,7 +18,8 @@ final class ChallengeApi(
     socketHub: ActorRef,
     userRegister: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lilaBus: lila.common.Bus) {
+    lilaBus: lila.common.Bus
+) {
 
   import Challenge._
 
@@ -41,7 +42,8 @@ final class ChallengeApi(
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
     f = repo.countCreatedByDestId,
-    expireAfter = _.ExpireAfterAccess(20 minutes))
+    expireAfter = _.ExpireAfterAccess(20 minutes)
+  )
 
   def createdByChallengerId = repo createdByChallengerId _
 
@@ -54,7 +56,7 @@ final class ChallengeApi(
   private[challenge] def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
     case Some(Status.Created) => repo setSeen id
     case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
-    case _                    => fuccess(socketReload(id))
+    case _ => fuccess(socketReload(id))
   }
 
   def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
@@ -80,8 +82,8 @@ final class ChallengeApi(
             initialFen = initialFen,
             timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
               case (Some(clock), _) => TimeControl.Clock(clock.config)
-              case (_, Some(days))  => TimeControl.Correspondence(days)
-              case _                => TimeControl.Unlimited
+              case (_, Some(days)) => TimeControl.Correspondence(days)
+              case _ => TimeControl.Unlimited
             },
             mode = pov.game.mode,
             color = (!pov.color).name,

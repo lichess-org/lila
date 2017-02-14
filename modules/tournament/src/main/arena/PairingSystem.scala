@@ -13,7 +13,8 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
       ranking: Map[String, Int],
-      onlyTwoActivePlayers: Boolean) {
+      onlyTwoActivePlayers: Boolean
+  ) {
 
     val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
   }
@@ -25,12 +26,13 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
         fuccess(false),
-        PlayerRepo.countActive(tour.id).map(2==))
+        PlayerRepo.countActive(tour.id).map(2==)
+      )
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
         case Nil => fuccess(Nil)
-        case _   => evenOrAll(data, users)
+        case _ => evenOrAll(data, users)
       }
       pairings <- prepsToPairings(preps)
     } yield pairings
@@ -41,7 +43,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
       case Nil if users.isOdd => makePreps(data, users.all)
-      case x                  => fuccess(x)
+      case x => fuccess(x)
     }
 
   private val maxGroupSize = 44
@@ -78,9 +80,9 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     } toList
 
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
-    case x if x < 2   => Nil
+    case x if x < 2 => Nil
     case x if x <= 10 => OrnicarPairing(data, players)
-    case _            => AntmaPairing(data, players)
+    case _ => AntmaPairing(data, players)
   }
 
   private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"

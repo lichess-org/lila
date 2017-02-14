@@ -14,7 +14,8 @@ object BSONHandlers {
   private implicit val ScoresHandler = bsonArrayToVectorHandler[Score]
   private implicit val StageProgressHandler =
     isoHandler[StageProgress, Vector[Score], BSONArray](
-      (s: StageProgress) => s.scores, StageProgress.apply _)(ScoresHandler)
+      (s: StageProgress) => s.scores, StageProgress.apply _
+    )(ScoresHandler)
 
   private implicit val LearnProgressStagesHandler = BSON.MapValue.MapHandler[String, StageProgress]
   implicit val LearnProgressIdHandler = stringAnyValHandler[LearnProgress.Id](_.value, LearnProgress.Id.apply)

@@ -5,19 +5,22 @@ import org.joda.time.DateTime
 case class Plan(
     months: Int,
     active: Boolean,
-    since: Option[DateTime]) {
+    since: Option[DateTime]
+) {
 
   def incMonths = copy(
     months = months + 1,
     active = true,
-    since = since orElse DateTime.now.some)
+    since = since orElse DateTime.now.some
+  )
 
   def disable = copy(active = false)
 
   def enable = copy(
     active = true,
     months = months max 1,
-    since = since orElse DateTime.now.some)
+    since = since orElse DateTime.now.some
+  )
 
   def isEmpty = months == 0
 

@@ -46,7 +46,8 @@ sealed abstract class PostRepo(troll: Boolean) {
   def hideByTopic(topicId: String, value: Boolean): Funit = coll.update(
     selectTopic(topicId),
     $set("hidden" -> value),
-    multi = true).void
+    multi = true
+  ).void
 
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
   def selectTopics(topicIds: List[String]) = $doc("topicId" $in topicIds) ++ trollFilter
@@ -76,7 +77,10 @@ sealed abstract class PostRepo(troll: Boolean) {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Post]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(
+    implicit
+    cp: CursorProducer[Post]
+  ) =
     coll.find(selector).cursor[Post](readPreference)
 }

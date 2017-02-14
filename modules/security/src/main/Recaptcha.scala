@@ -18,7 +18,8 @@ object RecaptchaSkip extends Recaptcha {
 
 final class RecaptchaGoogle(
     endpoint: String,
-    privateKey: String) extends Recaptcha {
+    privateKey: String
+) extends Recaptcha {
 
   def verify(response: String, req: RequestHeader) = {
     WS.url(endpoint).post(Map(
@@ -27,7 +28,7 @@ final class RecaptchaGoogle(
       "remoteip" -> Seq(req.remoteAddress)
     )) flatMap {
       case res if res.status == 200 => fuccess(~res.json.boolean("success"))
-      case res                      => fufail(s"[recaptcha] ${res.status} ${res.body}")
+      case res => fufail(s"[recaptcha] ${res.status} ${res.body}")
     }
   }
 }

@@ -28,7 +28,8 @@ case class Node(
     comments: Comments = Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
     crazyData: Option[Crazyhouse.Data],
-    children: Node.Children) extends RootOrNode {
+    children: Node.Children
+) extends RootOrNode {
 
   import Node.Children
 
@@ -64,22 +65,22 @@ object Node {
     def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] = path.split match {
-      case None                               => none
+      case None => none
       case Some((head, tail)) if tail.isEmpty => get(head)
-      case Some((head, tail))                 => get(head) flatMap (_.children nodeAt tail)
+      case Some((head, tail)) => get(head) flatMap (_.children nodeAt tail)
     }
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
       case None if has(node.id) => this.some
-      case None                 => Children(nodes :+ node).some
-      case Some((head, tail))   => updateChildren(head, _.addNodeAt(node, tail))
+      case None => Children(nodes :+ node).some
+      case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
     }
 
     def deleteNodeAt(path: Path): Option[Children] = path.split match {
-      case None                                 => none
+      case None => none
       case Some((head, Path(Nil))) if has(head) => Children(nodes.filterNot(_.id == head)).some
-      case Some((_, Path(Nil)))                 => none
-      case Some((head, tail))                   => updateChildren(head, _.deleteNodeAt(tail))
+      case Some((_, Path(Nil))) => none
+      case Some((head, tail)) => updateChildren(head, _.deleteNodeAt(tail))
     }
 
     def promoteToMainlineAt(path: Path): Option[Children] = path.split match {
@@ -119,9 +120,9 @@ object Node {
       updateAt(path, _ toggleGlyph glyph)
 
     private def updateAt(path: Path, f: Node => Node): Option[Children] = path.split match {
-      case None                    => none
+      case None => none
       case Some((head, Path(Nil))) => updateWith(head, n => Some(f(n)))
-      case Some((head, tail))      => updateChildren(head, _.updateAt(tail, f))
+      case Some((head, tail)) => updateChildren(head, _.updateAt(tail, f))
     }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
@@ -136,7 +137,7 @@ object Node {
 
     def update(child: Node): Children = Children(nodes.map {
       case n if child.id == n.id => child
-      case n                     => n
+      case n => n
     })
   }
   val emptyChildren = Children(Vector.empty)
@@ -149,7 +150,8 @@ object Node {
       comments: Comments = Comments(Nil),
       glyphs: Glyphs = Glyphs.empty,
       crazyData: Option[Crazyhouse.Data],
-      children: Children) extends RootOrNode {
+      children: Children
+  ) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
       f(children) map { newChildren =>
@@ -202,14 +204,16 @@ object Node {
       fen = FEN(variant.initialFen),
       check = false,
       crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-      children = emptyChildren)
+      children = emptyChildren
+    )
 
     def fromRoot(b: lila.tree.Root): Root = Root(
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
       crazyData = b.crazyData,
-      children = Children(b.children.toVector map fromBranch))
+      children = Children(b.children.toVector map fromBranch)
+    )
   }
 
   def fromBranch(b: lila.tree.Branch): Node = Node(
@@ -219,5 +223,6 @@ object Node {
     fen = FEN(b.fen),
     check = b.check,
     crazyData = b.crazyData,
-    children = Children(b.children.toVector map fromBranch))
+    children = Children(b.children.toVector map fromBranch)
+  )
 }

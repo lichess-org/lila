@@ -15,7 +15,8 @@ final class Env(
     appPath: String,
     isProd: Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -41,12 +42,14 @@ final class Env(
   lazy val cached = new Cached(
     coll = gameColl,
     asyncCache = asyncCache,
-    mongoCache = mongoCache)
+    mongoCache = mongoCache
+  )
 
   lazy val paginator = new PaginatorBuilder(
     coll = gameColl,
     cached = cached,
-    maxPerPage = PaginatorMaxPerPage)
+    maxPerPage = PaginatorMaxPerPage
+  )
 
   lazy val rewind = Rewind
 
@@ -54,13 +57,15 @@ final class Env(
 
   lazy val pgnDump = new PgnDump(
     netBaseUrl = netBaseUrl,
-    getLightUser = getLightUser)
+    getLightUser = getLightUser
+  )
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(CollectionCrosstable),
     gameColl = gameColl,
     asyncCache = asyncCache,
-    system = system)
+    system = system
+  )
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
@@ -78,7 +83,8 @@ final class Env(
       game.userIds foreach { userId =>
         system.lilaBus.publish(
           actorApi.UserStartGame(userId, game),
-          Symbol(s"userStartGame:$userId"))
+          Symbol(s"userStartGame:$userId")
+        )
       }
     }
   }
@@ -100,5 +106,6 @@ object Env {
     appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

@@ -11,7 +11,8 @@ final class Env(
     flood: lila.security.Flood,
     shutup: ActorSelection,
     modLog: ActorSelection,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val settings = new {
     val CollectionChat = config getString "collection.chat"
@@ -26,7 +27,8 @@ final class Env(
 
   val timeout = new ChatTimeout(
     coll = timeoutColl,
-    duration = TimeoutDuration)
+    duration = TimeoutDuration
+  )
 
   val api = new ChatApi(
     coll = chatColl,
@@ -36,7 +38,8 @@ final class Env(
     modLog = modLog,
     lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
-    netDomain = NetDomain)
+    netDomain = NetDomain
+  )
 
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
@@ -56,5 +59,6 @@ object Env {
     flood = lila.security.Env.current.flood,
     shutup = lila.hub.Env.current.actor.shutup,
     modLog = lila.hub.Env.current.actor.mod,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

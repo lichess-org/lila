@@ -20,7 +20,8 @@ private final class Socket(
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
     socketTimeout: Duration,
-    lightStudyCache: LightStudyCache) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
+    lightStudyCache: LightStudyCache
+) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
   import Socket._
   import JsonView._
@@ -50,8 +51,10 @@ private final class Socket(
             studyId = studyId.value,
             contributor = study contributors userId,
             public = study.isPublic,
-            enters = enters),
-          'study)
+            enters = enters
+          ),
+          'study
+        )
       }
     }
 
@@ -85,11 +88,11 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case ReloadMembers(members)   => notifyVersion("members", members, noMessadata)
+    case ReloadMembers(members) => notifyVersion("members", members, noMessadata)
 
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
-    case ReloadAll                => notifyVersion("reload", JsNull, noMessadata)
+    case ReloadAll => notifyVersion("reload", JsNull, noMessadata)
     case ChangeChapter(uid) => notifyVersion("changeChapter", Json.obj(
       "w" -> who(uid)
     ), noMessadata)
@@ -214,7 +217,8 @@ private final class Socket(
         Json.obj(
           "nb" -> total,
           "users" -> users.flatten.map(_.titleName),
-          "anons" -> anons)
+          "anons" -> anons
+        )
       }
     }
   }
@@ -233,7 +237,8 @@ private object Socket {
     channel: JsChannel,
     userId: Option[String],
     troll: Boolean,
-    owner: Boolean) extends lila.socket.SocketMember
+    owner: Boolean
+  ) extends lila.socket.SocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter

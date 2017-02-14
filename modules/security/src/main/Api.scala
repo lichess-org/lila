@@ -16,7 +16,8 @@ final class Api(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
-    emailAddress: EmailAddress) {
+    emailAddress: EmailAddress
+) {
 
   val AccessUri = "access_uri"
 
@@ -33,14 +34,13 @@ final class Api(
     "username" -> nonEmptyText,
     "password" -> nonEmptyText
   )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
-    .verifying("Invalid username or password", _.isDefined)
-  )
+    .verifying("Invalid username or password", _.isDefined))
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailAddress.validate(str) match {
-      case Some(email)                       => UserRepo.checkPasswordByEmail(email)
+      case Some(email) => UserRepo.checkPasswordByEmail(email)
       case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
-      case _                                 => fuccess(none)
+      case _ => fuccess(none)
     }
   } map loadedLoginForm _
 
@@ -99,15 +99,15 @@ final class Api(
       field,
       $doc("user" -> userId, field -> $doc("$exists" -> true)).some
     ).flatMap {
-        case Nil => fuccess(Nil)
-        case values => coll.distinct[String, List](
-          "user",
-          $doc(
-            field $in values,
-            "user" $ne userId
-          ).some
-        )
-      }
+      case Nil => fuccess(Nil)
+      case values => coll.distinct[String, List](
+        "user",
+        $doc(
+          field $in values,
+          "user" $ne userId
+        ).some
+      )
+    }
 
   def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
 

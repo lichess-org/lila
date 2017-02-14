@@ -38,9 +38,11 @@ object BSONHandlers {
       val (white, black) = r.str("p").toList.flatMap(chess.Piece.fromChar).partition(_ is chess.White)
       Pockets(
         white = Pocket(white.map(_.role)),
-        black = Pocket(black.map(_.role)))
+        black = Pocket(black.map(_.role))
+      )
     },
-      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr))
+      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr)
+    )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(
       "p" -> {
@@ -106,7 +108,8 @@ object BSONHandlers {
           tournamentId = r strO tournamentId,
           simulId = r strO simulId,
           tvAt = r dateO tvAt,
-          analysed = r boolD analysed)
+          analysed = r boolD analysed
+        )
       )
     }
 

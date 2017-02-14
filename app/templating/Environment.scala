@@ -42,7 +42,8 @@ object Environment
 
   implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) => Html(a.body + b.body),
-    Html(""))
+    Html("")
+  )
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

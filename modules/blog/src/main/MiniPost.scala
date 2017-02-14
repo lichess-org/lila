@@ -8,7 +8,8 @@ case class MiniPost(
   title: String,
   shortlede: String,
   date: DateTime,
-  image: String)
+  image: String
+)
 
 object MiniPost {
 

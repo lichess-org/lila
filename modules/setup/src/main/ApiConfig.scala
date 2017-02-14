@@ -21,5 +21,6 @@ private[setup] case object ApiConfig extends Config {
     mode = mode,
     variant = variant,
     source = Source.Api,
-    pgnImport = None)
+    pgnImport = None
+  )
 }

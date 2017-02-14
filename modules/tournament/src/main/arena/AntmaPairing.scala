@@ -26,6 +26,7 @@ private object AntmaPairing {
       },
       _ map {
         case (a, b) => Pairing.prep(tour, a.player, b.player)
-      })
+      }
+    )
   }
 }

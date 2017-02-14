@@ -10,7 +10,8 @@ import lila.user.UserRepo
 
 final class PlaybanApi(
     coll: Coll,
-    isRematch: String => Boolean) {
+    isRematch: String => Boolean
+) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
@@ -77,10 +78,10 @@ final class PlaybanApi(
     coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
       outcomes.collect {
         case Outcome.RageQuit | Outcome.Sitting => false
-        case Outcome.Good                       => true
+        case Outcome.Good => true
       } match {
         case c if c.size >= 5 => Some(c.count(identity).toDouble / c.size)
-        case _                => none
+        case _ => none
       }
     }
 
@@ -104,12 +105,14 @@ final class PlaybanApi(
       update = $doc("$push" -> $doc(
         "o" -> $doc(
           "$each" -> List(outcome),
-          "$slice" -> -20)
+          "$slice" -> -20
+        )
       )),
       fetchNewObject = true,
-      upsert = true).map(_.value)
+      upsert = true
+    ).map(_.value)
   } map2 UserRecordBSONHandler.read flatMap {
-    case None         => fufail(s"can't find record for user $userId")
+    case None => fufail(s"can't find record for user $userId")
     case Some(record) => legiferate(record)
   } logFailure lila.log("playban")
 
@@ -120,7 +123,8 @@ final class PlaybanApi(
         $push(
           "b" -> $doc(
             "$each" -> List(ban),
-            "$slice" -> -30)
+            "$slice" -> -30
+          )
         )
     ).void
   }

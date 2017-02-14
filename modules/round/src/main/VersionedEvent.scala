@@ -15,10 +15,11 @@ case class VersionedEvent(
     only: Option[Color],
     owner: Boolean,
     watcher: Boolean,
-    troll: Boolean) {
+    troll: Boolean
+) {
 
   lazy val decoded: JsValue = encoded match {
-    case Left(s)   => Json parse s
+    case Left(s) => Json parse s
     case Right(js) => js
   }
 
@@ -27,7 +28,8 @@ case class VersionedEvent(
     else Json.obj(
       "v" -> version,
       "t" -> typ,
-      "d" -> dataForApiVersion(typ, decoded, m.apiVersion))
+      "d" -> dataForApiVersion(typ, decoded, m.apiVersion)
+    )
   }
   else Json.obj("v" -> version)
 
@@ -38,7 +40,7 @@ case class VersionedEvent(
   private def dataForApiVersion(typ: String, data: JsValue, apiVersion: ApiVersion): JsValue =
     if (typ == "message" && apiVersion.v1) data match {
       case o: JsObject => o transform mobileV1Escaper getOrElse o
-      case v           => v
+      case v => v
     }
     else data
 
@@ -60,7 +62,8 @@ private[round] object VersionedEvent {
     only = e.only,
     owner = e.owner,
     watcher = e.watcher,
-    troll = e.troll)
+    troll = e.troll
+  )
 
   import lila.db.BSON
   import reactivemongo.bson._
@@ -73,18 +76,20 @@ private[round] object VersionedEvent {
       only = r boolO "o" map Color.apply,
       owner = r boolD "ow",
       watcher = r boolD "w",
-      troll = r boolD "r")
+      troll = r boolD "r"
+    )
     def writes(w: BSON.Writer, o: VersionedEvent) = BSONDocument(
       "v" -> o.version,
       "t" -> o.typ,
       "d" -> (o.encoded match {
-        case Left(s)       => s.some
+        case Left(s) => s.some
         case Right(JsNull) => none
-        case Right(js)     => Json.stringify(js).some
+        case Right(js) => Json.stringify(js).some
       }),
       "o" -> o.only.map(_.white),
       "ow" -> w.boolO(o.owner),
       "w" -> w.boolO(o.watcher),
-      "r" -> w.boolO(o.troll))
+      "r" -> w.boolO(o.troll)
+    )
   }
 }

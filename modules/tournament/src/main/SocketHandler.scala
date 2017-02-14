@@ -18,12 +18,14 @@ private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
-    flood: Flood) {
+    flood: Flood
+) {
 
   def join(
     tourId: String,
     uid: Uid,
-    user: Option[User]): Fu[Option[JsSocketHandler]] =
+    user: Option[User]
+  ): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {
         for {
@@ -41,11 +43,13 @@ private[tournament] final class SocketHandler(
     socket: ActorRef,
     tourId: String,
     uid: Uid,
-    member: Member): Handler.Controller = ({
+    member: Member
+  ): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = tourId,
     member = member,
     socket = socket,
-    chat = chat)
+    chat = chat
+  )
 }

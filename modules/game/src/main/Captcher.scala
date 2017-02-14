@@ -16,11 +16,11 @@ private final class Captcher extends Actor {
 
   def receive = {
 
-    case AnyCaptcha             => sender ! Impl.current
+    case AnyCaptcha => sender ! Impl.current
 
     case GetCaptcha(id: String) => Impl get id pipeTo sender
 
-    case actorApi.NewCaptcha    => Impl.refresh
+    case actorApi.NewCaptcha => Impl.refresh
 
     case ValidCaptcha(id: String, solution: String) =>
       Impl get id map (_ valid solution) pipeTo sender
@@ -29,7 +29,7 @@ private final class Captcher extends Actor {
   private object Impl {
 
     def get(id: String): Fu[Captcha] = find(id) match {
-      case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
+      case None => getFromDb(id) map (c => (c | Captcha.default) ~ add)
       case Some(c) => fuccess(c)
     }
 
@@ -92,8 +92,8 @@ private final class Captcher extends Actor {
 
     private def safeInit[A](list: List[A]): List[A] = list match {
       case x :: Nil => Nil
-      case x :: xs  => x :: safeInit(xs)
-      case _        => Nil
+      case x :: xs => x :: safeInit(xs)
+      case _ => Nil
     }
 
     private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')

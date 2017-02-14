@@ -41,5 +41,6 @@ object PoolMember {
       rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),
-      since = DateTime.now)
+      since = DateTime.now
+    )
 }
