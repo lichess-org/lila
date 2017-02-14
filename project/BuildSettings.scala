@@ -28,8 +28,7 @@ object BuildSettings {
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
         .setPreference(AlignSingleLineCaseStatements, true)
         .setPreference(CompactControlReadability, true)
-        .setPreference(DanglingCloseParenthesis, Prevent)
-        .setPreference(NewlineAtEndOfFile, true))
+        .setPreference(DanglingCloseParenthesis, Prevent))
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat)
 
