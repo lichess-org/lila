@@ -20,7 +20,8 @@ class PgnDumpTest extends Specification {
     fen = FEN("<fen>"),
     check = false,
     crazyData = None,
-    children = children)
+    children = children
+  )
 
   def children(nodes: Node*) = Children(nodes.toVector)
 
