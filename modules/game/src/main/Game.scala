@@ -27,7 +27,8 @@ case class Game(
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
-    binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
+    legacyMoveTimes: Option[ByteArray] = ByteArray.empty.some,
+    binaryClockTimes: Option[ByteArray] = ByteArray.empty.some,
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -110,17 +111,31 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  // in tenths of seconds
-  lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
+  // in hundreds of seconds
+  lazy val clockTimes: Option[Vector[Int]] = binaryClockTimes.map(BinaryFormat.clockTimes read _)
 
-  def moveTimes(color: Color): List[Int] = {
+  def clockTimes(color: Color): Option[List[Int]] = {
     val pivot = if (color == startColor) 0 else 1
-    moveTimes.toList.zipWithIndex.collect {
+    clockTimes.map(_.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
-    }
+    })
   }
 
-  def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
+  def moveTimes: Option[List[Int]] =
+    clockTimes.map { clocks =>
+      (0 :: 0 :: (clocks, clocks drop 2).zipped.map(_ - _).map(_ / 10).toList).some
+    } getOrElse {
+      legacyMoveTimes.map { binary =>
+        (BinaryFormat.legacyMoveTimes read binary).toList
+      }
+    }
+
+  def moveTimes(color: Color): Option[List[Int]] = {
+    val pivot = if (color == startColor) 0 else 1
+    moveTimes.map(_.toList.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    })
+  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -185,14 +200,9 @@ case class Game(
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.checkSquare),
       unmovedRooks = game.board.unmovedRooks,
-      binaryMoveTimes = isPgnImport.fold(
-        ByteArray.empty,
-        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
-          moveTimes :+ {
-            (nowTenths - lmt - (lag.??(_.toMillis) / 100)).toInt max 0
-          }
-        }
-      ),
+      binaryClockTimes = clock.map { clk =>
+        BinaryFormat.clockTimes write (clockTimes | Vector.empty) :+ (clk.remainingTime(turnColor) * 100).toInt
+      },
       status = situation.status | status,
       clock = game.clock)
 
@@ -613,7 +623,8 @@ object Game {
     val castleLastMoveTime = "cl"
     val unmovedRooks = "ur"
     val daysPerTurn = "cd"
-    val moveTimes = "mt"
+    val legacyMoveTimes = "mt"
+    val clockTimes = "ct"
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
