@@ -192,9 +192,9 @@ final class StudyApi(
     (study isOwner byUserId) ?? {
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
       study.members.get(userId) ifTrue study.isPublic foreach { member =>
-        if (member.role == StudyMember.Role.Read && role == StudyMember.Role.Write)
+        if (!member.role.canWrite && role.canWrite)
           bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
-        else if (member.role == StudyMember.Role.Write && role == StudyMember.Role.Read)
+        else if (member.role.canWrite && !role.canWrite)
           bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       }
       studyRepo.setRole(study, userId, role) >>-
