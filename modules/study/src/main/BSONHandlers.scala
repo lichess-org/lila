@@ -274,4 +274,10 @@ object BSONHandlers {
   private[study] implicit val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
   implicit val StudyBSONHandler = Macros.handler[Study]
+
+  implicit val lightStudyBSONReader = new BSONDocumentReader[LightStudy] {
+    def read(doc: BSONDocument) = LightStudy(
+      isPublic = doc.getAs[String]("visibility") has "public",
+      contributors = doc.getAs[StudyMembers]("members").??(_.contributorIds.toSet))
+  }
 }

@@ -17,14 +17,21 @@ final class StudyRepo(private[study] val coll: Coll) {
     "views" -> false,
     "rank" -> false)
 
+  private[study] val lightProjection = $doc(
+    "_id" -> false,
+    "visibility" -> true,
+    "members" -> true)
+
   def byId(id: Study.Id) = coll.find($id(id), projection).uno[Study]
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
+  def lightById(id: Study.Id): Fu[Option[LightStudy]] =
+    coll.find($id(id), lightProjection).uno[LightStudy]
+
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Study]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(implicit cp: CursorProducer[Study]) =
     coll.find(selector).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))

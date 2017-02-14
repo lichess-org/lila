@@ -22,9 +22,7 @@ final class LightStudyCache(
     cache get studyId
 
   private def fetch(studyId: Study.Id): Fu[Option[LightStudy]] =
-    studyRepo byId studyId map2 { (s: Study) =>
-      LightStudy(s.isPublic, s.members.contributorIds.toSet)
-    }
+    studyRepo lightById studyId
 }
 
 case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
