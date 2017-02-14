@@ -71,15 +71,15 @@ private[relation] final class RelationActor(
       onlinePlayings putAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_playing")
 
-    case lila.hub.actorApi.study.StudyJoin(userId, studyId, contributor, public) =>
+    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
       onlineStudyingAll.put(userId, studyId)
       if (contributor && public) {
         val wasAlreadyInStudy = onlineStudying.get(userId).isDefined
         onlineStudying.put(userId, studyId)
         if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
- 
-    case lila.hub.actorApi.study.StudyQuit(userId, studyId, contributor, public) =>
+
+    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
       onlineStudyingAll remove userId
       if (contributor && public) {
         onlineStudying remove userId

@@ -231,8 +231,7 @@ case class UnBlock(u1: String, u2: String)
 }
 
 package study {
-case class StudyJoin(userId: String, studyId: String, contributor: Boolean, public: Boolean)
-case class StudyQuit(userId: String, studyId: String, contributor: Boolean, public: Boolean)
+case class StudyDoor(userId: String, studyId: String, contributor: Boolean, public: Boolean, enters: Boolean)
 case class StudyBecamePrivate(studyId: String, contributors: Set[String])
 case class StudyBecamePublic (studyId: String, contributors: Set[String])
 case class StudyMemberGotWriteAccess(userId: String, studyId: String, public: Boolean)

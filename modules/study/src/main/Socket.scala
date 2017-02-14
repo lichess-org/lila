@@ -41,28 +41,24 @@ private final class Socket(
     lilaBus.unsubscribe(self)
   }
 
-  def sendStudyJoin(userId: User.ID) {
-    lightStudyCache.get(studyId) foreach { studyOption =>
-      studyOption foreach { study =>
-        val contributor = study.contributors.contains(userId)
-        context.system.lilaBus.publish(lila.hub.actorApi.study.StudyJoin(userId, studyId.value, contributor, study.isPublic), 'study)
+  def sendStudyDoor(enters: Boolean)(userId: User.ID) =
+    lightStudyCache.get(studyId) foreach {
+      _ foreach { study =>
+        lilaBus.publish(
+          lila.hub.actorApi.study.StudyDoor(
+            userId = userId,
+            studyId = studyId.value,
+            contributor = study contributors userId,
+            public = study.isPublic,
+            enters = enters),
+          'study)
       }
     }
-  }
-
-  def sendStudyQuit(userId: User.ID) {
-    lightStudyCache.get(studyId) foreach { studyOption =>
-      studyOption foreach { study =>
-        val contributor = study.contributors.contains(userId)
-        context.system.lilaBus.publish(lila.hub.actorApi.study.StudyQuit(userId, studyId.value, contributor, study.isPublic), 'study)
-      }
-    }
-  }
 
   def receiveSpecific = ({
 
     case SetPath(pos, uid) =>
-      uidToUserId(uid) foreach sendStudyJoin
+      uidToUserId(uid) foreach sendStudyDoor(true)
       notifyVersion("path", Json.obj(
         "p" -> pos,
         "w" -> who(uid).map(whoWriter.writes)
@@ -166,12 +162,12 @@ private final class Socket(
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
-      userId foreach sendStudyJoin
+      userId foreach sendStudyDoor(true)
 
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
-        member.userId foreach sendStudyQuit
+        member.userId foreach sendStudyDoor(false)
         notifyCrowd
       }
 
