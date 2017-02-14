@@ -19,7 +19,7 @@ private[relation] final class RelationActor(
     api: RelationApi,
     onlinePlayings: ExpireSetMemo,
     onlineStudying: OnlineStudyingMemo,
-    onlineStudyingAll: OnlineStudyingMemo) extends Actor {
+    onlineStudyingAll: lila.memo.ExpireSetMemo) extends Actor {
 
   private val bus = context.system.lilaBus
 
@@ -72,7 +72,7 @@ private[relation] final class RelationActor(
       notifyFollowersGameStateChanged(usersPlaying, "following_playing")
 
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
-      onlineStudyingAll.put(userId, studyId)
+      onlineStudyingAll.put(userId)
       if (contributor && public) {
         val wasAlreadyInStudy = onlineStudying.get(userId).isDefined
         onlineStudying.put(userId, studyId)
@@ -94,14 +94,14 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
-      val contributorsInStudy = contributors.filter(onlineStudyingAll.get(_).isDefined)
+      val contributorsInStudy = onlineStudyingAll intersect contributors
       for (c <- contributorsInStudy) {
         onlineStudying.put(c, studyId)
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId, public) if public =>
-      if (onlineStudyingAll.get(userId).isDefined) {
+      if (onlineStudyingAll.get(userId)) {
         onlineStudying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
