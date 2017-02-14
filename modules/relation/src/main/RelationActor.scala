@@ -100,13 +100,13 @@ private[relation] final class RelationActor(
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId, public) if public =>
+    case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
       if (onlineStudyingAll.get(userId)) {
         onlineStudying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId, public) if public =>
+    case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
       if (onlineStudying.get(userId).isDefined) {
         onlineStudying remove userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")

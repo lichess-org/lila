@@ -191,14 +191,11 @@ final class StudyApi(
   def setRole(byUserId: User.ID, studyId: Study.Id, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-      study.members.get(userId) foreach { member =>
-        val previousRole = member.role
-        if (previousRole == StudyMember.Role.Read && role == StudyMember.Role.Write) {
-          bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value, study.isPublic), 'study)
-        }
-        else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
-          bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
-        }
+      study.members.get(userId) ifTrue study.isPublic foreach { member =>
+        if (member.role == StudyMember.Role.Read && role == StudyMember.Role.Write)
+          bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
+        else if (member.role == StudyMember.Role.Write && role == StudyMember.Role.Read)
+          bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       }
       studyRepo.setRole(study, userId, role) >>-
         reloadMembers(study) >>-
@@ -219,9 +216,8 @@ final class StudyApi(
 
   def kick(studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
     study.isMember(userId) ?? {
-      if (study canContribute userId) {
-        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
-      }
+      if (study.isPublic && study.canContribute(userId))
+        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       studyRepo.removeMember(study, userId) >>- lightStudyCache.refresh(studyId)
     } >>- reloadMembers(study) >>- indexStudy(study)
   }

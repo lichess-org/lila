@@ -234,8 +234,8 @@ package study {
 case class StudyDoor(userId: String, studyId: String, contributor: Boolean, public: Boolean, enters: Boolean)
 case class StudyBecamePrivate(studyId: String, contributors: Set[String])
 case class StudyBecamePublic (studyId: String, contributors: Set[String])
-case class StudyMemberGotWriteAccess(userId: String, studyId: String, public: Boolean)
-case class StudyMemberLostWriteAccess(userId: String, studyId: String, public: Boolean)
+case class StudyMemberGotWriteAccess(userId: String, studyId: String)
+case class StudyMemberLostWriteAccess(userId: String, studyId: String)
 }
 
 package plan {
