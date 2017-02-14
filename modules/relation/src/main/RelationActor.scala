@@ -45,7 +45,7 @@ private[relation] final class RelationActor(
     }
 
     case ComputeMovement =>
-      val prevIds = onlineIds
+      val prevIds = onlines.keySet
       val curIds = getOnlineUserIds()
       val leaveIds = (prevIds diff curIds).toList
       val enterIds = (curIds diff prevIds).toList
@@ -86,7 +86,8 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
-      val contributorsInStudy = contributors.filter(onlineStudying.getIfPresent(_).isDefined)
+      val found = onlineStudying getAllPresent contributors
+      val contributorsInStudy = contributors filter found.contains
       for (c <- contributorsInStudy) {
         onlineStudying invalidate c
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
@@ -115,8 +116,6 @@ private[relation] final class RelationActor(
   private def makeFriendEntering(enters: LightUser) = {
     FriendEntering(enters, onlinePlayings.get(enters.id), onlineStudying.getIfPresent(enters.id).isDefined)
   }
-
-  private def onlineIds: Set[ID] = onlines.keySet
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api fetchFollowing userId map { ids =>
