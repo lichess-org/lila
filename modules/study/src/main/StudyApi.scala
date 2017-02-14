@@ -195,12 +195,14 @@ final class StudyApi(
         val previousRole = member.role
         if (previousRole == StudyMember.Role.Read && role == StudyMember.Role.Write) {
           bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value, study.isPublic), 'study)
-        } else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
+        }
+        else if (previousRole == StudyMember.Role.Write && role == StudyMember.Role.Read) {
           bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
         }
       }
-      lightStudyCache.refresh(studyId)
-      studyRepo.setRole(study, userId, role) >>- reloadMembers(study)
+      studyRepo.setRole(study, userId, role) >>-
+        reloadMembers(study) >>-
+        lightStudyCache.refresh(studyId)
     }
   }
 
@@ -220,8 +222,7 @@ final class StudyApi(
       if (study canContribute userId) {
         bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
       }
-      lightStudyCache.refresh(studyId)
-      studyRepo.removeMember(study, userId)
+      studyRepo.removeMember(study, userId) >>- lightStudyCache.refresh(studyId)
     } >>- reloadMembers(study) >>- indexStudy(study)
   }
 
@@ -408,14 +409,15 @@ final class StudyApi(
         visibility = data.vis)
       if (!study.isPublic && newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
-      } else if (study.isPublic && !newStudy.isPublic) {
+      }
+      else if (study.isPublic && !newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
       }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study, Socket.ReloadAll) >>-
           indexStudy(study) >>-
-          lightStudyCache.refresh(studyId)
+          lightStudyCache.put(studyId, newStudy.some)
       }
     }
   }
@@ -424,7 +426,7 @@ final class StudyApi(
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
       bus.publish(actorApi.RemoveStudy(study.id), 'study) >>-
-      lightStudyCache.refresh(study.id)
+      lightStudyCache.put(study.id, none)
   }
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
