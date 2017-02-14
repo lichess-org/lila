@@ -122,16 +122,18 @@ private[relation] final class RelationActor(
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api fetchFollowing userId map { ids =>
       val friends = ids.flatMap(onlines.get).toList
-      val friendsPlaying = filterFriendsPlaying(friends)
-      val friendsStudying = filterFriendsStudying(friends)
+      val friendsPlaying = filterFriendsPlaying(ids)
+      val friendsStudying = filterFriendsStudying(ids)
       OnlineFriends(friends, friendsPlaying, friendsStudying)
     }
 
-  private def filterFriendsPlaying(friends: List[LightUser]): Set[UserId] =
-    onlinePlayings intersect friends.map(_.id)
+  private def filterFriendsPlaying(friendIds: Set[UserId]): Set[UserId] =
+    onlinePlayings intersect friendIds
 
-  private def filterFriendsStudying(friends: List[LightUser]): Set[UserId] =
-    friends.filter(p => onlineStudying.getIfPresent(p.id).isDefined).map(_.id).toSet
+  private def filterFriendsStudying(friendIds: Set[UserId]): Set[UserId] = {
+    val found = onlineStudying.getAllPresent(friendIds)
+    friendIds filter found.contains
+  }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
