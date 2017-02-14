@@ -417,7 +417,7 @@ final class StudyApi(
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study, Socket.ReloadAll) >>-
           indexStudy(study) >>-
-          lightStudyCache.put(studyId, newStudy.some)
+          lightStudyCache.put(studyId, newStudy.light.some)
       }
     }
   }
