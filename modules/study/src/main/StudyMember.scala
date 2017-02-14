@@ -36,6 +36,10 @@ case class StudyMembers(members: StudyMember.MemberMap) {
   def get = members.get _
 
   def ids = members.keys
+
+  def contributorIds = members collect {
+    case (id, member) if member.canContribute => id
+  }
 }
 
 object StudyMembers {
