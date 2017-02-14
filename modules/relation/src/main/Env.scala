@@ -43,10 +43,10 @@ final class Env(
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
 
-  private val onlineStudying: Cache[lila.user.User.ID, String] /* userId, studyId */ =
-    Scaffeine().expireAfterAccess(20 minutes).build[lila.user.User.ID, String] // people with write access in public studies
+  private val onlineStudying: Cache[UserId, String] /* userId, studyId */ =
+    Scaffeine().expireAfterAccess(20 minutes).build[UserId, String] // people with write access in public studies
 
-  val currentlyStudying: lila.user.User.ID => Option[String] = onlineStudying.getIfPresent
+  val currentlyStudying: UserId => Option[String] = onlineStudying.getIfPresent
 
   private val onlineStudyingAll = new lila.memo.ExpireSetMemo(20 minutes) // people with write or read access in public and private studies
 

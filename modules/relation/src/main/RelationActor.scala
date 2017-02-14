@@ -127,13 +127,11 @@ private[relation] final class RelationActor(
       OnlineFriends(friends, friendsPlaying, friendsStudying)
     }
 
-  private def filterFriendsPlaying(friends: List[LightUser]): Set[String] = {
-    friends.filter(p => onlinePlayings.get(p.id)).map(_.id).toSet
-  }
+  private def filterFriendsPlaying(friends: List[LightUser]): Set[UserId] =
+    onlinePlayings intersect friends.map(_.id)
 
-  private def filterFriendsStudying(friends: List[LightUser]): Set[String] = {
+  private def filterFriendsStudying(friends: List[LightUser]): Set[UserId] =
     friends.filter(p => onlineStudying.getIfPresent(p.id).isDefined).map(_.id).toSet
-  }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
