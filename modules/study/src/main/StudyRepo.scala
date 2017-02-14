@@ -26,8 +26,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
-  def lightById(id: Study.Id): Fu[Option[LightStudy]] =
-    coll.find($id(id), lightProjection).uno[LightStudy]
+  def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
+    coll.find($id(id), lightProjection).uno[Study.LightStudy]
 
   def cursor(
     selector: Bdoc,

@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.actor._
-import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 

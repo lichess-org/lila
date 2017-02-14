@@ -199,7 +199,7 @@ final class StudyApi(
           bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
         }
       }
-      lightStudyCache.remove(studyId)
+      lightStudyCache.refresh(studyId)
       studyRepo.setRole(study, userId, role) >>- reloadMembers(study)
     }
   }
@@ -220,7 +220,7 @@ final class StudyApi(
       if (study canContribute userId) {
         bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value, study.isPublic), 'study)
       }
-      lightStudyCache.remove(studyId)
+      lightStudyCache.refresh(studyId)
       studyRepo.removeMember(study, userId)
     } >>- reloadMembers(study) >>- indexStudy(study)
   }
@@ -415,7 +415,7 @@ final class StudyApi(
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study, Socket.ReloadAll) >>-
           indexStudy(study) >>-
-          lightStudyCache.remove(studyId)
+          lightStudyCache.refresh(studyId)
       }
     }
   }
@@ -424,7 +424,7 @@ final class StudyApi(
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
       bus.publish(actorApi.RemoveStudy(study.id), 'study) >>-
-      lightStudyCache.remove(study.id)
+      lightStudyCache.refresh(study.id)
   }
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =

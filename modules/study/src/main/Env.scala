@@ -2,7 +2,6 @@ package lila.study
 
 import akka.actor._
 import akka.pattern.ask
-import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -116,7 +115,10 @@ final class Env(
       logger = logger)
   }))
 
-  lazy val lightStudyCache = new lila.study.LightStudyCache(studyRepo, asyncCache)
+  lazy val lightStudyCache: LightStudyCache = asyncCache.multi(
+    name = "study.lightStudyCache",
+    f = studyRepo.lightById,
+    expireAfter = _.ExpireAfterWrite(20 minutes))
 
   def cli = new lila.common.Cli {
     def process = {
