@@ -21,7 +21,8 @@ case class Simul(
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
-    color: Option[String]) {
+    color: Option[String]
+) {
 
   def id = _id
 
@@ -54,7 +55,7 @@ case class Simul(
   def accept(userId: String, v: Boolean) = Created {
     copy(applicants = applicants map {
       case a if a is userId => a.copy(accepted = v)
-      case a                => a
+      case a => a
     })
   }
 
@@ -72,13 +73,15 @@ case class Simul(
     pairings = applicants collect {
     case a if a.accepted => SimulPairing(a.player)
   },
-    hostSeenAt = none)
+    hostSeenAt = none
+  )
 
   def updatePairing(gameId: String, f: SimulPairing => SimulPairing) = copy(
     pairings = pairings collect {
     case p if p.gameId == gameId => f(p)
-    case p                       => p
-  }).finishIfDone
+    case p => p
+  }
+  ).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
@@ -88,7 +91,8 @@ case class Simul(
       copy(
         status = SimulStatus.Finished,
         finishedAt = DateTime.now.some,
-        hostGameId = none)
+        hostGameId = none
+      )
     else this
 
   def gameIds = pairings.map(_.gameId)
@@ -97,7 +101,8 @@ case class Simul(
     lila.game.PerfPicker.perfType(
       speed = chess.Speed(clock.config.some),
       variant = variant,
-      daysPerTurn = none)
+      daysPerTurn = none
+    )
   }
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
@@ -135,7 +140,8 @@ object Simul {
     host: User,
     clock: SimulClock,
     variants: List[Variant],
-    color: String): Simul = Simul(
+    color: String
+  ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
     status = SimulStatus.Created,
@@ -146,7 +152,8 @@ object Simul {
         lila.game.PerfPicker.perfType(
           speed = chess.Speed(clock.config.some),
           variant = variant,
-          daysPerTurn = none)
+          daysPerTurn = none
+        )
       }
     },
     hostTitle = host.title,
@@ -158,5 +165,6 @@ object Simul {
     startedAt = none,
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
-    color = color.some)
+    color = color.some
+  )
 }

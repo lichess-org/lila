@@ -53,5 +53,6 @@ private object MessageDb {
     "error.expected.enumstring" -> "String value expected",
     "error.path.empty" -> "Empty path",
     "error.path.missing" -> "Missing path",
-    "error.path.result.multiple" -> "Multiple results for the given path")
+    "error.path.result.multiple" -> "Multiple results for the given path"
+  )
 }

@@ -18,7 +18,8 @@ private final class PushApi(
     oneSignalPush: OneSignalPush,
     implicit val lightUser: LightUser.GetterSync,
     roundSocketHub: ActorSelection,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -27,9 +28,9 @@ private final class PushApi(
         IfAway(pov) {
           pushToAll(userId, _.finish, PushApi.Data(
             title = pov.win match {
-              case Some(true)  => "You won!"
+              case Some(true) => "You won!"
               case Some(false) => "You lost."
-              case _           => "It's a draw."
+              case _ => "It's a draw."
             },
             body = s"Your game with ${opponentName(pov)} is over.",
             stacking = Stacking.GameFinish,
@@ -42,7 +43,10 @@ private final class PushApi(
                 "color" -> pov.color.name,
                 "fen" -> Forsyth.exportBoard(game.toChess.board),
                 "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                "win" -> pov.win))))
+                "win" -> pov.win
+              )
+            )
+          ))
         }
       }
     }.sequenceFu.void
@@ -68,7 +72,10 @@ private final class PushApi(
                       "color" -> pov.color.name,
                       "fen" -> Forsyth.exportBoard(game.toChess.board),
                       "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                      "secondsLeft" -> pov.remainingSeconds))))
+                      "secondsLeft" -> pov.remainingSeconds
+                    )
+                  )
+                ))
               }
             }
           }
@@ -92,7 +99,10 @@ private final class PushApi(
             "color" -> pov.color.name,
             "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
             "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
-            "secondsLeft" -> pov.remainingSeconds))))
+            "secondsLeft" -> pov.remainingSeconds
+          )
+        )
+      ))
     }
 
   def newMessage(t: Thread, p: Post): Funit =
@@ -106,7 +116,10 @@ private final class PushApi(
           "userData" -> Json.obj(
             "type" -> "newMessage",
             "threadId" -> t.id,
-            "sender" -> sender))))
+            "sender" -> sender
+          )
+        )
+      ))
     }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
@@ -120,7 +133,10 @@ private final class PushApi(
             "userId" -> dest.id,
             "userData" -> Json.obj(
               "type" -> "challengeCreate",
-              "challengeId" -> c.id))))
+              "challengeId" -> c.id
+            )
+          )
+        ))
       }
     }
   }
@@ -137,7 +153,10 @@ private final class PushApi(
           "userData" -> Json.obj(
             "type" -> "challengeAccept",
             "challengeId" -> c.id,
-            "joiner" -> lightJoiner))))
+            "joiner" -> lightJoiner
+          )
+        )
+      ))
     }
 
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
@@ -158,9 +177,9 @@ private final class PushApi(
     List(
       c.mode.fold("Casual", "Rated"),
       c.timeControl match {
-        case Unlimited         => "Unlimited"
+        case Unlimited => "Unlimited"
         case Correspondence(d) => s"$d days"
-        case c: Clock          => c.show
+        case c: Clock => c.show
       },
       c.variant.name
     ) mkString " • "
@@ -169,7 +188,7 @@ private final class PushApi(
   private def IfAway(pov: Pov)(f: => Funit): Funit = {
     import makeTimeout.short
     roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
-      case true  => funit
+      case true => funit
       case false => f
     }
   }
@@ -180,7 +199,8 @@ private final class PushApi(
     Json.obj(
       "id" -> u.id,
       "name" -> u.name,
-      "title" -> u.title)
+      "title" -> u.title
+    )
   }
 }
 
@@ -190,5 +210,6 @@ private object PushApi {
     title: String,
     body: String,
     stacking: Stacking,
-    payload: JsObject)
+    payload: JsObject
+  )
 }

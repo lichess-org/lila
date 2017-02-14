@@ -14,7 +14,8 @@ import lila.round.actorApi.round.{ Outoftime, Abandon }
 private[round] final class Titivate(
     roundMap: ActorRef,
     bookmark: ActorSelection,
-    chat: ActorSelection) extends Actor {
+    chat: ActorSelection
+) extends Actor {
 
   object Schedule
   object Run

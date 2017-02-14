@@ -16,7 +16,8 @@ private[round] final class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
     casualOnly: Boolean,
-    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]) {
+    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus]
+) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted) >>- {
     getSocketStatus(pov.gameId) foreach { ss =>
@@ -48,14 +49,16 @@ private[round] final class Finisher(
     game: Game,
     status: Status.type => Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None)(implicit proxy: GameProxy): Fu[Events] =
+    message: Option[SelectI18nKey] = None
+  )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.goodFinish(game)
 
   private def apply(
     game: Game,
     makeStatus: Status.type => Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None)(implicit proxy: GameProxy): Fu[Events] = {
+    message: Option[SelectI18nKey] = None
+  )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog = game.finish(status, winner)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
@@ -69,10 +72,12 @@ private[round] final class Finisher(
             id = g.id,
             winnerColor = winner,
             winnerId = winner flatMap (g.player(_).userId),
-            status = prog.game.status) >>
+            status = prog.game.status
+          ) >>
           UserRepo.pair(
             g.whitePlayer.userId,
-            g.blackPlayer.userId).flatMap {
+            g.blackPlayer.userId
+          ).flatMap {
             case (whiteO, blackO) => {
               val finish = FinishGame(g, whiteO, blackO)
               updateCountAndPerfs(finish) inject {

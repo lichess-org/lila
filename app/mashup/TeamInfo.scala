@@ -15,7 +15,8 @@ case class TeamInfo(
     bestUserIds: List[User.ID],
     toints: Int,
     forumNbPosts: Int,
-    forumPosts: List[MiniForumPost]) {
+    forumPosts: List[MiniForumPost]
+) {
 
   def hasRequests = requests.nonEmpty
 
@@ -26,7 +27,8 @@ final class TeamInfoApi(
     api: TeamApi,
     getForumNbPosts: String => Fu[Int],
     getForumPosts: String => Fu[List[MiniForumPost]],
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   private case class Cachable(bestUserIds: List[User.ID], toints: Int)
 
@@ -39,7 +41,8 @@ final class TeamInfoApi(
   private val cache = asyncCache.multi[String, Cachable](
     name = "teamInfo",
     f = fetchCachable,
-    expireAfter = _.ExpireAfterWrite(10 minutes))
+    expireAfter = _.ExpireAfterWrite(10 minutes)
+  )
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
@@ -56,5 +59,6 @@ final class TeamInfoApi(
     bestUserIds = cachable.bestUserIds,
     toints = cachable.toints,
     forumNbPosts = forumNbPosts,
-    forumPosts = forumPosts)
+    forumPosts = forumPosts
+  )
 }

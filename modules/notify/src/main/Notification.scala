@@ -12,7 +12,8 @@ case class Notification(
     notifies: Notification.Notifies,
     content: NotificationContent,
     read: Notification.NotificationRead,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
   def id = _id
 
   def unread = !read.value
@@ -39,7 +40,8 @@ case class MentionedInThread(
   topic: MentionedInThread.Topic,
   topidId: MentionedInThread.TopicId,
   category: MentionedInThread.Category,
-  postId: PostId) extends NotificationContent("mention")
+  postId: PostId
+) extends NotificationContent("mention")
 
 object MentionedInThread {
   case class MentionedBy(value: String) extends AnyVal with StringValue
@@ -52,7 +54,8 @@ object MentionedInThread {
 case class InvitedToStudy(
   invitedBy: InvitedToStudy.InvitedBy,
   studyName: InvitedToStudy.StudyName,
-  studyId: InvitedToStudy.StudyId) extends NotificationContent("invitedStudy")
+  studyId: InvitedToStudy.StudyId
+) extends NotificationContent("invitedStudy")
 
 object InvitedToStudy {
   case class InvitedBy(value: String) extends AnyVal with StringValue
@@ -63,7 +66,8 @@ object InvitedToStudy {
 case class PrivateMessage(
   senderId: PrivateMessage.SenderId,
   thread: PrivateMessage.Thread,
-  text: PrivateMessage.Text) extends NotificationContent("privateMessage")
+  text: PrivateMessage.Text
+) extends NotificationContent("privateMessage")
 
 object PrivateMessage {
   case class SenderId(value: String) extends AnyVal with StringValue
@@ -74,7 +78,8 @@ object PrivateMessage {
 case class QaAnswer(
   answeredBy: QaAnswer.AnswererId,
   question: QaAnswer.Question,
-  answerId: QaAnswer.AnswerId) extends NotificationContent("qaAnswer")
+  answerId: QaAnswer.AnswerId
+) extends NotificationContent("qaAnswer")
 
 object QaAnswer {
   case class AnswererId(value: String) extends AnyVal with StringValue
@@ -84,7 +89,8 @@ object QaAnswer {
 
 case class TeamJoined(
   id: TeamJoined.Id,
-  name: TeamJoined.Name) extends NotificationContent("teamJoined")
+  name: TeamJoined.Name
+) extends NotificationContent("teamJoined")
 
 object TeamJoined {
   case class Id(value: String) extends AnyVal with StringValue
@@ -94,7 +100,8 @@ object TeamJoined {
 case class NewBlogPost(
   id: NewBlogPost.Id,
   slug: NewBlogPost.Slug,
-  title: NewBlogPost.Title) extends NotificationContent("newBlogPost")
+  title: NewBlogPost.Title
+) extends NotificationContent("newBlogPost")
 
 object NewBlogPost {
   case class Id(value: String) extends AnyVal with StringValue
@@ -107,7 +114,8 @@ case object LimitedTournamentInvitation extends NotificationContent("u")
 case class GameEnd(
   gameId: GameEnd.GameId,
   opponentId: Option[GameEnd.OpponentId],
-  win: Option[GameEnd.Win]) extends NotificationContent("gameEnd")
+  win: Option[GameEnd.Win]
+) extends NotificationContent("gameEnd")
 
 object GameEnd {
   case class GameId(value: String) extends AnyVal
@@ -126,4 +134,5 @@ case class PlanExpire(userId: String) extends NotificationContent("planExpire")
 
 case class CorresAlarm(
   gameId: lila.game.Game.ID,
-  opponent: String) extends NotificationContent("corresAlarm")
+  opponent: String
+) extends NotificationContent("corresAlarm")

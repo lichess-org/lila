@@ -11,7 +11,8 @@ case class FriendConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    fen: Option[String] = None) extends HumanConfig with Positional {
+    fen: Option[String] = None
+) extends HumanConfig with Positional {
 
   val strictFen = false
 
@@ -31,7 +32,8 @@ object FriendConfig extends BaseHumanConfig {
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
-      fen = fen)
+      fen = fen
+    )
 
   val default = FriendConfig(
     variant = variantDefault,
@@ -40,7 +42,8 @@ object FriendConfig extends BaseHumanConfig {
     increment = 8,
     days = 2,
     mode = Mode.default,
-    color = Color.default)
+    color = Color.default
+  )
 
   import lila.db.BSON
   import lila.db.dsl._
@@ -57,7 +60,8 @@ object FriendConfig extends BaseHumanConfig {
       days = r int "d",
       mode = Mode orDefault (r int "m"),
       color = Color.White,
-      fen = r strO "f" filter (_.nonEmpty))
+      fen = r strO "f" filter (_.nonEmpty)
+    )
 
     def writes(w: BSON.Writer, o: FriendConfig) = $doc(
       "v" -> o.variant.id,
@@ -66,6 +70,7 @@ object FriendConfig extends BaseHumanConfig {
       "i" -> o.increment,
       "d" -> o.days,
       "m" -> o.mode.id,
-      "f" -> o.fen)
+      "f" -> o.fen
+    )
   }
 }

@@ -29,7 +29,8 @@ object DataForm {
       userId: Option[String],
       email: Option[String],
       firstName: Option[String],
-      lastName: Option[String]) {
+      lastName: Option[String]
+  ) {
 
     def name = (firstName |@| lastName) apply { _ + " " + _ }
 

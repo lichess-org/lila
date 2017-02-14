@@ -12,7 +12,8 @@ final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    pools: List[lila.pool.PoolConfig]) {
+    pools: List[lila.pool.PoolConfig]
+) {
 
   import lila.pool.JsonView._
 
@@ -31,7 +32,8 @@ final class LobbyApi(
             "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
             "nbNowPlaying" -> povs.size,
             "filter" -> filter.render,
-            "pools" -> poolsJson)
+            "pools" -> poolsJson
+          )
       }
 
   def nowPlaying(pov: Pov) = Json.obj(
@@ -42,7 +44,8 @@ final class LobbyApi(
     "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
     "variant" -> Json.obj(
       "key" -> pov.game.variant.key,
-      "name" -> pov.game.variant.name),
+      "name" -> pov.game.variant.name
+    ),
     "speed" -> pov.game.speed.key,
     "perf" -> lila.game.PerfPicker.key(pov.game),
     "rated" -> pov.game.rated,
@@ -50,7 +53,9 @@ final class LobbyApi(
       "id" -> pov.opponent.userId,
       "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUserApi.sync),
       "rating" -> pov.opponent.rating,
-      "ai" -> pov.opponent.aiLevel).noNull,
+      "ai" -> pov.opponent.aiLevel
+    ).noNull,
     "isMyTurn" -> pov.isMyTurn,
-    "secondsLeft" -> pov.remainingSeconds)
+    "secondsLeft" -> pov.remainingSeconds
+  )
 }

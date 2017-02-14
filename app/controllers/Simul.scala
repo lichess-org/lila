@@ -86,7 +86,8 @@ object Simul extends LilaController {
         err => BadRequest(html.simul.form(err, env.forms)).fuccess,
         setup => env.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
-        })
+        }
+      )
     }
   }
 

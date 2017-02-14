@@ -17,7 +17,8 @@ object Editor extends LilaController {
         Json.obj(
           "eco" -> p.eco,
           "name" -> p.name,
-          "fen" -> p.fen)
+          "fen" -> p.fen
+        )
       })
     }
   }
@@ -32,7 +33,8 @@ object Editor extends LilaController {
         sit = situation,
         fen = Forsyth >> situation,
         positionsJson,
-        animationDuration = Env.api.EditorAnimationDuration))
+        animationDuration = Env.api.EditorAnimationDuration
+      ))
     }
   }
 
@@ -42,7 +44,8 @@ object Editor extends LilaController {
       Ok(html.board.JsData(
         sit = situation,
         fen = Forsyth >> situation,
-        animationDuration = Env.api.EditorAnimationDuration)) as JSON
+        animationDuration = Env.api.EditorAnimationDuration
+      )) as JSON
     }
   }
 

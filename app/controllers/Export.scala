@@ -16,10 +16,12 @@ object Export extends LilaController {
       gameToPgn(
         game,
         asImported = get("as") contains "imported",
-        asRaw = get("as").contains("raw")) map { content =>
+        asRaw = get("as").contains("raw")
+      ) map { content =>
           Ok(content).withHeaders(
             CONTENT_TYPE -> pgnContentType,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game)))
+            CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game))
+          )
         } recover {
           case err => NotFound(err.getMessage)
         }
@@ -42,7 +44,8 @@ object Export extends LilaController {
     credits = 60,
     duration = 1 minute,
     name = "export PGN global",
-    key = "export.pgn.global")
+    key = "export.pgn.global"
+  )
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
@@ -52,7 +55,8 @@ object Export extends LilaController {
           env.pngExport fromGame game map { stream =>
             Ok.chunked(stream).withHeaders(
               CONTENT_TYPE -> "image/png",
-              CACHE_CONTROL -> "max-age=7200")
+              CACHE_CONTROL -> "max-age=7200"
+            )
           }
         }
       }
@@ -73,7 +77,8 @@ object Export extends LilaController {
           ) map { stream =>
               Ok.chunked(stream).withHeaders(
                 CONTENT_TYPE -> "image/png",
-                CACHE_CONTROL -> "max-age=7200")
+                CACHE_CONTROL -> "max-age=7200"
+              )
             }
         }
       }

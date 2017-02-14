@@ -18,25 +18,26 @@ private[lobby] final class Lobby(
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     poolApi: lila.pool.PoolApi,
-    onStart: String => Unit) extends Actor {
+    onStart: String => Unit
+) extends Actor {
 
   def receive = {
 
-    case msg@AddHook(hook) => {
+    case msg @ AddHook(hook) => {
       lila.mon.lobby.hook.create()
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       (!hook.compatibleWithPools).??(findCompatible(hook)) foreach {
         case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
-        case None    => self ! SaveHook(msg)
+        case None => self ! SaveHook(msg)
       }
     }
 
-    case msg@AddSeek(seek) =>
+    case msg @ AddSeek(seek) =>
       lila.mon.lobby.seek.create()
       findCompatible(seek) foreach {
         case Some(s) => self ! BiteSeek(s.id, seek.user)
-        case None    => self ! SaveSeek(msg)
+        case None => self ! SaveSeek(msg)
       }
 
     case SaveHook(msg) =>
@@ -74,12 +75,12 @@ private[lobby] final class Lobby(
       }
     }
 
-    case msg@JoinHook(_, hook, game, _) =>
+    case msg @ JoinHook(_, hook, game, _) =>
       onStart(game.id)
       socket ! msg
       remove(hook)
 
-    case msg@JoinSeek(_, seek, game, _) =>
+    case msg @ JoinSeek(_, seek, game, _) =>
       onStart(game.id)
       socket ! msg
       seekApi.archive(seek, game.id) >>- {
@@ -120,7 +121,7 @@ private[lobby] final class Lobby(
     case Resync =>
       socket ! HookIds(HookRepo.vector.map(_.id))
 
-    case msg@HookSub(member, true) =>
+    case msg @ HookSub(member, true) =>
       socket ! AllHooksFor(member, HookRepo.vector.filter { Biter.showHookTo(_, member) })
 
     case lila.pool.HookThieve.GetCandidates(clock) =>
@@ -133,7 +134,7 @@ private[lobby] final class Lobby(
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
     user.?? { u => playban(u.id) } foreach {
       case None => f
-      case _    =>
+      case _ =>
     }
   }
 
@@ -150,7 +151,7 @@ private[lobby] final class Lobby(
           }
       }
     } flatMap {
-      case true  => fuccess(h.some)
+      case true => fuccess(h.some)
       case false => findCompatibleIn(hook, rest)
     }
   }
@@ -176,7 +177,8 @@ private object Lobby {
     system: ActorSystem,
     name: String,
     broomPeriod: FiniteDuration,
-    resyncIdsPeriod: FiniteDuration)(instance: => Actor) = {
+    resyncIdsPeriod: FiniteDuration
+  )(instance: => Actor) = {
 
     val ref = system.actorOf(Props(instance), name = name)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod, ref, actorApi.Resync)
@@ -185,7 +187,8 @@ private object Lobby {
         every = broomPeriod,
         atMost = 10 seconds,
         system = system,
-        logger = logger) {
+        logger = logger
+      ) {
         val promise = Promise[Unit]()
         ref ! Tick(promise)
         promise.future

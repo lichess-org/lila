@@ -26,9 +26,8 @@ object BuildSettings {
   ) ++
     SbtScalariform.scalariformSettings ++ Seq(
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
-        .setPreference(AlignSingleLineCaseStatements, true)
         .setPreference(CompactControlReadability, true)
-        .setPreference(DanglingCloseParenthesis, Prevent))
+        .setPreference(DoubleIndentClassDeclaration, true))
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat)
 

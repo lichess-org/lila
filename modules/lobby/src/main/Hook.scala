@@ -22,7 +22,8 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   val realColor = Color orDefault color
 
@@ -90,7 +91,9 @@ case class Hook(
       ratingRange = realRatingRange,
       lame = user.??(_.lame),
       blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-      since = createdAt))
+      since = createdAt
+    )
+  )
 
   private lazy val speed = Speed(clock)
 }
@@ -108,7 +111,8 @@ object Hook {
     user: Option[User],
     sid: Option[String],
     ratingRange: RatingRange,
-    blocking: Set[String]): Hook = new Hook(
+    blocking: Set[String]
+  ): Hook = new Hook(
     id = Random nextString idSize,
     uid = uid,
     variant = variant.id,
@@ -118,5 +122,6 @@ object Hook {
     user = user map { LobbyUser.make(_, blocking) },
     sid = sid,
     ratingRange = ratingRange.toString,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 }

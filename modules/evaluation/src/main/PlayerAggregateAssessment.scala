@@ -18,7 +18,8 @@ case class PlayerAssessment(
     mtAvg: Int,
     mtSd: Int,
     blurs: Int,
-    hold: Boolean) {
+    hold: Boolean
+) {
 
   val color = Color(white)
 }
@@ -27,7 +28,8 @@ case class PlayerAggregateAssessment(
     user: User,
     playerAssessments: List[PlayerAssessment],
     relatedUsers: List[String],
-    relatedCheaters: List[String]) {
+    relatedCheaters: List[String]
+) {
   import Statistics._
   import AccountAction._
   import GameAssessment.{ Cheating, LikelyCheating }
@@ -56,7 +58,8 @@ case class PlayerAggregateAssessment(
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
       (sfAvgLowVar, sfAvgHighVar),
-      (sfAvgHold, sfAvgNoHold))
+      (sfAvgHold, sfAvgNoHold)
+    )
 
     val actionable: Boolean = {
       val difFlags = difs map (sigDif(10)_).tupled
@@ -145,7 +148,8 @@ case class PlayerFlags(
   moderateBlurRate: Boolean,
   consistentMoveTimes: Boolean,
   noFastMoves: Boolean,
-  suspiciousHoldAlert: Boolean)
+  suspiciousHoldAlert: Boolean
+)
 
 object PlayerFlags {
 
@@ -161,7 +165,8 @@ object PlayerFlags {
       moderateBlurRate = r boolD "mbr",
       consistentMoveTimes = r boolD "cmt",
       noFastMoves = r boolD "nfm",
-      suspiciousHoldAlert = r boolD "sha")
+      suspiciousHoldAlert = r boolD "sha"
+    )
 
     def writes(w: BSON.Writer, o: PlayerFlags) = BSONDocument(
       "ser" -> w.boolO(o.suspiciousErrorRate),
@@ -170,6 +175,7 @@ object PlayerFlags {
       "mbr" -> w.boolO(o.moderateBlurRate),
       "cmt" -> w.boolO(o.consistentMoveTimes),
       "nfm" -> w.boolO(o.noFastMoves),
-      "sha" -> w.boolO(o.suspiciousHoldAlert))
+      "sha" -> w.boolO(o.suspiciousHoldAlert)
+    )
   }
 }

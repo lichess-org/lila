@@ -8,7 +8,8 @@ case class Post(
     text: String,
     isByCreator: Boolean,
     isRead: Boolean,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def isByInvited = !isByCreator
 
@@ -23,12 +24,14 @@ object Post {
 
   def make(
     text: String,
-    isByCreator: Boolean): Post = Post(
+    isByCreator: Boolean
+  ): Post = Post(
     id = Random nextString idSize,
     text = text,
     isByCreator = isByCreator,
     isRead = false,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
   import lila.db.dsl.BSONJodaDateTimeHandler
   private[message] implicit val PostBSONHandler = reactivemongo.bson.Macros.handler[Post]

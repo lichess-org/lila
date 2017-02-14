@@ -32,7 +32,7 @@ object QaAnswer extends QaController {
       err => fuccess(BadRequest),
       v => api.answer.vote(answerId, me, v == 1) map {
         case Some(vote) => Ok(html.qa.vote(routes.QaAnswer.vote(questionId, answerId).url, vote, true))
-        case None       => NotFound
+        case None => NotFound
       }
     )
   }
@@ -43,7 +43,7 @@ object QaAnswer extends QaController {
       forms.editAnswer.bindFromRequest.fold(
         err => renderQuestion(q),
         body => api.answer.edit(body, a.id) map {
-          case None     => NotFound
+          case None => NotFound
           case Some(a2) => Redirect(routes.QaQuestion.show(q.id, q.slug) + "#answer-" + a2.id)
         }
       )

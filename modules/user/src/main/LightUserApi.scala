@@ -29,7 +29,8 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterAccess(15 minutes),
-    logger = logger branch "LightUserApi")
+    logger = logger branch "LightUserApi"
+  )
 }
 
 private object LightUserApi {
@@ -40,7 +41,8 @@ private object LightUserApi {
       id = doc.getAs[String](F.id) err "LightUser id missing",
       name = doc.getAs[String](F.username) err "LightUser username missing",
       title = doc.getAs[String](F.title),
-      isPatron = ~doc.getAs[Bdoc](F.plan).flatMap(_.getAs[Boolean]("active")))
+      isPatron = ~doc.getAs[Bdoc](F.plan).flatMap(_.getAs[Boolean]("active"))
+    )
   }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)

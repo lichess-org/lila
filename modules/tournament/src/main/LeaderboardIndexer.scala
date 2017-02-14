@@ -7,7 +7,8 @@ import lila.db.dsl.Coll
 
 private final class LeaderboardIndexer(
     tournamentColl: Coll,
-    leaderboardColl: Coll) {
+    leaderboardColl: Coll
+) {
 
   import LeaderboardApi._
   import BSONHandlers._
@@ -57,6 +58,7 @@ private final class LeaderboardIndexer(
       freq = tour.schedule.map(_.freq),
       speed = tour.schedule.map(_.speed),
       perf = perfType,
-      date = tour.startsAt)
+      date = tour.startsAt
+    )
   }
 }

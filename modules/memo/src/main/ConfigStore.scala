@@ -22,7 +22,8 @@ final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Log
             errs foreach { logger.warn(_) }
             none
           },
-          res => res.some)
+          res => res.some
+        )
       }
     })
 
@@ -49,7 +50,7 @@ final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Log
       "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
         parse(t) match {
           case Left(errs) => Invalid(ValidationError(errs mkString ","))
-          case _          => Valid
+          case _ => Valid
         }
       })
     ))

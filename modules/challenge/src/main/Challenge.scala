@@ -22,7 +22,8 @@ case class Challenge(
     rematchOf: Option[String],
     createdAt: DateTime,
     seenAt: DateTime,
-    expiresAt: DateTime) {
+    expiresAt: DateTime
+) {
 
   import Challenge._
 
@@ -37,13 +38,13 @@ case class Challenge(
 
   def daysPerTurn = timeControl match {
     case TimeControl.Correspondence(d) => d.some
-    case _                             => none
+    case _ => none
   }
   def unlimited = timeControl == TimeControl.Unlimited
 
   def clock = timeControl match {
     case c: TimeControl.Clock => c.some
-    case _                    => none
+    case _ => none
   }
 
   def hasClock = clock.isDefined
@@ -54,7 +55,8 @@ case class Challenge(
   def accepted = status == Status.Accepted
 
   def setDestUser(u: User) = copy(
-    destUser = toRegistered(variant, timeControl)(u).some)
+    destUser = toRegistered(variant, timeControl)(u).some
+  )
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
@@ -107,13 +109,13 @@ object Challenge {
 
   private def speedOf(timeControl: TimeControl) = timeControl match {
     case TimeControl.Clock(config) => Speed(config)
-    case _                         => Speed.Correspondence
+    case _ => Speed.Correspondence
   }
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     PerfPicker.perfType(speedOf(timeControl), variant, timeControl match {
       case TimeControl.Correspondence(d) => d.some
-      case _                             => none
+      case _ => none
     }).orElse {
       (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
     }.|(PerfType.Correspondence)
@@ -133,11 +135,12 @@ object Challenge {
     color: String,
     challenger: Either[String, User],
     destUser: Option[User],
-    rematchOf: Option[String]): Challenge = {
+    rematchOf: Option[String]
+  ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White -> chess.White
       case "black" => ColorChoice.Black -> chess.Black
-      case _       => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
+      case _ => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
     }
     new Challenge(
       _id = randomId,
@@ -159,6 +162,7 @@ object Challenge {
       rematchOf = rematchOf,
       createdAt = DateTime.now,
       seenAt = DateTime.now,
-      expiresAt = inTwoWeeks)
+      expiresAt = inTwoWeeks
+    )
   }
 }

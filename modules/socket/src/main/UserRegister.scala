@@ -25,15 +25,15 @@ private final class UserRegister extends Actor {
 
   def receive = {
 
-    case SendTo(userId, msg)   => sendTo(userId, msg)
+    case SendTo(userId, msg) => sendTo(userId, msg)
 
     case SendTos(userIds, msg) => userIds foreach { sendTo(_, msg) }
 
-    case WithUserIds(f)        => f(users.keys)
+    case WithUserIds(f) => f(users.keys)
 
     case SocketEnter(uid, member) => member.userId foreach { userId =>
       users get userId match {
-        case None          => users += (userId -> AnyRefMap(uid -> member))
+        case None => users += (userId -> AnyRefMap(uid -> member))
         case Some(members) => members += (uid -> member)
       }
     }

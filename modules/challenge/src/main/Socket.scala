@@ -15,7 +15,8 @@ private final class Socket(
     val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
+    socketTimeout: Duration
+) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -60,7 +61,8 @@ private object Socket {
   case class Member(
       channel: JsChannel,
       userId: Option[String],
-      owner: Boolean) extends lila.socket.SocketMember {
+      owner: Boolean
+  ) extends lila.socket.SocketMember {
     val troll = false
   }
 

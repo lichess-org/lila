@@ -10,7 +10,8 @@ private[forum] final class Recent(
     ttl: FiniteDuration,
     nb: Int,
     asyncCache: lila.memo.AsyncCache.Builder,
-    publicCategIds: List[String]) {
+    publicCategIds: List[String]
+) {
 
   private type GetTeamIds = String => Fu[List[String]]
 
@@ -39,14 +40,15 @@ private[forum] final class Recent(
   private val cache = asyncCache.clearable(
     name = "forum.recent",
     f = fetch,
-    expireAfter = _.ExpireAfterAccess(ttl))
+    expireAfter = _.ExpireAfterAccess(ttl)
+  )
 
   private def parseLangs(langStr: String) = langStr.split(",").toList filter (_.nonEmpty)
 
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
       case langs :: "[troll]" :: categs => PostRepoTroll.recentInCategs(nb)(categs, parseLangs(langs))
-      case langs :: categs              => PostRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs                       => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
+      case langs :: categs => PostRepo.recentInCategs(nb)(categs, parseLangs(langs))
+      case categs => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.miniPosts
 }

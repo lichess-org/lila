@@ -10,7 +10,8 @@ final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
     asyncCache: lila.memo.AsyncCache.Builder,
-    studyApi: lila.study.StudyApi) {
+    studyApi: lila.study.StudyApi
+) {
 
   import BSONHandlers._
 
@@ -38,7 +39,8 @@ final class PracticeApi(
     rawSc <- studyOption
     sc = rawSc.copy(
       study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
-      chapter = rawSc.chapter.withoutChildren)
+      chapter = rawSc.chapter.withoutChildren
+    )
     practiceStudy <- up.structure study sc.study.id
     section <- up.structure findSection sc.study.id
     publishedChapters = chapters.filterNot { c =>
@@ -59,7 +61,8 @@ final class PracticeApi(
         conf <- config.get
         chapters <- studyApi.chapterIdNames(conf.studyIds)
       } yield PracticeStructure.make(conf, chapters),
-      expireAfter = _.ExpireAfterAccess(3.hours))
+      expireAfter = _.ExpireAfterAccess(3.hours)
+    )
 
     def get = cache.get
     def clear = cache.refresh

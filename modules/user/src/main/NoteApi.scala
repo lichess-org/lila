@@ -11,7 +11,8 @@ case class Note(
     text: String,
     troll: Boolean,
     mod: Boolean,
-    date: DateTime) {
+    date: DateTime
+) {
   def userIds = List(from, to)
 }
 
@@ -20,7 +21,8 @@ case class UserNotes(user: User, notes: List[Note])
 final class NoteApi(
     coll: Coll,
     timeline: akka.actor.ActorSelection,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus
+) {
 
   import reactivemongo.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -59,7 +61,8 @@ final class NoteApi(
       text = text,
       troll = from.troll,
       mod = modOnly,
-      date = DateTime.now)
+      date = DateTime.now
+    )
 
     coll.insert(note) >>- {
       import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }

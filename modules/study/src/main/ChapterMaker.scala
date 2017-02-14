@@ -12,7 +12,8 @@ private final class ChapterMaker(
     lightUser: lila.common.LightUser.GetterSync,
     chat: akka.actor.ActorSelection,
     importer: Importer,
-    pgnFetch: PgnFetch) {
+    pgnFetch: PgnFetch
+) {
 
   import ChapterMaker._
 
@@ -21,7 +22,7 @@ private final class ChapterMaker(
       case None =>
         data.game.??(pgnFetch.fromUrl) map {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId).some
-          case None      => fromFenOrPgnOrBlank(study, data, order, userId).some
+          case None => fromFenOrPgnOrBlank(study, data, order, userId).some
         }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     }
@@ -30,7 +31,7 @@ private final class ChapterMaker(
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter =
     data.pgn.filter(_.trim.nonEmpty) match {
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-      case None      => fromFenOrBlank(study, data, order, userId)
+      case None => fromFenOrBlank(study, data, order, userId)
     }
 
   private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Chapter =
@@ -45,13 +46,15 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           none,
           res.variant,
-          data.realOrientation),
+          data.realOrientation
+        ),
         root = res.root,
         tags = res.tags,
         order = order,
         ownerId = userId,
         practice = data.isPractice,
-        conceal = data.isConceal option Chapter.Ply(res.root.ply))
+        conceal = data.isConceal option Chapter.Ply(res.root.ply)
+      )
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -64,13 +67,15 @@ private final class ChapterMaker(
         fen = FEN(Forsyth.>>(sit)),
         check = sit.situation.check,
         crazyData = sit.situation.board.crazyData,
-        children = Node.emptyChildren) -> true
+        children = Node.emptyChildren
+      ) -> true
       case None => Node.Root(
         ply = 0,
         fen = FEN(variant.initialFen),
         check = false,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-        children = Node.emptyChildren) -> false
+        children = Node.emptyChildren
+      ) -> false
     }) match {
       case (root, isFromFen) => Chapter.make(
         studyId = study.id,
@@ -79,13 +84,15 @@ private final class ChapterMaker(
           none,
           variant,
           data.realOrientation,
-          fromFen = isFromFen option true),
+          fromFen = isFromFen option true
+        ),
         root = root,
         tags = Nil,
         order = order,
         ownerId = userId,
         practice = data.isPractice,
-        conceal = None)
+        conceal = None
+      )
     }
   }
 
@@ -100,13 +107,15 @@ private final class ChapterMaker(
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,
           pov.game.variant,
-          data.realOrientation),
+          data.realOrientation
+        ),
         root = root,
         tags = Nil,
         order = order,
         ownerId = userId,
         practice = data.isPractice,
-        conceal = data.isConceal option Chapter.Ply(root.ply)).some
+        conceal = data.isConceal option Chapter.Ply(root.ply)
+      ).some
     } addEffect { _ =>
       notifyChat(study, pov.game, userId)
     }
@@ -116,7 +125,8 @@ private final class ChapterMaker(
       chat ! lila.chat.actorApi.UserTalk(
         chatId = chatId,
         userId = userId,
-        text = s"I'm studying this game on lichess.org/study/${study.id}")
+        text = s"I'm studying this game on lichess.org/study/${study.id}"
+      )
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
@@ -128,7 +138,8 @@ private final class ChapterMaker(
           game = game,
           analysis = none,
           initialFen = initialFen | game.variant.initialFen,
-          withOpening = false)
+          withOpening = false
+        )
       }
       endComment(game).fold(root) { comment =>
         root updateMainlineLast { _.setComment(comment) }
@@ -151,8 +162,8 @@ private final class ChapterMaker(
   private def parsePov(str: String): Fu[Option[Pov]] = str match {
     case s if s.size == Game.gameIdSize => GameRepo.pov(s, chess.White)
     case s if s.size == Game.fullIdSize => GameRepo.pov(s)
-    case UrlRegex(id)                   => parsePov(id)
-    case _                              => fuccess(none)
+    case UrlRegex(id) => parsePov(id)
+    case _ => fuccess(none)
   }
 }
 
@@ -185,11 +196,13 @@ private[study] object ChapterMaker {
     pgn: Option[String],
     orientation: String,
     mode: String,
-    initial: Boolean) extends ChapterData
+    initial: Boolean
+  ) extends ChapterData
 
   case class EditData(
     id: Chapter.Id,
     name: Chapter.Name,
     orientation: String,
-    mode: String) extends ChapterData
+    mode: String
+  ) extends ChapterData
 }

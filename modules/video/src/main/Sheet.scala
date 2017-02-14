@@ -7,7 +7,8 @@ import play.api.Play.current
 
 private[video] final class Sheet(
     url: String,
-    api: VideoApi) {
+    api: VideoApi
+) {
 
   import Sheet._
 
@@ -30,7 +31,8 @@ private[video] final class Sheet(
             tags = entry.tags,
             lang = entry.lang,
             ads = entry.ads,
-            startTime = entry.startTime)
+            startTime = entry.startTime
+          )
           (video != updated) ?? {
             logger.info(s"sheet update $updated")
             api.video.save(updated)
@@ -46,7 +48,8 @@ private[video] final class Sheet(
             ads = entry.ads,
             startTime = entry.startTime,
             metadata = Youtube.empty,
-            createdAt = DateTime.now)
+            createdAt = DateTime.now
+          )
           logger.info(s"sheet insert $video")
           api.video.save(video)
         case _ => funit
@@ -59,7 +62,7 @@ private[video] final class Sheet(
 
   private def fetch: Fu[List[Entry]] = WS.url(url).get() flatMap {
     case res if res.status == 200 => readEntries reads res.json match {
-      case JsError(err)          => fufail(err.toString)
+      case JsError(err) => fufail(err.toString)
       case JsSuccess(entries, _) => fuccess(entries.toList)
     }
     case res => fufail(s"[video sheet] fetch ${res.status}")
@@ -81,7 +84,8 @@ object Sheet {
       `gsx$language`: GStr,
       `gsx$include`: GStr,
       `gsx$starttimeinseconds`: GStr,
-      `gsx$ads`: GStr) {
+      `gsx$ads`: GStr
+  ) {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
     def title = `gsx$title`.toString.trim

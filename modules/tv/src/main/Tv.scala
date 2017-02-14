@@ -65,60 +65,74 @@ object Tv {
     case object Best extends Channel(
       name = "Top Rated",
       icon = "C",
-      filters = Seq(rated, standard, freshBlitz))
+      filters = Seq(rated, standard, freshBlitz)
+    )
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Bullet), fresh(40)))
+      filters = Seq(rated, standard, speed(S.Bullet), fresh(40))
+    )
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Blitz), freshBlitz))
+      filters = Seq(rated, standard, speed(S.Blitz), freshBlitz)
+    )
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 5)))
+      filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 5))
+    )
     case object Chess960 extends Channel(
       name = V.Chess960.name,
       icon = P.Chess960.iconChar.toString,
-      filters = Seq(variant(V.Chess960), freshBlitz))
+      filters = Seq(variant(V.Chess960), freshBlitz)
+    )
     case object KingOfTheHill extends Channel(
       name = V.KingOfTheHill.name,
       icon = P.KingOfTheHill.iconChar.toString,
-      filters = Seq(variant(V.KingOfTheHill), freshBlitz))
+      filters = Seq(variant(V.KingOfTheHill), freshBlitz)
+    )
     case object ThreeCheck extends Channel(
       name = V.ThreeCheck.name,
       icon = P.ThreeCheck.iconChar.toString,
-      filters = Seq(variant(V.ThreeCheck), freshBlitz))
+      filters = Seq(variant(V.ThreeCheck), freshBlitz)
+    )
     case object Antichess extends Channel(
       name = V.Antichess.name,
       icon = P.Antichess.iconChar.toString,
-      filters = Seq(variant(V.Antichess), freshBlitz))
+      filters = Seq(variant(V.Antichess), freshBlitz)
+    )
     case object Atomic extends Channel(
       name = V.Atomic.name,
       icon = P.Atomic.iconChar.toString,
-      filters = Seq(variant(V.Atomic), freshBlitz))
+      filters = Seq(variant(V.Atomic), freshBlitz)
+    )
     case object Horde extends Channel(
       name = V.Horde.name,
       icon = P.Horde.iconChar.toString,
-      filters = Seq(variant(V.Horde), freshBlitz))
+      filters = Seq(variant(V.Horde), freshBlitz)
+    )
     case object RacingKings extends Channel(
       name = V.RacingKings.name,
       icon = P.RacingKings.iconChar.toString,
-      filters = Seq(variant(V.RacingKings), freshBlitz))
+      filters = Seq(variant(V.RacingKings), freshBlitz)
+    )
     case object Crazyhouse extends Channel(
       name = V.Crazyhouse.name,
       icon = P.Crazyhouse.iconChar.toString,
-      filters = Seq(variant(V.Crazyhouse), freshBlitz))
+      filters = Seq(variant(V.Crazyhouse), freshBlitz)
+    )
     case object Computer extends Channel(
       name = "Computer",
       icon = "n",
-      filters = Seq(computerFromInitialPosition, freshBlitz))
+      filters = Seq(computerFromInitialPosition, freshBlitz)
+    )
     val all = List(
       Best,
       Bullet, Blitz, Classical,
       Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
-      Computer)
+      Computer
+    )
     val byKey = all.map { c => c.key -> c }.toMap
   }
 

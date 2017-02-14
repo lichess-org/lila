@@ -49,7 +49,7 @@ object Tournament extends LilaController {
   def help(sysStr: Option[String]) = Open { implicit ctx =>
     val system = sysStr flatMap {
       case "arena" => System.Arena.some
-      case _       => none
+      case _ => none
     }
     Ok(html.tournament.faqPage(system)).fuccess
   }
@@ -99,7 +99,7 @@ object Tournament extends LilaController {
   def gameStanding(id: String) = Open { implicit ctx =>
     env.api.miniStanding(id, true) map {
       case Some(m) if !m.tour.isCreated => Ok(html.tournament.gameStanding(m))
-      case _                            => NotFound
+      case _ => NotFound
     }
   }
 
@@ -147,7 +147,8 @@ object Tournament extends LilaController {
           if (result) Ok(jsonOkBody)
           else BadRequest(Json.obj("joined" -> false))
         }
-      })
+      }
+      )
     }
   }
 
@@ -183,12 +184,14 @@ object Tournament extends LilaController {
           err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
           setup => env.api.createTournament(setup, me) map { tour =>
             Redirect(routes.Tournament.show(tour.id))
-          }),
+          }
+        ),
         api = _ => env.forms.create.bindFromRequest.fold(
           err => BadRequest(errorsAsJson(err)).fuccess,
           setup => env.api.createTournament(setup, me) map { tour =>
             Ok(Json.obj("id" -> tour.id))
-          })
+          }
+        )
       )
     }
   }
@@ -197,7 +200,7 @@ object Tournament extends LilaController {
     env.api.fetchVisibleTournaments.flatMap { tours =>
       lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
     } map {
-      case None    => Redirect(routes.Tournament.home(1))
+      case None => Redirect(routes.Tournament.home(1))
       case Some(t) => Redirect(routes.Tournament.show(t.id))
     }
   }

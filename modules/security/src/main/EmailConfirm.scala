@@ -34,7 +34,8 @@ final class EmailConfirmMailGun(
     replyTo: String,
     baseUrl: String,
     secret: String,
-    system: ActorSystem) extends EmailConfirm {
+    system: ActorSystem
+) extends EmailConfirm {
 
   def effective = true
 
@@ -80,9 +81,10 @@ This is a service email related to your use of lichess.org. If you did not regis
       </div>
     </div>
   </body>
-</html>"""))).void addFailureEffect {
+</html>""")
+    )).void addFailureEffect {
       case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-      case _                            =>
+      case _ =>
     } recoverWith {
       case e if tryNb < maxTries => akka.pattern.after(15 seconds, system.scheduler) {
         send(user, email, tryNb + 1)
@@ -92,8 +94,8 @@ This is a service email related to your use of lichess.org. If you did not regis
   }
 
   def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
-    case u@Some(user) => UserRepo setEmailConfirmed user.id inject u
-    case _            => fuccess(none)
+    case u @ Some(user) => UserRepo setEmailConfirmed user.id inject u
+    case _ => fuccess(none)
   }
 
   private object tokener {

@@ -12,7 +12,8 @@ final class Gamify(
     logColl: Coll,
     reportApi: lila.report.ReportApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    historyColl: Coll) {
+    historyColl: Coll
+) {
 
   import Gamify._
 
@@ -25,8 +26,8 @@ final class Gamify(
     )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId || !orCompute => fuccess(months)
-        case Some(m)                                  => buildHistoryAfter(m.year, m.month, until) >> history(false)
-        case _                                        => buildHistoryAfter(2012, 6, until) >> history(false)
+        case Some(m) => buildHistoryAfter(m.year, m.month, until) >> history(false)
+        case _ => buildHistoryAfter(2012, 6, until) >> history(false)
       }
     }
   }
@@ -58,18 +59,21 @@ final class Gamify(
   private val leaderboardsCache = asyncCache.single[Leaderboards](
     name = "mod.leaderboards",
     f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
-      mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-      mixedLeaderboard(DateTime.now minusMonths 1, none) map {
-        case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
-      },
-    expireAfter = _.ExpireAfterWrite(10 seconds))
+    mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
+    mixedLeaderboard(DateTime.now minusMonths 1, none) map {
+      case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
+    },
+    expireAfter = _.ExpireAfterWrite(10 seconds)
+  )
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
     actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {
       case (actions, reports) => actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
-        ModMixed(modId,
+        ModMixed(
+          modId,
           action = actions.find(_.modId == modId) ?? (_.count),
-          report = reports.find(_.modId == modId) ?? (_.count))
+          report = reports.find(_.modId == modId) ?? (_.count)
+        )
       } sortBy (-_.score)
     }
 
@@ -84,7 +88,8 @@ final class Gamify(
       "mod" -> notLichess
     )), List(
       GroupField("mod")("nb" -> SumValue(1)),
-      Sort(Descending("nb")))).map {
+      Sort(Descending("nb"))
+    )).map {
       _.firstBatch.flatMap { obj =>
         obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
       }
@@ -97,7 +102,9 @@ final class Gamify(
         "processedBy" -> notLichess
       )), List(
         GroupField("processedBy")("nb" -> SumValue(1)),
-        Sort(Descending("nb")))).map {
+        Sort(Descending("nb"))
+      )
+    ).map {
         _.firstBatch.flatMap { obj =>
           obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
         }
@@ -125,8 +132,8 @@ object Gamify {
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]) {
     def apply(period: Period) = period match {
-      case Period.Day   => daily
-      case Period.Week  => weekly
+      case Period.Day => daily
+      case Period.Week => weekly
       case Period.Month => monthly
     }
   }

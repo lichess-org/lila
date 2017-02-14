@@ -10,7 +10,8 @@ import lila.game.Game
 case class Forecast(
     _id: String, // player full id
     steps: Forecast.Steps,
-    date: DateTime) {
+    date: DateTime
+) {
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
     nextMove(g, lastMove) map { move =>
@@ -42,7 +43,8 @@ object Forecast {
       uci: String,
       san: String,
       fen: String,
-      check: Option[Boolean]) {
+      check: Option[Boolean]
+  ) {
 
     def is(move: Move) = move.toUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci

@@ -31,7 +31,8 @@ object BSONHandlers {
       pvStr.split(scoreSeparator) match {
         case Array(score, moves) => Pv(
           scoreRead(score) err s"Invalid score $score",
-          movesRead(moves) err s"Invalid moves $moves")
+          movesRead(moves) err s"Invalid moves $moves"
+        )
         case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${bs.value})"
       }
     }.toNel err s"Empty PVs ${bs.value}"

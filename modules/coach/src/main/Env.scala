@@ -6,7 +6,8 @@ final class Env(
     config: Config,
     notifyApi: lila.notify.NotifyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val CollectionCoach = config getString "collection.coach"
   private val CollectionReview = config getString "collection.review"
@@ -23,13 +24,14 @@ final class Env(
     reviewColl = reviewColl,
     photographer = photographer,
     asyncCache = asyncCache,
-    notifyApi = notifyApi)
+    notifyApi = notifyApi
+  )
 
   lazy val pager = new CoachPager(api)
 
   def cli = new lila.common.Cli {
     def process = {
-      case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, true)
+      case "coach" :: "enable" :: username :: Nil => api.toggleApproved(username, true)
       case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, false)
     }
   }
@@ -41,5 +43,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "coach",
     notifyApi = lila.notify.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

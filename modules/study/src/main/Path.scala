@@ -22,7 +22,7 @@ object Path {
   def apply(str: String): Path = Path {
     str.toList.grouped(2).toList.flatMap {
       case List(a, b) => UciCharPair(a, b).some
-      case _          => none[UciCharPair]
+      case _ => none[UciCharPair]
     }
   }
 

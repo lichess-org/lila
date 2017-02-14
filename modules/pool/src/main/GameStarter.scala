@@ -11,7 +11,8 @@ import lila.user.{ User, UserRepo }
 private final class GameStarter(
     bus: lila.common.Bus,
     onStart: Game.ID => Unit,
-    sequencer: ActorRef) {
+    sequencer: ActorRef
+) {
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
     val promise = Promise[Unit]()
@@ -56,14 +57,17 @@ private final class GameStarter(
   private def makeGame(
     pool: PoolConfig,
     whiteUser: (User.ID, Perf),
-    blackUser: (User.ID, Perf)) = Game.make(
+    blackUser: (User.ID, Perf)
+  ) = Game.make(
     game = chess.Game(
       board = chess.Board init chess.variant.Standard,
-      clock = pool.clock.toClock.some),
+      clock = pool.clock.toClock.some
+    ),
     whitePlayer = Player.white.withUser(whiteUser._1, whiteUser._2),
     blackPlayer = Player.black.withUser(blackUser._1, blackUser._2),
     mode = chess.Mode.Rated,
     variant = chess.variant.Standard,
     source = lila.game.Source.Pool,
-    pgnImport = None)
+    pgnImport = None
+  )
 }

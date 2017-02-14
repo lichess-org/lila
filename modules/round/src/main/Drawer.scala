@@ -6,7 +6,8 @@ import lila.pref.{ Pref, PrefApi }
 private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
-    prefApi: PrefApi) {
+    prefApi: PrefApi
+) {
 
   def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
     import Pref.PrefZero

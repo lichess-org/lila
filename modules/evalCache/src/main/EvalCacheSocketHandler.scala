@@ -9,7 +9,8 @@ import lila.user.User
 
 final class EvalCacheSocketHandler(
     api: EvalCacheApi,
-    truster: EvalCacheTruster) {
+    truster: EvalCacheTruster
+) {
 
   import EvalCacheEntry._
 

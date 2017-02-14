@@ -8,7 +8,8 @@ import lila.user.User
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],
     clock: Option[TournamentClock],
-    date: DateTime) {
+    date: DateTime
+) {
 
   // hyperbullet -> 10
   // 1+0  -> 11  -> 14

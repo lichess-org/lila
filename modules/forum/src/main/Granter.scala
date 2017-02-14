@@ -15,15 +15,16 @@ trait Granter {
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Boolean =
     (categSlug == StaffSlug).fold(
       ctx.me exists Master(Permission.StaffForum),
-      true)
+      true
+    )
 
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     ctx.me.filter(isOldEnoughToForum) ?? { me =>
       if (Master(Permission.StaffForum)(me)) fuccess(true)
       else categSlug match {
-        case StaffSlug               => fuccess(false)
+        case StaffSlug => fuccess(false)
         case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
-        case _                       => fuccess(true)
+        case _ => fuccess(true)
       }
     }
 

@@ -9,7 +9,8 @@ import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync) {
+    getLightUser: LightUser.GetterSync
+) {
 
   import PgnDump._
 
@@ -32,7 +33,8 @@ final class PgnDump(
         player(game.whitePlayer, wu),
         player(game.blackPlayer, bu),
         game.id
-      ), "_")
+      ), "_"
+    )
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
@@ -53,7 +55,8 @@ final class PgnDump(
   def tags(
     game: Game,
     initialFen: Option[String],
-    imported: Option[ParsedPgn]): List[Tag] = gameLightUsers(game) match {
+    imported: Option[ParsedPgn]
+  ): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(
       Tag(_.Event, imported.flatMap(_ tag "event") | {
         if (game.imported) "Import"
@@ -74,12 +77,12 @@ final class PgnDump(
       Tag(_.Termination, {
         import chess.Status._
         game.status match {
-          case Created | Started                             => "Unterminated"
-          case Aborted | NoStart                             => "Abandoned"
-          case Timeout | Outoftime                           => "Time forfeit"
+          case Created | Started => "Unterminated"
+          case Aborted | NoStart => "Abandoned"
+          case Timeout | Outoftime => "Time forfeit"
           case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
-          case Cheat                                         => "Rules infraction"
-          case UnknownFinish                                 => "Unknown"
+          case Cheat => "Rules infraction"
+          case UnknownFinish => "Unknown"
         }
       })
     ) ::: customStartPosition(game.variant).??(List(
@@ -93,7 +96,8 @@ final class PgnDump(
       case (moves, index) => chessPgn.Turn(
         number = index + from,
         white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
-        black = moves lift 1 map { chessPgn.Move(_) })
+        black = moves lift 1 map { chessPgn.Move(_) }
+      )
     } filterNot (_.isEmpty)
 }
 
@@ -101,5 +105,6 @@ object PgnDump {
 
   def result(game: Game) = game.finished.fold(
     game.winnerColor.fold("1/2-1/2")(color => color.white.fold("1-0", "0-1")),
-    "*")
+    "*"
+  )
 }

@@ -11,7 +11,8 @@ final class Env(
     messages: Messages,
     captcher: akka.actor.ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
-    appPath: String) {
+    appPath: String
+) {
 
   private val settings = new {
     val WebPathRelative = config getString "web_path.relative"
@@ -36,33 +37,39 @@ final class Env(
 
   lazy val pool = new I18nPool(
     langs = Lang.availables(play.api.Play.current).toSet,
-    default = I18nKey.en)
+    default = I18nKey.en
+  )
 
   lazy val translator = new Translator(
     messages = messages,
-    pool = pool)
+    pool = pool
+  )
 
   lazy val keys = new I18nKeys(translator)
 
   lazy val requestHandler = new I18nRequestHandler(
     pool,
     RequestHandlerProtocol,
-    CdnDomain)
+    CdnDomain
+  )
 
   lazy val jsDump = new JsDump(
     path = appPath + "/" + WebPathRelative,
     pool = pool,
-    keys = keys)
+    keys = keys
+  )
 
   lazy val fileFix = new FileFix(
     path = appPath + "/" + FilePathRelative,
     pool = pool,
     keys = keys,
-    messages = messages)
+    messages = messages
+  )
 
   lazy val transInfos = TransInfos(
     messages = messages,
-    keys = keys)
+    keys = keys
+  )
 
   lazy val repo = new TranslationRepo(translationColl)
 
@@ -70,21 +77,24 @@ final class Env(
     repo = repo,
     keys = keys,
     captcher = captcher,
-    callApi = callApi)
+    callApi = callApi
+  )
 
   def upstreamFetch = new UpstreamFetch(id => UpstreamUrlPattern format id)
 
   lazy val gitWrite = new GitWrite(
     transRelPath = FilePathRelative,
     repoPath = appPath,
-    system = system)
+    system = system
+  )
 
   lazy val context = new Context(ContextGitUrl, ContextGitFile, asyncCache, keys)
 
   private lazy val callApi = new CallApi(
     hideCallsCookieName = hideCallsCookieName,
     minGames = CallThreshold,
-    transInfos = transInfos)
+    transInfos = transInfos
+  )
 
   def call = callApi.apply _
 

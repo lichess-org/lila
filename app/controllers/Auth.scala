@@ -21,7 +21,8 @@ object Auth extends LilaController {
     lila.game.GameRepo urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying))
+          "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying)
+        )
       }
     }
 
@@ -47,7 +48,7 @@ object Auth extends LilaController {
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
     case lila.security.Api.MustConfirmEmail(userId) => UserRepo byId userId map {
       case Some(user) => BadRequest(html.auth.checkYourEmail(user))
-      case None       => BadRequest
+      case None => BadRequest
     }
   }
 
@@ -73,10 +74,12 @@ object Auth extends LilaController {
               html = Unauthorized(html.auth.login(err, referrer)).fuccess,
               api = _ => Unauthorized(errorsAsJson(err)).fuccess
             ), {
-              case None    => InternalServerError("Authentication error").fuccess
+              case None => InternalServerError("Authentication error").fuccess
               case Some(u) => authenticateUser(u)
-            })
-        })
+            }
+          )
+        }
+      )
     }
   }
 
@@ -129,7 +132,8 @@ object Auth extends LilaController {
                       case (user, email) => redirectNewUser(user)
                     }
                 }
-            }),
+            }
+          ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
             data => {
@@ -178,7 +182,7 @@ object Auth extends LilaController {
           api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
             case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
               case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
-              case _                                        => funit
+              case _ => funit
             }
             case _ => funit
           }

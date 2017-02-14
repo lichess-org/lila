@@ -10,7 +10,8 @@ import scala.util.{ Failure, Success }
 final class Env(
     name: String,
     config: Config,
-    lifecycle: play.api.inject.ApplicationLifecycle) {
+    lifecycle: play.api.inject.ApplicationLifecycle
+) {
 
   lazy val (connection, dbName) = {
     val driver = MongoDriver(config)
@@ -23,7 +24,8 @@ final class Env(
       db <- parsedUri.db match {
         case Some(name) => Success(name)
         case _ => Failure[String](new IllegalArgumentException(
-          s"cannot resolve connection from URI: $parsedUri"))
+          s"cannot resolve connection from URI: $parsedUri"
+        ))
       }
     } yield con -> db).get
   }
@@ -60,5 +62,6 @@ object Env {
   lazy val current = "db" boot new Env(
     name = "main",
     config = lila.common.PlayApp loadConfig "mongodb",
-    lifecycle = lila.common.PlayApp.lifecycle)
+    lifecycle = lila.common.PlayApp.lifecycle
+  )
 }

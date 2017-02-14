@@ -9,7 +9,8 @@ final class DataForm(
     repo: TranslationRepo,
     keys: I18nKeys,
     val captcher: akka.actor.ActorSelection,
-    callApi: CallApi) extends lila.hub.CaptchedForm {
+    callApi: CallApi
+) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
     "comment" -> optional(nonEmptyText),
@@ -34,11 +35,12 @@ final class DataForm(
         _id = id,
         code = code,
         text = sorted map {
-          case (key, trans) => key + "=" + trans
-        } mkString "\n",
+        case (key, trans) => key + "=" + trans
+      } mkString "\n",
         comment = metadata.comment,
         author = user.some,
-        createdAt = DateTime.now)
+        createdAt = DateTime.now
+      )
       repo.insert(translation).void >>- callApi.submit(code)
     }
   }
@@ -60,4 +62,5 @@ final class DataForm(
 private[i18n] case class TransMetadata(
   comment: Option[String],
   gameId: String,
-  move: String)
+  move: String
+)

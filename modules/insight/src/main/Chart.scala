@@ -11,23 +11,27 @@ case class Chart(
   sizeYaxis: Chart.Yaxis,
   series: List[Chart.Serie],
   sizeSerie: Chart.Serie,
-  games: List[JsObject])
+  games: List[JsObject]
+)
 
 object Chart {
 
   case class Xaxis(
     name: String,
-    categories: List[String])
+    categories: List[String]
+  )
 
   case class Yaxis(
     name: String,
-    dataType: String)
+    dataType: String
+  )
 
   case class Serie(
     name: String,
     dataType: String,
     stack: Option[String],
-    data: List[Double])
+    data: List[Double]
+  )
 
   def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X]): Chart = {
 
@@ -49,18 +53,21 @@ object Chart {
         "color" -> pov.player.color.name,
         "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
         "user1" -> gameUserJson(pov.player),
-        "user2" -> gameUserJson(pov.opponent))
+        "user2" -> gameUserJson(pov.opponent)
+      )
     }
 
     def xAxis = Xaxis(
       name = dimension.name,
-      categories = clusters.map(_.x).map(dimension.valueName))
+      categories = clusters.map(_.x).map(dimension.valueName)
+    )
 
     def sizeSerie = Serie(
       name = metric.per.tellNumber,
       dataType = Metric.DataType.Count.name,
       stack = none,
-      data = clusters.map(_.size.toDouble))
+      data = clusters.map(_.size.toDouble)
+    )
 
     def series = clusters.foldLeft(Map.empty[String, Serie]) {
       case (acc, cluster) =>
@@ -72,7 +79,8 @@ object Chart {
                 name = metric.name,
                 dataType = metric.dataType.name,
                 stack = none,
-                data = List(point.y))
+                data = List(point.y)
+              )
               case Some(s) => s.copy(data = point.y :: s.data)
             })
           case Insight.Stacked(points) => points.foldLeft(acc) {
@@ -83,7 +91,8 @@ object Chart {
                   name = metricValueName.name,
                   dataType = metric.dataType.name,
                   stack = metric.name.some,
-                  data = List(point.y))
+                  data = List(point.y)
+                )
                 case Some(s) => s.copy(data = point.y :: s.data)
               })
           }
@@ -94,7 +103,7 @@ object Chart {
 
     def sortedSeries = answer.clusters.headOption.fold(series) {
       _.insight match {
-        case Insight.Single(_)       => series
+        case Insight.Single(_) => series
         case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
       }
     }
@@ -106,6 +115,7 @@ object Chart {
       sizeYaxis = Yaxis(metric.per.tellNumber, Metric.DataType.Count.name),
       series = sortedSeries,
       sizeSerie = sizeSerie,
-      games = games)
+      games = games
+    )
   }
 }

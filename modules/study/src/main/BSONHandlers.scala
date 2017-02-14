@@ -41,7 +41,7 @@ object BSONHandlers {
       } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
     }
     def writes(w: Writer, t: Shape) = t match {
-      case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
+      case Shape.Circle(brush, pos) => $doc("b" -> brush, "p" -> pos.key)
       case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
     }
   }
@@ -64,7 +64,7 @@ object BSONHandlers {
   implicit val UciCharPairHandler = new BSONHandler[BSONString, UciCharPair] {
     def read(bsonStr: BSONString): UciCharPair = bsonStr.value.toArray match {
       case Array(a, b) => UciCharPair(a, b)
-      case _           => sys error s"Invalid UciCharPair ${bsonStr.value}"
+      case _ => sys error s"Invalid UciCharPair ${bsonStr.value}"
     }
     def write(x: UciCharPair) = BSONString(x.toString)
   }
@@ -80,7 +80,7 @@ object BSONHandlers {
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
       case BSONString("lichess") => Comment.Author.Lichess
-      case BSONString(name)      => Comment.Author.External(name)
+      case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {
           id <- doc.getAs[String]("id")
@@ -92,8 +92,8 @@ object BSONHandlers {
     def write(x: Comment.Author): BSONValue = x match {
       case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
       case Comment.Author.External(name) => BSONString(s"${name.trim}")
-      case Comment.Author.Lichess        => BSONString("l")
-      case Comment.Author.Unknown        => BSONString("")
+      case Comment.Author.Lichess => BSONString("l")
+      case Comment.Author.Unknown => BSONString("")
     }
   }
   private implicit val CommentBSONHandler = Macros.handler[Comment]
@@ -111,11 +111,14 @@ object BSONHandlers {
       promoted = r.getsD[Pos]("o").toSet,
       pockets = Crazyhouse.Pockets(
         white = readPocket(r.strD("w")),
-        black = readPocket(r.strD("b"))))
+        black = readPocket(r.strD("b"))
+      )
+    )
     def writes(w: Writer, s: Crazyhouse.Data) = $doc(
       "o" -> w.listO(s.promoted.toList),
       "w" -> w.strO(writePocket(s.pockets.white)),
-      "b" -> w.strO(writePocket(s.pockets.black)))
+      "b" -> w.strO(writePocket(s.pockets.black))
+    )
   }
 
   private implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
@@ -136,7 +139,8 @@ object BSONHandlers {
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
-      children = r.get[Node.Children]("n"))
+      children = r.get[Node.Children]("n")
+    )
     def writes(w: Writer, s: Node) = $doc(
       "i" -> s.id,
       "p" -> s.ply,
@@ -148,7 +152,8 @@ object BSONHandlers {
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
-      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren))
+      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
+    )
   }
   import Node.Root
   private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
@@ -160,7 +165,8 @@ object BSONHandlers {
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
-      children = r.get[Node.Children]("n"))
+      children = r.get[Node.Children]("n")
+    )
     def writes(w: Writer, s: Root) = $doc(
       "p" -> s.ply,
       "f" -> s.fen,
@@ -169,7 +175,8 @@ object BSONHandlers {
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
-      "n" -> s.children)
+      "n" -> s.children
+    )
   }
   implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
     private val nodesHandler = bsonArrayToVectorHandler[Node]
@@ -203,7 +210,7 @@ object BSONHandlers {
   implicit val PgnTagBSONHandler = new BSONHandler[BSONString, Tag] {
     def read(b: BSONString): Tag = b.value.split(":", 2) match {
       case Array(name, value) => Tag(name, value)
-      case _                  => sys error s"Invalid pgn tag ${b.value}"
+      case _ => sys error s"Invalid pgn tag ${b.value}"
     }
     def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
   }
@@ -243,14 +250,14 @@ object BSONHandlers {
   import Study.From
   private[study] implicit val FromHandler: BSONHandler[BSONString, From] = new BSONHandler[BSONString, From] {
     def read(bs: BSONString) = bs.value.split(' ') match {
-      case Array("scratch")   => From.Scratch
-      case Array("game", id)  => From.Game(id)
+      case Array("scratch") => From.Scratch
+      case Array("game", id) => From.Game(id)
       case Array("study", id) => From.Study(Study.Id(id))
-      case _                  => sys error s"Invalid from ${bs.value}"
+      case _ => sys error s"Invalid from ${bs.value}"
     }
     def write(x: From) = BSONString(x match {
-      case From.Scratch   => "scratch"
-      case From.Game(id)  => s"game $id"
+      case From.Scratch => "scratch"
+      case From.Game(id) => s"game $id"
       case From.Study(id) => s"study $id"
     })
   }
@@ -263,7 +270,8 @@ object BSONHandlers {
     def reads(r: Reader) = Settings(
       computer = r.get[UserSelection]("computer"),
       explorer = r.get[UserSelection]("explorer"),
-      cloneable = r.getO[UserSelection]("cloneable") | UserSelection.Everyone)
+      cloneable = r.getO[UserSelection]("cloneable") | UserSelection.Everyone
+    )
     private val writer = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer write s
   }
@@ -278,6 +286,7 @@ object BSONHandlers {
   implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {
     def read(doc: BSONDocument) = Study.LightStudy(
       isPublic = doc.getAs[String]("visibility") has "public",
-      contributors = doc.getAs[StudyMembers]("members").??(_.contributorIds.toSet))
+      contributors = doc.getAs[StudyMembers]("members").??(_.contributorIds.toSet)
+    )
   }
 }

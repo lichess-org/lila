@@ -5,7 +5,8 @@ import org.joda.time.DateTime
 case class UserRecord(
     _id: String,
     o: Option[List[Outcome]],
-    b: Option[List[TempBan]]) {
+    b: Option[List[TempBan]]
+) {
 
   def userId = _id
   def outcomes: List[Outcome] = ~o
@@ -34,7 +35,8 @@ case class UserRecord(
 
 case class TempBan(
     date: DateTime,
-    mins: Int) {
+    mins: Int
+) {
 
   lazy val endsAt = date plusMinutes mins
 
@@ -55,7 +57,8 @@ object TempBan {
 
 sealed abstract class Outcome(
   val id: Int,
-  val name: String)
+  val name: String
+)
 
 object Outcome {
 

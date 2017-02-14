@@ -12,7 +12,8 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund,
-    lilaBus: lila.common.Bus) {
+    lilaBus: lila.common.Bus
+) {
 
   def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
     setEngine(mod, username, !user.engine)
@@ -58,7 +59,7 @@ final class ModApi(
   def autoBooster(userId: String, accomplice: String): Funit =
     logApi.wasUnbooster(userId) map {
       case false => reporter ! lila.hub.actorApi.report.Booster(userId, accomplice)
-      case true  =>
+      case true =>
     }
 
   def troll(mod: String, username: String, value: Boolean): Fu[Boolean] = withUser(username) { u =>

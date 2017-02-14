@@ -10,7 +10,8 @@ private[game] case class Metadata(
     tournamentId: Option[String],
     simulId: Option[String],
     tvAt: Option[DateTime],
-    analysed: Boolean) {
+    analysed: Boolean
+) {
 
   def pgnDate = pgnImport flatMap (_.date)
 
@@ -29,7 +30,8 @@ case class PgnImport(
   date: Option[String],
   pgn: String,
   // hashed PGN for DB unicity
-  h: Option[ByteArray])
+  h: Option[ByteArray]
+)
 
 object PgnImport {
 
@@ -41,11 +43,13 @@ object PgnImport {
   def make(
     user: Option[String],
     date: Option[String],
-    pgn: String) = PgnImport(
+    pgn: String
+  ) = PgnImport(
     user = user,
     date = date,
     pgn = pgn,
-    h = hash(pgn).some)
+    h = hash(pgn).some
+  )
 
   import reactivemongo.bson.Macros
   import ByteArray.ByteArrayBSONHandler

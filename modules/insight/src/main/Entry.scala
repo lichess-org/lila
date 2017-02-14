@@ -25,7 +25,8 @@ case class Entry(
     ratingDiff: Int,
     analysed: Boolean,
     provisional: Boolean,
-    date: DateTime) {
+    date: DateTime
+) {
 
   def gameId = id take Game.gameIdSize
 }
@@ -66,7 +67,8 @@ case class Move(
   cpl: Option[Int], // eval diff caused by the move, relative to player, mate ~= 10
   material: Int, // material imbalance, relative to player
   opportunism: Option[Boolean],
-  luck: Option[Boolean])
+  luck: Option[Boolean]
+)
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
@@ -83,13 +85,13 @@ object Termination {
   import chess.{ Status => S }
 
   def fromStatus(s: chess.Status) = s match {
-    case S.Timeout             => Disconnect
-    case S.Outoftime           => ClockFlag
-    case S.Resign              => Resignation
-    case S.Draw                => Draw
-    case S.Stalemate           => Stalemate
+    case S.Timeout => Disconnect
+    case S.Outoftime => ClockFlag
+    case S.Resign => Resignation
+    case S.Draw => Draw
+    case S.Stalemate => Stalemate
     case S.Mate | S.VariantEnd => Checkmate
-    case S.Cheat               => Resignation
+    case S.Cheat => Resignation
     case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
       logger.error("Unfinished game in the insight indexer")
       Resignation
@@ -118,7 +120,7 @@ object Phase {
       case m if m > ply => Opening
       case m => div.end.fold[Phase](Middle) {
         case e if e > ply => Middle
-        case _            => End
+        case _ => End
       }
     }
 }
@@ -131,9 +133,9 @@ object Castling {
   val all = List(Kingside, Queenside, None)
   val byId = all map { p => (p.id, p) } toMap
   def fromMoves(moves: List[String]) = moves.find(_ startsWith "O") match {
-    case Some("O-O")   => Kingside
+    case Some("O-O") => Kingside
     case Some("O-O-O") => Queenside
-    case _             => None
+    case _ => None
   }
 }
 
@@ -157,9 +159,9 @@ object RelativeStrength {
   def apply(diff: Int) = diff match {
     case d if d < -200 => MuchWeaker
     case d if d < -100 => Weaker
-    case d if d > 200  => MuchStronger
-    case d if d > 100  => Stronger
-    case _             => Similar
+    case d if d > 200 => MuchStronger
+    case d if d > 100 => Stronger
+    case _ => Similar
   }
 }
 

@@ -19,8 +19,8 @@ private object BSONHandlers {
       case _ => ColorChoice.Random
     }
     def write(c: ColorChoice) = BSONInteger(c match {
-      case ColorChoice.White  => 1
-      case ColorChoice.Black  => 2
+      case ColorChoice.White => 1
+      case ColorChoice.Black => 2
       case ColorChoice.Random => 0
     })
   }
@@ -36,8 +36,8 @@ private object BSONHandlers {
     } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) = t match {
       case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
-      case TimeControl.Correspondence(d)               => $doc("d" -> d)
-      case TimeControl.Unlimited                       => $empty
+      case TimeControl.Correspondence(d) => $doc("d" -> d)
+      case TimeControl.Unlimited => $empty
     }
   }
   implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
@@ -56,18 +56,21 @@ private object BSONHandlers {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) = $doc(
       "i" -> r.int,
-      "p" -> w.boolO(r.provisional))
+      "p" -> w.boolO(r.provisional)
+    )
   }
   implicit val RegisteredBSONHandler = new BSON[Registered] {
     def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Registered) = $doc(
       "id" -> r.id,
-      "r" -> r.rating)
+      "r" -> r.rating
+    )
   }
   implicit val AnonymousBSONHandler = new BSON[Anonymous] {
     def reads(r: Reader) = Anonymous(r.str("s"))
     def writes(w: Writer, a: Anonymous) = $doc(
-      "s" -> a.secret)
+      "s" -> a.secret
+    )
   }
   implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {
     def reads(r: Reader) =
@@ -75,7 +78,8 @@ private object BSONHandlers {
       else Left(AnonymousBSONHandler reads r)
     def writes(w: Writer, c: EitherChallenger) = c.fold(
       a => AnonymousBSONHandler.writes(w, a),
-      r => RegisteredBSONHandler.writes(w, r))
+      r => RegisteredBSONHandler.writes(w, r)
+    )
   }
 
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]

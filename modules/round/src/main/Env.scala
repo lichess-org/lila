@@ -36,7 +36,8 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val UidTimeout = config duration "uid.timeout"
@@ -74,7 +75,8 @@ final class Env(
       forecastApi = forecastApi,
       socketHub = socketHub,
       moretimeDuration = Moretime,
-      activeTtl = ActiveTtl)
+      activeTtl = ActiveTtl
+    )
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
@@ -97,9 +99,10 @@ final class Env(
           socketTimeout = SocketTimeout,
           disconnectTimeout = PlayerDisconnectTimeout,
           ragequitTimeout = PlayerRagequitTimeout,
-          simulActor = hub.actor.simul)
+          simulActor = hub.actor.simul
+        )
         def receive: Receive = ({
-          case msg@lila.chat.actorApi.ChatLine(id, line) =>
+          case msg @ lila.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id take 8, msg)
           case _: lila.hub.actorApi.Deploy =>
             logger.warn("Enable history persistence")
@@ -113,7 +116,8 @@ final class Env(
             self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
       }),
-      name = SocketName)
+      name = SocketName
+    )
     system.lilaBus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
     actor
   }
@@ -124,18 +128,21 @@ final class Env(
     socketHub = socketHub,
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
-    bus = system.lilaBus)
+    bus = system.lilaBus
+  )
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
-    roundMap = hub.actor.roundMap)
+    roundMap = hub.actor.roundMap
+  )
 
   private lazy val notifier = new RoundNotifier(
     timeline = hub.actor.timeline,
     isUserPresent = isUserPresent,
-    notifyApi = notifyApi)
+    notifyApi = notifyApi
+  )
 
   private lazy val finisher = new Finisher(
     messenger = messenger,
@@ -145,28 +152,33 @@ final class Env(
     playban = playban,
     bus = system.lilaBus,
     casualOnly = CasualOnly,
-    getSocketStatus = getSocketStatus)
+    getSocketStatus = getSocketStatus
+  )
 
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
     rematch960Cache = rematch960Cache,
-    isRematchCache = isRematchCache)
+    isRematchCache = isRematchCache
+  )
 
   private lazy val player: Player = new Player(
     fishnetPlayer = fishnetPlayer,
     bus = system.lilaBus,
     finisher = finisher,
-    uciMemo = uciMemo)
+    uciMemo = uciMemo
+  )
 
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
     messenger = messenger,
-    finisher = finisher)
+    finisher = finisher
+  )
 
   lazy val messenger = new Messenger(
     chat = hub.actor.chat,
-    i18nKeys = i18nKeys)
+    i18nKeys = i18nKeys
+  )
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
@@ -185,7 +197,8 @@ final class Env(
     divider = divider,
     evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = Moretime.toSeconds.toInt)
+    moretimeSeconds = Moretime.toSeconds.toInt
+  )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
@@ -195,16 +208,19 @@ final class Env(
 
   system.actorOf(
     Props(new Titivate(roundMap, hub.actor.bookmark, hub.actor.chat)),
-    name = "titivate")
+    name = "titivate"
+  )
 
   system.lilaBus.subscribe(system.actorOf(
     Props(new CorresAlarm(db(CollectionAlarm), hub.socket.round)),
-    name = "corres-alarm"), 'moveEvent, 'finishGame)
+    name = "corres-alarm"
+  ), 'moveEvent, 'finishGame)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,
     uciMemo = uciMemo,
-    prefApi = prefApi)
+    prefApi = prefApi
+  )
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
   system.lilaBus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
@@ -247,5 +263,6 @@ object Env {
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

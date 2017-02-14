@@ -22,7 +22,8 @@ private final class Photographer(coll: Coll) {
         id = pictureId(coachId),
         name = uploaded.filename,
         contentType = uploaded.contentType,
-        file = uploaded.ref.file)
+        file = uploaded.ref.file
+      )
 
       coll.update($id(image.id), image, upsert = true) inject image
     }

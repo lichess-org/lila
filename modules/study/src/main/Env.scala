@@ -21,7 +21,8 @@ final class Env(
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   private val settings = new {
     val CollectionStudy = config getString "collection.study"
@@ -47,8 +48,10 @@ final class Env(
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
-        lightStudyCache = lightStudyCache)
-    }), name = SocketName)
+        lightStudyCache = lightStudyCache
+      )
+    }), name = SocketName
+  )
 
   def version(studyId: Study.Id): Fu[Int] =
     socketHub ? Ask(studyId.value, GetVersion) mapTo manifest[Int]
@@ -58,25 +61,29 @@ final class Env(
     socketHub = socketHub,
     chat = hub.actor.chat,
     api = api,
-    evalCacheHandler = evalCacheHandler)
+    evalCacheHandler = evalCacheHandler
+  )
 
   lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
   lazy val chapterRepo = new ChapterRepo(coll = db(CollectionChapter))
 
   lazy val jsonView = new JsonView(
     studyRepo,
-    lightUserApi.sync)
+    lightUserApi.sync
+  )
 
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
     pgnFetch = new PgnFetch,
     lightUser = lightUserApi.sync,
     chat = hub.actor.chat,
-    domain = NetDomain)
+    domain = NetDomain
+  )
 
   private lazy val studyMaker = new StudyMaker(
     lightUser = lightUserApi.sync,
-    chapterMaker = chapterMaker)
+    chapterMaker = chapterMaker
+  )
 
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
@@ -87,7 +94,8 @@ final class Env(
     notifier = new StudyNotifier(
     netBaseUrl = NetBaseUrl,
     notifyApi = lila.notify.Env.current.api,
-    relationApi = lila.relation.Env.current.api),
+    relationApi = lila.relation.Env.current.api
+  ),
     tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
@@ -95,30 +103,35 @@ final class Env(
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
     socketHub = socketHub,
-    lightStudyCache = lightStudyCache)
+    lightStudyCache = lightStudyCache
+  )
 
   lazy val pager = new StudyPager(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
-    maxPerPage = lila.common.MaxPerPage(MaxPerPage))
+    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
+  )
 
   lazy val pgnDump = new PgnDump(
     chapterRepo = chapterRepo,
     gamePgnDump = gamePgnDump,
     lightUser = lightUserApi.sync,
-    netBaseUrl = NetBaseUrl)
+    netBaseUrl = NetBaseUrl
+  )
 
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(
       receiveTimeout = SequencerTimeout.some,
       executionTimeout = 5.seconds.some,
-      logger = logger)
+      logger = logger
+    )
   }))
 
   lazy val lightStudyCache: LightStudyCache = asyncCache.multi(
     name = "study.lightStudyCache",
     f = studyRepo.lightById,
-    expireAfter = _.ExpireAfterWrite(20 minutes))
+    expireAfter = _.ExpireAfterWrite(20 minutes)
+  )
 
   def cli = new lila.common.Cli {
     def process = {
@@ -138,5 +151,6 @@ object Env {
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache)
+    asyncCache = lila.memo.Env.current.asyncCache
+  )
 }

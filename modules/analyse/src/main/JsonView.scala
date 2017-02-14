@@ -30,14 +30,15 @@ object JsonView {
     analysis.summary.find(_._1 == pov.color).map(_._2).map(s =>
       JsObject(s map {
         case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
-      }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis))
-    )
+      }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis)))
 
   def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
     "white" -> player(game.whitePov)(analysis),
-    "black" -> player(game.blackPov)(analysis))
+    "black" -> player(game.blackPov)(analysis)
+  )
 
   def mobile(game: Game, analysis: Analysis) = Json.obj(
     "summary" -> bothPlayers(game, analysis),
-    "moves" -> moves(analysis))
+    "moves" -> moves(analysis)
+  )
 }

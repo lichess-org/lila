@@ -13,7 +13,8 @@ private[team] final class Cached(
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
-    logger = logger)
+    logger = logger
+  )
 
   def name(id: String) = nameCache sync id
 
@@ -24,7 +25,8 @@ private[team] final class Cached(
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
-    logger = logger)
+    logger = logger
+  )
 
   def syncTeamIds = teamIdsCache sync _
   def teamIds = teamIdsCache async _
@@ -35,5 +37,6 @@ private[team] final class Cached(
   val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
     name = "team.nbRequests",
     f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    expireAfter = _.ExpireAfterAccess(12 minutes))
+    expireAfter = _.ExpireAfterAccess(12 minutes)
+  )
 }

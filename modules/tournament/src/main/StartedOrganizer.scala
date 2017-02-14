@@ -12,7 +12,8 @@ private[tournament] final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
-    socketHub: ActorRef) extends Actor {
+    socketHub: ActorRef
+) extends Actor {
 
   override def preStart {
     pairingLogger.info("Start StartedOrganizer")

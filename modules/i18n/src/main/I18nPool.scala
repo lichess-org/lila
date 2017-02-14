@@ -25,7 +25,7 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
     l.language == lang.language
   }.getOrElse(lang) match {
     case Lang("en", "") => nonUsEnglish
-    case l              => l
+    case l => l
   }
 
   def preferred(req: RequestHeader) =

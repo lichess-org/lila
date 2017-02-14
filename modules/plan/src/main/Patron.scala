@@ -8,7 +8,8 @@ case class Patron(
     payPal: Option[Patron.PayPal] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
-    lastLevelUp: DateTime) {
+    lastLevelUp: DateTime
+) {
 
   def id = _id
 
@@ -17,13 +18,16 @@ case class Patron(
   def canLevelUp = lastLevelUp isBefore DateTime.now.minusDays(25)
 
   def levelUpNow = copy(
-    lastLevelUp = DateTime.now)
+    lastLevelUp = DateTime.now
+  )
 
   def levelUpIfPossible = copy(
-    lastLevelUp = if (canLevelUp) DateTime.now else lastLevelUp)
+    lastLevelUp = if (canLevelUp) DateTime.now else lastLevelUp
+  )
 
   def expireInOneMonth: Patron = copy(
-    expiresAt = DateTime.now.plusMonths(1).plusDays(7).some)
+    expiresAt = DateTime.now.plusMonths(1).plusDays(7).some
+  )
 
   def expireInOneMonth(cond: Boolean): Patron =
     if (cond) expireInOneMonth
@@ -31,11 +35,13 @@ case class Patron(
 
   def removeStripe = copy(
     stripe = none,
-    expiresAt = none)
+    expiresAt = none
+  )
 
   def removePayPal = copy(
     payPal = none,
-    expiresAt = none)
+    expiresAt = none
+  )
 
   def isDefined = stripe.isDefined || payPal.isDefined
 
@@ -51,7 +57,8 @@ object Patron {
   case class PayPal(
       email: Option[PayPal.Email],
       subId: Option[PayPal.SubId],
-      lastCharge: DateTime) {
+      lastCharge: DateTime
+  ) {
 
     def renew = subId.isDefined
   }

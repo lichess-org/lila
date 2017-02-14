@@ -12,7 +12,8 @@ import lila.user.User
 
 final class LeaderboardApi(
     coll: Coll,
-    maxPerPage: Int) {
+    maxPerPage: Int
+) {
 
   import LeaderboardApi._
   import BSONHandlers._
@@ -36,7 +37,8 @@ final class LeaderboardApi(
               _ -> ChartData.PerfResult(
                 nb = agg.nb,
                 points = ChartData.Ints(agg.points),
-                rank = ChartData.Ints(agg.ratios))
+                rank = ChartData.Ints(agg.ratios)
+              )
             }
           }.sortLike(PerfType.leaderboardable, _._1)
         }
@@ -45,13 +47,14 @@ final class LeaderboardApi(
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new Adapter[Entry](
-      collection = coll,
-      selector = $doc("u" -> user.id),
-      projection = $empty,
-      sort = sort
-    ) mapFutureList withTournaments,
+    collection = coll,
+    selector = $doc("u" -> user.id),
+    projection = $empty,
+    sort = sort
+  ) mapFutureList withTournaments,
     currentPage = page,
-    maxPerPage = maxPerPage)
+    maxPerPage = maxPerPage
+  )
 
   private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
     TournamentRepo byIds entries.map(_.tourId) map { tours =>
@@ -80,7 +83,8 @@ object LeaderboardApi {
     freq: Option[Schedule.Freq],
     speed: Option[Schedule.Speed],
     perf: PerfType,
-    date: DateTime)
+    date: DateTime
+  )
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {
     import ChartData._
@@ -89,7 +93,8 @@ object LeaderboardApi {
         case (acc, res) => PerfResult(
           nb = acc.nb + res.nb,
           points = res.points ::: acc.points,
-          rank = res.rank ::: acc.rank)
+          rank = res.rank ::: acc.rank
+        )
       }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
     }

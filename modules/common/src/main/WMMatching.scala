@@ -393,8 +393,7 @@ object WMMatching {
               label(v) = 0
               label(endpoint(mate(blossombase(bv)))) = 0
               assignLabel(v, 2, labelend(v))
-            }
-            )
+            })
           }
           j = jstep(j)
         }

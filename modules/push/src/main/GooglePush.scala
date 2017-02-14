@@ -7,7 +7,8 @@ import play.api.Play.current
 private final class GooglePush(
     getDevice: String => Fu[Option[Device]],
     url: String,
-    key: String) {
+    key: String
+) {
 
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevice(userId) flatMap {
@@ -16,7 +17,8 @@ private final class GooglePush(
           .withHeaders(
             "Authorization" -> s"key=$key",
             "Accept" -> "application/json",
-            "Content-type" -> "application/json")
+            "Content-type" -> "application/json"
+          )
           .post(Json.obj(
             "to" -> device.deviceId,
             "priority" -> "normal",
@@ -27,7 +29,7 @@ private final class GooglePush(
             ))
           )).flatMap {
             case res if res.status == 200 => funit
-            case res                      => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
+            case res => fufail(s"[push] ${device.deviceId} $data ${res.status} ${res.body}")
           }
       }
     }

@@ -6,12 +6,13 @@ import lila.user.User
 
 private final class StudyMaker(
     lightUser: lila.common.LightUser.GetterSync,
-    chapterMaker: ChapterMaker) {
+    chapterMaker: ChapterMaker
+) {
 
   def apply(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
     (data.gameId ?? GameRepo.gameWithInitialFen).flatMap {
       case Some((game, initialFen)) => createFromPov(Pov(game, data.orientation), initialFen, user)
-      case None                     => createFromScratch(data, user)
+      case None => createFromScratch(data, user)
     }
 
   private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = fuccess {
@@ -24,7 +25,8 @@ private final class StudyMaker(
       pgn = data.pgnStr,
       orientation = data.orientation.name,
       mode = ChapterMaker.Mode.Normal.key,
-      initial = true),
+      initial = true
+    ),
       order = 1,
       userId = user.id)
     Study.WithChapter(study withChapter chapter, chapter)
@@ -39,13 +41,15 @@ private final class StudyMaker(
         setup = Chapter.Setup(
           gameId = pov.game.id.some,
           variant = pov.game.variant,
-          orientation = pov.color),
+          orientation = pov.color
+        ),
         root = root,
         tags = Nil,
         order = 1,
         ownerId = user.id,
         practice = false,
-        conceal = None)
+        conceal = None
+      )
       Study.WithChapter(study withChapter chapter, chapter)
     } addEffect { swc =>
       chapterMaker.notifyChat(swc.study, pov.game, user.id)

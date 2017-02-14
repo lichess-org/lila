@@ -26,23 +26,27 @@ private[simul] final class SimulApi(
     userRegister: ActorSelection,
     lobby: ActorSelection,
     repo: SimulRepo,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 
   private val currentHostIdsCache = asyncCache.single[Set[String]](
     name = "simul.currentHostIds",
     f = repo.allStarted map (_ map (_.hostId) toSet),
-    expireAfter = _.ExpireAfterAccess(10 minutes))
+    expireAfter = _.ExpireAfterAccess(10 minutes)
+  )
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
         config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
-        hostExtraTime = setup.clockExtra * 60),
+        hostExtraTime = setup.clockExtra * 60
+      ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
-      color = setup.color)
+      color = setup.color
+    )
     repo.createdByHostId(me.id) foreach {
       _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
     }
@@ -129,7 +133,8 @@ private[simul] final class SimulApi(
                 lila.socket.Socket.makeMessage("simulEnd", Json.obj(
                   "id" -> simul.id,
                   "name" -> simul.name
-                )))
+                ))
+              )
             }
           }
         }
@@ -164,13 +169,15 @@ private[simul] final class SimulApi(
     game1 = Game.make(
       game = chess.Game(
         board = chess.Board init pairing.player.variant,
-        clock = simul.clock.chessClockOf(hostColor).start.some),
+        clock = simul.clock.chessClockOf(hostColor).start.some
+      ),
       whitePlayer = lila.game.Player.white,
       blackPlayer = lila.game.Player.black,
       mode = chess.Mode.Casual,
       variant = pairing.player.variant,
       source = lila.game.Source.Simul,
-      pgnImport = None)
+      pgnImport = None
+    )
     game2 = game1
       .updatePlayer(chess.White, _.withUser(whiteUser.id, lila.game.PerfPicker.mainOrDefault(game1)(whiteUser.perfs)))
       .updatePlayer(chess.Black, _.withUser(blackUser.id, lila.game.PerfPicker.mainOrDefault(game1)(blackUser.perfs)))
@@ -187,7 +194,8 @@ private[simul] final class SimulApi(
 
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],
-    simulId: Simul.ID)(updating: Simul => Simul) {
+    simulId: Simul.ID
+  )(updating: Simul => Simul) {
     Sequence(simulId) {
       finding(simulId) flatMap {
         _ ?? { simul => update(updating(simul)) }

@@ -17,7 +17,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     coll.insert(c) >> c.challenger.right.toOption.?? { challenger =>
       createdByChallengerId(challenger.id).flatMap {
         case challenges if challenges.size <= maxPerUser => funit
-        case challenges                                  => challenges.drop(maxPerUser).map(_.id).map(remove).sequenceFu.void
+        case challenges => challenges.drop(maxPerUser).map(_.id).map(remove).sequenceFu.void
       }
     }
 
@@ -42,7 +42,8 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
     if c.active
   } yield coll.find(selectCreated ++ $doc(
     "challenger.id" -> challengerId,
-    "destUser.id" -> destUserId)).uno[Challenge])
+    "destUser.id" -> destUserId
+  )).uno[Challenge])
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.count(Some(selectCreated ++ $doc("destUser.id" -> userId)))
@@ -61,7 +62,9 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
       "$set" -> $doc(
         "status" -> Status.Created.id,
         "seenAt" -> DateTime.now,
-        "expiresAt" -> inTwoWeeks))
+        "expiresAt" -> inTwoWeeks
+      )
+    )
   ).void
 
   def setSeen(id: Challenge.ID) = coll.update(
@@ -82,7 +85,8 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Int) {
   private def setStatus(
     challenge: Challenge,
     status: Status,
-    expiresAt: Option[DateTime => DateTime]) = coll.update(
+    expiresAt: Option[DateTime => DateTime]
+  ) = coll.update(
     selectCreated ++ $id(challenge.id),
     $doc("$set" -> $doc(
       "status" -> status.id,

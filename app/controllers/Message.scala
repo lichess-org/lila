@@ -24,7 +24,8 @@ object Message extends LilaController {
         _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
         res <- negotiate(
           html = fuccess(html.message.inbox(me, pag)),
-          api = _ => fuccess(Env.message.jsonView.inbox(me, pag)))
+          api = _ => fuccess(Env.message.jsonView.inbox(me, pag))
+        )
       } yield res
     }
   }
@@ -79,12 +80,14 @@ object Message extends LilaController {
           err => renderForm(me, none, _ => err) map { BadRequest(_) },
           data => api.makeThread(data, me) map { thread =>
             Redirect(routes.Message.thread(thread.id))
-          }),
+          }
+        ),
         api = _ => forms.thread(me).bindFromRequest.fold(
           err => fuccess(BadRequest(errorsAsJson(err))),
           data => api.makeThread(data, me) map { thread =>
             Ok(Json.obj("ok" -> true, "id" -> thread.id))
-          })
+          }
+        )
       )
     }
   }

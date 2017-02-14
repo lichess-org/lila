@@ -38,7 +38,8 @@ private[controllers] trait LilaController
   protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
-      api = _ => fuccess(Ok(jsonOkBody) as JSON))
+      api = _ => fuccess(Ok(jsonOkBody) as JSON)
+    )
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
@@ -190,7 +191,8 @@ private[controllers] trait LilaController
   protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(implicit req: Request[_]): Fu[Result] =
     form.bindFromRequest.fold(
       form => fuccess(BadRequest(form.errors mkString "\n")),
-      op)
+      op
+    )
 
   protected def FormFuResult[A, B: Writeable: ContentTypeOf](form: Form[A])(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
@@ -263,12 +265,13 @@ private[controllers] trait LilaController
   protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
     req.session.data.contains(LilaCookie.sessionId).fold(
       res,
-      res withCookies LilaCookie.makeSessionId(req))
+      res withCookies LilaCookie.makeSessionId(req)
+    )
 
   protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {
       case Some(v) => api(v) dmap (_ as JSON)
-      case _       => html
+      case _ => html
     }).dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
@@ -293,8 +296,7 @@ private[controllers] trait LilaController
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value)
-        }
-        else fuccess {
+        } else fuccess {
           (((OnlineFriends.empty, 0), 0), 0)
         }
       } map {

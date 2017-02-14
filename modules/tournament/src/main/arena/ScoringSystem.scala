@@ -13,14 +13,15 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
   case class Score(
       win: Option[Boolean],
       flag: Flag,
-      berserk: Int) extends AbstractScore {
+      berserk: Int
+  ) extends AbstractScore {
 
     val value = ((win, flag) match {
       case (Some(true), Double) => 4
-      case (Some(true), _)      => 2
-      case (None, Double)       => 2
-      case (None, _)            => 1
-      case _                    => 0
+      case (Some(true), _) => 2
+      case (None, Double) => 2
+      case (None, _) => 1
+      case _ => 0
     }) + (~win ?? berserk)
 
     def isBerserk = berserk > 0
@@ -45,16 +46,18 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
           case None => Score(
             None,
             if (isOnFire(scores)) Double else Normal,
-            berserkValue)
+            berserkValue
+          )
           case Some(w) if userId == w => Score(
             Some(true),
             if (isOnFire(scores)) Double
             else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
             else n.flatMap(_.winner) match {
               case Some(w) if userId == w => StreakStarter
-              case _                        => Normal
+              case _ => Normal
             },
-            berserkValue)
+            berserkValue
+          )
           case _ => Score(Some(false), Normal, berserkValue)
         }) :: scores
     }

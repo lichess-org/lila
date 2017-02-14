@@ -14,7 +14,8 @@ case class AnaDrop(
     pos: chess.Pos,
     variant: Variant,
     fen: String,
-    path: String) {
+    path: String
+) {
 
   def branch: Valid[Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) flatMap {
@@ -33,7 +34,8 @@ case class AnaDrop(
             FullOpeningDB findByFen fen
           },
           drops = movable.fold(game.situation.drops, Some(Nil)),
-          crazyData = game.situation.board.crazyData)
+          crazyData = game.situation.board.crazyData
+        )
       }
     }
 }
@@ -52,5 +54,6 @@ object AnaDrop {
     pos = pos,
     variant = variant,
     fen = fen,
-    path = path)
+    path = path
+  )
 }

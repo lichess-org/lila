@@ -11,7 +11,8 @@ final class DetectLanguage(url: String, key: String) {
   private case class Detection(
     language: String,
     confidence: Float,
-    isReliable: Boolean)
+    isReliable: Boolean
+  )
 
   private implicit val DetectionReads = Json.reads[Detection]
 
@@ -42,5 +43,6 @@ object DetectLanguage {
   import com.typesafe.config.Config
   def apply(config: Config): DetectLanguage = new DetectLanguage(
     url = config getString "api.url",
-    key = config getString "api.key")
+    key = config getString "api.key"
+  )
 }

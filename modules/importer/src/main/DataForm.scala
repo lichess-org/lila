@@ -26,7 +26,8 @@ case class Preprocessed(
   replay: Replay,
   result: Option[Result],
   initialFen: Option[FEN],
-  parsed: ParsedPgn)
+  parsed: ParsedPgn
+)
 
 case class ImportData(pgn: String, analyse: Option[String]) {
 
@@ -36,8 +37,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
     case ParsedPgn(_, _, sans) if sans.size > maxPlies => !!("Replay is too long")
-    case parsed@ParsedPgn(_, tags, sans) => Reader.full(pgn) map {
-      case replay@Replay(setup, _, game) =>
+    case parsed @ ParsedPgn(_, tags, sans) => Reader.full(pgn) map {
+      case replay @ Replay(setup, _, game) =>
         def tag(which: Tag.type => TagType): Option[String] =
           tags find (_.name == which(Tag)) map (_.value)
 
@@ -58,19 +59,19 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         } map Forsyth.>> map FEN.apply
 
         val status = tag(_.Termination).map(_.toLowerCase) match {
-          case Some("normal") | None    => Status.Resign
-          case Some("abandoned")        => Status.Aborted
-          case Some("time forfeit")     => Status.Outoftime
+          case Some("normal") | None => Status.Resign
+          case Some("abandoned") => Status.Aborted
+          case Some("time forfeit") => Status.Outoftime
           case Some("rules infraction") => Status.Cheat
-          case Some(_)                  => Status.UnknownFinish
+          case Some(_) => Status.UnknownFinish
         }
 
         val result = tag(_.Result) ifFalse game.situation.end collect {
-          case "1-0"                                   => Result(status, Color.White.some)
-          case "0-1"                                   => Result(status, Color.Black.some)
-          case "*"                                     => Result(Status.Started, none)
+          case "1-0" => Result(status, Color.White.some)
+          case "0-1" => Result(status, Color.Black.some)
+          case "*" => Result(Status.Started, none)
           case "1/2-1/2" if status == Status.Outoftime => Result(status, none)
-          case "1/2-1/2"                               => Result(Status.Draw, none)
+          case "1/2-1/2" => Result(Status.Draw, none)
         }
 
         val date = tag(_.Date)
@@ -88,8 +89,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           source = Source.Import,
           pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
         ).copy(
-            binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
-          ).start
+          binaryPgn = BinaryFormat.pgn write replay.state.pgnMoves
+        ).start
 
         Preprocessed(dbGame, replay, result, initialFen, parsed)
     }

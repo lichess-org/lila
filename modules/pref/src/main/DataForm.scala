@@ -44,7 +44,8 @@ object DataForm {
     coords: Int,
     replay: Int,
     pieceNotation: Option[Int],
-    blindfold: Int)
+    blindfold: Int
+  )
 
   case class BehaviorData(
     moveEvent: Option[Int],
@@ -55,7 +56,8 @@ object DataForm {
     submitMove: Int,
     confirmResign: Int,
     keyboardMove: Option[Int],
-    rookCastle: Option[Int])
+    rookCastle: Option[Int]
+  )
 
   case class PrefData(
       display: DisplayData,
@@ -66,7 +68,8 @@ object DataForm {
       follow: Int,
       challenge: Int,
       message: Int,
-      insightShare: Int) {
+      insightShare: Int
+  ) {
 
     def apply(pref: Pref) = pref.copy(
       autoQueen = behavior.autoQueen,
@@ -92,7 +95,8 @@ object DataForm {
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
-      moveEvent = behavior.moveEvent | pref.moveEvent)
+      moveEvent = behavior.moveEvent | pref.moveEvent
+    )
   }
 
   object PrefData {
@@ -105,7 +109,8 @@ object DataForm {
         replay = pref.replay,
         captured = pref.captured.fold(1, 0),
         blindfold = pref.blindfold,
-        pieceNotation = pref.pieceNotation.some),
+        pieceNotation = pref.pieceNotation.some
+      ),
       behavior = BehaviorData(
         moveEvent = pref.moveEvent.some,
         premove = pref.premove.fold(1, 0),
@@ -115,14 +120,16 @@ object DataForm {
         submitMove = pref.submitMove,
         confirmResign = pref.confirmResign,
         keyboardMove = pref.keyboardMove.some,
-        rookCastle = pref.rookCastle.some),
+        rookCastle = pref.rookCastle.some
+      ),
       clockTenths = pref.clockTenths,
       clockBar = pref.clockBar.fold(1, 0),
       clockSound = pref.clockSound.fold(1, 0),
       follow = pref.follow.fold(1, 0),
       challenge = pref.challenge,
       message = pref.message,
-      insightShare = pref.insightShare)
+      insightShare = pref.insightShare
+    )
   }
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)

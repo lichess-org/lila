@@ -26,7 +26,8 @@ private[round] final class SocketHandler(
     hub: lila.hub.Env,
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus
+) {
 
   private def controller(
     gameId: String,
@@ -34,7 +35,8 @@ private[round] final class SocketHandler(
     uid: Uid,
     ref: PovRef,
     member: Member,
-    me: Option[User]): Handler.Controller = {
+    me: Option[User]
+  ): Handler.Controller = {
 
     def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
@@ -42,8 +44,8 @@ private[round] final class SocketHandler(
       o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
 
     member.playerIdOption.fold[Handler.Controller](({
-      case ("p", o)         => ping(o)
-      case ("talk", o)      => o str "d" foreach { messenger.watcher(gameId, member, _) }
+      case ("p", o) => ping(o)
+      case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(Outoftime)
     }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
@@ -71,21 +73,21 @@ private[round] final class SocketHandler(
             send(HumanPlay(playerId, drop, blur, lag.millis, promise.some))
             member push ackEvent
         }
-        case ("rematch-yes", _)  => send(RematchYes(playerId))
-        case ("rematch-no", _)   => send(RematchNo(playerId))
+        case ("rematch-yes", _) => send(RematchYes(playerId))
+        case ("rematch-no", _) => send(RematchNo(playerId))
         case ("takeback-yes", _) => send(TakebackYes(playerId))
-        case ("takeback-no", _)  => send(TakebackNo(playerId))
-        case ("draw-yes", _)     => send(DrawYes(playerId))
-        case ("draw-no", _)      => send(DrawNo(playerId))
-        case ("draw-claim", _)   => send(DrawClaim(playerId))
-        case ("resign", _)       => send(Resign(playerId))
+        case ("takeback-no", _) => send(TakebackNo(playerId))
+        case ("draw-yes", _) => send(DrawYes(playerId))
+        case ("draw-no", _) => send(DrawNo(playerId))
+        case ("draw-claim", _) => send(DrawClaim(playerId))
+        case ("resign", _) => send(Resign(playerId))
         case ("resign-force", _) => send(ResignForce(playerId))
-        case ("draw-force", _)   => send(DrawForce(playerId))
-        case ("abort", _)        => send(Abort(playerId))
-        case ("moretime", _)     => send(Moretime(playerId))
-        case ("outoftime", _)    => send(Outoftime)
-        case ("bye2", _)         => socket ! Bye(ref.color)
-        case ("talk", o)         => o str "d" foreach { messenger.owner(gameId, member, _) }
+        case ("draw-force", _) => send(DrawForce(playerId))
+        case ("abort", _) => send(Abort(playerId))
+        case ("moretime", _) => send(Moretime(playerId))
+        case ("outoftime", _) => send(Outoftime)
+        case ("bye2", _) => socket ! Bye(ref.color)
+        case ("talk", o) => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
@@ -99,7 +101,8 @@ private[round] final class SocketHandler(
         chatId = gameId,
         member = member,
         socket = socket,
-        chat = messenger.chat)
+        chat = messenger.chat
+      )
     }
   }
 
@@ -110,7 +113,8 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: String,
     userTv: Option[String],
-    apiVersion: ApiVersion): Fu[Option[JsSocketHandler]] =
+    apiVersion: ApiVersion
+  ): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
       _ ?? { join(_, none, uid, user, ip, userTv = userTv, apiVersion) map some }
     }
@@ -120,7 +124,8 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: String,
-    apiVersion: ApiVersion): Fu[JsSocketHandler] =
+    apiVersion: ApiVersion
+  ): Fu[JsSocketHandler] =
     join(pov, Some(pov.playerId), uid, user, ip, userTv = none, apiVersion)
 
   private def join(
@@ -130,7 +135,8 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: String,
     userTv: Option[String],
-    apiVersion: ApiVersion): Fu[JsSocketHandler] = {
+    apiVersion: ApiVersion
+  ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
       user = user,
@@ -138,7 +144,8 @@ private[round] final class SocketHandler(
       playerId = playerId,
       ip = ip,
       userTv = userTv,
-      apiVersion = apiVersion)
+      apiVersion = apiVersion
+    )
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>

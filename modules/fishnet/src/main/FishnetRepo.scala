@@ -9,14 +9,16 @@ import lila.db.dsl._
 private final class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   import BSONHandlers._
 
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
     f = key => clientColl.find(selectClient(key)).uno[Client],
-    expireAfter = _.ExpireAfterWrite(5 minutes))
+    expireAfter = _.ExpireAfterWrite(5 minutes)
+  )
 
   def getClient(key: Client.Key) = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }

@@ -7,7 +7,8 @@ import lila.user.User
 case class StudyMember(
     id: User.ID,
     role: StudyMember.Role,
-    addedAt: DateTime) {
+    addedAt: DateTime
+) {
 
   def canContribute = role.canWrite
 }

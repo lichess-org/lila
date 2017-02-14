@@ -14,7 +14,7 @@ trait I18nKey {
 
   def to(lang: Lang)(args: Any*): String
 
-  def en(args: Any*): String = to(I18nKey.en)(args:_ *)
+  def en(args: Any*): String = to(I18nKey.en)(args: _*)
 }
 
 case class Untranslated(key: String) extends I18nKey {

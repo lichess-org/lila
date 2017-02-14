@@ -13,7 +13,8 @@ final class RankingApi(
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUser: lila.common.LightUser.Getter) {
+    lightUser: lila.common.LightUser.Getter
+) {
 
   import RankingApi._
   private implicit val rankingBSONHandler = Macros.handler[Ranking]
@@ -30,7 +31,8 @@ final class RankingApi(
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
       "stable" -> perf.established,
-      "expiresAt" -> DateTime.now.plusDays(7)),
+      "expiresAt" -> DateTime.now.plusDays(7)
+    ),
       upsert = true).void
 
   def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
@@ -59,7 +61,8 @@ final class RankingApi(
                   user = light,
                   perfKey = perfKey,
                   rating = r.rating,
-                  progress = ~r.prog)
+                  progress = ~r.prog
+                )
               }
             }
           }.sequenceFu.map(_.flatten)
@@ -79,7 +82,8 @@ final class RankingApi(
       name = "rankingApi.weeklyStableRanking",
       f = compute,
       expireAfter = _.ExpireAfterWrite(15 minutes),
-      resultTimeout = 10 seconds)
+      resultTimeout = 10 seconds
+    )
 
     private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
       coll.find(
@@ -87,7 +91,7 @@ final class RankingApi(
         $doc("user" -> true, "_id" -> false)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred).
         fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state@(rank, b), doc) =>
+          case (state @ (rank, b), doc) =>
             doc.getAs[User.ID]("user").fold(state) { user =>
               b += (user -> rank)
               (rank + 1) -> b
@@ -105,7 +109,8 @@ final class RankingApi(
       prefix = "user:rating:distribution",
       f = compute,
       timeToLive = 3 hour,
-      keyToString = _.toString)
+      keyToString = _.toString
+    )
 
     // from 800 to 2500 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
@@ -123,7 +128,8 @@ final class RankingApi(
               )
             )),
             GroupField("r")("nb" -> SumValue(1))
-          )).map { res =>
+          )
+        ).map { res =>
             val hash = res.firstBatch.flatMap { obj =>
               for {
                 rating <- obj.getAs[Int]("_id")

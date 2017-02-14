@@ -14,12 +14,15 @@ final class CoordinateApi(scoreColl: Coll) {
     scoreColl.update(
       BSONDocument("_id" -> userId),
       BSONDocument("$push" -> BSONDocument(
-         "white" -> BSONDocument(
+        "white" -> BSONDocument(
           "$each" -> (white ?? List(BSONInteger(hits))),
-          "$slice" -> -20),
-         "black" -> BSONDocument(
+          "$slice" -> -20
+        ),
+        "black" -> BSONDocument(
           "$each" -> (!white ?? List(BSONInteger(hits))),
-          "$slice" -> -20)
+          "$slice" -> -20
+        )
       )),
-      upsert = true).void
+      upsert = true
+    ).void
 }

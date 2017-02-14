@@ -13,11 +13,13 @@ case class Thread(
     posts: List[Post],
     creatorId: String,
     invitedId: String,
-    visibleByUserIds: List[String]) {
+    visibleByUserIds: List[String]
+) {
 
   def +(post: Post) = copy(
     posts = posts :+ post,
-    updatedAt = post.createdAt)
+    updatedAt = post.createdAt
+  )
 
   def id = _id
 
@@ -77,7 +79,8 @@ object Thread {
     name: String,
     text: String,
     creatorId: String,
-    invitedId: String): Thread = Thread(
+    invitedId: String
+  ): Thread = Thread(
     _id = Random nextString idSize,
     name = name,
     createdAt = DateTime.now,
@@ -88,7 +91,8 @@ object Thread {
     )),
     creatorId = creatorId,
     invitedId = invitedId,
-    visibleByUserIds = List(creatorId, invitedId))
+    visibleByUserIds = List(creatorId, invitedId)
+  )
 
   import lila.db.dsl.BSONJodaDateTimeHandler
   import Post.PostBSONHandler

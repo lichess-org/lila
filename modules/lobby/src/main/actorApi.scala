@@ -11,7 +11,8 @@ private[lobby] case class LobbyUser(
   username: String,
   lame: Boolean,
   ratingMap: Map[String, Int],
-  blocking: Set[String])
+  blocking: Set[String]
+)
 
 private[lobby] object LobbyUser {
 
@@ -20,14 +21,16 @@ private[lobby] object LobbyUser {
     username = user.username,
     lame = user.lame,
     ratingMap = user.perfs.ratingMap,
-    blocking = blocking)
+    blocking = blocking
+  )
 }
 
 private[lobby] case class Member(
     channel: JsChannel,
     user: Option[LobbyUser],
     uid: String,
-    mobile: Boolean) extends SocketMember {
+    mobile: Boolean
+) extends SocketMember {
 
   val userId = user.map(_.id)
   val troll = false
@@ -39,7 +42,8 @@ private[lobby] object Member {
     channel = channel,
     user = user map { LobbyUser.make(_, blocking) },
     uid = uid,
-    mobile = mobile)
+    mobile = mobile
+  )
 }
 
 private[lobby] case class HookMeta(hookId: Option[String] = None)

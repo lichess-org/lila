@@ -21,7 +21,8 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   private val settings = new {
     val CollectionSimul = config getString "collection.simul"
@@ -36,7 +37,8 @@ final class Env(
   import settings._
 
   lazy val repo = new SimulRepo(
-    simulColl = simulColl)
+    simulColl = simulColl
+  )
 
   lazy val api = new SimulApi(
     repo = repo,
@@ -49,7 +51,8 @@ final class Env(
     lobby = hub.socket.lobby,
     onGameStart = onGameStart,
     sequencers = sequencerMap,
-    asyncCache = asyncCache)
+    asyncCache = asyncCache
+  )
 
   lazy val forms = new DataForm
 
@@ -64,27 +67,31 @@ final class Env(
         jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
-        lightUser = lightUser)
-    }), name = SocketName)
+        lightUser = lightUser
+      )
+    }), name = SocketName
+  )
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
     chat = hub.actor.chat,
-    exists = repo.exists)
+    exists = repo.exists
+  )
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
       case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
-      case lila.hub.actorApi.simul.GetHostIds        => api.currentHostIds pipeTo sender
+      case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
       case move: lila.hub.actorApi.round.MoveEvent =>
         move.simulId foreach { simulId =>
           move.opponentUserId foreach { opId =>
             hub.actor.userRegister ! lila.hub.actorApi.SendTo(
               opId,
-              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId))
+              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+            )
           }
         }
     }
@@ -95,12 +102,14 @@ final class Env(
   val allCreated = asyncCache.single(
     name = "simul.allCreated",
     repo.allCreated,
-    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl))
+    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
+  )
 
   val allCreatedFeaturable = asyncCache.single(
     name = "simul.allCreatedFeaturable",
     repo.allCreatedFeaturable,
-    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl))
+    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
+  )
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
@@ -127,5 +136,6 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,
-    asyncCache = lila.memo.Env.current.asyncCache)
+    asyncCache = lila.memo.Env.current.asyncCache
+  )
 }

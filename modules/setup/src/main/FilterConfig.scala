@@ -7,7 +7,8 @@ case class FilterConfig(
     variant: List[chess.variant.Variant],
     mode: List[Mode],
     speed: List[Speed],
-    ratingRange: RatingRange) {
+    ratingRange: RatingRange
+) {
 
   def >> = (
     variant map (_.id),
@@ -20,12 +21,14 @@ case class FilterConfig(
     "variant" -> variant.map(_.key),
     "mode" -> mode.map(_.id),
     "speed" -> speed.map(_.id),
-    "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
+    "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
+  )
 
   def nonEmpty = copy(
     variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),
     mode = mode.isEmpty.fold(FilterConfig.default.mode, mode),
-    speed = speed.isEmpty.fold(FilterConfig.default.speed, speed))
+    speed = speed.isEmpty.fold(FilterConfig.default.speed, speed)
+  )
 }
 
 object FilterConfig {
@@ -39,7 +42,8 @@ object FilterConfig {
     chess.variant.Atomic,
     chess.variant.Horde,
     chess.variant.RacingKings,
-    chess.variant.Crazyhouse)
+    chess.variant.Crazyhouse
+  )
 
   val modes = Mode.all
   val speeds = Speed.all
@@ -48,7 +52,8 @@ object FilterConfig {
     variant = variants,
     mode = modes,
     speed = speeds,
-    ratingRange = RatingRange.default)
+    ratingRange = RatingRange.default
+  )
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
     variant = v map chess.variant.Variant.apply flatten,
@@ -66,12 +71,14 @@ object FilterConfig {
       variant = r intsD "v" flatMap { chess.variant.Variant(_) },
       mode = r intsD "m" flatMap { Mode(_) },
       speed = r intsD "s" flatMap { Speed(_) },
-      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
+      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
+    )
 
     def writes(w: BSON.Writer, o: FilterConfig) = BSONDocument(
       "v" -> o.variant.map(_.id),
       "m" -> o.mode.map(_.id),
       "s" -> o.speed.map(_.id),
-      "e" -> o.ratingRange.toString)
+      "e" -> o.ratingRange.toString
+    )
   }
 }

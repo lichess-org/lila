@@ -7,7 +7,8 @@ import lila.memo.Syncache
 final class LastPostCache(
     api: BlogApi,
     ttl: FiniteDuration,
-    collection: String)(implicit system: akka.actor.ActorSystem) {
+    collection: String
+)(implicit system: akka.actor.ActorSystem) {
 
   private val cache = new Syncache[Boolean, List[MiniPost]](
     name = "blog.lastPost",
@@ -15,7 +16,8 @@ final class LastPostCache(
     default = _ => Nil,
     expireAfter = Syncache.ExpireAfterWrite(ttl),
     strategy = Syncache.NeverWait,
-    logger = logger)
+    logger = logger
+  )
 
   private def fetch = {
     api.prismicApi flatMap { prismic =>

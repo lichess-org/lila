@@ -8,7 +8,8 @@ import play.api.libs.iteratee._
 final class PgnDump(
     dumper: lila.game.PgnDump,
     getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String]) {
+    getTournamentName: String => Option[String]
+) {
 
   def apply(game: Game, initialFen: Option[String]): Fu[Pgn] =
     (game.simulId ?? getSimulName) map { simulName =>

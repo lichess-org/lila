@@ -9,7 +9,8 @@ object JsonView {
   implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
     Json.obj(
       "id" -> s.id,
-      "name" -> s.name)
+      "name" -> s.name
+    )
   }
 
   implicit val crosstableResultWrites = Json.writes[Crosstable.Result]
@@ -20,7 +21,8 @@ object JsonView {
         u.id -> JsNumber(u.score / 10d)
       }),
       "results" -> c.results,
-      "nbGames" -> c.nbGames)
+      "nbGames" -> c.nbGames
+    )
   }
 
   implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
@@ -29,7 +31,8 @@ object JsonView {
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
           role.name -> JsNumber(count)
         }
-      })
+      }
+    )
   }
 
   implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>

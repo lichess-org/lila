@@ -8,7 +8,8 @@ private[team] case class Member(
     _id: String,
     team: String,
     user: String,
-    date: DateTime) {
+    date: DateTime
+) {
 
   def is(userId: String): Boolean = user == userId
   def is(user: User): Boolean = is(user.id)
@@ -24,7 +25,8 @@ private[team] object Member {
     _id = makeId(team, user),
     user = user,
     team = team,
-    date = DateTime.now)
+    date = DateTime.now
+  )
 }
 
 case class MemberWithUser(member: Member, user: User) {

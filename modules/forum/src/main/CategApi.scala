@@ -35,13 +35,15 @@ private[forum] final class CategApi(env: Env) {
         lastPostId = "",
         nbTopicsTroll = 0,
         nbPostsTroll = 0,
-        lastPostIdTroll = "")
+        lastPostIdTroll = ""
+      )
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug + "-forum",
         name = name + " forum",
         troll = false,
-        hidden = false)
+        hidden = false
+      )
       val post = Post.make(
         topicId = topic.id,
         author = none,
@@ -52,7 +54,8 @@ private[forum] final class CategApi(env: Env) {
         troll = false,
         hidden = topic.hidden,
         lang = "en".some,
-        categId = categ.id)
+        categId = categ.id
+      )
       env.categColl.insert(categ).void >>
         env.postColl.insert(post).void >>
         env.topicColl.insert(topic withPost post).void >>

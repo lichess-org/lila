@@ -9,7 +9,8 @@ final class Env(
     getLightUser: lila.common.LightUser.GetterSync,
     roundSocketHub: ActorSelection,
     scheduler: lila.common.Scheduler,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val CollectionDevice = config getString "collection.device"
   private val GooglePushUrl = config getString "google.url"
@@ -27,28 +28,31 @@ final class Env(
     deviceApi.findLastManyByUserId("onesignal", 3) _,
     url = OneSignalUrl,
     appId = OneSignalAppId,
-    key = OneSignalKey)
+    key = OneSignalKey
+  )
 
   private lazy val googlePush = new GooglePush(
     deviceApi.findLastOneByUserId("android") _,
     url = GooglePushUrl,
-    key = GooglePushKey)
+    key = GooglePushKey
+  )
 
   private lazy val pushApi = new PushApi(
     googlePush,
     oneSignalPush,
     getLightUser,
     roundSocketHub,
-    scheduler = scheduler)
+    scheduler = scheduler
+  )
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case move: lila.hub.actorApi.round.MoveEvent   => pushApi move move
-      case lila.message.Event.NewMessage(t, p)       => pushApi newMessage (t, p)
-      case lila.challenge.Event.Create(c)            => pushApi challengeCreate c
-      case lila.challenge.Event.Accept(c, joinerId)  => pushApi.challengeAccept(c, joinerId)
-      case lila.game.actorApi.CorresAlarmEvent(pov)  => pushApi corresAlarm pov
+      case move: lila.hub.actorApi.round.MoveEvent => pushApi move move
+      case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
+      case lila.challenge.Event.Create(c) => pushApi challengeCreate c
+      case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)
+      case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov
     }
   })), 'finishGame, 'moveEvent, 'newMessage, 'challenge, 'corresAlarm)
 }
@@ -61,5 +65,6 @@ object Env {
     getLightUser = lila.user.Env.current.lightUserSync,
     roundSocketHub = lila.hub.Env.current.socket.round,
     scheduler = lila.common.PlayApp.scheduler,
-    config = lila.common.PlayApp loadConfig "push")
+    config = lila.common.PlayApp loadConfig "push"
+  )
 }

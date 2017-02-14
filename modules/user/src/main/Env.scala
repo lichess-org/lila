@@ -12,7 +12,8 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -81,7 +82,8 @@ final class Env(
     onlineUserIdMemo = onlineUserIdMemo,
     mongoCache = mongoCache,
     asyncCache = asyncCache,
-    rankingApi = rankingApi)
+    rankingApi = rankingApi
+  )
 }
 
 object Env {
@@ -93,5 +95,6 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.actor.timeline,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

@@ -9,7 +9,8 @@ final class CrosstableApi(
     coll: Coll,
     gameColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: akka.actor.ActorSystem) {
+    system: akka.actor.ActorSystem
+) {
 
   import Crosstable.Result
 
@@ -17,7 +18,7 @@ final class CrosstableApi(
 
   def apply(game: Game): Fu[Option[Crosstable]] = game.userIds.distinct match {
     case List(u1, u2) => apply(u1, u2)
-    case _            => fuccess(none)
+    case _ => fuccess(none)
   }
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
@@ -41,18 +42,20 @@ final class CrosstableApi(
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       def incScore(userId: String) = $int(game.winnerUserId match {
         case Some(u) if u == userId => 10
-        case None                   => 5
-        case _                      => 0
+        case None => 5
+        case _ => 0
       })
       val bson = $doc(
         "$inc" -> $doc(
           "s1" -> incScore(u1),
-          "s2" -> incScore(u2))
+          "s2" -> incScore(u2)
+        )
       ) ++ $doc("$push" -> $doc(
           Crosstable.BSONFields.results -> $doc(
             "$each" -> List(bsonResult),
             "$slice" -> -maxGames
-          )))
+          )
+        ))
       coll.update(select(u1, u2), bson).void
     case _ => funit
   }
@@ -65,7 +68,8 @@ final class CrosstableApi(
     name = "crosstable",
     f = (create _).tupled,
     resultTimeout = 19.second,
-    expireAfter = _.ExpireAfterWrite(20 seconds))
+    expireAfter = _.ExpireAfterWrite(20 seconds)
+  )
 
   private val winnerProjection = $doc(Game.BSONFields.winnerId -> true)
 
@@ -74,7 +78,8 @@ final class CrosstableApi(
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
           Game.BSONFields.playerUids $all List(u1, u2),
-          Game.BSONFields.status $gte chess.Status.Mate.id)
+          Game.BSONFields.status $gte chess.Status.Mate.id
+        )
 
         import reactivemongo.api.ReadPreference
 
@@ -87,7 +92,7 @@ final class CrosstableApi(
               case ((s1, s2), doc) => doc.getAs[String](Game.BSONFields.winnerId) match {
                 case Some(u) if u == su1 => (s1 + 10, s2)
                 case Some(u) if u == su2 => (s1, s2 + 10)
-                case _                   => (s1 + 5, s2 + 5)
+                case _ => (s1 + 5, s2 + 5)
               }
             }
             Crosstable(

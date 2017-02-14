@@ -14,7 +14,8 @@ import lila.pref.Pref
 private[api] final class RoundApiBalancer(
     system: ActorSystem,
     api: RoundApi,
-    nbActors: Int) {
+    nbActors: Int
+) {
 
   private val logger = lila.log("round").branch("balancer")
 
@@ -55,7 +56,8 @@ private[api] final class RoundApiBalancer(
           case FreeStudy(pov, pref, initialFen, orientation, me) =>
             api.freeStudyJson(pov, pref, initialFen, orientation, me)
         }
-      })), "api.round.router")
+      })), "api.round.router"
+    )
   }
 
   import implementation._

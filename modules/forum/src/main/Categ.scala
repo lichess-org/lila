@@ -12,7 +12,8 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String,
-    quiet: Boolean = false) {
+    quiet: Boolean = false
+) {
 
   def id = _id
 
@@ -30,7 +31,8 @@ case class Categ(
     lastPostId = post.troll.fold(lastPostId, post.id),
     nbTopicsTroll = nbTopicsTroll + 1,
     nbPostsTroll = nbPostsTroll + 1,
-    lastPostIdTroll = post.id)
+    lastPostIdTroll = post.id
+  )
 
   def slug = id
 }

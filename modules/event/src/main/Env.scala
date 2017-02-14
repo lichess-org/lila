@@ -7,7 +7,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val CollectionEvent = config getString "collection.event"
 
@@ -22,5 +23,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "event",
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

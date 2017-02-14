@@ -10,7 +10,8 @@ import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
-    puzzleColl: Coll) {
+    puzzleColl: Coll
+) {
 
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] =
     api.head.find(user) flatMap {
@@ -31,7 +32,8 @@ private[puzzle] final class Finisher(
               date = date,
               result = result,
               rating = user.perfs.puzzle.intRating,
-              ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
+              ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating
+            )
             (api.round add a) >> {
               puzzleColl.update(
                 $id(puzzle.id),
@@ -48,7 +50,8 @@ private[puzzle] final class Finisher(
           date = DateTime.now,
           result = result,
           rating = user.perfs.puzzle.intRating,
-          ratingDiff = 0)
+          ratingDiff = 0
+        )
         fuccess(a -> Mode.Casual)
     }
 
@@ -63,7 +66,7 @@ private[puzzle] final class Finisher(
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)
-      case Glicko.Result.Win  => results.addResult(u1, u2)
+      case Glicko.Result.Win => results.addResult(u1, u2)
       case Glicko.Result.Loss => results.addResult(u2, u1)
     }
     try {

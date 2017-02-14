@@ -15,14 +15,15 @@ private[timeline] final class Push(
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
     entryRepo: EntryRepo,
-    unsubApi: UnsubApi) extends Actor {
+    unsubApi: UnsubApi
+) extends Actor {
 
   def receive = {
 
     case Propagate(data, propagations) =>
       data match {
         case _: ForumPost => lobbySocket ! NewForumPost
-        case _            =>
+        case _ =>
       }
       propagate(propagations) flatMap { users =>
         unsubApi.filterUnsub(data.channel, users)
@@ -37,14 +38,14 @@ private[timeline] final class Push(
 
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     propagations.map {
-      case Users(ids)    => fuccess(ids)
+      case Users(ids) => fuccess(ids)
       case Followers(id) => getFollowerIds(id)
-      case Friends(id)   => getFriendIds(id)
+      case Friends(id) => getFriendIds(id)
       case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIds map {
         _ filter Granter(_.StaffForum) map (_.id)
       }
       case ExceptUser(_) => fuccess(Nil)
-      case ModsOnly(_)   => fuccess(Nil)
+      case ModsOnly(_) => fuccess(Nil)
     }.sequence flatMap { users =>
       propagations.foldLeft(fuccess(users.flatten.distinct)) {
         case (fus, ExceptUser(id)) => fus.map(_.filter(id!=))
@@ -60,7 +61,8 @@ private[timeline] final class Push(
     Permission.ModNote,
     Permission.Hunter,
     Permission.Admin,
-    Permission.SuperAdmin)
+    Permission.SuperAdmin
+  )
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)

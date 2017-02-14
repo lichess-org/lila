@@ -17,7 +17,7 @@ final class GameStream(system: ActorSystem) {
 
     def matches(game: Game) = game.userIds match {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-      case _                        => false
+      case _ => false
     }
     var stream: Option[ActorRef] = None
 
@@ -25,7 +25,7 @@ final class GameStream(system: ActorSystem) {
       onStart = channel => {
       val actor = system.actorOf(Props(new Actor {
         def receive = {
-          case StartGame(game) if matches(game)        => channel push game
+          case StartGame(game) if matches(game) => channel push game
           case FinishGame(game, _, _) if matches(game) => channel push game
         }
       }))
@@ -37,7 +37,8 @@ final class GameStream(system: ActorSystem) {
         system.lilaBus.unsubscribe(actor)
         actor ! PoisonPill
       }
-    })
+    }
+    )
 
     enumerator &> withInitialFen &> toJson &> stringify
   }

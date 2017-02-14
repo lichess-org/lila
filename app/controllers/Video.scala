@@ -17,7 +17,8 @@ object Video extends LilaController {
         filter = Filter(reqTags),
         tags = tags,
         query = get("q"),
-        bot = HTTPRequest.isBot(ctx.req))
+        bot = HTTPRequest.isBot(ctx.req)
+      )
     } flatMap f
   }
 

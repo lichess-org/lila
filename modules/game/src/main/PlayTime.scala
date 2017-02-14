@@ -24,12 +24,12 @@ final class PlayTime(gameColl: Coll) {
           tvField -> true
         ))
         .cursor[Bdoc]().fold(User.PlayTime(0, 0)) { (pt, doc) =>
-        val t = doc.getAs[ByteArray](moveTimeField) ?? { times =>
-          BinaryFormat.moveTime.read(times).sum
-        } / 10
-        val isTv = doc.get(tvField).isDefined
-        User.PlayTime(pt.total + t, pt.tv + isTv.fold(t, 0))
-      }
+          val t = doc.getAs[ByteArray](moveTimeField) ?? { times =>
+            BinaryFormat.moveTime.read(times).sum
+          } / 10
+          val isTv = doc.get(tvField).isDefined
+          User.PlayTime(pt.total + t, pt.tv + isTv.fold(t, 0))
+        }
     }.addEffect { UserRepo.setPlayTime(user, _) }
   }
 }

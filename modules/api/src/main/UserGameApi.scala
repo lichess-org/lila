@@ -10,7 +10,8 @@ import lila.game.{ Game, PerfPicker }
 
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
-    lightUser: LightUser.GetterSync) {
+    lightUser: LightUser.GetterSync
+) {
 
   import lila.game.JsonView._
   import lila.round.JsonView._
