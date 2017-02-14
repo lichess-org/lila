@@ -18,7 +18,7 @@ private[relation] final class RelationActor(
     lightUserSync: LightUser.GetterSync,
     api: RelationApi,
     onlinePlayings: ExpireSetMemo,
-    onlineStudying: OnlineStudyingMemo,
+    onlineStudying: OnlineStudyingCache,
     onlineStudyingAll: lila.memo.ExpireSetMemo) extends Actor {
 
   private val bus = context.system.lilaBus
@@ -74,7 +74,7 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
       onlineStudyingAll.put(userId)
       if (contributor && public) {
-        val wasAlreadyInStudy = onlineStudying.get(userId).isDefined
+        val wasAlreadyInStudy = onlineStudying.getIfPresent(userId).isDefined
         onlineStudying.put(userId, studyId)
         if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
@@ -82,14 +82,14 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
       onlineStudyingAll remove userId
       if (contributor && public) {
-        onlineStudying remove userId
+        onlineStudying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
-      val contributorsInStudy = contributors.filter(onlineStudying.get(_).isDefined)
+      val contributorsInStudy = contributors.filter(onlineStudying.getIfPresent(_).isDefined)
       for (c <- contributorsInStudy) {
-        onlineStudying remove c
+        onlineStudying invalidate c
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
       }
 
@@ -107,14 +107,14 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
-      if (onlineStudying.get(userId).isDefined) {
-        onlineStudying remove userId
+      if (onlineStudying.getIfPresent(userId).isDefined) {
+        onlineStudying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
   }
 
   private def makeFriendEntering(enters: LightUser) = {
-    FriendEntering(enters, onlinePlayings.get(enters.id), onlineStudying.get(enters.id).isDefined)
+    FriendEntering(enters, onlinePlayings.get(enters.id), onlineStudying.getIfPresent(enters.id).isDefined)
   }
 
   private def onlineIds: Set[ID] = onlines.keySet
@@ -132,7 +132,7 @@ private[relation] final class RelationActor(
   }
 
   private def filterFriendsStudying(friends: List[LightUser]): Set[String] = {
-    friends.filter(p => onlineStudying.get(p.id).isDefined).map(_.id).toSet
+    friends.filter(p => onlineStudying.getIfPresent(p.id).isDefined).map(_.id).toSet
   }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
