@@ -5,7 +5,7 @@ import akka.actor._
 
 trait ActorMap extends Actor {
 
-  private val actors = scala.collection.mutable.Map.empty[String, ActorRef]
+  private val actors = scala.collection.mutable.AnyRefMap.empty[String, ActorRef]
 
   def mkActor(id: String): Actor
 

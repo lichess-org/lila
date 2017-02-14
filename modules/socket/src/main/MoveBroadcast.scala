@@ -1,6 +1,7 @@
 package lila.socket
 
 import akka.actor._
+import scala.collection.mutable.AnyRefMap
 
 import actorApi.{ SocketLeave, StartWatching }
 import lila.hub.actorApi.round.MoveEvent
@@ -21,8 +22,8 @@ private final class MoveBroadcast extends Actor {
 
   case class WatchingMember(member: SocketMember, gameIds: Set[GameId])
 
-  val members = scala.collection.mutable.Map.empty[UID, WatchingMember]
-  val games = scala.collection.mutable.Map.empty[GameId, Set[UID]]
+  val members = AnyRefMap.empty[UID, WatchingMember]
+  val games = AnyRefMap.empty[GameId, Set[UID]]
 
   def receive = {
 

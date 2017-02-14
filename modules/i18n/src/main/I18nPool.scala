@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 
 private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
-  private val cache = scala.collection.mutable.Map[String, Option[Lang]]()
+  private val cache = scala.collection.mutable.AnyRefMap.empty[String, Option[Lang]]
 
   def nonDefaultLangs = langs - default
 

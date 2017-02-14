@@ -14,7 +14,7 @@ import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
-  val members = scala.collection.mutable.Map.empty[String, M]
+  val members = scala.collection.mutable.AnyRefMap.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = initialPong
 

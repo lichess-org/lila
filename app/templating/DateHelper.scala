@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import java.util.Locale
-import scala.collection.mutable
+import scala.collection.mutable.AnyRefMap
 
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
@@ -16,9 +16,9 @@ trait DateHelper { self: I18nHelper =>
   private val dateTimeStyle = "MS"
   private val dateStyle = "M-"
 
-  private val dateTimeFormatters = mutable.Map[String, DateTimeFormatter]()
-  private val dateFormatters = mutable.Map[String, DateTimeFormatter]()
-  private val periodFormatters = mutable.Map[String, PeriodFormatter]()
+  private val dateTimeFormatters = AnyRefMap.empty[String, DateTimeFormatter]
+  private val dateFormatters = AnyRefMap.empty[String, DateTimeFormatter]
+  private val periodFormatters = AnyRefMap.empty[String, PeriodFormatter]
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,
