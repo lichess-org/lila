@@ -2,7 +2,7 @@ package lila.socket
 
 import akka.actor._
 import play.api.libs.json.JsObject
-import scala.collection.mutable
+import scala.collection.mutable.AnyRefMap
 
 import actorApi.{ SocketLeave, SocketEnter }
 import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
@@ -21,7 +21,7 @@ private final class UserRegister extends Actor {
   type UID = String
   type UserId = String
 
-  val users = mutable.Map.empty[UserId, mutable.Map[UID, SocketMember]]
+  val users = AnyRefMap.empty[UserId, AnyRefMap[UID, SocketMember]]
 
   def receive = {
 
@@ -33,7 +33,7 @@ private final class UserRegister extends Actor {
 
     case SocketEnter(uid, member) => member.userId foreach { userId =>
       users get userId match {
-        case None          => users += (userId -> mutable.Map(uid -> member))
+        case None          => users += (userId -> AnyRefMap(uid -> member))
         case Some(members) => members += (uid -> member)
       }
     }
