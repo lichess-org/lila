@@ -104,7 +104,7 @@ object Main extends LilaController {
     else lila.game.GameRepo pov id foreach {
       _ foreach { pov =>
         if (!known) doLog
-        if (name == "ceval" || name == "rcb")
+        if (name == "ceval" || name == "rcb" || name == "ccs")
           Env.round.roundMap ! lila.hub.actorApi.map.Tell(
             pov.gameId,
             lila.round.actorApi.round.Cheat(pov.color)
