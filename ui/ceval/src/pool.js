@@ -33,9 +33,6 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
     stop: stop,
     destroy: function() {
       terminateWorker(worker);
-    },
-    engineVersion: function() {
-      return protocol && protocol.engineVersion();
     }
   };
 
@@ -86,8 +83,7 @@ function makeWorkerStub() {
     send: noop,
     start: noop,
     stop: noop,
-    destroy: noop,
-    engineVersion: noop
+    destroy: noop
   };
 }
 
@@ -130,9 +126,6 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
         w.stop();
         w.destroy();
       });
-    },
-    engineVersion: function() {
-      return workers[0] && workers[0].engineVersion();
     }
   };
 };
