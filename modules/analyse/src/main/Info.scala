@@ -2,6 +2,7 @@ package lila.analyse
 
 import chess.Color
 import chess.format.Uci
+import scalaz.NonEmptyList
 
 import lila.tree.Eval
 
@@ -65,20 +66,21 @@ object Info {
     if (cp.isEmpty) Score mate unsafeMate(mate) else Score cp unsafeCp(cp)
 
   private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
-    case Array(cp)             => Info(ply, Eval(Score cp unsafeCp(cp), None)).some
-    case Array(cp, ma)         => Info(ply, Eval(unsafeScore(cp, ma), None)).some
-    case Array(cp, ma, va)     => Info(ply, Eval(unsafeScore(cp, ma), None), va.split(' ').toList).some
+    case Array(cp) => Info(ply, Eval(Score cp unsafeCp(cp), None)).some
+    case Array(cp, ma) => Info(ply, Eval(unsafeScore(cp, ma), None)).some
+    case Array(cp, ma, va) => Info(ply, Eval(unsafeScore(cp, ma), None), va.split(' ').toList).some
     case Array(cp, ma, va, be) => Info(ply, Eval(unsafeScore(cp, ma), Uci.Move piotr be), va.split(' ').toList).some
     case _ => none
   }
 
-  def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
+  def decodeList(str: String, fromPly: Int): Option[NonEmptyList[Info]] = {
     str.split(listSeparator).toList.zipWithIndex map {
       case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
     }
-  }.sequence
+  }.sequence.flatMap(_.toNel)
 
-  def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
+  def encodeList(infos: NonEmptyList[Info]): String =
+    s"${infos.head.encode}$listSeparator${infos.tail.map(_.encode).mkString(listSeparator)}"
 
   // def apply(cp: Option[Cp], mate: Option[Mate], variation: List[String]): Int => Info =
   //   ply => Info(ply, Eval(cp, mate, None), variation)

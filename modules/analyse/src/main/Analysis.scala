@@ -1,26 +1,39 @@
 package lila.analyse
 
 import chess.Color
+import scalaz.NonEmptyList
 
 import org.joda.time.DateTime
 
-case class Analysis(
-    id: Analysis.ID,
-    infos: List[Info],
-    startPly: Int,
-    uid: Option[String], // requester lichess ID
-    by: Option[String], // analyser lichess ID
-    date: DateTime
-) {
+sealed trait AnyAnalysis {
+  val id: Analysis.ID
+  val startPly: Int
+  val uid: Option[String] // requester lichess ID
+  val by: Option[String] // analyser lichess ID
+  val date: DateTime
+
+  def infoOptions: NonEmptyList[Option[Info]]
 
   def requestedBy = uid | "lichess"
 
   def providedBy = by | "lichess"
 
   def providedByLichess = by exists (_ startsWith "lichess-")
+}
+
+case class Analysis(
+    id: Analysis.ID,
+    infos: NonEmptyList[Info],
+    startPly: Int,
+    uid: Option[String],
+    by: Option[String],
+    date: DateTime
+) extends AnyAnalysis {
+
+  lazy val infoOptions = infos map Some.apply
 
   lazy val infoAdvices: InfoAdvices = {
-    (Info.start(startPly) :: infos) sliding 2 collect {
+    (Info.start(startPly) :: infos.list) sliding 2 collect {
       case List(prev, info) => info -> {
         info.hasVariation ?? Advice(prev, info)
       }
@@ -30,7 +43,7 @@ case class Analysis(
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
   // ply -> UCI
-  def bestMoves: Map[Int, String] = infos.flatMap { i =>
+  def bestMoves: Map[Int, String] = infos.list.flatMap { i =>
     i.best map { b => i.ply -> b.keys }
   }.toMap
 
@@ -41,11 +54,19 @@ case class Analysis(
       })
     })
   }
+}
 
-  def valid = infos.nonEmpty
+case class PartialAnalysis(
+    id: Analysis.ID,
+    infoOptions: NonEmptyList[Option[Info]],
+    startPly: Int,
+    uid: Option[String],
+    by: Option[String],
+    date: DateTime
+) extends AnyAnalysis {
 
-  def nbEmptyInfos = infos.count(_.isEmpty)
-  def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
+  def nbEmptyInfos = infoOptions.list.count(_.isEmpty)
+  def emptyRatio: Double = nbEmptyInfos.toDouble / infoOptions.size
 }
 
 object Analysis {
@@ -56,10 +77,11 @@ object Analysis {
   type ID = String
 
   // analysis that is not done computing, some infos are missing
-  case class Partial(
-    id: Analysis.ID,
-    infos: List[Option[Info]],
-    startPly: Int)
+  // case class Partial(
+  //   id: Analysis.ID,
+  //   infos: List[Option[Info]],
+  //   startPly: Int
+  // )
 
   private[analyse] implicit val analysisBSONHandler = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {

@@ -4,7 +4,8 @@ import chess.format.Uci
 
 case class Eval(
     score: Eval.Score,
-    best: Option[Uci.Move]) {
+    best: Option[Uci.Move]
+) {
 
   def cp = score.cp
   def mate = score.mate
@@ -14,7 +15,7 @@ case class Eval(
   def dropBest = copy(best = None)
 
   def invert = copy(score = score.invert)
-    def invertIf(cond: Boolean) = if (cond) invert else this
+  def invertIf(cond: Boolean) = if (cond) invert else this
 }
 
 object Eval {
@@ -24,7 +25,7 @@ object Eval {
     def cp: Option[Cp] = value.left.toOption
     def mate: Option[Mate] = value.right.toOption
 
-    def isCheckmate = value == Right(0)
+    def isCheckmate = value == Score.checkmate
     def mateFound = value.isRight
 
     def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
@@ -35,6 +36,8 @@ object Eval {
 
     def cp(x: Cp): Score = Score(Left(x))
     def mate(y: Mate): Score = Score(Right(y))
+
+    val checkmate: Either[Cp, Mate] = Right(Mate(0))
   }
 
   case class Cp(value: Int) extends AnyVal {
@@ -108,7 +111,8 @@ object Eval {
       Json.obj(
         "cp" -> eval.cp,
         "mate" -> eval.mate,
-        "best" -> eval.best)
+        "best" -> eval.best
+      )
     }
   }
 }
