@@ -144,7 +144,8 @@ final class StudyApi(
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>
             updateConceal(study, newChapter, position + node) >>-
-            sendTo(study, Socket.AddNode(position, node, uid))
+            sendTo(study, Socket.AddNode(position, node, uid)) >>-
+            sendStudyEnters(study, userId)
       }
     }
   }
@@ -267,7 +268,8 @@ final class StudyApi(
               newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
                 chapterRepo.update(newChapter) >>-
                   sendTo(study, Socket.SetComment(position, c, uid)) >>-
-                  indexStudy(study)
+                  indexStudy(study) >>-
+                  sendStudyEnters(study, userId)
               }
             case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
           }
@@ -447,6 +449,17 @@ final class StudyApi(
     chapterRepo.idNamesByStudyIds(studyIds)
 
   def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
+
+  private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
+    lila.hub.actorApi.study.StudyDoor(
+      userId = userId,
+      studyId = study.id.value,
+      contributor = study canContribute userId,
+      public = study.isPublic,
+      enters = true
+    ),
+    'study
+  )
 
   private def indexStudy(study: Study) =
     bus.publish(actorApi.SaveStudy(study), 'study)

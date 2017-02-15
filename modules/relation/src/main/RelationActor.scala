@@ -26,9 +26,7 @@ private[relation] final class RelationActor(
   private var onlines = Map[ID, LightUser]()
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'startGame)
-    context.system.lilaBus.subscribe(self, 'finishGame)
-    context.system.lilaBus.subscribe(self, 'study)
+    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
   }
 
   override def postStop(): Unit = {
