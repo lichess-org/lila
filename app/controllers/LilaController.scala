@@ -56,9 +56,7 @@ private[controllers] trait LilaController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
-        }
+        reqToCtx(req) flatMap maybeI18nRedirect(f)
       }
     }
 
@@ -68,7 +66,7 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f
+        reqToCtx(req) flatMap maybeI18nRedirect(f)
       }
     }
 
@@ -78,9 +76,9 @@ private[controllers] trait LilaController
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap { implicit ctx =>
-          ctx.me.fold(authenticationFailed) { me =>
-            Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+        reqToCtx(req) flatMap { ctx =>
+          ctx.me.fold(authenticationFailed(ctx)) { me =>
+            maybeI18nRedirect((c: Context) => f(c)(me))(ctx)
           }
         }
       }
@@ -93,7 +91,9 @@ private[controllers] trait LilaController
     Action.async(p) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap { implicit ctx =>
-          ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+          ctx.me.fold(authenticationFailed) { me =>
+            maybeI18nRedirect((c: BodyContext[A]) => f(c)(me))(ctx)
+          }
         }
       }
     }
@@ -121,6 +121,9 @@ private[controllers] trait LilaController
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
+
+  private def maybeI18nRedirect[C <: Context](f: C => Fu[Result])(ctx: C): Fu[Result] =
+    Env.i18n.requestHandler(ctx.req, ctx.me).fold(f(ctx))(fuccess)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
