@@ -2,6 +2,7 @@ var m = require('mithril');
 var xhr = require('../studyXhr');
 var embedYoutube = require('../studyComments').embedYoutube;
 var makeSuccess = require('./studyPracticeSuccess');
+var sound = require('../../sound');
 
 var readOnlyProp = function(value) {
   return function() {
@@ -56,6 +57,15 @@ module.exports = function(root, studyData, data) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
+    var next = nextChapter();
+    if (next) root.study.setChapter(next.id);
+  };
+
+  var nextChapter = function() {
+    var chapters = root.study.data.chapters;
+    var currentId = root.study.currentChapter().id;
+    for (var i in chapters)
+      if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
   };
 
   return {
@@ -67,12 +77,6 @@ module.exports = function(root, studyData, data) {
     success: success,
     comment: comment,
     nbMoves: nbMoves,
-    nextChapter: function() {
-      var chapters = root.study.data.chapters;
-      var currentId = root.study.currentChapter().id;
-      for (var i in chapters)
-        if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
-    },
     reset: function() {
       root.tree.root.children = [];
       root.userJump('');

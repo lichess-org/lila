@@ -54,17 +54,6 @@ module.exports = {
     var p = ctrl.practice;
     switch (p.success()) {
       case true:
-        var next = p.nextChapter();
-        if (next) return m('a.feedback.win', {
-          onclick: function() {
-            ctrl.setChapter(next.id);
-          }
-        }, [
-          m('span', 'Success!'), [
-            'Next: ',
-            m('strong', next.name)
-          ]
-        ]);
         return m('a.feedback.win[href=/practice]', [
           m('span', 'Success!'),
           'Back to practice menu'
