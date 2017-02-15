@@ -122,7 +122,7 @@ module.exports = function(root) {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
     renderTitle(root.studyPractice ? null : root.togglePractice),
-    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(ctrl.bottomColor(), end) : renderRunning(root))),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root))),
     running ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),
       ' ',
