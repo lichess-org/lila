@@ -50,7 +50,10 @@ object LameName {
       "whore",
       "nazi",
       "mortez",
-      "buttsex"
+      "buttsex",
+      "rape",
+      "retard",
+      "pedo"
     )
     replacement <- List("" -> "", "o" -> "0", "i" -> "1", "s" -> "5")
   } yield base.replace(replacement._1, replacement._2)
