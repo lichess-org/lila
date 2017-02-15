@@ -47,17 +47,20 @@ trait AssetHelper { self: I18nHelper =>
   val jQueryTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
     test = "window.jQuery",
-    local = staticUrl("javascripts/vendor/jquery.min.js"))
+    local = staticUrl("javascripts/vendor/jquery.min.js")
+  )
 
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",
     test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts4/highcharts.js"))
+    local = staticUrl("vendor/highcharts4/highcharts.js")
+  )
 
   val highchartsLatestTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.2/highcharts.js",
     test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts-4.2.5/highcharts.js"))
+    local = staticUrl("vendor/highcharts-4.2.5/highcharts.js")
+  )
 
   val highchartsMoreTag = Html {
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
@@ -66,19 +69,20 @@ trait AssetHelper { self: I18nHelper =>
   val momentjsTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
     test = "window.moment",
-    local = staticUrl("vendor/moment/min/moment.min.js"))
+    local = staticUrl("vendor/moment/min/moment.min.js")
+  )
 
   def momentLangTag(implicit ctx: lila.api.Context) = {
     val l = lang(ctx)
     ((l.language, l.country.toLowerCase) match {
-      case ("en", "us")               => none
+      case ("en", "us") => none
       case ("en", "au" | "ca" | "gb") => l.code.some
-      case ("pt", "br")               => l.code.some
-      case ("zh", "tw")               => l.code.some
-      case ("zh", _)                  => "zh-cn".some
+      case ("pt", "br") => l.code.some
+      case ("zh", "tw") => l.code.some
+      case ("zh", _) => "zh-cn".some
       case ("ar", "ma" | "sa" | "tn") => l.code.some
-      case ("fr", "ca")               => l.code.some
-      case _                          => l.language.some
+      case ("fr", "ca") => l.code.some
+      case _ => l.language.some
     }).fold(Html("")) { locale =>
       jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true)
     }
@@ -87,12 +91,14 @@ trait AssetHelper { self: I18nHelper =>
   val tagmanagerTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",
-    local = staticUrl("vendor/tagmanager/tagmanager.js"))
+    local = staticUrl("vendor/tagmanager/tagmanager.js")
+  )
 
   val typeaheadTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
     test = "$.typeahead",
-    local = staticUrl("javascripts/vendor/typeahead.bundle.min.js"))
+    local = staticUrl("javascripts/vendor/typeahead.bundle.min.js")
+  )
 
   val fingerprintTag = Html {
     """<script src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""

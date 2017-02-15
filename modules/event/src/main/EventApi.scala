@@ -8,14 +8,16 @@ import lila.memo._
 
 final class EventApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   import BsonHandlers._
 
   val promotable = asyncCache.single(
     name = "event.promotable",
     fetchPromotable,
-    expireAfter = _.ExpireAfterWrite(5 minutes))
+    expireAfter = _.ExpireAfterWrite(5 minutes)
+  )
 
   def fetchPromotable: Fu[List[Event]] = coll.find($doc(
     "enabled" -> true,

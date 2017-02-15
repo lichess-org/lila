@@ -24,8 +24,10 @@ final class JsonView(
     getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
     divider: lila.game.Divider,
+    evalCache: lila.evalCache.EvalCacheApi,
     baseAnimationDuration: Duration,
-    moretimeSeconds: Int) {
+    moretimeSeconds: Int
+) {
 
   import JsonView._
 
@@ -38,7 +40,8 @@ final class JsonView(
     apiVersion: ApiVersion,
     playerUser: Option[User],
     initialFen: Option[String],
-    withBlurs: Boolean): Fu[JsObject] =
+    withBlurs: Boolean
+  ): Fu[JsObject] =
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) map {
@@ -118,19 +121,21 @@ final class JsonView(
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),
             "takebackable" -> takebackable,
-            "crazyhouse" -> pov.game.crazyData).noNull
+            "crazyhouse" -> pov.game.crazyData
+          ).noNull
       }
 
   def watcherJson(
     pov: Pov,
     pref: Pref,
     apiVersion: ApiVersion,
-    user: Option[User],
+    me: Option[User],
     tv: Option[OnTv],
     withBlurs: Boolean,
     initialFen: Option[String] = None,
     withMoveTimes: Boolean,
-    withDivision: Boolean) =
+    withDivision: Boolean
+  ) =
     getSocketStatus(pov.game.id) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
         case (socket, (playerUser, opponentUser)) =>
@@ -141,7 +146,8 @@ final class JsonView(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
                 "division" -> withDivision.option(divider(game, initialFen)),
                 "opening" -> game.opening,
-                "importedBy" -> game.pgnImport.flatMap(_.user)).noNull
+                "importedBy" -> game.pgnImport.flatMap(_.user)
+              ).noNull
             },
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock,
@@ -191,7 +197,8 @@ final class JsonView(
             ),
             "tv" -> tv.map { onTv =>
               Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
-            }
+            },
+            "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).noNull
       }
 
@@ -200,7 +207,13 @@ final class JsonView(
     if (l.deleted) j + ("d" -> JsBoolean(true)) else j
   }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, orientation: chess.Color, owner: Boolean) =
+  def userAnalysisJson(
+    pov: Pov,
+    pref: Pref,
+    orientation: chess.Color,
+    owner: Boolean,
+    me: Option[User]
+  ) =
     (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
       import pov._
       val fen = Forsyth >> game.toChess
@@ -216,7 +229,8 @@ final class JsonView(
           "fen" -> fen,
           "turns" -> game.turns,
           "player" -> game.turnColor.name,
-          "status" -> game.status),
+          "status" -> game.status
+        ),
         "player" -> Json.obj(
           "id" -> owner.option(pov.playerId),
           "color" -> color.name
@@ -235,7 +249,9 @@ final class JsonView(
           "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
         ),
         "path" -> pov.game.turns,
-        "userAnalysis" -> true)
+        "userAnalysis" -> true,
+        "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
+      )
     }
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
@@ -258,7 +274,8 @@ final class JsonView(
     "status" -> game.status,
     "boosted" -> game.boosted.option(true),
     "tournamentId" -> game.tournamentId,
-    "createdAt" -> game.createdAt).noNull
+    "createdAt" -> game.createdAt
+  ).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
@@ -272,7 +289,8 @@ final class JsonView(
     Json.obj(
       "ply" -> h.ply,
       "mean" -> h.mean,
-      "sd" -> h.sd)
+      "sd" -> h.sd
+    )
   }
 
   private def sourceJson(source: Source) = source.name
@@ -314,7 +332,8 @@ object JsonView {
     Json.obj(
       "key" -> v.key,
       "name" -> v.name,
-      "short" -> v.shortName)
+      "short" -> v.shortName
+    )
   }
 
   implicit val clockWriter: OWrites[Clock] = OWrites { c =>
@@ -325,7 +344,8 @@ object JsonView {
       "increment" -> c.increment,
       "white" -> truncateAt(c.remainingTime(Color.White), 2),
       "black" -> truncateAt(c.remainingTime(Color.Black), 2),
-      "emerg" -> c.emergTime)
+      "emerg" -> c.emergTime
+    )
   }
 
   implicit val correspondenceWriter: OWrites[CorrespondenceClock] = OWrites { c =>
@@ -334,7 +354,8 @@ object JsonView {
       "increment" -> c.increment,
       "white" -> c.whiteTime,
       "black" -> c.blackTime,
-      "emerg" -> c.emerg)
+      "emerg" -> c.emerg
+    )
   }
 
   implicit val openingWriter: OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
@@ -348,6 +369,7 @@ object JsonView {
   implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
     Json.obj(
       "middle" -> o.middle,
-      "end" -> o.end)
+      "end" -> o.end
+    )
   }
 }

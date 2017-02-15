@@ -6,7 +6,8 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     mongoCache: lila.memo.MongoCache.Builder,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
 
@@ -17,7 +18,8 @@ final class Env(
   lazy val ratingChartApi = new RatingChartApi(
     historyApi = api,
     mongoCache = mongoCache,
-    cacheTtl = CachedRatingChartTtl)
+    cacheTtl = CachedRatingChartTtl
+  )
 }
 
 object Env {
@@ -25,5 +27,6 @@ object Env {
   lazy val current = "history" boot new Env(
     config = lila.common.PlayApp loadConfig "history",
     mongoCache = lila.memo.Env.current.mongoCache,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

@@ -110,8 +110,8 @@ module.exports = function(root) {
       return newPath;
     }
     if (updateAt(path, function(parent) {
-      parent.children.push(node);
-    })) return newPath;
+        parent.children.push(node);
+      })) return newPath;
   }
 
   function addNodes(nodes, path) {

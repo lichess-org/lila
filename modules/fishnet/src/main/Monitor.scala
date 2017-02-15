@@ -6,7 +6,8 @@ private final class Monitor(
     moveDb: MoveDB,
     repo: FishnetRepo,
     sequencer: lila.hub.FutureSequencer,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
     case (acc, a) => acc + f(a).getOrElse(0)

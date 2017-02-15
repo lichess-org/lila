@@ -9,7 +9,8 @@ import lila.memo.Syncache
 
 final class AssetVersionApi(
     initialVersion: AssetVersion,
-    coll: Coll)(implicit system: akka.actor.ActorSystem) {
+    coll: Coll
+)(implicit system: akka.actor.ActorSystem) {
 
   def get: AssetVersion = cache sync true
 
@@ -27,5 +28,6 @@ final class AssetVersionApi(
     default = _ => lastVersion,
     strategy = Syncache.NeverWait,
     expireAfter = Syncache.ExpireAfterWrite(5 seconds),
-    logger = lila.log("assetVersion"))(system)
+    logger = lila.log("assetVersion")
+  )(system)
 }

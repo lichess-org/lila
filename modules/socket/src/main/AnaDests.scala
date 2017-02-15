@@ -1,22 +1,26 @@
 package lila.socket
 
+import play.api.libs.json._
+
+import chess.format.FEN
 import chess.opening._
 import chess.variant.Variant
 import lila.common.PimpedJson._
-import play.api.libs.json.JsObject
+import lila.tree.Node.openingWriter
 
 case class AnaDests(
     variant: Variant,
-    fen: String,
-    path: String) {
+    fen: FEN,
+    path: String
+) {
 
   def isInitial =
-    variant.standard && fen == chess.format.Forsyth.initial && path == ""
+    variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
 
   val dests: String =
-    if (isInitial) "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+    if (isInitial) AnaDests.initialDests
     else {
-      val sit = chess.Game(variant.some, fen.some).situation
+      val sit = chess.Game(variant.some, fen.value.some).situation
       sit.playable(false) ?? {
         sit.destinations map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
@@ -25,18 +29,22 @@ case class AnaDests(
     }
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen
+    FullOpeningDB findByFen fen.value
   }
+
+  def json = Json.obj(
+    "dests" -> dests,
+    "path" -> path
+  ).add("opening", opening)
 }
 
 object AnaDests {
 
-  case class Ref(
-      variant: Variant,
-      fen: String,
-      path: String) {
+  private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
-    def compute = AnaDests(variant, fen, path)
+  case class Ref(variant: Variant, fen: String, path: String) {
+
+    def compute = AnaDests(variant, FEN(fen), path)
   }
 
   def parse(o: JsObject) = for {

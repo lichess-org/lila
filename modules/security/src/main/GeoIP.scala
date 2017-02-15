@@ -23,7 +23,8 @@ final class GeoIP(file: String, cacheTtl: FiniteDuration) {
 case class Location(
     country: String,
     region: Option[String],
-    city: Option[String]) {
+    city: Option[String]
+) {
 
   def comparable = (country, ~region, ~city)
 

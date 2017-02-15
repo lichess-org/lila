@@ -12,7 +12,8 @@ import makeTimeout.short
 private final class StudyNotifier(
     netBaseUrl: String,
     notifyApi: NotifyApi,
-    relationApi: RelationApi) {
+    relationApi: RelationApi
+) {
 
   def invite(study: Study, invited: User, socket: ActorRef) =
     canNotify(study.ownerId, invited) flatMap {
@@ -22,7 +23,8 @@ private final class StudyNotifier(
             val notificationContent = InvitedToStudy(
               InvitedToStudy.InvitedBy(owner.id),
               InvitedToStudy.StudyName(study.name.value),
-              InvitedToStudy.StudyId(study.id.value))
+              InvitedToStudy.StudyId(study.id.value)
+            )
             val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
             notifyApi.addNotification(notification)
           }
@@ -32,7 +34,7 @@ private final class StudyNotifier(
 
   private def canNotify(fromId: User.ID, to: User): Fu[Boolean] =
     UserRepo.isTroll(fromId) flatMap {
-      case true  => relationApi.fetchFollows(to.id, fromId)
+      case true => relationApi.fetchFollows(to.id, fromId)
       case false => !relationApi.fetchBlocks(to.id, fromId)
     }
 }

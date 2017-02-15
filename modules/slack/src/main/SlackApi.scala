@@ -9,7 +9,8 @@ import lila.user.User
 final class SlackApi(
     client: SlackClient,
     isProd: Boolean,
-    implicit val lightUser: LightUser.Getter) {
+    implicit val lightUser: LightUser.Getter
+) {
 
   import SlackApi._
 
@@ -53,9 +54,9 @@ final class SlackApi(
   }
 
   def publishEvent(event: Event): Funit = event match {
-    case Error(msg)   => publishError(msg)
+    case Error(msg) => publishError(msg)
     case Warning(msg) => publishWarning(msg)
-    case Info(msg)    => publishInfo(msg)
+    case Info(msg) => publishInfo(msg)
     case Victory(msg) => publishVictory(msg)
   }
 
@@ -63,25 +64,29 @@ final class SlackApi(
     username = "lichess error",
     icon = "lightning",
     text = msg,
-    channel = "general"))
+    channel = "general"
+  ))
 
   def publishWarning(msg: String): Funit = client(SlackMessage(
     username = "lichess warning",
     icon = "thinking_face",
     text = msg,
-    channel = "general"))
+    channel = "general"
+  ))
 
   def publishVictory(msg: String): Funit = client(SlackMessage(
     username = "lichess victory",
     icon = "tada",
     text = msg,
-    channel = "general"))
+    channel = "general"
+  ))
 
   def publishInfo(msg: String): Funit = client(SlackMessage(
     username = "lichess info",
     icon = "monkey",
     text = msg,
-    channel = "general"))
+    channel = "general"
+  ))
 
   def publishRestart =
     if (isProd) publishInfo("Lichess has restarted!")
@@ -89,43 +94,50 @@ final class SlackApi(
       username = stage.name,
       icon = stage.icon,
       text = "stage has restarted.",
-      channel = "general"))
+      channel = "general"
+    ))
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
     icon = "oncoming_police_car",
     text = s"Let's have a look at https://lichess.org/@/${user.username}?mod",
-    channel = "tavern"))
+    channel = "tavern"
+  ))
 
   def userModNote(modName: String, username: String, note: String): Funit = client(SlackMessage(
     username = modName,
     icon = "spiral_note_pad",
     text = s"left a mod note on https://lichess.org/@/$username\n${note.take(140)}",
-    channel = "tavern"))
+    channel = "tavern"
+  ))
 
   def deployPre: Funit =
     if (isProd) client(SlackMessage(
       username = "deployment",
       icon = "rocket",
       text = "Lichess will be updated in a minute! Fasten your seatbelts.",
-      channel = "general"))
+      channel = "general"
+    ))
     else client(SlackMessage(
       username = stage.name,
       icon = stage.icon,
       text = "stage will be updated in a minute.",
-      channel = "general"))
+      channel = "general"
+    ))
 
   def deployPost: Funit =
     if (isProd) client(SlackMessage(
       username = "deployment",
       icon = "rocket",
       text = "Lichess is being updated! Brace for impact.",
-      channel = "general"))
+      channel = "general"
+    ))
     else client(SlackMessage(
       username = "stage.lichess.org",
       icon = "volcano",
       text = "stage has been updated!",
-      channel = "general"))
+      channel = "general"
+    ))
 }
 
 private object SlackApi {

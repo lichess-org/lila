@@ -31,7 +31,8 @@ object UserInfos {
           Round.BSONFields.puzzleId -> true,
           Round.BSONFields.ratingDiff -> true,
           Round.BSONFields.rating -> true
-        )).sort($sort desc Round.BSONFields.date)
+        )
+      ).sort($sort desc Round.BSONFields.date)
         .cursor[Round.Mini]()
         .gather[List](historySize atLeast chartSize)
         .map(_.reverse)

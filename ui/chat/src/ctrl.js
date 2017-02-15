@@ -95,6 +95,7 @@ module.exports = function(opts) {
     preset: preset,
     post: post,
     trans: trans,
+    public: opts.public,
     setEnabled: function(v) {
       vm.enabled(v);
       emitEnabled();

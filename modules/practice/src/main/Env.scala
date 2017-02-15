@@ -4,13 +4,16 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.PimpedConfig._
+
 final class Env(
     config: Config,
     configStore: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val CollectionProgress = config getString "collection.progress"
 
@@ -18,7 +21,8 @@ final class Env(
     coll = db(CollectionProgress),
     configStore = configStore[PracticeConfig]("practice", logger),
     asyncCache = asyncCache,
-    studyApi = studyApi)
+    studyApi = studyApi
+  )
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import lila.study.actorApi._
@@ -36,5 +40,6 @@ object Env {
     studyApi = lila.study.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

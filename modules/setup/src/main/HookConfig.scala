@@ -14,27 +14,30 @@ case class HookConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    ratingRange: RatingRange) extends HumanConfig {
+    ratingRange: RatingRange
+) extends HumanConfig {
 
   def fixColor = copy(
     color = if (mode == Mode.Rated &&
-      lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
-      color != Color.Random) Color.Random else color)
+    lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+    color != Color.Random) Color.Random else color
+  )
 
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) = tc match {
-    case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
+    case Some("realTime") => copy(timeMode = TimeMode.RealTime)
     case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
-    case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
-    case _                      => this
+    case Some("unlimited") => copy(timeMode = TimeMode.Unlimited)
+    case _ => this
   }
 
   def hook(
     uid: String,
     user: Option[User],
     sid: Option[String],
-    blocking: Set[String]): Either[Hook, Option[Seek]] = timeMode match {
+    blocking: Set[String]
+  ): Either[Hook, Option[Seek]] = timeMode match {
     case TimeMode.RealTime => Left(Hook.make(
       uid = uid,
       variant = variant,
@@ -44,7 +47,8 @@ case class HookConfig(
       user = user,
       blocking = blocking,
       sid = sid,
-      ratingRange = ratingRange))
+      ratingRange = ratingRange
+    ))
     case _ => Right(user map { u =>
       Seek.make(
         variant = variant,
@@ -53,7 +57,8 @@ case class HookConfig(
         color = color.name,
         user = u,
         blocking = blocking,
-        ratingRange = ratingRange)
+        ratingRange = ratingRange
+      )
     })
   }
 
@@ -65,7 +70,8 @@ case class HookConfig(
     time = game.clock.map(_.limitInMinutes) | time,
     increment = game.clock.map(_.increment) | increment,
     days = game.daysPerTurn | days,
-    mode = game.mode)
+    mode = game.mode
+  )
 }
 
 object HookConfig extends BaseHumanConfig {
@@ -80,7 +86,8 @@ object HookConfig extends BaseHumanConfig {
       days = d,
       mode = realMode,
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = Color(c) err "Invalid color " + c)
+      color = Color(c) err "Invalid color " + c
+    )
   }
 
   val default = HookConfig(
@@ -91,7 +98,8 @@ object HookConfig extends BaseHumanConfig {
     days = 2,
     mode = Mode.default,
     ratingRange = RatingRange.default,
-    color = Color.default)
+    color = Color.default
+  )
 
   import lila.db.BSON
   import lila.db.dsl._
@@ -108,7 +116,8 @@ object HookConfig extends BaseHumanConfig {
       days = r int "d",
       mode = Mode orDefault (r int "m"),
       color = Color.Random,
-      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
+      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
+    )
 
     def writes(w: BSON.Writer, o: HookConfig) = $doc(
       "v" -> o.variant.id,
@@ -117,6 +126,7 @@ object HookConfig extends BaseHumanConfig {
       "i" -> o.increment,
       "d" -> o.days,
       "m" -> o.mode.id,
-      "e" -> o.ratingRange.toString)
+      "e" -> o.ratingRange.toString
+    )
   }
 }

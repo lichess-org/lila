@@ -1,6 +1,7 @@
 package controllers
 
 import lila.api._
+import lila.socket.Socket.Uid
 import lila.user.UserContext
 
 import play.api.mvc.RequestHeader
@@ -12,8 +13,11 @@ trait RequestGetter {
   protected def get(name: String, req: RequestHeader): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
 
+  protected def getSocketUid(name: String)(implicit ctx: UserContext): Option[Uid] =
+    get(name) map Uid.apply
+
   protected def getInt(name: String)(implicit ctx: UserContext) =
-    get(name)(ctx) flatMap parseIntOption
+    get(name) flatMap parseIntOption
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
     req.queryString get name flatMap (_.headOption) flatMap parseIntOption

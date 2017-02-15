@@ -36,7 +36,8 @@ final class TournamentApi(
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     asyncCache: lila.memo.AsyncCache.Builder,
-    standingChannel: ActorRef) {
+    standingChannel: ActorRef
+) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     val variant = chess.variant.Variant orDefault setup.variant
@@ -50,7 +51,8 @@ final class TournamentApi(
       password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
       variant = variant,
-      position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
+      position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial
+    )
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
   }
@@ -160,16 +162,16 @@ final class TournamentApi(
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
       PlayerRepo.bestByTourWithRank(tour.id, 100).flatMap {
         _.map {
-          case rp if rp.rank == 1  => trophyApi.award(rp.player.userId, _.MarathonWinner)
+          case rp if rp.rank == 1 => trophyApi.award(rp.player.userId, _.MarathonWinner)
           case rp if rp.rank <= 10 => trophyApi.award(rp.player.userId, _.MarathonTopTen)
           case rp if rp.rank <= 50 => trophyApi.award(rp.player.userId, _.MarathonTopFifty)
-          case rp                  => trophyApi.award(rp.player.userId, _.MarathonTopHundred)
+          case rp => trophyApi.award(rp.player.userId, _.MarathonTopHundred)
         }.sequenceFu.void
       }
     }
 
   def verdicts(tour: Tournament, me: Option[User]): Fu[Condition.All.WithVerdicts] = me match {
-    case None       => fuccess(tour.conditions.accepted)
+    case None => fuccess(tour.conditions.accepted)
     case Some(user) => verify(tour.conditions, user)
   }
 
@@ -319,7 +321,8 @@ final class TournamentApi(
   private val miniStandingCache = asyncCache.multi[String, List[RankedPlayer]](
     name = "tournament.miniStanding",
     id => PlayerRepo.bestByTourWithRank(id, 30),
-    expireAfter = _.ExpireAfterWrite(3 second))
+    expireAfter = _.ExpireAfterWrite(3 second)
+  )
 
   def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
     TournamentRepo byId tourId flatMap {
@@ -382,7 +385,7 @@ final class TournamentApi(
     sequence(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
-        case None    => fufail(s"Can't run sequenced operation on missing tournament $tourId")
+        case None => fufail(s"Can't run sequenced operation on missing tournament $tourId")
       }
     }
   }
@@ -422,7 +425,8 @@ final class TournamentApi(
       throttler ! EarlyMultiThrottler.work(
         id = tourId,
         run = publishNow(tourId),
-        cooldown = 15.seconds)
+        cooldown = 15.seconds
+      )
   }
 
   private def sendTo(tourId: String, msg: Any): Unit =

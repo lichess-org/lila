@@ -10,7 +10,8 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
     notifyApi: lila.notify.NotifyApi,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val CollectionQuestion = config getString "collection.question"
   private val CollectionAnswer = config getString "collection.answer"
@@ -22,11 +23,13 @@ final class Env(
     answerColl = db(CollectionAnswer),
     mongoCache = mongoCache,
     asyncCache = asyncCache,
-    notifier = notifier)
+    notifier = notifier
+  )
 
   private lazy val notifier = new Notifier(
     notifyApi = notifyApi,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.timeline
+  )
 
   lazy val search = new Search(questionColl)
 
@@ -42,5 +45,6 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

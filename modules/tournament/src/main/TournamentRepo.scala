@@ -89,21 +89,24 @@ object TournamentRepo {
       "$or" -> $arr(
         $doc("nbPlayers" -> $doc("$gte" -> 15)),
         scheduledSelect
-      )))
+      )
+    ))
       .sort($doc("startsAt" -> -1))
       .list[Tournament](limit)
 
   def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
     adapter = new CachedAdapter(
-      new Adapter[Tournament](
-        collection = coll,
-        selector = finishedSelect,
-        projection = $empty,
-        sort = $doc("startsAt" -> -1)
-      ),
-      nbResults = fuccess(200 * 1000)),
+    new Adapter[Tournament](
+      collection = coll,
+      selector = finishedSelect,
+      projection = $empty,
+      sort = $doc("startsAt" -> -1)
+    ),
+    nbResults = fuccess(200 * 1000)
+  ),
     currentPage = page,
-    maxPerPage = maxPerPage)
+    maxPerPage = maxPerPage
+  )
 
   def setStatus(tourId: String, status: Status) = coll.update(
     $id(tourId),
@@ -152,19 +155,19 @@ object TournamentRepo {
     import Schedule.Freq._
     tour.schedule.map(_.freq) map {
       case Unique | Yearly | Marathon => 24 * 60
-      case Monthly                    => 6 * 60
-      case Weekly | Weekend           => 3 * 60
-      case Daily                      => 1 * 60
-      case _                          => 30
+      case Monthly => 6 * 60
+      case Weekly | Weekend => 3 * 60
+      case Daily => 1 * 60
+      case _ => 30
     } getOrElse 30
   }
 
   private[tournament] def promotable: Fu[List[Tournament]] =
     stillWorthEntering zip publicCreatedSorted(24 * 60) map {
       case (started, created) => (started ::: created).foldLeft(List.empty[Tournament]) {
-        case (acc, tour) if !isPromotable(tour)          => acc
+        case (acc, tour) if !isPromotable(tour) => acc
         case (acc, tour) if acc.exists(_ similarTo tour) => acc
-        case (acc, tour)                                 => tour :: acc
+        case (acc, tour) => tour :: acc
       }.reverse
     }
 
@@ -189,9 +192,9 @@ object TournamentRepo {
     }.foldLeft(List[Tournament]() -> none[Freq]) {
       case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
       case ((tours, skip), (tour, sched)) => (tour :: tours, sched.freq match {
-        case Freq.Daily   => Freq.Eastern.some
+        case Freq.Daily => Freq.Eastern.some
         case Freq.Eastern => Freq.Daily.some
-        case _            => skip
+        case _ => skip
       })
     }._1.reverse
   }
@@ -223,7 +226,8 @@ object TournamentRepo {
         nonEmptySelect ++
         $doc(
           "_id" $ne tourId,
-          "startsAt" $lt DateTime.now)
+          "startsAt" $lt DateTime.now
+        )
     ).cursor[Tournament](readPreference = ReadPreference.secondaryPreferred).gather[List]()
   }
 }

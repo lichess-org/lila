@@ -19,5 +19,6 @@ object GetOpening {
     }
   } yield Json.obj(
     "path" -> path,
-    "opening" -> opening)
+    "opening" -> opening
+  )
 }

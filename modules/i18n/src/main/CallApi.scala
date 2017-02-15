@@ -8,7 +8,8 @@ import lila.user.User
 private final class CallApi(
     minGames: Int,
     hideCallsCookieName: String,
-    transInfos: TransInfos) {
+    transInfos: TransInfos
+) {
 
   private var submitted = Set.empty[String]
 

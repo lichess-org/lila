@@ -23,18 +23,21 @@ sealed trait Chat[L <: Line] extends AnyChat {
 
 case class UserChat(
     id: ChatId,
-    lines: List[UserLine]) extends Chat[UserLine] {
+    lines: List[UserLine]
+) extends Chat[UserLine] {
 
   val loginRequired = true
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(
     this,
-    copy(lines = lines filterNot (_.troll)))
+    copy(lines = lines filterNot (_.troll))
+  )
 
   def markDeleted(u: User) = copy(
     lines = lines.map { l =>
       if (l.userId == u.id) l.delete else l
-    })
+    }
+  )
 
   def add(line: UserLine) = copy(lines = lines :+ line)
 
@@ -49,16 +52,18 @@ object UserChat {
 
 case class MixedChat(
     id: ChatId,
-    lines: List[Line]) extends Chat[Line] {
+    lines: List[Line]
+) extends Chat[Line] {
 
   val loginRequired = false
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(
     this,
     copy(lines = lines filter {
-      case l: UserLine   => !l.troll
+      case l: UserLine => !l.troll
       case l: PlayerLine => true
-    }))
+    })
+  )
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 
@@ -91,12 +96,14 @@ object Chat {
       implicit val lineReader = Line.lineBSONHandler(r.boolO(encoded) | true)
       MixedChat(
         id = r str id,
-        lines = r.get[List[Line]](lines))
+        lines = r.get[List[Line]](lines)
+      )
     }
     def writes(w: BSON.Writer, o: MixedChat) = BSONDocument(
       id -> o.id,
       lines -> o.lines.map(Line.lineBSONHandler(false).write),
-      encoded -> false)
+      encoded -> false
+    )
   }
 
   implicit val userChatBSONHandler = new BSON[UserChat] {
@@ -104,11 +111,13 @@ object Chat {
       implicit val lineReader = Line.userLineBSONHandler(r.boolO(encoded) | true)
       UserChat(
         id = r str id,
-        lines = r.get[List[UserLine]](lines))
+        lines = r.get[List[UserLine]](lines)
+      )
     }
     def writes(w: BSON.Writer, o: UserChat) = BSONDocument(
       id -> o.id,
       lines -> o.lines.map(Line.lineBSONHandler(false).write),
-      encoded -> false)
+      encoded -> false
+    )
   }
 }

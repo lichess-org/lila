@@ -17,7 +17,8 @@ object FormCompatLayer {
       "coords",
       "replay",
       "pieceNotation",
-      "blindfold")) {
+      "blindfold"
+    )) {
       moveTo("behavior", List(
         "moveEvent",
         "premove",
@@ -26,7 +27,8 @@ object FormCompatLayer {
         "autoThreefold",
         "submitMove",
         "confirmResign",
-        "keyboardMove")) {
+        "keyboardMove"
+      )) {
         reqToFormData(req)
       }
     }

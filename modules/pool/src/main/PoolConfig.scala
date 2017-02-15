@@ -6,7 +6,8 @@ import lila.rating.PerfType
 
 case class PoolConfig(
     clock: chess.Clock.Config,
-    wave: PoolConfig.Wave) {
+    wave: PoolConfig.Wave
+) {
 
   val perfType = PerfType(chess.Speed(clock).key) | PerfType.Classical
 

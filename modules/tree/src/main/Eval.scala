@@ -96,11 +96,13 @@ object Eval {
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
       Reads.of[Int] map Cp.apply,
-      Writes { cp => JsNumber(cp.value) })
+      Writes { cp => JsNumber(cp.value) }
+    )
 
     implicit val mateFormat: Format[Mate] = Format[Mate](
       Reads.of[Int] map Mate.apply,
-      Writes { mate => JsNumber(mate.value) })
+      Writes { mate => JsNumber(mate.value) }
+    )
 
     implicit val evalWrites = Writes[Eval] { eval =>
       Json.obj(

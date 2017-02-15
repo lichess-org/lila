@@ -34,7 +34,8 @@ object Work {
   case class Acquired(
       clientKey: Client.Key,
       userId: Client.UserId,
-      date: DateTime) {
+      date: DateTime
+  ) {
 
     def ageInMillis = nowMillis - date.getMillis
 
@@ -45,7 +46,8 @@ object Work {
       id: String,
       initialFen: Option[FEN],
       variant: Variant,
-      moves: String) {
+      moves: String
+  ) {
 
     def moveList = moves.split(' ').toList
 
@@ -56,7 +58,8 @@ object Work {
       userId: Option[String],
       ip: Option[String],
       mod: Boolean,
-      system: Boolean) {
+      system: Boolean
+  ) {
 
     override def toString = if (system) "lichess" else userId orElse ip getOrElse "unknown"
   }
@@ -69,7 +72,8 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
-      createdAt: DateTime) extends Work {
+      createdAt: DateTime
+  ) extends Work {
 
     def skill = Client.Skill.Move
 
@@ -77,9 +81,11 @@ object Work {
       acquired = Acquired(
         clientKey = client.key,
         userId = client.userId,
-        date = DateTime.now).some,
+        date = DateTime.now
+      ).some,
       lastTryByKey = client.key.some,
-      tries = tries + 1)
+      tries = tries + 1
+    )
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
@@ -100,7 +106,8 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
-      createdAt: DateTime) extends Work {
+      createdAt: DateTime
+  ) extends Work {
 
     def skill = Client.Skill.Analysis
 
@@ -108,9 +115,11 @@ object Work {
       acquired = Acquired(
         clientKey = client.key,
         userId = client.userId,
-        date = DateTime.now).some,
+        date = DateTime.now
+      ).some,
       lastTryByKey = client.key.some,
-      tries = tries + 1)
+      tries = tries + 1
+    )
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)

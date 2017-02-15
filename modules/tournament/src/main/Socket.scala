@@ -17,7 +17,8 @@ private[tournament] final class Socket(
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
+    socketTimeout: Duration
+) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -77,7 +78,7 @@ private[tournament] final class Socket(
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid, member)
+      addMember(uid.value, member)
       notifyCrowd
       sender ! Connected(enumerator, member)
 

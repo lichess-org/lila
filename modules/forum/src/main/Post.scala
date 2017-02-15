@@ -21,7 +21,8 @@ case class Post(
     lang: Option[String],
     editHistory: Option[List[OldVersion]] = None,
     createdAt: DateTime,
-    updatedAt: Option[DateTime] = None) {
+    updatedAt: Option[DateTime] = None
+) {
 
   private val permitEditsFor = 4 hours
   private val showEditFormFor = 3 hours
@@ -76,7 +77,8 @@ object Post {
     number: Int,
     lang: Option[String],
     troll: Boolean,
-    hidden: Boolean): Post = {
+    hidden: Boolean
+  ): Post = {
 
     Post(
       _id = Random nextString idSize,
@@ -90,6 +92,7 @@ object Post {
       troll = troll,
       hidden = hidden,
       createdAt = DateTime.now,
-      categId = categId)
+      categId = categId
+    )
   }
 }

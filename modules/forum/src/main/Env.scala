@@ -20,7 +20,8 @@ final class Env(
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val settings = new {
     val TopicMaxPerPage = config getInt "topic.max_per_page"
@@ -48,7 +49,8 @@ final class Env(
     shutup = shutup,
     timeline = hub.actor.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier)
+    mentionNotifier = mentionNotifier
+  )
 
   lazy val postApi = new PostApi(
     env = this,
@@ -58,7 +60,8 @@ final class Env(
     shutup = shutup,
     timeline = hub.actor.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier)
+    mentionNotifier = mentionNotifier
+  )
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
@@ -86,5 +89,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

@@ -1,5 +1,6 @@
 var m = require('mithril');
 var nodeFullName = require('../util').nodeFullName;
+var renderComment = require('./studyComments').embedYoutube;
 
 function authorDom(author) {
   if (!author) return 'Unknown';
@@ -15,12 +16,16 @@ function authorText(author) {
   return author.name;
 }
 
-var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:[^\s]*)/gi;
+var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?(?:[^"&?\/ ]{11})\S*/gi;
 
-function embedYoutube(text) {
-  return m.trust(lichess.escapeHtml(text).replace(commentYoutubeRegex, function(m, id) {
-    return '<iframe width="100%" height="300" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
-  }));
+function embedYoutube(text, allowNewlines) {
+  var html = lichess.escapeHtml(text).replace(commentYoutubeRegex, function(found) {
+    var url = lichess.toYouTubeEmbedUrl(found);
+    if (!url) return found;
+    return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
+  });
+  if (allowNewlines) html = html.replace(/\n/g, '<br>');
+  return m.trust(html);
 }
 
 module.exports = {
@@ -54,7 +59,7 @@ module.exports = {
           m('span.node', nodeFullName(node))
         ] : null,
         ': ',
-        m('span.text', embedYoutube(comment.text))
+        m('div.text', embedYoutube(comment.text))
       ]);
     }));
   }

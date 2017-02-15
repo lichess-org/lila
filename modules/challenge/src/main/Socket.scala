@@ -8,13 +8,15 @@ import scala.concurrent.duration.Duration
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.Socket.Uid
 
 private final class Socket(
     challengeId: String,
     val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
+    socketTimeout: Duration
+) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Unit] {
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -45,7 +47,7 @@ private final class Socket(
     case Socket.Join(uid, userId, owner) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Socket.Member(channel, userId, owner)
-      addMember(uid, member)
+      addMember(uid.value, member)
       sender ! Socket.Connected(enumerator, member)
 
     case Quit(uid) => quit(uid)
@@ -59,11 +61,12 @@ private object Socket {
   case class Member(
       channel: JsChannel,
       userId: Option[String],
-      owner: Boolean) extends lila.socket.SocketMember {
+      owner: Boolean
+  ) extends lila.socket.SocketMember {
     val troll = false
   }
 
-  case class Join(uid: String, userId: Option[String], owner: Boolean)
+  case class Join(uid: Uid, userId: Option[String], owner: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

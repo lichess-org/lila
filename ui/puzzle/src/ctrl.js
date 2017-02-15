@@ -298,7 +298,7 @@ module.exports = function(opts, i18n) {
 
   var nextNodeBest = function() {
     return treeOps.withMainlineChild(vm.node, function(n) {
-      return n.eval ? n.eval.best : null;
+      return n.eval ? n.eval.pvs[0].moves[0] : null;
     });
   };
 
@@ -429,7 +429,7 @@ module.exports = function(opts, i18n) {
     toggleCeval: toggleCeval,
     toggleThreatMode: toggleThreatMode,
     playBestMove: function() {
-      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.best);
+      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
       if (uci) playUci(uci);
     }
   });

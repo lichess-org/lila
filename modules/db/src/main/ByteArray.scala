@@ -40,7 +40,7 @@ object ByteArray {
       s.charAt(i) match {
         case '1' => sum += mult
         case '0' =>
-        case x   => sys error s"invalid binary literal: $x in $s"
+        case x => sys error s"invalid binary literal: $x in $s"
       }
       mult *= 2
       i -= 1

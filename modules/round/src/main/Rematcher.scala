@@ -13,7 +13,8 @@ private[round] final class Rematcher(
     messenger: Messenger,
     onStart: String => Unit,
     rematch960Cache: ExpireSetMemo,
-    isRematchCache: ExpireSetMemo) {
+    isRematchCache: ExpireSetMemo
+) {
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) =>
@@ -68,7 +69,7 @@ private[round] final class Rematcher(
         if (rematch960Cache.get(pov.game.id)) Chess960.pieces
         else situation.fold(Chess960.pieces)(_.situation.board.pieces)
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-      case variant      => variant.pieces
+      case variant => variant.pieces
     }
     users <- UserRepo byIds pov.game.userIds
   } yield Game.make(
@@ -78,14 +79,16 @@ private[round] final class Rematcher(
       },
       clock = pov.game.clock map (_.reset),
       turns = situation ?? (_.turns),
-      startedAtTurn = situation ?? (_.turns)),
+      startedAtTurn = situation ?? (_.turns)
+    ),
     whitePlayer = returnPlayer(pov.game, White, users),
     blackPlayer = returnPlayer(pov.game, Black, users),
     mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
     daysPerTurn = pov.game.daysPerTurn,
-    pgnImport = None)
+    pgnImport = None
+  )
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player = {
     val player = lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel)
@@ -103,6 +106,7 @@ private[round] final class Rematcher(
       Event.RedirectOwner(White, blackId, AnonCookie.json(game, Black)),
       Event.RedirectOwner(Black, whiteId, AnonCookie.json(game, White)),
       // tell spectators to reload
-      Event.Reload)
+      Event.Reload
+    )
   }
 }

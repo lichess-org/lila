@@ -73,13 +73,25 @@ object mon {
     val evictionCount = rec(s"caffeine.count.eviction.$name")
     val entryCount = rec(s"caffeine.count.entry.$name")
   }
+  object evalCache {
+    private val hit = inc("eval_Cache.all.hit")
+    private val miss = inc("eval_Cache.all.miss")
+    private def hitIf(cond: Boolean) = if (cond) hit else miss
+    private object byPly {
+      def hit(ply: Int) = inc(s"eval_Cache.ply.$ply.hit")
+      def miss(ply: Int) = inc(s"eval_Cache.ply.$ply.miss")
+      def hitIf(ply: Int, cond: Boolean) = if (cond) hit(ply) else miss(ply)
+    }
+    def register(ply: Int, isHit: Boolean) = {
+      hitIf(isHit)()
+      if (ply <= 10) byPly.hitIf(ply, isHit)()
+    }
+  }
   object lobby {
     object hook {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def acceptedRatedClock(clock: String) =
-        inc(s"lobby.hook.a_r_clock.${clock.replace("+", "_")}")
       def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
       def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
       def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
@@ -471,7 +483,6 @@ object mon {
       def puzzle = inc("export.png.puzzle")
     }
     def pdf = inc("export.pdf.game")
-    def visualizer = inc("export.visualizer.game")
   }
 
   def measure[A](path: RecPath)(op: => A) = {
@@ -545,7 +556,8 @@ object mon {
 
   private final class KamonTrace(
       context: TraceContext,
-      firstSegment: Segment) extends Trace {
+      firstSegment: Segment
+  ) extends Trace {
 
     def finishFirstSegment() = firstSegment.finish()
 
@@ -565,7 +577,8 @@ object mon {
       tags = Map.empty,
       timestamp = RelativeNanoTimestamp.now,
       status = Status.Open,
-      isLocal = false)
+      isLocal = false
+    )
     val firstSegment = context.startSegment(firstName, "logic", "mon")
     new KamonTrace(context, firstSegment)
   }

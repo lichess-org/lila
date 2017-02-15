@@ -11,7 +11,8 @@ final class Analyser(
     indexer: ActorSelection,
     requesterApi: RequesterApi,
     roundSocket: ActorSelection,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus
+) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id
 
@@ -37,7 +38,8 @@ final class Analyser(
             analysis = analysis,
             game = game,
             variant = game.variant,
-            initialFen = initialFen | FEN(game.variant.initialFen)))
+            initialFen = initialFen | FEN(game.variant.initialFen)
+          ))
       }
     }
 }

@@ -8,7 +8,8 @@ import lila.hub.actorApi.round.NbRounds
 import lila.socket.actorApi.NbMembers
 
 private final class KamonPusher(
-    countUsers: () => Int) extends Actor {
+    countUsers: () => Int
+) extends Actor {
 
   import KamonPusher._
 

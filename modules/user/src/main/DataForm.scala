@@ -30,7 +30,8 @@ object DataForm {
   case class Passwd(
       oldPasswd: String,
       newPasswd1: String,
-      newPasswd2: String) {
+      newPasswd2: String
+  ) {
     def samePasswords = newPasswd1 == newPasswd2
   }
 

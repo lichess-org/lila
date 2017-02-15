@@ -8,10 +8,11 @@ case class Profile(
     lastName: Option[String] = None,
     fideRating: Option[Int] = None,
     uscfRating: Option[Int] = None,
-    ecfRating: Option[Int] = None) {
+    ecfRating: Option[Int] = None
+) {
 
   def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
-    case Nil   => none
+    case Nil => none
     case names => (names mkString " ").some
   }
 

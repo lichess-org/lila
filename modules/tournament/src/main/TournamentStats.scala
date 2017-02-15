@@ -19,7 +19,8 @@ final class TournamentStatsApi(mongoCache: lila.memo.MongoCache.Builder) {
     keyToString = identity,
     f = fetch,
     timeToLive = 10 minutes,
-    timeToLiveMongo = 90.days.some)
+    timeToLiveMongo = 90.days.some
+  )
 
   private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] = for {
     rating <- PlayerRepo.averageRating(tournamentId)
@@ -34,7 +35,8 @@ case class TournamentStats(
   blackWins: Int,
   draws: Int,
   berserks: Int,
-  averageRating: Int)
+  averageRating: Int
+)
 
 private object TournamentStats {
 
@@ -49,7 +51,8 @@ private object TournamentStats {
           ~doc.getAs[Int]("games"),
           ~doc.getAs[Int]("moves"),
           ~doc.getAs[Int]("b1"),
-          ~doc.getAs[Int]("b2"))
+          ~doc.getAs[Int]("b2")
+        )
     }.toMap
     TournamentStats(
       games = colorStats.foldLeft(0)(_ + _._2.games),
@@ -58,6 +61,7 @@ private object TournamentStats {
       blackWins = colorStats.get(Color.Black.some).??(_.games),
       draws = colorStats.get(none).??(_.games),
       berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
-      averageRating = rating)
+      averageRating = rating
+    )
   }
 }

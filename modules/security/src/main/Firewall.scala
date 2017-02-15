@@ -17,7 +17,8 @@ final class Firewall(
     cookieName: Option[String],
     enabled: Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    cachedIpsTtl: FiniteDuration) {
+    cachedIpsTtl: FiniteDuration
+) {
 
   private def ipOf(req: RequestHeader) =
     lila.common.HTTPRequest lastRemoteAddress req
@@ -65,7 +66,8 @@ final class Firewall(
     private val cache = asyncCache.single(
       name = "firewall.ips",
       f = fetch,
-      expireAfter = _.ExpireAfterWrite(cachedIpsTtl))
+      expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
+    )
     private def strToIp(ip: String): Option[IP] = scala.util.Try {
       InetAddress.getByName(ip).getAddress.toVector
     }.toOption

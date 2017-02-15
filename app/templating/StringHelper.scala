@@ -63,28 +63,24 @@ trait StringHelper { self: NumberHelper =>
           // internal
           val link = delocalize(m.group(3))
           s"""<a rel="nofollow" href="//$link">$link</a>"""
-        }
-        else {
+        } else {
           // external
           val link = m.group(1)
           s"""<a rel="nofollow" href="$link" target="_blank">$link</a>"""
         }
-      }
-      else {
+      } else {
         if (s"${delocalize(m.group(2))}/" startsWith s"$netDomain/") {
           // internal
           val link = delocalize(m.group(1))
           s"""<a rel="nofollow" href="//$link">$link</a>"""
-        }
-        else {
+        } else {
           // external
           val link = m.group(1)
           s"""<a rel="nofollow" href="http://$link" target="_blank">$link</a>"""
         }
       }
     })
-  }
-  catch {
+  } catch {
     case e: IllegalArgumentException =>
       lila.log("templating").error(s"addLinks($text)", e)
       text
@@ -107,8 +103,8 @@ trait StringHelper { self: NumberHelper =>
   def splitNumber(s: String)(implicit ctx: UserContext): Html = Html {
     s match {
       case NumberFirstRegex(number, text) => "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
-      case NumberLastRegex(text, number)  => "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
-      case h                              => h.replace("\n", "<br />")
+      case NumberLastRegex(text, number) => "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
+      case h => h.replace("\n", "<br />")
     }
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)

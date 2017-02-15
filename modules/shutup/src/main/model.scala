@@ -6,7 +6,8 @@ case class UserRecord(
     tef: Option[List[Double]],
     prm: Option[List[Double]],
     prc: Option[List[Double]],
-    puc: Option[List[Double]]) {
+    puc: Option[List[Double]]
+) {
 
   def userId = _id
 
@@ -15,12 +16,14 @@ case class UserRecord(
     TextReport(TextType.TeamForumMessage, ~tef),
     TextReport(TextType.PrivateMessage, ~prm),
     TextReport(TextType.PrivateChat, ~prc),
-    TextReport(TextType.PublicChat, ~puc))
+    TextReport(TextType.PublicChat, ~puc)
+  )
 }
 
 case class TextAnalysis(
     text: String,
-    badWords: List[String]) {
+    badWords: List[String]
+) {
 
   lazy val nbWords = text.split("""\W+""").size
 
@@ -32,7 +35,8 @@ case class TextAnalysis(
 sealed abstract class TextType(
   val key: String,
   val rotation: Int,
-  val name: String)
+  val name: String
+)
 
 object TextType {
 

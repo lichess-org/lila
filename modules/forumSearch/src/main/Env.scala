@@ -10,7 +10,8 @@ final class Env(
     config: Config,
     postApi: PostApi,
     makeClient: Index => ESClient,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val IndexName = config getString "index"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -33,13 +34,14 @@ final class Env(
 
   private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     searchApi = api,
-    maxPerPage = PaginatorMaxPerPage)
+    maxPerPage = PaginatorMaxPerPage
+  )
 
   system.actorOf(Props(new Actor {
     import lila.forum.actorApi._
     def receive = {
       case InsertPost(post) => api store post
-      case RemovePost(id)   => client deleteById Id(id)
+      case RemovePost(id) => client deleteById Id(id)
       case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
     }
   }), name = ActorName)
@@ -51,5 +53,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "forumSearch",
     postApi = lila.forum.Env.current.postApi,
     makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

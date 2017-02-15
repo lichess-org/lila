@@ -13,20 +13,21 @@ object Prismic {
   val prismicLogger = (level: Symbol, message: String) => level match {
     case 'DEBUG => logger debug message
     case 'ERROR => logger error message
-    case _      => logger info message
+    case _ => logger info message
   }
 
   private val prismicApiCache = Env.memo.asyncCache.single[PrismicApi](
     name = "prismic.fetchPrismicApi",
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
-    expireAfter = _.ExpireAfterWrite(1 minute))
+    expireAfter = _.ExpireAfterWrite(1 minute)
+  )
 
   def prismicApi = prismicApiCache.get
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
       case (DocumentLink(id, _, _, slug, false), _) => routes.Blog.show(id, slug, ref).url
-      case _                                        => routes.Lobby.home.url
+      case _ => routes.Lobby.home.url
     }
 
   def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>

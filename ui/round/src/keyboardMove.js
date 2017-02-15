@@ -1,64 +1,61 @@
-var k = Mousetrap;
 var m = require('mithril');
-var partial = require('chessground').util.partial;
-
-function findOnlyOrig(allDests, dest) {
-  var found;
-  for (var key in allDests)
-    if (allDests[key].indexOf(dest) > -1) {
-      if (found) return;
-      found = key;
-    }
-  return found;
-}
 
 module.exports = {
-  ctrl: function(root) {
-    var cg = root.chessground;
+  ctrl: function(cg, step) {
     var focus = m.prop(false);
+    var handler;
+    var preHandlerBuffer = step.fen;
+    var select = function(key) {
+      if (cg.data.selected === key) cg.cancelMove();
+      else cg.selectSquare(key, true);
+    };
+    var usedSan = false;
     return {
-      focus: focus,
-      select: function(key) {
-        var selected = cg.data.selected;
-        if (selected === key) return cg.cancelMove();
-        var onlyOrig = selected ? null : findOnlyOrig(cg.data.movable.dests, key);
-        if (onlyOrig) cg.selectSquare(onlyOrig);
-        cg.selectSquare(key);
+      update: function(step) {
+        if (handler) handler(step.fen, cg.data.movable.dests);
+        else preHandlerBuffer = step.fen;
       },
-      cancel: cg.cancelMove
+      registerHandler: function(h) {
+        handler = h;
+        if (preHandlerBuffer) handler(preHandlerBuffer, cg.data.movable.dests);
+      },
+      focus: focus,
+      setFocus: function(v) {
+        focus(v);
+        m.redraw();
+      },
+      san: function(orig, dest) {
+        usedSan = true;
+        cg.cancelMove();
+        select(orig);
+        select(dest);
+      },
+      select: select,
+      hasSelected: function() {
+        return cg.data.selected;
+      },
+      usedSan: usedSan
     };
   },
   view: function(ctrl) {
     return m('div.keyboard-move', [
       m('input', {
+        spellcheck: false,
+        autocomplete: false,
         config: function(el, isUpdate) {
-          if (!isUpdate) {
-            el.focus();
-            k.bind('enter', function() {
-              el.focus();
-            });
-          }
+          if (!isUpdate) lichess.loadScript('/assets/javascripts/keyboardMove.js').then(function() {
+            ctrl.registerHandler(lichessKeyboardMove({
+              input: el,
+              setFocus: ctrl.setFocus,
+              select: ctrl.select,
+              hasSelected: ctrl.hasSelected,
+              san: ctrl.san
+            }));
+          });
         },
-        onfocus: partial(ctrl.focus, true),
-        onblur: partial(ctrl.focus, false),
-        onkeyup: function(e) {
-          if (e.which == 27) {
-            e.target.value = '';
-            return ctrl.cancel();
-          }
-          var v = e.target.value;
-          if (v.indexOf('/') > -1) {
-            var chatInput = document.querySelector('.mchat input.lichess_say');
-            if (chatInput) chatInput.focus();
-          } else {
-            if (v.length < 2) return;
-            if (v.match(/[a-h][1-8]/)) ctrl.select(v);
-          }
-          e.target.value = '';
-        }
       }),
       ctrl.focus() ?
-      m('em', 'Enter coordinates to select squares. Press escape to cancel, press / to focus chat') :
+      m('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
       m('strong', 'Press <enter> to focus')
     ]);
   }

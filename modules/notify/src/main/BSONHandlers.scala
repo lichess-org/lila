@@ -68,18 +68,18 @@ private object BSONHandlers {
           $doc("mentionedBy" -> mentionedBy, "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
           $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
-        case p: PrivateMessage           => PrivateMessageHandler.write(p)
-        case q: QaAnswer                 => QaAnswerHandler.write(q)
-        case t: TeamJoined               => TeamJoinedHandler.write(t)
-        case b: NewBlogPost              => NewBlogPostHandler.write(b)
+        case p: PrivateMessage => PrivateMessageHandler.write(p)
+        case q: QaAnswer => QaAnswerHandler.write(q)
+        case t: TeamJoined => TeamJoinedHandler.write(t)
+        case b: NewBlogPost => NewBlogPostHandler.write(b)
         case LimitedTournamentInvitation => $empty
-        case x: GameEnd                  => GameEndHandler.write(x)
-        case x: PlanStart                => PlanStartHandler.write(x)
-        case x: PlanExpire               => PlanExpireHandler.write(x)
-        case x: RatingRefund             => RatingRefundHandler.write(x)
-        case ReportedBanned              => $empty
-        case CoachReview                 => $empty
-        case x: CorresAlarm              => CorresAlarmHandler.write(x)
+        case x: GameEnd => GameEndHandler.write(x)
+        case x: PlanStart => PlanStartHandler.write(x)
+        case x: PlanExpire => PlanExpireHandler.write(x)
+        case x: RatingRefund => RatingRefundHandler.write(x)
+        case ReportedBanned => $empty
+        case CoachReview => $empty
+        case x: CorresAlarm => CorresAlarmHandler.write(x)
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -102,20 +102,20 @@ private object BSONHandlers {
     }
 
     def reads(reader: Reader): NotificationContent = reader.str("type") match {
-      case "mention"        => readMentionedNotification(reader)
-      case "invitedStudy"   => readInvitedStudyNotification(reader)
+      case "mention" => readMentionedNotification(reader)
+      case "invitedStudy" => readInvitedStudyNotification(reader)
       case "privateMessage" => PrivateMessageHandler read reader.doc
-      case "qaAnswer"       => QaAnswerHandler read reader.doc
-      case "teamJoined"     => TeamJoinedHandler read reader.doc
-      case "newBlogPost"    => NewBlogPostHandler read reader.doc
-      case "u"              => LimitedTournamentInvitation
-      case "gameEnd"        => GameEndHandler read reader.doc
-      case "planStart"      => PlanStartHandler read reader.doc
-      case "planExpire"     => PlanExpireHandler read reader.doc
-      case "ratingRefund"   => RatingRefundHandler read reader.doc
+      case "qaAnswer" => QaAnswerHandler read reader.doc
+      case "teamJoined" => TeamJoinedHandler read reader.doc
+      case "newBlogPost" => NewBlogPostHandler read reader.doc
+      case "u" => LimitedTournamentInvitation
+      case "gameEnd" => GameEndHandler read reader.doc
+      case "planStart" => PlanStartHandler read reader.doc
+      case "planExpire" => PlanExpireHandler read reader.doc
+      case "ratingRefund" => RatingRefundHandler read reader.doc
       case "reportedBanned" => ReportedBanned
-      case "coachReview"    => CoachReview
-      case "corresAlarm"    => CorresAlarmHandler read reader.doc
+      case "coachReview" => CoachReview
+      case "corresAlarm" => CorresAlarmHandler read reader.doc
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

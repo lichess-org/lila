@@ -30,10 +30,10 @@ object Setup extends LilaController with TheftPrevention {
         html.setup.ai(
           form,
           Env.fishnet.aiPerfApi.intRatings,
-          form("fen").value flatMap ValidFen(getBool("strict")))
+          form("fen").value flatMap ValidFen(getBool("strict"))
+        )
       }
-    }
-    else fuccess {
+    } else fuccess {
       Redirect(routes.Lobby.home + "#ai")
     }
   }
@@ -85,19 +85,22 @@ object Setup extends LilaController with TheftPrevention {
                     color = config.color.name,
                     challenger = (ctx.me, HTTPRequest sid req) match {
                       case (Some(user), _) => Right(user)
-                      case (_, Some(sid))  => Left(sid)
-                      case _               => Left("no_sid")
+                      case (_, Some(sid)) => Left(sid)
+                      case _ => Left("no_sid")
                     },
                     destUser = destUser,
-                    rematchOf = none)
+                    rematchOf = none
+                  )
                   env.processor.saveFriendConfig(config) >>
                     (Env.challenge.api create challenge) flatMap {
                       case true => negotiate(
                         html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                        api = _ => Challenge showChallenge challenge)
+                        api = _ => Challenge showChallenge challenge
+                      )
                       case false => negotiate(
                         html = fuccess(Redirect(routes.Lobby.home)),
-                        api = _ => fuccess(BadRequest(jsonError("Challenge not created"))))
+                        api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                      )
                     }
               }
             }
@@ -118,7 +121,8 @@ object Setup extends LilaController with TheftPrevention {
   private def hookResponse(res: HookResult) = res match {
     case HookResult.Created(id) => Ok(Json.obj(
       "ok" -> true,
-      "hook" -> Json.obj("id" -> id))) as JSON
+      "hook" -> Json.obj("id" -> id)
+    )) as JSON
     case HookResult.Refused => BadRequest(jsonError("Game was not created"))
   }
 
@@ -131,7 +135,8 @@ object Setup extends LilaController with TheftPrevention {
         env.forms.hook(ctx).bindFromRequest.fold(
           err => negotiate(
             html = BadRequest(errorsAsJson(err).toString).fuccess,
-            api = _ => BadRequest(errorsAsJson(err)).fuccess),
+            api = _ => BadRequest(errorsAsJson(err)).fuccess
+          ),
           config =>
             if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
             else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
@@ -178,7 +183,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def validateFen = Open { implicit ctx =>
     get("fen") flatMap ValidFen(getBool("strict")) match {
-      case None    => BadRequest.fuccess
+      case None => BadRequest.fuccess
       case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
     }
   }
@@ -212,6 +217,7 @@ object Setup extends LilaController with TheftPrevention {
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,
-      httpOnly = false.some)
+      httpOnly = false.some
+    )
   }
 }

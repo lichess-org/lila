@@ -17,7 +17,7 @@ object Maths {
   def mean[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
     @tailrec def recurse(a: List[T], sum: T, depth: Int): Double = {
       a match {
-        case Nil     => n.toDouble(sum) / depth
+        case Nil => n.toDouble(sum) / depth
         case x :: xs => recurse(xs, n.plus(sum, x), depth + 1)
       }
     }

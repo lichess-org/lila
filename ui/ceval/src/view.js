@@ -25,32 +25,41 @@ function localEvalInfo(ctrl, evs) {
     if (evs.server && ctrl.nextNodeBest()) return 'Using server analysis';
     return 'Loading engine...';
   }
-  if (evs.client.dict) return 'Book move';
-  var t = ['Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth];
-  if (ceval.pnaclSupported && evs.client.depth >= evs.client.maxDepth && !ceval.isDeeper())
+  var t = evs.client.cloud ? [
+    [
+      'Depth ' + (evs.client.depth || 0),
+      m('span.cloud', {
+        title: 'Cloud Analysis'
+      }, 'cloud')
+    ]
+  ] : [
+    'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
+  ];
+  if (ceval.canGoDeeper() && (
+      evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
+    ))
     t.push(m('a.deeper', {
-      onclick: function() {
-        ceval.goDeeper();
-      }
-    }, 'Go deeper'))
-  else if (evs.client.nps) t.push(', ' + Math.round(evs.client.nps / 1000) + ' knodes/s');
+      title: 'Go deeper',
+      'data-icon': 'O',
+      onclick: ceval.goDeeper
+    }))
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
 function threatInfo(threat) {
   if (!threat) return 'Loading engine...';
-  if (threat.dict) return 'Book move';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
-  if (threat.nps) t += ', ' + Math.round(threat.nps / 1000) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
 
 function threatButton(ctrl) {
-  return m('a', {
+  if (!ctrl.disableThreatMode || !ctrl.disableThreatMode()) return m('a', {
     class: classSet({
       'show-threat': true,
       active: ctrl.vm.threatMode,
-      hidden: ctrl.vm.node.check || (ctrl.disableThreatMode && ctrl.disableThreatMode())
+      hidden: ctrl.vm.node.check
     }),
     'data-icon': '7',
     title: 'Show threat (x)',
@@ -69,14 +78,14 @@ var serverNodes = 3.5e6;
 
 function getBestEval(evs) {
   var serverEv = evs.server,
-      localEv = evs.client;
+    localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
 
   // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
   if (localEv.nodes > serverNodes ||
-      (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
+    (localEv.mate && !(Math.abs(serverEv.mate) < Math.abs(localEv.mate))))
     return localEv;
 
   return serverEv;
@@ -119,9 +128,7 @@ module.exports = {
     var pearl, percent;
     if (bestEv && defined(bestEv.cp)) {
       pearl = renderEval(bestEv.cp);
-      percent = ctrl.nextNodeBest() ?
-        100 :
-        (evs.client ? Math.min(100, Math.round(100 * evs.client.depth / evs.client.maxDepth)) : 0)
+      percent = evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0;
     } else if (bestEv && defined(bestEv.mate)) {
       pearl = '#' + bestEv.mate;
       percent = 100;
@@ -137,7 +144,9 @@ module.exports = {
       else percent = 0;
     }
     var mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
-    return m('div.ceval_box',
+    return m('div', {
+        class: 'ceval_box ' + (percent < 100 && instance.isComputing() ? 'computing' : '')
+      },
       enabled ? m('div.bar', m('span', {
         class: threatMode ? 'threat' : '',
         style: {
@@ -192,10 +201,10 @@ module.exports = {
     if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
     var multiPv = instance.multiPv();
     var pvs, threat = false;
-    if (ctrl.vm.threatMode && ctrl.vm.node.threat && ctrl.vm.node.threat.pvs) {
+    if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
       pvs = ctrl.vm.node.threat.pvs;
       threat = true;
-    } else if (ctrl.vm.node.ceval && ctrl.vm.node.ceval.pvs)
+    } else if (ctrl.vm.node.ceval)
       pvs = ctrl.vm.node.ceval.pvs;
     else
       pvs = [];
@@ -221,10 +230,10 @@ module.exports = {
     }, range(multiPv).map(function(i) {
       if (!pvs[i]) return m('div.pv');
       else return m('div.pv', threat ? {} : {
-        'data-uci': pvs[i].best
+        'data-uci': pvs[i].moves[0]
       }, [
         multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp)) : null,
-        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].pv, pvs[i].mate))
+        m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].moves, pvs[i].mate))
       ]);
     }));
   }

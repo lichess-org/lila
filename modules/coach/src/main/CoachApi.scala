@@ -13,14 +13,16 @@ final class CoachApi(
     reviewColl: Coll,
     photographer: Photographer,
     asyncCache: lila.memo.AsyncCache.Builder,
-    notifyApi: NotifyApi) {
+    notifyApi: NotifyApi
+) {
 
   import BsonHandlers._
 
   private val cache = asyncCache.single[List[Coach]](
     name = "coach.list",
     f = coachColl.find($empty).list[Coach](),
-    expireAfter = _.ExpireAfterWrite(30 minutes))
+    expireAfter = _.ExpireAfterWrite(30 minutes)
+  )
 
   private def all = cache.get
 
@@ -98,12 +100,14 @@ final class CoachApi(
             text = data.text,
             approved = false,
             createdAt = DateTime.now,
-            updatedAt = DateTime.now)
+            updatedAt = DateTime.now
+          )
           case Some(r) => r.copy(
             score = data.score,
             text = data.text,
             approved = false,
-            updatedAt = DateTime.now)
+            updatedAt = DateTime.now
+          )
         }
         if (me.troll) fuccess(review)
         else {

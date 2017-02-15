@@ -1,6 +1,5 @@
 var m = require('mithril');
 var makePool = require('./pool');
-var dict = require('./dict');
 var median = require('./math').median;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
@@ -18,18 +17,19 @@ module.exports = function(opts) {
   var multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   var threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
-  var infinite = storedProp(storageKey('ceval.infinite'), false);
+  var infinite = storedProp('ceval.infinite', false);
   var curEval = null;
   var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
-  var started = false;
+  var started = false; // object if started
+  var lastStarted = false; // last started object (for going deeper even if stopped)
   var hovering = m.prop(null);
   var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=9',
-    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=9',
+    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=10',
+    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=11',
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
@@ -42,16 +42,16 @@ module.exports = function(opts) {
   var npsRecorder = (function() {
     var values = [];
     var applies = function(eval) {
-      return eval.nps && eval.depth >= 16 &&
+      return eval.knps && eval.depth >= 16 &&
         !eval.mate && Math.abs(eval.cp) < 500 &&
         (eval.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     }
     return function(eval) {
       if (!applies(eval)) return;
-      values.push(eval.nps);
+      values.push(eval.knps);
       if (values.length >= 5) {
         var depth = 18,
-          knps = median(values) / 1000;
+          knps = median(values);
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
         if (knps > 250) depth = 21;
@@ -80,12 +80,16 @@ module.exports = function(opts) {
     if (eval.depth === 12) lichess.storage.set('ceval.fen', eval.fen);
   };
 
+  var effectiveMaxDepth = function() {
+    return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
+  };
+
   var start = function(path, steps, threatMode, deeper) {
 
     if (!enabled() || !opts.possible) return;
 
     isDeeper(deeper);
-    var maxD = (deeper || infinite()) ? 99 : maxDepth();
+    var maxD = effectiveMaxDepth();
 
     var step = steps[steps.length - 1];
 
@@ -122,21 +126,7 @@ module.exports = function(opts) {
       }
     }
 
-    var dictRes = dict(work, opts.variant, multiPv());
-    if (dictRes) {
-      setTimeout(function() {
-        // this has to be delayed, or it slows down analysis first render.
-        work.emit({
-          fen: work.currentFen,
-          depth: maxD,
-          cp: dictRes.cp,
-          best: dictRes.best,
-          pvs: dictRes.pvs,
-          dict: true
-        });
-      }, 500);
-      pool.warmup();
-    } else pool.start(work);
+    pool.start(work);
 
     started = {
       path: path,
@@ -146,7 +136,7 @@ module.exports = function(opts) {
   };
 
   var goDeeper = function() {
-    var s = started;
+    var s = started || lastStarted;
     if (s) {
       stop();
       start(s.path, s.steps, s.threatMode, true);
@@ -156,17 +146,9 @@ module.exports = function(opts) {
   var stop = function() {
     if (!enabled() || !started) return;
     pool.stop();
+    lastStarted = started;
     started = false;
   };
-
-  // stop when another tab starts
-  lichess.storage.make('ceval.pool.start').listen(function() {
-    // click on element, the only way to have chrome act on background tab
-    if (enabled()) {
-      console.log('ceval.pool.start, closing ceval');
-      $('#analyse-toggle-ceval').click();
-    }
-  });
 
   return {
     pnaclSupported: pnaclSupported,
@@ -191,15 +173,22 @@ module.exports = function(opts) {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
-      enableStorage.set(enabled() ? '1' : '0');
+      if (document.visibilityState !== 'hidden')
+        enableStorage.set(enabled() ? '1' : '0');
     },
     curDepth: function() {
       return curEval ? curEval.depth : 0;
     },
-    maxDepth: maxDepth,
+    effectiveMaxDepth: effectiveMaxDepth,
     variant: opts.variant,
     isDeeper: isDeeper,
     goDeeper: goDeeper,
+    canGoDeeper: function() {
+      return pnaclSupported && !isDeeper() && !infinite();
+    },
+    isComputing: function() {
+      return !!started;
+    },
     destroy: pool.destroy
   };
 };

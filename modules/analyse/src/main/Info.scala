@@ -9,7 +9,8 @@ case class Info(
     ply: Int,
     eval: Eval,
     // variation is first in UCI, then converted to PGN before storage
-    variation: List[String] = Nil) {
+    variation: List[String] = Nil
+) {
 
   def cp = eval.cp
   def mate = eval.mate
@@ -38,9 +39,9 @@ case class Info(
   def isEmpty = cp.isEmpty && mate.isEmpty
 
   def forceCentipawns: Option[Int] = mate match {
-    case None             => cp.map(_.centipawns)
+    case None => cp.map(_.centipawns)
     case Some(m) if m < 0 => Some(Int.MinValue - m.value)
-    case Some(m)          => Some(Int.MaxValue - m.value)
+    case Some(m) => Some(Int.MaxValue - m.value)
   }
 
   override def toString = s"Info $color [$ply] ${cp.fold("?")(_.showPawns)} ${mate.??(_.value)} ${variation.mkString(" ")}"
@@ -68,7 +69,7 @@ object Info {
     case Array(cp, ma)         => Info(ply, Eval(unsafeScore(cp, ma), None)).some
     case Array(cp, ma, va)     => Info(ply, Eval(unsafeScore(cp, ma), None), va.split(' ').toList).some
     case Array(cp, ma, va, be) => Info(ply, Eval(unsafeScore(cp, ma), Uci.Move piotr be), va.split(' ').toList).some
-    case _                     => none
+    case _ => none
   }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {

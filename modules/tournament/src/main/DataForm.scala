@@ -23,8 +23,7 @@ final class DataForm {
     "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
-  ) fill TournamentSetup(
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill TournamentSetup(
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
@@ -33,7 +32,8 @@ final class DataForm {
     position = StartingPosition.initial.eco,
     `private` = None,
     password = None,
-    mode = Mode.Rated.id.some)
+    mode = Mode.Rated.id.some
+  )
 }
 
 object DataForm {
@@ -86,7 +86,8 @@ private[tournament] case class TournamentSetup(
     position: String,
     mode: Option[Int],
     `private`: Option[String],
-    password: Option[String]) {
+    password: Option[String]
+) {
 
   def validClock = (clockTime + clockIncrement) > 0
 

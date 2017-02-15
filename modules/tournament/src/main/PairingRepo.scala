@@ -15,7 +15,8 @@ object PairingRepo {
   def selectUser(userId: String) = $doc("u" -> userId)
   private def selectTourUser(tourId: String, userId: String) = $doc(
     "tid" -> tourId,
-    "u" -> userId)
+    "u" -> userId
+  )
   private val selectPlaying = $doc("s" -> $doc("$lt" -> chess.Status.Mate.id))
   private val selectFinished = $doc("s" -> $doc("$gte" -> chess.Status.Mate.id))
   private val recentSort = $doc("d" -> -1)
@@ -31,7 +32,8 @@ object PairingRepo {
       selectTour(tourId) ++ $doc("u" $in userIds),
       $doc("_id" -> false, "u" -> true)
     ).sort(recentSort).cursor[Bdoc]().fold(
-        scala.collection.immutable.Map.empty[String, String], nb) { (acc, doc) =>
+        scala.collection.immutable.Map.empty[String, String], nb
+      ) { (acc, doc) =>
         ~doc.getAs[List[String]]("u") match {
           case List(u1, u2) =>
             val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
@@ -78,7 +80,8 @@ object PairingRepo {
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
         GroupField("u")("nb" -> SumValue(1))
-      )).map {
+      )
+    ).map {
         _.firstBatch.flatMap { doc =>
           doc.getAs[String]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
@@ -111,16 +114,19 @@ object PairingRepo {
       $set(
         "s" -> g.status.id,
         "w" -> g.winnerColor.map(_.white),
-        "t" -> g.turns)).void
+        "t" -> g.turns
+      )
+    ).void
 
   def setBerserk(pairing: Pairing, userId: String, value: Int) = (userId match {
     case uid if pairing.user1 == uid => "b1".some
     case uid if pairing.user2 == uid => "b2".some
-    case _                           => none
+    case _ => none
   }) ?? { field =>
     coll.update(
       selectId(pairing.id),
-      $set(field -> value)).void
+      $set(field -> value)
+    ).void
   }
 
   private[tournament] def playingUserIds(tour: Tournament): Fu[Set[String]] =
@@ -135,7 +141,9 @@ object PairingRepo {
           "games" -> SumValue(1),
           "moves" -> SumField("t"),
           "b1" -> SumField("b1"),
-          "b2" -> SumField("b2"))
-      )).map { _.firstBatch }
+          "b2" -> SumField("b2")
+        )
+      )
+    ).map { _.firstBatch }
   }
 }

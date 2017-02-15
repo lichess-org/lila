@@ -8,7 +8,8 @@ final class StreamerList(
     val store: {
       def get: Fu[String]
       def set(text: String): Funit
-    }) {
+    }
+) {
 
   import StreamerList._
 
@@ -27,16 +28,17 @@ final class StreamerList(
       Try {
         Streamer(
           service = c getString "service" match {
-            case s if s == "twitch"  => Twitch
-            case s if s == "hitbox"  => Hitbox
+            case s if s == "twitch" => Twitch
+            case s if s == "hitbox" => Hitbox
             case s if s == "youtube" => Youtube
-            case s                   => sys error s"Invalid service name: $s"
+            case s => sys error s"Invalid service name: $s"
           },
           streamerName = c getString "streamer_name",
           streamerNameForDisplay = Try(c getString "streamer_name_for_display").toOption,
           lichessName = lila.user.User.normalize(c getString "lichess_name"),
           featured = c.getBoolean("featured"),
-          chat = c.getBoolean("chat"))
+          chat = c.getBoolean("chat")
+        )
       }
     }.foldLeft(List.empty[Streamer] -> List.empty[Exception]) {
       case ((res, err), Success(r)) => (r :: res, err)
@@ -47,8 +49,8 @@ final class StreamerList(
     }
   } match {
     case Failure(e: Exception) => (Nil, List(e))
-    case Failure(e)            => throw e
-    case Success((x, y))       => (x.reverse, y.reverse)
+    case Failure(e) => throw e
+    case Success((x, y)) => (x.reverse, y.reverse)
   }
 
   def form = {
@@ -58,7 +60,7 @@ final class StreamerList(
     Form(single(
       "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
         validate(t) match {
-          case (_, Nil)  => Valid
+          case (_, Nil) => Valid
           case (_, errs) => Invalid(ValidationError(errs.map(_.getMessage) mkString ","))
         }
       })
@@ -87,7 +89,8 @@ object StreamerList {
       streamerNameForDisplay: Option[String],
       lichessName: String,
       featured: Boolean,
-      chat: Boolean) {
+      chat: Boolean
+  ) {
 
     def showStreamerName = streamerNameForDisplay | streamerName
 

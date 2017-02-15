@@ -7,7 +7,8 @@ case class TransInfo(
     name: String,
     contributors: List[String],
     nbTranslated: Int,
-    nbMissing: Int) {
+    nbMissing: Int
+) {
 
   def code = lang.language
 

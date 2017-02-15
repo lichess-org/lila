@@ -10,13 +10,15 @@ import reactivemongo.bson._
 final class PrefApi(
     coll: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
-    cacheTtl: FiniteDuration) {
+    cacheTtl: FiniteDuration
+) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find($id(id)).uno[Pref]
   private val cache = asyncCache.multi(
     name = "pref.fetchPref",
     f = fetchPref,
-    expireAfter = _.ExpireAfterAccess(cacheTtl))
+    expireAfter = _.ExpireAfterAccess(cacheTtl)
+  )
 
   private implicit val prefBSONHandler = new BSON[Pref] {
 
@@ -60,7 +62,8 @@ final class PrefApi(
       rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
       pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
-      tags = r.getD("tags", Pref.default.tags))
+      tags = r.getD("tags", Pref.default.tags)
+    )
 
     def writes(w: BSON.Writer, o: Pref) = $doc(
       "_id" -> o._id,
@@ -98,14 +101,16 @@ final class PrefApi(
       "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
       "pieceNotation" -> o.pieceNotation,
-      "tags" -> o.tags)
+      "tags" -> o.tags
+    )
   }
 
   def saveTag(user: User, name: String, value: String) =
     coll.update(
       $id(user.id),
       $set(s"tags.$name" -> value),
-      upsert = true).void >>- { cache refresh user.id }
+      upsert = true
+    ).void >>- { cache refresh user.id }
 
   def getPrefById(id: String): Fu[Pref] = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref = getPrefById _

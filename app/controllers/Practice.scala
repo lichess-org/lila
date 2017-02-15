@@ -6,7 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.practice.JsonView._
-import lila.practice.UserStudy
+import lila.practice.{ UserStudy, PracticeSection, PracticeStudy }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
@@ -31,12 +31,29 @@ object Practice extends LilaController {
     OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
   }
 
+  def showSection(sectionId: String) =
+    redirectTo(sectionId)(_.studies.headOption)
+
+  def showStudySlug(sectionId: String, studySlug: String) =
+    redirectTo(sectionId)(_.studies.find(_.slug == studySlug))
+
+  private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) = Open { implicit ctx =>
+    env.api.structure.get.flatMap { struct =>
+      struct.sections.find(_.id == sectionId).fold(notFound) { section =>
+        select(section) ?? { study =>
+          Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
+        }
+      }
+    }
+  }
+
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
     case (analysisJson, studyJson) => NoCache(Ok(
       html.practice.show(us, lila.practice.JsonView.JsData(
         study = studyJson,
         analysis = analysisJson,
-        practice = lila.practice.JsonView(us)))
+        practice = lila.practice.JsonView(us)
+      ))
     ))
   }
 
@@ -45,7 +62,8 @@ object Practice extends LilaController {
       analysisJson(us) map {
         case (analysisJson, studyJson) => Ok(Json.obj(
           "study" -> studyJson,
-          "analysis" -> analysisJson)) as JSON
+          "analysis" -> analysisJson
+        )) as JSON
       }
     } map NoCache
   }
@@ -53,14 +71,15 @@ object Practice extends LilaController {
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       val pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false) zip
+      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false, me = ctx.me) zip
         studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
           case (baseData, studyJson) =>
             val analysis = baseData ++ Json.obj(
               "treeParts" -> partitionTreeJsonWriter.writes {
                 lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
               },
-              "practiceGoal" -> lila.practice.PracticeGoal(chapter))
+              "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+            )
             (analysis, studyJson)
         }
   }
@@ -69,9 +88,8 @@ object Practice extends LilaController {
     env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
-  def reset = AuthBody { implicit ctx =>
-    me =>
-      env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+  def reset = AuthBody { implicit ctx => me =>
+    env.api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
   def config = Auth { implicit ctx => me =>

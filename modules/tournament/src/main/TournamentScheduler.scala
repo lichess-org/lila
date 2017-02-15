@@ -235,7 +235,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           val conditions = Condition.All(
             nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
             maxRating = Condition.MaxRating(perf, rating).some,
-            minRating = none)
+            minRating = none
+          )
           at(date, hour) map { date =>
             Schedule(Hourly, speed, Standard, std, date, conditions)
           }
@@ -255,16 +256,15 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
             at(date, hour, 30) flatMap { date => (speed == Bullet) option Schedule(Hourly, speed, Crazyhouse, std, date) }
           ).flatten
         }
-
       ).flatten
 
       nextSchedules.map { sched =>
         sched.copy(conditions = Schedule conditionFor sched)
       }.foldLeft(List[Schedule]()) {
-        case (scheds, sched) if sched.at.isBeforeNow      => scheds
+        case (scheds, sched) if sched.at.isBeforeNow => scheds
         case (scheds, sched) if overlaps(sched, dbScheds) => scheds
-        case (scheds, sched) if overlaps(sched, scheds)   => scheds
-        case (scheds, sched)                              => sched :: scheds
+        case (scheds, sched) if overlaps(sched, scheds) => scheds
+        case (scheds, sched) => sched :: scheds
       } foreach api.createScheduled
     }
     catch {

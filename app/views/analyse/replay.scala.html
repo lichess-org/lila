@@ -17,7 +17,7 @@ data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth)
+chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 }),
 explorer: {
 endpoint: "@explorerEndpoint",
@@ -72,9 +72,6 @@ atom = atom.some) {
           }
           @if(game.isPgnImport) {
           <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
-          }
-          @if(false && lila.game.Game.visualisableVariants(game.variant)) {
-          <a data-icon="=" class="text" target="_blank" href="@routes.Export.visualizer(game.id)">Generate images</a>
           }
           <a data-icon="=" class="text embed_howto" target="_blank">Embed in your website</a>
         </div>

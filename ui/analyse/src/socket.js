@@ -10,7 +10,7 @@ module.exports = function(send, ctrl) {
 
   var anaDestsCache = (
     ctrl.data.game.variant.key === 'standard' &&
-    ctrl.tree.root.fen.split(' ')[0] === initialBoardFen
+    ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
   ) ? {
     '': {
       path: '',
@@ -46,6 +46,9 @@ module.exports = function(send, ctrl) {
     },
     analysisProgress: function(data) {
       ctrl.mergeAnalysisData(data);
+    },
+    evalHit: function(e) {
+      ctrl.evalCache.onCloudEval(e);
     }
   };
 
@@ -84,7 +87,10 @@ module.exports = function(send, ctrl) {
     }, 300);
     else {
       this.send('anaDests', req);
-      anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
+      anaDestsTimeout = setTimeout(function() {
+        console.log(req, 'resendAnaDests');
+        this.sendAnaDests(req);
+      }.bind(this), 3000);
     }
   }.bind(this);
 

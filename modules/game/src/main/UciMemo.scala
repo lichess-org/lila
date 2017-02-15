@@ -27,11 +27,11 @@ final class UciMemo(ttl: Duration) {
 
   def get(game: Game, max: Int = hardLimit): Fu[UciVector] =
     cache getIfPresent game.id filter { moves =>
-        moves.size.min(max) == game.pgnMoves.size.min(max)
-      } match {
-        case Some(moves) => fuccess(moves)
-        case _           => compute(game, max) addEffect { set(game, _) }
-      }
+      moves.size.min(max) == game.pgnMoves.size.min(max)
+    } match {
+      case Some(moves) => fuccess(moves)
+      case _ => compute(game, max) addEffect { set(game, _) }
+    }
 
   def drop(game: Game, nb: Int) = {
     val current = ~cache.getIfPresent(game.id)

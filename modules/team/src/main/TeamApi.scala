@@ -15,7 +15,8 @@ final class TeamApi(
     notifier: Notifier,
     forum: ActorSelection,
     indexer: ActorSelection,
-    timeline: ActorSelection) {
+    timeline: ActorSelection
+) {
 
   import BSONHandlers._
 
@@ -32,7 +33,8 @@ final class TeamApi(
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      createdBy = me)
+      createdBy = me
+    )
     coll.team.insert(team) >>
       MemberRepo.add(team.id, me.id) >>- {
         (cached invalidateTeamIds me.id)
@@ -48,15 +50,16 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen) |> { team =>
+      open = e.isOpen
+    ) |> { team =>
       coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
     }
   }
 
   def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id flatMap coll.team.byIds[Team]
+    cached teamIds me.id dmap (_.toList) flatMap coll.team.byIds[Team]
 
-  def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.nonEmpty)
+  def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
   def hasCreatedRecently(me: User): Fu[Boolean] =
     TeamRepo.userHasCreatedSince(me.id, creationPeriod)
@@ -109,8 +112,7 @@ final class TeamApi(
     _ = cached.nbRequests invalidate team.createdBy
     userOption ← UserRepo byId request.user
     _ ← userOption.filter(_ => accept).??(user =>
-      doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
-    )
+      doJoin(team, user.id) >>- notifier.acceptRequest(team, request))
   } yield ()
 
   def doJoin(team: Team, userId: String): Funit = !belongsTo(team.id, userId) flatMap {
@@ -120,7 +122,7 @@ final class TeamApi(
           cached invalidateTeamIds userId
           timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
         }
-    } recover lila.db.recoverDuplicateKey(e => ())
+    } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
@@ -162,8 +164,6 @@ final class TeamApi(
 
   def owns(teamId: String, userId: String): Fu[Boolean] =
     TeamRepo ownerOf teamId map (Some(userId) ==)
-
-  def teamIds(userId: String) = cached teamIds userId
 
   def teamName(teamId: String) = cached name teamId
 

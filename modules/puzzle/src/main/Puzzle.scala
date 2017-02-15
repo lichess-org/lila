@@ -16,7 +16,8 @@ case class Puzzle(
     perf: PuzzlePerf,
     vote: AggregateVote,
     attempts: Int,
-    mate: Boolean) {
+    mate: Boolean
+) {
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
@@ -48,7 +49,8 @@ object Puzzle {
     fen: String,
     color: Color,
     lines: Lines,
-    mate: Boolean)(id: PuzzleId) = new Puzzle(
+    mate: Boolean
+  )(id: PuzzleId) = new Puzzle(
     id = id,
     gameId = gameId,
     history = history,
@@ -60,7 +62,8 @@ object Puzzle {
     perf = PuzzlePerf.default,
     vote = AggregateVote.default,
     attempts = 0,
-    mate = mate)
+    mate = mate
+  )
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -68,10 +71,10 @@ object Puzzle {
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
     private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
       case Some(m) => s"$m${move drop 2}"
-      case _       => sys error s"Invalid piotr move notation: $move"
+      case _ => sys error s"Invalid piotr move notation: $move"
     }
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
+      case BSONElement(move, BSONBoolean(true)) => Win(readMove(move))
 
       case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
 
@@ -83,11 +86,11 @@ object Puzzle {
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
-      case _       => sys error s"Invalid move notation: $move"
+      case _ => sys error s"Invalid move notation: $move"
     }
     def write(lines: Lines): BSONDocument = BSONDocument(lines map {
-      case Win(move)         => writeMove(move) -> BSONBoolean(true)
-      case Retry(move)       => writeMove(move) -> BSONBoolean(false)
+      case Win(move) => writeMove(move) -> BSONBoolean(true)
+      case Retry(move) => writeMove(move) -> BSONBoolean(false)
       case Node(move, lines) => writeMove(move) -> write(lines)
     })
   }
@@ -129,7 +132,8 @@ object Puzzle {
       perf = r.get[PuzzlePerf](perf),
       vote = r.get[AggregateVote](vote),
       attempts = r int attempts,
-      mate = r bool mate)
+      mate = r bool mate
+    )
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
@@ -143,6 +147,7 @@ object Puzzle {
       perf -> o.perf,
       vote -> o.vote,
       attempts -> o.attempts,
-      mate -> o.mate)
+      mate -> o.mate
+    )
   }
 }

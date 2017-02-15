@@ -5,14 +5,15 @@ import lila.user.User
 
 final class MessageBatch(
     coll: Coll,
-    notifyApi: lila.notify.NotifyApi) {
+    notifyApi: lila.notify.NotifyApi
+) {
 
   def apply(me: User, action: String, ids: List[String]): Funit = ids.nonEmpty ?? {
     action match {
-      case "read"   => markRead(me, ids)
+      case "read" => markRead(me, ids)
       case "unread" => markUnread(me, ids)
       case "delete" => delete(me, ids)
-      case x        => fufail(s"Invalid message batch action: $x")
+      case x => fufail(s"Invalid message batch action: $x")
     }
   }
 
@@ -32,7 +33,8 @@ final class MessageBatch(
         ThreadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
             lila.notify.Notification.Notifies(me.id),
-            $doc("content.thread.id" -> thread.id)) void
+            $doc("content.thread.id" -> thread.id)
+          ) void
       }.sequenceFu.void
     }
 }

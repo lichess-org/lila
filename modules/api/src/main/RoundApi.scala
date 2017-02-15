@@ -6,6 +6,7 @@ import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
+import lila.user.User
 import lila.pref.Pref
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
@@ -19,7 +20,8 @@ private[api] final class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
-    getSimul: Simul.ID => Fu[Option[Simul]]) {
+    getSimul: Simul.ID => Fu[Option[Simul]]
+) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) flatMap { initialFen =>
@@ -95,15 +97,15 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean) =
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
-      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner) map
+      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner, me = me) map
         withTree(pov, analysis = none, initialFen, withOpening = true)_ map
         withForecast(pov, owner, fco)_
     }
 
-  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color) =
-    jsonView.userAnalysisJson(pov, pref, orientation, owner = false) map
+  def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User]) =
+    jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me) map
       withTree(pov, analysis = none, initialFen, withOpening = true)_
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withOpening: Boolean)(obj: JsObject) =
@@ -113,14 +115,16 @@ private[api] final class RoundApi(
       variant = pov.game.variant,
       analysis = analysis,
       initialFen = initialFen | pov.game.variant.initialFen,
-      withOpening = withOpening)))
+      withOpening = withOpening
+    )))
 
   private def withSteps(pov: Pov, initialFen: Option[String])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
-      initialFen = initialFen | pov.game.variant.initialFen))
+      initialFen = initialFen | pov.game.variant.initialFen
+    ))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
@@ -141,7 +145,8 @@ private[api] final class RoundApi(
           Json toJson fc
         }
         else Json.obj("onMyTurn" -> true)
-      })
+      }
+    )
     else json
 
   private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
@@ -161,7 +166,8 @@ private[api] final class RoundApi(
         },
         "ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
-          "black" -> data.blackRank))
+          "black" -> data.blackRank
+        ))
       ).noNull)
     }
 

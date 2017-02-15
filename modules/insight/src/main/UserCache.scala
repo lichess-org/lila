@@ -9,7 +9,8 @@ case class UserCache(
     _id: String, // user id
     count: Int, // nb insight entries
     ecos: Set[String],
-    date: DateTime) {
+    date: DateTime
+) {
 
   def id = _id
 }

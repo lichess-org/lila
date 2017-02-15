@@ -13,7 +13,8 @@ final class Env(
     getPref: String => Fu[lila.pref.Pref],
     system: ActorSystem,
     isOnline: lila.user.User.ID => Boolean,
-    lightUser: lila.common.LightUser.GetterSync) {
+    lightUser: lila.common.LightUser.GetterSync
+) {
 
   private val CollectionThread = config getString "collection.thread"
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
@@ -26,7 +27,8 @@ final class Env(
 
   lazy val batch = new MessageBatch(
     coll = threadColl,
-    notifyApi = notifyApi)
+    notifyApi = notifyApi
+  )
 
   lazy val api = new MessageApi(
     coll = threadColl,
@@ -35,12 +37,14 @@ final class Env(
     blocks = blocks,
     notifyApi = notifyApi,
     follows = follows,
-    lilaBus = system.lilaBus)
+    lilaBus = system.lilaBus
+  )
 
   lazy val security = new MessageSecurity(
     follows = follows,
     blocks = blocks,
-    getPref = getPref)
+    getPref = getPref
+  )
 }
 
 object Env {
@@ -55,5 +59,6 @@ object Env {
     getPref = lila.pref.Env.current.api.getPref,
     system = lila.common.PlayApp.system,
     isOnline = lila.user.Env.current.isOnline,
-    lightUser = lila.user.Env.current.lightUserSync)
+    lightUser = lila.user.Env.current.lightUserSync
+  )
 }

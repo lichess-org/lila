@@ -15,7 +15,7 @@ var nullMove = m('move.empty', '');
 
 function renderMove(step, curPly, orEmpty) {
   if (!step) return orEmpty ? emptyMove : nullMove;
-  var san = step.san[0] === 'P' ? step.san.slice(1) : step.san;
+  var san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
   return {
     tag: 'move',
     attrs: step.ply !== curPly ? {} : {

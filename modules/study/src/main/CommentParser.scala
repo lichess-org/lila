@@ -51,6 +51,6 @@ private[study] object CommentParser {
     case 'G' => "green"
     case 'R' => "red"
     case 'Y' => "yellow"
-    case _   => "blue"
+    case _ => "blue"
   }
 }

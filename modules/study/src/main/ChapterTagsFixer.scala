@@ -5,7 +5,8 @@ import lila.game.GameRepo
 
 private final class ChapterTagsFixer(
     repo: ChapterRepo,
-    gamePgnDump: lila.game.PgnDump) {
+    gamePgnDump: lila.game.PgnDump
+) {
 
   def apply(chapter: Chapter): Fu[Chapter] =
     if (chapter.tags.nonEmpty) fuccess(chapter)

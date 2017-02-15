@@ -14,7 +14,8 @@ object StepBuilder {
     id: String,
     pgnMoves: List[String],
     variant: Variant,
-    initialFen: String): JsArray = {
+    initialFen: String
+  ): JsArray = {
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
@@ -26,7 +27,8 @@ object StepBuilder {
             check = init.situation.check,
             dests = None,
             drops = None,
-            crazyData = init.situation.board.crazyData)
+            crazyData = init.situation.board.crazyData
+          )
           val moveSteps = games.map {
             case (g, m) => Step(
               ply = g.turns,
@@ -35,7 +37,8 @@ object StepBuilder {
               check = g.situation.check,
               dests = None,
               drops = None,
-              crazyData = g.situation.board.crazyData)
+              crazyData = g.situation.board.crazyData
+            )
           }
           (initStep :: moveSteps).map(_.toJson)
         }

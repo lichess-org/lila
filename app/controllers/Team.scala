@@ -25,7 +25,7 @@ object Team extends LilaController {
   def home(page: Int) = Open { implicit ctx =>
     NotForKids {
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine)
+        case true => Redirect(routes.Team.mine)
         case false => Redirect(routes.Team.all(page))
       }
     }
@@ -138,9 +138,9 @@ object Team extends LilaController {
 
   def join(id: String) = Auth { implicit ctx => implicit me =>
     api join id flatMap {
-      case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).fuccess
+      case Some(Joined(team)) => Redirect(routes.Team.show(team.id)).fuccess
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
-      case _                    => notFound
+      case _ => notFound
     }
   }
 
@@ -193,7 +193,8 @@ object Team extends LilaController {
     api.hasCreatedRecently(me) flatMap { did =>
       (did && !Granter.superAdmin(me)) fold (
         Forbidden(views.html.team.createLimit()).fuccess,
-        a)
+        a
+      )
     }
 
   private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {

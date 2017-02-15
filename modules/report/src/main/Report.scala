@@ -12,7 +12,8 @@ case class Report(
     text: String,
     processedBy: Option[String],
     createdAt: DateTime,
-    createdBy: String) {
+    createdBy: String
+) {
 
   def id = _id
   def slug = _id
@@ -73,12 +74,14 @@ object Report {
     user: User,
     reason: Reason,
     text: String,
-    createdBy: User): Report = new Report(
+    createdBy: User
+  ): Report = new Report(
     _id = Random nextString 8,
     user = user.id,
     reason = reason.key,
     text = text,
     processedBy = none,
     createdAt = DateTime.now,
-    createdBy = createdBy.id)
+    createdBy = createdBy.id
+  )
 }

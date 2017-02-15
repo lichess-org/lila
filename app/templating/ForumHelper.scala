@@ -25,13 +25,14 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   def authorName(post: Post) = post.userId match {
     case Some(userId) => userIdSpanMini(userId, withOnline = true)
-    case None         => Html(lila.user.User.anonymous)
+    case None => Html(lila.user.User.anonymous)
   }
 
   def authorLink(
     post: Post,
     cssClass: Option[String] = None,
-    withOnline: Boolean = true) = post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
+    withOnline: Boolean = true
+  ) = post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
     userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline)
   }
 }

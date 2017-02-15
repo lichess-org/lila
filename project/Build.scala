@@ -1,5 +1,6 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
 import com.typesafe.sbt.web.SbtWeb.autoImport._
+import com.typesafe.sbt.SbtScalariform
 import play.Play.autoImport._
 import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
@@ -46,7 +47,9 @@ object ApplicationBuild extends Build {
         "lila.api.Context",
         "lila.common.paginator.Paginator"),
       // trump sbt-web into not looking at public/
-      resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+      resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",
+      // don't autoformat play generated routes classes
+      excludeFilter in SbtScalariform.autoImport.scalariformFormat in Compile := "*Routes*"
     ))
 
   lazy val modules = Seq(
@@ -59,7 +62,7 @@ object ApplicationBuild extends Build {
     history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan,
-    event, coach, practice)
+    event, coach, practice, evalCache)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -173,7 +176,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
   )
 
-  lazy val analyse = project("analyse", Seq(common, hub, chess, game, user, notifyModule)).settings(
+  lazy val analyse = project("analyse", Seq(common, hub, chess, game, user, notifyModule, evalCache)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -240,7 +243,8 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val study = project("study", Seq(common, db, hub, socket, game, round, importer, notifyModule, relation)).settings(
+  lazy val study = project("study", Seq(
+    common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -251,6 +255,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val learn = project("learn", Seq(common, db, user)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  )
+
+  lazy val evalCache = project("evalCache", Seq(common, db, user, security, socket, tree)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

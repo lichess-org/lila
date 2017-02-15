@@ -11,7 +11,8 @@ final class Env(
     getFollowerIds: String => Fu[Set[String]],
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val CollectionEntry = config getString "collection.entry"
   private val CollectionUnsub = config getString "collection.unsub"
@@ -20,7 +21,8 @@ final class Env(
 
   lazy val entryRepo = new EntryRepo(
     coll = entryColl,
-    userMax = UserDisplayMax)
+    userMax = UserDisplayMax
+  )
 
   system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,
@@ -40,7 +42,7 @@ final class Env(
     unsubApi.get(channel, userId) flatMap {
       case true => fuccess(Some(true)) // unsubed
       case false => entryRepo.channelUserIdRecentExists(channel, userId) map {
-        case true  => Some(false) // subed
+        case true => Some(false) // subed
         case false => None // not applicable
       }
     }
@@ -59,5 +61,6 @@ object Env {
     getFollowerIds = lila.relation.Env.current.api.fetchFollowers,
     lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

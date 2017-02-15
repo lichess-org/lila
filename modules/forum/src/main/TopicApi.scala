@@ -18,7 +18,8 @@ private[forum] final class TopicApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier) {
+    mentionNotifier: MentionNotifier
+) {
 
   import BSONHandlers._
 
@@ -38,7 +39,8 @@ private[forum] final class TopicApi(
 
   def makeTopic(
     categ: Categ,
-    data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
+    data: DataForm.TopicData
+  )(implicit ctx: UserContext): Fu[Topic] =
     TopicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
       case (slug, lang) =>
         val topic = Topic.make(
@@ -46,7 +48,8 @@ private[forum] final class TopicApi(
           slug = slug,
           name = data.name,
           troll = ctx.troll,
-          hidden = categ.quiet)
+          hidden = categ.quiet
+        )
         val post = Post.make(
           topicId = topic.id,
           author = data.post.author,
@@ -57,7 +60,8 @@ private[forum] final class TopicApi(
           text = lila.security.Spam.replace(data.post.text),
           lang = lang map (_.language),
           number = 1,
-          categId = categ.id)
+          categId = categ.id
+        )
         env.postColl.insert(post) >>
           env.topicColl.insert(topic withPost post) >>
           env.categColl.update($id(categ.id), categ withTopic post) >>-
@@ -67,12 +71,12 @@ private[forum] final class TopicApi(
             val text = topic.name + " " + post.text
             shutup ! post.isTeam.fold(
               lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
-              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text))
+              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
+            )
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
               timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
-                post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
-              )
+                post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId))
             }
             lila.mon.forum.post.create()
           } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject topic
@@ -95,7 +99,8 @@ private[forum] final class TopicApi(
     Paginator(
       adapter = cachedAdapter,
       currentPage = page,
-      maxPerPage = maxPerPage)
+      maxPerPage = maxPerPage
+    )
   }
 
   def delete(categ: Categ, topic: Topic): Funit =

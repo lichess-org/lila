@@ -14,8 +14,8 @@ case class Assessible(analysed: Analysed) {
   def suspiciousErrorRate(color: Color): Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
       case Speed.Bullet => 25
-      case Speed.Blitz  => 20
-      case _            => 15
+      case Speed.Blitz => 20
+      case _ => 15
     })
 
   def alwaysHasAdvantage(color: Color): Boolean =
@@ -56,8 +56,7 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(T, _, T, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
       case PlayerFlags(T, _, _, T, _, _, _) => Cheating // high accuracy, moderate blurs
 
-      case PlayerFlags(_, T, _, T, T, _, _) => LikelyCheating // always has advantage, moderate blurs, highly consistent move times
-      case PlayerFlags(_, _, _, T, T, _, _) => LikelyCheating // high accuracy, moderate blurs => 93% chance cheating
+      case PlayerFlags(_, _, _, T, T, _, _) => LikelyCheating // moderate blurs, highly consistent move times
       case PlayerFlags(T, _, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
       case PlayerFlags(_, T, _, _, _, _, T) => LikelyCheating // Holds are bad, hmk?
 
@@ -70,7 +69,7 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(T, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
 
       case PlayerFlags(F, F, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
-      case _                                => NotCheating
+      case _ => NotCheating
     }
 
     if (flags.suspiciousHoldAlert) assessment

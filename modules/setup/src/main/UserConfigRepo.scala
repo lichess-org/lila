@@ -15,7 +15,8 @@ private[setup] object UserConfigRepo {
       coll.update(
         $id(config.id),
         f(config),
-        upsert = true).void
+        upsert = true
+      ).void
     }
 
   def config(user: User): Fu[UserConfig] =

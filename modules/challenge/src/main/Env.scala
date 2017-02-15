@@ -20,7 +20,8 @@ final class Env(
     hub: lila.hub.Env,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val CollectionChallenge = config getString "collection.challenge"
@@ -40,8 +41,10 @@ final class Env(
         history = new lila.socket.History(ttl = HistoryMessageTtl),
         getChallenge = repo.byId,
         uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout)
-    }), name = SocketName)
+        socketTimeout = SocketTimeout
+      )
+    }), name = SocketName
+  )
 
   def version(challengeId: Challenge.ID): Fu[Int] =
     socketHub ? Ask(challengeId, GetVersion) mapTo manifest[Int]
@@ -49,7 +52,8 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
-    pingChallenge = api.ping)
+    pingChallenge = api.ping
+  )
 
   lazy val api = new ChallengeApi(
     repo = repo,
@@ -60,11 +64,13 @@ final class Env(
     socketHub = socketHub,
     userRegister = hub.actor.userRegister,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus)
+    lilaBus = system.lilaBus
+  )
 
   private lazy val repo = new ChallengeRepo(
     coll = db(CollectionChallenge),
-    maxPerUser = MaxPerUser)
+    maxPerUser = MaxPerUser
+  )
 
   lazy val jsonView = new JsonView(lightUser, isOnline)
 
@@ -85,5 +91,6 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

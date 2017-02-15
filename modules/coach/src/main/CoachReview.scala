@@ -12,7 +12,8 @@ case class CoachReview(
     text: String,
     approved: Boolean,
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: DateTime
+) {
 
   def id = _id
 }

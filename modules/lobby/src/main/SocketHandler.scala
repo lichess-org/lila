@@ -8,6 +8,7 @@ import lila.common.PimpedJson._
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.Handler
+import lila.socket.Socket.Uid
 import lila.user.User
 import ornicar.scalalib.Zero
 
@@ -16,19 +17,22 @@ private[lobby] final class SocketHandler(
     lobby: ActorRef,
     socket: ActorRef,
     poolApi: PoolApi,
-    blocking: String => Fu[Set[String]]) {
+    blocking: String => Fu[Set[String]]
+) {
 
   private val HookPoolLimitPerMember = new lila.memo.RateLimit(
     credits = 25,
     duration = 1 minute,
     name = "lobby hook/pool per member",
-    key = "lobby.hook_pool.member")
+    key = "lobby.hook_pool.member"
+  )
 
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(
       k = member.uid,
       cost = cost,
-      msg = s"$msg mobile=${member.mobile}")(op)
+      msg = s"$msg mobile=${member.mobile}"
+    )(op)
 
   private def controller(socket: ActorRef, member: Member): Handler.Controller = {
     case ("join", o) => HookPoolLimit(member, cost = 5, msg = s"join $o") {
@@ -69,7 +73,9 @@ private[lobby] final class SocketHandler(
             ratingMap = user.ratingMap,
             ratingRange = ratingRange,
             lame = user.lame,
-            blocking = user.blocking))
+            blocking = user.blocking
+          )
+        )
       }
     }
     // leaving a pool
@@ -87,9 +93,9 @@ private[lobby] final class SocketHandler(
     case ("hookOut", _) => socket ! HookSub(member, false)
   }
 
-  def apply(uid: String, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
+  def apply(uid: Uid, user: Option[User], mobile: Boolean): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      val join = Join(uid = uid, user = user, blocking = blockedUserIds, mobile = mobile)
+      val join = Join(uid, user = user, blocking = blockedUserIds, mobile = mobile)
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
           (controller(socket, member), enum, member)

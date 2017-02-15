@@ -13,10 +13,11 @@ private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
     bus: lila.common.Bus,
     finisher: Finisher,
-    uciMemo: UciMemo) {
+    uciMemo: UciMemo
+) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
-    case p@HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
+    case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag + humanLag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
@@ -33,14 +34,15 @@ private[round] final class Player(
                     round ! ForecastPlay(move)
                   }
                   fuccess(progress.events)
-                }) >>- promiseOption.foreach(_.success(()))
+                }
+              ) >>- promiseOption.foreach(_.success(()))
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)
           }
-      case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
-      case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+      case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
+      case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-      case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
+      case _ => fufail(ClientError(s"$pov move refused for some reason"))
     }
   }
 
@@ -97,9 +99,9 @@ private[round] final class Player(
   }
 
   private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {
-    case Status.Mate                             => finisher.other(game, _.Mate, game.toChess.situation.winner)
-    case Status.VariantEnd                       => finisher.other(game, _.VariantEnd, game.toChess.situation.winner)
-    case status@(Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
-    case _                                       => fuccess(Nil)
+    case Status.Mate => finisher.other(game, _.Mate, game.toChess.situation.winner)
+    case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.toChess.situation.winner)
+    case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
+    case _ => fuccess(Nil)
   }
 }

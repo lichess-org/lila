@@ -54,7 +54,8 @@ private[gameSearch] object DataForm {
   val DateDelta = """^(\d+)(\w)$""".r
   private val dateConstraint = Constraints.pattern(
     regex = DateDelta,
-    error = "Invalid date.")
+    error = "Invalid date."
+  )
   val dateField = optional(nonEmptyText.verifying(dateConstraint))
 }
 
@@ -78,7 +79,8 @@ private[gameSearch] case class SearchData(
     dateMax: Option[String] = None,
     status: Option[Int] = None,
     analysed: Option[Int] = None,
-    sort: Option[SearchSort] = None) {
+    sort: Option[SearchSort] = None
+) {
 
   def sortOrDefault = sort | SearchSort()
 
@@ -101,7 +103,8 @@ private[gameSearch] case class SearchData(
     analysed = analysed map (_ == 1),
     whiteUser = players.cleanWhite,
     blackUser = players.cleanBlack,
-    sorting = Sorting(sortOrDefault.field, sortOrDefault.order))
+    sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
+  )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 
@@ -113,7 +116,7 @@ private[gameSearch] case class SearchData(
     case DateDelta(n, "w") => parseIntOption(n) map DateTime.now.minusWeeks
     case DateDelta(n, "m") => parseIntOption(n) map DateTime.now.minusMonths
     case DateDelta(n, "y") => parseIntOption(n) map DateTime.now.minusYears
-    case _                 => None
+    case _ => None
   }
 }
 
@@ -122,7 +125,8 @@ private[gameSearch] case class SearchPlayer(
     b: Option[String] = None,
     winner: Option[String] = None,
     white: Option[String] = None,
-    black: Option[String] = None) {
+    black: Option[String] = None
+) {
 
   lazy val cleanA = clean(a)
   lazy val cleanB = clean(b)
@@ -136,10 +140,12 @@ private[gameSearch] case class SearchPlayer(
 
 private[gameSearch] case class SearchSort(
   field: String = Sorting.default.f,
-  order: String = Sorting.default.order)
+  order: String = Sorting.default.order
+)
 
 private[gameSearch] case class SearchClock(
   initMin: Option[Int] = None,
   initMax: Option[Int] = None,
   incMin: Option[Int] = None,
-  incMax: Option[Int] = None)
+  incMax: Option[Int] = None
+)

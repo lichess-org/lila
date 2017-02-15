@@ -30,6 +30,9 @@ trait Handlers {
   def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[BSONBoolean, A] = isoHandler[A, Boolean, BSONBoolean](iso)
   def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[BSONBoolean, A] = booleanIsoHandler(Iso(from, to))
 
+  def doubleIsoHandler[A](implicit iso: DoubleIso[A]): BSONHandler[BSONDouble, A] = isoHandler[A, Double, BSONDouble](iso)
+  def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[BSONDouble, A] = doubleIsoHandler(Iso(from, to))
+
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[BSONDateTime, A] = isoHandler[A, DateTime, BSONDateTime](iso)
 
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {

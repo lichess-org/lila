@@ -7,7 +7,8 @@ import akka.actor._
 final class Env(
     lobbyActor: ActorSelection,
     system: akka.actor.ActorSystem,
-    onStart: String => Unit) {
+    onStart: String => Unit
+) {
 
   private lazy val hookThieve = new HookThieve(lobbyActor)
 
@@ -15,7 +16,8 @@ final class Env(
     configs = PoolList.all,
     hookThieve = hookThieve,
     gameStarter = gameStarter,
-    system = system)
+    system = system
+  )
 
   private lazy val gameStarter = new GameStarter(
     bus = system.lilaBus,
@@ -31,5 +33,6 @@ object Env {
   lazy val current: Env = "pool" boot new Env(
     lobbyActor = lila.hub.Env.current.actor.lobby,
     system = lila.common.PlayApp.system,
-    onStart = lila.game.Env.current.onStart)
+    onStart = lila.game.Env.current.onStart
+  )
 }

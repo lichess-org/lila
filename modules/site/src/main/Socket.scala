@@ -19,7 +19,7 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
     case Join(uid, userId, tags) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, tags)
-      addMember(uid, member)
+      addMember(uid.value, member)
       sender ! Connected(enumerator, member)
     }
 

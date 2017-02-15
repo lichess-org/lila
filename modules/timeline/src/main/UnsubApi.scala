@@ -22,7 +22,8 @@ private[timeline] final class UnsubApi(coll: Coll) {
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     coll.distinct[String, List](
-      "_id", $inIds(userIds.map { makeId(channel, _) }).some) map { unsubs =>
+      "_id", $inIds(userIds.map { makeId(channel, _) }).some
+    ) map { unsubs =>
         userIds diff unsubs.map(_ takeWhile ('@' !=))
       }
 }

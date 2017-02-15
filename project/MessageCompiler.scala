@@ -40,6 +40,7 @@ object MessageCompiler {
       s"""package lila.i18n
 package db
 
+// format: OFF
 object Registry {
 
   def load = Map[String, Map[String, String]]($content)
@@ -57,6 +58,7 @@ object Registry {
     s"""package lila.i18n
 package db
 
+// format: OFF
 private object $lang {
 
   def load = Map[String, String]($content)

@@ -9,7 +9,8 @@ import lila.user.UserRepo
 final class ShutupApi(
     coll: Coll,
     follows: (String, String) => Fu[Boolean],
-    reporter: akka.actor.ActorSelection) {
+    reporter: akka.actor.ActorSelection
+) {
 
   private implicit val doubleListHandler = bsonArrayToListHandler[Double]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
@@ -45,20 +46,23 @@ final class ShutupApi(
             if (textType == TextType.PublicChat && analysed.nbBadWords > 0) $doc(
               "pub" -> $doc(
                 "$each" -> List(text),
-                "$slice" -> -20)
+                "$slice" -> -20
+              )
             )
             else $empty
           val push = $doc(
             textType.key -> $doc(
               "$each" -> List(BSONDouble(analysed.ratio)),
-              "$slice" -> -textType.rotation)
+              "$slice" -> -textType.rotation
+            )
           ) ++ pushPublicLine
           coll.findAndUpdate(
             selector = $doc("_id" -> userId),
             update = $doc("$push" -> push),
             fetchNewObject = true,
-            upsert = true).map(_.value) map2 UserRecordBSONHandler.read flatMap {
-              case None             => fufail(s"can't find user record for $userId")
+            upsert = true
+          ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
+              case None => fufail(s"can't find user record for $userId")
               case Some(userRecord) => legiferate(userRecord)
             } logFailure lila.log("shutup")
       }
@@ -74,7 +78,8 @@ final class ShutupApi(
           TextType.TeamForumMessage.key -> true,
           TextType.PrivateMessage.key -> true,
           TextType.PrivateChat.key -> true,
-          TextType.PublicChat.key -> true))
+          TextType.PublicChat.key -> true
+        ))
       ).void
     }
 

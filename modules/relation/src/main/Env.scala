@@ -1,6 +1,7 @@
 package lila.relation
 
 import akka.actor._
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -10,12 +11,14 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    getOnlineUserIds: () => Set[String],
+    getOnlineUserIds: () => Set[ID],
     lightUser: lila.common.LightUser.Getter,
+    lightUserSync: lila.common.LightUser.GetterSync,
     followable: String => Fu[Boolean],
     system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val settings = new {
     val CollectionRelation = config getString "collection.relation"
@@ -37,15 +40,26 @@ final class Env(
     followable = followable,
     asyncCache = asyncCache,
     maxFollow = MaxFollow,
-    maxBlock = MaxBlock)
+    maxBlock = MaxBlock
+  )
 
   val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
+
+  private val onlineStudying: Cache[ID, String] /* userId, studyId */ =
+    Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write access in public studies
+
+  val currentlyStudying: ID => Option[String] = onlineStudying.getIfPresent
+
+  private val onlineStudyingAll: Cache[ID, String] /* userId, studyId */ =
+    Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write or read access in public and private studies
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
     lightUser = lightUser,
     api = api,
-    onlinePlayings
+    onlinePlayings,
+    onlineStudying,
+    onlineStudyingAll
   )), name = ActorName)
 
   scheduler.once(15 seconds) {
@@ -63,8 +77,10 @@ object Env {
     hub = lila.hub.Env.current,
     getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
     lightUser = lila.user.Env.current.lightUser,
+    lightUserSync = lila.user.Env.current.lightUserSync,
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler
+  )
 }

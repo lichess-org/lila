@@ -50,7 +50,8 @@ case class Root(
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
-    crazyData: Option[Crazyhouse.Data]) extends Node {
+    crazyData: Option[Crazyhouse.Data]
+) extends Node {
 
   def idOption = None
   def moveOption = None
@@ -77,7 +78,8 @@ case class Branch(
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     comp: Boolean = false,
-    crazyData: Option[Crazyhouse.Data]) extends Node {
+    crazyData: Option[Crazyhouse.Data]
+) extends Node {
 
   def idOption = Some(id)
   def moveOption = Some(move)
@@ -141,7 +143,7 @@ object Node {
     def set(comment: Comment) = Comments {
       if (list.exists(_.by == comment.by)) list.map {
         case c if c.by == comment.by => c.copy(text = comment.text)
-        case c                       => c
+        case c => c
       }
       else list :+ comment
     }
@@ -159,7 +161,8 @@ object Node {
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
           role.name -> JsNumber(count)
         }
-      })
+      }
+    )
   }
   private implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
@@ -168,7 +171,8 @@ object Node {
   implicit val openingWriter: OWrites[chess.opening.FullOpening] = OWrites { o =>
     Json.obj(
       "eco" -> o.eco,
-      "name" -> o.name)
+      "name" -> o.name
+    )
   }
 
   private implicit val posWrites: Writes[Pos] = Writes[Pos] { p =>
@@ -178,7 +182,7 @@ object Node {
   private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
-    case s: Shape.Arrow  => shapeArrowWrites writes s
+    case s: Shape.Arrow => shapeArrowWrites writes s
   }
   implicit val shapesWrites: Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.list.map(shapeWrites.writes))
@@ -197,8 +201,8 @@ object Node {
   implicit val commentAuthorWrites: Writes[Comment.Author] = Writes[Comment.Author] {
     case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
-    case Comment.Author.Lichess        => JsString("lichess")
-    case Comment.Author.Unknown        => JsNull
+    case Comment.Author.Lichess => JsString("lichess")
+    case Comment.Author.Unknown => JsNull
   }
   implicit val commentWriter = Json.writes[Node.Comment]
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
@@ -232,7 +236,8 @@ object Node {
       add("children", children, alwaysChildren || children.nonEmpty)
     )(Json.obj(
         "ply" -> ply,
-        "fen" -> fen))
+        "fen" -> fen
+      ))
   }
 
   implicit val defaultNodeJsonWriter: Writes[Node] =

@@ -15,7 +15,7 @@
     </div>
     <form id="practice_reset" class="actions" action="@routes.Practice.reset" method="post">
       @if(data.nbDoneChapters > 0) {
-      <a class="confirm" onclick="parentNode.submit()">Reset my progress</a>
+      <a onclick="if (confirm('You will lose your practice progress!')) parentNode.submit()">Reset my progress</a>
       }
     </form>
   </div>

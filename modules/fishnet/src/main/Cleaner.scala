@@ -12,7 +12,8 @@ private final class Cleaner(
     moveDb: MoveDB,
     analysisColl: Coll,
     monitor: Monitor,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   import BSONHandlers._
 

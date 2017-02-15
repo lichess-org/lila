@@ -11,12 +11,15 @@ final class AsyncCache[K, V](cache: AsyncLoadingCache[K, V], f: K => Fu[V]) {
   def get(k: K): Fu[V] = cache get k
 
   def refresh(k: K): Unit = cache.put(k, f(k))
+
+  def put(k: K, v: V): Unit = cache.put(k, fuccess(v))
 }
 
 final class AsyncCacheClearable[K, V](
     cache: Cache[K, Fu[V]],
     f: K => Fu[V],
-    logger: lila.log.Logger) {
+    logger: lila.log.Logger
+) {
 
   def get(k: K): Fu[V] = cache.get(k, (k: K) => {
     f(k).addFailureEffect { err =>
@@ -46,10 +49,12 @@ object AsyncCache {
       f: K => Fu[V],
       maxCapacity: Int = 32768,
       expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds) = {
+      resultTimeout: FiniteDuration = 5 seconds
+    ) = {
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.common.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout"))
+        lila.common.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
+      )
       val cache: AsyncLoadingCache[K, V] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
@@ -63,11 +68,13 @@ object AsyncCache {
       f: K => Fu[V],
       maxCapacity: Int = 32768,
       expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds) = {
+      resultTimeout: FiniteDuration = 5 seconds
+    ) = {
       val fullName = s"AsyncCache.clearable $name"
       val safeF = (k: K) => f(k).withTimeout(
         resultTimeout,
-        lila.common.LilaException(s"$fullName key=$k timed out after $resultTimeout"))
+        lila.common.LilaException(s"$fullName key=$k timed out after $resultTimeout")
+      )
       val cache: Cache[K, Fu[V]] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
@@ -80,10 +87,12 @@ object AsyncCache {
       name: String,
       f: => Fu[V],
       expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds) = {
+      resultTimeout: FiniteDuration = 5 seconds
+    ) = {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
-        lila.common.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout"))
+        lila.common.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
+      )
       val cache: AsyncLoadingCache[Unit, V] = makeExpire(
         Scaffeine().maximumSize(1),
         expireAfter
@@ -118,8 +127,9 @@ object AsyncCache {
 
   private def makeExpire[K, V](
     builder: Scaffeine[K, V],
-    expireAfter: AsyncCache.type => ExpireAfter): Scaffeine[K, V] = expireAfter(AsyncCache) match {
+    expireAfter: AsyncCache.type => ExpireAfter
+  ): Scaffeine[K, V] = expireAfter(AsyncCache) match {
     case ExpireAfterAccess(duration) => builder expireAfterAccess duration
-    case ExpireAfterWrite(duration)  => builder expireAfterWrite duration
+    case ExpireAfterWrite(duration) => builder expireAfterWrite duration
   }
 }

@@ -64,7 +64,7 @@ final class HistoryApi(coll: Coll) {
     ratingsMap(user, perf) map { ratings =>
       ratings.foldLeft(user.perfs(perf).intRating) {
         case (rating, (d, r)) if d >= days && r > rating => r
-        case (rating, _)                                 => rating
+        case (rating, _) => rating
       }
     }
   }

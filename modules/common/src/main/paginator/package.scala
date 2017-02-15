@@ -9,6 +9,7 @@ package object paginator {
       currentPage = p.currentPage,
       maxPerPage = p.maxPerPage,
       currentPageResults = p.currentPageResults map f,
-      nbResults = p.nbResults)
+      nbResults = p.nbResults
+    )
   }
 }

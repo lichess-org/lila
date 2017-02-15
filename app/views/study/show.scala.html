@@ -11,7 +11,7 @@ i18n: @board.userAnalysisI18n(),
 tagTypes: '@lila.study.PgnTags.typesToString',
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout, writeable = ctx.userId.??(s.canChat))
+chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout, writeable = ctx.userId.??(s.canChat), public = false)
 }),
 explorer: {
 endpoint: "@explorerEndpoint",

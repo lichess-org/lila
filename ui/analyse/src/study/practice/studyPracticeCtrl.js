@@ -9,8 +9,6 @@ var readOnlyProp = function(value) {
   };
 };
 
-var commentYoutubeRegex = /(?:https?:\/\/)(?:www\.)(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})/gi;
-
 module.exports = function(root, studyData, data) {
 
   var goal = m.prop();
@@ -80,6 +78,9 @@ module.exports = function(root, studyData, data) {
       root.userJump('');
       root.practice.reset();
       onLoad();
+    },
+    isWhite: function() {
+      return root.bottomColor() === 'white';
     }
   };
 };

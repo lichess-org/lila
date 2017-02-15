@@ -1,6 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var plural = require('../../util').plural;
+var renderComment = require('../studyComments').embedYoutube;
 
 var firstRender = true;
 
@@ -28,7 +29,8 @@ function selector(data) {
 };
 
 function renderGoal(practice, inMoves) {
-  switch (practice.goal().result) {
+  var goal = practice.goal();
+  switch (goal.result) {
     case 'mate':
       return 'Checkmate the opponent';
     case 'mateIn':
@@ -38,7 +40,9 @@ function renderGoal(practice, inMoves) {
     case 'equalIn':
       return 'Equalize in ' + plural('move', inMoves);
     case 'evalIn':
-      return 'Get a winning position in ' + plural('move', inMoves);
+      if (practice.isWhite() === (goal.cp >= 0))
+        return 'Get a winning position in ' + plural('move', inMoves);
+      return 'Defend for ' + plural('move', inMoves);
     case 'promotion':
       return 'Safely promote your pawn';
   }
@@ -75,7 +79,7 @@ module.exports = {
       default:
         return m('div.feedback.ongoing', [
           m('div.goal', renderGoal(p, p.goal().moves - p.nbMoves())),
-          p.comment() ? m('div.comment', p.comment()) : null
+          p.comment() ? m('div.comment', renderComment(p.comment(), true)) : null
         ]);
     }
   },
@@ -98,8 +102,10 @@ module.exports = {
         config: function(el, isUpdate) {
           if (!isUpdate)
             el.addEventListener('click', function(e) {
+              e.preventDefault();
               var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
               if (id) ctrl.setChapter(id);
+              return false;
             });
         }
       }, [
@@ -108,7 +114,8 @@ module.exports = {
           var active = !ctrl.vm.loading && current && current.id === chapter.id;
           var completion = data.completion[chapter.id] ? 'done' : 'ongoing';
           return [
-            m('div', {
+            m('a', {
+              href: data.url + '/' + chapter.id,
               key: chapter.id,
               'data-id': chapter.id,
               class: 'elem chapter ' + classSet({

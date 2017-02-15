@@ -9,7 +9,8 @@ import scala.concurrent.duration._
 
 final class ChatTimeout(
     coll: Coll,
-    duration: FiniteDuration) {
+    duration: FiniteDuration
+) {
 
   import ChatTimeout._
 
@@ -23,14 +24,16 @@ final class ChatTimeout(
         "user" -> user.id,
         "reason" -> reason,
         "createdAt" -> DateTime.now,
-        "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt))).void
+        "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
+      )).void
     }
 
   def isActive(chatId: String, userId: User.ID): Fu[Boolean] =
     coll.exists($doc(
       "chat" -> chatId,
       "user" -> userId,
-      "expiresAt" $exists true))
+      "expiresAt" $exists true
+    ))
 
   def activeUserIds(chat: UserChat): Fu[List[String]] =
     coll.primitive[String]($doc(

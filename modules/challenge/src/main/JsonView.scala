@@ -6,17 +6,20 @@ import lila.common.PimpedJson._
 
 final class JsonView(
     getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.user.User.ID => Boolean) {
+    isOnline: lila.user.User.ID => Boolean
+) {
 
   import Challenge._
 
   def apply(a: AllChallenges): JsObject = Json.obj(
     "in" -> a.in.map(apply(Direction.In.some)),
-    "out" -> a.out.map(apply(Direction.Out.some)))
+    "out" -> a.out.map(apply(Direction.Out.some))
+  )
 
   def show(challenge: Challenge, socketVersion: Int, direction: Option[Direction]) = Json.obj(
     "challenge" -> apply(direction)(challenge),
-    "socketVersion" -> socketVersion)
+    "socketVersion" -> socketVersion
+  )
 
   private def apply(direction: Option[Direction])(c: Challenge): JsObject = Json.obj(
     "id" -> c.id,
@@ -27,24 +30,28 @@ final class JsonView(
     "variant" -> Json.obj(
       "key" -> c.variant.key,
       "short" -> c.variant.shortName,
-      "name" -> c.variant.name),
+      "name" -> c.variant.name
+    ),
     "initialFen" -> c.initialFen,
     "rated" -> c.mode.rated,
     "timeControl" -> (c.timeControl match {
-      case c@TimeControl.Clock(clock) => Json.obj(
+      case c @ TimeControl.Clock(clock) => Json.obj(
         "type" -> "clock",
         "limit" -> clock.limit,
         "increment" -> clock.increment,
-        "show" -> clock.show)
+        "show" -> clock.show
+      )
       case TimeControl.Correspondence(d) => Json.obj(
         "type" -> "correspondence",
-        "daysPerTurn" -> d)
+        "daysPerTurn" -> d
+      )
       case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
     }),
     "color" -> c.colorChoice.toString.toLowerCase,
     "perf" -> Json.obj(
       "icon" -> iconChar(c).toString,
-      "name" -> c.perfType.name)
+      "name" -> c.perfType.name
+    )
   )
 
   private def iconChar(c: Challenge) =

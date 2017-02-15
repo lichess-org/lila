@@ -18,7 +18,9 @@ private final class AggregationPipeline {
         "$cond" -> $arr(
           $doc("$lte" -> $arr("$" + F.moves("t"), mtr.tenths.last)),
           mtr.id,
-          acc))
+          acc
+        )
+      )
     }
   private lazy val materialIdDispatcher = $doc(
     "$cond" -> $arr(
@@ -29,12 +31,16 @@ private final class AggregationPipeline {
           "$cond" -> $arr(
             $doc(mat.negative.fold("$lt", "$lte") -> $arr("$" + F.moves("i"), mat.imbalance)),
             mat.id,
-            acc))
-      }))
+            acc
+          )
+        )
+      }
+    )
+  )
   private def dimensionGroupId(dim: Dimension[_]): BSONValue = dim match {
     case Dimension.MovetimeRange => movetimeIdDispatcher
     case Dimension.MaterialRange => materialIdDispatcher
-    case d                       => BSONString("$" + d.dbKey)
+    case d => BSONString("$" + d.dbKey)
   }
 
   private val sampleGames = Sample(10 * 1000)
@@ -50,7 +56,8 @@ private final class AggregationPipeline {
   ).some
   private def groupMulti(d: Dimension[_], metricDbKey: String) = Group($doc(
     "dimension" -> dimensionGroupId(d),
-    "metric" -> ("$" + metricDbKey)))(
+    "metric" -> ("$" + metricDbKey)
+  ))(
     "v" -> SumValue(1),
     "ids" -> AddFieldToSet("_id")
   ).some
@@ -59,7 +66,9 @@ private final class AggregationPipeline {
     "ids" -> FirstField("ids"),
     "stack" -> Push($doc(
       "metric" -> "$_id.metric",
-      "v" -> "$v"))).some
+      "v" -> "$v"
+    ))
+  ).some
   private val sliceIds = Project($doc(
     "_id" -> true,
     "v" -> true,
@@ -171,7 +180,8 @@ private final class AggregationPipeline {
           unwindMoves,
           matchMoves(),
           sampleMoves,
-          group(dimension, GroupFunction("$avg",
+          group(dimension, GroupFunction(
+            "$avg",
             $doc("$divide" -> $arr("$" + F.moves("t"), 10))
           )),
           sliceIds
@@ -205,7 +215,7 @@ private final class AggregationPipeline {
         )
       }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))
-        case _         => Nil
+        case _ => Nil
       })).flatten
     )
   }

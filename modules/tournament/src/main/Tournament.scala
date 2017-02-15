@@ -28,7 +28,8 @@ case class Tournament(
     startsAt: DateTime,
     winnerId: Option[String] = None,
     featuredId: Option[String] = None,
-    spotlight: Option[Spotlight] = None) {
+    spotlight: Option[Spotlight] = None
+) {
 
   def isCreated = status == Status.Created
   def isStarted = status == Status.Started
@@ -80,7 +81,7 @@ case class Tournament(
 
   def similarTo(other: Tournament) = (schedule, other.schedule) match {
     case (Some(s1), Some(s2)) if s1 similarTo s2 => true
-    case _                                       => false
+    case _ => false
   }
 
   def speed = Speed(clock)
@@ -103,7 +104,8 @@ case class Tournament(
       tourId = id,
       userId = userId,
       tourName = name,
-      date = finishesAt)
+      date = finishesAt
+    )
   }
 
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
@@ -127,7 +129,8 @@ object Tournament {
     mode: Mode,
     `private`: Boolean,
     password: Option[String],
-    waitMinutes: Int) = Tournament(
+    waitMinutes: Int
+  ) = Tournament(
     id = Random nextString 8,
     name =
     if (position.initial)
@@ -147,7 +150,8 @@ object Tournament {
     password = password,
     conditions = Condition.All.empty,
     schedule = None,
-    startsAt = DateTime.now plusMinutes waitMinutes)
+    startsAt = DateTime.now plusMinutes waitMinutes
+  )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
     id = Random nextString 8,
@@ -165,5 +169,6 @@ object Tournament {
     `private` = false,
     conditions = sched.conditions,
     schedule = Some(sched),
-    startsAt = sched.at)
+    startsAt = sched.at
+  )
 }

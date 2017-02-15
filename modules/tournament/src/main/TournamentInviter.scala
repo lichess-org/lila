@@ -11,7 +11,8 @@ import lila.rating.PerfType
 
 private final class TournamentInviter private (
     api: TournamentApi,
-    notifyApi: NotifyApi) extends Actor {
+    notifyApi: NotifyApi
+) extends Actor {
 
   import TournamentInviter._
 
@@ -22,7 +23,8 @@ private final class TournamentInviter private (
         case true => funit
         case false => notifyApi addNotificationWithoutSkipOrEvent Notification.make(
           Notification.Notifies(user.id),
-          LimitedTournamentInvitation)
+          LimitedTournamentInvitation
+        )
       }
   }
 
@@ -54,8 +56,9 @@ object TournamentInviter {
   def findNextFor(
     user: User,
     tours: VisibleTournaments,
-    canEnter: Tournament => Fu[Boolean]): Fu[Option[Tournament]] = bestRating(user) match {
-    case None                          => fuccess(none)
+    canEnter: Tournament => Fu[Boolean]
+  ): Fu[Option[Tournament]] = bestRating(user) match {
+    case None => fuccess(none)
     case Some(rating) if rating > 2000 => fuccess(none)
     case Some(rating) => lila.common.Future.find(tours.unfinished.filter { t =>
       t.conditions.maxRating.??(_.rating >= rating)

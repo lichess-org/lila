@@ -6,7 +6,8 @@ case class View(
   id: String, // userId/videoId
   videoId: Video.ID,
   userId: String,
-  date: DateTime)
+  date: DateTime
+)
 
 case class VideoView(video: Video, view: Boolean)
 
@@ -18,7 +19,8 @@ object View {
     id = makeId(videoId, userId),
     videoId = videoId,
     userId = userId,
-    date = DateTime.now)
+    date = DateTime.now
+  )
 
   object BSONFields {
     val id = "_id"
@@ -38,12 +40,14 @@ object View {
       id = r str id,
       videoId = r str videoId,
       userId = r str userId,
-      date = r.get[DateTime](date))
+      date = r.get[DateTime](date)
+    )
 
     def writes(w: BSON.Writer, o: View) = BSONDocument(
       id -> o.id,
       videoId -> o.videoId,
       userId -> o.userId,
-      date -> o.date)
+      date -> o.date
+    )
   }
 }

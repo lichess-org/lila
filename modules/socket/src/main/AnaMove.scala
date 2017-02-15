@@ -3,7 +3,7 @@ package lila.socket
 import chess.format.{ Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 import scalaz.Validation.FlatMap._
 
 import lila.common.PimpedJson._
@@ -15,7 +15,8 @@ case class AnaMove(
     variant: Variant,
     fen: String,
     path: String,
-    promotion: Option[chess.PromotableRole]) {
+    promotion: Option[chess.PromotableRole]
+) {
 
   def branch: Valid[Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap {
@@ -34,9 +35,12 @@ case class AnaMove(
             FullOpeningDB findByFen fen
           },
           drops = movable.fold(game.situation.drops, Some(Nil)),
-          crazyData = game.situation.board.crazyData)
+          crazyData = game.situation.board.crazyData
+        )
       }
     }
+
+  def json(b: Branch): JsObject = Json.obj("node" -> b, "path" -> path)
 }
 
 object AnaMove {
@@ -55,5 +59,6 @@ object AnaMove {
     variant = variant,
     fen = fen,
     path = path,
-    promotion = prom)
+    promotion = prom
+  )
 }

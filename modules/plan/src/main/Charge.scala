@@ -9,7 +9,8 @@ case class Charge(
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPal] = none,
     cents: Cents,
-    date: DateTime) {
+    date: DateTime
+) {
 
   def id = _id
 
@@ -28,22 +29,26 @@ object Charge {
     userId: Option[String],
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPal] = none,
-    cents: Cents) = Charge(
+    cents: Cents
+  ) = Charge(
     _id = Random nextString 8,
     userId = userId,
     stripe = stripe,
     payPal = payPal,
     cents = cents,
-    date = DateTime.now)
+    date = DateTime.now
+  )
 
   case class Stripe(
     chargeId: ChargeId,
-    customerId: CustomerId)
+    customerId: CustomerId
+  )
 
   case class PayPal(
     ip: Option[String],
     name: Option[String],
     email: Option[String],
     txnId: Option[String],
-    subId: Option[String])
+    subId: Option[String]
+  )
 }

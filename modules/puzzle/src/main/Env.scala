@@ -11,7 +11,8 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle) {
+    lifecycle: play.api.inject.ApplicationLifecycle
+) {
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
@@ -31,7 +32,8 @@ final class Env(
 
   lazy val jsonView = new JsonView(
     gameJson,
-    animationDuration = AnimationDuration)
+    animationDuration = AnimationDuration
+  )
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
@@ -41,16 +43,19 @@ final class Env(
     headColl = headColl,
     puzzleIdMin = PuzzleIdMin,
     asyncCache = asyncCache,
-    apiToken = ApiToken)
+    apiToken = ApiToken
+  )
 
   lazy val finisher = new Finisher(
     api = api,
-    puzzleColl = puzzleColl)
+    puzzleColl = puzzleColl
+  )
 
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    puzzleIdMin = PuzzleIdMin)
+    puzzleIdMin = PuzzleIdMin
+  )
 
   lazy val userInfos = UserInfos(roundColl = roundColl)
 
@@ -60,7 +65,8 @@ final class Env(
     puzzleColl,
     renderer,
     asyncCache = asyncCache,
-    system.scheduler)
+    system.scheduler
+  )
 
   def cli = new lila.common.Cli {
     def process = {
@@ -85,5 +91,6 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle)
+    lifecycle = lila.common.PlayApp.lifecycle
+  )
 }

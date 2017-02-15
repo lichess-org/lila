@@ -86,7 +86,8 @@ object Simul extends LilaController {
         err => BadRequest(html.simul.form(err, env.forms)).fuccess,
         setup => env.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
-        })
+        }
+      )
     }
   }
 
@@ -109,7 +110,7 @@ object Simul extends LilaController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { uid =>
+    getSocketUid("sri") ?? { uid =>
       env.socketHandler.join(id, uid, ctx.me)
     }
   }

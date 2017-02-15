@@ -33,7 +33,8 @@ object Monitor extends LilaController {
           }
       }
     },
-    expireAfter = _.ExpireAfterWrite(10 minute))
+    expireAfter = _.ExpireAfterWrite(10 minute)
+  )
 
   def coachPageView = Secure(_.Coach) { ctx => me =>
     coachPageViewCache get me.id

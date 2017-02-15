@@ -12,7 +12,8 @@ object JsData extends lila.Steroids {
   def apply(
     sit: chess.Situation,
     fen: String,
-    animationDuration: Duration)(implicit ctx: Context) = Json.obj(
+    animationDuration: Duration
+  )(implicit ctx: Context) = Json.obj(
     "fen" -> fen.split(" ").headOption,
     "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
     "color" -> sit.color.letter.toString,
@@ -40,6 +41,7 @@ object JsData extends lila.Steroids {
       trans.continueFromHere,
       trans.playWithTheMachine,
       trans.playWithAFriend,
-      trans.analysis)
+      trans.analysis
+    )
   )
 }

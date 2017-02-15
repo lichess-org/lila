@@ -9,7 +9,8 @@ import makeTimeout.short
 
 private final class MoveDB(
     roundMap: ActorSelection,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   import Work.Move
 
@@ -22,7 +23,8 @@ private final class MoveDB(
     moveId: Work.Id,
     client: Client,
     data: JsonApi.Request.PostMove,
-    measurement: lila.mon.Measurement) =
+    measurement: lila.mon.Measurement
+  ) =
     actor ! PostResult(moveId, client, data, measurement)
 
   def monitor = actor ! Mon
@@ -37,7 +39,8 @@ private final class MoveDB(
     moveId: Work.Id,
     client: Client,
     data: JsonApi.Request.PostMove,
-    measurement: lila.mon.Measurement)
+    measurement: lila.mon.Measurement
+  )
 
   private val actor = system.actorOf(Props(new Actor {
 

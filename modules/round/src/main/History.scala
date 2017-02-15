@@ -15,7 +15,8 @@ import lila.game.Event
 private[round] final class History(
     load: Fu[VersionedEvents],
     persist: VersionedEvents => Unit,
-    withPersistence: Boolean) {
+    withPersistence: Boolean
+) {
 
   private var events: VersionedEvents = _
 
@@ -33,7 +34,7 @@ private[round] final class History(
     else if (v == version) Some(Nil)
     else events.takeWhile(_.version > v).reverse.some filter {
       case first :: rest => first.version == v + 1
-      case _             => true
+      case _ => true
     }
   }
 
@@ -70,7 +71,8 @@ private[round] object History {
   def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
     load = serverStarting ?? load(coll, gameId, withPersistence),
     persist = persist(coll, gameId) _,
-    withPersistence = withPersistence)
+    withPersistence = withPersistence
+  )
 
   private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)
 
@@ -87,7 +89,9 @@ private[round] object History {
       $doc("_id" -> gameId),
       $doc(
         "$set" -> $doc("e" -> vevs.reverse),
-        "$setOnInsert" -> $doc("d" -> DateTime.now)),
+        "$setOnInsert" -> $doc("d" -> DateTime.now)
+      ),
       upsert = true,
-      writeConcern = GetLastError.Unacknowledged)
+      writeConcern = GetLastError.Unacknowledged
+    )
 }

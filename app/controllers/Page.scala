@@ -45,7 +45,8 @@ object Page extends LilaController {
           "key" -> v.key,
           "name" -> v.name
         )
-      })).fuccess)
+      })).fuccess
+    )
   }
 
   def variant(key: String) = Open { implicit ctx =>

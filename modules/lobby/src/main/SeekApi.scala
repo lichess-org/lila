@@ -13,7 +13,8 @@ final class SeekApi(
     blocking: String => Fu[Set[String]],
     asyncCache: lila.memo.AsyncCache.Builder,
     maxPerPage: Int,
-    maxPerUser: Int) {
+    maxPerUser: Int
+) {
 
   private sealed trait CacheKey
   private object ForAnon extends CacheKey
@@ -31,7 +32,8 @@ final class SeekApi(
     case ForUser => allCursor.gather[List]()
   },
     maxCapacity = 2,
-    expireAfter = _.ExpireAfterWrite(3.seconds))
+    expireAfter = _.ExpireAfterWrite(3.seconds)
+  )
 
   private def cacheClear = {
     cache invalidate ForAnon
@@ -66,7 +68,7 @@ final class SeekApi(
 
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if seeks.size <= maxPerUser => funit
-    case seeks                             => seeks.drop(maxPerUser).map(remove).sequenceFu
+    case seeks => seeks.drop(maxPerUser).map(remove).sequenceFu
   }.void >>- cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
@@ -80,7 +82,8 @@ final class SeekApi(
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.write(seek) ++ $doc(
       "gameId" -> gameId,
-      "archivedAt" -> DateTime.now)
+      "archivedAt" -> DateTime.now
+    )
     coll.remove($doc("_id" -> seek.id)).void >>-
       cacheClear >>
       archiveColl.insert(archiveDoc)

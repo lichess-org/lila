@@ -46,11 +46,12 @@ object Lobby extends LilaController {
     credits = 40,
     duration = 10 seconds,
     name = "lobby socket message per IP",
-    key = "lobby_socket.message.ip")
+    key = "lobby_socket.message.ip"
+  )
 
   def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
-    get("sri") ?? { uid =>
-      Env.lobby.socketHandler(uid = uid, user = ctx.me, mobile = getBool("mobile")) map some
+    getSocketUid("sri") ?? { uid =>
+      Env.lobby.socketHandler(uid, user = ctx.me, mobile = getBool("mobile")) map some
     }
   }
 
@@ -62,15 +63,17 @@ object Lobby extends LilaController {
 
     private case class RequestKey(
       uri: String,
-      headers: Headers)
+      headers: Headers
+    )
 
     private val cache = Env.memo.asyncCache.multi[RequestKey, Html](
       name = "lobby.homeCache",
       f = renderRequestKey,
-      expireAfter = _.ExpireAfterWrite(1 second))
+      expireAfter = _.ExpireAfterWrite(1 second)
+    )
 
     private def renderCtx(implicit ctx: Context): Fu[Html] = Env.current.preloader(
-      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds).nevermind,
+      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIdsList).nevermind,
       tours = Env.tournament.cached.promotable.get.nevermind,
       events = Env.event.api.promotable.get.nevermind,
       simuls = Env.simul.allCreatedFeaturable.get.nevermind
@@ -92,15 +95,15 @@ object Lobby extends LilaController {
       }
       new lila.api.HeaderContext(
         headerContext = new lila.user.HeaderUserContext(req, none),
-        data = lila.api.PageData default Env.api.assetVersion.get)
+        data = lila.api.PageData default Env.api.assetVersion.get
+      )
     }
 
     def apply(ctx: Context) =
       if (ctx.isAuth) {
         lila.mon.lobby.cache.user()
         renderCtx(ctx)
-      }
-      else {
+      } else {
         lila.mon.lobby.cache.anon()
         cache get RequestKey(
           uri = ctx.req.uri,
@@ -109,7 +112,8 @@ object Lobby extends LilaController {
             ctx.req.headers.get(COOKIE).?? { cookie =>
               List(COOKIE -> cookie)
             }
-        ))
+        )
+        )
       }
   }
 }

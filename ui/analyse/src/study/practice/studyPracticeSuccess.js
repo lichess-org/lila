@@ -4,10 +4,17 @@ function isDrawish(node) {
   return !node.ceval.mate && Math.abs(node.ceval.cp) < 150;
 }
 // returns null if not deep enough to know
-function isWinning(node, goalCp) {
+function isWinning(node, goalCp, color) {
   if (!hasSolidEval(node)) return null;
   var cp = node.ceval.mate > 0 ? 99999 : (node.ceval.mate < 0 ? -99999 : node.ceval.cp);
-  return goalCp > 0 ? cp >= goalCp : cp <= goalCp;
+  return color === 'white' ? cp >= goalCp : cp <= goalCp;
+}
+// returns null if not deep enough to know
+function myMateIn(node, color) {
+  if (!hasSolidEval(node)) return null;
+  if (!node.ceval.mate) return false;
+  var mateIn = node.ceval.mate * (color === 'white' ? 1 : -1);
+  return mateIn > 0 ? mateIn : false;
 }
 
 function hasSolidEval(node) {
@@ -17,9 +24,11 @@ function hasSolidEval(node) {
 function isMate(root) {
   return root.gameOver() === 'checkmate';
 }
+
 function isMyMate(root) {
   return isMate(root) && root.turnColor() !== root.bottomColor();
 }
+
 function isTheirMate(root) {
   return isMate(root) && root.turnColor() === root.bottomColor();
 }
@@ -37,22 +46,25 @@ module.exports = function(root, goal, nbMoves) {
   switch (goal.result) {
     case 'drawIn':
     case 'equalIn':
+      if (node.threefold) return true;
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves) return false;
       if (root.gameOver() === 'draw') return true;
-      if (nbMoves === goal.moves) return isDrawish(node);
+      if (nbMoves >= goal.moves) return isDrawish(node);
       break;
     case 'evalIn':
-      if (nbMoves === goal.moves) return isWinning(node, goal.cp);
+      if (nbMoves >= goal.moves) return isWinning(node, goal.cp, root.bottomColor());
       break;
     case 'mateIn':
       if (nbMoves > goal.moves) return false;
       if (isMyMate(root)) return true;
-      if (nbMoves === goal.moves) return false;
+      var mateIn = myMateIn(node, root.bottomColor());
+      if (mateIn === null) return null;
+      if (!mateIn || mateIn + nbMoves > goal.moves) return false;
       break;
     case 'promotion':
       if (!node.uci[4]) return null;
-      return isWinning(node, goal.cp);
+      return isWinning(node, goal.cp, root.bottomColor());
       break;
     case 'mate':
     default:

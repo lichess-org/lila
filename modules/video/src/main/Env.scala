@@ -9,7 +9,8 @@ final class Env(
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
-    isDev: Boolean) {
+    isDev: Boolean
+) {
 
   private val settings = new {
     val CollectionVideo = config getString "collection.video"
@@ -26,17 +27,20 @@ final class Env(
   lazy val api = new VideoApi(
     asyncCache = asyncCache,
     videoColl = videoColl,
-    viewColl = viewColl)
+    viewColl = viewColl
+  )
 
   private lazy val sheet = new Sheet(
     url = SheetUrl,
-    api = api)
+    api = api
+  )
 
   private lazy val youtube = new Youtube(
     url = YoutubeUrl,
     apiKey = YoutubeApiKey,
     max = YoutubeMax,
-    api = api)
+    api = api
+  )
 
   if (!isDev) {
     scheduler.effect(SheetDelay, "video update from sheet") {
@@ -59,5 +63,6 @@ object Env {
     scheduler = lila.common.PlayApp.scheduler,
     isDev = lila.common.PlayApp.isDev,
     asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

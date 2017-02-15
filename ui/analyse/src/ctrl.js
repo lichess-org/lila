@@ -15,9 +15,10 @@ var decomposeUci = require('chess').decomposeUci;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var defined = require('common').defined;
-var socket = require('./socket');
+var makeSocket = require('./socket');
 var forecastCtrl = require('./forecast/forecastCtrl');
 var cevalCtrl = require('ceval').ctrl;
+var isEvalBetter = require('ceval').isEvalBetter;
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
@@ -26,6 +27,7 @@ var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
 var makePractice = require('./practice/practiceCtrl');
+var makeEvalCache = require('./evalCache');
 var computeAutoShapes = require('./autoShape').compute;
 var nodeFinder = require('./nodeFinder');
 var acplUncache = require('./acpl').uncache;
@@ -43,7 +45,7 @@ module.exports = function(opts) {
     this.tree = tree.build(tree.ops.reconstruct(this.data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
-    this.socket = new socket(opts.socketSend, this);
+    this.socket = new makeSocket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
   }.bind(this);
 
@@ -285,6 +287,7 @@ module.exports = function(opts) {
     this.vm.redirecting = false;
     this.setPath(tree.path.root);
     instanciateCeval();
+    instanciateEvalCache();
   }.bind(this);
 
   this.changePgn = function(pgn) {
@@ -437,44 +440,76 @@ module.exports = function(opts) {
     this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
+  var onNewCeval = function(eval, path, threatMode) {
+    this.tree.updateAt(path, function(node) {
+      if (node.fen !== eval.fen && !threatMode) return;
+      if (threatMode) {
+        if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
+          node.threat = eval;
+      } else if (isEvalBetter(eval, node.ceval)) node.ceval = eval;
+      else if (node.ceval && eval.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = eval.maxDepth;
+
+      if (path === this.vm.path) {
+        this.setAutoShapes();
+        if (!threatMode) {
+          if (this.retro) this.retro.onCeval();
+          if (this.practice) this.practice.onCeval();
+          if (this.studyPractice) this.studyPractice.onCeval();
+          this.evalCache.onCeval();
+          if (eval.cloud && eval.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
+        }
+        m.redraw();
+      }
+    }.bind(this));
+  }.bind(this);
+
   var instanciateCeval = function(failsafe) {
     if (this.ceval) this.ceval.destroy();
-    this.ceval = cevalCtrl({
+    var cfg = {
       variant: this.data.game.variant,
       possible: !this.embed && (
         util.synthetic(this.data) || !game.playable(this.data)
       ),
       emit: function(eval, work) {
-        this.tree.updateAt(work.path, function(node) {
-          if (node.fen !== eval.fen && !work.threatMode) {
-            console.log('got eval for the wrong node!', eval, node);
-            return;
-          }
-          if (work.threatMode) {
-            if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
-              node.threat = eval;
-          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
-            node.ceval = eval;
-          if (work.path === this.vm.path) {
-            this.setAutoShapes();
-            if (this.retro) this.retro.onCeval();
-            if (this.practice) this.practice.onCeval();
-            if (this.studyPractice) this.studyPractice.onCeval();
-            m.redraw();
-          }
-        }.bind(this));
+        onNewCeval(eval, work.path, work.threatMode);
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
-      onCrash: function(e) {
-        console.log('Local eval failed!', e);
+      onCrash: function(info) {
+        var ceval = this.vm.node.ceval;
+        console.log('Local eval failed after depth ' + (ceval && ceval.depth));
+        var env = this.ceval.env();
+        var desc = [
+          'ceval crash',
+          env.pnacl ? 'native' : 'asmjs',
+          'engine:' + (env.engine || '?').replace(/ /g, '_'),
+          'multiPv:' + env.multiPv,
+          'threads:' + env.threads,
+          'hashSize:' + env.hashSize,
+          'depth:' + (ceval && ceval.depth || 0) + '/' + env.maxDepth,
+          info.lastError
+        ].join(' ');
+        console.log('send exception: ' + desc);
+        if (window.ga) window.ga('send', 'exception', {
+          exDescription: desc
+        });
         if (this.ceval.pnaclSupported) {
-          console.log('Retrying in failsafe mode');
-          instanciateCeval(true);
-          this.startCeval();
+          if (ceval && ceval.depth >= 20 && !ceval.retried) {
+            console.log('Remain on native stockfish for now');
+            ceval.retried = true;
+          } else {
+            console.log('Fallback to ASMJS now');
+            instanciateCeval(true);
+            this.startCeval();
+          }
         }
       }.bind(this)
-    });
+    };
+    if (opts.study && opts.practice) {
+      cfg.storageKeyPrefix = 'practice';
+      cfg.multiPvDefault = 1;
+    }
+    this.ceval = cevalCtrl(cfg);
   }.bind(this);
 
   instanciateCeval();
@@ -496,8 +531,10 @@ module.exports = function(opts) {
 
   this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled()) {
-      if (canUseCeval()) this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
-      else this.ceval.stop();
+      if (canUseCeval()) {
+        this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
+        this.evalCache.fetch(this.vm.path, parseInt(this.ceval.multiPv()));
+      } else this.ceval.stop();
     }
   }.bind(this));
 
@@ -626,7 +663,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.playBestMove = function() {
-    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.best);
+    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);
   }.bind(this);
 
@@ -635,6 +672,29 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
+
+  var canEvalGet = function(node) {
+    return (opts.study || node.ply < 10) && this.data.game.variant.key === 'standard'
+  }.bind(this);
+
+  this.evalCache;
+  var instanciateEvalCache = function() {
+    this.evalCache = makeEvalCache({
+      canGet: canEvalGet,
+      canPut: function(node) {
+        return this.data.evalPut && canEvalGet(node) && (
+          // if not in study, only put decent opening moves
+          opts.study || (node.ply < 10 && !node.ceval.mate && Math.abs(node.ceval.cp) < 99)
+        );
+      }.bind(this),
+      getNode: function() {
+        return this.vm.node;
+      }.bind(this),
+      send: this.socket.send,
+      receive: onNewCeval
+    });
+  }.bind(this);
+  instanciateEvalCache();
 
   showGround();
   onToggleComputer();
@@ -668,7 +728,11 @@ module.exports = function(opts) {
     else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
-      this.practice = makePractice(this);
+      this.practice = makePractice(this, function() {
+        // push to 20 to store AI moves in the cloud
+        // lower to 18 after task completion (or failure)
+        return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
+      }.bind(this));
     }
     this.setAutoShapes();
   }.bind(this);

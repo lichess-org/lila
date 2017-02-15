@@ -8,7 +8,8 @@ final class Env(
     getPref: String => Fu[lila.pref.Pref],
     areFriends: (String, String) => Fu[Boolean],
     system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle) {
+    lifecycle: play.api.inject.ApplicationLifecycle
+) {
 
   private val settings = new {
     val CollectionEntry = config getString "collection.entry"
@@ -31,7 +32,8 @@ final class Env(
     sequencer = system.actorOf(Props(
       classOf[lila.hub.Sequencer],
       None, None, logger
-    )))
+    ))
+  )
 
   private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
 
@@ -39,7 +41,8 @@ final class Env(
     storage = storage,
     userCacheApi = userCacheApi,
     pipeline = aggregationPipeline,
-    indexer = indexer)
+    indexer = indexer
+  )
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
@@ -55,5 +58,6 @@ object Env {
     getPref = lila.pref.Env.current.api.getPrefById,
     areFriends = lila.relation.Env.current.api.fetchAreFriends,
     system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle)
+    lifecycle = lila.common.PlayApp.lifecycle
+  )
 }

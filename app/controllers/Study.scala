@@ -93,14 +93,16 @@ object Study extends LilaController {
           _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
           _ = if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
           pov = UserAnalysis.makePov(chapter.root.fen.value.some, chapter.setup.variant)
-          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false)
+          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.setup.orientation, owner = false, me = ctx.me)
           studyJson <- env.jsonView(study, chapters, chapter, ctx.me)
           data = lila.study.JsonView.JsData(
             study = studyJson,
             analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {
               lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-            }))
+            }
+          )
+          )
           res <- negotiate(
             html = for {
             chat <- chatOf(study)
@@ -108,7 +110,8 @@ object Study extends LilaController {
           } yield Ok(html.study.show(study, data, chat, sVersion)),
             api = _ => Ok(Json.obj(
             "study" -> data.study,
-            "analysis" -> data.analysis)).fuccess
+            "analysis" -> data.analysis
+          )).fuccess
           )
         } yield res
       }
@@ -141,7 +144,8 @@ object Study extends LilaController {
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
             user = ctx.me,
-            owner = ctx.userId.exists(study.isOwner))
+            owner = ctx.userId.exists(study.isOwner)
+          )
         }
       }
     }
@@ -153,7 +157,8 @@ object Study extends LilaController {
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => env.api.create(data, me) map { sc =>
         Redirect(routes.Study.show(sc.study.id.value))
-      })
+      }
+    )
   }
 
   def delete(id: String) = Auth { implicit ctx => me =>
@@ -168,7 +173,7 @@ object Study extends LilaController {
         case WithChapter(study, chapter) => CanViewResult(study) {
           val setup = chapter.setup
           val pov = UserAnalysis.makePov(chapter.root.fen.value.some, setup.variant)
-          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false) zip
+          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, setup.orientation, owner = false, me = ctx.me) zip
             env.jsonView(study.copy(
               members = lila.study.StudyMembers(Map.empty) // don't need no members
             ), List(chapter.metadata), chapter, ctx.me) flatMap {
@@ -177,15 +182,18 @@ object Study extends LilaController {
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes {
                     lila.study.TreeBuilder.makeRoot(chapter.root)
-                  })
+                  }
+                )
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
-                  analysis = analysis)
+                  analysis = analysis
+                )
                 negotiate(
                   html = Ok(html.study.embed(study, chapter, data)).fuccess,
                   api = _ => Ok(Json.obj(
                   "study" -> data.study,
-                  "analysis" -> data.analysis)).fuccess
+                  "analysis" -> data.analysis
+                )).fuccess
                 )
             }
         }
@@ -208,13 +216,15 @@ object Study extends LilaController {
     credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
-    key = "clone_study.user")
+    key = "clone_study.user"
+  )
 
   private val CloneLimitPerIP = new lila.memo.RateLimit(
     credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
-    key = "clone_study.ip")
+    key = "clone_study.ip"
+  )
 
   def cloneApply(id: String) = Auth { implicit ctx => me =>
     implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
@@ -236,7 +246,8 @@ object Study extends LilaController {
     credits = 30,
     duration = 1 minute,
     name = "export study PGN global",
-    key = "export.study_pgn.global")
+    key = "export.study_pgn.global"
+  )
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
@@ -247,7 +258,8 @@ object Study extends LilaController {
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
                 CONTENT_TYPE -> pgnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study))
+              )
             }
           }
         }

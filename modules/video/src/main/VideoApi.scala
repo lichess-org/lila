@@ -12,7 +12,8 @@ import lila.user.User
 private[video] final class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
@@ -56,14 +57,16 @@ private[video] final class VideoApi(
         readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage)
+        maxPerPage = maxPerPage
+      )
     }
 
     def save(video: Video): Funit =
       videoColl.update(
         $id(video.id),
         $doc("$set" -> video),
-        upsert = true).void
+        upsert = true
+      ).void
 
     def removeNotIn(ids: List[Video.ID]) =
       videoColl.remove($doc("_id" $nin ids)).void
@@ -87,7 +90,8 @@ private[video] final class VideoApi(
       readPreference = ReadPreference.secondaryPreferred
     ) mapFutureList videoViews(user),
       currentPage = page,
-      maxPerPage = maxPerPage)
+      maxPerPage = maxPerPage
+    )
 
     def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
       if (tags.isEmpty) popular(user, page)
@@ -100,7 +104,8 @@ private[video] final class VideoApi(
         readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage)
+        maxPerPage = maxPerPage
+      )
 
     def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
@@ -112,7 +117,8 @@ private[video] final class VideoApi(
         readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage)
+        maxPerPage = maxPerPage
+      )
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl.find($doc(
@@ -129,7 +135,8 @@ private[video] final class VideoApi(
       private val cache = asyncCache.single(
         name = "video.count",
         f = videoColl.count(none),
-        expireAfter = _.ExpireAfterWrite(3 hours))
+        expireAfter = _.ExpireAfterWrite(3 hours)
+      )
 
       def apply: Fu[Int] = cache.get
     }
@@ -155,7 +162,8 @@ private[video] final class VideoApi(
         View.BSONFields.videoId,
         $inIds(videos.map { v =>
         View.makeId(v.id, user.id)
-      }).some)
+      }).some
+      )
   }
 
   object tag {
@@ -178,8 +186,10 @@ private[video] final class VideoApi(
         else videoColl.aggregate(
           Match($doc("tags" $all filterTags)),
           List(Project($doc("tags" -> true)), UnwindField("tags"),
-            GroupField("tags")("nb" -> SumValue(1)))).map(
-            _.firstBatch.flatMap(_.asOpt[TagNb]))
+            GroupField("tags")("nb" -> SumValue(1)))
+        ).map(
+            _.firstBatch.flatMap(_.asOpt[TagNb])
+          )
 
       allPopular zip allPaths map {
         case (all, paths) =>
@@ -198,15 +208,20 @@ private[video] final class VideoApi(
           }
       }
     },
-    expireAfter = _.ExpireAfterAccess(10 minutes))
+      expireAfter = _.ExpireAfterAccess(10 minutes)
+    )
 
     private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
       f = videoColl.aggregate(
         Project($doc("tags" -> true)), List(
           UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
-          Sort(Descending("nb")))).map(
-          _.firstBatch.flatMap(_.asOpt[TagNb])),
-      expireAfter = _.ExpireAfterWrite(1.day))
+          Sort(Descending("nb"))
+        )
+      ).map(
+          _.firstBatch.flatMap(_.asOpt[TagNb])
+        ),
+      expireAfter = _.ExpireAfterWrite(1.day)
+    )
   }
 }

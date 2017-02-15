@@ -21,6 +21,7 @@ trait CursorExt { self: dsl =>
 
     // like headOption, but with stopOnError defaulting to false
     def uno: Fu[Option[A]] = c.collect[Iterable](
-      1, Cursor.ContOnError[Iterable[A]]()).map(_.headOption)
+      1, Cursor.ContOnError[Iterable[A]]()
+    ).map(_.headOption)
   }
 }

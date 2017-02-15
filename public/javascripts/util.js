@@ -52,7 +52,7 @@ lichess.storage = (function() {
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
-            if (e.key === k) f(e);
+            if (e.key === k && e.newValue !== null) f(e);
           });
         }
       };
@@ -194,7 +194,6 @@ lichess.widget = function(name, prototype) {
 };
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
-lichess.isSafari = navigator.userAgent.indexOf('Safari/') > -1 && !lichess.isChrome;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetConfig = {
   url: document.body.getAttribute('data-asset-url'),
@@ -380,6 +379,23 @@ lichess.escapeHtml = function(html) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(html));
   return div.innerHTML;
+};
+lichess.toYouTubeEmbedUrl = function(url) {
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
+  if (!m) return;
+  var start = 1;
+  m[2].split('&').forEach(function(p) {
+    var s = p.split('=');
+    if (s[0] === 't' || s[0] === 'start') {
+      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
+      else {
+        var n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
+      }
+    }
+  });
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 };
 $.spreadNumber = function(el, nbSteps, getDuration, previous) {
   var previous = previous,

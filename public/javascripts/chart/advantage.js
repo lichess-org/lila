@@ -59,7 +59,7 @@ lichess.advantageChart = function(data) {
               negativeFillColor: Highcharts.theme.lichess.area.black,
               threshold: 0,
               lineWidth: 1,
-              color: '#3893E8',
+              color: '#d85000',
               allowPointSelect: true,
               cursor: 'pointer',
               states: {
@@ -80,11 +80,11 @@ lichess.advantageChart = function(data) {
                 states: {
                   hover: {
                     radius: 4,
-                    lineColor: '#3893E8'
+                    lineColor: '#d85000'
                   },
                   select: {
                     radius: 4,
-                    lineColor: '#3893E8'
+                    lineColor: '#d85000'
                   }
                 }
               }

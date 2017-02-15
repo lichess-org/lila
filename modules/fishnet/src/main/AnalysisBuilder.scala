@@ -37,7 +37,8 @@ private object AnalysisBuilder {
       startPly = work.startPly,
       uid = work.sender.userId,
       by = !client.lichess option client.userId.value,
-      date = DateTime.now)
+      date = DateTime.now
+    )
 
     GameRepo.game(uciAnalysis.id) flatMap {
       case None => fufail(AnalysisBuilder.GameIsGone(uciAnalysis.id))
@@ -56,7 +57,8 @@ private object AnalysisBuilder {
                   else fuccess(analysis)
                 }
                 else fufail(s"${game.variant.key} analysis $debug is empty")
-            })
+            }
+          )
         }
     }
   }
@@ -68,17 +70,17 @@ private object AnalysisBuilder {
 
     val infos = evals.filterNot(_ ?? (_.score.isCheckmate)).sliding(2).toList
       .zip(work.game.moveList).zipWithIndex map {
-        case ((List(Some(before), Some(after)), move), index) => {
-          val variation = before.cappedPvList match {
-            case first :: rest if first != move => first :: rest
-            case _                              => Nil
-          }
-          val best = variation.headOption flatMap Uci.Move.apply
+      case ((List(Some(before), Some(after)), move), index) => {
+        val variation = before.cappedPvList match {
+          case first :: rest if first != move => first :: rest
+          case _ => Nil
+        }
+        val best = variation.headOption flatMap Uci.Move.apply
           val ply = index + 1 + work.startPly
           Info(
             ply = ply,
             eval = Eval(after.score, best).invertIf(ply % 2 == 1),
-            variation = variation
+          variation = variation
           ).some
         }
         case ((_, _), index) => none

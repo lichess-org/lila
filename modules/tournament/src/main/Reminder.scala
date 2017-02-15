@@ -21,6 +21,7 @@ private[tournament] final class Reminder extends Actor {
         "d" -> Json.obj(
           "id" -> tour.id,
           "name" -> tour.fullName
-        ))), 'users)
+        )
+      )), 'users)
   }
 }

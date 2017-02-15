@@ -51,15 +51,16 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
 # User
-GET   /@/:username/opponents           controllers.User.opponents(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/tv                  controllers.User.tv(username: String)
+GET   /@/:username/studyTv             controllers.User.studyTv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /player/myself                   controllers.User.myself
+GET   /player/opponents                controllers.User.opponents
 GET   /player                          controllers.User.list
 GET   /player/top/200/:perfKey         controllers.User.top200(perfKey: String)
 GET   /player/top/week                 controllers.User.topWeek
@@ -113,6 +114,7 @@ POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
+GET   /analysis/socket                 controllers.UserAnalysis.socket
 GET   /analysis/keyboard-i18n          controllers.UserAnalysis.keyboardI18n
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
@@ -159,13 +161,15 @@ GET   /features                        controllers.Plan.features
 
 # Practice
 GET   /practice                                   controllers.Practice.index
-GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
-GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
-POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
-GET   /practice/$studyId<\w{8}>/$chapterId<\w{8}> controllers.Practice.chapter(studyId: String, chapterId: String)
+GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: String, chapterId: String)
 GET   /practice/config                            controllers.Practice.config
 POST  /practice/config                            controllers.Practice.configSave
 POST  /practice/reset                             controllers.Practice.reset
+GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId: String)
+GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId: String, studySlug: String)
+GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
+GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
+POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -268,7 +272,6 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 
 GET   /game/export/$gameId<\w{8}>.pgn         controllers.Export.pgn(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
-GET   /game/visualizer/$gameId<\w{8}>         controllers.Export.visualizer(gameId: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire

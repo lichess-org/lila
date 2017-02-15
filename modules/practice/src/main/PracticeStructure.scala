@@ -3,7 +3,8 @@ package lila.practice
 import lila.study.{ Study, Chapter }
 
 case class PracticeStructure(
-    sections: List[PracticeSection]) {
+    sections: List[PracticeSection]
+) {
 
   def study(id: Study.Id): Option[PracticeStudy] =
     sections.flatMap(_ study id).headOption
@@ -32,7 +33,8 @@ case class PracticeStructure(
 case class PracticeSection(
     id: String,
     name: String,
-    studies: List[PracticeStudy]) {
+    studies: List[PracticeStudy]
+) {
 
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
     studies.map { s =>
@@ -46,7 +48,8 @@ case class PracticeStudy(
     id: Study.Id, // study ID
     name: String,
     desc: String,
-    chapters: List[Chapter.IdName]) {
+    chapters: List[Chapter.IdName]
+) {
 
   val slug = lila.common.String slugify name
 
@@ -71,7 +74,10 @@ object PracticeStructure {
               desc = stu.desc,
               chapters = chapters.get(id).??(_.filterNot { c =>
                 isChapterNameCommented(c.name)
-              }.toList))
-          })
-      })
+              }.toList)
+            )
+          }
+        )
+      }
+    )
 }

@@ -12,7 +12,8 @@ final class NotifyApi(
     bus: lila.common.Bus,
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
-    asyncCache: lila.memo.AsyncCache.Builder) {
+    asyncCache: lila.memo.AsyncCache.Builder
+) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
@@ -24,9 +25,11 @@ final class NotifyApi(
     collection = repo.coll,
     selector = repo.userNotificationsQuery(userId),
     projection = $empty,
-    sort = repo.recentSort),
+    sort = repo.recentSort
+  ),
     currentPage = page,
-    maxPerPage = perPage)
+    maxPerPage = perPage
+  )
 
   def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
     getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
@@ -37,7 +40,8 @@ final class NotifyApi(
   private val unreadCountCache = asyncCache.clearable(
     name = "notify.unreadCountCache",
     f = repo.unreadNotificationsCount,
-    expireAfter = _.ExpireAfterAccess(15 minutes))
+    expireAfter = _.ExpireAfterAccess(15 minutes)
+  )
 
   def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
     unreadCountCache get userId map Notification.UnreadCount.apply
@@ -66,10 +70,10 @@ final class NotifyApi(
       case true => fuccess(true)
       case false => notification.content match {
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
-        case InvitedToStudy(invitedBy, _, studyId)  => repo.hasRecentStudyInvitation(notification.notifies, studyId)
-        case PrivateMessage(_, thread, _)           => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
-        case QaAnswer(_, question, _)               => repo.hasRecentQaAnswer(notification.notifies, question)
-        case _                                      => fuccess(false)
+        case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
+        case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
+        case QaAnswer(_, question, _) => repo.hasRecentQaAnswer(notification.notifies, question)
+        case _ => fuccess(false)
       }
     }
 
@@ -82,7 +86,7 @@ final class NotifyApi(
    */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
     shouldSkip(notification) flatMap {
-      case true  => fuccess(none)
+      case true => fuccess(none)
       case false => addNotificationWithoutSkipOrEvent(notification) inject notification.some
     }
 

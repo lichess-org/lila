@@ -10,7 +10,8 @@ import lila.user.User
 final class RatingChartApi(
     historyApi: HistoryApi,
     mongoCache: lila.memo.MongoCache.Builder,
-    cacheTtl: FiniteDuration) {
+    cacheTtl: FiniteDuration
+) {
 
   def apply(user: User): Fu[Option[String]] = cache(user) map { chart =>
     chart.nonEmpty option chart
@@ -26,7 +27,8 @@ final class RatingChartApi(
     f = user => build(user) map (~_),
     maxCapacity = 1024,
     timeToLive = cacheTtl,
-    keyToString = _.id)
+    keyToString = _.id
+  )
 
   private def ratingsMapToJson(user: User, ratingsMap: RatingsMap) = ratingsMap.map {
     case (days, rating) =>

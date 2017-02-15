@@ -27,8 +27,6 @@ private[lobby] object Biter {
     _ ← GameRepo insertDenormalized game
   } yield {
     lila.mon.lobby.hook.join()
-    if (hook.realMode.rated)
-      lila.mon.lobby.hook.acceptedRatedClock(hook.clock.show)()
     JoinHook(uid, hook, game, creatorColor)
   }
 
@@ -46,10 +44,11 @@ private[lobby] object Biter {
   private def assignCreatorColor(
     creatorUser: Option[User],
     joinerUser: Option[User],
-    color: Color): Fu[chess.Color] = color match {
+    color: Color
+  ): Fu[chess.Color] = color match {
     case Color.Random => UserRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
-    case Color.White  => fuccess(chess.White)
-    case Color.Black  => fuccess(chess.Black)
+    case Color.White => fuccess(chess.White)
+    case Color.Black => fuccess(chess.Black)
   }
 
   private def blame(color: ChessColor, userOption: Option[User], game: Game) =
@@ -60,25 +59,29 @@ private[lobby] object Biter {
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
       board = Board init hook.realVariant,
-      clock = hook.clock.toClock.some),
+      clock = hook.clock.toClock.some
+    ),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = hook.realMode,
     variant = hook.realVariant,
     source = lila.game.Source.Lobby,
-    pgnImport = None)
+    pgnImport = None
+  )
 
   private def makeGame(seek: Seek) = Game.make(
     game = ChessGame(
       board = Board init seek.realVariant,
-      clock = none),
+      clock = none
+    ),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = seek.realMode,
     variant = seek.realVariant,
     source = lila.game.Source.Lobby,
     daysPerTurn = seek.daysPerTurn,
-    pgnImport = None)
+    pgnImport = None
+  )
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.isAuth == user.isDefined && user.fold(true) { u =>

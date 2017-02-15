@@ -13,7 +13,8 @@ final class ChatApi(
     modLog: akka.actor.ActorSelection,
     lilaBus: lila.common.Bus,
     maxLinesPerChat: Int,
-    netDomain: String) {
+    netDomain: String
+) {
 
   import Chat.userChatBSONHandler
 
@@ -36,7 +37,7 @@ final class ChatApi(
 
     def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = me match {
       case Some(user) => findMine(chatId, user)
-      case None       => find(chatId) map { UserChat.Mine(_, false) }
+      case None => find(chatId) map { UserChat.Mine(_, false) }
     }
 
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Funit =
@@ -76,14 +77,16 @@ final class ChatApi(
       val line = UserLine(
         username = systemUserId,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
-        troll = false, deleted = false)
+        troll = false, deleted = false
+      )
       val chat = c.markDeleted(user) add line
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
           lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
           modLog ! lila.hub.actorApi.mod.ChatTimeout(
-            mod = mod.id, user = user.id, reason = reason.key)
+            mod = mod.id, user = user.id, reason = reason.key
+          )
         }
     }
 
@@ -134,7 +137,8 @@ final class ChatApi(
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
         "$each" -> List(Line.lineBSONHandler(false).write(line)),
-        "$slice" -> -maxLinesPerChat)
+        "$slice" -> -maxLinesPerChat
+      )
     )),
     upsert = true
   ).void >>- lila.mon.chat.message()

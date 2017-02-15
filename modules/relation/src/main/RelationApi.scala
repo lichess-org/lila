@@ -21,7 +21,8 @@ final class RelationApi(
     followable: ID => Fu[Boolean],
     asyncCache: lila.memo.AsyncCache.Builder,
     maxFollow: Int,
-    maxBlock: Int) {
+    maxBlock: Int
+) {
 
   import RelationRepo.makeId
 
@@ -40,7 +41,8 @@ final class RelationApi(
   )), List(
     Group(BSONNull)(
       "u1" -> AddFieldToSet("u1"),
-      "u2" -> AddFieldToSet("u2")),
+      "u2" -> AddFieldToSet("u2")
+    ),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   )).map {
     ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
@@ -58,14 +60,16 @@ final class RelationApi(
   private val countFollowingCache = asyncCache.clearable[ID, Int](
     name = "relation.count.following",
     f = userId => coll.countSel($doc("u1" -> userId, "r" -> Follow)),
-    expireAfter = _.ExpireAfterAccess(10 minutes))
+    expireAfter = _.ExpireAfterAccess(10 minutes)
+  )
 
   def countFollowing(userId: ID) = countFollowingCache get userId
 
   private val countFollowersCache = asyncCache.clearable[ID, Int](
     name = "relation.count.followers",
     f = userId => coll.countSel($doc("u2" -> userId, "r" -> Follow)),
-    expireAfter = _.ExpireAfterAccess(10 minutes))
+    expireAfter = _.ExpireAfterAccess(10 minutes)
+  )
 
   def countFollowers(userId: ID) = countFollowersCache get userId
 
@@ -79,19 +83,22 @@ final class RelationApi(
     collection = coll,
     selector = $doc("u1" -> userId, "r" -> Follow),
     projection = $doc("u2" -> true, "_id" -> false),
-    sort = $empty).map(_.userId)
+    sort = $empty
+  ).map(_.userId)
 
   def followersPaginatorAdapter(userId: ID) = new Adapter[Follower](
     collection = coll,
     selector = $doc("u2" -> userId, "r" -> Follow),
     projection = $doc("u1" -> true, "_id" -> false),
-    sort = $empty).map(_.userId)
+    sort = $empty
+  ).map(_.userId)
 
   def blockingPaginatorAdapter(userId: ID) = new Adapter[Blocked](
     collection = coll,
     selector = $doc("u1" -> userId, "r" -> Block),
     projection = $doc("u2" -> true, "_id" -> false),
-    sort = $empty).map(_.userId)
+    sort = $empty
+  ).map(_.userId)
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
@@ -99,7 +106,7 @@ final class RelationApi(
       case false => funit
       case true => fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
         case (Some(Follow), _) => funit
-        case (_, Some(Block))  => funit
+        case (_, Some(Block)) => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
           countFollowersCache invalidate u2
           countFollowingCache invalidate u1

@@ -15,19 +15,27 @@ final class StudyRepo(private[study] val coll: Coll) {
     "uids" -> false,
     "likers" -> false,
     "views" -> false,
-    "rank" -> false)
+    "rank" -> false
+  )
+
+  private[study] val lightProjection = $doc(
+    "_id" -> false,
+    "visibility" -> true,
+    "members" -> true
+  )
 
   def byId(id: Study.Id) = coll.find($id(id), projection).uno[Study]
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
+  def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
+    coll.find($id(id), lightProjection).uno[Study.LightStudy]
+
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Study]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Study]) =
     coll.find(selector).cursor[Study](readPreference)
-
-  def nameById(id: Study.Id) = coll.primitiveOne[String]($id(id), "name")
 
   def exists(id: Study.Id) = coll.exists($id(id))
 
@@ -44,7 +52,8 @@ final class StudyRepo(private[study] val coll: Coll) {
       "updatedAt" -> DateTime.now,
       "uids" -> s.members.ids,
       "likers" -> List(s.ownerId),
-      "rank" -> Study.Rank.compute(s.likes, s.createdAt))
+      "rank" -> Study.Rank.compute(s.likes, s.createdAt)
+    )
   }.void
 
   def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
@@ -65,7 +74,8 @@ final class StudyRepo(private[study] val coll: Coll) {
       $id(studyId),
       $set(
         "position" -> position,
-        "updatedAt" -> DateTime.now)
+        "updatedAt" -> DateTime.now
+      )
     ).void
 
   def incViews(study: Study) = coll.incFieldUnchecked($id(study.id), "views")

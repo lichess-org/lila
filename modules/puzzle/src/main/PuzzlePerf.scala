@@ -10,7 +10,8 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
 
   def add(g: Glicko): PuzzlePerf = copy(
     glicko = g,
-    nb = nb + 1)
+    nb = nb + 1
+  )
 
   def add(r: Rating): Option[PuzzlePerf] = {
     val glicko = Glicko(r.getRating, r.getRatingDeviation, r.getVolatility)
@@ -27,7 +28,8 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
     math.max(Glicko.minRating, glicko.rating),
     glicko.deviation,
     glicko.volatility,
-    nb)
+    nb
+  )
 
   def isEmpty = nb == 0
 }
@@ -45,10 +47,12 @@ case object PuzzlePerf {
 
     def reads(r: BSON.Reader): PuzzlePerf = PuzzlePerf(
       glicko = r.getO[Glicko]("gl") | Glicko.default,
-      nb = r intD "nb")
+      nb = r intD "nb"
+    )
 
     def writes(w: BSON.Writer, o: PuzzlePerf) = BSONDocument(
       "gl" -> o.glicko,
-      "nb" -> w.int(o.nb))
+      "nb" -> w.int(o.nb)
+    )
   }
 }

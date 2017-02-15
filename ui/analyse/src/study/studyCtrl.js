@@ -137,7 +137,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var xhrReload = function() {
     vm.loading = true;
-    return xhr.reload(practice ? 'practice' : 'study', data.id, vm.chapterId).then(onReload);
+    return xhr.reload(practice ? 'practice/load' : 'study', data.id, vm.chapterId).then(onReload);
   };
 
   var activity = function(userId) {
@@ -161,7 +161,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       vm.behind = false;
       m.redraw();
     });
-  }
+  };
 
   if (members.canContribute()) form.openIfNew();
 

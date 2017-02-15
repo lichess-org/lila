@@ -6,7 +6,8 @@ case class LearnProgress(
     _id: LearnProgress.Id,
     stages: Map[String, StageProgress],
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: DateTime
+) {
 
   def id = _id
 
@@ -14,7 +15,8 @@ case class LearnProgress(
     stages = stages + (
     stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
   ),
-    updatedAt = DateTime.now)
+    updatedAt = DateTime.now
+  )
 }
 
 object LearnProgress {
@@ -25,5 +27,6 @@ object LearnProgress {
     _id = id,
     stages = Map.empty,
     createdAt = DateTime.now,
-    updatedAt = DateTime.now)
+    updatedAt = DateTime.now
+  )
 }

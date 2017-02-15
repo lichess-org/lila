@@ -6,7 +6,8 @@ import play.api.i18n.Lang
 
 private[qa] final class DataForm(
     val captcher: akka.actor.ActorSelection,
-    detectLanguage: lila.common.DetectLanguage) extends lila.hub.CaptchedForm {
+    detectLanguage: lila.common.DetectLanguage
+) extends lila.hub.CaptchedForm {
 
   lazy val question = Form(
     mapping(
@@ -18,14 +19,16 @@ private[qa] final class DataForm(
       "gameId" -> text,
       "move" -> text
     )(QuestionData.apply)(QuestionData.unapply)
-      .verifying(captchaFailMessage, validateCaptcha _))
+      .verifying(captchaFailMessage, validateCaptcha _)
+  )
 
   def editQuestion(q: Question) = question fill QuestionData(
     title = q.title,
     body = q.body,
     `hidden-tags` = q.tags mkString ",",
     gameId = "",
-    move = "")
+    move = ""
+  )
 
   lazy val answer = Form(
     mapping(
@@ -34,13 +37,15 @@ private[qa] final class DataForm(
       "gameId" -> text,
       "move" -> text
     )(AnswerData.apply)(AnswerData.unapply)
-      .verifying(captchaFailMessage, validateCaptcha _))
+      .verifying(captchaFailMessage, validateCaptcha _)
+  )
 
   lazy val editAnswer = Form(
     single(
       "body" -> nonEmptyText(minLength = 30)
         .verifying(languageMessage, validateLanguage _)
-    ))
+    )
+  )
 
   lazy val moveAnswer = Form(single(
     "to" -> nonEmptyText
@@ -68,7 +73,8 @@ private[qa] case class QuestionData(
     body: String,
     `hidden-tags`: String,
     gameId: String,
-    move: String) {
+    move: String
+) {
 
   def tags = `hidden-tags`.split(',').toList.map(_.trim.toLowerCase).filter(_.nonEmpty)
 }
@@ -76,6 +82,7 @@ private[qa] case class QuestionData(
 private[qa] case class AnswerData(
   body: String,
   gameId: String,
-  move: String)
+  move: String
+)
 
 private[qa] case class CommentData(body: String)

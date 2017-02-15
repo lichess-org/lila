@@ -17,11 +17,13 @@ case class AggregateVote(up: Int, down: Int, nb: Int, ratio: Int) {
   def sum = up - down
 
   def computeNbAndRatio = if (up + down > 0) copy(
-      ratio = 100*(up - down)/(up + down),
-      nb = up + down)
-    else copy(
-      ratio = 1,
-      nb = 0)
+    ratio = 100 * (up - down) / (up + down),
+    nb = up + down
+  )
+  else copy(
+    ratio = 1,
+    nb = 0
+  )
 }
 
 object AggregateVote {

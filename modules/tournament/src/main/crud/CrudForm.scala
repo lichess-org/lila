@@ -27,8 +27,7 @@ object CrudForm {
     "conditions" -> Condition.DataForm.all
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)
     .verifying("Invalid clock", _.validClock)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
-  ) fill CrudForm.Data(
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill CrudForm.Data(
     name = "",
     homepageHours = 0,
     clockTime = clockTimeDefault,
@@ -39,7 +38,8 @@ object CrudForm {
     image = "",
     headline = "",
     description = "",
-    conditions = Condition.DataForm.AllSetup.default)
+    conditions = Condition.DataForm.AllSetup.default
+  )
 
   case class Data(
       name: String,
@@ -52,7 +52,8 @@ object CrudForm {
       image: String,
       headline: String,
       description: String,
-      conditions: Condition.DataForm.AllSetup) {
+      conditions: Condition.DataForm.AllSetup
+  ) {
 
     def validClock = (clockTime + clockIncrement) > 0
 
@@ -65,6 +66,7 @@ object CrudForm {
     "" -> "Lichess",
     "chesswhiz.logo.png" -> "ChessWhiz",
     "chessat3.logo.png" -> "Chessat3",
-    "bitchess.logo.png" -> "Bitchess")
+    "bitchess.logo.png" -> "Bitchess"
+  )
   val imageDefault = ""
 }

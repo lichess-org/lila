@@ -7,9 +7,10 @@ import lila.user.User
 case class StudyMember(
     id: User.ID,
     role: StudyMember.Role,
-    addedAt: DateTime) {
+    addedAt: DateTime
+) {
 
-  def canContribute = role == StudyMember.Role.Write
+  def canContribute = role.canWrite
 }
 
 object StudyMember {
@@ -18,10 +19,10 @@ object StudyMember {
 
   def make(user: User) = StudyMember(id = user.id, role = Role.Read, addedAt = DateTime.now)
 
-  sealed abstract class Role(val id: String)
+  sealed abstract class Role(val id: String, val canWrite: Boolean)
   object Role {
-    case object Read extends Role("r")
-    case object Write extends Role("w")
+    case object Read extends Role("r", false)
+    case object Write extends Role("w", true)
     val byId = List(Read, Write).map { x => x.id -> x }.toMap
   }
 }
@@ -36,6 +37,10 @@ case class StudyMembers(members: StudyMember.MemberMap) {
   def get = members.get _
 
   def ids = members.keys
+
+  def contributorIds = members collect {
+    case (id, member) if member.canContribute => id
+  }
 }
 
 object StudyMembers {

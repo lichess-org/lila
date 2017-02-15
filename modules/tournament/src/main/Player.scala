@@ -14,7 +14,8 @@ private[tournament] case class Player(
     ratingDiff: Int = 0,
     magicScore: Int = 0,
     fire: Boolean = false,
-    performance: Option[Int] = none) {
+    performance: Option[Int] = none
+) {
 
   def id = _id
 

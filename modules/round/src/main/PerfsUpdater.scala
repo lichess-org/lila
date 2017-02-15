@@ -10,7 +10,8 @@ import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
     historyApi: HistoryApi,
-    rankingApi: RankingApi) {
+    rankingApi: RankingApi
+) {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
@@ -58,11 +59,13 @@ final class PerfsUpdater(
           GameRepo.setRatingAndDiffs(
             game.id,
             intRatingLens(white.perfs) -> (intRatingLens(perfsW) - intRatingLens(white.perfs)),
-            intRatingLens(black.perfs) -> (intRatingLens(perfsB) - intRatingLens(black.perfs))),
+            intRatingLens(black.perfs) -> (intRatingLens(perfsB) - intRatingLens(black.perfs))
+          ),
           GameRepo.setRatingDiffs(
             game.id,
             intRatingLens(perfsW) - intRatingLens(white.perfs),
-            intRatingLens(perfsB) - intRatingLens(black.perfs))
+            intRatingLens(perfsB) - intRatingLens(black.perfs)
+          )
         ) zip
           UserRepo.setPerfs(white, perfsW, white.perfs) zip
           UserRepo.setPerfs(black, perfsB, black.perfs) zip
@@ -85,7 +88,8 @@ final class PerfsUpdater(
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
-    correspondence: Rating)
+    correspondence: Rating
+  )
 
   private def mkRatings(perfs: Perfs) = Ratings(
     chess960 = perfs.chess960.toRating,
@@ -99,20 +103,21 @@ final class PerfsUpdater(
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
-    correspondence = perfs.correspondence.toRating)
+    correspondence = perfs.correspondence.toRating
+  )
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
-      case None              => Glicko.Result.Draw
+      case None => Glicko.Result.Draw
     }
 
   private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator) {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
-      case Glicko.Result.Win  => results.addResult(white, black)
+      case Glicko.Result.Win => results.addResult(white, black)
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
@@ -142,7 +147,8 @@ final class PerfsUpdater(
       bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),
       blitz = addRatingIf(isStd && speed == Speed.Blitz, perfs.blitz, ratings.blitz),
       classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
-      correspondence = addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence))
+      correspondence = addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence)
+    )
     if (isStd) perfs1.updateStandard else perfs1
   }
 }

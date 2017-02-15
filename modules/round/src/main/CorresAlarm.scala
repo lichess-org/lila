@@ -15,7 +15,8 @@ import makeTimeout.short
 
 private final class CorresAlarm(
     coll: Coll,
-    roundSocketHub: ActorSelection) extends Actor {
+    roundSocketHub: ActorSelection
+) extends Actor {
 
   object Schedule
   object Run
@@ -23,7 +24,8 @@ private final class CorresAlarm(
   case class Alarm(
     _id: String, // game id
     ringsAt: DateTime, // when to notify the player
-    expiresAt: DateTime)
+    expiresAt: DateTime
+  )
 
   private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]
 
@@ -58,7 +60,8 @@ private final class CorresAlarm(
                 case true => // already looking at the game
                 case false => context.system.lilaBus.publish(
                   lila.game.actorApi.CorresAlarmEvent(pov),
-                  'corresAlarm)
+                  'corresAlarm
+                )
               }
             }
           } >> coll.remove($id(alarm._id)) inject (count + 1)
@@ -82,8 +85,10 @@ private final class CorresAlarm(
                 Alarm(
                   _id = game.id,
                   ringsAt = ringsAt,
-                  expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)),
-                upsert = true).void
+                  expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)
+                ),
+                upsert = true
+              ).void
             }
           }
         }

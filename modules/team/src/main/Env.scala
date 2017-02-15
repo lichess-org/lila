@@ -10,7 +10,8 @@ final class Env(
     notifyApi: NotifyApi,
     system: akka.actor.ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val settings = new {
     val CollectionTeam = config getString "collection.team"
@@ -24,7 +25,8 @@ final class Env(
   private[team] lazy val colls = new Colls(
     team = db(CollectionTeam),
     request = db(CollectionRequest),
-    member = db(CollectionMember))
+    member = db(CollectionMember)
+  )
 
   lazy val forms = new DataForm(colls.team, hub.actor.captcher)
 
@@ -36,12 +38,14 @@ final class Env(
     notifier = notifier,
     forum = hub.actor.forum,
     indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.timeline
+  )
 
   lazy val paginator = new PaginatorBuilder(
     coll = colls,
     maxPerPage = PaginatorMaxPerPage,
-    maxUserPerPage = PaginatorMaxUserPerPage)
+    maxUserPerPage = PaginatorMaxUserPerPage
+  )
 
   lazy val cli = new Cli(api, colls)
 
@@ -58,5 +62,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current)
+    db = lila.db.Env.current
+  )
 }

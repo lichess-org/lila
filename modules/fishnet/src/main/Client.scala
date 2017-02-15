@@ -8,7 +8,8 @@ case class Client(
     skill: Client.Skill, // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def key = _id
 
@@ -34,7 +35,8 @@ object Client {
     skill = Skill.All,
     instance = None,
     enabled = true,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
   case class Key(value: String) extends AnyVal with StringValue
   case class Version(value: String) extends AnyVal with StringValue
@@ -49,7 +51,8 @@ object Client {
       python: Python,
       engines: Engines,
       ip: IpAddress,
-      seenAt: DateTime) {
+      seenAt: DateTime
+  ) {
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some

@@ -47,12 +47,19 @@ function commentBest(c, ctrl) {
 }
 
 function renderOffTrack(ctrl) {
+  var analysisUrl = '/analysis/standard/' +
+    ctrl.currentNode().fen.replace(/ /g, '_') +
+    '?color=' + ctrl.bottomColor();
   return [
     m('div.player', [
       m('div.icon.off', '!'),
       m('div.instruction', [
         m('strong', 'You browsed away'),
         m('div.choices', [
+          m('a', {
+            target: '_blank',
+            href: analysisUrl,
+          }, 'Analyse in new window'),
           m('a', {
             onclick: ctrl.resume
           }, 'Resume practice')
@@ -62,8 +69,7 @@ function renderOffTrack(ctrl) {
   ];
 }
 
-function renderEnd(root, end) {
-  var color = root.turnColor();
+function renderEnd(color, end) {
   if (end === 'checkmate') color = opposite(color);
   return m('div.player', [
     color ? m('div.no-square', m('piece.king.' + color)) : m('div.icon.off', '!'),
@@ -78,10 +84,8 @@ function renderEnd(root, end) {
 }
 
 var minDepth = 8;
-var maxDepth = 18;
 
-function renderEvalProgress(root) {
-  var node = root.vm.node;
+function renderEvalProgress(node, maxDepth) {
   return m('div.progress', m('div', {
     style: {
       width: node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0
@@ -97,7 +101,7 @@ function renderRunning(root) {
     m('div.instruction', [
       ctrl.isMyTurn() ? m('strong', 'Your move') : [
         m('strong', 'Computer thinking...'),
-        renderEvalProgress(root)
+        renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth())
       ],
       m('div.choices', [
         ctrl.isMyTurn() ? m('a', {
@@ -113,16 +117,18 @@ module.exports = function(root) {
   if (!ctrl) return;
   var comment = ctrl.comment();
   var running = ctrl.running();
-  var end = root.vm.node.threefold ? 'threefold' : root.gameOver();
+  var end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
   return m('div', {
     class: 'practice_box ' + (comment ? comment.verdict : '')
   }, [
     renderTitle(root.studyPractice ? null : root.togglePractice),
-    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root, end) : renderRunning(root))),
+    m('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root))),
     running ? m('div.comment', comment ? [
       m('span.verdict', commentText[comment.verdict]),
       ' ',
       commentBest(comment, ctrl)
-    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : m('div.comment')
+    ] : (ctrl.isMyTurn() || end ? '' : m('span.wait', 'Evaluating your move...'))) : (
+      running ? m('div.comment') : null
+    )
   ]);
 };

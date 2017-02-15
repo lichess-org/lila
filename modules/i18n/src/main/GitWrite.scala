@@ -13,7 +13,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 private[i18n] final class GitWrite(
     transRelPath: String,
     repoPath: String,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   private val repo = (new FileRepositoryBuilder())
     .setGitDir(new File(repoPath + "/.git"))
@@ -83,7 +84,8 @@ private[i18n] final class GitWrite(
       name,
       translation.id,
       translation.author | "Anonymous",
-      translation.comment | "")
+      translation.comment | ""
+    )
 
   final class Git(repo: Repository, debug: Boolean = false) {
 

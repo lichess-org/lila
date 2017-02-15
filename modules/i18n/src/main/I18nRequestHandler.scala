@@ -8,7 +8,8 @@ import lila.common.HTTPRequest
 final class I18nRequestHandler(
     pool: I18nPool,
     protocol: String,
-    cdnDomain: String) {
+    cdnDomain: String
+) {
 
   def apply(req: RequestHeader): Option[Handler] =
     if (HTTPRequest.isRedirectable(req) &&
