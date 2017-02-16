@@ -21,8 +21,12 @@ final class I18nRequestHandler(
         case None => pool.domainLang(req) match {
           // header accepts the req lang, just proceed
           case Some(reqLang) if req.acceptLanguages.has(reqLang) => none
-          // no req lang, or header doesn't accept req lang, redirect based on header
-          case _ => Redirect(redirectUrlLang(req, pool.preferred(req).language)).some
+          // header refuses the req lang, redirect if a better lang can be found
+          case Some(reqLang) =>
+            val preferred = pool preferred req
+            (preferred != reqLang) option Redirect(redirectUrlLang(req, preferred.language))
+          // no req lang, redirect based on header
+          case None => Redirect(redirectUrlLang(req, pool.preferred(req).language)).some
         }
         case _ => none
       }
