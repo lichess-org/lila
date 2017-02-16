@@ -7,11 +7,7 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var promotion = require('./promotion');
 var util = require('./util');
-var readDests = require('chess').readDests;
-var readDrops = require('chess').readDrops;
-var sanToRole = require('chess').sanToRole;
-var roleToSan = require('chess').roleToSan;
-var decomposeUci = require('chess').decomposeUci;
+var chessUtil = require('chess');
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var defined = require('common').defined;
@@ -141,8 +137,8 @@ module.exports = function(opts) {
   var showGround = function() {
     var node = this.vm.node;
     var color = this.turnColor();
-    var dests = readDests(node.dests);
-    var drops = readDrops(node.drops);
+    var dests = chessUtil.readDests(node.dests);
+    var drops = chessUtil.readDrops(node.drops);
     var movableColor = this.practice ? this.bottomColor() : (
       this.embed ||
       (dests && Object.keys(dests).length > 0) ||
@@ -321,7 +317,7 @@ module.exports = function(opts) {
 
   var userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
-      this.vm.justPlayed = roleToSan[piece.role] + '@' + pos;
+      this.vm.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = {
         ply: this.vm.node.ply,
         role: piece.role
@@ -647,14 +643,14 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.playUci = function(uci) {
-    var move = decomposeUci(uci);
+    var move = chessUtil.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
         color: this.chessground.data.movable.color,
-        role: sanToRole[uci[0]]
+        role: chessUtil.sanToRole[uci[0]]
       },
       move[1])
     else if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
+    else sendMove(move[0], move[1], chessUtil.sanToRole[move[2].toUpperCase()]);
   }.bind(this);
 
   this.explorerMove = function(uci) {
