@@ -58,7 +58,7 @@ final class Firewall(
     (IpAddress.isv4(ip) && ip.value != "127.0.0.1" && ip.value != "0.0.0.0") ||
       (IpAddress.isv6(ip) && ip.value != "0:0:0:0:0:0:0:1" && ip.value != "0:0:0:0:0:0:0:0")
 
-  private type IP = Vector[Byte]
+  private type BinIP = Vector[Byte]
 
   private lazy val ips = new {
     private val cache = asyncCache.single(
@@ -66,13 +66,13 @@ final class Firewall(
       f = fetch,
       expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
     )
-    private def strToIp(ip: String): Option[IP] = scala.util.Try {
+    private def strToIp(ip: String): Option[BinIP] = scala.util.Try {
       InetAddress.getByName(ip).getAddress.toVector
     }.toOption
-    def apply: Fu[Set[IP]] = cache.get
+    def apply: Fu[Set[BinIP]] = cache.get
     def clear = cache.refresh
     def contains(str: String) = strToIp(str) ?? { ip => apply.dmap(_ contains ip) }
-    private def fetch: Fu[Set[IP]] =
+    private def fetch: Fu[Set[BinIP]] =
       coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
         lila.mon.security.firewall.ip(ips.size)
       }
