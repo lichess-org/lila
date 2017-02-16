@@ -1173,6 +1173,9 @@ body.piece_letter .tview2 move {
 .tview2 move.current {
   border: 1px solid #d85000!important;
 }
+.tview2 move.nongame {
+  font-style: italic;
+}
 .tview2 move.active {
   color: #d85000;
 }

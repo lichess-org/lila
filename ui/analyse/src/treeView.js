@@ -139,6 +139,7 @@ function renderMainlineMoveOf(ctx, node, opts) {
   if (path === ctx.ctrl.vm.path) classes.push('active');
   if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
   if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
+  if (path.length > ctx.ctrl.vm.gamePath.length && !ctx.ctrl.vm.synthetic && !ctx.ctrl.vm.ongoing) classes.push('nongame');
   else if (ctx.ctrl.retro && ctx.ctrl.retro.current() && ctx.ctrl.retro.current().prev.path === path) classes.push('current');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');

@@ -37,7 +37,8 @@ module.exports = function(opts) {
   var initialize = function(data) {
     this.data = data;
     if (!data.game.moveTimes) this.data.game.moveTimes = [];
-    this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
+    this.synthetic = util.synthetic(this.data);
+    this.ongoing = !this.synthetic && game.playable(this.data);
     this.tree = tree.build(tree.ops.reconstruct(this.data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
@@ -48,6 +49,7 @@ module.exports = function(opts) {
   initialize(opts.data);
 
   var initialPath = tree.path.root;
+  var gamePath = '';
   if (opts.initialPly) {
     var locationHash = location.hash;
     var plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
@@ -61,10 +63,16 @@ module.exports = function(opts) {
         return n.ply <= ply;
       });
     }
+    if (!this.synthetic && !this.ongoing) gamePath = tree.ops.takePathWhile(mainline, function(n) {
+      return n.ply <= mainline.length - 1;
+    });
   }
 
   this.vm = {
+    synthetic: this.synthetic,
+    ongoing: this.ongoing,
     initialPath: initialPath,
+    gamePath: gamePath,
     cgConfig: null,
     comments: true,
     flip: false,
