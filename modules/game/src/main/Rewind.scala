@@ -35,7 +35,7 @@ object Rewind {
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None
         ),
         unmovedRooks = rewindedGame.board.unmovedRooks,
-        binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
+        clockHistory = game.clockHistory take rewindedGame.turns,
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
         clock = game.clock map (_.takeback)
