@@ -137,6 +137,7 @@ object Account extends LilaController {
       Env.team.api.quitAll(user.id) >>-
       Env.challenge.api.removeByUserId(user.id) >>-
       Env.tournament.api.withdrawAll(user) >>
+      Env.plan.api.cancel(user).nevermind >>
       (Env.security disconnect user.id)
 
   def kid = Auth { implicit ctx => me =>
