@@ -17,13 +17,11 @@ function findInMainline(fromNode, predicate) {
 
 // returns a list of nodes collected from the original one
 function collect(from, pickChild) {
-  var nodes = [];
-  var rec = function(node) {
-    nodes.push(node);
-    var child = pickChild(node);
-    if (child) rec(child);
-  };
-  rec(from);
+  var nodes = [from], n = from, c;
+  while(c = pickChild(n)) {
+    nodes.push(c);
+    n = c;
+  }
   return nodes;
 }
 
