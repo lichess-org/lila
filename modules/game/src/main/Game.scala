@@ -27,7 +27,7 @@ case class Game(
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
-    binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
+    clockHistory: ClockHistory = ClockHistory.empty,
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -111,11 +111,9 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  lazy val moveTimes: Vector[FiniteDuration] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
-
   def moveTimes(color: Color): List[FiniteDuration] = {
     val pivot = if (color == startColor) 0 else 1
-    moveTimes.toList.zipWithIndex.collect {
+    clockHistory.moveTimes.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
   }
@@ -188,10 +186,10 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      binaryMoveTimes = isPgnImport.fold(
-        ByteArray.empty,
-        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0 millis)) { lmt =>
-          moveTimes :+ {
+      clockHistory = isPgnImport.fold(
+        ClockHistory.empty,
+        lastMoveTime.fold(clockHistory) { lmt =>
+          clockHistory :+ {
             ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
           }
         }
