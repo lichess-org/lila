@@ -37,39 +37,38 @@ module.exports = function(root, opts, allow) {
 
   var config = configCtrl(root.data.game, withGames, onConfigClose);
 
+  var cacheKey = function() {
+    if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.vm.node.fen)) {
+      var moves = [];
+      for (var i = 1; i < root.vm.nodeList.length; i++) {
+        moves.push(root.vm.nodeList[i].uci);
+      }
+      return moves.join(',');
+    }
+    else return root.vm.node.fen;
+  };
+
   var handleFetchError = function(err) {
     loading(false);
     failing(true);
     m.redraw();
   };
 
-  var fetchOpening = function(fen) {
-    if (config.data.db.selected() === 'watkins') return fetchWatkins(opts.tablebaseEndpoint);
-    else return xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
-  };
+  var fetch = throttle(250, function() {
+    var fen = root.vm.node.fen, key = cacheKey();
 
-  var fetchTablebase = function(fen) {
-    return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
-  };
+    var request;
+    if (withGames && tablebaseRelevant(effectiveVariant, fen))
+      request = xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
+    else if (config.data.db.selected() === 'watkins')
+      request = xhr.watkins(opts.tablebaseEndpoint, key);
+    else
+      request = xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
 
-  var fetchWatkins = function(fen) {
-    var moves = [];
-    for (var i = 1; i < root.vm.nodeList.length; i++) {
-      moves.push(root.vm.nodeList[i].uci);
-    }
-    return xhr.watkins(opts.tablebaseEndpoint, moves);
-  };
-
-  var cacheResult = function(fen, res) {
-    res.nbMoves = res.moves.length;
-    res.fen = fen;
-    cache[fen] = res;
-  };
-
-  var fetch = throttle(250, function(fen) {
-    var isTablebase = withGames && tablebaseRelevant(effectiveVariant, fen);
-    (isTablebase ? fetchTablebase : fetchOpening)(fen).then(function(res) {
-      cacheResult(fen, res);
+    request.then(function(res) {
+      res.nbMoves = res.moves.length;
+      res.fen = root.vm.node.fen;
+      cache[key] = res;
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
@@ -85,17 +84,17 @@ module.exports = function(root, opts, allow) {
   var setNode = function() {
     if (!enabled()) return;
     var node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen) && config.data.db.selected() !== 'watkins') {
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
-    var cached = cache[node.fen];
+    var cached = cache[cacheKey()];
     if (cached) {
       movesAway(cached.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
     } else {
       loading(true);
-      fetch(node.fen);
+      fetch();
     }
   };
 
@@ -110,7 +109,7 @@ module.exports = function(root, opts, allow) {
     config: config,
     withGames: withGames,
     current: function() {
-      return cache[root.vm.node.fen];
+      return cache[cacheKey()];
     },
     toggle: function() {
       movesAway(0);
