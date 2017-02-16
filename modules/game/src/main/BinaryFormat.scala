@@ -3,6 +3,7 @@ package lila.game
 import chess.variant.Variant
 import org.joda.time.DateTime
 import scala.collection.Searching._
+import scala.concurrent.duration._
 
 import chess._
 
@@ -33,20 +34,20 @@ object BinaryFormat {
     private val decodeList: List[(Int, MT)] = buckets.zipWithIndex.map(x => x._2 -> x._1)
     private val decodeMap: Map[Int, MT] = decodeList.toMap
 
-    def write(mts: Vector[MT]): ByteArray = ByteArray {
-      def enc(mt: MT) = encodeCutoffsMS.search(mt * 100).insertionPoint
+    def write(mts: Vector[FiniteDuration]): ByteArray = ByteArray {
+      def enc(mt: FiniteDuration) = encodeCutoffsMS.search(mt.toMillis.toInt).insertionPoint
       (mts grouped 2 map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a) => enc(a) << 4
       }).map(_.toByte).toArray
     }
 
-    def read(ba: ByteArray): Vector[MT] = {
+    def read(ba: ByteArray): Vector[FiniteDuration] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.toVector
+    }.map(_ * 100 millis).toVector
   }
 
   case class clock(since: DateTime) {

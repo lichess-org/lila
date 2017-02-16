@@ -1,5 +1,7 @@
 package lila.round
 
+import scala.concurrent.duration._
+
 import chess.{ Status, Color }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
@@ -103,7 +105,7 @@ private[round] final class Finisher(
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
-    val totalTime = user.playTime.isDefined option game.moveTimes.sum / 10
+    val totalTime = user.playTime.isDefined option game.moveTimes.fold(0 millis)(_ + _).toTenths.toInt
     val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = if (game.winnerUserId exists (user.id==)) 1

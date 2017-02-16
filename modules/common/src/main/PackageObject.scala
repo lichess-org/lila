@@ -188,6 +188,9 @@ trait WithPlay { self: PackageObject =>
     def toHundredths: Long = self.toMillis / 10
   }
 
+  implicit def LilaFiniteDurationZero: Zero[FiniteDuration] =
+    Zero.instance(FiniteDuration(0, scala.concurrent.duration.MILLISECONDS))
+
   object makeTimeout {
 
     import akka.util.Timeout

@@ -2,6 +2,7 @@ package lila.evaluation
 
 import Math.{ pow, abs, sqrt, exp }
 import scalaz.NonEmptyList
+import scala.concurrent.duration._
 
 object Statistics {
   import Erf._
@@ -34,12 +35,13 @@ object Statistics {
   def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Double] =
-    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation)
+    pov.game.moveTimes(pov.color).map(_.toTenths.toInt).toNel.map(moveTimeCoefVariation)
 
   def consistentMoveTimes(pov: lila.game.Pov): Boolean =
     moveTimeCoefVariation(pov) ?? (_ < 0.4)
 
-  def noFastMoves(pov: lila.game.Pov): Boolean = pov.game.moveTimes(pov.color).count(2>) <= 2
+  def noFastMoves(pov: lila.game.Pov): Boolean =
+    pov.game.moveTimes(pov.color).count(200.millis >) <= 2
 
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 

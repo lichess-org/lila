@@ -6,7 +6,7 @@ import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -111,17 +111,16 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  // in tenths of seconds
-  lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
+  lazy val moveTimes: Vector[FiniteDuration] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
 
-  def moveTimes(color: Color): List[Int] = {
+  def moveTimes(color: Color): List[FiniteDuration] = {
     val pivot = if (color == startColor) 0 else 1
     moveTimes.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
   }
 
-  def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
+  def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toTenths.toFloat / 10)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -193,9 +192,9 @@ case class Game(
       unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = isPgnImport.fold(
         ByteArray.empty,
-        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt =>
+        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0 millis)) { lmt =>
           moveTimes :+ {
-            (nowTenths - lmt - (lag.??(_.toMillis) / 100)).toInt max 0
+            ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
           }
         }
       ),

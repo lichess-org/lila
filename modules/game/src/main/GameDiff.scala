@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.concurrent.duration.FiniteDuration
+
 import chess.{ Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
@@ -46,7 +48,7 @@ private[game] object GameDiff {
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
-    d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
+    d(moveTimes, _.moveTimes, (x: Vector[FiniteDuration]) => ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.concurrent.duration._
+
 import lila.db.dsl._
 import lila.db.ByteArray
 import lila.user.{ User, UserRepo }
@@ -24,9 +26,9 @@ final class PlayTime(gameColl: Coll) {
           tvField -> true
         ))
         .cursor[Bdoc]().fold(User.PlayTime(0, 0)) { (pt, doc) =>
-          val t = doc.getAs[ByteArray](moveTimeField) ?? { times =>
-            BinaryFormat.moveTime.read(times).sum
-          } / 10
+          val t = (doc.getAs[ByteArray](moveTimeField) ?? { times =>
+            BinaryFormat.moveTime.read(times).fold(0 millis)(_ + _)
+          } toSeconds).toInt
           val isTv = doc.get(tvField).isDefined
           User.PlayTime(pt.total + t, pt.tv + isTv.fold(t, 0))
         }

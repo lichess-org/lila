@@ -172,15 +172,15 @@ private[api] final class GameApi(
       )
     },
     "daysPerTurn" -> g.daysPerTurn,
-    "players" -> JsObject(g.players.zipWithIndex map {
-      case (p, i) => p.color.name -> Json.obj(
+    "players" -> JsObject(g.players map { p =>
+      p.color.name -> Json.obj(
         "userId" -> p.userId,
         "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
         "moveTimes" -> withMoveTimes.fold(
-          g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
+          g.moveTimes(p.color).map(_.toTenths),
           JsNull
         ),
         "blurs" -> withBlurs.option(p.blurs),
