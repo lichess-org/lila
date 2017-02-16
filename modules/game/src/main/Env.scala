@@ -33,8 +33,6 @@ final class Env(
 
   lazy val gameColl = db(CollectionGame)
 
-  lazy val playTime = new PlayTime(gameColl)
-
   lazy val pngExport = new PngExport(PngUrl, PngSize)
 
   lazy val divider = new Divider
