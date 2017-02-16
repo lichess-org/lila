@@ -18,8 +18,6 @@ case class ClockHistory(
   def take(turns: Int) = ClockHistory(
     binaryMoveTimes = moveTimes.map(BinaryFormat.moveTime write _.take(turns))
   )
-
-  def totalTime = moveTimes.map(_.fold(0 millis)(_ + _))
 }
 
 object ClockHistory {
