@@ -5,21 +5,21 @@ import scala.concurrent.duration._
 import lila.db.ByteArray
 
 case class ClockHistory(
-    binaryMoveTimes: ByteArray = ByteArray.empty
+    binaryMoveTimes: Option[ByteArray] = None
 ) {
 
-  lazy val moveTimes: Vector[FiniteDuration] =
-    BinaryFormat.moveTime read binaryMoveTimes
+  lazy val moveTimes: Option[Vector[FiniteDuration]] =
+    binaryMoveTimes.map(BinaryFormat.moveTime read _)
 
   def :+(moveTime: FiniteDuration) = ClockHistory(
-    binaryMoveTimes = BinaryFormat.moveTime write moveTimes :+ moveTime
+    binaryMoveTimes = BinaryFormat.moveTime.write((moveTimes | Vector.empty) :+ moveTime).some
   )
 
   def take(turns: Int) = ClockHistory(
-    binaryMoveTimes = BinaryFormat.moveTime write moveTimes.take(turns)
+    binaryMoveTimes = moveTimes.map(BinaryFormat.moveTime write _.take(turns))
   )
 
-  def totalTime = moveTimes.fold(0 millis)(_ + _)
+  def totalTime = moveTimes.map(_.fold(0 millis)(_ + _))
 }
 
 object ClockHistory {

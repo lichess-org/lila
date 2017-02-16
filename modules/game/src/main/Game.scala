@@ -111,11 +111,11 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes(color: Color): List[FiniteDuration] = {
+  def moveTimes(color: Color): Option[List[FiniteDuration]] = {
     val pivot = if (color == startColor) 0 else 1
-    clockHistory.moveTimes.toList.zipWithIndex.collect {
+    clockHistory.moveTimes.map(_.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
-    }
+    })
   }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn

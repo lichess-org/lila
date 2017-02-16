@@ -179,10 +179,7 @@ private[api] final class GameApi(
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
-        "moveTimes" -> withMoveTimes.fold(
-          g.moveTimes(p.color).map(_.toTenths),
-          JsNull
-        ),
+        "moveTimes" -> (g.moveTimes(p.color).map(_.map(_.toTenths)) ifTrue withMoveTimes),
         "blurs" -> withBlurs.option(p.blurs),
         "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
           Json.obj(
