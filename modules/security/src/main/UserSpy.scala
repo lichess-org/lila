@@ -16,7 +16,7 @@ case class UserSpy(
   def ipStrings = ips map (_.ip)
 
   def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
-    ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
+    ips.sortBy(_.ip.value).groupBy(_.location).toList.sortBy(_._1.comparable)
 
   lazy val otherUsers: List[OtherUser] = {
     usersSharingIp.map { u =>
@@ -31,22 +31,17 @@ object UserSpy {
 
   case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
 
-  type IP = String
   type Fingerprint = String
   type Value = String
 
-  case class IPData(ip: IP, blocked: Boolean, location: Location)
+  case class IPData(ip: IpAddress, blocked: Boolean, location: Location)
 
   private[security] def apply(firewall: Firewall, geoIP: GeoIP)(coll: Coll)(userId: String): Fu[UserSpy] = for {
     user ← UserRepo named userId flatten "[spy] user not found"
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
-    blockedIps ← (ips map { i =>
-      firewall blocksIp IpAddress(i)
-    }).sequenceFu
-    locations <- scala.concurrent.Future {
-      ips map geoIP.orUnknown
-    }
+    blockedIps ← (ips map firewall.blocksIp).sequenceFu
+    locations = ips map geoIP.orUnknown
     sharingIp ← exploreSimilar("ip")(user)(coll)
     sharingFingerprint ← exploreSimilar("fp")(user)(coll)
   } yield UserSpy(

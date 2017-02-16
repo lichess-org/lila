@@ -20,6 +20,14 @@ final class Firewall(
     cachedIpsTtl: FiniteDuration
 ) {
 
+  private val ipsCache = asyncCache.single[Set[String]](
+    name = "firewall.ips",
+    f = coll.distinct[String, Set]("_id").addEffect { ips =>
+      lila.mon.security.firewall.ip(ips.size)
+    },
+    expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
+  )
+
   private def ipOf(req: RequestHeader) =
     lila.common.HTTPRequest lastRemoteAddress req
 
@@ -39,17 +47,13 @@ final class Firewall(
       $id(ip),
       $doc("_id" -> ip, "date" -> DateTime.now),
       upsert = true
-    ).void >>- refresh
+    ).void >>- ipsCache.refresh
   }
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.remove($inIds(ips.filter(validIp).map(_.value))).void >>- refresh
+    coll.remove($inIds(ips.filter(validIp))).void >>- ipsCache.refresh
 
-  def blocksIp(ip: IpAddress): Fu[Boolean] = ips contains ip.value
-
-  private def refresh {
-    ips.clear
-  }
+  def blocksIp(ip: IpAddress): Fu[Boolean] = ipsCache.get.dmap(_ contains ip.value)
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -57,24 +61,4 @@ final class Firewall(
   private def validIp(ip: IpAddress) =
     (IpAddress.isv4(ip) && ip.value != "127.0.0.1" && ip.value != "0.0.0.0") ||
       (IpAddress.isv6(ip) && ip.value != "0:0:0:0:0:0:0:1" && ip.value != "0:0:0:0:0:0:0:0")
-
-  private type BinIP = Vector[Byte]
-
-  private lazy val ips = new {
-    private val cache = asyncCache.single(
-      name = "firewall.ips",
-      f = fetch,
-      expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
-    )
-    private def strToIp(ip: String): Option[BinIP] = scala.util.Try {
-      InetAddress.getByName(ip).getAddress.toVector
-    }.toOption
-    def apply: Fu[Set[BinIP]] = cache.get
-    def clear = cache.refresh
-    def contains(str: String) = strToIp(str) ?? { ip => apply.dmap(_ contains ip) }
-    private def fetch: Fu[Set[BinIP]] =
-      coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
-        lila.mon.security.firewall.ip(ips.size)
-      }
-  }
 }

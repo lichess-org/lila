@@ -22,7 +22,7 @@ object Store {
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> HTTPRequest.lastRemoteAddress(req).value,
+      "ip" -> HTTPRequest.lastRemoteAddress(req),
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
@@ -105,7 +105,7 @@ object Store {
     }
   }
 
-  case class Info(ip: String, ua: String, fp: Option[String]) {
+  case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
   }
   private implicit val InfoBSONHandler = Macros.handler[Info]
