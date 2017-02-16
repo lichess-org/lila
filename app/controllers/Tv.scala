@@ -56,6 +56,20 @@ object Tv extends LilaController {
     (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessGames)
   }
 
+  def friendGames = Auth { implicit ctx => me =>
+    import akka.pattern.ask
+    import makeTimeout.short
+    import lila.hub.actorApi.relation._
+
+    val userId = me.id
+
+    (Env.hub.actor.relation ? GetFriendsPlaying(userId))
+      .mapTo(manifest[List[String]])
+      .flatMap(GameRepo.nowPlayingsNonCorrespondence(_))
+      .recover { case _ => List.empty[Pov] }
+      .map(games => Ok(html.tv.multipleTvs(games, "Friends playing")))
+  }
+
   private def lichessGames(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
     Env.tv.tv.getChampions zip
       Env.tv.tv.getGames(channel, 9) map {

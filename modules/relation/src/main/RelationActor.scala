@@ -38,6 +38,8 @@ private[relation] final class RelationActor(
 
     case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
 
+    case GetFriendsPlaying(userId) => onlineFriendsPlaying(userId) pipeTo sender
+
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach { res =>
       bus.publish(SendTo(userId, JsonView.writeOnlineFriends(res)), 'users)
@@ -124,6 +126,10 @@ private[relation] final class RelationActor(
       val friendsStudying = filterFriendsStudying(ids)
       OnlineFriends(friends, friendsPlaying, friendsStudying)
     }
+
+  private def onlineFriendsPlaying(userId: String): Fu[Set[String]] = {
+    onlineFriends(userId) map (_.playing)
+  }
 
   private def filterFriendsPlaying(friendIds: Set[ID]): Set[ID] =
     onlinePlayings intersect friendIds

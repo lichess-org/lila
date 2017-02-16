@@ -167,6 +167,30 @@ object GameRepo {
       .uno
       .map { _ flatMap { Pov(_, user) } }
 
+  /**
+   * Gets any games in progress for the given users (by their user ids)
+   * that are not correspondence games
+   */
+  def nowPlayingsNonCorrespondence(userIds: List[String]): Fu[List[Pov]] = {
+    val tvGames: Fu[List[Game]] =
+      coll.find(Query nowPlayingsNonCorrespondence userIds)
+        .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
+        .gather[List](12)
+
+    tvGames.map(findUserPovs(_, userIds))
+  }
+
+  /**
+   * For a given list of users, find which game belongs to them and return
+   * their point of view.
+   */
+  private def findUserPovs(games: List[Game], userIds: List[String]): List[Pov] = {
+    (for {
+      g <- games
+      u <- userIds
+    } yield Pov(g, u)).flatten
+  }
+
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.find(Query user user.id)
       .sort($sort desc F.createdAt)

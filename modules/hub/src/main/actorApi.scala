@@ -219,6 +219,7 @@ package bookmark {
 package relation {
   case class ReloadOnlineFriends(userId: String)
   case class GetOnlineFriends(userId: String)
+  case class GetFriendsPlaying(userId: String)
   case class OnlineFriends(users: List[LightUser], playing: Set[String], studying: Set[String]) {
     def patrons: List[String] = users collect {
       case u if u.isPatron => u.id

@@ -58,6 +58,13 @@ object Query {
 
   def nowPlaying(u: String) = $doc(F.playingUids -> u)
 
+  /**
+   * Matches games which contain any of the given user ids and are not
+   * correspondence games
+   */
+  def nowPlayingsNonCorrespondence(userIds: List[String]) =
+    $doc(F.playingUids $in userIds, Query clock true)
+
   def recentlyPlaying(u: String) =
     nowPlaying(u) ++ $doc(F.updatedAt $gt DateTime.now.minusMinutes(5))
 

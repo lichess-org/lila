@@ -1,0 +1,13 @@
+@(povs: List[Pov], titleText: String)(implicit ctx: Context)
+
+@title = @{titleText}
+
+@base.layout(title = title, moreCss=cssTag("tv.css")) {
+  <div class="games_playing">
+    <div class="game_list playing">
+      @povs.map { p =>
+      <div>@game.mini(p)</div>
+      }
+    </div>
+  </div>
+}
