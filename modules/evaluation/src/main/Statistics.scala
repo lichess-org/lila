@@ -41,7 +41,7 @@ object Statistics {
     moveTimeCoefVariation(pov) ?? (_ < 0.4)
 
   def noFastMoves(pov: lila.game.Pov): Boolean =
-    pov.game.moveTimes(pov.color).toList.flatten.count(200.millis >) <= 2
+    (~pov.game.moveTimes(pov.color)).count(200.millis >) <= 2
 
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 

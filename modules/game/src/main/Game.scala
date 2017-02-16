@@ -188,10 +188,8 @@ case class Game(
       unmovedRooks = game.board.unmovedRooks,
       clockHistory = isPgnImport.fold(
         ClockHistory.empty,
-        lastMoveTime.fold(clockHistory) { lmt =>
-          clockHistory :+ {
-            ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
-          }
+        clockHistory :+ lastMoveTime.?? { lmt =>
+          ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
         }
       ),
       status = situation.status | status,
