@@ -77,7 +77,6 @@ function reconstruct(parts) {
   var root = parts[0],
     node = root;
   root.id = '';
-  root.fixed = true;
   for (var i = 1, nb = parts.length; i < nb; i++) {
     var n = parts[i];
     if (node.children) node.children.unshift(n);
@@ -85,7 +84,6 @@ function reconstruct(parts) {
     node = n;
   }
   node.children = node.children || [];
-  node.fixed = true;
   return root;
 }
 
