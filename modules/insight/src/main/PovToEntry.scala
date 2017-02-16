@@ -85,7 +85,7 @@ object PovToEntry {
       }
     }
     movetimes.zip(roles).zip(boards).zipWithIndex.map {
-      case (((tenths, role), board), i) =>
+      case tenths ~ role ~ board ~ i =>
         val ply = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {

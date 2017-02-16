@@ -98,7 +98,7 @@ object UserInfo {
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       completionRate(user.id) zip
       bookmarkApi.countByUser(user) flatMap {
-        case (((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), teamIds), isCoach), isStreamer), insightVisible), completionRate), nbBookmarks) =>
+        case ranks ~ nbPlaying ~ nbImported ~ crosstable ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ nbBookmarks =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,

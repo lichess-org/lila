@@ -32,6 +32,12 @@ trait PackageObject extends Steroids with WithFuture {
     def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
   }
 
+  type ~[+A, +B] = Tuple2[A, B]
+  object ~ {
+    def apply[A, B](x: A, y: B) = Tuple2(x, y)
+    def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
+  }
+
   implicit final class LilaPimpedString(s: String) {
 
     def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>

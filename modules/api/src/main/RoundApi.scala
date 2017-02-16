@@ -33,7 +33,7 @@ private[api] final class RoundApi(
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case (((((json, tourOption), simulOption), note), forecast), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
@@ -57,7 +57,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) zip
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case ((((json, tourOption), simulOption), note), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
@@ -85,7 +85,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) zip
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case ((((json, tourOption), simulOption), note), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose

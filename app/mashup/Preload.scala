@@ -48,7 +48,7 @@ final class Preload(
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) zip
       (ctx.me ?? Preload.currentGame(lightUserApi.sync)) flatMap {
-        case (((((((((((((data, posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), currentGame)) =>
+        case data ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ currentGame =>
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::

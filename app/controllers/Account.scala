@@ -39,7 +39,7 @@ object Account extends LilaController {
           Env.pref.api.getPref(me) zip
           lila.game.GameRepo.urgentGames(me) zip
           Env.challenge.api.countInFor.get(me.id) map {
-            case ((((nbFollowers, nbFollowing), prefs), povs), nbChallenges) =>
+            case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
               Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
               Ok {
                 import play.api.libs.json._

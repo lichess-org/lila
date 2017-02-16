@@ -37,7 +37,7 @@ object Analyse extends LilaController {
           Env.game.crosstableApi(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pgnDump(pov.game, initialFen) flatMap {
-            case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
+            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
                 analysis,

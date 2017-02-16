@@ -34,7 +34,7 @@ private[api] final class UserApi(
       bookmarkApi.countByUser(u) zip
       gameCache.nbPlaying(u.id) zip
       gameCache.nbImportedBy(u.id) map {
-        case (((((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed), nbBookmarks), nbPlaying), nbImported) =>
+        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~ isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported =>
           jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
