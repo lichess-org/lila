@@ -37,12 +37,15 @@ module.exports = function(opts) {
   var initialize = function(data) {
     this.data = data;
     if (!data.game.moveTimes) this.data.game.moveTimes = [];
-    this.ongoing = !util.synthetic(this.data) && game.playable(this.data);
-    this.tree = tree.build(tree.ops.reconstruct(this.data.treeParts));
+    this.synthetic = util.synthetic(data);
+    this.ongoing = !this.synthetic && game.playable(data);
+    this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
     this.socket = new makeSocket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
+    this.gamePath = (this.synthetic || this.ongoing) ? null :
+      tree.path.fromNodeList(tree.ops.mainlineNodeList(this.tree.root));
   }.bind(this);
 
   initialize(opts.data);
@@ -464,7 +467,7 @@ module.exports = function(opts) {
     var cfg = {
       variant: this.data.game.variant,
       possible: !this.embed && (
-        util.synthetic(this.data) || !game.playable(this.data)
+        this.synthetic || !game.playable(this.data)
       ),
       emit: function(eval, work) {
         onNewCeval(eval, work.path, work.threatMode);
