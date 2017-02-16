@@ -45,7 +45,6 @@ final class Env(
     fetchTeamIds = Env.team.cached.teamIdsList,
     fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
-    getPlayTime = Env.game.playTime.apply,
     completionRate = Env.playban.api.completionRate
   ) _
 
