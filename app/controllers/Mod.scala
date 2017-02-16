@@ -3,6 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.user.{ UserRepo, User => UserModel }
+import lila.common.IpAddress
 import views._
 
 import scala.concurrent.duration._
@@ -153,7 +154,7 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    Env.memo.asyncCache.multi[String, Int](
+    Env.memo.asyncCache.multi[IpAddress, Int](
       name = "ipIntel",
       f = ip => {
       import play.api.libs.ws.WS
@@ -177,7 +178,7 @@ object Mod extends LilaController {
     )
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx => me =>
-    ipIntelCache.get(ip).map { Ok(_) }.recover {
+    ipIntelCache.get(IpAddress(ip)).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
   }

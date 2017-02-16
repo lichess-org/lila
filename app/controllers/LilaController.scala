@@ -133,7 +133,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
-    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+    if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
       Unauthorized(views.html.auth.tor()).fuccess
     else res
 

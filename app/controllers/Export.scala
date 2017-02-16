@@ -40,7 +40,7 @@ object Export extends LilaController {
     })
   }
 
-  private val PngRateLimitGlobal = new lila.memo.RateLimit(
+  private val PngRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 60,
     duration = 1 minute,
     name = "export PGN global",
@@ -49,7 +49,7 @@ object Export extends LilaController {
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+      PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         lila.mon.export.png.game()
         OptionFuResult(GameRepo game id) { game =>
           env.pngExport fromGame game map { stream =>
@@ -65,7 +65,7 @@ object Export extends LilaController {
 
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      PngRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+      PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         lila.mon.export.png.puzzle()
         OptionFuResult(Env.puzzle.api.puzzle find id) { puzzle =>
           env.pngExport(

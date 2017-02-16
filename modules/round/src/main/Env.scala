@@ -122,12 +122,15 @@ final class Env(
     actor
   }
 
+  lazy val selfReport = new SelfReport(roundMap)
+
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
+    selfReport = selfReport,
     bus = system.lilaBus
   )
 

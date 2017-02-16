@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
 
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
@@ -105,7 +105,7 @@ object Store {
     }
   }
 
-  case class Info(ip: String, ua: String, fp: Option[String]) {
+  case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
   }
   private implicit val InfoBSONHandler = Macros.handler[Info]
@@ -132,6 +132,6 @@ object Store {
         coll.remove($inIds(olds.map(_._id))).void
       }
 
-  private[security] def recentByIpExists(ip: String): Fu[Boolean] =
+  private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
 }

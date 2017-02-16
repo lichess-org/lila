@@ -3,7 +3,7 @@ package controllers
 import scala.concurrent.duration._
 
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, IpAddress }
 import views._
 
 object Search extends LilaController {
@@ -11,14 +11,14 @@ object Search extends LilaController {
   private def env = Env.gameSearch
   def searchForm = env.forms.search
 
-  private val RateLimitGlobal = new lila.memo.RateLimit(
+  private val RateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 50,
     duration = 1 minute,
     name = "search games global",
     key = "search.games.global"
   )
 
-  private val RateLimitPerIP = new lila.memo.RateLimit(
+  private val RateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5 minutes,
     name = "search games per IP",

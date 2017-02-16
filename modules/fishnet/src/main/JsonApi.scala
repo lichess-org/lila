@@ -6,10 +6,10 @@ import play.api.libs.json._
 import chess.format.{ Uci, FEN }
 import chess.variant.Variant
 
-import lila.common.Maths
+import lila.common.{ Maths, IpAddress }
 import lila.fishnet.{ Work => W }
-import lila.tree.Eval.{ Cp, Mate }
 import lila.tree.Eval.JsonHandlers._
+import lila.tree.Eval.{ Cp, Mate }
 
 object JsonApi {
 
@@ -17,7 +17,7 @@ object JsonApi {
     val fishnet: Request.Fishnet
     val stockfish: Request.Engine
 
-    def instance(ip: Client.IpAddress) = Client.Instance(
+    def instance(ip: IpAddress) = Client.Instance(
       fishnet.version,
       fishnet.python | Client.Python(""),
       Client.Engines(

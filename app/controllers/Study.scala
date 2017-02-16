@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
 import views._
@@ -212,14 +212,14 @@ object Study extends LilaController {
     }
   }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit(
+  private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
     key = "clone_study.user"
   )
 
-  private val CloneLimitPerIP = new lila.memo.RateLimit(
+  private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
@@ -242,7 +242,7 @@ object Study extends LilaController {
     }
   }
 
-  private val PgnRateLimitGlobal = new lila.memo.RateLimit(
+  private val PgnRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 30,
     duration = 1 minute,
     name = "export study PGN global",
@@ -251,7 +251,7 @@ object Study extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
-      PgnRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+      PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study()

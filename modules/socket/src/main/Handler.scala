@@ -20,7 +20,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  private val AnaRateLimiter = new lila.memo.RateLimit(120, 30 seconds,
+  private val AnaRateLimiter = new lila.memo.RateLimit[String](120, 30 seconds,
     name = "socket analysis move",
     key = "socket_analysis_move")
 

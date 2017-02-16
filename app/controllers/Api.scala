@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, IpAddress }
 
 object Api extends LilaController {
 
@@ -39,14 +39,14 @@ object Api extends LilaController {
     userApi one name map toApiResult
   }
 
-  private val UsersRateLimitGlobal = new lila.memo.RateLimit(
+  private val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 1000,
     duration = 1 minute,
     name = "team users API global",
     key = "team_users.api.global"
   )
 
-  private val UsersRateLimitPerIP = new lila.memo.RateLimit(
+  private val UsersRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 1000,
     duration = 10 minutes,
     name = "team users API per IP",
@@ -59,7 +59,7 @@ object Api extends LilaController {
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
     UsersRateLimitPerIP(ip, cost = cost) {
-      UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+      UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
         lila.mon.api.teamUsers.cost(cost)
         (get("team") ?? Env.team.api.team).flatMap {
           _ ?? { team =>
@@ -75,7 +75,7 @@ object Api extends LilaController {
     val ip = HTTPRequest lastRemoteAddress ctx.req
     val cost = usernames.size / 4
     UsersRateLimitPerIP(ip, cost = cost) {
-      UsersRateLimitGlobal("-", cost = cost, msg = ip) {
+      UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
         lila.mon.api.users.cost(1)
         lila.user.UserRepo nameds usernames map {
           _.map { Env.user.jsonView(_, none) }
@@ -101,21 +101,21 @@ object Api extends LilaController {
     }
   }
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
     duration = 10 minutes,
     name = "user games API per IP",
     key = "user_games.api.ip"
   )
 
-  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[String](
     credits = 10 * 1000,
     duration = 5 minutes,
     name = "user games API per UA",
     key = "user_games.api.ua"
   )
 
-  private val UserGamesRateLimitGlobal = new lila.memo.RateLimit(
+  private val UserGamesRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 10 * 1000,
     duration = 1 minute,
     name = "user games API global",
@@ -128,8 +128,8 @@ object Api extends LilaController {
     val cost = page * nb + 10
     val ip = HTTPRequest lastRemoteAddress ctx.req
     UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip) {
-        UserGamesRateLimitGlobal("-", cost = cost, msg = ip) {
+      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
           lila.mon.api.userGames.cost(cost)
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
@@ -153,7 +153,7 @@ object Api extends LilaController {
     }
   }
 
-  private val GameRateLimitPerIP = new lila.memo.RateLimit(
+  private val GameRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 100,
     duration = 1 minute,
     name = "game API per IP",

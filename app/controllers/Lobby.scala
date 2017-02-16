@@ -5,6 +5,7 @@ import play.api.mvc._
 import play.twirl.api.Html
 import scala.concurrent.duration._
 
+import lila.common.IpAddress
 import lila.api.Context
 import lila.app._
 import views._
@@ -42,7 +43,7 @@ object Lobby extends LilaController {
     )
   }
 
-  private val MessageLimitPerIP = new lila.memo.RateLimit(
+  private val MessageLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 40,
     duration = 10 seconds,
     name = "lobby socket message per IP",

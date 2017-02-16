@@ -22,7 +22,7 @@ sealed trait UserContext {
 
   def troll = me.??(_.troll)
 
-  def ip = req.remoteAddress
+  def ip = lila.common.HTTPRequest lastRemoteAddress req
 
   def kid = me.??(_.kid)
   def noKid = !kid

@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import chess.format.{ Uci, FEN }
 import chess.variant.Variant
+import lila.common.IpAddress
 
 sealed trait Work {
   def _id: Work.Id
@@ -56,12 +57,14 @@ object Work {
 
   case class Sender(
       userId: Option[String],
-      ip: Option[String],
+      ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
   ) {
 
-    override def toString = if (system) "lichess" else userId orElse ip getOrElse "unknown"
+    override def toString =
+      if (system) "lichess"
+      else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
   case class Move(

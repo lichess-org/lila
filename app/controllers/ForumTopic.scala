@@ -3,14 +3,14 @@ package controllers
 import scala.concurrent.duration._
 
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.forum.CategRepo
 import play.api.libs.json._
 import views._
 
 object ForumTopic extends LilaController with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit(2, 5 minutes,
+  private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](2, 5 minutes,
     name = "forum create topic",
     key = "forum.topic")
 

@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lila.api.BodyContext
 import lila.app._
 import lila.app.mashup.GameFilterMenu
-import lila.common.HTTPRequest
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.common.paginator.Paginator
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
@@ -136,7 +136,7 @@ object User extends LilaController {
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10 minutes,
     name = "user games web/mobile per IP",

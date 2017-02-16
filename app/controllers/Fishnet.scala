@@ -67,7 +67,7 @@ object Fishnet extends LilaController {
           logger.warn(s"Malformed request: $err\n${req.body}")
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
-        data => api.authenticateClient(data, clientIp(req)) flatMap {
+        data => api.authenticateClient(data, HTTPRequest lastRemoteAddress req) flatMap {
           case Failure(msg) => {
             val ip = HTTPRequest.lastRemoteAddress(req)
             logger.info(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip | ${msg.getMessage}")
@@ -81,8 +81,4 @@ object Fishnet extends LilaController {
         }
       )
     }
-
-  private def clientIp(req: RequestHeader) = lila.fishnet.Client.IpAddress {
-    HTTPRequest lastRemoteAddress req
-  }
 }

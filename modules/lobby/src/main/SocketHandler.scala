@@ -20,7 +20,7 @@ private[lobby] final class SocketHandler(
     blocking: String => Fu[Set[String]]
 ) {
 
-  private val HookPoolLimitPerMember = new lila.memo.RateLimit(
+  private val HookPoolLimitPerMember = new lila.memo.RateLimit[String](
     credits = 25,
     duration = 1 minute,
     name = "lobby hook/pool per member",

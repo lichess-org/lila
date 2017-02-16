@@ -1,5 +1,6 @@
 package lila.mod
 
+import lila.common.IpAddress
 import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, LightUserApi }
@@ -116,7 +117,7 @@ final class ModApi(
   }
 
   def ipban(mod: String, ip: String): Funit =
-    (firewall blockIp ip) >> logApi.ipban(mod, ip)
+    (firewall blockIp IpAddress(ip)) >> logApi.ipban(mod, ip)
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
