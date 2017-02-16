@@ -100,7 +100,6 @@ module.exports = function(send, ctrl) {
   }.bind(this);
 
   lichess.pubsub.on('ab.rep', function(n) {
-    console.log(n);
     send('rep', {
       n: n
     });

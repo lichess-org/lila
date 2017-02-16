@@ -93,7 +93,7 @@ module.exports = {
             el.addEventListener('click', function(e) {
               e.preventDefault();
               var id = e.target.parentNode.getAttribute('data-id') || e.target.getAttribute('data-id');
-              if (id) ctrl.setChapter(id);
+              if (id) ctrl.setChapter(id, true);
               return false;
             });
         }
