@@ -2,7 +2,7 @@ var m = require('mithril');
 var xhr = require('../studyXhr');
 var embedYoutube = require('../studyComments').embedYoutube;
 var makeSuccess = require('./studyPracticeSuccess');
-var sound = require('../../sound');
+var makeSound = require('./sound');
 
 var readOnlyProp = function(value) {
   return function() {
@@ -16,6 +16,7 @@ module.exports = function(root, studyData, data) {
   var comment = m.prop();
   var nbMoves = m.prop(0);
   var success = m.prop(null); // null = ongoing, true = win, false = fail
+  var sound = makeSound();
 
   var makeComment = function(treeRoot) {
     if (!treeRoot.comments) return;
@@ -46,8 +47,9 @@ module.exports = function(root, studyData, data) {
   var checkSuccess = function() {
     if (success() !== null) return;
     nbMoves(computeNbMoves());
-    success(makeSuccess(root, goal(), nbMoves()));
-    if (success()) onVictory();
+    var res = success(makeSuccess(root, goal(), nbMoves()));
+    if (res) onVictory();
+    else if (res === false) onFailure();
   };
 
   var onVictory = function() {
@@ -57,8 +59,13 @@ module.exports = function(root, studyData, data) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
+    sound.success();
     var next = nextChapter();
     if (next) root.study.setChapter(next.id);
+  };
+
+  var onFailure = function() {
+    sound.failure();
   };
 
   var nextChapter = function() {
