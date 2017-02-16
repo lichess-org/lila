@@ -188,7 +188,7 @@ trait WithPlay { self: PackageObject =>
     def toHundredths: Long = self.toMillis / 10
   }
 
-  implicit def LilaFiniteDurationZero: Zero[FiniteDuration] =
+  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
     Zero.instance(FiniteDuration(0, scala.concurrent.duration.MILLISECONDS))
 
   object makeTimeout {
