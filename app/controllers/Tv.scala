@@ -65,8 +65,7 @@ object Tv extends LilaController {
 
     (Env.hub.actor.relation ? GetFriendsPlaying(userId))
       .mapTo(manifest[List[String]])
-      .flatMap(GameRepo.nowPlayingsNonCorrespondence(_))
-      .recover { case _ => List.empty[Pov] }
+      .flatMap(GameRepo.nowPlayingsNonCorrespondence)
       .map(games => Ok(html.tv.multipleTvs(games, "Friends playing")))
   }
 
