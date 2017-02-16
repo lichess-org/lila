@@ -120,8 +120,6 @@ case class Game(
     }
   }
 
-  def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toTenths.toFloat / 10)
-
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
   def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
