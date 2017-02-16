@@ -32,8 +32,9 @@ object HTTPRequest {
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
-  def lastRemoteAddress(req: RequestHeader): String =
+  def lastRemoteAddress(req: RequestHeader) = IpAddress {
     req.remoteAddress.split(", ").lastOption | req.remoteAddress
+  }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 

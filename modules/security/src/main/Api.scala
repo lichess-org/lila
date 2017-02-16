@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
 
-import lila.common.ApiVersion
+import lila.common.{ ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -92,7 +92,7 @@ final class Api(
 
   def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
-  def recentByIpExists(ip: String): Fu[Boolean] = Store recentByIpExists ip
+  def recentByIpExists(ip: IpAddress): Fu[Boolean] = Store recentByIpExists ip
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
     coll.distinct[String, List](

@@ -30,7 +30,7 @@ private[study] final class SocketHandler(
   import Handler.AnaRateLimit
   import JsonView.shapeReader
 
-  private val InviteLimitPerUser = new lila.memo.RateLimit(
+  private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
     name = "study invites per user",

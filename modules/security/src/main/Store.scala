@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
 
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
@@ -22,7 +22,7 @@ object Store {
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> HTTPRequest.lastRemoteAddress(req),
+      "ip" -> HTTPRequest.lastRemoteAddress(req).value,
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> true,
@@ -132,6 +132,6 @@ object Store {
         coll.remove($inIds(olds.map(_._id))).void
       }
 
-  private[security] def recentByIpExists(ip: String): Fu[Boolean] =
+  private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
 }

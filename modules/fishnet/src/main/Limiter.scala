@@ -3,7 +3,8 @@ package lila.fishnet
 import scala.concurrent.duration._
 import reactivemongo.bson._
 
-import lila.db.dsl.Coll
+import lila.common.IpAddress
+import lila.db.dsl._
 
 private final class Limiter(
     analysisColl: Coll,
@@ -16,7 +17,7 @@ private final class Limiter(
       case true => perDayCheck(sender)
     }
 
-  private val RequestLimitPerIP = new lila.memo.RateLimit(
+  private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 20 hours,
     name = "request analysis per IP",
@@ -25,12 +26,12 @@ private final class Limiter(
 
   private def concurrentCheck(sender: Work.Sender) = sender match {
     case Work.Sender(_, _, mod, system) if (mod || system) => fuccess(true)
-    case Work.Sender(Some(userId), _, _, _) => analysisColl.count(BSONDocument(
+    case Work.Sender(Some(userId), _, _, _) => !analysisColl.exists($doc(
       "sender.userId" -> userId
-    ).some) map (0 ==)
-    case Work.Sender(_, Some(ip), _, _) => analysisColl.count(BSONDocument(
+    ))
+    case Work.Sender(_, Some(ip), _, _) => !analysisColl.exists($doc(
       "sender.ip" -> ip
-    ).some) map (0 ==)
+    ))
     case _ => fuccess(false)
   }
 

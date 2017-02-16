@@ -7,7 +7,7 @@ import play.api.Play.current
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest }
+import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -98,7 +98,7 @@ object Auth extends LilaController {
     }
   }
 
-  private def mustConfirmEmailByIP(ip: String, username: String): Fu[Boolean] =
+  private def mustConfirmEmailByIP(ip: IpAddress, username: String): Fu[Boolean] =
     fuccess(username.toLowerCase.contains("argeskent")) >>|
       api.recentByIpExists(ip) >>|
       Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }

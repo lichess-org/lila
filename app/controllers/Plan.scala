@@ -150,7 +150,7 @@ object Plan extends LilaController {
         cents = lila.plan.Cents(ipn.grossCents),
         name = ipn.name,
         txnId = ipn.txnId,
-        ip = lila.common.HTTPRequest.lastRemoteAddress(req),
+        ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
         key = lila.plan.PayPalIpnKey(get("key", req) | "N/A")
       ) inject Ok
     )

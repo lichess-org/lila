@@ -24,4 +24,6 @@ object Iso {
   implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A] _, identity[A] _)
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
+
+  implicit val ipAddressIso = string[IpAddress](IpAddress.apply, _.value)
 }

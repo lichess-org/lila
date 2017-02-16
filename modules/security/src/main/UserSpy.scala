@@ -1,5 +1,6 @@
 package lila.security
 
+import lila.common.IpAddress
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
@@ -40,7 +41,9 @@ object UserSpy {
     user ← UserRepo named userId flatten "[spy] user not found"
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
-    blockedIps ← (ips map firewall.blocksIp).sequenceFu
+    blockedIps ← (ips map { i =>
+      firewall blocksIp IpAddress(i)
+    }).sequenceFu
     locations <- scala.concurrent.Future {
       ips map geoIP.orUnknown
     }

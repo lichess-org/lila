@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import lila.db.BSON.{ BSONJodaDateTimeHandler, stringAnyValHandler }
+import lila.common.IpAddress
 import reactivemongo.bson._
 
 import chess.format.FEN
@@ -12,7 +13,7 @@ private object BSONHandlers {
   implicit val ClientVersionBSONHandler = stringAnyValHandler[Client.Version](_.value, Client.Version.apply)
   implicit val ClientPythonBSONHandler = stringAnyValHandler[Client.Python](_.value, Client.Python.apply)
   implicit val ClientUserIdBSONHandler = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
-  implicit val ClientIpAddressBSONHandler = stringAnyValHandler[Client.IpAddress](_.value, Client.IpAddress.apply)
+  implicit val ClientIpAddressBSONHandler = stringAnyValHandler[IpAddress](_.value, IpAddress.apply)
 
   implicit val ClientSkillBSONHandler = new BSONHandler[BSONString, Client.Skill] {
     def read(x: BSONString) = Client.Skill byKey x.value err s"Invalid client skill ${x.value}"

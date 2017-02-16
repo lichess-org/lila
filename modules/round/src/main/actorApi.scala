@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 import chess.Color
 import chess.format.Uci
 
-import lila.common.ApiVersion
+import lila.common.{ IpAddress, ApiVersion }
 import lila.game.Event
 import lila.socket.SocketMember
 import lila.socket.Socket.Uid
@@ -20,7 +20,7 @@ sealed trait Member extends SocketMember {
   val color: Color
   val playerIdOption: Option[String]
   val troll: Boolean
-  val ip: String
+  val ip: IpAddress
   val userTv: Option[String]
   val apiVersion: ApiVersion
 
@@ -36,7 +36,7 @@ object Member {
     user: Option[User],
     color: Color,
     playerIdOption: Option[String],
-    ip: String,
+    ip: IpAddress,
     userTv: Option[String],
     apiVersion: ApiVersion
   ): Member = {
@@ -54,7 +54,7 @@ case class Owner(
     playerId: String,
     color: Color,
     troll: Boolean,
-    ip: String,
+    ip: IpAddress,
     apiVersion: ApiVersion
 ) extends Member {
 
@@ -67,7 +67,7 @@ case class Watcher(
     userId: Option[String],
     color: Color,
     troll: Boolean,
-    ip: String,
+    ip: IpAddress,
     userTv: Option[String],
     apiVersion: ApiVersion
 ) extends Member {
@@ -80,7 +80,7 @@ case class Join(
   user: Option[User],
   color: Color,
   playerId: Option[String],
-  ip: String,
+  ip: IpAddress,
   userTv: Option[String],
   apiVersion: ApiVersion
 )
@@ -138,7 +138,7 @@ package round {
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
-  case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: String)
+  case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
 }
 

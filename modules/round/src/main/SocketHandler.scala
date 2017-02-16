@@ -9,8 +9,8 @@ import chess.format.Uci
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
-import lila.common.ApiVersion
 import lila.common.PimpedJson._
+import lila.common.{ IpAddress, ApiVersion }
 import lila.game.{ Pov, PovRef, GameRepo }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
@@ -26,6 +26,7 @@ private[round] final class SocketHandler(
     hub: lila.hub.Env,
     messenger: Messenger,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    selfReport: SelfReport,
     bus: lila.common.Bus
 ) {
 
@@ -97,6 +98,10 @@ private[round] final class SocketHandler(
           hub.actor.tournamentApi ! Berserk(gameId, userId)
           member push ackEvent
         }
+        case ("rep", o) => for {
+          d ← o obj "d"
+          name ← d str "n"
+        } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
       }: Handler.Controller) orElse lila.chat.Socket.in(
         chatId = gameId,
         member = member,
@@ -111,7 +116,7 @@ private[round] final class SocketHandler(
     colorName: String,
     uid: Uid,
     user: Option[User],
-    ip: String,
+    ip: IpAddress,
     userTv: Option[String],
     apiVersion: ApiVersion
   ): Fu[Option[JsSocketHandler]] =
@@ -123,7 +128,7 @@ private[round] final class SocketHandler(
     pov: Pov,
     uid: Uid,
     user: Option[User],
-    ip: String,
+    ip: IpAddress,
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
     join(pov, Some(pov.playerId), uid, user, ip, userTv = none, apiVersion)
@@ -133,7 +138,7 @@ private[round] final class SocketHandler(
     playerId: Option[String],
     uid: Uid,
     user: Option[User],
-    ip: String,
+    ip: IpAddress,
     userTv: Option[String],
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] = {

@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
-import lila.common.{ HTTPRequest, LilaCookie }
+import lila.common.{ HTTPRequest, LilaCookie, IpAddress }
 import lila.game.{ GameRepo, Pov, AnonCookie }
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
@@ -20,7 +20,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
-  private val PostRateLimit = new lila.memo.RateLimit(5, 1 minute,
+  private val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
     name = "setup post",
     key = "setup_post")
 

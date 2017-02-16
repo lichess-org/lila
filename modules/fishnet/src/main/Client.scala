@@ -1,5 +1,7 @@
 package lila.fishnet
 
+import lila.common.IpAddress
+
 import org.joda.time.DateTime
 
 case class Client(
@@ -42,7 +44,6 @@ object Client {
   case class Version(value: String) extends AnyVal with StringValue
   case class Python(value: String) extends AnyVal with StringValue
   case class UserId(value: String) extends AnyVal with StringValue
-  case class IpAddress(value: String) extends AnyVal with StringValue
   case class Engine(name: String)
   case class Engines(stockfish: Engine)
 
