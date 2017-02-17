@@ -140,11 +140,19 @@ function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
   }, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
-    return m('div.no-square', m('piece', {
-      class: color + ' ' + role,
-      'data-color': color,
-      'data-role': role
-    }))
+    var piece = color + ' ' + role;
+
+    return m('div', {
+        class: 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : ''),
+        onmousedown: function() {
+          ctrl.vm.selected(piece);
+        }
+      }, m('piece', {
+        class: piece,
+        'data-color': color,
+        'data-role': role
+      })
+    );
   }));
 }
 

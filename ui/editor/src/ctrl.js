@@ -13,7 +13,8 @@ module.exports = function(cfg) {
   this.trans = partial(editor.trans, this.data.i18n);
 
   this.vm = {
-    redirecting: false
+    redirecting: false,
+    selected: m.prop(null)
   };
 
   this.extraPositions = [{

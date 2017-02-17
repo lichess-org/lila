@@ -14,10 +14,10 @@
   box-sizing: border-box;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
 }
-#board_editor .spare.black {
+#board_editor .spare.black, #board_editor .spare.white .selected-square {
   background: #888;
 }
-#board_editor .spare.white {
+#board_editor .spare.white, #board_editor .spare.black .selected-square {
   background: #ccc;
 }
 body.dark #board_editor .spare.white {
