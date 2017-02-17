@@ -140,18 +140,26 @@ function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
   }, ['pointer', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'trash'].map(function(role) {
-    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role;
+    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role,
+      pieceElement = {
+        class: piece
+      },
+      containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
+
+    if (piece === 'trash') {
+      pieceElement['data-icon'] = 'q';
+      containerClass += ' trash';
+    } else {
+      pieceElement['data-color'] = color;
+      pieceElement['data-role'] = role;
+    }
 
     return m('div', {
-        class: 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : ''),
+        class: containerClass,
         onmousedown: function() {
           ctrl.vm.selected(piece);
         }
-      }, m('piece', {
-        class: piece,
-        'data-color': color,
-        'data-role': role
-      })
+      }, m('piece', pieceElement)
     );
   }));
 }
