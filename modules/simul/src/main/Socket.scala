@@ -79,7 +79,7 @@ private[simul] final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.GetUserIds => sender ! userIds
+    case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
 
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

@@ -36,7 +36,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   override def postStop() {
     super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
-    members.keys foreach eject
+    members foreachKey eject
   }
 
   // to be defined in subclassing actor
@@ -154,8 +154,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
-
-  def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
   val maxSpectatorUsers = 10
 
