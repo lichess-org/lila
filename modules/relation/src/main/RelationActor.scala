@@ -32,11 +32,9 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
-
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach { res =>
-      bus.publish(SendTo(userId, JsonView.writeOnlineFriends(res)), 'users)
+    case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
+      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
     }
 
     case ComputeMovement =>
@@ -104,23 +102,6 @@ private[relation] final class RelationActor(
         online.studying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
-  }
-
-  private def onlineFriends(userId: ID): Fu[OnlineFriends] =
-    api fetchFollowing userId map online.userIds.intersect map { friends =>
-      OnlineFriends(
-        users = friends.flatMap { lightUser(_) },
-        playing = filterFriendsPlaying(friends),
-        studying = filterFriendsStudying(friends)
-      )
-    }
-
-  private def filterFriendsPlaying(friendIds: Set[ID]): Set[ID] =
-    online.playing intersect friendIds
-
-  private def filterFriendsStudying(friendIds: Set[ID]): Set[ID] = {
-    val found = online.studying.getAllPresent(friendIds)
-    friendIds filter found.contains
   }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =

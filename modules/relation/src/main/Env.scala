@@ -41,7 +41,11 @@ final class Env(
     maxBlock = MaxBlock
   )
 
-  val online = new OnlineDoing(onlineUserIds)
+  val online = new OnlineDoing(
+    api,
+    lightUser = lightUserApi.sync,
+    onlineUserIds
+  )
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     lightUser = lightUserApi.sync,

@@ -295,7 +295,7 @@ private[controllers] trait LilaController
       (Env.pref.api getPref me) zip {
         if (isPage) {
           Env.user.lightUserApi preloadUser me
-          getOnlineFriends(me) zip
+          Env.relation.online.friendsOf(me.id) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value)
@@ -312,14 +312,6 @@ private[controllers] trait LilaController
     }
 
   private def getAssetVersion = Env.api.assetVersion.get
-
-  private def getOnlineFriends(me: UserModel): Fu[OnlineFriends] = {
-    import akka.pattern.ask
-    import makeTimeout.short
-    (Env.hub.actor.relation ? GetOnlineFriends(me.id))
-      .mapTo(manifest[OnlineFriends])
-      .recover { case _ => OnlineFriends.empty }
-  }
 
   private def blindMode(implicit ctx: UserContext) =
     ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>
