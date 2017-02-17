@@ -13,9 +13,9 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 import play.api.libs.json.Json
 
 private[relation] final class RelationActor(
-    getOnlineUserIds: () => Set[ID],
-    lightUser: LightUser.Getter,
+    lightUser: LightUser.GetterSync,
     api: RelationApi,
+    onlineUserIds: ExpireSetMemo,
     onlinePlayings: ExpireSetMemo,
     onlineStudying: OnlineStudyingCache,
     onlineStudyingAll: OnlineStudyingCache
@@ -23,7 +23,7 @@ private[relation] final class RelationActor(
 
   private val bus = context.system.lilaBus
 
-  private var onlines = Map[ID, LightUser]()
+  private var previousOnlineIds = Set.empty[ID]
 
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
@@ -44,20 +44,19 @@ private[relation] final class RelationActor(
     }
 
     case ComputeMovement =>
-      val prevIds = onlines.keySet
-      val curIds = getOnlineUserIds()
-      val leaveIds = (prevIds diff curIds).toList
-      val enterIds = (curIds diff prevIds).toList
-      for {
-        leaves <- leaveIds.map(lightUser).sequenceFu.map(_.flatten)
-        enters <- enterIds.map(lightUser).sequenceFu.map(_.flatten)
-      } self ! NotifyMovement(leaves, enters)
+      val curIds = onlineUserIds.keySet
+      val leaveIds = (previousOnlineIds diff curIds).toList
+      val enterIds = (curIds diff previousOnlineIds).toList
+      val leaveUsers = leaveIds flatMap { lightUser(_) }
+      val enterUsers = enterIds flatMap { lightUser(_) }
 
-    case NotifyMovement(leaves, enters) =>
-      onlines = onlines -- leaves.map(_.id) ++ enters.map(e => e.id -> e)
-      val friendsEntering = enters.map(makeFriendEntering)
+      val friendsEntering = enterUsers map { u =>
+        FriendEntering(u, onlinePlayings get u.id, onlineStudying.getIfPresent(u.id).isDefined)
+      }
+
       notifyFollowersFriendEnters(friendsEntering)
-      notifyFollowersFriendLeaves(leaves)
+      notifyFollowersFriendLeaves(leaveUsers)
+      previousOnlineIds = curIds
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
@@ -113,16 +112,13 @@ private[relation] final class RelationActor(
       }
   }
 
-  private def makeFriendEntering(enters: LightUser) = {
-    FriendEntering(enters, onlinePlayings.get(enters.id), onlineStudying.getIfPresent(enters.id).isDefined)
-  }
-
-  private def onlineFriends(userId: String): Fu[OnlineFriends] =
-    api fetchFollowing userId map { ids =>
-      val friends = ids.flatMap(onlines.get).toList
-      val friendsPlaying = filterFriendsPlaying(ids)
-      val friendsStudying = filterFriendsStudying(ids)
-      OnlineFriends(friends, friendsPlaying, friendsStudying)
+  private def onlineFriends(userId: ID): Fu[OnlineFriends] =
+    api fetchFollowing userId map onlineUserIds.intersect map { friends =>
+      OnlineFriends(
+        users = friends.flatMap { lightUser(_) },
+        playing = filterFriendsPlaying(friends),
+        studying = filterFriendsStudying(friends)
+      )
     }
 
   private def filterFriendsPlaying(friendIds: Set[ID]): Set[ID] =
@@ -135,27 +131,27 @@ private[relation] final class RelationActor(
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
-      api fetchFollowers entering.user.id map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers entering.user.id map onlineUserIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
       }
     }
 
   private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
     friendsLeaving foreach { leaving =>
-      api fetchFollowers leaving.id map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers leaving.id map onlineUserIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
       }
     }
 
-  private def notifyFollowersGameStateChanged(userIds: Traversable[String], message: String) =
+  private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
     userIds foreach { userId =>
-      api fetchFollowers userId map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers userId map onlineUserIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
       }
     }
 
-  private def notifyFollowersFriendInStudyStateChanged(userId: String, studyId: String, message: String) =
-    api fetchFollowers userId map (_ filter onlines.contains) foreach { ids =>
+  private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
+    api fetchFollowers userId map onlineUserIds.intersect foreach { ids =>
       if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
     }
 }

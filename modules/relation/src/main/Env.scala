@@ -11,9 +11,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    getOnlineUserIds: () => Set[ID],
-    lightUser: lila.common.LightUser.Getter,
-    lightUserSync: lila.common.LightUser.GetterSync,
+    onlineUserIds: lila.memo.ExpireSetMemo,
+    lightUserApi: lila.user.LightUserApi,
     followable: String => Fu[Boolean],
     system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -54,12 +53,12 @@ final class Env(
     Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write or read access in public and private studies
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
-    getOnlineUserIds = getOnlineUserIds,
-    lightUser = lightUser,
+    lightUser = lightUserApi.sync,
     api = api,
-    onlinePlayings,
-    onlineStudying,
-    onlineStudyingAll
+    onlineUserIds = onlineUserIds,
+    onlinePlayings = onlinePlayings,
+    onlineStudying = onlineStudying,
+    onlineStudyingAll = onlineStudyingAll
   )), name = ActorName)
 
   scheduler.once(15 seconds) {
@@ -75,9 +74,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "relation",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
-    lightUser = lila.user.Env.current.lightUser,
-    lightUserSync = lila.user.Env.current.lightUserSync,
+    onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
+    lightUserApi = lila.user.Env.current.lightUserApi,
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
