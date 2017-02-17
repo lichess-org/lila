@@ -233,7 +233,7 @@ lichess.makeChat = function(id, data, callback) {
   var isDev = document.body.getAttribute('data-dev');
   lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
-  lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
+  lichess.loadScript("/assets/compiled/lichess.chat2" + (isDev ? '' : '.min') + '.js').done(function() {
     (callback || $.noop)(LichessChat(document.getElementById(id), data));
   });
 };
