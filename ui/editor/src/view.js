@@ -139,8 +139,8 @@ function inputs(ctrl, fen) {
 function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
-  }, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
-    var piece = color + ' ' + role;
+  }, ['pointer', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'trash'].map(function(role) {
+    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role;
 
     return m('div', {
         class: 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : ''),
