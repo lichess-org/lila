@@ -3,7 +3,7 @@ package lila.api
 import play.api.mvc.RequestHeader
 
 import lila.common.{ HTTPRequest, AssetVersion }
-import lila.hub.actorApi.relation.OnlineFriends
+import lila.relation.actorApi.OnlineFriends
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 

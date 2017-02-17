@@ -1,7 +1,6 @@
 package lila.relation
 
-import lila.hub.actorApi.relation.OnlineFriends
-import lila.common.LightUser
+import actorApi.OnlineFriends
 import play.api.libs.json._
 
 object JsonView {

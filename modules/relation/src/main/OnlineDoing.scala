@@ -3,7 +3,7 @@ package lila.relation
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.relation._
+import actorApi.OnlineFriends
 
 final class OnlineDoing(
     api: RelationApi,

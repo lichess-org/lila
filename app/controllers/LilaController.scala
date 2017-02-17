@@ -288,9 +288,9 @@ private[controllers] trait LilaController
       pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
-  import lila.hub.actorApi.relation._
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
     ctx.me.fold(fuccess(PageData.anon(getAssetVersion, blindMode(ctx)))) { me =>
+      import lila.relation.actorApi.OnlineFriends
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
         if (isPage) {
@@ -303,7 +303,7 @@ private[controllers] trait LilaController
           (((OnlineFriends.empty, 0), 0), 0)
         }
       } map {
-        case (pref, (((onlineFriends, teamNbRequests), nbChallenges), nbNotifications)) =>
+        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
