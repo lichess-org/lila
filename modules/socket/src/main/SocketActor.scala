@@ -61,21 +61,20 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def receive = receiveSpecific orElse receiveGeneric
 
-  def notifyAll[A: Writes](t: String, data: A) {
+  def notifyAll[A: Writes](t: String, data: A): Unit =
     notifyAll(makeMessage(t, data))
-  }
 
-  def notifyAll(t: String) {
+  def notifyAll(t: String): Unit =
     notifyAll(makeMessage(t))
-  }
 
-  def notifyAll(msg: JsObject) {
-    members.values.foreach(_ push msg)
-  }
+  def notifyAll(msg: JsObject): Unit =
+    members.foreachValue(_ push msg)
 
   def notifyIf[A: Writes](pred: SocketMember => Boolean, t: String, data: A) {
     val msg = makeMessage(t, data)
-    members.values.filter(pred).foreach(_ push msg)
+    members.foreachValue { m =>
+      if (pred(m)) m push msg
+    }
   }
 
   def notifyAllAsync[A: Writes](t: String, data: A) = Future {

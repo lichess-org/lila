@@ -128,15 +128,15 @@ private[round] final class Socket(
 
     case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 
-    case IsOnGame(color) => sender ! ownerOf(color).isDefined
+    case IsOnGame(color) => sender ! ownerIsHere(color)
 
     case GetSocketStatus =>
       playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
         case (whiteIsGone, blackIsGone) => SocketStatus(
           version = history.getVersion,
-          whiteOnGame = ownerOf(White).isDefined,
+          whiteOnGame = ownerIsHere(White),
           whiteIsGone = whiteIsGone,
-          blackOnGame = ownerOf(Black).isDefined,
+          blackOnGame = ownerIsHere(Black),
           blackIsGone = blackIsGone
         )
       } pipeTo sender
@@ -184,8 +184,8 @@ private[round] final class Socket(
       delayedCrowdNotification = false
       showSpectators(lightUser)(watchers) foreach { spectators =>
         val event = Event.Crowd(
-          white = ownerOf(White).isDefined,
-          black = ownerOf(Black).isDefined,
+          white = ownerIsHere(White),
+          black = ownerIsHere(Black),
           watchers = spectators
         )
         notifyAll(event.typ, event.data)
@@ -212,29 +212,33 @@ private[round] final class Socket(
 
   def notify(events: Events) {
     val vevents = history addEvents events
-    members.values foreach { m => batch(m, vevents) }
+    members.foreachValue { m => batch(m, vevents) }
   }
 
-  def batch(member: Member, vevents: List[VersionedEvent]) {
-    vevents match {
-      case Nil =>
-      case List(one) => member push one.jsFor(member)
-      case many => member push makeMessage("b", many map (_ jsFor member))
-    }
+  def batch(member: Member, vevents: List[VersionedEvent]) = vevents match {
+    case Nil =>
+    case List(one) => member push one.jsFor(member)
+    case many => member push makeMessage("b", many map (_ jsFor member))
   }
 
-  def notifyOwner[A: Writes](color: Color, t: String, data: A) {
-    ownerOf(color) foreach { m =>
-      m push makeMessage(t, data)
+  def notifyOwner[A: Writes](color: Color, t: String, data: A) =
+    withOwnerOf(color) {
+      _ push makeMessage(t, data)
     }
-  }
 
   def notifyGone(color: Color, gone: Boolean) {
     notifyOwner(!color, "gone", gone)
   }
 
-  def ownerOf(color: Color): Option[Member] =
-    members.values find { m => m.owner && m.color == color }
+  def withOwnerOf(color: Color)(f: Member => Unit) =
+    members.foreachValue { m =>
+      if (m.owner && m.color == color) f(m)
+    }
+
+  def ownerIsHere(color: Color) =
+    members.values.exists { m =>
+      m.owner && m.color == color
+    }
 
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
