@@ -4,6 +4,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import actorApi.OnlineFriends
+import lila.user.User
 
 final class OnlineDoing(
     api: RelationApi,
@@ -23,7 +24,11 @@ final class OnlineDoing(
   val studyingAll: Cache[ID, StudyId] =
     Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
 
-  def friendsOf(userId: lila.user.User.ID): Fu[OnlineFriends] =
+  def isStudying(userId: User.ID) = studying.getIfPresent(userId).isDefined
+
+  def isStudying(userId: User.ID, studyId: StudyId) = studying.getIfPresent(userId) has studyId
+
+  def friendsOf(userId: User.ID): Fu[OnlineFriends] =
     api fetchFollowing userId map userIds.intersect map { friends =>
       OnlineFriends(
         users = friends.toList.flatMap { lightUser(_) },

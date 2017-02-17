@@ -32,23 +32,23 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
-      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
-    }
-
     case ComputeMovement =>
       val curIds = online.userIds.keySet
       val leaveUsers = (previousOnlineIds diff curIds).toList flatMap { lightUser(_) }
       val enterUsers = (curIds diff previousOnlineIds).toList flatMap { lightUser(_) }
 
       val friendsEntering = enterUsers map { u =>
-        FriendEntering(u, online.playing get u.id, online.studying.getIfPresent(u.id).isDefined)
+        FriendEntering(u, online.playing get u.id, online isStudying u.id)
       }
 
       notifyFollowersFriendEnters(friendsEntering)
       notifyFollowersFriendLeaves(leaveUsers)
       previousOnlineIds = curIds
+
+    // triggers following reloading for this user id
+    case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
+      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
+    }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
@@ -63,7 +63,7 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
       online.studyingAll.put(userId, studyId)
       if (contributor && public) {
-        val wasAlreadyInStudy = online.studying.getIfPresent(userId).isDefined
+        val wasAlreadyInStudy = online isStudying userId
         online.studying.put(userId, studyId)
         if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
@@ -76,32 +76,33 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
-      val found = online.studying.getAllPresent(contributors).filter(_._2 == studyId)
-      val contributorsInStudy = contributors filter found.contains
-      for (c <- contributorsInStudy) {
+      contributorsIn(contributors, studyId) foreach { c =>
         online.studying invalidate c
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
-      val found = online.studyingAll.getAllPresent(contributors).filter(_._2 == studyId)
-      val contributorsInStudy = contributors filter found.contains
-      for (c <- contributorsInStudy) {
+      contributorsIn(contributors, studyId) foreach { c =>
         online.studying.put(c, studyId)
         notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
-      if (online.studyingAll.getIfPresent(userId) has studyId) {
+      if (online.isStudying(userId, studyId)) {
         online.studying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
-      if (online.studying.getIfPresent(userId) has studyId) {
+      if (online.isStudying(userId, studyId)) {
         online.studying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
+  }
+
+  private def contributorsIn(contributors: Set[ID], studyId: String) = {
+    val found = online.studying.getAllPresent(contributors).filter(_._2 == studyId)
+    contributors filter found.contains
   }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
