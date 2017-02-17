@@ -1,0 +1,19 @@
+package lila.relation
+
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import scala.concurrent.duration._
+
+final class OnlineDoing(val userIds: lila.memo.ExpireSetMemo) {
+
+  private type StudyId = String
+
+  val playing = new lila.memo.ExpireSetMemo(4 hours)
+
+  // people with write access in public studies
+  val studying: Cache[ID, StudyId] =
+    Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
+
+  // people with write or read access in public and private studies
+  val studyingAll: Cache[ID, StudyId] =
+    Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
+}

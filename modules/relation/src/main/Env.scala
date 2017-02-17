@@ -1,7 +1,6 @@
 package lila.relation
 
 import akka.actor._
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
@@ -42,23 +41,12 @@ final class Env(
     maxBlock = MaxBlock
   )
 
-  val onlinePlayings = new lila.memo.ExpireSetMemo(4 hour)
-
-  private val onlineStudying: Cache[ID, String] /* userId, studyId */ =
-    Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write access in public studies
-
-  val currentlyStudying: ID => Option[String] = onlineStudying.getIfPresent
-
-  private val onlineStudyingAll: Cache[ID, String] /* userId, studyId */ =
-    Scaffeine().expireAfterAccess(20 minutes).build[ID, String] // people with write or read access in public and private studies
+  val online = new OnlineDoing(onlineUserIds)
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     lightUser = lightUserApi.sync,
     api = api,
-    onlineUserIds = onlineUserIds,
-    onlinePlayings = onlinePlayings,
-    onlineStudying = onlineStudying,
-    onlineStudyingAll = onlineStudyingAll
+    online = online
   )), name = ActorName)
 
   scheduler.once(15 seconds) {

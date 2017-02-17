@@ -89,7 +89,7 @@ object Api extends LilaController {
     Env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
       val actualIds = users.map(_.id)
       val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
-      val playingIds = Env.relation.onlinePlayings intersect actualIds
+      val playingIds = Env.relation.online.playing intersect actualIds
       toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites.writes(u) ++ Json.obj(
