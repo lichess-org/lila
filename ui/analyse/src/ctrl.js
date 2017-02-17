@@ -481,7 +481,6 @@ module.exports = function(opts) {
         var desc = [
           'ceval crash',
           env.pnacl ? 'native' : 'asmjs',
-          'engine:' + (env.engine || '?').replace(/ /g, '_'),
           'multiPv:' + env.multiPv,
           'threads:' + env.threads,
           'hashSize:' + env.hashSize,

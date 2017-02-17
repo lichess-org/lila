@@ -189,6 +189,15 @@ module.exports = function(opts) {
     isComputing: function() {
       return !!started;
     },
-    destroy: pool.destroy
+    destroy: pool.destroy,
+    env: function() {
+      return {
+        pnacl: !!pnaclSupported,
+        multiPv: multiPv(),
+        threads: threads(),
+        hashSize: hashSize(),
+        maxDepth: effectiveMaxDepth()
+      };
+    }
   };
 };
