@@ -85,9 +85,7 @@ module.exports = function(element, cfg) {
     lichess.makeChat('chat', cfg.chat);
   }
 
-  setTimeout(function() {
-    $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
-  }, 200);
+  $('.underboard_content', element).appendTo($('.underboard .center', element)).removeClass('none');
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
