@@ -14,7 +14,7 @@ module.exports = function(cfg) {
 
   this.vm = {
     redirecting: false,
-    selected: m.prop(null)
+    selected: m.prop('pointer')
   };
 
   this.extraPositions = [{
