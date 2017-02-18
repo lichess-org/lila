@@ -38,6 +38,7 @@ body.dark #board_editor .spare.white {
   height: 58.102px;
 }
 #board_editor .spare piece {
+  cursor: pointer;
   width: 100%;
   height: 100%;
 }

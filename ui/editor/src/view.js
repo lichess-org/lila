@@ -140,17 +140,11 @@ function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
   }, ['pointer', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'trash'].map(function(role) {
-    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role,
-      selectedParts = ctrl.vm.selected().split(' '),
-      cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : ''),
-      cursor = (cursorName === 'pointer') ?
-        // http://www.cursors-4u.com
-        cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important',
-      pieceElement = {
-        class: piece,
-        style: 'cursor: ' + cursor
-      },
-      containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
+    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role;
+    var pieceElement = {
+      class: piece,
+    };
+    var containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
 
     if (piece === 'trash') {
       pieceElement['data-icon'] = 'q';
@@ -176,6 +170,16 @@ module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
+  var sparePieceSelected = ctrl.vm.selected();
+  var selectedParts = sparePieceSelected.split(' ');
+  var cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : '');
+
+  ctrl.chessground.sparePieceSelected = sparePieceSelected;
+
+  // http://www.cursors-4u.com
+  ctrl.chessground.cursor = (cursorName === 'pointer') ?
+    cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important';
+
   return m('div.editor', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
