@@ -141,8 +141,14 @@ function sparePieces(ctrl, color, orientation, position) {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
   }, ['pointer', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'trash'].map(function(role) {
     var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role,
+      selectedParts = ctrl.vm.selected().split(' '),
+      cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : ''),
+      cursor = (cursorName === 'pointer') ?
+        // http://www.cursors-4u.com
+        cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important',
       pieceElement = {
-        class: piece
+        class: piece,
+        style: 'cursor: ' + cursor
       },
       containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
 
