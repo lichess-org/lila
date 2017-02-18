@@ -34,13 +34,14 @@ function bundle() {
     .pipe(sourcemaps.init({
       loadMaps: true
     }))
+    .on('error', function(error) { gutil.log(gutil.colors.red(error.message)); })
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(destination));
 }
 
 gulp.task("default", [], bundle);
-watchedBrowserify.on("update", bundle);
-watchedBrowserify.on("log", gutil.log);
+// watchedBrowserify.on("update", bundle);
+// watchedBrowserify.on("log", gutil.log);
 
 gulp.task("prod", [], function() {
   return build
