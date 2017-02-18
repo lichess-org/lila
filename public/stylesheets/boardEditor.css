@@ -110,7 +110,7 @@ TODO: Replace with universal icon, or get an icon for each piece set.
 }
 #board_editor .spare piece.trash {
   font-size: 32pt;
-  top: 4px;
+  top: 0;
   height: 100%;
 }
 #board_editor .spare .no-square.trash {
