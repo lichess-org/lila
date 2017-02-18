@@ -24,13 +24,19 @@ public class LowBitTruncator {
         return new TruncPair(trunced, truncDigits.elements());
     }
 
+    public static void writeDigits(int[] truncDigits, BitWriter writer) {
+        for (int lowBit : truncDigits) {
+            writer.writeBits(lowBit, 3);
+        }
+    }
+
     public static int[] decode(int[] trunced, BitReader reader) {
         int moves = trunced.length;
         int[] centis = new int[moves];
         for (int i = 0; i < moves; i++) {
             int rounded = trunced[i] << 3;
             if (rounded < TRUNC_CUTOFF) {
-                centis[i] = rounded + reader.readBits(3);
+                centis[i] = rounded | reader.readBits(3);
             } else {
                 // Value was above cutoff, so we didn't save precision bits.
                 // Instead, we rounded the number to the nearest 8/100 of a second.
