@@ -234,7 +234,7 @@ lichess.makeChat = function(id, data, callback) {
   lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
   lichess.loadScript("/assets/compiled/lichess.chat2" + (isDev ? '' : '.min') + '.js').done(function() {
-    (callback || $.noop)(LichessChat(document.getElementById(id), data));
+    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
   });
 };
 

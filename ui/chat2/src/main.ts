@@ -1,41 +1,41 @@
-// import { sayHello } from "./greet";
-
-// module.exports = function(node: Node, opts: Object) {
-
-//   console.log(node, opts, sayHello("TypeScript"));
-// }
+/// <reference path="../dts/index.d.ts" />
 
 import { init } from 'snabbdom';
-let patch = init([ // Init patch function with chosen modules
-  require('snabbdom/modules/class').default, // makes it easy to toggle classes
-  require('snabbdom/modules/props').default, // for setting properties on DOM elements
-  require('snabbdom/modules/eventlisteners').default, // attaches event listeners
-]);
+import { VNode } from 'snabbdom/vnode'
 
-const makeCtrl = require('./ctrl');
-const view = require('./view');
+import makeCtrl from './ctrl';
+import view from './view';
+import { ChatOpts, ChatCtrl } from './interfaces'
 
-module.exports = (element: Node, opts: Object) => {
+const snabbdomModules = [
+  require('snabbdom/modules/class'),
+  require('snabbdom/modules/props'),
+  require('snabbdom/modules/attributes')
+]
 
-  let vnode, ctrl
+let patch = init(snabbdomModules);
 
-  let render = () => {
+
+export default function LichessChat(element: Element, opts: ChatOpts) {
+
+  let vnode: VNode, ctrl: ChatCtrl
+
+  let redraw = () => {
     vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = makeCtrl(opts)
+  ctrl = makeCtrl(opts, redraw)
 
   patch(element, view(ctrl))
 
-  lichess.pubsub.emit('chat.ready', ctrl)
+  window.lichess.pubsub.emit('chat.ready', ctrl)
 
-  Mousetrap.bind('/', function() {
-    element.querySelector('input.lichess_say').focus();
+  window.Mousetrap.bind('/', function() {
+    (element.querySelector('input.lichess_say') as HTMLElement).focus();
     return false;
   })
 
   return {
-    newLine: ctrl.newLine,
     preset: ctrl.preset
   };
 };

@@ -1,36 +1,40 @@
-var makeModeration = require('./moderation').ctrl;
-var makeNote = require('./note').ctrl;
-var makePreset = require('./preset').ctrl;
+// var makeModeration = require('./moderation').ctrl;
+// var makeNote = require('./note').ctrl;
+// var makePreset = require('./preset').ctrl;
 
-module.exports = function(opts, redraw) {
+import { ChatOpts, Line, Preset } from './interfaces'
+
+export default function makeCtrl(opts: ChatOpts, redraw: () => void) {
 
   var data = opts.data;
 
+  var ps = window.lichess.pubsub;
+
   var vm = {
-    enabled: !lichess.storage.get('nochat'),
+    enabled: !window.lichess.storage.get('nochat'),
     writeable: opts.writeable,
     isTroll: opts.kobold,
     isMod: opts.permissions.timeout,
     isTimeout: opts.timeout,
     parseMoves: opts.parseMoves,
     placeholderKey: 'talkInChat',
-    moderating: null,
+    // moderating: null,
     tab: 'discussion',
     loading: false
   };
 
-  var post = function(text) {
-    text = $.trim(text);
+  var post = function(text: string) {
+    text = text.trim();
     if (!text) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    lichess.pubsub.emit('socket.send')('talk', text);
+    ps.emit('socket.send')('talk', text);
     return false;
   };
 
-  var onTimeout = function(username) {
+  var onTimeout = function(username: string) {
     data.lines.forEach(function(l) {
       if (l.u === username) l.d = true;
     });
@@ -38,68 +42,67 @@ module.exports = function(opts, redraw) {
     redraw();
   };
 
-  var onReinstate = function(userId) {
+  var onReinstate = function(userId: string) {
     if (userId === data.userId) {
-      vm.isTimeout(false);
-      m.redraw();
+      vm.isTimeout = false;
+      redraw();
     }
   };
 
-  var onMessage = function(line) {
+  var onMessage = function(line: Line) {
     if (data.lines.length > 64) data.lines.shift();
     data.lines.push(line);
-    m.redraw();
+    redraw();
   };
 
-  var trans = lichess.trans(opts.i18n);
+  var trans = window.lichess.trans(opts.i18n);
 
-  var moderation = vm.isMod ? makeModeration({
-    reasons: opts.timeoutReasons,
-    permissions: opts.permissions,
-    send: lichess.pubsub.emit('socket.send')
-  }) : null;
+  // var moderation = vm.isMod ? makeModeration({
+  //   reasons: opts.timeoutReasons,
+  //   permissions: opts.permissions,
+  //   send: window.lichess.pubsub.emit('socket.send')
+  // }) : null;
 
-  var note = data.userId && opts.noteId ? makeNote({
-    id: opts.noteId,
-    trans: trans
-  }) : null;
+  // var note = data.userId && opts.noteId ? makeNote({
+  //   id: opts.noteId,
+  //   trans: trans
+  // }) : null;
 
-  var preset = makePreset({
-    initialGroup: opts.preset,
-    post: post
-  });
-
-  var setWriteable = function(v) {
-    vm.writeable(v);
-    m.redraw();
-  };
-
-  var ps = lichess.pubsub;
+  // var preset = makePreset({
+  //   initialGroup: opts.preset,
+  //   post: post
+  // });
+  let preset: Preset = {
+    setGroup: (group) => null
+  }
 
   ps.on('socket.in.message', onMessage);
   ps.on('socket.in.chat_timeout', onTimeout);
   ps.on('socket.in.chat_reinstate', onReinstate);
-  ps.on('chat.writeable', setWriteable);
+  ps.on('chat.writeable', function(v: boolean) {
+    vm.writeable = v;
+    redraw();
+  });
 
   var emitEnabled = function() {
-    ps.emit('chat.enabled')(vm.enabled());
+    ps.emit('chat.enabled')(vm.enabled);
   };
   emitEnabled();
 
   return {
     data: data,
     vm: vm,
-    moderation: moderation,
-    note: note,
+    // moderation: moderation,
+    // note: note,
     preset: preset,
     post: post,
     trans: trans,
     public: opts.public,
-    setEnabled: function(v) {
-      vm.enabled(v);
+    setEnabled: function(v: boolean) {
+      vm.enabled = v;
       emitEnabled();
-      if (!v) lichess.storage.set('nochat', 1);
-      else lichess.storage.remove('nochat');
+      if (!v) window.lichess.storage.set('nochat', 1);
+      else window.lichess.storage.remove('nochat');
     }
   };
 };

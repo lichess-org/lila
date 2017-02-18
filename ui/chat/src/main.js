@@ -21,7 +21,6 @@ module.exports = function(element, opts) {
   });
 
   return {
-    newLine: controller.newLine,
     preset: controller.preset
   };
 };
