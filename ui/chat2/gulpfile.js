@@ -18,11 +18,11 @@ var build = browserify({
     cache: {},
     packageCache: {}
   })
-  .plugin(tsify)
-  .transform('babelify', {
-    presets: ['es2015'],
-    extensions: ['.ts']
-  });
+  .plugin(tsify);
+  // .transform('babelify', {
+  //   presets: ['es2015'],
+  //   extensions: ['.ts']
+  // });
 
 var watchedBrowserify = watchify(build);
 
