@@ -4,6 +4,7 @@ var drag = require('chessground').drag;
 
 module.exports = function(ctrl, e) {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+  if (!pointerSelected(ctrl)) return;
   var role = e.target.getAttribute('data-role'),
   color = e.target.getAttribute('data-color');
   if (!role || !color) return;
@@ -36,4 +37,8 @@ module.exports = function(ctrl, e) {
     newPiece: true
   };
   drag.processDrag(ctrl.chessground.data);
+}
+
+function pointerSelected(ctrl) {
+  return (!ctrl.chessground.sparePieceSelected || ctrl.chessground.sparePieceSelected === 'pointer');
 }
