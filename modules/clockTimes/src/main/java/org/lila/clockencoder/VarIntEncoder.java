@@ -1,17 +1,10 @@
 package org.lila.clockencoder;
 
 public class VarIntEncoder {
-    static int zigzagEncode(int n) {
-        return (n << 1) ^ (n >> 31);
-    }
-
-    static int zigzagDecode(int n) {
-        return (n >>> 1) ^ -(n & 1);
-    }
-
     public static void encode(int[] values, BitWriter writer) {
         for (int n : values) {
-            n = zigzagEncode(n);
+            n = (n << 1) ^ (n >> 31); // zigzagEncode
+
             if ((n & ~0x1F) == 0) {
                 writer.writeBits(n, 6);
             } else {
@@ -52,7 +45,8 @@ public class VarIntEncoder {
                 unsignedNum = (unsignedNum << 5) | base & 0x1F;
             }
 
-            values[curMove] = zigzagDecode(unsignedNum);
+            // zigzag decode and save
+            values[curMove] = (unsignedNum >>> 1) ^ -(unsignedNum & 1);
         }
 
         return values;
