@@ -35,9 +35,8 @@ public class LowBitTruncator {
             if (rounded < TRUNC_CUTOFF) {
                 centis[i] = rounded | reader.readBits(3);
             } else {
-                // Truncation cuts off 3.5 on average, so roughly alternate
-                // between +3 and +4 to avoid skew.
-                centis[i] = rounded + 3 + (i & 0x01);
+                // Truncation cuts off 3.5 on average.
+                centis[i] = rounded + 3;
             }
         }
         return centis;

@@ -16,13 +16,15 @@ public class LinearEstimator {
     private static int[] encodeHelper(int[] src, int[] dest, int[] realValues,
                                      int startIdx, int endIdx) {
         int l = endIdx - startIdx;
-        if (l == 0) return dest;
+        if (l < 2) return dest;
+        int midIdx = startIdx + (l >>> 1);
 
         // It's important to save estimate in fixed precision to ensure
         // the encode and decode math behaves identically.
         int estimate = (realValues[startIdx] + realValues[endIdx]) >>> 1;
+        // int estimate = (realValues[startIdx] * (endIdx - midIdx) +
+        //                 realValues[endIdx]   * (midIdx - startIdx)) / l;
 
-        int midIdx = startIdx + (l >>> 1);
 
         dest[midIdx] = estimate - src[midIdx];
 

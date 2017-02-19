@@ -1,5 +1,6 @@
 package org.lila.clockencoder;
 
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 // Simple int array wrapper.
