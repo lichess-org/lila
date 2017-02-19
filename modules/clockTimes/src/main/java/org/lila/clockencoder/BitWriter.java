@@ -25,7 +25,7 @@ public class BitWriter {
     public byte[] toArray() {
         int numPendingBytes = (39 - numRemainingBits) / 8;
         ByteBuffer bb = ByteBuffer.allocate(4 * buffer.size() + numPendingBytes);
-        for (int elt : buffer.elements()) bb.putInt(elt);
+        buffer.writeTo(bb);
         if (numPendingBytes == 4) {
             bb.putInt(pendingBits);
         } else {

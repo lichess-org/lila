@@ -3,15 +3,7 @@ package org.lila.clockencoder;
 public class LinearEstimator {
     // Input: Array of absolute clock times for a players move
     // Output: Encoded array of clock times.
-    public static int[] encode(int[] src) {
-       return encodeDecode(src, true);
-    }
-
-    public static int[] decode(int[] src) {
-        return encodeDecode(src, false);
-    }
-
-    private static int[] encodeDecode(int[] src, boolean isEncoding) {
+    public static int[] process(int[] src, boolean isEncoding) {
         int size = src.length;
         int[] dest = new int[size];
         dest[0] = src[0];

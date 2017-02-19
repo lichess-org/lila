@@ -16,12 +16,14 @@ public class LowBitTruncator {
             trunced[i] = cs >>> 3;
             if (cs < CENTI_CUTOFF) truncDigits.add(cs & 0x07);
         }
-        return new TruncPair(trunced, truncDigits.elements());
+        return new TruncPair(trunced, truncDigits);
     }
 
-    public static void writeDigits(int[] truncDigits, BitWriter writer) {
-        for (int lowBit : truncDigits) {
-            writer.writeBits(lowBit, 3);
+    public static void writeDigits(IntArrayList digits, BitWriter writer) {
+        int[] data = digits.data;
+        int size = digits.index;
+        for (int i = 0; i < size; i++) {
+            writer.writeBits(data[i], 3);
         }
     }
 
@@ -43,8 +45,8 @@ public class LowBitTruncator {
 
     public static class TruncPair {
         final int[] trunced;
-        final int[] lowBits;
-        TruncPair(int[] trunced, int[] lowBits) {
+        final IntArrayList lowBits;
+        TruncPair(int[] trunced, IntArrayList lowBits) {
             this.trunced = trunced;
             this.lowBits = lowBits;
         }
