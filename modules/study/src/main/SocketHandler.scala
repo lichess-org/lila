@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 import chess.format.FEN
 import chess.format.pgn.Glyph
@@ -57,15 +57,14 @@ private[study] final class SocketHandler(
       AnaMove parse o foreach { anaMove =>
         anaMove.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            member push makeMessage("node", anaMove.json(branch))
+            member push makeMessage("node", anaMove json branch)
             for {
               userId <- member.userId
-              d ← o obj "d"
-              chapterId <- d.get[Chapter.Id]("chapterId")
+              chapterId <- anaMove.chapterId
             } api.addNode(
               userId,
               studyId,
-              Position.Ref(chapterId, Path(anaMove.path)),
+              Position.Ref(Chapter.Id(chapterId), Path(anaMove.path)),
               Node.fromBranch(branch),
               uid
             )
@@ -80,18 +79,14 @@ private[study] final class SocketHandler(
       AnaDrop parse o foreach { anaDrop =>
         anaDrop.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            member push makeMessage("node", Json.obj(
-              "node" -> branch,
-              "path" -> anaDrop.path
-            ))
+            member push makeMessage("node", anaDrop json branch)
             for {
               userId <- member.userId
-              d ← o obj "d"
-              chapterId <- d.get[Chapter.Id]("chapterId")
+              chapterId <- anaDrop.chapterId
             } api.addNode(
               userId,
               studyId,
-              Position.Ref(chapterId, Path(anaDrop.path)),
+              Position.Ref(Chapter.Id(chapterId), Path(anaDrop.path)),
               Node.fromBranch(branch),
               uid
             )
@@ -238,7 +233,10 @@ private[study] final class SocketHandler(
   }
   private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
   private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
-  private implicit val atPositionReader = Json.reads[AtPosition]
+  private implicit val atPositionReader = (
+    (__ \ "path").read[String] and
+    (__ \ "ch").read[Chapter.Id]
+  )(AtPosition.apply _)
   private case class SetRole(userId: String, role: String)
   private implicit val SetRoleReader = Json.reads[SetRole]
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]

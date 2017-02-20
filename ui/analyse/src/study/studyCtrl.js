@@ -84,7 +84,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   }, members, tagTypes);
 
   var addChapterId = function(req) {
-    req.chapterId = data.position.chapterId;
+    req.ch = data.position.chapterId;
     return req;
   }
   if (vm.behind === false) ctrl.userJump(data.position.path);
@@ -215,7 +215,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     },
     onJump: practice ? practice.onJump : function() {},
     withPosition: function(obj) {
-      obj.chapterId = currentChapterId();
+      obj.ch = currentChapterId();
       obj.path = ctrl.vm.path;
       return obj;
     },
@@ -253,9 +253,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         vm.behind = 0;
         vm.chapterId = currentChapterId();
       }
-    },
-    anaMoveConfig: function(req) {
-      if (contributing()) addChapterId(req);
     },
     contribute: contribute,
     startTour: startTour,

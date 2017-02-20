@@ -60,10 +60,7 @@ object Handler {
         AnaDrop parse o foreach { anaDrop =>
           anaDrop.branch match {
             case scalaz.Success(branch) =>
-              member push makeMessage("node", Json.obj(
-                "node" -> branch,
-                "path" -> anaDrop.path
-              ))
+              member push makeMessage("node", anaDrop json branch)
             case scalaz.Failure(err) =>
               member push makeMessage("stepFailure", err.toString)
           }
@@ -71,7 +68,7 @@ object Handler {
       }
       case ("anaDests", o) => AnaRateLimit(uid.value, member) {
         member push {
-          AnaDests parse o map (_.compute) match {
+          AnaDests parse o match {
             case Some(res) => makeMessage("dests", res.json)
             case None => makeMessage("destsFailure", "Bad dests request")
           }
