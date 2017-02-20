@@ -8,33 +8,55 @@ module.exports = function(send, ctrl) {
   var anaMoveTimeout;
   var anaDestsTimeout;
 
-  var anaDestsCache = (
-    ctrl.data.game.variant.key === 'standard' &&
-    ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
-  ) ? {
-    '': {
-      path: '',
-      dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
-    }
-  } : {};
+  var anaDestsCache;
 
+  this.clearCache = function() {
+    anaDestsCache = (
+      ctrl.data.game.variant.key === 'standard' &&
+      ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
+    ) ? {
+      '': {
+        path: '',
+        dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
+      }
+    } : {};
+  };
+  this.clearCache();
+
+  // forecast mode: reload when opponent moves
   if (!synthetic(ctrl.data)) setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
+  var currentChapterId = function() {
+    if (ctrl.study) return ctrl.study.currentChapter().id;
+  };
+  var addChapterId = function(req) {
+    var c = currentChapterId();
+    if (c) req.ch = c;
+  };
+
   var handlers = {
     node: function(data) {
       clearTimeout(anaMoveTimeout);
-      ctrl.addNode(data.node, data.path);
+      // no strict equality here!
+      if (data.ch == currentChapterId())
+        ctrl.addNode(data.node, data.path);
+      else
+        console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure: function(data) {
       clearTimeout(anaMoveTimeout);
       ctrl.reset();
     },
     dests: function(data) {
-      anaDestsCache[data.path] = data;
-      ctrl.addDests(data.dests, data.path, data.opening);
       clearTimeout(anaDestsTimeout);
+      // no strict equality here!
+      if (data.ch == currentChapterId()) {
+        anaDestsCache[data.path] = data;
+        ctrl.addDests(data.dests, data.path, data.opening);
+      } else
+        console.log('socket handler node got wrong chapter id', data);
     },
     destsFailure: function(data) {
       console.log(data);
@@ -66,7 +88,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    if (ctrl.study) ctrl.study.anaMoveConfig(req);
+    addChapterId(req);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
@@ -74,18 +96,19 @@ module.exports = function(send, ctrl) {
   this.sendAnaDrop = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    if (ctrl.study) ctrl.study.anaMoveConfig(req);
+    addChapterId(req);
     this.send('anaDrop', req);
     anaMoveTimeout = setTimeout(this.sendAnaDrop.bind(this, req), 3000);
   }.bind(this);
 
   this.sendAnaDests = function(req) {
     clearTimeout(anaDestsTimeout);
-    withoutStandardVariant(req);
     if (anaDestsCache[req.path]) setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
+      withoutStandardVariant(req);
+      addChapterId(req);
       this.send('anaDests', req);
       anaDestsTimeout = setTimeout(function() {
         console.log(req, 'resendAnaDests');

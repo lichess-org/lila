@@ -15,6 +15,7 @@ case class AnaMove(
     variant: Variant,
     fen: String,
     path: String,
+    chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
 ) {
 
@@ -40,7 +41,10 @@ case class AnaMove(
       }
     }
 
-  def json(b: Branch): JsObject = Json.obj("node" -> b, "path" -> path)
+  def json(b: Branch): JsObject = Json.obj(
+    "node" -> b,
+    "path" -> path
+  ).add("ch" -> chapterId)
 }
 
 object AnaMove {
@@ -52,6 +56,7 @@ object AnaMove {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
+    chapterId = d str "ch"
     prom = d str "promotion" flatMap chess.Role.promotable
   } yield AnaMove(
     orig = orig,
@@ -59,6 +64,7 @@ object AnaMove {
     variant = variant,
     fen = fen,
     path = path,
+    chapterId = chapterId,
     promotion = prom
   )
 }
