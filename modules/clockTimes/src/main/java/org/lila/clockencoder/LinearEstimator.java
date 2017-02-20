@@ -6,39 +6,37 @@ public class LinearEstimator {
 
     public static void encode(int[] dest, int startTime) {
         int size = dest.length;
-        encode(dest, -1, size - 1, startTime, dest[size - 1]);
+        encode(dest, -1, startTime, size - 1, dest[size - 1]);
     }
 
     public static void decode(int[] dest, int startTime) {
         int size = dest.length;
-        decode(dest, -1, size - 1, startTime, dest[size - 1]);
+        decode(dest, -1, startTime, size - 1, dest[size - 1]);
     }
 
-    private static void encode(int[] dest, int startIdx, int endIdx,
-                               int start, int end) {
-        int l = endIdx - startIdx;
-        if (l < 2) return;
+    private static void encode(int[] dest, int startIdx, int start,
+                               int endIdx, int end) {
+        int midIdx = (startIdx + endIdx) >>> 1;
+        if (startIdx == midIdx) return;
 
-        int midIdx = startIdx + (l >>> 1);
         int mid = dest[midIdx];
 
-        dest[midIdx] = ((start + end) >>> 1) - mid;
+        dest[midIdx] -= ((start + end) >>> 1);
 
-        encode(dest, startIdx, midIdx, start, mid);
-        encode(dest, midIdx, endIdx, mid, end);
+        encode(dest, startIdx, start, midIdx, mid);
+        encode(dest, midIdx, mid, endIdx, end);
     }
 
-    private static void decode(int[] dest, int startIdx, int endIdx,
-                               int start, int end) {
-        int l = endIdx - startIdx;
-        if (l < 2) return;
+    private static void decode(int[] dest, int startIdx, int start,
+                               int endIdx, int end) {
+        int midIdx = (startIdx + endIdx) >>> 1;
+        if (startIdx == midIdx) return;
 
-        int midIdx = startIdx + (l >>> 1);
-        int mid = ((start + end) >>> 1) - dest[midIdx];
+        dest[midIdx] += ((start + end) >>> 1);
 
-        dest[midIdx] = mid;
+        int mid = dest[midIdx];        
 
-        decode(dest, startIdx, midIdx, start, mid);
-        decode(dest, midIdx, endIdx, mid, end);
+        decode(dest, startIdx, start, midIdx, mid);
+        decode(dest, midIdx, mid, endIdx, end);
     }
 }

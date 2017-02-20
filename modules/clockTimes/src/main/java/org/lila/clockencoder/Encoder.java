@@ -5,6 +5,8 @@ public class Encoder {
         IntArrayList lowBits = new IntArrayList();
         int[] trunced = LowBitTruncator.lossyEncode(centis, lowBits);
         LinearEstimator.encode(trunced, startTime);
+        // TODO: Estimate end time, perhaps
+        // startTime >>> (moves >>> 3)
 
         BitWriter writer = new BitWriter();
         VarIntEncoder.encode(trunced, writer);
