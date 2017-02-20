@@ -11,7 +11,8 @@ import lila.tree.Node.openingWriter
 case class AnaDests(
     variant: Variant,
     fen: FEN,
-    path: String
+    path: String,
+    chapterId: Option[String]
 ) {
 
   def isInitial =
@@ -35,22 +36,18 @@ case class AnaDests(
   def json = Json.obj(
     "dests" -> dests,
     "path" -> path
-  ).add("opening", opening)
+  ).add("opening", opening).add("ch", chapterId)
 }
 
 object AnaDests {
 
   private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
-  case class Ref(variant: Variant, fen: String, path: String) {
-
-    def compute = AnaDests(variant, FEN(fen), path)
-  }
-
   def parse(o: JsObject) = for {
     d ← o obj "d"
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-  } yield AnaDests.Ref(variant = variant, fen = fen, path = path)
+    chapterId = d str "ch"
+  } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = chapterId)
 }

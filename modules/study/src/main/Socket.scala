@@ -67,7 +67,12 @@ private final class Socket(
       ), noMessadata)
 
     case AddNode(pos, node, uid) =>
-      val dests = AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString).compute
+      val dests = AnaDests(
+        chess.variant.Standard,
+        node.fen,
+        pos.path.toString,
+        pos.chapterId.value.some
+      )
       notifyVersion("addNode", Json.obj(
         "n" -> TreeBuilder.toBranch(node),
         "p" -> pos,

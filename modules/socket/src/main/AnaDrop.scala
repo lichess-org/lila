@@ -3,6 +3,7 @@ package lila.socket
 import chess.format.{ Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
+import play.api.libs.json._
 import play.api.libs.json.JsObject
 import scalaz.Validation.FlatMap._
 
@@ -14,7 +15,8 @@ case class AnaDrop(
     pos: chess.Pos,
     variant: Variant,
     fen: String,
-    path: String
+    path: String,
+    chapterId: Option[String]
 ) {
 
   def branch: Valid[Branch] =
@@ -38,6 +40,11 @@ case class AnaDrop(
         )
       }
     }
+
+  def json(b: Branch): JsObject = Json.obj(
+    "node" -> b,
+    "path" -> path
+  ).add("ch" -> chapterId)
 }
 
 object AnaDrop {
@@ -49,11 +56,13 @@ object AnaDrop {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
+    chapterId = d str "ch"
   } yield AnaDrop(
     role = role,
     pos = pos,
     variant = variant,
     fen = fen,
-    path = path
+    path = path,
+    chapterId = chapterId
   )
 }

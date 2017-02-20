@@ -26,7 +26,7 @@ module.exports = {
     });
 
     return {
-      socketReceive: controller.socketReceive,
+      socketReceive: controller.socket.receive,
       jumpToIndex: function(index) {
         controller.jumpToIndex(index);
         m.redraw();
