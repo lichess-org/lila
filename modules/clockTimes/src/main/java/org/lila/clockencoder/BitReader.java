@@ -21,21 +21,21 @@ public class BitReader {
         } else {
             numRemainingBits = r * 8;
             pendingBits = bb.get();
-            for (int i = 1; i < r; i++) {
+            for (int i = r - 1; i > 0; i--) {
                 pendingBits = (pendingBits << 8) | bb.get();
             }
         }
     }
 
     public int readBits(int numReqBits) {
-        if (numReqBits > numRemainingBits) {
-            int neededBits = numReqBits - numRemainingBits;
+        int extraBits = numRemainingBits - numReqBits;
+        if (extraBits >= 0) {
+            numRemainingBits = extraBits;
+            return (pendingBits >>> extraBits) & BITMASK[numReqBits];
+        } else {
             int res = pendingBits & BITMASK[numRemainingBits];
             readNext();
-            return (res << neededBits) | readBits(neededBits);
-        } else {
-            numRemainingBits -= numReqBits;
-            return (pendingBits >>> numRemainingBits) & BITMASK[numReqBits];
+            return (res << -extraBits) | readBits(-extraBits);
         }
     }
 }

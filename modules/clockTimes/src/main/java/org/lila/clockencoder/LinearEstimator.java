@@ -3,32 +3,42 @@ package org.lila.clockencoder;
 public class LinearEstimator {
     // Input: Array of absolute clock times for a players move
     // Output: Encoded array of clock times.
-    public static int[] process(int[] src, boolean isEncoding) {
-        int size = src.length;
-        int[] dest = new int[size];
-        dest[0] = src[0];
-        dest[size - 1] = src[size - 1];
 
-        int[] realValues = isEncoding ? src : dest;
-        return encodeHelper(src, dest, realValues, 0, size - 1);
+    public static void encode(int[] dest, int startTime) {
+        int size = dest.length;
+        encode(dest, -1, size - 1, startTime, dest[size - 1]);
     }
 
-    private static int[] encodeHelper(int[] src, int[] dest, int[] realValues,
-                                     int startIdx, int endIdx) {
+    public static void decode(int[] dest, int startTime) {
+        int size = dest.length;
+        decode(dest, -1, size - 1, startTime, dest[size - 1]);
+    }
+
+    private static void encode(int[] dest, int startIdx, int endIdx,
+                               int start, int end) {
         int l = endIdx - startIdx;
-        if (l < 2) return dest;
+        if (l < 2) return;
+
         int midIdx = startIdx + (l >>> 1);
+        int mid = dest[midIdx];
 
-        // It's important to save estimate in fixed precision to ensure
-        // the encode and decode math behaves identically.
-        int estimate = (realValues[startIdx] + realValues[endIdx]) >>> 1;
-        // int estimate = (realValues[startIdx] * (endIdx - midIdx) +
-        //                 realValues[endIdx]   * (midIdx - startIdx)) / l;
+        dest[midIdx] = ((start + end) >>> 1) - mid;
 
+        encode(dest, startIdx, midIdx, start, mid);
+        encode(dest, midIdx, endIdx, mid, end);
+    }
 
-        dest[midIdx] = estimate - src[midIdx];
+    private static void decode(int[] dest, int startIdx, int endIdx,
+                               int start, int end) {
+        int l = endIdx - startIdx;
+        if (l < 2) return;
 
-        encodeHelper(src, dest, realValues, startIdx, midIdx);
-        return encodeHelper(src, dest, realValues, midIdx, endIdx);
+        int midIdx = startIdx + (l >>> 1);
+        int mid = ((start + end) >>> 1) - dest[midIdx];
+
+        dest[midIdx] = mid;
+
+        decode(dest, startIdx, midIdx, start, mid);
+        decode(dest, midIdx, endIdx, mid, end);
     }
 }

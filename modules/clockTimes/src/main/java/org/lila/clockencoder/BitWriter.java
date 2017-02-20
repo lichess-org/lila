@@ -11,14 +11,14 @@ public class BitWriter {
 
     public void writeBits(int data, int numBits) {
         data &= BITMASK[numBits];
-        if (numBits > numRemainingBits) {
-            int extraBits = numBits - numRemainingBits;
-            buffer.add(pendingBits | (data >>> extraBits));
-            numRemainingBits = 32 - extraBits;
-            pendingBits = data << numRemainingBits;
+        int extraBits = numRemainingBits - numBits;
+        if (extraBits >= 0) {
+            numRemainingBits = extraBits;
+            pendingBits |= data << extraBits;
         } else {
-            numRemainingBits -= numBits;
-            pendingBits |= data << numRemainingBits;
+            buffer.add(pendingBits | (data >>> -extraBits));
+            numRemainingBits = 32 + extraBits;
+            pendingBits = data << numRemainingBits;
         }
     }
 

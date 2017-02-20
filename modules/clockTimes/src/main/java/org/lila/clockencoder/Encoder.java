@@ -1,22 +1,23 @@
 package org.lila.clockencoder;
 
 public class Encoder {
-    public static byte[] encode(int[] centis) {
-        LowBitTruncator.TruncPair trunc = LowBitTruncator.lossyEncode(centis);
-        int[] encodedRounds = LinearEstimator.process(trunc.trunced, true);
+    public static byte[] encode(int[] centis, int startTime) {
+        IntArrayList lowBits = new IntArrayList();
+        int[] trunced = LowBitTruncator.lossyEncode(centis, lowBits);
+        LinearEstimator.encode(trunced, startTime);
 
         BitWriter writer = new BitWriter();
-        VarIntEncoder.encode(encodedRounds, writer);
-        LowBitTruncator.writeDigits(trunc.lowBits, writer);
+        VarIntEncoder.encode(trunced, writer);
+        LowBitTruncator.writeDigits(lowBits, writer);
         return writer.toArray();
     }
 
-    public static int[] decode(byte[] bytes, int numMoves) {
+    public static int[] decode(byte[] bytes, int numMoves, int startTime) {
         BitReader reader = new BitReader(bytes);
 
-        int[] encodedRounds = VarIntEncoder.decode(reader, numMoves);
-        int[] rounded = LinearEstimator.process(encodedRounds, false);
+        int[] trunced = VarIntEncoder.decode(reader, numMoves);
+        LinearEstimator.decode(trunced, startTime);
 
-        return LowBitTruncator.decode(rounded, reader);
+        return LowBitTruncator.decode(trunced, reader);
     }
 }
