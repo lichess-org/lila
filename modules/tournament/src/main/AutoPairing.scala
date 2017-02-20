@@ -13,15 +13,16 @@ import lila.user.{ User, UserRepo }
 object SecondsToDoFirstMove {
   def secondsToMoveFor(tour: Tournament) = tour.speed match {
     case chess.Speed.Bullet => 20
-    case chess.Speed.Blitz  => 25
-    case _                  => 30
+    case chess.Speed.Blitz => 25
+    case _ => 30
   }
 }
 
 final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem,
-    onStart: String => Unit) {
+    onStart: String => Unit
+) {
 
   def apply(tour: Tournament, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
@@ -35,7 +36,8 @@ final class AutoPairing(
         g.copy(
           clock = tour.clock.toClock.some,
           turns = turns,
-          startedAtTurn = turns)
+          startedAtTurn = turns
+        )
       },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
@@ -44,7 +46,8 @@ final class AutoPairing(
       if (tour.position.initial) tour.variant
       else chess.variant.FromPosition,
       source = Source.Tournament,
-      pgnImport = None)
+      pgnImport = None
+    )
     game2 = game1
       .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
       .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))

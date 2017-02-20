@@ -12,7 +12,8 @@ case class Count(
     lossH: Int, // only against human opponents
     rated: Int,
     win: Int,
-    winH: Int) { // only against human opponents
+    winH: Int
+) { // only against human opponents
 
   def gameH = winH + lossH + drawH
 
@@ -32,7 +33,8 @@ object Count {
       lossH = r nInt "lossH",
       rated = r nInt "rated",
       win = r nInt "win",
-      winH = r nInt "winH")
+      winH = r nInt "winH"
+    )
 
     def writes(w: BSON.Writer, o: Count) = BSONDocument(
       "ai" -> w.int(o.ai),
@@ -43,7 +45,8 @@ object Count {
       "lossH" -> w.int(o.lossH),
       "rated" -> w.int(o.rated),
       "win" -> w.int(o.win),
-      "winH" -> w.int(o.winH))
+      "winH" -> w.int(o.winH)
+    )
   }
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)

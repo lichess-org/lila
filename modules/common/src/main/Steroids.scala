@@ -67,8 +67,11 @@ trait ListSteroids {
     def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith {
       case (x, y) => other.indexOf(f(x)) < other.indexOf(f(y))
     }
+  }
 
-    def has(a: A) = list contains a
+  implicit final class LilaPimpedSeq[A](seq: Seq[A]) {
+
+    def has(a: A) = seq contains a
   }
 }
 
@@ -113,7 +116,7 @@ trait OptionSteroids {
     import scalaz.std.{ option => o }
 
     def fold[X](some: A => X, none: => X): X = self match {
-      case None    => none
+      case None => none
       case Some(a) => some(a)
     }
 

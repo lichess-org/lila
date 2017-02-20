@@ -9,7 +9,8 @@ case class Spotlight(
   description: String,
   homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
   iconFont: Option[String] = None,
-  iconImg: Option[String] = None)
+  iconImg: Option[String] = None
+)
 
 object Spotlight {
 
@@ -39,12 +40,12 @@ object Spotlight {
         l.plusWeeks(weeks) isAfter DateTime.now
       }
       sched.freq match {
-        case Hourly                      => false
-        case Daily | Eastern             => playedSinceWeeks(2)
-        case Weekly | Weekend            => playedSinceWeeks(4)
-        case Unique                      => playedSinceWeeks(4)
+        case Hourly => false
+        case Daily | Eastern => playedSinceWeeks(2)
+        case Weekly | Weekend => playedSinceWeeks(4)
+        case Unique => playedSinceWeeks(4)
         case Monthly | Marathon | Yearly => true
-        case ExperimentalMarathon        => false
+        case ExperimentalMarathon => false
       }
     }
   }

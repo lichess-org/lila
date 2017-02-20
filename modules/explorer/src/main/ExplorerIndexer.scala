@@ -16,7 +16,8 @@ import lila.user.UserRepo
 
 private final class ExplorerIndexer(
     gameColl: Coll,
-    internalEndpoint: String) {
+    internalEndpoint: String
+) {
 
   private val maxGames = Int.MaxValue
   private val batchSize = 50
@@ -119,20 +120,20 @@ private final class ExplorerIndexer(
   private def probability(game: Game, rating: Int) = {
     import lila.rating.PerfType._
     game.perfType ?? {
-      case Correspondence              => 1
+      case Correspondence => 1
       case Classical if rating >= 2000 => 1
       case Classical if rating >= 1800 => 2 / 5f
-      case Classical                   => 1 / 8f
-      case Blitz if rating >= 2000     => 1
-      case Blitz if rating >= 1800     => 1 / 4f
-      case Blitz                       => 1 / 8f
-      case Bullet if rating >= 2300    => 1
-      case Bullet if rating >= 2200    => 4 / 5f
-      case Bullet if rating >= 2000    => 1 / 4f
-      case Bullet if rating >= 1800    => 1 / 7f
-      case Bullet                      => 1 / 9f
-      case _ if rating >= 1600         => 1 // variant games
-      case _                           => 1 / 2f // noob variant games
+      case Classical => 1 / 8f
+      case Blitz if rating >= 2000 => 1
+      case Blitz if rating >= 1800 => 1 / 4f
+      case Blitz => 1 / 8f
+      case Bullet if rating >= 2300 => 1
+      case Bullet if rating >= 2200 => 4 / 5f
+      case Bullet if rating >= 2000 => 1 / 4f
+      case Bullet if rating >= 1800 => 1 / 7f
+      case Bullet => 1 / 9f
+      case _ if rating >= 1600 => 1 // variant games
+      case _ => 1 / 2f // noob variant games
     }
   }
 
@@ -163,7 +164,8 @@ private final class ExplorerIndexer(
         s"[WhiteElo $whiteRating]",
         s"[BlackElo $blackRating]",
         s"[Result ${PgnDump.result(game)}]",
-        s"[Date ${pgnDateFormat.print(game.createdAt)}]")
+        s"[Date ${pgnDateFormat.print(game.createdAt)}]"
+      )
       val allTags = fenTags ::: otherTags
       s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
     }

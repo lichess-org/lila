@@ -38,7 +38,8 @@ case class Pref(
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
-    tags: Map[String, String] = Map.empty) {
+    tags: Map[String, String] = Map.empty
+) {
 
   import Pref._
 
@@ -56,36 +57,36 @@ case class Pref(
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
   def get(name: String): Option[String] = name match {
-    case "bg"         => transp.fold("transp", dark.fold("dark", "light")).some
-    case "bgImg"      => bgImg
-    case "theme"      => theme.some
-    case "pieceSet"   => pieceSet.some
-    case "theme3d"    => theme3d.some
+    case "bg" => transp.fold("transp", dark.fold("dark", "light")).some
+    case "bgImg" => bgImg
+    case "theme" => theme.some
+    case "pieceSet" => pieceSet.some
+    case "theme3d" => theme3d.some
     case "pieceSet3d" => pieceSet3d.some
-    case "is3d"       => is3d.toString.some
-    case "soundSet"   => soundSet.some
-    case _            => none
+    case "is3d" => is3d.toString.some
+    case "soundSet" => soundSet.some
+    case _ => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
     case "bg" =>
       if (value == "transp") copy(dark = true, transp = true).some
       else Pref.bgs get value map { b => copy(dark = b, transp = false) }
-    case "bgImg"      => copy(bgImg = value.some).some
-    case "theme"      => Theme.allByName get value map { t => copy(theme = t.name) }
-    case "pieceSet"   => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
-    case "theme3d"    => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
+    case "bgImg" => copy(bgImg = value.some).some
+    case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }
+    case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
+    case "theme3d" => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
     case "pieceSet3d" => PieceSet3d.allByName get value map { p => copy(pieceSet3d = p.name) }
-    case "is3d"       => copy(is3d = value == "true").some
-    case "soundSet"   => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
-    case _            => none
+    case "is3d" => copy(is3d = value == "true").some
+    case "soundSet" => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
+    case _ => none
   }
 
   def animationFactor = animation match {
-    case Animation.NONE   => 0
-    case Animation.FAST   => 0.5f
+    case Animation.NONE => 0
+    case Animation.FAST => 0.5f
     case Animation.NORMAL => 1
-    case Animation.SLOW   => 2
-    case _                => 1
+    case Animation.SLOW => 2
+    case _ => 1
   }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
@@ -117,7 +118,8 @@ object Pref {
     val choices = Seq(
       WHITE -> "White",
       RANDOM -> "Random",
-      BLACK -> "Black")
+      BLACK -> "Black"
+    )
   }
 
   object AutoQueen {
@@ -128,7 +130,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       ALWAYS -> "Always",
-      PREMOVE -> "When premoving")
+      PREMOVE -> "When premoving"
+    )
   }
 
   object SubmitMove {
@@ -141,7 +144,8 @@ object Pref {
       NEVER -> "Never",
       CORRESPONDENCE_ONLY -> "Correspondence games only",
       CORRESPONDENCE_UNLIMITED -> "Correspondence and unlimited",
-      ALWAYS -> "Always")
+      ALWAYS -> "Always"
+    )
   }
 
   object ConfirmResign extends BooleanPref
@@ -154,7 +158,8 @@ object Pref {
     val choices = Seq(
       NOBODY -> "With nobody",
       FRIENDS -> "With friends",
-      EVERYBODY -> "With everybody")
+      EVERYBODY -> "With everybody"
+    )
   }
 
   object KeyboardMove extends BooleanPref
@@ -165,7 +170,8 @@ object Pref {
 
     val choices = Seq(
       NO -> "Castle by moving by two squares",
-      YES -> "Castle by moving onto the rook")
+      YES -> "Castle by moving onto the rook"
+    )
   }
 
   object MoveEvent {
@@ -176,7 +182,8 @@ object Pref {
     val choices = Seq(
       CLICK -> "Click two squares",
       DRAG -> "Drag a piece",
-      BOTH -> "Both clicks and drag")
+      BOTH -> "Both clicks and drag"
+    )
   }
 
   object PieceNotation {
@@ -185,13 +192,15 @@ object Pref {
 
     val choices = Seq(
       SYMBOL -> "Chess piece symbol",
-      LETTER -> "PGN letter (K, Q, R, B, N)")
+      LETTER -> "PGN letter (K, Q, R, B, N)"
+    )
   }
 
   object Blindfold extends BooleanPref {
     override val choices = Seq(
       NO -> "What? No!",
-      YES -> "Yes, hide the pieces")
+      YES -> "Yes, hide the pieces"
+    )
   }
 
   object AutoThreefold {
@@ -202,7 +211,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       ALWAYS -> "Always",
-      TIME -> "When time remaining < 30 seconds")
+      TIME -> "When time remaining < 30 seconds"
+    )
   }
 
   object Takeback {
@@ -213,7 +223,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       ALWAYS -> "Always",
-      CASUAL -> "In casual games only")
+      CASUAL -> "In casual games only"
+    )
   }
 
   object Animation {
@@ -226,7 +237,8 @@ object Pref {
       NONE -> "None",
       FAST -> "Fast",
       NORMAL -> "Normal",
-      SLOW -> "Slow")
+      SLOW -> "Slow"
+    )
   }
 
   object Coords {
@@ -237,7 +249,8 @@ object Pref {
     val choices = Seq(
       NONE -> "No",
       INSIDE -> "Inside the board",
-      OUTSIDE -> "Outside the board")
+      OUTSIDE -> "Outside the board"
+    )
   }
 
   object Replay {
@@ -248,7 +261,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       SLOW -> "On slow games",
-      ALWAYS -> "Always")
+      ALWAYS -> "Always"
+    )
   }
 
   object ClockTenths {
@@ -259,7 +273,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       LOWTIME -> "When time remaining < 10 seconds",
-      ALWAYS -> "Always")
+      ALWAYS -> "Always"
+    )
   }
 
   object Challenge {
@@ -274,7 +289,8 @@ object Pref {
       NEVER -> "Never",
       RATING -> s"If rating is ± $ratingThreshold",
       FRIEND -> "Only friends",
-      ALWAYS -> "Always")
+      ALWAYS -> "Always"
+    )
 
     def block(from: User, to: User, pref: Int, follow: Boolean, fromCheat: Boolean): Option[String] = pref match {
       case NEVER => "{{user}} doesn't accept challenges.".some
@@ -283,7 +299,7 @@ object Pref {
       case RATING if math.abs(from.perfs.bestRating - to.perfs.bestRating) > ratingThreshold =>
         s"{{user}} only accepts challenges if rating is ± $ratingThreshold.".some
       case FRIEND if !follow => "{{user}} only accepts challenges from friends.".some
-      case _                 => none
+      case _ => none
     }
   }
 
@@ -295,7 +311,8 @@ object Pref {
     val choices = Seq(
       NEVER -> "Never",
       FRIEND -> "Only friends",
-      ALWAYS -> "Always")
+      ALWAYS -> "Always"
+    )
   }
 
   def create(id: String) = default.copy(_id = id)
@@ -336,7 +353,8 @@ object Pref {
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
-    tags = Map.empty)
+    tags = Map.empty
+  )
 
   import ornicar.scalalib.Zero
   implicit def PrefZero: Zero[Pref] = Zero.instance(default)

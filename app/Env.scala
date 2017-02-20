@@ -8,7 +8,8 @@ final class Env(
     config: Config,
     val scheduler: lila.common.Scheduler,
     val system: ActorSystem,
-    appPath: String) {
+    appPath: String
+) {
 
   val CliUsername = config getString "cli.username"
 
@@ -26,7 +27,8 @@ final class Env(
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
-    lightUserApi = Env.user.lightUserApi)
+    lightUserApi = Env.user.lightUserApi
+  )
 
   lazy val userInfo = mashup.UserInfo(
     bookmarkApi = Env.bookmark.api,
@@ -43,14 +45,15 @@ final class Env(
     fetchTeamIds = Env.team.cached.teamIdsList,
     fetchIsCoach = Env.coach.api.isListedCoach,
     insightShare = Env.insight.share,
-    getPlayTime = Env.game.playTime.apply,
-    completionRate = Env.playban.api.completionRate) _
+    completionRate = Env.playban.api.completionRate
+  ) _
 
   lazy val teamInfo = new mashup.TeamInfoApi(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
     getForumPosts = Env.forum.recent.team _,
-    asyncCache = Env.memo.asyncCache)
+    asyncCache = Env.memo.asyncCache
+  )
 
   private def tryDailyPuzzle(): Fu[Option[lila.puzzle.DailyPuzzle]] =
     scala.concurrent.Future {
@@ -115,7 +118,8 @@ object Env {
     config = lila.common.PlayApp.loadConfig,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system,
-    appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
+    appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath)
+  )
 
   def api = lila.api.Env.current
   def db = lila.db.Env.current

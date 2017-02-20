@@ -12,7 +12,8 @@ private[analyse] final class Annotator(netDomain: String) {
     opening: Option[FullOpening.AtPly],
     winner: Option[Color],
     status: Status,
-    clock: Option[Clock]): Pgn =
+    clock: Option[Clock]
+  ): Pgn =
     annotateStatus(winner, status) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
@@ -23,7 +24,7 @@ private[analyse] final class Annotator(netDomain: String) {
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match {
-      case ""   => p
+      case "" => p
       case text => p.updateLastPly(_.copy(result = text.some))
     }
 
@@ -39,9 +40,7 @@ private[analyse] final class Annotator(netDomain: String) {
             glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
             comments = List(advice.makeComment(true, true)),
             variations = makeVariation(turn, advice) :: Nil
-          )
-        )
-      )
+          )))
     }
 
   private def makeVariation(turn: Turn, advice: Advice): List[Turn] =

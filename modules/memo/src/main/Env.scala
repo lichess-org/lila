@@ -5,7 +5,8 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    system: akka.actor.ActorSystem) {
+    system: akka.actor.ActorSystem
+) {
 
   private val CollectionCache = config getString "collection.cache"
   private val CollectionConfig = config getString "collection.config"
@@ -22,5 +23,6 @@ object Env {
   lazy val current = "memo" boot new Env(
     config = lila.common.PlayApp loadConfig "memo",
     db = lila.db.Env.current,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system
+  )
 }

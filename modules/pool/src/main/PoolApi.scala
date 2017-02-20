@@ -11,7 +11,8 @@ final class PoolApi(
     val configs: List[PoolConfig],
     hookThieve: HookThieve,
     gameStarter: GameStarter,
-    system: ActorSystem) {
+    system: ActorSystem
+) {
 
   import PoolApi._
   import PoolActor._
@@ -19,12 +20,13 @@ final class PoolApi(
   private val actors: Map[PoolConfig.Id, ActorRef] = configs.map { config =>
     config.id -> system.actorOf(
       Props(new PoolActor(config, hookThieve, gameStarter)),
-      name = s"pool-${config.id.value}")
+      name = s"pool-${config.id.value}"
+    )
   }.toMap
 
   def join(poolId: PoolConfig.Id, joiner: Joiner) = actors foreach {
     case (id, actor) if id == poolId => actor ! Join(joiner)
-    case (_, actor)                  => actor ! Leave(joiner.userId)
+    case (_, actor) => actor ! Leave(joiner.userId)
   }
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
@@ -46,7 +48,8 @@ object PoolApi {
       ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
       lame: Boolean,
-      blocking: Set[String]) {
+      blocking: Set[String]
+  ) {
 
     def is(member: PoolMember) = userId == member.userId
   }

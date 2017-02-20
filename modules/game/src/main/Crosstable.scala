@@ -3,7 +3,8 @@ package lila.game
 case class Crosstable(
     user1: Crosstable.User,
     user2: Crosstable.User,
-    results: List[Crosstable.Result]) {
+    results: List[Crosstable.Result]
+) {
 
   def nonEmpty = results.nonEmpty option this
 
@@ -22,7 +23,7 @@ case class Crosstable(
     val byTen = user(userId) ?? (_.score)
     s"${byTen / 10}${(byTen % 10 != 0).??("½")}" match {
       case "0½" => "½"
-      case x    => x
+      case x => x
     }
   }
 
@@ -67,20 +68,21 @@ object Crosstable {
         user2 = User(u2Id, r intD "s2"),
         results = r.get[List[String]](results).map { r =>
           r drop 8 match {
-            case ""  => Result(r, Some(u1Id))
+            case "" => Result(r, Some(u1Id))
             case "-" => Result(r take 8, Some(u2Id))
             case "=" => Result(r take 8, none)
-            case _   => sys error s"Invalid result string $r"
+            case _ => sys error s"Invalid result string $r"
           }
-        })
+        }
+      )
       case x => sys error s"Invalid crosstable id $x"
     }
 
     def writeResult(result: Result, u1: String): String = {
       val flag = result.winnerId match {
         case Some(wid) if wid == u1 => ""
-        case Some(wid)              => "-"
-        case None                   => "="
+        case Some(wid) => "-"
+        case None => "="
       }
       s"${result.gameId}$flag"
     }
@@ -89,6 +91,7 @@ object Crosstable {
       id -> makeKey(o.user1.id, o.user2.id),
       score1 -> o.user1.score,
       score2 -> o.user2.score,
-      results -> o.results.map { writeResult(_, o.user1.id) })
+      results -> o.results.map { writeResult(_, o.user1.id) }
+    )
   }
 }

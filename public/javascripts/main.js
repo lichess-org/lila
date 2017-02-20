@@ -154,10 +154,10 @@ lichess.notifyApp = (function() {
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
-        $('#friend_box').friends("set", all.d, all.playing, all.patrons);
+        $('#friend_box').friends("set", all.d, all.playing, all.studying, all.patrons);
       },
       following_enters: function(d, all) {
-        $('#friend_box').friends('enters', all.d, all.playing, all.patron);
+        $('#friend_box').friends('enters', all.d, all.playing, all.studying, all.patron);
       },
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
@@ -167,6 +167,12 @@ lichess.notifyApp = (function() {
       },
       following_stopped_playing: function(name) {
         $('#friend_box').friends('stopped_playing', name);
+      },
+      following_joined_study: function(name) {
+        $('#friend_box').friends('study_join', name);
+      },
+      following_left_study: function(name) {
+        $('#friend_box').friends('study_leave', name);
       },
       new_notification: function(e) {
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
@@ -1075,18 +1081,20 @@ lichess.notifyApp = (function() {
 
         var users = self.element.data('preload').split(',');
         var playings = self.element.data('playing').split(',');
+        var studyings = self.element.data('studying').split(',');
         var patrons = self.element.data('patrons').split(',');
-        self.set(users, playings, patrons);
+        self.set(users, playings, studyings, patrons);
       },
       _findByUsername: function(n) {
         return this.users.filter(function(u) {
           return isSameUser(n.toLowerCase(), u);
         })[0];
       },
-      _makeUser: function(name, playing, patron) {
+      _makeUser: function(name, playing, studying, patron) {
         return {
           'name': name,
           'playing': !!playing,
+          'studying': !!studying,
           'patron': !!patron
         }
       },
@@ -1113,16 +1121,17 @@ lichess.notifyApp = (function() {
           }).map(this._renderUser).join(""));
         }.bind(this));
       },
-      set: function(us, playings, patrons) {
+      set: function(us, playings, studyings, patrons) {
         this.users = us.map(function(user) {
-          return this._makeUser(user, false, false);
+          return this._makeUser(user, false, false, false);
         }.bind(this));
-        for (user in playings) this._setPlaying(playings[user], true);
-        for (user in patrons) this._setPatron(patrons[user], true);
+        for (i in playings) this._setPlaying(playings[i], true);
+        for (i in studyings) this._setStudying(studyings[i], true);
+        for (i in patrons) this._setPatron(patrons[i], true);
         this.repaint();
       },
-      enters: function(userName, playing, patron) {
-        var user = this._makeUser(userName, playing, patron);
+      enters: function(userName, playing, studying, patron) {
+        var user = this._makeUser(userName, playing, studying, patron);
         this.users.push(user);
         this.repaint();
       },
@@ -1140,6 +1149,10 @@ lichess.notifyApp = (function() {
         var user = this._findByUsername(userName);
         if (user) user.patron = patron;
       },
+      _setStudying: function(userName, studying) {
+        var user = this._findByUsername(userName);
+        if (user) user.studying = studying;
+      },
       playing: function(userName) {
         this._setPlaying(userName, true);
         this.repaint();
@@ -1148,13 +1161,23 @@ lichess.notifyApp = (function() {
         this._setPlaying(userName, false);
         this.repaint();
       },
+      study_join: function(userName) {
+        this._setStudying(userName, true);
+        this.repaint();
+      },
+      study_leave: function(userName) {
+        this._setStudying(userName, false);
+        this.repaint();
+      },
       _renderUser: function(user) {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
         var name = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+        var studyButton = user.studying ? '<a data-icon="&#xe00e;" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
+        var rightButton = tvButton || studyButton;
 
-        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + tvButton + '</div>';
+        return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + user.name + '</a>' + rightButton + '</div>';
       }
     };
   })());

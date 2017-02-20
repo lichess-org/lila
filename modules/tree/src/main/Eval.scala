@@ -5,7 +5,8 @@ import chess.format.Uci
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Uci.Move]) {
+    best: Option[Uci.Move]
+) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 
@@ -21,7 +22,7 @@ object Eval {
     def cp: Option[Cp] = value.left.toOption
     def mate: Option[Mate] = value.right.toOption
 
-    def isCheckmate = value == Right(0)
+    def isCheckmate = value == Score.checkmate
     def mateFound = value.isRight
 
     def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
@@ -32,6 +33,8 @@ object Eval {
 
     def cp(x: Cp): Score = Score(Left(x))
     def mate(y: Mate): Score = Score(Right(y))
+
+    val checkmate: Either[Cp, Mate] = Right(Mate(0))
   }
 
   case class Cp(value: Int) extends AnyVal {
@@ -93,11 +96,13 @@ object Eval {
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
       Reads.of[Int] map Cp.apply,
-      Writes { cp => JsNumber(cp.value) })
+      Writes { cp => JsNumber(cp.value) }
+    )
 
     implicit val mateFormat: Format[Mate] = Format[Mate](
       Reads.of[Int] map Mate.apply,
-      Writes { mate => JsNumber(mate.value) })
+      Writes { mate => JsNumber(mate.value) }
+    )
 
     implicit val evalWrites = Json.writes[Eval]
   }

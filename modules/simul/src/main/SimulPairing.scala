@@ -7,7 +7,8 @@ case class SimulPairing(
     gameId: String,
     status: chess.Status,
     wins: Option[Boolean],
-    hostColor: chess.Color) {
+    hostColor: chess.Color
+) {
 
   def finished = status >= chess.Status.Mate
 
@@ -16,7 +17,8 @@ case class SimulPairing(
 
   def finish(s: chess.Status, w: Option[String], t: Int) = copy(
     status = s,
-    wins = w map player.is)
+    wins = w map player.is
+  )
 
   def winnerColor = wins.map { w =>
     if (w) !hostColor else hostColor
@@ -30,5 +32,6 @@ private[simul] object SimulPairing {
     gameId = IdGenerator.game,
     status = chess.Status.Created,
     wins = none,
-    hostColor = chess.White)
+    hostColor = chess.White
+  )
 }

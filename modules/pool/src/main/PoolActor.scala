@@ -11,7 +11,8 @@ import lila.user.User
 private final class PoolActor(
     config: PoolConfig,
     hookThieve: HookThieve,
-    gameStarter: GameStarter) extends Actor {
+    gameStarter: GameStarter
+) extends Actor {
 
   import PoolActor._
 
@@ -22,7 +23,8 @@ private final class PoolActor(
   def scheduleWave =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,
-      self, ScheduledWave)
+      self, ScheduledWave
+    )
 
   scheduleWave
 
@@ -37,7 +39,7 @@ private final class PoolActor(
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map {
             case m if m == member => m withRange joiner.ratingRange
-            case m                => m
+            case m => m
           }
         case _ => // no change
       }

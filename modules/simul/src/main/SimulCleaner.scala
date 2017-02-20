@@ -9,7 +9,8 @@ import org.joda.time.DateTime
 private[simul] final class SimulCleaner(
     repo: SimulRepo,
     api: SimulApi,
-    socketHub: ActorRef) {
+    socketHub: ActorRef
+) {
 
   def apply {
     repo.allCreated foreach { simuls =>

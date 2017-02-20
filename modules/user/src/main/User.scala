@@ -20,17 +20,18 @@ case class User(
     engine: Boolean = false,
     booster: Boolean = false,
     toints: Int = 0,
-    playTime: Option[User.PlayTime] = None,
+    playTime: User.PlayTime,
     title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
     lang: Option[String],
-    plan: Plan) extends Ordered[User] {
+    plan: Plan
+) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
     case u: User => id == u.id
-    case _       => false
+    case _ => false
   }
 
   override def toString =
@@ -144,7 +145,8 @@ object User {
     "CM" -> "Candidate Master",
     "WCM" -> "Woman Candidate Master",
     "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master")
+    "LM" -> "Lichess Master"
+  )
 
   val titlesMap = titles.toMap
 
@@ -202,13 +204,14 @@ object User {
       engine = r boolD engine,
       booster = r boolD booster,
       toints = r nIntD toints,
-      playTime = r.getO[PlayTime](playTime),
+      playTime = r.getO[PlayTime](playTime) | PlayTime(0, 0),
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
       title = r strO title,
-      plan = r.getO[Plan](plan) | Plan.empty)
+      plan = r.getO[Plan](plan) | Plan.empty
+    )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -229,6 +232,7 @@ object User {
       kid -> w.boolO(o.kid),
       lang -> o.lang,
       title -> o.title,
-      plan -> o.plan.nonEmpty)
+      plan -> o.plan.nonEmpty
+    )
   }
 }

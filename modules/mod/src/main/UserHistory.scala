@@ -7,7 +7,8 @@ import lila.user.User
 
 final class UserHistory(
     logApi: ModlogApi,
-    reportApi: lila.report.ReportApi) {
+    reportApi: lila.report.ReportApi
+) {
 
   import JsonView.modlogWrites
   import lila.report.JsonView.reportWrites
@@ -18,17 +19,19 @@ final class UserHistory(
   } yield {
     val all: List[Either[Modlog, Report]] = logs.map(Left.apply) ::: reports.map(Right.apply)
     val sorted = all.sortBy {
-      case Left(log)  => -log.date.getMillis
+      case Left(log) => -log.date.getMillis
       case Right(rep) => -rep.createdAt.getMillis
     }
     JsArray {
       sorted map {
         case Left(log) => Json.obj(
           "type" -> "modAction",
-          "data" -> (modlogWrites writes log))
+          "data" -> (modlogWrites writes log)
+        )
         case Right(rep) => Json.obj(
           "type" -> "report",
-          "data" -> (reportWrites writes rep))
+          "data" -> (reportWrites writes rep)
+        )
       }
     }
   }

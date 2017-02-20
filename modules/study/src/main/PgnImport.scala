@@ -12,11 +12,12 @@ private object PgnImport {
   case class Result(
     root: Node.Root,
     variant: chess.variant.Variant,
-    tags: List[Tag])
+    tags: List[Tag]
+  )
 
   def apply(pgn: String): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case prep@Preprocessed(game, replay, result, initialFen, parsedPgn) =>
+      case prep @ Preprocessed(game, replay, result, initialFen, parsedPgn) =>
         val annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
         makeShapesAndComments(parsedPgn.initialPosition.comments, annotator) match {
           case (shapes, comments) =>
@@ -42,7 +43,8 @@ private object PgnImport {
                     val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
                     node.fold(variations)(_ :: variations).toVector
                   }
-              ))
+              )
+            )
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
               else endComment(prep).fold(root) { comment =>
@@ -51,7 +53,8 @@ private object PgnImport {
             Result(
               root = commented,
               variant = game.variant,
-              tags = PgnTags(parsedPgn.tags))
+              tags = PgnTags(parsedPgn.tags)
+            )
         }
     }
 
@@ -81,7 +84,7 @@ private object PgnImport {
     comments.map(CommentParser.removeClk).foldLeft(Shapes(Nil), Comments(Nil)) {
       case ((shapes, comments), txt) => CommentParser.extractShapes(txt) match {
         case (s, c) => (shapes ++ s) -> (c.trim match {
-          case ""  => comments
+          case "" => comments
           case com => comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
         })
       }

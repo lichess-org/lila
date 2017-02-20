@@ -19,7 +19,8 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def id = _id
 
@@ -52,13 +53,15 @@ case class Seek(
     "variant" -> Json.obj(
       "key" -> realVariant.key,
       "short" -> realVariant.shortName,
-      "name" -> realVariant.name),
+      "name" -> realVariant.name
+    ),
     "mode" -> realMode.id,
     "days" -> daysPerTurn,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
       "icon" -> perfType.map(_.iconChar.toString),
-      "name" -> perfType.map(_.name))
+      "name" -> perfType.map(_.name)
+    )
   )
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
@@ -75,7 +78,8 @@ object Seek {
     color: String,
     user: User,
     ratingRange: RatingRange,
-    blocking: Set[String]): Seek = new Seek(
+    blocking: Set[String]
+  ): Seek = new Seek(
     _id = Random nextString idSize,
     variant = variant.id,
     daysPerTurn = daysPerTurn,
@@ -83,7 +87,8 @@ object Seek {
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
   def renew(seek: Seek) = new Seek(
     _id = Random nextString idSize,
@@ -93,7 +98,8 @@ object Seek {
     color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
   import reactivemongo.bson.Macros
   import lila.db.BSON.MapValue.MapHandler

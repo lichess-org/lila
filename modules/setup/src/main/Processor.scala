@@ -11,7 +11,8 @@ private[setup] final class Processor(
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     fishnetPlayer: lila.fishnet.Player,
-    onStart: String => Unit) {
+    onStart: String => Unit
+) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
     saveConfig(_ withFilter config)
@@ -35,7 +36,8 @@ private[setup] final class Processor(
     configBase: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Fu[Processor.HookResult] = {
+    blocking: Set[String]
+  )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
     import Processor.HookResult._
     val config = configBase.fixColor
     saveConfig(_ withHook config) >> {
@@ -52,7 +54,7 @@ private[setup] final class Processor(
           }
         }
         case Right(None) if ctx.me.isEmpty => fuccess(Refused)
-        case _                             => fuccess(Refused)
+        case _ => fuccess(Refused)
       }
     }
   }

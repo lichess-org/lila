@@ -27,9 +27,9 @@ module.exports = {
   },
 
   fromNodeList: function(nodes) {
-    return nodes.map(function(n) {
-      return n.id;
-    }).join('');
+    var path = '';
+    for (var i in nodes) path += nodes[i].id;
+    return path;
   },
 
   isChildOf: function(child, parent) {

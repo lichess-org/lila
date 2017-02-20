@@ -54,7 +54,7 @@ object Challenge extends LilaController {
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
-    case Left(anon)  => HTTPRequest sid ctx.req contains anon.secret
+    case Left(anon) => HTTPRequest sid ctx.req contains anon.secret
     case Right(user) => ctx.userId contains user.id
   }
 
@@ -70,7 +70,8 @@ object Challenge extends LilaController {
         ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
         case None => negotiate(
           html = Redirect(routes.Round.watcher(c.id, "white")).fuccess,
-          api = _ => notFoundJson("Someone else accepted the challenge"))
+          api = _ => notFoundJson("Someone else accepted the challenge")
+        )
       }
     }
   }
@@ -84,7 +85,8 @@ object Challenge extends LilaController {
             AnonCookie.name,
             game.player(owner.fold(c.finalColor, !c.finalColor)).id,
             maxAge = AnonCookie.maxAge.some,
-            httpOnly = false.some)
+            httpOnly = false.some
+          )
         }
       }
     } map { cookieOption =>
@@ -115,7 +117,7 @@ object Challenge extends LilaController {
       )).bindFromRequest.fold(
         err => funit,
         username => UserRepo named username flatMap {
-          case None       => funit
+          case None => funit
           case Some(dest) => env.api.setDestUser(c, dest)
         }
       ) inject Redirect(routes.Challenge.show(c.id))

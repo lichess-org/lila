@@ -24,9 +24,11 @@ private final class NotificationRepo(val coll: Coll) {
 
   private val hasOld = $doc(
     "read" -> false,
-    "createdAt" $gt DateTime.now.minusDays(3))
+    "createdAt" $gt DateTime.now.minusDays(3)
+  )
   private val hasUnread = $doc( // recent, read
-    "createdAt" $gt DateTime.now.minusMinutes(10))
+    "createdAt" $gt DateTime.now.minusMinutes(10)
+  )
   private val hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 

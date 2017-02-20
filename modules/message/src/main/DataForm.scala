@@ -24,7 +24,8 @@ private[message] final class DataForm(security: MessageSecurity) {
       case (username, subject, text) => ThreadData(
         user = fetchUser(username) err "Unknown username " + username,
         subject = subject,
-        text = text)
+        text = text
+      )
     })(_.export.some))
 
   def post = Form(single(
@@ -39,7 +40,8 @@ object DataForm {
   case class ThreadData(
       user: User,
       subject: String,
-      text: String) {
+      text: String
+  ) {
 
     def export = (user.username, subject, text)
   }

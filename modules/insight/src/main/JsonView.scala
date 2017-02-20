@@ -18,7 +18,8 @@ final class JsonView {
       "description" -> D.Opening.description.body,
       "values" -> Dimension.valuesOf(D.Opening).filter { o =>
         ecos contains o.eco
-      }.map(Dimension.valueToJson(D.Opening)))
+      }.map(Dimension.valueToJson(D.Opening))
+    )
 
     Json.obj(
       "dimensionCategs" -> List(
@@ -44,7 +45,8 @@ final class JsonView {
         // result
         Categ("Result", List(
           Json toJson D.Termination,
-          Json toJson D.Result))
+          Json toJson D.Result
+        ))
       ),
       "metricCategs" -> metricCategs,
       "presets" -> Preset.all
@@ -70,7 +72,8 @@ final class JsonView {
     Categ("Result", List(
       Json toJson M.Termination,
       Json toJson M.Result,
-      Json toJson M.RatingDiff))
+      Json toJson M.RatingDiff
+    ))
   )
 
   private implicit def presetWriter[X]: OWrites[Preset] = OWrites { p =>
@@ -91,7 +94,8 @@ final class JsonView {
       "name" -> d.name,
       "position" -> d.position,
       "description" -> d.description.body,
-      "values" -> Dimension.valuesOf(d).map(Dimension.valueToJson(d)))
+      "values" -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
+    )
   }
 
   private implicit def metricWriter: OWrites[Metric] = OWrites { m =>
@@ -99,7 +103,8 @@ final class JsonView {
       "key" -> m.key,
       "name" -> m.name,
       "description" -> m.description.body,
-      "position" -> m.position)
+      "position" -> m.position
+    )
   }
 
   private implicit def positionWriter: Writes[Position] = Writes { p =>

@@ -8,7 +8,8 @@ import lila.user.{ User, UserRepo, NoteApi }
 final class ReportApi(
     val coll: Coll,
     noteApi: NoteApi,
-    isOnline: User.ID => Boolean) {
+    isOnline: User.ID => Boolean
+) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReportBSONHandler = reactivemongo.bson.Macros.handler[Report]
@@ -20,7 +21,8 @@ final class ReportApi(
         user = setup.user,
         reason = reason,
         text = setup.text,
-        createdBy = by)
+        createdBy = by
+      )
       !isAlreadySlain(report, user) ?? {
         lila.mon.mod.report.create(reason.key)()
         if (by.id == UserRepo.lichessId) coll.update(
@@ -50,7 +52,8 @@ final class ReportApi(
         reason = "cheatprint",
         text = "Shares print with known cheaters",
         gameId = "",
-        move = ""), lichess)
+        move = ""
+      ), lichess)
       case _ => funit
     }
   }
@@ -63,7 +66,8 @@ final class ReportApi(
         reason = "cheat",
         text = text,
         gameId = "",
-        move = ""), lichess)
+        move = ""
+      ), lichess)
       case _ => funit
     }
   }
@@ -75,7 +79,8 @@ final class ReportApi(
         reason = "cheat",
         text = s"""$name bot detected on ${referer | "?"}""",
         gameId = "",
-        move = ""), lichess)
+        move = ""
+      ), lichess)
       case _ => funit
     }
   }
@@ -89,7 +94,8 @@ final class ReportApi(
           reason = "boost",
           text = s"with their accomplice @${accomplice.username}",
           gameId = "",
-          move = ""), lichess)
+          move = ""
+        ), lichess)
         case _ => funit
       }
   }
@@ -100,7 +106,8 @@ final class ReportApi(
       "reason" -> "cheat"
     ) ++ unprocessedSelect,
     $set("processedBy" -> "lichess"),
-    multi = true).void
+    multi = true
+  ).void
 
   def process(id: String, by: User): Funit = coll.byId[Report](id) flatMap {
     _ ?? { report =>
@@ -110,7 +117,8 @@ final class ReportApi(
           "reason" -> report.reason
         ) ++ unprocessedSelect,
         $set("processedBy" -> by.id),
-        multi = true).void
+        multi = true
+      ).void
     } >>- monitorUnprocessed >>- lila.mon.mod.report.close()
   }
 
@@ -120,7 +128,8 @@ final class ReportApi(
       "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
-    multi = true).void >>- monitorUnprocessed
+    multi = true
+  ).void >>- monitorUnprocessed
 
   def processTroll(userId: String, byModId: String): Funit = coll.update(
     $doc(
@@ -128,7 +137,8 @@ final class ReportApi(
       "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key)
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
-    multi = true).void >>- monitorUnprocessed
+    multi = true
+  ).void >>- monitorUnprocessed
 
   def autoInsultReport(userId: String, text: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
@@ -137,7 +147,8 @@ final class ReportApi(
         reason = "insult",
         text = text,
         gameId = "",
-        move = ""), lichess)
+        move = ""
+      ), lichess)
       case _ => funit
     }
   } >>- monitorUnprocessed
@@ -145,7 +156,8 @@ final class ReportApi(
   def autoProcess(userId: String): Funit =
     coll.update(
       $doc("user" -> userId.toLowerCase),
-      $doc("processedBy" -> "lichess")).void >>- monitorUnprocessed
+      $doc("processedBy" -> "lichess")
+    ).void >>- monitorUnprocessed
 
   private val unprocessedSelect: Bdoc = "processedBy" $exists false
   private val processedSelect: Bdoc = "processedBy" $exists true
@@ -197,7 +209,8 @@ final class ReportApi(
       Match(unprocessedSelect),
       List(
         GroupField("reason")("nb" -> SumValue(1))
-      )).map {
+      )
+    ).map {
         _.firstBatch.flatMap { doc =>
           doc.getAs[String]("_id") flatMap Reason.apply flatMap { reason =>
             doc.getAs[Int]("nb") map { reason -> _ }
@@ -212,5 +225,6 @@ final class ReportApi(
   private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),
     "user" -> user.id,
-    "reason" -> reason.key)
+    "reason" -> reason.key
+  )
 }

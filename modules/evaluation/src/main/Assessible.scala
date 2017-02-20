@@ -14,8 +14,8 @@ case class Assessible(analysed: Analysed) {
   def suspiciousErrorRate(color: Color): Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
       case Speed.Bullet => 25
-      case Speed.Blitz  => 20
-      case _            => 15
+      case Speed.Blitz => 20
+      case _ => 15
     })
 
   def alwaysHasAdvantage(color: Color): Boolean =
@@ -69,7 +69,7 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(T, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
 
       case PlayerFlags(F, F, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
-      case _                                => NotCheating
+      case _ => NotCheating
     }
 
     if (flags.suspiciousHoldAlert) assessment
@@ -80,8 +80,8 @@ case class Assessible(analysed: Analysed) {
 
   def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
   def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  def mtAvg(color: Color): Int = listAverage(game moveTimes color).toInt
-  def mtSd(color: Color): Int = listDeviation(game moveTimes color).toInt
+  def mtAvg(color: Color): Int = listAverage(~game.moveTimes(color) map (_.toTenths)).toInt
+  def mtSd(color: Color): Int = listDeviation(~game.moveTimes(color) map (_.toTenths)).toInt
   def blurs(color: Color): Int = game.playerBlurPercent(color)
   def hold(color: Color): Boolean = game.player(color).hasSuspiciousHoldAlert
 

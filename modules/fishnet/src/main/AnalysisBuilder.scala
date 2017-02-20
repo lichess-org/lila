@@ -17,7 +17,8 @@ private object AnalysisBuilder {
     client: Client,
     work: Work.Analysis,
     evals: List[Option[Evaluation]],
-    isPartial: Boolean = true): Fu[Analysis] = {
+    isPartial: Boolean = true
+  ): Fu[Analysis] = {
 
     val uciAnalysis = Analysis(
       id = work.game.id,
@@ -25,7 +26,8 @@ private object AnalysisBuilder {
       startPly = work.startPly,
       uid = work.sender.userId,
       by = !client.lichess option client.userId.value,
-      date = DateTime.now)
+      date = DateTime.now
+    )
 
     GameRepo.game(uciAnalysis.id) flatMap {
       case None => fufail(AnalysisBuilder.GameIsGone(uciAnalysis.id))
@@ -43,7 +45,8 @@ private object AnalysisBuilder {
                   else fuccess(analysis)
                 }
                 else fufail(s"${game.variant.key} analysis $debug is empty")
-            })
+            }
+          )
         }
     }
   }
@@ -53,7 +56,7 @@ private object AnalysisBuilder {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPvList match {
           case first :: rest if first != move => first :: rest
-          case _                              => Nil
+          case _ => Nil
         }
         val best = variation.headOption flatMap Uci.Move.apply
         val info = Info(
@@ -61,8 +64,10 @@ private object AnalysisBuilder {
           eval = Eval(
             after.score.cp,
             after.score.mate,
-            best),
-          variation = variation)
+            best
+          ),
+          variation = variation
+        )
         if (info.ply % 2 == 1) info.invert else info
       }
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)

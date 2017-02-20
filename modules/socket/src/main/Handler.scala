@@ -20,7 +20,7 @@ object Handler {
 
   val emptyController: Controller = PartialFunction.empty
 
-  private val AnaRateLimiter = new lila.memo.RateLimit(120, 30 seconds,
+  private val AnaRateLimiter = new lila.memo.RateLimit[String](120, 30 seconds,
     name = "socket analysis move",
     key = "socket_analysis_move")
 
@@ -31,7 +31,8 @@ object Handler {
     hub: lila.hub.Env,
     socket: akka.actor.ActorRef,
     uid: Socket.Uid,
-    join: Any)(connecter: Connecter): Fu[JsSocketHandler] = {
+    join: Any
+  )(connecter: Connecter): Fu[JsSocketHandler] = {
 
     def baseController(member: SocketMember): Controller = {
       case ("p", _) => socket ! Ping(uid.value)
@@ -43,13 +44,14 @@ object Handler {
       }
       case ("moveLat", o) => hub.channel.roundMoveTime ! (~(o boolean "d")).fold(
         Channel.Sub(member),
-        Channel.UnSub(member))
+        Channel.UnSub(member)
+      )
       case ("anaMove", o) => AnaRateLimit(uid.value, member) {
         AnaMove parse o foreach { anaMove =>
           member push {
             anaMove.branch match {
               case scalaz.Success(node) => makeMessage("node", anaMove json node)
-              case scalaz.Failure(err)  => makeMessage("stepFailure", err.toString)
+              case scalaz.Failure(err) => makeMessage("stepFailure", err.toString)
             }
           }
         }
@@ -71,7 +73,7 @@ object Handler {
         member push {
           AnaDests parse o map (_.compute) match {
             case Some(res) => makeMessage("dests", res.json)
-            case None      => makeMessage("destsFailure", "Bad dests request")
+            case None => makeMessage("destsFailure", "Bad dests request")
           }
         }
       }
@@ -93,8 +95,7 @@ object Handler {
           obj str "t" foreach { t =>
             control.lift(t -> obj)
           }
-        }
-      ).map(_ => socket ! Quit(uid.value))
+        }).map(_ => socket ! Quit(uid.value))
     }
 
     socket ? join map connecter map {

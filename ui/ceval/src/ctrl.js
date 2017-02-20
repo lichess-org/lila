@@ -193,7 +193,6 @@ module.exports = function(opts) {
     env: function() {
       return {
         pnacl: !!pnaclSupported,
-        engine: pool.engineVersion(),
         multiPv: multiPv(),
         threads: threads(),
         hashSize: hashSize(),

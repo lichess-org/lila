@@ -1489,6 +1489,10 @@ body.fpmenu #friend_box {
   flex: 0 0 auto;
   padding: 0 5px;
 }
+#friend_box .content a.friend-study {
+  flex: 0 0 auto;
+  padding: 2px 5px 0 5px;
+}
 #friend_box .content a:hover {
   background: #F0F0F0;
 }

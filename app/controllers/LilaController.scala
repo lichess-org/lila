@@ -38,7 +38,8 @@ private[controllers] trait LilaController
   protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
-      api = _ => fuccess(Ok(jsonOkBody) as JSON))
+      api = _ => fuccess(Ok(jsonOkBody) as JSON)
+    )
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
@@ -55,9 +56,7 @@ private[controllers] trait LilaController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap { ctx =>
-          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
-        }
+        reqToCtx(req) flatMap maybeI18nRedirect(f)
       }
     }
 
@@ -67,7 +66,7 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap f
+        reqToCtx(req) flatMap maybeI18nRedirect(f)
       }
     }
 
@@ -77,9 +76,9 @@ private[controllers] trait LilaController
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap { implicit ctx =>
-          ctx.me.fold(authenticationFailed) { me =>
-            Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+        reqToCtx(req) flatMap { ctx =>
+          ctx.me.fold(authenticationFailed(ctx)) { me =>
+            maybeI18nRedirect((c: Context) => f(c)(me))(ctx)
           }
         }
       }
@@ -92,7 +91,9 @@ private[controllers] trait LilaController
     Action.async(p) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap { implicit ctx =>
-          ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+          ctx.me.fold(authenticationFailed) { me =>
+            maybeI18nRedirect((c: BodyContext[A]) => f(c)(me))(ctx)
+          }
         }
       }
     }
@@ -121,6 +122,9 @@ private[controllers] trait LilaController
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
+  private def maybeI18nRedirect[C <: Context](f: C => Fu[Result])(ctx: C): Fu[Result] =
+    Env.i18n.requestHandler(ctx.req, ctx.me).fold(f(ctx))(fuccess)
+
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
       _ fold (a, {
@@ -129,7 +133,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
-    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+    if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
       Unauthorized(views.html.auth.tor()).fuccess
     else res
 
@@ -190,7 +194,8 @@ private[controllers] trait LilaController
   protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(implicit req: Request[_]): Fu[Result] =
     form.bindFromRequest.fold(
       form => fuccess(BadRequest(form.errors mkString "\n")),
-      op)
+      op
+    )
 
   protected def FormFuResult[A, B: Writeable: ContentTypeOf](form: Form[A])(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
@@ -263,12 +268,13 @@ private[controllers] trait LilaController
   protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
     req.session.data.contains(LilaCookie.sessionId).fold(
       res,
-      res withCookies LilaCookie.makeSessionId(req))
+      res withCookies LilaCookie.makeSessionId(req)
+    )
 
   protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
     (lila.api.Mobile.Api.requestVersion(ctx.req) match {
       case Some(v) => api(v) dmap (_ as JSON)
-      case _       => html
+      case _ => html
     }).dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
@@ -282,23 +288,22 @@ private[controllers] trait LilaController
       pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
-  import lila.hub.actorApi.relation._
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
     ctx.me.fold(fuccess(PageData.anon(getAssetVersion, blindMode(ctx)))) { me =>
+      import lila.relation.actorApi.OnlineFriends
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
         if (isPage) {
           Env.user.lightUserApi preloadUser me
-          getOnlineFriends(me) zip
+          Env.relation.online.friendsOf(me.id) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value)
-        }
-        else fuccess {
+        } else fuccess {
           (((OnlineFriends.empty, 0), 0), 0)
         }
       } map {
-        case (pref, (((onlineFriends, teamNbRequests), nbChallenges), nbNotifications)) =>
+        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
@@ -307,14 +312,6 @@ private[controllers] trait LilaController
     }
 
   private def getAssetVersion = Env.api.assetVersion.get
-
-  private def getOnlineFriends(me: UserModel): Fu[OnlineFriends] = {
-    import akka.pattern.ask
-    import makeTimeout.short
-    (Env.hub.actor.relation ? GetOnlineFriends(me.id))
-      .mapTo(manifest[OnlineFriends])
-      .recover { case _ => OnlineFriends.empty }
-  }
 
   private def blindMode(implicit ctx: UserContext) =
     ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>

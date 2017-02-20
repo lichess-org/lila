@@ -25,8 +25,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   var storage = lichess.storage.make(options.baseUrlKey);
-  if (options.resetUrl || options.prodPipe) storage.remove();
-  if (options.prodPipe) options.baseUrls = ['socket.lichess.org'];
+  if (options.resetUrl) storage.remove();
 
   var connect = function() {
     destroy();
@@ -161,7 +160,7 @@ lichess.StrongSocket = function(url, version, settings) {
       }
       if (m.v > version + 1) {
         debug("event gap detected from " + version + " to " + m.v);
-        if (!options.prodPipe) return;
+        return;
       }
       version = m.v;
     }
@@ -169,7 +168,7 @@ lichess.StrongSocket = function(url, version, settings) {
       case false:
         break;
       case 'resync':
-        if (!options.prodPipe) lichess.reload();
+        lichess.reload();
         break;
       case 'ack':
         ackableMessages = [];

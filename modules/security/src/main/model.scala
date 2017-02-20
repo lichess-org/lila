@@ -6,10 +6,11 @@ case class FingerprintedUser(user: lila.user.User, hasFingerprint: Boolean)
 
 case class UserSession(
     _id: String,
-    ip: String,
+    ip: lila.common.IpAddress,
     ua: String,
     api: Option[Int],
-    date: Option[DateTime]) {
+    date: Option[DateTime]
+) {
 
   def id = _id
 

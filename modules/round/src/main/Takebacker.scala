@@ -6,7 +6,8 @@ import lila.pref.{ Pref, PrefApi }
 private[round] final class Takebacker(
     messenger: Messenger,
     uciMemo: UciMemo,
-    prefApi: PrefApi) {
+    prefApi: PrefApi
+) {
 
   def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
     pov match {

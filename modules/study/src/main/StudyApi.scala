@@ -24,7 +24,9 @@ final class StudyApi(
     chat: ActorSelection,
     bus: lila.common.Bus,
     timeline: ActorSelection,
-    socketHub: ActorRef) {
+    socketHub: ActorRef,
+    lightStudyCache: LightStudyCache
+) {
 
   def byId = studyRepo byId _
 
@@ -86,7 +88,8 @@ final class StudyApi(
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
               chat ! lila.chat.actorApi.SystemTalk(
                 study.id.value,
-                s"Cloned from lichess.org/study/${prev.id}")
+                s"Cloned from lichess.org/study/${prev.id}"
+              )
             } inject study.some
         }
       }
@@ -141,7 +144,8 @@ final class StudyApi(
           chapterRepo.update(newChapter) >>
             studyRepo.setPosition(study.id, position + node) >>
             updateConceal(study, newChapter, position + node) >>-
-            sendTo(study, Socket.AddNode(position, node, uid))
+            sendTo(study, Socket.AddNode(position, node, uid)) >>-
+            sendStudyEnters(study, userId)
       }
     }
   }
@@ -190,7 +194,15 @@ final class StudyApi(
   def setRole(byUserId: User.ID, studyId: Study.Id, userId: User.ID, roleStr: String) = sequenceStudy(studyId) { study =>
     (study isOwner byUserId) ?? {
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-      studyRepo.setRole(study, userId, role) >>- reloadMembers(study)
+      study.members.get(userId) ifTrue study.isPublic foreach { member =>
+        if (!member.role.canWrite && role.canWrite)
+          bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
+        else if (member.role.canWrite && !role.canWrite)
+          bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+      }
+      studyRepo.setRole(study, userId, role) >>-
+        reloadMembers(study) >>-
+        lightStudyCache.refresh(studyId)
     }
   }
 
@@ -207,7 +219,9 @@ final class StudyApi(
 
   def kick(studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
     study.isMember(userId) ?? {
-      studyRepo.removeMember(study, userId)
+      if (study.isPublic && study.canContribute(userId))
+        bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+      studyRepo.removeMember(study, userId) >>- lightStudyCache.refresh(studyId)
     } >>- reloadMembers(study) >>- indexStudy(study)
   }
 
@@ -246,14 +260,16 @@ final class StudyApi(
           val comment = Comment(
             id = Comment.Id.make,
             text = text,
-            by = Comment.Author.User(author.id, author.titleName))
+            by = Comment.Author.User(author.id, author.titleName)
+          )
           chapter.setComment(comment, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
               newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
                 chapterRepo.update(newChapter) >>-
                   sendTo(study, Socket.SetComment(position, c, uid)) >>-
-                  indexStudy(study)
+                  indexStudy(study) >>-
+                  sendStudyEnters(study, userId)
               }
             case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
           }
@@ -334,11 +350,12 @@ final class StudyApi(
             name = name,
             practice = data.isPractice option true,
             conceal = (chapter.conceal, data.isConceal) match {
-              case (None, true)     => Chapter.Ply(chapter.root.ply).some
+              case (None, true) => Chapter.Ply(chapter.root.ply).some
               case (Some(_), false) => None
-              case _                => chapter.conceal
+              case _ => chapter.conceal
             },
-            setup = chapter.setup.copy(orientation = data.realOrientation))
+            setup = chapter.setup.copy(orientation = data.realOrientation)
+          )
           if (chapter == newChapter) funit
           else chapterRepo.update(newChapter) >> {
             if (chapter.conceal != newChapter.conceal) {
@@ -391,11 +408,19 @@ final class StudyApi(
       val newStudy = study.copy(
         name = Study toName data.name,
         settings = settings,
-        visibility = data.vis)
+        visibility = data.vis
+      )
+      if (!study.isPublic && newStudy.isPublic) {
+        bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+      }
+      else if (study.isPublic && !newStudy.isPublic) {
+        bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+      }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study, Socket.ReloadAll) >>-
-          indexStudy(study)
+          indexStudy(study) >>-
+          lightStudyCache.put(studyId, newStudy.light.some)
       }
     }
   }
@@ -403,7 +428,8 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      bus.publish(actorApi.RemoveStudy(study.id), 'study)
+      bus.publish(actorApi.RemoveStudy(study.id), 'study) >>-
+      lightStudyCache.put(study.id, none)
   }
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
@@ -423,6 +449,17 @@ final class StudyApi(
     chapterRepo.idNamesByStudyIds(studyIds)
 
   def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
+
+  private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
+    lila.hub.actorApi.study.StudyDoor(
+      userId = userId,
+      studyId = study.id.value,
+      contributor = study canContribute userId,
+      public = study.isPublic,
+      enters = true
+    ),
+    'study
+  )
 
   private def indexStudy(study: Study) =
     bus.publish(actorApi.SaveStudy(study), 'study)

@@ -10,7 +10,8 @@ case class Round(
     date: DateTime,
     result: Result,
     rating: Int,
-    ratingDiff: Int) {
+    ratingDiff: Int
+) {
 
   def userPostRating = rating + ratingDiff
 }
@@ -45,7 +46,8 @@ object Round {
       date = r.get[DateTime](date),
       result = r.get[Result](result),
       rating = r int rating,
-      ratingDiff = r int ratingDiff)
+      ratingDiff = r int ratingDiff
+    )
 
     def writes(w: BSON.Writer, o: Round) = BSONDocument(
       puzzleId -> o.puzzleId,
@@ -53,7 +55,8 @@ object Round {
       date -> o.date,
       result -> o.result,
       rating -> w.int(o.rating),
-      ratingDiff -> w.int(o.ratingDiff))
+      ratingDiff -> w.int(o.ratingDiff)
+    )
   }
 
   private[puzzle] implicit val RoundMiniBSONReader = new BSONDocumentReader[Mini] {
@@ -61,6 +64,7 @@ object Round {
     def read(doc: Bdoc): Mini = Mini(
       puzzleId = doc.getAs[Int](puzzleId) err "RoundMini no puzzleId",
       rating = doc.getAs[Int](rating) err "RoundMini no rating",
-      ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff")
+      ratingDiff = doc.getAs[Int](ratingDiff) err "RoundMini no ratingDiff"
+    )
   }
 }

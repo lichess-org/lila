@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
 
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
@@ -17,7 +17,8 @@ object Store {
     sessionId: String,
     userId: String,
     req: RequestHeader,
-    apiVersion: Option[ApiVersion]): Funit =
+    apiVersion: Option[ApiVersion]
+  ): Funit =
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
@@ -33,7 +34,8 @@ object Store {
     "user" -> true,
     "fp" -> true,
     "date" -> true,
-    "_id" -> false)
+    "_id" -> false
+  )
 
   def userId(sessionId: String): Fu[Option[String]] =
     coll.find(
@@ -58,25 +60,29 @@ object Store {
   def delete(sessionId: String): Funit =
     coll.update(
       $id(sessionId),
-      $set("up" -> false)).void
+      $set("up" -> false)
+    ).void
 
   def closeUserAndSessionId(userId: String, sessionId: String): Funit =
     coll.update(
       $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
-      $set("up" -> false)).void
+      $set("up" -> false)
+    ).void
 
   def closeUserExceptSessionId(userId: String, sessionId: String): Funit =
     coll.update(
       $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
       $set("up" -> false),
-      multi = true).void
+      multi = true
+    ).void
 
   // useful when closing an account,
   // we want to logout too
   def disconnect(userId: String): Funit = coll.update(
     $doc("user" -> userId),
     $set("up" -> false),
-    multi = true).void
+    multi = true
+  ).void
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: String, nb: Int): Fu[List[UserSession]] =
@@ -99,7 +105,7 @@ object Store {
     }
   }
 
-  case class Info(ip: String, ua: String, fp: Option[String]) {
+  case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
   }
   private implicit val InfoBSONHandler = Macros.handler[Info]
@@ -126,6 +132,6 @@ object Store {
         coll.remove($inIds(olds.map(_._id))).void
       }
 
-  private[security] def recentByIpExists(ip: String): Fu[Boolean] =
+  private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
 }

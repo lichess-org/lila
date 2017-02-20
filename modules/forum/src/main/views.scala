@@ -5,7 +5,8 @@ import org.joda.time.DateTime
 case class CategView(
     categ: Categ,
     lastPost: Option[(Topic, Post, Int)],
-    troll: Boolean) {
+    troll: Boolean
+) {
 
   def nbTopics = categ nbTopics troll
   def nbPosts = categ nbPosts troll
@@ -22,7 +23,8 @@ case class TopicView(
     topic: Topic,
     lastPost: Option[Post],
     lastPage: Int,
-    troll: Boolean) {
+    troll: Boolean
+) {
 
   def updatedAt = topic updatedAt troll
   def nbPosts = topic nbPosts troll
@@ -41,7 +43,8 @@ case class PostView(
     post: Post,
     topic: Topic,
     categ: Categ,
-    topicLastPage: Int) {
+    topicLastPage: Int
+) {
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
 }
@@ -54,6 +57,7 @@ case class MiniForumPost(
   topicName: String,
   userId: Option[String],
   text: String,
-  createdAt: DateTime)
+  createdAt: DateTime
+)
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)

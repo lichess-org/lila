@@ -25,7 +25,8 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
-    emailAddress: lila.security.EmailAddress) {
+    emailAddress: lila.security.EmailAddress
+) {
 
   private object settings {
     val CollectionPlayerAssessment = config getString "collection.player_assessment"
@@ -51,7 +52,8 @@ final class Env(
     notifier = notifier,
     historyApi = historyApi,
     rankingApi = rankingApi,
-    wasUnengined = logApi.wasUnengined)
+    wasUnengined = logApi.wasUnengined
+  )
 
   lazy val api = new ModApi(
     logApi = logApi,
@@ -61,13 +63,15 @@ final class Env(
     lightUserApi = lightUserApi,
     notifier = notifier,
     refunder = ratingRefund,
-    lilaBus = system.lilaBus)
+    lilaBus = system.lilaBus
+  )
 
   private lazy val boosting = new BoostingApi(
     modApi = api,
     collBoosting = db(CollectionBoosting),
     nbGamesToMark = NbGamesToMark,
-    ratioGamesToMark = RatioGamesToMark)
+    ratioGamesToMark = RatioGamesToMark
+  )
 
   lazy val assessApi = new AssessApi(
     collAssessments = db(CollectionPlayerAssessment),
@@ -75,28 +79,33 @@ final class Env(
     modApi = api,
     reporter = hub.actor.report,
     fishnet = hub.actor.fishnet,
-    userIdsSharingIp = securityApi.userIdsSharingIp)
+    userIdsSharingIp = securityApi.userIdsSharingIp
+  )
 
   lazy val gamify = new Gamify(
     logColl = logColl,
     reportApi = reportApi,
     asyncCache = asyncCache,
-    historyColl = db(CollectionGamingHistory))
+    historyColl = db(CollectionGamingHistory)
+  )
 
   lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
 
   lazy val search = new UserSearch(
     securityApi = securityApi,
-    emailAddress = emailAddress)
+    emailAddress = emailAddress
+  )
 
   lazy val jsonView = new JsonView(
     assessApi = assessApi,
     relationApi = relationApi,
-    userJson = userJson)
+    userJson = userJson
+  )
 
   lazy val userHistory = new UserHistory(
     logApi = logApi,
-    reportApi = reportApi)
+    reportApi = reportApi
+  )
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -136,5 +145,6 @@ object Env {
     relationApi = lila.relation.Env.current.api,
     userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
-    emailAddress = lila.security.Env.current.emailAddress)
+    emailAddress = lila.security.Env.current.emailAddress
+  )
 }

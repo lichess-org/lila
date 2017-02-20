@@ -72,7 +72,8 @@ object BSONHandlers {
         startsAt = startsAt,
         winnerId = r strO "winner",
         featuredId = r strO "featured",
-        spotlight = r.getO[Spotlight]("spotlight"))
+        spotlight = r.getO[Spotlight]("spotlight")
+      )
     }
     def writes(w: BSON.Writer, o: Tournament) = $doc(
       "_id" -> o.id,
@@ -90,7 +91,8 @@ object BSONHandlers {
       "schedule" -> o.schedule.map { s =>
         $doc(
           "freq" -> s.freq,
-          "speed" -> s.speed)
+          "speed" -> s.speed
+        )
       },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
@@ -98,7 +100,8 @@ object BSONHandlers {
       "startsAt" -> w.date(o.startsAt),
       "winner" -> o.winnerId,
       "featured" -> o.featuredId,
-      "spotlight" -> o.spotlight)
+      "spotlight" -> o.spotlight
+    )
   }
 
   implicit val playerBSONHandler = new BSON[Player] {
@@ -113,7 +116,8 @@ object BSONHandlers {
       ratingDiff = r intD "p",
       magicScore = r int "m",
       fire = r boolD "f",
-      performance = r intO "e")
+      performance = r intO "e"
+    )
     def writes(w: BSON.Writer, o: Player) = $doc(
       "_id" -> o._id,
       "tid" -> o.tourId,
@@ -125,7 +129,8 @@ object BSONHandlers {
       "p" -> w.intO(o.ratingDiff),
       "m" -> o.magicScore,
       "f" -> w.boolO(o.fire),
-      "e" -> o.performance)
+      "e" -> o.performance
+    )
   }
 
   implicit val pairingHandler = new BSON[Pairing] {
@@ -142,7 +147,8 @@ object BSONHandlers {
         winner = r boolO "w" map (_.fold(user1, user2)),
         turns = r intO "t",
         berserk1 = r intD "b1",
-        berserk2 = r intD "b2")
+        berserk2 = r intD "b2"
+      )
     }
     def writes(w: BSON.Writer, o: Pairing) = $doc(
       "_id" -> o.id,
@@ -152,7 +158,8 @@ object BSONHandlers {
       "w" -> o.winner.map(o.user1 ==),
       "t" -> o.turns,
       "b1" -> w.intO(o.berserk1),
-      "b2" -> w.intO(o.berserk2))
+      "b2" -> w.intO(o.berserk2)
+    )
   }
 
   implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
@@ -167,7 +174,8 @@ object BSONHandlers {
       freq = r intO "f" flatMap Schedule.Freq.byId,
       speed = r intO "p" flatMap Schedule.Speed.byId,
       perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
-      date = r date "d")
+      date = r date "d"
+    )
 
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = $doc(
       "_id" -> o.id,
@@ -180,7 +188,8 @@ object BSONHandlers {
       "f" -> o.freq.map(_.id),
       "p" -> o.speed.map(_.id),
       "v" -> o.perf.id,
-      "d" -> w.date(o.date))
+      "d" -> w.date(o.date)
+    )
   }
 
   import LeaderboardApi.ChartData.AggregationResult

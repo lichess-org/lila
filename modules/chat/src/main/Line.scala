@@ -17,7 +17,8 @@ case class UserLine(
     username: String,
     text: String,
     troll: Boolean,
-    deleted: Boolean) extends Line {
+    deleted: Boolean
+) extends Line {
 
   def author = username
 
@@ -29,7 +30,8 @@ case class UserLine(
 }
 case class PlayerLine(
     color: Color,
-    text: String) extends Line {
+    text: String
+) extends Line {
   def deleted = false
   def author = color.name
 }
@@ -60,7 +62,7 @@ object Line {
     case UserLineRegex(username, " ", text) => UserLine(username, text, troll = false, deleted = false).some
     case UserLineRegex(username, "!", text) => UserLine(username, text, troll = true, deleted = false).some
     case UserLineRegex(username, "?", text) => UserLine(username, text, troll = false, deleted = true).some
-    case _                                  => none
+    case _ => none
   }
   def userLineToStr(x: UserLine) = {
     val sep = if (x.troll) "!"
@@ -75,7 +77,7 @@ object Line {
     }
   }
   def lineToStr(x: Line) = x match {
-    case u: UserLine   => userLineToStr(u)
+    case u: UserLine => userLineToStr(u)
     case p: PlayerLine => s"${p.color.letter} ${p.text}"
   }
 }

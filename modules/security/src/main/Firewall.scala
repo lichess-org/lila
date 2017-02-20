@@ -8,7 +8,7 @@ import ornicar.scalalib.Random
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ RequestHeader, Action, Cookies }
 
-import lila.common.LilaCookie
+import lila.common.{ IpAddress, LilaCookie }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
@@ -17,7 +17,16 @@ final class Firewall(
     cookieName: Option[String],
     enabled: Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    cachedIpsTtl: FiniteDuration) {
+    cachedIpsTtl: FiniteDuration
+) {
+
+  private val ipsCache = asyncCache.single[Set[String]](
+    name = "firewall.ips",
+    f = coll.distinct[String, Set]("_id").addEffect { ips =>
+      lila.mon.security.firewall.ip(ips.size)
+    },
+    expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
+  )
 
   private def ipOf(req: RequestHeader) =
     lila.common.HTTPRequest lastRemoteAddress req
@@ -33,48 +42,23 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
-  def blockIp(ip: String): Funit = validIp(ip) ?? {
-    coll.update($id(ip), $doc("_id" -> ip, "date" -> DateTime.now), upsert = true).void >>- refresh
+  def blockIp(ip: IpAddress): Funit = validIp(ip) ?? {
+    coll.update(
+      $id(ip),
+      $doc("_id" -> ip, "date" -> DateTime.now),
+      upsert = true
+    ).void >>- ipsCache.refresh
   }
 
-  def unblockIps(ips: Iterable[String]): Funit =
-    coll.remove($inIds(ips filter validIp)).void >>- refresh
+  def unblockIps(ips: Iterable[IpAddress]): Funit =
+    coll.remove($inIds(ips.filter(validIp))).void >>- ipsCache.refresh
 
-  def blocksIp(ip: String): Fu[Boolean] = ips contains ip
-
-  private def refresh {
-    ips.clear
-  }
+  def blocksIp(ip: IpAddress): Fu[Boolean] = ipsCache.get.dmap(_ contains ip.value)
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
 
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
-
-  // ipv6 address in standard form (no compression, no leading zeros)
-  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
-
-  private def validIp(ip: String) =
-    ((ipv4Regex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0") ||
-      ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
-
-  private type IP = Vector[Byte]
-
-  private lazy val ips = new {
-    private val cache = asyncCache.single(
-      name = "firewall.ips",
-      f = fetch,
-      expireAfter = _.ExpireAfterWrite(cachedIpsTtl))
-    private def strToIp(ip: String): Option[IP] = scala.util.Try {
-      InetAddress.getByName(ip).getAddress.toVector
-    }.toOption
-    def apply: Fu[Set[IP]] = cache.get
-    def clear = cache.refresh
-    def contains(str: String) = strToIp(str) ?? { ip => apply.dmap(_ contains ip) }
-    private def fetch: Fu[Set[IP]] =
-      coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
-        lila.mon.security.firewall.ip(ips.size)
-      }
-  }
+  private def validIp(ip: IpAddress) =
+    (IpAddress.isv4(ip) && ip.value != "127.0.0.1" && ip.value != "0.0.0.0") ||
+      (IpAddress.isv6(ip) && ip.value != "0:0:0:0:0:0:0:1" && ip.value != "0:0:0:0:0:0:0:0")
 }

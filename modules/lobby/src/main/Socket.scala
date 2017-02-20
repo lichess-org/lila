@@ -17,7 +17,8 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketActor
 
 private[lobby] final class Socket(
-    uidTtl: FiniteDuration) extends SocketActor[Member](uidTtl) {
+    uidTtl: FiniteDuration
+) extends SocketActor[Member](uidTtl) {
 
   override val startsOnApplicationBoot = true
 
@@ -64,9 +65,9 @@ private[lobby] final class Socket(
 
     case ReloadTournaments(html) => notifyAllActiveAsync(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html)      => notifyAllActiveAsync(makeMessage("simuls", html))
+    case ReloadSimuls(html) => notifyAllActiveAsync(makeMessage("simuls", html))
 
-    case NewForumPost            => notifyAllActiveAsync(makeMessage("reload_forum"))
+    case NewForumPost => notifyAllActiveAsync(makeMessage("reload_forum"))
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
@@ -135,14 +136,14 @@ private[lobby] final class Socket(
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
 
-    case NbMembers(nb)                        => pong = pong + ("d" -> JsNumber(nb))
+    case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
 
     case ChangeFeatured(_, msg) => notifyAllActiveAsync(msg)
 
-    case SetIdle(uid, true)     => idleUids += uid
-    case SetIdle(uid, false)    => idleUids -= uid
+    case SetIdle(uid, true) => idleUids += uid
+    case SetIdle(uid, false) => idleUids -= uid
 
     case HookSub(member, false) => hookSubscriberUids -= member.uid
     case AllHooksFor(member, hooks) =>

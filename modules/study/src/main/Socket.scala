@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.actor._
-import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -20,7 +19,9 @@ private final class Socket(
     lightUser: lila.common.LightUser.Getter,
     val history: History[Socket.Messadata],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
+    socketTimeout: Duration,
+    lightStudyCache: LightStudyCache
+) extends SocketActor[Socket.Member](uidTimeout) with Historical[Socket.Member, Socket.Messadata] {
 
   import Socket._
   import JsonView._
@@ -41,12 +42,29 @@ private final class Socket(
     lilaBus.unsubscribe(self)
   }
 
+  def sendStudyDoor(enters: Boolean)(userId: User.ID) =
+    lightStudyCache.get(studyId) foreach {
+      _ foreach { study =>
+        lilaBus.publish(
+          lila.hub.actorApi.study.StudyDoor(
+            userId = userId,
+            studyId = studyId.value,
+            contributor = study contributors userId,
+            public = study.isPublic,
+            enters = enters
+          ),
+          'study
+        )
+      }
+    }
+
   def receiveSpecific = ({
 
-    case SetPath(pos, uid) => notifyVersion("path", Json.obj(
-      "p" -> pos,
-      "w" -> who(uid).map(whoWriter.writes)
-    ), noMessadata)
+    case SetPath(pos, uid) =>
+      notifyVersion("path", Json.obj(
+        "p" -> pos,
+        "w" -> who(uid).map(whoWriter.writes)
+      ), noMessadata)
 
     case AddNode(pos, node, uid) =>
       val dests = AnaDests.Ref(chess.variant.Standard, node.fen.value, pos.path.toString).compute
@@ -69,11 +87,11 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case ReloadMembers(members)   => notifyVersion("members", members, noMessadata)
+    case ReloadMembers(members) => notifyVersion("members", members, noMessadata)
 
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
-    case ReloadAll                => notifyVersion("reload", JsNull, noMessadata)
+    case ReloadAll => notifyVersion("reload", JsNull, noMessadata)
     case ChangeChapter(uid) => notifyVersion("changeChapter", Json.obj(
       "w" -> who(uid)
     ), noMessadata)
@@ -146,10 +164,12 @@ private final class Socket(
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
+      userId foreach sendStudyDoor(true)
 
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
+        member.userId foreach sendStudyDoor(false)
         notifyCrowd
       }
 
@@ -196,7 +216,8 @@ private final class Socket(
         Json.obj(
           "nb" -> total,
           "users" -> users.flatten.map(_.titleName),
-          "anons" -> anons)
+          "anons" -> anons
+        )
       }
     }
   }
@@ -215,7 +236,8 @@ private object Socket {
     channel: JsChannel,
     userId: Option[String],
     troll: Boolean,
-    owner: Boolean) extends lila.socket.SocketMember
+    owner: Boolean
+  ) extends lila.socket.SocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter

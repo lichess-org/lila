@@ -18,8 +18,9 @@ object Analyse extends LilaController {
         userId = me.id.some,
         ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
         mod = isGranted(_.Hunter),
-        system = false)) map {
-        case true  => Ok
+        system = false
+      )) map {
+        case true => Ok
         case false => Unauthorized
       }
     }
@@ -36,7 +37,7 @@ object Analyse extends LilaController {
           Env.game.crosstableApi(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pgnDump(pov.game, initialFen) flatMap {
-            case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
+            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = none,
                 analysis,
@@ -55,7 +56,8 @@ object Analyse extends LilaController {
                   crosstable,
                   userTv,
                   chat,
-                  bookmarked = bookmarked))
+                  bookmarked = bookmarked
+                ))
               }
           }
       }
@@ -85,7 +87,8 @@ object Analyse extends LilaController {
             lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")
             Redirect(url)
           },
-          ply => Redirect(s"$url#$ply"))
+          ply => Redirect(s"$url#$ply")
+        )
       }
     }
 
@@ -101,5 +104,6 @@ object Analyse extends LilaController {
     Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
     analysis,
     simul,
-    crosstable))
+    crosstable
+  ))
 }

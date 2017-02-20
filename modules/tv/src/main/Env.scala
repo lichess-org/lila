@@ -16,7 +16,8 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     asyncCache: lila.memo.AsyncCache.Builder,
-    isProd: Boolean) {
+    isProd: Boolean
+) {
 
   private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
@@ -33,7 +34,8 @@ final class Env(
   private val tvActor =
     system.actorOf(
       Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser)),
-      name = "tv")
+      name = "tv"
+    )
 
   private lazy val streaming = new Streaming(
     system = system,
@@ -42,7 +44,8 @@ final class Env(
     keyword = Keyword,
     googleApiKey = GoogleApiKey,
     hitboxUrl = HitboxUrl,
-    twitchClientId = TwitchClientId)
+    twitchClientId = TwitchClientId
+  )
 
   lazy val streamerList = new StreamerList(new {
     import reactivemongo.bson._
@@ -56,7 +59,8 @@ final class Env(
     private val cache = asyncCache.single[Set[lila.user.User.ID]](
       name = "tv.streamers",
       f = streamerList.lichessIds,
-      expireAfter = _.ExpireAfterWrite(10 seconds))
+      expireAfter = _.ExpireAfterWrite(10 seconds)
+    )
     def apply(id: lila.user.User.ID): Fu[Boolean] = cache.get dmap { _ contains id }
   }
 
@@ -64,7 +68,8 @@ final class Env(
     private val cache = asyncCache.single[List[StreamOnAir]](
       name = "tv.streamsOnAir",
       f = streaming.onAir,
-      expireAfter = _.ExpireAfterWrite(2 seconds))
+      expireAfter = _.ExpireAfterWrite(2 seconds)
+    )
     def all = cache.get
   }
 
@@ -94,6 +99,7 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     asyncCache = lila.memo.Env.current.asyncCache,
-    isProd = lila.common.PlayApp.isProd)
+    isProd = lila.common.PlayApp.isProd
+  )
 }
 

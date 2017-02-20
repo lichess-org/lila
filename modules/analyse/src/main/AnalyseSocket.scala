@@ -9,7 +9,8 @@ import play.api.libs.json.JsValue
 import lila.socket._
 
 private final class AnalyseSocket(
-    timeout: FiniteDuration) extends SocketActor[AnalyseSocket.Member](timeout) {
+    timeout: FiniteDuration
+) extends SocketActor[AnalyseSocket.Member](timeout) {
 
   import AnalyseSocket._
 
@@ -28,7 +29,8 @@ private object AnalyseSocket {
 
   case class Member(
       channel: JsChannel,
-      userId: Option[lila.user.User.ID]) extends SocketMember {
+      userId: Option[lila.user.User.ID]
+  ) extends SocketMember {
 
     val troll = false
   }

@@ -22,13 +22,13 @@ case class UserInfo(
     nbBlockers: Option[Int],
     nbPosts: Int,
     nbStudies: Int,
-    playTime: User.PlayTime,
     trophies: Trophies,
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    completionRate: Option[Double]) {
+    completionRate: Option[Double]
+) {
 
   def nbRated = user.count.rated
 
@@ -46,17 +46,20 @@ case class UserInfo(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now),
+      date = org.joda.time.DateTime.now
+    ),
     isDeveloper option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now),
+      date = org.joda.time.DateTime.now
+    ),
     isStreamer option Trophy(
       _id = "",
       user = user.id,
       kind = Trophy.Kind.Streamer,
-      date = org.joda.time.DateTime.now)
+      date = org.joda.time.DateTime.now
+    )
   ).flatten ::: trophies
 }
 
@@ -77,8 +80,8 @@ object UserInfo {
     fetchTeamIds: User.ID => Fu[List[String]],
     fetchIsCoach: User => Fu[Boolean],
     insightShare: lila.insight.Share,
-    getPlayTime: User => Fu[User.PlayTime],
-    completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
+    completionRate: User.ID => Fu[Option[Double]]
+  )(user: User, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
@@ -93,10 +96,9 @@ object UserInfo {
       fetchIsCoach(user) zip
       fetchIsStreamer(user.id) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      getPlayTime(user) zip
       completionRate(user.id) zip
       bookmarkApi.countByUser(user) flatMap {
-        case ((((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), teamIds), isCoach), isStreamer), insightVisible), playTime), completionRate), nbBookmarks) =>
+        case ranks ~ nbPlaying ~ nbImported ~ crosstable ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ nbBookmarks =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -111,13 +113,13 @@ object UserInfo {
               nbBlockers = nbBlockers,
               nbPosts = nbPosts,
               nbStudies = nbStudies,
-              playTime = playTime,
               trophies = trophies,
               teamIds = teamIds,
               isStreamer = isStreamer,
               isCoach = isCoach,
               insightVisible = insightVisible,
-              completionRate = completionRate)
+              completionRate = completionRate
+            )
           }
       }
 }

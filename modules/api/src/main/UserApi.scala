@@ -14,7 +14,8 @@ private[api] final class UserApi(
     crosstableApi: lila.game.CrosstableApi,
     gameCache: lila.game.Cached,
     prefApi: lila.pref.PrefApi,
-    makeUrl: String => String) {
+    makeUrl: String => String
+) {
 
   def pager(pag: Paginator[User]): JsObject =
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { u =>
@@ -33,7 +34,7 @@ private[api] final class UserApi(
       bookmarkApi.countByUser(u) zip
       gameCache.nbPlaying(u.id) zip
       gameCache.nbImportedBy(u.id) map {
-        case (((((((((gameOption, nbGamesWithMe), following), followers), followable), relation), isFollowed), nbBookmarks), nbPlaying), nbImported) =>
+        case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~ isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported =>
           jsonView(u) ++ {
             Json.obj(
               "url" -> makeUrl(s"@/$username"),
@@ -53,7 +54,8 @@ private[api] final class UserApi(
                 "bookmark" -> nbBookmarks,
                 "playing" -> nbPlaying,
                 "import" -> nbImported,
-                "me" -> nbGamesWithMe)
+                "me" -> nbGamesWithMe
+              )
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
                 "following" -> relation.has(true),

@@ -38,7 +38,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.status -> (game.status match {
       case s if s.is(_.Timeout) => chess.Status.Resign
       case s if s.is(_.NoStart) => chess.Status.Resign
-      case s                    => game.status
+      case s => game.status
     }).id,
     Fields.turns -> math.ceil(game.turns.toFloat / 2),
     Fields.rated -> game.rated,
@@ -107,11 +107,12 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     GameRepo.sortedCursor(
       selector = $doc("ca" $gt since),
       sort = $doc("ca" -> 1),
-      readPreference = ReadPreference.secondaryPreferred)
+      readPreference = ReadPreference.secondaryPreferred
+    )
       .enumerator(maxGames) &>
       Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
       Enumeratee.mapM[Seq[Game]].apply[(Seq[Game], Set[String])] { games =>
-        GameRepo filterAnalysed games.map(_.id) map games.->
+        GameRepo filterAnalysed games.map(_.id) map games. ->
       } &>
       Iteratee.foldM[(Seq[Game], Set[String]), Long](nowMillis) {
         case (millis, (games, analysedIds)) =>

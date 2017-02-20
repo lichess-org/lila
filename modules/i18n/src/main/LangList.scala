@@ -189,5 +189,6 @@ object LangList {
     "yo" -> "Yorùbá",
     "za" -> "Sawcuengh",
     // the values for 'za' (Zhang languages) are made up. Contact with a native speaker to determine their native name is necessary (won't be hard; it has many speakers)
-    "zu" -> "isiZulu")
+    "zu" -> "isiZulu"
+  )
 }

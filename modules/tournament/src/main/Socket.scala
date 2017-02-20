@@ -17,7 +17,8 @@ private[tournament] final class Socket(
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
+    socketTimeout: Duration
+) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -56,7 +57,7 @@ private[tournament] final class Socket(
     case Reload => notifyReload
 
     case GetWaitingUsers =>
-      waitingUsers = waitingUsers.update(userIds.toSet, clock)
+      waitingUsers = waitingUsers.update(members.values.flatMap(_.userId).toSet, clock)
       sender ! waitingUsers
 
     case PingVersion(uid, v) => {

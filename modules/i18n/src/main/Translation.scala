@@ -8,7 +8,8 @@ private[i18n] case class Translation(
     text: String,
     author: Option[String] = None,
     comment: Option[String] = None,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def id = _id
 

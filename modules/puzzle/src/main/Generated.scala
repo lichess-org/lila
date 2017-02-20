@@ -9,7 +9,8 @@ private case class Generated(
     last_pos: String,
     last_move: String,
     move_list: JsArray,
-    game_id: String) {
+    game_id: String
+) {
 
   def colorFromFen = (Forsyth << last_pos).fold(Color.white)(!_.color)
 
@@ -19,14 +20,15 @@ private case class Generated(
     fen = last_pos,
     color = colorFromFen,
     lines = Generated readLines move_list.as[List[String]],
-    mate = category == "Mate")
+    mate = category == "Mate"
+  )
 }
 
 private object Generated {
 
   def readLines(moves: List[String]): Lines = moves match {
-    case Nil          => Nil
-    case move :: Nil  => List(Win(move))
+    case Nil => Nil
+    case move :: Nil => List(Win(move))
     case move :: more => List(Node(move, readLines(more)))
   }
 

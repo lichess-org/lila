@@ -10,7 +10,8 @@ final class MemberPager(coll: Coll) {
     Paginator(
       new MemberAdapter(team),
       currentPage = page,
-      maxPerPage = maxPerPage)
+      maxPerPage = maxPerPage
+    )
 
   final class MemberAdapter(team: Team) extends AdapterLike[User] {
 

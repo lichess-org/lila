@@ -11,7 +11,8 @@ import scala.concurrent.duration._
  */
 final class EarlyMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger) extends Actor {
+    logger: lila.log.Logger
+) extends Actor {
 
   import EarlyMultiThrottler._
 
@@ -45,7 +46,8 @@ final class EarlyMultiThrottler(
       work.timeout.orElse(executionTimeout).fold(work.run()) { timeout =>
         work.run().withTimeout(
           duration = timeout,
-          error = lila.common.LilaException(s"EarlyMultiThrottler timed out after $timeout"))
+          error = lila.common.LilaException(s"EarlyMultiThrottler timed out after $timeout")
+        )
       }
     }
   }
@@ -57,13 +59,15 @@ object EarlyMultiThrottler {
     id: String,
     run: () => Funit,
     cooldown: FiniteDuration, // how long to wait after running, before next run
-    timeout: Option[FiniteDuration]) // how long to wait before timing out
+    timeout: Option[FiniteDuration]
+  ) // how long to wait before timing out
 
   def work(
     id: String,
     run: => Funit,
     cooldown: FiniteDuration,
-    timeout: Option[FiniteDuration] = None) =
+    timeout: Option[FiniteDuration] = None
+  ) =
     Work(id, () => run, cooldown, timeout)
 
   private case class Done(id: String)

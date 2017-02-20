@@ -7,7 +7,8 @@ import lila.tournament.Tournament
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
     tournamentApi: lila.tournament.TournamentApi,
-    simulEnv: lila.simul.Env) {
+    simulEnv: lila.simul.Env
+) {
 
   def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {

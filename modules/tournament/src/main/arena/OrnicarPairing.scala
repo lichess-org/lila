@@ -64,13 +64,13 @@ private object OrnicarPairing {
             if (score(next) >= toBeat) current
             else if (continue) findBetter(next, toBeat) match {
               case Found(b) => b.some
-              case End      => next.some
+              case End => next.some
               case NoBetter => current
             }
             else current
         } match {
           case Some(best) => Found(best)
-          case None       => NoBetter
+          case None => NoBetter
         }
       }
 

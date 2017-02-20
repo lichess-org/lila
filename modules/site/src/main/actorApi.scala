@@ -5,9 +5,10 @@ import lila.socket.SocketMember
 import lila.socket.Socket.Uid
 
 case class Member(
-  channel: JsChannel,
-  userId: Option[String],
-  flag: Option[String]) extends SocketMember {
+    channel: JsChannel,
+    userId: Option[String],
+    flag: Option[String]
+) extends SocketMember {
 
   val troll = false
 

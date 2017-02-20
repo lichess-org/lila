@@ -8,7 +8,8 @@ import lila.memo.ExpireSetMemo
 private final class MainWatcher(
     repo: FishnetRepo,
     bus: lila.common.Bus,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   private val alerted = new ExpireSetMemo(12 hour)
 

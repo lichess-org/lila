@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lila.api.BodyContext
 import lila.app._
 import lila.app.mashup.GameFilterMenu
-import lila.common.HTTPRequest
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.common.paginator.Paginator
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
@@ -28,6 +28,17 @@ object User extends LilaController {
             Round.watch(pov, userTv = user.some)
           }
         }
+    }
+  }
+
+  def studyTv(username: String) = Open { implicit ctx =>
+    OptionResult(UserRepo named username) { user =>
+      Redirect {
+        Env.relation.online.studying getIfPresent user.id match {
+          case None => routes.Study.byOwnerDefault(user.id)
+          case Some(studyId) => routes.Study.show(studyId)
+        }
+      }
     }
   }
 
@@ -53,7 +64,8 @@ object User extends LilaController {
             "crosstable" -> crosstable,
             "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
           )))
-        })
+        }
+        )
       } yield res
       else fuccess(Ok(html.user.miniClosed(user)))
     }
@@ -69,14 +81,16 @@ object User extends LilaController {
       html = notFound,
       api = _ => env.cached.top50Online.get map { list =>
       Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
-    })
+    }
+    )
   }
 
   private def filter(
     username: String,
     filterOption: Option[String],
     page: Int,
-    status: Results.Status = Results.Ok)(implicit ctx: BodyContext[_]) =
+    status: Results.Status = Results.Ok
+  )(implicit ctx: BodyContext[_]) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         if (u.enabled || isGranted(_.UserSpy)) negotiate(
@@ -90,10 +104,12 @@ object User extends LilaController {
             case (filterName, pag) => Env.api.userGameApi.jsPaginator(pag) map { res =>
               Ok(res ++ Json.obj("filter" -> filterName))
             }
-          }.mon(_.http.response.user.show.mobile))
+          }.mon(_.http.response.user.show.mobile)
+        )
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),
-          api = _ => fuccess(NotFound(jsonError("No such user, or account closed"))))
+          api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+        )
       }
     }
 
@@ -106,7 +122,8 @@ object User extends LilaController {
       info = info.some,
       filter = filters.current,
       me = ctx.me,
-      page = page)(ctx.body)
+      page = page
+    )(ctx.body)
     _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
     _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
     _ <- Env.team.cached.nameCache preloadMany info.teamIds
@@ -119,11 +136,12 @@ object User extends LilaController {
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
-  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit(
+  private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10 minutes,
     name = "user games web/mobile per IP",
-    key = "user_games.web.ip")
+    key = "user_games.web.ip"
+  )
 
   implicit val userGamesDefault =
     ornicar.scalalib.Zero.instance[Fu[Paginator[GameModel]]](fuccess(Paginator.empty[GameModel]))
@@ -131,7 +149,8 @@ object User extends LilaController {
   private def userGames(
     u: UserModel,
     filterOption: Option[String],
-    page: Int)(implicit ctx: BodyContext[_]): Fu[(String, Paginator[GameModel])] = {
+    page: Int
+  )(implicit ctx: BodyContext[_]): Fu[(String, Paginator[GameModel])] = {
     import lila.app.mashup.GameFilter.{ All, Playing }
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
@@ -170,7 +189,8 @@ object User extends LilaController {
           online = online,
           leaderboards = leaderboards,
           nbDay = nbDay,
-          nbAllTime = nbAllTime))),
+          nbAllTime = nbAllTime
+        ))),
         api = _ => fuccess {
           implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
           Ok(Json.obj(
@@ -184,8 +204,10 @@ object User extends LilaController {
             "antichess" -> leaderboards.antichess,
             "atomic" -> leaderboards.atomic,
             "horde" -> leaderboards.horde,
-            "racingKings" -> leaderboards.racingKings))
-        })
+            "racingKings" -> leaderboards.racingKings
+          ))
+        }
+      )
     } yield res
   }
 
@@ -202,7 +224,8 @@ object User extends LilaController {
       html = notFound,
       api = _ => env.cached.topWeek(()).map { users =>
       Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
-    })
+    }
+    )
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
@@ -280,7 +303,7 @@ object User extends LilaController {
           case None => UserRepo usernamesLike term
           case Some(follower) =>
             Env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-              case Nil     => UserRepo usernamesLike term
+              case Nil => UserRepo usernamesLike term
               case userIds => UserRepo usernamesByIds userIds
             }
         }

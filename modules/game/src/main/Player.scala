@@ -22,7 +22,8 @@ case class Player(
     blurs: Int = 0,
     holdAlert: Option[Player.HoldAlert] = None,
     berserk: Boolean = false,
-    name: Option[String] = None) {
+    name: Option[String] = None
+) {
 
   def playerUser = userId flatMap { uid =>
     rating map { PlayerUser(uid, _, ratingDiff) }
@@ -31,7 +32,8 @@ case class Player(
   def withUser(id: User.ID, perf: lila.rating.Perf): Player = copy(
     userId = id.some,
     rating = perf.intRating.some,
-    provisional = perf.glicko.provisional)
+    provisional = perf.glicko.provisional
+  )
 
   def isAi = aiLevel.isDefined
 
@@ -75,14 +77,14 @@ case class Player(
 
   def nameSplit: Option[(String, Option[Int])] = name map {
     case Player.nameSplitRegex(n, r) => n -> parseIntOption(r)
-    case n                           => n -> none
+    case n => n -> none
   }
 
   def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
     case ((Some(a), _), (Some(b), _)) if a != b => a > b
-    case ((Some(_), _), (None, _))              => true
-    case ((None, _), (Some(_), _))              => false
-    case ((_, a), (_, b))                       => a < b
+    case ((Some(_), _), (None, _)) => true
+    case ((None, _), (Some(_), _)) => false
+    case ((_, a), (_, b)) => a < b
   }
 
   def ratingAfter = rating map (_ + ~ratingDiff)
@@ -98,10 +100,12 @@ object Player {
 
   def make(
     color: Color,
-    aiLevel: Option[Int]): Player = Player(
+    aiLevel: Option[Int]
+  ): Player = Player(
     id = IdGenerator.player,
     color = color,
-    aiLevel = aiLevel)
+    aiLevel = aiLevel
+  )
 
   def white = make(Color.White, None)
 
@@ -171,7 +175,8 @@ object Player {
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
       berserk = r boolD berserk,
-      name = r strO name)
+      name = r strO name
+    )
 
     def writes(w: BSON.Writer, o: Builder) =
       o(chess.White)("0000")(none)(none) |> { p =>
@@ -186,7 +191,8 @@ object Player {
           provisional -> w.boolO(p.provisional),
           blurs -> w.intO(p.blurs),
           holdAlert -> p.holdAlert,
-          name -> p.name)
+          name -> p.name
+        )
       }
   }
 }

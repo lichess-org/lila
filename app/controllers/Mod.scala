@@ -3,6 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.user.{ UserRepo, User => UserModel }
+import lila.common.IpAddress
 import views._
 
 import scala.concurrent.duration._
@@ -37,7 +38,7 @@ object Mod extends LilaController {
     modApi.troll(me.id, username, getBool("set")) inject {
       get("then") match {
         case Some("reports") => Redirect(routes.Report.list)
-        case _               => redirect(username)
+        case _ => redirect(username)
       }
     }
   }
@@ -76,7 +77,8 @@ object Mod extends LilaController {
               (if (data.result) modApi.setEngine(irwin.id, username, true)
               else funit) >>
                 Env.user.noteApi.write(user, text, irwin, true) inject Ok
-            })
+            }
+          )
         }
       }
     }
@@ -152,7 +154,7 @@ object Mod extends LilaController {
   }
 
   private[controllers] val ipIntelCache =
-    Env.memo.asyncCache.multi[String, Int](
+    Env.memo.asyncCache.multi[IpAddress, Int](
       name = "ipIntel",
       f = ip => {
       import play.api.libs.ws.WS
@@ -169,12 +171,14 @@ object Mod extends LilaController {
         succ = percent => {
         lila.mon.security.proxy.percent(percent max 0)
         lila.mon.security.proxy.request.success()
-      })
+      }
+      )
     },
-    expireAfter = _.ExpireAfterAccess(3 days))
+      expireAfter = _.ExpireAfterAccess(3 days)
+    )
 
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx => me =>
-    ipIntelCache.get(ip).map { Ok(_) }.recover {
+    ipIntelCache.get(IpAddress(ip)).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
   }

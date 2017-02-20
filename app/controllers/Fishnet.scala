@@ -16,38 +16,34 @@ object Fishnet extends LilaController {
   private def api = env.api
   private val logger = lila.log("fishnet")
 
-  def acquire = ClientAction[JsonApi.Request.Acquire] { req =>
-    client =>
-      api acquire client map Right.apply
+  def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
+    api acquire client map Right.apply
   }
 
-  def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data =>
-    client =>
-      api.postMove(Work.Id(workId), client, data) >>
-        api.acquire(client).map(Right.apply)
+  def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data => client =>
+    api.postMove(Work.Id(workId), client, data) >>
+      api.acquire(client).map(Right.apply)
   }
 
-  def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data =>
-    client =>
-      import lila.fishnet.FishnetApi._
-      def acquireNext = api acquire client map Right.apply
-      api.postAnalysis(Work.Id(workId), client, data).flatFold({
-        case WorkNotFound => acquireNext
-        case GameNotFound => acquireNext
-        case NotAcquired  => acquireNext
-        case WeakAnalysis => acquireNext
-        // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
-        case e            => fuccess(Left(InternalServerError(e.getMessage)))
-      }, {
-        case _: PostAnalysisResult.Complete   => acquireNext
-        case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
-        case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
-      })
+  def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
+    import lila.fishnet.FishnetApi._
+    def acquireNext = api acquire client map Right.apply
+    api.postAnalysis(Work.Id(workId), client, data).flatFold({
+      case WorkNotFound => acquireNext
+      case GameNotFound => acquireNext
+      case NotAcquired => acquireNext
+      case WeakAnalysis => acquireNext
+      // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
+      case e => fuccess(Left(InternalServerError(e.getMessage)))
+    }, {
+      case _: PostAnalysisResult.Complete => acquireNext
+      case _: PostAnalysisResult.Partial => fuccess(Left(NoContent))
+      case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
+    })
   }
 
-  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req =>
-    client =>
-      api.abort(Work.Id(workId), client) inject Right(none)
+  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req => client =>
+    api.abort(Work.Id(workId), client) inject Right(none)
   }
 
   def keyExists(key: String) = Action.async { req =>
@@ -71,7 +67,7 @@ object Fishnet extends LilaController {
           logger.warn(s"Malformed request: $err\n${req.body}")
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
-        data => api.authenticateClient(data, clientIp(req)) flatMap {
+        data => api.authenticateClient(data, HTTPRequest lastRemoteAddress req) flatMap {
           case Failure(msg) => {
             val ip = HTTPRequest.lastRemoteAddress(req)
             logger.info(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip | ${msg.getMessage}")
@@ -79,13 +75,10 @@ object Fishnet extends LilaController {
           }
           case Success(client) => f(data)(client).map {
             case Right(Some(work)) => Accepted(Json toJson work)
-            case Right(None)       => NoContent
-            case Left(result)      => result
+            case Right(None) => NoContent
+            case Left(result) => result
           }
-        })
+        }
+      )
     }
-
-  private def clientIp(req: RequestHeader) = lila.fishnet.Client.IpAddress {
-    HTTPRequest lastRemoteAddress req
-  }
 }

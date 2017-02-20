@@ -12,41 +12,53 @@ private final class StripeClient(config: StripeClient.Config) {
   import JsonHandlers._
 
   def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
-    postOne[StripeCustomer]("customers",
+    postOne[StripeCustomer](
+      "customers",
       'plan -> plan.id,
       'source -> data.source.value,
       'email -> data.email,
-      'description -> user.username)
+      'description -> user.username
+    )
 
   def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
-    postOne[StripeCustomer]("customers",
+    postOne[StripeCustomer](
+      "customers",
       'plan -> plan.id,
       'source -> data.source.value,
       'email -> data.email,
-      'description -> "Anonymous")
+      'description -> "Anonymous"
+    )
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}")
 
   def createSubscription(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
-    postOne[StripeSubscription]("subscriptions",
+    postOne[StripeSubscription](
+      "subscriptions",
       'customer -> customer.id,
       'plan -> plan.id,
-      'source -> source.value)
+      'source -> source.value
+    )
 
   def updateSubscription(sub: StripeSubscription, plan: StripePlan, source: Option[Source]): Fu[StripeSubscription] =
-    postOne[StripeSubscription](s"subscriptions/${sub.id}",
+    postOne[StripeSubscription](
+      s"subscriptions/${sub.id}",
       'plan -> plan.id,
       'source -> source.map(_.value),
-      'prorate -> false)
+      'prorate -> false
+    )
 
   def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
-    deleteOne[StripeSubscription](s"subscriptions/${sub.id}",
-      'at_period_end -> false)
+    deleteOne[StripeSubscription](
+      s"subscriptions/${sub.id}",
+      'at_period_end -> false
+    )
 
   def dontRenewSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
-    deleteOne[StripeSubscription](s"subscriptions/${sub.id}",
-      'at_period_end -> true)
+    deleteOne[StripeSubscription](
+      s"subscriptions/${sub.id}",
+      'at_period_end -> true
+    )
 
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
@@ -61,30 +73,34 @@ private final class StripeClient(config: StripeClient.Config) {
     getOne[StripePlan](s"plans/${StripePlan.make(cents, freq).id}")
 
   def makePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
-    postOne[StripePlan]("plans",
+    postOne[StripePlan](
+      "plans",
       'id -> StripePlan.make(cents, freq).id,
       'amount -> cents.value,
       'currency -> "usd",
       'interval -> "month",
-      'name -> StripePlan.make(cents, freq).name)
+      'name -> StripePlan.make(cents, freq).name
+    )
 
-//   def chargeAnonCard(data: Checkout): Funit =
-//     postOne[StripePlan]("charges",
-//       'amount -> data.cents.value,
-//       'currency -> "usd",
-//       'source -> data.source.value,
-//       'description -> "Anon one-time",
-//       'metadata -> Map("email" -> data.email),
-//       'receipt_email -> data.email).void
+  //   def chargeAnonCard(data: Checkout): Funit =
+  //     postOne[StripePlan]("charges",
+  //       'amount -> data.cents.value,
+  //       'currency -> "usd",
+  //       'source -> data.source.value,
+  //       'description -> "Anon one-time",
+  //       'metadata -> Map("email" -> data.email),
+  //       'receipt_email -> data.email).void
 
   // charge without changing the customer plan
   def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
-    postOne[StripeCharge]("charges",
+    postOne[StripeCharge](
+      "charges",
       'customer -> customer.id.value,
       'amount -> amount.value,
       'currency -> "usd",
       'description -> "Monthly customer adds a one-time",
-      'receipt_email -> customer.email).void
+      'receipt_email -> customer.email
+    ).void
 
   private def getOne[A: Reads](url: String, queryString: (Symbol, Any)*): Fu[Option[A]] =
     get[A](url, queryString) map Some.apply recover {
@@ -130,7 +146,7 @@ private final class StripeClient(config: StripeClient.Config) {
     )
     case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
     case x if x >= 400 && x < 500 => (res.json \ "error" \ "message").asOpt[String] match {
-      case None        => fufail { new InvalidRequestException(Json stringify res.json) }
+      case None => fufail { new InvalidRequestException(Json stringify res.json) }
       case Some(error) => fufail { new InvalidRequestException(error) }
     }
     case status => fufail { new StatusException(s"[stripe] Response status: $status") }
@@ -141,8 +157,8 @@ private final class StripeClient(config: StripeClient.Config) {
 
   private def fixInput(in: Seq[(Symbol, Any)]): Seq[(String, String)] = (in map {
     case (sym, Some(x)) => Some(sym.name -> x.toString)
-    case (sym, None)    => None
-    case (sym, x)       => Some(sym.name -> x.toString)
+    case (sym, None) => None
+    case (sym, x) => Some(sym.name -> x.toString)
   }).flatten
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]

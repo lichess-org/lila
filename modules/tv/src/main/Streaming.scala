@@ -13,7 +13,8 @@ private final class Streaming(
     keyword: String,
     googleApiKey: String,
     hitboxUrl: String,
-    twitchClientId: String) {
+    twitchClientId: String
+) {
 
   import Streaming._
   import Twitch.Reads._
@@ -113,13 +114,13 @@ private final class Streaming(
           StreamsOnAir {
             ss.foldLeft(List.empty[StreamOnAir]) {
               case (acc, s) if acc.exists(_.id == s.id) => acc
-              case (acc, s)                             => acc :+ s
+              case (acc, s) => acc :+ s
             }
           }
         } pipeTo self
       }
 
-      case event@StreamsOnAir(streams) =>
+      case event @ StreamsOnAir(streams) =>
         if (onAir != streams) {
           onAir = streams
           import makeTimeout.short

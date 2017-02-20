@@ -20,7 +20,8 @@ object PgnTags {
       Date,
       Result,
       Termination,
-      Site, Event, Round, Annotator)
+      Site, Event, Round, Annotator
+    )
   }
 
   val typesToString = sortedTypes mkString ","

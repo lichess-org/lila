@@ -19,8 +19,11 @@ object TeamRepo {
 
   def cursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred)(
-    implicit cp: CursorProducer[Team]) =
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(
+    implicit
+    cp: CursorProducer[Team]
+  ) =
     coll.find(selector).cursor[Team](readPreference)
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
@@ -51,7 +54,8 @@ object TeamRepo {
   def addRequest(teamId: String, request: Request): Funit =
     coll.update(
       $id(teamId) ++ $doc("requests.user" $ne request.user),
-      $push("requests", request.user)).void
+      $push("requests", request.user)
+    ).void
 
   val enabledQuery = $doc("enabled" -> true)
 

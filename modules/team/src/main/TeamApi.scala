@@ -15,7 +15,8 @@ final class TeamApi(
     notifier: Notifier,
     forum: ActorSelection,
     indexer: ActorSelection,
-    timeline: ActorSelection) {
+    timeline: ActorSelection
+) {
 
   import BSONHandlers._
 
@@ -32,7 +33,8 @@ final class TeamApi(
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      createdBy = me)
+      createdBy = me
+    )
     coll.team.insert(team) >>
       MemberRepo.add(team.id, me.id) >>- {
         (cached invalidateTeamIds me.id)
@@ -48,7 +50,8 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen) |> { team =>
+      open = e.isOpen
+    ) |> { team =>
       coll.team.update($id(team.id), team).void >>- (indexer ! InsertTeam(team))
     }
   }
@@ -109,8 +112,7 @@ final class TeamApi(
     _ = cached.nbRequests invalidate team.createdBy
     userOption ← UserRepo byId request.user
     _ ← userOption.filter(_ => accept).??(user =>
-      doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
-    )
+      doJoin(team, user.id) >>- notifier.acceptRequest(team, request))
   } yield ()
 
   def doJoin(team: Team, userId: String): Funit = !belongsTo(team.id, userId) flatMap {

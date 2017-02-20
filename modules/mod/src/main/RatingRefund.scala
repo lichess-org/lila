@@ -15,7 +15,8 @@ private final class RatingRefund(
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
-    wasUnengined: User.ID => Fu[Boolean]) {
+    wasUnengined: User.ID => Fu[Boolean]
+) {
 
   import RatingRefund._
 
@@ -83,7 +84,7 @@ private object RatingRefund {
   case class Refunds(all: List[Refund]) {
     def add(victim: User.ID, perf: PerfType, diff: Int, rating: Int) = copy(all =
       all.find(_.is(victim, perf)) match {
-        case None    => Refund(victim, perf, diff, rating) :: all
+        case None => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
       })
   }

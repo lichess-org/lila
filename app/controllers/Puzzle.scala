@@ -21,14 +21,16 @@ object Puzzle extends LilaController {
     mode: String,
     voted: Option[Boolean],
     round: Option[lila.puzzle.Round] = None,
-    result: Option[Result] = None)(implicit ctx: Context): Fu[JsObject] = env.jsonView(
+    result: Option[Result] = None
+  )(implicit ctx: Context): Fu[JsObject] = env.jsonView(
     puzzle = puzzle,
     userInfos = userInfos,
     round = round,
     mode = mode,
     isMobileApi = ctx.isMobileApi,
     result = result,
-    voted = voted)
+    voted = voted
+  )
 
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env userInfos ctx.me flatMap { infos =>

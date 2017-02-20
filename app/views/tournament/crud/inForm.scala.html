@@ -37,10 +37,10 @@
 </div>
 <div>
   @base.form.group(form("clockTime"), Html("Clock time"), half = true) {
-  @base.form.select(form("clockTime"), clockTimeChoices)
+  @base.form.select(form("clockTime"), clockTimePrivateChoices)
   }
   @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) {
-  @base.form.select(form("clockIncrement"), clockIncrementChoices)
+  @base.form.select(form("clockIncrement"), clockIncrementPrivateChoices)
   }
 </div>
 <h2>Conditions of entry</h2>

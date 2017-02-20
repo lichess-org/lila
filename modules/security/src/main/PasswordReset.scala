@@ -13,7 +13,8 @@ final class PasswordReset(
     sender: String,
     replyTo: String,
     baseUrl: String,
-    secret: String) {
+    secret: String
+) {
 
   def send(user: User, email: String): Funit = tokener make user flatMap { token =>
     lila.mon.email.resetPassword()
@@ -55,9 +56,10 @@ This message is a service email related to your use of lichess.org.
       </div>
     </div>
   </body>
-</html>"""))).void addFailureEffect {
+</html>""")
+    )).void addFailureEffect {
       case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-      case _                            =>
+      case _ =>
     }
   }
 

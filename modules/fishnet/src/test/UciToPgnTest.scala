@@ -47,7 +47,8 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
         Info(26, Eval(Some(Cp(-2165)), None, None), List()),
         Info(27, Eval(Some(Cp(-2731)), None, None), List("g1g3", "h4h2", "d1f3", "e4g3", "c2c3", "h2g1", "e1d2", "g3e4", "d2c2", "e6g4", "f3g4", "g1g4", "b1d2", "g4e2", "a2a4", "a8e8", "a1a3", "e4d2", "c1d2", "e8e3")),
         Info(28, Eval(None, Some(Mate(2)), None), List("h4f2", "e2d3", "c6b4")),
-        Info(29, Eval(None, Some(Mate(-2)), None), List())), 0, None, None, now)
+        Info(29, Eval(None, Some(Mate(-2)), None), List())
+      ), 0, None, None, now)
 
       val pgn = "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
       val rep = Replay(pgn.split(' ').toList, None, chess.variant.Standard).toOption.get

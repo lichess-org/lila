@@ -15,7 +15,8 @@ final class MongoCache[K, V: MongoCache.Handler] private (
     mongoExpiresAt: () => DateTime,
     coll: Coll,
     f: K => Fu[V],
-    keyToString: K => String) {
+    keyToString: K => String
+) {
 
   def apply(k: K): Fu[V] = cache.get(k, k =>
     coll.find($id(makeKey(k))).uno[Entry] flatMap {
@@ -69,7 +70,8 @@ object MongoCache {
       maxCapacity: Int = 1024,
       timeToLive: FiniteDuration,
       timeToLiveMongo: Option[FiniteDuration] = None,
-      keyToString: K => String): MongoCache[K, V] = new MongoCache[K, V](
+      keyToString: K => String
+    ): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
       cache = Scaffeine()
         .expireAfterWrite(timeToLive)
@@ -78,12 +80,14 @@ object MongoCache {
       mongoExpiresAt = mongoExpiresAt(timeToLiveMongo | timeToLive),
       coll = coll,
       f = f,
-      keyToString = keyToString)
+      keyToString = keyToString
+    )
 
     def single[V: Handler](
       prefix: String,
       f: => Fu[V],
-      timeToLive: FiniteDuration) = new MongoCache[Unit, V](
+      timeToLive: FiniteDuration
+    ) = new MongoCache[Unit, V](
       prefix = prefix,
       cache = Scaffeine()
         .expireAfterWrite(timeToLive)
@@ -92,6 +96,7 @@ object MongoCache {
       mongoExpiresAt = mongoExpiresAt(timeToLive),
       coll = coll,
       f = _ => f,
-      keyToString = _.toString)
+      keyToString = _.toString
+    )
   }
 }

@@ -38,9 +38,11 @@ object BSONHandlers {
       val (white, black) = r.str("p").toList.flatMap(chess.Piece.fromChar).partition(_ is chess.White)
       Pockets(
         white = Pocket(white.map(_.role)),
-        black = Pocket(black.map(_.role)))
+        black = Pocket(black.map(_.role))
+      )
     },
-      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr))
+      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr)
+    )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(
       "p" -> {
@@ -92,7 +94,7 @@ object BSONHandlers {
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
         unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
-        binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
+        clockHistory = ClockHistory(r bytesO moveTimes),
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -106,7 +108,8 @@ object BSONHandlers {
           tournamentId = r strO tournamentId,
           simulId = r strO simulId,
           tvAt = r dateO tvAt,
-          analysed = r boolD analysed)
+          analysed = r boolD analysed
+        )
       )
     }
 
@@ -127,7 +130,7 @@ object BSONHandlers {
       castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
-      moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
+      moveTimes -> o.clockHistory.binaryMoveTimes,
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       crazyData -> o.crazyData,

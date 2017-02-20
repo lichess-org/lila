@@ -17,7 +17,7 @@ object Relation extends LilaController {
     (ctx.userId ?? { env.api.fetchRelation(_, userId) }) zip
       (ctx.isAuth ?? { Env.pref.api followable userId }) zip
       (ctx.userId ?? { env.api.fetchBlocks(userId, _) }) flatMap {
-        case ((relation, followable), blocked) => negotiate(
+        case relation ~ followable ~ blocked => negotiate(
           html = fuccess(Ok(mini.fold(
             html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
             html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
@@ -30,24 +30,20 @@ object Relation extends LilaController {
         )
       }
 
-  def follow(userId: String) = Auth { implicit ctx =>
-    me =>
-      env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+  def follow(userId: String) = Auth { implicit ctx => me =>
+    env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
-  def unfollow(userId: String) = Auth { implicit ctx =>
-    me =>
-      env.api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+  def unfollow(userId: String) = Auth { implicit ctx => me =>
+    env.api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
-  def block(userId: String) = Auth { implicit ctx =>
-    me =>
-      env.api.block(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+  def block(userId: String) = Auth { implicit ctx => me =>
+    env.api.block(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
-  def unblock(userId: String) = Auth { implicit ctx =>
-    me =>
-      env.api.unblock(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+  def unblock(userId: String) = Auth { implicit ctx => me =>
+    env.api.unblock(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
   }
 
   def following(username: String, page: Int) = Open { implicit ctx =>
@@ -56,9 +52,10 @@ object Relation extends LilaController {
         RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowers user.id map { nbFollowers =>
-              Ok(html.relation.following(user, pag, nbFollowers))
-            },
-            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+            Ok(html.relation.following(user, pag, nbFollowers))
+          },
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+          )
         }
       }
     }
@@ -70,9 +67,10 @@ object Relation extends LilaController {
         RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowing user.id map { nbFollowing =>
-              Ok(html.relation.followers(user, pag, nbFollowing))
-            },
-            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess)
+            Ok(html.relation.followers(user, pag, nbFollowing))
+          },
+            api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+          )
         }
       }
     }
@@ -87,23 +85,24 @@ object Relation extends LilaController {
         "online" -> Env.user.isOnline(r.user.id).option(true),
         "perfs" -> r.user.perfs.bestPerfType.map { best =>
           lila.user.JsonView.perfs(r.user, best.some)
-        }).noNull
+        }
+      ).noNull
     }))
   }
 
-  def blocks(page: Int) = Auth { implicit ctx =>
-    me =>
-      Reasonable(page, 20) {
-        RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
-          html.relation.blocks(me, pag)
-        }
+  def blocks(page: Int) = Auth { implicit ctx => me =>
+    Reasonable(page, 20) {
+      RelatedPager(env.api.blockingPaginatorAdapter(me.id), page) map { pag =>
+        html.relation.blocks(me, pag)
       }
+    }
   }
 
   private def RelatedPager(adapter: AdapterLike[String], page: Int)(implicit ctx: Context) = Paginator(
     adapter = adapter mapFutureList followship,
     currentPage = page,
-    maxPerPage = 30)
+    maxPerPage = 30
+  )
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byOrderedIds userIds.map(UserModel.normalize) flatMap { users =>

@@ -1,6 +1,6 @@
 package lila.coach
 
-import org.joda.time.{DateTime,Days}
+import org.joda.time.{ DateTime, Days }
 
 import lila.user.User
 
@@ -13,7 +13,8 @@ case class Coach(
     picturePath: Option[Coach.PicturePath],
     nbReviews: Int,
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: DateTime
+) {
 
   def id = _id
 
@@ -37,7 +38,8 @@ object Coach {
     picturePath = None,
     nbReviews = 0,
     createdAt = DateTime.now,
-    updatedAt = DateTime.now)
+    updatedAt = DateTime.now
+  )
 
   case class WithUser(coach: Coach, user: User)
 

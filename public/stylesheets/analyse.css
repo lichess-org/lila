@@ -1176,6 +1176,9 @@ body.piece_letter .tview2 move {
 .tview2 move.active {
   color: #d85000;
 }
+.tview2 move.nongame {
+  font-style: italic;
+}
 .tview2 move:not(.empty):hover,
 .tview2 move:not(.empty):hover move index {
   background: #3893e8;

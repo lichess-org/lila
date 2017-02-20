@@ -14,13 +14,15 @@ import makeTimeout.short
 private[challenge] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
-    pingChallenge: Challenge.ID => Funit) {
+    pingChallenge: Challenge.ID => Funit
+) {
 
   def join(
     challengeId: Challenge.ID,
     uid: Uid,
     userId: Option[User.ID],
-    owner: Boolean): Fu[Option[JsSocketHandler]] = for {
+    owner: Boolean
+  ): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(challengeId) mapTo manifest[ActorRef]
     join = Socket.Join(uid, userId = userId, owner = owner)
     handler ← Handler(hub, socket, uid, join) {
@@ -33,7 +35,8 @@ private[challenge] final class SocketHandler(
     socket: ActorRef,
     challengeId: Challenge.ID,
     uid: Uid,
-    member: Socket.Member): Handler.Controller = {
+    member: Socket.Member
+  ): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid.value, v)
     }

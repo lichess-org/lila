@@ -17,7 +17,8 @@ private[simul] final class Socket(
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
+    socketTimeout: Duration
+) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   override def preStart() {
     super.preStart()
@@ -46,11 +47,11 @@ private[simul] final class Socket(
 
   def receiveSpecific = ({
 
-    case StartGame(game, hostId)       => redirectPlayer(game, game.playerByUserId(hostId) map (!_.color))
+    case StartGame(game, hostId) => redirectPlayer(game, game.playerByUserId(hostId) map (!_.color))
 
     case StartSimul(firstGame, hostId) => redirectPlayer(firstGame, firstGame.playerByUserId(hostId) map (_.color))
 
-    case HostIsOn(gameId)              => notifyVersion("hostGame", gameId, Messadata())
+    case HostIsOn(gameId) => notifyVersion("hostGame", gameId, Messadata())
 
     case Reload =>
       getSimul(simulId) foreach {
@@ -76,9 +77,9 @@ private[simul] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case GetVersion        => sender ! history.version
+    case GetVersion => sender ! history.version
 
-    case Socket.GetUserIds => sender ! userIds
+    case Socket.GetUserIds => sender ! members.values.flatMap(_.userId)
 
     case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

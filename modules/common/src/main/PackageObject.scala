@@ -32,6 +32,12 @@ trait PackageObject extends Steroids with WithFuture {
     def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
   }
 
+  type ~[+A, +B] = Tuple2[A, B]
+  object ~ {
+    def apply[A, B](x: A, y: B) = Tuple2(x, y)
+    def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
+  }
+
   implicit final class LilaPimpedString(s: String) {
 
     def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
@@ -48,8 +54,8 @@ trait PackageObject extends Steroids with WithFuture {
 
     def fold[B](fe: Exception => B, fa: A => B): B = v match {
       case scala.util.Failure(e: Exception) => fe(e)
-      case scala.util.Failure(e)            => throw e
-      case scala.util.Success(a)            => fa(a)
+      case scala.util.Failure(e) => throw e
+      case scala.util.Success(a) => fa(a)
     }
 
     def future: Fu[A] = fold(Future.failed, fuccess)
@@ -138,7 +144,7 @@ trait WithPlay { self: PackageObject =>
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
     def nevermind: Fu[A] = fua recover {
-      case e: lila.common.LilaException             => zero[A]
+      case e: lila.common.LilaException => zero[A]
       case e: java.util.concurrent.TimeoutException => zero[A]
     }
   }
@@ -187,6 +193,9 @@ trait WithPlay { self: PackageObject =>
     def toTenths: Long = self.toMillis / 100
     def toHundredths: Long = self.toMillis / 10
   }
+
+  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
+    Zero.instance(FiniteDuration(0, scala.concurrent.duration.MILLISECONDS))
 
   object makeTimeout {
 

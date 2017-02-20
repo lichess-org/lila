@@ -20,7 +20,8 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection) ex
         reason = reason,
         text = text,
         gameId = gameId,
-        move = move)
+        move = move
+      )
     })(_.export.some).verifying(captchaFailMessage, validateCaptcha _))
 
   def createWithCaptcha = withCaptcha(create)
@@ -33,7 +34,8 @@ private[report] case class ReportSetup(
     reason: String,
     text: String,
     gameId: String,
-    move: String) {
+    move: String
+) {
 
   def export = (user.username, reason, text, gameId, move)
 }

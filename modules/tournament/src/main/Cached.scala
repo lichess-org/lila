@@ -7,7 +7,8 @@ import lila.memo._
 private[tournament] final class Cached(
     asyncCache: lila.memo.AsyncCache.Builder,
     createdTtl: FiniteDuration,
-    rankingTtl: FiniteDuration)(implicit system: akka.actor.ActorSystem) {
+    rankingTtl: FiniteDuration
+)(implicit system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](
     name = "tournament.name",
@@ -15,14 +16,16 @@ private[tournament] final class Cached(
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
-    logger = logger)
+    logger = logger
+  )
 
   def name(id: String): Option[String] = nameCache sync id
 
   val promotable = asyncCache.single(
     name = "tournament.promotable",
     TournamentRepo.promotable,
-    expireAfter = _.ExpireAfterWrite(createdTtl))
+    expireAfter = _.ExpireAfterWrite(createdTtl)
+  )
 
   def findNext(tour: Tournament): Fu[Option[Tournament]] = tour.perfType ?? { pt =>
     promotable.get map { tours =>
@@ -42,11 +45,13 @@ private[tournament] final class Cached(
   private val ongoingRanking = asyncCache.multi[String, Ranking](
     name = "tournament.ongoingRanking",
     f = PlayerRepo.computeRanking,
-    expireAfter = _.ExpireAfterWrite(3.seconds))
+    expireAfter = _.ExpireAfterWrite(3.seconds)
+  )
 
   // only applies to finished tournaments
   private val finishedRanking = asyncCache.multi[String, Ranking](
     name = "tournament.finishedRanking",
     f = PlayerRepo.computeRanking,
-    expireAfter = _.ExpireAfterAccess(rankingTtl))
+    expireAfter = _.ExpireAfterAccess(rankingTtl)
+  )
 }

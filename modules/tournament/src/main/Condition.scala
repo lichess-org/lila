@@ -33,13 +33,13 @@ object Condition {
       if (user.hasTitle) Accepted
       else perf match {
         case Some(p) if user.perfs(p).nb >= nb => Accepted
-        case Some(p)                           => Refused(s"Only ${user.perfs(p).nb} of $nb rated ${p.name} games played")
-        case None if user.count.rated >= nb    => Accepted
-        case None                              => Refused(s"Only ${user.count.rated} of $nb rated games played")
+        case Some(p) => Refused(s"Only ${user.perfs(p).nb} of $nb rated ${p.name} games played")
+        case None if user.count.rated >= nb => Accepted
+        case None => Refused(s"Only ${user.count.rated} of $nb rated games played")
       }
 
     def name = perf match {
-      case None    => s"≥ $nb rated games"
+      case None => s"≥ $nb rated games"
       case Some(p) => s"≥ $nb ${p.name} rated games"
     }
   }
@@ -50,7 +50,7 @@ object Condition {
       if (user.perfs(perf).provisional) fuccess(Refused(s"Provisional ${perf.name} rating"))
       else getMaxRating(perf) map {
         case r if r <= rating => Accepted
-        case r                => Refused(s"Top monthly ${perf.name} rating ($r) is too high")
+        case r => Refused(s"Top monthly ${perf.name} rating ($r) is too high")
       }
 
     def name = s"Rated ≤ $rating in ${perf.name}"
@@ -70,7 +70,8 @@ object Condition {
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
-      minRating: Option[MinRating]) {
+      minRating: Option[MinRating]
+  ) {
 
     def relevant = list.nonEmpty
 
@@ -81,7 +82,7 @@ object Condition {
     def withVerdicts(getMaxRating: GetMaxRating)(user: User): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
-        case c: FlatCond  => fuccess(c withVerdict c(user))
+        case c: FlatCond => fuccess(c withVerdict c(user))
       }.sequenceFu map All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
@@ -130,7 +131,7 @@ object Condition {
     }
     private implicit val VerdictWriter: Writes[Verdict] = Writes {
       case Refused(reason) => JsString(reason)
-      case Accepted        => JsString("ok")
+      case Accepted => JsString("ok")
     }
     implicit val AllJSONWriter = Json.writes[All]
     implicit val WithVerdictJSONWriter = Json.writes[WithVerdict]
@@ -148,7 +149,7 @@ object Condition {
     val nbRatedGames = Seq(0, 5, 10, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
       case (0, name) => (0, "No restriction")
-      case x         => x
+      case x => x
     }
     val nbRatedGame = mapping(
       "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
@@ -165,7 +166,7 @@ object Condition {
     val maxRatings = List(9999, 2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1000)
     val maxRatingChoices = options(maxRatings, "Max rating of %d") map {
       case (9999, name) => (9999, "No restriction")
-      case x            => x
+      case x => x
     }
     val maxRating = mapping(
       "perf" -> text.verifying(perfChoices.toMap.contains _),
@@ -182,7 +183,7 @@ object Condition {
     val minRatings = List(0, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = options(minRatings, "Min rating of %d") map {
       case (0, name) => (0, "No restriction")
-      case x         => x
+      case x => x
     }
     val minRating = mapping(
       "perf" -> text.verifying(perfChoices.toMap.contains _),
@@ -205,18 +206,21 @@ object Condition {
     case class AllSetup(
         nbRatedGame: NbRatedGameSetup,
         maxRating: MaxRatingSetup,
-        minRating: MinRatingSetup) {
+        minRating: MinRatingSetup
+    ) {
       def convert = All(nbRatedGame.convert, maxRating.convert, minRating.convert)
     }
     object AllSetup {
       val default = AllSetup(
         nbRatedGame = NbRatedGameSetup.default,
         maxRating = MaxRatingSetup.default,
-        minRating = MinRatingSetup.default)
+        minRating = MinRatingSetup.default
+      )
       def apply(all: All): AllSetup = AllSetup(
         nbRatedGame = all.nbRatedGame.fold(NbRatedGameSetup.default)(NbRatedGameSetup.apply),
         maxRating = all.maxRating.fold(MaxRatingSetup.default)(MaxRatingSetup.apply),
-        minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply))
+        minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply)
+      )
     }
   }
 }

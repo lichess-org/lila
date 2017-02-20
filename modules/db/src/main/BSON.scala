@@ -73,7 +73,7 @@ object BSON extends Handlers {
       }
     }
 
-    implicit def MapHandler[K : Iso.StringIso, V: BSONDocumentHandler]: BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
+    implicit def MapHandler[K: Iso.StringIso, V: BSONDocumentHandler]: BSONHandler[Bdoc, Map[K, V]] = new BSONHandler[Bdoc, Map[K, V]] {
       private val reader = MapReader[K, V]
       private val writer = MapWriter[K, V]
       def read(bson: Bdoc): Map[K, V] = reader read bson
@@ -169,11 +169,11 @@ object BSON extends Handlers {
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
     def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
     def strListO(list: List[String]): Option[List[String]] = list match {
-      case Nil          => None
-      case List("")     => None
+      case Nil => None
+      case List("") => None
       case List("", "") => None
-      case List(a, "")  => Some(List(a))
-      case full         => Some(full)
+      case List(a, "") => Some(List(a))
+      case full => Some(full)
     }
     def listO[A](list: List[A])(implicit writer: BSONWriter[A, _ <: BSONValue]): Option[Barr] =
       if (list.isEmpty) None
@@ -190,13 +190,13 @@ object BSON extends Handlers {
   val writer = new Writer
 
   def debug(v: BSONValue): String = v match {
-    case d: Bdoc        => debugDoc(d)
-    case d: Barr        => debugArr(d)
-    case BSONString(x)  => x
+    case d: Bdoc => debugDoc(d)
+    case d: Barr => debugArr(d)
+    case BSONString(x) => x
     case BSONInteger(x) => x.toString
-    case BSONDouble(x)  => x.toString
+    case BSONDouble(x) => x.toString
     case BSONBoolean(x) => x.toString
-    case v              => v.toString
+    case v => v.toString
   }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String = (doc.elements.toList map {

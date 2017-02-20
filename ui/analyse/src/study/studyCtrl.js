@@ -235,8 +235,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         path: path
       }));
     },
-    setChapter: function(id) {
-      if (id === currentChapterId()) return;
+    setChapter: function(id, force) {
+      if (id === currentChapterId() && !force) return;
       if (!contribute("setChapter", id)) {
         vm.chapterId = id;
         xhrReload();

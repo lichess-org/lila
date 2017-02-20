@@ -26,15 +26,15 @@ object PracticeGoal {
 
   def apply(chapter: lila.study.Chapter): PracticeGoal =
     chapter.tags.find(_.name == Tag.Termination).map(tagText).flatMap {
-      case MateR()            => Mate.some
-      case MateInR(movesStr)  => parseIntOption(movesStr) map MateIn.apply
-      case DrawInR(movesStr)  => parseIntOption(movesStr) map DrawIn.apply
+      case MateR() => Mate.some
+      case MateInR(movesStr) => parseIntOption(movesStr) map MateIn.apply
+      case DrawInR(movesStr) => parseIntOption(movesStr) map DrawIn.apply
       case EqualInR(movesStr) => parseIntOption(movesStr) map EqualIn.apply
       case EvalInR(cpStr, movesStr) => for {
         cp <- parseIntOption(cpStr)
         moves <- parseIntOption(movesStr)
       } yield EvalIn(cp, moves)
       case PromotionR(cpStr) => parseIntOption(cpStr) map Promotion.apply
-      case _                 => none
+      case _ => none
     } | Mate // default to mate
 }

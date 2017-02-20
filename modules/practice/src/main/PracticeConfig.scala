@@ -3,7 +3,8 @@ package lila.practice
 import lila.study.Study
 
 case class PracticeConfig(
-    sections: List[PracticeConfigSection]) {
+    sections: List[PracticeConfigSection]
+) {
 
   def studyIds = sections.flatMap(_.studies.map(_.id)) map Study.Id.apply
 }
@@ -15,9 +16,11 @@ object PracticeConfig {
 case class PracticeConfigSection(
   id: String,
   name: String,
-  studies: List[PracticeConfigStudy])
+  studies: List[PracticeConfigStudy]
+)
 
 case class PracticeConfigStudy(
   id: String, // study ID
   name: String,
-  desc: String)
+  desc: String
+)

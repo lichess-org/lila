@@ -3,7 +3,7 @@ package lila.api
 import play.api.mvc.RequestHeader
 
 import lila.common.{ HTTPRequest, AssetVersion }
-import lila.hub.actorApi.relation.OnlineFriends
+import lila.relation.actorApi.OnlineFriends
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
@@ -15,7 +15,8 @@ case class PageData(
   pref: Pref,
   blindMode: Boolean,
   hasFingerprint: Boolean,
-  assetVersion: AssetVersion)
+  assetVersion: AssetVersion
+)
 
 object PageData {
 
@@ -80,18 +81,21 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
 sealed abstract class BaseContext(
   val userContext: lila.user.UserContext,
-  val pageData: PageData) extends Context
+  val pageData: PageData
+) extends Context
 
 final class BodyContext[A](
     val bodyContext: BodyUserContext[A],
-    data: PageData) extends BaseContext(bodyContext, data) {
+    data: PageData
+) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
 }
 
 final class HeaderContext(
   headerContext: HeaderUserContext,
-  data: PageData) extends BaseContext(headerContext, data)
+  data: PageData
+) extends BaseContext(headerContext, data)
 
 object Context {
 

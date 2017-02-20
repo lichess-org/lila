@@ -12,18 +12,19 @@ case class Schedule(
     variant: Variant,
     position: StartingPosition,
     at: DateTime,
-    conditions: Condition.All = Condition.All.empty) {
+    conditions: Condition.All = Condition.All.empty
+) {
 
   def name = freq match {
-    case m@Schedule.Freq.ExperimentalMarathon => m.name
+    case m @ Schedule.Freq.ExperimentalMarathon => m.name
     case _ if variant.standard && position.initial =>
       (conditions.minRating, conditions.maxRating) match {
-        case (None, None)   => s"${freq.toString} ${speed.toString}"
+        case (None, None) => s"${freq.toString} ${speed.toString}"
         case (Some(min), _) => s"Elite ${speed.toString}"
         case (_, Some(max)) => s"U${max.rating} ${speed.toString}"
       }
     case _ if variant.standard => s"${position.shortName} ${speed.toString}"
-    case _                     => s"${freq.toString} ${variant.name}"
+    case _ => s"${freq.toString} ${variant.name}"
   }
 
   def day = at.withTimeAtStartOfDay
@@ -98,10 +99,10 @@ object Schedule {
     def apply(name: String) = all find (_.name == name)
     def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
-      case (a, b) if a == b      => true
+      case (a, b) if a == b => true
       case (HyperBullet, Bullet) => true
       case (Bullet, HyperBullet) => true
-      case _                     => false
+      case _ => false
     }
     def fromClock(clock: chess.Clock.Config) = {
       val time = clock.estimateTotalTime
@@ -112,8 +113,8 @@ object Schedule {
     }
     def toPerfType(speed: Speed) = speed match {
       case HyperBullet | Bullet => PerfType.Bullet
-      case SuperBlitz | Blitz   => PerfType.Blitz
-      case Classical            => PerfType.Classical
+      case SuperBlitz | Blitz => PerfType.Blitz
+      case Classical => PerfType.Classical
     }
   }
 
@@ -130,44 +131,44 @@ object Schedule {
     import chess.variant._
     Some((s.freq, s.variant, s.speed) match {
 
-      case (Hourly, _, HyperBullet | Bullet)          => 27
-      case (Hourly, _, SuperBlitz)                    => 57
-      case (Hourly, _, Blitz)                         => 57
-      case (Hourly, _, Classical) if s.hasMaxRating   => 57
-      case (Hourly, _, Classical)                     => 117
+      case (Hourly, _, HyperBullet | Bullet) => 27
+      case (Hourly, _, SuperBlitz) => 57
+      case (Hourly, _, Blitz) => 57
+      case (Hourly, _, Classical) if s.hasMaxRating => 57
+      case (Hourly, _, Classical) => 117
 
       case (Daily | Eastern, _, HyperBullet | Bullet) => 60
-      case (Daily | Eastern, _, SuperBlitz)           => 90
-      case (Daily | Eastern, Standard, Blitz)         => 120
-      case (Daily | Eastern, _, Classical)            => 150
+      case (Daily | Eastern, _, SuperBlitz) => 90
+      case (Daily | Eastern, Standard, Blitz) => 120
+      case (Daily | Eastern, _, Classical) => 150
 
-      case (Daily | Eastern, Crazyhouse, Blitz)       => 90
-      case (Daily | Eastern, _, Blitz)                => 60 // variant daily is shorter
+      case (Daily | Eastern, Crazyhouse, Blitz) => 90
+      case (Daily | Eastern, _, Blitz) => 60 // variant daily is shorter
 
-      case (Weekly, _, HyperBullet | Bullet)          => 60 * 2
-      case (Weekly, _, SuperBlitz)                    => 60 * 3
-      case (Weekly, _, Blitz)                         => 60 * 3
-      case (Weekly, _, Classical)                     => 60 * 4
+      case (Weekly, _, HyperBullet | Bullet) => 60 * 2
+      case (Weekly, _, SuperBlitz) => 60 * 3
+      case (Weekly, _, Blitz) => 60 * 3
+      case (Weekly, _, Classical) => 60 * 4
 
-      case (Weekend, _, HyperBullet | Bullet)         => 90
-      case (Weekend, _, SuperBlitz)                   => 60 * 2
-      case (Weekend, _, Blitz)                        => 60 * 3
-      case (Weekend, _, Classical)                    => 60 * 4
+      case (Weekend, _, HyperBullet | Bullet) => 90
+      case (Weekend, _, SuperBlitz) => 60 * 2
+      case (Weekend, _, Blitz) => 60 * 3
+      case (Weekend, _, Classical) => 60 * 4
 
-      case (Monthly, _, HyperBullet | Bullet)         => 60 * 3
-      case (Monthly, _, SuperBlitz)                   => 60 * 3 + 30
-      case (Monthly, _, Blitz)                        => 60 * 4
-      case (Monthly, _, Classical)                    => 60 * 5
+      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
+      case (Monthly, _, SuperBlitz) => 60 * 3 + 30
+      case (Monthly, _, Blitz) => 60 * 4
+      case (Monthly, _, Classical) => 60 * 5
 
-      case (Yearly, _, HyperBullet | Bullet)          => 60 * 4
-      case (Yearly, _, SuperBlitz)                    => 60 * 5
-      case (Yearly, _, Blitz)                         => 60 * 6
-      case (Yearly, _, Classical)                     => 60 * 8
+      case (Yearly, _, HyperBullet | Bullet) => 60 * 4
+      case (Yearly, _, SuperBlitz) => 60 * 5
+      case (Yearly, _, Blitz) => 60 * 6
+      case (Yearly, _, Classical) => 60 * 8
 
-      case (Marathon, _, _)                           => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _)               => 60 * 4
+      case (Marathon, _, _) => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _) => 60 * 4
 
-      case (Unique, _, _)                             => 0
+      case (Unique, _, _) => 0
 
     }) filter (0!=)
   }
@@ -185,14 +186,14 @@ object Schedule {
     (s.freq, s.variant, s.speed) match {
       // Special cases.
       case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
+      case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
+      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
 
-      case (_, _, HyperBullet)                          => TC(30, 0)
-      case (_, _, Bullet)                               => TC(60, 0)
-      case (_, _, SuperBlitz)                           => TC(3 * 60, 0)
-      case (_, _, Blitz)                                => TC(5 * 60, 0)
-      case (_, _, Classical)                            => TC(10 * 60, 0)
+      case (_, _, HyperBullet) => TC(30, 0)
+      case (_, _, Bullet) => TC(60, 0)
+      case (_, _, SuperBlitz) => TC(3 * 60, 0)
+      case (_, _, Blitz) => TC(5 * 60, 0)
+      case (_, _, Classical) => TC(10 * 60, 0)
     }
   }
 
@@ -202,27 +203,27 @@ object Schedule {
       import Freq._, Speed._
 
       val nbRatedGame = (s.freq, s.speed) match {
-        case (Hourly, HyperBullet | Bullet)           => 20
-        case (Hourly, SuperBlitz | Blitz)             => 15
-        case (Hourly, Classical)                      => 10
+        case (Hourly, HyperBullet | Bullet) => 20
+        case (Hourly, SuperBlitz | Blitz) => 15
+        case (Hourly, Classical) => 10
 
-        case (Daily | Eastern, HyperBullet | Bullet)  => 20
-        case (Daily | Eastern, SuperBlitz | Blitz)    => 15
-        case (Daily | Eastern, Classical)             => 10
+        case (Daily | Eastern, HyperBullet | Bullet) => 20
+        case (Daily | Eastern, SuperBlitz | Blitz) => 15
+        case (Daily | Eastern, Classical) => 10
 
         case (Weekly | Monthly, HyperBullet | Bullet) => 30
-        case (Weekly | Monthly, SuperBlitz | Blitz)   => 20
-        case (Weekly | Monthly, Classical)            => 15
+        case (Weekly | Monthly, SuperBlitz | Blitz) => 20
+        case (Weekly | Monthly, Classical) => 15
 
-        case (Weekend, HyperBullet | Bullet)          => 30
-        case (Weekend, SuperBlitz | Blitz)            => 20
+        case (Weekend, HyperBullet | Bullet) => 30
+        case (Weekend, SuperBlitz | Blitz) => 20
 
-        case _                                        => 0
+        case _ => 0
       }
 
       val minRating = s.freq match {
         case Weekend => 2200
-        case _       => 0
+        case _ => 0
       }
 
       Condition.All(
@@ -232,6 +233,7 @@ object Schedule {
         minRating = minRating.some.filter(0<).map {
           Condition.MinRating(s.perfType, _)
         },
-        maxRating = none)
+        maxRating = none
+      )
     }
 }

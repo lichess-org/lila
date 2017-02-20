@@ -12,13 +12,15 @@ case class Winner(
   tourId: String,
   userId: String,
   tourName: String,
-  date: DateTime)
+  date: DateTime
+)
 
 case class FreqWinners(
     yearly: Option[Winner],
     monthly: Option[Winner],
     weekly: Option[Winner],
-    daily: Option[Winner]) {
+    daily: Option[Winner]
+) {
 
   lazy val top: Option[Winner] =
     daily.filter(_.date isAfter DateTime.now.minusHours(2)) orElse
@@ -37,7 +39,8 @@ case class AllWinners(
     classical: FreqWinners,
     elite: List[Winner],
     marathon: List[Winner],
-    variants: Map[String, FreqWinners]) {
+    variants: Map[String, FreqWinners]
+) {
 
   lazy val top: List[Winner] = List(
     List(hyperbullet, bullet, superblitz, blitz, classical).flatMap(_.top),
@@ -57,7 +60,8 @@ final class WinnersApi(
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
     ttl: FiniteDuration,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler
+) {
 
   import BSONHandlers._
   import lila.db.BSON.MapDocument.MapHandler
@@ -93,7 +97,8 @@ final class WinnersApi(
       yearly = firstStandardWinner(yearlies, speed),
       monthly = firstStandardWinner(monthlies, speed),
       weekly = firstStandardWinner(weeklies, speed),
-      daily = firstStandardWinner(dailies, speed))
+      daily = firstStandardWinner(dailies, speed)
+    )
     AllWinners(
       hyperbullet = standardFreqWinners(Speed.HyperBullet),
       bullet = standardFreqWinners(Speed.Bullet),
@@ -107,14 +112,17 @@ final class WinnersApi(
           yearly = firstVariantWinner(yearlies, v),
           monthly = firstVariantWinner(monthlies, v),
           weekly = firstVariantWinner(weeklies, v),
-          daily = firstVariantWinner(dailies, v))
-      }.toMap)
+          daily = firstVariantWinner(dailies, v)
+        )
+      }.toMap
+    )
   }
 
   private val allCache = mongoCache.single[AllWinners](
     prefix = "tournament:winner:all",
     f = fetchAll,
-    timeToLive = ttl)
+    timeToLive = ttl
+  )
 
   def all: Fu[AllWinners] = allCache(())
 
@@ -129,6 +137,6 @@ object WinnersApi {
 
   val variants = Variant.all.filter {
     case Standard | FromPosition => false
-    case _                       => true
+    case _ => true
   }
 }

@@ -24,7 +24,8 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUserApi: LightUserApi) {
+    lightUserApi: LightUserApi
+) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
@@ -32,7 +33,8 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
-    simuls: Fu[List[Simul]])(implicit ctx: Context): Fu[Response] =
+    simuls: Fu[List[Simul]]
+  )(implicit ctx: Context): Fu[Response] =
     lobbyApi(ctx) zip
       posts zip
       tours zip
@@ -46,7 +48,7 @@ final class Preload(
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) zip
       (ctx.me ?? Preload.currentGame(lightUserApi.sync)) flatMap {
-        case (((((((((((((data, posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), currentGame)) =>
+        case data ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ currentGame =>
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
@@ -72,7 +74,9 @@ object Preload {
           json = Json.obj(
             "id" -> pov.game.id,
             "color" -> pov.color.name,
-            "opponent" -> opponent))
+            "opponent" -> opponent
+          )
+        )
       }
     }
 }

@@ -17,19 +17,22 @@ private[lobby] final class SocketHandler(
     lobby: ActorRef,
     socket: ActorRef,
     poolApi: PoolApi,
-    blocking: String => Fu[Set[String]]) {
+    blocking: String => Fu[Set[String]]
+) {
 
-  private val HookPoolLimitPerMember = new lila.memo.RateLimit(
+  private val HookPoolLimitPerMember = new lila.memo.RateLimit[String](
     credits = 25,
     duration = 1 minute,
     name = "lobby hook/pool per member",
-    key = "lobby.hook_pool.member")
+    key = "lobby.hook_pool.member"
+  )
 
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(
       k = member.uid,
       cost = cost,
-      msg = s"$msg mobile=${member.mobile}")(op)
+      msg = s"$msg mobile=${member.mobile}"
+    )(op)
 
   private def controller(socket: ActorRef, member: Member): Handler.Controller = {
     case ("join", o) => HookPoolLimit(member, cost = 5, msg = s"join $o") {
@@ -70,7 +73,9 @@ private[lobby] final class SocketHandler(
             ratingMap = user.ratingMap,
             ratingRange = ratingRange,
             lame = user.lame,
-            blocking = user.blocking))
+            blocking = user.blocking
+          )
+        )
       }
     }
     // leaving a pool

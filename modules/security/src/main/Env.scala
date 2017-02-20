@@ -11,7 +11,8 @@ final class Env(
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env) {
+    db: lila.db.Env
+) {
 
   private val settings = new {
     val CollectionSecurity = config getString "collection.security"
@@ -56,23 +57,27 @@ final class Env(
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
     asyncCache = asyncCache,
-    cachedIpsTtl = FirewallCachedIpsTtl)
+    cachedIpsTtl = FirewallCachedIpsTtl
+  )
 
   lazy val flood = new Flood(FloodDuration)
 
   lazy val recaptcha: Recaptcha =
     if (RecaptchaEnabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
-      endpoint = RecaptchaEndpoint)
+      endpoint = RecaptchaEndpoint
+    )
     else RecaptchaSkip
 
   lazy val forms = new DataForm(
     captcher = captcher,
-    emailAddress = emailAddress)
+    emailAddress = emailAddress
+  )
 
   lazy val geoIP = new GeoIP(
     file = GeoIPFile,
-    cacheTtl = GeoIPCacheTtl)
+    cacheTtl = GeoIPCacheTtl
+  )
 
   lazy val userSpy = UserSpy(firewall, geoIP)(storeColl) _
 
@@ -88,7 +93,8 @@ final class Env(
       replyTo = EmailConfirmMailgunReplyTo,
       baseUrl = EmailConfirmMailgunBaseUrl,
       secret = EmailConfirmSecret,
-      system = system)
+      system = system
+    )
     else EmailConfirmSkip
 
   lazy val passwordReset = new PasswordReset(
@@ -97,16 +103,19 @@ final class Env(
     sender = PasswordResetMailgunSender,
     replyTo = PasswordResetMailgunReplyTo,
     baseUrl = PasswordResetMailgunBaseUrl,
-    secret = PasswordResetSecret)
+    secret = PasswordResetSecret
+  )
 
   lazy val loginToken = new LoginToken(
-    secret = LoginTokenSecret)
+    secret = LoginTokenSecret
+  )
 
   lazy val emailAddress = new EmailAddress(disposableEmailDomain)
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    busOption = system.lilaBus.some)
+    busOption = system.lilaBus.some
+  )
 
   scheduler.once(10 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
@@ -133,5 +142,6 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     asyncCache = lila.memo.Env.current.asyncCache,
-    captcher = lila.hub.Env.current.actor.captcher)
+    captcher = lila.hub.Env.current.actor.captcher
+  )
 }

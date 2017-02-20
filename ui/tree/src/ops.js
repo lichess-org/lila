@@ -17,13 +17,11 @@ function findInMainline(fromNode, predicate) {
 
 // returns a list of nodes collected from the original one
 function collect(from, pickChild) {
-  var nodes = [];
-  var rec = function(node) {
-    nodes.push(node);
-    var child = pickChild(node);
-    if (child) rec(child);
-  };
-  rec(from);
+  var nodes = [from], n = from, c;
+  while(c = pickChild(n)) {
+    nodes.push(c);
+    n = c;
+  }
   return nodes;
 }
 
@@ -77,7 +75,6 @@ function reconstruct(parts) {
   var root = parts[0],
     node = root;
   root.id = '';
-  root.fixed = true;
   for (var i = 1, nb = parts.length; i < nb; i++) {
     var n = parts[i];
     if (node.children) node.children.unshift(n);
@@ -85,7 +82,6 @@ function reconstruct(parts) {
     node = n;
   }
   node.children = node.children || [];
-  node.fixed = true;
   return root;
 }
 

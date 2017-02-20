@@ -9,7 +9,8 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     noteApi: lila.user.NoteApi,
     system: ActorSystem,
-    hub: lila.hub.Env) {
+    hub: lila.hub.Env
+) {
 
   private val CollectionReport = config getString "collection.report"
   private val ActorName = config getString "actor.name"
@@ -51,5 +52,6 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
     system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current)
+    hub = lila.hub.Env.current
+  )
 }

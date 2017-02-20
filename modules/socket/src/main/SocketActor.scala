@@ -14,7 +14,7 @@ import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
-  val members = scala.collection.mutable.Map.empty[String, M]
+  val members = scala.collection.mutable.AnyRefMap.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = initialPong
 
@@ -36,7 +36,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   override def postStop() {
     super.postStop()
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
-    members.keys foreach eject
+    members foreachKey eject
   }
 
   // to be defined in subclassing actor
@@ -45,38 +45,30 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)         => ping(uid)
+    case Ping(uid) => ping(uid)
 
-    case Broom             => broom
+    case Broom => broom
 
     // when a member quits
-    case Quit(uid)         => quit(uid)
+    case Quit(uid) => quit(uid)
 
     case HasUserId(userId) => sender ! members.values.exists(_.userId.contains(userId))
 
-    case Resync(uid)       => resync(uid)
+    case Resync(uid) => resync(uid)
 
-    case d: Deploy         => onDeploy(d)
+    case d: Deploy => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
 
-  def notifyAll[A: Writes](t: String, data: A) {
+  def notifyAll[A: Writes](t: String, data: A): Unit =
     notifyAll(makeMessage(t, data))
-  }
 
-  def notifyAll(t: String) {
+  def notifyAll(t: String): Unit =
     notifyAll(makeMessage(t))
-  }
 
-  def notifyAll(msg: JsObject) {
-    members.values.foreach(_ push msg)
-  }
-
-  def notifyIf[A: Writes](pred: SocketMember => Boolean, t: String, data: A) {
-    val msg = makeMessage(t, data)
-    members.values.filter(pred).foreach(_ push msg)
-  }
+  def notifyAll(msg: JsObject): Unit =
+    members.foreachValue(_ push msg)
 
   def notifyAllAsync[A: Writes](t: String, data: A) = Future {
     notifyAll(t, data)
@@ -163,8 +155,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
 
-  def userIds: Iterable[String] = members.values.flatMap(_.userId)
-
   val maxSpectatorUsers = 10
 
   def showSpectators(lightUser: LightUser.Getter)(watchers: Iterable[SocketMember]): Fu[JsValue] = {
@@ -183,7 +173,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       Json.obj(
         "nb" -> total,
         "users" -> users.flatten.map(_.titleName),
-        "anons" -> anons)
+        "anons" -> anons
+      )
     }
   }
 

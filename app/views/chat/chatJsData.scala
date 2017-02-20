@@ -14,7 +14,8 @@ object ChatJsData {
     timeout: Boolean,
     public: Boolean, // game players chat is not public
     withNote: Boolean = false,
-    writeable: Boolean = true)(implicit ctx: Context) =
+    writeable: Boolean = true
+  )(implicit ctx: Context) =
     json(
       chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, public = public, restricted = chat.restricted
     )
@@ -26,7 +27,8 @@ object ChatJsData {
     public: Boolean, // game players chat is not public
     withNote: Boolean = false,
     writeable: Boolean = true,
-    restricted: Boolean = false)(implicit ctx: Context) = Json.obj(
+    restricted: Boolean = false
+  )(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
       "name" -> name,
@@ -42,7 +44,8 @@ object ChatJsData {
     "kobold" -> ctx.troll,
     "permissions" -> Json.obj(
       "timeout" -> isGranted(_.ChatTimeout).option(true),
-      "shadowban" -> isGranted(_.MarkTroll).option(true)).noNull,
+      "shadowban" -> isGranted(_.MarkTroll).option(true)
+    ).noNull,
     "timeout" -> timeout,
     "timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons)
   )

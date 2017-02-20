@@ -16,12 +16,14 @@ private[simul] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
-    exists: Simul.ID => Fu[Boolean]) {
+    exists: Simul.ID => Fu[Boolean]
+) {
 
   def join(
     simId: String,
     uid: Uid,
-    user: Option[User]): Fu[Option[JsSocketHandler]] =
+    user: Option[User]
+  ): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {
         for {
@@ -39,11 +41,13 @@ private[simul] final class SocketHandler(
     socket: ActorRef,
     simId: String,
     uid: Uid,
-    member: Member): Handler.Controller = ({
+    member: Member
+  ): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
   }: Handler.Controller) orElse lila.chat.Socket.in(
     chatId = simId,
     member = member,
     socket = socket,
-    chat = chat)
+    chat = chat
+  )
 }

@@ -11,13 +11,14 @@ final class Analyser(
     repo: FishnetRepo,
     uciMemo: UciMemo,
     sequencer: lila.hub.FutureSequencer,
-    limiter: Limiter) {
+    limiter: Limiter
+) {
 
   val maxPlies = 200
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     AnalysisRepo exists game.id flatMap {
-      case true                       => fuccess(false)
+      case true => fuccess(false)
       case _ if Game.isOldHorde(game) => fuccess(false)
       case _ =>
         limiter(sender) flatMap { accepted =>
@@ -59,12 +60,14 @@ final class Analyser(
           id = game.id,
           initialFen = initialFen map FEN.apply,
           variant = game.variant,
-          moves = moves.take(maxPlies) mkString " "),
+          moves = moves.take(maxPlies) mkString " "
+        ),
         startPly = game.startedAtTurn,
         nbPly = game.turns,
         tries = 0,
         lastTryByKey = none,
         acquired = none,
-        createdAt = DateTime.now)
+        createdAt = DateTime.now
+      )
     }
 }

@@ -98,4 +98,10 @@ module.exports = function(send, ctrl) {
     }
     return false;
   }.bind(this);
+
+  lichess.pubsub.on('ab.rep', function(n) {
+    send('rep', {
+      n: n
+    });
+  });
 }

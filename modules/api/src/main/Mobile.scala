@@ -15,7 +15,8 @@ object Mobile {
       // date when a newer version was released
       deprecatedAt: DateTime,
       // date when the server stops accepting requests
-      unsupportedAt: DateTime)
+      unsupportedAt: DateTime
+    )
 
     val currentVersion = ApiVersion(2)
 
@@ -25,7 +26,8 @@ object Mobile {
       Old( // chat messages are html escaped
         version = ApiVersion(1),
         deprecatedAt = new DateTime("2016-08-13"),
-        unsupportedAt = new DateTime("2016-11-13"))
+        unsupportedAt = new DateTime("2016-11-13")
+      )
     )
 
     private val PathPattern = """^.+/socket/v(\d+)$""".r
@@ -36,7 +38,7 @@ object Mobile {
       else if (accepts contains "application/vnd.lichess.v1+json") Some(ApiVersion(1))
       else req.path match {
         case PathPattern(version) => parseIntOption(version) map ApiVersion.apply
-        case _                    => None
+        case _ => None
       }
     } filter acceptedVersions.contains
 

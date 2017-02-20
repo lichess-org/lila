@@ -12,7 +12,8 @@ case class AiConfig(
     days: Int,
     level: Int,
     color: Color,
-    fen: Option[String] = None) extends Config with Positional {
+    fen: Option[String] = None
+) extends Config with Positional {
 
   val strictFen = true
 
@@ -24,15 +25,18 @@ case class AiConfig(
       game = chessGame,
       whitePlayer = Player.make(
         color = ChessColor.White,
-        aiLevel = creatorColor.black option level),
+        aiLevel = creatorColor.black option level
+      ),
       blackPlayer = Player.make(
         color = ChessColor.Black,
-        aiLevel = creatorColor.white option level),
+        aiLevel = creatorColor.white option level
+      ),
       mode = Mode.Casual,
       variant = realVariant,
       source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Ai),
       daysPerTurn = makeDaysPerTurn,
-      pgnImport = None)
+      pgnImport = None
+    )
   } start
 
   def pov = Pov(game, creatorColor)
@@ -48,7 +52,8 @@ object AiConfig extends BaseConfig {
     days = d,
     level = level,
     color = Color(c) err "Invalid color " + c,
-    fen = fen)
+    fen = fen
+  )
 
   val default = AiConfig(
     variant = variantDefault,
@@ -57,7 +62,8 @@ object AiConfig extends BaseConfig {
     increment = 8,
     days = 2,
     level = 1,
-    color = Color.default)
+    color = Color.default
+  )
 
   val levels = (1 to 8).toList
 
@@ -78,7 +84,8 @@ object AiConfig extends BaseConfig {
       days = r int "d",
       level = r int "l",
       color = Color.White,
-      fen = r strO "f" filter (_.nonEmpty))
+      fen = r strO "f" filter (_.nonEmpty)
+    )
 
     def writes(w: BSON.Writer, o: AiConfig) = $doc(
       "v" -> o.variant.id,
@@ -87,6 +94,7 @@ object AiConfig extends BaseConfig {
       "i" -> o.increment,
       "d" -> o.days,
       "l" -> o.level,
-      "f" -> o.fen)
+      "f" -> o.fen
+    )
   }
 }

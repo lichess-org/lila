@@ -16,7 +16,8 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     user: User,
     stat: PerfStat,
     rank: Option[Int],
-    ratingDistribution: Option[List[Int]]) = Json.obj(
+    ratingDistribution: Option[List[Int]]
+  ) = Json.obj(
     "user" -> user,
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
@@ -25,14 +26,16 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
         case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
       }
     },
-    "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent))
+    "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent)
+  )
 
   private implicit val userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u.value)
     Json.obj(
       "id" -> u.value,
       "name" -> light.fold(u.value)(_.name),
-      "title" -> light.flatMap(_.title))
+      "title" -> light.flatMap(_.title)
+    )
   }
 
   implicit val ratingAtWrites = Json.writes[RatingAt]
@@ -62,7 +65,8 @@ object JsonView {
       "rating" -> truncate(p.rating),
       "deviation" -> truncate(p.deviation),
       "volatility" -> truncate(p.volatility),
-      "provisional" -> p.provisional)
+      "provisional" -> p.provisional
+    )
   }
   implicit val perfWriter: OWrites[Perf] = OWrites { p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
@@ -73,6 +77,7 @@ object JsonView {
   implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
     Json.obj(
       "key" -> pt.key,
-      "name" -> pt.name)
+      "name" -> pt.name
+    )
   }
 }

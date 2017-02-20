@@ -8,7 +8,8 @@ case class PracticeProgress(
     _id: PracticeProgress.Id,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: DateTime,
-    updatedAt: DateTime) {
+    updatedAt: DateTime
+) {
 
   import PracticeProgress.NbMoves
 
@@ -21,7 +22,8 @@ case class PracticeProgress(
     chapters = chapters - chapterId + {
     chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
   },
-    updatedAt = DateTime.now)
+    updatedAt = DateTime.now
+  )
 
   def countDone(chapterIds: List[Chapter.Id]): Int =
     chapterIds count chapters.contains
@@ -43,7 +45,8 @@ object PracticeProgress {
     _id = id,
     chapters = Map.empty,
     createdAt = DateTime.now,
-    updatedAt = DateTime.now)
+    updatedAt = DateTime.now
+  )
 
   def anon = empty(Id("anon"))
 }

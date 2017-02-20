@@ -135,11 +135,12 @@ function renderMainlineMoveOf(ctx, node, opts) {
   var attrs = {
     p: path
   };
-  var classes = [];
-  if (path === ctx.ctrl.vm.path) classes.push('active');
-  if (path === ctx.ctrl.vm.contextMenuPath) classes.push('context_menu');
-  if (path === ctx.ctrl.vm.initialPath && game.playable(ctx.ctrl.data)) classes.push('current');
-  else if (ctx.ctrl.retro && ctx.ctrl.retro.current() && ctx.ctrl.retro.current().prev.path === path) classes.push('current');
+  var classes = [], c = ctx.ctrl;
+  if (path === c.vm.path) classes.push('active');
+  if (path === c.vm.contextMenuPath) classes.push('context_menu');
+  if (path === c.vm.initialPath && game.playable(c.data)) classes.push('current');
+  else if (c.retro && c.retro.current() && c.retro.current().prev.path === path) classes.push('current');
+  else if (c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath) classes.push('nongame');
   if (opts.conceal) classes.push(opts.conceal);
   if (classes.length) attrs.class = classes.join(' ');
   return moveTag(attrs, moveView.renderMove(ctx, node));

@@ -12,7 +12,8 @@ import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.GetterSync) {
+    lightUser: LightUser.GetterSync
+) {
 
   import JsonView._
 
@@ -20,7 +21,8 @@ final class JsonView(
     study: Study,
     chapters: List[Chapter.Metadata],
     currentChapter: Chapter,
-    me: Option[User]) = {
+    me: Option[User]
+  ) = {
 
     def allowed(selection: Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection, study, me.map(_.id))
@@ -42,7 +44,9 @@ final class JsonView(
           "features" -> Json.obj(
             "computer" -> allowed(study.settings.computer),
             "explorer" -> allowed(study.settings.explorer)
-          )))
+          )
+        )
+      )
     }
   }.chronometer
     // .mon(_.fishnet.acquire time client.skill.key)
@@ -54,7 +58,8 @@ final class JsonView(
     "name" -> c.name,
     "practice" -> c.practice,
     "conceal" -> c.conceal,
-    "orientation" -> c.setup.orientation)
+    "orientation" -> c.setup.orientation
+  )
 
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
@@ -63,7 +68,8 @@ final class JsonView(
     Json.obj(
       "user" -> lightUser(m.id),
       "role" -> m.role,
-      "addedAt" -> m.addedAt)
+      "addedAt" -> m.addedAt
+    )
   }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
@@ -121,8 +127,8 @@ object JsonView {
     JsString(v.key)
   }
   private[study] implicit val fromWriter: Writes[Study.From] = Writes[Study.From] {
-    case Study.From.Scratch   => JsString("scratch")
-    case Study.From.Game(id)  => Json.obj("game" -> id)
+    case Study.From.Scratch => JsString("scratch")
+    case Study.From.Game(id) => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
   }
   private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
@@ -137,7 +143,7 @@ object JsonView {
         orig <- o.get[Pos]("orig")
       } yield o.get[Pos]("dest") match {
         case Some(dest) => Shape.Arrow(brush, orig, dest)
-        case _          => Shape.Circle(brush, orig)
+        case _ => Shape.Circle(brush, orig)
       }
     }.fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }

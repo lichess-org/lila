@@ -14,7 +14,8 @@ final class NoteApi(coll: Coll) {
     else coll.update(
       $id(makeId(gameId, userId)),
       $set("t" -> text),
-      upsert = true)
+      upsert = true
+    )
   }.void
 
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"

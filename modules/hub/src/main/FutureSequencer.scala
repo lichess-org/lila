@@ -8,7 +8,8 @@ final class FutureSequencer(
     system: ActorSystem,
     receiveTimeout: Option[FiniteDuration],
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger) {
+    logger: lila.log.Logger
+) {
 
   import FutureSequencer._
 
@@ -35,7 +36,8 @@ object FutureSequencer {
   private final class FSequencer(
       receiveTimeout: Option[FiniteDuration],
       executionTimeout: Option[FiniteDuration] = None,
-      logger: lila.log.Logger) extends Actor {
+      logger: lila.log.Logger
+  ) extends Actor {
 
     receiveTimeout.foreach(context.setReceiveTimeout)
 
@@ -49,7 +51,7 @@ object FutureSequencer {
     private def busy: Receive = {
 
       case Done => dequeue match {
-        case None       => context become idle
+        case None => context become idle
         case Some(work) => processThenDone(work)
       }
 
@@ -90,12 +92,14 @@ object FutureSequencer {
     case class Work[A](
       run: () => Fu[A],
       promise: Promise[A],
-      timeout: Option[FiniteDuration] = None)
+      timeout: Option[FiniteDuration] = None
+    )
 
     def work[A](
       run: => Fu[A],
       promise: Promise[A],
-      timeout: Option[FiniteDuration] = None): Work[A] = Work(() => run, promise, timeout)
+      timeout: Option[FiniteDuration] = None
+    ): Work[A] = Work(() => run, promise, timeout)
 
     case class WithQueueSize(f: Int => Unit)
   }

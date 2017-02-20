@@ -14,7 +14,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {
-      case 0          => ""
+      case 0 => ""
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
       case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
     }
@@ -35,7 +35,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Atomic,
     PerfType.Horde,
     PerfType.RacingKings,
-    PerfType.Crazyhouse)
+    PerfType.Crazyhouse
+  )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String)(implicit ctx: Context) = Html {
     val title = s"$name rating over ${nb.localize} games"
@@ -60,9 +61,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def showRatingDiff(diff: Int) = Html {
     diff match {
-      case 0          => """<span class="rp null">±0</span>"""
+      case 0 => """<span class="rp null">±0</span>"""
       case d if d > 0 => s"""<span class="rp up">+$d</span>"""
-      case d          => s"""<span class="rp down">$d</span>"""
+      case d => s"""<span class="rp down">$d</span>"""
     }
   }
 
@@ -80,7 +81,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withOnline: Boolean = true,
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
-    params: String = ""): Html = Html {
+    params: String = ""
+  ): Html = Html {
     userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
       userIdNameLink(
         userId = user.id,
@@ -91,7 +93,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         withOnline = withOnline,
         withTitle = withTitle,
         truncate = truncate,
-        params = params)
+        params = params
+      )
     }
   }
 
@@ -101,7 +104,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withOnline: Boolean = true,
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
-    params: String = ""): Html = Html {
+    params: String = ""
+  ): Html = Html {
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -111,15 +115,17 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withOnline = withOnline,
       withTitle = withTitle,
       truncate = truncate,
-      params = params)
+      params = params
+    )
   }
 
   def userIdLink(
     userId: String,
-    cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
+    cssClass: Option[String]
+  ): Html = userIdLink(userId.some, cssClass)
 
   private def titleTag(title: Option[String]) = title match {
-    case None    => ""
+    case None => ""
     case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span> """
   }
 
@@ -132,7 +138,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withTitle: Boolean,
     truncate: Option[Int],
     title: Option[String],
-    params: String): String = {
+    params: String
+  ): String = {
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
@@ -150,7 +157,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
-    params: String = ""): Html = Html {
+    params: String = ""
+  ): Html = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, params)
     val content = text | user.username
@@ -166,7 +174,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     cssClass: Option[String] = None,
     withPowerTip: Boolean = true,
     withTitle: Boolean = false,
-    withOnline: Boolean = true) = {
+    withOnline: Boolean = true
+  ) = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     val klass = userClass(userId, cssClass, withOnline, withPowerTip)
@@ -185,7 +194,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withTitle: Boolean = true,
     withBestRating: Boolean = false,
     withPerfRating: Option[PerfType] = None,
-    text: Option[String] = None) = Html {
+    text: Option[String] = None
+  ) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = s"data-${userHref(user.username)}"
     val content = text | user.username
@@ -225,7 +235,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     userId: String,
     cssClass: Option[String],
     withOnline: Boolean,
-    withPowerTip: Boolean = true) = {
+    withPowerTip: Boolean = true
+  ) = {
     "user_link" :: List(
       cssClass,
       withPowerTip option "ulpt",
@@ -237,16 +248,16 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
   def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) = Html((filter match {
-    case GameFilter.All      => info.user.count.game + " " + trans.gamesPlayed()
-    case GameFilter.Me       => ctx.me ?? (me => trans.nbGamesWithYou.str(info.nbWithMe))
-    case GameFilter.Rated    => info.nbRated + " " + trans.rated()
-    case GameFilter.Win      => trans.nbWins(info.user.count.win)
-    case GameFilter.Loss     => trans.nbLosses(info.user.count.loss)
-    case GameFilter.Draw     => trans.nbDraws(info.user.count.draw)
-    case GameFilter.Playing  => info.nbPlaying + " playing"
+    case GameFilter.All => info.user.count.game + " " + trans.gamesPlayed()
+    case GameFilter.Me => ctx.me ?? (me => trans.nbGamesWithYou.str(info.nbWithMe))
+    case GameFilter.Rated => info.nbRated + " " + trans.rated()
+    case GameFilter.Win => trans.nbWins(info.user.count.win)
+    case GameFilter.Loss => trans.nbLosses(info.user.count.loss)
+    case GameFilter.Draw => trans.nbDraws(info.user.count.draw)
+    case GameFilter.Playing => info.nbPlaying + " playing"
     case GameFilter.Bookmark => trans.nbBookmarks(info.nbBookmark)
     case GameFilter.Imported => trans.nbImportedGames(info.nbImported)
-    case GameFilter.Search   => Html(trans.advancedSearch.str().replaceFirst(" ", "\n"))
+    case GameFilter.Search => Html(trans.advancedSearch.str().replaceFirst(" ", "\n"))
   }).toString)
 
   def describeUser(user: User) = {

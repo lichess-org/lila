@@ -18,7 +18,8 @@ object PovToEntry {
     moveAccuracy: Option[List[Int]],
     boards: NonEmptyList[Board],
     movetimes: NonEmptyList[Int],
-    advices: Map[Ply, Advice])
+    advices: Map[Ply, Advice]
+  )
 
   def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
     enrich(game, userId, provisional) map
@@ -42,8 +43,9 @@ object PovToEntry {
             boards <- chess.Replay.boards(
               moveStrs = game.pgnMoves,
               initialFen = fen map chess.format.FEN,
-              variant = game.variant).toOption.flatMap(_.toNel)
-            movetimes <- game.moveTimes(pov.color).toNel
+              variant = game.variant
+            ).toOption.flatMap(_.toNel)
+            movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.toTenths.toInt).toNel)
           } yield RichPov(
             pov = pov,
             provisional = provisional,
@@ -59,12 +61,12 @@ object PovToEntry {
     }
 
   private def pgnMoveToRole(pgn: String): Role = pgn.head match {
-    case 'N'       => chess.Knight
-    case 'B'       => chess.Bishop
-    case 'R'       => chess.Rook
-    case 'Q'       => chess.Queen
+    case 'N' => chess.Knight
+    case 'B' => chess.Bishop
+    case 'R' => chess.Rook
+    case 'Q' => chess.Queen
     case 'K' | 'O' => chess.King
-    case _         => chess.Pawn
+    case _ => chess.Pawn
   }
 
   private def makeMoves(from: RichPov): List[Move] = {
@@ -83,20 +85,20 @@ object PovToEntry {
       }
     }
     movetimes.zip(roles).zip(boards).zipWithIndex.map {
-      case (((tenths, role), board), i) =>
+      case tenths ~ role ~ board ~ i =>
         val ply = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
           case o if o.judgment.isBlunder => from.advices get ply match {
             case Some(p) if p.judgment.isBlunder => false.some
-            case _                               => true.some
+            case _ => true.some
           }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
           case o if o.judgment.isBlunder => from.advices.get(ply + 1) match {
             case Some(p) if p.judgment.isBlunder => true.some
-            case _                               => false.some
+            case _ => false.some
           }
           case _ => none
         }
@@ -109,7 +111,8 @@ object PovToEntry {
           cpl = cpDiffs lift i map (_ min 1000),
           material = board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
-          luck = luck)
+          luck = luck
+        )
     }
   }
 
@@ -139,8 +142,8 @@ object PovToEntry {
       color = pov.color,
       perf = perfType,
       eco =
-        if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else chess.opening.Ecopening fromGame game.pgnMoves,
+      if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
+      else chess.opening.Ecopening fromGame game.pgnMoves,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
@@ -148,14 +151,15 @@ object PovToEntry {
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
       result = game.winnerUserId match {
-        case None                 => Result.Draw
+        case None => Result.Draw
         case Some(u) if u == myId => Result.Win
-        case _                    => Result.Loss
+        case _ => Result.Loss
       },
       termination = Termination fromStatus game.status,
       ratingDiff = ~pov.player.ratingDiff,
       analysed = analysis.isDefined,
       provisional = provisional,
-      date = game.createdAt)
+      date = game.createdAt
+    )
   }
 }

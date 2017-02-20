@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import lila.common.Iso
 import lila.common.Iso._
+import lila.common.{ Iso, IpAddress }
 
 trait Handlers {
 
@@ -58,4 +58,6 @@ trait Handlers {
       reader.read(v.get)
     }
   }
+
+  implicit val ipAddressHandler = isoHandler[IpAddress, String, BSONString](ipAddressIso)
 }

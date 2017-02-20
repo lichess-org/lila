@@ -2,7 +2,8 @@ package lila.setup
 
 case class ValidFen(
     fen: String,
-    situation: chess.Situation) {
+    situation: chess.Situation
+) {
 
   def color = situation.color
 }

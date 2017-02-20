@@ -14,8 +14,7 @@ object Game extends LilaController {
           (lila.analyse.AnalysisRepo remove game.id) >>
           Env.game.cached.clearNbImportedByCache(me.id) inject
           Redirect(routes.User.show(me.username))
-      }
-      else fuccess {
+      } else fuccess {
         Redirect(routes.Round.watcher(game.id, game.firstColor.name))
       }
     }
@@ -41,8 +40,10 @@ object Game extends LilaController {
           val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
           Ok.chunked(Env.api.pgnDump exportUserGames userId).withHeaders(
             CONTENT_TYPE -> pgnContentType,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn"))
-        })
+            CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn")
+          )
+        }
+      )
     else notFound
   }
 

@@ -28,7 +28,8 @@ object EventForm {
       url: String,
       enabled: Boolean,
       startsAt: DateTime,
-      finishesAt: DateTime) {
+      finishesAt: DateTime
+  ) {
 
     def update(event: Event) = event.copy(
       title = title,
@@ -38,7 +39,8 @@ object EventForm {
       url = url,
       enabled = enabled,
       startsAt = startsAt,
-      finishesAt = finishesAt)
+      finishesAt = finishesAt
+    )
 
     def make(userId: String) = Event(
       _id = Event.makeId,
@@ -51,7 +53,8 @@ object EventForm {
       startsAt = startsAt,
       finishesAt = finishesAt,
       createdBy = Event.UserId(userId),
-      createdAt = DateTime.now)
+      createdAt = DateTime.now
+    )
   }
 
   object Data {
@@ -64,6 +67,7 @@ object EventForm {
       url = event.url,
       enabled = event.enabled,
       startsAt = event.startsAt,
-      finishesAt = event.finishesAt)
+      finishesAt = event.finishesAt
+    )
   }
 }

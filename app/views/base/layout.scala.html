@@ -179,7 +179,8 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @ctx.me.map { me =>
     <div id="friend_box" data-preload="@ctx.onlineFriends.users.map(_.titleName).mkString(",")"
       data-playing="@ctx.onlineFriends.playing.mkString(",")"
-      data-patrons="@ctx.onlineFriends.patrons.mkString(",")">
+      data-patrons="@ctx.onlineFriends.patrons.mkString(",")"
+      data-studying="@ctx.onlineFriends.studying.mkString(",")">
       <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>
       <div class="content_wrap">
         <div class="content list"></div>

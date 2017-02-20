@@ -12,7 +12,8 @@ case class Video(
     ads: Boolean,
     startTime: Int, // in seconds
     metadata: Youtube.Metadata,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def id = _id
 
@@ -37,11 +38,11 @@ object Target {
   val EXPERT = 4
 
   def name(target: Int) = target match {
-    case BEGINNER     => "beginner"
+    case BEGINNER => "beginner"
     case INTERMEDIATE => "intermediate"
-    case ADVANCED     => "advanced"
-    case EXPERT       => "expert"
-    case _            => ""
+    case ADVANCED => "advanced"
+    case EXPERT => "expert"
+    case _ => ""
   }
 }
 

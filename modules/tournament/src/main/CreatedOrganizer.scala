@@ -5,7 +5,8 @@ import scala.concurrent.duration._
 
 private[tournament] final class CreatedOrganizer(
     api: TournamentApi,
-    isOnline: String => Boolean) extends Actor {
+    isOnline: String => Boolean
+) extends Actor {
 
   override def preStart {
     pairingLogger.info("Start CreatedOrganizer")
@@ -38,7 +39,7 @@ private[tournament] final class CreatedOrganizer(
               case _ =>
             }
             case Some(schedule) if tour.hasWaitedEnough => api start tour
-            case _                                      => ejectLeavers(tour)
+            case _ => ejectLeavers(tour)
           }
         }
         lila.mon.tournament.created(tours.size)

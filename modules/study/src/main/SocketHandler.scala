@@ -24,16 +24,18 @@ private[study] final class SocketHandler(
     socketHub: ActorRef,
     chat: ActorSelection,
     api: StudyApi,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler) {
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler
+) {
 
   import Handler.AnaRateLimit
   import JsonView.shapeReader
 
-  private val InviteLimitPerUser = new lila.memo.RateLimit(
+  private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
     name = "study invites per user",
-    key = "study_invite.user")
+    key = "study_invite.user"
+  )
 
   private def controller(
     socket: ActorRef,
@@ -41,7 +43,8 @@ private[study] final class SocketHandler(
     uid: Uid,
     member: Socket.Member,
     owner: Boolean,
-    user: Option[User]): Handler.Controller = ({
+    user: Option[User]
+  ): Handler.Controller = ({
     case ("p", o) => o int "v" foreach { v =>
       socket ! PingVersion(uid.value, v)
     }
@@ -64,7 +67,8 @@ private[study] final class SocketHandler(
               studyId,
               Position.Ref(chapterId, Path(anaMove.path)),
               Node.fromBranch(branch),
-              uid)
+              uid
+            )
           case scalaz.Success(branch) =>
             member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
           case scalaz.Failure(err) =>
@@ -89,7 +93,8 @@ private[study] final class SocketHandler(
               studyId,
               Position.Ref(chapterId, Path(anaDrop.path)),
               Node.fromBranch(branch),
-              uid)
+              uid
+            )
           case scalaz.Success(branch) =>
             member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
           case scalaz.Failure(err) =>
@@ -135,7 +140,7 @@ private[study] final class SocketHandler(
       api.invite(byUserId, studyId, username, socket)
     }
 
-    case ("kick", o) if owner   => o str "d" foreach { api.kick(studyId, _) }
+    case ("kick", o) if owner => o str "d" foreach { api.kick(studyId, _) }
 
     case ("leave", _) if !owner => member.userId foreach { api.kick(studyId, _) }
 
@@ -222,7 +227,8 @@ private[study] final class SocketHandler(
     chatId = studyId.value,
     member = member,
     socket = socket,
-    chat = chat)
+    chat = chat
+  )
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
     o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
@@ -244,7 +250,8 @@ private[study] final class SocketHandler(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User],
-    owner: Boolean): Fu[Option[JsSocketHandler]] = for {
+    owner: Boolean
+  ): Fu[Option[JsSocketHandler]] = for {
     socket ← socketHub ? Get(studyId.value) mapTo manifest[ActorRef]
     join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll), owner = owner)
     handler ← Handler(hub, socket, uid, join) {

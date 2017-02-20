@@ -16,6 +16,7 @@ final class JsonView(isOnline: String => Boolean) {
     "username" -> u.username,
     "title" -> u.title,
     "online" -> isOnline(u.id),
+    "disabled" -> u.disabled.option(true),
     "engine" -> u.engine.option(true),
     "booster" -> u.booster.option(true),
     "language" -> u.lang,
@@ -32,6 +33,7 @@ final class JsonView(isOnline: String => Boolean) {
     "username" -> u.username,
     "title" -> u.title,
     "online" -> isOnline(u.id),
+    "disabled" -> u.disabled.option(true),
     "engine" -> u.engine.option(true),
     "booster" -> u.booster.option(true),
     "language" -> u.lang,
@@ -61,7 +63,8 @@ object JsonView {
       "username" -> l.user.name,
       "title" -> l.user.title,
       "perfs" -> Json.obj(
-        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)),
+        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
+      ),
       "patron" -> l.user.isPatron.option(true)
     ).noNull
   }
@@ -74,7 +77,8 @@ object JsonView {
       "engine" -> u.engine,
       "booster" -> u.booster,
       "troll" -> u.troll,
-      "games" -> u.count.game).noNull
+      "games" -> u.count.game
+    ).noNull
   }
 
   implicit val perfWrites: OWrites[Perf] = OWrites { o =>
@@ -83,7 +87,8 @@ object JsonView {
       "rating" -> o.glicko.rating.toInt,
       "rd" -> o.glicko.deviation.toInt,
       "prov" -> o.glicko.provisional,
-      "prog" -> o.progress)
+      "prog" -> o.progress
+    )
   }
 
   private val standardPerfKeys = PerfType.standard.map(_.key).toSet

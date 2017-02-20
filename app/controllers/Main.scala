@@ -28,8 +28,10 @@ object Main extends LilaController {
               Env.api.Accessibility.blindCookieName,
               if (enable == "0") "" else Env.api.Accessibility.hash,
               maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
-              httpOnly = true.some)
-        })
+              httpOnly = true.some
+            )
+        }
+      )
     }
   }
 
@@ -88,26 +90,12 @@ object Main extends LilaController {
   }
 
   def jslog(id: String) = Open { ctx =>
-    val known = ctx.me.??(_.engine)
-    val referer = HTTPRequest.referer(ctx.req)
-    val name = get("n", ctx.req) | "?"
-    lila.mon.cheat.cssBot()
-    ctx.userId.ifTrue(!known && name != "ceval") ?? {
-      Env.report.api.autoBotReport(_, referer, name)
-    }
-    def doLog = lila.log("cheat").branch("jslog").info(
-      s"${ctx.req.remoteAddress} ${referer | "?"} ${ctx.userId | "anon"} $name")
-    if (id == "________") doLog
-    else lila.game.GameRepo pov id foreach {
-      _ foreach { pov =>
-        if (!known) doLog
-        if (name == "ceval" || name == "rcb")
-          Env.round.roundMap ! lila.hub.actorApi.map.Tell(
-            pov.gameId,
-            lila.round.actorApi.round.Cheat(pov.color))
-        else lila.game.GameRepo.setBorderAlert(pov)
-      }
-    }
+    Env.round.selfReport(
+      userId = ctx.userId,
+      ip = HTTPRequest lastRemoteAddress ctx.req,
+      fullId = id,
+      name = get("n", ctx.req) | "?"
+    )
     Ok.fuccess
   }
 
@@ -132,7 +120,8 @@ object Main extends LilaController {
         Ok(image.data).withHeaders(
           CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
-          CONTENT_LENGTH -> image.size.toString)
+          CONTENT_LENGTH -> image.size.toString
+        )
     }
   }
 

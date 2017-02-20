@@ -34,8 +34,8 @@ object PimpedFuture {
     def effectFold(fail: Exception => Unit, succ: A => Unit) {
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
+        case scala.util.Failure(e) => throw e // Throwables
+        case scala.util.Success(e) => succ(e)
       }
     }
 
@@ -64,8 +64,8 @@ object PimpedFuture {
     def addEffects(fail: Exception => Unit, succ: A => Unit): Fu[A] = {
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
+        case scala.util.Failure(e) => throw e // Throwables
+        case scala.util.Success(e) => succ(e)
       }
       fua
     }
@@ -110,13 +110,15 @@ object PimpedFuture {
     def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
       Future firstCompletedOf Seq(
         fua,
-        akka.pattern.after(duration, system.scheduler)(Future failed error))
+        akka.pattern.after(duration, system.scheduler)(Future failed error)
+      )
     }
 
     def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit system: akka.actor.ActorSystem): Fu[A] = {
       Future firstCompletedOf Seq(
         fua,
-        akka.pattern.after(duration, system.scheduler)(Future(default)))
+        akka.pattern.after(duration, system.scheduler)(Future(default))
+      )
     }
 
     def chronometer = lila.common.Chronometer(fua)

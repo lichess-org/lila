@@ -12,26 +12,25 @@ object Pref extends LilaController {
   private def api = Env.pref.api
   private def forms = lila.pref.DataForm
 
-  def form(categSlug: String) = Auth { implicit ctx =>
-    me =>
-      lila.pref.PrefCateg(categSlug) match {
-        case None => notFound
-        case Some(categ) =>
-          Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
-      }
+  def form(categSlug: String) = Auth { implicit ctx => me =>
+    lila.pref.PrefCateg(categSlug) match {
+      case None => notFound
+      case Some(categ) =>
+        Ok(html.account.pref(me, forms prefOf ctx.pref, categ)).fuccess
+    }
   }
 
-  def formApply = AuthBody { implicit ctx =>
-    me =>
-      def onSuccess(data: lila.pref.DataForm.PrefData) =
-        api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
-      implicit val req = ctx.body
-      forms.pref.bindFromRequest.fold(
-        err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
-          err => BadRequest(err.toString).fuccess,
-          onSuccess),
+  def formApply = AuthBody { implicit ctx => me =>
+    def onSuccess(data: lila.pref.DataForm.PrefData) =
+      api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+    implicit val req = ctx.body
+    forms.pref.bindFromRequest.fold(
+      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
+        err => BadRequest(err.toString).fuccess,
         onSuccess
-      )
+      ),
+      onSuccess
+    )
   }
 
   def set(name: String) = OpenBody { implicit ctx =>
@@ -43,9 +42,8 @@ object Pref extends LilaController {
     }
   }
 
-  def saveTag(name: String, value: String) = Auth { implicit ctx =>
-    me =>
-      api.saveTag(me, name, value)
+  def saveTag(name: String, value: String) = Auth { implicit ctx => me =>
+    api.saveTag(me, name, value)
   }
 
   private lazy val setters = Map(
@@ -56,7 +54,8 @@ object Pref extends LilaController {
     "soundSet" -> (forms.soundSet -> save("soundSet") _),
     "bg" -> (forms.bg -> save("bg") _),
     "bgImg" -> (forms.bgImg -> save("bgImg") _),
-    "is3d" -> (forms.is3d -> save("is3d") _))
+    "is3d" -> (forms.is3d -> save("is3d") _)
+  )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {

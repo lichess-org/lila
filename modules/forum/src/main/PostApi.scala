@@ -6,10 +6,10 @@ import org.joda.time.DateTime
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ForumPost, Propagate}
+import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.mod.ModlogApi
-import lila.security.{Granter => MasterGranter}
-import lila.user.{User, UserContext}
+import lila.security.{ Granter => MasterGranter }
+import lila.user.{ User, UserContext }
 
 final class PostApi(
     env: Env,
@@ -19,14 +19,16 @@ final class PostApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier) {
+    mentionNotifier: MentionNotifier
+) {
 
   import BSONHandlers._
 
   def makePost(
     categ: Categ,
     topic: Topic,
-    data: DataForm.PostData)(implicit ctx: UserContext): Fu[Post] =
+    data: DataForm.PostData
+  )(implicit ctx: UserContext): Fu[Post] =
     lastNumberOf(topic) zip detectLanguage(data.text) zip userIds(topic) flatMap {
       case ((number, lang), topicUserIds) =>
         val post = Post.make(
@@ -39,7 +41,8 @@ final class PostApi(
           lang = lang map (_.language),
           troll = ctx.troll,
           hidden = topic.hidden,
-          categId = categ.id)
+          categId = categ.id
+        )
         PostRepo findDuplicate post flatMap {
           case Some(dup) => fuccess(dup)
           case _ =>
@@ -53,22 +56,22 @@ final class PostApi(
               ctx.userId.?? { userId =>
                 shutup ! post.isTeam.fold(
                   lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text),
-                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text))
+                  lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                )
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
                     post.isStaff.fold(
                       prop toStaffFriendsOf userId,
                       prop toFollowersOf userId toUsers topicUserIds exceptUser userId
-                    )
-                  )
+                    ))
                 }
                 lila.mon.forum.post.create()
               } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject post
         }
     }
 
-  def editPost(postId: String, newText: String,  user: User) : Fu[Post] = {
+  def editPost(postId: String, newText: String, user: User): Fu[Post] = {
 
     get(postId) flatMap { post =>
       val now = DateTime.now
@@ -78,7 +81,7 @@ final class PostApi(
           fufail("You are not authorized to modify this post.")
         case Some((_, post)) if !post.canStillBeEdited() =>
           fufail("Post can no longer be edited")
-        case Some((_,post)) =>
+        case Some((_, post)) =>
           val spamEscapedTest = lila.security.Spam.replace(newText)
           val newPost = post.editPost(now, spamEscapedTest)
           env.postColl.update($id(post.id), newPost) inject newPost
@@ -148,7 +151,8 @@ final class PostApi(
         topicName = topic.name,
         userId = post.userId,
         text = post.text take 200,
-        createdAt = post.createdAt)
+        createdAt = post.createdAt
+      )
     }
   }
 
@@ -163,9 +167,11 @@ final class PostApi(
       collection = env.postColl,
       selector = PostRepo(troll) selectTopic topic.id,
       projection = $empty,
-      sort = PostRepo.sortQuery),
+      sort = PostRepo.sortQuery
+    ),
     currentPage = page,
-    maxPerPage = maxPerPage)
+    maxPerPage = maxPerPage
+  )
 
   def delete(categSlug: String, postId: String, mod: User): Funit = (for {
     post ← optionT(PostRepo(true).byCategAndId(categSlug, postId))
@@ -178,7 +184,8 @@ final class PostApi(
           (env.topicApi denormalize view.topic) >>
           (env.categApi denormalize view.categ) >>-
           env.recent.invalidate >>-
-          (indexer ! RemovePost(post.id)))
+          (indexer ! RemovePost(post.id))
+      )
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)

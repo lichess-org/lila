@@ -43,11 +43,13 @@ object StripePlan {
     case Freq.Monthly => StripePlan(
       id = s"monthly_${cents.value}",
       name = s"Monthly ${cents.usd}",
-      amount = cents)
+      amount = cents
+    )
     case Freq.Onetime => StripePlan(
       id = s"onetime_${cents.value}",
       name = s"One-time ${cents.usd}",
-      amount = cents)
+      amount = cents
+    )
   }
 
   val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
@@ -57,7 +59,8 @@ case class StripeSubscription(
     id: String,
     plan: StripePlan,
     customer: CustomerId,
-    cancel_at_period_end: Boolean) {
+    cancel_at_period_end: Boolean
+) {
 
   def renew = !cancel_at_period_end
 }
@@ -65,7 +68,8 @@ case class StripeSubscription(
 case class StripeCustomer(
     id: CustomerId,
     email: Option[String],
-    subscriptions: StripeSubscriptions) {
+    subscriptions: StripeSubscriptions
+) {
 
   def firstSubscription = subscriptions.data.headOption
 
@@ -80,7 +84,8 @@ case class StripeInvoice(
     id: Option[String],
     amount_due: Int,
     date: Long,
-    paid: Boolean) {
+    paid: Boolean
+) {
   def cents = Cents(amount_due)
   def usd = cents.usd
   def dateTime = new DateTime(date * 1000)

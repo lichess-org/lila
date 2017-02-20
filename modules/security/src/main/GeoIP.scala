@@ -4,26 +4,29 @@ import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 import scala.concurrent.duration._
 
+import lila.common.IpAddress
+
 final class GeoIP(file: String, cacheTtl: FiniteDuration) {
 
   private val geoIp = MaxMindIpGeo(file, 0)
 
-  private val cache: LoadingCache[String, Option[Location]] = Scaffeine()
+  private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
     .expireAfterAccess(cacheTtl)
     .build(compute)
 
-  private def compute(ip: String): Option[Location] =
-    geoIp getLocation ip map Location.apply
+  private def compute(ip: IpAddress): Option[Location] =
+    geoIp getLocation ip.value map Location.apply
 
-  def apply(ip: String): Option[Location] = cache get ip
+  def apply(ip: IpAddress): Option[Location] = cache get ip
 
-  def orUnknown(ip: String): Location = apply(ip) | Location.unknown
+  def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
 }
 
 case class Location(
     country: String,
     region: Option[String],
-    city: Option[String]) {
+    city: Option[String]
+) {
 
   def comparable = (country, ~region, ~city)
 

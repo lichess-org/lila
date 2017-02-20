@@ -21,7 +21,8 @@ final class AssessApi(
     modApi: ModApi,
     reporter: ActorSelection,
     fishnet: ActorSelection,
-    userIdsSharingIp: String => Fu[List[String]]) {
+    userIdsSharingIp: String => Fu[List[String]]
+) {
 
   import PlayerFlags.playerFlagsBSONHandler
 
@@ -54,12 +55,13 @@ final class AssessApi(
       getPlayerAssessmentsByUserId(userId, nb) zip
       relatedUsers zip
       (relatedUsers flatMap UserRepo.filterByEngine) map {
-        case (((Some(user), assessedGamesHead :: assessedGamesTail), relatedUs), relatedCheaters) =>
+        case Some(user) ~ (assessedGamesHead :: assessedGamesTail) ~ relatedUs ~ relatedCheaters =>
           Some(PlayerAggregateAssessment(
             user,
             assessedGamesHead :: assessedGamesTail,
             relatedUs,
-            relatedCheaters))
+            relatedCheaters
+          ))
         case _ => none
       }
   }
@@ -71,7 +73,7 @@ final class AssessApi(
 
   def getPlayerAggregateAssessmentWithGames(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment.WithGames]] =
     getPlayerAggregateAssessment(userId, nb) flatMap {
-      case None      => fuccess(none)
+      case None => fuccess(none)
       case Some(pag) => withGames(pag).map(_.some)
     }
 
@@ -80,7 +82,7 @@ final class AssessApi(
       (gs map { g =>
         AnalysisRepo.byId(g.id) flatMap {
           case Some(a) => onAnalysisReady(g, a, false)
-          case _       => funit
+          case _ => funit
         }
       }).sequenceFu.void
     }) >> assessUser(user.id)

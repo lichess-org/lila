@@ -11,7 +11,8 @@ import lila.user.User
 private[analyse] final class AnalyseSocketHandler(
     socket: akka.actor.ActorRef,
     hub: lila.hub.Env,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler) {
+    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler
+) {
 
   import AnalyseSocket._
   import Handler.AnaRateLimit

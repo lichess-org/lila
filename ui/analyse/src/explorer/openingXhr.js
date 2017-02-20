@@ -47,7 +47,7 @@ module.exports = {
       method: 'POST',
       url: endpoint + '/watkins',
       data: {
-        moves: moves.join(' ')
+        moves: moves
       },
       serialize: function(data) {
         return data.moves;

@@ -8,18 +8,19 @@ import scala.concurrent.duration.Duration
 /**
  * side effect throttler that allows X ops per Y unit of time
  */
-final class RateLimit(
+final class RateLimit[K](
     credits: Int,
     duration: Duration,
     name: String,
-    key: String) {
+    key: String
+) {
 
   private type Cost = Int
   private type ClearAt = Long
 
   private val storage = Scaffeine()
     .expireAfterWrite(duration)
-    .build[String, (Cost, ClearAt)]()
+    .build[K, (Cost, ClearAt)]()
 
   private def makeClearAt = nowMillis + duration.toMillis
 
@@ -28,7 +29,7 @@ final class RateLimit(
 
   logger.info(s"[start] $name ($credits/$duration)")
 
-  def apply[A](k: String, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
+  def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
     storage getIfPresent k match {
       case None =>
         storage.put(k, cost -> makeClearAt)

@@ -27,19 +27,18 @@ object Learn extends LilaController {
     "score" -> number
   )(Tuple3.apply)(Tuple3.unapply))
 
-  def score = AuthBody { implicit ctx =>
-    me =>
-      implicit val body = ctx.body
-      scoreForm.bindFromRequest.fold(
-        err => BadRequest.fuccess, {
-          case (stage, level, s) =>
-            val score = lila.learn.StageProgress.Score(s)
-            env.api.setScore(me, stage, level, score) inject Ok(Json.obj("ok" -> true))
-        })
+  def score = AuthBody { implicit ctx => me =>
+    implicit val body = ctx.body
+    scoreForm.bindFromRequest.fold(
+      err => BadRequest.fuccess, {
+        case (stage, level, s) =>
+          val score = lila.learn.StageProgress.Score(s)
+          env.api.setScore(me, stage, level, score) inject Ok(Json.obj("ok" -> true))
+      }
+    )
   }
 
-  def reset = AuthBody { implicit ctx =>
-    me =>
-      env.api.reset(me) inject Ok(Json.obj("ok" -> true))
+  def reset = AuthBody { implicit ctx => me =>
+    env.api.reset(me) inject Ok(Json.obj("ok" -> true))
   }
 }

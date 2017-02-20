@@ -205,8 +205,8 @@ description = describeUser(u)).some) {
         }
         <br />
         <br />
-        <p>@trans.tpTimeSpentPlaying(showPeriod(info.playTime.totalPeriod))</p>
-        @info.playTime.tvPeriod.map { tvPeriod =>
+        <p>@trans.tpTimeSpentPlaying(showPeriod(u.playTime.totalPeriod))</p>
+        @u.playTime.tvPeriod.map { tvPeriod =>
         <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
         }
         <div class="teams">

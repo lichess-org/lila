@@ -6,7 +6,7 @@ import play.api.mvc.WebSocket.FrameFormatter
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, IpAddress }
 
 trait LilaSocket { self: LilaController =>
 
@@ -31,7 +31,7 @@ trait LilaSocket { self: LilaController =>
       f(ctx).map(_ toRight notFoundResponse)
     }
 
-  protected def SocketOptionLimited[A: FrameFormatter](limiter: lila.memo.RateLimit, name: String)(f: Context => Fu[Option[Pipe[A]]]) =
+  protected def SocketOptionLimited[A: FrameFormatter](limiter: lila.memo.RateLimit[IpAddress], name: String)(f: Context => Fu[Option[Pipe[A]]]) =
     rateLimitedSocket[A](limiter, name) { ctx =>
       f(ctx).map(_ toRight notFoundResponse)
     }
@@ -40,7 +40,7 @@ trait LilaSocket { self: LilaController =>
 
   private val rateLimitLogger = lila.log("ratelimit")
 
-  private def rateLimitedSocket[A: FrameFormatter](limiter: lila.memo.RateLimit, name: String)(f: AcceptType[A]): WebSocket[A, A] =
+  private def rateLimitedSocket[A: FrameFormatter](limiter: lila.memo.RateLimit[IpAddress], name: String)(f: AcceptType[A]): WebSocket[A, A] =
     WebSocket[A, A] { req =>
       SocketCSRF(req) {
         reqToCtx(req) flatMap { ctx =>

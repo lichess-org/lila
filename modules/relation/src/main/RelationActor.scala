@@ -2,7 +2,6 @@ package lila.relation
 
 import akka.actor.Actor
 import akka.pattern.pipe
-import lila.memo.ExpireSetMemo
 import scala.concurrent.duration._
 
 import actorApi._
@@ -10,19 +9,20 @@ import lila.common.LightUser
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.{ SendTo, SendTos }
 
+import play.api.libs.json.Json
+
 private[relation] final class RelationActor(
-    getOnlineUserIds: () => Set[String],
-    lightUser: LightUser.Getter,
+    lightUser: LightUser.GetterSync,
     api: RelationApi,
-    onlinePlayings: ExpireSetMemo) extends Actor {
+    online: OnlineDoing
+) extends Actor {
 
   private val bus = context.system.lilaBus
 
-  private var onlines = Map[ID, LightUser]()
+  private var previousOnlineIds = Set.empty[ID]
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'startGame)
-    context.system.lilaBus.subscribe(self, 'finishGame)
+    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
   }
 
   override def postStop(): Unit = {
@@ -32,75 +32,102 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
+    case ComputeMovement =>
+      val curIds = online.userIds.keySet
+      val leaveUsers = (previousOnlineIds diff curIds).toList flatMap { lightUser(_) }
+      val enterUsers = (curIds diff previousOnlineIds).toList flatMap { lightUser(_) }
+
+      val friendsEntering = enterUsers map { u =>
+        FriendEntering(u, online.playing get u.id, online isStudying u.id)
+      }
+
+      notifyFollowersFriendEnters(friendsEntering)
+      notifyFollowersFriendLeaves(leaveUsers)
+      previousOnlineIds = curIds
 
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach { res =>
-      bus.publish(SendTo(userId, JsonView.writeOnlineFriends(res)), 'users)
+    case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
+      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'users)
     }
-
-    case ComputeMovement =>
-      val prevIds = onlineIds
-      val curIds = getOnlineUserIds()
-      val leaveIds = (prevIds diff curIds).toList
-      val enterIds = (curIds diff prevIds).toList
-      for {
-        leaves <- leaveIds.map(lightUser).sequenceFu.map(_.flatten)
-        enters <- enterIds.map(lightUser).sequenceFu.map(_.flatten)
-      } self ! NotifyMovement(leaves, enters)
-
-    case NotifyMovement(leaves, enters) =>
-      onlines = onlines -- leaves.map(_.id) ++ enters.map(e => e.id -> e)
-      val friendsEntering = enters.map(makeFriendEntering)
-      notifyFollowersFriendEnters(friendsEntering)
-      notifyFollowersFriendLeaves(leaves)
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
-      onlinePlayings removeAll usersPlaying
+      online.playing removeAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       val usersPlaying = game.userIds
-      onlinePlayings putAll usersPlaying
+      online.playing putAll usersPlaying
       notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+
+    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
+      online.studyingAll.put(userId, studyId)
+      if (contributor && public) {
+        val wasAlreadyInStudy = online isStudying userId
+        online.studying.put(userId, studyId)
+        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+      }
+
+    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
+      online.studyingAll invalidate userId
+      if (contributor && public) {
+        online.studying invalidate userId
+        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+      }
+
+    case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
+      contributorsIn(contributors, studyId) foreach { c =>
+        online.studying invalidate c
+        notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
+      }
+
+    case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
+      contributorsIn(contributors, studyId) foreach { c =>
+        online.studying.put(c, studyId)
+        notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
+      }
+
+    case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
+      if (online.isStudying(userId, studyId)) {
+        online.studying.put(userId, studyId)
+        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+      }
+
+    case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
+      if (online.isStudying(userId, studyId)) {
+        online.studying invalidate userId
+        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+      }
   }
 
-  private def makeFriendEntering(enters: LightUser) = {
-    FriendEntering(enters, onlinePlayings.get(enters.id))
-  }
-
-  private def onlineIds: Set[ID] = onlines.keySet
-
-  private def onlineFriends(userId: String): Fu[OnlineFriends] =
-    api fetchFollowing userId map { ids =>
-      val friends = ids.flatMap(onlines.get).toList
-      val friendsPlaying = filterFriendsPlaying(friends)
-      OnlineFriends(friends, friendsPlaying)
-    }
-
-  private def filterFriendsPlaying(friends: List[LightUser]): Set[String] = {
-    friends.filter(p => onlinePlayings.get(p.id)).map(_.id).toSet
+  private def contributorsIn(contributors: Set[ID], studyId: String) = {
+    val found = online.studying.getAllPresent(contributors).filter(_._2 == studyId)
+    contributors filter found.contains
   }
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
-      api fetchFollowers entering.user.id map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers entering.user.id map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
       }
     }
 
   private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
     friendsLeaving foreach { leaving =>
-      api fetchFollowers leaving.id map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers leaving.id map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
       }
     }
 
-  private def notifyFollowersGameStateChanged(userIds: Traversable[String], message: String) =
+  private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
     userIds foreach { userId =>
-      api fetchFollowers userId map (_ filter onlines.contains) foreach { ids =>
+      api fetchFollowers userId map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
       }
+    }
+
+  private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
+    api fetchFollowers userId map online.userIds.intersect foreach { ids =>
+      if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
     }
 }

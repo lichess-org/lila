@@ -9,7 +9,8 @@ import lila.user.{ User, UserRepo }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
-    emailAddress: EmailAddress) extends lila.hub.CaptchedForm {
+    emailAddress: EmailAddress
+) extends lila.hub.CaptchedForm {
 
   import DataForm._
 
@@ -19,8 +20,7 @@ final class DataForm(
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
   )(Empty.apply)(_ => None)
-    .verifying(captchaFailMessage, validateCaptcha _)
-  )
+    .verifying(captchaFailMessage, validateCaptcha _))
 
   def emptyWithCaptcha = withCaptcha(empty)
 
@@ -36,10 +36,12 @@ final class DataForm(
       Constraints maxLength 20,
       Constraints.pattern(
         regex = User.usernameRegex,
-        error = "Invalid username. Please use only letters, numbers, underscore and dash"),
+        error = "Invalid username. Please use only letters, numbers, underscore and dash"
+      ),
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
-        error = "The username must not start with a number")
+        error = "The username must not start with a number"
+      )
     ).verifying("This user already exists", u => !UserRepo.nameExists(u).awaitSeconds(4))
       .verifying("This username is not acceptable", u => !LameName(u))
 
@@ -62,8 +64,7 @@ final class DataForm(
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
   )(PasswordReset.apply)(_ => None)
-    .verifying(captchaFailMessage, validateCaptcha _)
-  )
+    .verifying(captchaFailMessage, validateCaptcha _))
 
   def passwordResetWithCaptcha = withCaptcha(passwordReset)
 
@@ -99,19 +100,22 @@ object DataForm {
       username: String,
       password: String,
       email: String,
-      `g-recaptcha-response`: Option[String]) {
+      `g-recaptcha-response`: Option[String]
+  ) {
     def recaptchaResponse = `g-recaptcha-response`
   }
 
   case class MobileSignupData(
     username: String,
     password: String,
-    email: Option[String])
+    email: Option[String]
+  )
 
   case class PasswordReset(
     email: String,
     gameId: String,
-    move: String)
+    move: String
+  )
 
   case class ChangeEmail(email: String, passwd: String)
 }

@@ -12,7 +12,8 @@ private[tv] final class TvActor(
     rendererActor: ActorSelection,
     roundSocket: ActorSelection,
     selectChannel: ActorRef,
-    lightUser: LightUser.GetterSync) extends Actor {
+    lightUser: LightUser.GetterSync
+) extends Actor {
 
   import TvActor._
 
@@ -65,8 +66,10 @@ private[tv] final class TvActor(
           Json.obj(
             "name" -> u.name,
             "title" -> u.title,
-            "rating" -> player.rating)
-        })))
+            "rating" -> player.rating
+          )
+        }
+      )))
       if (channel == Tv.Channel.Best)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: play.twirl.api.Html =>
@@ -75,7 +78,9 @@ private[tv] final class TvActor(
               makeMessage("featured", Json.obj(
                 "html" -> html.toString,
                 "color" -> game.firstColor.name,
-                "id" -> game.id)))
+                "id" -> game.id
+              ))
+            )
             context.system.lilaBus.publish(event, 'changeFeaturedGame)
         }
       GameRepo setTv game.id

@@ -4,12 +4,13 @@ import scala.util.Random
 
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{BSONFields => F}
+import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
     puzzleColl: Coll,
     api: PuzzleApi,
-    puzzleIdMin: Int) {
+    puzzleIdMin: Int
+) {
 
   private val toleranceMax = 1000
 
@@ -31,13 +32,13 @@ private[puzzle] final class Selector(
             val isLearn = scala.util.Random.nextInt(7) == 0
             val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
               case None => newPuzzleForUser(user)
-              case p    => fuccess(p)
+              case p => fuccess(p)
             }
             else newPuzzleForUser(user)
             (next flatMap {
               case Some(p) if isLearn => api.head.addLearning(user, p.id)
-              case Some(p)            => api.head.addNew(user, p.id)
-              case _                  => fuccess(none)
+              case Some(p) => api.head.addNew(user, p.id)
+              case _ => fuccess(none)
             }) >> next
         }
     }
@@ -49,7 +50,7 @@ private[puzzle] final class Selector(
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
-      case d             => 200
+      case d => 200
     }
 
   private def newPuzzleForUser(user: User): Fu[Option[Puzzle]] = {
@@ -65,7 +66,8 @@ private[puzzle] final class Selector(
           rating = rating,
           tolerance = step,
           step = step,
-          idRange = Range(lastId, lastId + 200))
+          idRange = Range(lastId, lastId + 200)
+        )
     }
   }
 
@@ -73,7 +75,8 @@ private[puzzle] final class Selector(
     rating: Int,
     tolerance: Int,
     step: Int,
-    idRange: Range): Fu[Option[Puzzle]] =
+    idRange: Range
+  ): Fu[Option[Puzzle]] =
     puzzleColl.find($doc(
       F.id $gt
         idRange.min $lt

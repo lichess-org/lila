@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
 import views._
@@ -100,7 +100,9 @@ object Study extends LilaController {
             analysis = baseData ++ Json.obj(
             "treeParts" -> partitionTreeJsonWriter.writes {
               lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-            }))
+            }
+          )
+          )
           res <- negotiate(
             html = for {
             chat <- chatOf(study)
@@ -108,7 +110,8 @@ object Study extends LilaController {
           } yield Ok(html.study.show(study, data, chat, sVersion)),
             api = _ => Ok(Json.obj(
             "study" -> data.study,
-            "analysis" -> data.analysis)).fuccess
+            "analysis" -> data.analysis
+          )).fuccess
           )
         } yield res
       }
@@ -141,7 +144,8 @@ object Study extends LilaController {
             studyId = id,
             uid = lila.socket.Socket.Uid(uid),
             user = ctx.me,
-            owner = ctx.userId.exists(study.isOwner))
+            owner = ctx.userId.exists(study.isOwner)
+          )
         }
       }
     }
@@ -153,7 +157,8 @@ object Study extends LilaController {
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => env.api.create(data, me) map { sc =>
         Redirect(routes.Study.show(sc.study.id.value))
-      })
+      }
+    )
   }
 
   def delete(id: String) = Auth { implicit ctx => me =>
@@ -177,15 +182,18 @@ object Study extends LilaController {
                 val analysis = baseData ++ Json.obj(
                   "treeParts" -> partitionTreeJsonWriter.writes {
                     lila.study.TreeBuilder.makeRoot(chapter.root)
-                  })
+                  }
+                )
                 val data = lila.study.JsonView.JsData(
                   study = studyJson,
-                  analysis = analysis)
+                  analysis = analysis
+                )
                 negotiate(
                   html = Ok(html.study.embed(study, chapter, data)).fuccess,
                   api = _ => Ok(Json.obj(
                   "study" -> data.study,
-                  "analysis" -> data.analysis)).fuccess
+                  "analysis" -> data.analysis
+                )).fuccess
                 )
             }
         }
@@ -204,17 +212,19 @@ object Study extends LilaController {
     }
   }
 
-  private val CloneLimitPerUser = new lila.memo.RateLimit(
+  private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
-    key = "clone_study.user")
+    key = "clone_study.user"
+  )
 
-  private val CloneLimitPerIP = new lila.memo.RateLimit(
+  private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24 hour,
     name = "clone study per IP",
-    key = "clone_study.ip")
+    key = "clone_study.ip"
+  )
 
   def cloneApply(id: String) = Auth { implicit ctx => me =>
     implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
@@ -232,22 +242,24 @@ object Study extends LilaController {
     }
   }
 
-  private val PgnRateLimitGlobal = new lila.memo.RateLimit(
+  private val PgnRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 30,
     duration = 1 minute,
     name = "export study PGN global",
-    key = "export.study_pgn.global")
+    key = "export.study_pgn.global"
+  )
 
   def pgn(id: String) = Open { implicit ctx =>
     OnlyHumans {
-      PgnRateLimitGlobal("-", msg = HTTPRequest lastRemoteAddress ctx.req) {
+      PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study()
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
                 CONTENT_TYPE -> pgnContentType,
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study)))
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study))
+              )
             }
           }
         }

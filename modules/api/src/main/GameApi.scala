@@ -18,7 +18,8 @@ private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
     pgnDump: PgnDump,
-    gameCache: lila.game.Cached) {
+    gameCache: lila.game.Cached
+) {
 
   import lila.round.JsonView.openingWriter
 
@@ -33,7 +34,8 @@ private[api] final class GameApi(
     withMoveTimes: Boolean,
     token: Option[String],
     nb: Int,
-    page: Int): Fu[JsObject] = Paginator(
+    page: Int
+  ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
     adapter = new Adapter[Game](
     collection = GameRepo.coll,
@@ -58,14 +60,16 @@ private[api] final class GameApi(
     }
   ),
     currentPage = page,
-    maxPerPage = nb) flatMap { pag =>
+    maxPerPage = nb
+  ) flatMap { pag =>
     gamesJson(
       withAnalysis = withAnalysis,
       withMoves = withMoves,
       withOpening = withOpening,
       withFens = false,
       withMoveTimes = withMoveTimes,
-      token = token)(pag.currentPageResults) map { games =>
+      token = token
+    )(pag.currentPageResults) map { games =>
       PaginatorJson(pag withCurrentPageResults games)
     }
   }
@@ -77,7 +81,8 @@ private[api] final class GameApi(
     withOpening: Boolean,
     withFens: Boolean,
     withMoveTimes: Boolean,
-    token: Option[String]): Fu[Option[JsObject]] =
+    token: Option[String]
+  ): Fu[Option[JsObject]] =
     GameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(
@@ -111,7 +116,8 @@ private[api] final class GameApi(
     withOpening: Boolean,
     withFens: Boolean,
     withMoveTimes: Boolean,
-    token: Option[String])(games: Seq[Game]): Fu[Seq[JsObject]] = {
+    token: Option[String]
+  )(games: Seq[Game]): Fu[Seq[JsObject]] = {
     val allAnalysis =
       if (withAnalysis) AnalysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
@@ -145,7 +151,8 @@ private[api] final class GameApi(
     withFens: Boolean,
     withBlurs: Boolean = false,
     withHold: Boolean = false,
-    withMoveTimes: Boolean = false) = Json.obj(
+    withMoveTimes: Boolean = false
+  ) = Json.obj(
     "id" -> g.id,
     "initialFen" -> initialFen,
     "rated" -> g.rated,
@@ -165,16 +172,14 @@ private[api] final class GameApi(
       )
     },
     "daysPerTurn" -> g.daysPerTurn,
-    "players" -> JsObject(g.players.zipWithIndex map {
-      case (p, i) => p.color.name -> Json.obj(
+    "players" -> JsObject(g.players map { p =>
+      p.color.name -> Json.obj(
         "userId" -> p.userId,
         "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
-        "moveTimes" -> withMoveTimes.fold(
-          g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
-          JsNull),
+        "moveTimes" -> (g.moveTimes(p.color).map(_.map(_.toTenths)) ifTrue withMoveTimes),
         "blurs" -> withBlurs.option(p.blurs),
         "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
           Json.obj(

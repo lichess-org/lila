@@ -8,7 +8,8 @@ private[i18n] final class FileFix(
     pool: I18nPool,
     path: String,
     keys: I18nKeys,
-    messages: Messages) {
+    messages: Messages
+) {
 
   val apply: Funit =
     Future.traverse(pool.nonDefaultLangs.toList)(fix).void

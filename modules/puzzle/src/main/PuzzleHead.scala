@@ -3,7 +3,8 @@ package lila.puzzle
 case class PuzzleHead(
     _id: String, // userId
     current: Option[PuzzleId],
-    last: PuzzleId) {
+    last: PuzzleId
+) {
 
   def id = _id
 }
@@ -17,6 +18,6 @@ object PuzzleHead {
   }
 
   import reactivemongo.bson._
-  
+
   private[puzzle] implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
 }

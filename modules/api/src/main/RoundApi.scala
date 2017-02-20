@@ -20,7 +20,8 @@ private[api] final class RoundApi(
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: Game => Fu[Option[TourAndRanks]],
-    getSimul: Simul.ID => Fu[Option[Simul]]) {
+    getSimul: Simul.ID => Fu[Option[Simul]]
+) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     GameRepo.initialFen(pov.game) flatMap { initialFen =>
@@ -32,7 +33,7 @@ private[api] final class RoundApi(
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         forecastApi.loadForDisplay(pov) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case (((((json, tourOption), simulOption), note), forecast), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
@@ -56,7 +57,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) zip
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case ((((json, tourOption), simulOption), note), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
@@ -84,7 +85,7 @@ private[api] final class RoundApi(
         (pov.game.simulId ?? getSimul) zip
         (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
         bookmarkApi.exists(pov.game, ctx.me) map {
-          case ((((json, tourOption), simulOption), note), bookmarked) => (
+          case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
@@ -114,14 +115,16 @@ private[api] final class RoundApi(
       variant = pov.game.variant,
       analysis = analysis,
       initialFen = initialFen | pov.game.variant.initialFen,
-      withOpening = withOpening)))
+      withOpening = withOpening
+    )))
 
   private def withSteps(pov: Pov, initialFen: Option[String])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.game.id,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
-      initialFen = initialFen | pov.game.variant.initialFen))
+      initialFen = initialFen | pov.game.variant.initialFen
+    ))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
@@ -142,7 +145,8 @@ private[api] final class RoundApi(
           Json toJson fc
         }
         else Json.obj("onMyTurn" -> true)
-      })
+      }
+    )
     else json
 
   private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
@@ -162,7 +166,8 @@ private[api] final class RoundApi(
         },
         "ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
-          "black" -> data.blackRank))
+          "black" -> data.blackRank
+        ))
       ).noNull)
     }
 

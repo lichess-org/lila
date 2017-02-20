@@ -556,7 +556,8 @@ object mon {
 
   private final class KamonTrace(
       context: TraceContext,
-      firstSegment: Segment) extends Trace {
+      firstSegment: Segment
+  ) extends Trace {
 
     def finishFirstSegment() = firstSegment.finish()
 
@@ -576,7 +577,8 @@ object mon {
       tags = Map.empty,
       timestamp = RelativeNanoTimestamp.now,
       status = Status.Open,
-      isLocal = false)
+      isLocal = false
+    )
     val firstSegment = context.startSegment(firstName, "logic", "mon")
     new KamonTrace(context, firstSegment)
   }
