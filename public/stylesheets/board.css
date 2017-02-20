@@ -18,7 +18,7 @@
 .manipulable .cg-board.bh1 piece {
   opacity: 0.98;
 }
-div:not(.editor) > .manipulable .cg-board {
+.manipulable .cg-board {
   cursor: pointer;
 }
 .is2d .cg-board {
@@ -37,8 +37,6 @@ body.highlight .manipulable square.drag-over {
 }
 body.destination .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
-}
-div:not(.editor) > body.destination .cg-board square.move-dest {
   cursor: pointer;
 }
 body.destination .cg-board square.oc.move-dest {

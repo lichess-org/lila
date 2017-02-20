@@ -3,6 +3,9 @@
   min-height: 600px;
   padding-top: 5px;
 }
+#board_editor .manipulable .cg-board, #board_editor body.destination .cg-board square.move-dest {
+  cursor: inherit;
+}
 #board_editor square.last-move {
   background-color: transparent;
 }
