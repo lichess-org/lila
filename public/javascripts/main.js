@@ -108,7 +108,7 @@ lichess.notifyApp = (function() {
   $.userLinkLimit = function(u, limit, klass) {
     var split = u.split(' ');
     var id = split.length == 1 ? split[0] : split[1];
-    return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
   $.redirect = function(obj) {
     var url;

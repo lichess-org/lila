@@ -3,8 +3,9 @@ import { Ctrl, Tab } from './interfaces'
 import { renderDiscussion } from './discussion'
 
 export default function view(ctrl: Ctrl) {
-  return h('div', {
+  return h('div#chat', {
     class: {
+      side_box: true,
       mchat: true,
       mod: ctrl.opts.permissions.timeout
     }
@@ -18,7 +19,10 @@ function normalView(ctrl: Ctrl) {
   // if (ctrl.note) tabs.push('note');
   return [
     h('div', {
-      class: 'chat_tabs nb_' + tabs.length
+      class: {
+        chat_tabs: true,
+        ['nb_' + tabs.length]: true
+      }
     }, tabs.map(t => renderTab(ctrl, t, active))),
       h('div.content', renderDiscussion(ctrl))
   ]
@@ -26,8 +30,12 @@ function normalView(ctrl: Ctrl) {
 
 function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
   return h('div', {
-    class: 'tab ' + tab + (tab === active ? ' active' : ''),
-    on: { click: () => ctrl.setTab(tab) }
+    class: {
+      tab: true,
+      [tab]: true,
+      active: tab === active
+    },
+    on: { click: [ctrl.setTab, tab] }
   }, tabName(ctrl, tab));
 }
 

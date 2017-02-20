@@ -19,10 +19,11 @@ interface ChatData {
 }
 
 export interface Line {
-  u: string
-  t: string
-  d: boolean
-  r?: boolean
+  u?: string // username
+  t: string // text
+  d: boolean // deleted
+  c?: string // color
+  r?: boolean // troll
 }
 
 interface Permissions {

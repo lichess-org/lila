@@ -8,13 +8,13 @@ import view from './view';
 import { ChatOpts, Ctrl } from './interfaces'
 
 const snabbdomModules = [
-  require('snabbdom/modules/class'),
-  require('snabbdom/modules/props'),
-  require('snabbdom/modules/attributes')
+  require('snabbdom/modules/class').default,
+  require('snabbdom/modules/props').default,
+  require('snabbdom/modules/attributes').default,
+  require('snabbdom/modules/eventlisteners').default
 ]
 
 let patch = init(snabbdomModules);
-
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 

@@ -1,6 +1,7 @@
-import { h } from 'snabbdom'
+import { h, thunk } from 'snabbdom'
 import { Ctrl, Line } from './interfaces'
 import { skip } from './spam'
+import enhance from './enhance';
 
 export function renderDiscussion(ctrl: Ctrl) {
   if (!ctrl.vm.enabled) [];
@@ -46,22 +47,42 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   return ls;
 }
 
+function userLink(u: string) {
+  var split = u.split(' ');
+  return h('a', {
+    class: {
+      user_link: true,
+      ulpt: true
+    },
+    attrs: {
+      href: '/@/' + (split.length == 1 ? split[0] : split[1])
+    }
+  }, u.substring(0, 14));
+}
+
+function renderText(t: string, parseMoves: boolean) {
+  return h('t', {
+    props: {
+      innerHTML: enhance(t, parseMoves)
+    }
+  });
+}
+
 function renderLine(ctrl: Ctrl, line: Line) {
-  return h('li', line.t);
   // if (!line.html) line.html = enhance(line.t, {
   //   parseMoves: ctrl.vm.parseMoves
   // });
-  // if (line.u === 'lichess') return m('li.system', line.html);
-  // if (line.c) return m('li', [
-  //   m('span', '[' + line.c + ']'),
-  //   line.t
-  // ]);
-  // return m('li', {
-  //   'data-username': line.u
-  // }, [
-  //   ctrl.vm.isMod ? moderationView.lineAction() : null,
-  //   m.trust(
-  //     $.userLinkLimit(line.u, 14) + line.html
-  //   )
-  // ]);
+  var textNode = thunk('t', line.t, renderText, [line.t]);
+  if (line.u === 'lichess') return h('li.system', textNode);
+  if (line.c) return h('li', [
+    h('span', '[' + line.c + ']'),
+  textNode
+  ]);
+  return h('li', {
+    'data-username': line.u
+  }, [
+    // ctrl.vm.isMod ? moderationView.lineAction() : null,
+    thunk('a', line.u, userLink, [line.u, ctrl.opts.parseMoves]),
+    textNode
+  ]);
 }
