@@ -12,6 +12,7 @@
     "snabbdom": "^0.6.4"
   },
   "devDependencies": {
+    "@types/jquery": "^2.0.40",
     "browserify": "^14.1.0",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^2.4.1",

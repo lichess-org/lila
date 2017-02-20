@@ -5,7 +5,7 @@ import { VNode } from 'snabbdom/vnode'
 
 import makeCtrl from './ctrl';
 import view from './view';
-import { ChatOpts, ChatCtrl } from './interfaces'
+import { ChatOpts, Ctrl } from './interfaces'
 
 const snabbdomModules = [
   require('snabbdom/modules/class'),
@@ -18,7 +18,7 @@ let patch = init(snabbdomModules);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 
-  let vnode: VNode, ctrl: ChatCtrl
+  let vnode: VNode, ctrl: Ctrl
 
   let redraw = () => {
     vnode = patch(vnode, view(ctrl));

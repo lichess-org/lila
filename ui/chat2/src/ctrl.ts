@@ -2,28 +2,25 @@
 // var makeNote = require('./note').ctrl;
 // var makePreset = require('./preset').ctrl;
 
-import { ChatOpts, Line, Preset } from './interfaces'
+import { Ctrl, ChatOpts, Line, Preset, Tab, ViewModel } from './interfaces'
 
-export default function makeCtrl(opts: ChatOpts, redraw: () => void) {
+export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
 
-  var data = opts.data;
+  let data = opts.data;
 
-  var ps = window.lichess.pubsub;
+  const ps = window.lichess.pubsub;
 
-  var vm = {
+  var vm: ViewModel = {
+    tab: 'discussion',
     enabled: !window.lichess.storage.get('nochat'),
-    writeable: opts.writeable,
-    isTroll: opts.kobold,
-    isMod: opts.permissions.timeout,
-    isTimeout: opts.timeout,
-    parseMoves: opts.parseMoves,
     placeholderKey: 'talkInChat',
     // moderating: null,
-    tab: 'discussion',
-    loading: false
+    loading: false,
+    timeout: opts.timeout,
+    writeable: opts.writeable,
   };
 
-  var post = function(text: string) {
+  var post = function(text: string): boolean {
     text = text.trim();
     if (!text) return false;
     if (text.length > 140) {
@@ -38,13 +35,13 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void) {
     data.lines.forEach(function(l) {
       if (l.u === username) l.d = true;
     });
-    if (username.toLowerCase() === data.userId) vm.isTimeout = true;
+    if (username.toLowerCase() === data.userId) vm.timeout = true;
     redraw();
   };
 
   var onReinstate = function(userId: string) {
     if (userId === data.userId) {
-      vm.isTimeout = false;
+      vm.timeout = false;
       redraw();
     }
   };
@@ -84,20 +81,22 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void) {
     redraw();
   });
 
-  var emitEnabled = function() {
-    ps.emit('chat.enabled')(vm.enabled);
-  };
+  const emitEnabled = () => ps.emit('chat.enabled')(vm.enabled);
   emitEnabled();
 
   return {
     data: data,
+    opts: opts,
     vm: vm,
+    setTab(t: Tab) {
+      vm.tab = t
+      redraw()
+    },
     // moderation: moderation,
     // note: note,
     preset: preset,
     post: post,
     trans: trans,
-    public: opts.public,
     setEnabled: function(v: boolean) {
       vm.enabled = v;
       emitEnabled();

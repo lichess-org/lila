@@ -4,6 +4,8 @@
   ],
   "compilerOptions": {
     "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
     "target": "es5"
   }
 }

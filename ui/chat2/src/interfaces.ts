@@ -22,6 +22,7 @@ export interface Line {
   u: string
   t: string
   d: boolean
+  r?: boolean
 }
 
 interface Permissions {
@@ -29,9 +30,26 @@ interface Permissions {
   shadowban?: boolean
 }
 
-export interface ChatCtrl {
+export type Tab = 'discussion' | 'note'
+
+export interface Ctrl {
   data: ChatData
-  preset: Preset
+  opts: ChatOpts
+  vm: ViewModel
+  preset: Preset,
+  post(text: string): boolean
+  trans: any
+  setTab(tab: Tab): void
+  setEnabled(v: boolean): void
+}
+
+export interface ViewModel {
+  tab: Tab
+  enabled: boolean
+  placeholderKey: string
+  loading: boolean
+  timeout: boolean
+  writeable: boolean
 }
 
 export interface Preset {
