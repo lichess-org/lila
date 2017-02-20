@@ -85,15 +85,17 @@ lichess.StrongSocket = function(url, version, settings) {
       d: data
     });
     debug("send " + message);
-    try {
-      ws.send(message);
-    } catch (e) {
-      // maybe sent before socket opens,
-      // try again a second later,once.
-      if (!noRetry) setTimeout(function() {
-        send(t, d, o, true);
-      }, 1000);
-    }
+    setTimeout(function() {
+      try {
+        ws.send(message);
+      } catch (e) {
+        // maybe sent before socket opens,
+        // try again a second later,once.
+        if (!noRetry) setTimeout(function() {
+          send(t, d, o, true);
+        }, 1000);
+      }
+    }, 1000);
   };
   lichess.pubsub.on('socket.send', send);
 

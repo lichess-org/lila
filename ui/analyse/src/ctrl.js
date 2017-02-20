@@ -42,7 +42,8 @@ module.exports = function(opts) {
     this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
     this.actionMenu = new actionMenu();
     this.autoplay = new autoplay(this);
-    this.socket = new makeSocket(opts.socketSend, this);
+    if (this.socket) this.socket.clearCache();
+    else this.socket = new makeSocket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = (this.synthetic || this.ongoing) ? null :
       tree.path.fromNodeList(tree.ops.mainlineNodeList(this.tree.root));
@@ -374,6 +375,11 @@ module.exports = function(opts) {
 
   this.addNode = function(node, path) {
     var newPath = this.tree.addNode(node, path);
+    if (!newPath) {
+      console.log('Cannot addNode', node, path);
+      m.redraw();
+      return;
+    }
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
@@ -663,10 +669,6 @@ module.exports = function(opts) {
   this.playBestMove = function() {
     var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);
-  }.bind(this);
-
-  this.socketReceive = function(type, data) {
-    this.socket.receive(type, data);
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);
