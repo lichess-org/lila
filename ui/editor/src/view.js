@@ -173,12 +173,11 @@ module.exports = function(ctrl) {
   var sparePieceSelected = ctrl.vm.selected();
   var selectedParts = sparePieceSelected.split(' ');
   var cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : '');
+  // http://www.cursors-4u.com
+  var cursor = (cursorName === 'pointer') ?
+    cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important';
 
   ctrl.chessground.sparePieceSelected = sparePieceSelected;
-
-  // http://www.cursors-4u.com
-  ctrl.chessground.cursor = (cursorName === 'pointer') ?
-    cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important';
 
   return m('div.editor', {
     config: function(el, isUpdate, context) {
@@ -192,7 +191,8 @@ module.exports = function(ctrl) {
           document.removeEventListener(name, onstart);
         });
       };
-    }
+    },
+    style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
     chessground.view(ctrl.chessground),
