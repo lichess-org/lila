@@ -20,7 +20,7 @@ public class IntArrayList {
 
     public void add(int elt) {
         if (index == data.length) {
-            data = Arrays.copyOf(data, (index * 3)/2 + 1);
+            data = Arrays.copyOf(data, ((index * 3) >>> 1) + 5);
         }
         data[index++] = elt;
     }

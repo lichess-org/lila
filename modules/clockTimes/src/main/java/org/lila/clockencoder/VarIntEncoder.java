@@ -1,7 +1,7 @@
 package org.lila.clockencoder;
 
 public class VarIntEncoder {
-    public static void encode(int[] values, BitWriter writer) {
+    public static void write(int[] values, BitWriter writer) {
         for (int n : values) {
             n = (n << 1) ^ (n >> 31); // zigzag encode
 
@@ -21,7 +21,7 @@ public class VarIntEncoder {
     }
 
     // Decode numMoves into an array padded by offset.
-    public static int[] decode(BitReader reader, int numMoves) {
+    public static int[] read(BitReader reader, int numMoves) {
         int[] values = new int[numMoves];
 
         int[] numBuffer = new int[16];

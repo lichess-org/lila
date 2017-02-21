@@ -1,8 +1,6 @@
 package org.lila.clockencoder;
 
 public class LinearEstimator {
-    // Input: Array of absolute clock times for a players move
-    // Output: Encoded array of clock times.
 
     public static void encode(int[] dest, int startTime) {
         int size = dest.length;
@@ -16,12 +14,12 @@ public class LinearEstimator {
 
     private static void encode(int[] dest, int startIdx, int start,
                                int endIdx, int end) {
-        int midIdx = (startIdx + endIdx) >>> 1;
+        int midIdx = (startIdx + endIdx) >> 1;
         if (startIdx == midIdx) return;
 
         int mid = dest[midIdx];
 
-        dest[midIdx] -= ((start + end) >>> 1);
+        dest[midIdx] -= (start + end) >> 1;
 
         encode(dest, startIdx, start, midIdx, mid);
         encode(dest, midIdx, mid, endIdx, end);
@@ -29,10 +27,10 @@ public class LinearEstimator {
 
     private static void decode(int[] dest, int startIdx, int start,
                                int endIdx, int end) {
-        int midIdx = (startIdx + endIdx) >>> 1;
+        int midIdx = (startIdx + endIdx) >> 1;
         if (startIdx == midIdx) return;
 
-        dest[midIdx] += ((start + end) >>> 1);
+        dest[midIdx] += (start + end) >> 1;
 
         int mid = dest[midIdx];        
 

@@ -1,25 +1,31 @@
 package org.lila.clockencoder;
 
+import java.util.Arrays;
+
 public class Encoder {
     public static byte[] encode(int[] centis, int startTime) {
-        IntArrayList lowBits = new IntArrayList();
-        int[] trunced = LowBitTruncator.lossyEncode(centis, lowBits);
-        LinearEstimator.encode(trunced, startTime);
-        // TODO: Estimate end time, perhaps
-        // startTime >>> (moves >>> 3)
+        int[] encoded = Arrays.copyOf(centis, centis.length);
+
+        LowBitTruncator.truncate(encoded);
+        LinearEstimator.encode(encoded, startTime >> 3);
+        EndTimeEstimator.encode(encoded, startTime >> 3);
 
         BitWriter writer = new BitWriter();
-        VarIntEncoder.encode(trunced, writer);
-        LowBitTruncator.writeDigits(lowBits, writer);
+        VarIntEncoder.write(encoded, writer);
+        LowBitTruncator.writeDigits(centis, writer);
+
         return writer.toArray();
     }
 
     public static int[] decode(byte[] bytes, int numMoves, int startTime) {
         BitReader reader = new BitReader(bytes);
 
-        int[] trunced = VarIntEncoder.decode(reader, numMoves);
-        LinearEstimator.decode(trunced, startTime);
+        int[] decoded = VarIntEncoder.read(reader, numMoves);
 
-        return LowBitTruncator.decode(trunced, reader);
+        EndTimeEstimator.decode(decoded, startTime >> 3);
+        LinearEstimator.decode(decoded, startTime >> 3);
+        LowBitTruncator.decode(decoded, reader);
+
+        return decoded;
     }
 }
