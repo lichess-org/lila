@@ -7,14 +7,12 @@ import makeCtrl from './ctrl';
 import view from './view';
 import { ChatOpts, Ctrl } from './interfaces'
 
-const snabbdomModules = [
-  require('snabbdom/modules/class').default,
-  require('snabbdom/modules/props').default,
-  require('snabbdom/modules/attributes').default,
-  require('snabbdom/modules/eventlisteners').default
-]
+import klass from 'snabbdom/modules/class';
+import props from 'snabbdom/modules/props';
+import attributes from 'snabbdom/modules/attributes';
+import listeners from 'snabbdom/modules/eventlisteners';
 
-let patch = init(snabbdomModules);
+const patch = init([klass, props, attributes, listeners]);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 
@@ -24,14 +22,14 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = makeCtrl(opts, redraw)
+  ctrl = makeCtrl(opts, redraw);
 
-  vnode = patch(element, view(ctrl))
+  vnode = patch(element, view(ctrl));
 
   window.Mousetrap.bind('/', () => {
     (element.querySelector('input.lichess_say') as HTMLElement).focus();
     return false;
-  })
+  });
 
   return {
     preset: ctrl.preset

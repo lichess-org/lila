@@ -2,10 +2,9 @@ import { h } from 'snabbdom'
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
 import { userLink } from './util';
-import * as moment from 'moment'
 
 function isToday(timestamp: number) {
-  return moment(timestamp).isSame(new Date(), 'day');
+  return window.moment(timestamp).isSame(new Date(), 'day');
 }
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
