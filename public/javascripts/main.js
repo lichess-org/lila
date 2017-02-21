@@ -108,7 +108,7 @@ lichess.notifyApp = (function() {
   $.userLinkLimit = function(u, limit, klass) {
     var split = u.split(' ');
     var id = split.length == 1 ? split[0] : split[1];
-    return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
   $.redirect = function(obj) {
     var url;
@@ -130,11 +130,11 @@ lichess.notifyApp = (function() {
     lichess.redirectInProgress = href;
     location.href = href;
   };
-  $.fp = {};
-  $.fp.contains = function(list, needle) {
+  lichess.fp = {};
+  lichess.fp.contains = function(list, needle) {
     return list.indexOf(needle) !== -1;
   };
-  $.fp.debounce = function(func, wait, immediate) {
+  lichess.fp.debounce = function(func, wait, immediate) {
     var timeout;
     return function() {
       var context = this,
@@ -346,7 +346,7 @@ lichess.notifyApp = (function() {
     // because chessground initial display does a DOM read (board dimensions)
     // and the play page can have 6 miniboards to display (ongoing games)
     if (document.getElementById('now_playing')) {
-      var fun = $.fp.debounce(doParseFen, 400, false);
+      var fun = lichess.fp.debounce(doParseFen, 400, false);
       setTimeout(function() {
         fun = doParseFen;
       }, 1000);
@@ -469,7 +469,7 @@ lichess.notifyApp = (function() {
         var findInBodyClasses = function(choices) {
           var list = document.body.classList;
           for (var i in list)
-            if ($.fp.contains(choices, list[i])) return list[i];
+            if (lichess.fp.contains(choices, list[i])) return list[i];
         };
         $.ajax({
           url: $(this).data('url'),
@@ -592,7 +592,7 @@ lichess.notifyApp = (function() {
               });
             });
             $themepicker.find('input.background_image')
-              .on('change keyup paste', $.fp.debounce(function() {
+              .on('change keyup paste', lichess.fp.debounce(function() {
                 var v = $(this).val();
                 $.post($(this).data("href"), {
                   bgImg: v
@@ -653,7 +653,7 @@ lichess.notifyApp = (function() {
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
-      var manuallySetZoom = $.fp.debounce(setZoom, 10);
+      var manuallySetZoom = lichess.fp.debounce(setZoom, 10);
       if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
       lichess.pubsub.on('reset_zoom', function() {
         if (getZoom() > 1) setZoom(getZoom());
@@ -727,7 +727,7 @@ lichess.notifyApp = (function() {
           url: $links.data('url'),
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
-              var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
+              var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
               return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
@@ -846,7 +846,7 @@ lichess.notifyApp = (function() {
     var collection = new memoize(function(k) {
       var set = soundSet;
       if (set === 'music') {
-        if ($.fp.contains(['move', 'capture', 'check'], k)) return {
+        if (lichess.fp.contains(['move', 'capture', 'check'], k)) return {
           play: $.noop
         };
         set = 'standard';
@@ -879,7 +879,7 @@ lichess.notifyApp = (function() {
       volumeStorage.set(v);
       Howler.volume(v);
     };
-    var manuallySetVolume = $.fp.debounce(function(v) {
+    var manuallySetVolume = lichess.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
     }, 50);
@@ -1062,7 +1062,7 @@ lichess.notifyApp = (function() {
 
   lichess.widget("friends", (function() {
     var isSameUser = function(userId, user) {
-      var id = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+      var id = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
       return id.toLowerCase() === userId;
     };
     return {
@@ -1171,7 +1171,7 @@ lichess.notifyApp = (function() {
       },
       _renderUser: function(user) {
         var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
-        var name = $.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
+        var name = lichess.fp.contains(user.name, ' ') ? user.name.split(' ')[1] : user.name;
         var url = '/@/' + name;
         var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
         var studyButton = user.studying ? '<a data-icon="&#xe00e;" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';

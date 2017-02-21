@@ -88,6 +88,6 @@ $(function() {
       $form.submit();
     };
     $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.bind("keyup", $.fp.debounce(submit, 1500));
+    $usernames.bind("keyup", lichess.fp.debounce(submit, 1500));
   }
 });

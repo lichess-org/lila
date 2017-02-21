@@ -353,7 +353,7 @@ module.exports = function(element, cfg) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-    var validateFen = $.fp.debounce(function() {
+    var validateFen = lichess.fp.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
       if (fen) {

@@ -15,13 +15,13 @@ module.exports = function(root) {
   var feedback = m.prop('find'); // find | eval | win | fail | view
 
   var isPlySolved = function(ply) {
-    return $.fp.contains(solvedPlies, ply)
+    return lichess.fp.contains(solvedPlies, ply)
   };
 
   var findNextNode = function() {
     var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
     candidateNodes = nodeFinder.evalSwings(root.vm.mainline, function(n) {
-      return n.ply % 2 === colorModulo && !$.fp.contains(explorerCancelPlies, n.ply);
+      return n.ply % 2 === colorModulo && !lichess.fp.contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.filter(function(n) {
       return !isPlySolved(n.ply);

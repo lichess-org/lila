@@ -4,7 +4,7 @@ var util = require('../util');
 function initialize(ctrl, el) {
   var $div = $(el);
   var $ratingRange = $div.find('.rating_range');
-  var save = $.fp.debounce(function() {
+  var save = lichess.fp.debounce(function() {
     var $form = $div.find('form');
     $.ajax({
       url: $form.attr('action'),
