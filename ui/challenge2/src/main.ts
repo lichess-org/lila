@@ -5,14 +5,14 @@ import { VNode } from 'snabbdom/vnode'
 
 import makeCtrl from './ctrl';
 import view from './view';
+import { load } from './xhr'
 import { ChallengeOpts, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
-import props from 'snabbdom/modules/props';
 import attributes from 'snabbdom/modules/attributes';
 import listeners from 'snabbdom/modules/eventlisteners';
 
-const patch = init([klass, props, attributes, listeners]);
+const patch = init([klass, attributes, listeners]);
 
 export default function LichessChat(element: Element, opts: ChallengeOpts) {
 
@@ -25,6 +25,9 @@ export default function LichessChat(element: Element, opts: ChallengeOpts) {
   ctrl = makeCtrl(opts, redraw);
 
   vnode = patch(element, view(ctrl));
+
+  if (opts.data) ctrl.update(opts.data);
+  else load().then(ctrl.update);
 
   return {
     update: ctrl.update

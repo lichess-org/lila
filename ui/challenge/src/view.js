@@ -78,7 +78,7 @@ function challenge(ctrl, dir) {
       m('div.content', [
         m('span.title', user(dir === 'in' ? c.challenger : c.destUser)),
         m('span.desc', [
-          $.trans(c.rated ? 'Rated' : 'Casual'),
+          lichess.globalTrans(c.rated ? 'Rated' : 'Casual'),
           timeControl(c.timeControl),
           c.variant.name
         ].join(' • '))

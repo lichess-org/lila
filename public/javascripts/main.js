@@ -13,8 +13,8 @@ lichess.challengeApp = (function() {
     var isDev = $('body').data('dev');
     var element = document.getElementById('challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
-    lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(element, {
+    lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessChallenge.default(element, {
         data: data,
         show: function() {
           if (!$(element).is(':visible')) $toggle.click();
@@ -38,8 +38,6 @@ lichess.challengeApp = (function() {
     }
   };
 })();
-
-
 
 lichess.topMenuIntent = function() {
   $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
@@ -662,8 +660,8 @@ lichess.notifyApp = (function() {
       function translateTexts() {
         $('.trans_me').each(function() {
           var t = $(this).removeClass('trans_me');
-          if (t.val()) t.val($.trans(t.val()));
-          else t.text($.trans(t.text()));
+          if (t.val()) t.val(lichess.globalTrans(t.val()));
+          else t.text(lichess.globalTrans(t.text()));
         });
       }
       translateTexts();
@@ -921,7 +919,7 @@ lichess.notifyApp = (function() {
     return play;
   })();
 
-  $.trans = function() {
+  lichess.globalTrans = function() {
     var str = lichess_translations[arguments[0]];
     if (!str) return arguments[0];
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {

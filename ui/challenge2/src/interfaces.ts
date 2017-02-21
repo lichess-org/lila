@@ -11,10 +11,12 @@ export interface Ctrl {
   trans: Trans | undefined
   initiating(): boolean
   reloading(): boolean
+  decline(id: string): void
+  cancel(id: string): void
 }
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
-type ChallengeDirection = 'in' | 'out';
+export type ChallengeDirection = 'in' | 'out';
 type FEN = string;
 
 export interface ChallengeUser {
@@ -23,6 +25,8 @@ export interface ChallengeUser {
   rating: number
   provisional?: boolean
   title?: string
+  online?: boolean
+  patron?: boolean
 }
 
 export interface TimeControl {

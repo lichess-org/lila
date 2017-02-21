@@ -2,8 +2,8 @@ interface Lichess {
   storage: any
   pubsub: Pubsub
   trans: Trans
+  globalTrans(str: string): string
   fp: any
-  spinnerHtml: string
   numberFormat(n: number): string
   sound: any
   once(key: string): boolean

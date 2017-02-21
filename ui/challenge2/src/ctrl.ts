@@ -1,13 +1,13 @@
-// import * as xhr from './xhr'
+import * as xhr from './xhr'
 import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser, Redraw } from './interfaces'
 
 export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
 
   let data: ChallengeData | undefined;
 
-  let initiating = true
-  let reloading = false
-  let trans: Trans | undefined
+  let initiating = true;
+  let reloading = false;
+  let trans: Trans = (key: string) => key;
 
   function update(d: ChallengeData) {
     data = d;
@@ -46,54 +46,23 @@ export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
     data: () => data,
     initiating: () => initiating,
     reloading: () => reloading,
-    trans: trans,
-    update: update
+    trans,
+    update,
+    decline(id) {
+      data && data.in.forEach(c => {
+        if (c.id === id) {
+          c.declined = true;
+          xhr.decline(id);
+        }
+      });
+    },
+    cancel(id) {
+      data && data.out.forEach(c => {
+        if (c.id === id) {
+          c.declined = true;
+          xhr.cancel(id);
+        }
+      });
+    }
   };
-
-
-  // var all = function() {
-  //   return this.data.in ? this.data.in.concat(this.data.out) : [];
-  // }.bind(this);
-
-
-  // this.idsHash = function() {
-  //   return all().map(function(c) {
-  //     return c.id;
-  //   }).join('');
-  // }.bind(this);
-
-  // this.update = function(data) {
-  //   this.data = data;
-  //   if (data.i18n) this.trans = lichess.trans(data.i18n);
-  //   this.vm.initiating = false;
-  //   this.vm.reloading = false;
-  //   env.setCount(this.countActiveIn());
-  //   this.notifyNew();
-  //   m.redraw();
-  // }.bind(this);
-
-  // this.decline = function(id) {
-  //   this.data.in.forEach(function(c) {
-  //     if (c.id === id) {
-  //       c.declined = true;
-  //       xhr.decline(id);
-  //     }
-  //   }.bind(this));
-  // }.bind(this);
-
-  // this.cancel = function(id) {
-  //   this.data.out.forEach(function(c) {
-  //     if (c.id === id) {
-  //       c.declined = true;
-  //       xhr.cancel(id);
-  //     }
-  //   }.bind(this));
-  // }.bind(this);
-
-  // if (env.data) this.update(env.data)
-  // else xhr.load().then(this.update);
-
-  // this.trans = function(key) {
-  //   return key;
-  // };
 };
