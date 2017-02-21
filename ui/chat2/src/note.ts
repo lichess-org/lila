@@ -29,10 +29,10 @@ export function noteView(ctrl: NoteCtrl): VNode {
   const text = ctrl.text();
   if (text == undefined) return h('div.loading', {
     hook: {
-      create: ctrl.fetch
+      insert: ctrl.fetch
     },
     props: {
-      innerHTML: window.lichess.spinnerHtml
+      // innerHTML: window.lichess.spinnerHtml
     }
   })
   return h('textarea', {
@@ -40,7 +40,7 @@ export function noteView(ctrl: NoteCtrl): VNode {
       placeholder: ctrl.trans('typePrivateNotesHere')
     },
     hook: {
-      create(_, vnode) {
+      insert(vnode) {
         const $el = $(vnode.elm as HTMLElement);
         $el.val(text).on('change keyup paste', () => {
           ctrl.post($el.val())

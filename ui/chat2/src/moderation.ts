@@ -26,6 +26,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   const close = () => {
     data = undefined;
     loading = false;
+    opts.redraw();
   };
 
   return {
@@ -51,8 +52,11 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function lineAction() {
+export function lineAction(onClick: (e: Event) => void) {
   return h('i.mod', {
+    on: {
+      click: onClick
+    },
     attrs: {
       'data-icon': '',
       title: 'Moderation'
@@ -60,13 +64,13 @@ export function lineAction() {
   });
 }
 
-export function moderationView(ctrl: ModerationCtrl) {
+export function moderationView(ctrl?: ModerationCtrl) {
   if (!ctrl) return;
-  if (ctrl.loading()) return h('div', {
-    props: {
-      innerHTML: window.lichess.spinnerHtml
-    }
-  });
+  // if (ctrl.loading()) return [h('div', {
+  //   props: {
+  //     innerHTML: window.lichess.spinnerHtml
+  //   }
+  // })];
   var data = ctrl.data();
   if (!data) return;
   return [
@@ -81,46 +85,42 @@ export function moderationView(ctrl: ModerationCtrl) {
     ]),
     h('div.content.moderation', [
       h('div.infos.block', [
-        [
-          window.lichess.numberFormat(data.games) + ' games',
-          data.troll ? 'TROLL' : undefined,
-          data.engine ? 'ENGINE' : undefined,
-          data.booster ? 'BOOSTER' : undefined
-        ].filter(x => x).join(' • '),
-        ' • ',
+        window.lichess.numberFormat(data.games) + ' games',
+        data.troll ? 'TROLL' : undefined,
+        data.engine ? 'ENGINE' : undefined,
+        data.booster ? 'BOOSTER' : undefined
+      ].filter(x => x).map(t => t && h('span', t)).concat([
         h('a', {
           attrs: {
             href: '/@/' + data.username + '?mod'
           }
-        }, 'profile'),
+        }, 'profile')
+      ]).concat(
         ctrl.permissions.shadowban ? [
-          ' • ',
           h('a', {
             attrs: {
               href: '/mod/' + data.username + '/communication'
             }
           }, 'coms')
-        ] : undefined
-      ]),
+        ] : [])),
       h('div.timeout.block', [
-        h('h2', 'Timeout 10 minutes for'),
-        ctrl.reasons.map(r => {
-          return h('a.text', {
-            attrs: { 'data-icon': 'p' },
-            on: { click: [ctrl.timeout, r] }
-          }, r.name);
-        }), (data.troll || !ctrl.permissions.shadowban) ? undefined : h('div.shadowban', [
-          'Or ',
-          h('button.button', {
-            on: { click: [ctrl.shadowban, data.username] }
-          }, 'shadowban')
-        ])
-      ]),
+        h('h2', 'Timeout 10 minutes for')
+      ].concat(ctrl.reasons.map(r => {
+        return h('a.text', {
+          attrs: { 'data-icon': 'p' },
+          on: { click: [ctrl.timeout, r] }
+        }, r.name);
+      })).concat(data.troll || !ctrl.permissions.shadowban ? [] : [h('div.shadowban', [
+        'Or ',
+        h('button.button', {
+          on: { click: [ctrl.shadowban, data.username] }
+        }, 'shadowban')
+      ])])),
       h('div.history.block', [
         h('h2', 'Timeout history'),
         h('table', h('tbody.slist', {
           hook: {
-            create: () => window.lichess.pubsub.emit('content_loaded')()
+            insert: () => window.lichess.pubsub.emit('content_loaded')()
           }
         }, data.history.map(function(e) {
           return h('tr', [
