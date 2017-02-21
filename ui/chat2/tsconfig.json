@@ -3,7 +3,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "alwaysStrict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

@@ -6,6 +6,9 @@ div.mchat {
 body.kid div.mchat {
   display: none;
 }
+div.mchat .spinner {
+  padding-top: 100px;
+}
 div.mchat .chat_tabs {
   flex: 0 0 auto;
   display: flex;

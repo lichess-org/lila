@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
-import { userLink } from './util';
+import { userLink, spinner } from './util';
 
 function isToday(timestamp: number) {
   return window.moment(timestamp).isSame(new Date(), 'day');
@@ -63,13 +64,9 @@ export function lineAction(onClick: (e: Event) => void) {
   });
 }
 
-export function moderationView(ctrl?: ModerationCtrl) {
+export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
-  // if (ctrl.loading()) return [h('div', {
-  //   props: {
-  //     innerHTML: window.lichess.spinnerHtml
-  //   }
-  // })];
+  if (ctrl.loading()) return [h('div.loading', spinner())];
   var data = ctrl.data();
   if (!data) return;
   return [
@@ -103,18 +100,21 @@ export function moderationView(ctrl?: ModerationCtrl) {
           }, 'coms')
         ] : [])),
       h('div.timeout.block', [
-        h('h2', 'Timeout 10 minutes for')
-      ].concat(ctrl.reasons.map(r => {
-        return h('a.text', {
-          attrs: { 'data-icon': 'p' },
-          on: { click: [ctrl.timeout, r] }
-        }, r.name);
-      })).concat(data.troll || !ctrl.permissions.shadowban ? [] : [h('div.shadowban', [
-        'Or ',
-        h('button.button', {
-          on: { click: [ctrl.shadowban, data.username] }
-        }, 'shadowban')
-      ])])),
+        h('h2', 'Timeout 10 minutes for'),
+        ...ctrl.reasons.map(r => {
+          return h('a.text', {
+            attrs: { 'data-icon': 'p' },
+            on: { click: [ctrl.timeout, r] }
+          }, r.name);
+        }),
+        ...(
+          (data.troll || !ctrl.permissions.shadowban) ? [] : [h('div.shadowban', [
+            'Or ',
+            h('button.button', {
+              on: { click: [ctrl.shadowban, data.username] }
+            }, 'shadowban')
+          ])])
+      ]),
       h('div.history.block', [
         h('h2', 'Timeout history'),
         h('table', h('tbody.slist', {

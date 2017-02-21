@@ -6,9 +6,6 @@ div.mchat.mod div.top {
 div.mchat.mod div.top .toggle_chat {
   cursor: pointer;
 }
-div.mchat.mod .spinner {
-  padding-top: 100px;
-}
 div.mchat.mod li {
   position: relative;
 }
