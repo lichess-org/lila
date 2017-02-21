@@ -68,10 +68,9 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
         'type': 'submit',
         'data-icon': 'L'
       },
-      on: {
-        click() {
-          ctrl.decline(c.id);
-          return false;
+      hook: {
+        insert: (vnode: VNode) => {
+          (vnode.elm as HTMLElement).addEventListener('click', () => ctrl.decline(c.id));
         }
       }
     })
@@ -91,10 +90,9 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
     ]),
     h('button.button.decline', {
       attrs: { 'data-icon': 'L' },
-      on: {
-        click() {
-          ctrl.cancel(c.id);
-          return false;
+      hook: {
+        insert: (vnode: VNode) => {
+          (vnode.elm as HTMLElement).addEventListener('click', () => ctrl.cancel(c.id));
         }
       }
     })

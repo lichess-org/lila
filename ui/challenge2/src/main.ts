@@ -10,9 +10,8 @@ import { ChallengeOpts, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import listeners from 'snabbdom/modules/eventlisteners';
 
-const patch = init([klass, attributes, listeners]);
+const patch = init([klass, attributes]);
 
 export default function LichessChat(element: Element, opts: ChallengeOpts) {
 
