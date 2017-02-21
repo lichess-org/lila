@@ -28,8 +28,6 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
 
   vnode = patch(element, view(ctrl))
 
-  window.lichess.pubsub.emit('chat.ready', ctrl)
-
   window.Mousetrap.bind('/', () => {
     (element.querySelector('input.lichess_say') as HTMLElement).focus();
     return false;

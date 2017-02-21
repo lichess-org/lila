@@ -15,7 +15,7 @@ export default function(ctrl: Ctrl) {
 
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab
-  const tabs: Array<Tab> = ['discussion'];
+    const tabs: Array<Tab> = ['discussion'];
   if (ctrl.note) tabs.push('note');
   return [
     h('div', {
@@ -24,7 +24,7 @@ function normalView(ctrl: Ctrl) {
         ['nb_' + tabs.length]: true
       }
     }, tabs.map(t => renderTab(ctrl, t, active))),
-      h('div', {
+    h('div', {
       class: {
         content: true,
         [active]: true
@@ -48,16 +48,21 @@ function tabName(ctrl: Ctrl, tab: Tab) {
   switch (tab) {
     case 'discussion':
       return [
-      h('span', ctrl.data.name),
-      // h('input', {
-      //   type: 'checkbox',
-      //   class: 'toggle_chat',
-      //   title: ctrl.trans('toggleTheChat'),
-      //   onchange: m.withAttr('checked', ctrl.setEnabled),
-      //   checked: ctrl.vm.enabled()
-      // })
-    ];
-    case 'note':
-      return ctrl.trans('notes');
+        h('span', ctrl.data.name),
+        h('input.toggle_chat', {
+          attrs: {
+            type: 'checkbox',
+            title: ctrl.trans('toggleTheChat'),
+            checked: ctrl.vm.enabled
+          },
+          on: {
+            change: (e: Event) => {
+              ctrl.setEnabled((e.target as HTMLInputElement).checked);
+            }
+          }
+        })
+      ];
+ case 'note':
+   return ctrl.trans('notes');
   }
 }

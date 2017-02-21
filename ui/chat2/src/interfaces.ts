@@ -6,6 +6,7 @@ export interface ChatOpts {
   parseMoves: boolean
   public: boolean
   permissions: Permissions
+  timeoutReasons?: ModerationReason[]
   i18n: Object
   preset?: string
   noteId?: string
@@ -37,14 +38,17 @@ export type Redraw = () => void
 
 export type Tab = 'discussion' | 'note'
 
+type Trans = any
+
 export interface Ctrl {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
   preset: PresetCtrl
   note?: NoteCtrl
+  moderation?: ModerationCtrl
   post(text: string): boolean
-  trans: any
+  trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
 }
@@ -87,14 +91,53 @@ export interface PresetOpts {
 
 export interface NoteOpts {
   id: string
-  trans: any
+  trans: Trans
   redraw: Redraw
 }
 
 export interface NoteCtrl {
   id: string
-  trans: any
+  trans: Trans
   text(): string
   fetch(): void
   post(text: string): void
+}
+
+export interface ModerationOpts {
+  reasons: ModerationReason[]
+  permissions: Permissions
+  send(typ: string, data: any): void
+  redraw: Redraw
+}
+
+export interface ModerationCtrl {
+  loading(): boolean
+  data(): ModerationData | undefined
+  reasons: ModerationReason[]
+  permissions: Permissions
+  open(username: string): void
+  close(): void
+  timeout(reason: ModerationReason): void
+  shadowban(): void
+}
+
+export interface ModerationData {
+  id: string
+  username: string
+  games: number
+  troll: boolean
+  engine: boolean
+  booster: boolean
+  history: ModerationHistoryEntry[]
+}
+
+export interface ModerationReason {
+  key: string
+  name: string
+}
+
+interface ModerationHistoryEntry {
+  reason: ModerationReason
+  mod: string
+  date: number
 }

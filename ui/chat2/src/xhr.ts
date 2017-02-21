@@ -7,7 +7,6 @@ export function getNote(id: string) {
 }
 
 export function setNote(id: string, text: string) {
-  console.log(id, text)
   return $.post(noteUrl(id), { text: text })
 }
 

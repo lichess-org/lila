@@ -1,6 +1,7 @@
 import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw } from './interfaces'
 import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
+import { moderationCtrl } from './moderation'
 
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
@@ -12,7 +13,6 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     tab: 'discussion',
     enabled: !window.lichess.storage.get('nochat'),
     placeholderKey: 'talkInChat',
-    // moderating: null,
     loading: false,
     timeout: opts.timeout,
     writeable: opts.writeable,
@@ -52,11 +52,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const trans = window.lichess.trans(opts.i18n);
 
-  // const moderation = vm.isMod ? makeModeration({
-  //   reasons: opts.timeoutReasons,
-  //   permissions: opts.permissions,
-  //   send: window.lichess.pubsub.emit('socket.send')
-  // }) : null;
+  const moderation = opts.permissions.timeout && opts.timeoutReasons ? moderationCtrl({
+    reasons: opts.timeoutReasons,
+    permissions: opts.permissions,
+    send: window.lichess.pubsub.emit('socket.send'),
+    redraw: redraw
+  }) : undefined;
 
   const note = data.userId && opts.noteId ? noteCtrl({
     id: opts.noteId,
@@ -89,7 +90,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t
       redraw()
     },
-    // moderation: moderation,
+    moderation: moderation,
     note: note,
     preset: preset,
     post: post,
@@ -99,6 +100,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       emitEnabled();
       if (!v) window.lichess.storage.set('nochat', 1);
       else window.lichess.storage.remove('nochat');
+      redraw();
     }
   };
 };

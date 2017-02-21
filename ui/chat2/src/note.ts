@@ -14,7 +14,6 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
     text: () => text,
     fetch() {
       xhr.getNote(opts.id).then(t => {
-        console.log(t);
         text = t || '';
         opts.redraw()
       })

@@ -135,7 +135,6 @@ lichess.notifyApp = (function() {
     return list.indexOf(needle) !== -1;
   };
   lichess.fp.debounce = function(func, wait, immediate) {
-    console.log(func, wait);
     var timeout;
     return function() {
       var context = this,
