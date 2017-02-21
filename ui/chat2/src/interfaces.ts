@@ -7,6 +7,7 @@ export interface ChatOpts {
   public: boolean
   permissions: Permissions
   i18n: Object
+  preset?: string
 }
 
 interface ChatData {
@@ -37,7 +38,7 @@ export interface Ctrl {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
-  preset: Preset,
+  preset: PresetCtrl,
   post(text: string): boolean
   trans: any
   setTab(tab: Tab): void
@@ -53,6 +54,29 @@ export interface ViewModel {
   writeable: boolean
 }
 
-export interface Preset {
+export interface PresetCtrl {
+  group(): string | undefined
+  said(): string[]
   setGroup(group: string): void
+  post(preset: Preset): void
+}
+
+type PresetKey = string
+type PresetText = string
+
+export interface Preset {
+  key: PresetKey
+  text: PresetText
+}
+
+export interface PresetGroups {
+  start: Preset[]
+  end: Preset[]
+  [key: string]: Preset[]
+}
+
+export interface PresetOpts {
+  initialGroup?: string
+  redraw(): void
+  post(text: string): boolean
 }

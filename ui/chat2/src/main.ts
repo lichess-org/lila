@@ -26,7 +26,7 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
 
   ctrl = makeCtrl(opts, redraw)
 
-  patch(element, view(ctrl))
+  vnode = patch(element, view(ctrl))
 
   window.lichess.pubsub.emit('chat.ready', ctrl)
 

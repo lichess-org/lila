@@ -1,8 +1,5 @@
-// var makeModeration = require('./moderation').ctrl;
-// var makeNote = require('./note').ctrl;
-// var makePreset = require('./preset').ctrl;
-
-import { Ctrl, ChatOpts, Line, Preset, Tab, ViewModel } from './interfaces'
+import { Ctrl, ChatOpts, Line, Tab, ViewModel } from './interfaces'
+import { presetCtrl } from './preset'
 
 export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
 
@@ -65,13 +62,11 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
   //   trans: trans
   // }) : null;
 
-  // var preset = makePreset({
-  //   initialGroup: opts.preset,
-  //   post: post
-  // });
-  let preset: Preset = {
-    setGroup: (group) => null
-  }
+  const preset = presetCtrl({
+    initialGroup: opts.preset,
+    post: post,
+    redraw: redraw
+  });
 
   ps.on('socket.in.message', onMessage);
   ps.on('socket.in.chat_timeout', onTimeout);
