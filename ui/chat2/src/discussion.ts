@@ -16,8 +16,8 @@ export default function(ctrl: Ctrl): VNode[] {
       if (ctrl.data.lines.length > 5) {
         const autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
         if (autoScroll) {
-          el.scrollTop = 999999
-            setTimeout(_ => el.scrollTop = 999999, 300)
+          el.scrollTop = 999999;
+          setTimeout(_ => el.scrollTop = 999999, 300)
         }
       }
   }
