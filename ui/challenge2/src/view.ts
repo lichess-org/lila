@@ -13,6 +13,7 @@ export default function(ctrl: Ctrl): VNode {
 
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
   return h('div', {
+    key: 'all',
     class: {
       challenges: true,
       reloading: ctrl.reloading(),
@@ -27,6 +28,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
     return h('div', {
+      key: c.id,
       class: {
         challenge: true,
         [dir]: true,
@@ -128,6 +130,7 @@ function renderUser(u?: ChallengeUser): VNode {
 
 function empty() {
   return h('div.empty.text', {
+    key: 'empty',
     attrs: {
       'data-icon': '',
     }
