@@ -34,8 +34,6 @@ interface Permissions {
   shadowban?: boolean
 }
 
-export type Redraw = () => void
-
 export type Tab = 'discussion' | 'note'
 
 type Trans = any
@@ -141,3 +139,5 @@ interface ModerationHistoryEntry {
   mod: string
   date: number
 }
+
+export type Redraw = () => void
