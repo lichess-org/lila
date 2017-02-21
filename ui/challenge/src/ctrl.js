@@ -47,7 +47,7 @@ module.exports = function(env) {
       if (lichess.once('c-' + c.id)) {
         if (!lichess.quietMode) {
           env.show();
-          $.sound.newChallenge();
+          lichess.sound.newChallenge();
         }
         lichess.desktopNotification(showUser(c.challenger) + ' challenges you!');
         env.pulse();

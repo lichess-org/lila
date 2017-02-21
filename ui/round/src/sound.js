@@ -1,7 +1,7 @@
 var throttle = require('common').throttle;
 
 function throttled(sound) {
-  return throttle(100, false, $.sound[sound]);
+  return throttle(100, false, lichess.sound[sound]);
 }
 
 module.exports = {

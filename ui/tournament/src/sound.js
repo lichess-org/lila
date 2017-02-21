@@ -9,7 +9,7 @@ function doCountDown(targetTime) {
 
     // always play the 0 sound before completing.
     var bestTick = Math.max(0, Math.round(secondsToStart));
-    if (bestTick <= 10) $.sound['countDown' + bestTick]();
+    if (bestTick <= 10) lichess.sound['countDown' + bestTick]();
 
     if (bestTick > 0) {
       var nextTick = Math.min(10, bestTick - 1);
@@ -35,7 +35,7 @@ module.exports = {
     else if (data.me.rank < 11) soundKey = '2nd';
     else if (data.me.rank < 21) soundKey = '3rd';
 
-    $.sound['tournament' + soundKey]();
+    lichess.sound['tournament' + soundKey]();
   },
   countDown: function(data) {
     if (!data.me || !data.secondsToStart) {
@@ -52,7 +52,7 @@ module.exports = {
 
     // Preload countdown sounds.
     for (var i = 10; i>=0; i--) {
-      $.sound.load('countDown' + i);
+      lichess.sound.load('countDown' + i);
     }
   }
 };

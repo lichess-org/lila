@@ -9,7 +9,7 @@ var make = function(file) {
     ]
   });
   return function() {
-    if ($.sound.set() !== 'silent') sound.play();
+    if (lichess.sound.set() !== 'silent') sound.play();
   };
 };
 

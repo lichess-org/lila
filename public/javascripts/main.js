@@ -176,7 +176,7 @@ lichess.notifyApp = (function() {
       },
       new_notification: function(e) {
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
-        $.sound.newPM();
+        lichess.sound.newPM();
       },
       mlat: function(e) {
         var $t = $('#top .server strong');
@@ -798,7 +798,7 @@ lichess.notifyApp = (function() {
   });
 
 
-  $.sound = (function() {
+  lichess.sound = (function() {
     var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');

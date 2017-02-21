@@ -5,7 +5,7 @@ module.exports = function(data, onFlag, soundColor) {
   var lastUpdate;
 
   var emergSound = {
-    play: $.sound.lowtime,
+    play: lichess.sound.lowtime,
     last: null,
     delay: 20000,
     playable: {
