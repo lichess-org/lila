@@ -1,7 +1,4 @@
 {
-  "files": [
-    "src/*"
-  ],
   "compilerOptions": {
     "noImplicitAny": true,
     "strictNullChecks": true,
