@@ -106,7 +106,8 @@ function renderText(t: string, parseMoves: boolean) {
 }
 
 function renderLine(ctrl: Ctrl, line: Line) {
-  const textNode = thunk('t', line.t, renderText, [line.t]);
+
+  const textNode = thunk('t', line.t, renderText, [line.t, ctrl.opts.parseMoves]);
 
   if (line.u === 'lichess') return h('li.system', textNode);
 
@@ -114,7 +115,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
     h('span', '[' + line.c + ']'),
     textNode
   ]);
-  var userNode = thunk('a', line.u, userLink, [line.u, ctrl.opts.parseMoves]);
+  var userNode = thunk('a', line.u, userLink, [line.u]);
 
   return ctrl.moderation ? h('li', [
     lineAction(() => ctrl.moderation && line.u && ctrl.moderation.open(line.u.split(' ')[0])),

@@ -1,7 +1,7 @@
 export default function(text: string, parseMoves: boolean): string {
   const escaped = escapeHtml(delocalize(text));
   const linked = autoLink(escaped);
-  const plied = (parseMoves && linked === escaped) ? addPlies(linked) : linked;
+  const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
 }
 
