@@ -20,7 +20,7 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
 
   let vnode: VNode, ctrl: Ctrl
 
-  let redraw = () => {
+  function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
 
@@ -30,7 +30,7 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
 
   window.lichess.pubsub.emit('chat.ready', ctrl)
 
-  window.Mousetrap.bind('/', function() {
+  window.Mousetrap.bind('/', () => {
     (element.querySelector('input.lichess_say') as HTMLElement).focus();
     return false;
   })

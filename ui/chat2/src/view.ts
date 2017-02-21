@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { Ctrl, Tab } from './interfaces'
-import { renderDiscussion } from './discussion'
+import renderDiscussion from './discussion'
 
-export default function view(ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   return h('div#chat', {
     class: {
       side_box: true,

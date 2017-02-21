@@ -7,7 +7,7 @@ import { presetView } from './preset';
 
 const whisperRegex = /^\/w(?:hisper)?\s/
 
-export function renderDiscussion(ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   if (!ctrl.vm.enabled) [];
   const scrollCb = (_: VNode, vnode: VNode) => {
     const el = vnode.elm as HTMLElement
@@ -22,7 +22,7 @@ export function renderDiscussion(ctrl: Ctrl) {
   return [
     h('ol.messages.content.scroll-shadow-soft', {
       hook: {
-        insert: vnode => {
+        insert(vnode) {
           $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
             window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
           })
@@ -56,7 +56,7 @@ function renderInput(ctrl: Ctrl) {
         disabled: ctrl.vm.timeout || !ctrl.vm.writeable
       },
       on: {
-        keyup: function(e: KeyboardEvent) {
+        keyup(e: KeyboardEvent) {
           const el = e.target as HTMLInputElement;
           const txt = el.value;
           if (e.which == 10 || e.which == 13) {
@@ -83,7 +83,7 @@ function sameLines(l1: Line, l2: Line) {
 
 function selectLines(ctrl: Ctrl): Array<Line> {
   let prev: Line, ls: Array<Line> = [];
-  ctrl.data.lines.forEach(function(line) {
+  ctrl.data.lines.forEach(line => {
     if (!line.d &&
         (!prev || !sameLines(prev, line)) &&
           (!line.r || ctrl.opts.kobold) &&

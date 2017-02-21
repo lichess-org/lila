@@ -27,16 +27,16 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
   return {
     group: () => group,
     said: () => said,
-    setGroup: p => {
+    setGroup(p) {
       if (p !== group) {
         group = p;
         if (!p) said = [];
         opts.redraw();
       }
     },
-    post: (preset: Preset) => {
+    post(preset) {
       if (!group) return;
-      var sets = groups[group];
+      const sets = groups[group];
       if (!sets) return;
       if (said.indexOf(preset.key) !== -1) return;
       opts.post(preset.text);
@@ -58,8 +58,8 @@ export function presetView(ctrl: PresetCtrl) {
         disabled: disabled
       },
       attrs: {
-      'data-hint': p.text,
-      disabled: disabled
+        'data-hint': p.text,
+        disabled: disabled
       },
       on: {
         click: disabled ? null : [ctrl.post, p]

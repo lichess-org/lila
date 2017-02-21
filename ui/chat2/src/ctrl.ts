@@ -1,13 +1,13 @@
 import { Ctrl, ChatOpts, Line, Tab, ViewModel } from './interfaces'
 import { presetCtrl } from './preset'
 
-export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
+export default function(opts: ChatOpts, redraw: () => void): Ctrl {
 
-  let data = opts.data;
+  const data = opts.data;
 
-  const ps = window.lichess.pubsub;
+  const pubsub = window.lichess.pubsub;
 
-  var vm: ViewModel = {
+  const vm: ViewModel = {
     tab: 'discussion',
     enabled: !window.lichess.storage.get('nochat'),
     placeholderKey: 'talkInChat',
@@ -17,18 +17,18 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
     writeable: opts.writeable,
   };
 
-  var post = function(text: string): boolean {
+  const post = function(text: string): boolean {
     text = text.trim();
     if (!text) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    ps.emit('socket.send')('talk', text);
+    pubsub.emit('socket.send')('talk', text);
     return false;
   };
 
-  var onTimeout = function(username: string) {
+  const onTimeout = function(username: string) {
     data.lines.forEach(function(l) {
       if (l.u === username) l.d = true;
     });
@@ -36,28 +36,28 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
     redraw();
   };
 
-  var onReinstate = function(userId: string) {
+  const onReinstate = function(userId: string) {
     if (userId === data.userId) {
       vm.timeout = false;
       redraw();
     }
   };
 
-  var onMessage = function(line: Line) {
+  const onMessage = function(line: Line) {
     if (data.lines.length > 64) data.lines.shift();
     data.lines.push(line);
     redraw();
   };
 
-  var trans = window.lichess.trans(opts.i18n);
+  const trans = window.lichess.trans(opts.i18n);
 
-  // var moderation = vm.isMod ? makeModeration({
+  // const moderation = vm.isMod ? makeModeration({
   //   reasons: opts.timeoutReasons,
   //   permissions: opts.permissions,
   //   send: window.lichess.pubsub.emit('socket.send')
   // }) : null;
 
-  // var note = data.userId && opts.noteId ? makeNote({
+  // const note = data.userId && opts.noteId ? makeNote({
   //   id: opts.noteId,
   //   trans: trans
   // }) : null;
@@ -68,15 +68,15 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
     redraw: redraw
   });
 
-  ps.on('socket.in.message', onMessage);
-  ps.on('socket.in.chat_timeout', onTimeout);
-  ps.on('socket.in.chat_reinstate', onReinstate);
-  ps.on('chat.writeable', function(v: boolean) {
+  pubsub.on('socket.in.message', onMessage);
+  pubsub.on('socket.in.chat_timeout', onTimeout);
+  pubsub.on('socket.in.chat_reinstate', onReinstate);
+  pubsub.on('chat.writeable', function(v: boolean) {
     vm.writeable = v;
     redraw();
   });
 
-  const emitEnabled = () => ps.emit('chat.enabled')(vm.enabled);
+  const emitEnabled = () => pubsub.emit('chat.enabled')(vm.enabled);
   emitEnabled();
 
   return {
@@ -92,7 +92,7 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
     preset: preset,
     post: post,
     trans: trans,
-    setEnabled: function(v: boolean) {
+    setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();
       if (!v) window.lichess.storage.set('nochat', 1);
@@ -100,4 +100,3 @@ export default function makeCtrl(opts: ChatOpts, redraw: () => void): Ctrl {
     }
   };
 };
-
