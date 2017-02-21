@@ -5,7 +5,7 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-apps="learn challenge insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat notify chat"
+apps="chat2 learn challenge insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat notify"
 
 prll_sh=/etc/profile.d/prll.sh
 
