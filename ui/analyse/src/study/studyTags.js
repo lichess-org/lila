@@ -51,7 +51,7 @@ function renderPgnTags(chapter, submit, node, types) {
       }, [
         m('option', 'New tag'),
         types.map(function(t) {
-          if (!$.fp.contains(existingTypes, t)) return m('option', {
+          if (!lichess.fp.contains(existingTypes, t)) return m('option', {
             value: t
           }, t);
         })

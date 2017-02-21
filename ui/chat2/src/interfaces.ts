@@ -8,6 +8,7 @@ export interface ChatOpts {
   permissions: Permissions
   i18n: Object
   preset?: string
+  noteId?: string
 }
 
 interface ChatData {
@@ -32,13 +33,16 @@ interface Permissions {
   shadowban?: boolean
 }
 
+export type Redraw = () => void
+
 export type Tab = 'discussion' | 'note'
 
 export interface Ctrl {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
-  preset: PresetCtrl,
+  preset: PresetCtrl
+  note?: NoteCtrl
   post(text: string): boolean
   trans: any
   setTab(tab: Tab): void
@@ -77,6 +81,20 @@ export interface PresetGroups {
 
 export interface PresetOpts {
   initialGroup?: string
-  redraw(): void
+  redraw: Redraw
   post(text: string): boolean
+}
+
+export interface NoteOpts {
+  id: string
+  trans: any
+  redraw: Redraw
+}
+
+export interface NoteCtrl {
+  id: string
+  trans: any
+  text(): string
+  fetch(): void
+  post(text: string): void
 }

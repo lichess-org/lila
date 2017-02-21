@@ -1,7 +1,8 @@
-import { Ctrl, ChatOpts, Line, Tab, ViewModel } from './interfaces'
+import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw } from './interfaces'
 import { presetCtrl } from './preset'
+import { noteCtrl } from './note'
 
-export default function(opts: ChatOpts, redraw: () => void): Ctrl {
+export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
 
@@ -57,10 +58,11 @@ export default function(opts: ChatOpts, redraw: () => void): Ctrl {
   //   send: window.lichess.pubsub.emit('socket.send')
   // }) : null;
 
-  // const note = data.userId && opts.noteId ? makeNote({
-  //   id: opts.noteId,
-  //   trans: trans
-  // }) : null;
+  const note = data.userId && opts.noteId ? noteCtrl({
+    id: opts.noteId,
+    trans: trans,
+    redraw: redraw
+  }) : undefined;
 
   const preset = presetCtrl({
     initialGroup: opts.preset,
@@ -88,7 +90,7 @@ export default function(opts: ChatOpts, redraw: () => void): Ctrl {
       redraw()
     },
     // moderation: moderation,
-    // note: note,
+    note: note,
     preset: preset,
     post: post,
     trans: trans,

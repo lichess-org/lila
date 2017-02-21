@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { Ctrl, Tab } from './interfaces'
-import renderDiscussion from './discussion'
+import discussionView from './discussion'
+import { noteView } from './note'
 
 export default function(ctrl: Ctrl) {
   return h('div#chat', {
@@ -12,11 +13,10 @@ export default function(ctrl: Ctrl) {
   }, normalView(ctrl))
 }
 
-const tabs: Array<Tab> = ['discussion'];
-
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab
-  // if (ctrl.note) tabs.push('note');
+  const tabs: Array<Tab> = ['discussion'];
+  if (ctrl.note) tabs.push('note');
   return [
     h('div', {
       class: {
@@ -24,7 +24,12 @@ function normalView(ctrl: Ctrl) {
         ['nb_' + tabs.length]: true
       }
     }, tabs.map(t => renderTab(ctrl, t, active))),
-      h('div.content', renderDiscussion(ctrl))
+      h('div', {
+      class: {
+        content: true,
+        [active]: true
+      }
+    }, (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : discussionView(ctrl))
   ]
 }
 
@@ -56,17 +61,3 @@ function tabName(ctrl: Ctrl, tab: Tab) {
       return ctrl.trans('notes');
   }
 }
-
-// return [
-//   m('div', {
-//     class: 'chat_tabs nb_' + tabs.length
-//   }, tabs.map(function(t) {
-//     return m('div', {
-//       onclick: function() {
-//         ctrl.vm.tab(t);
-//       },
-//       class: 'tab ' + t + (tab === t ? ' active' : '')
-//     }, tabName(ctrl, t));
-//   })),
-//   m('div.content.' + tab, tabContent(ctrl, tab))
-// ];

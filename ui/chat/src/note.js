@@ -7,7 +7,7 @@ module.exports = {
     var vm = {
       text: m.prop(null)
     };
-    var doPost = $.fp.debounce(function() {
+    var doPost = lichess.fp.debounce(function() {
       xhr.setNote(id, vm.text());
     }, 1000);
     return {

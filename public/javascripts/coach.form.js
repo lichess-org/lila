@@ -56,7 +56,7 @@ $(function() {
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
-  var submit = $.fp.debounce(function() {
+  var submit = lichess.fp.debounce(function() {
     $editor.find('form.form').ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');

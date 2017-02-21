@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { PresetCtrl, PresetOpts, Preset, PresetGroups } from './interfaces'
 
 function splitIt(s: string): Preset {
@@ -45,7 +46,7 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
   }
 }
 
-export function presetView(ctrl: PresetCtrl) {
+export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const group = ctrl.group();
   if (!group) return;
   const sets = groups[group];
