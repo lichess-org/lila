@@ -1,4 +1,4 @@
-/// <reference path="../dts/index.d.ts" />
+/// <reference path="../../types/index.d.ts" />
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
