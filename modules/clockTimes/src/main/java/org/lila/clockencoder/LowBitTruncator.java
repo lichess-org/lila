@@ -8,10 +8,12 @@ public class LowBitTruncator {
     public static void truncate(int[] centis) {
         int moves = centis.length;
         for (int i = 0; i < moves; i++) {
-            // NOTE: this is a sign extending shift. This shift
-            // is an optimized divide and so should preserve sign.
             centis[i] >>= 3;
         }
+    }
+
+    public static void truncate(int centi) {
+        return centi >> 3;
     }
 
     public static void writeDigits(int[] centis, BitWriter writer) {
