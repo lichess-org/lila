@@ -1,13 +1,17 @@
-var gulp = require("gulp");
-var browserify = require("browserify");
-var source = require('vinyl-source-stream');
-var tsify = require("tsify");
-var watchify = require("watchify");
-var gutil = require("gulp-util");
-var uglify = require('gulp-uglify');
-var buffer = require('vinyl-buffer');
+const gulp = require("gulp");
+const browserify = require("browserify");
+const source = require('vinyl-source-stream');
+const tsify = require("tsify");
+const watchify = require("watchify");
+const gutil = require("gulp-util");
+const uglify = require('gulp-uglify');
+const buffer = require('vinyl-buffer');
 
-var destination = '../../public/compiled/';
+const destination = '../../public/compiled/';
+
+function onError(error) {
+  return gutil.log(gutil.colors.red(error.message));
+};
 
 function build(debug) {
   return browserify('src/main.ts', {
@@ -17,14 +21,12 @@ function build(debug) {
     .plugin(tsify);
 }
 
-var watchedBrowserify = watchify(build(true));
+const watchedBrowserify = watchify(build(true));
 
 function bundle() {
   return watchedBrowserify
     .bundle()
-    .on('error', function(error) {
-      gutil.log(gutil.colors.red(error.message));
-    })
+    .on('error', onError)
     .pipe(source('lichess.challenge2.js'))
     .pipe(buffer())
     .pipe(gulp.dest(destination));
@@ -33,6 +35,14 @@ function bundle() {
 gulp.task("default", [], bundle);
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", gutil.log);
+
+gulp.task('dev', function() {
+  return build(true)
+    .bundle()
+    .on('error', onError)
+    .pipe(source('lichess.challenge2.js'))
+    .pipe(gulp.dest(destination));
+});
 
 gulp.task("prod", [], function() {
   return build(false)
