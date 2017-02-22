@@ -12,7 +12,7 @@ public class LowBitTruncator {
         }
     }
 
-    public static void truncate(int centi) {
+    public static int truncate(int centi) {
         return centi >> 3;
     }
 
