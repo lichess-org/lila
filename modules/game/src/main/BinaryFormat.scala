@@ -1,11 +1,13 @@
 package lila.game
 
-import chess.variant.Variant
 import org.joda.time.DateTime
 import scala.collection.Searching._
 import scala.concurrent.duration._
 
 import chess._
+import chess.variant.Variant
+
+import org.lichess.clockencoder
 
 import lila.db.ByteArray
 
@@ -22,6 +24,28 @@ object BinaryFormat {
 
     def read(ba: ByteArray, nb: Int): PgnMoves =
       format.pgn.Binary.readMoves(ba.value.toList, nb).get
+  }
+
+  object clockHistory {
+
+    def writeSide(times: Vector[FiniteDuration]): ByteArray = {
+      val centis = times.map(_.toHundredths.toInt)
+      centis.headOption.map { startTime =>
+        ByteArray(clockencoder.Encoder.encode(centis.toArray, startTime))
+      } getOrElse (ByteArray.empty)
+    }
+
+    def readSide(startTime: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
+      if (ba.isEmpty) { Vector.empty }
+      else { clockencoder.Encoder.decode(ba.value, numMoves, startTime.toHundredths.toInt).map(_ * 10.millis).toVector }
+    }
+
+    def read(startTime: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
+      val ply = turns - startTurn
+      val wmoves = (if (startTurn % 2 == 0) { ply + 1 } else { ply }) / 2
+      val bmoves = (if (startTurn % 2 == 0) { ply } else { ply + 1 }) / 2
+      ClockHistory(readSide(startTime, bw, wmoves), readSide(startTime, bb, bmoves))
+    }
   }
 
   object moveTime {
@@ -42,12 +66,12 @@ object BinaryFormat {
       }).map(_.toByte).toArray
     }
 
-    def read(ba: ByteArray): Vector[FiniteDuration] = {
+    def read(ba: ByteArray, turns: Int): Vector[FiniteDuration] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.map(_ * 100 millis).toVector
+    }.map(_ * 100 millis).take(turns).toVector
   }
 
   case class clock(since: DateTime) {

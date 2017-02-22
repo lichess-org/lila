@@ -143,7 +143,7 @@ final class JsonView(
           Json.obj(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
-                "moveTimes" -> (game.clockHistory.moveTimes(game.playedTurns).map(_.map(_.toTenths)) ifTrue withMoveTimes),
+                "moveTimes" -> (game.moveTimes.map(_.map(_.roundTenths)) ifTrue withMoveTimes),
                 "division" -> withDivision.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)

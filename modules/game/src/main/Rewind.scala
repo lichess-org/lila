@@ -1,5 +1,6 @@
 package lila.game
 
+import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
 object Rewind {
@@ -20,6 +21,11 @@ object Rewind {
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
+      def rewindedPlayerMoves(color: Color) = {
+        val playedTurns = rewindedGame.turns - game.startedAtTurn
+        if (color == game.startColor) (playedTurns + 1) / 2
+        else playedTurns / 2
+      }
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
@@ -35,7 +41,12 @@ object Rewind {
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None
         ),
         unmovedRooks = rewindedGame.board.unmovedRooks,
-        clockHistory = game.clockHistory take rewindedGame.turns,
+        clockHistory = game.clockHistory.map { history =>
+          ClockHistory(
+            history.white.take(rewindedPlayerMoves(White)),
+            history.black.take(rewindedPlayerMoves(Black))
+          )
+        },
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
         clock = game.clock map (_.takeback)

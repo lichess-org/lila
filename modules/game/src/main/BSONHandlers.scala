@@ -2,6 +2,7 @@ package lila.game
 
 import lila.db.{ BSON, ByteArray }
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 import reactivemongo.bson._
 
 import chess.variant.{ Variant, Crazyhouse }
@@ -76,6 +77,7 @@ object BSONHandlers {
       val bPlayer = player(blackPlayer, Black, blackId, blackUid)
       val createdAtValue = r date createdAt
       val realVariant = Variant(r intD variant) | chess.variant.Standard
+      val gameClock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2)))
       Game(
         id = r str id,
         whitePlayer = wPlayer,
@@ -85,7 +87,7 @@ object BSONHandlers {
         status = r.get[Status](status),
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
-        clock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2))),
+        clock = gameClock,
         positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
@@ -94,7 +96,12 @@ object BSONHandlers {
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
         unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
-        clockHistory = ClockHistory(r bytesO moveTimes),
+        legacyMoveTimes = r bytesO legacyMoveTimes,
+        clockHistory = for {
+          clk <- gameClock
+          bw <- r bytesO whiteClockHistory
+          bb <- r bytesO blackClockHistory
+        } yield BinaryFormat.clockHistory.read(clk.limit.seconds, bw, bb, r intD startedAtTurn, nbTurns),
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -130,7 +137,9 @@ object BSONHandlers {
       castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
-      moveTimes -> o.clockHistory.binaryMoveTimes,
+      legacyMoveTimes -> o.legacyMoveTimes,
+      whiteClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(h.white)),
+      blackClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(h.black)),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       crazyData -> o.crazyData,

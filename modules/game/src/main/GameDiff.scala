@@ -1,6 +1,8 @@
 package lila.game
 
-import chess.{ Clock, CheckCount, UnmovedRooks }
+import scala.concurrent.duration.FiniteDuration
+
+import chess.{ White, Black, Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
 import org.joda.time.DateTime
@@ -47,7 +49,9 @@ private[game] object GameDiff {
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
-    dOpt(moveTimes, _.clockHistory.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
+    dOpt(legacyMoveTimes, _.legacyMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
+    dOpt(whiteClockHistory, _.clockHistory.map(_.white), (o: Option[Vector[FiniteDuration]]) => o.map(v => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(v))))
+    dOpt(blackClockHistory, _.clockHistory.map(_.black), (o: Option[Vector[FiniteDuration]]) => o.map(v => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(v))))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

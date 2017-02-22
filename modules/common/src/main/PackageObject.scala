@@ -190,8 +190,11 @@ trait WithPlay { self: PackageObject =>
 
   implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
 
-    def toTenths: Long = self.toMillis / 100
+    def roundSeconds = math.round(self.toMillis.toDouble / 1000)
+    def roundTenths = math.round(self.toMillis.toDouble / 100)
     def toHundredths: Long = self.toMillis / 10
+
+    def abs = if (self < FiniteDuration(0, scala.concurrent.duration.MICROSECONDS)) { -self } else { self }
   }
 
   implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
