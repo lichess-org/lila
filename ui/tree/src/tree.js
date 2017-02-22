@@ -107,6 +107,7 @@ module.exports = function(root) {
     var existing = nodeAtPathOrNull(newPath);
     if (existing) {
       if (defined(node.dests) && !defined(existing.dests)) existing.dests = node.dests;
+      if (defined(node.drops) && !defined(existing.drops)) existing.drops = node.drops;
       return newPath;
     }
     if (updateAt(path, function(parent) {
