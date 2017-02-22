@@ -14,28 +14,27 @@ public class BitReader {
     }
 
     private void readNext() {
-        int r = bb.remaining();
-        if (r > 3) {
-            numRemainingBits = 32;
+        if (bb.remaining() >= 4) {
             pendingBits = bb.getInt();
+            numRemainingBits = 32;
         } else {
-            numRemainingBits = r * 8;
-            pendingBits = bb.get();
-            for (int i = r - 1; i > 0; i--) {
-                pendingBits = (pendingBits << 8) | bb.get();
+            numRemainingBits = bb.remaining() * 8;
+            pendingBits = bb.get() << (numRemainingBits - 8);
+            for (int s = numRemainingBits - 16; s >= 0; s -= 8) {
+                pendingBits |= (bb.get() & 0xFF) << s;
             }
         }
     }
 
     public int readBits(int numReqBits) {
-        int extraBits = numRemainingBits - numReqBits;
-        if (extraBits >= 0) {
-            numRemainingBits = extraBits;
-            return (pendingBits >>> extraBits) & BITMASK[numReqBits];
+        if (numRemainingBits >= numReqBits) {
+            numRemainingBits -= numReqBits;
+            return (pendingBits >>> numRemainingBits) & BITMASK[numReqBits];
         } else {
             int res = pendingBits & BITMASK[numRemainingBits];
+            int neededBits = numReqBits - numRemainingBits;
             readNext();
-            return (res << -extraBits) | readBits(-extraBits);
+            return (res << neededBits) | readBits(neededBits);
         }
     }
 }

@@ -3,7 +3,7 @@ package org.lila.clockencoder;
 public class LowBitTruncator {
     // Truncate 3 bits from centisecs, but preserve precision for low values.
     // CENTI_CUTOFF must be a multiple of 8 (the truncation divisor)
-    private static final int CENTI_CUTOFF = 1000;
+    private static final int CENTI_CUTOFF = 2000;
 
     public static void truncate(int[] centis) {
         int moves = centis.length;
