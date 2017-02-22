@@ -130,7 +130,11 @@ case class Game(
         case (e, i) if (i % 2) == pivot => e
       }
     } orElse clockHistory.map { clocks =>
-      0.millis :: (clocks(color), clocks(color).drop(1)).zipped.map(_ - _ + clock.??(_.increment.seconds)).map(_ max 0.millis).toList
+      0.millis :: (
+        clocks(color),
+        clocks(color).drop(1),
+        0.seconds +: Stream.continually(clock.??(_.increment.seconds))
+      ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
     }
   }
 
