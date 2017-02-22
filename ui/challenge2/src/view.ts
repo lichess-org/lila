@@ -11,6 +11,10 @@ export default function(ctrl: Ctrl): VNode {
   );
 }
 
+function userPowertips(vnode: any) {
+  window.lichess.powertip.manualUserIn(vnode.elm);
+}
+
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
   return h('div', {
     key: 'all',
@@ -20,7 +24,8 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
       many: nb > 3
     },
     hook: {
-      postpatch: () => window.lichess.pubsub.emit('content_loaded')()
+      insert: userPowertips,
+      postpatch: userPowertips
     }
   }, d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))));
 }

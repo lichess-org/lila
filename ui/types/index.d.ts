@@ -9,6 +9,7 @@ interface Lichess {
   once(key: string): boolean
   quietMode: boolean
   desktopNotification(txt: string): void
+  powertip: any
 }
 
 declare type Trans = any; // todo
