@@ -6,9 +6,10 @@ lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
   $toggle.one('mouseover click', function() {
-    if (!booted) load();
+    load();
   });
   var load = function(data) {
+    if (booted) return;
     booted = true;
     var isDev = $('body').data('dev');
     var $element = $('#challenge_app');
@@ -54,6 +55,7 @@ lichess.notifyApp = (function() {
   };
 
   var load = function(data, incoming) {
+    if (booted) return;
     booted = true;
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
@@ -79,7 +81,7 @@ lichess.notifyApp = (function() {
   };
 
   $toggle.one('mouseover click', function() {
-    if (!booted) load();
+    load();
   }).click(function() {
     setTimeout(function() {
       if (instance && isVisible()) instance.setVisible();
