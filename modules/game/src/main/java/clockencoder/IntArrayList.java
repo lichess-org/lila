@@ -6,7 +6,7 @@ import java.util.Arrays;
 // Simple int array wrapper.
 public final class IntArrayList {
     private static final int DEFAULT_CAPACITY = 10;
-    
+
     int[] data;
     int index = 0;
 
@@ -45,4 +45,4 @@ public final class IntArrayList {
     public int[] toArray() {
         return Arrays.copyOf(data, index);
     }
-} 
+}

@@ -32,7 +32,7 @@ public class LinearEstimator {
 
         dest[midIdx] += (start + end) >> 1;
 
-        int mid = dest[midIdx];        
+        int mid = dest[midIdx];
 
         decode(dest, startIdx, start, midIdx, mid);
         decode(dest, midIdx, mid, endIdx, end);
