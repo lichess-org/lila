@@ -5,7 +5,7 @@ module.exports = function(ctrl, hooks) {
     var variant = hook.variant;
     if (hook.action === 'cancel') visible.push(hook);
     else {
-      if (!lichess.fp.contains(f.variant, variant) || !$.fp.contains(f.mode, hook.ra || 0) || !$.fp.contains(f.speed, hook.s) ||
+      if (!lichess.fp.contains(f.variant, variant) || !lichess.fp.contains(f.mode, hook.ra || 0) || !lichess.fp.contains(f.speed, hook.s) ||
         (f.rating && (!hook.rating || (hook.rating < f.rating[0] || hook.rating > f.rating[1])))) {
         hidden++;
       } else {
