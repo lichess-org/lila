@@ -3,12 +3,14 @@ import { VNode } from 'snabbdom/vnode'
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 
 export default function(ctrl: Ctrl): VNode {
-  var d = ctrl.data();
-  if (!d || ctrl.initiating()) return h('div.initiating', spinner());
-  var nb = d.in.length + d.out.length;
+  const d = ctrl.data();
   return h('div#challenge_app.links.dropdown',
-    nb ? allChallenges(ctrl, d, nb) : empty()
-  );
+    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]);
+}
+
+function renderContent(ctrl: Ctrl, d: ChallengeData): VNode {
+  const nb = d.in.length + d.out.length;
+  return nb ? allChallenges(ctrl, d, nb) : empty();
 }
 
 function userPowertips(vnode: any) {
@@ -119,7 +121,7 @@ function timeControl(c: TimeControl): string {
 
 function renderUser(u?: ChallengeUser): VNode {
   if (!u) return h('span', 'Open challenge');
-  var rating = u.rating + (u.provisional ? '?' : '');
+  const rating = u.rating + (u.provisional ? '?' : '');
   return h('a', {
     attrs: { href: `/@/${u.name}`},
     class: {

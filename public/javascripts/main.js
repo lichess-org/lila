@@ -11,13 +11,13 @@ lichess.challengeApp = (function() {
   var load = function(data) {
     booted = true;
     var isDev = $('body').data('dev');
-    var element = document.getElementById('challenge_app');
+    var $element = $('#challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
     lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge.default(element, {
+      instance = LichessChallenge.default($element.empty()[0], {
         data: data,
         show: function() {
-          if (!$(element).is(':visible')) $toggle.click();
+          if (!$element.is(':visible')) $toggle.click();
         },
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
@@ -46,25 +46,19 @@ lichess.topMenuIntent = function() {
 };
 
 lichess.notifyApp = (function() {
-  var instance;
+  var instance, booted;
   var $element = $('#notify_app');
   var $toggle = $('#site_notifications_tag');
   var isVisible = function() {
     return $element.is(':visible');
   };
-  $toggle.one('mouseover click', function() {
-    if (!instance) load();
-  }).click(function() {
-    setTimeout(function() {
-      if (instance && isVisible()) instance.setVisible();
-    }, 200);
-  });
 
   var load = function(data, incoming) {
+    booted = true;
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
-    lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessNotify($element[0], {
+    lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessNotify.default($element.empty()[0], {
         data: data,
         incoming: incoming,
         isVisible: isVisible,
@@ -83,6 +77,14 @@ lichess.notifyApp = (function() {
       });
     });
   };
+
+  $toggle.one('mouseover click', function() {
+    if (!booted) load();
+  }).click(function() {
+    setTimeout(function() {
+      if (instance && isVisible()) instance.setVisible();
+    }, 200);
+  });
 
   return {
     update: function(data, incoming) {

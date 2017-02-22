@@ -36,3 +36,20 @@ interface Variant {
   short: string
   title?: string
 }
+
+interface Paginator<T> {
+  currentPage: number
+  maxPerPage: number
+  currentPageResults: Array<T>
+  nbResults: number
+  previousPage: number
+  nextPage: number
+  nbPages: number
+}
+
+interface LightUser {
+  id: string
+  name: string
+  title?: string
+  patron?: boolean
+}
