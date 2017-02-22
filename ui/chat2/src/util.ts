@@ -12,3 +12,11 @@ export function userLink(u: string) {
     }
   }, u.substring(0, 14));
 }
+
+export function spinner() {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
+}

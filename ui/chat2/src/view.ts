@@ -47,24 +47,20 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
 }
 
 function tabName(ctrl: Ctrl, tab: Tab) {
-  switch (tab) {
-    case 'discussion':
-      return [
-        h('span', ctrl.data.name),
-        h('input.toggle_chat', {
-          attrs: {
-            type: 'checkbox',
-            title: ctrl.trans('toggleTheChat'),
-            checked: ctrl.vm.enabled
-          },
-          on: {
-            change: (e: Event) => {
-              ctrl.setEnabled((e.target as HTMLInputElement).checked);
-            }
-          }
-        })
-      ];
- case 'note':
-   return ctrl.trans('notes');
-  }
+  if (tab === 'discussion') return [
+    h('span', ctrl.data.name),
+    h('input.toggle_chat', {
+      attrs: {
+        type: 'checkbox',
+        title: ctrl.trans('toggleTheChat'),
+        checked: ctrl.vm.enabled
+      },
+      on: {
+        change: (e: Event) => {
+          ctrl.setEnabled((e.target as HTMLInputElement).checked);
+        }
+      }
+    })
+  ];
+  if (tab === 'note') return ctrl.trans('notes');
 }

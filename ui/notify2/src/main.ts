@@ -5,16 +5,14 @@ import { VNode } from 'snabbdom/vnode'
 
 import makeCtrl from './ctrl';
 import view from './view';
-import { ChatOpts, Ctrl } from './interfaces'
+import { NotifyOpts, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
-import props from 'snabbdom/modules/props';
 import attributes from 'snabbdom/modules/attributes';
-import listeners from 'snabbdom/modules/eventlisteners';
 
-const patch = init([klass, props, attributes, listeners]);
+const patch = init([klass, attributes]);
 
-export default function LichessChat(element: Element, opts: ChatOpts) {
+export default function LichessNotify(element: Element, opts: NotifyOpts) {
 
   let vnode: VNode, ctrl: Ctrl
 
@@ -26,12 +24,11 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
 
   vnode = patch(element, view(ctrl));
 
-  window.Mousetrap.bind('/', () => {
-    (element.querySelector('input.lichess_say') as HTMLElement).focus();
-    return false;
-  });
+  if (opts.data) ctrl.update(opts.data, opts.incoming);
+  else ctrl.loadPage(1);
 
   return {
-    preset: ctrl.preset
+    update: ctrl.update,
+    setVisible: ctrl.setVisible
   };
 };

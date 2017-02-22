@@ -51,7 +51,7 @@ module.exports = function(send, ctrl) {
       ctrl.setLoading(true);
       xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
-        $.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
+        lichess.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
     },
     berserk: function(color) {
       ctrl.setBerserk(color);

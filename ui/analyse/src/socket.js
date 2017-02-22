@@ -51,8 +51,7 @@ module.exports = function(send, ctrl) {
     },
     dests: function(data) {
       clearTimeout(anaDestsTimeout);
-      // no strict equality here!
-      if (data.ch == currentChapterId()) {
+      if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path, data.opening);
       } else

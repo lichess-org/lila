@@ -11,5 +11,5 @@ export function setNote(id: string, text: string) {
 }
 
 function noteUrl(id: string) {
-  return '/' + id + '/note';
+  return `/${id}/note`;
 }

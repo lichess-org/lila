@@ -259,7 +259,7 @@ module.exports = function(element, cfg) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
           .prop('disabled', true)
-          .attr('title', $.trans('You need an account to do that'));
+          .attr('title', lichess.globalTrans('You need an account to do that'));
       }
       var ajaxSubmit = function(color) {
         var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);

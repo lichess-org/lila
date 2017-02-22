@@ -291,7 +291,7 @@ module.exports = function(opts) {
         },
         check: o.check
       });
-      if (o.check) $.sound.check();
+      if (o.check) lichess.sound.check();
     }
     if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
@@ -451,13 +451,13 @@ module.exports = function(opts) {
 
   this.goBerserk = function() {
     this.socket.berserk();
-    $.sound.berserk();
+    lichess.sound.berserk();
   }.bind(this);
 
   this.setBerserk = function(color) {
     if (this.vm.goneBerserk[color]) return;
     this.vm.goneBerserk[color] = true;
-    if (color !== this.data.player.color) $.sound.berserk();
+    if (color !== this.data.player.color) lichess.sound.berserk();
     m.redraw();
   }.bind(this);
 
@@ -496,7 +496,7 @@ module.exports = function(opts) {
         this.socket.send('drop', this.vm.dropToSubmit, {
           ackable: true
         });
-      $.sound.confirmation();
+      lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();
     this.setLoading(true);

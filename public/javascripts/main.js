@@ -6,18 +6,19 @@ lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
   $toggle.one('mouseover click', function() {
-    if (!booted) load();
+    load();
   });
   var load = function(data) {
+    if (booted) return;
     booted = true;
     var isDev = $('body').data('dev');
-    var element = document.getElementById('challenge_app');
+    var $element = $('#challenge_app');
     lichess.loadCss('/assets/stylesheets/challengeApp.css');
-    lichess.loadScript("/assets/compiled/lichess.challenge" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge(element, {
+    lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessChallenge.default($element.empty()[0], {
         data: data,
         show: function() {
-          if (!$(element).is(':visible')) $toggle.click();
+          if (!$element.is(':visible')) $toggle.click();
         },
         setCount: function(nb) {
           $toggle.attr('data-count', nb);
@@ -39,8 +40,6 @@ lichess.challengeApp = (function() {
   };
 })();
 
-
-
 lichess.topMenuIntent = function() {
   $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
@@ -48,25 +47,20 @@ lichess.topMenuIntent = function() {
 };
 
 lichess.notifyApp = (function() {
-  var instance;
+  var instance, booted;
   var $element = $('#notify_app');
   var $toggle = $('#site_notifications_tag');
   var isVisible = function() {
     return $element.is(':visible');
   };
-  $toggle.one('mouseover click', function() {
-    if (!instance) load();
-  }).click(function() {
-    setTimeout(function() {
-      if (instance && isVisible()) instance.setVisible();
-    }, 200);
-  });
 
   var load = function(data, incoming) {
+    if (booted) return;
+    booted = true;
     var isDev = $('body').data('dev');
     lichess.loadCss('/assets/stylesheets/notifyApp.css');
-    lichess.loadScript("/assets/compiled/lichess.notify" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessNotify($element[0], {
+    lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
+      instance = LichessNotify.default($element.empty()[0], {
         data: data,
         incoming: incoming,
         isVisible: isVisible,
@@ -85,6 +79,14 @@ lichess.notifyApp = (function() {
       });
     });
   };
+
+  $toggle.one('mouseover click', function() {
+    load();
+  }).click(function() {
+    setTimeout(function() {
+      if (instance && isVisible()) instance.setVisible();
+    }, 200);
+  });
 
   return {
     update: function(data, incoming) {
@@ -176,7 +178,7 @@ lichess.notifyApp = (function() {
       },
       new_notification: function(e) {
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
-        $.sound.newPM();
+        lichess.sound.newPM();
       },
       mlat: function(e) {
         var $t = $('#top .server strong');
@@ -662,8 +664,8 @@ lichess.notifyApp = (function() {
       function translateTexts() {
         $('.trans_me').each(function() {
           var t = $(this).removeClass('trans_me');
-          if (t.val()) t.val($.trans(t.val()));
-          else t.text($.trans(t.text()));
+          if (t.val()) t.val(lichess.globalTrans(t.val()));
+          else t.text(lichess.globalTrans(t.text()));
         });
       }
       translateTexts();
@@ -798,7 +800,7 @@ lichess.notifyApp = (function() {
   });
 
 
-  $.sound = (function() {
+  lichess.sound = (function() {
     var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
@@ -921,7 +923,7 @@ lichess.notifyApp = (function() {
     return play;
   })();
 
-  $.trans = function() {
+  lichess.globalTrans = function() {
     var str = lichess_translations[arguments[0]];
     if (!str) return arguments[0];
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {

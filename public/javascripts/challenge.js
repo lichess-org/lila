@@ -13,7 +13,7 @@ lichess.startChallenge = function(element, opts) {
         reload: function() {
           $.ajax({
             url: opts.xhrUrl,
-            success(html) {
+            success: function(html) {
               $('.lichess_overboard').replaceWith($(html).find('.lichess_overboard'));
               init();
             }

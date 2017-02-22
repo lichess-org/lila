@@ -132,7 +132,7 @@ module.exports = function(element, cfg) {
   if (!cfg.data.analysis) {
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
+        if (confirm(lichess.globalTrans('You need an account to do that'))) location.href = '/signup';
         return false;
       }
       $.ajax({

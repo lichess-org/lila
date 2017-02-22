@@ -11,7 +11,7 @@ var make = function(file, volume) {
     volume: volume || 1
   });
   return function() {
-    if ($.sound.set() !== 'silent') sound.play();
+    if (lichess.sound.set() !== 'silent') sound.play();
   };
 };
 
