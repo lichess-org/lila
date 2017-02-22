@@ -8,15 +8,16 @@ case class ClockHistory(
     binaryMoveTimes: Option[ByteArray] = None
 ) {
 
-  lazy val moveTimes: Option[Vector[FiniteDuration]] =
-    binaryMoveTimes.map(BinaryFormat.moveTime read _)
+  def moveTimes(playedTurns: Int): Option[Vector[FiniteDuration]] =
+    binaryMoveTimes.map(binary => BinaryFormat.moveTime.read(binary).take(playedTurns))
 
-  def :+(moveTime: FiniteDuration) = ClockHistory(
-    binaryMoveTimes = BinaryFormat.moveTime.write((moveTimes | Vector.empty) :+ moveTime).some
-  )
+  def withTime(playedTurns: Int, moveTime: FiniteDuration) =
+    ClockHistory(
+      binaryMoveTimes = BinaryFormat.moveTime.write(~moveTimes(playedTurns) :+ moveTime).some
+    )
 
   def take(turns: Int) = ClockHistory(
-    binaryMoveTimes = moveTimes.map(BinaryFormat.moveTime write _.take(turns))
+    binaryMoveTimes = moveTimes(turns).map(BinaryFormat.moveTime write _)
   )
 }
 

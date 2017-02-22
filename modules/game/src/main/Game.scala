@@ -113,7 +113,7 @@ case class Game(
 
   def moveTimes(color: Color): Option[List[FiniteDuration]] = {
     val pivot = if (color == startColor) 0 else 1
-    clockHistory.moveTimes.map(_.toList.zipWithIndex.collect {
+    clockHistory.moveTimes(playedTurns).map(_.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     })
   }
@@ -188,9 +188,9 @@ case class Game(
       unmovedRooks = game.board.unmovedRooks,
       clockHistory = isPgnImport.fold(
         ClockHistory.empty,
-        clockHistory :+ lastMoveTime.?? { lmt =>
+        clockHistory.withTime(playedTurns, lastMoveTime.?? { lmt =>
           ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
-        }
+        })
       ),
       status = situation.status | status,
       clock = game.clock
