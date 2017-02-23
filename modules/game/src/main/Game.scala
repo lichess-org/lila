@@ -112,24 +112,14 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes: Option[Vector[FiniteDuration]] = {
-    binaryMoveTimes.map { binary =>
-      BinaryFormat.moveTime.read(binary, playedTurns)
-    } orElse {
-      for {
-        a <- moveTimes(startColor)
-        b <- moveTimes(!startColor)
-      } yield a.zipAll(b, 0.millis, 0.millis).map { case (x, y) => List(x, y) }.flatten.take(playedTurns).toVector
-    }
-  }
+  def moveTimes: Option[Vector[FiniteDuration]] =
+    for {
+      a <- moveTimes(startColor)
+      b <- moveTimes(!startColor)
+    } yield a.zipAll(b, 0.millis, 0.millis).map { case (x, y) => List(x, y) }.flatten.take(playedTurns).toVector
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] = {
-    binaryMoveTimes.map { binary =>
-      val pivot = if (color == startColor) 0 else 1
-      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
-        case (e, i) if (i % 2) == pivot => e
-      }
-    } orElse clockHistory.flatMap { history =>
+  def moveTimes(color: Color): Option[List[FiniteDuration]] =
+    clockHistory.flatMap { history =>
       clock.map { clk =>
         val clockTimes = history(color) :+ (clk.remainingTime(color) * 1000).toLong.millis
         0.millis :: (
@@ -138,8 +128,12 @@ case class Game(
           0.seconds +: Stream.continually(clk.increment.seconds)
         ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
       }
+    } orElse binaryMoveTimes.map { binary =>
+      val pivot = if (color == startColor) 0 else 1
+      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+        case (e, i) if (i % 2) == pivot => e
+      }
     }
-  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
