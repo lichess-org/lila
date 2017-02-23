@@ -28,11 +28,12 @@ object BinaryFormat {
 
   object clockHistory {
 
-    def writeSide(times: Vector[FiniteDuration]): ByteArray = {
+    def writeSide(startTime: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
       val centis = times.map(_.toHundredths.toInt)
-      centis.headOption.map { startTime =>
-        ByteArray(clockencoder.Encoder.encode(centis.toArray, startTime))
-      } getOrElse (ByteArray.empty)
+      if (centis.isEmpty) { ByteArray.empty }
+      else {
+        ByteArray(clockencoder.Encoder.encode(centis.toArray, startTime.toHundredths.toInt))
+      }
     }
 
     def readSide(startTime: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {

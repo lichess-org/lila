@@ -50,8 +50,8 @@ private[game] object GameDiff {
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
     dOpt(legacyMoveTimes, _.legacyMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
-    dOpt(whiteClockHistory, _.clockHistory.map(_.white), (o: Option[Vector[FiniteDuration]]) => o.map(v => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(v))))
-    dOpt(blackClockHistory, _.clockHistory.map(_.black), (o: Option[Vector[FiniteDuration]]) => o.map(v => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(v))))
+    dOpt(whiteClockHistory, (g: Game) => g.clockHistory.map(h => (~g.initialClockTime, h.white)), (o: Option[Tuple2[FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y)) })
+    dOpt(blackClockHistory, (g: Game) => g.clockHistory.map(h => (~g.initialClockTime, h.black)), (o: Option[Tuple2[FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y)) })
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

@@ -112,6 +112,8 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
+  def initialClockTime: Option[FiniteDuration] = clock.map(_.limit.seconds) orElse daysPerTurn.map(_.days)
+
   def moveTimes: Option[Vector[FiniteDuration]] = {
     legacyMoveTimes.map { binary =>
       BinaryFormat.moveTime.read(binary, playedTurns)
@@ -129,12 +131,17 @@ case class Game(
       BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
         case (e, i) if (i % 2) == pivot => e
       }
-    } orElse clockHistory.map { clocks =>
-      0.millis :: (
-        clocks(color),
-        clocks(color).drop(1),
-        0.seconds +: Stream.continually(clock.??(_.increment.seconds))
-      ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
+    } orElse clockHistory.flatMap { history =>
+      val clockTimes = history(color)
+      clock.map { clk =>
+        0.millis :: (
+          clockTimes,
+          clockTimes.drop(1),
+          0.seconds +: Stream.continually(clk.increment.seconds)
+        ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
+      } orElse daysPerTurn.map { days =>
+        clockTimes.map(days.days - _).map(_ max 0.millis).toList
+      }
     }
   }
 
@@ -208,6 +215,10 @@ case class Game(
       unmovedRooks = game.board.unmovedRooks,
       clockHistory = clock.map { clk =>
         (clockHistory | ClockHistory.empty).record(turnColor)((clk.remainingTime(turnColor) * 1000).toLong.millis)
+      } orElse daysPerTurn.map { days =>
+        (clockHistory | ClockHistory.empty).record(turnColor)(lastMoveDateTime.fold(days.days) { lmt =>
+          (days.days - new org.joda.time.Duration(lmt, DateTime.now).getMillis.millis) max 0.millis
+        })
       },
       status = situation.status | status,
       clock = game.clock

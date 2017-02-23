@@ -98,10 +98,10 @@ object BSONHandlers {
         daysPerTurn = r intO daysPerTurn,
         legacyMoveTimes = r bytesO legacyMoveTimes,
         clockHistory = for {
-          clk <- gameClock
+          startTime <- gameClock.map(_.limit.seconds) orElse (r intO daysPerTurn).map(_.days)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
-        } yield BinaryFormat.clockHistory.read(clk.limit.seconds, bw, bb, r intD startedAtTurn, nbTurns),
+        } yield BinaryFormat.clockHistory.read(startTime, bw, bb, r intD startedAtTurn, nbTurns),
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -138,8 +138,8 @@ object BSONHandlers {
       unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
       legacyMoveTimes -> o.legacyMoveTimes,
-      whiteClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(h.white)),
-      blackClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(h.black)),
+      whiteClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(~o.initialClockTime, h.white)),
+      blackClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(~o.initialClockTime, h.black)),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       crazyData -> o.crazyData,
