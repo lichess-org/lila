@@ -136,6 +136,11 @@ function inputs(ctrl, fen) {
   ]);
 }
 
+function isRightButton(e) {
+  return e.buttons === 2 || e.button === 2 || 
+    (e.ctrlKey && (e.buttons === 1 || e.button === 1));
+}
+
 function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
@@ -192,7 +197,25 @@ module.exports = function(ctrl) {
         });
       };
     },
-    style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
+    style: 'cursor: ' + ((cursor) ? cursor : 'pointer'),
+    onmousedown: function(data) {
+      if (
+        ['pointer', 'trash'].indexOf(ctrl.vm.selected()) === -1 &&
+          isRightButton(data)
+      ) {
+        var selectedParts = ctrl.vm.selected().split(' ');
+
+        if (selectedParts.length >= 2) {
+          if (selectedParts[0] === 'white') {
+            selectedParts[0] = 'black';
+          } else if (selectedParts[0] === 'black') {
+            selectedParts[0] = 'white';
+          }
+
+          ctrl.vm.selected(selectedParts.join(' '));
+        }
+      }
+    }
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
     chessground.view(ctrl.chessground),
