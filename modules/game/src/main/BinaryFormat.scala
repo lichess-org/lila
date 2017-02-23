@@ -28,24 +28,25 @@ object BinaryFormat {
 
   object clockHistory {
 
-    def writeSide(startTime: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
-      val centis = times.map(_.toHundredths.toInt)
+    def writeSide(start: FiniteDuration, end: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
+      val centis = times.map(_.toHundredths.toInt).dropRight(1)
+      val startCentis = start.toHundredths.toInt
+      val endCentis = end.toHundredths.toInt
       if (centis.isEmpty) { ByteArray.empty }
-      else {
-        ByteArray(clockencoder.Encoder.encode(centis.toArray, startTime.toHundredths.toInt))
-      }
+      else { ByteArray(clockencoder.Encoder.encode(centis.toArray, startCentis)) }
     }
 
-    def readSide(startTime: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
-      if (ba.isEmpty) { Vector.empty }
-      else { clockencoder.Encoder.decode(ba.value, numMoves, startTime.toHundredths.toInt).map(_ * 10.millis).toVector }
+    def readSide(start: FiniteDuration, end: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
+      val startCentis = start.toHundredths.toInt
+      if (ba.isEmpty) { Vector(end) }
+      else { clockencoder.Encoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis).toVector :+ end }
     }
 
-    def read(startTime: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
+    def read(start: FiniteDuration, ew: FiniteDuration, eb: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
       val ply = turns - startTurn
-      val wmoves = (if (startTurn % 2 == 0) { ply + 1 } else { ply }) / 2
-      val bmoves = (if (startTurn % 2 == 0) { ply } else { ply + 1 }) / 2
-      ClockHistory(readSide(startTime, bw, wmoves), readSide(startTime, bb, bmoves))
+      val wmoves = (if (startTurn % 2 == 0) { ply + 1 } else { ply }) / 2 - 1
+      val bmoves = (if (startTurn % 2 == 0) { ply } else { ply + 1 }) / 2 - 1
+      ClockHistory(readSide(start, ew, bw, wmoves), readSide(start, eb, bb, bmoves))
     }
   }
 

@@ -114,6 +114,15 @@ case class Game(
 
   def initialClockTime: Option[FiniteDuration] = clock.map(_.limit.seconds) orElse daysPerTurn.map(_.days)
 
+  def remainingClockTime(color: Color): Option[FiniteDuration] =
+    clock.map { clk =>
+      (clk.remainingTime(color) * 1000.toLong).millis
+    } orElse daysPerTurn.map { days =>
+      lastMoveDateTime.fold(days.days) { lmt =>
+        (days.days - new org.joda.time.Duration(lmt, DateTime.now).getMillis.millis) max 0.millis
+      }
+    }
+
   def moveTimes: Option[Vector[FiniteDuration]] = {
     legacyMoveTimes.map { binary =>
       BinaryFormat.moveTime.read(binary, playedTurns)
@@ -213,12 +222,8 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      clockHistory = clock.map { clk =>
-        (clockHistory | ClockHistory.empty).record(turnColor)((clk.remainingTime(turnColor) * 1000).toLong.millis)
-      } orElse daysPerTurn.map { days =>
-        (clockHistory | ClockHistory.empty).record(turnColor)(lastMoveDateTime.fold(days.days) { lmt =>
-          (days.days - new org.joda.time.Duration(lmt, DateTime.now).getMillis.millis) max 0.millis
-        })
+      clockHistory = remainingClockTime(turnColor).map { remaining =>
+        (clockHistory | ClockHistory.empty).record(turnColor)(remaining)
       },
       status = situation.status | status,
       clock = game.clock
