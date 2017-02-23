@@ -116,7 +116,7 @@ case class Game(
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield a.zipAll(b, 0.millis, 0.millis).map { case (x, y) => List(x, y) }.flatten.take(playedTurns).toVector
+    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => List(x, y) }.take(playedTurns).toVector
 
   def moveTimes(color: Color): Option[List[FiniteDuration]] =
     clockHistory.flatMap { history =>
@@ -125,7 +125,7 @@ case class Game(
         0.millis :: (
           clockTimes,
           clockTimes.drop(1),
-          0.seconds +: Stream.continually(clk.increment.seconds)
+          0.seconds +: Stream.continually(clk.increment.seconds) // no inc for first move
         ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
       }
     } orElse binaryMoveTimes.map { binary =>

@@ -17,6 +17,8 @@ private[game] object GameDiff {
   type Set = BSONElement // [String, BSONValue]
   type Unset = BSONElement // [String, BSONBoolean]
 
+  type ClockHistorySide = (FiniteDuration, FiniteDuration, Vector[FiniteDuration])
+
   def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
@@ -41,7 +43,7 @@ private[game] object GameDiff {
       }
     }
 
-    def getClockHistory(color: Color)(g: Game) = for {
+    def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] = for {
       history <- g.clockHistory
       clk <- g.clock
       end = (clk.remainingTime(color) * 1000).toLong.millis
@@ -56,8 +58,8 @@ private[game] object GameDiff {
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
-    dOpt(whiteClockHistory, getClockHistory(White)(_), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
-    dOpt(blackClockHistory, getClockHistory(Black)(_), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
+    dOpt(whiteClockHistory, getClockHistory(White)(_), (o: Option[ClockHistorySide]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
+    dOpt(blackClockHistory, getClockHistory(Black)(_), (o: Option[ClockHistorySide]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)
