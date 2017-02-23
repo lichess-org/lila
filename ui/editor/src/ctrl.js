@@ -14,7 +14,8 @@ module.exports = function(cfg) {
 
   this.vm = {
     redirecting: false,
-    selected: m.prop('pointer')
+    selected: m.prop('pointer'),
+    draggingSpare: m.prop(false)
   };
 
   this.extraPositions = [{
