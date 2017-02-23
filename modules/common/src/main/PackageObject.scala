@@ -1,6 +1,6 @@
 package lila
 
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration.{ Duration, FiniteDuration }
 import scala.concurrent.Future
 
 import ornicar.scalalib
@@ -194,7 +194,7 @@ trait WithPlay { self: PackageObject =>
     def roundTenths = math.round(self.toMillis.toDouble / 100)
     def toHundredths: Long = self.toMillis / 10
 
-    def abs = if (self < FiniteDuration(0, scala.concurrent.duration.MICROSECONDS)) { -self } else { self }
+    def abs = if (self < Duration.Zero) -self else self
   }
 
   implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
