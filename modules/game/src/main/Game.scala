@@ -130,8 +130,8 @@ case class Game(
         case (e, i) if (i % 2) == pivot => e
       }
     } orElse clockHistory.flatMap { history =>
-      val clockTimes = history(color)
       clock.map { clk =>
+        val clockTimes = history(color) :+ (clk.remainingTime(color) * 1000).toLong.millis
         0.millis :: (
           clockTimes,
           clockTimes.drop(1),
