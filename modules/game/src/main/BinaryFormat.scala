@@ -41,7 +41,7 @@ object BinaryFormat {
       else {
         val startCentis = start.toHundredths.toInt
         val endCentis = end.toHundredths.toInt
-        clockencoder.Encoder.decode(ba.value, numMoves, startCentis, endCentis).map(_ * 10.millis).toVector :+ end
+        clockencoder.Encoder.decode(ba.value, numMoves - 1, startCentis, endCentis).map(_ * 10.millis).toVector :+ end
       }
     }
 

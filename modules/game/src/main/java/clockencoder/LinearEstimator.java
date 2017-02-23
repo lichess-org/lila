@@ -2,14 +2,14 @@ package org.lichess.clockencoder;
 
 public class LinearEstimator {
 
-    public static void encode(int[] dest, int startTime) {
+    public static void encode(int[] dest, int startTime, int endTime) {
         int size = dest.length;
-        encode(dest, -1, startTime, size - 1, dest[size - 1]);
+        encode(dest, -1, startTime, size, endTime);
     }
 
-    public static void decode(int[] dest, int startTime) {
+    public static void decode(int[] dest, int startTime, int endTime) {
         int size = dest.length;
-        decode(dest, -1, startTime, size - 1, dest[size - 1]);
+        decode(dest, -1, startTime, size, endTime);
     }
 
     private static void encode(int[] dest, int startIdx, int start,

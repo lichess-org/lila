@@ -6,10 +6,10 @@ public class Encoder {
     public static byte[] encode(int[] centis, int startTime, int endTime) {
         int[] encoded = Arrays.copyOf(centis, centis.length);
         int truncatedStart = LowBitTruncator.truncate(startTime);
+        int truncatedEnd = LowBitTruncator.truncate(endTime);
 
         LowBitTruncator.truncate(encoded);
-        LinearEstimator.encode(encoded, truncatedStart);
-        EndTimeEstimator.encode(encoded, truncatedStart);
+        LinearEstimator.encode(encoded, truncatedStart, truncatedEnd);
 
         BitWriter writer = new BitWriter();
         VarIntEncoder.write(encoded, writer);
@@ -18,14 +18,14 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static int[] decode(byte[] bytes, int numMoves, int startTime, int endTime) {
+    public static int[] decode(byte[] bytes, int numValues, int startTime, int endTime) {
         BitReader reader = new BitReader(bytes);
         int truncatedStart = LowBitTruncator.truncate(startTime);
+        int truncatedEnd = LowBitTruncator.truncate(endTime);
 
-        int[] decoded = VarIntEncoder.read(reader, numMoves);
+        int[] decoded = VarIntEncoder.read(reader, numValues);
 
-        EndTimeEstimator.decode(decoded, truncatedStart);
-        LinearEstimator.decode(decoded, truncatedStart);
+        LinearEstimator.decode(decoded, truncatedStart, truncatedEnd);
         LowBitTruncator.decode(decoded, reader);
 
         return decoded;
