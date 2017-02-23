@@ -64,7 +64,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
       insert: contentLoaded,
       postpatch: contentLoaded
     }
-  }, d.pager.currentPageResults.map(asHtml).filter(x => x) as VNode[]);
+  }, d.pager.currentPageResults.map(asHtml) as VNode[]);
 }
 
 function empty() {

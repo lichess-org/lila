@@ -191,7 +191,7 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 }
 
 function drawTime(n: Notification) {
-  return h('time.moment-from.now', {
+  return h('time.moment-from-now', {
     attrs: { datetime: new Date(n.date).toISOString() }
   });
 }

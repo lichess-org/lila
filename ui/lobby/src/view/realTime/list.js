@@ -50,7 +50,7 @@ module.exports = {
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {
-    var mine = allHooks.filter(isMine)[0];
+    var mine = allHooks.find(isMine);
     var max = mine ? 13 : 14;
     var hooks = allHooks.slice(0, max);
     var render = partial(renderHook, ctrl);
