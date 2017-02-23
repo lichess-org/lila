@@ -136,6 +136,14 @@ function inputs(ctrl, fen) {
   ]);
 }
 
+function isRightButton(e) {
+  return e.buttons === 2 || e.button === 2;
+}
+
+function isRightClick(e) {
+  return isRightButton(e) || (e.ctrlKey && isLeftButton(e));
+}
+
 function sparePieces(ctrl, color, orientation, position) {
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
@@ -144,7 +152,8 @@ function sparePieces(ctrl, color, orientation, position) {
     var pieceElement = {
       class: piece,
     };
-    var containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
+    var containerClass = 'no-square' +
+      ((ctrl.vm.selected() === piece && !ctrl.vm.draggingSpare()) ? ' selected-square' : '');
 
     if (piece === 'trash') {
       pieceElement['data-icon'] = 'q';
@@ -157,7 +166,20 @@ function sparePieces(ctrl, color, orientation, position) {
     return m('div', {
         class: containerClass,
         onmousedown: function() {
-          ctrl.vm.selected(piece);
+          if (['pointer', 'trash'].indexOf(piece) !== -1) {
+            ctrl.vm.selected(piece);
+          } else {
+            var listener;
+            ctrl.vm.draggingSpare(true);
+            ctrl.vm.selected('pointer');
+
+            document.addEventListener('mouseup', listener = function() {
+              ctrl.vm.selected(piece);
+              ctrl.vm.draggingSpare(false);
+              m.redraw();
+              document.removeEventListener('mouseup', listener);
+            });
+          }
         }
       }, m('piece', pieceElement)
     );
@@ -192,7 +214,25 @@ module.exports = function(ctrl) {
         });
       };
     },
-    style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
+    style: 'cursor: ' + ((cursor) ? cursor : 'pointer'),
+    onmousedown: function(data) {
+      if (
+        ['pointer', 'trash'].indexOf(ctrl.vm.selected()) === -1 &&
+          isRightClick(data)
+      ) {
+        var selectedParts = ctrl.vm.selected().split(' ');
+
+        if (selectedParts.length >= 2) {
+          if (selectedParts[0] === 'white') {
+            selectedParts[0] = 'black';
+          } else if (selectedParts[0] === 'black') {
+            selectedParts[0] = 'white';
+          }
+
+          ctrl.vm.selected(selectedParts.join(' '));
+        }
+      }
+    }
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
     chessground.view(ctrl.chessground),
