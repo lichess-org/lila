@@ -34,7 +34,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function notifyNew() {
     if (!data || data.pager.currentPage !== 1) return;
-    var notif = data.pager.currentPageResults.filter(n => !n.read)[0];
+    var notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
     if (!window.lichess.quietMode) window.lichess.sound.newPM();

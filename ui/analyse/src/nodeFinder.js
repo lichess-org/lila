@@ -1,9 +1,9 @@
 var winningChances = require('ceval').winningChances;
 
 function hasCompChild(node) {
-  return !!node.children.filter(function(c) {
+  return !!node.children.find(function(c) {
     return c.comp;
-  })[0];
+  });
 }
 
 module.exports = {
@@ -14,9 +14,9 @@ module.exports = {
     var fromIndex = fromPly - mainline[0].ply;
     for (var i = 1; i < len; i++) {
       var node = mainline[(fromIndex + i) % len];
-      var found = (node.ply % 2 === (color === 'white' ? 1 : 0)) && node.glyphs && node.glyphs.filter(function(g) {
+      var found = (node.ply % 2 === (color === 'white' ? 1 : 0)) && node.glyphs && node.glyphs.find(function(g) {
         return g.symbol === symbol;
-      })[0];
+      });
       if (found) return node;
     }
   },

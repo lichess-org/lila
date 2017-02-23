@@ -119,9 +119,9 @@ module.exports = function(env) {
 
   this.clickPool = function(id) {
     if (!this.data.me) {
-      xhr.anonPoolSeek(this.data.pools.filter(function(p) {
+      xhr.anonPoolSeek(this.data.pools.find(function(p) {
         return p.id === id;
-      })[0]);
+      }));
       this.setTab('real_time');
     } else if (this.vm.poolMember && this.vm.poolMember.id === id) this.leavePool();
     else this.enterPool({

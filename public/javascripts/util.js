@@ -443,3 +443,11 @@ $.modal = function(html) {
 $.modal.close = function() {
   $('#modal-overlay').remove();
 };
+
+// polyfills
+
+if (!Array.prototype.find) {
+  Array.prototype.find = function(predicate) {
+    for (var i in this) if (predicate(this[i])) return this[i];
+  };
+}
