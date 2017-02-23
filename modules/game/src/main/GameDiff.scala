@@ -1,8 +1,8 @@
 package lila.game
 
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 
-import chess.{ White, Black, Clock, CheckCount, UnmovedRooks }
+import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
 import org.joda.time.DateTime
@@ -41,6 +41,12 @@ private[game] object GameDiff {
       }
     }
 
+    def getClockHistory(color: Color)(g: Game) = for {
+      history <- g.clockHistory
+      clk <- g.clock
+      end = (clk.remainingTime(color) * 1000).toLong.millis
+    } yield (clk.limit.seconds, end, history(color))
+
     val w = lila.db.BSON.writer
 
     d(binaryPieces, _.binaryPieces, ByteArrayBSONHandler.write)
@@ -49,9 +55,9 @@ private[game] object GameDiff {
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(unmovedRooks, _.unmovedRooks, (x: UnmovedRooks) => ByteArrayBSONHandler.write(BinaryFormat.unmovedRooks write x))
-    dOpt(legacyMoveTimes, _.legacyMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
-    dOpt(whiteClockHistory, (g: Game) => g.clockHistory.map(h => (~g.initialClockTime, ~g.remainingClockTime(White), h.white)), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
-    dOpt(blackClockHistory, (g: Game) => g.clockHistory.map(h => (~g.initialClockTime, ~g.remainingClockTime(Black), h.black)), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
+    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o map ByteArrayBSONHandler.write)
+    dOpt(whiteClockHistory, getClockHistory(White)(_), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
+    dOpt(blackClockHistory, getClockHistory(Black)(_), (o: Option[Tuple3[FiniteDuration, FiniteDuration, Vector[FiniteDuration]]]) => o.map { case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z)) })
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)

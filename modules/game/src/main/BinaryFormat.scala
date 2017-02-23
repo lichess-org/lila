@@ -29,7 +29,7 @@ object BinaryFormat {
   object clockHistory {
 
     def writeSide(start: FiniteDuration, end: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
-      val centis = times.map(_.toHundredths.toInt).dropRight(1)
+      val centis = times.map(_.toHundredths.toInt)
       val startCentis = start.toHundredths.toInt
       val endCentis = end.toHundredths.toInt
       if (centis.isEmpty) { ByteArray.empty }
@@ -37,19 +37,20 @@ object BinaryFormat {
     }
 
     def readSide(start: FiniteDuration, end: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
-      if (ba.isEmpty) { Vector(end) }
+      if (ba.isEmpty) { Vector.empty }
       else {
         val startCentis = start.toHundredths.toInt
         val endCentis = end.toHundredths.toInt
-        clockencoder.Encoder.decode(ba.value, numMoves - 1, startCentis, endCentis).map(_ * 10.millis).toVector :+ end
+        clockencoder.Encoder.decode(ba.value, numMoves, startCentis, endCentis).map(_ * 10.millis).toVector
       }
     }
 
     def read(start: FiniteDuration, ew: FiniteDuration, eb: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
       val ply = turns - startTurn
-      val wmoves = (if (startTurn % 2 == 0) { ply + 1 } else { ply }) / 2 - 1
-      val bmoves = (if (startTurn % 2 == 0) { ply } else { ply + 1 }) / 2 - 1
-      ClockHistory(readSide(start, ew, bw, wmoves), readSide(start, eb, bb, bmoves))
+      val wmoves = (if (startTurn % 2 == 0) { ply + 1 } else { ply }) / 2 - 2
+      val bmoves = (if (startTurn % 2 == 0) { ply } else { ply + 1 }) / 2 - 2
+      val end = if (turns % 2 == 0) { ew } else { eb }
+      ClockHistory(end, readSide(start, ew, bw, wmoves), readSide(start, eb, bb, bmoves))
     }
   }
 

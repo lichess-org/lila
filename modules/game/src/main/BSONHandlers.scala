@@ -77,7 +77,8 @@ object BSONHandlers {
       val bPlayer = player(blackPlayer, Black, blackId, blackUid)
       val createdAtValue = r date createdAt
       val realVariant = Variant(r intD variant) | chess.variant.Standard
-      val game = Game(
+      val gameClock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2)))
+      Game(
         id = r str id,
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
@@ -86,7 +87,7 @@ object BSONHandlers {
         status = r.get[Status](status),
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
-        clock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2))),
+        clock = gameClock,
         positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
@@ -95,7 +96,15 @@ object BSONHandlers {
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(CastleLastMoveTime.castleLastMoveTimeBSONHandler),
         unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
-        legacyMoveTimes = r bytesO legacyMoveTimes,
+        binaryMoveTimes = r bytesO moveTimes,
+        clockHistory = for {
+          clk <- gameClock
+          start = clk.limit.seconds
+          ew = (clk.remainingTime(White) * 1000).toLong.millis
+          eb = (clk.remainingTime(Black) * 1000).toLong.millis
+          bw <- r bytesO whiteClockHistory
+          bb <- r bytesO blackClockHistory
+        } yield BinaryFormat.clockHistory.read(start, ew, eb, bw, bb, r intD startedAtTurn, nbTurns),
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -112,13 +121,6 @@ object BSONHandlers {
           analysed = r boolD analysed
         )
       )
-      game.copy(clockHistory = for {
-        start <- game.initialClockTime
-        ew <- game.remainingClockTime(White)
-        eb <- game.remainingClockTime(Black)
-        bw <- r bytesO whiteClockHistory
-        bb <- r bytesO blackClockHistory
-      } yield BinaryFormat.clockHistory.read(start, ew, eb, bw, bb, game.startedAtTurn, game.turns))
     }
 
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
@@ -138,9 +140,9 @@ object BSONHandlers {
       castleLastMoveTime -> CastleLastMoveTime.castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
-      legacyMoveTimes -> o.legacyMoveTimes,
-      whiteClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(~o.initialClockTime, ~o.remainingClockTime(White), h.white)),
-      blackClockHistory -> o.clockHistory.map(h => BinaryFormat.clockHistory.writeSide(~o.initialClockTime, ~o.remainingClockTime(Black), h.black)),
+      moveTimes -> o.binaryMoveTimes,
+      whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock),
+      blackClockHistory -> clockHistory(Black, o.clockHistory, o.clock),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       crazyData -> o.crazyData,
@@ -156,6 +158,12 @@ object BSONHandlers {
       analysed -> w.boolO(o.metadata.analysed)
     )
   }
+
+  private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock]): Option[ByteArray] = for {
+    history <- clockHistory
+    clock <- clock
+    remaining = (clock.remainingTime(color) * 1000).toLong.millis
+  } yield BinaryFormat.clockHistory.writeSide(clock.limit.seconds, remaining, history(color))
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(

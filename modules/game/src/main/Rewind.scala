@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.concurrent.duration._
+
 import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
@@ -26,6 +28,7 @@ object Rewind {
         if (color == game.startColor) (playedTurns + 1) / 2
         else playedTurns / 2
       }
+      val newClock = game.clock map (_.takeback)
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
@@ -41,15 +44,17 @@ object Rewind {
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None
         ),
         unmovedRooks = rewindedGame.board.unmovedRooks,
-        clockHistory = game.clockHistory.map { history =>
-          ClockHistory(
-            history.white.take(rewindedPlayerMoves(White)),
-            history.black.take(rewindedPlayerMoves(Black))
-          )
-        },
+        clockHistory = for {
+          history <- game.clockHistory
+          clk <- newClock
+        } yield ClockHistory(
+          (clk.remainingTime(rewindedSituation.color) * 1000).toLong.millis,
+          history.white.take(rewindedPlayerMoves(White) - 2),
+          history.black.take(rewindedPlayerMoves(Black) - 2)
+        ),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
-        clock = game.clock map (_.takeback)
+        clock = newClock
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
