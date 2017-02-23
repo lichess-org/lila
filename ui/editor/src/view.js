@@ -93,12 +93,12 @@ function controls(ctrl, fen) {
       }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
-      m('a.button', {
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon=U]', {
           onclick: function() {
             $.modal($('.continue_with'));
           }
-        },
-        m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
+        }, ctrl.trans('continueFromHere')) : m('span.button.disabled.text[data-icon="U"]', {
+        }, ctrl.trans('continueFromHere'))
     ]),
     ctrl.embed ? null : m('div.continue_with', [
       m('a.button', {
