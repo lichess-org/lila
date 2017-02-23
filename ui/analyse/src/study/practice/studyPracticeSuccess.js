@@ -63,6 +63,7 @@ module.exports = function(root, goal, nbMoves) {
       if (!mateIn || mateIn + nbMoves > goal.moves) return false;
       break;
     case 'promotion':
+      if (isMyMate(root)) return true;
       if (!node.uci[4]) return null;
       return isWinning(node, goal.cp, root.bottomColor());
       break;
