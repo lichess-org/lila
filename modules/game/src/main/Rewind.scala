@@ -52,7 +52,7 @@ object Rewind {
           history <- game.clockHistory
           clk <- newClock
         } yield ClockHistory(
-          (clk.remainingTime(rewindedSituation.color) * 1000).toLong.millis,
+          clk.remainingDuration(rewindedSituation.color),
           history.white.take(rewindedPlayerMoves(White) - 1),
           history.black.take(rewindedPlayerMoves(Black) - 1)
         ),

@@ -121,7 +121,7 @@ case class Game(
   def moveTimes(color: Color): Option[List[FiniteDuration]] =
     clockHistory.flatMap { history =>
       clock.map { clk =>
-        val clockTimes = history(color) :+ (clk.remainingTime(color) * 1000).toLong.millis
+        val clockTimes = history(color) :+ clk.remainingDuration(color)
         0.millis :: (
           clockTimes,
           clockTimes.drop(1),
@@ -209,9 +209,8 @@ case class Game(
         })
       },
       clockHistory = clock.map { clk =>
-        val remaining = (clk.remainingTime(turnColor) * 1000).toLong.millis
-        clockHistory.fold(ClockHistory(remaining)) { history =>
-          history.record(turnColor)(remaining)
+        clockHistory.fold(ClockHistory(clk.remainingDuration(turnColor))) { history =>
+          history.record(turnColor)(clk.remainingDuration(turnColor))
         }
       },
       status = situation.status | status,

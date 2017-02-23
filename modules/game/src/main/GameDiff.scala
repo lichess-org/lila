@@ -46,8 +46,7 @@ private[game] object GameDiff {
     def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] = for {
       history <- g.clockHistory
       clk <- g.clock
-      end = (clk.remainingTime(color) * 1000).toLong.millis
-    } yield (clk.limit.seconds, end, history(color))
+    } yield (clk.limit.seconds, clk.remainingDuration(color), history(color))
 
     val w = lila.db.BSON.writer
 

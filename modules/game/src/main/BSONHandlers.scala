@@ -100,8 +100,8 @@ object BSONHandlers {
         clockHistory = for {
           clk <- gameClock
           start = clk.limit.seconds
-          ew = (clk.remainingTime(White) * 1000).toLong.millis
-          eb = (clk.remainingTime(Black) * 1000).toLong.millis
+          ew = clk.remainingDuration(White)
+          eb = clk.remainingDuration(Black)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
         } yield BinaryFormat.clockHistory.read(start, ew, eb, bw, bb, r intD startedAtTurn, nbTurns),
@@ -161,9 +161,8 @@ object BSONHandlers {
 
   private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock]): Option[ByteArray] = for {
     history <- clockHistory
-    clock <- clock
-    remaining = (clock.remainingTime(color) * 1000).toLong.millis
-  } yield BinaryFormat.clockHistory.writeSide(clock.limit.seconds, remaining, history(color))
+    clk <- clock
+  } yield BinaryFormat.clockHistory.writeSide(clk.limit.seconds, clk.remainingDuration(color), history(color))
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(
