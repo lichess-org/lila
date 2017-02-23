@@ -9,7 +9,7 @@ import lila.db.ByteArray
 
 class BinaryClockHistoryTest extends Specification {
 
-  val eps = 41.millis
+  val eps = 40.millis
 
   "binary clock history" should {
 
@@ -39,7 +39,7 @@ class BinaryClockHistoryTest extends Specification {
 
     "restore correspondence" in {
       val times = Vector(
-        1181, 2040, 809, 1912, 750, 2305, 480, 2587
+        1180, 2040, 800, 1910, 750, 2300, 480, 2580
       ).map(t => 2.days - t.millis)
       val bytes = BinaryFormat.clockHistory.writeSide(2.days, 1.day, times)
       val restored = BinaryFormat.clockHistory.readSide(2.days, 1.day, bytes, times.size)
