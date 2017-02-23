@@ -17,11 +17,14 @@
   box-sizing: border-box;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
 }
-#board_editor .spare.black, #board_editor .spare.white .selected-square {
+#board_editor .spare.black {
   background: #888;
 }
-#board_editor .spare.white, #board_editor .spare.black .selected-square {
+#board_editor .spare.white {
   background: #ccc;
+}
+#board_editor .spare .selected-square {
+  background: #3893E8;
 }
 body.dark #board_editor .spare.white {
   background: #aaa;
