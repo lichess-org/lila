@@ -3,7 +3,7 @@ package org.lichess.clockencoder;
 import java.util.Arrays;
 
 public class Encoder {
-    public static byte[] encode(int[] centis, int startTime) {
+    public static byte[] encode(int[] centis, int startTime, int endTime) {
         int[] encoded = Arrays.copyOf(centis, centis.length);
         int truncatedStart = LowBitTruncator.truncate(startTime);
 
@@ -18,7 +18,7 @@ public class Encoder {
         return writer.toArray();
     }
 
-    public static int[] decode(byte[] bytes, int numMoves, int startTime) {
+    public static int[] decode(byte[] bytes, int numMoves, int startTime, int endTime) {
         BitReader reader = new BitReader(bytes);
         int truncatedStart = LowBitTruncator.truncate(startTime);
 

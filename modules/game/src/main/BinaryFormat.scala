@@ -33,13 +33,16 @@ object BinaryFormat {
       val startCentis = start.toHundredths.toInt
       val endCentis = end.toHundredths.toInt
       if (centis.isEmpty) { ByteArray.empty }
-      else { ByteArray(clockencoder.Encoder.encode(centis.toArray, startCentis)) }
+      else { ByteArray(clockencoder.Encoder.encode(centis.toArray, startCentis, endCentis)) }
     }
 
     def readSide(start: FiniteDuration, end: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
-      val startCentis = start.toHundredths.toInt
       if (ba.isEmpty) { Vector(end) }
-      else { clockencoder.Encoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis).toVector :+ end }
+      else {
+        val startCentis = start.toHundredths.toInt
+        val endCentis = end.toHundredths.toInt
+        clockencoder.Encoder.decode(ba.value, numMoves, startCentis, endCentis).map(_ * 10.millis).toVector :+ end
+      }
     }
 
     def read(start: FiniteDuration, ew: FiniteDuration, eb: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
