@@ -2,6 +2,7 @@ package lila.game
 
 import org.joda.time.DateTime
 import scala.collection.Searching._
+import scala.collection.breakOut
 import scala.concurrent.duration._
 
 import chess._
@@ -29,11 +30,13 @@ object BinaryFormat {
   object clockHistory {
 
     def writeSide(start: FiniteDuration, end: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
-      val centis = times.map(_.toHundredths.toInt)
-      val startCentis = start.toHundredths.toInt
-      val endCentis = end.toHundredths.toInt
-      if (centis.isEmpty) { ByteArray.empty }
-      else { ByteArray(ClockEncoder.encode(centis.toArray, startCentis, endCentis)) }
+      if (times.isEmpty) { ByteArray.empty }
+      else {
+        val centis: Array[Int] = times.map(_.toHundredths.toInt)(breakOut)
+        val startCentis = start.toHundredths.toInt
+        val endCentis = end.toHundredths.toInt
+        ByteArray(ClockEncoder.encode(centis, startCentis, endCentis))
+      }
     }
 
     def readSide(start: FiniteDuration, end: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
