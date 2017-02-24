@@ -526,7 +526,7 @@ form .editor .spare .selected-square {
 form .editor .spare .no-square {
   position: relative;
   display:inline-block;
-  width: 26px;
+  width: 28px;
   height: 26px;
 }
 form .editor .spare piece {
