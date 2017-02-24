@@ -123,3 +123,6 @@ http://www.flaticon.com/free-icon/clicker_99162
   color: black;
   text-align: center
 }
+.is3d #board_editor .spare piece.pointer, .is3d #board_editor .spare piece.trash {
+  top: -15%;
+}
