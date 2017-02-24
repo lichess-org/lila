@@ -510,7 +510,7 @@ form .editor .manipulable .cg-board, #board_editor body.destination .cg-board sq
   cursor: inherit;
 }
 form .editor .spare {
-  height: 26px;
+  height: 28px;
   width: 224px;
   margin: 3px 0;
 }
@@ -544,7 +544,7 @@ form .editor .spare piece.pointer {
 }
 form .editor .spare piece.trash {
   font-size: 12pt;
-  top: 12%;
+  top: 10%;
   height: 100%;
 }
 form .editor .spare .no-square.trash {
