@@ -25,6 +25,7 @@
 }
 #board_editor .spare .selected-square {
   background: #3893E8;
+  color: #fff;
 }
 body.dark #board_editor .spare.white {
   background: #aaa;
