@@ -209,12 +209,7 @@ module.exports = function(ctrl) {
         var selectedParts = ctrl.vm.selected().split(' ');
 
         if (selectedParts.length >= 2) {
-          if (selectedParts[0] === 'white') {
-            selectedParts[0] = 'black';
-          } else if (selectedParts[0] === 'black') {
-            selectedParts[0] = 'white';
-          }
-
+          selectedParts[0] = chessground.util.opposite(selectedParts[0]);
           ctrl.vm.selected(selectedParts.join(' '));
         }
       }
