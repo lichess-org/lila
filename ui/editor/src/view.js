@@ -137,8 +137,11 @@ function inputs(ctrl, fen) {
 }
 
 function isRightButton(e) {
-  return e.buttons === 2 || e.button === 2 || 
-    (e.ctrlKey && (e.buttons === 1 || e.button === 1));
+  return e.buttons === 2 || e.button === 2;
+}
+
+function isRightClick(e) {
+  return isRightButton(e) || (e.ctrlKey && isLeftButton(e));
 }
 
 function sparePieces(ctrl, color, orientation, position) {
@@ -201,7 +204,7 @@ module.exports = function(ctrl) {
     onmousedown: function(data) {
       if (
         ['pointer', 'trash'].indexOf(ctrl.vm.selected()) === -1 &&
-          isRightButton(data)
+          isRightClick(data)
       ) {
         var selectedParts = ctrl.vm.selected().split(' ');
 
