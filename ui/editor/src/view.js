@@ -144,7 +144,8 @@ function sparePieces(ctrl, color, orientation, position) {
     var pieceElement = {
       class: piece,
     };
-    var containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
+    var containerClass = 'no-square' +
+      ((ctrl.vm.selected() === piece && !ctrl.vm.draggingSpare()) ? ' selected-square' : '');
 
     if (piece === 'trash') {
       pieceElement['data-icon'] = 'q';
@@ -157,7 +158,20 @@ function sparePieces(ctrl, color, orientation, position) {
     return m('div', {
         class: containerClass,
         onmousedown: function() {
-          ctrl.vm.selected(piece);
+          if (['pointer', 'trash'].indexOf(piece) !== -1) {
+            ctrl.vm.selected(piece);
+          } else {
+            var listener;
+            ctrl.vm.draggingSpare(true);
+            ctrl.vm.selected('pointer');
+ 
+            document.addEventListener('mouseup', listener = function() {
+              ctrl.vm.selected(piece);
+              ctrl.vm.draggingSpare(false);
+              m.redraw();
+              document.removeEventListener('mouseup', listener);
+            });
+          }
         }
       }, m('piece', pieceElement)
     );
