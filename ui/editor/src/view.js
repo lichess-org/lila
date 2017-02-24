@@ -200,7 +200,7 @@ module.exports = function(ctrl) {
         });
       };
     },
-    style: 'cursor: ' + ((cursor) ? cursor : 'pointer'),
+    style: 'cursor: ' + cursor,
     onmousedown: function(data) {
       if (
         ['pointer', 'trash'].indexOf(ctrl.vm.selected()) === -1 &&
