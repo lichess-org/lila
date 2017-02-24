@@ -12,6 +12,7 @@ public class LinearEstimator {
 
     private static void encode(int[] dest, int startIdx, int start,
                                int endIdx, int end) {
+        // Bitshift always rounds down, even for negative numbers.
         int midIdx = (startIdx + endIdx) >> 1;
         if (startIdx == midIdx) return;
 

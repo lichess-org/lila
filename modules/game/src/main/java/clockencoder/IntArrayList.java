@@ -3,10 +3,8 @@ package org.lichess.clockencoder;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-// Simple int array wrapper.
+// Simple int array wrapper. Not threadsafe.
 public final class IntArrayList {
-    private static final int DEFAULT_CAPACITY = 10;
-
     int[] data;
     int index = 0;
 
@@ -15,7 +13,7 @@ public final class IntArrayList {
     }
 
     public IntArrayList() {
-        this(DEFAULT_CAPACITY);
+        this(10);
     }
 
     public void add(int elt) {
@@ -24,14 +22,6 @@ public final class IntArrayList {
         }
 
         data[index++] = elt;
-    }
-
-    public int pop() {
-        return data[--index];
-    }
-
-    public void clear() {
-        index = 0;
     }
 
     public int size() {

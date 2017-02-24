@@ -20,27 +20,20 @@ public class VarIntEncoder {
         }
     }
 
-    // Decode numMoves into an array padded by offset.
     public static int[] read(BitReader reader, int numMoves) {
         int[] values = new int[numMoves];
 
-        int[] numBuffer = new int[16];
         for (int moveIdx = 0; moveIdx < numMoves; moveIdx++) {
-            int base = reader.readBits(6);
-            int n;
-            if ((base & 0x20) == 0) {
-                n = base;
-            } else {
-                int idx = -1;
-                do {
-                    numBuffer[++idx] = reader.readBits(4);
-                } while ((numBuffer[idx] & 0x08) != 0);
-
-                n = numBuffer[idx];
-                while(idx > 0) {
-                    n = (n << 3) | numBuffer[--idx] & 0x07;
+            int n = reader.readBits(6);
+            if ((n & 0x20) != 0) {
+                n ^= 0x20;
+                int curShift = 5;
+                int curVal;
+                while (((curVal = reader.readBits(4)) & 0x08) != 0) {
+                    n |= (curVal & 0x07) << curShift;
+                    curShift += 3;
                 }
-                n = (n << 5) | base & 0x1F;
+                n |= curVal << curShift;
             }
 
             // zigzag decode and save

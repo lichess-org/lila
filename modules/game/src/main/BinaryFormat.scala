@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import chess._
 import chess.variant.Variant
 
-import org.lichess.clockencoder
+import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray
 
@@ -33,7 +33,7 @@ object BinaryFormat {
       val startCentis = start.toHundredths.toInt
       val endCentis = end.toHundredths.toInt
       if (centis.isEmpty) { ByteArray.empty }
-      else { ByteArray(clockencoder.Encoder.encode(centis.toArray, startCentis, endCentis)) }
+      else { ByteArray(ClockEncoder.encode(centis.toArray, startCentis, endCentis)) }
     }
 
     def readSide(start: FiniteDuration, end: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
@@ -41,7 +41,7 @@ object BinaryFormat {
       else {
         val startCentis = start.toHundredths.toInt
         val endCentis = end.toHundredths.toInt
-        clockencoder.Encoder.decode(ba.value, numMoves, startCentis, endCentis).map(_ * 10.millis).toVector
+        ClockEncoder.decode(ba.value, numMoves, startCentis, endCentis).map(_ * 10.millis).toVector
       }
     }
 

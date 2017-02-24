@@ -22,7 +22,7 @@ public class BitWriter {
     }
 
     public byte[] toArray() {
-        int numPendingBytes = (39 - numRemainingBits) >>> 3;
+        int numPendingBytes = (39 - numRemainingBits) >> 3;
         ByteBuffer bb = ByteBuffer.allocate(4 * buffer.size() + numPendingBytes);
         buffer.writeTo(bb);
         if (numPendingBytes == 4) {
