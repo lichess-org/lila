@@ -506,10 +506,22 @@ form .editor_wrap .spinner {
 form .editor {
   position: relative;
 }
+form .editor .manipulable .cg-board, #board_editor body.destination .cg-board square.move-dest {
+  cursor: inherit;
+}
 form .editor .spare {
   height: 26px;
   width: 224px;
   margin: 3px 0;
+}
+form .editor .spare.black {
+  background: #888;
+}
+form .editor .spare.white {
+  background: #ccc;
+}
+form .editor .spare .selected-square {
+  background: #3893E8;
 }
 form .editor .spare .no-square {
   position: relative;
@@ -521,6 +533,28 @@ form .editor .spare piece {
   cursor: pointer;
   width: 100%;
   height: 100%;
+}
+/*
+http://www.flaticon.com/free-icon/clicker_99162
+*/
+form .editor .spare piece.pointer {
+  background-image: url('/assets/images/icons/pointer.png');
+  top: 18%;
+  left: 12%;
+  height: 70%;
+  width: 70%;
+}
+.is3d form .editor .spare piece.pointer {
+  height: 87%;
+}
+form .editor .spare piece.trash {
+  font-size: 12pt;
+  top: 0;
+  height: 100%;
+}
+form .editor .spare .no-square.trash {
+  color: black;
+  text-align: center
 }
 form .editor .cg-board-wrap {
   width: 224px!important;
