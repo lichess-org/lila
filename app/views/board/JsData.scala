@@ -41,7 +41,8 @@ object JsData extends lila.Steroids {
       trans.continueFromHere,
       trans.playWithTheMachine,
       trans.playWithAFriend,
-      trans.analysis
+      trans.analysis,
+      trans.stalemate
     )
   )
 }

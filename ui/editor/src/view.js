@@ -95,7 +95,16 @@ function controls(ctrl, fen) {
       }, ctrl.trans('analysis')),
       ctrl.positionLooksLegit() ? m('a.button.text[data-icon=U]', {
           onclick: function() {
-            $.modal($('.continue_with'));
+            $.ajax({
+              url: '/setup/validate-fen?fen=' + encodedFen,
+              method: 'get',
+              success: function(data) {
+                $.modal($('.continue_with'));
+              },
+              error: function(error) {
+                alert(ctrl.trans('stalemate'));
+              }
+            });
           }
         }, ctrl.trans('continueFromHere')) : m('span.button.disabled.text[data-icon="U"]', {
         }, ctrl.trans('continueFromHere'))
