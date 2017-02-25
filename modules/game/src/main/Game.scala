@@ -122,11 +122,11 @@ case class Game(
     clockHistory.flatMap { history =>
       clock.map { clk =>
         val clockTimes = history(color) :+ clk.remainingDuration(color)
-        0.millis :: (
-          clockTimes,
-          clockTimes.drop(1),
-          0.seconds +: Stream.continually(clk.increment.seconds) // no inc for first move
-        ).zipped.map(_ - _ + _).map(_ max 0.millis).toList
+        val inc = clk.increment.seconds
+        0.millis ::
+          (clockTimes.iterator zip clockTimes.iterator.drop(1))
+          .map { case (first, second) => first - second + inc }
+          .map(_ max 0.millis).toList
       }
     } orElse binaryMoveTimes.map { binary =>
       val pivot = if (color == startColor) 0 else 1
