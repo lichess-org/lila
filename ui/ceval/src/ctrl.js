@@ -29,7 +29,7 @@ module.exports = function(opts) {
 
   var pool = makePool(stockfishProtocol, {
     asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=12',
-    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=12',
+    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=13',
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
