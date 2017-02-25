@@ -190,17 +190,14 @@ trait WithPlay { self: PackageObject =>
 
   // TODO: extend AnyVal.
   implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
+    def roundSeconds = math.round(self.toMillis.toDouble / 1000)
+    def roundTenths = math.round(self.toMillis.toDouble / 100)
 
     // Lame but significantly faster when existing durations are already millis.
-    @inline def fastMillis = {
-      if (self.unit eq MILLISECONDS) self.length
-      else self.toMillis
+    def toHundredths: Long = {
+      if (self.unit eq MILLISECONDS) self.length / 10
+      else self.toMillis / 10
     }
-
-    def roundSeconds = math.round(self.fastMillis.toDouble / 1000)
-    def roundTenths = math.round(self.fastMillis.toDouble / 100)
-
-    def toHundredths: Long = self.fastMillis / 10
 
     def abs = if (self < Duration.Zero) -self else self
   }
