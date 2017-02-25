@@ -31,6 +31,7 @@ object JsData extends lila.Steroids {
       trans.clearBoard,
       trans.flipBoard,
       trans.loadPosition,
+      trans.positionUnplayable,
       trans.castling,
       trans.whiteCastlingKingside,
       trans.whiteCastlingQueenside,
@@ -41,8 +42,7 @@ object JsData extends lila.Steroids {
       trans.continueFromHere,
       trans.playWithTheMachine,
       trans.playWithAFriend,
-      trans.analysis,
-      trans.stalemate
+      trans.analysis
     )
   )
 }

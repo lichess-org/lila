@@ -102,7 +102,7 @@ function controls(ctrl, fen) {
                 $.modal($('.continue_with'));
               },
               error: function(error) {
-                alert(ctrl.trans('stalemate'));
+                alert(ctrl.trans('positionUnplayable'));
               }
             });
           }

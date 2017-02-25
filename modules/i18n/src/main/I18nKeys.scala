@@ -218,6 +218,7 @@ final class I18nKeys(translator: Translator) {
   val `pasteTheFenStringHere` = new Key("pasteTheFenStringHere")
   val `pasteThePgnStringHere` = new Key("pasteThePgnStringHere")
   val `fromPosition` = new Key("fromPosition")
+  val `positionUnplayable` = new Key("positionUnplayable")
   val `continueFromHere` = new Key("continueFromHere")
   val `importGame` = new Key("importGame")
   val `nbImportedGames` = new Key("nbImportedGames")
