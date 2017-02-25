@@ -13,11 +13,14 @@
   @helper.form(action = route, 'novalidate -> "novalidate") {
   @fields
   <div class="color_submits">
-    @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
-    <button@if(typ == "hook"){ disabled="disabled"} data-hint="@color._2" type="submit" class="button hint--bottom @color._1" name="@form("color").id" value="@color._1">
-      <i></i>
-    </button>
-    }
+    <span id="positionPlayable">
+      @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
+      <button@if(typ == "hook"){ disabled="disabled"} data-hint="@color._2" type="submit" class="button hint--bottom @color._1" name="@form("color").id" value="@color._1">
+        <i></i>
+      </button>
+      }
+    </span>
+    <span id="positionUnplayable" class="nope">@trans.positionUnplayable()</span>
   </div>
   }
   }

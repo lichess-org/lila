@@ -368,13 +368,16 @@ module.exports = function(element, cfg) {
             $fenPosition.find('a.board_editor').each(function() {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
-            $form.find('.color_submits button').removeClass('nope');
+            $form.find('.color_submits #positionPlayable button').removeClass('nope');
+            console.log($form.find('.color_submits #positionUnplayable'));
+            $form.find('.color_submits #positionUnplayable').addClass('nope');
             lichess.pubsub.emit('content_loaded')();
           },
           error: function() {
             $fenInput.addClass("failure");
             $fenPosition.find('.preview').html("");
-            $form.find('.color_submits button').addClass('nope');
+            $form.find('.color_submits #positionPlayable button').addClass('nope');
+            $form.find('.color_submits #positionUnplayable').removeClass('nope');
           }
         });
       }
