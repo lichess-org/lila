@@ -38,11 +38,22 @@ class BinaryClockHistoryTest extends Specification {
     }
 
     "restore correspondence" in {
-      val times = Vector(
-        1180, 2040, 800, 1910, 750, 2300, 480, 2580
-      ).map(t => 2.days - t.millis)
+      val times = Vector(1180, 2040, 800, 1910, 750, 2300, 480, 2580).map(t => 2.days - t.millis)
       val bytes = BinaryFormat.clockHistory.writeSide(2.days, 1.day, times)
       val restored = BinaryFormat.clockHistory.readSide(2.days, 1.day, bytes, times.size)
+      times.size must_== restored.size
+      (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
+    }
+
+    "not drift" in {
+      val times = Vector(50090, 43210, 29990, 3210, 30440, 210, 20550, 770).map(_.millis)
+      var restored = Vector.empty[FiniteDuration];
+      val start = 60000.millis
+      var end = 0.millis
+      for (end <- times) {
+        val binary = BinaryFormat.clockHistory.writeSide(start, end - 670.millis, restored :+ end)
+        restored = BinaryFormat.clockHistory.readSide(start, end - 670.millis, binary, restored.size + 1)
+      }
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
     }
