@@ -380,6 +380,7 @@ module.exports = function(element, cfg) {
       }
     }, 200);
     $fenInput.on('keyup', validateFen);
+    validateFen();
 
     $variantSelect.on('change', function() {
       var fen = $(this).val() == '3';
