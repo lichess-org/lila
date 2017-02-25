@@ -99,7 +99,16 @@ function controls(ctrl, fen) {
               url: '/setup/validate-fen?fen=' + encodedFen,
               method: 'get',
               success: function(data) {
-                $.modal($('.continue_with'));
+                $.ajax({
+                  url: '/setup/validate-fen?fen=' + encodedFen + '&strict=1',
+                  method: 'get',
+                  success: function(data) {
+                    $.modal($('.continue_with#all'));
+                  },
+                  error: function(error) {
+                    $.modal($('.continue_with#friend'));
+                  }
+                });
               },
               error: function(error) {
                 alert(ctrl.trans('positionUnplayable'));
@@ -109,12 +118,18 @@ function controls(ctrl, fen) {
         }, ctrl.trans('continueFromHere')) : m('span.button.disabled.text[data-icon="U"]', {
         }, ctrl.trans('continueFromHere'))
     ]),
-    ctrl.embed ? null : m('div.continue_with', [
+    ctrl.embed ? null : m('div.continue_with#all', [
       m('a.button', {
         href: '/?fen=' + encodedFen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
       m('br'),
+      m('a.button', {
+        href: '/?fen=' + encodedFen + '#friend',
+        rel: 'nofollow'
+      }, ctrl.trans('playWithAFriend'))
+    ]),
+    ctrl.embed ? null : m('div.continue_with#friend', [
       m('a.button', {
         href: '/?fen=' + encodedFen + '#friend',
         rel: 'nofollow'
