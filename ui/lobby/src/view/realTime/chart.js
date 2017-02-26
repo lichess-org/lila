@@ -1,6 +1,5 @@
 var m = require('mithril');
 var util = require('../util');
-var partial = require('chessground').util.partial;
 
 function px(v) {
   return v + 'px';
@@ -131,7 +130,7 @@ module.exports = {
       key: 'set-mode-list',
       'data-hint': ctrl.trans('list'),
       class: 'mode_toggle hint--bottom',
-      config: util.bindOnce('mousedown', partial(ctrl.setMode, 'list'))
+      config: util.bindOnce('mousedown', lichess.partial(ctrl.setMode, 'list'))
     }, m('span.chart[data-icon=?]'));
   },
   render: function(ctrl, hooks) {
@@ -142,7 +141,7 @@ module.exports = {
         config: util.bindOnce('click', function(e) {
           if (e.target.classList.contains('plot')) ctrl.clickHook(e.target.id);
         })
-      }, hooks.map(partial(renderPlot, ctrl))),
+      }, hooks.map(lichess.partial(renderPlot, ctrl))),
       renderYAxis(),
       renderXAxis()
     ]);

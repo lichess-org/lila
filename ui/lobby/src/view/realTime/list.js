@@ -1,6 +1,5 @@
 var m = require('mithril');
 var util = require('../util');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var hookRepo = require('../../hookRepo');
 
@@ -46,7 +45,7 @@ module.exports = {
       key: 'set-mode-chart',
       'data-hint': ctrl.trans('graph'),
       class: 'mode_toggle hint--bottom',
-      config: util.bindOnce('mousedown', partial(ctrl.setMode, 'chart'))
+      config: util.bindOnce('mousedown', lichess.partial(ctrl.setMode, 'chart'))
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {

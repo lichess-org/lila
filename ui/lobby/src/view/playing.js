@@ -1,4 +1,5 @@
 var m = require('mithril');
+var Chessground = require('chessground').Chessground;
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 

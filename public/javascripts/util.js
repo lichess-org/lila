@@ -367,6 +367,14 @@ lichess.pubsub = (function() {
     }
   };
 })();
+// wtf was I thinking
+lichess.partial = function() {
+  var fn = arguments[0];
+  return fn.bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
+};
+function partial() {
+  return partialApply(arguments[0], Array.prototype.slice.call(arguments, 1));
+}
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
 lichess.reload = function() {
