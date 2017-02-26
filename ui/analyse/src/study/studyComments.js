@@ -16,13 +16,32 @@ function authorText(author) {
   return author.name;
 }
 
-var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?(?:[^"&?\/ ]{11})\S*/gi;
+var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/\S*/gi;
 
 function embedYoutube(text, allowNewlines) {
   var html = lichess.escapeHtml(text).replace(commentYoutubeRegex, function(found) {
-    var url = lichess.toYouTubeEmbedUrl(found);
-    if (!url) return found;
-    return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
+    // https://www.abeautifulsite.net/parsing-urls-in-javascript
+    var parser = document.createElement('a');
+    parser.href = found;
+    var queries = parser.search.replace(/^\?/, '').split('&');
+    var videoId;
+
+    for (var i = 0; i < queries.length; i++) {
+        var split = queries[i].split('=');
+
+        if (split.length >= 2 && split[0] === 'v') {
+          videoId = split[1];
+          break;
+        }
+    }
+
+    if (videoId) {
+      var url = lichess.toYouTubeEmbedUrl('https://youtube.com/watch?v=' + videoId);
+      if (!url) return found;
+      return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
+    } else {
+      return found;
+    }
   });
   if (allowNewlines) html = html.replace(/\n/g, '<br>');
   return m.trust(html);
