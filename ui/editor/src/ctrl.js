@@ -1,16 +1,15 @@
-var chessground = require('chessground');
-var partial = chessground.util.partial;
 var editor = require('./editor');
 var m = require('mithril');
 var keyboard = require('./keyboard');
 
 module.exports = function(cfg) {
 
+  this.cfg = cfg;
   this.data = editor.init(cfg);
   this.options = cfg.options || {};
   this.embed = cfg.embed;
 
-  this.trans = partial(editor.trans, this.data.i18n);
+  this.trans = lichess.partial(editor.trans, this.data.i18n);
 
   this.vm = {
     redirecting: false,
@@ -33,46 +32,23 @@ module.exports = function(cfg) {
     this.positionIndex[p.fen.split(' ')[0]] = i;
   }.bind(this));
 
-  this.chessground = new chessground.controller({
-    fen: cfg.fen,
-    orientation: this.options.orientation || 'white',
-    coordinates: !this.embed,
-    movable: {
-      free: true,
-      color: 'both',
-      dropOff: 'trash'
-    },
-    animation: {
-      duration: cfg.animation.duration
-    },
-    premovable: {
-      enabled: false
-    },
-    drawable: {
-      enabled: true
-    },
-    draggable: {
-      showGhost: false,
-      distance: 0,
-      autoDistance: false
-    },
-    selectable: {
-      enabled: false
-    },
-    events: {
-      change: function() {
-        onChange();
-        m.redraw();
-      }.bind(this)
-    },
-    disableContextMenu: true
-  });
+  this.chessground; // will be set from the view when instanciating chessground
 
-  var onChange = function() {
+  this.onChange = function() {
     this.options.onChange && this.options.onChange(this.computeFen());
   }.bind(this);
 
-  this.computeFen = partial(editor.computeFen, this.data, this.chessground.getFen);
+  this.computeFen = function() {
+    return this.chessground ?
+    editor.computeFen(this.data, this.chessground.getFen()) :
+    cfg.fen;
+  }.bind(this);
+
+  this.bottomColor = function() {
+    return this.chessground ?
+    this.chessground.state.orientation :
+    this.options.orientation || 'white';
+  }.bind(this);
 
   this.setColor = function(letter) {
     this.data.color(letter);
@@ -115,11 +91,12 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.positionLooksLegit = function() {
+    if (!this.chessground) return false;
     var kings = {
       white: 0,
       black: 0
     };
-    var pieces = this.chessground.data.pieces;
+    var pieces = this.chessground.state.pieces;
     for (var pos in pieces) {
       if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
     }
@@ -128,8 +105,8 @@ module.exports = function(cfg) {
 
   this.setOrientation = function(o) {
     this.options.orientation = o;
-    if (this.chessground.getOrientation() !== o)
-      this.chessground.toggleOrientation();
+    if (this.chessground.state.orientation !== o)
+    this.chessground.toggleOrientation();
     m.redraw();
   }.bind(this);
 

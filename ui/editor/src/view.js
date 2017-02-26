@@ -1,5 +1,4 @@
-var chessground = require('chessground');
-var partial = chessground.util.partial;
+var chessground = require('./chessground');
 var editor = require('./editor');
 var drag = require('./drag');
 var m = require('mithril');
@@ -85,7 +84,9 @@ function controls(ctrl, fen) {
       }, 'Empty board')
     ]) : m('div', [
       m('a.button.text[data-icon=B]', {
-        onclick: ctrl.chessground.toggleOrientation
+        onclick: function() {
+          ctrl.chessground.toggleOrientation();
+        }
       }, ctrl.trans('flipBoard')),
       ctrl.positionLooksLegit() ? m('a.button.text[data-icon="A"]', {
         href: editor.makeUrl('/analysis/', fen),
@@ -168,7 +169,7 @@ var eventNames = ['mousedown', 'touchstart'];
 
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
-  var color = ctrl.chessground.data.orientation;
+  var color = ctrl.bottomColor();
   var opposite = color === 'white' ? 'black' : 'white';
   var sparePieceSelected = ctrl.vm.selected();
   var selectedParts = sparePieceSelected.split(' ');
@@ -177,12 +178,12 @@ module.exports = function(ctrl) {
   var cursor = (cursorName === 'pointer') ?
     cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important';
 
-  ctrl.chessground.sparePieceSelected = sparePieceSelected;
+  // ctrl.chessground.sparePieceSelected = sparePieceSelected;
 
   return m('div.editor', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
-      var onstart = partial(drag, ctrl);
+      var onstart = lichess.partial(drag, ctrl);
       eventNames.forEach(function(name) {
         document.addEventListener(name, onstart);
       });
@@ -195,7 +196,14 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
-    chessground.view(ctrl.chessground),
+    m('div.chessground', {
+      config: function(el, isUpdate) {
+        if (!isUpdate) {
+          ctrl.chessground = chessground(el, ctrl);
+          m.redraw();
+        }
+      }
+    }, m('div.cg-board-wrap')),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)

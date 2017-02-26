@@ -28,8 +28,8 @@ function fenMetadatas(data) {
   return data.color() + ' ' + (castles.length ? castles : '-') + ' -';
 }
 
-function computeFen(data, getBaseFen) {
-  return getBaseFen() + ' ' + fenMetadatas(data);
+function computeFen(data, cgFen) {
+  return cgFen + ' ' + fenMetadatas(data);
 }
 
 function makeUrl(url, fen) {

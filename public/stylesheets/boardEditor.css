@@ -10,6 +10,9 @@
 #board_editor square.last-move {
   background-color: transparent;
 }
+#board_editor .chessground {
+  width: 512px;
+}
 #board_editor .spare {
   height: 64px;
   width: 512px;
