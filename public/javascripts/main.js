@@ -337,7 +337,8 @@ lichess.notifyApp = (function() {
           viewOnly: !playable,
           resizable: resizable,
           fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-          lastMove: lastMove
+          lastMove: lastMove,
+          drawable: { enabled: false }
         };
         if (color) config.orientation = color;
         if (ground) ground.set(config);
