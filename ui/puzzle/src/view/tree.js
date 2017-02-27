@@ -1,5 +1,5 @@
 var m = require('mithril');
-var raf = require('chessground').util.requestAnimationFrame;
+var raf = require('chessground/util').raf;
 var throttle = require('common').throttle;
 var defined = require('common').defined;
 var normalizeEval = require('chess').renderEval;

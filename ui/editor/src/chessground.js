@@ -6,7 +6,7 @@ module.exports = function(ctrl) {
   return m('div.chessground', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
-      ctrl.chessground = build(el, ctrl);
+      ctrl.chessground = Chessground(makeConfig(ctrl));
       bindEvents(el, ctrl);
     }
   }, m('div.cg-board-wrap'));
@@ -42,8 +42,8 @@ function onMouseEvent(ctrl) {
   };
 }
 
-function build(el, ctrl) {
-  return Chessground(el, {
+function makeConfig(ctrl) {
+  return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
@@ -76,5 +76,5 @@ function build(el, ctrl) {
     events: {
       change: ctrl.onChange.bind(ctrl)
     }
-  });
+  };
 }

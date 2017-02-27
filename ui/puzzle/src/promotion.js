@@ -1,18 +1,16 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var opposite = chessground.util.opposite;
-var invertKey = chessground.util.invertKey;
-var key2pos = chessground.util.key2pos;
+var cgUtil = require('chessground/util');
 
-module.exports = function(vm, ground) {
+module.exports = function(vm, getGround) {
 
   var promoting = false;
 
   var start = function(orig, dest, callback) {
-    var piece = ground.data.pieces[dest];
+    var g = getGround();
+    var piece = g.state.pieces[dest];
     if (piece && piece.role == 'pawn' && (
-      (dest[1] == 8 && ground.data.turnColor == 'black') ||
-      (dest[1] == 1 && ground.data.turnColor == 'white'))) {
+      (dest[1] == 8 && g.state.turnColor == 'black') ||
+      (dest[1] == 1 && g.state.turnColor == 'white'))) {
       promoting = {
         orig: orig,
         dest: dest,
@@ -24,20 +22,20 @@ module.exports = function(vm, ground) {
     return false;
   };
 
-  var promote = function(ground, key, role) {
+  var promote = function(g, key, role) {
     var pieces = {};
-    var piece = ground.data.pieces[key];
+    var piece = g.state.pieces[key];
     if (piece && piece.role == 'pawn') {
       pieces[key] = {
         color: piece.color,
         role: role
       };
-      ground.setPieces(pieces);
+      g.setPieces(pieces);
     }
   }
 
   var finish = function(role) {
-    if (promoting) promote(ground, promoting.dest, role);
+    if (promoting) promote(ground(), promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
     promoting = false;
   };
@@ -45,14 +43,14 @@ module.exports = function(vm, ground) {
   var cancel = function() {
     if (promoting) {
       promoting = false;
-      ground.set(vm.cgConfig);
+      ground().set(vm.cgConfig);
       m.redraw();
     }
   }
 
   var renderPromotion = function(dest, pieces, color, orientation) {
     if (!promoting) return;
-    var left = (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] - 1) * 12.5;
+    var left = (cgUtil.key2pos(orientation === 'white' ? dest : cgUtil.invertKey(dest))[0] - 1) * 12.5;
     var vertical = color === orientation ? 'top' : 'bottom';
 
     return m('div#promotion_choice.' + vertical, {
@@ -79,8 +77,8 @@ module.exports = function(vm, ground) {
       if (!promoting) return;
       var pieces = ['queen', 'knight', 'rook', 'bishop'];
       return renderPromotion(promoting.dest, pieces,
-        opposite(ground.data.turnColor),
-        ground.data.orientation);
+        cgUtil.opposite(ground().state.turnColor),
+        ground().state.orientation);
     }
   };
 };
