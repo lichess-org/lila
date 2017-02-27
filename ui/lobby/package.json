@@ -29,7 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "^6.0.10",
+    "chessground": "^6.0.11",
     "common": "file:../common",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
