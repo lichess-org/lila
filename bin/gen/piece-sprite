@@ -40,7 +40,7 @@ themes.map { |theme|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
         'body.base .is2d piece.' + role + '.' + color + ' { ' +
-          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
+          "background-image: url('data:image/" + types[ext] + base64 + "') !important; }"
       end
     }
   }.flatten
