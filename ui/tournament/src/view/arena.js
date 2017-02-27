@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var util = require('./util');
 var ratio2percent = util.ratio2percent;
@@ -60,7 +59,7 @@ function playerTr(ctrl, player) {
         'long': player.sheet.scores.length > 35,
         'xlong': player.sheet.scores.length > 80
       }),
-      onclick: partial(ctrl.showPlayerInfo, player)
+      onclick: lichess.partial(ctrl.showPlayerInfo, player)
     },
     children: [
       m('td.rank', player.withdraw ? m('i', {
