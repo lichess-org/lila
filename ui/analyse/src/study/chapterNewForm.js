@@ -188,10 +188,7 @@ module.exports = {
                 data.embed = true;
                 data.options = {
                   inlineCastling: true,
-                  onChange: function(fen) {
-                    ctrl.vm.editorFen(fen);
-                    m.redraw();
-                  }
+                  onChange: ctrl.vm.editorFen
                 };
                 ctrl.vm.editor = LichessEditor(el, data);
                 ctrl.vm.editorFen(ctrl.vm.editor.getFen());

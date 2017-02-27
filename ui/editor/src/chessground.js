@@ -38,7 +38,7 @@ function onMouseEvent(ctrl) {
       pieces[key] = piece;
       ctrl.chessground.setPieces(pieces);
     }
-    m.redraw();
+    ctrl.onChange();
   };
 }
 
