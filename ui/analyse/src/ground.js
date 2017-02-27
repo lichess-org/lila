@@ -1,7 +1,7 @@
 var chessground = require('chessground');
 
-function makeConfig(data, config, onMove, onNewPiece, isStudy) {
-  return {
+function make(data, config, onMove, onNewPiece, opts) {
+  return new chessground.controller({
     fen: config.fen,
     check: config.check,
     lastMove: config.lastMove,
@@ -22,7 +22,7 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
     },
     drawable: {
       enabled: true,
-      eraseOnClick: !isStudy
+      eraseOnClick: !opts.study || opts.practice
     },
     highlight: {
       lastMove: data.pref.highlight,
@@ -34,11 +34,7 @@ function makeConfig(data, config, onMove, onNewPiece, isStudy) {
       duration: data.pref.animationDuration
     },
     disableContextMenu: true
-  };
-}
-
-function make(data, config, onMove, onNewPiece, isStudy) {
-  return new chessground.controller(makeConfig(data, config, onMove, onNewPiece, isStudy));
+  });
 }
 
 function promote(ground, key, role) {
