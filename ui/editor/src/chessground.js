@@ -1,7 +1,16 @@
+var m = require('mithril');
 var Chessground = require('chessground').Chessground;
 
-module.exports = function(el, ctrl) {
- return Chessground(el, {
+module.exports = function(ctrl) {
+  return m('div.chessground', {
+    config: function(el, isUpdate) {
+      if (!isUpdate) ctrl.chessground = build(el, ctrl);
+    }
+  }, m('div.cg-board-wrap'));
+}
+
+function build(el, ctrl) {
+  return Chessground(el, {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
@@ -20,7 +29,7 @@ module.exports = function(el, ctrl) {
       enabled: true
     },
     draggable: {
-      showGhost: false,
+      showGhost: true,
       distance: 0,
       autoDistance: false
     },

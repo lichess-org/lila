@@ -183,14 +183,7 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
-    m('div.chessground', {
-      config: function(el, isUpdate) {
-        if (!isUpdate) {
-          ctrl.chessground = chessground(el, ctrl);
-          m.redraw();
-        }
-      }
-    }, m('div.cg-board-wrap')),
+    chessground(ctrl),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)
