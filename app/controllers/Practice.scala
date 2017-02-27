@@ -19,7 +19,7 @@ object Practice extends LilaController {
 
   def index = Open { implicit ctx =>
     env.api.get(ctx.me) flatMap { up =>
-      Ok(html.practice.index(up)).fuccess
+      NoCache(Ok(html.practice.index(up))).fuccess
     }
   }
 
