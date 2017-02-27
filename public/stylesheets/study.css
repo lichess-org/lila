@@ -369,6 +369,9 @@ div.underboard .notif.error {
 .study_overboard.lichess_overboard {
   top: 60%;
 }
+.is3d .study_overboard.lichess_overboard {
+  top: 65%;
+}
 .study_overboard .material.form {
   margin: 0;
   padding: 20px;
