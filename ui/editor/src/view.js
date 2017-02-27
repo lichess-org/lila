@@ -1,6 +1,5 @@
 var chessground = require('./chessground');
 var editor = require('./editor');
-var drag = require('./drag');
 var m = require('mithril');
 
 function castleCheckBox(ctrl, id, label, reversed) {
@@ -181,18 +180,6 @@ module.exports = function(ctrl) {
   // ctrl.chessground.sparePieceSelected = sparePieceSelected;
 
   return m('div.editor', {
-    config: function(el, isUpdate, context) {
-      if (isUpdate) return;
-      var onstart = lichess.partial(drag, ctrl);
-      eventNames.forEach(function(name) {
-        document.addEventListener(name, onstart);
-      });
-      context.onunload = function() {
-        eventNames.forEach(function(name) {
-          document.removeEventListener(name, onstart);
-        });
-      };
-    },
     style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
