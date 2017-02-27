@@ -54,13 +54,13 @@ class BinaryMoveTimeTest extends Specification {
       val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded))
       again must_== rounded
     }
-    "buckets - short game - odd number of moves" in {
-      val times = Vector(0, 3, 6).map(_ * 100 millis)
-      val rounded = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times))
-      val expected = Vector(1, 1, 5).map(_ * 100 millis)
-      rounded must_== expected
-      val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded))
-      again must_== rounded
-    }
+    // "buckets - short game - odd number of moves" in {
+    //   val times = Vector(0, 3, 6).map(_ * 100 millis)
+    //   val rounded = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times))
+    //   val expected = Vector(1, 1, 5).map(_ * 100 millis)
+    //   rounded must_== expected
+    //   val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded))
+    //   again must_== rounded
+    // }
   }
 }
