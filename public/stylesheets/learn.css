@@ -717,7 +717,7 @@ body.dark #learn_app .map .categ > h2 {
 #learn_app .map .stage h3 {
   font-size: 2em;
   letter-spacing: 4px;
-  margin: 0 0 5px -1px;
+  margin: 0 0 1px -1px;
 }
 @keyframes soft-bright {
   50%{
