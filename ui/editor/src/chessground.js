@@ -47,6 +47,7 @@ function build(el, ctrl) {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
+    autoCastle: false,
     movable: {
       free: true,
       color: 'both',
