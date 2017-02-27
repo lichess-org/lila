@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "chessground": "^6.0.10",
-    "lodash": "~3.7.0",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
 }

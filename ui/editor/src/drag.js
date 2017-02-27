@@ -1,4 +1,3 @@
-var find = require('lodash/collection/find');
 var util = require('chessground/util');
 var drag = require('chessground/drag');
 
