@@ -25,6 +25,7 @@ module.exports = function(ctrl) {
             var config = {
               coordinates: false,
               drawable: { enabled: false },
+              resizable: false,
               viewOnly: true,
               orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,
               fen: pov.fen,
