@@ -36,6 +36,7 @@ module.exports = function(cfg) {
 
   this.onChange = function() {
     this.options.onChange && this.options.onChange(this.computeFen());
+    m.redraw();
   }.bind(this);
 
   this.computeFen = function() {
@@ -52,12 +53,12 @@ module.exports = function(cfg) {
 
   this.setColor = function(letter) {
     this.data.color(letter);
-    onChange();
+    this.onChange();
   }.bind(this);
 
   this.setCastle = function(id, value) {
     this.data.castles[id](value);
-    onChange();
+    this.onChange();
   }.bind(this);
 
   this.startPosition = function() {
@@ -66,7 +67,7 @@ module.exports = function(cfg) {
     });
     this.data.castles = editor.castlesAt(true);
     this.data.color('w');
-    onChange();
+    this.onChange();
   }.bind(this);
 
   this.clearBoard = function() {
@@ -74,7 +75,7 @@ module.exports = function(cfg) {
       fen: '8/8/8/8/8/8/8/8'
     });
     this.data.castles = editor.castlesAt(false);
-    onChange();
+    this.onChange();
   }.bind(this);
 
   this.loadNewFen = function(fen) {
