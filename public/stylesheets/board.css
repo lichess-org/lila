@@ -105,6 +105,12 @@ piece.dragging {
 piece.ghost {
   opacity: 0.3;
 }
+piece.fading {
+  opacity: 0.5;
+}
+.cg-board-wrap .over {
+  background-color: rgba(20, 85, 30, 0.2);
+}
 .cg-board-wrap svg {
   overflow: hidden;
   position: absolute;

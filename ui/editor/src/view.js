@@ -142,7 +142,7 @@ function selectedToClass(s) {
 
 function sparePieces(ctrl, color, orientation, position) {
 
-  var selectedClass = selectedToClass(ctrl.getSelected());
+  var selectedClass = selectedToClass(ctrl.vm.selected());
 
   var pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return [color, role];
@@ -170,7 +170,7 @@ function sparePieces(ctrl, color, orientation, position) {
     return m('div', {
       class: containerClass,
       onmousedown: function() {
-        ctrl.setSelected(s);
+        ctrl.vm.selected(s);
       }
     }, m('piece', attrs));
   }));
@@ -194,7 +194,7 @@ module.exports = function(ctrl) {
   var opposite = color === 'white' ? 'black' : 'white';
 
   return m('div.editor', {
-    style: 'cursor: ' + makeCursor(ctrl.getSelected())
+    style: 'cursor: ' + makeCursor(ctrl.vm.selected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
     chessground(ctrl),

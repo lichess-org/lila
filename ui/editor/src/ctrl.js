@@ -12,6 +12,7 @@ module.exports = function(cfg) {
   this.trans = lichess.partial(editor.trans, this.data.i18n);
 
   this.vm = {
+    selected: m.prop('pointer'),
     redirecting: false
   };
 
@@ -48,14 +49,6 @@ module.exports = function(cfg) {
     return this.chessground ?
     this.chessground.state.orientation :
     this.options.orientation || 'white';
-  }.bind(this);
-
-  this.getSelected = function() {
-    return this.chessground ? this.chessground.state.editable.selected : 'pointer';
-  }.bind(this);
-
-  this.setSelected = function(s) {
-    this.chessground.state.editable.selected = s;
   }.bind(this);
 
   this.setColor = function(letter) {
