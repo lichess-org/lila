@@ -128,7 +128,7 @@ module.exports = {
   },
   standing: function(ctrl, pag, klass) {
     var tableBody = pag.currentPageResults ?
-      pag.currentPageResults.map(partial(playerTr, ctrl)) : lastBody;
+      pag.currentPageResults.map(lichess.partial(playerTr, ctrl)) : lastBody;
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('div.controls',
