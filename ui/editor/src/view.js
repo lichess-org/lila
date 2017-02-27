@@ -172,9 +172,8 @@ module.exports = function(ctrl) {
   var sparePieceSelected = ctrl.vm.selected();
   var selectedParts = sparePieceSelected.split(' ');
   var cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : '');
-  // http://www.cursors-4u.com
   var cursor = (cursorName === 'pointer') ?
-    cursorName : 'url(/assets/cursors/' + cursorName + '.cur), default !important';
+    cursorName : 'url(' + lichess.assetUrl('/assets/cursors/' + cursorName + '.cur') + '), default !important';
 
   // ctrl.chessground.sparePieceSelected = sparePieceSelected;
 
