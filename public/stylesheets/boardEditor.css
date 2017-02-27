@@ -114,13 +114,8 @@ http://www.flaticon.com/free-icon/clicker_99162
 */
 #board_editor .spare piece.pointer {
   background-image: url('/assets/images/icons/pointer.png');
-  top: 18%;
-  left: 12%;
-  height: 70%;
-  width: 70%;
-}
-.is3d #board_editor .spare piece.pointer {
-  height: 87%;
+  width: 100%;
+  height: 100%;
 }
 #board_editor .spare piece.trash {
   font-size: 32pt;
@@ -130,4 +125,7 @@ http://www.flaticon.com/free-icon/clicker_99162
 #board_editor .spare .no-square.trash {
   color: black;
   text-align: center
+}
+.is3d #board_editor .spare piece.pointer, .is3d #board_editor .spare piece.trash {
+  top: -15%;
 }
