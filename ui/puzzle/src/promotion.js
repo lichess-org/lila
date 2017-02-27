@@ -35,7 +35,7 @@ module.exports = function(vm, getGround) {
   }
 
   var finish = function(role) {
-    if (promoting) promote(ground(), promoting.dest, role);
+    if (promoting) promote(getGround(), promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
     promoting = false;
   };
@@ -43,7 +43,7 @@ module.exports = function(vm, getGround) {
   var cancel = function() {
     if (promoting) {
       promoting = false;
-      ground().set(vm.cgConfig);
+      getGround().set(vm.cgConfig);
       m.redraw();
     }
   }
@@ -77,8 +77,8 @@ module.exports = function(vm, getGround) {
       if (!promoting) return;
       var pieces = ['queen', 'knight', 'rook', 'bishop'];
       return renderPromotion(promoting.dest, pieces,
-        cgUtil.opposite(ground().state.turnColor),
-        ground().state.orientation);
+        cgUtil.opposite(getGround().state.turnColor),
+       getGround().state.orientation);
     }
   };
 };
