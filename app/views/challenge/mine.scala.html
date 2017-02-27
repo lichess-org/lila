@@ -31,13 +31,14 @@ moreJs = js(c, json, true)) {
         <button class="copy button" data-rel="lichess_id_input" data-icon="&quot;"></button>
         <br />
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
-        <br /><br />
+        <br />
         @if(ctx.isAuth) {
+        <br />
         Or invite a lichess user:<br />
         <form class="user-invite" action="@routes.Challenge.toFriend(c.id)" method="POST">
           <input name="username" class="friend-autocomplete" placeholder="@trans.search()" />
         </form>
-        <br /><br />
+        <br />
         }
         @cancelForm
         }
