@@ -93,11 +93,11 @@ function controls(ctrl, fen) {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
       m('a.button', {
-          onclick: function() {
-            $.modal($('.continue_with'));
-          }
-        },
-        m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
+        onclick: function() {
+          $.modal($('.continue_with'));
+        }
+      },
+      m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
     ]),
     ctrl.embed ? null : m('div.continue_with', [
       m('a.button', {
@@ -135,32 +135,55 @@ function inputs(ctrl, fen) {
   ]);
 }
 
+// can be 'pointer', 'trash', or [color, role]
+function selectedToClass(s) {
+  return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
+}
+
 function sparePieces(ctrl, color, orientation, position) {
+
+  var selectedClass = selectedToClass(ctrl.getSelected());
+
+  var pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+    return [color, role];
+  });
+
   return m('div', {
     class: ['spare', position, 'orientation-' + orientation, color].join(' ')
-  }, ['pointer', 'king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'trash'].map(function(role) {
-    var piece = ((['pointer', 'trash'].indexOf(role) === -1) ? color + ' ' : '') + role;
-    var pieceElement = {
-      class: piece,
-    };
-    var containerClass = 'no-square' + ((ctrl.vm.selected() === piece) ? ' selected-square' : '');
+  }, ['pointer'].concat(pieces).concat('trash').map(function(s) {
 
-    if (piece === 'trash') {
-      pieceElement['data-icon'] = 'q';
+    var className = selectedToClass(s);
+
+    var attrs = {
+      class: className
+    };
+    var containerClass = 'no-square' + (selectedClass === className ? ' selected-square' : '');
+
+    if (s === 'trash') {
+      attrs['data-icon'] = 'q';
       containerClass += ' trash';
-    } else {
-      pieceElement['data-color'] = color;
-      pieceElement['data-role'] = role;
+    } else if (s !== 'pointer') {
+      attrs['data-color'] = s[0];
+      attrs['data-role'] = s[1];
     }
 
     return m('div', {
-        class: containerClass,
-        onmousedown: function() {
-          ctrl.vm.selected(piece);
-        }
-      }, m('piece', pieceElement)
-    );
+      class: containerClass,
+      onmousedown: function() {
+        ctrl.setSelected(s);
+      }
+    }, m('piece', attrs));
   }));
+}
+
+function makeCursor(selected) {
+
+  if (selected === 'pointer') return 'pointer';
+
+  var name = selected === 'trash' ? 'trash' : selected.join('-');
+  var url = lichess.assetUrl('/assets/cursors/' + name + '.cur');
+
+  return 'url(' + url + '), default !important';
 }
 
 var eventNames = ['mousedown', 'touchstart'];
@@ -169,16 +192,9 @@ module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.bottomColor();
   var opposite = color === 'white' ? 'black' : 'white';
-  var sparePieceSelected = ctrl.vm.selected();
-  var selectedParts = sparePieceSelected.split(' ');
-  var cursorName = selectedParts[0] + ((selectedParts.length >= 2) ? '-' + selectedParts[1] : '');
-  var cursor = (cursorName === 'pointer') ?
-    cursorName : 'url(' + lichess.assetUrl('/assets/cursors/' + cursorName + '.cur') + '), default !important';
-
-  // ctrl.chessground.sparePieceSelected = sparePieceSelected;
 
   return m('div.editor', {
-    style: 'cursor: ' + ((cursor) ? cursor : 'pointer')
+    style: 'cursor: ' + makeCursor(ctrl.getSelected())
   }, [
     sparePieces(ctrl, opposite, color, 'top'),
     chessground(ctrl),

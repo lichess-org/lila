@@ -36,6 +36,9 @@ function build(el, ctrl) {
     selectable: {
       enabled: false
     },
+    editable: {
+      enabled: true
+    },
     events: {
       change: ctrl.onChange.bind(ctrl)
     }
