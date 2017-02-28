@@ -4,14 +4,18 @@ var Chessground = require('chessground').Chessground;
 module.exports = function(ctrl) {
   return m('div.cg-board-wrap', {
     config: function(el, isUpdate) {
-      if (!isUpdate) ctrl.chessground = Chessground(el, makeConfig(ctrl));
+      if (!isUpdate) {
+        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        ctrl.setAutoShapes();
+        if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
+      }
     }
   });
 }
 
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
-  return {
+  var config = {
     fen: opts.fen,
     check: opts.check,
     lastMove: opts.lastMove,
@@ -44,11 +48,13 @@ function makeConfig(ctrl) {
     },
     disableContextMenu: true
   };
+  ctrl.study && ctrl.study.mutateCgConfig(config);
+  return config;
 }
 
 module.exports.promote = function(ground, key, role) {
   var pieces = {};
-  var piece = ground.data.pieces[key];
+  var piece = ground.state.pieces[key];
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,

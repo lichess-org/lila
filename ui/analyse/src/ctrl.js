@@ -177,7 +177,7 @@ module.exports = function(opts) {
         color: movableColor,
         dests: movableColor === color ? (dests || {}) : {}
       },
-      check: node.check,
+      check: !!node.check,
       lastMove: uciToLastMove(node.uci)
     };
     if (!dests && !node.check) {
@@ -248,7 +248,7 @@ module.exports = function(opts) {
 
   this.userJump = function(path) {
     this.autoplay.stop();
-    this.chessground.selectSquare(null);
+    this.chessground && this.chessground.selectSquare(null);
     if (this.practice) {
       var prev = this.vm.path;
       this.practice.preUserJump(prev, path);

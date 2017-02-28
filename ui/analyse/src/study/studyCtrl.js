@@ -172,19 +172,17 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
 
-  ctrl.chessground.set({
-    drawable: {
-      onChange: function(shapes) {
-        if (members.canContribute()) {
-          ctrl.tree.setShapes(shapes, ctrl.vm.path);
-          contribute("shapes", addChapterId({
-            path: ctrl.vm.path,
-            shapes: shapes
-          }));
-        }
+  var mutateCgConfig = function(config) {
+    config.drawable.onChange = function(shapes) {
+      if (members.canContribute()) {
+        ctrl.tree.setShapes(shapes, ctrl.vm.path);
+        contribute("shapes", addChapterId({
+          path: ctrl.vm.path,
+          shapes: shapes
+        }));
       }
-    }
-  });
+    };
+  }
 
   return {
     data: data,
@@ -258,6 +256,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     userJump: ctrl.userJump,
     currentNode: currentNode,
     practice: practice,
+    mutateCgConfig: mutateCgConfig,
     socketHandlers: {
       path: function(d) {
         var position = d.p,
