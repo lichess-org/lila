@@ -1,11 +1,13 @@
 var m = require('mithril');
-var throttle = require('common').throttle;
 var defined = require('common').defined;
 var normalizeEval = require('chess').renderEval;
+var dropThrottle = require('common').dropThrottle;
 var treePath = require('tree').path;
 
-var autoScroll = function(ctrl, el) {
-  lichess.requestIdleCallback(function() {
+var scrollThrottle = dropThrottle(150);
+
+function autoScroll(ctrl, el) {
+  scrollThrottle(function() {
     var cont = el.parentNode;
     var target = el.querySelector('.active');
     if (!target) {
@@ -14,7 +16,7 @@ var autoScroll = function(ctrl, el) {
     }
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
-};
+}
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
