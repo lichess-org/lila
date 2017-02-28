@@ -1,12 +1,12 @@
 var m = require('mithril');
 var Chessground = require('chessground').Chessground;
-var eventPosition = require('chessground/util').eventPosition;
+var util = require('chessground/util');
 
 module.exports = function(ctrl) {
   return m('div.chessground', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
-      ctrl.chessground = build(el, ctrl);
+      ctrl.chessground = Chessground(el, makeConfig(ctrl));
       bindEvents(el, ctrl);
     }
   }, m('div.cg-board-wrap'));
@@ -19,31 +19,49 @@ function bindEvents(el, ctrl) {
   });
 }
 
+function isLeftClick(e) {
+  return util.isLeftButton(e) && !e.ctrlKey;
+}
+
+function isRightClick(e) {
+  return util.isRightButton(e) || (e.ctrlKey && util.isLeftButton(e));
+}
+
 function onMouseEvent(ctrl) {
   return function(e) {
-    if (e.buttons !== 1 && e.button !== 1) return;
     var sel = ctrl.vm.selected();
-    if (sel === 'pointer' || ctrl.vm.draggingSpare()) return;
-    var key = ctrl.chessground.getKeyAtDomPos(eventPosition(e));
-    if (!key) return;
-    if (sel === 'trash') {
-      var pieces = {};
-      pieces[key] = false;
-      ctrl.chessground.setPieces(pieces);
-    } else {
-      var piece = {};
-      piece.color = sel[0];
-      piece.role = sel[1];
-      var pieces = {};
-      pieces[key] = piece;
-      ctrl.chessground.setPieces(pieces);
+
+    if (isLeftClick(e)) {
+      if (sel === 'pointer' || ctrl.vm.draggingSpare()) return;
+      var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
+      if (!key) return;
+      if (sel === 'trash') {
+        var pieces = {};
+        pieces[key] = false;
+        ctrl.chessground.setPieces(pieces);
+      } else {
+        var piece = {};
+        piece.color = sel[0];
+        piece.role = sel[1];
+        var pieces = {};
+        pieces[key] = piece;
+        ctrl.chessground.cancelMove();
+        ctrl.chessground.setPieces(pieces);
+      }
+      ctrl.onChange();
+    } else if (
+      isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
+        sel.length >= 2
+    ) {
+      ctrl.chessground.cancelMove();
+      sel[0] = util.opposite(sel[0]);
+      m.redraw();
     }
-    ctrl.onChange();
   };
 }
 
-function build(el, ctrl) {
-  return Chessground(el, {
+function makeConfig(ctrl) {
+  return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
@@ -76,5 +94,5 @@ function build(el, ctrl) {
     events: {
       change: ctrl.onChange.bind(ctrl)
     }
-  });
+  };
 }

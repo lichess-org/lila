@@ -14,6 +14,7 @@ lichess.getParameterByName = function(name) {
 var lichess_translations = lichess_translations || [];
 
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
+lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.storage = (function() {
   var withStorage = function(f) {
     // can throw an exception when storage is full

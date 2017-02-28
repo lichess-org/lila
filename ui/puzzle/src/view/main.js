@@ -1,5 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
+var chessground = require('./chessground');
 var bindOnce = require('common').bindOnce;
 var treeView = require('./tree');
 var cevalView = require('ceval').view;
@@ -43,7 +43,7 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground.view(ctrl.ground),
+      chessground(ctrl),
       ctrl.promotion.view()
     ]),
     cevalView.renderGauge(ctrl)

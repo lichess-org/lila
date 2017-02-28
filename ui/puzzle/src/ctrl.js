@@ -6,10 +6,8 @@ var cevalCtrl = require('ceval').ctrl;
 var readDests = require('chess').readDests;
 var decomposeUci = require('chess').decomposeUci;
 var sanToRole = require('chess').sanToRole;
-var chessground = require('chessground');
+var opposite = require('chessground/util').opposite;
 var keyboard = require('./keyboard');
-var opposite = chessground.util.opposite;
-var groundBuild = require('./ground');
 var socketBuild = require('./socket');
 var moveTestBuild = require('./moveTest');
 var mergeSolution = require('./solution');
@@ -22,7 +20,8 @@ var sound = require('./sound');
 module.exports = function(opts, i18n) {
 
   var vm = {};
-  var data, tree, ground, ceval, moveTest;
+  var data, tree, ceval, moveTest;
+  var ground = m.prop();
 
   var setPath = function(path) {
     vm.path = path;
@@ -31,11 +30,17 @@ module.exports = function(opts, i18n) {
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   };
 
+  function withGround(f) {
+    var g = ground();
+    if (g) return f(g);
+  }
+
   var initiate = function(fromData) {
     data = fromData;
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
-    vm.mode = 'play'; // play | try | view
+    // play | try | view
+    vm.mode = 'play';
     vm.loading = false;
     vm.round = null;
     vm.voted = null;
@@ -51,7 +56,8 @@ module.exports = function(opts, i18n) {
       m.redraw();
     }, 500);
 
-    vm.canViewSolution = false; // just to delay button display
+    // just to delay button display
+    vm.canViewSolution = false;
     setTimeout(function() {
       vm.canViewSolution = true;
       m.redraw();
@@ -59,8 +65,10 @@ module.exports = function(opts, i18n) {
 
     moveTest = moveTestBuild(vm, data.puzzle);
 
-    if (ground) ground.setAutoShapes([]);
-    showGround();
+    withGround(function(g) {
+      g.setAutoShapes([]);
+      showGround(g);
+    });
     m.redraw();
 
     instanciateCeval();
@@ -68,7 +76,7 @@ module.exports = function(opts, i18n) {
     history.replaceState(null, null, '/training/' + data.puzzle.id);
   };
 
-  var showGround = function() {
+  var makeCgOpts = function() {
     var node = vm.node;
     var color = node.ply % 2 === 0 ? 'white' : 'black';
     var dests = readDests(node.dests);
@@ -87,7 +95,7 @@ module.exports = function(opts, i18n) {
       premovable: {
         enabled: false
       },
-      check: node.check,
+      check: !!node.check,
       lastMove: uciToLastMove(node.uci)
     };
     if (node.ply >= vm.initialNode.ply) {
@@ -97,16 +105,18 @@ module.exports = function(opts, i18n) {
         config.turnColor = opposite(color);
         config.movable.color = color;
         config.premovable.enabled = true;
-      } else if (vm.mode !== 'view' && color !== data.puzzle.color) { //  && !node.check) {
-        config.turnColor = color;
+      } else if (vm.mode !== 'view' && color !== data.puzzle.color) {
         config.movable.color = data.puzzle.color;
         config.premovable.enabled = true;
       }
     }
     vm.cgConfig = config;
-    if (!ground) ground = groundBuild(data, config, opts.pref, userMove);
-    ground.set(config);
-    if (!dests) getDests();
+    return config;
+  };
+
+  var showGround = function(g) {
+    g.set(makeCgOpts());
+    if (!vm.node.dests) getDests();
   };
 
   var userMove = function(orig, dest, capture) {
@@ -126,26 +136,16 @@ module.exports = function(opts, i18n) {
     socket.sendAnaMove(move);
   };
 
-  // var preparePremoving = function() {
-  //   ground.set({
-  //     turnColor: ground.data.movable.color,
-  //     movable: {
-  //       color: opposite(ground.data.movable.color)
-  //     }
-  //   });
-  // };
-
   var getDests = throttle(800, false, function() {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-      socket.sendAnaDests({
-        fen: vm.node.fen,
-        path: vm.path
-      });
+    socket.sendAnaDests({
+      fen: vm.node.fen,
+      path: vm.path
+    });
   });
 
   var uciToLastMove = function(uci) {
-    if (!uci) return;
-    return [uci.substr(0, 2), uci.substr(2, 2)]; // assuming standard chess
+    return uci && [uci.substr(0, 2), uci.substr(2, 2)]; // assuming standard chess
   };
 
   var addNode = function(node, path) {
@@ -153,7 +153,7 @@ module.exports = function(opts, i18n) {
     jump(newPath);
     reorderChildren(path);
     m.redraw();
-    ground.playPremove();
+    withGround(function(g) { g.playPremove(); });
 
     var progress = moveTest();
     if (progress) applyProgress(progress);
@@ -175,7 +175,7 @@ module.exports = function(opts, i18n) {
 
   var revertUserMove = function() {
     setTimeout(function() {
-      ground.cancelPremove();
+      withGround(function(g) { g.cancelPremove(); });
       userJump(treePath.init(vm.path));
       m.redraw();
     }, 500);
@@ -198,7 +198,7 @@ module.exports = function(opts, i18n) {
         if (vm.mode === 'play') sendResult(true);
         vm.lastFeedback = 'win';
         vm.mode = 'view';
-        showGround(); // to disable premoves
+        withGround(showGround); // to disable premoves
         startCeval();
       }
     } else if (progress && progress.orig) {
@@ -233,11 +233,11 @@ module.exports = function(opts, i18n) {
   var addDests = function(dests, path, opening) {
     tree.addDests(dests, path, opening);
     if (path === vm.path) {
-      showGround();
+      withGround(showGround);
       m.redraw();
       if (gameOver()) ceval.stop();
     }
-    ground.playPremove();
+    withGround(function(g) { g.playPremove(); });
   };
 
   var instanciateCeval = function(failsafe) {
@@ -253,9 +253,9 @@ module.exports = function(opts, i18n) {
         tree.updateAt(work.path, function(node) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
-              node.threat = eval;
+            node.threat = eval;
           } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
-            node.ceval = eval;
+          node.ceval = eval;
           if (work.path === vm.path) {
             setAutoShapes();
             m.redraw();
@@ -276,12 +276,14 @@ module.exports = function(opts, i18n) {
   };
 
   var setAutoShapes = function() {
-    ground.setAutoShapes(computeAutoShapes({
-      vm: vm,
-      ceval: ceval,
-      ground: ground,
-      nextNodeBest: nextNodeBest
-    }));
+    withGround(function(g) {
+      g.setAutoShapes(computeAutoShapes({
+        vm: vm,
+        ceval: ceval,
+        ground: g,
+        nextNodeBest: nextNodeBest
+      }));
+    });
   };
 
   var canUseCeval = function() {
@@ -339,7 +341,7 @@ module.exports = function(opts, i18n) {
   var jump = function(path) {
     var pathChanged = path !== vm.path;
     setPath(path);
-    showGround();
+    withGround(showGround);
     if (pathChanged) {
       if (!vm.node.uci) sound.move(); // initial position
       else if (vm.node.uci.indexOf(vm.justPlayed) !== 0) {
@@ -357,7 +359,9 @@ module.exports = function(opts, i18n) {
   };
 
   var userJump = function(path) {
-    ground.selectSquare(null);
+    withGround(function(g) {
+      g.selectSquare(null);
+    });
     jump(path);
   };
 
@@ -388,7 +392,7 @@ module.exports = function(opts, i18n) {
     addNode: addNode,
     addDests: addDests,
     reset: function() {
-      showGround();
+      withGround(showGround);
       m.redraw();
     }
   });
@@ -443,6 +447,7 @@ module.exports = function(opts, i18n) {
       return tree;
     },
     ground: ground,
+    makeCgOpts: makeCgOpts,
     userJump: userJump,
     viewSolution: viewSolution,
     nextPuzzle: nextPuzzle,
@@ -450,6 +455,7 @@ module.exports = function(opts, i18n) {
     hasEverVoted: hasEverVoted,
     vote: vote,
     getCeval: getCeval,
+    pref: opts.pref,
     trans: lichess.trans(opts.i18n),
     socketReceive: socket.receive,
     gameOver: gameOver,
@@ -461,12 +467,13 @@ module.exports = function(opts, i18n) {
       };
     },
     nextNodeBest: nextNodeBest,
+    userMove: userMove,
     playUci: playUci,
     showEvalGauge: function() {
       return vm.showComputer() && ceval.enabled();
     },
     getOrientation: function() {
-      return ground.data.orientation;
+      return withGround(function(g) { return g.state.orientation });
     },
     promotion: promotion
   };

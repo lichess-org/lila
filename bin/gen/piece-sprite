@@ -36,15 +36,11 @@ themes.map { |theme|
     roles.map { |role|
       piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
       file = source_dir + name + '/' + piece + '.' + ext
-      important = ""
-      if role == "knight" or role == "bishop" 
-        important = " !important"
-      end
       File.open(file, 'r') do|image_file|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
         'body.base .is2d piece.' + role + '.' + color + ' { ' +
-          "background-image: url('data:image/" + types[ext] + base64 + "')" + important + "; }"
+          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
       end
     }
   }.flatten

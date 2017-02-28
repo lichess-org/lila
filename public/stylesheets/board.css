@@ -58,15 +58,15 @@ body.highlight .cg-board square.premove-dest.drag-over,
 body.highlight .cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
+body.highlight .cg-board square.check {
+  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+}
 body.base .cg-board square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
 body.highlight .cg-board square.last-move,
 .mini_board .cg-board square.last-move {
   background-color: rgba(155, 199, 0, 0.41);
-}
-body.highlight .cg-board square.check {
-  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
 }
 body.base .cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
@@ -99,6 +99,10 @@ body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
 piece.dragging {
+  z-index: 4;
+  cursor: move;
+}
+piece.anim {
   z-index: 3;
   cursor: move;
 }
@@ -106,7 +110,6 @@ piece.ghost {
   opacity: 0.3;
 }
 piece.fading {
-  opacity: 0.5;
 }
 .cg-board-wrap .over {
   background-color: rgba(20, 85, 30, 0.2);
