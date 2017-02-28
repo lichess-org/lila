@@ -8,7 +8,7 @@ module.exports = function(ctrl) {
   return m('div.chessground', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
-      ctrl.chessground = Chessground(makeConfig(ctrl));
+      ctrl.chessground = Chessground(el, makeConfig(ctrl));
       bindEvents(el, ctrl);
     }
   }, m('div.cg-board-wrap'));
