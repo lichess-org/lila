@@ -226,7 +226,7 @@ module.exports = {
     return m('div.tview2', {
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollNow) {
-          autoScrollNow(ctrl, el);
+          autoScroll(ctrl, el);
           ctrl.vm.autoScrollNow = false;
           ctrl.vm.autoScrollRequested = false;
         }
