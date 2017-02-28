@@ -52,6 +52,7 @@ function onMouseEvent(ctrl) {
     } else if (isRightClick(e)) {
       if (sel !== 'pointer') {
         ctrl.chessground.state.drawable.current = undefined;
+        ctrl.chessground.state.drawable.shapes = [];
 
         if (['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2) {
           ctrl.chessground.cancelMove();
