@@ -26,6 +26,7 @@ object JsData extends lila.Steroids {
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
+    "is3d" -> ctx.pref.is3d,
     "i18n" -> i18nJsObject(
       trans.startPosition,
       trans.clearBoard,

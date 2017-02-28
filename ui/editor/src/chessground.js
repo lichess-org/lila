@@ -66,6 +66,7 @@ function makeConfig(ctrl) {
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
     autoCastle: false,
+    addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,
       color: 'both',

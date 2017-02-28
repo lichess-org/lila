@@ -27,6 +27,9 @@ body.coords_2 .is3d square[data-coord-x]::after {
   left: -1.85%;
   top: -9.1%;
 }
+.is3d piece.dragging {
+  z-index: 70!important;
+}
 .is3d .is2d piece {
   /* copy of board.css to override miniboards */
   left: 0;
