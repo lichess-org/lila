@@ -89,7 +89,7 @@ function ratingChart(ctrl) {
       var points = ctrl.getData().user.recent.map(function(r) {
         return r[2] + r[1];
       });
-      jQuery(el).sparkline(points, {
+      $(el).sparkline(points, {
         type: 'line',
         width: '224px',
         height: '80px',

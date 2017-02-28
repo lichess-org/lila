@@ -44,10 +44,16 @@ trait AssetHelper { self: I18nHelper =>
   def jsAt(path: String, static: Boolean = true)(implicit ctx: Context): Html =
     jsAt(path, static, ctx.pageData.assetVersion)
 
-  val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
+  val zeptoTag = cdnOrLocal(
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/zepto/3.1.1/zepto.min.js",
     test = "window.jQuery",
-    local = staticUrl("javascripts/vendor/jquery.min.js")
+    local = staticUrl("javascripts/vendor/zepto.min.js")
+  )
+
+  val jQueryTag = cdnOrLocal(
+    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/1.2.0/jquery.min.js",
+    test = "window.Zepto",
+    local = staticUrl("javascripts/vendor/zepto.min.js")
   )
 
   val highchartsTag = cdnOrLocal(

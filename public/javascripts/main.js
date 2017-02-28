@@ -101,9 +101,9 @@ lichess.notifyApp = (function() {
   /////////////
   // ctrl.js //
   /////////////
-  $.ajaxSetup({
-    cache: false
-  });
+  // $.ajaxSetup({
+  //   cache: false
+  // });
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   };
