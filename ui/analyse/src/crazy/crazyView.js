@@ -1,5 +1,4 @@
 var crazyDrag = require('./crazyDrag');
-var partial = require('chessground').util.partial;
 var defined = require('common').defined;
 var m = require('mithril');
 
@@ -11,7 +10,7 @@ module.exports = {
     if (!ctrl.vm.node.crazy) return;
     var pocket = ctrl.vm.node.crazy.pockets[color === 'white' ? 0 : 1];
     var dropped = ctrl.vm.justDropped;
-    var usable = !ctrl.embed && color === ctrl.chessground.data.movable.color;
+    var usable = !ctrl.embed && color === ctrl.chessground.state.movable.color;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
@@ -19,7 +18,7 @@ module.exports = {
           if (ctx.flip === ctrl.vm.flip) return;
           if (ctx.onunload) ctx.onunload();
           ctx.flip = ctrl.vm.flip;
-          var onstart = partial(crazyDrag, ctrl, color);
+          var onstart = lichess.partial(crazyDrag, ctrl, color);
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
           });

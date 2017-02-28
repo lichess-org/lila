@@ -3,7 +3,6 @@ var classSet = require('common').classSet;
 var bindOnce = require('common').bindOnce;
 var titleNameToId = require('../util').titleNameToId;
 var inviteFormCtrl = require('./inviteForm').ctrl;
-var partial = require('chessground').util.partial;
 
 function memberActivity(onIdle) {
   var timeout;
@@ -212,7 +211,7 @@ module.exports = {
           ]);
         })('member-role'),
         m('div.kick', m('a.button.text[data-icon=L]', {
-          onclick: partial(ctrl.members.kick, member.user.id)
+          onclick: lichess.partial(ctrl.members.kick, member.user.id)
         }, 'Kick from this study'))
       ]);
     };

@@ -1,6 +1,5 @@
 var m = require('mithril');
 var contextMenu = require('./contextMenu');
-var raf = require('chessground').util.requestAnimationFrame;
 var empty = require('common').empty;
 var defined = require('common').defined;
 var dropThrottle = require('common').dropThrottle;

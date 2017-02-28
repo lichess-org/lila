@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var throttle = require('common').throttle;
 var memberCtrl = require('./studyMembers').ctrl;
 var chapterCtrl = require('./studyChapters').ctrl;
@@ -50,11 +49,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     myId: practice ? null : ctrl.userId,
     ownerId: data.ownerId,
     send: send,
-    setTab: partial(vm.tab, 'members'),
+    setTab: lichess.partial(vm.tab, 'members'),
     startTour: startTour,
     notif: notif
   });
-  var chapters = chapterCtrl(data.chapters, send, partial(vm.tab, 'chapters'), partial(xhr.chapterConfig, data.id), ctrl);
+  var chapters = chapterCtrl(data.chapters, send, lichess.partial(vm.tab, 'chapters'), lichess.partial(xhr.chapterConfig, data.id), ctrl);
 
   var currentChapterId = function() {
     return vm.chapterId || data.position.chapterId;
@@ -221,7 +220,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     },
     setPath: function(path, node) {
       onSetPath(path);
-      setTimeout(partial(commentForm.onSetPath, path, node), 100);
+      setTimeout(lichess.partial(commentForm.onSetPath, path, node), 100);
     },
     deleteNode: function(path) {
       contribute("deleteNode", addChapterId({
