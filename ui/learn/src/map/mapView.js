@@ -39,7 +39,7 @@ function whatNext(ctrl) {
         src: util.assetUrl + 'images/learn/' + img + '.svg'
       }),
       m('div.text', [
-        m('h2', title),
+        m('h3', title),
         m('p.subtitle', subtitle)
       ])
     ]);
@@ -52,7 +52,8 @@ function whatNext(ctrl) {
       userId ?
       makeStage('/@/' + userId, 'beams-aura', 'Register', 'Get a free lichess account', true) :
       makeStage('/signup', 'beams-aura', 'Register', 'Get a free lichess account'),
-      makeStage('/training', 'bullseye', 'Training', 'Solve various chess positions'),
+      makeStage('/practice', 'robot-golem', 'Practice', 'Learn common chess positions'),
+      makeStage('/training', 'bullseye', 'Training', 'Exercise your tactical skills'),
       makeStage('/video', 'tied-scroll', 'Videos', 'Watch instructive chess videos'),
       makeStage('/#hook', 'sword-clash', 'Play people', 'Opponents from around the world'),
       makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skills with the computer'),

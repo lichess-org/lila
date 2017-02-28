@@ -36,8 +36,8 @@ module.exports = {
   },
   myCurrentPairing: function(ctrl) {
     if (!ctrl.userId) return null;
-    return ctrl.data.pairings.filter(function(p) {
+    return ctrl.data.pairings.find(function(p) {
       return p.game.status < status.ids.mate && p.player.id === ctrl.userId;
-    })[0];
+    });
   }
 };

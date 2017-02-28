@@ -14,15 +14,15 @@ module.exports = function(env, domElement) {
   }));
 
   var findMetric = function(key) {
-    return this.metrics.filter(function(x) {
+    return this.metrics.find(function(x) {
       return x.key === key;
-    })[0];
+    });
   }.bind(this);
 
   var findDimension = function(key) {
-    return this.dimensions.filter(function(x) {
+    return this.dimensions.find(function(x) {
       return x.key === key;
-    })[0];
+    });
   }.bind(this);
 
   this.vm = {
@@ -95,18 +95,18 @@ module.exports = function(env, domElement) {
 
   this.setMetric = function(key) {
     this.vm.metric = findMetric(key);
-    if (!this.validCombinationCurrent()) this.vm.dimension = this.dimensions.filter(function(d) {
+    if (!this.validCombinationCurrent()) this.vm.dimension = this.dimensions.find(function(d) {
       return this.validCombination(d, this.vm.metric);
-    }.bind(this))[0];
+    }.bind(this));
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
     this.vm.dimension = findDimension(key);
-    if (!this.validCombinationCurrent()) this.vm.metric = this.metrics.filter(function(m) {
+    if (!this.validCombinationCurrent()) this.vm.metric = this.metrics.find(function(m) {
       return this.validCombination(this.vm.dimension, m);
-    }.bind(this))[0];
+    }.bind(this));
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);

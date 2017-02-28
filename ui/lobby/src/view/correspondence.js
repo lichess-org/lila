@@ -1,6 +1,5 @@
 var m = require('mithril');
 var tds = require('./util').tds;
-var util = require('chessground').util;
 
 function renderSeek(ctrl, seek) {
   return m('tr', {
@@ -58,7 +57,7 @@ module.exports = function(ctrl) {
           }
           while (el.nodeName !== 'TABLE');
         }
-      }, ctrl.data.seeks.map(util.partial(renderSeek, ctrl)))
+      }, ctrl.data.seeks.map(lichess.partial(renderSeek, ctrl)))
     ]),
     createSeek(ctrl)
   ];

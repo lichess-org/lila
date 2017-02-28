@@ -23,9 +23,9 @@ module.exports = function(root) {
     candidateNodes = nodeFinder.evalSwings(root.vm.mainline, function(n) {
       return n.ply % 2 === colorModulo && !lichess.fp.contains(explorerCancelPlies, n.ply);
     });
-    return candidateNodes.filter(function(n) {
+    return candidateNodes.find(function(n) {
       return !isPlySolved(n.ply);
-    })[0];
+    });
   };
 
   var jumpToNext = function() {
@@ -44,9 +44,9 @@ module.exports = function(root) {
       node: root.tree.nodeAtPath(prevPath),
       path: prevPath
     };
-    var solutionNode = prev.node.children.filter(function(n) {
+    var solutionNode = prev.node.children.find(function(n) {
       return n.comp;
-    })[0];
+    });
     current({
       fault: fault,
       prev: prev,
@@ -64,9 +64,9 @@ module.exports = function(root) {
         res.moves.forEach(function(m) {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
-        if (ucis.filter(function(uci) {
+        if (ucis.find(function(uci) {
           return fault.node.uci === uci;
-        })[0]) {
+        })) {
           explorerCancelPlies.push(fault.node.ply);
           setTimeout(jumpToNext, 100);
         } else {
@@ -90,9 +90,9 @@ module.exports = function(root) {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.filter(function(uci) {
+      if (cur.openingUcis.find(function(uci) {
         return node.uci === uci;
-      })[0]) onWin(); // found in opening explorer
+      })) onWin(); // found in opening explorer
       else if (node.comp) onWin(); // the computer solution line
       else if (node.eval) onFail(); // the move that was played in the game
       else {

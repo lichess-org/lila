@@ -367,6 +367,11 @@ lichess.pubsub = (function() {
     }
   };
 })();
+// wtf was I thinking
+lichess.partial = function() {
+  var fn = arguments[0];
+  return fn.bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
+};
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
 lichess.reload = function() {
@@ -443,3 +448,11 @@ $.modal = function(html) {
 $.modal.close = function() {
   $('#modal-overlay').remove();
 };
+
+// polyfills
+
+if (!Array.prototype.find) {
+  Array.prototype.find = function(predicate) {
+    for (var i in this) if (predicate(this[i])) return this[i];
+  };
+}

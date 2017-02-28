@@ -29,8 +29,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "github:ornicar/chessground#v4.5.0",
-    "lodash": "~3.7.0",
+    "chessground": "^6.0.13",
     "mithril": "github:ornicar/mithril.js#v1.0.1"
   }
 }
