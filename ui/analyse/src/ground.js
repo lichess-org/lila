@@ -3,11 +3,12 @@ var Chessground = require('chessground').Chessground;
 
 module.exports = function(ctrl) {
   return m('div.cg-board-wrap', {
-    config: function(el, isUpdate) {
+    config: function(el, isUpdate, ctx) {
       if (!isUpdate) {
         ctrl.chessground = Chessground(el, makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
+        ctx.onunload = ctrl.chessground.destroy;
       }
     }
   });
