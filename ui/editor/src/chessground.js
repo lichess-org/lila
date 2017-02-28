@@ -14,7 +14,7 @@ module.exports = function(ctrl) {
 
 function bindEvents(el, ctrl) {
   var handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove'].forEach(function(ev) {
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler)
   });
 }
@@ -49,13 +49,20 @@ function onMouseEvent(ctrl) {
         ctrl.chessground.setPieces(pieces);
       }
       ctrl.onChange();
-    } else if (
-      isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
-        sel.length >= 2
-    ) {
-      ctrl.chessground.cancelMove();
-      sel[0] = util.opposite(sel[0]);
-      m.redraw();
+    } else if (isRightClick(e)) {
+      if (sel !== 'pointer') {
+        ctrl.chessground.state.drawable.current = undefined;
+        ctrl.chessground.state.drawable.shapes = [];
+
+        if (
+          e.type === 'contextmenu' &&
+            ['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2
+        ) {
+          ctrl.chessground.cancelMove();
+          sel[0] = util.opposite(sel[0]);
+          m.redraw();
+        }
+      }
     }
   };
 }
