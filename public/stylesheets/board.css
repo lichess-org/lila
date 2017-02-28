@@ -99,6 +99,10 @@ body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
 piece.dragging {
+  z-index: 4;
+  cursor: move;
+}
+piece.anim {
   z-index: 3;
   cursor: move;
 }
@@ -106,7 +110,6 @@ piece.ghost {
   opacity: 0.3;
 }
 piece.fading {
-  opacity: 0.5;
 }
 .cg-board-wrap .over {
   background-color: rgba(20, 85, 30, 0.2);
