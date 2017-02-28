@@ -20,7 +20,7 @@ function bindEvents(el, ctrl) {
 }
 
 function isLeftClick(e) {
-  return util.isLeftButton(e) && !isRightClick(e);
+  return util.isLeftButton(e) && !e.ctrlKey;
 }
 
 function isRightClick(e) {
@@ -53,8 +53,7 @@ function onMouseEvent(ctrl) {
         sel.length >= 2
     ) {
       sel[0] = util.opposite(sel[0]);
-      ctrl.vm.selected(sel);
-      ctrl.onChange();
+      m.redraw();
     }
   };
 }
