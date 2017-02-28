@@ -45,6 +45,7 @@ function onMouseEvent(ctrl) {
         piece.role = sel[1];
         var pieces = {};
         pieces[key] = piece;
+        ctrl.chessground.cancelMove();
         ctrl.chessground.setPieces(pieces);
       }
       ctrl.onChange();
@@ -52,6 +53,7 @@ function onMouseEvent(ctrl) {
       isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
         sel.length >= 2
     ) {
+      ctrl.chessground.cancelMove();
       sel[0] = util.opposite(sel[0]);
       m.redraw();
     }
