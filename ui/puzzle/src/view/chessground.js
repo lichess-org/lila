@@ -2,11 +2,11 @@ var m = require('mithril');
 var Chessground = require('chessground').Chessground;
 
 module.exports = function(ctrl) {
-  return m('div.chessground', {
+  return m('div.cg-board-wrap', {
     config: function(el, isUpdate) {
       if (!isUpdate) ctrl.ground(Chessground(el, makeConfig(ctrl)));
     }
-  }, m('div.cg-board-wrap'));
+  });
 }
 
 function makeConfig(ctrl) {

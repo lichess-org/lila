@@ -3,13 +3,13 @@ var Chessground = require('chessground').Chessground;
 var util = require('chessground/util');
 
 module.exports = function(ctrl) {
-  return m('div.chessground', {
+  return m('div.cg-board-wrap', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
       ctrl.chessground = Chessground(el, makeConfig(ctrl));
       bindEvents(el, ctrl);
     }
-  }, m('div.cg-board-wrap'));
+  });
 }
 
 function bindEvents(el, ctrl) {
