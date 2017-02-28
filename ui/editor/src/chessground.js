@@ -40,7 +40,7 @@ function onMouseEvent(ctrl) {
         pieces[key] = false;
         ctrl.chessground.setPieces(pieces);
       } else {
-        var existingPiece = ctrl.chessground.getPieceAtKey(key);
+        var existingPiece = ctrl.chessground.state.pieces[key];
         var piece = {};
         piece.color = sel[0];
         piece.role = sel[1];
