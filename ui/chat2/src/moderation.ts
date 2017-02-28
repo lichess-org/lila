@@ -85,7 +85,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         data.troll ? 'TROLL' : undefined,
         data.engine ? 'ENGINE' : undefined,
         data.booster ? 'BOOSTER' : undefined
-      ].filter(x => x).map(t => t && h('span', t)).concat([
+      ].map(t => t && h('span', t)).concat([
         h('a', {
           attrs: {
             href: '/@/' + data.username + '?mod'

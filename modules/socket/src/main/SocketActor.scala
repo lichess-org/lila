@@ -70,18 +70,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def notifyAll(msg: JsObject): Unit =
     members.foreachValue(_ push msg)
 
-  def notifyAllAsync[A: Writes](t: String, data: A) = Future {
-    notifyAll(t, data)
-  }
-
-  def notifyAllAsync(t: String) = Future {
-    notifyAll(t)
-  }
-
-  def notifyAllAsync(msg: JsObject) = Future {
-    notifyAll(msg)
-  }
-
   def notifyMember[A: Writes](t: String, data: A)(member: M) {
     member push makeMessage(t, data)
   }

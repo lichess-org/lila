@@ -45,8 +45,8 @@ module.exports = {
     });
   },
   find: function(ctrl, id) {
-    return ctrl.data.hooks.filter(function(h) {
+    return ctrl.data.hooks.find(function(h) {
       return h.id === id;
-    })[0];
+    });
   }
 };

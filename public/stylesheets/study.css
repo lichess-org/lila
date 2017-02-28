@@ -366,6 +366,12 @@ div.underboard .notif.error {
   margin: 6px 0 0 0;
   display: inline-block;
 }
+.study_overboard.lichess_overboard {
+  top: 60%;
+}
+.is3d .study_overboard.lichess_overboard {
+  top: 65%;
+}
 .study_overboard .material.form {
   margin: 0;
   padding: 20px;
@@ -503,15 +509,27 @@ form .editor_wrap .spinner {
 form .editor {
   position: relative;
 }
+form .editor .manipulable .cg-board, #board_editor body.destination .cg-board square.move-dest {
+  cursor: inherit;
+}
 form .editor .spare {
-  height: 26px;
+  height: 28px;
   width: 224px;
   margin: 3px 0;
+}
+form .editor .spare.black {
+  background: #888;
+}
+form .editor .spare.white {
+  background: #ccc;
+}
+form .editor .spare .selected-square {
+  background: #3893E8;
 }
 form .editor .spare .no-square {
   position: relative;
   display:inline-block;
-  width: 26px;
+  width: 28px;
   height: 26px;
 }
 form .editor .spare piece {
@@ -519,6 +537,24 @@ form .editor .spare piece {
   width: 100%;
   height: 100%;
 }
+/*
+http://www.flaticon.com/free-icon/clicker_99162
+*/
+form .editor .spare piece.pointer {
+  background-image: url('/assets/images/icons/pointer.png');
+  width: 100%;
+  height: 100%;
+}
+form .editor .spare piece.trash {
+  font-size: 12pt;
+  top: 10%;
+  height: 100%;
+}
+form .editor .spare .no-square.trash {
+  color: black;
+  text-align: center
+}
+form .editor .chessground,
 form .editor .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;

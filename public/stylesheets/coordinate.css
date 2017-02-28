@@ -7,6 +7,10 @@
   display: flex;
   align-items: center;
 }
+#trainer .board:first-child {
+  width: 512px;
+  height: 512px;
+}
 #trainer div.box {
   margin-bottom: 1em;
   border: 1px solid #ccc;
@@ -33,8 +37,6 @@
 }
 body.dark #trainer > .side div.box {
   border-color: #3d3d3d;
-}
-#trainer > .side div.box {
 }
 
 #trainer .right {

@@ -14,7 +14,7 @@ object JsData extends lila.Steroids {
     fen: String,
     animationDuration: Duration
   )(implicit ctx: Context) = Json.obj(
-    "fen" -> fen.split(" ").headOption,
+    "fen" -> fen.split(" ").take(4).mkString(" "),
     "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
     "color" -> sit.color.letter.toString,
     "castles" -> Json.obj(

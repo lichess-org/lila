@@ -327,7 +327,7 @@ lichess.notifyApp = (function() {
       $elem.each(function() {
         var $this = $(this).removeClass('parse_fen');
         var lm = $this.data('lastmove');
-        var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null;
+        var lastMove = lm && [lm[0] + lm[1], lm[2] + lm[3]];
         var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
         var ground = $this.data('chessground');
         var playable = !!$this.data('playable');
@@ -337,7 +337,8 @@ lichess.notifyApp = (function() {
           viewOnly: !playable,
           resizable: resizable,
           fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-          lastMove: lastMove
+          lastMove: lastMove,
+          drawable: { enabled: false }
         };
         if (color) config.orientation = color;
         if (ground) ground.set(config);
@@ -1253,22 +1254,21 @@ lichess.notifyApp = (function() {
           var cg = $board.data('chessground');
           var dests = JSON.parse(lichess.readServerFen($board.data('x')));
           for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
-          cg.set({
-            turnColor: cg.getOrientation(),
+          var config = {
+            turnColor: cg.state.orientation,
             movable: {
               free: false,
               dests: dests,
-              color: cg.getOrientation(),
-              coordinates: false,
+              color: cg.state.orientation,
               events: {
                 after: function(orig, dest) {
                   $captcha.removeClass("success failure");
                   submit(orig + ' ' + dest);
                 }
               }
-            },
-            disableContextMenu: true
-          });
+            }
+          };
+          cg.set(config);
 
           var submit = function(solution) {
             $input.val(solution);
@@ -1284,7 +1284,7 @@ lichess.notifyApp = (function() {
                 else setTimeout(function() {
                   lichess.parseFen($board);
                   $board.data('chessground').set({
-                    turnColor: cg.getOrientation(),
+                    turnColor: cg.state.orientation,
                     movable: {
                       dests: dests
                     }

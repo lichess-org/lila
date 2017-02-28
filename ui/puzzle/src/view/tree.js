@@ -1,14 +1,12 @@
 var m = require('mithril');
-var raf = require('chessground').util.requestAnimationFrame;
 var throttle = require('common').throttle;
 var defined = require('common').defined;
 var normalizeEval = require('chess').renderEval;
 var treePath = require('tree').path;
 
-
-var autoScrollNow = function(ctrl, el) {
-  var cont = el.parentNode;
-  raf(function() {
+var autoScroll = function(ctrl, el) {
+  lichess.requestIdleCallback(function() {
+    var cont = el.parentNode;
     var target = el.querySelector('.active');
     if (!target) {
       cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
@@ -17,8 +15,6 @@ var autoScrollNow = function(ctrl, el) {
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
 };
-
-var autoScroll = throttle(300, false, autoScrollNow);
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
