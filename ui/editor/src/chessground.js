@@ -1,6 +1,8 @@
 var m = require('mithril');
 var Chessground = require('chessground').Chessground;
-var eventPosition = require('chessground/util').eventPosition;
+var util = require('chessground/util');
+var eventPosition = util.eventPosition;
+var opposite = util.opposite;
 
 module.exports = function(ctrl) {
   return m('div.chessground', {
@@ -19,26 +21,51 @@ function bindEvents(el, ctrl) {
   });
 }
 
+function isLeftButton(e) {
+  return e.buttons === 1 || e.button === 1;
+}
+
+function isRightButton(e) {
+  return e.buttons === 2 || e.button === 2;
+}
+
+function isLeftClick(e) {
+  return isLeftButton(e) && !isRightClick(e);
+}
+
+function isRightClick(e) {
+  return isRightButton(e) || (e.ctrlKey && isLeftButton(e));
+}
+
 function onMouseEvent(ctrl) {
   return function(e) {
-    if (e.buttons !== 1 && e.button !== 1) return;
     var sel = ctrl.vm.selected();
-    if (sel === 'pointer') return;
-    var key = ctrl.chessground.getKeyAtDomPos(eventPosition(e));
-    if (!key) return;
-    if (sel === 'trash') {
-      var pieces = {};
-      pieces[key] = false;
-      ctrl.chessground.setPieces(pieces);
-    } else {
-      var piece = {};
-      piece.color = sel[0];
-      piece.role = sel[1];
-      var pieces = {};
-      pieces[key] = piece;
-      ctrl.chessground.setPieces(pieces);
+
+    if (isLeftClick(e)) {
+      if (sel === 'pointer') return;
+      var key = ctrl.chessground.getKeyAtDomPos(eventPosition(e));
+      if (!key) return;
+      if (sel === 'trash') {
+        var pieces = {};
+        pieces[key] = false;
+        ctrl.chessground.setPieces(pieces);
+      } else {
+        var piece = {};
+        piece.color = sel[0];
+        piece.role = sel[1];
+        var pieces = {};
+        pieces[key] = piece;
+        ctrl.chessground.setPieces(pieces);
+      }
+      ctrl.onChange();
+    } else if (
+      isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
+        sel.length >= 2
+    ) {
+      sel[0] = opposite(sel[0]);
+      ctrl.vm.selected(sel);
+      ctrl.onChange();
     }
-    ctrl.onChange();
   };
 }
 
