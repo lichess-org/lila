@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -18,16 +17,16 @@ function simulAction(action, ctrl) {
 }
 
 module.exports = {
-  start: partial(simulAction, 'start'),
-  abort: partial(simulAction, 'abort'),
+  start: lichess.partial(simulAction, 'start'),
+  abort: lichess.partial(simulAction, 'abort'),
   join: function(variantKey) {
-    return partial(simulAction, 'join/' + variantKey);
+    return lichess.partial(simulAction, 'join/' + variantKey);
   },
-  withdraw: partial(simulAction, 'withdraw'),
+  withdraw: lichess.partial(simulAction, 'withdraw'),
   accept: function(user) {
-    return partial(simulAction, 'accept/' + user)
+    return lichess.partial(simulAction, 'accept/' + user)
   },
   reject: function(user) {
-    return partial(simulAction, 'reject/' + user)
+    return lichess.partial(simulAction, 'reject/' + user)
   }
 };

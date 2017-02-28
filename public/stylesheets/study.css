@@ -369,6 +369,9 @@ div.underboard .notif.error {
 .study_overboard.lichess_overboard {
   top: 60%;
 }
+.is3d .study_overboard.lichess_overboard {
+  top: 65%;
+}
 .study_overboard .material.form {
   margin: 0;
   padding: 20px;
@@ -510,7 +513,7 @@ form .editor .manipulable .cg-board, #board_editor body.destination .cg-board sq
   cursor: inherit;
 }
 form .editor .spare {
-  height: 26px;
+  height: 28px;
   width: 224px;
   margin: 3px 0;
 }
@@ -539,23 +542,19 @@ http://www.flaticon.com/free-icon/clicker_99162
 */
 form .editor .spare piece.pointer {
   background-image: url('/assets/images/icons/pointer.png');
-  top: 18%;
-  left: 12%;
-  height: 70%;
-  width: 70%;
-}
-.is3d form .editor .spare piece.pointer {
-  height: 87%;
+  width: 100%;
+  height: 100%;
 }
 form .editor .spare piece.trash {
   font-size: 12pt;
-  top: 0;
+  top: 10%;
   height: 100%;
 }
 form .editor .spare .no-square.trash {
   color: black;
   text-align: center
 }
+form .editor .chessground,
 form .editor .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;

@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var util = require('./util');
 var numberRow = require('./util').numberRow;
 var status = require('game').status;
@@ -40,7 +39,7 @@ module.exports = function(ctrl) {
     }
   }, [
     m('close[data-icon=L]', {
-      onclick: partial(ctrl.showPlayerInfo, data.player)
+      onclick: lichess.partial(ctrl.showPlayerInfo, data.player)
     }),
     m('div.stats', [
       playerTitle(data.player),

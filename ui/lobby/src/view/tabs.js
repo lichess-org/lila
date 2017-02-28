@@ -1,10 +1,9 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var util = require('./util');
 
 function tab(ctrl, key, active, content) {
   var attrs = {
-    config: util.bindOnce('mousedown', partial(ctrl.setTab, key))
+    config: util.bindOnce('mousedown', lichess.partial(ctrl.setTab, key))
   }
   if (key === active) attrs.class = 'active';
   else if (key === 'pools' && ctrl.vm.poolMember) attrs.class = 'glow';

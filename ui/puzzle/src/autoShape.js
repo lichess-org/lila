@@ -15,7 +15,7 @@ module.exports = function(opts) {
   var n = opts.vm.node,
     shapes = [],
     hovering = opts.ceval.hovering();
-  var color = opts.ground.data.movable.color;
+  var color = opts.ground.state.movable.color;
   var rcolor = color === 'white' ? 'black' : 'white';
   if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
