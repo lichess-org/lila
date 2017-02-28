@@ -105,7 +105,7 @@ private[round] final class Finisher(
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
-    val totalTime = game.isCorrespondence option game.durationSeconds
+    val totalTime = game.hasClock option game.durationSeconds
     val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = if (game.winnerUserId exists (user.id==)) 1

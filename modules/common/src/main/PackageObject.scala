@@ -1,6 +1,6 @@
 package lila
 
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration.{ Duration, FiniteDuration }
 import scala.concurrent.Future
 
 import ornicar.scalalib
@@ -195,7 +195,7 @@ trait WithPlay { self: PackageObject =>
   }
 
   implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
-    Zero.instance(FiniteDuration(0, scala.concurrent.duration.MILLISECONDS))
+    Zero.instance(Duration.Zero)
 
   object makeTimeout {
 

@@ -173,7 +173,7 @@ module.exports = function(opts) {
 
     this.vm.cgConfig = config;
     if (!this.chessground)
-      this.chessground = ground.make(this.data, config, userMove, userNewPiece, !!opts.study);
+      this.chessground = ground.make(this.data, config, userMove, userNewPiece, opts);
     this.chessground.set(config);
     onChange();
     if (!defined(node.dests)) getDests();

@@ -53,3 +53,7 @@ interface LightUser {
   title?: string
   patron?: boolean
 }
+
+interface Array<T> {
+  find(f: (t: T) => boolean): T | undefined;
+}

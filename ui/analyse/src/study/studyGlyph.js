@@ -12,9 +12,9 @@ function renderGlyph(ctrl, node) {
         ctrl.toggleGlyph(glyph.id);
         return false;
       }),
-      class: (node.glyphs && node.glyphs.filter(function(g) {
+      class: (node.glyphs && node.glyphs.find(function(g) {
         return g.id === glyph.id;
-      })[0]) ? 'active' : ''
+      })) ? 'active' : ''
     }, [
       m('i', {
         'data-symbol': glyph.symbol,

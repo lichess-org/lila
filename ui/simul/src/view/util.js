@@ -33,8 +33,8 @@ module.exports = {
   },
   player: player,
   playerVariant: function(ctrl, p) {
-    return ctrl.data.variants.filter(function(v) {
+    return ctrl.data.variants.find(function(v) {
       return v.key === p.variant;
-    })[0];
+    });
   }
 };

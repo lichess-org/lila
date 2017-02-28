@@ -145,9 +145,9 @@ module.exports = function(root) {
     if (!comment.text) deleteCommentAt(comment.id, path);
     else updateAt(path, function(node) {
       node.comments = node.comments || [];
-      var existing = node.comments.filter(function(c) {
+      var existing = node.comments.find(function(c) {
         return c.id === comment.id;
-      })[0];
+      });
       if (existing) existing.text = comment.text;
       else node.comments.push(comment);
     });

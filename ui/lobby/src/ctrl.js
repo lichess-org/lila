@@ -5,7 +5,6 @@ var hookRepo = require('./hookRepo');
 var seekRepo = require('./seekRepo');
 var makeStore = require('./store');
 var xhr = require('./xhr');
-var util = require('chessground').util;
 var poolRangeStorage = require('./poolRangeStorage');
 
 module.exports = function(env) {
@@ -61,7 +60,7 @@ module.exports = function(env) {
     flushHooksTimeout = flushHooksSchedule();
   }.bind(this);
 
-  var flushHooksSchedule = util.partial(setTimeout, this.flushHooks, 8000);
+  var flushHooksSchedule = lichess.partial(setTimeout, this.flushHooks, 8000);
   flushHooksSchedule();
 
   this.setTab = function(tab) {
@@ -119,9 +118,9 @@ module.exports = function(env) {
 
   this.clickPool = function(id) {
     if (!this.data.me) {
-      xhr.anonPoolSeek(this.data.pools.filter(function(p) {
+      xhr.anonPoolSeek(this.data.pools.find(function(p) {
         return p.id === id;
-      })[0]);
+      }));
       this.setTab('real_time');
     } else if (this.vm.poolMember && this.vm.poolMember.id === id) this.leavePool();
     else this.enterPool({

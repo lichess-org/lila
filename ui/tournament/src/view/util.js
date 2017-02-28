@@ -21,12 +21,6 @@ function ratio2percent(r) {
 }
 
 module.exports = {
-  currentPlayer: function(ctrl, pag) {
-    if (!ctrl.userId || !pag.currentPageResults) return null;
-    return pag.currentPageResults.filter(function(p) {
-      return p.name.toLowerCase() === ctrl.userId;
-    })[0] || null;
-  },
   player: function(p, tag) {
     var ratingDiff, tag = tag || 'a';
     if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);

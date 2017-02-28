@@ -1,7 +1,6 @@
 package lila.lobby
 
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -63,16 +62,16 @@ private[lobby] final class Socket(
       addMember(uid.value, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyAllActiveAsync(makeMessage("tournaments", html))
+    case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
-    case ReloadSimuls(html) => notifyAllActiveAsync(makeMessage("simuls", html))
+    case ReloadSimuls(html) => notifyAllActive(makeMessage("simuls", html))
 
-    case NewForumPost => notifyAllActiveAsync(makeMessage("reload_forum"))
+    case NewForumPost => notifyAllActive(makeMessage("reload_forum"))
 
     case ReloadTimeline(userId) =>
       membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
-    case AddHook(hook) => Future {
+    case AddHook(hook) =>
       val msg = makeMessage("had", hook.render)
       hookSubscriberUids.foreach { uid =>
         withActiveMember(uid) { member =>
@@ -82,7 +81,6 @@ private[lobby] final class Socket(
       if (hook.likePoolFiveO) withMember(hook.uid) { member =>
         lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
       }
-    }
 
     case AddSeek(_) => notifySeeks
 
@@ -127,20 +125,19 @@ private[lobby] final class Socket(
       withMember(whiteUid.value)(notifyPlayerStart(game, chess.White))
       withMember(blackUid.value)(notifyPlayerStart(game, chess.Black))
 
-    case HookIds(ids) => Future {
+    case HookIds(ids) =>
       val msg = makeMessage("hli", ids mkString "")
       hookSubscriberUids.foreach { uid =>
         withActiveMember(uid)(_ push msg)
       }
-    }
 
-    case lila.hub.actorApi.StreamsOnAir(html) => notifyAllAsync(makeMessage("streams", html))
+    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case NbMembers(nb) => pong = pong + ("d" -> JsNumber(nb))
     case lila.hub.actorApi.round.NbRounds(nb) =>
       pong = pong + ("r" -> JsNumber(nb))
 
-    case ChangeFeatured(_, msg) => notifyAllActiveAsync(msg)
+    case ChangeFeatured(_, msg) => notifyAllActive(msg)
 
     case SetIdle(uid, true) => idleUids += uid
     case SetIdle(uid, false) => idleUids -= uid
@@ -158,11 +155,10 @@ private[lobby] final class Socket(
       "cookie" -> AnonCookie.json(game, color)
     ).noNull) _
 
-  def notifyAllActiveAsync(msg: JsObject) = Future {
+  def notifyAllActive(msg: JsObject) =
     members.foreach {
       case (uid, member) => if (!idleUids(uid)) member push msg
     }
-  }
 
   def withActiveMember(uid: String)(f: Member => Unit) {
     if (!idleUids(uid)) members get uid foreach f
@@ -176,6 +172,5 @@ private[lobby] final class Socket(
 
   def playerUrl(fullId: String) = s"/$fullId"
 
-  def notifySeeks =
-    notifyAllActiveAsync(makeMessage("reload_seeks"))
+  def notifySeeks = notifyAllActive(makeMessage("reload_seeks"))
 }

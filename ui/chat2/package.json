@@ -2,10 +2,6 @@
   "name": "chat2",
   "version": "2.0.0",
   "description": "lichess.org chat UI",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {

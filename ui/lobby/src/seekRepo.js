@@ -17,8 +17,8 @@ module.exports = {
   initAll: initAll,
   sort: sort,
   find: function(ctrl, id) {
-    return ctrl.data.seeks.filter(function(s) {
+    return ctrl.data.seeks.find(function(s) {
       return s.id === id;
-    })[0];
+    });
   }
 };

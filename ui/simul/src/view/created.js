@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var simul = require('../simul');
 var util = require('./util');
 var xhr = require('../xhr');
@@ -22,7 +21,7 @@ function startOrCancel(ctrl, accepted) {
   return accepted.length > 1 ?
     m('a.button.top_right.text.active', {
       'data-icon': 'G',
-      onclick: partial(xhr.start, ctrl)
+      onclick: lichess.partial(xhr.start, ctrl)
     }, 'Start') : m('a.button.top_right.text', {
       'data-icon': 'L',
       onclick: function() {
@@ -42,7 +41,7 @@ module.exports = function(ctrl) {
         randomButton(ctrl, candidates)
       ] : (
         simul.containsMe(ctrl) ? m('a.button.top_right', {
-          onclick: partial(xhr.withdraw, ctrl)
+          onclick: lichess.partial(xhr.withdraw, ctrl)
         }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
             'data-icon': 'G',
             onclick: function() {
