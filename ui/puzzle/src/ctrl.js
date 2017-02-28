@@ -39,8 +39,9 @@ module.exports = function(opts, i18n) {
     data = fromData;
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
-    vm.mode = 'play'; // play | try | view
-      vm.loading = false;
+    // play | try | view
+    vm.mode = 'play';
+    vm.loading = false;
     vm.round = null;
     vm.voted = null;
     vm.justPlayed = null;
@@ -55,13 +56,14 @@ module.exports = function(opts, i18n) {
       m.redraw();
     }, 500);
 
-    vm.canViewSolution = false; // just to delay button display
-      setTimeout(function() {
-        vm.canViewSolution = true;
-        m.redraw();
-      }, 5000);
+    // just to delay button display
+    vm.canViewSolution = false;
+    setTimeout(function() {
+      vm.canViewSolution = true;
+      m.redraw();
+    }, 5000);
 
-      moveTest = moveTestBuild(vm, data.puzzle);
+    moveTest = moveTestBuild(vm, data.puzzle);
 
     withGround(function(g) {
       g.setAutoShapes([]);
