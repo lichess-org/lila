@@ -112,6 +112,7 @@ piece.ghost {
   opacity: 0.3;
 }
 piece.fading {
+  z-index: 2!important;
 }
 .cg-board-wrap .over {
   background-color: rgba(20, 85, 30, 0.2);
