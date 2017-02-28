@@ -35,18 +35,27 @@ function onMouseEvent(ctrl) {
       if (sel === 'pointer') return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
+      var pieces = {};
       if (sel === 'trash') {
-        var pieces = {};
         pieces[key] = false;
         ctrl.chessground.setPieces(pieces);
       } else {
+        var existingPiece = ctrl.chessground.getPieceAtKey(key);
         var piece = {};
         piece.color = sel[0];
         piece.role = sel[1];
-        var pieces = {};
-        pieces[key] = piece;
-        ctrl.chessground.cancelMove();
-        ctrl.chessground.setPieces(pieces);
+
+        if (
+          existingPiece && piece.color === existingPiece.color &&
+            piece.role === existingPiece.role
+        ) {
+          pieces[key] = false;
+          ctrl.chessground.setPieces(pieces);
+        } else {
+          pieces[key] = piece;
+          ctrl.chessground.cancelMove();
+          ctrl.chessground.setPieces(pieces);
+        }
       }
       ctrl.onChange();
     } else if (
