@@ -49,13 +49,16 @@ function onMouseEvent(ctrl) {
         ctrl.chessground.setPieces(pieces);
       }
       ctrl.onChange();
-    } else if (
-      isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
-        sel.length >= 2
-    ) {
-      ctrl.chessground.cancelMove();
-      sel[0] = util.opposite(sel[0]);
-      m.redraw();
+    } else if (isRightClick(e)) {
+      if (sel !== 'pointer') {
+        ctrl.chessground.state.drawable.current = undefined;
+
+        if (['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2) {
+          ctrl.chessground.cancelMove();
+          sel[0] = util.opposite(sel[0]);
+          m.redraw();
+        }
+      }
     }
   };
 }
