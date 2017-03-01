@@ -353,6 +353,7 @@ POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: S
 POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
 GET   /mod/:username/communication     controllers.Mod.communication(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
+POST  /mod/:username/kickFromRankings  controllers.Mod.kickFromRankings(username: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)

@@ -60,6 +60,7 @@ package mod {
   case class MarkCheater(userId: String)
   case class MarkBooster(userId: String)
   case class ChatTimeout(mod: String, user: String, reason: String)
+  case class KickFromRankings(userId: String)
 }
 
 package captcha {

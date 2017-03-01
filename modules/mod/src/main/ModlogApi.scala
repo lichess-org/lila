@@ -99,6 +99,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
+  def kickFromRankings(mod: String, user: String) = add {
+    Modlog(mod, user.some, Modlog.kickFromRankings)
+  }
+
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(userId: String) = coll.exists($doc(
