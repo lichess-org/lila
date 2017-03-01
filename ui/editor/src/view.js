@@ -191,7 +191,7 @@ function sparePieces(ctrl, color, orientation, position) {
           dragNewPiece(ctrl.chessground.state, {
             color: s[0],
             role: s[1]
-          }, e);
+          }, e, true);
 
           document.addEventListener('mouseup', function() {
             ctrl.vm.selected(s);
