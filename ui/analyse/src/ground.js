@@ -1,45 +1,65 @@
-var chessground = require('chessground');
+var m = require('mithril');
+var Chessground = require('chessground').Chessground;
 
-function make(data, config, onMove, onNewPiece, opts) {
-  return new chessground.controller({
-    fen: config.fen,
-    check: config.check,
-    lastMove: config.lastMove,
-    orientation: data.orientation,
-    coordinates: data.pref.coords !== 0,
-    movable: {
-      free: false,
-      color: config.movable.color,
-      dests: config.movable.dests,
-      rookCastle: data.pref.rookCastle
-    },
-    events: {
-      move: onMove,
-      dropNewPiece: onNewPiece
-    },
-    premovable: {
-      enabled: config.premovable
-    },
-    drawable: {
-      enabled: true,
-      eraseOnClick: !opts.study || opts.practice
-    },
-    highlight: {
-      lastMove: data.pref.highlight,
-      check: data.pref.highlight,
-      dragOver: true
-    },
-    animation: {
-      enabled: true,
-      duration: data.pref.animationDuration
-    },
-    disableContextMenu: true
+module.exports = function(ctrl) {
+  return m('div.cg-board-wrap', {
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate) {
+        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        ctrl.setAutoShapes();
+        if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
+        ctx.onunload = ctrl.chessground.destroy;
+      }
+    }
   });
 }
 
-function promote(ground, key, role) {
+var global3d = !!document.querySelector('#top.is3d');
+
+function makeConfig(ctrl) {
+  var opts = ctrl.makeCgOpts();
+  var config = {
+    fen: opts.fen,
+    check: opts.check,
+    lastMove: opts.lastMove,
+    orientation: ctrl.data.orientation,
+    coordinates: ctrl.data.pref.coords !== 0,
+    addPieceZIndex: ctrl.data.pref.is3d || global3d,
+    viewOnly: !!ctrl.embed,
+    movable: {
+      free: false,
+      color: opts.movable.color,
+      dests: opts.movable.dests,
+      rookCastle: ctrl.data.pref.rookCastle
+    },
+    events: {
+      move: ctrl.userMove,
+      dropNewPiece: ctrl.userNewPiece
+    },
+    premovable: {
+      enabled: opts.premovable
+    },
+    drawable: {
+      enabled: true,
+      eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
+    },
+    highlight: {
+      lastMove: ctrl.data.pref.highlight,
+      check: ctrl.data.pref.highlight
+    },
+    animation: {
+      enabled: true,
+      duration: ctrl.data.pref.animationDuration
+    },
+    disableContextMenu: true
+  };
+  ctrl.study && ctrl.study.mutateCgConfig(config);
+  return config;
+}
+
+module.exports.promote = function(ground, key, role) {
   var pieces = {};
-  var piece = ground.data.pieces[key];
+  var piece = ground.state.pieces[key];
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,
@@ -48,8 +68,3 @@ function promote(ground, key, role) {
     ground.setPieces(pieces);
   }
 }
-
-module.exports = {
-  make: make,
-  promote: promote
-};

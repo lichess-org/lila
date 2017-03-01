@@ -33,6 +33,6 @@ module.exports = {
   legacy: legacy
 };
 
-// that's for the rest of lichess to access mithril
+// that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = require('chessground').Chessground;

@@ -48,7 +48,9 @@ module.exports = {
       ctrl.autoScroll();
       m.redraw();
     }));
-    kbd.bind('esc', ctrl.chessground.cancelMove);
+    kbd.bind('esc', function() {
+      ctrl.chessground.cancelMove();
+    });
 
     if (ctrl.studyPractice) return;
 

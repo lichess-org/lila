@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var titleNameToId = require('../util').titleNameToId;
 var dialog = require('./dialog');
 
@@ -57,13 +56,13 @@ module.exports = {
     var candidates = ctrl.candidates();
     return dialog.form({
       class: 'study_invite',
-      onClose: partial(ctrl.open, false),
+      onClose: lichess.partial(ctrl.open, false),
       content: [
         m('h2', 'Invite to the study'),
         candidates.length ? m('div.users', candidates.map(function(username) {
           return m('span.user_link.button', {
             'data-href': '/@/' + username,
-            onclick: partial(ctrl.invite, username)
+            onclick: lichess.partial(ctrl.invite, username)
           }, username);
         })) : null,
         m('input', {

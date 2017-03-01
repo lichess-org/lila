@@ -16,10 +16,9 @@ module.exports = function(ctrl) {
       return m('a', {
         key: pov.gameId,
         href: '/' + pov.fullId,
-        class: pov.isMyTurn ? 'my_turn' : ''
+        class: 'mini_board is2d ' + pov.variant.key + (pov.isMyTurn ? ' my_turn' : ''),
       }, [
-        m('span', {
-          class: 'mini_board is2d ' + pov.variant.key,
+        m('div', {
           config: function(el, isUpdate, ctx) {
             var lm = pov.lastMove;
             var config = {

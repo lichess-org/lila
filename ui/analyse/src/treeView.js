@@ -1,9 +1,8 @@
 var m = require('mithril');
 var contextMenu = require('./contextMenu');
-var raf = require('chessground').util.requestAnimationFrame;
 var empty = require('common').empty;
-var throttle = require('common').throttle;
 var defined = require('common').defined;
+var dropThrottle = require('common').dropThrottle;
 var game = require('game').game;
 var fixCrazySan = require('chess').fixCrazySan;
 var treePath = require('tree').path;
@@ -11,8 +10,10 @@ var treeOps = require('tree').ops;
 var moveView = require('./moveView');
 var commentAuthorText = require('./study/studyComments').authorText;
 
-var autoScroll = throttle(300, false, function(ctrl, el) {
-  raf(function() {
+var scrollThrottle = dropThrottle(200);
+
+function autoScroll(ctrl, el) {
+  scrollThrottle(function() {
     var cont = el.parentNode;
     if (!cont) return;
     var target = el.querySelector('.active');
@@ -22,7 +23,7 @@ var autoScroll = throttle(300, false, function(ctrl, el) {
     }
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
-});
+}
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
@@ -107,7 +108,7 @@ function renderLines(ctx, nodes, opts) {
     },
     children: nodes.map(function(n) {
       if (n.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(n, opts.parentPath))
-        return lineTag('Learn from this mistake');
+      return lineTag('Learn from this mistake');
       return lineTag(renderMoveAndChildrenOf(ctx, n, {
         parentPath: opts.parentPath,
         isMainline: false,

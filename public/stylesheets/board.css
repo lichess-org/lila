@@ -1,7 +1,9 @@
+.cg-board-wrap {
+  position: relative;
+}
 .cg-512 .cg-board-wrap {
   width: 512px;
   height: 512px;
-  position: relative;
   /* Fixes render artifacts after dropping a piece in firefox 47,48 */
   -moz-transform: translate3d(0, 0, 0);
 }
@@ -110,6 +112,7 @@ piece.ghost {
   opacity: 0.3;
 }
 piece.fading {
+  z-index: 2!important;
 }
 .cg-board-wrap .over {
   background-color: rgba(20, 85, 30, 0.2);

@@ -342,7 +342,10 @@ lichess.notifyApp = (function() {
         };
         if (color) config.orientation = color;
         if (ground) ground.set(config);
-        else $this.data('chessground', Chessground($this[0], config));
+        else {
+          this.innerHTML = '<div class="cg-board-wrap">';
+          $this.data('chessground', Chessground(this.firstChild, config));
+        }
       });
     };
     // debounce the first parseFen at first, then process them immediately

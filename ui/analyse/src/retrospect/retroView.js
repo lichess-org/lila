@@ -1,6 +1,6 @@
 var m = require('mithril');
 var renderIndexAndMove = require('../moveView').renderIndexAndMove;
-var opposite = require('chessground').util.opposite;
+var opposite = require('chessground/util').opposite;
 
 function skipOrViewSolution(ctrl) {
   return m('div.choices', [

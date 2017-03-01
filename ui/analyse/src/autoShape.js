@@ -34,7 +34,7 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
 module.exports = {
   makeAutoShapesFromUci: makeAutoShapesFromUci,
   compute: function(ctrl) {
-    var color = ctrl.chessground.data.movable.color;
+    var color = ctrl.chessground.state.movable.color;
     var rcolor = color === 'white' ? 'black' : 'white';
     if (ctrl.practice) {
       if (ctrl.practice.hovering()) return makeAutoShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
