@@ -14,6 +14,8 @@ module.exports = function(ctrl) {
   });
 }
 
+var global3d = document.getElementById('top').classList.contains('is3d');
+
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
   var config = {
@@ -22,6 +24,7 @@ function makeConfig(ctrl) {
     lastMove: opts.lastMove,
     orientation: ctrl.data.orientation,
     coordinates: ctrl.data.pref.coords !== 0,
+    addPieceZIndex: ctrl.data.pref.is3d || global3d,
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,
