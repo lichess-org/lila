@@ -164,8 +164,9 @@ function sparePieces(ctrl, color, orientation, position) {
         (
           selectedClass === className &&
             (
-              !ctrl.chessground || !ctrl.chessground.state.draggable ||
-                !ctrl.chessground.state.draggable.current || !ctrl.chessground.state.draggable.current.newPiece
+              !ctrl.chessground ||
+                !ctrl.chessground.state.draggable.current ||
+                !ctrl.chessground.state.draggable.current.newPiece
             )
         ) ?
           ' selected-square' : ''
