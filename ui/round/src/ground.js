@@ -74,15 +74,15 @@ function reload(ctrl) {
   ctrl.chessground.set(makeConfig(ctrl));
 }
 
-function promote(ground, key, role) {
-  var piece = ground.data.pieces[key];
+function promote(cg, key, role) {
+  var piece = cg.state.pieces[key];
   if (piece && piece.role === 'pawn') {
     var pieces = {};
     pieces[key] = {
       color: piece.color,
       role: role
     };
-    ground.setPieces(pieces);
+    cg.setPieces(pieces);
   }
 }
 

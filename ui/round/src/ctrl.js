@@ -334,9 +334,9 @@ module.exports = function(opts) {
 
   this.reload = function(cfg) {
     m.startComputation();
-    if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
-    var step = cfg.steps[cfg.steps.length - 1];
-    this.vm.ply = step.ply;
+    if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps)) {
+      this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
+    }
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
@@ -355,7 +355,7 @@ module.exports = function(opts) {
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
-    if (this.keyboardMove) this.keyboardMove.update(step);
+    if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
   }.bind(this);
 
   this.challengeRematch = function() {
