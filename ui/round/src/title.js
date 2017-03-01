@@ -1,6 +1,5 @@
 var game = require('game').game;
 var status = require('game').status;
-var partial = require('chessground').util.partial;
 var visible = require('./util').visible;
 
 var initialTitle = document.title;
@@ -25,14 +24,14 @@ var tick = function(ctrl) {
   if (!visible() && status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
     F[++iteration % 2]();
   }
-  setTimeout(partial(tick, ctrl), tickDelay);
+  setTimeout(lichess.partial(tick, ctrl), tickDelay);
 };
 visible(function(v) {
   if (v) F[0]();
 });
 
 var init = function(ctrl) {
-  if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(partial(tick, ctrl), tickDelay);
+  if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(lichess.partial(tick, ctrl), tickDelay);
 };
 
 var set = function(ctrl, text) {

@@ -19,6 +19,7 @@ var global3d = !!document.querySelector('#top.is3d');
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
   var config = {
+    turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
     lastMove: opts.lastMove,

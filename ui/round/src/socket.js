@@ -4,7 +4,6 @@ var throttle = require('common').throttle;
 var ground = require('./ground');
 var xhr = require('./xhr');
 var sound = require('./sound');
-var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
 
@@ -47,7 +46,7 @@ module.exports = function(send, ctrl) {
     },
     end: function(winner) {
       ctrl.data.game.winner = winner;
-      ground.end(ctrl.chessground);
+      ctrl.chessground.stop();
       ctrl.setLoading(true);
       xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
@@ -74,7 +73,7 @@ module.exports = function(send, ctrl) {
         ctrl.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        ctrl.chessground.data.turnColor !== ctrl.chessground.data.movable.color) {
+        ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
         ctrl.setRedirecting(true);
         sound.move();
         lichess.hasToReload = true;
@@ -83,11 +82,11 @@ module.exports = function(send, ctrl) {
     }
   };
 
-  this.moreTime = throttle(300, false, partial(this.send, 'moretime', null));
+  this.moreTime = throttle(300, false, lichess.partial(this.send, 'moretime', null));
 
-  this.outoftime = throttle(500, false, partial(this.send, 'outoftime', null));
+  this.outoftime = throttle(500, false, lichess.partial(this.send, 'outoftime', null));
 
-  this.berserk = throttle(200, false, partial(this.send, 'berserk', null, {
+  this.berserk = throttle(200, false, lichess.partial(this.send, 'berserk', null, {
     ackable: true
   }));
 

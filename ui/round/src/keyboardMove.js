@@ -6,18 +6,18 @@ module.exports = {
     var handler;
     var preHandlerBuffer = step.fen;
     var select = function(key) {
-      if (cg.data.selected === key) cg.cancelMove();
+      if (cg.state.selected === key) cg.cancelMove();
       else cg.selectSquare(key, true);
     };
     var usedSan = false;
     return {
       update: function(step) {
-        if (handler) handler(step.fen, cg.data.movable.dests);
+        if (handler) handler(step.fen, cg.state.movable.dests);
         else preHandlerBuffer = step.fen;
       },
       registerHandler: function(h) {
         handler = h;
-        if (preHandlerBuffer) handler(preHandlerBuffer, cg.data.movable.dests);
+        if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
       },
       focus: focus,
       setFocus: function(v) {
@@ -32,7 +32,7 @@ module.exports = {
       },
       select: select,
       hasSelected: function() {
-        return cg.data.selected;
+        return cg.state.selected;
       },
       usedSan: usedSan
     };

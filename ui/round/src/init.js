@@ -35,7 +35,9 @@ module.exports = {
           return msg;
         }
       });
-      k.bind(['esc'], ctrl.chessground.cancelMove);
+      k.bind(['esc'], function() {
+        ctrl.chessground.cancelMove();
+      });
       cevalSub.subscribe(ctrl);
     }
 

@@ -2,7 +2,7 @@ var game = require('game').game;
 
 module.exports = {
 
-  drop: function(chessground, data, role, key) {
+  drop: function(data, role, key) {
 
     if (!game.isPlayerTurn(data)) return false;
 

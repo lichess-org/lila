@@ -1,45 +1,42 @@
-var chessground = require('chessground');
-var game = require('game').game;
+var Chessground = require('chessground').Chessground;
+var isPlayerPlaying = require('game').game.isPlayerPlaying;
 var util = require('./util');
 var round = require('./round');
 var m = require('mithril');
 
-function uci2move(uci) {
-  if (!uci) return null;
-  if (uci[1] === '@') return [uci.slice(2, 4)];
-  return [uci.slice(0, 2), uci.slice(2, 4)];
-}
+var global3d = !!document.querySelector('#top.is3d');
 
-function boardOrientation(data, flip) {
-  if (data.game.variant.key === 'racingKings') {
-    return flip ? 'black': 'white';
-  } else {
-    return flip ? data.opponent.color : data.player.color;
-  }
-}
-
-function makeConfig(data, ply, flip) {
-  var step = round.plyStep(data, ply);
-  var playing = game.isPlayerPlaying(data);
+function makeConfig(ctrl) {
+  var data = ctrl.data, hooks = ctrl.makeCgHooks();
+  var step = round.plyStep(data, ctrl.vm.ply);
+  var playing = isPlayerPlaying(data);
   return {
     fen: step.fen,
-    orientation: boardOrientation(data, flip),
+    orientation: boardOrientation(data, ctrl.vm.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
-    lastMove: uci2move(step.uci),
-    check: step.check,
+    lastMove: util.uci2move(step.uci),
+    check: !!step.check,
     coordinates: data.pref.coords !== 0,
+    addPieceZIndex: ctrl.data.pref.is3d || global3d,
     autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
-      check: data.pref.highlight,
-      dragOver: true
+      check: data.pref.highlight
+    },
+    events: {
+      move: hooks.onMove,
+      dropNewPiece: hooks.onNewPiece
     },
     movable: {
       free: false,
       color: playing ? data.player.color : null,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: data.pref.destination,
-      rookCastle: data.pref.rookCastle
+      rookCastle: data.pref.rookCastle,
+      events: {
+        after: hooks.onUserMove,
+        afterNewPiece: hooks.onUserNewPiece
+      }
     },
     animation: {
       enabled: true,
@@ -49,9 +46,17 @@ function makeConfig(data, ply, flip) {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination,
       castle: data.game.variant.key !== 'antichess',
+      events: {
+        set: hooks.onPremove,
+        unset: hooks.onCancelPremove
+      }
     },
     predroppable: {
-      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse'
+      enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
+      events: {
+        set: hooks.onPredrop,
+        unset: hooks.onPredrop
+      }
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,
@@ -67,52 +72,39 @@ function makeConfig(data, ply, flip) {
   };
 }
 
-function make(opts) {
-  var config = makeConfig(opts.data, opts.ply);
-  config.movable.events = {
-    after: opts.onUserMove,
-    afterNewPiece: opts.onUserNewPiece
-  };
-  config.events = {
-    move: opts.onMove,
-    dropNewPiece: opts.onNewPiece
-  };
-  config.premovable.events = {
-    set: opts.onPremove,
-    unset: opts.onCancelPremove
-  };
-  config.predroppable.events = {
-    set: opts.onPredrop,
-    unset: opts.onPredrop
-  };
-  config.viewOnly = opts.data.player.spectator;
-  return new chessground.controller(config);
+function reload(ctrl) {
+  ctrl.chessground.set(makeConfig(ctrl));
 }
 
-function reload(ground, data, ply, flip) {
-  ground.set(makeConfig(data, ply, flip));
-}
-
-function promote(ground, key, role) {
-  var piece = ground.data.pieces[key];
+function promote(cg, key, role) {
+  var piece = cg.state.pieces[key];
   if (piece && piece.role === 'pawn') {
     var pieces = {};
     pieces[key] = {
       color: piece.color,
       role: role
     };
-    ground.setPieces(pieces);
+    cg.setPieces(pieces);
   }
 }
 
-function end(ground) {
-  ground.stop();
+function boardOrientation(data, flip) {
+  if (data.game.variant.key === 'racingKings') {
+    return flip ? 'black': 'white';
+  } else {
+    return flip ? data.opponent.color : data.player.color;
+  }
 }
 
 module.exports = {
+  render: function(ctrl) {
+    return m('div.cg-board-wrap', {
+      config: function(el, isUpdate) {
+        if (!isUpdate) ctrl.setChessground(Chessground(el, makeConfig(ctrl)));
+      }
+    });
+  },
   boardOrientation: boardOrientation,
-  make: make,
   reload: reload,
-  promote: promote,
-  end: end
+  promote: promote
 };
