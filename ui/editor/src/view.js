@@ -176,8 +176,6 @@ function sparePieces(ctrl, color, orientation, position) {
         if (['pointer', 'trash'].indexOf(s) !== -1) {
           ctrl.vm.selected(s);
         } else {
-          var listener;
-
           ctrl.vm.draggingSpare(true);
           ctrl.vm.selected('pointer');
 
@@ -186,12 +184,11 @@ function sparePieces(ctrl, color, orientation, position) {
             role: s[1]
           }, e);
 
-          document.addEventListener('mouseup', listener = function() {
+          document.addEventListener('mouseup', function() {
             ctrl.vm.selected(s);
             ctrl.vm.draggingSpare(false);
             m.redraw();
-            document.removeEventListener('mouseup', listener);
-          });
+          }, {once: true});
         }
       }
     }, m('piece', attrs));
