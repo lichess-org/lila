@@ -150,7 +150,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var getDests = throttle(800, false, function() {
-    if (!defined(this.vm.node.dests)) this.socket.sendAnaDests({
+    if (!this.embed && !defined(this.vm.node.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.vm.node.fen,
       path: this.vm.path
@@ -163,10 +163,10 @@ module.exports = function(opts) {
     var dests = chessUtil.readDests(node.dests);
     var drops = chessUtil.readDrops(node.drops);
     var movableColor = this.practice ? this.bottomColor() : (
-      this.embed ||
-      (dests && Object.keys(dests).length > 0) ||
-      drops === null ||
-        drops.length ? color : null);
+      !this.embed && (
+        (dests && Object.keys(dests).length > 0) ||
+        drops === null || drops.length
+      ) ? color : null);
     var config = {
       fen: node.fen,
       turnColor: color,

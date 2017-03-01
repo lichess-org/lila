@@ -22,6 +22,7 @@ function makeConfig(ctrl) {
     lastMove: opts.lastMove,
     orientation: ctrl.data.orientation,
     coordinates: ctrl.data.pref.coords !== 0,
+    viewOnly: !!ctrl.embed,
     movable: {
       free: false,
       color: opts.movable.color,
