@@ -31,7 +31,7 @@
     "watchify": "~3.7"
   },
   "dependencies": {
-    "chessground": "^6.3.2",
+    "chessground": "^6.3.3",
     "common": "file:../common",
     "chess": "file:../chess",
     "game": "file:../game",
