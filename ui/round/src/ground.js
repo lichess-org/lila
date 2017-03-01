@@ -19,7 +19,6 @@ function makeConfig(ctrl) {
     coordinates: data.pref.coords !== 0,
     addPieceZIndex: ctrl.data.pref.is3d || global3d,
     autoCastle: data.game.variant.key === 'standard',
-    viewOnly: data.player.spectator,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight
