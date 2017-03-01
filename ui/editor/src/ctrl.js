@@ -12,7 +12,6 @@ module.exports = function(cfg) {
   this.trans = lichess.partial(editor.trans, this.data.i18n);
 
   this.vm = {
-    draggingSpare: m.prop(false),
     selected: m.prop('pointer'),
     redirecting: false
   };

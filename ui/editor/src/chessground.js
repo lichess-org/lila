@@ -32,7 +32,13 @@ function onMouseEvent(ctrl) {
     var sel = ctrl.vm.selected();
 
     if (isLeftClick(e)) {
-      if (sel === 'pointer' || ctrl.vm.draggingSpare()) return;
+      if (
+        sel === 'pointer' ||
+          (
+            ctrl.chessground && ctrl.chessground.state.draggable &&
+              ctrl.chessground.state.draggable.current && ctrl.chessground.state.draggable.current.newPiece
+          )
+      ) return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
       if (sel === 'trash') {

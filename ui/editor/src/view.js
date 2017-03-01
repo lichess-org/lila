@@ -160,7 +160,16 @@ function sparePieces(ctrl, color, orientation, position) {
     };
 
     var containerClass = 'no-square' +
-      ((selectedClass === className && !ctrl.vm.draggingSpare()) ? ' selected-square' : '');
+      (
+        (
+          selectedClass === className &&
+            (
+              !ctrl.chessground || !ctrl.chessground.state.draggable ||
+                !ctrl.chessground.state.draggable.current || !ctrl.chessground.state.draggable.current.newPiece
+            )
+        ) ?
+          ' selected-square' : ''
+      );
 
     if (s === 'trash') {
       attrs['data-icon'] = 'q';
@@ -176,7 +185,6 @@ function sparePieces(ctrl, color, orientation, position) {
         if (['pointer', 'trash'].indexOf(s) !== -1) {
           ctrl.vm.selected(s);
         } else {
-          ctrl.vm.draggingSpare(true);
           ctrl.vm.selected('pointer');
 
           dragNewPiece(ctrl.chessground.state, {
@@ -186,7 +194,6 @@ function sparePieces(ctrl, color, orientation, position) {
 
           document.addEventListener('mouseup', function() {
             ctrl.vm.selected(s);
-            ctrl.vm.draggingSpare(false);
             m.redraw();
           }, {once: true});
         }
