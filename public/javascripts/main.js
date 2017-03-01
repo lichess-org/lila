@@ -628,9 +628,9 @@ lichess.notifyApp = (function() {
         $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(512 * zoom));
 
         if ($('body > .content').hasClass('is3d')) {
-          $boardWrap.css("height", px(479.08572 * zoom));
+          $boardWrap.css("height", px(464.5 * zoom));
           $lichessGame.css({
-            height: px(479.08572 * zoom),
+            height: px(476 * zoom),
             paddingTop: px(50 * (zoom - 1))
           });
           $('#chat').css("height", px(300 + 529 * (zoom - 1)));
