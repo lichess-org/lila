@@ -1,4 +1,5 @@
 var chessground = require('./chessground');
+var dragNewPiece = require('chessground/drag').dragNewPiece;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -177,14 +178,13 @@ function sparePieces(ctrl, color, orientation, position) {
         } else {
           var listener;
 
-          ctrl.chessground.newPiece({
-            color: s[0],
-            role: s[1]
-          });
-
           ctrl.vm.draggingSpare(true);
           ctrl.vm.selected('pointer');
-          ctrl.chessground.drag(e);
+
+          dragNewPiece(ctrl.chessground.state, {
+            color: s[0],
+            role: s[1]
+          }, e);
 
           document.addEventListener('mouseup', listener = function() {
             ctrl.vm.selected(s);
