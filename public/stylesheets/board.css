@@ -63,6 +63,7 @@ body.base .cg-board square.selected {
 }
 body.highlight .cg-board square.last-move,
 .mini_board .cg-board square.last-move {
+  will-change: transform;
   background-color: rgba(155, 199, 0, 0.41);
 }
 body.base .cg-board square.current-premove {
@@ -107,12 +108,14 @@ piece.anim {
   cursor: move;
 }
 piece.ghost {
+  will-change: transform;
   opacity: 0.3;
 }
 piece.fading {
   z-index: 2!important;
 }
 .cg-board-wrap .over {
+  will-change: transform;
   background-color: rgba(20, 85, 30, 0.2);
 }
 .cg-board-wrap svg {
