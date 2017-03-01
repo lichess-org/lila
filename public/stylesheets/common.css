@@ -1868,15 +1868,12 @@ div.extra_top {
 }
 .mini_board {
   display: block;
+}
+.mini_board .cg-board-wrap {
   width: 224px;
   height: 224px;
 }
-.mini_board .cg-board-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-#challenge .mini_board .cg-board-wrap {
+#challenge .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
   margin: auto;
@@ -1929,7 +1926,7 @@ div.extra_top {
   margin-top: -3px;
   display: block;
 }
-#now_playing .mini_board {
+#now_playing .cg-board-wrap {
   width: 160px;
   height: 160px;
 }
@@ -2003,9 +2000,6 @@ div.undertable_inner {
 }
 .undertable tr:first-child td {
   border-top: none;
-}
-div.lichess_overboard .mini_board {
-  margin: auto;
 }
 div.lichess_overboard.joining .submit {
   font-size: 1.2em;

@@ -30,5 +30,5 @@ cat $SRC/deps.min.js $comp | sed '/^\/\*.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv 
 
 # add commit sha1
 version=`git rev-parse --short HEAD`
-logger="console.log(\"lichess $version\");"
-echo $logger >> $comp
+versioner="lichess.version = '$version';"
+echo $versioner >> $comp

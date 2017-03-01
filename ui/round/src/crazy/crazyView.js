@@ -1,5 +1,4 @@
 var round = require('../round');
-var partial = require('chessground').util.partial;
 var crazyDrag = require('./crazyDrag');
 var game = require('game').game;
 var m = require('mithril');
@@ -22,15 +21,10 @@ module.exports = {
         config: function(el, isUpdate, ctx) {
           if (ctx.flip === ctrl.vm.flip || !usablePos) return;
           ctx.flip = ctrl.vm.flip;
-          var onstart = partial(crazyDrag, ctrl);
+          var onstart = lichess.partial(crazyDrag, ctrl);
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
           });
-          ctx.onunload = function() {
-            eventNames.forEach(function(name) {
-              el.removeEventListener(name, onstart);
-            });
-          }
         }
       },
       pieceRoles.map(function(role) {

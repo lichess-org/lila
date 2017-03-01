@@ -1,6 +1,5 @@
 var m = require('mithril');
 var dialog = require('./dialog');
-var partial = require('chessground').util.partial;
 var chapterForm = require('./chapterNewForm');
 
 module.exports = {
@@ -53,7 +52,7 @@ module.exports = {
     var mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : 'normal');
 
     return dialog.form({
-      onClose: partial(ctrl.current, null),
+      onClose: lichess.partial(ctrl.current, null),
       content: [
         m('h2', 'Edit chapter'),
         m('form.material.form', {

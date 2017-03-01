@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var studyView = require('./study/studyView');
 var nodeFullName = require('./util').nodeFullName;
 
@@ -64,9 +63,9 @@ function view(ctrl) {
     }
   }, [
     m('p.title', nodeFullName(ctrl.node)),
-    ctrl.isMainline ? null : action('S', 'Promote variation', partial(ctrl.root.promote, ctrl.path, false)),
-    ctrl.isMainline ? null : action('E', 'Make main line', partial(ctrl.root.promote, ctrl.path, true)),
-    action('q', 'Delete from here', partial(ctrl.root.deleteNode, ctrl.path)),
+    ctrl.isMainline ? null : action('S', 'Promote variation', lichess.partial(ctrl.root.promote, ctrl.path, false)),
+    ctrl.isMainline ? null : action('E', 'Make main line', lichess.partial(ctrl.root.promote, ctrl.path, true)),
+    action('q', 'Delete from here', lichess.partial(ctrl.root.deleteNode, ctrl.path)),
     ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : null
   ]);
 }

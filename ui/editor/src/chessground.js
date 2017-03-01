@@ -3,18 +3,18 @@ var Chessground = require('chessground').Chessground;
 var util = require('chessground/util');
 
 module.exports = function(ctrl) {
-  return m('div.chessground', {
+  return m('div.cg-board-wrap', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
       ctrl.chessground = Chessground(el, makeConfig(ctrl));
       bindEvents(el, ctrl);
     }
-  }, m('div.cg-board-wrap'));
+  });
 }
 
 function bindEvents(el, ctrl) {
   var handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove'].forEach(function(ev) {
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler)
   });
 }
@@ -34,7 +34,14 @@ function onMouseEvent(ctrl) {
     var sel = ctrl.vm.selected();
 
     if (isLeftClick(e)) {
-      if (sel === 'pointer') return;
+      if (
+        sel === 'pointer' ||
+          (
+            ctrl.chessground &&
+              ctrl.chessground.state.draggable.current &&
+              ctrl.chessground.state.draggable.current.newPiece
+          )
+      ) return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
       var pieces = {};
@@ -62,16 +69,25 @@ function onMouseEvent(ctrl) {
       }
       lastKey = key;
       ctrl.onChange();
-    } else if (
-      isRightClick(e) && ['pointer', 'trash'].indexOf(sel) === -1 &&
-        sel.length >= 2
-    ) {
-      ctrl.chessground.cancelMove();
-      sel[0] = util.opposite(sel[0]);
-      m.redraw();
+    } else if (isRightClick(e)) {
+      if (sel !== 'pointer') {
+        ctrl.chessground.state.drawable.current = undefined;
+        ctrl.chessground.state.drawable.shapes = [];
+
+        if (
+          e.type === 'contextmenu' &&
+            ['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2
+        ) {
+          ctrl.chessground.cancelMove();
+          sel[0] = util.opposite(sel[0]);
+          m.redraw();
+        }
+      }
     }
   };
 }
+
+var global3d = document.getElementById('top').classList.contains('is3d');
 
 function makeConfig(ctrl) {
   return {
@@ -79,6 +95,7 @@ function makeConfig(ctrl) {
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
     autoCastle: false,
+    addPieceZIndex: ctrl.cfg.is3d || global3d,
     movable: {
       free: true,
       color: 'both',

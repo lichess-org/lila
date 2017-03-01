@@ -29,4 +29,4 @@ module.exports = function(opts) {
 
 // lol, that's for the rest of lichess to access mithril
 // without having to include it a second time
-window.Chessground = require('chessground');
+window.Chessground = require('chessground').Chessground;

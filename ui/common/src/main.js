@@ -55,5 +55,20 @@ module.exports = {
       };
     }
   },
-  throttle: require('./throttle')
+  throttle: require('./throttle'),
+  dropThrottle: function(delay) {
+    var task;
+    var run = function(f) {
+      task = f;
+      f();
+      setTimeout(function() {
+        if (task !== f) run(task);
+        else task = undefined;
+      }, delay);
+    };
+    return function(f) {
+      if (task) task = f;
+      else run(f);
+    };
+  }
 };

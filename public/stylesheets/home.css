@@ -743,6 +743,9 @@ div.game_config .color_submits button.random i {
   height: 55px;
   padding: 0;
 }
+div.game_config.lichess_overboard {
+  top: 55%;
+}
 #nb_games_in_play {
   margin-bottom: 10px;
 }

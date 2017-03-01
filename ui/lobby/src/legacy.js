@@ -12,8 +12,12 @@ module.exports = function(element, cfg) {
     function() {
       return lichess.socket.pingInterval();
     });
+  var getParameterByName = function(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  };
   var onFirstConnect = function() {
-    var gameId = lichess.getParameterByName('hook_like');
+    var gameId = getParameterByName('hook_like');
     if (!gameId) return;
     $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
     lobby.setTab('real_time');

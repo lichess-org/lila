@@ -246,10 +246,6 @@ div.panel-tabs a.active {
 #insight .game-sample .top {
   text-align: center;
 }
-#insight .game_list .mini_board {
-  width: 182px;
-  height: 182px;
-}
 #insight .game_list .cg-board-wrap {
   width: 182px;
   height: 182px;

@@ -87,7 +87,7 @@ function showGameTable(ctrl, type, games) {
       config: bindOnce('click', function(e) {
         var $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
-        var orientation = ctrl.chessground.data.orientation;
+        var orientation = ctrl.chessground.state.orientation;
         var fenParam = ctrl.vm.node.ply > 0 ? ('?fen=' + ctrl.vm.node.fen) : '';
         if (ctrl.explorer.config.data.db.selected() === 'lichess')
           window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');

@@ -1,5 +1,5 @@
 var m = require('mithril');
-var opposite = require('chessground').util.opposite;
+var opposite = require('chessground/util').opposite;
 
 function renderTitle(close) {
   return m('div.title', [

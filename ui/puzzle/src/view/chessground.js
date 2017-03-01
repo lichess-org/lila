@@ -2,12 +2,14 @@ var m = require('mithril');
 var Chessground = require('chessground').Chessground;
 
 module.exports = function(ctrl) {
-  return m('div.chessground', {
+  return m('div.cg-board-wrap', {
     config: function(el, isUpdate) {
       if (!isUpdate) ctrl.ground(Chessground(el, makeConfig(ctrl)));
     }
-  }, m('div.cg-board-wrap'));
+  });
 }
+
+var global3d = document.getElementById('top').classList.contains('is3d');
 
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
@@ -18,6 +20,7 @@ function makeConfig(ctrl) {
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== 0,
+    addPieceZIndex: ctrl.pref.is3d || global3d,
     movable: {
       free: false,
       color: opts.movable.color,
@@ -42,8 +45,7 @@ function makeConfig(ctrl) {
     },
     highlight: {
       lastMove: ctrl.pref.highlight,
-      check: ctrl.pref.highlight,
-      dragOver: true
+      check: ctrl.pref.highlight
     },
     animation: {
       enabled: true,
