@@ -19,7 +19,7 @@
   line-height: 0;
   background-size: cover;
 }
-.manipulable .cg-board.bh1 piece {
+.cg-board.bh1 piece {
   opacity: 0.98;
 }
 .manipulable .cg-board {
@@ -36,9 +36,6 @@ square {
   width: 12.5%;
   height: 12.5%;
 }
-body.highlight .manipulable square.drag-over {
-  background: rgba(255, 255, 255, 0.1);
-}
 body.destination .cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
@@ -52,11 +49,9 @@ body.destination .cg-board square.premove-dest {
 body.destination .cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
 }
-body.highlight .cg-board square.move-dest.drag-over,
 body.highlight .cg-board square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
 }
-body.highlight .cg-board square.premove-dest.drag-over,
 body.highlight .cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
@@ -89,6 +84,9 @@ piece {
   background-size: cover;
   z-index: 2;
   /* no less than 2 */
+}
+.cg-512 piece {
+  will-change: transform;
 }
 .mini_board piece {
   z-index: initial;
