@@ -618,7 +618,7 @@ module.exports = function(opts) {
 
   var resetAutoShapes = function() {
     if (this.vm.showAutoShapes()) this.setAutoShapes();
-    else this.chessground.setAutoShapes([]);
+    else this.chessground && this.chessground.setAutoShapes([]);
   }.bind(this);
 
   this.toggleAutoShapes = function(v) {
@@ -634,7 +634,7 @@ module.exports = function(opts) {
     if (!this.vm.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-      this.chessground.setAutoShapes([]);
+      this.chessground && this.chessground.setAutoShapes([]);
     } else resetAutoShapes();
   }.bind(this);
 
@@ -656,7 +656,7 @@ module.exports = function(opts) {
 
   this.playUci = function(uci) {
     var move = chessUtil.decomposeUci(uci);
-    if (uci[1] === '@') this.chessground.apiNewPiece({
+    if (uci[1] === '@') this.chessground.newPiece({
       color: this.chessground.state.movable.color,
       role: chessUtil.sanToRole[uci[0]]
     },
