@@ -524,7 +524,12 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  this.keyboardMove = this.data.pref.keyboardMove ? makeKeyboardMove(this.chessground, round.plyStep(this.data, this.vm.ply)) : null;
+  this.setChessground = function(cg) {
+    this.chessground = cg;
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.vm.ply));
+    }
+  }.bind(this);
 
   init.yolo(this);
 
