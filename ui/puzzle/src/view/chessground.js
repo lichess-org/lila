@@ -45,8 +45,7 @@ function makeConfig(ctrl) {
     },
     highlight: {
       lastMove: ctrl.pref.highlight,
-      check: ctrl.pref.highlight,
-      dragOver: true
+      check: ctrl.pref.highlight
     },
     animation: {
       enabled: true,
