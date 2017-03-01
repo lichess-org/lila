@@ -1,5 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
+var chessground = require('./ground');
 var classSet = require('common').classSet;
 var bindOnce = require('common').bindOnce;
 var synthetic = require('./util').synthetic;
@@ -122,7 +122,7 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground.view(ctrl.chessground),
+      chessground(ctrl),
       renderPromotion(ctrl)
     ]),
     cevalView.renderGauge(ctrl)
@@ -141,7 +141,7 @@ function blindBoard(ctrl) {
         $(el).load(url);
       }
     }),
-    chessground.view(ctrl.chessground)
+      chessground(ctrl)
   ]);
 }
 

@@ -1,5 +1,4 @@
-var chessground = require('chessground');
-var opposite = chessground.util.opposite;
+var opposite = require('chessground/util').opposite;
 var tree = require('tree');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
@@ -31,6 +30,7 @@ var m = require('mithril');
 
 module.exports = function(opts) {
 
+  this.opts = opts;
   this.userId = opts.userId;
   this.embed = opts.embed;
 
@@ -140,14 +140,33 @@ module.exports = function(opts) {
 
   var showGround = function() {
     var node = this.vm.node;
+    onChange();
+    if (!defined(node.dests)) getDests();
+    if (this.chessground) {
+      this.chessground.set(this.makeCgOpts());
+      this.setAutoShapes();
+      if (node.shapes) this.chessground.setShapes(node.shapes);
+    }
+  }.bind(this);
+
+  var getDests = throttle(800, false, function() {
+    if (!this.embed && !defined(this.vm.node.dests)) this.socket.sendAnaDests({
+      variant: this.data.game.variant.key,
+      fen: this.vm.node.fen,
+      path: this.vm.path
+    });
+  }.bind(this));
+
+  this.makeCgOpts = function() {
+    var node = this.vm.node;
     var color = this.turnColor();
     var dests = chessUtil.readDests(node.dests);
     var drops = chessUtil.readDrops(node.drops);
     var movableColor = this.practice ? this.bottomColor() : (
-      this.embed ||
-      (dests && Object.keys(dests).length > 0) ||
-      drops === null ||
-      drops.length ? color : null);
+      !this.embed && (
+        (dests && Object.keys(dests).length > 0) ||
+        drops === null || drops.length
+      ) ? color : null);
     var config = {
       fen: node.fen,
       turnColor: color,
@@ -158,7 +177,7 @@ module.exports = function(opts) {
         color: movableColor,
         dests: movableColor === color ? (dests || {}) : {}
       },
-      check: node.check,
+      check: !!node.check,
       lastMove: uciToLastMove(node.uci)
     };
     if (!dests && !node.check) {
@@ -170,24 +189,9 @@ module.exports = function(opts) {
     config.premovable = {
       enabled: config.movable.color && config.turnColor !== config.movable.color
     };
-
     this.vm.cgConfig = config;
-    if (!this.chessground)
-      this.chessground = ground.make(this.data, config, userMove, userNewPiece, opts);
-    this.chessground.set(config);
-    onChange();
-    if (!defined(node.dests)) getDests();
-    this.setAutoShapes();
-    if (node.shapes) this.chessground.setShapes(node.shapes);
+    return config;
   }.bind(this);
-
-  var getDests = throttle(800, false, function() {
-    if (!defined(this.vm.node.dests)) this.socket.sendAnaDests({
-      variant: this.data.game.variant.key,
-      fen: this.vm.node.fen,
-      path: this.vm.path
-    });
-  }.bind(this));
 
   var sound = lichess.sound ? {
     move: throttle(50, false, lichess.sound.move),
@@ -244,14 +248,14 @@ module.exports = function(opts) {
 
   this.userJump = function(path) {
     this.autoplay.stop();
-    this.chessground.selectSquare(null);
+    this.chessground && this.chessground.selectSquare(null);
     if (this.practice) {
       var prev = this.vm.path;
       this.practice.preUserJump(prev, path);
       this.jump(path);
       this.practice.postUserJump(prev, this.vm.path);
     } else
-      this.jump(path);
+    this.jump(path);
   }.bind(this);
 
   var canJumpTo = function(path) {
@@ -319,7 +323,7 @@ module.exports = function(opts) {
     return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  var userNewPiece = function(piece, pos) {
+  this.userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = {
@@ -340,7 +344,7 @@ module.exports = function(opts) {
     } else this.jump(this.vm.path);
   }.bind(this);
 
-  var userMove = function(orig, dest, capture) {
+  this.userMove = function(orig, dest, capture) {
     this.vm.justPlayed = orig;
     this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
@@ -363,9 +367,9 @@ module.exports = function(opts) {
 
   var preparePremoving = function() {
     this.chessground.set({
-      turnColor: this.chessground.data.movable.color,
+      turnColor: this.chessground.state.movable.color,
       movable: {
-        color: opposite(this.chessground.data.movable.color)
+        color: opposite(this.chessground.state.movable.color)
       },
       premovable: {
         enabled: true
@@ -400,8 +404,8 @@ module.exports = function(opts) {
     if (!node) return;
     var count = tree.ops.countChildrenAndComments(node);
     if ((count.nodes >= 10 || count.comments > 0) && !confirm(
-        'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
-      )) return;
+      'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
+    )) return;
     this.tree.deleteNodeAt(path);
     if (tree.path.contains(this.vm.path, path)) this.userJump(tree.path.init(path));
     else this.jump(this.vm.path);
@@ -442,7 +446,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.setAutoShapes = function() {
-    this.chessground.setAutoShapes(computeAutoShapes(this));
+    if (this.chessground) this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
   var onNewCeval = function(eval, path, threatMode) {
@@ -450,7 +454,7 @@ module.exports = function(opts) {
       if (node.fen !== eval.fen && !threatMode) return;
       if (threatMode) {
         if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
-          node.threat = eval;
+        node.threat = eval;
       } else if (isEvalBetter(eval, node.ceval)) node.ceval = eval;
       else if (node.ceval && eval.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = eval.maxDepth;
 
@@ -653,10 +657,10 @@ module.exports = function(opts) {
   this.playUci = function(uci) {
     var move = chessUtil.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.apiNewPiece({
-        color: this.chessground.data.movable.color,
-        role: chessUtil.sanToRole[uci[0]]
-      },
-      move[1])
+      color: this.chessground.state.movable.color,
+      role: chessUtil.sanToRole[uci[0]]
+    },
+    move[1])
     else if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], chessUtil.sanToRole[move[2].toUpperCase()]);
   }.bind(this);
@@ -757,6 +761,6 @@ module.exports = function(opts) {
       lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
         this.music = lichessReplayMusic();
       }.bind(this));
-    if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
   }.bind(this));
 };
