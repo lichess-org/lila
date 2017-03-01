@@ -284,7 +284,7 @@ lichess.notifyApp = (function() {
         minLength: 3,
         hint: true,
         highlight: false,
-        source: function(query, sync, async) {
+        source: function(query, sync, runAsync) {
           $.ajax({
             method: 'get',
             url: '/player/autocomplete',
@@ -294,8 +294,10 @@ lichess.notifyApp = (function() {
             },
             success: function(res) {
               // hack to fix typeahead limit bug
-              if (res.length === 10) res.push(null);
-              async(res);
+              if (res.length === 10) {
+                res.push(null);
+              }
+              runAsync(res);
             }
           });
         },
