@@ -14,7 +14,7 @@ module.exports = function(ctrl) {
   });
 }
 
-var global3d = document.getElementById('top').classList.contains('is3d');
+var global3d = !!document.querySelector('#top.is3d');
 
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
