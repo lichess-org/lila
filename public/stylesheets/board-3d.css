@@ -1,11 +1,6 @@
 .is3d .cg-512 .cg-board-wrap {
   height: 464.5px
 }
-.is3d .is2d .cg-board {
-  /* copy of board.css to override miniboards */
-  top: 0;
-  height: 100%;
-}
 body.coords_2 .is3d square[data-coord-x]::after {
   bottom: calc(-10px - 22%);
 }
@@ -40,6 +35,14 @@ body.coords_2 .is3d square[data-coord-x]::after {
   height: 103.2%;
   content: '';
   background-size: cover;
+}
+.is3d .is2d .cg-board {
+  /* copy of board.css to override miniboards */
+  top: 0;
+  height: 100%;
+}
+.is3d .is2d .cg-board::before {
+  content: none;
 }
 /* 3D boards */
 .Black-White-Aluminium .is3d .cg-board::before,
