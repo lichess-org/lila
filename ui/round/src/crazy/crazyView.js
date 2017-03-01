@@ -25,11 +25,6 @@ module.exports = {
           eventNames.forEach(function(name) {
             el.addEventListener(name, onstart);
           });
-          ctx.onunload = function() {
-            eventNames.forEach(function(name) {
-              el.removeEventListener(name, onstart);
-            });
-          }
         }
       },
       pieceRoles.map(function(role) {

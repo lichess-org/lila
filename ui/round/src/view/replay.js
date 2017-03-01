@@ -1,6 +1,6 @@
 var round = require('../round');
 var classSet = require('common').classSet;
-var throttle = require('common').throttle;
+var dropThrottle = require('common').dropThrottle;
 var game = require('game').game;
 var util = require('../util');
 var status = require('game').status;
@@ -10,6 +10,23 @@ var m = require('mithril');
 
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
+
+var scrollThrottle = dropThrottle(100);
+
+function autoScroll(el, ctrl) {
+  console.log('scroll?');
+  scrollThrottle(function() {
+    console.log('scroll!');
+    if (ctrl.data.steps.length < 7) return;
+    var st;
+    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+    else {
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (st !== undefined) el.scrollTop = st;
+  });
+}
 
 function renderMove(step, curPly, orEmpty) {
   if (!step) return orEmpty ? emptyMove : nullMove;
@@ -42,10 +59,8 @@ function renderResult(ctrl) {
       m('p.status', {
         config: function(el, isUpdate) {
           if (isUpdate) return;
-          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll.now();
-          else setTimeout(function() {
-            ctrl.vm.autoScroll.now();
-          }, 200);
+          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll();
+          else setTimeout(function() { ctrl.vm.autoScroll() }, 200);
         }
       }, [
         renderStatus(ctrl),
@@ -73,11 +88,11 @@ function renderMoves(ctrl) {
   for (var i = 0, len = pairs.length; i < len; i++) rows.push({
     tag: 'turn',
     children: [{
-        tag: 'index',
-        children: [i + 1]
-      },
-      renderMove(pairs[i][0], ctrl.vm.ply, true),
-      renderMove(pairs[i][1], ctrl.vm.ply, false)
+      tag: 'index',
+      children: [i + 1]
+    },
+    renderMove(pairs[i][0], ctrl.vm.ply, true),
+    renderMove(pairs[i][1], ctrl.vm.ply, false)
     ]
   });
   rows.push(renderResult(ctrl));
@@ -169,19 +184,6 @@ function renderButtons(ctrl) {
   ]);
 }
 
-function autoScroll(el, ctrl) {
-  lichess.raf(function() {
-    if (ctrl.data.steps.length < 7) return;
-    var st;
-    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
-    else {
-      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
-      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-    }
-    if (st !== undefined) el.scrollTop = st;
-  });
-}
-
 function racingKingsInit(d) {
   if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator)
     return m('div.message', {
@@ -209,13 +211,9 @@ module.exports = function(ctrl) {
           var ply = 2 * turn - 2 + $(e.target).index();
           if (ply) ctrl.userJump(ply);
         })(el, isUpdate, ctx);
-        var scrollNow = lichess.partial(autoScroll, el, ctrl);
-        ctrl.vm.autoScroll = {
-          now: scrollNow,
-          throttle: throttle(300, false, scrollNow)
-        };
-        scrollNow();
-        window.addEventListener('load', scrollNow);
+        ctrl.vm.autoScroll = function() { autoScroll(el, ctrl); };
+        ctrl.vm.autoScroll();
+        window.addEventListener('load', ctrl.vm.autoScroll, { once: true });
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);

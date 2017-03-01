@@ -148,7 +148,7 @@ module.exports = function(opts) {
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }
-    this.vm.autoScroll && this.vm.autoScroll.throttle();
+    this.vm.autoScroll && this.vm.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
     return true;
   }.bind(this);
@@ -317,7 +317,7 @@ module.exports = function(opts) {
         }
       }.bind(this), premoveDelay);
     }
-    this.vm.autoScroll && this.vm.autoScroll.now();
+    this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
@@ -345,7 +345,7 @@ module.exports = function(opts) {
     this.moveOn.next();
     setQuietMode();
     m.endComputation();
-    this.vm.autoScroll && this.vm.autoScroll.now();
+    this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     this.setLoading(false);
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
