@@ -1,8 +1,6 @@
 var round = require('../round');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var throttle = require('common').throttle;
-var raf = require('chessground').util.requestAnimationFrame;
 var game = require('game').game;
 var util = require('../util');
 var status = require('game').status;
@@ -172,7 +170,7 @@ function renderButtons(ctrl) {
 }
 
 function autoScroll(el, ctrl) {
-  raf(function() {
+  lichess.raf(function() {
     if (ctrl.data.steps.length < 7) return;
     var st;
     if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
@@ -211,7 +209,7 @@ module.exports = function(ctrl) {
           var ply = 2 * turn - 2 + $(e.target).index();
           if (ply) ctrl.userJump(ply);
         })(el, isUpdate, ctx);
-        var scrollNow = partial(autoScroll, el, ctrl);
+        var scrollNow = lichess.partial(autoScroll, el, ctrl);
         ctrl.vm.autoScroll = {
           now: scrollNow,
           throttle: throttle(300, false, scrollNow)

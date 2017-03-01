@@ -1,6 +1,4 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
 var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
@@ -60,12 +58,12 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta))
-      this.sendMove(orig, dest, false, meta.premove);
+    this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
   var onUserNewPiece = function(role, key, meta) {
-    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, role, key))
-      this.sendNewPiece(role, key, meta.predrop);
+    if (!this.replaying() && crazyValid.drop(this.data, role, key))
+    this.sendNewPiece(role, key, meta.predrop);
     else this.jump(this.vm.ply);
   }.bind(this);
 
@@ -97,17 +95,17 @@ module.exports = function(opts) {
     sound.move();
   }.bind(this);
 
-  this.chessground = ground.make({
-    data: this.data,
-    ply: this.vm.ply,
-    onUserMove: onUserMove,
-    onUserNewPiece: onUserNewPiece,
-    onMove: onMove,
-    onNewPiece: onNewPiece,
-    onPremove: onPremove,
-    onCancelPremove: onCancelPremove,
-    onPredrop: onPredrop
-  });
+  this.makeCgHooks = function() {
+    return {
+      onUserMove: onUserMove,
+      onUserNewPiece: onUserNewPiece,
+      onMove: onMove,
+      onNewPiece: onNewPiece,
+      onPremove: onPremove,
+      onCancelPremove: onCancelPremove,
+      onPredrop: onPredrop
+    };
+  };
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -119,12 +117,6 @@ module.exports = function(opts) {
       h += steps[i].san;
     }
     return h;
-  };
-
-  var uciToLastMove = function(uci) {
-    if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
-    return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
   this.userJump = function(ply) {
@@ -141,13 +133,13 @@ module.exports = function(opts) {
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
-      lastMove: uciToLastMove(s.uci),
-      check: s.check,
+      lastMove: util.uci2move(s.uci),
+      check: !!s.check,
       turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
-      color: game.isPlayerPlaying(this.data) ? this.data.player.color : null,
+      color: game.isPlayerPlaying(this.data) && this.data.player.color,
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
@@ -180,7 +172,7 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.setTitle = partial(title.set, this);
+  this.setTitle = lichess.partial(title.set, this);
 
   this.sendMove = function(orig, dest, prom, isPremove) {
     var move = {
@@ -221,7 +213,7 @@ module.exports = function(opts) {
       var txt = this.trans('yourTurn');
       var opponent = renderUser.userTxt(this, d.opponent);
       if (this.vm.ply < 1)
-        txt = opponent + '\njoined the game.\n' + txt;
+      txt = opponent + '\njoined the game.\n' + txt;
       else {
         var move = d.steps[d.steps.length - 1].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
@@ -253,15 +245,15 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
-      else this.chessground.apiNewPiece({
+      if (o.isMove) this.chessground.move(util.uci2move(o.uci));
+      else this.chessground.newPiece({
         role: o.role,
         color: playedColor
       }, o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
-        pieces[p.key] = null;
+        pieces[p.key] = false;
         this.chessground.setPieces(pieces);
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
@@ -269,7 +261,7 @@ module.exports = function(opts) {
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castle && !this.chessground.data.autoCastle) {
+      if (o.castle && !this.chessground.state.autoCastle) {
         var c = o.castle,
           pieces = {};
         pieces[c.king[0]] = null;
@@ -289,7 +281,7 @@ module.exports = function(opts) {
         movable: {
           dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
         },
-        check: o.check
+        check: !!o.check
       });
       if (o.check) lichess.sound.check();
     }
@@ -333,21 +325,21 @@ module.exports = function(opts) {
 
   var playPredrop = function() {
     return this.chessground.playPredrop(function(drop) {
-      return crazyValid.drop(this.chessground, this.data, drop.role, drop.key);
+      return crazyValid.drop(this.data, drop.role, drop.key);
     }.bind(this));
   }.bind(this);
 
   this.reload = function(cfg) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
-      this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
+    this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
     this.vm.preDrop = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
+    if (!this.replaying()) ground.reload(this);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
@@ -397,7 +389,7 @@ module.exports = function(opts) {
 
   this.isClockRunning = function() {
     return this.data.clock && game.playable(this.data) &&
-      ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
+    ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
   var clockTick = function() {
@@ -406,16 +398,16 @@ module.exports = function(opts) {
 
   var makeCorrespondenceClock = function() {
     if (this.data.correspondence && !this.correspondenceClock)
-      this.correspondenceClock = new correspondenceClockCtrl(
-        this.data.correspondence,
-        partial(this.socket.send, 'outoftime')
-      );
+    this.correspondenceClock = new correspondenceClockCtrl(
+      this.data.correspondence,
+      lichess.partial(this.socket.send, 'outoftime')
+    );
   }.bind(this);
   makeCorrespondenceClock();
 
   var correspondenceClockTick = function() {
     if (this.correspondenceClock && game.playable(this.data))
-      this.correspondenceClock.tick(this.data.game.player);
+    this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
   if (this.clock) {
@@ -489,13 +481,13 @@ module.exports = function(opts) {
   this.submitMove = function(v) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
       if (this.vm.moveToSubmit)
-        this.socket.send('move', this.vm.moveToSubmit, {
-          ackable: true
-        });
+      this.socket.send('move', this.vm.moveToSubmit, {
+        ackable: true
+      });
       else if (this.vm.dropToSubmit)
-        this.socket.send('drop', this.vm.dropToSubmit, {
-          ackable: true
-        });
+      this.socket.send('drop', this.vm.dropToSubmit, {
+        ackable: true
+      });
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();
@@ -513,13 +505,13 @@ module.exports = function(opts) {
 
   this.forecastInfo = function() {
     return forecastable(this.data) &&
-      !this.replaying() &&
-      this.data.game.turns > 1 &&
-      lichess.once('forecast-info-seen6');
+    !this.replaying() &&
+    this.data.game.turns > 1 &&
+    lichess.once('forecast-info-seen6');
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
+    opts.onChange && setTimeout(lichess.partial(opts.onChange, this.data), 200);
   }.bind(this);
 
   this.forceResignable = function() {
@@ -545,6 +537,6 @@ module.exports = function(opts) {
       lichess.loadScript('/assets/javascripts/music/play.js').then(function() {
         this.music = lichessPlayMusic();
       }.bind(this));
-    if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
   }.bind(this));
 };

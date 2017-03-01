@@ -1,8 +1,8 @@
 var game = require('game').game;
 var perf = require('game').perf;
-var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
+var chessground = require('../ground').render;
 var mod = require('game').view.mod;
 var blind = require('../blind');
 var keyboard = require('../keyboard');
@@ -77,7 +77,7 @@ function visualBoard(ctrl) {
           return wheel(ctrl, e);
         });
       }
-    }, chessground.view(ctrl.chessground)),
+    }, chessground(ctrl)),
     renderPromotion(ctrl),
     renderVariantReminder(ctrl)
   ]);
@@ -90,7 +90,7 @@ function blindBoard(ctrl) {
         if (!isUpdate) blind.init(el, ctrl);
       }
     }),
-    chessground.view(ctrl.chessground)
+    chessground(ctrl)
   ]);
 }
 
@@ -112,13 +112,13 @@ function blursAndHolds(ctrl) {
 
 module.exports = function(ctrl) {
   var d = ctrl.data,
-    cgData = ctrl.chessground.data,
+    cgState = ctrl.chessground && ctrl.chessground.state,
     material, score;
   var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
   var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
-  if (d.pref.showCaptured) {
-    material = chessground.board.getMaterialDiff(cgData);
-    score = chessground.board.getScore(cgData) * (bottomColor === 'white' ? 1 : -1);
+  if (cgState && d.pref.showCaptured) {
+    material = chessground.board.getMaterialDiff(cgState);
+    score = chessground.board.getScore(cgState) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [
@@ -139,7 +139,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        cgData.premovable.current || cgData.predroppable.current.key ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
+        cgState && (cgState.premovable.current || cgState.predroppable.current) ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
         ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null,
       ]),
       blursAndHolds(ctrl)

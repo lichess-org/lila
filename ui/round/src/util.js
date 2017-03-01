@@ -1,6 +1,12 @@
 var m = require('mithril');
 
 module.exports = {
+
+  uci2move: function(uci) {
+    if (!uci) return null;
+    if (uci[1] === '@') return [uci.slice(2, 4)];
+    return [uci.slice(0, 2), uci.slice(2, 4)];
+  },
   bindOnce: function(eventName, f) {
     var withRedraw = function(e) {
       m.startComputation();

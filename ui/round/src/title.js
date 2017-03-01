@@ -1,6 +1,5 @@
 var game = require('game').game;
 var status = require('game').status;
-var partial = require('chessground').util.partial;
 var visible = require('./util').visible;
 
 var initialTitle = document.title;

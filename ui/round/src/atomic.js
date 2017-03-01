@@ -1,4 +1,4 @@
-var util = require('chessground').util;
+var util = require('chessground/util');
 
 function capture(ctrl, key) {
   var exploding = [];
@@ -9,8 +9,8 @@ function capture(ctrl, key) {
       var k = util.pos2key([orig[0] + x, orig[1] + y]);
       if (k) {
         exploding.push(k);
-        var explodes = ctrl.chessground.data.pieces[k] && (
-          k === key || ctrl.chessground.data.pieces[k].role !== 'pawn')
+        var explodes = ctrl.chessground.state.pieces[k] && (
+          k === key || ctrl.chessground.state.pieces[k].role !== 'pawn')
         if (explodes) diff[k] = null;
       }
     }

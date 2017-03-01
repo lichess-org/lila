@@ -1,10 +1,7 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
 var ground = require('./ground');
 var xhr = require('./xhr');
-var invertKey = chessground.util.invertKey;
-var key2pos = chessground.util.key2pos;
+var util = require('chessground/util');
 
 var promoting = null;
 var prePromotionRole = null;
@@ -17,8 +14,8 @@ function sendPromotion(ctrl, orig, dest, role) {
 
 function start(ctrl, orig, dest, meta) {
   var d = ctrl.data;
-  var piece = ctrl.chessground.data.pieces[dest];
-  var premovePiece = ctrl.chessground.data.pieces[orig];
+  var piece = ctrl.chessground.state.pieces[dest];
+  var premovePiece = ctrl.chessground.state.pieces[orig];
   if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] == 8 && d.player.color === 'white') ||
     (dest[1] == 1 && d.player.color === 'black'))) {
@@ -72,11 +69,11 @@ function cancel(ctrl) {
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
-  var left =  (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] -1) * 12.5;
+  var left =  (util.key2pos(orientation === 'white' ? dest : util.invertKey(dest))[0] -1) * 12.5;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {
-    onclick: partial(cancel, ctrl)
+    onclick: lichess.partial(cancel, ctrl)
   }, pieces.map(function(serverRole, i) {
     var top = (color === orientation ? i : 7 - i) * 12.5;
     return m('square', {
@@ -102,6 +99,6 @@ module.exports = {
 
     return renderPromotion(ctrl, promoting.move[1], pieces,
         ctrl.data.player.color,
-        ctrl.chessground.data.orientation);
+        ctrl.chessground.state.orientation);
   }
 };
