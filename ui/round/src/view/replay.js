@@ -14,9 +14,7 @@ var nullMove = m('move.empty', '');
 var scrollThrottle = dropThrottle(100);
 
 function autoScroll(el, ctrl) {
-  console.log('scroll?');
   scrollThrottle(function() {
-    console.log('scroll!');
     if (ctrl.data.steps.length < 7) return;
     var st;
     if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;

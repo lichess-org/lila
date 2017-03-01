@@ -1,9 +1,13 @@
 var game = require('game').game;
 var perf = require('game').perf;
+var plyStep = require('../round').plyStep;
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
 var chessground = require('../ground').render;
+var cgBoard = require('chessground/board');
+var fenRead = require('chessground/fen').read;
 var mod = require('game').view.mod;
+var util = require('../util');
 var blind = require('../blind');
 var keyboard = require('../keyboard');
 var crazyView = require('../crazy/crazyView');
@@ -116,9 +120,10 @@ module.exports = function(ctrl) {
     material, score;
   var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
   var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
-  if (cgState && d.pref.showCaptured) {
-    material = chessground.board.getMaterialDiff(cgState);
-    score = chessground.board.getScore(cgState) * (bottomColor === 'white' ? 1 : -1);
+  if (d.pref.showCaptured) {
+    var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.vm.ply).fen);
+    material = util.getMaterialDiff(pieces);
+    score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return [
     m('div.top', [

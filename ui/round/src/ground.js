@@ -13,7 +13,7 @@ function makeConfig(ctrl) {
     orientation: boardOrientation(data, ctrl.vm.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
     lastMove: util.uci2move(step.uci),
-    check: step.check,
+    check: !!step.check,
     coordinates: data.pref.coords !== 0,
     autoCastle: data.game.variant.key === 'standard',
     viewOnly: data.player.spectator,
@@ -71,7 +71,7 @@ function makeConfig(ctrl) {
 }
 
 function reload(ctrl) {
-  ground.set(makeConfig(ctrl));
+  ctrl.chessground.set(makeConfig(ctrl));
 }
 
 function promote(ground, key, role) {

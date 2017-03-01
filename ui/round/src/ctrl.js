@@ -245,7 +245,10 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      if (o.isMove) this.chessground.move(util.uci2move(o.uci));
+      if (o.isMove) {
+        var keys = util.uci2move(o.uci);
+        this.chessground.move(keys[0], keys[1]);
+      }
       else this.chessground.newPiece({
         role: o.role,
         color: playedColor
@@ -264,8 +267,8 @@ module.exports = function(opts) {
       if (o.castle && !this.chessground.state.autoCastle) {
         var c = o.castle,
           pieces = {};
-        pieces[c.king[0]] = null;
-        pieces[c.rook[0]] = null;
+        pieces[c.king[0]] = false;
+        pieces[c.rook[0]] = false;
         pieces[c.king[1]] = {
           role: 'king',
           color: c.color
@@ -332,7 +335,8 @@ module.exports = function(opts) {
   this.reload = function(cfg) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
-    this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
+    var step = cfg.steps[cfg.steps.length - 1];
+    this.vm.ply = step.ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
@@ -351,7 +355,7 @@ module.exports = function(opts) {
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
-    if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
+    if (this.keyboardMove) this.keyboardMove.update(step);
   }.bind(this);
 
   this.challengeRematch = function() {
