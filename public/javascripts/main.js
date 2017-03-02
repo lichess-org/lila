@@ -82,7 +82,7 @@ lichess.notifyApp = (function() {
 
   $toggle.one('mouseover click', function() {
     load();
-  }).click(function() {
+  }).on('click', function() {
     setTimeout(function() {
       if (instance && isVisible()) instance.setVisible();
     }, 200);
@@ -153,7 +153,7 @@ lichess.notifyApp = (function() {
   };
 
   lichess.socket = null;
-  $.extend(true, lichess.StrongSocket.defaults, {
+  lichess.merge(lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
         $('#friend_box').friends("set", all.d, all.playing, all.studying, all.patrons);
@@ -226,7 +226,7 @@ lichess.notifyApp = (function() {
           '</div>' +
           '</div>' +
           '</div>'
-        ).find("a.withdraw").click(function() {
+        ).find("a.withdraw").on('click', function() {
           $.post($(this).attr("href"));
           $('#tournament_reminder').remove();
           return false;
@@ -265,7 +265,7 @@ lichess.notifyApp = (function() {
         '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
         '<a><strong>Web</strong> browser</a>' +
         '</div>'
-      ).find('a').click(function() {
+      ).find('a').on('click', function() {
         $('#deeplink').remove();
         document.body.dispatchEvent(new Event('chessground.resize'));
         if ($(this).attr('href')) storage.remove();
@@ -500,7 +500,7 @@ lichess.notifyApp = (function() {
               $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
             }, function() {
               $body.removeClass(themes.join(' ')).addClass(theme);
-            }).click(function() {
+            }).on('click', function() {
               theme = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme
@@ -511,7 +511,7 @@ lichess.notifyApp = (function() {
               $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
             }, function() {
               $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
-            }).click(function() {
+            }).on('click', function() {
               set = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set
@@ -521,7 +521,7 @@ lichess.notifyApp = (function() {
               $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
             }, function() {
               $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
-            }).click(function() {
+            }).on('click', function() {
               theme3d = $(this).data("theme");
               $.post($(this).parent().data("href"), {
                 theme: theme3d
@@ -531,7 +531,7 @@ lichess.notifyApp = (function() {
               $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
             }, function() {
               $body.removeClass(set3ds.join(' ')).addClass(set3d);
-            }).click(function() {
+            }).on('click', function() {
               set3d = $(this).data("set");
               $.post($(this).parent().data("href"), {
                 set: set3d
@@ -559,7 +559,7 @@ lichess.notifyApp = (function() {
                 });
               setZoom(getZoom());
             };
-            $themepicker.find('.background a').click(function() {
+            $themepicker.find('.background a').on('click', function() {
               background = $(this).data('bg');
               $.post($(this).parent().data('href'), {
                 bg: background
@@ -574,7 +574,7 @@ lichess.notifyApp = (function() {
             }, function() {
               showBg(background);
             }).filter('.' + background).addClass('active');
-            $themepicker.find('.dimensions a').click(function() {
+            $themepicker.find('.dimensions a').on('click', function() {
               is3d = $(this).data('is3d');
               $.post($(this).parent().data('href'), {
                 is3d: is3d
@@ -688,7 +688,8 @@ lichess.notifyApp = (function() {
         });
       });
 
-      $('.infinitescroll:has(.pager a)').each(function() {
+      $('.infinitescroll').each(function() {
+        if (!this.querySelector('.pager a')) return;
         $(this).infinitescroll({
           navSelector: ".pager",
           nextSelector: ".pager a:last",
@@ -742,16 +743,16 @@ lichess.notifyApp = (function() {
         });
       });
 
-      $('#translation_call .close').click(function() {
+      $('#translation_call .close').on('click', function() {
         $.post($(this).data("href"));
         $(this).parent().fadeOut(500);
         return false;
       });
 
-      $('a.delete, input.delete').click(function() {
+      $('a.delete, input.delete').on('click', function() {
         return confirm('Delete?');
       });
-      $('input.confirm, button.confirm').click(function() {
+      $('input.confirm, button.confirm').on('click', function() {
         return confirm('Confirm this action?');
       });
 
@@ -769,7 +770,7 @@ lichess.notifyApp = (function() {
           return false;
         });
 
-      $('#ham-plate').click(function() {
+      $('#ham-plate').on('click', function() {
         document.body.classList.toggle('fpmenu');
       });
 
@@ -1031,7 +1032,7 @@ lichess.notifyApp = (function() {
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
     var loadPlaying = function() {
-      var $moveOn = $nowPlaying.find('.move_on input').change(function() {
+      var $moveOn = $nowPlaying.find('.move_on input').on('change', function() {
         round.moveOn.toggle();
       }).prop('checked', round.moveOn.get());
     };
@@ -1078,7 +1079,7 @@ lichess.notifyApp = (function() {
         var self = this;
         var hideStorage = lichess.storage.make('friends-hide');
         self.$list = self.element.find("div.list");
-        var $title = self.element.find('.title').click(function() {
+        var $title = self.element.find('.title').on('click', function() {
           self.element.find('.content_wrap').toggle(100, function() {
             hideStorage.set($(this).is(':visible') ? 0 : 1);
           });
@@ -1345,7 +1346,7 @@ lichess.notifyApp = (function() {
           lichess.pubsub.emit('content_loaded')();
         });
       };
-      $('#site_header .help a.more').click(function() {
+      $('#site_header .help a.more').on('click', function() {
         $.modal($(this).parent().find('div.more')).addClass('card');
       });
       return;

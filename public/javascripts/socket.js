@@ -3,13 +3,16 @@
 // ==/ClosureCompiler==
 
 // versioned events, acks, retries, resync
-lichess.StrongSocket = function(url, version, settings) {
+lichess.StrongSocket = function(url, version, _settings) {
 
   var now = function() {
     return new Date().getTime();
   };
 
-  var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
+  // overwrites the defaults! How bad is it?
+  var settings = lichess.StrongSocket.defaults;
+  lichess.merge(settings, _settings);
+
   var url = url;
   var version = version;
   var versioned = version !== false;
@@ -30,7 +33,8 @@ lichess.StrongSocket = function(url, version, settings) {
   var connect = function() {
     destroy();
     autoReconnect = true;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
+    var fullUrl = options.protocol + "//" + baseUrl() + url + "?";
+    for (var i in settings.params) fullUrl += i + '=' + settings.params[i];
     debug("connection attempt to " + fullUrl, true);
     try {
       ws = new WebSocket(fullUrl);

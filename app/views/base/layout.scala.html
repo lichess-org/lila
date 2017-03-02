@@ -193,7 +193,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     }
-    @zeptoTag
+    @cashTag
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @momentjsTag
@@ -201,6 +201,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(isProd) {
     @jsTagCompiled("lichess.js")
     } else {
+    @jsTag("nojquery.js")
     @jsTag("deps.min.js")
     @jsTag("util.js")
     @jsTag("socket.js")

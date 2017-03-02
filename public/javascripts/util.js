@@ -144,6 +144,17 @@ lichess.powertip = (function() {
     }
   };
 })();
+
+lichess.isObject = function(o) { return typeof o === 'object'; };
+
+// mutates base
+lichess.merge = function(base, extend) {
+  for (var key in extend) {
+    if (lichess.isObject(base[key]) && lichess.isObject(extend[key])) lichess.merge(base[key], extend[key]);
+    else base[key] = extend[key];
+  }
+};
+
 lichess.trans = function(i18n) {
   var trans = function(key) {
     var str = i18n[key] || key;
@@ -167,7 +178,7 @@ lichess.widget = function(name, prototype) {
   var constructor = $[name] = function(options, element) {
     var self = this;
     self.element = $(element);
-    $.data(element, name, self);
+    $(element).data(name, self);
     self.options = options;
     self._create();
   };
@@ -176,15 +187,15 @@ lichess.widget = function(name, prototype) {
     var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string') this.each(function() {
-      var instance = $.data(this, name);
+      var instance = $(this).data(name);
       if (!instance) return;
       if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
         return $.error("no such method '" + method + "' for " + name + " widget instance");
       returnValue = instance[method].apply(instance, args);
     });
     else this.each(function() {
-      if ($.data(this, name)) return $.error("widget " + name + " already bound to " + this);
-      $.data(this, name, new constructor(method, this));
+      if ($(this).data(name)) return $.error("widget " + name + " already bound to " + this);
+      $(this).data(name, new constructor(method, this));
     });
     return returnValue;
   };
@@ -203,11 +214,23 @@ lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 }
 lichess.loadScript = function(url, noVersion) {
-  return $.ajax({
+  var success;
+  $.ajax({
     dataType: "script",
     cache: true,
-    url: lichess.assetUrl(url, noVersion)
+    url: lichess.assetUrl(url, noVersion),
+    success: function(code) {
+      var script = document.createElement('script');
+      script.text = code;
+      document.head.appendChild(script).parentNode.removeChild(script);
+      success && success();
+    }
   });
+  var then = function(cb) { success = cb; };
+  return {
+    then: then,
+    done: then
+  };
 };
 lichess.hopscotch = function(f) {
   lichess.loadCss('/assets/vendor/hopscotch/dist/css/hopscotch.min.css');
