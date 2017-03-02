@@ -1873,7 +1873,7 @@ div.extra_top {
   width: 224px;
   height: 224px;
 }
-#challenge .cg-board-wrap {
+#challenge .lichess_overboard .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
   margin: auto;
