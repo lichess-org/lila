@@ -27,10 +27,10 @@ function renderAnalyse(ctrl) {
 
 function wheel(ctrl, e) {
   if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE' && !e.target.classList.contains('cg-board')) return;
+  e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
-  e.preventDefault();
   return false;
 }
 

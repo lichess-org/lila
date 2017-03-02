@@ -46,10 +46,10 @@ function renderMaterial(ctrl, material, checks, score) {
 
 function wheel(ctrl, e) {
   if (game.isPlayerPlaying(ctrl.data)) return true;
+  e.preventDefault();
   if (e.deltaY > 0) keyboard.next(ctrl);
   else if (e.deltaY < 0) keyboard.prev(ctrl);
   m.redraw();
-  e.preventDefault();
   return false;
 }
 
