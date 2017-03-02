@@ -1,6 +1,7 @@
 var editor = require('./editor');
 var m = require('mithril');
 var keyboard = require('./keyboard');
+var fenRead = require('chessground/fen').read;
 
 module.exports = function(cfg) {
 
@@ -92,12 +93,11 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.positionLooksLegit = function() {
-    if (!this.chessground) return false;
+    var pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
     var kings = {
       white: 0,
       black: 0
     };
-    var pieces = this.chessground.state.pieces;
     for (var pos in pieces) {
       if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
     }
