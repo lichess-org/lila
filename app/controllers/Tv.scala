@@ -33,7 +33,7 @@ object Tv extends LilaController {
       case (game, history) =>
         val flip = getBool("flip")
         val pov = flip.fold(Pov second game, Pov first game)
-        val onTv = lila.round.OnTv(channel.key, flip)
+        val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
           Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
