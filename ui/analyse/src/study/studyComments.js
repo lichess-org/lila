@@ -20,9 +20,14 @@ var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\
 
 function embedYoutube(text, allowNewlines) {
   var html = lichess.escapeHtml(text).replace(commentYoutubeRegex, function(found) {
+    if (found.indexOf('http://') !== 0 && found.indexOf('https://') !== 0) {
+      found = 'https://' + found;
+    }
+
     // https://www.abeautifulsite.net/parsing-urls-in-javascript
     var parser = document.createElement('a');
     parser.href = found;
+
     var queries = parser.search.replace(/^\?/, '').split('&');
     var videoId;
 
@@ -35,13 +40,25 @@ function embedYoutube(text, allowNewlines) {
         }
     }
 
-    if (videoId) {
-      var url = lichess.toYouTubeEmbedUrl('https://youtube.com/watch?v=' + videoId);
-      if (!url) return found;
-      return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
-    } else {
+    if (!videoId) {
+      var pathParts = parser.pathname.split('/');
+
+      if (pathParts.length >= 2) {
+        if (parser.hostname.indexOf('youtu.be') === 0) {
+          videoId = pathParts[1];
+        } else if (pathParts.length >= 3 && pathParts[1] === 'v') {
+          videoId = pathParts[2];
+        }
+      }
+    }
+
+    if (!videoId) {
       return found;
     }
+
+    var url = lichess.toYouTubeEmbedUrl('https://youtube.com/watch?v=' + videoId);
+    if (!url) return found;
+    return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
   });
   if (allowNewlines) html = html.replace(/\n/g, '<br>');
   return m.trust(html);
