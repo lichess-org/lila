@@ -16,7 +16,7 @@ function authorText(author) {
   return author.name;
 }
 
-var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?(?:[^"&?\/ ]{11})\S*/gi;
+var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/gi;
 
 function embedYoutube(text, allowNewlines) {
   var html = lichess.escapeHtml(text).replace(commentYoutubeRegex, function(found) {
