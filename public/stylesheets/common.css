@@ -1045,6 +1045,19 @@ body.fpmenu #fpmenu {
   #fpmenu .body {
     padding-left: 10px;
   }
+  #lichess .cg-board-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  #lichess .lichess_ground,
+  #lichess .underboard,
+  #friend_box {
+    visibility: hidden;
+  }
+  body {
+    overflow: hidden;
+  }
 }
 #topmenu {
   position: absolute;
