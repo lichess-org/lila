@@ -52,10 +52,7 @@ function embedYoutube(text, allowNewlines) {
       }
     }
 
-    if (!videoId) {
-      return found;
-    }
-
+    if (!videoId || videoId.length !== 11) return found;
     var url = lichess.toYouTubeEmbedUrl('https://youtube.com/watch?v=' + videoId);
     if (!url) return found;
     return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
