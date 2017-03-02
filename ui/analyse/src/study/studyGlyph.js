@@ -3,7 +3,6 @@ var xhr = require('./studyXhr');
 var throttle = require('common').throttle;
 var bindOnce = require('common').bindOnce;
 var nodeFullName = require('../util').nodeFullName;
-var partial = require('chessground').util.partial;
 
 function renderGlyph(ctrl, node) {
   return function(glyph) {
@@ -81,7 +80,7 @@ module.exports = {
         m('button.button.frameless.close', {
           'data-icon': 'L',
           title: 'Close',
-          config: bindOnce('click', partial(ctrl.isOpen, false))
+          config: bindOnce('click', lichess.partial(ctrl.isOpen, false))
         }),
         'Annotating position after ',
         m('strong', nodeFullName(node)),

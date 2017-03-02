@@ -7,6 +7,10 @@
   display: flex;
   align-items: center;
 }
+#trainer .board_and_ground .cg-board-wrap {
+  width: 512px;
+  height: 512px;
+}
 #trainer div.box {
   margin-bottom: 1em;
   border: 1px solid #ccc;

@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var pgnExport = require('../pgnExport');
 var fixCrazySan = require('chess').fixCrazySan;
 
@@ -14,7 +13,7 @@ var onMyTurn = function(ctrl, fctrl, cNodes) {
   return m('button.on-my-turn', {
     class: 'add button text',
     'data-icon': 'E',
-    onclick: partial(fctrl.playAndSave, firstNode)
+    onclick: lichess.partial(fctrl.playAndSave, firstNode)
   }, [
     m('span', m('strong', 'Play ' + fixCrazySan(cNodes[0].san))),
     lines.length ?
@@ -59,7 +58,7 @@ module.exports = function(ctrl) {
       m('button', {
         class: 'add button text' + (isCandidate ? ' enabled' : ''),
         'data-icon': isCandidate ? 'O' : "",
-        onclick: partial(fctrl.addNodes, cNodes)
+        onclick: lichess.partial(fctrl.addNodes, cNodes)
       }, isCandidate ? [
         m('span', 'Add current variation'),
         m('span', m('sans', m.trust(pgnExport.renderNodesHtml(cNodes))))

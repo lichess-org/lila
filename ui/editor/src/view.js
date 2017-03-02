@@ -1,4 +1,5 @@
 var chessground = require('./chessground');
+var dragNewPiece = require('chessground/drag').dragNewPiece;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -157,7 +158,19 @@ function sparePieces(ctrl, color, orientation, position) {
     var attrs = {
       class: className
     };
-    var containerClass = 'no-square' + (selectedClass === className ? ' selected-square' : '');
+
+    var containerClass = 'no-square' +
+      (
+        (
+          selectedClass === className &&
+            (
+              !ctrl.chessground ||
+                !ctrl.chessground.state.draggable.current ||
+                !ctrl.chessground.state.draggable.current.newPiece
+            )
+        ) ?
+          ' selected-square' : ''
+      );
 
     if (s === 'trash') {
       attrs['data-icon'] = 'q';
@@ -169,8 +182,22 @@ function sparePieces(ctrl, color, orientation, position) {
 
     return m('div', {
       class: containerClass,
-      onmousedown: function() {
-        ctrl.vm.selected(s);
+      onmousedown: function(e) {
+        if (['pointer', 'trash'].indexOf(s) !== -1) {
+          ctrl.vm.selected(s);
+        } else {
+          ctrl.vm.selected('pointer');
+
+          dragNewPiece(ctrl.chessground.state, {
+            color: s[0],
+            role: s[1]
+          }, e, true);
+
+          document.addEventListener('mouseup', function() {
+            ctrl.vm.selected(s);
+            m.redraw();
+          }, {once: true});
+        }
       }
     }, m('piece', attrs));
   }));

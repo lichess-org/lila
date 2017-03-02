@@ -1,5 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
+var chessground = require('./ground');
 var classSet = require('common').classSet;
 var bindOnce = require('common').bindOnce;
 var synthetic = require('./util').synthetic;
@@ -72,10 +72,10 @@ function renderAnalyse(ctrl, concealOf) {
 
 function wheel(ctrl, e) {
   if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE' && !e.target.classList.contains('cg-board')) return;
+  e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
-  e.preventDefault();
   return false;
 }
 
@@ -122,7 +122,7 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground.view(ctrl.chessground),
+      chessground(ctrl),
       renderPromotion(ctrl)
     ]),
     cevalView.renderGauge(ctrl)
@@ -141,7 +141,7 @@ function blindBoard(ctrl) {
         $(el).load(url);
       }
     }),
-    chessground.view(ctrl.chessground)
+      chessground(ctrl)
   ]);
 }
 

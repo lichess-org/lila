@@ -1,5 +1,5 @@
 var synthetic = require('./util').synthetic;
-var initialBoardFen = require('chessground').fen.initial;
+var initialBoardFen = require('chessground/fen').initial;
 
 module.exports = function(send, ctrl) {
 

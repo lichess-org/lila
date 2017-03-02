@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var bindOnce = require('common').bindOnce;
 var plural = require('../util').plural;
@@ -120,7 +119,7 @@ module.exports = {
     var makeTab = function(key, name) {
       return m('a', {
         class: key + (activeTab === key ? ' active' : ''),
-        config: bindOnce('mousedown', partial(ctrl.vm.tab, key)),
+        config: bindOnce('mousedown', lichess.partial(ctrl.vm.tab, key)),
       }, name);
     };
 
