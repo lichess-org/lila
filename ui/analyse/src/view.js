@@ -185,7 +185,14 @@ function buttons(ctrl) {
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    (ctrl.studyPractice || ctrl.embed) ? null : m('div.features', [
+    ctrl.embed ? null : m('div.features', ctrl.studyPractice ? [
+      m('a', {
+        class: 'hint--bottom',
+        'data-hint': 'Analysis board',
+        target: '_blank',
+        href: ctrl.studyPractice.analysisUrl()
+      }, icon('A'))
+    ] : [
       m('button', {
         'data-hint': ctrl.trans('openingExplorer'),
         'data-act': 'explorer',
@@ -200,19 +207,19 @@ function buttons(ctrl) {
           ctrl.actionMenu.open || ctrl.retro ? ' hidden' : (
             ctrl.practice ? ' active' : ''))
       }, icon('')) : null
-    ]),
+  ]),
     m('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    ctrl.studyPractice ? null : m('button', {
+    ctrl.studyPractice ? m('div.noop') : m('button', {
       class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
       'data-hint': 'Menu',
       'data-act': 'menu'
     }, icon('['))
-  ]);
+    ]);
 }
 
 function renderOpeningBox(ctrl) {

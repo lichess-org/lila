@@ -82,8 +82,6 @@ function buttons(ctrl) {
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-      // else if (action === 'explorer') ctrl.explorer.toggle();
-      // else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
     cachedButtons

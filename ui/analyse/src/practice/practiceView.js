@@ -56,13 +56,7 @@ function renderOffTrack(ctrl) {
       m('div.instruction', [
         m('strong', 'You browsed away'),
         m('div.choices', [
-          m('a', {
-            target: '_blank',
-            href: analysisUrl,
-          }, 'Analyse in new window'),
-          m('a', {
-            onclick: ctrl.resume
-          }, 'Resume practice')
+          m('a', { onclick: ctrl.resume }, 'Resume practice')
         ])
       ])
     ])
