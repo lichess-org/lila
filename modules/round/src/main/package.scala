@@ -18,8 +18,5 @@ package round {
   private[round] case class ClientError(message: String) extends BenignError
   private[round] case class FishnetError(message: String) extends BenignError
 
-  sealed trait OnTv
-
-  case class OnLichessTv(channel: String, flip: Boolean) extends OnTv
-  case class OnUserTv(userId: String) extends OnTv
+  case class OnTv(channel: String, flip: Boolean)
 }
