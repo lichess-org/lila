@@ -144,8 +144,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        cgState && (cgState.premovable.current || cgState.predroppable.current) ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null,
+        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null
       ]),
       blursAndHolds(ctrl)
     ])

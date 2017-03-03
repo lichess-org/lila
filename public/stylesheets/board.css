@@ -470,19 +470,6 @@ div.lichess_overboard.padded {
   height: 80px;
   margin-bottom: 20px;
 }
-div.premove_alert,
-div.dont_touch {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 5px 0;
-  font-weight: bold;
-  color: #fff;
-  background: #d85000;
-  z-index: 50;
-}
 #lichess_id_input {
   margin-top: 10px;
   width: 80%;
