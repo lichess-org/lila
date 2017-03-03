@@ -1,6 +1,5 @@
 var m = require('mithril');
 var nodeFullName = require('../util').nodeFullName;
-var renderComment = require('./studyComments').embedYoutube;
 
 function authorDom(author) {
   if (!author) return 'Unknown';
