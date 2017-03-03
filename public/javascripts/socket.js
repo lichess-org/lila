@@ -165,7 +165,7 @@ lichess.StrongSocket = function(url, version, settings) {
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
-        var processed = settings.receive ? settings.receive(m.t, m.d) : false;
+        var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
   };
@@ -202,8 +202,7 @@ lichess.StrongSocket = function(url, version, settings) {
     tryOtherUrl = true;
     setTimeout(function() {
       if (!$('#network_error').length) {
-        var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
-        $('#top').append('<span class="fright link text" id="network_error" title="' + msg + '" data-icon="j">Network error</span>');
+        $('#top').append('<span class="fright link text" id="network_error" data-icon="j">Network error</span>');
       }
     }, 1000);
     clearTimeout(pingSchedule);
