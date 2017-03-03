@@ -1071,7 +1071,6 @@ div.underboard {
   display: flex;
 }
 div.underboard .center {
-  position: relative;
   text-align: center;
   padding-top: 15px;
   width: 512px;
