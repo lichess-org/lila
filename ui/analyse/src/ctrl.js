@@ -490,7 +490,7 @@ module.exports = function(opts) {
         var env = this.ceval.env();
         var desc = [
           'ceval crash',
-          env.pnacl ? 'native' : 'asmjs',
+          env.pnacl ? 'pnacl' : (env.wasm ? 'wasm' : 'asmjs'),
           'multiPv:' + env.multiPv,
           'threads:' + env.threads,
           'hashSize:' + env.hashSize,

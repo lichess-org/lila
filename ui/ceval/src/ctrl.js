@@ -12,6 +12,7 @@ module.exports = function(opts) {
   };
 
   var pnaclSupported = !opts.failsafe && navigator.mimeTypes['application/x-pnacl'];
+  var wasmSupported = !opts.failsafe && typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
   var minDepth = 6;
   var maxDepth = storedProp(storageKey('ceval.max-depth'), 18);
   var multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
@@ -28,8 +29,9 @@ module.exports = function(opts) {
   var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=16',
+    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=17',
     pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=16',
+    wasm: wasmSupported && '/assets/vendor/stockfish.js/stockfish.wasm.js?v=17',
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
@@ -152,6 +154,7 @@ module.exports = function(opts) {
 
   return {
     pnaclSupported: pnaclSupported,
+    wasmSupported: wasmSupported,
     start: start,
     stop: stop,
     allowed: allowed,
@@ -193,6 +196,7 @@ module.exports = function(opts) {
     env: function() {
       return {
         pnacl: !!pnaclSupported,
+        wasm: !!wasmSupported,
         multiPv: multiPv(),
         threads: threads(),
         hashSize: hashSize(),
