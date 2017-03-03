@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 // versioned events, acks, retries, resync
 lichess.StrongSocket = function(url, version, settings) {
 

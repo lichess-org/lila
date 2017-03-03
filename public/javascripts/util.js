@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 var lichess = window.lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 8';

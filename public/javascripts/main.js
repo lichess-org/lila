@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
