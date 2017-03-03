@@ -93,12 +93,6 @@ lichess.StrongSocket = function(url, version, settings) {
   };
   lichess.pubsub.on('socket.send', send);
 
-  var sendAckable = function(t, d) {
-    send(t, d, {
-      ackable: true
-    });
-  };
-
   var scheduleConnect = function(delay) {
     if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
@@ -237,7 +231,6 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var baseUrl = function() {
-    var key = options.baseUrlKey;
     var urls = options.baseUrls;
     var url = storage.get();
     if (!url) {
