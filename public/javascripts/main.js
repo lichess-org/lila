@@ -958,7 +958,7 @@ lichess.notifyApp = (function() {
           name: "round"
         },
         params: {
-          userTv: data.userTv && data.userTv.id
+          userTv: data.userTv && data.userTv.name
         },
         receive: function(t, d) {
           round.socketReceive(t, d);

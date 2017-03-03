@@ -204,7 +204,7 @@ final class JsonView(
               }
             ).add(
                 "userTv" -> tv.collect {
-                  case OnUserTv(userId) => Json.obj("id" -> userId)
+                  case OnUserTv(name) => Json.obj("name" -> name)
                 }
               )
 
