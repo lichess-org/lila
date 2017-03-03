@@ -783,6 +783,8 @@ div.table_wrap .clock > .time {
   font-family: 'Roboto Mono', 'Roboto';
   height: 44px;
   line-height: 44px;
+  /* ensure updates don't redraw other parts of the document */
+  will-change: transform;
 }
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
