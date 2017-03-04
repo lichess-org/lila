@@ -43,7 +43,7 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
 
 function makeWebWorker(makeProtocol, poolOpts, protocolOpts) {
   return makeHelper(function() {
-    return new Worker(poolOpts.asmjs);
+    return new Worker(poolOpts.wasm || poolOpts.asmjs);
   }, function(worker) {
     worker.terminate();
   }, poolOpts, makeProtocol, protocolOpts);
