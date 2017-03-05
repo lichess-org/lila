@@ -35,7 +35,7 @@ module.exports = {
         var nb = pocket[role] || 0;
         if (activeColor) {
           if (droppedRole === role) nb--;
-          if (activeColor && captured === role) nb++;
+          if (captured === role) nb++;
         }
         return m('piece', {
           'data-role': role,
