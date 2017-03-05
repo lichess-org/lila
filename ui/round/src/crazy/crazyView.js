@@ -16,6 +16,10 @@ module.exports = {
     var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
     var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
     var activeColor = color === ctrl.data.player.color;
+    var captured = ctrl.vm.justCaptured;
+    if (captured) {
+      captured = captured.promoted ? 'pawn' : captured.role;
+    }
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
@@ -29,7 +33,10 @@ module.exports = {
       },
       pieceRoles.map(function(role) {
         var nb = pocket[role] || 0;
-        if (activeColor && droppedRole === role) nb--;
+        if (activeColor) {
+          if (droppedRole === role) nb--;
+          if (activeColor && captured === role) nb++;
+        }
         return m('piece', {
           'data-role': role,
           'data-color': color,

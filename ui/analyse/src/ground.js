@@ -64,7 +64,8 @@ module.exports.promote = function(ground, key, role) {
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,
-      role: role
+      role: role,
+      promoted: true
     };
     ground.setPieces(pieces);
   }
