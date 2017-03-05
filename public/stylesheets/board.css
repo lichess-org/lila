@@ -200,6 +200,8 @@ body.coords_1 .cg-board-wrap coords.ranks coord {
 }
 div.lichess_game {
   display: flex;
+  /* for safari: */
+  height: 512px;
 }
 div.lichess_game div.lichess_board_wrap {
   position: relative;
