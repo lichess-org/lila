@@ -78,12 +78,10 @@ module.exports = function(opts) {
 
   var onPremove = function(orig, dest, meta) {
     promotion.start(this, orig, dest, meta);
-    m.redraw();
   }.bind(this);
 
   var onCancelPremove = function() {
     promotion.cancelPrePromotion(this);
-    m.redraw();
   }.bind(this);
 
   var onPredrop = function(role) {
