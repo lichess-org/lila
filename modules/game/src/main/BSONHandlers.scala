@@ -97,14 +97,13 @@ object BSONHandlers {
         unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = r bytesO moveTimes,
-        clockHistory = for {
+        clockHistory = (for {
           clk <- gameClock
           start = clk.limit.seconds
-          ew = clk.remainingDuration(White)
-          eb = clk.remainingDuration(Black)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
-        } yield BinaryFormat.clockHistory.read(start, ew, eb, bw, bb, r intD startedAtTurn, nbTurns),
+        } yield BinaryFormat.clockHistory.read(start, bw, bb, r intD startedAtTurn, nbTurns))
+          getOrElse ClockHistory(),
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -159,10 +158,9 @@ object BSONHandlers {
     )
   }
 
-  private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock]): Option[ByteArray] = for {
-    history <- clockHistory
-    clk <- clock
-  } yield BinaryFormat.clockHistory.writeSide(clk.limit.seconds, clk.remainingDuration(color), history(color))
+  private def clockHistory(color: Color, clockHistory: ClockHistory, clock: Option[Clock]): Option[ByteArray] = clock.map {
+    clk => BinaryFormat.clockHistory.writeSide(clk.limit.seconds, clockHistory.get(color))
+  }
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(

@@ -48,14 +48,12 @@ object Rewind {
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
           BinaryFormat.moveTime.write(moveTimes.take(rewindedPlayedTurns))
         },
-        clockHistory = for {
-          history <- game.clockHistory
-          clk <- newClock
-        } yield ClockHistory(
-          clk.remainingDuration(rewindedSituation.color),
-          history.white.take(rewindedPlayerMoves(White) - 1),
-          history.black.take(rewindedPlayerMoves(Black) - 1)
-        ),
+        clockHistory = newClock.fold(game.clockHistory) { clk =>
+          ClockHistory(
+            game.clockHistory.white.take(rewindedPlayerMoves(White)),
+            game.clockHistory.black.take(rewindedPlayerMoves(Black))
+          )
+        },
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
         clock = newClock

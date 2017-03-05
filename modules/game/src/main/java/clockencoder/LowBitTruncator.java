@@ -17,17 +17,19 @@ public class LowBitTruncator {
     }
 
     public static void writeDigits(int[] centis, BitWriter writer) {
-        for (int cs : centis) {
-            if (cs < CENTI_CUTOFF)
-                writer.writeBits(cs, 3);
+        int maxIdx = centis.length - 1;
+        for (int i = 0; i <= maxIdx; i++) {
+            // Always store full precision end.
+            if (centis[i] < CENTI_CUTOFF || i == maxIdx)
+                writer.writeBits(centis[i], 3);
         }
     }
 
     public static void decode(int[] trunced, BitReader reader) {
-        int moves = trunced.length;
-        for (int i = 0; i < moves; i++) {
+        int maxIdx = trunced.length - 1;
+        for (int i = 0; i <= maxIdx; i++) {
             int rounded = trunced[i] << 3;
-            if (rounded < CENTI_CUTOFF) {
+            if (rounded < CENTI_CUTOFF || i == maxIdx) {
                 trunced[i] = rounded | reader.readBits(3);
             } else {
                 // Truncation cuts off 3.5 on average.
