@@ -51,7 +51,7 @@ module.exports = function(vm, getGround) {
   var renderPromotion = function(dest, pieces, color, orientation) {
     if (!promoting) return;
 
-    var left = (8 - util.key2pos(dest)[0]) * 12.5;
+    var left = (8 - cgUtil.key2pos(dest)[0]) * 12.5;
     if (orientation === 'white') left = 87.5 - left;
 
     var vertical = color === orientation ? 'top' : 'bottom';
