@@ -18,16 +18,16 @@ for file in tv.js puzzle.js user.js coordinate.js; do
   comp=$TARGET/$file
   if [[ ! -f $comp || $orig -nt $comp ]]; then
     lilalog "Compiling javascript - $file"
-    closure-compiler --js $orig --js_output_file $comp
-    # uglifyjs -c -m -v $orig > $comp
+    # closure-compiler --js $orig --js_output_file $comp
+    uglifyjs -c -m -v $orig > $comp
   fi
 done
 
 orig="$SRC/util.js $SRC/socket.js $LILA_AB_FILE $SRC/main.js"
 comp=$TARGET/lichess.js
 lilalog "Compiling $comp"
-# uglifyjs -c -m -v $orig > $comp
-closure-compiler --js $orig --js_output_file $comp
+uglifyjs -c -m -v $orig > $comp
+# closure-compiler --js $orig --js_output_file $comp
 cat $SRC/deps.min.js $comp | sed '/^\/\*.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
 
 # add commit sha1
