@@ -14,7 +14,8 @@
   left: -1.85%;
   top: -9.1%;
 }
-.is3d piece.dragging {
+.is3d piece.dragging,
+.is3d #promotion_choice {
   z-index: 70!important;
 }
 #top .dropdown {
