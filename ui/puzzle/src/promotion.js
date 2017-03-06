@@ -54,7 +54,8 @@ module.exports = function(vm, getGround) {
     var vertical = color === orientation ? 'top' : 'bottom';
 
     return m('div#promotion_choice.' + vertical, {
-      onclick: cancel
+      onclick: cancel,
+      oncontextmenu: function() { return false; }
     }, pieces.map(function(serverRole, i) {
       var top = (color === orientation ? i : 7 - i) * 12.5;
       return m('square', {

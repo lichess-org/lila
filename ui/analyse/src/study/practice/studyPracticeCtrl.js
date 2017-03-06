@@ -15,8 +15,10 @@ module.exports = function(root, studyData, data) {
   var goal = m.prop();
   var comment = m.prop();
   var nbMoves = m.prop(0);
-  var success = m.prop(null); // null = ongoing, true = win, false = fail
+  // null = ongoing, true = win, false = fail
+  var success = m.prop(null);
   var sound = makeSound();
+  var analysisUrl = m.prop();
 
   var makeComment = function(treeRoot) {
     if (!treeRoot.comments) return;
@@ -35,6 +37,7 @@ module.exports = function(root, studyData, data) {
     comment(makeComment(root.tree.root));
     var chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
+    analysisUrl('/analysis/standard/' + root.vm.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
   };
   onLoad();
 
@@ -65,6 +68,7 @@ module.exports = function(root, studyData, data) {
   };
 
   var onFailure = function() {
+    root.vm.node.fail = true;
     sound.failure();
   };
 
@@ -77,7 +81,11 @@ module.exports = function(root, studyData, data) {
 
   return {
     onReload: onLoad,
-    onJump: checkSuccess,
+    onJump: function() {
+      // reset failure state if no failed move found in mainline history
+      if (success() === false && !root.vm.nodeList.find(function(n) { return n.fail; })) success(null);
+      checkSuccess();
+    },
     onCeval: checkSuccess,
     data: data,
     goal: goal,
@@ -92,6 +100,7 @@ module.exports = function(root, studyData, data) {
     },
     isWhite: function() {
       return root.bottomColor() === 'white';
-    }
+    },
+    analysisUrl: analysisUrl
   };
 };

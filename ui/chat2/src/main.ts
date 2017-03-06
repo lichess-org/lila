@@ -16,6 +16,8 @@ const patch = init([klass, props, attributes, listeners]);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 
+  const container = element.parentNode as HTMLElement;
+
   let vnode: VNode, ctrl: Ctrl
 
   function redraw() {
@@ -27,7 +29,7 @@ export default function LichessChat(element: Element, opts: ChatOpts) {
   vnode = patch(element, view(ctrl));
 
   window.Mousetrap.bind('/', () => {
-    (element.querySelector('input.lichess_say') as HTMLElement).focus();
+    (container.querySelector('input.lichess_say') as HTMLElement).focus();
     return false;
   });
 

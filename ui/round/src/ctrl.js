@@ -312,7 +312,7 @@ module.exports = function(opts) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
-      var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
+      var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(function() {
         if (!this.chessground.playPremove() && !playPredrop()) {
           promotion.cancel(this);

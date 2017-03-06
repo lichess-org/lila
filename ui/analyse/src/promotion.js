@@ -41,7 +41,8 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {
-    onclick: lichess.partial(cancel, ctrl)
+    onclick: lichess.partial(cancel, ctrl),
+    oncontextmenu: function() { return false; }
   }, pieces.map(function(serverRole, i) {
     var top = (color === orientation ? i : 7 - i) * 12.5;
     return m('square', {

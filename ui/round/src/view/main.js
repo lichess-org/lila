@@ -46,10 +46,10 @@ function renderMaterial(ctrl, material, checks, score) {
 
 function wheel(ctrl, e) {
   if (game.isPlayerPlaying(ctrl.data)) return true;
+  e.preventDefault();
   if (e.deltaY > 0) keyboard.next(ctrl);
   else if (e.deltaY < 0) keyboard.prev(ctrl);
   m.redraw();
-  e.preventDefault();
   return false;
 }
 
@@ -144,8 +144,7 @@ module.exports = function(ctrl) {
     ]),
     m('div.underboard', [
       m('div.center', [
-        cgState && (cgState.premovable.current || cgState.predroppable.current) ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null,
+        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null
       ]),
       blursAndHolds(ctrl)
     ])

@@ -1,8 +1,8 @@
 .is3d .cg-512 .cg-board-wrap {
   height: 464.5px
 }
-body.coords_2 .is3d square[data-coord-x]::after {
-  bottom: calc(-10px - 22%);
+.is3d .cg-board-wrap coords.files {
+  bottom: calc(-12px - 3%);
 }
 .is3d piece {
   /* original size:

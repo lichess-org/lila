@@ -95,7 +95,8 @@ div.game_control {
   display: flex;
   justify-content: space-between;
 }
-div.game_control button {
+div.game_control button,
+div.game_control a {
   background: none;
   border: none;
   padding: 0 12px;
@@ -110,6 +111,7 @@ div.game_control  button:disabled {
   opacity: 0.5;
   cursor: default;
 }
+div.game_control a:hover,
 div.game_control button:hover:not(:disabled) {
   background: rgba(56,147,232,0.8);
   color: #fff;

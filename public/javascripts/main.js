@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
@@ -807,7 +803,6 @@ lichess.notifyApp = (function() {
 
 
   lichess.sound = (function() {
-    var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
     var volumeStorage = lichess.storage.make('sound-volume');
@@ -861,12 +856,11 @@ lichess.notifyApp = (function() {
       }
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
-          return [baseUrl, set, names[k] + '.' + ext + '?v=' + version].join('/');
+          return [baseUrl, set, names[k] + '.' + ext].join('/');
         }),
         volume: volumes[k] || 1
       });
     });
-    var $control = $('#sound_control');
     var $toggle = $('#sound_state');
     var enabled = function() {
       return soundSet !== 'silent';
@@ -1028,15 +1022,10 @@ lichess.notifyApp = (function() {
     }
     $('.crosstable', element).prependTo($('.underboard .center', element)).removeClass('none');
     var $watchers = $('#site_header div.watchers').watchers();
-    var $nowPlaying = $('#now_playing');
     startTournamentClock();
-    var loadPlaying = function() {
-      var $moveOn = $nowPlaying.find('.move_on input').change(function() {
-        round.moveOn.toggle();
-      }).prop('checked', round.moveOn.get());
-    };
-    loadPlaying();
-    $nowPlaying.on('click', '>a', function() {
+    $('#now_playing').find('.move_on input').change(function() {
+      round.moveOn.toggle();
+    }).prop('checked', round.moveOn.get()).on('click', '>a', function() {
       lichess.hasToReload = true;
       return true;
     });
@@ -1218,8 +1207,7 @@ lichess.notifyApp = (function() {
       var minutes = prefixInt(date.getUTCMinutes(), 2);
       var seconds = prefixInt(date.getSeconds(), 2);
       if (this.time >= 3600000) {
-        var hours = prefixInt(date.getUTCHours(), 2);
-        return hours + ':' + minutes + ':' + seconds;
+        return prefixInt(date.getUTCHours(), 2) + ':' + minutes + ':' + seconds;
       } else return minutes + ':' + seconds;
     }
   });

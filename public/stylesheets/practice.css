@@ -1,5 +1,5 @@
-div.game_control {
-  justify-content: center;
+div.game_control .noop {
+  width: 30px;
 }
 
 .study_box .title {
@@ -420,5 +420,5 @@ i.\39 c6GrCTk {
   background-image: url('/assets/images/practice/siege-tower.svg');
 }
 i.Z1DKk4Rl {
-  background-image: url('/assets/images/practice/stone-crafting.svg');  
+  background-image: url('/assets/images/practice/stone-crafting.svg');
 }

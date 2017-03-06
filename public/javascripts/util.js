@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 var lichess = window.lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 8';
@@ -366,8 +362,7 @@ lichess.pubsub = (function() {
 })();
 // wtf was I thinking
 lichess.partial = function() {
-  var fn = arguments[0];
-  return fn.bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
+  return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
 };
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;

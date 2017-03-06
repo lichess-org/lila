@@ -23,7 +23,7 @@ readonly DEPENDENCIES=(
 
     gcc
     make
-    closure-compiler
+    uglifyjs
     openjdk-8-jdk
 )
 
