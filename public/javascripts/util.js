@@ -444,7 +444,9 @@ $.modal.close = function() {
 // polyfills
 
 if (!Array.prototype.find) {
-  Array.prototype.find = function(predicate) {
-    for (var i in this) if (predicate(this[i])) return this[i];
-  };
+  Object.defineProperty(Array.prototype, 'find', {
+    value: function(predicate) {
+      for (var i in this) if (predicate(this[i])) return this[i];
+    }
+  });
 }
