@@ -10,14 +10,14 @@ module.exports = function(vm, getGround) {
     var piece = g.state.pieces[dest];
     if (piece && piece.role == 'pawn' && (
       (dest[1] == 8 && g.state.turnColor == 'black') ||
-      (dest[1] == 1 && g.state.turnColor == 'white'))) {
+        (dest[1] == 1 && g.state.turnColor == 'white'))) {
       promoting = {
         orig: orig,
         dest: dest,
         callback: callback
       };
       m.redraw();
-      return true;
+    return true;
     }
     return false;
   };
@@ -50,7 +50,10 @@ module.exports = function(vm, getGround) {
 
   var renderPromotion = function(dest, pieces, color, orientation) {
     if (!promoting) return;
-    var left = (cgUtil.key2pos(orientation === 'white' ? dest : cgUtil.invertKey(dest))[0] - 1) * 12.5;
+
+    var left = (8 - util.key2pos(dest)[0]) * 12.5;
+    if (orientation === 'white') left = 87.5 - left;
+
     var vertical = color === orientation ? 'top' : 'bottom';
 
     return m('div#promotion_choice.' + vertical, {
@@ -79,7 +82,7 @@ module.exports = function(vm, getGround) {
       var pieces = ['queen', 'knight', 'rook', 'bishop'];
       return renderPromotion(promoting.dest, pieces,
         cgUtil.opposite(getGround().state.turnColor),
-       getGround().state.orientation);
+        getGround().state.orientation);
     }
   };
 };

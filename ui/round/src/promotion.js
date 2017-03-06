@@ -71,7 +71,8 @@ function cancel(ctrl) {
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
-  var left =  (util.key2pos(orientation === 'white' ? dest : util.invertKey(dest))[0] -1) * 12.5;
+  var left = (8 - util.key2pos(dest)[0]) * 12.5;
+  if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {
