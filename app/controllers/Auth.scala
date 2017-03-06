@@ -237,7 +237,9 @@ object Auth extends LilaController {
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
-          UserRepo.passwd(user.id, data.newPasswd1) >> authenticateUser(user)
+          UserRepo.passwd(user.id, data.newPasswd1) >>
+            env.store.disconnect(user.id) >>
+            authenticateUser(user)
         }
       case _ => notFound
     }

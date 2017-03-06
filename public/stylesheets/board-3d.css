@@ -14,8 +14,12 @@
   left: -1.85%;
   top: -9.1%;
 }
-.is3d piece.dragging {
+.is3d piece.dragging,
+.is3d #promotion_choice {
   z-index: 70!important;
+}
+#top .dropdown {
+  z-index: 71;
 }
 .is3d .is2d piece {
   /* copy of board.css to override miniboards */

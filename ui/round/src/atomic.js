@@ -4,15 +4,19 @@ function capture(ctrl, key) {
   var exploding = [];
   var diff = {};
   var orig = util.key2pos(key);
-  for (var x = -1; x < 2; x++) {
-    for (var y = -1; y < 2; y++) {
-      var k = util.pos2key([orig[0] + x, orig[1] + y]);
-      if (k) {
-        exploding.push(k);
-        var explodes = ctrl.chessground.state.pieces[k] && (
-          k === key || ctrl.chessground.state.pieces[k].role !== 'pawn')
-        if (explodes) diff[k] = null;
-      }
+  var minX = Math.max(1, orig[0] - 1),
+    maxX = Math.min(8, orig[0] + 1),
+    minY = Math.max(1, orig[1] - 1),
+    maxY = Math.min(8, orig[1] + 1);
+  var pieces = ctrl.chessground.state.pieces;
+
+  for (var x = minX; x <= maxX; x++) {
+    for (var y = minY; y <= maxY; y++) {
+      var k = util.pos2key([x, y]);
+      exploding.push(k);
+      var explodes = pieces[k] && (
+        k === key || pieces[k].role !== 'pawn')
+      if (explodes) diff[k] = false;
     }
   }
   ctrl.chessground.setPieces(diff);

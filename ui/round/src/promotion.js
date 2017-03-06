@@ -25,12 +25,11 @@ function start(ctrl, orig, dest, meta) {
       else sendPromotion(ctrl, orig, dest, 'queen');
       return true;
     }
-    m.startComputation();
     promoting = {
       move: [orig, dest],
       pre: !!premovePiece
     };
-    m.endComputation();
+    m.redraw();
     return true;
   }
   return false;
@@ -49,8 +48,11 @@ function setPrePromotion(ctrl, dest, role) {
 }
 
 function cancelPrePromotion(ctrl) {
-  if (prePromotionRole) ctrl.chessground.setAutoShapes([]);
-  prePromotionRole = null;
+  if (prePromotionRole) {
+    ctrl.chessground.setAutoShapes([]);
+    prePromotionRole = null;
+    m.redraw();
+  }
 }
 
 function finish(ctrl, role) {
@@ -69,7 +71,8 @@ function cancel(ctrl) {
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
-  var left =  (util.key2pos(orientation === 'white' ? dest : util.invertKey(dest))[0] -1) * 12.5;
+  var left = (8 - util.key2pos(dest)[0]) * 12.5;
+  if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {

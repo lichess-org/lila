@@ -2,7 +2,6 @@ var m = require('mithril');
 var chessground = require('chessground');
 var ground = require('./ground');
 var opposite = chessground.util.opposite;
-var invertKey = chessground.util.invertKey;
 var key2pos = chessground.util.key2pos;
 
 var promoting = false;
@@ -11,14 +10,14 @@ function start(orig, dest, callback) {
   var piece = ground.pieces()[dest];
   if (piece && piece.role == 'pawn' && (
     (dest[1] == 1 && piece.color == 'black') ||
-    (dest[1] == 8 && piece.color == 'white'))) {
+      (dest[1] == 8 && piece.color == 'white'))) {
     promoting = {
       orig: orig,
       dest: dest,
       callback: callback
     };
     m.redraw();
-    return true;
+  return true;
   }
   return false;
 }
@@ -31,7 +30,10 @@ function finish(role) {
 
 function renderPromotion(dest, pieces, color, orientation, explain) {
   if (!promoting) return;
-  var left = (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] - 1) * 12.5;
+
+  var left = (8 - util.key2pos(dest)[0]) * 12.5;
+  if (orientation === 'white') left = 87.5 - left;
+
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, [

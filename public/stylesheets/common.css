@@ -2143,8 +2143,8 @@ textarea.copyable {
   background-attachment: local, local, scroll, scroll;
 }
 [data-hint] {
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 [data-hint]:before,
 [data-hint]:after {
