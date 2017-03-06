@@ -83,8 +83,6 @@ final class Env(
 
   def store = Store
 
-  lazy val disconnect = store disconnect _
-
   lazy val emailConfirm: EmailConfirm =
     if (EmailConfirmEnabled) new EmailConfirmMailGun(
       apiUrl = EmailConfirmMailgunApiUrl,
