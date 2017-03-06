@@ -17,6 +17,9 @@
 .is3d piece.dragging {
   z-index: 70!important;
 }
+#top .dropdown {
+  z-index: 71;
+}
 .is3d .is2d piece {
   /* copy of board.css to override miniboards */
   left: 0;
