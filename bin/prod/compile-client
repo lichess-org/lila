@@ -32,7 +32,7 @@ cat \
   $SRC/vendor/jquery.min.js \
   $SRC/../vendor/moment/min/moment.min.js \
   $SRC/deps.min.js \
-  $comp | sed '/^\/\*.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
+  $comp | sed '/^\/\*.*$/d' | sed '/^\/\/!.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
 
 # add commit sha1
 version=`git rev-parse --short HEAD`
