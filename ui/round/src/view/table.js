@@ -112,7 +112,7 @@ function whosTurn(ctrl, color) {
 
 function anyClock(ctrl, position) {
   var player = playerAt(ctrl, position);
-  if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, player, position);
+  if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
     return renderCorrespondenceClock(
       ctrl.correspondenceClock, ctrl.trans, player.color, position, ctrl.data.game.player
