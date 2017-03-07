@@ -99,8 +99,7 @@ object Auth extends LilaController {
   }
 
   private def mustConfirmEmailByIP(ip: IpAddress, username: String): Fu[Boolean] =
-    fuccess(username.toLowerCase.contains("argeskent")) >>|
-      api.recentByIpExists(ip) >>|
+    api.recentByIpExists(ip) >>|
       Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }
 
   def signupPost = OpenBody { implicit ctx =>

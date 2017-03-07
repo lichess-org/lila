@@ -94,7 +94,10 @@ This is a service email related to your use of lichess.org. If you did not regis
   }
 
   def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
-    case u @ Some(user) => UserRepo setEmailConfirmed user.id inject u
+    case u @ Some(user) => UserRepo.mustConfirmEmail(user.id) flatMap {
+      case true => UserRepo setEmailConfirmed user.id inject u
+      case _ => fuccess(none)
+    }
     case _ => fuccess(none)
   }
 
