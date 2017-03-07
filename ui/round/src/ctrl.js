@@ -44,6 +44,7 @@ module.exports = function(opts) {
     element: opts.element,
     challengeRematched: false,
     justDropped: null,
+    justCaptured: null,
     preDrop: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
@@ -58,13 +59,13 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta))
-    this.sendMove(orig, dest, false, meta.premove);
+    this.sendMove(orig, dest, false, meta);
   }.bind(this);
 
   var onUserNewPiece = function(role, key, meta) {
-    if (!this.replaying() && crazyValid.drop(this.data, role, key))
-    this.sendNewPiece(role, key, meta.predrop);
-    else this.jump(this.vm.ply);
+    if (!this.replaying() && crazyValid.drop(this.data, role, key)) {
+      this.sendNewPiece(role, key, meta.predrop);
+    } else this.jump(this.vm.ply);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -172,19 +173,21 @@ module.exports = function(opts) {
 
   this.setTitle = lichess.partial(title.set, this);
 
-  this.sendMove = function(orig, dest, prom, isPremove) {
+  this.sendMove = function(orig, dest, prom, meta) {
     var move = {
       u: orig + dest
     };
     if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.userId && this.data.pref.submitMove && !isPremove) {
+    if (this.userId && this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
     } else this.socket.send('move', move, {
       ackable: true,
       withLag: !!this.clock
     });
+    this.vm.justDropped = null;
+    this.vm.justCaptured = meta.captured;
     m.redraw();
   }.bind(this);
 
@@ -200,8 +203,9 @@ module.exports = function(opts) {
       ackable: true,
       withLag: !!this.clock
     });
-    this.vm.justDropped = role;
     this.vm.preDrop = null;
+    this.vm.justDropped = role;
+    this.vm.justCaptured = null;
     m.redraw();
   }.bind(this);
 
@@ -298,6 +302,7 @@ module.exports = function(opts) {
     };
     d.steps.push(step);
     this.vm.justDropped = null;
+    this.vm.justCaptured = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     m.endComputation();
@@ -338,6 +343,7 @@ module.exports = function(opts) {
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
+    this.vm.justCaptured = null;
     this.vm.preDrop = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);

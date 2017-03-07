@@ -28,7 +28,8 @@ module.exports = function(vm, getGround) {
     if (piece && piece.role == 'pawn') {
       pieces[key] = {
         color: piece.color,
-        role: role
+        role: role,
+        promoted: true
       };
       g.setPieces(pieces);
     }

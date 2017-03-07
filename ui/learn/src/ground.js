@@ -93,7 +93,8 @@ module.exports = {
     if (piece && piece.role === 'pawn') {
       pieces[key] = {
         color: piece.color,
-        role: role
+        role: role,
+        promoted: true
       };
       cg.setPieces(pieces);
     }
