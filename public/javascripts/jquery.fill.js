@@ -30,4 +30,5 @@
     // no animations to stop
     return this;
   };
+  $.fn.animate = $.fn.css;
 })($);
