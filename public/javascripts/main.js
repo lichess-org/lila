@@ -1183,32 +1183,31 @@ lichess.notifyApp = (function() {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
-      this.time = Math.max(0, this.options.time) * 1000;
-      this.timeEl = this.element.find('>.time')[0];
+      var target = this.options.time * 1000 + Date.now() - 1;
+      var timeEl = this.element.find('>.time')[0];
       var tick = function() {
-        self.time = Math.max(0, self.time - 1000);
-        if (self.time <= 0) clearInterval(self.interval);
-        self._show();
+        var remaining = target - Date.now();
+        if (remaining <= 0) clearInterval(self.interval);
+        timeEl.innerHTML = self._formatMs(remaining);
       };
-      setTimeout(function() {
-        tick();
-        self.interval = setInterval(tick, 1000);
-      }, 1000 - (new Date().getTime()) % 1000);
-      self._show();
+      this.interval = setInterval(tick, 1000);
+      tick();
     },
-    _show: function() {
-      if (this.time < 0) return;
-      this.timeEl.innerHTML = this._formatDate(new Date(this.time));
-    },
-    _formatDate: function(date) {
-      var prefixInt = function(num, length) {
-        return (num / Math.pow(10, length)).toFixed(length).substr(2);
-      };
-      var minutes = prefixInt(date.getUTCMinutes(), 2);
-      var seconds = prefixInt(date.getSeconds(), 2);
-      if (this.time >= 3600000) {
-        return prefixInt(date.getUTCHours(), 2) + ':' + minutes + ':' + seconds;
-      } else return minutes + ':' + seconds;
+
+    _pad: function(x) { return (x < 10 ? '0' : '') + x; },
+
+    _formatMs: function(msTime) {
+      var date = new Date(Math.max(0, msTime));
+
+      var hours = date.getUTCHours(),
+          minutes = date.getUTCMinutes(),
+          seconds = date.getSeconds();
+
+      if (hours > 0) {
+        return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
+      } else {
+        return minutes + ':' + this._pad(seconds);
+      }
     }
   });
 
