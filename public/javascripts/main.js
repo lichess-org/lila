@@ -305,11 +305,11 @@ lichess.notifyApp = (function() {
             return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
           }
         }
-      }).bind('typeahead:render', function() {
+      }).on('typeahead:render', function() {
         lichess.pubsub.emit('content_loaded')();
       });
       if (opts.focus) $input.focus();
-      if (opts.onSelect) $input.bind('typeahead:select', function(ev, sel) {
+      if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
         opts.onSelect(sel);
       }).keypress(function(e) {
         if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());

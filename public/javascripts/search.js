@@ -39,7 +39,7 @@ $(function() {
     });
   }
   reloadUserChoices();
-  $usernames.bind("input paste", reloadUserChoices);
+  $usernames.on("input paste", reloadUserChoices);
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function() {
@@ -88,6 +88,6 @@ $(function() {
       $form.submit();
     };
     $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.bind("keyup", lichess.fp.debounce(submit, 1500));
+    $usernames.on("keyup", lichess.fp.debounce(submit, 1500));
   }
 });

@@ -65,7 +65,7 @@ $(function() {
     });
   }, 1000);
   $editor.find('input, textarea, select')
-    .bind("input paste change keyup", function() {
+    .on("input paste change keyup", function() {
       $editor.find('div.status').removeClass('saved');
       submit();
     });
