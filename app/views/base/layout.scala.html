@@ -193,14 +193,16 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     }
-    @jQueryTag
+    @if(!isProd) { @jQueryTag }
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @momentjsTag
-    @momentLangTag
     @if(isProd) {
     @jsTagCompiled("lichess.js")
+    @momentLangTag
     } else {
+    @momentjsTag
+    @momentLangTag
+    @jsTag("jquery.fill.js")
     @jsTag("deps.min.js")
     @jsTag("util.js")
     @jsTag("socket.js")
