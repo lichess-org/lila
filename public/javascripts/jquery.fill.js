@@ -5,13 +5,15 @@
         action(this);
       });
     });
+    if (cb) cb();
     return els;
   };
-  $.fn.toggle = function(duration, cb) {
+  $.fn.toggle = function(value) {
     return update(this, function(el) {
       // this.style.display = 'block';
-      el.classList.toggle('none');
-    }, cb);
+      var action = typeof value === 'undefined' ? 'toggle' : (value ? 'remove' : 'add');
+      el.classList[action]('none');
+    });
   };
   $.fn.show = $.fn.fadeIn = function(duration, cb) {
     return update(this, function(el) {
