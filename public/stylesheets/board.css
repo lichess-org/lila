@@ -100,7 +100,7 @@ body.highlight .lichess_board.blindfold square.check {
   background: none;
 }
 piece.dragging {
-  z-index: 4;
+  z-index: 5;
   cursor: move;
 }
 piece.anim {
@@ -126,7 +126,7 @@ piece.fading {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 4;
   opacity: 0.6;
 }
 .cg-board-wrap svg image {
