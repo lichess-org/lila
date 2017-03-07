@@ -176,8 +176,9 @@ private[round] final class Socket(
 
     case TvSelect(msg) => watchers.foreach(_ push msg)
 
-    case UserStartGame(userId, _) => watchers filter (_ onUserTv userId) foreach {
-      _ push makeMessage("resync")
+    case UserStartGame(userId, game) => members.foreachValue { m =>
+      if (m.watcher && m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
+        m push makeMessage("resync")
     }
 
     case NotifyCrowd =>

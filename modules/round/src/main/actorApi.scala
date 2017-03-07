@@ -27,7 +27,7 @@ sealed trait Member extends SocketMember {
   def owner = playerIdOption.isDefined
   def watcher = !owner
 
-  def onUserTv(userId: String) = userTv == Some(userId)
+  def onUserTv(userId: String) = userTv has userId
 }
 
 object Member {
