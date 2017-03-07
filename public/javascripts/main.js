@@ -440,8 +440,10 @@ lichess.notifyApp = (function() {
       lichess.pubsub.on('content_loaded', setMoment);
 
       function setMomentFromNow() {
-        $("time.moment-from-now").each(function() {
-          this.textContent = moment(this.getAttribute('datetime')).fromNow();
+        lichess.requestIdleCallback(function() {
+          $("time.moment-from-now").each(function() {
+            this.textContent = moment(this.getAttribute('datetime')).fromNow();
+          });
         });
       }
       setMomentFromNow();
