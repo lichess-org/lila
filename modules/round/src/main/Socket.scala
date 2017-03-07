@@ -83,7 +83,7 @@ private[round] final class Socket(
 
   private def refreshSubscriptions {
     lilaBus.unsubscribe(self)
-    watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
+    members.flatMap { case (_, m) => m.userTv }.toList.distinct foreach { userId =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
     lilaBus.subscribe(self, Symbol(s"chat-$gameId"), Symbol(s"chat-$gameId/w"))
@@ -172,18 +172,18 @@ private[round] final class Socket(
         )
       ))
 
-    case ChangeFeatured(_, msg) => watchers.foreach(_ push msg)
+    case ChangeFeatured(_, msg) => foreachWatcher(_ push msg)
 
-    case TvSelect(msg) => watchers.foreach(_ push msg)
+    case TvSelect(msg) => foreachWatcher(_ push msg)
 
-    case UserStartGame(userId, game) => members.foreachValue { m =>
-      if (m.watcher && m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
+    case UserStartGame(userId, game) => foreachWatcher { m =>
+      if (m.onUserTv(userId) && m.userId.fold(true)(id => !game.userIds.contains(id)))
         m push makeMessage("resync")
     }
 
     case NotifyCrowd =>
       delayedCrowdNotification = false
-      showSpectators(lightUser)(watchers) foreach { spectators =>
+      showSpectators(lightUser)(members.values.filter(_.watcher)) foreach { spectators =>
         val event = Event.Crowd(
           white = ownerIsHere(White),
           black = ownerIsHere(Black),
@@ -244,9 +244,9 @@ private[round] final class Socket(
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
 
-  def watchers: Iterable[Member] = members.values.filter(_.watcher)
-
-  def owners: Iterable[Member] = members.values.filter(_.owner)
+  def foreachWatcher(f: Member => Unit): Unit = members.foreachValue { m =>
+    if (m.watcher) f(m)
+  }
 
   private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))
