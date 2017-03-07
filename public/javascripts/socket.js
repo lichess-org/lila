@@ -187,10 +187,7 @@ lichess.StrongSocket = function(url, version, settings) {
     if (ws) {
       debug("Disconnect", true);
       autoReconnect = false;
-      ws.onerror = $.noop;
-      ws.onclose = $.noop;
-      ws.onopen = $.noop;
-      ws.onmessage = $.noop;
+      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = $.noop;
       ws.close();
     }
     if (onNextConnect) options.onNextConnect = onNextConnect;
