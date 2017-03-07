@@ -434,7 +434,7 @@ mono-piece.king {
   -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
 }
 .pirouetti .is2d piece.piece.ui-draggable-dragging,
-.pirouetti .is2d .piece.animating {
+.pirouetti .is2d .piece.anim {
   -webkit-filter: none!important;
 }
 body.kappa .cg-board-wrap.orientation-white piece.king.white,
