@@ -1182,7 +1182,8 @@ body.piece_letter .tview2 move {
   font-style: italic;
 }
 .tview2 move:not(.empty):hover,
-.tview2 move:not(.empty):hover move index {
+.tview2 move:not(.empty):hover index,
+.tview2 move:not(.empty):hover eval {
   background: #3893e8;
   color: #fff!important;
 }
