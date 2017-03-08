@@ -1079,7 +1079,7 @@ lichess.notifyApp = (function() {
         self.$list = self.element.find("div.list");
         var $title = self.element.find('.title').click(function() {
           var show = hideStorage.get() == 1;
-          self.element.find('.content_wrap').toggle(show);
+          self.element.find('.content_wrap').toggleNone(show);
           if (show) hideStorage.remove();
           else hideStorage.set(1);
         });
