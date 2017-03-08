@@ -391,7 +391,9 @@ module.exports = function(element, cfg) {
       $modeChoicesWrap.toggle(!fen);
       if (fen) {
         $casual.click();
-        document.body.dispatchEvent(new Event('chessground.resize'));
+        lichess.raf(function() {
+          document.body.dispatchEvent(new Event('chessground.resize'));
+        });
       }
       showRating();
       toggleButtons();
