@@ -1085,7 +1085,7 @@ lichess.notifyApp = (function() {
         });
         if (hideStorage.get() == 1) self.element.find('.content_wrap').addClass('none');
         self.$nbOnline = $title.find('.online');
-        self.$nobody = self.element.find("div.nobody");
+        self.$nobody = self.element.find(".nobody");
 
         var users = self.element.data('preload').split(',');
         var playings = self.element.data('playing').split(',');
@@ -1123,7 +1123,7 @@ lichess.notifyApp = (function() {
             return u.name !== '';
           }));
           this.$nbOnline.text(this.users.length);
-          this.$nobody.toggleClass('none', this.users.length > 0);
+          this.$nobody.toggleNone(this.users.length > 0);
           this.$list.html(this.users.sort(function(a, b) {
             return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
           }).map(this._renderUser).join(""));
