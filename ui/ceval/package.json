@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "common": "file:../common",
-    "chess": "file:../chess",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "chess": "file:../chess"
   }
 }

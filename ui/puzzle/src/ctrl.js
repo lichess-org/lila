@@ -223,7 +223,8 @@ module.exports = function(opts, i18n) {
   var nextPuzzle = function() {
     ceval.stop();
     vm.loading = true;
-    xhr.nextPuzzle().then(function(d) {
+    m.redraw();
+    xhr.nextPuzzle().done(function(d) {
       vm.round = null;
       vm.loading = false;
       initiate(d);

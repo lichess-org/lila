@@ -81,7 +81,7 @@ object Puzzle extends LilaController {
           renderJson(puzzle, infos, ctx.isAuth.fold("play", "try"), voted = none) map { json =>
             Ok(json) as JSON
           }
-      } map (_ as JSON)
+      }
     }
   }
 
