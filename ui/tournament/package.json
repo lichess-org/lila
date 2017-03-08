@@ -32,6 +32,6 @@
     "chessground": "^v6.4",
     "common": "file:../common",
     "game": "file:../game",
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
+    "mithril": "github:ornicar/mithril.js#lila-1"
   }
 }

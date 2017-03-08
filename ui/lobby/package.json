@@ -32,6 +32,6 @@
   "dependencies": {
     "chessground": "^6.4",
     "common": "file:../common",
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
+    "mithril": "github:ornicar/mithril.js#lila-vdom-only-1"
   }
 }

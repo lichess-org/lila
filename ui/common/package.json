@@ -27,7 +27,5 @@
     "vinyl-source-stream": "^1",
     "watchify": "^3"
   },
-  "dependencies": {
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
-  }
+  "dependencies": {}
 }
