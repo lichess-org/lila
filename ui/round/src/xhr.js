@@ -1,39 +1,26 @@
-var m = require('mithril');
-
-var xhrConfig = function(xhr) {
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+var headers = {
+  'Accept': 'application/vnd.lichess.v2+json'
 };
 
-function uncache(url) {
-  return url + '?_=' + new Date().getTime();
-}
-
 function reload(ctrl) {
-  var req = m.request({
-    method: 'GET',
-    url: uncache(ctrl.data.url.round),
-    config: xhrConfig
-  });
-  req.then(function() {}, function(err) {
-    lichess.reload();
-  });
-  return req;
+  return $.ajax({
+    url: ctrl.data.url.round,
+    headers: headers
+  }).fail(lichess.reload);
 }
 
 function whatsNext(ctrl) {
-  return m.request({
-    method: 'GET',
-    url: uncache('/whats-next/' + ctrl.data.game.id + ctrl.data.player.id),
-    config: xhrConfig
+  return $.ajax({
+    url: '/whats-next/' + ctrl.data.game.id + ctrl.data.player.id,
+    headers: headers
   });
 }
 
 function challengeRematch(gameId) {
-  return m.request({
+  return $.ajax({
     method: 'POST',
     url: '/challenge/rematch-of/' + gameId,
-    config: xhrConfig
+    headers: headers
   });
 }
 
