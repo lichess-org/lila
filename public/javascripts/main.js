@@ -1078,9 +1078,10 @@ lichess.notifyApp = (function() {
         var hideStorage = lichess.storage.make('friends-hide');
         self.$list = self.element.find("div.list");
         var $title = self.element.find('.title').click(function() {
-          self.element.find('.content_wrap').toggle(100, function() {
-            hideStorage.set($(this).is(':visible') ? 0 : 1);
-          });
+          var show = hideStorage.get() == 1;
+          self.element.find('.content_wrap').toggle(show);
+          if (show) hideStorage.remove();
+          else hideStorage.set(1);
         });
         if (hideStorage.get() == 1) self.element.find('.content_wrap').addClass('none');
         self.$nbOnline = $title.find('.online');

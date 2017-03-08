@@ -3,18 +3,18 @@
     lichess.raf(function() {
       $.each(els, function() {
         action(this);
+        if (cb) cb.apply(this);
       });
     });
-    if (cb) cb();
     return els;
   };
-  $.fn.toggle = function(show) {
+  $.fn.toggle = function(show, cb) {
     $.each(this, function() {
-      if (typeof show === 'undefined') {
+      if (typeof show === 'undefined' || typeof show === 'number') {
         show = this.classList.contains('none') || this.style.display !== 'block';
       }
-      if (show) $(this).show();
-      else $(this).hide();
+      if (show) $(this).show(0, cb);
+      else $(this).hide(0, cb);
     });
     return this;
   };
