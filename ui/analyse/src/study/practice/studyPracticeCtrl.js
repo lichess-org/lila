@@ -1,6 +1,6 @@
 var m = require('mithril');
 var xhr = require('../studyXhr');
-var embedYoutube = require('../studyComments').embedYoutube;
+var enrichText = require('../studyComments').enrichText;
 var makeSuccess = require('./studyPracticeSuccess');
 var makeSound = require('./sound');
 
@@ -22,7 +22,7 @@ module.exports = function(root, studyData, data) {
 
   var makeComment = function(treeRoot) {
     if (!treeRoot.comments) return;
-    var c = embedYoutube(treeRoot.comments[0].text);
+    var c = enrichText(treeRoot.comments[0].text);
     delete treeRoot.comments;
     return c;
   };

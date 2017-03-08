@@ -1,7 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var plural = require('../../util').plural;
-var renderComment = require('../studyComments').embedYoutube;
+var enrichText = require('../studyComments').enrichText;
 
 var firstRender = true;
 
@@ -68,7 +68,7 @@ module.exports = {
       default:
         return m('div.feedback.ongoing', [
           m('div.goal', renderGoal(p, p.goal().moves - p.nbMoves())),
-          p.comment() ? m('div.comment', renderComment(p.comment(), true)) : null
+          p.comment() ? m('div.comment', enrichText(p.comment(), true)) : null
         ]);
     }
   },

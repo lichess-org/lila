@@ -130,6 +130,9 @@ div.underboard .notif.error {
 .study_comments .text iframe {
   margin: 10px 0;
 }
+.study_comments .text a {
+  color: #3893E8!important;
+}
 .study_comments .edit {
   float: right;
   margin-left: 8px;

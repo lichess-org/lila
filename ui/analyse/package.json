@@ -32,12 +32,13 @@
     "watchify": "^3"
   },
   "dependencies": {
+    "autolink-js": "^1.0.2",
+    "ceval": "file:../ceval",
+    "chess": "file:../chess",
     "chessground": "^6.4",
     "common": "file:../common",
-    "chess": "file:../chess",
     "game": "file:../game",
-    "tree": "file:../tree",
-    "ceval": "file:../ceval",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "mithril": "github:ornicar/mithril.js#lila-1",
+    "tree": "file:../tree"
   }
 }
