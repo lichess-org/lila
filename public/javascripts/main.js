@@ -371,7 +371,7 @@ lichess.notifyApp = (function() {
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
 
     // delay so round starts first (just for perceived perf)
-    setTimeout(function() {
+    lichess.requestIdleCallback(function() {
 
       $('#friend_box').friends();
 
@@ -800,7 +800,7 @@ lichess.notifyApp = (function() {
           $.post('/set-fingerprint/' + res + '/' + time);
         });
       }, 500);
-    }, 50);
+    });
   });
 
 
@@ -1247,7 +1247,7 @@ lichess.notifyApp = (function() {
       startWatching();
     });
 
-    setTimeout(function() {
+    lichess.requestIdleCallback(function() {
       lichess.parseFen();
       setTimeout(function() {
         $('div.checkmateCaptcha').each(function() {
@@ -1298,7 +1298,7 @@ lichess.notifyApp = (function() {
           };
         });
       }, 1000);
-    }, 200);
+    });
   });
 
   ///////////////////
