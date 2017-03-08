@@ -149,11 +149,12 @@ module.exports = function(env) {
   }.bind(this);
 
   this.gameActivity = function(gameId) {
-    if (this.data.nowPlaying.filter(function(p) {
+    if (this.data.nowPlaying.find(function(p) {
       return p.gameId === gameId;
-    }).length) xhr.nowPlaying().then(function(povs) {
+    })) xhr.nowPlaying().then(function(povs) {
       this.data.nowPlaying = povs;
       this.startWatching();
+      m.redraw();
     }.bind(this));
   }.bind(this);
 
