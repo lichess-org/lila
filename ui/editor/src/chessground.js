@@ -74,15 +74,13 @@ function onMouseEvent(ctrl) {
   };
 }
 
-var global3d = document.getElementById('top').classList.contains('is3d');
-
 function makeConfig(ctrl) {
   return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.embed,
     autoCastle: false,
-    addPieceZIndex: ctrl.cfg.is3d || global3d,
+    addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,
       color: 'both',

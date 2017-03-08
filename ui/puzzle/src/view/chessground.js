@@ -9,8 +9,6 @@ module.exports = function(ctrl) {
   });
 }
 
-var global3d = document.getElementById('top').classList.contains('is3d');
-
 function makeConfig(ctrl) {
   var opts = ctrl.makeCgOpts();
   return {
@@ -20,7 +18,7 @@ function makeConfig(ctrl) {
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== 0,
-    addPieceZIndex: ctrl.pref.is3d || global3d,
+    addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,
       color: opts.movable.color,

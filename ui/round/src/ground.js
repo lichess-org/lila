@@ -4,8 +4,6 @@ var util = require('./util');
 var round = require('./round');
 var m = require('mithril');
 
-var global3d = !!document.querySelector('#top.is3d');
-
 function makeConfig(ctrl) {
   var data = ctrl.data, hooks = ctrl.makeCgHooks();
   var step = round.plyStep(data, ctrl.vm.ply);
@@ -17,7 +15,7 @@ function makeConfig(ctrl) {
     lastMove: util.uci2move(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
-    addPieceZIndex: ctrl.data.pref.is3d || global3d,
+    addPieceZIndex: ctrl.data.pref.is3d,
     autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
