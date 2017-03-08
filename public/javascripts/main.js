@@ -1123,7 +1123,7 @@ lichess.notifyApp = (function() {
             return u.name !== '';
           }));
           this.$nbOnline.text(this.users.length);
-          this.$nobody.toggleNone(this.users.length > 0);
+          this.$nobody.toggleNone(!this.users.length);
           this.$list.html(this.users.sort(function(a, b) {
             return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
           }).map(this._renderUser).join(""));
