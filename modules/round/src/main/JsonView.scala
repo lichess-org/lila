@@ -197,11 +197,17 @@ final class JsonView(
               "showCaptured" -> pref.captured,
               "is3d" -> pref.is3d
             ),
-            "tv" -> tv.map { onTv =>
-              Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
-            },
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
-          ).noNull
+          ).add(
+              "tv" -> tv.collect {
+                case OnLichessTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+              }
+            ).add(
+                "userTv" -> tv.collect {
+                  case OnUserTv(name) => Json.obj("name" -> name)
+                }
+              )
+
       }
 
   private implicit val userLineWrites = OWrites[lila.chat.UserLine] { l =>
