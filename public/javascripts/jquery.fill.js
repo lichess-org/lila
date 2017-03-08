@@ -8,12 +8,15 @@
     if (cb) cb();
     return els;
   };
-  $.fn.toggle = function(value) {
-    return update(this, function(el) {
-      // this.style.display = 'block';
-      var action = typeof value === 'undefined' ? 'toggle' : (value ? 'remove' : 'add');
-      el.classList[action]('none');
+  $.fn.toggle = function(show) {
+    $.each(this, function() {
+      if (typeof show === 'undefined') {
+        show = this.classList.contains('none') || this.style.display !== 'block';
+      }
+      if (show) $(this).show();
+      else $(this).hide();
     });
+    return this;
   };
   $.fn.show = $.fn.fadeIn = function(duration, cb) {
     return update(this, function(el) {

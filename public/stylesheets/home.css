@@ -699,10 +699,12 @@ div.game_config .ratings > div {
 div.game_config .color_submits {
   margin: 1em auto;
   text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 div.game_config button {
-  display: inline-block;
-  margin: 0 5px;
+  margin: 0 8px;
 }
 div.game_config button.nope {
   visibility: hidden;
