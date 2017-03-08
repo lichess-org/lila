@@ -170,7 +170,7 @@ object Round extends LilaController with TheftPrevention {
               Env.api.roundApi.watcher(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u => lila.round.OnUserTv(u.username) }
+                tv = userTv.map { u => lila.round.OnUserTv(u.id) }
               ) zip
                 Env.bookmark.api.exists(pov.game, ctx.me) map {
                   case tour ~ simul ~ chat ~ crosstable ~ data ~ bookmarked =>

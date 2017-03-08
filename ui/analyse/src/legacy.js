@@ -12,7 +12,7 @@ module.exports = function(element, cfg) {
         name: "analyse"
       },
       params: {
-        userTv: data.userTv && data.userTv.name
+        userTv: data.userTv && data.userTv.id
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
