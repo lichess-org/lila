@@ -8,6 +8,13 @@
     });
     return els;
   };
+  $.fn.toggleNone = function(show) {
+    update(this, function(el) {
+      if (show !== undefined) show = !show;
+      el.classList.toggle('none', show);
+    });
+    return this;
+  };
   $.fn.toggle = function(show, cb) {
     $.each(this, function() {
       if (typeof show === 'undefined' || typeof show === 'number') {

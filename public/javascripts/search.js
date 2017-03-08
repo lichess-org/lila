@@ -30,7 +30,7 @@ $(function() {
       options.push(option.join(""));
     });
     $(row).find('select').html(options.join(""));
-    $(row).toggle(options.length > 1);
+    $(row).toggleNone(options.length > 1);
   }
 
   function reloadUserChoices() {
@@ -43,8 +43,8 @@ $(function() {
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function() {
-      $form.find(".aiLevel").toggle($(this).val() == 1);
-      $form.find(".opponentName").toggle($(this).val() != 1);
+      $form.find(".aiLevel").toggleNone($(this).val() == 1);
+      $form.find(".opponentName").toggleNone($(this).val() != 1);
     });
   };
   toggleAiLevel();
