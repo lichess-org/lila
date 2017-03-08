@@ -33,6 +33,6 @@
     "chessground": "^6.4",
     "common": "file:../common",
     "game": "file:../game",
-    "mithril": "github:ornicar/mithril.js#lila-vdom-only-1"
+    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }
 }
