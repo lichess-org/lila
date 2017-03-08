@@ -1,60 +1,46 @@
-var m = require('mithril');
-
-var xhrConfig = function(xhr) {
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
+var headers = {
+  'Accept': 'application/vnd.lichess.v2+json'
 };
-
-function uncache(url) {
-  return url + '?_=' + new Date().getTime();
-}
 
 module.exports = {
 
   reload: function(baseUrl, id, chapterId) {
     var url = '/' + baseUrl + '/' + id;
     if (chapterId) url += '/' + chapterId;
-    return m.request({
-      method: 'GET',
-      url: uncache(url),
-      config: xhrConfig,
-      background: true
+    return $.ajax({
+      url: url,
+      headers: headers
     });
   },
 
   variants: function() {
-    return m.request({
-      method: 'GET',
+    return $.ajax({
       url: '/variant',
-      config: xhrConfig,
-      background: true
+      headers: headers,
+      cache: true
     });
   },
 
   glyphs: function() {
-    return m.request({
-      method: 'GET',
+    return $.ajax({
       url: '/glyphs',
-      config: xhrConfig,
-      background: true
+      headers: headers,
+      cache: true
     });
   },
 
   chapterConfig: function(studyId, chapterId) {
-    return m.request({
-      method: 'GET',
-      url: uncache(['/study', studyId, chapterId, 'meta'].join('/')),
-      config: xhrConfig,
-      background: true
+    return $.ajax({
+      url: ['/study', studyId, chapterId, 'meta'].join('/'),
+      headers: headers
     });
   },
 
   practiceComplete: function(chapterId, nbMoves) {
-    return m.request({
+    return $.ajax({
       method: 'POST',
       url: ['/practice/complete', chapterId, nbMoves].join('/'),
-      config: xhrConfig,
-      background: true
+      headers: headers
     });
   }
 };
