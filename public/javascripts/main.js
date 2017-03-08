@@ -919,6 +919,14 @@ lichess.notifyApp = (function() {
       });
     });
 
+    play.warmup = function() {
+      if (enabled()) {
+        // See goldfire/howler.js#715
+        Howler._autoResume();   // This resumes sound if suspended.
+        Howler._autoSuspend();  // This starts the 30s timer to suspend.
+      }
+    };
+
     play.set = function() {
       return soundSet;
     };
@@ -1185,7 +1193,7 @@ lichess.notifyApp = (function() {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
-      var target = this.options.time * 1000 + Date.now() - 1;
+      var target = this.options.time * 1000 + Date.now();
       var timeEl = this.element.find('>.time')[0];
       var tick = function() {
         var remaining = target - Date.now();
@@ -1199,11 +1207,11 @@ lichess.notifyApp = (function() {
     _pad: function(x) { return (x < 10 ? '0' : '') + x; },
 
     _formatMs: function(msTime) {
-      var date = new Date(Math.max(0, msTime));
+      var date = new Date(Math.max(0, msTime + 500));
 
       var hours = date.getUTCHours(),
           minutes = date.getUTCMinutes(),
-          seconds = date.getSeconds();
+          seconds = date.getUTCSeconds();
 
       if (hours > 0) {
         return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
