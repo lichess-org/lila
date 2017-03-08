@@ -119,17 +119,17 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     ctrl.unflip();
     ctrl.reloadData(d.analysis);
     configureAnalysis();
-    ctrl.chessground.set({
-      orientation: d.analysis.orientation
-    });
     vm.loading = false;
+
+    ctrl.chessground = undefined; // don't apply changes to old cg; wait for new cg
+
     if (vm.behind === false || vm.catchingUp) ctrl.userJump(data.position.path);
     else ctrl.userJump('');
 
     configurePractice();
 
     vm.catchingUp = false;
-    m.redraw.strategy("all");
+    m.redraw.strategy("all"); // create a new cg
     m.redraw();
     ctrl.startCeval();
   };
