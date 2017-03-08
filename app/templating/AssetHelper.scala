@@ -4,8 +4,8 @@ package templating
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.common.AssetVersion
 import lila.api.Context
+import lila.common.AssetVersion
 
 trait AssetHelper { self: I18nHelper =>
 
@@ -44,11 +44,9 @@ trait AssetHelper { self: I18nHelper =>
   def jsAt(path: String, static: Boolean = true)(implicit ctx: Context): Html =
     jsAt(path, static, ctx.pageData.assetVersion)
 
-  val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
-    test = "window.jQuery",
-    local = staticUrl("javascripts/vendor/jquery.min.js")
-  )
+  val jQueryTag = Html {
+    s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
+  }
 
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",
