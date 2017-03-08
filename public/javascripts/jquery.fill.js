@@ -22,6 +22,7 @@
     return update(this, function(el) {
       el.style.display = 'block';
       el.classList.remove('none');
+      el.style.opacity = 1;
     }, cb);
   };
   $.fn.hide = $.fn.fadeOut = function(duration, cb) {
@@ -33,5 +34,11 @@
     // no animations to stop
     return this;
   };
-  $.fn.animate = $.fn.css;
+  $.fn.animate = function(prop, speed, easing, callback) {
+    $.fn.css(prop);
+    [speed, easing, callback].forEach(function(f) {
+      if ($.isFunction(f)) f();
+    });
+    return this;
+  }
 })($);
