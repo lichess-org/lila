@@ -196,11 +196,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @jsAt(s"compiled/lichess.site${isProd??(".min")}.js", async = true)
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
-    @if(lang.language != "en") {
-    @embedJs {
-    lichess_translations = @jsI18n()
-    }
-    }
+    @if(lang.language != "en") { @embedJs { lichess_translations = @jsI18n() } }
     @if(withGtm) {@gtm()}
   </body>
 </html>
