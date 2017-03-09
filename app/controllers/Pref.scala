@@ -33,6 +33,11 @@ object Pref extends LilaController {
     )
   }
 
+  def setZoom = Action { implicit req =>
+    val zoom = getInt("v", req) | 100
+    Ok(()).withCookies(LilaCookie.session("zoom", zoom.toString))
+  }
+
   def set(name: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     (setters get name) ?? {

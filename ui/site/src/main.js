@@ -661,7 +661,16 @@ lichess.notifyApp = (function() {
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
-      var manuallySetZoom = lichess.fp.debounce(setZoom, 10);
+      var saveZoom = lichess.fp.debounce(function() {
+        $.ajax({
+          method: 'post',
+          url: '/pref/zoom?v=' + Math.round(getZoom() * 100)
+        });
+      }, 500);
+      var manuallySetZoom = lichess.fp.debounce(function(z) {
+        setZoom(z);
+        saveZoom();
+      }, 10);
       if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
       lichess.pubsub.on('reset_zoom', function() {
         if (getZoom() > 1) setZoom(getZoom());
