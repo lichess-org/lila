@@ -28,6 +28,8 @@ function isRightClick(e) {
 }
 
 function onMouseEvent(ctrl) {
+  var lastKey;
+
   return function(e) {
     var sel = ctrl.vm.selected();
 
@@ -42,19 +44,30 @@ function onMouseEvent(ctrl) {
       ) return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
+      var pieces = {};
       if (sel === 'trash') {
-        var pieces = {};
         pieces[key] = false;
         ctrl.chessground.setPieces(pieces);
       } else {
+        var existingPiece = ctrl.chessground.state.pieces[key];
         var piece = {};
         piece.color = sel[0];
         piece.role = sel[1];
-        var pieces = {};
-        pieces[key] = piece;
-        ctrl.chessground.cancelMove();
-        ctrl.chessground.setPieces(pieces);
+
+        if (
+          e.type === 'mousedown' && existingPiece &&
+            piece.color === existingPiece.color &&
+            piece.role === existingPiece.role
+        ) {
+          pieces[key] = false;
+          ctrl.chessground.setPieces(pieces);
+        } else if (e.type === 'mousedown' || key !== lastKey) {
+          pieces[key] = piece;
+          ctrl.chessground.cancelMove();
+          ctrl.chessground.setPieces(pieces);
+        }
       }
+      lastKey = key;
       ctrl.onChange();
     } else if (isRightClick(e)) {
       if (sel !== 'pointer') {
