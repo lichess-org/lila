@@ -52,7 +52,10 @@ function makeBundle(filename) {
       '../../public/javascripts/vendor/jquery.min.js',
       './dist/jquery.fill.js',
       '../../public/vendor/moment/min/moment.min.js',
-      './dep/misc.min.js',
+      './dep/powertip.min.js',
+      './dep/howler.min.js',
+      './dep/mousetrap.min.js',
+      './dep/hoverintent.min.js',
       './dist/' + filename,
       './dist/ab.js',
       '../../public/javascripts/ga.js'
