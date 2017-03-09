@@ -23,7 +23,7 @@ for file in tv.js puzzle.js user.js coordinate.js; do
   fi
 done
 
-orig="$SRC/jquery.fill.js $SRC/util.js $SRC/socket.js $LILA_AB_FILE $SRC/main.js"
+orig="$SRC/jquery.fill.js $SRC/util.js $SRC/socket.js $LILA_AB_FILE $SRC/main.js $SRC/ga.js"
 comp=$TARGET/lichess.js
 lilalog "Compiling $comp"
 uglifyjs -c -m -v $orig > $comp

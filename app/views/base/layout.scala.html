@@ -213,6 +213,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     lichess_translations = @jsI18n()
     }
     }
-    @if(withGtm) {@gtm()} else {@ga()}
+    @if(withGtm) {@gtm()}
   </body>
 </html>
