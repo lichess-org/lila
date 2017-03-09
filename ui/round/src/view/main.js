@@ -52,25 +52,6 @@ function wheel(ctrl, e) {
   return false;
 }
 
-function renderVariantReminder(ctrl) {
-  if (!game.isPlayerPlaying(ctrl.data) || ctrl.data.game.speed !== 'correspondence') return;
-  if (ctrl.data.game.variant.key === 'standard') return;
-  var icon = perf.icons[ctrl.data.game.perf];
-  if (!icon) return;
-  return m('div', {
-    class: 'variant_reminder is',
-    'data-icon': icon,
-    config: function(el, isUpdate) {
-      if (!isUpdate) setTimeout(function() {
-        el.classList.add('gone');
-        setTimeout(function() {
-          el.remove();
-        }, 600);
-      }, 800);
-    }
-  });
-}
-
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div', {
@@ -81,8 +62,7 @@ function visualBoard(ctrl) {
         });
       }
     }, chessground(ctrl)),
-    renderPromotion(ctrl),
-    renderVariantReminder(ctrl)
+    renderPromotion(ctrl)
   ]);
 }
 

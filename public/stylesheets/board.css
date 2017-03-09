@@ -406,27 +406,6 @@ div.lichess_overboard.padded {
   font-size: 1.2em;
   padding: 1em 0;
 }
-.lichess_board_wrap .variant_reminder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  transition: 0.6s;
-  text-shadow: 7px 10px 2px rgba(0, 0, 0, 0.3);
-  width: 512px;
-  height: 512px;
-  line-height: 512px;
-  text-align: center;
-}
-.lichess_board_wrap .variant_reminder::before {
-  font-size: 290px;
-  opacity: 0.9;
-  color: #888;
-}
-.lichess_board_wrap .variant_reminder.gone {
-  opacity: 0;
-  transform: translateY(-100px);
-}
 #promotion_choice {
   position: absolute;
   top: 0;
