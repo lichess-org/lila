@@ -22,19 +22,3 @@ for file in tv.js puzzle.js user.js coordinate.js; do
     uglifyjs -c -m -v $orig > $comp
   fi
 done
-
-orig="$SRC/jquery.fill.js $SRC/util.js $SRC/socket.js $LILA_AB_FILE $SRC/main.js $SRC/ga.js"
-comp=$TARGET/lichess.js
-lilalog "Compiling $comp"
-uglifyjs -c -m -v $orig > $comp
-# closure-compiler --js $orig --js_output_file $comp
-cat \
-  $SRC/vendor/jquery.min.js \
-  $SRC/../vendor/moment/min/moment.min.js \
-  $SRC/deps.min.js \
-  $comp | sed '/^\/\*.*$/d' | sed '/^\/\/!.*$/d' | sed '/^\s*$/d' > $comp.tmp; mv $comp.tmp $comp
-
-# add commit sha1
-version=`git rev-parse --short HEAD`
-versioner="lichess.version='$version';"
-echo $versioner >> $comp

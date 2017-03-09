@@ -13,8 +13,16 @@ var onError = function(error) {
 };
 var standalone = 'Lichess';
 
+var abFile = process.env.LILA_AB_FILE;
+if (!process.env.LILA_AB_FILE) gutil.log('Building without AB file');
+
 gulp.task('jquery-fill', function() {
   return gulp.src('src/jquery.fill.js')
+    .pipe(streamify(uglify()))
+    .pipe(gulp.dest('./dist'));
+});
+gulp.task('ab', function() {
+  return gulp.src(process.env.LILA_AB_FILE)
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
 });
@@ -46,6 +54,7 @@ function makeBundle(filename) {
       '../../public/vendor/moment/min/moment.min.js',
       './dep/misc.min.js',
       './dist/' + filename,
+      './dist/ab.js',
       '../../public/javascripts/ga.js'
     ])
       .pipe(concat(filename.replace('source.', '')))
@@ -56,8 +65,8 @@ function makeBundle(filename) {
 gulp.task('dev-bundle', makeBundle('lichess.site.source.js'));
 gulp.task('prod-bundle', makeBundle('lichess.site.source.min.js'));
 
-gulp.task('dev', ['jquery-fill', 'dev-source', 'dev-bundle']);
-gulp.task('prod', ['jquery-fill', 'prod-source', 'prod-bundle']);
+gulp.task('dev', ['jquery-fill', 'ab', 'dev-source', 'dev-bundle']);
+gulp.task('prod', ['jquery-fill', 'ab', 'prod-source', 'prod-bundle']);
 
 gulp.task('dev-watch', function() {
   return gulp.watch('src/*.js', ['dev']);
