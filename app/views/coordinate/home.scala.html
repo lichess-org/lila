@@ -18,7 +18,8 @@ moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess board coordinates trainer",
 url = s"$netBaseUrl${routes.Coordinate.home.url}",
-description = "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square.").some) {
+description = "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square.").some,
+zoomable = true) {
 <div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>

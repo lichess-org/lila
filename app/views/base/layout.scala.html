@@ -16,6 +16,7 @@ atom: Option[Html] = None,
 chessground: Boolean = true,
 withLangAnnotations: Boolean = true,
 withGtm: Boolean = false,
+zoomable: Boolean = false,
 asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
@@ -31,7 +32,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @cssTag("common.css")
     @cssTag("board.css")
-    @if(!chessground) {
+    @if(zoomable) {
     @ctx.zoom.map { z =>
     @zoomStyle(z / 100f) }
     }
