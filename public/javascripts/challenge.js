@@ -1,5 +1,7 @@
-lichess = lichess || {};
-lichess.startChallenge = function(element, opts) {
+window.onload = function() {
+  if (!window.lichess_challenge) return;
+  var opts = lichess_challenge;
+  var element = document.getElementById('challenge');
   var challenge = opts.data.challenge;
   var accepting;
   if (!opts.owner) lichess.openInMobileApp('/challenge/' + challenge.id);

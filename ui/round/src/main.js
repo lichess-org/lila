@@ -24,6 +24,6 @@ module.exports = function(opts) {
 // without having to include it a second time
 window.Chessground = require('chessground').Chessground;
 
-if (window.lichess_round) window.onload = function() {
-  boot(window.lichess_round, document.getElementById('lichess'));
+window.onload = function() {
+  if (window.lichess_round) boot(window.lichess_round, document.getElementById('lichess'));
 };
