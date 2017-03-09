@@ -26,7 +26,7 @@ module.exports = {
 
     if (game.isPlayerPlaying(d)) {
       window.addEventListener('beforeunload', function(e) {
-        if (!lichess.hasToReload && !ctrl.data.blind && game.playable(ctrl.data) && ctrl.data.clock) {
+        if (!lichess.hasToReload && !ctrl.data.blind && game.playable(ctrl.data) && ctrl.data.clock && !ctrl.data.opponent.ai) {
           document.body.classList.remove('fpmenu');
           ctrl.socket.send('bye2');
           var msg = 'There is a game in progress!';
