@@ -355,7 +355,7 @@ lichess.notifyApp = (function() {
       var fun = lichess.fp.debounce(doParseFen, 400, false);
       setTimeout(function() {
         fun = doParseFen;
-      }, 1000);
+      }, 700);
       return function($elem) {
         fun($elem);
       };
