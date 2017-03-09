@@ -193,7 +193,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @jsAt(s"compiled/lichess.site${if(isProd) ".min" else ""}.js")
+    @jsAt(s"compiled/lichess.site${isProd??(".min")}.js", async = false)
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") {
