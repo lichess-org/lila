@@ -55,8 +55,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.currentTheme3d.cssClass,
     if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
     ctx.currentPieceSet3d,
-    ctx.pref.highlight ?? "highlight",
-    ctx.pref.destination ?? "destination",
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",

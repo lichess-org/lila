@@ -36,43 +36,43 @@ square {
   width: 12.5%;
   height: 12.5%;
 }
-body.destination .cg-board square.move-dest {
+.cg-board square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
 }
-body.destination .cg-board square.oc.move-dest {
+.cg-board square.oc.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
-body.destination .cg-board square.premove-dest {
+.cg-board square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
 }
-body.destination .cg-board square.oc.premove-dest {
+.cg-board square.oc.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
 }
-body.highlight .cg-board square.move-dest:hover {
+.cg-board square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
 }
-body.highlight .cg-board square.premove-dest:hover {
+.cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
-body.highlight .cg-board square.check {
+.cg-board square.check {
   background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
 }
-body.base .cg-board square.selected {
+.cg-board square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
-body.highlight .cg-board square.last-move,
+.cg-board square.last-move,
 .mini_board .cg-board square.last-move {
   will-change: transform;
   background-color: rgba(155, 199, 0, 0.41);
 }
-body.base .cg-board square.current-premove {
+.cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
 }
-body.base .cg-board square.exploding1 {
+.cg-board square.exploding1 {
   background-color: rgba(255, 255, 255, 0.5);
 }
-body.base .cg-board square.exploding2 {
+.cg-board square.exploding2 {
   background-color: rgba(255, 0, 0, 0.5);
   transition: background-color 0.1s;
 }
@@ -96,7 +96,7 @@ piece {
 .other_games.blindfold piece {
   opacity: 0;
 }
-body.highlight .lichess_board.blindfold square.check {
+.lichess_board.blindfold square.check {
   background: none;
 }
 piece.dragging {
@@ -169,9 +169,6 @@ piece.fading {
 }
 .cg-board-wrap coords.ranks coord {
   transform: translateY(39%);
-}
-body.coords_0 .cg-board-wrap coords {
-  display: none;
 }
 body.coords_1 .cg-board-wrap coords {
   color: #fff;
