@@ -15,7 +15,8 @@ openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
 withLangAnnotations: Boolean = true,
-withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
+withGtm: Boolean = false,
+asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -198,7 +199,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @jsAt(s"compiled/lichess.site${isProd??(".min")}.js", async = true)
+    @jsAt(s"compiled/lichess.site${isProd??(".min")}.js", async = asyncJs)
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") { @embedJs { lichess_translations = @jsI18n() } }

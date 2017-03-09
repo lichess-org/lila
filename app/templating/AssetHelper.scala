@@ -33,7 +33,8 @@ trait AssetHelper { self: I18nHelper =>
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
     cssAt(path, staticDomain, ctx.pageData.assetVersion)
 
-  def jsTag(name: String)(implicit ctx: Context) = jsAt("javascripts/" + name)
+  def jsTag(name: String, async: Boolean = false)(implicit ctx: Context) =
+    jsAt("javascripts/" + name, async = async)
 
   def jsTagCompiled(name: String)(implicit ctx: Context) =
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
