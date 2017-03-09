@@ -45,7 +45,8 @@ function makeBundle(filename) {
       './dist/jquery.fill.js',
       '../../public/vendor/moment/min/moment.min.js',
       './dep/misc.min.js',
-      './dist/' + filename
+      './dist/' + filename,
+      '../../public/javascripts/ga.js'
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(gulp.dest(destination));
