@@ -27,7 +27,7 @@ lichess.StrongSocket = function(url, version, settings) {
     destroy();
     autoReconnect = true;
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
-    debug("connection attempt to " + fullUrl, true);
+    debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
       ws.onerror = function(e) {
@@ -40,7 +40,7 @@ lichess.StrongSocket = function(url, version, settings) {
         }
       };
       ws.onopen = function() {
-        debug("connected to " + fullUrl, true);
+        debug("connected to " + fullUrl);
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
@@ -171,7 +171,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var debug = function(msg, always) {
-    if ((always || options.debug) && window.console && console.debug) {
+    if (always || options.debug) {
       console.debug("[" + options.name + " " + settings.params.sri + "]", msg);
     }
   };
