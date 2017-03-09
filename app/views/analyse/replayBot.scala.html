@@ -4,41 +4,20 @@
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.opening.ecoName)}" }
 
-@moreJs = {
-@embedJs {
-Chessground(document.querySelector('#lichess .analyse .lichess_board'), {
-viewOnly: true,
-fen: "@{chess.format.Forsyth.>>(pov.game.toChess)}",
-orientation: "@pov.color.name"
-});
-}
-}
-
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false).some,
 chat = none,
 underchat = views.html.game.watchers().some,
-moreJs = moreJs,
 moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
-chessground = true) {
+chessground = false) {
 <div class="analyse cg-512">
-  <div class="top">
-    <div class="lichess_game">
-      <div class="lichess_board_wrap">
-        <div class="lichess_board">
-          <div class="cg-board-wrap">
-            <div class="cg-board"></div>
-          </div>
-        </div>
-      </div>
-      <div class="lichess_ground for_bot">
-        <h1>@titleGame(pov.game)</h1>
-        <p>@describePov(pov)</p>
-        <p>@pov.game.opening.map(_.opening.ecoName)</p>
-      </div>
-    </div>
+  @round.domPreload(pov)
+  <div class="lichess_ground for_bot">
+    <h1>@titleGame(pov.game)</h1>
+    <p>@describePov(pov)</p>
+    <p>@pov.game.opening.map(_.opening.ecoName)</p>
   </div>
 </div>
 <div class="advice_summary">
