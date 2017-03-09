@@ -706,8 +706,8 @@ div.game_config .color_submits {
 div.game_config button {
   margin: 0 8px;
 }
-div.game_config button.nope {
-  visibility: hidden;
+div.game_config button.nope, div.game_config span.nope {
+  display: none;
 }
 div.game_config button:disabled {
   opacity: 0.3;

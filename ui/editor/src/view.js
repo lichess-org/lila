@@ -93,19 +93,43 @@ function controls(ctrl, fen) {
       }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
-      m('a.button', {
-        onclick: function() {
-          $.modal($('.continue_with'));
-        }
-      },
-      m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon=U]', {
+          onclick: function() {
+            $.ajax({
+              url: '/setup/validate-fen?fen=' + fen,
+              method: 'get',
+              success: function(data) {
+                $.ajax({
+                  url: '/setup/validate-fen?fen=' + fen + '&strict=1',
+                  method: 'get',
+                  success: function(data) {
+                    $.modal($('.continue_with#all'));
+                  },
+                  error: function(error) {
+                    $.modal($('.continue_with#friend'));
+                  }
+                });
+              },
+              error: function(error) {
+                alert(ctrl.trans('positionUnplayable'));
+              }
+            });
+          }
+        }, ctrl.trans('continueFromHere')) : m('span.button.disabled.text[data-icon="U"]', {
+        }, ctrl.trans('continueFromHere'))
     ]),
-    ctrl.embed ? null : m('div.continue_with', [
+    ctrl.embed ? null : m('div.continue_with#all', [
       m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
       m('br'),
+      m('a.button', {
+        href: '/?fen=' + fen + '#friend',
+        rel: 'nofollow'
+      }, ctrl.trans('playWithAFriend'))
+    ]),
+    ctrl.embed ? null : m('div.continue_with#friend', [
       m('a.button', {
         href: '/?fen=' + fen + '#friend',
         rel: 'nofollow'

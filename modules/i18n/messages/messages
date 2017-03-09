@@ -194,6 +194,7 @@ leaderboard=Leaderboard
 pasteTheFenStringHere=Paste the FEN text here
 pasteThePgnStringHere=Paste the PGN text here
 fromPosition=From position
+positionUnplayable=Position unplayable
 continueFromHere=Continue from here
 importGame=Import game
 nbImportedGames=%s Imported games
