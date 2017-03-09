@@ -3,11 +3,11 @@
   position: relative;
   min-height: 600px;
 }
-#trainer .board_and_ground {
+.board_and_ground {
   display: flex;
   align-items: center;
 }
-#trainer .board_and_ground .cg-board-wrap {
+.board_and_ground .cg-board-wrap {
   width: 512px;
   height: 512px;
 }
