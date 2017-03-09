@@ -1,3 +1,5 @@
+// var start = new Date(); var millis = 2000; while (new Date() - millis < start) {}
+
 lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');

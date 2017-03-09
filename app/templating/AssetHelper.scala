@@ -38,11 +38,11 @@ trait AssetHelper { self: I18nHelper =>
   def jsTagCompiled(name: String)(implicit ctx: Context) =
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
-  def jsAt(path: String, static: Boolean, version: AssetVersion): Html = Html {
-    s"""<script src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
+  def jsAt(path: String, static: Boolean, async: Boolean, version: AssetVersion): Html = Html {
+    s"""<script${if (async) " async" else ""} src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
   }
-  def jsAt(path: String, static: Boolean = true)(implicit ctx: Context): Html =
-    jsAt(path, static, ctx.pageData.assetVersion)
+  def jsAt(path: String, static: Boolean = true, async: Boolean = false)(implicit ctx: Context): Html =
+    jsAt(path, static, async, ctx.pageData.assetVersion)
 
   val jQueryTag = Html {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
