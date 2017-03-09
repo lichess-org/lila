@@ -9,7 +9,7 @@ import play.twirl.api.Html
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.{ User, UserContext }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -189,8 +189,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameResult(game: Game) =
     if (game.finished) chess.Color.showResult(game.winnerColor)
     else "*"
-
-  lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
 
   def gameLink(
     game: Game,
