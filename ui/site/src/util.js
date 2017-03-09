@@ -2,9 +2,6 @@ var lichess = window.lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 8';
 
-// declare now, populate later in a distinct script.
-var lichess_translations = lichess_translations || [];
-
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.storage = (function() {

@@ -952,7 +952,7 @@ lichess.notifyApp = (function() {
   })();
 
   lichess.globalTrans = function() {
-    var str = lichess_translations[arguments[0]];
+    var str = window.lichess_translations && lichess_translations[arguments[0]];
     if (!str) return arguments[0];
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
