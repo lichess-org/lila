@@ -1,4 +1,4 @@
-module.exports = function(element, cfg) {
+module.exports = function(cfg, element) {
   var lobby;
   var nbRoundSpread = $.spreadNumber(
     document.querySelector('#nb_games_in_play span'),

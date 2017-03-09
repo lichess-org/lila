@@ -25,5 +25,5 @@ module.exports = function(opts) {
 window.Chessground = require('chessground').Chessground;
 
 window.onload = function() {
-  if (window.lichess_round) boot(window.lichess_round, document.getElementById('lichess'));
+  if (window.lichess_round) boot(lichess_round, document.getElementById('lichess'));
 };
