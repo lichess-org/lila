@@ -4,7 +4,6 @@ var plyStep = require('../round').plyStep;
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
 var chessground = require('../ground').render;
-var cgBoard = require('chessground/board');
 var fenRead = require('chessground/fen').read;
 var mod = require('game').view.mod;
 var util = require('../util');
