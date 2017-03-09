@@ -49,6 +49,11 @@
   </form>
   }
   }
+  @if(isGranted(_.RemoveRanking)) {
+  <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
+    <input class="button" type="submit" value="Kick from ranking" />
+  </form>
+  }
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />
