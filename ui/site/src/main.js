@@ -1,4 +1,4 @@
-// var start = new Date(); var millis = 2000; while (new Date() - millis < start) {}
+// var start = new Date(); var millis = 500; while (new Date() - millis < start) {}
 
 lichess.challengeApp = (function() {
   var instance, booted;
@@ -557,7 +557,7 @@ lichess.notifyApp = (function() {
                 $('link[href*="board.css"]').clone().each(function() {
                   $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
                 });
-              setZoom(getZoom());
+              setZoom(currentZoom);
             };
             $themepicker.find('.background a').click(function() {
               background = $(this).data('bg');
@@ -593,7 +593,7 @@ lichess.notifyApp = (function() {
                 max: 2,
                 range: 'min',
                 step: 0.01,
-                value: getZoom(),
+                value: currentZoom,
                 slide: function(e, ui) {
                   manuallySetZoom(ui.value);
                 }
@@ -612,11 +612,11 @@ lichess.notifyApp = (function() {
       });
 
       // Zoom
-      var getZoom = function() {
-        return lichess.isTrident ? 1 : (lichess.storage.get('zoom') || 1);
-      };
+      var currentZoom = lichess.isTrident ? 1 : $('body').data('zoom') / 100;
+
       var setZoom = function(zoom) {
-        lichess.storage.set('zoom', zoom);
+
+        currentZoom = zoom;
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
         var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
@@ -662,19 +662,26 @@ lichess.notifyApp = (function() {
       };
 
       var saveZoom = lichess.fp.debounce(function() {
+        console.log(currentZoom);
         $.ajax({
           method: 'post',
-          url: '/pref/zoom?v=' + Math.round(getZoom() * 100)
+          url: '/pref/zoom?v=' + Math.round(currentZoom * 100)
         });
       }, 500);
       var manuallySetZoom = lichess.fp.debounce(function(z) {
         setZoom(z);
         saveZoom();
       }, 10);
-      if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
       lichess.pubsub.on('reset_zoom', function() {
-        if (getZoom() > 1) setZoom(getZoom());
+        if (currentZoom > 1) setZoom(currentZoom);
       });
+
+      // migrate from storage to cookie DELETE ME - 09/03/17
+      var oldZoom = lichess.storage.get('zoom');
+      if (oldZoom) {
+        manuallySetZoom(oldZoom);
+        lichess.storage.remove('zoom');
+      }
 
       function translateTexts() {
         $('.trans_me').each(function() {
