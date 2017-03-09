@@ -31,6 +31,7 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     @cssTag("common.css")
     @cssTag("board.css")
     @if(ctx.is3d) { @cssTag("board-3d.css") }
+    @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
@@ -59,7 +60,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     ctx.isMobileBrowser ?? "mobile",
-    "coords_" + ctx.pref.coords,
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
     data-user="@ctx.userId"
