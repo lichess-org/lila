@@ -5,13 +5,6 @@
 
 SRC=public/javascripts
 TARGET=public/compiled
-AB_FILE=${LILA_AB_FILE:-missing}
-
-if [ ! -f $AB_FILE ]; then
-  echo "Building without AB file"
-fi
-
-mkdir -p public/compiled
 
 for file in tv.js puzzle.js user.js coordinate.js; do
   orig=$SRC/$file
