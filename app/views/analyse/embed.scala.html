@@ -21,8 +21,7 @@
   <body class="base highlight @List(
     ctx.currentTheme.cssClass,
     if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
-    ctx.pref.pieceNotationIsLetter ?? "piece_letter",
-    "coords_1").mkString(" ")">
+    ctx.pref.pieceNotationIsLetter ?? "piece_letter").mkString(" ")">
     <div class="is2d">
       <div class="embedded_analyse analyse cg-512">@miniBoardContent</div>
     </div>
