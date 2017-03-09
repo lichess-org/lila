@@ -1,5 +1,6 @@
 var ctrl = require('./ctrl');
 var view = require('./view/main');
+var boot = require('./boot');
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -22,3 +23,7 @@ module.exports = function(opts) {
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = require('chessground').Chessground;
+
+if (window.lichess_round) window.onload = function() {
+  boot(window.lichess_round, document.getElementById('lichess'));
+};

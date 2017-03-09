@@ -101,7 +101,7 @@ module.exports = {
       config: function(el, isUpdate) {
         if (!isUpdate) ctrl.setChessground(Chessground(el, makeConfig(ctrl)));
       }
-    });
+    }, m('div.cg-board'));
   },
   boardOrientation: boardOrientation,
   reload: reload,
