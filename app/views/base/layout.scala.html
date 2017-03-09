@@ -191,21 +191,9 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     }
-    @if(!isProd) { @jQueryTag }
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @if(isProd) {
-    @jsTagCompiled("lichess.js")
-    @momentLangTag
-    } else {
-    @momentjsTag
-    @momentLangTag
-    @jsTag("jquery.fill.js")
-    @jsTag("deps.min.js")
-    @jsTag("util.js")
-    @jsTag("socket.js")
-    @jsTag("main.js")
-    }
+    @jsAt(s"compiled/lichess.site${if(isProd) ".min" else ""}.js")
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") {
