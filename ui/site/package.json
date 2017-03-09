@@ -15,8 +15,7 @@
     "gulp-uglify": "^2",
     "gulp-util": "^3",
     "uglify-js": "^2",
-    "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "vinyl-source-stream": "^1"
   },
   "dependencies": {
     "gulp-concat": "^2.6.1"
