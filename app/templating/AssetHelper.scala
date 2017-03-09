@@ -103,7 +103,7 @@ trait AssetHelper { self: I18nHelper =>
   )
 
   val fingerprintTag = Html {
-    """<script src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+    """<script async src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
