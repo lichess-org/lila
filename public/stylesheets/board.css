@@ -371,14 +371,6 @@ mono-piece.king {
 #top piece.companion {
   background-image: url(../piece/companion/wN.svg);
 }
-body.kappa .cg-board-wrap.orientation-white piece.white.king,
-body.kappa .cg-board-wrap.orientation-black piece.black.king {
-  background-image: url(../piece/other/kappa.png);
-}
-body.doggy .cg-board-wrap.orientation-white piece.white.pawn,
-body.doggy .cg-board-wrap.orientation-black piece.black.pawn {
-  background-image: url(../piece/other/doggy.png);
-}
 div.lichess_overboard {
   position: absolute;
   z-index: 4;

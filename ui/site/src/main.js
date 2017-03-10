@@ -801,15 +801,6 @@ lichess.notifyApp = (function() {
         else $('#ham-plate').click();
         return false;
       });
-      Mousetrap.bind('g h', function() {
-        location.href = '/';
-      });
-      Mousetrap.bind(': k a p p a', function() {
-        $('body').toggleClass('kappa');
-      });
-      Mousetrap.bind(': d o g g y', function() {
-        $('body').toggleClass('doggy');
-      });
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = +new Date();
