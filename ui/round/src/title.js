@@ -1,6 +1,11 @@
 var game = require('game').game;
 var status = require('game').status;
-var visible = require('./util').visible;
+
+function visible() {
+  return !document[['hidden', 'webkitHidden', 'mozHidden', 'msHidden'].find(function(k) {
+    return k in document;
+  })];
+}
 
 var initialTitle = document.title;
 var tickDelay = 400;
@@ -8,27 +13,20 @@ var F = [
   '/assets/images/favicon-32-white.png',
   '/assets/images/favicon-32-black.png'
 ].map(function(path) {
-  var link = document.createElement('link');
-  link.type = 'image/x-icon';
-  link.rel = 'shortcut icon';
-  link.id = 'dynamic-favicon';
-  link.href = path;
   return function() {
-    var oldLink = document.getElementById('dynamic-favicon');
-    if (oldLink) document.head.removeChild(oldLink);
-    document.head.appendChild(link);
+    document.getElementById('favicon').href = path;
   };
 });
 var iteration = 0;
 var tick = function(ctrl) {
-  if (!visible() && status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
+  if (visible()) {
+    if (iteration) F[0]();
+  }
+  else if (status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
     F[++iteration % 2]();
   }
   setTimeout(lichess.partial(tick, ctrl), tickDelay);
 };
-visible(function(v) {
-  if (v) F[0]();
-});
 
 var init = function(ctrl) {
   if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(lichess.partial(tick, ctrl), tickDelay);
