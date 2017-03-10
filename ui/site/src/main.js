@@ -680,6 +680,8 @@ lichess.notifyApp = (function() {
       if (oldZoom) {
         manuallySetZoom(oldZoom);
         lichess.storage.remove('zoom');
+      } else if(currentZoom > 1 && $('body > .content.is3d').length) {
+        setZoom(currentZoom);
       }
 
       function translateTexts() {
