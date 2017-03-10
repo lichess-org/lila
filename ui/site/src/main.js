@@ -321,6 +321,9 @@ lichess.notifyApp = (function() {
 
   lichess.parseFen = (function() {
     var doParseFen = function($elem) {
+      if (!Chessground) return $(window).on('load', function() {
+        doParseFen($elem);
+      });
       if (!$elem || !$elem.jquery) {
         $elem = $('.parse_fen');
       }
