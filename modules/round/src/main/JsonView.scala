@@ -189,6 +189,7 @@ final class JsonView(
             ),
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
+              "destination" -> pref.destination,
               "highlight" -> pref.highlight,
               "coords" -> pref.coords,
               "replay" -> pref.replay,

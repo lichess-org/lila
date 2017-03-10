@@ -15,21 +15,22 @@ module.exports = function(ctrl) {
 }
 
 function makeConfig(ctrl) {
-  var opts = ctrl.makeCgOpts();
+  var d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
   var config = {
     turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
     lastMove: opts.lastMove,
-    orientation: ctrl.data.orientation,
-    coordinates: ctrl.data.pref.coords !== 0,
-    addPieceZIndex: ctrl.data.pref.is3d,
+    orientation: d.orientation,
+    coordinates: pref.coords !== 0,
+    addPieceZIndex: pref.is3d,
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,
       color: opts.movable.color,
       dests: opts.movable.dests,
-      rookCastle: ctrl.data.pref.rookCastle
+      showDests: pref.destination,
+      rookCastle: pref.rookCastle
     },
     events: {
       move: ctrl.userMove,
@@ -43,12 +44,11 @@ function makeConfig(ctrl) {
       eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
     },
     highlight: {
-      lastMove: ctrl.data.pref.highlight,
-      check: ctrl.data.pref.highlight
+      lastMove: pref.highlight,
+      check: pref.highlight
     },
     animation: {
-      enabled: true,
-      duration: ctrl.data.pref.animationDuration
+      duration: pref.animationDuration
     },
     disableContextMenu: true
   };
