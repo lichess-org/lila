@@ -160,7 +160,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       }
       <a id="reconnecting" class="fright link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
-    <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         <div id="notifications"></div>

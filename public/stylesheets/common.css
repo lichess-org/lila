@@ -850,9 +850,6 @@ body.offline #reconnecting,
 #hamburger {
   font-size: 16px;
 }
-#fpmenu {
-  display: none;
-}
 #topmenu {
   position: absolute;
   top: 0;
