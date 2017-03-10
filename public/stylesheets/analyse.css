@@ -258,11 +258,6 @@ body.piece_letter .pv_box .pv span {
   font-weight: bold;
   background: #e0e0e0;
 }
-.ceval_box pearl .cpu {
-  font-family: Roboto;
-  font-weight: 300;
-  opacity: 0.5;
-}
 .ceval_box .engine {
   opacity: 0.7;
   flex: 1 0;

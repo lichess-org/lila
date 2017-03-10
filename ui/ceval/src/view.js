@@ -136,7 +136,7 @@ module.exports = {
       pearl = '-';
       percent = 0;
     } else {
-      pearl = m('span.cpu', 'CPU');
+      pearl = enabled ? m('span.ddloader') : m('span');
       percent = 0;
     }
     if (threatMode) {

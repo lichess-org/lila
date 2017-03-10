@@ -305,6 +305,23 @@ ul.ui-autocomplete li a.ui-state-focus {
   animation: spinnerDash 1.275s ease-in-out infinite;
   stroke: #ddd;
 }
+/* duckduckgo small horizontal loader */
+@keyframes ddloader {
+  0% { background-position: left }
+  100% { background-position: right }
+}
+.ddloader {
+  background: url(../images/loader/blackx1.png) no-repeat;
+  animation: ddloader 0.5s steps(15) infinite;
+  vertical-align: middle;
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+}
+body.dark .ddloader {
+  background-image: url(../images/loader/whitex1.png);
+}
+
 #powerTip,
 #hook,
 #miniGame {
