@@ -6,7 +6,6 @@ var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 var concat = require('gulp-concat');
 
-var sources = ['./src/index.js'];
 var destination = '../../public/compiled/';
 var onError = function(error) {
   gutil.log(gutil.colors.red(error.message));
@@ -65,8 +64,14 @@ function makeBundle(filename) {
   };
 }
 
+gulp.task('util', function() {
+  return gulp.src('./src/util.js')
+    .pipe(streamify(uglify()))
+    .pipe(gulp.dest(destination));
+});
+
 gulp.task('dev', ['jquery-fill', 'ab', 'dev-source'], makeBundle('lichess.site.source.js'));
-gulp.task('prod', ['jquery-fill', 'ab', 'prod-source'], makeBundle('lichess.site.source.min.js'));
+gulp.task('prod', ['jquery-fill', 'ab', 'util', 'prod-source'], makeBundle('lichess.site.source.min.js'));
 
 gulp.task('default', ['dev'], function() {
   return gulp.watch('src/*.js', ['dev']);
