@@ -611,6 +611,7 @@ lichess.notifyApp = (function() {
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
           url: $links.data('url'),
+          cache: true,
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
@@ -676,7 +677,6 @@ lichess.notifyApp = (function() {
       }, 500);
     });
   });
-
 
   lichess.sound = (function() {
     var baseUrl = lichess.assetUrl('/assets/sound', true);
