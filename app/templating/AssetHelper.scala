@@ -69,12 +69,6 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  val momentjsTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
-    test = "window.moment",
-    local = staticUrl("vendor/moment/min/moment.min.js")
-  )
-
   def momentLangTag(implicit ctx: lila.api.Context) = {
     val l = lang(ctx)
     ((l.language, l.country.toLowerCase) match {
