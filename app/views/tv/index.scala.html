@@ -25,7 +25,7 @@ description = s"Sit back, relax, and watch the best ${channel.name.toLowerCase} 
 url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 ).some) {
 <div class="round cg-512">
-  @round.domPreload(pov)
+  @board.domPreload(pov.some)
 </div>
 <div class="crosstable none">
   @cross.map { c =>

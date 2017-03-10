@@ -38,5 +38,7 @@ trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
 ).str() + s" Played by ${puzzle.attempts} players.").some,
 zoomable = true) {
-<div id="puzzle" class="cg-512">@miniBoardContent</div>
+<div id="puzzle" class="cg-512">
+  @board.domPreload(none)
+</div>
 }

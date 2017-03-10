@@ -13,7 +13,7 @@ moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
 chessground = false) {
 <div class="analyse cg-512">
-  @round.domPreload(pov)
+  @board.domPreload(pov.some)
   <div class="lichess_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>

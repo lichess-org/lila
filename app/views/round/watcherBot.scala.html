@@ -10,7 +10,7 @@ underchat = views.html.game.watchers().some,
 chessground = false,
 openGraph = povOpenGraph(pov).some) {
 <div class="round cg-512">
-  @domPreload(pov)
+  @board.domPreload(pov.some)
   <div class="lichess_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>
