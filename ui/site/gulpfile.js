@@ -64,14 +64,17 @@ function makeBundle(filename) {
   };
 }
 
-gulp.task('util', function() {
-  return gulp.src('./src/util.js')
+gulp.task('standalones', function() {
+  return gulp.src([
+    './src/util.js',
+    './src/themepicker.js'
+  ])
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
 
-gulp.task('dev', ['jquery-fill', 'ab', 'dev-source'], makeBundle('lichess.site.source.js'));
-gulp.task('prod', ['jquery-fill', 'ab', 'util', 'prod-source'], makeBundle('lichess.site.source.min.js'));
+gulp.task('dev', ['jquery-fill', 'ab', 'standalones', 'dev-source'], makeBundle('lichess.site.source.js'));
+gulp.task('prod', ['jquery-fill', 'ab', 'standalones', 'prod-source'], makeBundle('lichess.site.source.min.js'));
 
 gulp.task('default', ['dev'], function() {
   return gulp.watch('src/*.js', ['dev']);
