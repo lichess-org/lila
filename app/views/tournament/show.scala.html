@@ -21,12 +21,17 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout, p
 }
 }
 
+@moreCss = {
+@if(tour.isCreated) { @cssTag("quote.css") }
+}
+
 @tournament.layout(
 title = s"${tour.fullName} #${tour.id}",
 side = tournament.side(tour, verdicts).some,
 chat = chat.dom().some,
 underchat = underchat.some,
 moreJs = moreJs,
+moreCss = moreCss,
 chessground = false,
 openGraph = tournamentOpenGraph(tour).some) {
 <div id="tournament" @tour.schedule.map { sched =>

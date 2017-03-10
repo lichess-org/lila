@@ -2245,47 +2245,6 @@ input.cmn-toggle-round:checked + label::before {
 input.cmn-toggle-round:checked + label::after {
   margin-left: 20px;
 }
-.pull-quote {
-  margin: 0 auto;
-  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-  font-size: 15px;
-  text-align: left;
-}
-.pull-quote p {
-  position: relative;
-  margin: 0 10px;
-  padding: 15px 0;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  font-style: italic;
-}
-.pull-quote.long p {
-  font-size: 14px;
-}
-.pull-quote p:after {
-  content: '';
-  position: absolute;
-  bottom: -9px;
-  left: 42px;
-  width: 15px;
-  height: 15px;
-  background: #eee;
-  border-left: 1.5px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  transform: skew(45deg) rotate(-45deg);
-}
-.content_box .pull-quote p:after,
-.lichess_overboard .pull-quote p:after {
-  background: #fff;
-}
-.pull-quote footer {
-  margin: 10px;
-  line-height: 20px;
-  text-align: right;
-}
-.pull-quote footer:before {
-  content: '\2014';
-}
 .hopscotch-content a {
   text-decoration: underline;
 }

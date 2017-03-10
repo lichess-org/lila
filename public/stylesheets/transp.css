@@ -123,12 +123,6 @@ body.transp #start_buttons a {
   transition: 0.13s;
   box-shadow: 0 0 9px rgba(255, 255, 255, 0.4);
 }
-body.transp .pull-quote p:after,
-body.transp .content_box .pull-quote p:after,
-body.transp div.lichess_overboard .pull-quote p:after {
-    background: linear-gradient(45deg, #505050, #505050 55%, transparent 55%, transparent);
-    border: none;
-}
 body.transp #start_buttons a:hover {
   background: rgba(20, 20, 20, 0.6);
 }

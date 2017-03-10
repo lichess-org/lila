@@ -1,13 +1,14 @@
-@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = Html(""), moreCss: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
+@evenMoreCss = {
 @cssTag("simul.css")
+@moreCss
 }
 
 @base.layout(
 title = title,
 moreJs = moreJs,
-moreCss = moreCss,
+moreCss = evenMoreCss,
 side = side,
 chat = chat,
 underchat = underchat,
