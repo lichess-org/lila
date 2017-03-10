@@ -785,6 +785,7 @@ lichess.notifyApp = (function() {
         });
 
       $('#ham-plate').click(function() {
+        lichess.loadCss('/assets/stylesheets/fpmenu.css');
         document.body.classList.toggle('fpmenu');
       });
 

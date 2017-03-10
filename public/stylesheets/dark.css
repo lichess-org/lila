@@ -516,39 +516,6 @@ body.dark #lobby_playban,
 body.dark #lobby_current_game {
   background: rgba(0,0,0,0.7);
 }
-body.dark #fpmenu {
-  background: #1c2328;
-  color: #aeaeae;
-}
-body.dark #fpmenu h2 {
-  color: #aeaeae;
-}
-body.dark #fpmenu .login input {
-  background-color: #1c2328;
-  border-color: #404040;
-}
-body.dark #fpmenu .login input.submit {
-  background: #d59120;
-}
-body.dark #fpmenu .user,
-body.dark #fpmenu .anon {
-  border-color: #444;
-}
-body.dark #fpmenu a.signup {
-  background: #1c2328;
-  border: 1px solid #555;
-  color: inherit;
-}
-body.dark #fpmenu a.signup:hover {
-  background: #d59120;
-  color: #fff;
-}
-body.dark #fpmenu .perf strong {
-  color: #aeaeae;
-}
-body.dark #fpmenu .perf::before {
-  color: #8b6523;
-}
 body.dark #topmenu section > a {
   color: #777;
   text-shadow: 0 1px 1px #000;
