@@ -73,6 +73,7 @@ module.exports = function(cfg, element) {
   cfg.onChange = function(d) {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
+  cfg.crosstableEl = element.querySelector('.crosstable');
   // cfg.isGuineaPig = $('body').data('guineapig');
   round = LichessRound(cfg);
   if (cfg.chat) {
@@ -82,7 +83,6 @@ module.exports = function(cfg, element) {
       chat = c;
     });
   }
-  $('.crosstable', element).prependTo($('.underboard .center', element)).removeClass('none');
   var $watchers = $('#site_header div.watchers').watchers();
   startTournamentClock();
   $('#now_playing').find('.move_on input').change(function() {

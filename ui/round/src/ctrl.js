@@ -26,6 +26,7 @@ module.exports = function(opts) {
   this.data = round.merge({}, opts.data).data;
 
   this.userId = opts.userId;
+  this.opts = opts;
 
   this.vm = {
     ply: init.startPly(this.data),
@@ -41,7 +42,6 @@ module.exports = function(opts) {
     goneBerserk: {},
     resignConfirm: false,
     autoScroll: null,
-    element: opts.element,
     challengeRematched: false,
     justDropped: null,
     justCaptured: null,

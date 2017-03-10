@@ -120,9 +120,11 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', [
-        ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null
-      ]),
+      m('div.center', {
+        config: function(el, isUpdate) {
+          if (!isUpdate && ctrl.opts.crosstableEl) el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
+        }
+      }, ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null),
       blursAndHolds(ctrl)
     ])
   ];
