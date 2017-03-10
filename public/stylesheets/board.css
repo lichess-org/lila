@@ -704,16 +704,16 @@ div.table_wrap .clock > .time {
 div.table_wrap .correspondence.clock > .time {
   font-size: 20px;
 }
-div.table_wrap .clock .time tenths {
+div.table_wrap .clock tenths {
   font-size: 70%;
 }
-div.table_wrap .clock .time huns {
+div.table_wrap .clock huns {
   font-size: 80%;
 }
-div.table_wrap .clock .time sep {
+div.table_wrap .clock sep {
   opacity: 0.6;
 }
-div.table_wrap .clock .time sep.low {
+div.table_wrap .clock sep.low {
   opacity: 0.15;
 }
 div.table_wrap .clock.running .time {
