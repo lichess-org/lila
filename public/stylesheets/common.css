@@ -1663,10 +1663,6 @@ div.vstext .right {
   float: right;
   text-align: right;
 }
-div.extra_top {
-  float: right;
-  margin: 20px 20px 0 0;
-}
 .mini_board {
   display: block;
 }
@@ -1731,7 +1727,6 @@ div.extra_top {
   width: 160px;
   height: 160px;
 }
-/* opening.css */
 
 div.game_config button {
   font-size: 1.4em;
@@ -1748,16 +1743,6 @@ div.lichess_overboard h2 {
 div.lichess_overboard .target {
   display: inline-block;
   margin-bottom: 2em;
-}
-div.auth input.username,
-div.auth input.password {
-  border: 1px solid #dadada;
-  padding: 2px 3px;
-  width: 100px;
-  background: #fff;
-}
-div.auth input.login {
-  padding: 0 3px;
 }
 .undertable {
   font-size: 11.5px;
@@ -1801,14 +1786,6 @@ div.undertable_inner {
 }
 .undertable tr:first-child td {
   border-top: none;
-}
-div.lichess_overboard.joining .submit {
-  font-size: 1.2em;
-  margin-top: 1em;
-  padding: 0.6em 1em;
-}
-div.lichess_overboard.joining .mini_board {
-  margin: 10px auto;
 }
 .crosstable table {
   width: 100%;
