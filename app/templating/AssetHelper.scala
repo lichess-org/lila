@@ -40,7 +40,7 @@ trait AssetHelper { self: I18nHelper =>
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   def jsAt(path: String, static: Boolean, async: Boolean, version: AssetVersion): Html = Html {
-    s"""<script${if (async) " async" else ""} src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
+    s"""<script${if (async) " async defer" else ""} src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
   }
   def jsAt(path: String, static: Boolean = true, async: Boolean = false)(implicit ctx: Context): Html =
     jsAt(path, static, async, ctx.pageData.assetVersion)
@@ -104,7 +104,7 @@ trait AssetHelper { self: I18nHelper =>
   )
 
   val fingerprintTag = Html {
-    """<script async src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+    """<script async defer src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
