@@ -26,11 +26,13 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 ).some) {
 <div class="round cg-512">
   @board.domPreload(pov.some)
-</div>
-<div class="crosstable none">
-  @cross.map { c =>
-  @game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-  }
+  <div class="underboard"><div class="center">
+      @cross.map { c =>
+      <div class="crosstable">
+        @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
+      </div>
+      }
+  </div></div>
 </div>
 <div class="game_list playing tv_history">
   <h2>Previously on @channel.name TV</h2>
