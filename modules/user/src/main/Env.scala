@@ -65,7 +65,7 @@ final class Env(
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
     }
-  })), 'adjustCheater, 'adjustBooster, 'userActive)
+  })), 'adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings)
 
   {
     import scala.concurrent.duration._
