@@ -74,7 +74,6 @@ module.exports = function(cfg, element) {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
   cfg.crosstableEl = element.querySelector('.crosstable');
-  // cfg.isGuineaPig = $('body').data('guineapig');
   round = LichessRound(cfg);
   if (cfg.chat) {
     cfg.chat.preset = getPresetGroup(cfg.data);
