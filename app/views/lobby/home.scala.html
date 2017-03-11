@@ -85,9 +85,6 @@ url = netBaseUrl,
 description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents.str()
 ).some,
 asyncJs = true) {
-<div id="call_boxes">
-  @translationCall.map(i18n.callBox(_))
-</div>
 <div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
   @currentGame.map(currentGameInfo(_))
   <div id="hooks_wrap"></div>

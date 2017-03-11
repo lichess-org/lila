@@ -36,8 +36,6 @@ trait I18nHelper {
   def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
   def shortLangName(lang: String): Option[String] = langName(lang) map (_ takeWhile (','!=))
 
-  def translationCall(implicit ctx: UserContext) = i18nEnv.call(ctx.me, ctx.req)
-
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 

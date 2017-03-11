@@ -624,12 +624,6 @@ lichess.notifyApp = (function() {
         });
       });
 
-      $('#translation_call .close').click(function() {
-        $.post($(this).data("href"));
-        $(this).parent().fadeOut(500);
-        return false;
-      });
-
       $('a.delete, input.delete').click(function() {
         return confirm('Delete?');
       });

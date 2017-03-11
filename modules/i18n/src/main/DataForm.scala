@@ -8,8 +8,7 @@ import play.api.mvc.Request
 final class DataForm(
     repo: TranslationRepo,
     keys: I18nKeys,
-    val captcher: akka.actor.ActorSelection,
-    callApi: CallApi
+    val captcher: akka.actor.ActorSelection
 ) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
@@ -41,7 +40,7 @@ final class DataForm(
         author = user.some,
         createdAt = DateTime.now
       )
-      repo.insert(translation).void >>- callApi.submit(code)
+      repo.insert(translation).void
     }
   }
 

@@ -18,20 +18,15 @@ final class Env(
     val WebPathRelative = config getString "web_path.relative"
     val FilePathRelative = config getString "file_path.relative"
     val UpstreamUrlPattern = config getString "upstream.url_pattern"
-    val HideCallsCookieName = config getString "hide_calls.cookie.name"
-    val HideCallsCookieMaxAge = config getInt "hide_calls.cookie.max_age"
     val CollectionTranslation = config getString "collection.translation"
     val ContextGitUrl = config getString "context.git.url"
     val ContextGitFile = config getString "context.git.file"
     val CdnDomain = config getString "cdn_domain"
-    val CallThreshold = config getInt "call.threshold"
   }
   import settings._
 
   // public settings
   val RequestHandlerProtocol = config getString "request_handler.protocol"
-  def hideCallsCookieName = HideCallsCookieName
-  def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
   private val translationColl = db(CollectionTranslation)
 
@@ -76,8 +71,7 @@ final class Env(
   lazy val forms = new DataForm(
     repo = repo,
     keys = keys,
-    captcher = captcher,
-    callApi = callApi
+    captcher = captcher
   )
 
   def upstreamFetch = new UpstreamFetch(id => UpstreamUrlPattern format id)
@@ -89,14 +83,6 @@ final class Env(
   )
 
   lazy val context = new Context(ContextGitUrl, ContextGitFile, asyncCache, keys)
-
-  private lazy val callApi = new CallApi(
-    hideCallsCookieName = hideCallsCookieName,
-    minGames = CallThreshold,
-    transInfos = transInfos
-  )
-
-  def call = callApi.apply _
 
   def jsonFromVersion(v: Int): Fu[JsValue] = {
     repo findFrom v map { ts => Json toJson ts }

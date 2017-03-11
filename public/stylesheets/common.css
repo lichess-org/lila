@@ -1172,7 +1172,6 @@ div.box div.top,
 a.button,
 .button:visited,
 group.radio label,
-#translation_call,
 #notifications > div,
 div.vstext,
 div.user_show div.content_box_inter.tabs,
@@ -1186,7 +1185,6 @@ table.slist thead {
 .button,
 a.button,
 .button:visited,
-#translation_call,
 table.slist thead {
   font-weight: bold;
 }

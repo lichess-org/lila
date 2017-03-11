@@ -68,8 +68,7 @@ object I18n extends LilaController {
           }
         } { metadata =>
           env.forms.process(lang, metadata, data, me.username) inject {
-            Redirect(routes.I18n.contribute).flashing("success" -> "1") withCookies
-              LilaCookie.cookie(env.hideCallsCookieName, "1", maxAge = Some(60 * 24))
+            Redirect(routes.I18n.contribute).flashing("success" -> "1")
           }
         }
     }
@@ -99,15 +98,5 @@ object I18n extends LilaController {
 
   def fetch(from: Int) = Open { implicit ctx =>
     JsonOk(env jsonFromVersion from)
-  }
-
-  def hideCalls = Open { implicit ctx =>
-    implicit val req = ctx.req
-    val cookie = LilaCookie.cookie(
-      env.hideCallsCookieName,
-      "1",
-      maxAge = env.hideCallsCookieMaxAge.some
-    )
-    fuccess(Redirect(routes.Lobby.home()) withCookies cookie)
   }
 }

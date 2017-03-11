@@ -556,32 +556,6 @@ div.new_posts li span.extract {
   font-family: 'Roboto';
   font-weight: 300;
 }
-#call_boxes {
-  position: absolute;
-  top: 0;
-  right: 10px;
-  width: 250px;
-  z-index: 1;
-}
-#translation_call {
-  padding: 0.5em;
-  border: 1px solid #d0d0d0;
-  display: block;
-  border-radius: 2px;
-  position: relative;
-}
-#translation_call .button {
-  margin: 5px 0 0 0;
-  display: inline-block;
-}
-#translation_call span.name {
-  font-weight: bold;
-}
-#translation_call .progressbar {
-  margin-top: 0.5em;
-  background: #fff;
-  margin-bottom: 0.4em;
-}
 #daily_puzzle {
   width: 224px;
   position: absolute;

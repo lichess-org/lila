@@ -58,7 +58,6 @@ body.dark .undertable_top,
 body.dark div.undertable_inner,
 body.dark .undertable td,
 body.dark .study_invite input,
-body.dark #translation_call,
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
 body.dark div.side_box,
@@ -198,7 +197,6 @@ body.dark #modal-wrap .close {
 }
 body.dark #opening .meter ul,
 body.dark #opening .meter li.dubious .step,
-body.dark #translation_call .progressbar,
 body.dark div.lichess_overboard .close:hover,
 body.dark #modal-wrap .close:hover {
   background-color: #505050;
@@ -390,7 +388,6 @@ body.dark .undertable_top,
 body.dark .button,
 body.dark .button:visited,
 body.dark group.radio label,
-body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
