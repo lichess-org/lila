@@ -21,8 +21,8 @@ function ratio2percent(r) {
 }
 
 module.exports = {
-  player: function(p, tag) {
-    var ratingDiff, tag = tag || 'a';
+  player: function(p) {
+    var ratingDiff;
     if (p.ratingDiff > 0) ratingDiff = m('span.positive[data-icon=N]', p.ratingDiff);
     else if (p.ratingDiff < 0) ratingDiff = m('span.negative[data-icon=M]', -p.ratingDiff);
     var rating = p.rating + p.ratingDiff + (p.provisional ? '?' : '');
@@ -33,11 +33,11 @@ module.exports = {
         if (!isUpdate) ctx.onunload = function() {
           $.powerTip.destroy(el);
         };
-      }
+      },
+      href: '/@/' + p.name
     };
-    attrs[tag === 'a' ? 'href' : 'data-href'] = '/@/' + p.name;
     return {
-      tag: tag,
+      tag: 'a',
       attrs: attrs,
       children: [
         m('span.name', fullName),
