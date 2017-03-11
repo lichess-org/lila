@@ -51,23 +51,28 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(fen), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUser: TrustedUser, input: Input): Funit = getEntry(input.smallFen) map {
-    case None =>
-      val entry = EvalCacheEntry(
-        _id = input.smallFen,
-        nbMoves = destSize(input.fen),
-        evals = List(input.eval),
-        usedAt = DateTime.now
-      )
-      coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
-        cache.put(input.smallFen, entry.some)
-    case Some(oldEntry) =>
-      val entry = oldEntry add input.eval
-      !(entry similarTo oldEntry) ?? {
-        coll.update($id(entry.fen), entry, upsert = true).void >>-
+  private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
+    case Some(error) =>
+      logger.warn(s"Invalid from ${trustedUser.user.username} $error $input")
+      funit
+    case None => getEntry(input.smallFen) map {
+      case None =>
+        val entry = EvalCacheEntry(
+          _id = input.smallFen,
+          nbMoves = destSize(input.fen),
+          evals = List(input.eval),
+          usedAt = DateTime.now
+        )
+        coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
           cache.put(input.smallFen, entry.some)
-      }
+      case Some(oldEntry) =>
+        val entry = oldEntry add input.eval
+        !(entry similarTo oldEntry) ?? {
+          coll.update($id(entry.fen), entry, upsert = true).void >>-
+            cache.put(input.smallFen, entry.some)
+        }
 
+    }
   }
 
   private def destSize(fen: FEN): Int =
