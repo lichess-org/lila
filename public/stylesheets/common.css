@@ -204,73 +204,6 @@ group.radio input:checked + label {
   text-align: center;
   margin: 1em 0;
 }
-ul.ui-autocomplete {
-  width: 200px;
-  background: #FAFAFA;
-  border: 1px solid #DADADA;
-  max-height: 200px;
-  overflow: auto;
-}
-ul.ui-autocomplete li a {
-  display: block;
-  padding: 0.6em 1em;
-}
-ul.ui-autocomplete li a.ui-state-focus {
-  background: #E1F6F8;
-  color: #444;
-}
-.ui-corner-right {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-.ui-corner-left {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-}
-.ui-corner-all {
-  border-radius: 2px;
-}
-/* slider */
-
-.ui-slider {
-  background: #fff;
-  position: relative;
-  text-align: left;
-  cursor:pointer;
-}
-.ui-slider .ui-slider-handle {
-  position: absolute;
-  z-index: 2;
-  width: 1.2em;
-  height: 1.2em;
-  outline:0;
-  cursor:pointer;
-}
-.ui-slider .ui-slider-range {
-  position: absolute;
-  z-index: 1;
-  font-size: .7em;
-  display: block;
-  border: 0;
-  background-position: 0 0;
-}
-.ui-slider-horizontal {
-  height: .8em;
-}
-.ui-slider-horizontal .ui-slider-handle {
-  top: -.3em;
-  margin-left: -.6em;
-}
-.ui-slider-horizontal .ui-slider-range {
-  top: 0;
-  height: 100%;
-}
-.ui-slider-horizontal .ui-slider-range-min {
-  left: 0;
-}
-.ui-slider-horizontal .ui-slider-range-max {
-  right: 0;
-}
 #infscr-loading .spinner {
   margin: 10px auto;
 }
@@ -1239,7 +1172,6 @@ div.box div.top,
 a.button,
 .button:visited,
 group.radio label,
-.ui-slider-handle,
 #translation_call,
 #notifications > div,
 div.vstext,
@@ -1272,18 +1204,8 @@ a.button {
 a.button.thin {
   padding: 0 8px;
 }
-.button,
-a.button,
-.ui-slider-handle,
-.ui-widget-content {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #e2e2e2;
-}
-.button,
-a.button,
-.ui-slider-handle,
-.ui-widget-content {
+.button, a.button {
+  border: 1px solid #e2e2e2;
   border-radius: 2px;
 }
 .button.frameless {
@@ -1292,7 +1214,6 @@ a.button,
 }
 .button:hover,
 a.button:hover,
-.ui-slider-handle:hover,
 group.radio label:hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
@@ -1309,7 +1230,6 @@ a.button:active {
 .button.active,
 .button.active:hover,
 group.radio input:checked + label,
-.ui-widget-header,
 div.pagination span.current,
 .data-count::after,
 .pocket piece::after,

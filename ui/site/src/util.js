@@ -203,6 +203,7 @@ lichess.hopscotch = function(f) {
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
 lichess.slider = function() {
+  lichess.loadCss('/assets/stylesheets/jquery-ui.css');
   return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
 };
 lichess.shepherd = function(f) {
