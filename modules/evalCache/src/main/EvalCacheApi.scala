@@ -34,6 +34,11 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
+  private[evalCache] def drop(fen: FEN): Funit = {
+    val id = EvalCacheEntry.SmallFen make fen
+    coll.remove($id(id)).void >>- cache.put(id, none)
+  }
+
   private val cache = asyncCache.multi[SmallFen, Option[EvalCacheEntry]](
     name = "eval_cache",
     f = fetchAndSetAccess,
