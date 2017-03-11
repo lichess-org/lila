@@ -113,12 +113,10 @@ function analyseButton(ctrl) {
   };
   if (showInfo) attrs.config = function(el) {
     setTimeout(function() {
-      $(el).powerTip({
-        manual: true,
-        fadeInTime: 300,
-        fadeOutTime: 300,
+      var pt = $(el).powerTip({
+        closeDelay: 200,
         placement: 'n'
-      }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
+      }).data('powertipjq', $(el).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
     }, 1000);
   };
   return [
@@ -132,9 +130,7 @@ function analyseButton(ctrl) {
     showInfo ? m('div.forecast-info.info.none', [
       m('strong.title.text[data-icon=]', 'Speed up your game!'),
       m('span.content', [
-        'Use the analysis board to create conditional premoves.',
-        m('br'),
-        'Now available on your turn!'
+        'Use the analysis board to create conditional premoves.'
       ])
     ]) : null
   ];
