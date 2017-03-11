@@ -92,8 +92,6 @@ lichess.powertip = (function() {
     }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
-      fadeInTime: 100,
-      fadeOutTime: 100,
       placement: pos,
       mouseOnToPopup: true,
       closeDelay: 200
@@ -105,8 +103,6 @@ lichess.powertip = (function() {
   var gamePowertip = function(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
-      fadeInTime: 100,
-      fadeOutTime: 100,
       placement: 'w',
       smartPlacement: true,
       mouseOnToPopup: true,

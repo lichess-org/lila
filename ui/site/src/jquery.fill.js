@@ -3,7 +3,7 @@
     lichess.raf(function() {
       $.each(els, function() {
         action(this);
-        if (cb) cb.apply(this);
+        if ($.isFunction(cb)) cb.apply(this);
       });
     });
     return els;

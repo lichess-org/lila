@@ -52,8 +52,6 @@ function renderPlot(ctrl, hook) {
       if (isUpdate) return;
       $(el).powerTip({
         intentPollInterval: 100,
-        fadeInTime: 0,
-        fadeOutTime: 0,
         placement: hook.rating > 1800 ? 'se' : 'ne',
         mouseOnToPopup: true,
         closeDelay: 200,
