@@ -479,7 +479,6 @@ body.piece_letter .lichess_ground .replay move {
   flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
-  overflow: hidden;
   display: flex;
 }
 .pocket.top {
