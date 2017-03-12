@@ -75,6 +75,62 @@ body #themepicker div.is3d,
   background-size: cover;
   background-position: 0 67%;
 }
+#themepicker div.toggles {
+  display: inline-block;
+  margin: 20px 15px 10px 15px;
+  text-align: center;
+}
+#themepicker div.toggles a {
+  font-size: 20px;
+  display: inline-block;
+  margin: 0 -2px 0 -3px;
+}
+#themepicker a.prefs {
+  padding: 10px;
+  text-align: center;
+  display: block;
+}
+#themepicker .zoom_control {
+  margin-bottom: 5px;
+}
+#themepicker .zoom_control i {
+  font-size: 24px;
+  margin-right: 5px;
+}
+#themepicker .zoom_control .slider {
+  margin: auto;
+  width: 220px;
+  height: 10px;
+  display: inline-block;
+}
+#themepicker .zoom_control .slider .ui-slider-handle {
+  margin: 0 0 -9px -3px;
+}
+#themepicker .zoom_control .slider .ui-widget-header {
+  width: 10px;
+  bottom: 0;
+}
+#themepicker input.background_image {
+  display: none;
+}
+
+body.dark .is2d #themepicker div.color_demo {
+  border-color: #3d3d3d;
+}
+body.dark #themepicker div.theme:hover {
+  background-color: #505050;
+}
+
+body.transp #themepicker input.background_image {
+  display: block;
+  width: 100%;
+  border: 1px solid #444;
+  border-left: 0;
+  border-right: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
 
 #top piece.cburnett {
   background-image: url(../piece-src/cburnett/wN.svg);
@@ -222,58 +278,3 @@ body #themepicker div.is3d,
   background-image: url(../images/board/3d/woodi.1024.png);
 }
 
-#themepicker div.toggles {
-  display: inline-block;
-  margin: 20px 15px 10px 15px;
-  text-align: center;
-}
-#themepicker div.toggles a {
-  font-size: 20px;
-  display: inline-block;
-  margin: 0 -2px 0 -3px;
-}
-#themepicker a.prefs {
-  padding: 10px;
-  text-align: center;
-  display: block;
-}
-#themepicker .zoom_control {
-  margin-bottom: 5px;
-}
-#themepicker .zoom_control i {
-  font-size: 24px;
-  margin-right: 5px;
-}
-#themepicker .zoom_control .slider {
-  margin: auto;
-  width: 220px;
-  height: 10px;
-  display: inline-block;
-}
-#themepicker .zoom_control .slider .ui-slider-handle {
-  margin: 0 0 -9px -3px;
-}
-#themepicker .zoom_control .slider .ui-widget-header {
-  width: 10px;
-  bottom: 0;
-}
-#themepicker input.background_image {
-  display: none;
-}
-body.dark .is2d #themepicker div.color_demo,
-  border-color: #3d3d3d;
-}
-body.dark #themepicker div.theme:hover {
-  background-color: #505050;
-}
-
-body.transp #themepicker input.background_image {
-  display: block;
-  width: 100%;
-  border: 1px solid #444;
-  border-left: 0;
-  border-right: 0;
-  padding: 5px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
