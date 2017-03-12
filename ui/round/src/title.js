@@ -1,37 +1,39 @@
 var game = require('game').game;
 var status = require('game').status;
 
-function visible() {
-  return !document[['hidden', 'webkitHidden', 'mozHidden', 'msHidden'].find(function(k) {
-    return k in document;
-  })];
-}
-
 var initialTitle = document.title;
-var tickDelay = 400;
+
+var curFaviconIdx = 0;
 var F = [
   '/assets/images/favicon-32-white.png',
   '/assets/images/favicon-32-black.png'
-].map(function(path) {
+].map(function(path, i) {
   return function() {
-    document.getElementById('favicon').href = path;
+    if (curFaviconIdx !== i) {
+      document.getElementById('favicon').href = path;
+      curFaviconIdx = i;
+    }
   };
 });
-var state = 0;
-function tick(ctrl) {
-  if (visible()) {
-    if (state) F[0]();
+
+var tickerTimer = undefined;
+function resetTicker() {
+  tickerTimer = clearTimeout(tickerTimer);
+  F[0]();
+}
+
+function startTicker() {
+  function tick() {
+    if (!document.hasFocus()) {
+      F[1 - curFaviconIdx]();
+      tickerTimer = setTimeout(tick, 1000);
+    }
   }
-  else if (status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
-    F[++state % 2]();
-  }
-  setTimeout(lichess.partial(tick, ctrl), tickDelay);
+  if (!tickerTimer) tickerTimer = setTimeout(tick, 200);
 };
 
 module.exports = {
-  init: function(ctrl) {
-    if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(lichess.partial(tick, ctrl), tickDelay);
-  },
+  init: function(ctrl) { window.addEventListener('focus', resetTicker); },
   set: function(ctrl, text) {
     if (ctrl.data.player.spectator) return;
     if (!text) {
@@ -39,8 +41,10 @@ module.exports = {
         text = ctrl.trans('gameOver');
       } else if (game.isPlayerTurn(ctrl.data)) {
         text = ctrl.trans('yourTurn');
+        if (!document.hasFocus()) startTicker();
       } else {
         text = ctrl.trans('waitingForOpponent');
+        resetTicker();
       }
     }
     document.title = text + " - " + initialTitle;
