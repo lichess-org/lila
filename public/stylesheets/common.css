@@ -199,11 +199,6 @@ group.radio input:checked + label {
   font-weight: 500;
   color: #fff;
 }
-.difficulty > .button {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
 #infscr-loading .spinner {
   margin: 10px auto;
 }
@@ -279,11 +274,6 @@ body.dark .ddloader {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-#powerTip span.localization {
-  display: block;
-  height: 16px;
-  margin-top: 5px;
 }
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
@@ -381,9 +371,6 @@ body {
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
   overflow-x: hidden;
   cursor: default;
-}
-body.no-bg {
-  background: none!important;
 }
 body.no-select {
   -moz-user-select: none;
@@ -864,12 +851,12 @@ body.offline #reconnecting,
   margin-top: 5px;
   border-top: 1px solid #d4d4d4;
 }
-#top div.auth .status {
+#top .status {
   position: relative;
   padding: 0 0 5px !important;
   min-width: 133px;
 }
-#top div.auth .status .led {
+#top .status .led {
   position: absolute;
   right: 10px;
   top: 6px;
@@ -880,13 +867,13 @@ body.offline #reconnecting,
   border-radius: 50%;
   box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
 }
-#top div.auth .status .ping,
-#top div.auth .status .server {
+#top .status .ping,
+#top .status .server {
   display: block;
   font-family: 'Roboto Mono', 'Roboto';
   padding-left: 10px;
 }
-#top div.auth .status strong {
+#top .status strong {
   padding: 0 5px;
 }
 #challenge_notifications_tag.none {
@@ -973,16 +960,6 @@ span.progress > .positive {
 }
 span.progress > .negative {
   color: #ac524f;
-}
-div.auth input.username,
-div.auth input.password {
-  border: 1px solid #dadada;
-  padding: 2px 3px;
-  width: 100px;
-  background: #fff;
-}
-div.auth input.login {
-  padding: 0 3px;
 }
 .language_links {
   width: 620px;
