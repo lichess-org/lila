@@ -181,12 +181,10 @@ lichess.widget = function(name, prototype) {
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetConfig = {
-  url: document.body.getAttribute('data-asset-url'),
-  version: document.body.getAttribute('data-asset-version')
-};
 lichess.assetUrl = function(url, noVersion) {
-  return lichess.assetConfig.url + url + (noVersion ? '' : '?v=' + lichess.assetConfig.version);
+  var baseUrl = document.body.getAttribute('data-asset-url');
+  var version = document.body.getAttribute('data-asset-version');
+  return baseUrl + url + (noVersion ? '' : '?v=' + version);
 };
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
