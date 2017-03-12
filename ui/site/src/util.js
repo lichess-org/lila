@@ -225,32 +225,18 @@ lichess.makeChat = function(id, data, callback) {
 
 lichess.desktopNotification = (function() {
   var notifications = [];
-  var isPageVisible = document.visibilityState !== 'hidden';
-  window.addEventListener('blur', function() {
-    isPageVisible = false;
-  });
-  var closeAll = function() {
+  function closeAll() {
     notifications.forEach(function(n) {
       n.close();
     });
     notifications = [];
   };
-  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-  window.addEventListener('focus', function() {
-    isPageVisible = true;
-    closeAll();
-    setTimeout(closeAll, 2000);
-  });
+  window.addEventListener('focus', closeAll);
   var storage = lichess.storage.make('just-notified');
-  var clearStorageSoon = function() {
-    setTimeout(function() {
-      storage.remove();
-    }, 3000);
-  };
-  var doNotify = function(msg) {
-    if (storage.get()) return;
-    storage.set(1);
-    clearStorageSoon();
+  function notify(msg) {
+    var now = Date.now();
+    if (document.hasFocus() || now - storage.get() < 1000) return;
+    storage.set(now);
     if ($.isFunction(msg)) msg = msg();
     var notification = new Notification('lichess.org', {
       icon: '//lichess1.org/assets/images/logo.256.png',
@@ -260,23 +246,20 @@ lichess.desktopNotification = (function() {
       window.focus();
     };
     notifications.push(notification);
-    if (isPageVisible) setTimeout(closeAll, 2000);
   };
-  var notify = function(msg) {
-    // increase chances that the first tab can put a local storage lock
-    setTimeout(function() {
-      doNotify(msg);
-    }, Math.round(10 + Math.random() * 500));
-  }
-  clearStorageSoon(); // in case it wasn't cleared properly before
   return function(msg) {
-    if (isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
-    if (Notification.permission === 'granted') notify(msg);
-    else Notification.requestPermission(function(p) {
-      if (p === 'granted') notify(msg);
-    });
+    if (document.hasFocus() || !('Notification' in window)) return;
+    if (Notification.permission === 'granted') {
+      // increase chances that the first tab can put a local storage lock
+      setTimeout(notify, 10 + Math.random() * 500, msg);
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function(p) {
+        if (p === 'granted') notify(msg);
+      });
+    };
   };
 })();
+
 lichess.numberFormat = (function() {
   if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
