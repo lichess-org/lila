@@ -66,7 +66,7 @@ function playerTr(ctrl, player) {
         'data-icon': 'b',
         'title': ctrl.trans('withdraw')
       }) : player.rank),
-      m('td.player', util.player(player, 'span')),
+      m('td.player', util.player(player)),
       m('td.sheet', scoreTags(player.sheet.scores)),
       m('td.total', m('strong',
         player.sheet.fire ? {

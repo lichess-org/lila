@@ -125,6 +125,7 @@ module.exports = function(env) {
     };
     if (this.vm.playerInfo.id) xhr.playerInfo(this, this.vm.playerInfo.id);
     m.redraw();
+    return false;
   }.bind(this);
 
   this.setPlayerInfoData = function(data) {
