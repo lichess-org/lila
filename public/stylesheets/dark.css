@@ -284,10 +284,6 @@ body.dark #hooks_wrap div.tabs a.active {
   border-bottom-color: #303030;
   border-top-color: #d85000;
 }
-body.dark div.table_not_started {
-  box-shadow: none;
-  background: none;
-}
 body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark .ceval_box pearl,

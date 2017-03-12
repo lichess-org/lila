@@ -4,6 +4,9 @@
 .is3d .cg-board-wrap coords.files {
   bottom: calc(-12px - 3%);
 }
+.is3d .cg-board-wrap coords.ranks {
+  height: calc(100% - 10px);
+}
 .is3d piece {
   /* original size:
   width: 140.625%;
@@ -49,84 +52,64 @@
   content: none;
 }
 /* 3D boards */
-.Black-White-Aluminium .is3d .cg-board::before,
-#top .is3d .Black-White-Aluminium {
+.Black-White-Aluminium .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Black-White-Aluminium.png);
 }
-.Brushed-Aluminium .is3d .cg-board::before,
-#top .is3d .Brushed-Aluminium {
+.Brushed-Aluminium .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Brushed-Aluminium.png);
 }
-.China-Blue .is3d .cg-board::before,
-#top .is3d .China-Blue {
+.China-Blue .is3d .cg-board::before {
   background-image: url(../images/staunton/board/China-Blue.png);
 }
-.China-Green .is3d .cg-board::before,
-#top .is3d .China-Green {
+.China-Green .is3d .cg-board::before {
   background-image: url(../images/staunton/board/China-Green.png);
 }
-.China-Grey .is3d .cg-board::before,
-#top .is3d .China-Grey {
+.China-Grey .is3d .cg-board::before {
   background-image: url(../images/staunton/board/China-Grey.png);
 }
-.China-Scarlet .is3d .cg-board::before,
-#top .is3d .China-Scarlet {
+.China-Scarlet .is3d .cg-board::before {
   background-image: url(../images/staunton/board/China-Scarlet.png);
 }
-.China-Yellow .is3d .cg-board::before,
-#top .is3d .China-Yellow {
+.China-Yellow .is3d .cg-board::before {
   background-image: url(../images/staunton/board/China-Yellow.png);
 }
-.Classic-Blue .is3d .cg-board::before,
-#top .is3d .Classic-Blue {
+.Classic-Blue .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Classic-Blue.png);
 }
-.Transparent-Glass .is3d .cg-board::before,
-#top .is3d .Transparent-Glass {
+.Transparent-Glass .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Glass.png);
 }
-.Gold-Silver .is3d .cg-board::before,
-#top .is3d .Gold-Silver {
+.Gold-Silver .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Gold-Silver.png);
 }
-.Green-Glass .is3d .cg-board::before,
-#top .is3d .Green-Glass {
+.Green-Glass .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Green-Glass.png);
 }
-.Light-Wood .is3d .cg-board::before,
-#top .is3d .Light-Wood {
+.Light-Wood .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Light-Wood.png);
 }
-.Power-Coated .is3d .cg-board::before,
-#top .is3d .Power-Coated {
+.Power-Coated .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Power-Coated.png);
 }
-.Purple-Black .is3d .cg-board::before,
-#top .is3d .Purple-Black {
+.Purple-Black .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Purple-Black.png);
 }
-.Rosewood .is3d .cg-board::before,
-#top .is3d .Rosewood {
+.Rosewood .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Rosewood.png);
 }
-.Wood-Glass .is3d .cg-board::before,
-#top .is3d .Wood-Glass {
+.Wood-Glass .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Wood-Glass.png);
 }
-.Wax .is3d .cg-board::before,
-#top .is3d .Wax {
+.Wax .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Wax.png);
 }
-.Jade .is3d .cg-board::before,
-#top .is3d .Jade {
+.Jade .is3d .cg-board::before {
   background-image: url(../images/staunton/board/Jade.png);
 }
-.Marble .is3d .cg-board::before,
-#top .is3d .Marble {
+.Marble .is3d .cg-board::before {
   background-image: url(../images/board/3d/marble.1024.png);
 }
-.Woodi .is3d .cg-board::before,
-#top .is3d .Woodi {
+.Woodi .is3d .cg-board::before {
   background-image: url(../images/board/3d/woodi.1024.png);
 }
 /* 3D pieces */

@@ -75,6 +75,153 @@ body #themepicker div.is3d,
   background-size: cover;
   background-position: 0 67%;
 }
+
+#top piece.cburnett {
+  background-image: url(../piece-src/cburnett/wN.svg);
+}
+#top piece.merida {
+  background-image: url(../piece/merida/wN.svg);
+}
+#top piece.chess7 {
+  background-image: url(../piece/chess7/wN.svg);
+}
+#top piece.spatial {
+  background-image: url(../piece/spatial/wN.svg);
+}
+#top piece.alpha {
+  background-image: url(../piece/alpha/wN.svg);
+}
+#top piece.pirouetti {
+  background-image: url(../piece-src/pirouetti/wN.svg);
+}
+#top piece.reillycraig {
+  background-image: url(../piece/reillycraig/wN.svg);
+}
+#top piece.fantasy {
+  background-image: url(../piece/fantasy/wN.svg);
+}
+#top piece.shapes {
+  background-image: url(../piece/shapes/wN.svg);
+}
+#top piece.letter {
+  background-image: url(../piece/letter/wN.svg);
+}
+#top piece.chessnut {
+  background-image: url(../piece/chessnut/wN.svg);
+}
+#top piece.companion {
+  background-image: url(../piece/companion/wN.svg);
+}
+
+#top div.color_demo.blue {
+  background-image: url(../images/board/svg/blue.svg);
+}
+#top div.color_demo.blue2 {
+  background-image: url(../images/board/blue2.jpg);
+}
+#top div.color_demo.wood2 {
+  background-image: url(../images/board/wood2.jpg);
+}
+#top div.color_demo.wood3 {
+  background-image: url(../images/board/wood3.jpg);
+}
+#top div.color_demo.blue3 {
+  background-image: url(../images/board/blue3.jpg);
+}
+#top div.color_demo.marble {
+  background-image: url(../images/board/marble.jpg);
+}
+#top div.color_demo.brown {
+  background-image: url(../images/board/svg/brown.svg);
+}
+#top div.color_demo.green {
+  background-image: url(../images/board/svg/green.svg);
+}
+#top div.color_demo.olive {
+  background-image: url(../images/board/olive.jpg);
+}
+#top div.color_demo.purple {
+  background-image: url(../images/board/svg/purple.svg);
+}
+#top div.color_demo.grey {
+  background-image: url(../images/board/grey.jpg);
+}
+#top div.color_demo.wood {
+  background-image: url(../images/board/wood-1024.jpg);
+}
+#top div.color_demo.canvas {
+  background-image: url(../images/board/canvas2-1024.jpg);
+}
+#top div.color_demo.leather {
+  background-image: url(../images/board/leather-1024.jpg);
+}
+#top div.color_demo.metal {
+  background-image: url(../images/board/metal-1024.jpg);
+}
+#top div.color_demo.maple {
+  background-image: url(../images/board/maple.jpg);
+}
+#top .is3d .Black-White-Aluminium {
+  background-image: url(../images/staunton/board/Black-White-Aluminium.png);
+}
+#top .is3d .Brushed-Aluminium {
+  background-image: url(../images/staunton/board/Brushed-Aluminium.png);
+}
+#top .is3d .China-Blue {
+  background-image: url(../images/staunton/board/China-Blue.png);
+}
+#top .is3d .China-Green {
+  background-image: url(../images/staunton/board/China-Green.png);
+}
+#top .is3d .China-Grey {
+  background-image: url(../images/staunton/board/China-Grey.png);
+}
+#top .is3d .China-Scarlet {
+  background-image: url(../images/staunton/board/China-Scarlet.png);
+}
+#top .is3d .China-Yellow {
+  background-image: url(../images/staunton/board/China-Yellow.png);
+}
+#top .is3d .Classic-Blue {
+  background-image: url(../images/staunton/board/Classic-Blue.png);
+}
+#top .is3d .Transparent-Glass {
+  background-image: url(../images/staunton/board/Glass.png);
+}
+#top .is3d .Gold-Silver {
+  background-image: url(../images/staunton/board/Gold-Silver.png);
+}
+#top .is3d .Green-Glass {
+  background-image: url(../images/staunton/board/Green-Glass.png);
+}
+#top .is3d .Light-Wood {
+  background-image: url(../images/staunton/board/Light-Wood.png);
+}
+#top .is3d .Power-Coated {
+  background-image: url(../images/staunton/board/Power-Coated.png);
+}
+#top .is3d .Purple-Black {
+  background-image: url(../images/staunton/board/Purple-Black.png);
+}
+#top .is3d .Rosewood {
+  background-image: url(../images/staunton/board/Rosewood.png);
+}
+#top .is3d .Wood-Glass {
+  background-image: url(../images/staunton/board/Wood-Glass.png);
+}
+#top .is3d .Wax {
+  background-image: url(../images/staunton/board/Wax.png);
+}
+#top .is3d .Jade {
+  background-image: url(../images/staunton/board/Jade.png);
+}
+#top .is3d .Marble {
+  background-image: url(../images/board/3d/marble.1024.png);
+}
+#top .is3d .Woodi {
+  background-image: url(../images/board/3d/woodi.1024.png);
+}
+
 #themepicker div.toggles {
   display: inline-block;
   margin: 20px 15px 10px 15px;
