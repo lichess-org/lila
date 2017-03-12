@@ -80,7 +80,7 @@ $(function() {
       method: 'post',
       url: $review.data('action') + '?v=' + $(this).data('value')
     });
-    $review.slideUp(300);
+    $review.hide();
     $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
     return false;
   });
