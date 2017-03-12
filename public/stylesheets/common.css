@@ -1531,13 +1531,6 @@ div.vstext .right {
   height: 160px;
 }
 
-div.game_config button {
-  font-size: 1.4em;
-  padding: 0 2em;
-}
-div.game_config button {
-  letter-spacing: 1px;
-}
 div.lichess_overboard h2 {
   margin-bottom: 1em;
   font-size: 1.4em;
