@@ -7,7 +7,6 @@ var socket = require('./socket');
 var title = require('./title');
 var promotion = require('./promotion');
 var blur = require('./blur');
-var init = require('./init');
 var blind = require('./blind');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
@@ -20,6 +19,7 @@ var crazyValid = require('./crazy/crazyValid');
 var makeKeyboardMove = require('./keyboardMove').ctrl;
 var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
+var keyboard = require('./keyboard');
 
 module.exports = function(opts) {
 
@@ -29,8 +29,7 @@ module.exports = function(opts) {
   this.opts = opts;
 
   this.vm = {
-    ply: init.startPly(this.data),
-    initializing: true,
+    ply: round.lastPly(this.data),
     firstSeconds: true,
     flip: false,
     loading: false,
@@ -535,7 +534,29 @@ module.exports = function(opts) {
     }
   }.bind(this);
 
-  init.yolo(this);
+  title.init(this);
+  this.setTitle();
+  blur.init(this);
+
+  if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0) lichess.sound.genericNotify();
+
+  if (game.isPlayerPlaying(this.data)) {
+    window.addEventListener('beforeunload', function(e) {
+      if (!lichess.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
+        document.body.classList.remove('fpmenu');
+        this.socket.send('bye2');
+        var msg = 'There is a game in progress!';
+        (e || window.event).returnValue = msg;
+        return msg;
+      }
+    }.bind(this));
+    Mousetrap.bind(['esc'], function() {
+      this.chessground.cancelMove();
+    }.bind(this));
+    cevalSub.subscribe(this);
+  }
+
+  keyboard.init(this);
 
   onChange();
 

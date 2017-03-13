@@ -169,7 +169,7 @@ function renderButtons(ctrl) {
     ].map(function(b, i) {
       var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return m('button', {
-        class: 'fbt' + (i === 3 && ctrl.isLate() && !ctrl.vm.initializing ? ' glowed' : ''),
+        class: 'fbt' + (i === 3 && ctrl.isLate() ? ' glowed' : ''),
         disabled: (ctrl.broken || !enabled),
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
