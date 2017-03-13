@@ -22,7 +22,7 @@ function makeConfig(ctrl) {
     check: opts.check,
     lastMove: opts.lastMove,
     orientation: d.orientation,
-    coordinates: pref.coords !== 0,
+    coordinates: pref.coords !== 0 && !ctrl.embed,
     addPieceZIndex: pref.is3d,
     viewOnly: !!ctrl.embed,
     movable: {
@@ -40,7 +40,7 @@ function makeConfig(ctrl) {
       enabled: opts.premovable
     },
     drawable: {
-      enabled: true,
+      enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
     },
     highlight: {
