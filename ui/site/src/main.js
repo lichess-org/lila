@@ -445,7 +445,7 @@ lichess.notifyApp = (function() {
 
       function setMomentFromNow() {
         lichess.requestIdleCallback(function() {
-          $("time.moment-from-now").each(function() {
+          $(".moment-from-now").each(function() {
             this.textContent = moment(this.getAttribute('datetime')).fromNow();
           });
         });
