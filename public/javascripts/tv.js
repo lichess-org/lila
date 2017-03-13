@@ -27,7 +27,7 @@ function parseFen($elem) {
 $(function() {
   var $featured = $('#featured_game');
   var board = function() {
-    return $featured.find('> .mini_board');
+    return $featured.find('.mini_board');
   };
   parseFen(board());
   if (!window.EventSource) {

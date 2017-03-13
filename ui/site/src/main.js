@@ -642,7 +642,7 @@ lichess.notifyApp = (function() {
 
       // minimal touchscreen support for topmenu
       if ('ontouchstart' in window)
-        $('#topmenu').on('click', '> section > a', function() {
+        $('#topmenu').on('click', 'section > a', function() {
           return false;
         });
 
@@ -965,7 +965,7 @@ lichess.notifyApp = (function() {
       var self = this;
       // this.options.time: seconds Integer
       var target = this.options.time * 1000 + Date.now();
-      var timeEl = this.element.find('>.time')[0];
+      var timeEl = this.element.find('.time')[0];
       var tick = function() {
         var remaining = target - Date.now();
         if (remaining <= 0) clearInterval(self.interval);

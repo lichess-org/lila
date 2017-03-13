@@ -3,7 +3,7 @@ $(function() {
     var $trainer = $(this);
     var $board = $trainer.find('.board');
     var ground;
-    var $side = $trainer.find('> .side');
+    var $side = $trainer.find('.side');
     var $right = $trainer.find('.board_and_ground > .right');
     var $bar = $trainer.find('.progress_bar');
     var $coords = [
