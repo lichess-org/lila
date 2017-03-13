@@ -62,8 +62,9 @@ $(function() {
     var s = $(this).hasClass('download') ? serialize(true) : serialized;
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
   });
-  $result.find('.search_infinitescroll:has(.pager a)').each(function() {
+  $result.find('.search_infinitescroll').each(function() {
     var $next = $(this).find(".pager a:last");
+    if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
     $(this).infinitescroll({
       navSelector: ".pager",

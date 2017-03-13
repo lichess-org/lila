@@ -569,7 +569,8 @@ lichess.notifyApp = (function() {
         });
       });
 
-      $('.infinitescroll:has(.pager a)').each(function() {
+      $('.infinitescroll').each(function() {
+        if (!$('.pager a', this).length) return;
         $(this).infinitescroll({
           navSelector: ".pager",
           nextSelector: ".pager a:last",
