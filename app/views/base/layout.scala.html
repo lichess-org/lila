@@ -57,7 +57,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     <link rel="preload" href="@staticUrl("font72/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
     <meta name="twitter:site" content="@@lichessorg" />
-    @if(asyncJs) { @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs) }
   </head>
   <body class="preload base @List(
     ctx.currentTheme.cssClass,
@@ -201,7 +200,10 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @if(!asyncJs) { @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs) }
+    @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
+    @if(!asyncJs) {
+    @momentLangTag(false)
+    }
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
     @if(lang.language != "en") { @embedJs { lichess_translations = @jsI18n() } }
