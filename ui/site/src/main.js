@@ -573,7 +573,7 @@ lichess.notifyApp = (function() {
         if (!$('.pager a', this).length) return;
         $(this).infinitescroll({
           navSelector: ".pager",
-          nextSelector: ".pager a:last",
+          nextSelector: ".pager a",
           itemSelector: ".infinitescroll .paginated_element",
           errorCallback: function() {
             $("#infscr-loading").remove();
