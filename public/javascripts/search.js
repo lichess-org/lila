@@ -51,7 +51,7 @@ $(function() {
   $form.find(".opponent select").change(toggleAiLevel);
 
   var serialize = function(all) {
-    var sel = $form.find(":input");
+    var sel = $form.find("input,select");
     return (all ? sel : sel.not('[type=hidden]')).filter(function() {
       return !!this.value;
     }).serialize()
@@ -63,7 +63,7 @@ $(function() {
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
   });
   $result.find('.search_infinitescroll').each(function() {
-    var $next = $(this).find(".pager a:last");
+    var $next = $(this).find(".pager a");
     if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
     $(this).infinitescroll({
