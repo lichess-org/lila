@@ -36,8 +36,8 @@ module.exports = function(cfg, element) {
             url: url,
             success: function(html) {
               var $html = $(html);
-              $('#site_header div.side').replaceWith($html.find('>.side'));
-              $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
+              $('#site_header div.side').replaceWith($html.find('.side'));
+              $('#lichess div.crosstable').replaceWith($html.find('.crosstable'));
               lichess.pubsub.emit('content_loaded')();
               startTournamentClock();
             }
@@ -86,7 +86,7 @@ module.exports = function(cfg, element) {
   startTournamentClock();
   $('#now_playing').find('.move_on input').change(function() {
     round.moveOn.toggle();
-  }).prop('checked', round.moveOn.get()).on('click', '>a', function() {
+  }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
     lichess.hasToReload = true;
     return true;
   });
