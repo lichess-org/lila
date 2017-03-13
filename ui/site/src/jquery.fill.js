@@ -18,7 +18,7 @@
   $.fn.toggle = function(show, cb) {
     $.each(this, function() {
       if (typeof show === 'undefined' || typeof show === 'number') {
-        show = this.classList.contains('none') || this.style.display !== 'block';
+        show = !$(this).is(':visible');
       }
       if (show) $(this).show(0, cb);
       else $(this).hide(0, cb);
