@@ -114,6 +114,12 @@ function controls(ctrl, fen) {
   ]);
 }
 
+function eventPosition(e) {
+  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
+  if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
+  throw 'Cannot find position of event ' + e;
+}
+
 function inputs(ctrl, fen) {
   if (ctrl.embed) return;
   if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
@@ -193,8 +199,12 @@ function sparePieces(ctrl, color, orientation, position) {
             role: s[1]
           }, e, true);
 
-          document.addEventListener('mouseup', function() {
-            ctrl.vm.selected(s);
+          document.addEventListener('mouseup', function(e) {
+            if (ctrl.chessground.getKeyAtDomPos(eventPosition(e))) {
+              ctrl.vm.selected('pointer');
+            } else {
+              ctrl.vm.selected(s);
+            }
             m.redraw();
           }, {once: true});
         }
