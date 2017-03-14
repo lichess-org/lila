@@ -33,6 +33,8 @@
 .mobile .left-side li {
   list-style-type: none;
   line-height: 1.5em;
+  padding-left: 2em;
+  text-indent: -1em;
 }
 .mobile .left-side li:before {
   vertical-align: middle;
