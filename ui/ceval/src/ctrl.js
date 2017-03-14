@@ -187,7 +187,7 @@ module.exports = function(opts) {
     isDeeper: isDeeper,
     goDeeper: goDeeper,
     canGoDeeper: function() {
-      return pnaclSupported && !isDeeper() && !infinite();
+      return (pnaclSupported || wasmSupported) && !isDeeper() && !infinite();
     },
     isComputing: function() {
       return !!started;
