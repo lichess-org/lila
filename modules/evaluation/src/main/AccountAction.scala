@@ -8,7 +8,7 @@ sealed trait AccountAction {
 
 object AccountAction {
   case object EngineAndBan extends AccountAction {
-    val description: String = "Mark and IP ban"
+    val description: String = "Mark as engine"
     val id = 4
   }
   case object Engine extends AccountAction {
