@@ -13,17 +13,22 @@ var onError = function(error) {
 var standalone = 'Lichess';
 
 var abFile = process.env.LILA_AB_FILE;
-if (!process.env.LILA_AB_FILE) gutil.log('Building without AB file');
 
 gulp.task('jquery-fill', function() {
   return gulp.src('src/jquery.fill.js')
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
 });
+
 gulp.task('ab', function() {
-  return gulp.src(process.env.LILA_AB_FILE)
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest('./dist'));
+  if (abFile) {
+    return gulp.src(abFile)
+      .pipe(streamify(uglify()))
+      .pipe(gulp.dest('./dist'));
+  } else {
+    gutil.log(gutil.colors.yellow('Building without AB file'));
+    return gutil.noop();
+  }
 });
 
 gulp.task('prod-source', function() {
