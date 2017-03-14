@@ -27,7 +27,7 @@ gulp.task('ab', function() {
       .pipe(gulp.dest('./dist'));
   } else {
     gutil.log(gutil.colors.yellow('Building without AB file'));
-    return gutil.noop();
+    return gulp.src('.').pipe(gutil.noop());
   }
 });
 
