@@ -42,5 +42,7 @@ moreJs = moreJs,
 chessground = false,
 withLangAnnotations = false,
 zoomable = true) {
-<div class="analyse cg-512">@miniBoardContent</div>
+<div class="analyse cg-512">
+  @board.domPreload(none)
+</div>
 }

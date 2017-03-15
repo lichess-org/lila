@@ -48,5 +48,7 @@ title = "Chess analysis board",
 url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
 description = "Analyse chess positions and variations on an interactive chess board").some,
 zoomable = true) {
-<div class="analyse cg-512">@miniBoardContent</div>
+<div class="analyse cg-512">
+  @board.domPreload(none)
+</div>
 }
