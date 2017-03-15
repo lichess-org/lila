@@ -2,7 +2,7 @@ var ctrl = require('./ctrl');
 var view = require('./view');
 var studyView = require('./study/studyView');
 var studyPracticeView = require('./study/practice/studyPracticeView');
-var legacy = require('./legacy');
+var boot = require('./boot');
 var m = require('mithril');
 
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
       }
     }
   },
-  legacy: legacy
+  boot: boot
 };
 
 // that's for the rest of lichess to access chessground

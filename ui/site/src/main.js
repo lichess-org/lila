@@ -366,7 +366,7 @@ lichess.notifyApp = (function() {
   })();
 
   $(function() {
-    if (lichess.analyse) LichessAnalyse.legacy(document.getElementById('lichess'), lichess.analyse);
+    if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
