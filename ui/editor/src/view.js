@@ -1,5 +1,6 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
+var eventPosition = require('chessground/util').eventPosition;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -112,12 +113,6 @@ function controls(ctrl, fen) {
       }, ctrl.trans('playWithAFriend'))
     ])
   ]);
-}
-
-function eventPosition(e) {
-  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
-  if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
-  throw 'Cannot find position of event ' + e;
 }
 
 function inputs(ctrl, fen) {
