@@ -318,7 +318,7 @@ mono-piece.king {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   width: 400px;
   top: 50%;
   left: 50%;
