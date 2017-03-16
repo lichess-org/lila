@@ -90,11 +90,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       <div class="lichess_language fright">
         <a class="toggle link" href="#">@langName(lang)</a>
-        <form action="@routes.I18n.select" method="POST" class="language_links dropdown">
-          <ul>
-            <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-          </ul>
-        </form>
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown"></form>
       </div>
       @ctx.me.map { me =>
       <div class="auth fright">
