@@ -10,7 +10,12 @@ module.exports = {
     if (!ctrl.vm.node.crazy) return;
     var pocket = ctrl.vm.node.crazy.pockets[color === 'white' ? 0 : 1];
     var dropped = ctrl.vm.justDropped;
-    var usable = !ctrl.embed && color === ctrl.turnColor();
+    var captured = ctrl.vm.justCaptured;
+    if (captured) {
+      captured = captured.promoted ? 'pawn' : captured.role;
+    }
+    var activeColor = color === ctrl.turnColor();
+    var usable = !ctrl.embed && activeColor;
     return m('div', {
         class: 'pocket is2d ' + position + (usable ? ' usable' : ''),
         config: function(el, isUpdate, ctx) {
@@ -30,8 +35,11 @@ module.exports = {
         }
       },
       oKeys.map(function(role) {
-        var nb = defined(pocket[role]) ? pocket[role] : 0;
-        if (dropped && dropped.role === role && (dropped.ply % 2 === 1) ^ (color === 'white')) nb--;
+        var nb = pocket[role] || 0;
+        if (activeColor) {
+          if (dropped === role) nb--;
+          if (captured === role) nb++;
+        }
         return m('piece', {
           'data-role': role,
           'data-color': color,

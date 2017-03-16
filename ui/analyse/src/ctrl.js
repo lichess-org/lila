@@ -81,6 +81,7 @@ module.exports = function(opts) {
     contextMenuPath: null,
     justPlayed: null,
     justDropped: null,
+    justCaptured: null,
     keyboardHelp: location.hash === '#keyboard',
     threatMode: false
   };
@@ -234,6 +235,7 @@ module.exports = function(opts) {
     }
     this.vm.justPlayed = null;
     this.vm.justDropped = null;
+    this.vm.justCaptured = null;
     this.explorer.setNode();
     updateHref();
     this.autoScroll();
@@ -326,10 +328,8 @@ module.exports = function(opts) {
   this.userNewPiece = function(piece, pos) {
     if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
-      this.vm.justDropped = {
-        ply: this.vm.node.ply,
-        role: piece.role
-      };
+      this.vm.justDropped = piece.role;
+      this.vm.justCaptured = null;
       sound.move();
       var drop = {
         role: piece.role,
@@ -348,10 +348,10 @@ module.exports = function(opts) {
     this.vm.justPlayed = orig;
     this.vm.justDropped = null;
     sound[capture ? 'capture' : 'move']();
-    if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
+    if (!promotion.start(this, orig, dest, capture, sendMove)) sendMove(orig, dest, capture);
   }.bind(this);
 
-  var sendMove = function(orig, dest, prom) {
+  var sendMove = function(orig, dest, capture, prom) {
     var move = {
       orig: orig,
       dest: dest,
@@ -359,10 +359,12 @@ module.exports = function(opts) {
       fen: this.vm.node.fen,
       path: this.vm.path
     };
+    if (capture) this.vm.justCaptured = capture;
     if (prom) move.promotion = prom;
     if (this.practice) this.practice.onUserMove();
     this.socket.sendAnaMove(move);
     preparePremoving();
+    m.redraw();
   }.bind(this);
 
   var preparePremoving = function() {
