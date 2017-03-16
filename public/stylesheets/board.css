@@ -113,6 +113,7 @@ piece.ghost {
 }
 piece.fading {
   z-index: 2!important;
+  opacity: 0.5;
 }
 .cg-board-wrap .over {
   will-change: transform;
