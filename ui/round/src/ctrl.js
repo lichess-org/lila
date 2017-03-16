@@ -195,6 +195,7 @@ module.exports = function(opts) {
       role: role,
       pos: key
     };
+    if (blur.get()) drop.b = 1;
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
@@ -288,6 +289,7 @@ module.exports = function(opts) {
         check: !!o.check
       });
       if (o.check) lichess.sound.check();
+      blur.onMove();
     }
     if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;

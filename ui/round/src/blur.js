@@ -2,27 +2,26 @@ var game = require('game').game;
 
 // Register blur events to be sent as move metadata
 
-var blur = false;
+var lastFocus;
+var lastMove;
 
 var init = function(ctrl) {
   if (game.isPlayerPlaying(ctrl.data) && !ctrl.data.simul)
-    window.addEventListener('blur', function() {
-      blur = true;
+    window.addEventListener('focus', function() {
+      lastFocus = Date.now();
     });
 }
 
 var get = function() {
-  var value = blur;
-  blur = false;
-  return value;
+  return lastFocus - lastMove > 1000;
 };
 
-var reset = function() {
-  blur = false;
+var onMove = function() {
+  lastMove = Date.now();
 };
 
 module.exports = {
   init: init,
   get: get,
-  reset: reset
+  onMove: onMove
 };
