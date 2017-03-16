@@ -56,7 +56,7 @@ module.exports = {
       case true:
         return m('a.feedback.win[href=/practice]', [
           m('span', 'Success!'),
-          'Back to practice menu'
+          p.nextChapter() ? null : 'Back to practice menu'
         ]);
       case false:
         return m('a.feedback.fail', {
