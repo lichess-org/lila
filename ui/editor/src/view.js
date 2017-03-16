@@ -182,25 +182,30 @@ function sparePieces(ctrl, color, orientation, position) {
 
     return m('div', {
       class: containerClass,
-      onmousedown: function(e) {
-        if (['pointer', 'trash'].indexOf(s) !== -1) {
-          ctrl.vm.selected(s);
-        } else {
-          ctrl.vm.selected('pointer');
-
-          dragNewPiece(ctrl.chessground.state, {
-            color: s[0],
-            role: s[1]
-          }, e, true);
-
-          document.addEventListener('mouseup', function() {
-            ctrl.vm.selected(s);
-            m.redraw();
-          }, {once: true});
-        }
-      }
+      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend')
     }, m('piece', attrs));
   }));
+}
+
+function onSelectSparePiece(ctrl, s, upEvent) {
+  return function(e) {
+    if (['pointer', 'trash'].indexOf(s) !== -1) {
+      ctrl.vm.selected(s);
+    } else {
+      ctrl.vm.selected('pointer');
+
+      dragNewPiece(ctrl.chessground.state, {
+        color: s[0],
+        role: s[1]
+      }, e, true);
+
+      document.addEventListener(upEvent, function() {
+        ctrl.vm.selected(s);
+        m.redraw();
+      }, {once: true});
+    }
+  };
 }
 
 function makeCursor(selected) {
