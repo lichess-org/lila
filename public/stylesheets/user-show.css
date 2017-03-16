@@ -38,7 +38,6 @@
   width: 25px;
 }
 .user_show .trophy.award {
-  vertical-align: middle;
   font-family: "lichess" !important;
   speak: none;
   -webkit-font-smoothing: antialiased;
