@@ -25,31 +25,6 @@ url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
 <div data-username="@u.username" class="content_box no_padding user_show @filters.current.name@if(ctx.is(u)){ myself}">
   <div class="content_box_top">
-    @if(u.plan.active) {
-    <a href="@routes.Plan.index" class="trophy award patron icon3d hint--left" data-hint="Patron since @showDate(u.plan.sinceDate)">
-      <span data-icon="@patronIconChar"></span>
-    </a>
-    }
-    @if(info.isCoach) {
-    <a href="@routes.Coach.show(u.username)" class="trophy award icon3d coach hint--left" data-hint="Lichess coach">
-      <span data-icon=":"></span>
-    </a>
-    }
-    @info.allTrophies.map { trophy =>
-    <a @trophy.kind.url.map { url =>
-      href="@url"
-      } class="trophy award @trophy.kind.key @trophy.kind.klass hint--left" data-hint="@trophy.kind.name">
-      @trophy.kind match {
-      case lila.user.Trophy.Kind.ZugMiracle => {
-      <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
-      }
-      case _ => {
-      <span data-icon="@trophy.kind.icon.map(Html.apply)"></span>
-      }
-      }
-    </a>
-    }
-    @perfTrophies(u, info.ranks)
     <h1 class="lichess_title user_link @if(isOnline(u.id)){online}else{offline}">
       @if(u.isPatron) {
       <a href="@routes.Plan.index">@Html(patronIcon)</a>@u.titleUsername
@@ -57,6 +32,13 @@ description = describeUser(u)).some) {
       @Html(lineIcon)@u.titleUsername
       }
     </h1>
+    <div class="trophies@if(info.allTrophies.size > 6){ packed}">
+      @perfTrophies(u, info.ranks)
+      @otherTrophies(u, info)
+    </div>
+    @if(u.plan.active) {
+    <a href="@routes.Plan.index" class="trophy award patron icon3d hint--left" data-hint="Patron since @showDate(u.plan.sinceDate)">@patronIconChar</a>
+    }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
     }

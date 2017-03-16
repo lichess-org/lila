@@ -1892,27 +1892,37 @@ div.lichess_overboard .close:hover {
 
 @keyframes fire {
   0% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+    text-shadow: 0 0 6.66px #fefcc9,
+    3.33px -3.33px 10px #feec85,
+    -6.66px -6.66px 13.33px #ffae34,
+    6.66px -13.33px 16.66px #ec760c,
+    -6.66px -20px 20px #cd4606,
+    0 -26.66px 11.66px #973716,
+    3.33px -30px 26.66px #451b0e;
   }
   100% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+    text-shadow: 0 0 6.66px #fefcc9, 
+    3.33px -3.33px 10px #fefcc9, 
+    -6.66px -6.66px 13.33px #feec85, 
+    7.33px -14px 20px #ffae34, 
+    -7.33px -19.33px 16.66px #ec760c, 
+    0 -27.33px 26.66px #cd4606, 
+    3.33px -30px 26.66px #973716;
   }
 }
-.fire_trophy span {
-  transform: scale(0.35);
+.fire_trophy {
   color: rgba(0, 0, 0, 0.6);
-  font-size: 150px;
+  font-size: 60px;
   display: block;
-  text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  text-shadow: 0 0 6.66px #fefcc9,
+  3.33px -3.33px 10px #feec85,
+  -6.66px -6.66px 13.33px #ffae34,
+  6.66px -13.33px 16.66px #ec760c,
+  -6.66px -20px 20px #cd4606,
+  0 -26.66px 11.66px #973716,
+  3.33px -30px 26.66px #451b0e;
 }
-.fire_trophy.marathonWinner span,
-.fire_trophy.marathonTopTen span,
-.fire_trophy.marathonTopFifty span,
-.fire_trophy.marathonTopHundred span {
-  filter: hue-rotate(190deg);
-  -webkit-filter: hue-rotate(190deg);
-}
-.fire_trophy span:hover {
+.fire_trophy:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
 }
 /* switch toggle button */

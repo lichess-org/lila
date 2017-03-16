@@ -3,7 +3,7 @@
 @import lila.rating.PerfType
 
 @if(!u.lame) {
-@rankMap.map {
+@rankMap.toList.sortBy(_._2).map {
 case (perf, rank) if rank == 1 => {
 <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
   <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
@@ -27,4 +27,3 @@ case (perf, rank) if rank <= 100 => {
 case _ => {}
 }
 }
-
