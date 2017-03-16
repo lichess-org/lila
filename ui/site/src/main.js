@@ -432,27 +432,29 @@ lichess.notifyApp = (function() {
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function setMoment() {
-        $("time.moment").removeClass('moment').each(function() {
-          var parsed = moment(this.getAttribute('datetime'));
-          var format = this.getAttribute('data-format');
-          this.textContent = format === 'calendar' ? parsed.calendar(null, {
-            sameElse: 'DD/MM/YYYY HH:mm'
-          }) : parsed.format(format);
-        });
-      }
-      setMoment();
-      lichess.pubsub.on('content_loaded', setMoment);
-
-      function setMomentFromNow() {
-        lichess.requestIdleCallback(function() {
+        // check that locale was loaded
+        if (!window.moment_locale_url) lichess.requestIdleCallback(function() {
           $(".moment-from-now").each(function() {
             this.textContent = moment(this.getAttribute('datetime')).fromNow();
           });
+          $("time.moment").removeClass('moment').each(function() {
+            var parsed = moment(this.getAttribute('datetime'));
+            var format = this.getAttribute('data-format');
+            this.textContent = format === 'calendar' ? parsed.calendar(null, {
+              sameElse: 'DD/MM/YYYY HH:mm'
+            }) : parsed.format(format);
+          });
         });
       }
-      setMomentFromNow();
-      lichess.pubsub.on('content_loaded', setMomentFromNow);
-      setInterval(setMomentFromNow, 2000);
+
+      if (window.moment_locale_url) lichess.loadScript(moment_locale_url, true).then(function() {
+        delete window.moment_locale_url;
+        setMoment();
+      });
+      else setMoment();
+
+      lichess.pubsub.on('content_loaded', setMoment);
+      setInterval(setMoment, 2000);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
