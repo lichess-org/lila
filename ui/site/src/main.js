@@ -615,7 +615,7 @@ lichess.notifyApp = (function() {
         var $links = $(this).find('.language_links'),
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
-          url: $links.data('url'),
+          url: lichess.assetUrl('/assets/trans/refs.json'),
           cache: true,
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
