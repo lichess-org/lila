@@ -8,7 +8,7 @@
 }
 #challenge_app .challenge {
   padding: 10px 10px;
-  margin-top: 5px;
+  margin-bottom: 5px;
   position: relative;
   height: 36px;
   transition: 0.13s;

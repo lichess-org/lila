@@ -146,7 +146,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       }
       <div id="themepicker">
         <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
-          &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
+          <span data-icon="@closingBrace"></span>
         </a>
       </div>
       @if(isGranted(_.SeeReport)) {

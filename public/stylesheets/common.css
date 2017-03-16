@@ -421,28 +421,6 @@ body > div.content {
   width: 1005px;
   margin: 35px auto 30px auto;
 }
-#top {
-  position: relative;
-  height: 24px;
-  width: 1005px;
-  margin: 0 auto;
-  padding-top: 5px;
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: row-reverse;
-}
-#top:hover {
-  z-index: 5001;
-}
-#top .link {
-  font-size: 13px;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 8px;
-}
-.data-count {
-  position: relative;
-}
 .data-count::after,
 .unread {
   padding: 1px 5px 1px 4px;
@@ -462,12 +440,109 @@ body > div.content {
 .data-count[data-count='0']::after {
   display: none;
 }
+#top {
+  position: relative;
+  height: 24px;
+  width: 1005px;
+  margin: 0 auto;
+  padding-top: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row-reverse;
+}
+#top:hover {
+  z-index: 5001;
+}
+#top .link {
+  font-size: 13px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+}
+#top > * {
+  position: relative;
+}
+#top .dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: #fff;
+  z-index: 3;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#top .shown .dropdown {
+  display: block;
+}
 #top .shown a.toggle {
   background: #fff;
+  height: 28px;
 }
-#top .shown #challenge_notifications_tag.toggle,
-#top .shown #site_notifications_tag.toggle {
-  height: 29px;
+#top .links > a {
+  display: block;
+  padding: 5px 10px;
+  transition: 0.13s;
+  white-space: nowrap;
+}
+#top .auth .links a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+#top .signin {
+  margin: 3px 0.5em 0 0;
+  border-color: #d85000;
+  padding: 1px 5px;
+}
+#top .auth .sep {
+  display: block;
+  padding-top: 5px;
+  margin-top: 5px;
+  border-top: 1px solid #d4d4d4;
+}
+#top .status {
+  position: relative;
+  padding: 0 0 5px !important;
+  min-width: 133px;
+}
+#top .status .led {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-size: 20px;
+  opacity: 0.8;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+#top .status .ping,
+#top .status .server {
+  display: block;
+  font-family: 'Roboto Mono', 'Roboto';
+  padding-left: 10px;
+}
+#top .status strong {
+  padding: 0 5px;
+}
+#top a.toggle {
+  display: block;
+  transition: color 0.13s;
+}
+#top .toggle:hover {
+  color: #303030;
+}
+@keyframes pulse-once {
+  0% { background: #d85000; }
+  100% { background: none; }
+}
+#top a.toggle.pulse {
+  animation: pulse-once 1.5s linear;
+}
+#top #themepicker_toggle span {
+  font-size: 17px;
+}
+#top #themepicker_toggle span:before {
+  vertical-align: -5px;
 }
 #reconnecting {
   display: none;
@@ -819,65 +894,6 @@ div.side form.search input {
 #user_tag {
   font-weight: bold;
 }
-#top div.challenge_notifications,
-#top div.auth,
-#top #themepicker,
-#top div.lichess_language {
-  position: relative;
-}
-#top div.challenge_notifications.shown .links,
-#top div.site_notifications.shown .links,
-#top div.auth.shown .links {
-  display: block;
-}
-#top div.message_notificatiosn .links > a,
-#top div.challenge_notifications .links > a,
-#top div.auth .links > a {
-  display: block;
-  padding: 5px 10px;
-  transition: 0.13s;
-  white-space: nowrap;
-}
-#top div.auth .links a:hover {
-  background: #F0F0F0;
-  color: #444;
-}
-#top a.signin {
-  margin: 3px 0.5em 0 0;
-  border-color: #d85000;
-  padding: 1px 5px;
-}
-#top div.auth .sep {
-  display: block;
-  padding-top: 5px;
-  margin-top: 5px;
-  border-top: 1px solid #d4d4d4;
-}
-#top .status {
-  position: relative;
-  padding: 0 0 5px !important;
-  min-width: 133px;
-}
-#top .status .led {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  font-size: 20px;
-  opacity: 0.8;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
-}
-#top .status .ping,
-#top .status .server {
-  display: block;
-  font-family: 'Roboto Mono', 'Roboto';
-  padding-left: 10px;
-}
-#top .status strong {
-  padding: 0 5px;
-}
 #challenge_notifications_tag.none {
   display: none!important;
 }
@@ -919,44 +935,6 @@ form.wide textarea {
   padding: 0.5em;
   border: 1px solid #D4D4D4;
 }
-#top a.toggle {
-  display: block;
-  float: left;
-}
-#top a.toggle,
-#top #sound_state {
-  transition: color 0.13s;
-}
-#top a.toggle:hover,
-#sound_state:hover {
-  color: #303030;
-}
-@keyframes pulse-once {
-  0% { background: #d85000; }
-  100% { background: none; }
-}
-#top a.toggle.pulse {
-  animation: pulse-once 1.5s linear;
-}
-#top #themepicker_toggle,
-#top #sound_state {
-  padding-right: 4px;
-}
-#top #themepicker_toggle span {
-  font-size: 17px;
-}
-#top #themepicker_toggle span:before {
-  vertical-align: -5px;
-}
-#top .dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 24px;
-  background: #fff;
-  z-index: 3;
-  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
-}
 span.progress > .positive {
   color: #759900;
 }
@@ -968,9 +946,6 @@ span.progress > .negative {
   padding: 10px;
   max-height: 700px;
   overflow: auto;
-}
-#top div.lichess_language.shown .language_links {
-  display: block;
 }
 .language_links button {
   display: block;
@@ -1003,15 +978,11 @@ span.progress > .negative {
   padding-top: 10px;
 }
 #sound_control {
-  margin-right: 5px;
   position: relative;
 }
 #sound_control .dropdown {
   width: 120px;
   padding: 10px;
-}
-#sound_control.shown .dropdown {
-  display: block;
 }
 #sound_control .slider {
   float: right;
