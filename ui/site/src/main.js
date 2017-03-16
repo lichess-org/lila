@@ -471,7 +471,7 @@ lichess.notifyApp = (function() {
       }, 300);
 
       // Zoom
-      var currentZoom = lichess.isTrident ? 1 : $('body').data('zoom') / 100;
+      var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
       var setZoom = function(zoom) {
 
@@ -521,7 +521,6 @@ lichess.notifyApp = (function() {
       };
 
       var saveZoom = lichess.fp.debounce(function() {
-        console.log(currentZoom);
         $.ajax({
           method: 'post',
           url: '/pref/zoom?v=' + Math.round(currentZoom * 100)
