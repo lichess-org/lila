@@ -1,5 +1,6 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
+var eventPosition = require('chessground/util').eventPosition;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -193,8 +194,12 @@ function sparePieces(ctrl, color, orientation, position) {
             role: s[1]
           }, e, true);
 
-          document.addEventListener('mouseup', function() {
-            ctrl.vm.selected(s);
+          document.addEventListener('mouseup', function(e) {
+            if (ctrl.chessground.getKeyAtDomPos(eventPosition(e))) {
+              ctrl.vm.selected('pointer');
+            } else {
+              ctrl.vm.selected(s);
+            }
             m.redraw();
           }, {once: true});
         }
