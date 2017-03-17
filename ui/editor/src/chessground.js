@@ -29,6 +29,7 @@ function isRightClick(e) {
 
 var downKey;
 var lastKey;
+var placeDelete;
 
 function onMouseEvent(ctrl) {
   return function(e) {
@@ -63,9 +64,21 @@ function onMouseEvent(ctrl) {
             piece.role === existingPiece.role
         ) {
           deleteOrHidePiece(ctrl, key, e);
+
+          placeDelete = true;
+
+          if (e.type === 'mousedown') {
+            document.addEventListener('mouseup', function() {
+              placeDelete = false;
+            }, {once: true});
+          } else {
+            document.addEventListener('touchend', function() {
+              placeDelete = false;
+            }, {once: true});
+          }
         } else if (
-          e.type === 'mousedown' || e.type === 'touchstart' ||
-            (key !== downKey && key !== lastKey)
+          !placeDelete && 
+            (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
           var pieces = {};
           pieces[key] = piece;
