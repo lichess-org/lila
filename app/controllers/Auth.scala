@@ -99,8 +99,7 @@ object Auth extends LilaController {
   }
 
   private def mustConfirmEmailByIP(ip: IpAddress, username: String): Fu[Boolean] =
-    fuccess(username.toLowerCase.contains("argeskent")) >>|
-      api.recentByIpExists(ip) >>|
+    api.recentByIpExists(ip) >>|
       Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }
 
   def signupPost = OpenBody { implicit ctx =>
@@ -237,7 +236,9 @@ object Auth extends LilaController {
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
-          UserRepo.passwd(user.id, data.newPasswd1) >> authenticateUser(user)
+          UserRepo.passwd(user.id, data.newPasswd1) >>
+            env.store.disconnect(user.id) >>
+            authenticateUser(user)
         }
       case _ => notFound
     }

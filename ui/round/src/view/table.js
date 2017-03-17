@@ -1,8 +1,7 @@
 var m = require('mithril');
-var classSet = require('common').classSet;
 var game = require('game').game;
 var status = require('game').status;
-var clockView = require('../clock/view');
+var renderClock = require('../clock/view').renderClock;
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
 var renderUser = require('./user');
@@ -111,68 +110,14 @@ function whosTurn(ctrl, color) {
   );
 }
 
-function goBerserk(ctrl) {
-  if (!game.berserkableBy(ctrl.data)) return;
-  if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
-  return m('button', {
-    class: 'fbt berserk hint--bottom-left',
-    'data-hint': "GO BERSERK! Half the time, bonus point",
-    onclick: ctrl.goBerserk
-  }, m('span', {
-    'data-icon': '`'
-  }));
-}
-
-function tourRank(ctrl, color, position) {
-  var d = ctrl.data;
-  if (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) return m('div', {
-    class: 'tournament_rank ' + position,
-    title: 'Current tournament rank'
-  }, '#' + d.tournament.ranks[color]);
-}
-
-function renderClock(ctrl, position) {
-  var player = playerAt(ctrl, position);
-  var time = ctrl.clock.data[player.color];
-  var running = ctrl.isClockRunning() && ctrl.data.game.player === player.color;
-  var isPlayer = ctrl.data.player.color === player.color;
-  return [
-    m('div', {
-      class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
-        'outoftime': !time,
-        'running': running,
-        'emerg': time < ctrl.clock.data.emerg
-      })
-    }, [
-      clockView.showBar(ctrl.clock, time, ctrl.vm.goneBerserk[player.color]),
-      m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
-      renderBerserk(ctrl, player.color, position),
-      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-      tourRank(ctrl, player.color, position)
-    ])
-  ];
-}
-
-function showBerserk(ctrl, color) {
-  return ctrl.vm.goneBerserk[color] &&
-    ctrl.data.game.turns <= 1 &&
-    game.playable(ctrl.data);
-}
-
-function renderBerserk(ctrl, color, position) {
-  if (showBerserk(ctrl, color)) return m('div', {
-    class: 'berserk_alert ' + position,
-    'data-icon': '`'
-  });
-}
-
 function anyClock(ctrl, position) {
-  if (ctrl.clock && !ctrl.data.blind) return renderClock(ctrl, position);
+  var player = playerAt(ctrl, position);
+  if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
     return renderCorrespondenceClock(
-      ctrl.correspondenceClock, ctrl.trans, playerAt(ctrl, position).color, position, ctrl.data.game.player
+      ctrl.correspondenceClock, ctrl.trans, player.color, position, ctrl.data.game.player
     );
-  else return whosTurn(ctrl, playerAt(ctrl, position).color);
+  else return whosTurn(ctrl, player.color);
 }
 
 module.exports = function(ctrl) {

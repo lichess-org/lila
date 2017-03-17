@@ -82,16 +82,18 @@ module.exports = function(cfg, saveUrl) {
     if (cfg.onMyTurn) return;
     loading(true);
     m.redraw();
-    m.request({
+    $.ajax({
       method: 'POST',
       url: saveUrl,
-      data: forecasts
+      data: JSON.stringify(forecasts),
+      contentType: 'application/json'
     }).then(function(data) {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
         forecasts = data.steps || [];
       }
+      m.redraw();
     });
   };
 
@@ -99,20 +101,22 @@ module.exports = function(cfg, saveUrl) {
     if (!cfg.onMyTurn) return;
     loading(true);
     m.redraw();
-    m.request({
+    $.ajax({
       method: 'POST',
       url: saveUrl + '/' + node.uci,
-      data: findStartingWithNode(node).filter(function(fc) {
+      data: JSON.stringify(findStartingWithNode(node).filter(function(fc) {
         return fc.length > 1;
       }).map(function(fc) {
         return fc.slice(1);
-      })
+      })),
+      contentType: 'application/json'
     }).then(function(data) {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
         forecasts = data.steps || [];
       }
+      m.redraw();
     });
   };
 

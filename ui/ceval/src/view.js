@@ -70,7 +70,7 @@ function threatButton(ctrl) {
 function engineName(ctrl) {
   return [
     lichess.engineName,
-    ctrl.pnaclSupported ? m('span.native', 'native') : m('span.asmjs', 'asmjs')
+    ctrl.pnaclSupported ? m('span.native', 'pnacl') : (ctrl.wasmSupported ? m('span.native', 'wasm') : m('span.asmjs', 'asmjs'))
   ];
 }
 
@@ -136,7 +136,7 @@ module.exports = {
       pearl = '-';
       percent = 0;
     } else {
-      pearl = m('span.cpu', 'CPU');
+      pearl = enabled ? m('span.ddloader') : m('span');
       percent = 0;
     }
     if (threatMode) {

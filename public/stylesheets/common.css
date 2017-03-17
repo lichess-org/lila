@@ -54,7 +54,7 @@ time {
 @font-face {
   font-family: "lichess";
   src: url("../font72/fonts/lichess.eot");
-  src: url("../font72/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font72/fonts/lichess.woff") format("woff"), url("../font72/fonts/lichess.ttf") format("truetype"), url("../font72/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font72/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font72/fonts/lichess.woff") format("woff"), url("../font72/fonts/lichess.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -199,78 +199,6 @@ group.radio input:checked + label {
   font-weight: 500;
   color: #fff;
 }
-.difficulty > .button {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-ul.ui-autocomplete {
-  width: 200px;
-  background: #FAFAFA;
-  border: 1px solid #DADADA;
-  max-height: 200px;
-  overflow: auto;
-}
-ul.ui-autocomplete li a {
-  display: block;
-  padding: 0.6em 1em;
-}
-ul.ui-autocomplete li a.ui-state-focus {
-  background: #E1F6F8;
-  color: #444;
-}
-.ui-corner-right {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-.ui-corner-left {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-}
-.ui-corner-all {
-  border-radius: 2px;
-}
-/* slider */
-
-.ui-slider {
-  background: #fff;
-  position: relative;
-  text-align: left;
-  cursor:pointer;
-}
-.ui-slider .ui-slider-handle {
-  position: absolute;
-  z-index: 2;
-  width: 1.2em;
-  height: 1.2em;
-  outline:0;
-  cursor:pointer;
-}
-.ui-slider .ui-slider-range {
-  position: absolute;
-  z-index: 1;
-  font-size: .7em;
-  display: block;
-  border: 0;
-  background-position: 0 0;
-}
-.ui-slider-horizontal {
-  height: .8em;
-}
-.ui-slider-horizontal .ui-slider-handle {
-  top: -.3em;
-  margin-left: -.6em;
-}
-.ui-slider-horizontal .ui-slider-range {
-  top: 0;
-  height: 100%;
-}
-.ui-slider-horizontal .ui-slider-range-min {
-  left: 0;
-}
-.ui-slider-horizontal .ui-slider-range-max {
-  right: 0;
-}
 #infscr-loading .spinner {
   margin: 10px auto;
 }
@@ -305,6 +233,23 @@ ul.ui-autocomplete li a.ui-state-focus {
   animation: spinnerDash 1.275s ease-in-out infinite;
   stroke: #ddd;
 }
+/* duckduckgo small horizontal loader */
+@keyframes ddloader {
+  0% { background-position: left }
+  100% { background-position: right }
+}
+.ddloader {
+  background: url(../images/loader/blackx1.png) no-repeat;
+  animation: ddloader 0.5s steps(15) infinite;
+  vertical-align: middle;
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+}
+body.dark .ddloader {
+  background-image: url(../images/loader/whitex1.png);
+}
+
 #powerTip,
 #hook,
 #miniGame {
@@ -329,11 +274,6 @@ ul.ui-autocomplete li a.ui-state-focus {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-#powerTip span.localization {
-  display: block;
-  height: 16px;
-  margin-top: 5px;
 }
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
@@ -432,9 +372,6 @@ body {
   overflow-x: hidden;
   cursor: default;
 }
-body.no-bg {
-  background: none!important;
-}
 body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -484,9 +421,6 @@ body > div.content {
   width: 1005px;
   margin: 35px auto 30px auto;
 }
-body.fpmenu > div.content {
-  display: none;
-}
 #top {
   position: relative;
   height: 24px;
@@ -495,8 +429,7 @@ body.fpmenu > div.content {
   padding-top: 5px;
   box-sizing: border-box;
 }
-#top:hover,
-body.fpmenu #top {
+#top:hover {
   z-index: 5001;
 }
 #site_description {
@@ -837,215 +770,6 @@ body.offline #reconnecting,
 #hamburger {
   font-size: 16px;
 }
-#fpmenu {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 5000;
-  width: 100%;
-  height: 100%;
-  font-size: 14px;
-  display: none;
-  background: #fff;
-}
-body.fpmenu #fpmenu {
-  display: block;
-}
-#fpmenu section {
-  margin-top: 50px;
-}
-#fpmenu h2 {
-  font-family: 'Roboto';
-  font-weight: 300;
-  font-size: 24px;
-  color: #2a2a2a;
-  text-transform: uppercase;
-  margin-bottom: 9px;
-}
-#fpmenu .inner {
-  width: 1005px;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-#fpmenu .body {
-  overflow: hidden;
-}
-#fpmenu .user,
-#fpmenu .anon {
-  float: left;
-  width: 400px;
-  border-right: 1px solid #cfcfcf;
-  padding: 0 40px 20px 0;
-}
-#fpmenu .perf {
-  display: inline-block;
-  text-align: left;
-  width: 49%;
-  margin: 15px 0;
-  line-height: 1.2em;
-}
-#fpmenu .perf::before {
-  color: #C4A86F;
-  font-size: 42px;
-  float: left;
-  margin-right: 8px;
-  opacity: 0.8;
-}
-#fpmenu .perf h3 {
-  margin: 0 0 5px 0;
-  color: #d59120;
-}
-#fpmenu .perf.nope {
-  opacity: 0.5;
-}
-#fpmenu .perf strong {
-  font-family: 'Roboto';
-  font-weight: 300;
-  font-size: 18px;
-  color: #2a2a2a;
-}
-#fpmenu .perf .progress {
-  opacity: 0.6;
-}
-#fpmenu .anon section {
-  width: 322px;
-}
-#fpmenu .anon h2 {
-  margin-bottom: 22px;
-}
-#fpmenu .login input {
-  -webkit-appearance: none;
-  width: 290px;
-  line-height: 47px;
-  padding: 0 15px;
-  background: #fff;
-  border: 1px solid #ebebeb;
-  outline: none;
-}
-#fpmenu .login input.password {
-  border-top: none;
-}
-#fpmenu .login input.submit {
-  margin-top: 30px;
-  width: 100%;
-  background: #d59120;
-  border: none;
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: bold;
-  opacity: 0.6;
-  cursor: pointer;
-  transition: opacity 0.13s;
-}
-#fpmenu .login input.submit:hover {
-  opacity: 0.65;
-}
-#fpmenu .forgot {
-  font-size: 0.8em;
-  margin-top: 5px;
-  text-align: center;
-}
-#fpmenu .forgot a {
-  color: inherit;
-  opacity: 0.6;
-}
-#fpmenu a.signup {
-  display: block;
-  line-height: 47px;
-  padding: 0 15px;
-  background: #fff;
-  border: 1px solid #d8d8d8;
-  color: inherit;
-  text-transform: uppercase;
-  text-align: center;
-  transition: 0.13s;
-}
-#fpmenu a.signup:hover {
-  background: #d59120;
-  color: #fff;
-}
-#fpmenu .menu {
-  margin-left: 540px;
-  overflow: hidden;
-}
-#fpmenu .menu section {
-  float: left;
-  width: 55%;
-}
-#fpmenu .menu section:nth-child(even) {
-  width: 45%;
-}
-#fpmenu section a {
-  color: #d59120;
-  display: block;
-  padding: 7px 0;
-}
-#fpmenu section .disabled {
-  opacity: 0.5;
-  display: block;
-  padding: 9px 0;
-}
-#fpmenu .footer {
-  width: 100%;
-  padding: 15px 0;
-  margin-left: -20px;
-  text-align: center;
-  font-size: 12px;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-  transform: translateZ(0);
-}
-#fpmenu .footer:hover {
-  opacity: 1;
-}
-#fpmenu .footer a {
-  display: inline-block;
-  padding: 5px 12px;
-  transition: 0.3s;
-}
-#fpmenu .footer a:hover {
-  transform: translateY(-2px);
-}
-@media (max-width: 970px) {
-  #fpmenu {
-    position: relative;
-  }
-  #fpmenu .inner {
-    top: 0;
-    transform: none;
-    width: auto;
-  }
-  #fpmenu .body {
-    padding-left: 13%;
-  }
-  #fpmenu .user {
-    display: none;
-  }
-  #fpmenu .anon {
-    border: none;
-    float: none;
-    margin: auto;
-    padding-bottom: 0;
-  }
-  #fpmenu .menu {
-    margin: auto;
-    width: 500px;
-  }
-}
-@media (max-width: 1020px) {
-  #top {
-    width: calc(100% - 25px);
-  }
-}
-@media (max-width: 520px) {
-  #fpmenu .body {
-    padding-left: 10px;
-  }
-}
 #topmenu {
   position: absolute;
   top: 0;
@@ -1127,12 +851,12 @@ body.fpmenu #fpmenu {
   margin-top: 5px;
   border-top: 1px solid #d4d4d4;
 }
-#top div.auth .status {
+#top .status {
   position: relative;
   padding: 0 0 5px !important;
   min-width: 133px;
 }
-#top div.auth .status .led {
+#top .status .led {
   position: absolute;
   right: 10px;
   top: 6px;
@@ -1143,13 +867,13 @@ body.fpmenu #fpmenu {
   border-radius: 50%;
   box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
 }
-#top div.auth .status .ping,
-#top div.auth .status .server {
+#top .status .ping,
+#top .status .server {
   display: block;
   font-family: 'Roboto Mono', 'Roboto';
   padding-left: 10px;
 }
-#top div.auth .status strong {
+#top .status strong {
   padding: 0 5px;
 }
 #challenge_notifications_tag.none {
@@ -1237,16 +961,6 @@ span.progress > .positive {
 span.progress > .negative {
   color: #ac524f;
 }
-div.auth input.username,
-div.auth input.password {
-  border: 1px solid #dadada;
-  padding: 2px 3px;
-  width: 100px;
-  background: #fff;
-}
-div.auth input.login {
-  padding: 0 3px;
-}
 .language_links {
   width: 620px;
   padding: 10px;
@@ -1285,121 +999,6 @@ div.auth input.login {
   width: 50%;
   font-weight: bold;
   padding-top: 10px;
-}
-#themepicker span.down {
-  display: block;
-  margin: 3px 0.5em 0 0;
-  padding: 1px 5px;
-  line-height: normal;
-}
-#themepicker.shown .dropdown {
-  display: block;
-  width: 321px;
-  text-align: center;
-}
-body #themepicker div.is2d,
-.is3d #themepicker div.is3d {
-  display: block;
-}
-body #themepicker div.is3d,
-.is3d #themepicker div.is2d {
-  display: none;
-}
-#themepicker div.board,
-#themepicker div.piece_set {
-  overflow: hidden;
-}
-#themepicker div.theme,
-#themepicker div.no-square {
-  float: left;
-  padding: 7px;
-  cursor: pointer;
-  transition: background 0.13s;
-}
-.is2d #themepicker div.theme {
-  padding: 7px 9px 9px 7px;
-}
-#themepicker div.theme:hover {
-  background: #f0f0f0;
-}
-.is2d #themepicker div.color_demo {
-  width: 64px;
-  height: 32px;
-  background-size: 256px;
-  border: 1px solid #d0d0d0;
-  box-sizing: border-box;
-  position: relative;
-}
-.is3d #themepicker div.color_demo {
-  width: 66px;
-  height: 30px;
-  margin-bottom: 4px;
-  background-size: 264px;
-  border: none;
-  position: relative;
-}
-#themepicker div.piece_set {
-  margin-top: 10px;
-  background: url(../images/board/darksquares.jpg);
-  box-shadow: inset 0 0 20px 3px #777;
-}
-#themepicker div.no-square:hover {
-  background: rgba(250, 250, 250, 0.15);
-}
-#themepicker .no-square {
-  width: 72px;
-  height: 72px;
-  padding: 8px;
-  position: relative;
-  margin: 0 -3px -3px -3px;
-}
-#themepicker piece {
-  width: 100%;
-  height: 100%;
-}
-#themepicker .is3d piece {
-  left: 0;
-  top: 0;
-  background-size: cover;
-  background-position: 0 67%;
-}
-#themepicker div.toggles {
-  display: inline-block;
-  margin: 20px 15px 10px 15px;
-  text-align: center;
-}
-#themepicker div.toggles a {
-  font-size: 20px;
-  display: inline-block;
-  margin: 0 -2px 0 -3px;
-}
-#themepicker a.prefs {
-  padding: 10px;
-  text-align: center;
-  display: block;
-}
-#themepicker .zoom_control {
-  margin-bottom: 5px;
-}
-#themepicker .zoom_control i {
-  font-size: 24px;
-  margin-right: 5px;
-}
-#themepicker .zoom_control .slider {
-  margin: auto;
-  width: 220px;
-  height: 10px;
-  display: inline-block;
-}
-#themepicker .zoom_control .slider .ui-slider-handle {
-  margin: 0 0 -9px -3px;
-}
-#themepicker .zoom_control .slider .ui-widget-header {
-  width: 10px;
-  bottom: 0;
-}
-#themepicker input.background_image {
-  display: none;
 }
 #sound_control {
   margin-right: 5px;
@@ -1459,9 +1058,6 @@ body #themepicker div.is3d,
 }
 #friend_box:hover {
   overflow-y: auto;
-}
-body.fpmenu #friend_box {
-  display: none;
 }
 #friend_box .title {
   cursor: pointer;
@@ -1553,8 +1149,6 @@ div.box div.top,
 a.button,
 .button:visited,
 group.radio label,
-.ui-slider-handle,
-#translation_call,
 #notifications > div,
 div.vstext,
 div.user_show div.content_box_inter.tabs,
@@ -1568,7 +1162,6 @@ table.slist thead {
 .button,
 a.button,
 .button:visited,
-#translation_call,
 table.slist thead {
   font-weight: bold;
 }
@@ -1586,18 +1179,8 @@ a.button {
 a.button.thin {
   padding: 0 8px;
 }
-.button,
-a.button,
-.ui-slider-handle,
-.ui-widget-content {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #e2e2e2;
-}
-.button,
-a.button,
-.ui-slider-handle,
-.ui-widget-content {
+.button, a.button {
+  border: 1px solid #e2e2e2;
   border-radius: 2px;
 }
 .button.frameless {
@@ -1606,7 +1189,6 @@ a.button,
 }
 .button:hover,
 a.button:hover,
-.ui-slider-handle:hover,
 group.radio label:hover {
   border-color: #e2e2e2;
   background: rgb(248, 248, 248);
@@ -1623,7 +1205,6 @@ a.button:active {
 .button.active,
 .button.active:hover,
 group.radio input:checked + label,
-.ui-widget-header,
 div.pagination span.current,
 .data-count::after,
 .pocket piece::after,
@@ -1862,19 +1443,14 @@ div.vstext .right {
   float: right;
   text-align: right;
 }
-div.extra_top {
-  float: right;
-  margin: 20px 20px 0 0;
-}
-a.mini_board {
+.mini_board {
   display: block;
 }
 .mini_board .cg-board-wrap {
   width: 224px;
   height: 224px;
-  position: relative;
 }
-#challenge .mini_board .cg-board-wrap {
+#challenge .lichess_overboard .cg-board-wrap {
   width: 224px!important;
   height: 224px!important;
   margin: auto;
@@ -1927,19 +1503,11 @@ a.mini_board {
   margin-top: -3px;
   display: block;
 }
-#now_playing .mini_board .cg-board-wrap {
+#now_playing .cg-board-wrap {
   width: 160px;
   height: 160px;
 }
-/* opening.css */
 
-div.game_config button {
-  font-size: 1.4em;
-  padding: 0 2em;
-}
-div.game_config button {
-  letter-spacing: 1px;
-}
 div.lichess_overboard h2 {
   margin-bottom: 1em;
   font-size: 1.4em;
@@ -1948,16 +1516,6 @@ div.lichess_overboard h2 {
 div.lichess_overboard .target {
   display: inline-block;
   margin-bottom: 2em;
-}
-div.auth input.username,
-div.auth input.password {
-  border: 1px solid #dadada;
-  padding: 2px 3px;
-  width: 100px;
-  background: #fff;
-}
-div.auth input.login {
-  padding: 0 3px;
 }
 .undertable {
   font-size: 11.5px;
@@ -2001,14 +1559,6 @@ div.undertable_inner {
 }
 .undertable tr:first-child td {
   border-top: none;
-}
-div.lichess_overboard.joining .submit {
-  font-size: 1.2em;
-  margin-top: 1em;
-  padding: 0.6em 1em;
-}
-div.lichess_overboard.joining .mini_board {
-  margin: 10px auto;
 }
 .crosstable table {
   width: 100%;
@@ -2144,8 +1694,8 @@ textarea.copyable {
   background-attachment: local, local, scroll, scroll;
 }
 [data-hint] {
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 [data-hint]:before,
 [data-hint]:after {
@@ -2444,47 +1994,6 @@ input.cmn-toggle-round:checked + label::before {
 }
 input.cmn-toggle-round:checked + label::after {
   margin-left: 20px;
-}
-.pull-quote {
-  margin: 0 auto;
-  font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
-  font-size: 15px;
-  text-align: left;
-}
-.pull-quote p {
-  position: relative;
-  margin: 0 10px;
-  padding: 15px 0;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  font-style: italic;
-}
-.pull-quote.long p {
-  font-size: 14px;
-}
-.pull-quote p:after {
-  content: '';
-  position: absolute;
-  bottom: -9px;
-  left: 42px;
-  width: 15px;
-  height: 15px;
-  background: #eee;
-  border-left: 1.5px solid #aaa;
-  border-bottom: 1px solid #aaa;
-  transform: skew(45deg) rotate(-45deg);
-}
-.content_box .pull-quote p:after,
-.lichess_overboard .pull-quote p:after {
-  background: #fff;
-}
-.pull-quote footer {
-  margin: 10px;
-  line-height: 20px;
-  text-align: right;
-}
-.pull-quote footer:before {
-  content: '\2014';
 }
 .hopscotch-content a {
   text-decoration: underline;

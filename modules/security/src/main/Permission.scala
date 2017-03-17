@@ -42,18 +42,19 @@ object Permission {
   case object Coach extends Permission("ROLE_COACH")
   case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
   case object ModNote extends Permission("ROLE_MOD_NOTE")
+  case object RemoveRanking extends Permission("ROLE_REMOVE_RANKING")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
-    UserSearch, ModNote
+    UserSearch, ModNote, RemoveRanking
   ))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach, PracticeConfig
+    PreviewCoach, PracticeConfig, RemoveRanking
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(

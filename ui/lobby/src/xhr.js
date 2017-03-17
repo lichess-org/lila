@@ -1,34 +1,24 @@
-var m = require('mithril');
-
-var xhrConfig = function(xhr) {
-  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhr.setRequestHeader('Accept', 'application/vnd.lichess.v2+json');
-}
-
-function uncache(url) {
-  return url + '?_=' + new Date().getTime();
-}
+var headers = {
+  'Accept': 'application/vnd.lichess.v2+json'
+};
 
 module.exports = {
   seeks: function() {
-    return m.request({
-      method: 'GET',
-      url: uncache('/lobby/seeks'),
-      config: xhrConfig,
-      background: true
+    return $.ajax({
+      url: '/lobby/seeks',
+      headers: headers
     });
   },
   nowPlaying: function() {
-    return m.request({
-      method: 'GET',
-      url: uncache('/account/info'),
-      config: xhrConfig
+    return $.ajax({
+      url: '/account/info',
+      headers: headers
     }).then(function(o) {
       return o.nowPlaying;
     });
   },
   anonPoolSeek: function(pool) {
-    return m.request({
+    return $.ajax({
       method: 'POST',
       url: '/setup/hook/' + lichess.StrongSocket.sri,
       data: {

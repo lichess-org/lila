@@ -1,39 +1,36 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
 var ground = require('./ground');
 var xhr = require('./xhr');
-var invertKey = chessground.util.invertKey;
-var key2pos = chessground.util.key2pos;
+var util = require('chessground/util');
 
 var promoting = null;
 var prePromotionRole = null;
 
-function sendPromotion(ctrl, orig, dest, role) {
+function sendPromotion(ctrl, orig, dest, role, meta) {
   ground.promote(ctrl.chessground, dest, role);
-  ctrl.sendMove(orig, dest, role);
+  ctrl.sendMove(orig, dest, role, meta);
   return true;
 }
 
 function start(ctrl, orig, dest, meta) {
   var d = ctrl.data;
-  var piece = ctrl.chessground.data.pieces[dest];
-  var premovePiece = ctrl.chessground.data.pieces[orig];
+  var piece = ctrl.chessground.state.pieces[dest];
+  var premovePiece = ctrl.chessground.state.pieces[orig];
   if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] == 8 && d.player.color === 'white') ||
     (dest[1] == 1 && d.player.color === 'black'))) {
-    if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole);
+    if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
     if (!meta.ctrlKey && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
-      else sendPromotion(ctrl, orig, dest, 'queen');
+      else sendPromotion(ctrl, orig, dest, 'queen', meta);
       return true;
     }
-    m.startComputation();
     promoting = {
       move: [orig, dest],
-      pre: !!premovePiece
+      pre: !!premovePiece,
+      meta: meta
     };
-    m.endComputation();
+    m.redraw();
     return true;
   }
   return false;
@@ -52,14 +49,17 @@ function setPrePromotion(ctrl, dest, role) {
 }
 
 function cancelPrePromotion(ctrl) {
-  if (prePromotionRole) ctrl.chessground.setAutoShapes([]);
-  prePromotionRole = null;
+  if (prePromotionRole) {
+    ctrl.chessground.setAutoShapes([]);
+    prePromotionRole = null;
+    m.redraw();
+  }
 }
 
 function finish(ctrl, role) {
   if (promoting) {
     if (promoting.pre) setPrePromotion(ctrl, promoting.move[1], role);
-    else sendPromotion(ctrl, promoting.move[0], promoting.move[1], role);
+    else sendPromotion(ctrl, promoting.move[0], promoting.move[1], role, promoting.meta);
   }
   promoting = null;
 }
@@ -72,11 +72,13 @@ function cancel(ctrl) {
 }
 
 function renderPromotion(ctrl, dest, pieces, color, orientation) {
-  var left =  (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] -1) * 12.5;
+  var left = (8 - util.key2pos(dest)[0]) * 12.5;
+  if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion_choice.' + vertical, {
-    onclick: partial(cancel, ctrl)
+    onclick: lichess.partial(cancel, ctrl),
+    oncontextmenu: function() { return false; }
   }, pieces.map(function(serverRole, i) {
     var top = (color === orientation ? i : 7 - i) * 12.5;
     return m('square', {
@@ -102,6 +104,6 @@ module.exports = {
 
     return renderPromotion(ctrl, promoting.move[1], pieces,
         ctrl.data.player.color,
-        ctrl.chessground.data.orientation);
+        ctrl.chessground.state.orientation);
   }
 };

@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var storedProp = require('common').storedProp;
 var storedJsonProp = require('common').storedJsonProp;
 
@@ -47,8 +46,8 @@ module.exports = {
       toggleDb: function(db) {
         data.db.selected(db);
       },
-      toggleRating: partial(toggleMany, data.rating.selected),
-      toggleSpeed: partial(toggleMany, data.speed.selected),
+      toggleRating: lichess.partial(toggleMany, data.rating.selected),
+      toggleSpeed: lichess.partial(toggleMany, data.speed.selected),
       fullHouse: function() {
         return data.db.selected() === 'masters' || (
           data.rating.selected().length === data.rating.available.length &&
@@ -65,7 +64,7 @@ module.exports = {
         m('div.choices', d.db.available.map(function(s) {
           return m('span', {
             class: d.db.selected() === s ? 'selected' : '',
-            onclick: partial(ctrl.toggleDb, s)
+            onclick: lichess.partial(ctrl.toggleDb, s)
           }, s);
         }))
       ]),
@@ -82,7 +81,7 @@ module.exports = {
             d.rating.available.map(function(r) {
               return m('span', {
                 class: d.rating.selected().indexOf(r) > -1 ? 'selected' : '',
-                onclick: partial(ctrl.toggleRating, r)
+                onclick: lichess.partial(ctrl.toggleRating, r)
               }, r);
             })
           )
@@ -93,7 +92,7 @@ module.exports = {
             d.speed.available.map(function(s) {
               return m('span', {
                 class: d.speed.selected().indexOf(s) > -1 ? 'selected' : '',
-                onclick: partial(ctrl.toggleSpeed, s)
+                onclick: lichess.partial(ctrl.toggleSpeed, s)
               }, s);
             })
           )

@@ -1,6 +1,5 @@
 var m = require('mithril');
 var util = require('../util');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var hookRepo = require('../../hookRepo');
 
@@ -46,14 +45,14 @@ module.exports = {
       key: 'set-mode-chart',
       'data-hint': ctrl.trans('graph'),
       class: 'mode_toggle hint--bottom',
-      config: util.bindOnce('mousedown', partial(ctrl.setMode, 'chart'))
+      config: util.bindOnce('mousedown', lichess.partial(ctrl.setMode, 'chart'))
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {
     var mine = allHooks.find(isMine);
     var max = mine ? 13 : 14;
     var hooks = allHooks.slice(0, max);
-    var render = partial(renderHook, ctrl);
+    var render = lichess.partial(renderHook, ctrl);
     var standards = hooks.filter(isNotMine).filter(isStandard(true));
     hookRepo.sort(ctrl, standards);
     var variants = hooks.filter(isNotMine).filter(isStandard(false))
@@ -83,14 +82,14 @@ module.exports = {
               sortable: true,
               sort: ctrl.vm.sort === 'rating'
             }),
-            config: util.bindOnce('click', partial(ctrl.setSort, 'rating'))
+            config: util.bindOnce('click', lichess.partial(ctrl.setSort, 'rating'))
           }, [m('i.is'), ctrl.trans('rating')]),
           m('th', {
             class: classSet({
               sortable: true,
               sort: ctrl.vm.sort === 'time'
             }),
-            config: util.bindOnce('click', partial(ctrl.setSort, 'time'))
+            config: util.bindOnce('click', lichess.partial(ctrl.setSort, 'time'))
           }, [m('i.is'), ctrl.trans('time')]),
           m('th', ctrl.trans('mode'))
         ])

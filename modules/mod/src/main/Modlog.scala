@@ -39,6 +39,7 @@ case class Modlog(
     case Modlog.troll => "shadowban"
     case Modlog.untroll => "un-shadowban"
     case Modlog.permissions => "set permissions"
+    case Modlog.kickFromRankings => "kick from rankings"
     case a => a
   }
 
@@ -75,4 +76,5 @@ object Modlog {
   val deleteTeam = "deleteTeam"
   val terminateTournament = "terminateTournament "
   val chatTimeout = "chatTimeout "
+  val kickFromRankings = "kickFromRankings"
 }

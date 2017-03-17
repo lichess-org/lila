@@ -13,16 +13,16 @@
     <meta charset="utf-8">
   </head>
   <body
-    class="base highlight @bg no-bg"
-    style="width: 224px; height: 264px; overflow: hidden;"
+    class="base highlight @bg"
+    style="width: 224px; height: 264px; overflow: hidden; background: none!important"
     data-stream-url="@routes.Tv.feed">
     <div id="featured_game" class="is2d highlight @bg @theme merida" title="lichess.org TV">
       @gameFenNoCtx(pov, tv = true, blank = true)
       @game.vstext(pov)(none)
     </div>
     @jQueryTag
-    @jsAt("javascripts/vendor/chessground.min.js", true, assetVersion)
-    @jsAt("compiled/tv.js", true, assetVersion)
-    @base.ga()
+    @jsAt("javascripts/vendor/chessground.min.js", true, false, assetVersion)
+    @jsAt("compiled/tv.js", true, false, assetVersion)
+    @gaTag
   </body>
 </html>

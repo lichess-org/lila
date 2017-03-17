@@ -61,6 +61,10 @@ object Mod extends LilaController {
     modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
+  def kickFromRankings(username: String) = Secure(_.RemoveRanking) { implicit ctx => me =>
+    modApi.kickFromRankings(me.id, username) inject redirect(username)
+  }
+
   private case class Irwin(result: Boolean, reason: String)
   private implicit val IrwinReads = Json.reads[Irwin]
 

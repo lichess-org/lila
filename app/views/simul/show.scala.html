@@ -21,12 +21,16 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.str(), timeout = c.timeout, p
 }
 }
 
+@moreCss = {
+@if(sim.isCreated) { @cssTag("quote.css") }
+}
+
 @simul.layout(
 title = sim.fullName,
 side = simul.side(sim).some,
 underchat = underchat.some,
 chat = chat.dom().some,
 moreJs = moreJs,
-chessground = false) {
+moreCss = moreCss) {
 <div id="simul"></div>
 }

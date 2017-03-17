@@ -2,7 +2,7 @@ var m = require('mithril');
 
 var ctrl = require('./ctrl');
 var view = require('./view/main');
-var legacy = require('./legacy');
+var boot = require('./boot');
 
 module.exports = {
   mithril: function(element, opts) {
@@ -29,10 +29,13 @@ module.exports = {
       enterPool: controller.enterPool,
       leavePool: controller.leavePool
     };
-  },
-  legacy: legacy
+  }
 };
 
-// lol, that's for the rest of lichess to access mithril
+// that's for the rest of lichess to access chessground
 // without having to include it a second time
-window.Chessground = require('chessground');
+window.Chessground = require('chessground').Chessground;
+
+window.onload = function() {
+  if (window.lichess_lobby) boot(lichess_lobby, document.getElementById('hooks_wrap'));
+};

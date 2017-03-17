@@ -1,8 +1,14 @@
 var m = require('mithril');
+var updateElements = require('./view').updateElements;
 
 module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;
+
+  var elements = {
+    white: {},
+    black: {}
+  };
 
   var emergSound = {
     play: lichess.sound.lowtime,
@@ -35,8 +41,10 @@ module.exports = function(data, onFlag, soundColor) {
 
   var tick = function(color) {
     data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
-    if (data[color] === 0) onFlag();
-    m.redraw();
+    if (data[color] === 0) {
+      onFlag();
+      m.redraw();
+    } else updateElements(data, elements, color);
     if (soundColor == color && data[soundColor] < data.emerg && emergSound.playable[soundColor]) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
@@ -56,6 +64,7 @@ module.exports = function(data, onFlag, soundColor) {
     data: data,
     update: update,
     tick: tick,
-    secondsOf: secondsOf
+    secondsOf: secondsOf,
+    elements: elements
   };
 }

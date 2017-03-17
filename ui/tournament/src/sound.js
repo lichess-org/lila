@@ -5,7 +5,7 @@ function doCountDown(targetTime) {
   var started = false;
 
   return function curCounter() {
-    var secondsToStart = targetTime - (new Date().getTime() / 1000);
+    var secondsToStart = targetTime - Date.now() / 1000;
 
     // always play the 0 sound before completing.
     var bestTick = Math.max(0, Math.round(secondsToStart));
@@ -47,8 +47,10 @@ module.exports = {
     if (data.secondsToStart > 60 * 60 * 24) return;
 
     countDownTimeout = setTimeout(
-      doCountDown(new Date().getTime() / 1000 + data.secondsToStart - 0.1),
+      doCountDown(Date.now() / 1000 + data.secondsToStart - 0.1),
       900);  // wait 900ms before starting countdown.
+
+    setTimeout(lichess.sound.warmup, (data.secondsToStart - 15) * 1000);
 
     // Preload countdown sounds.
     for (var i = 10; i>=0; i--) {

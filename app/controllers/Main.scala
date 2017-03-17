@@ -127,10 +127,8 @@ object Main extends LilaController {
 
   val robots = Action { _ =>
     Ok {
-      if (Env.api.Net.Crawlable)
-        "User-agent: *\nAllow: /\nDisallow: /game/export"
-      else
-        "User-agent: *\nDisallow: /"
+      if (Env.api.Net.Crawlable) "User-agent: *\nAllow: /\nDisallow: /game/export"
+      else "User-agent: *\nDisallow: /"
     }
   }
 
@@ -139,4 +137,8 @@ object Main extends LilaController {
       lila.mon.http.response.code404()
       NotFound(html.base.notFound())
     }
+
+  def fpmenu = Open { implicit ctx =>
+    Ok(html.base.fpmenu()).fuccess
+  }
 }

@@ -1,59 +1,70 @@
-var chessground = require('chessground');
+var m = require('mithril');
+var Chessground = require('chessground').Chessground;
 
-function makeConfig(data, config, onMove, onNewPiece, isStudy) {
-  return {
-    fen: config.fen,
-    check: config.check,
-    lastMove: config.lastMove,
-    orientation: data.orientation,
-    coordinates: data.pref.coords !== 0,
+module.exports = function(ctrl) {
+  return m('div.cg-board-wrap', {
+    config: function(el, isUpdate, ctx) {
+      if (!isUpdate) {
+        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        ctrl.setAutoShapes();
+        if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
+        ctx.onunload = ctrl.chessground.destroy;
+      }
+    }
+  });
+}
+
+function makeConfig(ctrl) {
+  var d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
+  var config = {
+    turnColor: opts.turnColor,
+    fen: opts.fen,
+    check: opts.check,
+    lastMove: opts.lastMove,
+    orientation: d.orientation,
+    coordinates: pref.coords !== 0 && !ctrl.embed,
+    addPieceZIndex: pref.is3d,
+    viewOnly: !!ctrl.embed,
     movable: {
       free: false,
-      color: config.movable.color,
-      dests: config.movable.dests,
-      rookCastle: data.pref.rookCastle
+      color: opts.movable.color,
+      dests: opts.movable.dests,
+      showDests: pref.destination,
+      rookCastle: pref.rookCastle
     },
     events: {
-      move: onMove,
-      dropNewPiece: onNewPiece
+      move: ctrl.userMove,
+      dropNewPiece: ctrl.userNewPiece
     },
     premovable: {
-      enabled: config.premovable
+      enabled: opts.premovable
     },
     drawable: {
-      enabled: true,
-      eraseOnClick: !isStudy
+      enabled: !ctrl.embed,
+      eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
     },
     highlight: {
-      lastMove: data.pref.highlight,
-      check: data.pref.highlight,
-      dragOver: true
+      lastMove: pref.highlight,
+      check: pref.highlight
     },
     animation: {
-      enabled: true,
-      duration: data.pref.animationDuration
+      duration: pref.animationDuration
     },
     disableContextMenu: true
   };
+  ctrl.study && ctrl.study.mutateCgConfig(config);
+  return config;
 }
 
-function make(data, config, onMove, onNewPiece, isStudy) {
-  return new chessground.controller(makeConfig(data, config, onMove, onNewPiece, isStudy));
-}
-
-function promote(ground, key, role) {
+module.exports.promote = function(ground, key, role) {
   var pieces = {};
-  var piece = ground.data.pieces[key];
+  var piece = ground.state.pieces[key];
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,
-      role: role
+      role: role,
+      promoted: true
     };
     ground.setPieces(pieces);
   }
 }
-
-module.exports = {
-  make: make,
-  promote: promote
-};

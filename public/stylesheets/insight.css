@@ -247,9 +247,9 @@ div.panel-tabs a.active {
   text-align: center;
 }
 #insight .game_list .cg-board-wrap {
-  margin: auto;
   width: 182px;
   height: 182px;
+  margin: auto;
   position: relative;
 }
 #insight .game_list .vstext {

@@ -1,7 +1,3 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 // versioned events, acks, retries, resync
 lichess.StrongSocket = function(url, version, settings) {
 
@@ -31,7 +27,7 @@ lichess.StrongSocket = function(url, version, settings) {
     destroy();
     autoReconnect = true;
     var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + $.param(settings.params);
-    debug("connection attempt to " + fullUrl, true);
+    debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
       ws.onerror = function(e) {
@@ -44,7 +40,7 @@ lichess.StrongSocket = function(url, version, settings) {
         }
       };
       ws.onopen = function() {
-        debug("connected to " + fullUrl, true);
+        debug("connected to " + fullUrl);
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
@@ -96,12 +92,6 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
   lichess.pubsub.on('socket.send', send);
-
-  var sendAckable = function(t, d) {
-    send(t, d, {
-      ackable: true
-    });
-  };
 
   var scheduleConnect = function(delay) {
     if (options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
@@ -175,13 +165,13 @@ lichess.StrongSocket = function(url, version, settings) {
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
-        var processed = settings.receive ? settings.receive(m.t, m.d) : false;
+        var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
   };
 
   var debug = function(msg, always) {
-    if ((always || options.debug) && window.console && console.debug) {
+    if (always || options.debug) {
       console.debug("[" + options.name + " " + settings.params.sri + "]", msg);
     }
   };
@@ -195,12 +185,9 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var disconnect = function(onNextConnect) {
     if (ws) {
-      debug("Disconnect", true);
+      debug("Disconnect");
       autoReconnect = false;
-      ws.onerror = $.noop;
-      ws.onclose = $.noop;
-      ws.onopen = $.noop;
-      ws.onmessage = $.noop;
+      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = $.noop;
       ws.close();
     }
     if (onNextConnect) options.onNextConnect = onNextConnect;
@@ -212,8 +199,7 @@ lichess.StrongSocket = function(url, version, settings) {
     tryOtherUrl = true;
     setTimeout(function() {
       if (!$('#network_error').length) {
-        var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
-        $('#top').append('<span class="fright link text" id="network_error" title="' + msg + '" data-icon="j">Network error</span>');
+        $('#top').append('<span class="fright link text" id="network_error" data-icon="j">Network error</span>');
       }
     }, 1000);
     clearTimeout(pingSchedule);
@@ -241,7 +227,6 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var baseUrl = function() {
-    var key = options.baseUrlKey;
     var urls = options.baseUrls;
     var url = storage.get();
     if (!url) {

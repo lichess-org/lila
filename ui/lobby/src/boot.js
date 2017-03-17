@@ -1,4 +1,4 @@
-module.exports = function(element, cfg) {
+module.exports = function(cfg, element) {
   var lobby;
   var nbRoundSpread = $.spreadNumber(
     document.querySelector('#nb_games_in_play span'),
@@ -12,8 +12,12 @@ module.exports = function(element, cfg) {
     function() {
       return lichess.socket.pingInterval();
     });
+  var getParameterByName = function(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  };
   var onFirstConnect = function() {
-    var gameId = lichess.getParameterByName('hook_like');
+    var gameId = getParameterByName('hook_like');
     if (!gameId) return;
     $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
     lobby.setTab('real_time');
@@ -173,7 +177,7 @@ module.exports = function(element, cfg) {
       find('timeMode') == 1;
     if (!valid) return false;
     var id = parseFloat(find('time')) + '+' + parseInt(find('increment'));
-    var exists = lichess.lobby.data.pools.filter(function(p) {
+    var exists = lichess_lobby.data.pools.filter(function(p) {
       return p.id === id;
     }).length;
     if (!exists) return;
@@ -387,7 +391,9 @@ module.exports = function(element, cfg) {
       $modeChoicesWrap.toggle(!fen);
       if (fen) {
         $casual.click();
-        document.body.dispatchEvent(new Event('chessground.resize'));
+        lichess.raf(function() {
+          document.body.dispatchEvent(new Event('chessground.resize'));
+        });
       }
       showRating();
       toggleButtons();

@@ -1,6 +1,4 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
+// var start = new Date(); var millis = 500; while (new Date() - millis < start) {}
 
 lichess.challengeApp = (function() {
   var instance, booted;
@@ -284,7 +282,7 @@ lichess.notifyApp = (function() {
         minLength: 3,
         hint: true,
         highlight: false,
-        source: function(query, sync, async) {
+        source: function(query, sync, runAsync) {
           $.ajax({
             method: 'get',
             url: '/player/autocomplete',
@@ -294,8 +292,10 @@ lichess.notifyApp = (function() {
             },
             success: function(res) {
               // hack to fix typeahead limit bug
-              if (res.length === 10) res.push(null);
-              async(res);
+              if (res.length === 10) {
+                res.push(null);
+              }
+              runAsync(res);
             }
           });
         },
@@ -307,11 +307,11 @@ lichess.notifyApp = (function() {
             return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
           }
         }
-      }).bind('typeahead:render', function() {
+      }).on('typeahead:render', function() {
         lichess.pubsub.emit('content_loaded')();
       });
       if (opts.focus) $input.focus();
-      if (opts.onSelect) $input.bind('typeahead:select', function(ev, sel) {
+      if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
         opts.onSelect(sel);
       }).keypress(function(e) {
         if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
@@ -321,13 +321,16 @@ lichess.notifyApp = (function() {
 
   lichess.parseFen = (function() {
     var doParseFen = function($elem) {
+      if (!window.Chessground) return $(window).on('load', function() {
+        doParseFen($elem);
+      });
       if (!$elem || !$elem.jquery) {
         $elem = $('.parse_fen');
       }
       $elem.each(function() {
         var $this = $(this).removeClass('parse_fen');
         var lm = $this.data('lastmove');
-        var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null;
+        var lastMove = lm && [lm[0] + lm[1], lm[2] + lm[3]];
         var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
         var ground = $this.data('chessground');
         var playable = !!$this.data('playable');
@@ -337,11 +340,15 @@ lichess.notifyApp = (function() {
           viewOnly: !playable,
           resizable: resizable,
           fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-          lastMove: lastMove
+          lastMove: lastMove,
+          drawable: { enabled: false }
         };
         if (color) config.orientation = color;
         if (ground) ground.set(config);
-        else $this.data('chessground', Chessground($this[0], config));
+        else {
+          this.innerHTML = '<div class="cg-board-wrap">';
+          $this.data('chessground', Chessground(this.firstChild, config));
+        }
       });
     };
     // debounce the first parseFen at first, then process them immediately
@@ -351,7 +358,7 @@ lichess.notifyApp = (function() {
       var fun = lichess.fp.debounce(doParseFen, 400, false);
       setTimeout(function() {
         fun = doParseFen;
-      }, 1000);
+      }, 700);
       return function($elem) {
         fun($elem);
       };
@@ -359,8 +366,7 @@ lichess.notifyApp = (function() {
   })();
 
   $(function() {
-    if (lichess.lobby) LichessLobby.legacy(document.getElementById('hooks_wrap'), lichess.lobby);
-    else if (lichess.analyse) LichessAnalyse.legacy(document.getElementById('lichess'), lichess.analyse);
+    if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
@@ -369,7 +375,7 @@ lichess.notifyApp = (function() {
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
 
     // delay so round starts first (just for perceived perf)
-    setTimeout(function() {
+    lichess.requestIdleCallback(function() {
 
       $('#friend_box').friends();
 
@@ -438,8 +444,10 @@ lichess.notifyApp = (function() {
       lichess.pubsub.on('content_loaded', setMoment);
 
       function setMomentFromNow() {
-        $("time.moment-from-now").each(function() {
-          this.textContent = moment(this.getAttribute('datetime')).fromNow();
+        lichess.requestIdleCallback(function() {
+          $(".moment-from-now").each(function() {
+            this.textContent = moment(this.getAttribute('datetime')).fromNow();
+          });
         });
       }
       setMomentFromNow();
@@ -460,157 +468,12 @@ lichess.notifyApp = (function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
-      // themepicker
-      $('#themepicker_toggle').one('mouseover', function() {
-        var applyBackground = function(v) {
-          var bgData = document.getElementById('bg-data');
-          bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + v + ');}' :
-            $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + v + ');}</style>');
-        };
-        var $themepicker = $('#themepicker');
-        var findInBodyClasses = function(choices) {
-          var list = document.body.classList;
-          for (var i in list)
-            if (lichess.fp.contains(choices, list[i])) return list[i];
-        };
-        $.ajax({
-          url: $(this).data('url'),
-          success: function(html) {
-            $themepicker.append(html);
-            var $body = $('body');
-            var $content = $body.children('.content');
-            var $dropdown = $themepicker.find('.dropdown');
-            var $pieceSprite = $('#piece-sprite');
-            var themes = $dropdown.data('themes').split(' ');
-            var theme = findInBodyClasses(themes);
-            var set = $body.data('piece-set');
-            var theme3ds = $dropdown.data('theme3ds').split(' ');
-            var theme3d = findInBodyClasses(theme3ds);
-            var set3ds = $dropdown.data('set3ds').split(' ');
-            var set3d = findInBodyClasses(set3ds);
-            var background = $body.data('bg');
-            var is3d = $content.hasClass('is3d');
-            $themepicker.find('.is2d div.theme').hover(function() {
-              $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
-            }, function() {
-              $body.removeClass(themes.join(' ')).addClass(theme);
-            }).click(function() {
-              theme = $(this).data("theme");
-              $.post($(this).parent().data("href"), {
-                theme: theme
-              }, lichess.reloadOtherTabs);
-            });
-            $themepicker.find('.is2d div.no-square').hover(function() {
-              var s = $(this).data("set");
-              $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
-            }, function() {
-              $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
-            }).click(function() {
-              set = $(this).data("set");
-              $.post($(this).parent().data("href"), {
-                set: set
-              }, lichess.reloadOtherTabs);
-            });
-            $themepicker.find('.is3d div.theme').hover(function() {
-              $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
-            }, function() {
-              $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
-            }).click(function() {
-              theme3d = $(this).data("theme");
-              $.post($(this).parent().data("href"), {
-                theme: theme3d
-              }, lichess.reloadOtherTabs);
-            });
-            $themepicker.find('.is3d div.no-square').hover(function() {
-              $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
-            }, function() {
-              $body.removeClass(set3ds.join(' ')).addClass(set3d);
-            }).click(function() {
-              set3d = $(this).data("set");
-              $.post($(this).parent().data("href"), {
-                set: set3d
-              }, lichess.reloadOtherTabs);
-            });
-            var showBg = function(bg) {
-              $body.removeClass('light dark transp')
-                .addClass(bg === 'transp' ? 'transp dark' : bg);
-              if ((bg === 'dark' || bg === 'transp') && !$('link[href*="dark.css"]').length)
-                $('link[href*="common.css"]').clone().each(function() {
-                  $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
-                });
-              if (bg === 'transp' && !$('link[href*="transp.css"]').length) {
-                $('link[href*="common.css"]').clone().each(function() {
-                  $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
-                });
-                applyBackground($themepicker.find('input.background_image').val());
-              }
-            };
-            var showDimensions = function(is3d) {
-              $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
-              if (is3d && !$('link[href*="board-3d.css"]').length)
-                $('link[href*="board.css"]').clone().each(function() {
-                  $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
-                });
-              setZoom(getZoom());
-            };
-            $themepicker.find('.background a').click(function() {
-              background = $(this).data('bg');
-              $.post($(this).parent().data('href'), {
-                bg: background
-              }, function() {
-                if (window.Highcharts) lichess.reload();
-                lichess.reloadOtherTabs();
-              });
-              $(this).addClass('active').siblings().removeClass('active');
-              return false;
-            }).hover(function() {
-              showBg($(this).data('bg'));
-            }, function() {
-              showBg(background);
-            }).filter('.' + background).addClass('active');
-            $themepicker.find('.dimensions a').click(function() {
-              is3d = $(this).data('is3d');
-              $.post($(this).parent().data('href'), {
-                is3d: is3d
-              }, lichess.reloadOtherTabs);
-              $(this).addClass('active').siblings().removeClass('active');
-              return false;
-            }).hover(function() {
-              showDimensions($(this).data('is3d'));
-            }, function() {
-              showDimensions(is3d);
-            }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-            lichess.slider().done(function() {
-              $themepicker.find('.slider').slider({
-                orientation: "horizontal",
-                min: 1,
-                max: 2,
-                range: 'min',
-                step: 0.01,
-                value: getZoom(),
-                slide: function(e, ui) {
-                  manuallySetZoom(ui.value);
-                }
-              });
-            });
-            $themepicker.find('input.background_image')
-              .on('change keyup paste', lichess.fp.debounce(function() {
-                var v = $(this).val();
-                $.post($(this).data("href"), {
-                  bgImg: v
-                }, lichess.reloadOtherTabs);
-                applyBackground(v);
-              }, 200));
-          }
-        });
-      });
-
       // Zoom
-      var getZoom = function() {
-        return lichess.isTrident ? 1 : (lichess.storage.get('zoom') || 1);
-      };
+      var currentZoom = lichess.isTrident ? 1 : $('body').data('zoom') / 100;
+
       var setZoom = function(zoom) {
-        lichess.storage.set('zoom', zoom);
+
+        currentZoom = zoom;
 
         var $lichessGame = $('.lichess_game, .board_and_ground');
         var $boardWrap = $lichessGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
@@ -622,9 +485,9 @@ lichess.notifyApp = (function() {
         $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(512 * zoom));
 
         if ($('body > .content').hasClass('is3d')) {
-          $boardWrap.css("height", px(479.08572 * zoom));
+          $boardWrap.css("height", px(464.5 * zoom));
           $lichessGame.css({
-            height: px(479.08572 * zoom),
+            height: px(476 * zoom),
             paddingTop: px(50 * (zoom - 1))
           });
           $('#chat').css("height", px(300 + 529 * (zoom - 1)));
@@ -655,10 +518,34 @@ lichess.notifyApp = (function() {
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
 
-      var manuallySetZoom = lichess.fp.debounce(setZoom, 10);
-      if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
+      var saveZoom = lichess.fp.debounce(function() {
+        console.log(currentZoom);
+        $.ajax({
+          method: 'post',
+          url: '/pref/zoom?v=' + Math.round(currentZoom * 100)
+        });
+      }, 500);
+      var manuallySetZoom = lichess.fp.debounce(function(z) {
+        setZoom(z);
+        saveZoom();
+      }, 10);
       lichess.pubsub.on('reset_zoom', function() {
-        if (getZoom() > 1) setZoom(getZoom());
+        if (currentZoom > 1) setZoom(currentZoom);
+      });
+
+      // migrate from storage to cookie DELETE ME - 09/03/17
+      var oldZoom = lichess.storage.get('zoom');
+      if (oldZoom) {
+        manuallySetZoom(oldZoom);
+        lichess.storage.remove('zoom');
+      }
+
+      // themepicker
+      $('#themepicker_toggle').one('mouseover', function() {
+        var button = this;
+        lichess.loadScript('/assets/compiled/themepicker.js').then(function() {
+          lichess.themepicker(button, function() { return currentZoom }, setZoom, manuallySetZoom);
+        });
       });
 
       function translateTexts() {
@@ -682,10 +569,11 @@ lichess.notifyApp = (function() {
         });
       });
 
-      $('.infinitescroll:has(.pager a)').each(function() {
+      $('.infinitescroll').each(function() {
+        if (!$('.pager a', this).length) return;
         $(this).infinitescroll({
           navSelector: ".pager",
-          nextSelector: ".pager a:last",
+          nextSelector: ".pager a",
           itemSelector: ".infinitescroll .paginated_element",
           errorCallback: function() {
             $("#infscr-loading").remove();
@@ -727,6 +615,7 @@ lichess.notifyApp = (function() {
           langs = $('body').data('accept-languages').split(',');
         $.ajax({
           url: $links.data('url'),
+          cache: true,
           success: function(list) {
             $links.find('ul').prepend(list.map(function(lang) {
               var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
@@ -734,12 +623,6 @@ lichess.notifyApp = (function() {
             }).join(''));
           }
         });
-      });
-
-      $('#translation_call .close').click(function() {
-        $.post($(this).data("href"));
-        $(this).parent().fadeOut(500);
-        return false;
       });
 
       $('a.delete, input.delete').click(function() {
@@ -759,11 +642,14 @@ lichess.notifyApp = (function() {
 
       // minimal touchscreen support for topmenu
       if ('ontouchstart' in window)
-        $('#topmenu').on('click', '> section > a', function() {
+        $('#topmenu').on('click', 'section > a', function() {
           return false;
         });
 
-      $('#ham-plate').click(function() {
+      $('#ham-plate').one('mouseover click', function() {
+        $('body').append($('<div id=fpmenu>').load('/fpmenu'));
+        lichess.loadCss('/assets/stylesheets/fpmenu.css');
+      }).click(function() {
         document.body.classList.toggle('fpmenu');
       });
 
@@ -777,15 +663,6 @@ lichess.notifyApp = (function() {
         else $('#ham-plate').click();
         return false;
       });
-      Mousetrap.bind('g h', function() {
-        location.href = '/';
-      });
-      Mousetrap.bind(': k a p p a', function() {
-        $('body').toggleClass('kappa');
-      });
-      Mousetrap.bind(': d o g g y', function() {
-        $('body').toggleClass('doggy');
-      });
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = +new Date();
@@ -796,12 +673,10 @@ lichess.notifyApp = (function() {
           $.post('/set-fingerprint/' + res + '/' + time);
         });
       }, 500);
-    }, 50);
+    });
   });
 
-
   lichess.sound = (function() {
-    var version = 1;
     var baseUrl = lichess.assetUrl('/assets/sound', true);
     var soundSet = $('body').data('sound-set');
     var volumeStorage = lichess.storage.make('sound-volume');
@@ -855,12 +730,11 @@ lichess.notifyApp = (function() {
       }
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
-          return [baseUrl, set, names[k] + '.' + ext + '?v=' + version].join('/');
+          return [baseUrl, set, names[k] + '.' + ext].join('/');
         }),
         volume: volumes[k] || 1
       });
     });
-    var $control = $('#sound_control');
     var $toggle = $('#sound_state');
     var enabled = function() {
       return soundSet !== 'silent';
@@ -917,6 +791,14 @@ lichess.notifyApp = (function() {
       });
     });
 
+    play.warmup = function() {
+      if (enabled()) {
+        // See goldfire/howler.js#715
+        Howler._autoResume();   // This resumes sound if suspended.
+        Howler._autoSuspend();  // This starts the 30s timer to suspend.
+      }
+    };
+
     play.set = function() {
       return soundSet;
     };
@@ -924,119 +806,12 @@ lichess.notifyApp = (function() {
   })();
 
   lichess.globalTrans = function() {
-    var str = lichess_translations[arguments[0]];
+    var str = window.lichess_translations && lichess_translations[arguments[0]];
     if (!str) return arguments[0];
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
-  };
-
-  function startTournamentClock() {
-    $("div.game_tournament div.clock").each(function() {
-      $(this).clock({
-        time: parseFloat($(this).data("time"))
-      });
-    });
-  }
-
-  /////////////
-  // game.js //
-  /////////////
-
-  lichess.startRound = function(element, cfg) {
-    var data = cfg.data;
-    lichess.openInMobileApp(data.game.id);
-    var round, chat;
-    if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-    lichess.socket = lichess.StrongSocket(
-      data.url.socket,
-      data.player.version, {
-        options: {
-          name: "round"
-        },
-        params: {
-          userTv: $('.user_tv').data('user-tv')
-        },
-        receive: function(t, d) {
-          round.socketReceive(t, d);
-        },
-        events: {
-          crowd: function(e) {
-            $watchers.watchers("set", e.watchers);
-          },
-          tvSelect: function(o) {
-            if (data.tv && data.tv.channel == o.channel) lichess.reload();
-            else $('#tv_channels a.' + o.channel + ' span').html(
-              o.player ? [
-                o.player.title,
-                o.player.name,
-                '(' + o.player.rating + ')'
-              ].filter(function(x) {
-                return x;
-              }).join('&nbsp') : 'Anonymous');
-          },
-          end: function() {
-            var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
-            $.ajax({
-              url: url,
-              success: function(html) {
-                var $html = $(html);
-                $('#site_header div.side').replaceWith($html.find('>.side'));
-                $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
-                lichess.pubsub.emit('content_loaded')();
-                startTournamentClock();
-              }
-            });
-          },
-          tournamentStanding: function(id) {
-            if (data.tournament && id === data.tournament.id) $.ajax({
-              url: '/tournament/' + id + '/game-standing',
-              success: function(html) {
-                $('#site_header div.game_tournament').replaceWith(html);
-                startTournamentClock();
-              }
-            });
-          }
-        }
-      });
-    var getPresetGroup = function(d) {
-      if (d.player.spectator) return null;
-      if (d.steps.length < 4) return 'start';
-      else if (d.game.status.id >= 30) return 'end';
-      return null;
-    };
-    cfg.element = element.querySelector('.round');
-    cfg.socketSend = lichess.socket.send;
-    cfg.onChange = function(d) {
-      if (chat) chat.preset.setGroup(getPresetGroup(d));
-    };
-    // cfg.isGuineaPig = $('body').data('guineapig');
-    round = LichessRound(cfg);
-    if (cfg.chat) {
-      cfg.chat.preset = getPresetGroup(cfg.data);
-      cfg.chat.parseMoves = true;
-      lichess.makeChat('chat', cfg.chat, function(c) {
-        chat = c;
-      });
-    }
-    $('.crosstable', element).prependTo($('.underboard .center', element)).removeClass('none');
-    var $watchers = $('#site_header div.watchers').watchers();
-    var $nowPlaying = $('#now_playing');
-    startTournamentClock();
-    var loadPlaying = function() {
-      var $moveOn = $nowPlaying.find('.move_on input').change(function() {
-        round.moveOn.toggle();
-      }).prop('checked', round.moveOn.get());
-    };
-    loadPlaying();
-    $nowPlaying.on('click', '>a', function() {
-      lichess.hasToReload = true;
-      return true;
-    });
-    if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-      history.replaceState(null, null, '/' + data.game.id);
-    if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
   };
 
   lichess.widget("watchers", {
@@ -1073,13 +848,14 @@ lichess.notifyApp = (function() {
         var hideStorage = lichess.storage.make('friends-hide');
         self.$list = self.element.find("div.list");
         var $title = self.element.find('.title').click(function() {
-          self.element.find('.content_wrap').toggle(100, function() {
-            hideStorage.set($(this).is(':visible') ? 0 : 1);
-          });
+          var show = hideStorage.get() == 1;
+          self.element.find('.content_wrap').toggleNone(show);
+          if (show) hideStorage.remove();
+          else hideStorage.set(1);
         });
         if (hideStorage.get() == 1) self.element.find('.content_wrap').addClass('none');
         self.$nbOnline = $title.find('.online');
-        self.$nobody = self.element.find("div.nobody");
+        self.$nobody = self.element.find(".nobody");
 
         var users = self.element.data('preload').split(',');
         var playings = self.element.data('playing').split(',');
@@ -1117,7 +893,7 @@ lichess.notifyApp = (function() {
             return u.name !== '';
           }));
           this.$nbOnline.text(this.users.length);
-          this.$nobody.toggleClass('none', this.users.length > 0);
+          this.$nobody.toggleNone(!this.users.length);
           this.$list.html(this.users.sort(function(a, b) {
             return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
           }).map(this._renderUser).join(""));
@@ -1188,33 +964,31 @@ lichess.notifyApp = (function() {
     _create: function() {
       var self = this;
       // this.options.time: seconds Integer
-      this.time = Math.max(0, this.options.time) * 1000;
-      this.timeEl = this.element.find('>.time')[0];
+      var target = this.options.time * 1000 + Date.now();
+      var timeEl = this.element.find('.time')[0];
       var tick = function() {
-        self.time = Math.max(0, self.time - 1000);
-        if (self.time <= 0) clearInterval(self.interval);
-        self._show();
+        var remaining = target - Date.now();
+        if (remaining <= 0) clearInterval(self.interval);
+        timeEl.innerHTML = self._formatMs(remaining);
       };
-      setTimeout(function() {
-        tick();
-        self.interval = setInterval(tick, 1000);
-      }, 1000 - (new Date().getTime()) % 1000);
-      self._show();
+      this.interval = setInterval(tick, 1000);
+      tick();
     },
-    _show: function() {
-      if (this.time < 0) return;
-      this.timeEl.innerHTML = this._formatDate(new Date(this.time));
-    },
-    _formatDate: function(date) {
-      var prefixInt = function(num, length) {
-        return (num / Math.pow(10, length)).toFixed(length).substr(2);
-      };
-      var minutes = prefixInt(date.getUTCMinutes(), 2);
-      var seconds = prefixInt(date.getSeconds(), 2);
-      if (this.time >= 3600000) {
-        var hours = prefixInt(date.getUTCHours(), 2);
-        return hours + ':' + minutes + ':' + seconds;
-      } else return minutes + ':' + seconds;
+
+    _pad: function(x) { return (x < 10 ? '0' : '') + x; },
+
+    _formatMs: function(msTime) {
+      var date = new Date(Math.max(0, msTime + 500));
+
+      var hours = date.getUTCHours(),
+          minutes = date.getUTCMinutes(),
+          seconds = date.getUTCSeconds();
+
+      if (hours > 0) {
+        return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
+      } else {
+        return minutes + ':' + this._pad(seconds);
+      }
     }
   });
 
@@ -1243,7 +1017,7 @@ lichess.notifyApp = (function() {
       startWatching();
     });
 
-    setTimeout(function() {
+    lichess.requestIdleCallback(function() {
       lichess.parseFen();
       setTimeout(function() {
         $('div.checkmateCaptcha').each(function() {
@@ -1253,22 +1027,21 @@ lichess.notifyApp = (function() {
           var cg = $board.data('chessground');
           var dests = JSON.parse(lichess.readServerFen($board.data('x')));
           for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
-          cg.set({
-            turnColor: cg.getOrientation(),
+          var config = {
+            turnColor: cg.state.orientation,
             movable: {
               free: false,
               dests: dests,
-              color: cg.getOrientation(),
-              coordinates: false,
+              color: cg.state.orientation,
               events: {
                 after: function(orig, dest) {
                   $captcha.removeClass("success failure");
                   submit(orig + ' ' + dest);
                 }
               }
-            },
-            disableContextMenu: true
-          });
+            }
+          };
+          cg.set(config);
 
           var submit = function(solution) {
             $input.val(solution);
@@ -1284,7 +1057,7 @@ lichess.notifyApp = (function() {
                 else setTimeout(function() {
                   lichess.parseFen($board);
                   $board.data('chessground').set({
-                    turnColor: cg.getOrientation(),
+                    turnColor: cg.state.orientation,
                     movable: {
                       dests: dests
                     }
@@ -1295,7 +1068,7 @@ lichess.notifyApp = (function() {
           };
         });
       }, 1000);
-    }, 200);
+    });
   });
 
   ///////////////////

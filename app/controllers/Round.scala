@@ -167,11 +167,15 @@ object Round extends LilaController with TheftPrevention {
               (pov.game.simulId ?? Env.simul.repo.find) zip
               getWatcherChat(pov.game) zip
               Env.game.crosstableApi(pov.game) zip
-              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
-              Env.bookmark.api.exists(pov.game, ctx.me) map {
-                case tour ~ simul ~ chat ~ crosstable ~ data ~ bookmarked =>
-                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
-              }
+              Env.api.roundApi.watcher(
+                pov,
+                lila.api.Mobile.Api.currentVersion,
+                tv = userTv.map { u => lila.round.OnUserTv(u.id) }
+              ) zip
+                Env.bookmark.api.exists(pov.game, ctx.me) map {
+                  case tour ~ simul ~ chat ~ crosstable ~ data ~ bookmarked =>
+                    Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
+                }
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.game.id)
             pgn <- Env.api.pgnDump(pov.game, initialFen)

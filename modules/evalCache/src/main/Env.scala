@@ -23,6 +23,13 @@ final class Env(
     api = api,
     truster = truster
   )
+
+  def cli = new lila.common.Cli {
+    def process = {
+      case "eval-cache" :: "drop" :: fenParts =>
+        api.drop(chess.format.FEN(fenParts mkString " ")) inject "done!"
+    }
+  }
 }
 
 object Env {

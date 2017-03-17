@@ -1,6 +1,4 @@
 var m = require('mithril');
-var chessground = require('chessground');
-var partial = chessground.util.partial;
 var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
@@ -9,7 +7,6 @@ var socket = require('./socket');
 var title = require('./title');
 var promotion = require('./promotion');
 var blur = require('./blur');
-var init = require('./init');
 var blind = require('./blind');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
@@ -22,16 +19,17 @@ var crazyValid = require('./crazy/crazyValid');
 var makeKeyboardMove = require('./keyboardMove').ctrl;
 var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
+var keyboard = require('./keyboard');
 
 module.exports = function(opts) {
 
   this.data = round.merge({}, opts.data).data;
 
   this.userId = opts.userId;
+  this.opts = opts;
 
   this.vm = {
-    ply: init.startPly(this.data),
-    initializing: true,
+    ply: round.lastPly(this.data),
     firstSeconds: true,
     flip: false,
     loading: false,
@@ -43,9 +41,9 @@ module.exports = function(opts) {
     goneBerserk: {},
     resignConfirm: false,
     autoScroll: null,
-    element: opts.element,
     challengeRematched: false,
     justDropped: null,
+    justCaptured: null,
     preDrop: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
@@ -60,13 +58,13 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta))
-      this.sendMove(orig, dest, false, meta.premove);
+    this.sendMove(orig, dest, false, meta);
   }.bind(this);
 
   var onUserNewPiece = function(role, key, meta) {
-    if (!this.replaying() && crazyValid.drop(this.chessground, this.data, role, key))
+    if (!this.replaying() && crazyValid.drop(this.data, role, key)) {
       this.sendNewPiece(role, key, meta.predrop);
-    else this.jump(this.vm.ply);
+    } else this.jump(this.vm.ply);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -80,12 +78,10 @@ module.exports = function(opts) {
 
   var onPremove = function(orig, dest, meta) {
     promotion.start(this, orig, dest, meta);
-    m.redraw();
   }.bind(this);
 
   var onCancelPremove = function() {
     promotion.cancelPrePromotion(this);
-    m.redraw();
   }.bind(this);
 
   var onPredrop = function(role) {
@@ -97,17 +93,17 @@ module.exports = function(opts) {
     sound.move();
   }.bind(this);
 
-  this.chessground = ground.make({
-    data: this.data,
-    ply: this.vm.ply,
-    onUserMove: onUserMove,
-    onUserNewPiece: onUserNewPiece,
-    onMove: onMove,
-    onNewPiece: onNewPiece,
-    onPremove: onPremove,
-    onCancelPremove: onCancelPremove,
-    onPredrop: onPredrop
-  });
+  this.makeCgHooks = function() {
+    return {
+      onUserMove: onUserMove,
+      onUserNewPiece: onUserNewPiece,
+      onMove: onMove,
+      onNewPiece: onNewPiece,
+      onPremove: onPremove,
+      onCancelPremove: onCancelPremove,
+      onPredrop: onPredrop
+    };
+  };
 
   this.replaying = function() {
     return this.vm.ply !== round.lastPly(this.data);
@@ -119,12 +115,6 @@ module.exports = function(opts) {
       h += steps[i].san;
     }
     return h;
-  };
-
-  var uciToLastMove = function(uci) {
-    if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
-    return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
   this.userJump = function(ply) {
@@ -141,13 +131,13 @@ module.exports = function(opts) {
     var s = round.plyStep(this.data, ply);
     var config = {
       fen: s.fen,
-      lastMove: uciToLastMove(s.uci),
-      check: s.check,
+      lastMove: util.uci2move(s.uci),
+      check: !!s.check,
       turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
-      color: game.isPlayerPlaying(this.data) ? this.data.player.color : null,
+      color: game.isPlayerPlaying(this.data) && this.data.player.color,
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
@@ -156,7 +146,7 @@ module.exports = function(opts) {
       else sound.move();
       if (/[+#]/.test(s.san)) sound.check();
     }
-    this.vm.autoScroll && this.vm.autoScroll.throttle();
+    this.vm.autoScroll && this.vm.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
     return true;
   }.bind(this);
@@ -180,21 +170,23 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.setTitle = partial(title.set, this);
+  this.setTitle = lichess.partial(title.set, this);
 
-  this.sendMove = function(orig, dest, prom, isPremove) {
+  this.sendMove = function(orig, dest, prom, meta) {
     var move = {
       u: orig + dest
     };
     if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.userId && this.data.pref.submitMove && !isPremove) {
+    if (this.userId && this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
     } else this.socket.send('move', move, {
       ackable: true,
       withLag: !!this.clock
     });
+    this.vm.justDropped = null;
+    this.vm.justCaptured = meta.captured;
     m.redraw();
   }.bind(this);
 
@@ -203,6 +195,7 @@ module.exports = function(opts) {
       role: role,
       pos: key
     };
+    if (blur.get()) drop.b = 1;
     this.resign(false);
     if (this.userId && this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
@@ -210,8 +203,9 @@ module.exports = function(opts) {
       ackable: true,
       withLag: !!this.clock
     });
-    this.vm.justDropped = role;
     this.vm.preDrop = null;
+    this.vm.justDropped = role;
+    this.vm.justCaptured = null;
     m.redraw();
   }.bind(this);
 
@@ -221,7 +215,7 @@ module.exports = function(opts) {
       var txt = this.trans('yourTurn');
       var opponent = renderUser.userTxt(this, d.opponent);
       if (this.vm.ply < 1)
-        txt = opponent + '\njoined the game.\n' + txt;
+      txt = opponent + '\njoined the game.\n' + txt;
       else {
         var move = d.steps[d.steps.length - 1].san;
         var turn = Math.floor((this.vm.ply - 1) / 2) + 1;
@@ -253,15 +247,18 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      if (o.isMove) this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
-      else this.chessground.apiNewPiece({
+      if (o.isMove) {
+        var keys = util.uci2move(o.uci);
+        this.chessground.move(keys[0], keys[1]);
+      }
+      else this.chessground.newPiece({
         role: o.role,
         color: playedColor
       }, o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
-        pieces[p.key] = null;
+        pieces[p.key] = false;
         this.chessground.setPieces(pieces);
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
@@ -269,11 +266,11 @@ module.exports = function(opts) {
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castle && !this.chessground.data.autoCastle) {
+      if (o.castle && !this.chessground.state.autoCastle) {
         var c = o.castle,
           pieces = {};
-        pieces[c.king[0]] = null;
-        pieces[c.rook[0]] = null;
+        pieces[c.king[0]] = false;
+        pieces[c.rook[0]] = false;
         pieces[c.king[1]] = {
           role: 'king',
           color: c.color
@@ -289,9 +286,10 @@ module.exports = function(opts) {
         movable: {
           dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
         },
-        check: o.check
+        check: !!o.check
       });
       if (o.check) lichess.sound.check();
+      blur.onMove();
     }
     if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
     d.game.threefold = !!o.threefold;
@@ -305,6 +303,7 @@ module.exports = function(opts) {
     };
     d.steps.push(step);
     this.vm.justDropped = null;
+    this.vm.justCaptured = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     m.endComputation();
@@ -317,7 +316,7 @@ module.exports = function(opts) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
-      var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 10;
+      var premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(function() {
         if (!this.chessground.playPremove() && !playPredrop()) {
           promotion.cancel(this);
@@ -325,7 +324,7 @@ module.exports = function(opts) {
         }
       }.bind(this), premoveDelay);
     }
-    this.vm.autoScroll && this.vm.autoScroll.now();
+    this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     if (this.keyboardMove) this.keyboardMove.update(step);
     if (this.music) this.music.jump(o);
@@ -333,27 +332,29 @@ module.exports = function(opts) {
 
   var playPredrop = function() {
     return this.chessground.playPredrop(function(drop) {
-      return crazyValid.drop(this.chessground, this.data, drop.role, drop.key);
+      return crazyValid.drop(this.data, drop.role, drop.key);
     }.bind(this));
   }.bind(this);
 
   this.reload = function(cfg) {
     m.startComputation();
-    if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
+    if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps)) {
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
+    }
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;
+    this.vm.justCaptured = null;
     this.vm.preDrop = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    if (!this.replaying()) ground.reload(this.chessground, this.data, this.vm.ply, this.vm.flip);
+    if (!this.replaying()) ground.reload(this);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
     setQuietMode();
     m.endComputation();
-    this.vm.autoScroll && this.vm.autoScroll.now();
+    this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     this.setLoading(false);
     if (merged.changes.drawOffer) lichess.desktopNotification(this.trans('yourOpponentOffersADraw'));
@@ -397,7 +398,7 @@ module.exports = function(opts) {
 
   this.isClockRunning = function() {
     return this.data.clock && game.playable(this.data) &&
-      ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
+    ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
   var clockTick = function() {
@@ -406,16 +407,16 @@ module.exports = function(opts) {
 
   var makeCorrespondenceClock = function() {
     if (this.data.correspondence && !this.correspondenceClock)
-      this.correspondenceClock = new correspondenceClockCtrl(
-        this.data.correspondence,
-        partial(this.socket.send, 'outoftime')
-      );
+    this.correspondenceClock = new correspondenceClockCtrl(
+      this.data.correspondence,
+      lichess.partial(this.socket.send, 'outoftime')
+    );
   }.bind(this);
   makeCorrespondenceClock();
 
   var correspondenceClockTick = function() {
     if (this.correspondenceClock && game.playable(this.data))
-      this.correspondenceClock.tick(this.data.game.player);
+    this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
   if (this.clock) {
@@ -489,13 +490,13 @@ module.exports = function(opts) {
   this.submitMove = function(v) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
       if (this.vm.moveToSubmit)
-        this.socket.send('move', this.vm.moveToSubmit, {
-          ackable: true
-        });
+      this.socket.send('move', this.vm.moveToSubmit, {
+        ackable: true
+      });
       else if (this.vm.dropToSubmit)
-        this.socket.send('drop', this.vm.dropToSubmit, {
-          ackable: true
-        });
+      this.socket.send('drop', this.vm.dropToSubmit, {
+        ackable: true
+      });
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();
@@ -513,13 +514,13 @@ module.exports = function(opts) {
 
   this.forecastInfo = function() {
     return forecastable(this.data) &&
-      !this.replaying() &&
-      this.data.game.turns > 1 &&
-      lichess.once('forecast-info-seen6');
+    !this.replaying() &&
+    this.data.game.turns > 1 &&
+    lichess.once('forecast-info-seen6');
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(partial(opts.onChange, this.data), 200);
+    opts.onChange && setTimeout(lichess.partial(opts.onChange, this.data), 200);
   }.bind(this);
 
   this.forceResignable = function() {
@@ -528,9 +529,36 @@ module.exports = function(opts) {
 
   this.trans = lichess.trans(opts.i18n);
 
-  this.keyboardMove = this.data.pref.keyboardMove ? makeKeyboardMove(this.chessground, round.plyStep(this.data, this.vm.ply)) : null;
+  this.setChessground = function(cg) {
+    this.chessground = cg;
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.vm.ply));
+    }
+  }.bind(this);
 
-  init.yolo(this);
+  title.init(this);
+  this.setTitle();
+  blur.init(this);
+
+  if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0) lichess.sound.genericNotify();
+
+  if (game.isPlayerPlaying(this.data)) {
+    window.addEventListener('beforeunload', function(e) {
+      if (!lichess.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
+        document.body.classList.remove('fpmenu');
+        this.socket.send('bye2');
+        var msg = 'There is a game in progress!';
+        (e || window.event).returnValue = msg;
+        return msg;
+      }
+    }.bind(this));
+    Mousetrap.bind(['esc'], function() {
+      this.chessground.cancelMove();
+    }.bind(this));
+    cevalSub.subscribe(this);
+  }
+
+  keyboard.init(this);
 
   onChange();
 
@@ -545,6 +573,6 @@ module.exports = function(opts) {
       lichess.loadScript('/assets/javascripts/music/play.js').then(function() {
         this.music = lichessPlayMusic();
       }.bind(this));
-    if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
   }.bind(this));
 };

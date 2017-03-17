@@ -1,6 +1,5 @@
 var m = require('mithril');
 var storedProp = require('common').storedProp;
-var partial = require('chessground').util.partial;
 var xhr = require('./studyXhr');
 var dialog = require('./dialog');
 var tours = require('./studyTour');
@@ -110,7 +109,7 @@ module.exports = {
         setTab();
       },
       chapters: chapters,
-      startTour: partial(tours.chapter, vm.tab),
+      startTour: lichess.partial(tours.chapter, vm.tab),
       multiPgnMax: multiPgnMax
     }
   },
@@ -121,7 +120,7 @@ module.exports = {
       return m('a.hint--top', {
         class: key + (activeTab === key ? ' active' : ''),
         'data-hint': title,
-        onclick: partial(ctrl.vm.tab, key),
+        onclick: lichess.partial(ctrl.vm.tab, key),
       }, name);
     };
     var gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
@@ -188,10 +187,7 @@ module.exports = {
                 data.embed = true;
                 data.options = {
                   inlineCastling: true,
-                  onChange: function(fen) {
-                    ctrl.vm.editorFen(fen);
-                    m.redraw();
-                  }
+                  onChange: ctrl.vm.editorFen
                 };
                 ctrl.vm.editor = LichessEditor(el, data);
                 ctrl.vm.editorFen(ctrl.vm.editor.getFen());

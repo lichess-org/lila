@@ -27,6 +27,7 @@ title = "Learn chess by playing",
 description = "You don't know anything about chess? Excellent! Let's have fun and learn to play chess!",
 url = s"$netBaseUrl${routes.Learn.index}"
 ).some,
-withGtm = true) {
+withGtm = true,
+zoomable = true) {
 <div id="learn_app" class="learn cg-512">@miniBoardContent</div>
 }

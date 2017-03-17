@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 module.exports = {
   opening: function(endpoint, variant, fen, config, withGames) {
     var url;
@@ -18,40 +16,31 @@ module.exports = {
       params['speeds[]'] = config.speed.selected();
       params['ratings[]'] = config.rating.selected();
     }
-    return m.request({
-      background: true,
-      method: 'GET',
+    return $.ajax({
       url: endpoint + url,
-      data: params
+      data: params,
+      cache: true
     }).then(function (data) {
       data.opening = true;
       return data;
     });
   },
   tablebase: function(endpoint, variant, fen) {
-    return m.request({
-      background: true,
-      method: 'GET',
+    return $.ajax({
       url: endpoint + '/' + variant,
-      data: {
-        fen: fen
-      }
+      data: { fen: fen },
+      cache: true
     }).then(function(data) {
       data.tablebase = true;
       return data;
     });
   },
   watkins: function(endpoint, moves) {
-    return m.request({
-      background: true,
+    return $.ajax({
       method: 'POST',
       url: endpoint + '/watkins',
-      data: {
-        moves: moves
-      },
-      serialize: function(data) {
-        return data.moves;
-      }
+      data: moves,
+      contentType: 'text/plain'
     }).then(function(data) {
       data.watkins = true;
       return data;

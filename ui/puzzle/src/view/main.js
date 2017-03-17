@@ -1,5 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
+var chessground = require('./chessground');
 var bindOnce = require('common').bindOnce;
 var treeView = require('./tree');
 var cevalView = require('ceval').view;
@@ -27,10 +27,10 @@ function renderAnalyse(ctrl) {
 
 function wheel(ctrl, e) {
   if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE' && !e.target.classList.contains('cg-board')) return;
+  e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
-  e.preventDefault();
   return false;
 }
 
@@ -43,7 +43,7 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground.view(ctrl.ground),
+      chessground(ctrl),
       ctrl.promotion.view()
     ]),
     cevalView.renderGauge(ctrl)
@@ -82,8 +82,6 @@ function buttons(ctrl) {
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-      // else if (action === 'explorer') ctrl.explorer.toggle();
-      // else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
     cachedButtons

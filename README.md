@@ -183,7 +183,7 @@ $.ajax({
 ### `POST /api/users` fetch many users by ID
 
 ```
-> curl --data "legend,lovlas" 'https://en.lichess.org/users'
+> curl --data "legend,lovlas" 'https://en.lichess.org/api/users'
 ```
 
 Users are returned in the order same order as the ids.

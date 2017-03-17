@@ -1,4 +1,3 @@
-var k = Mousetrap;
 var m = require('mithril');
 
 function preventing(f) {
@@ -25,6 +24,7 @@ module.exports = {
   prev: prev,
   next: next,
   init: function(ctrl) {
+    var k = Mousetrap;
     k.bind(['left', 'h'], preventing(function() {
       prev(ctrl);
       m.redraw();

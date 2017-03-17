@@ -5,20 +5,21 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {
-    "snabbdom": "^0.6.4"
+    "snabbdom": "^0.6"
   },
   "devDependencies": {
-    "@types/jquery": "^2.0.40",
-    "browserify": "^14.1.0",
-    "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.4.1",
-    "gulp-typescript": "^3.1.5",
-    "gulp-uglify": "^2.0.1",
-    "gulp-util": "^3.0.8",
-    "tsify": "^3.0.1",
-    "typescript": "^2.1.6",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.9.0"
+    "@types/jquery": "^2.0",
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-sourcemaps": "^2",
+    "gulp-typescript": "^3",
+    "gulp-uglify": "^2",
+    "gulp-util": "^3",
+    "uglify-js": "^2",
+    "tsify": "^3",
+    "typescript": "^2",
+    "vinyl-buffer": "^1",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
   }
 }

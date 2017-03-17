@@ -1,5 +1,4 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
 var util = require('./util');
 var ratio2percent = util.ratio2percent;
@@ -60,14 +59,14 @@ function playerTr(ctrl, player) {
         'long': player.sheet.scores.length > 35,
         'xlong': player.sheet.scores.length > 80
       }),
-      onclick: partial(ctrl.showPlayerInfo, player)
+      onclick: lichess.partial(ctrl.showPlayerInfo, player)
     },
     children: [
       m('td.rank', player.withdraw ? m('i', {
         'data-icon': 'b',
         'title': ctrl.trans('withdraw')
       }) : player.rank),
-      m('td.player', util.player(player, 'span')),
+      m('td.player', util.player(player)),
       m('td.sheet', scoreTags(player.sheet.scores)),
       m('td.total', m('strong',
         player.sheet.fire ? {
@@ -129,7 +128,7 @@ module.exports = {
   },
   standing: function(ctrl, pag, klass) {
     var tableBody = pag.currentPageResults ?
-      pag.currentPageResults.map(partial(playerTr, ctrl)) : lastBody;
+      pag.currentPageResults.map(lichess.partial(playerTr, ctrl)) : lastBody;
     if (pag.currentPageResults) lastBody = tableBody;
     return m('div.standing_wrap',
       m('div.controls',

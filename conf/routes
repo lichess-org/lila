@@ -282,6 +282,7 @@ GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key:
 GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
+POST  /pref/zoom                       controllers.Pref.setZoom
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
 POST  /account/preferences             controllers.Pref.formApply
@@ -323,7 +324,6 @@ GET   /translation/contribute          controllers.I18n.contribute
 GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
 POST  /translation/post/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
-POST  /translation/hideCalls           controllers.I18n.hideCalls
 POST  /translation/select              controllers.I18n.select
 
 # Authentication
@@ -353,6 +353,7 @@ POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: S
 POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
 GET   /mod/:username/communication     controllers.Mod.communication(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
+POST  /mod/:username/kickFromRankings  controllers.Mod.kickFromRankings(username: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
@@ -485,6 +486,7 @@ GET   /embed                           controllers.Main.embed
 GET   /themepicker                     controllers.Main.themepicker
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
+GET   /fpmenu                          controllers.Main.fpmenu
 
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)

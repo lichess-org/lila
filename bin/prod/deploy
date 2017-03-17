@@ -71,6 +71,8 @@ RSYNC_OPTIONS=" \
   --exclude conf/application.conf \
   --exclude RUNNING_PID \
   --exclude '*.psd' \
+  --exclude '*.h' \
+  --exclude '*.cpp' \
   --exclude '.git/' \
   --exclude bin/.translate_version"
 

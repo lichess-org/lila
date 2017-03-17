@@ -20,18 +20,19 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "browserify": "~13.0",
-    "gulp": "~3.9",
-    "gulp-streamify": "~1.0",
-    "gulp-uglify": "~2.0",
-    "gulp-util": "~3.0",
-    "vinyl-source-stream": "~1.1",
-    "watchify": "~3.7"
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-streamify": "^1",
+    "gulp-uglify": "^2",
+    "gulp-util": "^3",
+    "uglify-js": "^2",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
   },
   "dependencies": {
-    "chessground": "github:ornicar/chessground#v4.4.0",
+    "chessground": "^6.4",
     "common": "file:../common",
     "game": "file:../game",
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
+    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }
 }

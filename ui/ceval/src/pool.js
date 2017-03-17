@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protocolOpts) {
   var worker, protocol, api;
 
@@ -22,11 +24,11 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
       worker.postMessage(text);
     },
     start: function(work) {
-      stop().then(function() {
-        protocol.start(work);
-      }, function() {
+      stop().catch(function() {
         terminateWorker(worker);
         boot();
+        return protocol.stop().promise;
+      }).then(function() {
         protocol.start(work);
       });
     },
@@ -43,7 +45,7 @@ function makeHelper(makeWorker, terminateWorker, poolOpts, makeProtocol, protoco
 
 function makeWebWorker(makeProtocol, poolOpts, protocolOpts) {
   return makeHelper(function() {
-    return new Worker(poolOpts.asmjs);
+    return new Worker(poolOpts.wasm || poolOpts.asmjs);
   }, function(worker) {
     worker.terminate();
   }, poolOpts, makeProtocol, protocolOpts);
@@ -89,12 +91,26 @@ function makeWorkerStub() {
 
 module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   var workers = [];
-  var token = -1;
+  var token = 0;
 
   var getWorker = function() {
     initWorkers();
-    token = (token + 1) % workers.length;
-    return workers[token];
+
+    // briefly wait and give a chance to reuse the current worker
+    var worker = m.deferred();
+    workers[token].stop().then(function() {
+      worker.resolve(workers[token]);
+    });
+    setTimeout(function () {
+      worker.reject();
+    }, 50);
+
+    return worker.promise.catch(function () {
+      token = (token + 1) % workers.length;
+      var w = m.deferred();
+      w.resolve(workers[token]);
+      return w.promise;
+    });
   };
 
   var initWorkers = function() {
@@ -103,7 +119,7 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
     if (poolOpts.pnacl)
       workers.push(makePNaClModule(makeProtocol, poolOpts, protocolOpts));
     else
-      for (var i = 1; i <= 3; i++)
+      for (var i = 1; i <= 2; i++)
         workers.push(makeWebWorker(makeProtocol, poolOpts, protocolOpts));
   }
 
@@ -116,8 +132,9 @@ module.exports = function(makeProtocol, poolOpts, protocolOpts) {
   return {
     start: function(work) {
       lichess.storage.set('ceval.pool.start', 1);
-      stopAll();
-      getWorker().start(work);
+      getWorker().then(function(worker) {
+        worker.start(work);
+      });
     },
     stop: stopAll,
     warmup: initWorkers,

@@ -15,7 +15,9 @@ openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
 withLangAnnotations: Boolean = true,
-withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
+withGtm: Boolean = false,
+zoomable: Boolean = false,
+asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -30,11 +32,16 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @cssTag("common.css")
     @cssTag("board.css")
+    @if(zoomable) {
+    @ctx.zoom.map { z =>
+    @zoomStyle(z / 100f, ctx.is3d) }
+    }
     @if(ctx.is3d) { @cssTag("board-3d.css") }
+    @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @moreCss
-    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$ctx.pageData.assetVersion")" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
-    <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
+    <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
@@ -44,10 +51,11 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     }
     <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
-    @if(withLangAnnotations){@langAnnotations}
+    @if(withLangAnnotations && ctx.isAnon && lila.common.HTTPRequest.isBot(ctx.req)){@langAnnotations}
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
+    <link rel="preload" href="@staticUrl("font72/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
     <meta name="twitter:site" content="@@lichessorg" />
   </head>
   <body class="preload base @List(
@@ -55,13 +63,10 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.currentTheme3d.cssClass,
     if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg,
     ctx.currentPieceSet3d,
-    ctx.pref.highlight ?? "highlight",
-    ctx.pref.destination ?? "destination",
     ctx.pref.pieceNotationIsLetter ?? "piece_letter",
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     ctx.isMobileBrowser ?? "mobile",
-    "coords_" + ctx.pref.coords,
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
     data-user="@ctx.userId"
@@ -70,7 +75,8 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
     data-bg="@ctx.currentBg"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
-    data-accept-languages="@acceptLanguages.mkString(",")">
+    data-accept-languages="@acceptLanguages.mkString(",")"
+    data-zoom="@ctx.zoomOrDefault">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />
@@ -153,7 +159,6 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       }
       <a id="reconnecting" class="fright link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
-    <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         <div id="notifications"></div>
@@ -193,26 +198,15 @@ withGtm: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     }
-    @jQueryTag
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
-    @momentjsTag
-    @momentLangTag
-    @if(isProd) {
-    @jsTagCompiled("lichess.js")
-    } else {
-    @jsTag("deps.min.js")
-    @jsTag("util.js")
-    @jsTag("socket.js")
-    @jsTag("main.js")
+    @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
+    @if(!asyncJs) {
+    @momentLangTag(false)
     }
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
-    @if(lang.language != "en") {
-    @embedJs {
-    lichess_translations = @jsI18n()
-    }
-    }
-    @if(withGtm) {@gtm()} else {@ga()}
+    @if(lang.language != "en") { @embedJs { lichess_translations = @jsI18n() } }
+    @if(withGtm) {@gtm()}
   </body>
 </html>

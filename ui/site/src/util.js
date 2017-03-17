@@ -1,19 +1,9 @@
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// ==/ClosureCompiler==
-
 var lichess = window.lichess = window.lichess || {};
 
 lichess.engineName = 'Stockfish 8';
-lichess.getParameterByName = function(name) {
-  var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-};
-
-// declare now, populate later in a distinct script.
-var lichess_translations = lichess_translations || [];
 
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
+lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.storage = (function() {
   var withStorage = function(f) {
     // can throw an exception when storage is full
@@ -102,8 +92,6 @@ lichess.powertip = (function() {
     }
     $(el).removeClass('ulpt').powerTip({
       intentPollInterval: 200,
-      fadeInTime: 100,
-      fadeOutTime: 100,
       placement: pos,
       mouseOnToPopup: true,
       closeDelay: 200
@@ -115,8 +103,6 @@ lichess.powertip = (function() {
   var gamePowertip = function(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
-      fadeInTime: 100,
-      fadeOutTime: 100,
       placement: 'w',
       smartPlacement: true,
       mouseOnToPopup: true,
@@ -195,12 +181,10 @@ lichess.widget = function(name, prototype) {
 lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetConfig = {
-  url: document.body.getAttribute('data-asset-url'),
-  version: document.body.getAttribute('data-asset-version')
-};
 lichess.assetUrl = function(url, noVersion) {
-  return lichess.assetConfig.url + url + (noVersion ? '' : '?v=' + lichess.assetConfig.version);
+  var baseUrl = document.body.getAttribute('data-asset-url');
+  var version = document.body.getAttribute('data-asset-version');
+  return baseUrl + url + (noVersion ? '' : '?v=' + version);
 };
 lichess.loadCss = function(url) {
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
@@ -217,6 +201,7 @@ lichess.hopscotch = function(f) {
   lichess.loadScript("/assets/vendor/hopscotch/dist/js/hopscotch.min.js").done(f);
 }
 lichess.slider = function() {
+  lichess.loadCss('/assets/stylesheets/jquery-ui.css');
   return lichess.loadScript('/assets/javascripts/vendor/jquery-ui.slider.min.js', true);
 };
 lichess.shepherd = function(f) {
@@ -240,32 +225,18 @@ lichess.makeChat = function(id, data, callback) {
 
 lichess.desktopNotification = (function() {
   var notifications = [];
-  var isPageVisible = document.visibilityState !== 'hidden';
-  window.addEventListener('blur', function() {
-    isPageVisible = false;
-  });
-  var closeAll = function() {
+  function closeAll() {
     notifications.forEach(function(n) {
       n.close();
     });
     notifications = [];
   };
-  // using document.hidden doesn't entirely work because it may return false if the window is not minimized but covered by other applications
-  window.addEventListener('focus', function() {
-    isPageVisible = true;
-    closeAll();
-    setTimeout(closeAll, 2000);
-  });
+  window.addEventListener('focus', closeAll);
   var storage = lichess.storage.make('just-notified');
-  var clearStorageSoon = function() {
-    setTimeout(function() {
-      storage.remove();
-    }, 3000);
-  };
-  var doNotify = function(msg) {
-    if (storage.get()) return;
-    storage.set(1);
-    clearStorageSoon();
+  function notify(msg) {
+    var now = Date.now();
+    if (document.hasFocus() || now - storage.get() < 1000) return;
+    storage.set(now);
     if ($.isFunction(msg)) msg = msg();
     var notification = new Notification('lichess.org', {
       icon: '//lichess1.org/assets/images/logo.256.png',
@@ -275,23 +246,20 @@ lichess.desktopNotification = (function() {
       window.focus();
     };
     notifications.push(notification);
-    if (isPageVisible) setTimeout(closeAll, 2000);
   };
-  var notify = function(msg) {
-    // increase chances that the first tab can put a local storage lock
-    setTimeout(function() {
-      doNotify(msg);
-    }, Math.round(10 + Math.random() * 500));
-  }
-  clearStorageSoon(); // in case it wasn't cleared properly before
   return function(msg) {
-    if (isPageVisible || !('Notification' in window) || Notification.permission === 'denied') return;
-    if (Notification.permission === 'granted') notify(msg);
-    else Notification.requestPermission(function(p) {
-      if (p === 'granted') notify(msg);
-    });
+    if (document.hasFocus() || !('Notification' in window)) return;
+    if (Notification.permission === 'granted') {
+      // increase chances that the first tab can put a local storage lock
+      setTimeout(notify, 10 + Math.random() * 500, msg);
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function(p) {
+        if (p === 'granted') notify(msg);
+      });
+    };
   };
 })();
+
 lichess.numberFormat = (function() {
   if (window.Intl && Intl.NumberFormat) {
     var formatter = new Intl.NumberFormat();
@@ -367,6 +335,10 @@ lichess.pubsub = (function() {
     }
   };
 })();
+// wtf was I thinking
+lichess.partial = function() {
+  return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
+};
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
 lichess.reload = function() {
@@ -447,7 +419,9 @@ $.modal.close = function() {
 // polyfills
 
 if (!Array.prototype.find) {
-  Array.prototype.find = function(predicate) {
-    for (var i in this) if (predicate(this[i])) return this[i];
-  };
+  Object.defineProperty(Array.prototype, 'find', {
+    value: function(predicate) {
+      for (var i in this) if (predicate(this[i])) return this[i];
+    }
+  });
 }

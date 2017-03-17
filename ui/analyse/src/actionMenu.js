@@ -1,4 +1,3 @@
-var partial = require('chessground').util.partial;
 var router = require('game').router;
 var bindOnce = require('common').bindOnce;
 var synthetic = require('./util').synthetic;
@@ -45,7 +44,7 @@ function autoplayButtons(ctrl) {
   return m('div.autoplay', speeds.map(function(speed, i) {
     return m('a', {
       class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: bindOnce('click', partial(ctrl.togglePlay, speed.delay))
+      config: bindOnce('click', lichess.partial(ctrl.togglePlay, speed.delay))
     }, speed.name);
   }));
 }
@@ -98,7 +97,7 @@ function studyButton(ctrl) {
       value: ctrl.data.game.id
     }) : m('input[type=hidden][name=pgn]'),
     m('input[type=hidden][name=orientation]', {
-      value: ctrl.chessground.data.orientation
+      value: ctrl.chessground.state.orientation
     }),
     m('input[type=hidden][name=variant]', {
       value: ctrl.data.game.variant.key

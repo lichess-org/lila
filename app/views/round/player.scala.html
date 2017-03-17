@@ -5,16 +5,16 @@
 @title = @{ s"${trans.play.str()} ${playerText(pov.opponent)} in $gameId" }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+@jsAt(s"compiled/lichess.round${isProd??(".min")}.js", async = true)
 @embedJs {
-lichess.startRound(document.getElementById('lichess'), {
+lichess_round = {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.restricted(c, name = trans.chatRoom.str(), timeout = false, withNote = true, public = false)
 })
-});
+};
 }
 }
 
@@ -33,14 +33,15 @@ chessground = false,
 playing = true,
 atom = atom.some) {
 <div class="round cg-512">
-  @miniBoardContent
-  <div class="underboard"><div class="center"></div></div>
+  @board.domPreload(pov.some)
+  <div class="underboard"><div class="center">
+      @cross.map { c =>
+      <div class="crosstable">
+        @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
+      </div>
+      }
+  </div></div>
 </div>
-@cross.map { c =>
-<div class="crosstable none">
-  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
-</div>
-}
 @if(playing.nonEmpty) {
 <div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
   @others(playing)

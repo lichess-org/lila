@@ -2,7 +2,7 @@ var ctrl = require('./ctrl');
 var view = require('./view');
 var studyView = require('./study/studyView');
 var studyPracticeView = require('./study/practice/studyPracticeView');
-var legacy = require('./legacy');
+var boot = require('./boot');
 var m = require('mithril');
 
 module.exports = {
@@ -42,9 +42,9 @@ module.exports = {
       }
     }
   },
-  legacy: legacy
+  boot: boot
 };
 
-// lol, that's for the rest of lichess to access mithril
+// that's for the rest of lichess to access chessground
 // without having to include it a second time
-window.Chessground = require('chessground');
+window.Chessground = require('chessground').Chessground;

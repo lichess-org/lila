@@ -3,17 +3,15 @@
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+@jsAt(s"compiled/lichess.round${isProd??(".min")}.js", async = true)
 @embedJs {
-$(function() {
-lichess.startRound(document.getElementById('lichess'), {
+lichess_round = {
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 })
-});
-});
+};
 }
 }
 
@@ -31,12 +29,13 @@ openGraph = povOpenGraph(pov).some,
 chessground = false,
 atom = atom.some) {
 <div class="round cg-512">
-  @miniBoardContent
-  <div class="underboard"><div class="center"></div></div>
+  @board.domPreload(pov.some)
+  <div class="underboard"><div class="center">
+      @cross.map { c =>
+      <div class="crosstable">
+        @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
+      </div>
+      }
+  </div></div>
 </div>
-@cross.map { c =>
-<div class="crosstable none">
-  @views.html.game.crosstable(c, pov.gameId.some)
-</div>
-}
 }

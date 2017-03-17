@@ -81,7 +81,8 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
-      GameRepo initialFen game.id flatMap { initialFen =>
+      if (game.finished) fuccess(Redirect(routes.Round.watcher(game.id, color)))
+      else GameRepo initialFen game.id flatMap { initialFen =>
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) map { data =>
           Ok(html.board.userAnalysis(data, pov))

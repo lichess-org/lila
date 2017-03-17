@@ -1,14 +1,14 @@
 var m = require('mithril');
-var raf = require('chessground').util.requestAnimationFrame;
-var throttle = require('common').throttle;
 var defined = require('common').defined;
 var normalizeEval = require('chess').renderEval;
+var dropThrottle = require('common').dropThrottle;
 var treePath = require('tree').path;
 
+var scrollThrottle = dropThrottle(150);
 
-var autoScrollNow = function(ctrl, el) {
-  var cont = el.parentNode;
-  raf(function() {
+function autoScroll(ctrl, el) {
+  scrollThrottle(function() {
+    var cont = el.parentNode;
     var target = el.querySelector('.active');
     if (!target) {
       cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
@@ -16,9 +16,7 @@ var autoScrollNow = function(ctrl, el) {
     }
     cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
   });
-};
-
-var autoScroll = throttle(300, false, autoScrollNow);
+}
 
 function pathContains(ctx, path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
@@ -228,7 +226,7 @@ module.exports = {
     return m('div.tview2', {
       config: function(el, isUpdate) {
         if (ctrl.vm.autoScrollNow) {
-          autoScrollNow(ctrl, el);
+          autoScroll(ctrl, el);
           ctrl.vm.autoScrollNow = false;
           ctrl.vm.autoScrollRequested = false;
         }

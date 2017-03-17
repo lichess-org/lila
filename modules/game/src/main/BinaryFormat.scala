@@ -69,6 +69,9 @@ object BinaryFormat {
       }).map(_.toByte).toArray
     }
 
+    // warning! This will always return an even number of values,
+    // appending the minimum value if necessary
+    // so it's your responsibility to truncate to the desired number of values.
     def read(ba: ByteArray, turns: Int): Vector[FiniteDuration] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>

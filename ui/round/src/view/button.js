@@ -1,4 +1,3 @@
-var partial = require('chessground').util.partial;
 var util = require('../util');
 var game = require('game').game;
 var status = require('game').status;
@@ -52,10 +51,10 @@ module.exports = {
       return m('div.suggestion', [
         m('p', ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
         m('a.button', {
-          onclick: partial(ctrl.socket.sendLoading, 'resign-force', null),
+          onclick: lichess.partial(ctrl.socket.sendLoading, 'resign-force', null),
         }, ctrl.trans('forceResignation')),
         m('a.button', {
-          onclick: partial(ctrl.socket.sendLoading, 'draw-force', null),
+          onclick: lichess.partial(ctrl.socket.sendLoading, 'draw-force', null),
         }, ctrl.trans('forceDraw'))
       ]);
   },
@@ -63,13 +62,13 @@ module.exports = {
     return m('div.resign_confirm', [
       m('button.fbt.no.hint--bottom', {
         'data-hint': ctrl.trans('cancel'),
-        onclick: partial(ctrl.resign, false)
+        onclick: lichess.partial(ctrl.resign, false)
       }, m('span', {
         'data-icon': 'L'
       })),
       m('button.fbt.yes.active.hint--bottom', {
         'data-hint': ctrl.trans('resign'),
-        onclick: partial(ctrl.resign, true)
+        onclick: lichess.partial(ctrl.resign, true)
       }, m('span', {
         'data-icon': 'b'
       }))
@@ -79,7 +78,7 @@ module.exports = {
     if (ctrl.data.game.threefold) return m('div.suggestion', [
       m('p', ctrl.trans('threefoldRepetition')),
       m('a.button', {
-        onclick: partial(ctrl.socket.sendLoading, 'draw-claim', null)
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'draw-claim', null)
       }, ctrl.trans('claimADraw'))
     ]);
   },
@@ -92,11 +91,11 @@ module.exports = {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentOffersADraw')),
       m('a.accept[data-icon=E]', {
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'draw-yes', null)),
+        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'draw-yes', null)),
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
-        onclick: partial(ctrl.socket.sendLoading, 'draw-no', null),
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'draw-no', null),
         title: ctrl.trans('decline')
       }),
     ]);
@@ -105,7 +104,7 @@ module.exports = {
     if (ctrl.data.player.proposingTakeback) return m('div.pending', [
       m('p', ctrl.trans('takebackPropositionSent')),
       m('a.button', {
-        onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null)
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'takeback-no', null)
       }, ctrl.trans('cancel'))
     ]);
   },
@@ -113,11 +112,11 @@ module.exports = {
     if (ctrl.data.opponent.proposingTakeback) return m('div.negotiation', [
       m('p', ctrl.trans('yourOpponentProposesATakeback')),
       m('a.accept[data-icon=E]', {
-        onclick: partial(ctrl.takebackYes),
+        onclick: lichess.partial(ctrl.takebackYes),
         title: ctrl.trans('accept')
       }),
       m('a.decline[data-icon=L]', {
-        onclick: partial(ctrl.socket.sendLoading, 'takeback-no', null),
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'takeback-no', null),
         title: ctrl.trans('decline')
       })
     ]);
@@ -126,11 +125,11 @@ module.exports = {
     if (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) return m('div.negotiation', [
       m('p', ctrl.trans('moveConfirmation')),
       m('a.accept[data-icon=E]', {
-        onclick: partial(ctrl.submitMove, true),
+        onclick: lichess.partial(ctrl.submitMove, true),
         title: 'Submit move'
       }),
       m('a.decline[data-icon=L]', {
-        onclick: partial(ctrl.submitMove, false),
+        onclick: lichess.partial(ctrl.submitMove, false),
         title: ctrl.trans('cancel')
       })
     ]);
@@ -140,11 +139,11 @@ module.exports = {
       m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
       m('a.accept[data-icon=E]', {
         title: ctrl.trans('joinTheGame'),
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-yes', null))
+        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-yes', null))
       }),
       m('a.decline[data-icon=L]', {
         title: ctrl.trans('decline'),
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
+        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-no', null))
       })
     ]);
   },
@@ -152,7 +151,7 @@ module.exports = {
     if (ctrl.data.player.offeringRematch) return m('div.pending', [
       m('p', ctrl.trans('rematchOfferSent')),
       m('a.button', {
-        config: util.bindOnce('click', partial(ctrl.socket.sendLoading, 'rematch-no', null))
+        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-no', null))
       }, ctrl.trans('cancel'))
     ]);
   },

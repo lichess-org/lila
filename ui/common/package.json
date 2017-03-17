@@ -18,15 +18,14 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "browserify": "~13.0",
-    "gulp": "~3.9",
-    "gulp-streamify": "~1.0",
-    "gulp-uglify": "~2.0",
-    "gulp-util": "~3.0",
-    "vinyl-source-stream": "~1.1",
-    "watchify": "~3.7"
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-streamify": "^1",
+    "gulp-uglify": "^2",
+    "gulp-util": "^3",
+    "uglify-js": "^2",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
   },
-  "dependencies": {
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
-  }
+  "dependencies": {}
 }

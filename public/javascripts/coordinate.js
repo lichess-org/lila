@@ -3,7 +3,7 @@ $(function() {
     var $trainer = $(this);
     var $board = $trainer.find('.board');
     var ground;
-    var $side = $trainer.find('> .side');
+    var $side = $trainer.find('.side');
     var $right = $trainer.find('.board_and_ground > .right');
     var $bar = $trainer.find('.progress_bar');
     var $coords = [
@@ -25,15 +25,14 @@ $(function() {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
       if (!ground) ground = Chessground($board[0], {
         coordinates: false,
+        drawable: { enabled: false },
         movable: {
           free: false,
           color: null
         },
         orientation: color
       });
-      else ground.set({
-        orientation: color
-      });
+      else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
     };
     showColor();

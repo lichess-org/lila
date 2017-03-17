@@ -1,7 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var plural = require('../../util').plural;
-var renderComment = require('../studyComments').embedYoutube;
+var enrichText = require('../studyComments').enrichText;
 
 var firstRender = true;
 
@@ -56,7 +56,7 @@ module.exports = {
       case true:
         return m('a.feedback.win[href=/practice]', [
           m('span', 'Success!'),
-          'Back to practice menu'
+          p.nextChapter() ? null : 'Back to practice menu'
         ]);
       case false:
         return m('a.feedback.fail', {
@@ -68,7 +68,7 @@ module.exports = {
       default:
         return m('div.feedback.ongoing', [
           m('div.goal', renderGoal(p, p.goal().moves - p.nbMoves())),
-          p.comment() ? m('div.comment', renderComment(p.comment(), true)) : null
+          p.comment() ? m('div.comment', enrichText(p.comment(), true)) : null
         ]);
     }
   },

@@ -54,7 +54,7 @@ object User extends LilaController {
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
         res <- negotiate(
-          html = GameRepo lastPlayedPlaying user map { pov =>
+          html = !ctx.is(user) ?? GameRepo.lastPlayedPlaying(user) map { pov =>
           Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
             .withHeaders(CACHE_CONTROL -> "max-age=5")
         },

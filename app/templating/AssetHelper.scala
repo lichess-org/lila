@@ -4,8 +4,8 @@ package templating
 import controllers.routes
 import play.twirl.api.Html
 
-import lila.common.AssetVersion
 import lila.api.Context
+import lila.common.AssetVersion
 
 trait AssetHelper { self: I18nHelper =>
 
@@ -33,22 +33,25 @@ trait AssetHelper { self: I18nHelper =>
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =
     cssAt(path, staticDomain, ctx.pageData.assetVersion)
 
-  def jsTag(name: String)(implicit ctx: Context) = jsAt("javascripts/" + name)
+  def jsTag(name: String, async: Boolean = false)(implicit ctx: Context) =
+    jsAt("javascripts/" + name, async = async)
 
   def jsTagCompiled(name: String)(implicit ctx: Context) =
     if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
-  def jsAt(path: String, static: Boolean, version: AssetVersion): Html = Html {
-    s"""<script src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
+  def jsAt(path: String, static: Boolean, async: Boolean, version: AssetVersion): Html = Html {
+    s"""<script${if (async) " async defer" else ""} src="${static.fold(staticUrl(path), path)}?v=$version"></script>"""
   }
-  def jsAt(path: String, static: Boolean = true)(implicit ctx: Context): Html =
-    jsAt(path, static, ctx.pageData.assetVersion)
+  def jsAt(path: String, static: Boolean = true, async: Boolean = false)(implicit ctx: Context): Html =
+    jsAt(path, static, async, ctx.pageData.assetVersion)
 
-  val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
-    test = "window.jQuery",
-    local = staticUrl("javascripts/vendor/jquery.min.js")
-  )
+  val jQueryTag = Html {
+    s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
+  }
+
+  val gaTag = Html {
+    s"""<script src="${staticUrl("javascripts/ga.js")}"></script>"""
+  }
 
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",
@@ -66,13 +69,7 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  val momentjsTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
-    test = "window.moment",
-    local = staticUrl("vendor/moment/min/moment.min.js")
-  )
-
-  def momentLangTag(implicit ctx: lila.api.Context) = {
+  def momentLangTag(async: Boolean = false)(implicit ctx: lila.api.Context) = {
     val l = lang(ctx)
     ((l.language, l.country.toLowerCase) match {
       case ("en", "us") => none
@@ -84,7 +81,7 @@ trait AssetHelper { self: I18nHelper =>
       case ("fr", "ca") => l.code.some
       case _ => l.language.some
     }).fold(Html("")) { locale =>
-      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true)
+      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true, async = async)
     }
   }
 
@@ -101,7 +98,7 @@ trait AssetHelper { self: I18nHelper =>
   )
 
   val fingerprintTag = Html {
-    """<script src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+    """<script async defer src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {

@@ -116,7 +116,8 @@ final class JsonView(
               "confirmResign" -> (pref.confirmResign == Pref.ConfirmResign.YES).option(true),
               "moveEvent" -> pref.moveEvent,
               "keyboardMove" -> (pref.keyboardMove == Pref.KeyboardMove.YES).option(true),
-              "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
+              "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES),
+              "is3d" -> pref.is3d
             ),
             "possibleMoves" -> possibleMoves(pov),
             "possibleDrops" -> possibleDrops(pov),
@@ -188,18 +189,26 @@ final class JsonView(
             ),
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
+              "destination" -> pref.destination,
               "highlight" -> pref.highlight,
               "coords" -> pref.coords,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
-              "showCaptured" -> pref.captured
+              "showCaptured" -> pref.captured,
+              "is3d" -> pref.is3d
             ),
-            "tv" -> tv.map { onTv =>
-              Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
-            },
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
-          ).noNull
+          ).add(
+              "tv" -> tv.collect {
+                case OnLichessTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+              }
+            ).add(
+                "userTv" -> tv.collect {
+                  case OnUserTv(userId) => Json.obj("id" -> userId)
+                }
+              )
+
       }
 
   private implicit val userLineWrites = OWrites[lila.chat.UserLine] { l =>
@@ -246,7 +255,8 @@ final class JsonView(
           "highlight" -> pref.highlight,
           "destination" -> pref.destination,
           "coords" -> pref.coords,
-          "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES)
+          "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES),
+          "is3d" -> pref.is3d
         ),
         "path" -> pov.game.turns,
         "userAnalysis" -> true,

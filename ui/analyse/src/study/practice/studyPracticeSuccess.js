@@ -42,6 +42,7 @@ module.exports = function(root, goal, nbMoves) {
   var node = root.vm.node;
   if (!node.uci) return null;
   if (isTheirMate(root)) return false;
+  if (isMyMate(root)) return true;
   if (hasBlundered(root.practice.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
@@ -57,7 +58,6 @@ module.exports = function(root, goal, nbMoves) {
       break;
     case 'mateIn':
       if (nbMoves > goal.moves) return false;
-      if (isMyMate(root)) return true;
       var mateIn = myMateIn(node, root.bottomColor());
       if (mateIn === null) return null;
       if (!mateIn || mateIn + nbMoves > goal.moves) return false;
@@ -67,8 +67,6 @@ module.exports = function(root, goal, nbMoves) {
       return isWinning(node, goal.cp, root.bottomColor());
       break;
     case 'mate':
-    default:
-      if (isMyMate(root)) return true;
   }
   return null;
 };

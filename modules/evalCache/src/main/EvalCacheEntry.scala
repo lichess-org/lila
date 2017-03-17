@@ -55,7 +55,7 @@ object EvalCacheEntry {
 
     def bestMove: Uci = bestPv.moves.value.head
 
-    def isValid = pvs.list.forall(_.isValid) && {
+    def looksValid = pvs.list.forall(_.looksValid) && {
       pvs.list.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
     }
 
@@ -72,7 +72,7 @@ object EvalCacheEntry {
 
   case class Pv(score: Score, moves: Moves) {
 
-    def isValid = score.mateFound || moves.value.size > MIN_PV_SIZE
+    def looksValid = score.mateFound || moves.value.size > MIN_PV_SIZE
 
     def truncate = copy(moves = moves.truncate)
   }
@@ -105,7 +105,7 @@ object EvalCacheEntry {
 
   object Input {
     case class Candidate(fen: String, eval: Eval) {
-      def input = SmallFen.validate(FEN(fen)) ifTrue eval.isValid map {
+      def input = SmallFen.validate(FEN(fen)) ifTrue eval.looksValid map {
         Input(FEN(fen), _, eval.truncatePvs)
       }
     }

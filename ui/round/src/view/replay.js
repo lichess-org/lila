@@ -1,8 +1,6 @@
 var round = require('../round');
-var partial = require('chessground').util.partial;
 var classSet = require('common').classSet;
-var throttle = require('common').throttle;
-var raf = require('chessground').util.requestAnimationFrame;
+var dropThrottle = require('common').dropThrottle;
 var game = require('game').game;
 var util = require('../util');
 var status = require('game').status;
@@ -12,6 +10,21 @@ var m = require('mithril');
 
 var emptyMove = m('move.empty', '...');
 var nullMove = m('move.empty', '');
+
+var scrollThrottle = dropThrottle(100);
+
+function autoScroll(el, ctrl) {
+  scrollThrottle(function() {
+    if (ctrl.data.steps.length < 7) return;
+    var st;
+    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+    else {
+      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (st !== undefined) el.scrollTop = st;
+  });
+}
 
 function renderMove(step, curPly, orEmpty) {
   if (!step) return orEmpty ? emptyMove : nullMove;
@@ -44,10 +57,8 @@ function renderResult(ctrl) {
       m('p.status', {
         config: function(el, isUpdate) {
           if (isUpdate) return;
-          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll.now();
-          else setTimeout(function() {
-            ctrl.vm.autoScroll.now();
-          }, 200);
+          if (ctrl.vm.autoScroll) ctrl.vm.autoScroll();
+          else setTimeout(function() { ctrl.vm.autoScroll() }, 200);
         }
       }, [
         renderStatus(ctrl),
@@ -75,11 +86,11 @@ function renderMoves(ctrl) {
   for (var i = 0, len = pairs.length; i < len; i++) rows.push({
     tag: 'turn',
     children: [{
-        tag: 'index',
-        children: [i + 1]
-      },
-      renderMove(pairs[i][0], ctrl.vm.ply, true),
-      renderMove(pairs[i][1], ctrl.vm.ply, false)
+      tag: 'index',
+      children: [i + 1]
+    },
+    renderMove(pairs[i][0], ctrl.vm.ply, true),
+    renderMove(pairs[i][1], ctrl.vm.ply, false)
     ]
   });
   rows.push(renderResult(ctrl));
@@ -102,12 +113,10 @@ function analyseButton(ctrl) {
   };
   if (showInfo) attrs.config = function(el) {
     setTimeout(function() {
-      $(el).powerTip({
-        manual: true,
-        fadeInTime: 300,
-        fadeOutTime: 300,
+      var pt = $(el).powerTip({
+        closeDelay: 200,
         placement: 'n'
-      }).data('powertipjq', $(el).siblings('.forecast-info').clone().show()).powerTip('show');
+      }).data('powertipjq', $(el).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
     }, 1000);
   };
   return [
@@ -121,9 +130,7 @@ function analyseButton(ctrl) {
     showInfo ? m('div.forecast-info.info.none', [
       m('strong.title.text[data-icon=]', 'Speed up your game!'),
       m('span.content', [
-        'Use the analysis board to create conditional premoves.',
-        m('br'),
-        'Now available on your turn!'
+        'Use the analysis board to create conditional premoves.'
       ])
     ]) : null
   ];
@@ -162,26 +169,13 @@ function renderButtons(ctrl) {
     ].map(function(b, i) {
       var enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return m('button', {
-        class: 'fbt' + (i === 3 && ctrl.isLate() && !ctrl.vm.initializing ? ' glowed' : ''),
+        class: 'fbt' + (i === 3 && ctrl.isLate() ? ' glowed' : ''),
         disabled: (ctrl.broken || !enabled),
         'data-icon': b[0],
         'data-ply': enabled ? b[1] : '-'
       });
     })), game.userAnalysable(d) ? analyseButton(ctrl) : m('div.noop')
   ]);
-}
-
-function autoScroll(el, ctrl) {
-  raf(function() {
-    if (ctrl.data.steps.length < 7) return;
-    var st;
-    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
-    else {
-      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
-      if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-    }
-    if (st !== undefined) el.scrollTop = st;
-  });
 }
 
 function racingKingsInit(d) {
@@ -211,13 +205,9 @@ module.exports = function(ctrl) {
           var ply = 2 * turn - 2 + $(e.target).index();
           if (ply) ctrl.userJump(ply);
         })(el, isUpdate, ctx);
-        var scrollNow = partial(autoScroll, el, ctrl);
-        ctrl.vm.autoScroll = {
-          now: scrollNow,
-          throttle: throttle(300, false, scrollNow)
-        };
-        scrollNow();
-        window.addEventListener('load', scrollNow);
+        ctrl.vm.autoScroll = function() { autoScroll(el, ctrl); };
+        ctrl.vm.autoScroll();
+        window.addEventListener('load', ctrl.vm.autoScroll, { once: true });
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);

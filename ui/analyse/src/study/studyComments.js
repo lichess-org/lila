@@ -1,6 +1,6 @@
 var m = require('mithril');
 var nodeFullName = require('../util').nodeFullName;
-var renderComment = require('./studyComments').embedYoutube;
+require('autolink-js');
 
 function authorDom(author) {
   if (!author) return 'Unknown';
@@ -16,13 +16,19 @@ function authorText(author) {
   return author.name;
 }
 
-var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?(?:[^"&?\/ ]{11})\S*/gi;
+var commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/gi;
 
-function embedYoutube(text, allowNewlines) {
-  var html = lichess.escapeHtml(text).replace(commentYoutubeRegex, function(found) {
-    var url = lichess.toYouTubeEmbedUrl(found);
-    if (!url) return found;
-    return '<iframe width="100%" height="300" src="' + url + '" frameborder=0 allowfullscreen></iframe>';
+function enrichText(text, allowNewlines) {
+  var html = lichess.escapeHtml(text).autoLink({
+    callback: function(url) {
+      if (commentYoutubeRegex.test(url)) {
+        var embedUrl = lichess.toYouTubeEmbedUrl(url);
+        if (!embedUrl) return url;
+        return '<iframe width="100%" height="300" src="' + embedUrl + '" frameborder=0 allowfullscreen></iframe>';
+      }
+      var show = url.replace(/https?:\/\//, '');
+      return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
+    },
   });
   if (allowNewlines) html = html.replace(/\n/g, '<br>');
   return m.trust(html);
@@ -30,7 +36,7 @@ function embedYoutube(text, allowNewlines) {
 
 module.exports = {
   authorText: authorText,
-  embedYoutube: embedYoutube,
+  enrichText: enrichText,
   currentComments: function(ctrl, includingMine) {
     var path = ctrl.vm.path;
     var node = ctrl.vm.node;
@@ -59,7 +65,7 @@ module.exports = {
           m('span.node', nodeFullName(node))
         ] : null,
         ': ',
-        m('div.text', embedYoutube(comment.text))
+        m('div.text', enrichText(comment.text))
       ]);
     }));
   }

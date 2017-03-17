@@ -36,6 +36,9 @@ url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
 description = s"Lichess tactic trainer: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
-).str() + s" Played by ${puzzle.attempts} players.").some) {
-<div id="puzzle" class="cg-512">@miniBoardContent</div>
+).str() + s" Played by ${puzzle.attempts} players.").some,
+zoomable = true) {
+<div id="puzzle" class="cg-512">
+  @board.domPreload(none)
+</div>
 }

@@ -28,7 +28,7 @@ module.exports = {
     var user = player.user;
     if (d.relay) return relayUser(d.relay[player.color]);
     var perf = user ? user.perfs[d.game.perf] : null;
-    var rating = player.rating ? player.rating : (perf ? perf.rating : null);
+    var rating = player.rating ? player.rating : (perf && perf.rating);
     if (user) {
       var fullName = (user.title ? user.title + ' ' : '') + user.username;
       var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;

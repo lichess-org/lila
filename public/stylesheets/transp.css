@@ -50,7 +50,6 @@ body.transp #friend_box,
 body.transp .analysis_panels > div,
 body.transp .button:hover,
 body.transp a.button:hover,
-body.transp .ui-state-hover,
 body.transp #topmenu section:hover > a,
 body.transp #topmenu div,
 body.transp #start_buttons a,
@@ -94,8 +93,6 @@ body.transp #team .forum li:nth-child(odd),
 body.transp table.translations tbody tr:nth-child(odd),
 body.transp form.translation_form div.message:nth-child(even),
 body.transp div.content_box table.datatable tr:nth-child(odd),
-body.transp div.game_config .optional_config,
-body.transp div.game_config .ratings,
 body.transp div.search_status {
   background: rgba(0, 0, 0, 0.3);
 }
@@ -122,12 +119,6 @@ body.transp div.undertable_top span.title {
 body.transp #start_buttons a {
   transition: 0.13s;
   box-shadow: 0 0 9px rgba(255, 255, 255, 0.4);
-}
-body.transp .pull-quote p:after,
-body.transp .content_box .pull-quote p:after,
-body.transp div.lichess_overboard .pull-quote p:after {
-    background: linear-gradient(45deg, #505050, #505050 55%, transparent 55%, transparent);
-    border: none;
 }
 body.transp #start_buttons a:hover {
   background: rgba(20, 20, 20, 0.6);
@@ -166,8 +157,6 @@ body.transp #friend_box .title,
 body.transp div.undertable_top,
 body.transp .button,
 body.transp .button:visited,
-body.transp .ui-state-default,
-body.transp #translation_call,
 body.transp #notifications > div,
 body.transp div.vstext,
 body.transp div.user_show div.content_box_inter.tabs,
@@ -190,16 +179,6 @@ body.transp #powerTip {
 }
 body.transp #site_title {
   opacity: 0.9;
-}
-body.transp #themepicker input.background_image {
-  display: block;
-  width: 100%;
-  border: 1px solid #444;
-  border-left: 0;
-  border-right: 0;
-  padding: 5px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
 }
 body.transp ::-webkit-scrollbar,
 body.transp ::-webkit-scrollbar-corner {

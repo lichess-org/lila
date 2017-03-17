@@ -1,55 +1,52 @@
 var game = require('game').game;
 var status = require('game').status;
-var partial = require('chessground').util.partial;
-var visible = require('./util').visible;
 
 var initialTitle = document.title;
-var tickDelay = 400;
+
+var curFaviconIdx = 0;
 var F = [
   '/assets/images/favicon-32-white.png',
   '/assets/images/favicon-32-black.png'
-].map(function(path) {
-  var link = document.createElement('link');
-  link.type = 'image/x-icon';
-  link.rel = 'shortcut icon';
-  link.id = 'dynamic-favicon';
-  link.href = path;
+].map(function(path, i) {
   return function() {
-    var oldLink = document.getElementById('dynamic-favicon');
-    if (oldLink) document.head.removeChild(oldLink);
-    document.head.appendChild(link);
+    if (curFaviconIdx !== i) {
+      document.getElementById('favicon').href = path;
+      curFaviconIdx = i;
+    }
   };
 });
-var iteration = 0;
-var tick = function(ctrl) {
-  if (!visible() && status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
-    F[++iteration % 2]();
-  }
-  setTimeout(partial(tick, ctrl), tickDelay);
-};
-visible(function(v) {
-  if (v) F[0]();
-});
 
-var init = function(ctrl) {
-  if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(partial(tick, ctrl), tickDelay);
-};
+var tickerTimer = undefined;
+function resetTicker() {
+  tickerTimer = clearTimeout(tickerTimer);
+  F[0]();
+}
 
-var set = function(ctrl, text) {
-  if (ctrl.data.player.spectator) return;
-  if (!text) {
-    if (status.finished(ctrl.data)) {
-      text = ctrl.trans('gameOver');
-    } else if (game.isPlayerTurn(ctrl.data)) {
-      text = ctrl.trans('yourTurn');
-    } else {
-      text = ctrl.trans('waitingForOpponent');
+function startTicker() {
+  function tick() {
+    if (!document.hasFocus()) {
+      F[1 - curFaviconIdx]();
+      tickerTimer = setTimeout(tick, 1000);
     }
   }
-  document.title = text + " - " + initialTitle;
+  if (!tickerTimer) tickerTimer = setTimeout(tick, 200);
 };
 
 module.exports = {
-  init: init,
-  set: set
+  init: function(ctrl) { window.addEventListener('focus', resetTicker); },
+  set: function(ctrl, text) {
+    if (ctrl.data.player.spectator) return;
+    if (!text) {
+      if (status.finished(ctrl.data)) {
+        text = ctrl.trans('gameOver');
+      } else if (game.isPlayerTurn(ctrl.data)) {
+        text = ctrl.trans('yourTurn');
+        if (!document.hasFocus()) startTicker();
+      } else {
+        text = ctrl.trans('waitingForOpponent');
+        resetTicker();
+      }
+    }
+    document.title = text + " - " + initialTitle;
+  }
 };

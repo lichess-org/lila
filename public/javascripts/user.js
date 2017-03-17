@@ -30,7 +30,7 @@ $(function() {
             return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
           }
         }
-      }).bind('typeahead:select', function(ev, sel) {
+      }).on('typeahead:select', function(ev, sel) {
         go(sel);
       }).keypress(function(e) {
         if (e.which == 10 || e.which == 13) go($(this).val());

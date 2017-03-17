@@ -58,11 +58,6 @@ body.dark .undertable_top,
 body.dark div.undertable_inner,
 body.dark .undertable td,
 body.dark .study_invite input,
-body.dark #translation_call,
-body.dark div.game_config .optional_config,
-body.dark div.game_config .ratings,
-body.dark .ui-state-default,
-body.dark .ui-widget-content,
 body.dark div.side_box,
 body.dark div.side_box .top,
 body.dark div.box,
@@ -123,7 +118,6 @@ body.dark #friend_box,
 body.dark #friend_box .title,
 body.dark div.user_show div.user-infos,
 body.dark div.user_show .insight,
-body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #miniGame,
 body.dark #powerTip > .title,
@@ -158,7 +152,6 @@ body.dark .lichess_ground .areplay interrupt,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
-body.dark .is2d #themepicker div.color_demo,
 body.dark .crosstable th,
 body.dark #lichess_blog .list h1,
 body.dark #lichess_blog .body h2,
@@ -201,10 +194,6 @@ body.dark #modal-wrap .close {
 }
 body.dark #opening .meter ul,
 body.dark #opening .meter li.dubious .step,
-body.dark .ui-slider,
-body.dark .progressbar,
-body.dark #translation_call .progressbar,
-body.dark #themepicker div.theme:hover,
 body.dark div.lichess_overboard .close:hover,
 body.dark #modal-wrap .close:hover {
   background-color: #505050;
@@ -295,10 +284,6 @@ body.dark #hooks_wrap div.tabs a.active {
   border-bottom-color: #303030;
   border-top-color: #d85000;
 }
-body.dark div.table_not_started {
-  box-shadow: none;
-  background: none;
-}
 body.dark .lichess_ground .replay index,
 body.dark .lichess_ground .replay move:not(.empty):hover,
 body.dark .ceval_box pearl,
@@ -312,7 +297,6 @@ body.dark #notify_app div.empty,
 body.dark div.lichess_overboard,
 body.dark div.analysis_menu > a,
 body.dark div.content_box,
-body.dark .content_box .pull-quote p:after,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
 body.dark div.sub_ratings > a.game.active,
@@ -345,8 +329,6 @@ body.dark #team .forum li:nth-child(odd),
 body.dark table.translations tbody tr:nth-child(odd),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
-body.dark div.game_config .optional_config,
-body.dark div.game_config .ratings,
 body.dark #tournament_side .pairings tr:hover,
 body.dark #top .shown a.toggle,
 body.dark #top .dropdown,
@@ -397,8 +379,6 @@ body.dark .undertable_top,
 body.dark .button,
 body.dark .button:visited,
 body.dark group.radio label,
-body.dark .ui-state-default,
-body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
@@ -417,9 +397,7 @@ body.dark .button,
 body.dark a.button,
 body.dark #challenge_app .owner,
 body.dark group.radio,
-body.dark group.radio label,
-body.dark .ui-slider-handle,
-body.dark .ui-widget-content {
+body.dark group.radio label {
   border-color: #323232;
 }
 body.dark #notify_app .site_notification,
@@ -447,9 +425,6 @@ body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
 
-body.dark .pull-quote p:after {
-  background: #1a1a1a;
-}
 body.dark #puzzle > .side div.fail,
 body.dark #puzzle > .side div.loss {
   color: #e97472;
@@ -515,39 +490,6 @@ body.dark :-ms-input-placeholder {
 body.dark #lobby_playban,
 body.dark #lobby_current_game {
   background: rgba(0,0,0,0.7);
-}
-body.dark #fpmenu {
-  background: #1c2328;
-  color: #aeaeae;
-}
-body.dark #fpmenu h2 {
-  color: #aeaeae;
-}
-body.dark #fpmenu .login input {
-  background-color: #1c2328;
-  border-color: #404040;
-}
-body.dark #fpmenu .login input.submit {
-  background: #d59120;
-}
-body.dark #fpmenu .user,
-body.dark #fpmenu .anon {
-  border-color: #444;
-}
-body.dark #fpmenu a.signup {
-  background: #1c2328;
-  border: 1px solid #555;
-  color: inherit;
-}
-body.dark #fpmenu a.signup:hover {
-  background: #d59120;
-  color: #fff;
-}
-body.dark #fpmenu .perf strong {
-  color: #aeaeae;
-}
-body.dark #fpmenu .perf::before {
-  color: #8b6523;
 }
 body.dark #topmenu section > a {
   color: #777;

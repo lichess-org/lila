@@ -203,7 +203,7 @@ trait WithPlay { self: PackageObject =>
   }
 
   implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
-    Zero.instance(FiniteDuration(0, scala.concurrent.duration.MILLISECONDS))
+    Zero.instance(Duration.Zero)
 
   object makeTimeout {
 
