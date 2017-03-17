@@ -24,19 +24,6 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
-.user_show .trophy {
-  height: 80px;
-}
-.user_show .packed .trophy {
-  margin-right: -5px;
-}
-.user_show .packed .stacked {
-  display: flex;
-  margin-right: 30px;
-}
-.user_show .packed .stacked .trophy {
-  width: 25px;
-}
 .user_show .trophy.award {
   font-family: "lichess" !important;
   speak: none;
@@ -45,6 +32,18 @@
   line-height: 100%;
   height: 60px;
   margin-top: 20px;
+}
+.user_show .trophy {
+  height: 80px;
+}
+.user_show .stacked {
+  display: flex;
+}
+.user_show .stacked .trophy {
+  width: 65px;
+  height: 65px;
+  font-size: 65px;
+  margin-top: 15px;
 }
 .user_show .fire_trophy {
   opacity: 0.9;
@@ -63,21 +62,19 @@
   -webkit-filter: hue-rotate(190deg);
 }
 .user_show .fire_trophy.marathonWinner {
-  height: 60px;
-  margin-top: 20px;
 }
 .user_show .fire_trophy.marathonTopTen {
-  font-size: 50px;
-  height: 50px;
-  margin-top: 30px;
-  width: 21px;
+  font-size: 58px;
+  width: 58px;
+  height: 58px;
+  margin-top: 22px;
 }
 .user_show .fire_trophy.marathonTopFifty,
 .user_show .fire_trophy.marathonTopHundred {
-  font-size: 40px;
-  height: 40px;
-  margin-top: 40px;
-  width: 17px;
+  font-size: 50px;
+  height: 50px;
+  width: 50px;
+  margin-top: 30px;
   animation: none;
 }
 .user_show .fire_trophy.marathonTopFifty {
@@ -86,6 +83,19 @@
 .user_show .fire_trophy.marathonTopHundred {
   text-shadow: none;
   color: #cd4606;
+}
+.user_show .fire_trophy.bongcloudWarrior {
+  filter: hue-rotate(70deg);
+  -webkit-filter: hue-rotate(70deg);
+}
+.user_show .packed .trophy {
+  margin-right: -8px;
+}
+.user_show .packed .stacked {
+  margin-right: 30px;
+}
+.user_show .packed .stacked .trophy {
+  margin-right: -30px;
 }
 .user_show .trophy.icon3d {
   width: 40px;
@@ -99,10 +109,6 @@
 }
 .user_show .trophy.icon3d:hover {
   margin-top: -12px!important;
-}
-.user_show .fire_trophy.bongcloudWarrior {
-  filter: hue-rotate(70deg);
-  -webkit-filter: hue-rotate(70deg);
 }
 .user_show .trophy.patron {
   font-size: 60px;
