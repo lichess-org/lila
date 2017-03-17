@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.collection.Searching._
 import scala.collection.breakOut
 import scala.concurrent.duration._
+import scala.util.Try
 
 import chess._
 import chess.variant.Variant
@@ -28,6 +29,7 @@ object BinaryFormat {
   }
 
   object clockHistory {
+    val log = lila.log("clockHistory")
 
     def writeSide(start: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
       val centis: Array[Int] = times.map(_.toHundredths.toInt)(breakOut)
@@ -39,15 +41,17 @@ object BinaryFormat {
       if (ba.isEmpty) { Vector.empty }
       else {
         val startCentis = start.toHundredths.toInt
-        ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis).toVector
+        ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis)(breakOut)
       }
     }
 
-    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
+    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): Option[ClockHistory] = {
       val ply = turns - startTurn
       val bmoves = ((startTurn & 1) + ply) >> 1
       val wmoves = ply - bmoves
-      ClockHistory(readSide(start, bw, wmoves), readSide(start, bb, bmoves))
+      val history = Try(ClockHistory(readSide(start, bw, wmoves), readSide(start, bb, bmoves)))
+      history recover { case e => log.info("Exception decoding history", e) }
+      history toOption
     }
   }
 

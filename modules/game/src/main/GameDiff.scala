@@ -43,9 +43,11 @@ private[game] object GameDiff {
       }
     }
 
-    def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] = {
-      g.clock.map(clk => (clk.limit.seconds, g.clockHistory.get(color)))
-    }
+    def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] =
+      for {
+        clk <- g.clock
+        history <- g.clockHistory
+      } yield (clk.limit.seconds, history.get(color))
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y))

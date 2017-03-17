@@ -28,7 +28,7 @@ case class Game(
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: Option[ByteArray] = None,
-    clockHistory: ClockHistory = ClockHistory(),
+    clockHistory: Option[ClockHistory] = Option(ClockHistory()),
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -119,19 +119,21 @@ case class Game(
       b <- moveTimes(!startColor)
     } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => List(x, y) }.take(playedTurns).toVector
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] = {
-    clock.map { clk =>
-      val clockTimes = clockHistory.get(color)
-      val inc = clk.increment.seconds
-      0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
+  def moveTimes(color: Color): Option[List[FiniteDuration]] =
+    {
+      for {
+        clk <- clock
+        inc = clk.increment.seconds
+        history <- clockHistory
+        clockTimes = history.get(color)
+      } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
         map { case (first, second) => (first - second + inc) max 0.millis } toList)
+    } orElse binaryMoveTimes.map { binary =>
+      val pivot = if (color == startColor) 0 else 1
+      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+        case (e, i) if (i % 2) == pivot => e
+      }
     }
-  } orElse binaryMoveTimes.map { binary =>
-    val pivot = if (color == startColor) 0 else 1
-    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
-    }
-  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -206,10 +208,11 @@ case class Game(
           ((nowTenths - lmt - (lag.??(_.roundTenths))) max 0) * 100 millis
         })
       },
-      clockHistory = game.clock.fold(clockHistory)(clk => {
-        val color = colorOf(game.turns - 1)
-        clockHistory.record(color, clk.remainingDuration(color))
-      }),
+      clockHistory = for {
+        clk <- game.clock
+        history <- clockHistory
+        color = colorOf(game.turns - 1)
+      } yield history.record(color, clk.remainingDuration(color)),
       status = situation.status | status,
       clock = game.clock
     )
