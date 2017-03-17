@@ -48,6 +48,7 @@ function onMouseEvent(ctrl) {
       if (sel === 'trash') {
         pieces[key] = false;
         ctrl.chessground.setPieces(pieces);
+        ctrl.onChange();
       } else {
         var existingPiece = ctrl.chessground.state.pieces[key];
         var piece = {};
@@ -62,14 +63,15 @@ function onMouseEvent(ctrl) {
         ) {
           pieces[key] = false;
           ctrl.chessground.setPieces(pieces);
+          ctrl.onChange();
         } else if (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey) {
           pieces[key] = piece;
           ctrl.chessground.cancelMove();
           ctrl.chessground.setPieces(pieces);
+          ctrl.onChange();
         }
       }
       lastKey = key;
-      ctrl.onChange();
     } else if (isRightClick(e)) {
       if (sel !== 'pointer') {
         ctrl.chessground.state.drawable.current = undefined;
