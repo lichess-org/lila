@@ -187,10 +187,8 @@ function sparePieces(ctrl, color, orientation, position) {
       class: containerClass,
       onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
       ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-      ontouchmove: function() {
-        if (ctrl.chessground && ctrl.chessground.state.draggable.current) {
-          lastTouchMovePos = ctrl.chessground.state.draggable.current.epos;
-        }
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
       }
     }, m('piece', attrs));
   }));
