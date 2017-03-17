@@ -27,9 +27,10 @@ function isRightClick(e) {
   return util.isRightButton(e) || (e.ctrlKey && util.isLeftButton(e));
 }
 
-function onMouseEvent(ctrl) {
-  var lastKey;
+var downKey;
+var lastKey;
 
+function onMouseEvent(ctrl) {
   return function(e) {
     var sel = ctrl.vm.selected();
 
@@ -44,6 +45,9 @@ function onMouseEvent(ctrl) {
       ) return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
+      if (e.type === 'mousedown' || e.type === 'touchstart') {
+        downKey = key;
+      }
       if (sel === 'trash') {
         deleteOrHidePiece(ctrl, key, e);
       } else {
@@ -59,7 +63,10 @@ function onMouseEvent(ctrl) {
             piece.role === existingPiece.role
         ) {
           deleteOrHidePiece(ctrl, key, e);
-        } else if (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey) {
+        } else if (
+          e.type === 'mousedown' || e.type === 'touchstart' ||
+            (key !== downKey && key !== lastKey)
+        ) {
           var pieces = {};
           pieces[key] = piece;
           ctrl.chessground.setPieces(pieces);
@@ -86,26 +93,17 @@ function onMouseEvent(ctrl) {
   };
 }
 
-var firstDelete;
-
 function deleteOrHidePiece(ctrl, key, e) {
-  if (e.type === 'touchstart' || e.type === 'touchmove') {
-    if (!firstDelete) {
-      if (ctrl.chessground.state.pieces[key]) {
-        ctrl.chessground.cancelMove();
-        e.srcElement.style.display = 'none';
-      }
-
-      document.addEventListener('touchend', function() {
-        deletePiece(ctrl, key);
-        firstDelete = null;
-      }, {once: true});
-
-      firstDelete = key;
-    } else if (key !== firstDelete) {
-      deletePiece(ctrl, key);
+  if (e.type === 'touchstart') {
+    if (ctrl.chessground.state.pieces[key]) {
+      ctrl.chessground.cancelMove();
+      e.srcElement.style.display = 'none';
     }
-  } else {
+
+    document.addEventListener('touchend', function() {
+      deletePiece(ctrl, key);
+    }, {once: true});
+  } else if (e.type === 'mousedown' || key !== downKey) {
     deletePiece(ctrl, key);
   }
 }
