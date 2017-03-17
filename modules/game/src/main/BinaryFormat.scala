@@ -45,7 +45,7 @@ object BinaryFormat {
 
     def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): ClockHistory = {
       val ply = turns - startTurn
-      val bmoves = (((startTurn & 1) + ply) >> 1) - 1
+      val bmoves = (((startTurn & 1) + ply) >> 1)
       val wmoves = ply - bmoves
       ClockHistory(readSide(start, bw, wmoves), readSide(start, bb, bmoves))
     }
