@@ -142,6 +142,8 @@ function selectedToClass(s) {
   return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
 }
 
+var lastTouchMovePos;
+
 function sparePieces(ctrl, color, orientation, position) {
 
   var selectedClass = selectedToClass(ctrl.vm.selected());
@@ -184,7 +186,10 @@ function sparePieces(ctrl, color, orientation, position) {
     return m('div', {
       class: containerClass,
       onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend')
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
+      }
     }, m('piece', attrs));
   }));
 }
@@ -202,7 +207,9 @@ function onSelectSparePiece(ctrl, s, upEvent) {
       }, e, true);
 
       document.addEventListener(upEvent, function(e) {
-        if (ctrl.chessground.getKeyAtDomPos(eventPosition(e))) {
+        var eventPos = eventPosition(e) || lastTouchMovePos;
+
+        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) {
           ctrl.vm.selected('pointer');
         } else {
           ctrl.vm.selected(s);
