@@ -64,7 +64,9 @@ module.exports = function(root, studyData, data) {
     }
     sound.success();
     var next = nextChapter();
-    if (next) root.study.setChapter(next.id);
+    if (next) setTimeout(function() {
+      root.study.setChapter(next.id);
+    }, 1000);
   };
 
   var onFailure = function() {
@@ -101,6 +103,7 @@ module.exports = function(root, studyData, data) {
     isWhite: function() {
       return root.bottomColor() === 'white';
     },
-    analysisUrl: analysisUrl
+    analysisUrl: analysisUrl,
+    nextChapter: nextChapter
   };
 };

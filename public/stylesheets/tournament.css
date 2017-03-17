@@ -99,13 +99,17 @@ ol.scheduled_tournaments a {
   height: 80px;
   opacity: 0.7;
   transition: 1s;
+  font-family: "lichess" !important;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 #tournament.marathon .fire_trophy:hover {
   opacity: 1;
 }
-#tournament.marathon .fire_trophy span {
-  margin-top: -78px;
-  margin-right: 32px;
+#tournament.marathon .fire_trophy {
+  filter: hue-rotate(190deg);
+  -webkit-filter: hue-rotate(190deg);
 }
 #tournament .description {
   padding: 20px;

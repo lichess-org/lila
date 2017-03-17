@@ -1,0 +1,28 @@
+@(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context)
+
+@defining(info.allTrophies.filter(_.kind.klass.has("fire_trophy"))) { fireTrophies =>
+@if(fireTrophies.nonEmpty) {
+<div class="stacked">
+  @fireTrophies.sorted.map { trophy =>
+  @trophy.kind.icon.map { iconChar =>
+  <a @trophy.kind.url.map { url => href="@url" }
+    class="trophy award @trophy.kind.key @trophy.kind.klass hint--left"
+    data-hint="@trophy.kind.name">@Html(iconChar)</a>
+  }
+  }
+</div>
+}
+}
+@defining(info.allTrophies.filter(_.kind.klass.has("icon3d"))) { iconTrophies =>
+@iconTrophies.sorted.map { trophy =>
+@trophy.kind.icon.map { iconChar =>
+<a @trophy.kind.url.map { url => href="@url" }
+  class="trophy award @trophy.kind.key @trophy.kind.klass hint--left"
+  data-hint="@trophy.kind.name">@Html(iconChar)</a>
+}
+}
+}
+@if(info.isCoach) {
+<a href="@routes.Coach.show(u.username)"
+  class="trophy award icon3d coach hint--left" data-hint="Lichess coach">:</a>
+}

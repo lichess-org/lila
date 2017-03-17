@@ -50,7 +50,7 @@ function image(d) {
 function title(ctrl) {
   var d = ctrl.data;
   if (isMarathon(d)) return m('h1', [
-    m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
+    m('span.fire_trophy', '\\'),
     d.fullName
   ]);
   return m('h1', [

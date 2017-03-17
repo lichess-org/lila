@@ -69,7 +69,7 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  def momentLangTag(async: Boolean = false)(implicit ctx: lila.api.Context) = {
+  def momentLangUrl(implicit ctx: lila.api.Context): Option[String] = {
     val l = lang(ctx)
     ((l.language, l.country.toLowerCase) match {
       case ("en", "us") => none
@@ -80,9 +80,7 @@ trait AssetHelper { self: I18nHelper =>
       case ("ar", "ma" | "sa" | "tn") => l.code.some
       case ("fr", "ca") => l.code.some
       case _ => l.language.some
-    }).fold(Html("")) { locale =>
-      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true, async = async)
-    }
+    }).map { locale => s"/assets/vendor/moment/locale/${locale.toLowerCase}.js" }
   }
 
   val tagmanagerTag = cdnOrLocal(

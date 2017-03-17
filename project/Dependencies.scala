@@ -41,7 +41,7 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
 
   object reactivemongo {
-    val version = "0.12.0"
+    val version = "0.12.1"
     val driver = "org.reactivemongo" %% "reactivemongo" % version
     val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
   }

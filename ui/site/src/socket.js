@@ -199,7 +199,7 @@ lichess.StrongSocket = function(url, version, settings) {
     tryOtherUrl = true;
     setTimeout(function() {
       if (!$('#network_error').length) {
-        $('#top').append('<span class="fright link text" id="network_error" data-icon="j">Network error</span>');
+        $('#top').append('<span class="link text" id="network_error" data-icon="j">Network error</span>');
       }
     }, 1000);
     clearTimeout(pingSchedule);

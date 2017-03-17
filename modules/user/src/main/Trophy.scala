@@ -3,11 +3,18 @@ package lila.user
 import org.joda.time.DateTime
 
 case class Trophy(
-  _id: String, // random
-  user: String,
-  kind: Trophy.Kind,
-  date: DateTime
-)
+    _id: String, // random
+    user: String,
+    kind: Trophy.Kind,
+    date: DateTime
+) extends Ordered[Trophy] {
+
+  def timestamp = date.getMillis
+
+  def compare(other: Trophy) =
+    if (kind.order == other.kind.order) timestamp compare other.timestamp
+    else kind.order compare other.kind.order
+}
 
 object Trophy {
 
@@ -16,7 +23,8 @@ object Trophy {
     val name: String,
     val icon: Option[String],
     val url: Option[String],
-    val klass: Option[String]
+    val klass: Option[String],
+    val order: Int
   )
 
   object Kind {
@@ -26,7 +34,8 @@ object Trophy {
       name = "Zug miracle",
       icon = none,
       url = "//lichess.org/qa/259/how-do-you-get-a-zug-miracle-trophy".some,
-      none
+      klass = none,
+      order = 1
     )
 
     object WayOfBerserk extends Kind(
@@ -34,7 +43,8 @@ object Trophy {
       name = "The way of Berserk",
       icon = "`".some,
       url = "//lichess.org/qa/340/way-of-berserk-trophy".some,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 2
     )
 
     object MarathonWinner extends Kind(
@@ -42,7 +52,8 @@ object Trophy {
       name = "Marathon Winner",
       icon = "\\".some,
       url = none,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 3
     )
 
     object MarathonTopTen extends Kind(
@@ -50,7 +61,8 @@ object Trophy {
       name = "Marathon Top 10",
       icon = "\\".some,
       url = none,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 4
     )
 
     object MarathonTopFifty extends Kind(
@@ -58,7 +70,8 @@ object Trophy {
       name = "Marathon Top 50",
       icon = "\\".some,
       url = none,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 5
     )
 
     object MarathonTopHundred extends Kind(
@@ -66,7 +79,8 @@ object Trophy {
       name = "Marathon Top 100",
       icon = "\\".some,
       url = none,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 6
     )
 
     object MarathonSurvivor extends Kind(
@@ -74,7 +88,8 @@ object Trophy {
       name = "Marathon #1 survivor",
       icon = ",".some,
       url = "//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 7
     )
 
     object BongcloudWarrior extends Kind(
@@ -82,7 +97,8 @@ object Trophy {
       name = "Bongcloud Warrior",
       icon = "~".some,
       url = "//lichess.org/forum/lichess-feedback/bongcloud-trophy".some,
-      "fire_trophy".some
+      klass = "fire_trophy".some,
+      order = 8
     )
 
     object Developer extends Kind(
@@ -90,7 +106,8 @@ object Trophy {
       name = "Lichess developer",
       icon = "&#xe000;".some,
       url = "https://github.com/ornicar/lila/graphs/contributors".some,
-      "icon3d".some
+      klass = "icon3d".some,
+      order = 100
     )
 
     object Moderator extends Kind(
@@ -98,7 +115,8 @@ object Trophy {
       name = "Lichess moderator",
       icon = "&#xe002;".some,
       url = "//lichess.org/report".some,
-      "icon3d".some
+      "icon3d".some,
+      order = 101
     )
 
     object Streamer extends Kind(
@@ -106,7 +124,8 @@ object Trophy {
       name = "Lichess streamer",
       icon = "&#xe003;".some,
       url = "//lichess.org/help/stream-on-lichess".some,
-      "icon3d".some
+      "icon3d".some,
+      order = 102
     )
 
     val all = List(

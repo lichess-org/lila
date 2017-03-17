@@ -1,5 +1,6 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
+var eventPosition = require('chessground/util').eventPosition;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -200,8 +201,12 @@ function onSelectSparePiece(ctrl, s, upEvent) {
         role: s[1]
       }, e, true);
 
-      document.addEventListener(upEvent, function() {
-        ctrl.vm.selected(s);
+      document.addEventListener(upEvent, function(e) {
+        if (ctrl.chessground.getKeyAtDomPos(eventPosition(e))) {
+          ctrl.vm.selected('pointer');
+        } else {
+          ctrl.vm.selected(s);
+        }
         m.redraw();
       }, {once: true});
     }
