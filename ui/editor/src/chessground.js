@@ -33,7 +33,7 @@ function onMouseEvent(ctrl) {
   return function(e) {
     var sel = ctrl.vm.selected();
 
-    if (isLeftClick(e)) {
+    if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (
         sel === 'pointer' ||
           (
@@ -55,13 +55,14 @@ function onMouseEvent(ctrl) {
         piece.role = sel[1];
 
         if (
-          e.type === 'mousedown' && existingPiece &&
+          (e.type === 'mousedown' || e.type === 'touchstart') &&
+            existingPiece &&
             piece.color === existingPiece.color &&
             piece.role === existingPiece.role
         ) {
           pieces[key] = false;
           ctrl.chessground.setPieces(pieces);
-        } else if (e.type === 'mousedown' || key !== lastKey) {
+        } else if (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey) {
           pieces[key] = piece;
           ctrl.chessground.cancelMove();
           ctrl.chessground.setPieces(pieces);
