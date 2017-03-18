@@ -19,7 +19,7 @@ public class LowBitTruncator {
     public static void writeDigits(int[] centis, BitWriter writer) {
         int maxIdx = centis.length - 1;
         for (int i = 0; i < maxIdx; i++) {
-            if (centis[i] < CENTI_CUTOFF))
+            if (centis[i] < CENTI_CUTOFF)
                 writer.writeBits(centis[i], 3);
         }
         // Always store full precision end.
