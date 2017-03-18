@@ -28,7 +28,6 @@ object Rewind {
         if (color == game.startColor) (rewindedPlayedTurns + 1) / 2
         else rewindedPlayedTurns / 2
       }
-      val newClock = game.clock map (_.takeback)
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
@@ -54,7 +53,7 @@ object Rewind {
         )),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
-        clock = newClock
+        clock = game.clock map (_.takeback)
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
