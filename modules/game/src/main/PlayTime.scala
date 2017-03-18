@@ -15,7 +15,7 @@ final class PlayTime(gameColl: Coll) {
     case pt => fuccess(pt)
   }
 
-  def compute(user: User): Fu[Option[User.PlayTime]] =
+  private def compute(user: User): Fu[Option[User.PlayTime]] =
     computeNow(user) map some
 
   private def extractSeconds(docs: Iterable[Bdoc], onTv: Boolean): Int = ~docs.collectFirst {
