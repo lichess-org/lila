@@ -492,6 +492,7 @@ body > div.content {
   margin: 3px 0.5em 0 0;
   border-color: #d85000;
   padding: 1px 5px;
+  height: 17px;
 }
 #top .auth .sep {
   display: block;
