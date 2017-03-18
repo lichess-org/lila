@@ -117,7 +117,7 @@ case class Game(
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => List(x, y) }.take(playedTurns).toVector
+    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => Array(x, y) }.take(playedTurns).toVector
 
   def moveTimes(color: Color): Option[List[FiniteDuration]] =
     {

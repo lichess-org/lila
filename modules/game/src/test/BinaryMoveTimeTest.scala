@@ -62,4 +62,5 @@ class BinaryMoveTimeTest extends Specification {
       val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 3)
       again must_== rounded
     }
+  }
 }
