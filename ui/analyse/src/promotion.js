@@ -13,7 +13,7 @@ function start(ctrl, orig, dest, capture, callback) {
     promoting = {
       orig: orig,
       dest: dest,
-      capture, capture,
+      capture: capture,
       callback: callback
     };
     m.redraw();
