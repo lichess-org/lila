@@ -32,8 +32,8 @@ function renderClock(ctrl, player, position) {
   ];
 }
 
-function prefixInteger(num, length) {
-  return (num / Math.pow(10, length)).toFixed(length).substr(2);
+function _pad2(num) {
+  return (num < 10 ? '0' : '') + num;
 }
 
 var sepHigh = '<sep>:</sep>';
@@ -41,23 +41,22 @@ var sepLow = '<sep class="low">:</sep>';
 
 function formatClockTime(data, time, running) {
   var date = new Date(time);
-  var minutes = prefixInteger(date.getUTCMinutes(), 2);
-  var secs = date.getSeconds();
-  var seconds = prefixInteger(secs, 2);
-  var tenths = Math.floor(date.getMilliseconds() / 100);
-  var hundredths = function() {
-    return Math.floor(date.getMilliseconds() / 10) - tenths * 10;
-  };
-  var sep = (running && tenths < 5) ? sepLow : sepHigh;
-  if ((data.showTenths == 2 && time < 3600000) || (data.showTenths == 1 && time < 10000)) {
-    var showHundredths = !running && secs < 1;
-    return minutes + sep + seconds +
-    '<tenths><sep>.</sep>' + tenths + (showHundredths ? '<huns>' + hundredths() + '</huns>' : '') + '</tenths>';
-  } else if (time >= 3600000) {
-    var hours = prefixInteger(date.getUTCHours(), 2);
-    return hours + sepHigh + minutes + sep + seconds;
-  } else
-  return minutes + sep + seconds;
+  var millis = date.getUTCMilliseconds();
+  var sep = (running && millis < 500) ? sepLow : sepHigh;
+  var baseStr = _pad2(date.getUTCMinutes()) + sep + _pad2(date.getUTCSeconds());
+  if (time >= 3600000) {
+    var hours = _pad2(Math.floor(time / 3600000));
+    return hours + sepHigh + baseStr;
+  } else if (time >= 10000 && date.showTenths != 2 || data.showTenths == 0) {
+    return baseStr;
+  } else {
+    var tenthsStr = Math.floor(millis / 100).toString();
+    if (!running && time < 1000) {
+      tenthsStr += '<huns>' + (Math.floor(millis / 10) % 10) + '</huns>';
+    }
+
+    return baseStr + '<tenths><sep>.</sep>' + tenthsStr + '</tenths>';
+  }
 }
 
 function barWidth(data, time) {
