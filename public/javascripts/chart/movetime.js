@@ -13,13 +13,13 @@ lichess.movetimeChart = function(data) {
 
             data.game.moveTimes.forEach(function(time, i) {
               var turn = (i >> 1) + 1;
-              var color = !(i & 1);
+              var isBlack = i & 1;
               var node = data.treeParts[i + 1];
               var san = node ? node.san : '-';
               series[color ? 'white' : 'black'].push({
-                name: turn + (color ? '. ' : '... ') + san,
+                name: turn + (isBlack ? '... ' : '. ') + san,
                 x: i,
-                y: color ? time : -time
+                y: isBlack ? -time : time
               });
             });
 
