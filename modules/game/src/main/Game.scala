@@ -127,7 +127,7 @@ case class Game(
         history <- clockHistory
         clockTimes = history.get(color)
       } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
-        map { case (first, second) => (first - second + inc) max 0.millis } toList)
+        map { case (first, second) => (first - second + inc) max Duration.Zero } toList)
     } orElse binaryMoveTimes.map { binary =>
       val pivot = if (color == startColor) 0 else 1
       BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
