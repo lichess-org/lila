@@ -67,15 +67,11 @@ function onMouseEvent(ctrl) {
 
           placeDelete = true;
 
-          if (e.type === 'mousedown') {
-            document.addEventListener('mouseup', function() {
-              placeDelete = false;
-            }, {once: true});
-          } else {
-            document.addEventListener('touchend', function() {
-              placeDelete = false;
-            }, {once: true});
-          }
+          var endEvents = {mousedown: 'mouseup', touchstart: 'touchend'};
+  
+          document.addEventListener(endEvents[e.type], function() {
+            placeDelete = false;
+          }, {once: true});
         } else if (
           !placeDelete && 
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
