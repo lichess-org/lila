@@ -17,9 +17,11 @@ final class PlayTime(
   import Game.{ BSONFields => F }
 
   def apply(user: User): Fu[Option[User.PlayTime]] = user.playTime match {
-    case None => compute(user)
+    case None => randomlyCompute ?? compute(user)
     case pt => fuccess(pt)
   }
+
+  def randomlyCompute = scala.util.Random.nextInt(10) == 0
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
     creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
