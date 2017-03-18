@@ -5,6 +5,7 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 final class PlayTime(gameColl: Coll) {
 
@@ -25,7 +26,7 @@ final class PlayTime(gameColl: Coll) {
 
   private def computeNow(user: User): Fu[User.PlayTime] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    gameColl.aggregate(Match($doc(
+    gameColl.aggregateWithReadPreference(Match($doc(
       F.playerUids -> user.id,
       F.clock $exists true
     )), List(
@@ -35,7 +36,7 @@ final class PlayTime(gameColl: Coll) {
         "ms" -> $doc("$subtract" -> $arr("$ua", "$ca"))
       )),
       GroupField("tv")("ms" -> SumField("ms"))
-    )).map { res =>
+    ), ReadPreference.secondaryPreferred).map { res =>
       val docs = res.firstBatch
       val onTvSeconds = extractSeconds(docs, true)
       val offTvSeconds = extractSeconds(docs, false)
