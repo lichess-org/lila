@@ -38,11 +38,8 @@ object BinaryFormat {
     }
 
     def readSide(start: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
-      if (ba.isEmpty) { Vector.empty }
-      else {
-        val startCentis = start.toHundredths.toInt
-        ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis)(breakOut)
-      }
+      val startCentis = start.toHundredths.toInt
+      ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis)(breakOut)
     }
 
     def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): Option[ClockHistory] = {
