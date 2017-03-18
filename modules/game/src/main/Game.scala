@@ -27,7 +27,8 @@ case class Game(
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
-    clockHistory: ClockHistory = ClockHistory.empty,
+    binaryMoveTimes: Option[ByteArray] = None,
+    clockHistory: Option[ClockHistory] = Option(ClockHistory()),
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -68,7 +69,8 @@ case class Game(
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
-  def turnColor = Color(0 == turns % 2)
+  def colorOf(t: Int) = Color(0 == (t & 1))
+  def turnColor = colorOf(turns)
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean = c == turnColor
@@ -111,12 +113,27 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] = {
-    val pivot = if (color == startColor) 0 else 1
-    clockHistory.moveTimes(playedTurns).map(_.toList.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
-    })
-  }
+  def moveTimes: Option[Vector[FiniteDuration]] =
+    for {
+      a <- moveTimes(startColor)
+      b <- moveTimes(!startColor)
+    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => Array(x, y) }.take(playedTurns).toVector
+
+  def moveTimes(color: Color): Option[List[FiniteDuration]] =
+    {
+      for {
+        clk <- clock
+        inc = clk.increment.seconds
+        history <- clockHistory
+        clockTimes = history.get(color)
+      } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
+        map { case (first, second) => (first - second + inc) max Duration.Zero } toList)
+    } orElse binaryMoveTimes.map { binary =>
+      val pivot = if (color == startColor) 0 else 1
+      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+        case (e, i) if (i % 2) == pivot => e
+      }
+    }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -186,12 +203,16 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      clockHistory = isPgnImport.fold(
-        ClockHistory.empty,
-        clockHistory.withTime(playedTurns, lastMoveTime.?? { lmt =>
-          ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
+      binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
+        BinaryFormat.moveTime.write(binaryMoveTimes.??(t => BinaryFormat.moveTime.read(t, playedTurns)) :+ lastMoveTime.?? { lmt =>
+          ((nowTenths - lmt - (lag.??(_.roundTenths))) max 0) * 100 millis
         })
-      ),
+      },
+      clockHistory = for {
+        clk <- game.clock
+        history <- clockHistory
+        color = colorOf(game.turns - 1)
+      } yield history.record(color, clk.remainingDuration(color)),
       status = situation.status | status,
       clock = game.clock
     )
@@ -627,6 +648,8 @@ object Game {
     val unmovedRooks = "ur"
     val daysPerTurn = "cd"
     val moveTimes = "mt"
+    val whiteClockHistory = "cw"
+    val blackClockHistory = "cb"
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
@@ -671,5 +694,20 @@ object CastleLastMoveTime {
     def write(clmt: CastleLastMoveTime) = ByteArrayBSONHandler write {
       BinaryFormat.castleLastMoveTime write clmt
     }
+  }
+}
+
+case class ClockHistory(
+    white: Vector[FiniteDuration] = Vector.empty,
+    black: Vector[FiniteDuration] = Vector.empty
+) {
+
+  def record(color: Color, duration: FiniteDuration): ClockHistory = {
+    if (color.white) ClockHistory(white :+ duration, black)
+    else ClockHistory(white, black :+ duration)
+  }
+
+  def get(color: Color): Vector[FiniteDuration] = {
+    if (color.white) white else black
   }
 }

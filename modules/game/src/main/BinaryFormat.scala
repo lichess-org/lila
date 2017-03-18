@@ -1,11 +1,15 @@
 package lila.game
 
-import chess.variant.Variant
 import org.joda.time.DateTime
 import scala.collection.Searching._
+import scala.collection.breakOut
 import scala.concurrent.duration._
+import scala.util.Try
 
 import chess._
+import chess.variant.Variant
+
+import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray
 
@@ -22,6 +26,30 @@ object BinaryFormat {
 
     def read(ba: ByteArray, nb: Int): PgnMoves =
       format.pgn.Binary.readMoves(ba.value.toList, nb).get
+  }
+
+  object clockHistory {
+    val log = lila.log("clockHistory")
+
+    def writeSide(start: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
+      val centis: Array[Int] = times.map(_.toHundredths.toInt)(breakOut)
+      val startCentis = start.toHundredths.toInt
+      ByteArray(ClockEncoder.encode(centis, startCentis))
+    }
+
+    def readSide(start: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
+      val startCentis = start.toHundredths.toInt
+      ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis)(breakOut)
+    }
+
+    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): Option[ClockHistory] = {
+      val ply = turns - startTurn
+      val bmoves = ((startTurn & 1) + ply) >> 1
+      val wmoves = ply - bmoves
+      val history = Try(ClockHistory(readSide(start, bw, wmoves), readSide(start, bb, bmoves)))
+      history recover { case e => log.info("Exception decoding history", e) }
+      history toOption
+    }
   }
 
   object moveTime {
@@ -45,12 +73,12 @@ object BinaryFormat {
     // warning! This will always return an even number of values,
     // appending the minimum value if necessary
     // so it's your responsibility to truncate to the desired number of values.
-    def read(ba: ByteArray): Vector[FiniteDuration] = {
+    def read(ba: ByteArray, turns: Int): Vector[FiniteDuration] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.map(_ * 100 millis).toVector
+    }.map(_ * 100 millis).take(turns).toVector
   }
 
   case class clock(since: DateTime) {

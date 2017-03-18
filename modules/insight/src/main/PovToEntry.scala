@@ -45,7 +45,7 @@ object PovToEntry {
               initialFen = fen map chess.format.FEN,
               variant = game.variant
             ).toOption.flatMap(_.toNel)
-            movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.toTenths.toInt).toNel)
+            movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths.toInt).toNel)
           } yield RichPov(
             pov = pov,
             provisional = provisional,
