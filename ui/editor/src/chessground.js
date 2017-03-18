@@ -27,9 +27,11 @@ function isRightClick(e) {
   return util.isRightButton(e) || (e.ctrlKey && util.isLeftButton(e));
 }
 
-function onMouseEvent(ctrl) {
-  var lastKey;
+var downKey;
+var lastKey;
+var placeDelete;
 
+function onMouseEvent(ctrl) {
   return function(e) {
     var sel = ctrl.vm.selected();
 
@@ -44,10 +46,11 @@ function onMouseEvent(ctrl) {
       ) return;
       var key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
       if (!key) return;
-      var pieces = {};
+      if (e.type === 'mousedown' || e.type === 'touchstart') {
+        downKey = key;
+      }
       if (sel === 'trash') {
-        pieces[key] = false;
-        ctrl.chessground.setPieces(pieces);
+        deleteOrHidePiece(ctrl, key, e);
       } else {
         var existingPiece = ctrl.chessground.state.pieces[key];
         var piece = {};
@@ -60,16 +63,27 @@ function onMouseEvent(ctrl) {
             piece.color === existingPiece.color &&
             piece.role === existingPiece.role
         ) {
-          pieces[key] = false;
-          ctrl.chessground.setPieces(pieces);
-        } else if (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey) {
+          deleteOrHidePiece(ctrl, key, e);
+
+          placeDelete = true;
+
+          var endEvents = {mousedown: 'mouseup', touchstart: 'touchend'};
+  
+          document.addEventListener(endEvents[e.type], function() {
+            placeDelete = false;
+          }, {once: true});
+        } else if (
+          !placeDelete && 
+            (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
+        ) {
+          var pieces = {};
           pieces[key] = piece;
-          ctrl.chessground.cancelMove();
           ctrl.chessground.setPieces(pieces);
+          ctrl.onChange();
+          ctrl.chessground.cancelMove();
         }
       }
       lastKey = key;
-      ctrl.onChange();
     } else if (isRightClick(e)) {
       if (sel !== 'pointer') {
         ctrl.chessground.state.drawable.current = undefined;
@@ -86,6 +100,28 @@ function onMouseEvent(ctrl) {
       }
     }
   };
+}
+
+function deleteOrHidePiece(ctrl, key, e) {
+  if (e.type === 'touchstart') {
+    if (ctrl.chessground.state.pieces[key]) {
+      ctrl.chessground.cancelMove();
+      e.srcElement.style.display = 'none';
+    }
+
+    document.addEventListener('touchend', function() {
+      deletePiece(ctrl, key);
+    }, {once: true});
+  } else if (e.type === 'mousedown' || key !== downKey) {
+    deletePiece(ctrl, key);
+  }
+}
+
+function deletePiece(ctrl, key) {
+  var pieces = {};
+  pieces[key] = false;
+  ctrl.chessground.setPieces(pieces);
+  ctrl.onChange();
 }
 
 function makeConfig(ctrl) {
