@@ -41,7 +41,7 @@ case class UserInfo(
   def isPublicMod = lila.security.Granter(_.PublicMod)(user)
   def isDeveloper = lila.security.Granter(_.Developer)(user)
 
-  def allTrophies = List(
+  lazy val allTrophies = List(
     isPublicMod option Trophy(
       _id = "",
       user = user.id,
@@ -61,6 +61,8 @@ case class UserInfo(
       date = org.joda.time.DateTime.now
     )
   ).flatten ::: trophies
+
+  def countTrophiesAndPerfCups = allTrophies.size + ranks.count(_._2 <= 100)
 }
 
 object UserInfo {

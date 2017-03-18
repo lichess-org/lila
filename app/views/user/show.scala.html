@@ -32,7 +32,7 @@ description = describeUser(u)).some) {
       @Html(lineIcon)@u.titleUsername
       }
     </h1>
-    <div class="trophies@if(info.allTrophies.size > 7){ packed}">
+    <div class="trophies@if(info.countTrophiesAndPerfCups > 7){ packed}">
       @perfTrophies(u, info.ranks)
       @otherTrophies(u, info)
     </div>
