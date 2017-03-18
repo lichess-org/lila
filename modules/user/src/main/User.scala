@@ -20,7 +20,7 @@ case class User(
     engine: Boolean = false,
     booster: Boolean = false,
     toints: Int = 0,
-    playTime: User.PlayTime,
+    playTime: Option[User.PlayTime],
     title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
@@ -118,7 +118,8 @@ object User {
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod = new Period(total * 1000l)
-    def tvPeriod = (tv > 0) option new Period(tv * 1000l)
+    def tvPeriod = new Period(tv * 1000l)
+    def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
@@ -204,7 +205,7 @@ object User {
       engine = r boolD engine,
       booster = r boolD booster,
       toints = r nIntD toints,
-      playTime = r.getO[PlayTime](playTime) | PlayTime(0, 0),
+      playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
       kid = r boolD kid,

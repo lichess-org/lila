@@ -65,6 +65,8 @@ final class Env(
     system = system
   )
 
+  lazy val playTime = new PlayTime(gameColl)
+
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
