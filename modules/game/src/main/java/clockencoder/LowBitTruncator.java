@@ -18,11 +18,12 @@ public class LowBitTruncator {
 
     public static void writeDigits(int[] centis, BitWriter writer) {
         int maxIdx = centis.length - 1;
-        for (int i = 0; i <= maxIdx; i++) {
-            // Always store full precision end.
-            if (centis[i] < CENTI_CUTOFF || i == maxIdx)
+        for (int i = 0; i < maxIdx; i++) {
+            if (centis[i] < CENTI_CUTOFF))
                 writer.writeBits(centis[i], 3);
         }
+        // Always store full precision end.
+        writer.writeBits(centis[maxIdx], 3);
     }
 
     public static void decode(int[] trunced, BitReader reader) {
