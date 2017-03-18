@@ -19,5 +19,5 @@ dataLayer.push({"Donation referrer page": "@lila.common.HTTPRequest.referer(ctx.
 dataLayer.push({"Followers": @data.nbFollowers});
 dataLayer.push({"Following": @data.nbFollowing});
 dataLayer.push({"Forum messages": @data.nbForumPosts});
-dataLayer.push({"Seconds spent playing": @data.user.playTime.totalPeriod.getSeconds});
-dataLayer.push({"Seconds featured on TV": @data.user.playTime.tvPeriod.fold(0)(_.getSeconds)});
+dataLayer.push({"Seconds spent playing": @data.user.playTime.fold(0)(_.totalPeriod.getSeconds)});
+dataLayer.push({"Seconds featured on TV": @data.user.playTime.fold(0)(_.tvPeriod.getSeconds)});

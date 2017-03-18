@@ -13,7 +13,7 @@ object ResilientScheduler {
     atMost: FiniteDuration,
     system: ActorSystem,
     logger: lila.log.Logger
-  )(f: => Fu[Unit]) {
+  )(f: => Funit) {
 
     system.actorOf(Props(new Actor {
 

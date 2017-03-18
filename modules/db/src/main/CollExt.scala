@@ -1,8 +1,10 @@
 package lila.db
 
 import reactivemongo.api._
+import reactivemongo.api.collections.bson.BSONBatchCommands
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
+import reactivemongo.core.protocol.MongoWireVersion
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
@@ -110,5 +112,24 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           coll.update(selector, update(doc)).void
         }
       }
+
+    // because mongodb collection.aggregate doesn't have the readPreference argument!
+    def aggregateWithReadPreference(
+      firstOperator: BSONBatchCommands.AggregationFramework.PipelineOperator,
+      otherOperators: List[BSONBatchCommands.AggregationFramework.PipelineOperator] = Nil,
+      readPreference: ReadPreference
+    ): Fu[BSONBatchCommands.AggregationFramework.AggregationResult] = {
+
+      import BSONBatchCommands.{ AggregateWriter, AggregateReader }
+
+      coll.runWithResponse(BSONBatchCommands.AggregationFramework.Aggregate(
+        firstOperator :: otherOperators,
+        allowDiskUse = false,
+        cursor = None,
+        wireVersion = MongoWireVersion.V32, // sadly we can't access the connection metadata
+        bypassDocumentValidation = false,
+        readConcern = None
+      ), readPreference).map(_.value)
+    }
   }
 }
