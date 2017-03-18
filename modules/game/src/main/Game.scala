@@ -8,6 +8,8 @@ import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import scala.collection.breakOut
+
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -69,7 +71,7 @@ case class Game(
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
-  def turnColor = Color(0 == (turns & 1))
+  def turnColor = Color(0 == turns % 2)
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean = c == turnColor
@@ -116,7 +118,7 @@ case class Game(
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => Array(x, y) }.take(playedTurns + 1).toVector
+    } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
   def moveTimes(color: Color): Option[List[FiniteDuration]] =
     {
@@ -370,7 +372,14 @@ case class Game(
       status = status,
       whitePlayer = whitePlayer.finish(winner contains White),
       blackPlayer = blackPlayer.finish(winner contains Black),
-      clock = clock map (_.stop)
+      clock = clock map (_.stop),
+      clockHistory = for {
+        clk <- clock
+        history <- clockHistory
+      } yield {
+        if (!finished) history.record(turnColor, clk)
+        else history
+      }
     ),
     List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
   )
