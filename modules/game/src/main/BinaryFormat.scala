@@ -37,16 +37,13 @@ object BinaryFormat {
       ByteArray(ClockEncoder.encode(centis, startCentis))
     }
 
-    def readSide(start: FiniteDuration, ba: ByteArray, numMoves: Int): Vector[FiniteDuration] = {
+    def readSide(start: FiniteDuration, ba: ByteArray): Vector[FiniteDuration] = {
       val startCentis = start.toHundredths.toInt
-      ClockEncoder.decode(ba.value, numMoves, startCentis).map(_ * 10.millis)(breakOut)
+      ClockEncoder.decode(ba.value, startCentis).map(_ * 10.millis)(breakOut)
     }
 
-    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray, startTurn: Int, turns: Int): Option[ClockHistory] = {
-      val ply = turns - startTurn
-      val bmoves = ((startTurn & 1) + ply) >> 1
-      val wmoves = ply - bmoves
-      val history = Try(ClockHistory(readSide(start, bw, wmoves), readSide(start, bb, bmoves)))
+    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray): Option[ClockHistory] = {
+      val history = Try(ClockHistory(readSide(start, bw), readSide(start, bb)))
       history recover { case e => log.info("Exception decoding history", e) }
       history toOption
     }

@@ -69,8 +69,7 @@ case class Game(
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
-  def colorOf(t: Int) = Color(0 == (t & 1))
-  def turnColor = colorOf(turns)
+  def turnColor = Color(0 == (turns & 1))
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean = c == turnColor
@@ -117,7 +116,7 @@ case class Game(
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => Array(x, y) }.take(playedTurns).toVector
+    } yield a.zipAll(b, 0.millis, 0.millis).flatMap { case (x, y) => Array(x, y) }.take(playedTurns + 1).toVector
 
   def moveTimes(color: Color): Option[List[FiniteDuration]] =
     {
@@ -211,8 +210,7 @@ case class Game(
       clockHistory = for {
         clk <- game.clock
         history <- clockHistory
-        color = colorOf(game.turns - 1)
-      } yield history.record(color, clk.remainingDuration(color)),
+      } yield history.record(turnColor, clk),
       status = situation.status | status,
       clock = game.clock
     )
@@ -702,7 +700,8 @@ case class ClockHistory(
     black: Vector[FiniteDuration] = Vector.empty
 ) {
 
-  def record(color: Color, duration: FiniteDuration): ClockHistory = {
+  def record(color: Color, clock: Clock): ClockHistory = {
+    val duration = clock.remainingDuration(color)
     if (color.white) ClockHistory(white :+ duration, black)
     else ClockHistory(white, black :+ duration)
   }

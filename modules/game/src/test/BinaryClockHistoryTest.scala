@@ -20,7 +20,7 @@ class BinaryClockHistoryTest extends Specification {
     "handle singleton vectors" in {
       val times = Vector(12345.millis)
       val bytes = BinaryFormat.clockHistory.writeSide(123456.millis, times)
-      val restored = BinaryFormat.clockHistory.readSide(123456.millis, bytes, 1)
+      val restored = BinaryFormat.clockHistory.readSide(123456.millis, bytes)
 
       restored.size must_== 1
       (restored(0) - times(0)).abs should be_<=(eps)
@@ -32,7 +32,7 @@ class BinaryClockHistoryTest extends Specification {
         66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99, 102, 105, 108, 199, 333, 567, 666, 2000, 30
       ).map(t => (2100 - t) * 100.millis)
       val bytes = BinaryFormat.clockHistory.writeSide(2.hours, times)
-      val restored = BinaryFormat.clockHistory.readSide(2.hours, bytes, times.size)
+      val restored = BinaryFormat.clockHistory.readSide(2.hours, bytes)
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
     }
@@ -40,7 +40,7 @@ class BinaryClockHistoryTest extends Specification {
     "restore correspondence" in {
       val times = Vector(1180, 2040, 800, 1910, 750, 2300, 480, 2580).map(t => 2.days - t.millis)
       val bytes = BinaryFormat.clockHistory.writeSide(2.days, times)
-      val restored = BinaryFormat.clockHistory.readSide(2.days, bytes, times.size)
+      val restored = BinaryFormat.clockHistory.readSide(2.days, bytes)
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
     }
@@ -51,7 +51,7 @@ class BinaryClockHistoryTest extends Specification {
       val start = 60000.millis
       for (end <- times) {
         val binary = BinaryFormat.clockHistory.writeSide(start, restored :+ end)
-        restored = BinaryFormat.clockHistory.readSide(start, binary, restored.size + 1)
+        restored = BinaryFormat.clockHistory.readSide(start, binary)
       }
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
