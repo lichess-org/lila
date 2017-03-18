@@ -4,43 +4,64 @@ import lila.db.ByteArray
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
+import scala.concurrent.duration._
 
-final class PlayTime(gameColl: Coll) {
+final class PlayTime(
+    gameColl: Coll,
+    asyncCache: lila.memo.AsyncCache.Builder,
+    system: akka.actor.ActorSystem
+) {
 
   import Game.{ BSONFields => F }
 
   def apply(user: User): Fu[Option[User.PlayTime]] = user.playTime match {
-    case None => compute(user) /* addEffect { _ foreach UserRepo.setPlayTime(user, _) } */
+    case None => compute(user)
     case pt => fuccess(pt)
   }
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
-    computeNow(user) map some
+    creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
 
-  private def extractSeconds(docs: Iterable[Bdoc], onTv: Boolean): Int = ~docs.collectFirst {
-    case doc if doc.getAs[Boolean]("_id").has(onTv) =>
-      doc.getAs[Long]("ms") map { micros => (micros / 1000000).toInt }
-  }.flatten
+  // to avoid creating it twice
+  private val creationCache = asyncCache.multi[User.ID, Option[User.PlayTime]](
+    name = "playTime",
+    f = computeNow,
+    resultTimeout = 19.second,
+    expireAfter = _.ExpireAfterWrite(20 seconds)
+  )
 
-  private def computeNow(user: User): Fu[User.PlayTime] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    gameColl.aggregateWithReadPreference(Match($doc(
-      F.playerUids -> user.id,
-      F.clock $exists true
-    )), List(
-      Project($doc(
-        F.id -> false,
-        "tv" -> $doc("$gt" -> $arr("$tv", BSONNull)),
-        "ms" -> $doc("$subtract" -> $arr("$ua", "$ca"))
-      )),
-      GroupField("tv")("ms" -> SumField("ms"))
-    ), ReadPreference.secondaryPreferred).map { res =>
-      val docs = res.firstBatch
-      val onTvSeconds = extractSeconds(docs, true)
-      val offTvSeconds = extractSeconds(docs, false)
-      User.PlayTime(total = onTvSeconds + offTvSeconds, tv = onTvSeconds)
+  private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =
+    UserRepo.getPlayTime(userId) orElse {
+
+      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+
+      def extractSeconds(docs: Iterable[Bdoc], onTv: Boolean): Int = ~docs.collectFirst {
+        case doc if doc.getAs[Boolean]("_id").has(onTv) =>
+          doc.getAs[Long]("ms") map { micros => (micros / 1000000).toInt }
+      }.flatten
+
+      gameColl.aggregateWithReadPreference(Match($doc(
+        F.playerUids -> userId,
+        F.clock $exists true
+      )), List(
+        Project($doc(
+          F.id -> false,
+          "tv" -> $doc("$gt" -> $arr("$tv", BSONNull)),
+          "ms" -> $doc("$subtract" -> $arr("$ua", "$ca"))
+        )),
+        GroupField("tv")("ms" -> SumField("ms"))
+      ), ReadPreference.secondaryPreferred).flatMap { res =>
+        val docs = res.firstBatch
+        val onTvSeconds = extractSeconds(docs, true)
+        val offTvSeconds = extractSeconds(docs, false)
+        val pt = User.PlayTime(total = onTvSeconds + offTvSeconds, tv = onTvSeconds)
+        UserRepo.setPlayTime(userId, pt) inject pt.some
+      }
+    } recover {
+      case e: Exception =>
+        logger.warn(s"$userId play time", e)
+        none
     }
-  }
 }
