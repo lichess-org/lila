@@ -102,7 +102,7 @@ object BSONHandlers {
           start = clk.limit.seconds
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
-          history <- BinaryFormat.clockHistory.read(start, bw, bb, r intD startedAtTurn, nbTurns)
+          history <- BinaryFormat.clockHistory.read(start, bw, bb)
         } yield history,
         mode = Mode(r boolD rated),
         variant = realVariant,

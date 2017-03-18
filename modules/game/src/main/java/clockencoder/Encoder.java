@@ -14,18 +14,20 @@ public class Encoder {
         EndTimeEstimator.encode(encoded, truncatedStart);
 
         BitWriter writer = new BitWriter();
+        VarIntEncoder.writeUnsigned(encoded.length, writer);
         VarIntEncoder.writeSigned(encoded, writer);
         LowBitTruncator.writeDigits(centis, writer);
 
         return writer.toArray();
     }
 
-    public static int[] decode(byte[] bytes, int numMoves, int startTime) {
-        if (numMoves == 0) return new int[0];
+    public static int[] decode(byte[] bytes, int startTime) {
+        if (bytes.length == 0) return new int[0];
 
         BitReader reader = new BitReader(bytes);
         int truncatedStart = LowBitTruncator.truncate(startTime);
 
+        int numMoves = VarIntEncoder.readUnsigned(reader);
         int[] decoded = VarIntEncoder.readSigned(reader, numMoves);
 
         EndTimeEstimator.decode(decoded, truncatedStart);

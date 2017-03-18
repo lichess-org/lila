@@ -10,19 +10,20 @@ lichess.movetimeChart = function(data) {
               white: [],
               black: []
             };
-            var moveTimes = data.game.moveTimes;
 
-            data.treeParts.slice(1).forEach(function(node, i) {
-              var turn = (node.ply + 1) >> 1;
-              var color = node.ply & 1;
+            data.game.moveTimes.forEach(function(time, i) {
+              var turn = (i >> 1) + 1;
+              var isBlack = i & 1;
+              var node = data.treeParts[i + 1];
+              var san = node ? node.san : '-';
               series[color ? 'white' : 'black'].push({
-                name: turn + (color ? '. ' : '... ') + node.san,
+                name: turn + (isBlack ? '... ' : '. ') + san,
                 x: i,
-                y: color ? moveTimes[i] : -moveTimes[i]
+                y: isBlack ? -time : time
               });
             });
 
-            var max = Math.max.apply(null, moveTimes);
+            var max = Math.max.apply(null, data.game.moveTimes);
 
             var disabled = {
               enabled: false
