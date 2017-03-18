@@ -16,7 +16,7 @@ lichess.movetimeChart = function(data) {
               var isBlack = i & 1;
               var node = data.treeParts[i + 1];
               var san = node ? node.san : '-';
-              series[color ? 'white' : 'black'].push({
+              series[isBlack ? 'black' : 'white'].push({
                 name: turn + (isBlack ? '... ' : '. ') + san,
                 x: i,
                 y: isBlack ? -time : time
