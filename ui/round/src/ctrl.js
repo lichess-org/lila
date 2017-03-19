@@ -490,11 +490,13 @@ module.exports = function(opts) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
       if (this.vm.moveToSubmit)
       this.socket.send('move', this.vm.moveToSubmit, {
-        ackable: true
+        ackable: true,
+        withLag: !!this.clock
       });
       else if (this.vm.dropToSubmit)
       this.socket.send('drop', this.vm.dropToSubmit, {
-        ackable: true
+        ackable: true,
+        withLag: !!this.clock
       });
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);

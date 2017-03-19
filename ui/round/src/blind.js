@@ -1,8 +1,6 @@
 var throttle = require('common').throttle;
 var router = require('game').router;
 
-// #FIXME jQuery crap here
-
 var element;
 
 var reload = throttle(1000, false, function(ctrl) {
