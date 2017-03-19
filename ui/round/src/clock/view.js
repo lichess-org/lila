@@ -47,7 +47,7 @@ function formatClockTime(data, time, running) {
   if (time >= 3600000) {
     var hours = _pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
-  } else if (time >= 10000 && date.showTenths != 2 || data.showTenths == 0) {
+  } else if (time >= 10000 && data.showTenths != 2 || data.showTenths == 0) {
     return baseStr;
   } else {
     var tenthsStr = Math.floor(millis / 100).toString();
