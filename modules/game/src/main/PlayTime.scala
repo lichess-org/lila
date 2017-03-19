@@ -21,7 +21,7 @@ final class PlayTime(
     case pt => fuccess(pt)
   }
 
-  def randomlyCompute = scala.util.Random.nextInt(10) == 0
+  def randomlyCompute = scala.util.Random.nextInt(5) == 0
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
     creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
@@ -41,7 +41,7 @@ final class PlayTime(
 
       def extractSeconds(docs: Iterable[Bdoc], onTv: Boolean): Int = ~docs.collectFirst {
         case doc if doc.getAs[Boolean]("_id").has(onTv) =>
-          doc.getAs[Long]("ms") map { micros => (micros / 1000000).toInt }
+          doc.getAs[Long]("ms") map { millis => (millis / 1000).toInt }
       }.flatten
 
       gameColl.aggregateWithReadPreference(Match($doc(
@@ -53,6 +53,7 @@ final class PlayTime(
           "tv" -> $doc("$gt" -> $arr("$tv", BSONNull)),
           "ms" -> $doc("$subtract" -> $arr("$ua", "$ca"))
         )),
+        Match($doc("ms" $lt 6.hours.toMillis)),
         GroupField("tv")("ms" -> SumField("ms"))
       ), ReadPreference.secondaryPreferred).flatMap { res =>
         val docs = res.firstBatch

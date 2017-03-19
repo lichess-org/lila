@@ -1099,9 +1099,6 @@ span.progress > .negative {
   color: #d59120;
   font-weight: bold;
 }
-.user_link span.donor {
-  margin-left: 5px;
-}
 div.warning {
   padding: 5px;
   background: #f2dede;

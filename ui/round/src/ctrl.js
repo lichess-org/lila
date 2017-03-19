@@ -57,8 +57,7 @@ module.exports = function(opts) {
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
-    if (!promotion.start(this, orig, dest, meta))
-    this.sendMove(orig, dest, false, meta);
+    if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, false, meta);
   }.bind(this);
 
   var onUserNewPiece = function(role, key, meta) {
@@ -179,7 +178,7 @@ module.exports = function(opts) {
     if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.userId && this.data.pref.submitMove && !meta.premove) {
+    if (this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
     } else this.socket.send('move', move, {
       ackable: true,
@@ -197,7 +196,7 @@ module.exports = function(opts) {
     };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.userId && this.data.pref.submitMove && !isPredrop) {
+    if (this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
     } else this.socket.send('drop', drop, {
       ackable: true,
@@ -491,11 +490,13 @@ module.exports = function(opts) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
       if (this.vm.moveToSubmit)
       this.socket.send('move', this.vm.moveToSubmit, {
-        ackable: true
+        ackable: true,
+        withLag: !!this.clock
       });
       else if (this.vm.dropToSubmit)
       this.socket.send('drop', this.vm.dropToSubmit, {
-        ackable: true
+        ackable: true,
+        withLag: !!this.clock
       });
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
