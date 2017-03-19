@@ -377,6 +377,12 @@ case class Game(
         clk <- clock
         history <- clockHistory
       } yield {
+        // If not already finished, we're ending due to an event
+        // in the middle of a turn, such as resignation or draw
+        // acceptance. In these cases, record a final clock time
+        // for the active color. This ensures the end time in
+        // clockHistory always matches the final clock time on
+        // the board.
         if (!finished) history.record(turnColor, clk)
         else history
       }

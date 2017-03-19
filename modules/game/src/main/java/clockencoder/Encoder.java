@@ -14,7 +14,7 @@ public class Encoder {
         EndTimeEstimator.encode(encoded, truncatedStart);
 
         BitWriter writer = new BitWriter();
-        VarIntEncoder.writeUnsigned(encoded.length, writer);
+        VarIntEncoder.writeUnsigned(encoded.length - 1, writer);
         VarIntEncoder.writeSigned(encoded, writer);
         LowBitTruncator.writeDigits(centis, writer);
 
@@ -27,7 +27,7 @@ public class Encoder {
         BitReader reader = new BitReader(bytes);
         int truncatedStart = LowBitTruncator.truncate(startTime);
 
-        int numMoves = VarIntEncoder.readUnsigned(reader);
+        int numMoves = VarIntEncoder.readUnsigned(reader) + 1;
         int[] decoded = VarIntEncoder.readSigned(reader, numMoves);
 
         EndTimeEstimator.decode(decoded, truncatedStart);
