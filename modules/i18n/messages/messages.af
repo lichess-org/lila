@@ -462,6 +462,7 @@ simulClockHint=Fischer klok opstel. Hoe meer spelers wat jy op te neem, hoe meer
 simulAddExtraTime=Jy kan ekstra tyd by jou horlosie te help cope met die simul.
 simulHostExtraTime=Host ekstra klok tyd
 lichessTournaments=Lichess toernooie
+tournamentFAQ=Arena toernooi Vrae
 tournamentOfficial=Amptelik
 timeBeforeTournamentStarts=Tydsduur tot aanvang van toernooi
 averageCentipawnLoss=Gemiddelde sentipion verlies
