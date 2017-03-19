@@ -98,19 +98,19 @@
 .user_show .trophy.icon3d {
   width: 40px;
   height: 40px;
-  margin-top: 20px;
+  margin-right: 5px;
   vertical-align: middle;
   font-size: 39px;
   color: #ccc;
   text-shadow: 0 1px 0 rgba(0,0,0,0.5);
   transition: 0.3s;
 }
-.user_show .trophy.icon3d:hover {
-  margin-top: -12px!important;
+.user_show .trophy.icon3d:not(.patron):hover {
+  transform: translateY(-3px);
 }
 .user_show .trophy.patron {
   font-size: 60px;
-  margin: -30px 10px 0 30px!important;
+  margin: -30px 10px 0 25px!important;
   transform: scale(-1, 1);
   color: #d59120!important;
   transition: 0.5s;
