@@ -4,6 +4,7 @@ var median = require('./math').median;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var stockfishProtocol = require('./stockfishProtocol');
+var povChances = require('./winningChances').povChances;
 
 module.exports = function(opts) {
 
@@ -76,6 +77,7 @@ module.exports = function(opts) {
       if (pv.cp) pv.cp = -pv.cp;
       if (pv.mate) pv.mate = -pv.mate;
     });
+    sortPvsInPlace(eval.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     npsRecorder(eval);
     curEval = eval;
     throttledEmit(eval, work);
@@ -88,6 +90,12 @@ module.exports = function(opts) {
 
   var effectiveMaxDepth = function() {
     return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
+  };
+
+  var sortPvsInPlace = function(pvs, color) {
+    pvs.sort(function(a, b) {
+      return povChances(color, b) - povChances(color, a);
+    });
   };
 
   var start = function(path, steps, threatMode, deeper) {
