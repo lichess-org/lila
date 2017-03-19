@@ -612,19 +612,15 @@ See the [lichess Thanks page](https://lichess.org/thanks)
 Supported browsers
 ------------------
 
-- Firefox, 6 months old or newer
-- Chrome, 6 months old or newer
+- [Chrome](https://www.google.com/chrome) or [Chromium](https://www.chromium.org/getting-involved/download-chromium), 1 year old or newer (fastest local analysis!)
+- [Firefox](https://www.mozilla.org/firefox), 1 year old or newer (second fastest local analysis!)
+- Opera 34 and newer (meh)
+- Safari 9 and newer (boo)
+- Microsoft Edge (yuck)
+- Internet Explorer 11 (eew)
 
-These two are the best, hands down. Use them if you can.
-
-We also do our best to support:
-
-- Internet Explorer 11
-- Microsoft Edge
-- Opera 34 and newer
-- Safari 9 and newer
-
-Others and older browsers are guaranteed not to work with lichess and we don't care.
+Older browsers will not work. For your own sake, please upgrade.
+Security and performance, think about it!
 
 Licence
 -------
