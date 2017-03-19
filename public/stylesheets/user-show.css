@@ -61,8 +61,6 @@
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }
-.user_show .fire_trophy.marathonWinner {
-}
 .user_show .fire_trophy.marathonTopTen {
   font-size: 58px;
   width: 58px;
@@ -82,7 +80,7 @@
 }
 .user_show .fire_trophy.marathonTopHundred {
   text-shadow: none;
-  color: #cd4606;
+  color: #cd4606!important;
 }
 .user_show .fire_trophy.bongcloudWarrior {
   filter: hue-rotate(70deg);
@@ -114,7 +112,7 @@
   font-size: 60px;
   margin: -30px 10px 0 30px!important;
   transform: scale(-1, 1);
-  color: #d59120;
+  color: #d59120!important;
   transition: 0.5s;
 }
 .user_show .trophy.patron:hover {
