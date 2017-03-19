@@ -2,14 +2,6 @@ var m = require('mithril');
 var updateElements = require('./view').updateElements;
 
 module.exports = function(data, onFlag, soundColor) {
-
-  var lastUpdate;
-
-  var elements = {
-    white: {},
-    black: {}
-  };
-
   var emergSound = {
     play: lichess.sound.lowtime,
     last: null,
@@ -20,51 +12,65 @@ module.exports = function(data, onFlag, soundColor) {
     }
   };
 
-  data.barTime = Math.max(data.initial, 2) + 5 * data.increment;
+  var timePercentDivisor = .1 / (Math.max(data.initial, 2) + 5 * data.increment);
 
-  function setLastUpdate() {
-    lastUpdate = {
-      white: data.white,
-      black: data.black,
-      at: new Date()
-    };
+  function timePercent(color) {
+    return Math.max(0, Math.min(100, times[color] * timePercentDivisor));
   }
-  setLastUpdate();
 
-  var update = function(white, black) {
-    m.startComputation();
-    data.white = white;
-    data.black = black;
-    setLastUpdate();
-    m.endComputation();
+  var emergMs = 1000 * Math.min(60, Math.max(10, data.initial * .125));
+
+  var times;
+
+  function update(white, black) {
+    times = {
+      white: white * 1000,
+      black: black * 1000,
+      lastUpdate: Date.now()
+    };
   };
 
-  var tick = function(color) {
-    data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
-    if (data[color] === 0) {
+  update(data.white, data.black);
+
+  function tick(ctrl, color) {
+    var now = Date.now();
+    var millis = times[color] -= now - times.lastUpdate;
+    times.lastUpdate = now;
+
+    if (millis <= 0) {
       onFlag();
       m.redraw();
-    } else updateElements(data, elements, color);
-    if (soundColor == color && data[soundColor] < data.emerg && emergSound.playable[soundColor]) {
-      if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
-        emergSound.play();
-        emergSound.last = new Date();
-        emergSound.playable[soundColor] = false;
+    } else {
+      updateElements(ctrl, color);
+    }
+
+    if (soundColor == color) {
+      if (emergSound.playable[color]) {
+        if (millis < emergMs && !(now < emergSound.next)) {
+          emergSound.play();
+          emergSound.next = now + emergSound.delay;
+          emergSound.playable[color] = false;
+        }
+      } else if (millis > 1.5 * emergMs) {
+         emergSound.playable[color] = true;
       }
-    } else if (soundColor == color && data[soundColor] > 1.5 * data.emerg && !emergSound.playable[soundColor]) {
-      emergSound.playable[soundColor] = true;
     }
   };
 
-  var secondsOf = function(color) {
-    return data[color];
+  function millisOf(color) {
+    return Math.max(0, times[color]);
   };
 
   return {
     data: data,
+    timePercent: timePercent,
     update: update,
     tick: tick,
-    secondsOf: secondsOf,
-    elements: elements
+    millisOf: millisOf,
+    emergMs: emergMs,
+    elements: {
+      white: {},
+      black: {}
+    }
   };
 }

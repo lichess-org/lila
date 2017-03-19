@@ -4,25 +4,25 @@ var button = require('../view/button');
 var game = require('game').game;
 
 function renderClock(ctrl, player, position) {
-  var time = ctrl.clock.data[player.color];
+  var millis = ctrl.clock.millisOf(player.color);
   var running = ctrl.isClockRunning() && ctrl.data.game.player === player.color;
   var isPlayer = ctrl.data.player.color === player.color;
   return [
     m('div', {
       class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
-        'outoftime': !time,
+        'outoftime': !millis,
         'running': running,
-        'emerg': time < ctrl.clock.data.emerg
+        'emerg': millis < ctrl.clock.emergMs
       })
     }, [
-      showBar(ctrl.clock, player.color, time, ctrl.vm.goneBerserk[player.color]),
+      showBar(ctrl.clock, player.color, millis, ctrl.vm.goneBerserk[player.color]),
       m('div.time', {
         config: function(el, isUpdate, ctx) {
           if (player.color !== ctx.color) {
             ctrl.clock.elements[player.color].time = el;
             ctx.color = player.color;
           }
-          ctrl.clock.elements[player.color].time.innerHTML = formatClockTime(ctrl.clock.data, time * 1000, running);
+          ctrl.clock.elements[player.color].time.innerHTML = formatClockTime(ctrl.clock.data, millis, running);
         }
       }),
       renderBerserk(ctrl, player.color, position),
@@ -59,11 +59,7 @@ function formatClockTime(data, time, running) {
   }
 }
 
-function barWidth(data, time) {
-  return Math.max(0, Math.min(100, (time / data.barTime) * 100)) + '%';
-}
-
-function showBar(ctrl, color, time, berserk) {
+function showBar(ctrl, color, millis, berserk) {
   return ctrl.data.showBar ? m('div', {
     class: 'bar' + (berserk ? ' berserk' : '')
   }, m('span', {
@@ -72,16 +68,16 @@ function showBar(ctrl, color, time, berserk) {
         ctrl.elements[color].bar = el;
         ctx.color = color;
       }
-      ctrl.elements[color].bar.style.width = barWidth(ctrl.data, time);
+      ctrl.elements[color].bar.style.width = ctrl.timePercent(color) + '%';
     }
   })) : null;
 }
 
-function updateElements(data, elements, color) {
-  var els = elements[color];
+function updateElements(ctrl, color) {
+  var els = ctrl.clock.elements[color];
   if (els) {
-    els.time.innerHTML = formatClockTime(data, data[color] * 1000, true);
-    if (els.bar) els.bar.style.width = barWidth(data, data[color]);
+    els.time.innerHTML = formatClockTime(ctrl.data, ctrl.clock.millisOf(color), true);
+    if (els.bar) els.bar.style.width = ctrl.clock.timePercent(color) + '%';
   } else {
     m.redraw();
   }
@@ -89,8 +85,8 @@ function updateElements(data, elements, color) {
 
 function showBerserk(ctrl, color) {
   return ctrl.vm.goneBerserk[color] &&
-  ctrl.data.game.turns <= 1 &&
-  game.playable(ctrl.data);
+      ctrl.data.game.turns <= 1 &&
+      game.playable(ctrl.data);
 }
 
 function renderBerserk(ctrl, color, position) {
