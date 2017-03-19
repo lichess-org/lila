@@ -72,6 +72,10 @@ module.exports = function(opts) {
   var throttledEmit = throttle(150, false, opts.emit);
 
   var onEmit = function(eval, work) {
+    if (work.threatMode) eval.pvs.forEach(function(pv) {
+      if (pv.cp) pv.cp = -pv.cp;
+      if (pv.mate) pv.mate = -pv.mate;
+    });
     npsRecorder(eval);
     curEval = eval;
     throttledEmit(eval, work);
