@@ -8,10 +8,10 @@
 .user_show .content_box_top .connected {
   color: #759900;
 }
-#lichess .user_show .staff {
+#lichess .user_show .closed {
   color: #aa3333;
   font-weight: bold;
-  margin-bottom: 1em;
+  margin-right: 1em;
 }
 .user_show .content_box_top > span {
   margin-left: 10px;
