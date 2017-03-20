@@ -9,6 +9,7 @@ import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.{ User, UserRepo }
 
 import BSONHandlers._
+import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
 
@@ -35,7 +36,7 @@ final class RelationApi(
 
   def fetchBlocking = RelationRepo blocking _
 
-  def fetchFriends(userId: ID) = coll.aggregate(Match($doc(
+  def fetchFriends(userId: ID) = coll.aggregateWithReadPreference(Match($doc(
     "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
     "r" -> Follow
   )), List(
@@ -44,7 +45,7 @@ final class RelationApi(
       "u2" -> AddFieldToSet("u2")
     ),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
-  )).map {
+  ), ReadPreference.secondaryPreferred).map {
     ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
