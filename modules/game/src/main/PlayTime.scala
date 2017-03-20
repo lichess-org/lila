@@ -18,15 +18,10 @@ final class PlayTimeApi(
 
   def apply(user: User): Fu[Option[User.PlayTime]] = user.playTime match {
     case None => randomlyCompute ?? compute(user)
-    case Some(pt) if unreasonable(pt) =>
-      logger.warn(s"Cleanup miscomputed playtime for ${user.username}")
-      compute(user)
     case pt => fuccess(pt)
   }
 
   def randomlyCompute = scala.util.Random.nextInt(5) == 0
-
-  private def unreasonable(pt: User.PlayTime) = pt.total.seconds > 600.days
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
     creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
