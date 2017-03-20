@@ -183,10 +183,11 @@ private[video] final class VideoApi(
         if (filterTags.isEmpty) allPopular map { tags =>
           tags.filterNot(_.isNumeric)
         }
-        else videoColl.aggregate(
+        else videoColl.aggregateWithReadPreference(
           Match($doc("tags" $all filterTags)),
           List(Project($doc("tags" -> true)), UnwindField("tags"),
-            GroupField("tags")("nb" -> SumValue(1)))
+            GroupField("tags")("nb" -> SumValue(1))),
+          ReadPreference.secondaryPreferred
         ).map(
             _.firstBatch.flatMap(_.asOpt[TagNb])
           )
@@ -213,11 +214,12 @@ private[video] final class VideoApi(
 
     private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
-      f = videoColl.aggregate(
+      f = videoColl.aggregateWithReadPreference(
         Project($doc("tags" -> true)), List(
           UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb"))
-        )
+        ),
+        readPreference = ReadPreference.secondaryPreferred
       ).map(
           _.firstBatch.flatMap(_.asOpt[TagNb])
         ),

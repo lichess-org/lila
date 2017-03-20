@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-final class PlayTime(
+final class PlayTimeApi(
     gameColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem
@@ -30,8 +30,8 @@ final class PlayTime(
   private val creationCache = asyncCache.multi[User.ID, Option[User.PlayTime]](
     name = "playTime",
     f = computeNow,
-    resultTimeout = 19.second,
-    expireAfter = _.ExpireAfterWrite(20 seconds)
+    resultTimeout = 29.second,
+    expireAfter = _.ExpireAfterWrite(30 seconds)
   )
 
   private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =

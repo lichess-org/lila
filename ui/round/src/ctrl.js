@@ -470,7 +470,7 @@ module.exports = function(opts) {
       this.vm.loadingTimeout = setTimeout(function() {
         this.vm.loading = false;
         m.redraw();
-      }.bind(this), 1000);
+      }.bind(this), 1500);
     } else {
       this.vm.loading = false;
     }
