@@ -10,10 +10,10 @@ import scala.concurrent.duration._
 
 import scala.collection.breakOut
 
+import lila.common.Centis
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
-import lila.common.Centis
 
 case class Game(
     id: String,
@@ -115,27 +115,29 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes: Option[Vector[Centis]] =
+  def moveTimes: Option[List[Centis]] =
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
     } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
-  def moveTimes(color: Color): Option[List[Centis]] =
-    {
-      for {
-        clk <- clock
-        inc = Centis(clk.increment * 100)
-        history <- clockHistory
-        clockTimes = history.get(color)
-      } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
-        map { case (first, second) => (first - second + inc) atLeast 0 } toList)
-    } orElse binaryMoveTimes.map { binary =>
-      val pivot = if (color == startColor) 0 else 1
-      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
-        case (e, i) if (i % 2) == pivot => e
-      }
+  def moveTimes(color: Color): Option[List[Centis]] = {
+    for {
+      clk <- clock
+      inc = Centis(clk.increment * 100)
+      history <- clockHistory
+      clockTimes = history.get(color)
+    } yield Centis(0) :: {
+      (clockTimes.iterator zip clockTimes.iterator.drop(1)).map {
+        case (first, second) => (first - second + inc) atLeast 0
+      }.toList
     }
+  } orElse binaryMoveTimes.map { binary =>
+    val pivot = if (color == startColor) 0 else 1
+    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    }
+  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -207,7 +209,7 @@ case class Game(
       unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
         BinaryFormat.moveTime.write(binaryMoveTimes.??(t => BinaryFormat.moveTime.read(t, playedTurns)) :+ lastMoveTime.?? { lmt =>
-          ((nowTenths - lmt - (lag.??(_.roundTenths))) max 0) * 100 millis
+          Centis(nowCentis - (lmt * 10) - lag.??(_.toHundredths)) atLeast 0
         })
       },
       clockHistory = for {

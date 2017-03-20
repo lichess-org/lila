@@ -22,6 +22,7 @@ trait PackageObject extends Steroids with WithFuture {
 
   def nowNanos: Long = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
+  def nowCentis: Long = nowMillis / 10
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
@@ -202,8 +203,9 @@ trait WithPlay { self: PackageObject =>
     def abs = if (self < Duration.Zero) -self else self
   }
 
-  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] =
-    Zero.instance(Duration.Zero)
+  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] = Zero instance Duration.Zero
+
+  implicit val LilaCentisZero: Zero[lila.common.Centis] = Zero instance lila.common.Centis(0)
 
   object makeTimeout {
 

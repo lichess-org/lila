@@ -1,12 +1,14 @@
 package lila.game
 
-import lila.db.{ BSON, ByteArray }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import reactivemongo.bson._
 
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
+
+import lila.db.{ BSON, ByteArray }
+import lila.common.Centis
 
 object BSONHandlers {
 
@@ -99,7 +101,7 @@ object BSONHandlers {
         binaryMoveTimes = r bytesO moveTimes,
         clockHistory = for {
           clk <- gameClock
-          start = clk.limit.seconds
+          start = Centis(clk.limit * 100)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
           history <- BinaryFormat.clockHistory.read(start, bw, bb)
@@ -162,7 +164,7 @@ object BSONHandlers {
     for {
       clk <- clock
       history <- clockHistory
-    } yield BinaryFormat.clockHistory.writeSide(clk.limit.seconds, history.get(color))
+    } yield BinaryFormat.clockHistory.writeSide(Centis(clk.limit * 100), history.get(color))
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(
