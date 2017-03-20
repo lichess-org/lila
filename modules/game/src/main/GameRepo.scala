@@ -371,11 +371,9 @@ object GameRepo {
       coll.countSel($doc(F.createdAt -> ($gte(from) ++ $lt(to))))
     }).sequenceFu
 
-  // #TODO expensive stuff, run on DB replica
-  // Can't be done on reactivemongo 0.11.9 :(
   private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(Match($doc(F.playerUids -> userId)), List(
+    coll.aggregateWithReadPreference(Match($doc(F.playerUids -> userId)), List(
       Match($doc(F.playerUids -> $doc("$size" -> 2))),
       Sort(Descending(F.createdAt)),
       Limit(1000), // only look in the last 1000 games
@@ -388,7 +386,7 @@ object GameRepo {
       GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
       Limit(limit)
-    )).map(_.firstBatch.flatMap { obj =>
+    ), ReadPreference.secondaryPreferred).map(_.firstBatch.flatMap { obj =>
       obj.getAs[String]("_id") flatMap { id =>
         obj.getAs[Int]("gs") map { id -> _ }
       }
