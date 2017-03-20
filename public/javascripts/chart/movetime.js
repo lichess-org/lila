@@ -11,15 +11,21 @@ lichess.movetimeChart = function(data) {
               black: []
             };
 
+            var tree = data.treeParts;
+            var ply = 0;
+
             data.game.moveTimes.forEach(function(time, i) {
-              var turn = (i >> 1) + 1;
-              var isBlack = i & 1;
-              var node = data.treeParts[i + 1];
+              var node = tree[i + 1];
+              ply = node ? node.ply : ply + 1;
               var san = node ? node.san : '-';
-              series[isBlack ? 'black' : 'white'].push({
-                name: turn + (isBlack ? '... ' : '. ') + san,
+
+              var turn = (ply + 1) >> 1;
+              var color = ply & 1;
+
+              series[color ? 'white' : 'black'].push({
+                name: turn + (color ? '. ' : '... ') + san,
                 x: i,
-                y: isBlack ? -time : time
+                y: color ? time : -time
               });
             });
 
