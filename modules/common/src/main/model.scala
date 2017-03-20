@@ -24,14 +24,17 @@ object IpAddress {
 }
 
 // maximum value = Int.MaxValue / 100 / 60 / 60 / 24 = 248 days
-case class Centis(cs: Int) extends AnyVal {
+case class Centis(value: Int) extends AnyVal {
 
-  def toDuration = FiniteDuration(cs * 10, MILLISECONDS)
+  def toDuration = FiniteDuration(value * 10, MILLISECONDS)
 
-  def +(other: Centis) = Centis(cs + other.cs)
-  def -(other: Centis) = Centis(cs - other.cs)
-  def *(scalar: Int) = Centis(scalar * cs)
-  def unary_- = Centis(-cs)
+  def +(other: Centis) = Centis(value + other.value)
+  def -(other: Centis) = Centis(value - other.value)
+  def *(scalar: Int) = Centis(scalar * value)
+  def unary_- = Centis(-value)
+
+  def atMost(other: Int) = Centis(value atMost other)
+  def atLeast(other: Int) = Centis(value atLeast other)
 }
 
 object Centis {

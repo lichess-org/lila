@@ -13,6 +13,7 @@ import scala.collection.breakOut
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.Centis
 
 case class Game(
     id: String,
@@ -114,21 +115,21 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes: Option[Vector[FiniteDuration]] =
+  def moveTimes: Option[Vector[Centis]] =
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
     } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] =
+  def moveTimes(color: Color): Option[List[Centis]] =
     {
       for {
         clk <- clock
-        inc = clk.increment.seconds
+        inc = Centis(clk.increment * 100)
         history <- clockHistory
         clockTimes = history.get(color)
       } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
-        map { case (first, second) => (first - second + inc) max Duration.Zero } toList)
+        map { case (first, second) => (first - second + inc) atLeast 0 } toList)
     } orElse binaryMoveTimes.map { binary =>
       val pivot = if (color == startColor) 0 else 1
       BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
@@ -711,17 +712,16 @@ object CastleLastMoveTime {
 }
 
 case class ClockHistory(
-    white: Vector[FiniteDuration] = Vector.empty,
-    black: Vector[FiniteDuration] = Vector.empty
+    white: Vector[Centis] = Vector.empty,
+    black: Vector[Centis] = Vector.empty
 ) {
 
   def record(color: Color, clock: Clock): ClockHistory = {
-    val duration = clock.remainingDuration(color)
-    if (color.white) ClockHistory(white :+ duration, black)
-    else ClockHistory(white, black :+ duration)
+    val centis = Centis(clock.remainingCentis(color))
+    if (color.white) ClockHistory(white :+ centis, black)
+    else ClockHistory(white, black :+ centis)
   }
 
-  def get(color: Color): Vector[FiniteDuration] = {
+  def get(color: Color): Vector[Centis] =
     if (color.white) white else black
-  }
 }

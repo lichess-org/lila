@@ -1,8 +1,8 @@
 package lila.game
 
 import org.joda.time.DateTime
-import scala.collection.Searching._
 import scala.collection.breakOut
+import scala.collection.Searching._
 import scala.concurrent.duration._
 import scala.util.Try
 
@@ -11,6 +11,7 @@ import chess.variant.Variant
 
 import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
+import lila.common.Centis
 import lila.db.ByteArray
 
 object BinaryFormat {
@@ -29,38 +30,36 @@ object BinaryFormat {
   }
 
   object clockHistory {
-    val log = lila.log("clockHistory")
+    private val logger = lila.log("clockHistory")
 
-    def writeSide(start: FiniteDuration, times: Vector[FiniteDuration]): ByteArray = {
-      val centis: Array[Int] = times.map(_.toHundredths.toInt)(breakOut)
-      val startCentis = start.toHundredths.toInt
-      ByteArray(ClockEncoder.encode(centis, startCentis))
-    }
+    def writeSide(start: Centis, times: Vector[Centis]): ByteArray =
+      ByteArray(ClockEncoder.encode(times.map(_.value)(breakOut), start.value))
 
-    def readSide(start: FiniteDuration, ba: ByteArray): Vector[FiniteDuration] = {
-      val startCentis = start.toHundredths.toInt
-      ClockEncoder.decode(ba.value, startCentis).map(_ * 10.millis)(breakOut)
-    }
+    def readSide(start: Centis, ba: ByteArray): Vector[Centis] =
+      ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
 
-    def read(start: FiniteDuration, bw: ByteArray, bb: ByteArray): Option[ClockHistory] = {
-      val history = Try(ClockHistory(readSide(start, bw), readSide(start, bb)))
-      history recover { case e => log.info("Exception decoding history", e) }
-      history toOption
-    }
+    def read(start: Centis, bw: ByteArray, bb: ByteArray): Option[ClockHistory] = Try {
+      ClockHistory(readSide(start, bw), readSide(start, bb))
+    }.fold(
+      e => { logger.warn("Exception decoding history", e); none },
+      some
+    )
   }
 
   object moveTime {
 
-    private type MT = Int // tenths of seconds
+    private type MT = Int // centiseconds
     private val size = 16
-    private val buckets = List(1, 5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400, 600)
-    private val encodeCutoffsMS = buckets zip buckets.tail map { case (i1, i2) => (i1 + i2) * 50 } toVector
+    private val buckets = List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
+    private val encodeCutoffsMS = buckets zip buckets.tail map {
+      case (i1, i2) => (i1 + i2) * 50
+    } toVector
 
     private val decodeList: List[(Int, MT)] = buckets.zipWithIndex.map(x => x._2 -> x._1)
     private val decodeMap: Map[Int, MT] = decodeList.toMap
 
-    def write(mts: Vector[FiniteDuration]): ByteArray = ByteArray {
-      def enc(mt: FiniteDuration) = encodeCutoffsMS.search(mt.toMillis.toInt).insertionPoint
+    def write(mts: Vector[Centis]): ByteArray = ByteArray {
+      def enc(mt: Centis) = encodeCutoffsMS.search(mt.value).insertionPoint
       (mts grouped 2 map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a) => enc(a) << 4
@@ -70,12 +69,12 @@ object BinaryFormat {
     // warning! This will always return an even number of values,
     // appending the minimum value if necessary
     // so it's your responsibility to truncate to the desired number of values.
-    def read(ba: ByteArray, turns: Int): Vector[FiniteDuration] = {
+    def read(ba: ByteArray, turns: Int): Vector[Centis] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.map(_ * 100 millis).take(turns).toVector
+    }.take(turns).map(Centis.apply).toVector
   }
 
   case class clock(since: DateTime) {
