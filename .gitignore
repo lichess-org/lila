@@ -5,6 +5,7 @@ project/project
 project/target
 public/trans
 public/compiled
+public/vendor/stockfish
 public/images/?N-bg.svg
 public/piece/alpha
 public/piece/cburnett

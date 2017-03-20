@@ -11,9 +11,11 @@
   "devDependencies": {
     "browserify": "^14",
     "gulp": "^3",
+    "gulp-download-stream": "0.0.13",
     "gulp-streamify": "^1",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
+    "request": "^2.81.0",
     "uglify-js": "^2",
     "vinyl-source-stream": "^1"
   },
