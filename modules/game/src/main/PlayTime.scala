@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._
 
-final class PlayTime(
+final class PlayTimeApi(
     gameColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem
@@ -18,10 +18,15 @@ final class PlayTime(
 
   def apply(user: User): Fu[Option[User.PlayTime]] = user.playTime match {
     case None => randomlyCompute ?? compute(user)
+    case Some(pt) if unreasonable(pt) =>
+      logger.warn(s"Cleanup miscomputed playtime for ${user.username}")
+      compute(user)
     case pt => fuccess(pt)
   }
 
   def randomlyCompute = scala.util.Random.nextInt(5) == 0
+
+  private def unreasonable(pt: User.PlayTime) = pt.total.seconds > 600.days
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
     creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
@@ -30,8 +35,8 @@ final class PlayTime(
   private val creationCache = asyncCache.multi[User.ID, Option[User.PlayTime]](
     name = "playTime",
     f = computeNow,
-    resultTimeout = 19.second,
-    expireAfter = _.ExpireAfterWrite(20 seconds)
+    resultTimeout = 29.second,
+    expireAfter = _.ExpireAfterWrite(30 seconds)
   )
 
   private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =
