@@ -369,9 +369,10 @@ object UserRepo {
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregate(
+    ids.nonEmpty ?? coll.aggregateWithReadPreference(
       Match($inIds(ids)),
-      List(Group(BSONNull)(F.toints -> SumField(F.toints)))
+      List(Group(BSONNull)(F.toints -> SumField(F.toints))),
+      ReadPreference.secondaryPreferred
     ).map(
         _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
