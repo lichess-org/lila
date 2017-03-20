@@ -444,37 +444,6 @@ object GameRepo {
       )
     ).uno[Bdoc] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
 
-  // #TODO this breaks it all since reactivemongo > 0.11.9
-  def activePlayersSinceNOPENOPENOPE(since: DateTime, max: Int): Fu[List[UidNb]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{
-      Descending,
-      GroupField,
-      Limit,
-      Match,
-      Sort,
-      SumValue,
-      UnwindField
-    }
-
-    coll.aggregate(Match($doc(
-      F.createdAt $gt since,
-      F.status $gte chess.Status.Mate.id,
-      s"${F.playerUids}.0" $exists true
-    )), List(
-      UnwindField(F.playerUids),
-      Match($doc(
-        F.playerUids -> $doc("$ne" -> "")
-      )),
-      GroupField(F.playerUids)("nb" -> SumValue(1)),
-      Sort(Descending("nb")),
-      Limit(max)
-    )).map(_.firstBatch.flatMap { obj =>
-      obj.getAs[Int]("nb") map { nb =>
-        UidNb(~obj.getAs[String]("_id"), nb)
-      }
-    })
-  }
-
   private def extractPgnMoves(doc: Bdoc) =
     doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
