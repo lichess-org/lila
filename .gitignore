@@ -21,8 +21,6 @@ public/piece/spatial
 public/piece/shapes
 target
 bin/.translate_version
-bin/polyglot
-bin/stockfish
 data/
 dist/
 node_modules/
