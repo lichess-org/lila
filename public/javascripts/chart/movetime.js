@@ -1,7 +1,3 @@
-function toSeconds(decis, white) {
-  return decis < 5 ? 0 : decis / 10 * (white ? 1 : -1)
-}
-
 lichess.movetimeChart = function(data) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
@@ -14,22 +10,26 @@ lichess.movetimeChart = function(data) {
               white: [],
               black: []
             };
-            var initPly = data.treeParts[0].ply;
-            var max = 0;
-            data.game.moveTimes.forEach(function(t) {
-              if (t > max) max = t;
-              else if (t < 0.5) t = 0;
-            });
-            data.treeParts.slice(1).forEach(function(node, i) {
-              var turn = Math.floor((node.ply - 1) / 2) + 1;
-              var color = node.ply % 2 === 1;
-              var dots = color ? '.' : '...';
+
+            var tree = data.treeParts;
+            var ply = 0;
+
+            data.game.moveTimes.forEach(function(time, i) {
+              var node = tree[i + 1];
+              ply = node ? node.ply : ply + 1;
+              var san = node ? node.san : '-';
+
+              var turn = (ply + 1) >> 1;
+              var color = ply & 1;
+
               series[color ? 'white' : 'black'].push({
-                name: turn + dots + ' ' + node.san,
+                name: turn + (color ? '. ' : '... ') + san,
                 x: i,
-                y: toSeconds(data.game.moveTimes[i], color)
+                y: color ? time : -time
               });
             });
+
+            var max = Math.max.apply(null, data.game.moveTimes);
 
             var disabled = {
               enabled: false
@@ -54,9 +54,8 @@ lichess.movetimeChart = function(data) {
               },
               tooltip: {
                 formatter: function() {
-                  var seconds = Math.abs(this.point.y);
-                  var unit = seconds != 1 ? 'seconds' : 'second';
-                  return this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
+                  var seconds = Math.abs(this.point.y / 10);
+                  return this.point.name + '<br /><strong>' + seconds + '</strong> seconds';
                 }
               },
               plotOptions: {
@@ -112,8 +111,8 @@ lichess.movetimeChart = function(data) {
               },
               yAxis: {
                 title: noText,
-                min: -max / 10,
-                max: max / 10,
+                min: -max,
+                max: max,
                 labels: disabled,
                 gridLineWidth: 0
               }
