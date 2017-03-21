@@ -201,6 +201,10 @@ function onSelectSparePiece(ctrl, s, upEvent) {
     } else {
       ctrl.vm.selected('pointer');
 
+      if (e.type === 'touchstart') {
+        e.preventDefault();
+      }
+
       dragNewPiece(ctrl.chessground.state, {
         color: s[0],
         role: s[1]
