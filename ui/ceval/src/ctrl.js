@@ -30,9 +30,9 @@ module.exports = function(opts) {
   var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: lichess.assetUrl('/assets/vendor/stockfish/stockfish.js'),
+    asmjs: lichess.assetUrl('/assets/vendor/stockfish/stockfish.js', {sameDomain: true}),
     pnacl: pnaclSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.nmf'),
-    wasm: wasmSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js'),
+    wasm: wasmSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,

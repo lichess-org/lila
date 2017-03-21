@@ -182,7 +182,7 @@ lichess.isTrident = navigator.userAgent.indexOf('Trident/') > -1;
 lichess.isChrome = navigator.userAgent.indexOf('Chrome/') > -1;
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lichess.assetUrl = function(url, opts) {
-  var baseUrl = document.body.getAttribute('data-asset-url');
+  var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + url + (opts.noVersion ? '' : '?v=' + version);
 };
