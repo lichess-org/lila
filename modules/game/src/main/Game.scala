@@ -96,9 +96,9 @@ case class Game(
   def hasChat = !isTournament && !isSimul && nonAi
 
   // in tenths
-  private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
-    _.toLong + (createdAt.getMillis / 100)
-  } orElse updatedAt.map(_.getMillis / 100)
+  // private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
+  //   _.toLong + (createdAt.getMillis / 100)
+  // } orElse updatedAt.map(_.getMillis / 100)
 
   def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
@@ -113,7 +113,7 @@ case class Game(
       }
     }
 
-  def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
+  // def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   def moveTimes: Option[List[Centis]] =
     for {
@@ -208,9 +208,13 @@ case class Game(
       ),
       unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
-        BinaryFormat.moveTime.write(binaryMoveTimes.??(t => BinaryFormat.moveTime.read(t, playedTurns)) :+ lastMoveTime.?? { lmt =>
-          Centis(nowCentis - (lmt * 10) - lag.??(_.toHundredths)) atLeast 0
-        })
+        BinaryFormat.moveTime.write {
+          binaryMoveTimes.?? { t =>
+            BinaryFormat.moveTime.read(t, playedTurns)
+          } :+ lastMoveDateTime.?? { lmdt =>
+            Centis(nowCentis - lmdt.getCentis - lag.??(_.toCentis)) atLeast 0
+          }
+        }
       },
       clockHistory = for {
         clk <- game.clock
