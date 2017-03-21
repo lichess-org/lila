@@ -28,7 +28,8 @@ module.exports = function(ctrl) {
       // in a variation
       if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 2000;
       if (this.delay === 'realtime') {
-        return (ctrl.data.game.moveTimes[ctrl.vm.node.ply] * 100) || 2000;
+        if (ctrl.vm.node.ply < 2) return 2000;
+        return Math.max(ctrl.data.game.moveTimes[ctrl.vm.node.ply], 1) * 100 || 2000;
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
