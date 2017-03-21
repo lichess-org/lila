@@ -277,7 +277,7 @@ lichess.notifyApp = (function() {
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lichess.loadCss('/assets/stylesheets/autocomplete.css');
-    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: 3,
         hint: true,
@@ -447,7 +447,7 @@ lichess.notifyApp = (function() {
         });
       }
 
-      if (window.moment_locale_url) lichess.loadScript(moment_locale_url, true).then(function() {
+      if (window.moment_locale_url) lichess.loadScript(moment_locale_url, {noVersion: true}).then(function() {
         delete window.moment_locale_url;
         setMoment();
       });
@@ -544,7 +544,7 @@ lichess.notifyApp = (function() {
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
         var button = this;
-        lichess.loadScript('/assets/compiled/themepicker.js').then(function() {
+        lichess.loadScript('/assets/compiled/themepicker.js', {noVersion: true}).then(function() {
           lichess.themepicker(button, function() { return currentZoom }, setZoom, manuallySetZoom);
         });
       });
@@ -679,7 +679,7 @@ lichess.notifyApp = (function() {
   });
 
   lichess.sound = (function() {
-    var baseUrl = lichess.assetUrl('/assets/sound', true);
+    var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
     var soundSet = $('body').data('sound-set');
     var volumeStorage = lichess.storage.make('sound-volume');
     var defaultVolume = 0.7;
