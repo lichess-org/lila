@@ -69,7 +69,7 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  def momentLangTag(async: Boolean = false)(implicit ctx: lila.api.Context) = {
+  def momentLangUrl(implicit ctx: lila.api.Context): Option[String] = {
     val l = lang(ctx)
     ((l.language, l.country.toLowerCase) match {
       case ("en", "us") => none
@@ -80,9 +80,7 @@ trait AssetHelper { self: I18nHelper =>
       case ("ar", "ma" | "sa" | "tn") => l.code.some
       case ("fr", "ca") => l.code.some
       case _ => l.language.some
-    }).fold(Html("")) { locale =>
-      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true, async = async)
-    }
+    }).map { locale => s"/assets/vendor/moment/locale/${locale.toLowerCase}.js" }
   }
 
   val tagmanagerTag = cdnOrLocal(
@@ -98,7 +96,7 @@ trait AssetHelper { self: I18nHelper =>
   )
 
   val fingerprintTag = Html {
-    """<script async defer src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+    s"""<script async defer src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {

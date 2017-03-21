@@ -4,6 +4,7 @@ var median = require('./math').median;
 var storedProp = require('common').storedProp;
 var throttle = require('common').throttle;
 var stockfishProtocol = require('./stockfishProtocol');
+var povChances = require('./winningChances').povChances;
 
 module.exports = function(opts) {
 
@@ -29,9 +30,9 @@ module.exports = function(opts) {
   var isDeeper = m.prop(false);
 
   var pool = makePool(stockfishProtocol, {
-    asmjs: '/assets/vendor/stockfish.js/stockfish.js?v=18',
-    pnacl: pnaclSupported && '/assets/vendor/stockfish.pexe/nacl/stockfish.nmf?v=16',
-    wasm: wasmSupported && '/assets/vendor/stockfish.js/stockfish.wasm.js?v=18',
+    asmjs: lichess.assetUrl('/assets/vendor/stockfish/stockfish.js', {sameDomain: true}),
+    pnacl: pnaclSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.nmf'),
+    wasm: wasmSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
@@ -72,6 +73,11 @@ module.exports = function(opts) {
   var throttledEmit = throttle(150, false, opts.emit);
 
   var onEmit = function(eval, work) {
+    if (work.threatMode) eval.pvs.forEach(function(pv) {
+      if (pv.cp) pv.cp = -pv.cp;
+      if (pv.mate) pv.mate = -pv.mate;
+    });
+    sortPvsInPlace(eval.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     npsRecorder(eval);
     curEval = eval;
     throttledEmit(eval, work);
@@ -84,6 +90,12 @@ module.exports = function(opts) {
 
   var effectiveMaxDepth = function() {
     return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
+  };
+
+  var sortPvsInPlace = function(pvs, color) {
+    pvs.sort(function(a, b) {
+      return povChances(color, b) - povChances(color, a);
+    });
   };
 
   var start = function(path, steps, threatMode, deeper) {

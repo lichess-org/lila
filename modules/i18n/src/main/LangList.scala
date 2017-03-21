@@ -182,7 +182,7 @@ object LangList {
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
     "wa" -> "Walon",
-    "cy" -> "Cymrae",
+    "cy" -> "Cymraeg",
     "wo" -> "Wolof",
     "fy" -> "Frysk",
     "xh" -> "isiXhosa",

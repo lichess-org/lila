@@ -226,13 +226,16 @@ body.dark #top a.signin,
 body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
-body.dark div.user_show .trophy.icon3d,
+body.dark .user_show .trophy.icon3d,
 body.dark #timeline a,
 body.dark .undertable a.user_link,
 body.dark #team .forum a.user_link,
 body.dark div.user_show div.content_box_top > span,
 body.dark .undertable_top span.title {
   color: #838383;
+}
+body.dark .user_show .fire_trophy {
+  color: #666;
 }
 body.dark .crosstable td a,
 body.dark #promotion_choice {
@@ -517,12 +520,6 @@ body.dark #tv_channels > a:hover {
   background: #333;
   color: #c0c0c0;
   box-shadow: 0 -1px 1px rgba(255,255,255,0.3);
-}
-body.dark div.user_show .trophy.donor span:hover {
-  color: rgba(255,255,255,0.7);
-}
-body.dark .fire_trophy.wayOfBerserk span {
-  color: rgba(255,255,255,0.5);
 }
 body.dark ol.scheduled_tournaments li.marathon {
   background: #2a2a2a;

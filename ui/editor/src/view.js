@@ -1,5 +1,6 @@
 var chessground = require('./chessground');
 var dragNewPiece = require('chessground/drag').dragNewPiece;
+var eventPosition = require('chessground/util').eventPosition;
 var editor = require('./editor');
 var m = require('mithril');
 
@@ -141,6 +142,8 @@ function selectedToClass(s) {
   return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
 }
 
+var lastTouchMovePos;
+
 function sparePieces(ctrl, color, orientation, position) {
 
   var selectedClass = selectedToClass(ctrl.vm.selected());
@@ -182,25 +185,43 @@ function sparePieces(ctrl, color, orientation, position) {
 
     return m('div', {
       class: containerClass,
-      onmousedown: function(e) {
-        if (['pointer', 'trash'].indexOf(s) !== -1) {
-          ctrl.vm.selected(s);
-        } else {
-          ctrl.vm.selected('pointer');
-
-          dragNewPiece(ctrl.chessground.state, {
-            color: s[0],
-            role: s[1]
-          }, e, true);
-
-          document.addEventListener('mouseup', function() {
-            ctrl.vm.selected(s);
-            m.redraw();
-          }, {once: true});
-        }
+      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+      ontouchmove: function(e) {
+        lastTouchMovePos = eventPosition(e)
       }
     }, m('piece', attrs));
   }));
+}
+
+function onSelectSparePiece(ctrl, s, upEvent) {
+  return function(e) {
+    if (['pointer', 'trash'].indexOf(s) !== -1) {
+      ctrl.vm.selected(s);
+    } else {
+      ctrl.vm.selected('pointer');
+
+      if (e.type === 'touchstart') {
+        e.preventDefault();
+      }
+
+      dragNewPiece(ctrl.chessground.state, {
+        color: s[0],
+        role: s[1]
+      }, e, true);
+
+      document.addEventListener(upEvent, function(e) {
+        var eventPos = eventPosition(e) || lastTouchMovePos;
+
+        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) {
+          ctrl.vm.selected('pointer');
+        } else {
+          ctrl.vm.selected(s);
+        }
+        m.redraw();
+      }, {once: true});
+    }
+  };
 }
 
 function makeCursor(selected) {

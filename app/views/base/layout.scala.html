@@ -76,7 +76,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
     data-accept-languages="@acceptLanguages.mkString(",")"
-    data-zoom="@ctx.zoomOrDefault">
+    @ctx.zoom.map { zoom => data-zoom="@zoom" }>
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />
@@ -85,22 +85,18 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
       @topmenu()
-      <div id="ham-plate" class="fright link" data-hint="@trans.menu()" class="hint--bottom">
+      <div id="ham-plate" class="link" data-hint="@trans.menu()" class="hint--bottom">
         <div id="hamburger" data-icon="["></div>
       </div>
-      <div class="lichess_language fright">
+      <div class="lichess_language">
         <a class="toggle link" href="#">@langName(lang)</a>
-        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@ctx.pageData.assetVersion">
-          <ul>
-            <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-          </ul>
-        </form>
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown"></form>
       </div>
       @ctx.me.map { me =>
-      <div class="auth fright">
+      <div class="auth">
         @auth.userDropdown(me, playing)
       </div>
-      <div class="challenge_notifications fright">
+      <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">
           <span class="hint--bottom-left" data-hint="Challenges">
             <span data-icon="U"></span>
@@ -110,7 +106,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
-      <div class="site_notifications fright">
+      <div class="site_notifications">
         <a id="site_notifications_tag" class="toggle link data-count" data-count="@ctx.nbNotifications">
           <span class="hint--bottom-left" data-hint="Notifications">
             <span data-icon=""></span>
@@ -121,10 +117,10 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       }.getOrElse {
-      <a href="@routes.Auth.login" class="signin button fright text">@trans.signIn()</a>
+      <a href="@routes.Auth.login" class="signin button text">@trans.signIn()</a>
       }
       @if(!zen) {
-      <div id="sound_control" class="fright">
+      <div id="sound_control">
         <a id="sound_state" class="toggle link hint--bottom-left" data-hint="@trans.sound()">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
@@ -142,22 +138,22 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       @if(ctx.teamNbRequests > 0) {
-      <a class="fright link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
+      <a class="link data-count" href="@routes.Team.requests()" data-count="@ctx.teamNbRequests">
         <span class="hint--bottom-left" data-hint="@trans.teams()">
           <span data-icon="f"></span>
         </span>
       </a>
       }
-      <div id="themepicker" class="fright">
+      <div id="themepicker">
         <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
-          &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
+          <span data-icon="@closingBrace"></span>
         </a>
       </div>
       @if(isGranted(_.SeeReport)) {
-      <a class="fright link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
+      <a class="link text data-count" href="@routes.Report.list" data-count="@reportNbUnprocessed" data-icon="@icon.mod"></a>
       }
       }
-      <a id="reconnecting" class="fright link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
+      <a id="reconnecting" class="link" onclick="window.location.reload()" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
@@ -201,12 +197,16 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
-    @if(!asyncJs) {
-    @momentLangTag(false)
-    }
     @if(withGtm) { @embedJs { dataLayer = []; } }
     @moreJs
-    @if(lang.language != "en") { @embedJs { lichess_translations = @jsI18n() } }
+    @if(lang.language != "en") {
+    @embedJs {
+    lichess_translations = @jsI18n();
+    @momentLangUrl.map { url =>
+    moment_locale_url = "@url";
+    }
+    }
+    }
     @if(withGtm) {@gtm()}
   </body>
 </html>

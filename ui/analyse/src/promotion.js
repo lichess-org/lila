@@ -4,7 +4,7 @@ var util = require('chessground/util');
 
 var promoting = false;
 
-function start(ctrl, orig, dest, callback) {
+function start(ctrl, orig, dest, capture, callback) {
   var s = ctrl.chessground.state;
   var piece = s.pieces[dest];
   if (piece && piece.role == 'pawn' && (
@@ -13,6 +13,7 @@ function start(ctrl, orig, dest, callback) {
     promoting = {
       orig: orig,
       dest: dest,
+      capture: capture,
       callback: callback
     };
     m.redraw();
@@ -23,7 +24,8 @@ function start(ctrl, orig, dest, callback) {
 
 function finish(ctrl, role) {
   if (promoting) ground.promote(ctrl.chessground, promoting.dest, role);
-  if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
+  if (promoting.callback) promoting.callback(promoting.orig, promoting.dest,
+                                             promoting.capture, role);
   promoting = false;
 }
 

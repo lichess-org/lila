@@ -72,8 +72,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def zoom: Option[Int] = req.session get "zoom" flatMap parseIntOption filter (100<)
 
-  def zoomOrDefault = zoom | 100
-
   private def ctxPref(name: String): Option[String] =
     req.session get name orElse { pref get name }
 

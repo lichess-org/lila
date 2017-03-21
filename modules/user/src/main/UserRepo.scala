@@ -158,8 +158,11 @@ object UserRepo {
     case None => coll.update($id(id), $unset(F.title)).void
   }
 
-  def setPlayTime(u: User, playTime: User.PlayTime): Funit =
-    coll.update($id(u.id), $set(F.playTime -> User.playTimeHandler.write(playTime))).void
+  def setPlayTime(id: ID, playTime: User.PlayTime): Funit =
+    coll.update($id(id), $set(F.playTime -> User.playTimeHandler.write(playTime))).void
+
+  def getPlayTime(id: ID): Fu[Option[User.PlayTime]] =
+    coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
   val enabledSelect = $doc(F.enabled -> true)
   def engineSelect(v: Boolean) = $doc(F.engine -> v.fold[BSONValue]($boolean(true), $ne(true)))
@@ -366,9 +369,10 @@ object UserRepo {
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregate(
+    ids.nonEmpty ?? coll.aggregateWithReadPreference(
       Match($inIds(ids)),
-      List(Group(BSONNull)(F.toints -> SumField(F.toints)))
+      List(Group(BSONNull)(F.toints -> SumField(F.toints))),
+      ReadPreference.secondaryPreferred
     ).map(
         _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)

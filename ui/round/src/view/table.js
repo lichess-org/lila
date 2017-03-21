@@ -42,7 +42,7 @@ function isSpinning(ctrl) {
 }
 
 function spinning(ctrl) {
-  if (isSpinning(ctrl)) return m.trust(lichess.spinnerHtml);
+  if (isSpinning(ctrl)) return m('span.ddloader');
 }
 
 function renderTableEnd(ctrl) {

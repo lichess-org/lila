@@ -277,7 +277,7 @@ lichess.notifyApp = (function() {
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lichess.loadCss('/assets/stylesheets/autocomplete.css');
-    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js').done(function() {
+    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: 3,
         hint: true,
@@ -432,27 +432,29 @@ lichess.notifyApp = (function() {
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function setMoment() {
-        $("time.moment").removeClass('moment').each(function() {
-          var parsed = moment(this.getAttribute('datetime'));
-          var format = this.getAttribute('data-format');
-          this.textContent = format === 'calendar' ? parsed.calendar(null, {
-            sameElse: 'DD/MM/YYYY HH:mm'
-          }) : parsed.format(format);
-        });
-      }
-      setMoment();
-      lichess.pubsub.on('content_loaded', setMoment);
-
-      function setMomentFromNow() {
-        lichess.requestIdleCallback(function() {
+        // check that locale was loaded
+        if (!window.moment_locale_url) lichess.requestIdleCallback(function() {
           $(".moment-from-now").each(function() {
             this.textContent = moment(this.getAttribute('datetime')).fromNow();
           });
+          $("time.moment").removeClass('moment').each(function() {
+            var parsed = moment(this.getAttribute('datetime'));
+            var format = this.getAttribute('data-format');
+            this.textContent = format === 'calendar' ? parsed.calendar(null, {
+              sameElse: 'DD/MM/YYYY HH:mm'
+            }) : parsed.format(format);
+          });
         });
       }
-      setMomentFromNow();
-      lichess.pubsub.on('content_loaded', setMomentFromNow);
-      setInterval(setMomentFromNow, 2000);
+
+      if (window.moment_locale_url) lichess.loadScript(moment_locale_url, {noVersion: true}).then(function() {
+        delete window.moment_locale_url;
+        setMoment();
+      });
+      else setMoment();
+
+      lichess.pubsub.on('content_loaded', setMoment);
+      setInterval(setMoment, 2000);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
@@ -469,7 +471,7 @@ lichess.notifyApp = (function() {
       }, 300);
 
       // Zoom
-      var currentZoom = lichess.isTrident ? 1 : $('body').data('zoom') / 100;
+      var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
       var setZoom = function(zoom) {
 
@@ -519,7 +521,6 @@ lichess.notifyApp = (function() {
       };
 
       var saveZoom = lichess.fp.debounce(function() {
-        console.log(currentZoom);
         $.ajax({
           method: 'post',
           url: '/pref/zoom?v=' + Math.round(currentZoom * 100)
@@ -543,7 +544,7 @@ lichess.notifyApp = (function() {
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
         var button = this;
-        lichess.loadScript('/assets/compiled/themepicker.js').then(function() {
+        lichess.loadScript('/assets/compiled/themepicker.js', {noVersion: true}).then(function() {
           lichess.themepicker(button, function() { return currentZoom }, setZoom, manuallySetZoom);
         });
       });
@@ -612,15 +613,16 @@ lichess.notifyApp = (function() {
 
       $('#top .lichess_language').one('mouseover', function() {
         var $links = $(this).find('.language_links'),
-          langs = $('body').data('accept-languages').split(',');
+        langs = $('body').data('accept-languages').split(',');
         $.ajax({
-          url: $links.data('url'),
+          url: lichess.assetUrl('/assets/trans/refs.json'),
           cache: true,
           success: function(list) {
-            $links.find('ul').prepend(list.map(function(lang) {
-              var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
-            }).join(''));
+            $links.html('<ul><li><a href="/translation/contribute">Help translate Lichess!</a></li></ul>')
+              .find('ul').prepend(list.map(function(lang) {
+                var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
+                return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
+              }).join(''));
           }
         });
       });
@@ -677,7 +679,7 @@ lichess.notifyApp = (function() {
   });
 
   lichess.sound = (function() {
-    var baseUrl = lichess.assetUrl('/assets/sound', true);
+    var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
     var soundSet = $('body').data('sound-set');
     var volumeStorage = lichess.storage.make('sound-volume');
     var defaultVolume = 0.7;

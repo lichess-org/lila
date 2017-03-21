@@ -421,6 +421,25 @@ body > div.content {
   width: 1005px;
   margin: 35px auto 30px auto;
 }
+.data-count::after,
+.unread {
+  padding: 1px 5px 1px 4px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+.data-count::after {
+  content: attr(data-count);
+  top: 0;
+  right: 0;
+  position: absolute;
+  height: 11px;
+  padding: 1px 4px 1px 3px;
+  line-height: 10px;
+}
+.data-count[data-count='0']::after {
+  display: none;
+}
 #top {
   position: relative;
   height: 24px;
@@ -428,10 +447,113 @@ body > div.content {
   margin: 0 auto;
   padding-top: 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-flow: row-reverse;
 }
 #top:hover {
   z-index: 5001;
 }
+#top .link {
+  font-size: 13px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+}
+#top > * {
+  position: relative;
+}
+#top .dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: #fff;
+  z-index: 3;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#top .shown .dropdown {
+  display: block;
+}
+#top .shown a.toggle {
+  background: #fff;
+  height: 28px;
+}
+#top .links > a {
+  display: block;
+  padding: 5px 10px;
+  transition: 0.13s;
+  white-space: nowrap;
+}
+#top .auth .links a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+#top .signin {
+  margin: 3px 0.5em 0 0;
+  border-color: #d85000;
+  padding: 1px 5px;
+  height: 17px;
+}
+#top .auth .sep {
+  display: block;
+  padding-top: 5px;
+  margin-top: 5px;
+  border-top: 1px solid #d4d4d4;
+}
+#top .status {
+  position: relative;
+  padding: 0 0 5px !important;
+  min-width: 133px;
+}
+#top .status .led {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  font-size: 20px;
+  opacity: 0.8;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+#top .status .ping,
+#top .status .server {
+  display: block;
+  font-family: 'Roboto Mono', 'Roboto';
+  padding-left: 10px;
+}
+#top .status strong {
+  padding: 0 5px;
+}
+#top a.toggle {
+  display: block;
+  transition: color 0.13s;
+}
+#top .toggle:hover {
+  color: #303030;
+}
+@keyframes pulse-once {
+  0% { background: #d85000; }
+  100% { background: none; }
+}
+#top a.toggle.pulse {
+  animation: pulse-once 1.5s linear;
+}
+#top #themepicker_toggle span {
+  font-size: 17px;
+}
+#top #themepicker_toggle span:before {
+  vertical-align: -5px;
+}
+#reconnecting {
+  display: none;
+}
+body.offline #reconnecting,
+#network_error {
+  display: inline-block;
+  color: #dc322f;
+}
+
 #site_description {
   position: absolute;
   top: -100px;
@@ -719,50 +841,6 @@ div.side form.search input {
 #site_header div.side_menu .sep {
   margin: 10px;
 }
-#top .link {
-  font-size: 13px;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 8px;
-}
-#reconnecting {
-  display: none;
-}
-body.offline #reconnecting,
-#network_error {
-  display: inline-block;
-  color: #dc322f;
-}
-#top .fright {
-  float: right;
-  position: relative;
-}
-.data-count::after,
-.unread {
-  padding: 1px 5px 1px 4px;
-  font-weight: bold;
-  border-radius: 2px;
-  font-size: 0.9em;
-}
-.data-count::after {
-  content: attr(data-count);
-  top: 0;
-  right: 0;
-  position: absolute;
-  height: 11px;
-  padding: 1px 4px 1px 3px;
-  line-height: 10px;
-}
-.data-count[data-count='0']::after {
-  display: none;
-}
-#top .shown a.toggle {
-  background: #fff;
-}
-#top .shown #challenge_notifications_tag.toggle,
-#top .shown #site_notifications_tag.toggle {
-  height: 29px;
-}
 
 #ham-plate {
   cursor: pointer;
@@ -817,65 +895,6 @@ body.offline #reconnecting,
 #user_tag {
   font-weight: bold;
 }
-#top div.challenge_notifications,
-#top div.auth,
-#top #themepicker,
-#top div.lichess_language {
-  position: relative;
-}
-#top div.challenge_notifications.shown .links,
-#top div.site_notifications.shown .links,
-#top div.auth.shown .links {
-  display: block;
-}
-#top div.message_notificatiosn .links > a,
-#top div.challenge_notifications .links > a,
-#top div.auth .links > a {
-  display: block;
-  padding: 5px 10px;
-  transition: 0.13s;
-  white-space: nowrap;
-}
-#top div.auth .links a:hover {
-  background: #F0F0F0;
-  color: #444;
-}
-#top a.signin {
-  margin: 3px 0.5em 0 0;
-  border-color: #d85000;
-  padding: 1px 5px;
-}
-#top div.auth .sep {
-  display: block;
-  padding-top: 5px;
-  margin-top: 5px;
-  border-top: 1px solid #d4d4d4;
-}
-#top .status {
-  position: relative;
-  padding: 0 0 5px !important;
-  min-width: 133px;
-}
-#top .status .led {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  font-size: 20px;
-  opacity: 0.8;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
-}
-#top .status .ping,
-#top .status .server {
-  display: block;
-  font-family: 'Roboto Mono', 'Roboto';
-  padding-left: 10px;
-}
-#top .status strong {
-  padding: 0 5px;
-}
 #challenge_notifications_tag.none {
   display: none!important;
 }
@@ -917,44 +936,6 @@ form.wide textarea {
   padding: 0.5em;
   border: 1px solid #D4D4D4;
 }
-#top a.toggle {
-  display: block;
-  float: left;
-}
-#top a.toggle,
-#top #sound_state {
-  transition: color 0.13s;
-}
-#top a.toggle:hover,
-#sound_state:hover {
-  color: #303030;
-}
-@keyframes pulse-once {
-  0% { background: #d85000; }
-  100% { background: none; }
-}
-#top a.toggle.pulse {
-  animation: pulse-once 1.5s linear;
-}
-#top #themepicker_toggle,
-#top #sound_state {
-  padding-right: 4px;
-}
-#top #themepicker_toggle span {
-  font-size: 17px;
-}
-#top #themepicker_toggle span:before {
-  vertical-align: -5px;
-}
-#top .dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 24px;
-  background: #fff;
-  z-index: 3;
-  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
-}
 span.progress > .positive {
   color: #759900;
 }
@@ -966,9 +947,6 @@ span.progress > .negative {
   padding: 10px;
   max-height: 700px;
   overflow: auto;
-}
-#top div.lichess_language.shown .language_links {
-  display: block;
 }
 .language_links button {
   display: block;
@@ -1001,15 +979,11 @@ span.progress > .negative {
   padding-top: 10px;
 }
 #sound_control {
-  margin-right: 5px;
   position: relative;
 }
 #sound_control .dropdown {
   width: 120px;
   padding: 10px;
-}
-#sound_control.shown .dropdown {
-  display: block;
 }
 #sound_control .slider {
   float: right;
@@ -1124,9 +1098,6 @@ span.progress > .negative {
 .user_link span.title {
   color: #d59120;
   font-weight: bold;
-}
-.user_link span.donor {
-  margin-left: 5px;
 }
 div.warning {
   padding: 5px;
@@ -1919,27 +1890,37 @@ div.lichess_overboard .close:hover {
 
 @keyframes fire {
   0% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+    text-shadow: 0 0 6.66px #fefcc9,
+    3.33px -3.33px 10px #feec85,
+    -6.66px -6.66px 13.33px #ffae34,
+    6.66px -13.33px 16.66px #ec760c,
+    -6.66px -20px 20px #cd4606,
+    0 -26.66px 11.66px #973716,
+    3.33px -30px 26.66px #451b0e;
   }
   100% {
-    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+    text-shadow: 0 0 6.66px #fefcc9, 
+    3.33px -3.33px 10px #fefcc9, 
+    -6.66px -6.66px 13.33px #feec85, 
+    7.33px -14px 20px #ffae34, 
+    -7.33px -19.33px 16.66px #ec760c, 
+    0 -27.33px 26.66px #cd4606, 
+    3.33px -30px 26.66px #973716;
   }
 }
-.fire_trophy span {
-  transform: scale(0.35);
+.fire_trophy {
   color: rgba(0, 0, 0, 0.6);
-  font-size: 150px;
+  font-size: 60px;
   display: block;
-  text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  text-shadow: 0 0 6.66px #fefcc9,
+  3.33px -3.33px 10px #feec85,
+  -6.66px -6.66px 13.33px #ffae34,
+  6.66px -13.33px 16.66px #ec760c,
+  -6.66px -20px 20px #cd4606,
+  0 -26.66px 11.66px #973716,
+  3.33px -30px 26.66px #451b0e;
 }
-.fire_trophy.marathonWinner span,
-.fire_trophy.marathonTopTen span,
-.fire_trophy.marathonTopFifty span,
-.fire_trophy.marathonTopHundred span {
-  filter: hue-rotate(190deg);
-  -webkit-filter: hue-rotate(190deg);
-}
-.fire_trophy span:hover {
+.fire_trophy:hover {
   animation: fire 1.25s ease-in-out infinite alternate;
 }
 /* switch toggle button */

@@ -113,6 +113,7 @@ piece.ghost {
 }
 piece.fading {
   z-index: 2!important;
+  opacity: 0.5;
 }
 .cg-board-wrap .over {
   will-change: transform;
@@ -531,10 +532,8 @@ body.piece_letter .lichess_ground .replay move {
 div.table.spectator {
   top: 160px;
 }
-div.table .spinner {
-  margin: 7px auto;
-  width: 30px;
-  height: 30px;
+div.table .ddloader {
+  margin: 20px auto 10px auto;
 }
 div.table .username {
   white-space: nowrap;

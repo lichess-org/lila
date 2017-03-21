@@ -22,19 +22,12 @@
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
-[submodule "public/vendor/stockfish.js"]
-	path = public/vendor/stockfish.js
-	url = https://github.com/niklasf/stockfish.js
 [submodule "public/vendor/flatpickr"]
 	path = public/vendor/flatpickr
 	url = https://github.com/chmln/flatpickr
 [submodule "public/vendor/bar-rating"]
 	path = public/vendor/bar-rating
 	url = https://github.com/antennaio/jquery-bar-rating
-[submodule "public/vendor/stockfish.pexe"]
-	path = public/vendor/stockfish.pexe
-	url = https://github.com/niklasf/stockfish.pexe
-	branch = ddugovic
 [submodule "public/vendor/jquery-textcomplete"]
 	path = public/vendor/jquery-textcomplete
 	url = https://github.com/yuku-t/jquery-textcomplete

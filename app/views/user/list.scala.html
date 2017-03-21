@@ -58,7 +58,8 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = "Chess players and leaderboards",
 url = s"$netBaseUrl${routes.User.list.url}",
-description = "Best chess players in bullet, blitz, classical, Chess960 and more chess variants").some) {
+description = "Best chess players in bullet, blitz, classical, Chess960 and more chess variants").some,
+withInfScroll = false) {
 <div class="content_box community">
   @communityTabs("leaderboard")
   <div class="user_lists">

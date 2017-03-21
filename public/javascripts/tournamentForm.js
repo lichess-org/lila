@@ -29,7 +29,7 @@ $(function() {
   var $variant = $('#tournament tr.variant select');
   var $position = $('#tournament tr.position');
   function showPosition() {
-    $position.toggle($variant.val() == 1);
+    $position.toggleNone($variant.val() == 1);
   };
   $variant.on('change', showPosition);
   showPosition();

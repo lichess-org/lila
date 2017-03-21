@@ -1,3 +1,5 @@
+var makeAckable = require('./ackable');
+
 // versioned events, acks, retries, resync
 lichess.StrongSocket = function(url, version, settings) {
 
@@ -13,7 +15,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var ws = null;
   var pingSchedule = null;
   var connectSchedule = null;
-  var ackableMessages = [];
+  var ackable = makeAckable(function(t, d) { send(t, d) });
   var lastPingTime = now();
   var currentLag = 0;
   var averageLag = 0;
@@ -45,11 +47,7 @@ lichess.StrongSocket = function(url, version, settings) {
         $('body').removeClass('offline');
         pingNow();
         lichess.pubsub.emit('socket.open')();
-        var resend = ackableMessages;
-        ackableMessages = [];
-        resend.forEach(function(x) {
-          send(x.t, x.d);
-        });
+        ackable.resend();
       };
       ws.onmessage = function(e) {
         var m = JSON.parse(e.data);
@@ -69,23 +67,20 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var send = function(t, d, o, noRetry) {
-    var data = (d == null) ? {} : d,
-      options = o || {};
-    if (options.withLag) d.l = Math.round(averageLag);
-    if (options.ackable) ackableMessages.push({
-      t: t,
-      d: d
-    });
+    d = d == null ? {} : d,
+      o = o || {};
+    if (o.withLag) d.l = Math.round(averageLag);
+    if (o.ackable) ackable.register(t, d);
     var message = JSON.stringify({
       t: t,
-      d: data
+      d: d
     });
     debug("send " + message);
     try {
       ws.send(message);
     } catch (e) {
       // maybe sent before socket opens,
-      // try again a second later,once.
+      // try again a second later.
       if (!noRetry) setTimeout(function() {
         send(t, d, o, true);
       }, 1000);
@@ -161,7 +156,7 @@ lichess.StrongSocket = function(url, version, settings) {
         lichess.reload();
         break;
       case 'ack':
-        ackableMessages = [];
+        ackable.gotAck();
         break;
       default:
         lichess.pubsub.emit('socket.in.' + m.t)(m.d);
@@ -199,7 +194,7 @@ lichess.StrongSocket = function(url, version, settings) {
     tryOtherUrl = true;
     setTimeout(function() {
       if (!$('#network_error').length) {
-        $('#top').append('<span class="fright link text" id="network_error" data-icon="j">Network error</span>');
+        $('#top').append('<span class="link text" id="network_error" data-icon="j">Network error</span>');
       }
     }, 1000);
     clearTimeout(pingSchedule);
