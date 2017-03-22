@@ -1,5 +1,4 @@
 var crazyDrag = require('./crazyDrag');
-var defined = require('common').defined;
 var m = require('mithril');
 
 var eventNames = ['mousedown', 'touchstart'];
