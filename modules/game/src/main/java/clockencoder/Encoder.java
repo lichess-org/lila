@@ -2,7 +2,12 @@ package org.lichess.clockencoder;
 
 import java.util.Arrays;
 
+/*
+ * startTime is the initial clock time in centiseconds
+ * (e.g. 6000 in a 1+0 or 1+2 game)
+ */
 public class Encoder {
+
     public static byte[] encode(int[] centis, int startTime) {
         if (centis.length == 0) return new byte[0];
 

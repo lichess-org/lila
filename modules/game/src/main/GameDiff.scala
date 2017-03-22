@@ -11,13 +11,14 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
+import lila.common.Centis
 
 private[game] object GameDiff {
 
   type Set = BSONElement // [String, BSONValue]
   type Unset = BSONElement // [String, BSONBoolean]
 
-  type ClockHistorySide = (FiniteDuration, Vector[FiniteDuration])
+  type ClockHistorySide = (Centis, Vector[Centis])
 
   def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
 
@@ -47,7 +48,7 @@ private[game] object GameDiff {
       for {
         clk <- g.clock
         history <- g.clockHistory
-      } yield (clk.limit.seconds, history.get(color))
+      } yield (Centis(clk.limit * 100), history.get(color))
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y))

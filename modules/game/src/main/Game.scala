@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 
 import scala.collection.breakOut
 
+import lila.common.Centis
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -95,9 +96,9 @@ case class Game(
   def hasChat = !isTournament && !isSimul && nonAi
 
   // in tenths
-  private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
-    _.toLong + (createdAt.getMillis / 100)
-  } orElse updatedAt.map(_.getMillis / 100)
+  // private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
+  //   _.toLong + (createdAt.getMillis / 100)
+  // } orElse updatedAt.map(_.getMillis / 100)
 
   def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
@@ -112,29 +113,31 @@ case class Game(
       }
     }
 
-  def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
+  // def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes: Option[Vector[FiniteDuration]] =
+  def moveTimes: Option[List[Centis]] =
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
     } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] =
-    {
-      for {
-        clk <- clock
-        inc = clk.increment.seconds
-        history <- clockHistory
-        clockTimes = history.get(color)
-      } yield 0.millis :: ((clockTimes.iterator zip clockTimes.iterator.drop(1))
-        map { case (first, second) => (first - second + inc) max Duration.Zero } toList)
-    } orElse binaryMoveTimes.map { binary =>
-      val pivot = if (color == startColor) 0 else 1
-      BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
-        case (e, i) if (i % 2) == pivot => e
-      }
+  def moveTimes(color: Color): Option[List[Centis]] = {
+    for {
+      clk <- clock
+      inc = Centis(clk.increment * 100)
+      history <- clockHistory
+      clockTimes = history.get(color)
+    } yield Centis(0) :: {
+      (clockTimes.iterator zip clockTimes.iterator.drop(1)).map {
+        case (first, second) => (first - second + inc) atLeast 0
+      }.toList
     }
+  } orElse binaryMoveTimes.map { binary =>
+    val pivot = if (color == startColor) 0 else 1
+    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+      case (e, i) if (i % 2) == pivot => e
+    }
+  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -205,9 +208,13 @@ case class Game(
       ),
       unmovedRooks = game.board.unmovedRooks,
       binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
-        BinaryFormat.moveTime.write(binaryMoveTimes.??(t => BinaryFormat.moveTime.read(t, playedTurns)) :+ lastMoveTime.?? { lmt =>
-          ((nowTenths - lmt - (lag.??(_.roundTenths))) max 0) * 100 millis
-        })
+        BinaryFormat.moveTime.write {
+          binaryMoveTimes.?? { t =>
+            BinaryFormat.moveTime.read(t, playedTurns)
+          } :+ lastMoveDateTime.?? { lmdt =>
+            Centis(nowCentis - lmdt.getCentis - lag.??(_.toCentis)) atLeast 0
+          }
+        }
       },
       clockHistory = for {
         clk <- game.clock
@@ -711,17 +718,16 @@ object CastleLastMoveTime {
 }
 
 case class ClockHistory(
-    white: Vector[FiniteDuration] = Vector.empty,
-    black: Vector[FiniteDuration] = Vector.empty
+    white: Vector[Centis] = Vector.empty,
+    black: Vector[Centis] = Vector.empty
 ) {
 
   def record(color: Color, clock: Clock): ClockHistory = {
-    val duration = clock.remainingDuration(color)
-    if (color.white) ClockHistory(white :+ duration, black)
-    else ClockHistory(white, black :+ duration)
+    val centis = Centis(clock.remainingCentis(color))
+    if (color.white) ClockHistory(white :+ centis, black)
+    else ClockHistory(white, black :+ centis)
   }
 
-  def get(color: Color): Vector[FiniteDuration] = {
+  def get(color: Color): Vector[Centis] =
     if (color.white) white else black
-  }
 }
