@@ -1,6 +1,5 @@
 var opposite = require('chessground/util').opposite;
 var tree = require('tree');
-var ground = require('./ground');
 var keyboard = require('./keyboard');
 var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
@@ -661,10 +660,12 @@ module.exports = function(opts) {
     if (uci[1] === '@') this.chessground.newPiece({
       color: this.chessground.state.movable.color,
       role: chessUtil.sanToRole[uci[0]]
-    },
-    move[1])
-    else if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], chessUtil.sanToRole[move[2].toUpperCase()]);
+    }, move[1]);
+    else {
+      var capture = this.chessground.state.pieces[move[1]];
+      var promotion = move[2] && chessUtil.sanToRole[move[2].toUpperCase()];
+      sendMove(move[0], move[1], capture, promotion);
+    }
   }.bind(this);
 
   this.explorerMove = function(uci) {
