@@ -54,7 +54,7 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this), 3000);
 
-  this.socket = new socket(opts.socketSend, this);
+  this.socket = new socket(opts.socket, this);
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);

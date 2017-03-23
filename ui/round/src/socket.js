@@ -5,14 +5,25 @@ var ground = require('./ground');
 var xhr = require('./xhr');
 var sound = require('./sound');
 
-module.exports = function(send, ctrl) {
+module.exports = function(socket, ctrl) {
 
-  this.send = send;
+  this.send = socket.send;
 
   this.sendLoading = function() {
     ctrl.setLoading(true);
     this.send.apply(this, arguments);
   }.bind(this);
+
+  var reload = function(_, isRetry) {
+    xhr.reload(ctrl).then(function(data) {
+      if (lichess.socket.getVersion() > data.player.version) {
+        // race condition! try to reload again
+        if (isRetry) lichess.reload(); // give up and reload the page
+        else reload(o, true);
+      }
+      else ctrl.reload(data);
+    });
+  };
 
   var handlers = {
     takebackOffers: function(o) {
@@ -29,9 +40,7 @@ module.exports = function(send, ctrl) {
       o.isDrop = true;
       ctrl.apiMove(o);
     },
-    reload: function(o) {
-      xhr.reload(ctrl).then(ctrl.reload);
-    },
+    reload: reload,
     redirect: function() {
       ctrl.setRedirecting();
     },
@@ -99,7 +108,7 @@ module.exports = function(send, ctrl) {
   }.bind(this);
 
   lichess.pubsub.on('ab.rep', function(n) {
-    send('rep', {
+    socket.send('rep', {
       n: n
     });
   });
