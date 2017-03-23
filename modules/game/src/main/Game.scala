@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.collection.breakOut
+
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
@@ -8,6 +10,7 @@ import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.common.Centis
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -27,7 +30,7 @@ case class Game(
     daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
-    clockHistory: ClockHistory = ClockHistory.empty,
+    binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -111,12 +114,18 @@ case class Game(
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes(color: Color): Option[List[FiniteDuration]] = {
+  def moveTimes(color: Color): Option[List[Centis]] = binaryMoveTimes.map { binary =>
     val pivot = if (color == startColor) 0 else 1
-    clockHistory.moveTimes(playedTurns).map(_.toList.zipWithIndex.collect {
+    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
-    })
+    }
   }
+
+  def moveTimes: Option[List[Centis]] =
+    for {
+      a <- moveTimes(startColor)
+      b <- moveTimes(!startColor)
+    } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -186,12 +195,15 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      clockHistory = isPgnImport.fold(
-        ClockHistory.empty,
-        clockHistory.withTime(playedTurns, lastMoveTime.?? { lmt =>
-          ((nowTenths - lmt - (lag.??(_.toTenths))) max 0) * 100 millis
-        })
-      ),
+      binaryMoveTimes = (!isPgnImport).option {
+        BinaryFormat.moveTime.write {
+          binaryMoveTimes.?? { t =>
+            BinaryFormat.moveTime.read(t, playedTurns)
+          } :+ lastMoveDateTime.?? { lmdt =>
+            Centis(nowCentis - lmdt.getCentis - lag.??(_.roundCentis)) atLeast 0
+          }
+        }
+      },
       status = situation.status | status,
       clock = game.clock
     )
