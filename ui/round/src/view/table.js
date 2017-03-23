@@ -89,7 +89,7 @@ function renderTablePlay(ctrl) {
       }, [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-        button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
+        button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', ctrl.offerDraw),
         ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
