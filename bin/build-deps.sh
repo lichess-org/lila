@@ -5,24 +5,23 @@ dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
 
-git clone https://github.com/ReactiveMongo/ReactiveMongo
+git clone --depth 1 https://github.com/ReactiveMongo/ReactiveMongo --branch 0.12.1
 cd ReactiveMongo
-git checkout 0.12.1
 export ITERATEES_VERSION=2.4.6
 sbt publish-local
 cd ..
 
-git clone https://github.com/ornicar/Kamon --branch lila
+git clone --depth 1 https://github.com/ornicar/Kamon --branch lila
 cd Kamon
 sbt publish-local
 cd ..
 
-git clone https://github.com/gilt/gfc-semver
+git clone --depth 1 https://github.com/gilt/gfc-semver
 cd gfc-semver
 sbt publish-local
 cd ..
 
-git clone https://github.com/ornicar/scalalib
+git clone --depth 1 https://github.com/ornicar/scalalib
 cd scalalib
 sbt publish-local
 cd ..
@@ -33,12 +32,12 @@ git checkout b019b3a2522d3f1697c39ec0c79e88c18ea49a91
 sbt -Dversion=1.2.11-THIB publish-local
 cd ..
 
-git clone https://github.com/ornicar/maxmind-geoip2-scala --branch customBuild
+git clone --depth 1 https://github.com/ornicar/maxmind-geoip2-scala --branch customBuild
 cd maxmind-geoip2-scala
 sbt publish-local
 cd ..
 
-git clone https://github.com/Nycto/Hasher
+git clone --depth 1 https://github.com/Nycto/Hasher
 cd Hasher
 sbt '+ publish-local'
 cd ..

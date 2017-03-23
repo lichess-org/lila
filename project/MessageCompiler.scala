@@ -72,10 +72,10 @@ private object $lang {
   }
 
   private def readLines(f: File) =
-    scala.io.Source.fromFile(f).getLines.toList
+    scala.io.Source.fromFile(f)("UTF-8").getLines.toList
 
   private def printToFile(f: File)(content: String): Unit = {
-    val p = new java.io.PrintWriter(f)
+    val p = new java.io.PrintWriter(f, "UTF-8")
     try { content.foreach(p.print) } finally { p.close() }
   }
 }

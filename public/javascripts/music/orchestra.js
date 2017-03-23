@@ -1,6 +1,10 @@
 function lichessOrchestra() {
 
-  var soundDir = lichess.assetUrl('/assets/sound/instrument/', true);
+  var soundDir = lichess.assetUrl('/assets/sound/instrument/', {noVersion:true});
+
+  var makeSoundPair = function(sound) {
+    return [soundDir + sound + '.ogg', soundDir + sound + '.mp3'];
+  };
 
   var instruments = {
       celesta: [],
@@ -17,18 +21,18 @@ function lichessOrchestra() {
     if (i > 9) fn = 'c0' + i;
     else fn = 'c00' + i;
     instruments.celesta.push(new Howl({
-      src: [soundDir + 'celesta/' + fn + '.ogg', soundDir + 'celesta/' + fn + '.mp3'],
+      src: makeSoundPair('celesta/' + fn),
       volume: 0.3
     }));
     instruments.clav.push(new Howl({
-      src: [soundDir + 'clav/' + fn + '.ogg', soundDir + 'clav/' + fn + '.mp3'],
+      src: makeSoundPair('clav/' + fn),
       volume: 0.2
     }));
   }
   // load swell sounds
   for (var i = 1; i <= 3; i++) {
     instruments.swells.push(new Howl({
-      src: [soundDir + 'swells/swell' + i + '.ogg', soundDir + 'swells/swell' + i + '.mp3'],
+      src: makeSoundPair('swells/swell' + i),
       volume: 0.8
     }));
   }
