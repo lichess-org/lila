@@ -8,11 +8,10 @@ import scala.util.Try
 import chess._
 import chess.variant.Variant
 
-import org.lichess.clockencoder.{ Encoder => ClockEncoder }
-
-import lila.common.Centis
 import lila.db.ByteArray
 import lila.common.Centis
+
+import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
 object BinaryFormat {
 

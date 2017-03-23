@@ -26,10 +26,11 @@ module.exports = function(ctrl) {
   var nextDelay = function() {
     if (typeof(this.delay) === 'string') {
       // in a variation
-      if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 2000;
+      if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 1500;
       if (this.delay === 'realtime') {
-        if (ctrl.vm.node.ply < 2) return 2000;
-        return Math.max(ctrl.data.game.moveTimes[ctrl.vm.node.ply], 1) * 100 || 2000;
+        if (ctrl.vm.node.ply < 2) return 1500;
+        var time = ctrl.data.game.moveTimes[ctrl.vm.node.ply - ctrl.tree.root.ply];
+        return Math.max(time, 1) * 100 || 2000;
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;

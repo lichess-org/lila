@@ -1,7 +1,5 @@
 package lila.game
 
-import scala.concurrent.duration._
-
 import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._

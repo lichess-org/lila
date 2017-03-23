@@ -1,26 +1,27 @@
 package lila.game
 
-import scala.concurrent.duration._
-
 import org.specs2.mutable._
 import org.specs2.specification._
 
 import lila.db.ByteArray
+import lila.common.Centis
 
 class BinaryClockHistoryTest extends Specification {
 
-  val eps = 40.millis
+  val eps = Centis(4)
+  val hour = Centis(60 * 60 * 100)
+  val day = hour * 24
 
   "binary clock history" should {
 
     "handle empty vectors" in {
-      BinaryFormat.clockHistory.writeSide(2.hours, Vector.empty).isEmpty must beTrue
+      BinaryFormat.clockHistory.writeSide(Centis(720000), Vector.empty).isEmpty must beTrue
     }
 
     "handle singleton vectors" in {
-      val times = Vector(12345.millis)
-      val bytes = BinaryFormat.clockHistory.writeSide(123456.millis, times)
-      val restored = BinaryFormat.clockHistory.readSide(123456.millis, bytes)
+      val times = Vector(Centis(1234))
+      val bytes = BinaryFormat.clockHistory.writeSide(Centis(12345), times)
+      val restored = BinaryFormat.clockHistory.readSide(Centis(12345), bytes)
 
       restored.size must_== 1
       (restored(0) - times(0)).abs should be_<=(eps)
@@ -30,25 +31,25 @@ class BinaryClockHistoryTest extends Specification {
       val times = Vector(
         0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63,
         66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99, 102, 105, 108, 199, 333, 567, 666, 2000, 30
-      ).map(t => (2100 - t) * 100.millis)
-      val bytes = BinaryFormat.clockHistory.writeSide(2.hours, times)
-      val restored = BinaryFormat.clockHistory.readSide(2.hours, bytes)
+      ).map(t => Centis(21000 - 10 * t))
+      val bytes = BinaryFormat.clockHistory.writeSide(hour * 2, times)
+      val restored = BinaryFormat.clockHistory.readSide(hour * 2, bytes)
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
     }
 
     "restore correspondence" in {
-      val times = Vector(1180, 2040, 800, 1910, 750, 2300, 480, 2580).map(t => 2.days - t.millis)
-      val bytes = BinaryFormat.clockHistory.writeSide(2.days, times)
-      val restored = BinaryFormat.clockHistory.readSide(2.days, bytes)
+      val times = Vector(118, 204, 80, 191, 75, 230, 48, 258).map(t => day * 2 - Centis(t))
+      val bytes = BinaryFormat.clockHistory.writeSide(day * 2, times)
+      val restored = BinaryFormat.clockHistory.readSide(day * 2, bytes)
       times.size must_== restored.size
       (restored, times).zipped.map(_ - _).forall(_.abs <= eps) should beTrue
     }
 
     "not drift" in {
-      val times = Vector(50090, 43210, 29990, 3210, 30440, 210, 20550, 770).map(_.millis)
-      var restored = Vector.empty[FiniteDuration];
-      val start = 60000.millis
+      val times = Vector(5009, 4321, 2999, 321, 3044, 21, 2055, 77).map(Centis.apply)
+      var restored = Vector.empty[Centis]
+      val start = Centis(6000)
       for (end <- times) {
         val binary = BinaryFormat.clockHistory.writeSide(start, restored :+ end)
         restored = BinaryFormat.clockHistory.readSide(start, binary)

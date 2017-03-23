@@ -10,8 +10,6 @@ import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import scala.collection.breakOut
-
 import lila.common.Centis
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -97,11 +95,6 @@ case class Game(
 
   def hasChat = !isTournament && !isSimul && nonAi
 
-  // in tenths
-  // private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
-  //   _.toLong + (createdAt.getMillis / 100)
-  // } orElse updatedAt.map(_.getMillis / 100)
-
   def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plus (lmt * 100l)
   } orElse updatedAt
@@ -114,8 +107,6 @@ case class Game(
         ((c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns) * 1.1).toInt
       }
     }
-
-  // def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {

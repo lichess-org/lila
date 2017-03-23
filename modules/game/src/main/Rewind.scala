@@ -1,7 +1,5 @@
 package lila.game
 
-import scala.concurrent.duration._
-
 import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
