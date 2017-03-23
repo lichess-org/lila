@@ -38,7 +38,7 @@ module.exports = {
       key: socketMsg || 'click',
       class: 'fbt hint--bottom ' + socketMsg,
       disabled: !enabled(),
-      'data-hint': ctrl.trans(hint),
+      'data-hint': ctrl.trans.noarg(hint),
       config: util.bindOnce('click', function() {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg, null);
       })
