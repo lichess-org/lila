@@ -214,7 +214,7 @@ case class Game(
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
           } :+ lastMoveDateTime.?? { lmdt =>
-            Centis(nowCentis - lmdt.getCentis - lag.??(_.roundCentis)) atLeast 0
+            Centis(nowCentis - lmdt.getCentis - lag.??(_.toCentis.value)) atLeast 0
           }
         }
       },
