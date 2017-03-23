@@ -101,9 +101,8 @@ final class RelationApi(
     sort = $empty
   ).map(_.userId)
 
-  def follow(u1: ID, u2: ID): Funit =
-    if (u1 == u2) funit
-    else followable(u2) flatMap {
+  def follow(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
+    followable(u2) flatMap {
       case false => funit
       case true => fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
         case (Some(Follow), _) => funit
@@ -117,6 +116,7 @@ final class RelationApi(
         }
       }
     }
+  }
 
   private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
     (nb >= maxFollow) ?? RelationRepo.drop(u, true, nb - maxFollow + 1)
@@ -126,20 +126,20 @@ final class RelationApi(
     (nb >= maxBlock) ?? RelationRepo.drop(u, false, nb - maxBlock + 1)
   }
 
-  def block(u1: ID, u2: ID): Funit =
-    if (u1 == u2) funit
-    else fetchBlocks(u1, u2) flatMap {
+  def block(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
+    fetchBlocks(u1, u2) flatMap {
       case true => funit
-      case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >>- {
-        reloadOnlineFriends(u1, u2)
-        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
-        lila.mon.relation.block()
-      }
+      case _ =>
+        RelationRepo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
+          reloadOnlineFriends(u1, u2)
+          bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
+          lila.mon.relation.block()
+        }
     }
+  }
 
-  def unfollow(u1: ID, u2: ID): Funit =
-    if (u1 == u2) funit
-    else fetchFollows(u1, u2) flatMap {
+  def unfollow(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
+    fetchFollows(u1, u2) flatMap {
       case true => RelationRepo.unfollow(u1, u2) >>- {
         countFollowersCache invalidate u2
         countFollowingCache invalidate u1
@@ -148,12 +148,12 @@ final class RelationApi(
       }
       case _ => funit
     }
+  }
 
   def unfollowAll(u1: ID): Funit = RelationRepo.unfollowAll(u1)
 
-  def unblock(u1: ID, u2: ID): Funit =
-    if (u1 == u2) funit
-    else fetchBlocks(u1, u2) flatMap {
+  def unblock(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
+    fetchBlocks(u1, u2) flatMap {
       case true => RelationRepo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
@@ -161,6 +161,7 @@ final class RelationApi(
       }
       case _ => funit
     }
+  }
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
     RelationRepo.followingLike(u.id, term) map { _.sorted take max }
