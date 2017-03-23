@@ -17,7 +17,6 @@ case class Centis(value: Int) extends AnyVal with Ordered[Centis] {
   def compare(other: Centis) = value compare other.value
 
   def abs: Centis = Centis(value.abs)
-
   def atMost(other: Int) = Centis(value atMost other)
   def atLeast(other: Int) = Centis(value atLeast other)
 }

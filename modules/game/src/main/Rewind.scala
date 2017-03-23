@@ -49,6 +49,7 @@ object Rewind {
           history.white.take(rewindedPlayerMoves(White)),
           history.black.take(rewindedPlayerMoves(Black))
         )),
+        crazyData = rewindedSituation.board.crazyData,
         status = game.status,
         clock = game.clock map (_.takeback)
       )
