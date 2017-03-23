@@ -194,11 +194,10 @@ trait WithPlay { self: PackageObject =>
     def roundSeconds = math.round(self.toMillis.toDouble / 1000)
     def roundTenths = math.round(self.toMillis.toDouble / 100)
 
-    // Lame but significantly faster when existing durations are already millis.
-    // def toCentis: Long = {
-    //   if (self.unit eq MILLISECONDS) self.length / 10
-    //   else self.toMillis / 10
-    // }
+    def toCentis = lila.common.Centis {
+      if (self.unit eq MILLISECONDS) self.length / 10
+      else self.toMillis / 10
+    }
 
     def abs = if (self.length < 0) -self else self
   }

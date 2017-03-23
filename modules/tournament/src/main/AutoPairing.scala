@@ -73,8 +73,8 @@ final class AutoPairing(
       _.filter(_.game.playable) foreach { pov =>
         if (pov.game.playerHasMoved(pov.color)) {
           if (thenAgain && !pov.game.playerHasMoved(pov.opponent.color))
-            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt =>
-              lmt - nowSeconds + secondsToMove
+            scheduleIdleCheck(!pov.ref, pov.game.lastMoveDateTime.fold(secondsToMove) { lmt =>
+              (lmt.getSeconds - nowSeconds + secondsToMove).toInt
             }, false)
         }
         else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
