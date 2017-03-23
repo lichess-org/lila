@@ -1,8 +1,10 @@
 package lila.evaluation
 
 import Math.{ pow, abs, sqrt, exp }
-import scalaz.NonEmptyList
 import scala.concurrent.duration._
+import scalaz.NonEmptyList
+
+import lila.common.Centis
 
 object Statistics {
   import Erf._
@@ -32,7 +34,8 @@ object Statistics {
   // ups all values by 0.5s
   // as to avoid very high variation on bullet games
   // where all move times are low (https://en.lichess.org/@/AlisaP?mod)
-  def moveTimeCoefVariation(a: NonEmptyList[FiniteDuration]): Double = coefVariation(a.map(_.toTenths.toInt + 5))
+  def moveTimeCoefVariation(a: NonEmptyList[Centis]): Double =
+    coefVariation(a.map(_.roundTenths + 5))
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Double] =
     pov.game.moveTimes(pov.color).flatMap(_.toNel.map(moveTimeCoefVariation))
@@ -40,8 +43,9 @@ object Statistics {
   def consistentMoveTimes(pov: lila.game.Pov): Boolean =
     moveTimeCoefVariation(pov) ?? (_ < 0.4)
 
+  private val fastMove = Centis(20)
   def noFastMoves(pov: lila.game.Pov): Boolean =
-    (~pov.game.moveTimes(pov.color)).count(200.millis >) <= 2
+    (~pov.game.moveTimes(pov.color)).count(fastMove >) <= 2
 
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 
