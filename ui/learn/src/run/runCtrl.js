@@ -3,7 +3,6 @@ var stages = require('../stage/list');
 var makeLevel = require('../level');
 var makeProgress = require('../progress').ctrl;
 var sound = require('../sound');
-var gtm = require('../gtm');
 
 module.exports = function(opts) {
 
