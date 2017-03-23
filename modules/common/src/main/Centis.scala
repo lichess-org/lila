@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 // maximum value = Int.MaxValue / 100 / 60 / 60 / 24 = 248 days
 case class Centis(value: Int) extends AnyVal {
 
-  def roundTenths = value / 10
+  def roundTenths: Int = math.round(value.toFloat / 10)
   def millis: Long = value * 10l
   def toDuration = FiniteDuration(millis, MILLISECONDS)
 
@@ -26,6 +26,10 @@ object Centis {
     if (centis > Int.MaxValue) {
       lila.log("common").error(s"Truncating Centis! $centis")
       Int.MaxValue
+    }
+    else if (centis < Int.MinValue) {
+      lila.log("common").error(s"Truncating Centis! $centis")
+      Int.MinValue
     }
     else centis.toInt
   }

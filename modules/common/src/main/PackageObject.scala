@@ -1,6 +1,6 @@
 package lila
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.{ Duration, FiniteDuration }
 import scala.concurrent.Future
 
 import ornicar.scalalib
@@ -189,20 +189,12 @@ trait WithPlay { self: PackageObject =>
     def lilaBus = lila.common.Bus(self)
   }
 
-  // TODO: extend AnyVal.
   implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
-    def roundSeconds = math.round(self.toMillis.toDouble / 1000)
-    def roundTenths = math.round(self.toMillis.toDouble / 100)
 
-    def toCentis = lila.common.Centis {
-      if (self.unit eq MILLISECONDS) self.length / 10
-      else self.toMillis / 10
-    }
-
-    def abs = if (self.length < 0) -self else self
+    def roundCentis: Long = math.round(self.toMillis.toDouble / 10)
   }
 
-  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] = Zero instance Duration.Zero
+  implicit val LilaFiniteDurationZero: Zero[FiniteDuration] = Zero.instance(Duration.Zero)
 
   implicit val LilaCentisZero: Zero[lila.common.Centis] = Zero instance lila.common.Centis(0)
 

@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.collection.breakOut
+
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
@@ -115,12 +117,6 @@ case class Game(
 
   // def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
-  def moveTimes: Option[List[Centis]] =
-    for {
-      a <- moveTimes(startColor)
-      b <- moveTimes(!startColor)
-    } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
-
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {
       clk <- clock
@@ -138,6 +134,12 @@ case class Game(
       case (e, i) if (i % 2) == pivot => e
     }
   }
+
+  def moveTimes: Option[List[Centis]] =
+    for {
+      a <- moveTimes(startColor)
+      b <- moveTimes(!startColor)
+    } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -207,12 +209,12 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
+      binaryMoveTimes = (!isPgnImport).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
           } :+ lastMoveDateTime.?? { lmdt =>
-            Centis(nowCentis - lmdt.getCentis - lag.??(_.toCentis.value)) atLeast 0
+            Centis(nowCentis - lmdt.getCentis - lag.??(_.roundCentis)) atLeast 0
           }
         }
       },

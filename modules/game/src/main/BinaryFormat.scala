@@ -3,7 +3,6 @@ package lila.game
 import org.joda.time.DateTime
 import scala.collection.breakOut
 import scala.collection.Searching._
-import scala.concurrent.duration._
 import scala.util.Try
 
 import chess._
@@ -13,6 +12,7 @@ import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
 import lila.common.Centis
 import lila.db.ByteArray
+import lila.common.Centis
 
 object BinaryFormat {
 
@@ -51,24 +51,21 @@ object BinaryFormat {
     private type MT = Int // centiseconds
     private val size = 16
     private val buckets = List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
-    private val encodeCutoffsMS = buckets zip buckets.tail map {
-      case (i1, i2) => (i1 + i2) * 50
+    private val encodeCutoffs = buckets zip buckets.tail map {
+      case (i1, i2) => (i1 + i2) / 2
     } toVector
 
     private val decodeList: List[(Int, MT)] = buckets.zipWithIndex.map(x => x._2 -> x._1)
     private val decodeMap: Map[Int, MT] = decodeList.toMap
 
     def write(mts: Vector[Centis]): ByteArray = ByteArray {
-      def enc(mt: Centis) = encodeCutoffsMS.search(mt.value).insertionPoint
-      (mts grouped 2 map {
+      def enc(mt: Centis) = encodeCutoffs.search(mt.value).insertionPoint
+      (mts.grouped(2).map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a) => enc(a) << 4
       }).map(_.toByte).toArray
     }
 
-    // warning! This will always return an even number of values,
-    // appending the minimum value if necessary
-    // so it's your responsibility to truncate to the desired number of values.
     def read(ba: ByteArray, turns: Int): Vector[Centis] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k =>
