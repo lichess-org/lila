@@ -24,11 +24,11 @@ object Centis {
 
   def apply(centis: Long): Centis = Centis {
     if (centis > Int.MaxValue) {
-      lila.log("common").error("Truncating Centis! $centis")
+      lila.log("common").error(s"Truncating Centis! $centis")
       Int.MaxValue
     }
     else if (centis < Int.MinValue) {
-      lila.log("common").error("Truncating Centis! $centis")
+      lila.log("common").error(s"Truncating Centis! $centis")
       Int.MinValue
     }
     else centis.toInt
