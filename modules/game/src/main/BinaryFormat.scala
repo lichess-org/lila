@@ -1,10 +1,10 @@
 package lila.game
 
-import chess.variant.Variant
 import org.joda.time.DateTime
 import scala.collection.Searching._
 
 import chess._
+import chess.variant.Variant
 
 import lila.db.ByteArray
 import lila.common.Centis
