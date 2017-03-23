@@ -1,11 +1,12 @@
 package lila.game
 
-import lila.db.{ BSON, ByteArray }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
+
+import lila.db.{ BSON, ByteArray }
 
 object BSONHandlers {
 
