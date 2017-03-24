@@ -107,24 +107,14 @@ case class Game(
       }
     }
 
-  def moveTimes(color: Color): Option[List[Centis]] = binaryMoveTimes.map { binary =>
+  def moveTimes: Option[Vector[Centis]] =
+    binaryMoveTimes.map { BinaryFormat.moveTime.read(_, playedTurns) }
+
+  def moveTimes(color: Color): Option[List[Centis]] = moveTimes map { mts =>
     val pivot = if (color == startColor) 0 else 1
-    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
+    mts.toList.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
-  }
-
-  @tailrec
-  final def interleave[A](base: Vector[A], a: List[A], b: List[A]): Vector[A] = a match {
-    case elt :: aTail => interleave(base :+ elt, b, aTail)
-    case _ => base ++ b
-  }
-
-  def moveTimes: Option[Vector[Centis]] = {
-    for {
-      a <- moveTimes(startColor)
-      b <- moveTimes(!startColor)
-    } yield interleave(Vector.empty, a, b)
   }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
