@@ -9,7 +9,7 @@ import lila.user.User
 final class SeekApi(
     coll: Coll,
     archiveColl: Coll,
-    blocking: String => Fu[Set[String]],
+    blocking: String => Fu[Set[User.ID]],
     asyncCache: lila.memo.AsyncCache.Builder,
     maxPerPage: Int,
     maxPerUser: Int
