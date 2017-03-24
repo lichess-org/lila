@@ -90,7 +90,7 @@ private[lobby] object Biter {
         !hook.userId.??(u.blocking.contains) &&
         !hook.user.??(_.blocking).contains(u.id) &&
         hook.realRatingRange.fold(true) { range =>
-          (hook.perfType.map(_.key) flatMap u.ratingMap.get) ?? range.contains
+          (hook.perfType map u.ratingAt) ?? range.contains
         }
     }
 
@@ -100,7 +100,7 @@ private[lobby] object Biter {
       !(user.blocking contains seek.user.id) &&
       !(seek.user.blocking contains user.id) &&
       seek.realRatingRange.fold(true) { range =>
-        (seek.perfType map (_.key) flatMap user.ratingMap.get) ?? range.contains
+        (seek.perfType map user.ratingAt) ?? range.contains
       }
 
   @inline final def showHookTo(hook: Hook, member: actorApi.Member): Boolean =

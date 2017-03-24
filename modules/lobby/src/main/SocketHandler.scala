@@ -70,7 +70,7 @@ private[lobby] final class SocketHandler(
           PoolApi.Joiner(
             userId = user.id,
             socketId = lila.socket.Socket.Uid(member.uid),
-            ratingMap = user.ratingMap,
+            ratingMap = user.perfMap.mapValues(_.rating),
             ratingRange = ratingRange,
             lame = user.lame,
             blocking = user.blocking

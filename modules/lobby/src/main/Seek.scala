@@ -8,6 +8,7 @@ import play.api.libs.json._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
+import lila.common.PimpedJson._
 
 // correspondence chess, persistent
 case class Seek(
@@ -35,15 +36,17 @@ case class Seek(
       (realColor compatibleWith h.realColor) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
-  private def ratingRangeCompatibleWith(h: Seek) = realRatingRange.fold(true) {
-    range => h.rating ?? range.contains
+  private def ratingRangeCompatibleWith(s: Seek) = realRatingRange.fold(true) {
+    range => s.rating ?? range.contains
   }
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
 
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
-  def rating = perfType map (_.key) flatMap user.ratingMap.get
+  def perf = perfType map user.perfAt
+
+  def rating = perf.map(_.rating)
 
   lazy val render: JsObject = Json.obj(
     "id" -> _id,
@@ -61,7 +64,7 @@ case class Seek(
       "icon" -> perfType.map(_.iconChar.toString),
       "name" -> perfType.map(_.name)
     )
-  )
+  ).add("provisional" -> perf.map(_.provisional).filter(identity))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }
@@ -103,6 +106,7 @@ object Seek {
   import reactivemongo.bson.Macros
   import lila.db.BSON.MapValue.MapHandler
   import lila.db.BSON.BSONJodaDateTimeHandler
+  private[lobby] implicit val lobbyPerfBSONHandler = Macros.handler[LobbyPerf]
   private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
   private[lobby] implicit val seekBSONHandler = Macros.handler[Seek]
 }
