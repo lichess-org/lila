@@ -17,7 +17,7 @@ function renderHook(ctrl, hook) {
     }), (hook.rating ? m('span.ulink.ulpt', {
       'data-href': '/@/' + hook.u
     }, hook.u) : 'Anonymous'),
-    hook.rating ? hook.rating : '',
+    (hook.rating ? hook.rating : '') + (hook.prov ? '?' : ''),
     hook.clock, [m('span', {
       class: 'varicon',
       'data-icon': ctrl.perfIcons[hook.perf]
