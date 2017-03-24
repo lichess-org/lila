@@ -249,6 +249,9 @@ lichess.StrongSocket = function(url, version, settings) {
     },
     averageLag: function() {
       return averageLag;
+    },
+    getVersion: function() {
+      return version;
     }
   };
 };

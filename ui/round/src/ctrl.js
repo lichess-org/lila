@@ -44,7 +44,8 @@ module.exports = function(opts) {
     challengeRematched: false,
     justDropped: null,
     justCaptured: null,
-    preDrop: null
+    preDrop: null,
+    lastDrawOfferAtPly: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -53,7 +54,7 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this), 3000);
 
-  this.socket = new socket(opts.socketSend, this);
+  this.socket = new socket(opts.socket, this);
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
@@ -526,6 +527,17 @@ module.exports = function(opts) {
 
   this.forceResignable = function() {
     return !this.data.opponent.ai && this.data.clock && this.data.opponent.isGone && game.resignable(this.data);
+  }.bind(this);
+
+  this.canOfferDraw = function() {
+    return game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < (this.vm.ply - 20);
+  }.bind(this);
+
+  this.offerDraw = function() {
+    if (this.canOfferDraw()) {
+      this.lastDrawOfferAtPly = this.vm.ply;
+      this.socket.sendLoading('draw-yes', null)
+    }
   }.bind(this);
 
   this.trans = lichess.trans(opts.i18n);

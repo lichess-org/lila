@@ -334,6 +334,10 @@ private[controllers] trait LilaController
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
 
+  protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
+    if (HTTPRequest isXhr ctx.req) res
+    else Redirect(routes.Lobby.home).fuccess
+
   protected def Reasonable(page: Int, max: Int = 40, errorPage: => Fu[Result] = BadRequest("resource too old").fuccess)(result: => Fu[Result]): Fu[Result] =
     if (page < max) result else errorPage
 

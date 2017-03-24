@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.collection.breakOut
+import scala.annotation.tailrec
 
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
@@ -126,11 +126,18 @@ case class Game(
     }
   }
 
-  def moveTimes: Option[List[Centis]] =
+  @tailrec
+  final private def interleave[A](base: Vector[A], a: List[A], b: List[A]): Vector[A] = a match {
+    case elt :: aTail => interleave(base :+ elt, b, aTail)
+    case _ => base ++ b
+  }
+
+  def moveTimes: Option[Vector[Centis]] = {
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield Array(a, b).flatMap(_.zipWithIndex).sortBy(_._2).map(_._1)(breakOut)
+    } yield interleave(Vector.empty, a, b)
+  }
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
