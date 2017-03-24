@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import actorApi.LobbyUser
 import lila.common.PimpedJson._
 import lila.game.PerfPicker
 import lila.rating.RatingRange

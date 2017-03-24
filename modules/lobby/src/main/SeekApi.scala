@@ -3,7 +3,6 @@ package lila.lobby
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import actorApi.LobbyUser
 import lila.db.dsl._
 import lila.user.User
 
@@ -64,7 +63,7 @@ final class SeekApi(
     }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.find($doc("_id" -> id)).uno[Seek]
+    coll.find($id(id)).uno[Seek]
 
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if seeks.size <= maxPerUser => funit

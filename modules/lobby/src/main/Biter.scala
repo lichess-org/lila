@@ -2,7 +2,7 @@ package lila.lobby
 
 import chess.{ Game => ChessGame, Board, Color => ChessColor }
 
-import actorApi.{ JoinHook, JoinSeek, LobbyUser }
+import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ GameRepo, Game, Player, PerfPicker }
 import lila.user.{ User, UserRepo }
 
