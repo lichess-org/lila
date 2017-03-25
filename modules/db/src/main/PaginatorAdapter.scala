@@ -25,9 +25,9 @@ final class Adapter[A: BSONDocumentReader](
     readPreference: ReadPreference = ReadPreference.primary
 ) extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = collection.count(Some(selector))
+  def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
 
-  def slice(offset: Int, length: Int): Fu[Seq[A]] =
+  def slice(offset: Int, length: Int): Fu[List[A]] =
     collection.find(selector, projection)
       .sort(sort)
       .skip(offset)
