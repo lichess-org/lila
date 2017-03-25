@@ -1,6 +1,8 @@
 package lila.game
 
 import scala.annotation.tailrec
+import scala.collection.breakOut
+import scala.concurrent.duration._
 
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
@@ -8,7 +10,6 @@ import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.common.Centis
 import lila.db.ByteArray
@@ -137,6 +138,8 @@ case class Game(
       b <- moveTimes(!startColor)
     } yield interleave(Vector.empty, a, b)
   }
+
+  def bothClockStates = clockHistory.map(_ bothClockStates startColor)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -729,4 +732,11 @@ case class ClockHistory(
 
   def get(color: Color): Vector[Centis] =
     if (color.white) white else black
+
+  // first state is of the color that moved first.
+  // #TODO naive implementation; optimize me maybe?
+  def bothClockStates(firstMoveBy: Color): List[Centis] =
+    firstMoveBy.fold(white zip black, black zip white).flatMap {
+      case (a, b) => List(a, b)
+    }(breakOut)
 }

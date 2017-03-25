@@ -6,8 +6,8 @@ import scala.math
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
-import lila.common.ApiVersion
 import lila.common.PimpedJson._
+import lila.common.{ Centis, ApiVersion }
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
@@ -126,6 +126,8 @@ final class JsonView(
           ).noNull
       }
 
+  private def centisToTenths(centis: Seq[Centis]): Seq[Int] = centis.map(_.roundTenths)
+
   def watcherJson(
     pov: Pov,
     pref: Pref,
@@ -144,7 +146,8 @@ final class JsonView(
           Json.obj(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
-                "moveTimes" -> (game.moveTimes.map(_.map(_.roundTenths)) ifTrue withMoveTimes),
+                "moveTimes" -> (withMoveTimes ?? game.moveTimes.map(centisToTenths)),
+                "clockStates" -> (withMoveTimes ?? game.bothClockStates.map(centisToTenths)),
                 "division" -> withDivision.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)
