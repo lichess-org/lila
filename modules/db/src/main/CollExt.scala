@@ -1,7 +1,7 @@
 package lila.db
 
 import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands
+import reactivemongo.api.collections.bson.BSONBatchCommands._
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 import reactivemongo.core.protocol.MongoWireVersion
@@ -32,7 +32,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byIds[D: BSONDocumentReader](ids: Iterable[String]): Fu[List[D]] =
       byIds[D, String](ids)
 
-    def countSel(selector: Bdoc): Fu[Int] = coll count selector.some
+    def countSel(
+      selector: Bdoc,
+      readPreference: ReadPreference = ReadPreference.primary
+    ): Fu[Int] =
+      coll.runValueCommand(
+        CountCommand.Count(query = selector.some, limit = 0, skip = 0, hint = None),
+        readPreference
+      )
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
 
@@ -115,14 +122,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     // because mongodb collection.aggregate doesn't have the readPreference argument!
     def aggregateWithReadPreference(
-      firstOperator: BSONBatchCommands.AggregationFramework.PipelineOperator,
-      otherOperators: List[BSONBatchCommands.AggregationFramework.PipelineOperator] = Nil,
+      firstOperator: AggregationFramework.PipelineOperator,
+      otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
       readPreference: ReadPreference
-    ): Fu[BSONBatchCommands.AggregationFramework.AggregationResult] = {
+    ): Fu[AggregationFramework.AggregationResult] = {
 
-      import BSONBatchCommands.{ AggregateWriter, AggregateReader }
-
-      coll.runWithResponse(BSONBatchCommands.AggregationFramework.Aggregate(
+      coll.runWithResponse(AggregationFramework.Aggregate(
         firstOperator :: otherOperators,
         allowDiskUse = false,
         cursor = None,

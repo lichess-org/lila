@@ -27,7 +27,7 @@ final class Cached(
 
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
-    f = coll.countSel,
+    f = coll.countSel(_),
     expireAfter = _.ExpireAfterWrite(5.seconds)
   )
 
@@ -41,7 +41,7 @@ final class Cached(
 
   private val countCache = mongoCache[Bdoc, Int](
     prefix = "game:count",
-    f = coll.countSel,
+    f = coll.countSel(_),
     timeToLive = 1 hour,
     keyToString = lila.db.BSON.hashDoc
   )
