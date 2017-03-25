@@ -120,10 +120,9 @@ case class Game(
       }.toList
     }
   } orElse binaryMoveTimes.map { binary =>
-    val pivot = if (color == startColor) 0 else 1
-    BinaryFormat.moveTime.read(binary, playedTurns).toList.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
-    }
+    var base = BinaryFormat.moveTime.read(binary, playedTurns)
+    if (color != startColor) base = base.drop(1)
+    base.grouped(2).map(_.head).toList
   }
 
   @tailrec
