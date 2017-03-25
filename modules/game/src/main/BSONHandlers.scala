@@ -103,7 +103,7 @@ object BSONHandlers {
           start = Centis(clk.limit * 100)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
-          history <- BinaryFormat.clockHistory.read(start, bw, bb)
+          history <- BinaryFormat.clockHistory.read(start, bw, bb)(id)
         } yield history,
         mode = Mode(r boolD rated),
         variant = realVariant,

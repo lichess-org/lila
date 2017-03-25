@@ -37,10 +37,10 @@ object BinaryFormat {
     def readSide(start: Centis, ba: ByteArray): Vector[Centis] =
       ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray): Option[ClockHistory] = Try {
+    def read(start: Centis, bw: ByteArray, bb: ByteArray)(gameId: String /* for logging */ ): Option[ClockHistory] = Try {
       ClockHistory(readSide(start, bw), readSide(start, bb))
     }.fold(
-      e => { logger.warn("Exception decoding history", e); none },
+      e => { logger.warn(s"Exception decoding history on game $gameId", e); none },
       some
     )
   }
