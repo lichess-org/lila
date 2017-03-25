@@ -1144,6 +1144,24 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   padding-bottom: 3px;
 }
 
+.lichess_ground .clock {
+  position: absolute;
+  right: -40px;
+  width: 40px;
+  padding: 8px;
+  box-sizing: border-box;
+  font-family: 'Roboto Mono', 'Roboto';
+}
+.lichess_ground .clock.top {
+  top: 40px;
+}
+.lichess_ground .clock.bottom {
+  bottom: 37px;
+}
+.lichess_ground .clock.active {
+  font-weight: bold;
+}
+
 .tview2 {
   display: flex;
   flex-flow: row wrap;
