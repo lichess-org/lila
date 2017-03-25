@@ -49,7 +49,7 @@ final class CoachApi(
 
   def listedWithUserList: Fu[List[Coach.WithUser]] =
     all.map(_.filter(_.isListed)) flatMap { coaches =>
-      UserRepo.byIds(coaches.map(_.id.value)) map { users =>
+      UserRepo.byIdsSecondary(coaches.map(_.id.value)) map { users =>
         coaches.flatMap { coach =>
           users find coach.is filter Granter(_.Coach) map { Coach.WithUser(coach, _) }
         }

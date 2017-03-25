@@ -57,7 +57,7 @@ final class TeamApi(
   }
 
   def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id dmap (_.toList) flatMap coll.team.byIds[Team]
+    cached teamIds me.id flatMap { ids => coll.team.byIds[Team](ids.toArray) }
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 

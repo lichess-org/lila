@@ -31,6 +31,8 @@ object UserRepo {
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
+  def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
+
   def byEmail(email: String): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
 
   def idByEmail(email: String): Fu[Option[String]] =
@@ -48,7 +50,7 @@ object UserRepo {
     coll.byOrderedIds[User, User.ID](ids)(_.id)
 
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.list[User](enabledSelect ++ $inIds(ids))
+    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
   def enabledById(id: ID): Fu[Option[User]] =
     coll.uno[User](enabledSelect ++ $id(id))

@@ -13,11 +13,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector).uno[D]
 
-    def list[D: BSONDocumentReader](selector: Bdoc): Fu[List[D]] =
-      coll.find(selector).list[D]()
+    def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
+      coll.find(selector).list[D](readPreference = readPreference)
 
-    def list[D: BSONDocumentReader](selector: Bdoc, max: Int): Fu[List[D]] =
-      coll.find(selector).list[D](max)
+    def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
+      coll.find(selector).list[D](limit = limit)
 
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
       uno[D]($id(id))
@@ -26,11 +26,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
 
-    def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I]): Fu[List[D]] =
+    def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
       list[D]($inIds(ids))
 
-    def byIds[D: BSONDocumentReader](ids: Iterable[String]): Fu[List[D]] =
-      byIds[D, String](ids)
+    def byIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
+      byIds[D, String](ids, readPreference)
 
     def countSel(
       selector: Bdoc,
@@ -54,8 +54,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
     //   byOrderedIds[String, A](ids)
 
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I])(docId: D => I): Fu[List[Option[D]]] =
-      byIds[D, I](ids) map { docs =>
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[Option[D]]] =
+      byIds[D, I](ids, readPreference) map { docs =>
         val docsMap = docs.map(u => docId(u) -> u).toMap
         ids.map(docsMap.get).toList
       }

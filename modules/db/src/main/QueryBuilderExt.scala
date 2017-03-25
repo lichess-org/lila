@@ -21,7 +21,7 @@ trait QueryBuilderExt { self: dsl =>
 
     def list[A: BSONDocumentReader](limit: Int): Fu[List[A]] = list[A](limit.some)
 
-    def list[A: BSONDocumentReader](): Fu[List[A]] = list[A](none)
+    def list[A: BSONDocumentReader](readPreference: ReadPreference = ReadPreference.primary): Fu[List[A]] = list[A](none)
 
     // like one, but with stopOnError defaulting to false
     def uno[A: BSONDocumentReader]: Fu[Option[A]] = uno[A](ReadPreference.primary)
