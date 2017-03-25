@@ -11,11 +11,24 @@ module.exports = function(ctrl) {
   ];
 }
 
+// ply white black
+// 0   0     1
+// 1   0     1
+// 2   0     1
+// 3   2     1
+// 4   2     3
+// 5   4     3
+// 6   4     5
+// 7   6     5
+// 8   6     7
+// 9   8     7
+
 function renderClock(ctrl, states, isWhite, position) {
-  var ply = ctrl.vm.node.ply;
-  var i = Math.max(0, ply - ctrl.tree.root.ply - 2);
-  i = Math.floor(i / 2) * 2;
-  if (!isWhite) i++;
+  var ply = ctrl.vm.node.ply, i;
+  var i = ply - ctrl.tree.root.ply;
+  if (isWhite) i = Math.floor((i - 1) / 2) * 2;
+  else i = Math.floor(i / 2) * 2 - 1;
+  if (i < 0) i = isWhite ? 0 : 1;
   var tenths = states[i];
   return m('div', {
     class: 'clock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
