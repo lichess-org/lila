@@ -1,5 +1,7 @@
 package lila.db
 
+import scala.collection.breakOut
+
 import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands._
 import reactivemongo.api.commands.GetLastError
@@ -44,11 +46,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
-      coll.find($inIds(ids)).cursor[D](readPreference = readPreference).
-        collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]()).
-        map { docs =>
-          val docsMap = docs.map(u => docId(u) -> u).toMap
-          ids.flatMap(docsMap.get).toList
+      coll.find($inIds(ids)).cursor[D](readPreference = readPreference)
+        .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
+        .map { docs =>
+          val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
+          ids.flatMap(docsMap.get)(breakOut)
         }
 
     // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
