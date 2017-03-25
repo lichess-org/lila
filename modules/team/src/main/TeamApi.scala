@@ -66,7 +66,7 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] = for {
     requests ← RequestRepo findByTeam team.id
-    users ← UserRepo byOrderedIds requests.map(_.user)
+    users ← UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }
@@ -74,7 +74,7 @@ final class TeamApi(
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for {
     teamIds ← TeamRepo teamIdsByCreator user.id
     requests ← RequestRepo findByTeams teamIds
-    users ← UserRepo byOrderedIds requests.map(_.user)
+    users ← UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }

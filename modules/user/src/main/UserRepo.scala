@@ -46,8 +46,8 @@ object UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
-  def byOrderedIds(ids: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User, User.ID](ids)(_.id)
+  def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
+    coll.byOrderedIds[User, User.ID](ids, readPreference)(_.id)
 
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
@@ -79,7 +79,7 @@ object UserRepo {
       }
 
   def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User, User.ID](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    byOrderedIds(userIds, ReadPreference.secondaryPreferred)
 
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)
