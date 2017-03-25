@@ -58,8 +58,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[Option[D]]] =
       byIds[D, I](ids, readPreference) map { docs =>
-        val docsMap = docs.map(u => docId(u) -> u).toMap
-        ids.map(docsMap.get).toList
+        val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
+        ids.map(docsMap.get)(breakOut)
       }
 
     def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
