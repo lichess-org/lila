@@ -57,7 +57,7 @@ final class TeamApi(
   }
 
   def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id dmap (_.toList) flatMap coll.team.byIds[Team]
+    cached teamIds me.id flatMap { ids => coll.team.byIds[Team](ids.toArray) }
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
@@ -66,7 +66,7 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] = for {
     requests ← RequestRepo findByTeam team.id
-    users ← UserRepo byOrderedIds requests.map(_.user)
+    users ← UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }
@@ -74,7 +74,7 @@ final class TeamApi(
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for {
     teamIds ← TeamRepo teamIdsByCreator user.id
     requests ← RequestRepo findByTeams teamIds
-    users ← UserRepo byOrderedIds requests.map(_.user)
+    users ← UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }

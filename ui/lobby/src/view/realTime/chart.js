@@ -72,7 +72,7 @@ function renderHook(ctrl, hook) {
   var html = '';
   if (hook.rating) {
     html += '<a class="opponent ulpt" href="/@/' + hook.u + '">' + hook.u.substr(0, 14) + '</a>';
-    html += '<span class="rating">' + hook.rating + '</span>';
+    html += '<span class="rating">' + hook.rating + (hook.prov ? '?' : '') + '</span>';
   } else {
     html += '<span class="opponent anon">Anonymous</span>';
   }

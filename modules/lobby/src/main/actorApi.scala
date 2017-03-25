@@ -6,25 +6,6 @@ import lila.socket.SocketMember
 import lila.socket.Socket.Uid
 import lila.user.User
 
-private[lobby] case class LobbyUser(
-  id: String,
-  username: String,
-  lame: Boolean,
-  ratingMap: Map[String, Int],
-  blocking: Set[String]
-)
-
-private[lobby] object LobbyUser {
-
-  def make(user: User, blocking: Set[String]) = LobbyUser(
-    id = user.id,
-    username = user.username,
-    lame = user.lame,
-    ratingMap = user.perfs.ratingMap,
-    blocking = blocking
-  )
-}
-
 private[lobby] case class Member(
     channel: JsChannel,
     user: Option[LobbyUser],

@@ -34,7 +34,8 @@ object Team {
 
     def contains(teamId: ID) = value contains teamId
 
-    def toList = if (value.isEmpty) Nil else value.split(IdsStr.separator).toList
+    def toArray: Array[String] = value.split(IdsStr.separator)
+    def toList = if (value.isEmpty) Nil else toArray.toList
   }
 
   object IdsStr {

@@ -1,7 +1,9 @@
 package lila.db
 
+import scala.collection.breakOut
+
 import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands
+import reactivemongo.api.collections.bson.BSONBatchCommands._
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 import reactivemongo.core.protocol.MongoWireVersion
@@ -13,11 +15,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector).uno[D]
 
-    def list[D: BSONDocumentReader](selector: Bdoc): Fu[List[D]] =
-      coll.find(selector).list[D]()
+    def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
+      coll.find(selector).list[D](readPreference = readPreference)
 
-    def list[D: BSONDocumentReader](selector: Bdoc, max: Int): Fu[List[D]] =
-      coll.find(selector).list[D](max)
+    def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
+      coll.find(selector).list[D](limit = limit)
 
     def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
       uno[D]($id(id))
@@ -26,31 +28,38 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
 
-    def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I]): Fu[List[D]] =
+    def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
       list[D]($inIds(ids))
 
-    def byIds[D: BSONDocumentReader](ids: Iterable[String]): Fu[List[D]] =
-      byIds[D, String](ids)
+    def byIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
+      byIds[D, String](ids, readPreference)
 
-    def countSel(selector: Bdoc): Fu[Int] = coll count selector.some
+    def countSel(
+      selector: Bdoc,
+      readPreference: ReadPreference = ReadPreference.primary
+    ): Fu[Int] =
+      coll.runValueCommand(
+        CountCommand.Count(query = selector.some, limit = 0, skip = 0, hint = None),
+        readPreference
+      )
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
-      coll.find($inIds(ids)).cursor[D](readPreference = readPreference).
-        collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]()).
-        map { docs =>
-          val docsMap = docs.map(u => docId(u) -> u).toMap
-          ids.flatMap(docsMap.get).toList
+      coll.find($inIds(ids)).cursor[D](readPreference = readPreference)
+        .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
+        .map { docs =>
+          val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
+          ids.flatMap(docsMap.get)(breakOut)
         }
 
     // def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
     //   byOrderedIds[String, A](ids)
 
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I])(docId: D => I): Fu[List[Option[D]]] =
-      byIds[D, I](ids) map { docs =>
-        val docsMap = docs.map(u => docId(u) -> u).toMap
-        ids.map(docsMap.get).toList
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[Option[D]]] =
+      byIds[D, I](ids, readPreference) map { docs =>
+        val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
+        ids.map(docsMap.get)(breakOut)
       }
 
     def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
@@ -115,14 +124,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     // because mongodb collection.aggregate doesn't have the readPreference argument!
     def aggregateWithReadPreference(
-      firstOperator: BSONBatchCommands.AggregationFramework.PipelineOperator,
-      otherOperators: List[BSONBatchCommands.AggregationFramework.PipelineOperator] = Nil,
+      firstOperator: AggregationFramework.PipelineOperator,
+      otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
       readPreference: ReadPreference
-    ): Fu[BSONBatchCommands.AggregationFramework.AggregationResult] = {
+    ): Fu[AggregationFramework.AggregationResult] = {
 
-      import BSONBatchCommands.{ AggregateWriter, AggregateReader }
-
-      coll.runWithResponse(BSONBatchCommands.AggregationFramework.Aggregate(
+      coll.runWithResponse(AggregationFramework.Aggregate(
         firstOperator :: otherOperators,
         allowDiskUse = false,
         cursor = None,

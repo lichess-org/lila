@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import actorApi.LobbyUser
 import lila.common.PimpedJson._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -52,22 +51,24 @@ case class Hook(
 
   def userId = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
   def lame = user ?? (_.lame)
+
+  lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
+  def rating: Option[Int] = perf.map(_.rating)
 
   lazy val render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
-    "u" -> user.map(_.username),
-    "rating" -> rating,
-    "variant" -> realVariant.exotic.option(realVariant.key),
-    "ra" -> realMode.rated.option(1),
     "clock" -> clock.show,
     "t" -> clock.estimateTotalTime,
-    "s" -> speed.id,
-    "c" -> chess.Color(color).map(_.name),
-    "perf" -> perfType.map(_.name)
-  ).noNull
+    "s" -> speed.id
+  ).add("prov" -> perf.map(_.provisional).filter(identity))
+    .add("u" -> user.map(_.username))
+    .add("rating" -> rating)
+    .add("variant" -> realVariant.exotic.option(realVariant.key))
+    .add("ra" -> realMode.rated.option(1))
+    .add("c" -> chess.Color(color).map(_.name))
+    .add("perf" -> perfType.map(_.name))
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 

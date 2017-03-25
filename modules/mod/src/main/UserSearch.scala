@@ -25,7 +25,7 @@ final class UserSearch(
     else searchUsername(query)
 
   private def searchIp(ip: String) =
-    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.byOrderedIds
+    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

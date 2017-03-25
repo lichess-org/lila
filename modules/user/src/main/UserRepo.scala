@@ -31,6 +31,8 @@ object UserRepo {
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
+  def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
+
   def byEmail(email: String): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
 
   def idByEmail(email: String): Fu[Option[String]] =
@@ -44,11 +46,11 @@ object UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
-  def byOrderedIds(ids: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User, User.ID](ids)(_.id)
+  def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
+    coll.byOrderedIds[User, User.ID](ids, readPreference)(_.id)
 
   def enabledByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.list[User](enabledSelect ++ $inIds(ids))
+    coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
   def enabledById(id: ID): Fu[Option[User]] =
     coll.uno[User](enabledSelect ++ $id(id))
@@ -77,7 +79,7 @@ object UserRepo {
       }
 
   def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
-    coll.byOrderedIds[User, User.ID](userIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
+    byOrderedIds(userIds, ReadPreference.secondaryPreferred)
 
   private[user] def allSortToints(nb: Int) =
     coll.find($empty).sort($sort desc F.toints).cursor[User]().gather[List](nb)

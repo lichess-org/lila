@@ -105,7 +105,7 @@ object Relation extends LilaController {
   )
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
-    UserRepo byOrderedIds userIds.map(UserModel.normalize) flatMap { users =>
+    UserRepo usersFromSecondary userIds.map(UserModel.normalize) flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>

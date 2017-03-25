@@ -13,7 +13,7 @@ function renderSeek(ctrl, seek) {
     }), (seek.rating ? m('span.ulpt', {
       'data-href': '/@/' + seek.username
     }, seek.username) : 'Anonymous'),
-    seek.rating ? seek.rating : '',
+    seek.rating + (seek.provisional ? '?' : ''),
     seek.days ? ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞', [m('span', {
       class: 'varicon',
       'data-icon': seek.perf.icon
