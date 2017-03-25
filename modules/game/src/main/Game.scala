@@ -1,7 +1,5 @@
 package lila.game
 
-import scala.annotation.tailrec
-import scala.collection.breakOut
 import scala.concurrent.duration._
 
 import chess.Color.{ White, Black }
@@ -11,7 +9,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
 
-import lila.common.Centis
+import lila.common.{ Centis, Sequence }
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -126,17 +124,11 @@ case class Game(
     mts.grouped(2).flatMap(_.headOption).toList
   }
 
-  @tailrec
-  final private def interleave[A](base: Vector[A], a: List[A], b: List[A]): Vector[A] = a match {
-    case elt :: aTail => interleave(base :+ elt, b, aTail)
-    case _ => base ++ b
-  }
-
   def moveTimes: Option[Vector[Centis]] = {
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield interleave(Vector.empty, a, b)
+    } yield Sequence.interleave(Vector.empty, a, b)
   }
 
   def bothClockStates = clockHistory.map(_ bothClockStates startColor)
@@ -734,9 +726,10 @@ case class ClockHistory(
     if (color.white) white else black
 
   // first state is of the color that moved first.
-  // #TODO naive implementation; optimize me maybe?
-  def bothClockStates(firstMoveBy: Color): List[Centis] =
-    firstMoveBy.fold(white zip black, black zip white).flatMap {
-      case (a, b) => List(a, b)
-    }(breakOut)
+  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
+    Sequence.interleave(
+      Vector.empty,
+      firstMoveBy.fold(white, black),
+      firstMoveBy.fold(black, white)
+    )
 }
