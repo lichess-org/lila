@@ -79,8 +79,9 @@ object BSONHandlers {
       val createdAtValue = r date createdAt
       val realVariant = Variant(r intD variant) | chess.variant.Standard
       val gameClock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2)))
+      val gameId = r str id
       Game(
-        id = r str id,
+        id = gameId,
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
         binaryPieces = r bytes binaryPieces,
@@ -103,7 +104,7 @@ object BSONHandlers {
           start = Centis(clk.limit * 100)
           bw <- r bytesO whiteClockHistory
           bb <- r bytesO blackClockHistory
-          history <- BinaryFormat.clockHistory.read(start, bw, bb)(id)
+          history <- BinaryFormat.clockHistory.read(start, bw, bb)(gameId)
         } yield history,
         mode = Mode(r boolD rated),
         variant = realVariant,
