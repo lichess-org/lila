@@ -39,26 +39,26 @@ object Analyse extends LilaController {
           Env.api.pgnDump(pov.game, initialFen) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
-                tv = none,
+                tv = userTv.map { u => lila.round.OnUserTv(u.id) },
                 analysis,
                 initialFenO = initialFen.some,
                 withMoveTimes = true,
                 withDivision = true,
                 withOpening = true) map { data =>
-                Ok(html.analyse.replay(
-                  pov,
-                  data,
-                  initialFen,
-                  Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-                  analysis,
-                  analysisInProgress,
-                  simul,
-                  crosstable,
-                  userTv,
-                  chat,
-                  bookmarked = bookmarked
-                ))
-              }
+                  Ok(html.analyse.replay(
+                    pov,
+                    data,
+                    initialFen,
+                    Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                    analysis,
+                    analysisInProgress,
+                    simul,
+                    crosstable,
+                    userTv,
+                    chat,
+                    bookmarked = bookmarked
+                  ))
+                }
           }
       }
     }
