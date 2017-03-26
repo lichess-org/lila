@@ -63,6 +63,7 @@ final class JsonView(
     "animation" -> Json.obj(
       "duration" -> p.animationFactor * animationDuration.toMillis
     ),
+    "destination" -> p.destination,
     "moveEvent" -> p.moveEvent,
     "highlight" -> p.highlight,
     "is3d" -> p.is3d
