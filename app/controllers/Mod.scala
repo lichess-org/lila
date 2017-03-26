@@ -141,10 +141,10 @@ object Mod extends LilaController {
   def communication(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
       for {
-        povs <- lila.game.GameRepo.recentPovsByUser(user, 100)
-        chats <- povs.map(p => Env.chat.api.playerChat findNonEmpty p.gameId).sequence
+        povs <- lila.game.GameRepo.recentPovsByUserFromSecondary(user, 100)
+        chats <- Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId)
         povWithChats = (povs zip chats) collect {
-          case (p, Some(c)) => p -> c
+          case (p, Some(c)) if c.nonEmpty => p -> c
         } take 9
         threads <- {
           lila.message.ThreadRepo.visibleByUser(user.id, 50) map {
