@@ -7,7 +7,7 @@ package lila.shutup
  */
 private object Dictionary {
 
-  def en: List[String] = dict("""
+  def en = dict("""
 (c|k)oc?k(y|suc?ker|)
 (c|k)um(shot|)
 (c|k)unt(ing|)
@@ -164,5 +164,10 @@ whore?
 wog
 """)
 
-  private def dict(words: String) = words.lines.filter(_.nonEmpty).toList
+  def ru = dict("""
+сука
+пизда
+""")
+
+  private def dict(words: String) = words.lines.filter(_.nonEmpty)
 }
