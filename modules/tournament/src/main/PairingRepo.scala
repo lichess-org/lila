@@ -86,7 +86,7 @@ object PairingRepo {
           doc.getAs[String]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
-        }.toMap
+        }(scala.collection.breakOut)
       }
   }
 

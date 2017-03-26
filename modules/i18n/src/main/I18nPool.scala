@@ -9,7 +9,7 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   def nonDefaultLangs = langs - default
 
-  val names: Map[String, String] = (langs map langNames).toMap
+  val names: Map[String, String] = langs.map(langNames)(scala.collection.breakOut)
 
   val contains: Set[String] = langs.map(_.language)
 

@@ -55,7 +55,7 @@ object PovToEntry {
             moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
             boards = boards,
             movetimes = movetimes,
-            advices = an.?? { _.advices.map { a => a.info.ply -> a }.toMap }
+            advices = an.?? { _.advices.map { a => a.info.ply -> a }(scala.collection.breakOut) }
           )
         }
     }

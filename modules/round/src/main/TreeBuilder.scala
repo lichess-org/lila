@@ -50,7 +50,7 @@ object TreeBuilder {
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.??(_.advices.map { a =>
           a.ply -> a
-        }.toMap)
+        }(scala.collection.breakOut))
         val root = Root(
           ply = init.turns,
           fen = fen,

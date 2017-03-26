@@ -45,7 +45,7 @@ private object TournamentStats {
   }
 
   def readAggregation(rating: Int)(docs: List[Bdoc]): TournamentStats = {
-    val colorStats = docs.map { doc =>
+    val colorStats: Map[Option[Color], ColorStats] = docs.map { doc =>
       doc.getAs[Boolean]("_id").map(Color.apply) ->
         ColorStats(
           ~doc.getAs[Int]("games"),
@@ -53,7 +53,7 @@ private object TournamentStats {
           ~doc.getAs[Int]("b1"),
           ~doc.getAs[Int]("b2")
         )
-    }.toMap
+    }(scala.collection.breakOut)
     TournamentStats(
       games = colorStats.foldLeft(0)(_ + _._2.games),
       moves = colorStats.foldLeft(0)(_ + _._2.moves),

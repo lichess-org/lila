@@ -62,9 +62,9 @@ object JsonQuestion {
     dimension = q.dimension.key,
     metric = q.metric.key,
     filters = q.filters.map {
-    case Filter(dimension, selected) =>
-      dimension.key -> selected.map(Dimension.valueKey(dimension))
-  } toMap
+      case Filter(dimension, selected) =>
+        dimension.key -> selected.map(Dimension.valueKey(dimension))
+    }(scala.collection.breakOut)
   )
 
   implicit val QuestionFormats = Json.format[JsonQuestion]

@@ -215,7 +215,7 @@ final class ReportApi(
           doc.getAs[String]("_id") flatMap Reason.apply flatMap { reason =>
             doc.getAs[Int]("nb") map { reason -> _ }
           }
-        }.toMap
+        }(scala.collection.breakOut)
       }
   }
 

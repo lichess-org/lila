@@ -125,6 +125,6 @@ final class JsonView {
     "dimension" -> dimension,
     "filters" -> (filters.split('/').map(_ split ':').collect {
       case Array(key, values) => key -> JsArray(values.split(',').map(JsString.apply))
-    }.toMap: Map[String, JsArray])
+    }(scala.collection.breakOut): Map[String, JsArray])
   )
 }

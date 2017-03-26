@@ -353,7 +353,7 @@ object UserRepo {
     .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]()).map { docs =>
       docs.map { doc =>
         ~doc.getAs[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
-      }.toMap
+      }(scala.collection.breakOut)
     }
 
   def setSeenAt(id: ID) {
