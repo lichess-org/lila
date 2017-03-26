@@ -3,7 +3,7 @@ package lila.game
 import org.joda.time.DateTime
 import scala.collection.breakOut
 import scala.collection.Searching._
-import scala.util.Try
+import scala.collection.breakOut
 
 import chess._
 import chess.variant.Variant
@@ -54,8 +54,7 @@ object BinaryFormat {
       case (i1, i2) => (i1 + i2) / 2
     } toVector
 
-    private val decodeList: List[(Int, MT)] = buckets.zipWithIndex.map(x => x._2 -> x._1)
-    private val decodeMap: Map[Int, MT] = decodeList.toMap
+    private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
 
     def write(mts: Vector[Centis]): ByteArray = ByteArray {
       def enc(mt: Centis) = encodeCutoffs.search(mt.value).insertionPoint
@@ -215,9 +214,9 @@ object BinaryFormat {
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7, variant) map { role => Piece(Color((int & 8) == 0), role) }
       val pieceInts = ba.value flatMap splitInts
-      (Pos.all zip pieceInts flatMap {
+      (Pos.all zip pieceInts).flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
-      }).toMap
+      }(breakOut)
     }
 
     // cache standard start position

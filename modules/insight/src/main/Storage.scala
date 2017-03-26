@@ -52,7 +52,7 @@ private final class Storage(coll: Coll) {
           perfType <- doc.getAs[PerfType]("_id")
           nb <- doc.getAs[Int]("nb")
         } yield perfType -> nb
-      }.toMap
+      }(scala.collection.breakOut)
     }
 }
 

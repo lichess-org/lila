@@ -71,8 +71,11 @@ private[round] final class Titivate(
                 GameRepo.setCheckAt(game, DateTime.now plusHours hours)
 
               case None =>
-                val days = game.daysPerTurn | game.hasAi.fold(Game.aiAbandonedDays, Game.abandonedDays)
-                GameRepo.setCheckAt(game, DateTime.now plusDays days)
+                val hours = game.daysPerTurn.fold(
+                  if (game.hasAi) Game.aiAbandonedHours
+                  else Game.abandonedDays * 24
+                )(_ * 24)
+                GameRepo.setCheckAt(game, DateTime.now plusHours hours)
             }
           } inject (count + 1)
         })

@@ -152,7 +152,7 @@ function jumpButton(icon, effect, enabled) {
     attrs: {
       'data-act': effect,
       'data-icon': icon,
-      disabled: !enabled
+      class: enabled ? '' : 'disabled'
     }
   };
 }
@@ -171,14 +171,29 @@ function dataAct(e) {
     e.target.parentNode.getAttribute('data-act');
 }
 
+
+function navClick(ctrl, action) {
+  var repeat = function() {
+    control[action](ctrl);
+    m.redraw();
+    delay = Math.max(100, delay - delay / 15);
+    timeout = setTimeout(repeat, delay);
+  };
+  var delay = 350;
+  var timeout = setTimeout(repeat, 500);
+  control[action](ctrl);
+  document.addEventListener('mouseup', function() {
+    clearTimeout(timeout);
+  }, {once: true});
+}
+
 function buttons(ctrl) {
   var canJumpPrev = ctrl.vm.path !== '';
   var canJumpNext = !!ctrl.vm.node.children[0];
   return m('div.game_control', {
     config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
-      if (action === 'prev') control.prev(ctrl);
-      else if (action === 'next') control.next(ctrl);
+      if (action === 'prev' || action === 'next') navClick(ctrl, action);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
       else if (action === 'explorer') ctrl.toggleExplorer();

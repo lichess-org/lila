@@ -25,9 +25,9 @@ case class TransInfo(
 
 private[i18n] case class TransInfos(all: List[TransInfo]) {
 
-  lazy val byCode = all map { info =>
+  lazy val byCode: Map[String, TransInfo] = all.map { info =>
     info.code -> info
-  } toMap
+  }(scala.collection.breakOut)
 
   def get(code: String): Option[TransInfo] = byCode get code
 

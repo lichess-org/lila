@@ -96,7 +96,7 @@ final class PlaybanApi(
         obj.getAs[String]("_id") flatMap { id =>
           obj.getAs[Barr]("b") map { id -> _.stream.size }
         }
-      }.toMap
+      }(scala.collection.breakOut)
     }
 
   private def save(outcome: Outcome): String => Funit = userId => {

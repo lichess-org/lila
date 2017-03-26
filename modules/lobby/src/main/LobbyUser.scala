@@ -29,10 +29,10 @@ private[lobby] object LobbyUser {
   )
 
   private def perfMapOf(perfs: lila.user.Perfs): PerfMap =
-    perfs.perfs collect {
+    perfs.perfs.collect {
       case (key, perf) if key != "puzzle" && perf.nonEmpty =>
         key -> LobbyPerf(perf.intRating, perf.provisional)
-    } toMap
+    }(scala.collection.breakOut)
 }
 
 case class LobbyPerf(rating: Int, provisional: Boolean)

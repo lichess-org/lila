@@ -1,6 +1,7 @@
 package lila.chat
 
 import chess.Color
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -116,6 +117,9 @@ final class ChatApi(
 
     def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
       findOption(chatId) map (_ filter (_.nonEmpty))
+
+    def optionsByOrderedIds(chatIds: List[ChatId]): Fu[List[Option[MixedChat]]] =
+      coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, ReadPreference.secondaryPreferred)(_.id)
 
     def write(chatId: ChatId, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>

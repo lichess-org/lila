@@ -1,5 +1,7 @@
 package lila.practice
 
+import scala.collection.breakOut
+
 import lila.study.{ Study, Chapter }
 
 case class PracticeStructure(
@@ -12,14 +14,14 @@ case class PracticeStructure(
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
     sections.flatMap(_.studies).map { s =>
       s.id -> s
-    }.toMap
+    }(breakOut)
 
   lazy val sectionsByStudyIds: Map[Study.Id, PracticeSection] =
     sections.flatMap { sec =>
       sec.studies.map { stu =>
         stu.id -> sec
       }
-    }.toMap
+    }(breakOut)
 
   lazy val chapterIds: List[Chapter.Id] = sections.flatMap(_.studies).flatMap(_.chapterIds)
 
@@ -39,7 +41,7 @@ case class PracticeSection(
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
     studies.map { s =>
       s.id -> s
-    }.toMap
+    }(breakOut)
 
   def study(id: Study.Id): Option[PracticeStudy] = studiesByIds get id
 }

@@ -2,6 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.common.Maths
 import lila.common.paginator.Paginator
@@ -25,9 +26,10 @@ final class LeaderboardApi(
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(
+    coll.aggregateWithReadPreference(
       Match($doc("u" -> user.id)),
-      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w")))
+      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w"))),
+      ReadPreference.secondaryPreferred
     ).map {
         _.firstBatch map leaderboardAggregationResultBSONHandler.read
       }.map { aggs =>
@@ -50,7 +52,8 @@ final class LeaderboardApi(
     collection = coll,
     selector = $doc("u" -> user.id),
     projection = $empty,
-    sort = sort
+    sort = sort,
+    readPreference = ReadPreference.secondaryPreferred
   ) mapFutureList withTournaments,
     currentPage = page,
     maxPerPage = maxPerPage

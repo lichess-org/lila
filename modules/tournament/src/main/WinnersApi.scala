@@ -114,7 +114,7 @@ final class WinnersApi(
           weekly = firstVariantWinner(weeklies, v),
           daily = firstVariantWinner(dailies, v)
         )
-      }.toMap
+      }(scala.collection.breakOut)
     )
   }
 

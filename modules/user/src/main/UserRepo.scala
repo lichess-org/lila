@@ -353,7 +353,7 @@ object UserRepo {
     .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]()).map { docs =>
       docs.map { doc =>
         ~doc.getAs[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
-      }.toMap
+      }(scala.collection.breakOut)
     }
 
   def setSeenAt(id: ID) {
@@ -389,7 +389,7 @@ object UserRepo {
     coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
 
   def countEngines(userIds: List[User.ID]): Fu[Int] =
-    coll.countSel($inIds(userIds) ++ engineSelect(true))
+    coll.countSel($inIds(userIds) ++ engineSelect(true), ReadPreference.secondaryPreferred)
 
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))

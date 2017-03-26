@@ -439,6 +439,15 @@ module.exports = function(opts, i18n) {
     }
   });
 
+  // If the page loads while being hidden (like when changing settings),
+  // chessground is not displayed, and the first move is not fully applied.
+  // Make sure chessground is fully shown when the page goes back to being visible.
+  document.addEventListener('visibilitychange', function() {
+    lichess.requestIdleCallback(function() {
+      jump(vm.path);
+    });
+  });
+
   return {
     vm: vm,
     getData: function() {

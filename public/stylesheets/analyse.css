@@ -107,12 +107,12 @@ div.game_control a {
 div.game_control button.hidden {
   visibility: hidden;
 }
-div.game_control  button:disabled {
+div.game_control  button.disabled {
   opacity: 0.5;
   cursor: default;
 }
 div.game_control a:hover,
-div.game_control button:hover:not(:disabled) {
+div.game_control button:hover:not(.disabled) {
   background: rgba(56,147,232,0.8);
   color: #fff;
 }

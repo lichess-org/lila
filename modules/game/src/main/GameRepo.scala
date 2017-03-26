@@ -70,8 +70,11 @@ object GameRepo {
   def userPovsByGameIds(gameIds: List[String], user: User): Fu[List[Pov]] =
     coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
-  def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] =
-    coll.find(Query user user).sort(Query.sortCreated).cursor[Game]().gather[List](nb)
+  def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
+    coll.find(Query user user)
+      .sort(Query.sortCreated)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .gather[List](nb)
       .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = coll.find(
@@ -284,9 +287,14 @@ object GameRepo {
         .option(Forsyth >> g2.toChess)
         .filter(Forsyth.initial !=)
     }
+    val checkInHours =
+      if (g2.isPgnImport) none
+      else if (g2.hasClock) 1.some
+      else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
+      else (24 * 10).some
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen -> fen,
-      F.checkAt -> (!g2.isPgnImport).option(DateTime.now plusHours g2.hasClock.fold(1, 10 * 24)),
+      F.checkAt -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll insert bson void

@@ -131,12 +131,12 @@ final class RankingApi(
           ),
           ReadPreference.secondaryPreferred
         ).map { res =>
-            val hash = res.firstBatch.flatMap { obj =>
+            val hash: Map[Int, NbUsers] = res.firstBatch.flatMap { obj =>
               for {
                 rating <- obj.getAs[Int]("_id")
                 nb <- obj.getAs[NbUsers]("nb")
               } yield rating -> nb
-            }.toMap
+            }(scala.collection.breakOut)
             (800 to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList

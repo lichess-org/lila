@@ -32,7 +32,7 @@ case class Analysis(
   // ply -> UCI
   def bestMoves: Map[Int, String] = infos.flatMap { i =>
     i.best map { b => i.ply -> b.keys }
-  }.toMap
+  }(scala.collection.breakOut)
 
   def summary: List[(Color, List[(Advice.Judgment, Int)])] = Color.all map { color =>
     color -> (Advice.Judgment.all map { judgment =>
