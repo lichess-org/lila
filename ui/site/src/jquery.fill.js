@@ -47,5 +47,11 @@
       if ($.isFunction(f)) f();
     });
     return this;
-  }
+  };
+  $.fn.position = function() {
+    return {
+      left: this.offsetLeft,
+      top: this.offsetTop
+    };
+  };
 })($);
