@@ -70,8 +70,11 @@ object GameRepo {
   def userPovsByGameIds(gameIds: List[String], user: User): Fu[List[Pov]] =
     coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
-  def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] =
-    coll.find(Query user user).sort(Query.sortCreated).cursor[Game]().gather[List](nb)
+  def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
+    coll.find(Query user user)
+      .sort(Query.sortCreated)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .gather[List](nb)
       .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = coll.find(

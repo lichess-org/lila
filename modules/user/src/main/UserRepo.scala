@@ -389,7 +389,7 @@ object UserRepo {
     coll.distinct[String, Set]("_id", $doc("roles" $in roles).some)
 
   def countEngines(userIds: List[User.ID]): Fu[Int] =
-    coll.countSel($inIds(userIds) ++ engineSelect(true))
+    coll.countSel($inIds(userIds) ++ engineSelect(true), ReadPreference.secondaryPreferred)
 
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
