@@ -444,7 +444,7 @@ module.exports = function(opts, i18n) {
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', function() {
     lichess.requestIdleCallback(function() {
-      jump(initialPath);
+      jump(vm.path);
     });
   });
 
