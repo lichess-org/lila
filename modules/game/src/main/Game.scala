@@ -107,6 +107,11 @@ case class Game(
       }
     }
 
+  def everyOther[A](l: List[A]): List[A] = l match {
+    case a :: b :: tail => a :: everyOther(tail)
+    case _ => l
+  }
+
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {
       clk <- clock
@@ -119,9 +124,10 @@ case class Game(
       }.toList
     }
   } orElse binaryMoveTimes.map { binary =>
+    // TODO: make movetime.read return List after writes are disabled.
     val base = BinaryFormat.moveTime.read(binary, playedTurns)
     val mts = if (color == startColor) base else base.drop(1)
-    mts.grouped(2).flatMap(_.headOption).toList
+    everyOther(mts.toList)
   }
 
   def moveTimes: Option[Vector[Centis]] = {
