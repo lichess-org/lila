@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.collection.breakOut
+import scala.util.Try
 
 import chess._
 import chess.variant.Variant
