@@ -260,7 +260,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var canJumpTo = function(path) {
-    return this.study ? this.study.canJumpTo(path) : true;
+    return !this.study || this.study.canJumpTo(path);
   }.bind(this);
 
   this.userJumpIfCan = function(path) {
