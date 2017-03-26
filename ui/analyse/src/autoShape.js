@@ -25,7 +25,7 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
     orig: move[0],
     dest: move[1],
     brush: brush,
-    brushModifiers: modifiers
+    modifiers: modifiers
   }];
   if (move[2]) shapes.push(pieceDrop(move[1], move[2], color));
   return shapes;

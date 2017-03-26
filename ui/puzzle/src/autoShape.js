@@ -7,7 +7,7 @@ function makeAutoShapesFromUci(color, uci, brush, modifiers) {
     orig: move[0],
     dest: move[1],
     brush: brush,
-    brushModifiers: modifiers
+    modifiers: modifiers
   }];
 }
 
