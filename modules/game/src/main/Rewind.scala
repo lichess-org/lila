@@ -21,6 +21,13 @@ object Rewind {
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
       val rewindedPlayedTurns = rewindedGame.turns - game.startedAtTurn
+      val newClock = game.clock map (_.takeback) map { clk =>
+        game.clockHistory.fold(clk)(history => {
+          Color.all.foldLeft(clk) { (clk, color) =>
+            history.last(color).fold(clk)(t => clk.setRemainingCentis(color, t.value))
+          }
+        })
+      }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       def rewindedPlayerMoves(color: Color) = {
         if (color == game.startColor) (rewindedPlayedTurns + 1) / 2
@@ -51,7 +58,7 @@ object Rewind {
         )),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
-        clock = game.clock map (_.takeback)
+        clock = newClock
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
