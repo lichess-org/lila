@@ -1,21 +1,15 @@
 package lila.common
 
-import scala.annotation.tailrec
-
 object Sequence {
+  def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] = {
+    val iterA = a.iterator
+    val iterB = b.iterator
+    val builder = Vector.newBuilder[A]
+    while (iterA.hasNext && iterB.hasNext) {
+      builder += iterA.next += iterB.next
+    }
+    builder ++= iterA ++= iterB
 
-  @tailrec
-  def interleave[A](base: Vector[A], a: List[A], b: List[A]): Vector[A] = a match {
-    case elt :: aTail => interleave(base :+ elt, b, aTail)
-    case _ => base ++ b
-  }
-
-  def interleave[A](a: Vector[A], b: Vector[A]): Vector[A] = interleave(Vector.empty, a, b)
-
-  @tailrec
-  def interleave[A](acc: Vector[A], a: Vector[A], b: Vector[A]): Vector[A] = (a, b) match {
-    case (a1 +: as, b1 +: bs) => interleave(acc :+ a1 :+ b1, as, bs)
-    case (Vector(), y) => acc ++ y
-    case (x, Vector()) => acc ++ x
+    builder.result
   }
 }

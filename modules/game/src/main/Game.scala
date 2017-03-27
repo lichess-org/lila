@@ -134,7 +134,7 @@ case class Game(
     for {
       a <- moveTimes(startColor)
       b <- moveTimes(!startColor)
-    } yield Sequence.interleave(Vector.empty, a, b)
+    } yield Sequence.interleave(a, b)
   }
 
   def bothClockStates = clockHistory.map(_ bothClockStates startColor)
