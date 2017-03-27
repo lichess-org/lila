@@ -21,12 +21,11 @@ object Rewind {
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
       val rewindedPlayedTurns = rewindedGame.turns - game.startedAtTurn
-      val newClock = game.clock map (_.takeback) map { clk =>
-        game.clockHistory.fold(clk)(history => {
-          Color.all.foldLeft(clk) { (clk, color) =>
-            history.last(color).fold(clk)(t => clk.setRemainingCentis(color, t.value))
-          }
-        })
+      val curColor = game.turnColor;
+      val newClock = game.clock.map(_.takeback) map { clk =>
+        game.clockHistory.flatMap(_.last(curColor)).fold(clk) {
+          t => clk.setRemainingCentis(curColor, t.value)
+        }
       }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       def rewindedPlayerMoves(color: Color) = {
