@@ -736,6 +736,8 @@ case class ClockHistory(
   def get(color: Color): Vector[Centis] =
     if (color.white) white else black
 
+  def last(color: Color) = get(color).lastOption
+
   // first state is of the color that moved first.
   def bothClockStates(firstMoveBy: Color): Vector[Centis] =
     Sequence.interleave(
