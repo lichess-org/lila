@@ -1203,7 +1203,6 @@ body.piece_letter .tview2 move {
 }
 .tview2 > move {
   flex: 0 0 43.5%;
-  display: flex;
   box-sizing: border-box;
   font-size: 1.185em;
   line-height: 1.75em;
