@@ -1,14 +1,18 @@
 package lila.game
 
 import org.joda.time.DateTime
+import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.collection.breakOut
+import scala.util.Try
 
 import chess._
 import chess.variant.Variant
 
 import lila.db.ByteArray
 import lila.common.Centis
+
+import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
 object BinaryFormat {
 
@@ -23,6 +27,23 @@ object BinaryFormat {
 
     def read(ba: ByteArray, nb: Int): PgnMoves =
       format.pgn.Binary.readMoves(ba.value.toList, nb).get
+  }
+
+  object clockHistory {
+    private val logger = lila.log("clockHistory")
+
+    def writeSide(start: Centis, times: Vector[Centis]): ByteArray =
+      ByteArray(ClockEncoder.encode(times.map(_.value)(breakOut), start.value))
+
+    def readSide(start: Centis, ba: ByteArray): Vector[Centis] =
+      ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
+
+    def read(start: Centis, bw: ByteArray, bb: ByteArray)(gameId: String /* for logging */ ): Option[ClockHistory] = Try {
+      ClockHistory(readSide(start, bw), readSide(start, bb))
+    }.fold(
+      e => { logger.warn(s"Exception decoding history on game $gameId", e); none },
+      some
+    )
   }
 
   object moveTime {

@@ -1144,6 +1144,43 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   padding-bottom: 3px;
 }
 
+.aclocks {
+  position: absolute;
+  right: -62px;
+  width: 62px;
+  font-family: 'Roboto Mono', 'Roboto';
+  box-sizing: border-box;
+  line-height: 20px;
+}
+.aclock {
+  padding: 5px 0;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.aclock:first-child {
+  border-bottom: 1px solid #ccc;
+}
+.aclock.top {
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 4px 0 0;
+}
+.aclock.bottom {
+  border-width: 0 1px 1px 0;
+  border-radius: 0 0 4px 0;
+}
+.aclock.active {
+  background: #fafafa;
+  font-weight: bold;
+}
+
+body.dark .aclock {
+  border-color: #3d3d3d;
+}
+body.dark .aclock.active {
+  background: #303030;
+}
+
 .tview2 {
   display: flex;
   flex-flow: row wrap;

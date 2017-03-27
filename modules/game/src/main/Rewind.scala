@@ -1,5 +1,6 @@
 package lila.game
 
+import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
 object Rewind {
@@ -13,13 +14,18 @@ object Rewind {
 
   def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.movesWithSans(
     moveStrs = game.pgnMoves,
-    op = sans => sans.isEmpty.fold(sans, sans.init),
+    op = _.dropRight(1),
     tags = createTags(initialFen, game)
   ) map { replay =>
       val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
-      val rewindedPlayedTurns = rewindedGame.turns - game.startedAtTurn
+      val color = game.turnColor;
+      val newClock = game.clock.map(_.takeback) map { clk =>
+        game.clockHistory.flatMap(_.last(color)).fold(clk) {
+          t => clk.setRemainingCentis(color, t.value)
+        }
+      }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
@@ -38,11 +44,12 @@ object Rewind {
         unmovedRooks = rewindedGame.board.unmovedRooks,
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)
-          BinaryFormat.moveTime.write(moveTimes.take(rewindedPlayedTurns))
+          BinaryFormat.moveTime.write(moveTimes.dropRight(1))
         },
+        clockHistory = game.clockHistory.map(_.update(color, _.dropRight(1))),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
-        clock = game.clock map (_.takeback)
+        clock = newClock
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),

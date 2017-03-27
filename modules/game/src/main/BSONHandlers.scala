@@ -7,6 +7,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
 
 import lila.db.{ BSON, ByteArray }
+import lila.common.Centis
 
 object BSONHandlers {
 
@@ -77,8 +78,10 @@ object BSONHandlers {
       val bPlayer = player(blackPlayer, Black, blackId, blackUid)
       val createdAtValue = r date createdAt
       val realVariant = Variant(r intD variant) | chess.variant.Standard
+      val gameClock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2)))
+      val gameId = r str id
       Game(
-        id = r str id,
+        id = gameId,
         whitePlayer = wPlayer,
         blackPlayer = bPlayer,
         binaryPieces = r bytes binaryPieces,
@@ -86,7 +89,7 @@ object BSONHandlers {
         status = r.get[Status](status),
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
-        clock = r.getO[Color => Clock](clock)(clockBSONReader(createdAtValue, wPlayer.berserk, bPlayer.berserk)) map (_(Color(0 == nbTurns % 2))),
+        clock = gameClock,
         positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
@@ -96,6 +99,13 @@ object BSONHandlers {
         unmovedRooks = r.getO[UnmovedRooks](unmovedRooks) | UnmovedRooks.default,
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = r bytesO moveTimes,
+        clockHistory = for {
+          clk <- gameClock
+          start = Centis(clk.limit * 100)
+          bw <- r bytesO whiteClockHistory
+          bb <- r bytesO blackClockHistory
+          history <- BinaryFormat.clockHistory.read(start, bw, bb)(gameId)
+        } yield history,
         mode = Mode(r boolD rated),
         variant = realVariant,
         crazyData = (realVariant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
@@ -132,6 +142,8 @@ object BSONHandlers {
       unmovedRooks -> o.unmovedRooks,
       daysPerTurn -> o.daysPerTurn,
       moveTimes -> o.binaryMoveTimes,
+      whiteClockHistory -> clockHistory(White, o.clockHistory, o.clock),
+      blackClockHistory -> clockHistory(Black, o.clockHistory, o.clock),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       crazyData -> o.crazyData,
@@ -147,6 +159,12 @@ object BSONHandlers {
       analysed -> w.boolO(o.metadata.analysed)
     )
   }
+
+  private def clockHistory(color: Color, clockHistory: Option[ClockHistory], clock: Option[Clock]): Option[ByteArray] =
+    for {
+      clk <- clock
+      history <- clockHistory
+    } yield BinaryFormat.clockHistory.writeSide(Centis(clk.limit * 100), history.get(color))
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(

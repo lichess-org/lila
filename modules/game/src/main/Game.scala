@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.annotation.tailrec
+import scala.concurrent.duration._
 
 import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
@@ -8,9 +8,8 @@ import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks }
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
-import lila.common.Centis
+import lila.common.{ Centis, Sequence }
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -31,6 +30,7 @@ case class Game(
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: Option[ByteArray] = None,
+    clockHistory: Option[ClockHistory] = Option(ClockHistory()),
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     crazyData: Option[Crazyhouse.Data] = None,
@@ -107,15 +107,37 @@ case class Game(
       }
     }
 
-  def moveTimes: Option[Vector[Centis]] =
-    binaryMoveTimes.map { BinaryFormat.moveTime.read(_, playedTurns) }
-
-  def moveTimes(color: Color): Option[List[Centis]] = moveTimes map { mts =>
-    val pivot = if (color == startColor) 0 else 1
-    mts.toList.zipWithIndex.collect {
-      case (e, i) if (i % 2) == pivot => e
-    }
+  def everyOther[A](l: List[A]): List[A] = l match {
+    case a :: b :: tail => a :: everyOther(tail)
+    case _ => l
   }
+
+  def moveTimes(color: Color): Option[List[Centis]] = {
+    for {
+      clk <- clock
+      inc = Centis(clk.increment * 100)
+      history <- clockHistory
+      clockTimes = history.get(color)
+    } yield Centis(0) :: {
+      (clockTimes.iterator zip clockTimes.iterator.drop(1)).map {
+        case (first, second) => (first - second + inc) atLeast 0
+      }.toList
+    }
+  } orElse binaryMoveTimes.map { binary =>
+    // TODO: make movetime.read return List after writes are disabled.
+    val base = BinaryFormat.moveTime.read(binary, playedTurns)
+    val mts = if (color == startColor) base else base.drop(1)
+    everyOther(mts.toList)
+  }
+
+  def moveTimes: Option[Vector[Centis]] = {
+    for {
+      a <- moveTimes(startColor)
+      b <- moveTimes(!startColor)
+    } yield Sequence.interleave(a, b)
+  }
+
+  def bothClockStates = clockHistory.map(_ bothClockStates startColor)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
@@ -194,6 +216,10 @@ case class Game(
           }
         }
       },
+      clockHistory = for {
+        clk <- game.clock
+        history <- clockHistory
+      } yield history.record(turnColor, clk),
       status = situation.status | status,
       clock = game.clock
     )
@@ -334,15 +360,15 @@ case class Game(
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c berserk color
-      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
-        Event.Clock(newClock) +
-        Event.Berserk(color)
+      Progress(this, copy(
+        clock = Some(newClock),
+        clockHistory = clockHistory.map(history => {
+          if (history.get(color).isEmpty) history
+          else history.reset(color).record(color, newClock)
+        })
+      ).updatePlayer(color, _.goBerserk)) ++
+        List(Event.Clock(newClock), Event.Berserk(color))
     }
-
-  def withPlayer(color: Color, f: Player => Player) = copy(
-    whitePlayer = if (color.white) f(whitePlayer) else whitePlayer,
-    blackPlayer = if (color.black) f(blackPlayer) else blackPlayer
-  )
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
@@ -353,7 +379,20 @@ case class Game(
       status = status,
       whitePlayer = whitePlayer.finish(winner contains White),
       blackPlayer = blackPlayer.finish(winner contains Black),
-      clock = clock map (_.stop)
+      clock = clock map (_.stop),
+      clockHistory = for {
+        clk <- clock
+        history <- clockHistory
+      } yield {
+        // If not already finished, we're ending due to an event
+        // in the middle of a turn, such as resignation or draw
+        // acceptance. In these cases, record a final clock time
+        // for the active color. This ensures the end time in
+        // clockHistory always matches the final clock time on
+        // the board.
+        if (!finished) history.record(turnColor, clk)
+        else history
+      }
     ),
     List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
   )
@@ -627,6 +666,8 @@ object Game {
     val unmovedRooks = "ur"
     val daysPerTurn = "cd"
     val moveTimes = "mt"
+    val whiteClockHistory = "cw"
+    val blackClockHistory = "cb"
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
@@ -672,4 +713,29 @@ object CastleLastMoveTime {
       BinaryFormat.castleLastMoveTime write clmt
     }
   }
+}
+
+case class ClockHistory(
+    white: Vector[Centis] = Vector.empty,
+    black: Vector[Centis] = Vector.empty
+) {
+
+  def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
+    color.fold(copy(white = f(white)), copy(black = f(black)))
+
+  def record(color: Color, clock: Clock): ClockHistory =
+    update(color, _ :+ Centis(clock.remainingCentis(color)))
+
+  def reset(color: Color) = update(color, _ => Vector.empty)
+
+  def get(color: Color): Vector[Centis] = color.fold(white, black)
+
+  def last(color: Color) = get(color).lastOption
+
+  // first state is of the color that moved first.
+  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
+    Sequence.interleave(
+      firstMoveBy.fold(white, black),
+      firstMoveBy.fold(black, white)
+    )
 }

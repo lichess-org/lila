@@ -32,7 +32,7 @@ function renderClock(ctrl, player, position) {
   ];
 }
 
-function _pad2(num) {
+function pad2(num) {
   return (num < 10 ? '0' : '') + num;
 }
 
@@ -43,9 +43,9 @@ function formatClockTime(data, time, running) {
   var date = new Date(time);
   var millis = date.getUTCMilliseconds();
   var sep = (running && millis < 500) ? sepLow : sepHigh;
-  var baseStr = _pad2(date.getUTCMinutes()) + sep + _pad2(date.getUTCSeconds());
+  var baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (time >= 3600000) {
-    var hours = _pad2(Math.floor(time / 3600000));
+    var hours = pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
   } else if (time >= 10000 && data.showTenths != 2 || data.showTenths == 0) {
     return baseStr;
