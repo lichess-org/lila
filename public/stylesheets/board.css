@@ -395,40 +395,42 @@ div.table {
 .lichess_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
-  height: 115px;
+  height: 100px;
   overflow: auto;
   position: relative;
   will-change: scroll-position;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
 }
 .variant_crazyhouse .lichess_ground .replay .moves {
   height: 100px;
 }
-.lichess_ground .replay turn {
-  display: flex;
-  height: 26px;
-}
 .lichess_ground .replay index,
 .lichess_ground .replay move {
-  display: inline-block;
-  height: 22px;
-  line-height: 22px;
+  height: 25px;
+  line-height: 25px;
 }
 .lichess_ground .replay index {
-  flex: 0 0 34px;
-  padding: 2px 0;
+  display: flex;
+  flex: 0 0 15%;
+  max-width: 15%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
+  line-height: 27px;
   background: #e6e6e6;
-  text-align: center;
+  justify-content: center;
   font-family: 'Roboto';
   font-weight: 300;
 }
 .lichess_ground .replay move {
-  flex: 1 1 50%;
+  flex: 0 0 42.5%;
+  max-width: 42.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
+  box-sizing: border-box;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
-  padding: 2px 5px;
+  padding-left: 7px;
 }
 body.piece_letter .lichess_ground .replay move {
   font-family: 'Noto Sans';
@@ -446,6 +448,9 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
+.lichess_ground .result_wrap {
+  width: 100%;
+}
 .lichess_ground .result,
 .lichess_ground .status {
   text-align: center;
@@ -454,7 +459,7 @@ body.piece_letter .lichess_ground .replay move {
   border-top: 1px solid #ddd;
   font-weight: bold;
   font-size: 1.3em;
-  padding: 7px 0 4px 0;
+  padding: 5px 0 3px 0;
 }
 .lichess_ground .status {
   font-size: 1em;

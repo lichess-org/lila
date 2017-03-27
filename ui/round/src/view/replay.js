@@ -52,7 +52,7 @@ function renderResult(ctrl) {
   }
   if (result || status.aborted(ctrl.data)) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return [
+    return m('div.result_wrap', [
       m('p.result', result),
       m('p.status', {
         config: function(el, isUpdate) {
@@ -64,7 +64,7 @@ function renderResult(ctrl) {
         renderStatus(ctrl),
         winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
-    ];
+    ]);
   }
 }
 
@@ -82,20 +82,15 @@ function renderMoves(ctrl) {
     for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
   }
 
-  var rows = [];
-  for (var i = 0, len = pairs.length; i < len; i++) rows.push({
-    tag: 'turn',
-    children: [{
-      tag: 'index',
-      children: [i + 1]
-    },
-    renderMove(pairs[i][0], ctrl.vm.ply, true),
-    renderMove(pairs[i][1], ctrl.vm.ply, false)
-    ]
-  });
-  rows.push(renderResult(ctrl));
+  var els = [];
+  for (var i = 0; i < pairs.length; i++) {
+    els.push(m('index', i + 1));
+    els.push(renderMove(pairs[i][0], ctrl.vm.ply, true));
+    els.push(renderMove(pairs[i][1], ctrl.vm.ply, false));
+  }
+  els.push(renderResult(ctrl));
 
-  return rows;
+  return els;
 }
 
 function analyseButton(ctrl) {
@@ -201,9 +196,15 @@ module.exports = function(ctrl) {
       config: function(el, isUpdate, ctx) {
         if (isUpdate) return;
         util.bindOnce('mousedown', function(e) {
-          var turn = parseInt($(e.target).siblings('index').text());
-          var ply = 2 * turn - 2 + $(e.target).index();
-          if (ply) ctrl.userJump(ply);
+          var node = e.target, offset = -2, ply;
+          if (node.tagName !== 'MOVE') return;
+          while(node = node.previousSibling) {
+            offset++;
+            if (node.tagName === 'INDEX') {
+              ctrl.userJump(2 * parseInt(node.textContent) + offset);
+              break;
+            }
+          }
         })(el, isUpdate, ctx);
         ctrl.vm.autoScroll = function() { autoScroll(el, ctrl); };
         ctrl.vm.autoScroll();

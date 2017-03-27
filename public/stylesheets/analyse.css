@@ -1221,7 +1221,7 @@ body.piece_letter .tview2 move {
 }
 .tview2 > move {
   flex: 0 0 43.5%;
-  display: flex;
+  max-width: 43.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   box-sizing: border-box;
   font-size: 1.185em;
   line-height: 1.75em;
@@ -1252,6 +1252,7 @@ body.piece_letter .tview2 move {
 }
 .tview2 > index {
   flex: 0 0 13%;
+  max-width: 13%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   display: flex;
   justify-content: center;
   box-sizing: border-box;
