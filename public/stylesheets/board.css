@@ -418,7 +418,7 @@ div.table {
   display: flex;
   flex: 0 0 15%;
   max-width: 15%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
-  line-height: 28px;
+  line-height: 27px;
   background: #e6e6e6;
   justify-content: center;
   font-family: 'Roboto';
