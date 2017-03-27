@@ -3,11 +3,12 @@
   "exclude": [],
   "compilerOptions": {
     "outDir": "./dist",
-    "allowJs": true,
+    "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noEmitOnError": true,
+    "alwaysStrict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,

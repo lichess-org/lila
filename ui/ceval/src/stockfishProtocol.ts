@@ -9,12 +9,12 @@ const EVAL_REGEX = new RegExp(''
   + /pv (.+)/.source);
 
 export default class Protocol {
-  send: (cmd: string) => void;
-  work: Work | null;
-  curEval: ClientEval | null;
-  expectedPvs = 1;
-  stopped: Deferred<{}> | null;
-  opts: WorkerOpts;
+  private send: (cmd: string) => void;
+  private work: Work | null;
+  private curEval: ClientEval | null;
+  private expectedPvs = 1;
+  private stopped: Deferred<{}> | null;
+  private opts: WorkerOpts;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;

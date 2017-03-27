@@ -1,11 +1,11 @@
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
-abstract class AbstractWorker {
-  url: string;
-  poolOpts: PoolOpts;
-  workerOpts: WorkerOpts;
-  protocol: Protocol;
+export abstract class AbstractWorker {
+  protected url: string;
+  protected poolOpts: PoolOpts;
+  protected workerOpts: WorkerOpts;
+  protected protocol: Protocol;
 
   constructor(url: string, poolOpts: PoolOpts, workerOpts: WorkerOpts) {
     this.url = url;
@@ -58,7 +58,7 @@ class WebWorker extends AbstractWorker {
 }
 
 class PNaClWorker extends AbstractWorker {
-  worker?: HTMLEmbedElement;
+  private worker?: HTMLEmbedElement;
 
   boot() {
     try {
@@ -97,10 +97,10 @@ class PNaClWorker extends AbstractWorker {
 }
 
 export default class Pool {
-  workers: AbstractWorker[] = [];
-  token = 0;
-  poolOpts: PoolOpts;
-  protocolOpts: WorkerOpts;
+  private workers: AbstractWorker[] = [];
+  private token = 0;
+  private poolOpts: PoolOpts;
+  private protocolOpts: WorkerOpts;
 
   constructor(poolOpts: PoolOpts, protocolOpts: WorkerOpts) {
     this.poolOpts = poolOpts;
