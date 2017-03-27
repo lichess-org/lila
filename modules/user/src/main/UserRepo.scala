@@ -203,8 +203,8 @@ object UserRepo {
         case _ => none
       }) ifFalse ai
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
-        totalTime map (v => BSONElement(s"${F.playTime}.total", BSONInteger(v))),
-        tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v)))
+        totalTime map (v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
+        tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
       ).flatten
 
     coll.update($id(id), $inc(incs))

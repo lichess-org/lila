@@ -419,6 +419,16 @@ object GameRepo {
     F.binaryPieces -> game.binaryPieces
   ))
 
+  def hydrateUpdatedAtAndTvAt(game: Game): Fu[Game] =
+    coll.find($id(game.id), $doc(F.updatedAt -> true, F.tvAt -> true)).uno[Bdoc].map {
+      _.fold(game) { o =>
+        game.copy(
+          updatedAt = o.getAs[DateTime](F.updatedAt),
+          metadata = game.metadata.copy(tvAt = o.getAs[DateTime](F.updatedAt))
+        )
+      }
+    }
+
   def findPgnImport(pgn: String): Fu[Option[Game]] = coll.uno[Game](
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
   )
