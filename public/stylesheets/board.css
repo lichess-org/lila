@@ -417,6 +417,7 @@ div.table {
 .lichess_ground .replay index {
   display: flex;
   flex: 0 0 15%;
+  max-width: 15%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   line-height: 28px;
   background: #e6e6e6;
   justify-content: center;
@@ -425,6 +426,7 @@ div.table {
 }
 .lichess_ground .replay move {
   flex: 0 0 42.5%;
+  max-width: 42.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   box-sizing: border-box;
   font-family: 'ChessSansPiratf', sans-serif;
   font-size: 17px;
