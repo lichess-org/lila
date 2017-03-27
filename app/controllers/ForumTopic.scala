@@ -81,6 +81,6 @@ object ForumTopic extends LilaController with ForumController {
     for {
       userIds <- postApi userIds topicId
       usernames <- lila.user.UserRepo usernamesByIds userIds
-    } yield Ok(Json.toJson(usernames.sorted))
+    } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
   }
 }

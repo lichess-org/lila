@@ -36,7 +36,7 @@ class DetectTest extends Specification {
     "find plurals" in {
       find("cunts kunts cuntings kawas kuntings") must_== List("cunts", "kunts", "cuntings", "kuntings")
     }
-    "fucks" in {
+    "50 shades of fuck" in {
       find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
     }
     "compute ratio" in {
@@ -53,6 +53,9 @@ class DetectTest extends Specification {
       find("foo chess_bot_com bar") must_== List("chess_bot_com")
       find("foo chessbotcom bar") must_== List("chessbotcom")
       find("foo http://chess-bot.com bar") must_== List("chess-bot.com")
+    }
+    "russian" in {
+      find("сука пизда") must_== List("сука", "пизда")
     }
   }
 }

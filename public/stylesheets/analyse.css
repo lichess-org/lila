@@ -1026,12 +1026,12 @@ body.dark .practice_box .comment {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  line-height: 1em;
 }
 .action_menu .tools form .fbt {
   width: 100%;
 }
 .action_menu .tools i {
+  line-height: 1em;
   margin-bottom: 5px;
 }
 .action_menu .autoplay .fbt {

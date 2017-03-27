@@ -30,4 +30,4 @@
 	url = https://github.com/antennaio/jquery-bar-rating
 [submodule "public/vendor/jquery-textcomplete"]
 	path = public/vendor/jquery-textcomplete
-	url = https://github.com/yuku-t/jquery-textcomplete
+	url = https://github.com/ornicar/jquery-textcomplete
