@@ -21,7 +21,7 @@ final class PlayTimeApi(
     case pt => fuccess(pt)
   }
 
-  def randomlyCompute = scala.util.Random.nextInt(3) == 0
+  def randomlyCompute = scala.util.Random.nextInt(8) == 0
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
     creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
