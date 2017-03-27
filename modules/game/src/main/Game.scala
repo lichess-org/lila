@@ -720,21 +720,15 @@ case class ClockHistory(
     black: Vector[Centis] = Vector.empty
 ) {
 
-  def record(color: Color, clock: Clock): ClockHistory = {
-    val centis = Centis(clock.remainingCentis(color))
-    color match {
-      case White => copy(white = white :+ centis)
-      case Black => copy(black = black :+ centis)
-    }
-  }
+  def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
+    color.fold(copy(white = f(white)), copy(black = f(black)))
 
-  def reset(color: Color) = color match {
-    case White => copy(white = Vector.empty)
-    case Black => copy(black = Vector.empty)
-  }
+  def record(color: Color, clock: Clock): ClockHistory =
+    update(color, _ :+ Centis(clock.remainingCentis(color)))
 
-  def get(color: Color): Vector[Centis] =
-    if (color.white) white else black
+  def reset(color: Color) = update(color, _ => Vector.empty)
+
+  def get(color: Color): Vector[Centis] = color.fold(white, black)
 
   def last(color: Color) = get(color).lastOption
 
