@@ -1,37 +1,50 @@
-var fixCrazySan = require('chess').fixCrazySan;
-var decomposeUci = require('chess').decomposeUci;
+import { Variant } from './types';
+import { fixCrazySan, decomposeUci } from 'chess';
 
-function square(name) {
+type Square = number;
+
+type Piece = 'p' | 'n' | 'b' | 'r' | 'q' | 'k' |
+             'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+
+interface Board {
+  turn: boolean;
+  fmvn: number;
+  pieces: Array<Piece | undefined>;
+  k?: Square,
+  K?: Square,
+}
+
+function square(name: string): Square {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
 }
 
-function squareDist(a, b) {
-  var x1 = a & 7, x2 = b & 7;
-  var y1 = a >> 3, y2 = b >> 3;
+function squareDist(a: Square, b: Square): number {
+  let x1 = a & 7, x2 = b & 7;
+  let y1 = a >> 3, y2 = b >> 3;
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
 
-function isBlack(p) {
+function isBlack(p: Piece): boolean {
   return p === p.toLowerCase();
 }
 
-function readFen(fen) {
-  var parts = fen.split(' ');
-  var board = {
-    pieces: {},
+function readFen(fen: string): Board {
+  let parts = fen.split(' ');
+  let board: Board = {
+    pieces: [],
     turn: parts[1] === 'w',
     fmvn: parseInt(parts[5], 10) || 1
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function(row, y) {
-    var x = 0;
-    row.split('').forEach(function(v) {
+  parts[0].split('/').slice(0, 8).forEach((row, y) => {
+    let x = 0;
+    row.split('').forEach(v => {
       if (v == '~') return;
-      var nb = parseInt(v, 10);
+      let nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
-        var square = (7 - y) * 8 + x;
-        board.pieces[square] = v;
+        let square = (7 - y) * 8 + x;
+        board.pieces[square] = v as Piece;
         if (v === 'k' || v === 'K') board[v] = square;
         x++;
       }
@@ -41,32 +54,29 @@ function readFen(fen) {
   return board;
 }
 
-function kingMovesTo(s) {
-  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function (o) {
-    return o >= 0 && o < 64 && squareDist(s, o) === 1;
-  });
+function kingMovesTo(s: Square): Square[] {
+  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(
+    o => o >= 0 && o < 64 && squareDist(s, o) === 1);
 }
 
-function knightMovesTo(s) {
-  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function (o) {
-    return o >= 0 && o < 64 && squareDist(s, o) <= 2;
-  });
+function knightMovesTo(s: Square): Square[] {
+  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(
+    o => o >= 0 && o < 64 && squareDist(s, o) <= 2);
 }
 
-function pawnAttacksTo(turn, s) {
-  var left = turn ? 7 : -7;
-  var right = turn ? 9 : -9;
-  return [s + left, s + right].filter(function (o) {
-    return o >= 0 && o < 64 && squareDist(s, o) === 1;
-  });
+function pawnAttacksTo(turn: boolean, s: Square): Square[] {
+  let left = turn ? 7 : -7;
+  let right = turn ? 9 : -9;
+  return [s + left, s + right].filter(
+    o => o >= 0 && o < 64 && squareDist(s, o) === 1);
 }
 
-var ROOK_DELTAS = [8, 1, -8, -1];
-var BISHOP_DELTAS = [9, -9, 7, -7];
-var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
+const ROOK_DELTAS = [8, 1, -8, -1];
+const BISHOP_DELTAS = [9, -9, 7, -7];
+const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
-function slidingMovesTo(s, deltas, board) {
-  var result = [];
+function slidingMovesTo(s: Square, deltas: number[], board: Board): Square[] {
+  var result: Square[] = [];
   deltas.forEach(function (delta) {
     for (var square = s + delta;
          square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
@@ -78,38 +88,38 @@ function slidingMovesTo(s, deltas, board) {
   return result;
 }
 
-function isCheck(variant, board) {
+function isCheck(variant: Variant, board: Board): boolean {
   if (variant === 'antichess' || variant == 'racingKings') return false;
 
-  var ksq = board.turn ? board.K : board.k;
+  let ksq = board.turn ? board.K : board.k;
   if (typeof ksq !== 'number') return false;
 
   // no check when kings are touching in atomic
-  if (variant === 'atomic' && squareDist(board.k, board.K) <= 1) return false;
+  if (variant === 'atomic' &&
+      typeof board.k !== 'undefined' &&
+      typeof board.K !== 'undefined' &&
+      squareDist(board.k, board.K) <= 1)
+    return false;
 
-  var p = board.turn ? 'p' : 'P';
-  var n = board.turn ? 'n' : 'N';
-  var r = board.turn ? 'r' : 'R';
-  var b = board.turn ? 'b' : 'B';
-  var q = board.turn ? 'q' : 'Q';
+  let p = board.turn ? 'p' : 'P';
+  let n = board.turn ? 'n' : 'N';
+  let r = board.turn ? 'r' : 'R';
+  let b = board.turn ? 'b' : 'B';
+  let q = board.turn ? 'q' : 'Q';
 
-  return (pawnAttacksTo(board.turn, ksq).some(function(o) {
-    return board.pieces[o] === p;
-  }) || knightMovesTo(ksq).some(function(o) {
-    return board.pieces[o] === n;
-  }) || slidingMovesTo(ksq, ROOK_DELTAS, board).some(function (o) {
-    return board.pieces[o] === r || board.pieces[o] === q;
-  }) || slidingMovesTo(ksq, BISHOP_DELTAS, board).some(function (o) {
-    return board.pieces[o] === b || board.pieces[o] === q;
-  }));
+  return (
+    pawnAttacksTo(board.turn, ksq).some(o => board.pieces[o] === p) ||
+    knightMovesTo(ksq).some(o => board.pieces[o] === n) ||
+    slidingMovesTo(ksq, ROOK_DELTAS, board).some(o => board.pieces[o] === r || board.pieces[o] === q) ||
+    slidingMovesTo(ksq, BISHOP_DELTAS, board).some(o => board.pieces[o] === b || board.pieces[o] === q));
 }
 
-function makeMove(variant, board, uci) {
+function makeMove(variant: Variant, board: Board, uci: string) {
   if (!board.turn) board.fmvn++;
   board.turn = !board.turn;
 
   if (uci.indexOf('@') !== -1) {
-    board.pieces[square(uci.slice(2, 4))] = board.turn ? uci[0].toLowerCase() : uci[0];
+    board.pieces[square(uci.slice(2, 4))] = (board.turn ? uci[0].toLowerCase() : uci[0]) as Piece;
     return;
   }
 
@@ -123,7 +133,7 @@ function makeMove(variant, board, uci) {
     if (uci[0] !== uci[2] && !capture) {
       // en passant
       delete board.pieces[to + (board.turn ? 8 : -8)];
-      capture = true;
+      capture = board.turn ? 'p' : 'P';
     }
   }
 
@@ -150,7 +160,7 @@ function makeMove(variant, board, uci) {
     board[p] = to;
   }
 
-  if (move[2]) board.pieces[to] = board.turn ? move[2] : move[2].toUpperCase();
+  if (move[2]) board.pieces[to] = (board.turn ? move[2] : move[2].toUpperCase()) as Piece;
   else board.pieces[to] = p;
   delete board.pieces[from];
 
@@ -163,19 +173,20 @@ function makeMove(variant, board, uci) {
   }
 }
 
-function san(board, uci) {
+function san(board: Board, uci: string): string  {
   if (uci.indexOf('@') !== -1) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];
+  if (!p) return '--';
   var d = board.pieces[to];
-  var pt = board.pieces[from].toLowerCase();
+  var pt = p.toLowerCase();
 
   // pawn moves
   if (pt === 'p') {
-    var san;
+    let san;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
@@ -191,7 +202,7 @@ function san(board, uci) {
   var san = pt.toUpperCase();
 
   // disambiguate normal moves
-  var candidates = [];
+  var candidates: Square[] = [];
   if (pt == 'k') candidates = kingMovesTo(to);
   else if (pt == 'n') candidates = knightMovesTo(to);
   else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
@@ -214,7 +225,7 @@ function san(board, uci) {
   return san;
 }
 
-module.exports = function(variant, fen, threat, moves, mate) {
+export default function(variant: Variant, fen: string, threat: boolean, moves: string[], mate?: number): string {
   var board = readFen(fen);
   if (threat) board.turn = !board.turn;
   var turn = board.turn;
