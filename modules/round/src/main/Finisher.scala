@@ -1,6 +1,7 @@
 package lila.round
 
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import chess.{ Status, Color }
 
@@ -105,7 +106,9 @@ private[round] final class Finisher(
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
-    val totalTime = game.hasClock option game.durationSeconds ifTrue user.playTime.isDefined
+    val totalTime = (game.hasClock && user.playTime.isDefined) option game.copy(
+      updatedAt = DateTime.now.some // because the game we get from GameProxy cache doesn't have it set!
+    ).durationSeconds
     val tvTime = totalTime ifTrue game.metadata.tvAt.isDefined
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = if (game.winnerUserId has user.id) 1
