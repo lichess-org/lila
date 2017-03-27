@@ -360,15 +360,15 @@ case class Game(
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c berserk color
-      withClock(newClock).map(_.withPlayer(color, _.goBerserk)) +
-        Event.Clock(newClock) +
-        Event.Berserk(color)
+      Progress(this, copy(
+        clock = Some(newClock),
+        clockHistory = clockHistory.map(history => {
+          if (history.get(color).isEmpty) history
+          else history.reset(color).record(color, newClock)
+        })
+      ).updatePlayer(color, _.goBerserk)) ++
+        List(Event.Clock(newClock), Event.Berserk(color))
     }
-
-  def withPlayer(color: Color, f: Player => Player) = copy(
-    whitePlayer = if (color.white) f(whitePlayer) else whitePlayer,
-    blackPlayer = if (color.black) f(blackPlayer) else blackPlayer
-  )
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
@@ -726,8 +726,15 @@ case class ClockHistory(
 
   def record(color: Color, clock: Clock): ClockHistory = {
     val centis = Centis(clock.remainingCentis(color))
-    if (color.white) ClockHistory(white :+ centis, black)
-    else ClockHistory(white, black :+ centis)
+    color match {
+      case White => copy(white = white :+ centis)
+      case Black => copy(black = black :+ centis)
+    }
+  }
+
+  def reset(color: Color) = color match {
+    case White => copy(white = Vector.empty)
+    case Black => copy(black = Vector.empty)
   }
 
   def get(color: Color): Vector[Centis] =
