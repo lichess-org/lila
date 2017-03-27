@@ -480,15 +480,11 @@ case class Game(
     case _ => None
   }
 
-  def withTournamentId(id: String) = this.copy(
-    metadata = metadata.copy(tournamentId = id.some)
-  )
+  def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
 
-  def withSimulId(id: String) = this.copy(
-    metadata = metadata.copy(simulId = id.some)
-  )
+  def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
 
-  def withId(newId: String) = this.copy(id = newId)
+  def withId(newId: String) = copy(id = newId)
 
   def source = metadata.source
 
