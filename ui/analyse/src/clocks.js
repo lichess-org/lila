@@ -5,10 +5,10 @@ module.exports = function(ctrl) {
   var states = ctrl.data.game.clockStates;
   var bottomColor = ctrl.bottomColor();
   if (!states) return;
-  return [
+  return m('div.aclocks', [
     renderClock(ctrl, states, bottomColor === 'black', 'top'),
     renderClock(ctrl, states, bottomColor === 'white', 'bottom')
-  ];
+  ]);
 }
 
 // ply white black
@@ -31,7 +31,7 @@ function renderClock(ctrl, states, isWhite, position) {
   if (i < 0) i = isWhite ? 0 : 1;
   var tenths = states[i];
   return m('div', {
-    class: 'clock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
+    class: 'aclock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
   }, clockContent(tenths));
 }
 

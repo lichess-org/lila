@@ -1144,21 +1144,33 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   padding-bottom: 3px;
 }
 
-.lichess_ground .clock {
+.aclocks {
   position: absolute;
-  right: -40px;
-  width: 40px;
-  padding: 8px;
-  box-sizing: border-box;
+  right: -62px;
+  width: 62px;
   font-family: 'Roboto Mono', 'Roboto';
+  border: 1px solid #ccc;
+  border-left-width: 0;
+  border-radius: 0 4px 4px 0;
+  box-sizing: border-box;
+  line-height: 20px;
 }
-.lichess_ground .clock.top {
-  top: 40px;
+.aclock {
+  padding: 5px 0;
+  text-align: center;
 }
-.lichess_ground .clock.bottom {
-  bottom: 37px;
+
+.aclock:first-child {
+  border-bottom: 1px solid #ccc;
 }
-.lichess_ground .clock.active {
+.aclock.top {
+  border-radius: 0 4px 0 0;
+}
+.aclock.bottom {
+  border-radius: 0 0 4px 0;
+}
+.aclock.active {
+  background: #fafafa;
   font-weight: bold;
 }
 
