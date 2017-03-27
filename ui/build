@@ -9,6 +9,13 @@ apps="site chat2 challenge2 notify2 learn insight editor puzzle round analyse lo
 
 prll_sh=/etc/profile.d/prll.sh
 
+build_ts() {
+  cd ui/$1
+  npm install --no-optional
+  npm run compile
+  cd -
+}
+
 build() {
   app=$1
   echo "Building $app"
@@ -21,6 +28,8 @@ build() {
   npm install --no-optional && gulp $target
   cd -
 }
+
+build_ts "ceval"
 
 if [ -f $prll_sh ]; then # parallel execution!
   . $prll_sh
