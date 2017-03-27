@@ -121,7 +121,6 @@ object User {
     def tvPeriod = new Period(tv * 1000l)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
-  import lila.db.BSON.BSONJodaDateTimeHandler
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
 
   // Matches a lichess username with an '@' prefix if it is used as a single
