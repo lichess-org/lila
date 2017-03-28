@@ -3,26 +3,13 @@ var opposite = require('chessground/util').opposite;
 
 module.exports = function(ctrl) {
   var states = ctrl.data.game.clockStates;
+  if (!states || !ctrl.vm.onMainline) return;
   var bottomColor = ctrl.bottomColor();
   var firstIsWhite = ctrl.tree.root.ply % 2 === 0;
-  if (!states) return;
-  return m('div.aclocks', [
-    renderClock(ctrl, states, bottomColor === 'black', firstIsWhite, 'top'),
-    renderClock(ctrl, states, bottomColor === 'white', firstIsWhite, 'bottom')
-  ]);
+  var top = renderClock(ctrl, states, bottomColor === 'black', firstIsWhite, 'top');
+  var bot = renderClock(ctrl, states, bottomColor === 'white', firstIsWhite, 'bottom');
+  if (top && bot) return m('div.aclocks', [top, bot]);
 }
-
-// ply white black
-// 0   0     1
-// 1   0     1
-// 2   0     1
-// 3   2     1
-// 4   2     3
-// 5   4     3
-// 6   4     5
-// 7   6     5
-// 8   6     7
-// 9   8     7
 
 function renderClock(ctrl, states, isWhite, firstIsWhite, position) {
   var ply = ctrl.vm.node.ply, i;
@@ -31,7 +18,7 @@ function renderClock(ctrl, states, isWhite, firstIsWhite, position) {
   else i = Math.floor(i / 2) * 2 - 1;
   if (i < 0) i = isWhite === firstIsWhite ? 0 : 1;
   var tenths = states[i];
-  return m('div', {
+  if (typeof tenths !== 'undefined') return m('div', {
     class: 'aclock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
   }, clockContent(tenths));
 }

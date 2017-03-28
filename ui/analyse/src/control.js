@@ -31,7 +31,7 @@ module.exports = {
   },
 
   exitVariation: function(ctrl) {
-    if (ctrl.tree.pathIsMainline(ctrl.vm.path)) return;
+    if (ctrl.vm.onMainline) return;
     var found, path = treePath.root;
     ctrl.vm.nodeList.slice(1, -1).forEach(function(n) {
       path += n.id;

@@ -45,7 +45,7 @@ module.exports = {
     if (root.embed || root.retro) return;
     var state = root.fork.state();
     if (!state.displayed) return;
-    var isMainline = concealOf && root.tree.pathIsMainline(root.vm.path);
+    var isMainline = concealOf && root.vm.onMainline;
     return m('div.fork',
       state.node.children.map(function(node, i) {
         var conceal = isMainline && concealOf(true)(root.vm.path + node.id, node);

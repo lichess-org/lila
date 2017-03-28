@@ -82,7 +82,8 @@ module.exports = function(opts) {
     justDropped: null,
     justCaptured: null,
     keyboardHelp: location.hash === '#keyboard',
-    threatMode: false
+    threatMode: false,
+    onMainline: true
   };
 
   this.setPath = function(path) {
@@ -90,6 +91,7 @@ module.exports = function(opts) {
     this.vm.nodeList = this.tree.getNodeList(path);
     this.vm.node = tree.ops.last(this.vm.nodeList);
     this.vm.mainline = tree.ops.mainlineNodeList(this.tree.root);
+    this.vm.onMainline = this.tree.pathIsMainline(path)
   }.bind(this);
 
   this.setPath(initialPath);
@@ -204,7 +206,7 @@ module.exports = function(opts) {
   };
 
   var onChange = opts.onChange ? throttle(300, false, function() {
-    var mainlinePly = this.tree.pathIsMainline(this.vm.path) ? this.vm.node.ply : false;
+    var mainlinePly = this.vm.onMainline ? this.vm.node.ply : false;
     opts.onChange(this.vm.node.fen, this.vm.path, mainlinePly);
   }.bind(this)) : $.noop;
 

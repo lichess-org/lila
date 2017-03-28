@@ -26,9 +26,9 @@ module.exports = function(ctrl) {
   var nextDelay = function() {
     if (typeof(this.delay) === 'string') {
       // in a variation
-      if (!ctrl.tree.pathIsMainline(ctrl.vm.path)) return 1500;
+      if (!ctrl.vm.onMainline) return 1500;
       if (this.delay === 'realtime') {
-        if (ctrl.vm.node.ply < 2) return 1500;
+        if (ctrl.vm.node.ply < 2) return 1000;
         var time = ctrl.data.game.moveTimes[ctrl.vm.node.ply - ctrl.tree.root.ply];
         return Math.max(time, 1) * 100 || 2000;
       } else {

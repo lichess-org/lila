@@ -44,7 +44,7 @@ function ctrl(opts) {
   return {
     path: opts.path,
     node: opts.root.tree.nodeAtPath(opts.path),
-    isMainline: opts.root.tree.pathIsMainline(opts.path),
+    isMainline: opts.root.vm.onMainline,
     root: opts.root
   };
 }
