@@ -146,7 +146,7 @@ module.exports = {
         ]),
         canContinue ? m('a.fbt', {
           config: bindOnce('click', function() {
-            $.modal($('.continue_with.' + d.game.id));
+            $.modal($('.continue_with.g_' + d.game.id));
           })
         }, [
           m('i.icon[data-icon=U]'),
@@ -311,7 +311,7 @@ module.exports = {
       ] : null,
       ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
       deleteButton(d, ctrl.userId),
-      canContinue ? m('div.continue_with.' + d.game.id, [
+      canContinue ? m('div.continue_with.g_' + d.game.id, [
         m('a.button', {
           href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
