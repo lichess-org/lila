@@ -1,5 +1,6 @@
 package lila.game
 
+import chess.Color
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
@@ -21,7 +22,7 @@ final class PgnDump(
     val ts = tags(game, initialFen, imported)
     val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
     val moves2 = fenSituation.??(_.situation.color.black).fold(".." :: game.pgnMoves, game.pgnMoves)
-    Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1, ~game.bothClockStates))
+    Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1, ~game.bothClockStates, game.startColor))
   }
 
   private val fileR = """[\s,]""".r
@@ -91,10 +92,10 @@ final class PgnDump(
       ))
   }
 
-  private def turns(moves: List[String], from: Int, clocks: Vector[Centis]): List[chessPgn.Turn] =
+  private def turns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
       case (moves, index) =>
-        val clockOffset = from % 2
+        val clockOffset = startColor.fold(0, 1)
         chessPgn.Turn(
           number = index + from,
           white = moves.headOption filter (".." !=) map { san =>
