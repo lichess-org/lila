@@ -108,7 +108,7 @@ div.sidebar a {
 #lichess_message div.answer div.actions a {
   margin-left: 1em;
 }
-#lichess_message label {
+#lichess_message form > div > label {
   float: left;
   width: 100px;
   text-align: right;
@@ -123,8 +123,16 @@ div.sidebar a {
   padding: 3px 5px;
 }
 #lichess_message .field_to,
+#lichess_message .field_mod,
+#lichess_message .field_preset,
 #lichess_message .field_subject {
   margin-bottom: 1em;
+}
+#lichess_message .field_mod {
+  overflow: hidden;
+}
+#lichess_message .field_mod span {
+  float: left;
 }
 #lichess_message form textarea {
   width: 547px;

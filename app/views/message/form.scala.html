@@ -1,4 +1,4 @@
-@(form: Form[_], reqUser: Option[User] = None, reqTitle: Option[String] = None, canMessage: Boolean)(implicit ctx: Context)
+@(form: Form[_], reqUser: Option[User], reqTitle: Option[String], reqMod: Boolean, canMessage: Boolean)(implicit ctx: Context)
 
 @message.layout(
 title = trans.composeMessage.str()) {
@@ -34,6 +34,31 @@ title = trans.composeMessage.str()) {
           @errMsg(form("username"))
           }
         </div>
+
+        @if(isGranted(_.ModMessage)) {
+        <div class="field_mod">
+          <label for="@form("mod").id">Send as mod</label>
+          <span>
+            <input
+            @if(reqMod) { checked }
+            name="@form("mod").name"
+            id="@form("mod").id"
+            class="cmn-toggle cmn-toggle-round"
+            type="checkbox" />
+            <label for="@form("mod").id"></label>
+          </span>
+        </div>
+        <div class="field_preset">
+          <label for="@form("preset").id">Preset</label>
+          <select name="@form("preset").name">
+            <option></option>
+          </select>
+        </div>
+        @embedJs {
+        window.lichess_mod_presets = @Html(toJson(lila.message.ModPreset.asJson));
+        }
+        }
+
         <div class="field_subject">
           <label for="@form("subject").id">@trans.subject():</label>
           <input

@@ -95,8 +95,13 @@ object Message extends LilaController {
   private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Html] =
     get("user") ?? UserRepo.named flatMap { user =>
       user.fold(fuccess(true))(u => security.canMessage(me.id, u.id)) map { canMessage =>
-        html.message.form(f(forms thread me), user, title,
-          canMessage = canMessage || Granter(_.MessageAnyone)(me))
+        html.message.form(
+          f(forms thread me),
+          reqUser = user,
+          reqTitle = title,
+          reqMod = getBool("mod"),
+          canMessage = canMessage || Granter(_.MessageAnyone)(me)
+        )
       }
     }
 

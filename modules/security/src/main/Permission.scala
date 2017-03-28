@@ -43,11 +43,12 @@ object Permission {
   case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
   case object ModNote extends Permission("ROLE_MOD_NOTE")
   case object RemoveRanking extends Permission("ROLE_REMOVE_RANKING")
+  case object ModMessage extends Permission("ROLE_MOD_MESSAGE")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
-    UserSearch, ModNote, RemoveRanking
+    UserSearch, ModNote, RemoveRanking, ModMessage
   ))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
