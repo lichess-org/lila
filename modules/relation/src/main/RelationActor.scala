@@ -3,6 +3,7 @@ package lila.relation
 import akka.actor.Actor
 import akka.pattern.pipe
 import scala.concurrent.duration._
+import scala.collection.breakOut
 
 import actorApi._
 import lila.common.LightUser
@@ -34,8 +35,8 @@ private[relation] final class RelationActor(
 
     case ComputeMovement =>
       val curIds = online.userIds.keySet
-      val leaveUsers = (previousOnlineIds diff curIds).toList flatMap { lightUser(_) }
-      val enterUsers = (curIds diff previousOnlineIds).toList flatMap { lightUser(_) }
+      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).flatMap { lightUser(_) }(breakOut)
+      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).flatMap { lightUser(_) }(breakOut)
 
       val friendsEntering = enterUsers map { u =>
         FriendEntering(u, online.playing get u.id, online isStudying u.id)

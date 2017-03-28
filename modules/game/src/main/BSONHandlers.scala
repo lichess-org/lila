@@ -37,7 +37,9 @@ object BSONHandlers {
 
     def reads(r: BSON.Reader) = Crazyhouse.Data(
       pockets = {
-      val (white, black) = r.str("p").toList.flatMap(chess.Piece.fromChar).partition(_ is chess.White)
+      val (white, black) = {
+        r.str("p").flatMap(chess.Piece.fromChar)(scala.collection.breakOut): List[chess.Piece]
+      }.partition(_ is chess.White)
       Pockets(
         white = Pocket(white.map(_.role)),
         black = Pocket(black.map(_.role))

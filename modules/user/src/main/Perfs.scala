@@ -148,7 +148,7 @@ case class Perfs(
   )
 
   def latest: Option[DateTime] =
-    perfsMap.values.toList.flatMap(_.latest).foldLeft(none[DateTime]) {
+    perfsMap.values.flatMap(_.latest).foldLeft(none[DateTime]) {
       case (None, date) => date.some
       case (Some(acc), date) if date isAfter acc => date.some
       case (acc, _) => acc

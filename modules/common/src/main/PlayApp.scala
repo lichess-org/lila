@@ -30,7 +30,7 @@ object PlayApp {
     play.api.libs.concurrent.Akka.system
   }
 
-  lazy val langs = loadConfig.getStringList("play.i18n.langs").toList map Lang.apply
+  lazy val langs = loadConfig.getStringList("play.i18n.langs").map(Lang.apply)(scala.collection.breakOut)
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 

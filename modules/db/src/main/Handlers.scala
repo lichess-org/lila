@@ -1,5 +1,6 @@
 package lila.db
 
+import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scalaz.NonEmptyList
@@ -36,13 +37,13 @@ trait Handlers {
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[BSONDateTime, A] = isoHandler[A, DateTime, BSONDateTime](iso)
 
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
-    def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList
+    def read(array: BSONArray) = readStreamList(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toList
     def write(repr: List[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
 
   implicit def bsonArrayToVectorHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, Vector[T]] = new BSONHandler[BSONArray, Vector[T]] {
-    def read(array: BSONArray) = readStream(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toVector
+    def read(array: BSONArray) = readStreamVector(array, reader.asInstanceOf[BSONReader[BSONValue, T]]).toVector
     def write(repr: Vector[T]) =
       new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
   }
@@ -53,11 +54,15 @@ trait Handlers {
     def write(repr: NonEmptyList[T]) = listHandler.write(repr.list)
   }
 
-  private def readStream[T](array: BSONArray, reader: BSONReader[BSONValue, T]): Stream[T] = {
+  private def readStreamList[T](array: BSONArray, reader: BSONReader[BSONValue, T]): List[T] =
     array.stream.filter(_.isSuccess).map { v =>
       reader.read(v.get)
-    }
-  }
+    }(breakOut)
+
+  private def readStreamVector[T](array: BSONArray, reader: BSONReader[BSONValue, T]): Vector[T] =
+    array.stream.filter(_.isSuccess).map { v =>
+      reader.read(v.get)
+    }(breakOut)
 
   implicit val ipAddressHandler = isoHandler[IpAddress, String, BSONString](ipAddressIso)
 }

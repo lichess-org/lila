@@ -139,7 +139,7 @@ final class RankingApi(
             }(scala.collection.breakOut)
             (800 to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
-            }.toList
+            }(scala.collection.breakOut)
           }
       }
   }

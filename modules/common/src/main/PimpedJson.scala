@@ -35,7 +35,9 @@ object PimpedJson {
       (js \ key).asOpt[JsArray]
 
     def arrAs[A](key: String)(as: JsValue => Option[A]): Option[List[A]] =
-      arr(key) map { _.value.toList map as flatten }
+      arr(key) map { j =>
+        (j.value.map(as)(scala.collection.breakOut): List[Option[A]]).flatten
+      }
 
     def ints(key: String): Option[List[Int]] = arrAs(key)(_.asOpt[Int])
 

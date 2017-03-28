@@ -85,9 +85,9 @@ private[study] object PgnDump {
     comments = node.comments.list.map(_.text.value),
     opening = none,
     result = none,
-    variations = variations.toList.map { child =>
+    variations = variations.map { child =>
       toTurns(child.mainline, noVariations)
-    }
+    }(scala.collection.breakOut)
   )
 
   def toTurn(first: Node, second: Option[Node], variations: Variations) = chessPgn.Turn(
@@ -109,7 +109,7 @@ private[study] object PgnDump {
   }) filterNot (_.isEmpty)
 
   def toTurnsFromWhite(line: List[Node], variations: Variations): List[chessPgn.Turn] =
-    (line grouped 2).toList.foldLeft(variations -> List.empty[chessPgn.Turn]) {
+    (line grouped 2).foldLeft(variations -> List.empty[chessPgn.Turn]) {
       case ((variations, turns), pair) => pair.headOption.fold(variations -> turns) { first =>
         pair.lift(1).getOrElse(first).children.variations -> (toTurn(first, pair lift 1, variations) :: turns)
       }

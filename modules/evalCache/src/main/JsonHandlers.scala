@@ -47,7 +47,7 @@ object JsonHandlers {
 
   private def parsePv(d: JsObject): Option[Pv] = for {
     movesStr <- d str "moves"
-    moves <- movesStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).toList.foldLeft(List.empty[Uci].some) {
+    moves <- movesStr.split(' ').take(EvalCacheEntry.MAX_PV_SIZE).foldLeft(List.empty[Uci].some) {
       case (Some(ucis), str) => Uci(str) map (_ :: ucis)
       case _ => None
     }.flatMap(_.reverse.toNel) map Moves.apply

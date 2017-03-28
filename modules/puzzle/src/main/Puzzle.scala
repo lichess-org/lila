@@ -1,5 +1,7 @@
 package lila.puzzle
 
+import scala.collection.breakOut
+
 import chess.Color
 import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
@@ -73,7 +75,7 @@ object Puzzle {
       case Some(m) => s"$m${move drop 2}"
       case _ => sys error s"Invalid piotr move notation: $move"
     }
-    def read(doc: BSONDocument): Lines = doc.elements.toList map {
+    def read(doc: BSONDocument): Lines = doc.elements.map {
       case BSONElement(move, BSONBoolean(true)) => Win(readMove(move))
 
       case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
@@ -83,7 +85,7 @@ object Puzzle {
 
       case BSONElement(move, value) =>
         throw new Exception(s"Can't read value of $move: $value")
-    }
+    }(breakOut)
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
       case _ => sys error s"Invalid move notation: $move"

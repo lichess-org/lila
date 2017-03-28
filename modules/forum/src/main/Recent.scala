@@ -31,7 +31,7 @@ private[forum] final class Recent(
       user.fold("en")(_.langs.mkString(",")) :: {
         (user.??(_.troll) ?? List("[troll]")) :::
           (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
-          (teamIds map teamSlug).toList
+          (teamIds.map(teamSlug)(scala.collection.breakOut): List[String])
       } mkString ";"
     }
 

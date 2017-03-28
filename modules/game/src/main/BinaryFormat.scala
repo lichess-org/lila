@@ -70,7 +70,7 @@ object BinaryFormat {
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.take(turns).map(Centis.apply).toVector
+    }.take(turns).map(Centis.apply)(breakOut)
   }
 
   case class clock(since: DateTime) {

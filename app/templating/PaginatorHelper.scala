@@ -1,6 +1,8 @@
 package lila.app
 package templating
 
+import scala.collection.breakOut
+
 import lila.common.paginator.Paginator
 
 trait PaginatorHelper {
@@ -21,7 +23,7 @@ trait PaginatorHelper {
         case x if showPost => List(none, pager.nbPages.some)
         case _ => List(none)
       }
-      pre ::: (fromPage to toPage).toList.map(some) ::: post
+      pre ::: ((fromPage to toPage).map(some)(breakOut): List[Option[Int]]) ::: post
     }
 
     def firstIndex: Int =

@@ -106,7 +106,7 @@ object BSONHandlers {
 
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
-    private def readPocket(p: String) = Crazyhouse.Pocket(p.toList.flatMap(chess.Role.forsyth))
+    private def readPocket(p: String) = Crazyhouse.Pocket(p.flatMap(chess.Role.forsyth)(scala.collection.breakOut))
     def reads(r: Reader) = Crazyhouse.Data(
       promoted = r.getsD[Pos]("o").toSet,
       pockets = Crazyhouse.Pockets(

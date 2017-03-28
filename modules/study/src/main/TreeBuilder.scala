@@ -44,5 +44,5 @@ object TreeBuilder {
   )
 
   private def toBranches(children: Node.Children): List[tree.Branch] =
-    children.nodes.toList.map(toBranch)
+    children.nodes.map(toBranch)(scala.collection.breakOut)
 }

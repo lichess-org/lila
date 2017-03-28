@@ -20,10 +20,11 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
 object Path {
 
   def apply(str: String): Path = Path {
-    str.toList.grouped(2).toList.flatMap {
-      case List(a, b) => UciCharPair(a, b).some
-      case _ => none[UciCharPair]
-    }
+    str.grouped(2).flatMap { p =>
+      p lift 1 map { b =>
+        UciCharPair(p(0), b)
+      }
+    }.toList
   }
 
   val root = Path("")

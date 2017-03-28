@@ -1,6 +1,8 @@
 package lila.app
 package templating
 
+import scala.collection.breakOut
+
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
@@ -52,7 +54,7 @@ trait I18nHelper {
     I18nDomain(ctx.req.domain).commonDomain
 
   def acceptLanguages(implicit ctx: UserContext): List[String] =
-    ctx.req.acceptLanguages.map(_.language.toString).toList.distinct
+    (ctx.req.acceptLanguages.map(_.language.toString)(breakOut): List[String]).distinct
 
   def acceptsLanguage(lang: Lang)(implicit ctx: UserContext): Boolean =
     ctx.req.acceptLanguages exists (_.language == lang.language)

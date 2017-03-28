@@ -31,7 +31,7 @@ final class OnlineDoing(
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
     api fetchFollowing userId map userIds.intersect map { friends =>
       OnlineFriends(
-        users = friends.toList.flatMap { lightUser(_) },
+        users = friends.flatMap { lightUser(_) }(scala.collection.breakOut),
         playing = playing intersect friends,
         studying = friends filter studying.getAllPresent(friends).contains
       )

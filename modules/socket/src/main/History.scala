@@ -23,7 +23,7 @@ final class History[Metadata](ttl: FiniteDuration) {
     if (v > version) None
     else if (v == version) Some(Nil)
     else {
-      val msgs = (v + 1 to version).toList flatMap message
+      val msgs: List[Message] = (v + 1 to version).flatMap(message)(scala.collection.breakOut)
       (msgs.size == version - v) option msgs
     }
 

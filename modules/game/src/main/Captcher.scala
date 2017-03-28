@@ -79,11 +79,11 @@ private final class Captcher extends Actor {
       })
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
-      game.situation.moves.toList flatMap {
+      (game.situation.moves.flatMap {
         case (_, moves) => moves filter { move =>
           (move.after situationOf !game.player).checkMate
         }
-      } map { move =>
+      }(scala.collection.breakOut): List[chess.Move]) map { move =>
         s"${move.orig} ${move.dest}"
       } toNel
 
