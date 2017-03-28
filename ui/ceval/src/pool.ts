@@ -14,16 +14,16 @@ export abstract class AbstractWorker {
     this.boot();
   }
 
-  stop(timeout: number): Promise<{}> {
+  stop(): Promise<{}> {
     let stopped = this.protocol.stop();
     setTimeout(function() {
       stopped.reject();
-    }, timeout);
+    }, 1000);
     return stopped.promise;
   }
 
   start(work: Work) {
-    this.stop(1000).catch(() => {
+    this.stop().catch(() => {
       this.destroy();
       this.boot();
       return this.protocol.stop().promise;
@@ -111,14 +111,16 @@ export default class Pool {
   getWorker(): Promise<AbstractWorker> {
     this.warmup();
 
-    return new Promise(resolve => {
-      // briefly wait and give a chance to reuse the current worker
-      this.workers[this.token].stop(50).then(() => {
-        resolve(this.workers[this.token]);
-      }, () => {
-        this.token = (this.token + 1) % this.workers.length;
-        resolve(this.workers[this.token]);
-      });
+    // briefly wait and give a chance to reuse the current worker
+    let worker = new Promise((resolve, reject) => {
+      var currentWorker = this.workers[this.token];
+      currentWorker.stop().then(() => resolve(currentWorker));
+      setTimeout(() => reject(), 50);
+    });
+
+    return worker.catch(() => {
+      this.token = (this.token + 1) % this.workers.length;
+      return Promise.resolve(this.workers[this.token]);
     });
   }
 
@@ -133,7 +135,7 @@ export default class Pool {
   }
 
   stop() {
-    this.workers.forEach(w => w.stop(1000));
+    this.workers.forEach(w => w.stop());
   }
 
   destroy() {
