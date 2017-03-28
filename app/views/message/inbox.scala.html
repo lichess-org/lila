@@ -34,7 +34,7 @@ title = trans.inbox.str()) {
       @threads.currentPageResults.map { thread =>
       <tr class="paginated_element @thread.isUnReadBy(me).fold(" new", "")">
         <td class="author">
-          @userIdLink(thread.otherUserId(me), none)
+          @userIdLink(thread.visibleOtherUserId(me), none)
         </td>
         <td class="subject">
           <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
