@@ -1148,11 +1148,14 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   position: absolute;
   right: -62px;
   width: 62px;
+  top: calc(50% - 32px);
   font-family: 'Roboto Mono', 'Roboto';
   box-sizing: border-box;
   line-height: 20px;
 }
 .aclock {
+  height: 20px;
+  line-height: 20px;
   padding: 5px 0;
   text-align: center;
   border: 1px solid #ccc;
