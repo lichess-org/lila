@@ -45,7 +45,7 @@ class WebWorker extends AbstractWorker {
     this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       this.protocol.received(e.data);
-    });
+    }, true);
   }
 
   destroy() {
@@ -80,15 +80,16 @@ class PNaClWorker extends AbstractWorker {
       this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
       this.worker.addEventListener('message', e => {
         this.protocol.received((e as any).data);
-      });
+      }, true);
     } catch (e) {
-      delete this.worker;
+      this.destroy();
       this.poolOpts.onCrash(e);
     }
   }
 
   destroy() {
     if (this.worker) this.worker.remove();
+    delete this.worker;
   }
 
   send(cmd: string) {
@@ -136,6 +137,7 @@ export default class Pool {
   }
 
   destroy() {
+    this.stop();
     this.workers.forEach(w => w.destroy());
   }
 
