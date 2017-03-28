@@ -62,6 +62,9 @@ div.sidebar a {
 #lichess_message tr.new td.subject a {
   font-weight: bold;
 }
+#lichess_message tr.mod td.subject a {
+  color: red;
+}
 #lichess_message td.author, #lichess_message time {
   white-space: nowrap;
   padding-right: 1em;
