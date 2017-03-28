@@ -194,6 +194,14 @@ div.gauge_displayed div.lichess_game div.lichess_ground {
 div.gauge_displayed .fork {
   margin-left: 7px;
 }
+.pocket.top {
+  margin: 0;
+  border-radius: 3px 3px 0 0;
+}
+.pocket.bottom {
+  margin: 0;
+  border-radius: 0 0 3px 3px;
+}
 .areplay .opening_box {
   padding: 5px;
   border-bottom: 1px solid #ccc;
