@@ -188,7 +188,9 @@ object Node {
     JsArray(s.list.map(shapeWrites.writes))
   }
   implicit val glyphWriter: Writes[Glyph] = Json.writes[Glyph]
-  implicit val glyphsWriter: Writes[Glyphs] = Writes[Glyphs] { Json.toJson(_) }
+  implicit val glyphsWriter: Writes[Glyphs] = Writes[Glyphs] { gs =>
+    Json.toJson(gs.toList)
+  }
 
   implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
