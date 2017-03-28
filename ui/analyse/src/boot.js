@@ -30,24 +30,27 @@ module.exports = function(element, cfg) {
     });
 
   var $timeChart = $("#movetimes_chart");
-  var $inputFen = $('input.fen', element);
+  var inputFen = element.querySelector('input.fen');
   var unselect = function(chart) {
     chart.getSelectedPoints().forEach(function(point) {
       point.select(false);
     });
   };
-  var lastFen;
+  var lastFen, lastPly;
   cfg.onChange = function(fen, path, mainlinePly) {
-    if (fen === lastFen) return;
-    lastFen = fen = fen || lastFen;
+    if (lastPly === mainlinePly) return;
+    lastPly = typeof mainlinePly === 'undefined' ? lastPly : mainlinePly;
     var chart, point, $chart = $("#adv_chart");
-    $inputFen.val(fen);
+    if (fen && fen !== lastFen) {
+      inputFen.value = fen;
+      lastFen = fen;
+    }
     if ($chart.length) try {
       chart = $chart.highcharts();
       if (chart) {
-        if (mainlinePly === false) unselect(chart);
+        if (lastPly === false) unselect(chart);
         else {
-          point = chart.series[0].data[mainlinePly - 1 - cfg.data.game.startedAtTurn];
+          point = chart.series[0].data[lastPly - 1 - cfg.data.game.startedAtTurn];
           if (defined(point)) point.select();
           else unselect(chart);
         }
@@ -56,11 +59,11 @@ module.exports = function(element, cfg) {
     if ($timeChart.length) try {
       chart = $timeChart.highcharts();
       if (chart) {
-        if (mainlinePly === false) unselect(chart);
+        if (lastPly === false) unselect(chart);
         else {
-          var white = mainlinePly % 2 !== 0;
+          var white = lastPly % 2 !== 0;
           var serie = white ? 0 : 1;
-          var turn = Math.floor((mainlinePly - 1 - cfg.data.game.startedAtTurn) / 2);
+          var turn = Math.floor((lastPly - 1 - cfg.data.game.startedAtTurn) / 2);
           point = chart.series[serie].data[turn];
           if (defined(point)) point.select();
           else unselect(chart);
