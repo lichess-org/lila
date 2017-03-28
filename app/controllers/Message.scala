@@ -79,6 +79,7 @@ object Message extends LilaController {
         html = forms.thread(me).bindFromRequest.fold(
           err => renderForm(me, none, _ => err) map { BadRequest(_) },
           data => api.makeThread(data, me) map { thread =>
+            if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
             Redirect(routes.Message.thread(thread.id))
           }
         ),
