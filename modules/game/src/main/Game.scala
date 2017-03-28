@@ -135,14 +135,12 @@ case class Game(
     everyOther(mts.toList)
   }
 
-  def moveTimes: Option[Vector[Centis]] = {
-    for {
-      a <- moveTimes(startColor)
-      b <- moveTimes(!startColor)
-    } yield Sequence.interleave(a, b)
-  }
+  def moveTimes: Option[Vector[Centis]] = for {
+    a <- moveTimes(startColor)
+    b <- moveTimes(!startColor)
+  } yield Sequence.interleave(a, b)
 
-  def bothClockStates = clockHistory.map(_ bothClockStates startColor)
+  def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
