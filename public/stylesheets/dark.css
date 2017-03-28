@@ -475,10 +475,10 @@ body.dark .studies .study:hover,
 body.dark .coaches .coach:hover {
   background: rgba(27, 51, 68, 0.5)!important;
 }
-body.dark .is.color-icon.white::before {
+body.dark .color-icon.white::before {
   content: 'J';
 }
-body.dark .is.color-icon.black::before {
+body.dark .color-icon.black::before {
   content: 'K';
 }
 body.dark ::-webkit-input-placeholder {

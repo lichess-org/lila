@@ -142,13 +142,13 @@ body.blind_mode #blind_mode {
   margin-left: 0;
   height: auto;
 }
-.is.color-icon.white::before {
+.color-icon.white::before {
   content: "K";
 }
-.is.color-icon.black::before {
+.color-icon.black::before {
   content: "J";
 }
-.is.color-icon.random::before {
+.color-icon.random::before {
   content: "l";
 }
 @font-face {
@@ -1893,12 +1893,12 @@ div.lichess_overboard .close:hover {
     3.33px -30px 26.66px #451b0e;
   }
   100% {
-    text-shadow: 0 0 6.66px #fefcc9, 
-    3.33px -3.33px 10px #fefcc9, 
-    -6.66px -6.66px 13.33px #feec85, 
-    7.33px -14px 20px #ffae34, 
-    -7.33px -19.33px 16.66px #ec760c, 
-    0 -27.33px 26.66px #cd4606, 
+    text-shadow: 0 0 6.66px #fefcc9,
+    3.33px -3.33px 10px #fefcc9,
+    -6.66px -6.66px 13.33px #feec85,
+    7.33px -14px 20px #ffae34,
+    -7.33px -19.33px 16.66px #ec760c,
+    0 -27.33px 26.66px #cd4606,
     3.33px -30px 26.66px #973716;
   }
 }
