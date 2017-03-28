@@ -33,7 +33,10 @@ function clockContent(tenths) {
     return hours + sep + baseStr;
   }
   var tenthsStr = Math.floor(millis / 100).toString();
-  return baseStr + '.' + tenthsStr;
+  return [
+    baseStr,
+    m('tenths', '.' + tenthsStr)
+  ];
 }
 
 function pad2(num) {

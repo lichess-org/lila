@@ -1184,6 +1184,9 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   background: #fafafa;
   font-weight: bold;
 }
+.aclock tenths {
+  font-size: 80%;
+}
 
 body.dark .aclock {
   border-color: #3d3d3d;
