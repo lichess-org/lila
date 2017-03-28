@@ -93,21 +93,23 @@ final class PgnDump(
 
   private def turns(moves: List[String], from: Int, clocks: Vector[Centis]): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
-      case (moves, index) => chessPgn.Turn(
-        number = index + from,
-        white = moves.headOption filter (".." !=) map { san =>
-        chessPgn.Move(
-          san = san,
-          timeLeft = clocks lift (index * 2) map (_.roundSeconds)
+      case (moves, index) =>
+        val clockOffset = from % 2
+        chessPgn.Turn(
+          number = index + from,
+          white = moves.headOption filter (".." !=) map { san =>
+          chessPgn.Move(
+            san = san,
+            timeLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+          )
+        },
+          black = moves lift 1 map { san =>
+          chessPgn.Move(
+            san = san,
+            timeLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+          )
+        }
         )
-      },
-        black = moves lift 1 map { san =>
-        chessPgn.Move(
-          san = san,
-          timeLeft = clocks lift (index * 2 + 1) map (_.roundSeconds)
-        )
-      }
-      )
     } filterNot (_.isEmpty)
 }
 
