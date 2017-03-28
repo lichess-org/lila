@@ -482,13 +482,10 @@ body.dark .is.color-icon.black::before {
   content: 'K';
 }
 body.dark ::-webkit-input-placeholder {
-  color: #666!important;
-}
-body.dark ::-moz-placeholder {
-  color: #666!important;
+  color: #777;
 }
 body.dark :-ms-input-placeholder {
-  color: #666!important;
+  color: #777;
 }
 body.dark #lobby_playban,
 body.dark #lobby_current_game {

@@ -1615,17 +1615,11 @@ a.hover_text > .hover,
 a.hover_text:hover > .base {
   display: none;
 }
-input:focus::-webkit-input-placeholder {
-  color: transparent;
+::-webkit-input-placeholder {
+  color: #888;
 }
-input:focus:-moz-placeholder {
-  color: transparent;
-}
-input:focus::-moz-placeholder {
-  color: transparent;
-}
-input:focus:-ms-input-placeholder {
-  color: transparent;
+:-ms-input-placeholder {
+  color: #888;
 }
 button::-moz-focus-inner {
   border: 0;
