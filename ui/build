@@ -11,6 +11,8 @@ prll_sh=/etc/profile.d/prll.sh
 
 build_ts() {
   cd ui/$1
+  rm -rf node_modules/common
+  rm -rf node_modules/chess
   npm install --no-optional
   npm run compile
   cd -
