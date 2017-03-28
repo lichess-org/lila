@@ -23,7 +23,8 @@
     "compile": "tsc"
   },
   "devDependencies": {
-    "typescript": "^2"
+    "typescript": "^2",
+    "@types/jquery": "^2.0"
   },
   "dependencies": {
     "chess": "file:../chess",

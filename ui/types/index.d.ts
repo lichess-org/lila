@@ -1,15 +1,23 @@
 interface Lichess {
-  storage: any
   pubsub: Pubsub
   trans: Trans
   globalTrans(str: string): string
-  fp: any
   numberFormat(n: number): string
-  sound: any
   once(key: string): boolean
   quietMode: boolean
   desktopNotification(txt: string): void
+  engineName: string;
+  assetUrl(url: string, opts?: AssetUrlOpts): string;
+  storage: LichessStorageHelper
+
+  fp: any
+  sound: any
   powertip: any
+}
+
+interface AssetUrlOpts {
+  sameDomain?: boolean;
+  noVersion?: boolean;
 }
 
 declare type Trans = any; // todo
@@ -19,8 +27,23 @@ interface Pubsub {
   emit(msg: string): (...args: any[]) => void
 }
 
+interface LichessStorageHelper {
+  make(k: string): LichessStorage;
+  get(k: string): string;
+  set(k: string, v: string): string;
+  remove(k: string): void;
+}
+
+interface LichessStorage {
+  get(): string;
+  set(v: string): string;
+  remove(): void;
+  listen(f: (e: StorageEvent) => void): void;
+}
+
 interface Window {
   lichess: Lichess
+
   moment: any
   Mousetrap: any
 }
@@ -57,3 +80,9 @@ interface LightUser {
 interface Array<T> {
   find(f: (t: T) => boolean): T | undefined;
 }
+
+interface WebAssemblyStatic {
+  validate: (code: Uint8Array) => boolean;
+}
+
+declare var WebAssembly: WebAssemblyStatic | undefined;

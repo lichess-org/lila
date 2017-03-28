@@ -98,7 +98,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();
-      if (!v) window.lichess.storage.set('nochat', 1);
+      if (!v) window.lichess.storage.set('nochat', '1');
       else window.lichess.storage.remove('nochat');
       redraw();
     }

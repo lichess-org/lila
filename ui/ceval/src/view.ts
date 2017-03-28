@@ -70,7 +70,7 @@ function threatButton(ctrl: ParentController): Mithril.VirtualElement | undefine
 
 function engineName(ctrl: CevalController) {
   return [
-    lichess.engineName,
+    window.lichess.engineName,
     ctrl.pnaclSupported ? m('span.native', 'pnacl') : (ctrl.wasmSupported ? m('span.native', 'wasm') : m('span.asmjs', 'asmjs'))
   ];
 }

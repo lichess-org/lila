@@ -140,7 +140,7 @@ export default class Pool {
   }
 
   start(work: Work) {
-    lichess.storage.set('ceval.pool.start', '1');
+    window.lichess.storage.set('ceval.pool.start', '1');
     this.getWorker().then(function(worker) {
       worker.start(work);
     });
