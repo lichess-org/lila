@@ -1,4 +1,3 @@
-import { Variant } from './types';
 import { fixCrazySan, decomposeUci } from 'chess';
 
 type Square = number;
@@ -88,7 +87,7 @@ function slidingMovesTo(s: Square, deltas: number[], board: Board): Square[] {
   return result;
 }
 
-function isCheck(variant: Variant, board: Board): boolean {
+function isCheck(variant: VariantKey, board: Board): boolean {
   if (variant === 'antichess' || variant == 'racingKings') return false;
 
   let ksq = board.turn ? board.K : board.k;
@@ -114,7 +113,7 @@ function isCheck(variant: Variant, board: Board): boolean {
     slidingMovesTo(ksq, BISHOP_DELTAS, board).some(o => board.pieces[o] === b || board.pieces[o] === q));
 }
 
-function makeMove(variant: Variant, board: Board, uci: string) {
+function makeMove(variant: VariantKey, board: Board, uci: string) {
   if (!board.turn) board.fmvn++;
   board.turn = !board.turn;
 
@@ -225,7 +224,7 @@ function san(board: Board, uci: string): string  {
   return san;
 }
 
-export default function(variant: Variant, fen: string, threat: boolean, moves: string[], mate?: number): string {
+export default function(variant: VariantKey, fen: string, threat: boolean, moves: string[], mate?: number): string {
   var board = readFen(fen);
   if (threat) board.turn = !board.turn;
   var turn = board.turn;

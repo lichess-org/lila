@@ -1,13 +1,3 @@
-export type Color = 'white' | 'black';
-
-export interface VariantInfo {
-  key: Variant;
-}
-
-export type Variant = 'standard' | 'fromPosition' | 'crazyhouse' | 'chess960' |
-                      'kingOfTheHill' | 'threeCheck' | 'antichess' | 'atomic' |
-                      'horde' | 'racingKings';
-
 export interface Eval {
   cp?: number;
   mate?: number;
@@ -38,7 +28,7 @@ export interface ServerEval {
 }
 
 export interface WorkerOpts {
-  variant: Variant;
+  variant: VariantKey;
   threads: false | (() => number | string);
   hashSize: false | (() => number | string);
   minDepth: number;
@@ -75,7 +65,7 @@ export interface CevalOpts {
   failsafe: boolean;
   multiPvDefault: number;
   possible: boolean;
-  variant: VariantInfo;
+  variant: Variant;
   onCrash: (info: CrashInfo) => void;
   emit: (ev: ClientEval) => void;
   setAutoShapes: () => void;
@@ -102,7 +92,7 @@ export interface CevalController {
   enabled: Mithril.Property<boolean>;
   possible: boolean;
   isComputing: () => boolean;
-  variant: VariantInfo;
+  variant: Variant;
   setHovering: (fen: string, uci: string | null) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;

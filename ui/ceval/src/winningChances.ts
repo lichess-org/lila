@@ -1,4 +1,4 @@
-import { Eval, Color } from './types';
+import { Eval } from './types';
 
 function toPov(color: Color, diff: number): number {
   return color === 'white' ? diff : -diff;

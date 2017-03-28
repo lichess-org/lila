@@ -1,3 +1,5 @@
+/// <reference path="../../types/index.d.ts" />
+
 import { ClientEval } from './types';
 
 import ctrl from './ctrl';
@@ -14,7 +16,7 @@ export function isEvalBetter(a: ClientEval, b?: ClientEval) {
 // stop when another tab starts. Listen only once here,
 // as the ctrl can be instanciated several times.
 // gotta do the click on the toggle to have it visually change.
-lichess.storage.make('ceval.pool.start').listen(function() {
+window.lichess.storage.make('ceval.pool.start').listen(function() {
   var toggle = document.getElementById('analyse-toggle-ceval');
   if (toggle && (toggle as HTMLInputElement).checked) {
     console.log('Another tab runs the engine, closing this one.');

@@ -7,7 +7,7 @@ export function hasTeamUrl(txt: string) {
 export function report(txt: string) {
   if (analyse(txt)) {
     $.post('/jslog/____________?n=spam');
-    isSpammer.set(1);
+    isSpammer.set('1');
   }
 }
 

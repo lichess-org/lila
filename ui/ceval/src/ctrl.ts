@@ -1,4 +1,4 @@
-import { CevalController, CevalOpts, ClientEval, PvData, Color, Work, Step, Hovering, Started } from './types';
+import { CevalController, CevalOpts, ClientEval, PvData, Work, Step, Hovering, Started } from './types';
 
 import * as m from 'mithril';
 import Pool from './pool';
@@ -21,7 +21,7 @@ export default function(opts: CevalOpts): CevalController {
   var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   var infinite = storedProp('ceval.infinite', false);
   var curEval: ClientEval | null = null;
-  var enableStorage = lichess.storage.make(storageKey('client-eval-enabled'));
+  var enableStorage = window.lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   var started: Started | false = false;
@@ -30,9 +30,9 @@ export default function(opts: CevalOpts): CevalController {
   var isDeeper = m.prop(false);
 
   var pool = new Pool({
-    asmjs: lichess.assetUrl('/assets/vendor/stockfish/stockfish.js', {sameDomain: true}),
-    pnacl: pnaclSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.nmf'),
-    wasm: wasmSupported && lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
+    asmjs: window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.js', {sameDomain: true}),
+    pnacl: pnaclSupported && window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.nmf'),
+    wasm: wasmSupported && window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth: minDepth,
@@ -81,7 +81,7 @@ export default function(opts: CevalOpts): CevalController {
   };
 
   var publish = function(ev: ClientEval) {
-    if (ev.depth === 12) lichess.storage.set('ceval.fen', ev.fen);
+    if (ev.depth === 12) window.lichess.storage.set('ceval.fen', ev.fen);
   };
 
   var effectiveMaxDepth = function(): number {
