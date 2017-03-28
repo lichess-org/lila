@@ -2,7 +2,7 @@
 
 @message.layout(
 title = thread.name) {
-<div id="lichess_message" class="content_box">
+<div id="lichess_message" class="content_box @if(thread.asMod){ mod}">
   <div class="thread_actions">
     <form action="@routes.Message.delete(thread.id)" method="post">
       <button type="submit" class="delete button"> Delete</button>

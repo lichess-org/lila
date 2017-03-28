@@ -14,7 +14,7 @@ case class Thread(
     creatorId: String,
     invitedId: String,
     visibleByUserIds: List[String],
-    asMod: Boolean
+    mod: Option[Boolean]
 ) {
 
   def +(post: Post) = copy(
@@ -23,6 +23,8 @@ case class Thread(
   )
 
   def id = _id
+
+  def asMod = ~mod
 
   def isCreator(user: User) = creatorId == user.id
 
@@ -107,7 +109,7 @@ object Thread {
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId),
-    asMod = asMod
+    mod = asMod option true
   )
 
   import lila.db.dsl.BSONJodaDateTimeHandler
