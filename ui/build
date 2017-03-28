@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 . bin/lilarc
 
 target=${1-dev}
@@ -29,6 +29,7 @@ build() {
   cd -
 }
 
+build_ts "chess"
 build_ts "ceval"
 
 if [ -f $prll_sh ]; then # parallel execution!
