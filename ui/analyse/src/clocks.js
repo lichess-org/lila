@@ -4,10 +4,11 @@ var opposite = require('chessground/util').opposite;
 module.exports = function(ctrl) {
   var states = ctrl.data.game.clockStates;
   var bottomColor = ctrl.bottomColor();
+  var firstIsWhite = ctrl.tree.root.ply % 2 === 0;
   if (!states) return;
   return m('div.aclocks', [
-    renderClock(ctrl, states, bottomColor === 'black', 'top'),
-    renderClock(ctrl, states, bottomColor === 'white', 'bottom')
+    renderClock(ctrl, states, bottomColor === 'black', firstIsWhite, 'top'),
+    renderClock(ctrl, states, bottomColor === 'white', firstIsWhite, 'bottom')
   ]);
 }
 
@@ -23,12 +24,12 @@ module.exports = function(ctrl) {
 // 8   6     7
 // 9   8     7
 
-function renderClock(ctrl, states, isWhite, position) {
+function renderClock(ctrl, states, isWhite, firstIsWhite, position) {
   var ply = ctrl.vm.node.ply, i;
   var i = ply - ctrl.tree.root.ply;
-  if (isWhite) i = Math.floor((i - 1) / 2) * 2;
+  if (isWhite === firstIsWhite) i = Math.floor((i - 1) / 2) * 2;
   else i = Math.floor(i / 2) * 2 - 1;
-  if (i < 0) i = isWhite ? 0 : 1;
+  if (i < 0) i = isWhite === firstIsWhite ? 0 : 1;
   var tenths = states[i];
   return m('div', {
     class: 'aclock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
