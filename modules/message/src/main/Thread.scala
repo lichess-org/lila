@@ -13,7 +13,8 @@ case class Thread(
     posts: List[Post],
     creatorId: String,
     invitedId: String,
-    visibleByUserIds: List[String]
+    visibleByUserIds: List[String],
+    asMod: Boolean
 ) {
 
   def +(post: Post) = copy(
@@ -54,7 +55,15 @@ case class Thread(
 
   def senderOf(post: Post) = post.isByCreator.fold(creatorId, invitedId)
 
+  def visibleSenderOf(post: Post) =
+    if (post.isByCreator && asMod) "lichess"
+    else senderOf(post)
+
   def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
+
+  def visibleReceiverOf(post: Post) =
+    if (!post.isByCreator && asMod) "lichess"
+    else receiverOf(post)
 
   def isWrittenBy(post: Post, user: User) = post.isByCreator == isCreator(user)
 
@@ -79,7 +88,8 @@ object Thread {
     name: String,
     text: String,
     creatorId: String,
-    invitedId: String
+    invitedId: String,
+    asMod: Boolean
   ): Thread = Thread(
     _id = Random nextString idSize,
     name = name,
@@ -91,7 +101,8 @@ object Thread {
     )),
     creatorId = creatorId,
     invitedId = invitedId,
-    visibleByUserIds = List(creatorId, invitedId)
+    visibleByUserIds = List(creatorId, invitedId),
+    asMod = asMod
   )
 
   import lila.db.dsl.BSONJodaDateTimeHandler

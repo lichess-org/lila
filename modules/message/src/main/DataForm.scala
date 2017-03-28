@@ -26,7 +26,7 @@ private[message] final class DataForm(security: MessageSecurity) {
         user = fetchUser(username) err "Unknown username " + username,
         subject = subject,
         text = text,
-        mod = mod.isDefined
+        asMod = mod.isDefined
       )
     })(_.export.some))
 
@@ -43,9 +43,9 @@ object DataForm {
       user: User,
       subject: String,
       text: String,
-      mod: Boolean
+      asMod: Boolean
   ) {
 
-    def export = (user.username, subject, text, mod option "1")
+    def export = (user.username, subject, text, asMod option "1")
   }
 }

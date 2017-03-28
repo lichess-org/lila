@@ -42,7 +42,8 @@ final class MessageApi(
           name = data.subject,
           text = data.text,
           creatorId = me.id,
-          invitedId = data.user.id
+          invitedId = data.user.id,
+          asMod = data.asMod
         )
         muteThreadIfNecessary(t, me, invited, data) flatMap { thread =>
           sendUnlessBlocked(thread, fromMod) flatMap {
@@ -110,7 +111,7 @@ final class MessageApi(
       notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(
-          PrivateMessage.SenderId(thread senderOf post),
+          PrivateMessage.SenderId(thread visibleSenderOf post),
           PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
           PrivateMessage.Text(shorten(post.text, 80))
         )
