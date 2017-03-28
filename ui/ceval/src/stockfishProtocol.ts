@@ -10,16 +10,14 @@ const EVAL_REGEX = new RegExp(''
 
 export default class Protocol {
   private send: (cmd: string) => void;
-  private work: Work | null;
-  private curEval: ClientEval | null;
+  private work: Work | null = null;
+  private curEval: ClientEval | null = null;
   private expectedPvs = 1;
   private stopped: Deferred<{}> | null;
   private opts: WorkerOpts;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
-    this.work = null;
-    this.curEval = null;
     this.opts = opts;
 
     this.stopped = defer<{}>();
@@ -43,7 +41,7 @@ export default class Protocol {
     }
     if (!this.work) return;
 
-    var matches = text.match(EVAL_REGEX);
+    let matches = text.match(EVAL_REGEX);
     if (!matches) return;
 
     let depth = parseInt(matches[1]),
@@ -55,11 +53,11 @@ export default class Protocol {
         elapsedMs: number = parseInt(matches[7]),
         moves = matches[8].split(' ', 10);
 
-    // time is negative on safari
-    if (!elapsedMs || elapsedMs < 0) elapsedMs = (new Date().getTime() - this.work.startedAt!.getTime());
-
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
+
+    // Work around negative times on Safari.
+    if (!elapsedMs || elapsedMs < 0) elapsedMs = Math.max(0, new Date().getTime() - this.work.startedAt!.getTime());
 
     if (depth < this.opts.minDepth) return;
 
@@ -72,7 +70,7 @@ export default class Protocol {
     // See: https://github.com/ddugovic/Stockfish/issues/228
     if (evalType && multiPv === 1) return;
 
-    var pvData = {
+    let pvData = {
       moves: moves,
       cp: isMate ? undefined : ev,
       mate: isMate ? ev : undefined,
@@ -100,7 +98,7 @@ export default class Protocol {
       this.work.emit(this.curEval);
       this.curEval = null;
     }
-  };
+  }
 
   start(w: Work) {
     this.work = w;
