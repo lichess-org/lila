@@ -16,7 +16,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.find(selector).uno[D]
 
     def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
-      coll.find(selector).list[D](readPreference = readPreference)
+      coll.find(selector).list[D](Int.MaxValue, readPreference = readPreference)
 
     def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
       coll.find(selector).list[D](limit = limit)
