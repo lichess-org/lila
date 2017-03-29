@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
+import lila.round.JsonView.WithFlags
 import views._
 
 object Analyse extends LilaController {
@@ -42,9 +43,12 @@ object Analyse extends LilaController {
                 tv = userTv.map { u => lila.round.OnUserTv(u.id) },
                 analysis,
                 initialFenO = initialFen.some,
-                withMoveTimes = true,
-                withDivision = true,
-                withOpening = true) map { data =>
+                withFlags = WithFlags(
+                  movetimes = true,
+                  clocks = true,
+                  division = true,
+                  opening = true
+                )) map { data =>
                   Ok(html.analyse.replay(
                     pov,
                     data,
@@ -69,11 +73,9 @@ object Analyse extends LilaController {
         val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
           initialFenO = initialFen.map(_.value).some,
-          withMoveTimes = false,
-          withDivision = false,
-          withOpening = true) map { data =>
-          Ok(html.analyse.embed(pov, data))
-        }
+          withFlags = WithFlags(opening = true)) map { data =>
+            Ok(html.analyse.embed(pov, data))
+          }
       case _ => fuccess(NotFound(html.analyse.embedNotFound()))
     }
   }

@@ -168,7 +168,8 @@ private[round] final class Socket(
           variant = a.variant,
           analysis = a.analysis.some,
           initialFen = a.initialFen.value,
-          withOpening = false
+          withFlags = JsonView.WithFlags(),
+          clocks = none
         )
       ))
 

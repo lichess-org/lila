@@ -167,6 +167,7 @@ object BSONHandlers {
       shapes = readShapes(r),
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
+      clock = r.getO[Centis]("l"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
       children = r.get[Node.Children]("n")
     )

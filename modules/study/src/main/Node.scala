@@ -12,6 +12,7 @@ sealed trait RootOrNode {
   val fen: FEN
   val check: Boolean
   val shapes: Shapes
+  val clock: Option[Centis]
   val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
@@ -28,8 +29,8 @@ case class Node(
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
-    crazyData: Option[Crazyhouse.Data],
     clock: Option[Centis],
+    crazyData: Option[Crazyhouse.Data],
     children: Node.Children
 ) extends RootOrNode {
 
@@ -151,6 +152,7 @@ object Node {
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       glyphs: Glyphs = Glyphs.empty,
+      clock: Option[Centis],
       crazyData: Option[Crazyhouse.Data],
       children: Children
   ) extends RootOrNode {
@@ -205,6 +207,7 @@ object Node {
       ply = 0,
       fen = FEN(variant.initialFen),
       check = false,
+      clock = none,
       crazyData = variant.crazyhouse option Crazyhouse.Data.init,
       children = emptyChildren
     )
@@ -213,6 +216,7 @@ object Node {
       ply = b.ply,
       fen = FEN(b.fen),
       check = b.check,
+      clock = b.clock,
       crazyData = b.crazyData,
       children = Children(b.children.toVector map fromBranch)
     )

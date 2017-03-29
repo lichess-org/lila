@@ -171,7 +171,8 @@ module.exports = function(root) {
   function getParentClock(node, path) {
     if (!('parentClock' in node)) {
       var parent = path && nodeAtPath(treePath.init(path));
-      if (!parent || !('clock' in parent)) node.parentClock = null;
+      if (!parent) node.parentClock = node.clock;
+      else if (!('clock' in parent)) node.parentClock = null;
       else node.parentClock = parent.clock;
     }
     return node.parentClock;

@@ -4,6 +4,7 @@ import chess.format.pgn.Tag
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.game.{ Game, Pov, GameRepo, Namer }
+import lila.round.JsonView.WithFlags
 import lila.importer.Importer
 import lila.user.User
 
@@ -66,6 +67,7 @@ private final class ChapterMaker(
         ply = sit.turns,
         fen = FEN(Forsyth.>>(sit)),
         check = sit.situation.check,
+        clock = none,
         crazyData = sit.situation.board.crazyData,
         children = Node.emptyChildren
       ) -> true
@@ -73,6 +75,7 @@ private final class ChapterMaker(
         ply = 0,
         fen = FEN(variant.initialFen),
         check = false,
+        clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
         children = Node.emptyChildren
       ) -> false
@@ -138,7 +141,7 @@ private final class ChapterMaker(
           game = game,
           analysis = none,
           initialFen = initialFen | game.variant.initialFen,
-          withOpening = false
+          withFlags = WithFlags(clocks = true)
         )
       }
       endComment(game).fold(root) { comment =>

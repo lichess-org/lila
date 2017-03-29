@@ -10,6 +10,7 @@ import lila.common.ApiVersion
 import lila.game.Pov
 import lila.user.User
 import lila.pref.Pref
+import lila.round.JsonView.WithFlags
 
 private[api] final class RoundApiBalancer(
     system: ActorSystem,
@@ -30,9 +31,7 @@ private[api] final class RoundApiBalancer(
     case class Review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
       analysis: Option[Analysis] = None,
       initialFenO: Option[Option[String]] = None,
-      withMoveTimes: Boolean = false,
-      withDivision: Boolean = false,
-      withOpening: Boolean = false,
+      withFlags: WithFlags,
       ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User])
     case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User])
@@ -49,8 +48,8 @@ private[api] final class RoundApiBalancer(
           }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
           case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>
             api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
-          case Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) =>
-            api.review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening)(ctx)
+          case Review(pov, apiVersion, tv, analysis, initialFenO, withFlags, ctx) =>
+            api.review(pov, apiVersion, tv, analysis, initialFenO, withFlags)(ctx)
           case UserAnalysis(pov, pref, initialFen, orientation, owner, me) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner, me)
           case FreeStudy(pov, pref, initialFen, orientation, me) =>
@@ -80,10 +79,8 @@ private[api] final class RoundApiBalancer(
     tv: Option[lila.round.OnTv] = None,
     analysis: Option[Analysis] = None,
     initialFenO: Option[Option[String]] = None,
-    withMoveTimes: Boolean = false,
-    withDivision: Boolean = false,
-    withOpening: Boolean = false)(implicit ctx: Context): Fu[JsObject] = {
-    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, withDivision, withOpening, ctx) mapTo manifest[JsObject]
+    withFlags: WithFlags)(implicit ctx: Context): Fu[JsObject] = {
+    router ? Review(pov, apiVersion, tv, analysis, initialFenO, withFlags, ctx) mapTo manifest[JsObject]
   }.mon(_.round.api.watcher)
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]): Fu[JsObject] =

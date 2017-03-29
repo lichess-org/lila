@@ -40,7 +40,7 @@ final class JsonView(
     apiVersion: ApiVersion,
     playerUser: Option[User],
     initialFen: Option[String],
-    withBlurs: Boolean
+    withFlags: WithFlags
   ): Fu[JsObject] =
     getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
@@ -66,8 +66,8 @@ final class JsonView(
               "onGame" -> (player.isAi || socket.onGame(player.color)),
               "checks" -> checkCount(game, player.color),
               "berserk" -> player.berserk.option(true),
-              "hold" -> (withBlurs option hold(player)),
-              "blurs" -> (withBlurs option blurs(game, player))
+              "hold" -> (withFlags.blurs option hold(player)),
+              "blurs" -> (withFlags.blurs option blurs(game, player))
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -83,8 +83,8 @@ final class JsonView(
               "isGone" -> (!opponent.isAi && socket.isGone(opponent.color)),
               "checks" -> checkCount(game, opponent.color),
               "berserk" -> opponent.berserk.option(true),
-              "hold" -> (withBlurs option hold(opponent)),
-              "blurs" -> (withBlurs option blurs(game, opponent))
+              "hold" -> (withFlags.blurs option hold(opponent)),
+              "blurs" -> (withFlags.blurs option blurs(game, opponent))
             ).noNull,
             "url" -> Json.obj(
               "socket" -> s"/$fullId/socket/v$apiVersion",
@@ -134,10 +134,8 @@ final class JsonView(
     apiVersion: ApiVersion,
     me: Option[User],
     tv: Option[OnTv],
-    withBlurs: Boolean,
     initialFen: Option[String] = None,
-    withMoveTimes: Boolean,
-    withDivision: Boolean
+    withFlags: WithFlags
   ) =
     getSocketStatus(pov.game.id) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
@@ -146,9 +144,8 @@ final class JsonView(
           Json.obj(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
-                "moveTimes" -> (withMoveTimes ?? game.moveTimes.map(centisToTenths)),
-                "clockStates" -> (withMoveTimes ?? game.bothClockStates.map(centisToTenths)),
-                "division" -> withDivision.option(divider(game, initialFen)),
+                "moveTimes" -> (withFlags.movetimes ?? game.moveTimes.map(centisToTenths)),
+                "division" -> withFlags.division.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)
               ).noNull
@@ -168,8 +165,8 @@ final class JsonView(
               "onGame" -> (player.isAi || socket.onGame(player.color)),
               "checks" -> checkCount(game, player.color),
               "berserk" -> player.berserk.option(true),
-              "hold" -> (withBlurs option hold(player)),
-              "blurs" -> (withBlurs option blurs(game, player))
+              "hold" -> (withFlags.blurs option hold(player)),
+              "blurs" -> (withFlags.blurs option blurs(game, player))
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -182,8 +179,8 @@ final class JsonView(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
               "checks" -> checkCount(game, opponent.color),
               "berserk" -> opponent.berserk.option(true),
-              "hold" -> (withBlurs option hold(opponent)),
-              "blurs" -> (withBlurs option blurs(game, opponent))
+              "hold" -> (withFlags.blurs option hold(opponent)),
+              "blurs" -> (withFlags.blurs option blurs(game, opponent))
             ).noNull,
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
@@ -340,6 +337,14 @@ final class JsonView(
 }
 
 object JsonView {
+
+  case class WithFlags(
+    opening: Boolean = false,
+    movetimes: Boolean = false,
+    division: Boolean = false,
+    clocks: Boolean = false,
+    blurs: Boolean = false
+  )
 
   implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>
     Json.obj(

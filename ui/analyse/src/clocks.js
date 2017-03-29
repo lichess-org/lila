@@ -2,34 +2,40 @@ var m = require('mithril');
 var opposite = require('chessground/util').opposite;
 
 module.exports = function(ctrl) {
-  var states = ctrl.data.game.clockStates;
-  if (!states || !ctrl.vm.onMainline) return;
-  var bottomColor = ctrl.bottomColor();
-  var firstIsWhite = ctrl.tree.root.ply % 2 === 0;
-  var top = renderClock(ctrl, states, bottomColor === 'black', firstIsWhite, 'top');
-  var bot = renderClock(ctrl, states, bottomColor === 'white', firstIsWhite, 'bottom');
-  if (top && bot) return m('div.aclocks', [top, bot]);
+  var node = ctrl.vm.node, clock = node.clock;
+  if (!clock) return;
+  var parentClock = ctrl.tree.getParentClock(node, ctrl.vm.path);
+  var whiteCentis, blackCentis;
+  var isWhiteTurn = node.ply % 2 === 0;
+  if (isWhiteTurn) {
+    whiteCentis = parentClock;
+    blackCentis = clock;
+  }
+  else {
+    whiteCentis = clock;
+    blackCentis = parentClock;
+  }
+  var whitePov = ctrl.bottomColor() === 'white';
+  var whiteEl = renderClock(whiteCentis, isWhiteTurn);
+  var blackEl = renderClock(blackCentis, !isWhiteTurn);
+
+  return m('div.aclocks', whitePov ? [blackEl, whiteEl] : [whiteEl, blackEl]);
 }
 
-function renderClock(ctrl, states, isWhite, firstIsWhite, position) {
-  var ply = ctrl.vm.node.ply, i;
-  var i = ply - ctrl.tree.root.ply;
-  if (isWhite === firstIsWhite) i = Math.floor((i - 1) / 2) * 2;
-  else i = Math.floor(i / 2) * 2 - 1;
-  if (i < 0) i = isWhite === firstIsWhite ? 0 : 1;
-  var tenths = states[i];
-  if (typeof tenths !== 'undefined') return m('div', {
-    class: 'aclock ' + position + (ply % 2 === (isWhite ? 0 : 1) ? ' active' : '')
-  }, clockContent(tenths));
+function renderClock(centis, active) {
+  return m('div', {
+    class: 'aclock ' + (active ? ' active' : '')
+  }, clockContent(centis));
 }
 
-function clockContent(tenths) {
-  var date = new Date(tenths * 100);
+function clockContent(centis) {
+  if (centis === null) return '-';
+  var date = new Date(centis * 10);
   var millis = date.getUTCMilliseconds();
   var sep = ':';
   var baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
-  if (tenths >= 36000) {
-    var hours = pad2(Math.floor(tenths / 36000));
+  if (centis >= 360000) {
+    var hours = Math.floor(centis / 360000);
     return hours + sep + baseStr;
   }
   var tenthsStr = Math.floor(millis / 100).toString();

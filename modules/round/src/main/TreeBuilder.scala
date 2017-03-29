@@ -4,7 +4,9 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
+import JsonView.WithFlags
 import lila.analyse.{ Analysis, Info, Advice }
+import lila.common.Centis
 import lila.tree._
 
 object TreeBuilder {
@@ -22,14 +24,15 @@ object TreeBuilder {
     game: lila.game.Game,
     analysis: Option[Analysis],
     initialFen: String,
-    withOpening: Boolean
+    withFlags: WithFlags
   ): Root = apply(
     id = game.id,
     pgnMoves = game.pgnMoves,
     variant = game.variant,
     analysis = analysis,
     initialFen = initialFen,
-    withOpening = withOpening
+    withFlags = withFlags,
+    clocks = withFlags.clocks ?? game.bothClockStates
   )
 
   def apply(
@@ -38,13 +41,15 @@ object TreeBuilder {
     variant: Variant,
     analysis: Option[Analysis],
     initialFen: String,
-    withOpening: Boolean
+    withFlags: WithFlags,
+    clocks: Option[Vector[Centis]]
   ): Root = {
+    val withClocks = clocks ifTrue withFlags.clocks
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         val openingOf: OpeningOf =
-          if (withOpening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
+          if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
         val fen = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
@@ -56,6 +61,7 @@ object TreeBuilder {
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
+          clock = withClocks ?? (_.headOption),
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
@@ -70,6 +76,7 @@ object TreeBuilder {
             fen = fen,
             check = g.situation.check,
             opening = openingOf(fen),
+            clock = withClocks ?? (_ lift (g.turns - init.turns - 1)),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
