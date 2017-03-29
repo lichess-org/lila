@@ -167,7 +167,7 @@ wog
   def ru = dict("""
 сука
 пизда
-pidar
+pid(a|o)r
 """)
 
   private def dict(words: String) = words.lines.filter(_.nonEmpty)
