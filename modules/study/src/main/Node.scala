@@ -4,6 +4,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.Crazyhouse
 
+import lila.common.Centis
 import lila.tree.Node.{ Shapes, Comment, Comments }
 
 sealed trait RootOrNode {
@@ -28,6 +29,7 @@ case class Node(
     comments: Comments = Comments(Nil),
     glyphs: Glyphs = Glyphs.empty,
     crazyData: Option[Crazyhouse.Data],
+    clock: Option[Centis],
     children: Node.Children
 ) extends RootOrNode {
 
@@ -223,6 +225,7 @@ object Node {
     fen = FEN(b.fen),
     check = b.check,
     crazyData = b.crazyData,
+    clock = b.clock,
     children = Children(b.children.toVector map fromBranch)
   )
 }

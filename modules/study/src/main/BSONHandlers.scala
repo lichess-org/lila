@@ -12,8 +12,8 @@ import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.tree.Node.{ Shape, Shapes }
 
-import lila.common.Iso
 import lila.common.Iso._
+import lila.common.{ Iso, Centis }
 
 object BSONHandlers {
 
@@ -23,6 +23,7 @@ object BSONHandlers {
   implicit val StudyNameBSONHandler = stringIsoHandler(Study.nameIso)
   implicit val ChapterIdBSONHandler = stringIsoHandler(Chapter.idIso)
   implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
+  implicit val CentisBSONHandler = intIsoHandler(Centis.centisIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -139,6 +140,7 @@ object BSONHandlers {
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
+      clock = r.getO[Centis]("l"),
       children = r.get[Node.Children]("n")
     )
     def writes(w: Writer, s: Node) = $doc(
@@ -152,6 +154,7 @@ object BSONHandlers {
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
       "z" -> s.crazyData,
+      "l" -> s.clock,
       "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
     )
   }

@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.Pos
+import lila.common.Centis
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
@@ -9,18 +10,47 @@ private[study] object CommentParser {
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
+  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:]+)\].*""".r
+  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
 
-  private type ShapesAndComment = (Shapes, String)
+  case class ParsedComment(
+    shapes: Shapes,
+    clock: Option[Centis],
+    comment: String
+  )
 
-  def extractShapes(comment: String): ShapesAndComment =
-    parseCircles(comment) match {
-      case (circles, c2) => parseArrows(c2) match {
-        case (arrows, c3) => (circles ++ arrows) -> c3
+  def apply(comment: String): ParsedComment =
+    parseShapes(comment) match {
+      case (shapes, c2) => parseClock(c2) match {
+        case (clock, c3) => ParsedComment(shapes, clock, c3)
       }
     }
 
-  private val clkRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
-  def removeClk(comment: String) = clkRemoveRegex.replaceAllIn(comment, "").trim
+  private type ClockAndComment = (Option[Centis], String)
+
+  private def readCentis(hours: String, minutes: String, seconds: String) = for {
+    h <- parseIntOption(hours)
+    m <- parseIntOption(minutes)
+    s <- parseIntOption(seconds)
+  } yield Centis(h * 360000 + m * 6000 + s * 100)
+
+  private def parseClock(comment: String): ClockAndComment = comment match {
+    case clockRegex(str) => (str.split(':') match {
+      case Array(minutes, seconds) => readCentis("0", minutes, seconds)
+      case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+      case _ => none
+    }) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case _ => None -> comment
+  }
+
+  private type ShapesAndComment = (Shapes, String)
+
+  private def parseShapes(comment: String): ShapesAndComment =
+    parseCircles(comment) match {
+      case (circles, comment) => parseArrows(comment) match {
+        case (arrows, comment) => (circles ++ arrows) -> comment
+      }
+    }
 
   private def parseCircles(comment: String): ShapesAndComment = comment match {
     case circlesRegex(str) =>

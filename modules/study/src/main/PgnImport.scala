@@ -4,6 +4,8 @@ import scalaz.Validation.FlatMap._
 
 import chess.format.pgn.{ Tag, Glyphs, San, Dumper }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
+
+import lila.common.Centis
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
@@ -19,8 +21,8 @@ private object PgnImport {
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case prep @ Preprocessed(game, replay, result, initialFen, parsedPgn) =>
         val annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
-        makeShapesAndComments(parsedPgn.initialPosition.comments, annotator) match {
-          case (shapes, comments) =>
+        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+          case (shapes, _, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
               fen = initialFen | FEN(game.variant.initialFen),
@@ -80,13 +82,17 @@ private object PgnImport {
       }
     }
 
-  private def makeShapesAndComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Comments) =
-    comments.map(CommentParser.removeClk).foldLeft(Shapes(Nil), Comments(Nil)) {
-      case ((shapes, comments), txt) => CommentParser.extractShapes(txt) match {
-        case (s, c) => (shapes ++ s) -> (c.trim match {
-          case "" => comments
-          case com => comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-        })
+  private def parseComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Option[Centis], Comments) =
+    comments.foldLeft(Shapes(Nil), none[Centis], Comments(Nil)) {
+      case ((shapes, clock, comments), txt) => CommentParser(txt) match {
+        case CommentParser.ParsedComment(s, c, str) => (
+          (shapes ++ s),
+          c orElse clock,
+          (str.trim match {
+            case "" => comments
+            case com => comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+          })
+        )
       }
     }
 
@@ -99,8 +105,8 @@ private object PgnImport {
         val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
         makeNode(game, rest, annotator) map { mainline =>
           val variations = makeVariations(rest, game, annotator)
-          makeShapesAndComments(san.metas.comments, annotator) match {
-            case (shapes, comments) => Node(
+          parseComments(san.metas.comments, annotator) match {
+            case (shapes, clock, comments) => Node(
               id = UciCharPair(uci),
               ply = game.turns,
               move = Uci.WithSan(uci, sanStr),
@@ -110,6 +116,7 @@ private object PgnImport {
               comments = comments,
               glyphs = san.metas.glyphs,
               crazyData = game.situation.board.crazyData,
+              clock = clock,
               children = removeDuplicatedChildrenFirstNode {
                 Node.Children {
                   mainline.fold(variations)(_ :: variations).toVector

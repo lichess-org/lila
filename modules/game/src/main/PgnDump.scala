@@ -101,13 +101,13 @@ final class PgnDump(
           white = moves.headOption filter (".." !=) map { san =>
           chessPgn.Move(
             san = san,
-            timeLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
           )
         },
           black = moves lift 1 map { san =>
           chessPgn.Move(
             san = san,
-            timeLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
           )
         }
         )

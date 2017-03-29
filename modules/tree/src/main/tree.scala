@@ -1,12 +1,14 @@
 package lila.tree
 
+import play.api.libs.json._
+
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
 
-import play.api.libs.json._
+import lila.common.Centis
 
 sealed trait Node {
   def ply: Int
@@ -50,6 +52,7 @@ case class Root(
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
+    clocks: Option[(Centis, Centis)] = None, // initial clock states for white & black
     crazyData: Option[Crazyhouse.Data]
 ) extends Node {
 
@@ -78,6 +81,7 @@ case class Branch(
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
     comp: Boolean = false,
+    clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data]
 ) extends Node {
 
