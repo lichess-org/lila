@@ -153,8 +153,8 @@ object BSONHandlers {
       "h" -> w.listO(s.shapes.list.distinct),
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
-      "z" -> s.crazyData,
       "l" -> s.clock,
+      "z" -> s.crazyData,
       "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
     )
   }
@@ -178,6 +178,7 @@ object BSONHandlers {
       "h" -> w.listO(s.shapes.list.distinct),
       "co" -> w.listO(s.comments.list),
       "g" -> s.glyphs.nonEmpty,
+      "l" -> s.clock,
       "z" -> s.crazyData,
       "n" -> s.children
     )
