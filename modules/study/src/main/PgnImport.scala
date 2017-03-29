@@ -30,7 +30,7 @@ private object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = none,
+              clock = parsedPgn.clockConfig.map(c => Centis(c.limit * 100)),
               crazyData = replay.setup.situation.board.crazyData,
               children = makeNode(
                 prev = replay.setup,
