@@ -16,7 +16,8 @@ case class AnaDrop(
     variant: Variant,
     fen: String,
     path: String,
-    chapterId: Option[String]
+    chapterId: Option[String],
+    unsync: Boolean
 ) {
 
   def branch: Valid[Branch] =
@@ -63,6 +64,7 @@ object AnaDrop {
     variant = variant,
     fen = fen,
     path = path,
-    chapterId = chapterId
+    chapterId = d str "ch",
+    unsync = ~(d boolean "unsync")
   )
 }

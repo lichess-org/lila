@@ -14,7 +14,7 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.{ Handler, AnaMove, AnaDests, AnaDrop }
+import lila.socket.{ Handler, AnaMove, AnaDrop }
 import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 import makeTimeout.short
@@ -61,6 +61,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               chapterId <- anaMove.chapterId
+              if !anaMove.unsync
             } api.addNode(
               userId,
               studyId,
@@ -83,6 +84,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               chapterId <- anaDrop.chapterId
+              if !anaDrop.unsync
             } api.addNode(
               userId,
               studyId,

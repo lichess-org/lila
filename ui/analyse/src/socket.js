@@ -31,9 +31,12 @@ module.exports = function(send, ctrl) {
   var currentChapterId = function() {
     if (ctrl.study) return ctrl.study.currentChapter().id;
   };
-  var addChapterId = function(req) {
+  var addStudyData = function(req, addUnsync) {
     var c = currentChapterId();
-    if (c) req.ch = c;
+    if (c) {
+      req.ch = c;
+      if (addUnsync && ctrl.study.members.canContribute() && ctrl.study.vm.behind !== false) req.unsync = true;
+    }
   };
 
   var handlers = {
@@ -87,7 +90,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    addChapterId(req);
+    addStudyData(req, true);
     this.send('anaMove', req);
     anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
@@ -95,7 +98,7 @@ module.exports = function(send, ctrl) {
   this.sendAnaDrop = function(req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
-    addChapterId(req);
+    addStudyData(req, true);
     this.send('anaDrop', req);
     anaMoveTimeout = setTimeout(this.sendAnaDrop.bind(this, req), 3000);
   }.bind(this);
@@ -107,7 +110,7 @@ module.exports = function(send, ctrl) {
     }, 300);
     else {
       withoutStandardVariant(req);
-      addChapterId(req);
+      addStudyData(req);
       this.send('anaDests', req);
       anaDestsTimeout = setTimeout(function() {
         console.log(req, 'resendAnaDests');

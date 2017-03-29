@@ -16,7 +16,8 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[chess.PromotableRole]
+    promotion: Option[chess.PromotableRole],
+    unsync: Boolean
 ) {
 
   def branch: Valid[Branch] =
@@ -56,15 +57,14 @@ object AnaMove {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    chapterId = d str "ch"
-    prom = d str "promotion" flatMap chess.Role.promotable
   } yield AnaMove(
     orig = orig,
     dest = dest,
     variant = variant,
     fen = fen,
     path = path,
-    chapterId = chapterId,
-    promotion = prom
+    chapterId = d str "ch",
+    promotion = d str "promotion" flatMap chess.Role.promotable,
+    unsync = ~(d boolean "unsync")
   )
 }
