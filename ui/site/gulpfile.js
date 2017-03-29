@@ -47,17 +47,19 @@ function latestGithubRelease(repo, cb) {
   });
 }
 
-gulp.task('stockfish.pexe', function() {
+gulp.task('stockfish.pexe', function(cb) {
   latestGithubRelease('niklasf/stockfish.pexe', function(urls) {
     download(urls)
-      .pipe(gulp.dest('../../public/vendor/stockfish/'));
+      .pipe(gulp.dest('../../public/vendor/stockfish/'))
+      .on('end', cb);
   });
 });
 
-gulp.task('stockfish.js', function() {
+gulp.task('stockfish.js', function(cb) {
   latestGithubRelease('niklasf/stockfish.js', function(urls) {
     download(urls)
-      .pipe(gulp.dest('../../public/vendor/stockfish/'));
+      .pipe(gulp.dest('../../public/vendor/stockfish/'))
+      .on('end', cb);
   });
 });
 
