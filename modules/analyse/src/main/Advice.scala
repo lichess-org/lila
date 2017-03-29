@@ -82,10 +82,10 @@ private[analyse] case object MateCreated extends MateSequence(
 private[analyse] object MateSequence {
   def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
     (prev, next).some collect {
-      case (None, Some(n)) if n < 0 => MateCreated
-      case (Some(p), None) if p > 0 => MateLost
-      case (Some(p), Some(n)) if (p > 0) && (n < 0) => MateLost
-      case (Some(p), Some(n)) if p > 0 && n >= p.value && p <= 5 => MateDelayed
+      case (None, Some(n)) if n.negative => MateCreated
+      case (Some(p), None) if p.positive => MateLost
+      case (Some(p), Some(n)) if p.positive && n.negative => MateLost
+      case (Some(p), Some(n)) if p.positive && n >= p && p <= Mate(5) => MateDelayed
     }
 }
 private[analyse] case class MateAdvice(

@@ -40,7 +40,7 @@ case class Info(
 
   def forceCentipawns: Option[Int] = mate match {
     case None => cp.map(_.centipawns)
-    case Some(m) if m < 0 => Some(Int.MinValue - m.value)
+    case Some(m) if m.negative => Some(Int.MinValue - m.value)
     case Some(m) => Some(Int.MaxValue - m.value)
   }
 

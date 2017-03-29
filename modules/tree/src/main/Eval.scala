@@ -37,7 +37,7 @@ object Eval {
     val checkmate: Either[Cp, Mate] = Right(Mate(0))
   }
 
-  case class Cp(value: Int) extends AnyVal {
+  case class Cp(value: Int) extends AnyVal with Ordered[Cp] {
 
     def centipawns = value
 
@@ -52,11 +52,7 @@ object Eval {
     def invert = Cp(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def <(i: Int): Boolean = value < i
-    def >(i: Int): Boolean = value > i
-    def <=(i: Int): Boolean = value <= i
-    def >=(i: Int): Boolean = value >= i
-    def ==(i: Int): Boolean = value == i
+    def compare(other: Cp) = value compare other.value
 
     def signum: Int = Math.signum(value).toInt
   }
@@ -68,20 +64,19 @@ object Eval {
     val initial = Cp(15)
   }
 
-  case class Mate(value: Int) extends AnyVal {
+  case class Mate(value: Int) extends AnyVal with Ordered[Mate] {
 
     def moves = value
 
     def invert = Mate(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def <(i: Int): Boolean = value < i
-    def >(i: Int): Boolean = value > i
-    def <=(i: Int): Boolean = value <= i
-    def >=(i: Int): Boolean = value >= i
-    def ==(i: Int): Boolean = value == i
+    def compare(other: Mate) = value compare other.value
 
     def signum: Int = Math.signum(value).toInt
+
+    def positive = value > 0
+    def negative = value < 0
   }
 
   val initial = Eval(Some(Cp.initial), None, None)
