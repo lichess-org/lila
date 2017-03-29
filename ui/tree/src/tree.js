@@ -111,8 +111,8 @@ module.exports = function(root) {
       return newPath;
     }
     if (updateAt(path, function(parent) {
-        parent.children.push(node);
-      })) return newPath;
+      parent.children.push(node);
+    })) return newPath;
   }
 
   function addNodes(nodes, path) {
@@ -168,6 +168,15 @@ module.exports = function(root) {
     });
   }
 
+  function getParentClock(node, path) {
+    if (!('parentClock' in node)) {
+      var parent = path && nodeAtPath(treePath.init(path));
+      if (!parent || !('clock' in parent)) node.parentClock = null;
+      else node.parentClock = parent.clock;
+    }
+    return node.parentClock;
+  }
+
   return {
     root: root,
     ops: ops,
@@ -214,6 +223,7 @@ module.exports = function(root) {
           return !c.comp;
         });
       });
-    }
+    },
+    getParentClock: getParentClock
   };
 }

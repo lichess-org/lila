@@ -31,6 +31,7 @@ sealed trait Node {
   // implementation dependant
   def idOption: Option[UciCharPair]
   def moveOption: Option[Uci.WithSan]
+  def clockOption: Option[Centis]
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
@@ -58,6 +59,7 @@ case class Root(
 
   def idOption = None
   def moveOption = None
+  def clockOption = None
   def comp = false
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
@@ -87,6 +89,7 @@ case class Branch(
 
   def idOption = Some(id)
   def moveOption = Some(move)
+  def clockOption = clock
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
@@ -196,6 +199,9 @@ object Node {
     Json.toJson(gs.toList)
   }
 
+  implicit val clockWrites: Writes[Centis] = Writes { clock =>
+    JsNumber(clock.value)
+  }
   implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
   }
@@ -235,6 +241,7 @@ object Node {
       add("drops", drops.map { drops =>
         JsString(drops.map(_.key).mkString)
       }) _ compose
+      add("clock", clockOption) _ compose
       add("crazy", crazyData) _ compose
       add("comp", true, comp) _ compose
       add("children", children, alwaysChildren || children.nonEmpty)
