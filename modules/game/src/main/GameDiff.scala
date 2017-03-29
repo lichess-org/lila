@@ -46,7 +46,9 @@ private[game] object GameDiff {
       for {
         clk <- g.clock
         history <- g.clockHistory
-      } yield (Centis(clk.limit * 100), history.get(color))
+        curColor = g.turnColor
+        times = history.get(color)
+      } yield (Centis(clk.limit * 100), if (g.flagged has color) times.dropRight(1) else times)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y))
