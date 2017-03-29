@@ -600,7 +600,9 @@ object GreatPlayer {
   )
 
   private val size = all.size
-  private val names = all.keys.toVector
+  private val names: Vector[String] = all.map {
+    case (k, _) => k
+  }(scala.collection.breakOut)
 
   def randomName: String = names(scala.util.Random nextInt size)
 

@@ -54,7 +54,9 @@ object MatchMaking {
           logger.error("WMMatching", err)
           none
         },
-        _.map { case (a, b) => Couple(a, b) }.toVector.some
+        pairs => Some {
+          pairs.map { case (a, b) => Couple(a, b) }(scala.collection.breakOut)
+        }
       )
     }
   }
