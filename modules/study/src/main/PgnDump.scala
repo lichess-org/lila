@@ -87,7 +87,8 @@ private[study] object PgnDump {
     result = none,
     variations = variations.map { child =>
       toTurns(child.mainline, noVariations)
-    }(scala.collection.breakOut)
+    }(scala.collection.breakOut),
+    secondsLeft = node.clock.map(_.roundSeconds)
   )
 
   def toTurn(first: Node, second: Option[Node], variations: Variations) = chessPgn.Turn(
