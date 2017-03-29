@@ -190,6 +190,7 @@ function navClick(ctrl, action) {
 function buttons(ctrl) {
   var canJumpPrev = ctrl.vm.path !== '';
   var canJumpNext = !!ctrl.vm.node.children[0];
+  var menuIsOpen = ctrl.actionMenu.open;
   return m('div.game_control', {
     config: bindOnce('mousedown', function(e) {
       var action = dataAct(e);
@@ -213,14 +214,14 @@ function buttons(ctrl) {
         'data-hint': ctrl.trans('openingExplorer'),
         'data-act': 'explorer',
         class: 'hint--bottom' + (
-          ctrl.actionMenu.open || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
+          menuIsOpen || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
             ctrl.explorer.enabled() ? ' active' : ''))
       }, icon(']')),
       ctrl.ceval.possible ? m('button', {
         'data-hint': 'Practice with computer',
         'data-act': 'practice',
         class: 'hint--bottom' + (
-          ctrl.actionMenu.open || ctrl.retro ? ' hidden' : (
+          menuIsOpen || ctrl.retro ? ' hidden' : (
             ctrl.practice ? ' active' : ''))
       }, icon('')) : null
   ]),
@@ -231,7 +232,7 @@ function buttons(ctrl) {
       jumpButton('V', 'last', canJumpNext)
     ]),
     ctrl.studyPractice ? m('div.noop') : m('button', {
-      class: 'hint--bottom' + (ctrl.actionMenu.open ? ' active' : ''),
+      class: 'hint--bottom' + (menuIsOpen ? ' active' : ''),
       'data-hint': 'Menu',
       'data-act': 'menu'
     }, icon('['))
@@ -261,6 +262,7 @@ var firstRender = true;
 module.exports = function(ctrl) {
   var concealOf = makeConcealOf(ctrl);
   var showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
+  var menuIsOpen = ctrl.actionMenu.open;
   return [
     m('div', {
       config: function(el, isUpdate) {
@@ -280,16 +282,16 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground', [
-          renderClocks(ctrl),
-          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
-          ctrl.actionMenu.open ? actionMenu(ctrl) : [
+          menuIsOpen ? null : renderClocks(ctrl),
+          menuIsOpen ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
+          menuIsOpen ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ],
-          ctrl.actionMenu.open ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),
+          menuIsOpen ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl)
         ])
       ])
