@@ -140,11 +140,11 @@ final class StudyApi(
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
-        case Some(newChapter) =>
-          chapterRepo.update(newChapter) >>
+        case Some(chapter) =>
+          chapterRepo.update(chapter) >>
             studyRepo.setPosition(study.id, position + node) >>
-            updateConceal(study, newChapter, position + node) >>-
-            sendTo(study, Socket.AddNode(position, node, uid)) >>-
+            updateConceal(study, chapter, position + node) >>-
+            sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid)) >>-
             sendStudyEnters(study, userId)
       }
     }
