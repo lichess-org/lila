@@ -13,7 +13,7 @@ import lila.common.Future
  */
 final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
 
-  def notifyMentionedUsers(post: Post, topic: Topic): Unit = {
+  def notifyMentionedUsers(post: Post, topic: Topic): Unit = if (!post.troll) {
     post.userId foreach { author =>
       val mentionedUsers = extractMentionedUsers(post)
       val mentionedBy = MentionedInThread.MentionedBy(author)
