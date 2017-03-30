@@ -109,6 +109,9 @@ object Node {
     def list = value
     def ++(shapes: Shapes) = Shapes(value ::: shapes.value)
   }
+  object Shapes {
+    val empty = Shapes(Nil)
+  }
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
     def removeMeta = text.removeMeta map { t =>

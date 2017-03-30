@@ -59,6 +59,27 @@ final class ChapterRepo(coll: Coll) {
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
+  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Option[Funit] =
+    pathToField(chapter, path) map { field =>
+      val shapesField = s"$field.h"
+      if (shapes.value.isEmpty) coll.unsetField($id(chapter.id), shapesField).void
+      else coll.updateField($id(chapter.id), shapesField, shapes).void
+    }
+
+  // root.n[0].n[0].n[1].n[0].n[2]
+  private def pathToField(chapter: Chapter, path: Path): Option[String] =
+    pathToIndexes(chapter.root.children, path) map { indexes =>
+      s"root.n.${indexes.mkString(".n.")}"
+    }
+
+  // List(0, 0, 1, 0, 2)
+  private def pathToIndexes(children: Node.Children, path: Path): Option[List[Int]] =
+    path.split.fold(List.empty[Int].some) {
+      case (head, tail) => children.getNodeAndIndex(head) flatMap {
+        case (node, index) => pathToIndexes(node.children, tail).map(rest => index :: rest)
+      }
+    }
+
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
       $doc("studyId" $in studyIds),

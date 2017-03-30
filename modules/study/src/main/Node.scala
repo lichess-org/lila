@@ -130,6 +130,11 @@ object Node {
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
 
+    def getNodeAndIndex(id: UciCharPair): Option[(Node, Int)] =
+      nodes.zipWithIndex.collectFirst {
+        case pair if pair._1.id == id => pair
+      }
+
     def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
     def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =

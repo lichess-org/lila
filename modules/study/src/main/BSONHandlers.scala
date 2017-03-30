@@ -78,6 +78,12 @@ object BSONHandlers {
 
   private implicit val FenBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
+  implicit val ShapesBSONHandler: BSONHandler[BSONArray, Shapes] =
+    isoHandler[Shapes, List[Shape], BSONArray](
+      (s: Shapes) => s.value.distinct,
+      Shapes(_)
+    )
+
   import lila.tree.Node.{ Comment, Comments }
   private implicit val CommentIdBSONHandler = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
@@ -104,9 +110,6 @@ object BSONHandlers {
 
   private def readComments(r: Reader) =
     Comments(r.getsD[Comment]("co").filter(_.text.value.nonEmpty))
-
-  private def readShapes(r: Reader) =
-    Shapes(r.getsD[Shape]("h"))
 
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
@@ -139,7 +142,7 @@ object BSONHandlers {
       move = WithSan(r.get[Uci]("u"), r.str("s")),
       fen = r.get[FEN]("f"),
       check = r boolD "c",
-      shapes = readShapes(r),
+      shapes = r.getO[Shapes]("h") | Shapes.empty,
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
@@ -167,7 +170,7 @@ object BSONHandlers {
       ply = r int "p",
       fen = r.get[FEN]("f"),
       check = r boolD "c",
-      shapes = readShapes(r),
+      shapes = r.getO[Shapes]("h") | Shapes.empty,
       comments = readComments(r),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       clock = r.getO[Centis]("l"),
