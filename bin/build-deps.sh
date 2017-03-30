@@ -5,12 +5,6 @@ dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
 
-git clone --depth 1 https://github.com/ReactiveMongo/ReactiveMongo --branch 0.12.1
-cd ReactiveMongo
-export ITERATEES_VERSION=2.4.6
-sbt publish-local
-cd ..
-
 git clone --depth 1 https://github.com/ornicar/Kamon --branch lila
 cd Kamon
 sbt publish-local
