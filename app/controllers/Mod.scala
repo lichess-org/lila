@@ -2,13 +2,13 @@ package controllers
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ UserRepo, User => UserModel }
 import lila.common.IpAddress
+import lila.user.{ UserRepo, User => UserModel }
 import views._
 
-import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 
 object Mod extends LilaController {
 
@@ -140,20 +140,23 @@ object Mod extends LilaController {
 
   def communication(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
-      for {
-        povs <- lila.game.GameRepo.recentPovsByUserFromSecondary(user, 100)
-        chats <- Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId)
-        povWithChats = (povs zip chats) collect {
-          case (p, Some(c)) if c.nonEmpty => p -> c
-        } take 9
-        threads <- {
-          lila.message.ThreadRepo.visibleByUser(user.id, 50) map {
+      lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
+        Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId) zip
+          lila.message.ThreadRepo.visibleByUser(user.id, 40).map {
             _ filter (_ hasPostsWrittenBy user.id) take 9
+          } zip
+          (Env.shutup.api getPublicLines user.id) zip
+          (Env.security userSpy user.id) zip
+          Env.user.noteApi.forMod(user.id) zip
+          Env.mod.logApi.userHistory(user.id) map {
+            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history =>
+              val povWithChats = (povs zip chats) collect {
+                case (p, Some(c)) if c.nonEmpty => p -> c
+              } take 9
+              val filteredNotes = notes.filter(_.from != "irwin")
+              html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history)
           }
-        }
-        publicLines <- Env.shutup.api getPublicLines user.id
-        spy <- Env.security userSpy user.id
-      } yield html.mod.communication(user, povWithChats, threads, publicLines, spy)
+      }
     }
   }
 

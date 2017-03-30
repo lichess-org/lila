@@ -1,5 +1,6 @@
 package lila.relation
 
+import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
 import lila.db.dsl._
@@ -18,11 +19,12 @@ private[relation] object RelationRepo {
   def followingLike(userId: ID, term: String): Fu[List[ID]] = {
     val id = term.toLowerCase
     if (id.isEmpty) fuccess(Nil)
-    else coll.distinct[String, List]("u2", $doc(
+    else coll.distinctWithReadPreference[String, List]("u2", $doc(
       "u1" -> userId,
       "u2".$regex("^" + id + ".*$", ""),
       "r" -> Follow
-    ).some)
+    ).some,
+      ReadPreference.secondaryPreferred)
   }
 
   private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =

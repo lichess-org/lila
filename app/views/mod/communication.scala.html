@@ -1,4 +1,4 @@
-@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[String], spy: lila.security.UserSpy)(implicit ctx: Context)
+@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread], publicLines: List[String], spy: lila.security.UserSpy, notes: List[lila.user.Note], history: List[lila.mod.Modlog])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("mod-communication.css")
@@ -26,9 +26,6 @@ side = side.some) {
     @userLink(u) communications
   </h1>
   <h2>Dubious public chats</h2>
-  <p class="help">
-    Tournament, simul, &amp; public chat messages that triggered the butthurt detector:
-  </p>
   @if(publicLines.isEmpty) {
   <strong>None!</strong>
   } else {
@@ -39,7 +36,29 @@ side = side.some) {
   </ul>
   }
 
-  <h2>Private chats</h2>
+  @if(history.nonEmpty) {
+  <h2>Moderation history</h2>
+  <div class="history">
+    @history.map { e =>
+    <div>
+      @userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNow(e.date)
+    </div>
+    }
+  </div>
+  }
+
+  @if(notes.nonEmpty) {
+  <h2>Notes from other users</h2>
+  <div class="notes">
+    @notes.map { note =>
+    <div>
+      @userIdLink(note.from.some) @momentFromNow(note.date): @autoLink(note.text)
+    </div>
+    }
+  </div>
+  }
+
+  <h2>Recent private chats</h2>
   <div class="player_chats">
     @players.map {
     case (pov, chat) => {
@@ -59,8 +78,9 @@ side = side.some) {
     }
     }
   </div>
+
   <div class="threads">
-    <h2>Inbox messages</h2>
+    <h2>Recent inbox messages</h2>
     @threads.map { thread =>
     <div class="thread">
       <p class="title">
