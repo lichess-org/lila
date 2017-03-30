@@ -150,7 +150,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       readPreference: ReadPreference
     )(implicit reader: BSONValueReader[T], cbf: CanBuildFrom[M[_], T, M[T]]): Fu[M[T]] = {
       implicit val widenReader = pack.widenReader(reader)
-
       coll.runCommand(DistinctCommand.Distinct(
         key, selector, ReadConcern.Local, mongoWireVersion
       ), readPreference).flatMap {

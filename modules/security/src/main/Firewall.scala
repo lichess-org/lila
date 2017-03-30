@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ RequestHeader, Action, Cookies }
+import reactivemongo.api.ReadPreference
 
 import lila.common.{ IpAddress, LilaCookie }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -22,7 +23,7 @@ final class Firewall(
 
   private val ipsCache = asyncCache.single[Set[String]](
     name = "firewall.ips",
-    f = coll.distinct[String, Set]("_id").addEffect { ips =>
+    f = coll.distinctWithReadPreference[String, Set]("_id", none, ReadPreference.secondaryPreferred).addEffect { ips =>
       lila.mon.security.firewall.ip(ips.size)
     },
     expireAfter = _.ExpireAfterWrite(cachedIpsTtl)

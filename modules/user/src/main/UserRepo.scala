@@ -380,7 +380,11 @@ object UserRepo {
       ).map(~_)
 
   def filterByEngine(userIds: List[User.ID]): Fu[List[User.ID]] =
-    coll.distinct[String, List](F.id, Some($inIds(userIds) ++ engineSelect(true)))
+    coll.distinctWithReadPreference[String, List](
+      F.id,
+      Some($inIds(userIds) ++ engineSelect(true)),
+      ReadPreference.secondaryPreferred
+    )
 
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))

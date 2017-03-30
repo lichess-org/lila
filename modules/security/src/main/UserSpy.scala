@@ -1,5 +1,7 @@
 package lila.security
 
+import reactivemongo.api.ReadPreference
+
 import lila.common.IpAddress
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -68,12 +70,13 @@ object UserSpy {
 
   private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =
     values.nonEmpty ?? {
-      coll.distinct[String, Set](
+      coll.distinctWithReadPreference[String, Set](
         "user",
         $doc(
           field $in values,
           "user" $ne user.id
-        ).some
+        ).some,
+        ReadPreference.secondaryPreferred
       ) flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }

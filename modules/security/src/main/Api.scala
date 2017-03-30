@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc.RequestHeader
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.common.{ ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -90,14 +91,15 @@ final class Api(
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
-  def userIdsSharingFingerprint = userIdsSharingField("fp") _
+  // def userIdsSharingFingerprint = userIdsSharingField("fp") _
 
   def recentByIpExists(ip: IpAddress): Fu[Boolean] = Store recentByIpExists ip
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    coll.distinct[String, List](
+    coll.distinctWithReadPreference[String, List](
       field,
-      $doc("user" -> userId, field -> $doc("$exists" -> true)).some
+      $doc("user" -> userId, field -> $doc("$exists" -> true)).some,
+      readPreference = ReadPreference.secondaryPreferred
     ).flatMap {
       case Nil => fuccess(Nil)
       case values => coll.distinct[String, List](
