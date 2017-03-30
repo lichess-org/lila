@@ -46,7 +46,8 @@ final class RelationApi(
       "u2" -> AddFieldToSet("u2")
     ),
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
-  ), ReadPreference.secondaryPreferred).map {
+  ),
+    ReadPreference.secondaryPreferred).map {
     ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
