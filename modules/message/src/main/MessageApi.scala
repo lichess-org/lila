@@ -34,6 +34,17 @@ final class MessageApi(
     _ ← threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setReadFor(me))
   } yield threadOption
 
+  def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =
+    makeThread(
+      DataForm.ThreadData(
+        user = user,
+        subject = preset.subject,
+        text = preset.text,
+        asMod = true
+      ),
+      mod
+    )
+
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)
     UserRepo named data.user.id flatMap {

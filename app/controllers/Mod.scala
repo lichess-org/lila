@@ -43,6 +43,18 @@ object Mod extends LilaController {
     }
   }
 
+  def warn(username: String, subject: String) = Secure(_.ModMessage) { implicit ctx => me =>
+    lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
+      UserRepo named username flatMap {
+        _.fold(notFound) { user =>
+          Env.message.api.sendPreset(me, user, preset) >>
+            modApi.troll(me.id, username, user.troll) inject
+            Redirect(routes.Report.list)
+        }
+      }
+    }
+  }
+
   def ban(username: String) = Secure(_.IpBan) { implicit ctx => me =>
     modApi.ban(me.id, username) inject redirect(username)
   }

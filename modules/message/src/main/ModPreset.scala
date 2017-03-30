@@ -102,4 +102,6 @@ Our cheating detection algorithms have marked your account for using computer as
       List(p.subject, p.text)
     }
   }
+
+  def bySubject(s: String) = all.find(_.subject == s)
 }
