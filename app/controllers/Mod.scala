@@ -146,12 +146,15 @@ object Mod extends LilaController {
             _ filter (_ hasPostsWrittenBy user.id) take 9
           } zip
           (Env.shutup.api getPublicLines user.id) zip
-          (Env.security userSpy user.id) map {
-            case chats ~ threads ~ publicLines ~ spy =>
+          (Env.security userSpy user.id) zip
+          Env.user.noteApi.forMod(user.id) zip
+          Env.mod.logApi.userHistory(user.id) map {
+            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history =>
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
               } take 9
-              html.mod.communication(user, povWithChats, threads, publicLines, spy)
+              val filteredNotes = notes.filter(_.from != "irwin")
+              html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history)
           }
       }
     }
