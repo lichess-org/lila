@@ -196,7 +196,7 @@ final class ReportApi(
       }
     }
     sorted = withUsers.sortBy(-_.urgency)
-    withNotes <- noteApi.byUserIdsForMod(sorted.map(_.user.id).distinct) map { notes =>
+    withNotes <- noteApi.byMod(sorted.map(_.user.id).distinct) map { notes =>
       sorted.map { wu =>
         Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
       }

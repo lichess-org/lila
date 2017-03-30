@@ -42,15 +42,17 @@ final class NoteApi(
             "mod" -> false
           )
         )
-    ).sort($doc("date" -> -1)).cursor[Note]().gather[List](20)
+    ).sort($doc("date" -> -1)).list[Note](20)
 
-  def byUserIdsForMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc(
-      "to" $in ids,
-      "mod" -> true
-    )).sort($doc("date" -> -1))
-      .cursor[Note](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List](ids.size * 5)
+  def forMod(id: User.ID): Fu[List[Note]] =
+    coll.find($doc("to" -> id))
+      .sort($doc("date" -> -1))
+      .list[Note](20)
+
+  def byMod(ids: List[User.ID]): Fu[List[Note]] =
+    coll.find($doc("to" $in ids))
+      .sort($doc("date" -> -1))
+      .list[Note](ids.size * 5, ReadPreference.secondaryPreferred)
 
   def write(to: User, text: String, from: User, modOnly: Boolean) = {
 
