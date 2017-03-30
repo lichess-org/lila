@@ -32,15 +32,21 @@ object BinaryFormat {
   object clockHistory {
     private val logger = lila.log("clockHistory")
 
-    def writeSide(start: Centis, times: Vector[Centis]): ByteArray =
-      ByteArray(ClockEncoder.encode(times.map(_.value)(breakOut), start.value))
+    def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
+      val timesToWrite = if (flagged) times.dropRight(1) else times
+      ByteArray(ClockEncoder.encode(timesToWrite.map(_.value)(breakOut), start.value))
+    }
 
-    def readSide(start: Centis, ba: ByteArray): Vector[Centis] =
-      ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
+    def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
+      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
+      if (flagged) decoded :+ Centis(0) else decoded
+    }
 
     def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color], gameId: String) = Try {
-      val history = ClockHistory(readSide(start, bw), readSide(start, bb))
-      flagged.fold(history)(c => history.update(c, _ :+ Centis(0)))
+      ClockHistory(
+        readSide(start, bw, flagged has White),
+        readSide(start, bb, flagged has Black)
+      )
     }.fold(
       e => { logger.warn(s"Exception decoding history on game $gameId", e); none },
       some
