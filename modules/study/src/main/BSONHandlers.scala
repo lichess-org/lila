@@ -70,6 +70,9 @@ object BSONHandlers {
     def write(x: UciCharPair) = BSONString(x.toString)
   }
 
+  import Study.IdName
+  implicit val StudyIdNameBSONHandler = Macros.handler[IdName]
+
   import Uci.WithSan
   private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
 

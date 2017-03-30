@@ -108,5 +108,6 @@ object Order {
   val default = Hot
   val all = List(Hot, Newest, Oldest, Updated, Popular)
   val allButOldest = all filter (Oldest !=)
-  def apply(key: String): Order = all.find(_.key == key) | default
+  private val byKey: Map[String, Order] = all.map { o => o.key -> o }(scala.collection.breakOut)
+  def apply(key: String): Order = byKey.getOrElse(key, default)
 }

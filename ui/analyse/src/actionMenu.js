@@ -87,7 +87,7 @@ function studyButton(ctrl) {
   var realGame = !synthetic(ctrl.data);
   return m('form', {
     method: 'post',
-    action: '/study',
+    action: '/study/as',
     onsubmit: function(e) {
       var pgnInput = e.target.querySelector('input[name=pgn]');
       if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
@@ -111,7 +111,7 @@ function studyButton(ctrl) {
       m('i.icon', {
         'data-icon': ''
       }),
-      realGame ? 'Create Study' : 'Save to Study')
+      'Study')
   ]);
 }
 

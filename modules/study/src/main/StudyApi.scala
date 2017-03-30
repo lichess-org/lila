@@ -70,13 +70,32 @@ final class StudyApi(
     }
   }
 
-  def create(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
-    studyMaker(data, user) flatMap { res =>
-      studyRepo.insert(res.study) >>
-        chapterRepo.insert(res.chapter) >>-
-        indexStudy(res.study) >>-
-        scheduleTimeline(res.study.id) inject res
-    }
+  def create(data: DataForm.Data, user: User): Fu[Option[Study.WithChapter]] = data.as match {
+    case DataForm.AsNewStudy =>
+      studyMaker(data, user) flatMap { res =>
+        studyRepo.insert(res.study) >>
+          chapterRepo.insert(res.chapter) >>-
+          indexStudy(res.study) >>-
+          scheduleTimeline(res.study.id) inject res.some
+      }
+    case DataForm.AsChapterOf(studyId) => byId(studyId) flatMap {
+      case Some(study) if study.canContribute(user.id) =>
+        import akka.pattern.ask
+        import makeTimeout.short
+        for {
+          socket <- socketHub ? lila.hub.actorApi.map.Get(studyId.value) mapTo manifest[ActorRef]
+          _ <- addChapter(
+            byUserId = user.id,
+            studyId = study.id,
+            data = data.toChapterData,
+            socket = socket,
+            uid = Uid("") // the user is not in the study yet
+          )
+          made <- byIdWithChapter(studyId)
+        } yield made
+      case _ => fuccess(none)
+    } orElse create(data.copy(asStr = none), user)
+  }
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =
     Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) ?? {

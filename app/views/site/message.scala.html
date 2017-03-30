@@ -1,6 +1,6 @@
-@(title: String, back: Boolean = true, icon: Option[Html] = None)(message: Html)(implicit ctx: Context)
+@(title: String, back: Boolean = true, icon: Option[Html] = None, moreCss: Option[Html] = None)(message: Html)(implicit ctx: Context)
 
-@base.layout(title = title) {
+@base.layout(title = title, moreCss = ~moreCss) {
 
 <div class="content_box small_box">
   <div class="head">

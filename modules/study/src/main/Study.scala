@@ -78,6 +78,11 @@ object Study {
   case class Name(value: String) extends AnyVal with StringValue
   implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
 
+  case class IdName(_id: Id, name: Name) {
+
+    def id = _id
+  }
+
   def toName(str: String) = Name(str.trim take 100)
 
   sealed trait Visibility {

@@ -44,6 +44,9 @@ final class StudyRepo(private[study] val coll: Coll) {
   private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
   private[study] val selectPrivate = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Private))
   private[study] def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+  private[study] def selectContributorId(memberId: User.ID) =
+    selectMemberId(memberId) ++ // use the index
+      $doc(s"members.$memberId.role" -> "w")
 
   def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 
@@ -104,6 +107,24 @@ final class StudyRepo(private[study] val coll: Coll) {
   def uids(studyId: Study.Id): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
 
+  private val idNameProjection = $doc("name" -> true)
+
+  def recentByOwner(userId: User.ID, nb: Int) =
+    coll.find(
+      selectOwnerId(userId),
+      idNameProjection
+    )
+      .sort($sort desc "updatedAt")
+      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+
+  def recentByContributor(userId: User.ID, nb: Int) =
+    coll.find(
+      selectContributorId(userId),
+      idNameProjection
+    )
+      .sort($sort desc "updatedAt")
+      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     doLike(studyId, userId, v) >> countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
@@ -120,7 +141,6 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
-
     $empty, $doc("likes" -> true, "createdAt" -> true)
   ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
     ~(for {

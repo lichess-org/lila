@@ -151,15 +151,33 @@ object Study extends LilaController {
     }
   }
 
+  def createAs = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.study.DataForm.form.bindFromRequest.fold(
+      err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+      data => for {
+        owner <- env.studyRepo.recentByOwner(me.id, 50)
+        contrib <- env.studyRepo.recentByContributor(me.id, 50)
+        res <- if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+        else Ok(html.study.create(data, owner, contrib)).fuccess
+      } yield res
+    )
+  }
+
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.study.DataForm.form.bindFromRequest.fold(
       err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-      data => env.api.create(data, me) map { sc =>
-        Redirect(routes.Study.show(sc.study.id.value))
-      }
+      data => createStudy(data, me)
     )
   }
+
+  private def createStudy(data: lila.study.DataForm.Data, me: lila.user.User)(implicit ctx: Context) =
+    env.api.create(data, me) flatMap {
+      _.fold(notFound) { sc =>
+        Redirect(routes.Study.show(sc.study.id.value)).fuccess
+      }
+    }
 
   def delete(id: String) = Auth { implicit ctx => me =>
     env.api.byId(id) flatMap { study =>

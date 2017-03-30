@@ -102,14 +102,14 @@ object Chapter {
     setup: Chapter.Setup
   ) extends Like
 
-  case class IdName(id: Chapter.Id, name: Chapter.Name)
+  case class IdName(id: Id, name: Name)
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
     def compare(that: Ply) = value - that.value
   }
 
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
-  def isDefaultName(n: Name) = defaultNamePattern.matcher(n.value).matches
+  def isDefaultName(n: Name) = n.value.isEmpty || defaultNamePattern.matcher(n.value).matches
 
   def fixName(n: Name) = Name(n.value.trim take 80)
 
