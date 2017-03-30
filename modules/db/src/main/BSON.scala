@@ -34,7 +34,7 @@ abstract class BSON[T]
 object BSON extends Handlers {
 
   def toDocHandler[A](implicit handler: BSONHandler[BSONDocument, A]): BSONDocumentHandler[A] =
-    new BSONDocumentReader[A] with BSONDocumentWriter[A] {
+    new BSONDocumentReader[A] with BSONDocumentWriter[A] with BSONHandler[BSONDocument, A] {
       def read(doc: BSONDocument) = handler read doc
       def write(o: A) = handler write o
     }

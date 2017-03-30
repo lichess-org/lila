@@ -37,8 +37,6 @@ trait dsl extends LowPriorityDsl {
   type BSONArrayWriter[A] = BSONWriter[A, BSONArray]
   type BSONArrayHandler[A] = BSONHandler[BSONArray, A]
 
-  type BSONDocumentHandler[A] = BSONDocumentReader[A] with BSONDocumentWriter[A]
-
   implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
     Zero.instance($doc())
 

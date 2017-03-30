@@ -7,14 +7,14 @@ object Dependencies {
 
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
-    // val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+    val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
     // val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
 
     val commons = Seq(
-      // sonatypeS,
+      sonatypeS,
       // ornicarMaven,
       sonatype,
       awesomepom,
@@ -41,9 +41,15 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
 
   object reactivemongo {
-    val version = "0.12.1"
-    val driver = "org.reactivemongo" %% "reactivemongo" % version
-    val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
+    val version = "0.12.2-SNAPSHOT"
+    val iterateeVersion = "0.12.1"
+    // val driver = "org.reactivemongo" %% "reactivemongo" % version
+    val driver = ("org.reactivemongo" %% "reactivemongo" % version)
+      .exclude("com.typesafe.akka", "*") // provided by Play
+      .exclude("com.typesafe.play", "*")
+    val iteratees = ("org.reactivemongo" %% "reactivemongo-iteratees" % iterateeVersion)
+      .exclude("com.typesafe.akka", "*") // provided by Play
+      .exclude("com.typesafe.play", "*")
   }
 
   object play {
