@@ -27,8 +27,9 @@ final class RelationApi(
 
   import RelationRepo.makeId
 
-  def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] =
+  def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] = (u1 != u2) ?? {
     coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
+  }
 
   def fetchFollowing = RelationRepo following _
 
@@ -49,13 +50,15 @@ final class RelationApi(
     ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
   }
 
-  def fetchFollows(u1: ID, u2: ID) =
+  def fetchFollows(u1: ID, u2: ID): Fu[Boolean] = (u1 != u2) ?? {
     coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
+  }
 
-  def fetchBlocks(u1: ID, u2: ID) =
+  def fetchBlocks(u1: ID, u2: ID): Fu[Boolean] = (u1 != u2) ?? {
     coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Block))
+  }
 
-  def fetchAreFriends(u1: ID, u2: ID) =
+  def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
     fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
 
   private val countFollowingCache = asyncCache.clearable[ID, Int](
