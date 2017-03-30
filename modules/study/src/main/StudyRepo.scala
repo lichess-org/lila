@@ -44,9 +44,10 @@ final class StudyRepo(private[study] val coll: Coll) {
   private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
   private[study] val selectPrivate = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Private))
   private[study] def selectLiker(userId: User.ID) = $doc("likers" -> userId)
-  private[study] def selectContributorId(memberId: User.ID) =
-    selectMemberId(memberId) ++ // use the index
-      $doc(s"members.$memberId.role" -> "w")
+  private[study] def selectContributorId(userId: User.ID) =
+    selectMemberId(userId) ++ // use the index
+      $doc("ownerId" $ne userId) ++
+      $doc(s"members.$userId.role" -> "w")
 
   def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 
