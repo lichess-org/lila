@@ -40,6 +40,7 @@ function latestGithubRelease(repo, cb) {
       'User-Agent': 'lila/gulpfile.js'
     }
   }, function(err, res, body) {
+    if (err) throw err;
     var release = JSON.parse(body);
     cb(release.assets.map(function (asset) {
       return asset.browser_download_url;
@@ -110,7 +111,8 @@ gulp.task('standalones', function() {
     .pipe(gulp.dest(destination));
 });
 
-var tasks = ['jquery-fill', 'ab', 'standalones', 'stockfish.pexe', 'stockfish.js'];
+var tasks = ['jquery-fill', 'ab', 'standalones'];
+if (!process.env.TRAVIS) tasks = tasks.concat(['stockfish.pexe', 'stockfish.js']);
 
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
