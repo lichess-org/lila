@@ -157,7 +157,8 @@ object JsonApi {
   case class Move(
     id: String,
     level: Int,
-    game: Game
+    game: Game,
+    clock: Option[Work.Clock]
   ) extends Work
 
   case class Analysis(
@@ -166,7 +167,7 @@ object JsonApi {
     nodes: Int
   ) extends Work
 
-  def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game))
+  def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
 
   def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(m.id.value, fromGame(m.game), nodes)
 
@@ -201,7 +202,8 @@ object JsonApi {
   object writers {
     implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
     implicit val FENWrites = Writes[FEN] { fen => JsString(fen.value) }
-    implicit val GameWrites = Json.writes[Game]
+    implicit val GameWrites: Writes[Game] = Json.writes[Game]
+    implicit val ClockWrites: Writes[Work.Clock] = Json.writes[Work.Clock]
     implicit val WorkIdWrites = Writes[Work.Id] { id => JsString(id.value) }
     implicit val WorkWrites = OWrites[Work] { work =>
       (work match {
@@ -210,7 +212,12 @@ object JsonApi {
           "nodes" -> a.nodes
         )
         case m: Move => Json.obj(
-          "work" -> Json.obj("type" -> "move", "id" -> m.id, "level" -> m.level)
+          "work" -> Json.obj(
+            "type" -> "move",
+            "id" -> m.id,
+            "level" -> m.level,
+            "clock" -> m.clock
+          )
         )
       }) ++ Json.toJson(work.game).as[JsObject]
     }
