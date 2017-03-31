@@ -123,6 +123,15 @@ case class Game(
     } yield Centis(0) :: {
       val pairs = clocks.iterator zip clocks.iterator.drop(1)
 
+      // We need to determine if this color's last clock had inc applied.
+      // if finished and history.size == playedTurns then game was ended
+      // by a players move, such as with mate or autodraw. In this case,
+      // the last move of the game, and the only one without inc, is the
+      // last entry of the clock history for !turnColor.
+      //
+      // On the other hand, if history.size is more than playedTurns,
+      // then the game ended during a players turn by async event, and
+      // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
       pairs map {
