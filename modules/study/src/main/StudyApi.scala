@@ -319,10 +319,12 @@ final class StudyApi(
         chapter.toggleGlyph(glyph, position.path) match {
           case Some(newChapter) =>
             studyRepo.updateNow(study)
-            chapterRepo.update(newChapter) >>-
-              newChapter.root.nodeAt(position.path).foreach { node =>
-                sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
-              }
+            newChapter.root.nodeAt(position.path) ?? { node =>
+              chapterRepo.setGlyphs(newChapter, position.path, node.glyphs) >>-
+                newChapter.root.nodeAt(position.path).foreach { node =>
+                  sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
+                }
+            }
           case None => fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>- reloadUid(study, uid)
         }
       }

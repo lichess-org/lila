@@ -131,7 +131,7 @@ object BSONHandlers {
     )
   }
 
-  private implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
+  implicit val GlyphsBSONHandler = new BSONHandler[Barr, Glyphs] {
     private val idsHandler = bsonArrayToListHandler[Int]
     def read(b: Barr) = Glyphs.fromList(idsHandler read b flatMap Glyph.find)
     // must be BSONArray and not $arr!

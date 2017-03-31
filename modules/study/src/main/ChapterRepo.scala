@@ -65,6 +65,9 @@ final class ChapterRepo(coll: Coll) {
   def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
     setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
 
+  def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
+    setNodeValue(chapter, path, "g", glyphs.nonEmpty)
+
   private def setNodeValue[A: BSONValueWriter](chapter: Chapter, path: Path, field: String, value: Option[A]): Funit =
     pathToField(chapter, path, field) match {
       case None =>
