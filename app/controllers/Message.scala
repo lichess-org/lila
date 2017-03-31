@@ -100,7 +100,10 @@ object Message extends LilaController {
         html = forms.thread(me).bindFromRequest.fold(
           err => renderForm(me, none, _ => err) map { BadRequest(_) },
           data => {
-            val cost = if (isGranted(_.ModMessage)) 0 else 1
+            val cost =
+              if (isGranted(_.ModMessage)) 0
+              else if (!me.createdSinceDays(3)) 2
+              else 1
             ThreadLimitPerUser(me.id, cost = cost) {
               ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                 api.makeThread(data, me) map { thread =>

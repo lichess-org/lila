@@ -95,6 +95,8 @@ case class User(
   def activePlan: Option[Plan] = if (plan.active) Some(plan) else None
 
   def planMonths: Option[Int] = activePlan.map(_.months)
+
+  def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 }
 
 object User {

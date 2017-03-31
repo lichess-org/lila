@@ -29,7 +29,7 @@ trait Granter {
     }
 
   private def isOldEnoughToForum(u: User) =
-    u.count.game > 0 && (u.createdAt isBefore DateTime.now.minusDays(2))
+    u.count.game > 0 && u.createdSinceDays(2)
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     categSlug match {
