@@ -1,5 +1,6 @@
 package lila.tournament
 
+import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -48,7 +49,7 @@ object PairingRepo {
     ).cursor[Bdoc]().gather[List]().map {
         _.flatMap { doc =>
           ~doc.getAs[List[String]]("u").filter(userId!=)
-        }.toSet
+        }(breakOut)
       }
 
   def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
@@ -86,7 +87,7 @@ object PairingRepo {
           doc.getAs[String]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
-        }(scala.collection.breakOut)
+        }(breakOut)
       }
   }
 

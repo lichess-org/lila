@@ -33,7 +33,7 @@ private[simul] final class SimulApi(
 
   private val currentHostIdsCache = asyncCache.single[Set[String]](
     name = "simul.currentHostIds",
-    f = repo.allStarted map (_ map (_.hostId) toSet),
+    f = repo.allStarted map (_.map(_.hostId)(scala.collection.breakOut)),
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 

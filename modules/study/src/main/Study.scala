@@ -67,7 +67,7 @@ case class Study(
 
   def withoutMembers = copy(members = StudyMembers.empty)
 
-  def light = LightStudy(isPublic, members.contributorIds.toSet)
+  def light = LightStudy(isPublic, members.contributorIds)
 }
 
 object Study {

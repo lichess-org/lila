@@ -91,7 +91,7 @@ object JsonView {
     )
   }
 
-  private val standardPerfKeys = PerfType.standard.map(_.key).toSet
+  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key)(scala.collection.breakOut)
 
   private def select(key: String, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)

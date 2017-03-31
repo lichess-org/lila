@@ -20,7 +20,7 @@ final class StreamerList(
   def find(id: String): Fu[Option[Streamer]] = get map (_ find (_.id == id))
 
   private[tv] def lichessIds: Fu[Set[String]] = get map {
-    _.filter(_.featured).map(_.lichessName.toLowerCase).toSet
+    _.filter(_.featured).map(_.lichessName.toLowerCase)(scala.collection.breakOut)
   }
 
   private[tv] def validate(text: String): (List[Streamer], List[Exception]) = Try {

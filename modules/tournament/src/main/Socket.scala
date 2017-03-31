@@ -5,6 +5,7 @@ import akka.pattern.pipe
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.collection.breakOut
 
 import actorApi._
 import lila.hub.TimeBomb
@@ -57,7 +58,7 @@ private[tournament] final class Socket(
     case Reload => notifyReload
 
     case GetWaitingUsers =>
-      waitingUsers = waitingUsers.update(members.values.flatMap(_.userId).toSet, clock)
+      waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
     case PingVersion(uid, v) => {

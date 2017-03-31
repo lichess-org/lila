@@ -16,9 +16,9 @@ private object UciToPgn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val pliesWithAdviceAndVariation = (analysis.advices collect {
+    val pliesWithAdviceAndVariation: Set[Int] = analysis.advices.collect {
       case a if a.info.hasVariation => a.ply
-    }).toSet
+    }(scala.collection.breakOut)
 
     val onlyMeaningfulVariations: List[Info] = analysis.infos map { info =>
       if (pliesWithAdviceAndVariation(info.ply)) info

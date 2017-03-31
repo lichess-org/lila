@@ -65,7 +65,7 @@ object UserSpy {
       $doc("user" -> user.id),
       $doc(field -> true)
     ).cursor[Bdoc]().gather[List]() map {
-        _.flatMap(_.getAs[Value](field)).toSet
+        _.flatMap(_.getAs[Value](field))(scala.collection.breakOut)
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User)(implicit coll: Coll): Fu[Set[User]] =

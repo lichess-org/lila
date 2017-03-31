@@ -1,5 +1,6 @@
 package lila.game
 
+import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -38,14 +39,14 @@ object BSONHandlers {
     def reads(r: BSON.Reader) = Crazyhouse.Data(
       pockets = {
       val (white, black) = {
-        r.str("p").flatMap(chess.Piece.fromChar)(scala.collection.breakOut): List[chess.Piece]
+        r.str("p").flatMap(chess.Piece.fromChar)(breakOut): List[chess.Piece]
       }.partition(_ is chess.White)
       Pockets(
         white = Pocket(white.map(_.role)),
         black = Pocket(black.map(_.role))
       )
     },
-      promoted = r.str("t").toSet.flatMap(chess.Pos.piotr)
+      promoted = r.str("t").flatMap(chess.Pos.piotr)(breakOut)
     )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(

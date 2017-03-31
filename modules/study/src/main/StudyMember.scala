@@ -38,9 +38,9 @@ case class StudyMembers(members: StudyMember.MemberMap) {
 
   def ids = members.keys
 
-  def contributorIds = members collect {
+  def contributorIds: Set[User.ID] = members.collect {
     case (id, member) if member.canContribute => id
-  }
+  }(scala.collection.breakOut)
 }
 
 object StudyMembers {
