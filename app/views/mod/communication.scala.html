@@ -69,7 +69,7 @@ side = side.some) {
     case (pov, chat) => {
     <div class="game">
       <a class="title" href="@routes.Round.player(pov.fullId)">
-        Game vs @usernameOrAnon(pov.opponent.userId)
+        vs @usernameOrAnon(pov.opponent.userId) @momentFromNow(pov.game.updatedAtOrCreatedAt)
       </a>
       <div class="chat">
         @chat.lines.map { line =>
