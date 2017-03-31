@@ -433,10 +433,10 @@ final class StudyApi(
         visibility = data.vis
       )
       if (!study.isPublic && newStudy.isPublic) {
-        bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+        bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)
       }
       else if (study.isPublic && !newStudy.isPublic) {
-        bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.ids.filter(study.canContribute _).toSet), 'study)
+        bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), 'study)
       }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
