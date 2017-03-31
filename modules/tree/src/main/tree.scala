@@ -107,7 +107,9 @@ object Node {
   }
   case class Shapes(value: List[Shape]) extends AnyVal {
     def list = value
-    def ++(shapes: Shapes) = Shapes(value ::: shapes.value)
+    def ++(shapes: Shapes) = Shapes {
+      (value ::: shapes.value).distinct
+    }
   }
   object Shapes {
     val empty = Shapes(Nil)
@@ -159,6 +161,11 @@ object Node {
       value.filterNot(_.id == commentId)
     }
     def +(comment: Comment) = Comments(comment :: value)
+
+    def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
+  }
+  object Comments {
+    val empty = Comments(Nil)
   }
 
   // TODO copied from lila.game

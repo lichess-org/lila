@@ -80,7 +80,7 @@ object BSONHandlers {
 
   implicit val ShapesBSONHandler: BSONHandler[BSONArray, Shapes] =
     isoHandler[Shapes, List[Shape], BSONArray](
-      (s: Shapes) => s.value.distinct,
+      (s: Shapes) => s.value,
       Shapes(_)
     )
 
@@ -108,8 +108,11 @@ object BSONHandlers {
   }
   private implicit val CommentBSONHandler = Macros.handler[Comment]
 
-  private def readComments(r: Reader) =
-    Comments(r.getsD[Comment]("co").filter(_.text.value.nonEmpty))
+  implicit val CommentsBSONHandler: BSONHandler[BSONArray, Comments] =
+    isoHandler[Comments, List[Comment], BSONArray](
+      (s: Comments) => s.value,
+      Comments(_)
+    )
 
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
@@ -143,7 +146,7 @@ object BSONHandlers {
       fen = r.get[FEN]("f"),
       check = r boolD "c",
       shapes = r.getO[Shapes]("h") | Shapes.empty,
-      comments = readComments(r),
+      comments = r.getO[Comments]("co") | Comments.empty,
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
@@ -156,8 +159,8 @@ object BSONHandlers {
       "s" -> s.move.san,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "h" -> w.listO(s.shapes.list.distinct),
-      "co" -> w.listO(s.comments.list),
+      "h" -> s.shapes.value.nonEmpty.option(s.shapes),
+      "co" -> s.comments.value.nonEmpty.option(s.comments),
       "g" -> s.glyphs.nonEmpty,
       "l" -> s.clock,
       "z" -> s.crazyData,
@@ -171,7 +174,7 @@ object BSONHandlers {
       fen = r.get[FEN]("f"),
       check = r boolD "c",
       shapes = r.getO[Shapes]("h") | Shapes.empty,
-      comments = readComments(r),
+      comments = r.getO[Comments]("co") | Comments.empty,
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       clock = r.getO[Centis]("l"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
@@ -181,8 +184,8 @@ object BSONHandlers {
       "p" -> s.ply,
       "f" -> s.fen,
       "c" -> w.boolO(s.check),
-      "h" -> w.listO(s.shapes.list.distinct),
-      "co" -> w.listO(s.comments.list),
+      "h" -> s.shapes.value.nonEmpty.option(s.shapes),
+      "co" -> s.comments.value.nonEmpty.option(s.comments),
       "g" -> s.glyphs.nonEmpty,
       "l" -> s.clock,
       "z" -> s.crazyData,

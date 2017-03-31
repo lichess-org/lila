@@ -251,10 +251,7 @@ final class StudyApi(
           chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
-              chapterRepo.setShapes(newChapter, position.path, shapes) | {
-                logger.warn(s"Failed to setShapes $studyId $position")
-                chapterRepo update newChapter
-              } >>-
+              chapterRepo.setShapes(newChapter, position.path, shapes) >>-
                 sendTo(study, Socket.SetShapes(position, shapes, uid))
             case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
           }
@@ -287,11 +284,13 @@ final class StudyApi(
           chapter.setComment(comment, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
-              newChapter.root.nodeAt(position.path).flatMap(_.comments findBy comment.by) ?? { c =>
-                chapterRepo.update(newChapter) >>-
-                  sendTo(study, Socket.SetComment(position, c, uid)) >>-
-                  indexStudy(study) >>-
-                  sendStudyEnters(study, userId)
+              newChapter.root.nodeAt(position.path) ?? { node =>
+                node.comments.findBy(comment.by) ?? { c =>
+                  chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>-
+                    sendTo(study, Socket.SetComment(position, c, uid)) >>-
+                    indexStudy(study) >>-
+                    sendStudyEnters(study, userId)
+                }
               }
             case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
           }

@@ -59,17 +59,28 @@ final class ChapterRepo(coll: Coll) {
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
-  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Option[Funit] =
-    pathToField(chapter, path) map { field =>
-      val shapesField = s"$field.h"
-      if (shapes.value.isEmpty) coll.unsetField($id(chapter.id), shapesField).void
-      else coll.updateField($id(chapter.id), shapesField, shapes).void
+  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Funit =
+    setNodeValue(chapter, path, "h", shapes.value.nonEmpty option shapes)
+
+  def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
+    setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
+
+  private def setNodeValue[A: BSONValueWriter](chapter: Chapter, path: Path, field: String, value: Option[A]): Funit =
+    pathToField(chapter, path, field) match {
+      case None =>
+        logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")
+        funit
+      case Some(field) =>
+        (value match {
+          case None => coll.unsetField($id(chapter.id), field)
+          case Some(v) => coll.updateField($id(chapter.id), field, v)
+        }) void
     }
 
   // root.n[0].n[0].n[1].n[0].n[2]
-  private def pathToField(chapter: Chapter, path: Path): Option[String] =
+  private def pathToField(chapter: Chapter, path: Path, subField: String): Option[String] =
     chapter.root.children.pathToIndexes(path) map { indexes =>
-      s"root.n.${indexes.mkString(".n.")}"
+      s"root.n.${indexes.mkString(".n.")}.$subField"
     }
 
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
