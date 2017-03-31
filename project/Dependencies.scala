@@ -39,10 +39,11 @@ object Dependencies {
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val configs = "com.github.kxbmap" %% "configs" % "0.4.4"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
+  val netty = "io.netty" % "netty" % "3.10.6.Final"
+  val guava = "com.google.guava" % "guava" % "21.0"
 
   object reactivemongo {
     val version = "0.12.2-SNAPSHOT"
-    // val driver = "org.reactivemongo" %% "reactivemongo" % version
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")

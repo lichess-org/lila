@@ -35,7 +35,7 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= Seq(
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-        maxmind, prismic,
+        maxmind, prismic, netty, guava,
         kamon.core, kamon.statsd, kamon.influxdb,
         java8compat, semver, scrimage, configs, scaffeine),
       TwirlKeys.templateImports ++= Seq(
