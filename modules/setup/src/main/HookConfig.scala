@@ -38,17 +38,19 @@ case class HookConfig(
     sid: Option[String],
     blocking: Set[String]
   ): Either[Hook, Option[Seek]] = timeMode match {
-    case TimeMode.RealTime => Left(Hook.make(
-      uid = uid,
-      variant = variant,
-      clock = justMakeClock,
-      mode = mode,
-      color = color.name,
-      user = user,
-      blocking = blocking,
-      sid = sid,
-      ratingRange = ratingRange
-    ))
+    case TimeMode.RealTime =>
+      val clock = justMakeClock
+      Left(Hook.make(
+        uid = uid,
+        variant = variant,
+        clock = clock,
+        mode = lila.game.Game.allowRated(variant, clock).fold(mode, Mode.Casual),
+        color = color.name,
+        user = user,
+        blocking = blocking,
+        sid = sid,
+        ratingRange = ratingRange
+      ))
     case _ => Right(user map { u =>
       Seek.make(
         variant = variant,

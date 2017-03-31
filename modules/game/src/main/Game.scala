@@ -596,6 +596,9 @@ object Game {
     game.variant == chess.variant.Horde &&
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
+  def allowRated(variant: Variant, clock: Clock.Config) =
+    variant.standard || clock.estimateTotalTime >= 30
+
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12

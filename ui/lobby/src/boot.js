@@ -209,13 +209,25 @@ module.exports = function(cfg, element) {
     var $ratings = $form.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
     var toggleButtons = function() {
+      var variantId = $variantSelect.val();
       var timeMode = $timeModeSelect.val();
       var rated = $rated.prop('checked');
-      var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
+      var limit = $timeInput.val();
+      var inc = $incrementInput.val();
+      // no rated variants with less than 30s on the clock
+      var cantBeRated = variantId != '1' && limit < 0.5 && inc == 0;
+      if (cantBeRated) {
+        if (rated) {
+          $casual.click();
+          return toggleButtons();
+        }
+      }
+      $rated.attr('disabled', cantBeRated);
+      var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = !isHook || !rated || timeMode != '0';
       if (timeOk && ratedOk) {
         $form.find('.color_submits button').toggleClass('nope', false);
-        $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf($variantSelect.val()) === -1);
+        $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
       } else
         $form.find('.color_submits button').toggleClass('nope', true);
     };

@@ -142,6 +142,10 @@ object Challenge {
       case "black" => ColorChoice.Black -> chess.Black
       case _ => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
     }
+    val finalMode = timeControl match {
+      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock) => Mode.Casual
+      case _ => mode
+    }
     new Challenge(
       _id = randomId,
       status = Status.Created,
@@ -151,7 +155,7 @@ object Challenge {
         Some(variant.initialFen).ifFalse(variant.standardInitialPosition)
       ),
       timeControl = timeControl,
-      mode = mode,
+      mode = finalMode,
       colorChoice = colorChoice,
       finalColor = finalColor,
       challenger = challenger.fold[EitherChallenger](
