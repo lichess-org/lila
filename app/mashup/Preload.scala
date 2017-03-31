@@ -4,12 +4,12 @@ package mashup
 import lila.api.Context
 import lila.event.Event
 import lila.forum.MiniForumPost
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{Game, Pov, GameRepo}
 import lila.playban.TempBan
 import lila.simul.Simul
 import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
-import lila.tv.{ Tv, StreamOnAir }
+import lila.tournament.{Tournament, Winner}
+import lila.tv.{Tv, StreamOnAir}
 import lila.user.LightUserApi
 import lila.user.User
 import play.api.libs.json._
@@ -24,8 +24,7 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUserApi: LightUserApi
-) {
+    lightUserApi: LightUserApi) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
@@ -33,8 +32,7 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
-    simuls: Fu[List[Simul]]
-  )(implicit ctx: Context): Fu[Response] =
+    simuls: Fu[List[Simul]])(implicit ctx: Context): Fu[Response] =
     lobbyApi(ctx) zip
       posts zip
       tours zip
@@ -46,9 +44,9 @@ final class Preload(
       tourneyWinners zip
       dailyPuzzle() zip
       streamsOnAir() zip
-      (ctx.userId ?? getPlayban) zip
-      (ctx.me ?? Preload.currentGame(lightUserApi.sync)) flatMap {
-        case data ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ currentGame =>
+      (ctx.userId ?? getPlayban) flatMap {
+        case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
+          val currentGame = ctx.me ?? Preload.currentGame(povs, lightUserApi.sync) _
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
@@ -62,11 +60,14 @@ object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 
-  def currentGame(lightUser: lila.common.LightUser.GetterSync)(user: User) =
-    GameRepo.urgentGames(user) map { povs =>
-      povs.find { p =>
-        p.game.nonAi && p.game.hasClock && p.isMyTurn
-      } map { pov =>
+  def currentGame(lightUser: lila.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
+    GameRepo.playingRealtimeNoAi(user, 10) map {
+      currentGame(_, lightUser)(user)
+    }
+
+  def currentGame(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
+    povs.collectFirst {
+      case pov if pov.game.nonAi && pov.game.hasClock && pov.isMyTurn =>
         val opponent = lila.game.Namer.playerString(pov.opponent)(lightUser)
         CurrentGame(
           pov = pov,
@@ -74,9 +75,6 @@ object Preload {
           json = Json.obj(
             "id" -> pov.game.id,
             "color" -> pov.color.name,
-            "opponent" -> opponent
-          )
-        )
-      }
+            "opponent" -> opponent))
     }
 }

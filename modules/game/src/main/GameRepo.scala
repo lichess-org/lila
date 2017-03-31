@@ -162,6 +162,11 @@ object GameRepo {
   // gets most urgent game to play
   def mostUrgentGame(user: User): Fu[Option[Pov]] = urgentGames(user) map (_.headOption)
 
+  def playingRealtimeNoAi(user: User, nb: Int): Fu[List[Pov]] =
+    coll.find(Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true)).list[Game](nb) map {
+      _ flatMap { Pov(_, user) }
+    }
+
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
     coll.find(Query recentlyPlaying user.id)
