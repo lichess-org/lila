@@ -47,7 +47,7 @@ private[game] object GameDiff {
         clk <- g.clock
         history <- g.clockHistory
         curColor = g.turnColor
-        times = history.get(color)
+        times = history(color)
       } yield (Centis(clk.limit * 100), times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
