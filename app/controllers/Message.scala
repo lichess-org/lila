@@ -2,10 +2,13 @@ package controllers
 
 import play.api.data.Form
 import play.api.libs.json._
+import play.api.mvc.Result
 import play.twirl.api.Html
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
+import lila.common.{ IpAddress, HTTPRequest }
 import lila.security.Granter
 import lila.user.{ User => UserModel, UserRepo }
 import views._
@@ -70,6 +73,24 @@ object Message extends LilaController {
     }
   }
 
+  private val ThreadLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = 20,
+    duration = 24 hour,
+    name = "PM thread per user",
+    key = "pm_thread.user"
+  )
+
+  private val ThreadLimitPerIP = new lila.memo.RateLimit[IpAddress](
+    credits = 30,
+    duration = 24 hour,
+    name = "PM thread per IP",
+    key = "pm_thread.ip"
+  )
+
+  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+    fuccess(Redirect(routes.Message.inbox(1)))
+  }
+
   def create = AuthBody { implicit ctx => implicit me =>
     NotForKids {
       import play.api.Play.current
@@ -78,9 +99,16 @@ object Message extends LilaController {
       negotiate(
         html = forms.thread(me).bindFromRequest.fold(
           err => renderForm(me, none, _ => err) map { BadRequest(_) },
-          data => api.makeThread(data, me) map { thread =>
-            if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
-            Redirect(routes.Message.thread(thread.id))
+          data => {
+            val cost = if (isGranted(_.ModMessage)) 0 else 1
+            ThreadLimitPerUser(me.id, cost = cost) {
+              ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
+                api.makeThread(data, me) map { thread =>
+                  if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+                  Redirect(routes.Message.thread(thread.id))
+                }
+              }
+            }
           }
         ),
         api = _ => forms.thread(me).bindFromRequest.fold(
