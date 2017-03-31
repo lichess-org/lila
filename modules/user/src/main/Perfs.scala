@@ -16,6 +16,7 @@ case class Perfs(
     horde: Perf,
     racingKings: Perf,
     crazyhouse: Perf,
+    ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -33,6 +34,7 @@ case class Perfs(
     "horde" -> horde,
     "racingKings" -> racingKings,
     "crazyhouse" -> crazyhouse,
+    "ultraBullet" -> bullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -108,6 +110,7 @@ case class Perfs(
 
   def apply(perfType: PerfType): Perf = perfType match {
     case PerfType.Standard => standard
+    case PerfType.UltraBullet => ultraBullet
     case PerfType.Bullet => bullet
     case PerfType.Blitz => blitz
     case PerfType.Classical => classical
@@ -159,7 +162,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
@@ -180,6 +183,7 @@ case object Perfs {
     case Speed.Blitz => perfs => perfs.blitz
     case Speed.Classical => perfs => perfs.classical
     case Speed.Correspondence => perfs => perfs.correspondence
+    case Speed.UltraBullet => perfs => perfs.ultraBullet
   }
 
   val perfsBSONHandler = new BSON[Perfs] {
@@ -187,7 +191,7 @@ case object Perfs {
     implicit def perfHandler = Perf.perfBSONHandler
 
     def reads(r: BSON.Reader): Perfs = {
-      def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
+      @inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
       Perfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
@@ -198,6 +202,7 @@ case object Perfs {
         horde = perf("horde"),
         racingKings = perf("racingKings"),
         crazyhouse = perf("crazyhouse"),
+        ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -218,6 +223,7 @@ case object Perfs {
       "horde" -> notNew(o.horde),
       "racingKings" -> notNew(o.racingKings),
       "crazyhouse" -> notNew(o.crazyhouse),
+      "ultraBullet" -> notNew(o.ultraBullet),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),

@@ -377,9 +377,9 @@
 .icon-graduate-cap:before {
   content: "\3a";
 }
-.icon-code-fork:before {
-  content: "\7b";
-}
 .icon-bullseye:before {
   content: "\e001";
+}
+.icon-mouse-pointer:before {
+  content: "\7b";
 }

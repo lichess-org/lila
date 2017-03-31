@@ -49,6 +49,8 @@ final class PerfsUpdater(
               updateRatings(ratingsW.classical, ratingsB.classical, result, system)
             case Speed.Correspondence =>
               updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
+            case Speed.UltraBullet =>
+              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system)
           }
           case _ =>
         }
@@ -85,6 +87,7 @@ final class PerfsUpdater(
     horde: Rating,
     racingKings: Rating,
     crazyhouse: Rating,
+    ultraBullet: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -100,6 +103,7 @@ final class PerfsUpdater(
     horde = perfs.horde.toRating,
     racingKings = perfs.racingKings.toRating,
     crazyhouse = perfs.crazyhouse.toRating,
+    ultraBullet = perfs.ultraBullet.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -144,6 +148,7 @@ final class PerfsUpdater(
       horde = addRatingIf(game.ratingVariant.horde, perfs.horde, ratings.horde),
       racingKings = addRatingIf(game.ratingVariant.racingKings, perfs.racingKings, ratings.racingKings),
       crazyhouse = addRatingIf(game.ratingVariant.crazyhouse, perfs.crazyhouse, ratings.crazyhouse),
+      ultraBullet = addRatingIf(isStd && speed == Speed.UltraBullet, perfs.ultraBullet, ratings.ultraBullet),
       bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),
       blitz = addRatingIf(isStd && speed == Speed.Blitz, perfs.blitz, ratings.blitz),
       classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),

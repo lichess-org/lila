@@ -34,6 +34,7 @@
 
 <div class="side sub_ratings">
   @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
+  @showNonEmptyPerf(u.perfs.ultraBullet, PerfType.UltraBullet)
   @showPerf(u.perfs.bullet, PerfType.Bullet)
   @showPerf(u.perfs.blitz, PerfType.Blitz)
   @showPerf(u.perfs.classical, PerfType.Classical)
