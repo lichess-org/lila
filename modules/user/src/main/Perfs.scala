@@ -95,6 +95,7 @@ case class Perfs(
     "horde" -> horde,
     "racingKings" -> racingKings,
     "crazyhouse" -> crazyhouse,
+    "ultraBullet" -> bullet,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
