@@ -119,14 +119,16 @@ case class Game(
       clk <- clock
       inc = Centis(clk.increment * 100)
       history <- clockHistory
-      clockTimes = history.get(color)
+      clocks = history(color)
     } yield Centis(0) :: {
-      val pairs = clockTimes.iterator zip clockTimes.iterator.drop(1)
+      val pairs = clocks.iterator zip clocks.iterator.drop(1)
+
+      val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
       pairs map {
         case (first, second) => {
           val d = first - second
-          (pairs.hasNext || !finished || color != turnColor).fold(d + inc, d) atLeast 0
+          if (pairs.hasNext || !noLastInc) d + inc else d atLeast 0
         }
       } toList
     }
@@ -368,7 +370,7 @@ case class Game(
       Progress(this, copy(
         clock = Some(newClock),
         clockHistory = clockHistory.map(history => {
-          if (history.get(color).isEmpty) history
+          if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
         })
       ).updatePlayer(color, _.goBerserk)) ++
@@ -733,9 +735,11 @@ case class ClockHistory(
 
   def reset(color: Color) = update(color, _ => Vector.empty)
 
-  def get(color: Color): Vector[Centis] = color.fold(white, black)
+  def apply(color: Color): Vector[Centis] = color.fold(white, black)
 
-  def last(color: Color) = get(color).lastOption
+  def last(color: Color) = apply(color).lastOption
+
+  def size = white.size + black.size
 
   // first state is of the color that moved first.
   def bothClockStates(firstMoveBy: Color): Vector[Centis] =
