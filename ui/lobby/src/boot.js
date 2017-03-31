@@ -106,7 +106,7 @@ module.exports = function(cfg, element) {
   var $startButtons = $('#start_buttons');
 
   var sliderTimes = [
-    0, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+    0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
     16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
   ];
 
@@ -115,6 +115,7 @@ module.exports = function(cfg, element) {
   }
 
   function showTime(v) {
+    if (v === 1 / 4) return '¼';
     if (v === 1 / 2) return '½';
     if (v === 3 / 4) return '¾';
     return v;
