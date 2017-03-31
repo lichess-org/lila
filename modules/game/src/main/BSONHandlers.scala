@@ -166,7 +166,7 @@ object BSONHandlers {
     for {
       clk <- clock
       history <- clockHistory
-      times = history.get(color)
+      times = history(color)
     } yield BinaryFormat.clockHistory.writeSide(Centis(clk.limit * 100), times, flagged has color)
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
