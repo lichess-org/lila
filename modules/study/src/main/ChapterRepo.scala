@@ -68,16 +68,8 @@ final class ChapterRepo(coll: Coll) {
 
   // root.n[0].n[0].n[1].n[0].n[2]
   private def pathToField(chapter: Chapter, path: Path): Option[String] =
-    pathToIndexes(chapter.root.children, path) map { indexes =>
+    chapter.root.children.pathToIndexes(path) map { indexes =>
       s"root.n.${indexes.mkString(".n.")}"
-    }
-
-  // List(0, 0, 1, 0, 2)
-  private def pathToIndexes(children: Node.Children, path: Path): Option[List[Int]] =
-    path.split.fold(List.empty[Int].some) {
-      case (head, tail) => children.getNodeAndIndex(head) flatMap {
-        case (node, index) => pathToIndexes(node.children, tail).map(rest => index :: rest)
-      }
     }
 
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =

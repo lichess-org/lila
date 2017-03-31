@@ -147,6 +147,14 @@ object Node {
       case n if child.id == n.id => child
       case n => n
     })
+
+    // List(0, 0, 1, 0, 2)
+    def pathToIndexes(path: Path): Option[List[Int]] =
+      path.split.fold(List.empty[Int].some) {
+        case (head, tail) => getNodeAndIndex(head) flatMap {
+          case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
+        }
+      }
   }
   val emptyChildren = Children(Vector.empty)
 
