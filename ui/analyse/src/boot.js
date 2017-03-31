@@ -130,7 +130,7 @@ module.exports = function(element, cfg) {
   if (stored && $menu.children('.' + stored).length) setPanel(stored);
   else {
     var $ct = $menu.children('.crosstable');
-    ($ct.length ? $ct : $menu.children(':first')).trigger('mousedown');
+    ($ct.length ? $ct : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!cfg.data.analysis) {
     $panels.find('form.future_game_analysis').submit(function() {
