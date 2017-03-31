@@ -5,8 +5,8 @@ import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc.RequestHeader
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 
 import lila.common.{ ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -102,12 +102,13 @@ final class Api(
       readPreference = ReadPreference.secondaryPreferred
     ).flatMap {
       case Nil => fuccess(Nil)
-      case values => coll.distinct[String, List](
+      case values => coll.distinctWithReadPreference[String, List](
         "user",
         $doc(
           field $in values,
           "user" $ne userId
-        ).some
+        ).some,
+        ReadPreference.secondaryPreferred
       )
     }
 
