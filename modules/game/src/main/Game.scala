@@ -23,7 +23,7 @@ case class Game(
     status: Status,
     turns: Int, // = ply
     startedAtTurn: Int,
-    clock: Option[Clock],
+    clock: Option[Clock] = None,
     castleLastMoveTime: CastleLastMoveTime,
     unmovedRooks: UnmovedRooks,
     daysPerTurn: Option[Int],
@@ -71,13 +71,15 @@ case class Game(
   def firstPlayer = player(firstColor)
   def secondPlayer = player(!firstColor)
 
-  def turnColor = Color(0 == turns % 2)
+  def turnColor = Color((turns & 1) == 0)
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean = c == turnColor
   def turnOf(u: User): Boolean = player(u) ?? turnOf
 
   def playedTurns = turns - startedAtTurn
+
+  def flagged = (status == Status.Outoftime).option(turnColor)
 
   def fullIdOf(player: Player): Option[String] =
     (players contains player) option s"$id${player.id}"

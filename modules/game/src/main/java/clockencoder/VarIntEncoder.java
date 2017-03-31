@@ -29,11 +29,11 @@ public class VarIntEncoder {
 
     public static int readUnsigned(BitReader reader) {
         int n = reader.readBits(6);
-        if ((n & 0x20) != 0) {
-            n ^= 0x20;
+        if (n > 0x1F) {
+            n &= 0x1F;
             int curShift = 5;
             int curVal;
-            while (((curVal = reader.readBits(4)) & 0x08) != 0) {
+            while ((curVal = reader.readBits(4)) > 0x07) {
                 n |= (curVal & 0x07) << curShift;
                 curShift += 3;
             }

@@ -16,7 +16,7 @@ private[game] object GameDiff {
   type Set = BSONElement // [String, BSONValue]
   type Unset = BSONElement // [String, BSONBoolean]
 
-  type ClockHistorySide = (Centis, Vector[Centis])
+  type ClockHistorySide = (Centis, Vector[Centis], Boolean)
 
   def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
 
@@ -46,10 +46,12 @@ private[game] object GameDiff {
       for {
         clk <- g.clock
         history <- g.clockHistory
-      } yield (Centis(clk.limit * 100), history.get(color))
+        curColor = g.turnColor
+        times = history.get(color)
+      } yield (Centis(clk.limit * 100), times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
-      case (x, y) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y))
+      case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z))
     }
 
     val w = lila.db.BSON.writer
