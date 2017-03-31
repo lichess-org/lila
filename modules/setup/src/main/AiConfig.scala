@@ -19,24 +19,17 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  // level 8 would flag too easily with less than one minute.
-  def finalLevel(g: chess.Game) = g.clock match {
-    case Some(c) if c.config.estimateTotalTime < 30 => level atMost 6
-    case Some(c) if c.config.estimateTotalTime < 60 => level atMost 7
-    case _ => level
-  }
-
   def game = fenGame { chessGame =>
     val realVariant = chessGame.board.variant
     Game.make(
       game = chessGame,
       whitePlayer = Player.make(
         color = ChessColor.White,
-        aiLevel = creatorColor.black option finalLevel(chessGame)
+        aiLevel = creatorColor.black option level
       ),
       blackPlayer = Player.make(
         color = ChessColor.Black,
-        aiLevel = creatorColor.white option finalLevel(chessGame)
+        aiLevel = creatorColor.white option level
       ),
       mode = Mode.Casual,
       variant = realVariant,
