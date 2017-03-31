@@ -104,6 +104,13 @@ object PimpedFuture {
     def await(duration: FiniteDuration): A =
       scala.concurrent.Await.result(fua, duration)
 
+    def awaitOrElse(duration: FiniteDuration, default: => A): A = try {
+      scala.concurrent.Await.result(fua, duration)
+    }
+    catch {
+      case _: Exception => default
+    }
+
     def awaitSeconds(seconds: Int): A =
       await(seconds.seconds)
 

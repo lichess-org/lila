@@ -4,12 +4,12 @@ package mashup
 import lila.api.Context
 import lila.event.Event
 import lila.forum.MiniForumPost
-import lila.game.{Game, Pov, GameRepo}
+import lila.game.{ Game, Pov, GameRepo }
 import lila.playban.TempBan
 import lila.simul.Simul
 import lila.timeline.Entry
-import lila.tournament.{Tournament, Winner}
-import lila.tv.{Tv, StreamOnAir}
+import lila.tournament.{ Tournament, Winner }
+import lila.tv.{ Tv, StreamOnAir }
 import lila.user.LightUserApi
 import lila.user.User
 import play.api.libs.json._
@@ -24,7 +24,8 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUserApi: LightUserApi) {
+    lightUserApi: LightUserApi
+) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
@@ -32,7 +33,8 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
-    simuls: Fu[List[Simul]])(implicit ctx: Context): Fu[Response] =
+    simuls: Fu[List[Simul]]
+  )(implicit ctx: Context): Fu[Response] =
     lobbyApi(ctx) zip
       posts zip
       tours zip
@@ -75,6 +77,8 @@ object Preload {
           json = Json.obj(
             "id" -> pov.game.id,
             "color" -> pov.color.name,
-            "opponent" -> opponent))
+            "opponent" -> opponent
+          )
+        )
     }
 }

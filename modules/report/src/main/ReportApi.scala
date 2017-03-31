@@ -1,14 +1,17 @@
 package lila.report
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo, NoteApi }
 
 final class ReportApi(
     val coll: Coll,
     noteApi: NoteApi,
-    isOnline: User.ID => Boolean
+    isOnline: User.ID => Boolean,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -36,8 +39,11 @@ final class ReportApi(
     } >>- monitorUnprocessed
   }
 
-  private def monitorUnprocessed = nbUnprocessed foreach { nb =>
-    lila.mon.mod.report.unprocessed(nb)
+  private def monitorUnprocessed = {
+    nbUnprocessedCache.refresh
+    nbUnprocessed foreach { nb =>
+      lila.mon.mod.report.unprocessed(nb)
+    }
   }
 
   private def isAlreadySlain(report: Report, user: User) =
@@ -164,7 +170,13 @@ final class ReportApi(
   private def reasonSelect(reason: Option[Reason]): Bdoc =
     reason.?? { r => $doc("reason" -> r.key) }
 
-  def nbUnprocessed = coll.countSel(unprocessedSelect)
+  val nbUnprocessedCache = asyncCache.single[Int](
+    name = "report.nbUnprocessed",
+    f = coll.countSel(unprocessedSelect),
+    expireAfter = _.ExpireAfterWrite(1 hour)
+  )
+
+  def nbUnprocessed = nbUnprocessedCache.get
 
   def recent(nb: Int): Fu[List[Report]] =
     coll.find($empty).sort($sort.createdDesc).list[Report](nb)

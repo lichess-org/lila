@@ -69,7 +69,7 @@ object Environment
   }
 
   def reportNbUnprocessed: Int =
-    lila.report.Env.current.api.nbUnprocessed await 1.second
+    lila.report.Env.current.api.nbUnprocessed.awaitOrElse(10.millis, 0)
 
   val openingBrace = "{"
   val closingBrace = "}"

@@ -9,7 +9,8 @@ final class Env(
     isOnline: lila.user.User.ID => Boolean,
     noteApi: lila.user.NoteApi,
     system: ActorSystem,
-    hub: lila.hub.Env
+    hub: lila.hub.Env,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   private val CollectionReport = config getString "collection.report"
@@ -17,7 +18,7 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
-  lazy val api = new ReportApi(reportColl, noteApi, isOnline)
+  lazy val api = new ReportApi(reportColl, noteApi, isOnline, asyncCache)
 
   lazy val modFilters = new ModReportFilter
 
@@ -52,6 +53,7 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
     system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current
+    hub = lila.hub.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache
   )
 }
