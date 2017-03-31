@@ -23,6 +23,7 @@ final class DataForm {
     "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
+    .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill TournamentSetup(
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -92,6 +93,16 @@ private[tournament] case class TournamentSetup(
   def validClock = (clockTime + clockIncrement) > 0
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+
+  def realMode = mode.fold(Mode.default)(Mode.orDefault)
+
+  def realVariant = chess.variant.Variant orDefault variant
+
+  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
+
+  def validRatedUltraBulletVariant =
+    realMode == Mode.Casual ||
+      lila.game.Game.allowRated(realVariant, clockConfig)
 
   def isPrivate = `private`.isDefined
 

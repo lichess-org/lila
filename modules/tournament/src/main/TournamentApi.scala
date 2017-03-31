@@ -40,18 +40,17 @@ final class TournamentApi(
 ) {
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
-    val variant = chess.variant.Variant orDefault setup.variant
     val tour = Tournament.make(
       by = Right(me),
-      clock = chess.Clock.Config((setup.clockTime * 60).toInt, setup.clockIncrement),
+      clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
-      mode = setup.mode.fold(Mode.default)(Mode.orDefault),
+      mode = setup.realMode,
       `private` = setup.isPrivate,
       password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
-      variant = variant,
-      position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial
+      variant = setup.realVariant,
+      position = StartingPosition.byEco(setup.position).ifTrue(setup.realVariant.standard) | StartingPosition.initial
     )
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
