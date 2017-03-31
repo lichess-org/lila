@@ -160,11 +160,13 @@ final class StudyApi(
       chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(chapter) =>
-          chapterRepo.update(chapter) >>
-            studyRepo.setPosition(study.id, position + node) >>
-            updateConceal(study, chapter, position + node) >>-
-            sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid)) >>-
-            sendStudyEnters(study, userId)
+          chapter.root.nodeAt(position.path) ?? { parent =>
+            chapterRepo.setChildren(chapter, position.path, parent.children) >>
+              studyRepo.setPosition(study.id, position + node) >>
+              updateConceal(study, chapter, position + node) >>-
+              sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid)) >>-
+              sendStudyEnters(study, userId)
+          }
       }
     }
   }

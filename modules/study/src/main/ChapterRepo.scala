@@ -68,16 +68,18 @@ final class ChapterRepo(coll: Coll) {
   def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
     setNodeValue(chapter, path, "g", glyphs.nonEmpty)
 
+  def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
+    setNodeValue(chapter, path, "n", children.some)
+
   private def setNodeValue[A: BSONValueWriter](chapter: Chapter, path: Path, field: String, value: Option[A]): Funit =
     pathToField(chapter, path, field) match {
       case None =>
         logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")
         funit
-      case Some(field) =>
-        (value match {
-          case None => coll.unsetField($id(chapter.id), field)
-          case Some(v) => coll.updateField($id(chapter.id), field, v)
-        }) void
+      case Some(field) => (value match {
+        case None => coll.unsetField($id(chapter.id), field)
+        case Some(v) => coll.updateField($id(chapter.id), field, v)
+      }) void
     }
 
   // root.n.0.n.0.n.1.n.0.n.2.subField
