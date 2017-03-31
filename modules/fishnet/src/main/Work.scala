@@ -67,11 +67,14 @@ object Work {
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
+  case class Clock(wtime: Int, btime: Int, inc: Int)
+
   case class Move(
       _id: Work.Id, // random
       game: Game,
       currentFen: FEN,
       level: Int,
+      clock: Option[Work.Clock],
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],

@@ -2,6 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
+import chess.{ White, Black }
 import chess.format.{ FEN, Forsyth }
 
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -31,6 +32,13 @@ final class Player(
           ),
           currentFen = FEN(Forsyth >> game.toChess),
           level = level,
+          clock = game.clock.map { clk =>
+            Work.Clock(
+              wtime = clk.remainingCentis(White),
+              btime = clk.remainingCentis(Black),
+              inc = clk.increment
+            )
+          },
           tries = 0,
           lastTryByKey = none,
           acquired = none,

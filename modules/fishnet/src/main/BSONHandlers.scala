@@ -38,6 +38,8 @@ private object BSONHandlers {
   implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)
   import Work.Acquired
   implicit val MoveAcquiredHandler = Macros.handler[Acquired]
+  import Work.Clock
+  implicit val ClockHandler = Macros.handler[Clock]
   import Work.Game
   implicit val GameHandler = Macros.handler[Game]
   import Work.Move
