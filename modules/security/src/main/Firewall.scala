@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ RequestHeader, Action, Cookies }
+import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.ReadPreference
 
 import lila.common.{ IpAddress, LilaCookie }
@@ -43,16 +44,30 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
+  // since we'll read from secondary right after writing
+  private val writeConcern = GetLastError.ReplicaAcknowledged(
+    n = 2,
+    timeout = 5000,
+    journaled = false
+  )
+
   def blockIp(ip: IpAddress): Funit = validIp(ip) ?? {
     coll.update(
       $id(ip),
       $doc("_id" -> ip, "date" -> DateTime.now),
-      upsert = true
+      upsert = true,
+      writeConcern = writeConcern
     ).void >>- ipsCache.refresh
+    funit // do not wait for the replica aknowledgement, return right away
   }
 
-  def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.remove($inIds(ips.filter(validIp))).void >>- ipsCache.refresh
+  def unblockIps(ips: Iterable[IpAddress]): Funit = {
+    coll.remove(
+      $inIds(ips.filter(validIp)),
+      writeConcern = writeConcern
+    ).void >>- ipsCache.refresh
+    funit // do not wait for the replica aknowledgement, return right away
+  }
 
   def blocksIp(ip: IpAddress): Fu[Boolean] = ipsCache.get.dmap(_ contains ip.value)
 
