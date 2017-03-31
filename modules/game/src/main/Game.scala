@@ -560,7 +560,7 @@ object Game {
 
   val syntheticId = "synthetic"
 
-  val maxPlayingRealtime = 125 // plus 200 correspondence games
+  val maxPlayingRealtime = 100 // plus 200 correspondence games
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
