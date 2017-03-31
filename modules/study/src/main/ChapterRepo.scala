@@ -80,9 +80,10 @@ final class ChapterRepo(coll: Coll) {
         }) void
     }
 
-  // root.n[0].n[0].n[1].n[0].n[2]
+  // root.n.0.n.0.n.1.n.0.n.2.subField
   private def pathToField(chapter: Chapter, path: Path, subField: String): Option[String] =
-    chapter.root.children.pathToIndexes(path) map { indexes =>
+    if (path.isEmpty) s"root.$subField".some
+    else chapter.root.children.pathToIndexes(path) map { indexes =>
       s"root.n.${indexes.mkString(".n.")}.$subField"
     }
 
