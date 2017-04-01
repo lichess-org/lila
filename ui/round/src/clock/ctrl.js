@@ -4,7 +4,7 @@ var updateElements = require('./view').updateElements;
 module.exports = function(data, onFlag, soundColor) {
   var emergSound = {
     play: lichess.sound.lowtime,
-    last: null,
+    next: null,
     delay: 20000,
     playable: {
       white: true,
