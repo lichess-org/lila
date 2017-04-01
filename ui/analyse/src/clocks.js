@@ -3,7 +3,7 @@ var opposite = require('chessground/util').opposite;
 
 module.exports = function(ctrl) {
   var node = ctrl.vm.node, clock = node.clock;
-  if (!clock) return;
+  if (!clock && clock !== 0) return;
   var parentClock = ctrl.tree.getParentClock(node, ctrl.vm.path);
   var whiteCentis, blackCentis;
   var isWhiteTurn = node.ply % 2 === 0;
