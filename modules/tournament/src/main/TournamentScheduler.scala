@@ -227,19 +227,22 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
             case 1 => Blitz
             case _ => Classical
           }
-          val rating = hour % 2 match {
-            case 0 => 1600
-            case 1 => 2000
-          }
-          val perf = Schedule.Speed toPerfType speed
-          val conditions = Condition.All(
-            nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
-            maxRating = Condition.MaxRating(perf, rating).some,
-            minRating = none
-          )
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, Standard, std, date, conditions)
-          }
+          List(
+            1600 -> 0,
+            2000 -> 1
+          ).flatMap {
+              case (rating, hourDelay) =>
+                val perf = Schedule.Speed toPerfType speed
+                val conditions = Condition.All(
+                  nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+                  maxRating = Condition.MaxRating(perf, rating).some,
+                  minRating = none
+                )
+                at(date, hour) map { date =>
+                  val finalDate = date plusHours hourDelay
+                  Schedule(Hourly, speed, Standard, std, finalDate, conditions)
+                }
+            }
         },
 
         // hourly crazyhouse tournaments!
@@ -303,6 +306,6 @@ private object TournamentScheduler {
 
   def start(system: ActorSystem, api: TournamentApi) = {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))
-    system.scheduler.schedule(1 minute, 5 minutes, ref, ScheduleNow)
+    system.scheduler.schedule(1 second, 10 seconds, ref, ScheduleNow)
   }
 }
