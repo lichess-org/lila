@@ -16,7 +16,7 @@ sealed abstract class PerfType(
 object PerfType {
 
   case object UltraBullet extends PerfType(
-    1,
+    0,
     key = "ultraBullet",
     name = Speed.UltraBullet.name,
     title = Speed.UltraBullet.title,
