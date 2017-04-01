@@ -137,8 +137,8 @@ case class Game(
       pairs map {
         case (first, second) => {
           val d = first - second
-          if (pairs.hasNext || !noLastInc) d + inc else d atLeast 0
-        }
+          if (pairs.hasNext || !noLastInc) d + inc else d
+        } atLeast 0
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
