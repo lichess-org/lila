@@ -47,9 +47,11 @@ object Mod extends LilaController {
     lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
       UserRepo named username flatMap {
         _.fold(notFound) { user =>
-          Env.message.api.sendPreset(me, user, preset) >>
-            modApi.troll(me.id, username, user.troll) inject
-            Redirect(routes.Report.list)
+          Env.message.api.sendPreset(me, user, preset) flatMap { thread =>
+            modApi.troll(me.id, username, user.troll) >>-
+              Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name) inject
+              Redirect(routes.Report.list)
+          }
         }
       }
     }
