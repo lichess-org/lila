@@ -361,8 +361,7 @@ object JsonView {
       "initial" -> c.limit,
       "increment" -> c.increment,
       "white" -> truncateAt(c.remainingTime(Color.White), 2),
-      "black" -> truncateAt(c.remainingTime(Color.Black), 2),
-      "emerg" -> c.emergTime
+      "black" -> truncateAt(c.remainingTime(Color.Black), 2)
     )
   }
 
@@ -371,8 +370,7 @@ object JsonView {
       "daysPerTurn" -> c.daysPerTurn,
       "increment" -> c.increment,
       "white" -> c.whiteTime,
-      "black" -> c.blackTime,
-      "emerg" -> c.emerg
+      "black" -> c.blackTime
     )
   }
 
