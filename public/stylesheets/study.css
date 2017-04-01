@@ -491,15 +491,18 @@ body.dark .study_box .add,
 body.dark .glyph_form a:hover i::before {
   background: #303030;
 }
-.delete_button {
+.destructive {
   margin-top: 20px;
 }
-.delete_button button {
+.destructive form {
+  display:inline-block;
+}
+.destructive button {
   color: #dc322f!important;
   opacity: 0.5;
   font-weight: normal;
 }
-.delete_button button:hover {
+.destructive button:hover {
   opacity: 1;
 }
 

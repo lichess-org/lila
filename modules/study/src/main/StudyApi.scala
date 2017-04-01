@@ -34,6 +34,12 @@ final class StudyApi(
 
   def publicByIds(ids: Seq[Study.Id]) = byIds(ids) map { _.filter(_.isPublic) }
 
+  def byIdAndOwner(id: Study.Id, owner: User) = byId(id) map {
+    _.filter(_ isOwner owner.id)
+  }
+
+  def isOwner(id: Study.Id, owner: User) = byIdAndOwner(id, owner).map(_.isDefined)
+
   private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
     chapterRepo.byId(id) flatMap {
       _ ?? { c => tagsFixer(c) map some }

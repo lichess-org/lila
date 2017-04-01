@@ -55,6 +55,8 @@ final class ChatApi(
         }
       }
 
+    def clear(chatId: ChatId) = coll.remove($id(chatId)).void
+
     def system(chatId: ChatId, text: String) = {
       val line = UserLine(systemUserId, Writer delocalize text, troll = false, deleted = false)
       pushLine(chatId, line) >>-

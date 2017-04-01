@@ -180,9 +180,15 @@ object Study extends LilaController {
     }
 
   def delete(id: String) = Auth { implicit ctx => me =>
-    env.api.byId(id) flatMap { study =>
-      study.filter(_ isOwner me.id) ?? env.api.delete
+    env.api.byIdAndOwner(id, me) flatMap {
+      _ ?? env.api.delete
     } inject Redirect(routes.Study.allDefault(1))
+  }
+
+  def clearChat(id: String) = Auth { implicit ctx => me =>
+    env.api.isOwner(id, me) flatMap {
+      _ ?? Env.chat.api.userChat.clear(id)
+    } inject Redirect(routes.Study.show(id))
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>

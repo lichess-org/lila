@@ -118,13 +118,22 @@ module.exports = {
           ]),
           dialog.button(isNew ? 'Start' : 'Save')
         ]),
-        m('form.delete_button', {
-          action: '/study/' + data.id + '/delete',
-          method: 'post',
-          onsubmit: function() {
-            return isNew || confirm('Delete the entire study? There is no going back!');
-          }
-        }, m('button.button.frameless', isNew ? 'Cancel' : 'Delete study'))
+        m('div.destructive', [
+          isNew ? null : m('form', {
+            action: '/study/' + data.id + '/clear-chat',
+            method: 'post',
+            onsubmit: function() {
+              return confirm('Delete the study chat history? There is no going back!');
+            }
+          }, m('button.button.frameless', 'Clear chat')),
+          m('form', {
+            action: '/study/' + data.id + '/delete',
+            method: 'post',
+            onsubmit: function() {
+              return isNew || confirm('Delete the entire study? There is no going back!');
+            }
+          }, m('button.button.frameless', isNew ? 'Cancel' : 'Delete study'))
+        ])
       ]
     });
   }

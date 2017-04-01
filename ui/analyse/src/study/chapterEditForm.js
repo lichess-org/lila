@@ -107,7 +107,7 @@ module.exports = {
             dialog.button('Save chapter')
           ] : m.trust(lichess.spinnerHtml)
         ]),
-        m('div.delete_button',
+        m('div.destructive',
           m('button.button.frameless', {
             onclick: function() {
               if (confirm('Delete this chapter? There is no going back!'))
