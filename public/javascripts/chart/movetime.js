@@ -13,7 +13,7 @@ lichess.movetimeChart = function(data) {
 
             var tree = data.treeParts;
             var moveCentis = data.game.moveCentis ||
-                 data.game.moveTimes.map(function(i) { return i * 10 + 5; });
+                 data.game.moveTimes.map(function(i) { return i * 10; });
             var ply = 0;
             var max = 0;
 
