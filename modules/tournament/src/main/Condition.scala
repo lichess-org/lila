@@ -146,7 +146,7 @@ object Condition {
     val perfChoices = PerfType.nonPuzzle.map { pt =>
       pt.key -> pt.name
     }
-    val nbRatedGames = Seq(0, 5, 10, 20, 30, 40, 50, 75, 100, 150, 200)
+    val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
       case (0, name) => (0, "No restriction")
       case x => x
