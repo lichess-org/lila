@@ -12,18 +12,19 @@ lichess.movetimeChart = function(data) {
             };
 
             var tree = data.treeParts;
-            var moveTimes = data.game.moveTimes;
+            var moveCentis = data.game.moveCentis ||
+                 data.game.moveTimes.map(function(i) { return i * 10 + 5; });
             var ply = 0;
             var max = 0;
 
-            moveTimes.forEach(function(time, i) {
+            moveCentis.forEach(function(time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
               var san = node ? node.san : '-';
 
               var turn = (ply + 1) >> 1;
               var color = ply & 1;
-              var y = Math.pow(Math.log(0.04 * Math.min(time, 6000) + 1), 2);
+              var y = Math.pow(Math.log(0.4 * Math.min(time, 6000) + 1), 2);
               max = Math.max(y, max);
 
               series[color ? 'white' : 'black'].push({
@@ -56,7 +57,8 @@ lichess.movetimeChart = function(data) {
               },
               tooltip: {
                 formatter: function() {
-                  var seconds = moveTimes[this.x] / 10;
+                  var seconds = moveCentis[this.x] / 100;
+                  if (seconds) seconds = seconds.toFixed(seconds >= 3 ? 1 : 2);
                   return this.point.name + '<br /><strong>' + seconds + '</strong> seconds';
                 }
               },
