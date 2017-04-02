@@ -14,7 +14,7 @@ export abstract class AbstractWorker {
     this.boot();
   }
 
-  stop(): Promise<{}> {
+  stop(): Promise<void> {
     let stopped = this.protocol.stop();
     setTimeout(function() {
       stopped.reject();

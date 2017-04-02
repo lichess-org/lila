@@ -13,14 +13,14 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: Deferred<{}> | null;
+  private stopped: Deferred<void> | null;
   private opts: WorkerOpts;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
     this.opts = opts;
 
-    this.stopped = defer<{}>();
+    this.stopped = defer<void>();
     this.stopped.resolve();
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
@@ -35,7 +35,7 @@ export default class Protocol {
 
   received(text: string) {
     if (text.indexOf('bestmove ') === 0) {
-      if (!this.stopped) this.stopped = defer();
+      if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       return;
     }
@@ -113,10 +113,10 @@ export default class Protocol {
     this.send('go depth ' + this.work.maxDepth);
   }
 
-  stop(): Deferred<{}> {
+  stop(): Deferred<void> {
     if (!this.stopped) {
       this.work = null;
-      this.stopped = defer();
+      this.stopped = defer<void>();
       this.send('stop');
     }
     return this.stopped;
