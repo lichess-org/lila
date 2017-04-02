@@ -84,9 +84,11 @@ case class User(
   private def best4Of(perfTypes: List[PerfType]) =
     perfTypes.sortBy { pt => -perfs(pt).nb } take 4
 
+  private val firstRow = List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)
+  private val secondRow = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+
   def best8Perfs: List[PerfType] =
-    best4Of(List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
-      best4Of(List(PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings))
+    best4Of(firstRow) ::: best4Of(secondRow)
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
