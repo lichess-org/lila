@@ -63,7 +63,7 @@ final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
+  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       cached ranking tour flatMap { ranking =>
         tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {

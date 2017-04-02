@@ -20,7 +20,7 @@ private[tournament] case class WaitingUsers(
     if (c.estimateTotalTime < 60) 10
     else {
       c.estimateTotalTime / 12 + 6
-    } atMost 40 atLeast 14
+    } atMost 45 atLeast 14
   }
 
   lazy val all = hash.keys.toList
