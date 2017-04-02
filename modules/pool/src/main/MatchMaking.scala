@@ -22,7 +22,12 @@ object MatchMaking {
   private object wmMatching {
 
     // above that, no pairing is allowed
-    private val MaxScore = 300
+    // 1800 ~> 300
+    // 2500 ~> 450
+    // 3000 ~> 650
+    private def ratingToMaxScore(rating: Int) =
+      if (rating < 2000) 300
+      else rating / 3.5 - 250
 
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
@@ -34,7 +39,8 @@ object MatchMaking {
       } + {
         blockMalus(a, b) + blockMalus(b, a)
       }
-      if (score <= MaxScore) Some(score) else None
+      val maxScore = ratingToMaxScore(a.rating atLeast b.rating)
+      if (score <= maxScore) Some(score) else None
     }
 
     // score bonus based on how many waves the member missed

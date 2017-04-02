@@ -2,7 +2,9 @@ package lila.rating
 
 case class RatingRange(min: Int, max: Int) {
 
-  def contains(rating: Int) = rating >= min && rating <= max
+  def contains(rating: Int) =
+    (min <= RatingRange.min || rating >= min) &&
+      (max >= RatingRange.max || rating <= max)
 
   def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
 
@@ -23,7 +25,7 @@ object RatingRange {
     if acceptable(min)
     max ← parseIntOption(from dropWhile ('-' !=) tail)
     if acceptable(max)
-    if min <= max
+    if min < max
   } yield RatingRange(min, max)
 
   def orDefault(from: String) = apply(from) | default
