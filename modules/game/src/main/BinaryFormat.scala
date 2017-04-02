@@ -97,16 +97,16 @@ object BinaryFormat {
           case 0 => PausedClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-            blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
+            blackTime = readSignedInt24(b6, b7, b8) / 100f,
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk
           )
           case timer => RunningClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-            blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
+            blackTime = readSignedInt24(b6, b7, b8) / 100f,
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk,
             timer = timer.toDouble / 100
@@ -118,8 +118,8 @@ object BinaryFormat {
         PausedClock(
           config = Clock.Config(readClockLimit(b1), b2),
           color = color,
-          whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
-          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
+          whiteTime = readSignedInt24(b3, b4, b5) / 100f,
+          blackTime = readSignedInt24(b6, b7, b8) / 100f,
           whiteBerserk = whiteBerserk,
           blackBerserk = blackBerserk
         )
