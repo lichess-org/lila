@@ -126,8 +126,6 @@ final class JsonView(
           ).noNull
       }
 
-  private def centisToTenths(centis: Seq[Centis]): Seq[Int] = centis.map(_.roundTenths)
-
   def watcherJson(
     pov: Pov,
     pref: Pref,
@@ -144,7 +142,7 @@ final class JsonView(
           Json.obj(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
-                "moveTimes" -> (withFlags.movetimes ?? game.moveTimes.map(centisToTenths)),
+                "moveCentis" -> withFlags.movetimes ?? game.moveTimes.map(_.map(_.value)),
                 "division" -> withFlags.division.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)
