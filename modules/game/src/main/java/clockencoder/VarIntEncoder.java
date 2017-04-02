@@ -8,8 +8,8 @@ public class VarIntEncoder {
     }
 
     public static void writeSigned(int n, BitWriter writer) {
-        n = (n << 1) ^ (n >> 31); // zigzag encode
-        writeUnsigned(n, writer);
+        // zigzag encode
+        writeUnsigned((n << 1) ^ (n >> 31), writer);
     }
 
     public static void writeUnsigned(int n, BitWriter writer) {
