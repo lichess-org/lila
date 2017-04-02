@@ -120,15 +120,32 @@ private[video] final class VideoApi(
         maxPerPage = maxPerPage
       )
 
-    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
-      videoColl.find($doc(
-        "tags" $in video.tags,
-        "_id" $ne video.id
-      )).sort($doc("metadata.likes" -> -1))
-        .cursor[Video](ReadPreference.secondaryPreferred)
-        .gather[List]().map { videos =>
-          videos.sortBy { v => -v.similarity(video) } take max
-        } flatMap videoViews(user)
+    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] = {
+      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+      videoColl.aggregateWithReadPreference(
+        Match($doc(
+          "tags" $in video.tags,
+          "_id" $ne video.id
+        )), List(
+          Project($doc(
+            "doc" -> "$$ROOT", // we could use mongodb 3.4 $addFields here to simplify
+            "int" -> $doc(
+              "$size" -> $doc(
+                "$setIntersection" -> $arr("$tags", video.tags)
+              )
+            )
+          )),
+          Sort(
+            Descending("int"),
+            Descending("doc.metadata.likes")
+          ),
+          Limit(max)
+        ),
+        ReadPreference.secondaryPreferred
+      ).map(_.firstBatch.flatMap { obj =>
+          obj.getAs[Video]("doc")
+        }) flatMap videoViews(user)
+    }
 
     object count {
 
