@@ -72,13 +72,15 @@ final class TournamentApi(
             pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
             lila.mon.tournament.pairing.giveup()
             funit
-          case pairings => pairings.map { pairing =>
-            PairingRepo.insert(pairing) >>
-              autoPairing(tour, pairing) addEffect { game =>
-                sendTo(tour.id, StartGame(game))
-              }
-          }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
-            lila.mon.tournament.pairing.create(pairings.size)
+          case pairings => UserRepo.idsMap(pairings.flatMap(_.users)) flatMap { users =>
+            pairings.map { pairing =>
+              PairingRepo.insert(pairing) >>
+                autoPairing(tour, pairing, users) addEffect { game =>
+                  sendTo(tour.id, StartGame(game))
+                }
+            }.sequenceFu >> featureOneOf(tour, pairings, ranking) >>- {
+              lila.mon.tournament.pairing.create(pairings.size)
+            }
           }
         } >>- {
           val time = nowMillis - startAt

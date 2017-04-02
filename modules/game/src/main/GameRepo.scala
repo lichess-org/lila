@@ -411,19 +411,6 @@ object GameRepo {
     .skip(Random nextInt 1000)
     .uno[Game]
 
-  def findMirror(game: Game): Fu[Option[Game]] = coll.uno[Game]($doc(
-    F.id -> $doc("$ne" -> game.id),
-    F.playerUids $in game.userIds,
-    F.status -> Status.Started.id,
-    F.createdAt $gt (DateTime.now minusMinutes 15),
-    F.updatedAt $gt (DateTime.now minusMinutes 5),
-    "$or" -> $arr(
-      $doc(s"${F.whitePlayer}.ai" -> $doc("$exists" -> true)),
-      $doc(s"${F.blackPlayer}.ai" -> $doc("$exists" -> true))
-    ),
-    F.binaryPieces -> game.binaryPieces
-  ))
-
   def hydrateUpdatedAtAndTvAt(game: Game): Fu[Game] =
     coll.find($id(game.id), $doc(F.updatedAt -> true, F.tvAt -> true)).uno[Bdoc].map {
       _.fold(game) { o =>

@@ -97,10 +97,10 @@ object PlayerRepo {
       selectTour(tourId) ++ $doc("m" -> $doc("$gt" -> 0))
     ).cursor[Player]().gather[List]()
 
-  def userIds(tourId: String): Fu[List[String]] =
+  private[tournament] def userIds(tourId: String): Fu[List[String]] =
     coll.distinct[String, List]("uid", selectTour(tourId).some)
 
-  def activeUserIds(tourId: String): Fu[List[String]] =
+  private[tournament] def activeUserIds(tourId: String): Fu[List[String]] =
     coll.distinct[String, List](
       "uid", (selectTour(tourId) ++ selectActive).some
     )

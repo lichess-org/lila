@@ -64,6 +64,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         ids.map(docsMap.get)(breakOut)
       }
 
+    def idsMap[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[Map[I, D]] =
+      byIds[D, I](ids, readPreference) map { docs =>
+        docs.map(u => docId(u) -> u)(breakOut)
+      }
+
     def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
       coll.find(selector, $doc(field -> true))
         .list[Bdoc]()

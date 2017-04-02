@@ -25,10 +25,10 @@ final class AutoPairing(
     onStart: String => Unit
 ) {
 
-  def apply(tour: Tournament, pairing: Pairing): Fu[Game] = for {
-    user1 ← getUser(pairing.user1)
-    user2 ← getUser(pairing.user2)
-    game1 = Game.make(
+  def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User]): Fu[Game] = {
+    val user1 = usersMap get pairing.user1 err s"Missing pairing user $pairing"
+    val user2 = usersMap get pairing.user2 err s"Missing pairing user $pairing"
+    val game1 = Game.make(
       game = chess.Game(
       variantOption = tour.variant.some,
       fen = tour.position.some.filterNot(_.initial).map(_.fen)
@@ -49,21 +49,17 @@ final class AutoPairing(
       source = Source.Tournament,
       pgnImport = None
     )
-    game2 = game1
+    val game2 = game1
       .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
       .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))
       .withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start
-    _ ← (GameRepo insertDenormalized game2) >>-
+    (GameRepo insertDenormalized game2) >>-
       scheduleIdleCheck(PovRef(game2.id, game2.turnColor), SecondsToDoFirstMove.secondsToMoveFor(tour), true) >>-
-      onStart(game2.id)
-  } yield game2
-
-  private def getUser(username: String): Fu[User] =
-    UserRepo named username flatMap {
-      _.fold(fufail[User]("No user named " + username))(fuccess)
-    }
+      onStart(game2.id) inject
+      game2
+  }
 
   private def scheduleIdleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
     system.scheduler.scheduleOnce(secondsToMove seconds)(idleCheck(povRef, secondsToMove, thenAgain))
