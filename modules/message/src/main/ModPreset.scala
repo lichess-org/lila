@@ -49,7 +49,9 @@ In your game history, you have many games where you aborted the game before play
 
 Warning: Offensive language
 
-Offensive or abusive language is not allowed on Lichess. Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
+On Lichess, you *must* be nice when communicating with other players. At all times.
+
+Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
