@@ -223,7 +223,7 @@ case class Game(
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
-      binaryMoveTimes = (!isPgnImport).option {
+      binaryMoveTimes = (!isPgnImport && !clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
