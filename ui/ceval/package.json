@@ -24,7 +24,8 @@
   },
   "devDependencies": {
     "typescript": "^2",
-    "@types/jquery": "^2.0"
+    "@types/jquery": "^2.0",
+    "types": "file:../types"
   },
   "dependencies": {
     "chess": "file:../chess",

@@ -1,3 +1,5 @@
+import { StoredProp, StoredBooleanProp } from 'common';
+
 export interface Eval {
   cp?: number;
   mate?: number;
@@ -99,7 +101,7 @@ export interface CevalController {
   stop: () => void;
   threads: StoredProp<number>;
   hashSize: StoredProp<number>;
-  infinite: StoredProp<boolean>;
+  infinite: StoredBooleanProp;
   hovering: Mithril.Property<Hovering | null>;
   toggle: () => void;
   curDepth: () => number;

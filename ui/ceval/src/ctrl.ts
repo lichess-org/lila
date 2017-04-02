@@ -85,7 +85,7 @@ export default function(opts: CevalOpts): CevalController {
   };
 
   var effectiveMaxDepth = function(): number {
-    return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth() as string);
+    return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
   };
 
   var sortPvsInPlace = function(pvs: PvData[], color: Color) {
@@ -113,7 +113,7 @@ export default function(opts: CevalOpts): CevalController {
       path: path,
       ply: step.ply,
       maxDepth: maxD,
-      multiPv: parseInt(multiPv() as string),
+      multiPv: parseInt(multiPv()),
       threatMode: threatMode,
       emit: function(ev: ClientEval) {
         if (enabled()) onEmit(ev, work);
@@ -205,9 +205,9 @@ export default function(opts: CevalOpts): CevalController {
       return {
         pnacl: !!pnaclSupported,
         wasm: !!wasmSupported,
-        multiPv: multiPv() as number,
-        threads: threads() as number,
-        hashSize: hashSize() as number,
+        multiPv: parseInt(multiPv()),
+        threads: parseInt(threads()),
+        hashSize: parseInt(hashSize()),
         maxDepth: effectiveMaxDepth()
       };
     }

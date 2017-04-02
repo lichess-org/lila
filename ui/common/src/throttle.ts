@@ -16,12 +16,14 @@
  *
  * @return {Function}  A new, throttled, function.
  */
-module.exports = function(delay, noTrailing, callback, debounceMode) {
+export default function(delay: number, noTrailing: boolean, callback: (...args: any[]) => void, debounceMode?: boolean): (...args: any[]) => void;
+export default function(delay: number, callback: (...args: any[]) => void, debounceMode?: boolean): (...args: any[]) => void;
+export default function(delay: number, noTrailing: any, callback: any, debounceMode?: any): (...args: any[]) => void {
 
   // After wrapper has stopped being called, this timeout ensures that
   // `callback` is executed at the proper times in `throttle` and `end`
   // debounce modes.
-  var timeoutID;
+  var timeoutID: number | undefined;
 
   // Keep track of the last time `callback` was executed.
   var lastExec = 0;
@@ -36,11 +38,10 @@ module.exports = function(delay, noTrailing, callback, debounceMode) {
   // The `wrapper` function encapsulates all of the throttling / debouncing
   // functionality and when executed will limit the rate at which `callback`
   // is executed.
-  return function() {
+  return function(this: any, ...args: any[]): void {
 
-    var self = this;
-    var elapsed = Number(new Date()) - lastExec;
-    var args = arguments;
+    const self: any = this;
+    const elapsed = Number(new Date()) - lastExec;
 
     // Execute `callback` and update the `lastExec` timestamp.
     function exec() {
@@ -84,4 +85,4 @@ module.exports = function(delay, noTrailing, callback, debounceMode) {
     }
 
   };
-};
+}
