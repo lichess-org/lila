@@ -179,7 +179,6 @@ private[api] final class GameApi(
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
-        "moveTimes" -> withMoveTimes ?? g.moveTimes(p.color).map(_.map(_.roundTenths)),
         "moveCentis" -> withMoveTimes ?? g.moveTimes(p.color).map(_.map(_.value)),
         "blurs" -> withBlurs.option(p.blurs),
         "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
