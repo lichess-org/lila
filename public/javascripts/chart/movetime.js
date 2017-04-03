@@ -26,7 +26,7 @@ lichess.movetimeChart = function(data) {
 
               var turn = (ply + 1) >> 1;
               var color = ply & 1;
-              var y = Math.pow(log1p(.005 * Math.min(time, 6e4)), 2);
+              var y = Math.pow(log1p(.003 * Math.min(time, 12e4)), 2);
               max = Math.max(y, max);
 
               series[color ? 'white' : 'black'].push({
