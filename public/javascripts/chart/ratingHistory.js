@@ -24,7 +24,8 @@ lichess.ratingHistoryChart = function(data) {
           'ShortDot',
           // training
           'Dash',
-          'Dash'
+          // UltraBullet
+          'ShortDot'
         ];
         $(this).highcharts('StockChart', {
           yAxis: {

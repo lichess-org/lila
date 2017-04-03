@@ -25,6 +25,7 @@ final class HistoryApi(coll: Coll) {
       game.ratingVariant.horde.option("horde" -> perfs.horde),
       game.ratingVariant.racingKings.option("racingKings" -> perfs.racingKings),
       game.ratingVariant.crazyhouse.option("crazyhouse" -> perfs.crazyhouse),
+      (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
       (isStd && game.speed == Speed.Classical).option("classical" -> perfs.classical),
