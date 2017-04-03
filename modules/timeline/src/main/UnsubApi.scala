@@ -20,10 +20,10 @@ private[timeline] final class UnsubApi(coll: Coll) {
   def get(channel: String, userId: String): Fu[Boolean] =
     coll.count(select(channel, userId).some) map (0 !=)
 
-  private val knownChannels = Set("forum")
+  private def canUnsub(channel: String) = channel startsWith "forum:"
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
-    knownChannels(channel) ?? coll.distinct[String, List](
+    canUnsub(channel) ?? coll.distinct[String, List](
       "_id", $inIds(userIds.map { makeId(channel, _) }).some
     ) map { unsubs =>
         userIds diff unsubs.map(_ takeWhile ('@' !=))
