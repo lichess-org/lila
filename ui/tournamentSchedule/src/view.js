@@ -7,6 +7,8 @@ var stopTime;
 
 function displayClockLimit(limit) {
   switch (limit) {
+    case 15:
+      return '¼';
     case 30:
       return '½';
     case 45:
