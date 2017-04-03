@@ -28,6 +28,11 @@ final class AsyncCacheClearable[K, V](
     }
   })
 
+  def update(k: K, f: V => V): Unit =
+    cache.getIfPresent(k) foreach { fu =>
+      cache.put(k, fu map f)
+    }
+
   def invalidate(k: K): Unit = cache invalidate k
 
   def invalidateAll: Unit = cache.invalidateAll

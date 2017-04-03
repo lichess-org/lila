@@ -114,8 +114,8 @@ final class RelationApi(
         case (Some(Follow), _) => funit
         case (_, Some(Block)) => funit
         case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
-          countFollowersCache invalidate u2
-          countFollowingCache invalidate u1
+          countFollowersCache.update(u2, 1+)
+          countFollowingCache.update(u1, 1+)
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
           lila.mon.relation.follow()
@@ -147,8 +147,8 @@ final class RelationApi(
   def unfollow(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
     fetchFollows(u1, u2) flatMap {
       case true => RelationRepo.unfollow(u1, u2) >>- {
-        countFollowersCache invalidate u2
-        countFollowingCache invalidate u1
+        countFollowersCache.update(u2, _ - 1)
+        countFollowingCache.update(u1, _ - 1)
         reloadOnlineFriends(u1, u2)
         lila.mon.relation.unfollow()
       }
