@@ -2,7 +2,8 @@
   "name": "game",
   "version": "1.0.0",
   "description": "lichess.org game",
-  "main": "src/main.js",
+  "main": "dist/main.js",
+  "types": "dist/main",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila"
@@ -19,17 +20,14 @@
     "url": "https://github.com/ornicar/lila/issues"
   },
   "homepage": "https://github.com/ornicar/lila",
+  "scripts": {
+    "compile": "tsc"
+  },
   "devDependencies": {
-    "browserify": "^14",
-    "gulp": "^3",
-    "gulp-streamify": "^1",
-    "gulp-uglify": "^2",
-    "gulp-util": "^3",
-    "uglify-js": "^2",
-    "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "typescript": "^2",
+    "types": "file:../types"
   },
   "dependencies": {
-    "chess": "file:../chess"
+    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }
 }

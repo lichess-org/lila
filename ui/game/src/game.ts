@@ -1,34 +1,35 @@
-var status = require('./status');
+import { Data, Player } from './interfaces';
+import * as status from './status';
 
-function playable(data) {
+export function playable(data: Data): boolean {
   return data.game.status.id < status.ids.aborted && !imported(data);
 }
 
-function isPlayerPlaying(data) {
+export function isPlayerPlaying(data: Data): boolean {
   return playable(data) && !data.player.spectator;
 }
 
-function isPlayerTurn(data) {
+export function isPlayerTurn(data: Data): boolean {
   return isPlayerPlaying(data) && data.game.player == data.player.color;
 }
 
-function mandatory(data) {
+export function mandatory(data: Data): boolean {
   return !!data.tournament || !!data.simul;
 }
 
-function playedTurns(data) {
+export function playedTurns(data: Data): number {
   return data.game.turns - data.game.startedAtTurn;
 }
 
-function bothPlayersHavePlayed(data) {
+export function bothPlayersHavePlayed(data: Data): boolean {
   return playedTurns(data) > 1;
 }
 
-function abortable(data) {
+export function abortable(data: Data): boolean {
   return playable(data) && !bothPlayersHavePlayed(data) && !mandatory(data);
 }
 
-function takebackable(data) {
+export function takebackable(data: Data): boolean {
   return playable(data) &&
     data.takebackable &&
     !data.tournament &&
@@ -38,93 +39,75 @@ function takebackable(data) {
     !data.opponent.proposingTakeback;
 }
 
-function drawable(data) {
+export function drawable(data: Data): boolean {
   return playable(data) &&
     data.game.turns >= 2 &&
     !data.player.offeringDraw &&
     !hasAi(data);
 }
 
-function resignable(data) {
+export function resignable(data: Data): boolean {
   return playable(data) && !abortable(data);
 }
 
 // can the current player go berserk?
-function berserkableBy(data) {
+export function berserkableBy(data: Data): boolean {
   return data.tournament &&
     data.tournament.berserkable &&
     isPlayerPlaying(data) &&
     !bothPlayersHavePlayed(data);
 }
 
-function moretimeable(data) {
+export function moretimeable(data: Data): boolean {
   return data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
 
-function imported(data) {
+export function imported(data: Data): boolean {
   return data.game.source === 'import';
 }
 
-function replayable(data) {
+export function replayable(data: Data): boolean {
   return imported(data) || status.finished(data) ||
     (status.aborted(data) && bothPlayersHavePlayed(data));
 }
 
-function getPlayer(data, color) {
+export function getPlayer(data: Data, color: Color): Player;
+export function getPlayer(data: Data, color?: Color): Player | null {
   if (data.player.color == color) return data.player;
   if (data.opponent.color == color) return data.opponent;
   return null;
 }
 
-function hasAi(data) {
+export function hasAi(data: Data): boolean {
   return data.player.ai || data.opponent.ai;
 }
 
-function userAnalysable(data) {
+export function userAnalysable(data: Data): boolean {
   return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
-function isCorrespondence(data) {
+export function isCorrespondence(data: Data): boolean {
   return data.game.speed === 'correspondence';
 }
 
-function setOnGame(data, color, onGame) {
+export function setOnGame(data: Data, color: Color, onGame: boolean): void {
   var player = getPlayer(data, color);
   onGame = onGame || player.ai;
   player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }
 
-function setIsGone(data, color, isGone) {
+export function setIsGone(data: Data, color: Color, isGone: boolean): void {
   var player = getPlayer(data, color);
   isGone = isGone && !player.ai;
   player.isGone = isGone;
   if (!isGone && player.user) player.user.online = true;
 }
 
-function nbMoves(data, color) {
+export function nbMoves(data: Data, color: Color): number {
   return Math.floor((data.game.turns + (color == 'white' ? 1 : 0)) / 2);
 }
 
-module.exports = {
-  isPlayerPlaying: isPlayerPlaying,
-  isPlayerTurn: isPlayerTurn,
-  playable: playable,
-  abortable: abortable,
-  takebackable: takebackable,
-  drawable: drawable,
-  resignable: resignable,
-  berserkableBy: berserkableBy,
-  moretimeable: moretimeable,
-  mandatory: mandatory,
-  replayable: replayable,
-  userAnalysable: userAnalysable,
-  getPlayer: getPlayer,
-  nbMoves: nbMoves,
-  setOnGame: setOnGame,
-  setIsGone: setIsGone,
-  isCorrespondence: isCorrespondence,
-  isSwitchable: function(data) {
-    return !hasAi(data) && (data.simul || isCorrespondence(data));
-  }
-};
+export function isSwitchable(data: Data): boolean {
+  return !hasAi(data) && (!!data.simul || isCorrespondence(data));
+}

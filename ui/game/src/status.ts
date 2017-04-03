@@ -1,6 +1,8 @@
+import { Data } from './interfaces';
+
 // https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala
 
-var ids = {
+export const ids = {
   created: 10,
   started: 20,
   aborted: 25,
@@ -15,26 +17,18 @@ var ids = {
   variantEnd: 60
 };
 
-function started(data) {
+export function started(data: Data): boolean {
   return data.game.status.id >= ids.started;
 }
 
-function finished(data) {
+export function finished(data: Data): boolean {
   return data.game.status.id >= ids.mate;
 }
 
-function aborted(data) {
+export function aborted(data: Data): boolean {
   return data.game.status.id === ids.aborted;
 }
 
-function playing(data) {
+export function playing(data: Data): boolean {
   return started(data) && !finished(data) && !aborted(data);
 }
-
-module.exports = {
-  ids: ids,
-  started: started,
-  finished: finished,
-  aborted: aborted,
-  playing: playing
-};

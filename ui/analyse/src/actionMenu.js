@@ -313,12 +313,12 @@ module.exports = {
       deleteButton(d, ctrl.userId),
       canContinue ? m('div.continue_with.g_' + d.game.id, [
         m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.continue(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithTheMachine')),
         m('br'),
         m('a.button', {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.continue(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
           rel: 'nofollow'
         }, ctrl.trans('playWithAFriend'))
       ]) : null
