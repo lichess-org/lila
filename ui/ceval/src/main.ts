@@ -1,4 +1,6 @@
-/// <reference path="../../types/index.d.ts" />
+/// <reference types="types/lichess" />
+/// <reference types="types/mithril" />
+/// <reference types="types/defer-promise" />
 
 import { ClientEval } from './types';
 

@@ -1,3 +1,4 @@
+import { StoredProp } from 'common';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
@@ -72,8 +73,8 @@ class PNaClWorker extends AbstractWorker {
         this.worker!.addEventListener(eventType, () => {
           this.poolOpts.onCrash({
             lastError: (this.worker as any).lastError,
-            hash: parseInt((this.workerOpts.hashSize as StoredProp<number>)() as string),
-            threads: parseInt((this.workerOpts.threads as StoredProp<number>)() as string),
+            hash: parseInt((this.workerOpts.hashSize as StoredProp<number>)()),
+            threads: parseInt((this.workerOpts.threads as StoredProp<number>)())
           });
         }, true);
       });

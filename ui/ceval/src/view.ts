@@ -196,7 +196,7 @@ export function renderCeval(ctrl: ParentController) {
 export function renderPvs(ctrl: ParentController) {
   var instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  var multiPv = parseInt(instance.multiPv() as string);
+  var multiPv = parseInt(instance.multiPv());
   var pvs : PvData[], threat = false;
   if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
     pvs = ctrl.vm.node.threat.pvs;

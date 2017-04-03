@@ -14,12 +14,17 @@ declare namespace Mithril {
     (tag: string, ...children: Renderable[]): VirtualElement;
 
     prop<T>(d: T): Property<T>;
+
+    startComputation(): void;
+    endComputation(): void;
   }
+
+  type Config = (el: Element, isUpdate: boolean, ctx: any, vdom: VirtualElement) => void;
 
   interface Attributes {
     class?: string;
     className?: string;
-    config?: (el: Element, isUpdate: boolean, ctx: any, vdom: VirtualElement) => void;
+    config?: Config;
     key?: string | number;
     [property: string]: any;
   }
