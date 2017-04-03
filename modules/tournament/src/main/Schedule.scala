@@ -89,12 +89,13 @@ object Schedule {
     def name = toString.toLowerCase
   }
   object Speed {
+    case object UltraBullet extends Speed(5)
     case object HyperBullet extends Speed(10)
     case object Bullet extends Speed(20)
     case object SuperBlitz extends Speed(30)
     case object Blitz extends Speed(40)
     case object Classical extends Speed(50)
-    val all: List[Speed] = List(HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
+    val all: List[Speed] = List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
     def byId(id: Int) = all find (_.id == id)
@@ -106,12 +107,14 @@ object Schedule {
     }
     def fromClock(clock: chess.Clock.Config) = {
       val time = clock.estimateTotalTime
-      if (time < 60) HyperBullet
+      if (time < 30) UltraBullet
+      else if (time < 60) HyperBullet
       else if (time < 180) Bullet
       else if (time < 480) Blitz
       else Classical
     }
     def toPerfType(speed: Speed) = speed match {
+      case UltraBullet => PerfType.UltraBullet
       case HyperBullet | Bullet => PerfType.Bullet
       case SuperBlitz | Blitz => PerfType.Blitz
       case Classical => PerfType.Classical
@@ -131,13 +134,13 @@ object Schedule {
     import chess.variant._
     Some((s.freq, s.variant, s.speed) match {
 
-      case (Hourly, _, HyperBullet | Bullet) => 27
+      case (Hourly, _, UltraBullet | HyperBullet | Bullet) => 27
       case (Hourly, _, SuperBlitz) => 57
       case (Hourly, _, Blitz) => 57
       case (Hourly, _, Classical) if s.hasMaxRating => 57
       case (Hourly, _, Classical) => 117
 
-      case (Daily | Eastern, _, HyperBullet | Bullet) => 60
+      case (Daily | Eastern, _, UltraBullet | HyperBullet | Bullet) => 60
       case (Daily | Eastern, _, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz) => 120
       case (Daily | Eastern, _, Classical) => 150
@@ -145,22 +148,22 @@ object Schedule {
       case (Daily | Eastern, Crazyhouse, Blitz) => 90
       case (Daily | Eastern, _, Blitz) => 60 // variant daily is shorter
 
-      case (Weekly, _, HyperBullet | Bullet) => 60 * 2
+      case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
       case (Weekly, _, SuperBlitz) => 60 * 3
       case (Weekly, _, Blitz) => 60 * 3
       case (Weekly, _, Classical) => 60 * 4
 
-      case (Weekend, _, HyperBullet | Bullet) => 90
+      case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
       case (Weekend, _, SuperBlitz) => 60 * 2
       case (Weekend, _, Blitz) => 60 * 3
       case (Weekend, _, Classical) => 60 * 4
 
-      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
+      case (Monthly, _, UltraBullet | HyperBullet | Bullet) => 60 * 3
       case (Monthly, _, SuperBlitz) => 60 * 3 + 30
       case (Monthly, _, Blitz) => 60 * 4
       case (Monthly, _, Classical) => 60 * 5
 
-      case (Yearly, _, HyperBullet | Bullet) => 60 * 4
+      case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 4
       case (Yearly, _, SuperBlitz) => 60 * 5
       case (Yearly, _, Blitz) => 60 * 6
       case (Yearly, _, Classical) => 60 * 8
@@ -189,6 +192,7 @@ object Schedule {
       case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
 
+      case (_, _, UltraBullet) => TC(15, 0)
       case (_, _, HyperBullet) => TC(30, 0)
       case (_, _, Bullet) => TC(60, 0)
       case (_, _, SuperBlitz) => TC(3 * 60, 0)
@@ -203,19 +207,19 @@ object Schedule {
       import Freq._, Speed._
 
       val nbRatedGame = (s.freq, s.speed) match {
-        case (Hourly, HyperBullet | Bullet) => 20
+        case (Hourly, UltraBullet | HyperBullet | Bullet) => 20
         case (Hourly, SuperBlitz | Blitz) => 15
         case (Hourly, Classical) => 10
 
-        case (Daily | Eastern, HyperBullet | Bullet) => 20
+        case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 20
         case (Daily | Eastern, SuperBlitz | Blitz) => 15
         case (Daily | Eastern, Classical) => 10
 
-        case (Weekly | Monthly, HyperBullet | Bullet) => 30
+        case (Weekly | Monthly, UltraBullet | HyperBullet | Bullet) => 30
         case (Weekly | Monthly, SuperBlitz | Blitz) => 20
         case (Weekly | Monthly, Classical) => 15
 
-        case (Weekend, HyperBullet | Bullet) => 30
+        case (Weekend, UltraBullet | HyperBullet | Bullet) => 30
         case (Weekend, SuperBlitz | Blitz) => 20
 
         case _ => 0
