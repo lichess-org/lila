@@ -18,17 +18,9 @@ final class JsonView(
     assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
       _ ?? {
         case PlayerAggregateAssessment.WithGames(pag, games) => for {
-          followers <- relationApi.countFollowers(user.id)
-          following <- relationApi.countFollowing(user.id)
-          blockers <- relationApi.countBlockers(user.id)
           gamesWithFen <- GameRepo withInitialFens games
         } yield Json.obj(
           "user" -> userJson(user),
-          "relation" -> Json.obj(
-            "followers" -> followers,
-            "following" -> following,
-            "blockers" -> blockers
-          ),
           "assessment" -> pag,
           "games" -> JsObject(gamesWithFen.map { g =>
             g._1.id -> gameWithFenWrites.writes(g)
