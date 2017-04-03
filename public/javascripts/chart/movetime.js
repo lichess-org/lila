@@ -1,4 +1,6 @@
 lichess.movetimeChart = function(data) {
+  var log1p = Math.log1p || function(x) { return Math.log(x + 1); };
+
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
@@ -24,7 +26,7 @@ lichess.movetimeChart = function(data) {
 
               var turn = (ply + 1) >> 1;
               var color = ply & 1;
-              var y = Math.pow(Math.log(0.4 * Math.min(time, 600) + 1), 2);
+              var y = Math.pow(log1p(.005 * Math.min(time, 6e4)), 2);
               max = Math.max(y, max);
 
               series[color ? 'white' : 'black'].push({
@@ -58,7 +60,7 @@ lichess.movetimeChart = function(data) {
               tooltip: {
                 formatter: function() {
                   var seconds = moveCentis[this.x] / 100;
-                  if (seconds) seconds = seconds.toFixed(seconds >= 3 ? 1 : 2);
+                  if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
                   return this.point.name + '<br /><strong>' + seconds + '</strong> seconds';
                 }
               },
