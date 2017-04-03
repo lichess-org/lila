@@ -1,5 +1,7 @@
 package lila.rating
 
+import lila.common.Centis
+
 import chess.Speed
 
 sealed abstract class PerfType(
@@ -185,6 +187,17 @@ object PerfType {
     case chess.variant.RacingKings => RacingKings.some
     case _ => none
   }
+
+  lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.map { pt =>
+    pt -> Centis(pt match {
+      case UltraBullet => 25 * 100
+      case Bullet => 90 * 100
+      case Blitz => 7 * 60 * 100
+      case Classical => 15 * 60 * 100
+      case Correspondence => 60 * 60 * 100
+      case _ => 7 * 60 * 100
+    })
+  }(scala.collection.breakOut)
 
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)

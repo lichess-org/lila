@@ -82,7 +82,9 @@ case class User(
   def lightCount = User.LightCount(light, count.game)
 
   private def best4Of(perfTypes: List[PerfType]) =
-    perfTypes.sortBy { pt => -perfs(pt).nb } take 4
+    perfTypes.sortBy { pt =>
+      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.value))
+    } take 4
 
   private val firstRow = List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)
   private val secondRow = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
