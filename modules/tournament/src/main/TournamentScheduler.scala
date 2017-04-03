@@ -161,9 +161,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           at(today, 16) map { date => Schedule(Daily, Bullet, Standard, std, date |> orTomorrow) },
           at(today, 17) map { date => Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow) },
           at(today, 18) map { date => Schedule(Daily, Blitz, Standard, std, date |> orTomorrow) },
-          at(today, 18) map { date => Schedule(Daily, UltraBullet, Standard, std, date |> orTomorrow) },
           at(today, 19) map { date => Schedule(Daily, Classical, Standard, std, date |> orTomorrow) },
-          at(today, 20) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow) }
+          at(today, 20) map { date => Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow) },
+          at(today, 21) map { date => Schedule(Daily, UltraBullet, Standard, std, date |> orTomorrow) }
         ).flatten,
 
         List( // daily variant tournaments!
