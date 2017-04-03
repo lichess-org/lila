@@ -39,7 +39,7 @@ function deleteButton(data, userId) {
 
 function autoplayButtons(ctrl) {
   var d = ctrl.data;
-  var speeds = d.game.moveTimes.length ? allSpeeds : baseSpeeds;
+  var speeds = d.game.moveCentis.length ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
   return m('div.autoplay', speeds.map(function(speed, i) {
     return m('a', {

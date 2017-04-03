@@ -35,7 +35,7 @@ module.exports = function(opts) {
 
   var initialize = function(data) {
     this.data = data;
-    if (!data.game.moveTimes) this.data.game.moveTimes = [];
+    if (!data.game.moveCentis) this.data.game.moveCentis = [];
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
     this.tree = tree.build(tree.ops.reconstruct(data.treeParts));

@@ -29,8 +29,9 @@ module.exports = function(ctrl) {
       if (!ctrl.vm.onMainline) return 1500;
       if (this.delay === 'realtime') {
         if (ctrl.vm.node.ply < 2) return 1000;
-        var time = ctrl.data.game.moveTimes[ctrl.vm.node.ply - ctrl.tree.root.ply];
-        return Math.max(time, 1) * 100 || 2000;
+        var time = ctrl.data.game.moveCentis[ctrl.vm.node.ply - ctrl.tree.root.ply];
+        // estimate 130ms of lag to improve playback.
+        return time * 10 + 130 || 2000;
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (ctrl.vm.node.ply >= ctrl.vm.mainline.length - 1) return 0;
