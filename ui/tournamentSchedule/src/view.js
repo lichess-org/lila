@@ -32,7 +32,7 @@ function laneGrouper(t) {
   } else if (t.variant.key !== 'standard') {
     return 99;
   } else if (t.schedule && t.conditions && t.conditions.maxRating) {
-    return 50;
+    return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
   } else {
