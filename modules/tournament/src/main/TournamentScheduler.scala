@@ -306,6 +306,6 @@ private object TournamentScheduler {
 
   def start(system: ActorSystem, api: TournamentApi) = {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))
-    system.scheduler.schedule(1 second, 10 seconds, ref, ScheduleNow)
+    system.scheduler.schedule(1 minute, 5 minutes, ref, ScheduleNow)
   }
 }
