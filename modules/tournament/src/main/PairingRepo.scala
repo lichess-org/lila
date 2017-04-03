@@ -48,7 +48,7 @@ object PairingRepo {
       $doc("_id" -> false, "u" -> true)
     ).cursor[Bdoc]().gather[List]().map {
         _.flatMap { doc =>
-          ~doc.getAs[List[String]]("u").filter(userId!=)
+          ~doc.getAs[List[String]]("u").find(userId!=)
         }(breakOut)
       }
 
@@ -99,10 +99,10 @@ object PairingRepo {
   def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
     coll.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]
 
-  def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
+  private[tournament] def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
     coll.find(
       selectTourUser(tourId, userId) ++ selectFinished
-    ).sort(chronoSort).cursor[Pairing]().gather[List]()
+    ).sort(chronoSort).list[Pairing]()
 
   def insert(pairing: Pairing) = coll.insert {
     pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
