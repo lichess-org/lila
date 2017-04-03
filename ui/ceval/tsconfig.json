@@ -1,8 +1,9 @@
 {
-  "include": ["src/*.ts"],
+  "include": ["src/*.ts", "test/*.ts"],
   "exclude": [],
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": ".",
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

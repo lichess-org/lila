@@ -2,7 +2,8 @@
   "name": "ceval",
   "version": "1.0.0",
   "description": "lichess.org local computer analysis",
-  "main": "dist/main.js",
+  "main": "dist/src/main.js",
+  "types": "dist/src/main",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila"
@@ -20,12 +21,16 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "pretest": "tsc",
+    "test": "nodeunit dist/test"
   },
   "devDependencies": {
-    "typescript": "^2",
     "@types/jquery": "^2.0",
-    "types": "file:../types"
+    "@types/nodeunit": "0.0.30",
+    "nodeunit": "^0.11.0",
+    "types": "file:../types",
+    "typescript": "^2"
   },
   "dependencies": {
     "chess": "file:../chess",

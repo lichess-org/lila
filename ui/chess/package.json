@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "lichess.org chess utils",
   "main": "dist/main.js",
-  "typings": "dist/main.d.ts",
+  "typings": "dist/main",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila"
