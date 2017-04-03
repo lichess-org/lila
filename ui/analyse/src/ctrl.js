@@ -399,7 +399,7 @@ module.exports = function(opts) {
       m.redraw();
       if (this.gameOver()) this.ceval.stop();
     }
-    this.chessground.playPremove();
+    this.chessground && this.chessground.playPremove();
   }.bind(this);
 
   this.deleteNode = function(path) {
