@@ -107,6 +107,8 @@ object Monitor {
     if (work.level == 8) work.acquiredAt foreach { acquiredAt =>
       lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
     }
+    if (work.level == 1)
+      lila.mon.fishnet.move.fullTimeLvl1(client.userId.value)(nowMillis - work.createdAt.getMillis)
   }
 
   private def success(work: Work, client: Client) = {

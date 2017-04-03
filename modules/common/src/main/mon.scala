@@ -435,6 +435,7 @@ object mon {
     }
     object move {
       def time(client: String) = rec(s"fishnet.move.time.$client")
+      def fullTimeLvl1(client: String) = rec(s"fishnet.move.full_time_lvl_1.$client")
       val post = rec("fishnet.move.post")
       val dbDrop = inc("fishnet.move.db_drop")
     }
