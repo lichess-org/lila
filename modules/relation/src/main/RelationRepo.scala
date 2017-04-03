@@ -16,6 +16,8 @@ private[relation] object RelationRepo {
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
+  def followersFromSecondary(userId: ID) = relaters(userId, Follow, ReadPreference.secondaryPreferred)
+
   def followingLike(userId: ID, term: String): Fu[List[ID]] = {
     val id = term.toLowerCase
     if (id.isEmpty) fuccess(Nil)
@@ -27,11 +29,11 @@ private[relation] object RelationRepo {
       ReadPreference.secondaryPreferred)
   }
 
-  private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
-    coll.distinct[String, Set]("u1", $doc(
+  private def relaters(userId: ID, relation: Relation, rp: ReadPreference = ReadPreference.primary): Fu[Set[ID]] =
+    coll.distinctWithReadPreference[String, Set]("u1", $doc(
       "u2" -> userId,
       "r" -> relation
-    ).some)
+    ).some, rp)
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
     coll.distinct[String, Set]("u2", $doc(

@@ -122,13 +122,13 @@ private[relation] final class RelationActor(
 
   private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
     userIds foreach { userId =>
-      api fetchFollowers userId map online.userIds.intersect foreach { ids =>
+      api.fetchFollowersFromSecondary(userId) map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
       }
     }
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
-    api fetchFollowers userId map online.userIds.intersect foreach { ids =>
+    api.fetchFollowersFromSecondary(userId) map online.userIds.intersect foreach { ids =>
       if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, message, userId), 'users)
     }
 }
