@@ -49,7 +49,8 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        applyUci(game, uci, blur = false, lag = serverLag)
+        if (game.outoftime(_ => fishnetLag.toMillis.toInt)) finisher.outOfTime(game)
+        else applyUci(game, uci, blur = false, lag = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               proxy.save(progress) >>-
@@ -72,6 +73,7 @@ private[round] final class Player(
   private val clientLag = 30.milliseconds
   private val serverLag = 5.milliseconds
   private val humanLag = clientLag + serverLag
+  private val fishnetLag = 10.milliseconds + serverLag
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
