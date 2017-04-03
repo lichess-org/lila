@@ -333,7 +333,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         if (who && who.s === sri) return;
         if (position.chapterId !== data.position.chapterId) return;
         ctrl.tree.setShapes(d.s, ctrl.vm.path);
-        ctrl.chessground.setShapes(d.s);
+        ctrl.chessground && ctrl.chessground.setShapes(d.s);
         m.redraw();
       },
       setComment: function(d) {
