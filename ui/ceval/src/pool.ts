@@ -1,4 +1,3 @@
-import { StoredProp } from 'common';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
@@ -6,7 +5,7 @@ export abstract class AbstractWorker {
   protected url: string;
   protected poolOpts: PoolOpts;
   protected workerOpts: WorkerOpts;
-  protected protocol: Protocol;
+  protected protocol?: Protocol;
 
   constructor(url: string, poolOpts: PoolOpts, workerOpts: WorkerOpts) {
     this.url = url;
@@ -16,6 +15,7 @@ export abstract class AbstractWorker {
   }
 
   stop(): Promise<void> {
+    if (!this.protocol) return Promise.resolve();
     let stopped = this.protocol.stop();
     setTimeout(function() {
       stopped.reject();
@@ -27,9 +27,9 @@ export abstract class AbstractWorker {
     this.stop().catch(() => {
       this.destroy();
       this.boot();
-      return this.protocol.stop().promise;
+      return Promise.resolve();
     }).then(() => {
-      this.protocol.start(work);
+      if (this.protocol) this.protocol.start(work);
     });
   }
 
@@ -45,7 +45,7 @@ class WebWorker extends AbstractWorker {
     this.worker = new Worker(this.url);
     this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
-      this.protocol.received(e.data);
+      this.protocol!.received(e.data);
     }, true);
   }
 
@@ -71,20 +71,16 @@ class PNaClWorker extends AbstractWorker {
       document.body.appendChild(this.worker);
       ['crash', 'error'].forEach(eventType => {
         this.worker!.addEventListener(eventType, () => {
-          this.poolOpts.onCrash({
-            lastError: (this.worker as any).lastError,
-            hash: parseInt((this.workerOpts.hashSize as StoredProp<number>)()),
-            threads: parseInt((this.workerOpts.threads as StoredProp<number>)())
-          });
+          this.poolOpts.onCrash((this.worker as any).lastError);
         }, true);
       });
       this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
       this.worker.addEventListener('message', e => {
-        this.protocol.received((e as any).data);
+        this.protocol!.received((e as any).data);
       }, true);
-    } catch (e) {
+    } catch (err) {
       this.destroy();
-      this.poolOpts.onCrash(e);
+      this.poolOpts.onCrash(err);
     }
   }
 

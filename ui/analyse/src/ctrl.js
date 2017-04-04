@@ -487,7 +487,7 @@ module.exports = function(opts) {
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
-      onCrash: function(info) {
+      onCrash: function(lastError) {
         var ceval = this.vm.node.ceval;
         console.log('Local eval failed after depth ' + (ceval && ceval.depth));
         var env = this.ceval.env();
@@ -498,7 +498,7 @@ module.exports = function(opts) {
           'threads:' + env.threads,
           'hashSize:' + env.hashSize,
           'depth:' + (ceval && ceval.depth || 0) + '/' + env.maxDepth,
-          info.lastError
+          lastError
         ].join(' ');
         console.log('send exception: ' + desc);
         if (window.ga) window.ga('send', 'exception', {
