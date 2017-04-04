@@ -32,21 +32,20 @@ function formatClockTime(trans, time) {
 }
 
 module.exports = function(ctrl, trans, color, position, runningColor) {
-  var time = ctrl.data[color];
+  var millis = ctrl.millisOf(color);
   return m('div', {
     class: 'correspondence clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': !time,
-      'running': runningColor === color,
-      'emerg': time < ctrl.data.emerg
+      'outoftime': !millis,
+      'running': runningColor === color
     })
   }, [
     ctrl.data.showBar ? m('div.bar',
       m('span', {
         style: {
-          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
+          width: ctrl.timePercent(color) + '%'
         }
       })
     ) : null,
-    m('div.time', m.trust(formatClockTime(trans, time * 1000)))
+    m('div.time', m.trust(formatClockTime(trans, millis)))
   ]);
 }

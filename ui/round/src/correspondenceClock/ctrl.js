@@ -1,31 +1,40 @@
 var m = require('mithril');
 
 module.exports = function(data, onFlag) {
+  var timePercentDivisor = 0.1 / data.increment;
 
-  var lastUpdate;
-
-  this.data = data;
-  this.data.barTime = this.data.increment;
-
-  function setLastUpdate() {
-    lastUpdate = {
-      white: data.white,
-      black: data.black,
-      at: new Date()
-    };
+  function timePercent(color) {
+    return Math.max(0, Math.min(100, times[color] * timePercentDivisor));
   }
-  setLastUpdate();
 
-  this.update = function(white, black) {
-    this.data.white = white;
-    this.data.black = black;
-    setLastUpdate();
-  }.bind(this);
+  var times;
 
-  this.tick = function(color) {
-    m.startComputation();
-    this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
-    if (this.data[color] === 0) onFlag();
-    m.endComputation();
-  }.bind(this);
+  function update(white, black) {
+    times = {
+      white: white * 1000,
+      black: black * 1000,
+      lastUpdate: Date.now()
+    };
+  };
+
+  update(data.white, data.black);
+
+  function tick(color) {
+    var now = Date.now();
+    times[color] -= now - times.lastUpdate;
+    times.lastUpdate = now;
+    if (times[color] <= 0) onFlag();
+  };
+
+  function millisOf(color) {
+    return Math.max(0, times[color]);
+  };
+
+  return {
+    data: data,
+    timePercent: timePercent,
+    millisOf: millisOf,
+    update: update,
+    tick: tick
+  };
 }

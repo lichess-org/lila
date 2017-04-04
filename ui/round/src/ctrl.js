@@ -402,7 +402,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var clockTick = function() {
-    if (this.isClockRunning()) this.clock.tick(this.data.game.player);
+    if (this.isClockRunning()) this.clock.tick(this, this.data.game.player);
   }.bind(this);
 
   var makeCorrespondenceClock = function() {
@@ -430,7 +430,7 @@ module.exports = function(opts) {
   var setQuietMode = function() {
     lichess.quietMode = game.isPlayerPlaying(this.data);
     document.body.classList.toggle('no-select',
-      lichess.quietMode && this.clock && this.clock.secondsOf(this.data.player.color) <= 300);
+      lichess.quietMode && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
   }.bind(this);
   setQuietMode();
 
