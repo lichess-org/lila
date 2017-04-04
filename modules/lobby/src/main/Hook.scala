@@ -53,6 +53,8 @@ case class Hook(
   def username = user.fold(User.anonymous)(_.username)
   def lame = user ?? (_.lame)
 
+  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
+
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
   def rating: Option[Int] = perf.map(_.rating)
 
@@ -69,8 +71,6 @@ case class Hook(
     .add("ra" -> realMode.rated.option(1))
     .add("c" -> chess.Color(color).map(_.name))
     .add("perf" -> perfType.map(_.name))
-
-  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   def randomColor = color == "random"
 
