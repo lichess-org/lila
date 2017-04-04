@@ -3,10 +3,10 @@ export interface Data {
   player: Player;
   opponent: Player;
   spectator: boolean;
-  tournament: Tournament;
-  simul: Simul;
+  tournament?: Tournament;
+  simul?: Simul;
   takebackable: boolean;
-  clock: Clock;
+  clock?: Clock;
 }
 
 export interface Game {
@@ -30,7 +30,7 @@ export type StatusName = 'started' | 'aborted' | 'mate' | 'resign' |
                          'stalemate' | 'timeout' | 'draw' | 'outoftime' |
                          'noStart' | 'cheat' | 'variantEnd';
 
-export type StatusId = 0;
+export type StatusId = number;
 
 export interface Player {
   id: string;

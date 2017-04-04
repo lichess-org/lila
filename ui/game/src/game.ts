@@ -52,14 +52,14 @@ export function resignable(data: Data): boolean {
 
 // can the current player go berserk?
 export function berserkableBy(data: Data): boolean {
-  return data.tournament &&
+  return !!data.tournament &&
     data.tournament.berserkable &&
     isPlayerPlaying(data) &&
     !bothPlayersHavePlayed(data);
 }
 
 export function moretimeable(data: Data): boolean {
-  return data.clock && isPlayerPlaying(data) && !mandatory(data);
+  return !!data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
 
 export function imported(data: Data): boolean {
