@@ -24,13 +24,15 @@ private object OrnicarPairing {
     def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
       lastOpponents.hash.get(u1).contains(u2) && lastOpponents.hash.get(u2).contains(u1)
 
+    def rankFactor = PairingSystem.rankFactorFor(players)
+
     // optimized for speed
     def score(pairs: Combination): Score = {
       var i = 0
       pairs.foreach {
         case (a, b) =>
           // lower is better
-          i = i + Math.abs(a.rank - b.rank) * 1000 +
+          i = i + Math.abs(a.rank - b.rank) * rankFactor(a, b) +
             Math.abs(a.player.rating - b.player.rating) +
             justPlayedTogether(a.player.userId, b.player.userId).?? {
               if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
