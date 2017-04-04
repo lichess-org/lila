@@ -29,13 +29,7 @@ export interface PoolOpts {
   pnacl: string | false;
   wasm: string | false;
   asmjs: string;
-  onCrash: (info: CrashInfo) => void;
-}
-
-export interface CrashInfo {
-  lastError: any;
-  hash: number;
-  threads: number;
+  onCrash: (err: any) => void;
 }
 
 export interface CevalOpts {
@@ -44,7 +38,7 @@ export interface CevalOpts {
   multiPvDefault: number;
   possible: boolean;
   variant: Variant;
-  onCrash: (info: CrashInfo) => void;
+  onCrash: (err: any) => void;
   emit: (ev: Tree.ClientEval) => void;
   setAutoShapes: () => void;
 }
