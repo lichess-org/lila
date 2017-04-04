@@ -53,7 +53,7 @@ export default function(root: Tree.Node) {
   }
 
   function pathExists(path: Tree.Path): boolean {
-    return !!nodeAtPath(path);  // TODO: Bug?
+    return !!nodeAtPathOrNull(path);
   }
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
