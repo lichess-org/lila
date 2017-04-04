@@ -11,7 +11,6 @@ object PairingRepo {
 
   private lazy val coll = Env.current.pairingColl
 
-  private def selectId(id: String) = $doc("_id" -> id)
   def selectTour(tourId: String) = $doc("tid" -> tourId)
   def selectUser(userId: String) = $doc("u" -> userId)
   private def selectTourUser(tourId: String, userId: String) = $doc(
@@ -23,7 +22,7 @@ object PairingRepo {
   private val recentSort = $doc("d" -> -1)
   private val chronoSort = $doc("d" -> 1)
 
-  def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).uno[Pairing]
+  def byId(id: String): Fu[Option[Pairing]] = coll.find($id(id)).uno[Pairing]
 
   def recentByTour(tourId: String, nb: Int): Fu[Pairings] =
     coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().gather[List](nb)
@@ -109,9 +108,9 @@ object PairingRepo {
   }.void
 
   def finish(g: lila.game.Game) =
-    if (g.aborted) coll.remove(selectId(g.id)).void
+    if (g.aborted) coll.remove($id(g.id)).void
     else coll.update(
-      selectId(g.id),
+      $id(g.id),
       $set(
         "s" -> g.status.id,
         "w" -> g.winnerColor.map(_.white),
@@ -125,7 +124,7 @@ object PairingRepo {
     case _ => none
   }) ?? { field =>
     coll.update(
-      selectId(pairing.id),
+      $id(pairing.id),
       $set(field -> value)
     ).void
   }
