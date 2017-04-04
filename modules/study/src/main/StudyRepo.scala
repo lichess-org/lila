@@ -127,12 +127,19 @@ final class StudyRepo(private[study] val coll: Coll) {
       .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
-    doLike(studyId, userId, v) >> countLikes(studyId).flatMap {
+    countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))
-      case Some((likes, createdAt)) => coll.update($id(studyId), $set(
-        "likes" -> likes,
-        "rank" -> Study.Rank.compute(likes, createdAt)
-      )) inject likes
+      case Some((prevLikes, createdAt)) =>
+        val likes = Study.Likes(prevLikes.value + v.fold(1, -1))
+        coll.update(
+          $id(studyId),
+          $set(
+            "likes" -> likes,
+            "rank" -> Study.Rank.compute(likes, createdAt)
+          ) ++ {
+              if (v) $addToSet("likers" -> userId) else $pull("likers" -> userId)
+            }
+        ) inject likes
     }
 
   def liked(study: Study, user: User): Fu[Boolean] =
@@ -152,13 +159,6 @@ final class StudyRepo(private[study] val coll: Coll) {
       $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
     ).void) inject Cursor.Cont(count + 1)
   }
-
-  private def doLike(studyId: Study.Id, userId: User.ID, v: Boolean): Funit =
-    coll.update(
-      $id(studyId),
-      if (v) $addToSet("likers" -> userId)
-      else $pull("likers" -> userId)
-    ).void
 
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
     coll.aggregate(
