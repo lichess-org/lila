@@ -107,7 +107,8 @@ final class SlackApi(
   def userModNote(modName: String, username: String, note: String): Funit = client(SlackMessage(
     username = modName,
     icon = "spiral_note_pad",
-    text = s"left a mod note on https://lichess.org/@/$username\n${note.take(140)}",
+    text = (s"_*<https://lichess.org/@/$username?mod|$username>*_ " +
+    s"(<https://en.lichess.org/@/$username?notes|notes>):\n${note.take(2000)}"),
     channel = "tavern"
   ))
 
