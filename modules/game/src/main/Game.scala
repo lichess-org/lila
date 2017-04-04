@@ -117,7 +117,7 @@ case class Game(
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {
       clk <- clock
-      inc = Centis(clk.increment * 100)
+      inc = Centis(clk.incrementOf(color) * 100)
       history <- clockHistory
       clocks = history(color)
     } yield Centis(0) :: {
