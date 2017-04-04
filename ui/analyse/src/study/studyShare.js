@@ -32,7 +32,8 @@ module.exports = {
         return data.visibility === 'public';
       },
       currentNode: currentNode,
-      withPly: withPly
+      withPly: withPly,
+      cloneable: data.features.cloneable
     }
   },
   view: function(ctrl) {
@@ -89,14 +90,18 @@ module.exports = {
             m('i.bar')
           ]),
           m('div.downloads', [
-            m('a.button.text.hint--top', {
+            ctrl.cloneable ? m('a.button.text', {
+              'data-icon': '',
+              href: '/study/' + studyId + '/clone'
+            }, 'Clone') : null,
+            m('a.button.text', {
               'data-icon': 'x',
               href: '/study/' + studyId + '.pgn'
             }, 'Study PGN'),
-            m('a.button.text.hint--top', {
+            m('a.button.text', {
               'data-icon': 'x',
               href: '/study/' + studyId + '/' + chapter.id + '.pgn'
-            }, 'Current chapter PGN')
+            }, 'Chapter PGN')
           ])
         ])
       ]

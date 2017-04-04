@@ -38,12 +38,6 @@ function buttons(root) {
       })(), m('i', {
         'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
       }))),
-      ctrl.data.features.cloneable ? m('a.button.hint--top', {
-        'data-hint': 'Clone this study',
-        href: '/study/' + ctrl.data.id + '/clone'
-      }, m('i', {
-        'data-icon': '{'
-      })) : null,
       m('a.button.share.hint--top', {
           class: classSet({
             active: ctrl.share.open()
