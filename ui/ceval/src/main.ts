@@ -2,8 +2,6 @@
 /// <reference types="types/mithril" />
 /// <reference types="types/defer-promise" />
 
-import { ClientEval } from './types';
-
 import ctrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';
@@ -11,7 +9,7 @@ import pv2san from './pv2san';
 
 export { ctrl, view, winningChances, pv2san };
 
-export function isEvalBetter(a: ClientEval, b?: ClientEval) {
+export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval) {
   return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 }
 

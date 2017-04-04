@@ -1,4 +1,4 @@
-import { Eval, CevalController, ParentController, NodeEvals, ClientEval, PvData } from './types';
+import { Eval, CevalController, ParentController, NodeEvals } from './types';
 import * as m from 'mithril';
 import * as winningChances from './winningChances';
 import { defined, classSet } from 'common';
@@ -47,7 +47,7 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals) {
   return t;
 }
 
-function threatInfo(threat?: ClientEval | false): string {
+function threatInfo(threat?: Tree.ClientEval | false): string {
   if (!threat) return 'Loading engine...';
   var t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
   if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
@@ -197,7 +197,7 @@ export function renderPvs(ctrl: ParentController) {
   var instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   var multiPv = parseInt(instance.multiPv());
-  var pvs : PvData[], threat = false;
+  var pvs : Tree.PvData[], threat = false;
   if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
     pvs = ctrl.vm.node.threat.pvs;
     threat = true;
