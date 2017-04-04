@@ -118,14 +118,14 @@ object PairingRepo {
       )
     ).void
 
-  def setBerserk(pairing: Pairing, userId: String, value: Int) = (userId match {
+  def setBerserk(pairing: Pairing, userId: String) = (userId match {
     case uid if pairing.user1 == uid => "b1".some
     case uid if pairing.user2 == uid => "b2".some
     case _ => none
   }) ?? { field =>
     coll.update(
       $id(pairing.id),
-      $set(field -> value)
+      $set(field -> true)
     ).void
   }
 
@@ -137,6 +137,12 @@ object PairingRepo {
     coll.aggregate(
       Match(selectTour(tourId)),
       List(
+        Project($doc(
+          "_id" -> false,
+          "t" -> true,
+          "b1" -> $doc("$cond" -> $arr("$b1", 1, 0)),
+          "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
+        )),
         GroupField("w")(
           "games" -> SumValue(1),
           "moves" -> SumField("t"),

@@ -146,8 +146,8 @@ object BSONHandlers {
         user2 = user2,
         winner = r boolO "w" map (_.fold(user1, user2)),
         turns = r intO "t",
-        berserk1 = r intD "b1",
-        berserk2 = r intD "b2"
+        berserk1 = r.intO("b1").fold(r.boolD("b1"))(1 ==), // it used to be int = 0/1
+        berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
     }
     def writes(w: BSON.Writer, o: Pairing) = $doc(
@@ -157,8 +157,8 @@ object BSONHandlers {
       "u" -> BSONArray(o.user1, o.user2),
       "w" -> o.winner.map(o.user1 ==),
       "t" -> o.turns,
-      "b1" -> w.intO(o.berserk1),
-      "b2" -> w.intO(o.berserk2)
+      "b1" -> w.boolO(o.berserk1),
+      "b2" -> w.boolO(o.berserk2)
     )
   }
 

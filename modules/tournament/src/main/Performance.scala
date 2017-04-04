@@ -5,9 +5,9 @@ private final class Performance {
 
   private val DIFF = 500
 
-  def apply(tour: Tournament, player: Player, pairings: Pairings): Fu[Option[Int]] =
-    if (!tour.isFinished || pairings.size < 3 || player.performance.isDefined) fuccess(player.performance)
-    else {
+  def apply(tour: Tournament, player: Player, sheet: ScoreSheet): Fu[Option[Int]] =
+    if (!tour.isFinished || sheet.scores.size < 3 || player.performance.isDefined) fuccess(player.performance)
+    else PairingRepo.finishedByPlayerChronological(tour.id, player.userId) flatMap { pairings =>
       val opponentIds = pairings.flatMap(_ opponentOf player.userId).distinct
       PlayerRepo.byTourAndUserIds(tour.id, opponentIds) flatMap { opponents =>
         val ratingMap: Map[lila.user.User.ID, Int] =

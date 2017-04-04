@@ -242,11 +242,11 @@ final class TournamentApi(
       _.flatMap(_.tournamentId) foreach { tourId =>
         Sequencing(tourId)(TournamentRepo.startedById) { tour =>
           PairingRepo.findPlaying(tour.id, userId) flatMap {
-            case Some(pairing) if pairing.berserkOf(userId) == 0 =>
+            case Some(pairing) if !pairing.berserkOf(userId) =>
               (pairing povRef userId) ?? { povRef =>
                 GameRepo pov povRef flatMap {
                   _.filter(_.game.berserkable) ?? { pov =>
-                    PairingRepo.setBerserk(pairing, userId, 1) >>- {
+                    PairingRepo.setBerserk(pairing, userId) >>- {
                       roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
                     }
                   }
@@ -272,8 +272,7 @@ final class TournamentApi(
   private def updatePlayer(tour: Tournament)(userId: String): Funit =
     (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
-        PairingRepo.finishedByPlayerChronological(tour.id, userId) map { pairings =>
-          val sheet = tour.system.scoringSystem.sheet(tour, userId, pairings)
+        cached.sheet.update(tour, userId) map { sheet =>
           player.copy(
             score = sheet.total,
             fire = sheet.onFire,

@@ -11,8 +11,8 @@ case class Pairing(
     user2: String,
     winner: Option[String],
     turns: Option[Int],
-    berserk1: Int,
-    berserk2: Int
+    berserk1: Boolean,
+    berserk2: Boolean
 ) {
 
   def gameId = id
@@ -44,13 +44,10 @@ case class Pairing(
     else if (userId == user2) Color.Black.some
     else none
 
-  def berserkOf(userId: String): Int =
+  def berserkOf(userId: String): Boolean =
     if (userId == user1) berserk1
     else if (userId == user2) berserk2
-    else 0
-
-  def validBerserkOf(userId: String): Int =
-    notSoQuickFinish ?? berserkOf(userId)
+    else false
 
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
@@ -70,8 +67,8 @@ private[tournament] object Pairing {
     user2 = u2,
     winner = none,
     turns = none,
-    berserk1 = 0,
-    berserk2 = 0
+    berserk1 = false,
+    berserk2 = false
   )
 
   case class Prep(tourId: String, user1: String, user2: String) {
