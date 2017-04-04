@@ -10,7 +10,7 @@ function renderClock(ctrl, player, position) {
   return [
     m('div', {
       class: 'clock clock_' + player.color + ' clock_' + position + ' ' + classSet({
-        'outoftime': !millis,
+        'outoftime': millis <= 0,
         'running': running,
         'emerg': millis < ctrl.clock.emergMs
       })

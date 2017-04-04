@@ -35,7 +35,7 @@ module.exports = function(ctrl, trans, color, position, runningColor) {
   var millis = ctrl.millisOf(color);
   return m('div', {
     class: 'correspondence clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': !millis,
+      'outoftime': millis <= 0,
       'running': runningColor === color
     })
   }, [
