@@ -234,6 +234,7 @@ case object Perfs {
   }
 
   case class Leaderboards(
+    ultraBullet: List[User.LightPerf],
     bullet: List[User.LightPerf],
     blitz: List[User.LightPerf],
     classical: List[User.LightPerf],

@@ -27,6 +27,7 @@ final class Cached(
   private implicit val LightCountBSONHandler = Macros.handler[LightCount]
 
   def leaderboards: Fu[Perfs.Leaderboards] = for {
+    ultraBullet ← top10Perf(PerfType.UltraBullet.id)
     bullet ← top10Perf(PerfType.Bullet.id)
     blitz ← top10Perf(PerfType.Blitz.id)
     classical ← top10Perf(PerfType.Classical.id)
@@ -39,6 +40,7 @@ final class Cached(
     racingKings <- top10Perf(PerfType.RacingKings.id)
     crazyhouse <- top10Perf(PerfType.Crazyhouse.id)
   } yield Perfs.Leaderboards(
+    ultraBullet = ultraBullet,
     bullet = bullet,
     blitz = blitz,
     classical = classical,
