@@ -103,6 +103,16 @@
       </rollingPolicy>
     </appender>
   </logger>
+  <logger name="round" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/round.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/round-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
   <logger name="cheat" level="DEBUG">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/cheat.log</file>

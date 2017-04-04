@@ -270,8 +270,12 @@ private[round] final class Round(
   }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
-    case e: ClientError => lila.mon.round.error.client()
-    case e: FishnetError => lila.mon.round.error.fishnet()
+    case e: ClientError =>
+      logger.info(s"Round client error $name", e)
+      lila.mon.round.error.client()
+    case e: FishnetError =>
+      logger.info(s"Round fishnet error $name", e)
+      lila.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
 }
