@@ -1,4 +1,6 @@
-module.exports = function(ctrl) {
+import { Ctrl } from '../interfaces';
+
+export default function(ctrl: Ctrl): string {
   switch (ctrl.data.game.status.name) {
     case 'started':
       return ctrl.trans('playingRightNow');
@@ -37,4 +39,4 @@ module.exports = function(ctrl) {
     default:
       return ctrl.data.game.status.name;
   }
-};
+}

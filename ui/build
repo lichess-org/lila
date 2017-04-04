@@ -35,6 +35,7 @@ build() {
 build_ts "common"
 build_ts "chess"
 build_ts "ceval"
+build_ts "game"
 
 if [ -f $prll_sh ]; then # parallel execution!
   . $prll_sh
