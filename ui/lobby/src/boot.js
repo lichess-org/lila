@@ -215,7 +215,7 @@ module.exports = function(cfg, element) {
       var limit = $timeInput.val();
       var inc = $incrementInput.val();
       // no rated variants with less than 30s on the clock
-      var cantBeRated = variantId != '1' && limit < 0.5 && inc == 0;
+      var cantBeRated = timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0;
       if (cantBeRated) {
         if (rated) {
           $casual.click();
