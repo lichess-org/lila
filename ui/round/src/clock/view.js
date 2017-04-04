@@ -76,7 +76,7 @@ function showBar(ctrl, color, millis, berserk) {
 function updateElements(ctrl, color) {
   var els = ctrl.clock.elements[color];
   if (els) {
-    els.time.innerHTML = formatClockTime(ctrl.data, ctrl.clock.millisOf(color), true);
+    els.time.innerHTML = formatClockTime(ctrl.clock.data, ctrl.clock.millisOf(color), true);
     if (els.bar) els.bar.style.width = ctrl.clock.timePercent(color) + '%';
   } else {
     m.redraw();
