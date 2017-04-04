@@ -5,30 +5,6 @@ export interface Eval {
   mate?: number;
 }
 
-export interface PvData {
-  moves: string[];
-  mate?: number;
-  cp?: number;
-}
-
-export interface ClientEval {
-  fen: string;
-  maxDepth: number;
-  depth: number;
-  knps: number;
-  nodes: number;
-  millis: number;
-  pvs: PvData[];
-  cloud?: boolean;
-  cp?: number;
-  mate?: number;
-}
-
-export interface ServerEval {
-  cp?: number;
-  mate?: number;
-}
-
 export interface WorkerOpts {
   variant: VariantKey;
   threads: false | (() => number | string);
@@ -46,7 +22,7 @@ export interface Work {
   currentFen: string;
   moves: string[];
   startedAt?: Date;
-  emit: (ev: ClientEval) => void;
+  emit: (ev: Tree.ClientEval) => void;
 }
 
 export interface PoolOpts {
@@ -69,7 +45,7 @@ export interface CevalOpts {
   possible: boolean;
   variant: Variant;
   onCrash: (info: CrashInfo) => void;
-  emit: (ev: ClientEval) => void;
+  emit: (ev: Tree.ClientEval) => void;
   setAutoShapes: () => void;
 }
 
@@ -137,20 +113,13 @@ export interface ParentController {
 
 export interface ParentVm {
   threatMode: boolean;
-  node: Node;
+  node: Tree.Node;
   showComputer: () => boolean;
 }
 
-export interface Node {
-  check: boolean;
-  threat?: ClientEval;
-  ceval?: ClientEval;
-  fen: string;
-}
-
 export interface NodeEvals {
-  client?: ClientEval
-  server?: ServerEval
+  client?: Tree.ClientEval
+  server?: Tree.ServerEval
 }
 
 export interface Step {
@@ -158,6 +127,6 @@ export interface Step {
   fen: string;
   san?: string;
   uci?: string;
-  threat?: ClientEval;
-  ceval?: ClientEval;
+  threat?: Tree.ClientEval;
+  ceval?: Tree.ClientEval;
 }

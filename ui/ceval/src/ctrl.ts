@@ -1,4 +1,4 @@
-import { CevalController, CevalOpts, ClientEval, PvData, Work, Step, Hovering, Started } from './types';
+import { CevalController, CevalOpts, Work, Step, Hovering, Started } from './types';
 
 import * as m from 'mithril';
 import Pool from './pool';
@@ -20,7 +20,7 @@ export default function(opts: CevalOpts): CevalController {
   var threads = storedProp(storageKey('ceval.threads'), Math.ceil((navigator.hardwareConcurrency || 1) / 2));
   var hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   var infinite = storedProp('ceval.infinite', false);
-  var curEval: ClientEval | null = null;
+  var curEval: Tree.ClientEval | null = null;
   var enableStorage = window.lichess.storage.make(storageKey('client-eval-enabled'));
   var allowed = m.prop(true);
   var enabled = m.prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
@@ -44,12 +44,12 @@ export default function(opts: CevalOpts): CevalController {
   // adjusts maxDepth based on nodes per second
   var npsRecorder = (function() {
     var values: number[] = [];
-    var applies = function(ev: ClientEval) {
+    var applies = function(ev: Tree.ClientEval) {
       return ev.knps && ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
         (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     }
-    return function(ev: ClientEval) {
+    return function(ev: Tree.ClientEval) {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length >= 5) {
@@ -72,7 +72,7 @@ export default function(opts: CevalOpts): CevalController {
 
   var throttledEmit = throttle(150, false, opts.emit);
 
-  var onEmit = function(ev: ClientEval, work: Work) {
+  var onEmit = function(ev: Tree.ClientEval, work: Work) {
     sortPvsInPlace(ev.pvs, (work.ply % 2 === (work.threatMode ? 1 : 0)) ? 'white' : 'black');
     npsRecorder(ev);
     curEval = ev;
@@ -80,7 +80,7 @@ export default function(opts: CevalOpts): CevalController {
     publish(ev);
   };
 
-  var publish = function(ev: ClientEval) {
+  var publish = function(ev: Tree.ClientEval) {
     if (ev.depth === 12) window.lichess.storage.set('ceval.fen', ev.fen);
   };
 
@@ -88,7 +88,7 @@ export default function(opts: CevalOpts): CevalController {
     return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
   };
 
-  var sortPvsInPlace = function(pvs: PvData[], color: Color) {
+  var sortPvsInPlace = function(pvs: Tree.PvData[], color: Color) {
     pvs.sort(function(a, b) {
       return povChances(color, b) - povChances(color, a);
     });
@@ -115,7 +115,7 @@ export default function(opts: CevalOpts): CevalController {
       maxDepth: maxD,
       multiPv: parseInt(multiPv()),
       threatMode: threatMode,
-      emit: function(ev: ClientEval) {
+      emit: function(ev: Tree.ClientEval) {
         if (enabled()) onEmit(ev, work);
       }
     };

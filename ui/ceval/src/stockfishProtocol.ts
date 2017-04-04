@@ -1,5 +1,5 @@
 import defer = require('defer-promise');
-import { WorkerOpts, Work, ClientEval } from './types';
+import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
@@ -11,7 +11,7 @@ const EVAL_REGEX = new RegExp(''
 export default class Protocol {
   private send: (cmd: string) => void;
   private work: Work | null = null;
-  private curEval: ClientEval | null = null;
+  private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
   private stopped: Deferred<void> | null;
   private opts: WorkerOpts;

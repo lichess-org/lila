@@ -61,8 +61,6 @@ export interface Clock {
 
 export type Source = 'import' | 'lobby' | 'pool';
 
-export type Speed = 'correspondence';
-
 export interface User {
   online: boolean;
 }

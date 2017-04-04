@@ -1,14 +1,14 @@
-function mainlineChild(node) {
-  if (node.children.length) return node.children[0];
+function mainlineChild(node: Tree.Node): Tree.Node | undefined {
+  return node.children[0];
 }
 
-function withMainlineChild(node, f) {
-  var next = mainlineChild(node);
-  if (next) return f(next);
+export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T): T | undefined {
+  const next = mainlineChild(node);
+  return next ? f(next) : undefined;
 }
 
-function findInMainline(fromNode, predicate) {
-  var findFrom = function(node) {
+export function findInMainline(fromNode: Tree.Node, predicate: (node: Tree.Node) => boolean): Tree.Node | undefined {
+  const findFrom = function(node: Tree.Node): Tree.Node | undefined {
     if (predicate(node)) return node;
     return withMainlineChild(node, findFrom);
   };
@@ -16,7 +16,7 @@ function findInMainline(fromNode, predicate) {
 }
 
 // returns a list of nodes collected from the original one
-function collect(from, pickChild) {
+export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.Node | undefined): Tree.Node[] {
   var nodes = [from], n = from, c;
   while(c = pickChild(n)) {
     nodes.push(c);
@@ -25,25 +25,23 @@ function collect(from, pickChild) {
   return nodes;
 }
 
-function pickFirstChild(node) {
+function pickFirstChild(node: Tree.Node): Tree.Node | undefined {
   return node.children[0];
 }
 
-function childById(node, id) {
-  for (var i in node.children)
-    if (node.children[i].id === id) return node.children[i];
+export function childById(node: Tree.Node, id: string): Tree.Node | undefined {
+  return node.children.find(child => child.id === id);
 }
 
-function last(nodeList) {
+export function last(nodeList: Tree.Node[]): Tree.Node | undefined {
   return nodeList[nodeList.length - 1];
 }
 
-function nodeAtPly(nodeList, ply) {
-  for (var i in nodeList)
-    if (nodeList[i].ply === ply) return nodeList[i];
+export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undefined {
+  return nodeList.find(node => node.ply === ply);
 }
 
-function takePathWhile(nodeList, predicate) {
+export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
   var path = '';
   for (var i in nodeList) {
     if (predicate(nodeList[i])) path += nodeList[i].id;
@@ -52,13 +50,13 @@ function takePathWhile(nodeList, predicate) {
   return path;
 }
 
-function removeChild(parent, id) {
+export function removeChild(parent: Tree.Node, id: string): void {
   parent.children = parent.children.filter(function(n) {
     return n.id !== id;
   });
 }
 
-function countChildrenAndComments(node) {
+export function countChildrenAndComments(node: Tree.Node) {
   var count = {
     nodes: 1,
     comments: (node.comments || []).length
@@ -71,7 +69,7 @@ function countChildrenAndComments(node) {
   return count;
 }
 
-function reconstruct(parts) {
+export function reconstruct(parts: any): Node {
   var root = parts[0],
     node = root;
   root.id = '';
@@ -86,7 +84,7 @@ function reconstruct(parts) {
 }
 
 // adds n2 into n1
-function merge(n1, n2) {
+export function merge(n1: Tree.Node, n2: Tree.Node): void {
   n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments && n2.comments.forEach(function(c) {
@@ -102,34 +100,21 @@ function merge(n1, n2) {
   });
 }
 
-function hasBranching(node, maxDepth) {
+export function hasBranching(node: Tree.Node, maxDepth: number): boolean {
   return maxDepth <= 0 || node.children[1] ? true : (
     node.children[0] ? hasBranching(node.children[0], maxDepth - 1) : false
   );
 }
 
-module.exports = {
-  findInMainline: findInMainline,
-  withMainlineChild: withMainlineChild,
-  collect: collect,
-  mainlineNodeList: function(from) {
-    return collect(from, pickFirstChild);
-  },
-  childById: childById,
-  last: last,
-  nodeAtPly: nodeAtPly,
-  takePathWhile: takePathWhile,
-  removeChild: removeChild,
-  countChildrenAndComments: countChildrenAndComments,
-  reconstruct: reconstruct,
-  merge: merge,
-  hasBranching: hasBranching,
-  updateAll: function(root, f) {
-    // applies f recursively to all nodes
-    var update = function(node) {
-      f(node);
-      node.children.forEach(update);
-    };
-    update(root);
-  }
+export function mainlineNodeList(from: Tree.Node): Tree.Node[] {
+  return collect(from, pickFirstChild);
+}
+
+export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
+  // applies f recursively to all nodes
+  var update = function(node: Tree.Node) {
+    f(node);
+    node.children.forEach(update);
+  };
+  update(root);
 }
