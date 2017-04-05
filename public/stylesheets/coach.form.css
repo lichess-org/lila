@@ -152,6 +152,7 @@ body.dark .coach_picture .cancel {
 .coach_edit .reviews .content {
   margin: 0 20px;
   box-sizing: border-box;
+  word-break: break-word;
 }
 .coach_edit .reviews .actions {
   font-size: 30px;
