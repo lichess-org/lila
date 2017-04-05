@@ -20,7 +20,7 @@ public class LinearEstimator {
 
         int mid = dest[midIdx];
 
-        dest[midIdx] -= (start + end) >> 1;
+        dest[midIdx] = mid - ((start + end) >> 1);
 
         encode(dest, startIdx, start, midIdx, mid);
         encode(dest, midIdx, mid, endIdx, end);
