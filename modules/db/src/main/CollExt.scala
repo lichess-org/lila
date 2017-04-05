@@ -45,7 +45,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         readPreference
       )
 
-    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
+    def exists(selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[Boolean] =
+      countSel(selector, readPreference).dmap(0!=)
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
       coll.find($inIds(ids)).cursor[D](readPreference = readPreference)

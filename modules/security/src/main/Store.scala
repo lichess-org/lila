@@ -3,6 +3,7 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.bson.Macros
+import reactivemongo.api.ReadPreference
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -133,5 +134,11 @@ object Store {
       }
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
-    coll.exists($doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)))
+    coll.exists(
+      $doc(
+        "ip" -> ip,
+        "date" -> $gt(DateTime.now minusDays 7)
+      ),
+      readPreference = ReadPreference.secondaryPreferred
+    )
 }
