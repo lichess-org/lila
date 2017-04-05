@@ -15,16 +15,15 @@ export abstract class AbstractWorker {
   }
 
   stop(): Promise<void> {
-    if (!this.protocol) return Promise.resolve();
-    let stopped = this.protocol.stop();
-    setTimeout(function() {
-      stopped.reject();
-    }, 1000);
-    return stopped.promise;
+    return this.protocol ? this.protocol.stop() : Promise.resolve();
   }
 
   start(work: Work) {
-    this.stop().catch(() => {
+    const timeout = new Promise((_resolve, reject) => {
+      setTimeout(reject, 1000);
+    });
+
+    Promise.race([this.stop(), timeout]).catch(() => {
       this.destroy();
       this.boot();
       return Promise.resolve();
@@ -42,6 +41,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot() {
+    console.log('booting webworker', this.url);
     this.worker = new Worker(this.url);
     this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
@@ -62,6 +62,7 @@ class PNaClWorker extends AbstractWorker {
   private worker?: HTMLEmbedElement;
 
   boot() {
+    console.log('booting pnacl worker');
     try {
       this.worker = document.createElement('embed');
       this.worker.setAttribute('src', this.url);
@@ -79,6 +80,7 @@ class PNaClWorker extends AbstractWorker {
         this.protocol!.received((e as any).data);
       }, true);
     } catch (err) {
+      console.log('exception while booting pnacl', err);
       this.destroy();
       this.poolOpts.onCrash(err);
     }
