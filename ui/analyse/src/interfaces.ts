@@ -4,6 +4,8 @@ export interface AnalyseController {
   socket: Socket;
   vm: Vm;
   jumpToIndex(index: number): void;
+  userJumpIfCan(path: Tree.Path): void;
+  userJump(path: Tree.Path): void;
 }
 
 export interface AnalyseOpts {
@@ -24,4 +26,8 @@ export interface Socket {
 
 export interface Vm {
   path: Tree.Path;
+  node: Tree.Node;
+  mainline: Tree.Node[];
+  onMainline: boolean;
+  nodeList: Tree.Node[];
 }
