@@ -53,7 +53,8 @@ final class JsonView(
       "initialFen" -> fen.map(_.value),
       // "createdAt" -> g.createdAt.getDate,
       "pgn" -> g.pgnMoves.mkString(" "),
-      "variant" -> g.variant.exotic.option(g.variant.key)
+      "variant" -> g.variant.exotic.option(g.variant.key),
+      "emts" -> g.moveTimes.map(_.map(_.value))
     ).noNull
   }
 }
