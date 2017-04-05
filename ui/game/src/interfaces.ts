@@ -20,6 +20,7 @@ export interface Game {
   variant: Variant;
   winner?: Color;
   moveCentis?: number[];
+  initialFen?: string;
 }
 
 export interface Status {
