@@ -219,7 +219,7 @@ lichess.notifyApp = (function() {
           '<div class="inner">' +
           '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a> in progress!' +
           '<div class="actions">' +
-          '<a class="withdraw text" href="' + url + '/withdraw" data-icon="b">Withdraw</a>' +
+          '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
           '</div>' +
           '</div>' +

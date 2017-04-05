@@ -13,7 +13,7 @@
       <tr @if(ctx.userId.exists(player.is)) { class="me" }>
         <td class="name">
           @if(player.withdraw) {
-          <span data-icon="b" title="@trans.withdraw()"></span>
+          <span data-icon="Z" title="Pause"></span>
           } else {
           @if(m.tour.isFinished && rank == 1) {
           <span data-icon="g" title="@trans.winner()"></span>
