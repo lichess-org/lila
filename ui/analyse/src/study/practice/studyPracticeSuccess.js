@@ -65,7 +65,6 @@ module.exports = function(root, goal, nbMoves) {
     case 'promotion':
       if (!node.uci[4]) return null;
       return isWinning(node, goal.cp, root.bottomColor());
-      break;
     case 'mate':
   }
   return null;

@@ -24,11 +24,13 @@
   "devDependencies": {
     "browserify": "^14",
     "gulp": "^3",
-    "gulp-streamify": "^1",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
+    "tsify": "^3.0.1",
+    "typescript": "^2.2.2",
     "uglify-js": "^2",
     "vinyl-source-stream": "^1",
+    "vinyl-buffer": "^1",
     "watchify": "^3"
   },
   "dependencies": {
@@ -39,6 +41,7 @@
     "common": "file:../common",
     "game": "file:../game",
     "mithril": "github:ornicar/mithril.js#lila-vdom-only-2",
-    "tree": "file:../tree"
+    "tree": "file:../tree",
+    "types": "file:../types"
   }
 }
