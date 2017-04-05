@@ -1,3 +1,5 @@
+import { GameData } from 'game';
+
 export interface AnalyseController {
   study?: Study;
   studyPractice?: StudyPractice;
@@ -6,6 +8,10 @@ export interface AnalyseController {
   jumpToIndex(index: number): void;
   userJumpIfCan(path: Tree.Path): void;
   userJump(path: Tree.Path): void;
+  jump(path: Tree.Path): void;
+
+  data: GameData;
+  tree: any; // TODO: Tree.Tree;
 }
 
 export interface AnalyseOpts {
