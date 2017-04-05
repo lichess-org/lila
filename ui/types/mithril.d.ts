@@ -15,8 +15,12 @@ declare namespace Mithril {
 
     prop<T>(d: T): Property<T>;
 
+    module<T>(el: Element, module: Module<T>): void;
+
     startComputation(): void;
     endComputation(): void;
+
+    redraw: Redraw;
   }
 
   type Config = (el: Element, isUpdate: boolean, ctx: any, vdom: VirtualElement) => void;
@@ -27,6 +31,18 @@ declare namespace Mithril {
     config?: Config;
     key?: string | number;
     [property: string]: any;
+  }
+
+  interface Module<T> {
+    controller(): T;
+    view(ctrl: T): Renderable;
+  }
+
+  type RedrawStrategy = 'all' | 'diff' | 'none';
+
+  interface Redraw {
+    (forceSync?: boolean): void;
+    strategy(strategy: RedrawStrategy): void;
   }
 
   interface VirtualElement {

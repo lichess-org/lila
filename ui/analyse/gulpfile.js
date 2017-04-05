@@ -1,54 +1,51 @@
-var source = require('vinyl-source-stream');
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var watchify = require('watchify');
-var browserify = require('browserify');
-var uglify = require('gulp-uglify');
-var streamify = require('gulp-streamify');
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const watchify = require('watchify');
+const browserify = require('browserify');
+const uglify = require('gulp-uglify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const tsify = require('tsify');
 
-var sources = ['./src/main.js'];
-var destination = '../../public/compiled/';
-var onError = function(error) {
+const destination = '../../public/compiled/';
+
+function onError(error) {
   gutil.log(gutil.colors.red(error.message));
-};
-var standalone = 'LichessAnalyse';
+}
 
-gulp.task('prod', function() {
-  return browserify('./src/main.js', {
-    standalone: standalone
-  }).bundle()
-    .on('error', onError)
-    .pipe(source('lichess.analyse.min.js'))
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest(destination));
-});
+function build() {
+  return browserify('src/main.ts', {
+      standalone: 'LichessAnalyse',
+      debug: true
+    })
+    .plugin(tsify);
+}
 
-gulp.task('dev', function() {
-  return browserify('./src/main.js', {
-    standalone: standalone
-  }).bundle()
+const watchedBrowserify = watchify(build());
+
+function bundle(stream) {
+  return stream
+    .bundle()
     .on('error', onError)
     .pipe(source('lichess.analyse.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(destination));
+}
+
+gulp.task('default', () => bundle(watchedBrowserify));
+watchedBrowserify.on('update', () => bundle(watchedBrowserify));
+watchedBrowserify.on('log', gutil.log);
+
+gulp.task('dev', function() {
+  return bundle(build());
+});
+
+gulp.task('prod', function() {
+  return build()
+    .bundle()
+    .on('error', onError)
+    .pipe(source('lichess.analyse.min.js'))
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest(destination));
 });
-
-gulp.task('watch', function() {
-  var opts = watchify.args;
-  opts.debug = true;
-  opts.standalone = standalone;
-
-  var bundleStream = watchify(browserify(sources, opts))
-    .on('update', rebundle)
-    .on('log', gutil.log);
-
-  function rebundle() {
-    return bundleStream.bundle()
-      .on('error', onError)
-      .pipe(source('lichess.analyse.js'))
-      .pipe(gulp.dest(destination));
-  }
-
-  return rebundle();
-});
-
-gulp.task('default', ['watch']);
