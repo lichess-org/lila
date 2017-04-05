@@ -26,7 +26,7 @@ object PlayerRepo {
   def byId(id: String): Fu[Option[Player]] = coll.uno[Player](selectId(id))
 
   def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().gather[List](nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
 
   def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
@@ -39,9 +39,9 @@ object PlayerRepo {
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   def countActive(tourId: String): Fu[Int] =
-    coll.count(Some(selectTour(tourId) ++ selectActive))
+    coll.countSel(selectTour(tourId) ++ selectActive)
 
-  def count(tourId: String): Fu[Int] = coll.count(Some(selectTour(tourId)))
+  def count(tourId: String): Fu[Int] = coll.countSel(selectTour(tourId))
 
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
@@ -49,12 +49,10 @@ object PlayerRepo {
     coll.remove(selectTourUser(tourId, userId)).void
 
   def exists(tourId: String, userId: String) =
-    coll.count(selectTourUser(tourId, userId).some) map (0!=)
+    coll.exists(selectTourUser(tourId, userId))
 
   def existsActive(tourId: String, userId: String) =
-    coll.count(Some(
-      selectTourUser(tourId, userId) ++ selectActive
-    )) map (0!=)
+    coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
   def unWithdraw(tourId: String) = coll.update(
     selectTour(tourId) ++ selectWithdraw,
