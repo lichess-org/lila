@@ -186,7 +186,7 @@ module.exports = {
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
-      ) : (rematchable ? m('a.button', {
+      ) : (rematchable ? m('a.button.rematch', {
         config: util.bindOnce('click', function() {
           if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
           else ctrl.challengeRematch();

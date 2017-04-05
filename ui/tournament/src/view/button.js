@@ -7,10 +7,11 @@ function orJoinSpinner(ctrl, f) {
 
 function withdraw(ctrl) {
   return orJoinSpinner(ctrl, function() {
+    var pause = ctrl.data.isStarted;
     return m('button.fbt.text', {
-      'data-icon': 'b',
+      'data-icon': pause ? 'Z' : 'b',
       onclick: ctrl.withdraw
-    }, ctrl.trans('withdraw'));
+    }, ctrl.trans.noarg(pause ? 'pause' : 'withdraw'));
   });
 }
 

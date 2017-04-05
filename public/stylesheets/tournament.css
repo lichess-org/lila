@@ -341,6 +341,10 @@ ol.scheduled_tournaments a {
   padding: 1em 0.5em 1em 10px;
   width: 1px; /* helps keeping it as small as possible */
 }
+#tournament table.slist td.rank i {
+  opacity: 0.4;
+  font-size: 0.8em;
+}
 #tournament table.standing .sheet {
   text-align: right;
   padding-right: 0;

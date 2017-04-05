@@ -63,8 +63,8 @@ function playerTr(ctrl, player) {
     },
     children: [
       m('td.rank', player.withdraw ? m('i', {
-        'data-icon': 'b',
-        'title': ctrl.trans('withdraw')
+        'data-icon': 'Z',
+        'title': ctrl.trans.noarg('pause')
       }) : player.rank),
       m('td.player', util.player(player)),
       m('td.sheet', scoreTags(player.sheet.scores)),
