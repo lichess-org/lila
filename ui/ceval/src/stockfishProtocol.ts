@@ -113,12 +113,12 @@ export default class Protocol {
     this.send('go depth ' + this.work.maxDepth);
   }
 
-  stop(): Deferred<void> {
+  stop(): Promise<void> {
     if (!this.stopped) {
       this.work = null;
       this.stopped = defer<void>();
       this.send('stop');
     }
-    return this.stopped;
+    return this.stopped.promise;
   }
 };
