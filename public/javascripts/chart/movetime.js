@@ -1,6 +1,4 @@
 lichess.movetimeChart = function(data) {
-  var log1p = Math.log1p || function(x) { return Math.log(x + 1); };
-
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
@@ -19,6 +17,8 @@ lichess.movetimeChart = function(data) {
             var ply = 0;
             var max = 0;
 
+            var logC = Math.pow(Math.log(3), 2);
+
             moveCentis.forEach(function(time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
@@ -26,7 +26,8 @@ lichess.movetimeChart = function(data) {
 
               var turn = (ply + 1) >> 1;
               var color = ply & 1;
-              var y = Math.pow(log1p(.005 * Math.min(time, 12e4)), 2);
+
+              var y = Math.pow(Math.log(.005 * Math.min(time, 12e4) + 3), 2) - logC;
               max = Math.max(y, max);
 
               series[color ? 'white' : 'black'].push({
