@@ -108,14 +108,14 @@ private[relation] final class RelationActor(
 
   private def notifyFollowersFriendEnters(friendsEntering: List[FriendEntering]) =
     friendsEntering foreach { entering =>
-      api fetchFollowers entering.user.id map online.userIds.intersect foreach { ids =>
+      api fetchFollowersFromSecondary entering.user.id map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'users)
       }
     }
 
   private def notifyFollowersFriendLeaves(friendsLeaving: List[LightUser]) =
     friendsLeaving foreach { leaving =>
-      api fetchFollowers leaving.id map online.userIds.intersect foreach { ids =>
+      api fetchFollowersFromSecondary leaving.id map online.userIds.intersect foreach { ids =>
         if (ids.nonEmpty) bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'users)
       }
     }

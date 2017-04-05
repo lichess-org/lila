@@ -33,7 +33,7 @@ final class RelationApi(
 
   def fetchFollowing = RelationRepo following _
 
-  def fetchFollowers = RelationRepo.followers _
+  // def fetchFollowers = RelationRepo.followers _
 
   def fetchFollowersFromSecondary = RelationRepo.followersFromSecondary _
 

@@ -30,7 +30,7 @@ object TeamRepo {
     coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: String): Fu[List[String]] =
-    coll.distinct[String, List]("_id", BSONDocument("createdBy" -> userId).some)
+    coll.distinct[String, List]("_id", $doc("createdBy" -> userId).some)
 
   def name(id: String): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")

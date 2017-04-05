@@ -79,8 +79,7 @@ object UserRepo {
       $id(true)
     )
       .sort($doc(s"perfs.standard.gl.r" -> -1))
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .gather[List](nb).map {
+      .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
         _.flatMap { _.getAs[String]("_id") }
       }
 
