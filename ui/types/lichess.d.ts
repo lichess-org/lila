@@ -136,6 +136,7 @@ declare namespace Tree {
     parentClock?: Clock;
     shapes?: Shape[];
     comp?: boolean;
+    san?: string;
   }
 
   export interface Comment {
