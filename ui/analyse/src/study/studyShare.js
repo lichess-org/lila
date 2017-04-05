@@ -42,6 +42,7 @@ module.exports = {
     var chapter = ctrl.chapter();
     var fullUrl = baseUrl + studyId + '/' + chapter.id;
     var embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
+    var isPublic = ctrl.isPublic();
     if (ctrl.withPly()) {
       var p = ctrl.currentNode().ply;
       fullUrl += '#' + p;
@@ -68,25 +69,27 @@ module.exports = {
               value: fullUrl
             }),
             fromPly(ctrl),
-            m('p.form-help.text', {
+            isPublic ? m('p.form-help.text', {
               'data-icon': ''
-            }, 'You can paste this in the forum to embed the chapter.'),
+            }, 'You can paste this in the forum to embed the chapter.') : null,
             m('label.control-label', 'Current chapter URL'),
             m('i.bar')
           ]),
           m('div.form-group', [
             m('input.has-value.autoselect', {
               readonly: true,
-              disabled: !ctrl.isPublic(),
-              value: ctrl.isPublic() ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded.'
+              disabled: !isPublic,
+              value: isPublic ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
             }),
-            fromPly(ctrl),
-            m('a.form-help.text', {
-              href: '/developers#embed-study',
-              target: '_blank',
-              'data-icon': ''
-            }, 'Read more about embedding a study chapter'),
-            m('label.control-label', 'Embed current chapter in your website or blog'),
+            isPublic ? [
+              fromPly(ctrl),
+              m('a.form-help.text', {
+                href: '/developers#embed-study',
+                target: '_blank',
+                'data-icon': ''
+              }, 'Read more about embedding a study chapter'),
+              m('label.control-label', 'Embed current chapter in your website or blog')
+            ] : null,
             m('i.bar')
           ]),
           m('div.downloads', [
