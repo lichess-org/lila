@@ -58,7 +58,7 @@ final class EvalCacheApi(
 
   private def put(trustedUser: TrustedUser, input: Input): Funit = Validator(input) match {
     case Some(error) =>
-      logger.warn(s"Invalid from ${trustedUser.user.username} $error $input")
+      logger.warn(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
       funit
     case None => getEntry(input.smallFen) map {
       case None =>
