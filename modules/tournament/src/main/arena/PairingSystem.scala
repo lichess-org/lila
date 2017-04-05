@@ -23,7 +23,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(tour: Tournament, users: WaitingUsers, ranking: Ranking): Fu[Pairings] = {
     for {
-      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
+      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
         fuccess(false),
         PlayerRepo.countActive(tour.id).map(2==)
