@@ -139,6 +139,7 @@ object PairingRepo {
       List(
         Project($doc(
           "_id" -> false,
+          "w" -> true,
           "t" -> true,
           "b1" -> $doc("$cond" -> $arr("$b1", 1, 0)),
           "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
