@@ -281,6 +281,9 @@ ol.scheduled_tournaments a {
   padding: 7px 0;
   opacity: 0.7;
 }
+#tournament .notice.closed {
+  background: #3893E8;
+}
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
