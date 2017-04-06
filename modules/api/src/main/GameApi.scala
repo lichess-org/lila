@@ -1,6 +1,7 @@
 package lila.api
 
 import play.api.libs.json._
+import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
@@ -11,14 +12,15 @@ import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
-import lila.game.{ Game, GameRepo, PerfPicker }
+import lila.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
 import lila.user.User
 
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
     pgnDump: PgnDump,
-    gameCache: lila.game.Cached
+    gameCache: lila.game.Cached,
+    crosstableApi: CrosstableApi
 ) {
 
   import lila.round.JsonView.openingWriter
@@ -107,6 +109,53 @@ private[api] final class GameApi(
         token = none
       ) _
     }
+
+  def byUsersVs(
+    users: (User, User),
+    rated: Option[Boolean],
+    playing: Option[Boolean],
+    analysed: Option[Boolean],
+    withAnalysis: Boolean,
+    withMoves: Boolean,
+    withOpening: Boolean,
+    withMoveTimes: Boolean,
+    nb: Int,
+    page: Int
+  ): Fu[JsObject] = Paginator(
+    adapter = new CachedAdapter(
+    adapter = new Adapter[Game](
+    collection = GameRepo.coll,
+    selector = {
+    if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
+    else lila.game.Query.opponents(users._1, users._2) ++ $doc(
+      G.status $gte chess.Status.Mate.id,
+      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+    )
+  } ++ $doc(
+    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+  ),
+    projection = $empty,
+    sort = $doc(G.createdAt -> -1),
+    readPreference = ReadPreference.secondaryPreferred
+  ),
+    nbResults =
+    if (~playing) gameCache.nbPlaying(users._1.id)
+    else crosstableApi(users._1.id, users._2.id, 5 seconds).map { _ ?? (_.nbGames) }
+  ),
+    currentPage = page,
+    maxPerPage = nb
+  ) flatMap { pag =>
+    gamesJson(
+      withAnalysis = withAnalysis,
+      withMoves = withMoves,
+      withOpening = withOpening,
+      withFens = false,
+      withMoveTimes = withMoveTimes,
+      token = none
+    )(pag.currentPageResults) map { games =>
+      PaginatorJson(pag withCurrentPageResults games)
+    }
+  }
 
   private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 

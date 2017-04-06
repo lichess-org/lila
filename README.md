@@ -311,6 +311,14 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
+### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
+
+```
+> curl https://en.lichess.org/api/games/vs/thibault/legend?nb=10&page=2
+```
+
+Parameters and result are similar to the users games API.
+
 ### `GET /api/game/{id}` fetch one game by ID
 
 ```

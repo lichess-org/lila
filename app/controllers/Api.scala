@@ -116,8 +116,8 @@ object Api extends LilaController {
   )
 
   private val UserGamesRateLimitGlobal = new lila.memo.RateLimit[String](
-    credits = 10 * 1000,
-    duration = 1 minute,
+    credits = 15 * 1000,
+    duration = 2 minute,
     name = "user games API global",
     key = "user_games.api.global"
   )
@@ -185,6 +185,40 @@ object Api extends LilaController {
         ids = gameIds,
         withMoves = getBool("with_moves")
       ) map toApiResult map toHttp
+    }
+  }
+
+  def gamesVs(u1: String, u2: String) = ApiRequest { implicit ctx =>
+    val page = (getInt("page") | 1) atLeast 1 atMost 200
+    val nb = (getInt("nb") | 10) atLeast 1 atMost 100
+    val cost = page * nb * 2 + 10
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    UserGamesRateLimitPerIP(ip, cost = cost) {
+      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
+          lila.mon.api.userGames.cost(cost)
+          for {
+            usersO <- lila.user.UserRepo.pair(
+              lila.user.User.normalize(u1),
+              lila.user.User.normalize(u2)
+            )
+            res <- usersO.?? { users =>
+              gameApi.byUsersVs(
+                users = users,
+                rated = getBoolOpt("rated"),
+                playing = getBoolOpt("playing"),
+                analysed = getBoolOpt("analysed"),
+                withAnalysis = getBool("with_analysis"),
+                withMoves = getBool("with_moves"),
+                withOpening = getBool("with_opening"),
+                withMoveTimes = getBool("with_movetimes"),
+                nb = nb,
+                page = page
+              ) map some
+            }
+          } yield toApiResult(res)
+        }
+      }
     }
   }
 

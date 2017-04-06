@@ -61,6 +61,8 @@ object Query {
   def recentlyPlaying(u: String) =
     nowPlaying(u) ++ $doc(F.updatedAt $gt DateTime.now.minusMinutes(5))
 
+  def nowPlayingVs(u1: String, u2: String) = $doc(F.playingUids $all List(u1, u2))
+
   // use the us index
   def win(u: String) = user(u) ++ $doc(F.winnerId -> u)
 

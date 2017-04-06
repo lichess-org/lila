@@ -46,6 +46,14 @@ object UserRepo {
         y.??(yy => users.find(_.id == yy))
     }
 
+  def pair(x: ID, y: ID): Fu[Option[(User, User)]] =
+    coll.byIds[User](List(x, y)) map { users =>
+      for {
+        xx <- users.find(_.id == x)
+        yy <- users.find(_.id == y)
+      } yield xx -> yy
+    }
+
   def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, User.ID](ids, readPreference)(_.id)
 

@@ -22,8 +22,8 @@ final class CrosstableApi(
     case _ => fuccess(none)
   }
 
-  def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
-    coll.uno[Crosstable](select(u1, u2)) orElse createFast(u1, u2)
+  def apply(u1: String, u2: String, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
+    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout)
 
   def nbGames(u1: String, u2: String): Fu[Int] =
     coll.find(
@@ -61,8 +61,8 @@ final class CrosstableApi(
     case _ => funit
   }
 
-  private def createFast(u1: String, u2: String) =
-    creationCache.get(u1 -> u2).withTimeoutDefault(1 second, none)(system)
+  private def createWithTimeout(u1: String, u2: String, timeout: FiniteDuration) =
+    creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)(system)
 
   // to avoid creating it twice during a new matchup
   private val creationCache = asyncCache.multi[(String, String), Option[Crosstable]](

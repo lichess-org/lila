@@ -88,7 +88,8 @@ final class Env(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
     pgnDump = pgnDump,
-    gameCache = gameCache
+    gameCache = gameCache,
+    crosstableApi = crosstableApi
   )
 
   val userGameApi = new UserGameApi(

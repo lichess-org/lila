@@ -464,6 +464,7 @@ POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
+GET   /api/games/vs/:u1/:u2            controllers.Api.gamesVs(u1: String, u2: String)
 POST  /api/games                       controllers.Api.games
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
