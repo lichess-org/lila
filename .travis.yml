@@ -22,7 +22,9 @@ jdk:
   - oraclejdk8
 
 env:
-  - TRAVIS_NODE_VERSION="4.0.0"
+  global:
+   - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o="
+   - TRAVIS_NODE_VERSION="4.0.0"
 
 install:
   # http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
@@ -30,9 +32,26 @@ install:
   - npm install -g gulp
 
   - git submodule update --init --recursive
-  - ./ui/build
   - ./bin/build-deps.sh
 
 script:
+  - ./ui/build
   - sbt compile
   - sbt test
+
+after_success:
+  - sbt stage
+  - git log -n 1 --pretty=oneline > commit.txt
+  - tar -zcf "lila-${TRAVIS_BRANCH}.tar.gz" target/universal/stage public commit.txt
+
+addons:
+  artifacts:
+    bucket: lichess.org
+    s3_region: eu-west-1
+    cache_control: public
+    paths: $(ls "lila-*.tar.gz")
+    target_paths: lila
+    key:
+      secure: "lv+M2bXAjuKfl3ta8PDcljURpmnGjoNnf79dcryvZ6H3bT0FrW3rNKIxXqO4v/daZAuY3o+/nTOjg552ghFDmAqvygA9WF2pLuKd5Q877AtD54tkcr53oYLooBEaQ7nAkJnHl2NM8nii3mvksZ4+1ss7ww535u53sWu+a7PwQwI="
+    secret:
+      secure: "yoErYc4k/g00cP+P2jNZ3v4lAJnEuspE1j7DB9U42leWEGGgyqvKhNJLR5u/JLpxz2+UX6lmjlN0D3SLT4SVLpdacNvRdjRNVpazWpkOsxmKwiQRqjAQl/aoydW6JqUrFoIyH+HzSRdJdxLeXerEJdsTMXHRfHiBPaXWZzHnxY0="

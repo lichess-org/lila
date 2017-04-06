@@ -1,20 +1,21 @@
-var source = require('vinyl-source-stream');
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var browserify = require('browserify');
-var uglify = require('gulp-uglify');
-var streamify = require('gulp-streamify');
-var concat = require('gulp-concat');
-var request = require('request');
-var download = require('gulp-download-stream');
+const source = require('vinyl-source-stream');
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const browserify = require('browserify');
+const uglify = require('gulp-uglify');
+const streamify = require('gulp-streamify');
+const concat = require('gulp-concat');
+const request = require('request');
+const download = require('gulp-download-stream');
 
-var destination = '../../public/compiled/';
-var onError = function(error) {
+const destination = '../../public/compiled/';
+const standalone = 'Lichess';
+
+function onError(error) {
   gutil.log(gutil.colors.red(error.message));
-};
-var standalone = 'Lichess';
+}
 
-var abFile = process.env.LILA_AB_FILE;
+const abFile = process.env.LILA_AB_FILE;
 
 gulp.task('jquery-fill', function() {
   return gulp.src('src/jquery.fill.js')
@@ -34,11 +35,14 @@ gulp.task('ab', function() {
 });
 
 function latestGithubRelease(repo, cb) {
+  const headers = {'User-Agent': 'lila/gulpfile.js'};
+  if (process.env.GITHUB_API_TOKEN) {
+    headers['Authorization'] = 'token ' + process.env.GITHUB_API_TOKEN;
+  }
+
   request({
     url: 'https://api.github.com/repos/' + repo + '/releases/latest',
-    headers: {
-      'User-Agent': 'lila/gulpfile.js'
-    }
+    headers: headers
   }, function(err, res, body) {
     if (err) throw err;
     var release = JSON.parse(body);
@@ -111,8 +115,11 @@ gulp.task('standalones', function() {
     .pipe(gulp.dest(destination));
 });
 
-var tasks = ['jquery-fill', 'ab', 'standalones'];
-if (!process.env.TRAVIS) tasks = tasks.concat(['stockfish.pexe', 'stockfish.js']);
+const tasks = ['jquery-fill', 'ab', 'standalones'];
+if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
+  tasks.push('stockfish.pexe');
+  tasks.push('stockfish.js');
+}
 
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
