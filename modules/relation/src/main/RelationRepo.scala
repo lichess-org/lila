@@ -10,7 +10,6 @@ private[relation] object RelationRepo {
   // dirty
   private val coll = Env.current.coll
 
-  def followers(userId: ID) = relaters(userId, Follow)
   def following(userId: ID) = relating(userId, Follow)
 
   def blockers(userId: ID) = relaters(userId, Block)
