@@ -803,6 +803,28 @@ div.control .button.disabled {
 .variant_crazyhouse .lichess_ground .follow_up .button {
   padding: 9px 0;
 }
+.lichess_ground .rematch.button {
+  padding: 0;
+  height: 80px;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+.lichess_ground .rematch.me {
+  background: rgba(56,147,232,0.8);
+}
+.lichess_ground .rematch.them {
+  background: none;
+  animation: fbt-glowing 1.5s ease-in-out infinite;
+}
+.lichess_ground .rematch.button:hover {
+  background: rgba(56,147,232,0.8);
+  color: #fff!important;
+  animation: none;
+  text-shadow: none;
+}
 .lichess_ground .follow_up .fbt.strong {
   display: block;
   padding: 2em 0;

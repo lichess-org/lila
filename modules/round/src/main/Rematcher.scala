@@ -17,7 +17,7 @@ private[round] final class Rematcher(
 ) {
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
-    case Pov(game, color) if (game playerCanRematch color) =>
+    case Pov(game, color) if game playerCanRematch color =>
       (game.opponent(color).isOfferingRematch || game.opponent(color).isAi).fold(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)

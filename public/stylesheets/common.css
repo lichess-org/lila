@@ -229,9 +229,9 @@ group.radio input:checked + label {
   stroke-width: 4;
   animation: spinnerDash 1.275s ease-in-out infinite, spinnerColor 5.1s linear infinite;
 }
-.spinner.monochrome circle {
+.white .spinner circle {
   animation: spinnerDash 1.275s ease-in-out infinite;
-  stroke: #ddd;
+  stroke: #fff;
 }
 /* duckduckgo small horizontal loader */
 @keyframes ddloader {

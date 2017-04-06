@@ -47,11 +47,7 @@ function spinning(ctrl) {
 
 function renderTableEnd(ctrl) {
   var buttons = compact(spinning(ctrl) || [
-    button.backToTournament(ctrl) || [
-      button.answerOpponentRematch(ctrl) ||
-      button.cancelRematch(ctrl) ||
-      button.followUp(ctrl)
-    ]
+    button.backToTournament(ctrl) || button.followUp(ctrl)
   ]);
   return [
     renderReplay(ctrl),

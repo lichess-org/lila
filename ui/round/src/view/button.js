@@ -1,4 +1,5 @@
 var util = require('../util');
+var classSet = require('common').classSet;
 var game = require('game').game;
 var status = require('game').status;
 var router = require('game').router;
@@ -25,7 +26,37 @@ function analysisButton(ctrl) {
     onclick: function() {
       if (location.pathname === url.split('#')[0]) location.reload();
     }
-  }, ctrl.trans('analysis')) : null;
+  }, ctrl.trans.noarg('analysis')) : null;
+}
+
+function rematchButton(ctrl) {
+  var d = ctrl.data;
+  var me = d.player.offeringRematch, them = d.opponent.offeringRematch;
+  return m('a', {
+    class: classSet({
+      'button rematch white': true,
+      me: me,
+      them: them
+    }),
+    title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
+      me ? ctrl.trans.noarg('rematchOfferSent') : ''),
+    config: util.bindOnce('click', function() {
+      var d = ctrl.data;
+      if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
+      else if (d.player.offeringRematch) {
+        d.player.offeringRematch = false;
+        ctrl.socket.send('rematch-no');
+      }
+      else if (d.opponent.onGame) {
+        d.player.offeringRematch = true;
+        ctrl.socket.send('rematch-yes');
+      }
+      else ctrl.challengeRematch();
+      m.redraw();
+    })
+  }, [
+    me ? m.trust(lichess.spinnerHtml) : ctrl.trans.noarg('rematch')
+  ]);
 }
 
 module.exports = {
@@ -48,15 +79,15 @@ module.exports = {
   },
   forceResign: function(ctrl) {
     if (ctrl.forceResignable())
-      return m('div.suggestion', [
-        m('p', ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
-        m('a.button', {
-          onclick: lichess.partial(ctrl.socket.sendLoading, 'resign-force', null),
-        }, ctrl.trans('forceResignation')),
-        m('a.button', {
-          onclick: lichess.partial(ctrl.socket.sendLoading, 'draw-force', null),
-        }, ctrl.trans('forceDraw'))
-      ]);
+    return m('div.suggestion', [
+      m('p', ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
+      m('a.button', {
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'resign-force', null),
+      }, ctrl.trans('forceResignation')),
+      m('a.button', {
+        onclick: lichess.partial(ctrl.socket.sendLoading, 'draw-force', null),
+      }, ctrl.trans('forceDraw'))
+    ]);
   },
   resignConfirm: function(ctrl) {
     return m('div.resign_confirm', [
@@ -134,27 +165,6 @@ module.exports = {
       })
     ]);
   },
-  answerOpponentRematch: function(ctrl) {
-    if (ctrl.data.opponent.offeringRematch) return m('div.negotiation', [
-      m('p', ctrl.trans('yourOpponentWantsToPlayANewGameWithYou')),
-      m('a.accept[data-icon=E]', {
-        title: ctrl.trans('joinTheGame'),
-        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-yes', null))
-      }),
-      m('a.decline[data-icon=L]', {
-        title: ctrl.trans('decline'),
-        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-no', null))
-      })
-    ]);
-  },
-  cancelRematch: function(ctrl) {
-    if (ctrl.data.player.offeringRematch) return m('div.pending', [
-      m('p', ctrl.trans('rematchOfferSent')),
-      m('a.button', {
-        config: util.bindOnce('click', lichess.partial(ctrl.socket.sendLoading, 'rematch-no', null))
-      }, ctrl.trans('cancel'))
-    ]);
-  },
   backToTournament: function(ctrl) {
     var d = ctrl.data;
     if (d.tournament && d.tournament.running) return m('div.follow_up', [
@@ -178,20 +188,11 @@ module.exports = {
     var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
     var newable = (status.finished(d) || status.aborted(d)) && (
       d.game.source === 'lobby' ||
-      d.game.source === 'pool');
+        d.game.source === 'pool');
     return m('div.follow_up', [
       ctrl.vm.challengeRematched ? m('div.suggestion.text[data-icon=j]',
         ctrl.trans('rematchOfferSent')
-      ) : (rematchable ? m('a.button.rematch', {
-        config: util.bindOnce('click', function() {
-          if (d.opponent.onGame) ctrl.socket.sendLoading('rematch-yes', null);
-          else ctrl.challengeRematch();
-        })
-      }, ctrl.trans('rematch')) : null),
-      ctrl.data.game.rematch ? m('a.button.hint--top', {
-        'data-hint': ctrl.trans('joinTheGame'),
-        href: router.game(ctrl.data.game.rematch, ctrl.data.opponent.color)
-      }, ctrl.trans('rematchOfferAccepted')) : null,
+      ) : (rematchable || d.game.rematch ? rematchButton(ctrl) : null),
       d.tournament ? m('a.button', {
         href: '/tournament/' + d.tournament.id
       }, ctrl.trans('viewTournament')) : null,
