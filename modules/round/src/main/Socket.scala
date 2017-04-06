@@ -33,6 +33,7 @@ private[round] final class Socket(
 ) extends SocketActor[Member](uidTimeout) {
 
   private var hasAi = false
+  private var mightBeSimul = true // until proven false
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -57,7 +58,7 @@ private[round] final class Socket(
     }
     private def isBye = bye > 0
 
-    private def isHostingSimul: Fu[Boolean] = userId ?? { u =>
+    private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
       simulActor ? lila.hub.actorApi.simul.GetHostIds mapTo manifest[Set[String]] map (_ contains u)
     }
 
@@ -95,6 +96,7 @@ private[round] final class Socket(
       hasAi = game.hasAi
       whitePlayer.userId = game.player(White).userId
       blackPlayer.userId = game.player(Black).userId
+      mightBeSimul = game.isSimul
 
     // from lilaBus 'startGame
     // sets definitive user ids
