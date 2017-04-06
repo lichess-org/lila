@@ -49,7 +49,7 @@ addons:
     bucket: lichess.org
     s3_region: eu-west-1
     cache_control: public
-    paths: lila.tar.gz
+    paths: $(ls lila-*.tar.gz)
     target_paths: lila
     key:
       secure: "lv+M2bXAjuKfl3ta8PDcljURpmnGjoNnf79dcryvZ6H3bT0FrW3rNKIxXqO4v/daZAuY3o+/nTOjg552ghFDmAqvygA9WF2pLuKd5Q877AtD54tkcr53oYLooBEaQ7nAkJnHl2NM8nii3mvksZ4+1ss7ww535u53sWu+a7PwQwI="
