@@ -122,6 +122,11 @@ object Tv {
       icon = P.Crazyhouse.iconChar.toString,
       filters = Seq(variant(V.Crazyhouse), freshBlitz)
     )
+    case object UltraBullet extends Channel(
+      name = S.UltraBullet.name,
+      icon = P.UltraBullet.iconChar.toString,
+      filters = Seq(rated, standard, speed(S.UltraBullet), fresh(20))
+    )
     case object Computer extends Channel(
       name = "Computer",
       icon = "n",
@@ -131,6 +136,7 @@ object Tv {
       Best,
       Bullet, Blitz, Classical,
       Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings,
+      UltraBullet,
       Computer
     )
     val byKey = all.map { c => c.key -> c }.toMap
