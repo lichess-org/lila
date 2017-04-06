@@ -805,8 +805,7 @@ div.control .button.disabled {
 }
 .lichess_ground .follow_up .fbt.strong {
   display: block;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding: 2em 0;
   font-size: 1.2em;
 }
 div.cemetery {
