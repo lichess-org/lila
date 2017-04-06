@@ -406,9 +406,6 @@ div.table {
   flex-flow: row wrap;
   align-content: flex-start;
 }
-.variant_crazyhouse .lichess_ground .replay .moves {
-  height: 100px;
-}
 .lichess_ground .replay index,
 .lichess_ground .replay move {
   height: 25px;
@@ -811,6 +808,9 @@ div.control .button.disabled {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
+.variant_crazyhouse .lichess_ground .rematch.button {
+  height: 60px;
 }
 .lichess_ground .rematch.me {
   background: rgba(56,147,232,0.8);
