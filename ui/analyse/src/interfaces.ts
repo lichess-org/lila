@@ -1,9 +1,17 @@
+import { GameData } from 'game';
+
 export interface AnalyseController {
   study?: Study;
   studyPractice?: StudyPractice;
   socket: Socket;
   vm: Vm;
   jumpToIndex(index: number): void;
+  userJumpIfCan(path: Tree.Path): void;
+  userJump(path: Tree.Path): void;
+  jump(path: Tree.Path): void;
+
+  data: GameData;
+  tree: any; // TODO: Tree.Tree;
 }
 
 export interface AnalyseOpts {
@@ -24,4 +32,8 @@ export interface Socket {
 
 export interface Vm {
   path: Tree.Path;
+  node: Tree.Node;
+  mainline: Tree.Node[];
+  onMainline: boolean;
+  nodeList: Tree.Node[];
 }

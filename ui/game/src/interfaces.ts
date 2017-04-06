@@ -1,4 +1,4 @@
-export interface Data {
+export interface GameData {
   game: Game;
   player: Player;
   opponent: Player;
@@ -19,6 +19,8 @@ export interface Game {
   speed: Speed;
   variant: Variant;
   winner?: Color;
+  moveCentis?: number[];
+  initialFen?: string;
 }
 
 export interface Status {
@@ -66,7 +68,7 @@ export interface User {
 }
 
 export interface Ctrl {
-  data: Data;
+  data: GameData;
   trans: Trans;
 }
 
