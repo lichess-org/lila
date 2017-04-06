@@ -83,7 +83,7 @@ export function hasAi(data: GameData): boolean {
 }
 
 export function userAnalysable(data: GameData): boolean {
-  return playable(data) && (!data.clock || !isPlayerPlaying(data));
+  return status.finished(data) || playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
 export function isCorrespondence(data: GameData): boolean {
