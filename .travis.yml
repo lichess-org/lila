@@ -42,7 +42,7 @@ script:
 after_success:
   - sbt stage
   - git log -n 1 --pretty=oneline > commit.txt
-  - tar -zcvf lila-${TRAVIS_BRANCH}.tar.gz target/universal/stage public commit.txt
+  - tar -zcf lila-${TRAVIS_BRANCH}.tar.gz target/universal/stage public commit.txt
 
 addons:
   artifacts:
