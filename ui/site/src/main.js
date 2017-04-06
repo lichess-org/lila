@@ -531,7 +531,7 @@ lichess.notifyApp = (function() {
         saveZoom();
       }, 10);
       lichess.pubsub.on('reset_zoom', function() {
-        if (currentZoom > 1) setZoom(currentZoom);
+        if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
 
       // migrate from storage to cookie DELETE ME - 09/03/17
