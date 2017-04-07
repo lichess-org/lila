@@ -23,6 +23,7 @@ build() {
   app=$1
   echo "Building $app"
   cd ui/$app
+  rm -rf node_modules/types
   rm -rf node_modules/common
   rm -rf node_modules/chess
   rm -rf node_modules/game
