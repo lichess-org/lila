@@ -17,7 +17,6 @@ gulp.task('prod', function() {
   return browserify('./src/main.js', {
     standalone: standalone
   }).bundle()
-    .on('error', onError)
     .pipe(source('lichess.perfStat.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
@@ -27,7 +26,6 @@ gulp.task('dev', function() {
   return browserify('./src/main.js', {
     standalone: standalone
   }).bundle()
-    .on('error', onError)
     .pipe(source('lichess.perfStat.js'))
     .pipe(gulp.dest(destination));
 });

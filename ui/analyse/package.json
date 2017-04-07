@@ -26,9 +26,8 @@
     "gulp": "^3",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
-    "tsify": "^3.0.1",
-    "typescript": "^2.2.2",
-    "uglify-js": "^2",
+    "tsify": "^3",
+    "typescript": "^2",
     "vinyl-source-stream": "^1",
     "vinyl-buffer": "^1",
     "watchify": "^3"
