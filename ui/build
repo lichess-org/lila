@@ -16,6 +16,9 @@ build_ts() {
   rm -rf node_modules/chess
   npm install --no-optional
   npm run compile
+  if [ $? -ne 0 ]; then
+    exit 1;
+  fi
   cd -
 }
 
@@ -30,6 +33,9 @@ build() {
   rm -rf node_modules/tree
   rm -rf node_modules/ceval
   npm install --no-optional && gulp $target
+  if [ $? -ne 0 ]; then
+    exit 1;
+  fi
   cd -
 }
 
