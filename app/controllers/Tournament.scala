@@ -2,12 +2,13 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, PairingRepo }
+import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import views._
 
 object Tournament extends LilaController {
@@ -16,6 +17,15 @@ object Tournament extends LilaController {
   private def repo = TournamentRepo
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
+
+  private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
+    name = "tournament.home",
+    for {
+      visible <- env.api.fetchVisibleTournaments
+      scheduled <- repo.scheduledDedup
+    } yield (visible, scheduled),
+    expireAfter = _.ExpireAfterWrite(3 seconds)
+  )
 
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
@@ -26,8 +36,7 @@ object Tournament extends LilaController {
           _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
         } yield Ok(html.tournament.finishedPaginator(pag))
         else for {
-          visible <- env.api.fetchVisibleTournaments
-          scheduled <- repo.scheduledDedup
+          (visible, scheduled) <- upcomingCache.get
           finished <- finishedPaginator
           winners <- env.winners.all
           _ <- Env.user.lightUserApi preloadMany {
@@ -40,7 +49,7 @@ object Tournament extends LilaController {
         }
       },
       api = _ => for {
-        visible <- env.api.fetchVisibleTournaments
+        (visible, _) <- upcomingCache.get
         scheduleJson <- env scheduleJsonView visible
       } yield Ok(scheduleJson)
     )
@@ -197,11 +206,11 @@ object Tournament extends LilaController {
   }
 
   def limitedInvitation = Auth { implicit ctx => me =>
-    env.api.fetchVisibleTournaments.flatMap { tours =>
-      lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
-    } map {
-      case None => Redirect(routes.Tournament.home(1))
-      case Some(t) => Redirect(routes.Tournament.show(t.id))
+    for {
+      (tours, _) <- upcomingCache.get
+      res <- lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me))
+    } yield res.fold(Redirect(routes.Tournament.home(1))) { t =>
+      Redirect(routes.Tournament.show(t.id))
     }
   }
 

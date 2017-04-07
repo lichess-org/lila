@@ -75,7 +75,7 @@ object TournamentRepo {
     coll.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament](None)
 
   def publicStarted: Fu[List[Tournament]] =
-    coll.find(startedSelect ++ $doc("private" -> $doc("$exists" -> false)))
+    coll.find(startedSelect ++ $doc("private" $exists false))
       .sort($doc("createdAt" -> -1))
       .list[Tournament]()
 
@@ -87,7 +87,7 @@ object TournamentRepo {
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect ++ $doc(
       "$or" -> $arr(
-        $doc("nbPlayers" -> $doc("$gte" -> 15)),
+        $doc("nbPlayers" $gte 15),
         scheduledSelect
       )
     ))
@@ -110,44 +110,43 @@ object TournamentRepo {
 
   def setStatus(tourId: String, status: Status) = coll.update(
     $id(tourId),
-    $doc("$set" -> $doc("status" -> status.id))
+    $set("status" -> status.id)
   ).void
 
   def setNbPlayers(tourId: String, nb: Int) = coll.update(
     $id(tourId),
-    $doc("$set" -> $doc("nbPlayers" -> nb))
+    $set("nbPlayers" -> nb)
   ).void
 
   def setWinnerId(tourId: String, userId: String) = coll.update(
     $id(tourId),
-    $doc("$set" -> $doc("winner" -> userId))
+    $set("winner" -> userId)
   ).void
 
   def setFeaturedGameId(tourId: String, gameId: String) = coll.update(
     $id(tourId),
-    $doc("$set" -> $doc("featured" -> gameId))
+    $set("featured" -> gameId)
   ).void
 
   def featuredGameId(tourId: String) = coll.primitiveOne[String]($id(tourId), "featured")
 
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ $doc(
     "$or" -> $arr(
-      $doc("schedule" -> $doc("$exists" -> false)),
-      $doc("startsAt" -> $doc("$lt" -> (DateTime.now plusMinutes aheadMinutes)))
+      $doc("schedule" $exists false),
+      $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
     )
   )
 
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
-    allCreatedSelect(aheadMinutes) ++ $doc("private" -> $doc("$exists" -> false))
+    allCreatedSelect(aheadMinutes) ++ $doc("private" $exists false)
   ).sort($doc("startsAt" -> 1)).list[Tournament](none)
 
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament]().gather[List]()
 
-  private def stillWorthEntering: Fu[List[Tournament]] =
-    coll.find(startedSelect ++ $doc(
-      "private" -> $doc("$exists" -> false)
-    )).sort($doc("startsAt" -> 1)).list[Tournament](none) map {
+  private def stillWorthEntering: Fu[List[Tournament]] = coll.find(
+    startedSelect ++ $doc("private" $exists false)
+  ).sort($doc("startsAt" -> 1)).list[Tournament](none) map {
       _.filter(_.isStillWorthEntering)
     }
 
