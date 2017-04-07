@@ -74,11 +74,11 @@ class PNaClWorker extends AbstractWorker {
           this.poolOpts.onCrash((this.worker as any).lastError);
         }, true);
       });
+      document.body.appendChild(this.worker);
       this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
       this.worker.addEventListener('message', e => {
         this.protocol!.received((e as any).data);
       }, true);
-      document.body.appendChild(this.worker);
     } catch (err) {
       console.log('exception while booting pnacl', err);
       this.destroy();
