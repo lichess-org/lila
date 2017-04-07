@@ -69,7 +69,6 @@ class PNaClWorker extends AbstractWorker {
       this.worker.setAttribute('type', 'application/x-pnacl');
       this.worker.setAttribute('width', '0');
       this.worker.setAttribute('height', '0');
-      document.body.appendChild(this.worker);
       ['crash', 'error'].forEach(eventType => {
         this.worker!.addEventListener(eventType, () => {
           this.poolOpts.onCrash((this.worker as any).lastError);
@@ -79,6 +78,7 @@ class PNaClWorker extends AbstractWorker {
       this.worker.addEventListener('message', e => {
         this.protocol!.received((e as any).data);
       }, true);
+      document.body.appendChild(this.worker);
     } catch (err) {
       console.log('exception while booting pnacl', err);
       this.destroy();
