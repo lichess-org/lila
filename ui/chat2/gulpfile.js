@@ -39,7 +39,6 @@ watchedBrowserify.on("log", gutil.log);
 gulp.task('dev', function() {
   return build(true)
     .bundle()
-    .on('error', onError)
     .pipe(source('lichess.chat2.js'))
     .pipe(gulp.dest(destination));
 });

@@ -23,8 +23,8 @@ function build() {
 
 const watchedBrowserify = watchify(build());
 
-function bundle(stream) {
-  return stream
+function bundle() {
+  return watchedBrowserify
     .bundle()
     .on('error', onError)
     .pipe(source('lichess.analyse.js'))
@@ -32,18 +32,20 @@ function bundle(stream) {
     .pipe(gulp.dest(destination));
 }
 
-gulp.task('default', () => bundle(watchedBrowserify));
-watchedBrowserify.on('update', () => bundle(watchedBrowserify));
+gulp.task('default', bundle);
+watchedBrowserify.on('update', bundle);
 watchedBrowserify.on('log', gutil.log);
 
 gulp.task('dev', function() {
-  return bundle(build());
+  return build()
+    .bundle()
+    .pipe(source('lichess.analyse.js'))
+    .pipe(gulp.dest(destination));
 });
 
 gulp.task('prod', function() {
   return build()
     .bundle()
-    .on('error', onError)
     .pipe(source('lichess.analyse.min.js'))
     .pipe(buffer())
     .pipe(uglify())

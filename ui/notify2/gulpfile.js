@@ -11,7 +11,7 @@ const destination = '../../public/compiled/';
 
 function onError(error) {
   return gutil.log(gutil.colors.red(error.message));
-};
+}
 
 function build(debug) {
   return browserify('src/main.ts', {
@@ -39,7 +39,6 @@ watchedBrowserify.on("log", gutil.log);
 gulp.task('dev', function() {
   return build(true)
     .bundle()
-    .on('error', onError)
     .pipe(source('lichess.notify2.js'))
     .pipe(gulp.dest(destination));
 });
