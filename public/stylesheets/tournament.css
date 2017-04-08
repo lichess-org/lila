@@ -94,7 +94,7 @@ ol.scheduled_tournaments a {
 #tournament.marathon .fire_trophy {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 10px;
   width: 70px;
   height: 80px;
   opacity: 0.7;
