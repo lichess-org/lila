@@ -1,4 +1,5 @@
 import { GameData } from 'game';
+import { StoredBooleanProp } from 'common';
 
 export interface AnalyseController {
   study?: Study;
@@ -9,9 +10,14 @@ export interface AnalyseController {
   userJumpIfCan(path: Tree.Path): void;
   userJump(path: Tree.Path): void;
   jump(path: Tree.Path): void;
+  toggleRetro(): void;
+  jumpToGlyphSymbol(color: Color, symbol: string): void;
+
+  trans(key: string): string;
 
   data: GameData;
   tree: any; // TODO: Tree.Tree;
+  retro: RetroController | null;
 }
 
 export interface AnalyseOpts {
@@ -36,4 +42,8 @@ export interface Vm {
   mainline: Tree.Node[];
   onMainline: boolean;
   nodeList: Tree.Node[];
+  showComputer: StoredBooleanProp;
+}
+
+export interface RetroController {
 }
