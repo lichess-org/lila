@@ -2,10 +2,14 @@
 /// <reference types="types/mithril" />
 /// <reference types="types/defer-promise" />
 
+import { CevalController } from './types';
+
 import ctrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';
 import pv2san from './pv2san';
+
+export { CevalController };
 
 export { ctrl, view, winningChances, pv2san };
 
