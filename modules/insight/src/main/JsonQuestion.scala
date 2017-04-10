@@ -49,6 +49,7 @@ case class JsonQuestion(
           case OpCastling.key => build(OpCastling)
           case QueenTrade.key => build(QueenTrade)
           case MaterialRange.key => build(MaterialRange)
+          case Time.key => build(Time)
           case _ => none
         }
       }

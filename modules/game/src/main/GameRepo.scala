@@ -67,7 +67,7 @@ object GameRepo {
 
   def remove(id: ID) = coll.remove($id(id)).void
 
-  def userPovsByGameIds(gameIds: List[String], user: User): Fu[List[Pov]] =
+  def userPovsByGameIds(gameIds: List[String], user: User, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Pov]] =
     coll.byOrderedIds[Game, Game.ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =

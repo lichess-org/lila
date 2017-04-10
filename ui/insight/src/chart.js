@@ -1,10 +1,15 @@
 var m = require('mithril');
 
-function dataTypeFormat(dt) {
+function metricDataTypeFormat(dt) {
   if (dt === 'seconds') return '{point.y:.1f}';
   if (dt === 'average') return '{point.y:,.1f}';
   if (dt === 'percent') return '{point.y:.1f}%';
   return '{point.y:,.0f}';
+}
+
+function dimensionDataTypeFormat(dt) {
+  if (dt === 'date') return '{value:%Y-%m-%d}';
+  return '{value}';
 }
 
 function yAxisTypeFormat(dt) {
@@ -48,6 +53,7 @@ var theme = (function() {
 })();
 
 function makeChart(el, data) {
+  console.log(data);
   var sizeSerie = {
     name: data.sizeSerie.name,
     data: data.sizeSerie.data,
@@ -71,11 +77,14 @@ function makeChart(el, data) {
       // },
       dataLabels: {
         enabled: true,
-        format: s.stack ? '{point.percentage:.0f}%' : dataTypeFormat(s.dataType)
+        format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType)
       },
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
+        pointFormat: (function() {
+          var serie = data.xAxis.dataType === 'date' ? '{series.name:%Y-%m-%d}' : '{series.name}';
+          return '<span style="color:{point.color}">\u25CF</span> ' + serie + ': <b>' + metricDataTypeFormat(s.dataType) + '</b><br/>';
+        })(),
         shared: true,
       }
     };
@@ -101,9 +110,13 @@ function makeChart(el, data) {
       text: null
     },
     xAxis: {
-      categories: data.xAxis.categories,
+      type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
+      categories: data.xAxis.categories.map(function(v) {
+        return data.xAxis.dataType === 'date' ? v * 1000 : v;
+      }),
       crosshair: true,
       labels: {
+        format: dimensionDataTypeFormat(data.xAxis.dataType),
         style: {
           color: theme.text.weak
         }

@@ -18,7 +18,8 @@ object Chart {
 
   case class Xaxis(
     name: String,
-    categories: List[String]
+    categories: List[JsValue],
+    dataType: String
   )
 
   case class Yaxis(
@@ -59,7 +60,8 @@ object Chart {
 
     def xAxis = Xaxis(
       name = dimension.name,
-      categories = clusters.map(_.x).map(dimension.valueName)
+      categories = clusters.map(_.x).map(Dimension.valueJson(dimension) _),
+      dataType = Dimension dataTypeOf dimension
     )
 
     def sizeSerie = Serie(

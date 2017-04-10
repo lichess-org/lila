@@ -42,6 +42,15 @@ private final class AggregationPipeline {
     case Dimension.MaterialRange => materialIdDispatcher
     case d => BSONString("$" + d.dbKey)
   }
+  private sealed trait Grouping
+  private object Grouping {
+    object Group extends Grouping
+    case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
+  }
+  private def dimensionGrouping(dim: Dimension[_]): Grouping = dim match {
+    case D.Time => Grouping.BucketAuto(buckets = 12)
+    case _ => Grouping.Group
+  }
 
   private val sampleGames = Sample(10 * 1000)
   // private val sortDate = Sort(Descending(F.date))
@@ -49,11 +58,23 @@ private final class AggregationPipeline {
   private val unwindMoves = UnwindField(F.moves).some
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
-  private def group(d: Dimension[_], f: GroupFunction) = Group(dimensionGroupId(d))(
-    "v" -> f,
-    "nb" -> SumValue(1),
-    "ids" -> AddFieldToSet("_id")
-  ).some
+
+  private def group(d: Dimension[_], f: GroupFunction) = dimensionGrouping(d) match {
+    case Grouping.Group => Group(dimensionGroupId(d))(
+      "v" -> f,
+      "nb" -> SumValue(1),
+      "ids" -> AddFieldToSet("_id")
+    ).some
+    case Grouping.BucketAuto(buckets, granularity) => BucketAuto(
+      groupBy = dimensionGroupId(d),
+      buckets = buckets,
+      granularity = granularity
+    )(
+        "v" -> f,
+        "nb" -> SumValue(1),
+        "ids" -> PushField("_id") // AddToSet crashes mongodb 3.4.1 server
+      ).some
+  }
   private def groupMulti(d: Dimension[_], metricDbKey: String) = Group($doc(
     "dimension" -> dimensionGroupId(d),
     "metric" -> ("$" + metricDbKey)

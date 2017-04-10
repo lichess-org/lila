@@ -44,7 +44,8 @@ object Dependencies {
 
   object reactivemongo {
     val version = "0.12.2-SNAPSHOT"
-    val driver = ("org.reactivemongo" %% "reactivemongo" % version)
+    val versionThib = "0.12.2-SNAPSHOT-THIB"
+    val driver = ("org.reactivemongo" %% "reactivemongo" % versionThib)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
     val iteratees = ("org.reactivemongo" %% "reactivemongo-iteratees" % version)

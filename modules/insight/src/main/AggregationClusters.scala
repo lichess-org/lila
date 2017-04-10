@@ -11,15 +11,18 @@ object AggregationClusters {
       else single(question, res)
     }
 
-  private def single[X](question: Question[X], res: AggregationResult): List[Cluster[X]] =
+  private def single[X](question: Question[X], res: AggregationResult): List[Cluster[X]] = {
+    println(question)
     res.firstBatch.flatMap { doc =>
+      println(lila.db.BSON.debug(doc))
       for {
-        x <- doc.getAs[X]("_id")(question.dimension.bson)
+        x <- doc.getAs[X]("_id")(question.dimension.bson).pp
         value <- doc.getAs[BSONNumberLike]("v")
         nb <- doc.getAs[Int]("nb")
         ids <- doc.getAs[List[String]]("ids")
-      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids)
+      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids).pp
     }
+  }
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
   private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
