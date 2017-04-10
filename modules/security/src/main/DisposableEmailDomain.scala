@@ -25,7 +25,7 @@ final class DisposableEmailDomain(
   private[security] def setDomains(domains: List[String]): Unit = try {
     matchers = ("lichess.org" :: domains).map { d =>
       val r = d.replace("\\w", "[\\w-]").replace(".", "\\.")
-      val regex = s"""(.+\\.|)$r"""
+      val regex = s"""(.+\\.|)$r(\\..+)?"""
       makeMatcher(regex)
     }
     failed = false
