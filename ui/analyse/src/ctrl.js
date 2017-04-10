@@ -1,7 +1,7 @@
 var opposite = require('chessground/util').opposite;
 var tree = require('tree');
 var keyboard = require('./keyboard');
-var actionMenu = require('./actionMenu').controller;
+var ActionMenuController = require('./actionMenu').Controller;
 var autoplay = require('./autoplay').default;
 var promotion = require('./promotion');
 var util = require('./util');
@@ -39,7 +39,7 @@ module.exports = function(opts) {
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
     this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
-    this.actionMenu = new actionMenu();
+    this.actionMenu = new ActionMenuController();
     this.autoplay = new autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = new makeSocket(opts.socketSend, this);

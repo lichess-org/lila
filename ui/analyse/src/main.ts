@@ -1,3 +1,5 @@
+/// <reference types="types/lichess-jquery" />
+
 import { AnalyseController, AnalyseOpts } from './interfaces';
 
 import ctrl = require('./ctrl');

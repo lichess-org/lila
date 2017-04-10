@@ -9,6 +9,8 @@ interface Lichess {
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
+  partial<T>(f: (...someArgs: any[]) => T): (...args: any[]) => T;
+  reload(): void;
 
   fp: any
   sound: any
@@ -68,6 +70,10 @@ interface LightUser {
 
 interface Array<T> {
   find(f: (t: T) => boolean): T | undefined;
+}
+
+interface Math {
+  log2?: (x: number) => number;
 }
 
 interface WebAssemblyStatic {
