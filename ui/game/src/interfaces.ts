@@ -7,6 +7,7 @@ export interface GameData {
   simul?: Simul;
   takebackable: boolean;
   clock?: Clock;
+  analysis?: Analysis;
 }
 
 export interface Game {
@@ -36,6 +37,7 @@ export type StatusId = number;
 
 export interface Player {
   id: string;
+  name: string;
   user: User;
   spectator: boolean;
   color: Color;
@@ -46,6 +48,7 @@ export interface Player {
   isGone: boolean;
   blurs?: Blurs;
   hold?: Hold;
+  ratingDiff?: number;
 }
 
 export interface Tournament {
@@ -65,6 +68,7 @@ export type Source = 'import' | 'lobby' | 'pool';
 
 export interface User {
   online: boolean;
+  username: string;
 }
 
 export interface Ctrl {
@@ -97,4 +101,16 @@ export interface GameView {
 export interface ModView {
   blursOf(ctrl: Ctrl, player: Player): Mithril.Renderable;
   holdOf(ctrl: Ctrl, player: Player): Mithril.Renderable;
+}
+
+export interface Analysis {
+  white: AnalysisSide;
+  black: AnalysisSide;
+}
+
+export interface AnalysisSide {
+  acpl: number;
+  inaccuracy: number;
+  mistake: number;
+  blunder: number;
 }
