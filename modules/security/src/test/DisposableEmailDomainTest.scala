@@ -30,6 +30,7 @@ class DisposableEmailDomainTest extends Specification {
       d("foo.domforfb11.tk") must beTrue
       d("foo2.domforfb11.tk") must beTrue
       d("10minutemail.com") must beTrue
+      d("10minutemail.co.uk") must beTrue
       d("12hourmail.de") must beTrue
       d("30minutesmail.co") must beTrue
       d("centermail.net") must beTrue

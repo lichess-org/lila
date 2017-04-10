@@ -609,7 +609,6 @@ mailbox92.com
 mailbucket.org
 mailcat.biz
 mailcatch.*
-mailcatch.com
 maildrop.\w+
 maildx.com
 maileater.com
