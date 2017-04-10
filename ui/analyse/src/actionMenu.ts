@@ -57,7 +57,7 @@ function autoplayButtons(ctrl: AnalyseController): Mithril.Renderable {
   }));
 }
 
-function rangeConfig(read, write) {
+function rangeConfig(read: () => number, write: (number) => void) {
   return function(el, isUpdate, ctx) {
     if (isUpdate) return;
     el.value = read();
@@ -76,7 +76,7 @@ function rangeConfig(read, write) {
   };
 }
 
-function formatHashSize(v) {
+function formatHashSize(v: number): string {
   if (v < 1000) return v + 'MB';
   else return Math.round(v / 1024) + 'GB';
 }
@@ -265,7 +265,7 @@ export function view(ctrl: AnalyseController): Mithril.Renderable {
                 max: max,
                 step: 1,
                 config: rangeConfig(function() {
-                  return ceval!.multiPv();
+                  return parseInt(ceval!.multiPv());
                 }, function(v) {
                   ctrl.cevalSetMultiPv(parseInt(v));
                 })
@@ -289,7 +289,7 @@ export function view(ctrl: AnalyseController): Mithril.Renderable {
                   max: max,
                   step: 1,
                   config: rangeConfig(function() {
-                    return ceval!.threads();
+                    return parseInt(ceval!.threads());
                   }, function(v) {
                     ctrl.cevalSetThreads(parseInt(v));
                   })
@@ -313,7 +313,7 @@ export function view(ctrl: AnalyseController): Mithril.Renderable {
                     ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
                   })
                 }),
-                m('div.range_value', formatHashSize(ceval.hashSize()))
+                m('div.range_value', formatHashSize(parseInt(ceval.hashSize())))
               ]);
             })('analyse-memory')
           ] : null
