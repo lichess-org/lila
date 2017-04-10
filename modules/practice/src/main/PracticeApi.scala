@@ -46,6 +46,7 @@ final class PracticeApi(
     publishedChapters = chapters.filterNot { c =>
       PracticeStructure isChapterNameCommented c.name
     }
+    if publishedChapters.exists(_.id == sc.chapter.id)
   } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
   object config {
