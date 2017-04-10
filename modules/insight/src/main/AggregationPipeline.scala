@@ -69,16 +69,7 @@ private final class AggregationPipeline {
       "v" -> "$v"
     ))
   ).some
-  private val sliceIds = Project($doc(
-    "_id" -> true,
-    "v" -> true,
-    "nb" -> true,
-    "ids" -> $doc("$slice" -> $arr("$ids", 4))
-  )).some
-  private val sliceStackedIds = Project($doc(
-    "_id" -> true,
-    "nb" -> true,
-    "stack" -> true,
+  private val includeSomeGameIds = AddFields($doc(
     "ids" -> $doc("$slice" -> $arr("$ids", 4))
   )).some
 
@@ -101,10 +92,10 @@ private final class AggregationPipeline {
       Match(
         selectUserId(userId) ++
           gameMatcher ++
-          (dimension == Dimension.Opening).??($doc(F.eco -> $doc("$exists" -> true))) ++
+          (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
           Metric.requiresAnalysis(metric).??($doc(F.analysed -> true)) ++
           (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
-            $doc(F.provisional -> $doc("$ne" -> true))
+            $doc(F.provisional $ne true)
           }
       ),
       /* sortDate :: */ sampleGames :: ((metric match {
@@ -114,7 +105,7 @@ private final class AggregationPipeline {
           matchMoves(),
           sampleMoves,
           group(dimension, AvgField(F.moves("c"))),
-          sliceIds
+          includeSomeGameIds
         )
         case M.Material => List(
           projectForMove,
@@ -122,7 +113,7 @@ private final class AggregationPipeline {
           matchMoves(),
           sampleMoves,
           group(dimension, AvgField(F.moves("i"))),
-          sliceIds
+          includeSomeGameIds
         )
         case M.Opportunism => List(
           projectForMove,
@@ -132,28 +123,22 @@ private final class AggregationPipeline {
           group(dimension, GroupFunction("$push", $doc(
             "$cond" -> $arr("$" + F.moves("o"), 1, 0)
           ))),
-          sliceIds,
-          Project($doc(
-            "_id" -> true,
-            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))),
-            "nb" -> true,
-            "ids" -> true
+          includeSomeGameIds,
+          AddFields($doc(
+            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v")))
           )).some
         )
         case M.Luck => List(
           projectForMove,
           unwindMoves,
-          matchMoves($doc(F.moves("l") -> $doc("$exists" -> true))),
+          matchMoves($doc(F.moves("l") $exists true)),
           sampleMoves,
           group(dimension, GroupFunction("$push", $doc(
             "$cond" -> $arr("$" + F.moves("l"), 1, 0)
           ))),
-          sliceIds,
-          Project($doc(
-            "_id" -> true,
-            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))),
-            "nb" -> true,
-            "ids" -> true
+          includeSomeGameIds,
+          AddFields($doc(
+            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v")))
           )).some
         )
         case M.NbMoves => List(
@@ -162,16 +147,11 @@ private final class AggregationPipeline {
           matchMoves(),
           sampleMoves,
           group(dimension, SumValue(1)),
-          Project($doc(
-            "v" -> true,
-            "ids" -> true,
+          AddFields($doc(
             "nb" -> $doc("$size" -> "$ids")
           )).some,
-          Project($doc(
-            "v" -> $doc(
-              "$divide" -> $arr("$v", "$nb")
-            ),
-            "nb" -> true,
+          AddFields($doc(
+            "v" -> $doc("$divide" -> $arr("$v", "$nb")),
             "ids" -> $doc("$slice" -> $arr("$ids", 4))
           )).some
         )
@@ -184,25 +164,25 @@ private final class AggregationPipeline {
             "$avg",
             $doc("$divide" -> $arr("$" + F.moves("t"), 10))
           )),
-          sliceIds
+          includeSomeGameIds
         )
         case M.RatingDiff => List(
           group(dimension, AvgField(F.ratingDiff)),
-          sliceIds
+          includeSomeGameIds
         )
         case M.OpponentRating => List(
           group(dimension, AvgField(F.opponentRating)),
-          sliceIds
+          includeSomeGameIds
         )
         case M.Result => List(
           groupMulti(dimension, F.result),
           regroupStacked,
-          sliceStackedIds
+          includeSomeGameIds
         )
         case M.Termination => List(
           groupMulti(dimension, F.termination),
           regroupStacked,
-          sliceStackedIds
+          includeSomeGameIds
         )
         case M.PieceRole => List(
           projectForMove,
@@ -211,7 +191,7 @@ private final class AggregationPipeline {
           sampleMoves,
           groupMulti(dimension, F.moves("r")),
           regroupStacked,
-          sliceStackedIds
+          includeSomeGameIds
         )
       }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))
