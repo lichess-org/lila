@@ -219,8 +219,16 @@ function makeChart(el, data) {
   $(el).highcharts(chartConf);
 }
 
+function empty(txt) {
+  return m('div.chart.empty', [
+    m('i[data-icon=7]'),
+    txt
+  ]);
+}
+
 module.exports = function(ctrl) {
-  if (!ctrl.validCombinationCurrent()) return m('div', 'Invalid dimension/metric combination');
+  if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
+  if (!ctrl.vm.answer.series.length) return empty('No data. Try widening or clearing the filters.');
   return [
     m('div.chart', {
       config: function(el) {

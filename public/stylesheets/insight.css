@@ -19,6 +19,21 @@
   -webkit-filter: blur(3px);
   opacity: 0.5;
 }
+#insight .chart.empty {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  font-size: 1.5em;
+  opacity: 0.7;
+}
+#insight .chart.empty i {
+  margin-bottom: 30px;
+  display: block;
+  font-size: 200px;
+  opacity: 0.5;
+}
 
 #insight .left-side {
   position: absolute;
