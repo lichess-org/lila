@@ -58,10 +58,10 @@ private object BSONHandlers {
     def read(b: BSONInteger) = MaterialRange.byId get b.value err s"Invalid material range ${b.value}"
     def write(e: MaterialRange) = BSONInteger(e.id)
   }
-  implicit val DateRangeBSONHandler: BSONValueHandler[DateRange] =
-    Macros.handler[DateRange]
-  // implicit def ClusterRangeBSONHandler[Y: BSONValueHandler]: BSONValueHandler[ClusterRange[Y]] =
-  //   Macros.handler[ClusterRange[Y]]
+
+  implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
+
+  implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
 
   implicit def MoveBSONHandler = new BSON[Move] {
     def reads(r: BSON.Reader) = Move(

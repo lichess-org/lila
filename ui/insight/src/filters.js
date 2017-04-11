@@ -2,6 +2,7 @@ var m = require('mithril');
 
 function select(ctrl) {
   return function(dimension) {
+    if (dimension.key === 'date') return;
     return m('select', {
       multiple: true,
       config: function(e, isUpdate) {

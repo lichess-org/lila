@@ -1,7 +1,5 @@
 package lila.insight
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, Pov }
 
 case class Answer[X](
@@ -20,8 +18,6 @@ case class Cluster[X](
 
   def gameIds = insightIds.map(_ take Game.gameIdSize)
 }
-
-case class DateRange(min: DateTime, max: DateTime)
 
 sealed trait Insight
 object Insight {

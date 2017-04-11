@@ -21,36 +21,34 @@ final class JsonView {
       }.map(Dimension.valueToJson(D.Opening))
     )
 
+    val dimensionCategs = List(
+      Categ("Setup", List(
+        Json toJson D.Date,
+        Json toJson D.Period,
+        Json toJson D.Perf,
+        Json toJson D.Color,
+        Json toJson D.OpponentStrength
+      )),
+      Categ("Game", List(
+        openingJson,
+        Json toJson D.MyCastling,
+        Json toJson D.OpCastling,
+        Json toJson D.QueenTrade
+      )),
+      Categ("Move", List(
+        Json toJson D.PieceRole,
+        Json toJson D.MovetimeRange,
+        Json toJson D.MaterialRange,
+        Json toJson D.Phase
+      )),
+      Categ("Result", List(
+        Json toJson D.Termination,
+        Json toJson D.Result
+      ))
+    )
+
     Json.obj(
-      "dimensionCategs" -> List(
-        Categ("Date", List(
-          Json toJson D.Date
-        )),
-        Categ("Setup", List(
-          Json toJson D.Perf,
-          Json toJson D.Color,
-          Json toJson D.OpponentStrength
-        )),
-        //game
-        Categ("Game", List(
-          openingJson,
-          Json toJson D.MyCastling,
-          Json toJson D.OpCastling,
-          Json toJson D.QueenTrade
-        )),
-        // move
-        Categ("Move", List(
-          Json toJson D.PieceRole,
-          Json toJson D.MovetimeRange,
-          Json toJson D.MaterialRange,
-          Json toJson D.Phase
-        )),
-        // result
-        Categ("Result", List(
-          Json toJson D.Termination,
-          Json toJson D.Result
-        ))
-      ),
+      "dimensionCategs" -> dimensionCategs,
       "metricCategs" -> metricCategs,
       "presets" -> Preset.all
     )
@@ -71,7 +69,6 @@ final class JsonView {
       Json toJson M.Opportunism,
       Json toJson M.Luck
     )),
-    // result
     Categ("Result", List(
       Json toJson M.Termination,
       Json toJson M.Result,

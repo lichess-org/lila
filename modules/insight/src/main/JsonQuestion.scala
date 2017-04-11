@@ -16,6 +16,7 @@ case class JsonQuestion(
         case (filterKey, valueKeys) => {
           def build[X](dimension: Dimension[X]) = Filter[X](dimension, valueKeys.flatMap { Dimension.valueByKey(dimension, _) }).some
           filterKey match {
+            case Period.key => build(Period)
             case Perf.key => build(Perf)
             case Phase.key => build(Phase)
             case Result.key => build(Result)
@@ -36,6 +37,7 @@ case class JsonQuestion(
       question <- {
         def build[X](dimension: Dimension[X]) = Question[X](dimension, realMetric, realFilters).some
         dimension match {
+          case Date.key => build(Date)
           case Perf.key => build(Perf)
           case Phase.key => build(Phase)
           case Result.key => build(Result)
@@ -49,7 +51,6 @@ case class JsonQuestion(
           case OpCastling.key => build(OpCastling)
           case QueenTrade.key => build(QueenTrade)
           case MaterialRange.key => build(MaterialRange)
-          case Date.key => build(Date)
           case _ => none
         }
       }

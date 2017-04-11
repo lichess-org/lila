@@ -18,7 +18,7 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val description: Html
 ) {
 
-  implicit def bson = implicitly[BSONValueHandler[A]]
+  def bson = implicitly[BSONValueHandler[A]]
 
   def isInGame = position == Position.Game
   def isInMove = position == Position.Move
@@ -30,7 +30,12 @@ object Dimension {
   import Position._
   import Entry.{ BSONFields => F }
 
-  case object Date extends Dimension[DateRange](
+  case object Period extends Dimension[Period](
+    "period", "Date", F.date, Game,
+    Html("The date at which the game was played")
+  )
+
+  case object Date extends Dimension[lila.insight.DateRange](
     "date", "Date", F.date, Game,
     Html("The date at which the game was played")
   )
@@ -100,20 +105,14 @@ object Dimension {
     Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
   )
 
-  val all = List(
-    Perf, Phase, Result, Termination,
-    Color, Opening, OpponentStrength, PieceRole,
-    MyCastling, OpCastling
-  )
-  val byKey = all map { p => (p.key, p) } toMap
-
   def requiresStableRating(d: Dimension[_]) = d match {
     case OpponentStrength => true
     case _ => false
   }
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
-    case Date => Nil
+    case Period => lila.insight.Period.selector
+    case Date => Nil // Period is used instead
     case Perf => PerfType.nonPuzzle
     case Phase => lila.insight.Phase.all
     case Result => lila.insight.Result.all
@@ -129,6 +128,7 @@ object Dimension {
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
+    case Period => parseIntOption(key) map lila.insight.Period.apply
     case Date => None
     case Perf => PerfType.byKey get key
     case Phase => parseIntOption(key) flatMap lila.insight.Phase.byId.get
@@ -153,6 +153,7 @@ object Dimension {
 
   def valueKey[X](d: Dimension[X])(v: X): String = (d match {
     case Date => v.toString
+    case Period => v.days.toString
     case Perf => v.key
     case Phase => v.id
     case Result => v.id
@@ -169,6 +170,7 @@ object Dimension {
 
   def valueJson[X](d: Dimension[X])(v: X): JsValue = d match {
     case Date => JsNumber(v.min.getSeconds)
+    case Period => JsString(v.toString)
     case Perf => JsString(v.name)
     case Phase => JsString(v.name)
     case Result => JsString(v.name)
@@ -187,6 +189,9 @@ object Dimension {
     case Dimension.MovetimeRange => selected match {
       case Nil => $empty
       case xs => $doc(d.dbKey $in xs.flatMap(_.tenths.list))
+    }
+    case Dimension.Period => selected.sortBy(-_.days).headOption.fold($empty) { period =>
+      $doc(d.dbKey $gt period.min)
     }
     case _ => selected map d.bson.write match {
       case Nil => $empty

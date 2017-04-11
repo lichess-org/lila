@@ -53,7 +53,6 @@ var theme = (function() {
 })();
 
 function makeChart(el, data) {
-  console.log(data);
   var sizeSerie = {
     name: data.sizeSerie.name,
     data: data.sizeSerie.data,

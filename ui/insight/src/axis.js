@@ -44,6 +44,7 @@ module.exports = function(ctrl) {
         return m('optgroup', {
           label: categ.name
         }, categ.items.map(function(x) {
+          if (x.key === 'period') return;
           return m('option', {
             title: x.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
             value: x.key,
