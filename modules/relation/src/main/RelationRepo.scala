@@ -59,10 +59,8 @@ private[relation] object RelationRepo {
     coll.find(
       $doc("u1" -> userId, "r" -> relation),
       $doc("_id" -> true)
-    ).sort($sort.naturalAsc)
-      .hint($doc("u1" -> 1))
-      .cursor[Bdoc]()
-      .gather[List](nb).map {
+    )
+      .list[Bdoc](nb).map {
         _.flatMap { _.getAs[String]("_id") }
       } flatMap { ids =>
         coll.remove($inIds(ids)).void
