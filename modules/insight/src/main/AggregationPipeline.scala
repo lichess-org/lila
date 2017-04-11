@@ -48,7 +48,7 @@ private final class AggregationPipeline {
     case class BucketAuto(buckets: Int, granularity: Option[String] = None) extends Grouping
   }
   private def dimensionGrouping(dim: Dimension[_]): Grouping = dim match {
-    case D.Time => Grouping.BucketAuto(buckets = 12)
+    case D.Date => Grouping.BucketAuto(buckets = 12)
     case _ => Grouping.Group
   }
 
@@ -59,40 +59,57 @@ private final class AggregationPipeline {
   private val sortNb = Sort(Descending("nb")).some
   private def limit(nb: Int) = Limit(nb).some
 
-  private def group(d: Dimension[_], f: GroupFunction) = dimensionGrouping(d) match {
-    case Grouping.Group => Group(dimensionGroupId(d))(
-      "v" -> f,
-      "nb" -> SumValue(1),
-      "ids" -> AddFieldToSet("_id")
-    ).some
-    case Grouping.BucketAuto(buckets, granularity) => BucketAuto(
-      groupBy = dimensionGroupId(d),
-      buckets = buckets,
-      granularity = granularity
-    )(
-        "v" -> f,
-        "nb" -> SumValue(1),
-        "ids" -> PushField("_id") // AddToSet crashes mongodb 3.4.1 server
-      ).some
-  }
-  private def groupMulti(d: Dimension[_], metricDbKey: String) = Group($doc(
-    "dimension" -> dimensionGroupId(d),
-    "metric" -> ("$" + metricDbKey)
-  ))(
-    "v" -> SumValue(1),
-    "ids" -> AddFieldToSet("_id")
-  ).some
   private val regroupStacked = GroupField("_id.dimension")(
     "nb" -> SumField("v"),
     "ids" -> FirstField("ids"),
-    "stack" -> Push($doc(
-      "metric" -> "$_id.metric",
-      "v" -> "$v"
-    ))
-  ).some
-  private val includeSomeGameIds = AddFields($doc(
-    "ids" -> $doc("$slice" -> $arr("$ids", 4))
-  )).some
+    "stack" -> Push($doc("metric" -> "$_id.metric", "v" -> "$v"))
+  )
+
+  private val gameIdsSlice = $doc("ids" -> $doc("$slice" -> $arr("$ids", 4)))
+  private val includeSomeGameIds = AddFields(gameIdsSlice)
+  private val toPercent = $doc("v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v"))))
+
+  private def group(d: Dimension[_], f: GroupFunction): List[Option[PipelineOperator]] =
+    List(dimensionGrouping(d) match {
+      case Grouping.Group => Group(dimensionGroupId(d))(
+        "v" -> f,
+        "nb" -> SumValue(1),
+        "ids" -> AddFieldToSet("_id")
+      )
+      case Grouping.BucketAuto(buckets, granularity) => BucketAuto(dimensionGroupId(d), buckets, granularity)(
+        "v" -> f,
+        "nb" -> SumValue(1),
+        "ids" -> AddFieldToSet("_id") // AddFieldToSet crashes mongodb 3.4.1 server
+      )
+    }) map { Option(_) }
+
+  private def groupMulti(d: Dimension[_], metricDbKey: String): List[Option[PipelineOperator]] =
+    (dimensionGrouping(d) match {
+      case Grouping.Group => List[PipelineOperator](
+        Group($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
+          "v" -> SumValue(1),
+          "ids" -> AddFieldToSet("_id")
+        ),
+        regroupStacked,
+        includeSomeGameIds
+      )
+      case Grouping.BucketAuto(buckets, granularity) => List[PipelineOperator](
+        BucketAuto(dimensionGroupId(d), buckets, granularity)(
+          "doc" -> Push($doc(
+            "id" -> "$_id",
+            "metric" -> s"$$$metricDbKey"
+          ))
+        ),
+        UnwindField("doc"),
+        Group($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
+          "v" -> SumValue(1),
+          "ids" -> PushField("doc.id")
+        ),
+        regroupStacked,
+        includeSomeGameIds,
+        Sort(Ascending("_id.min"))
+      )
+    }) map { Option(_) }
 
   def apply(question: Question[_], userId: String): NonEmptyList[PipelineOperator] = {
     import question.{ dimension, metric, filters }
@@ -124,96 +141,78 @@ private final class AggregationPipeline {
           projectForMove,
           unwindMoves,
           matchMoves(),
-          sampleMoves,
-          group(dimension, AvgField(F.moves("c"))),
-          includeSomeGameIds
-        )
+          sampleMoves
+        ) :::
+          group(dimension, AvgField(F.moves("c"))) :::
+          List(includeSomeGameIds.some)
         case M.Material => List(
           projectForMove,
           unwindMoves,
           matchMoves(),
-          sampleMoves,
-          group(dimension, AvgField(F.moves("i"))),
-          includeSomeGameIds
-        )
+          sampleMoves
+        ) :::
+          group(dimension, AvgField(F.moves("i"))) :::
+          List(includeSomeGameIds.some)
         case M.Opportunism => List(
           projectForMove,
           unwindMoves,
           matchMoves($doc(F.moves("o") -> $doc("$exists" -> true))),
-          sampleMoves,
-          group(dimension, GroupFunction("$push", $doc(
-            "$cond" -> $arr("$" + F.moves("o"), 1, 0)
-          ))),
-          includeSomeGameIds,
-          AddFields($doc(
-            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v")))
-          )).some
-        )
+          sampleMoves
+        ) :::
+          group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
+          List(AddFields(gameIdsSlice ++ toPercent).some)
         case M.Luck => List(
           projectForMove,
           unwindMoves,
           matchMoves($doc(F.moves("l") $exists true)),
-          sampleMoves,
-          group(dimension, GroupFunction("$push", $doc(
-            "$cond" -> $arr("$" + F.moves("l"), 1, 0)
-          ))),
-          includeSomeGameIds,
-          AddFields($doc(
-            "v" -> $doc("$multiply" -> $arr(100, $doc("$avg" -> "$v")))
-          )).some
-        )
+          sampleMoves
+        ) :::
+          group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
+          List(AddFields(gameIdsSlice ++ toPercent).some)
         case M.NbMoves => List(
           projectForMove,
           unwindMoves,
           matchMoves(),
-          sampleMoves,
-          group(dimension, SumValue(1)),
-          AddFields($doc(
+          sampleMoves
+        ) :::
+          group(dimension, SumValue(1)) :::
+          List(
+            Project($doc(
+            "v" -> true,
+            "ids" -> true,
             "nb" -> $doc("$size" -> "$ids")
           )).some,
-          AddFields($doc(
-            "v" -> $doc("$divide" -> $arr("$v", "$nb")),
-            "ids" -> $doc("$slice" -> $arr("$ids", 4))
-          )).some
-        )
+            AddFields(
+            $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
+              gameIdsSlice
+          ).some
+          )
         case M.Movetime => List(
           projectForMove,
           unwindMoves,
           matchMoves(),
-          sampleMoves,
+          sampleMoves
+        ) :::
           group(dimension, GroupFunction(
             "$avg",
             $doc("$divide" -> $arr("$" + F.moves("t"), 10))
-          )),
-          includeSomeGameIds
-        )
-        case M.RatingDiff => List(
-          group(dimension, AvgField(F.ratingDiff)),
-          includeSomeGameIds
-        )
-        case M.OpponentRating => List(
-          group(dimension, AvgField(F.opponentRating)),
-          includeSomeGameIds
-        )
-        case M.Result => List(
-          groupMulti(dimension, F.result),
-          regroupStacked,
-          includeSomeGameIds
-        )
-        case M.Termination => List(
-          groupMulti(dimension, F.termination),
-          regroupStacked,
-          includeSomeGameIds
-        )
+          )) :::
+          List(includeSomeGameIds.some)
+        case M.RatingDiff =>
+          group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds.some)
+        case M.OpponentRating =>
+          group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds.some)
+        case M.Result =>
+          groupMulti(dimension, F.result)
+        case M.Termination =>
+          groupMulti(dimension, F.termination)
         case M.PieceRole => List(
           projectForMove,
           unwindMoves,
           matchMoves(),
-          sampleMoves,
-          groupMulti(dimension, F.moves("r")),
-          regroupStacked,
-          includeSomeGameIds
-        )
+          sampleMoves
+        ) :::
+          groupMulti(dimension, F.moves("r"))
       }) ::: (dimension match {
         case D.Opening => List(sortNb, limit(12))
         case _ => Nil

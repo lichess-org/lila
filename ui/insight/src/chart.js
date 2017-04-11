@@ -82,8 +82,7 @@ function makeChart(el, data) {
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
         pointFormat: (function() {
-          var serie = data.xAxis.dataType === 'date' ? '{series.name:%Y-%m-%d}' : '{series.name}';
-          return '<span style="color:{point.color}">\u25CF</span> ' + serie + ': <b>' + metricDataTypeFormat(s.dataType) + '</b><br/>';
+          return '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + metricDataTypeFormat(s.dataType) + '</b><br/>';
         })(),
         shared: true,
       }

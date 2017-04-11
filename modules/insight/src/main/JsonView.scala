@@ -23,8 +23,8 @@ final class JsonView {
 
     Json.obj(
       "dimensionCategs" -> List(
-        Categ("Time", List(
-          Json toJson D.Time
+        Categ("Date", List(
+          Json toJson D.Date
         )),
         Categ("Setup", List(
           Json toJson D.Perf,

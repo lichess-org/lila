@@ -30,8 +30,8 @@ object Dimension {
   import Position._
   import Entry.{ BSONFields => F }
 
-  case object Time extends Dimension[DateRange](
-    "time", "Time", F.date, Game,
+  case object Date extends Dimension[DateRange](
+    "date", "Date", F.date, Game,
     Html("The date at which the game was played")
   )
 
@@ -113,7 +113,7 @@ object Dimension {
   }
 
   def valuesOf[X](d: Dimension[X]): List[X] = d match {
-    case Time => Nil
+    case Date => Nil
     case Perf => PerfType.nonPuzzle
     case Phase => lila.insight.Phase.all
     case Result => lila.insight.Result.all
@@ -129,7 +129,7 @@ object Dimension {
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
-    case Time => None
+    case Date => None
     case Perf => PerfType.byKey get key
     case Phase => parseIntOption(key) flatMap lila.insight.Phase.byId.get
     case Result => parseIntOption(key) flatMap lila.insight.Result.byId.get
@@ -152,7 +152,7 @@ object Dimension {
   }
 
   def valueKey[X](d: Dimension[X])(v: X): String = (d match {
-    case Time => v.toString
+    case Date => v.toString
     case Perf => v.key
     case Phase => v.id
     case Result => v.id
@@ -168,7 +168,7 @@ object Dimension {
   }).toString
 
   def valueJson[X](d: Dimension[X])(v: X): JsValue = d match {
-    case Time => JsNumber(v.min.getSeconds)
+    case Date => JsNumber(v.min.getSeconds)
     case Perf => JsString(v.name)
     case Phase => JsString(v.name)
     case Result => JsString(v.name)
@@ -196,7 +196,7 @@ object Dimension {
   }
 
   def dataTypeOf[X](d: Dimension[X]): String = d match {
-    case Time => "date"
+    case Date => "date"
     case _ => "text"
   }
 }
