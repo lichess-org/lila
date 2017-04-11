@@ -131,7 +131,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       }
 
     // sadly we can't access the connection metadata
-    private val mongoWireVersion = MongoWireVersion.V32
+    private val mongoWireVersion = MongoWireVersion.V34
 
     // because mongodb collection.aggregate doesn't have the readPreference argument!
     def aggregateWithReadPreference(
