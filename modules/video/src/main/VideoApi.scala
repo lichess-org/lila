@@ -127,8 +127,7 @@ private[video] final class VideoApi(
           "tags" $in video.tags,
           "_id" $ne video.id
         )), List(
-          Project($doc(
-            "doc" -> "$$ROOT", // we could use mongodb 3.4 $addFields here to simplify
+          AddFields($doc(
             "int" -> $doc(
               "$size" -> $doc(
                 "$setIntersection" -> $arr("$tags", video.tags)
@@ -137,14 +136,12 @@ private[video] final class VideoApi(
           )),
           Sort(
             Descending("int"),
-            Descending("doc.metadata.likes")
+            Descending("metadata.likes")
           ),
           Limit(max)
         ),
         ReadPreference.secondaryPreferred
-      ).map(_.firstBatch.flatMap { obj =>
-          obj.getAs[Video]("doc")
-        }) flatMap videoViews(user)
+      ).map(_.firstBatch.flatMap(_.asOpt[Video])) flatMap videoViews(user)
     }
 
     object count {
