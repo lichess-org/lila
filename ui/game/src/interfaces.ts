@@ -8,6 +8,7 @@ export interface GameData {
   takebackable: boolean;
   clock?: Clock;
   analysis?: Analysis;
+  userAnalysis: boolean;
 }
 
 export interface Game {
@@ -22,6 +23,7 @@ export interface Game {
   winner?: Color;
   moveCentis?: number[];
   initialFen?: string;
+  importedBy?: string;
 }
 
 export interface Status {

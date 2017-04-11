@@ -1,14 +1,12 @@
-import { AnalyseController } from './interfaces';
+import { AnalyseController, AutoplayDelay } from './interfaces';
 
 import * as m from 'mithril';
 import * as control from './control';
 
-type Delay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' | 'fast' | 'slow';
-
 export default class Autoplay {
   private ctrl: AnalyseController;
   private timeout: number | undefined;
-  private delay: Delay | undefined;
+  private delay: AutoplayDelay | undefined;
 
   constructor(ctrl: AnalyseController) {
     this.ctrl = ctrl;
@@ -59,7 +57,7 @@ export default class Autoplay {
     }, this.nextDelay());
   }
 
-  start(delay: Delay): void {
+  start(delay: AutoplayDelay): void {
     this.delay = delay;
     this.stop();
     this.schedule();
@@ -72,7 +70,7 @@ export default class Autoplay {
     }
   }
 
-  toggle(delay: Delay): void {
+  toggle(delay: AutoplayDelay): void {
     if (this.active(delay)) this.stop();
     else {
       if (!this.active() && !this.move()) this.ctrl.jump('');
@@ -80,7 +78,7 @@ export default class Autoplay {
     }
   }
 
-  active(delay?: Delay): boolean {
+  active(delay?: AutoplayDelay): boolean {
     return (!delay || delay === this.delay) && !!this.timeout;
   }
 }
