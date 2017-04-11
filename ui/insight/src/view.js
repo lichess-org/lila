@@ -22,11 +22,11 @@ function cache(view, dataToKey) {
 
 var renderMeat = cache(function(ctrl) {
   if (!ctrl.vm.answer) return;
-  return m('div', [
+  return [
     chart(ctrl),
     table.vert(ctrl),
     boards(ctrl)
-  ]);
+  ];
 }, function(ctrl) {
   var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
   return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';

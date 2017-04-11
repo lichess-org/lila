@@ -95,7 +95,7 @@ function makeChart(el, data) {
     chart: {
       type: 'column',
       alignTicks: data.valueYaxis.dataType !== 'percent',
-      spacing: [20, 0, 20, 10],
+      spacing: [20, 7, 20, 5],
       backgroundColor: null,
       borderWidth: 0,
       borderRadius: 0,
@@ -118,12 +118,14 @@ function makeChart(el, data) {
       labels: {
         format: dimensionDataTypeFormat(data.xAxis.dataType),
         style: {
-          color: theme.text.weak
+          color: theme.text.weak,
+          fontSize: 9
         }
       },
       title: {
         style: {
-          color: theme.text.weak
+          color: theme.text.weak,
+          fontSize: 9
         }
       },
       gridLineColor: theme.line.weak,
@@ -140,13 +142,15 @@ function makeChart(el, data) {
         labels: {
           format: yAxisTypeFormat(a.dataType),
           style: {
-            color: theme.text.weak
+            color: theme.text.weak,
+            fontSize: 9
           }
         },
         title: {
           text: i === 1 ? a.name : false,
           style: {
-            color: theme.text.weak
+            color: theme.text.weak,
+            fontSize: 9
           }
         },
         gridLineColor: theme.line.weak,

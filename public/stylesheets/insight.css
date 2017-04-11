@@ -12,8 +12,8 @@
 }
 
 #insight .chart {
-  width: 100%;
-  height: 500px;
+  width: 846px;
+  height: 550px;
 }
 #insight .loading .chart {
   -webkit-filter: blur(3px);
@@ -31,8 +31,8 @@
 }
 
 #insight header {
-  background: #fff;
-  border: 1px solid #ccc;
+  background: #333;
+  color: #ddd;
   height: 60px;
 }
 #insight header h2 {
@@ -43,11 +43,21 @@
   font-size: 42px;
   vertical-align: top;
   line-height: 60px;
-  margin-left: 10px;
-  opacity: 0.5;
+  margin: 0 10px;
+  opacity: 0.8;
 }
 #insight header > * {
   display: inline-block;
+}
+#insight header .ms-choice {
+  background: #444;
+  color: #ddd!important;
+  border-color: #666;
+}
+#insight .meat {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: 0;
 }
 #insight .axis-form {
   float: right;
@@ -232,16 +242,12 @@ div.panel-tabs a.active {
   text-decoration: underline;
 }
 
-#insight table {
-  margin-left: 20px;
-  border: 1px solid #d4d4d4;
-  width: calc(100% - 20px);
-}
 #insight table td.data {
   font-weight: bold;
 }
 #insight .game-sample {
-  margin: 20px 0 0 20px;
+  margin: 20px 0 10px 0;
+  border-width: 1px 0 0 0;
 }
 #insight .game-sample .top {
   text-align: center;
@@ -249,7 +255,6 @@ div.panel-tabs a.active {
 #insight .game_list .cg-board-wrap {
   width: 182px;
   height: 182px;
-  margin: auto;
   position: relative;
 }
 #insight .game_list .vstext {
@@ -258,8 +263,10 @@ div.panel-tabs a.active {
   background: none;
 }
 #insight .game_list {
-  height: 218px;
   white-space: nowrap;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 #insight .game_list > div {
   display: inline-block;
