@@ -103,7 +103,7 @@ private final class AggregationPipeline {
         UnwindField("doc"),
         Group($doc("dimension" -> "$_id", "metric" -> "$doc.metric"))(
           "v" -> SumValue(1),
-          "ids" -> PushField("doc.id")
+          "ids" -> AddFieldToSet("doc.id")
         ),
         regroupStacked,
         includeSomeGameIds,
