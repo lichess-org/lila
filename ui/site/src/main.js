@@ -449,6 +449,7 @@ lichess.notifyApp = (function() {
 
       if (window.moment_locale_url) lichess.loadScript(moment_locale_url, {noVersion: true}).then(function() {
         delete window.moment_locale_url;
+        lichess.pubsub.emit('moment.locale_loaded')();
         setMoment();
       });
       else setMoment();

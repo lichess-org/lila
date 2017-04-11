@@ -11,6 +11,11 @@ function formatNumber(dt, n) {
   return numeral(n).format(f);
 }
 
+function formatSerieName(dt, n) {
+  if (dt === 'date') return moment(n * 1000).format('LL');
+  return n;
+}
+
 module.exports = {
   vert: function(ctrl) {
     var answer = ctrl.vm.answer;
@@ -27,7 +32,7 @@ module.exports = {
       ),
       m('tbody', answer.xAxis.categories.map(function(c, i) {
         return m('tr', [
-          m('th', c),
+          m('th', formatSerieName(answer.xAxis.dataType, c)),
           answer.series.map(function(serie) {
             return m('td.data', formatNumber(serie.dataType, serie.data[i]))
           }),

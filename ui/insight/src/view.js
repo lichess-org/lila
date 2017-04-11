@@ -22,14 +22,14 @@ function cache(view, dataToKey) {
 
 var renderMeat = cache(function(ctrl) {
   if (!ctrl.vm.answer) return;
-  return [
+  return m('div', [
     chart(ctrl),
     table.vert(ctrl),
     boards(ctrl)
-  ];
+  ]);
 }, function(ctrl) {
   var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
-  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) + moment.locale() : '';
 });
 
 module.exports = function(ctrl) {
