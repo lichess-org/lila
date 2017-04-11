@@ -12,15 +12,13 @@ object AggregationClusters {
     }
 
   private def single[X](question: Question[X], res: AggregationResult): List[Cluster[X]] = {
-    println(question)
     res.firstBatch.flatMap { doc =>
-      println(lila.db.BSON.debug(doc))
       for {
-        x <- doc.getAs[X]("_id")(question.dimension.bson).pp
+        x <- doc.getAs[X]("_id")(question.dimension.bson)
         value <- doc.getAs[BSONNumberLike]("v")
         nb <- doc.getAs[Int]("nb")
         ids <- doc.getAs[List[String]]("ids")
-      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids).pp
+      } yield Cluster(x, Insight.Single(Point(value.toDouble)), nb, ids)
     }
   }
 
