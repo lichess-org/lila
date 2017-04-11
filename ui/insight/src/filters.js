@@ -3,6 +3,7 @@ var m = require('mithril');
 function select(ctrl) {
   return function(dimension) {
     if (dimension.key === 'date') return;
+    var single = dimension.key === 'period';
     return m('select', {
       multiple: true,
       config: function(e, isUpdate) {
@@ -12,10 +13,11 @@ function select(ctrl) {
           width: '239px',
           selectAll: false,
           filter: dimension.key === 'opening',
-          single: dimension.key === 'period',
+          single: single,
           minimumCountSelected: 10,
-          onClick: function() {
-            ctrl.setFilter(dimension.key, $(e).multipleSelect("getSelects"));
+          onClick: function(view) {
+            var values = single ? [view.value] : $(e).multipleSelect("getSelects");
+            ctrl.setFilter(dimension.key, values);
           }
         });
       }
