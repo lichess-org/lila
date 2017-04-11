@@ -12,7 +12,7 @@ function select(ctrl) {
           width: '239px',
           selectAll: false,
           filter: dimension.key === 'opening',
-          // single: dimension.key === 'color',
+          single: dimension.key === 'period',
           minimumCountSelected: 10,
           onClick: function() {
             ctrl.setFilter(dimension.key, $(e).multipleSelect("getSelects"));
