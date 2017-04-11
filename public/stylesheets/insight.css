@@ -148,9 +148,11 @@ div.panel-tabs a.active {
 #insight .filters .ms-parent:last-child .ms-choice {
   border-bottom: 0;
 }
-#insight .filters .ms-parent:hover .ms-choice,
 #insight .filters .ms-parent.selected .ms-choice {
-  background: #fff;
+  background: linear-gradient(to right, rgba(56,147,232,0.7) 0px, rgba(56,147,232,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+}
+#insight .filters .ms-parent:hover .ms-choice {
+  background-color: #fff;
 }
 #insight .filters .ms-choice > span.placeholder {
   color: #505050;
