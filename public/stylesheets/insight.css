@@ -12,7 +12,7 @@
 }
 
 #insight .chart {
-  width: 846px;
+  width: 850px;
   height: 550px;
 }
 #insight .loading .chart {
@@ -72,6 +72,10 @@
   background: #fff;
   border: 1px solid #ccc;
   border-top: 0;
+}
+body.dark #insight .meat {
+  background: #202020;
+  border-color: #3d3d3d;
 }
 #insight .axis-form {
   float: right;
