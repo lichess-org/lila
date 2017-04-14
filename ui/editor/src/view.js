@@ -95,8 +95,9 @@ function controls(ctrl, fen) {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
       m('a.button', {
+        class: ctrl.positionLooksLegit() ? '' : 'disabled',
         onclick: function() {
-          $.modal($('.continue_with'));
+          if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
         }
       },
       m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
