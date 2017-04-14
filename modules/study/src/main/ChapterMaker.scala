@@ -18,7 +18,7 @@ private final class ChapterMaker(
 
   import ChapterMaker._
 
-  def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] = {
+  def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
     data.game.??(parsePov) flatMap {
       case None =>
         data.game.??(pgnFetch.fromUrl) map {
@@ -26,8 +26,9 @@ private final class ChapterMaker(
           case None => fromFenOrPgnOrBlank(study, data, order, userId).some
         }
       case Some(pov) => fromPov(study, pov, data, order, userId)
+    } map2 { (c: Chapter) =>
+      if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
-  }
 
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter =
     data.pgn.filter(_.trim.nonEmpty) match {

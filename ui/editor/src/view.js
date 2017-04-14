@@ -20,6 +20,29 @@ function optgroup(name, opts) {
   }, opts);
 }
 
+function studyButton(ctrl, fen) {
+  return m('form', {
+    method: 'post',
+    action: '/study/as'
+  }, [
+    m('input[type=hidden][name=orientation]', {
+      value: ctrl.bottomColor()
+    }),
+    m('input[type=hidden][name=variant]', {
+      value: 'standard'
+    }),
+    m('input[type=hidden][name=fen]', {
+      value: fen
+    }),
+    m('button.button.text', {
+      type: 'submit',
+      'data-icon': '',
+      disabled: !ctrl.positionLooksLegit()
+    },
+    'Study')
+  ]);
+}
+
 function controls(ctrl, fen) {
   var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
   var currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
@@ -32,7 +55,8 @@ function controls(ctrl, fen) {
       },
       children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
     };
-  }
+  };
+  var looksLegit = ctrl.positionLooksLegit();
   return m('div.editor-side', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
@@ -82,37 +106,40 @@ function controls(ctrl, fen) {
       m('a.button.frameless', {
         onclick: ctrl.clearBoard
       }, 'Empty board')
-    ]) : m('div', [
-      m('a.button.text[data-icon=B]', {
-        onclick: function() {
-          ctrl.chessground.toggleOrientation();
-        }
-      }, ctrl.trans('flipBoard')),
-      ctrl.positionLooksLegit() ? m('a.button.text[data-icon="A"]', {
-        href: editor.makeUrl('/analysis/', fen),
-        rel: 'nofollow'
-      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
-        rel: 'nofollow'
-      }, ctrl.trans('analysis')),
-      m('a.button', {
-        class: ctrl.positionLooksLegit() ? '' : 'disabled',
-        onclick: function() {
-          if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
-        }
-      },
-      m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
-    ]),
-    ctrl.embed ? null : m('div.continue_with', [
-      m('a.button', {
-        href: '/?fen=' + fen + '#ai',
-        rel: 'nofollow'
-      }, ctrl.trans('playWithTheMachine')),
-      m('br'),
-      m('a.button', {
-        href: '/?fen=' + fen + '#friend',
-        rel: 'nofollow'
-      }, ctrl.trans('playWithAFriend'))
-    ])
+    ]) : [
+      m('div', [
+        m('a.button.text[data-icon=B]', {
+          onclick: function() {
+            ctrl.chessground.toggleOrientation();
+          }
+        }, ctrl.trans('flipBoard')),
+        looksLegit ? m('a.button.text[data-icon="A"]', {
+          href: editor.makeUrl('/analysis/', fen),
+          rel: 'nofollow'
+        }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
+          rel: 'nofollow'
+        }, ctrl.trans('analysis')),
+        m('a.button', {
+          class: looksLegit ? '' : 'disabled',
+          onclick: function() {
+            if (ctrl.positionLooksLegit()) $.modal($('.continue_with'));
+          }
+        },
+        m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+        studyButton(ctrl, fen)
+      ]),
+      m('div.continue_with', [
+        m('a.button', {
+          href: '/?fen=' + fen + '#ai',
+          rel: 'nofollow'
+        }, ctrl.trans('playWithTheMachine')),
+        m('br'),
+        m('a.button', {
+          href: '/?fen=' + fen + '#friend',
+          rel: 'nofollow'
+        }, ctrl.trans('playWithAFriend'))
+      ])
+    ]
   ]);
 }
 
@@ -169,29 +196,29 @@ function sparePieces(ctrl, color, orientation, position) {
           selectedClass === className &&
             (
               !ctrl.chessground ||
-                !ctrl.chessground.state.draggable.current ||
-                !ctrl.chessground.state.draggable.current.newPiece
+              !ctrl.chessground.state.draggable.current ||
+              !ctrl.chessground.state.draggable.current.newPiece
             )
         ) ?
-          ' selected-square' : ''
+        ' selected-square' : ''
       );
 
-    if (s === 'trash') {
-      attrs['data-icon'] = 'q';
-      containerClass += ' trash';
-    } else if (s !== 'pointer') {
-      attrs['data-color'] = s[0];
-      attrs['data-role'] = s[1];
-    }
-
-    return m('div', {
-      class: containerClass,
-      onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
-      ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
-      ontouchmove: function(e) {
-        lastTouchMovePos = eventPosition(e)
+      if (s === 'trash') {
+        attrs['data-icon'] = 'q';
+        containerClass += ' trash';
+      } else if (s !== 'pointer') {
+        attrs['data-color'] = s[0];
+        attrs['data-role'] = s[1];
       }
-    }, m('piece', attrs));
+
+      return m('div', {
+        class: containerClass,
+        onmousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+        ontouchstart: onSelectSparePiece(ctrl, s, 'touchend'),
+        ontouchmove: function(e) {
+          lastTouchMovePos = eventPosition(e)
+        }
+      }, m('piece', attrs));
   }));
 }
 

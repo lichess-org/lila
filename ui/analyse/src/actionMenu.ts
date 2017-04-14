@@ -113,7 +113,7 @@ function studyButton(ctrl: AnalyseController) {
     m('input[type=hidden][name=fen]', {
       value: ctrl.tree.root.fen
     }),
-    ctrl.embed ? null : m('button.fbt', {
+    m('button.fbt', {
         type: 'submit'
       },
       m('i.icon', {

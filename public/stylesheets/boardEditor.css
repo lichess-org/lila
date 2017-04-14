@@ -71,7 +71,9 @@ body.dark #board_editor .spare.white {
 }
 #board_editor .button {
   display: block;
-  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
   margin-bottom: 1em;
 }
 #board_editor .button.disabled {

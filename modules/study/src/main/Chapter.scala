@@ -108,6 +108,8 @@ object Chapter {
     def compare(that: Ply) = value - that.value
   }
 
+  def defaultName(order: Int) = Name(s"Chapter $order")
+
   private val defaultNamePattern = """^Chapter \d+$""".r.pattern
   def isDefaultName(n: Name) = n.value.isEmpty || defaultNamePattern.matcher(n.value).matches
 
