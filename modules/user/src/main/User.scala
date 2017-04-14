@@ -2,7 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
-import lila.common.LightUser
+import lila.common.{ LightUser, EmailAddress }
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -120,6 +120,8 @@ object User {
   case class LightCount(user: LightUser, count: Int)
 
   case class Active(user: User)
+
+  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period

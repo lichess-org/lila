@@ -230,7 +230,7 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
-      (!isGranted(_.SetEmail, user) ?? UserRepo.email(user.id)) zip
+      UserRepo.emails(user.id) zip
         (Env.security userSpy user.id) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
         Env.mod.logApi.userHistory(user.id) zip
@@ -238,13 +238,13 @@ object User extends LilaController {
         Env.report.api.byAndAbout(user, 20) zip
         Env.pref.api.getPref(user) zip
         Env.user.noteApi.forMod(user.id) flatMap {
-          case email ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ notes =>
+          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ notes =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) zip
               Env.user.lightUserApi.preloadMany {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {
                 case (bans, _) =>
-                  html.user.mod(user, email, spy, assess, bans, history, charges, reports, pref, notes)
+                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes)
               }
         }
     }

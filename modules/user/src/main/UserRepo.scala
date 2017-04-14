@@ -339,8 +339,13 @@ object UserRepo {
   def email(id: ID, email: EmailAddress): Funit = coll.updateField($id(id), F.email, email).void
   def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
 
-  def prevEmail(id: ID, prevEmail: EmailAddress): Funit = coll.updateField($id(id), F.prevEmail, prevEmail).void
-  def prevEmail(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
+  def emails(id: ID): Fu[User.Emails] =
+    coll.find($id(id), $doc(F.email -> true, F.prevEmail -> true)).uno[Bdoc].map { doc =>
+      User.Emails(
+        current = doc.flatMap(_.getAs[EmailAddress](F.email)),
+        previous = doc.flatMap(_.getAs[EmailAddress](F.prevEmail))
+      )
+    }
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 

@@ -1,4 +1,4 @@
-@(u: User, email: Option[lila.common.EmailAddress], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -63,9 +63,12 @@
   }
   @if(isGranted(_.SetEmail)) {
   <form class="email" method="post" action="@routes.Mod.setEmail(u.username)">
-    <input type="email" value="@email" name="email" placeholder="Email address" />
+    <input type="email" value="@emails.current" name="email" placeholder="Email address" />
     <button type="submit" class="thin button" data-icon="E"></button>
   </form>
+  @emails.previous.map { email =>
+  Previously @email
+  }
   }
 </div>
 
