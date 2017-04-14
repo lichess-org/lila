@@ -1,6 +1,6 @@
 package lila.playban
 
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Duration }
 
 case class UserRecord(
     _id: String,
@@ -28,8 +28,11 @@ case class UserRecord(
     !banInEffect &&
       nbBadOutcomes >= nbBadOutcomesBeforeBan &&
       badOutcomeRatio >= 1d / 3
-  } option bans.lastOption.filterNot(_.isOld).fold(TempBan.initial) { prev =>
-    TempBan.make(prev.mins * 2)
+  } option bans.lastOption.fold(TempBan.initial) { prev =>
+    new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
+      case d if d < 3 => TempBan.make(prev.mins * 2)
+      case d => TempBan.make((prev.mins / Math.log(d).toInt) atLeast 30)
+    }
   }
 }
 
@@ -45,14 +48,12 @@ case class TempBan(
   def remainingMinutes: Int = (remainingSeconds / 60) max 1
 
   def inEffect = endsAt isAfter DateTime.now
-
-  def isOld = date isBefore DateTime.now.minusDays(3)
 }
 
 object TempBan {
   val initialMinutes = 15
   def initial = make(initialMinutes)
-  def make(minutes: Int) = TempBan(DateTime.now, minutes min 120)
+  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 24)
 }
 
 sealed abstract class Outcome(
