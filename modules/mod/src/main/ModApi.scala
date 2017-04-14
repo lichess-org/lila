@@ -1,6 +1,6 @@
 package lila.mod
 
-import lila.common.IpAddress
+import lila.common.{ IpAddress, Email }
 import lila.security.Permission
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, LightUserApi }
@@ -105,7 +105,7 @@ final class ModApi(
       lightUserApi.invalidate(user.id)
   }
 
-  def setEmail(mod: String, username: String, email: String): Funit = withUser(username) { user =>
+  def setEmail(mod: String, username: String, email: Email): Funit = withUser(username) { user =>
     UserRepo.email(user.id, email) >>
       UserRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)

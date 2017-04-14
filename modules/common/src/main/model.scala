@@ -19,4 +19,19 @@ object IpAddress {
 
   def isv4(a: IpAddress) = ipv4Regex matches a.value
   def isv6(a: IpAddress) = ipv6Regex matches a.value
+
+  def from(str: String): Option[IpAddress] = {
+    ipv4Regex.matches(str) || ipv6Regex.matches(str)
+  } option IpAddress(str)
+}
+
+case class Email(value: String) extends AnyVal with StringValue
+
+object Email {
+
+  private val regex =
+    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+
+  def from(str: String): Option[Email] =
+    regex.matches(str) option Email(str)
 }

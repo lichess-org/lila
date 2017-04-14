@@ -1,5 +1,6 @@
 package lila.mod
 
+import lila.common.{ Email, IpAddress }
 import lila.user.{ User, UserRepo }
 
 final class UserSearch(
@@ -7,29 +8,18 @@ final class UserSearch(
     emailAddress: lila.security.EmailAddress
 ) {
 
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Pattern = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r.pattern
-
-  // ipv6 in standard form
-  private val ipv6Pattern = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r.pattern
-
-  // from playframework
-  private val emailPattern =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r.pattern
-
   def apply(query: String): Fu[List[User]] =
     if (query.isEmpty) fuccess(Nil)
-    else if (emailPattern.matcher(query).matches) searchEmail(query)
-    else if (ipv4Pattern.matcher(query).matches) searchIp(query)
-    else if (ipv6Pattern.matcher(query).matches) searchIp(query)
-    else searchUsername(query)
+    else Email.from(query).map(searchEmail) orElse
+      IpAddress.from(query).map(searchIp) getOrElse
+      searchUsername(query)
 
-  private def searchIp(ip: String) =
+  private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 
-  private def searchEmail(email: String) = emailAddress.validate(email) ?? { fixed =>
+  private def searchEmail(email: Email) = emailAddress.validate(email) ?? { fixed =>
     UserRepo byEmail fixed map (_.toList)
   }
 }

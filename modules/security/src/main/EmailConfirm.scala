@@ -7,13 +7,14 @@ import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.common.String.base64
+import lila.common.Email
 import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
 
   def effective: Boolean
 
-  def send(user: User, email: String, tryNb: Int = 1): Funit
+  def send(user: User, email: Email, tryNb: Int = 1): Funit
 
   def confirm(token: String): Fu[Option[User]]
 }
@@ -22,7 +23,7 @@ object EmailConfirmSkip extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: String, tryNb: Int = 1) = UserRepo setEmailConfirmed user.id
+  def send(user: User, email: Email, tryNb: Int = 1) = UserRepo setEmailConfirmed user.id
 
   def confirm(token: String): Fu[Option[User]] = fuccess(none)
 }
@@ -41,12 +42,12 @@ final class EmailConfirmMailGun(
 
   val maxTries = 3
 
-  def send(user: User, email: String, tryNb: Int = 1): Funit = tokener make user flatMap { token =>
+  def send(user: User, email: Email, tryNb: Int = 1): Funit = tokener make user flatMap { token =>
     lila.mon.email.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(sender),
-      "to" -> Seq(email),
+      "to" -> Seq(email.value),
       "h:Reply-To" -> Seq(replyTo),
       "o:tag" -> Seq("registration"),
       "subject" -> Seq(s"Confirm your lichess.org account, ${user.username}"),
@@ -107,7 +108,7 @@ This is a service email related to your use of lichess.org. If you did not regis
 
     private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take 14
     private def getHashedEmail(userId: User.ID) = UserRepo email userId map { p =>
-      makeHash(~p) take 6
+      makeHash(p.??(_.value)) take 6
     }
     private def makePayload(userId: String, passwd: String) = s"$userId$separator$passwd"
 

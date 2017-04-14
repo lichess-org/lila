@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.common.Email
 
 final class Env(
     config: Config,
@@ -52,7 +53,7 @@ final class Env(
   def cli = new lila.common.Cli {
     def process = {
       case "user" :: "email" :: userId :: email :: Nil =>
-        UserRepo.email(User normalize userId, email) inject "done"
+        UserRepo.email(User normalize userId, Email(email)) inject "done"
     }
   }
 

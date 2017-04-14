@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import lila.common.LameName
+import lila.common.{ LameName, Email }
 import lila.user.{ User, UserRepo }
 
 final class DataForm(
@@ -103,19 +103,27 @@ object DataForm {
       `g-recaptcha-response`: Option[String]
   ) {
     def recaptchaResponse = `g-recaptcha-response`
+
+    def realEmail = Email(email)
   }
 
   case class MobileSignupData(
-    username: String,
-    password: String,
-    email: Option[String]
-  )
+      username: String,
+      password: String,
+      email: Option[String]
+  ) {
+    def realEmail = email flatMap Email.from
+  }
 
   case class PasswordReset(
-    email: String,
-    gameId: String,
-    move: String
-  )
+      email: String,
+      gameId: String,
+      move: String
+  ) {
+    def realEmail = Email(email)
+  }
 
-  case class ChangeEmail(email: String, passwd: String)
+  case class ChangeEmail(email: String, passwd: String) {
+    def realEmail = Email(email)
+  }
 }

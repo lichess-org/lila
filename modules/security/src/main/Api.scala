@@ -8,7 +8,7 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
-import lila.common.{ ApiVersion, IpAddress }
+import lila.common.{ ApiVersion, IpAddress, Email }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -38,7 +38,7 @@ final class Api(
     .verifying("Invalid username or password", _.isDefined))
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
-    emailAddress.validate(str) match {
+    emailAddress.validate(Email(str)) match {
       case Some(email) => UserRepo.checkPasswordByEmail(email)
       case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
       case _ => fuccess(none)
@@ -114,7 +114,7 @@ final class Api(
 
   def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
 
-  def recentUserIdsByIp = recentUserIdsByField("ip") _
+  def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
     coll.distinct[String, List](

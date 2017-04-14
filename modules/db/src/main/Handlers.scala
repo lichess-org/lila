@@ -6,7 +6,7 @@ import reactivemongo.bson._
 import scalaz.NonEmptyList
 
 import lila.common.Iso._
-import lila.common.{ Iso, IpAddress }
+import lila.common.{ Iso, IpAddress, Email }
 
 trait Handlers {
 
@@ -65,4 +65,6 @@ trait Handlers {
     }(breakOut)
 
   implicit val ipAddressHandler = isoHandler[IpAddress, String, BSONString](ipAddressIso)
+
+  implicit val emailHandler = isoHandler[Email, String, BSONString](emailIso)
 }

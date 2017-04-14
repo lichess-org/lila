@@ -7,6 +7,7 @@ import reactivemongo.api.commands.GetLastError
 import reactivemongo.bson._
 
 import lila.common.ApiVersion
+import lila.common.Email
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -33,12 +34,12 @@ object UserRepo {
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
-  def byEmail(email: String): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
+  def byEmail(email: Email): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
 
-  def idByEmail(email: String): Fu[Option[String]] =
+  def idByEmail(email: Email): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
 
-  def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+  def enabledByEmail(email: Email): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     coll.byIds[User](List(x, y).flatten) map { users =>
@@ -226,7 +227,7 @@ object UserRepo {
   def authenticateById(id: ID, password: String): Fu[Option[User]] =
     checkPasswordById(id) map { _ flatMap { _(password) } }
 
-  def authenticateByEmail(email: String, password: String): Fu[Option[User]] =
+  def authenticateByEmail(email: Email, password: String): Fu[Option[User]] =
     checkPasswordByEmail(email) map { _ flatMap { _(password) } }
 
   private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
@@ -238,7 +239,7 @@ object UserRepo {
   def checkPasswordById(id: ID): Fu[Option[User.LoginCandidate]] =
     checkPassword($id(id))
 
-  def checkPasswordByEmail(email: String): Fu[Option[User.LoginCandidate]] =
+  def checkPasswordByEmail(email: Email): Fu[Option[User.LoginCandidate]] =
     checkPassword($doc(F.email -> email))
 
   private def checkPassword(select: Bdoc): Fu[Option[User.LoginCandidate]] =
@@ -253,7 +254,7 @@ object UserRepo {
   def create(
     username: String,
     password: String,
-    email: Option[String],
+    email: Option[Email],
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean
@@ -319,8 +320,10 @@ object UserRepo {
 
   def disable(user: User) = coll.update(
     $id(user.id),
-    $set(F.enabled -> false) ++
-      user.lameOrTroll.fold($empty, $unset("email"))
+    $set(F.enabled -> false) ++ {
+      if (user.lameOrTroll) $empty
+      else $doc("$rename" -> $doc(F.email -> F.prevEmail))
+    }
   )
 
   def passwd(id: ID, password: String): Funit =
@@ -333,9 +336,11 @@ object UserRepo {
       }
     }
 
-  def email(id: ID, email: String): Funit = coll.updateField($id(id), F.email, email).void
+  def email(id: ID, email: Email): Funit = coll.updateField($id(id), F.email, email).void
+  def email(id: ID): Fu[Option[Email]] = coll.primitiveOne[Email]($id(id), F.email)
 
-  def email(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), F.email)
+  def prevEmail(id: ID, prevEmail: Email): Funit = coll.updateField($id(id), F.prevEmail, prevEmail).void
+  def prevEmail(id: ID): Fu[Option[Email]] = coll.primitiveOne[Email]($id(id), F.prevEmail)
 
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
@@ -416,7 +421,7 @@ object UserRepo {
   private def newUser(
     username: String,
     password: String,
-    email: Option[String],
+    email: Option[Email],
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean

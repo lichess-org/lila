@@ -1,6 +1,7 @@
 package lila.security
 
 import lila.user.User
+import lila.common.Email
 
 import play.api.data.validation._
 
@@ -10,10 +11,10 @@ import play.api.data.validation._
 final class EmailAddress(disposable: DisposableEmailDomain) {
 
   // email was already regex-validated at this stage
-  def validate(email: String): Option[String] =
+  def validate(email: Email): Option[Email] =
 
     // start by lower casing the entire address
-    email.toLowerCase
+    email.value.toLowerCase
       // separate name from domain
       .split('@') match {
 
@@ -22,19 +23,19 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
         .replace(".", "") // remove all dots
         .takeWhile('+'!=) // skip everything after the first +
         .some.filter(_.nonEmpty) // make sure something remains
-        .map(radix => s"$radix@$domain") // okay
+        .map(radix => Email(s"$radix@$domain")) // okay
 
         // disposable addresses
         case Array(_, domain) if disposable(domain) => none
 
         // other valid addresses
-        case Array(name, domain) if domain contains "." => s"$name@$domain".some
+        case Array(name, domain) if domain contains "." => Email(s"$name@$domain").some
 
         // invalid addresses
         case _ => none
       }
 
-  def isValid(email: String) = validate(email).isDefined
+  def isValid(email: Email) = validate(email).isDefined
 
   /**
    * Returns true if an E-mail address is taken by another user.
@@ -43,7 +44,7 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
    *                If they already have it assigned, returns false.
    * @return
    */
-  private def isTakenBySomeoneElse(email: String, forUser: Option[User]): Boolean = validate(email) ?? { e =>
+  private def isTakenBySomeoneElse(email: Email, forUser: Option[User]): Boolean = validate(email) ?? { e =>
     (lila.user.UserRepo.idByEmail(e) awaitSeconds 2, forUser) match {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
@@ -52,12 +53,12 @@ final class EmailAddress(disposable: DisposableEmailDomain) {
   }
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
-    if (isValid(e)) Valid
+    if (isValid(Email(e))) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    if (isTakenBySomeoneElse(e, forUser))
+    if (isTakenBySomeoneElse(Email(e), forUser))
       Invalid(ValidationError(s"Email address is already in use by another account"))
     else Valid
   }
