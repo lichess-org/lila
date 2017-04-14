@@ -24,12 +24,13 @@ body #themepicker div.is3d,
 #themepicker div.theme,
 #themepicker div.no-square {
   float: left;
-  padding: 7px;
+  padding: 5px;
   cursor: pointer;
   transition: background 0.13s;
 }
 .is2d #themepicker div.theme {
-  padding: 7px 9px 9px 7px;
+  padding: 5px 8px;
+  margin: -1px 0;
 }
 #themepicker div.theme:hover {
   background: #f0f0f0;
@@ -44,7 +45,6 @@ body #themepicker div.is3d,
 .is3d #themepicker div.color_demo {
   width: 66px;
   height: 30px;
-  margin-bottom: 4px;
   border: none;
   position: relative;
 }
@@ -56,12 +56,12 @@ body #themepicker div.is3d,
 #themepicker div.no-square:hover {
   background: rgba(250, 250, 250, 0.15);
 }
-#themepicker .no-square {
-  width: 72px;
-  height: 72px;
-  padding: 8px;
+#themepicker div.no-square {
+  width: 48px;
+  height: 48px;
+  padding: 5.5px;
   position: relative;
-  margin: 0 -3px -3px -3px;
+  margin: 0 -3px 0px -3px;
 }
 #themepicker piece {
   width: 100%;
