@@ -34,9 +34,9 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   })();
 
   var notif = notifCtrl();
-  var form = studyFormCtrl(function(data, isNew) {
-    send("editStudy", data);
-    if (isNew && ctrl.data.game.variant.key === 'standard' && ctrl.vm.mainline.length === 1)
+  var form = studyFormCtrl(function(d, isNew) {
+    send("editStudy", d);
+    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.vm.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();
   }, function() {
     return data;
