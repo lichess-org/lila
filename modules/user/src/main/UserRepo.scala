@@ -337,7 +337,9 @@ object UserRepo {
       }
     }
 
-  def email(id: ID, email: EmailAddress): Funit = coll.updateField($id(id), F.email, email).void
+  def email(id: ID, email: EmailAddress): Funit =
+    coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
+
   def email(id: ID): Fu[Option[EmailAddress]] = coll.primitiveOne[EmailAddress]($id(id), F.email)
 
   def emails(id: ID): Fu[User.Emails] =
