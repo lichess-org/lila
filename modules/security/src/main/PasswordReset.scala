@@ -5,7 +5,7 @@ import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 
 import lila.common.String.base64
-import lila.common.Email
+import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
@@ -17,7 +17,7 @@ final class PasswordReset(
     secret: String
 ) {
 
-  def send(user: User, email: Email): Funit = tokener make user flatMap { token =>
+  def send(user: User, email: EmailAddress): Funit = tokener make user flatMap { token =>
     lila.mon.email.resetPassword()
     val url = s"$baseUrl/password/reset/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(

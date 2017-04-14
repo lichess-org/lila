@@ -8,7 +8,7 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 
-import lila.common.{ ApiVersion, IpAddress, Email }
+import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -17,7 +17,7 @@ final class Api(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
-    emailAddress: EmailAddress
+    emailValidator: EmailAddressValidator
 ) {
 
   val AccessUri = "access_uri"
@@ -38,7 +38,7 @@ final class Api(
     .verifying("Invalid username or password", _.isDefined))
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
-    emailAddress.validate(Email(str)) match {
+    emailValidator.validate(EmailAddress(str)) match {
       case Some(email) => UserRepo.checkPasswordByEmail(email)
       case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
       case _ => fuccess(none)

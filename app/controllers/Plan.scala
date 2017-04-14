@@ -5,7 +5,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
-import lila.common.Email
+import lila.common.EmailAddress
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -45,7 +45,7 @@ object Plan extends LilaController {
       renderIndex(email, patron = none)
     }
 
-  private def renderIndex(email: Option[Email], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
+  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
     recentIds <- Env.plan.api.recentChargeUserIds
     bestIds <- Env.plan.api.topPatronUserIds
     _ <- Env.user.lightUserApi preloadMany { recentIds ::: bestIds }
@@ -60,7 +60,7 @@ object Plan extends LilaController {
   private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit ctx: Context) =
     Env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
-      case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email map Email.apply, patron.some)
+      case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None => UserRepo email me.id flatMap { email =>
         renderIndex(email, patron.some)
       }

@@ -7,14 +7,14 @@ import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.common.String.base64
-import lila.common.Email
+import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
 
   def effective: Boolean
 
-  def send(user: User, email: Email, tryNb: Int = 1): Funit
+  def send(user: User, email: EmailAddress, tryNb: Int = 1): Funit
 
   def confirm(token: String): Fu[Option[User]]
 }
@@ -23,7 +23,7 @@ object EmailConfirmSkip extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: Email, tryNb: Int = 1) = UserRepo setEmailConfirmed user.id
+  def send(user: User, email: EmailAddress, tryNb: Int = 1) = UserRepo setEmailConfirmed user.id
 
   def confirm(token: String): Fu[Option[User]] = fuccess(none)
 }
@@ -42,7 +42,7 @@ final class EmailConfirmMailGun(
 
   val maxTries = 3
 
-  def send(user: User, email: Email, tryNb: Int = 1): Funit = tokener make user flatMap { token =>
+  def send(user: User, email: EmailAddress, tryNb: Int = 1): Funit = tokener make user flatMap { token =>
     lila.mon.email.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
     WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(

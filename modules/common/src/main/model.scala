@@ -25,13 +25,13 @@ object IpAddress {
   } option IpAddress(str)
 }
 
-case class Email(value: String) extends AnyVal with StringValue
+case class EmailAddress(value: String) extends AnyVal with StringValue
 
-object Email {
+object EmailAddress {
 
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
-  def from(str: String): Option[Email] =
-    regex.matches(str) option Email(str)
+  def from(str: String): Option[EmailAddress] =
+    regex.matches(str) option EmailAddress(str)
 }

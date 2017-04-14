@@ -2,7 +2,7 @@ package controllers
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ IpAddress, Email }
+import lila.common.{ IpAddress, EmailAddress }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -118,7 +118,7 @@ object Mod extends LilaController {
       Env.security.forms.modEmail(user).bindFromRequest.fold(
         err => BadRequest(err.toString).fuccess,
         rawEmail => {
-          val email = Env.security.emailAddress.validate(Email(rawEmail)) err s"Invalid email ${rawEmail}"
+          val email = Env.security.emailAddressValidator.validate(EmailAddress(rawEmail)) err s"Invalid email ${rawEmail}"
           modApi.setEmail(me.id, user.id, email) inject redirect(user.username, mod = true)
         }
       )

@@ -5,7 +5,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.PimpedJson._
-import lila.common.{ LilaCookie, Email }
+import lila.common.{ LilaCookie, EmailAddress }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -98,7 +98,7 @@ object Account extends LilaController {
         FormFuResult(Env.security.forms.changeEmail(me)) { err =>
           fuccess(html.account.email(me, err))
         } { data =>
-          val email = Env.security.emailAddress.validate(Email(data.email)) err s"Invalid email ${data.email}"
+          val email = Env.security.emailAddressValidator.validate(EmailAddress(data.email)) err s"Invalid email ${data.email}"
           for {
             ok ← UserRepo.authenticateById(me.id, data.passwd).map(_.isDefined)
             _ ← ok ?? UserRepo.email(me.id, email)

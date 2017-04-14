@@ -4,12 +4,12 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import lila.common.{ LameName, Email }
+import lila.common.{ LameName, EmailAddress }
 import lila.user.{ User, UserRepo }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
-    emailAddress: EmailAddress
+    emailValidator: EmailAddressValidator
 ) extends lila.hub.CaptchedForm {
 
   import DataForm._
@@ -25,9 +25,9 @@ final class DataForm(
   def emptyWithCaptcha = withCaptcha(empty)
 
   private val anyEmail = nonEmptyText.verifying(Constraints.emailAddress)
-  private val acceptableEmail = anyEmail.verifying(emailAddress.acceptableConstraint)
+  private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
-    acceptableEmail.verifying(emailAddress uniqueConstraint forUser)
+    acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
 
   object signup {
 
@@ -104,7 +104,7 @@ object DataForm {
   ) {
     def recaptchaResponse = `g-recaptcha-response`
 
-    def realEmail = Email(email)
+    def realEmail = EmailAddress(email)
   }
 
   case class MobileSignupData(
@@ -112,7 +112,7 @@ object DataForm {
       password: String,
       email: Option[String]
   ) {
-    def realEmail = email flatMap Email.from
+    def realEmail = email flatMap EmailAddress.from
   }
 
   case class PasswordReset(
@@ -120,10 +120,10 @@ object DataForm {
       gameId: String,
       move: String
   ) {
-    def realEmail = Email(email)
+    def realEmail = EmailAddress(email)
   }
 
   case class ChangeEmail(email: String, passwd: String) {
-    def realEmail = Email(email)
+    def realEmail = EmailAddress(email)
   }
 }

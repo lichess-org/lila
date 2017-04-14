@@ -25,7 +25,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
-    emailAddress: lila.security.EmailAddress
+    emailValidator: lila.security.EmailAddressValidator
 ) {
 
   private object settings {
@@ -93,7 +93,7 @@ final class Env(
 
   lazy val search = new UserSearch(
     securityApi = securityApi,
-    emailAddress = emailAddress
+    emailValidator = emailValidator
   )
 
   lazy val jsonView = new JsonView(
@@ -145,6 +145,6 @@ object Env {
     relationApi = lila.relation.Env.current.api,
     userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
-    emailAddress = lila.security.Env.current.emailAddress
+    emailValidator = lila.security.Env.current.emailAddressValidator
   )
 }

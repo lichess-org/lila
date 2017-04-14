@@ -118,7 +118,7 @@ object Auth extends LilaController {
                 ) flatMap { mustConfirmEmail =>
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
-                  val email = env.emailAddress.validate(data.realEmail) err s"Invalid email ${data.email}"
+                  val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   UserRepo.create(data.username, data.password, email.some, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirmEmail)
                     .flatten(s"No user could be created for ${data.username}")
@@ -139,7 +139,7 @@ object Auth extends LilaController {
               val mustConfirmEmail = false
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
-              val email = data.realEmail flatMap env.emailAddress.validate
+              val email = data.realEmail flatMap env.emailAddressValidator.validate
               UserRepo.create(data.username, data.password, email, false, apiVersion.some,
                 mustConfirmEmail = mustConfirmEmail)
                 .flatten(s"No user could be created for ${data.username}") flatMap authenticateUser
@@ -203,7 +203,7 @@ object Auth extends LilaController {
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
       data => {
-        val email = env.emailAddress.validate(data.realEmail) | data.realEmail
+        val email = env.emailAddressValidator.validate(data.realEmail) | data.realEmail
         UserRepo enabledByEmail email flatMap {
           case Some(user) =>
             Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))

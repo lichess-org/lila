@@ -1,4 +1,4 @@
-@(u: User, email: Option[lila.common.Email], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, email: Option[lila.common.EmailAddress], spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref

@@ -71,7 +71,7 @@ final class Env(
 
   lazy val forms = new DataForm(
     captcher = captcher,
-    emailAddress = emailAddress
+    emailValidator = emailAddressValidator
   )
 
   lazy val geoIP = new GeoIP(
@@ -108,7 +108,7 @@ final class Env(
     secret = LoginTokenSecret
   )
 
-  lazy val emailAddress = new EmailAddress(disposableEmailDomain)
+  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
@@ -122,7 +122,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(storeColl, firewall, geoIP, emailAddress)
+  lazy val api = new Api(storeColl, firewall, geoIP, emailAddressValidator)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain, enabled = CsrfEnabled)
 

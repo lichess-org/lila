@@ -27,5 +27,5 @@ object Iso {
 
   implicit val ipAddressIso = string[IpAddress](IpAddress.apply, _.value)
 
-  implicit val emailIso = string[Email](Email.apply, _.value)
+  implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
 }
