@@ -30,7 +30,7 @@ case class UserRecord(
       badOutcomeRatio >= 1d / 3
   } option bans.lastOption.fold(TempBan.initial) { prev =>
     new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
-      case d if d < 3 => TempBan.make(prev.mins * 2)
+      case d if d < 3 => TempBan.make(prev.mins * 3)
       case d => TempBan.make((prev.mins / Math.log(d).toInt) atLeast 30)
     }
   }
@@ -53,7 +53,7 @@ case class TempBan(
 object TempBan {
   val initialMinutes = 15
   def initial = make(initialMinutes)
-  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 24)
+  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 18)
 }
 
 sealed abstract class Outcome(
