@@ -47,19 +47,3 @@ object KamonPusher {
   def start(system: ActorSystem)(instance: => Actor) =
     system.lilaBus.subscribe(system.actorOf(Props(instance)), 'nbMembers, 'nbRounds)
 }
-
-import com.typesafe.config.Config
-import kamon.statsd.SimpleMetricKeyGenerator
-
-// don't replace . with _
-// replace / with .
-class KeepDotsMetricKeyGenerator(config: Config) extends SimpleMetricKeyGenerator(config) {
-
-  override def createNormalizer(strategy: String): Normalizer = strategy match {
-    case "keep-dots" => (s: String) ⇒ s
-      .replace(": ", "-")
-      .replace(" ", "_")
-      .replace("/", ".")
-    case _ => super.createNormalizer(strategy)
-  }
-}

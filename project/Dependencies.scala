@@ -65,7 +65,6 @@ object Dependencies {
   object kamon {
     val version = "0.6.4.2-LILA"
     val core = "io.kamon" %% "kamon-core" % version
-    val statsd = "io.kamon" %% "kamon-statsd" % version
     val influxdb = "io.kamon" %% "kamon-influxdb" % version
   }
 }

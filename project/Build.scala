@@ -36,7 +36,7 @@ object ApplicationBuild extends Build {
         scalaz, scalalib, hasher, config, apache,
         jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
-        kamon.core, kamon.statsd, kamon.influxdb,
+        kamon.core, kamon.influxdb,
         java8compat, semver, scrimage, configs, scaffeine),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
@@ -72,7 +72,7 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= provided(
         play.api, hasher, config, apache, jgit, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
-        kamon.core, kamon.statsd, kamon.influxdb)
+        kamon.core, kamon.influxdb)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
