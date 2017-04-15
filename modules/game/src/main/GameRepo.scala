@@ -191,9 +191,7 @@ object GameRepo {
       Query.notFromPosition
   ).sort(Query.sortAntiChronological).uno[Game]
 
-  def setTv(id: ID) {
-    coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
-  }
+  def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
   def onTv(nb: Int): Fu[List[Game]] = coll.find($doc(F.tvAt $exists true))
     .sort($sort desc F.tvAt)
