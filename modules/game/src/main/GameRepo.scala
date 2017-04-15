@@ -414,7 +414,7 @@ object GameRepo {
       _.fold(game) { o =>
         game.copy(
           updatedAt = o.getAs[DateTime](F.updatedAt),
-          metadata = game.metadata.copy(tvAt = o.getAs[DateTime](F.updatedAt))
+          metadata = game.metadata.copy(tvAt = o.getAs[DateTime](F.tvAt))
         )
       }
     }
