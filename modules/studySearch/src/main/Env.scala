@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.paginator._
 import lila.hub.LateMultiThrottler
+import lila.hub.actorApi.study.RemoveStudy
 import lila.search._
 import lila.study.Study
 import lila.user.User
@@ -55,7 +56,7 @@ final class Env(
     import lila.study.actorApi._
     def receive = {
       case SaveStudy(study) => api store study
-      case RemoveStudy(id) => client deleteById Id(id.value)
+      case RemoveStudy(id, _) => client deleteById Id(id)
     }
   })), 'study)
 }

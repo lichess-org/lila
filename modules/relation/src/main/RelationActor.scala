@@ -77,10 +77,10 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
-      contributorsIn(contributors, studyId) foreach { c =>
-        online.studying invalidate c
-        notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
-      }
+      studyBecamePrivateOrDeleted(studyId, contributors)
+
+    case lila.hub.actorApi.study.RemoveStudy(studyId, contributors) =>
+      studyBecamePrivateOrDeleted(studyId, contributors)
 
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
       contributorsIn(contributors, studyId) foreach { c =>
@@ -89,7 +89,7 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
-      if (online.isStudying(userId, studyId)) {
+      if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
@@ -99,6 +99,13 @@ private[relation] final class RelationActor(
         online.studying invalidate userId
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
       }
+  }
+
+  private def studyBecamePrivateOrDeleted(studyId: String, contributors: Set[ID]) = {
+    contributorsIn(contributors, studyId) foreach { c =>
+      online.studying invalidate c
+      notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
+    }
   }
 
   private def contributorsIn(contributors: Set[ID], studyId: String) = {
