@@ -30,7 +30,7 @@ window.onload = function() {
     });
     $('.lichess_overboard').find('form.accept').submit(function() {
       accepting = true;
-      $(this).html(lichess.spinnerHtml);
+      $(this).html('<span class="ddloader"></span>');
     });
     $('.lichess_overboard').find('form.xhr').submit(function(e) {
       e.preventDefault();
@@ -38,7 +38,7 @@ window.onload = function() {
         url: $(this).attr('action'),
         method: 'post'
       });
-      $(this).html(lichess.spinnerHtml);
+      $(this).html('<span class="ddloader"></span>');
     });
     $('.lichess_overboard').find('input.friend-autocomplete').each(function() {
       var $input = $(this);
