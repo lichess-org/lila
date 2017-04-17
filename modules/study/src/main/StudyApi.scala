@@ -459,7 +459,7 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      bus.publish(actorApi.RemoveStudy(study.id), 'study) >>-
+      bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), 'study) >>-
       lightStudyCache.put(study.id, none)
   }
 
