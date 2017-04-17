@@ -136,7 +136,7 @@ final class ChatApi(
       }
   }
 
-  private[chat] def remove(chatId: String) = coll.remove($id(chatId))
+  private[chat] def remove(chatId: String) = coll.remove($id(chatId)).void
 
   private def pushLine(chatId: ChatId, line: Line): Funit = coll.update(
     $id(chatId),
@@ -155,14 +155,17 @@ final class ChatApi(
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = noShouting(delocalize(noPrivateUrl(in)))
+    def preprocessUserInput(in: String) = multiline(noShouting(delocalize(noPrivateUrl(in))))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     val delocalize = new lila.common.String.Delocalizer(netDomain)
-    val domainRegex = netDomain.replace(".", """\.""")
-    val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
-    def noPrivateUrl(str: String): String =
+
+    private val domainRegex = netDomain.replace(".", """\.""")
+    private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
+    private def noPrivateUrl(str: String): String =
       gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
+    private val multilineRegex = """\n{3,}""".r
+    private def multiline(str: String) = multilineRegex.replaceAllIn(str, """\n\n""")
   }
 
   private object noShouting {
