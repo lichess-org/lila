@@ -28,6 +28,8 @@ final class OnlineDoing(
 
   def isStudying(userId: User.ID, studyId: StudyId) = studying.getIfPresent(userId) has studyId
 
+  def isStudyingOrWatching(userId: User.ID, studyId: StudyId) = studyingAll.getIfPresent(userId) has studyId
+
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
     api fetchFollowing userId map userIds.intersect map { friends =>
       OnlineFriends(

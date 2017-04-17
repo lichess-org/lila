@@ -89,7 +89,7 @@ private[relation] final class RelationActor(
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
-      if (online.isStudying(userId, studyId)) {
+      if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
         notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
       }
