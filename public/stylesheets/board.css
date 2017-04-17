@@ -836,6 +836,13 @@ div.control .button.disabled {
   padding: 2em 0;
   font-size: 1.2em;
 }
+.lichess_ground .follow_up .weak {
+  font-weight: normal;
+  padding: 6px 0;
+}
+.lichess_ground .follow_up .weak::before {
+  opacity: 0.7;
+}
 div.cemetery {
   flex: 0 0 32px;
   line-height: 0;

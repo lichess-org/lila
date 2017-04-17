@@ -174,6 +174,10 @@ module.exports = {
         href: '/tournament/' + d.tournament.id,
         config: util.bindOnce('click', ctrl.setRedirecting)
       }, ctrl.trans('backToTournament')),
+     m('form', {		
+        method: 'post',		
+        action: '/tournament/' + d.tournament.id + '/withdraw'		
+      }, m('button.text.button.weak[data-icon=Z]', 'Pause')),
       analysisButton(ctrl)
     ]);
   },
