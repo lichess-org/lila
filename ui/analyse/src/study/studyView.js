@@ -170,12 +170,12 @@ module.exports = {
     var glyphForm = glyphFormView(ctrl.study.glyphForm);
     var commentForm = commentFormView(ctrl.study.commentForm);
     return [
+      notifView(ctrl.study.notif),
       glyphForm,
       currentCommentsView(ctrl, !commentForm),
       commentForm,
       buttons(ctrl),
-      metadata(ctrl.study, ctrl.tree.root),
-      notifView(ctrl.study.notif)
+      metadata(ctrl.study, ctrl.tree.root)
     ];
   }
 };
