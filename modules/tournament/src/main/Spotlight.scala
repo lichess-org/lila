@@ -40,7 +40,7 @@ object Spotlight {
         l.plusWeeks(weeks) isAfter DateTime.now
       }
       sched.freq match {
-        case Hourly => false
+        case Hourly => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
         case Daily | Eastern => playedSinceWeeks(2)
         case Weekly | Weekend => playedSinceWeeks(4)
         case Unique => playedSinceWeeks(4)
@@ -49,4 +49,10 @@ object Spotlight {
       }
     }
   }
+
+  private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
+    tour.conditions.isRatingLimited &&
+      tour.conditions.nbRatedGame.fold(true) { c => c(user).accepted } &&
+      tour.conditions.minRating.fold(true) { c => c(user).accepted } &&
+      tour.conditions.maxRating.fold(true)(_ maybe user)
 }

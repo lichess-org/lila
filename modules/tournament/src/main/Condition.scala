@@ -46,7 +46,7 @@ object Condition {
 
   case class MaxRating(perf: PerfType, rating: Int) extends Condition {
 
-    def apply(getMaxRating: GetMaxRating)(user: User) =
+    def apply(getMaxRating: GetMaxRating)(user: User): Fu[Verdict] =
       if (user.perfs(perf).provisional) fuccess(Refused(s"Provisional ${perf.name} rating"))
       else if (user.perfs(perf).intRating > rating) fuccess(Refused {
         s"${perf.name} rating (${user.perfs(perf).intRating}) is too high"
@@ -55,6 +55,9 @@ object Condition {
         case r if r <= rating => Accepted
         case r => Refused(s"Top weekly ${perf.name} rating ($r) is too high")
       }
+
+    def maybe(user: User): Boolean =
+      !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
 
     def name = s"Rated ≤ $rating in ${perf.name}"
   }
@@ -92,6 +95,8 @@ object Condition {
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
     def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
+
+    def isRatingLimited = maxRating.isDefined || minRating.isDefined
   }
 
   object All {
