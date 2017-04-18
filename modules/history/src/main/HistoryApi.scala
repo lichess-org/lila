@@ -2,6 +2,7 @@ package lila.history
 
 import org.joda.time.{ DateTime, Days }
 import reactivemongo.bson._
+import reactivemongo.api.ReadPreference
 
 import chess.Speed
 import lila.db.dsl._
@@ -61,12 +62,18 @@ final class HistoryApi(coll: Coll) {
     coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
 
   def lastWeekTopRating(user: User, perf: PerfType): Fu[Int] = {
-    val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
-    ratingsMap(user, perf) map { ratings =>
-      ratings.foldLeft(user.perfs(perf).intRating) {
-        case (rating, (d, r)) if d >= days && r > rating => r
-        case (rating, _) => rating
+    val currentRating = user.perfs(perf).intRating
+    val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1) to daysBetween(user.createdAt, DateTime.now)
+    val project = BSONDocument(days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) })
+    coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
+      _.flatMap {
+        _.getAs[Bdoc](perf.key) map {
+          _.stream.foldLeft(currentRating) {
+            case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
+            case (max, _) => max
+          }
+        }
       }
-    }
+    } getOrElse fuccess(currentRating)
   }
 }
