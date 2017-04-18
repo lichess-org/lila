@@ -12,13 +12,11 @@ private final class Streaming(
     streamerList: StreamerList,
     keyword: String,
     googleApiKey: String,
-    hitboxUrl: String,
     twitchClientId: String
 ) {
 
   import Streaming._
   import Twitch.Reads._
-  import Hitbox.Reads._
   import Youtube.Reads._
 
   def onAir: Fu[List[StreamOnAir]] = {
@@ -68,32 +66,20 @@ private final class Streaming(
 
       case Search => streamerList.get.map(_.filter(_.featured)).foreach { streamers =>
         val max = 5
-        val twitch = hitboxUrl.nonEmpty ?? {
-          WS.url("https://api.twitch.tv/kraken/streams")
-            .withQueryString("channel" -> streamers.filter(_.twitch).map(_.streamerName).mkString(","))
-            .withHeaders(
-              "Accept" -> "application/vnd.twitchtv.v3+json",
-              "Client-ID" -> twitchClientId
-            )
-            .get() map { res =>
-              res.json.validate[Twitch.Result] match {
-                case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
-                case JsError(err) =>
-                  logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
-                  Nil
-              }
-            }
-        }
-        val hitbox = hitboxUrl.nonEmpty ?? {
-          WS.url(hitboxUrl + streamers.filter(_.hitbox).map(_.streamerName).mkString(",")).get() map { res =>
-            res.json.validate[Hitbox.Result] match {
+        val twitch = WS.url("https://api.twitch.tv/kraken/streams")
+          .withQueryString("channel" -> streamers.filter(_.twitch).map(_.streamerName).mkString(","))
+          .withHeaders(
+            "Accept" -> "application/vnd.twitchtv.v3+json",
+            "Client-ID" -> twitchClientId
+          )
+          .get() map { res =>
+            res.json.validate[Twitch.Result] match {
               case JsSuccess(data, _) => data.streamsOnAir(streamers) filter (_.name.toLowerCase contains keyword) take max
               case JsError(err) =>
-                logger.warn(s"hitbox ${res.status} $err ${~res.body.lines.toList.headOption}")
+                logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
-        }
         val youtube = googleApiKey.nonEmpty ?? {
           WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
             "part" -> "snippet",
@@ -110,7 +96,7 @@ private final class Streaming(
               }
             }
         }
-        (twitch |+| hitbox |+| youtube) map { ss =>
+        (twitch |+| youtube) map { ss =>
           StreamsOnAir {
             ss.foldLeft(List.empty[StreamOnAir]) {
               case (acc, s) if acc.exists(_.id == s.id) => acc

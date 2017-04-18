@@ -23,7 +23,6 @@ final class Env(
   private val StreamingSearch = config duration "streaming.search"
   private val GoogleApiKey = config getString "streaming.google.api_key"
   private val Keyword = config getString "streaming.keyword"
-  private val HitboxUrl = config getString "streaming.hitbox.url"
   private val TwitchClientId = config getString "streaming.twitch.client_id"
   private val ChannelSelect = config getString "channel.select.name "
 
@@ -43,7 +42,6 @@ final class Env(
     streamerList = streamerList,
     keyword = Keyword,
     googleApiKey = GoogleApiKey,
-    hitboxUrl = HitboxUrl,
     twitchClientId = TwitchClientId
   )
 

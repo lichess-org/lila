@@ -29,7 +29,6 @@ final class StreamerList(
         Streamer(
           service = c getString "service" match {
             case s if s == "twitch" => Twitch
-            case s if s == "hitbox" => Hitbox
             case s if s == "youtube" => Youtube
             case s => sys error s"Invalid service name: $s"
           },
@@ -72,11 +71,9 @@ object StreamerList {
 
   sealed trait Service
   case object Twitch extends Service
-  case object Hitbox extends Service
   case object Youtube extends Service
 
   def findTwitch = find(Twitch) _
-  def findHitbox = find(Hitbox) _
   def findYoutube = find(Youtube) _
   def find(service: Service)(streamers: List[Streamer])(name: String) =
     streamers.find { s =>
@@ -95,7 +92,6 @@ object StreamerList {
     def showStreamerName = streamerNameForDisplay | streamerName
 
     def twitch = service == Twitch
-    def hitbox = service == Hitbox
     def youtube = service == Youtube
 
     def id = s"$streamerName@${service.toString.toLowerCase}"

@@ -43,29 +43,6 @@ object Twitch {
   }
 }
 
-object Hitbox {
-  case class Channel(channel_link: String)
-  case class Stream(channel: Channel, media_name: String, media_user_name: String, media_status: String, media_is_live: String)
-  case class Result(livestream: List[Stream]) {
-    def streamsOnAir(streamers: List[Streamer]) = livestream.flatMap { s =>
-      for {
-        streamer <- StreamerList.findHitbox(streamers)(s.media_user_name)
-        if s.media_is_live == "1"
-      } yield StreamOnAir(
-        streamer = streamer,
-        name = s.media_status,
-        url = s.channel.channel_link,
-        streamId = s.media_name
-      )
-    }
-  }
-  object Reads {
-    implicit val hitboxChannelReads = Json.reads[Channel]
-    implicit val hitboxStreamReads = Json.reads[Stream]
-    implicit val hitboxResultReads = Json.reads[Result]
-  }
-}
-
 object Youtube {
   case class Snippet(title: String, channelId: String, liveBroadcastContent: String)
   case class Id(videoId: String)
