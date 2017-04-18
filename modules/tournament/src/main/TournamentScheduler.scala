@@ -229,8 +229,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
             case _ => Classical
           }
           List(
-            1600 -> 0,
-            2000 -> 1
+            1500 -> 0,
+            1700 -> 1,
+            2000 -> 2
           ).flatMap {
               case (rating, hourDelay) =>
                 val perf = Schedule.Speed toPerfType speed
