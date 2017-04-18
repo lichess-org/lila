@@ -76,8 +76,11 @@ final class HistoryApi(coll: Coll) {
         case Some(rating) => fuccess(rating)
         case None =>
           val currentRating = user.perfs(perf).intRating
-          val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1) to daysBetween(user.createdAt, DateTime.now)
-          val project = BSONDocument(days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) })
+          val firstDay = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
+          val days = firstDay to (firstDay + 6) toList
+          val project = BSONDocument {
+            ("_id" -> BSONBoolean(false)) :: days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) }
+          }
           coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
             _.flatMap {
               _.getAs[Bdoc](perf.key) map {
