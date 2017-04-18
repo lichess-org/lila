@@ -68,10 +68,10 @@ object Report extends LilaController {
 
   def irwinBotNext = Open { implicit ctx =>
     Mod.ModExternalBot {
-      api.unprocessedAndRecentWithFilter(100, Reason.Cheat.some) map { all =>
-        all.find { r =>
+      api.unprocessedWithFilter(150, Reason.Cheat.some) map { all =>
+        scala.util.Random.shuffle(all.filter { r =>
           r.report.unprocessed && !r.hasIrwinNote && !irwinProcessedUserIds.get(r.user.id)
-        } match {
+        }).headOption match {
           case None => NotFound
           case Some(r) =>
             irwinProcessedUserIds put r.user.id

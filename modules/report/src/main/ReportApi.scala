@@ -199,8 +199,14 @@ final class ReportApi(
   def unprocessedAndRecentWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] = for {
     unprocessed <- findRecent(nb, unprocessedSelect ++ reasonSelect(reason))
     processed <- findRecent(nb - unprocessed.size, processedSelect ++ reasonSelect(reason))
-    reports = unprocessed ++ processed
-    withUsers <- UserRepo byIds reports.map(_.user).distinct map { users =>
+    withNotes <- addUsersAndNotes(unprocessed ++ processed)
+  } yield withNotes
+
+  def unprocessedWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] =
+    findRecent(nb, unprocessedSelect ++ reasonSelect(reason)) flatMap addUsersAndNotes
+
+  private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
+    withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
       reports.flatMap { r =>
         users.find(_.id == r.user) map { u =>
           Report.WithUser(r, u, isOnline(u.id))
