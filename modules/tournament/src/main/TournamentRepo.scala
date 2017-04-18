@@ -30,15 +30,13 @@ object TournamentRepo {
   def byId(id: String): Fu[Option[Tournament]] = coll.find($id(id)).uno[Tournament]
 
   def byIds(ids: Iterable[String]): Fu[List[Tournament]] =
-    coll.find($inIds(ids))
-      .cursor[Tournament]().gather[List]()
+    coll.find($inIds(ids)).list[Tournament](none)
 
   def uniqueById(id: String): Fu[Option[Tournament]] =
     coll.find($id(id) ++ selectUnique).uno[Tournament]
 
   def recentAndNext: Fu[List[Tournament]] =
-    coll.find(sinceSelect(DateTime.now minusDays 1))
-      .cursor[Tournament]().gather[List]()
+    coll.find(sinceSelect(DateTime.now minusDays 1)).list[Tournament]()
 
   def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
     coll.find(
@@ -142,11 +140,11 @@ object TournamentRepo {
   ).sort($doc("startsAt" -> 1)).list[Tournament](none)
 
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament]().gather[List]()
+    coll.find(allCreatedSelect(aheadMinutes)).list[Tournament]()
 
   private def stillWorthEntering: Fu[List[Tournament]] = coll.find(
     startedSelect ++ $doc("private" $exists false)
-  ).sort($doc("startsAt" -> 1)).list[Tournament](none) map {
+  ).sort($doc("startsAt" -> 1)).list[Tournament]() map {
       _.filter(_.isStillWorthEntering)
     }
 
@@ -227,6 +225,6 @@ object TournamentRepo {
           "_id" $ne tourId,
           "startsAt" $lt DateTime.now
         )
-    ).cursor[Tournament](readPreference = ReadPreference.secondaryPreferred).gather[List]()
+    ).list[Tournament](none, ReadPreference.secondaryPreferred)
   }
 }
