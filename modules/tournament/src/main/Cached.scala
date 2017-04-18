@@ -33,6 +33,7 @@ private[tournament] final class Cached(
       tours
         .filter(_.perfType contains pt)
         .filter(_.isScheduled)
+        .filter(_.conditions == tour.conditions)
         .sortBy(_.startsAt)
         .headOption
     }
