@@ -1,8 +1,10 @@
 package lila.history
 
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.{ DateTime, Days }
-import reactivemongo.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import chess.Speed
 import lila.db.dsl._
@@ -61,19 +63,32 @@ final class HistoryApi(coll: Coll) {
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
 
-  def lastWeekTopRating(user: User, perf: PerfType): Fu[Int] = {
-    val currentRating = user.perfs(perf).intRating
-    val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1) to daysBetween(user.createdAt, DateTime.now)
-    val project = BSONDocument(days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) })
-    coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
-      _.flatMap {
-        _.getAs[Bdoc](perf.key) map {
-          _.stream.foldLeft(currentRating) {
-            case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
-            case (max, _) => max
-          }
-        }
+  object lastWeekTopRating {
+
+    private case class CacheKey(userId: User.ID, perf: PerfType)
+
+    private val cache: Cache[CacheKey, Int] =
+      Scaffeine().expireAfterWrite(10 minutes).build[CacheKey, Int]
+
+    def apply(user: User, perf: PerfType): Fu[Int] = {
+      val key = CacheKey(user.id, perf)
+      cache.getIfPresent(key) match {
+        case Some(rating) => fuccess(rating)
+        case None =>
+          val currentRating = user.perfs(perf).intRating
+          val days = daysBetween(user.createdAt, DateTime.now minusWeeks 1) to daysBetween(user.createdAt, DateTime.now)
+          val project = BSONDocument(days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) })
+          coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
+            _.flatMap {
+              _.getAs[Bdoc](perf.key) map {
+                _.stream.foldLeft(currentRating) {
+                  case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
+                  case (max, _) => max
+                }
+              }
+            }
+          } getOrElse fuccess(currentRating) addEffect { cache.put(key, _) }
       }
-    } getOrElse fuccess(currentRating)
+    }
   }
 }
