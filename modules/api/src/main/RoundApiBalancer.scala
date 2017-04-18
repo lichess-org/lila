@@ -8,9 +8,9 @@ import scala.concurrent.duration._
 import lila.analyse.Analysis
 import lila.common.ApiVersion
 import lila.game.Pov
-import lila.user.User
 import lila.pref.Pref
 import lila.round.JsonView.WithFlags
+import lila.user.User
 
 private[api] final class RoundApiBalancer(
     system: ActorSystem,
@@ -45,7 +45,10 @@ private[api] final class RoundApiBalancer(
             api.player(pov, apiVersion)(ctx) addFailureEffect { e =>
               logger.error(s"player ${pov.toString}", e)
             }
-          }.chronometer.logIfSlow(500, logger) { _ => s"inner player $pov" }.result
+          }.chronometer
+            .mon(_.round.api.player)
+            .logIfSlow(500, logger) { _ => s"inner player $pov" }
+            .result
           case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>
             api.watcher(pov, apiVersion, tv, initialFenO)(ctx)
           case Review(pov, apiVersion, tv, analysis, initialFenO, withFlags, ctx) =>
