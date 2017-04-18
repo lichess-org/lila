@@ -23,9 +23,9 @@ final class PracticeApi(
   def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
     up <- get(user)
     chapters <- studyApi.chapterMetadatas(studyId)
-    chapterId = up.progress firstOngoingIn chapters.map(_.id)
-    studyOption <- chapterId.fold(studyApi byIdWithFirstChapter studyId) {
-      studyApi.byIdWithChapter(studyId, _)
+    chapter = up.progress firstOngoingIn chapters
+    studyOption <- chapter.fold(studyApi byIdWithFirstChapter studyId) { chapter =>
+      studyApi.byIdWithChapter(studyId, chapter.id)
     }
   } yield makeUserStudy(studyOption, up, chapters)
 

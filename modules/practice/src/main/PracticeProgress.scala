@@ -28,8 +28,12 @@ case class PracticeProgress(
   def countDone(chapterIds: List[Chapter.Id]): Int =
     chapterIds count chapters.contains
 
-  def firstOngoingIn(chapterIds: List[Chapter.Id]): Option[Chapter.Id] =
-    chapterIds.find(c => !chapters.contains(c)) orElse chapterIds.headOption
+  def firstOngoingIn(metas: List[Chapter.Metadata]): Option[Chapter.Metadata] =
+    metas.find { c =>
+      !chapters.contains(c.id) && !PracticeStructure.isChapterNameCommented(c.name)
+    } orElse metas.find { c =>
+      !PracticeStructure.isChapterNameCommented(c.name)
+    }
 }
 
 object PracticeProgress {
