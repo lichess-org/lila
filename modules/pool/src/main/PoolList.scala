@@ -13,7 +13,7 @@ object PoolList {
     PoolConfig(3 ++ 2, Wave(22 seconds, 20 players)),
     PoolConfig(5 ++ 0, Wave(10 seconds, 30 players)),
     PoolConfig(5 ++ 3, Wave(25 seconds, 20 players)),
-    PoolConfig(10 ++ 0, Wave(15 seconds, 20 players)),
+    PoolConfig(10 ++ 0, Wave(13 seconds, 24 players)),
     PoolConfig(15 ++ 15, Wave(60 seconds, 16 players))
   )
 
