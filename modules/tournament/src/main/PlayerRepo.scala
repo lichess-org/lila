@@ -25,17 +25,17 @@ object PlayerRepo {
 
   def byId(id: String): Fu[Option[Player]] = coll.uno[Player](selectId(id))
 
-  def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
+  private[tournament] def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
 
-  def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
+  private[tournament] def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
       res.foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
         case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
       }._1
     }
 
-  def bestByTourWithRankByPage(tourId: String, nb: Int, page: Int): Fu[RankedPlayers] =
+  private[tournament] def bestByTourWithRankByPage(tourId: String, nb: Int, page: Int): Fu[RankedPlayers] =
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   def countActive(tourId: String): Fu[Int] =
@@ -90,9 +90,9 @@ object PlayerRepo {
     $doc("$set" -> $doc("w" -> true))
   ).void
 
-  def withPoints(tourId: String): Fu[List[Player]] =
+  private[tournament] def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
-      selectTour(tourId) ++ $doc("m" -> $doc("$gt" -> 0))
+      selectTour(tourId) ++ $doc("m" $gt 0)
     ).cursor[Player]().gather[List]()
 
   private[tournament] def userIds(tourId: String): Fu[List[String]] =
