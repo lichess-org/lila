@@ -99,7 +99,7 @@ final class SlackApi(
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
-    icon = "oncoming_police_car",
+    icon = "eyes",
     text = s"Let's have a look at _*<https://en.lichess.org/@/${user.username}?mod|${user.username}>*_",
     channel = "tavern"
   ))
