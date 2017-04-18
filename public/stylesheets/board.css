@@ -319,7 +319,7 @@ mono-piece.king {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 5;
+  z-index: 66; /* go over 3D pieces */
   width: 400px;
   top: 50%;
   left: 50%;
