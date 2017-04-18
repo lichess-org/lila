@@ -48,9 +48,12 @@ object Condition {
 
     def apply(getMaxRating: GetMaxRating)(user: User) =
       if (user.perfs(perf).provisional) fuccess(Refused(s"Provisional ${perf.name} rating"))
+      else if (user.perfs(perf).intRating > rating) fuccess(Refused {
+        s"${perf.name} rating (${user.perfs(perf).intRating}) is too high"
+      })
       else getMaxRating(perf) map {
         case r if r <= rating => Accepted
-        case r => Refused(s"Top monthly ${perf.name} rating ($r) is too high")
+        case r => Refused(s"Top weekly ${perf.name} rating ($r) is too high")
       }
 
     def name = s"Rated ≤ $rating in ${perf.name}"
