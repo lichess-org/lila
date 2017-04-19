@@ -148,6 +148,18 @@ object Mod extends LilaController {
     }
   }
 
+  def usersMarkAndCurrentReport(idsStr: String) = Open { implicit ctx =>
+    ModExternalBot {
+      val ids = idsStr.split(',').toList map UserModel.normalize
+      for {
+        engineIds <- UserRepo filterByEngine ids
+        reportedIds <- Env.report.api.currentlyReportedForCheat
+      } yield Ok(Json.toJson(ids map { id =>
+        Json.obj("engine" -> engineIds(id), "report" -> reportedIds(id))
+      })) as JSON
+    }
+  }
+
   def log = Secure(_.SeeReport) { implicit ctx => me =>
     modLogApi.recent map { html.mod.log(_) }
   }

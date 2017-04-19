@@ -402,8 +402,8 @@ object UserRepo {
         _.firstBatch.headOption flatMap { _.getAs[Int](F.toints) }
       ).map(~_)
 
-  def filterByEngine(userIds: List[User.ID]): Fu[List[User.ID]] =
-    coll.distinctWithReadPreference[String, List](
+  def filterByEngine(userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctWithReadPreference[String, Set](
       F.id,
       Some($inIds(userIds) ++ engineSelect(true)),
       ReadPreference.secondaryPreferred

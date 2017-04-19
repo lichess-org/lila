@@ -361,7 +361,6 @@ GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
 POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: String)
-GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
 GET   /mod/ip-intel                    controllers.Mod.ipIntel(ip: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
@@ -371,6 +370,8 @@ GET   /mod/:username/permissions       controllers.Mod.permissions(username: Str
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/:username/irwin             controllers.Mod.irwin(username: String)
+GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
+GET   /mod/users-mark-and-current-report controllers.Mod.usersMarkAndCurrentReport(ids: String)
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)

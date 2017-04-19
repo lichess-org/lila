@@ -2,6 +2,7 @@ package lila.report
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.memo.AsyncCache
@@ -236,6 +237,13 @@ final class ReportApi(
         }(scala.collection.breakOut)
       }
   }
+
+  def currentlyReportedForCheat: Fu[Set[User.ID]] =
+    coll.distinctWithReadPreference[User.ID, Set](
+      "user",
+      Some($doc("reason" -> Reason.Cheat.key) ++ unprocessedSelect),
+      ReadPreference.secondaryPreferred
+    )
 
   private def findRecent(nb: Int, selector: Bdoc) =
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)

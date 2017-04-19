@@ -28,7 +28,7 @@ case class PlayerAggregateAssessment(
     user: User,
     playerAssessments: List[PlayerAssessment],
     relatedUsers: List[String],
-    relatedCheaters: List[String]
+    relatedCheaters: Set[String]
 ) {
   import Statistics._
   import AccountAction._
@@ -86,7 +86,7 @@ case class PlayerAggregateAssessment(
     _.assessment == assessment
   }
 
-  val relatedCheatersCount = relatedCheaters.distinct.size
+  val relatedCheatersCount = relatedCheaters.size
   val relatedUsersCount = relatedUsers.distinct.size
   val assessmentsCount = playerAssessments.size match {
     case 0 => 1
