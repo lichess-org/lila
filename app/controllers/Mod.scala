@@ -154,9 +154,9 @@ object Mod extends LilaController {
       for {
         engineIds <- UserRepo filterByEngine ids
         reportedIds <- Env.report.api.currentlyReportedForCheat
-      } yield Ok(Json.toJson(ids map { id =>
-        Json.obj("engine" -> engineIds(id), "report" -> reportedIds(id))
-      })) as JSON
+      } yield Ok(Json.toJson(ids.map { id =>
+        id -> Json.obj("engine" -> engineIds(id), "report" -> reportedIds(id))
+      }.toMap)) as JSON
     }
   }
 
