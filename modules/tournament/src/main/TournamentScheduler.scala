@@ -236,7 +236,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
               case (rating, hourDelay) =>
                 val perf = Schedule.Speed toPerfType speed
                 val conditions = Condition.All(
-                  nbRatedGame = Condition.NbRatedGame(perf.some, 30).some,
+                  nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
                   maxRating = Condition.MaxRating(perf, rating).some,
                   minRating = none
                 )
