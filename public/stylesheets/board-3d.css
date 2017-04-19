@@ -5,7 +5,7 @@
   bottom: calc(-12px - 3%);
 }
 .is3d .cg-board-wrap coords.ranks {
-  height: calc(100% - 10px);
+  height: 100%;
 }
 .is3d piece {
   /* original size:

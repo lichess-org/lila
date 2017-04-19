@@ -55,3 +55,15 @@
 .blue .orientation-black .ranks coord:nth-child(2n) {
   color: #788a94;
 }
+
+/* negate inner coords colors */
+.is3d .cg-board-wrap coords coord {
+  color: #fff!important;
+  text-shadow: 0 1px 2px #000!important;
+}
+.is3d .cg-board-wrap coords.files {
+  bottom: calc(1px - 2.5%);
+}
+.is3d .cg-board-wrap coords.files coord {
+  padding-left: 3px;
+}
