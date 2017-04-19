@@ -43,7 +43,7 @@ object Dependencies {
   val guava = "com.google.guava" % "guava" % "21.0"
 
   object reactivemongo {
-    val version = "0.12.2-SNAPSHOT"
+    val version = "0.12.2"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
