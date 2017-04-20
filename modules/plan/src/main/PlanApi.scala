@@ -337,7 +337,9 @@ final class PlanApi(
     ).expireInOneMonth(!freq.renew))
     case Some(patron) => patronColl.update(
       $id(patron.id),
-      patron.copy(stripe = Patron.Stripe(customerId).some).expireInOneMonth(!freq.renew)
+      patron.copy(
+        stripe = Patron.Stripe(customerId).some
+      ).removePayPal.expireInOneMonth(!freq.renew)
     )
   } void
 
