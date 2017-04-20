@@ -30,14 +30,13 @@ object JsonHandlers {
 
   def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {
     d <- o obj "d"
-    // variant = chess.variant.Variant orDefault ~d.str("variant")
-    // if variant.standard
+    variant = chess.variant.Variant orDefault ~d.str("variant")
     fen <- d str "fen"
     knodes <- d int "knodes"
     depth <- d int "depth"
     pvObjs <- d objs "pvs"
     pvs <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
-  } yield Input.Candidate(fen, Eval(
+  } yield Input.Candidate(variant, fen, Eval(
     pvs = pvs,
     knodes = Knodes(knodes),
     depth = depth,

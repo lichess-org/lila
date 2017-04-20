@@ -12,8 +12,8 @@ function qualityCheck(eval) {
 }
 
 // from client eval to server eval
-function toPutData(eval) {
-  return {
+function toPutData(variant, eval) {
+  var data = {
     fen: eval.fen,
     knodes: Math.round(eval.nodes / 1000),
     depth: eval.depth,
@@ -25,6 +25,8 @@ function toPutData(eval) {
       };
     })
   };
+  if (variant !== 'standard') data.variant = variant;
+  return data;
 }
 
 // from server eval to client eval
@@ -59,7 +61,7 @@ module.exports = function(opts) {
       var node = opts.getNode();
       var eval = node.ceval;
       if (eval && !eval.cloud && hasFetched(node) && qualityCheck(eval) && opts.canPut(node)) {
-        opts.send("evalPut", toPutData(eval));
+        opts.send("evalPut", toPutData(opts.variant, eval));
       }
     }),
     fetch: function(path, multiPv) {
@@ -71,6 +73,7 @@ module.exports = function(opts) {
         fen: node.fen,
         path: path
       };
+      if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1 || true) obj.mpv = multiPv;
       opts.send("evalGet", obj);
     },

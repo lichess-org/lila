@@ -1,13 +1,14 @@
 package lila.evalCache
 
 import chess.format.{ Forsyth, FEN, Uci }
+import chess.variant.Variant
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
 import lila.tree.Eval.{ Score }
 
 case class EvalCacheEntry(
-    _id: EvalCacheEntry.SmallFen,
+    _id: EvalCacheEntry.Id,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.Eval],
     usedAt: DateTime
@@ -92,21 +93,28 @@ object EvalCacheEntry {
 
   object SmallFen {
     private[evalCache] def raw(str: String) = new SmallFen(str)
-    def make(fen: FEN) = new SmallFen(
-      fen.value.split(' ').take(4).mkString("").filter { c =>
+    def make(variant: Variant, fen: FEN) = {
+      val base = fen.value.split(' ').take(4).mkString("").filter { c =>
         c != '/' && c != '-' && c != 'w'
       }
-    )
-    def validate(fen: FEN): Option[SmallFen] =
-      Forsyth.<<(fen.value).exists(_ playable false) option make(fen)
+      val str = variant match {
+        case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
+        case _ => base
+      }
+      new SmallFen(str)
+    }
+    def validate(variant: Variant, fen: FEN): Option[SmallFen] =
+      Forsyth.<<@(variant, fen.value).exists(_ playable false) option make(variant, fen)
   }
 
-  case class Input(fen: FEN, smallFen: SmallFen, eval: Eval)
+  case class Id(variant: Variant, smallFen: SmallFen)
+
+  case class Input(id: Id, fen: FEN, eval: Eval)
 
   object Input {
-    case class Candidate(fen: String, eval: Eval) {
-      def input = SmallFen.validate(FEN(fen)) ifTrue eval.looksValid map {
-        Input(FEN(fen), _, eval.truncatePvs)
+    case class Candidate(variant: Variant, fen: String, eval: Eval) {
+      def input = SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
+        Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
       }
     }
   }

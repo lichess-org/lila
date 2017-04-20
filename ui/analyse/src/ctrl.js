@@ -683,12 +683,13 @@ module.exports = function(opts) {
   this.trans = lichess.trans(opts.i18n);
 
   var canEvalGet = function(node) {
-    return (opts.study || node.ply < 10) && this.data.game.variant.key === 'standard'
+    return opts.study || node.ply < 10
   }.bind(this);
 
   this.evalCache;
   var instanciateEvalCache = function() {
     this.evalCache = makeEvalCache({
+      variant: this.data.game.variant.key,
       canGet: canEvalGet,
       canPut: function(node) {
         return this.data.evalPut && canEvalGet(node) && (

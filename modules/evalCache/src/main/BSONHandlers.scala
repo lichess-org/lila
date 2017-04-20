@@ -12,7 +12,6 @@ object BSONHandlers {
 
   import EvalCacheEntry._
 
-  implicit val SmallFenBSONHandler = stringAnyValHandler[SmallFen](_.value, SmallFen.raw)
   private implicit val TrustBSONHandler = doubleAnyValHandler[Trust](_.value, Trust.apply)
   private implicit val KnodesBSONHandler = intAnyValHandler[Knodes](_.value, Knodes.apply)
 
@@ -40,6 +39,21 @@ object BSONHandlers {
       x.list.map { pv =>
         s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
       } mkString pvSeparatorStr
+    }
+  }
+
+  implicit val EntryIdHandler = new BSONHandler[BSONString, Id] {
+    def read(bs: BSONString): Id = bs.value split ':' match {
+      case Array(fen) => Id(chess.variant.Standard, SmallFen raw fen)
+      case Array(variantId, fen) => Id(
+        parseIntOption(variantId) flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+        SmallFen raw fen
+      )
+      case _ => sys error s"Invalid evalcache id ${bs.value}"
+    }
+    def write(x: Id) = BSONString {
+      if (x.variant.standard || x.variant == chess.variant.FromPosition) x.smallFen.value
+      else s"${x.variant.id}:${x.smallFen.value}"
     }
   }
 

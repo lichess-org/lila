@@ -25,10 +25,11 @@ final class EvalCacheSocketHandler(
 
     case ("evalGet", o) => for {
       d <- o obj "d"
+      variant = chess.variant.Variant orDefault ~d.str("variant")
       fen <- d str "fen"
       multiPv = (d int "mpv") | 1
       path <- d str "path"
-    } api.getEvalJson(FEN(fen), multiPv) foreach {
+    } api.getEvalJson(variant, FEN(fen), multiPv) foreach {
       _ foreach { json =>
         member push Socket.makeMessage("evalHit", json + ("path" -> JsString(path)))
       }

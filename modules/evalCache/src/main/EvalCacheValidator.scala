@@ -9,7 +9,7 @@ private object Validator {
       case (None, pv) => chess.Replay.boardsFromUci(
         pv.moves.value.list,
         in.fen.some,
-        chess.variant.Standard
+        in.id.variant
       ).fold(err => Error(err.shows).some, _ => none)
       case (error, _) => error
     }
