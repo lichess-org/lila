@@ -12,7 +12,6 @@ final class PlanApi(
     stripeClient: StripeClient,
     patronColl: Coll,
     chargeColl: Coll,
-    tracking: PlanTracking,
     notifier: PlanNotifier,
     lightUserApi: lila.user.LightUserApi,
     bus: lila.common.Bus,
@@ -73,9 +72,6 @@ final class PlanApi(
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
-            stripeClient getCustomer stripeCharge.customer foreach {
-              _ foreach { customer => tracking.charge(charge, renew = customer.renew) }
-            }
             UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
               val p2 = patron.copy(
                 stripe = Patron.Stripe(stripeCharge.customer).some
@@ -121,7 +117,6 @@ final class PlanApi(
         ).some,
         cents = cents
       )
-      tracking.charge(charge, renew = subId.isDefined)
       addCharge(charge) >>
         (userId ?? UserRepo.named) flatMap { userOption =>
           userOption ?? { user =>
@@ -133,11 +128,8 @@ final class PlanApi(
                 lastLevelUp = DateTime.now
               ).expireInOneMonth) >>
                 setDbUserPlan(user, lila.user.Plan.start) >>
-                notifier.onStart(user) >>-
-                tracking.newDonation(user, cents, renew = subId.isDefined)
+                notifier.onStart(user)
               case Some(patron) =>
-                if (subId.isDefined) tracking.upgrade(user, cents)
-                else tracking.reDonation(user, cents)
                 val p2 = patron.copy(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
@@ -310,11 +302,6 @@ final class PlanApi(
         customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
       } flatMap withNewSubscription(user, data)
       case Some(customer) =>
-        // tracking: user did one-time before, goes for monthly now
-        if (!customer.renew && data.freq.renew) tracking.upgrade(user, plan.amount)
-        // tracking: one-time
-        if (!data.freq.renew) tracking.reDonation(user, plan.amount)
-
         // user has a monthly going on and is making an extra one-time
         // let's not change the user plan to one-time, or else
         // it would only cancel the monthly
@@ -339,7 +326,6 @@ final class PlanApi(
       saveStripePatron(user, customer.id, data.freq) >>
         setDbUserPlan(user, lila.user.Plan.start) >>
         notifier.onStart(user) >>-
-        tracking.newDonation(user, plan.amount, renew = data.freq.renew) >>-
         logger.info(s"Create ${user.username} customer $customer") inject customer
     }
 
