@@ -34,9 +34,9 @@ final class Player(
           level = level,
           clock = game.clock.map { clk =>
             Work.Clock(
-              wtime = clk.remainingCentis(White),
-              btime = clk.remainingCentis(Black),
-              inc = clk.increment
+              wtime = clk.remainingTime(White).value,
+              btime = clk.remainingTime(Black).value,
+              inc = clk.incrementSeconds
             )
           },
           tries = 0,

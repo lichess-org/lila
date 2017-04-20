@@ -65,7 +65,7 @@ final class JsonView(
     "perf" -> tour.perfType,
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
-    "clock" -> tour.clock,
+    "clock" -> clockJson(tour.clock),
     "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
     "private" -> tour.`private`.option(true),
     "verdicts" -> verdicts,
@@ -341,7 +341,10 @@ object JsonView {
     "speed" -> s.speed.name
   )
 
-  private[tournament] implicit val clockWriter: Writes[TournamentClock] = Json.writes[TournamentClock]
+  private[tournament] def clockJson(clock: TournamentClock) = Json.obj(
+    "limit" -> clock.limitSeconds,
+    "increment" -> clock.incrementSeconds
+  )
 
   private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
     "eco" -> s.eco,

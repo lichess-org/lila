@@ -215,9 +215,9 @@ private[api] final class GameApi(
     "status" -> g.status.name,
     "clock" -> g.clock.map { clock =>
       Json.obj(
-        "initial" -> clock.limit,
-        "increment" -> clock.increment,
-        "totalTime" -> clock.estimateTotalTime
+        "initial" -> clock.limitSeconds,
+        "increment" -> clock.incrementSeconds,
+        "totalTime" -> clock.estimateTotalSeconds
       )
     },
     "daysPerTurn" -> g.daysPerTurn,

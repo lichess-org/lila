@@ -14,7 +14,7 @@ private final class RecentGoodGame extends Actor {
         g.averageUsersRating.??(1900 <=) ||
           (g.averageUsersRating.??(1700 <=) && ids.size < 100)
       } &&
-      g.clock.??(_.estimateTotalTime >= 5 * 60)
+      g.clock.??(_.estimateTotalSeconds >= 5 * 60)
 
   def receive = {
     case lila.game.actorApi.FinishGame(g, _, _) if matches(g) =>

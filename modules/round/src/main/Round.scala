@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.Color
+import chess.{ Centis, Color }
 import lila.game.{ Game, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
@@ -24,7 +24,7 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
-    moretimeDuration: Duration,
+    moretimeDuration: FiniteDuration,
     activeTtl: Duration
 ) extends SequentialActor {
 
@@ -41,11 +41,11 @@ private[round] final class Round(
 
   implicit val proxy = new GameProxy(gameId)
 
-  object lags { // player lag in millis
-    var white = 0
-    var black = 0
+  object lags { // player lag in centis
+    var white = Centis(0)
+    var black = Centis(0)
     def get(c: Color) = c.fold(white, black)
-    def set(c: Color, v: Int) {
+    def set(c: Color, v: Centis) {
       if (c.white) white = v
       else black = v
     }
@@ -64,7 +64,7 @@ private[round] final class Round(
       handleHumanPlay(p) { pov =>
         if (pov.game outoftime lags.get) finisher.outOfTime(pov.game)
         else {
-          lags.set(pov.color, p.lag.toMillis.toInt)
+          lags.set(pov.color, p.lag)
           reportNetworkLag(pov)
           player.human(p, self)(pov)
         }
@@ -183,7 +183,7 @@ private[round] final class Round(
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
       pov.game.clock.ifTrue(pov.game moretimeable !pov.color) ?? { clock =>
-        val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
+        val newClock = clock.giveTime(!pov.color, moretimeDuration.toCentis)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
@@ -195,7 +195,7 @@ private[round] final class Round(
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
-          self ! HumanPlay(game.player.id, move, false, 0.seconds)
+          self ! HumanPlay(game.player.id, move, false, Centis(0))
         }
         Nil
       }
@@ -204,7 +204,8 @@ private[round] final class Round(
     case DeployPost => handle { game =>
       game.clock.filter(_ => game.playable) ?? { clock =>
         val freeSeconds = 15
-        val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
+        val freeCentis = Centis.ofSeconds(freeSeconds)
+        val newClock = clock.giveTime(Color.White, freeCentis).giveTime(Color.Black, freeCentis)
         val progress = (game withClock newClock) + Event.Clock(newClock)
         messenger.system(game, (_.untranslated("Lichess has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
@@ -228,7 +229,7 @@ private[round] final class Round(
 
   private def reportNetworkLag(pov: Pov) =
     if (pov.game.turns == 20 || pov.game.turns == 21) List(lags.white, lags.black).foreach { lag =>
-      if (lag > 0) lila.mon.round.move.networkLag(lag)
+      if (lag.value > 0) lila.mon.round.move.networkLag(lag.value * 10l)
     }
 
   private def handle[A](op: Game => Fu[Events]): Funit =

@@ -7,14 +7,14 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.common.{ Centis, ApiVersion }
+import lila.common.ApiVersion
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
 import chess.format.Forsyth
-import chess.{ Color, Clock }
+import chess.{ Centis, Color, Clock }
 
 import actorApi.SocketStatus
 
@@ -356,10 +356,10 @@ object JsonView {
     import lila.common.Maths.truncateAt
     Json.obj(
       "running" -> c.isRunning,
-      "initial" -> c.limit,
-      "increment" -> c.increment,
-      "white" -> truncateAt(c.remainingTime(Color.White), 2),
-      "black" -> truncateAt(c.remainingTime(Color.Black), 2),
+      "initial" -> c.limitSeconds,
+      "increment" -> c.incrementSeconds,
+      "white" -> c.remainingTime(Color.White).toSeconds,
+      "black" -> c.remainingTime(Color.Black).toSeconds,
       "emerg" -> c.emergTime
     )
   }

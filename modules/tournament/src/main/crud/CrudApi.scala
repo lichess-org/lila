@@ -13,7 +13,7 @@ final class CrudApi {
     name = tour.name,
     homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
     clockTime = tour.clock.limitInMinutes,
-    clockIncrement = tour.clock.increment,
+    clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
     date = tour.startsAt,

@@ -8,7 +8,7 @@ import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
 
-import lila.common.Centis
+import chess.Centis
 
 sealed trait Node {
   def ply: Int

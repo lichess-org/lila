@@ -8,7 +8,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
 
 import lila.db.{ BSON, ByteArray }
-import lila.common.Centis
+import chess.Centis
 
 object BSONHandlers {
 
@@ -118,10 +118,9 @@ object BSONHandlers {
         crazyData = (g.variant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
         clockHistory = for {
         clk <- gameClock
-        start = Centis(clk.limit * 100)
         bw <- r bytesO whiteClockHistory
         bb <- r bytesO blackClockHistory
-        history <- BinaryFormat.clockHistory.read(start, bw, bb, g.flagged, g.id)
+        history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, g.flagged, g.id)
       } yield history
       )
     }
@@ -167,7 +166,7 @@ object BSONHandlers {
       clk <- clock
       history <- clockHistory
       times = history(color)
-    } yield BinaryFormat.clockHistory.writeSide(Centis(clk.limit * 100), times, flagged has color)
+    } yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged has color)
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock(since).read(

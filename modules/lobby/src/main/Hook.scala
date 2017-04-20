@@ -62,7 +62,7 @@ case class Hook(
     "id" -> id,
     "uid" -> uid,
     "clock" -> clock.show,
-    "t" -> clock.estimateTotalTime,
+    "t" -> clock.estimateTotalSeconds,
     "s" -> speed.id
   ).add("prov" -> perf.map(_.provisional).filter(identity))
     .add("u" -> user.map(_.username))

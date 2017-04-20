@@ -10,7 +10,6 @@ import chess._
 import chess.variant.Variant
 
 import lila.db.ByteArray
-import lila.common.Centis
 
 import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
@@ -82,13 +81,13 @@ object BinaryFormat {
 
   case class clock(since: DateTime) {
 
-    def write(clock: Clock): ByteArray = ByteArray {
-      def time(t: Float) = writeSignedInt24((t * 100).toInt)
-      def timer(seconds: Double) = writeTimer((seconds * 100).toLong)
-      Array(writeClockLimit(clock.limit), writeInt8(clock.increment)) ++
-        time(clock.whiteTime) ++
-        time(clock.blackTime) ++
-        timer(clock.timerOption getOrElse 0d) map (_.toByte)
+    def write(clock: Clock): ByteArray = {
+      ByteArray {
+        Array(writeClockLimit(clock.limitSeconds), writeInt8(clock.incrementSeconds)) ++
+          writeSignedInt24(clock.whiteTime.value) ++
+          writeSignedInt24(clock.blackTime.value) ++
+          (clock.timerOption map { ts => writeTimer(ts.value / 10) } getOrElse Array()) map { _.toByte }
+      }
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => ba.value map toInt match {
@@ -97,19 +96,19 @@ object BinaryFormat {
           case 0 => PausedClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-            blackTime = readSignedInt24(b6, b7, b8) / 100f,
+            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+            blackTime = Centis(readSignedInt24(b6, b7, b8)),
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk
           )
           case timer => RunningClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-            blackTime = readSignedInt24(b6, b7, b8) / 100f,
+            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+            blackTime = Centis(readSignedInt24(b6, b7, b8)),
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk,
-            timer = timer.toDouble / 100
+            timer = Timestamp(timer * 10l)
           )
         }
       // compatibility with 5 bytes timers
@@ -118,8 +117,8 @@ object BinaryFormat {
         PausedClock(
           config = Clock.Config(readClockLimit(b1), b2),
           color = color,
-          whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-          blackTime = readSignedInt24(b6, b7, b8) / 100f,
+          whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+          blackTime = Centis(readSignedInt24(b6, b7, b8)),
           whiteBerserk = whiteBerserk,
           blackBerserk = blackBerserk
         )

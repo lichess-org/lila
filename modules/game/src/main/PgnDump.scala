@@ -1,12 +1,12 @@
 package lila.game
 
-import chess.Color
+import chess.{ Centis, Color }
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
-import lila.common.{ Centis, LightUser }
+import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,

@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.format.{ Forsyth, FEN, Uci }
-import chess.{ Status, Color, MoveOrDrop }
+import chess.{ Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
@@ -49,7 +49,7 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        if (game.outoftime(_ => fishnetLag.toMillis.toInt)) finisher.outOfTime(game)
+        if (game.outoftime(_ => fishnetLag)) finisher.outOfTime(game)
         else applyUci(game, uci, blur = false, lag = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
@@ -70,12 +70,12 @@ private[round] final class Player(
     else fuccess(round ! actorApi.round.ResignAi)
   }
 
-  private val clientLag = 30.milliseconds
-  private val serverLag = 5.milliseconds
+  private val clientLag = Centis(3)
+  private val serverLag = Centis(1)
   private val humanLag = clientLag + serverLag
-  private val fishnetLag = 10.milliseconds + serverLag
+  private val fishnetLag = Centis(1) + serverLag
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: FiniteDuration) = (uci match {
+  private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: Centis) = (uci match {
     case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
       case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
     }
