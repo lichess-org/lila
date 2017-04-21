@@ -24,7 +24,7 @@ case class Schedule(
         case (_, Some(max)) => s"U${max.rating} ${speed.toString}"
       }
     case _ if variant.standard => s"${position.shortName} ${speed.toString}"
-    case m @ Schedule.Freq.Hourly => s"${variant.name} ${speed.toString}"
+    case Schedule.Freq.Hourly => s"${variant.name} ${speed.toString}"
     case _ => s"${freq.toString} ${variant.name}"
   }
 
