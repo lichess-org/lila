@@ -251,9 +251,10 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val speed = hour % 3 match {
-            case 0 => Bullet
-            case 1 => SuperBlitz
+          val speed = hour % 6 match {
+            case 0 | 3 => Bullet
+            case 1 | 4 => SuperBlitz
+            case 5 => SlowBullet
             case _ => Blitz
           }
           List(
