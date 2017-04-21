@@ -141,7 +141,7 @@ var feedback = {
         m('div.no-square', m('piece.king.' + ctrl.color)),
         m('div.instruction', [
           m('em', nothing ?
-            'No mistake found for ' + ctrl.color :
+            'No mistakes found for ' + ctrl.color :
             'Done reviewing ' + ctrl.color + ' mistakes'),
           m('div.choices', [
             nothing ? null : m('a', {
