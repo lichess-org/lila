@@ -46,7 +46,7 @@ private[api] final class RoundApiBalancer(
               logger.error(s"player ${pov.toString}", e)
             }
           }.chronometer
-            .mon(_.round.api.player)
+            .mon(_.round.api.playerInner)
             .logIfSlow(500, logger) { _ => s"inner player $pov" }
             .result
           case Watcher(pov, apiVersion, tv, initialFenO, ctx) =>
