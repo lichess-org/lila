@@ -75,7 +75,7 @@ function engineName(ctrl: CevalController) {
   ];
 }
 
-var serverNodes = 3.5e6;
+var serverNodes = 4e6;
 
 export function getBestEval(evs: NodeEvals): Eval | undefined {
   var serverEv = evs.server,
