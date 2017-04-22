@@ -23,7 +23,7 @@ and relies on [Play 2.4](https://www.playframework.com/) for the routing, templa
 Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an AI cluster of donated servers.
-It uses [MongoDB 3.2](https://mongodb.org) to store more than 350 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+It uses [MongoDB 3.4](https://mongodb.org) to store more than 400 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.8](http://nginx.org).
 Client-side is written in [mithril.js](http://mithril.js.org/).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
