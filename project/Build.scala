@@ -62,7 +62,7 @@ object ApplicationBuild extends Build {
     history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan,
-    event, coach, practice, evalCache)
+    event, coach, practice, evalCache, irwin)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -229,6 +229,10 @@ object ApplicationBuild extends Build {
 
   lazy val fishnet = project("fishnet", Seq(common, chess, game, analyse, db)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
+  )
+
+  lazy val irwin = project("irwin", Seq(common, db)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(
