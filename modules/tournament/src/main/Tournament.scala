@@ -3,7 +3,7 @@ package lila.tournament
 import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 
-import chess.Clock.{ Config => TournamentClock }
+import chess.Clock.{ Config => ClockConfig }
 import chess.{ Speed, Mode, StartingPosition }
 import lila.game.PerfPicker
 import lila.user.User
@@ -13,7 +13,7 @@ case class Tournament(
     name: String,
     status: Status,
     system: System,
-    clock: TournamentClock,
+    clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
     position: StartingPosition,
@@ -61,7 +61,7 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt max 0
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limit / 2, 120))
+  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
 
   def isStillWorthEntering = isMarathonOrUnique || {
     secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
@@ -121,7 +121,7 @@ object Tournament {
 
   def make(
     by: Either[User.ID, User],
-    clock: TournamentClock,
+    clock: ClockConfig,
     minutes: Int,
     system: System,
     variant: chess.variant.Variant,

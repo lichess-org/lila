@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.Pos
-import lila.common.Centis
+import chess.Centis
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {

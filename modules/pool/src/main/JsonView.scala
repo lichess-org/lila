@@ -8,7 +8,7 @@ object JsonView {
     Json.obj(
       "id" -> p.id.value,
       "lim" -> p.clock.limitInMinutes,
-      "inc" -> p.clock.increment,
+      "inc" -> p.clock.incrementSeconds,
       "perf" -> p.perfType.name
     )
   }

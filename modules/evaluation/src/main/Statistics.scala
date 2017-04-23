@@ -4,7 +4,7 @@ import Math.{ pow, abs, sqrt, exp }
 import scala.concurrent.duration._
 import scalaz.NonEmptyList
 
-import lila.common.Centis
+import chess.Centis
 
 object Statistics {
   import Erf._

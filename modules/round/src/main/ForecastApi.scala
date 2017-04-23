@@ -9,7 +9,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
 
 import chess.format.Uci
-import chess.Pos
+import chess.{ Centis, Pos }
 import Forecast.Step
 import lila.game.{ Pov, Game }
 import lila.hub.actorApi.map.Tell
@@ -55,7 +55,7 @@ final class ForecastApi(coll: Coll, roundMap: akka.actor.ActorSelection) {
         playerId = pov.playerId,
         uci = uci,
         blur = true,
-        lag = Duration.Zero,
+        lag = Centis(0),
         promise = promise.some
       ))
       saveSteps(pov, steps) >> promise.future

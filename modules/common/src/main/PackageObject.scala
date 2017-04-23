@@ -191,7 +191,7 @@ trait WithPlay { self: PackageObject =>
 
   implicit final class LilaPimpedFiniteDuration(self: FiniteDuration) {
 
-    def toCentis = lila.common.Centis {
+    def toCentis = chess.Centis {
       // divide by Double, then round, to avoid rounding issues with just `/10`!
       math.round {
         if (self.unit eq MILLISECONDS) self.length / 10d
@@ -204,7 +204,7 @@ trait WithPlay { self: PackageObject =>
 
   implicit val LilaFiniteDurationZero: Zero[FiniteDuration] = Zero.instance(Duration.Zero)
 
-  implicit val LilaCentisZero: Zero[lila.common.Centis] = Zero instance lila.common.Centis(0)
+  implicit val LilaCentisZero: Zero[chess.Centis] = Zero instance chess.Centis(0)
 
   object makeTimeout {
 
