@@ -89,7 +89,7 @@ object EvalCacheEntry {
 
   case class TrustedUser(trust: Trust, user: lila.user.User)
 
-  final class SmallFen private (val value: String) extends AnyVal
+  final class SmallFen private (val value: String) extends AnyVal with StringValue
 
   object SmallFen {
     private[evalCache] def raw(str: String) = new SmallFen(str)
