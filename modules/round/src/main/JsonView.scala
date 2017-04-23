@@ -142,7 +142,7 @@ final class JsonView(
           Json.obj(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
-                "moveCentis" -> withFlags.movetimes ?? game.moveTimes.map(_.map(_.value)),
+                "moveCentis" -> withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis)),
                 "division" -> withFlags.division.option(divider(game, initialFen)),
                 "opening" -> game.opening,
                 "importedBy" -> game.pgnImport.flatMap(_.user)

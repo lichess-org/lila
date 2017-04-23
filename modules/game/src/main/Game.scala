@@ -106,7 +106,7 @@ case class Game(
     (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
       clock.fold(Int.MaxValue) { c =>
         // centis.toSeconds * 1.1 == centis * (1.1 / 100) ~= centis / 91
-        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).value / 91
+        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).centis / 91
       }
     }
 

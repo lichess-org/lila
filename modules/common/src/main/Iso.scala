@@ -31,5 +31,5 @@ object Iso {
 
   implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
 
-  implicit val centisIso = Iso.int[Centis](Centis.apply, _.value)
+  implicit val centisIso = Iso.int[Centis](Centis.apply, _.centis)
 }

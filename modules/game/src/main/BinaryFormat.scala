@@ -33,11 +33,11 @@ object BinaryFormat {
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
       val timesToWrite = if (flagged) times.dropRight(1) else times
-      ByteArray(ClockEncoder.encode(timesToWrite.map(_.value)(breakOut), start.value))
+      ByteArray(ClockEncoder.encode(timesToWrite.map(_.centis)(breakOut), start.centis))
     }
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
-      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
+      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).map(Centis.apply)(breakOut)
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
@@ -64,7 +64,7 @@ object BinaryFormat {
     private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
 
     def write(mts: Vector[Centis]): ByteArray = ByteArray {
-      def enc(mt: Centis) = encodeCutoffs.search(mt.value).insertionPoint
+      def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
       (mts.grouped(2).map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a) => enc(a) << 4
@@ -84,8 +84,8 @@ object BinaryFormat {
     def write(clock: Clock): ByteArray = {
       ByteArray {
         Array(writeClockLimit(clock.limitSeconds), writeInt8(clock.incrementSeconds)) ++
-          writeSignedInt24(clock.whiteTime.value) ++
-          writeSignedInt24(clock.blackTime.value) ++
+          writeSignedInt24(clock.whiteTime.centis) ++
+          writeSignedInt24(clock.blackTime.centis) ++
           (clock.timerOption map { ts => writeTimer(ts.value / 10) } getOrElse Array()) map { _.toByte }
       }
     }

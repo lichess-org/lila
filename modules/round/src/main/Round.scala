@@ -229,7 +229,7 @@ private[round] final class Round(
 
   private def reportNetworkLag(pov: Pov) =
     if (pov.game.turns == 20 || pov.game.turns == 21) List(lags.white, lags.black).foreach { lag =>
-      if (lag.value > 0) lila.mon.round.move.networkLag(lag.value * 10l)
+      if (lag.centis > 0) lila.mon.round.move.networkLag(lag.centis * 10l)
     }
 
   private def handle[A](op: Game => Fu[Events]): Funit =

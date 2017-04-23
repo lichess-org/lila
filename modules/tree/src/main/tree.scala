@@ -208,7 +208,7 @@ object Node {
   }
 
   implicit val clockWrites: Writes[Centis] = Writes { clock =>
-    JsNumber(clock.value)
+    JsNumber(clock.centis)
   }
   implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
