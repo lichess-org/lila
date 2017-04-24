@@ -5,9 +5,11 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js", async = true)
 @embedJs {
-lichess_round = {
+window.onload = function() {
+LichessRound.boot({
 data: @Html(J.stringify(data)),
 i18n: @round.jsI18n()
+}, document.getElementById('lichess'));
 };
 }
 }

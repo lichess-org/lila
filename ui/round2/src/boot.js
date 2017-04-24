@@ -74,7 +74,7 @@ module.exports = function(cfg, element) {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
   cfg.crosstableEl = element.querySelector('.crosstable');
-  round = LichessRound.main(cfg);
+  round = LichessRound.mithril(cfg);
   if (cfg.chat) {
     cfg.chat.preset = getPresetGroup(cfg.data);
     cfg.chat.parseMoves = true;
