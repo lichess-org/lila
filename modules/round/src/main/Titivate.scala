@@ -63,7 +63,7 @@ private[round] final class Titivate(
             else game.clock match {
 
               case Some(clock) if clock.isRunning =>
-                val minutes = (clock.estimateTotalSeconds / 60).toInt
+                val minutes = clock.estimateTotalSeconds / 60
                 GameRepo.setCheckAt(game, DateTime.now plusMinutes minutes)
 
               case Some(clock) =>
