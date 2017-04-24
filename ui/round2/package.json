@@ -1,7 +1,7 @@
 {
-  "name": "analyse",
+  "name": "round",
   "version": "1.0.0",
-  "description": "lichess.org analyse",
+  "description": "lichess.org round",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -11,9 +11,7 @@
     "chess",
     "lichess",
     "play",
-    "replay",
-    "analysis",
-    "study"
+    "replay"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
@@ -34,14 +32,10 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "autolink-js": "^1.0.2",
-    "ceval": "file:../ceval",
-    "chess": "file:../chess",
     "chessground": "^6.4",
     "common": "file:../common",
     "game": "file:../game",
     "mithril": "github:ornicar/mithril.js#lila-vdom-only-2",
-    "tree": "file:../tree",
     "types": "file:../types"
   }
 }
