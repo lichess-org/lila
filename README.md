@@ -319,6 +319,14 @@ name | type | default | description
 
 Parameters and result are similar to the users games API.
 
+### `GET /api/games/team/<teamId>` fetch games between players of a team
+
+```
+> curl https://en.lichess.org/api/games/team/freenode?nb=10&page=2
+```
+
+Parameters and result are similar to the users games API.
+
 ### `GET /api/game/{id}` fetch one game by ID
 
 ```

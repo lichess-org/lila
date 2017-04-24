@@ -370,6 +370,7 @@ GET   /mod/:username/permissions       controllers.Mod.permissions(username: Str
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/:username/irwin             controllers.Mod.irwin(username: String)
+POST  /mod/:username/irwin2            controllers.Mod.irwin2(username: String)
 GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
 GET   /mod/users-mark-and-current-report controllers.Mod.usersMarkAndCurrentReport(ids: String)
 
@@ -466,6 +467,7 @@ GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/vs/:u1/:u2            controllers.Api.gamesVs(u1: String, u2: String)
+GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 POST  /api/games                       controllers.Api.games
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)

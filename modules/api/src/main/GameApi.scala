@@ -1,9 +1,10 @@
 package lila.api
 
+import org.joda.time.DateTime
 import play.api.libs.json._
-import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
@@ -23,6 +24,7 @@ private[api] final class GameApi(
     crosstableApi: CrosstableApi
 ) {
 
+  import GameApi.WithFlags
   import lila.round.JsonView.openingWriter
 
   def byUser(
@@ -30,11 +32,7 @@ private[api] final class GameApi(
     rated: Option[Boolean],
     playing: Option[Boolean],
     analysed: Option[Boolean],
-    withAnalysis: Boolean,
-    withMoves: Boolean,
-    withOpening: Boolean,
-    withMoveTimes: Boolean,
-    token: Option[String],
+    withFlags: WithFlags,
     nb: Int,
     page: Int
   ): Fu[JsObject] = Paginator(
@@ -64,50 +62,21 @@ private[api] final class GameApi(
     currentPage = page,
     maxPerPage = nb
   ) flatMap { pag =>
-    gamesJson(
-      withAnalysis = withAnalysis,
-      withMoves = withMoves,
-      withOpening = withOpening,
-      withFens = false,
-      withMoveTimes = withMoveTimes,
-      token = token
-    )(pag.currentPageResults) map { games =>
+    gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
       PaginatorJson(pag withCurrentPageResults games)
     }
   }
 
-  def one(
-    id: String,
-    withAnalysis: Boolean,
-    withMoves: Boolean,
-    withOpening: Boolean,
-    withFens: Boolean,
-    withMoveTimes: Boolean,
-    token: Option[String]
-  ): Fu[Option[JsObject]] =
+  def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
     GameRepo game id flatMap {
       _ ?? { g =>
-        gamesJson(
-          withAnalysis = withAnalysis,
-          withMoves = withMoves,
-          withOpening = withOpening,
-          withFens = withFens,
-          withMoveTimes = withMoveTimes,
-          token = token
-        )(List(g)) map (_.headOption)
+        gamesJson(withFlags)(List(g)) map (_.headOption)
       }
     }
 
   def many(ids: Seq[String], withMoves: Boolean): Fu[Seq[JsObject]] =
     GameRepo gamesFromPrimary ids flatMap {
-      gamesJson(
-        withAnalysis = false,
-        withMoves = withMoves,
-        withOpening = false,
-        withFens = false,
-        withMoveTimes = false,
-        token = none
-      ) _
+      gamesJson(WithFlags(moves = withMoves)) _
     }
 
   def byUsersVs(
@@ -115,10 +84,7 @@ private[api] final class GameApi(
     rated: Option[Boolean],
     playing: Option[Boolean],
     analysed: Option[Boolean],
-    withAnalysis: Boolean,
-    withMoves: Boolean,
-    withOpening: Boolean,
-    withMoveTimes: Boolean,
+    withFlags: WithFlags,
     nb: Int,
     page: Int
   ): Fu[JsObject] = Paginator(
@@ -145,62 +111,68 @@ private[api] final class GameApi(
     currentPage = page,
     maxPerPage = nb
   ) flatMap { pag =>
-    gamesJson(
-      withAnalysis = withAnalysis,
-      withMoves = withMoves,
-      withOpening = withOpening,
-      withFens = false,
-      withMoveTimes = withMoveTimes,
-      token = none
-    )(pag.currentPageResults) map { games =>
+    gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
+      PaginatorJson(pag withCurrentPageResults games)
+    }
+  }
+
+  def byUsersVs(
+    userIds: Iterable[User.ID],
+    rated: Option[Boolean],
+    playing: Option[Boolean],
+    analysed: Option[Boolean],
+    withFlags: WithFlags,
+    since: DateTime,
+    nb: Int,
+    page: Int
+  ): Fu[JsObject] = Paginator(
+    adapter = new Adapter[Game](
+    collection = GameRepo.coll,
+    selector = {
+    if (~playing) lila.game.Query.nowPlayingVs(userIds)
+    else lila.game.Query.opponents(userIds) ++ $doc(
+      G.status $gte chess.Status.Mate.id,
+      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+    )
+  } ++ $doc(
+    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
+    G.createdAt $gte since
+  ),
+    projection = $empty,
+    sort = $doc(G.createdAt -> -1),
+    readPreference = ReadPreference.secondaryPreferred
+  ),
+    currentPage = page,
+    maxPerPage = nb
+  ) flatMap { pag =>
+    gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
       PaginatorJson(pag withCurrentPageResults games)
     }
   }
 
   private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 
-  private def gamesJson(
-    withAnalysis: Boolean,
-    withMoves: Boolean,
-    withOpening: Boolean,
-    withFens: Boolean,
-    withMoveTimes: Boolean,
-    token: Option[String]
-  )(games: Seq[Game]): Fu[Seq[JsObject]] = {
+  private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
     val allAnalysis =
-      if (withAnalysis) AnalysisRepo byIds games.map(_.id)
+      if (withFlags.analysis) AnalysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map GameRepo.initialFen).sequenceFu map { initialFens =>
-        val validToken = check(token)
         games zip analysisOptions zip initialFens map {
           case ((g, analysisOption), initialFen) =>
-            gameToJson(g, analysisOption, initialFen,
-              withAnalysis = withAnalysis,
-              withMoves = withMoves,
-              withOpening = withOpening,
-              withFens = withFens,
-              withBlurs = validToken,
-              withHold = validToken,
-              withMoveTimes = withMoveTimes)
+            gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
         }
       }
     }
   }
 
-  private def check(token: Option[String]) = token has apiToken
+  private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken
 
   private def gameToJson(
     g: Game,
     analysisOption: Option[Analysis],
     initialFen: Option[String],
-    withAnalysis: Boolean,
-    withMoves: Boolean,
-    withOpening: Boolean,
-    withFens: Boolean,
-    withBlurs: Boolean = false,
-    withHold: Boolean = false,
-    withMoveTimes: Boolean = false
+    withFlags: WithFlags
   ) = Json.obj(
     "id" -> g.id,
     "initialFen" -> initialFen,
@@ -228,9 +200,9 @@ private[api] final class GameApi(
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
-        "moveCentis" -> withMoveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)),
-        "blurs" -> withBlurs.option(p.blurs),
-        "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
+        "moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)),
+        "blurs" -> withFlags.blurs.option(p.blurs),
+        "hold" -> p.holdAlert.ifTrue(withFlags.hold).fold[JsValue](JsNull) { h =>
           Json.obj(
             "ply" -> h.ply,
             "mean" -> h.mean,
@@ -240,10 +212,10 @@ private[api] final class GameApi(
         "analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).map(analysisJson.moves),
-    "moves" -> withMoves.option(g.pgnMoves mkString " "),
-    "opening" -> withOpening.??(g.opening),
-    "fens" -> (withFens && g.finished) ?? {
+    "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves),
+    "moves" -> withFlags.moves.option(g.pgnMoves mkString " "),
+    "opening" -> withFlags.opening.??(g.opening),
+    "fens" -> (withFlags.fens && g.finished) ?? {
       chess.Replay.boards(
         moveStrs = g.pgnMoves,
         initialFen = initialFen map chess.format.FEN,
@@ -255,4 +227,24 @@ private[api] final class GameApi(
     "winner" -> g.winnerColor.map(_.name),
     "url" -> makeUrl(g)
   ).noNull
+}
+
+object GameApi {
+
+  case class WithFlags(
+      analysis: Boolean = false,
+      moves: Boolean = false,
+      fens: Boolean = false,
+      opening: Boolean = false,
+      moveTimes: Boolean = false,
+      blurs: Boolean = false,
+      hold: Boolean = false,
+      token: Option[String] = none
+  ) {
+
+    def applyToken(validToken: String) = copy(
+      blurs = token has validToken,
+      hold = token has validToken
+    )
+  }
 }

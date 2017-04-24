@@ -63,6 +63,12 @@ object Query {
 
   def nowPlayingVs(u1: String, u2: String) = $doc(F.playingUids $all List(u1, u2))
 
+  def nowPlayingVs(userIds: Iterable[String]) = $doc(
+    F.playingUids $in userIds, // as to use the index
+    s"${F.playingUids}.0" $in userIds,
+    s"${F.playingUids}.1" $in userIds
+  )
+
   // use the us index
   def win(u: String) = user(u) ++ $doc(F.winnerId -> u)
 
@@ -73,6 +79,12 @@ object Query {
 
   def opponents(u1: User, u2: User) =
     $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
+
+  def opponents(userIds: Iterable[String]) = $doc(
+    F.playerUids $in userIds, // as to use the index
+    s"${F.playerUids}.0" $in userIds,
+    s"${F.playerUids}.1" $in userIds
+  )
 
   val noProvisional: Bdoc = $doc(
     "p0.p" $exists false,
