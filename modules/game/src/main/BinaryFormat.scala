@@ -86,7 +86,7 @@ object BinaryFormat {
         Array(writeClockLimit(clock.limitSeconds), writeInt8(clock.incrementSeconds)) ++
           writeSignedInt24(clock.whiteTime.centis) ++
           writeSignedInt24(clock.blackTime.centis) ++
-          (clock.timerOption map { ts => writeTimer(ts.value / 10) } getOrElse Array()) map { _.toByte }
+          writeTimer(clock.timerOption.fold(0l)(_.value / 10l)) map { _.toByte }
       }
     }
 
