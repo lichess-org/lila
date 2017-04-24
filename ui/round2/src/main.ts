@@ -1,5 +1,5 @@
 import ctrl = require('./ctrl');
-import view = require('./view');
+import view = require('./view/main');
 import boot = require('./boot');
 import * as m from 'mithril';
 import { Chessground } from 'chessground';
@@ -26,5 +26,5 @@ export function main(opts) {
 window.Chessground = Chessground;
 
 window.onload = function() {
-  if (window.lichess_round) boot(lichess_round, document.getElementById('lichess'));
+  if (window.lichess_round) boot(window.lichess_round, document.getElementById('lichess'));
 };

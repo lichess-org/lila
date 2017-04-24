@@ -48,7 +48,8 @@ interface Window {
 
   moment: any
   Mousetrap: any
-  Chessground: any;
+  Chessground: any
+  lichess_round: any
 }
 
 interface Paginator<T> {
