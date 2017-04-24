@@ -209,13 +209,14 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = Set(5, 11, 17, 23)(hour).fold[Schedule.Speed](HyperBullet, Bullet)
+          val bulletType = if (hour % 6 == 5) HyperBullet else Bullet
           List(
+            at(date, hour) collect { case date if hour % 6 == 3 => Schedule(Hourly, UltraBullet, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, Bullet, Standard, std, date) },
             at(date, hour, 30) map { date => Schedule(Hourly, bulletType, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, Blitz, Standard, std, date) },
-            at(date, hour) flatMap { date => (hour % 2 == 0) option Schedule(Hourly, Classical, Standard, std, date) }
+            at(date, hour) collect { case date if hour % 2 == 0 => Schedule(Hourly, Classical, Standard, std, date) }
           ).flatten
         },
 
@@ -259,7 +260,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           }
           List(
             at(date, hour) map { date => Schedule(Hourly, speed, Crazyhouse, std, date) },
-            at(date, hour, 30) flatMap { date => (speed == Bullet) option Schedule(Hourly, speed, Crazyhouse, std, date) }
+            at(date, hour, 30) collect { case date if speed == Bullet => Schedule(Hourly, speed, Crazyhouse, std, date) }
           ).flatten
         }
       ).flatten
