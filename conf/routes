@@ -370,6 +370,7 @@ GET   /mod/:username/permissions       controllers.Mod.permissions(username: Str
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/:username/irwin             controllers.Mod.irwin(username: String)
+POST  /mod/:username/irwin2            controllers.Mod.irwin2(username: String)
 GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
 GET   /mod/users-mark-and-current-report controllers.Mod.usersMarkAndCurrentReport(ids: String)
 

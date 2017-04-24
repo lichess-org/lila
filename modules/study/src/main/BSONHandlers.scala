@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ Pos, Role, PromotableRole }
+import chess.{ Centis, Pos, Role, PromotableRole }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -13,7 +13,7 @@ import lila.db.dsl._
 import lila.tree.Node.{ Shape, Shapes }
 
 import lila.common.Iso._
-import lila.common.{ Iso, Centis }
+import lila.common.Iso
 
 object BSONHandlers {
 
@@ -23,7 +23,7 @@ object BSONHandlers {
   implicit val StudyNameBSONHandler = stringIsoHandler(Study.nameIso)
   implicit val ChapterIdBSONHandler = stringIsoHandler(Chapter.idIso)
   implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
-  implicit val CentisBSONHandler = intIsoHandler(Centis.centisIso)
+  implicit val CentisBSONHandler = intIsoHandler(Iso.centisIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"

@@ -23,7 +23,7 @@ object Rewind {
       val color = game.turnColor;
       val newClock = game.clock.map(_.takeback) map { clk =>
         game.clockHistory.flatMap(_.last(color)).fold(clk) {
-          t => clk.setRemainingCentis(color, t.value)
+          t => clk.setRemainingTime(color, t)
         }
       }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)

@@ -58,7 +58,7 @@ final class PlaybanApi(
       seconds = nowSeconds - lmt.getSeconds
       clock <- game.clock
       // a tenth of the total time, at least 15s, at most 3 minutes
-      limit = (clock.estimateTotalTime / 10) max 15 min (3 * 60)
+      limit = (clock.estimateTotalSeconds / 10) max 15 min (3 * 60)
       if seconds >= limit
     } yield save(Outcome.Sitting)(userId)) | goodFinish(game)
   }

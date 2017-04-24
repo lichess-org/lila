@@ -1,6 +1,7 @@
 package lila.tournament
 
 import chess.variant.Variant
+import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
@@ -28,9 +29,16 @@ object BSONHandlers {
     def write(x: Schedule.Speed) = BSONString(x.name)
   }
 
-  private implicit val tournamentClockBSONHandler = {
-    import chess.Clock.Config
-    Macros.handler[Config]
+  private implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
+    def read(doc: BSONDocument) = ClockConfig(
+      doc.getAs[Int]("limit").get,
+      doc.getAs[Int]("increment").get
+    )
+
+    def write(config: ClockConfig) = BSONDocument(
+      "limit" -> config.limitSeconds,
+      "increment" -> config.incrementSeconds
+    )
   }
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]

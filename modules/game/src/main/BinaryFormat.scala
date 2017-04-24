@@ -10,7 +10,6 @@ import chess._
 import chess.variant.Variant
 
 import lila.db.ByteArray
-import lila.common.Centis
 
 import org.lichess.clockencoder.{ Encoder => ClockEncoder }
 
@@ -34,11 +33,11 @@ object BinaryFormat {
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
       val timesToWrite = if (flagged) times.dropRight(1) else times
-      ByteArray(ClockEncoder.encode(timesToWrite.map(_.value)(breakOut), start.value))
+      ByteArray(ClockEncoder.encode(timesToWrite.map(_.centis)(breakOut), start.centis))
     }
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
-      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.value).map(Centis.apply)(breakOut)
+      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).map(Centis.apply)(breakOut)
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
@@ -65,7 +64,7 @@ object BinaryFormat {
     private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
 
     def write(mts: Vector[Centis]): ByteArray = ByteArray {
-      def enc(mt: Centis) = encodeCutoffs.search(mt.value).insertionPoint
+      def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
       (mts.grouped(2).map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
         case Vector(a) => enc(a) << 4
@@ -82,13 +81,13 @@ object BinaryFormat {
 
   case class clock(since: DateTime) {
 
-    def write(clock: Clock): ByteArray = ByteArray {
-      def time(t: Float) = writeSignedInt24((t * 100).toInt)
-      def timer(seconds: Double) = writeTimer((seconds * 100).toLong)
-      Array(writeClockLimit(clock.limit), writeInt8(clock.increment)) ++
-        time(clock.whiteTime) ++
-        time(clock.blackTime) ++
-        timer(clock.timerOption getOrElse 0d) map (_.toByte)
+    def write(clock: Clock): ByteArray = {
+      ByteArray {
+        Array(writeClockLimit(clock.limitSeconds), writeInt8(clock.incrementSeconds)) ++
+          writeSignedInt24(clock.whiteTime.centis) ++
+          writeSignedInt24(clock.blackTime.centis) ++
+          writeTimer(clock.timerOption.fold(0l)(_.value / 10l)) map { _.toByte }
+      }
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => ba.value map toInt match {
@@ -97,19 +96,19 @@ object BinaryFormat {
           case 0 => PausedClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-            blackTime = readSignedInt24(b6, b7, b8) / 100f,
+            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+            blackTime = Centis(readSignedInt24(b6, b7, b8)),
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk
           )
           case timer => RunningClock(
             config = Clock.Config(readClockLimit(b1), b2),
             color = color,
-            whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-            blackTime = readSignedInt24(b6, b7, b8) / 100f,
+            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+            blackTime = Centis(readSignedInt24(b6, b7, b8)),
             whiteBerserk = whiteBerserk,
             blackBerserk = blackBerserk,
-            timer = timer.toDouble / 100
+            timer = Timestamp(timer * 10l)
           )
         }
       // compatibility with 5 bytes timers
@@ -118,8 +117,8 @@ object BinaryFormat {
         PausedClock(
           config = Clock.Config(readClockLimit(b1), b2),
           color = color,
-          whiteTime = readSignedInt24(b3, b4, b5) / 100f,
-          blackTime = readSignedInt24(b6, b7, b8) / 100f,
+          whiteTime = Centis(readSignedInt24(b3, b4, b5)),
+          blackTime = Centis(readSignedInt24(b6, b7, b8)),
           whiteBerserk = whiteBerserk,
           blackBerserk = blackBerserk
         )

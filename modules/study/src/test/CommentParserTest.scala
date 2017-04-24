@@ -3,7 +3,7 @@ package lila.study
 import org.specs2.mutable._
 import org.specs2.specification._
 
-import lila.common.Centis
+import chess.Centis
 import lila.tree.Node.Shape._
 import lila.tree.Node.Shapes
 

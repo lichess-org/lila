@@ -5,7 +5,7 @@ import scalaz.Validation.FlatMap._
 import chess.format.pgn.{ Tag, Glyphs, San, Dumper }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 
-import lila.common.Centis
+import chess.Centis
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
@@ -30,7 +30,7 @@ private object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.clockConfig.map(c => Centis(c.limit * 100)),
+              clock = parsedPgn.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = makeNode(
                 prev = replay.setup,

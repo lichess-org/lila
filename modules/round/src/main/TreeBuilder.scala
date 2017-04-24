@@ -6,7 +6,7 @@ import chess.opening._
 import chess.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Analysis, Info, Advice }
-import lila.common.Centis
+import chess.Centis
 import lila.tree._
 
 object TreeBuilder {

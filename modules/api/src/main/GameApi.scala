@@ -215,9 +215,9 @@ private[api] final class GameApi(
     "status" -> g.status.name,
     "clock" -> g.clock.map { clock =>
       Json.obj(
-        "initial" -> clock.limit,
-        "increment" -> clock.increment,
-        "totalTime" -> clock.estimateTotalTime
+        "initial" -> clock.limitSeconds,
+        "increment" -> clock.incrementSeconds,
+        "totalTime" -> clock.estimateTotalSeconds
       )
     },
     "daysPerTurn" -> g.daysPerTurn,
@@ -228,7 +228,7 @@ private[api] final class GameApi(
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "provisional" -> p.provisional.option(true),
-        "moveCentis" -> withMoveTimes ?? g.moveTimes(p.color).map(_.map(_.value)),
+        "moveCentis" -> withMoveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)),
         "blurs" -> withBlurs.option(p.blurs),
         "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
           Json.obj(
