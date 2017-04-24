@@ -46,7 +46,7 @@ private[round] final class Titivate(
             if (game.finished || game.isPgnImport || game.playedThenAborted)
               GameRepo unsetCheckAt game
 
-            else if (game.outoftime(_ => chess.Clock.maxGraceMillis)) fuccess {
+            else if (game.outoftime(_ => chess.Clock.maxGrace)) fuccess {
               roundMap ! Tell(game.id, Outoftime)
             }
 
@@ -63,7 +63,7 @@ private[round] final class Titivate(
             else game.clock match {
 
               case Some(clock) if clock.isRunning =>
-                val minutes = (clock.estimateTotalTime / 60).toInt
+                val minutes = clock.estimateTotalSeconds / 60
                 GameRepo.setCheckAt(game, DateTime.now plusMinutes minutes)
 
               case Some(clock) =>

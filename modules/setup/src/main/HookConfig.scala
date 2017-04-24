@@ -70,7 +70,7 @@ case class HookConfig(
     variant = game.variant,
     timeMode = TimeMode ofGame game,
     time = game.clock.map(_.limitInMinutes) | time,
-    increment = game.clock.map(_.increment) | increment,
+    increment = game.clock.map(_.incrementSeconds) | increment,
     days = game.daysPerTurn | days,
     mode = game.mode
   )

@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import org.specs2.specification._
 
 import lila.db.ByteArray
-import lila.common.Centis
+import chess.Centis
 
 class BinaryClockHistoryTest extends Specification {
 

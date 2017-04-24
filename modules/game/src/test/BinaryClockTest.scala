@@ -2,7 +2,7 @@ package lila.game
 
 import scala.concurrent.duration._
 
-import chess.Clock
+import chess.{ Centis, Clock }
 import org.specs2.mutable._
 import org.specs2.specification._
 
@@ -26,10 +26,10 @@ class BinaryClockTest extends Specification {
       write(clock) must_== {
         bits22 ::: List.fill(10)(_0_)
       }
-      write(clock.giveTime(chess.White, 0.03f)) must_== {
+      write(clock.giveTime(chess.White, Centis(3))) must_== {
         bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(7)(_0_)
       }
-      write(clock.giveTime(chess.White, -0.03f)) must_== {
+      write(clock.giveTime(chess.White, Centis(-3))) must_== {
         bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(7)(_0_)
       }
       write(Clock(0, 3)) must_== {
@@ -41,24 +41,24 @@ class BinaryClockTest extends Specification {
         clock
       }
       read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
-        clock.giveTime(chess.White, 0.03f)
+        clock.giveTime(chess.White, Centis(3))
       }
       read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
-        clock.giveTime(chess.White, -0.03f)
+        clock.giveTime(chess.White, Centis(-3))
       }
     }
     "isomorphism" in {
 
       isomorphism(clock) must_== clock
 
-      val c2 = clock.giveTime(chess.White, 15)
+      val c2 = clock.giveTime(chess.White, Centis.ofSeconds(15))
       isomorphism(c2) must_== c2
 
-      val c3 = clock.giveTime(chess.Black, 5)
+      val c3 = clock.giveTime(chess.Black, Centis.ofSeconds(5))
       isomorphism(c3) must_== c3
 
       val c4 = clock.start
-      isomorphism(c4).timerOption.get must beCloseTo(c4.timerOption.get, 1)
+      isomorphism(c4).timerOption.get.value must beCloseTo(c4.timerOption.get.value, 10)
 
       Clock(120, 60) |> { c =>
         isomorphism(c) must_== c

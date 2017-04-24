@@ -108,7 +108,7 @@ object Schedule {
       case _ => false
     }
     def fromClock(clock: chess.Clock.Config) = {
-      val time = clock.estimateTotalTime
+      val time = clock.estimateTotalSeconds
       if (time < 30) UltraBullet
       else if (time < 60) HyperBullet
       else if (time < 120) Bullet

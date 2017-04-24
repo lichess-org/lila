@@ -9,7 +9,7 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
-import lila.common.Centis
+import chess.Centis
 
 private[game] object GameDiff {
 
@@ -48,7 +48,7 @@ private[game] object GameDiff {
         history <- g.clockHistory
         curColor = g.turnColor
         times = history(color)
-      } yield (Centis(clk.limit * 100), times, g.flagged has color)
+      } yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.map {
       case (x, y, z) => ByteArrayBSONHandler.write(BinaryFormat.clockHistory.writeSide(x, y, z))

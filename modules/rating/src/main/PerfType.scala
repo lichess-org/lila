@@ -1,6 +1,6 @@
 package lila.rating
 
-import lila.common.Centis
+import chess.Centis
 
 import chess.Speed
 
