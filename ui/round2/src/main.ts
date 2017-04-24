@@ -1,23 +1,31 @@
-import ctrl = require('./ctrl');
+import makeCtrl = require('./ctrl');
 import view = require('./view/main');
 import boot = require('./boot');
-import * as m from 'mithril';
+
 import { Chessground } from 'chessground';
 
-export function mithril(opts) {
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode'
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
-  var controller = new ctrl(opts);
+const patch = init([klass, attributes]);
 
-  m.module(opts.element, {
-    controller: function() {
-      return controller;
-    },
-    view: view
-  });
+export function mithril(opts: any) {
+
+  let vnode: VNode, ctrl: any;
+
+  function redraw() {
+    vnode = patch(vnode, view.main(ctrl));
+  }
+
+  ctrl = makeCtrl(opts, redraw);
+
+  vnode = patch(opts.element, view(ctrl));
 
   return {
-    socketReceive: controller.socket.receive,
-    moveOn: controller.moveOn
+    socketReceive: ctrl.socket.receive,
+    moveOn: ctrl.moveOn
   };
 };
 

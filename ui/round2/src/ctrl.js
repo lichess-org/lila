@@ -21,7 +21,7 @@ var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
 var keyboard = require('./keyboard');
 
-module.exports = function(opts) {
+module.exports = function(opts, redraw) {
 
   this.data = round.merge({}, opts.data).data;
 
