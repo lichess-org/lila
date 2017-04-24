@@ -1,5 +1,6 @@
 package controllers
 
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -122,6 +123,15 @@ object Api extends LilaController {
     key = "user_games.api.global"
   )
 
+  private def gameFlagsFromRequest(implicit ctx: Context) =
+    lila.api.GameApi.WithFlags(
+      analysis = getBool("with_analysis"),
+      moves = getBool("with_moves"),
+      opening = getBool("with_opening"),
+      moveTimes = getBool("with_movetimes"),
+      token = get("token")
+    )
+
   def userGames(name: String) = ApiRequest { implicit ctx =>
     val page = (getInt("page") | 1) atLeast 1 atMost 200
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
@@ -138,11 +148,7 @@ object Api extends LilaController {
                 rated = getBoolOpt("rated"),
                 playing = getBoolOpt("playing"),
                 analysed = getBoolOpt("analysed"),
-                withAnalysis = getBool("with_analysis"),
-                withMoves = getBool("with_moves"),
-                withOpening = getBool("with_opening"),
-                withMoveTimes = getBool("with_movetimes"),
-                token = get("token"),
+                withFlags = gameFlagsFromRequest,
                 nb = nb,
                 page = page
               ) map some
@@ -164,15 +170,7 @@ object Api extends LilaController {
     val ip = HTTPRequest lastRemoteAddress ctx.req
     GameRateLimitPerIP(ip, cost = 1) {
       lila.mon.api.game.cost(1)
-      gameApi.one(
-        id = id take lila.game.Game.gameIdSize,
-        withAnalysis = getBool("with_analysis"),
-        withMoves = getBool("with_moves"),
-        withOpening = getBool("with_opening"),
-        withFens = getBool("with_fens"),
-        withMoveTimes = getBool("with_movetimes"),
-        token = get("token")
-      ) map toApiResult
+      gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest) map toApiResult
     }
   }
 
@@ -208,10 +206,7 @@ object Api extends LilaController {
                 rated = getBoolOpt("rated"),
                 playing = getBoolOpt("playing"),
                 analysed = getBoolOpt("analysed"),
-                withAnalysis = getBool("with_analysis"),
-                withMoves = getBool("with_moves"),
-                withOpening = getBool("with_opening"),
-                withMoveTimes = getBool("with_movetimes"),
+                withFlags = gameFlagsFromRequest,
                 nb = nb,
                 page = page
               ) map some
@@ -219,6 +214,41 @@ object Api extends LilaController {
           } yield toApiResult(res)
         }
       }
+    }
+  }
+
+  def gamesVsTeam(teamId: String) = ApiRequest { implicit ctx =>
+    Env.team.api team teamId flatMap {
+      case None => fuccess {
+        Custom { BadRequest(jsonError("No such team.")) }
+      }
+      case Some(team) if team.nbMembers > 200 => fuccess {
+        Custom { BadRequest(jsonError(s"The team has too many players. ${team.nbMembers} > 200")) }
+      }
+      case Some(team) =>
+        lila.team.MemberRepo.userIdsByTeam(team.id) flatMap { userIds =>
+          val page = (getInt("page") | 1) atLeast 1 atMost 200
+          val nb = (getInt("nb") | 10) atLeast 1 atMost 100
+          val cost = page * nb * 5 + 10
+          val ip = HTTPRequest lastRemoteAddress ctx.req
+          UserGamesRateLimitPerIP(ip, cost = cost) {
+            UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+              UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
+                lila.mon.api.userGames.cost(cost)
+                gameApi.byUsersVs(
+                  userIds = userIds,
+                  rated = getBoolOpt("rated"),
+                  playing = getBoolOpt("playing"),
+                  analysed = getBoolOpt("analysed"),
+                  withFlags = gameFlagsFromRequest,
+                  since = DateTime.now minusYears 1,
+                  nb = nb,
+                  page = page
+                ) map some map toApiResult
+              }
+            }
+          }
+        }
     }
   }
 
@@ -245,6 +275,7 @@ object Api extends LilaController {
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
+  case class Custom(result: Result) extends ApiResult
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
 
@@ -255,6 +286,7 @@ object Api extends LilaController {
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
     case Limited => TooManyRequest(jsonError("Try again later"))
     case NoData => NotFound
+    case Custom(result) => result
     case Data(json) => get("callback") match {
       case None => Ok(json) as JSON
       case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
