@@ -53,11 +53,7 @@ function wheel(ctrl, e) {
 }
 
 function visualBoard(ctrl) {
-  return h('div', {
-    class: {
-      lichess_board_wrap: true
-    }
-  }, [
+  return h('div.lichess_board_wrap', [
     h('div', {
       class: {
         'lichess_board': true,
@@ -71,11 +67,8 @@ function visualBoard(ctrl) {
 }
 
 function blindBoard(ctrl) {
-  return h('div', {
-    class: { 'lichess_board_blind': true }
-  }, [
-    h('div', {
-      class: { 'textual': true },
+  return h('div.lichess_board_blind', [
+    h('div.textual', {
       hook: {
         insert: vnode => blind.init(vnode.elm, ctrl)
       }
@@ -110,25 +103,14 @@ export function main(ctrl: any): VNode {
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return h('div', {
-    class: {
-      'round': true,
-      'cg-512': true
-    }
-  }, [
-    h('div', {
-      class: {
-        'lichess_game': true,
-        ['variant_' + d.game.variant.key]: true
-      },
+  return h('div.round.cg-512', [
+    h('div.lichess_game.variant_' + d.game.variant.key, {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()
       }
     }, [
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-      h('div', {
-        class: {lichess_ground: true}
-      }, [
+      h('div.lichess_ground', [
         // crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
         table.render(ctrl),
         // crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)

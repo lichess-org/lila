@@ -21,14 +21,8 @@ function bottomPlayer(ctrl) {
 }
 
 function renderPlayer(ctrl, player) {
-  return player.ai ? h('div', {
-    class: {
-      username: true,
-      user_link: true,
-      online: true
-    }
-  }, [
-    h('i', { class: { line: true }}),
+  return player.ai ? h('div.username.user_link.online', [
+    h('i.line'),
     h('name', renderUser.aiName(ctrl, player))
   ]) :
   renderUser.userHtml(ctrl, player);
@@ -43,9 +37,7 @@ function loader() { return h('span.ddloader'); }
 function renderTableWith(ctrl, buttons: VNode[]): VNode[] {
   return [
     replay.render(ctrl),
-    buttons ? h('div', {
-      class: { control: true, buttons: true }
-    }, buttons) : null,
+    buttons ? h('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ] as VNode[];
 }
@@ -79,18 +71,14 @@ function renderTablePlay(ctrl) {
   ] as VNode[];
   return [
     replay.render(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
-      isLoading(ctrl) ? null : h('div', {
-        class: {control: true, icons: true}
-      }, [
+      isLoading(ctrl) ? null : h('div.control.icons', [
         game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort', null) :
         button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
         button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', ctrl.offerDraw),
         ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
       ])
     ),
-    h('div', {
-      class: {control: true, buttons: true}
-    }, buttons),
+    h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ] as VNode[];
 }
@@ -98,14 +86,12 @@ function renderTablePlay(ctrl) {
 function whosTurn(ctrl, color) {
   var d = ctrl.data;
   if (status.finished(d) || status.aborted(d)) return;
-  return h('div', {
-    class: {whos_turn: true}
-  },
-  d.game.player === color ? (
-    d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
-      d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
-    )
-  ) : ''
+  return h('div.whos_turn',
+    d.game.player === color ? (
+      d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
+        d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
+      )
+    ) : ''
   );
 }
 
@@ -120,20 +106,14 @@ function anyClock(ctrl, position) {
 }
 
 export function render(ctrl: any): VNode {
-  return h('div', {
-    class: {table_wrap: true}
-  }, [
+  return h('div.table_wrap', [
     anyClock(ctrl, 'top'),
-    h('div', {
-      class: {table: true}
-    }, [
+    h('div.table', [
       renderPlayer(ctrl, topPlayer(ctrl)),
-      h('div', {
-        class: {table_inner: true}
-      },
-      ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-      )
+      h('div.table_inner',
+        ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+          game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        )
       )
     ] as VNode[]),
     anyClock(ctrl, 'bottom')

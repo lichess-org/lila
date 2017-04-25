@@ -18,8 +18,7 @@ function poolUrl(clock) {
 function analysisButton(ctrl) {
   var d = ctrl.data;
   var url = router.game(d, analysisBoardOrientation(d)) + '#' + ctrl.vm.ply;
-  return game.replayable(d) ? h('a', {
-    class: {button: true},
+  return game.replayable(d) ? h('a.button', {
     attrs: { href: url },
     hook: util.bind('click', () => {
       // force page load in case the URL is the same
@@ -67,13 +66,8 @@ export function standard(ctrl, condition, icon, hint, socketMsg, onclick) {
   var enabled = function() {
     return !condition || condition(ctrl.data);
   };
-  return h('button', {
+  return h('button.fbt.hint--bottom.' + socketMsg, {
     key: socketMsg || 'click',
-    class: {
-      fbt: true,
-      'hint--bottom': true,
-      [socketMsg]: true
-    },
     attrs: {
       disabled: !enabled(),
       'data-hint': ctrl.trans.noarg(hint)

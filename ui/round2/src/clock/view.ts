@@ -23,8 +23,7 @@ export function renderClock(ctrl, player, position) {
     }
   }, [
     showBar(ctrl.clock, player.color, ctrl.vm.goneBerserk[player.color]),
-    h('div', {
-      class: {time: true},
+    h('div.time', {
       hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
         postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
@@ -98,11 +97,7 @@ function showBerserk(ctrl, color) {
 }
 
 function renderBerserk(ctrl, color, position) {
-  return showBerserk(ctrl, color) ? h('div', {
-    class: {
-      berserk_alert: true,
-      [position]: true
-    },
+  return showBerserk(ctrl, color) ? h('div.berserk_alert.' + position, {
     attrs: {'data-icon': '`'}
   }) : null;
 }
@@ -120,11 +115,8 @@ function goBerserk(ctrl) {
 
 function tourRank(ctrl, color, position) {
   var d = ctrl.data;
-  return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ? h('div', {
-    class: {
-      tournament_rank: true,
-      [position]: true
-    },
+  return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ? 
+  h('div.tournament_rank.' + position, {
     attrs: {title: 'Current tournament rank'}
   }, '#' + d.tournament.ranks[color]) : null;
 }
