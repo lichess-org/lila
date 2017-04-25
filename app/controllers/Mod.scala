@@ -81,15 +81,13 @@ object Mod extends LilaController {
 
   import lila.irwin.JSONHandlers.reportReader
 
-  def irwin2(username: String) = OpenBody(parse.json) { implicit ctx =>
+  def irwin2 = OpenBody(parse.json) { implicit ctx =>
     Mod.ModExternalBot {
-      OptionFuResult(UserRepo named username) { user =>
-        UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
-          ctx.body.body.validate[lila.irwin.IrwinReport].fold(
-            err => fuccess(BadRequest(err.toString)),
-            report => Env.irwin.api.insert(report) inject Ok
-          )
-        }
+      UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
+        ctx.body.body.validate[lila.irwin.IrwinReport].fold(
+          err => fuccess(BadRequest(err.toString)),
+          report => Env.irwin.api.insert(report) inject Ok
+        )
       }
     }
   }
