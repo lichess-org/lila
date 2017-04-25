@@ -66,7 +66,7 @@ function visualBoard(ctrl) {
       },
       hook: util.bind('click', e => wheel(ctrl, e))
     }, [ground.render(ctrl)]),
-    promotion.view(ctrl) as VNode
+    promotion.view(ctrl)
   ]);
 }
 

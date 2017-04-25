@@ -60,11 +60,11 @@ function renderResult(ctrl) {
           }
         }
       }, [
-        gameView.status(ctrl),
+        h('div', gameView.status(ctrl)),
         winner ? h('div',
           ', ' + ctrl.trans.noarg(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
-        ): null
-      ] as VNode[])
+        ) : null
+      ])
     ]);
   }
   return;
@@ -74,7 +74,7 @@ function renderMoves(ctrl) {
   const steps = ctrl.data.steps,
   firstPly = round.firstPly(ctrl.data),
   lastPly = round.lastPly(ctrl.data);
-  if (typeof lastPly === 'undefined') return;
+  if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
   if (firstPly % 2 === 0)
@@ -189,7 +189,7 @@ function renderButtons(ctrl) {
       });
     })),
     ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
-  ] as VNode[]);
+  ]);
 }
 
 function racingKingsInit(d) {
@@ -233,6 +233,6 @@ export function render(ctrl: any): VNode {
           window.addEventListener('load', ctrl.vm.autoScroll);
         }
       }
-    }, renderMoves(ctrl) as VNode[]) : renderResult(ctrl))
+    }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
 };

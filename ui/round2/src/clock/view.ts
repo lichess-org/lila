@@ -3,7 +3,6 @@ import util from 'util';
 import { game } from 'game';
 
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 
 export function renderClock(ctrl, player, position) {
   const millis = ctrl.clock.millisOf(player.color);
@@ -13,30 +12,28 @@ export function renderClock(ctrl, player, position) {
     ctrl.clock.elements[player.color].time = el;
     el.innerHTML = formatClockTime(ctrl.clock.data, millis, running);
   }
-  return [
+  return h('div', {
+    class: {
+      clock: true,
+      ['clock_' + player.color]: true,
+      ['clock_' + position]: true,
+      outoftime: millis <= 0,
+      running: running,
+      emerg: millis < ctrl.clock.emergMs
+    }
+  }, [
+    showBar(ctrl.clock, player.color, ctrl.vm.goneBerserk[player.color]),
     h('div', {
-      class: {
-        clock: true,
-        ['clock_' + player.color]: true,
-        ['clock_' + position]: true,
-        outoftime: millis <= 0,
-        running: running,
-        emerg: millis < ctrl.clock.emergMs
+      class: {time: true},
+      hook: {
+        insert: vnode => update(vnode.elm as HTMLElement),
+        postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
       }
-    }, [
-      showBar(ctrl.clock, player.color, ctrl.vm.goneBerserk[player.color]),
-      h('div', {
-        class: {time: true},
-        hook: {
-          insert: vnode => update(vnode.elm as HTMLElement),
-          postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
-        }
-      }),
-      renderBerserk(ctrl, player.color, position),
-      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-      tourRank(ctrl, player.color, position)
-    ] as VNode[])
-  ];
+    }),
+    renderBerserk(ctrl, player.color, position),
+    isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+    tourRank(ctrl, player.color, position)
+  ]);
 }
 
 function pad2(num) {
@@ -68,7 +65,7 @@ function formatClockTime(data, time, running) {
 
 function showBar(ctrl, color, berserk) {
   const update = (el: HTMLElement) => {
-    ctrl.clock.elements[color].bar = el;
+    ctrl.elements[color].bar = el;
     el.style.width = ctrl.timePercent(color) + '%';
   };
   return ctrl.data.showBar ? h('div', {

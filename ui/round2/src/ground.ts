@@ -5,7 +5,6 @@ import util = require('./util');
 import round = require('./round');
 
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 
 function makeConfig(ctrl): Config {
   var data = ctrl.data, hooks = ctrl.makeCgHooks();
@@ -98,15 +97,14 @@ export function boardOrientation(data, flip) {
   }
 }
 
-export function render(ctrl): VNode {
-  return h('div', {
-    class: { 'cg-board-wrap': true },
+export function render(ctrl) {
+  return h('div.cg-board-wrap', {
     hook: {
-      insert: (vnode: VNode) => {
+      insert: vnode => {
         ctrl.setChessground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl)));
       }
     }
   }, [
-    h('div', {class: { 'cg-board': true }})
+    h('div.cg-board')
   ]);
 };

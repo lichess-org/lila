@@ -1,19 +1,16 @@
 /// <reference types="types/lichess" />
-/// <reference types="types/mithril" />
 
-import { GameData, GameView } from './interfaces';
+import { GameData, GameView, Player } from './interfaces';
 
 import * as game from './game';
 import * as status from './status';
 import * as router from './router';
 import viewStatus from './view/status';
-import * as viewMod from './view/mod';
 
-export { GameData, game, status, router };
+export { GameData, Player, game, status, router };
 
 export const view: GameView = {
-  status: viewStatus,
-  mod: viewMod
+  status: viewStatus
 };
 
 export const perf = {

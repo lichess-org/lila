@@ -1,4 +1,3 @@
-var m = require('mithril');
 var round = require('./round');
 var game = require('game').game;
 var status = require('game').status;
@@ -52,7 +51,7 @@ module.exports = function(opts, redraw) {
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
   setTimeout(function() {
     this.vm.firstSeconds = false;
-    m.redraw();
+    this.redraw();
   }.bind(this), 3000);
 
   this.socket = new socket(opts.socket, this);
@@ -87,7 +86,7 @@ module.exports = function(opts, redraw) {
 
   var onPredrop = function(role) {
     this.vm.preDrop = role;
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   var onNewPiece = function(piece, key) {
@@ -168,7 +167,7 @@ module.exports = function(opts, redraw) {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.vm.flip)
     });
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   this.setTitle = lichess.partial(title.set, this);
@@ -188,7 +187,7 @@ module.exports = function(opts, redraw) {
     });
     this.vm.justDropped = null;
     this.vm.justCaptured = meta.captured;
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   this.sendNewPiece = function(role, key, isPredrop) {
@@ -207,7 +206,7 @@ module.exports = function(opts, redraw) {
     this.vm.preDrop = null;
     this.vm.justDropped = role;
     this.vm.justCaptured = null;
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   var showYourMoveNotification = function() {
@@ -232,7 +231,6 @@ module.exports = function(opts, redraw) {
   setTimeout(showYourMoveNotification, 500);
 
   this.apiMove = function(o) {
-    m.startComputation();
     var d = this.data,
       playing = game.isPlayerPlaying(d);
     d.game.turns = o.ply;
@@ -307,7 +305,7 @@ module.exports = function(opts, redraw) {
     this.vm.justCaptured = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
-    m.endComputation();
+    this.redraw();
     if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
@@ -338,7 +336,6 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   this.reload = function(cfg) {
-    m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps)) {
       this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     }
@@ -354,7 +351,7 @@ module.exports = function(opts, redraw) {
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
     setQuietMode();
-    m.endComputation();
+    this.redraw();
     this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     this.setLoading(false);
@@ -392,10 +389,13 @@ module.exports = function(opts, redraw) {
     }.bind(this));
   }.bind(this);
 
-  this.clock = this.data.clock ? clockCtrl(
-    this.data.clock,
-    this.socket.outoftime, (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
-  ) : false;
+  this.clock = this.data.clock ? clockCtrl(this.data.clock, {
+    onFlag() {
+      this.socket.outoftime();
+      this.redraw();
+    },
+    soundColor: (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
+  }) : false;
 
   this.isClockRunning = function() {
     return this.data.clock && game.playable(this.data) &&
@@ -471,21 +471,21 @@ module.exports = function(opts, redraw) {
       this.vm.loading = true;
       this.vm.loadingTimeout = setTimeout(function() {
         this.vm.loading = false;
-        m.redraw();
+        this.redraw();
       }.bind(this), 1500);
     } else {
       this.vm.loading = false;
     }
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   this.setRedirecting = function() {
     this.vm.redirecting = true;
     setTimeout(function() {
       this.vm.redirecting = false;
-      m.redraw();
+      this.redraw();
     }.bind(this), 2500);
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   this.submitMove = function(v) {
@@ -578,7 +578,7 @@ module.exports = function(opts, redraw) {
 
   lichess.pubsub.on('jump', function(ply) {
     this.jump(parseInt(ply));
-    m.redraw();
+    this.redraw();
   }.bind(this));
 
   this.music = null;

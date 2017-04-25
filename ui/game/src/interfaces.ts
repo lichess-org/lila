@@ -85,6 +85,7 @@ export interface Blurs {
 
 export interface Trans {
   (key: string): string;
+  noarg: (key: string) => string;
 }
 
 export interface Hold {
@@ -97,12 +98,6 @@ export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
   status(ctrl: Ctrl): string;
-  mod: ModView;
-}
-
-export interface ModView {
-  blursOf(ctrl: Ctrl, player: Player): Mithril.Renderable;
-  holdOf(ctrl: Ctrl, player: Player): Mithril.Renderable;
 }
 
 export interface Analysis {

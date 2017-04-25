@@ -35,7 +35,7 @@
     "chessground": "^6.4",
     "common": "file:../common",
     "game": "file:../game",
-    "snabbdom": "^0.6",
+    "snabbdom": "ornicar/snabbdom.git#lilabuild",
     "types": "file:../types"
   }
 }

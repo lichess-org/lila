@@ -1,29 +1,30 @@
 import { Ctrl } from '../interfaces';
 
 export default function(ctrl: Ctrl): string {
+  var noarg = ctrl.trans.noarg;
   switch (ctrl.data.game.status.name) {
     case 'started':
-      return ctrl.trans('playingRightNow');
+      return noarg('playingRightNow');
     case 'aborted':
-      return ctrl.trans('gameAborted');
+      return noarg('gameAborted');
     case 'mate':
-      return ctrl.trans('checkmate');
+      return noarg('checkmate');
     case 'resign':
-      return ctrl.trans(ctrl.data.game.winner == 'white' ? 'blackResigned' : 'whiteResigned');
+      return noarg(ctrl.data.game.winner == 'white' ? 'blackResigned' : 'whiteResigned');
     case 'stalemate':
-      return ctrl.trans('stalemate');
+      return noarg('stalemate');
     case 'timeout':
       switch (ctrl.data.game.winner) {
         case 'white':
-          return ctrl.trans('blackLeftTheGame');
+          return noarg('blackLeftTheGame');
         case 'black':
-          return ctrl.trans('whiteLeftTheGame');
+          return noarg('whiteLeftTheGame');
       }
-      return ctrl.trans('draw');
+      return noarg('draw');
     case 'draw':
-      return ctrl.trans('draw');
+      return noarg('draw');
     case 'outoftime':
-      return ctrl.trans('timeOut');
+      return noarg('timeOut');
     case 'noStart':
       return (ctrl.data.game.winner == 'white' ? 'Black' : 'White') + ' didn\'t move';
     case 'cheat':
@@ -31,11 +32,11 @@ export default function(ctrl: Ctrl): string {
     case 'variantEnd':
       switch (ctrl.data.game.variant.key) {
         case 'kingOfTheHill':
-          return ctrl.trans('kingInTheCenter');
+          return noarg('kingInTheCenter');
         case 'threeCheck':
-          return ctrl.trans('threeChecks');
+          return noarg('threeChecks');
       }
-      return ctrl.trans('variantEnding');
+      return noarg('variantEnding');
     default:
       return ctrl.data.game.status.name;
   }
