@@ -462,7 +462,7 @@ case class Game(
 
   private def outoftimeClock(playerLag: Color => Centis): Boolean = clock ?? { c =>
     started && playable && (bothPlayersHaveMoved || isSimul) && {
-      (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
+      (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(turnColor, playerLag(turnColor))
     }
   }
 
