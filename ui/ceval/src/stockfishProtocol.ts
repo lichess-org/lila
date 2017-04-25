@@ -27,6 +27,8 @@ export default class Protocol {
       send('setoption name UCI_Chess960 value true');
     else if (opts.variant === 'antichess')
       send('setoption name UCI_Variant value giveaway');
+    else if (opts.variant === 'threeCheck')
+      send('setoption name UCI_Variant value 3check');
     else if (opts.variant !== 'standard')
       send('setoption name UCI_Variant value ' + opts.variant.toLowerCase());
     else
