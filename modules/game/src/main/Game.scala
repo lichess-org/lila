@@ -6,10 +6,10 @@ import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks }
+import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis }
 import org.joda.time.DateTime
 
-import lila.common.{ Centis, Sequence }
+import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.user.User
@@ -105,7 +105,8 @@ case class Game(
   def durationSeconds =
     (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
       clock.fold(Int.MaxValue) { c =>
-        ((c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns) * 1.1).toInt
+        // centis.toSeconds * 1.1 == centis * (1.1 / 100) ~= centis / 91
+        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).centis / 91
       }
     }
 
@@ -117,7 +118,7 @@ case class Game(
   def moveTimes(color: Color): Option[List[Centis]] = {
     for {
       clk <- clock
-      inc = Centis(clk.incrementOf(color) * 100)
+      inc = clk.incrementOf(color)
       history <- clockHistory
       clocks = history(color)
     } yield Centis(0) :: {
@@ -138,7 +139,7 @@ case class Game(
         case (first, second) => {
           val d = first - second
           if (pairs.hasNext || !noLastInc) d + inc else d
-        } atLeast 0
+        } nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -194,7 +195,7 @@ case class Game(
     game: ChessGame,
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
-    lag: Option[FiniteDuration] = None
+    lag: Option[Centis] = None
   ): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
@@ -228,7 +229,7 @@ case class Game(
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
           } :+ lastMoveDateTime.?? { lmdt =>
-            Centis(nowCentis - lmdt.getCentis - lag.??(_.toCentis.value)) atLeast 0
+            (Centis(nowCentis - lmdt.getCentis) - ~lag) nonNeg
           }
         }
       },
@@ -456,10 +457,10 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftime(playerLag: Color => Int): Boolean =
+  def outoftime(playerLag: Color => Centis): Boolean =
     outoftimeClock(playerLag) || outoftimeCorrespondence
 
-  private def outoftimeClock(playerLag: Color => Int): Boolean = clock ?? { c =>
+  private def outoftimeClock(playerLag: Color => Centis): Boolean = clock ?? { c =>
     started && playable && (bothPlayersHaveMoved || isSimul) && {
       (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(player.color, playerLag(player.color))
     }
@@ -482,7 +483,7 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateClockTotalTime = clock.map(_.estimateTotalTime)
+  def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
 
   def estimateTotalTime = estimateClockTotalTime orElse
     correspondenceClock.map(_.estimateTotalTime) getOrElse 1200
@@ -608,7 +609,7 @@ object Game {
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
   def allowRated(variant: Variant, clock: Clock.Config) =
-    variant.standard || clock.estimateTotalTime >= 30
+    variant.standard || clock.estimateTotalTime >= Centis(3000)
 
   val gameIdSize = 8
   val playerIdSize = 4
@@ -743,7 +744,7 @@ case class ClockHistory(
     color.fold(copy(white = f(white)), copy(black = f(black)))
 
   def record(color: Color, clock: Clock): ClockHistory =
-    update(color, _ :+ Centis(clock.remainingCentis(color)))
+    update(color, _ :+ clock.remainingTime(color))
 
   def reset(color: Color) = update(color, _ => Vector.empty)
 

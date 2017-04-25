@@ -4,7 +4,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.Crazyhouse
 
-import lila.common.Centis
+import chess.Centis
 import lila.tree.Node.{ Shapes, Comment, Comments }
 
 sealed trait RootOrNode {

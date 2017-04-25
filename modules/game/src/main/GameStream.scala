@@ -74,9 +74,9 @@ object GameStream {
         "status" -> g.status.id,
         "clock" -> g.clock.map { clock =>
           Json.obj(
-            "initial" -> clock.limit,
-            "increment" -> clock.increment,
-            "totalTime" -> clock.estimateTotalTime
+            "initial" -> clock.limitSeconds,
+            "increment" -> clock.incrementSeconds,
+            "totalTime" -> clock.estimateTotalSeconds
           )
         },
         "daysPerTurn" -> g.daysPerTurn,

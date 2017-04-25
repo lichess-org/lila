@@ -18,10 +18,10 @@ private[tournament] case class WaitingUsers(
   // 5+0  -> 36  -> 36
   // 10+0 -> 66  -> 50
   private val waitSeconds: Int = clock.fold(30) { c =>
-    if (c.estimateTotalTime < 30) 9
-    else if (c.estimateTotalTime < 60) 11
+    if (c.estimateTotalSeconds < 30) 9
+    else if (c.estimateTotalSeconds < 60) 11
     else {
-      c.estimateTotalTime / 10 + 6
+      c.estimateTotalSeconds / 10 + 6
     } atMost 50 atLeast 15
   }
 

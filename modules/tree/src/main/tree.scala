@@ -8,7 +8,7 @@ import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
 
-import lila.common.Centis
+import chess.Centis
 
 sealed trait Node {
   def ply: Int
@@ -208,7 +208,7 @@ object Node {
   }
 
   implicit val clockWrites: Writes[Centis] = Writes { clock =>
-    JsNumber(clock.value)
+    JsNumber(clock.centis)
   }
   implicit val commentIdWrites: Writes[Comment.Id] = Writes { id =>
     JsString(id.value)

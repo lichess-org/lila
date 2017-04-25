@@ -3,6 +3,8 @@ package lila.round
 import lila.game.{ Game, Event, Progress, Pov }
 import lila.pref.{ Pref, PrefApi }
 
+import chess.Centis
+
 private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
@@ -15,7 +17,7 @@ private[round] final class Drawer(
     else pov.player.userId ?? prefApi.getPref map { pref =>
       pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
         pref.autoThreefold == Pref.AutoThreefold.TIME &&
-          game.clock ?? { _.remainingTime(pov.color) < 30 }
+          game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
       }
     } map (_ option pov)
   }.sequenceFu map (_.flatten.headOption)

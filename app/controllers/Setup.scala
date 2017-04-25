@@ -77,7 +77,7 @@ object Setup extends LilaController with TheftPrevention {
                     variant = config.variant,
                     initialFen = config.fen,
                     timeControl = config.makeClock map { c =>
-                    TimeControl.Clock(chess.Clock.Config(c.limit, c.increment))
+                    TimeControl.Clock(c)
                   } orElse config.makeDaysPerTurn.map {
                     TimeControl.Correspondence.apply
                   } getOrElse TimeControl.Unlimited,

@@ -115,7 +115,7 @@ object ApplicationBuild extends Build {
   //   libraryDependencies ++= provided(play.api, reactivemongo.driver)
   // )
 
-  lazy val common = project("common").settings(
+  lazy val common = project("common", Seq(chess)).settings(
     libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core)
   )
 

@@ -6,6 +6,7 @@ import scala.concurrent.Promise
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
+import chess.Centis
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
@@ -62,7 +63,7 @@ private[round] final class SocketHandler(
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid.value)
             }
-            send(HumanPlay(playerId, move, blur, lag.millis, promise.some))
+            send(HumanPlay(playerId, move, blur, lag, promise.some))
             member push ackEvent
         }
         case ("drop", o) => parseDrop(o) foreach {
@@ -71,7 +72,7 @@ private[round] final class SocketHandler(
             promise.future onFailure {
               case _: Exception => socket ! Resync(uid.value)
             }
-            send(HumanPlay(playerId, drop, blur, lag.millis, promise.some))
+            send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member push ackEvent
         }
         case ("rematch-yes", _) => send(RematchYes(playerId))
@@ -186,8 +187,8 @@ private[round] final class SocketHandler(
     blur = d int "b" contains 1
   } yield (drop, blur, parseLag(d))
 
-  private def parseLag(d: JsObject): Int =
-    d.int("l") orElse d.int("lag") getOrElse 0
+  private def parseLag(d: JsObject) =
+    Centis.ofMillis(d.int("l") orElse d.int("lag") getOrElse 0)
 
   private val ackEvent = Json.obj("t" -> "ack")
 }

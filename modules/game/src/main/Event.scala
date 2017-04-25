@@ -246,8 +246,8 @@ object Event {
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
-      clock remainingTime Color.White,
-      clock remainingTime Color.Black
+      clock remainingTime Color.White toSeconds,
+      clock remainingTime Color.Black toSeconds
     )
     def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
