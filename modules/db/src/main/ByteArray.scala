@@ -30,6 +30,8 @@ object ByteArray {
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }
 
+  implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)
+
   def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   private def parseByte(s: String): Byte = {

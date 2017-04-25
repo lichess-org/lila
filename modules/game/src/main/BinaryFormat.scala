@@ -63,7 +63,7 @@ object BinaryFormat {
 
     private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
 
-    def write(mts: Vector[Centis]): ByteArray = ByteArray {
+    def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
       (mts.grouped(2).map {
         case Vector(a, b) => (enc(a) << 4) + enc(b)
@@ -82,12 +82,10 @@ object BinaryFormat {
   case class clock(since: DateTime) {
 
     def write(clock: Clock): ByteArray = {
-      ByteArray {
-        Array(writeClockLimit(clock.limitSeconds), writeInt8(clock.incrementSeconds)) ++
-          writeSignedInt24(clock.whiteTime.centis) ++
-          writeSignedInt24(clock.blackTime.centis) ++
-          writeTimer(clock.timerOption.fold(0l)(_.value / 10l)) map { _.toByte }
-      }
+      Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
+        writeSignedInt24(clock.whiteTime.centis) ++
+        writeSignedInt24(clock.blackTime.centis) ++
+        writeTimer(clock.timerOption.fold(0l)(_.value / 10l))
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => ba.value map toInt match {
@@ -122,33 +120,32 @@ object BinaryFormat {
           whiteBerserk = whiteBerserk,
           blackBerserk = blackBerserk
         )
-      case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+      case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
 
     private def decay = (since.getMillis / 10) - 10
 
     private def writeTimer(long: Long) = {
-      val i = math.max(0, long - decay).toInt
-      Array(i >> 24, (i >> 16) & 255, (i >> 8) & 255, i & 255)
+      writeInt(math.max(0l, long - decay).toInt)
     }
+
     private def readTimer(b1: Int, b2: Int, b3: Int, b4: Int) = {
-      val l = (b1 << 24) + (b2 << 16) + (b3 << 8) + b4
+      val l = readInt(b1, b2, b3, b4)
       if (l == 0) 0 else l + decay
     }
 
-    private def writeClockLimit(limit: Int) = {
+    private def writeClockLimit(limit: Int): Byte = {
       // The database expects a byte for a limit, and this is limit / 60.
       // For 0.5+0, this does not give a round number, so there needs to be
       // an alternative way to describe 0.5.
       // The max limit where limit % 60 == 0, returns 180 for limit / 60
       // So, for the limits where limit % 30 == 0, we can use the space
-      // from 181-255, where 181 represents 0.5, 182 represents 0.75 and
-      // 185 represents 1.5.
-      if (limit % 60 == 0) limit / 60 else (limit - 15) / 15 + 181
+      // from 181-255, where 181 represents 0.25 and 182 represents 0.50...
+      (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
     }
 
-    private def readClockLimit(b: Int) = {
-      if (b < 181) b * 60 else (b - 181) * 15 + 15
+    private def readClockLimit(i: Int) = {
+      if (i < 181) i * 60 else (i - 180) * 15
     }
   }
 
@@ -167,19 +164,15 @@ object BinaryFormat {
       }
       val time = clmt.lastMoveTime getOrElse 0
 
-      val ints = Array(
-        (castleInt << 4) + (lastMoveInt >> 8),
-        (lastMoveInt & 255)
-      ) ++ writeInt24(time) ++ clmt.check.map(posInt)
-
-      ByteArray(ints.map(_.toByte))
+      Array((castleInt << 4) + (lastMoveInt >> 8), lastMoveInt & 255).map(_.toByte) ++
+        writeInt24(time) ++ clmt.check.map(x => posInt(x).toByte)
     }
 
     def read(ba: ByteArray): CastleLastMoveTime = {
       ba.value map toInt match {
         case Array(b1, b2, b3, b4, b5) => doRead(b1, b2, b3, b4, b5, None)
         case Array(b1, b2, b3, b4, b5, b6) => doRead(b1, b2, b3, b4, b5, b6.some)
-        case x => sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
+        case _ => sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
       }
     }
 
@@ -263,7 +256,7 @@ object BinaryFormat {
           if (pos.y == 1) white = white | (1 << (8 - pos.x))
           else black = black | (1 << (8 - pos.x))
         }
-        ByteArray(Array(white.toByte, black.toByte))
+        Array(white.toByte, black.toByte)
       }
     }
 
@@ -291,23 +284,26 @@ object BinaryFormat {
 
   @inline private def toInt(b: Byte): Int = b & 0xff
 
-  def writeInt8(int: Int) = math.min(255, int)
+  def writeInt24(i: Int) = Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
 
-  private val int24Max = math.pow(2, 24).toInt
-  def writeInt24(int: Int) = {
-    val i = math.min(int24Max, int)
-    Array(i >> 16, (i >> 8) & 255, i & 255)
-  }
-  def readInt24(b1: Int, b2: Int, b3: Int) = (b1 << 16) + (b2 << 8) + b3
-
-  private val int23Max = math.pow(2, 23).toInt
+  private val int23Max = 1 << 23
   def writeSignedInt24(int: Int) = {
-    val i = math.abs(math.min(int23Max, int))
-    val j = if (int < 0) i + int23Max else i
-    Array(j >> 16, (j >> 8) & 255, j & 255)
+    val i = if (int < 0) int23Max - int else math.min(int, int23Max)
+    writeInt24(i)
   }
+
+  def readInt24(b1: Int, b2: Int, b3: Int) = (b1 << 16) | (b2 << 8) | b3
+
   def readSignedInt24(b1: Int, b2: Int, b3: Int) = {
-    val i = (b1 << 16) + (b2 << 8) + b3
+    val i = readInt24(b1, b2, b3)
     if (i > int23Max) int23Max - i else i
+  }
+
+  def writeInt(i: Int) = Array(
+    (i >>> 24).toByte, (i >>> 16).toByte, (i >>> 8).toByte, i.toByte
+  )
+
+  def readInt(b1: Int, b2: Int, b3: Int, b4: Int) = {
+    (b1 << 24) | (b2 << 16) | (b3 << 8) | b4
   }
 }
