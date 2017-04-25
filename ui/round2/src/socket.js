@@ -40,9 +40,7 @@ module.exports = function(socket, ctrl) {
       ctrl.apiMove(o);
     },
     reload: reload,
-    redirect: function() {
-      ctrl.setRedirecting();
-    },
+    redirect: ctrl.setRedirecting,
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
     },
@@ -82,7 +80,7 @@ module.exports = function(socket, ctrl) {
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
-        ctrl.setRedirecting(true);
+        ctrl.setRedirecting();
         sound.move();
         lichess.hasToReload = true;
         location.href = '/' + gameId;

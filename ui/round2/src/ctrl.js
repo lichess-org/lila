@@ -35,7 +35,6 @@ module.exports = function(opts, redraw) {
     loading: false,
     loadingTimeout: null,
     redirecting: false,
-    replayHash: '',
     moveToSubmit: null,
     dropToSubmit: null,
     goneBerserk: {},
@@ -51,7 +50,7 @@ module.exports = function(opts, redraw) {
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
   setTimeout(function() {
     this.vm.firstSeconds = false;
-    this.redraw();
+    redraw();
   }.bind(this), 3000);
 
   this.socket = new socket(opts.socket, this);
@@ -86,7 +85,7 @@ module.exports = function(opts, redraw) {
 
   var onPredrop = function(role) {
     this.vm.preDrop = role;
-    this.redraw();
+    redraw();
   }.bind(this);
 
   var onNewPiece = function(piece, key) {
@@ -159,7 +158,7 @@ module.exports = function(opts, redraw) {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.vm.flip)
     });
-    this.redraw();
+    redraw();
   }.bind(this);
 
   this.setTitle = lichess.partial(title.set, this);
@@ -179,7 +178,7 @@ module.exports = function(opts, redraw) {
     });
     this.vm.justDropped = null;
     this.vm.justCaptured = meta.captured;
-    this.redraw();
+    redraw();
   }.bind(this);
 
   this.sendNewPiece = function(role, key, isPredrop) {
@@ -198,7 +197,7 @@ module.exports = function(opts, redraw) {
     this.vm.preDrop = null;
     this.vm.justDropped = role;
     this.vm.justCaptured = null;
-    this.redraw();
+    redraw();
   }.bind(this);
 
   var showYourMoveNotification = function() {
@@ -297,7 +296,7 @@ module.exports = function(opts, redraw) {
     this.vm.justCaptured = null;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
-    this.redraw();
+    redraw();
     if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
@@ -341,7 +340,7 @@ module.exports = function(opts, redraw) {
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
     setQuietMode();
-    this.redraw();
+    redraw();
     this.vm.autoScroll && this.vm.autoScroll();
     onChange();
     this.setLoading(false);
@@ -382,7 +381,7 @@ module.exports = function(opts, redraw) {
   this.clock = this.data.clock ? clockCtrl(this.data.clock, {
     onFlag() {
       this.socket.outoftime();
-      this.redraw();
+      redraw();
     },
     soundColor: (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   }) : false;
@@ -450,7 +449,7 @@ module.exports = function(opts, redraw) {
     if (this.vm.goneBerserk[color]) return;
     this.vm.goneBerserk[color] = true;
     if (color !== this.data.player.color) lichess.sound.berserk();
-    this.redraw();
+    redraw();
   }.bind(this);
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
@@ -461,21 +460,21 @@ module.exports = function(opts, redraw) {
       this.vm.loading = true;
       this.vm.loadingTimeout = setTimeout(function() {
         this.vm.loading = false;
-        this.redraw();
+        redraw();
       }.bind(this), 1500);
     } else {
       this.vm.loading = false;
     }
-    this.redraw();
+    redraw();
   }.bind(this);
 
   this.setRedirecting = function() {
     this.vm.redirecting = true;
     setTimeout(function() {
       this.vm.redirecting = false;
-      this.redraw();
+      redraw();
     }.bind(this), 2500);
-    this.redraw();
+    redraw();
   }.bind(this);
 
   this.submitMove = function(v) {
@@ -568,7 +567,7 @@ module.exports = function(opts, redraw) {
 
   lichess.pubsub.on('jump', function(ply) {
     this.jump(parseInt(ply));
-    this.redraw();
+    redraw();
   }.bind(this));
 
   this.music = null;
