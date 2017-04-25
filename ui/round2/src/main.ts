@@ -21,7 +21,9 @@ export function app(opts: any) {
 
   ctrl = new makeCtrl(opts, redraw);
 
-  vnode = patch(opts.element, view.main(ctrl));
+  const blueprint = view.main(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
 
   return {
     socketReceive: ctrl.socket.receive,

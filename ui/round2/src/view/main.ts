@@ -7,41 +7,26 @@ import { read as fenRead } from 'chessground/fen';
 import util = require('../util');
 import blind = require('../blind');
 import keyboard = require('../keyboard');
-// var crazyView = require('../crazy/crazyView');
-// var keyboardMove = require('../keyboardMove');
+import crazyView from '../crazy/crazyView';
+import { render as keyboardMove } from '../keyboardMove';
 
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-// function materialTag(role) {
-//   return {
-//     tag: 'mono-piece',
-//     attrs: {
-//       class: role
-//     }
-//   };
-// }
-
-// function renderMaterial(ctrl, material, checks, score) {
-//   var children = [];
-//   if (score || score === 0)
-//     children.push(m('score', score > 0 ? '+' + score : score));
-//   for (var role in material) {
-//     var piece = materialTag(role);
-//     var count = material[role];
-//     var content;
-//     if (count === 1) content = piece;
-//     else {
-//       content = [];
-//       for (var i = 0; i < count; i++) content.push(piece);
-//     }
-//     children.push(m('tomb', content));
-//   }
-//   for (var i = 0; i < checks; i++) {
-//     children.push(m('tomb', m('mono-piece.king[title=Check]')));
-//   }
-//   return m('div.cemetery', children);
-// }
+function renderMaterial(material, checks, score) {
+  var children: VNode[] = [];
+  if (score || score === 0)
+    children.push(h('score', score > 0 ? '+' + score : score));
+  for (var role in material) {
+    const content: VNode[] = [];
+    for (var i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
+    children.push(h('tomb', content));
+  }
+  for (var i = 0; i < checks; i++) {
+    children.push(h('tomb', h('mono-piece.king')));
+  }
+  return h('div.cemetery', children);
+}
 
 function wheel(ctrl, e) {
   if (game.isPlayerPlaying(ctrl.data)) return true;
@@ -81,23 +66,12 @@ var emptyMaterialDiff = {
   black: []
 };
 
-// function blursAndHolds(ctrl) {
-//   var stuff = [];
-//   ['blursOf', 'holdOf'].forEach(function(f) {
-//     ['opponent', 'player'].forEach(function(p) {
-//       var r = game.view.mod[f](ctrl, ctrl.data[p]);
-//       if (r) stuff.push(r);
-//     });
-//   });
-//   if (stuff.length) return m('div.blurs', stuff);
-// }
-
 export function main(ctrl: any): VNode {
-  var d = ctrl.data,
-    cgState = ctrl.chessground && ctrl.chessground.state,
-    material, score;
-  // var topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color;
-  var bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
+  const d = ctrl.data,
+  cgState = ctrl.chessground && ctrl.chessground.state,
+  topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color,
+  bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
+  let material, score;
   if (d.pref.showCaptured) {
     var pieces = cgState ? cgState.pieces : fenRead(round.plyStep(ctrl.data, ctrl.vm.ply).fen);
     material = util.getMaterialDiff(pieces);
@@ -111,19 +85,24 @@ export function main(ctrl: any): VNode {
     }, [
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
       h('div.lichess_ground', [
-        // crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
+        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], d.player.checks, undefined),
         table.render(ctrl),
-        // crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
-        ])
+        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], d.opponent.checks, score)
+      ])
+    ]),
+    h('div.underboard', [
+      h('div.center', {
+        hook: {
+          insert: vnode => {
+            if (ctrl.opts.crosstableEl) {
+              const el = (vnode.elm as HTMLElement)
+                el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
+            }
+          }
+        }
+      }, [
+        ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
+      ])
     ])
   ]);
-  // m('div.underboard', [
-  //   m('div.center', {
-  //     config: function(el, isUpdate) {
-  //       if (!isUpdate && ctrl.opts.crosstableEl) el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
-  //     }
-  //   }, ctrl.keyboardMove ? keyboardMove.view(ctrl.keyboardMove) : null),
-  //   blursAndHolds(ctrl)
-  // ])
-  // ];
-  };
+};

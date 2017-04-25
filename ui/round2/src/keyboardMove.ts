@@ -36,7 +36,7 @@ export function ctrl(cg, step, redraw) {
     usedSan: usedSan
   };
 };
-export function view(ctrl) {
+export function render(ctrl) {
   return h('div.keyboard-move', [
     h('input', {
       attrs: {

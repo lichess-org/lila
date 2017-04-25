@@ -7,10 +7,10 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
 function emptyMove() {
-  return h('move', { class: {empty: true} }, '...');
+  return h('move.empty', '...');
 }
 function nullMove() {
-  return h('move', { class: {empty: true} }, '');
+  return h('move.empty', '');
 }
 
 const scrollThrottle = dropThrottle(100);
@@ -86,7 +86,7 @@ function renderMoves(ctrl) {
 
   var els: Array<VNode | undefined> = [];
   for (var i = 0; i < pairs.length; i++) {
-    els.push(h('index', '' + i + 1));
+    els.push(h('index', i + 1 + ''));
     els.push(renderMove(pairs[i][0], ctrl.vm.ply, true));
     els.push(renderMove(pairs[i][1], ctrl.vm.ply, false));
   }
@@ -153,7 +153,7 @@ function renderButtons(ctrl) {
           else ctrl.flip();
         }
       }
-    })
+    }, ctrl.redraw)
   }, [
     h('button', {
       class: {
@@ -224,6 +224,7 @@ export function render(ctrl: any): VNode {
               offset++;
               if (node.tagName === 'INDEX') {
                 ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+                ctrl.redraw();
                 break;
               }
             }
