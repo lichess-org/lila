@@ -25,7 +25,7 @@ object IrwinReport {
 
   case class MoveReport(
     activation: Int,
-    rank: Int, // selected PV, or null (if move is not in top 5)
+    rank: Option[Int], // selected PV, or null (if move is not in top 5)
     ambiguity: Int, // how many good moves are in the position
     odds: Int, // winning chances -100 -> 100
     loss: Int // percentage loss in winning chances
