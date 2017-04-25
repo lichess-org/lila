@@ -126,7 +126,7 @@ object BinaryFormat {
     private def decay = (since.getMillis / 10) - 10
 
     private def writeTimer(long: Long) = {
-      writeInt(math.max(0, (long - decay).toInt))
+      writeInt(math.max(0l, long - decay).toInt)
     }
 
     private def readTimer(b1: Int, b2: Int, b3: Int, b4: Int) = {
