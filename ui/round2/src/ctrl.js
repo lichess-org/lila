@@ -109,14 +109,6 @@ module.exports = function(opts, redraw) {
     return this.vm.ply !== round.lastPly(this.data);
   }.bind(this);
 
-  this.stepsHash = function(steps) {
-    var h = '';
-    for (var i in steps) {
-      h += steps[i].san;
-    }
-    return h;
-  };
-
   this.userJump = function(ply) {
     this.cancelMove();
     this.chessground.selectSquare(null);
@@ -336,9 +328,7 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   this.reload = function(cfg) {
-    if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps)) {
-      this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
-    }
+    if (cfg.steps.length !== this.data.steps.length) this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     var merged = round.merge(this.data, cfg);
     this.data = merged.data;
     this.vm.justDropped = null;

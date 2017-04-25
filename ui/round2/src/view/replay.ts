@@ -206,12 +206,6 @@ function racingKingsInit(d) {
 }
 
 export function render(ctrl: any): VNode {
-  // #TODO thunk it up
-  // var h = ctrl.vm.ply + ctrl.stepsHash(d.steps) + d.game.status.id + d.game.winner + ctrl.vm.flip;
-  // if (ctrl.vm.replayHash === h) return {
-  //   subtree: 'retain'
-  // };
-  // ctrl.vm.replayHash = h;
   return h('div.replay', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
