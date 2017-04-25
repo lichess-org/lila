@@ -1,13 +1,16 @@
-var Chessground = require('chessground').Chessground;
-var isPlayerPlaying = require('game').game.isPlayerPlaying;
-var util = require('./util');
-var round = require('./round');
-var m = require('mithril');
+import { Chessground }  from 'chessground';
+import { Config } from 'chessground/config'
+import { game } from 'game';
+import util = require('./util');
+import round = require('./round');
 
-function makeConfig(ctrl) {
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
+
+function makeConfig(ctrl): Config {
   var data = ctrl.data, hooks = ctrl.makeCgHooks();
   var step = round.plyStep(data, ctrl.vm.ply);
-  var playing = isPlayerPlaying(data);
+  var playing = game.isPlayerPlaying(data);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.vm.flip),
@@ -70,11 +73,11 @@ function makeConfig(ctrl) {
   };
 }
 
-function reload(ctrl) {
+export function reload(ctrl) {
   ctrl.chessground.set(makeConfig(ctrl));
 }
 
-function promote(cg, key, role) {
+export function promote(cg, key, role) {
   var piece = cg.state.pieces[key];
   if (piece && piece.role === 'pawn') {
     var pieces = {};
@@ -87,7 +90,7 @@ function promote(cg, key, role) {
   }
 }
 
-function boardOrientation(data, flip) {
+export function boardOrientation(data, flip) {
   if (data.game.variant.key === 'racingKings') {
     return flip ? 'black': 'white';
   } else {
@@ -95,15 +98,15 @@ function boardOrientation(data, flip) {
   }
 }
 
-module.exports = {
-  render: function(ctrl) {
-    return m('div.cg-board-wrap', {
-      config: function(el, isUpdate) {
-        if (!isUpdate) ctrl.setChessground(Chessground(el, makeConfig(ctrl)));
+export function render(ctrl): VNode {
+  return h('div', {
+    class: { 'cg-board-wrap': true },
+    hook: {
+      insert: (vnode: VNode) => {
+        ctrl.setChessground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl)));
       }
-    }, m('div.cg-board'));
-  },
-  boardOrientation: boardOrientation,
-  reload: reload,
-  promote: promote
+    }
+  }, [
+    h('div', {class: { 'cg-board': true }})
+  ]);
 };

@@ -19,9 +19,9 @@ export function mithril(opts: any) {
     vnode = patch(vnode, view.main(ctrl));
   }
 
-  ctrl = makeCtrl(opts, redraw);
+  ctrl = new makeCtrl(opts, redraw);
 
-  vnode = patch(opts.element, view(ctrl));
+  vnode = patch(opts.element, view.main(ctrl));
 
   return {
     socketReceive: ctrl.socket.receive,

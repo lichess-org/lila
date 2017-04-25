@@ -27,6 +27,7 @@ module.exports = function(opts, redraw) {
 
   this.userId = opts.userId;
   this.opts = opts;
+  this.redraw = redraw;
 
   this.vm = {
     ply: round.lastPly(this.data),
