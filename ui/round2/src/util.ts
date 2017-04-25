@@ -1,5 +1,9 @@
 import * as cg from 'chessground/types'
 
+import { h } from 'snabbdom'
+
+type Redraw = () => void
+
 const pieceScores = {
   pawn: 1,
   knight: 3,
@@ -9,25 +13,21 @@ const pieceScores = {
   king: 0
 };
 
-export function uci2move(uci): cg.Key[] | undefined {
+export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4)];
-  return [uci.slice(0, 2), uci.slice(2, 4)];
+  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
+  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 };
-// bindOnce: function(eventName, f) {
-//   var withRedraw = function(e) {
-//     m.startComputation();
-//     f(e);
-//     m.endComputation();
-//   };
-//   return function(el, isUpdate, ctx) {
-//     if (isUpdate) return;
-//     el.addEventListener(eventName, withRedraw)
-//     ctx.onunload = function() {
-//       el.removeEventListener(eventName, withRedraw);
-//     };
-//   }
-// },
+export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
+  return {
+    insert: vnode => {
+      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
+        f(e);
+        if (redraw) redraw();
+      });
+    }
+  };
+}
 export function parsePossibleMoves(possibleMoves) {
   if (!possibleMoves) return {};
   for (var k in possibleMoves) {
@@ -68,3 +68,10 @@ export function getScore(pieces) {
   }
   return score;
 };
+export function spinner() {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
+}

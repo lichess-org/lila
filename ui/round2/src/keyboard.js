@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 function preventing(f) {
   return function(e) {
     if (e.preventDefault) {
@@ -27,19 +25,19 @@ module.exports = {
     var k = Mousetrap;
     k.bind(['left', 'h'], preventing(function() {
       prev(ctrl);
-      m.redraw();
+      ctrl.redraw();
     }));
     k.bind(['right', 'l'], preventing(function() {
       next(ctrl);
-      m.redraw();
+      ctrl.redraw();
     }));
     k.bind(['up', 'k'], preventing(function() {
       ctrl.userJump(1);
-      m.redraw();
+      ctrl.redraw();
     }));
     k.bind(['down', 'j'], preventing(function() {
       ctrl.userJump(ctrl.data.steps.length - 1);
-      m.redraw();
+      ctrl.redraw();
     }));
     k.bind('f', preventing(ctrl.flip));
   }

@@ -1,4 +1,3 @@
-var m = require('mithril');
 var game = require('game').game;
 var throttle = require('common').throttle;
 var ground = require('./ground');
@@ -30,7 +29,7 @@ module.exports = function(socket, ctrl) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
-      m.redraw();
+      ctrl.redraw();
     },
     move: function(o) {
       o.isMove = true;
@@ -51,7 +50,7 @@ module.exports = function(socket, ctrl) {
       ['white', 'black'].forEach(function(c) {
         game.setOnGame(ctrl.data, c, o[c]);
       });
-      m.redraw();
+      ctrl.redraw();
     },
     end: function(winner) {
       ctrl.data.game.winner = winner;
@@ -67,13 +66,13 @@ module.exports = function(socket, ctrl) {
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
         game.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
-        m.redraw();
+        ctrl.redraw();
       }
     },
     checkCount: function(e) {
       ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
-      m.redraw();
+      ctrl.redraw();
     },
     simulPlayerMove: function(gameId) {
       if (

@@ -460,7 +460,7 @@ module.exports = function(opts, redraw) {
     if (this.vm.goneBerserk[color]) return;
     this.vm.goneBerserk[color] = true;
     if (color !== this.data.player.color) lichess.sound.berserk();
-    m.redraw();
+    this.redraw();
   }.bind(this);
 
   this.moveOn = new moveOn(this, 'lichess.move_on');

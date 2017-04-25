@@ -11,7 +11,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export function mithril(opts: any) {
+export function app(opts: any) {
 
   let vnode: VNode, ctrl: any;
 

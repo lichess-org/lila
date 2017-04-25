@@ -1,6 +1,6 @@
-import game = require('game');
+import { game } from 'game';
 import round = require('../round');
-// var renderTable = require('./table');
+import table = require('./table');
 import promotion = require('../promotion');
 import ground = require('../ground');
 import { read as fenRead } from 'chessground/fen';
@@ -44,7 +44,7 @@ import { VNode } from 'snabbdom/vnode'
 // }
 
 function wheel(ctrl, e) {
-  if (game.game.isPlayerPlaying(ctrl.data)) return true;
+  if (game.isPlayerPlaying(ctrl.data)) return true;
   e.preventDefault();
   if (e.deltaY > 0) keyboard.next(ctrl);
   else if (e.deltaY < 0) keyboard.prev(ctrl);
@@ -64,11 +64,7 @@ function visualBoard(ctrl) {
         [ctrl.data.game.variant.key]: true,
         'blindfold': ctrl.data.pref.blindfold
       },
-      hook: {
-        insert: (vnode: VNode) => {
-          (vnode.elm as HTMLElement).addEventListener('wheel', e => wheel(ctrl, e));
-        }
-      }
+      hook: util.bind('click', e => wheel(ctrl, e))
     }, [ground.render(ctrl)]),
     promotion.view(ctrl) as VNode
   ]);
@@ -119,21 +115,24 @@ export function main(ctrl: any): VNode {
       'round': true,
       'cg-512': true
     }
-  }, [h('div', {
-    class: {
-      'lichess_game': true,
-      ['variant_' + d.game.variant.key]: true
-    },
-    hook: {
-      insert: () => window.lichess.pubsub.emit('content_loaded')()
-    }
   }, [
-    d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-    // m('div.lichess_ground', [
-    //   crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
-    //   renderTable(ctrl),
-    //   crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
-    // ])
+    h('div', {
+      class: {
+        'lichess_game': true,
+        ['variant_' + d.game.variant.key]: true
+      },
+      hook: {
+        insert: () => window.lichess.pubsub.emit('content_loaded')()
+      }
+    }, [
+      d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+      h('div', {
+        class: {lichess_ground: true}
+      }, [
+        // crazyView.pocket(ctrl, topColor, 'top') || renderMaterial(ctrl, material[topColor], d.player.checks),
+        table.render(ctrl),
+        // crazyView.pocket(ctrl, bottomColor, 'bottom') || renderMaterial(ctrl, material[bottomColor], d.opponent.checks, score)
+        ])
     ])
   ]);
   // m('div.underboard', [

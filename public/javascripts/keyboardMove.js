@@ -1,7 +1,7 @@
 var keyRegex = /^[a-h][1-8]$/;
 var fileRegex = /^[a-h]$/;
 
-function lichessKeyboardMove(opts) {
+lichess.keyboardMove = function(opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   var writer = sanWriter();
