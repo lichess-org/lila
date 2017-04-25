@@ -1,5 +1,5 @@
 import * as button from '../view/button';
-import util from 'util';
+import { bind } from '../util';
 import { game } from 'game';
 
 import { h } from 'snabbdom'
@@ -112,7 +112,7 @@ function goBerserk(ctrl) {
   if (ctrl.vm.goneBerserk[ctrl.data.player.color]) return;
   return h('button.fbt.berserk.hint--bottom-left', {
     attrs: { 'data-hint': "GO BERSERK! Half the time, bonus point" },
-    hook: util.bind('click', ctrl.goBerserk)
+    hook: bind('click', ctrl.goBerserk)
   }, [
     h('span', { attrs: {'data-icon': '`'} })
   ]);

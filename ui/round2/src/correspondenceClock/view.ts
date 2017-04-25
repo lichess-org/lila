@@ -1,5 +1,4 @@
-var classSet = require('common').classSet;
-var m = require('mithril');
+import { h } from 'snabbdom'
 
 function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -31,21 +30,33 @@ function formatClockTime(trans, time) {
   return str;
 }
 
-module.exports = function(ctrl, trans, color, position, runningColor) {
-  var millis = ctrl.millisOf(color);
-  return m('div', {
-    class: 'correspondence clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': millis <= 0,
-      'running': runningColor === color
-    })
+export default function(ctrl, trans, color, position, runningColor) {
+  const millis = ctrl.millisOf(color);
+  const update = (el: HTMLElement) => {
+    el.innerHTML = formatClockTime(trans, millis);
+  };
+  return h('div', {
+    class: {
+      correspondence: true,
+      clock: true,
+      ['clock_' + color]: true,
+      [' clock_' + position]: true,
+      outoftime: millis <= 0,
+      running: runningColor === color
+    }
   }, [
-    ctrl.data.showBar ? m('div.bar',
-      m('span', {
-        style: {
-          width: ctrl.timePercent(color) + '%'
+    ctrl.data.showBar ? h('div.bar',
+      h('span', {
+        attrs: {
+          style: { width: ctrl.timePercent(color) + '%'}
         }
       })
     ) : null,
-    m('div.time', m.trust(formatClockTime(trans, millis)))
+    h('div', {
+      hook: {
+        insert: vnode => update(vnode.elm as HTMLElement),
+        postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
+      }
+    })
   ]);
 }

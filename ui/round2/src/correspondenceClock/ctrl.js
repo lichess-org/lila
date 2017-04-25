@@ -1,5 +1,3 @@
-var m = require('mithril');
-
 module.exports = function(data, onFlag) {
   var timePercentDivisor = 0.1 / data.increment;
 

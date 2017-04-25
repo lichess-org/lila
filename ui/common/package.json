@@ -26,6 +26,5 @@
     "types": "file:../types"
   },
   "dependencies": {
-    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }
 }

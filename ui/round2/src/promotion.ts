@@ -2,7 +2,7 @@ import * as ground from './ground';
 import * as cg from 'chessground/types';
 import xhr = require('./xhr');
 import { key2pos } from 'chessground/util';
-import { bind } from 'util';
+import { bind } from './util';
 import { h } from 'snabbdom'
 
 let promoting: any | undefined;

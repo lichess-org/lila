@@ -1,7 +1,5 @@
 /// <reference types="types/lichess" />
-/// <reference types="types/mithril" />
 
-import * as m from 'mithril';
 import throttle from './throttle';
 
 export function defined(v: any): boolean {
@@ -64,21 +62,6 @@ export function storedJsonProp<T>(keySuffix: string, defaultValue: T): StoredJso
     const ret = JSON.parse(window.lichess.storage.get(key));
     return (ret !== null) ? ret : defaultValue;
   };
-}
-
-export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Config {
-  const withRedraw = function(e: Event) {
-    m.startComputation();
-    f(e);
-    m.endComputation();
-  };
-  return function(el: Element, isUpdate: boolean, ctx: any) {
-    if (isUpdate) return;
-    el.addEventListener(eventName, withRedraw)
-    ctx.onunload = function() {
-      el.removeEventListener(eventName, withRedraw);
-    };
-  }
 }
 
 export { throttle };
