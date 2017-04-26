@@ -62,7 +62,7 @@ function renderResult(ctrl) {
       }, [
         h('div', gameView.status(ctrl)),
         winner ? h('div',
-          ', ' + ctrl.trans.noarg(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
+          ', ' + ctrl.trans.noarg(winner.color + 'IsVictorious')
         ) : null
       ])
     ]);

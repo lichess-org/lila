@@ -22,18 +22,18 @@ export function start(ctrl, orig, dest, meta) {
     (dest[1] == 8 && d.player.color === 'white') ||
       (dest[1] == 1 && d.player.color === 'black'))) {
     if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
-  if (!meta.ctrlKey && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
-    if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
-    else sendPromotion(ctrl, orig, dest, 'queen', meta);
+    if (!meta.ctrlKey && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
+      if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
+      else sendPromotion(ctrl, orig, dest, 'queen', meta);
+      return true;
+    }
+    promoting = {
+      move: [orig, dest],
+      pre: !!premovePiece,
+      meta: meta
+    };
+    ctrl.redraw();
     return true;
-  }
-  promoting = {
-    move: [orig, dest],
-    pre: !!premovePiece,
-    meta: meta
-  };
-  ctrl.redraw();
-  return true;
   }
   return false;
 }

@@ -90,11 +90,8 @@ export function promote(cg, key, role) {
 }
 
 export function boardOrientation(data, flip) {
-  if (data.game.variant.key === 'racingKings') {
-    return flip ? 'black': 'white';
-  } else {
-    return flip ? data.opponent.color : data.player.color;
-  }
+  if (data.game.variant.key === 'racingKings') return flip ? 'black': 'white';
+  else return flip ? data.opponent.color : data.player.color;
 }
 
 export function render(ctrl) {
