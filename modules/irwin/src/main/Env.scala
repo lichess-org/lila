@@ -20,6 +20,6 @@ object Env {
 
   lazy val current: Env = "irwin" boot new Env(
     db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "fishnet"
+    config = lila.common.PlayApp loadConfig "irwin"
   )
 }
