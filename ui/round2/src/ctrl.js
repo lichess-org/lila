@@ -278,7 +278,7 @@ module.exports = function(opts, redraw) {
         },
         check: !!o.check
       });
-      if (o.check) lichess.sound.check();
+      if (o.check) sound.check();
       blur.onMove();
     }
     if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);

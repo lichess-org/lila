@@ -42,7 +42,10 @@ module.exports = function(socket, ctrl) {
     reload: reload,
     redirect: ctrl.setRedirecting,
     clock: function(o) {
-      if (ctrl.clock) ctrl.clock.update(o.white, o.black);
+      if (ctrl.clock) {
+        ctrl.clock.update(o.white, o.black);
+        ctrl.redraw();
+      }
     },
     crowd: function(o) {
       ['white', 'black'].forEach(function(c) {
