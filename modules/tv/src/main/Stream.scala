@@ -22,9 +22,9 @@ case class StreamsOnAir(streams: List[StreamOnAir])
 object Twitch {
   case class Channel(url: Option[String], status: Option[String], name: String, display_name: String)
   case class Stream(channel: Channel)
-  case class Result(streams: List[Stream]) {
+  case class Result(streams: Option[List[Stream]]) {
     def streamsOnAir(streamers: List[Streamer]) =
-      streams map (_.channel) flatMap { c =>
+      ~streams map (_.channel) flatMap { c =>
         (c.url, c.status, StreamerList.findTwitch(streamers)(c.display_name)) match {
           case (Some(url), Some(status), Some(streamer)) => Some(StreamOnAir(
             name = status,
@@ -67,16 +67,3 @@ object Youtube {
     implicit val youtubeResultReads = Json.reads[Result]
   }
 }
-
-// object Ustream {
-//   case class Channel(url: String, title: String, id: String)
-//   case class Result(results: Option[List[Channel]]) {
-//     def streamsOnAir = ~results map { c =>
-//       StreamOnAir("ustream", c.title.replace("(lichess.org)", ""), c.url, c.id)
-//     }
-//   }
-//   object Reads {
-//     implicit val ustreamChannelReads = Json.reads[Channel]
-//     implicit val ustreamResultReads: Reads[Result] = Json.reads[Result]
-//   }
-// }
