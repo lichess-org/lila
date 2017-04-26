@@ -57,5 +57,4 @@ password=Contrasinyi
 haveAnAccount=T'as jà un aconto?
 rank=Rang
 gamesPlayed=Passes joyìyes
-declineInvitation=Refusar l'invitacion
 rematch=Rejoyèr

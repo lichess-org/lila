@@ -62,7 +62,6 @@ changeEmail=Email feroarje
 email=Email
 forgotPassword=Wachtwurd ferjitte?
 nbGamesWithYou=%s spullen mei jo
-declineInvitation=Utnoeging ofwize
 cancel=Annulearje
 accept=Akseptearje
 decline=Ofwize
