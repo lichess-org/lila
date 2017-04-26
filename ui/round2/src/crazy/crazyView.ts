@@ -1,5 +1,5 @@
 import * as round from '../round';
-import crazyDrag = require('./crazyDrag');
+import { drag } from './crazyCtrl';
 import { game } from 'game';
 
 import { h } from 'snabbdom'
@@ -23,8 +23,8 @@ export default function pocket(ctrl, color, position) {
     hook: {
       insert: vnode => {
         eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, () => {
-            if (usablePos) crazyDrag(ctrl);
+          (vnode.elm as HTMLElement).addEventListener(name, e => {
+            if (usablePos) drag(ctrl, e);
           })
         });
       }

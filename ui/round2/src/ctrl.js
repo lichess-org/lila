@@ -14,7 +14,7 @@ var atomic = require('./atomic');
 var sound = require('./sound');
 var util = require('./util');
 var xhr = require('./xhr');
-var crazyValid = require('./crazy/crazyValid');
+var crazyValid = require('./crazy/crazyCtrl').valid;
 var makeKeyboardMove = require('./keyboardMove').ctrl;
 var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
@@ -61,7 +61,7 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   var onUserNewPiece = function(role, key, meta) {
-    if (!this.replaying() && crazyValid.drop(this.data, role, key)) {
+    if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, meta.predrop);
     } else this.jump(this.vm.ply);
   }.bind(this);
