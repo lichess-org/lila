@@ -1,7 +1,7 @@
 var m = require('mithril');
 var xhr = require('./studyXhr');
 var throttle = require('common').throttle;
-var bindOnce = require('common').bindOnce;
+var bindOnce = require('../util').bindOnce;
 var nodeFullName = require('../util').nodeFullName;
 
 function renderGlyph(ctrl, node) {

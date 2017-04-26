@@ -1,6 +1,6 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
-var bindOnce = require('common').bindOnce;
+var bindOnce = require('../util').bindOnce;
 var plural = require('../util').plural;
 var memberView = require('./studyMembers').view;
 var chapterView = require('./studyChapters').view;

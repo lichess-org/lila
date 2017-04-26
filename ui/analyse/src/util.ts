@@ -1,5 +1,22 @@
 import { fixCrazySan } from 'chess';
 
+import * as m from 'mithril';
+
+export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Config {
+  const withRedraw = function(e: Event) {
+    m.startComputation();
+    f(e);
+    m.endComputation();
+  };
+  return function(el: Element, isUpdate: boolean, ctx: any) {
+    if (isUpdate) return;
+    el.addEventListener(eventName, withRedraw)
+    ctx.onunload = function() {
+      el.removeEventListener(eventName, withRedraw);
+    };
+  }
+}
+
 export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }

@@ -1,6 +1,6 @@
 var m = require('mithril');
 var nodeFullName = require('../util').nodeFullName;
-var bindOnce = require('common').bindOnce;
+var bindOnce = require('../util').bindOnce;
 var throttle = require('common').throttle;
 
 module.exports = {

@@ -1,6 +1,6 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
-var bindOnce = require('common').bindOnce;
+var bindOnce = require('../util').bindOnce;
 var chapterNewForm = require('./chapterNewForm');
 var chapterEditForm = require('./chapterEditForm');
 

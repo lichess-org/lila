@@ -1,7 +1,7 @@
 var m = require('mithril');
 var classSet = require('common').classSet;
 var renderConfig = require('./explorerConfig').view;
-var bindOnce = require('common').bindOnce;
+var bindOnce = require('../util').bindOnce;
 
 function resultBar(move) {
   var sum = move.white + move.draws + move.black;

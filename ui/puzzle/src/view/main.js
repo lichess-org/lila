@@ -1,6 +1,5 @@
 var m = require('mithril');
 var chessground = require('./chessground');
-var bindOnce = require('common').bindOnce;
 var treeView = require('./tree');
 var cevalView = require('ceval').view;
 var control = require('../control');
@@ -76,13 +75,13 @@ var cachedButtons = (function() {
 
 function buttons(ctrl) {
   return m('div.game_control', {
-    config: bindOnce('mousedown', function(e) {
+    onmousedown: function(e) {
       var action = dataAct(e);
       if (action === 'prev') control.prev(ctrl);
       else if (action === 'next') control.next(ctrl);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
-    })
+    }
   }, [
     cachedButtons
   ]);

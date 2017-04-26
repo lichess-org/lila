@@ -1,8 +1,7 @@
 import { AnalyseController, AutoplayDelay } from './interfaces';
 
 import { GameData, router } from 'game';
-import { bindOnce } from 'common';
-import { synthetic } from './util';
+import { synthetic, bindOnce } from './util';
 import * as pgnExport from './pgnExport';
 import * as m from 'mithril';
 
