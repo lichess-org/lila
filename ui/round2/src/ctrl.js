@@ -438,6 +438,7 @@ module.exports = function(opts, redraw) {
       if (this.data.pref.confirmResign) this.vm.resignConfirm = true;
       else this.socket.sendLoading('resign');
     }
+    redraw();
   }.bind(this);
 
   this.goBerserk = function() {

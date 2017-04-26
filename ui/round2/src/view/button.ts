@@ -5,11 +5,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
 function analysisBoardOrientation(data) {
-  if (data.game.variant.key === 'racingKings') {
-    return 'white';
-  } else {
-    return data.player.color;
-  }
+  return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
 }
 
 function poolUrl(clock) {
@@ -102,7 +98,7 @@ export function resignConfirm(ctrl): VNode {
     }, [h('span', { attrs: {'data-icon': 'L'} })]),
     h('button.fbt.yes.active.hint--bottom', {
       attrs: {'data-hint': ctrl.trans.noarg('resign') },
-      hook: util.bind('click', ctrl.resign(true))
+      hook: util.bind('click', () => ctrl.resign(true))
     }, [h('span', { attrs: { 'data-icon': 'b'} })])
   ]);
 };
@@ -165,7 +161,7 @@ export function answerOpponentTakebackProposition(ctrl) {
     })
   ]) : null;
 };
-export function submitMove(ctrl) {
+export function submitMove(ctrl): VNode | undefined {
   return (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? h('div.negotiation', [
     h('p', ctrl.trans.noarg('moveConfirmation')),
     h('a.accept', {
@@ -182,7 +178,7 @@ export function submitMove(ctrl) {
       },
       hook: util.bind('click', () => ctrl.submitMove(false))
     })
-  ]) : null;
+  ]) : undefined;
 };
 export function backToTournament(ctrl): VNode | undefined {
   var d = ctrl.data;

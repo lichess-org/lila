@@ -55,30 +55,35 @@ function renderTableWatch(ctrl) {
   ]);
 }
 
+function tournamentStartWarning(ctrl) {
+  return h('div.suggestion', [
+    h('div.text', { attrs: {'data-icon': 'j'} },
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', ctrl.data.tournament.nbSecondsForFirstMove))
+  ]);
+}
+
 function renderTablePlay(ctrl) {
   const d = ctrl.data;
-  let onlyButton = isLoading(ctrl) ? loader() : button.submitMove(ctrl);
-  let buttons: MaybeVNodes = onlyButton ? [onlyButton] : [
+  const loading = isLoading(ctrl);
+  let submit = button.submitMove(ctrl);
+  let icons = (loading || submit) ? [] : [
+    game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort', null) :
+    button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+    button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', ctrl.offerDraw),
+    ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
+  ];
+  let buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl),
-    (d.tournament && game.nbMoves(d, d.player.color) === 0) ? h('div.suggestion', [
-      h('div.text', { attrs: {'data-icon': 'j'} },
-        ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', d.tournament.nbSecondsForFirstMove))
-    ]) : null
-  ];
+    (d.tournament && game.nbMoves(d, d.player.color) === 0) ? tournamentStartWarning(ctrl) : null
+  ]);
   return [
-    replay.render(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
-      isLoading(ctrl) ? null : h('div.control.icons', [
-        game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort', null) :
-        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-        button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', ctrl.offerDraw),
-        ctrl.vm.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', ctrl.resign)
-      ])
-    ),
+    replay.render(ctrl),
+    h('div.control.icons', icons),
     h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ];
