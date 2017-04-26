@@ -130,7 +130,7 @@ export function answerOpponentDrawOffer(ctrl) {
         'data-icon': 'L',
         title: ctrl.trans.noarg('decline')
       },
-      hook: util.bind('click', ctrl.socket.sendLoading('draw-no'))
+      hook: util.bind('click', () => ctrl.socket.sendLoading('draw-no'))
     })
   ]) : null;
 };

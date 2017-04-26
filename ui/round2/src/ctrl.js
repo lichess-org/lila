@@ -161,7 +161,7 @@ module.exports = function(opts, redraw) {
     redraw();
   }.bind(this);
 
-  this.setTitle = lichess.partial(title.set, this);
+  this.setTitle = () => title.set(this);
 
   this.sendMove = function(orig, dest, prom, meta) {
     var move = {
@@ -399,7 +399,7 @@ module.exports = function(opts, redraw) {
     if (this.data.correspondence && !this.correspondenceClock)
     this.correspondenceClock = new correspondenceClockCtrl(
       this.data.correspondence,
-      lichess.partial(this.socket.send, 'outoftime')
+      () => this.socket.send('outoftime')
     );
   }.bind(this);
   makeCorrespondenceClock();
@@ -513,7 +513,7 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   var onChange = function() {
-    opts.onChange && setTimeout(lichess.partial(opts.onChange, this.data), 200);
+    opts.onChange && setTimeout(() => opts.onChange(this.data), 200);
   }.bind(this);
 
   this.forceResignable = function() {
@@ -536,7 +536,7 @@ module.exports = function(opts, redraw) {
   this.setChessground = function(cg) {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.vm.ply));
+      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.vm.ply), redraw);
     }
   }.bind(this);
 

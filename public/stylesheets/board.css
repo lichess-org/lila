@@ -580,7 +580,7 @@ div.table .username .rp {
   margin-right: 0.2em;
 }
 div.table .message {
-  margin: 20px 0;
+  margin: 20px 10px;
 }
 div.table .message::before {
   font-size: 3em;

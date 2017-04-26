@@ -91,13 +91,11 @@ module.exports = function(socket, ctrl) {
     }
   };
 
-  this.moreTime = throttle(300, false, lichess.partial(this.send, 'moretime', null));
+  this.moreTime = throttle(300, false, () => this.send('moretime'));
 
-  this.outoftime = throttle(500, false, lichess.partial(this.send, 'outoftime', null));
+  this.outoftime = throttle(500, false, () => this.send('outoftime'));
 
-  this.berserk = throttle(200, false, lichess.partial(this.send, 'berserk', null, {
-    ackable: true
-  }));
+  this.berserk = throttle(200, false, () => this.send('berserk', null, { ackable: true }));
 
   this.receive = function(type, data) {
     if (handlers[type]) {
