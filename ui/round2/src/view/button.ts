@@ -2,6 +2,7 @@ import * as util from '../util';
 import { game, status, router } from 'game';
 
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
 function analysisBoardOrientation(data) {
   if (data.game.variant.key === 'racingKings') {
@@ -61,13 +62,12 @@ function rematchButton(ctrl) {
   ]);
 }
 
-export function standard(ctrl, condition, icon, hint, socketMsg, onclick) {
+export function standard(ctrl, condition, icon, hint, socketMsg, onclick): VNode {
   // disabled if condition callback is provied and is falsy
   var enabled = function() {
     return !condition || condition(ctrl.data);
   };
   return h('button.fbt.hint--bottom.' + socketMsg, {
-    key: socketMsg || 'click',
     attrs: {
       disabled: !enabled(),
       'data-hint': ctrl.trans.noarg(hint)
@@ -94,7 +94,7 @@ export function forceResign(ctrl) {
     }, ctrl.trans.noarg('forceDraw'))
   ]) : null;
 };
-export function resignConfirm(ctrl) {
+export function resignConfirm(ctrl): VNode {
   return h('div.resign_confirm', [
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
@@ -184,7 +184,7 @@ export function submitMove(ctrl) {
     })
   ]) : null;
 };
-export function backToTournament(ctrl) {
+export function backToTournament(ctrl): VNode | undefined {
   var d = ctrl.data;
   return (d.tournament && d.tournament.running) ? h('div.follow_up', [
     h('a.text.fbt.strong.glowed', {
@@ -203,7 +203,7 @@ export function backToTournament(ctrl) {
       h('button.text.button.weak', { attrs: {'data-icon': 'Z'} }, 'Pause')
     ]),
     analysisButton(ctrl)
-  ]) : null;
+  ]) : undefined;
 };
 export function moretime(ctrl) {
   return game.moretimeable(ctrl.data) ? h('a.moretime.hint--bottom-left', {
@@ -213,7 +213,7 @@ export function moretime(ctrl) {
     h('span', { attrs: {'data-icon': 'O'}})
   ]) : null;
 };
-export function followUp(ctrl) {
+export function followUp(ctrl): VNode {
   var d = ctrl.data;
   var rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted && (d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user));
   var newable = (status.finished(d) || status.aborted(d)) && (
@@ -233,7 +233,7 @@ export function followUp(ctrl) {
     analysisButton(ctrl)
   ]);
 };
-export function watcherFollowUp(ctrl) {
+export function watcherFollowUp(ctrl): VNode {
   var d = ctrl.data;
   return h('div.follow_up', [
     d.game.rematch ? h('a.button.text', {

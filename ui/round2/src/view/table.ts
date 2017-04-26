@@ -7,6 +7,7 @@ import button = require('./button');
 
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { MaybeVNodes } from '../interfaces';
 
 function playerAt(ctrl, position) {
   return ctrl.vm.flip ^ ((position === 'top') as any) ? ctrl.data.opponent : ctrl.data.player;
@@ -34,21 +35,21 @@ function isLoading(ctrl) {
 
 function loader() { return h('span.ddloader'); }
 
-function renderTableWith(ctrl, buttons: VNode[]): VNode[] {
+function renderTableWith(ctrl, buttons: MaybeVNodes) {
   return [
     replay.render(ctrl),
-    buttons ? h('div.control.buttons', buttons) : null,
+    h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))
-  ] as VNode[];
+  ];
 }
 
-function renderTableEnd(ctrl): VNode[] {
+function renderTableEnd(ctrl) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : (button.backToTournament(ctrl) || button.followUp(ctrl))
-  ]) as VNode[];
+  ]);
 }
 
-function renderTableWatch(ctrl): VNode[] {
+function renderTableWatch(ctrl) {
   return renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : button.watcherFollowUp(ctrl)
   ]);
@@ -57,7 +58,7 @@ function renderTableWatch(ctrl): VNode[] {
 function renderTablePlay(ctrl) {
   const d = ctrl.data;
   let onlyButton = isLoading(ctrl) ? loader() : button.submitMove(ctrl);
-  let buttons = onlyButton ? [onlyButton] : [
+  let buttons: MaybeVNodes = onlyButton ? [onlyButton] : [
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
@@ -68,7 +69,7 @@ function renderTablePlay(ctrl) {
       h('div.text', { attrs: {'data-icon': 'j'} },
         ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', d.tournament.nbSecondsForFirstMove))
     ]) : null
-  ] as VNode[];
+  ];
   return [
     replay.render(ctrl), (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? null : (
       isLoading(ctrl) ? null : h('div.control.icons', [
@@ -80,7 +81,7 @@ function renderTablePlay(ctrl) {
     ),
     h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))
-  ] as VNode[];
+  ];
 }
 
 function whosTurn(ctrl, color) {
@@ -115,7 +116,7 @@ export function render(ctrl: any): VNode {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
-    ] as VNode[]),
+    ]),
     anyClock(ctrl, 'bottom')
-  ] as VNode[]);
+  ]);
 };
