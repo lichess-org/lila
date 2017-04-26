@@ -322,7 +322,7 @@ module.exports = function(opts, redraw) {
 
   var playPredrop = function() {
     return this.chessground.playPredrop(function(drop) {
-      return crazyValid.drop(this.data, drop.role, drop.key);
+      return crazyValid(this.data, drop.role, drop.key);
     }.bind(this));
   }.bind(this);
 

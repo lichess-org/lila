@@ -24,7 +24,7 @@ export default function pocket(ctrl, color, position) {
       insert: vnode => {
         eventNames.forEach(name => {
           (vnode.elm as HTMLElement).addEventListener(name, e => {
-            if (usablePos) drag(ctrl, e);
+            if (position === (ctrl.vm.flip ? 'top' : 'bottom')) drag(ctrl, e);
           })
         });
       }
@@ -37,8 +37,8 @@ export default function pocket(ctrl, color, position) {
     }
     return h('piece', {
       class: {
-        role: true,
-        color: true,
+        [role]: true,
+        [color]: true,
         premove: activeColor && preDropRole === role
       },
       attrs: {
