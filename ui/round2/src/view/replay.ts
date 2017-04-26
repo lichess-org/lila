@@ -51,8 +51,8 @@ function renderResult(ctrl) {
   if (result || status.aborted(ctrl.data)) {
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return h('div.result_wrap', [
-      h('h.result', result),
-      h('h.status', {
+      h('p.result', result),
+      h('p.status', {
         hook: {
           insert: _ => {
             if (ctrl.vm.autoScroll) ctrl.vm.autoScroll();

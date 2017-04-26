@@ -379,10 +379,10 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   this.clock = this.data.clock ? clockCtrl(this.data.clock, {
-    onFlag() {
+    onFlag: function() {
       this.socket.outoftime();
       redraw();
-    },
+    }.bind(this),
     soundColor: (this.data.simul || this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   }) : false;
 
