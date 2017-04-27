@@ -455,14 +455,14 @@ module.exports = function(opts, redraw) {
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
-  this.setLoading = function(v) {
+  this.setLoading = function(v, duration) {
     clearTimeout(this.vm.loadingTimeout);
     if (v) {
       this.vm.loading = true;
       this.vm.loadingTimeout = setTimeout(function() {
         this.vm.loading = false;
         redraw();
-      }.bind(this), 1500);
+      }.bind(this), duration || 1500);
     } else {
       this.vm.loading = false;
     }
@@ -493,7 +493,7 @@ module.exports = function(opts, redraw) {
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();
-    this.setLoading(true);
+    this.setLoading(true, 300);
   }.bind(this);
 
   this.cancelMove = function(v) {
