@@ -79,9 +79,9 @@ object Condition {
       minRating: Option[MinRating]
   ) {
 
-    def relevant = list.nonEmpty
+    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating).flatten
 
-    def list: List[Condition] = List(nbRatedGame, maxRating, minRating).flatten
+    def relevant = list.nonEmpty
 
     def ifNonEmpty = list.nonEmpty option this
 
