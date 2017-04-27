@@ -77,18 +77,18 @@ function renderMoves(ctrl) {
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
-  if (firstPly % 2 === 0)
-    for (var i = 1, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
-  else {
+  let startAt = 1;
+  if (firstPly % 2 === 1) {
     pairs.push([null, steps[1]]);
-    for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
+    startAt = 2;
   }
+  for (var i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-  var els: Array<VNode | undefined> = [];
+  const els: Array<VNode | undefined> = [], curPly = ctrl.vm.ply;
   for (var i = 0; i < pairs.length; i++) {
     els.push(h('index', i + 1 + ''));
-    els.push(renderMove(pairs[i][0], ctrl.vm.ply, true));
-    els.push(renderMove(pairs[i][1], ctrl.vm.ply, false));
+    els.push(renderMove(pairs[i][0], curPly, true));
+    els.push(renderMove(pairs[i][1], curPly, false));
   }
   els.push(renderResult(ctrl));
 
@@ -176,13 +176,10 @@ function renderButtons(ctrl) {
       ['V', lastPly]
     ].map((b, i) => {
       const enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-      return h('button', {
-        class: {
-          fbt: true,
-          glowed: i === 3 && ctrl.isLate()
-        },
+      return h('button.fbt', {
+        class: { glowed: i === 3 && ctrl.isLate() },
         attrs: {
-          disabled: ctrl.broken || !enabled,
+          disabled: !enabled,
           'data-icon': b[0],
           'data-ply': enabled ? b[1] : '-'
         }
