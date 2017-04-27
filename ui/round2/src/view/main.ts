@@ -39,12 +39,8 @@ function wheel(ctrl, e) {
 
 function visualBoard(ctrl) {
   return h('div.lichess_board_wrap', [
-    h('div', {
-      class: {
-        'lichess_board': true,
-        [ctrl.data.game.variant.key]: true,
-        'blindfold': ctrl.data.pref.blindfold
-      },
+    h('div.lichess_board.' + ctrl.data.game.variant.key, {
+      class: { blindfold: ctrl.data.pref.blindfold },
       hook: util.bind('click', e => wheel(ctrl, e))
     }, [ground.render(ctrl)]),
     promotion.view(ctrl)

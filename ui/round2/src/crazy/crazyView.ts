@@ -35,12 +35,8 @@ export default function pocket(ctrl, color, position) {
       if (droppedRole === role) nb--;
       if (captured === role) nb++;
     }
-    return h('piece', {
-      class: {
-        [role]: true,
-        [color]: true,
-        premove: activeColor && preDropRole === role
-      },
+    return h('piece.' + role + '.' + color, {
+      class: { premove: activeColor && preDropRole === role },
       attrs: {
         'data-role': role,
         'data-color': color,

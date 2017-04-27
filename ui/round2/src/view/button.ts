@@ -27,14 +27,8 @@ function analysisButton(ctrl) {
 function rematchButton(ctrl) {
   var d = ctrl.data;
   var me = d.player.offeringRematch, them = d.opponent.offeringRematch;
-  return h('a', {
-    class: {
-      button: true,
-      rematch: true,
-      white: true,
-      me: me,
-      them: them
-    },
+  return h('a.button.rematch.white', {
+    class: { me, them },
     attrs: {
       title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
         me ? ctrl.trans.noarg('rematchOfferSent') : '')

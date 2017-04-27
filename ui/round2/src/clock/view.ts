@@ -12,11 +12,8 @@ export function renderClock(ctrl, player, position) {
     ctrl.clock.elements[player.color].time = el;
     el.innerHTML = formatClockTime(ctrl.clock.data, millis, running);
   }
-  return h('div', {
+  return h('div.clock.clock_' + player.color + '.clock_' + position, {
     class: {
-      clock: true,
-      ['clock_' + player.color]: true,
-      ['clock_' + position]: true,
       outoftime: millis <= 0,
       running: running,
       emerg: millis < ctrl.clock.emergMs
@@ -67,11 +64,8 @@ function showBar(ctrl, color, berserk) {
     ctrl.elements[color].bar = el;
     el.style.width = ctrl.timePercent(color) + '%';
   };
-  return ctrl.data.showBar ? h('div', {
-    class: {
-      bar: true,
-      berserk: berserk
-    }
+  return ctrl.data.showBar ? h('div.bar', {
+    class: { berserk: berserk }
   }, [
     h('span', {
       hook: {

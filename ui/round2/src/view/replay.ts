@@ -99,8 +99,6 @@ function analyseButton(ctrl) {
   var showInfo = ctrl.forecastInfo();
   var data: any = {
     class: {
-      fbt: true,
-      analysis: true,
       'hint--top': !showInfo,
       'hint--bottom': showInfo,
       'glowed': showInfo,
@@ -122,7 +120,7 @@ function analyseButton(ctrl) {
     }
   };
   return [
-    h('a', data, [
+    h('a.fbt.analysis', data, [
       h('span', {
         attrs: {'data-icon': 'A'},
         class: {text: ctrl.data.forecastCount}
@@ -155,13 +153,8 @@ function renderButtons(ctrl) {
       }
     }, ctrl.redraw)
   }, [
-    h('button', {
-      class: {
-        fbt: true,
-        flip: true,
-        'hint--top': true,
-        active: ctrl.vm.flip
-      },
+    h('button.fbt.flip.hint--top', {
+      class: { active: ctrl.vm.flip },
       attrs: {
         'data-hint': ctrl.trans('flipBoard'),
         'data-act': 'flip'

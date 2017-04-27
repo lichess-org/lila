@@ -35,12 +35,8 @@ export default function(ctrl, trans, color, position, runningColor) {
   const update = (el: HTMLElement) => {
     el.innerHTML = formatClockTime(trans, millis);
   };
-  return h('div', {
+  return h('div.correspondence.clock.clock_' + color + '.clock_' + position, {
     class: {
-      correspondence: true,
-      clock: true,
-      ['clock_' + color]: true,
-      ['clock_' + position]: true,
       outoftime: millis <= 0,
       running: runningColor === color
     }
