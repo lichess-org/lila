@@ -43,6 +43,7 @@ $(function() {
   $("div.user_show .mod_zone_toggle").each(function() {
     $(this).click(function() {
       var $zone = $("div.user_show .mod_zone");
+      console.log($zone, $zone.is(':visible'));
       if ($zone.is(':visible')) $zone.hide();
       else $zone.html(lichess.spinnerHtml).show();
       $zone.load($(this).attr("href"), function() {

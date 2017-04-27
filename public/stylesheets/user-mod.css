@@ -1,0 +1,219 @@
+.mod_zone {
+  margin: 1em 20px;
+}
+.mod_zone .actions {
+  width: 100%;
+  text-align: center;
+}
+.mod_zone .neural,
+.mod_zone .mod_roles {
+  padding: 10px 0;
+}
+.mod_zone .neural strong {
+  display: inline;
+}
+.mod_zone .slist {
+  border: 1px solid #ccc;
+  border-top: none;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+}
+body.dark .mod_zone .slist {
+  border-color: #3d3d3d;
+}
+.mod_zone .same {
+  font-style: italic;
+  font-weight: bold;
+}
+.mod_zone form {
+  display: inline;
+}
+.mod_zone .listings {
+  border: 1px solid #ccc;
+}
+.mod_zone .listings > div {
+  max-height: 20em;
+  overflow: auto;
+}
+.mod_zone .spy_ips {
+  float: left;
+  margin-left: 1%;
+  width: 31%;
+}
+.mod_zone .spy_ips > ul > li {
+  list-style: inside disc;
+}
+.mod_zone .spy_ips ul p {
+  font-weight: bold;
+  display: inline;
+}
+.mod_zone .spy_ips li li {
+  margin-left: 1em;
+  font-family: 'Roboto Mono';
+}
+.mod_zone .spy_uas {
+  margin-left: 34%;
+}
+.mod_zone .listings .blocked {
+  color: red;
+  font-weight: bold;
+}
+.mod_zone .ip .intel {
+  margin-left: 10px;
+}
+.mod_zone strong {
+  display: block;
+  margin-top: 0.5em;
+}
+.mod_zone strong.inline {
+  display: inline;
+}
+.mod_zone .plan_charges ul {
+  max-height: 100px;
+  overflow: auto;
+}
+.mod_zone table.others.slist td:first-child {
+  padding-left: 10px;
+}
+.mod_zone .others .i {
+  padding: 0 2px;
+}
+.mod_zone .others .i i {
+  font-size: 1.5em;
+}
+.mod_zone .reports {
+  display: flex;
+}
+.mod_zone .reports .half {
+  flex: 1 1 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 0.5s;
+  transition-delay: 0.3s;
+}
+.mod_zone .reports .half:first-child {
+  margin-right: 20px;
+  border-right: 1px solid #ccc;
+}
+body.dark .mod_zone .reports .half:first-child {
+  border-color: #3d3d3d;
+}
+.mod_zone .reports .half:hover {
+  flex: 0 0 90%;
+}
+.mod_zone .evaluation time {
+  display: inline;
+}
+.mod_zone .evaluation strong {
+  display: inline;
+  text-transform: uppercase;
+}
+.mod_zone .evaluation .percentage {
+  font-size: 0.9em;
+}
+.mod_zone .evaluation .legend {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.mod_zone .evaluation .legend span {
+  padding: 10px;
+}
+.mod_zone .evaluation .sig_1 {
+  color: #2077C0;
+  /* dark blue */
+}
+.mod_zone .evaluation .sig_2 {
+  color: #23A1AB;
+  /* light blue */
+}
+.mod_zone .evaluation .sig_3 {
+  color: #DDCF3F;
+  /* yellow */
+}
+.mod_zone .evaluation .sig_4 {
+  color: #E79B64;
+  /* orange */
+}
+.mod_zone .evaluation .sig_5 {
+  color: #E73B38;
+  /* red */
+}
+.mod_zone .evaluation .result_4 {
+  color: #E73B38;
+  /* red */
+}
+.mod_zone .evaluation .result_3 {
+  color: #E73B38;
+  /* red */
+}
+.mod_zone .evaluation .result_2 {
+  color: #E79B64;
+  /* orange */
+}
+.mod_zone .evaluation .result_1 {
+  color: #2077C0;
+  /* dark blue */
+}
+.mod_zone .evaluation .match {
+  font-weight: bold;
+  color: #759900;
+}
+
+.mod_zone .irwin table {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.mod_zone .irwin .text td {
+  border-top: 1px solid #ccc;
+}
+body.dark .mod_zone .irwin table,
+body.dark .mod_zone .irwin .text td {
+  border-color: #444;
+}
+.mod_zone .irwin table strong {
+  margin-top: 0;
+  font-size: 1.6em;
+}
+.mod_zone .irwin table em {
+  font-size: 0.8em;
+  line-height: 1em;
+  margin-top: -0.1em;
+  display: block;
+}
+.mod_zone .irwin .moves td {
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+.mod_zone .irwin .moves span {
+  width: 10px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 2px;
+}
+.mod_zone .irwin .text .green {
+  /* actually blue */
+  color: #2077C0;
+}
+.mod_zone .irwin .text .yellow {
+  color: #DDCF3F;
+}
+.mod_zone .irwin .text .orange {
+  color: #E79B64;
+}
+.mod_zone .irwin .text .red {
+  color: #E73B38;
+}
+.mod_zone .irwin .moves .green {
+  /* actually blue */
+  background-color: #2077C0;
+}
+.mod_zone .irwin .moves .yellow {
+  background-color: #DDCF3F;
+}
+.mod_zone .irwin .moves .orange {
+  background-color: #E79B64;
+}
+.mod_zone .irwin .moves .red {
+  background-color: #E73B38;
+}

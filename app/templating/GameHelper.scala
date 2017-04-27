@@ -113,8 +113,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withStatus: Boolean = false,
     withBerserk: Boolean = false,
     mod: Boolean = false,
-    link: Boolean = true,
-    variant: chess.variant.Variant = chess.variant.Standard
+    link: Boolean = true
   )(implicit ctx: UserContext) = Html {
     val statusIcon =
       if (withStatus) statusIconSpan

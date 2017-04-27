@@ -231,7 +231,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
   )
 
-  lazy val irwin = project("irwin", Seq(common, db)).settings(
+  lazy val irwin = project("irwin", Seq(common, db, user, game)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

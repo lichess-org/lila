@@ -237,14 +237,15 @@ object User extends LilaController {
         Env.plan.api.recentChargesOf(user) zip
         Env.report.api.byAndAbout(user, 20) zip
         Env.pref.api.getPref(user) zip
+        Env.irwin.api.withPovs(user) zip
         Env.user.noteApi.forMod(user.id) flatMap {
-          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ notes =>
+          case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin ~ notes =>
             (Env.playban.api bans spy.usersSharingIp.map(_.id)) zip
               Env.user.lightUserApi.preloadMany {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {
                 case (bans, _) =>
-                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes)
+                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, irwin, notes)
               }
         }
     }

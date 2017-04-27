@@ -1,7 +1,9 @@
-@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
+
+@cssTag("user-mod.css")
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -83,8 +85,14 @@
   }
   <div class="preferences">
     <strong class="text inline" data-icon="%">Notable preferences:</strong>
-    @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] }
+    @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
+  @irwinReport.map { report =>
+  <div class="irwin">
+    <strong class="text" data-icon="">Irwin report:</strong>
+    @views.html.mod.irwinReport(report)
+  </div>
+  }
   @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
@@ -95,52 +103,6 @@
   </div>
   }{ pag =>
   <div class="evaluation results">
-    <table class="reportCard">
-      <thead>
-        <tr>
-          <th>
-            <span class="result_@pag.pag.action.id">@pag.pag.action.description</span>
-          </th>
-          <th>
-            @pag.pag.playerAssessments.size
-          </th>
-          <th>
-            @pag.pag.cheatingSum
-          </th>
-          <th>
-            @pag.pag.likelyCheatingSum
-          </th>
-          <th>
-            @pag.pag.relatedCheatersCount
-          </th>
-          <th>
-            @pag.pag.relatedUsersCount
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            Assessment
-          </td>
-          <td>
-            Games Assessed
-          </td>
-          <td>
-            Cheating Games
-          </td>
-          <td>
-            Likely Cheating Games
-          </td>
-          <td>
-            Related Cheaters
-          </td>
-          <td>
-            Related Users
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <table class="extra_stats">
       <caption>Average Centipawn Loss Given:</caption>
       <tr>
@@ -203,7 +165,7 @@
               @pag.pov(result).fold{
               @result.gameId
               } { p =>
-              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false, variant = p.game.variant)
+              @playerLink(p.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
               }
             </a>
           </td>

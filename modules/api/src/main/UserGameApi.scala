@@ -33,7 +33,7 @@ final class UserGameApi(
     "variant" -> g.variant,
     "speed" -> g.speed.key,
     "perf" -> PerfPicker.key(g),
-    "timestamp" -> g.createdAt.getDate,
+    "timestamp" -> g.createdAt,
     "turns" -> g.turns,
     "status" -> g.status,
     "clock" -> g.clock,
