@@ -61,9 +61,7 @@ function renderResult(ctrl) {
         }
       }, [
         h('div', gameView.status(ctrl)),
-        winner ? h('div',
-          ', ' + ctrl.trans.noarg(winner.color + 'IsVictorious')
-        ) : null
+        winner ? h('div', ctrl.trans.noarg(winner.color + 'IsVictorious')) : null
       ])
     ]);
   }
