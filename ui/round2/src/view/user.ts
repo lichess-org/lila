@@ -31,22 +31,16 @@ export function userHtml(ctrl, player) {
   if (user) {
     var fullName = (user.title ? user.title + ' ' : '') + user.username;
     var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
-    return h('div', {
+    return h('div.username.user_link.' + player.color, {
       class: {
-        username: true,
-        user_link: true,
-        [player.color]: true,
         online: player.onGame,
         offline: !player.onGame,
         long: fullName.length > 20,
         connecting: connecting
       }
     }, [
-      h('i', {
-        class: {
-          line: true,
-          patron: user.patron
-        },
+      h('i.line', {
+        class: { patron: user.patron },
         attrs: {
           title: connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
         }
@@ -69,10 +63,8 @@ export function userHtml(ctrl, player) {
     ]);
   }
   var connecting = !player.onGame && ctrl.vm.firstSeconds;
-  return h('div', {
+  return h('div.username.user_link', {
     class: {
-      username: true,
-      user_link: true,
       online: player.onGame,
       offline: !player.onGame,
       connecting: connecting
