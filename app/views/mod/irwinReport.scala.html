@@ -44,7 +44,7 @@ case _ => {red}
     </tr>
     <tr class="moves">
       <td colspan="5">
-        @gameReport.moves.map { move => <span class="@percentClass(move.activation)"></span> }
+        @gameReport.moves.map { move => <span class="@percentClass(move.activation)" title="@move"></span> }
       </td>
     </tr>
     }
