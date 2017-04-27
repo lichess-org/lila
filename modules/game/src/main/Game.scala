@@ -102,13 +102,13 @@ case class Game(
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
-  def durationSeconds =
-    (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds).toInt atMost {
-      clock.fold(Int.MaxValue) { c =>
-        // centis.toSeconds * 1.1 == centis * (1.1 / 100) ~= centis / 91
-        (c.elapsedTime(White) + c.elapsedTime(Black) + c.increment * turns).centis / 91
-      }
-    }
+  // we can't rely on the clock,
+  // because if moretime was given,
+  // elapsed time is no longer representing the game duration
+  def durationSeconds: Option[Int] = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds) match {
+    case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
+    case seconds => seconds.toInt.some
+  }
 
   def everyOther[A](l: List[A]): List[A] = l match {
     case a :: b :: tail => a :: everyOther(tail)

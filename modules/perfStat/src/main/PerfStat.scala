@@ -64,8 +64,7 @@ case class ResultStreak(win: Streaks, loss: Streaks) {
 }
 
 case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
-  def agg(pov: Pov) = {
-    val seconds = pov.game.durationSeconds
+  def agg(pov: Pov) = pov.game.durationSeconds.fold(this) { seconds =>
     val cont = seconds < 3 * 60 * 60 && isContinued(pov.game.createdAt)
     copy(
       nb = nb(cont, pov)(1),
@@ -130,8 +129,8 @@ case class Count(
     berserk = berserk + pov.player.berserk.fold(1, 0),
     opAvg = pov.opponent.stableRating.fold(opAvg)(opAvg.agg),
     seconds = seconds + (pov.game.durationSeconds match {
-      case s if s > 3 * 60 * 60 => 0
-      case s => s
+      case Some(s) if s <= 3 * 60 * 60 => s
+      case _ => 0
     }),
     disconnects = disconnects + {
       ~pov.loss && pov.game.status == chess.Status.Timeout
