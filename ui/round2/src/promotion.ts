@@ -83,7 +83,10 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('click', () => cancel(ctrl));
-        el.addEventListener('contextmenu', () => false);
+        el.addEventListener('contextmenu', e => {
+          e.preventDefault();
+          return false;
+        });
       }
     }
   }, pieces.map((serverRole, i) => {
