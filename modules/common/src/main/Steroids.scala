@@ -47,7 +47,6 @@ trait JodaTimeSteroids {
   implicit final class LilaPimpedDateTime(date: DateTime) {
     def getSeconds: Long = date.getMillis / 1000
     def getCentis: Long = date.getMillis / 10
-    def getDate: java.util.Date = date.toDate
   }
   implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }

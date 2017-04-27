@@ -31,7 +31,7 @@ final class ForumSearchApi(
     Fields.topicId -> view.topic.id,
     Fields.staff -> view.post.isStaff,
     Fields.troll -> view.post.troll,
-    Fields.date -> view.post.createdAt.getDate
+    Fields.date -> view.post.createdAt
   )
 
   import reactivemongo.play.iteratees.cursorProducer

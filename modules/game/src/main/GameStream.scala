@@ -70,7 +70,7 @@ object GameStream {
         "variant" -> g.variant.key,
         "speed" -> g.speed.key,
         "perf" -> PerfPicker.key(g),
-        "createdAt" -> g.createdAt.getDate,
+        "createdAt" -> g.createdAt,
         "status" -> g.status.id,
         "clock" -> g.clock.map { clock =>
           Json.obj(
