@@ -160,17 +160,6 @@ body.dark .mod_zone .reports .half:first-child {
   color: #759900;
 }
 
-.mod_zone .irwin table {
-  width: 100%;
-  border-bottom: 1px solid #ccc;
-}
-.mod_zone .irwin .text td {
-  border-top: 1px solid #ccc;
-}
-body.dark .mod_zone .irwin table,
-body.dark .mod_zone .irwin .text td {
-  border-color: #444;
-}
 .mod_zone .irwin table strong {
   margin-top: 0;
   font-size: 1.6em;
@@ -181,15 +170,16 @@ body.dark .mod_zone .irwin .text td {
   margin-top: -0.1em;
   display: block;
 }
-.mod_zone .irwin .moves td {
-  opacity: 0.8;
-  transition: opacity 0.3s;
+.mod_zone .irwin .moves {
+  width: 400px;
+  padding: 0;
+  height: 48px;
+  display: flex;
+  align-items: flex-end;
 }
 .mod_zone .irwin .moves span {
-  width: 10px;
-  height: 7px;
-  display: inline-block;
-  border-radius: 2px;
+  flex: 0 1 10px;
+  margin-left: 3px;
 }
 .mod_zone .irwin .text .green {
   /* actually blue */
