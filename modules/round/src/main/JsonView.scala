@@ -106,6 +106,7 @@ final class JsonView(
               "submitMove" -> {
                 import Pref.SubmitMove._
                 pref.submitMove match {
+                  case _ if game.hasAi => false
                   case ALWAYS => true
                   case CORRESPONDENCE_UNLIMITED if game.isCorrespondence => true
                   case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
