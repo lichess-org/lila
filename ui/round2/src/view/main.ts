@@ -91,8 +91,8 @@ export function main(ctrl: any): VNode {
         hook: {
           insert: vnode => {
             if (ctrl.opts.crosstableEl) {
-              const el = (vnode.elm as HTMLElement)
-                el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
+              const el = (vnode.elm as HTMLElement);
+              el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
             }
           }
         }
