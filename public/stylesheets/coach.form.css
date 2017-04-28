@@ -31,19 +31,6 @@
   display: flex;
   flex-flow: column;
 }
-.coach_edit .analytics {
-  flex: 1 1 100%;
-  margin-right: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.coach_edit .analytics .pageview_chart {
-  height:100%;
-  width:100%;
-  display: flex;
-  align-items: center;
-}
 
 .coach_edit .overview .todo,
 .coach_edit .overview.with_todo .analytics {

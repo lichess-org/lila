@@ -85,13 +85,6 @@ $(function() {
     return false;
   });
 
-  $editor.find('.analytics .pageview_chart').each(function() {
-    var $el = $(this);
-    $.getJSON('/monitor/coach/pageview', function(data) {
-      lichess.coachPageViewChart(data, $el);
-    });
-  });
-
   $('.coach_picture form.upload input[type=file]').change(function() {
     $('.picture_wrap').html(lichess.spinnerHtml);
     $(this).parents('form').submit();

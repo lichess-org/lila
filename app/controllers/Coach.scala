@@ -76,7 +76,7 @@ object Coach extends LilaController {
     OptionFuResult(api findOrInit me) { c =>
       implicit val req = ctx.body
       CoachProfileForm.edit(c.coach).bindFromRequest.fold(
-        form => fuccess(BadRequest),
+        _ => fuccess(BadRequest),
         data => api.update(c, data) inject Ok
       )
     }
