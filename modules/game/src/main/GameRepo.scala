@@ -409,13 +409,10 @@ object GameRepo {
     .skip(Random nextInt 1000)
     .uno[Game]
 
-  def hydrateUpdatedAtAndTvAt(game: Game): Fu[Game] =
-    coll.find($id(game.id), $doc(F.updatedAt -> true, F.tvAt -> true)).uno[Bdoc].map {
-      _.fold(game) { o =>
-        game.copy(
-          updatedAt = o.getAs[DateTime](F.updatedAt),
-          metadata = game.metadata.copy(tvAt = o.getAs[DateTime](F.tvAt))
-        )
+  def hydrateTvAt(game: Game): Fu[Game] =
+    coll.primitiveOne[DateTime]($id(game.id), F.tvAt).map {
+      _.fold(game) { tvAt =>
+        game.copy(metadata = game.metadata.copy(tvAt = tvAt.some))
       }
     }
 

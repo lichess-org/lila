@@ -233,7 +233,8 @@ case class Game(
         history <- clockHistory
       } yield history.record(turnColor, clk),
       status = situation.status | status,
-      clock = game.clock
+      clock = game.clock,
+      updatedAt = DateTime.now.some
     )
 
     val state = Event.State(

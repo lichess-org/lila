@@ -81,9 +81,9 @@ private[round] final class Finisher(
             g.blackPlayer.userId
           ).zip {
             // because the game comes from the round GameProxy,
-            // it doesn't have the updatedAt & tvAt fields set
-            // so we fetch them from the DB
-            GameRepo hydrateUpdatedAtAndTvAt g
+            // it doesn't have the tvAt field set
+            // so we fetch it from the DB
+            GameRepo hydrateTvAt g
           } flatMap {
             case ((whiteO, blackO), g) => {
               val finish = FinishGame(g, whiteO, blackO)
