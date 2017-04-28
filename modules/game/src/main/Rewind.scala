@@ -51,7 +51,7 @@ object Rewind {
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
         clock = newClock,
-        updatedAt = DateTime.now
+        updatedAt = DateTime.now.some
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
