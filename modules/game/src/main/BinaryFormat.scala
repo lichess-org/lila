@@ -162,23 +162,23 @@ object BinaryFormat {
       val lastMoveInt = clmt.lastMove.fold(0) {
         case (f, t) => (posInt(f) << 6) + posInt(t)
       }
-      val time = clmt.lastMoveTime getOrElse 0
-
-      Array((castleInt << 4) + (lastMoveInt >> 8), lastMoveInt & 255).map(_.toByte) ++
-        writeInt24(time) ++ clmt.check.map(x => posInt(x).toByte)
+      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte) ++
+        clmt.check.map(x => posInt(x).toByte)
     }
 
     def read(ba: ByteArray): CastleLastMoveTime = {
-      ba.value map toInt match {
-        case Array(b1, b2, b3, b4, b5) => doRead(b1, b2, b3, b4, b5, None)
-        case Array(b1, b2, b3, b4, b5, b6) => doRead(b1, b2, b3, b4, b5, b6.some)
-        case _ => sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
-      }
+      val ints = ba.value map toInt
+      val size = ints.size
+
+      if (size < 2 || size > 6) sys error s"BinaryFormat.clmt.read invalid: ${ba.showBytes}"
+      val checkByte = if (size == 6 || size == 3) ints.lastOption else None
+
+      doRead(ints(0), ints(1), checkByte)
     }
 
     private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
 
-    private def doRead(b1: Int, b2: Int, b3: Int, b4: Int, b5: Int, b6: Option[Int]) =
+    private def doRead(b1: Int, b2: Int, checkByte: Option[Int]) =
       CastleLastMoveTime(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
@@ -186,8 +186,7 @@ object BinaryFormat {
           to ← posAt((b2 & 63) >> 3, b2 & 7)
           if from != Pos.A1 || to != Pos.A1
         } yield from -> to,
-        lastMoveTime = readInt24(b3, b4, b5).some filter (0 !=),
-        check = b6 flatMap { x => posAt(x >> 3, x & 7) }
+        check = checkByte flatMap { x => posAt(x >> 3, x & 7) }
       )
   }
 
@@ -284,7 +283,10 @@ object BinaryFormat {
 
   @inline private def toInt(b: Byte): Int = b & 0xff
 
-  def writeInt24(i: Int) = Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
+  def writeInt24(int: Int) = {
+    val i = if (int < (1 << 24)) int else 0
+    Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
+  }
 
   private val int23Max = 1 << 23
   def writeSignedInt24(int: Int) = {

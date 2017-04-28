@@ -70,7 +70,7 @@ final class AutoPairing(
       _.filter(_.game.playable) foreach { pov =>
         if (pov.game.playerHasMoved(pov.color)) {
           if (thenAgain && !pov.game.playerHasMoved(pov.opponent.color))
-            scheduleIdleCheck(!pov.ref, pov.game.lastMoveDateTime.fold(secondsToMove) { lmt =>
+            scheduleIdleCheck(!pov.ref, pov.game.updatedAt.fold(secondsToMove) { lmt =>
               (lmt.getSeconds - nowSeconds + secondsToMove).toInt
             }, false)
         }

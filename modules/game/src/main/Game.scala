@@ -96,11 +96,6 @@ case class Game(
 
   def hasChat = !isTournament && !isSimul && nonAi
 
-  def lastMoveDateTime: Option[DateTime] = updatedAt
-  // castleLastMoveTime.lastMoveTime map { lmt =>
-  //   createdAt plus (lmt * 100l)
-  // } orElse updatedAt
-
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
   // we can't rely on the clock,
@@ -221,7 +216,6 @@ case class Game(
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove.map(_.origDest),
-        lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.checkSquare
       ),
       unmovedRooks = game.board.unmovedRooks,
@@ -229,7 +223,7 @@ case class Game(
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ lastMoveDateTime.?? { lmdt =>
+          } :+ updatedAt.?? { lmdt =>
             (Centis(nowCentis - lmdt.getCentis) - ~lag) nonNeg
           }
         }
@@ -290,7 +284,7 @@ case class Game(
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60
-    val secondsLeft = lastMoveDateTime.fold(increment) { lmd =>
+    val secondsLeft = updatedAt.fold(increment) { lmd =>
       (lmd.getSeconds + increment - nowSeconds).toInt max 0
     }
     CorrespondenceClock(
@@ -712,7 +706,6 @@ object Game {
 case class CastleLastMoveTime(
     castles: Castles,
     lastMove: Option[(Pos, Pos)],
-    lastMoveTime: Option[Int], // tenths of seconds since game creation
     check: Option[Pos]
 ) {
 
@@ -721,7 +714,7 @@ case class CastleLastMoveTime(
 
 object CastleLastMoveTime {
 
-  def init = CastleLastMoveTime(Castles.all, None, None, None)
+  def init = CastleLastMoveTime(Castles.all, None, None)
 
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
