@@ -127,6 +127,7 @@ object Api extends LilaController {
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis"),
       moves = getBool("with_moves"),
+      fens = getBool("with_fens"),
       opening = getBool("with_opening"),
       moveTimes = getBool("with_movetimes"),
       token = get("token")
