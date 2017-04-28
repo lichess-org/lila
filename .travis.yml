@@ -26,6 +26,10 @@ env:
    - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o="
    - TRAVIS_NODE_VERSION="4.0.0"
 
+git:
+  depth: 3
+  submodules: false
+
 install:
   # http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install "$TRAVIS_NODE_VERSION"
