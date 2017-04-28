@@ -1,5 +1,7 @@
 package lila.game
 
+import org.joda.time.DateTime
+
 import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
@@ -48,7 +50,8 @@ object Rewind {
         clockHistory = game.clockHistory.map(_.update(!color, _.dropRight(1))),
         crazyData = rewindedSituation.board.crazyData,
         status = game.status,
-        clock = newClock
+        clock = newClock,
+        updatedAt = DateTime.now
       )
       Progress(game, newGame, List(
         newGame.clock.map(Event.Clock.apply),
