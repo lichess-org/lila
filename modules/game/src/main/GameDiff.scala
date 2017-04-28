@@ -83,13 +83,16 @@ private[game] object GameDiff {
       dOpt(s"$name$blurs", player(_).blurs, w.intO)
     }
 
-    (addUa(setBuilder.toList), unsetBuilder.toList)
+    (addUa(setBuilder.toList, a, b), unsetBuilder.toList)
   }
 
   private val bTrue = BSONBoolean(true)
 
-  private def addUa(sets: List[Set]): List[Set] = sets match {
-    case Nil => Nil
-    case sets => (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
+  private def addUa(sets: List[Set], a: Game, b: Game): List[Set] = {
+    if (a.turns == b.turns) sets
+    else sets match {
+      case Nil => Nil
+      case sets => (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
+    }
   }
 }
