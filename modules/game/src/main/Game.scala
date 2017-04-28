@@ -96,9 +96,10 @@ case class Game(
 
   def hasChat = !isTournament && !isSimul && nonAi
 
-  def lastMoveDateTime: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
-    createdAt plus (lmt * 100l)
-  } orElse updatedAt
+  def lastMoveDateTime: Option[DateTime] = updatedAt
+  // castleLastMoveTime.lastMoveTime map { lmt =>
+  //   createdAt plus (lmt * 100l)
+  // } orElse updatedAt
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
 
