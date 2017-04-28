@@ -75,6 +75,7 @@ module.exports = function(cfg, element) {
   };
   cfg.crosstableEl = element.querySelector('.crosstable');
 
+  var $watchers;
   var letsGo = function() {
     round = LichessRound.app(cfg);
     if (cfg.chat) {
@@ -84,7 +85,7 @@ module.exports = function(cfg, element) {
         chat = c;
       });
     }
-    var $watchers = $('#site_header div.watchers').watchers();
+    $watchers = $('#site_header div.watchers').watchers();
     startTournamentClock();
     $('#now_playing').find('.move_on input').change(function() {
       round.moveOn.toggle();
