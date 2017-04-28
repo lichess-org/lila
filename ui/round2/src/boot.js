@@ -74,23 +74,28 @@ module.exports = function(cfg, element) {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
   cfg.crosstableEl = element.querySelector('.crosstable');
-  round = LichessRound.app(cfg);
-  if (cfg.chat) {
-    cfg.chat.preset = getPresetGroup(cfg.data);
-    cfg.chat.parseMoves = true;
-    lichess.makeChat('chat', cfg.chat, function(c) {
-      chat = c;
+
+  var letsGo = function() {
+    round = LichessRound.app(cfg);
+    if (cfg.chat) {
+      cfg.chat.preset = getPresetGroup(cfg.data);
+      cfg.chat.parseMoves = true;
+      lichess.makeChat('chat', cfg.chat, function(c) {
+        chat = c;
+      });
+    }
+    var $watchers = $('#site_header div.watchers').watchers();
+    startTournamentClock();
+    $('#now_playing').find('.move_on input').change(function() {
+      round.moveOn.toggle();
+    }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
+      lichess.hasToReload = true;
+      return true;
     });
-  }
-  var $watchers = $('#site_header div.watchers').watchers();
-  startTournamentClock();
-  $('#now_playing').find('.move_on input').change(function() {
-    round.moveOn.toggle();
-  }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
-    lichess.hasToReload = true;
-    return true;
-  });
-  if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-    history.replaceState(null, null, '/' + data.game.id);
-  if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
+    if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+      history.replaceState(null, null, '/' + data.game.id);
+    if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
+  };
+  if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 100);
+  else letsGo();
 };
