@@ -7,7 +7,7 @@ var xhrConfig = function(xhr) {
 }
 
 function uncache(url) {
-  return url + '?_=' + new Date().getTime();
+  return url + '?_=' + Date.now();
 }
 
 // when the tournament no longer exists

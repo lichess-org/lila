@@ -190,7 +190,7 @@ function isSystemTournament(t) {
 }
 
 module.exports = function(ctrl) {
-  now = (new Date()).getTime();
+  now = Date.now();
   startTime = now - 3 * 60 * 60 * 1000;
   stopTime = startTime + 10 * 60 * 60 * 1000;
 

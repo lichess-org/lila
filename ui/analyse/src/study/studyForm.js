@@ -30,11 +30,11 @@ var select = function(s) {
 module.exports = {
   ctrl: function(save, getData) {
 
-    var initAt = new Date();
+    var initAt = Date.now();
 
     function isNew() {
       var d = getData();
-      return d.from === 'scratch' && d.isNew && new Date() - initAt < 5000;
+      return d.from === 'scratch' && d.isNew && Date.now() - initAt < 5000;
     }
 
     var open = m.prop(false);

@@ -4,7 +4,7 @@ module.exports = function(send) {
 
   function resend() {
     messages.forEach(function(m) {
-      if (new Date() - m.at > 2500) send(m.t, m.d);
+      if (Date.now() - m.at > 2500) send(m.t, m.d);
     });
   }
 
@@ -16,7 +16,7 @@ module.exports = function(send) {
       messages.push({
         t: t,
         d: d,
-        at: new Date()
+        at: Date.now()
       });
     },
     gotAck: function() {
