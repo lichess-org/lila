@@ -155,7 +155,7 @@ object GameRepo {
       }
       catch {
         case e: IllegalArgumentException =>
-          povs sortBy (-_.game.updatedAtOrCreatedAt.getSeconds)
+          povs sortBy (-_.game.movedAt.getSeconds)
       }
     }
 
@@ -170,7 +170,7 @@ object GameRepo {
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
     coll.find(Query recentlyPlaying user.id)
-      .sort(Query.sortUpdatedNoIndex)
+      .sort(Query.sortMovedAtNoIndex)
       .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
       .uno
       .map { _ flatMap { Pov(_, user) } }
@@ -180,7 +180,7 @@ object GameRepo {
       .sort($sort desc F.createdAt)
       .cursor[Game]()
       .gather[List](20).map {
-        _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
+        _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
 
   def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] = coll.find(
@@ -366,7 +366,7 @@ object GameRepo {
   def featuredCandidates: Fu[List[Game]] = coll.list[Game](
     Query.playable ++ Query.clock(true) ++ $doc(
       F.createdAt $gt (DateTime.now minusMinutes 5),
-      F.updatedAt $gt (DateTime.now minusSeconds 40)
+      F.movedAt $gt (DateTime.now minusSeconds 40)
     ) ++ $or(
         s"${F.whitePlayer}.${Player.BSONFields.rating}" $gt 1200,
         s"${F.blackPlayer}.${Player.BSONFields.rating}" $gt 1200

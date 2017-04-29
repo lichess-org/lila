@@ -54,8 +54,7 @@ final class PlaybanApi(
   def sittingOrGood(game: Game, sitterColor: Color): Funit = IfBlameable(game) {
     (for {
       userId <- game.player(sitterColor).userId
-      lmt <- game.updatedAt
-      seconds = nowSeconds - lmt.getSeconds
+      seconds = nowSeconds - game.movedAt.getSeconds
       clock <- game.clock
       // a tenth of the total time, at least 15s, at most 3 minutes
       limit = (clock.estimateTotalSeconds / 10) max 15 min (3 * 60)

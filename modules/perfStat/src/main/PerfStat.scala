@@ -69,7 +69,7 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
     copy(
       nb = nb(cont, pov)(1),
       time = time(cont, pov)(seconds),
-      lastDate = pov.game.updatedAtOrCreatedAt.some
+      lastDate = pov.game.movedAt.some
     )
   }
   def checkCurrent =
@@ -98,7 +98,7 @@ case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
   private def inc(pov: Pov, by: Int) = copy(
     v = v + by,
     from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
-    to = pov.player.ratingAfter.map { RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.gameId) }
+    to = pov.player.ratingAfter.map { RatingAt(_, pov.game.movedAt, pov.gameId) }
   )
 }
 object Streak {
@@ -154,7 +154,7 @@ object RatingAt {
     pov.player.stableRatingAfter.filter { r =>
       cur.fold(true) { c => r.compare(c.int) == comp }
     }.map {
-      RatingAt(_, pov.game.updatedAtOrCreatedAt, pov.game.id)
+      RatingAt(_, pov.game.movedAt, pov.game.id)
     } orElse cur
 }
 
@@ -166,7 +166,7 @@ case class Results(results: List[Result]) {
       results = (Result(
       opInt,
       UserId(~pov.opponent.userId),
-      pov.game.updatedAtOrCreatedAt,
+      pov.game.movedAt,
       pov.game.id
     ) :: results).sortBy(_.opInt * comp) take Results.nb
     )

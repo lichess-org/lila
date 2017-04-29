@@ -36,7 +36,7 @@ final class HistoryApi(coll: Coll) {
     ).flatten.map {
         case (k, p) => k -> p.intRating
       }
-    val days = daysBetween(user.createdAt, game.updatedAt | game.createdAt)
+    val days = daysBetween(user.createdAt, game.movedAt)
     coll.update(
       $id(user.id),
       $doc("$set" -> $doc(changes.map {

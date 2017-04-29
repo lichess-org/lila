@@ -82,7 +82,7 @@ private[game] object GameDiff {
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
       dOpt(s"$name$blurs", player(_).blurs, w.intO)
     }
-    dOpt(updatedAt, _.updatedAt, (ua: Option[DateTime]) => ua map BSONJodaDateTimeHandler.write)
+    d(movedAt, _.movedAt, BSONJodaDateTimeHandler.write)
 
     (setBuilder.toList, unsetBuilder.toList)
   }

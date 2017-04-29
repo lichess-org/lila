@@ -67,8 +67,8 @@ object Pov {
 
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
   private def isFresher(a: Pov, b: Pov) = {
-    val aDate = a.game.updatedAtOrCreatedAt.getSeconds
-    val bDate = b.game.updatedAtOrCreatedAt.getSeconds
+    val aDate = a.game.movedAt.getSeconds
+    val bDate = b.game.movedAt.getSeconds
     if (aDate == bDate) a.gameId < b.gameId
     else aDate > bDate
   }
