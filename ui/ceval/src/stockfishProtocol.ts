@@ -58,9 +58,6 @@ export default class Protocol {
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
-    // Work around negative times on Safari.
-    if (!elapsedMs || elapsedMs < 0) elapsedMs = Math.max(0, Date.now() - this.work.startedAt));
-
     if (depth < this.opts.minDepth) return;
 
     let pivot = this.work.threatMode ? 0 : 1;
@@ -104,7 +101,6 @@ export default class Protocol {
 
   start(w: Work) {
     this.work = w;
-    this.work.startedAt = Date.now();
     this.curEval = null;
     this.stopped = null;
     this.expectedPvs = 1;
