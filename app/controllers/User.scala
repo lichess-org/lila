@@ -114,7 +114,7 @@ object User extends LilaController {
     }
 
   private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext[_]) = for {
-    info ← Env.current.userInfo(u, ctx)
+    info ← Env.current.userInfo(u, ctx).mon(_.http.response.user part "info")
     filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
       userGameSearch = userGameSearch,
@@ -123,16 +123,30 @@ object User extends LilaController {
       filter = filters.current,
       me = ctx.me,
       page = page
-    )(ctx.body)
-    _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-    _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-    _ <- Env.team.cached.nameCache preloadMany info.teamIds
-    relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
-    notes <- ctx.me ?? { me =>
-      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
+    )(ctx.body).mon(_.http.response.user part "paginator")
+    _ <- {
+      Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+    }.mon(_.http.response.user part "lightUsers")
+    _ <- {
+      Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+    }.mon(_.http.response.user part "tournamentNames")
+    _ <- {
+      Env.team.cached.nameCache preloadMany info.teamIds
+    }.mon(_.http.response.user part "teamNames")
+    relation <- ctx.userId ?? {
+      relationApi.fetchRelation(_, u.id).mon(_.http.response.user part "relations")
     }
-    followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-    blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
+    notes <- ctx.me ?? { me =>
+      {
+        relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
+      }.mon(_.http.response.user part "notes")
+    }
+    followable <- ctx.isAuth ?? {
+      Env.pref.api.followable(u.id).mon(_.http.response.user part "followable")
+    }
+    blocked <- ctx.userId ?? {
+      relationApi.fetchBlocks(u.id, _).mon(_.http.response.user part "blocked")
+    }
     searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
   } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
 
