@@ -151,7 +151,7 @@ object BSONHandlers {
       next -> o.next,
       bookmarks -> w.intO(o.bookmarks),
       createdAt -> w.date(o.createdAt),
-      movedAt -> w.date(o.movedAt).some, // bc (updatedAt: Option[DateTime])
+      movedAt -> w.date(o.movedAt),
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,
