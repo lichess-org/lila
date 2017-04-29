@@ -7,7 +7,7 @@ mkdir -p public/compiled
 
 apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat"
 
-prll_sh=/etc/profile.d/prll.sh
+prll_sh=${PRLLSH-/etc/profile.d/prll.sh}
 
 build_ts() {
   cd ui/$1
