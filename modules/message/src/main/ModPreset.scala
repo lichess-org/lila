@@ -13,37 +13,37 @@ object ModPreset {
 
 Warning: Leaving games / stalling on time
 
-In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning. This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
+In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning. This can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: Sandbagging
 
-In your game history, you have several games where you clearly have intentionally lost the game. Attempts to artificially manipulate your own or someone else's rating is unacceptable. If this behavior continues to happen, we may be forced to terminate your account.
+In your game history, you have several games where you clearly have intentionally lost the game. Attempts to artificially manipulate your own or someone else's rating are unacceptable. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: Boosting
 
-In your game history, you have several games where the opponent clearly has intentionally lost against you. Attempts to artificially manipulate your own or someone else's rating is unacceptable. If this behavior continues to happen, we reserve the right to terminate your account.
+In your game history, you have several games where the opponent clearly has intentionally lost against you. Attempts to artificially manipulate your own or someone else's rating are unacceptable. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: Excessive draw offers
 
-I would like to remind you that offering an excessive amount of draws in order to distract or annoy an opponent is not acceptable on Lichess. If this behavior continues to happen, we reserve the right to terminate your account.
+Offering an excessive amount of draws in order to distract or annoy an opponent is not acceptable on Lichess. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: Excessive cheat reports
 
-I have noticed that you have reported a significant number of players for cheating. However, none or very few of these cheat reports have turned out to be accurate. Please remember that these reports have to be checked manually by Lichess moderators. Before reporting anyone for cheating, please make sure that you have requested computer analysis of the relevant game(s) and do your absolute best to avoid false reports.
+You have reported a significant number of players for cheating. However, none or very few of these cheat reports have turned out to be accurate. Please remember that these reports have to be checked manually by Lichess moderators. Before reporting anyone for cheating, please make sure that you have requested computer analysis of the relevant game(s) and do your absolute best to avoid false reports.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: Aborting games
 
-In your game history, you have many games where you aborted the game before play started. Repeatedly aborting games can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
+In your game history, you have many games where you aborted the game before play started. Repeatedly aborting games can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -69,13 +69,20 @@ In order to report players for bad behavior, please visit https://lichess.org/re
 
 Warning: Accusations
 
-I would like to remind you that accusing other players of using computer assistance or otherwise cheating is not acceptable on Lichess. If you are confident that a player is cheating, use the report button on their profile page to report them to the moderators. -- Moderator on Lichess
+Accusing other players of using computer assistance or otherwise cheating is not acceptable on Lichess. If you are confident that a player is cheating, use the report button on their profile page to report them to the moderators.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Warning: chat spam is not permitted
 
 You may post your link only once. Not once per tournament, per forum, or once per day: but just once. Repeated violation of chat policy will result in loss of chat privileges.
+
+""", /* ---------------------------------------------------------------*/ """
+
+Regarding rating refunds
+
+To receive rating refunds certain conditions must be met, in order to mitigate rating inflation. These conditions were not met in this case.
+Please also remember that, over the long run, ratings tend to gravitate towards the player's real skill level.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -87,7 +94,7 @@ The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for L
 
 Account marked for computer assistance
 
-Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark please send an email to Lichess Contact contact@lichess.org. If you are a titled player we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license.
+Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lichess Contact contact@lichess.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license.
 
 """) flatMap toPreset
 
