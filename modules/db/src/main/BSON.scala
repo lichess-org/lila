@@ -122,7 +122,7 @@ object BSON extends Handlers {
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
     def getO[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] =
       map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
-    def getD[A](k: String, default: A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
+    def getD[A](k: String, default: => A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse default
     def getsD[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, List[A]]) =
       getO[List[A]](k) getOrElse Nil
@@ -141,6 +141,7 @@ object BSON extends Handlers {
     def boolD(k: String) = boolO(k) getOrElse false
     def date(k: String) = get[DateTime](k)
     def dateO(k: String) = getO[DateTime](k)
+    def dateD(k: String, default: => DateTime) = getD(k, default)
     def bytes(k: String) = get[ByteArray](k)
     def bytesO(k: String) = getO[ByteArray](k)
     def bytesD(k: String) = bytesO(k) getOrElse ByteArray.empty

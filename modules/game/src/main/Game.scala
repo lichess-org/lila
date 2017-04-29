@@ -37,7 +37,7 @@ case class Game(
     next: Option[String] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
-    updatedAt: Option[DateTime] = None,
+    movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
 
@@ -96,12 +96,10 @@ case class Game(
 
   def hasChat = !isTournament && !isSimul && nonAi
 
-  def updatedAtOrCreatedAt = updatedAt | createdAt
-
   // we can't rely on the clock,
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
-  def durationSeconds: Option[Int] = (updatedAtOrCreatedAt.getSeconds - createdAt.getSeconds) match {
+  def durationSeconds: Option[Int] = (movedAt.getSeconds - createdAt.getSeconds) match {
     case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
     case seconds => seconds.toInt.some
   }
@@ -223,8 +221,8 @@ case class Game(
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ updatedAt.?? { lmdt =>
-            (Centis(nowCentis - lmdt.getCentis) - ~lag) nonNeg
+          } :+ {
+            (Centis(nowCentis - movedAt.getCentis) - ~lag) nonNeg
           }
         }
       },
@@ -234,7 +232,7 @@ case class Game(
       } yield history.record(turnColor, clk),
       status = situation.status | status,
       clock = game.clock,
-      updatedAt = DateTime.now.some
+      movedAt = DateTime.now
     )
 
     val state = Event.State(
@@ -279,15 +277,12 @@ case class Game(
 
   def start = started.fold(this, copy(
     status = Status.Started,
-    mode = Mode(mode.rated && userIds.distinct.size == 2),
-    updatedAt = DateTime.now.some
+    mode = Mode(mode.rated && userIds.distinct.size == 2)
   ))
 
   def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn map { days =>
     val increment = days * 24 * 60 * 60
-    val secondsLeft = updatedAt.fold(increment) { lmd =>
-      (lmd.getSeconds + increment - nowSeconds).toInt max 0
-    }
+    val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
     CorrespondenceClock(
       increment = increment,
       whiteTime = turnColor.fold(secondsLeft, increment),
@@ -508,12 +503,12 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = (updatedAt | createdAt) isBefore DateTime.now.minusSeconds(seconds)
+  def olderThan(seconds: Int) = movedAt isBefore DateTime.now.minusSeconds(seconds)
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
   def abandoned = (status <= Status.Started) && {
-    updatedAtOrCreatedAt isBefore hasAi.fold(Game.aiAbandonedDate, Game.abandonedDate)
+    movedAt isBefore hasAi.fold(Game.aiAbandonedDate, Game.abandonedDate)
   }
 
   def forecastable = started && playable && isCorrespondence && !hasAi
@@ -633,34 +628,39 @@ object Game {
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
-  ): Game = Game(
-    id = IdGenerator.game,
-    whitePlayer = whitePlayer,
-    blackPlayer = blackPlayer,
-    binaryPieces =
-    if (game.isStandardInit) BinaryFormat.piece.standard
-    else BinaryFormat.piece write game.board.pieces,
-    binaryPgn = ByteArray.empty,
-    status = Status.Created,
-    turns = game.turns,
-    startedAtTurn = game.startedAtTurn,
-    clock = game.clock,
-    castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
-    unmovedRooks = game.board.unmovedRooks,
-    daysPerTurn = daysPerTurn,
-    mode = mode,
-    variant = variant,
-    crazyData = (variant == Crazyhouse) option Crazyhouse.Data.init,
-    metadata = Metadata(
-      source = source.some,
-      pgnImport = pgnImport,
-      tournamentId = none,
-      simulId = none,
-      tvAt = none,
-      analysed = false
-    ),
-    createdAt = DateTime.now
-  )
+  ): Game = {
+    var createdAt = DateTime.now
+
+    Game(
+      id = IdGenerator.game,
+      whitePlayer = whitePlayer,
+      blackPlayer = blackPlayer,
+      binaryPieces =
+      if (game.isStandardInit) BinaryFormat.piece.standard
+      else BinaryFormat.piece write game.board.pieces,
+      binaryPgn = ByteArray.empty,
+      status = Status.Created,
+      turns = game.turns,
+      startedAtTurn = game.startedAtTurn,
+      clock = game.clock,
+      castleLastMoveTime = CastleLastMoveTime.init.copy(castles = game.board.history.castles),
+      unmovedRooks = game.board.unmovedRooks,
+      daysPerTurn = daysPerTurn,
+      mode = mode,
+      variant = variant,
+      crazyData = (variant == Crazyhouse) option Crazyhouse.Data.init,
+      metadata = Metadata(
+        source = source.some,
+        pgnImport = pgnImport,
+        tournamentId = none,
+        simulId = none,
+        tvAt = none,
+        analysed = false
+      ),
+      createdAt = createdAt,
+      movedAt = createdAt
+    )
+  }
 
   object BSONFields {
 
@@ -691,7 +691,7 @@ object Game {
     val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
-    val updatedAt = "ua"
+    val movedAt = "ua" // ua = updatedAt (bc)
     val source = "so"
     val pgnImport = "pgni"
     val tournamentId = "tid"

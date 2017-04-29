@@ -48,7 +48,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
     Fields.winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)),
     Fields.averageRating -> game.averageUsersRating,
     Fields.ai -> game.aiLevel,
-    Fields.date -> (lila.search.Date.formatter print game.updatedAtOrCreatedAt),
+    Fields.date -> (lila.search.Date.formatter print game.movedAt),
     Fields.duration -> game.durationSeconds,
     Fields.clockInit -> game.clock.map(_.limitSeconds),
     Fields.clockInc -> game.clock.map(_.incrementSeconds),

@@ -34,7 +34,7 @@ private[round] final class Finisher(
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     import lila.common.PlayApp
-    if (!PlayApp.startedSinceSeconds(60) && game.updatedAt.exists(_ isBefore PlayApp.startedAt)) {
+    if (!PlayApp.startedSinceSeconds(60) && (game.movedAt isBefore PlayApp.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     }

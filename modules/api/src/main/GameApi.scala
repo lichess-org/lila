@@ -181,7 +181,7 @@ private[api] final class GameApi(
     "speed" -> g.speed.key,
     "perf" -> PerfPicker.key(g),
     "createdAt" -> g.createdAt,
-    "lastMoveAt" -> g.updatedAtOrCreatedAt,
+    "lastMoveAt" -> g.movedAt,
     "turns" -> g.turns,
     "color" -> g.turnColor.name,
     "status" -> g.status.name,

@@ -100,7 +100,7 @@ object BSONHandlers {
         next = r strO next,
         bookmarks = r intD bookmarks,
         createdAt = r date createdAt,
-        updatedAt = r dateO updatedAt,
+        movedAt = r.dateD(movedAt, r date createdAt),
         metadata = Metadata(
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
@@ -151,7 +151,7 @@ object BSONHandlers {
       next -> o.next,
       bookmarks -> w.intO(o.bookmarks),
       createdAt -> w.date(o.createdAt),
-      updatedAt -> o.updatedAt.map(w.date),
+      movedAt -> w.date(o.movedAt).some, // bc (updatedAt: Option[DateTime])
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,

@@ -59,7 +59,7 @@ object Query {
   def nowPlaying(u: String) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: String) =
-    nowPlaying(u) ++ $doc(F.updatedAt $gt DateTime.now.minusMinutes(5))
+    nowPlaying(u) ++ $doc(F.movedAt $gt DateTime.now.minusMinutes(5))
 
   def nowPlayingVs(u1: String, u2: String) = $doc(F.playingUids $all List(u1, u2))
 
@@ -121,5 +121,5 @@ object Query {
   val sortCreated: Bdoc = $sort desc F.createdAt
   val sortChronological: Bdoc = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
-  val sortUpdatedNoIndex: Bdoc = $sort desc F.updatedAt
+  val sortMovedAtNoIndex: Bdoc = $sort desc F.movedAt
 }
