@@ -1,6 +1,7 @@
 @(form: Form[_], recaptchaPublicKey: String)(implicit ctx: Context)
 
 @moreJs = {
+@jsTag("signup.js")
 <script src='https://www.google.com/recaptcha/api.js'></script>
 }
 

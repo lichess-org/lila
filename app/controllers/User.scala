@@ -316,16 +316,17 @@ object User extends LilaController {
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty) match {
       case None => BadRequest("No search term provided").fuccess
-      case Some(term) => JsonOk {
+      case Some(term) => {
         ctx.me.ifTrue(getBool("friend")) match {
-          case None => UserRepo usernamesLike term
+          case None if getBool("exists") => UserRepo nameExists term map { JsBoolean(_) }
+          case None => UserRepo usernamesLike term map { Json.toJson(_) }
           case Some(follower) =>
             Env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
               case Nil => UserRepo usernamesLike term
               case userIds => UserRepo usernamesByIds userIds
-            }
+            } map { Json.toJson(_) }
         }
-      }
+      } map { Ok(_) as JSON }
     }
   }
 
