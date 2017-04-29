@@ -260,7 +260,10 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           }
           List(
             at(date, hour) map { date => Schedule(Hourly, speed, Crazyhouse, std, date) },
-            at(date, hour, 30) collect { case date if speed == Bullet => Schedule(Hourly, speed, Crazyhouse, std, date) }
+            at(date, hour, 30) collect {
+              case date if speed == Bullet =>
+                Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, std, date)
+            }
           ).flatten
         }
       ).flatten
