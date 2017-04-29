@@ -5,7 +5,7 @@ import { userModInfo } from './xhr'
 import { userLink, spinner } from './util';
 
 function isToday(timestamp: number) {
-  return window.moment(timestamp).isSame(new Date(), 'day');
+  return window.moment(timestamp).isSame(Date.now(), 'day');
 }
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {

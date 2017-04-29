@@ -21,7 +21,6 @@ export interface Work {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  startedAt?: Date;
   emit: (ev: Tree.ClientEval) => void;
 }
 

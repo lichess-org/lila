@@ -41,11 +41,11 @@ export default function(delay: number, noTrailing: any, callback: any, debounceM
   return function(this: any, ...args: any[]): void {
 
     const self: any = this;
-    const elapsed = Number(new Date()) - lastExec;
+    const elapsed = Date.now() - lastExec;
 
     // Execute `callback` and update the `lastExec` timestamp.
     function exec() {
-      lastExec = Number(new Date());
+      lastExec = Date.now();
       callback.apply(self, args);
     }
 

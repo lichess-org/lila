@@ -276,14 +276,14 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   var events = ['mousemove', 'touchstart'];
   var listening = false;
   var active = true;
-  var lastSeenActive = new Date();
+  var lastSeenActive = Date.now();
   var onActivity = function() {
     if (!active) {
       // console.log('Wake up');
       onWakeUp();
     }
     active = true;
-    lastSeenActive = new Date();
+    lastSeenActive = Date.now();
     stopListening();
   };
   var startListening = function() {
@@ -303,7 +303,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
     }
   };
   setInterval(function() {
-    if (active && new Date() - lastSeenActive > delay) {
+    if (active && Date.now() - lastSeenActive > delay) {
       // console.log('Idle mode');
       onIdle();
       active = false;

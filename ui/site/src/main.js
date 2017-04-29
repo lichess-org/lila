@@ -1,5 +1,3 @@
-// var start = new Date(); var millis = 500; while (new Date() - millis < start) {}
-
 lichess.challengeApp = (function() {
   var instance, booted;
   var $toggle = $('#challenge_notifications_tag');
@@ -668,11 +666,11 @@ lichess.notifyApp = (function() {
       });
 
       if (window.Fingerprint2) setTimeout(function() {
-        var t = +new Date();
+        var t = Date.now()
         new Fingerprint2({
           excludeJsFonts: true
         }).get(function(res) {
-          var time = (+new Date()) - t;
+          var time = Date.now() - t;
           $.post('/set-fingerprint/' + res + '/' + time);
         });
       }, 500);

@@ -33,7 +33,7 @@ var runCommand = function(cmd) {
 var lastRestarted = 0;
 
 var doRestartLichess = function() {
-  lastRestarted = new Date().getTime();
+  lastRestarted = Date.now();
   logger('error', 'Restart lichess now');
   runCommand('/home/lichess/bin/prod/restart-now');
 }
@@ -41,7 +41,7 @@ var doRestartLichess = function() {
 var restartLichess = function(msg) {
   logger('error', msg);
   logger('error', "Asking to restart");
-  if (new Date().getTime() < lastRestarted + 5 * 60 * 1000) logger('error', "Too early!");
+  if (Date.now() < lastRestarted + 5 * 60 * 1000) logger('error', "Too early!");
   else doRestartLichess();
   // runCommand('jstack -F `cat /home/lichess/RUNNING_PID` > /root/lichess-auto-jstack');
   // setTimeout(function() {
