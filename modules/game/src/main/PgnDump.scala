@@ -72,7 +72,7 @@ final class PgnDump(
       Tag(_.BlackElo, rating(game.blackPlayer)),
       Tag("PlyCount", game.turns),
       Tag(_.Variant, game.variant.name.capitalize),
-      Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
+      Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit.roundSeconds}+${c.increment.roundSeconds}" }),
       Tag(_.ECO, game.opening.fold("?")(_.opening.eco)),
       Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
       Tag(_.Termination, {
