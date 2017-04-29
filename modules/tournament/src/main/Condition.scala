@@ -95,6 +95,7 @@ object Condition {
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
     def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
+    def sameRatings(other: All) = sameMinRating(other) && sameMaxRating(other)
 
     def isRatingLimited = maxRating.isDefined || minRating.isDefined
   }

@@ -33,7 +33,7 @@ private[tournament] final class Cached(
       tours
         .filter(_.isScheduled)
         .filter { t =>
-          if (tour.conditions.relevant) t.conditions == tour.conditions
+          if (tour.conditions.isRatingLimited) tour.conditions sameRatings t.conditions
           else t.perfType has pt
         }
         .sortBy(_.startsAt)
