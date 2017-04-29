@@ -100,6 +100,7 @@ time {
 .user_link.online .line,
 .is-green::before {
   color: #759900;
+  margin-right: 5px;
 }
 .is-red::before {
   color: #dc322f;
