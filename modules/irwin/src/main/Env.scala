@@ -10,9 +10,11 @@ final class Env(
 ) {
 
   private val reportColl = db(config getString "collection.report")
+  private val requestColl = db(config getString "collection.request")
 
   val api = new IrwinApi(
-    reportColl = reportColl
+    reportColl = reportColl,
+    requestColl = requestColl
   )
 }
 
