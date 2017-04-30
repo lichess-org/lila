@@ -7,6 +7,16 @@ import play.api.{ Application, GlobalSettings }
 
 object Global extends GlobalSettings {
 
+  private val httpLogger = lila.log("http")
+
+  private def logHttp(code: Int, req: RequestHeader, exception: Option[Throwable] = None) = {
+    val message = s"$code ${HTTPRequest print req}"
+    exception match {
+      case Some(e) => httpLogger.warn(message, e)
+      case None => httpLogger.info(message)
+    }
+  }
+
   override def onStart(app: Application) {
     kamon.Kamon.start()
     lila.app.Env.current
@@ -27,19 +37,24 @@ object Global extends GlobalSettings {
       HTTPRequest.isSynchronousHttp(req) &&
       !HTTPRequest.hasFileExtension(req)
 
-  override def onHandlerNotFound(req: RequestHeader) =
+  override def onHandlerNotFound(req: RequestHeader) = {
+    logHttp(404, req)
     if (niceError(req)) controllers.Main.notFound(req)
     else fuccess(NotFound("404 - Resource not found"))
+  }
 
-  override def onBadRequest(req: RequestHeader, error: String) =
+  override def onBadRequest(req: RequestHeader, error: String) = {
+    logHttp(400, req)
     if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
     else if (error startsWith "Cannot parse parameter") onHandlerNotFound(req)
     else if (niceError(req)) {
       lila.mon.http.response.code400()
       controllers.Lobby.handleStatus(req, Results.BadRequest)
     } else fuccess(BadRequest(error))
+  }
 
-  override def onError(req: RequestHeader, ex: Throwable) =
+  override def onError(req: RequestHeader, ex: Throwable) = {
+    logHttp(500, req, ex.some)
     if (niceError(req)) {
       if (lila.common.PlayApp.isProd) {
         lila.mon.http.response.code500()
@@ -48,4 +63,5 @@ object Global extends GlobalSettings {
         }))
       } else super.onError(req, ex)
     } else fuccess(InternalServerError(ex.getMessage))
+  }
 }
