@@ -97,6 +97,6 @@ module.exports = function(cfg, element) {
       history.replaceState(null, null, '/' + data.game.id);
     if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
   };
-  if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 100);
+  if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 150);
   else letsGo();
 };
