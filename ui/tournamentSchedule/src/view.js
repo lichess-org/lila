@@ -33,6 +33,8 @@ function laneGrouper(t) {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
+  } else if (t.perf.key === 'ultraBullet') {
+    return 70;
   } else if (t.schedule && t.conditions && t.conditions.maxRating) {
     return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
