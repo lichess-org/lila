@@ -86,29 +86,25 @@ object UserInfo {
     getPlayTime: User => Fu[Option[User.PlayTime]],
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, ctx: Context): Fu[UserInfo] =
-    getRanks(user.id).mon(_.http.response.user part "ranks") zip
-      (gameCached nbPlaying user.id).mon(_.http.response.user part "nbPlaying") zip
-      gameCached.nbImportedBy(user.id).mon(_.http.response.user part "nbImported") zip
-      (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id).mon(_.http.response.user part "crosstable") }) zip
-      getRatingChart(user).mon(_.http.response.user part "ratingChart") zip
-      relationApi.countFollowers(user.id).mon(_.http.response.user part "countFollowers") zip
+    getRanks(user.id) zip
+      (gameCached nbPlaying user.id) zip
+      gameCached.nbImportedBy(user.id) zip
+      (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
+      getRatingChart(user) zip
+      relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
-      postApi.nbByUser(user.id).mon(_.http.response.user part "nbPosts") zip
-      studyRepo.countByOwner(user.id).mon(_.http.response.user part "nbStudies") zip
-      trophyApi.findByUser(user).mon(_.http.response.user part "trophies") zip
-      fetchTeamIds(user.id).mon(_.http.response.user part "teams") zip
-      fetchIsCoach(user).mon(_.http.response.user part "coach") zip
-      fetchIsStreamer(user.id).mon(_.http.response.user part "streamer") zip
-      (user.count.rated >= 10).?? {
-        insightShare.grant(user, ctx.me).mon(_.http.response.user part "insight")
-      } zip
-      getPlayTime(user).mon(_.http.response.user part "playTime") zip
-      completionRate(user.id).mon(_.http.response.user part "completionRate") zip
-      bookmarkApi.countByUser(user).mon(_.http.response.user part "nbBookmarks") flatMap {
+      postApi.nbByUser(user.id) zip
+      studyRepo.countByOwner(user.id) zip
+      trophyApi.findByUser(user) zip
+      fetchTeamIds(user.id) zip
+      fetchIsCoach(user) zip
+      fetchIsStreamer(user.id) zip
+      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
+      getPlayTime(user) zip
+      completionRate(user.id) zip
+      bookmarkApi.countByUser(user) flatMap {
         case ranks ~ nbPlaying ~ nbImported ~ crosstable ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate ~ nbBookmarks =>
-          (nbPlaying > 0) ?? {
-            isHostingSimul(user.id).mon(_.http.response.user part "hasSimul")
-          } map { hasSimul =>
+          (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
               ranks = ranks,

@@ -23,7 +23,6 @@ object mon {
           val website = rec("http.response.user.show.website")
           val mobile = rec("http.response.user.show.mobile")
         }
-        def part(name: String) = rec(s"http.response.user.part.$name")
       }
       object tournament {
         object show {
