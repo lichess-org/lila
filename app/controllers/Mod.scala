@@ -86,7 +86,7 @@ object Mod extends LilaController {
       UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
         ctx.body.body.validate[lila.irwin.IrwinReport].fold(
           err => fuccess(BadRequest(err.toString)),
-          report => Env.irwin.api.insert(report) inject Ok
+          report => Env.irwin.api.reports.insert(report) inject Ok
         )
       }
     }
