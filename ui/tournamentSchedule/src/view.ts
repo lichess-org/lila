@@ -178,18 +178,20 @@ export default function(ctrl) {
   startTime = now - 3 * 60 * 60 * 1000;
   stopTime = startTime + 10 * 60 * 60 * 1000;
 
-  if (!ctrl.data.systemTours) {
-    const tours = ctrl.data.finished
-      .concat(ctrl.data.started)
-      .concat(ctrl.data.created)
+  const data = ctrl.data();
+
+  if (!data.systemTours) {
+    const tours = data.finished
+      .concat(data.started)
+      .concat(data.created)
       .filter(t => t.finishesAt > startTime);
-    ctrl.data.systemTours = tours.filter(isSystemTournament);
-    ctrl.data.userTours = tours.filter(t => !isSystemTournament(t));
+    data.systemTours = tours.filter(isSystemTournament);
+    data.userTours = tours.filter(t => !isSystemTournament(t));
   }
 
   // group system tournaments into dedicated lanes for PerfType
   const tourLanes = splitOverlaping(
-    group(ctrl.data.systemTours, laneGrouper).concat([ctrl.data.userTours])
+    group(data.systemTours, laneGrouper).concat([data.userTours])
   ).filter(lane => lane.length > 0);
 
   return h('div#tournament_schedule', [

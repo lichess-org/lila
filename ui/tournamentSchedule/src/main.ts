@@ -12,23 +12,22 @@ const patch = init([klass, attributes]);
 export function app(element: HTMLElement, env: any) {
 
   let vnode: VNode, ctrl = {
-    data: env.data,
-    update: d => {
-      env.data = d;
-      redraw();
-    },
+    data: () => env.data,
     trans: window.lichess.trans(env.i18n)
   };
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
+    vnode = patch(vnode || element, view(ctrl));
   }
 
-  vnode = patch(element, view(ctrl));
+  redraw();
 
   setInterval(redraw, 3700);
 
   return {
-    update: ctrl.update
+    update: d => {
+      env.data = d;
+      redraw();
+    }
   };
 };
