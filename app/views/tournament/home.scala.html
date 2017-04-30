@@ -5,10 +5,9 @@
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
 @jsAt("javascripts/vendor/dragscroll.js")
 @embedJs {
-var app = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
+var app = LichessTournamentSchedule.app(document.getElementById('tournament_schedule'), {
 data: @Html(J.stringify(json)),
-i18n: @jsI18n(),
-userId: @jsUserId
+i18n: @jsI18n()
 });
 lichess.StrongSocket.defaults.params.flag = "tournament";
 lichess.StrongSocket.defaults.events.reload = app.update;
@@ -62,9 +61,7 @@ description = s"${trans.tournamentHomeDescription()}").some) {
   </div>
   }
   <h1>@trans.tournaments()</h1>
-  <div id="tournament_schedule">
-    @base.spinner()
-  </div>
+  <div id="tournament_schedule"></div>
   <div id="tournament_list">
     <table class="slist finished">
       <thead>
