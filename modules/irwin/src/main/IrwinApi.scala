@@ -16,7 +16,9 @@ final class IrwinApi(
 
   object reports {
 
-    def insert(report: IrwinReport) = reportColl.update($id(report.id), report, upsert = true)
+    def insert(report: IrwinReport) =
+      reportColl.update($id(report.id), report, upsert = true) >>
+        requests.drop(report.userId)
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).uno[IrwinReport]
@@ -49,6 +51,8 @@ final class IrwinApi(
 
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
       requestColl.byId[IrwinRequest]($id(reportedId))
+
+    def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
 
     def insert(reportedId: User.ID, origin: Origin.type => Origin) = {
       val request = IrwinRequest.make(reportedId, origin(Origin))
