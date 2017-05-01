@@ -95,26 +95,6 @@ object Mod extends LilaController {
   private case class Irwin(result: Boolean, reason: String)
   private implicit val IrwinReads = Json.reads[Irwin]
 
-  def irwin(username: String) = OpenBody(parse.json) { implicit ctx =>
-    Mod.ModExternalBot {
-      OptionFuResult(UserRepo named username) { user =>
-        UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
-          ctx.body.body.validate[Irwin].fold(
-            err => fuccess(BadRequest(err.toString)),
-            data => {
-              val text =
-                if (data.result) s"Irwin would mark as engine: ${data.reason}"
-                else s"Irwin is indecise: ${data.reason}"
-              (if (data.result) modApi.setEngine(irwin.id, username, true)
-              else funit) >>
-                Env.user.noteApi.write(user, text, irwin, true) inject Ok
-            }
-          )
-        }
-      }
-    }
-  }
-
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
