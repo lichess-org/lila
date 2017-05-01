@@ -39,8 +39,7 @@ export function userHtml(ctrl, player) {
         connecting: connecting
       }
     }, [
-      h('i.line', {
-        class: { patron: user.patron },
+      h('i.line' + (user.patron ? '.patron' : ''), {
         attrs: {
           title: connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
         }
