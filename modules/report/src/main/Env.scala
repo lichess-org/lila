@@ -18,7 +18,13 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
-  lazy val api = new ReportApi(reportColl, noteApi, isOnline, asyncCache)
+  lazy val api = new ReportApi(
+    reportColl,
+    noteApi,
+    isOnline,
+    asyncCache,
+    system.lilaBus
+  )
 
   lazy val modFilters = new ModReportFilter
 
@@ -29,8 +35,6 @@ final class Env(
         api.autoCheatReport(userId, text)
       case lila.hub.actorApi.report.Clean(userId) =>
         api.clean(userId)
-      case lila.hub.actorApi.report.Check(userId) =>
-        api.autoProcess(userId)
       case lila.hub.actorApi.report.MarkCheater(userId, by) =>
         api.processEngine(userId, by)
       case lila.hub.actorApi.report.MarkTroll(userId, by) =>

@@ -13,6 +13,7 @@ case class IrwinReport(
 ) {
 
   def id = _id
+  def userId = _id
 }
 
 object IrwinReport {

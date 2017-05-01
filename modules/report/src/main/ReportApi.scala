@@ -12,7 +12,8 @@ final class ReportApi(
     val coll: Coll,
     noteApi: NoteApi,
     isOnline: User.ID => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lila.memo.AsyncCache.Builder,
+    bus: lila.common.Bus
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -20,22 +21,24 @@ final class ReportApi(
 
   def create(setup: ReportSetup, by: User): Funit = !by.troll ?? {
     Reason(setup.reason).fold[Funit](fufail(s"Invalid report reason ${setup.reason}")) { reason =>
-      val user = setup.user
       val report = Report.make(
         user = setup.user,
         reason = reason,
         text = setup.text,
         createdBy = by
       )
-      !isAlreadySlain(report, user) ?? {
+      !isAlreadySlain(report, setup.user) ?? {
+
         lila.mon.mod.report.create(reason.key)()
+
+        def insert = coll.insert(report).void >>-
+          bus.publish(lila.hub.actorApi.report.Created(setup.user.id, reason.key), 'report)
+
         if (by.id == UserRepo.lichessId) coll.update(
-          selectRecent(user, reason),
+          selectRecent(setup.user, reason),
           $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
-        ) flatMap { res =>
-            (res.n == 0) ?? coll.insert(report).void
-          }
-        else coll.insert(report).void
+        ) flatMap { res => (res.n == 0) ?? insert }
+        else insert
       }
     } >>- monitorUnprocessed
   }
@@ -107,14 +110,17 @@ final class ReportApi(
       }
   }
 
-  def clean(userId: String): Funit = coll.update(
+  private def publishProcessed(userId: User.ID, reason: Reason) =
+    bus.publish(lila.hub.actorApi.report.Processed(userId, reason.key), 'report)
+
+  def clean(userId: User.ID): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" -> "cheat"
+      "reason" -> Reason.Cheat.key
     ) ++ unprocessedSelect,
     $set("processedBy" -> "lichess"),
     multi = true
-  ).void
+  ).void >>- publishProcessed(userId, Reason.Cheat)
 
   def process(id: String, by: User): Funit = coll.byId[Report](id) flatMap {
     _ ?? { report =>
@@ -125,8 +131,12 @@ final class ReportApi(
         ) ++ unprocessedSelect,
         $set("processedBy" -> by.id),
         multi = true
-      ).void
-    } >>- monitorUnprocessed >>- lila.mon.mod.report.close()
+      ).void >>- {
+          monitorUnprocessed
+          lila.mon.mod.report.close()
+          publishProcessed(report.user, report.realReason)
+        }
+    }
   }
 
   def processEngine(userId: String, byModId: String): Funit = coll.update(
@@ -136,7 +146,10 @@ final class ReportApi(
     ) ++ unprocessedSelect,
     $set("processedBy" -> byModId),
     multi = true
-  ).void >>- monitorUnprocessed
+  ).void >>- {
+      monitorUnprocessed
+      publishProcessed(userId, Reason.Cheat)
+    }
 
   def processTroll(userId: String, byModId: String): Funit = coll.update(
     $doc(
@@ -159,12 +172,6 @@ final class ReportApi(
       case _ => funit
     }
   } >>- monitorUnprocessed
-
-  def autoProcess(userId: String): Funit =
-    coll.update(
-      $doc("user" -> userId.toLowerCase),
-      $doc("processedBy" -> "lichess")
-    ).void >>- monitorUnprocessed
 
   private val unprocessedSelect: Bdoc = "processedBy" $exists false
   private val processedSelect: Bdoc = "processedBy" $exists true

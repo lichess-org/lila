@@ -13,19 +13,13 @@ object BSONHandlers {
   private implicit val RequestOriginBSONHandler: BSONHandler[BSONString, IrwinRequest.Origin] =
     new BSONHandler[BSONString, IrwinRequest.Origin] {
       import IrwinRequest.Origin, Origin._
-      def read(bs: BSONString) = bs.value.split(' ') match {
-        case Array("mod", id) => Moderator(id)
-        case Array("userReport", id) => UserReport(id)
-        case Array("autoReport", id) => AutoReport(id)
-        case Array("tour", id) => Tournament(id)
+      def read(bs: BSONString) = bs.value match {
+        case "moderator" => Moderator
+        case "report" => Report
+        case "tournament" => Tournament
         case _ => sys error s"Invalid origin ${bs.value}"
       }
-      def write(x: Origin) = BSONString(x match {
-        case Moderator(id) => s"mod $id"
-        case UserReport(id) => s"userReport $id"
-        case AutoReport(id) => s"autoReport $id"
-        case Tournament(id) => s"tour $id"
-      })
+      def write(x: Origin) = BSONString(x.key)
     }
   implicit val RequestBSONHandler = Macros.handler[IrwinRequest]
 }

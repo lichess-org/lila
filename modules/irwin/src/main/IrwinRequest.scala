@@ -19,13 +19,14 @@ case class IrwinRequest(
 
 object IrwinRequest {
 
-  sealed trait Origin
+  sealed trait Origin {
+    def key = toString.toLowerCase
+  }
 
   object Origin {
-    case class Moderator(id: User.ID) extends Origin
-    case class UserReport(reportId: String) extends Origin
-    case class AutoReport(reportId: String) extends Origin
-    case class Tournament(tourId: String) extends Origin
+    case object Moderator extends Origin
+    case object Report extends Origin
+    case object Tournament extends Origin
   }
 
   def make(userId: User.ID, origin: Origin) = IrwinRequest(
@@ -37,9 +38,8 @@ object IrwinRequest {
   )
 
   private def originPriorityHours(origin: Origin) = origin match {
-    case Origin.Moderator(_) => 100
-    case Origin.Tournament(_) => 10
-    case Origin.UserReport(_) => 0
-    case Origin.AutoReport(_) => 0
+    case Origin.Moderator => 100
+    case Origin.Tournament => 10
+    case Origin.Report => 0
   }
 }
