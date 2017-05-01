@@ -79,22 +79,6 @@ object Mod extends LilaController {
     modApi.kickFromRankings(me.id, username) inject redirect(username)
   }
 
-  import lila.irwin.JSONHandlers.reportReader
-
-  def irwin2 = OpenBody(parse.json) { implicit ctx =>
-    Mod.ModExternalBot {
-      UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>
-        ctx.body.body.validate[lila.irwin.IrwinReport].fold(
-          err => fuccess(BadRequest(err.toString)),
-          report => Env.irwin.api.reports.insert(report) inject Ok
-        )
-      }
-    }
-  }
-
-  private case class Irwin(result: Boolean, reason: String)
-  private implicit val IrwinReads = Json.reads[Irwin]
-
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
@@ -121,35 +105,6 @@ object Mod extends LilaController {
   def notifySlack(username: String) = Auth { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
       Env.slack.api.userMod(user = user, mod = me) inject redirect(user.username)
-    }
-  }
-
-  private[controllers] def ModExternalBot(f: => Fu[Result])(implicit ctx: Context) =
-    if (!get("api_key").contains(Env.mod.ApiKey)) fuccess(NotFound)
-    else f
-
-  def assessment(username: String) = Open { implicit ctx =>
-    ModExternalBot {
-      OptionFuResult(UserRepo named username) { user =>
-        Env.mod.jsonView(user) flatMap {
-          case None => NotFound.fuccess
-          case Some(data) => Env.mod.userHistory(user) map { history =>
-            Ok(data + ("history" -> history))
-          }
-        } map (_ as JSON)
-      }
-    }
-  }
-
-  def usersMarkAndCurrentReport(idsStr: String) = Open { implicit ctx =>
-    ModExternalBot {
-      val ids = idsStr.split(',').toList map UserModel.normalize
-      for {
-        engineIds <- UserRepo filterByEngine ids
-        reportedIds <- Env.report.api.currentlyReportedForCheat
-      } yield Ok(Json.toJson(ids.map { id =>
-        id -> Json.obj("engine" -> engineIds(id), "report" -> reportedIds(id))
-      }.toMap)) as JSON
     }
   }
 

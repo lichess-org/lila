@@ -369,9 +369,12 @@ GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String
 GET   /mod/:username/permissions       controllers.Mod.permissions(username: String)
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
-POST  /mod/irwin2                      controllers.Mod.irwin2
-GET   /mod/:username/assessment        controllers.Mod.assessment(username: String)
-GET   /mod/users-mark-and-current-report controllers.Mod.usersMarkAndCurrentReport(ids: String)
+
+# Irwin
+POST  /irwin/report                        controllers.Irwin.saveReport
+GET   /irwin/request                       controllers.Irwin.getRequest
+GET   /irwin/:username/assessment          controllers.Irwin.assessment(username: String)
+GET   /irwin/users-mark-and-current-report controllers.Irwin.usersMarkAndCurrentReport(ids: String)
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
@@ -433,7 +436,6 @@ GET   /report/thanks                   controllers.Report.thanks(reported: Strin
 GET   /report/list                     controllers.Report.list
 GET   /report/list/:reason             controllers.Report.listWithFilter(reason: String)
 POST  /report/:id/process              controllers.Report.process(id: String)
-GET   /report/irwin-bot-next           controllers.Report.irwinBotNext
 
 # QA
 GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)
