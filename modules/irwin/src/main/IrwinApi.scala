@@ -4,12 +4,13 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.game.{Pov, GameRepo}
+import lila.game.{ Pov, GameRepo }
 import lila.user.User
 
 final class IrwinApi(
     reportColl: Coll,
-    requestColl: Coll) {
+    requestColl: Coll
+) {
 
   import BSONHandlers._
 
@@ -36,18 +37,28 @@ final class IrwinApi(
 
     import IrwinRequest.Origin
 
-    def getUtmost(user: User): Fu[Option[IrwinRequest]] =
-      requestColl.find($empty).sort($sort desc "priority").uno[IrwinRequest]
+    def getAndStart: Fu[Option[IrwinRequest]] =
+      requestColl
+        .find($doc("startedAt" $exists false))
+        .sort($sort desc "priority")
+        .uno[IrwinRequest] flatMap {
+          _ ?? { request =>
+            requestColl.updateField($id(request.id), "startedAt", DateTime.now) inject request.some
+          }
+        }
 
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
       requestColl.byId[IrwinRequest]($id(reportedId))
 
-    def insert(reportedId: User.ID, origin: Origin.type => Origin) = 
-      get(reportedId) flatMap { prevRequest =>
-      if (report.date isAfter DateTime.now
+    def insert(reportedId: User.ID, origin: Origin.type => Origin) = {
       val request = IrwinRequest.make(reportedId, origin(Origin))
-      requestColl.update($id(request.id), request, upsert = true)
-    }
+      get(reportedId) flatMap {
+        case Some(prev) if prev.isInProgress => funit
+        case Some(prev) if prev.priority isAfter request.priority =>
+          requestColl.update($id(request.id), request).void
+        case Some(prev) => funit
+        case None => requestColl.insert(request).void
+      }
     }
   }
 }

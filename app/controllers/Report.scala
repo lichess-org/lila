@@ -62,22 +62,4 @@ object Report extends LilaController {
       html.report.thanks(reported, blocked)
     }
   }
-
-  import scala.concurrent.duration._
-  private lazy val irwinProcessedUserIds = new lila.memo.ExpireSetMemo(ttl = 30 minutes)
-
-  def irwinBotNext = Open { implicit ctx =>
-    Mod.ModExternalBot {
-      api.unprocessedWithFilter(150, Reason.Cheat.some) map { all =>
-        scala.util.Random.shuffle(all.filter { r =>
-          r.report.unprocessed && !r.hasIrwinNote && !irwinProcessedUserIds.get(r.user.id)
-        }).headOption match {
-          case None => NotFound
-          case Some(r) =>
-            irwinProcessedUserIds put r.user.id
-            Ok(r.user.id)
-        }
-      }
-    }
-  }
 }

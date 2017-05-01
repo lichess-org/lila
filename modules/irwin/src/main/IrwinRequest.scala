@@ -13,6 +13,8 @@ case class IrwinRequest(
 ) {
 
   def id = _id
+
+  def isInProgress = startedAt.isDefined
 }
 
 object IrwinRequest {
