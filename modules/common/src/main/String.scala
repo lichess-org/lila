@@ -14,6 +14,15 @@ object String {
     slug.toLowerCase
   }
 
+  def decodeUriPath(input: String): Option[String] = {
+    try {
+      play.utils.UriEncoding.decodePath(input, "UTF-8").some
+    }
+    catch {
+      case e: play.utils.InvalidUriEncodingException => None
+    }
+  }
+
   final class Delocalizer(netDomain: String) {
 
     private val regex = ("""\w{2}\.""" + quoteReplacement(netDomain)).r

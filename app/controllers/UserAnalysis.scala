@@ -30,8 +30,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
   }
 
   def load(urlFen: String, variant: Variant) = Open { implicit ctx =>
-    val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
-    val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }
+    val decodedFen = lila.common.String.decodeUriPath(urlFen)
+      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .orElse(get("fen"))
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
     Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
