@@ -14,7 +14,7 @@ openGraph = povOpenGraph(pov).some) {
   <div class="lichess_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>
-    <div class="pgn">@Html(nl2br(escapeHtml(pgn.toString)))</div>
+    <div class="pgn">@pgn.render</div>
   </div>
 </div>
 }

@@ -73,6 +73,7 @@ div.fen_pgn a {
   color: #3893E8;
 }
 div.fen_pgn .pgn {
+  white-space: pre-wrap;
   font-family: monospace;
 }
 div.fen_pgn strong {
