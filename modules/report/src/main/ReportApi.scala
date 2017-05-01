@@ -1,8 +1,8 @@
 package lila.report
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.AsyncCache
@@ -179,23 +179,21 @@ final class ReportApi(
 
   def nbUnprocessed = nbUnprocessedCache.get
 
-  def recent(nb: Int): Fu[List[Report]] =
-    coll.find($empty).sort($sort.createdDesc).list[Report](nb)
-
-  def recent(user: User, nb: Int): Fu[List[Report]] =
+  def recent(user: User, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
     coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] = for {
-    by <- coll.find($doc("createdBy" -> user.id)).sort($sort.createdDesc).list[Report](nb)
-    about <- recent(user, nb)
+    by <- coll.find($doc("createdBy" -> user.id)).sort($sort.createdDesc).list[Report](nb, ReadPreference.secondaryPreferred)
+    about <- recent(user, nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
   def recentReportersOf(user: User): Fu[List[User.ID]] =
-    coll.distinct[String, List]("createdBy", $doc(
+    coll.distinctWithReadPreference[String, List]("createdBy", $doc(
       "user" -> user.id,
       "createdAt" $gt DateTime.now.minusDays(3),
       "createdBy" $ne "lichess"
-    ).some)
+    ).some,
+      ReadPreference.secondaryPreferred)
 
   def unprocessedAndRecentWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] = for {
     unprocessed <- findRecent(nb, unprocessedSelect ++ reasonSelect(reason))
@@ -224,11 +222,12 @@ final class ReportApi(
 
   def countUnprocesssedByReasons: Fu[Map[Reason, Int]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(
+    coll.aggregateWithReadPreference(
       Match(unprocessedSelect),
       List(
         GroupField("reason")("nb" -> SumValue(1))
-      )
+      ),
+      ReadPreference.secondaryPreferred
     ).map {
         _.firstBatch.flatMap { doc =>
           doc.getAs[String]("_id") flatMap Reason.apply flatMap { reason =>
