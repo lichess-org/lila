@@ -65,6 +65,7 @@ final class PgnDump(
       }),
       Tag(_.Site, gameUrl(game.id)),
       Tag(_.Date, imported.flatMap(_ tag "date") | dateFormat.print(game.createdAt)),
+      Tag(_.Round, imported.flatMap(_ tag "round") | "-"),
       Tag(_.White, player(game.whitePlayer, wu)),
       Tag(_.Black, player(game.blackPlayer, bu)),
       Tag(_.Result, result(game)),
