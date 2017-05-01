@@ -42,7 +42,7 @@ final class IrwinApi(
     def getAndStart: Fu[Option[IrwinRequest]] =
       requestColl
         .find($doc("startedAt" $exists false))
-        .sort($sort desc "priority")
+        .sort($sort asc "priority")
         .uno[IrwinRequest] flatMap {
           _ ?? { request =>
             requestColl.updateField($id(request.id), "startedAt", DateTime.now) inject request.some

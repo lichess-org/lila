@@ -32,14 +32,14 @@ object IrwinRequest {
   def make(userId: User.ID, origin: Origin) = IrwinRequest(
     _id = userId,
     origin = origin,
-    priority = DateTime.now plusHours originPriorityHours(origin),
+    priority = DateTime.now minusHours originPriorityHours(origin),
     createdAt = DateTime.now,
     startedAt = none
   )
 
   private def originPriorityHours(origin: Origin) = origin match {
     case Origin.Moderator => 100
-    case Origin.Tournament => 10
-    case Origin.Report => 0
+    case Origin.Report => 20
+    case Origin.Tournament => 0
   }
 }
