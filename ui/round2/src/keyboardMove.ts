@@ -1,38 +1,36 @@
 import { h } from 'snabbdom'
 
 export function ctrl(cg, step, redraw) {
-  var focus = false;
-  var handler;
-  var preHandlerBuffer = step.fen;
-  var select = function(key) {
+  let focus = false;
+  let handler;
+  let preHandlerBuffer = step.fen;
+  const select = function(key) {
     if (cg.state.selected === key) cg.cancelMove();
     else cg.selectSquare(key, true);
   };
-  var usedSan = false;
+  let usedSan = false;
   return {
-    update: function(step) {
+    update(step) {
       if (handler) handler(step.fen, cg.state.movable.dests);
       else preHandlerBuffer = step.fen;
     },
-    registerHandler: function(h) {
+    registerHandler(h) {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
     },
-    hasFocus() { return focus; },
+    hasFocus: () => focus,
     setFocus(v) {
       focus = v;
       redraw();
     },
-    san: function(orig, dest) {
+    san(orig, dest) {
       usedSan = true;
       cg.cancelMove();
       select(orig);
       select(dest);
     },
     select: select,
-    hasSelected: function() {
-      return cg.state.selected;
-    },
+    hasSelected: () => cg.state.selected,
     usedSan: usedSan
   };
 };

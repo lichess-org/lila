@@ -18,10 +18,11 @@ const scrollThrottle = dropThrottle(100);
 function autoScroll(el, ctrl) {
   scrollThrottle(function() {
     if (ctrl.data.steps.length < 7) return;
-    var st;
-    if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+    let st;
+    if (ctrl.vm.ply < 3) st = 0;
+    else if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
     else {
-      var plyEl = el.querySelector('.active') || el.querySelector('turn:first-child');
+      const plyEl = el.querySelector('.active');
       if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
     if (st !== undefined) el.scrollTop = st;

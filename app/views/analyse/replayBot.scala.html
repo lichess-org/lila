@@ -64,7 +64,7 @@ chessground = false) {
         <a data-icon="x" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported"> @trans.downloadImported()</a>
         }
       </p>
-      <div class="pgn">@Html(nl2br(escapeHtml(pgn)))</div>
+      <div class="pgn">@pgn</div>
     </div>
     @cross.map { c =>
     <div class="panel crosstable">
