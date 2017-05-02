@@ -8,7 +8,11 @@ var evalPutMinNodes = 3e6;
 var evalPutMaxMoves = 10;
 
 function qualityCheck(eval) {
-  return eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes;
+  // below 500k nodes, the eval might come from an imminent threefold repetition
+  // and should therefore be ignored
+  return eval.nodes > 500000 && (
+    eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes
+  );
 }
 
 // from client eval to server eval
