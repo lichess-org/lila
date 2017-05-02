@@ -53,6 +53,8 @@ final class IrwinApi(
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
       requestColl.byId[IrwinRequest](reportedId)
 
+    def fromMod(reportedId: User.ID) = insert(reportedId, _.Moderator)
+
     private[irwin] def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
 
     private[irwin] def insert(reportedId: User.ID, origin: Origin.type => Origin) = {

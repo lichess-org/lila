@@ -86,8 +86,7 @@ object GameRepo {
       ++ Query.clock(true)
   )
     .sort($sort asc F.createdAt)
-    .cursor[Game](ReadPreference.secondaryPreferred)
-    .gather[List](nb)
+    .list[Game](nb, ReadPreference.secondaryPreferred)
 
   def cursor(
     selector: Bdoc,
