@@ -4,9 +4,13 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.tournament.TournamentApi
+
 final class Env(
     config: Config,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
+    tournamentApi: TournamentApi,
     db: lila.db.Env
 ) {
 
@@ -17,6 +21,10 @@ final class Env(
     reportColl = reportColl,
     requestColl = requestColl
   )
+
+  scheduler.future(5 minutes, "irwin tournament leaders") {
+    tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
+  }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
@@ -31,6 +39,8 @@ object Env {
   lazy val current: Env = "irwin" boot new Env(
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "irwin",
+    tournamentApi = lila.tournament.Env.current.api,
+    scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system
   )
 }

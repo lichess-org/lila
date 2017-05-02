@@ -366,6 +366,13 @@ final class TournamentApi(
       }
     }
 
+  def allCurrentLeadersInStandard: Fu[Map[Tournament, List[RankedPlayer]]] =
+    TournamentRepo.standardPublicStartedFromSecondary.flatMap { tours =>
+      tours.map { tour =>
+        miniStandingCache get tour.id map (tour -> _)
+      }.sequenceFu.map(_.toMap)
+    }
+
   private def fetchGames(tour: Tournament, ids: Seq[String]) =
     if (tour.isFinished) GameRepo gamesFromSecondary ids
     else GameRepo gamesFromPrimary ids
