@@ -1,4 +1,5 @@
 import { winningChances } from 'ceval';
+import { defined } from 'common';
 
 function hasCompChild(node: Tree.Node): boolean {
   return !!node.children.find(function(c) {
@@ -33,3 +34,17 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
   }
   return found;
 }
+
+function threefoldFen(fen) {
+  return fen.split(' ').slice(0, 4).join(' ');
+}
+
+export function detectThreefold(nodeList, node) {
+  if (defined(node.threefold)) return;
+  const currentFen = threefoldFen(node.fen);
+  let nbSimilarPositions = 0;
+  for (var i in nodeList)
+    if (threefoldFen(nodeList[i].fen) === currentFen)
+      nbSimilarPositions++;
+  node.threefold = nbSimilarPositions > 2;
+};

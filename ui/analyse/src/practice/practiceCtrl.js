@@ -2,7 +2,7 @@ var winningChances = require('ceval').winningChances;
 var treePath = require('tree').path;
 var winningChances = require('ceval').winningChances;
 var pv2san = require('ceval').pv2san;
-var defined = require('common').defined;
+var detectThreefold = require('../nodeFinder').detectThreefold;
 var m = require('mithril');
 
 module.exports = function(root, playableDepth) {
@@ -113,21 +113,6 @@ module.exports = function(root, playableDepth) {
     checkCeval();
   };
 
-  var threefoldFen = function(fen) {
-    return fen.split(' ').slice(0, 4).join(' ');
-  };
-
-  var detectThreefold = function() {
-    var n = currentNode();
-    if (defined(n.threefold)) return;
-    var currentFen = threefoldFen(n.fen);
-    var nbSimilarPositions = 0;
-    for (var i in root.vm.nodeList)
-      if (threefoldFen(root.vm.nodeList[i].fen) === currentFen)
-        nbSimilarPositions++;
-    n.threefold = nbSimilarPositions > 2;
-  };
-
   checkCeval();
 
   return {
@@ -135,7 +120,7 @@ module.exports = function(root, playableDepth) {
     onJump: function() {
       played(false);
       hinting(null);
-      detectThreefold();
+      detectThreefold(root.vm.nodeList, currentNode());
       checkCeval();
     },
     isMyTurn: isMyTurn,
