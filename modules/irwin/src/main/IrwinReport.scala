@@ -9,6 +9,7 @@ case class IrwinReport(
     isLegit: Option[Boolean],
     activation: Int, // 0 = clean, 100 = cheater
     games: List[IrwinReport.GameReport],
+    pv0ByAmbiguity: Option[List[Int]],
     date: DateTime
 ) {
 
