@@ -77,6 +77,12 @@ object TournamentRepo {
       .sort($doc("createdAt" -> -1))
       .list[Tournament]()
 
+  def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
+    coll.find(startedSelect ++ $doc(
+      "private" $exists false,
+      "variant" $exists false
+    )).list[Tournament](None, ReadPreference.secondaryPreferred)
+
   def finished(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect)
       .sort($doc("startsAt" -> -1))

@@ -5,6 +5,7 @@ import reactivemongo.bson._
 
 import lila.db.dsl._
 import lila.game.{ Pov, GameRepo }
+import lila.tournament.{ Tournament, RankedPlayer }
 import lila.user.User
 
 final class IrwinApi(
@@ -50,7 +51,7 @@ final class IrwinApi(
         }
 
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
-      requestColl.byId[IrwinRequest]($id(reportedId))
+      requestColl.byId[IrwinRequest](reportedId)
 
     def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
 
@@ -64,5 +65,14 @@ final class IrwinApi(
         case None => requestColl.insert(request).void
       }
     }
+
+    def fromTournamentLeaders(leaders: Map[Tournament, List[RankedPlayer]]): Funit =
+      lila.common.Future.applySequentially(leaders.toList) {
+        case (tour, rps) =>
+          val userIds = rps.filter(_.rank <= tour.nbPlayers / 10).map(_.player.userId)
+          lila.common.Future.applySequentially(userIds) { userId =>
+            insert(userId, _.Tournament)
+          }
+      }
   }
 }
