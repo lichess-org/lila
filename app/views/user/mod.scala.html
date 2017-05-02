@@ -97,42 +97,27 @@
   }
   @optionAggregateAssessment.map { pag =>
   <div class="evaluation results">
-    <table class="extra_stats">
-      <caption>Average Centipawn Loss Given:</caption>
-      <tr>
-        <th data-hint="The frequency of which the user leaves the game page." class="hint--top">Blurs</th>
-        <td>
-          <strong>@pag.pag.sfAvgBlurs</strong>
-          <br/>high
-        </td>
-        <td>
-          <strong>@pag.pag.sfAvgNoBlurs</strong>
-          <br/>low
-        </td>
-      </tr>
-      <tr>
-        <th data-hint="The computed standard deviation of the move times distribution across games." class="hint--top">Move Times</th>
-        <td>
-          <strong>@pag.pag.sfAvgLowVar</strong>
-          <br/>low variance
-        </td>
-        <td>
-          <strong>@pag.pag.sfAvgHighVar</strong>
-          <br/>high variance
-        </td>
-      </tr>
-      <tr>
-        <th data-hint="Bot detection using grid click analysis." class="hint--top">Hold Alert</th>
-        <td>
-          <strong>@pag.pag.sfAvgHold</strong>
-          <br/>alert
-        </td>
-        <td>
-          <strong>@pag.pag.sfAvgNoHold</strong>
-          <br/>no alert
-        </td>
-      </tr>
-    </table>
+    @pag.pag.sfAvgBlurs.map { blursYes =>
+    <p class="text" data-icon="j">ACPL in games with blurs is <strong>@blursYes</strong>
+    @pag.pag.sfAvgNoBlurs.map { blursNo =>
+    against <strong>@blursNo</strong> in games without blurs.
+    }
+    </p>
+    }
+    @pag.pag.sfAvgLowVar.map { lowVar =>
+    <p class="text" data-icon="j">ACPL in games with consistent move times is <strong>@lowVar</strong>
+    @pag.pag.sfAvgHighVar.map { highVar =>
+    against <strong>@highVar</strong> in games with random move times.
+    }
+    </p>
+    }
+    @pag.pag.sfAvgHold.map { holdYes =>
+    <p class="text" data-icon="j">ACPL in games with bot signature <strong>@holdYes</strong>
+    @pag.pag.sfAvgNoHold.map { holdNo =>
+    against <strong>@holdNo</strong> in games without bot signature.
+    }
+    </p>
+    }
     <table class="slist">
       <thead>
         <tr>

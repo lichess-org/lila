@@ -101,6 +101,9 @@ body.dark .mod_zone .reports .half:first-child {
 .mod_zone .reports .half:hover {
   flex: 0 0 90%;
 }
+.mod_zone .evaluation table {
+  margin-top: 10px;
+}
 .mod_zone .evaluation time {
   display: inline;
 }
@@ -165,7 +168,7 @@ body.dark .mod_zone .reports .half:first-child {
   display: flex;
   border: 1px solid #ccc;
 }
-.mod_zone .irwin header > div {
+.mod_zone .irwin header > * {
   flex: 1 1 100%;
   display: flex;
   flex-flow: column;
@@ -175,17 +178,17 @@ body.dark .mod_zone .reports .half:first-child {
   border-left: 1px solid #ccc;
   padding: 5px 10px;
 }
-.mod_zone .irwin header > div:first-child {
+.mod_zone .irwin header > *:first-child {
   border-left: none;
 }
 body.dark .irwin header,
-body.dark .irwin header > div {
+body.dark .irwin header > * {
   border-color: #3d3d3d;
 }
 .mod_zone .irwin header .title {
   flex-flow: row;
   color: #3893E8;
-  font-size: 1.5em;
+  font-size: 1.4em;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
@@ -238,8 +241,11 @@ body.dark .irwin header > div {
   display: block;
 }
 .mod_zone .irwin .moves {
-  width: 400px;
   padding: 0;
+}
+.mod_zone .irwin .moves a {
+  display: block;
+  width: 400px;
   height: 48px;
   display: flex;
   align-items: flex-end;

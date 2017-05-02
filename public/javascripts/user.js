@@ -51,15 +51,6 @@ $(function() {
           $(this).parent('form').submit();
         });
         lichess.pubsub.emit('content_loaded')();
-        var relatedUsers = +$zone.find('.reportCard thead th:last').text();
-        if (relatedUsers > 100) {
-          var others = $zone.find('.others').hide()
-            .before('<a id="others-show">Show ' + relatedUsers + ' related users... (very large!)</a>');
-          $zone.find('#others-show').click(function() {
-            others.show();
-            $(this).remove();
-          });
-        }
         var $modLog = $zone.find('.mod_log ul').children();
         if ($modLog.length > 20) {
           var list = $modLog.slice(20);

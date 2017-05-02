@@ -377,38 +377,6 @@ div.sub_ratings h3 {
 div.crosstable {
   margin: 25px 10px 15px 10px;
 }
-.user_show .reportCard {
-  margin: 0 auto 10px auto;
-}
-.user_show .reportCard th {
-  font-weight: bold;
-  font-size: 1.6em;
-  text-align: center;
-  padding: 0 5px 0 5px;
-}
-.user_show .reportCard td {
-  text-align: center;
-  padding: 5px;
-}
-.user_show .extra_stats {
-  margin: 0 auto 10px auto;
-}
-.user_show .extra_stats caption {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.2em;
-  padding-bottom: 5px;
-}
-.user_show .extra_stats th {
-  text-align: right;
-  font-weight: bold;
-  font-size: 1.2em;
-  padding: 0 5px 0 5px;
-}
-.user_show .extra_stats td {
-  text-align: center;
-  padding: 5px;
-}
 .user_show .results .aggregate {
   font-weight: bold;
   font-size: 1.4em;
@@ -416,12 +384,6 @@ div.crosstable {
   margin-left: -20px;
   width: 50px;
   transform: rotate(90deg);
-}
-.user_show .reportCard .mark {
-  color: #dc322f;
-}
-.user_show .reportCard .report {
-  color: #B8AA1A;
 }
 
 .user_show .search {
