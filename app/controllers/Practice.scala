@@ -70,19 +70,18 @@ object Practice extends LilaController {
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-      val initialFen = chapter.root.fen.value.some
-      val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-      Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me) zip
-        studyEnv.jsonView(study, chapters, chapter, ctx.me) map {
-          case (baseData, studyJson) =>
-            val analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-              },
-              "practiceGoal" -> lila.practice.PracticeGoal(chapter)
-            )
-            (analysis, studyJson)
-        }
+      studyEnv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
+        val initialFen = chapter.root.fen.value.some
+        val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
+        val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
+        val analysis = baseData ++ Json.obj(
+          "treeParts" -> partitionTreeJsonWriter.writes {
+            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+          },
+          "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+        )
+        (analysis, studyJson)
+      }
   }
 
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>

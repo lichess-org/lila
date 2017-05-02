@@ -94,7 +94,7 @@ object Study extends LilaController {
           _ = if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
           initialFen = chapter.root.fen.value.some
           pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-          baseData <- Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
+          baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
           studyJson <- env.jsonView(study, chapters, chapter, ctx.me)
           data = lila.study.JsonView.JsData(
             study = studyJson,
@@ -196,32 +196,28 @@ object Study extends LilaController {
     env.api.byIdWithChapter(id, chapterId) flatMap {
       _.fold(embedNotFound) {
         case WithChapter(study, chapter) => CanViewResult(study) {
-          val setup = chapter.setup
-          val initialFen = chapter.root.fen.value.some
-          val pov = UserAnalysis.makePov(initialFen, setup.variant)
-          Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me) zip
-            env.jsonView(study.copy(
-              members = lila.study.StudyMembers(Map.empty) // don't need no members
-            ), List(chapter.metadata), chapter, ctx.me) flatMap {
-              case (baseData, studyJson) =>
-                import lila.tree.Node.partitionTreeJsonWriter
-                val analysis = baseData ++ Json.obj(
-                  "treeParts" -> partitionTreeJsonWriter.writes {
-                    lila.study.TreeBuilder.makeRoot(chapter.root)
-                  }
-                )
-                val data = lila.study.JsonView.JsData(
-                  study = studyJson,
-                  analysis = analysis
-                )
-                negotiate(
-                  html = Ok(html.study.embed(study, chapter, data)).fuccess,
-                  api = _ => Ok(Json.obj(
-                  "study" -> data.study,
-                  "analysis" -> data.analysis
-                )).fuccess
-                )
-            }
+          env.jsonView(study.copy(
+            members = lila.study.StudyMembers(Map.empty) // don't need no members
+          ), List(chapter.metadata), chapter, ctx.me) flatMap { studyJson =>
+            val setup = chapter.setup
+            val initialFen = chapter.root.fen.value.some
+            val pov = UserAnalysis.makePov(initialFen, setup.variant)
+            val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
+            import lila.tree.Node.partitionTreeJsonWriter
+            val analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder.makeRoot(chapter.root)
+              }
+            )
+            val data = lila.study.JsonView.JsData(
+              study = studyJson,
+              analysis = analysis
+            )
+            negotiate(
+              html = Ok(html.study.embed(study, chapter, data)).fuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+            )
+          }
         }
       }
     } map NoCache
