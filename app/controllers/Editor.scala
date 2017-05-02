@@ -26,7 +26,9 @@ object Editor extends LilaController {
   def index = load("")
 
   def load(urlFen: String) = Open { implicit ctx =>
-    val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
+    val fenStr = lila.common.String.decodeUriPath(urlFen)
+      .map(_.replace("_", " ").trim).filter(_.nonEmpty)
+      .orElse(get("fen"))
     fuccess {
       val situation = readFen(fenStr)
       Ok(html.board.editor(
@@ -50,10 +52,7 @@ object Editor extends LilaController {
   }
 
   private def readFen(fen: Option[String]): Situation =
-    fen.map {
-      java.net.URLDecoder.decode(_, "UTF-8").trim
-    }.filter(_.nonEmpty)
-      .flatMap(Forsyth.<<<).map(_.situation) | Situation(chess.variant.Standard)
+    fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(chess.variant.Standard)
 
   def game(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
