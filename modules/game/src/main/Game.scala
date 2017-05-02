@@ -648,7 +648,7 @@ object Game {
       daysPerTurn = daysPerTurn,
       mode = mode,
       variant = variant,
-      crazyData = (variant == Crazyhouse) option Crazyhouse.Data.init,
+      crazyData = game.board.crazyData,
       metadata = Metadata(
         source = source.some,
         pgnImport = pgnImport,
