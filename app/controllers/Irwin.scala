@@ -22,9 +22,6 @@ object Irwin extends LilaController {
     }
   }
 
-  import scala.concurrent.duration._
-  private lazy val irwinProcessedUserIds = new lila.memo.ExpireSetMemo(ttl = 30 minutes)
-
   def getRequest = Open { implicit ctx =>
     ModExternalBot {
       Env.irwin.api.requests.getAndStart map {
@@ -60,6 +57,6 @@ object Irwin extends LilaController {
   }
 
   private def ModExternalBot(f: => Fu[Result])(implicit ctx: Context) =
-    if (!get("api_key").contains(Env.mod.ApiKey)) fuccess(NotFound)
-    else f
+    if (get("api_key") contains Env.mod.ApiKey) f
+    else fuccess(NotFound)
 }
