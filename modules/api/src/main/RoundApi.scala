@@ -94,13 +94,13 @@ private[api] final class RoundApi(
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User]) =
     owner.??(forecastApi loadForDisplay pov).flatMap { fco =>
-      jsonView.userAnalysisJson(pov, pref, orientation, owner = owner, me = me) map
+      jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me) map
         withTree(pov, analysis = none, initialFen, WithFlags(opening = true))_ map
         withForecast(pov, owner, fco)_
     }
 
   def freeStudyJson(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User]) =
-    jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me) map
+    jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = false, me = me) map
       withTree(pov, analysis = none, initialFen, WithFlags(opening = true))_
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[String], withFlags: WithFlags)(obj: JsObject) =
