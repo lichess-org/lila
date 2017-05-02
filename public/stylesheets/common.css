@@ -1987,6 +1987,7 @@ iframe.video {
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
+  width: 8px;
   background: #eee;
 }
 body ::-webkit-scrollbar-thumb {
