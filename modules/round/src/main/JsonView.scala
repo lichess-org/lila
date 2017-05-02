@@ -221,44 +221,43 @@ final class JsonView(
     orientation: chess.Color,
     owner: Boolean,
     me: Option[User]
-  ) =
-    fuccess {
-      import pov._
-      val fen = Forsyth >> game.toChess
-      Json.obj(
-        "game" -> Json.obj(
-          "id" -> gameId,
-          "variant" -> game.variant,
-          "opening" -> game.opening,
-          "initialFen" -> (initialFen | game.variant.initialFen),
-          "fen" -> fen,
-          "turns" -> game.turns,
-          "player" -> game.turnColor.name,
-          "status" -> game.status
-        ),
-        "player" -> Json.obj(
-          "id" -> owner.option(pov.playerId),
-          "color" -> color.name
-        ),
-        "opponent" -> Json.obj(
-          "color" -> opponent.color.name,
-          "ai" -> opponent.aiLevel
-        ),
-        "orientation" -> orientation.name,
-        "pref" -> Json.obj(
-          "blindfold" -> pref.isBlindfold,
-          "animationDuration" -> animationDuration(pov, pref),
-          "highlight" -> pref.highlight,
-          "destination" -> pref.destination,
-          "coords" -> pref.coords,
-          "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES),
-          "is3d" -> pref.is3d
-        ),
-        "path" -> pov.game.turns,
-        "userAnalysis" -> true,
-        "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
-      )
-    }
+  ) = {
+    import pov._
+    val fen = Forsyth >> game.toChess
+    Json.obj(
+      "game" -> Json.obj(
+        "id" -> gameId,
+        "variant" -> game.variant,
+        "opening" -> game.opening,
+        "initialFen" -> (initialFen | game.variant.initialFen),
+        "fen" -> fen,
+        "turns" -> game.turns,
+        "player" -> game.turnColor.name,
+        "status" -> game.status
+      ),
+      "player" -> Json.obj(
+        "id" -> owner.option(pov.playerId),
+        "color" -> color.name
+      ),
+      "opponent" -> Json.obj(
+        "color" -> opponent.color.name,
+        "ai" -> opponent.aiLevel
+      ),
+      "orientation" -> orientation.name,
+      "pref" -> Json.obj(
+        "blindfold" -> pref.isBlindfold,
+        "animationDuration" -> animationDuration(pov, pref),
+        "highlight" -> pref.highlight,
+        "destination" -> pref.destination,
+        "coords" -> pref.coords,
+        "rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES),
+        "is3d" -> pref.is3d
+      ),
+      "path" -> pov.game.turns,
+      "userAnalysis" -> true,
+      "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
+    )
+  }
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
     "id" -> game.id,

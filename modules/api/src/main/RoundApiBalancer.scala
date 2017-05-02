@@ -56,7 +56,7 @@ private[api] final class RoundApiBalancer(
           case UserAnalysis(pov, pref, initialFen, orientation, owner, me) =>
             api.userAnalysisJson(pov, pref, initialFen, orientation, owner, me)
           case FreeStudy(pov, pref, initialFen, orientation, me) =>
-            api.freeStudyJson(pov, pref, initialFen, orientation, me)
+            fuccess(api.freeStudyJson(pov, pref, initialFen, orientation, me))
         }
       })), "api.round.router"
     )
