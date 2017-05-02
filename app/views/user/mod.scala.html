@@ -88,25 +88,14 @@
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
   @irwinStatus.report.map { report =>
-  <div class="irwin">
-    <strong class="text" data-icon="">Irwin report:</strong>
     @views.html.mod.irwinReport(report, irwinStatus.request)
-  </div>
   }.getOrElse {
   @irwinStatus.request.map { request =>
-    <strong class="text" data-icon="">Irwin request:</strong>
+    <strong class="inline text" data-icon="">Irwin request:</strong>
     in progress, requested @momentFromNow(request.createdAt) by: @request.origin
   }
   }
-  @optionAggregateAssessment.fold{
-  <div class="evaluation">
-    <p>
-      No assessment available
-      <br />
-      <br />
-    </p>
-  </div>
-  }{ pag =>
+  @optionAggregateAssessment.map { pag =>
   <div class="evaluation results">
     <table class="extra_stats">
       <caption>Average Centipawn Loss Given:</caption>

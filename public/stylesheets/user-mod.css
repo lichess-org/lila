@@ -160,6 +160,73 @@ body.dark .mod_zone .reports .half:first-child {
   color: #759900;
 }
 
+.mod_zone .irwin header {
+  margin-top: 10px;
+  display: flex;
+  border: 1px solid #ccc;
+}
+.mod_zone .irwin header > div {
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-left: 1px solid #ccc;
+  padding: 5px 10px;
+}
+.mod_zone .irwin header > div:first-child {
+  border-left: none;
+}
+body.dark .irwin header,
+body.dark .irwin header > div {
+  border-color: #3d3d3d;
+}
+.mod_zone .irwin header .title {
+  flex-flow: row;
+  color: #3893E8;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.mod_zone .irwin header .title img {
+  height: 50px;
+  width: 50px;
+  opacity: 0.9;
+  margin-right: 8px;
+}
+@keyframes brain-glow {
+  20% { transform: scale(0.95); }
+  45% { transform: scale(1); }
+}
+.mod_zone .irwin header .title img {
+  animation: brain-glow 1.5s ease-in-out infinite;
+}
+.mod_zone .irwin header .infos {
+  font-size: 0.9em;
+}
+.mod_zone .irwin header .rates {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+}
+.mod_zone .irwin header .rates div {
+  line-height: 1.2em;
+  margin: 5px 5px 0 5px;
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+}
+.mod_zone .irwin header strong {
+  display: block;
+  font-size: 1.1em;
+  margin-top: 0;
+}
+.mod_zone .irwin header .assess strong {
+  font-size: 2em;
+}
+
 .mod_zone .irwin table strong {
   margin-top: 0;
   font-size: 1.6em;

@@ -7,41 +7,77 @@ case p if p < 80 => {orange}
 case _ => {red}
 } }
 
-<table class="slist">
-  <tbody>
-    @report.withPovs.sortBy(-_.report.activation).map {
-    case lila.irwin.IrwinReport.GameReport.WithPov(gameReport, pov) => {
-    <tr class="text">
-      <td class="moves">
-        @gameReport.moves.map { move => <span class="@percentClass(move.activation)" title="@move" style="height:@move.activation%"></span> }
-      </td>
-      <td>
-        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
-          <br />
-          @if(pov.game.isTournament) { <span data-icon="g"></span> }
-          @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
-          @shortClockName(pov.game.clock.map(_.config)) -
-          @momentFromNow(pov.game.createdAt)
-        </a>
-      </td>
-      <td>
-        <strong class="@percentClass(gameReport.activation)">@gameReport.activation%</strong>
-        <em>assessment</em>
-      </td>
-      <td>
-        @defining(pov.game.playerBlurPercent(pov.color)) { blurs =>
-        <strong class="@percentClass(blurs)">@blurs%</strong>
+<div class="irwin">
+  <header>
+    <div class="title">
+      <img src="@staticUrl("images/icons/brain.blue.svg")" />
+      Irwin AI<br />
+      Hunter
+    </div>
+    <div class="infos">
+      <p>Updated @momentFromNow(report.report.date)</p>
+      @request.map { r =>
+      <p>New update is in progress</p>
+      <p>Requested @momentFromNow(r.createdAt) by: @r.origin</p>
+      }.getOrElse {
+      <p>Hit "Evaluate" to update</p>
+      }
+    </div>
+    <div class="pv0">
+      <a href="https://github.com/ornicar/lila/wiki#for-moderators">
+        PV 0 Rate by Ambiguity
+      </a>
+      @report.report.pv0ByAmbiguity.map { values =>
+      <div class="rates text">
+        @values.zipWithIndex.map {
+        case (v, i) => {
+        <div><strong class="@percentClass(v)">@v%</strong>@(i + 1)</div>
         }
-        <em>blurs</em>
-      </td>
-      <td>
-        @if(pov.player.holdAlert.??(_.suspicious)) {
-        <strong class="@percentClass(50)">Bot?</strong>
         }
-      </td>
-    </tr>
-    }
-    }
-  </tbody>
-</table>
+      </div>
+      }
+    </div>
+    <div class="assess text">
+      <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
+      Overall assessment
+    </div>
+  </header>
+  <table class="slist">
+    <tbody>
+      @report.withPovs.sortBy(-_.report.activation).map {
+      case lila.irwin.IrwinReport.GameReport.WithPov(gameReport, pov) => {
+      <tr class="text">
+        <td class="moves">
+          @gameReport.moves.map { move => <span class="@percentClass(move.activation)" title="@move" style="height:@move.activation%"></span> }
+        </td>
+        <td>
+          <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+            @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+            <br />
+            @if(pov.game.isTournament) { <span data-icon="g"></span> }
+            @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
+            @shortClockName(pov.game.clock.map(_.config)) -
+            @momentFromNow(pov.game.createdAt)
+          </a>
+        </td>
+        <td>
+          <strong class="@percentClass(gameReport.activation)">@gameReport.activation%</strong>
+          <em>assessment</em>
+        </td>
+        <td>
+          @defining(pov.game.playerBlurPercent(pov.color)) { blurs =>
+          <strong class="@percentClass(blurs)">@blurs%</strong>
+          }
+          <em>blurs</em>
+        </td>
+        <td>
+          @if(pov.player.holdAlert.??(_.suspicious)) {
+          <strong class="@percentClass(50)">Bot?</strong>
+          }
+        </td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
+</div>
