@@ -164,11 +164,13 @@ object Mod extends LilaController {
     }
   }
 
-  def redirect(username: String, mod: Boolean = true) =
+  protected[controllers] def redirect(username: String, mod: Boolean = true) =
     Redirect(routes.User.show(username).url + mod.??("?mod"))
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
-    assessApi.refreshAssessByUsername(username) inject redirect(username)
+    assessApi.refreshAssessByUsername(username) >>
+      Env.irwin.api.requests.fromMod(lila.user.User normalize username) inject
+      redirect(username)
   }
 
   def gamify = Secure(_.SeeReport) { implicit ctx => me =>
@@ -219,7 +221,7 @@ object Mod extends LilaController {
         err => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
           modApi.setPermissions(me.id, user.username, Permission(permissions)) inject
-            Redirect(routes.User.show(user.username) + "?mod")
+            redirect(user.username, true)
       )
     }
   }
