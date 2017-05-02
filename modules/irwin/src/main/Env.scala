@@ -11,6 +11,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     tournamentApi: TournamentApi,
+    userCache: lila.user.Cached,
     db: lila.db.Env
 ) {
 
@@ -24,6 +25,13 @@ final class Env(
 
   scheduler.future(5 minutes, "irwin tournament leaders") {
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
+  }
+  scheduler.future(15 minutes, "irwin leaderboards") {
+    lila.common.Future.applySequentially(lila.rating.PerfType.standard) { pt =>
+      userCache.top200Perf(pt.id) flatMap { users =>
+        api.requests.fromLeaderboard(users.take(50).map(_.user.id))
+      }
+    }
   }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -40,6 +48,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "irwin",
     tournamentApi = lila.tournament.Env.current.api,
+    userCache = lila.user.Env.current.cached,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system
   )

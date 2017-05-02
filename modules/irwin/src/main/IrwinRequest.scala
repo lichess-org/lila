@@ -27,6 +27,7 @@ object IrwinRequest {
     case object Moderator extends Origin
     case object Report extends Origin
     case object Tournament extends Origin
+    case object Leaderboard extends Origin
   }
 
   def make(userId: User.ID, origin: Origin) = IrwinRequest(
@@ -40,6 +41,7 @@ object IrwinRequest {
   private def originPriorityDays(origin: Origin) = origin match {
     case Origin.Moderator => 100
     case Origin.Report => 20
-    case Origin.Tournament => 0
+    case Origin.Tournament => 1
+    case Origin.Leaderboard => 0
   }
 }

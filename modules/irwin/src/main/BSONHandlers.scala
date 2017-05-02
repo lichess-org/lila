@@ -43,6 +43,7 @@ object BSONHandlers {
         case "moderator" => Moderator
         case "report" => Report
         case "tournament" => Tournament
+        case "leaderboard" => Leaderboard
         case _ => sys error s"Invalid origin ${bs.value}"
       }
       def write(x: Origin) = BSONString(x.key)

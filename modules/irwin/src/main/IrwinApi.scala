@@ -53,9 +53,9 @@ final class IrwinApi(
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
       requestColl.byId[IrwinRequest](reportedId)
 
-    def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
+    private[irwin] def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
 
-    def insert(reportedId: User.ID, origin: Origin.type => Origin) = {
+    private[irwin] def insert(reportedId: User.ID, origin: Origin.type => Origin) = {
       val request = IrwinRequest.make(reportedId, origin(Origin))
       get(reportedId) flatMap {
         case Some(prev) if prev.isInProgress => funit
@@ -66,13 +66,18 @@ final class IrwinApi(
       }
     }
 
-    def fromTournamentLeaders(leaders: Map[Tournament, List[RankedPlayer]]): Funit =
+    private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, List[RankedPlayer]]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
         case (tour, rps) =>
           val userIds = rps.filter(_.rank <= tour.nbPlayers / 10).map(_.player.userId)
           lila.common.Future.applySequentially(userIds) { userId =>
             insert(userId, _.Tournament)
           }
+      }
+
+    private[irwin] def fromLeaderboard(leaders: List[User.ID]): Funit =
+      lila.common.Future.applySequentially(leaders) { userId =>
+        insert(userId, _.Leaderboard)
       }
   }
 }
