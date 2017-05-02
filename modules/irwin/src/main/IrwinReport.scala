@@ -17,6 +17,8 @@ case class IrwinReport(
   def userId = _id
 }
 
+case class IrwinStatus(report: Option[IrwinReport.WithPovs], request: Option[IrwinRequest])
+
 object IrwinReport {
 
   case class GameReport(

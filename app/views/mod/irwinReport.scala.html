@@ -1,4 +1,4 @@
-@(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context)
+@(report: lila.irwin.IrwinReport.WithPovs, request: Option[lila.irwin.IrwinRequest])(implicit ctx: Context)
 
 @percentClass(percent: Int) = { @percent match {
 case p if p < 30 => {green}

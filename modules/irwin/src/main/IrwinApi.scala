@@ -15,6 +15,9 @@ final class IrwinApi(
 
   import BSONHandlers._
 
+  def status(user: User): Fu[IrwinStatus] =
+    reports.withPovs(user) zip requests.get(user.id) map { (IrwinStatus.apply _).tupled }
+
   object reports {
 
     def insert(report: IrwinReport) =

@@ -1,4 +1,4 @@
-@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinReport: Option[lila.irwin.IrwinReport.WithPovs], notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, emails: User.Emails, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment.WithGames], bans: Map[String, Int], history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, irwinStatus: lila.irwin.IrwinStatus, notes: List[lila.user.Note])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 @import lila.pref.Pref
@@ -87,11 +87,16 @@
     <strong class="text inline" data-icon="%">Notable preferences:</strong>
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
-  @irwinReport.map { report =>
+  @irwinStatus.report.map { report =>
   <div class="irwin">
     <strong class="text" data-icon="">Irwin report:</strong>
-    @views.html.mod.irwinReport(report)
+    @views.html.mod.irwinReport(report, irwinStatus.request)
   </div>
+  }.getOrElse {
+  @irwinStatus.request.map { request =>
+    <strong class="text" data-icon="">Irwin request:</strong>
+    in progress, requested @momentFromNow(request.createdAt) by: @request.origin
+  }
   }
   @optionAggregateAssessment.fold{
   <div class="evaluation">
