@@ -1,8 +1,8 @@
 /// <reference types="types/lichess" />
 
-import { Ctrl, DasherOpts, Redraw } from './interfaces'
+import { Redraw } from './util'
 
-import makeCtrl from './ctrl';
+import { Ctrl, DasherOpts, makeCtrl } from './ctrl';
 import view from './view';
 
 import { init } from 'snabbdom';

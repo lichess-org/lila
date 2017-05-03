@@ -1,32 +1,48 @@
-import { Ctrl, DasherOpts, DasherData, Redraw } from './interfaces'
+import { PingCtrl, ctrl as pingCtrl } from './ping'
+import { LangsCtrl, ctrl as langsCtrl } from './langs'
+import { Redraw, Prop, prop } from './util'
+import { load } from './xhr'
 
-import { ctrl as pingCtrl } from './ping'
+export interface Ctrl {
+  mode: Prop<Mode>
+  data: Prop<DasherData>
+  trans: Prop<Trans>
+  ping: PingCtrl
+  langs: LangsCtrl
+  opts: DasherOpts
+}
 
-export default function(opts: DasherOpts, redraw: Redraw): Ctrl {
+export type DasherData = any
 
-  let initiating = true;
-  let data: DasherData | undefined;
-  let trans: Trans = window.lichess.trans({});
+export type Mode = 'links' | 'langs'
 
-  const ping = pingCtrl(() => trans, redraw);
+export interface DasherOpts {
+  playing: boolean
+}
+
+export function makeCtrl(opts: DasherOpts, redraw: Redraw): Ctrl {
+
+  let mode: Prop<Mode> = prop('links' as Mode);
+  let data: Prop<DasherData | undefined> = prop(undefined);
+  let trans: Prop<Trans> = prop(window.lichess.trans({}));
+
+  const ping = pingCtrl(trans, redraw);
+  const langs = langsCtrl(redraw);
 
   function update(d: DasherData) {
     data = d;
-    initiating = false;
     if (d.i18n) trans = window.lichess.trans(d.i18n);
     redraw();
   }
 
-  $.ajax({
-    url: '/dasher',
-    headers: { 'Accept': 'application/vnd.lichess.v2+json' }
-  }).then(update);
+  load().then(update);
 
   return {
-    initiating: () => initiating,
-    data: () => data,
-    trans: () => trans,
+    mode,
+    data,
+    trans,
     ping,
+    langs,
     opts,
   };
 };

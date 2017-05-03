@@ -1,10 +1,19 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { defined } from './util'
-import { PingCtrl, PingData, Redraw } from './interfaces'
+import { Redraw, Prop, defined } from './util'
 
-export function ctrl(trans: () => Trans, redraw: Redraw): PingCtrl {
+export interface PingData {
+  ping: number | undefined
+  server: number | undefined
+}
+
+export interface PingCtrl {
+  data: PingData
+  trans: Trans
+}
+
+export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
 
   let data: PingData = {
     ping: undefined,
