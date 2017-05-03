@@ -1,0 +1,23 @@
+{
+  "name": "dasher",
+  "version": "2.0.0",
+  "description": "lichess.org multipurpose dropdown",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "snabbdom": "ornicar/snabbdom.git#lilabuild"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0",
+    "types": "file:../types",
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-uglify": "^2",
+    "gulp-util": "^3",
+    "tsify": "^3",
+    "typescript": "^2",
+    "vinyl-buffer": "^1",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
+  }
+}

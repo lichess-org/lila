@@ -127,7 +127,7 @@ lichess.StrongSocket = function(url, version, settings) {
     currentLag = now() - lastPingTime;
     if (!averageLag) averageLag = currentLag;
     else averageLag = 0.2 * (currentLag - averageLag) + averageLag;
-    if (options.lagTag) options.lagTag.html(Math.round(averageLag));
+    lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
   var pingData = function() {
@@ -280,7 +280,6 @@ lichess.StrongSocket.defaults = {
     pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 2000, // time between pong and ping
     autoReconnectDelay: 2000,
-    lagTag: false, // jQuery object showing ping lag
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(domain) {
       var main = 'socket.' + domain.split('.').slice(1).join('.');

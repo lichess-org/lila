@@ -484,46 +484,11 @@ body > div.content {
   transition: 0.13s;
   white-space: nowrap;
 }
-#top .auth .links a:hover {
-  background: #F0F0F0;
-  color: #444;
-}
 #top .signin {
   margin: 3px 0.5em 0 0;
   border-color: #d85000;
   padding: 1px 5px;
   height: 17px;
-}
-#top .auth .sep {
-  display: block;
-  padding-top: 5px;
-  margin-top: 5px;
-  border-top: 1px solid #d4d4d4;
-}
-#top .status {
-  position: relative;
-  padding: 0 0 5px !important;
-  min-width: 133px;
-}
-#top .status .led {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  font-size: 20px;
-  opacity: 0.8;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
-}
-#top .status .ping,
-#top .status .server {
-  display: block;
-  font-family: 'Roboto Mono', 'Roboto';
-  padding-left: 10px;
-}
-#top .status strong {
-  padding: 0 5px;
 }
 #top a.toggle {
   display: block;

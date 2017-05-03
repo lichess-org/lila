@@ -1,34 +1,25 @@
 /// <reference types="types/lichess" />
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { Ctrl, DasherOpts, Redraw } from './interfaces'
 
 import makeCtrl from './ctrl';
 import view from './view';
-import { load } from './xhr'
-import { ChallengeOpts, Ctrl } from './interfaces'
 
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-
 const patch = init([klass, attributes]);
 
-export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
+export default function LichessDasher(element: Element, opts: DasherOpts) {
 
   let vnode: VNode, ctrl: Ctrl
 
-  function redraw() {
+  const redraw: Redraw = () => {
     vnode = patch(vnode, view(ctrl));
   }
 
   ctrl = makeCtrl(opts, redraw);
 
   vnode = patch(element, view(ctrl));
-
-  if (opts.data) ctrl.update(opts.data);
-  else load().then(ctrl.update);
-
-  return {
-    update: ctrl.update
-  };
 };

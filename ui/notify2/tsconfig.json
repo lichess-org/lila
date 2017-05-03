@@ -8,6 +8,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "target": "es5"
+    "target": "es5",
+    "lib": ["DOM", "ES5"]
   }
 }

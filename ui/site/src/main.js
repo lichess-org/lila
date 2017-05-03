@@ -1,96 +1,9 @@
-lichess.challengeApp = (function() {
-  var instance, booted;
-  var $toggle = $('#challenge_notifications_tag');
-  $toggle.one('mouseover click', function() {
-    load();
-  });
-  var load = function(data) {
-    if (booted) return;
-    booted = true;
-    var isDev = $('body').data('dev');
-    var $element = $('#challenge_app');
-    lichess.loadCss('/assets/stylesheets/challengeApp.css');
-    lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessChallenge.default($element.empty()[0], {
-        data: data,
-        show: function() {
-          if (!$element.is(':visible')) $toggle.click();
-        },
-        setCount: function(nb) {
-          $toggle.attr('data-count', nb);
-        },
-        pulse: function() {
-          $toggle.addClass('pulse');
-        }
-      });
-    });
-  };
-  return {
-    update: function(data) {
-      if (!instance) load(data);
-      else instance.update(data);
-    },
-    open: function() {
-      $toggle.click();
-    }
-  };
-})();
 
 lichess.topMenuIntent = function() {
   $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
   });
 };
-
-lichess.notifyApp = (function() {
-  var instance, booted;
-  var $element = $('#notify_app');
-  var $toggle = $('#site_notifications_tag');
-  var isVisible = function() {
-    return $element.is(':visible');
-  };
-
-  var load = function(data, incoming) {
-    if (booted) return;
-    booted = true;
-    var isDev = $('body').data('dev');
-    lichess.loadCss('/assets/stylesheets/notifyApp.css');
-    lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
-      instance = LichessNotify.default($element.empty()[0], {
-        data: data,
-        incoming: incoming,
-        isVisible: isVisible,
-        setCount: function(nb) {
-          $toggle.attr('data-count', nb);
-        },
-        show: function() {
-          if (!isVisible()) $toggle.click();
-        },
-        setNotified: function() {
-          lichess.socket.send('notified');
-        },
-        pulse: function() {
-          $toggle.addClass('pulse');
-        }
-      });
-    });
-  };
-
-  $toggle.one('mouseover click', function() {
-    load();
-  }).click(function() {
-    setTimeout(function() {
-      if (instance && isVisible()) instance.setVisible();
-    }, 200);
-  });
-
-  return {
-    update: function(data, incoming) {
-      if (!instance) load(data, incoming);
-      else instance.update(data, incoming);
-    }
-  };
-})();
 
 (function() {
 
@@ -175,17 +88,6 @@ lichess.notifyApp = (function() {
       new_notification: function(e) {
         $('#site_notifications_tag').attr('data-count', e.unread || 0);
         lichess.sound.newPM();
-      },
-      mlat: function(e) {
-        var $t = $('#top .server strong');
-        if ($t.is(':visible')) {
-          $t.text(e);
-          var l = parseInt(e || 0) + parseInt(lichess.socket.options.lagTag.text()) - 100;
-          var ratio = Math.max(Math.min(l / 1200, 1), 0);
-          var hue = ((1 - ratio) * 120).toString(10);
-          var color = ['hsl(', hue, ',100%,40%)'].join('');
-          $('#top .status .led').css('background', color);
-        }
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -469,6 +371,115 @@ lichess.notifyApp = (function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
+      lichess.dasherApp = (function() {
+        var instance, booted;
+        var $toggle = $('#user_tag');
+        $toggle.one('mouseover click', function() {
+          load();
+        });
+        setTimeout(function() { $toggle.click(); }, 100);
+        var load = function(data) {
+          if (booted) return;
+          booted = true;
+          var isDev = $('body').data('dev');
+          var $el = $('#dasher_app');
+          lichess.loadCss('/assets/stylesheets/dasherApp.css');
+          lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LichessDasher.default($el.empty()[0], {
+              playing: $el.data('playing')
+            });
+          });
+        };
+      })();
+
+      lichess.challengeApp = (function() {
+        var instance, booted;
+        var $toggle = $('#challenge_notifications_tag');
+        $toggle.one('mouseover click', function() {
+          load();
+        });
+        var load = function(data) {
+          if (booted) return;
+          booted = true;
+          var isDev = $('body').data('dev');
+          var $element = $('#challenge_app');
+          lichess.loadCss('/assets/stylesheets/challengeApp.css');
+          lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LichessChallenge.default($element.empty()[0], {
+              data: data,
+              show: function() {
+                if (!$element.is(':visible')) $toggle.click();
+              },
+              setCount: function(nb) {
+                $toggle.attr('data-count', nb);
+              },
+              pulse: function() {
+                $toggle.addClass('pulse');
+              }
+            });
+          });
+        };
+        return {
+          update: function(data) {
+            if (!instance) load(data);
+            else instance.update(data);
+          },
+          open: function() {
+            $toggle.click();
+          }
+        };
+      })();
+
+      lichess.notifyApp = (function() {
+        var instance, booted;
+        var $element = $('#notify_app');
+        var $toggle = $('#site_notifications_tag');
+        var isVisible = function() {
+          return $element.is(':visible');
+        };
+
+        var load = function(data, incoming) {
+          if (booted) return;
+          booted = true;
+          var isDev = $('body').data('dev');
+          lichess.loadCss('/assets/stylesheets/notifyApp.css');
+          lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LichessNotify.default($element.empty()[0], {
+              data: data,
+              incoming: incoming,
+              isVisible: isVisible,
+              setCount: function(nb) {
+                $toggle.attr('data-count', nb);
+              },
+              show: function() {
+                if (!isVisible()) $toggle.click();
+              },
+              setNotified: function() {
+                lichess.socket.send('notified');
+              },
+              pulse: function() {
+                $toggle.addClass('pulse');
+              }
+            });
+          });
+        };
+
+        $toggle.one('mouseover click', function() {
+          load();
+        }).click(function() {
+          setTimeout(function() {
+            if (instance && isVisible()) instance.setVisible();
+          }, 200);
+        });
+
+        return {
+          update: function(data, incoming) {
+            if (!instance) load(data, incoming);
+            else instance.update(data, incoming);
+          }
+        };
+      })();
+
       // Zoom
       var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
@@ -603,10 +614,6 @@ lichess.notifyApp = (function() {
           };
           $('html').on('click', handler);
         }, 10);
-        if ($p.hasClass('auth')) {
-          lichess.socket.send('moveLat', true);
-          lichess.socket.options.lagTag = $('#top .ping strong');
-        }
         return false;
       });
 
@@ -643,9 +650,9 @@ lichess.notifyApp = (function() {
 
       // minimal touchscreen support for topmenu
       if ('ontouchstart' in window)
-        $('#topmenu').on('click', 'section > a', function() {
-          return false;
-        });
+      $('#topmenu').on('click', 'section > a', function() {
+        return false;
+      });
 
       $('#ham-plate').one('mouseover click', function() {
         $('body').append($('<div id=fpmenu>').load('/fpmenu'));
@@ -667,12 +674,12 @@ lichess.notifyApp = (function() {
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
-        new Fingerprint2({
-          excludeJsFonts: true
-        }).get(function(res) {
-          var time = Date.now() - t;
-          $.post('/set-fingerprint/' + res + '/' + time);
-        });
+          new Fingerprint2({
+            excludeJsFonts: true
+          }).get(function(res) {
+            var time = Date.now() - t;
+            $.post('/set-fingerprint/' + res + '/' + time);
+          });
       }, 500);
     });
   });
@@ -982,8 +989,8 @@ lichess.notifyApp = (function() {
       var date = new Date(Math.max(0, msTime + 500));
 
       var hours = date.getUTCHours(),
-          minutes = date.getUTCMinutes(),
-          seconds = date.getUTCSeconds();
+        minutes = date.getUTCMinutes(),
+        seconds = date.getUTCSeconds();
 
       if (hours > 0) {
         return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);

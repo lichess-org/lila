@@ -82,6 +82,8 @@ GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info
 
+GET   /dasher                          controllers.Dasher.get
+
 # Site
 GET   /socket                          controllers.Main.websocket
 

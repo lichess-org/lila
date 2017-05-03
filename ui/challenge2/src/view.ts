@@ -122,13 +122,9 @@ function timeControl(c: TimeControl): string {
 function renderUser(u?: ChallengeUser): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
-  return h('a', {
+  return h('a.ulpt.user_link', {
     attrs: { href: `/@/${u.name}`},
-    class: {
-      ulpt: true,
-      user_link: true,
-      online: u.online
-    }
+    class: { online: u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
     h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ')')

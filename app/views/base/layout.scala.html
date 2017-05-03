@@ -93,7 +93,10 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       @ctx.me.map { me =>
       <div class="auth">
-        @auth.userDropdown(me, playing)
+        <a id="user_tag" class="toggle toggle_auth link">@me.username</a>
+        <div id="dasher_app" class="links dropdown" data-playing=@playing>
+          <div class="initiating">@base.spinner()</div>
+        </div>
       </div>
       <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">

@@ -59,6 +59,25 @@ object Account extends LilaController {
     ) map ensureSessionId(ctx.req)
   }
 
+  def dasher = Open { implicit ctx =>
+    negotiate(
+      html = notFound,
+      api = _ => ctx.me match {
+      case None => fuccess(unauthorizedApiResult)
+      case Some(me) => Env.pref.api.getPref(me) map { prefs =>
+        Ok {
+          import play.api.libs.json._
+          import lila.pref.JsonView._
+          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            "coach" -> isGranted(_.Coach),
+            "prefs" -> prefs
+          )
+        }
+      }
+    }
+    )
+  }
+
   def passwd = Auth { implicit ctx => me =>
     Ok(html.account.passwd(me, forms.passwd)).fuccess
   }
