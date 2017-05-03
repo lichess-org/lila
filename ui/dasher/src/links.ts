@@ -5,13 +5,13 @@ import { DasherCtrl, DasherData, Mode } from './dasher'
 import { view as pingView } from './ping'
 import { bind } from './util'
 
-export default function(ctrl: DasherCtrl, d: DasherData): VNode {
+export default function(ctrl: DasherCtrl): VNode {
 
-  const trans = ctrl.trans();
+  const d = ctrl.data, trans = ctrl.trans;
 
   const profile = h(
     'a.user_link.online.text.is-green',
-    linkCfg(`/@/${d.name}`, d.patron ? '' : ''),
+    linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
     trans.noarg('profile'));
 
   const inbox = d.kid ? null : h(
@@ -45,8 +45,10 @@ export default function(ctrl: DasherCtrl, d: DasherData): VNode {
       inbox,
       prefs,
       coach,
-      langs,
       logout
+    ]),
+    h('div.subs', [
+      langs
     ]),
     pingView(ctrl.ping)
   ]);
@@ -66,8 +68,6 @@ function linkCfg(href: string, icon: string, more: any = undefined): any {
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: {
-      'data-icon': 'H'
-    }
+    attrs: { 'data-icon': 'H' }
   };
 }

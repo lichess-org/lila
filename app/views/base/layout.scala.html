@@ -86,10 +86,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       <div id="ham-plate" class="link hint--bottom" data-hint="@trans.menu()">
         <div id="hamburger" data-icon="["></div>
       </div>
-      <div class="lichess_language">
-        <a class="toggle link" href="#">@langName(lang)</a>
-        <form action="@routes.I18n.select" method="POST" class="language_links dropdown"></form>
-      </div>
       @ctx.me.map { me =>
       <div class="auth">
         <a id="user_tag" class="toggle toggle_auth link">@me.username</a>

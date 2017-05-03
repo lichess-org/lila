@@ -617,22 +617,6 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
-      $('#top .lichess_language').one('mouseover', function() {
-        var $links = $(this).find('.language_links'),
-        langs = $('body').data('accept-languages').split(',');
-        $.ajax({
-          url: lichess.assetUrl('/assets/trans/refs.json'),
-          cache: true,
-          success: function(list) {
-            $links.html('<ul><li><a href="/translation/contribute">Help translate Lichess!</a></li></ul>')
-              .find('ul').prepend(list.map(function(lang) {
-                var klass = lichess.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-                return '<li><button type="submit" ' + klass + ' name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
-              }).join(''));
-          }
-        });
-      });
-
       $('a.delete, input.delete').click(function() {
         return confirm('Delete?');
       });

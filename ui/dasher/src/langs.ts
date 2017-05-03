@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, Prop, prop, spinner, bind } from './util'
+import { Redraw, Close, spinner, bind } from './util'
 import { get } from './xhr'
 
 export interface Lang {
@@ -11,25 +11,34 @@ export interface Lang {
 
 type Code = string;
 
+export interface LangsData {
+  current: Code
+  accepted: Code[]
+}
+
 export interface LangsCtrl {
-  data: Prop<Lang[] | undefined>
-  current: Code,
-  accepted: Code[],
+  data: LangsData
+  dict(): Lang[] | undefined
   load(): void
   close: Close
 }
 
-export function ctrl(current: Code, accepted: Code[], redraw: Redraw, close: Close): LangsCtrl {
+export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
 
-  const data: Prop<Lang[] | undefined> = prop(undefined);
+  let dict: Lang[] | undefined;
 
   return {
     data,
-    current,
-    accepted,
+    dict() { return dict },
     load() {
       get(window.lichess.assetUrl('/assets/trans/refs.json'), true).then(d => {
-        data(d);
+        const accs: Lang[] = [];
+        const others: Lang[] = [];
+        d.forEach((l: Lang) => {
+          if (data.accepted.indexOf(l[0]) > -1) accs.push(l);
+          else others.push(l);
+        });
+        dict = accs.concat(others) as Lang[];
         redraw();
       });
     },
@@ -39,34 +48,35 @@ export function ctrl(current: Code, accepted: Code[], redraw: Redraw, close: Clo
 
 export function view(ctrl: LangsCtrl): VNode {
 
-  const d = ctrl.data();
-
-  if (!d) {
-    ctrl.load();
-    return spinner();
-  }
+  const dict = ctrl.dict();
+  if (!dict) ctrl.load();
 
   return h('div.sub.langs', [
     h('a.head.text', {
       attrs: { 'data-icon': 'I' },
       hook: bind('click', ctrl.close)
     }, 'Language'),
-    h('form', {
+    dict ? h('form', {
       attrs: { method: 'post', action: '/translation/select' }
-    }, [
-      h('ul', d.map(langView(ctrl.current, ctrl.accepted)))
-    ])
+    }, langLinks(ctrl, dict)) : spinner()
   ]);
 }
 
+function langLinks(ctrl: LangsCtrl, dict: Lang[]) {
+  const links = dict.map(langView(ctrl.data.current, ctrl.data.accepted));
+  links.push(h('a', {
+    attrs: { href: '/translation/contribute' }
+  }, 'Help translate lichess'));
+  return links;
+}
+
 function langView(current: Code, accepted: Code[]) {
-  return (l: Lang) => h('li', [
-    h('button', {
-      attrs: {
-        type: 'submit',
-        name: 'lang',
-        value: l[0]
-      },
-    }, l[1])
-  ]);
+  return (l: Lang) =>
+  h('button' + (current === l[0] ? '.current' : '') + (accepted.indexOf(l[0]) > -1 ? '.accepted' : ''), {
+    attrs: {
+      type: 'submit',
+      name: 'lang',
+      value: l[0]
+    },
+  }, l[1]);
 }

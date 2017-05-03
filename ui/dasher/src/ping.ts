@@ -15,7 +15,7 @@ export interface PingCtrl {
 
 export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
 
-  let data: PingData = {
+  const data: PingData = {
     ping: undefined,
     server: undefined
   };
@@ -52,14 +52,14 @@ export function view(ctrl: PingCtrl): VNode {
       attrs: { style: ledStyle(d) }
     }),
     h('span.ping.hint--left', {
-      attrs: { 'data-hint': 'PING: ' + ctrl.trans().noarg('networkLagBetweenYouAndLichess') }
+      attrs: { 'data-hint': 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
     }, [
       h('em', 'PING'),
       h('strong', defined(d.ping) ? '' + d.ping : '?'),
       h('em', 'ms')
     ]),
     h('span.server.hint--left', {
-      attrs: { 'data-hint': 'SERVER: ' + ctrl.trans().noarg('timeToProcessAMoveOnLichessServer') }
+      attrs: { 'data-hint': 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') }
     }, [
       h('em', 'SERVER'),
       h('strong', defined(d.server) ? '' + d.server : '?'),

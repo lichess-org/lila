@@ -157,7 +157,6 @@ body.dark #lichess_blog .list h1,
 body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #tournament_side h2,
-body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
 body.dark #puzzle div.box,
 body.dark div.force_resign_zone,
@@ -214,9 +213,7 @@ body.dark #opening .meter .step {
 body.dark #tournament_side .featured .vstext strong,
 body.dark div.search_status,
 body.dark #opening .meter .step,
-body.dark #hooks_wrap div.tabs a,
-body.dark #top div.auth .links a:hover,
-body.dark #top .language_links button:hover {
+body.dark #hooks_wrap div.tabs a {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
@@ -343,7 +340,6 @@ body.dark #miniGame {
   background: #343434;
 }
 body.dark .tview2 line move,
-body.dark #top .language_links button.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,

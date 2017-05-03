@@ -478,12 +478,6 @@ body > div.content {
   background: #fff;
   height: 28px;
 }
-#top .links > a {
-  display: block;
-  padding: 5px 10px;
-  transition: 0.13s;
-  white-space: nowrap;
-}
 #top .signin {
   margin: 3px 0.5em 0 0;
   border-color: #d85000;
@@ -906,42 +900,6 @@ span.progress > .positive {
 }
 span.progress > .negative {
   color: #ac524f;
-}
-.language_links {
-  width: 620px;
-  padding: 10px;
-  max-height: 700px;
-  overflow: auto;
-}
-.language_links button {
-  display: block;
-  padding: 0.4em 0.5em;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  transition: background 0.13s;
-}
-.language_links button.current,
-.language_links button.accepted {
-  font-weight: bold;
-  color: #444;
-}
-.language_links button:hover,
-.language_links button.current {
-  background: #F0F0F0;
-}
-.language_links li {
-  width: 25%;
-  height: 24px;
-  float: left;
-  display: block;
-  overflow: hidden;
-}
-.language_links li:last-child {
-  width: 50%;
-  font-weight: bold;
-  padding-top: 10px;
 }
 #sound_control {
   position: relative;

@@ -3,7 +3,8 @@
 import { Redraw } from './util'
 
 import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
-import view from './view';
+import { loading, loaded } from './view';
+import { get } from './xhr';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
@@ -13,13 +14,16 @@ const patch = init([klass, attributes]);
 
 export default function LichessDasher(element: Element, opts: DasherOpts) {
 
-  let vnode: VNode, ctrl: DasherCtrl
+  let vnode: VNode, ctrl: DasherCtrl;
 
   const redraw: Redraw = () => {
-    vnode = patch(vnode, view(ctrl));
+    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
   }
 
-  ctrl = makeCtrl(opts, redraw);
+  redraw();
 
-  vnode = patch(element, view(ctrl));
+  get('/dasher').then(data => {
+    ctrl = makeCtrl(opts, data, redraw);
+    redraw();
+  });
 };
