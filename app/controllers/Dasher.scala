@@ -1,5 +1,6 @@
 package controllers
 
+import scala.collection.breakOut
 import play.api.mvc._
 
 import lila.api.Context
@@ -26,6 +27,10 @@ object Dasher extends LilaController {
       case Some(me) => Env.pref.api.getPref(me) map { prefs =>
         Ok {
           lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+            "lang" -> Json.obj(
+              "current" -> Env.i18n.pool.lang(ctx.req).language.toString,
+              "accepted" -> (ctx.req.acceptLanguages.map(_.language.toString)(breakOut): List[String]).distinct
+            ),
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),
             "prefs" -> prefs,

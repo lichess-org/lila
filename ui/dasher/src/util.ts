@@ -1,6 +1,8 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
 export type Redraw = () => void
+export type Close = () => void
 
 export interface Prop<T> {
   (): T
@@ -19,7 +21,20 @@ export function prop<A>(initialValue: A): Prop<A> {
     return value;
   };
   return fun as Prop<A>;
-};
+}
+
+export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
+  return {
+    insert: (vnode: VNode) => {
+      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
+        e.stopPropagation();
+        f(e);
+        if (redraw) redraw();
+        return false;
+      });
+    }
+  };
+}
 
 export function spinner() {
   return h('div.spinner', [

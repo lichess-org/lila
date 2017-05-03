@@ -1,10 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Ctrl, DasherData } from './ctrl'
+import { DasherCtrl, DasherData, Mode } from './dasher'
 import { view as pingView } from './ping'
+import { bind } from './util'
 
-export default function(ctrl: Ctrl, d: DasherData): VNode[] {
+export default function(ctrl: DasherCtrl, d: DasherData): VNode {
 
   const trans = ctrl.trans();
 
@@ -28,21 +29,27 @@ export default function(ctrl: Ctrl, d: DasherData): VNode[] {
     linkCfg('/coach/edit', ':'),
     'Coach manager');
 
+  const langs = h(
+    'a.sub',
+    modeCfg(ctrl, 'langs'),
+    'Language')
+
   const logout = h(
     'a.text',
     linkCfg('/logout', 'w'),
     trans.noarg('logOut'));
 
-  return [
+  return h('div', [
     h('div.links', [
       profile,
       inbox,
       prefs,
       coach,
+      langs,
       logout
     ]),
     pingView(ctrl.ping)
-  ];
+  ]);
 }
 
 function linkCfg(href: string, icon: string, more: any = undefined): any {
@@ -54,4 +61,13 @@ function linkCfg(href: string, icon: string, more: any = undefined): any {
   };
   if (more) for(let i in more) cfg.attrs[i] = more[i];
   return cfg;
+}
+
+function modeCfg(ctrl: DasherCtrl, m: Mode): any {
+  return {
+    hook: bind('click', () => ctrl.setMode(m)),
+    attrs: {
+      'data-icon': 'H'
+    }
+  };
 }

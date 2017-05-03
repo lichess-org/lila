@@ -74,7 +74,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     data-bg="@ctx.currentBg"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
-    data-accept-languages="@acceptLanguages.mkString(",")"
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />

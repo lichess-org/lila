@@ -53,9 +53,6 @@ trait I18nHelper {
   def commonDomain(implicit ctx: UserContext): String =
     I18nDomain(ctx.req.domain).commonDomain
 
-  def acceptLanguages(implicit ctx: UserContext): List[String] =
-    (ctx.req.acceptLanguages.map(_.language.toString)(breakOut): List[String]).distinct
-
   def acceptsLanguage(lang: Lang)(implicit ctx: UserContext): Boolean =
     ctx.req.acceptLanguages exists (_.language == lang.language)
 

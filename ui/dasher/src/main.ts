@@ -2,7 +2,7 @@
 
 import { Redraw } from './util'
 
-import { Ctrl, DasherOpts, makeCtrl } from './ctrl';
+import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
 import view from './view';
 
 import { init } from 'snabbdom';
@@ -13,7 +13,7 @@ const patch = init([klass, attributes]);
 
 export default function LichessDasher(element: Element, opts: DasherOpts) {
 
-  let vnode: VNode, ctrl: Ctrl
+  let vnode: VNode, ctrl: DasherCtrl
 
   const redraw: Redraw = () => {
     vnode = patch(vnode, view(ctrl));
