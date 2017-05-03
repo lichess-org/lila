@@ -29,15 +29,20 @@ export default function(ctrl: DasherCtrl): VNode {
     linkCfg('/coach/edit', ':'),
     'Coach manager');
 
+  const logout = h(
+    'a.text',
+    linkCfg('/logout', 'w'),
+    trans.noarg('logOut'));
+
   const langs = h(
     'a.sub',
     modeCfg(ctrl, 'langs'),
     'Language')
 
-  const logout = h(
-    'a.text',
-    linkCfg('/logout', 'w'),
-    trans.noarg('logOut'));
+  const sound = h(
+    'a.sub',
+    modeCfg(ctrl, 'sound'),
+    trans.noarg('sound'))
 
   return h('div', [
     h('div.links', [
@@ -48,7 +53,8 @@ export default function(ctrl: DasherCtrl): VNode {
       logout
     ]),
     h('div.subs', [
-      langs
+      langs,
+      sound
     ]),
     pingView(ctrl.ping)
   ]);

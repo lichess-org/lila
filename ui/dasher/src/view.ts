@@ -4,6 +4,7 @@ import { VNode } from 'snabbdom/vnode'
 import { DasherCtrl } from './dasher'
 import links from './links'
 import { view as langsView } from './langs'
+import { view as soundView } from './sound'
 import { spinner } from './util'
 
 export function loading(): VNode {
@@ -15,6 +16,9 @@ export function loaded(ctrl: DasherCtrl): VNode {
   switch(ctrl.mode()) {
     case 'langs':
       content = langsView(ctrl.langs);
+      break;
+    case 'sound':
+      content = soundView(ctrl.sound);
       break;
     default:
       content = links(ctrl);

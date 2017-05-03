@@ -1,5 +1,6 @@
 import { PingCtrl, ctrl as pingCtrl } from './ping'
 import { LangsCtrl, ctrl as langsCtrl } from './langs'
+import { SoundCtrl, ctrl as soundCtrl } from './sound'
 import { Redraw, Prop, prop } from './util'
 import { get } from './xhr'
 
@@ -9,13 +10,17 @@ export interface DasherData {
     current: string
     accepted: string[]
   }
+  sound: {
+    current: string
+    list: string[]
+  }
   kid: boolean
   coach: boolean
   prefs: any
   i18n: any
 }
 
-export type Mode = 'links' | 'langs'
+export type Mode = 'links' | 'langs' | 'sound'
 
 export interface DasherCtrl {
   mode: Prop<Mode>
@@ -24,6 +29,7 @@ export interface DasherCtrl {
   trans: Trans
   ping: PingCtrl
   langs: LangsCtrl
+  sound: SoundCtrl
   opts: DasherOpts
 }
 
@@ -45,6 +51,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const ping = pingCtrl(trans, redraw);
   const langs = langsCtrl(data.lang, redraw, close);
+  const sound = soundCtrl(data.sound.current, data.sound.list, trans, redraw, close);
 
   return {
     mode,
@@ -53,6 +60,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     trans,
     ping,
     langs,
+    sound,
     opts,
   };
 };

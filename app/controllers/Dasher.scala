@@ -16,7 +16,8 @@ object Dasher extends LilaController {
     Env.i18n.keys.preferences,
     Env.i18n.keys.logOut,
     Env.i18n.keys.networkLagBetweenYouAndLichess,
-    Env.i18n.keys.timeToProcessAMoveOnLichessServer
+    Env.i18n.keys.timeToProcessAMoveOnLichessServer,
+    Env.i18n.keys.sound
   ), Env.i18n.pool lang ctx.req)
 
   def get = Open { implicit ctx =>
@@ -31,6 +32,12 @@ object Dasher extends LilaController {
             "lang" -> Json.obj(
               "current" -> Env.i18n.pool.lang(ctx.req).language.toString,
               "accepted" -> (ctx.req.acceptLanguages.map(_.language.toString)(breakOut): List[String]).distinct
+            ),
+            "sound" -> Json.obj(
+              "current" -> ctx.currentSoundSet.key,
+              "list" -> lila.pref.SoundSet.list.map { set =>
+                s"${set.key} ${set.name}"
+              }
             ),
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),
