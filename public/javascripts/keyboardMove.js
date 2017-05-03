@@ -51,7 +51,6 @@ function makeBindings(opts, submit, clear) {
   opts.input.addEventListener('blur', function() {
     opts.setFocus(false);
   });
-  opts.input.focus();
 }
 
 function sanToUci(san, sans) {
