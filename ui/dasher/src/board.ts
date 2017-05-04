@@ -21,17 +21,22 @@ export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
     $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
   }, 500);
 
+  function publishZoom() {
+    window.lichess.pubsub.emit('set_zoom')(data.zoom / 100);
+  }
+
   return {
     data,
     setIs3d(v: boolean) {
       data.is3d = v;
       $.post('/pref/is3d', { is3d: v }, window.lichess.reloadOtherTabs);
       applyDimension(v);
+      publishZoom();
       redraw();
     },
     setZoom(v: number) {
       data.zoom = v;
-      window.lichess.pubsub.emit('set_zoom')(v / 100);
+      publishZoom();
       saveZoom();
     },
     close
@@ -89,6 +94,4 @@ function applyDimension(is3d: boolean) {
       $(this).attr('href', $(this).attr('href').replace(/board\.css/, 'board-3d.css')).appendTo('head');
     });
   }
-
-  window.lichess.pubsub.emit('set_zoom')();
 }

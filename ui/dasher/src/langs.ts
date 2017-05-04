@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, spinner, bind } from './util'
+import { Redraw, Close, spinner, bind, header } from './util'
 import { get } from './xhr'
 
 export interface Lang {
@@ -52,10 +52,7 @@ export function view(ctrl: LangsCtrl): VNode {
   if (!list) ctrl.load();
 
   return h('div.sub.langs', [
-    h('a.head.text', {
-      attrs: { 'data-icon': 'I' },
-      hook: bind('click', ctrl.close)
-    }, 'Language'),
+    header('Language', ctrl.close),
     list ? h('form', {
       attrs: { method: 'post', action: '/translation/select' }
     }, langLinks(ctrl, list)) : spinner()

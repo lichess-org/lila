@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, bind } from './util'
+import { Redraw, Close, bind, header } from './util'
 
 export interface BackgroundCtrl {
   list: Background[]
@@ -56,10 +56,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
   const cur = ctrl.get();
 
   return h('div.sub.background', [
-    h('a.head.text', {
-      attrs: { 'data-icon': 'I' },
-      hook: bind('click', ctrl.close)
-    }, 'Background'),
+    header('Background', ctrl.close),
     h('div.selector', ctrl.list.map(bg => {
       return h('a.text', {
         class: { active: cur === bg.key },

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, bind } from './util'
+import { Redraw, Close, bind, header } from './util'
 
 type Key = string;
 type Name = string;
@@ -51,10 +51,7 @@ export function view(ctrl: SoundCtrl): VNode {
   return h('div.sub.sound', {
     class: { [ctrl.api.set()]: true }
   }, [
-    h('a.head.text', {
-      attrs: { 'data-icon': 'I' },
-      hook: bind('click', ctrl.close)
-    }, ctrl.trans('sound')),
+    header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
       h('div.selector', {

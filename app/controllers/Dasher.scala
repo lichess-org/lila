@@ -46,6 +46,20 @@ object Dasher extends LilaController {
               "is3d" -> ctx.is3d,
               "zoom" -> ctx.zoom
             ),
+            "theme" -> Json.obj(
+              "d2" -> Json.obj(
+                "current" -> ctx.currentTheme.name,
+                "list" -> lila.pref.Theme.list.map(_.name)
+              ),
+              "d3" -> Json.obj(
+                "current" -> ctx.currentTheme3d.name,
+                "list" -> lila.pref.Theme3d.list.map(_.name)
+              )
+            ),
+            "piece" -> Json.obj(
+              "d2" -> ctx.currentPieceSet.name,
+              "d3" -> ctx.currentPieceSet3d.name
+            ),
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),
             "prefs" -> prefs,

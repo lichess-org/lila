@@ -7,6 +7,7 @@ import { view as langsView } from './langs'
 import { view as soundView } from './sound'
 import { view as backgroundView } from './background'
 import { view as boardView } from './board'
+import { view as themeView } from './theme'
 import { spinner } from './util'
 
 export function loading(): VNode {
@@ -27,6 +28,9 @@ export function loaded(ctrl: DasherCtrl): VNode {
       break;
     case 'board':
       content = boardView(ctrl.subs.board);
+      break;
+    case 'theme':
+      content = themeView(ctrl.subs.theme);
       break;
     default:
       content = links(ctrl);
