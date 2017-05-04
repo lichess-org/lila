@@ -19,6 +19,7 @@
 }
 #dasher_app .links a:hover,
 #dasher_app .subs a:hover,
+#dasher_app .langs form > *:hover,
 #dasher_app .sound .selector a:hover {
   background: #F0F0F0;
   color: #444;
@@ -88,22 +89,19 @@
   border-left: 3px solid #3893E8;
 }
 #dasher_app .langs .current {
-  background: #759900;
-  color: #fff;
+  background: #3893E8!important;
+  color: #fff!important;
   border-left: none;
 }
-#dasher_app .langs form > *:hover {
-  background: #3893E8;
-  color: #fff;
+#dasher_app .sound {
+  display: flex;
+  flex-flow: column;
 }
-/* #dasher_app .sound { */
-/*   display: flex; */
-/* } */
 #dasher_app .sound .slider {
   float: right;
   width: 10px;
   height: 168px;
-  /* background: red; */
+  background: red;
 }
 #dasher_app .sound .slider .ui-slider-handle {
   margin: 0 0 -9px -3px;
@@ -119,16 +117,22 @@
   display: flex;
   align-items: stretch;
 }
+#dasher_app .sound .selector .active {
+  background: #3893E8!important;
+  color: #fff!important;
+}
 #dasher_app .sound .selector i {
+  margin-top: -2px;
+  font-size: 1.2em;
   justify-content: center;
   align-items: center;
-  padding: 5px 0 5px 5px;
+  padding: 6px 0 6px 6px;
   opacity: 0;
-}
-#dasher_app .sound .selector span {
-  padding: 5px;
 }
 #dasher_app .sound .selector .active i {
   opacity: 1;
-  color: #3893E8;
+  color: #fff;
+}
+#dasher_app .sound .selector span {
+  padding: 6px;
 }

@@ -41,7 +41,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const trans = window.lichess.trans(data.i18n);
 
-  let mode: Prop<Mode> = prop('links' as Mode);
+  let mode: Prop<Mode> = prop('sound' as Mode);
 
   function setMode(m: Mode) {
     mode(m);

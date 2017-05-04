@@ -18,18 +18,18 @@ export interface LangsData {
 
 export interface LangsCtrl {
   data: LangsData
-  dict(): Lang[] | undefined
+  list(): Lang[] | undefined
   load(): void
   close: Close
 }
 
 export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
 
-  let dict: Lang[] | undefined;
+  let list: Lang[] | undefined;
 
   return {
     data,
-    dict() { return dict },
+    list: () => list,
     load() {
       get(window.lichess.assetUrl('/assets/trans/refs.json'), true).then(d => {
         const accs: Lang[] = [];
@@ -38,7 +38,7 @@ export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
           if (data.accepted.indexOf(l[0]) > -1) accs.push(l);
           else others.push(l);
         });
-        dict = accs.concat(others) as Lang[];
+        list = accs.concat(others) as Lang[];
         redraw();
       });
     },
@@ -48,22 +48,22 @@ export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
 
 export function view(ctrl: LangsCtrl): VNode {
 
-  const dict = ctrl.dict();
-  if (!dict) ctrl.load();
+  const list = ctrl.list();
+  if (!list) ctrl.load();
 
   return h('div.sub.langs', [
     h('a.head.text', {
       attrs: { 'data-icon': 'I' },
       hook: bind('click', ctrl.close)
     }, 'Language'),
-    dict ? h('form', {
+    list ? h('form', {
       attrs: { method: 'post', action: '/translation/select' }
-    }, langLinks(ctrl, dict)) : spinner()
+    }, langLinks(ctrl, list)) : spinner()
   ]);
 }
 
-function langLinks(ctrl: LangsCtrl, dict: Lang[]) {
-  const links = dict.map(langView(ctrl.data.current, ctrl.data.accepted));
+function langLinks(ctrl: LangsCtrl, list: Lang[]) {
+  const links = list.map(langView(ctrl.data.current, ctrl.data.accepted));
   links.push(h('a', {
     attrs: { href: '/translation/contribute' }
   }, 'Help translate lichess'));

@@ -15,7 +15,7 @@ export interface SoundData {
 
 export interface SoundCtrl {
   current: () => Key
-  dict: Sound[]
+  list: Sound[]
   set(k: Key): void
   trans: Trans
   close: Close
@@ -23,11 +23,11 @@ export interface SoundCtrl {
 
 export function ctrl(current: Key, raw: string[], trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
 
-  const dict: Sound[] = raw.map(s => s.split(' '));
+  const list: Sound[] = raw.map(s => s.split(' '));
 
   return {
     current: () => current,
-    dict,
+    list,
     set(k: Key) {
       current = k;
       redraw();
@@ -45,12 +45,28 @@ export function view(ctrl: SoundCtrl): VNode {
       hook: bind('click', ctrl.close)
     }, ctrl.trans('sound')),
     h('div.content', [
-      h('div.slider'),
+      h('div.slider', { hook: { insert: makeSlider } }),
       h('div.selector', {
         attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.dict.map(soundView(ctrl, ctrl.current())))
+      }, ctrl.list.map(soundView(ctrl, ctrl.current())))
     ])
   ]);
+}
+
+function makeSlider(vnode: VNode) {
+  window.lichess.slider().done(function() {
+    $(vnode.elm).slider({
+      orientation: "vertical",
+      min: 0,
+      max: 1,
+      range: 'min',
+      step: 0.01,
+      value: volumeStorage.get() || defaultVolume,
+      slide: function(e, ui) {
+        manuallySetVolume(ui.value);
+      }
+    });
+  });
 }
 
 function soundView(ctrl: SoundCtrl, current: Key) {

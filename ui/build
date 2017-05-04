@@ -6,7 +6,7 @@ target=${1-dev}
 mkdir -p public/compiled
 
 ts_apps="common chess ceval game tree"
-apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat"
+apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
 prll_sh=${PRLLSH-/etc/profile.d/prll.sh}
 

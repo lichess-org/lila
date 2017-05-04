@@ -377,7 +377,7 @@ lichess.topMenuIntent = function() {
         $toggle.one('mouseover click', function() {
           load();
         });
-        // setTimeout(function() { $toggle.click(); }, 100);
+        setTimeout(function() { $toggle.click(); }, 100);
         var load = function(data) {
           if (booted) return;
           booted = true;
