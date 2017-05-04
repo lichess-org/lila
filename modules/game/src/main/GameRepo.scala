@@ -88,6 +88,17 @@ object GameRepo {
     .sort($sort asc F.createdAt)
     .list[Game](nb, ReadPreference.secondaryPreferred)
 
+  def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] = coll.find(
+    Query.finished
+      ++ Query.rated
+      ++ Query.user(userId)
+      ++ Query.turnsMoreThan(22)
+      ++ Query.variantStandard
+      ++ Query.clock(true)
+  )
+    .sort($sort asc F.createdAt)
+    .list[Game](nb, ReadPreference.secondaryPreferred)
+
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
