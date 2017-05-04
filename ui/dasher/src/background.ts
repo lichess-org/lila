@@ -9,7 +9,6 @@ export interface BackgroundCtrl {
   get(): string
   getImage(): string
   setImage(i: string): void
-  trans: Trans
   close: Close
 }
 
@@ -24,7 +23,7 @@ interface Background {
 }
 
 
-export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
+export function ctrl(data: BackgroundData, redraw: Redraw, close: Close): BackgroundCtrl {
 
   const list: Background[] = [
     { key: 'light', name: 'Light' },
@@ -48,7 +47,6 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
       applyBackground(data, list);
       redraw();
     },
-    trans,
     close
   };
 }
@@ -57,9 +55,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
   const cur = ctrl.get();
 
-  return h('div.sub.background', {
-    class: { [cur]: true }
-  }, [
+  return h('div.sub.background', [
     h('a.head.text', {
       attrs: { 'data-icon': 'I' },
       hook: bind('click', ctrl.close)

@@ -2,6 +2,7 @@ import { PingCtrl, ctrl as pingCtrl } from './ping'
 import { LangsCtrl, ctrl as langsCtrl } from './langs'
 import { SoundCtrl, ctrl as soundCtrl } from './sound'
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background'
+import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board'
 import { Redraw, Prop, prop } from './util'
 import { get } from './xhr'
 
@@ -15,13 +16,14 @@ export interface DasherData {
     list: string[]
   }
   background: BackgroundData
+  board: BoardData
   kid: boolean
   coach: boolean
   prefs: any
   i18n: any
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background'
+export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board'
 
   export interface DasherCtrl {
     mode: Prop<Mode>
@@ -32,7 +34,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background'
     subs: {
       langs: LangsCtrl
       sound: SoundCtrl
-      background: BackgroundCtrl
+      background: BackgroundCtrl,
+      board: BoardCtrl
     }
     opts: DasherOpts
   }
@@ -45,7 +48,7 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background'
 
     const trans = window.lichess.trans(data.i18n);
 
-    let mode: Prop<Mode> = prop('links' as Mode);
+    let mode: Prop<Mode> = prop('board' as Mode);
 
     function setMode(m: Mode) {
       mode(m);
@@ -58,7 +61,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background'
     const subs = {
       langs: langsCtrl(data.lang, redraw, close),
       sound: soundCtrl(data.sound.list, trans, redraw, close),
-      background: backgroundCtrl(data.background, trans, redraw, close)
+      background: backgroundCtrl(data.background, redraw, close),
+      board: boardCtrl(data.board, redraw, close)
     };
 
     return {

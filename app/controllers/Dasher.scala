@@ -42,6 +42,7 @@ object Dasher extends LilaController {
               "current" -> ctx.currentBg,
               "image" -> ctx.bgImg
             ),
+            "is3d" -> ctx.is3d,
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),
             "prefs" -> prefs,
