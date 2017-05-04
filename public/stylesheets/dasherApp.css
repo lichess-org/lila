@@ -93,29 +93,18 @@
   color: #fff!important;
   border-left: none;
 }
-#dasher_app .sound {
+#dasher_app .sound .content {
   display: flex;
-  flex-flow: column;
-}
-#dasher_app .sound .slider {
-  float: right;
-  width: 10px;
-  height: 168px;
-  background: red;
-}
-#dasher_app .sound .slider .ui-slider-handle {
-  margin: 0 0 -9px -3px;
-}
-#dasher_app .sound .slider .ui-widget-header {
-  width: 10px;
-  bottom: 0;
+  flex-flow: row;
 }
 #dasher_app .sound .selector {
+  flex: 1 1 100%;
   margin: 5px 0;
 }
 #dasher_app .sound .selector a {
   display: flex;
   align-items: stretch;
+  border-radius: 3px 0 0 3px;
 }
 #dasher_app .sound .selector .active {
   background: #3893E8!important;
@@ -135,4 +124,21 @@
 }
 #dasher_app .sound .selector span {
   padding: 6px;
+}
+#dasher_app .sound.silent .slider {
+  opacity: 0.2;
+}
+#dasher_app .sound .slider {
+  flex: 0 0 8px;
+  margin: 10px;
+}
+#dasher_app .sound .slider .ui-slider-handle {
+  margin: 0 0 -9px -4px;
+  border-radius: 50%;
+  border-color: #3893E8!important;
+}
+#dasher_app .sound .slider .ui-widget-header {
+  width: 8px;
+  bottom: 0;
+  background: #3893E8!important;
 }

@@ -11,7 +11,6 @@ export interface DasherData {
     accepted: string[]
   }
   sound: {
-    current: string
     list: string[]
   }
   kid: boolean
@@ -41,7 +40,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const trans = window.lichess.trans(data.i18n);
 
-  let mode: Prop<Mode> = prop('sound' as Mode);
+  let mode: Prop<Mode> = prop('links' as Mode);
 
   function setMode(m: Mode) {
     mode(m);
@@ -51,7 +50,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const ping = pingCtrl(trans, redraw);
   const langs = langsCtrl(data.lang, redraw, close);
-  const sound = soundCtrl(data.sound.current, data.sound.list, trans, redraw, close);
+  const sound = soundCtrl(data.sound.list, trans, redraw, close);
 
   return {
     mode,

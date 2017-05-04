@@ -124,7 +124,6 @@ body.transp #start_buttons a:hover {
   background: rgba(20, 20, 20, 0.6);
 }
 body.transp #top a.toggle,
-body.transp #top #sound_state,
 body.transp #tv_channels,
 body.transp #video_side,
 body.transp #video_side a,

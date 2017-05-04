@@ -901,14 +901,6 @@ span.progress > .positive {
 span.progress > .negative {
   color: #ac524f;
 }
-#sound_state span.on,
-#sound_state.sound_state_on span.off {
-  display: none;
-}
-#sound_state span.off,
-#sound_state.sound_state_on span.on {
-  display: block;
-}
 #sound_state.unavailable {
   display: none;
 }

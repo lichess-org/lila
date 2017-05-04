@@ -377,7 +377,6 @@ lichess.topMenuIntent = function() {
         $toggle.one('mouseover click', function() {
           load();
         });
-        setTimeout(function() { $toggle.click(); }, 100);
         var load = function(data) {
           if (booted) return;
           booted = true;
@@ -669,10 +668,11 @@ lichess.topMenuIntent = function() {
   });
 
   lichess.sound = (function() {
-    var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
+    var api = {};
     var soundSet = $('body').data('sound-set');
-    var volumeStorage = lichess.storage.make('sound-volume');
-    var defaultVolume = 0.7;
+
+    api.volumeStorage = lichess.storage.make('sound-volume');
+    api.defaultVolume = 0.7;
 
     var memoize = function(factory) {
       var loaded = {};
@@ -720,6 +720,7 @@ lichess.topMenuIntent = function() {
         };
         set = 'standard';
       }
+      var baseUrl = lichess.assetUrl('/assets/sound', {noVersion:true});
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
           return [baseUrl, set, names[k] + '.' + ext].join('/');
@@ -727,63 +728,36 @@ lichess.topMenuIntent = function() {
         volume: volumes[k] || 1
       });
     });
-    var $toggle = $('#sound_state');
     var enabled = function() {
       return soundSet !== 'silent';
     };
-    $toggle.toggleClass('sound_state_on', enabled());
-    var play = {};
     Object.keys(names).forEach(function(name) {
-      play[name] = function() {
+      api[name] = function() {
         if (!enabled()) return;
-        Howler.volume(volumeStorage.get() || defaultVolume);
+        Howler.volume(api.volumeStorage.get() || defaultVolume);
         collection(name).play();
       }
     });
-    play.load = function(name) {
+    api.load = function(name) {
       if (enabled() && name in names) collection(name);
     };
-    var setVolume = function(v) {
-      volumeStorage.set(v);
+    api.setVolume = function(v) {
+      api.volumeStorage.set(v);
       Howler.volume(v);
     };
-    var manuallySetVolume = lichess.fp.debounce(function(v) {
-      setVolume(v);
-      play.move(true);
-    }, 50);
+
     var publish = function() {
       lichess.pubsub.emit('sound_set')(soundSet);
     };
     setTimeout(publish, 500);
-    $toggle.one('mouseover', function() {
-      lichess.slider().done(function() {
-        $toggle.parent().find('.slider').slider({
-          orientation: "vertical",
-          min: 0,
-          max: 1,
-          range: 'min',
-          step: 0.01,
-          value: volumeStorage.get() || defaultVolume,
-          slide: function(e, ui) {
-            manuallySetVolume(ui.value);
-          }
-        });
-      });
-      var $selector = $toggle.parent().find('form');
-      $selector.find('input').on('change', function() {
-        soundSet = $(this).val();
-        collection.clear();
-        play.genericNotify();
-        $.post($selector.attr('action'), {
-          set: soundSet
-        }, lichess.reloadOtherTabs);
-        $toggle.toggleClass('sound_state_on', enabled());
-        publish();
-        return false;
-      });
-    });
 
-    play.warmup = function() {
+    api.changeSet = function(s) {
+      soundSet = s;
+      collection.clear();
+      publish();
+    };
+
+    api.warmup = function() {
       if (enabled()) {
         // See goldfire/howler.js#715
         Howler._autoResume();   // This resumes sound if suspended.
@@ -791,10 +765,10 @@ lichess.topMenuIntent = function() {
       }
     };
 
-    play.set = function() {
+    api.set = function() {
       return soundSet;
     };
-    return play;
+    return api;
   })();
 
   lichess.globalTrans = function() {

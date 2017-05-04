@@ -13,6 +13,8 @@ interface Lichess {
   reload(): void;
   loadScript(url: string): any
   keyboardMove: any
+  slider: () => any
+  reloadOtherTabs: () => void
 
   fp: any
   sound: any
