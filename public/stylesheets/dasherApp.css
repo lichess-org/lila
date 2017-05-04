@@ -19,8 +19,7 @@
 }
 #dasher_app .links a:hover,
 #dasher_app .subs a:hover,
-#dasher_app .langs form > *:hover,
-#dasher_app .sound .selector a:hover {
+#dasher_app .langs form > *:hover {
   background: #F0F0F0;
   color: #444;
 }
@@ -93,37 +92,43 @@
   color: #fff!important;
   border-left: none;
 }
+#dasher_app .selector {
+  flex: 1 1 100%;
+  margin: 5px 0;
+}
+#dasher_app .selector a {
+  display: block;
+  padding: 6px 0 6px 8px;
+}
+#dasher_app .selector a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+#dasher_app .selector a.active {
+  background: #3893E8!important;
+  color: #fff!important;
+}
+#dasher_app .selector a::before {
+  margin-right: 8px;
+  font-size: 1.6em;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+#dasher_app .selector a:hover::before {
+  opacity: 1;
+  color: #fff;
+}
+#dasher_app .selector a.active::before {
+  opacity: 1;
+  color: #fff!important;
+}
 #dasher_app .sound .content {
   display: flex;
   flex-flow: row;
 }
-#dasher_app .sound .selector {
-  flex: 1 1 100%;
-  margin: 5px 0;
-}
 #dasher_app .sound .selector a {
-  display: flex;
-  align-items: stretch;
   border-radius: 3px 0 0 3px;
-}
-#dasher_app .sound .selector .active {
-  background: #3893E8!important;
-  color: #fff!important;
-}
-#dasher_app .sound .selector i {
-  margin-top: -2px;
-  font-size: 1.2em;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 0 6px 6px;
-  opacity: 0;
-}
-#dasher_app .sound .selector .active i {
-  opacity: 1;
-  color: #fff;
-}
-#dasher_app .sound .selector span {
-  padding: 6px;
 }
 #dasher_app .sound.silent .slider {
   opacity: 0.2;
@@ -141,4 +146,31 @@
   width: 8px;
   bottom: 0;
   background: #3893E8!important;
+}
+
+#dasher_app .background .image p {
+  font-size: 0.9em;
+  padding: 5px;
+}
+#dasher_app .background input {
+  padding: 5px;
+  border: 1px solid #444;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+body.dark #dasher_app .subs,
+body.dark #dasher_app .status {
+  border-color: #3d3d3d;
+}
+body.dark #dasher_app .head,
+body.dark #dasher_app .links a:hover,
+body.dark #dasher_app .subs a:hover,
+body.dark #dasher_app .langs form > *:hover,
+body.dark #dasher_app .selector a:hover {
+  background: #3e3e3e;
+  color: #b0b0b0;
+}
+body.dark #dasher_app .selector a:hover::before {
+  color: #555;
 }

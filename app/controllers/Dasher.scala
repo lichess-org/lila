@@ -38,6 +38,10 @@ object Dasher extends LilaController {
                 s"${set.key} ${set.name}"
               }
             ),
+            "background" -> Json.obj(
+              "current" -> ctx.currentBg,
+              "image" -> ctx.bgImg
+            ),
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),
             "prefs" -> prefs,

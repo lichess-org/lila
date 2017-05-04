@@ -209,12 +209,6 @@
 .icon-television-tv:before {
   content: "\31";
 }
-.icon-moon:before {
-  content: "\34";
-}
-.icon-sun:before {
-  content: "\35";
-}
 .icon-ink-pen:before {
   content: "\36";
 }
@@ -226,12 +220,6 @@
 }
 .icon-ionicons-1:before {
   content: "\37";
-}
-.icon-unmute:before {
-  content: "\23";
-}
-.icon-mute:before {
-  content: "\24";
 }
 .icon-gear:before {
   content: "\25";

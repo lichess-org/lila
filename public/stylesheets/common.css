@@ -53,8 +53,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font73/fonts/lichess.eot");
-  src: url("../font73/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font73/fonts/lichess.woff") format("woff"), url("../font73/fonts/lichess.ttf") format("truetype");
+  src: url("../font74/fonts/lichess.eot");
+  src: url("../font74/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font74/fonts/lichess.woff") format("woff"), url("../font74/fonts/lichess.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -900,9 +900,6 @@ span.progress > .positive {
 }
 span.progress > .negative {
   color: #ac524f;
-}
-#sound_state.unavailable {
-  display: none;
 }
 #friend_box {
   position: fixed;

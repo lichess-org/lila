@@ -44,6 +44,11 @@ export default function(ctrl: DasherCtrl): VNode {
     modeCfg(ctrl, 'sound'),
     trans.noarg('sound'))
 
+  const background = h(
+    'a.sub',
+    modeCfg(ctrl, 'background'),
+    'Background')
+
   return h('div', [
     h('div.links', [
       profile,
@@ -54,7 +59,8 @@ export default function(ctrl: DasherCtrl): VNode {
     ]),
     h('div.subs', [
       langs,
-      sound
+      sound,
+      background
     ]),
     pingView(ctrl.ping)
   ]);

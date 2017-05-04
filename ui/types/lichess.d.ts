@@ -53,6 +53,7 @@ interface Window {
   moment: any
   Mousetrap: any
   Chessground: any
+  Highcharts: any
 }
 
 interface Paginator<T> {

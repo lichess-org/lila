@@ -80,11 +80,9 @@ function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
 }
 
 function soundView(ctrl: SoundCtrl, current: Key) {
-  return (s: Sound) => h('a', {
+  return (s: Sound) => h('a.text', {
     hook: bind('click', () => ctrl.set(s[0])),
-    class: { active: current === s[0] }
-  }, [
-    h('i', { attrs: { 'data-icon': 'E' } }),
-    h('span', s[1])
-  ]);
+    class: { active: current === s[0] },
+    attrs: { 'data-icon': 'E' }
+  }, s[1]);
 }

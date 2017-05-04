@@ -374,10 +374,8 @@ lichess.topMenuIntent = function() {
       lichess.dasherApp = (function() {
         var instance, booted;
         var $toggle = $('#user_tag');
-        $toggle.one('mouseover click', function() {
-          load();
-        });
-        var load = function(data) {
+        $toggle.one('mouseover click', function() { load(); });
+        var load = function() {
           if (booted) return;
           booted = true;
           var isDev = $('body').data('dev');
@@ -389,6 +387,7 @@ lichess.topMenuIntent = function() {
             });
           });
         };
+        if ($('body').data('dev')) setTimeout(function() { $toggle.click(); }, 100);
       })();
 
       lichess.challengeApp = (function() {

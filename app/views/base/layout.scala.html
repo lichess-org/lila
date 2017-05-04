@@ -71,7 +71,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-set="@ctx.currentSoundSet"
-    data-bg="@ctx.currentBg"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
     @ctx.zoom.map { zoom => data-zoom="@zoom" }>
