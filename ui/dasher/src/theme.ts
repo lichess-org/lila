@@ -49,7 +49,7 @@ export function view(ctrl: ThemeCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.theme.' + ctrl.dimension(), [
-    header('Theme', ctrl.close),
+    header('Board theme', ctrl.close),
     h('div.list', {
       attrs: { method: 'post', action: '/pref/soundSet' }
     }, d.list.map(themeView(d.current, ctrl.set)))

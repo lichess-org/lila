@@ -52,12 +52,12 @@ export default function(ctrl: DasherCtrl): VNode {
   const board = h(
     'a.sub',
     modeCfg(ctrl, 'board'),
-    'Chess board')
+    'Board geometry')
 
   const theme = h(
     'a.sub',
     modeCfg(ctrl, 'theme'),
-    'Theme')
+    'Board theme')
 
   return h('div', [
     h('div.links', [

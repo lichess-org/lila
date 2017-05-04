@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, bind } from './util'
+import { Redraw, Close, bind, header } from './util'
 
 export interface BoardCtrl {
   data: BoardData
@@ -46,10 +46,7 @@ export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
 export function view(ctrl: BoardCtrl): VNode {
 
   return h('div.sub.board', [
-    h('a.head.text', {
-      attrs: { 'data-icon': 'I' },
-      hook: bind('click', ctrl.close)
-    }, 'Chess board'),
+    header('Board geometry', ctrl.close),
     h('div.selector', [
       h('a.text', {
         class: { active: !ctrl.data.is3d },
