@@ -23,7 +23,11 @@ final class JsonView(
           "user" -> userJson(user),
           "assessment" -> pag,
           "games" -> JsObject(gamesWithFen.map { g =>
-            g._1.id -> gameWithFenWrites.writes(g)
+            g._1.id -> {
+              gameWithFenWrites.writes(g) ++ Json.obj(
+                "color" -> g._1.player(user).map(_.color.name)
+              )
+            }
           })
         ).some
       }
@@ -48,7 +52,7 @@ final class JsonView(
   private implicit val playerAssWrites = Json.writes[PlayerAssessment]
   private implicit val playerAggAssWrites = Json.writes[PlayerAggregateAssessment]
 
-  private implicit val gameWithFenWrites = Writes[(Game, Option[FEN])] {
+  private implicit val gameWithFenWrites = OWrites[(Game, Option[FEN])] {
     case (g, fen) => Json.obj(
       "initialFen" -> fen.map(_.value),
       // "createdAt" -> g.createdAt.getDate,
