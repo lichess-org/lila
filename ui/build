@@ -15,6 +15,7 @@ build_ts() {
   rm -rf node_modules/types
   rm -rf node_modules/common
   rm -rf node_modules/chess
+  sudo chown -R $USER:$(id -gn $USER) /home/vagrant/.config
   npm install --no-optional
   npm run compile
   cd -
@@ -30,6 +31,7 @@ build() {
   rm -rf node_modules/game
   rm -rf node_modules/tree
   rm -rf node_modules/ceval
+  sudo chown -R $USER:$(id -gn $USER) /home/vagrant/.config
   npm install --no-optional && gulp $target
   cd -
 }
