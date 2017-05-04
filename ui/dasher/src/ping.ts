@@ -31,7 +31,6 @@ export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
     data.server = lat as number;
     redraw();
   });
-  setInterval(() => hub.emit('socket.in.mlat')(Math.round(Math.random() * 1000)), 1000);
 
   return { data, trans };
 }

@@ -159,6 +159,15 @@
   width: 100%;
 }
 
+#dasher_app .board .zoom {
+  margin: 5px 0px;
+  border-top: 1px solid #ddd;
+  padding: 10px 10px;
+}
+#dasher_app .board .slider {
+  margin-top: 10px;
+}
+
 body.dark #dasher_app .subs,
 body.dark #dasher_app .status {
   border-color: #3d3d3d;

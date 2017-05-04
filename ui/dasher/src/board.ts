@@ -6,6 +6,7 @@ import { Redraw, Close, bind } from './util'
 export interface BoardCtrl {
   data: BoardData
   setIs3d(v: boolean): void
+  setZoom(v: number): void
   close(): void
 }
 
@@ -16,6 +17,10 @@ export interface BoardData {
 
 export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
 
+  const saveZoom = window.lichess.fp.debounce(() => {
+    $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
+  }, 500);
+
   return {
     data,
     setIs3d(v: boolean) {
@@ -23,6 +28,11 @@ export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
       $.post('/pref/is3d', { is3d: v }, window.lichess.reloadOtherTabs);
       applyDimension(v);
       redraw();
+    },
+    setZoom(v: number) {
+      data.zoom = v;
+      window.lichess.pubsub.emit('set_zoom')(v / 100);
+      saveZoom();
     },
     close
   };
@@ -46,8 +56,28 @@ export function view(ctrl: BoardCtrl): VNode {
         attrs: { 'data-icon': 'E' },
         hook: bind('click', () => ctrl.setIs3d(true))
       }, '3D')
+    ]),
+    h('div.zoom', [
+      h('h2', 'Board size'),
+      h('div.slider', {
+        hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+      })
     ])
   ]);
+}
+
+function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
+  window.lichess.slider().done(() => {
+    $(el).slider({
+      orientation: 'horizontal',
+      min: 100,
+      max: 200,
+      range: 'min',
+      step: 1,
+      value: ctrl.data.zoom,
+      slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
+    });
+  });
 }
 
 function applyDimension(is3d: boolean) {
