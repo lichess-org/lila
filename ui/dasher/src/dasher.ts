@@ -54,7 +54,7 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
 
     const trans = window.lichess.trans(data.i18n);
 
-    let mode: Prop<Mode> = prop('piece' as Mode);
+    let mode: Prop<Mode> = prop('links' as Mode);
 
     function setMode(m: Mode) {
       mode(m);
@@ -69,8 +69,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
       sound: soundCtrl(data.sound.list, trans, redraw, close),
       background: backgroundCtrl(data.background, redraw, close),
       board: boardCtrl(data.board, redraw, close),
-      theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, close),
-      piece: pieceCtrl(data.piece, () => data.board.is3d ? 'd3' : 'd2', redraw, close)
+      theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
+      piece: pieceCtrl(data.piece, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
     };
 
     return {

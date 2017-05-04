@@ -528,8 +528,8 @@ lichess.topMenuIntent = function() {
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
       lichess.pubsub.on('set_zoom', function(v) {
-        v = v || currentZoom;
-        if (v > 1 || $('body').data('zoom') > 100) setZoom(v);
+        if (!v) setZoom(currentZoom);
+        else if (v > 1 || $('body').data('zoom') > 100) setZoom(v);
       });
 
       function translateTexts() {

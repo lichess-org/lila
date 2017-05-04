@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, bind, header } from './util'
+import { Redraw, Open, bind, header } from './util'
 
 type Theme = string;
 
@@ -19,10 +19,10 @@ export interface ThemeCtrl {
   dimension: () => keyof ThemeData
   data: () => ThemeDimData
   set(t: Theme): void
-  close: Close
+  open: Open
 }
 
-export function ctrl(data: ThemeData, dimension: () => keyof ThemeData, redraw: Redraw, close: Close): ThemeCtrl {
+export function ctrl(data: ThemeData, dimension: () => keyof ThemeData, redraw: Redraw, open: Open): ThemeCtrl {
 
   function dimensionData() {
     return data[dimension()];
@@ -40,7 +40,7 @@ export function ctrl(data: ThemeData, dimension: () => keyof ThemeData, redraw: 
       }, window.lichess.reloadOtherTabs);
       redraw();
     },
-    close
+    open
   };
 }
 
@@ -49,10 +49,16 @@ export function view(ctrl: ThemeCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.theme.' + ctrl.dimension(), [
-    header('Board theme', ctrl.close),
+    header('Board theme', () => ctrl.open('links')),
     h('div.list', {
       attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(themeView(d.current, ctrl.set)))
+    }, d.list.map(themeView(d.current, ctrl.set))),
+    h('div.subs', [
+      h('a', {
+        hook: bind('click', () => ctrl.open('piece')),
+        attrs: { 'data-icon': 'H' }
+      }, 'Piece set')
+    ])
   ]);
 }
 
