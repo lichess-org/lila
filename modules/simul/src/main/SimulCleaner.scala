@@ -17,7 +17,7 @@ private[simul] final class SimulCleaner(
       simuls.map { simul =>
         socketHub ? Ask(simul.id, Socket.GetUserIds) mapTo
           manifest[Iterable[String]] map
-          (_.toSet contains simul.hostId) map {
+          (_.toList contains simul.hostId) map {
             case true => repo setHostSeenNow simul
             case false if simul.hostSeenAt.??(_ isBefore DateTime.now.minusMinutes(3)) => api abort simul.id
             case false =>
