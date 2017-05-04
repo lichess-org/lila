@@ -498,12 +498,6 @@ body > div.content {
 #top a.toggle.pulse {
   animation: pulse-once 1.5s linear;
 }
-#top #themepicker_toggle span {
-  font-size: 17px;
-}
-#top #themepicker_toggle span:before {
-  vertical-align: -5px;
-}
 #reconnecting {
   display: none;
 }

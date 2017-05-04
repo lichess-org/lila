@@ -527,28 +527,9 @@ lichess.topMenuIntent = function() {
 
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
-
-      var saveZoom = lichess.fp.debounce(function() {
-        $.ajax({
-          method: 'post',
-          url: '/pref/zoom?v=' + Math.round(currentZoom * 100)
-        });
-      }, 500);
-      var manuallySetZoom = lichess.fp.debounce(function(z) {
-        setZoom(z);
-        saveZoom();
-      }, 10);
       lichess.pubsub.on('set_zoom', function(v) {
         v = v || currentZoom;
         if (v > 1 || $('body').data('zoom') > 100) setZoom(v);
-      });
-
-      // themepicker
-      $('#themepicker_toggle').one('mouseover', function() {
-        var button = this;
-        lichess.loadScript('/assets/compiled/themepicker.js', {noVersion: true}).then(function() {
-          lichess.themepicker(button, function() { return currentZoom }, setZoom, manuallySetZoom);
-        });
       });
 
       function translateTexts() {

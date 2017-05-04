@@ -63,12 +63,6 @@ object Main extends LilaController {
     }
   }
 
-  def themepicker = Open { implicit ctx =>
-    fuccess {
-      html.base.themepicker()
-    }
-  }
-
   def lag = Open { implicit ctx =>
     fuccess {
       html.site.lag()
