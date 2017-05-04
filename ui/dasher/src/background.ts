@@ -61,7 +61,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
       hook: bind('click', ctrl.close)
     }, 'Background'),
     h('div.selector', ctrl.list.map(bg => {
-      return h('a.text.' + bg.key, {
+      return h('a.text', {
         class: { active: cur === bg.key },
         attrs: { 'data-icon': 'E' },
         hook: bind('click', () => ctrl.set(bg.key))

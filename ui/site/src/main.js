@@ -538,16 +538,10 @@ lichess.topMenuIntent = function() {
         setZoom(z);
         saveZoom();
       }, 10);
-      lichess.pubsub.on('reset_zoom', function() {
-        if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
+      lichess.pubsub.on('set_zoom', function(v) {
+        v = v || currentZoom;
+        if (v > 1 || $('body').data('zoom') > 100) setZoom(v);
       });
-
-      // migrate from storage to cookie DELETE ME - 09/03/17
-      var oldZoom = lichess.storage.get('zoom');
-      if (oldZoom) {
-        manuallySetZoom(oldZoom);
-        lichess.storage.remove('zoom');
-      }
 
       // themepicker
       $('#themepicker_toggle').one('mouseover', function() {
