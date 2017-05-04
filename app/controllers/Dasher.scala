@@ -57,8 +57,14 @@ object Dasher extends LilaController {
               )
             ),
             "piece" -> Json.obj(
-              "d2" -> ctx.currentPieceSet.name,
-              "d3" -> ctx.currentPieceSet3d.name
+              "d2" -> Json.obj(
+                "current" -> ctx.currentPieceSet.name,
+                "list" -> lila.pref.PieceSet.list.map(_.name)
+              ),
+              "d3" -> Json.obj(
+                "current" -> ctx.currentPieceSet3d.name,
+                "list" -> lila.pref.PieceSet3d.list.map(_.name)
+              )
             ),
             "kid" -> me.kid,
             "coach" -> isGranted(_.Coach),

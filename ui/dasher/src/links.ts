@@ -59,6 +59,11 @@ export default function(ctrl: DasherCtrl): VNode {
     modeCfg(ctrl, 'theme'),
     'Board theme')
 
+  const piece = h(
+    'a.sub',
+    modeCfg(ctrl, 'piece'),
+    'Piece set')
+
   return h('div', [
     h('div.links', [
       profile,
@@ -72,7 +77,8 @@ export default function(ctrl: DasherCtrl): VNode {
       sound,
       background,
       board,
-      theme
+      theme,
+      piece
     ]),
     pingView(ctrl.ping)
   ]);

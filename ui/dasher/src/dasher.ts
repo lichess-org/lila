@@ -4,6 +4,7 @@ import { SoundCtrl, ctrl as soundCtrl } from './sound'
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background'
 import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board'
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme'
+import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece'
 import { Redraw, Prop, prop } from './util'
 import { get } from './xhr'
 
@@ -19,13 +20,14 @@ export interface DasherData {
   background: BackgroundData
   board: BoardData
   theme: ThemeData
+  piece: PieceData
   kid: boolean
   coach: boolean
   prefs: any
   i18n: any
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme'
+export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece'
 
   export interface DasherCtrl {
     mode: Prop<Mode>
@@ -38,7 +40,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
       sound: SoundCtrl
       background: BackgroundCtrl,
       board: BoardCtrl,
-      theme: ThemeCtrl
+      theme: ThemeCtrl,
+      piece: PieceCtrl
     }
     opts: DasherOpts
   }
@@ -51,7 +54,7 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
 
     const trans = window.lichess.trans(data.i18n);
 
-    let mode: Prop<Mode> = prop('theme' as Mode);
+    let mode: Prop<Mode> = prop('piece' as Mode);
 
     function setMode(m: Mode) {
       mode(m);
@@ -66,7 +69,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
       sound: soundCtrl(data.sound.list, trans, redraw, close),
       background: backgroundCtrl(data.background, redraw, close),
       board: boardCtrl(data.board, redraw, close),
-      theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, close)
+      theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, close),
+      piece: pieceCtrl(data.piece, () => data.board.is3d ? 'd3' : 'd2', redraw, close)
     };
 
     return {

@@ -123,7 +123,7 @@
   background-image: url(../images/staunton/piece/Basic/White-Bishop-Flipped.png);
 }
 .Basic .is3d .knight.white,
-#top .is3d piece.Basic {
+#dasher_app .d3 piece.Basic {
   background-image: url(../images/staunton/piece/Basic/White-Knight.png);
 }
 .Basic .is3d .cg-512 .orientation-black .knight.white {
@@ -172,7 +172,7 @@
   background-image: url(../images/staunton/piece/Glass/White-Bishop-Flipped.png);
 }
 .Glass .is3d .knight.white,
-#top .is3d piece.Glass {
+#dasher_app .d3 piece.Glass {
   background-image: url(../images/staunton/piece/Glass/White-Knight.png);
 }
 .Glass .is3d .cg-512 .orientation-black .knight.white {
@@ -221,7 +221,7 @@
   background-image: url(../images/staunton/piece/Wood/White-Bishop-Flipped.png);
 }
 .Wood .is3d .knight.white,
-#top .is3d piece.Wood {
+#dasher_app .d3 piece.Wood {
   background-image: url(../images/staunton/piece/Wood/White-Knight.png);
 }
 .Wood .is3d .cg-512 .orientation-black .knight.white {
@@ -270,7 +270,7 @@
   background-image: url(../images/staunton/piece/Metal/White-Bishop-Flipped.png);
 }
 .Metal .is3d .knight.white,
-#top .is3d piece.Metal {
+#dasher_app .d3 piece.Metal {
   background-image: url(../images/staunton/piece/Metal/White-Knight.png);
 }
 .Metal .is3d .cg-512 .orientation-black .knight.white {
@@ -319,7 +319,7 @@
   background-image: url(../images/staunton/piece/RedVBlue/White-Bishop-Flipped.png);
 }
 .RedVBlue .is3d .knight.white,
-#top .is3d piece.RedVBlue {
+#dasher_app .d3 piece.RedVBlue {
   background-image: url(../images/staunton/piece/RedVBlue/White-Knight.png);
 }
 .RedVBlue .is3d .cg-512 .orientation-black .knight.white {
@@ -368,7 +368,7 @@
   background-image: url(../images/staunton/piece/Trimmed/White-Bishop-Flipped.png);
 }
 .Trimmed .is3d .knight.white,
-#top .is3d piece.Trimmed {
+#dasher_app .d3 piece.Trimmed {
   background-image: url(../images/staunton/piece/Trimmed/White-Knight.png);
 }
 .Trimmed .is3d .cg-512 .orientation-black .knight.white {
@@ -417,7 +417,7 @@
   background-image: url(../images/staunton/piece/Experimental/White-Bishop-Flipped.png);
 }
 .Experimental .is3d .knight.white,
-#top .is3d piece.Experimental {
+#dasher_app .d3 piece.Experimental {
   background-image: url(../images/staunton/piece/Experimental/White-Knight.png);
 }
 .Experimental .is3d .cg-512 .orientation-black .knight.white {
@@ -466,7 +466,7 @@
   background-image: url(../images/staunton/piece/ModernJade/White-Bishop-Flipped.png);
 }
 .ModernJade .is3d .knight.white,
-#top .is3d piece.ModernJade {
+#dasher_app .d3 piece.ModernJade {
   background-image: url(../images/staunton/piece/ModernJade/White-Knight.png);
 }
 .ModernJade .is3d .cg-512 .orientation-black .knight.white {
@@ -515,7 +515,7 @@
   background-image: url(../images/staunton/piece/ModernWood/White-Bishop-Flipped.png);
 }
 .ModernWood .is3d .knight.white,
-#top .is3d piece.ModernWood {
+#dasher_app .d3 piece.ModernWood {
   background-image: url(../images/staunton/piece/ModernWood/White-Knight.png);
 }
 .ModernWood .is3d .cg-512 .orientation-black .knight.white {
@@ -563,7 +563,7 @@
 .Staunton .is3d .knight.white {
   background-image: url(../images/staunton/piece/Staunton/White-Knight.png);
 }
-#top .is3d piece.Staunton {
+#dasher_app .d3 piece.Staunton {
   background-image: url(../images/staunton/piece/Staunton/White-Knight-Preview.png);
 }
 .Staunton .is3d .rook.white {

@@ -201,6 +201,32 @@
   background: #3893E8;
 }
 
+#dasher_app .piece .list {
+  padding: 5px 0;
+  display: flex;
+  flex-flow: row wrap;
+  background: url(../images/board/darksquares.jpg);
+  box-shadow: inset 0 0 20px 3px #777;
+}
+#dasher_app .piece .no-square {
+  width: 75px;
+  height: 75px;
+  position: relative;
+}
+#dasher_app .piece .no-square:hover {
+  background: rgba(250, 250, 250, 0.15);
+}
+#dasher_app .piece piece {
+  width: 100%;
+  height: 100%;
+}
+#dasher_app .piece.d3 piece {
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-position: 0 67%;
+}
+
 #dasher_app .theme.d2 .blue {
   background-image: url(../images/board/svg/blue.svg);
   background-size: 256px;
@@ -312,6 +338,43 @@
 }
 #dasher_app .theme.d3 .Woodi {
   background-image: url(../images/board/3d/woodi.thumbnail.png);
+}
+
+#dasher_app piece.cburnett {
+  background-image: url(../piece-src/cburnett/wN.svg);
+}
+#dasher_app piece.merida {
+  background-image: url(../piece/merida/wN.svg);
+}
+#dasher_app piece.chess7 {
+  background-image: url(../piece/chess7/wN.svg);
+}
+#dasher_app piece.spatial {
+  background-image: url(../piece/spatial/wN.svg);
+}
+#dasher_app piece.alpha {
+  background-image: url(../piece/alpha/wN.svg);
+}
+#dasher_app piece.pirouetti {
+  background-image: url(../piece-src/pirouetti/wN.svg);
+}
+#dasher_app piece.reillycraig {
+  background-image: url(../piece/reillycraig/wN.svg);
+}
+#dasher_app piece.fantasy {
+  background-image: url(../piece/fantasy/wN.svg);
+}
+#dasher_app piece.shapes {
+  background-image: url(../piece/shapes/wN.svg);
+}
+#dasher_app piece.letter {
+  background-image: url(../piece/letter/wN.svg);
+}
+#dasher_app piece.chessnut {
+  background-image: url(../piece/chessnut/wN.svg);
+}
+#dasher_app piece.companion {
+  background-image: url(../piece/companion/wN.svg);
 }
 
 body.dark #dasher_app .subs,
