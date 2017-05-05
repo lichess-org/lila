@@ -34,7 +34,7 @@ export function ctrl(data: PieceData, dimension: () => keyof PieceData, redraw: 
     set(t: Piece) {
       const d = dimensionData();
       d.current = t;
-      applyPiece(t, d.list);
+      applyPiece(t, d.list, dimension() === 'd3');
       $.post('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
         set: t
       }, window.lichess.reloadOtherTabs);
@@ -71,8 +71,11 @@ function pieceView(current: Piece, set: (t: Piece) => void) {
   ]);
 }
 
-function applyPiece(t: Piece, list: Piece[]) {
-
-  const sprite = $('#piece-sprite');
-  sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, t + '.css'));
+function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
+  if (is3d) {
+    $('body').removeClass(list.join(' ')).addClass(t);
+  } else {
+    const sprite = $('#piece-sprite');
+    sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, t + '.css'));
+  }
 }
