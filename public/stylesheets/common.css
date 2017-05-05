@@ -216,6 +216,9 @@ group.radio input:checked + label {
   50%,70% { stroke: #fdd835 }
   75%,95% { stroke: #4caf50 }
 }
+.inf-more {
+  width: 100%;
+}
 .spinner {
   width: 40px;
   height: 40px;

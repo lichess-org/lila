@@ -553,7 +553,7 @@ lichess.topMenuIntent = function() {
 
       $('.infinitescroll').each(function() {
         if (!$('.pager a', this).length) return;
-        $(this).infinitescroll({
+        var $scroller = $(this).infinitescroll({
           navSelector: ".pager",
           nextSelector: ".pager a",
           itemSelector: ".infinitescroll .paginated_element",
@@ -566,7 +566,10 @@ lichess.topMenuIntent = function() {
         }, function() {
           $("#infscr-loading").remove();
           lichess.pubsub.emit('content_loaded')();
-        }).find('div.pager').hide();
+        }).find('div.pager').hide().end();
+        $scroller.parent().append($('<button class="inf-more">More</button>').on('click', function() {
+          $scroller.infinitescroll('retrieve');
+        }));
       });
 
       $('#top').on('click', 'a.toggle', function() {
