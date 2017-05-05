@@ -28,9 +28,12 @@
 #dasher_app .subs a:before {
   float: right;
   opacity: 0.5;
-  margin-top: 2px;
+  font-size: 9px;
+  margin-top: 4px;
+  transition: 0.2s;
 }
 #dasher_app .subs a:hover:before {
+  color: #3893E8;
   opacity: 0.8;
 }
 #dasher_app .status {
