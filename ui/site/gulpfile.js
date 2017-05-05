@@ -123,6 +123,8 @@ if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
 
-gulp.task('default', ['dev'], function() {
-  return gulp.watch('src/*.js', ['dev']);
+gulp.task('watch', ['jquery-fill', 'ab', 'standalones', 'dev-source'], makeBundle('lichess.site.source.js'));
+
+gulp.task('default', ['watch'], function() {
+  return gulp.watch('src/*.js', ['watch']);
 });
