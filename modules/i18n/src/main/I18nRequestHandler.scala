@@ -13,7 +13,7 @@ final class I18nRequestHandler(
 
   def apply(req: RequestHeader, userOption: Option[lila.user.User]): Option[Result] =
     if (appliesTo(req))
-      userOption.flatMap(_.lang) match {
+      userOption.flatMap(_.lang).orElse(req.session get "lang") match {
         // user has a lang that doesn't match the request, redirect to user lang
         case Some(userLang) if !pool.domainLang(req).exists(_.language == userLang) =>
           Redirect(redirectUrlLang(req, userLang)).some
