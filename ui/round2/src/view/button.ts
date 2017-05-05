@@ -110,7 +110,7 @@ export function cancelDrawOffer(ctrl) {
   ]) : null;
 };
 export function answerOpponentDrawOffer(ctrl) {
-  return ctrl.data.opponent.offeringDraw ? h('div.negotiation', [
+  return ctrl.data.opponent.offeringDraw ? h('div.negotiation.draw', [
     h('p', ctrl.trans.noarg('yourOpponentOffersADraw')),
     h('a.accept', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-yes')),
@@ -137,7 +137,7 @@ export function cancelTakebackProposition(ctrl) {
   ]) : null;
 };
 export function answerOpponentTakebackProposition(ctrl) {
-  return ctrl.data.opponent.proposingTakeback ? h('div.negotiation', [
+  return ctrl.data.opponent.proposingTakeback ? h('div.negotiation.takeback', [
     h('p', ctrl.trans.noarg('yourOpponentProposesATakeback')),
     h('a.accept', {
       attrs: {
@@ -156,7 +156,7 @@ export function answerOpponentTakebackProposition(ctrl) {
   ]) : null;
 };
 export function submitMove(ctrl): VNode | undefined {
-  return (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? h('div.negotiation', [
+  return (ctrl.vm.moveToSubmit || ctrl.vm.dropToSubmit) ? h('div.negotiation.move-confirm', [
     h('p', ctrl.trans.noarg('moveConfirmation')),
     h('a.accept', {
       attrs: {
