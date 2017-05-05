@@ -10,7 +10,7 @@ import lila.game.Pov
 trait ChessgroundHelper {
 
   def chessground(board: Board, orient: Color)(implicit ctx: Context): Html = wrap {
-    if (ctx.is3d) ""
+    if (ctx.pref.is3d) ""
     else board.pieces.map {
       case (pos, piece) =>
         val klass = s"${piece.color.name} ${piece.role.name}"

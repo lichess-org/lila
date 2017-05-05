@@ -47,10 +47,10 @@ object Dasher extends LilaController {
         ),
         "background" -> Json.obj(
           "current" -> ctx.currentBg,
-          "image" -> ctx.bgImg
+          "image" -> ctx.pref.bgImg
         ),
         "board" -> Json.obj(
-          "is3d" -> ctx.is3d,
+          "is3d" -> ctx.pref.is3d,
           "zoom" -> ctx.zoom
         ),
         "theme" -> Json.obj(
