@@ -1,7 +1,6 @@
 #dasher_app {
   width: 150px;
   z-index: 2;
-  left: -54px;
 }
 #dasher_app .spinner {
   margin: 20px auto;
@@ -69,6 +68,11 @@
 }
 #dasher_app .head::before {
   opacity: 0.5;
+  transition: 0.3s;
+}
+#dasher_app .head:hover::before {
+  color: #3893E8;
+  opacity: 0.9;
 }
 
 #dasher_app .langs form {

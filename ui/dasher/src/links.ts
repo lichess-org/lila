@@ -21,7 +21,7 @@ export default function(ctrl: DasherCtrl): VNode {
 
   const prefs = h(
     'a.text',
-    linkCfg('/pref/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
+    linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
     trans.noarg('preferences'));
 
   const coach = !d.coach ? null : h(
