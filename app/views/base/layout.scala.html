@@ -86,9 +86,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         <div id="hamburger" data-icon="["></div>
       </div>
       @ctx.me.map { me =>
-      <div class="auth">
-        <a id="user_tag" class="toggle toggle_auth link">@me.username</a>
-        <div id="dasher_app" class="links dropdown" data-playing="@playing">
+      <div class="dasher">
+        <a id="user_tag" class="toggle link">@me.username</a>
+        <div id="dasher_app" class="dropdown" data-playing="@playing">
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
@@ -98,7 +98,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <span data-icon="U"></span>
           </span>
         </a>
-        <div id="challenge_app" class="links dropdown">
+        <div id="challenge_app" class="dropdown">
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
@@ -108,11 +108,21 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <span data-icon=""></span>
           </span>
         </a>
-        <div id="notify_app" class="links dropdown">
+        <div id="notify_app" class="dropdown">
           <div class="initiating">@base.spinner()</div>
         </div>
       </div>
       }.getOrElse {
+      <div class="dasher">
+        <a class="toggle anon">
+          <span class="hint--bottom-left" data-hint="@trans.preferences()">
+            <span data-icon="%"></span>
+          </span>
+        </a>
+        <div id="dasher_app" class="dropdown" data-playing="@playing">
+          <div class="initiating">@base.spinner()</div>
+        </div>
+      </div>
       <a href="@routes.Auth.login" class="signin button text">@trans.signIn()</a>
       }
       @if(!zen) {

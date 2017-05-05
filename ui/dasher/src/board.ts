@@ -15,15 +15,13 @@ export interface BoardData {
   zoom: number
 }
 
-export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
+export type PublishZoom = (v: number) => void;
+
+export function ctrl(data: BoardData, publishZoom: PublishZoom, redraw: Redraw, close: Close): BoardCtrl {
 
   const saveZoom = window.lichess.fp.debounce(() => {
     $.ajax({ method: 'post', url: '/pref/zoom?v=' + data.zoom });
   }, 500);
-
-  function publishZoom() {
-    window.lichess.pubsub.emit('set_zoom')(data.zoom / 100);
-  }
 
   return {
     data,
@@ -31,12 +29,12 @@ export function ctrl(data: BoardData, redraw: Redraw, close: Close): BoardCtrl {
       data.is3d = v;
       $.post('/pref/is3d', { is3d: v }, window.lichess.reloadOtherTabs);
       applyDimension(v);
-      publishZoom();
+      publishZoom(data.zoom / 100);
       redraw();
     },
     setZoom(v: number) {
       data.zoom = v;
-      publishZoom();
+      publishZoom(v / 100);
       saveZoom();
     },
     close

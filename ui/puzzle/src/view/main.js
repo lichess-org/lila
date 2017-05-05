@@ -100,7 +100,7 @@ module.exports = function(ctrl) {
     m('div', {
       config: function(el, isUpdate) {
         if (firstRender) firstRender = false;
-        else if (!isUpdate) lichess.pubsub.emit('set_zoom')();
+        else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
       },
       class: ctrl.showEvalGauge() ? 'gauge_displayed' : ''
     }, [

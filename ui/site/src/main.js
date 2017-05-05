@@ -371,25 +371,6 @@ lichess.topMenuIntent = function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
-      lichess.dasherApp = (function() {
-        var instance, booted;
-        var $toggle = $('#user_tag');
-        $toggle.one('mouseover click', function() { load(); });
-        var load = function() {
-          if (booted) return;
-          booted = true;
-          var isDev = $('body').data('dev');
-          var $el = $('#dasher_app');
-          lichess.loadCss('/assets/stylesheets/dasherApp.css');
-          lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessDasher.default($el.empty()[0], {
-              playing: $el.data('playing')
-            });
-          });
-        };
-        if ($('body').data('dev')) setTimeout(function() { $toggle.click(); }, 100);
-      })();
-
       lichess.challengeApp = (function() {
         var instance, booted;
         var $toggle = $('#challenge_notifications_tag');
@@ -527,10 +508,27 @@ lichess.topMenuIntent = function() {
 
         document.body.dispatchEvent(new Event('chessground.resize'));
       };
-      lichess.pubsub.on('set_zoom', function(v) {
-        if (!v) setZoom(currentZoom);
-        else if (v > 1 || $('body').data('zoom') > 100) setZoom(v);
+      lichess.pubsub.on('reset_zoom', function() {
+        if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
       });
+
+      // dasher
+      (function() {
+        var booted;
+        $('#top .dasher .toggle').one('mouseover click', function() {
+          if (booted) return;
+          booted = true;
+          var isDev = $('body').data('dev');
+          var $el = $('#dasher_app');
+          lichess.loadCss('/assets/stylesheets/dasherApp.css');
+          lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
+            instance = LichessDasher.default($el.empty()[0], {
+              setZoom: setZoom,
+              playing: $el.data('playing')
+            });
+          });
+        });
+      })();
 
       function translateTexts() {
         $('.trans_me').each(function() {

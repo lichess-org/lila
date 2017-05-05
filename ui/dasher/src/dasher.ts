@@ -2,14 +2,14 @@ import { PingCtrl, ctrl as pingCtrl } from './ping'
 import { LangsCtrl, ctrl as langsCtrl } from './langs'
 import { SoundCtrl, ctrl as soundCtrl } from './sound'
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background'
-import { BoardCtrl, BoardData, ctrl as boardCtrl } from './board'
+import { BoardCtrl, BoardData, PublishZoom, ctrl as boardCtrl } from './board'
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme'
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece'
 import { Redraw, Prop, prop } from './util'
 import { get } from './xhr'
 
 export interface DasherData {
-  user: LightUser
+  user?: LightUser
   lang: {
     current: string
     accepted: string[]
@@ -47,7 +47,8 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
   }
 
   export interface DasherOpts {
-    playing: boolean
+    playing: boolean,
+    setZoom: PublishZoom
   }
 
   export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
@@ -68,7 +69,7 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
       langs: langsCtrl(data.lang, redraw, close),
       sound: soundCtrl(data.sound.list, trans, redraw, close),
       background: backgroundCtrl(data.background, redraw, close),
-      board: boardCtrl(data.board, redraw, close),
+      board: boardCtrl(data.board, opts.setZoom, redraw, close),
       theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
       piece: pieceCtrl(data.piece, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
     };

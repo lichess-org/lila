@@ -9,30 +9,45 @@ export default function(ctrl: DasherCtrl): VNode {
 
   const d = ctrl.data, trans = ctrl.trans;
 
-  const profile = h(
-    'a.user_link.online.text.is-green',
-    linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
-    trans.noarg('profile'));
+  function userLinks(): Array<VNode | null> | null {
+    return d.user ? [
+      h(
+        'a.user_link.online.text.is-green',
+        linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
+        trans.noarg('profile')),
 
-  const inbox = d.kid ? null : h(
-    'a.text',
-    linkCfg('/inbox', 'e'),
-    trans.noarg('inbox'));
+      d.kid ? null : h(
+        'a.text',
+        linkCfg('/inbox', 'e'),
+        trans.noarg('inbox')),
 
-  const prefs = h(
-    'a.text',
-    linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
-    trans.noarg('preferences'));
+      h(
+        'a.text',
+        linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
+        trans.noarg('preferences')),
 
-  const coach = !d.coach ? null : h(
-    'a.text',
-    linkCfg('/coach/edit', ':'),
-    'Coach manager');
+      !d.coach ? null : h(
+        'a.text',
+        linkCfg('/coach/edit', ':'),
+        'Coach manager'),
 
-  const logout = h(
-    'a.text',
-    linkCfg('/logout', 'w'),
-    trans.noarg('logOut'));
+      h(
+        'a.text',
+        linkCfg('/logout', 'w'),
+        trans.noarg('logOut'))
+    ] : null;
+  }
+
+  function anonLinks() {
+    return [
+      h('a.text',
+        linkCfg('/login', 'E'),
+        trans('signIn')),
+      h('a.text',
+        linkCfg('/signup', 'F'),
+        trans('signUp'))
+    ];
+  }
 
   const langs = h(
     'a.sub',
@@ -65,13 +80,7 @@ export default function(ctrl: DasherCtrl): VNode {
     'Piece set')
 
   return h('div', [
-    h('div.links', [
-      profile,
-      inbox,
-      prefs,
-      coach,
-      logout
-    ]),
+    h('div.links', userLinks() || anonLinks()),
     h('div.subs', [
       langs,
       sound,

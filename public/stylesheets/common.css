@@ -459,6 +459,10 @@ body > div.content {
   line-height: 24px;
   padding: 0 8px;
 }
+#top .dasher .anon {
+  font-size: 16px;
+  padding: 0 7px;
+}
 #top > * {
   position: relative;
 }
