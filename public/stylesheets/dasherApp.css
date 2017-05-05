@@ -382,7 +382,8 @@
 }
 
 body.dark #dasher_app .subs,
-body.dark #dasher_app .status {
+body.dark #dasher_app .status,
+body.dark #dasher_app .board .zoom {
   border-color: #3d3d3d;
 }
 body.dark #dasher_app .head,
