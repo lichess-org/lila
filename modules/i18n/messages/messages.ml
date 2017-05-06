@@ -356,7 +356,6 @@ privacy=സ്വകാര്യത
 letOtherPlayersFollowYou=മറ്റു കളിക്കാരെ പിന്തുടരാൻ (ഫോളോ) അനുവദിക്കൂ
 letOtherPlayersChallengeYou=മറ്റു കളിക്കാർക്ക് പന്തയത്തിനുള്ള അനുവാദം നൽകൂ
 sound=ശബ്‌ദം
-soundControlInTheTopBarOfEveryPage=ശബ്ദ നിയന്ത്രണ സംവിധാനം എല്ലാ പേജിലും വലതു വശത്തുണ്ട്.
 yourPreferencesHaveBeenSaved=നിങ്ങളുടെ ക്രമീകരണങ്ങൾ സേവ് ചെയ്തു.
 none=ഒന്നുമില്ലാത്ത
 fast=ശീഘ്രം

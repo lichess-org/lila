@@ -360,7 +360,6 @@ privacy=آپ سے متعلقہ
 letOtherPlayersFollowYou=کوئی بھی میری پیروی کر سکتا ہے
 letOtherPlayersChallengeYou=کوئی بھی مجھ سے مقابلہ کر سکتا ہے
 sound=صوتی اختیارات
-soundControlInTheTopBarOfEveryPage=تغیر آواز کا اختیار ہر صفحہ کی اوپری دائیں جانب میسر ہے۔
 yourPreferencesHaveBeenSaved=آپ کے اندراج محفوظ کر دیے گئے ہیں
 none=کوئی نہیں
 fast=تیز

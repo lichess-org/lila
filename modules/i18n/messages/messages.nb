@@ -360,7 +360,6 @@ privacy=Personvern
 letOtherPlayersFollowYou=La andre spillere følge deg
 letOtherPlayersChallengeYou=La andre spillere utfordre deg
 sound=Lyd
-soundControlInTheTopBarOfEveryPage=Lydkontrollen er øverst til høyre på hver side.
 yourPreferencesHaveBeenSaved=Dine innstillinger har blitt lagret.
 none=Ingen
 fast=Rask

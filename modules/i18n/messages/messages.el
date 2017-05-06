@@ -360,7 +360,6 @@ privacy=Απόρρητο
 letOtherPlayersFollowYou=Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν
 letOtherPlayersChallengeYou=Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι
 sound=Ήχος
-soundControlInTheTopBarOfEveryPage=Ο έλεγχος του ήχου βρίσκεται στην επάνω μπάρα κάθε σελίδας, στη δεξιά πλευρά
 yourPreferencesHaveBeenSaved=Οι προτιμήσεις σας αποθηκεύτηκαν.
 none=Καθόλου
 fast=Γρήγορη

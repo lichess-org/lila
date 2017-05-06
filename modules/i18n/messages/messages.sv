@@ -360,7 +360,6 @@ privacy=Sekretess
 letOtherPlayersFollowYou=Låt andra spelare följa dig
 letOtherPlayersChallengeYou=Låt andra spelare utmana dig
 sound=Ljud
-soundControlInTheTopBarOfEveryPage=Ljudkontrollen finns längst till höger i den översta menyn på varje sida.
 yourPreferencesHaveBeenSaved=Dina inställningar har sparats.
 none=Ingen
 fast=Snabb

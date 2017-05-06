@@ -360,7 +360,6 @@ privacy=Прыватнасьць
 letOtherPlayersFollowYou=Дазволіць іншых гульцам падпісвацца на цябе
 letOtherPlayersChallengeYou=Дазволіць іншым гульцам выклікаць цябе на гульню
 sound=Гук
-soundControlInTheTopBarOfEveryPage=Кантроль гуку у верхнім радку кожнай старонцы, праваруч
 yourPreferencesHaveBeenSaved=Твае перавагі былі захаваныя
 none=Няма
 fast=Хутка

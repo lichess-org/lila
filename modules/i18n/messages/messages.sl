@@ -360,7 +360,6 @@ privacy=Zasebnost
 letOtherPlayersFollowYou=Dovolite da vam sledijo
 letOtherPlayersChallengeYou=Dovolite da vas izzovejo na partijo
 sound=Zvok
-soundControlInTheTopBarOfEveryPage=Nastavitve zvoka so v zgornji vrstici na desni.
 yourPreferencesHaveBeenSaved=Nastavitve so bile shranjene.
 none=Brez
 fast=Hitro

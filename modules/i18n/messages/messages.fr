@@ -360,7 +360,6 @@ privacy=Confidentialité
 letOtherPlayersFollowYou=Autoriser les autres joueurs à vous suivre
 letOtherPlayersChallengeYou=Autoriser les autres joueurs à vous défier
 sound=Volume
-soundControlInTheTopBarOfEveryPage=Le contrôle du volume est en haut de chaque page, du côté droit.
 yourPreferencesHaveBeenSaved=Vos préférences ont été sauvegardées.
 none=Aucune
 fast=Rapide

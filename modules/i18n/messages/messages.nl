@@ -360,7 +360,6 @@ privacy=Privacy
 letOtherPlayersFollowYou=Andere spelers mogen je volgen
 letOtherPlayersChallengeYou=Andere spelers mogen je uitdagen
 sound=Geluid
-soundControlInTheTopBarOfEveryPage=Besturing geluid: in balk bovenaan elke pagina, aan rechterzijde.
 yourPreferencesHaveBeenSaved=Uw voorkeuren werden opgeslagen.
 none=Geen
 fast=Snel

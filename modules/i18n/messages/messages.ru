@@ -360,7 +360,6 @@ privacy=Приватность
 letOtherPlayersFollowYou=Позволить другим наблюдать за мной
 letOtherPlayersChallengeYou=Другие игроки могут пригласить меня на игру
 sound=Звук
-soundControlInTheTopBarOfEveryPage=Контроль звука в правом верхнем углу каждой страницы.
 yourPreferencesHaveBeenSaved=Ваши настройки сохранены.
 none=Нет
 fast=Быстрая

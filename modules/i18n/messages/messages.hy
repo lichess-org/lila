@@ -353,7 +353,6 @@ privacy=ԳԱՂՏՆԻՈՒԹՅՈՒՆ
 letOtherPlayersFollowYou=Թույլ տալ ուրիշ խաղացողներին ձեզ հետևել
 letOtherPlayersChallengeYou=զ
 sound=ձայն
-soundControlInTheTopBarOfEveryPage=Ձայնը վերահսկողությունը գտնվում է վերին սանդղակում՝ յուրաքանչյուր էջի աջ կողմում
 yourPreferencesHaveBeenSaved=Ձեր նախընտրությունները պահպանված են
 fast=Արագ
 normal=Նորմալ

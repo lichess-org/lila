@@ -360,7 +360,6 @@ privacy=Privatnost
 letOtherPlayersFollowYou=Dopustite da vas drugi igrači prate
 letOtherPlayersChallengeYou=Dopustite da vas drugi igrači izazovu
 sound=Zvuk
-soundControlInTheTopBarOfEveryPage=Kontrola za zvuk je pri vrhu svake stranice, na desnoj strani
 yourPreferencesHaveBeenSaved=Vaše postavke su sačuvane.
 none=Nikakva
 fast=Brza

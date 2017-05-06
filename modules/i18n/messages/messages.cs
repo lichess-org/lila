@@ -360,7 +360,6 @@ privacy=Soukromí
 letOtherPlayersFollowYou=Umožnit ostatním hráčům následovat Tě
 letOtherPlayersChallengeYou=Umožnit ostatním hráčům vyzvat Tě
 sound=Zvuky
-soundControlInTheTopBarOfEveryPage=Ovladač zvuků je v horní liště vpravo, na každé stránce.
 yourPreferencesHaveBeenSaved=Vaše předvolby byly uloženy.
 none=Žádné
 fast=Rychlé

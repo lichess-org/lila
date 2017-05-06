@@ -360,7 +360,6 @@ privacy=Prywatność
 letOtherPlayersFollowYou=Inni zawodnicy mogą Cię obserwować
 letOtherPlayersChallengeYou=Inni zawodnicy mogą wysłać Ci wyzwanie
 sound=Dźwięk
-soundControlInTheTopBarOfEveryPage=Kontrola dźwięku jest umieszczona na po prawej stronie górnego menu
 yourPreferencesHaveBeenSaved=Twoje preferencje zostały zapisane
 none=Żadna
 fast=Szybka

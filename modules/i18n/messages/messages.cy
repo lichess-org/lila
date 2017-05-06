@@ -360,7 +360,6 @@ privacy=Preifatrwydd
 letOtherPlayersFollowYou=Caniatáu i chwaraewyr eraill dy ddilyn
 letOtherPlayersChallengeYou=Caniatáu i chwaraewyr eraill dy herio
 sound=Sain
-soundControlInTheTopBarOfEveryPage=Mae'r rheoliad sain ar dop pob tudalen ar y de.
 yourPreferencesHaveBeenSaved=Cadwyd eich dewisiadau.
 none=Dim
 fast=Cyflym
