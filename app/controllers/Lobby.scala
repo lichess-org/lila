@@ -101,20 +101,21 @@ object Lobby extends LilaController {
     }
 
     def apply(ctx: Context) =
-      if (ctx.isAuth) {
-        lila.mon.lobby.cache.user()
-        renderCtx(ctx)
-      } else {
-        lila.mon.lobby.cache.anon()
-        cache get RequestKey(
-          uri = ctx.req.uri,
-          headers = new Headers(
-          List(HOST -> ctx.req.host) :::
-            ctx.req.headers.get(COOKIE).?? { cookie =>
-              List(COOKIE -> cookie)
-            }
-        )
-        )
-      }
+      renderCtx(ctx)
+    // if (ctx.isAuth) {
+    //   lila.mon.lobby.cache.user()
+    //   renderCtx(ctx)
+    // } else {
+    //   lila.mon.lobby.cache.anon()
+    //   cache get RequestKey(
+    //     uri = ctx.req.uri,
+    //     headers = new Headers(
+    //     List(HOST -> ctx.req.host) :::
+    //       ctx.req.headers.get(COOKIE).?? { cookie =>
+    //         List(COOKIE -> cookie)
+    //       }
+    //   )
+    //   )
+    // }
   }
 }
