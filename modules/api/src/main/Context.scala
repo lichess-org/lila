@@ -60,7 +60,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
 
-  def transpBgImg = currentBg == "transp" option pref.bgImg
+  def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
 

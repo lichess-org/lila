@@ -8,7 +8,7 @@ object JsonView {
     Json.obj(
       "dark" -> p.dark,
       "transp" -> p.transp,
-      "bgImg" -> p.bgImg,
+      "bgImg" -> p.bgImgOrDefault,
       "is3d" -> p.is3d,
       "theme" -> p.theme,
       "pieceSet" -> p.pieceSet,
