@@ -411,10 +411,9 @@ lichess.topMenuIntent = function() {
 
       lichess.notifyApp = (function() {
         var instance, booted;
-        var $element = $('#notify_app');
         var $toggle = $('#site_notifications_tag');
         var isVisible = function() {
-          return $element.is(':visible');
+          return $('#notify_app').is(':visible');
         };
 
         var load = function(data, incoming) {
@@ -423,7 +422,7 @@ lichess.topMenuIntent = function() {
           var isDev = $('body').data('dev');
           lichess.loadCss('/assets/stylesheets/notifyApp.css');
           lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessNotify.default($element.empty()[0], {
+            instance = LichessNotify.default($('#notify_app').empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
