@@ -21,9 +21,9 @@ sealed trait SoundSetObject {
 
   lazy val default = all.head
 
-  def apply(key: String) = allByKey.getOrElse(key, default)
+  def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 
-  def contains(key: String) = allByKey contains key
+  def contains(key: String) = allByKey contains key.toLowerCase
 }
 
 object SoundSet extends SoundSetObject {
