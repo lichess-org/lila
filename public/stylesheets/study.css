@@ -269,6 +269,7 @@ div.underboard .notif.error {
   background: #3893E8;
   color: #fff;
   padding: 1em;
+  margin-bottom: 1em;
   text-align: left;
 }
 .study_invite .info::before {
