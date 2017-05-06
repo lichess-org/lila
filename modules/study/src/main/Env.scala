@@ -91,8 +91,7 @@ final class Env(
     sequencers = sequencerMap,
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
-    notifier = new StudyNotifier(
-    netBaseUrl = NetBaseUrl,
+    inviter = new StudyInvite(
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api
   ),

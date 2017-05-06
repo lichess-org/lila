@@ -30,6 +30,7 @@ case class Pref(
     replay: Int,
     challenge: Int,
     message: Int,
+    studyInvite: Int,
     coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
@@ -56,21 +57,10 @@ case class Pref(
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
-  def get(name: String): Option[String] = name match {
-    case "bg" => transp.fold("transp", dark.fold("dark", "light")).some
-    case "bgImg" => bgImg
-    case "theme" => theme.some
-    case "pieceSet" => pieceSet.some
-    case "theme3d" => theme3d.some
-    case "pieceSet3d" => pieceSet3d.some
-    case "is3d" => is3d.toString.some
-    case "soundSet" => soundSet.some
-    case _ => none
-  }
   def set(name: String, value: String): Option[Pref] = name match {
     case "bg" =>
       if (value == "transp") copy(dark = true, transp = true).some
-      else Pref.bgs get value map { b => copy(dark = b, transp = false) }
+      else copy(dark = value == "dark", transp = false).some
     case "bgImg" => copy(bgImg = value.some).some
     case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }
     case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
@@ -315,6 +305,18 @@ object Pref {
     )
   }
 
+  object StudyInvite {
+    val NEVER = 1
+    val FRIEND = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      FRIEND -> "Only friends",
+      ALWAYS -> "Always"
+    )
+  }
+
   def create(id: String) = default.copy(_id = id)
 
   lazy val default = Pref(
@@ -345,6 +347,7 @@ object Pref {
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
+    studyInvite = StudyInvite.ALWAYS,
     coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
@@ -380,6 +383,4 @@ object Pref {
 
   import ornicar.scalalib.Zero
   implicit def PrefZero: Zero[Pref] = Zero.instance(default)
-
-  private val bgs = Map("light" -> false, "dark" -> true)
 }

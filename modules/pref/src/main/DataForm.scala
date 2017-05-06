@@ -33,6 +33,7 @@ object DataForm {
     "follow" -> number.verifying(Set(0, 1) contains _),
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "message" -> number.verifying(Pref.Message.choices.toMap contains _),
+    "studyInvite" -> number.verifying(Pref.StudyInvite.choices.toMap contains _),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -68,6 +69,7 @@ object DataForm {
       follow: Int,
       challenge: Int,
       message: Int,
+      studyInvite: Int,
       insightShare: Int
   ) {
 
@@ -86,6 +88,7 @@ object DataForm {
       blindfold = display.blindfold,
       challenge = challenge,
       message = message,
+      studyInvite = studyInvite,
       premove = behavior.premove == 1,
       animation = display.animation,
       submitMove = behavior.submitMove,
@@ -128,6 +131,7 @@ object DataForm {
       follow = pref.follow.fold(1, 0),
       challenge = pref.challenge,
       message = pref.message,
+      studyInvite = pref.studyInvite,
       insightShare = pref.insightShare
     )
   }

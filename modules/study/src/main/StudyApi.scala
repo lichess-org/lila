@@ -17,7 +17,7 @@ final class StudyApi(
     sequencers: ActorRef,
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
-    notifier: StudyNotifier,
+    inviter: StudyInvite,
     tagsFixer: ChapterTagsFixer,
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
@@ -238,7 +238,7 @@ final class StudyApi(
       UserRepo.named(username).flatMap {
         _.filterNot(study.members.contains) ?? { user =>
           studyRepo.addMember(study, StudyMember make user) >>-
-            notifier.invite(study, user, socket)
+            inviter.notify(study, user, socket)
         }
       } >>- reloadMembers(study) >>- indexStudy(study)
     }

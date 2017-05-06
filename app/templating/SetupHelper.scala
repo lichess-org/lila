@@ -148,6 +148,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Message.ALWAYS, trans.always.str())
   )
 
+  def translatedStudyInviteChoices(implicit ctx: Context) = List(
+    (Pref.StudyInvite.NEVER, trans.never.str()),
+    (Pref.StudyInvite.FRIEND, trans.onlyFriends.str()),
+    (Pref.StudyInvite.ALWAYS, trans.always.str())
+  )
+
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
     Pref.Blindfold.NO -> trans.no.str(),
     Pref.Blindfold.YES -> trans.yes.str()
