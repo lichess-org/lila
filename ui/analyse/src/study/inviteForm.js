@@ -59,6 +59,11 @@ module.exports = {
       onClose: lichess.partial(ctrl.open, false),
       content: [
         m('h2', 'Invite to the study'),
+        m('p.info[data-icon=]', [
+          'Please only invite people you know,',
+          m('br'),
+          'and who actively want to join this study.'
+        ]),
         candidates.length ? m('div.users', candidates.map(function(username) {
           return m('span.user_link.button', {
             'data-href': '/@/' + username,
