@@ -148,6 +148,7 @@ lichess.startEmbeddedAnalyse = function(opts) {
     board.style.height = boardSize + 'px';
     ground.style.width = groundSize + 'px';
     ground.style.maxWidth = groundSize + 'px';
+    ground.style.height = boardSize + 'px';
     document.body.dispatchEvent(new Event('chessground.resize'));
   };
   onResize();
