@@ -709,7 +709,7 @@ lichess.topMenuIntent = function() {
     Object.keys(names).forEach(function(name) {
       api[name] = function() {
         if (!enabled()) return;
-        Howler.volume(api.volumeStorage.get() || defaultVolume);
+        Howler.volume(api.volumeStorage.get() || api.defaultVolume);
         collection(name).play();
       }
     });
