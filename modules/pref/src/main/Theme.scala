@@ -1,7 +1,5 @@
 package lila.pref
 
-import scalaz.NonEmptyList
-
 sealed class Theme private[pref] (val name: String, val colors: Theme.HexColors) {
 
   override def toString = name
@@ -14,17 +12,13 @@ sealed class Theme private[pref] (val name: String, val colors: Theme.HexColors)
 
 sealed trait ThemeObject {
 
-  def all: NonEmptyList[Theme]
+  val all: List[Theme]
 
-  def default: Theme
+  val default: Theme
 
-  lazy val list = all.list
+  val allByName = all map { c => c.name -> c } toMap
 
-  lazy val listString = list mkString " "
-
-  lazy val allByName = list map { c => c.name -> c } toMap
-
-  def apply(name: String) = (allByName get name) | default
+  def apply(name: String) = allByName.getOrElse(name, default)
 
   def contains(name: String) = allByName contains name
 }
@@ -43,7 +37,7 @@ object Theme extends ThemeObject {
     "purple" -> (HexColor("9f90b0"), HexColor("7d4a8d"))
   )
 
-  val all = NonEmptyList(
+  val all = List(
     "blue", "blue2", "blue3", "canvas",
     "wood", "wood2", "wood3", "maple",
     "green", "marble", "brown", "leather",
@@ -57,7 +51,7 @@ object Theme extends ThemeObject {
 
 object Theme3d extends ThemeObject {
 
-  val all = NonEmptyList(
+  val all = List(
     "Black-White-Aluminium",
     "Brushed-Aluminium",
     "China-Blue",

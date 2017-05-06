@@ -1,7 +1,5 @@
 package lila.pref
 
-import scalaz.NonEmptyList
-
 sealed class PieceSet private[pref] (val name: String) {
 
   override def toString = name
@@ -11,24 +9,20 @@ sealed class PieceSet private[pref] (val name: String) {
 
 sealed trait PieceSetObject {
 
-  def all: NonEmptyList[PieceSet]
+  val all: List[PieceSet]
 
-  lazy val list = all.list
+  val allByName = all map { c => c.name -> c } toMap
 
-  lazy val listString = list mkString " "
+  val default = all.head
 
-  lazy val allByName = list map { c => c.name -> c } toMap
-
-  lazy val default = all.head
-
-  def apply(name: String) = (allByName get name) | default
+  def apply(name: String) = allByName.getOrElse(name, default)
 
   def contains(name: String) = allByName contains name
 }
 
 object PieceSet extends PieceSetObject {
 
-  val all = NonEmptyList(
+  val all = List(
     "cburnett", "merida", "alpha", "pirouetti",
     "chessnut", "chess7", "reillycraig", "companion",
     "fantasy", "spatial", "shapes", "letter"
@@ -37,7 +31,7 @@ object PieceSet extends PieceSetObject {
 
 object PieceSet3d extends PieceSetObject {
 
-  val all = NonEmptyList(
+  val all = List(
     "Basic", "Wood", "Metal", "RedVBlue",
     "ModernJade", "ModernWood", "Glass", "Trimmed",
     "Experimental", "Staunton"

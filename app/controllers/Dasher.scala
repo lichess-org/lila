@@ -56,21 +56,21 @@ object Dasher extends LilaController {
         "theme" -> Json.obj(
           "d2" -> Json.obj(
             "current" -> ctx.currentTheme.name,
-            "list" -> lila.pref.Theme.list.map(_.name)
+            "list" -> lila.pref.Theme.all.map(_.name)
           ),
           "d3" -> Json.obj(
             "current" -> ctx.currentTheme3d.name,
-            "list" -> lila.pref.Theme3d.list.map(_.name)
+            "list" -> lila.pref.Theme3d.all.map(_.name)
           )
         ),
         "piece" -> Json.obj(
           "d2" -> Json.obj(
             "current" -> ctx.currentPieceSet.name,
-            "list" -> lila.pref.PieceSet.list.map(_.name)
+            "list" -> lila.pref.PieceSet.all.map(_.name)
           ),
           "d3" -> Json.obj(
             "current" -> ctx.currentPieceSet3d.name,
-            "list" -> lila.pref.PieceSet3d.list.map(_.name)
+            "list" -> lila.pref.PieceSet3d.all.map(_.name)
           )
         ),
         "kid" -> ctx.me ?? (_.kid),
