@@ -386,6 +386,9 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       following_enters: members.inviteForm.addFollowing,
       crowd: function(d) {
         members.setSpectators(d.users);
+      },
+      error: function(msg) {
+        alert(msg);
       }
     }
   };

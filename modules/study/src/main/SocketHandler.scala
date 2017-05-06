@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 
 import chess.format.FEN
 import chess.format.pgn.Glyph
@@ -134,7 +134,8 @@ private[study] final class SocketHandler(
       byUserId <- member.userId
       username <- o str "d"
     } InviteLimitPerUser(byUserId, cost = 1) {
-      api.invite(byUserId, studyId, username, socket)
+      api.invite(byUserId, studyId, username, socket,
+        onError = err => member push makeMessage("error", err))
     }
 
     case ("kick", o) if owner => o str "d" foreach { api.kick(studyId, _) }

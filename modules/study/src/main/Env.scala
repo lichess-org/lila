@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
+import lila.user.User
 import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
@@ -18,6 +19,9 @@ final class Env(
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    notifyApi: lila.notify.NotifyApi,
+    getPref: User => Fu[lila.pref.Pref],
+    getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]],
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env,
@@ -85,16 +89,20 @@ final class Env(
     chapterMaker = chapterMaker
   )
 
+  private lazy val studyInvite = new StudyInvite(
+    studyRepo = studyRepo,
+    notifyApi = notifyApi,
+    getRelation = getRelation,
+    getPref = getPref
+  )
+
   lazy val api = new StudyApi(
     studyRepo = studyRepo,
     chapterRepo = chapterRepo,
     sequencers = sequencerMap,
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
-    inviter = new StudyInvite(
-    notifyApi = lila.notify.Env.current.api,
-    relationApi = lila.relation.Env.current.api
-  ),
+    inviter = studyInvite,
     tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
@@ -147,6 +155,9 @@ object Env {
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
+    notifyApi = lila.notify.Env.current.api,
+    getPref = lila.pref.Env.current.api.getPref,
+    getRelation = lila.relation.Env.current.api.fetchRelation,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,

@@ -233,15 +233,14 @@ final class StudyApi(
     }
   }
 
-  def invite(byUserId: User.ID, studyId: Study.Id, username: String, socket: ActorRef) = sequenceStudy(studyId) { study =>
-    (study.isOwner(byUserId) && study.nbMembers < 30) ?? {
-      UserRepo.named(username).flatMap {
-        _.filterNot(study.members.contains) ?? { user =>
-          studyRepo.addMember(study, StudyMember make user) >>-
-            inviter.notify(study, user, socket)
-        }
-      } >>- reloadMembers(study) >>- indexStudy(study)
-    }
+  def invite(byUserId: User.ID, studyId: Study.Id, username: String, socket: ActorRef, onError: String => Unit) = sequenceStudy(studyId) { study =>
+    inviter(byUserId, study, username, socket).addEffects(
+      err => onError(err.getMessage),
+      _ => {
+        reloadMembers(study)
+        indexStudy(study)
+      }
+    )
   }
 
   def kick(studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
