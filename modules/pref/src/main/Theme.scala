@@ -16,7 +16,7 @@ sealed trait ThemeObject {
 
   val default: Theme
 
-  val allByName = all map { c => c.name -> c } toMap
+  lazy val allByName = all map { c => c.name -> c } toMap
 
   def apply(name: String) = allByName.getOrElse(name, default)
 

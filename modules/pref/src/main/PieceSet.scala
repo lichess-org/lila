@@ -11,9 +11,9 @@ sealed trait PieceSetObject {
 
   val all: List[PieceSet]
 
-  val allByName = all map { c => c.name -> c } toMap
+  val default: PieceSet
 
-  val default = all.head
+  lazy val allByName = all map { c => c.name -> c } toMap
 
   def apply(name: String) = allByName.getOrElse(name, default)
 
@@ -22,8 +22,10 @@ sealed trait PieceSetObject {
 
 object PieceSet extends PieceSetObject {
 
+  val default = new PieceSet("cburnett")
+
   val all = List(
-    "cburnett", "merida", "alpha", "pirouetti",
+    default.name, "merida", "alpha", "pirouetti",
     "chessnut", "chess7", "reillycraig", "companion",
     "fantasy", "spatial", "shapes", "letter"
   ) map { name => new PieceSet(name) }
@@ -31,8 +33,10 @@ object PieceSet extends PieceSetObject {
 
 object PieceSet3d extends PieceSetObject {
 
+  val default = new PieceSet("Basic")
+
   val all = List(
-    "Basic", "Wood", "Metal", "RedVBlue",
+    default.name, "Wood", "Metal", "RedVBlue",
     "ModernJade", "ModernWood", "Glass", "Trimmed",
     "Experimental", "Staunton"
   ) map { name => new PieceSet(name) }
