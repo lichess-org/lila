@@ -19,12 +19,16 @@ function bindEvents(el, ctrl) {
   });
 }
 
+function isLeftButton(e) {
+  return e.buttons === 1 || e.button === 1 || e.which === 1;
+}
+
 function isLeftClick(e) {
-  return util.isLeftButton(e) && !e.ctrlKey;
+  return isLeftButton(e) && !e.ctrlKey;
 }
 
 function isRightClick(e) {
-  return util.isRightButton(e) || (e.ctrlKey && util.isLeftButton(e));
+  return util.isRightButton(e) || (e.ctrlKey && isLeftButton(e));
 }
 
 var downKey;
