@@ -19,27 +19,26 @@ final class ReportApi(
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReportBSONHandler = reactivemongo.bson.Macros.handler[Report]
 
-  def create(setup: ReportSetup, by: User): Funit = !by.troll ?? {
-    Reason(setup.reason).fold[Funit](fufail(s"Invalid report reason ${setup.reason}")) { reason =>
-      val report = Report.make(
-        user = setup.user,
-        reason = reason,
-        text = setup.text,
-        createdBy = by
-      )
-      !isAlreadySlain(report, setup.user) ?? {
+  def create(setup: ReportSetup, by: User): Funit = create(Report.make(
+    user = setup.user,
+    reason = Reason(setup.reason).err(s"Invalid report reason ${setup.reason}"),
+    text = setup.text,
+    createdBy = by
+  ), setup.user, by)
 
-        lila.mon.mod.report.create(reason.key)()
+  def create(report: Report, reported: User, by: User): Funit = !by.troll ?? {
+    !isAlreadySlain(report, reported) ?? {
 
-        def insert = coll.insert(report).void >>-
-          bus.publish(lila.hub.actorApi.report.Created(setup.user.id, reason.key), 'report)
+      lila.mon.mod.report.create(report.realReason.key)()
 
-        if (by.id == UserRepo.lichessId) coll.update(
-          selectRecent(setup.user, reason),
-          $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
-        ) flatMap { res => (res.n == 0) ?? insert }
-        else insert
-      }
+      def insert = coll.insert(report).void >>-
+        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason), 'report)
+
+      if (by.id == UserRepo.lichessId) coll.update(
+        selectRecent(reported, report.realReason),
+        $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
+      ) flatMap { res => (res.n == 0) ?? insert }
+      else insert
     } >>- monitorUnprocessed
   }
 
