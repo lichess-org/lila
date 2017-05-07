@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import ornicar.scalalib.Zero
 
 import lila.api.Context
 import lila.app._
@@ -14,7 +15,7 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
 
-  private implicit val limitedDefault = ornicar.scalalib.Zero.instance[ApiResult](Limited)
+  private implicit val limitedDefault = Zero.instance[ApiResult](Limited)
 
   private lazy val apiStatusResponse = {
     val api = lila.api.Mobile.Api
@@ -184,7 +185,7 @@ object Api extends LilaController {
         ids = gameIds,
         withMoves = getBool("with_moves")
       ) map toApiResult map toHttp
-    }
+    }(Zero.instance(tooManyRequests.fuccess))
   }
 
   def gamesVs(u1: String, u2: String) = ApiRequest { implicit ctx =>
@@ -284,8 +285,10 @@ object Api extends LilaController {
     js(ctx) map toHttp
   }
 
+  private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
+
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
-    case Limited => TooManyRequest(jsonError("Try again later"))
+    case Limited => tooManyRequests
     case NoData => NotFound
     case Custom(result) => result
     case Data(json) => get("callback") match {
