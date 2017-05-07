@@ -3,8 +3,9 @@ module.exports = function(send) {
   var messages = [];
 
   function resend() {
+    var resendCutoff = Date.now() - 2500;
     messages.forEach(function(m) {
-      if (Date.now() - m.at > 2500) send(m.t, m.d);
+      if (m.at < resendCutoff) send(m.t, m.d);
     });
   }
 

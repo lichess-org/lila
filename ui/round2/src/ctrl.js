@@ -541,39 +541,41 @@ module.exports = function(opts, redraw) {
     }
   }.bind(this);
 
-  lichess.requestIdleCallback(function() {
-
-    if (game.isPlayerPlaying(this.data)) {
-
-      if (game.nbMoves(this.data, this.data.player.color) === 0) lichess.sound.genericNotify();
-
-      if (!this.data.simul) blur.init();
-
-      title.init(this);
-      this.setTitle();
-
-      window.addEventListener('beforeunload', function(e) {
-        if (!lichess.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
-          document.body.classList.remove('fpmenu');
-          this.socket.send('bye2');
-          var msg = 'There is a game in progress!';
-          (e || window.event).returnValue = msg;
-          return msg;
-        }
-      }.bind(this));
-
-      Mousetrap.bind(['esc'], function() {
-        this.chessground.cancelMove();
-      }.bind(this));
-
-      cevalSub.subscribe(this);
+  setTimeout(function delayedInit() {
+    if (game.isPlayerPlaying(this.data) &&
+        game.nbMoves(this.data, this.data.player.color) === 0) {
+      lichess.sound.genericNotify();
     }
+    lichess.requestIdleCallback(function idleCallback() {
+      if (game.isPlayerPlaying(this.data)) {
+        if (!this.data.simul) blur.init();
 
-    keyboard.init(this);
+        title.init(this);
+        this.setTitle();
 
-    onChange();
+        window.addEventListener('beforeunload', function(e) {
+          if (!lichess.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
+            document.body.classList.remove('fpmenu');
+            this.socket.send('bye2');
+            var msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          }
+        }.bind(this));
 
-  }.bind(this));
+        Mousetrap.bind(['esc'], function() {
+          this.chessground.cancelMove();
+        }.bind(this));
+
+        cevalSub.subscribe(this);
+      }
+
+      keyboard.init(this);
+
+      onChange();
+
+    }.bind(this));
+  }.bind(this), 200);
 
   lichess.pubsub.on('jump', function(ply) {
     this.jump(parseInt(ply));
