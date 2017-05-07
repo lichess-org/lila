@@ -39,6 +39,7 @@
 .material.form .form-group.half .form-group.half {
   width: 46.5%;
   margin-bottom: 0;
+  vertical-align: top;
 }
 .material.form .form-group.half:nth-child(odd) {
   margin-right: 5%;
