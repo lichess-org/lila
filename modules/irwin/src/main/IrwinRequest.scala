@@ -41,7 +41,7 @@ object IrwinRequest {
   private def originPriorityDays(origin: Origin) = origin match {
     case Origin.Moderator => 100
     case Origin.Report => 20
-    case Origin.Tournament => 1
-    case Origin.Leaderboard => 0
+    case Origin.Tournament => -1000
+    case Origin.Leaderboard => -3000
   }
 }
