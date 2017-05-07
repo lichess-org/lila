@@ -72,12 +72,12 @@ function onMouseEvent(ctrl) {
           placeDelete = true;
 
           var endEvents = {mousedown: 'mouseup', touchstart: 'touchend'};
-  
+
           document.addEventListener(endEvents[e.type], function() {
             placeDelete = false;
           }, {once: true});
         } else if (
-          !placeDelete && 
+          !placeDelete &&
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
           var pieces = {};
