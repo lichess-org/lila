@@ -129,7 +129,9 @@ lichess.powertip = (function() {
       Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
     },
     manualUserIn: function(parent) {
-      Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), userPowertip);
+      Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
+        userPowertip(el);
+      });
     }
   };
 })();

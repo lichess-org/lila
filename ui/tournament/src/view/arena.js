@@ -137,9 +137,8 @@ module.exports = {
       ),
       m('table.slist.standing' + (klass ? '.' + klass : '') + (pag.currentPageResults ? '' : '.loading'), [
         m('tbody', {
-          config: function() {
-            // reload user badges
-            lichess.pubsub.emit('content_loaded')();
+          config: function(el) {
+            lichess.powertip.manualUserIn(el);
           }
         }, tableBody)
       ])
